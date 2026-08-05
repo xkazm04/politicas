@@ -24,6 +24,7 @@
  */
 
 import { Info, ShieldCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { lowScoreReasonCopy } from "@/lib/analysis/low-score-reason";
 
 export default function LowScoreReasonChip({
@@ -37,12 +38,14 @@ export default function LowScoreReasonChip({
   /** Už zformátované datum (přes useFormat u volajícího) — čip sám nic neformátuje. */
   dateLabel?: string | null;
 }) {
+  const t = useTranslations("civicscore");
   const copy = lowScoreReasonCopy(reason);
   if (!copy) return null;
 
   const positive = copy.tone === "positive";
   const Icon = positive ? ShieldCheck : Info;
-  const dated = recordedAt && dateLabel ? `${copy.detail} (zaznamenáno ${dateLabel})` : copy.detail;
+  const dated =
+    recordedAt && dateLabel ? `${copy.detail} ${t("recordedAt", { date: dateLabel })}` : copy.detail;
 
   return (
     <span

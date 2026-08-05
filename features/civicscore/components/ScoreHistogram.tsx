@@ -80,10 +80,7 @@ export default function ScoreHistogram({
         </div>
         <div className="mt-2">
           {custom ? (
-            <SourceNote>
-              rozložení pod vaším indexem — přepočteno ze zveřejněných složek podle vašich vah
-              (pravidlo čočky viz /01); nejde o zveřejněnou metodiku
-            </SourceNote>
+            <SourceNote>{t("lensHistogramNote")}</SourceNote>
           ) : (
             <SourceNote>
               {t("histogramSource", { pts: tcom("pts") })}

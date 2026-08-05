@@ -27,6 +27,7 @@
  */
 
 import { Gavel, ShieldCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { workhorseFlavourCopy, type WorkhorseFlavour } from "@/lib/analysis/workhorse-flavour";
 
@@ -48,6 +49,7 @@ export default function WorkhorseBadge({
   recordedAt?: string | null;
   compact?: boolean;
 }) {
+  const t = useTranslations("civicscore");
   const f = useFormat();
   const copy = workhorseFlavourCopy(flavour);
   if (!copy) return null;
@@ -56,8 +58,8 @@ export default function WorkhorseBadge({
   const turns = speechTurns != null ? f.int(speechTurns) : null;
   const claim =
     copy.detail +
-    (turns ? ` Vystoupení v sále: ${turns}.` : "") +
-    (recordedAt ? ` (zaznamenáno ${f.date(recordedAt)})` : "");
+    (turns ? ` ${t("workhorseSpeechClaim", { turns })}` : "") +
+    (recordedAt ? ` ${t("recordedAt", { date: f.date(recordedAt) })}` : "");
 
   const size = compact
     ? "gap-1 border px-1.5 py-0.5 text-[9px]"
@@ -70,7 +72,7 @@ export default function WorkhorseBadge({
     >
       <Icon className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
       {copy.badge}
-      {turns && <span className="tabular-nums">· {turns} v sále</span>}
+      {turns && <span className="tabular-nums">· {t("workhorseTurnsShort", { turns })}</span>}
       <span className="sr-only"> — {claim}</span>
     </span>
   );

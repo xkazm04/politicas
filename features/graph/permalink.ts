@@ -232,21 +232,26 @@ export type PermalinkView = PermalinkCommon & PermalinkCore;
 export interface PermalinkSourceLink {
   label: string;
   href: string;
+  /** Klíč do katalogu překladů (graph.permalink.sources.<id>) — statické
+   *  prameny se na klientu překládají; odkazy z dat (registry uzlu) id nemají
+   *  a sázejí svůj label tak, jak přišel. */
+  id?: "psp" | "ares" | "contracts" | "esbirka";
 }
 
 export const GRAPH_SOURCE_LINKS: PermalinkSourceLink[] = [
-  { label: "psp.cz — poslanci, tisky, hlasování", href: "https://www.psp.cz" },
-  { label: "ares — veřejný rejstřík", href: "https://ares.gov.cz" },
-  { label: "registr smluv — smlouvy.gov.cz", href: "https://smlouvy.gov.cz" },
-  { label: "e-sbírka — sbírka zákonů", href: "https://www.e-sbirka.cz" },
+  { id: "psp", label: "psp.cz — poslanci, tisky, hlasování", href: "https://www.psp.cz" },
+  { id: "ares", label: "ares — veřejný rejstřík", href: "https://ares.gov.cz" },
+  { id: "contracts", label: "registr smluv — smlouvy.gov.cz", href: "https://smlouvy.gov.cz" },
+  { id: "esbirka", label: "e-sbírka — sbírka zákonů", href: "https://www.e-sbirka.cz" },
 ];
 
 // ── Lokální česká zrcadla katalogu překladů ─────────────────────────────────
 //
-// OG obraz a serverová metadata běží mimo next-intl provider; řádky jsou
-// proto lokální konstanty (precedens TrailFinder.tsx). Klientská stránka
-// používá messages/*.json — tyhle konstanty drž v sync s graph.trasy.trails,
-// graph.kinds a graph.rels.
+// OG obraz i serverové titulky dnes jdou přes getTranslations (graph.kinds.*,
+// graph.trasy.trails.*); tyhle konstanty zůstávají jako POSLEDNÍ ZÁCHRANA pro
+// druh/trasu, kterou katalog ještě nezná (t.has → fallback), a pro čisté testy
+// bez i18n kontextu. Drž je v sync s graph.trasy.trails, graph.kinds a
+// graph.rels.
 
 export const TRAIL_TITLES: Record<string, string> = {
   "penize-poslancu": "Peníze kolem poslanců",
@@ -290,7 +295,9 @@ export const relLabel = (rel: string): string => REL_LABELS[rel] ?? rel;
 
 /** Věta k vložení do článku — všechna pole přicházejí už zformátovaná
  *  (datum přes f.date, URL složená z window.location.origin), builder jen
- *  skládá a je proto čistě testovatelný. */
+ *  skládá a je proto čistě testovatelný. UI dnes sází lokalizovanou větu
+ *  z katalogu (graph.permalink.citationLine); tahle česká podoba zůstává
+ *  referenčním tvarem pro testy. */
 export function citationLine(args: {
   title: string;
   retrievedOn: string;

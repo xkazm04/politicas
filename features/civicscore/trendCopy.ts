@@ -21,6 +21,16 @@ const PRIOR_TERM_VOTE_DUMP: Record<string, string> = {
   PSP9: "hl-2021ps.zip",
 };
 
+/**
+ * Dump pro dané období, nebo null — datový přístup pro TrendPanel, který od
+ * migrace na dvoujazyčné katalogy (2026-08-05) skládá věty přes next-intl
+ * (klíče civicscore.trend*). České buildery níže zůstávají jako testy přibitá
+ * referenční kopie (trendCopy.test.ts) do centrální konsolidace.
+ */
+export function priorTermVoteDump(priorTerm: string): string | null {
+  return PRIOR_TERM_VOTE_DUMP[priorTerm] ?? null;
+}
+
 /** Nadpis panelu. */
 export function trendHeading(priorTerm: string): string {
   return `Vývoj proti období ${priorTerm}`;

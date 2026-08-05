@@ -1,10 +1,12 @@
 import { ImageResponse } from "next/og";
+import { getLocale, getTranslations } from "next-intl/server";
 import { getPermalinkData } from "@/features/graph/getPermalinkData";
 import { HASH_ALGORITHM, KIND_LABELS } from "@/features/graph/permalink";
 import { KIND_STYLE } from "@/features/graph/kindStyle";
 import { glyphPath, type GlyphShape } from "@/lib/kg/glyph";
 import { COBALT, HAIRLINE, INK, OCHRE, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
-import { czechDate, formatInt } from "@/lib/format";
+import { formatDate, formatInt } from "@/lib/format";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 
 /*
  * OG obraz trvalé citace — karta odkazu ve tmavé řeči domu: inkoustový
@@ -53,32 +55,35 @@ const darkFill = (light: string): string => (light === INK ? PAPER : light);
 
 export default async function Image({ params }: { params: Promise<{ ref: string }> }) {
   const { ref } = await params;
-  const result = await getPermalinkData(ref);
+  const [result, t, rawLocale] = await Promise.all([
+    getPermalinkData(ref),
+    getTranslations("graph"),
+    getLocale(),
+  ]);
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+  const fInt = (n: number) => formatInt(n, locale);
 
   const view = result.status === "ok" ? result.view : null;
-  const title = view ? view.title : "Znalostní graf české politiky";
-  const kicker = "politicas / graf · trvalá citace";
-  const sourcesLine = "zdroje: psp.cz · ares · registr smluv · e-sbírka";
+  const title = view ? view.title : t("permalink.og.fallbackTitle");
+  const kicker = `politicas / graf · ${t("permalink.tag")}`;
+  const sourcesLine = t("permalink.og.sources");
+  const pendingLine = (pending: number) =>
+    pending === 0 ? t("allVerified") : t("pendingEdges", { count: pending, countFmt: fInt(pending) });
 
   // Stav kontroly + statistika — spočítané dopředu (žádné formátování v JSX).
   let reviewLine = "";
   let statLine = "";
+  let allVerified = false;
   const glyphs: Array<{ shape: GlyphShape; fill: string }> = [];
   if (view?.kind === "cesta") {
     const pending = view.trail?.pendingCount ?? 0;
-    reviewLine =
-      view.trail === null
-        ? "cesta v dnešním grafu už doložena není"
-        : pending === 0
-          ? "vše ověřeno"
-          : pending === 1
-            ? "1 hrana čeká na kontrolu"
-            : `${formatInt(pending, "cs")} hran čeká na kontrolu`;
+    reviewLine = view.trail === null ? t("permalink.og.pathGone") : pendingLine(pending);
+    allVerified = view.trail !== null && pending === 0;
     if (view.trail) {
       const hops = view.trail.hops;
-      statLine = `důkazní cesta · ${formatInt(hops, "cs")} ${hops === 1 ? "krok" : hops <= 4 ? "kroky" : "kroků"}`;
+      statLine = `${t("permalink.og.evidencePath")} · ${t("steps", { count: hops, countFmt: fInt(hops) })}`;
     } else {
-      statLine = "důkazní cesta";
+      statLine = t("permalink.og.evidencePath");
     }
     glyphs.push(
       { shape: KIND_STYLE[view.from.kind].shape, fill: darkFill(KIND_STYLE[view.from.kind].fill) },
@@ -86,32 +91,39 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
     );
   } else if (view?.kind === "trasa") {
     const pending = view.trail.edges.filter((e) => e.pending).length;
-    reviewLine =
-      pending === 0
-        ? "vše ověřeno"
-        : pending === 1
-          ? "1 hrana čeká na kontrolu"
-          : `${formatInt(pending, "cs")} hran čeká na kontrolu`;
-    statLine = `kurátorská trasa · ${formatInt(view.trail.nodes.length, "cs")} uzlů · ${formatInt(view.trail.edges.length, "cs")} hran`;
+    reviewLine = pendingLine(pending);
+    allVerified = pending === 0;
+    statLine = `${t("permalink.og.curatedTrail")} · ${t("counts", {
+      nodes: fInt(view.trail.nodes.length),
+      edges: fInt(view.trail.edges.length),
+    })}`;
     for (const kind of view.trail.columns.slice(0, 4)) {
       const style = KIND_STYLE[kind as keyof typeof KIND_STYLE];
       if (style) glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
     }
   } else if (view?.kind === "uzel") {
-    statLine = `${KIND_LABELS[view.detail.node.kind] ?? view.detail.node.kind} ve znalostním grafu`;
+    const kindKey = `kinds.${view.detail.node.kind}`;
+    const kindLabel = t.has(kindKey)
+      ? t(kindKey)
+      : (KIND_LABELS[view.detail.node.kind] ?? view.detail.node.kind);
+    statLine = t("permalink.og.inGraph", { kind: kindLabel });
     reviewLine =
       view.detail.provenance.method === "deterministic"
-        ? "spočítáno deterministicky"
+        ? t("permalink.og.deterministic")
         : view.detail.provenance.method
-          ? "návrh modelu prošlý branou"
+          ? t("permalink.og.verdict")
           : "";
     const style = KIND_STYLE[view.detail.node.kind];
     glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
   }
 
   const hashLine = view
-    ? `otisk ${HASH_ALGORITHM} ${view.currentHash} · stav ověření k ${czechDate(view.retrievedOn)}`
-    : "trvalá adresa nese celý pohled i otisk důkazů";
+    ? t("permalink.og.hashLine", {
+        algo: HASH_ALGORITHM,
+        hash: view.currentHash,
+        date: formatDate(view.retrievedOn, locale),
+      })
+    : t("permalink.og.hashFallback");
 
   // Podmnožina písma přesně na vysázené znaky — malý soubor, žádné tofu.
   const allText = [kicker, title, statLine, reviewLine, hashLine, sourcesLine].join("");
@@ -201,7 +213,7 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
                 fontSize: 28,
                 letterSpacing: 3,
                 textTransform: "uppercase",
-                color: reviewLine === "vše ověřeno" ? COBALT : SIGNAL,
+                color: allVerified ? COBALT : SIGNAL,
                 marginTop: 26,
                 display: "flex",
               }}

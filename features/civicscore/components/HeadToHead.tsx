@@ -88,12 +88,13 @@ function Fighter({ row, align, custom }: { row: LeaderboardListEntry; align: "le
 /** Třída mandátu jako PODMÍNKA čtení všech čísel pod ní — ne dekorace.
  *  Kdo mandát nepřevzal, nemá nízký výkon; nemá záznam. */
 function TenureLine({ row, align }: { row: LeaderboardListEntry; align: "left" | "right" }) {
+  const t = useTranslations("civicscore");
   const copy = tenureClassLabel(row.duelFacts.tenureClass);
   const right = align === "right";
   if (!copy) {
     return (
       <p className={`font-mono text-[10px] uppercase tracking-wider text-steel-aa ${right ? "text-right" : ""}`}>
-        údaj v grafu chybí
+        {t("graphValueMissing")}
       </p>
     );
   }
@@ -288,10 +289,7 @@ export default function HeadToHead({
 
         <div className="mt-4">
           {custom ? (
-            <SourceNote>
-              souboj pod vaším indexem — skóre i složky přepočteny podle vašich vah (pravidlo
-              čočky viz /01); nejde o zveřejněnou metodiku
-            </SourceNote>
+            <SourceNote>{t("lensDuelNote")}</SourceNote>
           ) : (
             <SourceNote>
               {t("footnote")}

@@ -21,6 +21,7 @@
  */
 
 import { FileSearch } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { rapporteurLoadCopy } from "@/lib/analysis/rapporteur-load";
 
@@ -34,6 +35,7 @@ export default function RapporteurBadge({
   recordedAt?: string | null;
   compact?: boolean;
 }) {
+  const t = useTranslations("civicscore");
   const f = useFormat();
   const copy = rapporteurLoadCopy(load);
   if (!copy) return null;
@@ -42,7 +44,7 @@ export default function RapporteurBadge({
   // Citaci zdroje (psp.cz tisky.zip / pass 34) nese sekce, ve které štítek stojí —
   // DossierSection má vlastní SourceNote, řádek žebříčku citaci celé tabulky.
   const loadLabel = f.int(copy.load);
-  const claim = copy.detail + (recordedAt ? ` (zaznamenáno ${f.date(recordedAt)})` : "");
+  const claim = copy.detail + (recordedAt ? ` ${t("recordedAt", { date: f.date(recordedAt) })}` : "");
   const size = compact
     ? "gap-1 border px-1.5 py-0.5 text-[9px]"
     : "gap-1.5 border-2 px-2.5 py-1 text-[11px]";

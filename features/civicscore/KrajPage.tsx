@@ -55,11 +55,12 @@ function PillarBars({
   row: KrajSlateRow;
   components: LeaderboardListData["components"];
 }) {
+  const t = useTranslations("civicscore");
   // Miniaturní složkové pruhy: výška = míra naplnění složky (body / váha).
   // Čistě inkoustové — na papíře nesmí význam nést barva. Hodnoty duplikují
   // skóre vedle, proto aria-hidden + title s plným rozpisem.
   const title = components
-    .map((c) => `${c.label}: ${row.components[c.key]} z ${c.weight}`)
+    .map((c) => t("krajBarItem", { label: c.label, points: row.components[c.key], weight: c.weight }))
     .join(" · ");
   return (
     <span aria-hidden title={title} className="flex shrink-0 items-end gap-1">
@@ -95,6 +96,7 @@ export default function KrajPage({
   liveUrl: string;
 }) {
   const f = useFormat();
+  const t = useTranslations("civicscore");
   const tm = useTranslations("metodika");
   const { printPoster } = usePosterMode();
   const [format, setFormat] = useState<PosterFormat>("a4");
@@ -131,10 +133,10 @@ export default function KrajPage({
       <main className="min-h-screen bg-paper font-sans text-ink">
         <div className="mx-auto max-w-6xl px-6 py-20">
           <p className="text-base font-black uppercase tracking-wide">
-            Kraj bez poslanců v záznamu.
+            {t("krajEmpty")}
           </p>
           <Link href="/kraj" className="mt-4 inline-block font-mono text-xs uppercase tracking-widest text-cobalt hover:underline">
-            ← zpět na rozcestník krajů
+            ← {t("krajBackToPicker")}
           </Link>
         </div>
       </main>
@@ -148,13 +150,13 @@ export default function KrajPage({
       {/* ── Lišta ───────────────────────────────────────────── */}
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-steel">/ můj kraj</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-steel">/ {t("krajCrumb")}</span>
           <nav className="flex items-center gap-4 font-mono text-xs uppercase tracking-widest">
             <Link href={custom && vahy ? `/kraj?vahy=${vahy}` : "/kraj"} className="text-steel-aa transition-colors hover:text-ink">
-              ostatní kraje
+              {t("krajOthers")}
             </Link>
             <Link href={custom && vahy ? `/zebricek?vahy=${vahy}` : "/zebricek"} className="text-steel-aa transition-colors hover:text-ink">
-              celý žebříček →
+              {t("toFullLeaderboard")}
             </Link>
           </nav>
         </div>
@@ -165,7 +167,7 @@ export default function KrajPage({
         <div className="sticky top-0 z-20 border-b-2 border-ink bg-cobalt">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-2.5">
             <p className="font-mono text-xs font-bold uppercase tracking-widest text-paper">
-              váš index — váhy {vahy} · nejde o zveřejněnou metodiku
+              {t("lensStickyLine", { weights: vahy ?? "" })}
             </p>
             <button
               type="button"
@@ -173,20 +175,18 @@ export default function KrajPage({
               className="inline-flex items-center gap-1.5 border-2 border-paper px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider text-paper transition-colors hover:bg-paper hover:text-cobalt"
             >
               <RotateCcw className="h-3 w-3" aria-hidden />
-              Výchozí metodika
+              {t("resetToPublished")}
             </button>
           </div>
         </div>
       )}
 
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <SourceNote tone="signal">
-          volební karta kraje — výřez žebříčku indexu přispění, psp.cz · PSP10
-        </SourceNote>
+        <SourceNote tone="signal">{t("krajSourceNote")}</SourceNote>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-steel-aa">
-          Kandidátka vašeho kraje: poslanci zvolení za {slate.unassigned ? "mandáty bez uvedeného kraje" : slate.label},
-          seřazení indexem přispění. Karta se dá vytisknout jako arch A4/A3 — na papíře zůstane jen
-          kandidátka s citací zdroje a datem.
+          {t("krajLead", {
+            subject: slate.unassigned ? t("krajUnassignedSubject") : slate.label,
+          })}
         </p>
 
         <p className="mt-3">
@@ -205,19 +205,21 @@ export default function KrajPage({
             format={format}
             onFormatChange={setFormat}
             onPrint={printPoster}
-            printLabel="Tisk kandidátky"
+            printLabel={t("krajPrint")}
           />
         </div>
 
         <div className="mt-8">
           <PosterFrame
-            eyebrow={`Politicas — volební karta · ${custom ? "váš index" : "otevřený index"} · sněmovna PSP10`}
-            figureLabel={`kandidátka · ${f.int(slate.rows.length)} poslanců`}
-            title={slate.label}
+            eyebrow={t("krajEyebrow", { mode: custom ? t("krajModeYours") : t("krajModeOpen") })}
+            figureLabel={t("krajFigureLabel", { count: f.int(slate.rows.length) })}
+            title={slate.unassigned ? t("krajUnassignedLabel") : slate.label}
             lead={
               slate.unassigned
-                ? `Mandáty, u nichž registr psp.cz kraj neuvádí — přiznaná mezera záznamu, ne čtrnáctý kraj. Řazení i skóre jsou táž metodika jako u celostátního žebříčku.`
-                : `Všichni poslanci zvolení za tento kraj, seřazení podle indexu přispění — složeného skóre 0–100 z veřejných dat Poslanecké sněmovny. Krajská příčka vlevo, celostátní u skóre; žádné číslo nevzniklo jinde než v ${custom ? "přiznané čtenářově čočce" : "publikované metodice"}.`
+                ? t("krajPosterLeadUnassigned")
+                : t("krajPosterLead", {
+                    origin: custom ? t("krajOriginLens") : t("krajOriginPublished"),
+                  })
             }
             citation={citation}
             format={format}
@@ -226,7 +228,7 @@ export default function KrajPage({
             {custom && (
               <div className="mb-4 border-2 border-cobalt bg-cobalt/5 px-4 py-2">
                 <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-cobalt">
-                  váš index — váhy {vahy} · vlastní čočka čtenáře, nejde o zveřejněnou metodiku
+                  {t("krajLensStrip", { weights: vahy ?? "" })}
                 </p>
               </div>
             )}
@@ -234,9 +236,9 @@ export default function KrajPage({
             {/* ── souhrn kraje — kachlová mřížka ───────────────────────── */}
             <div className="grid grid-cols-3 gap-px border border-ink bg-ink">
               {[
-                { label: "poslanců kraje", value: f.int(slate.rows.length) },
-                { label: "průměr kraje", value: f.dec(slate.avgScore) },
-                { label: "průměr sněmovny", value: f.dec(lensView?.summary.avg ?? data.summary.avg) },
+                { label: t("krajTileMps"), value: f.int(slate.rows.length) },
+                { label: t("krajTileAvg"), value: f.dec(slate.avgScore) },
+                { label: t("krajTileChamberAvg"), value: f.dec(lensView?.summary.avg ?? data.summary.avg) },
               ].map((s) => (
                 <div key={s.label} className="bg-paper px-4 py-3">
                   <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
@@ -285,8 +287,8 @@ export default function KrajPage({
                       )}
                     </span>
                     <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-wider text-steel-aa">
-                      celostátně č. {f.int(r.rank)} z {f.int(slate.totalMps)}
-                      {r.tiedCount > 1 && " (sdílená příčka)"} · mandát PSP10
+                      {t("krajNationalRank", { rank: f.int(r.rank), total: f.int(slate.totalMps) })}
+                      {r.tiedCount > 1 && ` ${t("krajSharedRank")}`} · {t("krajMandate")}
                     </span>
                   </span>
                   <PillarBars row={r} components={components} />
@@ -301,15 +303,12 @@ export default function KrajPage({
             </ol>
 
             <p className="mt-3 font-mono text-xs leading-relaxed text-steel-aa">
-              pořadí: competition ranking (1, 2, 2, 4) v kraji i celostátně — shodné skóre sdílí
-              příčku, „=&ldquo; značí sdílenou; uvnitř shody rozhoduje jen abeceda a nenese žádný
-              význam · složkové pruhy: míra naplnění šesti složek indexu (úč = účast, výb = výbory,
-              leg = legislativa, sál = vystoupení, doch = docházka, ved = vedení orgánů)
+              {t("krajFootnote")}
               {!slate.unassigned && unassignedInfo && (
                 <>
-                  {" "}· {f.int(unassignedInfo.count)} mandátů v registru kraj neuvádí —{" "}
+                  {" "}· {t("krajUnassignedNote", { count: f.int(unassignedInfo.count) })} —{" "}
                   <Link href={`/kraj/${unassignedInfo.slug}`} className="underline hover:text-ink">
-                    karta „kraj neuveden&ldquo;
+                    {t("krajUnassignedLink")}
                   </Link>
                 </>
               )}
@@ -319,11 +318,14 @@ export default function KrajPage({
 
         {/* ── pod archem: úprava čočky ──────────────────────────────── */}
         <p className="mt-6 max-w-2xl font-mono text-xs leading-relaxed text-steel-aa">
-          Váhy indexu si můžete přenastavit na{" "}
-          <Link href={custom && vahy ? `/zebricek?vahy=${vahy}` : "/zebricek"} className="underline hover:text-ink">
-            žebříčku (sekce Otevřený index)
-          </Link>
-          {" "}— odkaz s <span className="text-cobalt">?vahy=…</span> pak nese vaši čočku i sem, na kartu.
+          {t.rich("krajLensHint", {
+            link: (chunks) => (
+              <Link href={custom && vahy ? `/zebricek?vahy=${vahy}` : "/zebricek"} className="underline hover:text-ink">
+                {chunks}
+              </Link>
+            ),
+            code: (chunks) => <span className="text-cobalt">{chunks}</span>,
+          })}
         </p>
       </div>
     </main>

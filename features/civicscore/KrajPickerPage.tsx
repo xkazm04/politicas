@@ -18,6 +18,7 @@
 import { useId, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Search } from "lucide-react";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -32,6 +33,7 @@ const fold = (s: string) =>
     .toLowerCase();
 
 export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) {
+  const t = useTranslations("civicscore");
   const f = useFormat();
   const router = useRouter();
   const listboxId = useId();
@@ -96,30 +98,29 @@ export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) 
       {/* ── Lišta ───────────────────────────────────────────── */}
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-steel">/ můj kraj</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-steel">/ {t("krajCrumb")}</span>
           <Link
             href="/zebricek"
             className="font-mono text-xs uppercase tracking-widest text-steel-aa transition-colors hover:text-ink"
           >
-            celý žebříček →
+            {t("toFullLeaderboard")}
           </Link>
         </div>
       </header>
 
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <SourceNote tone="signal">kraje z mandátů PSP10 — registr psp.cz, volební-kraj organ</SourceNote>
+        <SourceNote tone="signal">{t("krajPickerSource")}</SourceNote>
         <h1 className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl">
-          Můj kraj<span className="text-signal">.</span>
+          {t("krajTitle")}<span className="text-signal">.</span>
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-          Koho mám vlastně v kraji a co dělali? Vyberte kraj a dostanete kandidátku jeho poslanců —
-          seřazenou indexem přispění, se zdrojem a datem, připravenou k tisku na lednici.
+          {t("krajPickerLead")}
         </p>
 
         {kraje === null ? (
           <div className="mt-10 border-2 border-dashed border-hairline p-8">
             <p className="text-base font-black uppercase tracking-wide">
-              Znalostní graf není k dispozici — rozcestník krajů se bez dat nevykreslí.
+              {t("krajPickerNoData")}
             </p>
           </div>
         ) : (
@@ -135,9 +136,9 @@ export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) 
                   open && results[active] ? `${listboxId}-${results[active].slug}` : undefined
                 }
                 aria-autocomplete="list"
-                aria-label="Vyhledat kraj podle názvu"
+                aria-label={t("krajSearchAria")}
                 className="w-full bg-transparent font-mono text-sm text-ink outline-none placeholder:text-steel-aa"
-                placeholder="Najdi svůj kraj…"
+                placeholder={t("krajSearchPlaceholder")}
                 value={query}
                 onChange={(e) => {
                   setQuery(e.target.value);
@@ -158,12 +159,12 @@ export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) 
               <ul
                 id={listboxId}
                 role="listbox"
-                aria-label="Nalezené kraje"
+                aria-label={t("krajResultsAria")}
                 className="absolute z-20 mt-1 max-h-96 w-full overflow-y-auto border-2 border-ink bg-paper shadow-[4px_4px_0_0_var(--color-ink)]"
               >
                 {results.length === 0 && (
                   <li className="px-4 py-3 font-mono text-xs text-steel-aa" role="presentation">
-                    Žádný kraj tohoto jména — výčet nese všech {f.int(kraje.length)} položek níže.
+                    {t("krajNoMatch", { count: f.int(kraje.length) })}
                   </li>
                 )}
                 {results.map((k, i) => (
@@ -181,10 +182,12 @@ export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) 
                     }}
                     onMouseEnter={() => setActive(i)}
                   >
-                    <span className="text-sm font-black uppercase tracking-tight">{k.label}</span>
+                    <span className="text-sm font-black uppercase tracking-tight">
+                      {k.unassigned ? t("krajUnassignedLabel") : k.label}
+                    </span>
                     <span className={`font-mono text-xs tabular-nums ${i === active ? "text-paper/70" : "text-steel-aa"}`}>
                       {/* citation-ok: zdroj počtů (registr psp.cz) cituje SourceNote v hlavičce stránky */}
-                      {f.int(k.count)} poslanců
+                      {t("krajMpCount", { count: f.int(k.count) })}
                     </span>
                   </li>
                 ))}
@@ -203,14 +206,13 @@ export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) 
                       : "border-hairline text-steel-aa hover:border-ink hover:text-ink"
                   }`}
                 >
-                  {k.label} · {f.int(k.count)}
+                  {k.unassigned ? t("krajUnassignedLabel") : k.label} · {f.int(k.count)}
                 </Link>
               ))}
             </div>
 
             <p className="mt-6 font-mono text-xs leading-relaxed text-steel-aa">
-              kraj poslance nese mandát PSP10; mandáty bez kraje v registru mají poctivý koš
-              „kraj neuveden&ldquo; — nic se nedopočítává
+              {t("krajPickerFootnote")}
             </p>
           </div>
         )}

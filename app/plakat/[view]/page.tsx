@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import LeaderboardPoster, {
   type LeaderboardPosterData,
 } from "@/features/shared/poster/demo/LeaderboardPoster";
@@ -14,9 +15,6 @@ import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData
  * (spis poslance, seismograf) adoptují PosterFrame v pozdějších dávkách a
  * jen se přidají do VIEWS. Tenká routa: data ořeže na to, co arch sází,
  * a vše ostatní žije ve features/shared/poster/**.
- *
- * Copy je záměrně česky přímo zde (ne přes messages/*.json): katalog překladů
- * je mimo plochu batch-1D; až plakát dostane en mutaci, přesune se to tam.
  */
 
 const VIEWS = ["zebricek"] as const;
@@ -38,11 +36,11 @@ export async function generateMetadata({
   params: Promise<{ view: string }>;
 }): Promise<Metadata> {
   const { view } = await params;
-  if (!isPosterView(view)) return { title: "Plakát — Politicas" };
+  const t = await getTranslations("meta");
+  if (!isPosterView(view)) return { title: t("plakatFallbackTitle") };
   return {
-    title: "Plakát — Otevřený index · Politicas",
-    description:
-      "Tisková podoba žebříčku indexu přispění: arch A4/A3 s archivní citační patičkou (zdroj, stav dat, metodika).",
+    title: t("plakatTitle"),
+    description: t("plakatDescription"),
   };
 }
 
@@ -50,10 +48,12 @@ export default async function PlakatPage({ params }: { params: Promise<{ view: s
   const { view } = await params;
   if (!isPosterView(view)) notFound();
 
+  const t = await getTranslations("civicscore");
   // Reálný znalostní graf; null (store nedostupný) → poctivý stav, nikdy mock.
   const data = await getLeaderboardListData();
   if (!data) {
-    return <DataUnavailable what="plakát žebříčku" backHref="/zebricek" backLabel="zpět na žebříček" />;
+    const tm = await getTranslations("metodika");
+    return <DataUnavailable what={t("plakatUnavailableWhat")} backHref="/zebricek" backLabel={tm("backToLeaderboard")} />;
   }
 
   const poster: LeaderboardPosterData = {
@@ -78,9 +78,9 @@ export default async function PlakatPage({ params }: { params: Promise<{ view: s
     <main className="min-h-screen bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">/ plakát</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">/ {t("plakatCrumb")}</span>
           <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">
-            otevřený index · tisková podoba
+            {t("plakatTagline")}
           </span>
         </div>
       </header>

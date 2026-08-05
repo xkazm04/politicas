@@ -120,13 +120,11 @@ function FactRow({
           </Link>
         )}
         {/* Exponát: trvalá citovatelná adresa TOHOTO faktu (content-hash v URL,
-            deterministické znovuodvození — viz ../exhibit.ts). Copy je česky
-            přímo tady po vzoru DataUnavailable: messages/*.json je sdílený
-            soubor a tahle plocha do něj nezapisuje. */}
+            deterministické znovuodvození — viz ../exhibit.ts). */}
         <Link
           href={`/dashboard/exponat/${factExhibitId(fact)}`}
-          title="Exponát — citovatelný otisk tohoto faktu"
-          aria-label={`Exponát: ${fact.subject}`}
+          title={tf("exhibitLink")}
+          aria-label={tf("exhibitLinkNamed", { subject: fact.subject })}
           className="border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal focus-visible:border-cobalt focus-visible:text-cobalt"
         >
           <Stamp className="h-3.5 w-3.5" aria-hidden />

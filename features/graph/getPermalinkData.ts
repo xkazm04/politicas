@@ -18,6 +18,7 @@
  * zformátované hodnoty a otisk nesmí záviset na jazyku prohlížeče.
  */
 
+import { getTranslations } from "next-intl/server";
 import { getNodeDetail, getPathBetween, getTrails } from "./graphLoader";
 import {
   decodeGraphRef,
@@ -59,10 +60,15 @@ async function resolveView(state: GraphViewState): Promise<Resolved> {
       const probe = await getTrails();
       return probe === null ? { status: "unavailable" } : { status: "gone" };
     }
+    // Titulek se sází v jazyku požadavku (katalog graph.kinds.*); lokální
+    // zrcadlo KIND_LABELS zůstává poslední záchranou pro neznámý druh.
+    const t = await getTranslations("graph");
+    const kindKey = `kinds.${detail.node.kind}`;
+    const kindLabel = t.has(kindKey) ? t(kindKey) : (KIND_LABELS[detail.node.kind] ?? detail.node.kind);
     return {
       status: "ok",
       content: { kind: "uzel", detail },
-      title: `${KIND_LABELS[detail.node.kind] ?? detail.node.kind}: ${detail.node.label}`,
+      title: `${kindLabel}: ${detail.node.label}`,
       core: { kind: "uzel", detail },
     };
   }
@@ -70,12 +76,16 @@ async function resolveView(state: GraphViewState): Promise<Resolved> {
   if (state.kind === "trasa") {
     const trails = await getTrails();
     if (trails === null) return { status: "unavailable" };
-    const trail = trails.find((t) => t.key === state.trail);
+    const trail = trails.find((x) => x.key === state.trail);
     if (!trail) return { status: "gone" };
+    // Titulek trasy z katalogu (graph.trasy.trails.<key>.title); lokální
+    // zrcadlo TRAIL_TITLES kryje trasu, kterou katalog ještě nezná.
+    const t = await getTranslations("graph");
+    const titleKey = `trasy.trails.${trail.key}.title`;
     return {
       status: "ok",
       content: { kind: "trasa", trail },
-      title: TRAIL_TITLES[trail.key] ?? trail.key,
+      title: t.has(titleKey) ? t(titleKey) : (TRAIL_TITLES[trail.key] ?? trail.key),
       core: { kind: "trasa", trail },
     };
   }

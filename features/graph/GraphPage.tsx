@@ -15,8 +15,8 @@
  * Stránka opustila levou lištu aplikace (isBareRoute) — plátno potřebuje
  * celou šířku okna pro vlastní lišty; zpět vede drobeček v hlavičce.
  *
- * Až jeden vyhraje: přepínač i poražené soubory pryč. Texty doku jsou
- * záměrně mimo i18n — lešení se nepřekládá.
+ * Až jeden vyhraje: přepínač i poražené soubory pryč. Texty doku jdou přes
+ * katalog (graph.variants.*), i když jde o lešení — plocha je veřejná.
  */
 
 import { useEffect, useSyncExternalStore } from "react";
@@ -31,8 +31,8 @@ import VariantTrasy from "./VariantTrasy";
 import type { GraphSeed } from "./graphTypes";
 
 const VARIANTS = [
-  { key: "mapa", label: "A · Mapa × trasy", hint: "krajina celku, trasy jako čočky nad ní", Component: VariantMapa },
-  { key: "trasy", label: "C · Trasy", hint: "spočítané odpovědi ve sloupcové sazbě", Component: VariantTrasy },
+  { key: "mapa", labelKey: "variants.mapa.label", hintKey: "variants.mapa.hint", Component: VariantMapa },
+  { key: "trasy", labelKey: "variants.trasy.label", hintKey: "variants.trasy.hint", Component: VariantTrasy },
 ] as const;
 
 type VariantKey = (typeof VARIANTS)[number]["key"];
@@ -128,7 +128,7 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4 pb-3 print:hidden">
         <div className="pointer-events-auto flex max-w-full items-stretch gap-px overflow-x-auto border-2 border-ink bg-ink shadow-lg">
           <span className="hidden shrink-0 items-center bg-ink px-3 font-mono text-[11px] uppercase tracking-widest text-paper/50 sm:flex">
-            plátno · kolo 4
+            {t("variants.strip")}
           </span>
           {VARIANTS.map((v, i) => {
             const on = v.key === variant;
@@ -138,14 +138,14 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
                 type="button"
                 onClick={() => choose(v.key)}
                 aria-pressed={on}
-                title={`${v.hint}  (klávesa ${i + 4})`}
+                title={`${t(v.hintKey)}  (${t("variants.keyTitle", { key: i + 4 })})`}
                 className={`flex shrink-0 flex-col gap-0.5 px-4 py-1.5 text-left transition-colors ${
                   on ? "bg-signal text-paper" : "bg-paper text-ink hover:bg-paper-strong"
                 }`}
               >
-                <span className="font-mono text-[11px] font-bold uppercase tracking-widest">{v.label}</span>
+                <span className="font-mono text-[11px] font-bold uppercase tracking-widest">{t(v.labelKey)}</span>
                 <span className={`max-w-56 truncate text-[11px] ${on ? "text-paper/80" : "text-steel"}`}>
-                  {v.hint}
+                  {t(v.hintKey)}
                 </span>
               </button>
             );

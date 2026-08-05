@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import KrajPage from "@/features/civicscore/KrajPage";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
@@ -14,8 +15,6 @@ import { krajSlate, listKraje } from "@/features/civicscore/kraj";
  *
  * Neznámý slug = skutečná 404 (kraj neexistuje); nedostupný store = poctivé
  * DataUnavailable (HTTP 200) — kraj existuje, databáze byla jen zaneprázdněná.
- *
- * Copy česky přímo zde (messages/*.json mimo plochu — precedens batch 1D).
  */
 
 /** Živá URL karty z request hlaviček — na patičce archu nesmí být vymyšlená
@@ -33,12 +32,13 @@ export async function generateMetadata({
   params: Promise<{ kraj: string }>;
 }): Promise<Metadata> {
   const { kraj } = await params;
+  const t = await getTranslations("meta");
   const data = await getLeaderboardListData();
   const slate = data ? krajSlate(data.entries, kraj) : null;
-  if (!slate) return { title: "Můj kraj — volební karta · Politicas" };
+  if (!slate) return { title: t("krajTitle") };
   return {
-    title: `${slate.label} — volební karta · Politicas`,
-    description: `Kandidátka poslanců (${slate.rows.length}): ${slate.label}. Index přispění z veřejných dat psp.cz, se zdrojem a datem, připravená k tisku.`,
+    title: t("krajCardTitle", { kraj: slate.label }),
+    description: t("krajCardDescription", { count: slate.rows.length, kraj: slate.label }),
   };
 }
 
@@ -46,7 +46,8 @@ export default async function KrajKartaPage({ params }: { params: Promise<{ kraj
   const { kraj } = await params;
   const data = await getLeaderboardListData();
   if (!data) {
-    return <DataUnavailable what="volební karta kraje" backHref="/kraj" backLabel="zpět na rozcestník krajů" />;
+    const t = await getTranslations("civicscore");
+    return <DataUnavailable what={t("krajUnavailableWhat")} backHref="/kraj" backLabel={t("krajBackToPicker")} />;
   }
 
   // Slug je platný jen pro kraj, který v žebříčku skutečně existuje.

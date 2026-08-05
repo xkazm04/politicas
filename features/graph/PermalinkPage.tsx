@@ -17,8 +17,7 @@
  *    formátu citace — sazby, JSON-LD i OG obrazu. Čárkovaná čára nesmí
  *    zmizet exportem.
  *
- * Copy je záměrně česky přímo v komponentě (vzor ExhibitPage): messages/*.json
- * je sdílený soubor napříč paralelně stavěnými plochami.
+ * Copy jde přes katalog překladů (graph.permalink.* v messages/*.json).
  */
 
 import { useEffect, useRef, useState } from "react";
@@ -30,10 +29,8 @@ import { compactCzk } from "@/features/money/moneyTypes";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { formatSteps } from "./components/TrailFinder";
 import { glyphPath, KIND_STYLE } from "./kindStyle";
 import {
-  citationLine,
   GRAPH_SOURCE_LINKS,
   HASH_ALGORITHM,
   permalinkPath,
@@ -73,6 +70,7 @@ function CopyButton({
   icon: typeof Copy;
   makeText: () => string;
 }) {
+  const t = useTranslations("graph");
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -109,12 +107,12 @@ function CopyButton({
       <span role="status" aria-live="polite" className="min-h-[1rem]">
         {state === "copied" && (
           <span className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-cobalt">
-            <Check className="h-3.5 w-3.5" aria-hidden /> zkopírováno
+            <Check className="h-3.5 w-3.5" aria-hidden /> {t("permalink.copied")}
           </span>
         )}
         {state === "failed" && (
           <span className="font-mono text-xs uppercase tracking-wider text-signal-deep">
-            nezdařilo se — vyberte text ručně
+            {t("permalink.copyManual")}
           </span>
         )}
       </span>
@@ -152,25 +150,23 @@ function CestaExhibit({
       {trail === null ? (
         <div className="px-5 py-8">
           <p className="max-w-2xl text-xl font-black leading-snug tracking-tight">
-            Dnešní graf už tuto cestu nedokládá<span className="text-signal">.</span>
+            {t("permalink.pathGoneTitle")}<span className="text-signal">.</span>
           </p>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-steel-aa">
-            Citace odkazovala na spočítanou důkazní cestu; podkladová data se od vydání změnila a
-            stejně krátká cesta pod tímto pořadím dnes neexistuje. Nic podobného se nedosazuje —
-            citace buď odpovídá vydanému otisku, nebo to řekne.
+            {t("permalink.pathGoneBody")}
           </p>
         </div>
       ) : (
         <>
           <p className="border-b border-hairline px-5 py-2 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
-            {formatSteps(trail.hops, f.int(trail.hops))} ·{" "}
+            {t("steps", { count: trail.hops, countFmt: f.int(trail.hops) })} ·{" "}
             {trail.pendingCount === 0
-              ? "vše ověřeno"
-              : trail.pendingCount === 1
-                ? "1 hrana čeká na kontrolu"
-                : `${f.int(trail.pendingCount)} hran čeká na kontrolu`}
+              ? t("allVerified")
+              : t("pendingEdges", { count: trail.pendingCount, countFmt: f.int(trail.pendingCount) })}
             {trail.moneyCzk > 0 && (
-              <span className="block text-cobalt">doloženo {compactCzk(trail.moneyCzk, locale)} ve smlouvách</span>
+              <span className="block text-cobalt">
+                {t("moneyDocumented", { czk: compactCzk(trail.moneyCzk, locale) })}
+              </span>
             )}
           </p>
           <ol>
@@ -211,13 +207,15 @@ function CestaExhibit({
       {/* Otištěné pravidlo — bez něj by generovaná cesta byla obvinění. */}
       <div className="px-5 py-2.5">
         <SourceNote>
-          Pravidlo řazení: nejkratší cesta důkazními hranami (společné hlasování se nepoužívá),
-          nejvýše {formatSteps(view.maxCost, f.int(view.maxCost))}; uzel s {f.int(view.hubDegree)} a
-          více hranami se počítá za dva kroky. Při shodě vyhrává méně neověřených hran, pak vyšší
-          smluvní částka, pak abeceda.{" "}
-          {view.totalFound === 1
-            ? "Nalezena 1 nejkratší cesta."
-            : `Nalezeno ${f.int(view.totalFound)}${view.capped ? " a více" : ""} stejně krátkých cest.`}
+          {t("permalink.rule", {
+            steps: t("steps", { count: view.maxCost, countFmt: f.int(view.maxCost) }),
+            hub: f.int(view.hubDegree),
+            found: t("pathsFound", {
+              capped: view.capped ? "yes" : "no",
+              count: view.totalFound,
+              countFmt: f.int(view.totalFound),
+            }),
+          })}
         </SourceNote>
       </div>
     </div>
@@ -249,7 +247,7 @@ function TrasaExhibit({ trail }: { trail: Trail }) {
         {t("counts", { nodes: f.int(trail.nodes.length), edges: f.int(trail.edges.length) })}
         {pendingEdges > 0 && (
           <span className="block">
-            {pendingEdges === 1 ? "1 hrana čeká na kontrolu" : `${f.int(pendingEdges)} hran čeká na kontrolu`}
+            {t("pendingEdges", { count: pendingEdges, countFmt: f.int(pendingEdges) })}
           </span>
         )}
       </p>
@@ -371,6 +369,7 @@ function UzelExhibit({ detail }: { detail: NodeDetail }) {
 // ── Citační lišta ───────────────────────────────────────────────────────────
 
 function CitationRail({ view }: { view: PermalinkView }) {
+  const t = useTranslations("graph");
   const f = useFormat();
   const path = permalinkPath(view.ref);
   const sources: PermalinkSourceLink[] =
@@ -380,30 +379,37 @@ function CitationRail({ view }: { view: PermalinkView }) {
 
   const makeUrl = () => new URL(path, window.location.origin).toString();
   const makeCitation = () =>
-    citationLine({
+    t("permalink.citationLine", {
       title: view.title,
-      retrievedOn: f.date(view.retrievedOn),
+      date: f.date(view.retrievedOn),
       url: makeUrl(),
+      algo: HASH_ALGORITHM,
       hash: view.currentHash,
     });
 
   return (
-    <aside aria-label="citace" className="border-2 border-ink bg-paper">
+    <aside aria-label={t("permalink.railTitle")} className="border-2 border-ink bg-paper">
       <p className="border-b-2 border-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-signal">
-        citace
+        {t("permalink.railTitle")}
       </p>
 
       <div className="border-b border-hairline px-4 py-3">
-        <p className="font-mono text-xs font-bold uppercase tracking-widest text-ink">otisk obsahu</p>
+        <p className="font-mono text-xs font-bold uppercase tracking-widest text-ink">
+          {t("permalink.hashTitle")}
+        </p>
         <p className="mt-1.5 font-mono text-xs text-steel-aa">
           {HASH_ALGORITHM} <span className="font-bold text-ink">{view.currentHash}</span>
-          {!view.fresh && <> · v adrese: {view.urlHash}</>}
+          {!view.fresh && <> · {t("permalink.inAddress", { hash: view.urlHash })}</>}
         </p>
-        <p className="mt-1 font-mono text-xs text-steel-aa">data získána {f.date(view.retrievedOn)}</p>
+        <p className="mt-1 font-mono text-xs text-steel-aa">
+          {t("permalink.retrieved", { date: f.date(view.retrievedOn) })}
+        </p>
       </div>
 
       <div className="border-b border-hairline px-4 py-3">
-        <p className="font-mono text-xs font-bold uppercase tracking-widest text-ink">prameny</p>
+        <p className="font-mono text-xs font-bold uppercase tracking-widest text-ink">
+          {t("permalink.sourcesTitle")}
+        </p>
         <ul className="mt-1.5 space-y-1">
           {sources.map((s) => (
             <li key={s.href}>
@@ -413,7 +419,7 @@ function CitationRail({ view }: { view: PermalinkView }) {
                 rel="noreferrer"
                 className="font-mono text-xs text-cobalt underline decoration-hairline underline-offset-2 transition-colors hover:text-signal"
               >
-                {s.label}
+                {s.id ? t(`permalink.sources.${s.id}`) : s.label}
               </a>
             </li>
           ))}
@@ -422,16 +428,16 @@ function CitationRail({ view }: { view: PermalinkView }) {
 
       <div className="border-b border-hairline px-4 py-3">
         <p className="flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-widest text-ink">
-          <Quote className="h-3.5 w-3.5 text-signal" aria-hidden /> citovat
+          <Quote className="h-3.5 w-3.5 text-signal" aria-hidden /> {t("permalink.citeTitle")}
         </p>
         <p className="mt-2 border border-hairline bg-paper-strong px-3 py-2 text-[13px] leading-relaxed">
-          „{view.title}“ — politicas, znalostní graf české politiky. Získáno {f.date(view.retrievedOn)}
-          . <span className="break-all font-mono text-xs">{path}</span> · otisk {HASH_ALGORITHM}{" "}
-          <span className="font-mono text-xs">{view.currentHash}</span>.
+          {t("permalink.quoteLine", { title: view.title, date: f.date(view.retrievedOn) })}{" "}
+          <span className="break-all font-mono text-xs">{path}</span> · {t("permalink.imprintWord")}{" "}
+          {HASH_ALGORITHM} <span className="font-mono text-xs">{view.currentHash}</span>.
         </p>
         <div className="mt-2 flex flex-col items-start gap-2">
-          <CopyButton label="kopírovat citaci" icon={Copy} makeText={makeCitation} />
-          <CopyButton label="kopírovat odkaz" icon={Link2} makeText={makeUrl} />
+          <CopyButton label={t("permalink.copyCitation")} icon={Copy} makeText={makeCitation} />
+          <CopyButton label={t("permalink.copyLink")} icon={Link2} makeText={makeUrl} />
         </div>
       </div>
 
@@ -440,11 +446,9 @@ function CitationRail({ view }: { view: PermalinkView }) {
           href={`${path}/bundle`}
           className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
         >
-          <FileJson className="h-3.5 w-3.5" aria-hidden /> balíček důkazů (JSON-LD)
+          <FileJson className="h-3.5 w-3.5" aria-hidden /> {t("permalink.bundleLink")}
         </a>
-        <p className="mt-1 text-[11px] leading-snug text-steel-aa">
-          strojově čitelný výpis tvrzení se stavem lidské kontroly každé hrany
-        </p>
+        <p className="mt-1 text-[11px] leading-snug text-steel-aa">{t("permalink.bundleNote")}</p>
       </div>
     </aside>
   );
@@ -453,6 +457,7 @@ function CitationRail({ view }: { view: PermalinkView }) {
 // ── Stránky ─────────────────────────────────────────────────────────────────
 
 export default function PermalinkPage({ view }: { view: PermalinkView }) {
+  const t = useTranslations("graph");
   const f = useFormat();
   const reduceMotion = useReducedMotion();
 
@@ -464,10 +469,10 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
             <Link href="/graf" className="transition-colors hover:text-signal">
               politicas / graf
             </Link>{" "}
-            / trvalá citace
+            / {t("permalink.tag")}
           </span>
           <SourceNote className="hidden sm:block">
-            znovuodvozeno ze znalostního grafu · {f.date(view.retrievedOn)}
+            {t("permalink.rederived", { date: f.date(view.retrievedOn) })}
           </SourceNote>
         </div>
       </header>
@@ -475,7 +480,8 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
       <div className="mx-auto max-w-6xl px-6 pb-16">
         <div className="py-10">
           <p className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-signal">
-            trvalá citace <span className="text-steel-aa">č. {view.currentHash}</span>
+            {t("permalink.tag")}{" "}
+            <span className="text-steel-aa">{t("permalink.refNo", { hash: view.currentHash })}</span>
           </p>
           <motion.h1
             initial={reduceMotion ? false : { opacity: 0, y: 14 }}
@@ -489,9 +495,7 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
             <SectionRule />
           </div>
           <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-steel-aa">
-            Citovatelný pohled na znalostní graf: adresa nese celý stav pohledu i otisk důkazů v
-            okamžiku vydání — stránka obsah při každém zobrazení deterministicky odvodí znovu z
-            registrů a případný rozdíl proti citované verzi přizná.
+            {t("permalink.lead")}
           </p>
         </div>
 
@@ -500,8 +504,7 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
         {!view.fresh && (
           <div className="mb-6 border-2 border-signal bg-paper-strong px-4 py-3">
             <SourceNote tone="signal">
-              obsah se od vydání tohoto odkazu změnil — otisk v adrese {view.urlHash} ≠ dnešní otisk{" "}
-              {view.currentHash}; zobrazeno je dnešní znovuodvození, ne to citované
+              {t("permalink.staleNotice", { urlHash: view.urlHash, currentHash: view.currentHash })}
             </SourceNote>
           </div>
         )}
@@ -520,7 +523,7 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
             href="/graf"
             className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
           >
-            <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> otevřít plátno grafu
+            <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> {t("permalink.openCanvas")}
           </Link>
         </div>
       </div>
@@ -531,28 +534,27 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
 /** Čitelná adresa, kterou dnešní graf už nedokládá — poctivé přiznání
  *  (vzor ReceiptGonePage, features/shared/provenance/ReceiptPage.tsx). */
 export function PermalinkGonePage({ urlHash, retrievedOn }: { urlHash: string; retrievedOn: string }) {
+  const t = useTranslations("graph");
   const f = useFormat();
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="flex items-center justify-between gap-4 px-6 py-3.5">
           <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">
-            politicas / graf / trvalá citace
+            politicas / graf / {t("permalink.tag")}
           </span>
         </div>
       </header>
       <div className="mx-auto max-w-3xl px-6 py-16">
         <div className="border-2 border-ink bg-paper px-5 py-10 sm:px-10 sm:py-14">
           <p className="max-w-2xl text-2xl font-black leading-snug tracking-tight sm:text-3xl">
-            Tento pohled už dnešní graf nedokládá<span className="text-signal">.</span>
+            {t("permalink.goneTitle")}<span className="text-signal">.</span>
           </p>
           <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-steel-aa">
-            Adresa je čitelná a kdysi nesla doložený pohled, ale znalostní graf se přepočítává
-            dávkou a citovaný uzel, trasa nebo cesta v dnešním sestavení není. Nic podobného se
-            nedosazuje: citace buď odpovídá vydanému otisku, nebo to řekne.
+            {t("permalink.goneBody")}
           </p>
           <SourceNote className="mt-6">
-            otisk v adrese: {HASH_ALGORITHM} {urlHash} · znovuodvozeno {f.date(retrievedOn)}
+            {t("permalink.goneImprint", { algo: HASH_ALGORITHM, hash: urlHash, date: f.date(retrievedOn) })}
           </SourceNote>
         </div>
         <div className="mt-8">
@@ -560,7 +562,7 @@ export function PermalinkGonePage({ urlHash, retrievedOn }: { urlHash: string; r
             href="/graf"
             className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
           >
-            <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> otevřít plátno grafu
+            <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> {t("permalink.openCanvas")}
           </Link>
         </div>
       </div>

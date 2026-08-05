@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import ExhibitPage from "@/features/dashboard/ExhibitPage";
 import { getExhibitData } from "@/features/dashboard/getExhibitData";
 import { decodeExhibitId } from "@/features/dashboard/exhibit";
@@ -23,12 +24,15 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
+  const t = await getTranslations("meta");
   const decoded = decodeExhibitId(id);
-  const what = decoded?.kind === "fakt" ? "datovaný fakt" : "výřez grafu státu";
   return {
-    title: decoded ? `Exponát — ${what} · politicas` : "Exponát · politicas",
-    description:
-      "Citovatelný otisk výřezu velína: obsah adresovaný content-hashem, s prameny, otiskem a datem získání dat v citační patičce.",
+    title: decoded
+      ? decoded.kind === "fakt"
+        ? t("exhibitFactTitle")
+        : t("exhibitSliceTitle")
+      : t("exhibitFallbackTitle"),
+    description: t("exhibitDescription"),
   };
 }
 

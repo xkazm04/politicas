@@ -14,10 +14,9 @@
  *    cesta byla implicitní obvinění; konstanty bere z výsledku, nehádá je;
  *  - „žádná cesta" je plnohodnotná, poctivá odpověď, ne chybová hláška.
  *
- * Texty jsou záměrně lokální konstanty, ne messages/*.json: katalog překladů
- * je sdílený soubor mimo výhradní plochu téhle feature (paralelní stavba,
- * batch 1) — precedens je lešení variant v GraphPage.tsx. Aplikace je
- * Czech-first; až se katalog otevře, řádky se přestěhují beze změny UI.
+ * Texty jdou přes katalog překladů (graph.finder.* + sdílené graph.steps /
+ * graph.pendingEdges / graph.pathsFound v messages/*.json) — dřívější lokální
+ * konstanty byly jen lešení paralelní stavby (batch 1).
  */
 
 import { useTranslations } from "next-intl";
@@ -29,41 +28,6 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import { glyphPath, KIND_STYLE } from "../kindStyle";
 import NodeSearch from "./NodeSearch";
 import type { GraphNode, PathQueryResult, SearchHit } from "../graphTypes";
-
-const COPY = {
-  title: "Spoj dva body",
-  intro: "Vyberte dva uzly — plátno rozsvítí nejkratší doloženou cestu mezi nimi, krok za krokem.",
-  fromLabel: "odkud",
-  toLabel: "kam",
-  fromPlaceholder: "výchozí uzel — hledat…",
-  toPlaceholder: "cílový uzel — hledat…",
-  clearSlot: "zrušit tento uzel",
-  reset: "zrušit spojení",
-  working: "hledám doloženou cestu…",
-  unavailable: "hledání cest není v tomhle běhu dostupné — čeká na připojený datový sklad",
-  emptyTitle: "žádná doložená cesta",
-  empty: (steps: string) =>
-    `Mezi vybranými uzly nevede do ${steps} žádná cesta doloženými hranami grafu. I to je zjištění: spojení v našich datech doložené není.`,
-  pathTab: (n: string) => `cesta ${n}`,
-  pathAria: (n: string) => `zobrazit cestu ${n}`,
-  startRow: "výchozí bod",
-  stepRow: (n: string) => `krok ${n}`,
-  summary: (steps: string, pending: string) => `${steps} · ${pending}`,
-  pendingNone: "vše ověřeno",
-  pendingSome: (n: string) => `${n} hran čeká na kontrolu`,
-  pendingOne: "1 hrana čeká na kontrolu",
-  moneySum: (czk: string) => `doloženo ${czk} ve smlouvách`,
-  rule: (hub: string, steps: string, found: string) =>
-    `Pravidlo řazení: nejkratší cesta důkazními hranami (společné hlasování se nepoužívá), nejvýše ${steps}; uzel s ${hub} a více hranami se počítá za dva kroky, aby cesta nevedla přes největší uzly. Při shodě vyhrává méně neověřených hran, pak vyšší smluvní částka, pak abeceda. ${found}`,
-  found: (n: string, capped: boolean) => `Nalezeno ${n}${capped ? " a více" : ""} stejně krátkých cest.`,
-  foundOne: "Nalezena 1 nejkratší cesta.",
-} as const;
-
-/** Česká množná čísla kroků — 1 krok, 2–4 kroky, 5+ kroků. */
-export function formatSteps(n: number, formatted?: string): string {
-  const word = n === 1 ? "krok" : n >= 2 && n <= 4 ? "kroky" : "kroků";
-  return `${formatted ?? String(n)} ${word}`;
-}
 
 function NodeGlyph({ node }: { node: GraphNode }) {
   const style = KIND_STYLE[node.kind];
@@ -101,7 +65,7 @@ function SlotChip({ hit, onClear }: { hit: SearchHit; onClear: () => void }) {
       <button
         type="button"
         onClick={onClear}
-        aria-label={COPY.clearSlot}
+        aria-label={t("finder.clearSlot")}
         className="shrink-0 border border-hairline p-1 text-steel transition-colors hover:border-ink hover:text-signal"
       >
         <X className="h-3 w-3" />
@@ -147,12 +111,20 @@ export default function TrailFinder({
   const done = result !== null && result !== "loading" ? result : null;
   const active = done && done.status === "ok" ? (done.paths[activeIdx] ?? done.paths[0] ?? null) : null;
 
+  const steps = (n: number) => t("steps", { count: n, countFmt: f.int(n) });
+  const pendingText = (n: number) =>
+    n === 0 ? t("allVerified") : t("pendingEdges", { count: n, countFmt: f.int(n) });
+  const foundText = (total: number, capped: boolean) =>
+    t("pathsFound", { capped: capped ? "yes" : "no", count: total, countFmt: f.int(total) });
+  const ruleText = (hub: number, maxCost: number, found: string) =>
+    t("finder.rule", { hub: f.int(hub), steps: steps(maxCost), found });
+
   return (
     <div className="border-2 border-ink bg-paper">
       <div className="flex items-center justify-between gap-2 border-b-2 border-ink px-3 py-1.5">
         <span className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-widest">
           <Waypoints className="h-3.5 w-3.5 text-signal" />
-          {COPY.title}
+          {t("finder.title")}
         </span>
         {(from || to) && (
           <button
@@ -160,48 +132,48 @@ export default function TrailFinder({
             onClick={onReset}
             className="font-mono text-[11px] uppercase tracking-wider text-steel-aa transition-colors hover:text-signal"
           >
-            {COPY.reset}
+            {t("finder.reset")}
           </button>
         )}
       </div>
 
       {!done && result !== "loading" && (
-        <p className="border-b border-hairline px-3 py-2 text-[13px] leading-snug text-steel">{COPY.intro}</p>
+        <p className="border-b border-hairline px-3 py-2 text-[13px] leading-snug text-steel">{t("finder.intro")}</p>
       )}
 
       {/* Dva sloty — našeptávač je jediná klávesnicová cesta k uzlům. */}
       <div className="space-y-2 px-3 py-2.5">
         <div>
           <p className="mb-1 font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
-            {COPY.fromLabel}
+            {t("finder.fromLabel")}
           </p>
           {from ? (
             <SlotChip hit={from} onClear={onClearFrom} />
           ) : (
-            <NodeSearch placeholder={COPY.fromPlaceholder} onPick={onPickFrom} />
+            <NodeSearch placeholder={t("finder.fromPlaceholder")} onPick={onPickFrom} />
           )}
         </div>
         <div>
           <p className="mb-1 font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
-            {COPY.toLabel}
+            {t("finder.toLabel")}
           </p>
           {to ? (
             <SlotChip hit={to} onClear={onClearTo} />
           ) : (
-            <NodeSearch placeholder={COPY.toPlaceholder} onPick={onPickTo} />
+            <NodeSearch placeholder={t("finder.toPlaceholder")} onPick={onPickTo} />
           )}
         </div>
       </div>
 
       {result === "loading" && (
         <p className="border-t border-hairline px-3 py-3 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
-          {COPY.working}
+          {t("finder.working")}
         </p>
       )}
 
       {done && done.status === "unavailable" && (
         <p className="border-t border-hairline px-3 py-3 text-[13px] leading-snug text-steel">
-          {COPY.unavailable}
+          {t("finder.unavailable")}
         </p>
       )}
 
@@ -209,14 +181,14 @@ export default function TrailFinder({
       {done && done.status === "ok" && done.paths.length === 0 && (
         <div className="border-t-2 border-ink px-3 py-3">
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
-            {COPY.emptyTitle}
+            {t("finder.emptyTitle")}
             <span className="text-signal">.</span>
           </p>
           <p className="mt-1.5 text-[13px] leading-snug text-steel">
-            {COPY.empty(formatSteps(done.maxCost, f.int(done.maxCost)))}
+            {t("finder.empty", { steps: steps(done.maxCost) })}
           </p>
           <SourceNote className="mt-2">
-            {COPY.rule(f.int(done.hubDegree), formatSteps(done.maxCost, f.int(done.maxCost)), "")}
+            {ruleText(done.hubDegree, done.maxCost, "")}
           </SourceNote>
         </div>
       )}
@@ -232,12 +204,12 @@ export default function TrailFinder({
                   type="button"
                   onClick={() => onPickPath(i)}
                   aria-pressed={i === activeIdx}
-                  aria-label={COPY.pathAria(f.int(i + 1))}
+                  aria-label={t("finder.pathAria", { n: f.int(i + 1) })}
                   className={`flex-1 px-2 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
                     i === activeIdx ? "bg-signal-deep text-paper" : "bg-paper text-steel-aa hover:bg-paper-strong"
                   }`}
                 >
-                  {COPY.pathTab(f.int(i + 1))}
+                  {t("finder.pathTab", { n: f.int(i + 1) })}
                   <span className="ml-1 font-normal normal-case">
                     {p.pendingCount > 0 ? `· ${f.int(p.pendingCount)}?` : ""}
                   </span>
@@ -247,16 +219,11 @@ export default function TrailFinder({
           )}
 
           <p className="border-b border-hairline px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
-            {COPY.summary(
-              formatSteps(active.hops, f.int(active.hops)),
-              active.pendingCount === 0
-                ? COPY.pendingNone
-                : active.pendingCount === 1
-                  ? COPY.pendingOne
-                  : COPY.pendingSome(f.int(active.pendingCount)),
-            )}
+            {steps(active.hops)} · {pendingText(active.pendingCount)}
             {active.moneyCzk > 0 && (
-              <span className="block text-cobalt">{COPY.moneySum(compactCzk(active.moneyCzk, locale))}</span>
+              <span className="block text-cobalt">
+                {t("moneyDocumented", { czk: compactCzk(active.moneyCzk, locale) })}
+              </span>
             )}
           </p>
 
@@ -284,7 +251,7 @@ export default function TrailFinder({
                   <button
                     type="button"
                     onClick={() => onHopFocus(row.to.id)}
-                    aria-label={`${COPY.stepRow(f.int(row.step))}: ${row.from.label} → ${row.to.label}`}
+                    aria-label={`${t("finder.stepRow", { n: f.int(row.step) })}: ${row.from.label} → ${row.to.label}`}
                     className={`w-full border-b border-hairline px-3 py-2 text-left transition-opacity duration-300 hover:bg-paper-strong ${
                       lit ? "opacity-100" : "opacity-40"
                     }`}
@@ -319,11 +286,7 @@ export default function TrailFinder({
           {/* Otištěné pravidlo — bez něj by generovaná cesta byla obvinění. */}
           <div className="border-t border-hairline px-3 py-2">
             <SourceNote>
-              {COPY.rule(
-                f.int(done.hubDegree),
-                formatSteps(done.maxCost, f.int(done.maxCost)),
-                done.totalFound === 1 ? COPY.foundOne : COPY.found(f.int(done.totalFound), done.capped),
-              )}
+              {ruleText(done.hubDegree, done.maxCost, foundText(done.totalFound, done.capped))}
             </SourceNote>
           </div>
         </div>

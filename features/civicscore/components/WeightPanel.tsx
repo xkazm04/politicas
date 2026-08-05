@@ -17,6 +17,7 @@
  */
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Check, Link2, RotateCcw } from "lucide-react";
 import type { LeaderboardData } from "../getLeaderboardData";
 import {
@@ -38,6 +39,7 @@ const sameWeights = (a: WeightVector, b: WeightVector) =>
 /** Tlačítko „kopírovat odkaz" s potvrzením — jen u vlastní čočky (u výchozí
  *  metodiky adresa žádnou čočku nenese, není co sdílet). */
 function CopyLensLink() {
+  const t = useTranslations("civicscore");
   const [state, setState] = useState<"idle" | "ok" | "fail">("idle");
   useEffect(() => {
     if (state === "idle") return;
@@ -56,7 +58,7 @@ function CopyLensLink() {
       className="inline-flex items-center gap-1.5 border-2 border-cobalt px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:bg-cobalt hover:text-paper"
     >
       {state === "ok" ? <Check className="h-3 w-3" aria-hidden /> : <Link2 className="h-3 w-3" aria-hidden />}
-      {state === "ok" ? "Odkaz zkopírován" : state === "fail" ? "Zkopírujte adresu ručně" : "Sdílet moji čočku"}
+      {state === "ok" ? t("lensLinkCopied") : state === "fail" ? t("lensLinkCopyFailed") : t("lensShare")}
     </button>
   );
 }
@@ -72,6 +74,8 @@ export default function WeightPanel({
   /** Surový součet posuvníků (z reweigh), u výchozí metodiky 100. */
   totalRaw: number;
 }) {
+  const t = useTranslations("civicscore");
+  const tcom = useTranslations("common");
   const f = useFormat();
   const { weights, isDefault, setWeight, setAll, reset } = lens;
   const eff = effectiveWeights(weights);
@@ -83,9 +87,7 @@ export default function WeightPanel({
         {/* ── stav + presety + pravidlo ─────────────────────────── */}
         <div>
           <p className="max-w-md text-[15px] leading-relaxed text-steel-aa">
-            Každý žebříček stojí na vahách. Tady jsou vahami posuvníky: nastavte
-            si vlastní priority a celá stránka — rozložení, souboj i všech{" "}
-            {f.int(207)} řádků — se přepočítá pod vaší čočkou. Odkaz ji ponese s sebou.
+            {t("weightPanelLead", { count: f.int(207) })}
           </p>
 
           <p
@@ -94,9 +96,7 @@ export default function WeightPanel({
               isDefault ? "text-steel-aa" : "text-cobalt"
             }`}
           >
-            {isDefault
-              ? "zobrazena zveřejněná metodika (oficiální index)"
-              : `váš index — váhy ${vector}`}
+            {isDefault ? t("lensStatusDefault") : t("lensBadge", { weights: vector ?? "" })}
           </p>
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -119,7 +119,7 @@ export default function WeightPanel({
             })}
           </div>
           <div className="mt-2">
-            <SourceNote>ukázkové čočky redakce — nejsou metodikou žádné organizace</SourceNote>
+            <SourceNote>{t("lensPresetsNote")}</SourceNote>
           </div>
 
           <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -130,7 +130,7 @@ export default function WeightPanel({
                 className="inline-flex items-center gap-1.5 border-2 border-ink bg-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-paper transition-colors hover:bg-paper hover:text-ink"
               >
                 <RotateCcw className="h-3 w-3" aria-hidden />
-                Výchozí metodika
+                {t("resetToPublished")}
               </button>
             )}
             {!isDefault && <CopyLensLink />}
@@ -147,7 +147,7 @@ export default function WeightPanel({
                 <div key={c.key} className="grid grid-cols-[minmax(8.5rem,11rem)_1fr_2.5rem_4.5rem] items-center gap-3 max-sm:grid-cols-[1fr_2.5rem_4.5rem]">
                   <span
                     className="flex items-center gap-2 text-sm font-black uppercase tracking-wide max-sm:col-span-3"
-                    title={`${c.label} — zveřejněná váha ×${c.weight} (${c.source})`}
+                    title={t("weightRowTitle", { label: c.label, weight: c.weight, source: c.source })}
                   >
                     <span
                       className="inline-block h-3 w-3 shrink-0"
@@ -163,8 +163,8 @@ export default function WeightPanel({
                     step={1}
                     value={weights[c.key]}
                     onChange={(e) => setWeight(c.key, Number(e.target.value))}
-                    aria-label={`Váha složky ${c.label} (zveřejněná ${c.weight})`}
-                    aria-valuetext={`${weights[c.key]} ze 100, efektivně ${f.dec(eff[c.key])} bodu`}
+                    aria-label={t("weightSliderAria", { label: c.label, weight: c.weight })}
+                    aria-valuetext={t("weightSliderValue", { value: weights[c.key], effective: f.dec(eff[c.key]) })}
                     className="k-range"
                   />
                   <span
@@ -173,7 +173,7 @@ export default function WeightPanel({
                     {f.int(weights[c.key])}
                   </span>
                   <span className="text-right font-mono text-xs tabular-nums text-steel-aa">
-                    → {f.dec(eff[c.key])} b.
+                    → {f.dec(eff[c.key])} {tcom("pts")}
                   </span>
                 </div>
               );
@@ -181,23 +181,17 @@ export default function WeightPanel({
           </div>
 
           <p className="mt-4 border-t border-hairline pt-3 font-mono text-xs uppercase tracking-wider text-steel-aa">
-            součet posuvníků {f.int(totalRaw)}
+            {t("weightTotal", { total: f.int(totalRaw) })}{" "}
             {totalRaw === 0
-              ? " — všechny váhy nulové, index vyjde 0,0 pro všechny"
+              ? t("weightTotalZero")
               : totalRaw === 100
-                ? " = index 0–100 bez přepočtu"
-                : " → přepočteno na index 0–100"}
+                ? t("weightTotalExact")
+                : t("weightTotalScaled")}
           </p>
 
           {/* Přiznané pravidlo čočky — týž vzor jako stateSlice („bordered note"). */}
           <div className="mt-3 border-l-4 border-cobalt pl-4">
-            <SourceNote>
-              pravidlo čočky: z každé složky se vezme zveřejněná míra naplnění (body ÷ zveřejněná
-              váha), vaše váhy se přepočtou na součet 100 a index je jejich vážený součet,
-              zaokrouhlený na desetiny. Počítá se z bodů publikovaných na desetiny, takže se od
-              autoritativního skóre z grafu může lišit až o 0,1 b. Výchozí metodika {PUBLISHED_WEIGHTS_LABEL}
-              (psp.cz, deterministický výpočet).
-            </SourceNote>
+            <SourceNote>{t("lensRule", { weights: PUBLISHED_WEIGHTS_LABEL })}</SourceNote>
           </div>
         </div>
       </div>

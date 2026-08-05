@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPermalinkData } from "@/features/graph/getPermalinkData";
 import { decodeGraphRef, toEvidenceJsonLd } from "@/features/graph/permalink";
@@ -28,13 +29,14 @@ export async function generateMetadata({
   params: Promise<{ ref: string }>;
 }): Promise<Metadata> {
   const { ref } = await params;
-  const result = await getPermalinkData(ref);
+  const [result, t] = await Promise.all([getPermalinkData(ref), getTranslations("meta")]);
   const title =
-    result.status === "ok" ? `Citace — ${result.view.title} · politicas` : "Citace grafu · politicas";
+    result.status === "ok"
+      ? t("graphCitationTitle", { title: result.view.title })
+      : t("graphCitationFallbackTitle");
   return {
     title,
-    description:
-      "Trvalá citace pohledu na znalostní graf české politiky: tvrzení, stav lidské kontroly každé hrany, prameny a otisk obsahu v okamžiku vydání.",
+    description: t("graphCitationDescription"),
   };
 }
 
@@ -46,7 +48,14 @@ export default async function GrafPermalinkPage({ params }: { params: Promise<{ 
   const result = await getPermalinkData(ref);
   if (result.status === "invalid") notFound();
   if (result.status === "unavailable") {
-    return <DataUnavailable what="Citace grafu" backHref="/graf" backLabel="zpět na plátno grafu" />;
+    const t = await getTranslations("graph");
+    return (
+      <DataUnavailable
+        what={t("permalink.citationWhat")}
+        backHref="/graf"
+        backLabel={t("permalink.backToCanvas")}
+      />
+    );
   }
   if (result.status === "gone") {
     return <PermalinkGonePage urlHash={result.urlHash} retrievedOn={result.retrievedOn} />;

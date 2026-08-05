@@ -9,25 +9,21 @@
  * zobrazí se pouze složky, které skutečně máme, s poznámkou o zbytku.
  *
  * Čísla se zde NIKDY neautorují — panel jen odečítá dvě uložená čísla, která
- * spočítal computeContribution. Copy je český (fleet: messages/*.json je
- * sdílený a needitujeme ho — navržené i18n klíče jsou v handoffu).
+ * spočítal computeContribution. Copy jde od 2026-08-05 přes next-intl
+ * (civicscore.trend* v messages/*.json); věta o chybějících složkách se skládá
+ * lokalizovaně (Intl.ListFormat + snížení prvního písmene uvnitř věty), dump
+ * jmenuje jen období, kterého se týká (../trendCopy.priorTermVoteDump).
  */
 
 import { TrendingDown, TrendingUp, Minus } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import type { ComponentKey, ContributionTrend } from "@/lib/analysis/contribution-trend";
-import {
-  TREND_COUNT_LABELS,
-  TREND_PARTIAL_LABEL,
-  trendHeading,
-  trendPendingNote,
-  trendSourceNote,
-} from "../trendCopy";
-
-const dec = (x: number) => new Intl.NumberFormat("cs-CZ", { maximumFractionDigits: 1 }).format(x);
-const signed = (x: number) => `${x > 0 ? "+" : ""}${dec(x)}`;
+import { useFormat } from "@/lib/i18n/useFormat";
+import { priorTermVoteDump } from "../trendCopy";
 
 /** Směrová ikona + tokenová barva (cobalt nahoru, ocelová dolů/beze změny). */
 function Delta({ value, suffix = "" }: { value: number | null; suffix?: string }) {
+  const f = useFormat();
   if (value === null) return <span className="font-mono text-xs text-steel">—</span>;
   const up = value > 0;
   const flat = value === 0;
@@ -36,7 +32,8 @@ function Delta({ value, suffix = "" }: { value: number | null; suffix?: string }
   return (
     <span className={`inline-flex items-center gap-1 font-mono text-sm font-bold tabular-nums ${cls}`}>
       <Icon className="h-3.5 w-3.5" aria-hidden />
-      {signed(value)}
+      {/* citation-ok: zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
+      {`${value > 0 ? "+" : ""}${f.dec(value)}`}
       {suffix}
     </span>
   );
@@ -49,32 +46,55 @@ export default function TrendPanel({
   trend: ContributionTrend;
   componentLabels: Partial<Record<ComponentKey, string>>;
 }) {
+  const t = useTranslations("civicscore");
+  const tcom = useTranslations("common");
+  const locale = useLocale();
+  const f = useFormat();
   const rows = trend.components.filter((c) => c.prior !== null);
-  // Copy patří enginu (../trendCopy.ts), ne JSX — je to čtenářská česká věta a jako
-  // taková je přibitá k jazykové bráně. Výhrada navíc jmenuje složky, které OPRAVDU
-  // chybí, místo dvou natvrdo vepsaných.
   const labelOf = (k: ComponentKey) => componentLabels[k] ?? k;
-  const pendingNote = trendPendingNote({
-    priorTerm: trend.priorTerm,
-    pendingLabels: trend.pendingComponents.map(labelOf),
-    comparableLabels: rows.map((c) => labelOf(c.key)),
-  });
+
+  // Věta o chybějících složkách JMENUJE, co opravdu chybí a co je srovnatelné.
+  // Labely složek jsou velkým písmenem („Docházka"); uvnitř věty se snižují
+  // všechny kromě prvního; výčtovou spojku dodává Intl.ListFormat („a"/„and").
+  const lowerFirst = (s: string) => (s.length > 0 ? s[0].toLocaleLowerCase(locale) + s.slice(1) : s);
+  const joinList = (items: string[]) =>
+    new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(items);
+  const pendingLabels = trend.pendingComponents.map(labelOf);
+  const comparableLabels = rows.map((c) => labelOf(c.key));
+  let pendingNote: string | null = null;
+  if (pendingLabels.length > 0) {
+    const dump = priorTermVoteDump(trend.priorTerm);
+    pendingNote = [
+      t("trendPendingHead", {
+        missing: joinList(pendingLabels.map((l, i) => (i === 0 ? l : lowerFirst(l)))),
+        term: trend.priorTerm,
+      }),
+      dump ? t("trendPendingDump", { dump }) : null,
+      comparableLabels.length > 0
+        ? t("trendPendingComparable", { list: joinList(comparableLabels.map(lowerFirst)) })
+        : t("trendPendingNone"),
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
   return (
     <section className="mt-10 border-2 border-ink bg-paper-strong p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-steel">
-          {trendHeading(trend.priorTerm)}
+          {t("trendHeading", { term: trend.priorTerm })}
         </h2>
         {trend.complete && trend.scoreDelta !== null ? (
           <div className="flex items-baseline gap-3">
             <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-              {trend.priorTerm} {dec(trend.priorScore ?? 0)} → {dec(trend.currentScore)}
+              {/* citation-ok: zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
+              {trend.priorTerm} {f.dec(trend.priorScore ?? 0)} → {f.dec(trend.currentScore)}
             </span>
-            <Delta value={trend.scoreDelta} suffix=" b" />
+            <Delta value={trend.scoreDelta} suffix={` ${tcom("pts")}`} />
           </div>
         ) : (
           <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-            {TREND_PARTIAL_LABEL}
+            {t("trendPartial")}
           </span>
         )}
       </div>
@@ -88,7 +108,8 @@ export default function TrendPanel({
             </span>
             <span className="flex items-center gap-3">
               <span className="font-mono text-xs tabular-nums text-steel">
-                {dec(c.prior ?? 0)} → {dec(c.current)}
+                {/* citation-ok: zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
+                {f.dec(c.prior ?? 0)} → {f.dec(c.current)}
               </span>
               <Delta value={c.delta} />
             </span>
@@ -99,13 +120,14 @@ export default function TrendPanel({
       {/* Surové počty aktivity — poctivé srovnání objemu práce */}
       <div className="mt-6 grid grid-cols-3 gap-px border border-ink bg-ink text-center">
         {[
-          { label: TREND_COUNT_LABELS.billsAuthored, v: trend.counts.billsAuthored },
-          { label: TREND_COUNT_LABELS.speechTurns, v: trend.counts.speechTurns },
-          { label: TREND_COUNT_LABELS.committeeCount, v: trend.counts.committeeCount },
+          { label: t("trendCountBills"), v: trend.counts.billsAuthored },
+          { label: t("trendCountSpeech"), v: trend.counts.speechTurns },
+          { label: t("trendCountCommittees"), v: trend.counts.committeeCount },
         ].map((s) => (
           <div key={s.label} className="bg-paper p-3">
             <p className="font-mono text-[10px] uppercase tracking-widest text-steel">{s.label}</p>
             <p className="mt-1 font-mono text-lg font-black tabular-nums">
+              {/* citation-ok: zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
               {s.v.prior} <span className="text-steel">→</span> {s.v.current}
             </p>
           </div>
@@ -119,7 +141,10 @@ export default function TrendPanel({
       )}
 
       <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
-        {trendSourceNote(trend.priorTerm, trend.provenance?.pass)}
+        {typeof trend.provenance?.pass === "number" && Number.isFinite(trend.provenance.pass)
+          ? // citation-ok: tento řádek JE zdrojová věta panelu (psp.cz + průchod grafu)
+            t("trendSourcePass", { term: trend.priorTerm, pass: f.int(trend.provenance.pass) })
+          : t("trendSource", { term: trend.priorTerm })}
       </p>
     </section>
   );

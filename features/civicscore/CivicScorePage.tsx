@@ -72,7 +72,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
   // Pravé meta u sekcí: pod čočkou musí každá sekce říkat, čí čísla ukazuje.
   const lensAside = (
     <span className="font-mono text-xs uppercase tracking-widest text-cobalt">
-      váš index — váhy {encodeWeights(lens.weights)}
+      {t("lensBadge", { weights: encodeWeights(lens.weights) ?? "" })}
     </span>
   );
 
@@ -89,7 +89,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
             href={custom && encodeWeights(lens.weights) ? `/kraj?vahy=${encodeWeights(lens.weights)}` : "/kraj"}
             className="font-mono text-xs uppercase tracking-widest text-steel-aa transition-colors hover:text-ink"
           >
-            můj kraj — volební karta →
+            {t("toKrajLink")}
           </Link>
         </div>
       </header>
@@ -101,7 +101,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
         <div className="sticky top-0 z-20 border-b-2 border-ink bg-cobalt">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-2.5">
             <p className="font-mono text-xs font-bold uppercase tracking-widest text-paper">
-              váš index — váhy {encodeWeights(lens.weights)} · nejde o zveřejněnou metodiku
+              {t("lensStickyLine", { weights: encodeWeights(lens.weights) ?? "" })}
             </p>
             <button
               type="button"
@@ -109,7 +109,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
               className="inline-flex items-center gap-1.5 border-2 border-paper px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider text-paper transition-colors hover:bg-paper hover:text-cobalt"
             >
               <RotateCcw className="h-3 w-3" aria-hidden />
-              Výchozí metodika
+              {t("resetToPublished")}
             </button>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
             <section id="otevreny-index">
               <SectionHeading
                 index={1}
-                title="Otevřený index"
+                title={t("openIndexTitle")}
                 aside={
                   custom ? lensAside : <SourceNote>{t("publishedWeights", { weights: PUBLISHED_WEIGHTS_LABEL })}</SourceNote>
                 }

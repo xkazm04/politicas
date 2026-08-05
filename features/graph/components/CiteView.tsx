@@ -13,27 +13,18 @@
  * CopyExhibitLink, features/dashboard/ExhibitPage.tsx); selhání schránky se
  * pojmenuje a odkaz zůstane vypsaný k ručnímu výběru — nikdy tiché nic.
  *
- * Texty jsou lokální konstanty (precedens TrailFinder.tsx): katalog překladů
- * je sdílený soubor mimo výhradní plochu téhle feature.
+ * Texty jdou přes katalog překladů (graph.cite.* v messages/*.json).
  */
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Check, Link2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { citeViewAction } from "../graphActions";
 import type { GraphViewState } from "../permalink";
 
-const COPY = {
-  button: "citovat tento pohled",
-  working: "vydávám citaci…",
-  copied: "trvalý odkaz zkopírován",
-  copyFailed: "kopírování se nezdařilo — vyberte adresu níže ručně",
-  issueFailed: "citaci teď nejde vydat — pohled se nepodařilo doložit z dat",
-  open: "otevřít citaci",
-  hint: "trvalý odkaz nese celý pohled i otisk důkazů — k citování v článku",
-} as const;
-
 export default function CiteView({ state }: { state: GraphViewState }) {
+  const t = useTranslations("graph");
   const [status, setStatus] = useState<"idle" | "working" | "copied" | "failed" | "unissued">("idle");
   const [issuedPath, setIssuedPath] = useState<string | null>(null);
   const reqRef = useRef(0);
@@ -93,18 +84,18 @@ export default function CiteView({ state }: { state: GraphViewState }) {
           disabled={status === "working"}
           className="inline-flex items-center gap-1.5 border border-ink px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:bg-paper-strong hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt disabled:opacity-60"
         >
-          <Link2 className="h-3 w-3" aria-hidden /> {COPY.button}
+          <Link2 className="h-3 w-3" aria-hidden /> {t("cite.button")}
         </button>
         {/* Živá oblast: výsledek se ohlásí i odečítačce, ne jen okem. */}
         <span role="status" aria-live="polite" className="min-h-[1rem] font-mono text-[11px] uppercase tracking-wider">
-          {status === "working" && <span className="text-steel-aa">{COPY.working}</span>}
+          {status === "working" && <span className="text-steel-aa">{t("cite.working")}</span>}
           {status === "copied" && (
             <span className="inline-flex items-center gap-1 font-bold text-cobalt">
-              <Check className="h-3 w-3" aria-hidden /> {COPY.copied}
+              <Check className="h-3 w-3" aria-hidden /> {t("cite.copied")}
             </span>
           )}
-          {status === "failed" && <span className="text-signal-deep">{COPY.copyFailed}</span>}
-          {status === "unissued" && <span className="text-signal-deep">{COPY.issueFailed}</span>}
+          {status === "failed" && <span className="text-signal-deep">{t("cite.copyFailed")}</span>}
+          {status === "unissued" && <span className="text-signal-deep">{t("cite.issueFailed")}</span>}
         </span>
       </div>
       {issuedPath ? (
@@ -114,7 +105,7 @@ export default function CiteView({ state }: { state: GraphViewState }) {
           </Link>
         </p>
       ) : (
-        <p className="mt-1 text-[11px] leading-snug text-steel-aa">{COPY.hint}</p>
+        <p className="mt-1 text-[11px] leading-snug text-steel-aa">{t("cite.hint")}</p>
       )}
     </div>
   );

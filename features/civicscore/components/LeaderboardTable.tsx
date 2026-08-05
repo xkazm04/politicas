@@ -72,17 +72,18 @@ function StandoutStat({
   components: LeaderboardData["components"];
   medians: Record<string, number>;
 }) {
+  const t = useTranslations("civicscore");
   let best: { label: string; delta: number } | null = null;
   for (const c of components) {
     const delta = Math.round(entry.components[c.key] - (medians[c.key] ?? 0));
     if (!best || Math.abs(delta) > Math.abs(best.delta)) best = { label: c.label.split(" ")[0], delta };
   }
-  if (!best || best.delta === 0) return <span className="font-mono text-[10px] uppercase tracking-wider text-steel">≈ medián</span>;
+  if (!best || best.delta === 0) return <span className="font-mono text-[10px] uppercase tracking-wider text-steel">{t("standoutNearMedian")}</span>;
   const up = best.delta > 0;
   return (
     <span
       className={`font-mono text-[10px] font-bold uppercase tracking-wider ${up ? "text-cobalt" : "text-signal"}`}
-      title={`${best.label}: ${up ? "+" : ""}${best.delta} b. proti mediánu`}
+      title={t("standoutTitle", { label: best.label, delta: `${up ? "+" : ""}${best.delta}` })}
     >
       {up ? "+" : "−"}
       {Math.abs(best.delta)} {best.label}
@@ -231,10 +232,7 @@ export default function LeaderboardTable({
           zobrazí se jen pokud graf obsahuje aspoň jednoho MP s daným flavourem */}
       {hasWorkhorseData && (
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          {/* inline Czech literal, not next-intl: messages/*.json is shared/off-boundary
-              in fleet mode (same precedent as LowScoreReasonBadge / TrendPanel) — proposed
-              i18n key is listed in the batch handoff for the orchestrator to fold in */}
-          <span className="font-mono text-[10px] uppercase tracking-wider text-steel">Tiší pracanti:</span>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-steel">{t("workhorseFilterLabel")}</span>
           {(["legislative", "oversight"] as const).map((flav) => {
             if (workhorseCounts[flav] === 0) return null;
             const copy = workhorseFlavourCopy(flav)!;
@@ -265,25 +263,25 @@ export default function LeaderboardTable({
           <button
             type="button"
             onClick={() => setDossierOnly((v) => !v)}
-            title="Poslanci s pracovním profilem (effort-loop enrichment)"
+            title={t("dossierFilterTitle")}
             aria-pressed={dossierOnly}
             className={`inline-flex items-center gap-1.5 border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
               dossierOnly ? "border-cobalt bg-cobalt text-paper" : "border-hairline text-steel hover:text-ink"
             }`}
           >
             <FileText className="h-3 w-3" aria-hidden />
-            Jen s dosierem · {dossierCount}
+            {t("dossierFilterLabel")} · {dossierCount}
           </button>
         )}
         <button
           type="button"
           onClick={() => setCompact((v) => !v)}
           aria-pressed={compact}
-          title={compact ? "Rozšířené řádky" : "Kompaktní řádky"}
+          title={compact ? t("rowsExpandedTitle") : t("rowsCompactTitle")}
           className="ml-auto inline-flex items-center gap-1.5 border-2 border-hairline px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-steel transition-colors hover:text-ink"
         >
           <Rows3 className="h-3 w-3" aria-hidden />
-          {compact ? "Rozšířit" : "Zúžit"}
+          {compact ? t("rowsExpand") : t("rowsCompact")}
         </button>
       </div>
 
@@ -417,10 +415,7 @@ export default function LeaderboardTable({
           {t("shownOf", { count: rows.length })}
         </SourceNote>
         {custom ? (
-          <SourceNote>
-            seřazeno podle vašich vah (otevřený index, /01) — nejde o zveřejněný index; výchozí
-            metodiku vrátí tlačítko v horním pruhu
-          </SourceNote>
+          <SourceNote>{t("lensTableNote")}</SourceNote>
         ) : (
           <SourceNote className="!text-[10px]">{t("realNote")}</SourceNote>
         )}

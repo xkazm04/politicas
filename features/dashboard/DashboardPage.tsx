@@ -391,16 +391,14 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                 >
                   {t("graph.openPlayground")} <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
-                {/* Exponát jen pro reálný výřez — vzorek se citovat nesmí.
-                    Copy česky přímo tady (vzor DataUnavailable): messages/*.json
-                    je sdílený soubor a tahle plocha do něj nezapisuje. */}
+                {/* Exponát jen pro reálný výřez — vzorek se citovat nesmí. */}
                 {exhibitHref && (
                   <Link
                     href={exhibitHref}
-                    title="Exponát — citovatelný otisk tohoto výřezu"
+                    title={t("graph.exhibitLink")}
                     className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
                   >
-                    <Stamp className="h-3.5 w-3.5" aria-hidden /> Exponát
+                    <Stamp className="h-3.5 w-3.5" aria-hidden /> {t("graph.exhibitLabel")}
                   </Link>
                 )}
               </div>
@@ -424,13 +422,7 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
               {!slice && <SourceNote className="mt-2">{t("graph.sliceNote")}</SourceNote>}
               {/* Jednořádkové vysvětlení afordance „Exponát" — nástroj, který
                   nikdo nenajde, je nefunkční nástroj. */}
-              {slice && (
-                <SourceNote className="mt-2">
-                  exponát = trvalý citovatelný otisk tohoto výřezu — adresa nese content-hash,
-                  obsah se z registrů odvozuje znovu; otisk má i každý řádek provozu (razítko u
-                  řádku)
-                </SourceNote>
-              )}
+              {slice && <SourceNote className="mt-2">{t("graph.exhibitNote")}</SourceNote>}
             </div>
             <div id="provoz" className="min-w-0 xl:col-span-5">
               {/* Reálná kniha faktů, nebo OZNAČENÝ vzorek — dva moduly, jeden

@@ -67,7 +67,8 @@ export default async function PoslanecPage({ params }: { params: Promise<{ id: s
   // them apart: empty ⇒ no store. Never answer "neexistuje" for a busy database.
   const known = await getAllProfilePspIds();
   if (known.length === 0) {
-    return <DataUnavailable what="Profil poslance" backHref="/zebricek" backLabel="zpět na žebříček" />;
+    const t = await getTranslations("profile");
+    return <DataUnavailable what={t("unavailableWhat")} backHref="/zebricek" backLabel={t("unavailableBack")} />;
   }
   notFound();
 }

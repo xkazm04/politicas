@@ -12,33 +12,31 @@
  * mimo záznam — zdroj: psp.cz" — nikdy dopočtená čísla. Nesouvislá služba
  * („mimo sněmovnu") je reálná nepřítomnost z registru, ne mezera v datech.
  *
- * Copy je česky přímo tady po vzoru DataUnavailable/FactRow-Exponát:
- * messages/*.json je sdílený soubor a tahle plocha do něj nezapisuje.
+ * Copy jde přes messages/*.json (`profile.career*`) jako zbytek spisu —
+ * serverIntl.profileIntl(), tatáž dvojice { t, f } jako u ostatních oddílů.
  */
 
 import type { Formatters } from "@/lib/format";
-import { profileIntl } from "../serverIntl";
+import { profileIntl, type ProfileIntl } from "../serverIntl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { CareerSpine, CareerTerm } from "../careerSpine";
 
+type T = ProfileIntl["t"];
+
 /** „8. volební období" / fallback na syrový kód mimo konvenci. */
-const termTitle = (t: CareerTerm): string =>
-  t.termNumber !== null ? `${t.termNumber}. volební období` : t.termCode;
+const termTitle = (t: T, term: CareerTerm): string =>
+  term.termNumber !== null ? t("careerTermTitle", { n: term.termNumber }) : term.termCode;
 
 /** Roky do datového sloupce: „2017–2021", u běžícího „od 2025". */
-const yearsOf = (t: CareerTerm): string => {
-  const fromYear = (t.mandateFrom ?? t.chamberFrom)?.slice(0, 4) ?? null;
-  const toYear = (t.mandateTo ?? t.chamberTo)?.slice(0, 4) ?? null;
+const yearsOf = (t: T, term: CareerTerm): string => {
+  const fromYear = (term.mandateFrom ?? term.chamberFrom)?.slice(0, 4) ?? null;
+  const toYear = (term.mandateTo ?? term.chamberTo)?.slice(0, 4) ?? null;
   if (fromYear === null) return "—";
-  if (t.openEnded || toYear === null) return `od ${fromYear}`;
+  if (term.openEnded || toYear === null) return t("careerYearsSince", { year: fromYear });
   return `${fromYear}–${toYear}`;
 };
 
-/** „× volebních období" se správnou českou číslovkou. */
-const servedLabel = (n: number): string =>
-  n === 1 ? "1 volební období" : n >= 2 && n <= 4 ? `${n} volební období` : `${n} volebních období`;
-
-function TermRow({ term, f }: { term: CareerTerm; f: Formatters }) {
+function TermRow({ term, t, f }: { term: CareerTerm; t: T; f: Formatters }) {
   return (
     <div
       className={`grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 border-b border-hairline py-3 pr-2 sm:grid-cols-[5.5rem_auto_1fr] ${
@@ -46,7 +44,7 @@ function TermRow({ term, f }: { term: CareerTerm; f: Formatters }) {
       }`}
     >
       <span className="col-span-2 font-mono text-[11px] uppercase tracking-wider text-steel sm:col-span-1">
-        {yearsOf(term)}
+        {yearsOf(t, term)}
       </span>
       <span
         className={`mt-1.5 inline-block h-2.5 w-2.5 shrink-0 ${term.current ? "bg-signal" : "bg-steel"}`}
@@ -54,9 +52,9 @@ function TermRow({ term, f }: { term: CareerTerm; f: Formatters }) {
       />
       <span className="min-w-0 text-[15px] leading-relaxed">
         <span className={term.current ? "font-black uppercase tracking-tight" : "font-bold"}>
-          {termTitle(term)}
+          {termTitle(t, term)}
         </span>
-        {term.partyList && <span className="text-steel"> · kandidátka {term.partyList}</span>}
+        {term.partyList && <span className="text-steel"> · {t("careerPartyList", { list: term.partyList })}</span>}
         {term.region && <span className="text-steel"> · {term.region}</span>}
         <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
           [psp.cz]
@@ -65,37 +63,39 @@ function TermRow({ term, f }: { term: CareerTerm; f: Formatters }) {
         {term.mandateFrom && (
           <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
             {term.openEnded
-              ? `mandát od ${f.date(term.mandateFrom)} · běží`
+              ? t("careerMandateSinceRunning", { date: f.date(term.mandateFrom) })
               : term.mandateTo
-                ? `mandát ${f.date(term.mandateFrom)} – ${f.date(term.mandateTo)}`
-                : `mandát od ${f.date(term.mandateFrom)}`}
-            {term.stintCount > 1 ? ` · ${term.stintCount} úseky` : ""}
+                ? t("careerMandateRange", { from: f.date(term.mandateFrom), to: f.date(term.mandateTo) })
+                : t("careerMandateSince", { date: f.date(term.mandateFrom) })}
+            {term.stintCount > 1
+              ? ` · ${t("careerStints", { count: term.stintCount, countFmt: f.int(term.stintCount) })}`
+              : ""}
           </span>
         )}
         {term.windowUnknown && (
           <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-            osobní okno mandátu v registru chybí
+            {t("careerWindowUnknown")}
           </span>
         )}
         {term.dateUnreadable && (
           <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-ochre">
-            datum v registru nečitelné — potlačeno, neopraveno
+            {t("careerDateUnreadable")}
           </span>
         )}
         {/* Pokrytí záznamu aktivity — přiznaná mezera, nikdy dopočtený trend. */}
         {term.coverage === "none" && (
           <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-ochre">
-            období zatím mimo záznam — zdroj: psp.cz
+            {t("careerCoverageNone")}
           </span>
         )}
         {term.coverage === "partial" && (
           <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-steel">
-            záznam částečný (bez sněmovních hlasování) — viz vývoj výše
+            {t("careerCoveragePartial")}
           </span>
         )}
         {term.current && (
           <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-signal">
-            běžící období — úplný záznam tohoto spisu
+            {t("careerCoverageCurrent")}
           </span>
         )}
       </span>
@@ -104,7 +104,7 @@ function TermRow({ term, f }: { term: CareerTerm; f: Formatters }) {
 }
 
 export default async function CareerSpineSection({ career, asOf }: { career: CareerSpine; asOf: string }) {
-  const { f } = await profileIntl();
+  const { t, f } = await profileIntl();
   if (career.terms.length === 0) return null;
 
   // Přestávka se vykresluje ZA obdobím, po kterém následuje.
@@ -113,33 +113,29 @@ export default async function CareerSpineSection({ career, asOf }: { career: Car
   return (
     // Kariérní spis stojí v hlavičce, ne mezi číslovanými oddíly — kotvu má proto,
     // aby na služební záznam vedla trvalá adresa, ne aby se objevil v liště.
-    <section id="kariera" aria-label="Služební záznam" className="mt-10">
+    <section id="kariera" aria-label={t("careerHeading")} className="mt-10">
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-        Služební záznam · {servedLabel(career.servedTermCount)}
+        {t("careerHeading")} ·{" "}
+        {t("careerServedTerms", { count: career.servedTermCount, countFmt: f.int(career.servedTermCount) })}
       </p>
-      <p className="mt-1 max-w-2xl text-[13px] leading-relaxed text-steel">
-        Mandáty poslance napříč volebními obdobími podle registru psp.cz. Období bez
-        ingestovaného záznamu aktivity jsou přiznaná, nikdy dopočtená.
-      </p>
+      <p className="mt-1 max-w-2xl text-[13px] leading-relaxed text-steel">{t("careerLead")}</p>
       <div className="mt-4 border-t-2 border-ink">
         {career.terms.map((term) => (
           <div key={term.termCode}>
-            <TermRow term={term} f={f} />
+            <TermRow term={term} t={t} f={f} />
             {breakAfter.has(term.termCode) && (
               <div className="grid grid-cols-[auto_1fr] items-baseline gap-x-3 border-b border-dashed border-hairline py-2 pl-4 sm:grid-cols-[5.5rem_auto_1fr]">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-steel">·</span>
                 <span aria-hidden />
                 <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                  mimo sněmovnu · {breakAfter.get(term.termCode)!.missedTermCodes.join(", ")}
+                  {t("careerBreak", { terms: breakAfter.get(term.termCode)!.missedTermCodes.join(", ") })}
                 </span>
               </div>
             )}
           </div>
         ))}
       </div>
-      <SourceNote className="mt-2 !text-[10px]">
-        psp.cz · poslanec + zarazeni (registr všech období) · hodnoceno k {f.date(asOf)}
-      </SourceNote>
+      <SourceNote className="mt-2 !text-[10px]">{t("careerSource", { date: f.date(asOf) })}</SourceNote>
     </section>
   );
 }
