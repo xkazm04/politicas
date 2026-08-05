@@ -1,586 +1,3041 @@
 {
-  "$schema": "https://vibeman.dev/schemas/context-map.json",
-  "projectId": "politicas",
-  "projectName": "politicas",
-  "projectPath": "C:/Users/mkdol/dolla/politicas",
-  "version": "2.0.0",
+  "contexts": [
+    {
+      "api_surface": "GET /admin",
+      "business_feature": "Admin Control Panel",
+      "category": "ui",
+      "cross_refs": [],
+      "db_tables": [],
+      "description": "Internal admin panel (/admin) for loop mission control, tripwire monitoring, system state, and vault status. getAdminData.ts and getTripwireData.ts aggregate internal health signals; the loops/ subdirectory contains driveState.ts (state machine driving analysis loops), driveLog.ts (structured log persistence), loopState.ts (pure state derivation) and their tests — the backbone of the offline data-analysis pipeline control surface. Six components render the panel sections.",
+      "entry_points": [
+        "features/admin/AdminPage.tsx",
+        "features/admin/loops/driveState.ts",
+        "features/admin/getAdminData.ts"
+      ],
+      "file_paths": [
+        "features/admin/AdminPage.tsx",
+        "features/admin/adminTypes.ts",
+        "features/admin/getAdminData.ts",
+        "features/admin/getTripwireData.ts",
+        "features/admin/components/LoopMissionControl.tsx",
+        "features/admin/components/LoopProgressGrid.tsx",
+        "features/admin/components/ReviewHubSection.tsx",
+        "features/admin/components/SystemStateStrip.tsx",
+        "features/admin/components/TripwireSection.tsx",
+        "features/admin/components/VaultHeadsPanel.tsx",
+        "features/admin/loops/driveLog.ts",
+        "features/admin/loops/driveLog.test.ts",
+        "features/admin/loops/driveState.ts",
+        "features/admin/loops/driveState.test.ts",
+        "features/admin/loops/getLoopState.ts",
+        "features/admin/loops/loopsJson.ts",
+        "features/admin/loops/loopsJson.test.ts",
+        "features/admin/loops/loopState.ts",
+        "features/admin/loops/loopState.test.ts"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "bdc25695-c6ce-4084-85dd-3ca6814b84c5",
+      "keywords": [
+        "admin",
+        "loop",
+        "mission control",
+        "tripwire",
+        "vault",
+        "driveState",
+        "driveLog",
+        "loopState",
+        "system state",
+        "pipeline"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.332933300+00:00",
+      "name": "admin-control",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Content Quality & Language Gating",
+      "category": "lib",
+      "cross_refs": [
+        "contribution-scoring",
+        "kg-analysis"
+      ],
+      "db_tables": [],
+      "description": "Cross-cutting content-quality layer that gates analyst copy before it appears in the product. Includes the language-gate classifier (distinguishes Czech from English copy to prevent raw English identifiers reaching the UI), public-copy guards, content-context model and provider, quality tripwires, committee-claims helpers, atlas (data coverage tracking), and plausible-date validation for corpus entries with impossible dates. These utilities are called by almost every feature loader to ensure only verified, language-appropriate copy renders.",
+      "entry_points": [
+        "lib/analysis/language-gate.ts",
+        "lib/analysis/public-copy.ts",
+        "lib/analysis/committee-claims.ts"
+      ],
+      "file_paths": [
+        "lib/analysis/language-gate.ts",
+        "lib/analysis/language-gate.test.ts",
+        "lib/analysis/public-copy.ts",
+        "lib/analysis/public-copy.test.ts",
+        "lib/analysis/context-model.ts",
+        "lib/analysis/context-provider.ts",
+        "lib/analysis/context-provider.test.ts",
+        "lib/analysis/quality.ts",
+        "lib/analysis/quality.test.ts",
+        "lib/analysis/atlas.ts",
+        "lib/analysis/atlas.test.ts",
+        "lib/analysis/tripwires.ts",
+        "lib/analysis/tripwires.test.ts",
+        "lib/analysis/committee-claims.ts",
+        "lib/analysis/committee-claims.test.ts",
+        "lib/analysis/plausible-date.ts",
+        "lib/analysis/plausible-date.test.ts"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "6494285a-bfbd-4de9-a80a-742f5bb292b4",
+      "keywords": [
+        "language-gate",
+        "czech",
+        "public-copy",
+        "quality",
+        "tripwire",
+        "plausible-date",
+        "committee",
+        "atlas",
+        "content-quality",
+        "validation"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.142901+00:00",
+      "name": "analysis-quality",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Build Configuration",
+      "category": "config",
+      "cross_refs": [
+        "observability",
+        "lint-rules"
+      ],
+      "db_tables": [],
+      "description": "Build and project configuration: Next.js config with Sentry wrapper and Turbopack root, TypeScript strict mode with bundler module resolution and @/* path alias, PostCSS for Tailwind v4, flat ESLint config composing next + 4 custom rules, lefthook git-hook automation, and environment variable template.",
+      "entry_points": [
+        "next.config.ts",
+        "tsconfig.json"
+      ],
+      "file_paths": [
+        "next.config.ts",
+        "postcss.config.mjs",
+        "eslint.config.mjs"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "2bce79e5-82e8-43af-b538-83a06821680f",
+      "keywords": [
+        "config",
+        "next",
+        "tsconfig",
+        "postcss",
+        "eslint",
+        "lefthook",
+        "CI",
+        "turbopack",
+        "env",
+        "build"
+      ],
+      "last_written_at": "2026-08-05T08:23:00.052245300+00:00",
+      "name": "app-config",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind v4",
+        "ESLint",
+        "GitHub Actions"
+      ]
+    },
+    {
+      "api_surface": "GET /robots.txt, GET /sitemap.xml",
+      "business_feature": "App Shell & Navigation",
+      "category": "ui",
+      "cross_refs": [
+        "mp-rankings-routes",
+        "civic-feeds-verification",
+        "graph-admin-data-routes"
+      ],
+      "db_tables": [],
+      "description": "Provides the root HTML shell, global typography tokens, app-wide error boundaries, and crawler-facing declarations (robots.txt, sitemap). app/layout.tsx mounts the NextIntlClientProvider and the AppShell chrome; app/page.tsx hands off to the LandingPage feature. robots.ts and sitemap.ts are the single source of truth for what is public vs. disallowed, and are imported by each other to prevent contradictions.",
+      "entry_points": [
+        "app/layout.tsx",
+        "app/robots.ts",
+        "app/sitemap.ts"
+      ],
+      "file_paths": [
+        "app/layout.tsx",
+        "app/page.tsx",
+        "app/error.tsx",
+        "app/global-error.tsx",
+        "app/globals.css",
+        "app/robots.ts",
+        "app/sitemap.ts"
+      ],
+      "group": "Landing & Navigation",
+      "group_id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
+      "id": "4daa2705-7325-4384-8fdd-deabcc9bb644",
+      "keywords": [
+        "layout",
+        "shell",
+        "error-boundary",
+        "robots",
+        "sitemap",
+        "i18n",
+        "fonts",
+        "Archivo",
+        "AppShell",
+        "global-error"
+      ],
+      "last_written_at": "2026-08-05T08:13:32.803835700+00:00",
+      "name": "app-shell",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 16.2",
+        "React 19.2",
+        "next-intl",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "GET /rozpocty",
+      "business_feature": "BudgetMirror",
+      "category": "ui",
+      "cross_refs": [
+        "money-ledger-graph"
+      ],
+      "db_tables": [],
+      "description": "BudgetMirror (/rozpocty) lets citizens compare a municipality's budget metrics against a computed peer-group median. mirrorData.ts derives the metric pair structure; peerGroups.ts classifies towns by population band; supplierTrail.ts surfaces the top public-procurement suppliers for a selected town, reading from generated static snapshots. getSupplierTies.ts cross-references supplier IČOs against the MP money graph to flag political connections.",
+      "entry_points": [
+        "features/budget/BudgetMirrorPage.tsx",
+        "features/budget/mirrorData.ts"
+      ],
+      "file_paths": [
+        "features/budget/BudgetMirrorPage.tsx",
+        "features/budget/MoneyTrailSection.tsx",
+        "features/budget/TownPicker.tsx",
+        "features/budget/mirrorData.ts",
+        "features/budget/mirrorData.test.ts",
+        "features/budget/peerGroups.ts",
+        "features/budget/peerGroups.test.ts",
+        "features/budget/supplierTrail.ts",
+        "features/budget/supplierTrail.test.ts",
+        "features/budget/getSupplierTies.ts",
+        "features/budget/data/budgetSnapshots.generated.ts",
+        "features/budget/data/municipalSuppliers.generated.ts",
+        "features/budget/data/registryData.generated.ts",
+        "features/budget/tools/generate-municipal-suppliers.ts"
+      ],
+      "group": "Financial Transparency",
+      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
+      "id": "38aa6449-424a-40ee-a6e9-30dbb180afb8",
+      "keywords": [
+        "budget",
+        "municipality",
+        "peer group",
+        "spending",
+        "supplier",
+        "trail",
+        "town",
+        "obec",
+        "procurement"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.330568+00:00",
+      "name": "budget-mirror",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "recharts 3"
+      ]
+    },
+    {
+      "api_surface": "GET /denik, GET /dukazy, GET /denik/feed.xml, GET /denik/feed.json, GET /dukazy/feed.xml, GET /dukazy/feed.json",
+      "business_feature": "Civic Chronicle & Evidence Feed",
+      "category": "api",
+      "cross_refs": [
+        "schranka-notifications",
+        "money-cases-review",
+        "lawwatch"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "review_audit"
+      ],
+      "description": "Deník republiky (/denik) — the chronological public record of dated facts (contract signatures, committee assignments, Sbírka publications, gate decisions) — and Důkazy (/dukazy) — the public bulletin of human-gate review decisions. deriveDenik.ts shapes graph data into dated rows; pragueDay.ts ensures day boundaries use Prague local time; feedCodecs.ts serialises both surfaces as RSS 2.0 and JSON Feed 1.1. dukazy/deriveFeed.ts reads the review_audit table for the evidence bulletin.",
+      "entry_points": [
+        "features/denik/getDenikData.ts",
+        "features/denik/deriveDenik.ts",
+        "features/dukazy/getDukazyData.ts"
+      ],
+      "file_paths": [
+        "features/denik/DenikPage.tsx",
+        "features/denik/deriveDenik.ts",
+        "features/denik/deriveDenik.test.ts",
+        "features/denik/feedCodecs.ts",
+        "features/denik/feedCodecs.test.ts",
+        "features/denik/getDenikData.ts",
+        "features/denik/kindLabels.ts",
+        "features/denik/kindLabels.test.ts",
+        "features/denik/pragueDay.ts",
+        "features/denik/pragueDay.test.ts",
+        "features/dukazy/DukazyPage.tsx",
+        "features/dukazy/deriveFeed.ts",
+        "features/dukazy/deriveFeed.test.ts",
+        "features/dukazy/feedCodecs.ts",
+        "features/dukazy/feedCodecs.test.ts",
+        "features/dukazy/getDukazyData.ts"
+      ],
+      "group": "Civic Feed & Transparency",
+      "group_id": "179abe0a-0b22-4943-921e-e4f1d1a32cde",
+      "id": "cd03f19b-e1eb-4051-a947-3578b2c92280",
+      "keywords": [
+        "deník",
+        "důkazy",
+        "ledger",
+        "chronicle",
+        "dated facts",
+        "gate decisions",
+        "RSS",
+        "JSON Feed",
+        "Prague day",
+        "evidence"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.331131600+00:00",
+      "name": "civic-chronicle",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "GET /denik/feed.xml, GET /denik/feed.json, GET /dukazy/feed.xml, GET /dukazy/feed.json, GET /schranka/feed.xml, GET /schranka/feed.json, GET /schranka/novinky.json",
+      "business_feature": "Civic Feeds, Evidence & Verification",
+      "category": "api",
+      "cross_refs": [
+        "money-budget-routes",
+        "voting-legislation-routes",
+        "mp-rankings-routes"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "review_audit"
+      ],
+      "description": "Thin routes for the three citizen-facing transparency feeds and verification surfaces. Deník republiky (/denik + RSS/JSON feeds) is the chronological daily record of state activity keyed by entity; Dukazy (/dukazy + feeds) is the public gate-decision bulletin; Schránka (/schranka + feeds + novinky.json) is the account-free civic inbox backed by localStorage. Citation verification (/overeni) re-derives a claim from a ref against the live graph, and /zdroj/[ref] renders the machine-readable receipt with schema.org ClaimReview JSON-LD. All five share the same feed codec and the same public entity-key conventions.",
+      "entry_points": [
+        "app/denik/page.tsx",
+        "app/schranka/page.tsx",
+        "app/overeni/page.tsx",
+        "app/zdroj/[ref]/page.tsx"
+      ],
+      "file_paths": [
+        "app/denik/page.tsx",
+        "app/denik/feed.json/route.ts",
+        "app/denik/feed.xml/route.ts",
+        "app/dukazy/page.tsx",
+        "app/dukazy/feed.json/route.ts",
+        "app/dukazy/feed.xml/route.ts",
+        "app/schranka/page.tsx",
+        "app/schranka/feed.json/route.ts",
+        "app/schranka/feed.xml/route.ts",
+        "app/schranka/novinky.json/route.ts",
+        "app/overeni/page.tsx",
+        "app/zdroj/[ref]/page.tsx"
+      ],
+      "group": "Civic Feed & Transparency",
+      "group_id": "179abe0a-0b22-4943-921e-e4f1d1a32cde",
+      "id": "055d180e-818d-4870-b5d3-e13d2b08dfdd",
+      "keywords": [
+        "denik",
+        "dukazy",
+        "schranka",
+        "overeni",
+        "zdroj",
+        "receipt",
+        "ClaimReview",
+        "RSS",
+        "JSON-Feed",
+        "entity-key",
+        "follow",
+        "civic-inbox",
+        "gate-decision",
+        "novinky",
+        "feed-codec"
+      ],
+      "last_written_at": "2026-08-05T08:23:00.221694400+00:00",
+      "name": "civic-feeds-verification",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 16.2",
+        "React 19.2",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Civic Sample Data & Graph Primitives",
+      "category": "lib",
+      "cross_refs": [
+        "db-store",
+        "contribution-scoring"
+      ],
+      "db_tables": [],
+      "description": "Sample domain data and knowledge-graph visual primitives shared across the app. lib/civic provides deterministic mock leaderboard data, sample vote records, and the stateGraph builder used as the velín canvas fallback; lib/kg provides the graph layout engine, glyph renderer (node shapes by entity kind), and source-link builder that generates psp.cz / ARES / smlouvy deep-links from stable entity ids. Both directories are imported by multiple features and must not import from features/.",
+      "entry_points": [
+        "lib/civic/data.ts",
+        "lib/kg/layout.ts",
+        "lib/kg/sourceLinks.ts"
+      ],
+      "file_paths": [
+        "lib/civic/data.ts",
+        "lib/civic/data.test.ts",
+        "lib/civic/dataSources.test.ts",
+        "lib/civic/leaderboard.ts",
+        "lib/civic/stateGraph.ts",
+        "lib/civic/stateGraph.test.ts",
+        "lib/civic/votes.ts",
+        "lib/kg/glyph.ts",
+        "lib/kg/glyph.test.ts",
+        "lib/kg/layout.ts",
+        "lib/kg/layout.test.ts",
+        "lib/kg/sourceLinks.ts",
+        "lib/kg/sourceLinks.test.ts"
+      ],
+      "group": "Shared UI Primitives",
+      "group_id": "8044cd53-651f-4a5e-972e-a42023976cfa",
+      "id": "ef88cdef-a426-4c7b-bff0-bfeff67d6345",
+      "keywords": [
+        "mock",
+        "sample",
+        "leaderboard",
+        "stateGraph",
+        "layout",
+        "glyph",
+        "sourceLinks",
+        "entity",
+        "fallback",
+        "canvas"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.150992600+00:00",
+      "name": "civic-kg-primitives",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "React 19",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Civic Transparency ESLint Rules",
+      "category": "config",
+      "cross_refs": [],
+      "db_tables": [],
+      "description": "Packages the project's civic-tech transparency doctrine as a portable ESLint flat-config plugin. Eight rules enforce design-token colours, server/client boundary isolation, silent-catch prevention, a11y motion safety, and machine-verified number provenance (source citations). Each rule ships with a corresponding test file in __tests__/; the plugin is consumed by the root eslint.config.mjs.",
+      "entry_points": [
+        "packages/eslint-plugin-civic-transparency/index.cjs"
+      ],
+      "file_paths": [
+        "packages/eslint-plugin-civic-transparency/index.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/no-raw-number-display.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/no-server-import-in-client.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/no-silent-catch.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/no-silent-null-catch.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/require-source-citation.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/role-button-requires-keydown.cjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/enforce-reduced-motion-fallback.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-colors.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/no-raw-number-display.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/no-server-import-in-client.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/no-silent-null-catch.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/role-button-requires-keydown.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "6c0d18d1-b20f-4a10-94c8-0f2ff6c4846d",
+      "keywords": [
+        "eslint",
+        "lint",
+        "flat-config",
+        "transparency",
+        "provenance",
+        "source-citation",
+        "motion",
+        "a11y",
+        "server-client-boundary",
+        "design-token"
+      ],
+      "last_written_at": "2026-08-05T08:19:08.178731400+00:00",
+      "name": "civic-transparency-eslint-plugin",
+      "pinned": false,
+      "tech_stack": [
+        "ESLint 9",
+        "Node.js",
+        "CommonJS"
+      ]
+    },
+    {
+      "api_surface": "GET /zebricek, GET /kraj/[slug], GET /kraj, GET /metodika",
+      "business_feature": "CivicScore Leaderboard",
+      "category": "ui",
+      "cross_refs": [
+        "civicscore-lens-duel",
+        "mp-profile",
+        "dashboard-instruments",
+        "shared-provenance"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The CivicScore leaderboard (/zebricek), kraj (region) views, and methodology page. getLeaderboardData.ts builds the real ranked chamber over 207 MPs from the knowledge graph; componentDefs.ts is the single definition of the six weighted contribution components; provenance.ts aggregates the formula-ref uniformity check across the whole chamber; scoreClaim.ts mints the one citable composite-index claim. Eight rendering components cover the table, histogram, trend panel, verdict badges and search.",
+      "entry_points": [
+        "features/civicscore/getLeaderboardData.ts",
+        "features/civicscore/CivicScorePage.tsx",
+        "features/civicscore/componentDefs.ts"
+      ],
+      "file_paths": [
+        "features/civicscore/CivicScorePage.tsx",
+        "features/civicscore/MetodikaPage.tsx",
+        "features/civicscore/KrajPage.tsx",
+        "features/civicscore/KrajPickerPage.tsx",
+        "features/civicscore/getLeaderboardData.ts",
+        "features/civicscore/componentDefs.ts",
+        "features/civicscore/componentDefs.test.ts",
+        "features/civicscore/componentFill.ts",
+        "features/civicscore/provenance.ts",
+        "features/civicscore/provenance.test.ts",
+        "features/civicscore/scoreClaim.ts",
+        "features/civicscore/scoreClaim.test.ts",
+        "features/civicscore/search.ts",
+        "features/civicscore/search.test.ts",
+        "features/civicscore/kraj.ts",
+        "features/civicscore/kraj.test.ts",
+        "features/civicscore/messages.test.ts",
+        "features/civicscore/components/HeadToHead.tsx",
+        "features/civicscore/components/LeaderboardTable.tsx",
+        "features/civicscore/components/LowScoreReasonChip.tsx",
+        "features/civicscore/components/RapporteurBadge.tsx",
+        "features/civicscore/components/ScoreHistogram.tsx",
+        "features/civicscore/components/TrendPanel.tsx",
+        "features/civicscore/components/WorkhorseBadge.tsx"
+      ],
+      "group": "MP Profiles & Rankings",
+      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
+      "id": "4fcb315e-66a1-4642-8eb7-94236d979535",
+      "keywords": [
+        "CivicScore",
+        "leaderboard",
+        "contribution index",
+        "ranking",
+        "provenance",
+        "formula ref",
+        "pass",
+        "kraj",
+        "metodika",
+        "committee dedupe"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.326255+00:00",
+      "name": "civicscore-leaderboard",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "recharts 3"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Civic Lens & Duel",
+      "category": "lib",
+      "cross_refs": [
+        "civicscore-leaderboard"
+      ],
+      "db_tables": [],
+      "description": "The personalised lens (citizen-adjustable weight vector) and the Head-to-Head Souboj duel feature. lens.ts derives a re-weighted ranking from citizen weight inputs; duelFacts.ts computes the factual comparison layer (tenure, speeches, amendments, rapporteur load) with real chamber medians; duel.ts determines winners without fabricating ties. trendCopy.ts and WeightPanel.tsx complete the trend-note copy engine and weight-adjustment UI.",
+      "entry_points": [
+        "features/civicscore/lens.ts",
+        "features/civicscore/duelFacts.ts"
+      ],
+      "file_paths": [
+        "features/civicscore/lens.ts",
+        "features/civicscore/lens.test.ts",
+        "features/civicscore/useLensWeights.ts",
+        "features/civicscore/duel.ts",
+        "features/civicscore/duel.test.ts",
+        "features/civicscore/duelFacts.ts",
+        "features/civicscore/duelFacts.test.ts",
+        "features/civicscore/trendCopy.ts",
+        "features/civicscore/trendCopy.test.ts",
+        "features/civicscore/components/WeightPanel.tsx"
+      ],
+      "group": "MP Profiles & Rankings",
+      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
+      "id": "03e038d7-f116-444f-9b3f-a675008ec694",
+      "keywords": [
+        "lens",
+        "weights",
+        "duel",
+        "souboj",
+        "head-to-head",
+        "citizen weights",
+        "re-rank",
+        "trend",
+        "chamber median"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.326702400+00:00",
+      "name": "civicscore-lens-duel",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "GET /overeni, GET /zdroj/[ref], GET /data, GET /data/manifest.json, GET /data/snapshot.json",
+      "business_feature": "Claim Verifier & Data Releases",
+      "category": "ui",
+      "cross_refs": [
+        "shared-provenance",
+        "money-ledger-graph",
+        "money-cases-review",
+        "civicscore-leaderboard"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "review_audit"
+      ],
+      "description": "Ověření citace (/overeni) lets anyone paste a politicas receipt, graph permalink, or data-claim element to re-derive the value from today's graph. verdict.ts maps the three-verdict vocabulary (verified/moved/unknown); refDetect.ts classifies pasted URLs by their path pattern; liveFigures.ts re-derives money and score claims against live loaders. The data-releases surface (/data) catalogues all feed addresses and data-layer manifest/snapshot endpoints.",
+      "entry_points": [
+        "features/overeni/OvereniPage.tsx",
+        "features/overeni/verdict.ts",
+        "features/data-releases/feedIndex.ts"
+      ],
+      "file_paths": [
+        "features/overeni/OvereniPage.tsx",
+        "features/overeni/VerdictFocus.tsx",
+        "features/overeni/gateVocabulary.ts",
+        "features/overeni/gateVocabulary.test.ts",
+        "features/overeni/getGuideExample.ts",
+        "features/overeni/getVerdictData.ts",
+        "features/overeni/guide.ts",
+        "features/overeni/guide.test.ts",
+        "features/overeni/liveFigures.ts",
+        "features/overeni/messages.test.ts",
+        "features/overeni/refDetect.ts",
+        "features/overeni/refDetect.test.ts",
+        "features/overeni/verdict.ts",
+        "features/overeni/verdict.test.ts",
+        "features/data-releases/DataReleasesPage.tsx",
+        "features/data-releases/feedIndex.ts",
+        "features/data-releases/feedIndex.test.ts",
+        "features/data-releases/getDataReleasesData.ts",
+        "features/data-releases/manifest.ts",
+        "features/data-releases/manifest.test.ts",
+        "features/data-releases/snapshot.ts",
+        "features/data-releases/snapshot.test.ts"
+      ],
+      "group": "Civic Feed & Transparency",
+      "group_id": "179abe0a-0b22-4943-921e-e4f1d1a32cde",
+      "id": "830ecdb4-59e9-42d9-9c0e-d04e44a4a5cd",
+      "keywords": [
+        "overení",
+        "verify",
+        "claim",
+        "receipt",
+        "verdict",
+        "refDetect",
+        "live figures",
+        "data releases",
+        "manifest",
+        "snapshot",
+        "feed index"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.331818200+00:00",
+      "name": "claim-verifier",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "MP Contribution Scoring",
+      "category": "lib",
+      "cross_refs": [
+        "db-repositories",
+        "db-store",
+        "analysis-quality"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Implements the CivicScore contribution index — the platform's flagship MP ranking formula. Computes the six weighted components (participation, committee, legislative, speech, attendance, leadership), produces score legibility panels with per-component citations and chamber medians, and derives effort verdicts (workhorse, rapporteur load, tenure class, low-score corrections) that appear on /zebricek rows and /poslanec dossiers. Depends on the PGlite repositories for stored contribution props and on CONTRIBUTION_FORMULA_REF for formula lineage enforcement.",
+      "entry_points": [
+        "lib/analysis/contribution.ts",
+        "lib/analysis/score-legibility.ts",
+        "lib/analysis/workhorse-flavour.ts"
+      ],
+      "file_paths": [
+        "lib/analysis/contribution.ts",
+        "lib/analysis/contribution.test.ts",
+        "lib/analysis/contribution-legacy.ts",
+        "lib/analysis/contribution-legacy.test.ts",
+        "lib/analysis/contribution-trend.ts",
+        "lib/analysis/contribution-trend.test.ts",
+        "lib/analysis/score-legibility.ts",
+        "lib/analysis/score-legibility.test.ts",
+        "lib/analysis/score-citations.ts",
+        "lib/analysis/score-citations.test.ts",
+        "lib/analysis/low-score-reason.ts",
+        "lib/analysis/low-score-reason.test.ts",
+        "lib/analysis/workhorse-flavour.ts",
+        "lib/analysis/workhorse-flavour.test.ts",
+        "lib/analysis/rapporteur-load.ts",
+        "lib/analysis/rapporteur-load.test.ts",
+        "lib/analysis/tenure-copy.ts",
+        "lib/analysis/tenure-copy.test.ts"
+      ],
+      "group": "MP Profiles & Rankings",
+      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
+      "id": "9fc99928-40bf-42d8-825a-0f1a35510757",
+      "keywords": [
+        "civicscore",
+        "contribution",
+        "score",
+        "ranking",
+        "workhorse",
+        "rapporteur",
+        "tenure",
+        "low-score",
+        "formula",
+        "leaderboard"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.137742100+00:00",
+      "name": "contribution-scoring",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Czech Civic Data Parsing",
+      "category": "lib",
+      "cross_refs": [],
+      "db_tables": [],
+      "description": "Provides the low-level file-format primitives that every psp.cz ingest adapter depends on: escape-aware UNL (Informix UNLOAD) parsing, fatal Windows-1250 decoding, a dependency-free capped ZIP reader, and Czech ASCII-folding for name normalisation. It is a private workspace package consumed via TypeScript path aliases by the scripts in lib/ingest. Tests verify each codec against real-format edge cases.",
+      "entry_points": [
+        "packages/czech-civic-data/src/index.ts"
+      ],
+      "file_paths": [
+        "packages/czech-civic-data/vitest.config.ts",
+        "packages/czech-civic-data/src/index.ts",
+        "packages/czech-civic-data/src/normalize.ts",
+        "packages/czech-civic-data/src/normalize.test.ts",
+        "packages/czech-civic-data/src/unl.ts",
+        "packages/czech-civic-data/src/unl.test.ts",
+        "packages/czech-civic-data/src/zip.ts",
+        "packages/czech-civic-data/src/zip.test.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "ff4cc23b-df19-4340-b5e4-cb3e1e98f91b",
+      "keywords": [
+        "unl",
+        "unload",
+        "windows-1250",
+        "zip",
+        "ascii-fold",
+        "psp.cz",
+        "open-data",
+        "normalize",
+        "parse",
+        "czech"
+      ],
+      "last_written_at": "2026-08-05T08:19:08.171610800+00:00",
+      "name": "czech-civic-data-parsing",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "Vitest"
+      ]
+    },
+    {
+      "api_surface": "GET /dashboard, GET /dashboard/exponat/[hash]",
+      "business_feature": "Velín Dashboard",
+      "category": "ui",
+      "cross_refs": [
+        "civicscore-leaderboard",
+        "money-ledger-graph",
+        "lawwatch",
+        "dashboard-state-graph"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The Velín instrument-panel dashboard page and exhibit system. getDashboardData.ts is a server-only loader that aggregates figures from the leaderboard, money, and law loaders; ExhibitPage presents a sharable hashSlice-addressed snapshot. Handles the public wire projection (trimming unused fields before the client boundary), freshness bounds, and the exhibit permalink/hash logic.",
+      "entry_points": [
+        "features/dashboard/getDashboardData.ts",
+        "features/dashboard/DashboardPage.tsx"
+      ],
+      "file_paths": [
+        "features/dashboard/DashboardPage.tsx",
+        "features/dashboard/ExhibitPage.tsx",
+        "features/dashboard/getDashboardData.ts",
+        "features/dashboard/getExhibitData.ts",
+        "features/dashboard/freshness.ts",
+        "features/dashboard/freshness.test.ts",
+        "features/dashboard/exhibit.ts",
+        "features/dashboard/exhibit.test.ts",
+        "features/dashboard/publicWire.ts",
+        "features/dashboard/publicWire.test.ts",
+        "features/dashboard/messages.test.ts",
+        "features/dashboard/useGraphSelection.ts",
+        "features/dashboard/graphText.ts"
+      ],
+      "group": "Landing & Navigation",
+      "group_id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
+      "id": "30c80622-d0d6-4c26-a20a-ca045d781a79",
+      "keywords": [
+        "dashboard",
+        "velín",
+        "exhibit",
+        "wire",
+        "freshness",
+        "revalidate",
+        "instrument",
+        "aggregator"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.325520300+00:00",
+      "name": "dashboard-instruments",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "State Graph Canvas & Feed",
+      "category": "ui",
+      "cross_refs": [
+        "dashboard-instruments",
+        "money-ledger-graph",
+        "shared-provenance"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The interactive state-graph canvas that sits inside the Velín: stateSlice builds a seeded MP–company–bill subgraph from live data; datedFacts turns slice entities into a chronological fact feed; graphTraversal implements roving-tabindex keyboard navigation along graph edges; entityLinks derives permanent case-file URLs from node IDs. Thirteen components render the canvas, the traffic feed panel, chamber chart, and mock fallbacks.",
+      "entry_points": [
+        "features/dashboard/stateSlice.ts",
+        "features/dashboard/components/StateGraphCanvas.tsx",
+        "features/dashboard/datedFacts.ts"
+      ],
+      "file_paths": [
+        "features/dashboard/stateSlice.ts",
+        "features/dashboard/stateSlice.test.ts",
+        "features/dashboard/graphTraversal.ts",
+        "features/dashboard/graphTraversal.test.ts",
+        "features/dashboard/entityLinks.ts",
+        "features/dashboard/entityLinks.test.ts",
+        "features/dashboard/feedRelevance.ts",
+        "features/dashboard/feedRelevance.test.ts",
+        "features/dashboard/datedFacts.ts",
+        "features/dashboard/datedFacts.test.ts",
+        "features/dashboard/components/ChamberChart.tsx",
+        "features/dashboard/components/FactRow.tsx",
+        "features/dashboard/components/FeedPanelShell.tsx",
+        "features/dashboard/components/FeedRow.tsx",
+        "features/dashboard/components/GraphFeedPanel.tsx",
+        "features/dashboard/components/GraphGlyph.tsx",
+        "features/dashboard/components/GraphLegend.tsx",
+        "features/dashboard/components/GraphNodeList.tsx",
+        "features/dashboard/components/MockGraphFeedPanel.tsx",
+        "features/dashboard/components/MockRankingLedger.tsx",
+        "features/dashboard/components/MockStatTile.tsx",
+        "features/dashboard/components/MockStatTiles.tsx",
+        "features/dashboard/components/StateGraphCanvas.tsx"
+      ],
+      "group": "Landing & Navigation",
+      "group_id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
+      "id": "b7365597-83da-4413-8c89-6f2b51cde90f",
+      "keywords": [
+        "state graph",
+        "canvas",
+        "traversal",
+        "roving tabindex",
+        "dated facts",
+        "feed",
+        "slice",
+        "node",
+        "entity links"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.325902400+00:00",
+      "name": "dashboard-state-graph",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "recharts 3"
+      ]
+    },
+    {
+      "api_surface": "Claude Code CLI (hybrid-bench engine — haiku/sonnet/opus cascade)",
+      "business_feature": "DB Architecture & LLM Cascade Benchmarks",
+      "category": "test",
+      "cross_refs": [
+        "kg-pipeline"
+      ],
+      "db_tables": [
+        "kg_edge",
+        "kg_node"
+      ],
+      "description": "Measures and documents the platform's database architecture choices across two complementary harnesses. The db-bench suite compares PGlite, node:sqlite, DuckDB, and Kuzu across four workload classes (OLAP aggregates, graph traversal, full-text search, vector similarity) to inform docs/db-architecture-guide.md. The hybrid-bench suite benchmarks a deterministic-keyword → cheap-LLM → strong-LLM cascade against an all-strong-model gold reference, quantifying token savings without quality loss. The sentinel runner asserts live-graph invariants (contribution provenance uniformity, components-sum, recompute-sample) on a read-only PGlite copy to catch formula drift before it reaches users.",
+      "entry_points": [
+        "scripts/db-bench/graph.ts",
+        "scripts/hybrid-bench/run.ts",
+        "scripts/sentinel/run.ts"
+      ],
+      "file_paths": [
+        "scripts/db-bench/export-data.ts",
+        "scripts/db-bench/fts.ts",
+        "scripts/db-bench/graph.ts",
+        "scripts/db-bench/node-sqlite.d.ts",
+        "scripts/db-bench/olap.ts",
+        "scripts/db-bench/vector.ts",
+        "scripts/hybrid-bench/agg.ts",
+        "scripts/hybrid-bench/agg-op.ts",
+        "scripts/hybrid-bench/derived.ts",
+        "scripts/hybrid-bench/engine.ts",
+        "scripts/hybrid-bench/join.ts",
+        "scripts/hybrid-bench/materialize-tags.ts",
+        "scripts/hybrid-bench/predicates.ts",
+        "scripts/hybrid-bench/run.ts",
+        "scripts/hybrid-bench/semop.ts",
+        "scripts/sentinel/run.ts",
+        "scripts/sentinel/inspect-findings.ts"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "0b8f3baa-9faf-46b3-9138-65ec4ad68a35",
+      "keywords": [
+        "benchmark",
+        "PGlite",
+        "DuckDB",
+        "sentinel",
+        "invariants",
+        "hybrid-cascade",
+        "LLM",
+        "graph-traversal",
+        "OLAP",
+        "vector-similarity"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.745701800+00:00",
+      "name": "db-hybrid-benchmarks",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "DuckDB",
+        "PGlite",
+        "Kuzu"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Knowledge Graph Repositories",
+      "category": "data",
+      "cross_refs": [
+        "db-store",
+        "contribution-scoring",
+        "kg-analysis"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "kg_edge_history",
+        "review_audit",
+        "organ",
+        "person",
+        "mandate",
+        "membership",
+        "vote",
+        "ballot"
+      ],
+      "description": "Repository layer over the PGlite store — typed read/write functions for every relation in the knowledge graph. Covers KG nodes/edges (including bitemporal variants), the analysis results table, change-event tracking, the public ledger, provenance capsules, human review decisions (verify/reject/reverse), vote ballots and tags, and referendum weight overrides. Each repository is called by feature loaders and analysis scripts; the review repository is the write path for the /penize/kontrola console.",
+      "entry_points": [
+        "lib/db/pglite/repositories/kg.ts",
+        "lib/db/pglite/repositories/review.ts",
+        "lib/db/pglite/repositories/graph.ts"
+      ],
+      "file_paths": [
+        "lib/db/pglite/repositories/analysis.ts",
+        "lib/db/pglite/repositories/changes.ts",
+        "lib/db/pglite/repositories/changes.test.ts",
+        "lib/db/pglite/repositories/graph.ts",
+        "lib/db/pglite/repositories/kg.ts",
+        "lib/db/pglite/repositories/kg.test.ts",
+        "lib/db/pglite/repositories/kg-bitemporal.test.ts",
+        "lib/db/pglite/repositories/ledger.ts",
+        "lib/db/pglite/repositories/ledger.test.ts",
+        "lib/db/pglite/repositories/provenance.ts",
+        "lib/db/pglite/repositories/review.ts",
+        "lib/db/pglite/repositories/review.test.ts",
+        "lib/db/pglite/repositories/votes.ts",
+        "lib/db/pglite/repositories/voteTags.ts",
+        "lib/db/pglite/repositories/weights.ts",
+        "lib/db/pglite/repositories/weights.test.ts"
+      ],
+      "group": "Data Layer",
+      "group_id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
+      "id": "99c7107a-8c91-4bfa-b567-148e3817d73e",
+      "keywords": [
+        "repository",
+        "kg-node",
+        "kg-edge",
+        "review",
+        "provenance",
+        "votes",
+        "ledger",
+        "bitemporal",
+        "changes",
+        "weights"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.149480800+00:00",
+      "name": "db-repositories",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "PGlite",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Embedded Postgres Store",
+      "category": "data",
+      "cross_refs": [
+        "db-repositories"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "kg_edge_history",
+        "review_audit"
+      ],
+      "description": "The embedded-Postgres (PGlite) store layer — connection lifecycle, schema DDL, migrations, and the query infrastructure shared by all repositories. Provides getStore()/storeReady() as the entry point for all server-only loaders, enforces KG_READ_CAP on every list query, handles open-retry logic, supplies warnIfTruncated helpers, and manages kgOrder re-sorting (because kg_edge result order is non-total). This is the foundational data-access layer the entire app builds on.",
+      "entry_points": [
+        "lib/db/store.ts",
+        "lib/db/pglite-store.ts",
+        "lib/db/pglite/ddl.ts"
+      ],
+      "file_paths": [
+        "lib/db/config.ts",
+        "lib/db/store.ts",
+        "lib/db/pglite-store.ts",
+        "lib/db/types.ts",
+        "lib/db/loaderGuard.ts",
+        "lib/db/readCap.ts",
+        "lib/db/narrow.ts",
+        "lib/db/kgOrder.ts",
+        "lib/db/kgOrder.test.ts",
+        "lib/db/readiness.ts",
+        "lib/db/readiness.test.ts",
+        "lib/db/pglite/ddl.ts",
+        "lib/db/pglite/internals.ts",
+        "lib/db/pglite/ledger.ts",
+        "lib/db/pglite/ledger.test.ts",
+        "lib/db/pglite/mappers.ts",
+        "lib/db/pglite/open-retry.test.ts",
+        "lib/db/migrations/0001_civic_graph.sql"
+      ],
+      "group": "Data Layer",
+      "group_id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
+      "id": "c5c1979e-5dd9-4c7b-969f-de09203abd7c",
+      "keywords": [
+        "pglite",
+        "postgres",
+        "store",
+        "readiness",
+        "kgOrder",
+        "readCap",
+        "loaderGuard",
+        "ddl",
+        "migration",
+        "embedded-db"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.144421600+00:00",
+      "name": "db-store",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "PGlite",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "none (reads PGlite copy, writes via --commit flag)",
+      "business_feature": "MP Effort Scoring Loop",
+      "category": "data",
+      "cross_refs": [
+        "kg-pipeline"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Orchestrates the MP effort-scoring case loop (Case ②): triage over 207 PSP10 person nodes by contribution z-scores, extraction of role/speech/committee inputs for LLM dossiers, batch merging of enriched effort props back into person nodes, and validation passes (pass-42 drift, score reconciliation, rapporteur load, tenure, workhorse flavour). Includes the shared case-loop write infrastructure — the merge-only persist-batch writer and the insert-capable apply-batch writer — used by all three domain loops. No live-graph writes without --commit; always reads from a PGlite copy.",
+      "entry_points": [
+        "scripts/case-loops/effort/triage.ts",
+        "scripts/case-loops/effort/merge-batch.ts",
+        "scripts/case-loops/apply-batch.ts"
+      ],
+      "file_paths": [
+        "scripts/case-loops/apply-batch.ts",
+        "scripts/case-loops/apply-batch.test.ts",
+        "scripts/case-loops/persist-batch.ts",
+        "scripts/case-loops/backfill-citations.ts",
+        "scripts/case-loops/effort/apply-batch-008-fixes.ts",
+        "scripts/case-loops/effort/divergence-retune.ts",
+        "scripts/case-loops/effort/extract-dossiers.ts",
+        "scripts/case-loops/effort/extract-q16-inputs.ts",
+        "scripts/case-loops/effort/extract-role-inputs.ts",
+        "scripts/case-loops/effort/finalize-ledger.ts",
+        "scripts/case-loops/effort/gate.ts",
+        "scripts/case-loops/effort/measure-baseline.ts",
+        "scripts/case-loops/effort/merge-batch.ts",
+        "scripts/case-loops/effort/merge-batch-008.ts",
+        "scripts/case-loops/effort/merge-batch-009.ts",
+        "scripts/case-loops/effort/merge-batch-010.ts",
+        "scripts/case-loops/effort/merge-batch-010-scores.ts",
+        "scripts/case-loops/effort/pass42-drift.ts",
+        "scripts/case-loops/effort/pass42-prose-scan.ts",
+        "scripts/case-loops/effort/pass42-rewrite-inputs.ts",
+        "scripts/case-loops/effort/pass42-score-inputs.ts",
+        "scripts/case-loops/effort/pass42-score-scan.ts",
+        "scripts/case-loops/effort/pass42-seats.ts",
+        "scripts/case-loops/effort/psp9-contribution.ts",
+        "scripts/case-loops/effort/rapporteur-load.ts",
+        "scripts/case-loops/effort/roles-triage.ts",
+        "scripts/case-loops/effort/role-window-mismatch.ts",
+        "scripts/case-loops/effort/tenure.ts",
+        "scripts/case-loops/effort/triage.ts",
+        "scripts/case-loops/effort/workhorse-flavour.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "d5d2ae88-70dd-40e0-a4f4-2e9cd652e1c7",
+      "keywords": [
+        "contribution-score",
+        "effort-loop",
+        "pass42",
+        "triage",
+        "workhorse",
+        "rapporteur",
+        "tenure",
+        "dossier",
+        "merge-batch",
+        "persist-batch"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.741652800+00:00",
+      "name": "effort-case-loop",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "ESLint Rule Compatibility Shims",
+      "category": "config",
+      "cross_refs": [],
+      "db_tables": [],
+      "description": "Compatibility shim layer that re-exports the canonical ESLint rule implementations from the `packages/eslint-plugin-civic-transparency` package under their historical `eslint-rules/` paths. Keeps documented run commands and historical import paths working without duplicating rule logic. Includes forwarding test files that assert shim equivalence so a drifted shim fails the plugin's own test runner.",
+      "entry_points": [
+        "eslint-rules/no-hardcoded-colors.cjs",
+        "eslint-rules/no-silent-catch.cjs"
+      ],
+      "file_paths": [
+        "eslint-rules/__tests__/no-raw-number-display.test.mjs",
+        "eslint-rules/__tests__/require-source-citation.test.mjs",
+        "eslint-rules/enforce-reduced-motion-fallback.cjs",
+        "eslint-rules/no-hardcoded-colors.cjs",
+        "eslint-rules/no-raw-number-display.cjs",
+        "eslint-rules/no-server-import-in-client.cjs",
+        "eslint-rules/no-silent-catch.cjs",
+        "eslint-rules/no-silent-null-catch.cjs",
+        "eslint-rules/require-source-citation.cjs",
+        "eslint-rules/role-button-requires-keydown.cjs"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "219c60c3-eee7-41a6-8ca5-5acdfcc4a117",
+      "keywords": [
+        "eslint",
+        "lint",
+        "custom-rules",
+        "civic-transparency",
+        "shim",
+        "re-export",
+        "hardcoded-colors",
+        "reduced-motion",
+        "server-import",
+        "source-citation"
+      ],
+      "last_written_at": "2026-08-05T08:17:47.716805100+00:00",
+      "name": "eslint-rules-shims",
+      "pinned": false,
+      "tech_stack": [
+        "ESLint",
+        "Node.js",
+        "CommonJS"
+      ]
+    },
+    {
+      "api_surface": "GET /admin/loops.json (token-gated), GET /atlas/atlas.json, GET /data/manifest.json, GET /data/snapshot.json, GET /graf/p/[ref]/bundle",
+      "business_feature": "Admin Console, Data Releases & Graph Explorer",
+      "category": "api",
+      "cross_refs": [
+        "civic-feeds-verification",
+        "mp-rankings-routes",
+        "money-budget-routes"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Thin routes for operator tooling and data-layer surfaces. The admin console (/admin + accessGate + server actions + loops.json) manages case-loop state behind ADMIN_TOKEN and renders an honest unconfigured state when the token is absent. Data releases (/data + manifest.json + snapshot.json) and the open-data quality atlas (/atlas + atlas.json) expose the graph's integrity, versioning, and per-source quality scores as both human-readable pages and machine-readable JSON endpoints. The graph explorer (/graf + /graf/p/[ref] permalink with OG image + bundle download) provides a full-viewport canvas plus shareable evidence bundles with JSON-LD. The archived Rentgen terminal (/rentgen) and the citable-number reference integration (/svedectvi) round out the surface.",
+      "entry_points": [
+        "app/admin/page.tsx",
+        "app/admin/accessGate.ts",
+        "app/graf/page.tsx",
+        "app/data/page.tsx"
+      ],
+      "file_paths": [
+        "app/admin/page.tsx",
+        "app/admin/accessGate.ts",
+        "app/admin/AdminGate.tsx",
+        "app/admin/gateActions.ts",
+        "app/admin/loopActions.ts",
+        "app/admin/loops.json/route.ts",
+        "app/data/page.tsx",
+        "app/data/manifest.json/route.ts",
+        "app/data/snapshot.json/route.ts",
+        "app/atlas/page.tsx",
+        "app/atlas/atlas.json/route.ts",
+        "app/graf/page.tsx",
+        "app/graf/p/[ref]/page.tsx",
+        "app/graf/p/[ref]/opengraph-image.tsx",
+        "app/graf/p/[ref]/bundle/route.ts",
+        "app/rentgen/page.tsx",
+        "app/svedectvi/page.tsx"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "564c047b-0e38-440e-a419-852935cf30ea",
+      "keywords": [
+        "admin",
+        "ADMIN_TOKEN",
+        "accessGate",
+        "loops",
+        "driveLog",
+        "atlas",
+        "quality",
+        "data-releases",
+        "manifest",
+        "snapshot",
+        "graph",
+        "graf",
+        "permalink",
+        "bundle",
+        "JSON-LD",
+        "opengraph",
+        "rentgen",
+        "svedectvi",
+        "citable"
+      ],
+      "last_written_at": "2026-08-05T08:13:32.809761500+00:00",
+      "name": "graph-admin-data-routes",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 16.2",
+        "React 19.2",
+        "TypeScript",
+        "next/og"
+      ]
+    },
+    {
+      "api_surface": "GET /graf, GET /graf/p/[node]",
+      "business_feature": "Graph Explorer",
+      "category": "ui",
+      "cross_refs": [
+        "shared-provenance",
+        "shared-primitives"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The full-viewport knowledge graph playground (/graf) rendered on an HTML canvas. GraphStage is the main rendering engine with trail-lens support (StageLens, fitBounds); VariantMapa shows the whole-graph landscape dimmed to a selected trail; VariantTrasy presents computed trails as a typeset ledger. Node clicks open the NodeInspector with provenance and registry deep-links; permalink.ts serialises the selected node/trail state into a shareable URL. graphLoader.ts is the process-memoised full-graph read.",
+      "entry_points": [
+        "features/graph/GraphPage.tsx",
+        "features/graph/graphLoader.ts",
+        "features/graph/components/GraphStage.tsx"
+      ],
+      "file_paths": [
+        "features/graph/GraphPage.tsx",
+        "features/graph/PermalinkPage.tsx",
+        "features/graph/VariantMapa.tsx",
+        "features/graph/VariantTrasy.tsx",
+        "features/graph/graphLoader.ts",
+        "features/graph/graphTypes.ts",
+        "features/graph/graphActions.ts",
+        "features/graph/getPermalinkData.ts",
+        "features/graph/kindStyle.ts",
+        "features/graph/stagePalette.ts",
+        "features/graph/trailPath.ts",
+        "features/graph/trailPath.test.ts",
+        "features/graph/permalink.ts",
+        "features/graph/permalink.test.ts",
+        "features/graph/forensicView.ts",
+        "features/graph/forensicView.test.ts",
+        "features/graph/useNodeSelection.ts",
+        "features/graph/usePrefersReducedMotion.ts",
+        "features/graph/components/CiteView.tsx",
+        "features/graph/components/ForensicOverlays.tsx",
+        "features/graph/components/GraphStage.tsx",
+        "features/graph/components/NodeInspector.tsx",
+        "features/graph/components/NodeSearch.tsx",
+        "features/graph/components/StageOverlays.tsx",
+        "features/graph/components/TrailFinder.tsx"
+      ],
+      "group": "Knowledge Graph Explorer",
+      "group_id": "de83ae74-6caf-454e-8774-0147727152c7",
+      "id": "1d3bcdfd-77aa-4b51-8261-815b1143284e",
+      "keywords": [
+        "graph",
+        "canvas",
+        "trail",
+        "lens",
+        "node",
+        "permalink",
+        "forensic",
+        "StageLens",
+        "fitBounds",
+        "knowledge graph"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.330835500+00:00",
+      "name": "graph-explorer",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    {
+      "api_surface": "smlouvy.gov.cz API, ARES VR API, kiosek.gov.cz, monitor.statnipokladna.cz, volby.cz",
+      "business_feature": "External Open-Data Ingestion",
+      "category": "lib",
+      "cross_refs": [
+        "db-repositories",
+        "kg-analysis"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Adapters for external open-data sources beyond psp.cz: Smlouvy.gov.cz contract registry (both API and full dump), ARES/dataor company registry, kiosek subsidy data (including PDF parsing), Monitor state budget, pumper (batch orchestration helper), and Czech election results (volby.cz). These adapters feed the FollowTheMoney money graph with contract amounts, company roles, and subsidy flows.",
+      "entry_points": [
+        "lib/ingest/sources/smlouvy.ts",
+        "lib/ingest/sources/smlouvy-dump.ts",
+        "lib/ingest/sources/dataor.ts"
+      ],
+      "file_paths": [
+        "lib/ingest/sources/dataor.ts",
+        "lib/ingest/sources/dataor.test.ts",
+        "lib/ingest/sources/kiosek.ts",
+        "lib/ingest/sources/kiosek.test.ts",
+        "lib/ingest/sources/kiosek-pdf.ts",
+        "lib/ingest/sources/monitor.ts",
+        "lib/ingest/sources/monitor.test.ts",
+        "lib/ingest/sources/pumper.ts",
+        "lib/ingest/sources/pumper.test.ts",
+        "lib/ingest/sources/smlouvy.ts",
+        "lib/ingest/sources/smlouvy.test.ts",
+        "lib/ingest/sources/smlouvy-dump.ts",
+        "lib/ingest/sources/smlouvy-dump.test.ts",
+        "lib/ingest/sources/volby.ts",
+        "lib/ingest/sources/volby.test.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "bea9ea95-c07f-414d-beab-64e46d64afc5",
+      "keywords": [
+        "smlouvy",
+        "contracts",
+        "subsidies",
+        "kiosek",
+        "monitor",
+        "ares",
+        "volby",
+        "elections",
+        "company",
+        "ingest"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.150616900+00:00",
+      "name": "ingest-external-sources",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "psp.cz dump files (ZIP/UNL)",
+      "business_feature": "Parliament Data Ingestion",
+      "category": "lib",
+      "cross_refs": [
+        "db-repositories",
+        "contribution-scoring",
+        "kg-analysis"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "kg_edge_history"
+      ],
+      "description": "Ingests data from the Czech Parliament (psp.cz) — MP activity records (floor speeches, interpellations, amendments, attendance), legislation (bills, sponsors, rapporteurs, amends-law links), and the ZIP/UNL utilities that unpack psp.cz dump archives. Also covers change-event emission logic and the normalize helper shared across all ingest sources. This is the primary source of truth for CivicScore inputs and the LawWatch bill graph.",
+      "entry_points": [
+        "lib/ingest/sources/psp-activity.ts",
+        "lib/ingest/sources/psp-legislation.ts",
+        "lib/ingest/changeEvents.ts"
+      ],
+      "file_paths": [
+        "lib/ingest/changeEvents.ts",
+        "lib/ingest/changeEvents.test.ts",
+        "lib/ingest/normalize.ts",
+        "lib/ingest/shims.test.ts",
+        "lib/ingest/unl.ts",
+        "lib/ingest/zip.ts",
+        "lib/ingest/sources/psp.ts",
+        "lib/ingest/sources/psp-activity.ts",
+        "lib/ingest/sources/psp-activity.test.ts",
+        "lib/ingest/sources/psp-legislation.ts",
+        "lib/ingest/sources/psp-legislation.test.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "717cf55f-0326-43c3-88ca-45d730b1b29b",
+      "keywords": [
+        "psp",
+        "parliament",
+        "activity",
+        "legislation",
+        "interpellation",
+        "speech",
+        "bill",
+        "ingest",
+        "zip",
+        "unl"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.150157700+00:00",
+      "name": "ingest-psp-sources",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "KG Money & Law Verdict Analysis",
+      "category": "lib",
+      "cross_refs": [
+        "db-repositories",
+        "db-store",
+        "ingest-psp-sources",
+        "ingest-external-sources"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "kg_edge_history"
+      ],
+      "description": "Enriches the knowledge graph with analytical verdicts for the money and law domains. Handles KG node/edge construction for the analysis pipeline, derives money-trail verdicts (owner/manager vs steward attribution), law verdicts (forensic posudky), and the money-feed stream of contract events. Also includes the public-body classifier and plausibility date filter that guard against corrupt corpus entries. Feeds features/money and features/lawwatch via the shared loader pattern.",
+      "entry_points": [
+        "lib/analysis/kg-money.ts",
+        "lib/analysis/kg-verdict.ts",
+        "lib/analysis/law-verdict.ts"
+      ],
+      "file_paths": [
+        "lib/analysis/kg.ts",
+        "lib/analysis/kg.test.ts",
+        "lib/analysis/kg-money.ts",
+        "lib/analysis/kg-money.test.ts",
+        "lib/analysis/kg-money-reingest.test.ts",
+        "lib/analysis/kg-verdict.ts",
+        "lib/analysis/kg-verdict.test.ts",
+        "lib/analysis/law-verdict.ts",
+        "lib/analysis/law-verdict.test.ts",
+        "lib/analysis/money-feed.ts",
+        "lib/analysis/money-feed.test.ts",
+        "lib/analysis/verdict.ts",
+        "lib/analysis/verdict.test.ts",
+        "lib/analysis/public-body.ts",
+        "lib/analysis/public-body.test.ts"
+      ],
+      "group": "Financial Transparency",
+      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
+      "id": "d540dd18-e925-45ef-82ce-cc72d7ce5657",
+      "keywords": [
+        "knowledge-graph",
+        "money",
+        "verdict",
+        "law",
+        "attribution",
+        "steward",
+        "owner",
+        "forensic",
+        "reingest",
+        "contract"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.141583200+00:00",
+      "name": "kg-analysis",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "vitest"
+      ]
+    },
+    {
+      "api_surface": "Hlídač API (money ingest); DataHub REST API (metadata sync); eSbírka SPARQL endpoint",
+      "business_feature": "Knowledge Graph Pipeline",
+      "category": "data",
+      "cross_refs": [
+        "law-triage-batch",
+        "money-analysis-triage",
+        "effort-case-loop"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Builds and maintains the knowledge graph (kg_node/kg_edge tables) from raw psp.cz and external sources. Covers deterministic edge computation (co_votes_with, rebels_against, influential_in), domain-specific ingestion (contribution scores, bills, money, committee routing), verdict promotion from analysis batches, graph repair, and a DataHub metadata sync that publishes schemas and stats without exporting raw rows. The gen-migration.ts utility keeps the PGlite DDL snapshot in sync with the authoritative in-code definition.",
+      "entry_points": [
+        "scripts/data-analysis/kg-compute.ts",
+        "scripts/data-analysis/kg-contribution-ingest.ts",
+        "scripts/data-analysis/kg-promote.ts"
+      ],
+      "file_paths": [
+        "scripts/data-analysis/ab-datahub.ts",
+        "scripts/data-analysis/datahub-sync.ts",
+        "scripts/data-analysis/dh-context.ts",
+        "scripts/data-analysis/esbirka-laws.ts",
+        "scripts/data-analysis/ingest.ts",
+        "scripts/data-analysis/kg-bill-engagement-ingest.ts",
+        "scripts/data-analysis/kg-bill-roles-ingest.ts",
+        "scripts/data-analysis/kg-committee-routing.ts",
+        "scripts/data-analysis/kg-compute.ts",
+        "scripts/data-analysis/kg-contribution-ingest.ts",
+        "scripts/data-analysis/kg-contribution-recompute.ts",
+        "scripts/data-analysis/kg-datahub-sync.ts",
+        "scripts/data-analysis/kg-forensics.ts",
+        "scripts/data-analysis/kg-legislation-ingest.ts",
+        "scripts/data-analysis/kg-metrics.ts",
+        "scripts/data-analysis/kg-money-ingest.ts",
+        "scripts/data-analysis/kg-promote.test.ts",
+        "scripts/data-analysis/kg-promote.ts",
+        "scripts/data-analysis/kg-repair-orphans.ts",
+        "scripts/data-analysis/lite-serve.ts",
+        "scripts/data-analysis/promote-verdicts.ts",
+        "scripts/data-analysis/remirror-pumper.ts",
+        "scripts/data-analysis/slice-stats.ts",
+        "scripts/data-analysis/validate-kg-verdict.ts",
+        "scripts/data-analysis/validate-verdict.ts",
+        "scripts/gen-migration.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "a3cf14cc-3003-452c-a71d-ea4f7577a917",
+      "keywords": [
+        "knowledge-graph",
+        "kg_node",
+        "kg_edge",
+        "ingest",
+        "contribution-score",
+        "DataHub",
+        "verdict",
+        "psp.cz",
+        "co_votes_with",
+        "recompute"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.736544400+00:00",
+      "name": "kg-pipeline",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "POST /api/referendum/vote (server action)",
+      "business_feature": "Landing Page & Referendum",
+      "category": "ui",
+      "cross_refs": [
+        "civicscore-leaderboard",
+        "money-ledger-graph",
+        "shell-navigation",
+        "civic-chronicle"
+      ],
+      "db_tables": [],
+      "description": "The public-facing landing page (Konstrukt design system) presenting the platform's live data, referendum weight tool, and module entry points. Composed of a LandingPage orchestrator, 13 section components, a palette module, and the Referendum sub-feature which persists citizen index-weight votes via a server action. Depends on lib/civic sample data as a fallback and the leaderboard/money loaders for live stats.",
+      "entry_points": [
+        "features/landing/LandingPage.tsx",
+        "features/landing/referendum/ReferendumPage.tsx"
+      ],
+      "file_paths": [
+        "features/landing/LandingPage.tsx",
+        "features/landing/palette.ts",
+        "features/landing/components/DataSources.tsx",
+        "features/landing/components/DenikTeaser.tsx",
+        "features/landing/components/Hemicycle.tsx",
+        "features/landing/components/HeroStory.tsx",
+        "features/landing/components/LiveSpecimen.tsx",
+        "features/landing/components/Methodology.tsx",
+        "features/landing/components/ReferendumTeaser.tsx",
+        "features/landing/components/ScoreBreakdown.tsx",
+        "features/landing/components/SiteFooter.tsx",
+        "features/landing/components/SiteHeader.tsx",
+        "features/landing/components/Standings.tsx",
+        "features/landing/components/SystemModules.tsx",
+        "features/landing/components/TrendChart.tsx",
+        "features/landing/referendum/actions.ts",
+        "features/landing/referendum/aggregate.ts",
+        "features/landing/referendum/aggregate.test.ts",
+        "features/landing/referendum/embed.ts",
+        "features/landing/referendum/embed.test.ts",
+        "features/landing/referendum/getReferendumData.ts",
+        "features/landing/referendum/ogPayload.ts",
+        "features/landing/referendum/ogPayload.test.ts",
+        "features/landing/referendum/ReferendumPage.tsx",
+        "features/atlas/AtlasPage.tsx",
+        "features/atlas/AtlasCards.tsx",
+        "features/atlas/getAtlasData.ts"
+      ],
+      "group": "Landing & Navigation",
+      "group_id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
+      "id": "6d7f8626-3086-488c-bb02-eddf301072d7",
+      "keywords": [
+        "landing",
+        "referendum",
+        "weight",
+        "hemicycle",
+        "Konstrukt",
+        "hero",
+        "teaser",
+        "atlas",
+        "standings"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.324381500+00:00",
+      "name": "landing-page",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "framer-motion",
+        "recharts 3"
+      ]
+    },
+    {
+      "api_surface": "eSbírka SPARQL endpoint; psp.cz data dumps",
+      "business_feature": "Bill-to-Law Amendments Graph",
+      "category": "data",
+      "cross_refs": [
+        "law-triage-batch",
+        "kg-pipeline"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Reconstructs and validates the bill-to-law 'amends' edge graph from eSbírka SPARQL data and psp.cz tisky. Iterative regen scripts (amends-regen-005/007/008) produce candidate amends edges which apply-amends-regen writes into the graph; validators diff the before/after state and surface deletions. Also fixes data quality issues: missing law nodes, duplicate bills, broken proposal-trigger links, and sponsor attribution errors discovered across successive analysis batches.",
+      "entry_points": [
+        "scripts/case-loops/law/amends-regen.ts",
+        "scripts/case-loops/law/apply-amends-regen.ts",
+        "scripts/case-loops/law/validate-amends-regen.ts"
+      ],
+      "file_paths": [
+        "scripts/case-loops/law/amends-census.ts",
+        "scripts/case-loops/law/amends-regen.ts",
+        "scripts/case-loops/law/amends-regen-005.ts",
+        "scripts/case-loops/law/amends-regen-007.ts",
+        "scripts/case-loops/law/amends-regen-008.ts",
+        "scripts/case-loops/law/apply-amends-regen.ts",
+        "scripts/case-loops/law/apply-census-completion-013.ts",
+        "scripts/case-loops/law/_apply-missing-law-nodes-copy.ts",
+        "scripts/case-loops/law/validate-amends-regen.ts",
+        "scripts/case-loops/law/validate-amends-regen-005.ts",
+        "scripts/case-loops/law/validate-amends-regen-007.ts",
+        "scripts/case-loops/law/validate-amends-regen-008.ts",
+        "scripts/case-loops/law/diff-amends-regen-deletions.ts",
+        "scripts/case-loops/law/ingest-missing-laws.ts",
+        "scripts/case-loops/law/esbirka-sparql-diff.ts",
+        "scripts/case-loops/law/esbirka-versions.ts",
+        "scripts/case-loops/law/duplicate-bills-009.ts",
+        "scripts/case-loops/law/fix-217-sponsors-014.ts",
+        "scripts/case-loops/law/fix-proposal-trigger.ts",
+        "scripts/case-loops/law/fix-proposal-trigger-007.ts",
+        "scripts/case-loops/law/fix-proposal-trigger-008.ts",
+        "scripts/case-loops/law/provenance-probe.ts",
+        "scripts/case-loops/law/inspect-hist.ts",
+        "scripts/case-loops/law/inspect-votes.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "42a6dfea-c22f-4c08-b594-35ce4ce30cb9",
+      "keywords": [
+        "amends",
+        "eSbírka",
+        "SPARQL",
+        "bill-to-law",
+        "regen",
+        "census",
+        "proposal-trigger",
+        "tisky",
+        "graph-repair",
+        "provenance"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.743055100+00:00",
+      "name": "law-amends-analysis",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "none (reads PGlite copy, emits scored JSON payloads)",
+      "business_feature": "Legislative Conflict-of-Interest Detection",
+      "category": "data",
+      "cross_refs": [
+        "law-triage-batch",
+        "law-amends-analysis"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Detects and quantifies conflict-of-interest 'collisions' between legislators' financial ties and the bills they sponsor — the core forensic signal of LawWatch. Iterative collision-check scripts score MP-bill pairs by sector adjacency and theme overlap; precision/signal measurement scripts validate discriminative power across batches; old-27 jargon sweeps identify obfuscatory legislative language. The company-sectors and sector-adjacency modules provide the sector taxonomy the collision scoring depends on.",
+      "entry_points": [
+        "scripts/case-loops/law/collision-core.ts",
+        "scripts/case-loops/law/collision-check.ts",
+        "scripts/case-loops/law/company-sectors.ts"
+      ],
+      "file_paths": [
+        "scripts/case-loops/law/collision-check.ts",
+        "scripts/case-loops/law/collision-check-005.ts",
+        "scripts/case-loops/law/collision-check-008.ts",
+        "scripts/case-loops/law/collision-core.ts",
+        "scripts/case-loops/law/collision-groups-008.ts",
+        "scripts/case-loops/law/collision-signal-009.ts",
+        "scripts/case-loops/law/collision-sweep-009.ts",
+        "scripts/case-loops/law/regen-collision-groups-005.ts",
+        "scripts/case-loops/law/prepare-collision-queue-012.ts",
+        "scripts/case-loops/law/measure-precision-006.ts",
+        "scripts/case-loops/law/measure-precision-007.ts",
+        "scripts/case-loops/law/measure-precision-008.ts",
+        "scripts/case-loops/law/measure-signal-009.ts",
+        "scripts/case-loops/law/extract-old27-jargon-015.ts",
+        "scripts/case-loops/law/sweep-old27-015.ts",
+        "scripts/case-loops/law/sector-adjacency-010.ts",
+        "scripts/case-loops/law/dependency-census-014.ts",
+        "scripts/case-loops/law/company-sectors.ts",
+        "scripts/case-loops/law/verify-close-reads.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "28be8941-2390-467a-8e59-765ce65cc653",
+      "keywords": [
+        "collision",
+        "conflict-of-interest",
+        "sector-adjacency",
+        "old27",
+        "jargon",
+        "forensic",
+        "precision",
+        "signal",
+        "theme",
+        "dependency-census"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.743469900+00:00",
+      "name": "law-collision-analysis",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "none (reads PGlite copy, writes batch payload JSON)",
+      "business_feature": "Law Forensics Triage & Batch Pipeline",
+      "category": "data",
+      "cross_refs": [
+        "law-amends-analysis",
+        "law-collision-analysis",
+        "kg-pipeline"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Drives the triage and batch-preparation pipeline for the LawWatch case loop (Case ③): scores 141 bills by conflict-of-interest signals, maintains a durable ledger.json across batches, prepares per-batch analysis payloads for LLM army workers, gates forensic verdicts, and builds bill summaries and CZ verdict patches. Ledger durability is enforced by the triage-core extraction — re-running triage never replaces manually-written totals, only merge-writes new rows.",
+      "entry_points": [
+        "scripts/case-loops/law/triage-core.ts",
+        "scripts/case-loops/law/prepare-batch.ts",
+        "scripts/case-loops/law/gate-verdicts.ts"
+      ],
+      "file_paths": [
+        "scripts/case-loops/law/triage.ts",
+        "scripts/case-loops/law/triage-002.ts",
+        "scripts/case-loops/law/triage-core.ts",
+        "scripts/case-loops/law/retriage-009.ts",
+        "scripts/case-loops/law/prepare-batch.ts",
+        "scripts/case-loops/law/prepare-batch-002.ts",
+        "scripts/case-loops/law/prepare-batch-011.ts",
+        "scripts/case-loops/law/prepare-batch-012.ts",
+        "scripts/case-loops/law/prepare-batch-013.ts",
+        "scripts/case-loops/law/prepare-batch-014.ts",
+        "scripts/case-loops/law/prepare-batch-015.ts",
+        "scripts/case-loops/law/rebase-ledger-009.ts",
+        "scripts/case-loops/law/update-ledger-011.ts",
+        "scripts/case-loops/law/gate-verdicts.ts",
+        "scripts/case-loops/law/gate-verdicts-011.ts",
+        "scripts/case-loops/law/build-bill-summaries.ts",
+        "scripts/case-loops/law/build-cz-verdict-patch.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "edd53710-d388-43fe-8675-703276d8f32c",
+      "keywords": [
+        "law-loop",
+        "triage",
+        "ledger",
+        "prepare-batch",
+        "gate-verdicts",
+        "bill-summary",
+        "conflict-of-interest",
+        "forensic",
+        "case-loop"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.742454400+00:00",
+      "name": "law-triage-batch",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "GET /zakony, GET /zakony/[cislo], GET /zakony/statute/[ref], GET /zakony/kolize, GET /zakony/radar, GET/RSS /zakony/kolize/feed.{xml,json}",
+      "business_feature": "LawWatch",
+      "category": "ui",
+      "cross_refs": [
+        "money-cases-review",
+        "votetrack-ledger",
+        "civic-chronicle"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "LawWatch (/zakony) tracks 141 bills amending 101 laws via the knowledge graph. Pages cover the bill browser, individual bill dossier, statute dossier, statute registry, and the collision view (strety). The dependency radar (DependencyRadar, deriveRadar) visualises which statutes a cluster of bills touches; radarFeedCodecs serialises the collision feed as RSS/JSON. getLawData, getCollisionData, getDependencyData, and getRadarData are the four server-only loaders.",
+      "entry_points": [
+        "features/lawwatch/getLawData.ts",
+        "features/lawwatch/LawWatchPage.tsx",
+        "features/lawwatch/deriveRadar.ts"
+      ],
+      "file_paths": [
+        "features/lawwatch/LawWatchPage.tsx",
+        "features/lawwatch/BillDossierPage.tsx",
+        "features/lawwatch/CollisionsPage.tsx",
+        "features/lawwatch/StatuteDossierPage.tsx",
+        "features/lawwatch/StatuteRegistryPage.tsx",
+        "features/lawwatch/getLawData.ts",
+        "features/lawwatch/getCollisionData.ts",
+        "features/lawwatch/getDependencyData.ts",
+        "features/lawwatch/getRadarData.ts",
+        "features/lawwatch/deriveRadar.ts",
+        "features/lawwatch/deriveRadar.test.ts",
+        "features/lawwatch/deriveStatuteDossier.ts",
+        "features/lawwatch/deriveStatuteDossier.test.ts",
+        "features/lawwatch/lawwatchLabels.ts",
+        "features/lawwatch/radarFeedCodecs.ts",
+        "features/lawwatch/radarFeedCodecs.test.ts",
+        "features/lawwatch/statuteRef.ts",
+        "features/lawwatch/statuteRef.test.ts",
+        "features/lawwatch/components/BillBrowser.tsx",
+        "features/lawwatch/components/BillDetail.tsx",
+        "features/lawwatch/components/DependencyRadar.tsx",
+        "features/lawwatch/components/RadarLedger.tsx"
+      ],
+      "group": "Voting & Legislation",
+      "group_id": "ef74e660-f57f-4958-bc4d-63585466b65b",
+      "id": "5e73ba58-ad1a-4009-87ca-fe237f73af21",
+      "keywords": [
+        "LawWatch",
+        "bill",
+        "statute",
+        "amends",
+        "collision",
+        "radar",
+        "tisk",
+        "zákon",
+        "forensic",
+        "dependency"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.329315400+00:00",
+      "name": "lawwatch",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    {
+      "api_surface": "Dataorvač registry API (ownership corroboration)",
+      "business_feature": "Money Tie Analysis & Triage",
+      "category": "data",
+      "cross_refs": [
+        "money-contract-ingest",
+        "kg-pipeline"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Performs the analytical triage of money ties for the FollowTheMoney case loop (Case ①): scores MP→company linked_to ties by proximity thresholds, ownership chain depth, and public-mandate classification; corroborates ties via Dataorvač registry lookups; measures indirect-ownership exposure and parent-company power; validates completed batch payloads before they are promoted to the graph. Also covers AGROFERT-specific sweeps and the KioskWatch monitoring script.",
+      "entry_points": [
+        "scripts/case-loops/money/triage.ts",
+        "scripts/case-loops/money/dataor-corroborate.ts",
+        "scripts/case-loops/money/validate-payloads.ts"
+      ],
+      "file_paths": [
+        "scripts/case-loops/money/triage.ts",
+        "scripts/case-loops/money/agrofert-sweep.ts",
+        "scripts/case-loops/money/dataor-corroborate.ts",
+        "scripts/case-loops/money/dataor-ownership-chains.ts",
+        "scripts/case-loops/money/indirect-ownership-breadth2.ts",
+        "scripts/case-loops/money/indirect-ownership-exposure.ts",
+        "scripts/case-loops/money/parent-exposure-power-check.ts",
+        "scripts/case-loops/money/kiosek-power-check-b9.ts",
+        "scripts/case-loops/money/kiosek-watch.ts",
+        "scripts/case-loops/money/live-state-b9.ts",
+        "scripts/case-loops/money/reachable-metric-audit.ts",
+        "scripts/case-loops/money/supplies-coverage-audit.ts",
+        "scripts/case-loops/money/classify-public-mandate-b10.ts",
+        "scripts/case-loops/money/unqueried-population-b10.ts",
+        "scripts/case-loops/money/contract-corpus-snapshot.ts",
+        "scripts/case-loops/money/validate-batch006.ts",
+        "scripts/case-loops/money/validate-batch008.ts",
+        "scripts/case-loops/money/validate-payloads.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "4728a08c-58c1-4f0e-a753-1728ff2cdbad",
+      "keywords": [
+        "money-loop",
+        "triage",
+        "linked_to",
+        "ownership-chain",
+        "indirect-ownership",
+        "AGROFERT",
+        "public-mandate",
+        "reachable-money",
+        "corroborate",
+        "supplies-coverage"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.744559700+00:00",
+      "name": "money-analysis-triage",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "Internal review queue at /penize/kontrola (REVIEWER_TOKEN gated)",
+      "business_feature": "Financial Transparency & Budget Mirror",
+      "category": "ui",
+      "cross_refs": [
+        "mp-rankings-routes",
+        "civic-feeds-verification",
+        "graph-admin-data-routes"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "review_audit"
+      ],
+      "description": "Thin routes for all FollowTheMoney surfaces: the MP-tie ledger (/penize), per-MP case file (/penize/[pspId]), evidence packet (/penize/[pspId]/paket), company case file (/penize/firma/[ico]), investigative dossiers (/penize/kauzy), conflict candidates (/penize/strety), and the human-review console (/penize/kontrola, robots-disallowed). Also covers BudgetMirror: the municipal budget comparison landing (/rozpocty) and per-municipality view (/rozpocty/[ico]). Each page applies the publicWire projection between the loader and the client component to avoid serialising internal fields across the RSC boundary.",
+      "entry_points": [
+        "app/penize/page.tsx",
+        "app/penize/[pspId]/page.tsx",
+        "app/penize/kontrola/page.tsx"
+      ],
+      "file_paths": [
+        "app/penize/page.tsx",
+        "app/penize/[pspId]/page.tsx",
+        "app/penize/[pspId]/paket/page.tsx",
+        "app/penize/firma/[ico]/page.tsx",
+        "app/penize/kauzy/page.tsx",
+        "app/penize/kontrola/page.tsx",
+        "app/penize/strety/page.tsx",
+        "app/rozpocty/page.tsx",
+        "app/rozpocty/[ico]/page.tsx"
+      ],
+      "group": "Financial Transparency",
+      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
+      "id": "05565e63-20cf-4da8-bf4c-639ba4aa02e1",
+      "keywords": [
+        "penize",
+        "FollowTheMoney",
+        "money",
+        "firma",
+        "ico",
+        "vazby",
+        "kontrola",
+        "kauzy",
+        "strety",
+        "rozpocty",
+        "budget",
+        "obec",
+        "MONITOR",
+        "publicWire"
+      ],
+      "last_written_at": "2026-08-05T08:13:32.809079500+00:00",
+      "name": "money-budget-routes",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 16.2",
+        "React 19.2",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "GET /penize/[pspId], GET /penize/firma/[ico], GET /penize/kontrola, GET /penize/strety, POST review action",
+      "business_feature": "Money Case Files & Review",
+      "category": "ui",
+      "cross_refs": [
+        "money-ledger-graph",
+        "shared-provenance",
+        "claim-verifier",
+        "lawwatch"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "review_audit"
+      ],
+      "description": "MP and company case files, evidence packets, the human-gate review console, tie-classification logic, citable money claims, and the interest-collision (strety) surface. reviewTypes.ts defines resolveTieClass() as the single resolver; reviewActions.ts is the server action that writes gate decisions and appends audit rows; moneyClaims.ts mints dosah-vazby/smlouvy claim refs. Includes the seven-file collisions subdirectory that flags MP votes on legislation affecting their supplier companies.",
+      "entry_points": [
+        "features/money/getMpDetail.ts",
+        "features/money/reviewTypes.ts",
+        "features/money/reviewActions.ts",
+        "features/money/moneyClaims.ts"
+      ],
+      "file_paths": [
+        "features/money/MpCaseFilePage.tsx",
+        "features/money/CompanyCaseFilePage.tsx",
+        "features/money/EvidencePacketPage.tsx",
+        "features/money/KauzyPage.tsx",
+        "features/money/getCompanyDetail.ts",
+        "features/money/getMpDetail.ts",
+        "features/money/getEvidencePacket.ts",
+        "features/money/getLeadDossiers.ts",
+        "features/money/getLeadPacketTargets.ts",
+        "features/money/getVerificationData.ts",
+        "features/money/reviewActions.ts",
+        "features/money/reviewSummary.ts",
+        "features/money/reviewSummary.test.ts",
+        "features/money/reviewTypes.ts",
+        "features/money/moneyClaims.ts",
+        "features/money/moneyClaims.test.ts",
+        "features/money/packet.ts",
+        "features/money/packet.test.ts",
+        "features/money/tieClass.test.ts",
+        "features/money/tieEvidence.test.ts",
+        "features/money/tieFlags.ts",
+        "features/money/tieFlags.test.ts",
+        "features/money/components/AnalystNote.tsx",
+        "features/money/components/VerificationConsole.tsx",
+        "features/money/collisions/collisionTypes.ts",
+        "features/money/collisions/deriveCollisions.ts",
+        "features/money/collisions/deriveCollisions.test.ts",
+        "features/money/collisions/getCollisionCandidates.ts",
+        "features/money/collisions/statuteRelevance.ts",
+        "features/money/collisions/StretyPage.tsx",
+        "features/money/collisions/voteAgenda.ts"
+      ],
+      "group": "Financial Transparency",
+      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
+      "id": "ed7eb133-afdf-4a7e-8ad2-0d1a43601da2",
+      "keywords": [
+        "case file",
+        "evidence packet",
+        "review",
+        "gate",
+        "tie class",
+        "claim ref",
+        "collision",
+        "strety",
+        "analyst note",
+        "audit"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.330166200+00:00",
+      "name": "money-cases-review",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    {
+      "api_surface": "Hlídač API (contract dumps); ARES-VR registry API; Kiosek source feed",
+      "business_feature": "Contract & IČO Ingest Pipeline",
+      "category": "data",
+      "cross_refs": [
+        "money-analysis-triage",
+        "kg-pipeline"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Handles the raw data-collection side of the FollowTheMoney pipeline: harvesting contract dumps from Hlídač and the Kiosek source, persisting them into the graph, canonicalizing IČO node identifiers, reconciling ARES-VR registry records, and purging stale or invalid company nodes. The Kiosek scripts (sources/) slice and validate a specific data source feed before it enters the shared harvest pipeline.",
+      "entry_points": [
+        "scripts/case-loops/money/harvest-contract-dumps.ts",
+        "scripts/case-loops/money/canonicalize-ico-nodes.ts",
+        "scripts/case-loops/sources/kiosek-build-payload.ts"
+      ],
+      "file_paths": [
+        "scripts/case-loops/sources/kiosek-build-payload.ts",
+        "scripts/case-loops/sources/kiosek-slice.ts",
+        "scripts/case-loops/sources/kiosek-validate.ts",
+        "scripts/case-loops/money/harvest-contract-dumps.ts",
+        "scripts/case-loops/money/persist-contract-harvest.ts",
+        "scripts/case-loops/money/canonicalize-ico-nodes.ts",
+        "scripts/case-loops/money/build-stale-ico-payload.ts",
+        "scripts/case-loops/money/find-stale-ico-mentions.ts",
+        "scripts/case-loops/money/stale-mentions-open-b9.ts",
+        "scripts/case-loops/money/reconcile-ares-vr.ts",
+        "scripts/case-loops/money/reverify-open-vs-live-ares-vr.ts",
+        "scripts/case-loops/money/parent-ico-existence-check.ts",
+        "scripts/case-loops/money/prak-repoint.ts",
+        "scripts/case-loops/money/purge-osvc.ts",
+        "scripts/case-loops/money/migrate-review-audit-check.ts",
+        "scripts/case-loops/money/company-contract-sweep.ts",
+        "scripts/case-loops/money/parent-contract-sweep.ts"
+      ],
+      "group": "Data Ingestion",
+      "group_id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "id": "fbf12fbb-64e9-4ddf-9d0f-0c906db1aaf2",
+      "keywords": [
+        "IČO",
+        "canonicalize",
+        "ARES-VR",
+        "contract-harvest",
+        "Hlídač",
+        "Kiosek",
+        "stale-ico",
+        "supplies",
+        "company-node",
+        "reconcile"
+      ],
+      "last_written_at": "2026-08-05T08:14:23.743863700+00:00",
+      "name": "money-contract-ingest",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "tsx",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "GET /penize",
+      "business_feature": "FollowTheMoney Ledger",
+      "category": "ui",
+      "cross_refs": [
+        "money-cases-review",
+        "dashboard-instruments",
+        "shared-provenance"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The FollowTheMoney main ledger and entity-trail graph (/penize). FollowTheMoneyPage renders the interactive MoneyGraph and TiesLedger; reachableMoney.ts defines the single attribution rule (owner-operator vs steward split); moneyLoader.ts houses the cross-request memoised supplies fold; publicWire.ts trims 68 % of the wire bytes before the client boundary. companyId.ts canonicalises 8-digit IČO. Mock components (MockLedger, MockMoneyGraph, MockStatTiles) are code-split via next/dynamic.",
+      "entry_points": [
+        "features/money/getMoneyData.ts",
+        "features/money/FollowTheMoneyPage.tsx",
+        "features/money/reachableMoney.ts"
+      ],
+      "file_paths": [
+        "features/money/FollowTheMoneyPage.tsx",
+        "features/money/MoneyGraph.tsx",
+        "features/money/moneyTypes.ts",
+        "features/money/getMoneyData.ts",
+        "features/money/moneyLoader.ts",
+        "features/money/reachableMoney.ts",
+        "features/money/reachableMoney.test.ts",
+        "features/money/publicWire.ts",
+        "features/money/publicWire.test.ts",
+        "features/money/messages.test.ts",
+        "features/money/companyId.ts",
+        "features/money/companyId.test.ts",
+        "features/money/components/MockLedger.tsx",
+        "features/money/components/MockMoneyGraph.tsx",
+        "features/money/components/MockStatTiles.tsx",
+        "features/money/components/StatTiles.tsx",
+        "features/money/components/TieClassExplainer.tsx",
+        "features/money/components/TiesLedger.tsx",
+        "features/money/components/TrailMethod.tsx"
+      ],
+      "group": "Financial Transparency",
+      "group_id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
+      "id": "95e598cd-7db2-49a2-b977-9cbfac6e6d7d",
+      "keywords": [
+        "FollowTheMoney",
+        "ledger",
+        "money graph",
+        "IČO",
+        "supplies",
+        "reachable money",
+        "attribution",
+        "steward",
+        "attributable",
+        "wire"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.329689900+00:00",
+      "name": "money-ledger-graph",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    {
+      "api_surface": "GET /poslanec/[id]",
+      "business_feature": "MP Profile (Spis)",
+      "category": "ui",
+      "cross_refs": [
+        "civicscore-leaderboard",
+        "money-ledger-graph",
+        "money-cases-review",
+        "shared-provenance"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The individual MP profile page (Spis) at /poslanec/[id], showing the contribution score breakdown, work dossier (bills, speeches, amendments, interpellations), career spine, money ties, score-legibility panel, and club-rebellion record. getProfileData.ts reads through indexed kgNeighbours; getRebellionRecord.ts streams the full ballot ledger asynchronously. Sections are RSC server components with four narrow client islands for animation and interaction.",
+      "entry_points": [
+        "features/profile/getProfileData.ts",
+        "features/profile/ProfilePage.tsx"
+      ],
+      "file_paths": [
+        "features/profile/ProfilePage.tsx",
+        "features/profile/getProfileData.ts",
+        "features/profile/getRebellionRecord.ts",
+        "features/profile/rebellionRecord.ts",
+        "features/profile/rebellionRecord.test.ts",
+        "features/profile/careerSpine.ts",
+        "features/profile/careerSpine.test.ts",
+        "features/profile/profileMoney.ts",
+        "features/profile/serverIntl.ts",
+        "features/profile/RebellionSlot.tsx",
+        "features/profile/messages.test.ts",
+        "features/profile/components/CareerSpineSection.tsx",
+        "features/profile/components/DossierSection.tsx",
+        "features/profile/components/ExpandableText.tsx",
+        "features/profile/components/LowScoreReasonBadge.tsx",
+        "features/profile/components/MoneySection.tsx",
+        "features/profile/components/MotionIslands.tsx",
+        "features/profile/components/RebellionInstances.tsx",
+        "features/profile/components/RebellionInstancesPending.tsx",
+        "features/profile/components/ScoreLegibilityPanel.tsx",
+        "features/profile/components/TenureNote.tsx",
+        "features/profile/components/TenureTrendGate.tsx"
+      ],
+      "group": "MP Profiles & Rankings",
+      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
+      "id": "7fc88d33-61da-44f6-9df7-99b09e15f716",
+      "keywords": [
+        "spis",
+        "profile",
+        "dossier",
+        "rebellion",
+        "career spine",
+        "money section",
+        "score legibility",
+        "tenure",
+        "workhorse",
+        "rapporteur"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.327096800+00:00",
+      "name": "mp-profile",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "framer-motion"
+      ]
+    },
+    {
+      "api_surface": "GET /embed/zebricek, GET /referendum/og",
+      "business_feature": "MP Rankings & Profiles",
+      "category": "ui",
+      "cross_refs": [
+        "app-shell",
+        "voting-legislation-routes",
+        "money-budget-routes"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Thin Next.js routes covering the CivicScore leaderboard (/zebricek), individual MP dossier (/poslanec/[id]), regional electoral cards (/kraj, /kraj/[kraj]), the Velín dashboard (/dashboard, /dashboard/exponat/[id]), methodology disclosure (/metodika), the participatory index re-weighting referendum (/referendum + OG image), print poster (/plakat/[view]), and the embeddable widget (/embed/zebricek). Each page awaits a server-only loader from the respective features/ module and passes typed props to the client component, falling back to a labelled mock on store unavailability.",
+      "entry_points": [
+        "app/zebricek/page.tsx",
+        "app/poslanec/[id]/page.tsx",
+        "app/dashboard/page.tsx"
+      ],
+      "file_paths": [
+        "app/zebricek/page.tsx",
+        "app/kraj/page.tsx",
+        "app/kraj/[kraj]/page.tsx",
+        "app/referendum/page.tsx",
+        "app/referendum/og/route.tsx",
+        "app/plakat/[view]/page.tsx",
+        "app/metodika/page.tsx",
+        "app/embed/zebricek/route.ts",
+        "app/poslanec/[id]/page.tsx",
+        "app/dashboard/page.tsx",
+        "app/dashboard/exponat/[id]/page.tsx"
+      ],
+      "group": "MP Profiles & Rankings",
+      "group_id": "2f699b9d-517e-49fe-a42a-44f86470911a",
+      "id": "49a050c2-976b-4050-917a-dc2b2b07f28a",
+      "keywords": [
+        "leaderboard",
+        "civicscore",
+        "CivicScore",
+        "poslanec",
+        "kraj",
+        "referendum",
+        "velín",
+        "dashboard",
+        "exponat",
+        "plakat",
+        "poster",
+        "embed",
+        "metodika",
+        "contribution-index"
+      ],
+      "last_written_at": "2026-08-05T08:13:32.808038900+00:00",
+      "name": "mp-rankings-routes",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 16.2",
+        "React 19.2",
+        "next-intl",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Error Observability",
+      "category": "config",
+      "cross_refs": [
+        "app-config"
+      ],
+      "db_tables": [],
+      "description": "Sentry error tracking wired into all three Next.js runtimes (Node.js server, edge, and client). The Next.js instrumentation hooks register Sentry on server startup; env-gated so it is a no-op without a DSN, matching the Vercel deployment model described in docs/deploy/vercel.md.",
+      "entry_points": [
+        "instrumentation.ts"
+      ],
+      "file_paths": [
+        "instrumentation.ts",
+        "instrumentation-client.ts",
+        "sentry.server.config.ts",
+        "sentry.edge.config.ts"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "38071a00-ac14-4540-abc8-ba05f33cb4f5",
+      "keywords": [
+        "sentry",
+        "observability",
+        "error-tracking",
+        "instrumentation",
+        "DSN",
+        "server",
+        "edge",
+        "client",
+        "monitoring",
+        "runtime"
+      ],
+      "last_written_at": "2026-07-23T11:49:37.756402800+00:00",
+      "name": "observability",
+      "pinned": false,
+      "tech_stack": [
+        "Sentry 10",
+        "Next.js",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "GET /schranka, GET /schranka/novinky.json, GET /schranka/feed.xml, GET /schranka/feed.json",
+      "business_feature": "Citizen Notification Inbox",
+      "category": "ui",
+      "cross_refs": [
+        "civic-chronicle",
+        "money-cases-review",
+        "civicscore-leaderboard"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "review_audit"
+      ],
+      "description": "Občanská schránka — an account-free follow/notification system keyed by public entity IDs (poslanec, firma, tisk). The whole state lives in localStorage via followCodec.ts; getSchrankaDeltas.ts computes new rows server-side from the memoised deník and dukazy loaders; recomputeFact.ts adds a 'your MP's index was recomputed' delta kind. telemetryScrub.ts removes followed entity keys from Sentry spans to prevent fingerprinting. A personalised RSS/JSON feed extends the deník feed codec.",
+      "entry_points": [
+        "features/schranka/SchrankaPage.tsx",
+        "features/schranka/followCodec.ts",
+        "features/schranka/getSchrankaDeltas.ts"
+      ],
+      "file_paths": [
+        "features/schranka/SchrankaPage.tsx",
+        "features/schranka/SchrankaBadge.tsx",
+        "features/schranka/FollowButton.tsx",
+        "features/schranka/FollowCurrent.tsx",
+        "features/schranka/followCodec.ts",
+        "features/schranka/followCodec.test.ts",
+        "features/schranka/deriveDeltas.ts",
+        "features/schranka/deriveDeltas.test.ts",
+        "features/schranka/getSchrankaDeltas.ts",
+        "features/schranka/getRecomputeFact.ts",
+        "features/schranka/recomputeFact.ts",
+        "features/schranka/novinky.ts",
+        "features/schranka/novinky.test.ts",
+        "features/schranka/feed.ts",
+        "features/schranka/feed.test.ts",
+        "features/schranka/feedRequest.ts",
+        "features/schranka/kindVocabulary.ts",
+        "features/schranka/kindVocabulary.test.ts",
+        "features/schranka/telemetryScrub.ts",
+        "features/schranka/telemetryScrub.test.ts",
+        "features/schranka/useNews.ts",
+        "features/schranka/useSchranka.ts",
+        "features/schranka/useToday.ts",
+        "features/schranka/visitWindow.ts",
+        "features/schranka/visitWindow.test.ts"
+      ],
+      "group": "Civic Feed & Transparency",
+      "group_id": "179abe0a-0b22-4943-921e-e4f1d1a32cde",
+      "id": "1914d487-bf35-40c2-9b89-39d62a6b960f",
+      "keywords": [
+        "schránka",
+        "follow",
+        "notifications",
+        "localStorage",
+        "entity key",
+        "delta",
+        "recompute",
+        "telemetry scrub",
+        "Sentry",
+        "personalised feed"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.331406300+00:00",
+      "name": "schranka-notifications",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Shared UI Primitives",
+      "category": "ui",
+      "cross_refs": [],
+      "db_tables": [],
+      "description": "Domain-agnostic primitive catalog that all features import but which never imports from features/* or lib/civic (lint-enforced). Covers StatTile, SourceNote, AnimatedScore, DataUnavailable, LiveDataNotice, CopyLinkButton and other small UI atoms, plus the Forensic mode system (ForensicProvider, ForensicToggle, forensicMode.ts) that overlays methodology data across any surface in dev/labs mode.",
+      "entry_points": [
+        "features/shared/components/SourceNote.tsx",
+        "features/shared/components/StatTile.tsx",
+        "features/shared/forensic/forensicMode.ts"
+      ],
+      "file_paths": [
+        "features/shared/components/AnimatedScore.tsx",
+        "features/shared/components/CopyLinkButton.tsx",
+        "features/shared/components/DataUnavailable.tsx",
+        "features/shared/components/FlagList.tsx",
+        "features/shared/components/LiveDataNotice.tsx",
+        "features/shared/components/RankDelta.tsx",
+        "features/shared/components/SectionHeading.tsx",
+        "features/shared/components/SectionRule.tsx",
+        "features/shared/components/SourceNote.tsx",
+        "features/shared/components/StatTile.tsx",
+        "features/shared/forensic/forensicMode.ts",
+        "features/shared/forensic/forensicMode.test.ts",
+        "features/shared/forensic/forensicLayer.test.ts",
+        "features/shared/forensic/ForensicProvider.tsx",
+        "features/shared/forensic/ForensicToggle.tsx"
+      ],
+      "group": "Shared UI Primitives",
+      "group_id": "8044cd53-651f-4a5e-972e-a42023976cfa",
+      "id": "4c0c0a71-3fa2-44b3-a9cd-b690d33e6ac8",
+      "keywords": [
+        "primitive",
+        "catalog",
+        "SourceNote",
+        "StatTile",
+        "AnimatedScore",
+        "DataUnavailable",
+        "forensic",
+        "toggle",
+        "shared"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.332187600+00:00",
+      "name": "shared-primitives",
+      "pinned": false,
+      "tech_stack": [
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "framer-motion"
+      ]
+    },
+    {
+      "api_surface": "GET /zdroj/[ref]",
+      "business_feature": "Provenance & Citation System",
+      "category": "lib",
+      "cross_refs": [
+        "money-cases-review",
+        "claim-verifier",
+        "civicscore-leaderboard"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Cross-feature provenance and citation infrastructure. claimRef.ts defines the claim ref grammar and encode/decode; receipt.ts builds the /zdroj receipt structure from a claim ref; ReceiptPage/ReceiptBody render the receipt; ProvenanceCapsule renders the corroboration capsule used by the money surfaces; caseFileLink.ts resolves a stored node ID to the correct case-file URL. The poster/ subdirectory provides printable/shareable poster frames with citation overlays.",
+      "entry_points": [
+        "features/shared/provenance/claimRef.ts",
+        "features/shared/provenance/receipt.ts",
+        "features/shared/provenance/caseFileLink.ts"
+      ],
+      "file_paths": [
+        "features/shared/provenance/claimRef.ts",
+        "features/shared/provenance/claimRef.test.ts",
+        "features/shared/provenance/receipt.ts",
+        "features/shared/provenance/receipt.test.ts",
+        "features/shared/provenance/getReceiptData.ts",
+        "features/shared/provenance/ReceiptPage.tsx",
+        "features/shared/provenance/ReceiptBody.tsx",
+        "features/shared/provenance/ProvenanceCapsule.tsx",
+        "features/shared/provenance/caseFileLink.ts",
+        "features/shared/provenance/caseFileLink.test.ts",
+        "features/shared/poster/citation.ts",
+        "features/shared/poster/citation.test.ts",
+        "features/shared/poster/PosterFrame.tsx",
+        "features/shared/poster/PosterToolbar.tsx",
+        "features/shared/poster/usePosterMode.ts",
+        "features/shared/poster/demo/LeaderboardPoster.tsx"
+      ],
+      "group": "Shared UI Primitives",
+      "group_id": "8044cd53-651f-4a5e-972e-a42023976cfa",
+      "id": "ed6ec626-a855-447d-8104-307c04fbdaed",
+      "keywords": [
+        "claim ref",
+        "receipt",
+        "provenance",
+        "citation",
+        "poster",
+        "zdroj",
+        "capsule",
+        "case file link",
+        "encode",
+        "decode"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.332498+00:00",
+      "name": "shared-provenance",
+      "pinned": false,
+      "tech_stack": [
+        "React 19",
+        "TypeScript",
+        "Next.js 15"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "App Shell & Navigation",
+      "category": "ui",
+      "cross_refs": [
+        "landing-page",
+        "dashboard-instruments"
+      ],
+      "db_tables": [],
+      "description": "The app chrome mounted in the root layout: left nav rail (Sidebar), mobile bottom nav (MobileNav), the navModel that declares all modules and section anchors, public-route enumeration for robots/sitemap, and the archived Rentgen art-direction variant in labs. navModel.ts is the single source of truth for which pages exist and what sections they expose; isBareRoute() opts full-viewport pages out of chrome entirely.",
+      "entry_points": [
+        "features/shell/navModel.ts",
+        "features/shell/AppShell.tsx"
+      ],
+      "file_paths": [
+        "features/shell/AppShell.tsx",
+        "features/shell/MobileNav.tsx",
+        "features/shell/navModel.ts",
+        "features/shell/navModel.test.ts",
+        "features/shell/publicRoutes.ts",
+        "features/shell/publicRoutes.test.ts",
+        "features/shell/Sidebar.tsx",
+        "features/shell/sidebarParts.tsx",
+        "features/shell/useActiveSection.ts",
+        "features/labs/rentgen/VariantRentgen.tsx",
+        "features/labs/rentgen/getTerminalData.ts",
+        "features/labs/rentgen/terminalModel.ts",
+        "features/labs/rentgen/terminalModel.test.ts"
+      ],
+      "group": "Landing & Navigation",
+      "group_id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
+      "id": "01d3fb88-2549-4675-8e0b-8ccf4df21b1a",
+      "keywords": [
+        "nav",
+        "sidebar",
+        "shell",
+        "route",
+        "section",
+        "chrome",
+        "sitemap",
+        "rentgen",
+        "isBareRoute"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.325204100+00:00",
+      "name": "shell-navigation",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4"
+      ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "Data Integrity Sentinel",
+      "category": "test",
+      "cross_refs": [
+        "db-store",
+        "db-repositories",
+        "contribution-scoring"
+      ],
+      "db_tables": [
+        "kg_node"
+      ],
+      "description": "The data-integrity sentinel and shared test infrastructure. The sentinel runs nightly against a real PGlite copy and asserts four invariants: formula-ref uniformity, contribution-provenance uniformity across all 207 MPs, component-sum reconciliation, and a live recompute-sample over 40 MPs — catching a stale or half-applied recompute before it reaches the product. The sibling files provide a server-only stub, loader test helpers, and the server-boundary test that enforces the server-only import rule.",
+      "entry_points": [
+        "lib/testing/sentinel/sentinel.test.ts",
+        "lib/testing/sentinel/invariants.ts"
+      ],
+      "file_paths": [
+        "lib/testing/sentinel/facts.ts",
+        "lib/testing/sentinel/invariants.ts",
+        "lib/testing/sentinel/report.ts",
+        "lib/testing/sentinel/sentinel.test.ts",
+        "lib/testing/leaderboard-loader.test.ts",
+        "lib/testing/loaders.test.ts",
+        "lib/testing/server-boundary.test.ts",
+        "lib/testing/server-only-stub.ts"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "e741eb09-08ab-4faa-adcb-f279b121bc4b",
+      "keywords": [
+        "sentinel",
+        "invariant",
+        "data-integrity",
+        "formula-ref",
+        "provenance",
+        "recompute",
+        "server-only",
+        "loader-test",
+        "nightly"
+      ],
+      "last_written_at": "2026-08-05T08:12:22.151884900+00:00",
+      "name": "testing-sentinel",
+      "pinned": false,
+      "tech_stack": [
+        "TypeScript",
+        "vitest",
+        "PGlite"
+      ]
+    },
+    {
+      "api_surface": "GET /hlasovani/kompas",
+      "business_feature": "Voter Compass (Kompas)",
+      "category": "ui",
+      "cross_refs": [
+        "votetrack-ledger"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The Volební Kompas feature: a multi-question quiz that matches citizens to parties/MPs by their stance on real recorded votes. codec.ts serialises/deserialises the answer state in the URL; score.ts computes cosine-style alignment per party; select.ts picks representative votes per theme. The KompasPage orchestrates the quiz flow through QuestionCard and ResultsBoard.",
+      "entry_points": [
+        "features/votetrack/kompas/KompasPage.tsx",
+        "features/votetrack/kompas/score.ts"
+      ],
+      "file_paths": [
+        "features/votetrack/getKompas.ts",
+        "features/votetrack/kompas/KompasPage.tsx",
+        "features/votetrack/kompas/QuestionCard.tsx",
+        "features/votetrack/kompas/ResultsBoard.tsx",
+        "features/votetrack/kompas/codec.ts",
+        "features/votetrack/kompas/codec.test.ts",
+        "features/votetrack/kompas/copy.ts",
+        "features/votetrack/kompas/score.ts",
+        "features/votetrack/kompas/score.test.ts",
+        "features/votetrack/kompas/select.ts",
+        "features/votetrack/kompas/select.test.ts",
+        "features/votetrack/kompas/types.ts",
+        "features/votetrack/kompas/useKompasAnswers.ts"
+      ],
+      "group": "Voting & Legislation",
+      "group_id": "ef74e660-f57f-4958-bc4d-63585466b65b",
+      "id": "5c238d9e-add5-402d-97ce-f99dbea39904",
+      "keywords": [
+        "kompas",
+        "quiz",
+        "alignment",
+        "voter compass",
+        "party match",
+        "URL codec",
+        "stance"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.329007900+00:00",
+      "name": "votetrack-kompas",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript"
+      ]
+    },
+    {
+      "api_surface": "GET /hlasovani",
+      "business_feature": "VoteTrack Ledger",
+      "category": "ui",
+      "cross_refs": [
+        "votetrack-kompas",
+        "mp-profile",
+        "lawwatch"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "The VoteTrack surface (/hlasovani) — a fusion of three views: Deník (chronological vote ledger), Sál (sticky hemicycle + party breakdown), and Linie (club discipline board with rebellion chronicle). Components cover the real and mock paths for each view; the record/ subdirectory holds pure vote-derivation logic (derive.ts), club-style constants, anchor helpers, and vocabulary copy. Feeds the Aktivita, Docházka, and Nezávislost pillars.",
+      "entry_points": [
+        "features/votetrack/VoteTrackPage.tsx",
+        "features/votetrack/getVoteThemes.ts",
+        "features/votetrack/record/derive.ts"
+      ],
+      "file_paths": [
+        "features/votetrack/VoteTrackPage.tsx",
+        "features/votetrack/VoteHemicycle.tsx",
+        "features/votetrack/themeLabels.ts",
+        "features/votetrack/themeTypes.ts",
+        "features/votetrack/getVoteThemes.ts",
+        "features/votetrack/getVoteRecord.ts",
+        "features/votetrack/components/ChamberDetail.tsx",
+        "features/votetrack/components/DisciplineBoard.tsx",
+        "features/votetrack/components/RealChamberDetail.tsx",
+        "features/votetrack/components/RealDisciplineBoard.tsx",
+        "features/votetrack/components/RealHemicycle.tsx",
+        "features/votetrack/components/RealRebellions.tsx",
+        "features/votetrack/components/RealVoteLedger.tsx",
+        "features/votetrack/components/RealVoteTrack.tsx",
+        "features/votetrack/components/Rebellions.tsx",
+        "features/votetrack/components/Seismograf.tsx",
+        "features/votetrack/components/useVoteAnchor.ts",
+        "features/votetrack/components/VoteLedger.tsx",
+        "features/votetrack/components/VoteThemeFilter.tsx",
+        "features/votetrack/record/anchor.ts",
+        "features/votetrack/record/clubStyle.ts",
+        "features/votetrack/record/copy.ts",
+        "features/votetrack/record/derive.ts",
+        "features/votetrack/record/derive.test.ts",
+        "features/votetrack/record/types.ts"
+      ],
+      "group": "Voting & Legislation",
+      "group_id": "ef74e660-f57f-4958-bc4d-63585466b65b",
+      "id": "ed54db57-e63a-4772-a9e5-48f3d7d4b40d",
+      "keywords": [
+        "vote",
+        "hlasování",
+        "hemicycle",
+        "rebellion",
+        "club discipline",
+        "sál",
+        "linie",
+        "deník",
+        "ballot",
+        "faction"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.328451900+00:00",
+      "name": "votetrack-ledger",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "recharts 3"
+      ]
+    },
+    {
+      "api_surface": "GET /zakony/kolize/feed.xml, GET /zakony/kolize/feed.json",
+      "business_feature": "Vote Tracking & Law Watch",
+      "category": "ui",
+      "cross_refs": [
+        "mp-rankings-routes",
+        "money-budget-routes",
+        "civic-feeds-verification"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge"
+      ],
+      "description": "Thin routes for VoteTrack (/hlasovani), the electoral compass (/kompas), and LawWatch's three surfaces: the bill-monitor index (/zakony), per-bill dossiers (/zakony/[cislo]), the collision radar (/zakony/kolize with RSS/JSON feeds), and the statute registry + per-statute critical edition (/zakony/predpis, /zakony/predpis/[ref]). Each page delegates data loading to features/votetrack or features/lawwatch and renders the associated feature component; the collision-radar feeds are serialised by the same codec as the other platform feeds.",
+      "entry_points": [
+        "app/hlasovani/page.tsx",
+        "app/zakony/page.tsx",
+        "app/zakony/kolize/page.tsx"
+      ],
+      "file_paths": [
+        "app/hlasovani/page.tsx",
+        "app/kompas/page.tsx",
+        "app/zakony/page.tsx",
+        "app/zakony/[cislo]/page.tsx",
+        "app/zakony/kolize/page.tsx",
+        "app/zakony/kolize/feed.json/route.ts",
+        "app/zakony/kolize/feed.xml/route.ts",
+        "app/zakony/predpis/page.tsx",
+        "app/zakony/predpis/[ref]/page.tsx"
+      ],
+      "group": "Voting & Legislation",
+      "group_id": "ef74e660-f57f-4958-bc4d-63585466b65b",
+      "id": "db647ce3-33cf-43a7-8026-cecb1f0b0406",
+      "keywords": [
+        "hlasovani",
+        "votetrack",
+        "zakony",
+        "lawwatch",
+        "kolize",
+        "collision-radar",
+        "kompas",
+        "electoral-compass",
+        "statute",
+        "predpis",
+        "feed",
+        "RSS",
+        "JSON-Feed"
+      ],
+      "last_written_at": "2026-08-05T08:13:32.808647900+00:00",
+      "name": "voting-legislation-routes",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 16.2",
+        "React 19.2",
+        "next-intl",
+        "TypeScript"
+      ]
+    }
+  ],
+  "generated_at": "2026-08-05T08:23:24.396040500+00:00",
+  "generator": "personas-context-scan",
   "groups": [
     {
-      "name": "Landing & Navigation",
+      "color": "amber",
+      "context_count": 5,
       "domain": "feature",
-      "type": null,
-      "color": "#3B82F6",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "App Shell & Navigation",
-          "description": "The persistent app chrome: left nav rail, mobile nav, and the module/section registry that lets users move between CivicScore, VoteTrack, FollowTheMoney, BudgetMirror and LawWatch.",
-          "businessFeature": "App Shell & Navigation",
-          "category": "ui",
-          "filePaths": [
-            "features/shell/AppShell.tsx",
-            "features/shell/MobileNav.tsx",
-            "features/shell/navModel.ts",
-            "features/shell/Sidebar.tsx",
-            "features/shell/sidebarParts.tsx",
-            "features/shell/useActiveSection.ts",
-            "app/layout.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Landing Page",
-          "description": "The public marketing/landing surface: hero story, methodology explainer, live specimen preview, standings teaser, and system module overview that introduce visitors to the five modules.",
-          "businessFeature": "Landing Page",
-          "category": "ui",
-          "filePaths": [
-            "features/landing/LandingPage.tsx",
-            "features/landing/palette.ts",
-            "features/landing/components/HeroStory.tsx",
-            "features/landing/components/DataSources.tsx",
-            "features/landing/components/Hemicycle.tsx",
-            "features/landing/components/LiveSpecimen.tsx",
-            "features/landing/components/Methodology.tsx",
-            "features/landing/components/ScoreBreakdown.tsx",
-            "features/landing/components/SiteFooter.tsx",
-            "features/landing/components/SiteHeader.tsx",
-            "features/landing/components/Standings.tsx",
-            "features/landing/components/SystemModules.tsx",
-            "features/landing/components/TrendChart.tsx",
-            "app/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
+      "id": "d86d84b2-f464-4d81-b681-f53493f2cea4",
+      "name": "Landing & Navigation"
     },
     {
-      "name": "MP Profiles & Rankings",
+      "color": "blue",
+      "context_count": 5,
       "domain": "feature",
-      "type": null,
-      "color": "#8B5CF6",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "Velin Dashboard",
-          "description": "The instrument-panel overview: a chamber stat strip computed from the real knowledge graph via getDashboardData.ts (which reuses the civicscore, money and lawwatch loaders rather than re-deriving), a REAL knowledge-graph slice (stateSlice.ts — seeds picked by ascending pspId, a deliberately non-evaluative key, with the rule printed on the page) paired with a chronological ledger of REAL dated facts about that slice (datedFacts.ts — contracts, committee routing, registry roles; impossible dates excluded and disclosed), and a leaderboard ledger.",
-          "businessFeature": "Velin Dashboard",
-          "category": "ui",
-          "filePaths": [
-            "features/dashboard/DashboardPage.tsx",
-            "features/dashboard/getDashboardData.ts",
-            "features/dashboard/stateSlice.ts",
-            "features/dashboard/stateSlice.test.ts",
-            "features/dashboard/datedFacts.ts",
-            "features/dashboard/datedFacts.test.ts",
-            "features/dashboard/graphText.ts",
-            "features/dashboard/components/FactRow.tsx",
-            "features/dashboard/components/FeedRow.tsx",
-            "features/dashboard/components/GraphFeedPanel.tsx",
-            "features/dashboard/components/GraphGlyph.tsx",
-            "features/dashboard/components/GraphLegend.tsx",
-            "features/dashboard/components/StateGraphCanvas.tsx",
-            "app/dashboard/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "MP Profile Dossier",
-          "description": "The single-MP file (Spis): poster header with score/trend, pillar bars, roll-call vote history with rebel markers, money ties as sourced facts, and prev/next navigation between MPs.",
-          "businessFeature": "MP Profile Dossier",
-          "category": "ui",
-          "filePaths": [
-            "features/profile/ProfilePage.tsx",
-            "features/profile/getProfileData.ts",
-            "features/profile/components/DossierSection.tsx",
-            "features/profile/components/ExpandableText.tsx",
-            "features/profile/components/LowScoreReasonBadge.tsx",
-            "features/profile/components/TenureNote.tsx",
-            "features/profile/components/TenureTrendGate.tsx",
-            "app/poslanec/[id]/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "CivicScore Leaderboard",
-          "description": "Ranks all 207 MPs by contribution score with a histogram, party filter, name search, per-row weighted breakdown bars, and a head-to-head comparison (Souboj) between two picked MPs.",
-          "businessFeature": "CivicScore Leaderboard",
-          "category": "ui",
-          "filePaths": [
-            "features/civicscore/CivicScorePage.tsx",
-            "features/civicscore/getLeaderboardData.ts",
-            "features/civicscore/components/HeadToHead.tsx",
-            "features/civicscore/components/LeaderboardTable.tsx",
-            "features/civicscore/components/ScoreHistogram.tsx",
-            "features/civicscore/components/TrendPanel.tsx",
-            "features/civicscore/components/WorkhorseBadge.tsx",
-            "app/zebricek/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
+      "id": "2f699b9d-517e-49fe-a42a-44f86470911a",
+      "name": "MP Profiles & Rankings"
     },
     {
-      "name": "Voting & Legislation",
+      "color": "violet",
+      "context_count": 4,
       "domain": "feature",
-      "type": null,
-      "color": "#06B6D4",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "LawWatch",
-          "description": "Bill-to-law tracking over the 141 bills -> 101 laws amends graph: statute grouping, sponsor links, Case-1 conflict flags, the gated forensic posudek, and a standalone collisions view.",
-          "businessFeature": "LawWatch",
-          "category": "ui",
-          "filePaths": [
-            "features/lawwatch/LawWatchPage.tsx",
-            "features/lawwatch/BillDossierPage.tsx",
-            "features/lawwatch/CollisionsPage.tsx",
-            "features/lawwatch/getLawData.ts",
-            "features/lawwatch/getCollisionData.ts",
-            "features/lawwatch/lawwatchLabels.ts",
-            "features/lawwatch/components/BillBrowser.tsx",
-            "features/lawwatch/components/BillDetail.tsx",
-            "app/zakony/page.tsx",
-            "app/zakony/kolize/page.tsx",
-            "app/zakony/[cislo]/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "VoteTrack",
-          "description": "Roll-call vote tracking: chronological ledger, sticky chamber detail with hemicycle + party breakdown, club discipline board with line matrix, and the rebellion chronicle.",
-          "businessFeature": "VoteTrack",
-          "category": "ui",
-          "filePaths": [
-            "features/votetrack/VoteTrackPage.tsx",
-            "features/votetrack/VoteHemicycle.tsx",
-            "features/votetrack/getVoteThemes.ts",
-            "features/votetrack/themeLabels.ts",
-            "features/votetrack/themeTypes.ts",
-            "features/votetrack/components/ChamberDetail.tsx",
-            "features/votetrack/components/DisciplineBoard.tsx",
-            "features/votetrack/components/Rebellions.tsx",
-            "features/votetrack/components/VoteLedger.tsx",
-            "features/votetrack/components/VoteThemeFilter.tsx",
-            "app/hlasovani/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
+      "id": "ef74e660-f57f-4958-bc4d-63585466b65b",
+      "name": "Voting & Legislation"
     },
     {
-      "name": "Financial Transparency",
+      "color": "emerald",
+      "context_count": 5,
       "domain": "feature",
-      "type": null,
-      "color": "#F59E0B",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "BudgetMirror",
-          "description": "Town-vs-peer-group budget mirror: metric duos against the computed peer median, debt-per-capita trend lines, and a sortable peer table; stewardship feeds only executive roles.",
-          "businessFeature": "BudgetMirror",
-          "category": "ui",
-          "filePaths": [
-            "features/budget/BudgetMirrorPage.tsx",
-            "app/rozpocty/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Money Case Files & Human Review",
-          "description": "Per-MP money case files (kauzy) and the verification console where a human reviewer gates pending money ties as verified/rejected before they surface as sourced facts.",
-          "businessFeature": "Money Case Files & Human Review",
-          "category": "ui",
-          "filePaths": [
-            "features/money/KauzyPage.tsx",
-            "features/money/MpCaseFilePage.tsx",
-            "features/money/getLeadDossiers.ts",
-            "features/money/getMpDetail.ts",
-            "features/money/getVerificationData.ts",
-            "features/money/reviewActions.ts",
-            "features/money/reviewTypes.ts",
-            "features/money/components/VerificationConsole.tsx",
-            "features/money/components/TieClassExplainer.tsx",
-            "app/penize/kauzy/page.tsx",
-            "app/penize/kontrola/page.tsx",
-            "app/penize/[pspId]/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "FollowTheMoney Graph",
-          "description": "The entity-trail money graph: hover-lit edges between MPs, companies and contracts, plus kniha vazeb grouped by MP and the IC0-join/human-gate trail methodology explainer.",
-          "businessFeature": "FollowTheMoney Graph",
-          "category": "ui",
-          "filePaths": [
-            "features/money/FollowTheMoneyPage.tsx",
-            "features/money/MoneyGraph.tsx",
-            "features/money/moneyLoader.ts",
-            "features/money/moneyTypes.ts",
-            "features/money/getMoneyData.ts",
-            "features/money/components/TiesLedger.tsx",
-            "features/money/components/TrailMethod.tsx",
-            "app/penize/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
+      "id": "d381ea7c-5c48-44a2-8ef4-1e33f879ee7a",
+      "name": "Financial Transparency"
     },
     {
-      "name": "Knowledge Graph Explorer",
-      "domain": "feature",
-      "type": null,
-      "color": "#EC4899",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "Graph Playground",
-          "description": "The full knowledge graph rendered full-viewport on canvas, with two lens variants (Mapa x Trasy whole-graph landscape, Trasy standalone ledger columns), node search, and provenance/registry deep-links on node click.",
-          "businessFeature": "Graph Playground",
-          "category": "ui",
-          "filePaths": [
-            "features/graph/GraphPage.tsx",
-            "features/graph/graphActions.ts",
-            "features/graph/graphLoader.ts",
-            "features/graph/graphTypes.ts",
-            "features/graph/kindStyle.ts",
-            "features/graph/useNodeSelection.ts",
-            "features/graph/VariantMapa.tsx",
-            "features/graph/VariantTrasy.tsx",
-            "features/graph/components/GraphStage.tsx",
-            "features/graph/components/NodeInspector.tsx",
-            "features/graph/components/NodeSearch.tsx",
-            "features/graph/components/StageOverlays.tsx",
-            "app/graf/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
-    },
-    {
-      "name": "Data Ingestion",
+      "color": "orange",
+      "context_count": 10,
       "domain": "integration",
-      "type": null,
-      "color": "#7C3AED",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "Admin Console",
-          "description": "The internal admin surface for watching ingestion/review state: loop progress grid, review hub, system state strip and vault-heads panel.",
-          "businessFeature": "Admin Console",
-          "category": "ui",
-          "filePaths": [
-            "features/admin/AdminPage.tsx",
-            "features/admin/adminTypes.ts",
-            "features/admin/getAdminData.ts",
-            "features/admin/components/LoopProgressGrid.tsx",
-            "features/admin/components/ReviewHubSection.tsx",
-            "features/admin/components/SystemStateStrip.tsx",
-            "features/admin/components/VaultHeadsPanel.tsx",
-            "app/admin/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Ingestion Normalization",
-          "description": "Shared normalization, UNL parsing and zip-extraction helpers that every source adapter relies on to turn raw feeds into consistent records before they reach the graph.",
-          "businessFeature": "Ingestion Normalization",
-          "category": "lib",
-          "filePaths": [
-            "lib/ingest/normalize.ts",
-            "lib/ingest/unl.ts",
-            "lib/ingest/zip.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Source Adapters",
-          "description": "Per-source ingestion adapters that pull and shape raw data from PSP, Kiosek, Dataor, Volby and Pumper into the graph's intermediate representation.",
-          "businessFeature": "Source Adapters",
-          "category": "lib",
-          "filePaths": [
-            "lib/ingest/sources/dataor.ts",
-            "lib/ingest/sources/kiosek-pdf.ts",
-            "lib/ingest/sources/kiosek.ts",
-            "lib/ingest/sources/psp-activity.ts",
-            "lib/ingest/sources/psp-legislation.ts",
-            "lib/ingest/sources/psp.ts",
-            "lib/ingest/sources/pumper.ts",
-            "lib/ingest/sources/volby.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
+      "id": "05c61709-d20f-496b-97d9-b8eae772c20d",
+      "name": "Data Ingestion"
     },
     {
-      "name": "Data Layer",
+      "color": "indigo",
+      "context_count": 2,
       "domain": "data",
-      "type": null,
-      "color": "#F97316",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "Sample Data Fallback",
-          "description": "The deterministic mock/sample dataset (lib/civic) used as a graceful fallback whenever a real-graph loader returns null, plus the vote-scoring logic and state-graph derivation that still feed the dashboard.",
-          "businessFeature": "Sample Data Fallback",
-          "category": "data",
-          "filePaths": [
-            "lib/civic/data.ts",
-            "lib/civic/leaderboard.ts",
-            "lib/civic/stateGraph.ts",
-            "lib/civic/votes.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Scoring & Verdict Copy",
-          "description": "Derives the contribution index and its trend, low-score reasons, workhorse flavour text, tenure/public-facing copy, and money-feed/verdict narration shown across CivicScore, LawWatch and profiles.",
-          "businessFeature": "Scoring & Verdict Copy",
-          "category": "lib",
-          "filePaths": [
-            "lib/analysis/contribution.ts",
-            "lib/analysis/contribution-trend.ts",
-            "lib/analysis/law-verdict.ts",
-            "lib/analysis/low-score-reason.ts",
-            "lib/analysis/quality.ts",
-            "lib/analysis/verdict.ts",
-            "lib/analysis/workhorse-flavour.ts",
-            "lib/analysis/tenure-copy.ts",
-            "lib/analysis/public-copy.ts",
-            "lib/analysis/money-feed.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Knowledge Graph Domain Model",
-          "description": "Domain-level reads over the knowledge graph: node/edge context assembly, money-tie and law-verdict derivation, and the glyph/layout/source-link helpers that turn kg rows into renderable graph geometry.",
-          "businessFeature": "Knowledge Graph Domain Model",
-          "category": "lib",
-          "filePaths": [
-            "lib/analysis/kg.ts",
-            "lib/analysis/kg-money.ts",
-            "lib/analysis/kg-verdict.ts",
-            "lib/analysis/context-model.ts",
-            "lib/analysis/context-provider.ts",
-            "lib/kg/glyph.ts",
-            "lib/kg/layout.ts",
-            "lib/kg/sourceLinks.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "PGlite Repositories",
-          "description": "Repository layer over the embedded Postgres schema: DDL, row mappers and internals, plus per-domain repositories for the knowledge graph, votes, vote tags, provenance, review state and analysis outputs.",
-          "businessFeature": "PGlite Repositories",
-          "category": "data",
-          "filePaths": [
-            "lib/db/pglite/ddl.ts",
-            "lib/db/pglite/internals.ts",
-            "lib/db/pglite/mappers.ts",
-            "lib/db/pglite/repositories/analysis.ts",
-            "lib/db/pglite/repositories/graph.ts",
-            "lib/db/pglite/repositories/kg.ts",
-            "lib/db/pglite/repositories/provenance.ts",
-            "lib/db/pglite/repositories/review.ts",
-            "lib/db/pglite/repositories/votes.ts",
-            "lib/db/pglite/repositories/voteTags.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "PGlite Store & Runtime",
-          "description": "The embedded-Postgres store bootstrap: connection config, the store facade, loader-guard/readiness checks that prevent a failed first open from poisoning the process, and prop-narrowing helpers.",
-          "businessFeature": "PGlite Store & Runtime",
-          "category": "data",
-          "filePaths": [
-            "lib/db/config.ts",
-            "lib/db/pglite-store.ts",
-            "lib/db/store.ts",
-            "lib/db/types.ts",
-            "lib/db/loaderGuard.ts",
-            "lib/db/narrow.ts",
-            "lib/db/readiness.ts",
-            "lib/db/readiness.test.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
+      "id": "7b0cbb74-205c-4b33-b45e-14c5a75403fa",
+      "name": "Data Layer"
     },
     {
-      "name": "Shared UI Primitives",
+      "color": "pink",
+      "context_count": 3,
       "domain": "shared",
-      "type": null,
-      "color": "#10B981",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "Archived Art Direction (Rentgen)",
-          "description": "The Rentgen runner-up visual direction kept as a living reference at the noindexed /rentgen route, exploring an alternate money-graph treatment.",
-          "businessFeature": "Archived Art Direction",
-          "category": "ui",
-          "filePaths": [
-            "features/labs/rentgen/VariantRentgen.tsx",
-            "app/rentgen/page.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Shared Display Primitives",
-          "description": "Domain-agnostic UI building blocks used across every feature: animated score readouts, rank-delta badges, source-citation notes, section headings/rules and the empty-data placeholder.",
-          "businessFeature": "Shared Display Primitives",
-          "category": "ui",
-          "filePaths": [
-            "features/shared/components/AnimatedScore.tsx",
-            "features/shared/components/DataUnavailable.tsx",
-            "features/shared/components/RankDelta.tsx",
-            "features/shared/components/SectionHeading.tsx",
-            "features/shared/components/SectionRule.tsx",
-            "features/shared/components/SourceNote.tsx"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
+      "id": "8044cd53-651f-4a5e-972e-a42023976cfa",
+      "name": "Shared UI Primitives"
     },
     {
-      "name": "Infrastructure & Observability",
+      "color": "red",
+      "context_count": 9,
       "domain": "infrastructure",
-      "type": null,
-      "color": "#6366F1",
-      "icon": null,
-      "contexts": [
-        {
-          "name": "Custom ESLint Rules",
-          "description": "Project-specific lint rules enforcing token discipline, no-silent-catch, a11y keydown handling on role-button elements, reduced-motion fallbacks, and the server-only import boundary.",
-          "businessFeature": "Custom ESLint Rules",
-          "category": "config",
-          "filePaths": [
-            "eslint-rules/no-hardcoded-colors.cjs",
-            "eslint-rules/no-silent-catch.cjs",
-            "eslint-rules/no-silent-null-catch.cjs",
-            "eslint-rules/role-button-requires-keydown.cjs",
-            "eslint-rules/enforce-reduced-motion-fallback.cjs",
-            "eslint-rules/no-server-import-in-client.cjs"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "Test Utilities & Loader Coverage",
-          "description": "Server-only import stubs for the vitest environment and the colocated loader test that pins the leaderboard loader against a seeded PGlite instance.",
-          "businessFeature": "Test Utilities & Loader Coverage",
-          "category": "test",
-          "filePaths": [
-            "lib/testing/server-only-stub.ts",
-            "lib/testing/leaderboard-loader.test.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "App Bootstrap & Global Styles",
-          "description": "The root layout, fonts and global stylesheet/design tokens that every route inherits.",
-          "businessFeature": "App Bootstrap & Global Styles",
-          "category": "config",
-          "filePaths": [
-            "app/layout.tsx",
-            "app/globals.css"
-          ],
-          "target": null,
-          "apiRoutes": []
-        },
-        {
-          "name": "i18n & Number Formatting",
-          "description": "Czech-first locale configuration and the number/decimal-comma formatting helpers that every rendered figure in the app routes through.",
-          "businessFeature": "i18n & Number Formatting",
-          "category": "lib",
-          "filePaths": [
-            "lib/i18n/config.ts",
-            "lib/i18n/locale.ts",
-            "lib/i18n/request.ts",
-            "lib/i18n/useFormat.ts",
-            "lib/format.ts"
-          ],
-          "target": null,
-          "apiRoutes": []
-        }
-      ]
-    }
-  ],
-  "ungrouped": [],
-  "relationships": [],
-  "index": [
-    "Landing & Navigation › App Shell & Navigation [ui] — 7 files",
-    "Landing & Navigation › Landing Page [ui] — 14 files",
-    "MP Profiles & Rankings › Velin Dashboard [ui] — 8 files",
-    "MP Profiles & Rankings › MP Profile Dossier [ui] — 8 files",
-    "MP Profiles & Rankings › CivicScore Leaderboard [ui] — 8 files",
-    "Voting & Legislation › LawWatch [ui] — 11 files",
-    "Voting & Legislation › VoteTrack [ui] — 11 files",
-    "Financial Transparency › BudgetMirror [ui] — 2 files",
-    "Financial Transparency › Money Case Files & Human Review [ui] — 12 files",
-    "Financial Transparency › FollowTheMoney Graph [ui] — 8 files",
-    "Knowledge Graph Explorer › Graph Playground [ui] — 13 files",
-    "Data Ingestion › Admin Console [ui] — 8 files",
-    "Data Ingestion › Ingestion Normalization [lib] — 3 files",
-    "Data Ingestion › Source Adapters [lib] — 8 files",
-    "Data Layer › Sample Data Fallback [data] — 4 files",
-    "Data Layer › Scoring & Verdict Copy [lib] — 10 files",
-    "Data Layer › Knowledge Graph Domain Model [lib] — 8 files",
-    "Data Layer › PGlite Repositories [data] — 10 files",
-    "Data Layer › PGlite Store & Runtime [data] — 8 files",
-    "Shared UI Primitives › Archived Art Direction (Rentgen) [ui] — 2 files",
-    "Shared UI Primitives › Shared Display Primitives [ui] — 6 files",
-    "Infrastructure & Observability › Custom ESLint Rules [config] — 6 files",
-    "Infrastructure & Observability › Test Utilities & Loader Coverage [test] — 2 files",
-    "Infrastructure & Observability › App Bootstrap & Global Styles [config] — 2 files",
-    "Infrastructure & Observability › i18n & Number Formatting [lib] — 5 files"
-  ],
-  "summary": {
-    "totalGroups": 9,
-    "totalContexts": 25,
-    "totalFiles": 184,
-    "categories": {
-      "ui": 14,
-      "lib": 5,
-      "data": 3,
-      "config": 2,
-      "test": 1
+      "id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "name": "Infrastructure & Observability"
     },
-    "domains": {
-      "feature": 5,
-      "integration": 1,
-      "data": 1,
-      "shared": 1,
-      "infrastructure": 1
+    {
+      "color": "violet",
+      "context_count": 1,
+      "domain": "feature",
+      "id": "de83ae74-6caf-454e-8774-0147727152c7",
+      "name": "Knowledge Graph Explorer"
+    },
+    {
+      "color": "blue",
+      "context_count": 4,
+      "domain": "feature",
+      "id": "179abe0a-0b22-4943-921e-e4f1d1a32cde",
+      "name": "Civic Feed & Transparency"
     }
+  ],
+  "project": {
+    "id": "674f1dd5-a05f-4e2e-a5bf-4cefca8f926e",
+    "name": "politicas",
+    "root": "C:\\Users\\mkdol\\dolla\\politicas"
   },
-  "audit": {
-    "ok": false,
-    "tier": "medium",
-    "warnings": 1
+  "provenance": {
+    "git_commit": "86fa80d17afed60583d4b1170360ed7a56e0a1c4",
+    "git_commit_count": 305
   },
-  "instructions": "Context map for politicas. Each group is a business domain (domain field); each context is a feature with its files (filePaths) + a technical category. Read this to learn which files belong to which feature BEFORE editing. When you change a context's files, update them here (or run Vibeman's refresh) to keep this fresh.",
-  "generatedAt": "2026-07-26T15:06:47.769Z",
-  "revision": "820cebf0e10e"
+  "stats": {
+    "contexts": 48,
+    "files": 801,
+    "groups": 10,
+    "use_cases": 0
+  },
+  "taxonomy": {
+    "context_categories": [
+      "ui",
+      "api",
+      "lib",
+      "data",
+      "test",
+      "config"
+    ],
+    "group_domains": [
+      "feature",
+      "infrastructure",
+      "shared",
+      "integration",
+      "data"
+    ]
+  },
+  "use_cases": [],
+  "version": 2
 }
