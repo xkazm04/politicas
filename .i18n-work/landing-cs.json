@@ -1,0 +1,33 @@
+{
+  "landing": {
+    "eyebrow": "obr. 1 — hlavní zpráva · 10. volební období",
+    "hemicycleCaption": "obr. 2 — {count} poslanců podle třetin pořadí indexu přispění",
+    "hemicycleSource": "zdroj: psp.cz · index přispění — živá data",
+    "hemicycleAria": "Hemicykl {count} poslanců podle třetin pořadí indexu přispění",
+    "hemicycleUnavailable": "hemicykl teď nelze vykreslit — databáze grafu je dočasně nedostupná",
+    "rankingSource": "obr. 3 — index přispění · psp.cz · zveřejněné váhy {weights}",
+    "rankingIntro": "Špička žebříčku podle indexu přispění — šest složek se zveřejněnou vahou, každé číslo z deterministického grafu psp.cz. Plný žebříček pokrývá všech {count} poslanců. Vyberte řádek — rozklad i živý vzorek nahoře se přepnou na vybraného poslance.",
+    "scoreDefault": "spočteno podle zveřejněných vah {weights} · pořadí {rank} z {total}",
+    "componentWeightAria": "Váha složky {component}",
+    "specimenSource": "index přispění nad znalostním grafem psp.cz — složky, váhy a nasycení viz /metodika",
+    "breakdownSource": "rozklad skóre — kolik bodů přinesla která složka",
+    "breakdownFootnote": "body složek jsou zveřejněné na desetiny, takže jejich součet se od kompozitu může lišit o desetinu bodu — viz /metodika",
+    "standingsAll": "všech {count} poslanců na /zebricek",
+    "standingsAllShort": "přejít na /zebricek",
+    "unavailableTag": "data dočasně nedostupná",
+    "unavailableTitle": "Index teď nelze načíst",
+    "unavailableBody": "Databáze grafu je jednopřipojeníová a právě ji drží jiný proces (analytický skript nebo druhá instance aplikace). Skóre existují — jen k nim teď nemáme přístup. Zkuste to znovu za chvíli; místo živých dat tu nikdy neukazujeme ukázku.",
+    "unavailableSource": "index přispění · psp.cz — načítá se přímo ze znalostního grafu",
+    "methodCtaFull": "Celá metodika",
+    "methodCtaData": "Data pro redakce",
+    "footerRight": "otevřená data · cc by",
+    "footerMethod": "metodika"
+  },
+  "content": {
+    "modules": {
+      "civic-score": {
+        "description": "Souhrnný index přispění 0–100 pro všech 207 poslanců — šest složek se zveřejněnými váhami, každé číslo dohledatelné ke svému datasetu psp.cz."
+      }
+    }
+  }
+}

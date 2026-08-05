@@ -2,24 +2,41 @@
 
 /**
  * Landing Politicas — vítězná výtvarná řeč „Konstrukt" (sutnarovský
- * funkcionalistický plakát), povýšená z prototypové laboratoře na produkční
- * baseline (kolo 3). Orchestrátor drží jediný sdílený stav (vybraný poslanec
- * + uživatelské váhy) a skládá sekce; vizuální detaily žijí v components/.
- * Archivní směr Rentgen zůstává na /rentgen (features/labs/).
+ * funkcionalistický plakát). Od 2026-08-05 stojí na REÁLNÝCH datech:
+ * server (app/page.tsx) čte týž loader jako /zebricek a sem posílá špičku
+ * žebříčku + vektor skóre; ukázková data z lib/civic/data.ts titulní strana
+ * už nečte. Orchestrátor drží jediný sdílený stav (vybraný poslanec +
+ * čtenářovy váhy) a skládá sekce; vizuální detaily žijí v components/.
+ *
+ * Váhová interakce zrcadlí pravidlo čočky (features/civicscore/lens.ts):
+ * při zveřejněných vahách se ukazuje autoritativní contribution_score
+ * z grafu; jakmile se váhy liší, VŠE pochází z přepočtu a nese označení
+ * „vaše váhy". Nikdy se ty dva režimy nemíchají.
+ *
+ * `data === null` = store nedostupný → poctivý degradovaný stav
+ * (LiveDataNotice + panel ve stylu DataUnavailable), nikdy mock.
  */
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
-import type { Pillar } from "@/lib/civic/data";
-import { MPS, PILLARS } from "@/lib/civic/data";
+import type { ComponentDef, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import {
+  effectiveWeights,
+  isPublishedWeights,
+  LENS_COMPONENT_ORDER,
+  PUBLISHED_WEIGHTS,
+  PUBLISHED_WEIGHTS_LABEL,
+  type WeightVector,
+} from "@/features/civicscore/lens";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
 import SiteHeader from "./components/SiteHeader";
 import HeroStory from "./components/HeroStory";
-import LiveSpecimen, { type Weights } from "./components/LiveSpecimen";
+import LiveSpecimen from "./components/LiveSpecimen";
 import Standings from "./components/Standings";
 import ScoreBreakdown from "./components/ScoreBreakdown";
-import TrendChart from "./components/TrendChart";
 import DenikTeaser from "./components/DenikTeaser";
 import ReferendumTeaser from "./components/ReferendumTeaser";
 import SystemModules from "./components/SystemModules";
@@ -27,25 +44,48 @@ import DataSources from "./components/DataSources";
 import Methodology from "./components/Methodology";
 import SiteFooter from "./components/SiteFooter";
 
-const DEFAULT_WEIGHTS = () =>
-  Object.fromEntries(PILLARS.map((p) => [p.key, p.weight * 100])) as Weights;
+/** Co titulní strana skutečně vykreslí — server ji sestaví z loaderu /zebricek. */
+export interface LandingData {
+  /** Špička žebříčku (competition ranking), v pořadí loaderu. */
+  featured: LeaderboardListEntry[];
+  /** Skóre všech poslanců, řazeno sestupně — hemicykl. */
+  scores: number[];
+  /** Kolik poslanců index pokrývá (207). */
+  count: number;
+  /** Šest zveřejněných složek (label/weight/source) — z loaderu, ne kopie. */
+  components: ComponentDef[];
+}
 
-export default function LandingPage() {
+const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
+const round1 = (x: number) => Math.round(x * 10) / 10;
+
+/** Přepočet jednoho poslance pod čtenářovými vahami — TÝŽ vzorec jako
+ *  lens.reweigh (míra naplnění × efektivní váha), jen pro jeden řádek. */
+function lensScore(e: LeaderboardListEntry, weights: WeightVector): number {
+  const eff = effectiveWeights(weights);
+  let s = 0;
+  for (const k of LENS_COMPONENT_ORDER) {
+    const pub = PUBLISHED_WEIGHTS[k];
+    s += (pub > 0 ? clamp01(e.components[k] / pub) : 0) * eff[k];
+  }
+  return round1(s);
+}
+
+export default function LandingPage({ data }: { data: LandingData | null }) {
   const t = useTranslations("landing");
-  const [selectedId, setSelectedId] = useState(MPS[0].id);
-  const mp = MPS.find((m) => m.id === selectedId) ?? MPS[0];
 
-  const [weights, setWeights] = useState<Weights>(DEFAULT_WEIGHTS);
-  const isDefault = PILLARS.every((p) => weights[p.key] === p.weight * 100);
+  const featured = data?.featured ?? [];
+  const [selectedId, setSelectedId] = useState<number | null>(featured[0]?.pspId ?? null);
+  const mp = featured.find((e) => e.pspId === selectedId) ?? featured[0] ?? null;
 
+  const [weights, setWeights] = useState<WeightVector>({ ...PUBLISHED_WEIGHTS });
+  const isDefault = isPublishedWeights(weights);
+
+  // Zveřejněné váhy → autoritativní skóre z grafu; jinak přepočet čočkou.
   const score = useMemo(() => {
-    const total = PILLARS.reduce((s, p) => s + weights[p.key], 0) || 1;
-    const raw = PILLARS.reduce((s, p) => s + mp.pillars[p.key] * (weights[p.key] / total), 0);
-    return Math.round(raw * 10) / 10;
-  }, [weights, mp]);
-
-  const onWeightChange = (key: Pillar["key"], value: number) =>
-    setWeights((w) => ({ ...w, [key]: value }));
+    if (!mp) return 0;
+    return isDefault ? mp.score : lensScore(mp, weights);
+  }, [mp, weights, isDefault]);
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -53,40 +93,72 @@ export default function LandingPage() {
 
       {/* ── Hero: hlavní zpráva + živý index ────────────────── */}
       <section id="k-index" className="mx-auto grid max-w-6xl gap-0 px-6 lg:grid-cols-2">
-        <HeroStory />
-        <LiveSpecimen
-          mp={mp}
-          score={score}
-          weights={weights}
-          isDefault={isDefault}
-          onSelect={setSelectedId}
-          onWeightChange={onWeightChange}
-          onReset={() => setWeights(DEFAULT_WEIGHTS())}
-        />
+        <HeroStory scores={data?.scores ?? null} count={data?.count ?? null} />
+        {mp && data ? (
+          <LiveSpecimen
+            mp={mp}
+            featured={featured}
+            components={data.components}
+            total={data.count}
+            score={score}
+            weights={weights}
+            isDefault={isDefault}
+            onSelect={setSelectedId}
+            onWeightChange={(key, value) => setWeights((w) => ({ ...w, [key]: value }))}
+            onReset={() => setWeights({ ...PUBLISHED_WEIGHTS })}
+          />
+        ) : (
+          <SpecimenUnavailable />
+        )}
       </section>
 
-      {/* ── Žebříček ────────────────────────────────────────── */}
+      {/* ── Žebříček (reálná špička; plný na /zebricek) ─────── */}
       <section id="k-zebricek" className="border-t-4 border-ink">
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-4xl font-black uppercase tracking-tight sm:text-5xl">
               {t("rankingTitle")}<span className="text-signal">.</span>
             </h2>
-            <SourceNote>{t("rankingSource")}</SourceNote>
+            <SourceNote>{t("rankingSource", { weights: PUBLISHED_WEIGHTS_LABEL })}</SourceNote>
           </div>
           <div className="mt-4">
             <SectionRule />
           </div>
-          <p className="mt-4 max-w-2xl text-sm text-steel-aa">
-            {t("rankingIntro")}
-          </p>
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-            <Standings selected={mp} onSelect={setSelectedId} />
-            <div className="min-w-0 space-y-8">
-              <ScoreBreakdown selectedId={selectedId} onSelect={setSelectedId} />
-              <TrendChart mp={mp} />
+          {data && mp ? (
+            <>
+              <p className="mt-4 max-w-2xl text-sm text-steel-aa">
+                {t("rankingIntro", { count: data.count })}
+              </p>
+              <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+                <Standings
+                  entries={featured}
+                  total={data.count}
+                  selectedId={mp.pspId}
+                  onSelect={setSelectedId}
+                />
+                <ScoreBreakdown
+                  entries={featured}
+                  components={data.components}
+                  selectedId={mp.pspId}
+                  onSelect={setSelectedId}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="mt-8">
+              <LiveDataNotice
+                title={t("unavailableTag")}
+                body={t("unavailableBody")}
+                source={t("unavailableSource")}
+              />
+              <Link
+                href="/zebricek"
+                className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+              >
+                {t("standingsAllShort")} →
+              </Link>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -101,5 +173,26 @@ export default function LandingPage() {
       <Methodology />
       <SiteFooter />
     </main>
+  );
+}
+
+/** Pravá polovina hero, když je store nedostupný — stylová řeč
+ *  DataUnavailable (poctivé „teď nelze načíst", nikdy mock). */
+function SpecimenUnavailable() {
+  const t = useTranslations("landing");
+  return (
+    <div className="py-14 lg:pl-12">
+      <SourceNote tone="signal">{t("unavailableTag")}</SourceNote>
+      <h2 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight">
+        {t("unavailableTitle")}<span className="text-signal">.</span>
+      </h2>
+      <div className="mt-4 max-w-md">
+        <SectionRule />
+      </div>
+      <p className="mt-4 max-w-md text-base leading-relaxed text-steel-aa">
+        {t("unavailableBody")}
+      </p>
+      <SourceNote className="mt-6">{t("unavailableSource")}</SourceNote>
+    </div>
   );
 }

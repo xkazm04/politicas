@@ -1,23 +1,32 @@
 "use client";
 
 /**
- * Pravá polovina hero — živý, přenastavitelný index.
- * Metodika jako hlavní interakce: posuvníky vah přepočítávají skóre živě.
- * Stav (vybraný poslanec + váhy) vlastní LandingPage; tady jen ovládání.
+ * Pravá polovina hero — živý, přenastavitelný index nad REÁLNÝMI daty.
+ * Metodika jako hlavní interakce: posuvníky šesti zveřejněných složek
+ * přepočítávají skóre živě pravidlem čočky (features/civicscore/lens.ts).
+ * Při zveřejněných vahách se ukazuje autoritativní contribution_score
+ * z grafu; jinak přepočet označený jako „vaše váhy". Stav (vybraný
+ * poslanec + váhy) vlastní LandingPage; tady jen ovládání.
+ *
+ * Štítky složek jsou kanonické české z componentDefs.ts — týž zdroj jako
+ * /zebricek (jedna definice, žádná druhá kopie štítků ani vah).
  */
 
 import { RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { MP, Pillar } from "@/lib/civic/data";
-import { MPS, PILLARS } from "@/lib/civic/data";
+import type { ComponentDef, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
+import type { WeightVector } from "@/features/civicscore/lens";
+import { PUBLISHED_WEIGHTS_LABEL } from "@/features/civicscore/lens";
 import { useFormat } from "@/lib/i18n/useFormat";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
-import { PILLAR_BG } from "../palette";
-
-export type Weights = Record<Pillar["key"], number>;
+import SourceNote from "@/features/shared/components/SourceNote";
 
 export default function LiveSpecimen({
   mp,
+  featured,
+  components,
+  total,
   score,
   weights,
   isDefault,
@@ -25,22 +34,27 @@ export default function LiveSpecimen({
   onWeightChange,
   onReset,
 }: {
-  mp: MP;
+  mp: LeaderboardListEntry;
+  /** Špička žebříčku — přepínač vzorku. */
+  featured: LeaderboardListEntry[];
+  /** Šest zveřejněných složek z loaderu (label/weight/source). */
+  components: ComponentDef[];
+  /** Kolik poslanců index pokrývá (207). */
+  total: number;
   score: number;
-  weights: Weights;
+  weights: WeightVector;
   isDefault: boolean;
-  onSelect: (id: string) => void;
-  onWeightChange: (key: Pillar["key"], value: number) => void;
+  onSelect: (pspId: number) => void;
+  onWeightChange: (key: ComponentDef["key"], value: number) => void;
   onReset: () => void;
 }) {
   const t = useTranslations("landing");
-  const tc = useTranslations("content");
   const f = useFormat();
   return (
     <div className="py-14 lg:pl-12">
       <div className="flex items-baseline justify-between gap-3">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-steel-aa">
-          {t("specimenLabel", { name: mp.name, party: mp.party })}
+          {t("specimenLabel", { name: mp.name, party: mp.clubName })}
         </p>
         {!isDefault && (
           <button
@@ -53,19 +67,19 @@ export default function LiveSpecimen({
         )}
       </div>
 
-      {/* přepínač vzorku — příjmení jako štítky */}
+      {/* přepínač vzorku — příjmení špičky žebříčku jako štítky */}
       <div className="mt-3 flex flex-wrap gap-1.5">
-        {MPS.map((m) => (
+        {featured.map((e) => (
           <button
-            key={m.id}
+            key={e.pspId}
             type="button"
-            onClick={() => onSelect(m.id)}
+            onClick={() => onSelect(e.pspId)}
             className={`border-2 px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
-              m.id === mp.id ? "border-ink bg-ink text-paper" : "border-hairline text-steel-aa hover:text-ink"
+              e.pspId === mp.pspId ? "border-ink bg-ink text-paper" : "border-hairline text-steel-aa hover:text-ink"
             }`}
-            aria-pressed={m.id === mp.id}
+            aria-pressed={e.pspId === mp.pspId}
           >
-            {m.name.split(" ").at(-1)}
+            {e.name.split(" ").at(-1)}
           </button>
         ))}
       </div>
@@ -84,37 +98,41 @@ export default function LiveSpecimen({
         </div>
       </div>
       <p className={`mt-1 font-mono text-[11px] uppercase tracking-widest ${isDefault ? "text-steel-aa" : "text-cobalt"}`}>
-        {isDefault ? t("scoreDefault") : t("scoreCustom")}
+        {isDefault
+          ? t("scoreDefault", { weights: PUBLISHED_WEIGHTS_LABEL, rank: mp.rank, total })
+          : t("scoreCustom")}
       </p>
 
       <div className="mt-8 space-y-5">
-        {PILLARS.map((p) => {
-          const label = tc(`pillars.${p.key}.label`);
+        {components.map((c) => {
+          const fill = COMPONENT_FILL[c.key];
           return (
-            <div key={p.key} className="grid grid-cols-[7.5rem_1fr_3rem] items-center gap-4">
+            <div key={c.key} className="grid grid-cols-[9.5rem_1fr_3rem] items-center gap-4">
               <span className="flex items-center gap-2 text-sm font-black uppercase tracking-wide">
-                <span className={`inline-block h-3 w-3 ${PILLAR_BG[p.key]}`} />
-                {label}
+                {/* barva složky — jediný zdroj componentFill.ts (tokeny palety) */}
+                <span
+                  className="inline-block h-3 w-3"
+                  style={{ background: fill.color, opacity: fill.opacity ?? 1 }}
+                />
+                {c.label}
               </span>
               <input
                 type="range"
                 min={0}
                 max={100}
-                value={weights[p.key]}
-                onChange={(e) => onWeightChange(p.key, Number(e.target.value))}
-                aria-label={t("pillarWeightAria", { pillar: label })}
+                value={weights[c.key]}
+                onChange={(e) => onWeightChange(c.key, Number(e.target.value))}
+                aria-label={t("componentWeightAria", { component: c.label })}
                 className="k-range"
               />
               <span className="text-right font-mono text-sm tabular-nums text-steel-aa">
-                {Math.round(weights[p.key])}
+                {Math.round(weights[c.key])}
               </span>
             </div>
           );
         })}
       </div>
-      <p className="mt-6 border-l-4 border-signal pl-4 text-sm italic leading-relaxed text-steel-aa">
-        {t("specimenNote", { attendance: f.int(mp.pillars.attendance) })}
-      </p>
+      <SourceNote className="mt-6">{t("specimenSource")}</SourceNote>
     </div>
   );
 }

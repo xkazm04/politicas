@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { MODULES } from "@/lib/civic/data";
-import SourceNote from "@/features/shared/components/SourceNote";
 
 /** Modul → geometrický glyf. Sutnarovské tvary, ne ikony. */
 function ModuleGlyph({ index }: { index: number }) {
@@ -73,7 +72,7 @@ export default function SystemModules() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.05 }}
-              className="group grid grid-cols-[3rem_3.5rem_1fr_auto] items-center gap-5 border-b border-hairline py-6 transition-colors hover:bg-paper-strong sm:grid-cols-[3.5rem_4rem_1.2fr_1fr_auto]"
+              className="group grid grid-cols-[3rem_3.5rem_1fr_auto] items-center gap-5 border-b border-hairline py-6 transition-colors hover:bg-paper-strong sm:grid-cols-[3.5rem_4rem_1fr_auto]"
             >
               <span className={`font-mono text-2xl font-bold ${i === 0 ? "text-signal" : "text-steel-aa"}`}>
                 0{i + 1}
@@ -83,10 +82,9 @@ export default function SystemModules() {
                 <span className="block text-2xl font-black uppercase tracking-tight">{m.name}</span>
                 <span className="mt-1 block text-sm text-steel-aa">{tc(`modules.${m.key}.description`)}</span>
               </span>
-              <span className="hidden sm:block">
-                <span className="block text-3xl font-black tabular-nums text-cobalt">{tc(`modules.${m.key}.metricValue`)}</span>
-                <SourceNote>{tc(`modules.${m.key}.metricLabel`)}</SourceNote>
-              </span>
+              {/* Metriky modulů (počty hlasování, mld Kč…) byly ilustrativní
+                  mock — smyšlená čísla titulní strana nevykresluje. Reálné
+                  metriky nese každý modul na své vlastní ploše. */}
               <ArrowRight className="h-6 w-6 text-signal transition-transform group-hover:translate-x-1" />
             </motion.a>
           ))}

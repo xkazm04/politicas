@@ -1,51 +1,46 @@
 "use client";
 
 /**
- * Skládaný rozklad skóre — kolik bodů přinesl který pilíř.
- * Šířka segmentu = pilíř × zveřejněná váha, součet = kompozit.
+ * Skládaný rozklad skóre — kolik bodů přinesla která z ŠESTI zveřejněných
+ * složek indexu přispění (reálné body z loaderu, ne mockové pilíře).
+ * Šířka segmentu = zveřejněné body složky; součet ≈ kompozit (zaokrouhlení
+ * na desetiny — poznámka pod grafem to přiznává, viz getLeaderboardData.ts).
  * Kliknutí na pruh vybírá poslance (stejný stav jako řádky žebříčku).
  */
 
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { MPS, PILLARS } from "@/lib/civic/data";
+import type { ComponentDef, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { HAIRLINE, INK, PAPER_STRONG, PILLAR_FILL, STEEL, TOOLTIP_STYLE } from "../palette";
+import { HAIRLINE, INK, PAPER_STRONG, STEEL, TOOLTIP_STYLE } from "../palette";
 
 export default function ScoreBreakdown({
+  entries,
+  components,
   selectedId,
   onSelect,
 }: {
-  selectedId: string;
-  onSelect: (id: string) => void;
+  entries: LeaderboardListEntry[];
+  components: ComponentDef[];
+  selectedId: number;
+  onSelect: (pspId: number) => void;
 }) {
   const t = useTranslations("landing");
-  const tc = useTranslations("content");
   const f = useFormat();
 
-  // Pilíře v pořadí PILLARS; klíč série = lokalizovaný label (zobrazí se v tooltipu).
-  const pillarLabels = useMemo(
-    () => PILLARS.map((p) => ({ key: p.key, weight: p.weight, label: tc(`pillars.${p.key}.label`) })),
-    [tc],
-  );
-
-  // Vážené příspěvky se nemění s výběrem, jen zvýraznění. Klíčováno stabilním
-  // p.key (enum), NE lokalizovaným labelem — dva pilíře se stejným přeloženým
-  // textem by jinak přes Object.fromEntries tiše přepsaly jeden druhým a jeden
-  // pilíř by z grafu beze stopy zmizel. Label se předává jen jako `name` na
-  // <Bar> níže, čistě pro zobrazení v tooltipu.
+  // Reálné body složek — klíčováno stabilním c.key; label jde jen jako
+  // `name` na <Bar> pro tooltip.
   const stackedData = useMemo(
     () =>
-      MPS.map((m) => ({
-        id: m.id,
-        name: m.name.split(" ").at(-1) ?? m.name,
-        ...(Object.fromEntries(
-          pillarLabels.map((p) => [p.key, Math.round(m.pillars[p.key] * p.weight * 10) / 10]),
-        ) as Record<string, number>),
+      entries.map((e) => ({
+        id: e.pspId,
+        name: e.name.split(" ").at(-1) ?? e.name,
+        ...e.components,
       })),
-    [pillarLabels],
+    [entries],
   );
 
   return (
@@ -76,38 +71,51 @@ export default function ScoreBreakdown({
               contentStyle={TOOLTIP_STYLE}
               formatter={(value, name) => [t("breakdownTooltipUnit", { value: f.dec(Number(value)) }), String(name)]}
             />
-            {pillarLabels.map((p) => (
-              <Bar
-                key={p.key}
-                dataKey={p.key}
-                name={p.label}
-                stackId="kompozit"
-                fill={PILLAR_FILL[p.key]}
-                onClick={(entry) => {
-                  const id = (entry as unknown as { payload?: { id?: string } }).payload?.id;
-                  if (id) onSelect(id);
-                }}
-                cursor="pointer"
-              >
-                {MPS.map((m) => (
-                  <Cell key={m.id} fillOpacity={m.id === selectedId ? 1 : 0.38} />
-                ))}
-              </Bar>
-            ))}
+            {components.map((c) => {
+              const fill = COMPONENT_FILL[c.key];
+              return (
+                <Bar
+                  key={c.key}
+                  dataKey={c.key}
+                  name={c.label}
+                  stackId="kompozit"
+                  fill={fill.color}
+                  onClick={(entry) => {
+                    const id = (entry as unknown as { payload?: { id?: number } }).payload?.id;
+                    if (id) onSelect(id);
+                  }}
+                  cursor="pointer"
+                >
+                  {entries.map((e) => (
+                    <Cell
+                      key={e.pspId}
+                      fillOpacity={(e.pspId === selectedId ? 1 : 0.38) * (fill.opacity ?? 1)}
+                    />
+                  ))}
+                </Bar>
+              );
+            })}
           </BarChart>
         </ResponsiveContainer>
       </div>
       <div className="mt-2 flex flex-wrap gap-3">
-        {pillarLabels.map((p) => (
-          <span
-            key={p.key}
-            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-steel-aa"
-          >
-            <span className="inline-block h-2.5 w-2.5" style={{ background: PILLAR_FILL[p.key] }} />
-            {p.label} × {p.weight}
-          </span>
-        ))}
+        {components.map((c) => {
+          const fill = COMPONENT_FILL[c.key];
+          return (
+            <span
+              key={c.key}
+              className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-steel-aa"
+            >
+              <span
+                className="inline-block h-2.5 w-2.5"
+                style={{ background: fill.color, opacity: fill.opacity ?? 1 }}
+              />
+              {c.label} × {c.weight}
+            </span>
+          );
+        })}
       </div>
+      <SourceNote className="mt-2">{t("breakdownFootnote")}</SourceNote>
     </div>
   );
 }
