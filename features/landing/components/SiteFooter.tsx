@@ -27,6 +27,15 @@ export default function SiteFooter() {
           <Link href="/metodika" className="text-cobalt transition-colors hover:text-signal">
             {t("footerMethod")}
           </Link>
+          <Link
+            href="/ochrana-osobnich-udaju"
+            className="text-cobalt transition-colors hover:text-signal"
+          >
+            {t("footerPrivacy")}
+          </Link>
+          <Link href="/podminky" className="text-cobalt transition-colors hover:text-signal">
+            {t("footerTerms")}
+          </Link>
         </span>
       </div>
     </footer>

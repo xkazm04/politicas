@@ -59,6 +59,7 @@ export function BrandBlock() {
 
 export function SidebarFooter() {
   const t = useTranslations("common");
+  const tLanding = useTranslations("landing");
 
   return (
     <div className="shrink-0 border-t-2 border-ink px-5 py-4">
@@ -66,6 +67,18 @@ export function SidebarFooter() {
       {/* Kadence ingesce je vlastnost platformy, ne jedné plochy — patří do
           globálního chromu, aby ji čtenář viděl na každém modulu. */}
       <SourceNote className="mt-3">{t("ingestion")}</SourceNote>
+      {/* Právní dokumenty musí být dosažitelné z každé plochy, ne jen z plakátu. */}
+      <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-widest">
+        <Link
+          href="/ochrana-osobnich-udaju"
+          className="text-steel-aa transition-colors hover:text-signal"
+        >
+          {tLanding("footerPrivacy")}
+        </Link>
+        <Link href="/podminky" className="text-steel-aa transition-colors hover:text-signal">
+          {tLanding("footerTerms")}
+        </Link>
+      </div>
     </div>
   );
 }

@@ -22,7 +22,48 @@
     "graphTitle": "Graph of the state — Politicas",
     "graphDescription": "A searchable knowledge graph of Czech politics: people, companies, public money, votes and laws in one network, every node linked to its register.",
     "metodikaTitle": "Contribution index methodology — Politicas",
-    "metodikaDescription": "The six components of the contribution index, their published weights, the saturation caps and the formula ref — rendered from the code that computes the score."
+    "metodikaDescription": "The six components of the contribution index, their published weights, the saturation caps and the formula ref — rendered from the code that computes the score.",
+    "exhibitSliceTitle": "Exhibit — state-graph slice · politicas",
+    "exhibitFactTitle": "Exhibit — dated fact · politicas",
+    "exhibitFallbackTitle": "Exhibit · politicas",
+    "exhibitDescription": "A citable imprint of a control-room slice: content addressed by a content hash, with sources, the imprint and the data-retrieval date in the citation footer.",
+    "graphCitationTitle": "Citation — {title} · politicas",
+    "graphCitationFallbackTitle": "Graph citation · politicas",
+    "graphCitationDescription": "A permanent citation of one view of the Czech-politics knowledge graph: the claims, the human-review state of every edge, the sources and the content fingerprint at the moment of issue.",
+    "krajTitle": "My region — election card · Politicas",
+    "krajDescription": "Pick a region and get its MPs' slate: contribution index, components, badges — with source and date, ready to print.",
+    "krajCardTitle": "{kraj} — election card · Politicas",
+    "krajCardDescription": "The MP slate ({count}): {kraj}. Contribution index from open psp.cz data, with source and date, ready to print.",
+    "plakatFallbackTitle": "Poster — Politicas",
+    "plakatTitle": "Poster — Open index · Politicas",
+    "plakatDescription": "The print form of the contribution-index leaderboard: an A4/A3 sheet with an archival citation footer (source, data state, methodology).",
+    "moneyMpTitle": "MP case file {pspId} · FollowTheMoney",
+    "moneyMpDescription": "The full evidence chain of MP↔company ties — contracts, subsidies, donations, corroboration in ARES VR.",
+    "moneyPacketTitle": "Evidence packet for MP {pspId} · FollowTheMoney",
+    "moneyPacketDescription": "An MP's case file compiled into a citable packet — human-verified ties only, a timeline, registry links and ready-made citation blocks. Excluded unverified material is disclosed.",
+    "moneyCompanyTitle": "Company file {ico} · FollowTheMoney",
+    "moneyCompanyDescription": "A company as a crossroads of the graph — every MP tied to it, each tie's class and review state, and the company's contracts with the state.",
+    "kauzyTitle": "Cases · FollowTheMoney",
+    "kauzyDescription": "Hand-curated investigative dossiers (cases) — a dated, cited research trail split into what the sources establish and what they do not. Always pending review, never a confirmed accusation.",
+    "kontrolaTitle": "Tie review · FollowTheMoney",
+    "kontrolaDescription": "The review console for unconfirmed MP↔company ties — the evidence folder and deep links into the primary registers. The human gate: only a human can confirm a tie.",
+    "stretyTitle": "Vote collisions · FollowTheMoney",
+    "stretyDescription": "Deterministically computed conflict-of-interest candidates: an MP's vote on a print amending a statute that governs the public-money channel of a company where the registry records they held a role on the vote day. The time overlap is a fact; every candidate requires human verification — nothing here is an accusation.",
+    "budgetMirrorTitle": "The budget mirror — Politicas",
+    "budgetMirrorDescription": "The finances of any of Czechia's 6,254 municipalities against municipalities of similar size: debt per capita, capital-spending share, balance from FIN 2-12 M statements in the MONITOR system, and the municipality's money trail in the Contracts Register — with a computed peer group and openly stated coverage.",
+    "budgetIcoTitle": "{town} — budget mirror — Politicas",
+    "budgetIcoDescription": "The finances of {town} ({kraj}) against municipalities of similar size — debt per capita, capital-spending share and balance from FIN 2-12 M statements in the MONITOR system.",
+    "budgetIcoNotFound": "Municipality not found — Politicas",
+    "lawBillTitle": "Print No. {cislo} — {title} — Politicas",
+    "lawCollisionsTitle": "Collision radar — Politicas",
+    "lawCollisionsDescription": "An early-warning system for the legislative process: a chronological ledger of findings (collisions of concurrently pending prints over the same section, derived conflict flags on sponsors) with permanent anchors, citation blocks and an RSS/JSON feed — plus clusters of case ③ close-read findings by act and section.",
+    "lawStatuteRegistryTitle": "Statute memory — statute registry — Politicas",
+    "lawStatuteRegistryDescription": "Critical editions of Czech acts: who changed which statute, with a verbatim section trail from e-Sbírka where the archive carries one.",
+    "lawStatuteMemoryTitle": "Statute memory — Politicas",
+    "lawStatuteTitle": "Act No. {ref} Sb. — statute memory — Politicas",
+    "lawStatuteDescription": "The critical edition of Act No. {ref} Sb.: who changed it, with a verbatim section trail from e-Sbírka.",
+    "kompasTitle": "Election compass, inverted — Politicas",
+    "kompasDescription": "A reversed election calculator: take positions on real roll-call votes of the Chamber and compute — deterministically, from the stored PSP10 roll-call ballots — which MPs and groups voted like you. The result lives in the link, no account needed."
   },
   "common": {
     "languageSwitch": "Switch language",
@@ -68,7 +109,27 @@
       "kauzy": "cases",
       "kontrola": "tie verification",
       "kolize": "law collisions",
-      "graf": "graph canvas"
+      "graf": "graph canvas",
+      "dukazy": "evidence journal",
+      "data": "data versions",
+      "atlas": "data quality atlas",
+      "overeni": "citation verification",
+      "referendum": "methodology referendum",
+      "kraj": "my region — election card",
+      "metodika": "index methodology",
+      "kompas": "the voting compass, inside out",
+      "strety": "conflicts — collision candidates",
+      "predpis": "statute case files"
+    },
+    "entries": {
+      "schranka": {
+        "label": "Inbox",
+        "tag": "watched · what changed"
+      },
+      "zaznam": {
+        "label": "The Record",
+        "tag": "journal · evidence · data"
+      }
     }
   },
   "content": {
@@ -97,7 +158,7 @@
     "modules": {
       "civic-score": {
         "tag": "Synthesis",
-        "description": "A composite effectiveness index, 0–100, for every MP — four pillars, published weights, every number traceable to its dataset.",
+        "description": "A 0–100 contribution index for all 207 MPs — six components with published weights, every number traceable to its psp.cz dataset.",
         "metricValue": "200",
         "metricLabel": "MPs scored, every quarter",
         "feeds": "The surface the other four modules feed"
@@ -426,29 +487,24 @@
       "method": "Method"
     },
     "enter": "Enter",
-    "eyebrow": "fig. 1 — headline · 9th parliamentary term",
+    "eyebrow": "fig. 1 — headline · 10th parliamentary term",
     "titleLine1": "The measured",
     "titleLine2": "republic",
     "lead": "Every vote cast, every crown of public money, every amended section of law — fused into one score for each politician. Not an opinion: an index with published weights, where every number cites the public dataset it came from.",
     "ctaRanking": "Ranking",
     "ctaMethod": "Methodology",
-    "hemicycleCaption": "fig. 2 — 200 Chamber seats by score band",
-    "hemicycleSource": "illustrative diagram — illustrative sample — not real data",
-    "hemicycleAria": "Hemicycle of 200 seats by score band",
+    "hemicycleCaption": "fig. 2 — {count} MPs by contribution-index rank thirds",
+    "hemicycleSource": "source: psp.cz · contribution index — live data",
+    "hemicycleAria": "Hemicycle of {count} MPs by contribution-index rank thirds",
     "rankingTitle": "Ranking",
-    "rankingSource": "fig. 3 — ILLUSTRATIVE SAMPLE · composite = Σ pillar × weight, recomputed every quarter; see /zebricek for the real ranking",
-    "rankingIntro": "Ranked by composite score; the full ranking covers all 200 MPs. Pick a row — the breakdown, the trend and the live specimen above all switch to the selected MP.",
+    "rankingSource": "fig. 3 — contribution index · psp.cz · published weights {weights}",
+    "rankingIntro": "The top of the ranking by the contribution index — six components with published weights, every number from the deterministic psp.cz graph. The full ranking covers all {count} MPs. Pick a row — the breakdown and the live specimen above switch to the selected MP.",
     "specimenLabel": "live specimen — {name}, {party}",
     "publishedWeights": "published weights",
-    "scoreDefault": "computed with the published v1.4 weights",
+    "scoreDefault": "computed with the published weights {weights} · rank {rank} of {total}",
     "scoreCustom": "computed with YOUR weights — same evidence",
-    "pillarWeightAria": "Weight of the {pillar} pillar",
-    "specimenNote": "ILLUSTRATIVE SAMPLE — pillar values are invented, not real facts. The real ranking is at /zebricek.",
-    "breakdownSource": "score breakdown — how many points each pillar contributed",
+    "breakdownSource": "score breakdown — how many points each component contributed",
     "breakdownTooltipUnit": "{value} pts",
-    "trendSource": "composite trend — {name} · {count} quarters",
-    "trendTooltip": "composite",
-    "trendFootnote": "source: illustrative sample — not real data",
     "systemTitlePart1": "One graph",
     "systemTitlePart2": "Five tools",
     "systemIntro": "Politician ↔ party ↔ firm ↔ contract ↔ vote ↔ budget ↔ law, joined through one universal eight-digit company ID (IČO). Every tool reads the same graph.",
@@ -459,10 +515,23 @@
     "methodTitle": "No black box",
     "methodBody": "Versioned weights, a citation on every pillar, a click through to the evidenced fact. We publish ties between politicians and firms as dated, evidenced facts — never as accusations. Built and tested a full election cycle before it matters.",
     "methodCtaFind": "Find your MP",
-    "methodCtaApi": "API for newsrooms",
     "footerLeft": "Politicas — the empirical record of the republic",
-    "footerRight": "open data · cc by · methodology v1.4",
-    "mockBadge": "ILLUSTRATIVE SAMPLE — not real data"
+    "footerRight": "open data · cc by",
+    "hemicycleUnavailable": "the hemicycle can't be drawn right now — the graph database is temporarily unavailable",
+    "componentWeightAria": "Weight of the {component} component",
+    "specimenSource": "contribution index over the psp.cz knowledge graph — components, weights and saturation at /metodika",
+    "breakdownFootnote": "component points are published to one decimal, so their sum can differ from the composite by a tenth of a point — see /metodika",
+    "standingsAll": "all {count} MPs at /zebricek",
+    "standingsAllShort": "go to /zebricek",
+    "unavailableTag": "data temporarily unavailable",
+    "unavailableTitle": "The index can't be loaded right now",
+    "unavailableBody": "The graph database is single-connection and another process is holding it right now (an analysis script or a second app instance). The scores exist — we just can't reach them at the moment. Try again shortly; we never show a sample in place of live data.",
+    "unavailableSource": "contribution index · psp.cz — read directly from the knowledge graph",
+    "methodCtaFull": "Full methodology",
+    "methodCtaData": "Data for newsrooms",
+    "footerMethod": "methodology",
+    "footerPrivacy": "privacy",
+    "footerTerms": "terms"
   },
   "dashboard": {
     "headerTag": "control room",
@@ -536,7 +605,10 @@
         "index": "{index}.",
         "realSource": "source: politicas knowledge graph — psp.cz ⋈ ares ⋈ contract registry ⋈ e-sbírka; the list draws the same nodes and edges as the picture and derives nothing",
         "mockSource": "source: illustrative sample — names, company numbers and amounts are invented, not real data"
-      }
+      },
+      "exhibitLabel": "Exhibit",
+      "exhibitLink": "Exhibit — a citable imprint of this slice",
+      "exhibitNote": "an exhibit = a permanent citable imprint of this slice — the address carries a content hash, the content is re-derived from the registries anew; every traffic row has an imprint too (the stamp by the row)"
     },
     "feed": {
       "title": "Graph traffic",
@@ -564,7 +636,9 @@
       "denikLink": "this entity's diary",
       "denikLinkNamed": "diary of {subject}",
       "denikAll": "the full diary",
-      "denikNote": "every row leads to its entity's diary — the same public key (`poslanec:` · `firma:` · `tisk:`) the citizen inbox subscribes to; the velín is a window, the diary is the whole stream"
+      "denikNote": "every row leads to its entity's diary — the same public key (`poslanec:` · `firma:` · `tisk:`) the citizen inbox subscribes to; the velín is a window, the diary is the whole stream",
+      "exhibitLink": "Exhibit — a citable imprint of this fact",
+      "exhibitLinkNamed": "Exhibit: {subject}"
     },
     "allMpsLinkFallback": "full ranking",
     "realRanking": {
@@ -620,7 +694,29 @@
         "slice": "the graph slice and its traffic"
       }
     },
-    "freshness": "page built {built} · the money layer is read at most once every {hours} h, which is how much older than that date a figure here can be — the graph is a batch artifact, it changes on recompute, not per request"
+    "freshness": "page built {built} · the money layer is read at most once every {hours} h, which is how much older than that date a figure here can be — the graph is a batch artifact, it changes on recompute, not per request",
+    "exhibit": {
+      "headerTag": "exhibit",
+      "rederived": "re-derived from the knowledge graph · {date}",
+      "hashNo": "no. {hash}",
+      "titleSlice": "State-graph slice",
+      "titleFact": "Dated fact",
+      "factTag": "dated fact",
+      "lead": "A self-contained, citable imprint from the control room: the content is addressed by the imprint in the URL, not by a database row — on every view the page deterministically re-derives it from the same registries and admits any difference against the published version.",
+      "staleNotice": "the content has changed since this link was issued — the imprint in the address {urlHash} ≠ today's imprint {currentHash}; shown is today's build, not the cited one",
+      "goneTitle": "Today's build of the ledger no longer derives this fact",
+      "goneBody": "The ledger of dated facts is a window over a living graph — newer facts may have pushed this row out, or the underlying data changed. Nothing gets substituted: an exhibit either matches the published imprint, or says so.",
+      "goneImprint": "imprint in the address: {algo} {hash} · re-derived {date}",
+      "citationTag": "citation",
+      "sourcesTitle": "sources",
+      "noPublicLink": "registry without a public link — the exhibit label carries the source's literal name",
+      "contentHashTitle": "content imprint",
+      "inAddress": "in the address: {hash}",
+      "dataObtained": "data obtained {date}",
+      "graphPass": "graph pass no. {pass}",
+      "verifyCitation": "verify this citation",
+      "backToDashboard": "back to the control room"
+    }
   },
   "profile": {
     "breadcrumb": "file",
@@ -779,7 +875,26 @@
     "legibilityDerived": "derived — recomputed from the published index formula (weights and caps, lib/analysis/contribution.ts); the “at the cap” rank is counted against the real scores of the real chamber, not estimated. It describes what the index measures, not what an MP should do.",
     "legibilitySource": "source: psp.cz — contribution index · MP nodes (kg_node.props)",
     "legibilityHeadroom": "+{units} · +{points} pts",
-    "legibilityTied": "{name} holds the same index score — you share a rank, because identical scores share one place."
+    "legibilityTied": "{name} holds the same index score — you share a rank, because identical scores share one place.",
+    "careerHeading": "Service record",
+    "careerLead": "The MP's mandates across parliamentary terms per the psp.cz register. Terms without an ingested activity record are stated as gaps, never back-filled.",
+    "careerTermTitle": "{n, selectordinal, one {{n}st} two {{n}nd} few {{n}rd} other {{n}th}} parliamentary term",
+    "careerYearsSince": "since {year}",
+    "careerServedTerms": "{count, plural, one {1 parliamentary term} other {{countFmt} parliamentary terms}}",
+    "careerPartyList": "party list {list}",
+    "careerMandateSince": "mandate since {date}",
+    "careerMandateSinceRunning": "mandate since {date} · running",
+    "careerMandateRange": "mandate {from} – {to}",
+    "careerStints": "{count, plural, one {{countFmt} stint} other {{countFmt} stints}}",
+    "careerWindowUnknown": "personal mandate window missing from the register",
+    "careerDateUnreadable": "unreadable date in the register — withheld, never repaired",
+    "careerCoverageNone": "term not yet in the record — source: psp.cz",
+    "careerCoveragePartial": "partial record (no chamber votes) — see the trend above",
+    "careerCoverageCurrent": "current term — this file's full record",
+    "careerBreak": "out of the Chamber · {terms}",
+    "careerSource": "psp.cz · poslanec + zarazeni (register of all terms) · assessed as of {date}",
+    "unavailableWhat": "MP file",
+    "unavailableBack": "back to the ranking"
   },
   "votetrack": {
     "backToDashboard": "control room",
@@ -811,7 +926,122 @@
     "independencePillarNote": "independence pillar — tracked sample (0–100)",
     "independenceFootnote": "Independence is neither a virtue nor a vice — it's a measured deviation from the party line. This is an illustrative sample over invented votes, not a real computation.",
     "rebelsCount": "{n}× against the line",
-    "sampleFootnote": "ILLUSTRATIVE SAMPLE — {sample} invented votes, not a daily ingestion feed or a slice of the real 9th term"
+    "sampleFootnote": "ILLUSTRATIVE SAMPLE — {sample} invented votes, not a daily ingestion feed or a slice of the real 9th term",
+    "record": {
+      "heroNote": "real data · psp.cz — PSP10 roll-call votes · lines, discipline and rebellions computed deterministically from stored ballots",
+      "lead": "The Chamber's actual record: a cohesion seismograph over every valid roll-call vote, a ledger with a view onto the chamber floor, group lines and a chronicle of rebellions — every number links to psp.cz.",
+      "seismoTitle": "Seismograph",
+      "seismoNote": "chamber cohesion over time · downward swing = splits · red = rebellion",
+      "seismoExplainer": "Each column is one voting day. The deflection below the axis shows how much the groups split that day (100 % = all groups united); red spikes above the axis count ballots cast against a member's own group line. Pick a day for detail.",
+      "seismoAria": "Chamber cohesion seismograph by voting day",
+      "seismoDayAria": "{date}: {votes} roll-call votes, cohesion {cohesion}, rebellions {rebels}",
+      "seismoVotes": "roll-call votes",
+      "seismoCohesion": "cohesion",
+      "seismoRebels": "rebellions",
+      "seismoWorst": "tightest day — the lowest cohesion sat at",
+      "seismoJump": "open in the ledger",
+      "seismoPspLink": "record on psp.cz",
+      "seismoNoCohesion": "no measurable cohesion",
+      "ledgerTitle": "Ledger and chamber floor",
+      "ledgerNote": "bar = chamber floor: cobalt for · ochre abstained/did not vote · gray not signed in · red against",
+      "ledgerFootnote": "the ledger shows the {window} most recent of {valid} valid roll-call votes — the seismograph above covers them all · permanent link: pick an entry and share the address with #h-…",
+      "permalinkTitle": "selecting creates a permanent link (#h-…)",
+      "legendK": "abstained / did not vote",
+      "legendAway": "not signed in / excused",
+      "splitNote": "breakdown by group — arrow = line (strict majority of positional ballots) · number = discipline",
+      "unaffiliated": "Unaffiliated",
+      "chamberCohesionLabel": "chamber cohesion",
+      "voteRebelsNote": "voted against their own group line",
+      "noRebelsInVote": "Nobody voted against their own group line.",
+      "sessionLabel": "session {session}",
+      "voteNumberLabel": "vote no. {vote}",
+      "pspSource": "psp.cz — roll-call vote",
+      "disciplineTitle": "Group lines",
+      "disciplineNote": "discipline and cohesion of the groups across all {valid} valid roll-call votes",
+      "cohesionColumn": "cohesion (Rice)",
+      "matrixNote": "line matrix — the ledger's 12 most recent roll-call votes",
+      "matrixFootnote": "An outline instead of solid color means the group split (discipline below 90 %) — exactly where the Independence pillar begins. Dash: the group had no line (a tie of positional ballots, or nobody voted for/against).",
+      "partyHeader": "group",
+      "rebelsTitle": "Rebellions",
+      "chronicleNote": "chronicle of rebellions — the {cap} most recent ballots cast against a member's own group line",
+      "noRebellions": "No rebellion in the record yet.",
+      "topRebelsNote": "rebellion rate — share of ballots against the line out of positional roll calls where the group had a line · only MPs with ≥ {minEligible} such votes",
+      "topRebelsEmpty": "No MP has crossed the measurability threshold yet.",
+      "eligibleShort": "{rebel} of {eligible}",
+      "methodTitle": "disclosed computation rule",
+      "methodBody": "Group line = strict majority of the group's positional ballots (for/against) in a given roll call; a tie determines no line. Discipline = share of the group's positional ballots on the line. Cohesion = the Rice index |for−against|/(for+against), weighted at chamber level by the positional-ballot counts of groups with ≥ 5 positional ballots. Since amendment 90/1995 Coll. the Chamber does not distinguish the “abstained / did not vote” slot and it does not count as a position; voided roll calls are excluded; unaffiliated MPs are displayed but not scored. The left-to-right ordering of groups in the hemicycle is an editorial constant.",
+      "methodSource": "psp.cz — PSP10 roll-call votes · {valid} valid roll calls ({voided} voided excluded) · {ballots} ballots · {from} – {to}",
+      "fallbackTitle": "the real vote record is temporarily unavailable",
+      "fallbackBody": "The graph database is single-connection and another process is holding it, or the record has not been ingested yet. Below is an illustrative sample over invented votes — not real data. Try again in a moment.",
+      "fallbackSource": "fallback: lib/civic — invented sample of 5 votes"
+    },
+    "kompas": {
+      "heroNote": "real data · psp.cz — PSP10 roll-call votes · questions picked by a disclosed rule, matches computed from actual ballots",
+      "title": "Election compass, inverted",
+      "lead": "Ordinary election calculators measure promises. This compass measures deeds: you take positions on real roll-call votes of the Chamber — and from the stored ballots it deterministically computes which MPs and groups voted like you. Every number links to the vote record.",
+      "howTo": "FOR means voting for the motion exactly as it was put to the floor (the name is the literal vote title from psp.cz); AGAINST means voting against it. Skip a question you have no opinion on — it does not enter the computation.",
+      "questionsTitle": "Questions",
+      "questionsNote": "{n} real roll-call votes picked by a disclosed rule — no editorializing",
+      "progress": "answered {answered} of {total}",
+      "progressAria": "Compass progress: answered {answered} of {total} questions",
+      "answerSkip": "skip",
+      "answeredPro": "your vote: for",
+      "answeredProti": "your vote: against",
+      "cardAria": "Compass question: {title}",
+      "chamberResult": "chamber result",
+      "recordLink": "vote record",
+      "resultsTitle": "Your compass",
+      "resultsNote": "your result — cobalt marks your numbers, not published ones · the link carries it along",
+      "needMore": "Answer at least {min} questions — {answered} so far. The result will appear here.",
+      "yourResultBadge": "your result · computed from {answered} answered questions",
+      "clubsBoard": "match with group lines",
+      "clubsBoardNote": "group line = strict majority of its positional ballots in a given roll call; a tie determines no line",
+      "mpsBoard": "match with MPs",
+      "mpsBoardNote": "sorted by match; order within the same match carries only the count of comparable votes and the Czech alphabet",
+      "alignmentOf": "{matches} of {comparable} comparable",
+      "kShort": "abstained/did not vote",
+      "awayShort": "not signed in",
+      "noComparable": "no comparable vote",
+      "notRankable": "too few comparable ballots — unranked",
+      "unrankedTail": "{n} MPs have a positional ballot on fewer than half of your questions — shown below the line, unranked",
+      "showAll": "show all {n} MPs",
+      "showLess": "show less",
+      "receiptsAria": "Per-vote match receipt: {name}",
+      "receiptYou": "you",
+      "receiptMp": "MP",
+      "receiptMatch": "match",
+      "receiptDiffer": "differ",
+      "receiptK": "no position",
+      "receiptAway": "absent",
+      "unaffiliated": "unaffiliated",
+      "shareCta": "Share my compass",
+      "shareOk": "Link copied",
+      "shareFail": "Copy the address manually",
+      "resetCta": "Clear answers",
+      "rulesTitle": "disclosed rules",
+      "selectionRule": "Question selection rule: candidates are valid (non-voided) PSP10 roll-call votes with a theme from the vote_tag silver layer, excluding the Procedure and Other themes, with at least {minPositional} positional ballots (for + against). Within each theme, candidates are sorted by closeness |for−against|/(for+against) ascending (most divided first; ties: more positional ballots, more recent date, higher id). Themes are sorted by candidate count and the set is drawn round-robin — each theme's first pick, then the second — at most {perTheme} per theme and {cap} in total. The same record always yields the same questions.",
+      "scoringRule": "Match rule: a roll call is comparable where the MP voted for/against; a match = their position equals yours. An MP's match = matches ÷ comparable votes. Since amendment 90/1995 Coll. the Chamber does not distinguish the “abstained / did not vote” slot — it counts neither as agreement nor disagreement and does not enter the denominator; absence does not either (both are shown separately). Only MPs with a positional ballot on at least half of your answered questions enter the ranking. Groups are measured the same way against their line (strict majority of the group's positional ballots).",
+      "rulesSource": "psp.cz — PSP10 roll-call votes · {valid} valid roll calls, of which {tagged} themed and {candidates} selection candidates · {from} – {to} · themes: sem_classify (haiku), silver layer",
+      "unavailableWhat": "the election compass",
+      "backToVotes": "back to the votes overview",
+      "entryTitle": "Election compass, inverted",
+      "entryBody": "take positions on real roll-call votes and compute your match with MPs and groups"
+    },
+    "themes": {
+      "procedura": "Procedure",
+      "rozpocet-finance": "Budget and finance",
+      "personalie": "Personnel",
+      "duvera-vlada": "Confidence in the government",
+      "zdravotnictvi": "Healthcare",
+      "skolstvi-veda": "Education and science",
+      "bezpecnost-obrana": "Security and defence",
+      "justice-pravo": "Justice and law",
+      "socialni-bydleni": "Social affairs and housing",
+      "prostredi-zemedelstvi": "Environment and agriculture",
+      "doprava-stavebnictvi": "Transport and construction",
+      "zahranici-eu": "Foreign affairs and the EU",
+      "jine": "Other"
+    }
   },
   "civicscore": {
     "backToControl": "control room",
@@ -862,7 +1092,97 @@
     "factMissing": "no data",
     "factsSource": "source: {sources} · the median counts only MPs that have the value · a missing value is never drawn as a zero",
     "factsNoMoney": "The head-to-head deliberately does NOT compare money ties: all 211 ties in the graph are pending review, and setting them against each other would turn an unconfirmed trail into a finding. The ties, with their state, live on the MP's file and in the Money module.",
-    "publishedWeights": "published weights: {weights} · psp.cz"
+    "publishedWeights": "published weights: {weights} · psp.cz",
+    "lensBadge": "your index — weights {weights}",
+    "lensStickyLine": "your index — weights {weights} · not the published methodology",
+    "resetToPublished": "Default methodology",
+    "openIndexTitle": "Open index",
+    "toKrajLink": "my region — election card →",
+    "lensTableNote": "ordered by your weights (open index, /01) — not the published index; the button in the top strip restores the default methodology",
+    "lensHistogramNote": "the distribution under your index — recomputed from the published components by your weights (lens rule, see /01); not the published methodology",
+    "lensDuelNote": "the head-to-head under your index — score and components recomputed by your weights (lens rule, see /01); not the published methodology",
+    "standoutNearMedian": "≈ median",
+    "standoutTitle": "{label}: {delta} pts against the median",
+    "workhorseFilterLabel": "Quiet workhorses:",
+    "dossierFilterTitle": "MPs with a work profile (effort-loop enrichment)",
+    "dossierFilterLabel": "Dossier only",
+    "rowsExpandedTitle": "Expanded rows",
+    "rowsCompactTitle": "Compact rows",
+    "rowsExpand": "Expand",
+    "rowsCompact": "Condense",
+    "weightPanelLead": "Every ranking rests on weights. Here the weights are sliders: set your own priorities and the whole page — the distribution, the head-to-head and all {count} rows — recomputes under your lens. The link carries it with you.",
+    "lensStatusDefault": "showing the published methodology (the official index)",
+    "lensLinkCopied": "Link copied",
+    "lensLinkCopyFailed": "Copy the address manually",
+    "lensShare": "Share my lens",
+    "lensPresetsNote": "editorial example lenses — they are no organization's methodology",
+    "weightRowTitle": "{label} — published weight ×{weight} ({source})",
+    "weightSliderAria": "Weight of the {label} component (published {weight})",
+    "weightSliderValue": "{value} of 100, effectively {effective} points",
+    "weightTotal": "slider total {total}",
+    "weightTotalZero": "— all weights are zero, the index comes out 0.0 for everyone",
+    "weightTotalExact": "= a 0–100 index with no rescaling",
+    "weightTotalScaled": "→ rescaled to a 0–100 index",
+    "lensRule": "lens rule: each component contributes its published fill rate (points ÷ published weight), your weights are rescaled to sum to 100, and the index is their weighted sum, rounded to tenths. It is computed from points published to tenths, so it can differ from the authoritative graph score by up to 0.1 pt. Default methodology {weights} (psp.cz, deterministic computation).",
+    "graphValueMissing": "not carried by the graph",
+    "recordedAt": "(recorded {date})",
+    "workhorseSpeechClaim": "Floor speeches: {turns}.",
+    "workhorseTurnsShort": "{turns} on the floor",
+    "krajCrumb": "my region",
+    "krajOthers": "other regions",
+    "toFullLeaderboard": "full leaderboard →",
+    "krajEmpty": "A region with no MPs on record.",
+    "krajBackToPicker": "back to the region picker",
+    "krajSourceNote": "regional election card — a cut of the contribution-index leaderboard, psp.cz · PSP10",
+    "krajLead": "Your region's slate: the MPs elected for {subject}, ordered by the contribution index. The card prints as an A4/A3 sheet — on paper only the slate remains, with a source citation and a date.",
+    "krajUnassignedSubject": "mandates with no region stated",
+    "krajUnassignedLabel": "Region not stated",
+    "krajPrint": "Print the slate",
+    "krajEyebrow": "Politicas — election card · {mode} · Chamber PSP10",
+    "krajModeYours": "your index",
+    "krajModeOpen": "open index",
+    "krajFigureLabel": "slate · {count} MPs",
+    "krajPosterLeadUnassigned": "Mandates for which the psp.cz register states no region — an acknowledged gap in the record, not a fourteenth region. Ordering and scores follow the same methodology as the national leaderboard.",
+    "krajPosterLead": "All MPs elected for this region, ordered by the contribution index — a composite 0–100 score from the Chamber of Deputies' open data. Regional rung on the left, national rung by the score; no number was made anywhere but in {origin}.",
+    "krajOriginLens": "the reader's declared lens",
+    "krajOriginPublished": "the published methodology",
+    "krajLensStrip": "your index — weights {weights} · the reader's own lens, not the published methodology",
+    "krajTileMps": "MPs in the region",
+    "krajTileAvg": "region average",
+    "krajTileChamberAvg": "chamber average",
+    "krajNationalRank": "nationally no. {rank} of {total}",
+    "krajSharedRank": "(shared rung)",
+    "krajMandate": "PSP10 mandate",
+    "krajFootnote": "order: competition ranking (1, 2, 2, 4) in the region and nationally — identical scores share a rung, “=” marks a shared one; within a tie only the alphabet decides and it carries no meaning · component bars: fill rate of the six index components (úč = participation, výb = committees, leg = legislation, sál = floor speeches, doch = attendance, ved = leadership)",
+    "krajUnassignedNote": "{count} mandates carry no region in the register",
+    "krajUnassignedLink": "the “region not stated” card",
+    "krajLensHint": "You can re-set the index weights on <link>the leaderboard (Open index section)</link> — a link with <code>?vahy=…</code> then carries your lens here onto the card too.",
+    "krajBarItem": "{label}: {points} of {weight}",
+    "krajTitle": "My region",
+    "krajPickerSource": "regions from PSP10 mandates — psp.cz register, electoral-region organ",
+    "krajPickerLead": "Who is actually in my region, and what have they done? Pick a region and you get its MPs' slate — ordered by the contribution index, with source and date, ready to print for the fridge.",
+    "krajPickerNoData": "The knowledge graph is unavailable — the region picker does not render without data.",
+    "krajSearchAria": "Search regions by name",
+    "krajSearchPlaceholder": "Find your region…",
+    "krajResultsAria": "Matching regions",
+    "krajNoMatch": "No region by that name — the full list of {count} entries is below.",
+    "krajMpCount": "{count} MPs",
+    "krajPickerFootnote": "an MP's region comes from the PSP10 mandate; mandates with no region in the register go to an honest “region not stated” bucket — nothing is imputed",
+    "krajUnavailableWhat": "the region's election card",
+    "trendHeading": "Movement against term {term}",
+    "trendPartial": "partial comparison",
+    "trendCountBills": "Bills (co-)authored",
+    "trendCountSpeech": "Floor speeches",
+    "trendCountCommittees": "Committees and commissions",
+    "trendSource": "Source: psp.cz · committee memberships + bills/interpellations/stenographic records {term}",
+    "trendSourcePass": "Source: psp.cz · committee memberships + bills/interpellations/stenographic records {term} · graph pass {pass}",
+    "trendPendingHead": "{missing} for term {term} will appear once the {term} roll-call votes are ingested",
+    "trendPendingDump": "(dump {dump})",
+    "trendPendingComparable": "— comparable right now is only this: {list}.",
+    "trendPendingNone": "— no component is comparable yet.",
+    "plakatCrumb": "poster",
+    "plakatTagline": "open index · print form",
+    "plakatUnavailableWhat": "the leaderboard poster"
   },
   "money": {
     "real": {
@@ -1006,6 +1326,208 @@
         }
       },
       "footnote": "The join key across the whole graph is the eight-digit IČO — a clean link from company ↔ contract ↔ subsidy ↔ donation. The hardest edge is person ↔ company; that's why the last step of the methodology is a human, not a heuristic."
+    },
+    "shared": {
+      "sourceKnowledgeGraph": "source: knowledge graph",
+      "howToReadTieClass": "how to read the tie class",
+      "rejected": "rejected",
+      "compilePacket": "compile evidence packet",
+      "verifiedOnly": "verified material only, exclusions stated",
+      "flagsHeading": "flags from analysis passes",
+      "reviewNote": "review note",
+      "provenanceReceipt": "provenance receipt",
+      "verifyInRegistry": "verify in registry",
+      "fullProfile": "full MP profile",
+      "mpMoneyFile": "the MP's money file",
+      "sourceLabel": "source",
+      "atLeast": "at least",
+      "companiesCount": "{count} companies",
+      "contractsCount": "{count} contracts",
+      "titlesCount": "{count} titles",
+      "subsidies": "subsidies",
+      "heuristicOverride": "The heuristic alone would have said “{label}” — the recorded class wins.",
+      "registryAresSubject": "ARES subject",
+      "registryCommercial": "commercial register",
+      "registryContracts": "contracts register",
+      "registryHlidacCompany": "Hlídač company",
+      "registryHlidacPerson": "Hlídač person"
+    },
+    "caseFile": {
+      "noTies": "No materialized money ties found for this MP.",
+      "eyebrow": "case file · pass {pass}",
+      "absenteeFlag": "low chamber work (Case ②)",
+      "gateLog": "gate decision log",
+      "dailyRecord": "this MP's daily record",
+      "ownedLabel": "contracts of firms the MP owns or runs",
+      "ownedRule": "The real FollowTheMoney tie: money the state paid to a company this MP owns or is a statutory officer of.",
+      "ownedEmpty": "no company in the graph is owned or run by this MP",
+      "stewardLabel": "contracts of bodies where the MP only holds a seat",
+      "stewardRule": "NOT the MP's money: a supervisory or board seat in a public or nonprofit body — a hospital, a waterworks, a state fund. The figure is that body's OWN public activity and must never be read like the one on the left.",
+      "stewardEmpty": "no such seat in the graph",
+      "partyDonations": "party donations",
+      "tileSource": "source: registr smluv · kg_edge supplies.weight, one row per company",
+      "tileSourceFloor": " · lower bound: the ingest pulled at most {cap} contracts per company ({companies} at that ceiling)",
+      "contractsLabel": "contracts",
+      "flagTriangle": "full triangle",
+      "flagNearLimit": "near limit",
+      "flagDeMinimis": "de minimis",
+      "flagFalseEdge": "suspected false edge",
+      "flagStake": "stake",
+      "flagPriorTerm": "prior term",
+      "lastDecision": "last decision",
+      "reachableLabel": "reachable public money",
+      "reachSource": "source: registr smluv Σ supplies.weight + subsidies_total_czk",
+      "citeTie": "cite this tie",
+      "receiptPending": "A permanent address for this claim. It cites the tie AND its gate state — this one is still awaiting human review, so the receipt records a claim, not a verdict.",
+      "receiptDecided": "A permanent address for this claim, carrying the human gate's decision and its audit trail.",
+      "contractsVia": "contracts via {company}",
+      "moreContracts": "+ {count} more contracts",
+      "disclaimer": "Every tie is published as a dated, sourced fact, never an accusation. Ties not yet human-confirmed carry a “pending review” label and do not feed the Integrity pillar."
+    },
+    "companyFile": {
+      "noTie": "The knowledge graph holds no MP tie for this company id.",
+      "backToLedger": "back to the ledger",
+      "ledgerShort": "ledger",
+      "eyebrow": "company file · pass {pass}",
+      "tiesMps": "{ties} ties · {mps} MPs",
+      "followSubject": "company {name}",
+      "dailyRecord": "this company's daily record",
+      "multiMpNote": "{count} MPs are tied to this single company. That is a fact about the registry record, not a claim about any of them — each tie below carries its own class, its own review state and its own source.",
+      "reachLabel": "public money reachable through this company",
+      "attributableRule": "At least one MP owns or runs this company, so the attribution rule permits reading this money as reaching a politician's own firm.",
+      "stewardRule": "NOT an MP's money: every tie here is a supervisory or board seat in a public or nonprofit body. The figure is that body's OWN public activity.",
+      "reachSource": "source: registr smluv · Σ kg_edge supplies.weight + subsidies_total_czk",
+      "subsidiesDrawn": "subsidies drawn",
+      "subsidiesSource": "source: kg_node company.props.subsidies_total_czk (hlídač státu)",
+      "donatedLabel": "donated to a party",
+      "noDonation": "no donation in the graph",
+      "donationSource": "source: kg_node company.props.donated_to_party_czk (hlídač státu)",
+      "verifyInRegistries": "verify in the registries",
+      "deepLinksNote": "deep links built from the node's own IČO (company:ico:<8-digit>) — nothing here is a claim, they are the primary records",
+      "tiesTitle": "MPs tied to this company",
+      "tiesOrderNote": "kg_edge linked_to · strongest evidence first (registry-confirmed owner-operator, then manager, then steward, unconfirmed last) — never by money",
+      "contractsTitle": "contracts with the state",
+      "contractsSource": "registr smluv · amount from kg_edge supplies.weight, {shown} of {total} rows, largest first",
+      "noUsableDate": "no usable date",
+      "moreContractsInGraph": "+ {count} more contracts in the graph",
+      "implausibleDates": "{count} of the rows above carry a signature date that could not have happened (before 1993-01-01 or after {asOf}). The row and its amount stay, the date is withheld, and it is never corrected — a corrected date would be an invented one.",
+      "roleNotRecorded": "role not recorded",
+      "attributionLabel": "attribution",
+      "attributionOwned": "money may be read as the MP's firm",
+      "attributionSteward": "institution's own money, never the MP's",
+      "disclaimer": "This page is a register record, not a case against anyone. Ties not yet human-confirmed carry a “pending review” label and do not feed the Integrity pillar; a company appearing here means the graph found an IČO join, nothing more."
+    },
+    "packet": {
+      "print": "Print packet",
+      "noTies": "No materialized money ties found for this MP — there is nothing to compile a packet from.",
+      "eyebrow": "evidence packet · verified material only · pass {pass}",
+      "title": "Evidence packet",
+      "compiled": "compiled",
+      "contentHash": "content hash",
+      "intro": "One click compiled this MP's case file into a citable dossier. The citation gate is absolute: only ties a human reviewer verified enter the packet — everything pending or rejected is excluded, and the exclusion is stated below. Computed collision candidates (/penize/strety) never enter a packet: they are unverified by definition.",
+      "backToCaseFile": "back to the case file",
+      "excludedHeading": "excluded by the citation gate",
+      "pendingExcluded": "{count, plural, one {1 finding awaiting verification — not included} other {# findings awaiting verification — not included}}",
+      "rejectedExcluded": "{count, plural, one {1 finding rejected in review — not included} other {# findings rejected in review — not included}}",
+      "emptyTitle": "The packet contains no verified finding. No tie of this MP has passed human review yet — the gate excluded everything, as stated above.",
+      "emptyNote": "This is the honest state, not an error: a packet may only cite verified material.",
+      "verifiedTies": "Verified ties",
+      "orderNote": "order: batch-005 review order (reviewRank ascending)",
+      "contractsOmitted": "{count} further contracts beyond the top-N slice are not itemized here (aggregates include them).",
+      "undatedContracts": "{count} listed contract(s) carry no signature date and are absent from the timeline.",
+      "timeline": "Timeline",
+      "eventRoleStart": "role starts",
+      "eventContract": "contract signed",
+      "eventReview": "human review",
+      "eventRoleEnd": "role ends",
+      "readyToCite": "Ready to cite",
+      "citeNote": "Each block is a self-contained, sourced sentence (in Czech — it cites Czech registries) safe to paste into an article. It states the tie class rule and the verification date; it never states an accusation.",
+      "footerSource": "source: {source} · human gate /penize/kontrola · content hash {algo} {hash} — a circulating copy is verifiable against this page",
+      "rederiveNote": "The packet re-derives from the live graph on every request: a tie rejected after you printed this page disappears from the next compilation and joins the stated exclusions.",
+      "reachPrefix": "Reachable public money:",
+      "reachContracts": "({count} contracts)",
+      "reachContractsSubsidies": "({count} contracts + subsidies)",
+      "noReach": "No reachable public money recorded for this company.",
+      "decision": "decision",
+      "copied": "copied",
+      "copyFailed": "copy failed — select manually",
+      "copyCitation": "copy citation"
+    },
+    "kauzy": {
+      "eyebrow": "hand-curated leads · pending review",
+      "title": "Cases",
+      "intro": "Every claim below carries its own citation. Nothing here is a confirmed violation or an automated tie score — it is a dated research trail a human reviewer produced, split honestly into what the sources actually establish and what they do not.",
+      "unreadableHeading": "payloads that could not be read",
+      "unreadableBody": "{count} file(s) in the payload directory failed to read or parse and are missing from the list below:",
+      "directoryUnreadable": "The payload directory could not be read in this environment — this page cannot say whether there are any cases.",
+      "noDossiers": "No dossiers available in this environment.",
+      "companyLabel": "company",
+      "signal": "signal",
+      "confidence": "confidence",
+      "sustain": "what sources sustain",
+      "notSustain": "what sources do NOT sustain",
+      "claimsCited": "claims, each cited",
+      "mediaContext": "media context",
+      "proposedAnnotation": "proposed annotation (not applied)"
+    },
+    "strety": {
+      "backToLedger": "back to the money ledger",
+      "eyebrow": "deterministic join over the graph · every candidate requires human verification",
+      "title": "Vote collisions",
+      "intro": "Where a verified company role and a chamber vote touch in time. Each row below is a computed candidate: an MP cast a positional vote on a print amending a statute that governs the public-money channel of a company where the registry confirms they held a role on that day. The time overlap is a fact; whether the vote actually concerned that company's interest is NOT computed here and requires a human reviewer.",
+      "unavailable": "The data layer is unavailable in this environment — this page cannot say whether any candidates exist, and refuses to guess.",
+      "unavailableNote": "Candidates are re-derived from the live record on every request; nothing is cached as an accusation.",
+      "sources": "sources: kg money layer (pass {pass}) · psp.cz roll calls (vote_event/vote_ballot, PSP10) · amends edges of the legislation layer · rule {rule}",
+      "joinRule": "Join rule",
+      "rules": {
+        "r1": "Only ties that passed human review (verified), whose role the commercial registry confirms (ARES VR), and whose role period has a recorded start enter the join. A tie with no recorded review state counts as pending, never as verified.",
+        "r2": "A roll call enters only if it is not voided and links deterministically to a print: primarily through the session agenda (psp.cz bod_schuze — session + agenda item → print), as a fallback through a print number in its title. An agenda item covering several prints at once (joint debate) is conservatively skipped and counted separately — no candidate is ever built on an ambiguous key.",
+        "r3": "A print enters only if the graph records it amending at least one statute from the disclosed relevance table below, matched to the public-money channels that company actually has.",
+        "r4": "The vote day must lie inside the registry-confirmed role period — both boundary days inclusive.",
+        "r5": "Only a positional ballot (yes/no) forms a candidate; abstentions and absences never do.",
+        "r6": "One candidate per (tie × vote); several affected statutes merge into that one row."
+      },
+      "tableContracts": "company has public contracts →",
+      "tableSubsidies": "company draws subsidies →",
+      "tableDonations": "company donated to a party →",
+      "tableNote": "The channel → statute table is fixed and printed verbatim above; it claims nothing about the substantive reach of any particular amendment. That is exactly why every candidate requires human verification.",
+      "covTies": "ties in the graph",
+      "covVerified": "passed human review",
+      "covEntering": "enter the join",
+      "covCandidates": "computed candidates",
+      "covEvents": "valid roll calls",
+      "covLinked": "linked to a print",
+      "covAmbiguous": "skipped: joint debates",
+      "covBills": "prints matched to votes",
+      "agendaNote": "The session agenda dump (schuze.zip) is unavailable in this environment — only the title fallback links votes to prints here, so the linked count is a floor, not the record.",
+      "pendingNote": "{pending} registry-confirmed tie(s) with a recorded role period are still awaiting human review and would enter the join once verified; {noPeriod} verified tie(s) stay out solely because the registry period is missing. Neither group produces candidates here.",
+      "candidates": "Candidates",
+      "emptyGate": "No tie currently clears the join's entry gate — so there are zero candidates, honestly, not because nothing was checked.",
+      "emptyGateNote": "The gate requires human review + registry confirmation + a recorded role period (rule 1 above). The queue for reviewers lives at /penize/kontrola.",
+      "openConsole": "open the review console",
+      "emptyResult": "The join ran over every eligible tie and the full roll-call ledger and found no time overlap that satisfies the rule. Zero is the result, not a gap.",
+      "candidateBadge": "candidate · requires human verification",
+      "permalinkAria": "permanent link to this candidate ({name})",
+      "sentence": "<mp>{name}</mp>{club} voted <b>{choice}</b> on print <print>{bill}</print> — “{billTitle}” — which amends {statutes}. On the vote day the commercial registry records the role “{role}” at {company} (IČO {ico}).",
+      "choiceYes": "yes",
+      "choiceNo": "no",
+      "rolePeriod": "registry role period",
+      "noRecordedEnd": "no recorded end",
+      "overlapNote": "The time overlap is computed; the substantive link is not established here and must be assessed by a human reviewer.",
+      "rollCall": "roll call on psp.cz"
+    },
+    "tieExplainer": {
+      "originHeading": "where a class comes from"
+    },
+    "analystNote": {
+      "heading": "analysis note",
+      "written": "written {date}",
+      "pass": "graph pass {pass}",
+      "noStamp": "the graph records no pass or date for this note",
+      "notHuman": "an analysis pass wrote this, not a human review",
+      "stillPending": "the tie is still pending review",
+      "sourceLink": "the registry record the pass read",
+      "noSource": "no registry document cited for this note"
     }
   },
   "budget": {
@@ -1031,7 +1553,79 @@
     "colDebt": "debt / capita",
     "colCapex": "capex %",
     "colSaldo": "balance / capita",
-    "stewardshipNote": "Stewardship only feeds into CivicScore for politicians in executive roles (mayors, regional governors) — an MP doesn't lose points for another town's poor budget. Town data on this page is an ILLUSTRATIVE SAMPLE modeled on MONITOR's shape; no real figure is wired in yet."
+    "stewardshipNote": "Stewardship only feeds into CivicScore for politicians in executive roles (mayors, regional governors) — an MP doesn't lose points for another town's poor budget. Town data on this page is an ILLUSTRATIVE SAMPLE modeled on MONITOR's shape; no real figure is wired in yet.",
+    "coverageHeader": "{covered} of {total} municipalities on record",
+    "eyebrowLine": "municipal budgets · MONITOR / State Treasury",
+    "lead": "The finances of any Czech municipality against municipalities of similar size: debt per capita, capital-spending share and budget balance from the State Treasury's FIN 2-12 M statements. The peer group is computed, not hand-picked — the rule is printed below.",
+    "coverageTitle": "{covered} of {total} municipalities have a budget series wired in",
+    "coverageBody": "The register and search carry all {total} Czech municipalities. This batch's figures cover municipalities with {floor} or more residents, years {firstYear}–{lastYear}; smaller municipalities arrive in further batches from the same source. A municipality without figures says so on the page — nothing is ever extrapolated.",
+    "sourceLine": "source: MONITOR / State Treasury (monitor.statnipokladna.gov.cz) — FIN 2-12 M, consolidated figures · retrieved 30 Jul 2026",
+    "sectionMirrorTitle": "Municipality vs. peers",
+    "townMeta": "{county} district · {kraj} · {population} residents · IČO {ico}",
+    "notReported": "not reported",
+    "barTown": "municipality",
+    "peerNoSample": "median · no sample",
+    "peerRule": "peers = municipalities of the {band} band · {scope} · median of {count} municipalities on record",
+    "peerRuleNationwide": "(fewer than {min} on record in the region, group widened nationwide)",
+    "scopeKraj": "{kraj} region",
+    "scopeNationwide": "all of Czechia",
+    "noDataTitle": "no figures wired in for this municipality yet",
+    "noDataBody": "{town} is in the register ({population} residents, {band} band), but this batch's budget series does not cover it — the batch carries municipalities with {floor} or more residents. The municipality's statements are in the State Treasury's MONITOR; they will flow into the mirror with a future batch. No figure here is ever extrapolated or estimated.",
+    "section3AsideLive": "{band} band · {scope} · sorted by debt per capita",
+    "colTown": "municipality",
+    "peersEmpty": "No municipality of the {band} band has a budget series on record yet — the table will appear with the next data batch.",
+    "stewardshipNoteLive": "Stewardship feeds into CivicScore only for politicians in executive roles (mayors, regional governors) — an MP does not lose points for another municipality's budget. Values on this page are consolidated FIN 2-12 M statements from the MONITOR system; a municipality this batch does not cover gets no figures until they flow in from the source.",
+    "band0": "under 200 residents",
+    "band1": "200–499 residents",
+    "band2": "500–999 residents",
+    "band3": "1,000–1,999 residents",
+    "band4": "2,000–4,999 residents",
+    "band5": "5,000–9,999 residents",
+    "band6": "10,000–19,999 residents",
+    "band7": "20,000–49,999 residents",
+    "band8": "50,000–99,999 residents",
+    "band9": "100,000+ residents",
+    "searchLabel": "Search for a municipality by name",
+    "searchPlaceholder": "Find your municipality — any of 6,254…",
+    "resultsLabel": "Matching municipalities",
+    "noResults": "No municipality by that name is in the register — the register carries all 6,254 Czech municipalities.",
+    "districtAbbr": "{county} district",
+    "inRecord": "on record",
+    "noNumbers": "no figures",
+    "trailTitle": "Municipal money trail",
+    "trailSource": "source: Registr smluv — the Contracts Register (smlouvy.gov.cz, bulk open dumps) via the politicas money graph — pass {pass}, as of {date}",
+    "graphUnavailable": "graph unavailable",
+    "viewInGraph": "in the graph",
+    "graphLinkAria": "Show {company} in the graph",
+    "linkRuleTitle": "linking rule",
+    "linkRuleBody": "A contract is attributed to the municipality only when the municipality is a contracting party or the publishing body of the Contracts Register under its own IČO ({ico}) — the IČOs of municipal companies and allowance organizations are never imputed to the municipality. The counterparty must be a company of the money graph: of the graph's {scanned} contracts, {assigned} were attributed to municipalities; the record carries only contracts of companies already in the graph — <strong>it is not the municipality's complete register</strong>. A \"documented municipal payment\" is only a bilateral contract where the register marks the company as the recipient; everything else stays \"payment direction not stated in the record\".",
+    "linkRuleStats": "{towns} municipalities in the contracts record · {pairs} municipality×counterparty pairs",
+    "notInRecordTitle": "municipality not in the graph's contracts record",
+    "notInRecordBody": "{town} does not appear among the parties of the money graph's {municipal} municipal contracts. That does not mean the municipality has no contracts — the graph so far carries only its own companies' contracts ({towns} municipalities do appear). The complete picture is in the Contracts Register; it will flow in here as the graph grows. Nothing is extrapolated or estimated.",
+    "cardContracts": "contracts with graph companies",
+    "cardContractsMeta": "{contracts} contracts · {suppliers} counterparties",
+    "cardPaid": "of which documented municipal payments",
+    "cardPaidMeta": "{count} contracts with a recorded direction",
+    "cardPeerMedian": "peer median on record",
+    "cardPeerMeta": "{band} band · {scope} · from {count} municipalities",
+    "cardPeerNationwide": "(fewer than {min} in the region, widened nationwide)",
+    "tiesUnavailable": "Counterparty ties to MPs cannot be loaded right now (the graph record is offline) — rows are shown without the verification layer, not as \"no ties\".",
+    "tiesLive": "Ties to MPs are read live from the money graph (pass {pass}): a verified tie has passed human review at /penize/kontrola; everything else carries \"needs verification\" and must not be read as confirmed fact.",
+    "thSupplier": "counterparty",
+    "thVolume": "recorded volume",
+    "thContracts": "contracts",
+    "thPaid": "documented payments",
+    "thPeerMedian": "peer median",
+    "thYears": "years",
+    "supplierIco": "IČO {ico}",
+    "roleUnknown": "role not on record",
+    "tieVerified": "tie verified",
+    "tieNeedsReview": "needs verification",
+    "directionUnknown": "direction not stated",
+    "noPeerRecord": "no peer on record",
+    "peerTownCount": "({count} municipalities)",
+    "restRow": "… plus {count} more counterparties worth {sum} — the listing carries the {top} largest by recorded volume.",
+    "trailFootnote": "A counterparty's peer median is computed only from municipalities of the same band that have contracts with the same company on record — a municipality outside the record does not drag the median toward zero. A contract whose payment direction the register does not state is never read as municipal expenditure or income."
   },
   "lawwatch": {
     "back": "control room",
@@ -1052,7 +1646,296 @@
     "section2Aside": "psp.cz House prints — ingested daily · filled dot = stage reached",
     "rejectedAtStage": "rejected at {stage}",
     "voteLink": "vote {pro}:{proti} →",
-    "pipelineFootnote": "The pipeline reads House prints daily; section diffs are built from e-Sbírka's consolidated wording as soon as an amendment is published. Rejected prints drop out of the pipeline — that, too, is an impact worth recording."
+    "pipelineFootnote": "The pipeline reads House prints daily; section diffs are built from e-Sbírka's consolidated wording as soon as an amendment is published. Rejected prints drop out of the pipeline — that, too, is an impact worth recording.",
+    "realIntro": "Which parliamentary prints amend which acts — for every print a one-sentence “what it changes” derived from its own text, plus the bill → amended act link, the sponsors, their money ties and the forensic review where one exists. Data from psp.cz, not from a model.",
+    "mockNotice": "graph unavailable — sample data below (mock), not a live source",
+    "stats": {
+      "bills": "parliamentary prints",
+      "laws": "amended acts",
+      "links": "print → act links",
+      "flagged": "prints with a possible conflict"
+    },
+    "statsSource": "psp.cz prints · graph pass {pass} · print → act links and committee referrals · {committeeRouted} prints referred to committees",
+    "origin": {
+      "government": "government bill",
+      "mp": "MP’s bill",
+      "mp_group": "group of MPs",
+      "senate": "Senate bill",
+      "other": "other bill"
+    },
+    "severity": {
+      "low": "low",
+      "medium": "medium",
+      "high": "high"
+    },
+    "committeeRole": {
+      "garancni": "lead committee",
+      "dalsi": "additional committee"
+    },
+    "committeeStatus": {
+      "prikazano": "referred",
+      "navrzeno": "proposed",
+      "iniciativne": "taken up on own initiative"
+    },
+    "diffOp": {
+      "modified": "amended",
+      "added": "added",
+      "removed": "repealed"
+    },
+    "sponsorRole": {
+      "predkladatel": "introduced",
+      "spolupodepsal": "co-signed"
+    },
+    "rapporteurScope": {
+      "zpravodaj_ov": "rapporteur for the 1st reading",
+      "zpravodaj_ps": "rapporteur (appointed by the Chamber’s president)",
+      "zpravodaj_vyboru": "committee rapporteur",
+      "zpravodaj_dokumentu": "rapporteur for the committee resolution"
+    },
+    "citationKind": {
+      "bill_text": "bill text",
+      "web": "web",
+      "law": "act",
+      "graph_fact": "graph record"
+    },
+    "provenance": {
+      "title": "link from the print’s title",
+      "census": "full-text census only",
+      "both": "title and census"
+    },
+    "printNumbered": "print no. {cislo}",
+    "printNumberedCap": "Print No. {cislo}",
+    "printInternal": "print {tiskId}",
+    "billCountWord": "{count, plural, one {print} other {prints}}",
+    "moreCount": "+ {count} more",
+    "less": "less —",
+    "graphPass": "graph pass {pass}",
+    "graphPassSource": "psp.cz prints · graph pass {pass}",
+    "radarBanner": {
+      "title": "Collision radar",
+      "text": "a chronological ledger of legislative-process findings: concurrently pending prints amending the same section of the same act, plus derived conflict flags — with permanent anchors, citation blocks and an RSS/JSON feed.",
+      "cta": "open the radar"
+    },
+    "memoryBanner": {
+      "title": "Statute memory",
+      "textBefore": "every amended statute has a critical edition: a chronicle of the prints that changed it and a verbatim before/after section trail from e-Sbírka with permanent anchors",
+      "textAfter": "wherever the archive actually carries it.",
+      "cta": "open the statute registry"
+    },
+    "section1AsideReal": "{bills} prints · {summaries} with a summary · {amends} amendment links · psp.cz",
+    "section2AsideReal": "psp.cz prints · prints per act",
+    "titleLinkNote": "The print → act link is read from the print’s title (the “č. N/RRRR Sb.” citation), the only structured reference psp.cz carries about the amended act. Formal committee referrals (lead / additional, status and date) render from real psp.cz data. The full section wording is held separately by e-Sbírka —",
+    "titleLinkNoteDiff": "for {count, plural, one {{countFmt} print} other {{countFmt} prints}} of the most-amended act it carries a real section diff between two in-force wordings, computed directly from e-Sbírka’s public SPARQL endpoint (no bulk export, no fabricated data); for the remaining prints no diff is rendered yet.",
+    "titleLinkNoteNoDiff": "a section-level before/after diff is not rendered yet — Politicas does not display fabricated data.",
+    "honesty": {
+      "label": "Honest numbers:",
+      "text": "the print → act link above comes from the citation in the print’s TITLE — for large amendments and companion acts this systematically undercounts how many acts a print actually changes. An independent full-text census (graph pass 20) across {census} prints added a combined <b>{undercount}</b> further amended acts the title-derived link had missed. Each print shows its own census in its dossier, where one exists."
+    },
+    "filterAll": "all",
+    "statusFilterLabel": "Status:",
+    "searchPlaceholder": "search prints, summaries, act no. …",
+    "searchAria": "Search prints by summary, title, number or amended act",
+    "facet": {
+      "diff": "§ diff",
+      "forensic": "review",
+      "conflict": "possible conflict",
+      "committee": "referred to committee"
+    },
+    "lawTimes": "{count}× act",
+    "noSummaryYet": "No summary yet",
+    "emptyFilter": "No print matches the filter.",
+    "shownOf": "showing {shown} of {total} prints · {summaries} with a summary",
+    "detail": {
+      "printHeading": "Print No.",
+      "printHeadingInternal": "Print",
+      "pspHistory": "history on psp.cz",
+      "whatItChanges": "what it changes",
+      "derivedFromText": "derived from the print’s text",
+      "noSummaryHonest": "No summary yet — we do not hold this print’s text in the archive in a machine-readable form a summary could honestly be derived from. Better nothing than an invented sentence.",
+      "promulgated": "promulgated in the Collection of Laws as <ref>No. {sb} Sb.</ref>",
+      "statePrefix": "pipeline status:",
+      "stateSource": "status per psp.cz — prints (stavy/hist)",
+      "amendsHeading": "amends — {countFmt} {count, plural, one {act} other {acts}} (per the citation in the title)",
+      "amendsNone": "The graph found no citation of a specific act (č. N/RRRR Sb.) in this print’s title.",
+      "censusSource": "print full-text census (graph pass 20) · full list from the text, not the title",
+      "censusText": "This print actually amends <b>{fullFmt}</b> {full, plural, one {act} other {acts}} — <u>{undercountFmt}</u> more than the link derived from the title citation alone captures (common with mega-amendments / companion acts). This is a systemic pattern, not an isolated one — see the note under the most-amended acts.",
+      "committeesHeading": "under committee scrutiny — referrals per psp.cz",
+      "sponsorsHeading": "sponsors — psp.cz predkladatel (signature order)",
+      "joinedLater": "joined later",
+      "minContribution": "Lowest contribution index among the sponsors: <b>{scoreFmt}</b> of 100 (CivicScore, a cross-section of an MP’s parliamentary work — attendance, committees, legislation, floor speeches).",
+      "rapporteursHeading": "rapporteurs — psp.cz hist · hist_vybory · tisky_za",
+      "debateHeading": "floor debate — {countFmt} substantive speeches · psp.cz stenographic records",
+      "amendmentDocsHeading": "written amendments — {countFmt} · psp.cz parliamentary documents",
+      "conflictSource": "possible conflict of interest · derived from the sponsor’s money ties",
+      "conflictText": "The sponsor has ties to {count, plural, one {{countFmt} company} other {{countFmt} companies}} with a total public-contract flow of <b>{amount}</b>. A signal to examine, not a proven conflict — sector adjacency is an indication, not evidence."
+    },
+    "forensic": {
+      "banner": "derived draft · awaiting human review · not a verdict of wrongdoing",
+      "gateLabel": "forensic review · fabrication check",
+      "severityLabel": "severity",
+      "confidenceLabel": "confidence",
+      "reviewStateLabel": "state",
+      "noSummaryShort": "No summary yet — we do not hold the print’s text in a machine-readable form.",
+      "foundHeading": "what the analysis found",
+      "czechPending": "The Czech version of this review is being prepared — until then its text is not displayed.",
+      "declaredReason": "declared rationale (explanatory memorandum)",
+      "conflictAssessment": "conflict-of-interest assessment",
+      "independentContext": "independent context (research)",
+      "undeclaredEffects": "undeclared effects · each with a citation",
+      "whoBenefits": "who benefits:",
+      "moreResearch": "research and undeclared effects +",
+      "notClaimHeading": "what the analysis does NOT claim",
+      "notClaim1": "It does not claim anyone acted unlawfully. This is a derived lead for review, stored as <b>{state}</b>, not a published conclusion.",
+      "notClaim2": "The stated severity “{severity}” is the analysis’s own assessment, not a finding by any authority or court.",
+      "notClaim2WithConfidence": "The stated severity “{severity}” and confidence {confidence}/5 are the analysis’s own assessment, not a finding by any authority or court.",
+      "notClaim3": "A sponsor’s money tie is an indication, not evidence. Sector proximity alone does not prove a conflict of interest.",
+      "notClaimNoEffects": "For this print the analysis lists no undeclared effect — the absence of a finding is a finding too.",
+      "withheldParts": "{count, plural, one {{countFmt} part of this review’s text is} other {{countFmt} parts of this review’s text are}} not yet available in Czech and therefore not displayed. The block is incomplete as a result.",
+      "referencesHeading": "references ({count})",
+      "gateFootnote": "A derived finding gated against fabrication: every cited č. N/RRRR Sb. must be a real act. Stored as <b>pending_review</b> — a lead for a human, not a published verdict."
+    },
+    "diffBlock": {
+      "source": "real section diff · č. {law} Sb. · e-Sbírka (SPARQL, not a bulk export)",
+      "verbatim": "Verbatim text of both wordings from e-Sbírka (<from>{fromDate}</from> → <to>{toDate}</to>), never computed. Source: {source}."
+    },
+    "dossierPage": {
+      "crumb": "/ laws / print",
+      "eyebrow": "parliamentary print · psp.cz",
+      "denikLink": "this print’s journal",
+      "denikNote": "dated steps of the print — the republic’s journal, entity filter",
+      "prevPrint": "previous print",
+      "nextPrint": "next print"
+    },
+    "registry": {
+      "crumb": "/ laws / statute",
+      "backToMonitor": "legislation monitor",
+      "eyebrow": "statute memory · statute registry",
+      "title": "Statute memory",
+      "introBefore": "Every statute known to the parliamentary-print trail in the graph has its own critical edition: a chronicle of the prints that changed it and — where the archive carries a real e-Sbírka section diff — a verbatim before/after section trail with permanent anchors",
+      "introAfter": ".",
+      "stats": {
+        "inTrail": "statutes in the trail",
+        "withTrail": "statutes with a section trail",
+        "changes": "documented fragment changes"
+      },
+      "statsSource": "psp.cz prints (amends + full-text census) · e-Sbírka SPARQL section diffs — the section trail is point-sampled; coverage is disclosed on every row",
+      "sectionTitle": "Statute registry",
+      "sortAside": "sorted by print count, then by statute number",
+      "trailBadge": "§ trail · {count, plural, one {{countFmt} change} other {{countFmt} changes}}",
+      "footnote": "The trail includes links from print titles (the “č. N/RRRR Sb.” citation) as well as the independent full-text census (graph pass 20) — the two provenances are distinguished on each statute’s page. A statute without a section trail is not an empty page: the chronicle of prints stands even without an e-Sbírka diff."
+    },
+    "statute": {
+      "backToRegistry": "statute registry",
+      "eyebrow": "statute memory · critical edition of a statute",
+      "title": "Act No. {ref} Sb.",
+      "intro": "The statute seen from the act’s side, not the print’s: who changed it in this parliamentary term, when the change was promulgated in the Collection of Laws and — where the archive carries a real e-Sbírka section diff — a verbatim before/after section trail with permanent anchors. Data from psp.cz and e-Sbírka, not from a model.",
+      "esbirkaFull": "full consolidated text in e-Sbírka",
+      "stats": {
+        "inTrail": "{count, plural, one {print} other {prints}} in the trail",
+        "enacted": "promulgated in the Collection",
+        "paragraphs": "sections with a trail",
+        "changes": "documented fragment changes"
+      },
+      "statsSource": "psp.cz prints (amends + census) · e-Sbírka SPARQL section diffs · {windowsFmt} {windows, plural, one {version window} other {version windows}}",
+      "coverage": {
+        "source": "authorship coverage — what this page documents and what it does not",
+        "text": "The print trail below is complete within the graph ({trailBillsFmt} {trailBills, plural, one {print} other {prints}}, of which {censusOnlyFmt} documented only by the full-text census). The section trail is point-sampled: a real e-Sbírka diff today covers <b>{paragraphsFmt}</b> {paragraphs, plural, one {section} other {sections}} of this statute ({changesFmt} {changes, plural, one {fragment change} other {fragment changes}}{candidatesClause}); the remaining sections have no trail yet and nothing is guessed. Section-level authorship is NOT determined — each window shows only <bold>window candidates</bold>: prints from this trail promulgated in the Collection between the two wordings (the rule is printed next to the trail). A candidate is not a documented author of the change.",
+        "candidates": "; for {countFmt} of them at least one candidate print falls inside the window"
+      },
+      "chronicleTitle": "Who changed the act",
+      "chronicleAside": "{countFmt} {count, plural, one {print} other {prints}} · psp.cz · sorted by promulgation day, then by print number",
+      "chronicleFootnote": "Ordering (disclosed rule): prints promulgated in the Collection first, chronologically by promulgation day, then pending prints by print number. The provenance of each link is disclosed on every row — “link from the print’s title” is the č. N/RRRR Sb. citation in the title, “full-text census” an independent pass through the print’s full text (for large amendments the title systematically undercounts).",
+      "trailTitle": "Section trail — critical edition",
+      "trailAside": "{paragraphsFmt} § · {changesFmt} {changes, plural, one {change} other {changes}} · e-Sbírka SPARQL",
+      "trailAsideEmpty": "e-Sbírka SPARQL · no record yet",
+      "trailEmpty": "No real section diff exists in the archive for this statute yet — e-Sbírka diffs are computed point by point (SPARQL point-query, no bulk export) and Politicas does not display fabricated data. The chronicle of prints above stands even without a section trail.",
+      "paragraphNavAria": "Section index",
+      "paragraphNavLabel": "section index",
+      "marginaliaRule": "Disclosed marginalia rule: “promulgated within the window” means prints from the chronicle above whose promulgation day in the Collection falls in the interval between the two wordings (older wording exclusive, newer inclusive). The promulgation day is used, not the effective date; a window between two consolidated wordings can carry the interventions of several amendments at once — hence candidates, never an “author”.",
+      "inProgress": "pending",
+      "conflictFlag": "possible conflict — a signal, not evidence",
+      "anchorAria": "Permanent anchor {label}",
+      "repeatedlyAmended": "amended repeatedly — {countFmt} {count, plural, one {version window} other {version windows}}",
+      "wording": "wording {date}",
+      "candidatesLabel": "promulgated within the window (candidates, not documented authorship):",
+      "candidatesNone": "no print from this trail was promulgated within the window — an authorship candidate is missing",
+      "verbatimBoth": "verbatim text of both wordings:",
+      "citeLabel": "citation:"
+    },
+    "collisions": {
+      "crumb": "/ collision radar",
+      "eyebrow": "case ③ · legislative forensics",
+      "title": "Print collisions",
+      "introReal": "Two or more concurrently pending prints sometimes independently amend the same section of the same act in incompatible or order-sensitive ways. That is an ordinary hazard of bills drafted in parallel, not evidence of wrongdoing — a finding about the legislative process, not an ethical finding.",
+      "introUnavailable": "Data for this section is not available yet — either the graph or the manual text-comparison outputs are missing.",
+      "emptyData": "The graph or the manual text-comparison outputs (stored in the analysis archive) are unavailable. Politicas does not display fabricated data.",
+      "radarEmptyLabel": "collision radar",
+      "radarEmptyText": "The radar records no findings yet — either the text-comparison outputs and the graph are unavailable, or the record simply contains no finding. Politicas does not display fabricated data.",
+      "stats": {
+        "confirmed": "confirmed pairs",
+        "risks": "coordination risks",
+        "clusters": "clusters by §",
+        "nWay": "clusters of 3+ prints"
+      },
+      "statsSource": "{batches} batches of manual text comparison · a deterministic same-section prefilter first, only then a close read of both texts; confirmed pairs verified by search in the archived psp.cz text · “incidental” pairs (same § number, different act) excluded — not shown here",
+      "czechPending": "For {count}× pair the analysis is not displayed yet — it exists only in English and the Czech wording is being prepared. The finding itself (which prints, which §, how it is classified) is unaffected.",
+      "clustersTitle": "Clusters by act and §",
+      "clustersAside": "{clusters} clusters · {pairs} print pairs",
+      "clustersFootnote": "A cluster = one § of one act, not a pair of prints — several findings are genuinely N-way (e.g. §35c of act 586/1992 now joins 4 prints). The classification is a derived finding (fabrication-checked; method: a deterministic same-section prefilter followed by a close read of both texts with in-text verification), never proven wrongdoing — it is a legislative-coordination risk between concurrently filed bills, not an ethical finding.",
+      "class": {
+        "confirmed-collision": "confirmed text collision",
+        "coordination-risk": "coordination risk"
+      },
+      "nWayBadge": "{count}× print",
+      "batchBadge": "batch {batch}",
+      "batchTitle": "Which manual text-comparison batch this finding comes from",
+      "excerptLabel": "print {cislo} — verbatim quotation",
+      "fullReasoningWithQuotes": "quotations and full reasoning +",
+      "fullReasoning": "full reasoning +",
+      "pairSource": "batch {batch} · {method}"
+    },
+    "radar": {
+      "sectionAria": "Collision radar — ledger of findings",
+      "title": "Collision radar",
+      "aside": "{collisions, plural, one {# collision} other {# collisions}} · {flags, plural, one {# flag} other {# flags}}",
+      "lastEntry": "last entry {date}",
+      "noDatedEntries": "no dated entries",
+      "intro": "A ledger of legislative-process findings in the order they entered the record — an early-warning system for amendments drafted in parallel. Every finding has a permanent anchor and a citation block; machine-readable forms: <rss>RSS</rss> · <json>JSON</json>.",
+      "stripAria": "Days findings entered the record",
+      "stripSr": "{collisions, plural, one {# collision} other {# collisions}} and {flags, plural, one {# flag} other {# flags}} recorded {date}",
+      "stripSource": "date = the source artifact’s `generatedAt` in the analysis archive · case-① flags carry no detection date — in the ledger below they follow the dated entries, ordered by print number",
+      "undated": "undated",
+      "kind": {
+        "kolize": "print collision",
+        "priznak": "conflict flag"
+      },
+      "anchorAria": "Permanent anchor of finding {title}",
+      "clusterDetail": "cluster detail ↓",
+      "citeShow": "cite +",
+      "citeHide": "hide citation —",
+      "citeCopied": "citation copied",
+      "citeFailed": "copying failed — select the text manually",
+      "citeCopy": "copy citation"
+    },
+    "dependency": {
+      "title": "Dependencies on companion prints",
+      "aside": "{billsFmt} prints · {hitsFmt} dependency findings · print texts on psp.cz",
+      "intro": "The detector walks each print’s own text looking for the e-Sbírka drafting placeholder (“zákona č. …/2026 Sb.”), which a drafter inserts into amending sentences before the final act number is known. Each hit falls into one of three classes — the print cites its own later act, the print relies on ANOTHER, companion print that must pass at the same time or earlier, or the hit remains unclear because the available text carries no evidence for either of the first two. The classification was manually audited; even so, <b>{unclearFmt}</b> of <b>{totalFmt}</b> hits honestly remain unclear and are not rendered below. A dependency on a companion print is a fact of the legislative process — it flags an enactment-order risk (this print assumes the companion print will already be law), not an accusation of wrongdoing.",
+      "hitBadge": "derived · awaiting review — a lead to examine, not a finding",
+      "dependsOn": "depends on:",
+      "pendingTranscript": "the dependency description awaits a Czech transcript — the text quotation below is captured",
+      "noteLabel": "Note:",
+      "withheldNote": "{count, plural, one {{countFmt} further dependency finding passed classification, but its description did not pass the language gate (awaiting a Czech transcript), so it is not shown here.} other {{countFmt} further dependency findings passed classification, but their descriptions did not pass the language gate (awaiting a Czech transcript), so they are not shown here.}}",
+      "coverageFootnote": "The census covers the prints in which the drafting placeholder actually appeared in the text — as they accumulate in the corpus. As more prints are processed this list will grow; no row limit is enforced.",
+      "sourceNote": "prints’ own text on psp.cz · deterministic detector, audited classification · {unclearFmt} of {totalFmt} hits unclear"
+    },
+    "unavailable": {
+      "bill": "Parliamentary print",
+      "registry": "Statute registry",
+      "statute": "Statute",
+      "backToBills": "back to the print overview",
+      "backToMonitor": "back to the legislation monitor"
+    }
   },
   "graph": {
     "page": {
@@ -1199,6 +2082,98 @@
         "open": "click opens the full record with sources"
       },
       "source": "source: knowledge-graph review_state — human review-gate status of every edge"
+    },
+    "steps": "{count, plural, one {{countFmt} step} other {{countFmt} steps}}",
+    "allVerified": "all verified",
+    "pendingEdges": "{count, plural, one {1 edge pending review} other {{countFmt} edges pending review}}",
+    "moneyDocumented": "{czk} documented in contracts",
+    "pathsFound": "{capped, select, yes {Found {countFmt} or more equally short paths.} other {{count, plural, one {Found 1 shortest path.} other {Found {countFmt} equally short paths.}}}}",
+    "variants": {
+      "strip": "canvas · round 4",
+      "keyTitle": "key {key}",
+      "mapa": {
+        "label": "A · Map × trails",
+        "hint": "the whole landscape, with trails as lenses over it"
+      },
+      "trasy": {
+        "label": "C · Trails",
+        "hint": "computed answers in a column layout"
+      }
+    },
+    "finder": {
+      "title": "Connect two dots",
+      "intro": "Pick two nodes — the canvas lights up the shortest documented path between them, step by step.",
+      "fromLabel": "from",
+      "toLabel": "to",
+      "fromPlaceholder": "start node — search…",
+      "toPlaceholder": "target node — search…",
+      "clearSlot": "clear this node",
+      "reset": "clear the connection",
+      "working": "finding a documented path…",
+      "unavailable": "path finding isn't available in this run — it's waiting on a connected data warehouse",
+      "emptyTitle": "no documented path",
+      "empty": "No path of documented graph edges connects the selected nodes within {steps}. That is a finding too: the connection is not documented in our data.",
+      "pathTab": "path {n}",
+      "pathAria": "show path {n}",
+      "stepRow": "step {n}",
+      "rule": "Ordering rule: the shortest path over evidence edges (co-voting is not used), at most {steps}; a node with {hub} or more edges counts as two steps, so the path doesn't run through the biggest hubs. Ties go to fewer unverified edges, then a higher contract amount, then alphabetical order. {found}"
+    },
+    "cite": {
+      "button": "cite this view",
+      "working": "issuing the citation…",
+      "copied": "permanent link copied",
+      "copyFailed": "copying failed — select the address below manually",
+      "issueFailed": "the citation can't be issued right now — the view couldn't be documented from the data",
+      "hint": "the permanent link carries the whole view and the evidence fingerprint — for citing in an article"
+    },
+    "permalink": {
+      "tag": "permanent citation",
+      "refNo": "no. {hash}",
+      "lead": "A citable view of the knowledge graph: the address carries the full view state and the evidence fingerprint at the moment of issue — on every visit the page deterministically re-derives the content from the registers and admits any difference against the cited version.",
+      "rederived": "re-derived from the knowledge graph · {date}",
+      "staleNotice": "the content has changed since this link was issued — the fingerprint in the address {urlHash} ≠ today's fingerprint {currentHash}; shown is today's re-derivation, not the cited one",
+      "openCanvas": "open the graph canvas",
+      "backToCanvas": "back to the graph canvas",
+      "citationWhat": "Graph citation",
+      "copied": "copied",
+      "copyManual": "failed — select the text manually",
+      "pathGoneTitle": "Today's graph no longer documents this path",
+      "pathGoneBody": "The citation pointed to a computed evidence path; the underlying data has changed since it was issued, and no equally short path exists under this ordering today. Nothing similar is substituted — a citation either matches the issued fingerprint, or says so.",
+      "rule": "Ordering rule: the shortest path over evidence edges (co-voting is not used), at most {steps}; a node with {hub} or more edges counts as two steps. Ties go to fewer unverified edges, then a higher contract amount, then alphabetical order. {found}",
+      "railTitle": "citation",
+      "hashTitle": "content fingerprint",
+      "inAddress": "in the address: {hash}",
+      "retrieved": "data retrieved {date}",
+      "sourcesTitle": "sources",
+      "sources": {
+        "psp": "psp.cz — MPs, bills, votes",
+        "ares": "ares — public register",
+        "contracts": "Contract Register — smlouvy.gov.cz",
+        "esbirka": "e-Sbírka — collection of laws"
+      },
+      "citeTitle": "cite",
+      "quoteLine": "“{title}” — politicas, a knowledge graph of Czech politics. Retrieved {date}.",
+      "imprintWord": "fingerprint",
+      "citationLine": "“{title}” — politicas, a knowledge graph of Czech politics. Retrieved {date}. {url} · fingerprint {algo} {hash}.",
+      "copyCitation": "copy citation",
+      "copyLink": "copy link",
+      "bundleLink": "evidence bundle (JSON-LD)",
+      "bundleNote": "a machine-readable list of claims with the human-review state of every edge",
+      "goneTitle": "Today's graph no longer documents this view",
+      "goneBody": "The address is readable and once carried a documented view, but the knowledge graph is recomputed in batches and the cited node, trail or path is not in today's build. Nothing similar is substituted: a citation either matches the issued fingerprint, or says so.",
+      "goneImprint": "fingerprint in the address: {algo} {hash} · re-derived {date}",
+      "og": {
+        "pathGone": "the path is no longer documented in today's graph",
+        "evidencePath": "evidence path",
+        "curatedTrail": "curated trail",
+        "inGraph": "{kind} in the knowledge graph",
+        "deterministic": "computed deterministically",
+        "verdict": "model proposal passed through the gate",
+        "hashLine": "fingerprint {algo} {hash} · review state as of {date}",
+        "hashFallback": "the permanent address carries the whole view and the evidence fingerprint",
+        "fallbackTitle": "A knowledge graph of Czech politics",
+        "sources": "sources: psp.cz · ares · Contract Register · e-Sbírka"
+      }
     }
   },
   "metodika": {
@@ -1385,5 +2360,697 @@
     "toggle": "Forensic mode",
     "hintOff": "switch on the x-ray view: inverted paper, verified edges only, provenance inline on the canvas",
     "hintOn": "switch off forensic mode and return to the poster view"
+  },
+  "denik": {
+    "meta": {
+      "title": "Journal of the Republic — Politicas",
+      "description": "A chronological daily record of the state: signed contracts, prints referred to committees, promulgations in the Collection of Laws, register roles and human-gate decisions — dated, cited, permanently linkable."
+    },
+    "kicker": "the daily record of the republic",
+    "title": "Journal of the Republic",
+    "lead": "One day, one entry: contracts signed by companies tied to MPs, parliamentary prints referred to committees, promulgations in the Collection of Laws, register-role entries and removals, and human-gate decisions. Every row has a date and a source, and every day has a permanent address.",
+    "rule": {
+      "kicker": "the journal's rule",
+      "body": "The journal runs two streams, and every row states which clock dates it. <ucinne>effective</ucinne> rows carry the day the event <em>happened</em> according to its register (a contract signature, a role entry, a print step) — not the day ingest found it. <zaznamenano>recorded</zaznamenano> rows carry the day the fact <em>entered the record</em>: human-gate decisions (review_audit is an append-only log) and, since the bitemporal graph arrived, changes of the graph itself (change_event — a new tie, a tie change, a contract in the graph). What the graph recorded before the bitemporal-migration epoch, the “recorded” stream honestly does not carry — nothing is stamped retroactively. Contracts are listed only for companies with an owner/operator-class tie — contracts of institutions where an MP merely sits on a body are that institution's money."
+    },
+    "coverage": {
+      "kicker": "incomplete coverage",
+      "money": "the money layer is unreadable right now — contracts and register roles are missing from the journal",
+      "law": "the legislative layer is unreadable right now — committee referrals and Collection promulgations are missing",
+      "reviews": "the human gate is unreadable right now — reviewers' decisions are missing from the journal",
+      "changes": "the change_event table is unreadable right now — the “recorded” stream is missing from the journal"
+    },
+    "limits": {
+      "kicker": "limits of this read",
+      "companiesOverCap": "there are more companies with an attributable tie than the cap of {cap}; contracts of {n} of them were not read at all",
+      "companiesEdgeTruncated": "{n} companies hit the cap of {cap} contracts per company — the journal does not carry their older contracts",
+      "malformedIco": "{n} ties carry a company ID that cannot be canonicalised; the row is shown, but the company in it cannot be followed or opened",
+      "changesUndisplayable": "{n} graph records carry a kind this version of the journal cannot voice — they are not shown, but they never vanish uncounted",
+      "changesFromGate": "{n} graph records describe human-gate decisions; the journal takes those from review_audit itself, so no event is counted twice",
+      "mergedContractRows": "{n} contract rows were merged into another — one contract is one row, even when several companies supply it in the graph",
+      "contractAmountConflicts": "{n} merged contracts carried conflicting amounts and therefore state none (picking one would mean inventing money)"
+    },
+    "filter": {
+      "label": "entity filter: {entity}",
+      "clear": "clear filter",
+      "inboxNote": "A followed entity is stored only in your browser; what it gained since your last visit is then tallied by the <schranka>civic inbox</schranka>."
+    },
+    "section": {
+      "title": "Entries",
+      "source": "source: contract register + ares + psp.cz + review_audit ({rows} gate rows) + change_event",
+      "builtOn": "built {date}"
+    },
+    "unreadable": "The entries cannot be loaded right now — the store is unavailable in this environment. This page cannot say whether any entries exist; the journal is not empty, just unreadable.",
+    "emptyEntity": {
+      "lead": "The journal carries no entry for the followed entity",
+      "body": "Either the registers hold no dated event about it, or the key “{key}” matches no entity of the record.",
+      "link": "full journal"
+    },
+    "empty": {
+      "lead": "The journal is empty so far",
+      "body": "The readable layers carry no dated event — the first entry will appear as soon as the registers carry one.",
+      "note": "no record is suppressed; implausible data dropped: {n}"
+    },
+    "daysNote": {
+      "truncated": "{total} days on record in total; the page shows the last {shown} (cap {cap}) — older days are carried by the entity filter and the machine formats",
+      "total": "{total} days on record in total",
+      "dropped": "{n} records with an implausible date dropped (a date is never corrected)"
+    },
+    "evidenceLink": "evidence journal",
+    "anchorsNote": "day anchors: #d-<date> · entry guid: politicas:denik:<id>",
+    "masthead": {
+      "entries": "entries: {n}",
+      "permalinkAria": "Permanent link to {date}"
+    },
+    "dayList": {
+      "aria": "Entries of {date}"
+    },
+    "entryRow": {
+      "pending": "rests on a tie awaiting human review",
+      "entityAria": "Journal of entity {label}"
+    },
+    "kind": {
+      "contract": "contract",
+      "billAssigned": "committee referral",
+      "billPublished": "promulgation in the Collection",
+      "roleStart": "role entry",
+      "roleEnd": "role removal",
+      "review": "gate decision",
+      "change": "graph entry",
+      "mandate": "mandate",
+      "organRole": "organ post",
+      "unmapped": "{token}",
+      "unmappedNote": "(untranslated kind)"
+    },
+    "timeBasis": {
+      "ucinne": "effective",
+      "zaznamenano": "recorded",
+      "ucinneTitle": "effective — the row carries the day the event happened according to its register (a contract signature, a role entry, a print step), not the day ingest found it",
+      "zaznamenanoTitle": "recorded — the row carries the day the fact entered the record: a human-gate decision, or a change in the graph itself"
+    },
+    "weekday": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "entry": {
+      "contractSigned": "contract signed — {companies}: {title}",
+      "roleStart": "role entered in the register — {mp}: {role} — {company}",
+      "roleEnd": "role struck from the register — {mp}: {role} — {company}",
+      "billAssigned": "parliamentary print {cislo} referred to committee — {organ}",
+      "billPublished": "parliamentary print {cislo} promulgated in the Collection of Laws — {sb}",
+      "reviewConfirm": "tie verified — {mp} ↔ {company}",
+      "reviewReject": "tie rejected — {mp} ↔ {company}",
+      "reviewNeedsMore": "additional evidence requested — {mp} ↔ {company}",
+      "tieNew": "new tie recorded — {mp} ↔ {company}",
+      "tieChanged": "tie change recorded — {mp} ↔ {company}",
+      "contractNew": "contract recorded in the graph — {company}",
+      "contractNewTitled": "contract recorded in the graph — {company}: {contract}",
+      "mandateNew": "mandate creation recorded in the records — {mp}",
+      "mandateNewTerm": "mandate creation recorded in the records — {mp} (term {term})",
+      "mandateChanged": "mandate change recorded in the records — {mp}",
+      "mandateChangedTerm": "mandate change recorded in the records — {mp} (term {term})",
+      "mandateRemoved": "mandate removal recorded in the records — {mp}",
+      "mandateRemovedTerm": "mandate removal recorded in the records — {mp} (term {term})",
+      "organRoleNew": "new post in a Chamber organ recorded — {mp}",
+      "organRoleNewFn": "new post in a Chamber organ recorded — {mp}: {fn}",
+      "organRoleChanged": "change of post in a Chamber organ recorded — {mp}",
+      "organRoleChangedFn": "change of post in a Chamber organ recorded — {mp}: {fn}",
+      "organRoleRemoved": "end of post in a Chamber organ recorded — {mp}",
+      "organRoleRemovedFn": "end of post in a Chamber organ recorded — {mp}: {fn}"
+    }
+  },
+  "dukazy": {
+    "meta": {
+      "title": "Evidence Journal — Politicas",
+      "description": "The human gate's public gazette: every verification, rejection or request for more evidence on an MP ↔ company tie as a dated, citable record with links to the primary registers."
+    },
+    "kicker": "the human gate's public gazette",
+    "title": "Evidence Journal",
+    "lead": "Every decision that passes human review — verifying or rejecting an MP ↔ company tie, requesting additional evidence, a signed forensic report — becomes a public, dated, permanently linkable record here. The gate itself is a publication event.",
+    "method": {
+      "kicker": "publication method",
+      "body": "What is published: the ruling, the subject, the date, the reviewer's role and links to the primary registers — never the reviewer's working notes. “Additional evidence requested” is not a verdict: the tie keeps waiting for review. The record's verifiability (audit trail and vault heads) is held by the <admin>operations console /admin</admin>."
+    },
+    "section": {
+      "title": "Decisions",
+      "source": "source: review_audit ({rows} rows) + kg_node bill.forensic_*"
+    },
+    "unreadable": "The records cannot be loaded right now — the store is unavailable in this environment. This page cannot say whether any decisions exist; the journal is not empty, just unreadable.",
+    "empty": {
+      "lead": "The journal is empty so far",
+      "body": "No decision has passed the human gate yet — the first verified or rejected tie will appear here the moment a reviewer decides it in the <kontrola>/penize/kontrola</kontrola> console.",
+      "note": "source: review_audit — 0 rows; no record is suppressed"
+    },
+    "entry": {
+      "permalinkAria": "Permanent link to record {id}",
+      "decidedBy": "decided by: {reviewer}",
+      "signedOff": "report signed",
+      "priorState": "prior state: {state}",
+      "sourceTie": "source: review_audit · kg_edge linked_to",
+      "sourceTieDetail": "source: review_audit · kg_edge linked_to · {detail}",
+      "sourceForensic": "source: kg_node bill.forensic_* · severity {detail}"
+    },
+    "decision": {
+      "confirm": "tie verified",
+      "reject": "tie rejected",
+      "needsMore": "additional evidence requested",
+      "forensicVerified": "forensic report confirmed"
+    },
+    "console": "review console",
+    "anchorsNote": "record anchors: #z-<id> · id = review_audit row / parliamentary print"
+  },
+  "schranka": {
+    "meta": {
+      "title": "Civic Inbox — Politicas",
+      "description": "Follow MPs, parliamentary bills, companies and municipalities — no account, follows live only in your browser. On every visit the inbox shows what changed in the record since the last one: dated, cited entries from the republic journal and the evidence journal."
+    },
+    "header": {
+      "denikLink": "republic journal"
+    },
+    "hero": {
+      "kicker": "a personal inbox of the record",
+      "title": "Civic Inbox",
+      "lead": "Follow MPs, bills, companies or municipalities — and on every visit the inbox shows you what changed in the record since the previous one. Every row is a dated journal entry with its source; the inbox adds nothing, it only filters."
+    },
+    "rule": {
+      "kicker": "inbox rule",
+      "body1": "Following works without an account: the list lives in your browser (localStorage). When news is requested, though, that whole list travels in the request ADDRESS (<code>?e=poslanec:…</code>) — that is by design, because the address is also your subscription: it can be saved or passed on, and whoever has it sees the same selection. No cookies, no sign-in, nothing stored on the server; the keys are struck from server telemetry and only their count remains. What the server sees, as with any other page, is the request IP address — the inbox does not remove that and does not claim otherwise. Journal entries are dated by day, so the “since your last visit” threshold is daily: the day of the last visit is counted whole again — better to show an entry twice than to withhold one.",
+      "firstVisit": "A first visit has no stamp — the last {days} days of the record are shown.",
+      "body2": "The badge in the sidebar follows a stricter rule: after a visit the inbox notes how many of that day's entries you had in front of you, and the badge then leaves them out — which is why it goes dark after a visit even though the visit day still counts whole above the threshold. Only the count from that same day is subtracted; nothing else. The page stays lenient — the two rules differ on purpose.",
+      "body3": "What the inbox CANNOT see: for the contribution index recompute it reports only THAT it ran — the graph holds only current values and no previous ones, so how far a score moved cannot be derived from it and the inbox does not claim it. The row therefore carries the pass number, the formula ref and a link to the <metodika>methodology</metodika>. It is reported only when the whole chamber holds one pass; half a recompute is not a fact. The kind summary in an entity header counts the whole delta, even when only the first {cap} rows fit below it."
+    },
+    "followed": {
+      "title": "Followed",
+      "aside": "source: republic journal + evidence journal",
+      "asideLoaded": "source: republic journal + evidence journal · threshold {since} · built {builtOn}"
+    },
+    "empty": {
+      "body": "You are not following anything yet<dot>.</dot> The <btn>follow</btn> button sits on an MP case file, a company case file, a parliamentary bill and the filtered journal — in the left sidebar and right on the page — or start with the <denik>republic journal</denik> and the <zebricek>leaderboard</zebricek>."
+    },
+    "loading": "Loading news…",
+    "error": {
+      "body": "News cannot be loaded right now — the record is unreadable in this environment. The inbox cannot say whether anything changed; the follows in your browser remain."
+    },
+    "coverage": {
+      "kicker": "incomplete coverage",
+      "intro": "Some layer of the record is unreadable right now — the deltas may be incomplete:",
+      "money": "contracts and registry roles;",
+      "law": "bill steps;",
+      "reviews": "human-gate decisions;",
+      "changes": "the “recorded” stream;",
+      "dukazy": "forensic reports;",
+      "recompute": "the index recompute (the graph does not hold one uniform record of it);",
+      "outro": "a missing group is never filled in."
+    },
+    "dropped": {
+      "kicker": "unreadable response rows",
+      "body": "{count, plural, one {{countFmt} response row had a shape the inbox does not understand — it was discarded and is not filled in by guesswork. The rest of the delta stands; the full record lives in the entity journal.} other {{countFmt} response rows had a shape the inbox does not understand — they were discarded and are not filled in by guesswork. The rest of the delta stands; the full record lives in the entity journal.}}"
+    },
+    "entity": {
+      "denikLink": "entity journal",
+      "noChange": "No change — since the view threshold the record carries no new entry for this entity.",
+      "obecEmpty": "The journal keeps no municipal facts — contracts, registry roles, bill steps and gate decisions are not keyed by municipality, and the budget mirrors are a yearly batch of statements, not a dated stream. This follow therefore cannot deliver anything and the inbox no longer offers it anywhere; it stays here only because a saved follow is never deleted without you. The municipality's numbers are on its budget mirror.",
+      "more": "+ {count} more entries in the entity journal"
+    },
+    "delta": {
+      "recordedBadge": "recorded",
+      "effectiveBadge": "effective",
+      "pendingNote": "rests on a tie awaiting human review",
+      "recomputeTitle": "Contribution index recomputed for the whole chamber — pass {pass}; how far the score moved, the record does not say",
+      "recomputeSource": "politicas computation — {ref}",
+      "forensicTitle": "forensic report confirmed — {subject}",
+      "forensicSource": "kg_node bill.forensic_* · severity {detail}"
+    },
+    "kinds": {
+      "contract": "{count, plural, one {contract} other {contracts}}",
+      "billAssigned": "{count, plural, one {bill committee referral} other {bill committee referrals}}",
+      "billPublished": "{count, plural, one {promulgation in the Collection of Laws} other {promulgations in the Collection of Laws}}",
+      "roleStart": "{count, plural, one {role registration} other {role registrations}}",
+      "roleEnd": "{count, plural, one {role removal} other {role removals}}",
+      "review": "{count, plural, one {gate decision} other {gate decisions}}",
+      "change": "{count, plural, one {graph entry} other {graph entries}}",
+      "mandate": "{count, plural, one {mandate entry} other {mandate entries}}",
+      "organRole": "{count, plural, one {chamber-body office entry} other {chamber-body office entries}}",
+      "forensic": "{count, plural, one {forensic report} other {forensic reports}}",
+      "recompute": "{count, plural, one {index recompute} other {index recomputes}}",
+      "untranslated": "(untranslated kind)"
+    },
+    "footer": {
+      "allDenik": "full republic journal",
+      "followedNote": "entities followed: {count} · deltas are derived per request, nothing is stored"
+    },
+    "subscribe": {
+      "title": "Subscribe",
+      "aside": "the same deltas, another format · RSS 2.0 and JSON Feed 1.1",
+      "body": "Without accounts a subscription cannot be a row in a database — it is an ADDRESS. These two carry your current selection ({count}) directly inside them, and your reader gets the same rows from them as this page. Whoever has the address sees the same selection; treat it as a private link. The inbox remembers your follows only here in this browser, so after changing the selection you need to take the address again.",
+      "addressNote": "the address carries the public keys of the followed entities and the day threshold · nothing is stored on the server · the keys are struck from server telemetry"
+    },
+    "badge": {
+      "ariaLabel": "new entries for followed entities: {count}"
+    },
+    "followCurrent": {
+      "thisPage": "this page"
+    }
+  },
+  "atlas": {
+    "meta": {
+      "title": "Open Data Quality Atlas — Politicas",
+      "description": "Public quality grades for the sources politicas ingests: provenance coverage, freshness against cadence, Merkle seal integrity, completeness measured by admitted gaps. Every score ships with its rule printed next to it; a dimension without evidence is “unrated”, never zero."
+    },
+    "hero": {
+      "kicker": "the public quality atlas of the data layer’s sources",
+      "title": "Open Data Quality Atlas",
+      "lead": "Every source politicas ingests gets a public grade here: provenance coverage, freshness against its declared cadence, the integrity of Merkle seals, and completeness measured by upstream’s admitted gaps. Every score carries its rule printed verbatim next to the number — and a dimension without evidence is honestly “unrated”, never zero. The traps you will run into here (sentinel birth dates, merged K votes, placeholder years 2925) are the same institutional memory that politicas’ analytical runs read."
+    },
+    "methodology": {
+      "kicker": "atlas methodology",
+      "body": "Scores 0–100 are computed deterministically from the current state of the store (entity tables with the provenance quartet, the ingest_run table, source contexts). Cadence vocabulary: age of the last refresh ≤ cadence is “fresh”, up to {stale}× cadence “aging”, beyond {stale}× cadence “stale”; the freshness score falls to zero at {zero}× cadence. Cadence is politicas’ declared expectation, not the publisher’s SLA. Low completeness is a statement about the publisher’s data, not about the processing — gaps are admitted, not hidden. A dimension without evidence is “unrated” with a reason and does not enter the composite."
+    },
+    "storeDown": {
+      "body": "The atlas cannot be built right now — the store is unavailable in this environment. This page cannot say how the sources are doing; the scores are not zero, they are unreadable.",
+      "source": "source: store unavailable — no score is concealed or invented"
+    },
+    "sources": {
+      "title": "Sources",
+      "aside": "source: entity tables + ingest_run + source contexts (context-model)",
+      "lead": "{count} sources on record. A union of three views: sources with a processed context, sources with rows in the store, and sources with ingest runs — a source known from only one side is shown too, with an honest “unrated” wherever evidence is missing."
+    },
+    "related": {
+      "title": "Related",
+      "aside": "the atlas is one face of the same data layer as /data",
+      "data": "data releases",
+      "dukazy": "evidence journal",
+      "note": "release versions and integrity live on /data; human-gate decisions on /dukazy"
+    },
+    "cards": {
+      "sortGroup": "Sorting of source cards",
+      "sortBy": "sort by:",
+      "sortRule": "sorting rule: descending by the chosen score; “unrated” always sorts after rated — unrated is not zero even when sorting; ties are decided by the source key"
+    },
+    "sort": {
+      "composite": "composite",
+      "coverage": "coverage",
+      "freshness": "freshness",
+      "integrity": "integrity",
+      "completeness": "completeness",
+      "source": "name"
+    },
+    "dimension": {
+      "coverage": {
+        "label": "provenance coverage",
+        "rule": "100 × (source rows linked to an ingest run / all source rows in the store), rounded. A row without ingest_run_id carries only partial provenance (source + url + fetched_at); a row with it is traceable back to the run that wrote it. A source with no rows = unrated."
+      },
+      "freshness": {
+        "label": "freshness",
+        "rule": "Age = today minus the finish of the source’s last successful ingest run. Score 100 at age ≤ cadence, then linear to 0 at age = 3× cadence. In words: ≤ cadence is “fresh”, ≤ 2× cadence “aging”, beyond 2× cadence “stale”. Cadence is politicas’ declared expectation, not the publisher’s SLA. Without a declared cadence or a successful run = unrated."
+      },
+      "integrity": {
+        "label": "integrity",
+        "rule": "100 × (the source’s finished successful runs sealed with a Merkle root / all of the source’s finished successful runs), rounded. The seal is applied by LedgerRepository.sealIngestRun over every row the run wrote. A source with no finished successful run = unrated."
+      },
+      "completeness": {
+        "label": "completeness",
+        "rule": "100 minus 10 points for every admitted upstream gap (KNOWN ISSUES in the source context, lib/analysis/context-model.ts), floored at 0. A low score is a statement about the publisher’s data, not about politicas’ processing — gaps are admitted, not hidden. A source without a processed context = unrated (undocumented ≠ complete)."
+      }
+    },
+    "staleness": {
+      "fresh": "fresh",
+      "aging": "aging",
+      "stale": "stale"
+    },
+    "compositeStatus": {
+      "rated": "rated",
+      "partial": "partial",
+      "unrated": "unrated"
+    },
+    "score": {
+      "unrated": "unrated"
+    },
+    "card": {
+      "compositeUnrated": "composite unrated",
+      "compositeLine": "composite: {status} · {evaluated} of {of} dimensions",
+      "basis": "evidence: {basis}",
+      "reason": "reason: {reason}",
+      "rule": "rule: {rule}",
+      "rows": "rows",
+      "withRun": "with a run",
+      "cadence": "cadence",
+      "cadenceNone": "not declared",
+      "cadenceDays": "{days} d",
+      "lastRefresh": "last refresh",
+      "lastRefreshNone": "none",
+      "knownIssues": "{count} admitted upstream gaps",
+      "contextProvenance": "context provenance: {provenance}",
+      "source": "source: entity tables (provenance quartet) + ingest_run (runs, Merkle roots from LedgerRepository.sealIngestRun) + source context (lib/analysis/context-model.ts)"
+    }
+  },
+  "dataReleases": {
+    "meta": {
+      "title": "Data Releases — Politicas",
+      "description": "The graph of the republic released like software: YYYY.MM.DD versions, cardinality floors as the release gate, Merkle roots and a review hash-chain as proof of integrity, a downloadable snapshot with its size admitted."
+    },
+    "hero": {
+      "kicker": "the public release train of the data layer",
+      "title": "Data Releases",
+      "lead": "The graph of the republic is released like software: every successful data ingest cuts a <mono>YYYY.MM.DD</mono> version, cardinality floors are the release gate, and the integrity of every release is provable by Merkle roots and the review hash-chain. What you download today you can cite — and anyone can verify it."
+    },
+    "methodology": {
+      "kicker": "release methodology",
+      "body": "Version = the day of the last finished successful ingest run (the ingest_run table). A version that misses the cardinality floors (CARDINALITY_FLOORS) is marked “degraded” and is never “latest”. Floor verdicts are computed from the current state of the store — about historical versions this page claims nothing it could not prove. The snapshot is a cut of the derived graph (kg_node / kg_edge) capped at {nodeCap} nodes and {edgeCap} edges; any truncation is admitted in the limits field."
+    },
+    "storeDown": {
+      "body": "The manifest cannot be built right now — the store is unavailable in this environment. This page cannot say which versions exist or how integrity is doing; the release train is not empty, just unreadable.",
+      "source": "source: store unavailable — no version is concealed"
+    },
+    "current": {
+      "title": "Current version",
+      "aside": "source: ingest_run + kg_node (cardinalities) · psp.cz, Registr smluv",
+      "unreleasedLead": "Nothing released yet",
+      "unreleasedBody": "The store is readable, but no finished successful ingest run exists — the first version will appear here the moment the first run finishes with status “ok”.",
+      "unreleasedSource": "source: ingest_run — 0 successful runs; nothing is concealed",
+      "badgeDegraded": "degraded — not latest",
+      "badgeLatest": "latest",
+      "cut": "cut: {date}"
+    },
+    "table": {
+      "kind": "node kind",
+      "count": "count",
+      "floor": "floor",
+      "verdict": "verdict",
+      "met": "met",
+      "below": "below floor",
+      "source": "source: kg_node (full counts per kind) against CARDINALITY_FLOORS — {count} gates; see lib/db/readiness.ts"
+    },
+    "counts": {
+      "nodes": "graph nodes",
+      "edges": "graph edges",
+      "ballots": "vote ballots",
+      "source": "source: kg_node, kg_edge, vote_ballot — full counts at the moment the manifest was built"
+    },
+    "integrity": {
+      "title": "Integrity",
+      "aside": "source: review_audit (hash-chain) + ingest_run (Merkle roots)",
+      "lead": "Every human decision is a link of the hash-chain; every sealed ingest run carries a Merkle root over all the rows it wrote. Fingerprint of this release’s manifest:",
+      "leadSuffix": "(a content checksum, not a cryptographic signature)."
+    },
+    "chain": {
+      "title": "review chain head",
+      "empty": "The chain is empty so far — the first reviewer decision will found it. An empty chain is a provable state too.",
+      "length": "length",
+      "links": "{count} links",
+      "head": "head",
+      "lastDecision": "last decision",
+      "source": "source: review_audit.row_hash — the head is also held by /admin (the vault)"
+    },
+    "sealed": {
+      "title": "sealed ingest runs",
+      "empty": "No run is sealed with a Merkle root yet — the seal is applied after a run finishes, not during it.",
+      "run": "run #{id}",
+      "leaves": "{count} leaves",
+      "root": "root {hash}",
+      "source": "source: ingest_run.merkle_root — sealed by LedgerRepository.sealIngestRun"
+    },
+    "download": {
+      "title": "Download",
+      "aside": "source: kg_node + kg_edge — a cut of the derived graph, read-only",
+      "size": "{mb} MB ({bytes} B)",
+      "sizeNote": "size: the exact UTF-8 payload length at the moment this page was built — the downloaded file is rebuilt from the current store and may differ between ingests; the exact download size is carried by Content-Length",
+      "body": "The snapshot carries the version, the manifest fingerprint and a limits field with the cut’s admitted caps. Raw source data (raw registry payloads) are not included — the snapshot is the derived layer the application itself reads."
+    },
+    "changelog": {
+      "title": "Changelog",
+      "aside": "source: ingest_run — every day with a run = a row of the train",
+      "emptyLead": "The train has not left yet",
+      "emptyBody": "No ingest run is on record — the changelog will be founded by the first data ingest.",
+      "badgeOk": "all green",
+      "badgeFailures": "contains failures",
+      "runsLine": "{runs} runs · {rows} rows written",
+      "runRow": "{rows} rows",
+      "dukazyLink": "evidence journal",
+      "dukazyNote": "human-gate decisions have their own gazette — /dukazy"
+    },
+    "feeds": {
+      "title": "Feeds",
+      "aside": "source: the application’s route handlers — {count} public addresses",
+      "lead": "{families} feed families, each in two formats: {formats}. The JSON shape is the same wire for all of them — you can validate it with a single validator (<mono>parseEvidenceFeedJson</mono>). A feed never returns emptiness in place of a failure: if the store is unreadable it answers <mono>503</mono>, because an empty list is the claim “nothing happened”.",
+      "joinAnd": " and ",
+      "machineTitle": "machine shapes that are not feeds",
+      "sitemap": "The page map for robots is published by <mono>/sitemap.xml</mono>, crawling rules by <mono>/robots.txt</mono>. The sitemap carries static surfaces; the addresses of individual MPs, prints and companies are deliberately not in it — enumerating them means reading the whole graph at request time, and the hub pages that lead to them are in the sitemap.",
+      "family": {
+        "denik": {
+          "title": "Journal of the Republic",
+          "carries": "dated records of the state — signed contracts of companies that MPs own or manage, prints referred to committees, promulgations in the Collection of Laws, registry role entries and removals, human-gate decisions and records of changes in the graph.",
+          "note": "the last {count} records; the ?entita='<klíč>' parameter (poslanec:'<id>' · firma:'<ičo>' · tisk:'<číslo>') narrows the feed to a single entity — the address IS the subscription."
+        },
+        "dukazy": {
+          "title": "Evidence Journal",
+          "carries": "human-gate decisions over MP↔company ties — what was confirmed, rejected and returned for more evidence, each a link of the hash-chain.",
+          "note": "reviewers’ notes are not published; the feed carries the decision, not its reasoning."
+        },
+        "kolize": {
+          "title": "Collision Radar",
+          "carries": "candidates for a conflict of interest between a sponsored print and a money tie of its sponsor.",
+          "note": "a radar hit is a signal to investigate, not a proven conflict — every row carries that with it."
+        },
+        "schranka": {
+          "title": "News for followed entities",
+          "carries": "the same records, but only about the entities you follow — plus recalculations of your MP’s contribution index.",
+          "note": "the feed is parametrized and follows nothing without parameters: the entity list is passed as ?e='<klíč>' (repeatable) and the day threshold as ?od=YYYY-MM-DD. Nothing is stored on the server and no identity is sent — the /schranka page builds the address itself and the keys are scrubbed from telemetry. The server still sees the request’s IP, though."
+        }
+      },
+      "endpoint": {
+        "novinky": {
+          "title": "News — badge response",
+          "carries": "the same deltas as the inbox feed, but in the shape the app’s bar reads; it is not a JSON Feed."
+        },
+        "manifest": {
+          "title": "Release manifest",
+          "carries": "version, cut, cardinalities against floors and integrity fingerprints — the machine shape of this page."
+        },
+        "snapshot": {
+          "title": "Graph snapshot",
+          "carries": "a cut of the derived graph (kg_node / kg_edge) with caps admitted in the limits field."
+        }
+      }
+    }
+  },
+  "shared": {
+    "copyLink": {
+      "label": "copy link",
+      "copied": "link copied",
+      "failed": "copying failed — select the address below manually"
+    },
+    "dataUnavailable": {
+      "badge": "data temporarily unavailable",
+      "title": "{what} can't be loaded right now",
+      "body": "The record most likely exists — we just can't reach it right now: the graph database is single-connection and another process is holding it (an analysis script or a second instance of the app). Try again in a moment.",
+      "note": "This is <strong>not</strong> a statement that the record doesn't exist — a record that doesn't exist returns a 404."
+    },
+    "poster": {
+      "frameAria": "Print poster: {title}",
+      "sourceLine": "source: {source}",
+      "retrievedLine": "data as of {date} — a poster is a dated snapshot, the numbers change over time",
+      "methodologyLine": "methodology: {methodology}",
+      "pass": "computation pass {pass}",
+      "formulaMismatch": "CAUTION: these numbers were computed by the older methodology line “{storedRef}”; the code today declares “{declaredRef}”",
+      "liveLine": "live version: {url}",
+      "toolbar": {
+        "hint": "The preview below matches print 1 : 1 — the Print button (or Ctrl+P) prints only the sheet, without the app chrome. The A3 format scales the same sheet to 141 %.",
+        "formatGroup": "Paper format",
+        "print": "Print / poster"
+      },
+      "demo": {
+        "eyebrow": "Politicas — open contribution index · chamber PSP10",
+        "figureLabel": "fig. 1 — print sheet",
+        "title": "The national leaderboard",
+        "lead": "All {count} MPs ranked by the contribution index — a composite 0–100 score built from public data of the Chamber of Deputies. No number on this sheet was produced outside the published methodology.",
+        "statAvg": "average",
+        "statMedian": "median",
+        "statSigma": "std. deviation",
+        "statCount": "MPs",
+        "topKicker": "/01 top of the chamber",
+        "rankingNote": "ranking: competition ranking (1, 2, 2, 4) — tied scores share a rank, “=” marks a shared one; within a tie the order is purely alphabetical and carries no meaning",
+        "histKicker": "/02 index distribution",
+        "histNote": "fig. 2 — counts of MPs in 5-point bands; a band is the interval [from, from+5), the upper bound belongs to the next band",
+        "sourceLabel": "psp.cz — votes, prints, stenographic records, memberships (deterministic knowledge graph)",
+        "methodology": "contribution index 0–100, six components with published weights 25/20/20/15/10/10"
+      }
+    },
+    "provenance": {
+      "open": "— open the provenance receipt",
+      "kicker": "provenance receipt",
+      "close": "close the receipt",
+      "permalink": "permanent receipt → /zdroj"
+    },
+    "receipt": {
+      "meta": {
+        "title": "Provenance receipt · politicas",
+        "titleWithSubject": "Provenance receipt — {subject} · politicas",
+        "description": "Evidence for a knowledge-graph claim: the record, its provenance, the state of human review, and links to public registers."
+      },
+      "unavailable": {
+        "what": "Provenance receipt",
+        "back": "back to the control room"
+      },
+      "page": {
+        "brand": "politicas / zdroj",
+        "headerNote": "re-derived from the knowledge graph on every view",
+        "kicker": "provenance receipt",
+        "title": "Evidence for a claim",
+        "lead": "Every number on politicas is a door, not a claim: this address carries the full identifier of a knowledge-graph record, and the server deterministically re-derives the receipt from it on every view — the record, its origin, the state of human review, and the registers where you can verify it yourself.",
+        "goneTitle": "Today's graph does not carry this claim",
+        "goneBody": "The address decodes, but the record is not in today's build of the knowledge graph — it may have been recomputed, rejected in review, or the underlying data changed. Nothing similar is substituted: the receipt either documents the exact record cited, or says so.",
+        "goneRef": "claim address: {ref}",
+        "citationKicker": "citation",
+        "verify": "verify this citation",
+        "footerSource": "politicas knowledge graph — psp.cz · ares · contracts register; human-gate state per audited review (review_audit)"
+      },
+      "gate": {
+        "verified": "verified by a human",
+        "pending": "pending review",
+        "rejected": "rejected in review",
+        "ungated": "deterministic derivation — no human gate",
+        "note": "review note: {note}"
+      },
+      "rel": {
+        "co_votes_with": "votes in line with",
+        "rebels_against": "rebels against",
+        "belongs_to": "belongs to",
+        "about": "concerns",
+        "influential_in": "influential in",
+        "linked_to": "linked to",
+        "supplies": "supplies to"
+      },
+      "row": {
+        "relation": "relation",
+        "weight": "record weight",
+        "method": "method",
+        "pass": "graph pass",
+        "passValue": "no. {n}",
+        "computedAt": "derived",
+        "ref": "source material"
+      },
+      "caseFile": {
+        "poslanec": "MP case file",
+        "firma": "company case file"
+      },
+      "tier": {
+        "detail": "detail",
+        "search": "search"
+      },
+      "noCitable": "no source identifier on record",
+      "sourcesKicker": "public registers and our case files",
+      "auditKicker": "audit trail",
+      "audit": {
+        "confirm": "confirmed",
+        "reject": "rejected",
+        "return": "returned for more evidence"
+      }
+    }
+  },
+  "errors": {
+    "route": {
+      "kicker": "rendering error",
+      "title": "This page failed to render",
+      "body": "This was not a missing record or empty data — the page code itself crashed. A report has been sent. The other modules in the left rail keep working.",
+      "digestLabel": "error id:",
+      "retry": "Try again",
+      "backToDashboard": "Back to the control room"
+    }
+  },
+  "svedectvi": {
+    "meta": {
+      "title": "Testimony of the Numbers — Politicas",
+      "description": "Every number on Politicas can testify: it carries a machine-readable record of its dataset, date, and verification status. Reference showcase of citable formatting."
+    },
+    "kicker": "/testimony",
+    "title": "Testimony of the Numbers",
+    "intro": "Every number on Politicas can testify: alongside its visible value it carries a machine-readable record of its origin — dataset, date, and human verification status (the <mono>data-claim-*</mono> attributes). Verified figures additionally emit schema.org ClaimReview, so the citation travels with the number even beyond this site. The visible form does not change by a single byte.",
+    "exhibitCaption": "fig. {no} — {label}",
+    "ex1": {
+      "label": "constitutional size of the Chamber",
+      "unit": "MPs",
+      "cite": "Constitution of the Czech Republic, Art. 16(1) — verified",
+      "note": "Verified claim: the figure also emits schema.org ClaimReview JSON-LD (see the page source)."
+    },
+    "ex2": {
+      "label": "chamber-wide average composite",
+      "cite": "civicscore v1.4 — illustrative sample",
+      "note": "Pending verification: it testifies through data attributes only; ClaimReview is never issued, even if the template asks for it."
+    },
+    "ex3": {
+      "label": "average attendance",
+      "cite": "{source} — illustrative sample",
+      "note": "Pending verification: it testifies through data attributes only."
+    },
+    "instrumentRule": "rule of the instrument — ClaimReview is issued exclusively for claims with status “verified” (they passed the human gate); the sample data of the lib/civic layer therefore testifies through data attributes only, with status “pending”. Claim vocabulary: lib/claims/claim.ts."
+  },
+  "legal": {
+    "privacy": {
+      "metaTitle": "Privacy Notice — Politicas",
+      "metaDescription": "How Politicas processes public-registry data about public officials and what data is stored about visitors. No ad tracking, no profiling.",
+      "sourceNote": "legal document · pending operator review",
+      "title": "Privacy Notice",
+      "lead": "Politicas publishes scored data about Members of the Czech Parliament compiled exclusively from public registries. This document describes what is processed, on what legal basis, and what rights you have — whether you are a visitor or a scored public official.",
+      "backHome": "back to home",
+      "s1Heading": "Data controller",
+      "s1Body": "The controller of the personal data published on this platform is the operator: [PROVOZOVATEL — doplnit před spuštěním / OPERATOR — fill in before launch]. Until the operator's identity is filled in, this page cannot be considered complete information under Articles 13 and 14 GDPR.",
+      "s2Heading": "Data about public officials",
+      "s2Lead": "The platform processes and publishes data about Members of Parliament — public officials in the exercise of their mandate. All of it comes from publicly accessible sources:",
+      "s2SourcePsp": "Chamber of Deputies (psp.cz) — mandates, votes, speeches, body memberships",
+      "s2SourceContracts": "Czech Contract Registry (Registr smluv) — contracts of obligated entities",
+      "s2SourceAres": "ARES and the Commercial Register — company roles and ownership ties",
+      "s2SourceLaws": "Collection of Laws (Sbírka zákonů) — statutes and legislative traces",
+      "s2Purpose": "The purpose of processing is transparency of public power: making what is already public accessible in a structured form, together with a documented scoring method. We do not process data from MPs' private lives — only data relating to the exercise of public office and to roles recorded in public registries.",
+      "s2LegalBasis": "The legal basis is the legitimate interest in scrutiny of public power under Article 6(1)(f) GDPR, in the context of processing for journalistic purposes and purposes of academic, artistic or literary expression under Article 85 GDPR and Sections 17 et seq. of Czech Act No. 110/2019 Coll. This summary describes the operator's position, is not legal advice, and its final wording must be reviewed by the operator before launch.",
+      "s3Heading": "Visitor data",
+      "s3Lead": "The platform does not track visitors. It stores only functional cookies, without which the language choice and the operator console would not work:",
+      "s3CookieLocale": "NEXT_LOCALE — the chosen interface language (Czech/English). Valid for 1 year. Set only once you pick a language.",
+      "s3CookieAdmin": "politicas_admin — the access cookie of the /admin operator console. HttpOnly, scoped to the /admin path, valid for 12 hours. It is never set for a regular visitor — it concerns the operator only.",
+      "s3Analytics": "Traffic may be measured with Plausible — cookieless, with no identification of individuals. Measurement is active only when the operator deploys it; without configuration, the script is not loaded at all.",
+      "s3Sentry": "Error reports may be sent to Sentry (technical error context, not behavioural tracking). This too is active only when deployed by the operator; without configuration, nothing is sent.",
+      "s3NoTracking": "No ad tracking, no profiling of visitors, no sharing of visitor data with third parties for marketing.",
+      "s4Heading": "Rights of data subjects",
+      "s4Body": "Everyone whose data the platform publishes — including the scored MPs — has the right of access, the right to rectification of inaccurate data, and the right to object to processing based on legitimate interest (Articles 15, 16 and 21 GDPR). You also have the right to lodge a complaint with the Czech Office for Personal Data Protection (uoou.gov.cz).",
+      "s4Correction": "The correction path is part of the method: every published figure links to the verification page, where a number can be checked against its source and a discrepancy can be reported.",
+      "s4VerifyLink": "data verification",
+      "s4ContactLabel": "contact for objections and corrections",
+      "s4NoContact": "The operator's contact address will be added together with the operator's identity above.",
+      "s5Heading": "Retention",
+      "s5Body": "Public-registry data is retained for as long as it is published on the platform. The scoring method is versioned and corrections are never silent — the history of corrections and method versions is documented on the methodology page. Visitor data is not retained beyond the cookie lifetimes described above.",
+      "s5MethodLink": "scoring methodology"
+    },
+    "terms": {
+      "metaTitle": "Terms of Use — Politicas",
+      "metaDescription": "Terms of use of the Politicas platform: an informational service over open data under CC BY, no warranty of fitness, method disputes via methodology and verification.",
+      "sourceNote": "legal document · pending operator review",
+      "title": "Terms of Use",
+      "lead": "Short terms for a short matter: Politicas is an informational service over public data. By using the platform, you agree to the following.",
+      "backHome": "back to home",
+      "s1Heading": "Nature of the service",
+      "s1Body": "The platform is operated by: [PROVOZOVATEL — doplnit před spuštěním / OPERATOR — fill in before launch]. Politicas is an informational service: it makes public-registry data and derived indicators available under a published method. It is not an official source, legal advice, or a tool for decisions with legal effect.",
+      "s2Heading": "Data licence",
+      "s2Body": "The published data and derived indicators are available under the Creative Commons Attribution licence (CC BY), as stated in the site footer. You may reuse the data, including commercially, provided you credit Politicas as the source. The underlying registries (psp.cz, the Contract Registry, ARES, the Collection of Laws) have their own terms set by their administrators.",
+      "s3Heading": "No warranty",
+      "s3Body": "The data is provided \"as is\", with no warranty of completeness, accuracy, or fitness for a particular purpose. Source registries contain errors and delays, and the scoring method has documented limits. A dispute about a figure or about the method has a dedicated path: the methodology page and the verification page, where every figure can be checked against its source and a discrepancy reported.",
+      "s3MethodLink": "methodology",
+      "s3VerifyLink": "data verification",
+      "s4Heading": "No misrepresentation",
+      "s4Body": "The platform's indicators are the output of a published formula over public data, not the operator's editorial opinion. When redistributing, it is prohibited to present them as the operator's stance, recommendation, or value judgement — cite them as what they are: a computation under a published method.",
+      "s5Heading": "Governing law",
+      "s5Body": "These terms and the use of the platform are governed by the law of the Czech Republic."
+    }
+  },
+  "feedback": {
+    "reportLabel": "report an error",
+    "emailSubject": "politicas — error report for claim {ref}",
+    "emailBody": "Claim: {ref}\nPage: {url}\nDate: {date}\n\nWhat you believe is wrong (and against which source):\n",
+    "correctionsPrefix": "Found an error in the methodology?",
+    "correctionsLink": "write to us — the mail carries the page address and date"
   }
 }
