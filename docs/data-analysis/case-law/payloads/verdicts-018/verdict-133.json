@@ -1,0 +1,77 @@
+{
+  "billTisk": 133,
+  "statedReasoning": "Poslanecký návrh Martina Kupky, Jana Skopečka, Jiřího Havránka a Vojtěcha Munzara mění zákon č. 353/2003 Sb., o spotřebních daních, tak, že dočasně snižuje sazbu spotřební daně z bezolovnatého benzínu z 12 840 Kč na 11 140 Kč za 1000 litrů a z motorové nafty z 9 950 Kč na 8 250 Kč za 1000 litrů (tj. o 1,70 Kč/l u obou paliv), a to od 1. května do 31. srpna 2026; od 1. září 2026 se sazby vrací na původní výši. Jako důvod uvádí prudký nárůst cen pohonných hmot v důsledku vojenského konfliktu v Íránu - k 7. 3. 2026 zpráva eviduje mezitýdenní nárůst ceny nafty o 8,2 % a benzínu o 4,3 % (oproti 28. únoru 2026). Odhadovaný výpadek veřejných rozpočtů činí 3,5 až 4,5 miliardy Kč za celé čtyřměsíční období, rozdělený mezi státní rozpočet (cca 3,2 až 4,0 mld. Kč) a Státní fond dopravní infrastruktury (cca 0,3 až 0,4 mld. Kč) podle zákona o Státním fondu dopravní infrastruktury. Zpráva se výslovně odvolává na obdobné opatření z roku 2022 (v reakci na ruskou invazi na Ukrajinu) jako precedens jak pro věcné řešení, tak pro žádost o schválení ve zkráceném jednočtenovém řízení podle § 90 odst. 2 jednacího řádu Poslanecké sněmovny. Zpráva dále uvádí, že snížené sazby zůstávají nad minimálními sazbami stanovenými směrnicí Rady 2003/96/ES i po jejich snížení, a hodnotí návrh jako korupčně neutrální.",
+  "researchedContext": "Nezávislé ověření na stránce historie projednávání tisku 133 ukazuje, že se předpoklad rychlého, bezkonfliktního schválení nenaplnil. Návrh byl podán 10. 3. 2026, poslancům rozeslán 17. 3. 2026 a zaslán vládě k vyjádření 18. 3. 2026; vláda k němu ale dne 14. 4. 2026 zaujala nesouhlasné stanovisko. Organizační výbor doporučil projednávání až 15. 4. 2026 a navrhl jako garanční výbor Rozpočtový výbor - tedy standardní, nikoli zkrácenou proceduru. K prvnímu čtení podle dostupných údajů dosud nedošlo. Přesný obsah vládních námitek nebyl v rámci tohoto zpracování ověřen, protože vládní stanovisko (tisk 133/1) je dostupné pouze jako PDF/DOC dokument bez zobrazeného textového shrnutí na indexové stránce; ověřen byl pouze fakt nesouhlasu a jeho datum. Návrh přitom staví svou naléhavost právě na paralele s rokem 2022, kdy analogické opatření (zákon č. 131/2022 Sb.) bylo skutečně přijato ve zkráceném řízení - v případě tisku 133 se tato část precedentu podle zjištěných procesních dat nezopakovala.",
+  "unstatedEffects": [
+    {
+      "effect": "Zpráva žádá zkrácené jednočtenové řízení a svou naléhavost opírá o přímou paralelu s rokem 2022, kdy bylo obdobné opatření takto skutečně schváleno. Zpráva ale nezvažuje možnost, že vláda k návrhu zaujme nesouhlasné stanovisko a že namísto zkráceného řízení půjde návrh standardní cestou přes garanční výbor - přesně to podle ověřených procesních dat nastalo (nesouhlasné stanovisko vlády 14. 4. 2026, standardní přidělení Rozpočtovému výboru). Sazbové snížení je přitom v textu zákona ohraničeno pevnými kalendářními daty (1. 5. až 31. 8. 2026) bez mechanismu, který by účinnost automaticky posunul, pokud se přijetí zákona zpozdí - zpráva u tisku 133 přitom s časem pracuje jen jako s argumentem pro rychlé přijetí („každý týden prodlení“ podle ní prodlužuje dobu vysokých cen), ale neřeší, co s pevně stanoveným počátkem účinnosti udělá zpoždění legislativního procesu samotné.",
+      "whoBenefits": "Nikdo konkrétní neprofituje ze zpoždění; rizikem zpoždění je zkrácení nebo úplné promeškání avizovaného čtyřměsíčního období nižších sazeb pro řidiče, domácnosti a dopravce, tedy přesně skupiny, které zpráva označuje za příjemce úlevy.",
+      "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+    },
+    {
+      "effect": "Zpráva sama vypočítává, o kolik jsou navrhované snížené sazby nad unijním minimem podle směrnice 2003/96/ES: u benzínu jde o rezervu 2 379 Kč/1000 l, u nafty jen o 196 Kč/1000 l - tedy víc než desetinásobně menší polštář u nafty. Zpráva tento rozdíl uvádí jako dvě samostatná čísla, ale nikde nekomentuje, že navrhované snížení posouvá sazbu spotřební daně z nafty prakticky až k unijnímu minimu, takže případný další pokles kurzu koruny k euru nebo další srovnatelné budoucí snížení by u nafty na rozdíl od benzínu mohlo být bez porušení směrnice 2003/96/ES již jen velmi omezené.",
+      "whoBenefits": "Nejde o otázku prospěchu konkrétní strany, ale o mezeru v posouzení budoucí manévrovací rezervy státu u zdanění nafty oproti benzínu.",
+      "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+    }
+  ],
+  "conflictAssessment": "Ze čtyř předkladatelů má evidovanou peněžní vazbu jediný - Martin Kupka, jako předseda správní rady neziskové místní akční skupiny MAS Nad Prahou o.p.s. (úhrn veřejných smluv této organizace necelé 4 mil. Kč). Jde o dohledovou funkci v neziskové organizaci pro rozvoj venkova, tedy vazbu, kterou by podle metodiky tohoto projektu bylo možné přičíst nanejvýš instituci, nikoli poslanci, a která navíc nemá žádnou věcnou souvislost s předmětem tisku (dočasná sazba spotřební daně z pohonných hmot). Jan Skopeček, Jiří Havránek a Vojtěch Munzar nemají v grafu evidovánu žádnou peněžní vazbu. V datech tedy není zjištěn střet zájmů; vazba Martina Kupky i nadále čeká na lidskou kontrolu. Zákon č. 353/2003 Sb. novelizuje ve stejném období i tisk 4, jehož již zpracovaný a zveřejněný nález se ale týká zcela jiného ustanovení téhož zákona (nová sazba spotřební daně z tichého vína v § 96) - jde o odlišnou část zákona bez textového průniku s § 48 novelizovaným tiskem 133, kolize proto nebyla zjištěna.",
+  "severity": "low",
+  "confidence": 4,
+  "citations": [
+    {
+      "claim": "Čl. I body 1 a 3 snižují sazbu spotřební daně u bezolovnatého benzínu z 12 840 Kč na 11 140 Kč/1000 l a u motorové nafty z 9 950 Kč na 8 250 Kč/1000 l; body 2 a 4 vrací obě sazby zpět na původní výši. Čl. III stanoví účinnost snížení od 1. 5. 2026 a obnovení sazeb od 1. 9. 2026.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+    },
+    {
+      "claim": "Důvodová zpráva uvádí, že snížená sazba benzínu 11 140 Kč/1000 l je nad unijním minimem o 2 379 Kč/1000 l a snížená sazba nafty 8 250 Kč/1000 l je nad unijním minimem jen o 196 Kč/1000 l (minima přepočtena kurzem ČNB k 6. 3. 2026).",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+    },
+    {
+      "claim": "Odhadovaný výpadek veřejných rozpočtů činí 3,5 až 4,5 miliardy Kč za čtyřměsíční období, z čehož státní rozpočet nese cca 3,2 až 4,0 mld. Kč a Státní fond dopravní infrastruktury cca 0,3 až 0,4 mld. Kč.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+    },
+    {
+      "claim": "Zpráva se odvolává na obdobné opatření přijaté zákonem č. 131/2022 Sb. v době zdražování paliv po začátku ruské invaze na Ukrajinu a žádá schválení ve zkráceném řízení podle § 90 odst. 2 zákona č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+      "kind": "bill_text",
+      "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+    },
+    {
+      "claim": "Návrh byl podán 10. 3. 2026, rozeslán poslancům 17. 3. 2026 jako tisk 133/0, zaslán vládě 18. 3. 2026; vláda zaujala nesouhlasné stanovisko 14. 4. 2026; Organizační výbor doporučil projednávání 15. 4. 2026 a navrhl jako garanční výbor Rozpočtový výbor.",
+      "kind": "web",
+      "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+    },
+    {
+      "claim": "Zákon č. 353/2003 Sb., o spotřebních daních, je zákon novelizovaný tímto tiskem.",
+      "kind": "law",
+      "source": "353/2003"
+    },
+    {
+      "claim": "Zákon č. 104/2000 Sb., o Státním fondu dopravní infrastruktury, je zákon, podle jehož rozdělovacího klíče je počítán dopad snížení sazby na státní rozpočet a fond dopravní infrastruktury.",
+      "kind": "law",
+      "source": "104/2000"
+    },
+    {
+      "claim": "Graf eviduje u Martina Kupky jedinou peněžní vazbu, a to funkci předsedy správní rady u MAS Nad Prahou o.p.s. (IČO 01398717), úhrn veřejných smluv této organizace 3 968 570 Kč.",
+      "kind": "graph_fact",
+      "source": "psp:person:6538"
+    },
+    {
+      "claim": "Graf neeviduje u Jana Skopečka žádnou peněžní vazbu.",
+      "kind": "graph_fact",
+      "source": "psp:person:6418"
+    },
+    {
+      "claim": "Graf neeviduje u Jiřího Havránka žádnou peněžní vazbu.",
+      "kind": "graph_fact",
+      "source": "psp:person:6755"
+    },
+    {
+      "claim": "Graf neeviduje u Vojtěcha Munzara žádnou peněžní vazbu.",
+      "kind": "graph_fact",
+      "source": "psp:person:6486"
+    }
+  ]
+}

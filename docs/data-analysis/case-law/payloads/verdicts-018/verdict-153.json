@@ -1,0 +1,57 @@
+{
+ "billTisk": 153,
+ "statedReasoning": "Vládní návrh (předkladatel ministr průmyslu a obchodu) mění zákon č. 40/1995 Sb., o regulaci reklamy, a zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro. Obecná část důvodové zprávy jej odůvodňuje především úkolem uloženým usnesením vlády č. 719 z 27. září 2023 (prodlouženým usnesením č. 44/2024): zpřísnit a zpřesnit regulaci reklamy na kojeneckou výživu v návaznosti na doporučení Rady vlády pro rovnost žen a mužů a na upřednostňování kojení, a to zejména přesunem dozoru nad reklamou na kojeneckou výživu z krajských živnostenských úřadů na Státní zemědělskou a potravinářskou inspekci (SZPI) a doplněním chybějících skutkových podstat přestupků. Zpráva dále uvádí, že novela vychází z „poznatků z praxe“ u zdravotnických prostředků a diagnostických zdravotnických prostředků in vitro: umožňuje za stanovených podmínek šířit informace nelékařským zdravotnickým pracovníkům, dalším odborně způsobilým osobám a pacientům, a zavádí do zákona o zdravotnických prostředcích nový § 53b „Program pro pacienty“, který připouští poskytování vzorků prostředků a přiměřené pohostinnosti pacientům v rámci informačních programů splňujících zákonem stanovené podmínky. Zhodnocení hospodářského a finančního dopadu výslovně uvádí, že snížením regulace reklamy na zdravotnické a diagnostické prostředky in vitro dojde k rozvolnění, které podnikatelům může přinést konkurenční výhody, při zachování ochrany veřejného zdraví spotřebitelů.",
+ "researchedContext": "Text potvrzuje rozsah tvrzený titulem: Část první (čl. I) mění zákon o regulaci reklamy, Část druhá (čl. III) zákon o zdravotnických prostředcích, Část třetí (čl. IV) stanoví účinnost — dva novelizované zákony, přesně jak uvádí uzel tisku v grafu. Obecná část zprávy (bod C) sama výslovně přiznává věcné jádro druhé, méně zdůrazněné změny: „Odstraňuje se nadbytečná regulace reklamy určené veřejnosti na zdravotnický prostředek nebo diagnostický prostředek in vitro, který může být vydán pouze na poukaz nebo žádanku vystavené lékařem“ — tedy dosavadní plošný zákaz reklamy na tyto na předpis vázané prostředky se ruší a nahrazuje režimem dovolující reklamu s výjimkami. Bod G (hospodářský a finanční dopad) toto přiznání dále rozvíjí větou, že snížení regulace „dojde k rozvolnění, které podnikatelům může přinést konkurenční výhody“ — jde tedy o zprávou přiznanou, nikoli utajenou deregulaci, byť je v obecné části zprávy (body A až C) tematicky podřazena kojenecké výživě a ve stručném titulu tisku, jenž jen vyjmenovává novelizované zákony, se o ní žádná zmínka neobjevuje. Operativní text v Části druhé zavádí nový § 53b zákona o zdravotnických prostředcích („Program pro pacienty“) umožňující výrobcům, poskytovatelům zdravotních služeb, odborným společnostem nebo pacientským organizacím pořádat informační programy pro pacienty spojené s poskytnutím vzorků prostředku a přiměřené pohostinnosti, pokud program sleduje výhradně edukační účel, je zprostředkován zdravotnickým pracovníkem, je vědecky podložený, nemá podobu srovnávací reklamy a není s ním spojena odměna nad rámec vzorku a pohostinnosti; porušení je nově sankcionováno jako přestupek pokutou do 500 000 Kč (nový § 62b). Bod 27 (§ 5k odst. 1 a 2) Části první stejným způsobem rozšiřuje definici reklamy na zdravotnické prostředky o sponzorování setkání a vědeckých kongresů odborníků včetně poskytování pohostinnosti a bod 29 doplňuje nový § 5k odst. 8, který pohostinnost při takových setkáních omezuje na hlavní účel setkání a jen na účastníky, aniž by ale stanovil konkrétní finanční limit její hodnoty — mez je tedy kvalitativní (účelová), nikoli číselná.",
+ "unstatedEffects": [
+  {
+   "effect": "Zhodnocení hospodářského a finančního dopadu i obecná část zprávy k deregulaci reklamy na zdravotnické prostředky a diagnostické prostředky in vitro vázané na lékařský předpis existují a jsou v textu zprávy dohledatelné, ale jsou zařazeny až pod hlavičkou obecného posouzení dopadu na podnikatelské prostředí, zatímco titul tisku i shrnutí, jímž je tento tisk v datech označen, hovoří jen o „změně zákona o regulaci reklamy“ a „zákona o zdravotnických prostředcích“ bez zmínky o věcném obsahu. Čtenář, který by se spokojil s titulem nebo s částí zprávy věnovanou kojenecké výživě (body A až C obecné části, kam je hlavní pozornost soustředěna), by tak mohl přehlédnout, že tentýž tisk současně ruší plošný zákaz reklamy na předpisem vázané zdravotnické prostředky pro širokou veřejnost a zavádí nový institut umožňující výrobcům poskytovat pacientům vzorky a pohostinnost.",
+   "whoBenefits": "Výrobci a distributoři zdravotnických prostředků a diagnostických zdravotnických prostředků in vitro vázaných na lékařský předpis, kterým nová úprava — podle vlastního přiznání zprávy — může přinést konkurenční výhody rozvolněním dosavadní plošné reklamní regulace.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jde o vládní návrh předložený ministrem průmyslu a obchodu; v datech je u tisku evidován poslanec Karel Havlíček v roli garančního výboru (Výbor pro zdravotnictví, řízení přikázáno 24. 6. 2026), nikoli jako věcný předkladatel. Uzel tohoto poslance v grafu nenese žádnou peněžní vazbu na soukromou firmu. Věcně jde o obecnou úpravu dozoru nad reklamou na kojeneckou výživu a rozsahu reklamní regulace zdravotnických prostředků, z níž neplyne přímý peněžní prospěch žádné konkrétní, v grafu jmenované soukromé firmě spojené s předkladatelem nebo evidovaným poslancem — z dostupných dat proto neplyne důvod pro podezření na osobní majetkový střet zájmů u tohoto tisku. Odvětvový prospěch popsaný výše (výrobci zdravotnických prostředků obecně) je jiné povahy než majetkový střet zájmů konkrétní osoby, který peněžní graf tohoto korpusu sleduje.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Tisk mění dva zákony: Část první (čl. I) zákon č. 40/1995 Sb., o regulaci reklamy, Část druhá (čl. III) zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro; počet novelizovaných zákonů odpovídá uzlu tisku v grafu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+  },
+  {
+   "claim": "Hlavním deklarovaným účelem novely je splnit úkol z usnesení vlády č. 719 z 27. září 2023 a přesunout dozor nad reklamou na kojeneckou výživu z krajských živnostenských úřadů na Státní zemědělskou a potravinářskou inspekci.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+  },
+  {
+   "claim": "Obecná část zprávy (bod C) uvádí, že se odstraňuje nadbytečná regulace reklamy určené veřejnosti na zdravotnický prostředek nebo diagnostický prostředek in vitro vydávaný pouze na poukaz nebo žádanku lékaře.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+  },
+  {
+   "claim": "Zhodnocení hospodářského a finančního dopadu (bod G) uvádí, že snížením regulace reklamy na zdravotnické a diagnostické prostředky in vitro dojde k rozvolnění, které podnikatelům může přinést konkurenční výhody, při zachování ochrany veřejného zájmu na ochraně zdraví spotřebitelů.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+  },
+  {
+   "claim": "Body 2 a 3 Části druhé vkládají do zákona o zdravotnických prostředcích nový § 53b „Program pro pacienty“, umožňující poskytnutí vzorků prostředku a přiměřené pohostinnosti pacientům v rámci informačního programu splňujícího zákonem stanovené podmínky, a nový § 62b sankcionující porušení těchto podmínek pokutou do 500 000 Kč.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+  },
+  {
+   "claim": "Bod 29 Části první doplňuje do § 5k zákona o regulaci reklamy nový odstavec 8, který omezuje pohostinnost poskytovanou při sponzorovaných odborných setkáních na hlavní účel setkání a jen na jeho účastníky, aniž by stanovil konkrétní finanční limit její hodnoty.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+  },
+  {
+   "claim": "Zákon č. 40/1995 Sb., o regulaci reklamy, je prvním ze dvou novelizovaných předpisů.",
+   "kind": "law",
+   "source": "40/1995"
+  },
+  {
+   "claim": "Zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, je druhým novelizovaným předpisem.",
+   "kind": "law",
+   "source": "375/2022"
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+{
+ "billTisk": 61,
+ "statedReasoning": "Vládní návrh (předkladatelka ministryně spravedlnosti) mění zákon č. 218/2003 Sb., o soudnictví ve věcech mládeže. Důvodová zpráva jej odůvodňuje výhradně nutností napravit rozdílné zacházení s vazebně stíhanými mladistvými oproti dospělým obviněným a uvést českou úpravu do souladu s rozsudkem Evropského soudu pro lidská práva ve věci Spišák proti České republice (č. 13968/22) z 20. června 2024, který shledal porušení článku 14 ve spojení s článkem 5 Úmluvy: u mladistvých stíhaných pro zvlášť závažné provinění se dosud neuplatňuje periodický přezkum trvání vazby po třech měsících jako u dospělých podle § 72 trestního řádu, o dalším trvání vazby se rozhoduje až při jejím prodloužení po uplynutí až šestiměsíční lhůty. Návrh proto do § 48 doplňuje výslovné obdobné použití § 72 trestního řádu i pro řízení o zvlášť závažném provinění, upřesňuje pojem „zvlášť závažné provinění“ v § 47 odst. 1, doplňuje procesní pravidla souběhu stížnosti a žádosti o propuštění z vazby, doplňuje mezi opatření nahrazující vazbu umístění mladistvého v péči důvěryhodné osoby (opomenuté ve výčtu, ač jinak dovozované z § 46 odst. 1) a v § 3 odst. 4 i § 89j zdůrazňuje zásadu přednosti jiného vyřízení věci před postavením mladistvého před soud, včetně toho, že státní zastupitelství při splnění zákonných podmínek návrh na uložení opatření nepodá (dosud jen „nemusí podat“). Hodnocení dopadů regulace (RIA) nebylo zpracováváno na základě výjimky udělené předsedou Legislativní rady vlády.",
+ "researchedContext": "Text potvrzuje, že věcný rozsah novely odpovídá tvrzenému účelu beze zbytku — všech jedenáct bodů čl. I se týká výhradně vazby mladistvých (§ 47 až 49) a zásady přednosti neformálního vyřízení věci (§ 3 odst. 4, § 89j), žádné ustanovení se netýká jiné materie zákona o soudnictví ve věcech mládeže. Zvláštní část důvodové zprávy k bodu 9 (§ 48 odst. 2) výslovně vysvětluje, že jde o promítnutí závěrů rozsudku Spišák proti ČR do zákona doplněním odkazu na § 72 trestního řádu. Zvláštní část k bodu 10 (§ 49) vysvětluje, že doplnění možnosti nahradit vazbu umístěním v péči důvěryhodné osoby napravuje neúplný výčet nahrazujících opatření — možnost nahradit vazbu předběžným opatřením podle trestního řádu byla ve výčtu opomenuta, ač ji zákon o soudnictví ve věcech mládeže jinak připouští skrze § 46 odst. 1 a subsidiární použití trestního řádu podle § 1 odst. 3. Zvláštní část k bodům 1 a 11 (§ 3 odst. 4 a § 89j) potvrzuje, že jde o jednu a tutéž zásadu individualizace promítnutou na dvou místech zákona: úprava § 89j odebírá státnímu zastupitelství možnost úvahy tam, kde jsou podmínky pro nepodání návrhu na uložení opatření splněny — státní zastupitelství „nemá možnost úvahy“ a musí návrh nepodat. Žádný z jedenácti bodů se netýká jiné materie, než jakou požadavky rozsudku Spišák a související úprava vazby vyžadují; nenalezen žádný bod, který by rozšiřoval trestní odpovědnost mladistvých nebo měnil hmotněprávní skutkové podstaty provinění.",
+ "unstatedEffects": [
+  {
+   "effect": "Odstranění diskrece státního zastupitelství v § 89j odst. 1 (dosud „nemusí podat, jestliže“, nově „nepodá, pokud má za to, že“) znamená, že jakmile státní zástupce sám dospěje k závěru, že podmínky pro nepodání návrhu na uložení opatření jsou splněny, je jeho rozhodnutí návrh nepodat závazné, a nemá již možnost zvážit jiné okolnosti případu a přesto návrh podat. Důvodová zpráva tuto změnu odůvodňuje zásadou individualizace a nezmiňuje žádný korektiv (např. přezkum nadřízeným státním zástupcem) pro případ, že by posouzení podmínek v konkrétním případě bylo sporné.",
+   "whoBenefits": "Mladiství obvinění, u nichž státní zastupitelství dospěje k závěru, že podmínky pro nepodání návrhu na uložení opatření jsou splněny — pro ně se posílí právní jistota neformálního vyřízení věci; text ani zvláštní část důvodové zprávy k § 89j neuvádí žádný mechanismus přezkumu takového posouzení.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Předkladatelkou je ministryně spravedlnosti v rámci vládního návrhu; v grafovém uzlu tisku je u tisku evidována poslankyně Eva Decroix, u níž jsou v grafu tři vlastnicko-provozní vazby na obchodní společnosti (ELEMENTA Agency s.r.o., Delices de papa s.r.o., Park Volmanec s.r.o.) — všechny tři podle uzlu grafu s nulovým nebo zanedbatelným (594 Kč) objemem veřejných smluv a bez souvislosti s předmětem novely (vazba mladistvých, trestní řízení). Novela se netýká žádné komerční činnosti, dodávek státu ani rozpočtových prostředků, u nichž by mohl vzniknout majetkový prospěch soukromé firmy spojené s předkladatelem nebo evidovaným poslancem; z dostupných dat proto neplyne důvod pro podezření na majetkový střet zájmů u tohoto tisku.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Cílem návrhu je odstranit nerovné zacházení s vazebně stíhanými mladistvými oproti dospělým a uvést právní úpravu do souladu s rozsudkem ESLP ve věci Spišák proti České republice (č. 13968/22) z 20. června 2024, který shledal porušení článku 14 ve spojení s článkem 5 Úmluvy.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+  },
+  {
+   "claim": "Bod 9 doplňuje do § 48 nový odstavec 2, podle kterého se na rozhodování o dalším trvání vazby v řízení o zvlášť závažném provinění použije obdobně § 72 trestního řádu (periodický přezkum vazby z úřední povinnosti nejpozději každé tři měsíce).",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+  },
+  {
+   "claim": "Bod 10 doplňuje do výčtu opatření nahrazujících vazbu v § 49 umístění mladistvého v péči důvěryhodné osoby jako výslovné doplnění dosud neúplného výčtu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+  },
+  {
+   "claim": "Bod 11 mění § 89j odst. 1 tak, že státní zastupitelství při splnění zákonných podmínek návrh na uložení opatření nepodá, namísto dosavadní formulace, že jej nemusí podat.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+  },
+  {
+   "claim": "Hodnocení dopadů regulace (RIA) nebylo k tomuto návrhu zpracováno na základě výjimky udělené předsedou Legislativní rady vlády dne 12. května 2025.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+  },
+  {
+   "claim": "Zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže, je jediným předpisem novelizovaným tímto tiskem.",
+   "kind": "law",
+   "source": "218/2003"
+  }
+ ]
+}

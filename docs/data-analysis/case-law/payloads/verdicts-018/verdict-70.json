@@ -1,0 +1,62 @@
+{
+ "billTisk": 70,
+ "statedReasoning": "Návrh (v záhlaví tisku uvedený jako iniciativa poslance Adama Vojtěcha, po boku deseti spolupředkladatelů evidovaných v případovém spisu) vkládá do § 21b zákona č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, nové odstavce 3 a 4. Podle nich se Všeobecné zdravotní pojišťovně České republiky (VZP ČR) v měsíci březnu 2026 sníží nárok na měsíční platbu z přerozdělování pojistného o částku 7 879 000 000 Kč a tatáž částka se rozdělí mezi šest zaměstnaneckých zdravotních pojišťoven (VoZP ČR, ČPZP, OZP, ZPŠ, ZP MV ČR, RBP) podle jejich podílu na počtu standardizovaných pojištěnců. Důvodová zpráva odůvodňuje krok tabulkou bilance ukrajinských pojištěnců za období únor 2022 až září 2025: naprostá většina (přibližně 90 %) osob s dočasnou ochranou je pojištěna u VZP ČR, jejíž zisk z této skupiny pojištěnců dosáhl podle tabulky 10 511 mil. Kč, zatímco zaměstnanecké pojišťovny na téže skupině vydělaly dohromady jen 2 632 mil. Kč; rozdíl 7 879 000 000 Kč zpráva navrhuje jednorázově přerozdělit. Zpráva výslovně uvádí, že jde o opatření ex post a že bez dlouhodobé úpravy přerozdělovacích prediktorů zůstane VZP ČR i nadále strukturálně zvýhodněna - trvalé řešení má přinést až připravovaná širší změna parametrů přerozdělování. Návrh tvrdí nulový dopad na státní rozpočet (jde o vnitřní přesun v rámci systému veřejného zdravotního pojištění), žádné sociální ani jiné přímé dopady a s ohledem na svůj technický charakter ani korupční rizika. Účinnost se navrhuje dnem následujícím po vyhlášení a Sněmovna je žádána o schválení již v prvním čtení s odůvodněním, že opatření musí být promítnuto do hospodaření pojišťoven ještě v průběhu dohodovacího řízení o úhradách pro rok 2027.",
+ "researchedContext": "Text zákona (Čl. I) i srovnávací znění § 21b potvrzují, že nové odstavce 3 a 4 skutečně jen doplňují stávající mechanismus měsíčního vyrovnání (odstavce 1 a 2 zůstávají beze změny) o jednorázovou úpravu vázanou výhradně na měsíc březen 2026, a rozpočtová tabulka v důvodové zprávě (VoZP ČR 1 190 mil. Kč, ČPZP 2 138 mil. Kč, OZP 1 224 mil. Kč, ZPŠ 705 mil. Kč, ZP MV ČR 248 mil. Kč, RBP 2 374 mil. Kč) se sečte přesně na 7 879 mil. Kč, tedy na částku odečítanou VZP ČR - čísla si tedy neodporují. Archivovaný text tisku nese podpisovou doložku s datem 15. 12. 2025 a poslancům byl rozeslán 15. prosince 2025; historie projednávání na stránkách Poslanecké sněmovny uvádí jako datum podání 12. 12. 2025 - tři dny před datem podpisu důvodové zprávy, což je rozpor mezi oběma prameny, který zde uvádíme, aniž bychom jej mohli rozhodnout (primární dokument svědčí pro 15. 12.). Vláda k návrhu 16. 12. 2025 zaujala souhlasné stanovisko, garančním výborem byl přikázán Výbor pro zdravotnictví (přikázáno 28. 1. 2026, jak potvrzuje i případový spis), třetí čtení proběhlo 25. 3. 2026 (hlasování č. 86, usnesení č. 130), Senát návrh schválil 6. 5. 2026, prezident jej podepsal 19. 5. 2026 a ve Sbírce zákonů byl vyhlášen 26. 5. 2026 jako zákon č. 71/2026 Sb. s účinností od 27. 5. 2026. Nové odstavce 3 a 4 § 21b jsou přitom podle svého vlastního znění vázány na měsíc březen 2026 - ten ale skončil více než osm týdnů před vyhlášením zákona. V okamžiku nabytí účinnosti tedy odstavec 3 popisoval platbu za měsíc, který již dávno proběhl. Ani zákon, ani zvláštní část k Čl. II (účinnost) neobsahuje žádné přechodné ustanovení, které by řešilo, jak se má nárok na měsíční platbu za březen, snížený o uvedenou částku, uplatnit, pokud měsíc březen v okamžiku nabytí účinnosti již minul.",
+ "unstatedEffects": [
+  {
+   "effect": "Odstavce 3 a 4 § 21b vážou celé přerozdělení 7 879 000 000 Kč výslovně na měsíční platbu za březen 2026, ale zákon nabyl účinnosti až 27. 5. 2026 - více než osm týdnů po skončení měsíce, na který ustanovení míří. Důvodová zpráva ani zvláštní část k účinnosti tuto možnost prodlení vůbec nezmiňuje a neobsahuje žádné přechodné pravidlo pro případ, že by zákon nabyl účinnosti až po březnu.",
+   "whoBenefits": "Nelze jednoznačně určit - jde o riziko, že se jednorázová oprava ve prospěch šesti zaměstnaneckých pojišťoven nemusela vůbec uplatnit v podobě, v jaké ji odstavec 3 popisuje, protože měsíc, k němuž se výslovně váže, byl v okamžiku účinnosti zákona již uzavřen; případový spis neobsahuje údaj o tom, jak byl tento rozpor v praxi vyřešen.",
+   "evidence": "§ 21b odst. 3 podle Čl. I tisku 70 (archivován je text tisku; závěr předpokládá, že ustanovení bylo vyhlášeno jako zákon č. 71/2026 Sb. v předloženém znění) ve spojení s datem vyhlášení zákona (26. 5. 2026) a nabytí účinnosti (27. 5. 2026) podle historie projednávání tisku 70 na stránkách Poslanecké sněmovny, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=70&ct1=0"
+  },
+  {
+   "effect": "Bod F. důvodové zprávy tvrdí, že návrh s ohledem na svůj technický charakter nepředstavuje zdroj korupčních rizik, aniž by se vypořádal s tím, že jde o odchylku od standardního mechanismu, který sama zpráva v bodě A popisuje: běžné přerozdělení pojistného probíhá podle objektivních prediktorů (věkové skupiny, farmaceuticko-nákladové skupiny, nákladné hrazené služby) stanovených právní úpravou, zatímco navrhovaná oprava je jednorázová, číselně pevná částka 7 879 000 000 Kč rozdělená mezi šest jmenovitě uvedených zaměstnaneckých pojišťoven přímo textem zákona, nikoli výpočtem podle prediktoru. Zpráva přitom sama tuto odchylku zčásti adresuje: výslovně uvádí, že jde o řešení „nad rámec současných přerozdělovacích mechanismů“, a připomíná, že obdobný jednorázový zásah do systému není nový - v roce 2012 došlo naopak k přerozdělení části zůstatků zaměstnaneckých zdravotních pojišťoven směrem k VZP ČR. Co zpráva neřeší, je vztah těchto dvou přiznání k závěru bodu F o neexistenci korupčních rizik: pevná částka rozdělená jmenovitě zákonem místo formule je přesně ten typ rozhodnutí, u něhož hodnocení korupčních rizik nemůže vystačit s poukazem na technický charakter. Bod B pak uvádí, že zavedení nového prediktoru pro cizince bude až součástí připravované širší změny - tedy že standardní, formulí řízená cesta byla k dispozici, ale pro toto vyrovnání zvolena nebyla.",
+   "whoBenefits": "Šest jmenovitě uvedených zaměstnaneckých zdravotních pojišťoven (VoZP ČR, ČPZP, OZP, ZPŠ, ZP MV ČR, RBP) jako přímí příjemci pevně stanovené částky rozdělené přímo zákonem, nikoli výpočtem podle obecně platného vzorce.",
+   "evidence": "Bod F. („S ohledem na svůj technický charakter nepředstavuje zdroj korupčních rizik...“) a bod B. („Případné zakotvení specifického prediktoru... bude součástí připravované širší změny parametrů přerozdělování pojistného“) důvodové zprávy k tisku 70."
+  }
+ ],
+ "conflictAssessment": "Podle případového spisu má formální iniciativu k tisku 70 poslanec Adam Vojtěch (uveden jako předkladatel v názvu tisku a podepsaný pod důvodovou zprávou), avšak žádný řádek s jeho peněžními vazbami není v datové sadě tohoto tisku evidován - jeho jméno se mezi deseti evidovanými spolupředkladateli (Jana Murová, Ivana Mádlová, Patrik Pařil, Pavel Outrata, Lenka Dražilová, Václav Trojan, David Štolpa, Jan Richter, Jiří Mašek, Jana Hanzlíková) vůbec nenachází. Adam Vojtěch je přitom poslancem plně pokrytým peněžním grafem tohoto projektu a graf u něj neeviduje žádnou firemní vazbu - jde tedy o změřenou absenci záznamu, nikoli o mezeru v pokrytí dat. U deseti evidovaných spolupředkladatelů byly v případovém souboru peněžních vazeb ověřeny dvě vlastnické/řídící vazby, obě s nulovým úhrnem veřejných smluv v registru: Patrik Pařil drží vlastnickou/řídící vazbu na RAPAJA s.r.o. a na RMPJ s.r.o., u obou je evidovaná částka veřejných smluv 0 Kč a ani jedna společnost nepůsobí ve zdravotním pojištění. Zbývající vazby předkladatelů (Ivana Mádlová - VODÁRNA PLZEŇ a.s. a DOMOVINKA - sociální služby, o.p.s.; Jan Richter - CHOMUTOVSKÁ BYTOVÁ a.s., Sportovní klub policie Kadaň a Dopravní podnik měst Chomutova a Jirkova a.s.) jsou podle případového spisu svěřenecké, tedy jde o peníze instituce, nikoli o osobní příjem předkladatele, a navíc žádná z uvedených firem nepůsobí v sektoru veřejného zdravotního pojištění, kterého se novela týká. V PENĚŽNÍCH datech (smlouvy firem, které poslanec vlastní nebo řídí) tedy není evidována žádná vazba na VZP ČR ani na žádnou ze šesti zaměstnaneckých zdravotních pojišťoven a majetkový střet zájmů zjištěn nebyl; všechny uvedené vazby čekají podle případového spisu na lidskou kontrolu. Samostatně je ale třeba uvést institucionální roli, kterou peněžní graf nepokrývá a kterou eviduje pracovní záznam tohoto projektu: spolupředkladatel Jiří Mašek je předsedou Výboru pro zdravotnictví - garančního výboru, jemuž byl tisk přikázán 28. 1. 2026 - a od 28. 1. 2026 je zároveň voleným členem dozorčí rady VZP ČR, tedy orgánu pojišťovny, jíž tato novela snižuje měsíční platbu o 7 879 000 000 Kč. Členství v dozorčí radě je veřejná kontrolní funkce, nikoli osobní majetkový prospěch, a nic v datech nenaznačuje, že by z přerozdělení plynul Maškovi peněžní užitek - souběh role spolupředkladatele, předsedy garančního výboru a člena dozorčího orgánu dotčené instituce je však okolnost, kterou by hodnocení střetu zájmů u tohoto tisku zamlčet nesmělo.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh vkládá do § 21b zákona č. 592/1992 Sb. nové odstavce 3 a 4, které v měsíci březnu 2026 snižují nárok VZP ČR na měsíční platbu z přerozdělování pojistného o 7 879 000 000 Kč a tutéž částku rozdělují mezi šest zaměstnaneckých zdravotních pojišťoven.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=70&ct1=0"
+  },
+  {
+   "claim": "Podle tabulky v důvodové zprávě činil zisk VZP ČR na skupině ukrajinských pojištěnců (2/2022-9/2025) 10 511 mil. Kč a zisk zaměstnaneckých pojišťoven dohromady 2 632 mil. Kč, s rozdílem 7 879 000 000 Kč, který návrh přerozděluje.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=70&ct1=0"
+  },
+  {
+   "claim": "Podle historie projednávání na psp.cz byl návrh podán 12. 12. 2025 (archivovaný text tisku ale nese podpisovou doložku 15. 12. 2025 a rozeslání poslancům 15. prosince 2025), vláda zaujala souhlasné stanovisko 16. 12. 2025, garančním výborem byl přikázán Výbor pro zdravotnictví 28. 1. 2026, třetí čtení proběhlo 25. 3. 2026 (hlasování č. 86, usnesení č. 130), Senát schválil návrh 6. 5. 2026, prezident jej podepsal 19. 5. 2026 a zákon byl vyhlášen 26. 5. 2026 jako zákon č. 71/2026 Sb. s účinností od 27. 5. 2026; údaje mimo archivní text vycházejí z této webové stránky.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=70"
+  },
+  {
+   "claim": "Tisk 70 mění zákon č. 592/1992 Sb. a jeho okruh deseti evidovaných spolupředkladatelů zahrnuje osoby uvedené v případovém souboru včetně jejich peněžních vazeb a částek.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43177"
+  },
+  {
+   "claim": "RAPAJA s.r.o. je společnost, u níž je v případovém souboru peněžních vazeb evidována vlastnická/řídící vazba Patrika Pařila s částkou veřejných smluv 0 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:06386237"
+  },
+  {
+   "claim": "RMPJ s.r.o. je společnost, u níž je v případovém souboru peněžních vazeb evidována vlastnická/řídící vazba Patrika Pařila s částkou veřejných smluv 0 Kč.",
+   "kind": "graph_fact",
+   "source": "company:ico:09187944"
+  },
+  {
+   "claim": "Zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, je předpis novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "592/1992"
+  },
+  {
+   "claim": "Novela byla vyhlášena jako zákon č. 71/2026 Sb.",
+   "kind": "law",
+   "source": "71/2026"
+  }
+ ]
+}

@@ -1,0 +1,231 @@
+{
+ "generatedAt": "2026-08-05T14:45:24.655Z",
+ "method": "Batch-018 migration for the 32 reader-facing forensic fields flagged by batch-018-evidence-scan.json as citing raw pdftotext transcript line numbers (\"řádky N–M\") or cache-path shapes the batch-016 evidence doctrine forbids. For every row, the cached tisk transcript(s) under .data/law-collision-cache/tisk-<N>/*.txt were opened at the exact cited line ranges and the surrounding text was read to identify the bill's own structural coordinate at that passage (čl./bod/ČÁST/§/odst./písm., or the named oddíl/kapitola/subkapitola of the důvodová zpráva, or — where the cited range in fact runs almost the entire document — a plain \"v celém novelizačním textu\"/\"v celé důvodové zprávě\" description). Only the line/cache reference was replaced; every other word, figure and quotation was kept character-identical. For .evidence fields lacking a psp.cz link, the tisk's document URL (https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=<cislo>&ct1=0) was appended as \"Zdroj: …\"; forensic_researched_context and .effect fields were fixed in place with no URL appended, per the doctrine. One exception was deliberately preserved rather than rewritten: tisk 64's row compares the relative LENGTH of two parts of the bill in transcript lines (\"3 501 řádků\" vs \"591 řádků\") as its actual finding — a quantitative claim, not a navigational coordinate a reader must resolve — so those two figures remain while the accompanying bracketed line-range citations were replaced with verified coordinates. One mislabel in the source prose (tisk 189) was corrected rather than propagated: a passage the original text called \"zvláštní část\" in fact sits in kapitola 1/2 of the obecná část (the real zvláštní část begins at line 4001), verified against the cache. All 32 rewrites were run through lib/analysis/law-verdict.ts#lawJargonIssues and lib/analysis/language-gate.ts#czechCopyOrNull — 0 issues on all 32 — plus supplementary checks confirming every quotation survives character-identical and no digit other than a removed line number changed. Two rows were appended by the driver after the scan's „řádk“ stem was widened to the singular/locative forms (řádek/řádcích) it had missed.",
+ "count": 36,
+ "patched": [
+  {
+   "cislo": 25,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 38–43, 201–202 a 474–476 strojového přepisu (nový § 22a; obecná část: „trvalý zvláštní právní režim“; zvláštní část k bodům 1 a 3: „trvalou výluku z využití e-Legislativy“).",
+   "after": "úplný text tisku na psp.cz (nový § 22a; obecná část: „trvalý zvláštní právní režim“; zvláštní část k bodům 1 a 3: „trvalou výluku z využití e-Legislativy“). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=25&ct1=0"
+  },
+  {
+   "cislo": 25,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 44–52 strojového přepisu (§ 26 odst. 1 písm. a) body 1 a 2).",
+   "after": "úplný text tisku na psp.cz (§ 26 odst. 1 písm. a) body 1 a 2). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=25&ct1=0"
+  },
+  {
+   "cislo": 46,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "„Zvýšené dopady na problematiku ochrany soukromí a osobních údajů se nepředpokládají.“ — úplný text tisku na psp.cz, řádek 1222 strojového přepisu (v rámci kapitoly „Zhodnocení dopadů navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“, řádek 1197); nástroj přístupu k údajům krytým bankovním tajemstvím je popsán samostatně v § 395f odst. 3 a jeho zvláštní části, nikoli v této kapitole — „může požadovat údaje, které jsou předmětem bankovního tajemství, a údaje z evidence investičních nástrojů“ — úplný text tisku na psp.cz, řádky 357–358 strojového přepisu.",
+   "after": "„Zvýšené dopady na problematiku ochrany soukromí a osobních údajů se nepředpokládají.“ — obecná část důvodové zprávy tisku na psp.cz, v rámci kapitoly „Zhodnocení dopadů navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“; nástroj přístupu k údajům krytým bankovním tajemstvím je popsán samostatně v § 395f odst. 3 a jeho zvláštní části, nikoli v této kapitole — „může požadovat údaje, které jsou předmětem bankovního tajemství, a údaje z evidence investičních nástrojů“ — novelizační část tisku na psp.cz, § 395f odst. 3. Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=46&ct1=0"
+  },
+  {
+   "cislo": 64,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "Měřeno na úplném textu tisku na psp.cz (strojový přepis): ČÁST DVACÁTÁ TŘETÍ (řádky 915–4416) = 3 501 řádků novelizačního textu zákona č. 586/1992 Sb., oproti ČÁST STO DESÁTÁ (zákon o auditorech, 591 řádků) jako druhé nejrozsáhlejší části; obecná část důvodové zprávy (řádky 12777–12783) popisuje celý návrh souhrnně jako „jak legislativně-technický, tak věcný charakter“ bez rozlišení váhy jednotlivých částí.",
+   "after": "Měřeno na úplném textu tisku na psp.cz (strojový přepis): ČÁST DVACÁTÁ TŘETÍ (Čl. XXIII) = 3 501 řádků novelizačního textu zákona č. 586/1992 Sb., oproti ČÁST STO DESÁTÁ (zákon o auditorech, 591 řádků) jako druhé nejrozsáhlejší části; obecná část důvodové zprávy (úvodní odstavec bodu I. Obecná část) popisuje celý návrh souhrnně jako „jak legislativně-technický, tak věcný charakter“ bez rozlišení váhy jednotlivých částí. Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=64&ct1=0",
+   "note": "The '3 501 řádků'/'591 řádků' relative-length figures are kept verbatim — they are the finding itself (a bill-size comparison), not a resolver coordinate a reader needs to follow. Verified against the cache: ČÁST DVACÁTÁ TŘETÍ = Čl. XXIII; the DZ quote sits in the opening paragraph of 'I. Obecná část'."
+  },
+  {
+   "cislo": 67,
+   "field": "forensic_researched_context",
+   "before": "Z porovnání úplného textu novely na psp.cz (strojový přepis) s obsahem jednotlivých částí plyne, že míra věcného zásahu do jednotlivých 42 novelizovaných předpisů je velmi nerovnoměrná. Zákon č. 139/2002 Sb., o pozemkových úpravách, je v důvodové zprávě (zvláštní část, k části dvacáté šesté) výslovně a přesně označen jako čistě „legislativně-technická“ změna — nahrazení pojmu „zastavěné území“ pojmem „zastavitelné území“ ve třech ustanoveních (§ 3 odst. 3, § 9 odst. 17, § 14 odst. 8), bez dopadu na věcná pravidla scelování zemědělské půdy. Zákon č. 235/2004 Sb., o dani z přidané hodnoty, dostává v důvodové zprávě (k části dvacáté osmé) stejnou nálepku, ale ověření operativního textu (Čl. XXV, úplný text tisku na psp.cz, řádky 6829–6834 strojového přepisu) ukazuje, že jde o jedinou novelizovanou pasáž zákona — § 55a „Dodání pozemku“, tedy přímo definici „stavebního pozemku“ pro účely osvobození od DPH (úplný text tisku na psp.cz, řádky 22315–22326 strojového přepisu: „Stavebním pozemkem se … rozumí pozemek, a) na kterém lze na základě územně plánovací dokumentace …, vymezení zastavěného/zastavitelného území … umístit stavbu…“). Slovo, které se mění, je tedy přímo hranicí mezi osvobozeným a zdanitelným dodáním pozemku, nikoli vedlejším pojmem — „zastavitelné území“ (plochy určené k budoucí zástavbě podle územně plánovací dokumentace) je z povahy věci širší množina než dosavadní „zastavěné území“ (již zastavěné plochy), takže okruh pozemků splňujících definici „stavebního pozemku“ se rozšiřuje. Směr a míru čistého fiskálního/transakčního dopadu (více pozemků zdanitelných vs. osvobozených, dopad na konkrétní realitní transakce) tento verdikt nemodeluje — jde o zjištění, že novela mění samotnou hranici osvobození, nikoli o kvantifikovaný závěr, že se jí nezmění nic. Naproti tomu novela zákona č. 100/2001 Sb. (EIA) je věcně jednoznačně významná: zavádí možnost, aby závazné stanovisko EIA na žádost oznamovatele záměru nahradilo další správní úkony podle předpisů o ochraně životního prostředí a veřejného zdraví (mj. novelizovaný § 77 zákona č. 258/2000 Sb. a nově přepsaný § 151 odst. 2 zákona č. 541/2020 Sb., o odpadech), čímž vzniká podle vlastní charakteristiky předkladatelů „one-stop-shop“ řešení pro investora. Celá novela je navíc koncipována jako plošné zrychlení a zjednodušení povolování staveb v celé České republice, což je ze své podstaty relevantní pro každého rezidenčního i komerčního developera i pro provozovatele zařízení pro nakládání s odpady.",
+   "after": "Z porovnání úplného textu novely na psp.cz (strojový přepis) s obsahem jednotlivých částí plyne, že míra věcného zásahu do jednotlivých 42 novelizovaných předpisů je velmi nerovnoměrná. Zákon č. 139/2002 Sb., o pozemkových úpravách, je v důvodové zprávě (zvláštní část, k části dvacáté šesté) výslovně a přesně označen jako čistě „legislativně-technická“ změna — nahrazení pojmu „zastavěné území“ pojmem „zastavitelné území“ ve třech ustanoveních (§ 3 odst. 3, § 9 odst. 17, § 14 odst. 8), bez dopadu na věcná pravidla scelování zemědělské půdy. Zákon č. 235/2004 Sb., o dani z přidané hodnoty, dostává v důvodové zprávě (k části dvacáté osmé) stejnou nálepku, ale ověření operativního textu (Čl. XXV, ČÁST DVACÁTÁ OSMÁ, § 55a odst. 2 písm. a) novely, úplný text tisku na psp.cz) ukazuje, že jde o jedinou novelizovanou pasáž zákona — § 55a „Dodání pozemku“, tedy přímo definici „stavebního pozemku“ pro účely osvobození od DPH (§ 55a odst. 2 zákona č. 235/2004 Sb., platné znění s vyznačením navrhovaných změn, úplný text tisku na psp.cz: „Stavebním pozemkem se … rozumí pozemek, a) na kterém lze na základě územně plánovací dokumentace …, vymezení zastavěného/zastavitelného území … umístit stavbu…“). Slovo, které se mění, je tedy přímo hranicí mezi osvobozeným a zdanitelným dodáním pozemku, nikoli vedlejším pojmem — „zastavitelné území“ (plochy určené k budoucí zástavbě podle územně plánovací dokumentace) je z povahy věci širší množina než dosavadní „zastavěné území“ (již zastavěné plochy), takže okruh pozemků splňujících definici „stavebního pozemku“ se rozšiřuje. Směr a míru čistého fiskálního/transakčního dopadu (více pozemků zdanitelných vs. osvobozených, dopad na konkrétní realitní transakce) tento verdikt nemodeluje — jde o zjištění, že novela mění samotnou hranici osvobození, nikoli o kvantifikovaný závěr, že se jí nezmění nic. Naproti tomu novela zákona č. 100/2001 Sb. (EIA) je věcně jednoznačně významná: zavádí možnost, aby závazné stanovisko EIA na žádost oznamovatele záměru nahradilo další správní úkony podle předpisů o ochraně životního prostředí a veřejného zdraví (mj. novelizovaný § 77 zákona č. 258/2000 Sb. a nově přepsaný § 151 odst. 2 zákona č. 541/2020 Sb., o odpadech), čímž vzniká podle vlastní charakteristiky předkladatelů „one-stop-shop“ řešení pro investora. Celá novela je navíc koncipována jako plošné zrychlení a zjednodušení povolování staveb v celé České republice, což je ze své podstaty relevantní pro každého rezidenčního i komerčního developera i pro provozovatele zařízení pro nakládání s odpady."
+  },
+  {
+   "cislo": 67,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "Důvodová zpráva k části dvacáté druhé (změna zákona č. 100/2001 Sb.) výslovně uvádí, že nová možnost nahrazení dalších správních úkonů závazným stanoviskem EIA přináší investorovi „one-stop-shop“ řešení, eliminuje riziko následného zamítnutí žádosti o povolení a zvyšuje právní jistotu investora v rané fázi projektu (úplný text tisku na psp.cz, řádky 14481–14486 strojového přepisu).",
+   "after": "Důvodová zpráva k části dvacáté druhé (změna zákona č. 100/2001 Sb.) výslovně uvádí, že nová možnost nahrazení dalších správních úkonů závazným stanoviskem EIA přináší investorovi „one-stop-shop“ řešení, eliminuje riziko následného zamítnutí žádosti o povolení a zvyšuje právní jistotu investora v rané fázi projektu (důvodová zpráva, zvláštní část, K části dvacáté druhé, psp.cz, tisk 67: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0)."
+  },
+  {
+   "cislo": 67,
+   "field": "forensic_unstated_effects[2].evidence",
+   "before": "Čl. XXV, ČÁST DVACÁTÁ OSMÁ novely: „V § 55a zákona č. 235/2004 Sb. … se v odstavci 2 písmeno a) slovo „zastavěného“ nahrazuje slovem „zastavitelného“.“ (úplný text tisku na psp.cz, řádky 6829–6834 strojového přepisu); platné znění potvrzuje, že jde o definici „stavebního pozemku“ v § 55a nadepsaném „Dodání pozemku“ (úplný text tisku na psp.cz, řádky 22315–22326 strojového přepisu).",
+   "after": "Čl. XXV, ČÁST DVACÁTÁ OSMÁ novely: „V § 55a zákona č. 235/2004 Sb. … se v odstavci 2 písmeno a) slovo „zastavěného“ nahrazuje slovem „zastavitelného“.“ (Čl. XXV, ČÁST DVACÁTÁ OSMÁ, § 55a odst. 2 písm. a) novely, psp.cz, tisk 67: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0); platné znění potvrzuje, že jde o definici „stavebního pozemku“ v § 55a nadepsaném „Dodání pozemku“ (§ 55a odst. 2 zákona č. 235/2004 Sb., platné znění s vyznačením navrhovaných změn, psp.cz, tisk 67: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=67&ct1=0)."
+  },
+  {
+   "cislo": 74,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 381–395 strojového přepisu (nový § 1a zákona č. 282/1991 Sb. včetně vylučující věty v odstavci 2).",
+   "after": "úplný text tisku na psp.cz (nový § 1a zákona č. 282/1991 Sb. včetně vylučující věty v odstavci 2). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
+  },
+  {
+   "cislo": 74,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 605–618 a 232–234 strojového přepisu (zrušení výjimky a nové znění § 14 odst. 4 zákona č. 167/2008 Sb.).",
+   "after": "úplný text tisku na psp.cz (zrušení výjimky a nové znění § 14 odst. 4 zákona č. 167/2008 Sb.). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=74&ct1=0"
+  },
+  {
+   "cislo": 83,
+   "field": "forensic_researched_context",
+   "before": "Vlastní čtení úplného textu tisku 83 na psp.cz (strojový přepis) potvrzuje stavenou tezi o monotematickém obsahu: každá z šesti novelizovaných částí (řádky 39–497) obsahuje shodný vzorec – doplnění poznámky pod čarou odkazující na směrnici 2023/2661, novou oznamovací povinnost vlastníka nebo provozovatele infrastruktury vůči Ministerstvu dopravy či Ředitelství silnic a dálnic s. p. a odpovídající přestupek s pokutou do 100 000 Kč. Cíleně bylo prověřeno, zda novela zavádí sledování, evidenci nebo sankce vůči jednotlivým řidičům či cestujícím – v textu (řádky 39–508) ani v důvodové zprávě (řádky 800–1946) taková ustanovení nalezena nebyla. Nové přestupky a pokuty dopadají výhradně na vlastníky a provozovatele infrastruktury (právnické a podnikající fyzické osoby jako správce silnic, provozovatele drah, přístavů a letišť), nikoli na řidiče nebo cestující, a jde o údaje o poloze a přístupnosti zastávek, stanic, přístavů a letišť, nikoli o osobní nebo pohybová data konkrétních osob. Novela naopak nově doplňuje povinnost anonymizace nebo pseudonymizace osobních údajů zpracovávaných poskytovateli služeb inteligentních dopravních systémů (řádky 410–429), což jde spíše směrem k ochraně soukromí než k jeho oslabení. Předložený obsah tedy odpovídá stavenému účelu transpozice směrnice a v textu nebyl nalezen skrytý sankční nebo sledovací mechanismus vůči občanům, který by přesahoval rámec technické transpozice.",
+   "after": "Vlastní čtení úplného textu tisku 83 na psp.cz (strojový přepis) potvrzuje stavenou tezi o monotematickém obsahu: každá z šesti novelizovaných částí (ČÁST PRVNÍ až ŠESTÁ) obsahuje shodný vzorec – doplnění poznámky pod čarou odkazující na směrnici 2023/2661, novou oznamovací povinnost vlastníka nebo provozovatele infrastruktury vůči Ministerstvu dopravy či Ředitelství silnic a dálnic s. p. a odpovídající přestupek s pokutou do 100 000 Kč. Cíleně bylo prověřeno, zda novela zavádí sledování, evidenci nebo sankce vůči jednotlivým řidičům či cestujícím – v celém novelizačním textu ani v celé důvodové zprávě taková ustanovení nalezena nebyla. Nové přestupky a pokuty dopadají výhradně na vlastníky a provozovatele infrastruktury (právnické a podnikající fyzické osoby jako správce silnic, provozovatele drah, přístavů a letišť), nikoli na řidiče nebo cestující, a jde o údaje o poloze a přístupnosti zastávek, stanic, přístavů a letišť, nikoli o osobní nebo pohybová data konkrétních osob. Novela naopak nově doplňuje povinnost anonymizace nebo pseudonymizace osobních údajů zpracovávaných poskytovateli služeb inteligentních dopravních systémů (ČÁST PÁTÁ, Čl. V bod 4 — § 39a odst. 6 zákona č. 13/1997 Sb., o pozemních komunikacích), což jde spíše směrem k ochraně soukromí než k jeho oslabení. Předložený obsah tedy odpovídá stavenému účelu transpozice směrnice a v textu nebyl nalezen skrytý sankční nebo sledovací mechanismus vůči občanům, který by přesahoval rámec technické transpozice.",
+   "note": "coordinate corrected at batch-018 closure (B5): the first rewrite pointed at Čl. II — a different article amending a different act; the passage sits in ČÁST PÁTÁ / Čl. V"
+  },
+  {
+   "cislo": 89,
+   "field": "forensic_researched_context",
+   "before": "Vlastní čtení úplného textu tisku 89 na psp.cz (strojový přepis) potvrzuje formulaci obou bodů novely: bod 1 (řádky 37–46) vkládá do § 3 zákona č. 218/2000 Sb. nové písmeno s), definující „rozvoj sociální infrastruktury“, a bod 2 (řádky 48–50) mění § 36 odst. 3 tak, že ruší možnost čerpat rezervu na dávky důchodového pojištění a doplňuje možnost čerpat ji na dotační investiční akce podle nového písmene s). Při čtení bodu 1 bylo rovněž zjištěno, že novela vkládá zcela nové písmeno s) na konec výčtu v § 3 (za dosavadní písmeno r), přičemž stejné písmeno s) na stejném místě téhož ustanovení je předmětem i jiného, souběžně projednávaného sněmovního tisku (č. 64, 10. volební období), který mu dává odlišný obsah – jde o zjištěný procesní kolizní bod: schválení obou návrhů v předložené podobě by vedlo k tomu, že jeden z nich přepíše nebo znemožní ustanovení druhého, protože obě novely míří na stejné písmeno stejného paragrafu se vzájemně se vylučujícím obsahem.",
+   "after": "Vlastní čtení úplného textu tisku 89 na psp.cz (strojový přepis) potvrzuje formulaci obou bodů novely: bod 1 vkládá do § 3 zákona č. 218/2000 Sb. nové písmeno s), definující „rozvoj sociální infrastruktury“, a bod 2 mění § 36 odst. 3 tak, že ruší možnost čerpat rezervu na dávky důchodového pojištění a doplňuje možnost čerpat ji na dotační investiční akce podle nového písmene s). Při čtení bodu 1 bylo rovněž zjištěno, že novela vkládá zcela nové písmeno s) na konec výčtu v § 3 (za dosavadní písmeno r), přičemž stejné písmeno s) na stejném místě téhož ustanovení je předmětem i jiného, souběžně projednávaného sněmovního tisku (č. 64, 10. volební období), který mu dává odlišný obsah – jde o zjištěný procesní kolizní bod: schválení obou návrhů v předložené podobě by vedlo k tomu, že jeden z nich přepíše nebo znemožní ustanovení druhého, protože obě novely míří na stejné písmeno stejného paragrafu se vzájemně se vylučujícím obsahem."
+  },
+  {
+   "cislo": 89,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "Text tisku 89 na psp.cz, řádky 63–70 (popis dosavadního účelu rezervy) a řádky 37–50 a 94–96 (nové písmeno s) a změna § 36 odst. 3 bez číselného omezení nového čerpání).",
+   "after": "Text tisku 89 na psp.cz, obecná část důvodové zprávy (popis dosavadního účelu rezervy) a bod 1 a bod 2 novelizačního textu (nové písmeno s) a změna § 36 odst. 3 bez číselného omezení nového čerpání). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=89&ct1=0"
+  },
+  {
+   "cislo": 89,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "Text tisku 89 na psp.cz, řádky 37–46 (vložení nového písmene s) na konec výčtu § 3) – zjištěno vlastním porovnáním umístění novelizačního bodu s obdobně umístěným bodem souběžně projednávaného sněmovního tisku č. 64.",
+   "after": "Text tisku 89 na psp.cz, bod 1 (vložení nového písmene s) na konec výčtu § 3) – zjištěno vlastním porovnáním umístění novelizačního bodu s obdobně umístěným bodem souběžně projednávaného sněmovního tisku č. 64. Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=89&ct1=0"
+  },
+  {
+   "cislo": 167,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 24–31 a 76–77 strojového přepisu (§ 334b, obecná i zvláštní část důvodové zprávy)",
+   "after": "úplný text tisku na psp.cz (§ 334b, obecná i zvláštní část důvodové zprávy). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=167&ct1=0"
+  },
+  {
+   "cislo": 168,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 111–186 a 341–343 strojového přepisu (dvojí test kódu nomenklatury a slovního popisu v přílohách č. 3 a 3a).",
+   "after": "úplný text tisku na psp.cz, přílohy č. 3 a 3a k zákonu č. 235/2004 Sb. (dvojí test kódu nomenklatury a slovního popisu v přílohách č. 3 a 3a). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=168&ct1=0"
+  },
+  {
+   "cislo": 171,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 8–17 strojového přepisu (Čl. I tisku 171, § 21 odst. 2 a 4) srovnaný s úplným textem tisku 246 (Čl. I, novelizace § 21 odst. 3 až 5 a zrušení odst. 6 až 8)",
+   "after": "úplný text tisku na psp.cz, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=171&ct1=0 (Čl. I tisku 171, § 21 odst. 2 a 4) srovnaný s úplným textem tisku 246 (Čl. I, novelizace § 21 odst. 3 až 5 a zrušení odst. 6 až 8) Porovnávaný tisk: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0"
+  },
+  {
+   "cislo": 187,
+   "field": "forensic_researched_context",
+   "before": "Vlastní čtení úplného textu tisku 187 na psp.cz (strojový přepis, řádky 27–211 novelizační části a řádky 214–549 důvodové zprávy) potvrzuje, že popsané body odpovídají skutečnému normativnímu textu novely – jde skutečně o osm samostatných částí měnících osm různých zákonů, nikoli o jednotnou věcnou novelu. Text dále ukazuje, že odklad atestace elektronických systémů spisové služby není první svého druhu: povinnost byla zavedena v roce 2021 s původním termínem 1. leden 2024, respektive 1. leden 2025 (řádky 239–242), poté podle vlastní historie zákona v důvodové zprávě (řádky 258–280) postupně odsunuta na rok 2026 a poté na rok 2027, a nyní se navrhuje třetí odklad, tentokrát na roky 2029/2030. Text také výslovně uvádí, že nesplnění dosavadní povinnosti je přestupkem s pokutou až 200 000 Kč (řádky 415–416), takže odklad má i praktický dopad na to, komu taková sankce reálně hrozí.",
+   "after": "Vlastní čtení úplného textu tisku 187 na psp.cz (strojový přepis, v celém novelizačním textu Čl. I až X a v obecné části důvodové zprávy) potvrzuje, že popsané body odpovídají skutečnému normativnímu textu novely – jde skutečně o osm samostatných částí měnících osm různých zákonů, nikoli o jednotnou věcnou novelu. Text dále ukazuje, že odklad atestace elektronických systémů spisové služby není první svého druhu: povinnost byla zavedena v roce 2021 s původním termínem 1. leden 2024, respektive 1. leden 2025 (obecná část důvodové zprávy, oddíl „1. Zhodnocení platného právního stavu“, část „Atestace elektronických systémů spisové služby“), poté podle vlastní historie zákona v důvodové zprávě (tamtéž) postupně odsunuta na rok 2026 a poté na rok 2027, a nyní se navrhuje třetí odklad, tentokrát na roky 2029/2030. Text také výslovně uvádí, že nesplnění dosavadní povinnosti je přestupkem s pokutou až 200 000 Kč (obecná část důvodové zprávy, oddíl „2. Odůvodnění hlavních principů navrhované právní úpravy a vysvětlení nezbytnosti navrhované právní úpravy v jejím celku“, část „Atestace elektronických systémů spisové služby“), takže odklad má i praktický dopad na to, komu taková sankce reálně hrozí."
+  },
+  {
+   "cislo": 187,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "Text tisku 187 na psp.cz, řádky 100–104 (novelizační ustanovení § 63 odst. 3 a § 69e odst. 1 zákona o archivnictví a spisové službě) a řádky 431–468 důvodové zprávy, kde předkladatelé navrhují výjimku jako trvalou, nikoli časově omezenou jako u odkladu pro ostatní veřejnoprávní původce.",
+   "after": "Text tisku 187 na psp.cz, Čl. III body 1 a 2 novelizační části (novelizační ustanovení § 63 odst. 3 a § 69e odst. 1 zákona o archivnictví a spisové službě) a obecná část důvodové zprávy, oddíl „2. Odůvodnění hlavních principů navrhované právní úpravy a vysvětlení nezbytnosti navrhované právní úpravy v jejím celku“, část „Atestace elektronických systémů spisové služby“, kde předkladatelé navrhují výjimku jako trvalou, nikoli časově omezenou jako u odkladu pro ostatní veřejnoprávní původce. Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=187&ct1=0"
+  },
+  {
+   "cislo": 187,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "Text tisku 187 na psp.cz, řádky 239–280 a 402–420 důvodové zprávy, popisující původní termín 2024/2025, dosavadní dva odklady na roky 2026 a 2027 a přiznávající, že do dubna 2026 byl vydán jen jeden atest.",
+   "after": "Text tisku 187 na psp.cz, obecná část důvodové zprávy, oddíly „1. Zhodnocení platného právního stavu“ a „2. Odůvodnění hlavních principů navrhované právní úpravy a vysvětlení nezbytnosti navrhované právní úpravy v jejím celku“, obě část „Atestace elektronických systémů spisové služby“, popisující původní termín 2024/2025, dosavadní dva odklady na roky 2026 a 2027 a přiznávající, že do dubna 2026 byl vydán jen jeden atest. Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=187&ct1=0"
+  },
+  {
+   "cislo": 189,
+   "field": "forensic_researched_context",
+   "before": "Úplný text novely (úplný text tisku na psp.cz) potvrzuje, že jde o obnovení elektronické evidence tržeb (EET) po jejím zrušení k 1. lednu 2023 zákonem přijatým za předchozí vlády, a to v podstatě jako nový, samostatný zákon (nikoli novela zrušeného zákona č. 112/2016 Sb.). Zákon dále mění nejen čtyři formálně uvedené novelizované předpisy (č. 17/2012 Sb., č. 235/2004 Sb., č. 456/2011 Sb. a č. 586/1992 Sb.), ale podle stejné důvodové zprávy zavádí v rámci téhož předpisu i řadu věcně samostatných daňových změn nesouvisejících s evidencí tržeb jako takovou. V kapitole 6 (Předpokládaný hospodářský a finanční dopad) jsou samostatně vyčísleny: sleva na dani za umístění dítěte, sleva na studenta a zrušení zastropování volnočasových benefitů (řádky cca 3195–3237), osvobození spropitného v gastronomii (řádky cca 3224–3226), snížení sazby DPH na nealkoholické nápoje v rámci restauračních služeb z 21 % na 12 % (řádky 1380–1388 a 1723–1727 — „Cílem návrhu, v souladu s programovým prohlášením vlády, je zavedení stejné sazby DPH … na nealkoholické nápoje podávané v rámci restauračních služeb, jako se uplatňuje na stravovací služby“), zkrácení lhůty pro opravu základu DPH u malých nedobytných pohledávek z 6 na 3 měsíce a rozšíření limitu z 10 000 Kč na 20 000 Kč (§ 46 zákona o DPH, řádky 1390–1403 a 1729–1744) a osvobození příspěvku zaměstnavatele na vybrané sociální služby (osobní asistence, pečovatelská služba, tísňová péče, odlehčovací služba, raná péče, centrum denních služeb/denní stacionář) od daně z příjmů fyzických osob (nový § 6 odst. 9 písm. d) bod 4 zákona o daních z příjmů, řádky 622–626 a 3217). Každá z těchto změn nese vlastní, samostatně odůvodněný a v části dopadů samostatně vyčíslený rozpočtový efekt v řádu stovek milionů až miliard Kč ročně, nezávislý na evidenci tržeb jako takové. Účinnost evidence tržeb je stanovena k 1. lednu 2027, avšak vybraná administrativně-organizační ustanovení nabývají účinnosti již dnem po vyhlášení zákona, což odpovídá obvyklé praxi u obdobných registračních systémů (viz předchozí zákon č. 112/2016 Sb., kde administrativní ustanovení předcházela obecné účinnosti o několik měsíců).",
+   "after": "Úplný text novely (úplný text tisku na psp.cz) potvrzuje, že jde o obnovení elektronické evidence tržeb (EET) po jejím zrušení k 1. lednu 2023 zákonem přijatým za předchozí vlády, a to v podstatě jako nový, samostatný zákon (nikoli novela zrušeného zákona č. 112/2016 Sb.). Zákon dále mění nejen čtyři formálně uvedené novelizované předpisy (č. 17/2012 Sb., č. 235/2004 Sb., č. 456/2011 Sb. a č. 586/1992 Sb.), ale podle stejné důvodové zprávy zavádí v rámci téhož předpisu i řadu věcně samostatných daňových změn nesouvisejících s evidencí tržeb jako takovou. V kapitole 6 (Předpokládaný hospodářský a finanční dopad) jsou samostatně vyčísleny: sleva na dani za umístění dítěte, sleva na studenta a zrušení zastropování volnočasových benefitů (subkapitola Daň z příjmů fyzických osob a veřejná pojistná), osvobození spropitného v gastronomii (tamtéž), snížení sazby DPH na nealkoholické nápoje v rámci restauračních služeb z 21 % na 12 % (kapitola 1 Zhodnocení platného právního stavu a kapitola 2 Popis obsahu návrhu právního předpisu, oddíl Daň z přidané hodnoty – Sazba DPH na nealkoholické nápoje v rámci restauračních služeb — „Cílem návrhu, v souladu s programovým prohlášením vlády, je zavedení stejné sazby DPH … na nealkoholické nápoje podávané v rámci restauračních služeb, jako se uplatňuje na stravovací služby“), zkrácení lhůty pro opravu základu DPH u malých nedobytných pohledávek z 6 na 3 měsíce a rozšíření limitu z 10 000 Kč na 20 000 Kč (§ 46 zákona o DPH, kapitola 1 Zhodnocení platného právního stavu a kapitola 2 Popis obsahu návrhu právního předpisu, oddíl Problematika malých nedobytných pohledávek) a osvobození příspěvku zaměstnavatele na vybrané sociální služby (osobní asistence, pečovatelská služba, tísňová péče, odlehčovací služba, raná péče, centrum denních služeb/denní stacionář) od daně z příjmů fyzických osob (nový § 6 odst. 9 písm. d) bod 4 zákona o daních z příjmů, ČÁST DRUHÁ bod 5 novelizačního textu; dopad tamtéž, subkapitola Daň z příjmů fyzických osob a veřejná pojistná). Každá z těchto změn nese vlastní, samostatně odůvodněný a v části dopadů samostatně vyčíslený rozpočtový efekt v řádu stovek milionů až miliard Kč ročně, nezávislý na evidenci tržeb jako takové. Účinnost evidence tržeb je stanovena k 1. lednu 2027, avšak vybraná administrativně-organizační ustanovení nabývají účinnosti již dnem po vyhlášení zákona, což odpovídá obvyklé praxi u obdobných registračních systémů (viz předchozí zákon č. 112/2016 Sb., kde administrativní ustanovení předcházela obecné účinnosti o několik měsíců).",
+   "note": "All six coordinate pairs verified line-by-line against the cache: kapitola 6/subkapitola 'Daň z příjmů fyzických osob a veřejná pojistná' carries both the slevy table and the spropitné passage; kapitola 1 and kapitola 2 both carry identically-headed sections for the DPH-rate and small-debt items; ČÁST DRUHÁ bod 5 confirmed as the operative § 6 odst. 9 písm. d) text, paired with kapitola 6's impact paragraph."
+  },
+  {
+   "cislo": 189,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "Důvodová zpráva v kapitole 6 uvádí samostatné tabulky/pasáže rozpočtových dopadů pro „Zavedení slevy za umístění dítěte“, „Zavedení slevy na studenta“, „Zrušení zastropování u volnočasových benefitů“ a „Osvobození spropitného v gastronomii“ (úplný text tisku na psp.cz, řádky cca 3195–3237 strojového přepisu); samostatnou pasáž „Sazba DPH na nealkoholické nápoje v rámci restauračních služeb“ se snížením z 21 % na 12 % (řádky 1380–1388, zvláštní část řádky 1723–1727); samostatnou pasáž „Problematika malých nedobytných pohledávek“ měnící § 46 zákona o DPH (řádky 1390–1403, zvláštní část řádky 1729–1744); a pasáž „Osvobození příspěvku zaměstnavatele na sociální služby“ s vlastním (nekvantifikovaným) rozpočtovým rizikem (řádek 3217), odpovídající novému § 6 odst. 9 písm. d) bodu 4 zákona o daních z příjmů (řádky 618–626).",
+   "after": "Důvodová zpráva v kapitole 6 uvádí samostatné tabulky/pasáže rozpočtových dopadů pro „Zavedení slevy za umístění dítěte“, „Zavedení slevy na studenta“, „Zrušení zastropování u volnočasových benefitů“ a „Osvobození spropitného v gastronomii“ (kapitola 6 Předpokládaný hospodářský a finanční dopad, subkapitola Daň z příjmů fyzických osob a veřejná pojistná); samostatnou pasáž „Sazba DPH na nealkoholické nápoje v rámci restauračních služeb“ se snížením z 21 % na 12 % (kapitola 1 Zhodnocení platného právního stavu, oddíl Daň z přidané hodnoty; kapitola 2 Popis obsahu návrhu právního předpisu, týž oddíl); samostatnou pasáž „Problematika malých nedobytných pohledávek“ měnící § 46 zákona o DPH (kapitola 1 Zhodnocení platného právního stavu, oddíl Problematika malých nedobytných pohledávek; kapitola 2 Popis obsahu návrhu právního předpisu, týž oddíl); a pasáž „Osvobození příspěvku zaměstnavatele na sociální služby“ s vlastním (nekvantifikovaným) rozpočtovým rizikem (kapitola 6 Předpokládaný hospodářský a finanční dopad, subkapitola Daň z příjmů fyzických osob a veřejná pojistná), odpovídající novému § 6 odst. 9 písm. d) bodu 4 zákona o daních z příjmů (ČÁST DRUHÁ, bod 5 novelizačního textu). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=189&ct1=0",
+   "note": "Corrected a mislabel in the source claim: the cached text's own 'II. Zvláštní část' heading begins well after lines 1723–1744 (those sit inside kapitola 2 of the obecná část), so the rewrite drops the false 'zvláštní část' label rather than propagate it."
+  },
+  {
+   "cislo": 206,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "Platné znění § 255 odst. 1 s vyznačením změn v příloze novely (úplný text tisku na psp.cz, řádky 164–176 strojového přepisu); důvodová zpráva k bodům 14–15.",
+   "after": "Platné znění § 255 odst. 1 s vyznačením změn v příloze novely (úplný text tisku na psp.cz, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=206&ct1=0); důvodová zpráva k bodům 14–15."
+  },
+  {
+   "cislo": 215,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 3502–3529 strojového přepisu (zvláštní část, K čl. XI, zrušení § 124a daňového řádu).",
+   "after": "úplný text tisku na psp.cz, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0 (zvláštní část, K čl. XI, zrušení § 124a daňového řádu)."
+  },
+  {
+   "cislo": 215,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 3353–3382 strojového přepisu (zvláštní část, K čl. V, nový § 107a zákona o vysokých školách).",
+   "after": "úplný text tisku na psp.cz, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=215&ct1=0 (zvláštní část, K čl. V, nový § 107a zákona o vysokých školách)."
+  },
+  {
+   "cislo": 217,
+   "field": "forensic_researched_context",
+   "before": "Vlastní čtení úplného textu tisku 217 na psp.cz (strojový přepis) potvrzuje, že nové zmocnění je formulováno šířeji, než jen jako kontrola prostředků z povinných koncesionářských poplatků: text (řádky 189–193 důvodové zprávy) výslovně uvádí, že cílem je, aby NKÚ mohl kontrolovat hospodaření s veškerým majetkem České televize a Českého rozhlasu, tedy i s majetkem pocházejícím například z jejich vlastní podnikatelské činnosti, nikoli jen s finančními prostředky vybranými na základě zákona o televizních a rozhlasových poplatcích. Text také potvrzuje (řádky 65–68 a 175–187), že Česká televize a Český rozhlas jsou samostatné právnické osoby hospodařící s vlastním majetkem, za jehož závazky stát neodpovídá, a že proto na ně dosud nelze podle Ústavy vztáhnout kontrolní působnost NKÚ. Podepsanými navrhovateli podle textu tisku (řádky 219–224) jsou Ondřej Babka, Jan Richter, Gabriela Sedláčková a Patrik Nacher – to odpovídá čtyřem jménům v titulu návrhu.",
+   "after": "Vlastní čtení úplného textu tisku 217 na psp.cz (strojový přepis) potvrzuje, že nové zmocnění je formulováno šířeji, než jen jako kontrola prostředků z povinných koncesionářských poplatků: text (zvláštní část důvodové zprávy k čl. I, § 3 odst. 4) výslovně uvádí, že cílem je, aby NKÚ mohl kontrolovat hospodaření s veškerým majetkem České televize a Českého rozhlasu, tedy i s majetkem pocházejícím například z jejich vlastní podnikatelské činnosti, nikoli jen s finančními prostředky vybranými na základě zákona o televizních a rozhlasových poplatcích. Text také potvrzuje (obecná část a zvláštní část důvodové zprávy k čl. I, § 3 odst. 4), že Česká televize a Český rozhlas jsou samostatné právnické osoby hospodařící s vlastním majetkem, za jehož závazky stát neodpovídá, a že proto na ně dosud nelze podle Ústavy vztáhnout kontrolní působnost NKÚ. Podepsanými navrhovateli podle textu tisku (podpisová doložka tisku) jsou Ondřej Babka, Jan Richter, Gabriela Sedláčková a Patrik Nacher – to odpovídá čtyřem jménům v titulu návrhu."
+  },
+  {
+   "cislo": 217,
+   "field": "forensic_unstated_effects[0].effect",
+   "before": "Rozšíření kontrolní působnosti NKÚ na veškeré hospodaření veřejnoprávních médií (nikoli jen na prostředky z koncesionářských poplatků) vytváří nástroj vnější kontroly, jehož závěry jsou sice podle vlastního textu návrhu (řádky 195–197) pouze nezávazným kontrolním závěrem bez přímého zásahu do činnosti kontrolovaného subjektu, ale jsou veřejné a mohou být politicky využity k tlaku na hospodářské, a tím nepřímo i na redakční rozhodování veřejnoprávních médií – tento možný efekt na jejich nezávislost není v důvodové zprávě nikde zmíněn ani zvažován, ačkoli text sám zdůrazňuje citlivost otázky nezávislosti financování veřejné služby.",
+   "after": "Rozšíření kontrolní působnosti NKÚ na veškeré hospodaření veřejnoprávních médií (nikoli jen na prostředky z koncesionářských poplatků) vytváří nástroj vnější kontroly, jehož závěry jsou sice podle vlastního textu návrhu (zvláštní část důvodové zprávy k čl. I, § 3 odst. 4) pouze nezávazným kontrolním závěrem bez přímého zásahu do činnosti kontrolovaného subjektu, ale jsou veřejné a mohou být politicky využity k tlaku na hospodářské, a tím nepřímo i na redakční rozhodování veřejnoprávních médií – tento možný efekt na jejich nezávislost není v důvodové zprávě nikde zmíněn ani zvažován, ačkoli text sám zdůrazňuje citlivost otázky nezávislosti financování veřejné služby."
+  },
+  {
+   "cislo": 217,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "Text tisku 217 na psp.cz, řádky 165–193 (zvláštní část důvodové zprávy k § 3 odst. 4) a řádky 50–71 (obecná část o dosavadní nezávislosti hospodaření obou médií).",
+   "after": "Text tisku 217 na psp.cz, zvláštní část důvodové zprávy k § 3 odst. 4, a obecná část o dosavadní nezávislosti hospodaření obou médií. Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=217&ct1=0"
+  },
+  {
+   "cislo": 228,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "„se za slova „krajskými pobočkami Úřadu práce České republiky50)“ vkládají slova „, registrů ve vzdělávání“.“ — úplný text tisku na psp.cz, řádky 429–431 strojového přepisu; zvláštní část k tomuto bodu zní v celém rozsahu „Do výčtu evidencí, u kterých může policie žádat o poskytnutí informací, se doplňují registry ve vzdělávání.“ — úplný text tisku na psp.cz, řádek 3307 strojového přepisu.",
+   "after": "„se za slova „krajskými pobočkami Úřadu práce České republiky50)“ vkládají slova „, registrů ve vzdělávání“.“ — novelizační text tisku na psp.cz, ČÁST ČTVRTÁ, § 16 (§ 66 odst. 2 zákona č. 273/2008 Sb., o Policii České republiky); zvláštní část k tomuto bodu zní v celém rozsahu „Do výčtu evidencí, u kterých může policie žádat o poskytnutí informací, se doplňují registry ve vzdělávání.“ — zvláštní část důvodové zprávy tisku na psp.cz, K § 16 (ČÁST ČTVRTÁ – změna zákona o Policii České republiky). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+  },
+  {
+   "cislo": 228,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "„Tyto náklady budou hrazeny z rozpočtu krajů a obcí. Tyto náklady nelze přenést na státní rozpočet.“ — úplný text tisku na psp.cz, řádky 1431–1432 strojového přepisu.",
+   "after": "„Tyto náklady budou hrazeny z rozpočtu krajů a obcí. Tyto náklady nelze přenést na státní rozpočet.“ — obecná část důvodové zprávy tisku na psp.cz, oddíl „5. Předpokládaný hospodářský a finanční dopad navrhované právní úpravy na státní rozpočet, ostatní veřejné rozpočty a na podnikatelské prostředí České republiky“, část „Finanční dopad na územní samosprávné celky“. Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=228&ct1=0"
+  },
+  {
+   "cislo": 234,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 904–912 strojového přepisu (nový § 17d vkládaný bodem 47 části druhé, zvláštní část důvodové zprávy k bodům 44 až 47).",
+   "after": "úplný text tisku na psp.cz, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=234&ct1=0 (nový § 17d vkládaný bodem 47 části druhé, zvláštní část důvodové zprávy k bodům 44 až 47)."
+  },
+  {
+   "cislo": 246,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "úplný text tisku na psp.cz, řádky 248–263 strojového přepisu (část G.1 důvodové zprávy, dopad na SFDI).",
+   "after": "úplný text tisku na psp.cz, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0 (část G.1 důvodové zprávy, dopad na SFDI)."
+  },
+  {
+   "cislo": 246,
+   "field": "forensic_unstated_effects[1].evidence",
+   "before": "úplný text tisku 171 na psp.cz, řádky 8–12 strojového přepisu (změna „1 den“ na „24 hodin“ v § 21 odst. 2 a 4) srovnaný s úplným textem tohoto tisku (čl. I, novelizace § 21 odst. 3 až 5 a zrušení odst. 6 až 8).",
+   "after": "úplný text tisku 171 na psp.cz, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=171&ct1=0 (změna „1 den“ na „24 hodin“ v § 21 odst. 2 a 4) srovnaný s úplným textem tohoto tisku, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=246&ct1=0 (čl. I, novelizace § 21 odst. 3 až 5 a zrušení odst. 6 až 8)."
+  },
+  {
+   "cislo": 162,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "„Povinnost složit jistotu podle § 198 odst. 2 zákona č. 99/1963 Sb.“ — úplný text tisku na psp.cz, řádek 224 strojového přepisu; institut jistoty upravuje § 198 odst. 3, jak správně cituje Čl. I bod 11 („byla uložena povinnost složit jistotu podle § 198 odst. 3“ — úplný text tisku na psp.cz, řádek 176 strojového přepisu).",
+   "after": "„Povinnost složit jistotu podle § 198 odst. 2 zákona č. 99/1963 Sb.“ — Čl. II bod 2 (přechodná ustanovení) tisku na psp.cz; institut jistoty upravuje § 198 odst. 3, jak správně cituje Čl. I bod 11 („byla uložena povinnost složit jistotu podle § 198 odst. 3“). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=162&ct1=0",
+   "note": "singular-„řádek“ row the first scan missed (stem alternation); coordinates verified against the cached print: the odst. 2 citation sits in Čl. II bod 2, the odst. 3 quote in Čl. I bod 11"
+  },
+  {
+   "cislo": 201,
+   "field": "forensic_unstated_effects[0].evidence",
+   "before": "Novela v bodě 9 mění § 5 odst. 4 zákona č. 348/2005 Sb. tak, že právnická osoba nebo podnikající fyzická osoba zaměstnávající nejvýše 50 (dosud 24) osob rozhlasový a televizní poplatek neplatí (úplný text tisku na psp.cz, řádek 518 strojového přepisu).",
+   "after": "Novela v bodě 9 mění § 5 odst. 4 zákona č. 348/2005 Sb. tak, že právnická osoba nebo podnikající fyzická osoba zaměstnávající nejvýše 50 (dosud 24) osob rozhlasový a televizní poplatek neplatí (Čl. I bod 9). Zdroj: https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=201&ct1=0",
+   "note": "singular-„řádek“ row the first scan missed (stem alternation); Čl. I bod 9 verified verbatim in the cached print („V § 5 odst. 4 se číslo „24“ nahrazuje číslem „50“.“)"
+  },
+  {
+   "cislo": 112,
+   "field": "forensic_citations[0].claim",
+   "before": "Název návrhu, číslo tisku 112/0 a seznam dokumentů (t011200.pdf s důvodovou zprávou, znění s vyznačením změn)",
+   "after": "Název návrhu, číslo tisku 112/0 a seznam dokumentů na stránce tisku (dokument s důvodovou zprávou a znění s vyznačením změn)",
+   "note": "a psp.cz PDF filename is a locator, not a structural coordinate — replaced by the document description; the citation's own source URL already carries the address"
+  },
+  {
+   "cislo": 112,
+   "field": "forensic_citations_en[0].claim",
+   "before": "Bill title, print number 112/0, and document list (t011200.pdf explanatory report, marked-changes text)",
+   "after": "Bill title, print number 112/0, and the print's document list (explanatory report, marked-changes text)",
+   "note": "English mirror of the row above; the Czech gate deliberately does not bind _en fields"
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "billTisk": 231,
+ "statedReasoning": "Vládní návrh (předkladatel ministr kultury) mění zákon č. 483/1991 Sb., o České televizi, a zákon č. 484/1991 Sb., o Českém rozhlasu, a zároveň zcela zrušuje zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích. Obecná část důvodové zprávy uvádí, že vláda se v Programovém prohlášení zavázala zrušit poplatky za veřejnoprávní média, a ve stejném odstavci dodává, že současně přijala závazek zajistit transparentní kontrolu hospodaření České televize a Českého rozhlasu prostřednictvím Nejvyššího kontrolního úřadu (NKÚ), přičemž deklarovala zachování nezávislosti obou médií jako prioritu. Tento tisk realizuje pouze první část tohoto dvojího závazku: nahrazuje koncesionářské poplatky přímým, ze zákona plynoucím a inflačně valorizovaným příspěvkem ze státního rozpočtu (5 741 826 000 Kč ročně pro Českou televizi, 2 065 766 000 Kč ročně pro Český rozhlas, oba s automatickým desetiprocentním navýšením po překročení kumulované inflace 10 procentních bodů). Zpráva odůvodňuje krok evropským trendem odklonu od poplatkového financování, poukazuje na Evropský akt o svobodě médií a na jeho požadavek stabilního a předvídatelného financování jako záruky redakční nezávislosti, a uvádí, že navržené řešení principy tohoto nařízení nijak nenarušuje; transparentní zákonná pravidla financování mají podle zprávy předcházet ad hoc politickému ovlivňování, jehož riziko u rozpočtového financování zpráva sama v hodnocení korupčních rizik připouští. Účinnost se navrhuje k 1. lednu 2027.",
+ "researchedContext": "Text potvrzuje rozsah tvrzený zprávou: čl. I mění zákon o České televizi, čl. II zákon o Českém rozhlasu, čl. III je přechodné ustanovení, čl. IV ruší zákon č. 348/2005 Sb. v celém rozsahu a části jedenácti dalších předpisů a čl. V stanoví účinnost k 1. lednu 2027 — jde skutečně o dvě novely plus jedno zrušovací ustanovení, přesně jak uvádí titul i uzel tisku v grafu. Obecná část zprávy sama v bodě 12 (Zhodnocení korupčních rizik) přiznává, že přechod na rozpočtové financování „může mít dopady na korupční rizika, a to oběma směry“ a že „bez dostatečných garancí by rozpočtové financování mohlo zvyšovat riziko politického tlaku nebo netransparentního rozhodování o výši prostředků“ — tuto obavu zpráva řeší poukazem na pevnou zákonnou výši příspěvku (obecná část, bod 3), přičemž formulace, že částka je stanovena „přímo v zákoně“, a nikoli v ročním rozpočtu, pochází ze zvláštní části zprávy. Toto tvrzení má však strukturální mez, kterou zpráva nezmiňuje: zákon, kterým se stanoví příspěvek, je stejně jako výše rozpočtu měnitelný prostou většinou Poslanecké sněmovny v běžném legislativním procesu — stejným postupem, jakým je přijímán právě tento tisk — takže formální „zákonná“ povaha částky sama o sobě nebrání budoucí většině novelizovat výši příspěvku nebo valorizační mechanismus mimo každoroční rozpočtové jednání, jen jiným zákonodárným postupem. Zpráva dále v bodě 7 (hospodářský a finanční dopad) přiznává výpadek příjmů České pošty, s. p., která dosud jako pověřená osoba eviduje poplatníky, ale uvádí jen to, že tento výpadek „bude muset být zohledněn v jejím rozpočtu“, bez jakéhokoli číselného odhadu. V bodě 8 (zhodnocení, zda návrhem není zakládána veřejná podpora) zpráva sama přiznává nejistotu, zda nový způsob financování nezakládá veřejnou podporu ve smyslu čl. 107 odst. 1 Smlouvy o fungování EU, a uvádí, že na tuto otázku „bude vznesen dotaz na Evropskou komisi“ — tedy že posouzení souladu s unijním právem v době předložení návrhu ještě neproběhlo.",
+ "unstatedEffects": [
+  {
+   "effect": "Obecná část důvodové zprávy uvádí v jediném odstavci dva souběžné vládní závazky — zrušit poplatky za veřejnoprávní média a zajistit transparentní kontrolu jejich hospodaření prostřednictvím NKÚ — ale tento tisk realizuje jen ten první. Druhý závazek se v grafu evidovaného korpusu naplňuje samostatnou dvojicí předloh: senátním návrhem ústavního zákona (sněmovní tisk 47), který rozšiřuje čl. 97 odst. 1 Ústavy o kontrolní působnost NKÚ nad hospodařením ČT a ČRo, a navazující novelou zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu (sněmovní tisk 217), jejíž důvodová zpráva na tisk 47 výslovně odkazuje (tisk 47 sám žádné číslo tisku nejmenuje — odkaz vede jen jedním směrem). Tisk 231 naproti tomu mimo tuto jedinou zmínku Nejvyššího kontrolního úřadu v citované úvodní větě zprávy kontrolní závazek nijak nerozvádí a nikde neodkazuje na ústavní změnu ani na sněmovní tisky 47 nebo 217, ačkoli jde podle vlastní úvodní věty zprávy o dvě části téhož vládního závazku. Navíc účinnost tisku 231 je stanovena k 1. lednu 2027, zatímco ústavní novela (tisk 47) i prováděcí novela zákona o NKÚ (tisk 217) mají podle svých textů nabýt účinnosti již k 1. červenci 2026 — půl roku před tím, než se rozběhne nový způsob financování, který má být podle programového prohlášení právě posílenou kontrolou NKÚ doprovázen. Čtenář tisku 231 se z jeho textu nedozví, že druhá polovina vládního závazku je vedena zcela samostatným, časově nesouběžným legislativním postupem.",
+   "whoBenefits": "Nelze jednoznačně určit — nejde o zvýhodnění konkrétní osoby, ale o riziko, že veřejnost a Poslanecká sněmovna posuzují nový systém financování (mandatorní výdaj cca 7,81 mld. Kč ročně) odděleně od posílené vnější kontroly jeho hospodaření, kterou vláda sama prezentuje jako jeho protiváhu; při případném zpoždění nebo neschválení tisků 47 či 217 by nový rozpočtový příspěvek začal plynout bez posílené kontrolní protiváhy, kterou programové prohlášení k němu výslovně váže.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+  },
+  {
+   "effect": "Zhodnocení korupčních rizik v obecné části zprávy výslovně připouští, že „bez dostatečných garancí by rozpočtové financování mohlo zvyšovat riziko politického tlaku nebo netransparentního rozhodování o výši prostředků“; jako záruka slouží pevná zákonná výše příspěvku, o níž zvláštní část zprávy uvádí, že je stanovena přímo v zákoně. Tato záruka je ale formální: zákon stanovící výši příspěvku je novelizovatelný stejnou prostou většinou Poslanecké sněmovny jako kterýkoli jiný zákon, tedy i tento návrh sám — na rozdíl od ústavní změny (tisk 47), která by k prolomení vyžadovala kvalifikovanou většinu. Zpráva tento rozdíl mezi „zákonnou“ a „ústavní“ garancí stability nerozebírá, ačkoli sama u ústavní změny (tisk 47, mimo tento tisk) tuto vyšší míru ochrany nezávislosti sleduje jiným legislativním nástrojem.",
+   "whoBenefits": "Nelze jednoznačně určit — jde o obecné institucionální riziko vůči nezávislosti veřejnoprávních médií vůči budoucím parlamentním většinám, nikoli o zvýhodnění konkrétní osoby nebo firmy.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jde o vládní návrh předložený ministrem kultury; v datech je u tisku evidován poslanec Oto Klempíř v roli garančního výboru (výbor vedený v rozpisu projednávání zkratkou VMZ, přikázání navrženo 24. 6. 2026), nikoli jako věcný předkladatel. Uzel tohoto poslance v grafu nenese žádnou peněžní vazbu na soukromou firmu. Věcně jde o změnu systému financování veřejnoprávních médií ze státního rozpočtu ve prospěch dvou veřejnoprávních institucí (Česká televize, Český rozhlas), nikoli o smlouvu nebo dotaci ve prospěch soukromé firmy vlastněné či řízené některým poslancem — z dostupných dat proto neplyne důvod pro podezření na osobní majetkový střet zájmů předkladatele nebo evidovaného poslance u tohoto tisku. Institucionální riziko popsané výše (oslabení rozpočtové nezávislosti veřejnoprávních médií vůči budoucím parlamentním většinám) je jiné povahy než majetkový střet zájmů pokrytý peněžním grafem tohoto korpusu.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Obecná část důvodové zprávy uvádí, že vláda se v Programovém prohlášení zavázala zrušit poplatky za veřejnoprávní média a současně zajistit transparentní kontrolu jejich hospodaření prostřednictvím NKÚ, při zachování nezávislosti obou médií jako priority.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+  },
+  {
+   "claim": "Čl. I zákona nahrazuje v § 10 zákona o České televizi televizní poplatek příspěvkem ze státního rozpočtu a doplňuje nový § 10a stanovící příspěvek 5 741 826 000 Kč pro rok 2027 s automatickým desetiprocentním navýšením při kumulované inflaci nad 10 procentních bodů; čl. II obdobně u Českého rozhlasu stanoví příspěvek 2 065 766 000 Kč.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+  },
+  {
+   "claim": "Čl. IV ruší zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích, a části jedenácti dalších zákonů, jež na něj odkazovaly; čl. V stanoví účinnost k 1. lednu 2027.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+  },
+  {
+   "claim": "Zhodnocení korupčních rizik v obecné části zprávy přiznává, že rozpočtové financování médií veřejné služby může bez dostatečných garancí zvyšovat riziko politického tlaku nebo netransparentního rozhodování o výši prostředků.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+  },
+  {
+   "claim": "Zhodnocení hospodářského a finančního dopadu přiznává výpadek příjmů České pošty, s. p., z evidence poplatníků, aniž by jej číselně vyčíslilo, a zhodnocení slučitelnosti s právem EU uvádí, že otázka, zda nový způsob financování zakládá veřejnou podporu podle čl. 107 odst. 1 SFEU, bude teprve předmětem dotazu na Evropskou komisi.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+  },
+  {
+   "claim": "Sněmovní tisk 47 (senátní návrh ústavního zákona) rozšiřuje čl. 97 odst. 1 Ústavy o kontrolní působnost NKÚ nad hospodařením právnických osob poskytujících veřejnou službu v oblasti televizního a rozhlasového vysílání, s navrhovanou účinností k 1. červenci 2026; jeho zvláštní část odkazuje na navazující změnu zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, kterou ale sama nejmenuje žádným číslem tisku.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=47&ct1=0"
+  },
+  {
+   "claim": "Sněmovní tisk 217 vkládá do zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, nový § 3 odst. 4 rozšiřující kontrolu NKÚ na hospodaření České televize a Českého rozhlasu, rovněž s účinností k 1. červenci 2026, a jeho důvodová zpráva výslovně cituje senátní tisk č. 47 (10. volební období) jako souběžně projednávaný ústavní základ této pravomoci.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=217&ct1=0"
+  },
+  {
+   "claim": "Zákon č. 483/1991 Sb., o České televizi, je prvním ze dvou přímo novelizovaných předpisů.",
+   "kind": "law",
+   "source": "483/1991"
+  },
+  {
+   "claim": "Zákon č. 484/1991 Sb., o Českém rozhlasu, je druhým ze dvou přímo novelizovaných předpisů.",
+   "kind": "law",
+   "source": "484/1991"
+  },
+  {
+   "claim": "Zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích, je tímto tiskem zrušen v celém rozsahu.",
+   "kind": "law",
+   "source": "348/2005"
+  }
+ ]
+}

@@ -1200,6 +1200,33 @@ corrected verdict carries the batch's sharpest found-by-accident effect: the ope
 grants relief „o 10 %" while the DZ mostly argues „o 10 procentních bodů" (54 % vs 50 % against
 a ~60% target), uncommented anywhere. Backlog: 0 collision pairs, 62 pending bills.
 
+## Pass 52 (track: law) — batch-018: ten verdicts and the evidence-coordinate migration (2026-08-05)
+
+Writes: 10 bill nodes with pending_review forensic_* props (tisky 70, 261, 190, 78, 133, 107,
+192, 61, 231, 153 — coverage 99 → 109/141; 4 mediums) + 21 bill nodes migrated (36
+reader-facing fields re-anchored from transcript line numbers to bill structural coordinates,
+`evidence-coordinates-018`; post-migration store scan: 0 line/cache references remain in any
+forensic field). Headline findings: tisk 107 ↔ 106 both insert a NEW § 9e after § 9d of
+159/1999 Sb. with incompatible content (same seven sponsors, same day; 107's zvláštní část is
+headed „K § 9o" — the first free number after 106's §§ 9e–9n — betraying an unresolved
+numbering assumption; filed high, demoted to medium against the loop's severity ladder);
+tisk 70 pins a 7,879 mld Kč VZP→employee-insurers transfer to a month that ended eight weeks
+before the law took effect, and its verdict now states the concurrence the first cut omitted —
+spolupředkladatel Mašek chairs the garanční health committee AND sits on VZP's dozorčí rada
+(the batch-017 M9b asymmetric-disclosure class recurring, caught by the audit); tisk 231's
+ČT/ČRo budget-financing switch never references the published 47/217 NKÚ oversight pair its
+own DZ pairs it with. The audit's round 1 blocked on 5 (a fabricated „identical formula"
+quotation inside the high verdict — the collision itself survived re-derivation; a fabricated
+cross-reference inverting the published 47↔217 record; the falsified VZP clearance; a
+grep-refuted absence claim; and a migration coordinate pointing at the wrong article of the
+wrong act — sweep-introduced where the legacy line ref had been correct). The migration
+applier was rebuilt at closure to check TRUTH, not shape: multiset digit accounting, an
+addition ban outside coordinate/URL context, depth-tracked quotation spans, and a
+coordinate-truth check that verifies every introduced Čl./ČÁST/bod/§ against the NFC cached
+print. Carried: 141/141 bill summaries still cite a cache path in summary_source (M20, next
+evidence batch); verdict-106's published 9e–9m range awaits a one-field correction (measured:
+9e–9n). Backlog: 32 pending bills.
+
 ## Pass 51 (track: law) — batch-017: ten verdicts, the structural jargon gate, and the symmetric-disposition rule (2026-08-05)
 
 Writes: 10 bill nodes with pending_review forensic_* props (tisky 85, 12, 47, 131, 135, 193,

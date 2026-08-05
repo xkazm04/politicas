@@ -327,6 +327,13 @@
    "billsWithVerdictTotal": 99,
    "billsPendingTotal": 42,
    "note": "Batch-017 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-017/ (Czech-native, requireCzech gate)."
+  },
+  "batch018Verdicts": {
+   "status": "APPLIED to live graph (pass 52) and mirrored here",
+   "verdicts": 10,
+   "billsWithVerdictTotal": 109,
+   "billsPendingTotal": 32,
+   "note": "Batch-018 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-018/ (Czech-native, requireCzech gate)."
   }
  },
  "rows": [
@@ -4067,10 +4074,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 935964309.85,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [
     "municipal_soe_excluded"
@@ -4083,7 +4090,9 @@
     "CHOMUTOVSKÁ BYTOVÁ a.s.",
     "Dopravní podnik měst Chomutova a Jirkova a.s."
    ],
-   "triageScoreV2": 202294
+   "triageScoreV2": 202294,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-70.json"
   },
   {
    "tiskId": 43383,
@@ -4097,10 +4106,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 551584148.19,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [
     "mp_group",
@@ -4126,7 +4135,9 @@
     "Oblastní nemocnice Trutnov a.s.",
     "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY"
    ],
-   "triageScoreV2": 202248
+   "triageScoreV2": 202248,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-261.json"
   },
   {
    "tiskId": 43311,
@@ -4143,16 +4154,18 @@
    "amendsCount": 4,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 202000
+   "triageScoreV2": 202000,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-190.json"
   },
   {
    "tiskId": 43185,
@@ -4166,10 +4179,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 4432684.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [
     "municipal_soe_excluded"
@@ -4179,7 +4192,9 @@
    "municipalExcludedCompanies": [
     "Vodovody a kanalizace Kroměříž, a.s."
    ],
-   "triageScoreV2": 201829
+   "triageScoreV2": 201829,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-78.json"
   },
   {
    "tiskId": 43256,
@@ -4193,10 +4208,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 3968570,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [
     "mp_group"
@@ -4204,7 +4219,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 201820
+   "triageScoreV2": 201820,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-133.json"
   },
   {
    "tiskId": 43236,
@@ -4218,10 +4235,10 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 1296198.5,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [
     "mp_group",
@@ -4232,7 +4249,9 @@
    "municipalExcludedCompanies": [
     "Vodovody a kanalizace Vyškov,a.s."
    ],
-   "triageScoreV2": 201723
+   "triageScoreV2": 201723,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-107.json"
   },
   {
    "tiskId": 43313,
@@ -4248,16 +4267,18 @@
    "amendsCount": 3,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 201500
+   "triageScoreV2": 201500,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-018/verdict-192.json"
   },
   {
    "tiskId": 43168,
@@ -4271,16 +4292,18 @@
    "amendsCount": 1,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 594,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 201055
+   "triageScoreV2": 201055,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-61.json"
   },
   {
    "tiskId": 43112,
@@ -4321,16 +4344,18 @@
    "amendsCount": 2,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 201000
+   "triageScoreV2": 201000,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-153.json"
   },
   {
    "tiskId": 43353,
@@ -4345,16 +4370,18 @@
    "amendsCount": 2,
    "maxTargetChurn": 2,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 18,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 201000
+   "triageScoreV2": 201000,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-018/verdict-231.json"
   },
   {
    "tiskId": 43122,

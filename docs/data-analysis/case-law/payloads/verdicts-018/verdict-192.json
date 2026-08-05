@@ -1,0 +1,72 @@
+{
+ "billTisk": 192,
+ "statedReasoning": "Vládní návrh (předkladatel ministr kultury) mění tři zákony najednou: knihovní zákon č. 257/2001 Sb., zákon č. 37/1995 Sb., o neperiodických publikacích, a tiskový zákon č. 46/2000 Sb. Důvodová zpráva jej odůvodňuje potřebou reagovat na technologický vývoj: dosavadní povinnost odevzdávat povinný výtisk se váže jen na hmotné rozmnoženiny (tištěné knihy, noviny, časopisy), zatímco stále více publikací a periodik vzniká a je šířeno pouze elektronicky online. Návrh proto zavádí nový pojem „pořízení“ neperiodické publikace (elektronické vydání bez hmotného nosiče) a „elektronický periodický tisk“, na které se rozšiřuje povinnost odevzdávat povinný výtisk Národní knihovně a dalším určeným knihovnám. Knihovní zákon se mění tak, aby Národní knihovna mohla nově budovat databázi těchto elektronických povinných výtisků a dále databázi vybraných volně dostupných webových stránek s trvalou politickou, hospodářskou, právní, historickou, kulturní, vědeckou nebo informační hodnotou, a zpřístupňovat obsah těchto databází mj. ve formě otevřených dat. Zpráva výslovně uvádí, že navazuje na obsahově shodný, v 9. volebním období nedokončený sněmovní tisk č. 773 (a dříve tisk č. 646 z 8. volebního období). Náklady na provoz nové agendy Národní knihovny vyčísluje na cca 15 mil. Kč ročně (z toho cca 7,2–7,8 mil. Kč na platy 10 pracovních míst), hrazené z kapitoly 334 – Ministerstvo kultury bez navýšení počtu systemizovaných míst; dopad na podnikatelské prostředí označuje za minimální, korupční rizika za žádná, neboť se podle zprávy nerozšiřují pravomoci orgánů státní správy, pouze zmocnění Národní knihovny.",
+ "researchedContext": "Text potvrzuje rozsah tvrzený zprávou beze zbytku, pokud jde o počet novelizovaných předpisů: Část první mění knihovní zákon (čl. I), Část druhá zákon o neperiodických publikacích (čl. II), Část třetí tiskový zákon (čl. III) a Část čtvrtá stanoví účinnost (čl. IV) — celkem tři novelizované zákony, přesně jak uvádí uzel tisku v grafu i titulní výčet zákona; jde tedy o skutečně tříčlennou novelu, nikoli o skryté omnibusové rozšíření na další předpisy. Nové písmeno c) v § 9 odst. 2 knihovního zákona (vkládané spolu s písmenem d)) zakládá zmocnění Národní knihovny sbírat a uchovávat vybrané informace mající „trvalou hodnotu danou jejich politickým, hospodářským, právním, historickým, kulturním, vědeckým nebo informačním významem“, volně dostupné prostřednictvím služeb informační společnosti, a pořizovat z nich databázi. Samotný text zákona vymezuje výběr jen tímto uzavřeným výčtem kategorií hodnoty a neobsahuje schvalovací ani přezkumný mechanismus; zvláštní část důvodové zprávy k tomu otevřeně uvádí, že konkrétní kritéria „jaké webové stránky budou harvestovány, tedy určí primárně Národní knihovna“, že „je nepraktické tato kritéria určovat zákonem“, a odkazuje na sběrnou politiku (collection policy) Národní knihovny se třemi typy sklizní — výběr politicky relevantního obsahu je tedy záměrně svěřen interní politice instituce zřízené Ministerstvem kultury, mimo zákon i mimo zvláštní schvalovací mechanismus. Část, která mění postavení Národní knihovny při kolektivní správě (bod 2, § 9 odst. 2 písm. h), nahrazuje dosavadní úhradu odměn za půjčování knihovnami novým zmocněním uzavírat jménem knihoven systému knihoven smlouvy s kolektivními správci a platit odměny za užití předmětů ochrany těmito knihovnami obecně — tedy širší rozsah odměn než dosavadní úzce vymezené půjčovné; zvláštní část zprávy toto rozšíření zdůvodňuje navazujícím rozšířením možností užití databází a povinných výtisků podle § 97e autorského zákona (rozšířená kolektivní správa), ale nekvantifikuje očekávaný nárůst objemu takto hrazených odměn.",
+ "unstatedEffects": [
+  {
+   "effect": "Nové zmocnění Národní knihovny sbírat a trvale uchovávat volně dostupný obsah internetu s „politickým… významem“ (§ 9 odst. 2 písm. c) knihovního zákona) svěřuje výběr toho, co má takovou hodnotu, odborné úvaze samotné instituce: zákon vymezuje jen uzavřený výčet kategorií hodnoty, ale nestanoví povinnost zveřejnit metodiku sběru ani mechanismus přezkumu jednotlivých rozhodnutí o zařazení či nezařazení konkrétního webu do archivu, a zvláštní část zprávy výslovně uvádí, že konkrétní kritéria určí primárně sama Národní knihovna svou sběrnou politikou, protože je „nepraktické tato kritéria určovat zákonem“. Zhodnocení korupčních rizik v důvodové zprávě se soustředí výhradně na to, že se nerozšiřují pravomoci „orgánů státní správy“ (Národní knihovna jimi formálně není), a otázku diskrečního výběru politicky relevantního obsahu vůbec neřeší.",
+   "whoBenefits": "Nelze jednoznačně určit — jde o riziko netransparentnosti výběru u instituce zřizované Ministerstvem kultury, nikoli o zvýhodnění konkrétní osoby nebo firmy; profituje z něj potenciálně kdokoli, kdo by mohl ovlivnit, který obsah se do archivu zařadí nebo nezařadí.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  },
+  {
+   "effect": "Nová dikce § 9 odst. 2 písm. h) knihovního zákona nahrazuje dosavadní úzce vymezenou úhradu odměn za půjčování knihovnami obecnějším zmocněním Národní knihovny uzavírat jménem celého systému knihoven smlouvy s kolektivními správci a hradit odměny za užití předmětů ochrany těmito knihovnami. Zvláštní část důvodové zprávy toto rozšíření odůvodňuje navazujícím rozšířením možností využití nově budovaných databází (rozšířená kolektivní správa podle § 97e autorského zákona), ale část věnovaná hospodářskému a finančnímu dopadu vyčísluje jen náklady na provoz Národní knihovny (cca 15 mil. Kč/rok) a o očekávaném nárůstu plateb kolektivním správcům se nezmiňuje ani orientačním odhadem.",
+   "whoBenefits": "Kolektivní správci autorských práv, jimž má Národní knihovna nově platit odměny za širší okruh užití předmětů ochrany, než jaký dosud pokrývalo půjčovné — přesná výše tohoto rozšířeného peněžního toku ale ve zprávě chybí.",
+   "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jde o vládní návrh předložený ministrem kultury, nikoli o poslaneckou iniciativu; v datech je u tisku evidován jediný poslanec, Oto Klempíř, a to v roli garančního výboru (výbor vedený v rozpisu projednávání zkratkou VMZ), nikoli jako předkladatel věcného obsahu návrhu. Uzel tohoto poslance v grafu nenese žádnou peněžní vazbu na soukromou firmu, takže z dostupných dat neplyne žádný přímý majetkový střet zájmů u osoby formálně spojené s projednáváním tisku. Věcně jde o úpravu povinností knihoven, vydavatelů a Národní knihovny vůči státu a kolektivním správcům, nikoli o smlouvu nebo dotaci ve prospěch konkrétní soukromé firmy vlastněné či řízené některým poslancem, takže ani při doplnění dat o dalších osobách by nebyl důvod očekávat majetkový střet zájmů tohoto typu.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Tisk mění tři zákony ve třech částech (Část první — čl. I knihovní zákon č. 257/2001 Sb., Část druhá — čl. II zákon č. 37/1995 Sb., Část třetí — čl. III tiskový zákon č. 46/2000 Sb.) a Část čtvrtá stanoví účinnost; počet novelizovaných zákonů odpovídá výčtu v titulu zákona i v uzlu tisku v grafu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  },
+  {
+   "claim": "Nové písmeno c) v § 9 odst. 2 knihovního zákona zakládá zmocnění Národní knihovny sbírat, uchovávat a zpřístupňovat vybrané informace trvalé hodnoty dané mimo jiné jejich politickým významem a pořizovat z nich databázi; konkrétní kritéria výběru text zákona neurčuje a zvláštní část zprávy je svěřuje sběrné politice Národní knihovny.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  },
+  {
+   "claim": "Bod 2 mění § 9 odst. 2 písm. h) knihovního zákona tak, že Národní knihovna nově jménem knihoven systému knihoven uzavírá smlouvy s kolektivními správci a platí odměny za užití předmětů ochrany, nikoli jen dosavadní odměny za půjčování.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy zdůvodňuje rozšíření zmocnění Národní knihovny při kolektivní správě navazujícím rozšířením možností užití databází a povinných výtisků ve smyslu § 97e zákona č. 121/2000 Sb. (rozšířená kolektivní správa), bez vyčíslení dopadu na objem hrazených odměn.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  },
+  {
+   "claim": "Bod 12 zhodnocení dopadů regulace uvádí, že návrh nepřináší korupční rizika, protože nerozšiřuje pravomoci orgánů státní správy, pouze zakládá zmocnění pro Národní knihovnu; otázka diskrečního výběru archivovaného webového obsahu se v tomto zhodnocení neřeší.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  },
+  {
+   "claim": "Hospodářský a finanční dopad na kapitolu 334 – Ministerstvo kultury je vyčíslen na cca 15 mil. Kč ročně (z toho cca 7,2 mil. Kč v prvním roce a 7,8 mil. Kč v pátém roce na platy 10 pracovních míst), bez navýšení počtu systemizovaných míst, a návrh navazuje na obsahově shodné dřívější tisky č. 646 (8. volební období) a č. 773 (9. volební období).",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+  },
+  {
+   "claim": "Knihovní zákon č. 257/2001 Sb. je prvním ze tří novelizovaných předpisů.",
+   "kind": "law",
+   "source": "257/2001"
+  },
+  {
+   "claim": "Zákon č. 37/1995 Sb., o neperiodických publikacích, je druhým novelizovaným předpisem.",
+   "kind": "law",
+   "source": "37/1995"
+  },
+  {
+   "claim": "Tiskový zákon č. 46/2000 Sb. je třetím novelizovaným předpisem.",
+   "kind": "law",
+   "source": "46/2000"
+  },
+  {
+   "claim": "Rozšířená kolektivní správa, na niž se zvláštní část zprávy odvolává, je upravena v § 97e autorského zákona č. 121/2000 Sb.",
+   "kind": "law",
+   "source": "121/2000"
+  }
+ ]
+}

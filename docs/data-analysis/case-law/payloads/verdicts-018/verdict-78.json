@@ -1,0 +1,72 @@
+{
+ "billTisk": 78,
+ "statedReasoning": "Důvodová zpráva k tisku 78 (poslanecký návrh Andreje Babiše) navrhuje jedinou věcnou změnu: do výčtu významných dnů v § 4 odst. 1 zákona č. 245/2000 Sb., o státních svátcích, doplnit 30. březen jako „Den české vlajky“. Zpráva zdůrazňuje, že jde o významný den, nikoli o státní ani ostatní svátek, takže 30. březen zůstává i nadále pracovním dnem. Jako důvod volby data uvádí schválení podoby státní vlajky zákonem z roku 1920. Zpráva výslovně uvádí, že návrh nemá žádný hospodářský ani finanční dopad na státní rozpočet ani jiné veřejné rozpočty, nepředstavuje korupční riziko a nemá dopad na ochranu soukromí, rovnost mužů a žen ani na bezpečnost státu. Klíčovým prvkem odůvodnění je časová naléhavost: předkladatel žádá schválení již v prvním čtení podle § 90 odst. 2 jednacího řádu Poslanecké sněmovny s tím, že standardní projednání by trvalo měsíce a účinnost by nebylo možné stihnout do letošního 30. března; jakékoli zpoždění by podle zprávy posunulo reálné zavedení dne až na 30. březen 2027.",
+ "researchedContext": "Nezávislé ověření na oficiální stránce historie projednávání tisku 78 ukazuje, že se naléhavostní premisa zprávy nenaplnila tak, jak předkladatel předpokládal. Sněmovna sice vyslovila souhlas s návrhem již v prvním čtení dne 3. 3. 2026 (usnesení č. 92), návrh zákona ale poté prošel Senátem, který jej dne 25. 3. 2026 vrátil Sněmovně s pozměňovacími návrhy - tedy přesně to procesní kolo, které zrychlené jednočtenové schválení mělo obejít. Sněmovna na schůzi 15. 4. 2026 setrvala na původním znění (usnesení č. 153), prezident zákon podepsal 28. 4. 2026 a zákon byl vyhlášen 12. 5. 2026 ve Sbírce zákonů pod číslem 59/2026 Sb. Konečné datum vyhlášení tak padlo více než šest týdnů po 30. březnu 2026 - datu, které zpráva sama označila za jediný smysl navrhovaného zrychleného postupu. Obsah pozměňovacích návrhů, které Senát k tisku připojil, nebyl v rámci tohoto zpracování ověřen z primárního textu senátního usnesení a nelze jej proto blíže popsat.",
+ "unstatedEffects": [
+  {
+   "effect": "Důvodová zpráva stanovuje jediný účel zrychleného projednání v prvním čtení - stihnout účinnost do 30. března 2026 - a sama varuje, že opožděná účinnost odsune zavedení dne o celý rok, na 30. březen 2027. Zpráva ale nikde nezmiňuje, že souhlas Sněmovny v prvním čtení automaticky nezaručuje rychlé přijetí zákona, protože Senát si i u jednočtenově schváleného návrhu ponechává ústavní možnost vrátit zákon s pozměňovacími návrhy. Přesně to se stalo: senátní vrácení dne 25. 3. 2026 a následné projednání v Sněmovně posunuly konečné vyhlášení na 12. 5. 2026, tedy o více než šest týdnů po datu, které mělo být jediným smyslem zrychleného postupu.",
+   "whoBenefits": "Cíl zprávy - oslava Dne české vlajky již 30. března 2026 - nebyl navzdory zrychlenému postupu naplněn; ke skutečnému zavedení dojde až v roce 2027, přesně jak zpráva sama popsala jako důsledek jakéhokoli zpoždění. Nikdo z účastníků legislativního procesu z tohoto zpoždění neprofituje, nejde o otázku peněžního prospěchu.",
+   "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=78"
+  },
+  {
+   "effect": "Zpráva návrh popisuje jako „jednoznačnou a jednoduchou změnu, která nevyžaduje delší odbornou diskuzi a přípravu případných pozměňovacích návrhů“ a na tomto tvrzení staví žádost o schválení bez druhého a třetího čtení ve Sněmovně. Skutečný průběh tuto premisu nepotvrdil - Senát ke stejnému, jednořádkovému textu přesto přistoupil s pozměňovacími návrhy, což je v rozporu s očekáváním zprávy, že věc nevyvolá potřebu další úpravy textu.",
+   "whoBenefits": "Nelze určit - jde o zjištění o kvalitě odůvodnění zrychleného postupu, nikoli o finanční nebo osobní prospěch konkrétní strany.",
+   "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=78"
+  }
+ ],
+ "conflictAssessment": "Pod archivovaným textem tisku je jako jediný předkladatel podepsán Andrej Babiš („V Praze dne 12. ledna 2026 / Ing. Andrej Babiš v. r.“). Datová sada tohoto tisku ovšem eviduje v řádku předkladatele jinou osobu — Radka Vondráčka, s jednou vazbou řídicího typu (přičitatelnou) na Vodovody a kanalizace Kroměříž, a.s., s úhrnem veřejných smluv firmy 391 010 121 Kč, a se dvěma svěřeneckými vazbami (předseda dozorčí rady NEXNET, a.s.; člen dozorčí rady MAE invest a.s.), jejichž veřejné smlouvy jsou penězi institucí, nikoli poslance; žádná z těchto firem nemá k předmětu tisku (kalendář významných dnů) myslitelný vztah a všechny vazby čekají na lidskou kontrolu. Tento rozpor mezi podpisem na tisku a evidovaným řádkem uvádíme výslovně a hodnotíme OBĚ osoby. Andrej Babiš má v grafu evidováno 14 peněžních vazeb na firmy: čtyři vazby, kde je jednatelem nebo přímým vlastníkem (CS CABOT, AGROPROFIT, Hartenberg Holding, AGRONOVA CS), čtyři vazby v řídicí funkci - předseda nebo člen představenstva (IMOBA, AGROFERT, PROFROST, SynBiol) - a šest vazeb v dohledové funkci - předseda nebo člen správní či dozorčí rady (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie). Všechny tyto firmy působí v zemědělství, chemickém průmyslu, potravinářství nebo v diverzifikovaném holdingu; žádná z nich nemá věcnou vazbu na kalendář významných dnů, cestovní ruch spjatý s tímto svátkem, ani na jakoukoli regulovanou nebo dotovanou činnost, které by se tento tisk dotýkal. Ani vazby vlastnického a řídicího typu (obě tyto třídy se podle metodiky tohoto projektu přičítají poslanci jako dosažitelné peníze), ani vazby v dohledové funkci (které se přičítají instituci, nikoli osobě) nemají k předmětu tisku - doplnění jednoho významného dne bez právních účinků - žádný myslitelný vztah. V datech proto není zjištěn střet zájmů; všech 14 vazeb i vazba Radka Vondráčka nadále čekají na lidskou kontrolu, stejně jako zbytek grafu. Nad rámec tohoto tisku eviduje korpus ještě jeden souběžný tisk (č. 238), který rovněž novelizuje zákon č. 245/2000 Sb.: jeho archivovaný text vkládá do § 4 nový významný den „28. srpen – Den Orla“ na jiné místo výčtu, než kam tisk 78 vložil „30. březen – Den české vlajky“, a jeho úplné znění § 4 už vlajkový den nese jako platný text (výčet novelizací cituje i zákon č. 59/2026 Sb., jímž byl tisk 78 vyhlášen) — textová kolize mezi oběma tisky tedy z archivovaných textů zjištěna nebyla.",
+ "severity": "low",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Čl. I vkládá do § 4 odst. 1 zákona č. 245/2000 Sb. za slova „28. březen - Den narození Jana Ámose Komenského,“ nová slova „30. březen – Den české vlajky,“.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=78&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod E) uvádí, že novela nebude mít žádný hospodářský ani finanční dopad na státní rozpočet ani ostatní veřejné rozpočty, mimo jiné proto, že navržený významný den zůstává pracovním dnem.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=78&ct1=0"
+  },
+  {
+   "claim": "Důvodová zpráva (bod G) žádá o vyslovení souhlasu již v prvním čtení podle § 90 odst. 2 zákona o jednacím řádu Poslanecké sněmovny a uvádí, že jakákoli pozdější účinnost by navrhovanou změnu odsunula až na 30. březen 2027.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=78&ct1=0"
+  },
+  {
+   "claim": "Sněmovna schválila návrh v prvním čtení dne 3. 3. 2026 (usnesení č. 92); Senát vrátil návrh s pozměňovacími návrhy dne 25. 3. 2026; Sněmovna setrvala na původním znění dne 15. 4. 2026 (usnesení č. 153); prezident zákon podepsal 28. 4. 2026; zákon byl vyhlášen 12. 5. 2026 jako zákon č. 59/2026 Sb.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=78"
+  },
+  {
+   "claim": "Tisk 238 vkládá do § 4 zákona č. 245/2000 Sb. nový významný den „28. srpen – Den Orla“ na jiné místo výčtu než tisk 78 a jeho úplné znění § 4 cituje mezi novelizacemi i zákon č. 59/2026 Sb.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+  },
+  {
+   "claim": "Graf eviduje u tisku 78 v řádku předkladatele Radka Vondráčka s vazbou řídicího typu na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871), úhrn veřejných smluv firmy 391 010 121 Kč; vazba čeká na lidskou kontrolu.",
+   "kind": "graph_fact",
+   "source": "psp:person:6165"
+  },
+  {
+   "claim": "Zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, je zákon novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "245/2000"
+  },
+  {
+   "claim": "Graf eviduje u Andreje Babiše peněžní vazbu vlastníka/jednatele na CS CABOT, spol. s r.o., a na AGRONOVA CS s.r.o.",
+   "kind": "graph_fact",
+   "source": "psp:person:6150"
+  },
+  {
+   "claim": "Graf eviduje u společnosti AGROFERT, a.s. (IČO 26185610) vazbu Andreje Babiše ve funkci předsedy představenstva.",
+   "kind": "graph_fact",
+   "source": "company:ico:26185610"
+  },
+  {
+   "claim": "Graf eviduje u společnosti Nadace AGROFERT (IČO 24188581) vazbu Andreje Babiše ve funkci předsedy správní rady.",
+   "kind": "graph_fact",
+   "source": "company:ico:24188581"
+  }
+ ]
+}

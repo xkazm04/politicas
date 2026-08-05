@@ -26,7 +26,7 @@ async function main() {
   console.log(`bills with forensic: ${withF} · by pass: ${JSON.stringify([...passes.entries()].sort((a, b) => a[0] - b[0]))}`);
   console.log(`laws: ${laws.length} · amends: ${amends.length}`);
   // Expectations as of pass 50 (update on each batch's finalize):
-  const EXPECT = { withF: 99, laws: 293, amends: 582, passes: [45, 47, 48, 49, 50, 51] };
+  const EXPECT = { withF: 109, laws: 293, amends: 582, passes: [45, 47, 48, 49, 50, 51, 52] };
   const missing = EXPECT.passes.filter((p) => !passes.has(p));
   const ok = withF === EXPECT.withF && laws.length === EXPECT.laws && amends.length === EXPECT.amends && missing.length === 0;
   console.log(ok ? "PROBE OK — live matches the ledgered state." : `PROBE MISMATCH — ${missing.length ? `missing passes ${missing.join(",")}; ` : ""}expected ${JSON.stringify(EXPECT)}. A backup may have been restored — replay before writing.`);

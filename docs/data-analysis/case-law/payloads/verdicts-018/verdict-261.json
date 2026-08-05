@@ -1,0 +1,62 @@
+{
+ "billTisk": 261,
+ "statedReasoning": "Návrh osmi poslanců (Jan Bureš, Petr Bendl, Karel Haas, Marek Benda, Ivan Adamec, Jakub Janda, Jan Bauer, Jana Bačíková) mění § 20 zákona č. 114/1992 Sb., o ochraně přírody a krajiny, který upravuje složení a rozhodování rady národního parku. Návrh (1) doplňuje mezi zákonem určené členy rady zástupce Hasičského záchranného sboru ČR, (2) zavádí nový odstavec 4, podle kterého se návrh dokumentu ochrany a řízení parku považuje za dohodnutý jen tehdy, souhlasí-li s ním odděleně nadpoloviční většina přítomných členů delegovaných samosprávami i nadpoloviční většina přítomných členů jmenovaných orgánem ochrany přírody (tzv. dvoukolejné hlasování), přičemž při nedosažení shody se koná další pokus o znovuprojednání, a (3) přepracovává eskalační mechanismus tak, že přetrvávající rozpor předkládá rada Ministerstvu životního prostředí, které o něm rozhoduje až po projednání vládou. Přechodné ustanovení (Čl. II) dává nadpoloviční většině zástupců kterékoli ze dvou skupin právo do dvou let od účinnosti požádat o nové projednání a schválení dokumentů ochrany a řízení parku, které rada schválila ještě podle dosavadní úpravy. Důvodová zpráva uvádí jako hlavní cíl posílení role obcí a krajů v národních parcích, tvrdí nulový rozpočtový dopad, soulad s ústavním pořádkem i právem EU a absenci jakéhokoli kontaktu s lobbistou při přípravě návrhu. Zvláštní část k Čl. II dodává, že u dokumentů, na nichž dosud panovala shoda, bude jejich případné opětovné přeschválení naprosto hladké a bezproblémové.",
+ "researchedContext": "Text potvrzuje, že současná právní úprava podle bodu 2 obecné části skutečně nezajišťuje nutnost shody obou skupin členů rady, takže samosprávy mohou být podle důvodové zprávy v radě dosud přehlasovány - návrh tento stav mění zavedením odděleného hlasování obou skupin jako podmínky schválení. Podle historie projednávání na stránkách Poslanecké sněmovny byl návrh podán 14. 7. 2026, rozeslán poslancům 15. 7. 2026 jako tisk 261/0, vláda k němu 28. 7. 2026 zaujala nesouhlasné stanovisko (tisk 261/1) a 30. 7. 2026 byl podle stránky historie projednávání přikázán Výboru pro životní prostředí se zpravodajem Ondřejem Babkou (rozpis projednávání v datové sadě tohoto tisku žádné přikázání nenese — údaj stojí jen na psp.cz); k 5. 8. 2026 je tisk ve fázi projednávání ve výboru, hlasování v žádném čtení dosud neproběhlo. Zákon č. 114/1992 Sb. je jediným předpisem, který tisk 261 mění, v souladu s údaji případového spisu.",
+ "unstatedEffects": [
+  {
+   "effect": "Přechodné ustanovení Čl. II umožňuje kterékoli ze dvou skupin členů rady (samosprávám i odborníkům jmenovaným orgánem ochrany přírody) žádat do dvou let o nové projednání a schválení dokumentů ochrany a řízení parku, které byly schváleny ještě podle dosavadní úpravy - tedy podle mechanismu, který podle bodu 2 obecné části nezajišťuje nutnost shody obou skupin. Zvláštní část k Čl. II přesto tvrdí, že opětovné přeschválení dokumentů, na nichž doposud panoval konsenzus, bude naprosto hladké a bezproblémové, aniž by se vypořádala s tím, že u dokumentů schválených bez odděleného souhlasu obou skupin (což byl podle bodu 2 běžný scénář za dosavadní úpravy) může nové hlasování podle nově zavedeného dvoukolejného pravidla vést k tomu, že dříve platný dokument neprojde vůbec - právě proto, že o přeschválení požádá ta skupina, jejíž souhlas dříve chyběl.",
+   "whoBenefits": "Nelze jednoznačně určit, kdo z aktérů řízení národního parku z tohoto mechanismu profituje - text nekvantifikuje, kolik dosud schválených dokumentů ochrany a řízení parku (například zásad péče o národní park nebo zonace) by novým dvoukolejným hlasováním neprošlo, ani jak by se park řídil, pokud by přeschválení do dvou let nebylo dosaženo.",
+   "evidence": "Čl. II tisku 261 ve spojení s bodem 2 obecné části důvodové zprávy a se zvláštní částí k Čl. II („bude jejich případné opětovné přeschválení naprosto hladké a bezproblémové“)."
+  },
+  {
+   "effect": "Bod 1 novely vkládá zástupce Hasičského záchranného sboru ČR do stejné, zákonem určené skupiny členů rady, do níž patří i zástupci samospráv a Horské služby - tedy do té skupiny, jejíž hlasovací práh nově zavedené dvoukolejné hlasování (bod 2, nový § 20 odst. 4) počítá zvlášť jako nadpoloviční většinu přítomných členů této skupiny. Ani obecná, ani zvláštní část důvodové zprávy neuvádí, kolik členů tato skupina rady po doplnění o zástupce Hasičského záchranného sboru ČR bude čítat, ani jak přidání dalšího zákonného zástupce ovlivní poměr hlasovací síly uvnitř skupiny, kterou stejná novela ve stejném článku poprvé staví do pozice se samostatným vetem.",
+   "whoBenefits": "Nelze jednoznačně určit - přidání dalšího člena do skupiny zákonných zástupců mění vnitřní poměry hlasování uvnitř této skupiny právě ve chvíli, kdy tatáž novela dává hlasu této skupiny jako celku nově váhu rovnocennou druhé skupině (odborní a další jmenovaní členové); text neuvádí, kolik hlasů má po novele každá ze skupin.",
+   "evidence": "Bod 1 (§ 20 odst. 2 věta první) a bod 2 (nový § 20 odst. 4) tisku 261, obě ustanovení novelizující tentýž paragraf v témže článku."
+  }
+ ],
+ "conflictAssessment": "Žádný z osmi předkladatelů evidovaných v případovém spisu (Jan Bureš, Petr Bendl, Karel Haas, Marek Benda, Ivan Adamec, Jakub Janda, Jan Bauer, Jana Bačíková) nedrží podle případového souboru peněžních vazeb vlastnickou/řídící vazbu na společnost nebo instituci, která by věcně působila ve správě některého ze čtyř českých národních parků nebo obecněji v ochraně přírody a krajiny, jíž se novela týká. Jan Bureš drží jedinou vlastnickou/řídící vazbu (ZPS holding s.r.o., strojírenství, s částkou veřejných smluv 0 Kč podle registru smluv), jeho dalších sedm vazeb (Údržba silnic Karlovarského kraje, Léčebné lázně Jáchymov, Vodárny a kanalizace Karlovy Vary, Ostrovská teplárenská, Povodí Ohře, Česká asociace věřitelů a Chráněná dílna Ostrov — poslední dvě s nulovým úhrnem) je podle případového spisu svěřeneckých. Petr Bendl drží podle případového souboru peněžních vazeb šest vazeb: pět svěřeneckých (Vzdělávací centrum pro veřejnou správu ČR, Energie - stavební a báňská a.s., MERO ČR, Svaz měst a obcí ČR, Povodí Vltavy) a jednu vazbu řídicího typu — PRAK spol. s r.o., role člen představenstva, bez evidovaného úhrnu veřejných smluv u této vazby a se stupněm ověření „rozporná“ (zadání tisku vede tutéž vazbu pod jiným IČO a názvem „PRaK, a.s. v likvidaci“ — rozpor v identifikaci firmy, který tento verdikt uvádí a nerozhoduje). U vazby na Energie - stavební a báňská a.s. dřívější hodnocení tisku 103 upozornilo, že jde o soukromou akciovou společnost bez zjištěného veřejného vlastníka, a jeho citace zároveň nese jediné datované zjištění o této vazbě: podle obchodního rejstříku byl Bendl členem dozorčí rady této firmy pouze od 8. 11. 1996 do 23. 2. 2001 a žádný novější vztah rejstřík neeviduje. Podle aktuálních dat případového souboru je vazba evidována jako svěřenecká, takže úhrn jejích veřejných smluv je penězi instituce, nikoli Bendlovým osobním příjmem, a navíc jde o stavební a báňskou firmu, která nepůsobí v ochraně přírody. Bendlova svěřenecká vazba na Svaz měst a obcí České republiky je jediná, jejíž povaha - nikoli peněžní výše - stojí za zmínku: podle případového souboru peněžních vazeb je u ní evidována role „místopředseda“, tedy vedoucí funkce ve svazu reprezentujícím právě ty samosprávy, jejichž posílenou roli v národních parcích tato novela deklaruje jako svůj hlavní cíl. Tatáž vazba je ale v případovém souboru vedena se stupněm ověření „rozporná“, a nezávislé dohledání na oficiálních životopisných stránkách Poslanecké sněmovny a na osobních stránkách Petra Bendla tuto konkrétní funkci ani její dataci nepotvrdilo ani nevyvrátilo - oba prameny uvádějí jinou část jeho kariéry (starosta Kladna 1994-1998) beze zmínky o Svazu měst a obcí. Případový spis dataci této vazby nenese a nezávislé ověření ji nedoplnilo; jde tedy o neurčenou, nikoli vyloučenou institucionální souvislost, kterou tento verdikt uvádí jen pro úplnost a s vědomím, že jde o svěřeneckou, nikoli vlastnickou/řídící vazbu, jejíž případné veřejné smlouvy (57 751 425 Kč podle registru smluv) jsou penězi instituce, nikoli Bendlovým osobním příjmem. Karel Haas drží vlastnickou/řídící vazbu na ČSOB Pojišťovnu, a.s. (pojišťovnictví), Marek Benda svěřeneckou vazbu na společenství vlastníků jednotek (úhrn veřejných smluv 2 590 Kč je penězi tohoto společenství, nikoli poslance), Jan Bauer vlastnickou/řídící vazbu na RERA a.s. (regionální rozvojová agentura) a svěřenecké vazby na Wellness sv. Markéta, Robert Bosch spol. s r.o. a TAMPA s.r.o. Ivan Adamec drží vlastnickou/řídící vazbu na Společnost Horní Labe a.s. (odpadové hospodářství, sídlem Trutnov) a svěřenecké vazby na Technické služby Trutnov, Lesy a parky Trutnov, Oblastní nemocnici Trutnov, Všeobecnou zdravotní pojišťovnu ČR a TRANSPORT Trutnov; ani provoz odpadového hospodářství, ani žádná z jeho ostatních vazeb nepůsobí ve správě národního parku ani v ochraně přírody a krajiny, přestože jde o vazby soustředěné v trutnovském regionu, v jehož sousedství leží Krkonošský národní park. Jakub Janda a Jana Bačíková nemají v případovém spisu evidovánu žádnou peněžní vazbu. Věcný střet mezi soukromým ekonomickým zájmem některého z předkladatelů a operativním obsahem novely (hlasovací mechanismus rady národního parku) nebyl na základě dostupných dat zjištěn; všechny uvedené vazby čekají podle případového spisu na lidskou kontrolu.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Novela vkládá do § 20 odst. 2 zákona č. 114/1992 Sb. zástupce Hasičského záchranného sboru ČR jako zákonného člena rady národního parku a novým § 20 odst. 4 zavádí dvoukolejné hlasování, podle něhož musí návrh dokumentu ochrany a řízení parku podpořit nadpoloviční většina obou zákonem oddělených skupin členů rady.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=261&ct1=0"
+  },
+  {
+   "claim": "Přechodné ustanovení Čl. II umožňuje nadpoloviční většině kterékoli ze dvou skupin členů rady žádat do dvou let od účinnosti o nové projednání a schválení dokumentů ochrany a řízení národního parku schválených podle dosavadní úpravy.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=261&ct1=0"
+  },
+  {
+   "claim": "Podle bodu 2 obecné části důvodové zprávy současná úprava nezajišťuje nutnost shody obou skupin členů rady, takže zástupci samospráv mohou být v radě přehlasováni.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=261&ct1=0"
+  },
+  {
+   "claim": "Návrh podala skupina poslanců vedená Janem Burešem 14. 7. 2026, vláda k němu 28. 7. 2026 zaujala nesouhlasné stanovisko a 30. 7. 2026 byl podle stránky historie projednávání přikázán Výboru pro životní prostředí se zpravodajem Ondřejem Babkou (rozpis projednávání v datové sadě tohoto tisku žádné přikázání nenese — údaj stojí jen na psp.cz); k 5. 8. 2026 zůstává tisk ve fázi projednávání ve výboru.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=261"
+  },
+  {
+   "claim": "Tisk 261 mění zákon č. 114/1992 Sb. a jeho okruh osmi evidovaných předkladatelů zahrnuje osoby uvedené v případovém souboru včetně jejich peněžních vazeb a částek.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43383"
+  },
+  {
+   "claim": "Energie - stavební a báňská a.s. je stavební a báňská společnost, jejíž vazba na Petra Bendla je v aktuálním případovém souboru peněžních vazeb evidována jako svěřenecká.",
+   "kind": "graph_fact",
+   "source": "company:ico:45146802"
+  },
+  {
+   "claim": "Petr Bendl je v případovém souboru peněžních vazeb u Svazu měst a obcí České republiky evidován v roli místopředsedy, se stupněm ověření této vazby vedeným jako rozporný.",
+   "kind": "graph_fact",
+   "source": "company:ico:63113074"
+  },
+  {
+   "claim": "Zákon č. 114/1992 Sb., o ochraně přírody a krajiny, je jediný předpis novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "114/1992"
+  }
+ ]
+}

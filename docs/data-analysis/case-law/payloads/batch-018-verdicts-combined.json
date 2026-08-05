@@ -1,0 +1,652 @@
+[
+  {
+    "billTisk": 61,
+    "statedReasoning": "Vládní návrh (předkladatelka ministryně spravedlnosti) mění zákon č. 218/2003 Sb., o soudnictví ve věcech mládeže. Důvodová zpráva jej odůvodňuje výhradně nutností napravit rozdílné zacházení s vazebně stíhanými mladistvými oproti dospělým obviněným a uvést českou úpravu do souladu s rozsudkem Evropského soudu pro lidská práva ve věci Spišák proti České republice (č. 13968/22) z 20. června 2024, který shledal porušení článku 14 ve spojení s článkem 5 Úmluvy: u mladistvých stíhaných pro zvlášť závažné provinění se dosud neuplatňuje periodický přezkum trvání vazby po třech měsících jako u dospělých podle § 72 trestního řádu, o dalším trvání vazby se rozhoduje až při jejím prodloužení po uplynutí až šestiměsíční lhůty. Návrh proto do § 48 doplňuje výslovné obdobné použití § 72 trestního řádu i pro řízení o zvlášť závažném provinění, upřesňuje pojem „zvlášť závažné provinění“ v § 47 odst. 1, doplňuje procesní pravidla souběhu stížnosti a žádosti o propuštění z vazby, doplňuje mezi opatření nahrazující vazbu umístění mladistvého v péči důvěryhodné osoby (opomenuté ve výčtu, ač jinak dovozované z § 46 odst. 1) a v § 3 odst. 4 i § 89j zdůrazňuje zásadu přednosti jiného vyřízení věci před postavením mladistvého před soud, včetně toho, že státní zastupitelství při splnění zákonných podmínek návrh na uložení opatření nepodá (dosud jen „nemusí podat“). Hodnocení dopadů regulace (RIA) nebylo zpracováváno na základě výjimky udělené předsedou Legislativní rady vlády.",
+    "researchedContext": "Text potvrzuje, že věcný rozsah novely odpovídá tvrzenému účelu beze zbytku — všech jedenáct bodů čl. I se týká výhradně vazby mladistvých (§ 47 až 49) a zásady přednosti neformálního vyřízení věci (§ 3 odst. 4, § 89j), žádné ustanovení se netýká jiné materie zákona o soudnictví ve věcech mládeže. Zvláštní část důvodové zprávy k bodu 9 (§ 48 odst. 2) výslovně vysvětluje, že jde o promítnutí závěrů rozsudku Spišák proti ČR do zákona doplněním odkazu na § 72 trestního řádu. Zvláštní část k bodu 10 (§ 49) vysvětluje, že doplnění možnosti nahradit vazbu umístěním v péči důvěryhodné osoby napravuje neúplný výčet nahrazujících opatření — možnost nahradit vazbu předběžným opatřením podle trestního řádu byla ve výčtu opomenuta, ač ji zákon o soudnictví ve věcech mládeže jinak připouští skrze § 46 odst. 1 a subsidiární použití trestního řádu podle § 1 odst. 3. Zvláštní část k bodům 1 a 11 (§ 3 odst. 4 a § 89j) potvrzuje, že jde o jednu a tutéž zásadu individualizace promítnutou na dvou místech zákona: úprava § 89j odebírá státnímu zastupitelství možnost úvahy tam, kde jsou podmínky pro nepodání návrhu na uložení opatření splněny — státní zastupitelství „nemá možnost úvahy“ a musí návrh nepodat. Žádný z jedenácti bodů se netýká jiné materie, než jakou požadavky rozsudku Spišák a související úprava vazby vyžadují; nenalezen žádný bod, který by rozšiřoval trestní odpovědnost mladistvých nebo měnil hmotněprávní skutkové podstaty provinění.",
+    "unstatedEffects": [
+      {
+        "effect": "Odstranění diskrece státního zastupitelství v § 89j odst. 1 (dosud „nemusí podat, jestliže“, nově „nepodá, pokud má za to, že“) znamená, že jakmile státní zástupce sám dospěje k závěru, že podmínky pro nepodání návrhu na uložení opatření jsou splněny, je jeho rozhodnutí návrh nepodat závazné, a nemá již možnost zvážit jiné okolnosti případu a přesto návrh podat. Důvodová zpráva tuto změnu odůvodňuje zásadou individualizace a nezmiňuje žádný korektiv (např. přezkum nadřízeným státním zástupcem) pro případ, že by posouzení podmínek v konkrétním případě bylo sporné.",
+        "whoBenefits": "Mladiství obvinění, u nichž státní zastupitelství dospěje k závěru, že podmínky pro nepodání návrhu na uložení opatření jsou splněny — pro ně se posílí právní jistota neformálního vyřízení věci; text ani zvláštní část důvodové zprávy k § 89j neuvádí žádný mechanismus přezkumu takového posouzení.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Předkladatelkou je ministryně spravedlnosti v rámci vládního návrhu; v grafovém uzlu tisku je u tisku evidována poslankyně Eva Decroix, u níž jsou v grafu tři vlastnicko-provozní vazby na obchodní společnosti (ELEMENTA Agency s.r.o., Delices de papa s.r.o., Park Volmanec s.r.o.) — všechny tři podle uzlu grafu s nulovým nebo zanedbatelným (594 Kč) objemem veřejných smluv a bez souvislosti s předmětem novely (vazba mladistvých, trestní řízení). Novela se netýká žádné komerční činnosti, dodávek státu ani rozpočtových prostředků, u nichž by mohl vzniknout majetkový prospěch soukromé firmy spojené s předkladatelem nebo evidovaným poslancem; z dostupných dat proto neplyne důvod pro podezření na majetkový střet zájmů u tohoto tisku.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Cílem návrhu je odstranit nerovné zacházení s vazebně stíhanými mladistvými oproti dospělým a uvést právní úpravu do souladu s rozsudkem ESLP ve věci Spišák proti České republice (č. 13968/22) z 20. června 2024, který shledal porušení článku 14 ve spojení s článkem 5 Úmluvy.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+      },
+      {
+        "claim": "Bod 9 doplňuje do § 48 nový odstavec 2, podle kterého se na rozhodování o dalším trvání vazby v řízení o zvlášť závažném provinění použije obdobně § 72 trestního řádu (periodický přezkum vazby z úřední povinnosti nejpozději každé tři měsíce).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+      },
+      {
+        "claim": "Bod 10 doplňuje do výčtu opatření nahrazujících vazbu v § 49 umístění mladistvého v péči důvěryhodné osoby jako výslovné doplnění dosud neúplného výčtu.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+      },
+      {
+        "claim": "Bod 11 mění § 89j odst. 1 tak, že státní zastupitelství při splnění zákonných podmínek návrh na uložení opatření nepodá, namísto dosavadní formulace, že jej nemusí podat.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+      },
+      {
+        "claim": "Hodnocení dopadů regulace (RIA) nebylo k tomuto návrhu zpracováno na základě výjimky udělené předsedou Legislativní rady vlády dne 12. května 2025.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=61&ct1=0"
+      },
+      {
+        "claim": "Zákon č. 218/2003 Sb., o odpovědnosti mládeže za protiprávní činy a o soudnictví ve věcech mládeže, je jediným předpisem novelizovaným tímto tiskem.",
+        "kind": "law",
+        "source": "218/2003"
+      }
+    ]
+  },
+  {
+    "billTisk": 70,
+    "statedReasoning": "Návrh (v záhlaví tisku uvedený jako iniciativa poslance Adama Vojtěcha, po boku deseti spolupředkladatelů evidovaných v případovém spisu) vkládá do § 21b zákona č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, nové odstavce 3 a 4. Podle nich se Všeobecné zdravotní pojišťovně České republiky (VZP ČR) v měsíci březnu 2026 sníží nárok na měsíční platbu z přerozdělování pojistného o částku 7 879 000 000 Kč a tatáž částka se rozdělí mezi šest zaměstnaneckých zdravotních pojišťoven (VoZP ČR, ČPZP, OZP, ZPŠ, ZP MV ČR, RBP) podle jejich podílu na počtu standardizovaných pojištěnců. Důvodová zpráva odůvodňuje krok tabulkou bilance ukrajinských pojištěnců za období únor 2022 až září 2025: naprostá většina (přibližně 90 %) osob s dočasnou ochranou je pojištěna u VZP ČR, jejíž zisk z této skupiny pojištěnců dosáhl podle tabulky 10 511 mil. Kč, zatímco zaměstnanecké pojišťovny na téže skupině vydělaly dohromady jen 2 632 mil. Kč; rozdíl 7 879 000 000 Kč zpráva navrhuje jednorázově přerozdělit. Zpráva výslovně uvádí, že jde o opatření ex post a že bez dlouhodobé úpravy přerozdělovacích prediktorů zůstane VZP ČR i nadále strukturálně zvýhodněna - trvalé řešení má přinést až připravovaná širší změna parametrů přerozdělování. Návrh tvrdí nulový dopad na státní rozpočet (jde o vnitřní přesun v rámci systému veřejného zdravotního pojištění), žádné sociální ani jiné přímé dopady a s ohledem na svůj technický charakter ani korupční rizika. Účinnost se navrhuje dnem následujícím po vyhlášení a Sněmovna je žádána o schválení již v prvním čtení s odůvodněním, že opatření musí být promítnuto do hospodaření pojišťoven ještě v průběhu dohodovacího řízení o úhradách pro rok 2027.",
+    "researchedContext": "Text zákona (Čl. I) i srovnávací znění § 21b potvrzují, že nové odstavce 3 a 4 skutečně jen doplňují stávající mechanismus měsíčního vyrovnání (odstavce 1 a 2 zůstávají beze změny) o jednorázovou úpravu vázanou výhradně na měsíc březen 2026, a rozpočtová tabulka v důvodové zprávě (VoZP ČR 1 190 mil. Kč, ČPZP 2 138 mil. Kč, OZP 1 224 mil. Kč, ZPŠ 705 mil. Kč, ZP MV ČR 248 mil. Kč, RBP 2 374 mil. Kč) se sečte přesně na 7 879 mil. Kč, tedy na částku odečítanou VZP ČR - čísla si tedy neodporují. Archivovaný text tisku nese podpisovou doložku s datem 15. 12. 2025 a poslancům byl rozeslán 15. prosince 2025; historie projednávání na stránkách Poslanecké sněmovny uvádí jako datum podání 12. 12. 2025 - tři dny před datem podpisu důvodové zprávy, což je rozpor mezi oběma prameny, který zde uvádíme, aniž bychom jej mohli rozhodnout (primární dokument svědčí pro 15. 12.). Vláda k návrhu 16. 12. 2025 zaujala souhlasné stanovisko, garančním výborem byl přikázán Výbor pro zdravotnictví (přikázáno 28. 1. 2026, jak potvrzuje i případový spis), třetí čtení proběhlo 25. 3. 2026 (hlasování č. 86, usnesení č. 130), Senát návrh schválil 6. 5. 2026, prezident jej podepsal 19. 5. 2026 a ve Sbírce zákonů byl vyhlášen 26. 5. 2026 jako zákon č. 71/2026 Sb. s účinností od 27. 5. 2026. Nové odstavce 3 a 4 § 21b jsou přitom podle svého vlastního znění vázány na měsíc březen 2026 - ten ale skončil více než osm týdnů před vyhlášením zákona. V okamžiku nabytí účinnosti tedy odstavec 3 popisoval platbu za měsíc, který již dávno proběhl. Ani zákon, ani zvláštní část k Čl. II (účinnost) neobsahuje žádné přechodné ustanovení, které by řešilo, jak se má nárok na měsíční platbu za březen, snížený o uvedenou částku, uplatnit, pokud měsíc březen v okamžiku nabytí účinnosti již minul.",
+    "unstatedEffects": [
+      {
+        "effect": "Odstavce 3 a 4 § 21b vážou celé přerozdělení 7 879 000 000 Kč výslovně na měsíční platbu za březen 2026, ale zákon nabyl účinnosti až 27. 5. 2026 - více než osm týdnů po skončení měsíce, na který ustanovení míří. Důvodová zpráva ani zvláštní část k účinnosti tuto možnost prodlení vůbec nezmiňuje a neobsahuje žádné přechodné pravidlo pro případ, že by zákon nabyl účinnosti až po březnu.",
+        "whoBenefits": "Nelze jednoznačně určit - jde o riziko, že se jednorázová oprava ve prospěch šesti zaměstnaneckých pojišťoven nemusela vůbec uplatnit v podobě, v jaké ji odstavec 3 popisuje, protože měsíc, k němuž se výslovně váže, byl v okamžiku účinnosti zákona již uzavřen; případový spis neobsahuje údaj o tom, jak byl tento rozpor v praxi vyřešen.",
+        "evidence": "§ 21b odst. 3 podle Čl. I tisku 70 (archivován je text tisku; závěr předpokládá, že ustanovení bylo vyhlášeno jako zákon č. 71/2026 Sb. v předloženém znění) ve spojení s datem vyhlášení zákona (26. 5. 2026) a nabytí účinnosti (27. 5. 2026) podle historie projednávání tisku 70 na stránkách Poslanecké sněmovny, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=70&ct1=0"
+      },
+      {
+        "effect": "Bod F. důvodové zprávy tvrdí, že návrh s ohledem na svůj technický charakter nepředstavuje zdroj korupčních rizik, aniž by se vypořádal s tím, že jde o odchylku od standardního mechanismu, který sama zpráva v bodě A popisuje: běžné přerozdělení pojistného probíhá podle objektivních prediktorů (věkové skupiny, farmaceuticko-nákladové skupiny, nákladné hrazené služby) stanovených právní úpravou, zatímco navrhovaná oprava je jednorázová, číselně pevná částka 7 879 000 000 Kč rozdělená mezi šest jmenovitě uvedených zaměstnaneckých pojišťoven přímo textem zákona, nikoli výpočtem podle prediktoru. Zpráva přitom sama tuto odchylku zčásti adresuje: výslovně uvádí, že jde o řešení „nad rámec současných přerozdělovacích mechanismů“, a připomíná, že obdobný jednorázový zásah do systému není nový - v roce 2012 došlo naopak k přerozdělení části zůstatků zaměstnaneckých zdravotních pojišťoven směrem k VZP ČR. Co zpráva neřeší, je vztah těchto dvou přiznání k závěru bodu F o neexistenci korupčních rizik: pevná částka rozdělená jmenovitě zákonem místo formule je přesně ten typ rozhodnutí, u něhož hodnocení korupčních rizik nemůže vystačit s poukazem na technický charakter. Bod B pak uvádí, že zavedení nového prediktoru pro cizince bude až součástí připravované širší změny - tedy že standardní, formulí řízená cesta byla k dispozici, ale pro toto vyrovnání zvolena nebyla.",
+        "whoBenefits": "Šest jmenovitě uvedených zaměstnaneckých zdravotních pojišťoven (VoZP ČR, ČPZP, OZP, ZPŠ, ZP MV ČR, RBP) jako přímí příjemci pevně stanovené částky rozdělené přímo zákonem, nikoli výpočtem podle obecně platného vzorce.",
+        "evidence": "Bod F. („S ohledem na svůj technický charakter nepředstavuje zdroj korupčních rizik...“) a bod B. („Případné zakotvení specifického prediktoru... bude součástí připravované širší změny parametrů přerozdělování pojistného“) důvodové zprávy k tisku 70."
+      }
+    ],
+    "conflictAssessment": "Podle případového spisu má formální iniciativu k tisku 70 poslanec Adam Vojtěch (uveden jako předkladatel v názvu tisku a podepsaný pod důvodovou zprávou), avšak žádný řádek s jeho peněžními vazbami není v datové sadě tohoto tisku evidován - jeho jméno se mezi deseti evidovanými spolupředkladateli (Jana Murová, Ivana Mádlová, Patrik Pařil, Pavel Outrata, Lenka Dražilová, Václav Trojan, David Štolpa, Jan Richter, Jiří Mašek, Jana Hanzlíková) vůbec nenachází. Adam Vojtěch je přitom poslancem plně pokrytým peněžním grafem tohoto projektu a graf u něj neeviduje žádnou firemní vazbu - jde tedy o změřenou absenci záznamu, nikoli o mezeru v pokrytí dat. U deseti evidovaných spolupředkladatelů byly v případovém souboru peněžních vazeb ověřeny dvě vlastnické/řídící vazby, obě s nulovým úhrnem veřejných smluv v registru: Patrik Pařil drží vlastnickou/řídící vazbu na RAPAJA s.r.o. a na RMPJ s.r.o., u obou je evidovaná částka veřejných smluv 0 Kč a ani jedna společnost nepůsobí ve zdravotním pojištění. Zbývající vazby předkladatelů (Ivana Mádlová - VODÁRNA PLZEŇ a.s. a DOMOVINKA - sociální služby, o.p.s.; Jan Richter - CHOMUTOVSKÁ BYTOVÁ a.s., Sportovní klub policie Kadaň a Dopravní podnik měst Chomutova a Jirkova a.s.) jsou podle případového spisu svěřenecké, tedy jde o peníze instituce, nikoli o osobní příjem předkladatele, a navíc žádná z uvedených firem nepůsobí v sektoru veřejného zdravotního pojištění, kterého se novela týká. V PENĚŽNÍCH datech (smlouvy firem, které poslanec vlastní nebo řídí) tedy není evidována žádná vazba na VZP ČR ani na žádnou ze šesti zaměstnaneckých zdravotních pojišťoven a majetkový střet zájmů zjištěn nebyl; všechny uvedené vazby čekají podle případového spisu na lidskou kontrolu. Samostatně je ale třeba uvést institucionální roli, kterou peněžní graf nepokrývá a kterou eviduje pracovní záznam tohoto projektu: spolupředkladatel Jiří Mašek je předsedou Výboru pro zdravotnictví - garančního výboru, jemuž byl tisk přikázán 28. 1. 2026 - a od 28. 1. 2026 je zároveň voleným členem dozorčí rady VZP ČR, tedy orgánu pojišťovny, jíž tato novela snižuje měsíční platbu o 7 879 000 000 Kč. Členství v dozorčí radě je veřejná kontrolní funkce, nikoli osobní majetkový prospěch, a nic v datech nenaznačuje, že by z přerozdělení plynul Maškovi peněžní užitek - souběh role spolupředkladatele, předsedy garančního výboru a člena dozorčího orgánu dotčené instituce je však okolnost, kterou by hodnocení střetu zájmů u tohoto tisku zamlčet nesmělo.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh vkládá do § 21b zákona č. 592/1992 Sb. nové odstavce 3 a 4, které v měsíci březnu 2026 snižují nárok VZP ČR na měsíční platbu z přerozdělování pojistného o 7 879 000 000 Kč a tutéž částku rozdělují mezi šest zaměstnaneckých zdravotních pojišťoven.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=70&ct1=0"
+      },
+      {
+        "claim": "Podle tabulky v důvodové zprávě činil zisk VZP ČR na skupině ukrajinských pojištěnců (2/2022-9/2025) 10 511 mil. Kč a zisk zaměstnaneckých pojišťoven dohromady 2 632 mil. Kč, s rozdílem 7 879 000 000 Kč, který návrh přerozděluje.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=70&ct1=0"
+      },
+      {
+        "claim": "Podle historie projednávání na psp.cz byl návrh podán 12. 12. 2025 (archivovaný text tisku ale nese podpisovou doložku 15. 12. 2025 a rozeslání poslancům 15. prosince 2025), vláda zaujala souhlasné stanovisko 16. 12. 2025, garančním výborem byl přikázán Výbor pro zdravotnictví 28. 1. 2026, třetí čtení proběhlo 25. 3. 2026 (hlasování č. 86, usnesení č. 130), Senát schválil návrh 6. 5. 2026, prezident jej podepsal 19. 5. 2026 a zákon byl vyhlášen 26. 5. 2026 jako zákon č. 71/2026 Sb. s účinností od 27. 5. 2026; údaje mimo archivní text vycházejí z této webové stránky.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=70"
+      },
+      {
+        "claim": "Tisk 70 mění zákon č. 592/1992 Sb. a jeho okruh deseti evidovaných spolupředkladatelů zahrnuje osoby uvedené v případovém souboru včetně jejich peněžních vazeb a částek.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43177"
+      },
+      {
+        "claim": "RAPAJA s.r.o. je společnost, u níž je v případovém souboru peněžních vazeb evidována vlastnická/řídící vazba Patrika Pařila s částkou veřejných smluv 0 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:06386237"
+      },
+      {
+        "claim": "RMPJ s.r.o. je společnost, u níž je v případovém souboru peněžních vazeb evidována vlastnická/řídící vazba Patrika Pařila s částkou veřejných smluv 0 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:09187944"
+      },
+      {
+        "claim": "Zákon č. 592/1992 Sb., o pojistném na veřejné zdravotní pojištění, je předpis novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "592/1992"
+      },
+      {
+        "claim": "Novela byla vyhlášena jako zákon č. 71/2026 Sb.",
+        "kind": "law",
+        "source": "71/2026"
+      }
+    ]
+  },
+  {
+    "billTisk": 78,
+    "statedReasoning": "Důvodová zpráva k tisku 78 (poslanecký návrh Andreje Babiše) navrhuje jedinou věcnou změnu: do výčtu významných dnů v § 4 odst. 1 zákona č. 245/2000 Sb., o státních svátcích, doplnit 30. březen jako „Den české vlajky“. Zpráva zdůrazňuje, že jde o významný den, nikoli o státní ani ostatní svátek, takže 30. březen zůstává i nadále pracovním dnem. Jako důvod volby data uvádí schválení podoby státní vlajky zákonem z roku 1920. Zpráva výslovně uvádí, že návrh nemá žádný hospodářský ani finanční dopad na státní rozpočet ani jiné veřejné rozpočty, nepředstavuje korupční riziko a nemá dopad na ochranu soukromí, rovnost mužů a žen ani na bezpečnost státu. Klíčovým prvkem odůvodnění je časová naléhavost: předkladatel žádá schválení již v prvním čtení podle § 90 odst. 2 jednacího řádu Poslanecké sněmovny s tím, že standardní projednání by trvalo měsíce a účinnost by nebylo možné stihnout do letošního 30. března; jakékoli zpoždění by podle zprávy posunulo reálné zavedení dne až na 30. březen 2027.",
+    "researchedContext": "Nezávislé ověření na oficiální stránce historie projednávání tisku 78 ukazuje, že se naléhavostní premisa zprávy nenaplnila tak, jak předkladatel předpokládal. Sněmovna sice vyslovila souhlas s návrhem již v prvním čtení dne 3. 3. 2026 (usnesení č. 92), návrh zákona ale poté prošel Senátem, který jej dne 25. 3. 2026 vrátil Sněmovně s pozměňovacími návrhy - tedy přesně to procesní kolo, které zrychlené jednočtenové schválení mělo obejít. Sněmovna na schůzi 15. 4. 2026 setrvala na původním znění (usnesení č. 153), prezident zákon podepsal 28. 4. 2026 a zákon byl vyhlášen 12. 5. 2026 ve Sbírce zákonů pod číslem 59/2026 Sb. Konečné datum vyhlášení tak padlo více než šest týdnů po 30. březnu 2026 - datu, které zpráva sama označila za jediný smysl navrhovaného zrychleného postupu. Obsah pozměňovacích návrhů, které Senát k tisku připojil, nebyl v rámci tohoto zpracování ověřen z primárního textu senátního usnesení a nelze jej proto blíže popsat.",
+    "unstatedEffects": [
+      {
+        "effect": "Důvodová zpráva stanovuje jediný účel zrychleného projednání v prvním čtení - stihnout účinnost do 30. března 2026 - a sama varuje, že opožděná účinnost odsune zavedení dne o celý rok, na 30. březen 2027. Zpráva ale nikde nezmiňuje, že souhlas Sněmovny v prvním čtení automaticky nezaručuje rychlé přijetí zákona, protože Senát si i u jednočtenově schváleného návrhu ponechává ústavní možnost vrátit zákon s pozměňovacími návrhy. Přesně to se stalo: senátní vrácení dne 25. 3. 2026 a následné projednání v Sněmovně posunuly konečné vyhlášení na 12. 5. 2026, tedy o více než šest týdnů po datu, které mělo být jediným smyslem zrychleného postupu.",
+        "whoBenefits": "Cíl zprávy - oslava Dne české vlajky již 30. března 2026 - nebyl navzdory zrychlenému postupu naplněn; ke skutečnému zavedení dojde až v roce 2027, přesně jak zpráva sama popsala jako důsledek jakéhokoli zpoždění. Nikdo z účastníků legislativního procesu z tohoto zpoždění neprofituje, nejde o otázku peněžního prospěchu.",
+        "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=78"
+      },
+      {
+        "effect": "Zpráva návrh popisuje jako „jednoznačnou a jednoduchou změnu, která nevyžaduje delší odbornou diskuzi a přípravu případných pozměňovacích návrhů“ a na tomto tvrzení staví žádost o schválení bez druhého a třetího čtení ve Sněmovně. Skutečný průběh tuto premisu nepotvrdil - Senát ke stejnému, jednořádkovému textu přesto přistoupil s pozměňovacími návrhy, což je v rozporu s očekáváním zprávy, že věc nevyvolá potřebu další úpravy textu.",
+        "whoBenefits": "Nelze určit - jde o zjištění o kvalitě odůvodnění zrychleného postupu, nikoli o finanční nebo osobní prospěch konkrétní strany.",
+        "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=78"
+      }
+    ],
+    "conflictAssessment": "Pod archivovaným textem tisku je jako jediný předkladatel podepsán Andrej Babiš („V Praze dne 12. ledna 2026 / Ing. Andrej Babiš v. r.“). Datová sada tohoto tisku ovšem eviduje v řádku předkladatele jinou osobu — Radka Vondráčka, s jednou vazbou řídicího typu (přičitatelnou) na Vodovody a kanalizace Kroměříž, a.s., s úhrnem veřejných smluv firmy 391 010 121 Kč, a se dvěma svěřeneckými vazbami (předseda dozorčí rady NEXNET, a.s.; člen dozorčí rady MAE invest a.s.), jejichž veřejné smlouvy jsou penězi institucí, nikoli poslance; žádná z těchto firem nemá k předmětu tisku (kalendář významných dnů) myslitelný vztah a všechny vazby čekají na lidskou kontrolu. Tento rozpor mezi podpisem na tisku a evidovaným řádkem uvádíme výslovně a hodnotíme OBĚ osoby. Andrej Babiš má v grafu evidováno 14 peněžních vazeb na firmy: čtyři vazby, kde je jednatelem nebo přímým vlastníkem (CS CABOT, AGROPROFIT, Hartenberg Holding, AGRONOVA CS), čtyři vazby v řídicí funkci - předseda nebo člen představenstva (IMOBA, AGROFERT, PROFROST, SynBiol) - a šest vazeb v dohledové funkci - předseda nebo člen správní či dozorčí rady (Nadace AGROFERT, Synthesia, PRECHEZA, Kostelecké uzeniny, Fatra, Lovochemie). Všechny tyto firmy působí v zemědělství, chemickém průmyslu, potravinářství nebo v diverzifikovaném holdingu; žádná z nich nemá věcnou vazbu na kalendář významných dnů, cestovní ruch spjatý s tímto svátkem, ani na jakoukoli regulovanou nebo dotovanou činnost, které by se tento tisk dotýkal. Ani vazby vlastnického a řídicího typu (obě tyto třídy se podle metodiky tohoto projektu přičítají poslanci jako dosažitelné peníze), ani vazby v dohledové funkci (které se přičítají instituci, nikoli osobě) nemají k předmětu tisku - doplnění jednoho významného dne bez právních účinků - žádný myslitelný vztah. V datech proto není zjištěn střet zájmů; všech 14 vazeb i vazba Radka Vondráčka nadále čekají na lidskou kontrolu, stejně jako zbytek grafu. Nad rámec tohoto tisku eviduje korpus ještě jeden souběžný tisk (č. 238), který rovněž novelizuje zákon č. 245/2000 Sb.: jeho archivovaný text vkládá do § 4 nový významný den „28. srpen – Den Orla“ na jiné místo výčtu, než kam tisk 78 vložil „30. březen – Den české vlajky“, a jeho úplné znění § 4 už vlajkový den nese jako platný text (výčet novelizací cituje i zákon č. 59/2026 Sb., jímž byl tisk 78 vyhlášen) — textová kolize mezi oběma tisky tedy z archivovaných textů zjištěna nebyla.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Čl. I vkládá do § 4 odst. 1 zákona č. 245/2000 Sb. za slova „28. březen - Den narození Jana Ámose Komenského,“ nová slova „30. březen – Den české vlajky,“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=78&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod E) uvádí, že novela nebude mít žádný hospodářský ani finanční dopad na státní rozpočet ani ostatní veřejné rozpočty, mimo jiné proto, že navržený významný den zůstává pracovním dnem.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=78&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva (bod G) žádá o vyslovení souhlasu již v prvním čtení podle § 90 odst. 2 zákona o jednacím řádu Poslanecké sněmovny a uvádí, že jakákoli pozdější účinnost by navrhovanou změnu odsunula až na 30. březen 2027.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=78&ct1=0"
+      },
+      {
+        "claim": "Sněmovna schválila návrh v prvním čtení dne 3. 3. 2026 (usnesení č. 92); Senát vrátil návrh s pozměňovacími návrhy dne 25. 3. 2026; Sněmovna setrvala na původním znění dne 15. 4. 2026 (usnesení č. 153); prezident zákon podepsal 28. 4. 2026; zákon byl vyhlášen 12. 5. 2026 jako zákon č. 59/2026 Sb.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=78"
+      },
+      {
+        "claim": "Tisk 238 vkládá do § 4 zákona č. 245/2000 Sb. nový významný den „28. srpen – Den Orla“ na jiné místo výčtu než tisk 78 a jeho úplné znění § 4 cituje mezi novelizacemi i zákon č. 59/2026 Sb.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=238&ct1=0"
+      },
+      {
+        "claim": "Graf eviduje u tisku 78 v řádku předkladatele Radka Vondráčka s vazbou řídicího typu na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871), úhrn veřejných smluv firmy 391 010 121 Kč; vazba čeká na lidskou kontrolu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6165"
+      },
+      {
+        "claim": "Zákon č. 245/2000 Sb., o státních svátcích, o ostatních svátcích, o významných dnech a o dnech pracovního klidu, je zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "245/2000"
+      },
+      {
+        "claim": "Graf eviduje u Andreje Babiše peněžní vazbu vlastníka/jednatele na CS CABOT, spol. s r.o., a na AGRONOVA CS s.r.o.",
+        "kind": "graph_fact",
+        "source": "psp:person:6150"
+      },
+      {
+        "claim": "Graf eviduje u společnosti AGROFERT, a.s. (IČO 26185610) vazbu Andreje Babiše ve funkci předsedy představenstva.",
+        "kind": "graph_fact",
+        "source": "company:ico:26185610"
+      },
+      {
+        "claim": "Graf eviduje u společnosti Nadace AGROFERT (IČO 24188581) vazbu Andreje Babiše ve funkci předsedy správní rady.",
+        "kind": "graph_fact",
+        "source": "company:ico:24188581"
+      }
+    ]
+  },
+  {
+    "billTisk": 107,
+    "statedReasoning": "Poslanecký návrh Elišky Olšákové, Karla Dvořáka, Lucie Sedmihradské, Julie Smejkalové, Michala Zuny, Jiřího Horáka a Zdeňky Blišťanové vkládá do zákona č. 159/1999 Sb., o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, nový § 9e „Nařízení obce“. Ten dává obcím možnost vydat v přenesené působnosti nařízení, kterým na celém svém území nebo v jednotlivých zastavěných oblastech omezí poskytování krátkodobého („sdíleného“) ubytování v bytech v bytových domech - stanovením období, kdy ubytování nelze poskytovat, nejvyššího počtu dnů v roce nebo nejvyššího počtu ubytovaných osob vzhledem k obytné ploše bytu. Regulace je fakultativní (obec ji vydat nemusí) a týká se výhradně bytů v bytových domech, nikoli hotelů, penzionů, rodinných domů ani rekreačních objektů. Návrh nařízení musí obec oznámit Evropské komisi podle směrnice o službách na vnitřním trhu (2006/123/ES) prostřednictvím Ministerstva průmyslu a obchodu jako kontaktního místa. Zpráva odůvodňuje potřebu dat o rozšíření sdíleného ubytování v Praze (zdroje: Institut plánování a rozvoje hl. m. Prahy, městská datová platforma Golemio) a rozsudkem Soudního dvora EU C-724/18 (Cali Apartments), který obdobnou obecní regulaci uznal za slučitelnou s právem EU. Zpráva uvádí, že návrh nemá přímý dopad na státní rozpočet, jen omezené dopady na rozpočty obcí spojené s přípravou a kontrolou nařízení, a že s návrhem nejsou spojena korupční rizika. Účinnost se navrhuje od 1. 1. 2027.",
+    "researchedContext": "Nezávislé ověření na stránce historie projednávání tisku 107 a jeho porovnání se sesterským tiskem 106 (týž zákon č. 159/1999 Sb., stejná sedmice předkladatelů, oba tisky již dříve zpracovány v tomto projektu) ukazuje shodu, kterou žádná z obou důvodových zpráv nezmiňuje. Tisk 107 byl podle stránky historie podán 10. 2. 2026 - přesně týž den jako tisk 106 (údaje o podání a stanoviscích vlády vycházejí z psp.cz, archivní texty samy nesou jen data rozeslání poslancům). Organizační výbor u obou tisků navrhl přikázání témuž garančnímu výboru (Výbor pro veřejnou správu a regionální rozvoj) a určil jim téhož zpravodaje (Mgr. Jan Papajanovský); vládní stanoviska se ale liší - k tisku 106 vyjádřila vláda 10. 3. 2026 nesouhlas, k tisku 107 zaujala 31. 3. 2026 neutrální stanovisko. Přímé srovnání textů obou tisků ukazuje, že oba vkládají na totéž místo zákona - bezprostředně za § 9d - nový § 9e, každý ovšem jinou legislativně-technickou cestou a s věcně odlišným, vzájemně neslučitelným obsahem: tisk 107 v čl. I bodu 1 instrukcí „Za § 9d se vkládá nový § 9e“, kterým zmocňuje obce vydávat regulační nařízení („Obec může vydat nařízení obce...“), zatímco tisk 106 nejprve bodem 22 vkládá za § 9d označení a nadpis nového dílu 2 a poté bodem 23 vkládá „za označení a nadpis dílu 2“ nový § 9e s definičními ustanoveními pro celostátní registr ubytovacích zařízení („Pro účely tohoto zákona se rozumí a) ubytovacím zařízením...“; bod 24 pak znění § 9e uvádí). Výsledkem obou cest je nové ustanovení § 9e na témže místě téhož zákona se dvěma neslučitelnými obsahy. Ani jedna z důvodových zpráv se o druhém tisku nezmiňuje. Zvláštní část důvodové zprávy tisku 107 navíc nese nadpis „K § 9o“, ačkoli článek I, bod 1 stejného tisku vkládá § 9e - tento nesoulad odpovídá představě, že by po vložení nových paragrafů tiskem 106 zbylo jako první volné číslo právě § 9o: přímým měřením textu tisku 106 vkládá tento tisk §§ 9e až 9n (poslední vkládaný je § 9n; označení § 9o se v jeho textu nevyskytuje) - dřívější archivovaný posudek k tisku 106 uvádí rozsah § 9e až § 9m, což je proti textu tisku o jeden paragraf méně a toto měření jej opravuje. Nadpis „K § 9o“ tak naznačuje, že si předkladatelé číslovací návaznosti obou tisků byli v určité fázi přípravy vědomi, aniž by kolizi ve finálním textu vyřešili.",
+    "unstatedEffects": [
+      {
+        "effect": "Tento tisk a tisk 106 - podané týmiž sedmi poslanci téhož dne, s navrženým přikázáním témuž výboru a s týmž určeným zpravodajem - vkládají do zákona č. 159/1999 Sb. každý svůj vlastní, věcně odlišný § 9e na stejné místo (za § 9d). Tisk 106 z něj dělá definiční ustanovení celostátního registru ubytovacích zařízení, tisk 107 z něj dělá zmocňovací ustanovení pro obecní nařízení omezující sdílené ubytování. Žádná z důvodových zpráv se o druhém návrhu nezmiňuje ani nenavrhuje, jak by se oba texty sloučily nebo přečíslovaly. Pokud by byly oba tisky přijaty v předloženém znění beze změny číslování, nemohl by výsledný zákon obsahovat obě verze § 9e současně.",
+        "whoBenefits": "Nejde o prospěch žádné strany - jde o mezeru v koordinaci mezi dvěma souběžnými návrhy téže skupiny poslanců, která by bez zásahu (např. pozměňovacím návrhem přečíslujícím jeden z tisků) vedla k textově nerealizovatelnému výsledku.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=107&ct1=0"
+      },
+      {
+        "effect": "Nadpis zvláštní části důvodové zprávy tisku 107 zní „K § 9o“, zatímco skutečně vkládané ustanovení nese v článku I bodu 1 označení „§ 9e“. Zpráva tento rozpor nikde nevysvětluje ani na něj neupozorňuje.",
+        "whoBenefits": "Nejde o prospěch žádné strany - jde o interní nesrovnalost v kvalitě zpracování důvodové zprávy, která současně dokládá číslovací kolizi popsanou u předchozího zjištění.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=107&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Ze sedmi předkladatelů má evidovanou peněžní vazbu na firmu jediný - Jiří Horák, evidovaný jako člen představenstva Vodovody a kanalizace Vyškov, a.s. Jde o vazbu řídicího typu (rejstříkem potvrzenou, bez uvedeného časového období v prameni), tedy o třídu, kterou pravidla tohoto projektu přičítají poslanci; úhrn veřejných smluv firmy činí 124 508 316 Kč. Jde o regionální vodárenskou společnost ovládanou obcemi vyškovského okresu (podle vlastní prezentace společnosti); její oborová činnost (vodovody a kanalizace) nemá věcnou souvislost s předmětem tisku 107 (regulace sdíleného ubytování obecním nařízením). Eliška Olšáková, Karel Dvořák, Lucie Sedmihradská, Julie Smejkalová, Michal Zuna a Zdeňka Blišťanová nemají v grafu evidovánu žádnou peněžní vazbu. V datech tedy není zjištěn věcný střet zájmů; vazba Jiřího Horáka i nadále čeká na lidskou kontrolu. Skutečným rizikem u tohoto tisku není peněžní vazba, ale nekoordinovaná číslovací kolize se sesterským tiskem 106 popsaná v oddílu nedeklarovaných dopadů.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Čl. I bod 1 vkládá za § 9d nový § 9e „Nařízení obce“, který obcím umožňuje nařízením omezit poskytování ubytování v bytě v bytovém domě určením období, nejvyššího počtu dnů v roce nebo nejvyššího počtu ubytovaných osob vzhledem k obytné ploše bytu; odstavec 2 ukládá obci oznamovací povinnost vůči Evropské komisi podle čl. 15 odst. 7 směrnice 2006/123/ES.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=107&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část důvodové zprávy tisku 107 je nadepsána „K § 9o“, zatímco vkládané ustanovení v čl. I bodu 1 je označeno jako § 9e.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=107&ct1=0"
+      },
+      {
+        "claim": "Tisk 107 byl podán 10. 2. 2026, rozeslán poslancům 3. 3. 2026, zaslán vládě 3. 3. 2026; vláda zaujala neutrální stanovisko 31. 3. 2026; Organizační výbor doporučil projednávání 2. 4. 2026 a určil zpravodajem Mgr. Jana Papajanovského a garančním výborem Výbor pro veřejnou správu a regionální rozvoj.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=107"
+      },
+      {
+        "claim": "Tisk 106 byl podán 10. 2. 2026 - stejného dne jako tisk 107 - rozeslán poslancům 13. 2. 2026; vláda k němu 10. 3. 2026 zaujala nesouhlasné stanovisko; Organizační výbor 11. 3. 2026 určil zpravodajem téhož Mgr. Jana Papajanovského a garančním výborem týž Výbor pro veřejnou správu a regionální rozvoj.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=106"
+      },
+      {
+        "claim": "Tisk 106 vkládá za označení a nadpis nového dílu 2 zákona č. 159/1999 Sb. nový § 9e s definicemi pro účely registru ubytovacích zařízení („Pro účely tohoto zákona se rozumí a) ubytovacím zařízením místo, ve kterém ubytovatel poskytuje ubytování...“).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=106&ct1=0"
+      },
+      {
+        "claim": "Zákon č. 159/1999 Sb., o některých podmínkách podnikání a o výkonu některých činností v oblasti cestovního ruchu, je zákon novelizovaný tímto tiskem i sesterským tiskem 106.",
+        "kind": "law",
+        "source": "159/1999"
+      },
+      {
+        "claim": "Graf eviduje u Jiřího Horáka peněžní vazbu řídicího typu (člen představenstva) na Vodovody a kanalizace Vyškov, a.s. (IČO 49454587), úhrn veřejných smluv firmy 124 508 316 Kč; vazba čeká na lidskou kontrolu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6803"
+      },
+      {
+        "claim": "Vodovody a kanalizace Vyškov, a.s. je podle vlastní prezentace regionální vodárenská společnost ovládaná obcemi vyškovského okresu.",
+        "kind": "web",
+        "source": "https://www.vakvyskov.cz/"
+      }
+    ]
+  },
+  {
+    "billTisk": 133,
+    "statedReasoning": "Poslanecký návrh Martina Kupky, Jana Skopečka, Jiřího Havránka a Vojtěcha Munzara mění zákon č. 353/2003 Sb., o spotřebních daních, tak, že dočasně snižuje sazbu spotřební daně z bezolovnatého benzínu z 12 840 Kč na 11 140 Kč za 1000 litrů a z motorové nafty z 9 950 Kč na 8 250 Kč za 1000 litrů (tj. o 1,70 Kč/l u obou paliv), a to od 1. května do 31. srpna 2026; od 1. září 2026 se sazby vrací na původní výši. Jako důvod uvádí prudký nárůst cen pohonných hmot v důsledku vojenského konfliktu v Íránu - k 7. 3. 2026 zpráva eviduje mezitýdenní nárůst ceny nafty o 8,2 % a benzínu o 4,3 % (oproti 28. únoru 2026). Odhadovaný výpadek veřejných rozpočtů činí 3,5 až 4,5 miliardy Kč za celé čtyřměsíční období, rozdělený mezi státní rozpočet (cca 3,2 až 4,0 mld. Kč) a Státní fond dopravní infrastruktury (cca 0,3 až 0,4 mld. Kč) podle zákona o Státním fondu dopravní infrastruktury. Zpráva se výslovně odvolává na obdobné opatření z roku 2022 (v reakci na ruskou invazi na Ukrajinu) jako precedens jak pro věcné řešení, tak pro žádost o schválení ve zkráceném jednočtenovém řízení podle § 90 odst. 2 jednacího řádu Poslanecké sněmovny. Zpráva dále uvádí, že snížené sazby zůstávají nad minimálními sazbami stanovenými směrnicí Rady 2003/96/ES i po jejich snížení, a hodnotí návrh jako korupčně neutrální.",
+    "researchedContext": "Nezávislé ověření na stránce historie projednávání tisku 133 ukazuje, že se předpoklad rychlého, bezkonfliktního schválení nenaplnil. Návrh byl podán 10. 3. 2026, poslancům rozeslán 17. 3. 2026 a zaslán vládě k vyjádření 18. 3. 2026; vláda k němu ale dne 14. 4. 2026 zaujala nesouhlasné stanovisko. Organizační výbor doporučil projednávání až 15. 4. 2026 a navrhl jako garanční výbor Rozpočtový výbor - tedy standardní, nikoli zkrácenou proceduru. K prvnímu čtení podle dostupných údajů dosud nedošlo. Přesný obsah vládních námitek nebyl v rámci tohoto zpracování ověřen, protože vládní stanovisko (tisk 133/1) je dostupné pouze jako PDF/DOC dokument bez zobrazeného textového shrnutí na indexové stránce; ověřen byl pouze fakt nesouhlasu a jeho datum. Návrh přitom staví svou naléhavost právě na paralele s rokem 2022, kdy analogické opatření (zákon č. 131/2022 Sb.) bylo skutečně přijato ve zkráceném řízení - v případě tisku 133 se tato část precedentu podle zjištěných procesních dat nezopakovala.",
+    "unstatedEffects": [
+      {
+        "effect": "Zpráva žádá zkrácené jednočtenové řízení a svou naléhavost opírá o přímou paralelu s rokem 2022, kdy bylo obdobné opatření takto skutečně schváleno. Zpráva ale nezvažuje možnost, že vláda k návrhu zaujme nesouhlasné stanovisko a že namísto zkráceného řízení půjde návrh standardní cestou přes garanční výbor - přesně to podle ověřených procesních dat nastalo (nesouhlasné stanovisko vlády 14. 4. 2026, standardní přidělení Rozpočtovému výboru). Sazbové snížení je přitom v textu zákona ohraničeno pevnými kalendářními daty (1. 5. až 31. 8. 2026) bez mechanismu, který by účinnost automaticky posunul, pokud se přijetí zákona zpozdí - zpráva u tisku 133 přitom s časem pracuje jen jako s argumentem pro rychlé přijetí („každý týden prodlení“ podle ní prodlužuje dobu vysokých cen), ale neřeší, co s pevně stanoveným počátkem účinnosti udělá zpoždění legislativního procesu samotné.",
+        "whoBenefits": "Nikdo konkrétní neprofituje ze zpoždění; rizikem zpoždění je zkrácení nebo úplné promeškání avizovaného čtyřměsíčního období nižších sazeb pro řidiče, domácnosti a dopravce, tedy přesně skupiny, které zpráva označuje za příjemce úlevy.",
+        "evidence": "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+      },
+      {
+        "effect": "Zpráva sama vypočítává, o kolik jsou navrhované snížené sazby nad unijním minimem podle směrnice 2003/96/ES: u benzínu jde o rezervu 2 379 Kč/1000 l, u nafty jen o 196 Kč/1000 l - tedy víc než desetinásobně menší polštář u nafty. Zpráva tento rozdíl uvádí jako dvě samostatná čísla, ale nikde nekomentuje, že navrhované snížení posouvá sazbu spotřební daně z nafty prakticky až k unijnímu minimu, takže případný další pokles kurzu koruny k euru nebo další srovnatelné budoucí snížení by u nafty na rozdíl od benzínu mohlo být bez porušení směrnice 2003/96/ES již jen velmi omezené.",
+        "whoBenefits": "Nejde o otázku prospěchu konkrétní strany, ale o mezeru v posouzení budoucí manévrovací rezervy státu u zdanění nafty oproti benzínu.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Ze čtyř předkladatelů má evidovanou peněžní vazbu jediný - Martin Kupka, jako předseda správní rady neziskové místní akční skupiny MAS Nad Prahou o.p.s. (úhrn veřejných smluv této organizace necelé 4 mil. Kč). Jde o dohledovou funkci v neziskové organizaci pro rozvoj venkova, tedy vazbu, kterou by podle metodiky tohoto projektu bylo možné přičíst nanejvýš instituci, nikoli poslanci, a která navíc nemá žádnou věcnou souvislost s předmětem tisku (dočasná sazba spotřební daně z pohonných hmot). Jan Skopeček, Jiří Havránek a Vojtěch Munzar nemají v grafu evidovánu žádnou peněžní vazbu. V datech tedy není zjištěn střet zájmů; vazba Martina Kupky i nadále čeká na lidskou kontrolu. Zákon č. 353/2003 Sb. novelizuje ve stejném období i tisk 4, jehož již zpracovaný a zveřejněný nález se ale týká zcela jiného ustanovení téhož zákona (nová sazba spotřební daně z tichého vína v § 96) - jde o odlišnou část zákona bez textového průniku s § 48 novelizovaným tiskem 133, kolize proto nebyla zjištěna.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Čl. I body 1 a 3 snižují sazbu spotřební daně u bezolovnatého benzínu z 12 840 Kč na 11 140 Kč/1000 l a u motorové nafty z 9 950 Kč na 8 250 Kč/1000 l; body 2 a 4 vrací obě sazby zpět na původní výši. Čl. III stanoví účinnost snížení od 1. 5. 2026 a obnovení sazeb od 1. 9. 2026.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+      },
+      {
+        "claim": "Důvodová zpráva uvádí, že snížená sazba benzínu 11 140 Kč/1000 l je nad unijním minimem o 2 379 Kč/1000 l a snížená sazba nafty 8 250 Kč/1000 l je nad unijním minimem jen o 196 Kč/1000 l (minima přepočtena kurzem ČNB k 6. 3. 2026).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+      },
+      {
+        "claim": "Odhadovaný výpadek veřejných rozpočtů činí 3,5 až 4,5 miliardy Kč za čtyřměsíční období, z čehož státní rozpočet nese cca 3,2 až 4,0 mld. Kč a Státní fond dopravní infrastruktury cca 0,3 až 0,4 mld. Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+      },
+      {
+        "claim": "Zpráva se odvolává na obdobné opatření přijaté zákonem č. 131/2022 Sb. v době zdražování paliv po začátku ruské invaze na Ukrajinu a žádá schválení ve zkráceném řízení podle § 90 odst. 2 zákona č. 90/1995 Sb., o jednacím řádu Poslanecké sněmovny.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=133&ct1=0"
+      },
+      {
+        "claim": "Návrh byl podán 10. 3. 2026, rozeslán poslancům 17. 3. 2026 jako tisk 133/0, zaslán vládě 18. 3. 2026; vláda zaujala nesouhlasné stanovisko 14. 4. 2026; Organizační výbor doporučil projednávání 15. 4. 2026 a navrhl jako garanční výbor Rozpočtový výbor.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=133"
+      },
+      {
+        "claim": "Zákon č. 353/2003 Sb., o spotřebních daních, je zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "353/2003"
+      },
+      {
+        "claim": "Zákon č. 104/2000 Sb., o Státním fondu dopravní infrastruktury, je zákon, podle jehož rozdělovacího klíče je počítán dopad snížení sazby na státní rozpočet a fond dopravní infrastruktury.",
+        "kind": "law",
+        "source": "104/2000"
+      },
+      {
+        "claim": "Graf eviduje u Martina Kupky jedinou peněžní vazbu, a to funkci předsedy správní rady u MAS Nad Prahou o.p.s. (IČO 01398717), úhrn veřejných smluv této organizace 3 968 570 Kč.",
+        "kind": "graph_fact",
+        "source": "psp:person:6538"
+      },
+      {
+        "claim": "Graf neeviduje u Jana Skopečka žádnou peněžní vazbu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6418"
+      },
+      {
+        "claim": "Graf neeviduje u Jiřího Havránka žádnou peněžní vazbu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6755"
+      },
+      {
+        "claim": "Graf neeviduje u Vojtěcha Munzara žádnou peněžní vazbu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6486"
+      }
+    ]
+  },
+  {
+    "billTisk": 153,
+    "statedReasoning": "Vládní návrh (předkladatel ministr průmyslu a obchodu) mění zákon č. 40/1995 Sb., o regulaci reklamy, a zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro. Obecná část důvodové zprávy jej odůvodňuje především úkolem uloženým usnesením vlády č. 719 z 27. září 2023 (prodlouženým usnesením č. 44/2024): zpřísnit a zpřesnit regulaci reklamy na kojeneckou výživu v návaznosti na doporučení Rady vlády pro rovnost žen a mužů a na upřednostňování kojení, a to zejména přesunem dozoru nad reklamou na kojeneckou výživu z krajských živnostenských úřadů na Státní zemědělskou a potravinářskou inspekci (SZPI) a doplněním chybějících skutkových podstat přestupků. Zpráva dále uvádí, že novela vychází z „poznatků z praxe“ u zdravotnických prostředků a diagnostických zdravotnických prostředků in vitro: umožňuje za stanovených podmínek šířit informace nelékařským zdravotnickým pracovníkům, dalším odborně způsobilým osobám a pacientům, a zavádí do zákona o zdravotnických prostředcích nový § 53b „Program pro pacienty“, který připouští poskytování vzorků prostředků a přiměřené pohostinnosti pacientům v rámci informačních programů splňujících zákonem stanovené podmínky. Zhodnocení hospodářského a finančního dopadu výslovně uvádí, že snížením regulace reklamy na zdravotnické a diagnostické prostředky in vitro dojde k rozvolnění, které podnikatelům může přinést konkurenční výhody, při zachování ochrany veřejného zdraví spotřebitelů.",
+    "researchedContext": "Text potvrzuje rozsah tvrzený titulem: Část první (čl. I) mění zákon o regulaci reklamy, Část druhá (čl. III) zákon o zdravotnických prostředcích, Část třetí (čl. IV) stanoví účinnost — dva novelizované zákony, přesně jak uvádí uzel tisku v grafu. Obecná část zprávy (bod C) sama výslovně přiznává věcné jádro druhé, méně zdůrazněné změny: „Odstraňuje se nadbytečná regulace reklamy určené veřejnosti na zdravotnický prostředek nebo diagnostický prostředek in vitro, který může být vydán pouze na poukaz nebo žádanku vystavené lékařem“ — tedy dosavadní plošný zákaz reklamy na tyto na předpis vázané prostředky se ruší a nahrazuje režimem dovolující reklamu s výjimkami. Bod G (hospodářský a finanční dopad) toto přiznání dále rozvíjí větou, že snížení regulace „dojde k rozvolnění, které podnikatelům může přinést konkurenční výhody“ — jde tedy o zprávou přiznanou, nikoli utajenou deregulaci, byť je v obecné části zprávy (body A až C) tematicky podřazena kojenecké výživě a ve stručném titulu tisku, jenž jen vyjmenovává novelizované zákony, se o ní žádná zmínka neobjevuje. Operativní text v Části druhé zavádí nový § 53b zákona o zdravotnických prostředcích („Program pro pacienty“) umožňující výrobcům, poskytovatelům zdravotních služeb, odborným společnostem nebo pacientským organizacím pořádat informační programy pro pacienty spojené s poskytnutím vzorků prostředku a přiměřené pohostinnosti, pokud program sleduje výhradně edukační účel, je zprostředkován zdravotnickým pracovníkem, je vědecky podložený, nemá podobu srovnávací reklamy a není s ním spojena odměna nad rámec vzorku a pohostinnosti; porušení je nově sankcionováno jako přestupek pokutou do 500 000 Kč (nový § 62b). Bod 27 (§ 5k odst. 1 a 2) Části první stejným způsobem rozšiřuje definici reklamy na zdravotnické prostředky o sponzorování setkání a vědeckých kongresů odborníků včetně poskytování pohostinnosti a bod 29 doplňuje nový § 5k odst. 8, který pohostinnost při takových setkáních omezuje na hlavní účel setkání a jen na účastníky, aniž by ale stanovil konkrétní finanční limit její hodnoty — mez je tedy kvalitativní (účelová), nikoli číselná.",
+    "unstatedEffects": [
+      {
+        "effect": "Zhodnocení hospodářského a finančního dopadu i obecná část zprávy k deregulaci reklamy na zdravotnické prostředky a diagnostické prostředky in vitro vázané na lékařský předpis existují a jsou v textu zprávy dohledatelné, ale jsou zařazeny až pod hlavičkou obecného posouzení dopadu na podnikatelské prostředí, zatímco titul tisku i shrnutí, jímž je tento tisk v datech označen, hovoří jen o „změně zákona o regulaci reklamy“ a „zákona o zdravotnických prostředcích“ bez zmínky o věcném obsahu. Čtenář, který by se spokojil s titulem nebo s částí zprávy věnovanou kojenecké výživě (body A až C obecné části, kam je hlavní pozornost soustředěna), by tak mohl přehlédnout, že tentýž tisk současně ruší plošný zákaz reklamy na předpisem vázané zdravotnické prostředky pro širokou veřejnost a zavádí nový institut umožňující výrobcům poskytovat pacientům vzorky a pohostinnost.",
+        "whoBenefits": "Výrobci a distributoři zdravotnických prostředků a diagnostických zdravotnických prostředků in vitro vázaných na lékařský předpis, kterým nová úprava — podle vlastního přiznání zprávy — může přinést konkurenční výhody rozvolněním dosavadní plošné reklamní regulace.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jde o vládní návrh předložený ministrem průmyslu a obchodu; v datech je u tisku evidován poslanec Karel Havlíček v roli garančního výboru (Výbor pro zdravotnictví, řízení přikázáno 24. 6. 2026), nikoli jako věcný předkladatel. Uzel tohoto poslance v grafu nenese žádnou peněžní vazbu na soukromou firmu. Věcně jde o obecnou úpravu dozoru nad reklamou na kojeneckou výživu a rozsahu reklamní regulace zdravotnických prostředků, z níž neplyne přímý peněžní prospěch žádné konkrétní, v grafu jmenované soukromé firmě spojené s předkladatelem nebo evidovaným poslancem — z dostupných dat proto neplyne důvod pro podezření na osobní majetkový střet zájmů u tohoto tisku. Odvětvový prospěch popsaný výše (výrobci zdravotnických prostředků obecně) je jiné povahy než majetkový střet zájmů konkrétní osoby, který peněžní graf tohoto korpusu sleduje.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Tisk mění dva zákony: Část první (čl. I) zákon č. 40/1995 Sb., o regulaci reklamy, Část druhá (čl. III) zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro; počet novelizovaných zákonů odpovídá uzlu tisku v grafu.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+      },
+      {
+        "claim": "Hlavním deklarovaným účelem novely je splnit úkol z usnesení vlády č. 719 z 27. září 2023 a přesunout dozor nad reklamou na kojeneckou výživu z krajských živnostenských úřadů na Státní zemědělskou a potravinářskou inspekci.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+      },
+      {
+        "claim": "Obecná část zprávy (bod C) uvádí, že se odstraňuje nadbytečná regulace reklamy určené veřejnosti na zdravotnický prostředek nebo diagnostický prostředek in vitro vydávaný pouze na poukaz nebo žádanku lékaře.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+      },
+      {
+        "claim": "Zhodnocení hospodářského a finančního dopadu (bod G) uvádí, že snížením regulace reklamy na zdravotnické a diagnostické prostředky in vitro dojde k rozvolnění, které podnikatelům může přinést konkurenční výhody, při zachování ochrany veřejného zájmu na ochraně zdraví spotřebitelů.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+      },
+      {
+        "claim": "Body 2 a 3 Části druhé vkládají do zákona o zdravotnických prostředcích nový § 53b „Program pro pacienty“, umožňující poskytnutí vzorků prostředku a přiměřené pohostinnosti pacientům v rámci informačního programu splňujícího zákonem stanovené podmínky, a nový § 62b sankcionující porušení těchto podmínek pokutou do 500 000 Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+      },
+      {
+        "claim": "Bod 29 Části první doplňuje do § 5k zákona o regulaci reklamy nový odstavec 8, který omezuje pohostinnost poskytovanou při sponzorovaných odborných setkáních na hlavní účel setkání a jen na jeho účastníky, aniž by stanovil konkrétní finanční limit její hodnoty.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=153&ct1=0"
+      },
+      {
+        "claim": "Zákon č. 40/1995 Sb., o regulaci reklamy, je prvním ze dvou novelizovaných předpisů.",
+        "kind": "law",
+        "source": "40/1995"
+      },
+      {
+        "claim": "Zákon č. 375/2022 Sb., o zdravotnických prostředcích a diagnostických zdravotnických prostředcích in vitro, je druhým novelizovaným předpisem.",
+        "kind": "law",
+        "source": "375/2022"
+      }
+    ]
+  },
+  {
+    "billTisk": 190,
+    "statedReasoning": "Senátní návrh (předkladatelka Jitka Mračková Vildumetz a další senátoři, podepsáno předsedou Senátu Milošem Vystrčilem) mění čtyři volební zákony - č. 88/2024 Sb. o správě voleb, č. 247/1995 Sb. o volbách do Parlamentu ČR, č. 275/2012 Sb. o volbě prezidenta republiky a č. 89/2024 Sb., jímž byly tyto zákony naposledy novelizovány. Obecná část důvodové zprávy popisuje tři cíle: (1) zachovat pro volby do Senátu a pro volbu prezidenta republiky dosavadní systém samostatného hlasovacího lístku pro každého kandidáta namísto jednotného hlasovacího lístku se seznamem všech kandidátů, který pro tyto volby zavedl zákon č. 89/2024 Sb. a který se měl poprvé použít již v senátních volbách v říjnu 2026; (2) zavést na hlasovací lístky, s výjimkou lístků pro volby do zastupitelstev obcí, grafický (QR) kód umožňující přístup k náhledu hlasovacího lístku, především jako pomůcku pro osoby se zrakovým postižením; (3) odložit ostrý provoz částí informačního systému správy voleb (registr kandidátních listin, nástroj pro sestavování elektronických petic, registr okrskových volebních komisí) z podzimních voleb 2026 až na volbu prezidenta republiky v roce 2028, mimo jiné proto, že lokálního administrátora nutného pro přístup přes autorizační systém Digitální a informační agentury má podle zprávy zajištěno jen zhruba polovina obecních úřadů. Zpráva odhaduje jediný přímý rozpočtový dopad - přibližně 2 miliony Kč na jedny volby navíc za tisk grafického kódu - a tvrdí, že odklad informačního systému nemá dopad na dosud vynaložené investice ani na smluvní vztahy. Navrhovaná účinnost je dnem následujícím po vyhlášení a Sněmovna je žádána o schválení již v prvním čtení kvůli devadesátidenní lhůtě před vyhlášením voleb, kterou musí prezident republiky dodržet.",
+    "researchedContext": "Text potvrzuje všechny popsané změny: Čl. I body 1 a 2 doplňují do § 35 odst. 2 zákona č. 88/2024 Sb. grafický kód jako povinnou náležitost hlasovacího lístku s explicitní výjimkou pro volby do zastupitelstev obcí; Čl. I bod 3 ukládá Ministerstvu vnitra vytvořit nástroj pro elektronické petice do 12 měsíců od účinnosti (nový § 84 odst. 2), body 4 až 7 prodlužují lhůty a posouvají první použití zbylých komponent systému správy voleb na volby konané po 31. 12. 2027; Čl. II a III vrací pro volby do Senátu a volbu prezidenta republiky samostatný hlasovací lístek pro každého kandidáta (nové znění §§ 67, 68, 70 zákona č. 247/1995 Sb. a §§ 28, 42, 49 zákona č. 275/2012 Sb.); Čl. IV mění navazující přechodná ustanovení zákona č. 89/2024 Sb. stejným způsobem, včetně nové věty v čl. VI bodu 2 tohoto zákona, podle níž se počet podpisů na petici pro nezávislého kandidáta do zastupitelstev obcí v podzimních volbách 2026 vypočítá podle nového znění zákona č. 491/2001 Sb. Podle historie projednávání byl návrh Senátem postoupen Sněmovně 11. 5. 2026 jako tisk 190/0, vláda k němu 20. 5. 2026 zaujala souhlasné stanovisko, jako garanční výbor byl 27. 5. 2026 navržen Ústavně právní výbor, Sněmovna jej schválila v prvním čtení 2. 6. 2026, Senát potvrdil schválené znění 17. 6. 2026, prezident zákon podepsal 22. 6. 2026 a vyhlášen byl 25. 6. 2026 jako zákon č. 108/2026 Sb. - tedy s dostatečným předstihem před podzimními volbami. Zákon č. 89/2024 Sb. sám již dříve novelizoval zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí, na nějž se odkazuje čl. IV bod 5 tisku 190; toto ustanovení tedy odkazuje na již dříve provedenou, nikoli tímto tiskem navrhovanou, změnu zákona č. 491/2001 Sb. Souběžně projednávané senátní tisky 12 a 131, jejichž dřívější hodnocení popsala doslovnou textovou kolizi mezi sebou v §§ 56 až 58b a 66 zákona č. 491/2001 Sb. (instituty doplňovacích voleb), se týkají převážně odlišných ustanovení téhož zákona - vícemandátových volebních obvodů, hranice pro postup na kandidátní listině díky preferenčním hlasům a doplňovacích voleb - než těch, na které odkazuje tisk 190 (výpočet potřebného počtu podpisů na petici nezávislého kandidáta). Jedna styčná plocha ale existuje a je třeba ji uvést: tisk 12 v bodě 15 mění přílohu zákona č. 491/2001 Sb. - tabulku počtů podpisů na peticích podle § 21 odst. 1, tedy přesně ten nástroj, přes který tisk 190 v čl. IV bodu 5 vede určení potřebného počtu podpisů pro podzimní volby 2026. Úprava v tisku 12 je čistě jazyková (zrušení slov o volebním obvodu v návaznosti na rušení volebních obvodů, beze změny jediného čísla v tabulce), takže při přijetí obou předloh by nešlo o rozpor v číslech, ale o dvě instrukce nad týmž textem přílohy, jejichž pořadí by legislativní technika musela ohlídat. Tisk 131 byl mezitím vyhlášen jako zákon č. 70/2026 Sb. (26. 5. 2026) a jeho obsah se výpočtu počtu podpisů na petici netýká; tisk 12 zůstává k 5. 8. 2026 neschválen a je stále jen ve výboru. Přímá věcná kolize (dvě neslučitelná pravidla pro touž otázku) mezi tiskem 190 a tisky 12 či 131 zjištěna nebyla; společný dotyk přílohy s počty podpisů je popsán výše.",
+    "unstatedEffects": [
+      {
+        "effect": "Zvláštní část k Čl. I bodům 1 a 2 i obecná část kvantifikují jediný přímý dopad na veřejné rozpočty - přibližně 2 miliony Kč na jedny volby za tisk grafického kódu. Obecná část ale zároveň tvrdí, že návrat k samostatným hlasovacím lístkům pro každého kandidáta ve volbách do Senátu a při volbě prezidenta republiky je z hlediska nároků na státní rozpočet indiferentní, neboť k uplatnění nové úpravy společného hlasovacího lístku doposud nedošlo - tento argument ale popisuje jen to, že náklady přechodu na jednotný lístek dosud nevznikly, nikoli rozdíl v běžných nákladech tisku mezi jedním společným hlasovacím lístkem a samostatným lístkem pro každého kandidáta v jednomandátových senátních obvodech, který text nikde nevyčísluje.",
+        "whoBenefits": "Nelze jednoznačně určit - jde o mezeru v kvantifikaci rozpočtového dopadu vlastního hlavního opatření návratu k samostatným hlasovacím lístkům, zatímco vedlejší opatření s grafickým kódem je vyčísleno odhadem (cca 2 miliony Kč, s výslovnou výhradou proměnlivosti).",
+        "evidence": "Bod 6 obecné části a zvláštní část k Čl. I bodům 1 a 2 důvodové zprávy k tisku 190."
+      },
+      {
+        "effect": "Návrh zavádí grafický kód na hlasovací lístky jako pomůcku pro osoby se zrakovým postižením u všech typů voleb kromě voleb do zastupitelstev obcí, přičemž komunální volby proběhnou v říjnu 2026 souběžně se senátními volbami, na které se grafický kód vztahovat bude. Zvláštní část odůvodňuje výjimku pro komunální volby jen obratem „s ohledem na jejich povahu“ (uvedeným v závorce a zopakovaným o něco dále), aniž by vysvětlila, jak si mají zrakově postižení voliči ve stejný volební den poradit s hlasovacím lístkem do zastupitelstva obce bez obdobné pomůcky, kterou stejný zákon ve stejný den zavádí pro senátní hlasovací lístek.",
+        "whoBenefits": "Nelze jednoznačně určit - důvodová zpráva neuvádí, kolik zrakově postižených voličů se v říjnu 2026 zúčastní zároveň komunálních i senátních voleb a zůstane tak bez grafického kódu jen u části hlasovacích lístků, které budou ten den vyplňovat.",
+        "evidence": "Čl. I bod 2 tisku 190 („to neplatí pro hlasovací lístky ve volbách do zastupitelstev obcí“) a zvláštní část k Čl. I bodům 1 a 2 („s ohledem na jejich povahu“)."
+      }
+    ],
+    "conflictAssessment": "Předkladatelem tisku 190 je Senát Parlamentu České republiky (v čele se senátorkou Jitkou Mračkovou Vildumetz a dalšími senátory, podepsáno předsedou Senátu Milošem Vystrčilem); případový spis pro tento tisk neeviduje žádného poslance jako předkladatele ani žádný řádek peněžních vazeb. Jde o stejnou mezeru v pokrytí dat, jakou popsala dřívější hodnocení senátních tisků 12 a 131 - datová sada v dostupném rozsahu neobsahuje záznamy peněžních vazeb pro senátory jako předkladatele senátních tisků, a proto nelze střet zájmů předkladatele u tisku 190 na základě dostupných dat ani potvrdit, ani vyloučit. Obsahem novely je navíc procesní úprava volebních zákonů (podoba hlasovacích lístků, harmonogram informačního systému správy voleb) týkající se všech voličů a kandidujících subjektů rovnocenně, nikoli úprava se selektivním hospodářským dopadem na jmenovitě určitelný okruh soukromých subjektů, u níž by peněžní vazby předkladatelů byly věcně relevantní stejným způsobem jako u poslaneckých tisků s přímým sektorovým dopadem.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh zachovává pro volby do Senátu a volbu prezidenta republiky samostatný hlasovací lístek pro každého kandidáta namísto jednotného hlasovacího lístku a zavádí na hlasovací lístky, s výjimkou voleb do zastupitelstev obcí, grafický kód pro osoby se zrakovým postižením.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=190&ct1=0"
+      },
+      {
+        "claim": "Návrh odkládá ostrý provoz registru kandidátních listin, nástroje pro sestavování elektronických petic a registru okrskových volebních komisí z podzimních voleb 2026 na volby konané po 31. 12. 2027.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=190&ct1=0"
+      },
+      {
+        "claim": "Čl. IV bod 5 tisku 190 stanoví, že potřebný počet podpisů na petici pro nezávislého kandidáta do zastupitelstev obcí se určí podle nového znění zákona č. 491/2001 Sb., účinného po nabytí účinnosti tohoto zákona.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=190&ct1=0"
+      },
+      {
+        "claim": "Senát postoupil návrh Sněmovně 11. 5. 2026 jako tisk 190/0, vláda k němu 20. 5. 2026 zaujala souhlasné stanovisko, jako garanční výbor byl navržen Ústavně právní výbor a zákon byl vyhlášen 25. 6. 2026 jako zákon č. 108/2026 Sb.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=190"
+      },
+      {
+        "claim": "Tisk 12 zůstává k 5. 8. 2026 neschválen a je stále ve fázi projednávání ve výboru, se stanoviskem vlády nesouhlas ze 4. 12. 2025.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=12"
+      },
+      {
+        "claim": "Tisk 131 byl vyhlášen 26. 5. 2026 jako zákon č. 70/2026 Sb.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=131"
+      },
+      {
+        "claim": "Tisk 190 mění zákony č. 88/2024 Sb., č. 247/1995 Sb., č. 275/2012 Sb. a č. 89/2024 Sb. podle grafu vazeb mezi tiskem a novelizovanými zákony.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43311"
+      },
+      {
+        "claim": "Zákon č. 88/2024 Sb., o správě voleb, je jedním z předpisů novelizovaných tímto tiskem.",
+        "kind": "law",
+        "source": "88/2024"
+      },
+      {
+        "claim": "Zákon č. 491/2001 Sb., o volbách do zastupitelstev obcí, je zákon, na jehož nové znění tisk 190 v Čl. IV bodu 5 odkazuje, aniž by jej sám novelizoval.",
+        "kind": "law",
+        "source": "491/2001"
+      }
+    ]
+  },
+  {
+    "billTisk": 192,
+    "statedReasoning": "Vládní návrh (předkladatel ministr kultury) mění tři zákony najednou: knihovní zákon č. 257/2001 Sb., zákon č. 37/1995 Sb., o neperiodických publikacích, a tiskový zákon č. 46/2000 Sb. Důvodová zpráva jej odůvodňuje potřebou reagovat na technologický vývoj: dosavadní povinnost odevzdávat povinný výtisk se váže jen na hmotné rozmnoženiny (tištěné knihy, noviny, časopisy), zatímco stále více publikací a periodik vzniká a je šířeno pouze elektronicky online. Návrh proto zavádí nový pojem „pořízení“ neperiodické publikace (elektronické vydání bez hmotného nosiče) a „elektronický periodický tisk“, na které se rozšiřuje povinnost odevzdávat povinný výtisk Národní knihovně a dalším určeným knihovnám. Knihovní zákon se mění tak, aby Národní knihovna mohla nově budovat databázi těchto elektronických povinných výtisků a dále databázi vybraných volně dostupných webových stránek s trvalou politickou, hospodářskou, právní, historickou, kulturní, vědeckou nebo informační hodnotou, a zpřístupňovat obsah těchto databází mj. ve formě otevřených dat. Zpráva výslovně uvádí, že navazuje na obsahově shodný, v 9. volebním období nedokončený sněmovní tisk č. 773 (a dříve tisk č. 646 z 8. volebního období). Náklady na provoz nové agendy Národní knihovny vyčísluje na cca 15 mil. Kč ročně (z toho cca 7,2–7,8 mil. Kč na platy 10 pracovních míst), hrazené z kapitoly 334 – Ministerstvo kultury bez navýšení počtu systemizovaných míst; dopad na podnikatelské prostředí označuje za minimální, korupční rizika za žádná, neboť se podle zprávy nerozšiřují pravomoci orgánů státní správy, pouze zmocnění Národní knihovny.",
+    "researchedContext": "Text potvrzuje rozsah tvrzený zprávou beze zbytku, pokud jde o počet novelizovaných předpisů: Část první mění knihovní zákon (čl. I), Část druhá zákon o neperiodických publikacích (čl. II), Část třetí tiskový zákon (čl. III) a Část čtvrtá stanoví účinnost (čl. IV) — celkem tři novelizované zákony, přesně jak uvádí uzel tisku v grafu i titulní výčet zákona; jde tedy o skutečně tříčlennou novelu, nikoli o skryté omnibusové rozšíření na další předpisy. Nové písmeno c) v § 9 odst. 2 knihovního zákona (vkládané spolu s písmenem d)) zakládá zmocnění Národní knihovny sbírat a uchovávat vybrané informace mající „trvalou hodnotu danou jejich politickým, hospodářským, právním, historickým, kulturním, vědeckým nebo informačním významem“, volně dostupné prostřednictvím služeb informační společnosti, a pořizovat z nich databázi. Samotný text zákona vymezuje výběr jen tímto uzavřeným výčtem kategorií hodnoty a neobsahuje schvalovací ani přezkumný mechanismus; zvláštní část důvodové zprávy k tomu otevřeně uvádí, že konkrétní kritéria „jaké webové stránky budou harvestovány, tedy určí primárně Národní knihovna“, že „je nepraktické tato kritéria určovat zákonem“, a odkazuje na sběrnou politiku (collection policy) Národní knihovny se třemi typy sklizní — výběr politicky relevantního obsahu je tedy záměrně svěřen interní politice instituce zřízené Ministerstvem kultury, mimo zákon i mimo zvláštní schvalovací mechanismus. Část, která mění postavení Národní knihovny při kolektivní správě (bod 2, § 9 odst. 2 písm. h), nahrazuje dosavadní úhradu odměn za půjčování knihovnami novým zmocněním uzavírat jménem knihoven systému knihoven smlouvy s kolektivními správci a platit odměny za užití předmětů ochrany těmito knihovnami obecně — tedy širší rozsah odměn než dosavadní úzce vymezené půjčovné; zvláštní část zprávy toto rozšíření zdůvodňuje navazujícím rozšířením možností užití databází a povinných výtisků podle § 97e autorského zákona (rozšířená kolektivní správa), ale nekvantifikuje očekávaný nárůst objemu takto hrazených odměn.",
+    "unstatedEffects": [
+      {
+        "effect": "Nové zmocnění Národní knihovny sbírat a trvale uchovávat volně dostupný obsah internetu s „politickým… významem“ (§ 9 odst. 2 písm. c) knihovního zákona) svěřuje výběr toho, co má takovou hodnotu, odborné úvaze samotné instituce: zákon vymezuje jen uzavřený výčet kategorií hodnoty, ale nestanoví povinnost zveřejnit metodiku sběru ani mechanismus přezkumu jednotlivých rozhodnutí o zařazení či nezařazení konkrétního webu do archivu, a zvláštní část zprávy výslovně uvádí, že konkrétní kritéria určí primárně sama Národní knihovna svou sběrnou politikou, protože je „nepraktické tato kritéria určovat zákonem“. Zhodnocení korupčních rizik v důvodové zprávě se soustředí výhradně na to, že se nerozšiřují pravomoci „orgánů státní správy“ (Národní knihovna jimi formálně není), a otázku diskrečního výběru politicky relevantního obsahu vůbec neřeší.",
+        "whoBenefits": "Nelze jednoznačně určit — jde o riziko netransparentnosti výběru u instituce zřizované Ministerstvem kultury, nikoli o zvýhodnění konkrétní osoby nebo firmy; profituje z něj potenciálně kdokoli, kdo by mohl ovlivnit, který obsah se do archivu zařadí nebo nezařadí.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      },
+      {
+        "effect": "Nová dikce § 9 odst. 2 písm. h) knihovního zákona nahrazuje dosavadní úzce vymezenou úhradu odměn za půjčování knihovnami obecnějším zmocněním Národní knihovny uzavírat jménem celého systému knihoven smlouvy s kolektivními správci a hradit odměny za užití předmětů ochrany těmito knihovnami. Zvláštní část důvodové zprávy toto rozšíření odůvodňuje navazujícím rozšířením možností využití nově budovaných databází (rozšířená kolektivní správa podle § 97e autorského zákona), ale část věnovaná hospodářskému a finančnímu dopadu vyčísluje jen náklady na provoz Národní knihovny (cca 15 mil. Kč/rok) a o očekávaném nárůstu plateb kolektivním správcům se nezmiňuje ani orientačním odhadem.",
+        "whoBenefits": "Kolektivní správci autorských práv, jimž má Národní knihovna nově platit odměny za širší okruh užití předmětů ochrany, než jaký dosud pokrývalo půjčovné — přesná výše tohoto rozšířeného peněžního toku ale ve zprávě chybí.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jde o vládní návrh předložený ministrem kultury, nikoli o poslaneckou iniciativu; v datech je u tisku evidován jediný poslanec, Oto Klempíř, a to v roli garančního výboru (výbor vedený v rozpisu projednávání zkratkou VMZ), nikoli jako předkladatel věcného obsahu návrhu. Uzel tohoto poslance v grafu nenese žádnou peněžní vazbu na soukromou firmu, takže z dostupných dat neplyne žádný přímý majetkový střet zájmů u osoby formálně spojené s projednáváním tisku. Věcně jde o úpravu povinností knihoven, vydavatelů a Národní knihovny vůči státu a kolektivním správcům, nikoli o smlouvu nebo dotaci ve prospěch konkrétní soukromé firmy vlastněné či řízené některým poslancem, takže ani při doplnění dat o dalších osobách by nebyl důvod očekávat majetkový střet zájmů tohoto typu.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Tisk mění tři zákony ve třech částech (Část první — čl. I knihovní zákon č. 257/2001 Sb., Část druhá — čl. II zákon č. 37/1995 Sb., Část třetí — čl. III tiskový zákon č. 46/2000 Sb.) a Část čtvrtá stanoví účinnost; počet novelizovaných zákonů odpovídá výčtu v titulu zákona i v uzlu tisku v grafu.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      },
+      {
+        "claim": "Nové písmeno c) v § 9 odst. 2 knihovního zákona zakládá zmocnění Národní knihovny sbírat, uchovávat a zpřístupňovat vybrané informace trvalé hodnoty dané mimo jiné jejich politickým významem a pořizovat z nich databázi; konkrétní kritéria výběru text zákona neurčuje a zvláštní část zprávy je svěřuje sběrné politice Národní knihovny.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      },
+      {
+        "claim": "Bod 2 mění § 9 odst. 2 písm. h) knihovního zákona tak, že Národní knihovna nově jménem knihoven systému knihoven uzavírá smlouvy s kolektivními správci a platí odměny za užití předmětů ochrany, nikoli jen dosavadní odměny za půjčování.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část důvodové zprávy zdůvodňuje rozšíření zmocnění Národní knihovny při kolektivní správě navazujícím rozšířením možností užití databází a povinných výtisků ve smyslu § 97e zákona č. 121/2000 Sb. (rozšířená kolektivní správa), bez vyčíslení dopadu na objem hrazených odměn.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      },
+      {
+        "claim": "Bod 12 zhodnocení dopadů regulace uvádí, že návrh nepřináší korupční rizika, protože nerozšiřuje pravomoci orgánů státní správy, pouze zakládá zmocnění pro Národní knihovnu; otázka diskrečního výběru archivovaného webového obsahu se v tomto zhodnocení neřeší.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      },
+      {
+        "claim": "Hospodářský a finanční dopad na kapitolu 334 – Ministerstvo kultury je vyčíslen na cca 15 mil. Kč ročně (z toho cca 7,2 mil. Kč v prvním roce a 7,8 mil. Kč v pátém roce na platy 10 pracovních míst), bez navýšení počtu systemizovaných míst, a návrh navazuje na obsahově shodné dřívější tisky č. 646 (8. volební období) a č. 773 (9. volební období).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=192&ct1=0"
+      },
+      {
+        "claim": "Knihovní zákon č. 257/2001 Sb. je prvním ze tří novelizovaných předpisů.",
+        "kind": "law",
+        "source": "257/2001"
+      },
+      {
+        "claim": "Zákon č. 37/1995 Sb., o neperiodických publikacích, je druhým novelizovaným předpisem.",
+        "kind": "law",
+        "source": "37/1995"
+      },
+      {
+        "claim": "Tiskový zákon č. 46/2000 Sb. je třetím novelizovaným předpisem.",
+        "kind": "law",
+        "source": "46/2000"
+      },
+      {
+        "claim": "Rozšířená kolektivní správa, na niž se zvláštní část zprávy odvolává, je upravena v § 97e autorského zákona č. 121/2000 Sb.",
+        "kind": "law",
+        "source": "121/2000"
+      }
+    ]
+  },
+  {
+    "billTisk": 231,
+    "statedReasoning": "Vládní návrh (předkladatel ministr kultury) mění zákon č. 483/1991 Sb., o České televizi, a zákon č. 484/1991 Sb., o Českém rozhlasu, a zároveň zcela zrušuje zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích. Obecná část důvodové zprávy uvádí, že vláda se v Programovém prohlášení zavázala zrušit poplatky za veřejnoprávní média, a ve stejném odstavci dodává, že současně přijala závazek zajistit transparentní kontrolu hospodaření České televize a Českého rozhlasu prostřednictvím Nejvyššího kontrolního úřadu (NKÚ), přičemž deklarovala zachování nezávislosti obou médií jako prioritu. Tento tisk realizuje pouze první část tohoto dvojího závazku: nahrazuje koncesionářské poplatky přímým, ze zákona plynoucím a inflačně valorizovaným příspěvkem ze státního rozpočtu (5 741 826 000 Kč ročně pro Českou televizi, 2 065 766 000 Kč ročně pro Český rozhlas, oba s automatickým desetiprocentním navýšením po překročení kumulované inflace 10 procentních bodů). Zpráva odůvodňuje krok evropským trendem odklonu od poplatkového financování, poukazuje na Evropský akt o svobodě médií a na jeho požadavek stabilního a předvídatelného financování jako záruky redakční nezávislosti, a uvádí, že navržené řešení principy tohoto nařízení nijak nenarušuje; transparentní zákonná pravidla financování mají podle zprávy předcházet ad hoc politickému ovlivňování, jehož riziko u rozpočtového financování zpráva sama v hodnocení korupčních rizik připouští. Účinnost se navrhuje k 1. lednu 2027.",
+    "researchedContext": "Text potvrzuje rozsah tvrzený zprávou: čl. I mění zákon o České televizi, čl. II zákon o Českém rozhlasu, čl. III je přechodné ustanovení, čl. IV ruší zákon č. 348/2005 Sb. v celém rozsahu a části jedenácti dalších předpisů a čl. V stanoví účinnost k 1. lednu 2027 — jde skutečně o dvě novely plus jedno zrušovací ustanovení, přesně jak uvádí titul i uzel tisku v grafu. Obecná část zprávy sama v bodě 12 (Zhodnocení korupčních rizik) přiznává, že přechod na rozpočtové financování „může mít dopady na korupční rizika, a to oběma směry“ a že „bez dostatečných garancí by rozpočtové financování mohlo zvyšovat riziko politického tlaku nebo netransparentního rozhodování o výši prostředků“ — tuto obavu zpráva řeší poukazem na pevnou zákonnou výši příspěvku (obecná část, bod 3), přičemž formulace, že částka je stanovena „přímo v zákoně“, a nikoli v ročním rozpočtu, pochází ze zvláštní části zprávy. Toto tvrzení má však strukturální mez, kterou zpráva nezmiňuje: zákon, kterým se stanoví příspěvek, je stejně jako výše rozpočtu měnitelný prostou většinou Poslanecké sněmovny v běžném legislativním procesu — stejným postupem, jakým je přijímán právě tento tisk — takže formální „zákonná“ povaha částky sama o sobě nebrání budoucí většině novelizovat výši příspěvku nebo valorizační mechanismus mimo každoroční rozpočtové jednání, jen jiným zákonodárným postupem. Zpráva dále v bodě 7 (hospodářský a finanční dopad) přiznává výpadek příjmů České pošty, s. p., která dosud jako pověřená osoba eviduje poplatníky, ale uvádí jen to, že tento výpadek „bude muset být zohledněn v jejím rozpočtu“, bez jakéhokoli číselného odhadu. V bodě 8 (zhodnocení, zda návrhem není zakládána veřejná podpora) zpráva sama přiznává nejistotu, zda nový způsob financování nezakládá veřejnou podporu ve smyslu čl. 107 odst. 1 Smlouvy o fungování EU, a uvádí, že na tuto otázku „bude vznesen dotaz na Evropskou komisi“ — tedy že posouzení souladu s unijním právem v době předložení návrhu ještě neproběhlo.",
+    "unstatedEffects": [
+      {
+        "effect": "Obecná část důvodové zprávy uvádí v jediném odstavci dva souběžné vládní závazky — zrušit poplatky za veřejnoprávní média a zajistit transparentní kontrolu jejich hospodaření prostřednictvím NKÚ — ale tento tisk realizuje jen ten první. Druhý závazek se v grafu evidovaného korpusu naplňuje samostatnou dvojicí předloh: senátním návrhem ústavního zákona (sněmovní tisk 47), který rozšiřuje čl. 97 odst. 1 Ústavy o kontrolní působnost NKÚ nad hospodařením ČT a ČRo, a navazující novelou zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu (sněmovní tisk 217), jejíž důvodová zpráva na tisk 47 výslovně odkazuje (tisk 47 sám žádné číslo tisku nejmenuje — odkaz vede jen jedním směrem). Tisk 231 naproti tomu mimo tuto jedinou zmínku Nejvyššího kontrolního úřadu v citované úvodní větě zprávy kontrolní závazek nijak nerozvádí a nikde neodkazuje na ústavní změnu ani na sněmovní tisky 47 nebo 217, ačkoli jde podle vlastní úvodní věty zprávy o dvě části téhož vládního závazku. Navíc účinnost tisku 231 je stanovena k 1. lednu 2027, zatímco ústavní novela (tisk 47) i prováděcí novela zákona o NKÚ (tisk 217) mají podle svých textů nabýt účinnosti již k 1. červenci 2026 — půl roku před tím, než se rozběhne nový způsob financování, který má být podle programového prohlášení právě posílenou kontrolou NKÚ doprovázen. Čtenář tisku 231 se z jeho textu nedozví, že druhá polovina vládního závazku je vedena zcela samostatným, časově nesouběžným legislativním postupem.",
+        "whoBenefits": "Nelze jednoznačně určit — nejde o zvýhodnění konkrétní osoby, ale o riziko, že veřejnost a Poslanecká sněmovna posuzují nový systém financování (mandatorní výdaj cca 7,81 mld. Kč ročně) odděleně od posílené vnější kontroly jeho hospodaření, kterou vláda sama prezentuje jako jeho protiváhu; při případném zpoždění nebo neschválení tisků 47 či 217 by nový rozpočtový příspěvek začal plynout bez posílené kontrolní protiváhy, kterou programové prohlášení k němu výslovně váže.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+      },
+      {
+        "effect": "Zhodnocení korupčních rizik v obecné části zprávy výslovně připouští, že „bez dostatečných garancí by rozpočtové financování mohlo zvyšovat riziko politického tlaku nebo netransparentního rozhodování o výši prostředků“; jako záruka slouží pevná zákonná výše příspěvku, o níž zvláštní část zprávy uvádí, že je stanovena přímo v zákoně. Tato záruka je ale formální: zákon stanovící výši příspěvku je novelizovatelný stejnou prostou většinou Poslanecké sněmovny jako kterýkoli jiný zákon, tedy i tento návrh sám — na rozdíl od ústavní změny (tisk 47), která by k prolomení vyžadovala kvalifikovanou většinu. Zpráva tento rozdíl mezi „zákonnou“ a „ústavní“ garancí stability nerozebírá, ačkoli sama u ústavní změny (tisk 47, mimo tento tisk) tuto vyšší míru ochrany nezávislosti sleduje jiným legislativním nástrojem.",
+        "whoBenefits": "Nelze jednoznačně určit — jde o obecné institucionální riziko vůči nezávislosti veřejnoprávních médií vůči budoucím parlamentním většinám, nikoli o zvýhodnění konkrétní osoby nebo firmy.",
+        "evidence": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jde o vládní návrh předložený ministrem kultury; v datech je u tisku evidován poslanec Oto Klempíř v roli garančního výboru (výbor vedený v rozpisu projednávání zkratkou VMZ, přikázání navrženo 24. 6. 2026), nikoli jako věcný předkladatel. Uzel tohoto poslance v grafu nenese žádnou peněžní vazbu na soukromou firmu. Věcně jde o změnu systému financování veřejnoprávních médií ze státního rozpočtu ve prospěch dvou veřejnoprávních institucí (Česká televize, Český rozhlas), nikoli o smlouvu nebo dotaci ve prospěch soukromé firmy vlastněné či řízené některým poslancem — z dostupných dat proto neplyne důvod pro podezření na osobní majetkový střet zájmů předkladatele nebo evidovaného poslance u tohoto tisku. Institucionální riziko popsané výše (oslabení rozpočtové nezávislosti veřejnoprávních médií vůči budoucím parlamentním většinám) je jiné povahy než majetkový střet zájmů pokrytý peněžním grafem tohoto korpusu.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Obecná část důvodové zprávy uvádí, že vláda se v Programovém prohlášení zavázala zrušit poplatky za veřejnoprávní média a současně zajistit transparentní kontrolu jejich hospodaření prostřednictvím NKÚ, při zachování nezávislosti obou médií jako priority.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+      },
+      {
+        "claim": "Čl. I zákona nahrazuje v § 10 zákona o České televizi televizní poplatek příspěvkem ze státního rozpočtu a doplňuje nový § 10a stanovící příspěvek 5 741 826 000 Kč pro rok 2027 s automatickým desetiprocentním navýšením při kumulované inflaci nad 10 procentních bodů; čl. II obdobně u Českého rozhlasu stanoví příspěvek 2 065 766 000 Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+      },
+      {
+        "claim": "Čl. IV ruší zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích, a části jedenácti dalších zákonů, jež na něj odkazovaly; čl. V stanoví účinnost k 1. lednu 2027.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+      },
+      {
+        "claim": "Zhodnocení korupčních rizik v obecné části zprávy přiznává, že rozpočtové financování médií veřejné služby může bez dostatečných garancí zvyšovat riziko politického tlaku nebo netransparentního rozhodování o výši prostředků.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+      },
+      {
+        "claim": "Zhodnocení hospodářského a finančního dopadu přiznává výpadek příjmů České pošty, s. p., z evidence poplatníků, aniž by jej číselně vyčíslilo, a zhodnocení slučitelnosti s právem EU uvádí, že otázka, zda nový způsob financování zakládá veřejnou podporu podle čl. 107 odst. 1 SFEU, bude teprve předmětem dotazu na Evropskou komisi.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=231&ct1=0"
+      },
+      {
+        "claim": "Sněmovní tisk 47 (senátní návrh ústavního zákona) rozšiřuje čl. 97 odst. 1 Ústavy o kontrolní působnost NKÚ nad hospodařením právnických osob poskytujících veřejnou službu v oblasti televizního a rozhlasového vysílání, s navrhovanou účinností k 1. červenci 2026; jeho zvláštní část odkazuje na navazující změnu zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, kterou ale sama nejmenuje žádným číslem tisku.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=47&ct1=0"
+      },
+      {
+        "claim": "Sněmovní tisk 217 vkládá do zákona č. 166/1993 Sb., o Nejvyšším kontrolním úřadu, nový § 3 odst. 4 rozšiřující kontrolu NKÚ na hospodaření České televize a Českého rozhlasu, rovněž s účinností k 1. červenci 2026, a jeho důvodová zpráva výslovně cituje senátní tisk č. 47 (10. volební období) jako souběžně projednávaný ústavní základ této pravomoci.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=217&ct1=0"
+      },
+      {
+        "claim": "Zákon č. 483/1991 Sb., o České televizi, je prvním ze dvou přímo novelizovaných předpisů.",
+        "kind": "law",
+        "source": "483/1991"
+      },
+      {
+        "claim": "Zákon č. 484/1991 Sb., o Českém rozhlasu, je druhým ze dvou přímo novelizovaných předpisů.",
+        "kind": "law",
+        "source": "484/1991"
+      },
+      {
+        "claim": "Zákon č. 348/2005 Sb., o rozhlasových a televizních poplatcích, je tímto tiskem zrušen v celém rozsahu.",
+        "kind": "law",
+        "source": "348/2005"
+      }
+    ]
+  },
+  {
+    "billTisk": 261,
+    "statedReasoning": "Návrh osmi poslanců (Jan Bureš, Petr Bendl, Karel Haas, Marek Benda, Ivan Adamec, Jakub Janda, Jan Bauer, Jana Bačíková) mění § 20 zákona č. 114/1992 Sb., o ochraně přírody a krajiny, který upravuje složení a rozhodování rady národního parku. Návrh (1) doplňuje mezi zákonem určené členy rady zástupce Hasičského záchranného sboru ČR, (2) zavádí nový odstavec 4, podle kterého se návrh dokumentu ochrany a řízení parku považuje za dohodnutý jen tehdy, souhlasí-li s ním odděleně nadpoloviční většina přítomných členů delegovaných samosprávami i nadpoloviční většina přítomných členů jmenovaných orgánem ochrany přírody (tzv. dvoukolejné hlasování), přičemž při nedosažení shody se koná další pokus o znovuprojednání, a (3) přepracovává eskalační mechanismus tak, že přetrvávající rozpor předkládá rada Ministerstvu životního prostředí, které o něm rozhoduje až po projednání vládou. Přechodné ustanovení (Čl. II) dává nadpoloviční většině zástupců kterékoli ze dvou skupin právo do dvou let od účinnosti požádat o nové projednání a schválení dokumentů ochrany a řízení parku, které rada schválila ještě podle dosavadní úpravy. Důvodová zpráva uvádí jako hlavní cíl posílení role obcí a krajů v národních parcích, tvrdí nulový rozpočtový dopad, soulad s ústavním pořádkem i právem EU a absenci jakéhokoli kontaktu s lobbistou při přípravě návrhu. Zvláštní část k Čl. II dodává, že u dokumentů, na nichž dosud panovala shoda, bude jejich případné opětovné přeschválení naprosto hladké a bezproblémové.",
+    "researchedContext": "Text potvrzuje, že současná právní úprava podle bodu 2 obecné části skutečně nezajišťuje nutnost shody obou skupin členů rady, takže samosprávy mohou být podle důvodové zprávy v radě dosud přehlasovány - návrh tento stav mění zavedením odděleného hlasování obou skupin jako podmínky schválení. Podle historie projednávání na stránkách Poslanecké sněmovny byl návrh podán 14. 7. 2026, rozeslán poslancům 15. 7. 2026 jako tisk 261/0, vláda k němu 28. 7. 2026 zaujala nesouhlasné stanovisko (tisk 261/1) a 30. 7. 2026 byl podle stránky historie projednávání přikázán Výboru pro životní prostředí se zpravodajem Ondřejem Babkou (rozpis projednávání v datové sadě tohoto tisku žádné přikázání nenese — údaj stojí jen na psp.cz); k 5. 8. 2026 je tisk ve fázi projednávání ve výboru, hlasování v žádném čtení dosud neproběhlo. Zákon č. 114/1992 Sb. je jediným předpisem, který tisk 261 mění, v souladu s údaji případového spisu.",
+    "unstatedEffects": [
+      {
+        "effect": "Přechodné ustanovení Čl. II umožňuje kterékoli ze dvou skupin členů rady (samosprávám i odborníkům jmenovaným orgánem ochrany přírody) žádat do dvou let o nové projednání a schválení dokumentů ochrany a řízení parku, které byly schváleny ještě podle dosavadní úpravy - tedy podle mechanismu, který podle bodu 2 obecné části nezajišťuje nutnost shody obou skupin. Zvláštní část k Čl. II přesto tvrdí, že opětovné přeschválení dokumentů, na nichž doposud panoval konsenzus, bude naprosto hladké a bezproblémové, aniž by se vypořádala s tím, že u dokumentů schválených bez odděleného souhlasu obou skupin (což byl podle bodu 2 běžný scénář za dosavadní úpravy) může nové hlasování podle nově zavedeného dvoukolejného pravidla vést k tomu, že dříve platný dokument neprojde vůbec - právě proto, že o přeschválení požádá ta skupina, jejíž souhlas dříve chyběl.",
+        "whoBenefits": "Nelze jednoznačně určit, kdo z aktérů řízení národního parku z tohoto mechanismu profituje - text nekvantifikuje, kolik dosud schválených dokumentů ochrany a řízení parku (například zásad péče o národní park nebo zonace) by novým dvoukolejným hlasováním neprošlo, ani jak by se park řídil, pokud by přeschválení do dvou let nebylo dosaženo.",
+        "evidence": "Čl. II tisku 261 ve spojení s bodem 2 obecné části důvodové zprávy a se zvláštní částí k Čl. II („bude jejich případné opětovné přeschválení naprosto hladké a bezproblémové“)."
+      },
+      {
+        "effect": "Bod 1 novely vkládá zástupce Hasičského záchranného sboru ČR do stejné, zákonem určené skupiny členů rady, do níž patří i zástupci samospráv a Horské služby - tedy do té skupiny, jejíž hlasovací práh nově zavedené dvoukolejné hlasování (bod 2, nový § 20 odst. 4) počítá zvlášť jako nadpoloviční většinu přítomných členů této skupiny. Ani obecná, ani zvláštní část důvodové zprávy neuvádí, kolik členů tato skupina rady po doplnění o zástupce Hasičského záchranného sboru ČR bude čítat, ani jak přidání dalšího zákonného zástupce ovlivní poměr hlasovací síly uvnitř skupiny, kterou stejná novela ve stejném článku poprvé staví do pozice se samostatným vetem.",
+        "whoBenefits": "Nelze jednoznačně určit - přidání dalšího člena do skupiny zákonných zástupců mění vnitřní poměry hlasování uvnitř této skupiny právě ve chvíli, kdy tatáž novela dává hlasu této skupiny jako celku nově váhu rovnocennou druhé skupině (odborní a další jmenovaní členové); text neuvádí, kolik hlasů má po novele každá ze skupin.",
+        "evidence": "Bod 1 (§ 20 odst. 2 věta první) a bod 2 (nový § 20 odst. 4) tisku 261, obě ustanovení novelizující tentýž paragraf v témže článku."
+      }
+    ],
+    "conflictAssessment": "Žádný z osmi předkladatelů evidovaných v případovém spisu (Jan Bureš, Petr Bendl, Karel Haas, Marek Benda, Ivan Adamec, Jakub Janda, Jan Bauer, Jana Bačíková) nedrží podle případového souboru peněžních vazeb vlastnickou/řídící vazbu na společnost nebo instituci, která by věcně působila ve správě některého ze čtyř českých národních parků nebo obecněji v ochraně přírody a krajiny, jíž se novela týká. Jan Bureš drží jedinou vlastnickou/řídící vazbu (ZPS holding s.r.o., strojírenství, s částkou veřejných smluv 0 Kč podle registru smluv), jeho dalších sedm vazeb (Údržba silnic Karlovarského kraje, Léčebné lázně Jáchymov, Vodárny a kanalizace Karlovy Vary, Ostrovská teplárenská, Povodí Ohře, Česká asociace věřitelů a Chráněná dílna Ostrov — poslední dvě s nulovým úhrnem) je podle případového spisu svěřeneckých. Petr Bendl drží podle případového souboru peněžních vazeb šest vazeb: pět svěřeneckých (Vzdělávací centrum pro veřejnou správu ČR, Energie - stavební a báňská a.s., MERO ČR, Svaz měst a obcí ČR, Povodí Vltavy) a jednu vazbu řídicího typu — PRAK spol. s r.o., role člen představenstva, bez evidovaného úhrnu veřejných smluv u této vazby a se stupněm ověření „rozporná“ (zadání tisku vede tutéž vazbu pod jiným IČO a názvem „PRaK, a.s. v likvidaci“ — rozpor v identifikaci firmy, který tento verdikt uvádí a nerozhoduje). U vazby na Energie - stavební a báňská a.s. dřívější hodnocení tisku 103 upozornilo, že jde o soukromou akciovou společnost bez zjištěného veřejného vlastníka, a jeho citace zároveň nese jediné datované zjištění o této vazbě: podle obchodního rejstříku byl Bendl členem dozorčí rady této firmy pouze od 8. 11. 1996 do 23. 2. 2001 a žádný novější vztah rejstřík neeviduje. Podle aktuálních dat případového souboru je vazba evidována jako svěřenecká, takže úhrn jejích veřejných smluv je penězi instituce, nikoli Bendlovým osobním příjmem, a navíc jde o stavební a báňskou firmu, která nepůsobí v ochraně přírody. Bendlova svěřenecká vazba na Svaz měst a obcí České republiky je jediná, jejíž povaha - nikoli peněžní výše - stojí za zmínku: podle případového souboru peněžních vazeb je u ní evidována role „místopředseda“, tedy vedoucí funkce ve svazu reprezentujícím právě ty samosprávy, jejichž posílenou roli v národních parcích tato novela deklaruje jako svůj hlavní cíl. Tatáž vazba je ale v případovém souboru vedena se stupněm ověření „rozporná“, a nezávislé dohledání na oficiálních životopisných stránkách Poslanecké sněmovny a na osobních stránkách Petra Bendla tuto konkrétní funkci ani její dataci nepotvrdilo ani nevyvrátilo - oba prameny uvádějí jinou část jeho kariéry (starosta Kladna 1994-1998) beze zmínky o Svazu měst a obcí. Případový spis dataci této vazby nenese a nezávislé ověření ji nedoplnilo; jde tedy o neurčenou, nikoli vyloučenou institucionální souvislost, kterou tento verdikt uvádí jen pro úplnost a s vědomím, že jde o svěřeneckou, nikoli vlastnickou/řídící vazbu, jejíž případné veřejné smlouvy (57 751 425 Kč podle registru smluv) jsou penězi instituce, nikoli Bendlovým osobním příjmem. Karel Haas drží vlastnickou/řídící vazbu na ČSOB Pojišťovnu, a.s. (pojišťovnictví), Marek Benda svěřeneckou vazbu na společenství vlastníků jednotek (úhrn veřejných smluv 2 590 Kč je penězi tohoto společenství, nikoli poslance), Jan Bauer vlastnickou/řídící vazbu na RERA a.s. (regionální rozvojová agentura) a svěřenecké vazby na Wellness sv. Markéta, Robert Bosch spol. s r.o. a TAMPA s.r.o. Ivan Adamec drží vlastnickou/řídící vazbu na Společnost Horní Labe a.s. (odpadové hospodářství, sídlem Trutnov) a svěřenecké vazby na Technické služby Trutnov, Lesy a parky Trutnov, Oblastní nemocnici Trutnov, Všeobecnou zdravotní pojišťovnu ČR a TRANSPORT Trutnov; ani provoz odpadového hospodářství, ani žádná z jeho ostatních vazeb nepůsobí ve správě národního parku ani v ochraně přírody a krajiny, přestože jde o vazby soustředěné v trutnovském regionu, v jehož sousedství leží Krkonošský národní park. Jakub Janda a Jana Bačíková nemají v případovém spisu evidovánu žádnou peněžní vazbu. Věcný střet mezi soukromým ekonomickým zájmem některého z předkladatelů a operativním obsahem novely (hlasovací mechanismus rady národního parku) nebyl na základě dostupných dat zjištěn; všechny uvedené vazby čekají podle případového spisu na lidskou kontrolu.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Novela vkládá do § 20 odst. 2 zákona č. 114/1992 Sb. zástupce Hasičského záchranného sboru ČR jako zákonného člena rady národního parku a novým § 20 odst. 4 zavádí dvoukolejné hlasování, podle něhož musí návrh dokumentu ochrany a řízení parku podpořit nadpoloviční většina obou zákonem oddělených skupin členů rady.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=261&ct1=0"
+      },
+      {
+        "claim": "Přechodné ustanovení Čl. II umožňuje nadpoloviční většině kterékoli ze dvou skupin členů rady žádat do dvou let od účinnosti o nové projednání a schválení dokumentů ochrany a řízení národního parku schválených podle dosavadní úpravy.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=261&ct1=0"
+      },
+      {
+        "claim": "Podle bodu 2 obecné části důvodové zprávy současná úprava nezajišťuje nutnost shody obou skupin členů rady, takže zástupci samospráv mohou být v radě přehlasováni.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=261&ct1=0"
+      },
+      {
+        "claim": "Návrh podala skupina poslanců vedená Janem Burešem 14. 7. 2026, vláda k němu 28. 7. 2026 zaujala nesouhlasné stanovisko a 30. 7. 2026 byl podle stránky historie projednávání přikázán Výboru pro životní prostředí se zpravodajem Ondřejem Babkou (rozpis projednávání v datové sadě tohoto tisku žádné přikázání nenese — údaj stojí jen na psp.cz); k 5. 8. 2026 zůstává tisk ve fázi projednávání ve výboru.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=261"
+      },
+      {
+        "claim": "Tisk 261 mění zákon č. 114/1992 Sb. a jeho okruh osmi evidovaných předkladatelů zahrnuje osoby uvedené v případovém souboru včetně jejich peněžních vazeb a částek.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43383"
+      },
+      {
+        "claim": "Energie - stavební a báňská a.s. je stavební a báňská společnost, jejíž vazba na Petra Bendla je v aktuálním případovém souboru peněžních vazeb evidována jako svěřenecká.",
+        "kind": "graph_fact",
+        "source": "company:ico:45146802"
+      },
+      {
+        "claim": "Petr Bendl je v případovém souboru peněžních vazeb u Svazu měst a obcí České republiky evidován v roli místopředsedy, se stupněm ověření této vazby vedeným jako rozporný.",
+        "kind": "graph_fact",
+        "source": "company:ico:63113074"
+      },
+      {
+        "claim": "Zákon č. 114/1992 Sb., o ochraně přírody a krajiny, je jediný předpis novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "114/1992"
+      }
+    ]
+  }
+]
