@@ -163,9 +163,20 @@ improvement candidate for `gate-verdicts.ts`).
 
 ## History
 
-Batch 001 (pass 15): 8 verdicts + routing render + e-Sbírka scoping. Batch
-002 (pass 18): 10 verdicts + collision pre-check + THE first real §-diff
-(SPARQL). Batch 003 (pass 20): 8 verdicts + census (140/141) + 3 confirmed
-collisions + 4 more diffs (15 bills render). All 27 gated verdicts severity
-low — two independent conflict signals agree. Ledger:
+**THE VERDICT CORPUS IS COMPLETE (batch 021 / pass 55, 2026-08-06): 141/141
+bills carry a gated forensic verdict** (0 high / 34 medium / 107 low, all
+`pending_review` — the human gate was never delegated). Batches 011–021
+(passes 45–55) ran the closure-gates-the-write cycle: verdict army → driver
+gates → FRESH Opus audit → remediation → closure → persist. Read
+`docs/data-analysis/case-law/handoff.md` (corpus-close edition) FIRST for the
+verification doctrine, the seventeen named failure classes, the standing
+detectors, and the open items (the graph `sponsors`-prop regen is #1; the
+human review gate for the 141-verdict queue is #2). A future batch here is a
+CORRECTION or ENRICHMENT batch, not coverage — the same gates apply, plus
+batch-021's lesson: remediation is a defect source at authorship rate.
+
+Early history — Batch 001 (pass 15): 8 verdicts + routing render + e-Sbírka
+scoping. Batch 002 (pass 18): 10 verdicts + collision pre-check + THE first
+real §-diff (SPARQL). Batch 003 (pass 20): 8 verdicts + census (140/141) + 3
+confirmed collisions + 4 more diffs (15 bills render). Ledger:
 `docs/data-analysis/case-law/`.
