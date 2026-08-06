@@ -1,0 +1,735 @@
+[
+  {
+    "billTisk": 6,
+    "statedReasoning": "Poslanecký návrh Ivana Bartoše a Olgy Richterové zavádí samostatný zákon o Úřadu pro prevenci korupce a střetu zájmů. Normativní text (§ 1 až § 12) upravuje výhradně institucionální a organizační rovinu: zřízení Úřadu se sídlem v Praze jako nezávislého ústředního správního úřadu (§ 2), jeho vnitřní strukturu (předseda, čtyři členové tvořící Kolegium, § 3), pravomoci předsedy (§ 4), způsob jmenování, funkční období, kvalifikační a integritní předpoklady a důvody zániku funkce předsedy a členů (§ 5 až § 7), rozhodování a působnost Kolegia (§ 8), obecnou součinnostní a mlčenlivostní povinnost (§ 9), výroční zprávu (§ 10), přechodná ustanovení k plynulému převodu agend ze zaniklého Úřadu pro dohled nad hospodařením politických stran a politických hnutí a z Ministerstva spravedlnosti (§ 11) a účinnost k 1. lednu 2027 (§ 12). Zvláštní část důvodové zprávy výslovně uvádí, že návrh sleduje „čistě organizační a institucionální rovinu“ a přenáší do samostatného zákona dosavadní § 19 až § 19f zákona č. 424/1991 Sb. Obecná část důvodové zprávy sama rozlišuje, co náleží tomuto návrhu a co doprovodnému změnovému zákonu: bod 1.1 (institucionální transformace ÚDHPSH na Úřad) se týká tohoto tisku, zatímco úvodní věta před body 1.2 až 1.13 výslovně stanoví, že se tyto další body — snížení transparentnostních prahů u financování stran, rozšíření okruhu veřejných funkcionářů a nové oznamovací povinnosti, zpřísnění pravidel veřejných zakázek, legislativní stopa a lobbování, ochrana oznamovatelů, zpřísnění trestních sazeb, sjednocení pojmu skutečného majitele v médiích, zastropování zemědělských dotací BISS a funkční období ředitelů fakultních nemocnic — týkají výhradně souběžně podávaného doprovodného změnového zákona.",
+    "researchedContext": "Historie tisku na psp.cz dokládá rozeslání poslancům 6. 11. 2025 v 13:15 a doporučení Organizačního výboru s přikázáním (nikoli přímé přikázání) Ústavně-právnímu výboru jako garančnímu 17. 12. 2025. Sněmovní tisk 7 byl rozeslán týž den o minutu později, v 13:16, a oba tisky se navzájem odkazují v sekci „Související sněmovní tisky“ na psp.cz — nezávisle na jakémkoli konkrétním datu předložení či vládního stanoviska to dokládá, že jde o jeden balíček podaný ve stejný okamžik. Přímé čtení normativního textu potvrzuje, že jde o zákon čistě organizační povahy (viz citace ze zvláštní části výše) a že jej k 10. říjnu 2025 podle podpisové doložky podepsali pouze Ivan Bartoš a Olga Richterová. Datový soubor případu k tomuto tisku eviduje ještě jedno další poslanecké jméno, které na podpisové doložce tisku 6 chybí a podle již zveřejněného nálezu k tisku 7 se k tomuto úzce provázanému balíčku připojilo až 26. 2. 2026, tedy po datu podpisu důvodové zprávy k tisku 6; tento posudek se proto omezuje na peněžní vazby dvou ověřených sponzorů. Tisk 6 a tisk 7 jsou tak jeden legislativní záměr rozdělený mezi zřizovací a doprovodný změnový zákon: tisk 6 zřizuje Úřad jako instituci, tisk 7 (bod 1.2 a násl. jeho vlastní obecné části, jak cituje již zveřejněný nález k tisku 7) provádí věcné změny ve 22 navazujících zákonech. Oba tisky sdílejí jednu důvodovou zprávu, jejíž obecná část výslovně říká, které body patří kterému z obou tisků.",
+    "unstatedEffects": [
+      {
+        "effect": "Ustanovení § 5 odst. 1 a § 7 odst. 2 věcně přebírají — nikoli nově zavádějí — nominační mechanismus dosavadních § 19c a § 19e odst. 1 až 4 zákona č. 424/1991 Sb. (zvláštní část, K § 5: „Jde o systematické převzetí dosavadního § 19c“; K § 7: „…jsou věcně převzaty z dosavadního § 19e odst. 1 až 4.“). Prezidenta Úřadu jmenuje prezident republiky ze dvou kandidátů, z nichž jednoho navrhuje Poslanecká sněmovna a jednoho Senát (§ 5 odst. 1). U čtyř členů platí klíč § 7 odst. 2: Senát zvolí jednoho z kandidátů navržených prezidentem Nejvyššího kontrolního úřadu, dva z kandidátů navržených Poslaneckou sněmovnou a jednoho z kandidátů navržených jednotlivými senátory — rozdělení 1/2/1, nikoli volný výběr bez omezení. Obecná část důvodové zprávy věnuje nezávislosti Úřadu na exekutivě rozsáhlý prostor, ale nikde neříká, že vynětím tohoto už platného klíče ze zákona o politických stranách do samostatného zřizovacího zákona se dosavadní způsob obsazování — v němž má Poslanecká sněmovna hlas u předsedy i dva ze čtyř hlasů u členů — stává trvalejší součástí zvláštního zákona, aniž návrh na tomto klíči cokoli mění.",
+        "whoBenefits": "Politické strany a hnutí s většinou v Poslanecké sněmovně v okamžiku obsazování jednotlivých míst — díky klíči § 7 odst. 2 disponuje Sněmovna dvěma ze čtyř hlasů o členech Úřadu a spolupodílí se na jmenování předsedy — mají největší, byť ne výlučný, vliv na personální složení instituce dohlížející mimo jiné na financování politických stran a na střet zájmů veřejných funkcionářů včetně členů vlády; jde o stejný vliv, jaký zákon Sněmovně přiznává už dnes podle § 19c a § 19e.",
+        "evidence": "§ 5 odst. 1 a § 7 odst. 2 návrhu — „Předsedu Úřadu jmenuje prezident republiky ze dvou kandidátů, z nichž jednoho navrhuje Poslanecká sněmovna a jednoho navrhuje Senát.“ a „Kandidáty na členy Úřadu navrhují Senátu prezident Nejvyššího kontrolního úřadu, Poslanecká sněmovna a jednotliví senátoři. Z kandidátů navržených prezidentem Nejvyššího kontrolního úřadu zvolí Senát jednoho kandidáta na člena Úřadu. Další dva kandidáty na člena Úřadu zvolí Senát z kandidátů navržených Poslaneckou sněmovnou a jednoho kandidáta na člena Úřadu zvolí Senát z kandidátů navržených jednotlivými senátory.“; zvláštní část, K § 5 a K § 7 — „Jde o systematické převzetí dosavadního § 19c“ a „…jsou věcně převzaty z dosavadního § 19e odst. 1 až 4.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=6&ct1=0"
+      }
+    ],
+    "conflictAssessment": "U obou ověřených sponzorů tisku 6 (Ivan Bartoš, Olga Richterová — dle podpisové doložky k 10. říjnu 2025) není zaznamenána žádná peněžní vazba na soukromou firmu ani žádný sektorový lead. Datový soubor případu k tisku 6 eviduje ještě jedno další poslanecké jméno; podpisová doložka je ale neobsahuje a podle již zveřejněného nálezu k tisku 7 se dotčená osoba k tomuto úzce provázanému balíčku připojila až 26. 2. 2026 — po datu podpisu důvodové zprávy k tisku 6. Tento nesoulad mezi polem sponzorů a skutečnou podpisovou doložkou postihuje víc tisků tohoto korpusu (viz tisky 87 a 116); toto jméno proto v tomto posouzení není počítáno jako ověřený sponzor tisku 6. Tisk 6 je zřizovacím zákonem doprovodného balíčku, jehož druhou částí je tisk 7; k tisku 7 již existuje zveřejněný nález, který u ověřených sponzorů rovněž nenašel střet zájmů a popsal návrh jako směřující spíše proti koncentraci moci u vládních aktérů. Tento závěr platí i pro tisk 6 samotný — jde o organizační zákon zřizující dohledovou instituci nad politickým financováním a střetem zájmů, nikoli o úpravu s přímým dopadem na soukromé podnikatelské zájmy předkladatelů. K severitě: tisk 7 (věcná novela 22 zákonů) je hodnocen jako low; jediný nestátní efekt tisku 6 je posílení stálosti už existujícího nominačního klíče beze změny klíče samotného, takže organizační zřizovací zákon nemůže být hodnocen výše než jeho věcně závažnější doprovodný zákon — proto rovněž low. Na základě dostupných dat nebyl zjištěn žádný konflikt mezi soukromým ekonomickým zájmem předkladatelů a obsahem návrhu.",
+    "severity": "low",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Zákon zřizuje Úřad pro prevenci korupce a střetu zájmů jako nezávislý ústřední správní úřad se sídlem v Praze a upravuje jeho postavení, působnost, organizaci a obsazení.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=6&ct1=0"
+      },
+      {
+        "claim": "Předsedu Úřadu jmenuje prezident republiky ze dvou kandidátů navržených jedním Poslaneckou sněmovnou a jedním Senátem; kandidáty na čtyři členy Úřadu navrhují Senátu prezident Nejvyššího kontrolního úřadu, Poslanecká sněmovna a jednotliví senátoři, přičemž mezi nimi volí Senát.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=6&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část důvodové zprávy k § 1 uvádí, že smyslem je vynést institucionální a organizační úpravu dosavadního Úřadu pro dohled nad hospodařením politických stran a politických hnutí ze zákona o politických stranách do samostatného zákona, a obecná část výslovně odděluje body týkající se tohoto návrhu (1.1) od bodů týkajících se souběžně podávaného doprovodného změnového zákona (1.2 až 1.13).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=6&ct1=0"
+      },
+      {
+        "claim": "Tisk byl rozeslán poslancům 6. 11. 2025 v 13:15 a Organizační výbor 17. 12. 2025 doporučil jeho přikázání (navrženo přikázat) Ústavně-právnímu výboru jako garančnímu; sněmovní tisk 7 byl rozeslán týž den o minutu později, v 13:16.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=6"
+      },
+      {
+        "claim": "Případový soubor přiřazuje k tisku 6 tři sponzory (Bartoš, Richterová a jedno další jméno neshodující se s podpisovou doložkou) bez jediné peněžní vazby a bez sektorového leadu.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43113"
+      },
+      {
+        "claim": "Sněmovní tisk 7 je souběžně podaným doprovodným změnovým zákonem téhož legislativního balíčku, provádějícím věcné novely ve 22 zákonech v důsledku zřízení Úřadu tímto tiskem.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43114"
+      },
+      {
+        "claim": "Zákon č. 424/1991 Sb., o sdružování v politických stranách a v politických hnutích, je reálný předpis, jehož dosavadní organizační ustanovení (§ 19 až § 19f) tento návrh přenáší do samostatného zákona.",
+        "kind": "law",
+        "source": "424/1991"
+      }
+    ]
+  },
+  {
+    "billTisk": 52,
+    "statedReasoning": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení transponuje směrnici (EU) 2023/1544. Zákon ukládá vybraným poskytovatelům služeb elektronických komunikací, doménových a hostingových služeb, kteří nabízejí služby ve více členských státech, povinnost určit provozovnu nebo jmenovat zástupce pro účely doručování a vymáhání příkazů k elektronickým důkazům podle nařízení (EU) 2023/1543. Státní správu v této oblasti vykonává Český telekomunikační úřad (ČTÚ), který kontroluje plnění povinnosti a shromažďuje kontaktní údaje; ty následně předává Ministerstvu spravedlnosti, jež je zveřejňuje na internetové stránce Evropské justiční sítě v trestních věcech. Za neurčení provozovny, nejmenování zástupce nebo neoznámení kontaktních údajů lze uložit pokutu do 10 000 000 Kč. Zpráva v bodě 9 uvádí, že dopad se v současné době týká „nanejvýš jednotek až nízkých desítek subjektů“ (opakováno v bodě 11.9), a v bodě 7 dodává, že u ČTÚ „bude patrně potřeba zajistit adekvátní odbornou kapacitu“. Bod 12 (Zhodnocení korupčních rizik) na základě metodiky CIA konstatuje, že návrh je technickým předpisem a nevznikají v něm korupční rizika.",
+    "researchedContext": "Zpráva sama v bodě 7 přiznává, že „řešení problematiky dozorového orgánu“ bylo „komplikované“, protože Ministerstvo spravedlnosti - přirozený kandidát vzhledem k tomu, že celý zákon slouží mezistátní justiční spolupráci při trestním vyšetřování - odmítlo být dozorovým orgánem, a proto byl touto rolí pověřen Český telekomunikační úřad, tedy regulátor telekomunikačního trhu bez dosavadní kompetence v oblasti trestního řízení. Zpráva u ČTÚ zároveň připouští, že bude „patrně“ potřeba zajistit odbornou kapacitu, kterou úřad k výkonu této nové agendy dosud nemá. Volba orgánu tedy nevznikla primárně z věcné příslušnosti, ale z toho, že jiný orgán roli odmítl. Zákon dále stanoví (§ 6 písm. c) bod 1), že je-li jmenovaným zástupcem fyzická osoba, zveřejňují se o ní na internetové stránce Evropské justiční sítě mimo jiné datum narození a adresa trvalého pobytu, popřípadě bydliště na území ČR - tedy citlivější osobní údaje, než jaké se zveřejňují u zástupce - právnické osoby (jméno a bydliště osoby oprávněné jednat jejím jménem, bez data narození). Bod 11.9 (Závěr posouzení dopadů na soukromí) přesto uzavírá, že úprava „s sebou nenese dopady na soukromí dotčených ani jiných osob“, aniž by tento rozdíl v míře expozice fyzické osoby oproti právnické osobě zmínil; bod 11.3 této zprávy, který vyjmenovává kategorie zveřejňovaných osobních údajů („jméno, popřípadě název, trvalý pobyt, místo podnikání a identifikační číslo osoby“), navíc datum narození jako kategorii vůbec neuvádí, ač je zákonem (§ 6 písm. c bod 1) vyžadováno k publikaci.",
+    "unstatedEffects": [
+      {
+        "effect": "Volba Českého telekomunikačního úřadu jako dozorového orgánu není zdůvodněna věcnou příslušností k předmětu úpravy (mezistátní justiční spolupráce při shromažďování elektronických důkazů), ale tím, že Ministerstvo spravedlnosti - orgán, k jehož agendě má úprava nejblíže - roli dozorového orgánu odmítlo přijmout; zpráva zároveň přiznává, že u ČTÚ bude teprve potřeba budovat odbornou kapacitu pro novou agendu.",
+        "whoBenefits": "Ministerstvo spravedlnosti se zbavuje nové dozorové agendy a s ní spojených nákladů a odpovědnosti; ČTÚ získává rozšíření své gatekeeperské role nad rámec telekomunikačního trhu, aniž by pro ni podle vlastního přiznání zprávy měl dosud vybudovanou odbornost.",
+        "evidence": "Text tisku 52 a jeho důvodová zpráva (určení dozorového orgánu), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+      },
+      {
+        "effect": "Je-li jmenovaným zástupcem fyzická osoba, zákon (§ 6 písm. c) bod 1) ukládá zveřejnit o ní na veřejně přístupné internetové stránce Evropské justiční sítě v trestních věcech datum narození a adresu trvalého pobytu, popřípadě bydliště - tedy citlivější údaje, než jaké se u zástupce právnické osoby zveřejňují (jméno a bydliště jednající osoby, bez data narození a bez adresy jako takové). Závěr posouzení dopadů na soukromí (bod 11.9) přesto konstatuje, že úprava nenese dopady na soukromí dotčených osob, aniž by tento rozdíl mezi fyzickou a právnickou osobou v míře veřejné expozice zohlednil.",
+        "whoBenefits": "Nelze určit konkrétního finančního příjemce; jde o systémový přesun rizika směrem k fyzickým osobám jmenovaným jako zástupci menších poskytovatelů služeb, jejichž datum narození a adresa bydliště se stanou veřejně dohledatelné na stránce EU justiční sítě.",
+        "evidence": "Text tisku 52 a jeho důvodová zpráva (zveřejňované údaje o zástupcích), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jediným evidovaným předkladatelem v datové sadě tisku je Lukáš Vlček, u kterého graf eviduje šest peněžních vazeb. Podle klasifikace vazeb v grafu jsou přičitatelné (vazba řídicího nebo vlastnického typu): SOMPO, a.s. (IČO 25172263, místopředseda představenstva, 9 174 258 Kč úhrnu veřejných smluv firmy), PEVAK Pelhřimov, družstvo (IČO 26039907, člen představenstva, 1 234 888 Kč) a W.H.V. Projekt spol. s r.o. (IČO 26109859, jednatel a společník, 0 Kč) — v úhrnu 10 409 146 Kč přičitatelných veřejných peněz. Svěřenecké (vazba dohledového typu, peníze instituce, nikoli poslance) jsou Via rustica z.s. (IČO 26982170, předseda, 2 008 259 Kč), PRO VYSOČINU, občanské sdružení (IČO 27043843, člen, 0 Kč) a Společenství vlastníků jednotek Nádražní čp. 767 Pacov (IČO 28095405, předseda výboru, 0 Kč). SOMPO, a.s. je obecní svazková firma pro odpadové hospodářství, dle vlastní prezentace stoprocentně vlastněná svazkem 117 obcí — nikoli pojišťovna; sektorový výčet je proto: obecní odpadové hospodářství (SOMPO), vodárenské družstvo (PEVAK), stavební projekce (W.H.V. Projekt), spolková a bytová správa (Via rustica, PRO VYSOČINU, SVJ). Podle ARES VR (ověřeno v dřívějším nálezu k tisku 206) navíc Vlčkovo členství a funkce v představenstvu SOMPO zanikly 31. 10. 2024, tedy před podáním tohoto návrhu (25. 3. 2026); od 3. 12. 2024 vede představenstvo Tomáš Kocour. Žádná z šesti firem — ani po opravě sektoru SOMPO — nepůsobí v oblasti elektronických komunikací, doménových či hostingových služeb, jichž se tisk věcně týká, takže střet zájmů mezi předmětem úpravy a evidovanými vazbami zjištěn nebyl; všechny vazby čekají na lidskou kontrolu jako zbytek grafu.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Ustanovení § 5 odst. 1 uvádí, že státní správu podle tohoto zákona vykonává Český telekomunikační úřad.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+      },
+      {
+        "claim": "Bod 7 obecné části důvodové zprávy uvádí: „S ohledem na komplikované řešení problematiky dozorového orgánu, kdy Ministerstvo spravedlnosti nesouhlasilo, aby bylo dozorovým orgánem, je v předkládaném materiálu jako dozorový orgán navrhován Český telekomunikační úřad, u kterého bude patrně potřeba zajistit adekvátní odbornou kapacitu.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+      },
+      {
+        "claim": "Ustanovení § 6 písm. c) bod 1 ukládá u zástupce - fyzické osoby zveřejnit jméno, adresu trvalého pobytu, popřípadě bydliště, a datum narození; § 6 písm. c) bod 3 u zástupce - právnické osoby vyžaduje pouze jméno a bydliště jednající fyzické osoby, bez data narození.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+      },
+      {
+        "claim": "Bod 11.9 (Závěr) posouzení dopadů na ochranu soukromí uvádí, že právní úprava nenastavuje nově proces zacházení s osobními údaji a „nenese dopady na soukromí dotčených ani jiných osob“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+      },
+      {
+        "claim": "Bod 12 (Zhodnocení korupčních rizik) uvádí, že předkladatel podle metodiky CIA neshledal v oblasti upravené návrhem prostor ke korupčnímu jednání.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+      },
+      {
+        "claim": "Tisk 52 byl dne 25. 3. 2026 přikázán jako garančnímu ústavně právnímu výboru (ÚPV).",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=52"
+      },
+      {
+        "claim": "Graf eviduje u Lukáše Vlčka peněžní vazby na SOMPO, a.s. (IČO 25172263, obecní svazková firma pro odpadové hospodářství vlastněná svazkem 117 obcí) a PEVAK Pelhřimov, družstvo (IČO 26039907, vodárenské družstvo); žádná z firem nepůsobí v oblasti elektronických komunikací nebo hostingových služeb.",
+        "kind": "graph_fact",
+        "source": "psp:person:6789"
+      }
+    ]
+  },
+  {
+    "billTisk": 55,
+    "statedReasoning": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou adaptuje přímo použitelné nařízení (EU) 2024/1309 (nařízení o gigabitové infrastruktuře), které nahrazuje směrnici 2014/61/EU (BCRD) transponovanou dosud zákonem č. 194/2017 Sb. Zákon určuje jednotná informační místa - Český telekomunikační úřad (ČTÚ, pro přístup k infrastruktuře a koordinaci stavebních prací), Ministerstvo pro místní rozvoj (pro povolovací řízení a výjimky z něj) a Český úřad zeměměřický a katastrální (pro informace o existující fyzické infrastruktuře) - a stanoví lhůty pro vydání povolení (60 dnů, s možností prodloužení o 60 dnů) i fikci povolení marným uplynutím lhůty. ČTÚ rozhoduje spory o přístup k infrastruktuře, průzkumu na místě, koordinaci stavebních prací a přístupu uvnitř budov, včetně stanovení ceny. Za přestupky lze uložit pokuty do 2 000 000 Kč nebo do vyšší z hodnot 10 000 000 Kč či 5 % čistého obratu, a donucovací pokuty do celkové výše 10 000 000 Kč. Zákon zároveň ruší část první zákona č. 194/2017 Sb. a části čtyř dalších novelizujících zákonů (č. 403/2020 Sb., č. 284/2021 Sb., č. 374/2021 Sb. a č. 202/2023 Sb.), aby nahradil dosavadní právní rámec jediným adaptačním předpisem. Zpráva popisuje cíl jako urychlení výstavby vysokorychlostních sítí a snížení administrativní zátěže operátorů i orgánů veřejné správy.",
+    "researchedContext": "Ustanovení § 14 odst. 7 zákona vylučuje proti rozhodnutí ČTÚ o sporu o přístup k infrastruktuře - tedy i o ceně, kterou úřad může stanovit tak, aby zahrnovala náhradu oprávněných nákladů provozovatele sítě nebo subjektu veřejného sektoru - jakýkoli rozklad, přezkumné řízení i obnovu řízení; jedinou zbývající cestou nápravy je žaloba ve správním soudnictví. Zpráva tuto kombinaci závaznosti (spor mezi operátorem a vlastníkem infrastruktury, včetně obcí a jiných subjektů veřejného sektoru) a vyloučení vnitřních opravných prostředků nezmiňuje jako samostatné riziko, ačkoli jde o rozhodování o cenách mezi soukromými subjekty i orgány veřejné správy s vyšší mírou konečnosti, než jakou mají běžná správní rozhodnutí. Ustanovení § 6 odst. 3 a § 8 odst. 4 dále umožňují Ministerstvu obrany a ustanovení § 6 odst. 4 a § 8 odst. 5 Ministerstvu vnitra opatřením obecné povahy určit druhy stavebních prací, na které se povinnosti koordinace a evidence neuplatní „z důvodů obrany nebo bezpečnosti státu“, respektive „jde-li o kritickou infrastrukturu“ — zákon sám pojem kritické infrastruktury pro tento účel nedefinuje, komentář k § 6 odst. 4 a 5 jej ale řadí mezi „…zejména kritické infrastruktury vymezené ve vnitrostátních právních předpisech…“ a omezuje přístup k minimálním informacím na případy, kdy je to „nezbytné“; opatření obecné povahy navíc podléhá soudnímu přezkumu podle § 101a soudního řádu správního.",
+    "unstatedEffects": [
+      {
+        "effect": "Rozhodnutí ČTÚ ve sporu o přístup k fyzické infrastruktuře podle § 14, včetně stanovení ceny mezi operátorem a vlastníkem infrastruktury (soukromým i veřejným, včetně obcí), je podle § 14 odst. 7 vyloučeno z rozkladu, přezkumného řízení i obnovy řízení - jde tedy o rozhodování s vyšší mírou konečnosti, než jakou mají běžná správní rozhodnutí, aniž by zpráva tuto zvláštní míru konečnosti u cenotvorných rozhodnutí samostatně zdůvodňovala nebo zmiňovala jako riziko.",
+        "whoBenefits": "ČTÚ získává jako jediný orgán fakticky konečnou pravomoc rozhodovat spory o ceně přístupu k infrastruktuře bez vnitřní kontroly vlastním rozkladovým nebo přezkumným mechanismem; strana sporu, která rozhodnutí považuje za nesprávné, je odkázána pouze na správní soudnictví.",
+        "evidence": "Text tisku 55 (rozhodování ČTÚ o cenových sporech), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+      },
+      {
+        "effect": "Ministerstvo obrany a Ministerstvo vnitra mohou podle § 6 odst. 3 a 4 a § 8 odst. 4 a 5, s odkazem na čl. 5 odst. 5 nařízení o gigabitové infrastruktuře, opatřením obecné povahy stanovit druhy stavebních prací, na které se povinnosti koordinace a evidence neuplatní z důvodů obrany, bezpečnosti státu nebo kritické infrastruktury; přístup k minimálním informacím pak lze podle komentáře K odstavcům 4 a 5 „omezit nebo zamítnout pouze tehdy, je-li to nezbytné“ k zajištění bezpečnosti a integrity sítí, národní bezpečnosti, zabezpečení kritické infrastruktury, veřejného zdraví nebo bezpečnosti, případně z důvodů důvěrnosti či obchodního tajemství, a to „na základě řádně opodstatněných a přiměřených důvodů“. Pojem kritické infrastruktury zákon pro tento účel sám nedefinuje, ale zpráva na jiném místě mluví o „…zejména kritické infrastruktury vymezené ve vnitrostátních právních předpisech…“ (zejména zákon č. 240/2000 Sb., o krizovém řízení) — jde tedy o odkaz na existující definici, nikoli o prázdné zmocnění. Opatření obecné povahy navíc podléhá soudnímu přezkumu podle § 101a soudního řádu správního.",
+        "whoBenefits": "Ministerstvo obrany a Ministerstvo vnitra získávají nástroj k vyjmutí vymezených subjektů a staveb z režimu koordinace a přístupu, jenž je hlavním nástrojem zákona ke snížení nákladů na výstavbu sítí — nástroj je ale vázán na nezbytnost a existující definici kritické infrastruktury, nikoli na volnou úvahu; provozovatelé a subjekty veřejného sektoru, jejichž infrastruktura bude takto vyňata, se povinnostem koordinace a zpřístupnění v daném rozsahu vyhnou.",
+        "evidence": "K odstavcům 4 a 5 — „Přístup k minimálním informacím lze omezit nebo zamítnout pouze tehdy, je-li to nezbytné k zajištění bezpečnosti a integrity sítí, národní bezpečnosti, zabezpečení kritické infrastruktury, veřejného zdraví nebo bezpečnosti, nebo z důvodů důvěrnosti nebo provozního či obchodního tajemství.“; K odstavci 2 — „Podle nařízení mohou členské státy na základě řádně opodstatněných a přiměřených důvodů identifikovat druhy stavebních prací…“; „…zejména kritické infrastruktury vymezené ve vnitrostátních právních předpisech…“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Evidovaným předkladatelem v datové sadě tisku je opět Lukáš Vlček se stejnou sadou šesti peněžních vazeb jako u tisku 52. Podle klasifikace vazeb v grafu jsou přičitatelné (vazba řídicího nebo vlastnického typu): SOMPO, a.s. (IČO 25172263, místopředseda představenstva, 9 174 258 Kč úhrnu veřejných smluv firmy), PEVAK Pelhřimov, družstvo (IČO 26039907, člen představenstva, 1 234 888 Kč) a W.H.V. Projekt spol. s r.o. (IČO 26109859, jednatel a společník, 0 Kč) — v úhrnu 10 409 146 Kč přičitatelných veřejných peněz. Svěřenecké (vazba dohledového typu, peníze instituce, nikoli poslance) jsou Via rustica z.s. (IČO 26982170, předseda, 2 008 259 Kč), PRO VYSOČINU, občanské sdružení (IČO 27043843, člen, 0 Kč) a Společenství vlastníků jednotek Nádražní čp. 767 Pacov (IČO 28095405, předseda výboru, 0 Kč). SOMPO, a.s. je obecní svazková firma pro odpadové hospodářství, dle vlastní prezentace stoprocentně vlastněná svazkem 117 obcí — nikoli pojišťovna; sektorový výčet je proto: obecní odpadové hospodářství (SOMPO), vodárenské družstvo (PEVAK), stavební projekce (W.H.V. Projekt), spolková a bytová správa (Via rustica, PRO VYSOČINU, SVJ). Podle ARES VR (ověřeno v dřívějším nálezu k tisku 206) Vlčkovo členství a funkce v představenstvu SOMPO navíc zanikly 31. 10. 2024, tedy před podáním tohoto návrhu (25. 3. 2026). Žádná z těchto firem — ani po opravě sektoru SOMPO — nepůsobí v oblasti elektronických komunikací, výstavby sítí nebo správy fyzické infrastruktury, jíž se tisk věcně týká, takže střet zájmů mezi předmětem úpravy a evidovanými vazbami zjištěn nebyl; všechny vazby čekají na lidskou kontrolu.",
+    "severity": "medium",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Ustanovení § 14 odst. 7 uvádí: „Proti rozhodnutí Úřadu o sporu podle čl. 13 odst. 1 nařízení o gigabitové infrastruktuře nebo podle odstavce 2 není přípustný rozklad, přezkumné řízení ani obnova řízení.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+      },
+      {
+        "claim": "Ustanovení § 14 odst. 5 uvádí, že je-li předmětem sporu cena, může Úřad stanovit tuto cenu tak, aby zahrnovala náhradu oprávněných nákladů provozovatele sítě nebo subjektu veřejného sektoru.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+      },
+      {
+        "claim": "Ustanovení § 6 odst. 3 a 4 a § 8 odst. 4 a 5 umožňují Ministerstvu obrany, respektive Ministerstvu vnitra, opatřením obecné povahy stanovit druhy stavebních prací, na které se koordinace nebo evidence neuplatní z důvodů obrany nebo bezpečnosti státu, respektive jde-li o kritickou infrastrukturu.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+      },
+      {
+        "claim": "Ustanovení § 16 odst. 5 stanoví pokuty do 2 000 000 Kč za vybrané přestupky a do vyšší z hodnot 10 000 000 Kč nebo 5 % čistého obratu za ostatní; § 18 stanoví donucovací pokuty do celkové výše 10 000 000 Kč.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+      },
+      {
+        "claim": "Ustanovení § 20 ruší část první zákona č. 194/2017 Sb. a části zákonů č. 403/2020 Sb., č. 284/2021 Sb., č. 374/2021 Sb. a č. 202/2023 Sb.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+      },
+      {
+        "claim": "Tisk 55 byl dne 25. 3. 2026 přikázán jako garančnímu hospodářskému výboru (HV).",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=55"
+      },
+      {
+        "claim": "Graf eviduje u Lukáše Vlčka peněžní vazby na SOMPO, a.s. (IČO 25172263, obecní svazková firma pro odpadové hospodářství) a Via rustica z.s. (IČO 26982170), žádná z firem nepůsobí v oblasti elektronických komunikací nebo výstavby sítí.",
+        "kind": "graph_fact",
+        "source": "psp:person:6789"
+      },
+      {
+        "claim": "Zákon č. 194/2017 Sb., o koordinaci staveb infrastruktury a opatřeních ke snížení nákladů na zavádění vysokorychlostních sítí elektronických komunikací, je zákon, jehož část první tisk 55 ruší.",
+        "kind": "law",
+        "source": "194/2017"
+      }
+    ]
+  },
+  {
+    "billTisk": 63,
+    "statedReasoning": "Vládní návrh nahrazuje dosavadní zákon č. 563/1991 Sb., o účetnictví, zcela novým zákonem, který zapracovává směrnici 2013/34/EU o účetních závěrkách, směrnici 2011/85/EU o rozpočtových rámcích, směrnici (EU) 2024/1265, směrnice 86/635/EHS a 91/674/EHS o účetních závěrkách bank a pojišťoven a navazuje na nařízení ES č. 1606/2002 o mezinárodních účetních standardech. Podle obecné části důvodové zprávy vychází z věcného záměru schváleného vládou v říjnu 2020 a jeho hlavním cílem je posun od důrazu na řádné účtování k důrazu na účetní výkaznictví (informační funkci účetnictví) a k širšímu využití mezinárodních účetních standardů (IFRS). Zákon zavádí kategorizaci účetních jednotek na mikro, malé, střední a velké a v rozsáhlé míře svěřuje podrobnou úpravu prováděcí vyhlášce Ministerstva financí — přímé čtení normativního textu napočítalo 39 samostatných zmocňovacích ustanovení tvaru „Ministerstvo financí stanoví vyhláškou“ nebo „Ministerstvo financí může stanovit vyhláškou“ v rozsahu necelých 130 tiskových stran normativní části. Zákon zároveň ruší a nahrazuje soubor přibližně devadesáti dosavadních prováděcích vyhlášek vydaných k zákonu č. 563/1991 Sb. Účinnost se navrhuje od 1. ledna 2028, s výjimkou § 271 (účinnost dnem vyhlášení) a § 253 (účinnost od 10. ledna 2028).",
+    "researchedContext": "Historie tisku na psp.cz potvrzuje předložení vládou 12. 12. 2025, rozeslání poslancům týž den jako tisk 63/0, první čtení 12. 3. 2026, na jehož konci byl tisk přikázán Rozpočtovému výboru jako garančnímu — přikázání tedy datuje shodně s prvním čtením, nikoli o tři měsíce dříve — a přerušení projednávání usnesením Rozpočtového výboru z 30. 4. 2026 (tisk 63/1) s možností pokračování od 11. 7. 2026 — k datu tohoto nálezu tedy tisk zůstává v projednávání. Údaje o průběhu projednávání nad rámec rozpisu v datové sadě (čísla navazujících tisků a usnesení, data jednotlivých kroků) vycházejí výhradně ze stránky historie tisku na psp.cz; archivované podklady obsahují pouze výchozí text tisku. Přímé čtení hospodářské a sociální části důvodové zprávy potvrzuje, že zpráva na jedné straně shrnuje, že „navrhované změny v oblasti účetnictví nemají významný finanční dopad na účetní jednotky“, a bezprostředně poté v témže oddílu připouští, že „adopce nových účetních pravidel [může] vyvolat u účetních jednotek jednorázové náklady spojené s potřebou softwarového zajištění nebo proškolení připravovatelů účetní závěrky“ — aniž by tyto jednorázové náklady jakkoliv vyčíslila; jako kompenzační opatření zpráva uvádí, že „je navrhována relativně dlouhá legisvakanční doba, úměrná rozsahu změn“ (odstup mezi předložením 12. 12. 2025 a navrhovanou účinností 1. 1. 2028 činí zhruba dva roky — vlastní výpočet nad daty zprávy, nikoli údaj zprávy samotné).",
+    "unstatedEffects": [
+      {
+        "effect": "Důvodová zpráva v oddíle o hospodářských a sociálních dopadech současně tvrdí, že navrhované změny nemají významný finanční dopad na účetní jednotky, a v témže oddíle připouští jednorázové náklady na softwarové vybavení a proškolení připravovatelů účetní závěrky, aniž by je vyčíslila v korunách nebo odhadla jejich rozsah pro jednotlivé kategorie účetních jednotek (mikro, malé, střední, velké).",
+        "whoBenefits": "Nelze jednoznačně určit, kdo z tohoto opomenutí profituje; dopad nese primárně strana povinná k vynaložení jednorázových adaptačních nákladů — účetní jednotky, zejména ty menší, u nichž zpráva jinde konstatuje volnější pravidla vnitřní kontroly, ale nikoli úlevu z jednorázových nákladů na přechod.",
+        "evidence": "Obecná část důvodové zprávy — „Navrhované změny v oblasti účetnictví nemají významný finanční dopad na účetní jednotky.“ a „... může adopce nových účetních pravidel vyvolat u účetních jednotek jednorázové náklady spojené s potřebou softwarového zajištění nebo proškolení připravovatelů účetní závěrky.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+      },
+      {
+        "effect": "Zákon svěřuje podstatnou část skutečné regulatorní náplně účetních pravidel (definice položek, kritéria kompenzace, podrobnosti oceňovacích metod, obsah a náležitosti výkazů, formát elektronického předávání dat) prováděcí vyhlášce Ministerstva financí prostřednictvím 39 samostatných zmocňovacích ustanovení, aniž by obecná část důvodové zprávy tuto míru delegace jako samostatnou koncepční otázku vůbec zmiňovala nebo zdůvodňovala mírou budoucí parlamentní kontroly nad obsahem těchto vyhlášek.",
+        "whoBenefits": "Ministerstvo financí získává rozsáhlou průběžnou pravomoc dotvářet a měnit obsah účetních pravidel prováděcími vyhláškami bez nutnosti novelizace zákona Parlamentem, což zrychluje přizpůsobování pravidel, ale zároveň přesouvá váhu regulace z zákonodárné moci na exekutivu.",
+        "evidence": "Normativní text zákona obsahuje 39 ustanovení tvaru „Ministerstvo financí stanoví vyhláškou“ nebo „Ministerstvo financí může stanovit vyhláškou“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jediným sponzorem evidovaným v datech případu je Zbyněk Stanjura, u něhož není zaznamenána žádná peněžní vazba na soukromou firmu ani sektorový lead. Jde o vládní předlohu transponující unijní účetní směrnice a navazující na schválený věcný záměr z roku 2020, nikoli o poslanecký návrh sledující soukromý zájem předkladatele. Na základě dostupných dat nebyl u tisku 63 zjištěn střet zájmů.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh nahrazuje zákon č. 563/1991 Sb., o účetnictví, novým zákonem transponujícím směrnici 2013/34/EU, směrnici 2011/85/EU a související unijní předpisy a navazujícím na nařízení ES č. 1606/2002 o mezinárodních účetních standardech.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+      },
+      {
+        "claim": "Zákon nabývá účinnosti dnem 1. ledna 2028, s výjimkou § 271 (účinnost dnem vyhlášení) a § 253 (účinnost od 10. ledna 2028).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+      },
+      {
+        "claim": "Návrh podala vláda 12. 12. 2025, prošel prvním čtením 12. 3. 2026, na jehož konci byl přikázán Rozpočtovému výboru jako garančnímu, a jeho projednávání bylo usnesením Rozpočtového výboru z 30. 4. 2026 přerušeno.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=63"
+      },
+      {
+        "claim": "Případový soubor přiřazuje k tisku 63 jediného sponzora (Stanjura) bez peněžní vazby a bez sektorového leadu.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43170"
+      },
+      {
+        "claim": "Zákon č. 563/1991 Sb., o účetnictví, je reálný předpis, který tento návrh v celém rozsahu nahrazuje.",
+        "kind": "law",
+        "source": "563/1991"
+      }
+    ]
+  },
+  {
+    "billTisk": 76,
+    "statedReasoning": "Důvodová zpráva k tisku 76 (poslanecký návrh Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové) navrhuje zcela nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech, který má nahradit dosavadní veřejnoprávní služební poměr podle zákona č. 234/2014 Sb., o státní službě. Zpráva se opírá o ex post analýzu KPMG z roku 2018 a o analýzu katedry andragogiky Filozofické fakulty Univerzity Karlovy z roku 2022, které současnou úpravu popisují jako administrativně náročnou, málo pružnou a uzavřenou; obě analýzy i zprávy Evropské komise v rámci evropského semestru zmiňuje jako důvod pro zásadní koncepční změnu. Klíčovou změnou je opuštění veřejnoprávního služebního poměru ve prospěch soukromoprávního pracovního poměru podléhajícího subsidiárně zákoníku práce a občanskému zákoníku - zaniká tak konstrukce personálních úkonů jako přezkoumatelných správních rozhodnutí a s ní spojený přezkum ve správním soudnictví; ochranu poskytuje žaloba k obecnému soudu. Zpráva zdůrazňuje, že důvody pro jednostranné rozvázání pracovního poměru ze strany úřadu i pro odvolání vedoucího státního zaměstnance zůstávají zákonem taxativně vymezené, že se ruší institut zařazení mimo výkon služby (tzv. bazén) i s ním spojené odbytné, že zůstává zachována systemizace, výběrová řízení, úřednická zkouška a apolitičnost vedoucích státních zaměstnanců. Bod 12 zprávy uvádí, že návrh „nepřináší žádná zjevná korupční rizika“ v porovnání se stávající úpravou, a bod 7 očekává z dlouhodobého hlediska úsporu státního rozpočtu díky zrušení bazénu a odbytného.",
+    "researchedContext": "Návrh mění právní povahu zaměstnaneckého vztahu státních zaměstnanců napříč ministerstvy a ústředními správními úřady - z veřejnoprávního služebního poměru, jehož personální akty měly formu přezkoumatelných individuálních správních rozhodnutí, na soukromoprávní pracovní poměr. Jde o jeden z nejrozsáhlejších zásahů do organizace exekutivy, jaký může být předložen zákonem, a přitom jde o poslanecký, nikoli vládní návrh. Podle obecné metodiky hodnocení dopadů regulace (RIA), na kterou zpráva u vládních návrhů (viz např. tisky 55 a 114 v tomto korpusu) standardně odkazuje, se povinnost zpracovat RIA vztahuje na návrhy právních předpisů připravované na úrovni vlády a ústřední státní správy - u poslaneckých návrhů tato povinnost neplatí, a tisk 76 také žádnou zprávu RIA ani odkaz na výjimku z jejího zpracování neobsahuje (na rozdíl od tisku 52, jehož důvodová zpráva výjimku z RIA výslovně eviduje). Návrh tak prochází legislativním procesem bez hodnocení dopadů regulace a bez meziresortního připomínkového řízení, kterým by jinak návrh srovnatelného rozsahu procházel, kdyby jej předložila vláda - ačkoliv se svým rozsahem a dopadem na organizaci státní správy rozsáhlé vládní reformě fakticky vyrovná. Historie projednávání tisku potvrzuje, že věc byla přikázána jedinému výboru (ústavně právní výbor, 29. 1. 2026); zda by věcně bylo namístě i přikázání výboru pro veřejnou správu a regionální rozvoj, nebylo pro účely tohoto posudku nezávisle ověřeno. Stránka tisku 76 eviduje jako související sněmovní tisk 77 („Návrh zákona o státních zaměstnancích - související“); k tisku 77 již existuje dříve publikovaný nález, který se týká týchž dvou vazeb Radka Vondráčka (NEXNET, MAE invest) a jehož zjištění k RIA a meziresortnímu řízení se na tento doprovodný tisk vztahují stejně jako na tisk 76 samotný — nález k tisku 76 je proto třeba číst jako součást dvoutiskového balíčku, nikoli jako posouzení tisku 76 v izolaci.",
+    "unstatedEffects": [
+      {
+        "effect": "Zpráva ztrátu přezkoumatelných individuálních správních aktů a přechod na obecné soudnictví na rozdíl od dřívější verze tohoto nálezu nezamlčuje: sama uvádí, že „se ruší řízení ve věcech služby“ a všechna taková řízení budou ex lege zastavena, že „v oblasti soudního přezkumu je řešen přechod z modelu správního soudnictví do obecného občanského soudního řízení“ a že „bude umožněno státnímu zaměstnanci domáhat se právní ochrany před nezákonným postupem správního úřadu žalobou k obecnému soudu“. Nezamlčuje tedy přechod jako takový. Co zpráva skutečně nezmiňuje, je dopad této změny na korupční rizika: bod 12 (Zhodnocení korupčních rizik) hodnotí dopad jedinou větou bez rozboru a nijak nezvažuje, že ztráta ex ante správního přezkumu (nahrazeného ex post žalobou k obecnému soudu na návrh dotčeného zaměstnance) mění, jak snadno lze personální rozhodnutí napadnout před jeho účinky.",
+        "whoBenefits": "Vedení správních úřadů a nadřízení členové vlády, kteří získávají pružnější, méně formalizovaný nástroj personálního řízení (pracovní smlouvu, převedení, přeložení) bez povinnosti vydávat přezkoumatelné správní rozhodnutí; řadový státní zaměstnanec ztrácí ex ante správní přezkum a je odkázán na následnou žalobu k obecnému soudu — což zpráva sama uvádí, ale bod 12 nezvažuje z hlediska korupčních rizik.",
+        "evidence": "Zvláštní část k procesním otázkám — „…se ruší řízení ve věcech služby, všechna tato řízení budou ex lege zastavena. … V oblasti soudního přezkumu je řešen přechod z modelu správního soudnictví do obecného občanského soudního řízení.“; „…bude umožněno státnímu zaměstnanci domáhat se právní ochrany před nezákonným postupem správního úřadu žalobou k obecnému soudu.“; bod 12 (Zhodnocení korupčních rizik) — „Nejedná se o právní předpis s významným dopadem na míru korupčních rizik. Návrh zákona v porovnání se stávající právní úpravou nepřináší žádná zjevná korupční rizika.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+      },
+      {
+        "effect": "Ačkoli jde o změnu srovnatelnou rozsahem s reformou celé organizace exekutivy, byla předložena jako poslanecký, nikoli vládní návrh, a proto podle obecné metodiky RIA (vztahující se na návrhy připravované na úrovni vlády a ústřední státní správy) neprošla hodnocením dopadů regulace ani meziresortním připomínkovým řízením, kterým by procházel srovnatelný vládní návrh - tisk sám žádnou zprávu RIA ani odkaz na výjimku z jejího zpracování neobsahuje.",
+        "whoBenefits": "Předkladatelé a vláda získávají rychlejší legislativní cestu k rozsáhlé reformě státní služby bez formálních povinností (RIA, meziresortní připomínky), které by u vládního návrhu stejného rozsahu byly vyžadovány; ministerstva a úřady, kterých se změna dotkne, nemají k dispozici formální hodnocení dopadů před přijetím zákona.",
+        "evidence": "Text tisku 76 a jeho důvodová zpráva, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Předkladatelem je Radek Vondráček, u kterého graf eviduje tři peněžní vazby, žádná z nich se však věcně netýká právních poměrů státních zaměstnanců. Vazba na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871) je vedena jako řídicího typu (přičitatelná), s úhrnem veřejných smluv firmy 391 010 121 Kč - shodně s klasifikací, kterou k téže vazbě již dříve zavedl publikovaný verdikt k tisku 78 v tomto korpusu; tento verdikt ji přebírá beze změny. Dvě další vazby - předseda dozorčí rady NEXNET, a.s. (IČO 26232987, role 2000-12-14 až 2014-08-06) a člen dozorčí rady MAE invest a.s. (IČO 29186315, role 2009-10-27 až 2015-03-02) - jsou vedeny jako svěřenecké (peníze instituce, nikoli poslance), obě navíc s dozorčí funkcí ukončenou před více než deseti lety a s příznakem, že evidované smlouvy firem časově následují až po skončení role. Renata Vesecká, Libor Vondráček a Zuzana Ožanová nemají v grafu evidovánu žádnou peněžní vazbu. Žádná z těchto tří firem nepodniká v oblasti veřejné správy, personalistiky nebo poradenství pro státní zaměstnance, takže věcný střet zájmů mezi předmětem tisku a evidovanými vazbami zjištěn nebyl; všechny vazby nadále čekají na lidskou kontrolu.",
+    "severity": "medium",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Ustanovení § 1 zdůrazňuje subsidiaritu zákoníku práce a uvádí, že se opouští veřejnoprávní služební poměr státních zaměstnanců.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+      },
+      {
+        "claim": "Bod 12 obecné části důvodové zprávy (Zhodnocení korupčních rizik) uvádí: „Nejedná se o právní předpis s významným dopadem na míru korupčních rizik. Návrh zákona v porovnání se stávající právní úpravou nepřináší žádná zjevná korupční rizika.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část důvodové zprávy k oblasti soudního přezkumu popisuje přechod z modelu správního soudnictví do obecného soudnictví jako součást opuštění veřejnoprávního služebního poměru.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+      },
+      {
+        "claim": "Obecná část důvodové zprávy (bod 2) popisuje rozvázání pracovního poměru státního zaměstnance ze strany správního úřadu i odvolání vedoucího státního zaměstnance jako vázané na zákonem taxativně vymezené důvody a zrušení institutu zařazení mimo výkon služby (tzv. bazénu).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+      },
+      {
+        "claim": "Povinnost zpracovat RIA se podle obecné metodiky vztahuje na návrhy právních předpisů připravované na úrovni vlády a ústřední státní správy.",
+        "kind": "web",
+        "source": "https://cs.wikipedia.org/wiki/Hodnocen%C3%AD_dopad%C5%AF_regulace"
+      },
+      {
+        "claim": "Tisk 76 byl dne 29. 1. 2026 přikázán jako garančnímu ústavně právnímu výboru (ÚPV); jiný výbor v historii projednávání tisku uveden není.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=76"
+      },
+      {
+        "claim": "Tisk 76 eviduje jako související sněmovní tisk 77 („Návrh zákona o státních zaměstnancích - související“), k němuž již existuje publikovaný nález pokrývající tytéž dvě vazby Radka Vondráčka (NEXNET, MAE invest).",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=76"
+      },
+      {
+        "claim": "Graf eviduje u Radka Vondráčka vazbu řídicího typu (přičitatelnou) na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871), s úhrnem veřejných smluv firmy 391 010 121 Kč; vazba čeká na lidskou kontrolu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6165"
+      },
+      {
+        "claim": "Graf eviduje u společnosti NEXNET, a.s. (IČO 26232987) svěřeneckou vazbu Radka Vondráčka jako předsedy dozorčí rady, s rolí ukončenou 2014-08-06 a příznakem, že evidované smlouvy firmy časově následují až po skončení role.",
+        "kind": "graph_fact",
+        "source": "company:ico:26232987"
+      },
+      {
+        "claim": "Graf eviduje u společnosti MAE invest a.s. (IČO 29186315) svěřeneckou vazbu Radka Vondráčka jako člena dozorčí rady, s rolí ukončenou 2015-03-02 a příznakem, že evidované smlouvy firmy časově následují až po skončení role.",
+        "kind": "graph_fact",
+        "source": "company:ico:29186315"
+      },
+      {
+        "claim": "Zákon č. 234/2014 Sb., o státní službě, je zákon, jehož veřejnoprávní úpravu má tisk 76 podle vlastní důvodové zprávy nahradit soukromoprávním pracovním poměrem.",
+        "kind": "law",
+        "source": "234/2014"
+      }
+    ]
+  },
+  {
+    "billTisk": 87,
+    "statedReasoning": "Tisk 87 je podle vlastního znění „Návrh poslance Radka Vondráčka na vydání zákona o zemských znacích a vlajkách“ – nový, dosud neexistující zákon, nikoli novela. Zákon v pěti paragrafech zakotvuje znak a vlajku Čech (§ 1), Moravy (§ 2, včetně přípustné varianty se zlato-červeným šachováním orlice) a Slezska (§ 3), stanoví, že tyto zemské znaky a vlajky „může užívat každá osoba vhodným a důstojným způsobem“ (§ 4), a navrhuje účinnost k 1. lednu 2027 (§ 5). Obecná část důvodové zprávy uvádí, že návrh provádí preambuli Ústavy České republiky, která zmiňuje „dobré tradice zemí Koruny české“ a výslovně Čechy, Moravu a Slezsko, a že jde o symbolické uznání významu těchto zemí; v současnosti jsou zemské znaky upraveny jen jako součást velkého státního znaku, zemské vlajky nejsou upraveny vůbec. Zpráva uvádí, že návrh nemá vyčíslitelný vliv na státní ani jiné veřejné rozpočty, nemá vliv na rozpočty krajů a obcí, netýká se závazků vyplývajících z členství v EU ani mezinárodních smluv a že při jeho přípravě nedošlo k žádným kontaktům podléhajícím oznamovací povinnosti podle zákona o regulaci lobbování. Zvláštní část ke každému z pěti paragrafů popisuje heraldické zdůvodnění zvolené podoby znaků (francouzský štít namísto španělského, aby se odlišily od malého státního znaku; heraldický popis stran z pohledu nosiče znaku, nikoli pozorovatele) a odkazuje na polepšení moravského znaku císařem Fridrichem III. ze 7. 12. 1462 jako historický základ varianty se zlato-červeným šachováním.",
+    "researchedContext": "Historie projednávání na webu Poslanecké sněmovny potvrzuje, že návrh podal Mgr. Radek Vondráček 22. 1. 2026, dne 23. 1. 2026 byl rozeslán poslancům jako tisk 87/0 a 26. 1. 2026 zaslán vládě k vyjádření. Vláda zaujala stanovisko označené jako souhlasné, rozeslané 25. 2. 2026 jako tisk 87/1; obsah jejího odůvodnění nebyl v tomto zpracování ověřen z primárního textu, protože dokument je na webu Sněmovny dostupný pouze jako soubor PDF/DOCX. Údaje o průběhu projednávání nad rámec rozpisu v datové sadě (čísla navazujících tisků a usnesení, data jednotlivých kroků) vycházejí výhradně ze stránky historie tisku na psp.cz; archivované podklady obsahují pouze výchozí text tisku. Organizační výbor doporučil 4. 3. 2026 usnesením č. 37 přikázat návrh k projednání, garančním výborem určil výbor pro vědu, vzdělání, kulturu, mládež a tělovýchovu a dalším výborem ústavně právní výbor, zpravodajem určil Mgr. Jiřího Vojáčka. K dnešnímu dni (6. 8. 2026) je podle téhož zdroje evidováno jedno písemné stanovisko k rozpravě a další postup je možný od 7. 3. 2026. Podle databáze psp.cz je jediným předkladatelem tisku 87 Radek Vondráček; graf peněžních vazeb k tomuto tisku eviduje řadu dalších poslaneckých jmen, tento posudek se však vzhledem k vlastnímu znění a evidenci na webu Sněmovny omezuje na peněžní vazby skutečného navrhovatele.",
+    "unstatedEffects": [
+      {
+        "effect": "§ 1 odst. 1 zavádí normativní pravidlo přednosti: „Je-li znak Čech užit spolu se státním znakem, užije se vždy velký státní znak.“ Jde o závaznou úpravu vztahu mezi zemským a státním znakem, upravenou vedle dosavadních zákonů č. 3/1993 Sb. (o státních symbolech ČR) a č. 352/2001 Sb. (o užívání státních symbolů), z nichž ani jeden tento tisk nenovelizuje. Zákon přitom ve vlastním Informativním přehledu veřejnoprávních povinností uvádí: „Nebyla zadána žádná veřejnoprávní povinnost.“ Závazné pravidlo přednosti státního znaku je ale veřejnoprávní povinností v tom smyslu, že určuje, jak se má znak užívat vedle státního znaku, a přehled tento rozpor sám nezmiňuje.",
+        "whoBenefits": "Nelze jednoznačně určit; jde o formální nesrovnalost mezi vlastním prohlášením zprávy o absenci veřejnoprávních povinností a normativním obsahem § 1 odst. 1, nikoli o zjištěný prospěch konkrétní osoby nebo skupiny.",
+        "evidence": "§ 1 odst. 1 — „Je-li znak Čech užit spolu se státním znakem, užije se vždy velký státní znak.“; Informativní přehled veřejnoprávních povinností — „Nebyla zadána žádná veřejnoprávní povinnost.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=87&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Skutečným a jediným navrhovatelem tisku 87 je podle vlastního znění zákona i podle databáze projednávání na webu Poslanecké sněmovny Radek Vondráček (poslanecké číslo 6165). Podle klasifikace vazeb v grafu a dřívějšího nálezu k tisku 76 (týž poslanec, tytéž tři vazby) je vazba na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871, člen představenstva) vedena jako řídicího typu (přičitatelná), s úhrnem veřejných smluv firmy 391 010 121 Kč. Dvě další vazby — předseda dozorčí rady NEXNET, a.s. (IČO 26232987, role 2000-12-14 až 2014-08-06) a člen dozorčí rady MAE invest a.s. (IČO 29186315, role 2009-10-27 až 2015-03-02) — jsou vedeny jako svěřenecké (peníze instituce, nikoli poslance), obě navíc s dozorčí funkcí ukončenou před více než deseti lety a s příznakem, že evidované smlouvy firem časově následují až po skončení role — tedy nikoli živé vazby, jak by mohla naznačovat prostá přítomná formulace. Žádný z těchto subjektů – vodárenská a kanalizační společnost, telekomunikační firma, investiční společnost – nemá věcný vztah k předmětu tisku, kterým je zakotvení zemských znaků a vlajek Čech, Moravy a Slezska a jejich vhodné a důstojné užívání veřejností; návrh nezřizuje žádný registrační, dozorčí ani sankční mechanismus, který by mohl některý z těchto subjektů zvýhodnit nebo znevýhodnit. V datech proto není zjištěn střet zájmů mezi peněžními vazbami navrhovatele a předmětem tisku; obě dohledové vazby i řídicí vazba čekají na lidskou kontrolu, stejně jako zbytek grafu.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Preambule návrhu zní: „Uznávaje dobré tradice státnosti zemí Koruny české a chráníce dějinný odkaz našich předků Parlament v úctě k symbolům historických zemí Čech, Moravy a Slezska, které jsou nedílnou součástí symboliky státu, rozhodl se zákonem upravit i podobu a užívání zemských znaků Čech, Moravy a Slezska.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=87&ct1=0"
+      },
+      {
+        "claim": "§ 4 návrhu zní: „Zemské znaky a vlajky může užívat každá osoba vhodným a důstojným způsobem.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=87&ct1=0"
+      },
+      {
+        "claim": "Bod 6 obecné části uvádí: „Návrh zákona nemá vyčíslitelný vliv na státní ani jiné veřejné rozpočty. Návrh zákona nemá vliv na rozpočty krajů a obcí.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=87&ct1=0"
+      },
+      {
+        "claim": "Bod 7 obecné části (Informace dle zákona o regulaci lobbování) uvádí: „Při přípravě návrhu zákona nedošlo k žádným kontaktům, které by podléhaly oznamovací povinnosti.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=87&ct1=0"
+      },
+      {
+        "claim": "Historie projednávání tisku 87 eviduje podání návrhu Radkem Vondráčkem 22. 1. 2026, rozeslání jako tisk 87/0 dne 23. 1. 2026, souhlasné stanovisko vlády rozeslané 25. 2. 2026 jako tisk 87/1 a doporučení organizačního výboru usnesením č. 37 dne 4. 3. 2026 přikázat návrh výboru pro vědu, vzdělání, kulturu, mládež a tělovýchovu jako garančnímu a ústavně právnímu výboru jako dalšímu, se zpravodajem Mgr. Jiřím Vojáčkem.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=87"
+      },
+      {
+        "claim": "Podle databáze sněmovních tisků je jediným předkladatelem tisku 87 Radek Vondráček.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/tisky.sqw?O=10&T=87"
+      },
+      {
+        "claim": "Graf eviduje u Radka Vondráčka vazbu řídicího typu (přičitatelnou) na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871, člen představenstva), s úhrnem veřejných smluv firmy 391 010 121 Kč; vazba čeká na lidskou kontrolu.",
+        "kind": "graph_fact",
+        "source": "company:ico:49451871"
+      },
+      {
+        "claim": "Graf eviduje u společnosti NEXNET, a.s. (IČO 26232987) svěřeneckou vazbu Radka Vondráčka jako předsedy dozorčí rady, s rolí ukončenou 2014-08-06 a příznakem, že evidované smlouvy firmy časově následují až po skončení role.",
+        "kind": "graph_fact",
+        "source": "company:ico:26232987"
+      },
+      {
+        "claim": "Graf eviduje u společnosti MAE invest a.s. (IČO 29186315) svěřeneckou vazbu Radka Vondráčka jako člena dozorčí rady, s rolí ukončenou 2015-03-02 a příznakem, že evidované smlouvy firmy časově následují až po skončení role.",
+        "kind": "graph_fact",
+        "source": "company:ico:29186315"
+      },
+      {
+        "claim": "Radek Vondráček je v grafu veden pod poslaneckým číslem 6165.",
+        "kind": "graph_fact",
+        "source": "psp:person:6165"
+      }
+    ]
+  },
+  {
+    "billTisk": 98,
+    "statedReasoning": "Vládní návrh tisku 98, který za vládu podepsala ministryně financí Alena Schillerová, novelizuje zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů. Obecná část důvodové zprávy jej označuje za návrh „čistě implementační“, reagující na směrnici Rady (EU) 2023/2226 („DAC 8“) a směrnici Rady (EU) 2025/872 („DAC 9“). Novela je podle zprávy rozčleněna do sedmi tematických celků: zavedení automatické výměny informací oznamovaných poskytovateli služeb s kryptoaktivy, změny výměny informací oznamovaných finančními institucemi, rozšíření výměny informací podle druhů příjmu a majetku, rozšíření výměny informací o daňových stanoviscích s přeshraničním prvkem, rozšíření využití identifikační služby, zpřísnění povinnosti výměny informací o daňovém identifikačním čísle a zavedení mezinárodní výměny informačních přehledů k dorovnávacím daním. Transpoziční lhůta DAC 8 a příslušné části DAC 9 uplynula podle zprávy 31. prosince 2025 a zákon měl nabýt účinnosti 1. ledna 2026, což se podle vlastního přiznání zprávy nestihne. Hospodářská a finanční část odhaduje náklady správce daně na vývoj a provoz informačních systémů v rozmezí 25–35 mil. Kč (kryptoaktiva) a 110–140 mil. Kč (informační přehled k dorovnávací dani) a podle předběžných odhadů „se jedná o desítky subjektů podnikajících v České republice“ poskytujících služby související s kryptoaktivy. Zpráva u nových povinností pro poskytovatele služeb s kryptoaktivy počítá s pokutou za nesplnění povinnosti nepeněžité povahy do 1 500 000 Kč a s pořádkovou pokutou do 1 500 000 Kč za porušení oznamovací povinnosti. Oddíl o korupčních rizicích neshledává u návrhu žádné nové korupční riziko a odkazuje na standardní rámec správy daní. Oddíl o ochraně osobních údajů (DPIA) sám hodnotí zpracování jako rizikové – zpracování osobních údajů „vysoce osobní povahy“ a „velkého rozsahu“ – ale uzavírá, že je kryto zákonným zmocněním podle čl. 6 odst. 1 písm. c) GDPR a standardními zárukami mlčenlivosti správce daně.",
+    "researchedContext": "Historie projednávání na webu Poslanecké sněmovny potvrzuje, že návrh podala vláda 5. 2. 2026, téhož dne byl rozeslán poslancům jako tisk 98/0 a zaevidován v systému eKLEP pod č. 27/26. Organizační výbor jej dne 19. 2. 2026 usnesením č. 31 doporučil k projednání, zpravodajem určil Ing. Vlastimila Hebra a garančním výborem rozpočtový výbor. Obecná rozprava v prvním čtení proběhla 14. 7. 2026 na 27. schůzi; sněmovna usnesením č. 258 nesouhlasila se zkráceným jednacím řízením (projednáním v jediném čtení) a návrh přikázala k projednání výborům. K dnešnímu dni (6. 8. 2026) jej rozpočtový výbor ještě neprojednal; jeho projednání je plánováno na 2. 9. 2026 (usnesení č. 22) a další postup je možný od 13. 9. 2026. Směrnice Rady (EU) 2023/2226 a (EU) 2025/872, na které se zpráva odvolává, jsou v textu důvodové zprávy citovány svými přesnými čísly a daty přijetí (17. 10. 2023, resp. 14. 4. 2025); jejich obsah nebyl v rámci tohoto zpracování ověřen proti úplnému znění na EUR-Lex, pouze proti tomu, jak je popisuje sama zpráva. Zvláštní část důvodové zprávy (komentář k § 13n odst. 1 až 3) sama uvádí, že horní hranice dosavadní pokuty pro finanční instituce podle § 13n se zvyšuje z 500 000 Kč na 1 500 000 Kč, a to nikoli proto, že by to vyžadovala DAC 8 nebo DAC 9 přímo, ale „aby odpovídala“ nové výši pokut zavedené pro provozovatele platforem a poskytovatele služeb s kryptoaktivy, s odůvodněním, že by jinak vznikaly „nedůvodné rozdíly“ mezi srovnatelně postavenými povinnými osobami. Toto zvýšení dopadající na finanční instituce, které již automatickou výměnu informací podle DAC 2 vykonávají od roku 2016, není zmíněno ani v úvodním výčtu sedmi tematických celků v obecné části, ani v části 6.2 (dopad na daňové subjekty), kde se u finančních institucí pouze uvádí, že „lze očekávat jednorázové náklady“ na straně oznamujících finančních institucí spojené s úpravou obsahu oznamovaných údajů, nikoli o ztrojnásobení horní hranice sankce za porušení jejich stávajících povinností. Údaje o průběhu projednávání nad rámec rozpisu v datové sadě (čísla usnesení a data jednotlivých kroků) vycházejí výhradně ze stránky historie tisku na psp.cz; archivované podklady obsahují pouze výchozí text tisku.",
+    "unstatedEffects": [
+      {
+        "effect": "Novela v § 13n odst. 2 zvyšuje horní hranici pokuty pro finanční instituce ze stávajících 500 000 Kč na 1 500 000 Kč (a v § 13n odst. 1 a 3 zavádí u dosud jinak formulovaných skutkových podstat stejnou horní hranici 1 500 000 Kč) – jde tedy o ztrojnásobení sankčního rizika pro subjekty, které povinnosti automatické výměny informací plní už od transpozice DAC 2 v roce 2016 a s návrhem zákona (transpozicí DAC 8 a DAC 9) věcně nesouvisejí jinak než tím, že mají být postaveny na roveň nově regulovaným poskytovatelům služeb s kryptoaktivy. Toto zvýšení není zmíněno ani v úvodním výčtu sedmi tematických celků obecné části, ani v části 6.2 věnované dopadu návrhu na daňové subjekty, kde se u finančních institucí hovoří pouze o jednorázových nákladech na úpravu evidence, nikoli o zpřísnění sankcí.",
+        "whoBenefits": "Nejde o peněžní prospěch žádné jmenovitě uvedené osoby ani firmy – jde o rozšíření sankčního rizika (nikoli výhody) dopadající na finanční instituce jako regulovanou skupinu subjektů; jediným navrhovatelem evidovaným v grafu je ministryně financí Alena Schillerová, u níž graf neeviduje žádnou peněžní vazbu na finanční instituci ani jiný subjekt dotčený touto změnou.",
+        "evidence": "Zvláštní část důvodové zprávy k § 13n odst. 1 až 3 tisku 98 (viz doslovná citace v tomto posudku); srov. s částí 6.2 a s úvodním výčtem sedmi tematických celků v obecné části téhož tisku, které tuto změnu nezmiňují."
+      }
+    ],
+    "conflictAssessment": "Jediným navrhovatelem evidovaným v grafu peněžních vazeb je ministryně financí Alena Schillerová (poslanecké číslo 6545), u níž graf neeviduje žádnou peněžní vazbu vlastníka, jednatele ani žádnou jinou majetkovou vazbu na obchodní společnost. Novela dopadá na poskytovatele služeb souvisejících s kryptoaktivy a na finanční instituce jako na regulovanou skupinu subjektů, nikoli na jmenovitě určenou firmu. V datech proto nebyl u tisku 98 zjištěn žádný střet zájmů mezi peněžními vazbami navrhovatelky a předmětem návrhu.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Obecná část důvodové zprávy uvádí: „Návrh zákona, kterým se mění zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů, ve znění pozdějších předpisů, je návrhem čistě implementačním, který je reakcí na směrnici Rady (EU) 2023/2226 ze dne 17. října 2023, kterou se mění směrnice 2011/16/EU o správní spolupráci v oblasti daní (dále jen „DAC 8“), a na směrnici Rady (EU) 2025/872 ze dne 14. dubna 2025, kterou se mění směrnice 2011/16/EU o správní spolupráci v oblasti daní (dále jen „DAC 9“).“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+      },
+      {
+        "claim": "Zvláštní část k § 13n odst. 1 uvádí: „Navyšuje se horní hranice pokuty tak, aby odpovídala automatické výměně informací provozovatelů platforem a navrhované automatické výměně informací poskytovaných poskytovateli služeb s kryptoaktivy. Důvodem je, že české finanční instituce jsou v případě povinností a závažnosti jejich porušení ve srovnatelném postavení jako tyto osoby a vznikaly by nedůvodné rozdíly.“ Stejné odůvodnění se opakuje u § 13n odst. 2 a odst. 3.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+      },
+      {
+        "claim": "Čl. I bod 13 novelizačního textu zní: „V § 13n odst. 2 se částka „500 000 Kč“ nahrazuje částkou „1 500 000 Kč“.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+      },
+      {
+        "claim": "Hospodářská a finanční část (bod 6.1.2) odhaduje nárůst výdajů správce daně na vývoj a provoz informačních a komunikačních technologií v rozmezí 25–35 mil. Kč pro oblast kryptoaktiv a 110–140 mil. Kč pro informační přehled k dorovnávací dani.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+      },
+      {
+        "claim": "Oddíl 11 (Zhodnocení korupčních rizik) uvádí, že „v souvislosti s návrhem zákona nejsou zaváděny nové represivní nástroje zaměřené na eliminaci korupčních rizik“ a že míra diskrece správního orgánu je „vzhledem k vymezení povinností minimální“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+      },
+      {
+        "claim": "Historie projednávání tisku 98 eviduje podání a rozeslání vládního návrhu 5. 2. 2026 jako tisk 98/0 (eKLEP č. 27/26), doporučení organizačního výboru 19. 2. 2026 (usnesení č. 31, zpravodaj Ing. Vlastimil Hebr, garanční rozpočtový výbor), obecnou rozpravu v prvním čtení 14. 7. 2026 na 27. schůzi s usnesením č. 258 (nesouhlas se zkráceným jednacím řízením) a stav k 6. 8. 2026, kdy rozpočtový výbor návrh ještě neprojednal a jeho projednání je plánováno na 2. 9. 2026 (usnesení č. 22).",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=98"
+      },
+      {
+        "claim": "Zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů, je zákon novelizovaný tímto tiskem.",
+        "kind": "law",
+        "source": "164/2013"
+      },
+      {
+        "claim": "Navrhovatelkou (podepsanou ministryní) tisku 98 je ministryně financí Alena Schillerová.",
+        "kind": "graph_fact",
+        "source": "psp:person:6545"
+      }
+    ]
+  },
+  {
+    "billTisk": 101,
+    "statedReasoning": "Vládní návrh zavádí zcela nový, dosud v českém právu neexistující institut — soudní odčerpání majetku nevysvětleného původu — jako transpozici čl. 16 směrnice Evropského parlamentu a Rady (EU) 2024/1260 o vymáhání a konfiskaci majetku. Podle § 2 se řízení o odčerpání považuje za trestní řízení navazující na původní trestní řízení, v němž byl majetek zajištěn podle § 79i trestního řádu, ale nedošlo k jeho propadnutí, zabrání ani jinému konečnému naložení s ním — typicky proto, že se nepodařilo prokázat konkrétní trestný čin, z něhož majetek pochází (např. u tzv. průtokových účtů v přeshraničním praní peněz). Soud podle § 4 odst. 1 uloží odčerpávací opatření, pokud zákonný původ majetku nebyl věrohodně a ověřitelně doložen a soud má po uvážení všech okolností za to, že pochází z trestné činnosti, přičemž tento závěr lze opřít mimo jiné o hrubý nepoměr mezi hodnotou nabytého majetku a zákonnými příjmy dotčené osoby v desetiletém rozhodném období (§ 3 odst. 5). Řízení zahajuje na návrh státní zástupce, který ale podle § 12 podat návrh nemusí, neshledá-li na jeho podání veřejný zájem (zásada oportunity); přechodné ustanovení § 26 umožňuje zahájit řízení i tehdy, bylo-li původní trestní řízení zahájeno kdykoli před účinností zákona, pokud jen nebylo k tomuto dni pravomocně skončeno. Zákon nabývá účinnosti 1. července 2026.",
+    "researchedContext": "Historie tisku na psp.cz potvrzuje předložení vládou 10. 2. 2026; datový soubor případu eviduje, že Organizační výbor doporučil přikázání (navrženo přikázat, nikoli již přikázáno) Ústavně-právnímu výboru jako garančnímu k 19. 2. 2026. Přímé čtení důvodové zprávy potvrzuje, že hodnocení dopadů regulace (RIA) nebylo zpracováno — zpráva k tomu uvádí pouze: „V souladu s Plánem legislativních prací vlády na rok 2025 nebylo hodnocení dopadů regulace zpracováno.“ Žádná metodická opora tohoto rozhodnutí (např. konkrétní bod „Obecných zásad pro hodnocení dopadů regulace“) se v tisku nevyskytuje; rozhodnutí nezpracovat RIA stojí ve zprávě samo o sobě, bez odkazu na vlastní metodiku. Zpráva zároveň sama zdůvodňuje, proč nejde o nepřípustnou retroaktivitu (opatření má preventivní, nikoli trestní povahu, a čl. 40 odst. 6 Listiny se na ně podle zprávy nevztahuje), a čerpá přitom z judikatury Ústavního soudu i Evropského soudu pro lidská práva k obdobnému institutu rozšířené konfiskace podle § 102a trestního zákoníku (zejména nález sp. zn. II. ÚS 1026/21 a rozsudek ESLP Gogitidze a ostatní proti Gruzii, stížnost č. 36862/05). Zpráva cituje nález Ústavního soudu sp. zn. II. ÚS 1026/21, který sám ve vztahu k § 102a trestního zákoníku dále cituje důvodovou zprávu k tomuto ustanovení, podle níž se „nezavádí úplný civilní standard dokazování“, ale „nejde ani o trestní standard dokazování“ nade vší pochybnost, a jde tedy o „cosi mezi“ — orgán činný v trestním řízení musí předložit důkazy a uvést skutečnosti vedoucí k závěru o pravděpodobném původu majetku z trestné činnosti, dotčená osoba pak může tvrdit a prokazovat opak. Jde tedy o třikrát vnořenou citaci (zpráva k tisku 101 cituje nález Ústavního soudu, který cituje důvodovou zprávu k jinému ustanovení, § 102a) — nikoli o vlastní charakteristiku důkazní konstrukce tisku 101 zprávou samotnou, byť zpráva tuto citaci přejímá souhlasně jako oporu vlastního institutu. Zpráva u vlastního institutu odčerpání sama a přímo (nikoli citací) přiznává jeho dopad na standardní záruky trestního řízení: „…půjde v zásadě o řízení proti věci (in rem), v němž se všechny zásady ovládající trestní řízení plně neuplatní, zejména se z povahy věci neuplatní zásada presumpce neviny (až na dílčí aspekty) a zásada legality, protože v řízení nepůjde o vinu osoby, ani o stíhání trestného činu.“",
+    "unstatedEffects": [
+      {
+        "effect": "Vláda se rozhodla nezpracovat hodnocení dopadů regulace u návrhu, který zavádí zcela nový institut soudního odčerpání majetku s obráceným charakterem dokazování a desetiletým zpětným rozhodným obdobím; obecná část důvodové zprávy tuto absenci hodnocení dopadů pouze konstatuje odkazem na Plán legislativních prací, aniž by jakkoli zdůvodnila, proč institut tohoto rozsahu a citlivosti nevyžadoval samostatné posouzení dopadů na dotčené osoby.",
+        "whoBenefits": "Nelze jednoznačně určit — nezpracování hodnocení dopadů ochuzuje veřejnou diskuzi i Parlament o systematický rozbor dopadů na osoby, jejichž majetek bude podle nové úpravy odčerpáván.",
+        "evidence": "Obecná část důvodové zprávy — „V souladu s Plánem legislativních prací vlády na rok 2025 nebylo hodnocení dopadů regulace zpracováno.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+      },
+      {
+        "effect": "Zahájení řízení o odčerpání závisí na zásadě oportunity — státní zástupce návrh podat nemusí, byť jsou splněny všechny zákonné podmínky, pokud na jeho podání neshledá veřejný zájem; zvláštní část důvodové zprávy k § 12 tento mechanismus popisuje, avšak nikde nerozebírá, že rozhodnutí nepodat návrh nepodléhá soudnímu přezkumu a je kontrolováno pouze interně v rámci dozorového spisu vyššího státního zastupitelství.",
+        "whoBenefits": "Osoby, u nichž státní zástupce z důvodu neshledání veřejného zájmu návrh na uložení odčerpávacího opatření nepodá, si ponechají majetek, který by jinak mohl být předmětem řízení, aniž by toto rozhodnutí bylo soudně přezkoumatelné.",
+        "evidence": "K § 12 zvláštní části důvodové zprávy — „Zahájení řízení o odčerpání je v rukou státního zástupce, přičemž se uplatňuje zásada oportunity, tj. státní zástupce návrh podat nemusí, pokud na jeho podání neshledá veřejný zájem.“ a „S ohledem na zásadu oportunity je třeba zajistit dostatečnou kontrolu postupu státního zástupce, proto se stanoví, aby ... učinil do dozorového spisu záznam, v němž uvede, proč návrh na uložení odčerpávacího opatření nepodal.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jediným sponzorem evidovaným v datech případu je Jeroným Tejc (ministr spravedlnosti, podepsán na důvodové zprávě spolu s předsedou vlády), u něhož není zaznamenána žádná peněžní vazba na soukromou firmu ani sektorový lead. Jde o vládní předlohu transponující unijní konfiskační směrnici na základě analýzy vypracované pracovní skupinou při Ministerstvu spravedlnosti a schválené usnesením vlády z roku 2023, nikoli o úpravu sledující soukromý zájem předkladatele. Na základě dostupných dat nebyl u tisku 101 zjištěn střet zájmů; institucionální otázky (rozsah diskrece státního zástupce, absence hodnocení dopadů) jsou věcí návrhu jako celku, nikoli osobního zájmu předkladatele.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Zákon zavádí nový institut soudního odčerpání majetku nevysvětleného původu, navazující na původní trestní řízení, v němž se nepodařilo prokázat konkrétní trestný čin, z něhož majetek pochází.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+      },
+      {
+        "claim": "Soud uloží odčerpávací opatření, pokud zákonný původ majetku nebyl věrohodně a ověřitelně doložen a soud má za to, že pochází z trestné činnosti, přičemž lze vycházet z hrubého nepoměru mezi majetkem nabytým v desetiletém rozhodném období a zákonnými příjmy dotčené osoby.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+      },
+      {
+        "claim": "Hodnocení dopadů regulace (RIA) nebylo v souladu s Plánem legislativních prací vlády na rok 2025 zpracováno; zpráva k tomu neuvádí žádnou metodickou oporu (žádný konkrétní bod Obecných zásad pro hodnocení dopadů regulace).",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+      },
+      {
+        "claim": "Zahájení řízení o odčerpání se řídí zásadou oportunity státního zástupce, jehož rozhodnutí nepodat návrh je kontrolováno pouze záznamem do dozorového spisu.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+      },
+      {
+        "claim": "Návrh podala vláda 10. 2. 2026; Organizační výbor 19. 2. 2026 pouze doporučil jeho přikázání Ústavně-právnímu výboru jako garančnímu, Sněmovna sama jej ještě nepřikázala.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=101"
+      },
+      {
+        "claim": "Případový soubor přiřazuje k tisku 101 jediného sponzora (Tejc) bez peněžní vazby a bez sektorového leadu.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43211"
+      },
+      {
+        "claim": "Zákon č. 40/2009 Sb., trestní zákoník, obsahuje v § 102a obdobný institut rozšířené konfiskace vázaný na odsouzení pachatele, k němuž se důvodová zpráva výslovně vztahuje.",
+        "kind": "law",
+        "source": "40/2009"
+      },
+      {
+        "claim": "Zákon č. 141/1961 Sb., trestní řád, se na řízení o odčerpání použije podpůrně podle § 2 odst. 1 návrhu.",
+        "kind": "law",
+        "source": "141/1961"
+      }
+    ]
+  },
+  {
+    "billTisk": 114,
+    "statedReasoning": "Vládní návrh zákona o některých pravidlech pro mechanismus uhlíkového vyrovnání na hranicích doplňuje přímo použitelné nařízení (EU) 2023/956 (CBAM) o vnitrostátní organizační a procesní rámec, který nařízení samo ponechává na volbě členského státu. Zpráva výslovně uvádí, že na základě zprávy RIA vyplynula jako nejvhodnější varianta sdílená kompetence mezi orgány Celní správy České republiky (celní úřady a Generální ředitelství cel) a Ministerstvem životního prostředí. Ministerstvo prověřuje prohlášení CBAM, zajišťuje prodej a zpětný odkup certifikátů CBAM a komunikuje s Evropskou komisí; celní úřad vydává a ruší povolení statusu schváleného deklaranta, spravuje jistotu a provádí kontroly po propuštění zboží. Výkon působnosti orgánů Celní správy podle § 9 odst. 1 písm. b) se podle § 9 odst. 2 považuje za výkon správy daní, s výjimkou řízení o přestupcích. Přestupky projednává ministerstvo (u oznamujícího a schváleného deklaranta) nebo celní úřad (u jiných osob dovážejících zboží bez plnění povinností), s pokutami odvozenými od harmonizovaného indexu spotřebitelských cen EU za tunu nevykázaných emisí (10-50 EUR, 100 EUR, resp. 300-500 EUR podle typu přestupku). Zpráva v úvodní části obecně zdůrazňuje, že „CBAM není clem ani daní, neboť nemá jejich charakteristické znaky“, a v bodě 4.1 posuzuje soulad s Listinou základních práv EU i Úmluvou o ochraně lidských práv, včetně otázky ochrany majetku a práva na spravedlivý proces v daňovém řízení.",
+    "researchedContext": "Zpráva CBAM v obecné části výslovně odlišuje od cla i daně („CBAM není clem ani daní, neboť nemá jejich charakteristické znaky“), avšak ustanovení § 9 odst. 2 zákona přesto stanoví, že výkon působnosti orgánů celní správy v oblasti CBAM se - s výjimkou řízení o přestupcích - považuje za výkon správy daní, tedy se řídí daňovým řádem, nikoli obecným správním řádem. Zpráva sama v bodě 2 (Vysvětlení nezbytnosti) tento procesní režim potvrzuje: „při výkonu působnosti orgány celní správy... zákonem č. 280/2009 Sb., daňový řád“. Daňový řád poskytuje správci daně širší vyhledávací, kontrolní a vymáhací nástroje než obecný správní řád (mj. registrační a vyhledávací činnost, daňovou kontrolu, zajišťovací příkazy) - zákon tedy vnitrostátně podřizuje vymáhání mechanismu, který v jiné, substantivní (WTO) rovině sám označuje za nedaňový, procesnímu režimu určenému pro daně; zpráva ani v bodě 1 (kde CBAM od daně odlišuje), ani v bodě 2 (kde volí daňový řád jako procesní režim) obě tato zjištění vzájemně nepropojuje. Dvě dřívější verze tohoto nálezu tvrdily, že tisk neobsahuje samostatnou část o ochraně soukromí a osobních údajů a že § 13 odst. 2 zavádí čistě vnitrostátní výjimku z mlčenlivosti, kterou nařízení CBAM nepředepisuje; obě tvrzení jsou nesprávná a byla proto stažena. Tisk obsahuje část „10. Zhodnocení dopadu navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“ (body 10.1–10.9), jejíž bod 10.4 (Veřejnost zpracování) přímo pojednává o zásadě neveřejnosti a mlčenlivosti podle daňového řádu při řízení o statusu schváleného deklaranta — právě to tvrzení popíralo. Číslo 11 v tisku nese „11. Zhodnocení korupčních rizik navrhovaného řešení (CIA)“, nikoli část o soukromí. A komentář K § 13 výslovně uvádí, že navrhované ustanovení „je doplněním přímo použitelné právní úpravy prolomení mlčenlivosti, kterou obsahuje čl. 13 odst. 2 a čl. 25 odst. 4 nařízení CBAM“ — samotné nařízení CBAM tedy prolomení mlčenlivosti mechanismus zakládá a § 13 odst. 2 jej pouze doplňuje na vnitrostátní úrovni („Smyslem navrhovaného ustanovení je úprava výměny informací na vnitrostátní úrovni.“), nikoli vytváří jako čistě vnitrostátní volbu.",
+    "unstatedEffects": [
+      {
+        "effect": "Zpráva na jednom místě (bod 1, substantivní/WTO rovina) výslovně tvrdí, že „CBAM není clem ani daní“, a na jiném místě (bod 2, procesní rovina) sama potvrzuje, že výkon působnosti orgánů celní správy v oblasti CBAM se (mimo přestupkové řízení) považuje za výkon správy daní podle daňového řádu. Obě tvrzení jsou samostatně pravdivá a zpráva je nijak neskrývá — ale nikde je vzájemně nepropojuje: nezmiňuje, že dovozce CBAM zboží je tím vystaven procesnímu a vyšetřovacímu aparátu určenému pro daně, přestože mechanismus samotný jako daň sama odmítá klasifikovat.",
+        "whoBenefits": "Orgány Celní správy získávají k prosazování CBAM širší procesní nástroje daňového řádu (registrační, vyhledávací a vymáhací pravomoci), než by měly při postupu podle obecného správního řádu; dovozci podléhající CBAM jsou vystaveni tomuto přísnějšímu procesnímu režimu, aniž by zpráva sama toto souběžné čtení dvou svých vlastních zjištění kdekoli vyslovila.",
+        "evidence": "Bod 1 (Zhodnocení platného právního stavu) — „Z výše uvedeného vyplývá, že CBAM není clem ani daní, neboť nemá jejich charakteristické znaky.“; bod 2 (Vysvětlení nezbytnosti) a § 9 odst. 2 — „Výkon působnosti orgánů Celní správy České republiky podle odstavce 1 písm. b) se považuje za výkon správy daní, s výjimkou řízení o přestupcích.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Evidovaným předkladatelem tisku je Alena Schillerová, u které graf neeviduje žádnou peněžní vazbu na žádnou firmu. Střet zájmů mezi předmětem tisku (mechanismus uhlíkového vyrovnání na hranicích, dopadající na dovozce zboží s vysokou uhlíkovou stopou) a peněžními vazbami předkladatelky proto nelze hodnotit, protože žádné takové vazby v grafu evidovány nejsou; nejde o zjištění nepřítomnosti střetu na základě prověření vazeb, ale o absenci vstupních dat k prověření.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Ustanovení § 9 odst. 2 uvádí: „Výkon působnosti orgánů Celní správy České republiky podle odstavce 1 písm. b) se považuje za výkon správy daní, s výjimkou řízení o přestupcích.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+      },
+      {
+        "claim": "Ustanovení § 13 odst. 2 uvádí: „Poskytnutí informací získaných orgánem Celní správy České republiky při výkonu působnosti v oblasti mechanismu uhlíkového vyrovnání na hranicích nebo dovozu zboží ministerstvu pro účely výkonu jeho působnosti v oblasti mechanismu uhlíkového vyrovnání na hranicích není porušením mlčenlivosti podle daňového řádu.“ Komentář K § 13 dodává, že navrhované ustanovení „je doplněním přímo použitelné právní úpravy prolomení mlčenlivosti, kterou obsahuje čl. 13 odst. 2 a čl. 25 odst. 4 nařízení CBAM“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+      },
+      {
+        "claim": "Obecná část důvodové zprávy (bod 1) uvádí: „Z výše uvedeného vyplývá, že CBAM není clem ani daní, neboť nemá jejich charakteristické znaky.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+      },
+      {
+        "claim": "Bod 2 obecné části uvádí, že orgány celní správy při výkonu působnosti v oblasti CBAM postupují podle zákona č. 280/2009 Sb., daňový řád, zatímco ministerstvo postupuje subsidiárně podle zákona č. 500/2004 Sb., správní řád.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+      },
+      {
+        "claim": "Bod 2 obecné části uvádí, že na základě zprávy RIA vyplynula jako nejvhodnější varianta pro příslušný orgán v ČR sdílená kompetence dělená mezi orgány Celní správy a Ministerstvo životního prostředí.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+      },
+      {
+        "claim": "Tisk obsahuje samostatnou část „10. Zhodnocení dopadu navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“ (body 10.1–10.9); část číslo 11 je „Zhodnocení korupčních rizik navrhovaného řešení (CIA)“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+      },
+      {
+        "claim": "Tisk 114 byl dne 14. 7. 2026 přikázán souběžně jako garančnímu výboru pro životní prostředí (VŽP) a rozpočtovému výboru (RV).",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=114"
+      },
+      {
+        "claim": "Graf u Aleny Schillerové neeviduje žádnou peněžní vazbu na firmu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6545"
+      }
+    ]
+  },
+  {
+    "billTisk": 116,
+    "statedReasoning": "Tisk 116 (poslanecký návrh Zuzany Ožanové, Patrika Pařila a Renaty Vesecké) ruší bez náhrady zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu („nominační zákon“), a jeho dvě novely (část dvacátou třetí zákona č. 412/2023 Sb. a část třináctou zákona č. 35/2025 Sb.). Obecná část důvodové zprávy hodnotí dosavadní úpravu jako zřízení Výboru pro personální nominace, jehož stanoviska mají podle zprávy „povahu nezávazných doporučení“ bez právních důsledků při jejich nerespektování, a jako postup ministerstev při výběru osob do řídících a dozorčích orgánů firem, státních podniků, národního podniku a Správy železniční dopravní cesty s majetkovou účastí státu. Zpráva uvádí, že zákon vychází z dosavadního Statutu Vládního výboru pro personální nominace z roku 2014 „aniž by došlo k jejich podstatnému přehodnocení“, že stanoviska výboru jsou adresována ministerstvům, ačkoli je výbor koncipován jako poradní orgán vlády, a že úprava „postrádá dostatečně jednoznačné koncepční vymezení okruhu právnických osob“, na které se vztahuje. Podle bodu F zpráva uvádí, že návrh „neklade žádné zvláštní nároky na státní rozpočet“ a že zrušení výboru naopak „přinese dílčí úspory“ nominujícím organizačním složkám státu a Úřadu vlády. Zpráva neshledává rozpor s ústavním pořádkem ani s právem EU, uvádí, že „neexistuje žádný mezinárodní závazek“ mít nominační proces na úrovni zákona, a v bodu K neshledává zvýšení korupčního rizika s odůvodněním, že „návrh novely byl připraven na základě praktických zkušeností s aplikační praxí“. Účinnost se navrhuje prvním dnem kalendářního měsíce po vyhlášení, bez legisvakance a bez přechodných ustanovení, s odůvodněním, že „je z důvodu iracionality a nefunkčnosti nominačního zákona dán naléhavý obecný zájem“ na jeho zrušení.",
+    "researchedContext": "Historie projednávání na webu Poslanecké sněmovny potvrzuje, že skupina poslanců předložila návrh, který byl rozeslán poslancům 20. 2. 2026 v 13:39 jako tisk 116/0. Tisk byl přikázán Hospodářskému výboru jako garančnímu 22. 4. 2026. Žádné další procesní kroky — stanovisko vlády, doporučení organizačního výboru, konkrétní zpravodaj, datum prvního čtení či jakékoli usnesení výboru nebo zařazení na některou schůzi — nejsou v uložených podkladech k tisku ani v datech případu doloženy, a tento posudek je proto neuvádí. Podle databáze sněmovních tisků jsou skutečnými předkladateli tisku 116 pouze Zuzana Ožanová, Patrik Pařil a Renata Vesecká; graf peněžních vazeb k tomuto tisku eviduje i další poslanecká jména, tento posudek se však vzhledem k vlastnímu znění zákona i evidenci na webu Sněmovny omezuje na peněžní vazby těchto tří skutečných navrhovatelů.",
+    "unstatedEffects": [
+      {
+        "effect": "Zrušení nominačního zákona bez náhrady odstraňuje statutární rámec pro výběr osob do řídicích a dozorčích orgánů firem s majetkovou účastí státu a nahrazuje jej výslovně nestatutární zárukou: zpráva sama uvádí, že „zrušení zákonné úpravy neznamená rezignaci na transparentní a odborné posuzování nominací; tyto principy budou nadále zajišťovány prostřednictvím interních pravidel vlády“. Bezpečnostní pojistka se tak přesouvá ze zákona, který smí měnit jen Parlament, na vnitřní pravidla, která si vláda píše a mění sama a jejichž existence není v tomto zpracování ani ve zprávě samotné jinak doložena. Zpráva zároveň k § 2 uvádí, že „v této souvislosti není nutné zavádět žádnou legisvakanci a současně není nutné přijímat ani žádná přechodná ustanovení“ a že „probíhající procesy se již dokončí mimo režim nominačního zákona“ — tedy že rozběhnuté nominace dokončí své řízení mimo jakýkoli zákonný rámec od prvního dne měsíce po vyhlášení.",
+        "whoBenefits": "Vláda jako celek získává výhradní a v podstatě nekontrolovatelnou kontrolu nad pravidly, podle nichž jsou obsazovány řídicí a dozorčí orgány firem, státních podniků a Správy železniční dopravní cesty s majetkovou účastí státu — bez zákonné závaznosti a bez parlamentní ingerence do budoucích změn těchto pravidel.",
+        "evidence": "K části obecné — „Zrušení zákonné úpravy neznamená rezignaci na transparentní a odborné posuzování nominací; tyto principy budou nadále zajišťovány prostřednictvím interních pravidel vlády.“; K § 2 — „V této souvislosti není nutné zavádět žádnou legisvakanci a současně není nutné přijímat ani žádná přechodná ustanovení. Probíhající procesy se již dokončí mimo režim nominačního zákona.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=116&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Skutečnými navrhovateli tisku 116 jsou podle vlastního znění zákona i podle databáze projednávání na webu Poslanecké sněmovny Zuzana Ožanová, Patrik Pařil a Renata Vesecká. Graf peněžních vazeb u Zuzany Ožanové a Renaty Vesecké neeviduje žádnou vazbu. Patrik Pařil má evidovány dvě vazby, obě vlastnické a řídicí zároveň (RAPAJA s.r.o., IČO 06386237, jednatel a společník; RMPJ s.r.o., IČO 09187944, jednatel a společník), obě s dosažitelnými veřejnými smlouvami ve výši 0 Kč. Žádný z těchto dvou subjektů nemá věcný vztah k předmětu tisku, kterým je zrušení Výboru pro personální nominace a zákonné úpravy postupu při obsazování řídicích a dozorčích orgánů firem s majetkovou účastí státu – ani RAPAJA s.r.o., ani RMPJ s.r.o. nejsou firmou s majetkovou účastí státu, ani jinak nepodléhají nominačnímu zákonu. V datech proto není zjištěn střet zájmů mezi peněžními vazbami navrhovatelů a předmětem tisku; obě vazby Patrika Pařila čekají na lidskou kontrolu, stejně jako zbytek grafu.",
+    "severity": "medium",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "§ 1 návrhu zní: „Zrušují se: 1. Zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu (nominační zákon). 2. Část dvacátá třetí zákona č. 412/2023 Sb., kterým se mění zákon č. 582/1991 Sb., o organizaci a provádění sociálního zabezpečení, ve znění pozdějších předpisů, a další související zákony. 3. Část třináctá zákona č. 35/2025 Sb., kterým se mění některé zákony v souvislosti s přijetím zákona o Národní rozvojové bance.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=116&ct1=0"
+      },
+      {
+        "claim": "Obecná část (bod B) uvádí, že stanoviska Výboru pro personální nominace „mají povahu nezávazných doporučení“ a „nejsou spojena s právními důsledky v případě jejich nerespektování“, a že právní úprava „postrádá dostatečně jednoznačné koncepční vymezení okruhu právnických osob“, na které se vztahuje.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=116&ct1=0"
+      },
+      {
+        "claim": "Bod F obecné části uvádí: „Předložený návrh neklade žádné zvláštní nároky na státní rozpočet ani na ostatní veřejné rozpočty. Zjednodušení procesu včetně zrušení Výboru pro personální nominace přinese dílčí úspory na straně nominujících organizačních složek státu a Úřadu vlády České republiky.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=116&ct1=0"
+      },
+      {
+        "claim": "Bod K obecné části (Zhodnocení korupčních rizik) uvádí: „Navrhovaná úprava nepřináší zvýšení korupčního rizika. Návrh novely byl připraven na základě praktických zkušeností s aplikační praxí.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=116&ct1=0"
+      },
+      {
+        "claim": "Historie projednávání tisku 116 eviduje rozeslání návrhu 20. 2. 2026 v 13:39 jako tisk 116/0 a přikázání Hospodářskému výboru jako garančnímu 22. 4. 2026; žádný další procesní krok (stanovisko vlády, doporučení organizačního výboru, datum prvního čtení, usnesení výboru) není v uložených podkladech k tisku doložen.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=116"
+      },
+      {
+        "claim": "Podle databáze sněmovních tisků jsou skutečnými předkladateli tisku 116 pouze Zuzana Ožanová, Patrik Pařil a Renata Vesecká.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/tisky.sqw?O=10&T=116"
+      },
+      {
+        "claim": "Zákon č. 353/2019 Sb., o výběru osob do řídících a dozorčích orgánů právnických osob s majetkovou účastí státu, je hlavní zákon rušený tímto tiskem.",
+        "kind": "law",
+        "source": "353/2019"
+      },
+      {
+        "claim": "Graf eviduje u Patrika Pařila dvě vlastnické a řídicí vazby (RAPAJA s.r.o., IČO 06386237; RMPJ s.r.o., IČO 09187944), obě s dosažitelnými veřejnými smlouvami ve výši 0 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:06386237"
+      },
+      {
+        "claim": "Graf eviduje u Patrika Pařila vazbu na RMPJ s.r.o. (IČO 09187944, jednatel a společník) s dosažitelnými veřejnými smlouvami ve výši 0 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:09187944"
+      },
+      {
+        "claim": "Zuzana Ožanová je v grafu vedena pod poslaneckým číslem 6474 a Renata Vesecká pod poslaneckým číslem 7054; ani u jedné z nich graf neeviduje žádnou peněžní vazbu.",
+        "kind": "graph_fact",
+        "source": "psp:person:6474"
+      }
+    ]
+  },
+  {
+    "billTisk": 129,
+    "statedReasoning": "Tisk 129 (skupinový poslanecký návrh Jana Bureše, Martina Baxy, Karla Haase, Renáty Zajíčkové, Štěpána Slováka, Petra Sokola, Jany Černochové, Libora Hoppeho, Jakuba Jandy, Petra Bendla a Jana Skopečka) ruší bez náhrady zákon č. 223/2016 Sb., o prodejní době v maloobchodě, jeho novelu č. 276/2019 Sb. a související část dvě stě čtyřicátou třetí zákona č. 183/2017 Sb. Obecná část důvodové zprávy popisuje dosavadní úpravu jako zákaz prodeje v maloobchodě o osmi dnech v roce (24. 12. odpoledne, 1. 1., Velikonoční pondělí, 8. 5., 28. 9., 28. 10., 25. 12. a 26. 12. — sedm svátků, z nichž dva, 25. a 26. 12., dohromady dávají osmý den) s výjimkami pro prodejny do 200 m², čerpací stanice, lékárny apod. a s pokutou do 1 000 000 Kč (při opakování do 5 000 000 Kč). Navrhovatelé argumentují zásahem do svobody podnikání, odkazují na disentní stanovisko pěti soudců Ústavního soudu k nálezu Pl. ÚS 7/17 a tvrdí, že úprava nerovně zachází se zaměstnanci provozoven do a nad 200 m² i mezi jednotlivými podnikateli. Zpráva uvádí, že zrušení bude mít na veřejné rozpočty dopad „zanedbatelný“, ale „pozitivní“ (odpadnou náklady na dozor, zvýší se výnos daně ze zisku z tržeb o svátcích), na podnikatelské prostředí dopad „veskrze pozitivní“ a na sociální oblast dopad „v podstatě neutrální“, protože povinnost pracovat ve svátek je kompenzována náhradním volnem nebo příplatkem podle § 135 zákoníku práce. Zpráva neshledává rozpor s ústavním pořádkem, s právem EU ani s mezinárodními smlouvami a neshledává žádné korupční riziko. Účinnost se navrhuje dnem následujícím po vyhlášení.",
+    "researchedContext": "Historie projednávání na webu Poslanecké sněmovny potvrzuje, že skupina poslanců předložila návrh 10. 3. 2026, dne 11. 3. 2026 byl rozeslán poslancům jako tisk 129/0 a 12. 3. 2026 požádána vláda o stanovisko. Vláda zaujala stanovisko označené jako neutrální, rozeslané 31. 3. 2026 jako tisk 129/1; obsah jejího odůvodnění nebyl v tomto zpracování ověřen z primárního textu, protože dokument je na webu Sněmovny dostupný pouze jako soubor PDF/DOCX. Údaje o průběhu projednávání nad rámec rozpisu v datové sadě (čísla navazujících tisků a usnesení, data jednotlivých kroků) vycházejí výhradně ze stránky historie tisku na psp.cz; archivované podklady obsahují pouze výchozí text tisku. Organizační výbor doporučil 2. 4. 2026 přikázat návrh k projednání hospodářskému výboru jako garančnímu, zpravodajem určil Bc. Jiřího Svobodu. K dnešnímu dni (6. 8. 2026) je podle téhož zdroje evidován jeden pozměňovací návrh a další postup je možný od 10. 4. 2026. Text novelizačního ustanovení (čl. I) sám potvrzuje, že jde o zrušení „bez náhrady“ – návrh nezavádí žádnou novou úpravu prodejní doby, pouze ruší dosavadní zákaz.",
+    "unstatedEffects": [],
+    "conflictAssessment": "Z jedenácti poslanců podepsaných na tisku 129 nemá graf peněžních vazeb u šesti evidovánu žádnou vazbu (Renáta Zajíčková, Štěpán Slovák, Petr Sokol, Libor Hoppe, Jakub Janda, Jan Skopeček). Jan Bureš má evidováno osm vazeb: jednu vlastnickou a řídicí zároveň (ZPS holding s.r.o., IČO 01686682, jednatel a společník, veřejné smlouvy 0 Kč) a sedm v dohledové funkci (Údržba silnic Karlovarského kraje, Povodí Ohře, Ostrovská teplárenská, Léčebné lázně Jáchymov, Vodárny a kanalizace Karlovy Vary a Chráněná dílna Ostrov — karlovarské a krajské instituce — a Česká asociace věřitelů, z.s., celostátní věřitelský spolek) – jde o peníze těchto institucí, nikoli poslance. Martin Baxa má evidováno devět vazeb, všechny v dohledové funkci u plzeňských a plzeňsko-krajských institucí (Galerie města Plzně, Plzeňská filharmonie, Nadace 700 let města Plzně, Sdružení měst a obcí Plzeňského kraje, Regionální rozvojová agentura Plzeňského kraje, Nadace Věry a Vladimíra Janouškových, SUTNAR – nadace, Plzeňské městské dopravní podniky, Techmania Science Center). Karel Haas má jednu vazbu v řídicí funkci (ČSOB Pojišťovna, a. s., IČO 45534306, člen představenstva a dozorčí rady, veřejné smlouvy 5 271 341 109 Kč) – vazba řídicího typu se podle metodiky projektu přičítá poslanci jako dosažitelné peníze. Jana Černochová má čtyři vazby: jednu v řídicí funkci (Komwag, podnik čistoty a údržby města, a.s., IČO 61057606, člen představenstva, veřejné smlouvy 1 765 842 642 Kč; rejstříkové ověření je vedeno jako rozporné) a tři v dohledové funkci (Obecní dům, a.s.; Nadační fond Českého rozhlasu; Společenství vlastníků jednotek v domě čp. 2122 Na Folimance). Petr Bendl má šest vazeb: pět v dohledové funkci (Vzdělávací centrum pro veřejnou správu ČR, Energie – stavební a báňská, MERO ČR, Svaz měst a obcí České republiky, Povodí Vltavy) a jednu v řídicí funkci na PRAK spol. s r.o. (IČO 49683144, člen představenstva; rejstříkové ověření rozporné) bez dosažitelných veřejných peněz — dřívější nález (verdicts-020/verdict-208) k téže vazbě upozornil na neuzavřenou identifikační nejednoznačnost (kandidát IČO 61858111, PRaK a.s. v likvidaci, s možnou překlasifikací), kterou tento posudek nerozřešil a přebírá vazbu ve stejném rozporném stavu. Žádná z uvedených firem a institucí – strojírenský holding, silniční správa, vodárenství, teplárenství, věřitelský spolek, plzeňské kulturní a dopravní instituce, pojišťovna, komunální úklidová firma, rozhlasová nadace, bytové společenství, vzdělávací centrum, energetická a báňská firma, ropovodní společnost, celostátní svaz obcí, správa vodních toků – nepůsobí v maloobchodním prodeji ani nemá jinak věcný vztah k předmětu tisku, kterým je zrušení zákazu prodejní doby v maloobchodě o vybraných svátcích. V datech proto není zjištěn střet zájmů mezi peněžními vazbami navrhovatelů a předmětem tisku; všechny uvedené vazby čekají na lidskou kontrolu, stejně jako zbytek grafu.",
+    "severity": "low",
+    "confidence": 3,
+    "citations": [
+      {
+        "claim": "Zrušovací ustanovení čl. I zní: „Zrušují se: 1. Zákon č. 223/2016 Sb., o prodejní době v maloobchodě. 2. Zákon č. 276/2019 Sb., kterým se mění zákon č. 223/2016 Sb., o prodejní době v maloobchodě a velkoobchodě. 3. Část dvě stě čtyřicátá třetí zákona č. 183/2017 Sb., kterým se mění některé zákony v souvislosti s přijetím zákona o odpovědnosti za přestupky a řízení o nich a zákona o některých přestupcích“.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=129&ct1=0"
+      },
+      {
+        "claim": "Obecná část uvádí: „Porušení shora popsaných povinností je přestupkem, za nějž lze uložit pokutu do výše 1.000.000 Kč, v případě opakovaného přestupku právnické či podnikající fyzické osoby lze uložit pokutu až do výše 5.000.000 Kč.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=129&ct1=0"
+      },
+      {
+        "claim": "Bod 6 obecné části (Dopad na veřejné rozpočty) uvádí: „Přijetí navrhovaného zákona, a tedy zrušení ZPDM, bude mít pozitivní dopad na veřejné rozpočty, jakkoli z hlediska objemu veřejných rozpočtů bude tento dopad zanedbatelný.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=129&ct1=0"
+      },
+      {
+        "claim": "Bod 8 obecné části (Zhodnocení korupčních rizik) uvádí: „Navrhovaný zákon nezavdává příčinu k zvýšenému riziku korupce.“",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=129&ct1=0"
+      },
+      {
+        "claim": "Historie projednávání tisku 129 eviduje předložení návrhu skupinou poslanců 10. 3. 2026, rozeslání jako tisk 129/0 dne 11. 3. 2026, žádost o stanovisko vlády 12. 3. 2026, neutrální stanovisko vlády rozeslané 31. 3. 2026 jako tisk 129/1, doporučení organizačního výboru přikázat návrh hospodářskému výboru jako garančnímu dne 2. 4. 2026 a stav k 6. 8. 2026 s jedním evidovaným pozměňovacím návrhem.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=129"
+      },
+      {
+        "claim": "Zákon č. 223/2016 Sb., o prodejní době v maloobchodě, je hlavní zákon rušený tímto tiskem.",
+        "kind": "law",
+        "source": "223/2016"
+      },
+      {
+        "claim": "Graf eviduje u Karla Haase vazbu v řídicí funkci na ČSOB Pojišťovna, a. s. (IČO 45534306) s veřejnými smlouvami ve výši 5 271 341 109 Kč.",
+        "kind": "graph_fact",
+        "source": "company:ico:45534306"
+      },
+      {
+        "claim": "Graf eviduje u Jany Černochové vazbu v řídicí funkci na Komwag, podnik čistoty a údržby města, a.s. (IČO 61057606) s veřejnými smlouvami ve výši 1 765 842 642 Kč a s rozporným rejstříkovým ověřením.",
+        "kind": "graph_fact",
+        "source": "company:ico:61057606"
+      },
+      {
+        "claim": "Graf eviduje u Jana Bureše osm peněžních vazeb, z nichž jedna (ZPS holding s.r.o., IČO 01686682) je vlastnická a řídicí zároveň a sedm je v dohledové funkci.",
+        "kind": "graph_fact",
+        "source": "psp:person:5899"
+      },
+      {
+        "claim": "Graf eviduje u Martina Baxy devět peněžních vazeb, všechny v dohledové funkci u plzeňských a plzeňsko-krajských institucí.",
+        "kind": "graph_fact",
+        "source": "psp:person:6435"
+      },
+      {
+        "claim": "Graf eviduje u Petra Bendla šest peněžních vazeb, z nichž jedna (PRAK spol. s r.o., IČO 49683144) je v řídicí funkci bez dosažitelných veřejných peněz a pět je v dohledové funkci.",
+        "kind": "graph_fact",
+        "source": "psp:person:346"
+      }
+    ]
+  },
+  {
+    "billTisk": 144,
+    "statedReasoning": "Vládní návrh nahrazuje dosavadní zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky, zcela novým cizineckým zákonem. Podle obecné části důvodové zprávy reaguje na tři problémové okruhy určené závěrečnou zprávou z hodnocení dopadů regulace (RIA) předložené vládě v lednu 2024: nízkou míru elektronizace pobytového řízení, neevidování všech cizinců (zejména občanů EU s pobytem nad 90 dnů) v Registru obyvatel a nízkou míru odpovědnosti subjektů zapojených do migračního procesu. Zavádí institut cizineckého účtu pro elektronickou komunikaci, přepracovává systém zajištění cizinců (mimo jiné nový důvod zajištění za účelem dokončení prověřování podle nařízení (EU) 2024/1356, nejdéle na 7 dní), mění dosavadní institut úhrady za adaptačně-integrační kurz na veřejnoprávní poplatek stanovovaný vyhláškou Ministerstva vnitra v mezích nákladové přiměřenosti, a zavádí nebo přeznačuje řadu důvodů pro zastavení řízení o žádostech o pobytová oprávnění. Zákon nabývá účinnosti 1. ledna 2029, s výjimkou § 710 (účinnost od 1. října 2028) a § 261 (účinnost od 1. ledna 2030).",
+    "researchedContext": "Historie tisku na psp.cz dokládá pouze rozeslání poslancům 25. 3. 2026 v 12:39 jako tisk 144/0 a přikázání Výboru pro bezpečnost jako garančnímu 15. 4. 2026. Uložená stránka tisku eviduje jen tisk 144/0 — žádný tisk 144/1 ani 144/2, žádné doporučující usnesení garančního výboru, žádné druhé čtení s pozměňovacími návrhy a žádné zařazení na některou schůzi nejsou v uložených podkladech k tisku ani v datech případu doloženy; podrobná historie projednávání pro tento tisk nebyla archivována a nemůže tedy sloužit jako zdroj. Tento posudek proto uvádí jen rozeslání a přikázání jako doložené procesní kroky. Přímé čtení obecné části důvodové zprávy potvrzuje, že návrh je znovupředložením obdobné předlohy schválené vládou v srpnu 2024 (sněmovní tisk 782/0 z 9. funkčního období), kterou Poslanecká sněmovna neprojednala do konce svého funkčního období v říjnu 2025, a že zpráva přebírá hodnocení dopadů regulace zpracované již v lednu 2024 (č.j. OVA 52/24) s tím, že „Aktuální verze návrhu zákona v těchto bodech bezprostředně navazuje na výsledky těchto analýz. Závěry hodnocení dopadů regulace jsou proto nadále platné.“ — bez nového posouzení dopadů pro znovupředloženou verzi o více než dva roky později. Zpráva sama zároveň připouští systémový kapacitní deficit správního orgánu: „z důvodu personální poddimenzovanosti úřadu až třetina řízení o žádostech podávaných na území vyřizována po lhůtě“.",
+    "unstatedEffects": [
+      {
+        "effect": "Obecná část důvodové zprávy popisuje migrační situaci jako oblast procházející „dynamickým vývojem“ a dokládá to čísly (nárůst počtu cizinců z 660 849 v roce 2021 na 1 094 089 v roce 2024), ale zároveň bez dalšího zdůvodnění přebírá jako stále platné hodnocení dopadů regulace vypracované již v lednu 2024 pro předchozí, neprojednaný sněmovní tisk 782/0 z 9. funkčního období, aniž by pro toto znovupředložení o více než dva roky později provedla nové posouzení dopadů.",
+        "whoBenefits": "Předkladatel (Ministerstvo vnitra) profituje z úspory času a nákladů spojených s novým zpracováním hodnocení dopadů regulace; naopak Poslanecká sněmovna a veřejnost postrádají aktuální rozbor dopadů, který by zohlednil migrační vývoj mezi lednem 2024 a předložením tisku v březnu 2026.",
+        "evidence": "Obecná část důvodové zprávy — „Aktuální verze návrhu zákona v těchto bodech bezprostředně navazuje na výsledky těchto analýz. Závěry hodnocení dopadů regulace jsou proto nadále platné.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+      },
+      {
+        "effect": "Zvláštní část důvodové zprávy k novému důvodu pro zastavení řízení podle písmene k) sama uvádí, že „se jeví jako vhodnější“ řízení o žádosti zastavit, než přistupovat k vyrozumění o možnosti seznámit se s podklady pro vydání rozhodnutí a rozhodovat o žádosti věcně; návrh tak v tomto konkrétním případě přeznačuje výsledek, který byl dosud věcným zamítnutím žádosti, na zastavení řízení, aniž by tuto změnu z pohledu procesních práv žadatele dále rozebíral.",
+        "whoBenefits": "Ministerstvo vnitra jako správní orgán získává administrativně jednodušší postup s nižšími procesními nároky; žadatel v takto zastavených řízeních přichází o výslovnou příležitost vyjádřit se k podkladům rozhodnutí, kterou by měl při věcném zamítnutí žádosti.",
+        "evidence": "K odstavci 1 písm. k) zvláštní části důvodové zprávy — „V případě řízení o žádosti, na něž plně dopadá druhá a třetí část správního řádu, se jeví jako vhodnější řízení o žádosti z tohoto důvodu zastavit, než přistupovat k vyrozumění o možnosti seznámit se s podklady pro vydání rozhodnutí a rozhodovat o žádosti věcně, když de facto nebyla předložena náležitost žádosti.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+      },
+      {
+        "effect": "Důvodová zpráva sama přiznává, že správní orgán je dlouhodobě personálně poddimenzovaný a že proto je až třetina řízení o žádostech podávaných na území vyřizována po zákonné lhůtě, přičemž jako řešení nabízí elektronizaci a digitalizaci agendy, aniž by návrh obsahoval jakékoli ustanovení zajišťující odpovídající navýšení personálních kapacit; zpráva sama uvádí, že nárůst agendy nebyl v minulosti personálně pokryt „víceméně vůbec“.",
+        "whoBenefits": "Nelze jednoznačně určit; zákon jako takový personální tabulky správního orgánu nestanoví, takže absence doprovodného personálního opatření je zčásti otázkou kategorie (na niž zákon o pobytu cizinců sám nedosáhne), ale zpráva o tomto rozporu mezi diagnózou a nabízeným řešením (elektronizace) mlčí. Spoléhání na elektronizaci jako jediný nástroj řešení kapacitního deficitu dopadá na žadatele o pobytová oprávnění, kteří budou i nadále čelit riziku vyřizování žádostí po lhůtě, dokud efekty elektronizace nenastoupí.",
+        "evidence": "Obecná část důvodové zprávy — „...z důvodu personální poddimenzovanosti úřadu až třetina řízení o žádostech podávaných na území vyřizována po lhůtě...“ a „Nárůst agendy spojené s následným pobytem cizinců na území ... personálně nebyl pokryt víceméně vůbec...“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+      }
+    ],
+    "conflictAssessment": "Jediným sponzorem evidovaným v datech případu je Lubomír Metnar (ministr vnitra), u něhož není zaznamenána žádná peněžní vazba na soukromou firmu ani sektorový lead. Jde o vládní předlohu. Na základě dostupných dat nebyl u tisku 144 zjištěn střet zájmů; zjištěné nedostatky (neaktualizované hodnocení dopadů, přeznačení části zamítacích důvodů na zastavení řízení, přiznaný kapacitní deficit bez personálního řešení) jsou otázkou kvality legislativního procesu a institucionálního nastavení, nikoli osobního prospěchu předkladatele.",
+    "severity": "medium",
+    "confidence": 4,
+    "citations": [
+      {
+        "claim": "Návrh nahrazuje zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky, zcela novým cizineckým zákonem reagujícím na tři problémové okruhy určené hodnocením dopadů regulace z ledna 2024.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+      },
+      {
+        "claim": "Zpráva přebírá závěry hodnocení dopadů regulace z ledna 2024 jako stále platné bez nového posouzení pro znovupředloženou verzi návrhu.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+      },
+      {
+        "claim": "Nový důvod pro zastavení řízení podle písmene k) je zaveden s výslovným zdůvodněním, že je pro správní orgán výhodnější než postup vyrozumění o podkladech rozhodnutí a věcné zamítnutí žádosti.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+      },
+      {
+        "claim": "Zpráva přiznává, že z důvodu personální poddimenzovanosti úřadu je až třetina řízení o žádostech podávaných na území vyřizována po zákonné lhůtě.",
+        "kind": "bill_text",
+        "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+      },
+      {
+        "claim": "Tisk byl rozeslán poslancům 25. 3. 2026 v 12:39 jako tisk 144/0 a přikázán Výboru pro bezpečnost jako garančnímu 15. 4. 2026; žádný další procesní krok (druhé čtení, pozměňovací návrhy, tisky 144/1 nebo 144/2) není v uložených podkladech k tisku doložen.",
+        "kind": "web",
+        "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=144"
+      },
+      {
+        "claim": "Případový soubor přiřazuje k tisku 144 jediného sponzora (Metnar) bez peněžní vazby a bez sektorového leadu.",
+        "kind": "graph_fact",
+        "source": "bill:tisk:43264"
+      },
+      {
+        "claim": "Zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky, je reálný předpis, který tento návrh v celém rozsahu nahrazuje.",
+        "kind": "law",
+        "source": "326/1999"
+      }
+    ]
+  }
+]

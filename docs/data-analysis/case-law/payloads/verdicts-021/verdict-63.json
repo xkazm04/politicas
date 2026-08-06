@@ -1,0 +1,47 @@
+{
+ "billTisk": 63,
+ "statedReasoning": "Vládní návrh nahrazuje dosavadní zákon č. 563/1991 Sb., o účetnictví, zcela novým zákonem, který zapracovává směrnici 2013/34/EU o účetních závěrkách, směrnici 2011/85/EU o rozpočtových rámcích, směrnici (EU) 2024/1265, směrnice 86/635/EHS a 91/674/EHS o účetních závěrkách bank a pojišťoven a navazuje na nařízení ES č. 1606/2002 o mezinárodních účetních standardech. Podle obecné části důvodové zprávy vychází z věcného záměru schváleného vládou v říjnu 2020 a jeho hlavním cílem je posun od důrazu na řádné účtování k důrazu na účetní výkaznictví (informační funkci účetnictví) a k širšímu využití mezinárodních účetních standardů (IFRS). Zákon zavádí kategorizaci účetních jednotek na mikro, malé, střední a velké a v rozsáhlé míře svěřuje podrobnou úpravu prováděcí vyhlášce Ministerstva financí — přímé čtení normativního textu napočítalo 39 samostatných zmocňovacích ustanovení tvaru „Ministerstvo financí stanoví vyhláškou“ nebo „Ministerstvo financí může stanovit vyhláškou“ v rozsahu necelých 130 tiskových stran normativní části. Zákon zároveň ruší a nahrazuje soubor přibližně devadesáti dosavadních prováděcích vyhlášek vydaných k zákonu č. 563/1991 Sb. Účinnost se navrhuje od 1. ledna 2028, s výjimkou § 271 (účinnost dnem vyhlášení) a § 253 (účinnost od 10. ledna 2028).",
+ "researchedContext": "Historie tisku na psp.cz potvrzuje předložení vládou 12. 12. 2025, rozeslání poslancům týž den jako tisk 63/0, první čtení 12. 3. 2026, na jehož konci byl tisk přikázán Rozpočtovému výboru jako garančnímu — přikázání tedy datuje shodně s prvním čtením, nikoli o tři měsíce dříve — a přerušení projednávání usnesením Rozpočtového výboru z 30. 4. 2026 (tisk 63/1) s možností pokračování od 11. 7. 2026 — k datu tohoto nálezu tedy tisk zůstává v projednávání. Údaje o průběhu projednávání nad rámec rozpisu v datové sadě (čísla navazujících tisků a usnesení, data jednotlivých kroků) vycházejí výhradně ze stránky historie tisku na psp.cz; archivované podklady obsahují pouze výchozí text tisku. Přímé čtení hospodářské a sociální části důvodové zprávy potvrzuje, že zpráva na jedné straně shrnuje, že „navrhované změny v oblasti účetnictví nemají významný finanční dopad na účetní jednotky“, a bezprostředně poté v témže oddílu připouští, že „adopce nových účetních pravidel [může] vyvolat u účetních jednotek jednorázové náklady spojené s potřebou softwarového zajištění nebo proškolení připravovatelů účetní závěrky“ — aniž by tyto jednorázové náklady jakkoliv vyčíslila; jako kompenzační opatření zpráva uvádí, že „je navrhována relativně dlouhá legisvakanční doba, úměrná rozsahu změn“ (odstup mezi předložením 12. 12. 2025 a navrhovanou účinností 1. 1. 2028 činí zhruba dva roky — vlastní výpočet nad daty zprávy, nikoli údaj zprávy samotné).",
+ "unstatedEffects": [
+  {
+   "effect": "Důvodová zpráva v oddíle o hospodářských a sociálních dopadech současně tvrdí, že navrhované změny nemají významný finanční dopad na účetní jednotky, a v témže oddíle připouští jednorázové náklady na softwarové vybavení a proškolení připravovatelů účetní závěrky, aniž by je vyčíslila v korunách nebo odhadla jejich rozsah pro jednotlivé kategorie účetních jednotek (mikro, malé, střední, velké).",
+   "whoBenefits": "Nelze jednoznačně určit, kdo z tohoto opomenutí profituje; dopad nese primárně strana povinná k vynaložení jednorázových adaptačních nákladů — účetní jednotky, zejména ty menší, u nichž zpráva jinde konstatuje volnější pravidla vnitřní kontroly, ale nikoli úlevu z jednorázových nákladů na přechod.",
+   "evidence": "Obecná část důvodové zprávy — „Navrhované změny v oblasti účetnictví nemají významný finanční dopad na účetní jednotky.“ a „... může adopce nových účetních pravidel vyvolat u účetních jednotek jednorázové náklady spojené s potřebou softwarového zajištění nebo proškolení připravovatelů účetní závěrky.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+  },
+  {
+   "effect": "Zákon svěřuje podstatnou část skutečné regulatorní náplně účetních pravidel (definice položek, kritéria kompenzace, podrobnosti oceňovacích metod, obsah a náležitosti výkazů, formát elektronického předávání dat) prováděcí vyhlášce Ministerstva financí prostřednictvím 39 samostatných zmocňovacích ustanovení, aniž by obecná část důvodové zprávy tuto míru delegace jako samostatnou koncepční otázku vůbec zmiňovala nebo zdůvodňovala mírou budoucí parlamentní kontroly nad obsahem těchto vyhlášek.",
+   "whoBenefits": "Ministerstvo financí získává rozsáhlou průběžnou pravomoc dotvářet a měnit obsah účetních pravidel prováděcími vyhláškami bez nutnosti novelizace zákona Parlamentem, což zrychluje přizpůsobování pravidel, ale zároveň přesouvá váhu regulace z zákonodárné moci na exekutivu.",
+   "evidence": "Normativní text zákona obsahuje 39 ustanovení tvaru „Ministerstvo financí stanoví vyhláškou“ nebo „Ministerstvo financí může stanovit vyhláškou“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jediným sponzorem evidovaným v datech případu je Zbyněk Stanjura, u něhož není zaznamenána žádná peněžní vazba na soukromou firmu ani sektorový lead. Jde o vládní předlohu transponující unijní účetní směrnice a navazující na schválený věcný záměr z roku 2020, nikoli o poslanecký návrh sledující soukromý zájem předkladatele. Na základě dostupných dat nebyl u tisku 63 zjištěn střet zájmů.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh nahrazuje zákon č. 563/1991 Sb., o účetnictví, novým zákonem transponujícím směrnici 2013/34/EU, směrnici 2011/85/EU a související unijní předpisy a navazujícím na nařízení ES č. 1606/2002 o mezinárodních účetních standardech.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+  },
+  {
+   "claim": "Zákon nabývá účinnosti dnem 1. ledna 2028, s výjimkou § 271 (účinnost dnem vyhlášení) a § 253 (účinnost od 10. ledna 2028).",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=63&ct1=0"
+  },
+  {
+   "claim": "Návrh podala vláda 12. 12. 2025, prošel prvním čtením 12. 3. 2026, na jehož konci byl přikázán Rozpočtovému výboru jako garančnímu, a jeho projednávání bylo usnesením Rozpočtového výboru z 30. 4. 2026 přerušeno.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=63"
+  },
+  {
+   "claim": "Případový soubor přiřazuje k tisku 63 jediného sponzora (Stanjura) bez peněžní vazby a bez sektorového leadu.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43170"
+  },
+  {
+   "claim": "Zákon č. 563/1991 Sb., o účetnictví, je reálný předpis, který tento návrh v celém rozsahu nahrazuje.",
+   "kind": "law",
+   "source": "563/1991"
+  }
+ ]
+}

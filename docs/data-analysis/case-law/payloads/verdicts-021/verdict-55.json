@@ -1,0 +1,62 @@
+{
+ "billTisk": 55,
+ "statedReasoning": "Vládní návrh zákona o opatřeních ke snížení nákladů na zavádění sítí elektronických komunikací s velmi vysokou kapacitou adaptuje přímo použitelné nařízení (EU) 2024/1309 (nařízení o gigabitové infrastruktuře), které nahrazuje směrnici 2014/61/EU (BCRD) transponovanou dosud zákonem č. 194/2017 Sb. Zákon určuje jednotná informační místa - Český telekomunikační úřad (ČTÚ, pro přístup k infrastruktuře a koordinaci stavebních prací), Ministerstvo pro místní rozvoj (pro povolovací řízení a výjimky z něj) a Český úřad zeměměřický a katastrální (pro informace o existující fyzické infrastruktuře) - a stanoví lhůty pro vydání povolení (60 dnů, s možností prodloužení o 60 dnů) i fikci povolení marným uplynutím lhůty. ČTÚ rozhoduje spory o přístup k infrastruktuře, průzkumu na místě, koordinaci stavebních prací a přístupu uvnitř budov, včetně stanovení ceny. Za přestupky lze uložit pokuty do 2 000 000 Kč nebo do vyšší z hodnot 10 000 000 Kč či 5 % čistého obratu, a donucovací pokuty do celkové výše 10 000 000 Kč. Zákon zároveň ruší část první zákona č. 194/2017 Sb. a části čtyř dalších novelizujících zákonů (č. 403/2020 Sb., č. 284/2021 Sb., č. 374/2021 Sb. a č. 202/2023 Sb.), aby nahradil dosavadní právní rámec jediným adaptačním předpisem. Zpráva popisuje cíl jako urychlení výstavby vysokorychlostních sítí a snížení administrativní zátěže operátorů i orgánů veřejné správy.",
+ "researchedContext": "Ustanovení § 14 odst. 7 zákona vylučuje proti rozhodnutí ČTÚ o sporu o přístup k infrastruktuře - tedy i o ceně, kterou úřad může stanovit tak, aby zahrnovala náhradu oprávněných nákladů provozovatele sítě nebo subjektu veřejného sektoru - jakýkoli rozklad, přezkumné řízení i obnovu řízení; jedinou zbývající cestou nápravy je žaloba ve správním soudnictví. Zpráva tuto kombinaci závaznosti (spor mezi operátorem a vlastníkem infrastruktury, včetně obcí a jiných subjektů veřejného sektoru) a vyloučení vnitřních opravných prostředků nezmiňuje jako samostatné riziko, ačkoli jde o rozhodování o cenách mezi soukromými subjekty i orgány veřejné správy s vyšší mírou konečnosti, než jakou mají běžná správní rozhodnutí. Ustanovení § 6 odst. 3 a § 8 odst. 4 dále umožňují Ministerstvu obrany a ustanovení § 6 odst. 4 a § 8 odst. 5 Ministerstvu vnitra opatřením obecné povahy určit druhy stavebních prací, na které se povinnosti koordinace a evidence neuplatní „z důvodů obrany nebo bezpečnosti státu“, respektive „jde-li o kritickou infrastrukturu“ — zákon sám pojem kritické infrastruktury pro tento účel nedefinuje, komentář k § 6 odst. 4 a 5 jej ale řadí mezi „…zejména kritické infrastruktury vymezené ve vnitrostátních právních předpisech…“ a omezuje přístup k minimálním informacím na případy, kdy je to „nezbytné“; opatření obecné povahy navíc podléhá soudnímu přezkumu podle § 101a soudního řádu správního.",
+ "unstatedEffects": [
+  {
+   "effect": "Rozhodnutí ČTÚ ve sporu o přístup k fyzické infrastruktuře podle § 14, včetně stanovení ceny mezi operátorem a vlastníkem infrastruktury (soukromým i veřejným, včetně obcí), je podle § 14 odst. 7 vyloučeno z rozkladu, přezkumného řízení i obnovy řízení - jde tedy o rozhodování s vyšší mírou konečnosti, než jakou mají běžná správní rozhodnutí, aniž by zpráva tuto zvláštní míru konečnosti u cenotvorných rozhodnutí samostatně zdůvodňovala nebo zmiňovala jako riziko.",
+   "whoBenefits": "ČTÚ získává jako jediný orgán fakticky konečnou pravomoc rozhodovat spory o ceně přístupu k infrastruktuře bez vnitřní kontroly vlastním rozkladovým nebo přezkumným mechanismem; strana sporu, která rozhodnutí považuje za nesprávné, je odkázána pouze na správní soudnictví.",
+   "evidence": "Text tisku 55 (rozhodování ČTÚ o cenových sporech), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+  },
+  {
+   "effect": "Ministerstvo obrany a Ministerstvo vnitra mohou podle § 6 odst. 3 a 4 a § 8 odst. 4 a 5, s odkazem na čl. 5 odst. 5 nařízení o gigabitové infrastruktuře, opatřením obecné povahy stanovit druhy stavebních prací, na které se povinnosti koordinace a evidence neuplatní z důvodů obrany, bezpečnosti státu nebo kritické infrastruktury; přístup k minimálním informacím pak lze podle komentáře K odstavcům 4 a 5 „omezit nebo zamítnout pouze tehdy, je-li to nezbytné“ k zajištění bezpečnosti a integrity sítí, národní bezpečnosti, zabezpečení kritické infrastruktury, veřejného zdraví nebo bezpečnosti, případně z důvodů důvěrnosti či obchodního tajemství, a to „na základě řádně opodstatněných a přiměřených důvodů“. Pojem kritické infrastruktury zákon pro tento účel sám nedefinuje, ale zpráva na jiném místě mluví o „…zejména kritické infrastruktury vymezené ve vnitrostátních právních předpisech…“ (zejména zákon č. 240/2000 Sb., o krizovém řízení) — jde tedy o odkaz na existující definici, nikoli o prázdné zmocnění. Opatření obecné povahy navíc podléhá soudnímu přezkumu podle § 101a soudního řádu správního.",
+   "whoBenefits": "Ministerstvo obrany a Ministerstvo vnitra získávají nástroj k vyjmutí vymezených subjektů a staveb z režimu koordinace a přístupu, jenž je hlavním nástrojem zákona ke snížení nákladů na výstavbu sítí — nástroj je ale vázán na nezbytnost a existující definici kritické infrastruktury, nikoli na volnou úvahu; provozovatelé a subjekty veřejného sektoru, jejichž infrastruktura bude takto vyňata, se povinnostem koordinace a zpřístupnění v daném rozsahu vyhnou.",
+   "evidence": "K odstavcům 4 a 5 — „Přístup k minimálním informacím lze omezit nebo zamítnout pouze tehdy, je-li to nezbytné k zajištění bezpečnosti a integrity sítí, národní bezpečnosti, zabezpečení kritické infrastruktury, veřejného zdraví nebo bezpečnosti, nebo z důvodů důvěrnosti nebo provozního či obchodního tajemství.“; K odstavci 2 — „Podle nařízení mohou členské státy na základě řádně opodstatněných a přiměřených důvodů identifikovat druhy stavebních prací…“; „…zejména kritické infrastruktury vymezené ve vnitrostátních právních předpisech…“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Evidovaným předkladatelem v datové sadě tisku je opět Lukáš Vlček se stejnou sadou šesti peněžních vazeb jako u tisku 52. Podle klasifikace vazeb v grafu jsou přičitatelné (vazba řídicího nebo vlastnického typu): SOMPO, a.s. (IČO 25172263, místopředseda představenstva, 9 174 258 Kč úhrnu veřejných smluv firmy), PEVAK Pelhřimov, družstvo (IČO 26039907, člen představenstva, 1 234 888 Kč) a W.H.V. Projekt spol. s r.o. (IČO 26109859, jednatel a společník, 0 Kč) — v úhrnu 10 409 146 Kč přičitatelných veřejných peněz. Svěřenecké (vazba dohledového typu, peníze instituce, nikoli poslance) jsou Via rustica z.s. (IČO 26982170, předseda, 2 008 259 Kč), PRO VYSOČINU, občanské sdružení (IČO 27043843, člen, 0 Kč) a Společenství vlastníků jednotek Nádražní čp. 767 Pacov (IČO 28095405, předseda výboru, 0 Kč). SOMPO, a.s. je obecní svazková firma pro odpadové hospodářství, dle vlastní prezentace stoprocentně vlastněná svazkem 117 obcí — nikoli pojišťovna; sektorový výčet je proto: obecní odpadové hospodářství (SOMPO), vodárenské družstvo (PEVAK), stavební projekce (W.H.V. Projekt), spolková a bytová správa (Via rustica, PRO VYSOČINU, SVJ). Podle ARES VR (ověřeno v dřívějším nálezu k tisku 206) Vlčkovo členství a funkce v představenstvu SOMPO navíc zanikly 31. 10. 2024, tedy před podáním tohoto návrhu (25. 3. 2026). Žádná z těchto firem — ani po opravě sektoru SOMPO — nepůsobí v oblasti elektronických komunikací, výstavby sítí nebo správy fyzické infrastruktury, jíž se tisk věcně týká, takže střet zájmů mezi předmětem úpravy a evidovanými vazbami zjištěn nebyl; všechny vazby čekají na lidskou kontrolu.",
+ "severity": "medium",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Ustanovení § 14 odst. 7 uvádí: „Proti rozhodnutí Úřadu o sporu podle čl. 13 odst. 1 nařízení o gigabitové infrastruktuře nebo podle odstavce 2 není přípustný rozklad, přezkumné řízení ani obnova řízení.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+  },
+  {
+   "claim": "Ustanovení § 14 odst. 5 uvádí, že je-li předmětem sporu cena, může Úřad stanovit tuto cenu tak, aby zahrnovala náhradu oprávněných nákladů provozovatele sítě nebo subjektu veřejného sektoru.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+  },
+  {
+   "claim": "Ustanovení § 6 odst. 3 a 4 a § 8 odst. 4 a 5 umožňují Ministerstvu obrany, respektive Ministerstvu vnitra, opatřením obecné povahy stanovit druhy stavebních prací, na které se koordinace nebo evidence neuplatní z důvodů obrany nebo bezpečnosti státu, respektive jde-li o kritickou infrastrukturu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+  },
+  {
+   "claim": "Ustanovení § 16 odst. 5 stanoví pokuty do 2 000 000 Kč za vybrané přestupky a do vyšší z hodnot 10 000 000 Kč nebo 5 % čistého obratu za ostatní; § 18 stanoví donucovací pokuty do celkové výše 10 000 000 Kč.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+  },
+  {
+   "claim": "Ustanovení § 20 ruší část první zákona č. 194/2017 Sb. a části zákonů č. 403/2020 Sb., č. 284/2021 Sb., č. 374/2021 Sb. a č. 202/2023 Sb.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=55&ct1=0"
+  },
+  {
+   "claim": "Tisk 55 byl dne 25. 3. 2026 přikázán jako garančnímu hospodářskému výboru (HV).",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=55"
+  },
+  {
+   "claim": "Graf eviduje u Lukáše Vlčka peněžní vazby na SOMPO, a.s. (IČO 25172263, obecní svazková firma pro odpadové hospodářství) a Via rustica z.s. (IČO 26982170), žádná z firem nepůsobí v oblasti elektronických komunikací nebo výstavby sítí.",
+   "kind": "graph_fact",
+   "source": "psp:person:6789"
+  },
+  {
+   "claim": "Zákon č. 194/2017 Sb., o koordinaci staveb infrastruktury a opatřeních ke snížení nákladů na zavádění vysokorychlostních sítí elektronických komunikací, je zákon, jehož část první tisk 55 ruší.",
+   "kind": "law",
+   "source": "194/2017"
+  }
+ ]
+}

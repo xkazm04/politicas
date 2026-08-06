@@ -1,0 +1,77 @@
+{
+ "billTisk": 76,
+ "statedReasoning": "Důvodová zpráva k tisku 76 (poslanecký návrh Radka Vondráčka, Renaty Vesecké, Libora Vondráčka a Zuzany Ožanové) navrhuje zcela nový zákon o právních poměrech státních zaměstnanců v ministerstvech a jiných správních úřadech, který má nahradit dosavadní veřejnoprávní služební poměr podle zákona č. 234/2014 Sb., o státní službě. Zpráva se opírá o ex post analýzu KPMG z roku 2018 a o analýzu katedry andragogiky Filozofické fakulty Univerzity Karlovy z roku 2022, které současnou úpravu popisují jako administrativně náročnou, málo pružnou a uzavřenou; obě analýzy i zprávy Evropské komise v rámci evropského semestru zmiňuje jako důvod pro zásadní koncepční změnu. Klíčovou změnou je opuštění veřejnoprávního služebního poměru ve prospěch soukromoprávního pracovního poměru podléhajícího subsidiárně zákoníku práce a občanskému zákoníku - zaniká tak konstrukce personálních úkonů jako přezkoumatelných správních rozhodnutí a s ní spojený přezkum ve správním soudnictví; ochranu poskytuje žaloba k obecnému soudu. Zpráva zdůrazňuje, že důvody pro jednostranné rozvázání pracovního poměru ze strany úřadu i pro odvolání vedoucího státního zaměstnance zůstávají zákonem taxativně vymezené, že se ruší institut zařazení mimo výkon služby (tzv. bazén) i s ním spojené odbytné, že zůstává zachována systemizace, výběrová řízení, úřednická zkouška a apolitičnost vedoucích státních zaměstnanců. Bod 12 zprávy uvádí, že návrh „nepřináší žádná zjevná korupční rizika“ v porovnání se stávající úpravou, a bod 7 očekává z dlouhodobého hlediska úsporu státního rozpočtu díky zrušení bazénu a odbytného.",
+ "researchedContext": "Návrh mění právní povahu zaměstnaneckého vztahu státních zaměstnanců napříč ministerstvy a ústředními správními úřady - z veřejnoprávního služebního poměru, jehož personální akty měly formu přezkoumatelných individuálních správních rozhodnutí, na soukromoprávní pracovní poměr. Jde o jeden z nejrozsáhlejších zásahů do organizace exekutivy, jaký může být předložen zákonem, a přitom jde o poslanecký, nikoli vládní návrh. Podle obecné metodiky hodnocení dopadů regulace (RIA), na kterou zpráva u vládních návrhů (viz např. tisky 55 a 114 v tomto korpusu) standardně odkazuje, se povinnost zpracovat RIA vztahuje na návrhy právních předpisů připravované na úrovni vlády a ústřední státní správy - u poslaneckých návrhů tato povinnost neplatí, a tisk 76 také žádnou zprávu RIA ani odkaz na výjimku z jejího zpracování neobsahuje (na rozdíl od tisku 52, jehož důvodová zpráva výjimku z RIA výslovně eviduje). Návrh tak prochází legislativním procesem bez hodnocení dopadů regulace a bez meziresortního připomínkového řízení, kterým by jinak návrh srovnatelného rozsahu procházel, kdyby jej předložila vláda - ačkoliv se svým rozsahem a dopadem na organizaci státní správy rozsáhlé vládní reformě fakticky vyrovná. Historie projednávání tisku potvrzuje, že věc byla přikázána jedinému výboru (ústavně právní výbor, 29. 1. 2026); zda by věcně bylo namístě i přikázání výboru pro veřejnou správu a regionální rozvoj, nebylo pro účely tohoto posudku nezávisle ověřeno. Stránka tisku 76 eviduje jako související sněmovní tisk 77 („Návrh zákona o státních zaměstnancích - související“); k tisku 77 již existuje dříve publikovaný nález, který se týká týchž dvou vazeb Radka Vondráčka (NEXNET, MAE invest) a jehož zjištění k RIA a meziresortnímu řízení se na tento doprovodný tisk vztahují stejně jako na tisk 76 samotný — nález k tisku 76 je proto třeba číst jako součást dvoutiskového balíčku, nikoli jako posouzení tisku 76 v izolaci.",
+ "unstatedEffects": [
+  {
+   "effect": "Zpráva ztrátu přezkoumatelných individuálních správních aktů a přechod na obecné soudnictví na rozdíl od dřívější verze tohoto nálezu nezamlčuje: sama uvádí, že „se ruší řízení ve věcech služby“ a všechna taková řízení budou ex lege zastavena, že „v oblasti soudního přezkumu je řešen přechod z modelu správního soudnictví do obecného občanského soudního řízení“ a že „bude umožněno státnímu zaměstnanci domáhat se právní ochrany před nezákonným postupem správního úřadu žalobou k obecnému soudu“. Nezamlčuje tedy přechod jako takový. Co zpráva skutečně nezmiňuje, je dopad této změny na korupční rizika: bod 12 (Zhodnocení korupčních rizik) hodnotí dopad jedinou větou bez rozboru a nijak nezvažuje, že ztráta ex ante správního přezkumu (nahrazeného ex post žalobou k obecnému soudu na návrh dotčeného zaměstnance) mění, jak snadno lze personální rozhodnutí napadnout před jeho účinky.",
+   "whoBenefits": "Vedení správních úřadů a nadřízení členové vlády, kteří získávají pružnější, méně formalizovaný nástroj personálního řízení (pracovní smlouvu, převedení, přeložení) bez povinnosti vydávat přezkoumatelné správní rozhodnutí; řadový státní zaměstnanec ztrácí ex ante správní přezkum a je odkázán na následnou žalobu k obecnému soudu — což zpráva sama uvádí, ale bod 12 nezvažuje z hlediska korupčních rizik.",
+   "evidence": "Zvláštní část k procesním otázkám — „…se ruší řízení ve věcech služby, všechna tato řízení budou ex lege zastavena. … V oblasti soudního přezkumu je řešen přechod z modelu správního soudnictví do obecného občanského soudního řízení.“; „…bude umožněno státnímu zaměstnanci domáhat se právní ochrany před nezákonným postupem správního úřadu žalobou k obecnému soudu.“; bod 12 (Zhodnocení korupčních rizik) — „Nejedná se o právní předpis s významným dopadem na míru korupčních rizik. Návrh zákona v porovnání se stávající právní úpravou nepřináší žádná zjevná korupční rizika.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+  },
+  {
+   "effect": "Ačkoli jde o změnu srovnatelnou rozsahem s reformou celé organizace exekutivy, byla předložena jako poslanecký, nikoli vládní návrh, a proto podle obecné metodiky RIA (vztahující se na návrhy připravované na úrovni vlády a ústřední státní správy) neprošla hodnocením dopadů regulace ani meziresortním připomínkovým řízením, kterým by procházel srovnatelný vládní návrh - tisk sám žádnou zprávu RIA ani odkaz na výjimku z jejího zpracování neobsahuje.",
+   "whoBenefits": "Předkladatelé a vláda získávají rychlejší legislativní cestu k rozsáhlé reformě státní služby bez formálních povinností (RIA, meziresortní připomínky), které by u vládního návrhu stejného rozsahu byly vyžadovány; ministerstva a úřady, kterých se změna dotkne, nemají k dispozici formální hodnocení dopadů před přijetím zákona.",
+   "evidence": "Text tisku 76 a jeho důvodová zpráva, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Předkladatelem je Radek Vondráček, u kterého graf eviduje tři peněžní vazby, žádná z nich se však věcně netýká právních poměrů státních zaměstnanců. Vazba na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871) je vedena jako řídicího typu (přičitatelná), s úhrnem veřejných smluv firmy 391 010 121 Kč - shodně s klasifikací, kterou k téže vazbě již dříve zavedl publikovaný verdikt k tisku 78 v tomto korpusu; tento verdikt ji přebírá beze změny. Dvě další vazby - předseda dozorčí rady NEXNET, a.s. (IČO 26232987, role 2000-12-14 až 2014-08-06) a člen dozorčí rady MAE invest a.s. (IČO 29186315, role 2009-10-27 až 2015-03-02) - jsou vedeny jako svěřenecké (peníze instituce, nikoli poslance), obě navíc s dozorčí funkcí ukončenou před více než deseti lety a s příznakem, že evidované smlouvy firem časově následují až po skončení role. Renata Vesecká, Libor Vondráček a Zuzana Ožanová nemají v grafu evidovánu žádnou peněžní vazbu. Žádná z těchto tří firem nepodniká v oblasti veřejné správy, personalistiky nebo poradenství pro státní zaměstnance, takže věcný střet zájmů mezi předmětem tisku a evidovanými vazbami zjištěn nebyl; všechny vazby nadále čekají na lidskou kontrolu.",
+ "severity": "medium",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Ustanovení § 1 zdůrazňuje subsidiaritu zákoníku práce a uvádí, že se opouští veřejnoprávní služební poměr státních zaměstnanců.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+  },
+  {
+   "claim": "Bod 12 obecné části důvodové zprávy (Zhodnocení korupčních rizik) uvádí: „Nejedná se o právní předpis s významným dopadem na míru korupčních rizik. Návrh zákona v porovnání se stávající právní úpravou nepřináší žádná zjevná korupční rizika.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část důvodové zprávy k oblasti soudního přezkumu popisuje přechod z modelu správního soudnictví do obecného soudnictví jako součást opuštění veřejnoprávního služebního poměru.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+  },
+  {
+   "claim": "Obecná část důvodové zprávy (bod 2) popisuje rozvázání pracovního poměru státního zaměstnance ze strany správního úřadu i odvolání vedoucího státního zaměstnance jako vázané na zákonem taxativně vymezené důvody a zrušení institutu zařazení mimo výkon služby (tzv. bazénu).",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=76&ct1=0"
+  },
+  {
+   "claim": "Povinnost zpracovat RIA se podle obecné metodiky vztahuje na návrhy právních předpisů připravované na úrovni vlády a ústřední státní správy.",
+   "kind": "web",
+   "source": "https://cs.wikipedia.org/wiki/Hodnocen%C3%AD_dopad%C5%AF_regulace"
+  },
+  {
+   "claim": "Tisk 76 byl dne 29. 1. 2026 přikázán jako garančnímu ústavně právnímu výboru (ÚPV); jiný výbor v historii projednávání tisku uveden není.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=76"
+  },
+  {
+   "claim": "Tisk 76 eviduje jako související sněmovní tisk 77 („Návrh zákona o státních zaměstnancích - související“), k němuž již existuje publikovaný nález pokrývající tytéž dvě vazby Radka Vondráčka (NEXNET, MAE invest).",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=76"
+  },
+  {
+   "claim": "Graf eviduje u Radka Vondráčka vazbu řídicího typu (přičitatelnou) na Vodovody a kanalizace Kroměříž, a.s. (IČO 49451871), s úhrnem veřejných smluv firmy 391 010 121 Kč; vazba čeká na lidskou kontrolu.",
+   "kind": "graph_fact",
+   "source": "psp:person:6165"
+  },
+  {
+   "claim": "Graf eviduje u společnosti NEXNET, a.s. (IČO 26232987) svěřeneckou vazbu Radka Vondráčka jako předsedy dozorčí rady, s rolí ukončenou 2014-08-06 a příznakem, že evidované smlouvy firmy časově následují až po skončení role.",
+   "kind": "graph_fact",
+   "source": "company:ico:26232987"
+  },
+  {
+   "claim": "Graf eviduje u společnosti MAE invest a.s. (IČO 29186315) svěřeneckou vazbu Radka Vondráčka jako člena dozorčí rady, s rolí ukončenou 2015-03-02 a příznakem, že evidované smlouvy firmy časově následují až po skončení role.",
+   "kind": "graph_fact",
+   "source": "company:ico:29186315"
+  },
+  {
+   "claim": "Zákon č. 234/2014 Sb., o státní službě, je zákon, jehož veřejnoprávní úpravu má tisk 76 podle vlastní důvodové zprávy nahradit soukromoprávním pracovním poměrem.",
+   "kind": "law",
+   "source": "234/2014"
+  }
+ ]
+}

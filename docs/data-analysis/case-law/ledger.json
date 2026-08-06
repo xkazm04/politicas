@@ -348,6 +348,13 @@
    "billsWithVerdictTotal": 129,
    "billsPendingTotal": 12,
    "note": "Batch-020 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-020/ (Czech-native, requireCzech gate)."
+  },
+  "batch021Verdicts": {
+   "status": "APPLIED to live graph (pass 55) and mirrored here",
+   "verdicts": 12,
+   "billsWithVerdictTotal": 141,
+   "billsPendingTotal": 0,
+   "note": "Batch-021 verdict wave on the pending triage head. Verdict files live under payloads/verdicts-021/ (Czech-native, requireCzech gate)."
   }
  },
  "rows": [
@@ -4827,16 +4834,18 @@
    "amendsCount": 1,
    "maxTargetChurn": 1,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 100500
+   "triageScoreV2": 100500,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-98.json"
   },
   {
    "tiskId": 43209,
@@ -4948,10 +4957,10 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 551584148.19,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [
     "mp_group",
@@ -4982,7 +4991,9 @@
     "Svaz měst a obcí České republiky",
     "Povodí Vltavy, státní podnik"
    ],
-   "triageScoreV2": 1748
+   "triageScoreV2": 1748,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-129.json"
   },
   {
    "tiskId": 43197,
@@ -4994,10 +5005,10 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 115513739.87,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [
     "municipal_soe_excluded"
@@ -5021,7 +5032,9 @@
     "Obecně prospěšná společnost pro památkovou ochranu Hradiska u Olomouce a za další rozvoj kulturního, uměleckého a duchovního života a humanitní zdravotní péče na něm.",
     "Svaz měst a obcí České republiky"
    ],
-   "triageScoreV2": 1613
+   "triageScoreV2": 1613,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-87.json"
   },
   {
    "tiskId": 43226,
@@ -5033,10 +5046,10 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 82683361.6,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [
     "mp_group",
@@ -5048,7 +5061,9 @@
     "Krajská zdravotní, a.s.",
     "Dopravní podnik města Děčína, a.s."
    ],
-   "triageScoreV2": 1583
+   "triageScoreV2": 1583,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-116.json"
   },
   {
    "tiskId": 43183,
@@ -5060,10 +5075,10 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 4432684.16,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [
     "mp_group",
@@ -5074,7 +5089,9 @@
    "municipalExcludedCompanies": [
     "Vodovody a kanalizace Kroměříž, a.s."
    ],
-   "triageScoreV2": 1329
+   "triageScoreV2": 1329,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-76.json"
   },
   {
    "tiskId": 43159,
@@ -5086,10 +5103,10 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [
     "municipal_soe_excluded"
@@ -5101,7 +5118,9 @@
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 1314
+   "triageScoreV2": 1314,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-52.json"
   },
   {
    "tiskId": 43162,
@@ -5113,10 +5132,10 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 3728628.859,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [
     "municipal_soe_excluded"
@@ -5128,7 +5147,9 @@
     "PRO VYSOČINU, občanské sdružení",
     "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov"
    ],
-   "triageScoreV2": 1314
+   "triageScoreV2": 1314,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-55.json"
   },
   {
    "tiskId": 43113,
@@ -5140,10 +5161,10 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [
     "mp_group"
@@ -5151,7 +5172,9 @@
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
+   "triageScoreV2": 0,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-021/verdict-6.json"
   },
   {
    "tiskId": 43170,
@@ -5163,16 +5186,18 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
+   "triageScoreV2": 0,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-021/verdict-63.json"
   },
   {
    "tiskId": 43211,
@@ -5184,16 +5209,18 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
+   "triageScoreV2": 0,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-021/verdict-101.json"
   },
   {
    "tiskId": 43224,
@@ -5205,16 +5232,18 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "low",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
+   "triageScoreV2": 0,
+   "forensicConfidence": 3,
+   "verdictFile": "payloads/verdicts-021/verdict-114.json"
   },
   {
    "tiskId": 43264,
@@ -5226,16 +5255,18 @@
    "amendsCount": 0,
    "maxTargetChurn": 0,
    "sponsorContractCzk": 0,
-   "forensicSeverity": null,
-   "forensicState": null,
-   "stage": "pending",
-   "batch": null,
+   "forensicSeverity": "medium",
+   "forensicState": "pending_review",
+   "stage": "verdict",
+   "batch": 21,
    "signal": null,
    "flags": [],
    "sectorAdjacency": false,
    "sectorAdjacentCompanies": [],
    "municipalExcludedCompanies": [],
-   "triageScoreV2": 0
+   "triageScoreV2": 0,
+   "forensicConfidence": 4,
+   "verdictFile": "payloads/verdicts-021/verdict-144.json"
   }
  ],
  "batch002Note": "Batch head = top-9 churn-led (173,216,196,111,207,124,198,71,86) + tisk 11 swapped in for tisk 112 to empirically test the corrected sector-adjacency signal (private real-estate/investment-holding ties vs 589/1992 social-insurance-premium law). Army confirmed: coincidental economy-bucket match, no real channel (same calibration as batch-001, now validated for a sector-matched signal too). This re-run also fixed a municipal-exclusion gap (CHOMUTOVSKA BYTOVA a.s. — 100% city-of-Chomutov owned, found by the tisk-11 army dossier) which dropped raw sector-adjacency hits from 6 to 5.",

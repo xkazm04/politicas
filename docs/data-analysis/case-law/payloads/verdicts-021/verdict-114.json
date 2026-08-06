@@ -1,0 +1,57 @@
+{
+ "billTisk": 114,
+ "statedReasoning": "Vládní návrh zákona o některých pravidlech pro mechanismus uhlíkového vyrovnání na hranicích doplňuje přímo použitelné nařízení (EU) 2023/956 (CBAM) o vnitrostátní organizační a procesní rámec, který nařízení samo ponechává na volbě členského státu. Zpráva výslovně uvádí, že na základě zprávy RIA vyplynula jako nejvhodnější varianta sdílená kompetence mezi orgány Celní správy České republiky (celní úřady a Generální ředitelství cel) a Ministerstvem životního prostředí. Ministerstvo prověřuje prohlášení CBAM, zajišťuje prodej a zpětný odkup certifikátů CBAM a komunikuje s Evropskou komisí; celní úřad vydává a ruší povolení statusu schváleného deklaranta, spravuje jistotu a provádí kontroly po propuštění zboží. Výkon působnosti orgánů Celní správy podle § 9 odst. 1 písm. b) se podle § 9 odst. 2 považuje za výkon správy daní, s výjimkou řízení o přestupcích. Přestupky projednává ministerstvo (u oznamujícího a schváleného deklaranta) nebo celní úřad (u jiných osob dovážejících zboží bez plnění povinností), s pokutami odvozenými od harmonizovaného indexu spotřebitelských cen EU za tunu nevykázaných emisí (10-50 EUR, 100 EUR, resp. 300-500 EUR podle typu přestupku). Zpráva v úvodní části obecně zdůrazňuje, že „CBAM není clem ani daní, neboť nemá jejich charakteristické znaky“, a v bodě 4.1 posuzuje soulad s Listinou základních práv EU i Úmluvou o ochraně lidských práv, včetně otázky ochrany majetku a práva na spravedlivý proces v daňovém řízení.",
+ "researchedContext": "Zpráva CBAM v obecné části výslovně odlišuje od cla i daně („CBAM není clem ani daní, neboť nemá jejich charakteristické znaky“), avšak ustanovení § 9 odst. 2 zákona přesto stanoví, že výkon působnosti orgánů celní správy v oblasti CBAM se - s výjimkou řízení o přestupcích - považuje za výkon správy daní, tedy se řídí daňovým řádem, nikoli obecným správním řádem. Zpráva sama v bodě 2 (Vysvětlení nezbytnosti) tento procesní režim potvrzuje: „při výkonu působnosti orgány celní správy... zákonem č. 280/2009 Sb., daňový řád“. Daňový řád poskytuje správci daně širší vyhledávací, kontrolní a vymáhací nástroje než obecný správní řád (mj. registrační a vyhledávací činnost, daňovou kontrolu, zajišťovací příkazy) - zákon tedy vnitrostátně podřizuje vymáhání mechanismu, který v jiné, substantivní (WTO) rovině sám označuje za nedaňový, procesnímu režimu určenému pro daně; zpráva ani v bodě 1 (kde CBAM od daně odlišuje), ani v bodě 2 (kde volí daňový řád jako procesní režim) obě tato zjištění vzájemně nepropojuje. Dvě dřívější verze tohoto nálezu tvrdily, že tisk neobsahuje samostatnou část o ochraně soukromí a osobních údajů a že § 13 odst. 2 zavádí čistě vnitrostátní výjimku z mlčenlivosti, kterou nařízení CBAM nepředepisuje; obě tvrzení jsou nesprávná a byla proto stažena. Tisk obsahuje část „10. Zhodnocení dopadu navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“ (body 10.1–10.9), jejíž bod 10.4 (Veřejnost zpracování) přímo pojednává o zásadě neveřejnosti a mlčenlivosti podle daňového řádu při řízení o statusu schváleného deklaranta — právě to tvrzení popíralo. Číslo 11 v tisku nese „11. Zhodnocení korupčních rizik navrhovaného řešení (CIA)“, nikoli část o soukromí. A komentář K § 13 výslovně uvádí, že navrhované ustanovení „je doplněním přímo použitelné právní úpravy prolomení mlčenlivosti, kterou obsahuje čl. 13 odst. 2 a čl. 25 odst. 4 nařízení CBAM“ — samotné nařízení CBAM tedy prolomení mlčenlivosti mechanismus zakládá a § 13 odst. 2 jej pouze doplňuje na vnitrostátní úrovni („Smyslem navrhovaného ustanovení je úprava výměny informací na vnitrostátní úrovni.“), nikoli vytváří jako čistě vnitrostátní volbu.",
+ "unstatedEffects": [
+  {
+   "effect": "Zpráva na jednom místě (bod 1, substantivní/WTO rovina) výslovně tvrdí, že „CBAM není clem ani daní“, a na jiném místě (bod 2, procesní rovina) sama potvrzuje, že výkon působnosti orgánů celní správy v oblasti CBAM se (mimo přestupkové řízení) považuje za výkon správy daní podle daňového řádu. Obě tvrzení jsou samostatně pravdivá a zpráva je nijak neskrývá — ale nikde je vzájemně nepropojuje: nezmiňuje, že dovozce CBAM zboží je tím vystaven procesnímu a vyšetřovacímu aparátu určenému pro daně, přestože mechanismus samotný jako daň sama odmítá klasifikovat.",
+   "whoBenefits": "Orgány Celní správy získávají k prosazování CBAM širší procesní nástroje daňového řádu (registrační, vyhledávací a vymáhací pravomoci), než by měly při postupu podle obecného správního řádu; dovozci podléhající CBAM jsou vystaveni tomuto přísnějšímu procesnímu režimu, aniž by zpráva sama toto souběžné čtení dvou svých vlastních zjištění kdekoli vyslovila.",
+   "evidence": "Bod 1 (Zhodnocení platného právního stavu) — „Z výše uvedeného vyplývá, že CBAM není clem ani daní, neboť nemá jejich charakteristické znaky.“; bod 2 (Vysvětlení nezbytnosti) a § 9 odst. 2 — „Výkon působnosti orgánů Celní správy České republiky podle odstavce 1 písm. b) se považuje za výkon správy daní, s výjimkou řízení o přestupcích.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Evidovaným předkladatelem tisku je Alena Schillerová, u které graf neeviduje žádnou peněžní vazbu na žádnou firmu. Střet zájmů mezi předmětem tisku (mechanismus uhlíkového vyrovnání na hranicích, dopadající na dovozce zboží s vysokou uhlíkovou stopou) a peněžními vazbami předkladatelky proto nelze hodnotit, protože žádné takové vazby v grafu evidovány nejsou; nejde o zjištění nepřítomnosti střetu na základě prověření vazeb, ale o absenci vstupních dat k prověření.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Ustanovení § 9 odst. 2 uvádí: „Výkon působnosti orgánů Celní správy České republiky podle odstavce 1 písm. b) se považuje za výkon správy daní, s výjimkou řízení o přestupcích.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+  },
+  {
+   "claim": "Ustanovení § 13 odst. 2 uvádí: „Poskytnutí informací získaných orgánem Celní správy České republiky při výkonu působnosti v oblasti mechanismu uhlíkového vyrovnání na hranicích nebo dovozu zboží ministerstvu pro účely výkonu jeho působnosti v oblasti mechanismu uhlíkového vyrovnání na hranicích není porušením mlčenlivosti podle daňového řádu.“ Komentář K § 13 dodává, že navrhované ustanovení „je doplněním přímo použitelné právní úpravy prolomení mlčenlivosti, kterou obsahuje čl. 13 odst. 2 a čl. 25 odst. 4 nařízení CBAM“.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+  },
+  {
+   "claim": "Obecná část důvodové zprávy (bod 1) uvádí: „Z výše uvedeného vyplývá, že CBAM není clem ani daní, neboť nemá jejich charakteristické znaky.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+  },
+  {
+   "claim": "Bod 2 obecné části uvádí, že orgány celní správy při výkonu působnosti v oblasti CBAM postupují podle zákona č. 280/2009 Sb., daňový řád, zatímco ministerstvo postupuje subsidiárně podle zákona č. 500/2004 Sb., správní řád.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+  },
+  {
+   "claim": "Bod 2 obecné části uvádí, že na základě zprávy RIA vyplynula jako nejvhodnější varianta pro příslušný orgán v ČR sdílená kompetence dělená mezi orgány Celní správy a Ministerstvo životního prostředí.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+  },
+  {
+   "claim": "Tisk obsahuje samostatnou část „10. Zhodnocení dopadu navrhovaného řešení ve vztahu k ochraně soukromí a osobních údajů“ (body 10.1–10.9); část číslo 11 je „Zhodnocení korupčních rizik navrhovaného řešení (CIA)“.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=114&ct1=0"
+  },
+  {
+   "claim": "Tisk 114 byl dne 14. 7. 2026 přikázán souběžně jako garančnímu výboru pro životní prostředí (VŽP) a rozpočtovému výboru (RV).",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=114"
+  },
+  {
+   "claim": "Graf u Aleny Schillerové neeviduje žádnou peněžní vazbu na firmu.",
+   "kind": "graph_fact",
+   "source": "psp:person:6545"
+  }
+ ]
+}

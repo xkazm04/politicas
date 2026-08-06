@@ -1,0 +1,62 @@
+{
+ "billTisk": 101,
+ "statedReasoning": "Vládní návrh zavádí zcela nový, dosud v českém právu neexistující institut — soudní odčerpání majetku nevysvětleného původu — jako transpozici čl. 16 směrnice Evropského parlamentu a Rady (EU) 2024/1260 o vymáhání a konfiskaci majetku. Podle § 2 se řízení o odčerpání považuje za trestní řízení navazující na původní trestní řízení, v němž byl majetek zajištěn podle § 79i trestního řádu, ale nedošlo k jeho propadnutí, zabrání ani jinému konečnému naložení s ním — typicky proto, že se nepodařilo prokázat konkrétní trestný čin, z něhož majetek pochází (např. u tzv. průtokových účtů v přeshraničním praní peněz). Soud podle § 4 odst. 1 uloží odčerpávací opatření, pokud zákonný původ majetku nebyl věrohodně a ověřitelně doložen a soud má po uvážení všech okolností za to, že pochází z trestné činnosti, přičemž tento závěr lze opřít mimo jiné o hrubý nepoměr mezi hodnotou nabytého majetku a zákonnými příjmy dotčené osoby v desetiletém rozhodném období (§ 3 odst. 5). Řízení zahajuje na návrh státní zástupce, který ale podle § 12 podat návrh nemusí, neshledá-li na jeho podání veřejný zájem (zásada oportunity); přechodné ustanovení § 26 umožňuje zahájit řízení i tehdy, bylo-li původní trestní řízení zahájeno kdykoli před účinností zákona, pokud jen nebylo k tomuto dni pravomocně skončeno. Zákon nabývá účinnosti 1. července 2026.",
+ "researchedContext": "Historie tisku na psp.cz potvrzuje předložení vládou 10. 2. 2026; datový soubor případu eviduje, že Organizační výbor doporučil přikázání (navrženo přikázat, nikoli již přikázáno) Ústavně-právnímu výboru jako garančnímu k 19. 2. 2026. Přímé čtení důvodové zprávy potvrzuje, že hodnocení dopadů regulace (RIA) nebylo zpracováno — zpráva k tomu uvádí pouze: „V souladu s Plánem legislativních prací vlády na rok 2025 nebylo hodnocení dopadů regulace zpracováno.“ Žádná metodická opora tohoto rozhodnutí (např. konkrétní bod „Obecných zásad pro hodnocení dopadů regulace“) se v tisku nevyskytuje; rozhodnutí nezpracovat RIA stojí ve zprávě samo o sobě, bez odkazu na vlastní metodiku. Zpráva zároveň sama zdůvodňuje, proč nejde o nepřípustnou retroaktivitu (opatření má preventivní, nikoli trestní povahu, a čl. 40 odst. 6 Listiny se na ně podle zprávy nevztahuje), a čerpá přitom z judikatury Ústavního soudu i Evropského soudu pro lidská práva k obdobnému institutu rozšířené konfiskace podle § 102a trestního zákoníku (zejména nález sp. zn. II. ÚS 1026/21 a rozsudek ESLP Gogitidze a ostatní proti Gruzii, stížnost č. 36862/05). Zpráva cituje nález Ústavního soudu sp. zn. II. ÚS 1026/21, který sám ve vztahu k § 102a trestního zákoníku dále cituje důvodovou zprávu k tomuto ustanovení, podle níž se „nezavádí úplný civilní standard dokazování“, ale „nejde ani o trestní standard dokazování“ nade vší pochybnost, a jde tedy o „cosi mezi“ — orgán činný v trestním řízení musí předložit důkazy a uvést skutečnosti vedoucí k závěru o pravděpodobném původu majetku z trestné činnosti, dotčená osoba pak může tvrdit a prokazovat opak. Jde tedy o třikrát vnořenou citaci (zpráva k tisku 101 cituje nález Ústavního soudu, který cituje důvodovou zprávu k jinému ustanovení, § 102a) — nikoli o vlastní charakteristiku důkazní konstrukce tisku 101 zprávou samotnou, byť zpráva tuto citaci přejímá souhlasně jako oporu vlastního institutu. Zpráva u vlastního institutu odčerpání sama a přímo (nikoli citací) přiznává jeho dopad na standardní záruky trestního řízení: „…půjde v zásadě o řízení proti věci (in rem), v němž se všechny zásady ovládající trestní řízení plně neuplatní, zejména se z povahy věci neuplatní zásada presumpce neviny (až na dílčí aspekty) a zásada legality, protože v řízení nepůjde o vinu osoby, ani o stíhání trestného činu.“",
+ "unstatedEffects": [
+  {
+   "effect": "Vláda se rozhodla nezpracovat hodnocení dopadů regulace u návrhu, který zavádí zcela nový institut soudního odčerpání majetku s obráceným charakterem dokazování a desetiletým zpětným rozhodným obdobím; obecná část důvodové zprávy tuto absenci hodnocení dopadů pouze konstatuje odkazem na Plán legislativních prací, aniž by jakkoli zdůvodnila, proč institut tohoto rozsahu a citlivosti nevyžadoval samostatné posouzení dopadů na dotčené osoby.",
+   "whoBenefits": "Nelze jednoznačně určit — nezpracování hodnocení dopadů ochuzuje veřejnou diskuzi i Parlament o systematický rozbor dopadů na osoby, jejichž majetek bude podle nové úpravy odčerpáván.",
+   "evidence": "Obecná část důvodové zprávy — „V souladu s Plánem legislativních prací vlády na rok 2025 nebylo hodnocení dopadů regulace zpracováno.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+  },
+  {
+   "effect": "Zahájení řízení o odčerpání závisí na zásadě oportunity — státní zástupce návrh podat nemusí, byť jsou splněny všechny zákonné podmínky, pokud na jeho podání neshledá veřejný zájem; zvláštní část důvodové zprávy k § 12 tento mechanismus popisuje, avšak nikde nerozebírá, že rozhodnutí nepodat návrh nepodléhá soudnímu přezkumu a je kontrolováno pouze interně v rámci dozorového spisu vyššího státního zastupitelství.",
+   "whoBenefits": "Osoby, u nichž státní zástupce z důvodu neshledání veřejného zájmu návrh na uložení odčerpávacího opatření nepodá, si ponechají majetek, který by jinak mohl být předmětem řízení, aniž by toto rozhodnutí bylo soudně přezkoumatelné.",
+   "evidence": "K § 12 zvláštní části důvodové zprávy — „Zahájení řízení o odčerpání je v rukou státního zástupce, přičemž se uplatňuje zásada oportunity, tj. státní zástupce návrh podat nemusí, pokud na jeho podání neshledá veřejný zájem.“ a „S ohledem na zásadu oportunity je třeba zajistit dostatečnou kontrolu postupu státního zástupce, proto se stanoví, aby ... učinil do dozorového spisu záznam, v němž uvede, proč návrh na uložení odčerpávacího opatření nepodal.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jediným sponzorem evidovaným v datech případu je Jeroným Tejc (ministr spravedlnosti, podepsán na důvodové zprávě spolu s předsedou vlády), u něhož není zaznamenána žádná peněžní vazba na soukromou firmu ani sektorový lead. Jde o vládní předlohu transponující unijní konfiskační směrnici na základě analýzy vypracované pracovní skupinou při Ministerstvu spravedlnosti a schválené usnesením vlády z roku 2023, nikoli o úpravu sledující soukromý zájem předkladatele. Na základě dostupných dat nebyl u tisku 101 zjištěn střet zájmů; institucionální otázky (rozsah diskrece státního zástupce, absence hodnocení dopadů) jsou věcí návrhu jako celku, nikoli osobního zájmu předkladatele.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Zákon zavádí nový institut soudního odčerpání majetku nevysvětleného původu, navazující na původní trestní řízení, v němž se nepodařilo prokázat konkrétní trestný čin, z něhož majetek pochází.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+  },
+  {
+   "claim": "Soud uloží odčerpávací opatření, pokud zákonný původ majetku nebyl věrohodně a ověřitelně doložen a soud má za to, že pochází z trestné činnosti, přičemž lze vycházet z hrubého nepoměru mezi majetkem nabytým v desetiletém rozhodném období a zákonnými příjmy dotčené osoby.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+  },
+  {
+   "claim": "Hodnocení dopadů regulace (RIA) nebylo v souladu s Plánem legislativních prací vlády na rok 2025 zpracováno; zpráva k tomu neuvádí žádnou metodickou oporu (žádný konkrétní bod Obecných zásad pro hodnocení dopadů regulace).",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+  },
+  {
+   "claim": "Zahájení řízení o odčerpání se řídí zásadou oportunity státního zástupce, jehož rozhodnutí nepodat návrh je kontrolováno pouze záznamem do dozorového spisu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=101&ct1=0"
+  },
+  {
+   "claim": "Návrh podala vláda 10. 2. 2026; Organizační výbor 19. 2. 2026 pouze doporučil jeho přikázání Ústavně-právnímu výboru jako garančnímu, Sněmovna sama jej ještě nepřikázala.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=101"
+  },
+  {
+   "claim": "Případový soubor přiřazuje k tisku 101 jediného sponzora (Tejc) bez peněžní vazby a bez sektorového leadu.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43211"
+  },
+  {
+   "claim": "Zákon č. 40/2009 Sb., trestní zákoník, obsahuje v § 102a obdobný institut rozšířené konfiskace vázaný na odsouzení pachatele, k němuž se důvodová zpráva výslovně vztahuje.",
+   "kind": "law",
+   "source": "40/2009"
+  },
+  {
+   "claim": "Zákon č. 141/1961 Sb., trestní řád, se na řízení o odčerpání použije podpůrně podle § 2 odst. 1 návrhu.",
+   "kind": "law",
+   "source": "141/1961"
+  }
+ ]
+}

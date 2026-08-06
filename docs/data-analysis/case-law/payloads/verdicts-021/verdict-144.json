@@ -1,0 +1,62 @@
+{
+ "billTisk": 144,
+ "statedReasoning": "Vládní návrh nahrazuje dosavadní zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky, zcela novým cizineckým zákonem. Podle obecné části důvodové zprávy reaguje na tři problémové okruhy určené závěrečnou zprávou z hodnocení dopadů regulace (RIA) předložené vládě v lednu 2024: nízkou míru elektronizace pobytového řízení, neevidování všech cizinců (zejména občanů EU s pobytem nad 90 dnů) v Registru obyvatel a nízkou míru odpovědnosti subjektů zapojených do migračního procesu. Zavádí institut cizineckého účtu pro elektronickou komunikaci, přepracovává systém zajištění cizinců (mimo jiné nový důvod zajištění za účelem dokončení prověřování podle nařízení (EU) 2024/1356, nejdéle na 7 dní), mění dosavadní institut úhrady za adaptačně-integrační kurz na veřejnoprávní poplatek stanovovaný vyhláškou Ministerstva vnitra v mezích nákladové přiměřenosti, a zavádí nebo přeznačuje řadu důvodů pro zastavení řízení o žádostech o pobytová oprávnění. Zákon nabývá účinnosti 1. ledna 2029, s výjimkou § 710 (účinnost od 1. října 2028) a § 261 (účinnost od 1. ledna 2030).",
+ "researchedContext": "Historie tisku na psp.cz dokládá pouze rozeslání poslancům 25. 3. 2026 v 12:39 jako tisk 144/0 a přikázání Výboru pro bezpečnost jako garančnímu 15. 4. 2026. Uložená stránka tisku eviduje jen tisk 144/0 — žádný tisk 144/1 ani 144/2, žádné doporučující usnesení garančního výboru, žádné druhé čtení s pozměňovacími návrhy a žádné zařazení na některou schůzi nejsou v uložených podkladech k tisku ani v datech případu doloženy; podrobná historie projednávání pro tento tisk nebyla archivována a nemůže tedy sloužit jako zdroj. Tento posudek proto uvádí jen rozeslání a přikázání jako doložené procesní kroky. Přímé čtení obecné části důvodové zprávy potvrzuje, že návrh je znovupředložením obdobné předlohy schválené vládou v srpnu 2024 (sněmovní tisk 782/0 z 9. funkčního období), kterou Poslanecká sněmovna neprojednala do konce svého funkčního období v říjnu 2025, a že zpráva přebírá hodnocení dopadů regulace zpracované již v lednu 2024 (č.j. OVA 52/24) s tím, že „Aktuální verze návrhu zákona v těchto bodech bezprostředně navazuje na výsledky těchto analýz. Závěry hodnocení dopadů regulace jsou proto nadále platné.“ — bez nového posouzení dopadů pro znovupředloženou verzi o více než dva roky později. Zpráva sama zároveň připouští systémový kapacitní deficit správního orgánu: „z důvodu personální poddimenzovanosti úřadu až třetina řízení o žádostech podávaných na území vyřizována po lhůtě“.",
+ "unstatedEffects": [
+  {
+   "effect": "Obecná část důvodové zprávy popisuje migrační situaci jako oblast procházející „dynamickým vývojem“ a dokládá to čísly (nárůst počtu cizinců z 660 849 v roce 2021 na 1 094 089 v roce 2024), ale zároveň bez dalšího zdůvodnění přebírá jako stále platné hodnocení dopadů regulace vypracované již v lednu 2024 pro předchozí, neprojednaný sněmovní tisk 782/0 z 9. funkčního období, aniž by pro toto znovupředložení o více než dva roky později provedla nové posouzení dopadů.",
+   "whoBenefits": "Předkladatel (Ministerstvo vnitra) profituje z úspory času a nákladů spojených s novým zpracováním hodnocení dopadů regulace; naopak Poslanecká sněmovna a veřejnost postrádají aktuální rozbor dopadů, který by zohlednil migrační vývoj mezi lednem 2024 a předložením tisku v březnu 2026.",
+   "evidence": "Obecná část důvodové zprávy — „Aktuální verze návrhu zákona v těchto bodech bezprostředně navazuje na výsledky těchto analýz. Závěry hodnocení dopadů regulace jsou proto nadále platné.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+  },
+  {
+   "effect": "Zvláštní část důvodové zprávy k novému důvodu pro zastavení řízení podle písmene k) sama uvádí, že „se jeví jako vhodnější“ řízení o žádosti zastavit, než přistupovat k vyrozumění o možnosti seznámit se s podklady pro vydání rozhodnutí a rozhodovat o žádosti věcně; návrh tak v tomto konkrétním případě přeznačuje výsledek, který byl dosud věcným zamítnutím žádosti, na zastavení řízení, aniž by tuto změnu z pohledu procesních práv žadatele dále rozebíral.",
+   "whoBenefits": "Ministerstvo vnitra jako správní orgán získává administrativně jednodušší postup s nižšími procesními nároky; žadatel v takto zastavených řízeních přichází o výslovnou příležitost vyjádřit se k podkladům rozhodnutí, kterou by měl při věcném zamítnutí žádosti.",
+   "evidence": "K odstavci 1 písm. k) zvláštní části důvodové zprávy — „V případě řízení o žádosti, na něž plně dopadá druhá a třetí část správního řádu, se jeví jako vhodnější řízení o žádosti z tohoto důvodu zastavit, než přistupovat k vyrozumění o možnosti seznámit se s podklady pro vydání rozhodnutí a rozhodovat o žádosti věcně, když de facto nebyla předložena náležitost žádosti.“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+  },
+  {
+   "effect": "Důvodová zpráva sama přiznává, že správní orgán je dlouhodobě personálně poddimenzovaný a že proto je až třetina řízení o žádostech podávaných na území vyřizována po zákonné lhůtě, přičemž jako řešení nabízí elektronizaci a digitalizaci agendy, aniž by návrh obsahoval jakékoli ustanovení zajišťující odpovídající navýšení personálních kapacit; zpráva sama uvádí, že nárůst agendy nebyl v minulosti personálně pokryt „víceméně vůbec“.",
+   "whoBenefits": "Nelze jednoznačně určit; zákon jako takový personální tabulky správního orgánu nestanoví, takže absence doprovodného personálního opatření je zčásti otázkou kategorie (na niž zákon o pobytu cizinců sám nedosáhne), ale zpráva o tomto rozporu mezi diagnózou a nabízeným řešením (elektronizace) mlčí. Spoléhání na elektronizaci jako jediný nástroj řešení kapacitního deficitu dopadá na žadatele o pobytová oprávnění, kteří budou i nadále čelit riziku vyřizování žádostí po lhůtě, dokud efekty elektronizace nenastoupí.",
+   "evidence": "Obecná část důvodové zprávy — „...z důvodu personální poddimenzovanosti úřadu až třetina řízení o žádostech podávaných na území vyřizována po lhůtě...“ a „Nárůst agendy spojené s následným pobytem cizinců na území ... personálně nebyl pokryt víceméně vůbec...“, https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jediným sponzorem evidovaným v datech případu je Lubomír Metnar (ministr vnitra), u něhož není zaznamenána žádná peněžní vazba na soukromou firmu ani sektorový lead. Jde o vládní předlohu. Na základě dostupných dat nebyl u tisku 144 zjištěn střet zájmů; zjištěné nedostatky (neaktualizované hodnocení dopadů, přeznačení části zamítacích důvodů na zastavení řízení, přiznaný kapacitní deficit bez personálního řešení) jsou otázkou kvality legislativního procesu a institucionálního nastavení, nikoli osobního prospěchu předkladatele.",
+ "severity": "medium",
+ "confidence": 4,
+ "citations": [
+  {
+   "claim": "Návrh nahrazuje zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky, zcela novým cizineckým zákonem reagujícím na tři problémové okruhy určené hodnocením dopadů regulace z ledna 2024.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+  },
+  {
+   "claim": "Zpráva přebírá závěry hodnocení dopadů regulace z ledna 2024 jako stále platné bez nového posouzení pro znovupředloženou verzi návrhu.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+  },
+  {
+   "claim": "Nový důvod pro zastavení řízení podle písmene k) je zaveden s výslovným zdůvodněním, že je pro správní orgán výhodnější než postup vyrozumění o podkladech rozhodnutí a věcné zamítnutí žádosti.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+  },
+  {
+   "claim": "Zpráva přiznává, že z důvodu personální poddimenzovanosti úřadu je až třetina řízení o žádostech podávaných na území vyřizována po zákonné lhůtě.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=144&ct1=0"
+  },
+  {
+   "claim": "Tisk byl rozeslán poslancům 25. 3. 2026 v 12:39 jako tisk 144/0 a přikázán Výboru pro bezpečnost jako garančnímu 15. 4. 2026; žádný další procesní krok (druhé čtení, pozměňovací návrhy, tisky 144/1 nebo 144/2) není v uložených podkladech k tisku doložen.",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=144"
+  },
+  {
+   "claim": "Případový soubor přiřazuje k tisku 144 jediného sponzora (Metnar) bez peněžní vazby a bez sektorového leadu.",
+   "kind": "graph_fact",
+   "source": "bill:tisk:43264"
+  },
+  {
+   "claim": "Zákon č. 326/1999 Sb., o pobytu cizinců na území České republiky, je reálný předpis, který tento návrh v celém rozsahu nahrazuje.",
+   "kind": "law",
+   "source": "326/1999"
+  }
+ ]
+}

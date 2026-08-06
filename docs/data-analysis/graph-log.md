@@ -1200,6 +1200,30 @@ corrected verdict carries the batch's sharpest found-by-accident effect: the ope
 grants relief „o 10 %" while the DZ mostly argues „o 10 procentních bodů" (54 % vs 50 % against
 a ~60% target), uncommented anywhere. Backlog: 0 collision pairs, 62 pending bills.
 
+## Pass 55 (track: law) — batch-021: the corpus closes at 141/141 (2026-08-06)
+
+Writes: 12 bill nodes with pending_review forensic_* props (tisky 98, 129, 87, 116, 76, 52,
+55, 6, 63, 101, 144, 114 — coverage 129 → **141/141: every PSP10 bill in the graph now
+carries a gated forensic verdict**, 0 high / 34 medium / 107 low corpus-wide, all rendering
+with zero withheld reader-facing fields). Headline verdicts: tisk 101 (non-conviction
+unexplained-wealth confiscation — 10-year lookback, semi-shifted burden, skipped RIA, the
+print's own „neuplatní se zásada presumpce neviny"; filed high, demoted per the batch-018
+precedent — the carrying mechanism is § 12's unreviewable prosecutorial discretion); tisk 76
+(an MP bill replacing the civil-service framework with no RIA and reduced court review);
+tisk 6 confirmed as ONE PACKAGE with tisk 7 (filing minute-pair + reciprocal cross-listing),
+not a competitor. The audit ran FOUR rounds; rounds 2–4 each surfaced a defect introduced by
+the previous fix — a fabricated authority outside quote marks, then two dates split at the
+Czech ordinal dot by an automated insertion — and the auditor's closing observation enters
+the loop's doctrine: remediation is a defect source at roughly the rate authorship is. Two
+detectors join the standing battery (named-authority rule; date-split regex). Discovered and
+scoped upstream, carried forward unfixed with the verdict layer insulated: the graph's
+sponsors prop (pass 34) is wrong in two shapes (over-inclusion; a wrong 42-name join on
+tisk 87) — no published verdict misattributes sponsorship, the affected three disclose the
+discrepancy, and the prop regen needs its own pass + audit. The law track's batch cycle
+(011–021, passes 45–55) closes with the corpus: verdicts, the collision and amended-§
+censuses, the dependency and sector surfaces, and the migration of every reader-facing
+citation to public coordinates. Backlog: 0 pending bills.
+
 ## Pass 54 (track: law) — batch-020: ten verdicts, the chronology rule, and the sector surface shipping (2026-08-06)
 
 Writes: 10 bill nodes with pending_review forensic_* props (tisky 35, 208, 48, 138, 130, 99,

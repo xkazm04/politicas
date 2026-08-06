@@ -1,0 +1,57 @@
+{
+ "billTisk": 98,
+ "statedReasoning": "Vládní návrh tisku 98, který za vládu podepsala ministryně financí Alena Schillerová, novelizuje zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů. Obecná část důvodové zprávy jej označuje za návrh „čistě implementační“, reagující na směrnici Rady (EU) 2023/2226 („DAC 8“) a směrnici Rady (EU) 2025/872 („DAC 9“). Novela je podle zprávy rozčleněna do sedmi tematických celků: zavedení automatické výměny informací oznamovaných poskytovateli služeb s kryptoaktivy, změny výměny informací oznamovaných finančními institucemi, rozšíření výměny informací podle druhů příjmu a majetku, rozšíření výměny informací o daňových stanoviscích s přeshraničním prvkem, rozšíření využití identifikační služby, zpřísnění povinnosti výměny informací o daňovém identifikačním čísle a zavedení mezinárodní výměny informačních přehledů k dorovnávacím daním. Transpoziční lhůta DAC 8 a příslušné části DAC 9 uplynula podle zprávy 31. prosince 2025 a zákon měl nabýt účinnosti 1. ledna 2026, což se podle vlastního přiznání zprávy nestihne. Hospodářská a finanční část odhaduje náklady správce daně na vývoj a provoz informačních systémů v rozmezí 25–35 mil. Kč (kryptoaktiva) a 110–140 mil. Kč (informační přehled k dorovnávací dani) a podle předběžných odhadů „se jedná o desítky subjektů podnikajících v České republice“ poskytujících služby související s kryptoaktivy. Zpráva u nových povinností pro poskytovatele služeb s kryptoaktivy počítá s pokutou za nesplnění povinnosti nepeněžité povahy do 1 500 000 Kč a s pořádkovou pokutou do 1 500 000 Kč za porušení oznamovací povinnosti. Oddíl o korupčních rizicích neshledává u návrhu žádné nové korupční riziko a odkazuje na standardní rámec správy daní. Oddíl o ochraně osobních údajů (DPIA) sám hodnotí zpracování jako rizikové – zpracování osobních údajů „vysoce osobní povahy“ a „velkého rozsahu“ – ale uzavírá, že je kryto zákonným zmocněním podle čl. 6 odst. 1 písm. c) GDPR a standardními zárukami mlčenlivosti správce daně.",
+ "researchedContext": "Historie projednávání na webu Poslanecké sněmovny potvrzuje, že návrh podala vláda 5. 2. 2026, téhož dne byl rozeslán poslancům jako tisk 98/0 a zaevidován v systému eKLEP pod č. 27/26. Organizační výbor jej dne 19. 2. 2026 usnesením č. 31 doporučil k projednání, zpravodajem určil Ing. Vlastimila Hebra a garančním výborem rozpočtový výbor. Obecná rozprava v prvním čtení proběhla 14. 7. 2026 na 27. schůzi; sněmovna usnesením č. 258 nesouhlasila se zkráceným jednacím řízením (projednáním v jediném čtení) a návrh přikázala k projednání výborům. K dnešnímu dni (6. 8. 2026) jej rozpočtový výbor ještě neprojednal; jeho projednání je plánováno na 2. 9. 2026 (usnesení č. 22) a další postup je možný od 13. 9. 2026. Směrnice Rady (EU) 2023/2226 a (EU) 2025/872, na které se zpráva odvolává, jsou v textu důvodové zprávy citovány svými přesnými čísly a daty přijetí (17. 10. 2023, resp. 14. 4. 2025); jejich obsah nebyl v rámci tohoto zpracování ověřen proti úplnému znění na EUR-Lex, pouze proti tomu, jak je popisuje sama zpráva. Zvláštní část důvodové zprávy (komentář k § 13n odst. 1 až 3) sama uvádí, že horní hranice dosavadní pokuty pro finanční instituce podle § 13n se zvyšuje z 500 000 Kč na 1 500 000 Kč, a to nikoli proto, že by to vyžadovala DAC 8 nebo DAC 9 přímo, ale „aby odpovídala“ nové výši pokut zavedené pro provozovatele platforem a poskytovatele služeb s kryptoaktivy, s odůvodněním, že by jinak vznikaly „nedůvodné rozdíly“ mezi srovnatelně postavenými povinnými osobami. Toto zvýšení dopadající na finanční instituce, které již automatickou výměnu informací podle DAC 2 vykonávají od roku 2016, není zmíněno ani v úvodním výčtu sedmi tematických celků v obecné části, ani v části 6.2 (dopad na daňové subjekty), kde se u finančních institucí pouze uvádí, že „lze očekávat jednorázové náklady“ na straně oznamujících finančních institucí spojené s úpravou obsahu oznamovaných údajů, nikoli o ztrojnásobení horní hranice sankce za porušení jejich stávajících povinností. Údaje o průběhu projednávání nad rámec rozpisu v datové sadě (čísla usnesení a data jednotlivých kroků) vycházejí výhradně ze stránky historie tisku na psp.cz; archivované podklady obsahují pouze výchozí text tisku.",
+ "unstatedEffects": [
+  {
+   "effect": "Novela v § 13n odst. 2 zvyšuje horní hranici pokuty pro finanční instituce ze stávajících 500 000 Kč na 1 500 000 Kč (a v § 13n odst. 1 a 3 zavádí u dosud jinak formulovaných skutkových podstat stejnou horní hranici 1 500 000 Kč) – jde tedy o ztrojnásobení sankčního rizika pro subjekty, které povinnosti automatické výměny informací plní už od transpozice DAC 2 v roce 2016 a s návrhem zákona (transpozicí DAC 8 a DAC 9) věcně nesouvisejí jinak než tím, že mají být postaveny na roveň nově regulovaným poskytovatelům služeb s kryptoaktivy. Toto zvýšení není zmíněno ani v úvodním výčtu sedmi tematických celků obecné části, ani v části 6.2 věnované dopadu návrhu na daňové subjekty, kde se u finančních institucí hovoří pouze o jednorázových nákladech na úpravu evidence, nikoli o zpřísnění sankcí.",
+   "whoBenefits": "Nejde o peněžní prospěch žádné jmenovitě uvedené osoby ani firmy – jde o rozšíření sankčního rizika (nikoli výhody) dopadající na finanční instituce jako regulovanou skupinu subjektů; jediným navrhovatelem evidovaným v grafu je ministryně financí Alena Schillerová, u níž graf neeviduje žádnou peněžní vazbu na finanční instituci ani jiný subjekt dotčený touto změnou.",
+   "evidence": "Zvláštní část důvodové zprávy k § 13n odst. 1 až 3 tisku 98 (viz doslovná citace v tomto posudku); srov. s částí 6.2 a s úvodním výčtem sedmi tematických celků v obecné části téhož tisku, které tuto změnu nezmiňují."
+  }
+ ],
+ "conflictAssessment": "Jediným navrhovatelem evidovaným v grafu peněžních vazeb je ministryně financí Alena Schillerová (poslanecké číslo 6545), u níž graf neeviduje žádnou peněžní vazbu vlastníka, jednatele ani žádnou jinou majetkovou vazbu na obchodní společnost. Novela dopadá na poskytovatele služeb souvisejících s kryptoaktivy a na finanční instituce jako na regulovanou skupinu subjektů, nikoli na jmenovitě určenou firmu. V datech proto nebyl u tisku 98 zjištěn žádný střet zájmů mezi peněžními vazbami navrhovatelky a předmětem návrhu.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Obecná část důvodové zprávy uvádí: „Návrh zákona, kterým se mění zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů, ve znění pozdějších předpisů, je návrhem čistě implementačním, který je reakcí na směrnici Rady (EU) 2023/2226 ze dne 17. října 2023, kterou se mění směrnice 2011/16/EU o správní spolupráci v oblasti daní (dále jen „DAC 8“), a na směrnici Rady (EU) 2025/872 ze dne 14. dubna 2025, kterou se mění směrnice 2011/16/EU o správní spolupráci v oblasti daní (dále jen „DAC 9“).“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+  },
+  {
+   "claim": "Zvláštní část k § 13n odst. 1 uvádí: „Navyšuje se horní hranice pokuty tak, aby odpovídala automatické výměně informací provozovatelů platforem a navrhované automatické výměně informací poskytovaných poskytovateli služeb s kryptoaktivy. Důvodem je, že české finanční instituce jsou v případě povinností a závažnosti jejich porušení ve srovnatelném postavení jako tyto osoby a vznikaly by nedůvodné rozdíly.“ Stejné odůvodnění se opakuje u § 13n odst. 2 a odst. 3.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+  },
+  {
+   "claim": "Čl. I bod 13 novelizačního textu zní: „V § 13n odst. 2 se částka „500 000 Kč“ nahrazuje částkou „1 500 000 Kč“.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+  },
+  {
+   "claim": "Hospodářská a finanční část (bod 6.1.2) odhaduje nárůst výdajů správce daně na vývoj a provoz informačních a komunikačních technologií v rozmezí 25–35 mil. Kč pro oblast kryptoaktiv a 110–140 mil. Kč pro informační přehled k dorovnávací dani.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+  },
+  {
+   "claim": "Oddíl 11 (Zhodnocení korupčních rizik) uvádí, že „v souvislosti s návrhem zákona nejsou zaváděny nové represivní nástroje zaměřené na eliminaci korupčních rizik“ a že míra diskrece správního orgánu je „vzhledem k vymezení povinností minimální“.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=98&ct1=0"
+  },
+  {
+   "claim": "Historie projednávání tisku 98 eviduje podání a rozeslání vládního návrhu 5. 2. 2026 jako tisk 98/0 (eKLEP č. 27/26), doporučení organizačního výboru 19. 2. 2026 (usnesení č. 31, zpravodaj Ing. Vlastimil Hebr, garanční rozpočtový výbor), obecnou rozpravu v prvním čtení 14. 7. 2026 na 27. schůzi s usnesením č. 258 (nesouhlas se zkráceným jednacím řízením) a stav k 6. 8. 2026, kdy rozpočtový výbor návrh ještě neprojednal a jeho projednání je plánováno na 2. 9. 2026 (usnesení č. 22).",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=98"
+  },
+  {
+   "claim": "Zákon č. 164/2013 Sb., o mezinárodní spolupráci při správě daní a o změně dalších souvisejících zákonů, je zákon novelizovaný tímto tiskem.",
+   "kind": "law",
+   "source": "164/2013"
+  },
+  {
+   "claim": "Navrhovatelkou (podepsanou ministryní) tisku 98 je ministryně financí Alena Schillerová.",
+   "kind": "graph_fact",
+   "source": "psp:person:6545"
+  }
+ ]
+}

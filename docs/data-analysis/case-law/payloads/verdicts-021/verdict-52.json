@@ -1,0 +1,57 @@
+{
+ "billTisk": 52,
+ "statedReasoning": "Vládní návrh zákona o určování provozoven a jmenování zástupců některých poskytovatelů služeb za účelem shromažďování elektronických důkazů v trestním řízení transponuje směrnici (EU) 2023/1544. Zákon ukládá vybraným poskytovatelům služeb elektronických komunikací, doménových a hostingových služeb, kteří nabízejí služby ve více členských státech, povinnost určit provozovnu nebo jmenovat zástupce pro účely doručování a vymáhání příkazů k elektronickým důkazům podle nařízení (EU) 2023/1543. Státní správu v této oblasti vykonává Český telekomunikační úřad (ČTÚ), který kontroluje plnění povinnosti a shromažďuje kontaktní údaje; ty následně předává Ministerstvu spravedlnosti, jež je zveřejňuje na internetové stránce Evropské justiční sítě v trestních věcech. Za neurčení provozovny, nejmenování zástupce nebo neoznámení kontaktních údajů lze uložit pokutu do 10 000 000 Kč. Zpráva v bodě 9 uvádí, že dopad se v současné době týká „nanejvýš jednotek až nízkých desítek subjektů“ (opakováno v bodě 11.9), a v bodě 7 dodává, že u ČTÚ „bude patrně potřeba zajistit adekvátní odbornou kapacitu“. Bod 12 (Zhodnocení korupčních rizik) na základě metodiky CIA konstatuje, že návrh je technickým předpisem a nevznikají v něm korupční rizika.",
+ "researchedContext": "Zpráva sama v bodě 7 přiznává, že „řešení problematiky dozorového orgánu“ bylo „komplikované“, protože Ministerstvo spravedlnosti - přirozený kandidát vzhledem k tomu, že celý zákon slouží mezistátní justiční spolupráci při trestním vyšetřování - odmítlo být dozorovým orgánem, a proto byl touto rolí pověřen Český telekomunikační úřad, tedy regulátor telekomunikačního trhu bez dosavadní kompetence v oblasti trestního řízení. Zpráva u ČTÚ zároveň připouští, že bude „patrně“ potřeba zajistit odbornou kapacitu, kterou úřad k výkonu této nové agendy dosud nemá. Volba orgánu tedy nevznikla primárně z věcné příslušnosti, ale z toho, že jiný orgán roli odmítl. Zákon dále stanoví (§ 6 písm. c) bod 1), že je-li jmenovaným zástupcem fyzická osoba, zveřejňují se o ní na internetové stránce Evropské justiční sítě mimo jiné datum narození a adresa trvalého pobytu, popřípadě bydliště na území ČR - tedy citlivější osobní údaje, než jaké se zveřejňují u zástupce - právnické osoby (jméno a bydliště osoby oprávněné jednat jejím jménem, bez data narození). Bod 11.9 (Závěr posouzení dopadů na soukromí) přesto uzavírá, že úprava „s sebou nenese dopady na soukromí dotčených ani jiných osob“, aniž by tento rozdíl v míře expozice fyzické osoby oproti právnické osobě zmínil; bod 11.3 této zprávy, který vyjmenovává kategorie zveřejňovaných osobních údajů („jméno, popřípadě název, trvalý pobyt, místo podnikání a identifikační číslo osoby“), navíc datum narození jako kategorii vůbec neuvádí, ač je zákonem (§ 6 písm. c bod 1) vyžadováno k publikaci.",
+ "unstatedEffects": [
+  {
+   "effect": "Volba Českého telekomunikačního úřadu jako dozorového orgánu není zdůvodněna věcnou příslušností k předmětu úpravy (mezistátní justiční spolupráce při shromažďování elektronických důkazů), ale tím, že Ministerstvo spravedlnosti - orgán, k jehož agendě má úprava nejblíže - roli dozorového orgánu odmítlo přijmout; zpráva zároveň přiznává, že u ČTÚ bude teprve potřeba budovat odbornou kapacitu pro novou agendu.",
+   "whoBenefits": "Ministerstvo spravedlnosti se zbavuje nové dozorové agendy a s ní spojených nákladů a odpovědnosti; ČTÚ získává rozšíření své gatekeeperské role nad rámec telekomunikačního trhu, aniž by pro ni podle vlastního přiznání zprávy měl dosud vybudovanou odbornost.",
+   "evidence": "Text tisku 52 a jeho důvodová zpráva (určení dozorového orgánu), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+  },
+  {
+   "effect": "Je-li jmenovaným zástupcem fyzická osoba, zákon (§ 6 písm. c) bod 1) ukládá zveřejnit o ní na veřejně přístupné internetové stránce Evropské justiční sítě v trestních věcech datum narození a adresu trvalého pobytu, popřípadě bydliště - tedy citlivější údaje, než jaké se u zástupce právnické osoby zveřejňují (jméno a bydliště jednající osoby, bez data narození a bez adresy jako takové). Závěr posouzení dopadů na soukromí (bod 11.9) přesto konstatuje, že úprava nenese dopady na soukromí dotčených osob, aniž by tento rozdíl mezi fyzickou a právnickou osobou v míře veřejné expozice zohlednil.",
+   "whoBenefits": "Nelze určit konkrétního finančního příjemce; jde o systémový přesun rizika směrem k fyzickým osobám jmenovaným jako zástupci menších poskytovatelů služeb, jejichž datum narození a adresa bydliště se stanou veřejně dohledatelné na stránce EU justiční sítě.",
+   "evidence": "Text tisku 52 a jeho důvodová zpráva (zveřejňované údaje o zástupcích), https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+  }
+ ],
+ "conflictAssessment": "Jediným evidovaným předkladatelem v datové sadě tisku je Lukáš Vlček, u kterého graf eviduje šest peněžních vazeb. Podle klasifikace vazeb v grafu jsou přičitatelné (vazba řídicího nebo vlastnického typu): SOMPO, a.s. (IČO 25172263, místopředseda představenstva, 9 174 258 Kč úhrnu veřejných smluv firmy), PEVAK Pelhřimov, družstvo (IČO 26039907, člen představenstva, 1 234 888 Kč) a W.H.V. Projekt spol. s r.o. (IČO 26109859, jednatel a společník, 0 Kč) — v úhrnu 10 409 146 Kč přičitatelných veřejných peněz. Svěřenecké (vazba dohledového typu, peníze instituce, nikoli poslance) jsou Via rustica z.s. (IČO 26982170, předseda, 2 008 259 Kč), PRO VYSOČINU, občanské sdružení (IČO 27043843, člen, 0 Kč) a Společenství vlastníků jednotek Nádražní čp. 767 Pacov (IČO 28095405, předseda výboru, 0 Kč). SOMPO, a.s. je obecní svazková firma pro odpadové hospodářství, dle vlastní prezentace stoprocentně vlastněná svazkem 117 obcí — nikoli pojišťovna; sektorový výčet je proto: obecní odpadové hospodářství (SOMPO), vodárenské družstvo (PEVAK), stavební projekce (W.H.V. Projekt), spolková a bytová správa (Via rustica, PRO VYSOČINU, SVJ). Podle ARES VR (ověřeno v dřívějším nálezu k tisku 206) navíc Vlčkovo členství a funkce v představenstvu SOMPO zanikly 31. 10. 2024, tedy před podáním tohoto návrhu (25. 3. 2026); od 3. 12. 2024 vede představenstvo Tomáš Kocour. Žádná z šesti firem — ani po opravě sektoru SOMPO — nepůsobí v oblasti elektronických komunikací, doménových či hostingových služeb, jichž se tisk věcně týká, takže střet zájmů mezi předmětem úpravy a evidovanými vazbami zjištěn nebyl; všechny vazby čekají na lidskou kontrolu jako zbytek grafu.",
+ "severity": "low",
+ "confidence": 3,
+ "citations": [
+  {
+   "claim": "Ustanovení § 5 odst. 1 uvádí, že státní správu podle tohoto zákona vykonává Český telekomunikační úřad.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+  },
+  {
+   "claim": "Bod 7 obecné části důvodové zprávy uvádí: „S ohledem na komplikované řešení problematiky dozorového orgánu, kdy Ministerstvo spravedlnosti nesouhlasilo, aby bylo dozorovým orgánem, je v předkládaném materiálu jako dozorový orgán navrhován Český telekomunikační úřad, u kterého bude patrně potřeba zajistit adekvátní odbornou kapacitu.“",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+  },
+  {
+   "claim": "Ustanovení § 6 písm. c) bod 1 ukládá u zástupce - fyzické osoby zveřejnit jméno, adresu trvalého pobytu, popřípadě bydliště, a datum narození; § 6 písm. c) bod 3 u zástupce - právnické osoby vyžaduje pouze jméno a bydliště jednající fyzické osoby, bez data narození.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+  },
+  {
+   "claim": "Bod 11.9 (Závěr) posouzení dopadů na ochranu soukromí uvádí, že právní úprava nenastavuje nově proces zacházení s osobními údaji a „nenese dopady na soukromí dotčených ani jiných osob“.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+  },
+  {
+   "claim": "Bod 12 (Zhodnocení korupčních rizik) uvádí, že předkladatel podle metodiky CIA neshledal v oblasti upravené návrhem prostor ke korupčnímu jednání.",
+   "kind": "bill_text",
+   "source": "https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=52&ct1=0"
+  },
+  {
+   "claim": "Tisk 52 byl dne 25. 3. 2026 přikázán jako garančnímu ústavně právnímu výboru (ÚPV).",
+   "kind": "web",
+   "source": "https://www.psp.cz/sqw/historie.sqw?o=10&t=52"
+  },
+  {
+   "claim": "Graf eviduje u Lukáše Vlčka peněžní vazby na SOMPO, a.s. (IČO 25172263, obecní svazková firma pro odpadové hospodářství vlastněná svazkem 117 obcí) a PEVAK Pelhřimov, družstvo (IČO 26039907, vodárenské družstvo); žádná z firem nepůsobí v oblasti elektronických komunikací nebo hostingových služeb.",
+   "kind": "graph_fact",
+   "source": "psp:person:6789"
+  }
+ ]
+}
