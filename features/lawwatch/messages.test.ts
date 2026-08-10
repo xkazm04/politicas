@@ -48,6 +48,81 @@ describe("lawwatch message catalog", () => {
     }
   });
 
+  describe("forensicIndex", () => {
+    const keys = Object.keys(cs).filter((k) => k.startsWith("forensicIndex."));
+
+    it("is non-empty (the /zakony corpus index section)", () => {
+      expect(keys.length).toBeGreaterThan(0);
+    });
+
+    it("declares the same ICU variables in both locales", () => {
+      for (const k of keys) {
+        expect(variables(en[k]), k).toEqual(variables(cs[k]));
+      }
+    });
+
+    it("declares no empty value in either locale", () => {
+      for (const k of keys) {
+        expect(cs[k]?.trim(), k).toBeTruthy();
+        expect(en[k]?.trim(), k).toBeTruthy();
+      }
+    });
+
+    it("every sentence passes the Czech-language gate", () => {
+      for (const k of keys) {
+        // ICU plural/select markup is English BY SPEC (`one`/`few`/`other`), so a short
+        // message built out of it scores as English however Czech its branches are. The
+        // features/profile precedent applies: skip the key, never loosen the classifier.
+        if (/,\s*(plural|select|selectordinal)\s*,/.test(cs[k])) continue;
+        expect(isCzechSafe(cs[k]), k).toBe(true);
+      }
+    });
+
+    it("states the census against the whole corpus in both the complete and partial case", () => {
+      for (const k of ["forensicIndex.complete", "forensicIndex.partial"]) {
+        expect(variables(cs[k]), k).toEqual(["billsFmt", "verdictsFmt"]);
+      }
+    });
+
+    it("discloses a withheld verdict AS withheld, never as absent", () => {
+      // The corpus's withheld strings stay in the graph; a sentence that reads „chybí"
+      // would describe an absence the data does not carry. The one permitted form is
+      // the explicit NEGATION — „zadrženo neznamená chybí" denies the absence, which
+      // is the disclosure at its strongest, not a violation of it.
+      expect(cs["forensicIndex.withheld"]).toMatch(/zadrž/i);
+      expect(cs["forensicIndex.withheld"].replace(/neznamená chybí/gi, "")).not.toMatch(/chybí/i);
+      expect(en["forensicIndex.withheld"]).toMatch(/withheld/i);
+      expect(cs["forensicIndex.withheldNone"]).toMatch(/zadrž/i);
+      expect(cs["forensicIndex.withheldBadge"]).toMatch(/zadrž/i);
+    });
+
+    it("prints the ordering rule and refuses a severity scale", () => {
+      // Ordering by count/print number is neutral; ordering low→high would publish a
+      // wrongdoing scale nobody issued. The copy has to say so, because the ordering is
+      // invisible otherwise.
+      expect(cs["forensicIndex.orderRule"]).toMatch(/řazení/i);
+      expect(cs["forensicIndex.orderRule"]).toMatch(/závažnost/i);
+      expect(en["forensicIndex.orderRule"]).toMatch(/ordering/i);
+    });
+
+    it("has no ungated-vocabulary copy of its own — it reads /overeni's", () => {
+      // The corpus verdicts are analyst passes, not human-gate decisions. The sentence
+      // for that fact lives ONCE (features/overeni/gateVocabulary.ts::GATE_UNGATED_KEY).
+      for (const k of keys) expect(cs[k], k).not.toMatch(/lidskou branou neprochází/);
+      expect(csOvereni["gate.ungated"]).toMatch(/lidsk(ou|é|ou branou)/);
+    });
+
+    it("carries no internal pipeline jargon in reader-facing copy", () => {
+      for (const k of keys) {
+        // The `source*` keys name the graph pass as a citable artifact id, the same way
+        // `graphPass` does — the deliberate exception, as in sectorAttribution.source.
+        if (k.startsWith("forensicIndex.source")) continue;
+        expect(cs[k], k).not.toMatch(/\bdávka\s*\d/i);
+        expect(cs[k], k).not.toMatch(/\bbatch\b|\bpass\s*\d/i);
+      }
+    });
+  });
+
   describe("detail.sectorAttribution", () => {
     const keys = Object.keys(cs).filter((k) => k.startsWith("detail.sectorAttribution."));
 

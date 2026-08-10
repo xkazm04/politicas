@@ -27,6 +27,7 @@ import type { BillOrigin, LawData } from "./getLawData";
 import { statuteSlug } from "./statuteRef";
 import BillBrowser from "./components/BillBrowser";
 import DependencyRadar from "./components/DependencyRadar";
+import ForensicIndexSection from "./components/ForensicIndexSection";
 
 const VOTE_TEXT: Record<string, string> = {
   pro: "text-cobalt",
@@ -244,8 +245,15 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
         )}
       </section>
 
-      {/* ── 03 Závislosti na doprovodných tiscích (batch-014 census) ──── */}
-      {dependencyData && <DependencyRadar data={data} dependencyData={dependencyData} index={3} />}
+      {/* ── 03 Rejstřík forenzních posudků ─────────────────────────────
+          Vykresluje se VŽDY, když jsou reálná data — i s nulou posudků má
+          vlastní poctivý prázdný stav. Sekce s kotvou v levém pruhu nesmí
+          někdy zmizet (pravidlo z /poslanec: rail nenabízí kotvu, která
+          občas nikam nevede), a proto stojí mimo podmínku níže. */}
+      <ForensicIndexSection data={data} index={3} />
+
+      {/* ── 04 Závislosti na doprovodných tiscích (batch-014 census) ──── */}
+      {dependencyData && <DependencyRadar data={data} dependencyData={dependencyData} index={4} />}
     </>
   );
 }

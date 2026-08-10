@@ -24,6 +24,7 @@ import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
+import { deriveForensicIndex, type ForensicIndexView } from "./forensicIndex";
 import {
   buildSectorAttributionIndex,
   type SectorAttributionFlag,
@@ -247,6 +248,11 @@ export interface LawData {
   totalAmends: number;
   flaggedCount: number;
   forensicCount: number;
+  /** The forensic corpus as an INDEX — census completion, the severity distribution and the
+   * per-bill entries, aggregated from the same `bills` array above (features/lawwatch/
+   * forensicIndex.ts). Pure derivation, zero extra reads: it exists so /zakony can publish
+   * the corpus as a browsable whole instead of one verdict per page view. */
+  forensicIndex: ForensicIndexView;
   /** Bills carrying a derived "co to mění" summary (the rest honestly say „shrnutí zatím není"). */
   summaryCount: number;
   /** Verdicts with ≥1 reader-facing string withheld by the Czech-language gate. */
@@ -548,6 +554,7 @@ async function loadLawData(): Promise<LawData | null> {
       totalAmends: amends.length,
       flaggedCount,
       forensicCount,
+      forensicIndex: deriveForensicIndex(bills),
       summaryCount: bills.filter((b) => b.summary !== null).length,
       forensicWithheldCount: bills.filter((b) => (b.forensic?.withheldFields ?? 0) > 0).length,
       paragraphDiffCount: bills.filter((b) => b.paragraphDiffs.length > 0).length,

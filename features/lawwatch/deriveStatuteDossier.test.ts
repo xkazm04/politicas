@@ -5,6 +5,7 @@
 
 import { describe, expect, it } from "vitest";
 import type { LawBillView, LawData, ParagraphDiff } from "./getLawData";
+import { deriveForensicIndex } from "./forensicIndex";
 import { deriveStatuteDossier, listStatuteRegistry, paragraphKeyOrder } from "./deriveStatuteDossier";
 
 /* ── fixtury ─────────────────────────────────────────────────────────── */
@@ -67,6 +68,7 @@ const data = (bills: LawBillView[]): LawData => ({
   totalAmends: 0,
   flaggedCount: 0,
   forensicCount: 0,
+  forensicIndex: deriveForensicIndex(bills),
   summaryCount: 0,
   forensicWithheldCount: 0,
   paragraphDiffCount: 0,

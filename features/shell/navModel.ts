@@ -180,6 +180,10 @@ export const PAGE_SECTIONS: Record<string, NavSection[]> = {
   "/zakony": [
     { id: "tisky", labelKey: "lawwatch.realSection1Title" },
     { id: "zakony", labelKey: "lawwatch.realSection2Title" },
+    // Rejstřík posudků se na reálné ploše vykresluje VŽDY (i s nulou posudků
+    // má vlastní prázdný stav), takže kotva nikdy nevede do prázdna — na
+    // rozdíl od podmíněné sekce závislostí, která proto kotvu v pruhu nemá.
+    { id: "posudky", labelKey: "lawwatch.forensicIndex.title" },
   ],
   "/poslanec": [
     { id: "slozky", labelKey: "profile.componentsHeading" },
