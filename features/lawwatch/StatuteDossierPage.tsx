@@ -10,21 +10,36 @@
  * (kolik tisků je vyhlášených, kolik § nese stopu, že kandidát ≠ doložený
  * autor), každá skupina § má trvalou kotvu `#p-<§>` a každé okno odkazuje na
  * obě konsolidovaná znění (ELI). Žádná animace — archová sazba, ne přístroj.
+ *
+ * Čtyři dlaždice pokrytí jsou CITACE (features/lawwatch/lawClaims.ts): každá nese
+ * vlastní trvalou adresu, kterou /overeni znovu odvodí přes tentýž dosjar. Stav
+ * brány je součást tvrzení a u téhle rodiny je to `ungated` — pokrytí je
+ * aritmetika censu a žádná lidská brána pro počítání neexistuje; věta o tom
+ * pochází ze slovníku /overeni, ne z druhé kopie téže formulace.
  */
 
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ExternalLink, Link as LinkIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { GATE_UNGATED_KEY } from "@/features/overeni/gateVocabulary";
 import type { ParagraphTrail, StatuteDossier, StatuteTrailEntry } from "./deriveStatuteDossier";
+import { statuteCoverageClaim, statuteCoverageValue } from "./lawClaims";
 import { DIFF_OP_KEYS, SPONSOR_ROLE_KEYS, esbirkaUrl } from "./lawwatchLabels";
 
 export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossier }) {
   const t = useTranslations("lawwatch");
+  const tOvereni = useTranslations("overeni");
   const f = useFormat();
+  // Táž cesta k locale jako v `useFormat` — viditelný text svědčícího čísla musí
+  // být bajtově týž, jaký by vysázel prostý formátovač (kontrakt CitableNumber).
+  const rawLocale = useLocale();
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const c = dossier.coverage;
   const esb = esbirkaUrl(dossier.ref);
 
@@ -70,21 +85,40 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
 
         {/* ── Statistický pás ──────────────────────────────── */}
         <div className="grid grid-cols-2 gap-px border-2 border-ink bg-ink sm:grid-cols-4">
-          {[
-            { v: f.int(c.trailBills), l: t("statute.stats.inTrail", { count: c.trailBills }) },
-            { v: f.int(c.enactedBills), l: t("statute.stats.enacted") },
-            { v: f.int(c.paragraphs), l: t("statute.stats.paragraphs") },
-            { v: f.int(c.changes), l: t("statute.stats.changes") },
-          ].map((s) => (
-            <div key={s.l} className="bg-paper px-4 py-4">
-              <div className="text-3xl font-black tabular-nums">{s.v}</div>
-              <div className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-steel">{s.l}</div>
-            </div>
-          ))}
+          {(
+            [
+              { m: "trailBills", l: t("statute.stats.inTrail", { count: c.trailBills }) },
+              { m: "enactedBills", l: t("statute.stats.enacted") },
+              { m: "paragraphs", l: t("statute.stats.paragraphs") },
+              { m: "changes", l: t("statute.stats.changes") },
+            ] as const
+          ).map((s) => {
+            // Metrika i hodnota se páruje v lawClaims — dlaždice nemá vlastní
+            // mapování, takže citované číslo je vždy to vysázené. Předpis, jehož
+            // ref nejde kanonicky složit, claim nedostane a sází se prosté číslo.
+            const figure = statuteCoverageClaim(dossier.ref, s.m, c);
+            return (
+              <div key={s.l} className="bg-paper px-4 py-4">
+                <div className="text-3xl font-black tabular-nums">
+                  {figure ? (
+                    <CitableNumber value={figure.value} claim={figure.claim} locale={locale} kind="int" />
+                  ) : (
+                    f.int(statuteCoverageValue(c, s.m))
+                  )}
+                </div>
+                <div className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-steel">{s.l}</div>
+              </div>
+            );
+          })}
         </div>
-        <div className="mt-2">
+        <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <SourceNote>
             {t("statute.statsSource", { windows: c.windows, windowsFmt: f.int(c.windows) })}
+          </SourceNote>
+          {/* Stav brány stojí u figury (vzor peněžních ploch). Tady je to negatovaná
+              relace: počítání tisků, § a doložených změn žádnou lidskou branou neprochází. */}
+          <SourceNote tone="steel" className="!text-ochre">
+            {tOvereni(GATE_UNGATED_KEY)}
           </SourceNote>
         </div>
 

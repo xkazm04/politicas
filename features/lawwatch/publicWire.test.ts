@@ -53,6 +53,8 @@ function bill(overrides: Partial<LawBillView> = {}): LawBillView {
       unstatedEffects: [],
       citations: [],
       pass: 54,
+      provenanceRef: "law-forensics",
+      computedAt: "2026-08-05T11:22:33.000Z",
       withheldFields: 1,
     },
     paragraphDiffs: [
@@ -116,6 +118,8 @@ function lawData(overrides: Partial<LawData> = {}): LawData {
       unlinkableCount: 0,
       passes: [54],
       uniformPass: 54,
+      uniformRef: "law-forensics",
+      uniformComputedAt: "2026-08-05T11:22:33.000Z",
     },
     summaryCount: 1,
     forensicWithheldCount: 1,

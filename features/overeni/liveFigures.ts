@@ -9,11 +9,11 @@
 //
 // PRAVIDLA (táž disciplína jako getVerdictData: brána sama nic neodvozuje)
 //  1. ZNOVUODVOZENÍ JDE PŘES VLASTNICKÝ LOADER. `getMoneyMpDetail`,
-//     `getCompanyDetail`, `getLeaderboardData` — tytéž funkce, které plní
-//     plochu. Žádný vlastní dotaz, žádná vlastní aritmetika.
+//     `getCompanyDetail`, `getLeaderboardData`, `getLawData` — tytéž funkce,
+//     které plní plochu. Žádný vlastní dotaz, žádná vlastní aritmetika.
 //  2. CLAIM SE RAZÍ TÝMŽ MODULEM JAKO NA PLOŠE (features/money/moneyClaims.ts,
-//     features/civicscore/scoreClaim.ts). Ověřovat by se jinak dalo jen to, co
-//     brána umí sama napsat.
+//     features/civicscore/scoreClaim.ts, features/lawwatch/lawClaims.ts).
+//     Ověřovat by se jinak dalo jen to, co brána umí sama napsat.
 //  3. DEGRADACE: nedostupný store → `unavailable` (nikdy „figuru neznáme" —
 //     to by byla nepravda), záznam, který dnešní odvození nenese → `gone`.
 //
@@ -41,6 +41,16 @@ import {
   SCORE_CLAIM_DATASET,
   SCORE_METRIC,
 } from "@/features/civicscore/scoreClaim";
+import { getLawData } from "@/features/lawwatch/getLawData";
+import { deriveStatuteDossier } from "@/features/lawwatch/deriveStatuteDossier";
+import {
+  forensicCensusClaim,
+  statuteCoverageClaim,
+  LAW_CLAIM_DATASET,
+  LAW_METRIC,
+  type StatuteCoverageMetric,
+} from "@/features/lawwatch/lawClaims";
+import { refFromLawNodeId } from "@/features/lawwatch/statuteRef";
 
 export type LiveFigureResult =
   /** Metrika není z živé rodiny — o figuře rozhodne rejstřík (nebo „mimo rejstřík"). */
@@ -51,7 +61,11 @@ export type LiveFigureResult =
 
 /** Datasety, jejichž figury se odvozují ze store. Ref nese dataset i metriku,
  *  takže se rodina pozná bez hádání. */
-const LIVE_DATASETS: ReadonlySet<string> = new Set([MONEY_CLAIM_DATASET, SCORE_CLAIM_DATASET]);
+const LIVE_DATASETS: ReadonlySet<string> = new Set([
+  MONEY_CLAIM_DATASET,
+  SCORE_CLAIM_DATASET,
+  LAW_CLAIM_DATASET,
+]);
 
 export const isLiveClaim = (parts: ClaimRefParts): boolean => LIVE_DATASETS.has(parts.dataset);
 
@@ -61,13 +75,19 @@ const todayIso = (): string => new Date().toISOString().slice(0, 10);
 
 export async function resolveLiveFigure(parts: ClaimRefParts): Promise<LiveFigureResult> {
   if (!isLiveClaim(parts)) return { status: "not-live" };
-  const subject = parts.subject;
-  if (subject === undefined) return { status: "gone" };
 
   // Nedostupný store není verdikt o odkazu (pravidlo 3) — a rozpozná se DŘÍV,
   // než loader stačí vrátit null, ve kterém splývá selhání s neexistencí.
   const store = await getStore();
   if (!store) return { status: "unavailable" };
+
+  // KOMOROVÁ figura předmět NEMÁ (třísegmentový ref, lib/claims/claim.ts) —
+  // kontrola předmětu proto patří do větví, které ho potřebují. Když stála před
+  // switchem, každé tvrzení o celku by dostalo „záznam nenalezen".
+  if (parts.metric === LAW_METRIC.forensicCensus) return resolveForensicCensus();
+
+  const subject = parts.subject;
+  if (subject === undefined) return { status: "gone" };
 
   switch (parts.metric) {
     case MONEY_METRIC.tieReach:
@@ -80,6 +100,14 @@ export async function resolveLiveFigure(parts: ClaimRefParts): Promise<LiveFigur
       return resolveCompanyReach(subject);
     case SCORE_METRIC.contribution:
       return resolveContributionScore(subject);
+    case LAW_METRIC.statuteTrailBills:
+      return resolveStatuteCoverage(subject, "trailBills");
+    case LAW_METRIC.statuteEnactedBills:
+      return resolveStatuteCoverage(subject, "enactedBills");
+    case LAW_METRIC.statuteParagraphs:
+      return resolveStatuteCoverage(subject, "paragraphs");
+    case LAW_METRIC.statuteChanges:
+      return resolveStatuteCoverage(subject, "changes");
     default:
       return { status: "not-live" };
   }
@@ -158,4 +186,55 @@ async function resolveContributionScore(subject: string): Promise<LiveFigureResu
 
   const { claim, value } = contributionScoreClaim(pspId, entry.score, data.provenance);
   return { status: "ok", figure: { claim, kind: "dec", value, issuedAt: `/poslanec/${pspId}` } };
+}
+
+// ── Zákonná vrstva ──────────────────────────────────────────────────────────
+//
+// Obě rodiny jdou přes `getLawData()` — týž `react.cache()`-ovaný a napříč
+// požadavky memoizovaný loader, který plní /zakony i dosjar předpisu. Brána tu
+// nepočítá NIC: rejstřík posudků i pokrytí předpisu jsou hotové agregace
+// (forensicIndex.ts, deriveStatuteDossier.ts) a claim razí týž modul jako plocha.
+//
+// DEGRADACE: `getLawData()` vrací null, když store chybí, když neprojde
+// readiness gate nebo když čtení spadne — ve všech třech případech je TMAVÁ CELÁ
+// VRSTVA, ne prázdný záznam. Odpověď je proto `unavailable`, ne „záznam
+// nenalezen": ta druhá věta by o existujícím tisku lhala.
+
+async function resolveForensicCensus(): Promise<LiveFigureResult> {
+  const data = await getLawData();
+  if (!data) return { status: "unavailable" };
+  const fi = data.forensicIndex;
+  // Korpus bez jediného posudku žádné takové tvrzení nevydal — „0 ze 141" je
+  // stav evidence, ne citovatelná figura.
+  if (fi.verdictCount === 0) return { status: "gone" };
+  const { claim, value } = forensicCensusClaim(fi.verdictCount, fi);
+  return { status: "ok", figure: { claim, kind: "int", value, issuedAt: "/zakony#posudky" } };
+}
+
+/** Předmětem je id uzlu předpisu (`law:sb:586-1992`); čte ho sdílený kodek adres
+ *  předpisu, ne druhý parser. Nekanonický předmět je „záznam nenalezen" — adresa
+ *  je naše, jen za ní žádný předpis nestojí. */
+async function resolveStatuteCoverage(
+  subject: string,
+  metric: StatuteCoverageMetric,
+): Promise<LiveFigureResult> {
+  const ref = refFromLawNodeId(subject);
+  if (ref === null) return { status: "gone" };
+
+  const data = await getLawData();
+  if (!data) return { status: "unavailable" };
+  const dossier = deriveStatuteDossier(data, ref);
+  if (!dossier) return { status: "gone" };
+
+  const figure = statuteCoverageClaim(dossier.ref, metric, dossier.coverage);
+  if (!figure) return { status: "gone" };
+  return {
+    status: "ok",
+    figure: {
+      claim: figure.claim,
+      kind: "int",
+      value: figure.value,
+      issuedAt: `/zakony/predpis/${dossier.slug}`,
+    },
+  };
 }

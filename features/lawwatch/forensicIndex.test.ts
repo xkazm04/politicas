@@ -12,6 +12,8 @@ function bill(over: Partial<ForensicIndexBill> = {}): ForensicIndexBill {
       reviewState: "pending_review",
       withheldFields: 0,
       pass: 55,
+      provenanceRef: "law-forensics",
+      computedAt: "2026-08-05T11:22:33.000Z",
     },
     ...over,
   };
@@ -23,6 +25,8 @@ const f = (over: Partial<NonNullable<ForensicIndexBill["forensic"]>> = {}) => ({
   reviewState: "pending_review",
   withheldFields: 0,
   pass: 55,
+  provenanceRef: "law-forensics",
+  computedAt: "2026-08-05T11:22:33.000Z",
   ...over,
 });
 
@@ -137,6 +141,32 @@ describe("deriveForensicIndex", () => {
     expect(partial.uniformPass).toBeNull();
   });
 
+  it("reports one formula ref and one computed instant only when every verdict agrees", () => {
+    // Základ citace censu (lawClaims.forensicCensusDerivation) stojí na téhle
+    // dvojici. Kdyby ji stačilo nést půlce korpusu, brána by u nezměněného čísla
+    // hlásila `moved/basis` — nebo naopak potvrdila shodu dvou různých výpočtů.
+    const uniform = deriveForensicIndex([
+      bill({ cislo: 1, tiskId: 1 }),
+      bill({ cislo: 2, tiskId: 2 }),
+    ]);
+    expect(uniform.uniformRef).toBe("law-forensics");
+    expect(uniform.uniformComputedAt).toBe("2026-08-05T11:22:33.000Z");
+
+    const mixedRef = deriveForensicIndex([
+      bill({ cislo: 1, tiskId: 1 }),
+      bill({ cislo: 2, tiskId: 2, forensic: f({ provenanceRef: "law-forensics-v2" }) }),
+    ]);
+    expect(mixedRef.uniformRef).toBeNull();
+    expect(mixedRef.uniformComputedAt).toBe("2026-08-05T11:22:33.000Z");
+
+    const missing = deriveForensicIndex([
+      bill({ cislo: 1, tiskId: 1 }),
+      bill({ cislo: 2, tiskId: 2, forensic: f({ provenanceRef: null, computedAt: null }) }),
+    ]);
+    expect(missing.uniformRef).toBeNull();
+    expect(missing.uniformComputedAt).toBeNull();
+  });
+
   it("is empty and honest over a corpus with no verdicts", () => {
     const view = deriveForensicIndex([bill({ forensic: null }), bill({ cislo: 2, tiskId: 2, forensic: null })]);
     expect(view.verdictCount).toBe(0);
@@ -144,6 +174,8 @@ describe("deriveForensicIndex", () => {
     expect(view.reviewStates).toEqual([]);
     expect(view.passes).toEqual([]);
     expect(view.uniformPass).toBeNull();
+    expect(view.uniformRef).toBeNull();
+    expect(view.uniformComputedAt).toBeNull();
     expect(view.complete).toBe(false);
   });
 

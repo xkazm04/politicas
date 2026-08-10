@@ -17,20 +17,32 @@
  *  – Řazení je neutrální a VYTIŠTĚNÉ na ploše. Skupiny podle počtu, tisky podle
  *    čísla tisku. Stupnice pochybení se tu nezavádí.
  *  – Zadržený text se přiznává jako ZADRŽENÝ, ne jako chybějící.
- *  – Posudky vznikly analytickým průchodem, ne rozhodnutím lidské brány — proto
- *    věta o negatované relaci ze slovníku /overeni, ne druhá kopie téže věty.
+ *  – STAV LIDSKÉ BRÁNY SE ČTE Z ULOŽENÉHO TOKENU. Do 2026-08-11 tu stála věta
+ *    „deterministické odvození — lidskou branou neprochází" (GATE_UNGATED_KEY)
+ *    přímo vedle řádku `pending_review · 141`: dvě tvrzení o téže věci, z nichž
+ *    jedno je falsifikovatelné vlastním sousedem. Posudky branou PROCHÁZEJÍ —
+ *    kg-forensics je zapisuje `pending_review` a jejich podpisovou cestou je
+ *    /dukazy, kde dnes není podepsaný ani jeden. Věta proto jde ze slovníku
+ *    stavů brány (features/overeni/gateVocabulary.ts, kde `pending` a
+ *    `pending_review` jsou týž stav s jednou větou) a doslovný token zůstává
+ *    vedle štítku — nikdy třetí formulace téhož faktu.
+ *  – Číslo censu je CITACE (features/lawwatch/lawClaims.ts): vydávající plocha
+ *    a brána skládají týž ref týmž modulem, jinak by ověření selhalo na překlepu.
  */
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { GATE_UNGATED_KEY } from "@/features/overeni/gateVocabulary";
+import { gateStatusInfo, type GateStatusInfo } from "@/features/overeni/gateVocabulary";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import { useFormat } from "@/lib/i18n/useFormat";
 import type { ForensicIndexEntry } from "../forensicIndex";
+import { forensicCensusClaim } from "../lawClaims";
 
 /** Co sekce potřebuje z payloadu /zakony — jen index a titulky tisků, které
  *  stránka stejně už veze (žádné bajty navíc na drátě). */
@@ -46,6 +58,8 @@ export interface ForensicIndexSectionData {
     unlinkableCount: number;
     passes: number[];
     uniformPass: number | null;
+    uniformRef: string | null;
+    uniformComputedAt: string | null;
   };
   bills: { cislo: number | null; tiskId: number; title: string; summary: string | null }[];
 }
@@ -60,9 +74,22 @@ export default function ForensicIndexSection({
   const t = useTranslations("lawwatch");
   const tOvereni = useTranslations("overeni");
   const f = useFormat();
+  // Locale se odvozuje TOUŽ cestou jako v `useFormat`, aby viditelný text
+  // svědčícího čísla byl bajtově týž jako `f.int` vedle něj (kontrakt CitableNumber).
+  const rawLocale = useLocale();
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const [severity, setSeverity] = useState<string | null>(null);
 
   const fi = data.forensicIndex;
+
+  /** Věta o stavu brány ze SDÍLENÉHO slovníku; nepřeložený token si nese sám sebe. */
+  const gateLabel = (info: GateStatusInfo): string =>
+    info.status === "unmapped" ? tOvereni(info.labelKey, { token: info.token }) : tOvereni(info.labelKey);
+  // Korpus s jediným uloženým stavem ho smí vyslovit v jedné větě; korpus s víc
+  // stavy ne — ten je vypsaný po jednom v řádku s počty pod tím.
+  const uniformGate = fi.reviewStates.length === 1 ? gateStatusInfo(fi.reviewStates[0].state) : null;
+  // Claim se razí sdíleným modulem, ne tady: /overeni musí složit bajtově týž ref.
+  const censusFigure = forensicCensusClaim(fi.verdictCount, fi);
   const billByTiskId = useMemo(
     () => new Map(data.bills.map((b) => [b.tiskId, b])),
     [data.bills],
@@ -98,26 +125,46 @@ export default function ForensicIndexSection({
         </div>
       ) : (
         <>
-          {/* uzavřenost censu + negatovanost — dvě věty, ne jedna */}
+          {/* uzavřenost censu + stav lidské brány — dvě věty, ne jedna */}
           <div className="mt-8 border-l-4 border-cobalt bg-cobalt/5 p-4">
             <p className="text-[15px] font-medium leading-relaxed">
-              {fi.complete
-                ? t("forensicIndex.complete", {
-                    verdictsFmt: f.int(fi.verdictCount),
-                    billsFmt: f.int(fi.totalBills),
-                  })
-                : t("forensicIndex.partial", {
-                    verdictsFmt: f.int(fi.verdictCount),
-                    billsFmt: f.int(fi.totalBills),
-                  })}
+              {/* Číslo censu je to, co se z týhle věty opisuje — nese proto vlastní
+                  trvalou adresu (data-claim-*), kterou /overeni znovu odvodí přes
+                  getLawData. Značka <v> obaluje jen tu číslici: viditelný text je
+                  bajtově týž `f.int`, jaký by se vysázel bez ní. */}
+              {t.rich(fi.complete ? "forensicIndex.complete" : "forensicIndex.partial", {
+                verdictsFmt: f.int(fi.verdictCount),
+                billsFmt: f.int(fi.totalBills),
+                v: () => (
+                  <CitableNumber
+                    value={censusFigure.value}
+                    claim={censusFigure.claim}
+                    locale={locale}
+                    kind="int"
+                  />
+                ),
+              })}
             </p>
-            <p className="mt-2 font-mono text-[10px] font-black uppercase tracking-wider text-ochre">
-              {tOvereni(GATE_UNGATED_KEY)}
-            </p>
+            {uniformGate && (
+              <p className="mt-2 font-mono text-[10px] font-black uppercase tracking-wider text-ochre">
+                {gateLabel(uniformGate)}
+              </p>
+            )}
             <p className="mt-2 text-[13px] leading-relaxed text-steel">
-              {fi.reviewStates.map((s) => `${s.state} · ${f.int(s.count)}`).join(" | ")}
+              {fi.reviewStates
+                .map((s) => `${gateLabel(gateStatusInfo(s.state))} (${s.state}) · ${f.int(s.count)}`)
+                .join(" | ")}
               {" — "}
               {t("forensicIndex.reviewStateNote")}
+            </p>
+            <p className="mt-2 text-[13px] leading-relaxed text-steel">
+              {t.rich("forensicIndex.gateSignOff", {
+                d: (chunks) => (
+                  <Link href="/dukazy" className="font-bold text-cobalt transition-colors hover:text-signal">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </p>
           </div>
 

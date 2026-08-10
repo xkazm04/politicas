@@ -21,6 +21,28 @@ export function parseStatuteSlug(slug: string): string | null {
   return m ? `${m[1]}/${m[2]}` : null;
 }
 
+/**
+ * Id uzlu předpisu v grafu: „586/1992" → „law:sb:586-1992"; null pro ref mimo
+ * kanonický tvar č./rok.
+ *
+ * Bydlí TADY, a ne u claimů nebo v loaderu, protože uzel a veřejná adresa
+ * předpisu sdílejí JEDEN tvar („586-1992"). Druhý parser téhož tvaru by se
+ * rozešel při první změně kanonizace — a rozešel by se tiše, protože obě
+ * podoby by pořád vypadaly správně (memory/ico-node-id-canonical-form.md je
+ * týž případ na straně IČO).
+ */
+export function lawNodeId(ref: string): string | null {
+  const slug = statuteSlug(ref);
+  return slug === null ? null : `law:sb:${slug}`;
+}
+
+/** Inverze `lawNodeId`: „law:sb:586-1992" → „586/1992". Null pro cokoli jiného
+ *  — včetně nekanonického slugu za prefixem (raději žádná adresa než domněnka). */
+export function refFromLawNodeId(id: string): string | null {
+  const m = /^law:sb:(.+)$/.exec(id);
+  return m === null ? null : parseStatuteSlug(m[1]);
+}
+
 /** Klíč rezidua pro fragmenty, které nezačínají „§ …" (přílohy, nadpisy částí).
  *  Skupina se poctivě jmenuje „mimo §", nic se nedomýšlí. */
 export const NON_PARAGRAPH_KEY = "ostatni";

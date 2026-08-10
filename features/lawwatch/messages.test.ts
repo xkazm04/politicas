@@ -118,11 +118,53 @@ describe("lawwatch message catalog", () => {
       expect(en["forensicIndex.orderRule"]).toMatch(/ordering/i);
     });
 
-    it("has no ungated-vocabulary copy of its own — it reads /overeni's", () => {
-      // The corpus verdicts are analyst passes, not human-gate decisions. The sentence
-      // for that fact lives ONCE (features/overeni/gateVocabulary.ts::GATE_UNGATED_KEY).
+    it("has no gate-vocabulary copy of its own — it reads /overeni's", () => {
+      // Whatever the register says about the human gate, it says with the ONE
+      // vocabulary (features/overeni/gateVocabulary.ts). A second phrasing of a gate
+      // state here is how two surfaces start describing one token two ways.
       for (const k of keys) expect(cs[k], k).not.toMatch(/lidskou branou neprochází/);
+      for (const k of keys) expect(cs[k], k).not.toMatch(/čeká na lidskou kontrolu/);
       expect(csOvereni["gate.ungated"]).toMatch(/lidsk(ou|é|ou branou)/);
+      expect(csOvereni["gate.pendingReview"]).toMatch(/kontrol/i);
+    });
+
+    it("does NOT claim the corpus bypasses a gate — the verdicts are stored pending", () => {
+      // 2026-08-11: the register printed „deterministické odvození — lidskou branou
+      // neprochází" directly beside `pending_review · 141`, i.e. next to the very row
+      // that falsifies it. kg-forensics writes every verdict `pending_review` and
+      // /dukazy is where those decisions get published, so the register now speaks the
+      // PENDING sentence family and points at that path.
+      expect(cs["forensicIndex.gateSignOff"]?.trim()).toBeTruthy();
+      expect(en["forensicIndex.gateSignOff"]?.trim()).toBeTruthy();
+      // The sign-off path is a LINK, in both locales — a bulletin named but not
+      // reachable is the citation-you-cannot-follow defect the deník already paid for.
+      expect(richTags(cs["forensicIndex.gateSignOff"])).toEqual(["d"]);
+      expect(richTags(en["forensicIndex.gateSignOff"])).toEqual(["d"]);
+      // …and it says what holds until the decision lands: the stored state.
+      expect(cs["forensicIndex.gateSignOff"]).toMatch(/grafu/);
+      expect(en["forensicIndex.gateSignOff"]).toMatch(/graph/);
+    });
+
+    it("names the stored token as the record and the label as our translation", () => {
+      // The row now renders „čeká na lidskou kontrolu (pending_review) · 141": a
+      // translated label beside the verbatim token. The note has to say which is which,
+      // otherwise „doslovný záznam" describes a sentence we wrote.
+      expect(cs["forensicIndex.reviewStateNote"]).toMatch(/doslovn/i);
+      expect(cs["forensicIndex.reviewStateNote"]).toMatch(/závorce/i);
+      expect(en["forensicIndex.reviewStateNote"]).toMatch(/verbatim/i);
+    });
+
+    it("wraps the census figure in the citable tag, in both locales", () => {
+      // The number in this sentence is what gets quoted, so it carries its own
+      // permanent address (features/lawwatch/lawClaims.ts). The <v> tag is where
+      // ForensicIndexSection mounts <CitableNumber>; without it in a locale, that
+      // locale would render the figure with no claim payload at all.
+      for (const k of ["forensicIndex.complete", "forensicIndex.partial"]) {
+        expect(richTags(cs[k]), k).toEqual(["v"]);
+        expect(richTags(en[k]), k).toEqual(["v"]);
+        expect(cs[k], k).toMatch(/<v>\{verdictsFmt\}<\/v>/);
+        expect(en[k], k).toMatch(/<v>\{verdictsFmt\}<\/v>/);
+      }
     });
 
     it("carries no internal pipeline jargon in reader-facing copy", () => {

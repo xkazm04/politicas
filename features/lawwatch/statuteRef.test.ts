@@ -4,10 +4,12 @@
 import { describe, expect, it } from "vitest";
 import {
   NON_PARAGRAPH_KEY,
+  lawNodeId,
   paragraphAnchor,
   paragraphKeyOf,
   paragraphLabel,
   parseStatuteSlug,
+  refFromLawNodeId,
   statuteSlug,
 } from "./statuteRef";
 
@@ -29,6 +31,32 @@ describe("statute ref codec", () => {
     expect(parseStatuteSlug("586-92")).toBeNull();
     expect(parseStatuteSlug("..%2F..-1992")).toBeNull();
     expect(parseStatuteSlug("")).toBeNull();
+  });
+});
+
+describe("law node id codec", () => {
+  it("round-trips a canonical ref through the graph's own node id", () => {
+    for (const ref of ["586/1992", "40/2009", "1/1993"]) {
+      const id = lawNodeId(ref);
+      expect(id).toBe(`law:sb:${statuteSlug(ref)}`);
+      expect(refFromLawNodeId(id!)).toBe(ref);
+    }
+  });
+
+  it("refuses a ref it cannot canonically form — no half-built address", () => {
+    // Předmět claimu je adresa. Kdyby se tu vrátil „law:sb:586/92", vypadal by
+    // správně a neukazoval by na nic — přesně to, čemu se odmítnutí brání.
+    expect(lawNodeId("586/92")).toBeNull();
+    expect(lawNodeId("586-1992")).toBeNull();
+    expect(lawNodeId("")).toBeNull();
+  });
+
+  it("refuses a node id outside the canonical shape, prefix included", () => {
+    expect(refFromLawNodeId("law:sb:586-92")).toBeNull();
+    expect(refFromLawNodeId("law:sb:")).toBeNull();
+    expect(refFromLawNodeId("psp:person:6751")).toBeNull();
+    expect(refFromLawNodeId("586-1992")).toBeNull();
+    expect(refFromLawNodeId("bill:tisk:72")).toBeNull();
   });
 });
 

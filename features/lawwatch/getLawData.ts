@@ -164,6 +164,15 @@ export interface LawForensicView {
   unstatedEffects: { effect: string | null; whoBenefits: string | null; evidence: string }[];
   citations: { claim: string | null; kind: string; source: string }[];
   pass: number | null;
+  /** `forensic_provenance.ref` — WHICH computation wrote this verdict ("law-forensics").
+   * Read for the same reason `CONTRIBUTION_FORMULA_REF` is read on the score side: a
+   * citation of the corpus has to be able to name its own author, and a number that
+   * matches under two different computations is a coincidence, not a confirmation.
+   * The pass alone cannot say it — any unrelated enrichment advances a pass. */
+  provenanceRef: string | null;
+  /** `forensic_provenance.computedAt` — the ISO instant the verdict was written. The
+   * claim carries the DAY of it; the graph carries no other date for this layer. */
+  computedAt: string | null;
   /** How many reader-facing strings this verdict had withheld for not being Czech. */
   withheldFields: number;
 }
@@ -335,6 +344,8 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
     unstatedEffects: effects,
     citations,
     pass: typeof prov.pass === "number" ? prov.pass : null,
+    provenanceRef: asStr(prov.ref),
+    computedAt: asStr(prov.computedAt),
     withheldFields,
   };
 }

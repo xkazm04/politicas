@@ -35,6 +35,10 @@ export interface ForensicIndexBill {
     reviewState: string;
     withheldFields: number;
     pass: number | null;
+    /** `forensic_provenance.ref` — který výpočet posudek napsal. */
+    provenanceRef: string | null;
+    /** `forensic_provenance.computedAt` — ISO okamžik zápisu. */
+    computedAt: string | null;
   } | null;
 }
 
@@ -83,6 +87,22 @@ export interface ForensicIndexView {
   passes: number[];
   /** Jediný průchod, pokud se na něm shodne CELÝ korpus posudků; jinak null. */
   uniformPass: number | null;
+  /** Jediný ref výpočtu („law-forensics"), pokud ho nese KAŽDÝ posudek; jinak null.
+   *  Spolu s `uniformPass` tvoří základ odvození citace censu (features/lawwatch/
+   *  lawClaims.ts) — proto smí být jen tehdy, když je korpus skutečně jednotný. */
+  uniformRef: string | null;
+  /** Jediný okamžik zápisu, pokud se na něm shodne CELÝ korpus; jinak null. */
+  uniformComputedAt: string | null;
+}
+
+/** Hodnota, na které se shodne KAŽDÝ posudek korpusu; jinak null. Půl korpusu
+ *  bez provenience není „průchod 55", je to neúplná evidence — a jeden chybějící
+ *  záznam ruší jednotnost stejně jako dvě různé hodnoty. */
+function uniformOf<T extends string | number>(values: readonly (T | null)[]): T | null {
+  if (values.length === 0) return null;
+  const first = values[0];
+  if (first === null) return null;
+  return values.every((v) => v === first) ? first : null;
 }
 
 /** Tisky uvnitř skupiny: podle čísla tisku vzestupně, tisky bez čísla nakonec
@@ -136,13 +156,14 @@ export function deriveForensicIndex(bills: readonly ForensicIndexBill[]): Forens
     .map(([state, count]) => ({ state, count }))
     .sort((a, b) => b.count - a.count || a.state.localeCompare(b.state));
 
-  const passes = [...new Set(bills.flatMap((b) => (b.forensic && b.forensic.pass != null ? [b.forensic.pass] : [])))].sort(
-    (a, b) => a - b,
-  );
-  // Jediný průchod se smí vytisknout jen tehdy, když ho nese KAŽDÝ posudek —
-  // půl korpusu bez provenience není „průchod 55", je to neúplná evidence.
-  const verdictsWithPass = bills.filter((b) => b.forensic && b.forensic.pass != null).length;
-  const uniformPass = passes.length === 1 && entries.length > 0 && verdictsWithPass === entries.length ? passes[0] : null;
+  const verdicts = bills.flatMap((b) => (b.forensic ? [b.forensic] : []));
+  const passes = [...new Set(verdicts.flatMap((v) => (v.pass != null ? [v.pass] : [])))].sort((a, b) => a - b);
+  // Jediný průchod, ref i okamžik se smějí vytisknout jen tehdy, když je nese KAŽDÝ
+  // posudek (viz `uniformOf`). Tahle trojice je zároveň základem odvození citace
+  // censu, takže laskavější pravidlo by bránu naučilo hlásit `moved/basis` bez příčiny.
+  const uniformPass = uniformOf(verdicts.map((v) => v.pass));
+  const uniformRef = uniformOf(verdicts.map((v) => v.provenanceRef));
+  const uniformComputedAt = uniformOf(verdicts.map((v) => v.computedAt));
 
   return {
     totalBills: bills.length,
@@ -155,5 +176,7 @@ export function deriveForensicIndex(bills: readonly ForensicIndexBill[]): Forens
     unlinkableCount: entries.filter((e) => e.cislo === null).length,
     passes,
     uniformPass,
+    uniformRef,
+    uniformComputedAt,
   };
 }

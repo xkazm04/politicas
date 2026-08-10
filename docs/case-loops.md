@@ -159,6 +159,25 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
      6/6 false while 16 real hits sat in the corpus, because it had been
      validated against the shape the prose OUGHT to have rather than against the
      corpus itself.
+   - **The surface may not contradict the token it renders.** Law batch closure
+     shipped `/zakony`'s forensic register printing „deterministické odvození —
+     lidskou branou neprochází" directly beside `pending_review · 141` — a
+     sentence its own neighbouring row falsifies. Every verdict is written
+     `pending_review` (`kg-forensics.ts`) and `/dukazy` is where those decisions
+     get published; the register was describing an analyst pass and forgetting
+     that the pass ENQUEUED something. Rule: a gate sentence is DERIVED from the
+     stored token through the one gate vocabulary
+     (`features/overeni/gateVocabulary.ts`, where `pending` ≡ `pending_review`),
+     never asserted beside it — and the verbatim token stays on the surface, so
+     the two can be read against each other.
+   - **A published figure has an address.** The corpus census and the statute
+     coverage tiles were quotable numbers with no permanent ref, so `/overeni`
+     had nothing to verify on the whole law surface. A number a journalist
+     copies gets a claim minted by ONE pure module shared by the issuing surface
+     and the gate (`features/lawwatch/lawClaims.ts`, the `moneyClaims.ts`
+     precedent), and its basis comes from the CORPUS-WIDE provenance aggregate —
+     never one verdict's pass and never a neighbouring pass number that happens
+     to be in scope.
    The kernel's older rule stands beneath this one: data that doesn't render
    doesn't exist. Every batch's reflection must answer: *does what this batch
    persisted actually RENDER, and does the surface scale to the data volume it
