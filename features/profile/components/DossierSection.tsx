@@ -21,6 +21,13 @@
  * sady než tisky/effort_bill_focus, pod jejichž citací se dřív vykresloval.
  * Má proto vlastní řádek s vlastní citací.
  *
+ * A od 2026-08-11 se ten návrh dá PŘEČÍST. Hrana `proposes_amendment` nese vedle
+ * váhy i `sd_cislos` — čísla sněmovních dokumentů, tedy adresy textu toho návrhu
+ * na psp.cz (`sd.sqw?o=…&cd=…`, ověřeno stažením). Spis z nich četl jen `weight`,
+ * takže z odvedené práce zbyl pouhý počet. Adresu skládá JEDINÝ modul
+ * (`lib/kg/sourceLinks.ts`), váha zůstává autoritativní a rozpor mezi ní a délkou
+ * seznamu se PŘIZNÁVÁ, nikdy neopravuje.
+ *
  * Čestná degradace: bez JEDINÉHO dosierového pole se sekce nevykreslí vůbec
  * (žádná prázdná skořápka) — `hasDossierContent()` je ten samý predikát,
  * exportovaný, aby ProfilePage uměla očíslovat oddíly podle toho, co se
@@ -38,6 +45,7 @@ import WorkhorseBadge from "@/features/civicscore/components/WorkhorseBadge";
 import RapporteurBadge from "@/features/civicscore/components/RapporteurBadge";
 import { workhorseFlavourCopy } from "@/lib/analysis/workhorse-flavour";
 import { rapporteurLoadCopy } from "@/lib/analysis/rapporteur-load";
+import { snemovniDokumentLink } from "@/lib/kg/sourceLinks";
 import type { BillEngagement, RapporteurBill, SponsoredBill } from "../getProfileData";
 
 /** next-intl key per zpravodaj assignment scope (pass 34, psp.cz tisky.zip). */
@@ -301,9 +309,9 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
             {/* Per-bill breakdown — the count alone said an MP filed amendments but
                 never to WHAT; the edge carries the print, so the page shows it. */}
             {amendmentBills.length > 0 && (
-              <ul className="mt-2.5 flex flex-col gap-1.5">
+              <ul className="mt-2.5 flex flex-col gap-2.5">
                 {amendmentBills.map((b) => (
-                  <EngagementRow key={b.cislo ?? b.title} bill={b} unitKey="dossierAmendmentUnit" />
+                  <EngagementRow key={b.cislo ?? b.title} bill={b} unitKey="dossierAmendmentUnit" documents />
                 ))}
               </ul>
             )}
@@ -455,34 +463,103 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
 
 /** One bill the MP engaged with, with the count of that engagement. Same print
  *  chip as the legislative track above — link built from `cislo`, never `tiskId`
- *  (see SponsoredBill), and a bill with no `cislo` renders unlinked, not broken. */
-async function EngagementRow({ bill, unitKey }: { bill: BillEngagement; unitKey: string }) {
+ *  (see SponsoredBill), and a bill with no `cislo` renders unlinked, not broken.
+ *
+ *  `documents` opens the second line: the sněmovní dokumenty behind a written
+ *  amendment, i.e. the TEXT of what the MP actually filed. Only the amendment list
+ *  passes it — a floor turn (`spoke_on`) has no such document, and the count is not
+ *  a licence to invent one. */
+async function EngagementRow({
+  bill,
+  unitKey,
+  documents = false,
+}: {
+  bill: BillEngagement;
+  unitKey: string;
+  documents?: boolean;
+}) {
   const { t, f } = await profileIntl();
+  // `count` (the edge weight) is the authoritative figure; the document list is
+  // evidence beside it. Where they disagree the row SAYS so — psp.cz files an
+  // amendment without a `sd_dokument` number often enough that silently printing
+  // the shorter list would quietly shrink the record.
+  const docs = documents ? bill.sdCislos : [];
+  const mismatch = documents && docs.length > 0 && docs.length !== bill.count;
   return (
-    <li className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-      {bill.appUrl ? (
-        <Link
-          href={bill.appUrl}
-          className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-cobalt"
-          title={bill.title}
-        >
-          {t("dossierPrint", { cislo: f.int(bill.cislo!) })}
-          <ArrowUpRight className="h-3 w-3 shrink-0" aria-hidden />
-        </Link>
-      ) : (
-        <span
-          className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-steel"
-          title={bill.title}
-        >
+    <li className="flex flex-col gap-y-1">
+      <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+        {bill.appUrl ? (
+          <Link
+            href={bill.appUrl}
+            className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:border-cobalt"
+            title={bill.title}
+          >
+            {t("dossierPrint", { cislo: f.int(bill.cislo!) })}
+            <ArrowUpRight className="h-3 w-3 shrink-0" aria-hidden />
+          </Link>
+        ) : (
+          <span
+            className="inline-flex items-center gap-1 border-2 border-hairline px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-steel"
+            title={bill.title}
+          >
+            {bill.title}
+          </span>
+        )}
+        <span className="font-mono text-[10px] font-black uppercase tracking-wider text-ink">
+          {t(unitKey, { count: bill.count, countFmt: f.int(bill.count) })}
+        </span>
+        <span className="min-w-0 flex-1 truncate text-[13px] text-steel" title={bill.title}>
           {bill.title}
         </span>
+      </div>
+      {documents && (
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 pl-0.5">
+          {docs.length === 0 ? (
+            // Honest empty state, not a silent one: the graph carries the count for
+            // this bill but no document number, so there is nothing to open — and we
+            // do not construct an address from the count.
+            <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
+              {t("dossierAmendmentDocsNone")}
+            </span>
+          ) : (
+            <>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-steel">
+                {t("dossierAmendmentDocsLabel")}
+              </span>
+              {docs.map((cd) => {
+                const link = snemovniDokumentLink(cd);
+                // A number that is not a document number gets no address at all
+                // (sourceLinks rule 1) — it is still shown, because it is what the
+                // edge stores.
+                return link ? (
+                  <a
+                    key={cd}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt underline decoration-hairline underline-offset-2 transition-colors hover:text-signal"
+                  >
+                    {t("dossierAmendmentDoc", { cislo: f.int(cd) })}
+                  </a>
+                ) : (
+                  <span key={cd} className="font-mono text-[10px] uppercase tracking-wider text-steel">
+                    {t("dossierAmendmentDoc", { cislo: String(cd) })}
+                  </span>
+                );
+              })}
+            </>
+          )}
+          {mismatch && (
+            <span className="font-mono text-[10px] uppercase tracking-wider text-ochre">
+              {t("dossierAmendmentDocsMismatch", {
+                docs: docs.length,
+                docsFmt: f.int(docs.length),
+                countFmt: f.int(bill.count),
+              })}
+            </span>
+          )}
+        </div>
       )}
-      <span className="font-mono text-[10px] font-black uppercase tracking-wider text-ink">
-        {t(unitKey, { count: bill.count, countFmt: f.int(bill.count) })}
-      </span>
-      <span className="min-w-0 flex-1 truncate text-[13px] text-steel" title={bill.title}>
-        {bill.title}
-      </span>
     </li>
   );
 }

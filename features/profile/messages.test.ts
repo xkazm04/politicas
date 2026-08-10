@@ -121,6 +121,33 @@ describe("profile message catalog", () => {
     }
   });
 
+  it("a written amendment is addressable, and a missing address says so", () => {
+    // `proposes_amendment.props.sd_cislos` carries the sněmovní-dokument numbers,
+    // i.e. the TEXT of what the MP filed; the row used to render only the weight.
+    // Three states, three sentences: the links, an edge with no number at all, and
+    // a list that does not account for the stored count (never repaired — the
+    // impossible-dates precedent).
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "dossierAmendmentDocsLabel",
+        "dossierAmendmentDoc",
+        "dossierAmendmentDocsNone",
+        "dossierAmendmentDocsMismatch",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(placeholders(ns.dossierAmendmentDoc)).toEqual(["cislo"]);
+      expect(placeholders(ns.dossierAmendmentDocsNone)).toEqual([]);
+      // The mismatch names BOTH figures, or it is not a disclosure.
+      expect(placeholders(ns.dossierAmendmentDocsMismatch).sort()).toEqual(
+        ["countFmt", "docs", "docsFmt"],
+      );
+      // The citation names the dump the numbers come from, not just the counter.
+      expect(ns.dossierAmendmentsSource).toMatch(/sd\.zip/);
+      expect(ns.dossierAmendmentsSource).toMatch(/sd_cislos/);
+    }
+  });
+
   it("every disclosed cap says what it is capping and out of how many", () => {
     // The ally list was the last silent cap on the page (getProfileData `.slice(0, 8)`).
     for (const ns of [cs, en]) {

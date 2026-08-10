@@ -145,6 +145,22 @@ export interface BillEngagement {
   url: string | null;
   /** speaking turns on this bill, or written amendments filed to it. */
   count: number;
+  /**
+   * Sněmovní-dokument numbers of the written amendments on this bill
+   * (`proposes_amendment.props.sd_cislos`, sd.zip / sd_dokument typ 13) —
+   * ascending. Each one is a psp.cz page carrying the TEXT of that amendment
+   * (`lib/kg/sourceLinks.ts` `snemovniDokumentLink`), so the row can offer the
+   * document instead of only counting it.
+   *
+   * ALWAYS EMPTY for `spoke_on`: a floor turn has no such document, and inventing
+   * one would be the guessed URL rule 1 of sourceLinks.ts forbids. Empty is also
+   * the honest answer for an amendment edge the ingest recorded without numbers —
+   * the count still renders, the links do not.
+   *
+   * `count` (the edge weight) stays AUTHORITATIVE. Where the two disagree the page
+   * says so rather than presenting the list as the total; nothing is repaired here.
+   */
+  sdCislos: number[];
 }
 
 export interface ProfileData {
@@ -638,7 +654,17 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
         .filter((e) => e.src === selfId)
         .map((e) => {
           const { cislo, title, url, appUrl } = billBase(e.dst);
-          return { cislo, title, url, appUrl, count: num(e.weight) };
+          // Čísla sněmovních dokumentů z hrany. `kg-bill-engagement-ingest.ts` je
+          // ukládá vzestupně, ale pořadí v grafu není smlouva, tak se třídí i tady.
+          // Duplicity se NEODSTRAŇUJÍ a chybějící pole se nedopočítává: obojí by byla
+          // oprava dat v rendereru, ne jejich čtení.
+          const rawSd = (e.props as { sd_cislos?: unknown }).sd_cislos;
+          const sdCislos = Array.isArray(rawSd)
+            ? rawSd
+                .filter((n): n is number => typeof n === "number" && Number.isFinite(n) && n > 0)
+                .sort((a, b) => a - b)
+            : [];
+          return { cislo, title, url, appUrl, count: num(e.weight), sdCislos };
         })
         // Heaviest engagement first, then by print number — a total order, so the
         // list is identical build to build (`kgNeighbours` orders by weight alone).

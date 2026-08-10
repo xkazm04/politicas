@@ -48,6 +48,14 @@ export interface SourceSubject {
   props?: Record<string, unknown>;
 }
 
+/**
+ * Volební období, na kterém celý graf stojí. Bylo zapsané jako literál přímo
+ * v URL; od chvíle, kdy adresu skládá víc než jedna funkce, žije na jednom
+ * místě — dvě `o=` v jednom souboru je přesně to, jak se dvě adresy nad týmž
+ * grafem rozejdou o jedno období.
+ */
+const TERM_NUMBER = 10;
+
 const str = (v: unknown): string | null => {
   if (typeof v === "string" && v.trim()) return v.trim();
   if (typeof v === "number" && Number.isFinite(v)) return String(v);
@@ -98,6 +106,31 @@ export function citableId(subject: SourceSubject): string | null {
       // Odvozené uzly — vznikly výpočtem nad grafem, žádný registr je nevede.
       return null;
   }
+}
+
+/**
+ * SNĚMOVNÍ DOKUMENT — text jednoho písemného pozměňovacího návrhu na psp.cz.
+ *
+ * Není to uzel grafu, a proto to není větev `sourceLinksFor`: číslo `sd_cislo`
+ * nese HRANA `proposes_amendment` v props `sd_cislos` (sd.zip / sd_dokument
+ * typ 13, průchod grafu 35). Spis o něm do 2026-08-11 četl jen `weight`, takže
+ * z návrhu, který někdo napsal a podal, zbyl na stránce pouhý počet.
+ *
+ * Ověřeno 2026-08-10 staženim: `psp.cz/sqw/sd.sqw?o=10&cd=822` vrací stránku
+ * s titulkem „Sněmovní dokument 822". Proto `tier: "detail"` — je to kanonická
+ * stránka toho dokumentu, ne dotaz do rejstříku.
+ *
+ * Číslo, které není celé kladné číslo, vrací `null`: platí pravidlo 1 z hlavičky
+ * tohohle souboru — adresa vzniká jen z uloženého identifikátoru, jinak mlčíme.
+ */
+export function snemovniDokumentLink(sdCislo: unknown, term: number = TERM_NUMBER): SourceLink | null {
+  const cislo = str(sdCislo);
+  if (!cislo || !/^\d+$/.test(cislo)) return null;
+  return {
+    registry: "psp.cz",
+    url: `https://www.psp.cz/sqw/sd.sqw?o=${term}&cd=${cislo}`,
+    tier: "detail",
+  };
 }
 
 /**
@@ -159,9 +192,12 @@ export function sourceLinksFor(subject: SourceSubject): SourceLink[] {
     case "bill": {
       const cislo = str(props?.cislo);
       if (!cislo) return [];
-      // o=10 = 10. volební období, na které je celý graf postavený.
       return [
-        { registry: "psp.cz", url: `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}`, tier: "detail" },
+        {
+          registry: "psp.cz",
+          url: `https://www.psp.cz/sqw/historie.sqw?o=${TERM_NUMBER}&t=${cislo}`,
+          tier: "detail",
+        },
       ];
     }
 

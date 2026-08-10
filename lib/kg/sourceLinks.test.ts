@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { citableId, parseLawRef, sourceLinksFor, type KgNodeKind, type SourceSubject } from "./sourceLinks";
+import {
+  citableId,
+  parseLawRef,
+  snemovniDokumentLink,
+  sourceLinksFor,
+  type KgNodeKind,
+  type SourceSubject,
+} from "./sourceLinks";
 
 const subject = (over: Partial<SourceSubject> & Pick<SourceSubject, "kind" | "id">): SourceSubject => ({
   label: "Testovací entita",
@@ -47,6 +54,27 @@ describe("odkazy do registrů", () => {
     const links = sourceLinksFor(subject({ kind: "bill", id: "bill:tisk:1234", props: { cislo: 87 } }));
     expect(links).toHaveLength(1);
     expect(links[0].url).toBe("https://www.psp.cz/sqw/historie.sqw?o=10&t=87");
+  });
+
+  it("sněmovní dokument vede na text návrhu ve stejném období jako tisk", () => {
+    // Ověřeno stažením 2026-08-10: sd.sqw?o=10&cd=822 → „Sněmovní dokument 822".
+    const link = snemovniDokumentLink(822);
+    expect(link).toEqual({
+      registry: "psp.cz",
+      url: "https://www.psp.cz/sqw/sd.sqw?o=10&cd=822",
+      tier: "detail",
+    });
+    // Období je v souboru JEDNO — tisk i dokument o něm musí tvrdit totéž.
+    const bill = sourceLinksFor(subject({ kind: "bill", id: "bill:tisk:1", props: { cislo: 1 } }));
+    expect(new URL(link!.url).searchParams.get("o")).toBe(new URL(bill[0].url).searchParams.get("o"));
+    // Uložené číslo bývá v grafu number, v props ale může přijít jako string.
+    expect(snemovniDokumentLink("1046")?.url).toContain("cd=1046");
+  });
+
+  it("nečitelné číslo dokumentu neplodí hádanou adresu", () => {
+    for (const bad of [null, undefined, "", "  ", "abc", "12a", -3, 1.5, "1,2", {}]) {
+      expect(snemovniDokumentLink(bad), String(bad)).toBeNull();
+    }
   });
 
   it("zákon se rozloží z citace na ročník a číslo", () => {
