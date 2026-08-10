@@ -111,7 +111,15 @@ export interface CareerSpineOptions {
   psp9Coverage: TermCoverage;
 }
 
-const termNumberOf = (termCode: string): number | null => {
+/**
+ * `PSP10` → 10. JEDINÝ převod kódu období na číslo, které se tiskne.
+ *
+ * Exportované od 2026-08-11: hlavička spisu psala „10. volební období" jako
+ * LITERÁL v obou katalozích, zatímco loader četl `PSP10` — přesně ten rozchod,
+ * který /zebricek (b9731c5) a /penize (dd71582) už jednou opravovaly, každý
+ * zvlášť. Období se mění volbami, ne překladem.
+ */
+export const termNumberOf = (termCode: string): number | null => {
   const m = /^PSP(\d+)$/i.exec(termCode.trim());
   return m ? Number(m[1]) : null;
 };

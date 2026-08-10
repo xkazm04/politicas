@@ -42,6 +42,7 @@ import { getMoneyMpDetail } from "@/features/money/getMpDetail";
 import { emptyProfileMoney, toProfileMoney, type ProfileMoney } from "./profileMoney";
 import {
   deriveCareerSpine,
+  termNumberOf,
   type CareerSpine,
   type ChamberWindowInput,
   type ServedTermInput,
@@ -49,6 +50,12 @@ import {
 } from "./careerSpine";
 
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
+
+/** Ally rows the spis prints. A presentation bound like `PROFILE_REBELLION_ROWS`,
+ *  and — since 2026-08-11 — disclosed like one: the page prints how many allies the
+ *  co-voting graph actually holds for this MP beside how many it shows. It was the
+ *  last silent cap on the page. */
+export const PROFILE_ALLY_ROWS = 8;
 
 export interface CoVoter {
   pspId: number;
@@ -159,6 +166,10 @@ export interface ProfileData {
    */
   legibility: ScoreLegibility;
   coVoters: CoVoter[];
+  /** Allies the co-voting graph holds for this MP, BEFORE `PROFILE_ALLY_ROWS`.
+   *  The page prints the remainder rather than swallowing it (the
+   *  `moneyMoreContracts` / `rebelInstancesMore` rule). */
+  coVotersTotal: number;
   rebellions: Rebellion[];
   committees: CommitteeSeat[];
   /**
@@ -168,6 +179,14 @@ export interface ProfileData {
    * route's `revalidate`, which bounds how stale it can get.
    */
   seatsAsOf: string; // ISO yyyy-mm-dd
+  /**
+   * The number of the term this loader actually reads (`PSP10` → 10), derived by
+   * `termNumberOf` and never written as a digit in copy. The header's period note
+   * used to hard-code „10. volební období" in both catalogs while the term code
+   * lived here — the same drift /zebricek and /penize each had to fix once.
+   * `null` if the code is not of the `PSP<n>` shape; the page then omits the claim.
+   */
+  termNumber: number | null;
   /** Contribution-index pass that authored this MP's score — cited on-page. Null when
    *  the chamber does NOT agree on one pass (a partial recompute); see `provenance`. */
   provenancePass: number | null;
@@ -312,7 +331,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const edgesByRel = (rel: string) => incidentEdges.filter((e) => e.rel === rel);
 
     // co_votes_with — undirected; take the top allies by agreement weight.
-    const coVoters: CoVoter[] = edgesByRel("co_votes_with")
+    const coVotersAll: CoVoter[] = edgesByRel("co_votes_with")
       .map((e) => {
         const otherId = e.src === selfId ? e.dst : e.src;
         const otherPspId = Number(otherId.split(":").pop());
@@ -333,8 +352,11 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       .filter((cv) => Number.isFinite(cv.pspId))
       // Stable sort over the (src, rel, dst)-ordered edge set — equal-agreement
       // allies keep the node-id order the previous whole-relation read produced.
-      .sort((a, b) => b.agreement - a.agreement)
-      .slice(0, 8);
+      .sort((a, b) => b.agreement - a.agreement);
+    // The cap is the page's, and the page says so: `coVotersTotal` is what the graph
+    // holds for this MP after the malformed-id drop above, so the disclosure counts
+    // rows the reader could otherwise have seen — never edges we refused to resolve.
+    const coVoters = coVotersAll.slice(0, PROFILE_ALLY_ROWS);
 
     // rebels_against — dst is the club/party node; its label is the club.
     const partyLabelById = new Map(incidentNodes.filter((n) => n.kind === "party").map((p) => [p.id, p.label]));
@@ -468,7 +490,12 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // actually served (median MP: 0–2 extra reads — 92/207 are first-termers).
     // Activity beyond presence exists ONLY for PSP10 (+ a partial PSP9 via the
     // `contribution_psp9` prop) — deriveCareerSpine discloses that per term.
-    const allMandates = await store.listMandates({ limit: 5_000 }); // 2 157 rows, all terms
+    // `KG_READ_CAP`, not an ad-hoc 5 000: the mandate registry grows by a whole term
+    // every four years, and a snug literal limit is exactly how a read starts losing
+    // rows silently (lib/db/readCap.ts). It is also not free in PGlite — a small limit
+    // makes the planner walk the primary key instead of the index (CLAUDE.md,
+    // /zebricek 2026-08-04). ~2 157 rows today, all terms.
+    const allMandates = await store.listMandates({ limit: KG_READ_CAP });
     const myMandates = allMandates.filter((m) => m.personPspId === pspId);
     // Mirrors getLeaderboardData's private regionLabel() so the spine's per-term
     // region reads identically to `person.region` (same organ rows, same copy).
@@ -505,9 +532,18 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const priorTermCodes = [...new Set(myMandates.map((m) => m.termCode.toUpperCase()))]
       .filter((t) => t !== term && chamberByTermCode.has(t))
       .sort();
-    for (const priorTerm of priorTermCodes) {
-      const priorMemberships = await store.listMemberships({ termCode: priorTerm });
-      windows.push(...chamberWindowRows(priorMemberships, priorTerm));
+    // One read per prior term served, ISSUED TOGETHER. They are independent term-scoped
+    // reads, so awaiting them in a loop made a five-term veteran pay five round trips in
+    // series for data that has no ordering relation at all. `windows` is still appended
+    // in `priorTermCodes` order (which is sorted), so the derived spine is unchanged.
+    const priorReads = await Promise.all(
+      priorTermCodes.map(async (priorTerm) => ({
+        priorTerm,
+        rows: await store.listMemberships({ termCode: priorTerm }),
+      })),
+    );
+    for (const { priorTerm, rows } of priorReads) {
+      windows.push(...chamberWindowRows(rows, priorTerm));
     }
     // PSP9 coverage: the effort loop's `contribution_psp9` prop (partial until
     // the PSP9 roll-call ingest flips `complete` — see contribution-trend.ts).
@@ -678,9 +714,11 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       components: data.components,
       legibility,
       coVoters,
+      coVotersTotal: coVotersAll.length,
       rebellions,
       committees,
       seatsAsOf,
+      termNumber: termNumberOf(term),
       provenancePass: data.provenancePass,
       provenance: data.provenance,
       effortTenureDays,

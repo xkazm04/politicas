@@ -159,15 +159,11 @@
       "civic-score": {
         "tag": "Syntéza",
         "description": "Souhrnný index přispění 0–100 pro všech 207 poslanců — šest složek se zveřejněnými váhami, každé číslo dohledatelné ke svému datasetu psp.cz.",
-        "metricValue": "200",
-        "metricLabel": "hodnocených poslanců, každé čtvrtletí",
         "feeds": "Plocha, kterou sytí ostatní čtyři moduly"
       },
       "vote-track": {
         "tag": "Analýza hlasování",
         "description": "Každé jmenovité hlasování Sněmovny i Senátu — docházka, odchylky od stranické linie, rebelie a kdo co předložil.",
-        "metricValue": "5 214",
-        "metricLabel": "jmenovitých hlasování, 9. období — ilustrativní ukázka",
         "feeds": "Pilíře Aktivita + Docházka"
       },
       "follow-the-money": {
@@ -180,15 +176,11 @@
       "budget-mirror": {
         "tag": "Rozpočtové srovnání",
         "description": "Hospodaření obcí srovnané s podobnými městy — dluh na obyvatele, podíl investic, správcovství v čase.",
-        "metricValue": "6 254",
-        "metricLabel": "porovnávaných obcí — ilustrativní ukázka",
         "feeds": "Správcovství, pro exekutivní role"
       },
       "law-watch": {
         "tag": "Monitor legislativy",
         "description": "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování a poslance, kteří je odhlasovali.",
-        "metricValue": "312",
-        "metricLabel": "novelizovaných zákonů v tomto období — ilustrativní ukázka",
         "feeds": "Propojuje hlasování → dopady"
       }
     },
@@ -539,7 +531,7 @@
     "headerNoteNoDate": "10. období · průchod {pass} · na kterém dni se sněmovna shodne, proveniencí grafu neprochází",
     "headerNoteMixed": "10. období · index nese {variants} různých proveniencí u {covered} z {total} poslanců — jedno číslo průchodu pro celý žebříček neexistuje",
     "headerNoteAbsent": "10. období · uzly poslanců nenesou provenienci indexu, takže o průchodu ani datu přepočtu nic netvrdíme",
-    "headerNoteUnavailable": "10. období · živá data nedostupná — níže je ilustrativní ukázka",
+    "headerNoteUnavailable": "živá data nedostupná — níže je ilustrativní ukázka; o obsahu grafu tahle stránka teď netvrdí nic",
     "headerNoteFormulaMismatch": "žebříček spočítala jiná verze metodiky, než jakou nese kód — v datech {stored}, v kódu {declared}",
     "title": "Velín republiky",
     "lead": "Co znalostní graf nese dnes — agregáty sněmovny, datovaná fakta o entitách vykresleného výřezu a pořadí podle kontribučního indexu. Graf nevede changelog, takže tu nenajdete „co se změnilo od minulé návštěvy“, ale fakta s datem. Každé číslo cituje svůj zdroj.",
@@ -778,6 +770,7 @@
     "componentsAside": "kompozit = Σ složka × váha · index přispění psp.cz",
     "alliesHeading": "Nejbližší spojenci",
     "alliesAside": "graf co-votes · shoda hlasování",
+    "alliesMore": "Vypsáno {shown} z {total} spojenců s nejvyšší shodou — zbytek se nezahazuje, jen se sem nevejde.",
     "rebellionsHeading": "Rebelie proti klubu",
     "rebellionsAside": "graf rebels-against · odchylky od klubu",
     "noRebellions": "Žádné doložené odchylky od klubu v tomto období.",
@@ -798,7 +791,8 @@
     "noCommittees": "Bez zaznamenaného členství ve výborech či komisích.",
     "rankOf": "#{rank} z {total}",
     "rankOfShared": "#{rank} z {total} · dělené pořadí — stejné skóre má {tied, plural, one {{tiedFmt} poslanec} few {{tiedFmt} poslanci} other {{tiedFmt} poslanců}}",
-    "periodNote": "10. volební období · jedno období, bez čtvrtletní řady",
+    "periodNote": "{term}. volební období · jedno období, bez čtvrtletní řady",
+    "periodNoteUnknown": "volební období není v záznamu · jedno období, bez čtvrtletní řady",
     "absenteeFlag": "možný „nepřítomný manažer“ — nízké přispění + firemní vazby (Case ①)",
     "agreementLabel": "shoda",
     "sharedBallots": "{count} společných hlasování",
@@ -1768,10 +1762,11 @@
       "source": "psp.cz tisky · posudky uložené v grafu (průchod grafu {pass}) · rozdělení dopočítáno z uložených hodnot",
       "sourceMixedPass": "psp.cz tisky · posudky uložené v grafu ({variants} různých průchodů grafu) · rozdělení dopočítáno z uložených hodnot",
       "sourceNoPass": "psp.cz tisky · posudky uložené v grafu (bez zapsaného původu) · rozdělení dopočítáno z uložených hodnot",
-      "complete": "Posudek nese {verdictsFmt} z {billsFmt} tisků korpusu — každý tisk, který graf zná, svůj posudek má.",
-      "partial": "Posudek nese {verdictsFmt} z {billsFmt} tisků korpusu; u zbývajících tisků posudek zatím není a nic se nedomýšlí.",
+      "complete": "Posudek nese <v>{verdictsFmt}</v> z {billsFmt} tisků korpusu — každý tisk, který graf zná, svůj posudek má.",
+      "partial": "Posudek nese <v>{verdictsFmt}</v> z {billsFmt} tisků korpusu; u zbývajících tisků posudek zatím není a nic se nedomýšlí.",
       "empty": "Graf zatím nenese žádný forenzní posudek. Politicas nezobrazuje smyšlená data.",
-      "reviewStateNote": "stav, ve kterém je posudek uložen v grafu; doslovný záznam, ne přepis.",
+      "reviewStateNote": "štítek je náš překlad, v závorce je doslovný stav uložený u posudku v grafu.",
+      "gateSignOff": "Rozhodnutí lidské brány zveřejňuje <d>přehled důkazů</d>. Dokud tam posudek není, platí stav uložený u něj v grafu — a ten mluví za sebe.",
       "distributionHeading": "rozdělení podle uložené závažnosti — zároveň filtr rejstříku",
       "untranslated": "nepřeložený strojový stav",
       "confidence": "jistota {confidence}/5",

@@ -41,6 +41,7 @@ import { storedRefLabel } from "@/features/civicscore/provenance";
 import { contributionScoreClaim } from "@/features/civicscore/scoreClaim";
 import { krajSlug } from "@/features/civicscore/kraj";
 import { mpEntityKey } from "@/features/denik/deriveDenik";
+import { reviewSummary } from "@/features/money/reviewSummary";
 import { entityDenikHref } from "@/features/schranka/followCodec";
 import LowScoreReasonBadge from "@/features/profile/components/LowScoreReasonBadge";
 import TenureNote from "@/features/profile/components/TenureNote";
@@ -81,6 +82,30 @@ export default async function ProfilePage({
   const { person, total, components, coVoters, rebellions, committees } = data;
   const [first, ...rest] = person.name.split(" ");
   const lastName = rest.join(" ");
+
+  /*
+   * CO LIDSKÁ BRÁNA ROZHODLA O VAZBÁCH TOHOTO POSLANCE. Kvalifikace pod vlajkou
+   * „nepřítomný manažer" tvrdila LITERÁLEM, že vazby „všechny čekají na lidskou
+   * kontrolu" — věta, kterou jediné rozhodnutí v konzoli (/penize/kontrola) změní
+   * v nepravdu, na téže stránce, jejíž oddíl Peníze vedle toho tiskne skutečné
+   * počty. Fázi odvozuje TÁŽ čistá funkce, kterou publikuje /penize a titulní
+   * strana (`features/money/reviewSummary.ts`) — žádný třetí výklad téhož stavu.
+   * Výpadek peněžní vrstvy je vlastní věta: „nepřečteno" není „nezkontrolováno".
+   */
+  const moneyReview = reviewSummary({
+    verified: data.money.verifiedTies,
+    pending: data.money.pendingTies,
+    rejected: data.money.rejectedTies,
+  });
+  const REVIEW_KEY = {
+    "all-pending": "absenteeFlagGateAllPending",
+    mixed: "absenteeFlagGateMixed",
+    "all-decided": "absenteeFlagGateAllDecided",
+    empty: "absenteeFlagGateEmpty",
+  } as const;
+  const absenteeGateKey = data.money.unavailable
+    ? "absenteeFlagGateUnavailable"
+    : REVIEW_KEY[moneyReview.phase];
 
   const dossier: DossierContent = {
     publicRole: person.effortPublicRole,
@@ -273,8 +298,12 @@ export default async function ProfilePage({
               {/* Pas skóre + jeho LINIE. Spis tiskl číslo pasu i tehdy, když ho data
                   nesla jen na prvním uzlu, a linii metodiky nečetl vůbec — proto šest dní
                   ukazoval skóre staré formule bez jediného slova o tom. */}
+              {/* Číslo období je z `termNumberOf(TERM)`, ne z překladu: katalogy
+                  psaly „10. volební období" jako literál nad loaderem, který čte
+                  PSP10 — týž rozchod, který /zebricek i /penize už jednou opravovaly.
+                  Když kód období nemá tvar PSP<n>, věta se prostě netvrdí. */}
               <SourceNote className="mt-1 !text-[10px]">
-                {t("periodNote")}
+                {data.termNumber != null ? t("periodNote", { term: f.int(data.termNumber) }) : t("periodNoteUnknown")}
                 {data.provenancePass != null ? ` · ${t("indexPass", { pass: f.int(data.provenancePass) })}` : ""}
                 {data.provenance.state === "mixed"
                   ? ` · ${t("indexPassMixed", { count: f.int(data.provenance.distinctCount) })}`
@@ -311,21 +340,34 @@ export default async function ProfilePage({
           <p className="mt-6 max-w-2xl border-l-4 border-signal pl-4 text-base italic leading-relaxed text-steel">
             {person.absenteeManagerLead ? t("absenteeFlag") : (topComponent?.label ?? "")}
           </p>
-          {/* Ta vlajka je odvozená z peněžních vazeb, které jsou VŠECHNY
-              pending_review. Bez téhle kvalifikace stála na spisu jako hotové
-              obvinění bez jediného důkazu vedle sebe — teď říká, na čem stojí,
-              a odkazuje na oddíl, kde ten důkaz je. */}
+          {/* Ta vlajka je odvozená z peněžních vazeb. Bez téhle kvalifikace stála
+              na spisu jako hotové obvinění bez jediného důkazu vedle sebe — teď
+              říká, na čem stojí, JAK na tom ty vazby s kontrolou jsou (odvozeno,
+              ne tvrzeno), a odkazuje na oddíl, kde ten důkaz je. */}
           {person.absenteeManagerLead && (
             <div className="mt-3 max-w-2xl border-l-4 border-ochre pl-4">
               <p className="text-[14px] leading-relaxed text-ink">{t("absenteeFlagQualifier")}</p>
+              <p className="mt-1.5 text-[14px] leading-relaxed text-ink">
+                {t(absenteeGateKey, {
+                  total: f.int(moneyReview.total),
+                  pending: f.int(moneyReview.pending),
+                  verified: f.int(moneyReview.verified),
+                  rejected: f.int(moneyReview.rejected),
+                  decided: f.int(moneyReview.decided),
+                })}
+              </p>
               <SourceNote className="mt-1.5 !text-[10px]">{t("absenteeFlagSource")}</SourceNote>
             </div>
           )}
 
           {/* Poctivý korektiv nízkého skóre — vykreslí se jen když enrichment
               stage effort-loopu uložil effort_low_score_reason z uzavřeného
-              slovníku (batch 001+ postupně pokrývá dalších poslanců). */}
-          <LowScoreReasonBadge reason={person.effortLowScoreReason} publicRole={person.effortPublicRole} />
+              slovníku (batch 001+ postupně pokrývá dalších poslanců).
+              `effort_public_role` se tu ZÁMĚRNĚ nevykresluje: bydlí v dosieru pod
+              vlastním nadpisem „Veřejná role" a `hasDossierContent()` na něj sekci
+              otevře vždycky, když ta vlastnost existuje — tady se tiskl podruhé,
+              a jen pro těch 34 poslanců, kteří navíc nesou důvod nízkého skóre. */}
+          <LowScoreReasonBadge reason={person.effortLowScoreReason} />
 
           {/* Mandátová poznámka — vykreslí se jen pro replacement/departed
               tenure_class (batch 005, Q-effort-5 follow-through). */}
@@ -442,6 +484,16 @@ export default async function ProfilePage({
                   </div>
                 ))}
               </div>
+              {/* Strop se přiznává, zbytek se počítá — poslední mlčící mez na
+                  téhle stránce (týž zápis jako `rebelInstancesMore`). */}
+              {data.coVotersTotal > coVoters.length && (
+                <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
+                  {t("alliesMore", {
+                    shown: f.int(coVoters.length),
+                    total: f.int(data.coVotersTotal),
+                  })}
+                </p>
+              )}
               <SourceNote className="mt-3 !text-[10px]">
                 {t("agreementLabel")} · psp.cz · co_votes_with
               </SourceNote>

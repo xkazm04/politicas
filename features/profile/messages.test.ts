@@ -43,12 +43,89 @@ describe("profile message catalog", () => {
     // whole corpus is unreviewed becomes false on the first confirmation. The section
     // renders per-tie state from the data instead; the copy may only say that an
     // UNDECIDED tie is not a finding.
+    //
+    // The regex used to require a DIGIT, and that is exactly how `absenteeFlagQualifier`
+    // („…vazeb, které VŠECHNY čekají na lidskou kontrolu…") lived here until 2026-08-11:
+    // an absolute with no number in it is the same false claim, falsifiable by one
+    // console decision. So the check is now on the SHAPE of the claim — an absolute
+    // quantifier + ties + a review word — with or without a figure.
+    const absoluteReviewClaim = (v: string): boolean => {
+      const s = v.toLowerCase();
+      const absolute = /\b(všechn\w*|všech|vešker\w*|all|every|none of)\b/.test(s);
+      const ties = /(vazb\w*|vazeb|hran\w*|\bties\b|\bedges\b)/.test(s);
+      const review = /(kontrol\w*|čeká\w*|čekaj\w*|bran\w*|pending|review\w*|await\w*|gate)/.test(s);
+      return absolute && ties && review;
+    };
+    // Sentences the review derivation SELECTS may state an absolute, because the state
+    // that would falsify one renders a different key (features/money/reviewSummary.ts —
+    // the /penize + /dashboard precedent). Nothing else on this page may.
+    const DERIVED_GATE_KEYS = new Set([
+      "absenteeFlagGateAllPending",
+      "absenteeFlagGateMixed",
+      "absenteeFlagGateAllDecided",
+      "absenteeFlagGateEmpty",
+      "absenteeFlagGateUnavailable",
+    ]);
     for (const ns of [cs, en]) {
       for (const [k, v] of Object.entries(ns)) {
         expect(v, `${k} asserts a whole-corpus review state`).not.toMatch(
           /(všechny|všech) \d+ vazeb|all \d+ ties/i,
         );
+        if (DERIVED_GATE_KEYS.has(k)) continue;
+        expect(absoluteReviewClaim(v), `${k} states an absolute about the human gate`).toBe(false);
       }
+    }
+  });
+
+  it("the absentee flag reports the gate state per phase, and never guesses it", () => {
+    // One sentence per phase of `reviewSummary()`, plus the one state that is NOT a
+    // phase: the money layer being unreadable. „Unread" and „unreviewed" must never
+    // render as the same sentence (the moneyUnavailable rule, applied to the header).
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "absenteeFlagGateAllPending",
+        "absenteeFlagGateMixed",
+        "absenteeFlagGateAllDecided",
+        "absenteeFlagGateEmpty",
+        "absenteeFlagGateUnavailable",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(ns.absenteeFlagGateEmpty).not.toBe(ns.absenteeFlagGateUnavailable);
+    }
+    // The counted phases carry the counts they rest on; the two uncounted ones must
+    // not pretend to (a placeholder there would render a bare zero as a fact).
+    expect(placeholders(cs.absenteeFlagGateAllPending)).toEqual(["total"]);
+    expect(placeholders(cs.absenteeFlagGateMixed)).toEqual(
+      ["decided", "pending", "rejected", "total", "verified"],
+    );
+    expect(placeholders(cs.absenteeFlagGateAllDecided)).toEqual(["rejected", "total", "verified"]);
+    expect(placeholders(cs.absenteeFlagGateEmpty)).toEqual([]);
+    expect(placeholders(cs.absenteeFlagGateUnavailable)).toEqual([]);
+  });
+
+  it("the electoral term is a variable, never a digit in the copy", () => {
+    // /zebricek (b9731c5) and /penize (dd71582) each shipped a literal „9. období"
+    // over a loader reading PSP10 and each had to fix it separately. Here the number
+    // comes from `termNumberOf(TERM)` — so the catalogs must not carry one at all,
+    // and there must be a sentence for a term code the loader cannot parse.
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns.periodNote)).toEqual(["term"]);
+      expect(ns.periodNoteUnknown, "a term with no number still needs a sentence").toBeTruthy();
+      expect(placeholders(ns.periodNoteUnknown)).toEqual([]);
+      for (const [k, v] of Object.entries(ns)) {
+        expect(v, `${k} hard-codes an electoral term number`).not.toMatch(
+          /\b\d+\.\s*(volební\s+)?období\b|\b\d+(st|nd|rd|th)\s+parliamentary\s+term\b/i,
+        );
+      }
+    }
+  });
+
+  it("every disclosed cap says what it is capping and out of how many", () => {
+    // The ally list was the last silent cap on the page (getProfileData `.slice(0, 8)`).
+    for (const ns of [cs, en]) {
+      expect(ns.alliesMore, "the ally cap must be disclosed").toBeTruthy();
+      expect(placeholders(ns.alliesMore)).toEqual(["shown", "total"]);
     }
   });
 
@@ -121,8 +198,16 @@ describe("profile message catalog", () => {
       // construction. The measured lesson from /penize is the same one — the gate
       // binds the copy WE write, not the evidence we show.
       if (/(Source|Aside)$/.test(k)) continue;
-      if (v.replace(/\{[^}]*\}/g, " ").split(/\s+/).filter(Boolean).length < 8) continue;
-      expect(scoreLanguage(v).looksEnglish, `cs.${k}: ${v.slice(0, 60)}`).toBe(false);
+      // ICU PLACEHOLDER NAMES are identifiers, not copy: `{total}` / `{verified}` /
+      // `{rejected}` / `{pending}` are four of this classifier's own English stopwords,
+      // so a perfectly Czech sentence built around them scored 4 English words out of 17
+      // and failed (measured on `absenteeFlagGateMixed`, 2026-08-11). The prose is what
+      // the gate binds, so the prose is what it reads — the same distinction the two
+      // skips above make, applied inside the sentence instead of to the whole key. The
+      // length check already ran on this stripped form.
+      const prose = v.replace(/\{[^}]*\}/g, " ");
+      if (prose.split(/\s+/).filter(Boolean).length < 8) continue;
+      expect(scoreLanguage(prose).looksEnglish, `cs.${k}: ${v.slice(0, 60)}`).toBe(false);
     }
   });
 });
