@@ -974,6 +974,14 @@
       "methodBody": "Linie klubu = přísná většina pozičních hlasů (pro/proti) klubu v daném hlasování; remíza linii neurčuje. Disciplína = podíl pozičních hlasů klubu na linii. Soudržnost = Riceův index |pro−proti|/(pro+proti), za sněmovnu vážený počtem pozičních hlasů klubů s ≥ 5 pozičními hlasy. Slot „zdržel se / nehlasoval“ sněmovna od novely 90/1995 Sb. nerozlišuje a jako pozice se nepočítá; zmatečná hlasování jsou vyřazena; nezařazení poslanci se zobrazují, ale neskórují. Řazení klubů v hemicyklu zleva doprava je redakční konstanta.",
       "methodSource": "psp.cz — jmenovitá hlasování PSP10 · {valid} platných hlasování ({voided} zmatečných vyřazeno) · {ballots} hlasů · {from} – {to}",
       "freshness": "celý záznam se odvozuje z {ballots} uložených hlasů jedním průchodem; ten výpočet je memoizovaný a vyprší po {hours} h — o tolik mohou být tahle čísla nejvýš starší než graf. Stejnou mez deklaruje /penize i velín; graf je dávkový artefakt, mění se přepočtem, ne za běhu požadavku.",
+      "reconcileTitle": "kontrola přepočtu proti zveřejněným součtům",
+      "reconcileMethod": "U každého jmenovitého hlasování zveřejňuje sněmovna vlastní součty. Náš přepočet z uložených hlasů se s nimi porovnává jedna ku jedné: pro proti sloupci ano, proti proti sloupci ne a sloučený slot „zdržel se / nehlasoval“ proti součtu sloupců zdržel se a nehlasoval. Slot „nepřihlášen / omluven“ se neporovnává vůbec — zdroj pro něj žádný sloupec nezveřejňuje a dopočítat ho by znamenalo odhadovat, kolik poslanců mělo být v sále. Rozdíl se konstatuje, nikdy neopravuje: nepřepisuje se ani náš přepočet, ani zveřejněný součet.",
+      "reconcileAgree": "Ve všech {compared} porovnaných hlasováních sedí přepočet na zveřejněné součty do posledního hlasu — {buckets} porovnaných slotů, nula odchylek.",
+      "reconcileDiff": "V {discrepancies} z {compared} porovnaných hlasování se náš přepočet od zveřejněných součtů liší. Největší rozdíl nese hlasování č. {worstId} — součet odchylek {worstDistance}. Čísla na téhle ploše zůstávají tím, co jsme spočítali z hlasů; rozdíl je nález, ne oprava.",
+      "reconcileWorstLink": "otevřít hlasování č. {worstId} na psp.cz",
+      "reconcileNone": "Porovnat nešlo ani jedno hlasování — zdroj u nich žádný porovnatelný sloupec nenese. Přepočet tedy nikdo nezkontroloval a stránka to říká rovnou, místo aby mlčela.",
+      "reconcileGaps": "Mimo porovnání zůstalo {uncompared} přepočtených hlasování, u kterých zdroj nezveřejnil ani jeden porovnatelný sloupec, a {withoutBallots} platných hlasování, ke kterým nedržíme ani jeden jmenovitý hlas. Ani jedno se nedohaduje.",
+      "reconcileSource": "psp.cz — zveřejněné součty u jmenovitých hlasování PSP10 proti přepočtu z {ballots} uložených hlasů · porovnáno {compared} hlasování a {buckets} slotů",
       "fallbackTitle": "reálný záznam hlasování je dočasně nedostupný",
       "fallbackBody": "Databáze grafu je jednopřipojeníová a právě ji drží jiný proces, nebo záznam ještě není naingestován. Níže je ilustrativní ukázka na smyšlených hlasováních — ne reálná data. Zkuste to znovu za chvíli.",
       "fallbackSource": "fallback: lib/civic — smyšlený vzorek 5 hlasování"
@@ -1022,9 +1030,9 @@
       "shareFail": "Zkopírujte adresu ručně",
       "resetCta": "Smazat odpovědi",
       "rulesTitle": "zveřejněná pravidla",
-      "selectionRule": "Pravidlo výběru otázek: kandidáty jsou platná (nezmatečná) hlasování PSP10 s tématem ze silver vrstvy vote_tag, mimo témata Procedura a Jiné, s alespoň {minPositional} pozičními hlasy (pro + proti). V každém tématu se kandidáti řadí podle těsnosti |pro−proti|/(pro+proti) vzestupně (nejrozdělenější první; remíza: více pozičních hlasů, novější datum, vyšší id). Témata se řadí podle počtu kandidátů a sada se losuje kolečkem — první výběr každého tématu, pak druhý — nejvýše {perTheme} na téma a {cap} celkem. Stejný záznam dá vždy stejné otázky.",
+      "selectionRule": "Pravidlo výběru otázek: kandidáty jsou platná (nezmatečná) hlasování PSP10 s tématem ze silver vrstvy vote_tag, mimo témata Procedura a Jiné, s alespoň {minPositional} pozičními hlasy (pro + proti), a jejichž téma si klasifikátor sám neoznačil jistotou pod {minConfidence} %. Téma bez uvedené jistoty se nevyřazuje — chybějící údaj netvrdí, že si model jistý nebyl — a počítá se zvlášť. V každém tématu se kandidáti řadí podle těsnosti |pro−proti|/(pro+proti) vzestupně (nejrozdělenější první; remíza: více pozičních hlasů, novější datum, vyšší id). Témata se řadí podle počtu kandidátů a sada se losuje kolečkem — první výběr každého tématu, pak druhý — nejvýše {perTheme} na téma a {cap} celkem. Stejný záznam dá vždy stejné otázky.",
       "scoringRule": "Pravidlo shody: srovnatelné je hlasování, kde poslanec hlasoval pro/proti; shoda = jeho pozice rovná se vaší. Shoda poslance = shody ÷ srovnatelná hlasování. Slot „zdržel se / nehlasoval“ sněmovna od novely 90/1995 Sb. nerozlišuje — nepočítá se jako souhlas ani nesouhlas a do jmenovatele nevstupuje; nepřítomnost také ne (obojí se zvlášť zobrazuje). Do pořadí vstupují jen poslanci s pozičním hlasem na alespoň polovině vámi zodpovězených otázek. Kluby se měří stejně proti své linii (přísná většina pozičních hlasů klubu).",
-      "rulesSource": "psp.cz — jmenovitá hlasování PSP10 · {valid} platných hlasování, z toho {tagged} s tématem a {candidates} kandidátů výběru · {from} – {to} · témata: sem_classify (haiku), silver vrstva",
+      "rulesSource": "psp.cz — jmenovitá hlasování PSP10 · {valid} platných hlasování, z toho {tagged} s tématem a {candidates} kandidátů výběru · {from} – {to} · témata: sem_classify (haiku), silver vrstva · práh jistoty tématu {minConfidence} %: pod ním vyřazeno {droppedByConfidence} kandidátů, bez uvedené jistoty ponecháno {withoutConfidence}",
       "freshness": "otázky i poziční záznam se odvozují z téhož čtení hlasovacího záznamu jako přehled hlasování; výsledek je memoizovaný a vyprší po {hours} h — o tolik mohou být tahle čísla nejvýš starší než graf. Stejnou mez deklaruje /penize i velín.",
       "loadingBody": "Vybíráme otázky zveřejněným pravidlem a čteme poziční záznam sněmovny. Čtení celého záznamu trvá řádově sekundy; platí ho jen první požadavek po vypršení memoizace.",
       "unavailableWhat": "volební kompas",
@@ -1654,6 +1662,7 @@
     "pipelineFootnote": "Potrubí čte sněmovní tisky denně; diff paragrafů vzniká z konsolidovaných znění e-Sbírky, jakmile novela vyjde. Zamítnuté tisky v potrubí končí — i to je dopad, který stojí za zaznamenání.",
     "realIntro": "Které sněmovní tisky mění které zákony — u každého tisku jedna věta „co to mění“ odvozená z jeho vlastního textu, dále spojnice návrh → novelizovaný zákon, předkladatelé, jejich peněžní vazby a forenzní posudek tam, kde existuje. Data z psp.cz, ne z modelu.",
     "mockNotice": "graf nedostupný — níže ukázková data (mock), ne živý zdroj",
+    "mockNoProfileLink": "Poslanci ukázky jsou smyšlení a spis nemají — jejich jména proto nikam nevedou. Adresa, která vypadá jako reálná, ale reálná není, je horší než žádná.",
     "stats": {
       "bills": "sněmovních tisků",
       "laws": "novelizovaných zákonů",
@@ -1736,6 +1745,9 @@
     },
     "section1AsideReal": "{bills} tisků · {summaries} se shrnutím · {amends} novelizačních vazeb · psp.cz",
     "section2AsideReal": "psp.cz tisky · počet tisků na zákon",
+    "dependencies": {
+      "title": "Závislosti na doprovodných tiscích"
+    },
     "forensicIndex": {
       "title": "Rejstřík posudků",
       "source": "psp.cz tisky · posudky uložené v grafu (průchod grafu {pass}) · rozdělení dopočítáno z uložených hodnot",
@@ -1799,11 +1811,17 @@
       "amendmentDocsHeading": "písemné pozměňovací návrhy — {countFmt} · sněmovní dokumenty psp.cz",
       "conflictSource": "možný střet zájmů · odvozeno z peněžních vazeb předkladatele",
       "conflictText": "Předkladatel má vazby na {count, plural, one {{countFmt} firmu} few {{countFmt} firmy} other {{countFmt} firem}} s celkovým tokem veřejných zakázek <b>{amount}</b>. Signál k prověření, ne prokázaný střet — sektorová blízkost je indicie, ne důkaz.",
+      "conflictAttribution": "Uvedené číslo je nejvyšší případ mezi předkladateli tisku a sčítá všechny firmy, ke kterým je předkladatel v grafu vázán — včetně institucí, kde má jen správní roli. Peněžní spis poslance sčítá přísněji: peníze instituce připisuje instituci, nikdy poslanci, a proto tam bývá částka nižší. Rozhoduje spis, ne tenhle příznak.",
+      "conflictMoneyFiles": "peněžní spisy předkladatelů — každá vazba i se svou třídou a stavem lidské kontroly",
+      "conflictMoneyFileAria": "peněžní spis poslance {name}",
+      "conflictStrety": "přehled možných střetů",
       "sectorAttribution": {
         "heading": "sektorová atribuce — {countFmt} {count, plural, one {nalezená shoda} few {nalezené shody} other {nalezených shod}}",
         "source": "sektorová atribuce · census amendovaných § ⋈ ledger peněžních vazeb (dávka 017) — každá shoda je odvozený, negatovaný údaj bez lidské kontroly",
         "intro": "Firma předkladatele působí ve stejném sektoru, jaký novelizovaný zákon upravuje. Topologická blízkost, ne prokázaný vliv — a ke každé shodě už existuje publikovaný forenzní posudek (níže).",
         "viaLaw": "sektor <b>{sector}</b> ↔ <b>č. {ref} Sb.</b>",
+        "sponsorLabel": "vazbu nese předkladatel:",
+        "companyFileAria": "peněžní spis firmy {company}",
         "paragraphs": "operativní §:",
         "noParagraphsCensus": "Census textu tisku pro tento zákon nenašel žádný §, ke kterému by šlo změnu přiřadit — buď jde o novelu přílohy bez textu paragrafu, nebo o limit rozdělovače. Vazba zůstává jen na úrovni celého zákona, nikdy ne domyšlené číslo paragrafu.",
         "noParagraphsFallback": "Rozdělení textu na paragrafy zde selhalo a census sáhl po náhradním přiřazení celého bloku — přesné číslo § proto nelze uvést.",
@@ -1841,7 +1859,7 @@
       "verbatim": "Doslovný text obou znění z e-Sbírky (<from>{fromDate}</from> → <to>{toDate}</to>), nikdy dopočítaný. Zdroj: {source}."
     },
     "dossierPage": {
-      "crumb": "/ zákony / tisk",
+      "crumb": "/ <m>zákony</m> / tisk",
       "eyebrow": "sněmovní tisk · psp.cz",
       "denikLink": "deník tohoto tisku",
       "denikNote": "datované kroky tisku — deník republiky, filtr entity",
@@ -1863,6 +1881,8 @@
       "statsSource": "psp.cz tisky (amends + census textu) · e-Sbírka SPARQL §-diffy — §-stopa je bodová, pokrytí se přiznává na každém řádku",
       "sectionTitle": "Rejstřík předpisů",
       "sortAside": "řazeno počtem tisků, pak číslem předpisu",
+      "emptyLabel": "rejstřík je prázdný",
+      "emptyText": "Graf je dostupný, ale nenese jediný předpis, který by některý sněmovní tisk novelizoval. Není to nález o zákonodárství — je to stav evidence: dokud v grafu není hrana tisk → zákon, nemá rejstřík co vypsat a nic si nedomýšlí.",
       "trailBadge": "§-stopa · {count, plural, one {{countFmt} změna} few {{countFmt} změny} other {{countFmt} změn}}",
       "footnote": "Stopa zahrnuje vazby z názvu tisku (citace „č. N/RRRR Sb.“) i nezávislý census plného textu (průchod grafu 20) — obě provenience se na stránce předpisu rozlišují. Předpis bez §-stopy není prázdná stránka: kronika tisků platí i bez e-Sbírka diffu."
     },
@@ -1932,6 +1952,7 @@
       "batchBadge": "dávka {batch}",
       "batchTitle": "Ze které dávky ručního porovnání textů toto zjištění pochází",
       "excerptLabel": "tisk {cislo} — doslovná citace",
+      "denikLink": "deník tisku {cislo}",
       "fullReasoningWithQuotes": "citace a plné odůvodnění +",
       "fullReasoning": "plné odůvodnění +",
       "pairSource": "dávka {batch} · {method}"

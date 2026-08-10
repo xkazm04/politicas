@@ -52,6 +52,10 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
 
     const eventsIn = ledger.events;
     const themeByVote = new Map(tags.map((t) => [t.votePspId, t.theme]));
+    // Sebehlášená jistota klasifikátoru — dosud se při mapování tagů zahazovala,
+    // takže špatně zařazené hlasování mohlo tiše změnit, kterých ~20 hlasování
+    // reprezentuje období. Práh (select.ts) i počty vyřazených jdou na stránku.
+    const confidenceByVote = new Map(tags.map((t) => [t.votePspId, t.confidence]));
 
     /* full-chamber tallies for tagged votes (one O(ballots) pass) */
     const totals = new Map<number, ClubTally>();
@@ -65,7 +69,12 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
       t[bucketOf(b.choice)]++;
     }
 
-    const { selected, candidates } = selectQuestions({ events: eventsIn, totals, themeByVote });
+    const { selected, candidates, droppedByConfidence, withoutConfidence } = selectQuestions({
+      events: eventsIn,
+      totals,
+      themeByVote,
+      confidenceByVote,
+    });
     if (selected.length === 0) return null;
     const selectedIds = new Set(selected.map((s) => s.event.pspId));
 
@@ -135,6 +144,8 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
         valid: valid.length,
         tagged,
         candidates,
+        droppedByConfidence,
+        withoutConfidence,
         from: validDates.length ? validDates.reduce((a, b) => (a < b ? a : b)) : null,
         to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,
       },

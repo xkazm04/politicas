@@ -1,7 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { EventIn } from "../record/derive";
 import type { ClubTally } from "../record/types";
-import { EXCLUDED_THEMES, MIN_POSITIONAL, selectQuestions, type SelectOptions } from "./select";
+import {
+  EXCLUDED_THEMES,
+  MIN_POSITIONAL,
+  MIN_TAG_CONFIDENCE,
+  selectQuestions,
+  type SelectOptions,
+} from "./select";
 
 /* ── fixtures ──────────────────────────────────────────────────────────────── */
 
@@ -23,7 +29,7 @@ const ev = (pspId: number, votedOn: string, over: Partial<EventIn> = {}): EventI
 const tally = (yes: number, no: number, k = 0, away = 0): ClubTally => ({ yes, no, k, away });
 
 function run(
-  rows: Array<{ event: EventIn; theme?: string; total?: ClubTally }>,
+  rows: Array<{ event: EventIn; theme?: string; total?: ClubTally; confidence?: number | null }>,
   opts: SelectOptions = {},
 ) {
   return selectQuestions(
@@ -31,6 +37,9 @@ function run(
       events: rows.map((r) => r.event),
       totals: new Map(rows.filter((r) => r.total).map((r) => [r.event.pspId, r.total!])),
       themeByVote: new Map(rows.filter((r) => r.theme).map((r) => [r.event.pspId, r.theme!])),
+      confidenceByVote: new Map(
+        rows.filter((r) => "confidence" in r).map((r) => [r.event.pspId, r.confidence ?? null]),
+      ),
     },
     opts,
   );
@@ -54,6 +63,59 @@ describe("selectQuestions floors", () => {
     // The default exclusion list is part of the published rule — pin it.
     expect(EXCLUDED_THEMES).toEqual(["procedura", "jine"]);
     expect(MIN_POSITIONAL).toBe(120);
+  });
+});
+
+/* ── práh jistoty klasifikátoru ────────────────────────────────────────────── */
+
+describe("selectQuestions confidence floor", () => {
+  const themed = (pspId: number, confidence?: number | null) => ({
+    event: ev(pspId, "2026-01-05"),
+    theme: "zdravotnictvi",
+    total: tally(80, 70),
+    ...(confidence === undefined ? {} : { confidence }),
+  });
+
+  it("vyřadí tag, který sám hlásí jistotu POD prahem — a spočítá ho", () => {
+    const r = run([themed(1, 0.95), themed(2, 0.4)], { minConfidence: 0.7 });
+    expect(r.selected.map((s) => s.event.pspId)).toEqual([1]);
+    expect(r.candidates).toBe(1);
+    expect(r.droppedByConfidence).toBe(1);
+  });
+
+  it("hranice prahu PROCHÁZÍ (práh je „aspoň“, ne „víc než“)", () => {
+    // Boundary: exactly at the floor is IN; one epsilon below is OUT. A floor that
+    // dropped its own stated value would publish a rule the page does not follow.
+    const at = run([themed(1, 0.7)], { minConfidence: 0.7 });
+    expect(at.selected.map((s) => s.event.pspId)).toEqual([1]);
+    expect(at.droppedByConfidence).toBe(0);
+    const below = run([themed(2, 0.6999)], { minConfidence: 0.7 });
+    expect(below.selected).toEqual([]);
+    expect(below.droppedByConfidence).toBe(1);
+  });
+
+  it("chybějící jistota kandidáta NEVYŘAZUJE, ale počítá se zvlášť", () => {
+    // A null confidence claims nothing; reading it as „low" would turn a missing
+    // value into a verdict. It stays in and is disclosed on its own counter.
+    const r = run([themed(1, null), themed(2)], { minConfidence: 0.7 });
+    // Order is the ranking rule's business (a full tie breaks by higher id) — this
+    // test only claims that neither row was dropped.
+    expect(r.selected.map((s) => s.event.pspId).sort()).toEqual([1, 2]);
+    expect(r.withoutConfidence).toBe(2);
+    expect(r.droppedByConfidence).toBe(0);
+  });
+
+  it("prahem neprojde hlasování, které stejně nesplnilo účast — nepočítá se dvakrát", () => {
+    const r = run([{ event: ev(1, "2026-01-05"), theme: "t", total: tally(60, 59), confidence: 0.1 }]);
+    expect(r.candidates).toBe(0);
+    expect(r.droppedByConfidence).toBe(0);
+  });
+
+  it("výchozí práh je zveřejněná konstanta", () => {
+    expect(MIN_TAG_CONFIDENCE).toBe(0.7);
+    const r = run([themed(1, MIN_TAG_CONFIDENCE), themed(2, MIN_TAG_CONFIDENCE - 0.01)]);
+    expect(r.selected.map((s) => s.event.pspId)).toEqual([1]);
+    expect(r.droppedByConfidence).toBe(1);
   });
 });
 
@@ -129,6 +191,11 @@ describe("selectQuestions draw", () => {
   });
 
   it("returns empty selection over an empty ledger", () => {
-    expect(run([])).toEqual({ selected: [], candidates: 0 });
+    expect(run([])).toEqual({
+      selected: [],
+      candidates: 0,
+      droppedByConfidence: 0,
+      withoutConfidence: 0,
+    });
   });
 });

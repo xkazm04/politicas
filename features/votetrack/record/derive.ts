@@ -396,12 +396,27 @@ export function deriveVoteRecord(
   let ballotCount = 0;
   for (const b of ballots) if (eventById.has(b.votePspId)) ballotCount++;
 
+  /* kontrola přepočtu proti zveřejněným součtům sněmovny — NÁLEZ, ne oprava.
+   * `derived` je celosněmovní tally z uložených hlasů; hlasování, ke kterému
+   * nedržíme ani jeden hlas, jde do kontroly jako `null` (vlastní kategorie
+   * `withoutBallots`), nikdy jako nulový přepočet — proto se tu čte `totals`
+   * a NE `stat.total`, který prázdné tally dopočítává nulami pro vykreslení. */
+  const reconciliation = reconcileRecord(
+    valid.map((e) => ({
+      votePspId: e.pspId,
+      votedOn: e.votedOn,
+      derived: totals.get(e.pspId) ?? null,
+      published: e.published,
+    })),
+  );
+
   return {
     ledger,
     seismogram,
     clubs,
     chronicle,
     topRebels,
+    reconciliation,
     coverage: {
       events: events.length,
       valid: valid.length,

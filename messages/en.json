@@ -974,6 +974,14 @@
       "methodBody": "Group line = strict majority of the group's positional ballots (for/against) in a given roll call; a tie determines no line. Discipline = share of the group's positional ballots on the line. Cohesion = the Rice index |for−against|/(for+against), weighted at chamber level by the positional-ballot counts of groups with ≥ 5 positional ballots. Since amendment 90/1995 Coll. the Chamber does not distinguish the “abstained / did not vote” slot and it does not count as a position; voided roll calls are excluded; unaffiliated MPs are displayed but not scored. The left-to-right ordering of groups in the hemicycle is an editorial constant.",
       "methodSource": "psp.cz — PSP10 roll-call votes · {valid} valid roll calls ({voided} voided excluded) · {ballots} ballots · {from} – {to}",
       "freshness": "the whole record is derived from {ballots} stored ballots in a single pass; that computation is memoized and expires after {hours} h — that is the most these numbers can lag the graph. /penize and the control room declare the same bound; the graph is a batch artifact, it changes on recompute, not during a request.",
+      "reconcileTitle": "the recount checked against the published tallies",
+      "reconcileMethod": "The Chamber publishes its own tallies for every roll call. Our recount from the stored ballots is compared with them one to one: for against the yes column, against against the no column, and the merged “abstained / did not vote” slot against the sum of the abstained and did-not-vote columns. The “not signed in / excused” slot is not compared at all — the source publishes no column for it, and deriving one would mean estimating how many MPs were supposed to be in the room. A difference is stated, never repaired: neither our recount nor the published tally is rewritten.",
+      "reconcileAgree": "Across all {compared} compared roll calls the recount matches the published tallies to the last ballot — {buckets} compared slots, zero deviations.",
+      "reconcileDiff": "In {discrepancies} of {compared} compared roll calls our recount differs from the published tallies. The largest difference is roll call no. {worstId} — deviations totalling {worstDistance}. The figures on this page remain what we counted from the ballots; the difference is a finding, not a repair.",
+      "reconcileWorstLink": "open roll call no. {worstId} on psp.cz",
+      "reconcileNone": "Not a single roll call could be compared — the source carries no comparable column for any of them. So nobody has checked the recount, and the page says so rather than staying silent.",
+      "reconcileGaps": "Left outside the comparison: {uncompared} recounted roll calls for which the source published no comparable column, and {withoutBallots} valid roll calls for which we hold no roll-call ballot at all. Neither is guessed.",
+      "reconcileSource": "psp.cz — published tallies of PSP10 roll-call votes against the recount from {ballots} stored ballots · {compared} roll calls and {buckets} slots compared",
       "fallbackTitle": "the real vote record is temporarily unavailable",
       "fallbackBody": "The graph database is single-connection and another process is holding it, or the record has not been ingested yet. Below is an illustrative sample over invented votes — not real data. Try again in a moment.",
       "fallbackSource": "fallback: lib/civic — invented sample of 5 votes"
@@ -1022,9 +1030,9 @@
       "shareFail": "Copy the address manually",
       "resetCta": "Clear answers",
       "rulesTitle": "disclosed rules",
-      "selectionRule": "Question selection rule: candidates are valid (non-voided) PSP10 roll-call votes with a theme from the vote_tag silver layer, excluding the Procedure and Other themes, with at least {minPositional} positional ballots (for + against). Within each theme, candidates are sorted by closeness |for−against|/(for+against) ascending (most divided first; ties: more positional ballots, more recent date, higher id). Themes are sorted by candidate count and the set is drawn round-robin — each theme's first pick, then the second — at most {perTheme} per theme and {cap} in total. The same record always yields the same questions.",
+      "selectionRule": "Question selection rule: candidates are valid (non-voided) PSP10 roll-call votes with a theme from the vote_tag silver layer, excluding the Procedure and Other themes, with at least {minPositional} positional ballots (for + against), and whose theme the classifier did not itself mark with a confidence below {minConfidence} %. A theme with no stated confidence is not dropped — a missing value does not claim the model was unsure — and is counted separately. Within each theme, candidates are sorted by closeness |for−against|/(for+against) ascending (most divided first; ties: more positional ballots, more recent date, higher id). Themes are sorted by candidate count and the set is drawn round-robin — each theme's first pick, then the second — at most {perTheme} per theme and {cap} in total. The same record always yields the same questions.",
       "scoringRule": "Match rule: a roll call is comparable where the MP voted for/against; a match = their position equals yours. An MP's match = matches ÷ comparable votes. Since amendment 90/1995 Coll. the Chamber does not distinguish the “abstained / did not vote” slot — it counts neither as agreement nor disagreement and does not enter the denominator; absence does not either (both are shown separately). Only MPs with a positional ballot on at least half of your answered questions enter the ranking. Groups are measured the same way against their line (strict majority of the group's positional ballots).",
-      "rulesSource": "psp.cz — PSP10 roll-call votes · {valid} valid roll calls, of which {tagged} themed and {candidates} selection candidates · {from} – {to} · themes: sem_classify (haiku), silver layer",
+      "rulesSource": "psp.cz — PSP10 roll-call votes · {valid} valid roll calls, of which {tagged} themed and {candidates} selection candidates · {from} – {to} · themes: sem_classify (haiku), silver layer · theme-confidence floor {minConfidence} %: {droppedByConfidence} candidates dropped below it, {withoutConfidence} kept with no stated confidence",
       "freshness": "the questions and the positional record are derived from the same ledger read as the votes overview; the result is memoized and expires after {hours} h — that is the most these numbers can lag the graph. /penize and the control room declare the same bound.",
       "loadingBody": "Selecting questions by the disclosed rule and reading the Chamber's positional record. Reading the whole record takes seconds; only the first request after the memo expires pays for it.",
       "unavailableWhat": "the election compass",
@@ -1654,6 +1662,7 @@
     "pipelineFootnote": "The pipeline reads House prints daily; section diffs are built from e-Sbírka's consolidated wording as soon as an amendment is published. Rejected prints drop out of the pipeline — that, too, is an impact worth recording.",
     "realIntro": "Which parliamentary prints amend which acts — for every print a one-sentence “what it changes” derived from its own text, plus the bill → amended act link, the sponsors, their money ties and the forensic review where one exists. Data from psp.cz, not from a model.",
     "mockNotice": "graph unavailable — sample data below (mock), not a live source",
+    "mockNoProfileLink": "The sample MPs are invented and have no file, so their names lead nowhere. An address that looks real but is not is worse than no address at all.",
     "stats": {
       "bills": "parliamentary prints",
       "laws": "amended acts",
@@ -1736,6 +1745,9 @@
     },
     "section1AsideReal": "{bills} prints · {summaries} with a summary · {amends} amendment links · psp.cz",
     "section2AsideReal": "psp.cz prints · prints per act",
+    "dependencies": {
+      "title": "Dependencies on companion prints"
+    },
     "forensicIndex": {
       "title": "Assessment index",
       "source": "psp.cz prints · assessments stored in the graph (graph pass {pass}) · distribution computed from the stored values",
@@ -1799,11 +1811,17 @@
       "amendmentDocsHeading": "written amendments — {countFmt} · psp.cz parliamentary documents",
       "conflictSource": "possible conflict of interest · derived from the sponsor’s money ties",
       "conflictText": "The sponsor has ties to {count, plural, one {{countFmt} company} other {{countFmt} companies}} with a total public-contract flow of <b>{amount}</b>. A signal to examine, not a proven conflict — sector adjacency is an indication, not evidence.",
+      "conflictAttribution": "The figure above is the worst case among this print's sponsors and sums every company the sponsor is tied to in the graph — including institutions where the role is merely a stewardship seat. An MP's money file attributes more strictly: an institution's money belongs to the institution, never to the MP, so the file usually shows a smaller amount. The file decides, not this flag.",
+      "conflictMoneyFiles": "the sponsors' money files — every tie with its class and its human-review state",
+      "conflictMoneyFileAria": "money file of MP {name}",
+      "conflictStrety": "overview of possible conflicts",
       "sectorAttribution": {
         "heading": "sector attribution — {countFmt} {count, plural, one {match found} other {matches found}}",
         "source": "sector attribution · amended-§ census ⋈ money-tie ledger (batch 017) — every match is a derived lead, never reviewed by a human",
         "intro": "The sponsor's company operates in the same sector the amended statute regulates. A topological adjacency, not a proven influence — and each match already has a published forensic verdict (below).",
         "viaLaw": "sector <b>{sector}</b> ↔ <b>act no. {ref} Sb.</b>",
+        "sponsorLabel": "the tie belongs to sponsor:",
+        "companyFileAria": "money file of company {company}",
         "paragraphs": "operative §§:",
         "noParagraphsCensus": "The print's text census found no § this change could be attributed to — either an annex amendment with no paragraph text, or a partitioner limit. The match stays at the whole-statute level; no paragraph number is guessed.",
         "noParagraphsFallback": "Paragraph-level partitioning failed here and the census fell back to a whole-block allocation — an exact § cannot be stated.",
@@ -1841,7 +1859,7 @@
       "verbatim": "Verbatim text of both wordings from e-Sbírka (<from>{fromDate}</from> → <to>{toDate}</to>), never computed. Source: {source}."
     },
     "dossierPage": {
-      "crumb": "/ laws / print",
+      "crumb": "/ <m>laws</m> / print",
       "eyebrow": "parliamentary print · psp.cz",
       "denikLink": "this print’s journal",
       "denikNote": "dated steps of the print — the republic’s journal, entity filter",
@@ -1863,6 +1881,8 @@
       "statsSource": "psp.cz prints (amends + full-text census) · e-Sbírka SPARQL section diffs — the section trail is point-sampled; coverage is disclosed on every row",
       "sectionTitle": "Statute registry",
       "sortAside": "sorted by print count, then by statute number",
+      "emptyLabel": "the register is empty",
+      "emptyText": "The graph is available but carries no statute amended by any parliamentary print. This is not a finding about lawmaking — it is the state of the record: with no print → statute edge in the graph, the register has nothing to list and invents nothing.",
       "trailBadge": "§ trail · {count, plural, one {{countFmt} change} other {{countFmt} changes}}",
       "footnote": "The trail includes links from print titles (the “č. N/RRRR Sb.” citation) as well as the independent full-text census (graph pass 20) — the two provenances are distinguished on each statute’s page. A statute without a section trail is not an empty page: the chronicle of prints stands even without an e-Sbírka diff."
     },
@@ -1932,6 +1952,7 @@
       "batchBadge": "batch {batch}",
       "batchTitle": "Which manual text-comparison batch this finding comes from",
       "excerptLabel": "print {cislo} — verbatim quotation",
+      "denikLink": "daily record of print {cislo}",
       "fullReasoningWithQuotes": "quotations and full reasoning +",
       "fullReasoning": "full reasoning +",
       "pairSource": "batch {batch} · {method}"

@@ -8,7 +8,9 @@
 //      Silver-layer theme tag, excluding the themes `procedura` and `jine`
 //      (procedural motions and unclassifiable titles make poor positions),
 //      with at least MIN_POSITIONAL positional ballots (pro + proti) — high
-//      participation.
+//      participation — and whose tag does NOT report a confidence below
+//      MIN_TAG_CONFIDENCE (see the constant for why a MISSING confidence is
+//      kept rather than dropped).
 //   2. Within each theme, candidates rank by closeness: margin
 //      |pro − proti| / (pro + proti) ascending (the most divided first);
 //      ties break by more positional ballots, newer date, higher psp.cz id.
@@ -28,12 +30,34 @@ export const PER_THEME_CAP = 2;
 export const MIN_POSITIONAL = 120;
 export const EXCLUDED_THEMES: readonly string[] = ["procedura", "jine"];
 
+/**
+ * Práh sebehlášené jistoty klasifikátoru (`vote_tag.confidence`, 0–1), pod kterým
+ * hlasování do otázek nevstupuje.
+ *
+ * ── Proč práh vůbec je (2026-08-10) ──────────────────────────────────────────
+ * Téma přiřazuje haiku (`sem_classify`, silver vrstva) a KE KAŽDÉMU tagu si zapíše
+ * vlastní jistotu. Do dneška ji nikdo nečetl: špatně zařazené hlasování mohlo tiše
+ * změnit, kterých ~20 hlasování reprezentuje celé období — a to je celý vstup
+ * kompasu. Práh je součástí ZVEŘEJNĚNÉHO pravidla (KompasPage tiskne jeho živou
+ * hodnotu i počet vyřazených kandidátů), takže je zkontrolovatelný, ne redakční.
+ *
+ * ── Proč chybějící jistota NEPADÁ ────────────────────────────────────────────
+ * `confidence` je nullable. Tag bez jistoty netvrdí, že si klasifikátor nebyl
+ * jistý — netvrdí NIC. Zahodit ho by znamenalo číst chybějící údaj jako nulu,
+ * což je přesně ten převod, který si tenhle repozitář zakazuje (precedens
+ * „údaj v grafu chybí“). Takový kandidát tedy zůstává a počítá se ZVLÁŠŤ
+ * (`withoutConfidence`), aby čtenář viděl, na kolika otázkách práh vůbec nic
+ * nerozhodl.
+ */
+export const MIN_TAG_CONFIDENCE = 0.7;
+
 const round3 = (x: number) => Math.round(x * 1000) / 1000;
 
 export interface SelectOptions {
   questionsCap?: number;
   perThemeCap?: number;
   minPositional?: number;
+  minConfidence?: number;
   excludedThemes?: readonly string[];
 }
 
@@ -49,6 +73,13 @@ export interface SelectionResult {
   selected: SelectedVote[];
   /** Candidates that passed all floors (before the caps). */
   candidates: number;
+  /** Would-be candidates whose tag REPORTS a confidence below the floor — dropped
+   *  and disclosed, so the floor is never a silent loss. */
+  droppedByConfidence: number;
+  /** Candidates whose tag reports no confidence at all: kept (a missing value is
+   *  not a low value) and counted, so the reader sees where the floor decided
+   *  nothing. */
+  withoutConfidence: number;
 }
 
 export function selectQuestions(
@@ -58,17 +89,23 @@ export function selectQuestions(
     totals: ReadonlyMap<number, ClubTally>;
     /** Silver-layer theme per vote. */
     themeByVote: ReadonlyMap<number, string>;
+    /** Classifier self-reported confidence per vote (`vote_tag.confidence`, 0–1).
+     *  A vote absent from the map is treated exactly like a stored `null`. */
+    confidenceByVote?: ReadonlyMap<number, number | null>;
   },
   opts: SelectOptions = {},
 ): SelectionResult {
   const questionsCap = opts.questionsCap ?? QUESTIONS_CAP;
   const perThemeCap = opts.perThemeCap ?? PER_THEME_CAP;
   const minPositional = opts.minPositional ?? MIN_POSITIONAL;
+  const minConfidence = opts.minConfidence ?? MIN_TAG_CONFIDENCE;
   const excluded = new Set(opts.excludedThemes ?? EXCLUDED_THEMES);
 
   /* 1 — candidate floor */
   const byTheme = new Map<string, SelectedVote[]>();
   let candidates = 0;
+  let droppedByConfidence = 0;
+  let withoutConfidence = 0;
   for (const event of input.events) {
     if (event.voided) continue;
     const theme = input.themeByVote.get(event.pspId);
@@ -77,6 +114,15 @@ export function selectQuestions(
     if (!total) continue;
     const pos = total.yes + total.no;
     if (pos < minPositional) continue;
+    // Poslední práh SCHVÁLNĚ: `droppedByConfidence` má být počet kandidátů, které
+    // vzala jistota — ne směs s hlasováními, která stejně neprošla účastí.
+    const confidence = input.confidenceByVote?.get(event.pspId) ?? null;
+    if (confidence === null || !Number.isFinite(confidence)) {
+      withoutConfidence++;
+    } else if (confidence < minConfidence) {
+      droppedByConfidence++;
+      continue;
+    }
     candidates++;
     const margin = round3(Math.abs(total.yes - total.no) / pos);
     let list = byTheme.get(theme);
@@ -110,5 +156,5 @@ export function selectQuestions(
       if (pick) selected.push(pick);
     }
   }
-  return { selected, candidates };
+  return { selected, candidates, droppedByConfidence, withoutConfidence };
 }

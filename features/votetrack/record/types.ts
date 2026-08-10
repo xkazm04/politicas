@@ -3,6 +3,8 @@
 // ingested PSP10 ledger (vote_event + vote_ballot + clubByMandate); every rule is
 // disclosed in the UI copy (record/../copy.ts) per the brand rule.
 
+import type { ReconciliationSummary } from "./reconcile";
+
 /** Per-club ballot buckets for one roll call. The K bucket exists because the
  * Chamber itself stopped distinguishing "zdržel se" from "nehlasoval" in 1995
  * (90/1995 Sb.) — see lib/ingest/normalize.ts; we never split it. */
@@ -111,6 +113,13 @@ export interface VoteRecordData {
   chronicle: ChronicleEntry[];
   /** Highest rebellion rates over ≥ minEligible eligible votes, capped. */
   topRebels: RebelRank[];
+  /**
+   * Kontrola NAŠEHO přepočtu proti součtům, které sněmovna sama zveřejnila
+   * (record/reconcile.ts). Je to NÁLEZ, ne oprava: rozdíl se vypíše i s počtem
+   * a nejhorším příkladem, žádná ze dvou stran se nepřepisuje. Hlasování bez
+   * zveřejněných sloupců je NEPOROVNANÉ, nikdy dohadované.
+   */
+  reconciliation: ReconciliationSummary;
   coverage: {
     events: number;
     valid: number;

@@ -22,7 +22,7 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import QuestionCard from "./QuestionCard";
 import ResultsBoard from "./ResultsBoard";
 import { MIN_ANSWERS, scoreAlignment } from "./score";
-import { MIN_POSITIONAL, PER_THEME_CAP, QUESTIONS_CAP } from "./select";
+import { MIN_POSITIONAL, MIN_TAG_CONFIDENCE, PER_THEME_CAP, QUESTIONS_CAP } from "./select";
 import type { KompasData } from "./types";
 import { useKompasAnswers } from "./useKompasAnswers";
 
@@ -39,24 +39,33 @@ export default function KompasPage({ data }: { data: KompasData }) {
     [data, answers],
   );
 
+  // Práh jistoty tématu se tiskne ŽIVOU hodnotou konstanty ze select.ts (nikdy
+  // literálem v katalogu — precedens PUBLISHED_WEIGHTS_LABEL): změna prahu tak
+  // přepíše zveřejněné pravidlo sama.
+  const minConfidencePct = f.int(Math.round(MIN_TAG_CONFIDENCE * 100));
+
   const rules = useMemo(
     () => ({
       selection: t("kompas.selectionRule", {
         cap: QUESTIONS_CAP,
         perTheme: PER_THEME_CAP,
         minPositional: MIN_POSITIONAL,
+        minConfidence: minConfidencePct,
       }),
       scoring: t("kompas.scoringRule"),
       source: t("kompas.rulesSource", {
         valid: data.coverage.valid,
         tagged: data.coverage.tagged,
         candidates: data.coverage.candidates,
+        minConfidence: minConfidencePct,
+        droppedByConfidence: f.int(data.coverage.droppedByConfidence),
+        withoutConfidence: f.int(data.coverage.withoutConfidence),
         from: data.coverage.from ? f.date(data.coverage.from) : "—",
         to: data.coverage.to ? f.date(data.coverage.to) : "—",
       }),
       freshness: t("kompas.freshness", { hours: f.int(RECORD_MEMO_HOURS) }),
     }),
-    [data.coverage, f, t],
+    [data.coverage, f, t, minConfidencePct],
   );
 
   const total = data.questions.length;

@@ -13,6 +13,7 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { clubStyle } from "../record/clubStyle";
+import { votePspUrl } from "../record/anchor";
 import type { ClubAggregate, LedgerVote, VoteRecordData } from "../record/types";
 
 const MATRIX_WINDOW = 12;
@@ -183,7 +184,83 @@ export default function RealDisciplineBoard({
         <SourceNote className="mt-2">
           {t("record.freshness", { ballots: f.int(data.coverage.ballots), hours: f.int(RECORD_MEMO_HOURS) })}
         </SourceNote>
+
+        <ReconciliationNote data={data} />
       </div>
+    </div>
+  );
+}
+
+/**
+ * Sněmovna kontroluje sama sebe — náš přepočet postavený vedle součtů, které
+ * o týchž hlasováních zveřejnil zdroj (record/reconcile.ts).
+ *
+ * Rozdíl je NÁLEZ: vypíše se i s počtem a nejhorším příkladem (a ten příklad
+ * dostane adresu na psp.cz, ať ho jde otevřít), ale ani jedna strana se
+ * nepřepisuje — týž precedens jako nemožná data smluv. Okrový pruh nese jen
+ * verze s rozdílem; shoda není nález datové kvality, a barvit ji jako varování
+ * by tvrdilo něco jiného, než co se stalo.
+ */
+function ReconciliationNote({ data }: { data: VoteRecordData }) {
+  const t = useTranslations("votetrack");
+  const f = useFormat();
+  const r = data.reconciliation;
+  const flagged = r.discrepancies > 0;
+  const gaps = r.uncompared + r.withoutBallots;
+
+  return (
+    <div
+      className={`mt-5 border-l-4 px-4 py-3 ${flagged ? "border-ochre bg-ochre/5" : "border-hairline bg-paper-strong"}`}
+    >
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-ink">{t("record.reconcileTitle")}</p>
+      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink">{t("record.reconcileMethod")}</p>
+
+      {r.compared === 0 ? (
+        <p className="mt-2 max-w-3xl text-sm font-bold leading-relaxed text-ink">{t("record.reconcileNone")}</p>
+      ) : flagged ? (
+        <>
+          <p className="mt-2 max-w-3xl text-sm font-bold leading-relaxed text-ink">
+            {t("record.reconcileDiff", {
+              discrepancies: f.int(r.discrepancies),
+              compared: f.int(r.compared),
+              // Identifikátor, ne množství: id se sází holé, nikdy po tisících.
+              worstId: r.worst ? String(r.worst.votePspId) : "—",
+              worstDistance: f.int(r.worst?.distance ?? 0),
+            })}
+          </p>
+          {r.worst && (
+            <a
+              href={votePspUrl(r.worst.votePspId)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 inline-block font-mono text-xs uppercase tracking-wider text-steel-aa underline-offset-2 hover:text-ink hover:underline"
+            >
+              {t("record.reconcileWorstLink", { worstId: String(r.worst.votePspId) })} ↗
+            </a>
+          )}
+        </>
+      ) : (
+        <p className="mt-2 max-w-3xl text-sm font-bold leading-relaxed text-ink">
+          {t("record.reconcileAgree", { compared: f.int(r.compared), buckets: f.int(r.comparedBuckets) })}
+        </p>
+      )}
+
+      {gaps > 0 && (
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-steel-aa">
+          {t("record.reconcileGaps", {
+            uncompared: f.int(r.uncompared),
+            withoutBallots: f.int(r.withoutBallots),
+          })}
+        </p>
+      )}
+
+      <SourceNote className="mt-2">
+        {t("record.reconcileSource", {
+          ballots: f.int(data.coverage.ballots),
+          compared: f.int(r.compared),
+          buckets: f.int(r.comparedBuckets),
+        })}
+      </SourceNote>
     </div>
   );
 }

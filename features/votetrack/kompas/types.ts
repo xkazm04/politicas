@@ -56,6 +56,12 @@ export interface KompasData {
     tagged: number;
     /** Candidates that passed the selection-rule floors. */
     candidates: number;
+    /** Would-be candidates dropped by the tag-confidence floor (select.ts
+     *  `MIN_TAG_CONFIDENCE`) — a stated loss, never a silent one. */
+    droppedByConfidence: number;
+    /** Candidates whose tag carries no confidence at all: kept, and counted so the
+     *  reader can see where the floor decided nothing. */
+    withoutConfidence: number;
     from: string | null;
     to: string | null;
   };

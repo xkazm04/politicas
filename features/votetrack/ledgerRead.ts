@@ -53,10 +53,16 @@ export interface LedgerRead {
   nameByPerson: ReadonlyMap<number, string>;
 }
 
-/** The one row→input projection. Both loaders derive from the same event shape. */
+/** The one row→input projection. Both loaders derive from the same event shape.
+ *
+ *  `published` nese sloupce, které sněmovna sama zveřejnila u toho hlasování —
+ *  jediné místo v aplikaci, kde se z `vote_event` čtou. Předávají se DOSLOVA,
+ *  včetně `null`: chybějící sloupec je v kontrole (record/reconcile.ts) neporovnaný
+ *  slot, nikdy domyšlená nula. */
 export function toEventIn(e: VoteEventRow): EventIn {
   return {
     pspId: e.pspId,
+    published: { yes: e.yes, no: e.no, abstain: e.abstain, notVoting: e.notVoting },
     votedOn: e.votedOn,
     votedAt: e.votedAt,
     sessionNo: e.sessionNo,
