@@ -16,8 +16,11 @@
 //   • Chamber cohesion per vote = positional-weighted mean of per-club Rice
 //     indices over clubs with ≥ MIN_CLUB_POSITIONAL positional ballots.
 //   • MPs without a resolved club (nezařazení) render but are never scored.
+//   • Every recount is checked against the Chamber's OWN published tallies
+//     (record/reconcile.ts); a difference is DISCLOSED, never repaired.
 
 import { MIN_CLUB_POSITIONAL, MIN_ELIGIBLE_VOTES } from "@/lib/analysis/kg";
+import { reconcileRecord, type PublishedTally } from "./reconcile";
 import type {
   ChronicleEntry,
   ClubAggregate,
@@ -55,6 +58,14 @@ export interface EventIn {
   titleShort: string | null;
   titleNorm: string;
   sourceUrl: string;
+  /**
+   * The Chamber's OWN published tallies for this roll call (`vote_event.yes/no/
+   * abstain/not_voting`). OPTIONAL on purpose: a caller that does not carry them
+   * (features/profile/getRebellionRecord.ts builds its own EventIn rows) yields an
+   * UNCOMPARED roll call — never a guessed one. Filled by `toEventIn` in
+   * ledgerRead.ts, which is the read path both /hlasovani and /kompas go through.
+   */
+  published?: PublishedTally | null;
 }
 
 export interface BallotIn {
