@@ -126,12 +126,19 @@ export default function QuestionCard({
       </div>
 
       <p className="mt-auto flex flex-wrap gap-x-4 gap-y-1 border-t border-hairline pt-3 font-mono text-xs uppercase tracking-wider">
-        <Link
-          href={`/hlasovani#${voteAnchorId(q.votePspId)}`}
-          className="text-steel-aa underline-offset-2 hover:text-ink hover:underline"
-        >
-          {t("kompas.recordLink")} →
-        </Link>
+        {/* Kotva `#h-…` existuje jen pro okno deníku; mimo něj by odkaz tiše
+            nedělal nic (useVoteAnchor se pro cizí id vrátí). Místo mrtvého
+            odkazu se řekne, PROČ tam nevede — psp.cz vedle vede vždycky. */}
+        {q.inLedger ? (
+          <Link
+            href={`/hlasovani#${voteAnchorId(q.votePspId)}`}
+            className="text-steel-aa underline-offset-2 hover:text-ink hover:underline"
+          >
+            {t("kompas.recordLink")} →
+          </Link>
+        ) : (
+          <span className="text-steel-aa">{t("kompas.outsideWindow")}</span>
+        )}
         <a
           href={votePspUrl(q.votePspId)}
           target="_blank"

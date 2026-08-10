@@ -16,7 +16,7 @@ import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { clubStyle } from "../record/clubStyle";
-import { voteAnchorId } from "../record/anchor";
+import { voteAnchorId, votePspUrl } from "../record/anchor";
 import type { AlignmentResult, Answer, MpAlignment } from "./score";
 import type { KompasBallots, KompasQuestion } from "./types";
 
@@ -32,15 +32,26 @@ function ShareButton() {
     const id = setTimeout(() => setState("idle"), 2500);
     return () => clearTimeout(id);
   }, [state]);
+  // `navigator.clipboard` je v nezabezpečeném kontextu (a ve starším prohlížeči)
+  // UNDEFINED, takže `.writeText` házelo synchronně ještě před `.then` — chybová
+  // větev tlačítka byla nedosažitelná a čtenář zůstal na „Sdílet". Adresa je celý
+  // stav kompasu, takže selhání musí říct, ať ji zkopíruje ručně.
+  // (Sdílená CopyLinkButton se sem nehodí: kopíruje se AKTUÁLNÍ adresa i s ?hlasy=,
+  //  kterou zná jen klient v okamžiku kliknutí, a rám „vaše čísla" je kobaltový.)
+  const copy = async () => {
+    try {
+      if (!navigator.clipboard) throw new Error("clipboard API unavailable");
+      await navigator.clipboard.writeText(window.location.href);
+      setState("ok");
+    } catch (err) {
+      console.error("kompas: kopírování odkazu na výsledek selhalo", err);
+      setState("fail");
+    }
+  };
   return (
     <button
       type="button"
-      onClick={() =>
-        navigator.clipboard.writeText(window.location.href).then(
-          () => setState("ok"),
-          () => setState("fail"),
-        )
-      }
+      onClick={copy}
       className="inline-flex items-center gap-1.5 border-2 border-cobalt px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:bg-cobalt hover:text-paper motion-reduce:transition-none"
     >
       {state === "ok" ? <Check className="h-3 w-3" aria-hidden /> : <Link2 className="h-3 w-3" aria-hidden />}
@@ -59,25 +70,35 @@ function ClubDot({ club }: { club: string }) {
   );
 }
 
-/** Per-vote receipt of one MP row — every line links to the `#h-` permalink. */
+/**
+ * Per-vote receipt of one MP row. A line links the `#h-` permalink only while the
+ * roll call is INSIDE the ledger window; outside it the row links psp.cz and says
+ * so, because the anchor hook silently no-ops for an id the ledger does not draw
+ * (the features/profile `appHref` precedent — never a link that does nothing).
+ */
 function Receipts({
   mp,
   questions,
   ballots,
   answers,
+  ledgerWindow,
 }: {
   mp: MpAlignment;
   questions: readonly KompasQuestion[];
   ballots: KompasBallots;
   answers: ReadonlyMap<number, Answer>;
+  ledgerWindow: number;
 }) {
   const t = useTranslations("votetrack");
   const tcom = useTranslations("common");
+  const f = useFormat();
   const choiceWord = (a: Answer) => (a === "pro" ? tcom("voteChoice.for") : tcom("voteChoice.against"));
+  const answered = questions.filter((q) => answers.has(q.votePspId));
+  const outside = answered.filter((q) => !q.inLedger).length;
   return (
+    <>
     <ul aria-label={t("kompas.receiptsAria", { name: mp.name })} className="mt-2 border-t border-hairline">
-      {questions
-        .filter((q) => answers.has(q.votePspId))
+      {answered
         .map((q) => {
           const you = answers.get(q.votePspId)!;
           const bucket = ballots[q.votePspId]?.[mp.personPspId] ?? "away";
@@ -95,13 +116,30 @@ function Receipts({
               key={q.votePspId}
               className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 border-b border-hairline py-1.5"
             >
-              <Link
-                href={`/hlasovani#${voteAnchorId(q.votePspId)}`}
-                className="min-w-0 flex-1 truncate text-sm underline-offset-2 hover:underline"
-                title={q.title}
-              >
-                {q.title}
-              </Link>
+              {q.inLedger ? (
+                <Link
+                  href={`/hlasovani#${voteAnchorId(q.votePspId)}`}
+                  className="min-w-0 flex-1 truncate text-sm underline-offset-2 hover:underline"
+                  title={q.title}
+                >
+                  {q.title}
+                </Link>
+              ) : (
+                <span className="flex min-w-0 flex-1 items-baseline gap-2">
+                  <a
+                    href={votePspUrl(q.votePspId)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="min-w-0 truncate text-sm underline-offset-2 hover:underline"
+                    title={q.title}
+                  >
+                    {q.title} ↗
+                  </a>
+                  <span className="shrink-0 font-mono text-[10px] uppercase tracking-wider text-steel-aa">
+                    {t("kompas.outsideWindowTag")}
+                  </span>
+                </span>
+              )}
               <span className="font-mono text-xs uppercase tracking-wider tabular-nums">
                 <span className="text-steel-aa">
                   {t("kompas.receiptYou")} {choiceWord(you)} · {t("kompas.receiptMp")}{" "}
@@ -126,6 +164,14 @@ function Receipts({
           );
         })}
     </ul>
+    {outside > 0 && (
+      <div className="mt-1.5">
+        <SourceNote>
+          {t("kompas.outsideWindowNote", { n: f.int(outside), window: f.int(ledgerWindow) })}
+        </SourceNote>
+      </div>
+    )}
+    </>
   );
 }
 
@@ -135,6 +181,7 @@ function MpRow({
   questions,
   ballots,
   answers,
+  ledgerWindow,
 }: {
   mp: MpAlignment;
   /** 1-based position on the ranked board; null for the unranked tail. */
@@ -142,6 +189,7 @@ function MpRow({
   questions: readonly KompasQuestion[];
   ballots: KompasBallots;
   answers: ReadonlyMap<number, Answer>;
+  ledgerWindow: number;
 }) {
   const t = useTranslations("votetrack");
   const f = useFormat();
@@ -186,7 +234,9 @@ function MpRow({
       {rank === null && (
         <p className="mt-0.5 pl-12 font-mono text-xs uppercase tracking-wider text-steel-aa">{t("kompas.notRankable")}</p>
       )}
-      {open && <Receipts mp={mp} questions={questions} ballots={ballots} answers={answers} />}
+      {open && (
+        <Receipts mp={mp} questions={questions} ballots={ballots} answers={answers} ledgerWindow={ledgerWindow} />
+      )}
     </li>
   );
 }
@@ -198,6 +248,7 @@ export default function ResultsBoard({
   answers,
   onReset,
   rules,
+  ledgerWindow,
 }: {
   result: AlignmentResult;
   questions: readonly KompasQuestion[];
@@ -206,6 +257,9 @@ export default function ResultsBoard({
   onReset: () => void;
   /** The verbatim disclosed rules + coverage line, rendered inside the frame. */
   rules: { selection: string; scoring: string; source: string; freshness: string };
+  /** How many newest roll calls the /hlasovani ledger draws — named in the
+   *  receipt note that explains why some rows link psp.cz instead of an anchor. */
+  ledgerWindow: number;
 }) {
   const t = useTranslations("votetrack");
   const f = useFormat();
@@ -285,7 +339,15 @@ export default function ResultsBoard({
         </div>
         <ul className="mt-3">
           {visible.map((mp, i) => (
-            <MpRow key={mp.personPspId} mp={mp} rank={i + 1} questions={questions} ballots={ballots} answers={answers} />
+            <MpRow
+              key={mp.personPspId}
+              mp={mp}
+              rank={i + 1}
+              questions={questions}
+              ballots={ballots}
+              answers={answers}
+              ledgerWindow={ledgerWindow}
+            />
           ))}
         </ul>
         {ranked.length > TOP_ROWS && (
@@ -303,7 +365,15 @@ export default function ResultsBoard({
             <SourceNote>{t("kompas.unrankedTail", { n: tail.length })}</SourceNote>
             <ul className="mt-2">
               {tail.map((mp) => (
-                <MpRow key={mp.personPspId} mp={mp} rank={null} questions={questions} ballots={ballots} answers={answers} />
+                <MpRow
+                  key={mp.personPspId}
+                  mp={mp}
+                  rank={null}
+                  questions={questions}
+                  ballots={ballots}
+                  answers={answers}
+                  ledgerWindow={ledgerWindow}
+                />
               ))}
             </ul>
           </div>

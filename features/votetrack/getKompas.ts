@@ -23,7 +23,7 @@ import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { createLedgerMemo } from "./ledgerMemo";
 import { readLedger, readVoteTags } from "./ledgerRead";
-import { bucketOf, lineOf } from "./record/derive";
+import { bucketOf, LEDGER_WINDOW, lineOf, sortValidNewestFirst } from "./record/derive";
 import type { ClubTally } from "./record/types";
 import { selectQuestions } from "./kompas/select";
 import type { KompasBallots, KompasClubLines, KompasData, KompasMp } from "./kompas/types";
@@ -119,7 +119,11 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
       }
     }
 
-    const valid = eventsIn.filter((e) => !e.voided);
+    // Pořadí deníku a jeho okno se NEPOČÍTAJÍ znovu: `sortValidNewestFirst` je
+    // táž funkce, kterou si okno vyřezává deriveVoteRecord(), takže „uvnitř okna"
+    // znamená na obou plochách totéž a odkaz na kotvu nikdy nevede do prázdna.
+    const valid = sortValidNewestFirst(eventsIn);
+    const inLedger = new Set(valid.slice(0, LEDGER_WINDOW).map((e) => e.pspId));
     const validDates = valid.map((e) => e.votedOn).filter((d): d is string => d !== null);
     let tagged = 0;
     for (const e of valid) if (themeByVote.has(e.pspId)) tagged++;
@@ -136,6 +140,7 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
         total: s.total,
         margin: s.margin,
         sourceUrl: s.event.sourceUrl,
+        inLedger: inLedger.has(s.event.pspId),
       })),
       mps: [...mpSeen.values()].sort((a, b) => a.name.localeCompare(b.name, "cs")),
       ballots: ballotMap,
@@ -146,6 +151,7 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
         candidates,
         droppedByConfidence,
         withoutConfidence,
+        ledgerWindow: Math.min(LEDGER_WINDOW, valid.length),
         from: validDates.length ? validDates.reduce((a, b) => (a < b ? a : b)) : null,
         to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,
       },

@@ -18,6 +18,9 @@ const q = (votePspId: number): KompasQuestion => ({
   total: tally(100, 80, 10, 10),
   margin: 0.111,
   sourceUrl: `https://example.org/${votePspId}`,
+  // Scoring nezajímá, jestli hlasování leží v okně deníku — ten příznak řídí jen
+  // to, jestli řádek smí odkázat na kotvu `#h-…`, nebo musí na psp.cz.
+  inLedger: true,
 });
 
 const MPS: KompasMp[] = [

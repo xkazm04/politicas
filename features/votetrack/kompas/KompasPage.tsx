@@ -143,6 +143,7 @@ export default function KompasPage({ data }: { data: KompasData }) {
                 answers={answers}
                 onReset={reset}
                 rules={rules}
+                ledgerWindow={data.coverage.ledgerWindow}
               />
             ) : (
               <div className="border-2 border-hairline p-6">

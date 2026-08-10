@@ -25,6 +25,17 @@ export interface KompasQuestion {
   margin: number;
   /** Provenance URL of the ingested bytes (opendata archive). */
   sourceUrl: string;
+  /**
+   * Leží tohle hlasování v okně deníku na /hlasovani (prvních `LEDGER_WINDOW`
+   * platných hlasování od nejnovějšího)?
+   *
+   * Kompas vybírá otázky podle TĚSNOSTI přes celé období, deník vypisuje jen
+   * nejnovější okno — takže většina otázek do okna nespadá a odkaz na kotvu
+   * `#h-…` by u nich tiše nedělal nic (components/useVoteAnchor.ts se pro id
+   * mimo okno prostě vrátí). Tenhle příznak je tentýž, kterým si spis poslance
+   * (features/profile/rebellionRecord.ts) rozhoduje `appHref`.
+   */
+  inLedger: boolean;
 }
 
 export interface KompasMp {
@@ -62,6 +73,10 @@ export interface KompasData {
     /** Candidates whose tag carries no confidence at all: kept, and counted so the
      *  reader can see where the floor decided nothing. */
     withoutConfidence: number;
+    /** How many newest roll calls the /hlasovani ledger lists (record/derive.ts
+     *  `LEDGER_WINDOW`) — the window `KompasQuestion.inLedger` is measured against,
+     *  named on the surface so the reader knows what „outside the ledger" means. */
+    ledgerWindow: number;
     from: string | null;
     to: string | null;
   };

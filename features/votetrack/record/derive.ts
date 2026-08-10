@@ -161,6 +161,19 @@ const newestFirst = (a: EventIn, b: EventIn): number =>
   (b.voteNo ?? 0) - (a.voteNo ?? 0) ||
   b.pspId - a.pspId;
 
+/**
+ * Platná (nezmatečná) hlasování v pořadí deníku — od nejnovějšího.
+ *
+ * Exportované SCHVÁLNĚ: první `ledgerWindow` prvků tohohle pořadí JE okno deníku,
+ * a kdo potřebuje vědět, jestli hlasování do okna spadá (getKompas.ts kvůli
+ * poctivým odkazům na kotvu `#h-…`), musí to číst z téhle jedné funkce. Druhá
+ * kopie třídění by znamenala dvě různá okna nad jedním záznamem — a odkaz, který
+ * podle jednoho z nich existuje a podle druhého ne.
+ */
+export function sortValidNewestFirst(events: readonly EventIn[]): EventIn[] {
+  return events.filter((e) => !e.voided).sort(newestFirst);
+}
+
 export function deriveVoteRecord(
   input: {
     events: readonly EventIn[];
@@ -179,7 +192,7 @@ export function deriveVoteRecord(
 
   const { events, ballots, clubByMandate, personByMandate, nameByPerson } = input;
 
-  const valid = events.filter((e) => !e.voided).sort(newestFirst);
+  const valid = sortValidNewestFirst(events);
   const eventById = new Map(valid.map((e) => [e.pspId, e]));
 
   /* pass 1 — per-vote per-club tallies */

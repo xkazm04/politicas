@@ -11,6 +11,7 @@
 
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
+import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { voteAnchorId } from "../record/anchor";
 import type { ClubTally, LedgerVote } from "../record/types";
@@ -62,43 +63,60 @@ export default function RealVoteLedger({
           const selected = v.pspId === selectedId;
           const flashed = v.pspId === highlightedId;
           return (
-            <button
+            // Řádek je od 2026-08-10 obal, ne tlačítko: trvalý odkaz sliboval jen
+            // `title`, takže si ho čtenář musel složit z adresního řádku sám —
+            // a tlačítko „kopírovat odkaz" uvnitř tlačítka je neplatné HTML.
+            // Kotva `#h-…` proto sedí na obalu, který se i posouvá do zorného pole.
+            <div
               key={v.pspId}
               id={voteAnchorId(v.pspId)}
-              type="button"
-              onClick={() => onSelect(v.pspId)}
-              aria-pressed={selected}
-              title={t("record.permalinkTitle")}
-              className={`block w-full scroll-mt-24 border-b border-hairline py-4 pr-2 text-left transition-colors duration-500 hover:bg-paper-strong motion-reduce:transition-none ${
+              className={`scroll-mt-24 border-b border-hairline transition-colors duration-500 motion-reduce:transition-none ${
                 selected ? "border-l-4 border-l-signal bg-paper-strong pl-3" : "pl-0"
               } ${flashed ? "bg-paper-strong ring-2 ring-inset ring-signal" : ""}`}
             >
-              <span className="flex items-baseline justify-between gap-3">
-                <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
-                  {v.votedOn ? f.date(v.votedOn) : "—"}
-                  {v.time ? ` · ${v.time}` : ""} · {sessionVote(v.sessionNo, v.voteNo)}
+              <button
+                type="button"
+                onClick={() => onSelect(v.pspId)}
+                aria-pressed={selected}
+                title={t("record.permalinkTitle")}
+                className="block w-full pr-2 pt-4 text-left transition-colors hover:bg-paper-strong motion-reduce:transition-none"
+              >
+                <span className="flex items-baseline justify-between gap-3">
+                  <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
+                    {v.votedOn ? f.date(v.votedOn) : "—"}
+                    {v.time ? ` · ${v.time}` : ""} · {sessionVote(v.sessionNo, v.voteNo)}
+                  </span>
+                  <span
+                    className={`font-mono text-[11px] font-black uppercase tracking-wider ${
+                      v.outcome === "accepted" ? "text-cobalt" : "text-signal-deep"
+                    }`}
+                  >
+                    {v.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
+                  </span>
                 </span>
-                <span
-                  className={`font-mono text-[11px] font-black uppercase tracking-wider ${
-                    v.outcome === "accepted" ? "text-cobalt" : "text-signal-deep"
-                  }`}
-                >
-                  {v.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
+                <span className="mt-1 line-clamp-2 block text-[15px] font-bold leading-snug">{v.title}</span>
+                <span className="mt-2 block">
+                  <RatioBar total={v.stat.total} />
                 </span>
-              </span>
-              <span className="mt-1 line-clamp-2 block text-[15px] font-bold leading-snug">{v.title}</span>
-              <span className="mt-2 block">
-                <RatioBar total={v.stat.total} />
-              </span>
-              <span className="mt-1 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-                <span className="tabular-nums">
-                  {f.int(v.stat.total.yes)}:{f.int(v.stat.total.no)}
+              </button>
+              <div className="mt-1 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 pb-3 pr-2">
+                <span className="flex flex-wrap items-center gap-x-3 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
+                  <span className="tabular-nums">
+                    {f.int(v.stat.total.yes)}:{f.int(v.stat.total.no)}
+                  </span>
+                  {v.rebels.length > 0 && (
+                    <span className="font-bold text-signal-deep">{t("rebelsCount", { n: v.rebels.length })}</span>
+                  )}
                 </span>
-                {v.rebels.length > 0 && (
-                  <span className="font-bold text-signal-deep">{t("rebelsCount", { n: v.rebels.length })}</span>
-                )}
-              </span>
-            </button>
+                {/* Sdílená katalogová komponenta, nikdy druhá kopie — a kopíruje
+                    přesně tu adresu, kterou slibuje `title` na řádku. */}
+                <CopyLinkButton
+                  path={`/hlasovani#${voteAnchorId(v.pspId)}`}
+                  label={t("record.copyPermalink")}
+                  errorContext="deník hlasování: kopírování trvalého odkazu selhalo"
+                />
+              </div>
+            </div>
           );
         })}
       </div>
