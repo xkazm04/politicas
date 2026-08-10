@@ -24,6 +24,7 @@ import { CalendarDays, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { billEntityKey } from "@/features/denik/deriveDenik";
 import { entityDenikHref } from "@/features/schranka/followCodec";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -118,6 +119,7 @@ function RadarEmptyState() {
 
 function RealCollisions({ data }: { data: CollisionData }) {
   const t = useTranslations("lawwatch");
+  const f = useFormat();
   return (
     <>
       {/* Statistický pás */}
@@ -137,6 +139,20 @@ function RealCollisions({ data }: { data: CollisionData }) {
       <div className="mt-2">
         <SourceNote>{t("collisions.statsSource", { batches: data.batchesRun })}</SourceNote>
       </div>
+      {/* Vyřazené nahodilé dvojice se počítají a přiznávají. Pravidlo („stejné číslo §,
+          jiný zákon") stálo v citaci pod pásem už dřív, ale bez čísla — a čtyři čísla nad
+          ním pak vypadala jako celý výstup ručního porovnání, ne jako jeho zbytek.
+          (Precedens: `droppedImplausible` v deníku.) */}
+      {data.incidentalPairCount > 0 && (
+        <div className="mt-2">
+          <SourceNote>
+            {t("collisions.incidentalDropped", {
+              count: data.incidentalPairCount,
+              countFmt: f.int(data.incidentalPairCount),
+            })}
+          </SourceNote>
+        </div>
+      )}
       {data.czechPendingCount > 0 && (
         <div className="mt-2 border-2 border-dashed border-ochre bg-ochre/5 px-4 py-3">
           <p className="font-mono text-[11px] uppercase tracking-wider text-ochre">

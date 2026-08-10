@@ -280,4 +280,29 @@ describe("lawwatch message catalog", () => {
       }
     });
   });
+
+  describe("the dropped-pair disclosure (/zakony/kolize)", () => {
+    // A limit that drops a row has to say how many (the /denik `droppedImplausible`
+    // precedent). The RULE was already printed under the stat strip; the COUNT was not,
+    // so four figures read as the whole close-read output rather than its surviving part.
+    const k = "collisions.incidentalDropped";
+
+    it("exists in both locales and counts in both", () => {
+      expect(cs[k]?.trim()).toBeTruthy();
+      expect(en[k]?.trim()).toBeTruthy();
+      expect(variables(cs[k])).toEqual(variables(en[k]));
+      expect(variables(cs[k])).toEqual(["count", "countFmt"]);
+    });
+
+    it("states the reason for the drop, and that the dropped rows count towards nothing", () => {
+      expect(cs[k]).toMatch(/jiný zákon/i);
+      expect(cs[k]).toMatch(/nepočítají/i);
+      expect(en[k]).toMatch(/different statute/i);
+    });
+
+    it("calls it noise, never a finding", () => {
+      expect(cs[k]).toMatch(/nejde o nález|není nález/i);
+      expect(en[k]).toMatch(/not a finding/i);
+    });
+  });
 });

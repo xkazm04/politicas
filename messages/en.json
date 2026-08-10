@@ -1948,6 +1948,7 @@
       },
       "statsSource": "{batches} batches of manual text comparison · a deterministic same-section prefilter first, only then a close read of both texts; confirmed pairs verified by search in the archived psp.cz text · “incidental” pairs (same § number, different act) excluded — not shown here",
       "czechPending": "For {count}× pair the analysis is not displayed yet — it exists only in English and the Czech wording is being prepared. The finding itself (which prints, which §, how it is classified) is unaffected.",
+      "incidentalDropped": "A further {countFmt} {count, plural, one {pair was} other {pairs were}} dropped from the manual text comparison as an incidental match: the same section number, but a different statute. They count towards none of the figures above and are not listed — this is noise from the deterministic pre-filter, not a finding.",
       "clustersTitle": "Clusters by act and §",
       "clustersAside": "{clusters} clusters · {pairs} print pairs",
       "clustersFootnote": "A cluster = one § of one act, not a pair of prints — several findings are genuinely N-way (e.g. §35c of act 586/1992 now joins 4 prints). The classification is a derived finding (fabrication-checked; method: a deterministic same-section prefilter followed by a close read of both texts with in-text verification), never proven wrongdoing — it is a legislative-coordination risk between concurrently filed bills, not an ethical finding.",

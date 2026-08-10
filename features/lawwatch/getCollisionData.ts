@@ -38,13 +38,18 @@
 // route then hides the real section rather than fabricating anything.
 
 import "server-only";
+import { cache } from "react";
 import { asUnion } from "@/lib/db/narrow";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
+// ONE staleness bound over the graph — imported from where /dashboard declares it, never
+// re-declared (see getLawData.ts / moneyLoader.ts for the same import and the same reason).
+import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 
 export const COLLISION_CLASSIFICATIONS = ["confirmed-collision", "coordination-risk"] as const;
 export type CollisionClassification = (typeof COLLISION_CLASSIFICATIONS)[number];
@@ -106,6 +111,12 @@ export interface CollisionData {
   /** How many rendered pairs still have no Czech analyst prose, so the surface can disclose the
    * gap instead of quietly showing fewer words. */
   czechPendingCount: number;
+  /** Close-read pairs the loader DROPPED as incidental (same §-number, different statute — a
+   * data artifact of the deterministic pre-check, not a finding). The rule was always stated
+   * on the page; the COUNT was not, so „44 pairs" read as the whole close-read output when it
+   * is the surviving part of a larger one. A limit that drops a row has to say how many
+   * (the /denik `droppedImplausible` precedent). */
+  incidentalPairCount: number;
 }
 
 const PAYLOADS_DIR = "docs/data-analysis/case-law/payloads";
@@ -272,7 +283,42 @@ function loadPrecheckDate(): string | null {
   }
 }
 
-export async function getCollisionData(): Promise<CollisionData | null> {
+/**
+ * Cross-request memo for the whole close-read set — the same discipline getLawData.ts and
+ * moneyLoader.ts keep, bounded by the SAME imported window.
+ *
+ * This loader parses ~19 payload files and reads two whole node relations, over artifacts
+ * that change only when a law-loop batch writes one. `react.cache()` alone would not have
+ * been enough: it is scoped to one request, and /zakony/kolize calls this loader TWICE per
+ * request (the page, and `getRadarData` composing over it) — cache() fixes that half,
+ * the memo fixes the across-request half.
+ *
+ * `resolvedFromStore` is why the memo is not simply „non-null": the clusters' bill and
+ * statute TITLES come from the graph, and a run with no store still returns a complete,
+ * title-less answer. Freezing that for a day would keep a healthy store's titles off the
+ * page long after it came back.
+ */
+let collisionMemo: { at: number; data: CollisionData } | null = null;
+
+/** Test/measurement seam: drop the cross-request memo. Never called by the app. */
+export function resetCollisionMemo(): void {
+  collisionMemo = null;
+}
+
+/**
+ * `cache()` for the intra-request case, the memo above for the across-request one.
+ * Neither a null, an empty set, nor a store-less (title-less) read is ever memoized.
+ */
+export const getCollisionData = cache(async function getCollisionData(): Promise<CollisionData | null> {
+  const now = Date.now();
+  if (collisionMemo && now - collisionMemo.at < MONEY_MEMO_TTL_MS) return collisionMemo.data;
+  const { data, resolvedFromStore } = await readCollisionData();
+  if (data && resolvedFromStore && data.clusters.length > 0) collisionMemo = { at: now, data };
+  return data;
+});
+
+async function readCollisionData(): Promise<{ data: CollisionData | null; resolvedFromStore: boolean }> {
+  let resolvedFromStore = false;
   try {
     const precheckDate = loadPrecheckDate();
     const batch5Pairs = loadRawPairs("collision-close-reads-batch005.json");
@@ -298,9 +344,12 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       ...loadRawPairs("collision-close-reads-batch015-gA.json"),
       ...loadRawPairs("collision-close-reads-batch015-gB.json"),
     ];
-    const rawAll = [
+    // Parsed ONCE. `collision-close-reads.json` used to be read twice — into `rawAll` and
+    // again for `batch3Ids` — so every request paid for the same file twice.
+    const batch3Pairs = loadRawPairs("collision-close-reads.json");
+    const rawEverything = [
       ...PRIOR_PAIRS.map((p) => ({ ...p, detectedAt: precheckDate })),
-      ...loadRawPairs("collision-close-reads.json"),
+      ...batch3Pairs,
       ...loadRawPairs("collision-close-reads-batch004.json"),
       ...batch5Pairs,
       ...batch8Pairs,
@@ -310,14 +359,21 @@ export async function getCollisionData(): Promise<CollisionData | null> {
       ...batch13Pairs,
       ...batch14Pairs,
       ...batch15Pairs,
-    ].filter((p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk");
+    ];
+    const rawAll = rawEverything.filter(
+      (p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk",
+    );
+    // The dropped remainder is `incidental` — same §-number, different statute. It is noise,
+    // and it stays dropped; but the reader is told HOW MUCH was dropped, because a page that
+    // prints „44 dvojic" over a silently filtered set describes its own output as the whole
+    // close-read effort.
+    const incidentalPairCount = rawEverything.length - rawAll.length;
 
-    if (rawAll.length === 0) return null;
+    if (rawAll.length === 0) return { data: null, resolvedFromStore };
 
     // sourceBatch: prior pairs are batch 1/2 (their own pairId is the tell), the two JSON
     // files are batch 3 and batch 4, batch-005's own file is batch 5.
     const priorIds = new Set(PRIOR_PAIRS.map((p) => p.pairId));
-    const batch3Pairs = loadRawPairs("collision-close-reads.json");
     const batch3Ids = new Set(batch3Pairs.map((p) => p.pairId));
     const batch5Ids = new Set(batch5Pairs.map((p) => p.pairId));
     const batch8Ids = new Set(batch8Pairs.map((p) => p.pairId));
@@ -360,12 +416,17 @@ export async function getCollisionData(): Promise<CollisionData | null> {
     const billTitleByCislo = new Map<number, string>();
     const lawTitleByRef = new Map<string, string>();
     if (store) {
-      const billNodes = await store.listKgNodes({ kind: "bill", limit: 100_000 });
+      resolvedFromStore = true;
+      // Two independent kind-scoped reads at the ONE shared cap (lib/db/readCap.ts) — the
+      // ad-hoc 100_000 truncates silently on an ordered read once a corpus outgrows it.
+      const [billNodes, lawNodes] = await Promise.all([
+        store.listKgNodes({ kind: "bill", limit: KG_READ_CAP }),
+        store.listKgNodes({ kind: "law", limit: KG_READ_CAP }),
+      ]);
       for (const n of billNodes) {
         const p = (n.props ?? {}) as Record<string, unknown>;
         if (typeof p.cislo === "number") billTitleByCislo.set(p.cislo, n.label);
       }
-      const lawNodes = await store.listKgNodes({ kind: "law", limit: 100_000 });
       for (const n of lawNodes) {
         const p = (n.props ?? {}) as Record<string, unknown>;
         const ref = asStr(p.ref);
@@ -450,18 +511,22 @@ export async function getCollisionData(): Promise<CollisionData | null> {
     const allPairs = clusters.flatMap((c) => c.pairs);
 
     return {
-      clusters,
-      confirmedPairCount,
-      coordinationRiskPairCount,
-      clusterCount: clusters.length,
-      nWayClusterCount: clusters.filter((c) => c.bills.length >= 3).length,
-      // batches 001, 002, 003, 004, 005, 008 — derived, so it cannot fall behind the payloads
-      // the way the hardcoded `5` did once batch-008's file was added.
-      batchesRun: new Set(allPairs.map((p) => p.sourceBatch)).size,
-      czechPendingCount: allPairs.filter((p) => p.reasoningWithheld).length,
+      data: {
+        clusters,
+        confirmedPairCount,
+        coordinationRiskPairCount,
+        clusterCount: clusters.length,
+        nWayClusterCount: clusters.filter((c) => c.bills.length >= 3).length,
+        // batches 001, 002, 003, 004, 005, 008 — derived, so it cannot fall behind the payloads
+        // the way the hardcoded `5` did once batch-008's file was added.
+        batchesRun: new Set(allPairs.map((p) => p.sourceBatch)).size,
+        czechPendingCount: allPairs.filter((p) => p.reasoningWithheld).length,
+        incidentalPairCount,
+      },
+      resolvedFromStore,
     };
   } catch (err) {
     reportLoaderFailure("getCollisionData", err);
-    return null;
+    return { data: null, resolvedFromStore: false };
   }
 }

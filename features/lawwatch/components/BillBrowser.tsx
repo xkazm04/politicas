@@ -13,22 +13,27 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { BillOrigin, LawBillView, LawData } from "../getLawData";
+import type { BillOrigin } from "../getLawData";
+import type { LawWatchWire, PublicLawBill } from "../publicWire";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 
 type FacetKey = "diff" | "forensic" | "conflict" | "committee";
 
-const FACETS: { key: FacetKey; test: (b: LawBillView) => boolean }[] = [
-  { key: "diff", test: (b) => b.paragraphDiffs.length > 0 },
-  { key: "forensic", test: (b) => b.forensic != null },
+/* Každý facet je jen MĚŘENÍ těžkého pole (posudek, §-diff, přikázání výborům).
+   Od zavedení veřejné projekce (../publicWire.ts) veze drát to měření, ne pole:
+   posílat 7 kB posudku přes síť jen proto, aby se tlačítko rozhodlo, jestli se
+   vykreslí, byla celá ta vada. */
+const FACETS: { key: FacetKey; test: (b: PublicLawBill) => boolean }[] = [
+  { key: "diff", test: (b) => b.hasParagraphDiff },
+  { key: "forensic", test: (b) => b.hasForensic },
   { key: "conflict", test: (b) => b.flaggedConflict },
-  { key: "committee", test: (b) => b.committees.length > 0 },
+  { key: "committee", test: (b) => b.hasCommittees },
 ];
 
 const ORIGIN_ORDER: BillOrigin[] = ["government", "mp_group", "mp", "senate", "other"];
 
-export default function BillBrowser({ data }: { data: LawData }) {
+export default function BillBrowser({ data }: { data: LawWatchWire }) {
   const t = useTranslations("lawwatch");
   const f = useFormat();
   const [origin, setOrigin] = useState<BillOrigin | null>(null);
@@ -61,7 +66,7 @@ export default function BillBrowser({ data }: { data: LawData }) {
           b.title.toLowerCase().includes(q) ||
           (b.summary?.toLowerCase().includes(q) ?? false) ||
           String(b.cislo ?? "").includes(q) ||
-          b.amendedLaws.some((l) => l.ref.includes(q))),
+          b.amendedLawRefs.some((ref) => ref.includes(q))),
     );
   }, [data.bills, origin, activeFacet, query]);
 
@@ -143,10 +148,10 @@ export default function BillBrowser({ data }: { data: LawData }) {
                     : t("printInternal", { tiskId: b.tiskId })}
                 </span>
                 <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-steel">
-                  {b.paragraphDiffs.length > 0 && <span className="font-black text-ochre">{t("facet.diff")}</span>}
-                  {b.forensic && <span className="font-black text-cobalt">{t("facet.forensic")}</span>}
+                  {b.hasParagraphDiff && <span className="font-black text-ochre">{t("facet.diff")}</span>}
+                  {b.hasForensic && <span className="font-black text-cobalt">{t("facet.forensic")}</span>}
                   {b.flaggedConflict && <span className="font-black text-signal">{t("facet.conflict")}</span>}
-                  <span>{t("lawTimes", { count: b.amendedLaws.length })}</span>
+                  <span>{t("lawTimes", { count: b.amendedLawRefs.length })}</span>
                 </span>
               </span>
               {/* „co to mění" je to první, co čtenář uvidí — oficiální název tisku je až pod ním. */}

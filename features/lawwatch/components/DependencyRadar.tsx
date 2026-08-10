@@ -46,7 +46,6 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import type { DependencyData, DependencyHit } from "../getDependencyData";
 import { resolveCompanionLink } from "../buildDependencyView";
-import type { LawData } from "../getLawData";
 
 /** „ten podnět" — masculine inanimate, so numeral congruence bends the verb
  * too (5+ takes a neuter-singular verb form): 1 podnět prošel · 2–4 podněty
@@ -67,7 +66,10 @@ export default function DependencyRadar({
   dependencyData,
   index,
 }: {
-  data: LawData;
+  /** Strukturální minimum, ne celý payload: tahle sekce z korpusu tisků čte JEN
+   *  číslo a název, aby uměla podnět odkázat na dosje a pojmenovat ho. Napsané
+   *  takhle to platí i pro veřejnou projekci (../publicWire.ts) i pro plný `LawData`. */
+  data: { bills: { cislo: number | null; title: string }[] };
   /** null ⇒ oba census payloady jsou nečitelné. Sekce se pak NEVYNECHÁ, jen řekne
    *  proč je prázdná: kotva `#zavislosti` je v levém pruhu, a pruh nesmí nabízet
    *  kotvu, která někdy nikam nevede (pravidlo z /poslanec). Prázdno se přiznává,

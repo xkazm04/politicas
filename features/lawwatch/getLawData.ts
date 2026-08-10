@@ -23,6 +23,10 @@ import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+// ONE staleness bound over the graph, not a second one: /dashboard already declares how
+// long a memoized graph read may live (and prints it), and this memo caches the same graph
+// for the same reason.
+import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 import { deriveForensicIndex, type ForensicIndexView } from "./forensicIndex";
@@ -335,6 +339,32 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
   };
 }
 
+/**
+ * Cross-request memo for the whole legislation read.
+ *
+ * `react.cache()` (below) is scoped to ONE request, and this is not per-request work: it
+ * is eight whole-relation reads plus ~19 payload-file parses over an artifact that changes
+ * only when `npm run da:kg-compute` writes. /zakony, /zakony/[cislo] (twice — the page and
+ * `generateMetadata`), /zakony/predpis, /zakony/kolize (through `getRadarData`), /dashboard
+ * and /denik all await it.
+ *
+ * The bound is the money layer's — `MONEY_MEMO_TTL_MS`, imported, never re-declared: two
+ * memos over one graph on two clocks is how two surfaces print two vintages of one number.
+ *
+ * WHAT IS DELIBERATELY OUTSIDE THE MEMO: `getStore()` and the readiness gate. They run on
+ * EVERY call, so the decision "is this graph publishable" is never a day old — a store that
+ * falls below the cardinality floor must start degrading on the next request, not after the
+ * window. Only the successful, non-empty BUILD is memoized (an empty corpus is never frozen
+ * into „0 tisků", and a failure is never memoized at all).
+ */
+let lawMemo: { at: number; data: LawData } | null = null;
+
+/** Test/measurement seam: drop the cross-request memo (`resetLeaderboardMemo` precedent).
+ *  Never called by the app. */
+export function resetLawDataMemo(): void {
+  lawMemo = null;
+}
+
 /** Wrapped in React's cache() below — generateMetadata and the page component
  * both call getLawData() for the same request, and without deduping, PGlite's
  * documented single-connection contention makes the SECOND call more likely
@@ -346,16 +376,30 @@ async function loadLawData(): Promise<LawData | null> {
     if (!store) return null;
     if (!(await storeReady(store, ["bill", "law"]))) return null;
 
-    const billNodes = await store.listKgNodes({ kind: "bill", limit: 100_000 });
+    const now = Date.now();
+    if (lawMemo && now - lawMemo.at < MONEY_MEMO_TTL_MS) return lawMemo.data;
+
+    // Every read uses the ONE shared cap (lib/db/readCap.ts). The ad-hoc `100_000` this
+    // replaced was not merely inconsistent: a limit below the corpus truncates SILENTLY on
+    // an ORDERED read, which is how money batch 012 lost every late-sorting company's
+    // contracts. One constant means the next ingest that outgrows it trips one guard
+    // (`warnIfTruncated`) in one place.
+    const billNodes = await store.listKgNodes({ kind: "bill", limit: KG_READ_CAP });
     if (billNodes.length === 0) return null;
-    const lawNodes = await store.listKgNodes({ kind: "law", limit: 100_000 });
-    const organNodes = await store.listKgNodes({ kind: "organ", limit: 100_000 });
-    const amends = await store.listKgEdges({ rel: "amends", limit: 100_000 });
-    const assignedTo = await store.listKgEdges({ rel: "assigned_to", limit: 100_000 });
-    const rapporteurEdges = await store.listKgEdges({ rel: "rapporteur", limit: 100_000 });
-    const spokeOnEdges = await store.listKgEdges({ rel: "spoke_on", limit: 100_000 });
-    const amendmentEdges = await store.listKgEdges({ rel: "proposes_amendment", limit: 100_000 });
-    const persons = await store.listPersons();
+    // Eight independent reads that used to run strictly one after another, each awaiting a
+    // predecessor it does not use. PGlite is single-connection, so this is not parallelism
+    // in the engine — it is one queue instead of eight round-trips of caller latency.
+    const [lawNodes, organNodes, amends, assignedTo, rapporteurEdges, spokeOnEdges, amendmentEdges, persons] =
+      await Promise.all([
+        store.listKgNodes({ kind: "law", limit: KG_READ_CAP }),
+        store.listKgNodes({ kind: "organ", limit: KG_READ_CAP }),
+        store.listKgEdges({ rel: "amends", limit: KG_READ_CAP }),
+        store.listKgEdges({ rel: "assigned_to", limit: KG_READ_CAP }),
+        store.listKgEdges({ rel: "rapporteur", limit: KG_READ_CAP }),
+        store.listKgEdges({ rel: "spoke_on", limit: KG_READ_CAP }),
+        store.listKgEdges({ rel: "proposes_amendment", limit: KG_READ_CAP }),
+        store.listPersons(),
+      ]);
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
 
     // bill → zpravodajové (pass 34): person urn on the src side, scopes in props.
@@ -556,7 +600,7 @@ async function loadLawData(): Promise<LawData | null> {
       null,
     );
 
-    return {
+    const data: LawData = {
       bills,
       topLaws,
       originCounts,
@@ -576,6 +620,10 @@ async function loadLawData(): Promise<LawData | null> {
       sectorAttributionFlagCount: bills.reduce((sum, b) => sum + b.sectorAttributionFlags.length, 0),
       pass,
     };
+    // Never memoize an EMPTY corpus: a half-ingested read must not freeze into „0 tisků"
+    // for a day. (A failure never gets here at all — it throws into the catch below.)
+    if (data.bills.length > 0) lawMemo = { at: now, data };
+    return data;
   } catch (err) {
     reportLoaderFailure("getLawData", err);
     return null;

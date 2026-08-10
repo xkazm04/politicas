@@ -1948,6 +1948,7 @@
       },
       "statsSource": "{batches} dávky ručního porovnání textů · nejprve deterministická předfiltrace shodných paragrafů, teprve pak čtení obou textů, potvrzené dvojice ověřeny vyhledáním v archivovaném textu z psp.cz · „nahodilé“ dvojice (stejné číslo §, jiný zákon) vyřazeny — nejsou zde zobrazeny",
       "czechPending": "U {count}× dvojice zatím nezobrazujeme rozbor — existuje jen v angličtině a české znění se připravuje. Zjištění samotné (které tisky, který §, jak je vyhodnocen) tím dotčeno není.",
+      "incidentalDropped": "Z ručního porovnání textů bylo navíc {countFmt} {count, plural, one {dvojice vyřazena} few {dvojice vyřazeny} other {dvojic vyřazeno}} jako nahodilá shoda: stejné číslo paragrafu, ale jiný zákon. Do žádného čísla výše se nepočítají a na stránce se nevypisují — nejde o nález, ale o šum deterministické předfiltrace.",
       "clustersTitle": "Shluky podle zákona a §",
       "clustersAside": "{clusters} shluků · {pairs} dvojic tisků",
       "clustersFootnote": "Shluk = jeden § jednoho zákona, ne dvojice tisků — několik nálezů je skutečně vícecestných (např. §35c zákona 586/1992 nyní spojuje 4 tisky). Klasifikace je odvozený nález (kontrola proti fabrikaci, metoda: deterministická předfiltrace shodných paragrafů a následné čtení obou textů s ověřením výskytu v textu), nikdy prokázané pochybení — jde o riziko legislativní koordinace mezi souběžně podanými návrhy, ne o etický nález.",
