@@ -637,6 +637,9 @@
       "denikLinkNamed": "diary of {subject}",
       "denikAll": "the full diary",
       "denikNote": "every row leads to its entity's diary — the same public key (`poslanec:` · `firma:` · `tisk:`) the citizen inbox subscribes to; the velín is a window, the diary is the whole stream",
+      "emptySelection": "This window holds no dated fact about {label}. The ledger carries the {rows} most recent facts about the slice's entities — an older record simply is not in it, and this silence claims nothing about whether something happened.",
+      "emptySelectionDenik": "this entity's full stream in the diary",
+      "filterRule": "selecting a node only focuses: a row lights up when it names the selected node — a contract fact also carries the MP the slice draws a tie to, a registry-role fact carries the company and the party it donated to, and a bill fact carries its sponsors and the statute it amends; two-hop adjacency does not count",
       "exhibitLink": "Exhibit — a citable imprint of this fact",
       "exhibitLinkNamed": "Exhibit: {subject}"
     },

@@ -28,6 +28,33 @@
  * Uvnitř semene je výběr taky bez metriky: první firma podle IČO, první tisk
  * podle čísla tisku, první zákon podle čísla předpisu.
  *
+ * ── KTERÉ UZLY ŘÁDEK KNIHY ROZSVÍTÍ (`refs`) ────────────────────────────────
+ *
+ * `refs` je FILTR, ne podmět. Podmět věty drží `subjectRef` a ten se tímhle
+ * pravidlem NEMĚNÍ — zaměřovač připíná dál jen entitu, o které řádek je.
+ *
+ * Dřív `refs` obsahovaly jen uzly, které fakt doslova jmenuje: tisk u tisku,
+ * firma (+ peníze) u smlouvy. Kniha proto byla strukturálně slepá vůči půlce
+ * plátna — na uzel zákona ani strany nemířil ANI JEDEN řádek a výběr poslance
+ * trefil jen jeho rejstříkové role, jejichž data (90. léta až 2010) vypadnou
+ * z dvanáctiřádkového okna. Výsledkem bylo dvanáct ztmavených řádků bez věty,
+ * co se stalo.
+ *
+ * Rozšíření je TYPOVANÉ a bere se JEN z hran, které výřez opravdu nakreslil:
+ *   1. firma a její peníze jsou jedna entita (`c:` a `m:` drží spolu — totéž
+ *      říká entityLinks.ts, když oběma dává týž klíč deníku);
+ *   2. fakt o firmě (smlouva) nese i poslance, ke kterým výřez kreslí hranu
+ *      `tie` — je to pravidlo přisouzení /penize nakreslené jako hrana;
+ *   3. fakt o rejstříkové roli nese firmu i stranu, které ta firma podle
+ *      nakreslené hrany `donor` darovala;
+ *   4. fakt o tisku nese jeho nakreslené předkladatele (`sponsors`) i nakreslený
+ *      novelizovaný zákon (`amends`).
+ *
+ * A CO SE ZÁMĚRNĚ NEROZŠIŘUJE: smlouva NEDOSTANE stranu, které firma darovala.
+ * Rozsvítit „podepsána smlouva — Firma X" nad vybranou stranou by z filtru
+ * udělalo obžalobu sousedstvím — přesně to, čemu se vyhýbá i pravidlo výběru
+ * semen výš. Sousedství na dva kroky se proto nikde nedělá.
+ *
  * ── CO SE DO PENĚŽNÍHO PRUHU NESMÍ ──
  *
  * Peníze kreslíme jen u vazeb typu vlastník/jednatel nebo člen vedení — stejné
@@ -112,7 +139,9 @@ export interface StateSliceRule {
  */
 export interface SliceSources {
   /** Firmy, jejichž smlouvy SMÍ být připsané poslanci (ne steward).
-   *  `subjectRef` je uzel firmy — podmět věty o podepsané smlouvě. */
+   *  `subjectRef` je uzel firmy — podmět věty o podepsané smlouvě; `refs` navíc
+   *  nese uzel peněz té firmy a poslance, ke kterým výřez kreslí vazbu (viz
+   *  pravidlo rozsvěcení v hlavičce souboru). */
   contractCompanies: { kgId: string; company: string; refs: string[]; subjectRef: string; pending: boolean }[];
   ties: FactTie[];
   bills: FactBill[];
@@ -360,8 +389,16 @@ export function buildStateSlice(input: SliceInput): StateSlice | null {
   // nemůže mít zaměřovač do prázdna. Smlouvy jen u přisouditelných vazeb —
   // steward peníze nejsou peníze poslance ani v knize, nejen na obrázku.
   const nodeIds = new Set(nodes.map((n) => n.id));
-  const drawn = (ids: string[]) => ids.filter((id) => nodeIds.has(id));
+  // Set → pořadí je pořadí vzniku (deterministické), a týž uzel se v `refs`
+  // nemůže objevit dvakrát, i když ho tam vloží dvě různá pravidla.
+  const drawn = (ids: string[]) => [...new Set(ids)].filter((id) => nodeIds.has(id));
   const mpNameByPspId = new Map(persons.map((p) => [p.pspId, p.name]));
+
+  // Sousedství se čte z NAKRESLENÝCH hran, ne z vstupních projekcí: co obrázek
+  // nekreslí, to řádek nesmí rozsvítit (invariant 3 v datedFacts.ts). Filtr
+  // `drawn()` níž je proto pojistka, ne hlavní pravidlo.
+  const fromEdges = (rel: StateEdge["rel"], side: "from" | "to", nodeId: string): string[] =>
+    edges.filter((e) => e.rel === rel && e[side] === nodeId).map((e) => (side === "from" ? e.to : e.from));
 
   const sources: SliceSources = {
     contractCompanies: rows
@@ -369,7 +406,12 @@ export function buildStateSlice(input: SliceInput): StateSlice | null {
       .map((r) => ({
         kgId: r.tie.companyId,
         company: r.tie.company,
-        refs: drawn([sliceCompanyId(r.tie.ico), sliceMoneyId(r.tie.ico)]),
+        refs: drawn([
+          sliceCompanyId(r.tie.ico),
+          sliceMoneyId(r.tie.ico),
+          // Poslanci, ke kterým výřez kreslí vazbu — pravidlo 2 v hlavičce.
+          ...fromEdges("tie", "to", sliceCompanyId(r.tie.ico)),
+        ]),
         // Smlouva je fakt o FIRMĚ, ne o penězích ani o poslanci — zaměřovač
         // proto míří na uzel firmy, ať je v `refs` na kterémkoli místě.
         subjectRef: sliceCompanyId(r.tie.ico),
@@ -378,18 +420,30 @@ export function buildStateSlice(input: SliceInput): StateSlice | null {
       .filter((c) => c.refs.length > 0),
     ties: rows.map((r) => ({
       company: r.tie.company,
+      companyRef: sliceCompanyId(r.tie.ico),
       mpName: mpNameByPspId.get(r.pspId) ?? String(r.pspId),
       role: r.tie.role,
       roleValidFrom: r.tie.roleValidFrom ?? null,
       roleValidTo: r.tie.roleValidTo ?? null,
-      refs: drawn([slicePersonId(r.pspId), sliceCompanyId(r.tie.ico)]),
+      refs: drawn([
+        slicePersonId(r.pspId),
+        sliceCompanyId(r.tie.ico),
+        sliceMoneyId(r.tie.ico),
+        // Strana, které ta firma darovala — pravidlo 3 v hlavičce.
+        ...fromEdges("donor", "from", sliceCompanyId(r.tie.ico)),
+      ]),
       // Zápis/výmaz role je fakt o POSLANCI („X zapsán do rejstříku").
       subjectRef: slicePersonId(r.pspId),
       pending: r.tie.reviewState !== "verified",
     })),
     bills: billRows.map((r) => ({
       cislo: r.cislo,
-      refs: drawn([sliceBillId(r.cislo)]),
+      refs: drawn([
+        sliceBillId(r.cislo),
+        // Předkladatelé a novelizovaný předpis — pravidlo 4 v hlavičce.
+        ...fromEdges("sponsors", "to", sliceBillId(r.cislo)),
+        ...fromEdges("amends", "from", sliceBillId(r.cislo)),
+      ]),
       // Přikázání výboru i vyhlášení ve Sbírce je fakt o TISKU.
       subjectRef: sliceBillId(r.cislo),
       committees: (r.bill.committees ?? []).map((c) => ({

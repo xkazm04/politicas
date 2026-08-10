@@ -159,6 +159,74 @@ describe("buildStateSlice — přisouzení peněz (pravidlo /penize)", () => {
   });
 });
 
+describe("buildStateSlice — které uzly řádek knihy rozsvítí (`refs`)", () => {
+  it("fakt o smlouvě nese firmu, její peníze A poslance, ke kterému je nakreslená vazba", () => {
+    const { sources } = build();
+    const c = sources.contractCompanies.find((x) => x.refs.includes(sliceCompanyId("00000100")))!;
+    expect(c.refs).toEqual(
+      expect.arrayContaining([sliceCompanyId("00000100"), sliceMoneyId("00000100"), slicePersonId(100)]),
+    );
+    // Podmět se rozšířením NEHNUL — zaměřovač dál míří na firmu.
+    expect(c.subjectRef).toBe(sliceCompanyId("00000100"));
+    // Strana se do faktu o smlouvě nedostane ani přes dárcovskou firmu:
+    // rozsvítit smlouvu nad vybranou stranou by byla obžaloba sousedstvím.
+    for (const x of sources.contractCompanies) {
+      expect(x.refs.some((r) => r.startsWith("y:"))).toBe(false);
+    }
+  });
+
+  it("fakt o rejstříkové roli nese stranu, které ta firma podle nakreslené hrany darovala", () => {
+    const { sources } = build();
+    const donor = sources.ties.find((t) => t.companyRef === sliceCompanyId("00000700"))!;
+    expect(donor.refs).toContain(slicePartyId("KDU-ČSL"));
+    expect(donor.subjectRef).toBe(slicePersonId(700));
+    // Vazba bez daru stranu nedostane.
+    const plain = sources.ties.find((t) => t.companyRef === sliceCompanyId("00000100"))!;
+    expect(plain.refs.some((r) => r.startsWith("y:"))).toBe(false);
+  });
+
+  it("fakt o tisku nese své předkladatele i novelizovaný předpis", () => {
+    const { sources } = build();
+    const shared = sources.bills.find((b) => b.cislo === 60)!;
+    // Tisk 60 mají dva předkladatelé — oba jsou ve výřezu, oba svítí.
+    expect(shared.refs).toEqual(
+      expect.arrayContaining([sliceBillId(60), slicePersonId(200), slicePersonId(300)]),
+    );
+    expect(shared.refs).toContain(sliceLawId("law:sb:114-1992"));
+    expect(shared.subjectRef).toBe(sliceBillId(60));
+  });
+
+  it("KAŽDÝ zákon a KAŽDÁ strana na plátně mají aspoň jeden řádek, který je rozsvítí", () => {
+    // Přesně ta strukturální slepota, kvůli které tohle pravidlo vzniklo:
+    // na uzel zákona ani strany dřív nemířil ani jeden fakt.
+    const { graph, sources } = build();
+    const allRefs = new Set([
+      ...sources.contractCompanies.flatMap((c) => c.refs),
+      ...sources.ties.flatMap((t) => t.refs),
+      ...sources.bills.flatMap((b) => b.refs),
+    ]);
+    for (const n of graph.nodes) {
+      if (n.kind === "law" || n.kind === "party" || n.kind === "person") {
+        expect(allRefs.has(n.id), `${n.kind} ${n.id} nemá ani jeden řádek`).toBe(true);
+      }
+    }
+  });
+
+  it("`refs` NIKDY nejmenují uzel, který výřez nekreslí, a neopakují se", () => {
+    const { graph, sources } = build();
+    const drawn = new Set(graph.nodes.map((n) => n.id));
+    const lists = [
+      ...sources.contractCompanies.map((c) => c.refs),
+      ...sources.ties.map((t) => t.refs),
+      ...sources.bills.map((b) => b.refs),
+    ];
+    for (const refs of lists) {
+      expect(new Set(refs).size, refs.join("|")).toBe(refs.length);
+      for (const r of refs) expect(drawn.has(r), r).toBe(true);
+    }
+  });
+});
+
 describe("buildStateSlice — invarianty společné se vzorkovým grafem", () => {
   it("žádná hrana nevisí do prázdna a id uzlů se neopakují", () => {
     const { graph } = build();

@@ -10,6 +10,14 @@
  * NEZMIZÍ. Zmizení by z filtru udělalo tvrzení („nic jiného se nestalo"),
  * ztmavnutí je jen zaostření.
  *
+ * VÝJIMKA: když filtru nevyhovuje ANI JEDEN řádek, ztmavne jich dvanáct a
+ * plocha neřekne nic — vizuální stav bez věty. Tehdy se místo nich vysází JEDNA
+ * poctivá věta, která pojmenuje vybranou entitu a přizná mez okna (kniha nese
+ * jen nejnovější fakta o entitách výřezu), plus odkaz do deníku té entity, kde
+ * je celý proud. Odkaz se nabídne jen tehdy, když entita veřejný klíč MÁ —
+ * strana a zákon ho nemají a `sliceNodeEntityKey` u nich vrací null, takže se
+ * neslíbí doručení, které nikdo neumí splnit.
+ *
  * Panel čte VÝBĚR, ne náhled — hover nad uzlem seznamem nehýbe (viz
  * ../useGraphSelection.ts). Ztmavení je vizuální signál, takže ho ztmavený
  * řádek doprovodí i neviditelnou větou pro odečítačku, a banner filtru je
@@ -24,6 +32,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import FactRow from "./FactRow";
 import FeedPanelShell from "./FeedPanelShell";
 import type { DatedFactLedger } from "../datedFacts";
+import { denikEntityHref, sliceNodeEntityKey } from "../entityLinks";
 
 export default function GraphFeedPanel({
   ledger,
@@ -46,6 +55,8 @@ export default function GraphFeedPanel({
   const facts = ledger.facts;
   const matchCount = selected ? facts.filter((x) => x.refs.includes(selected)).length : facts.length;
   const filterLabel = selected ? (selectedLabel ?? selected) : null;
+  // Veřejný klíč entity — jen pro uzly, které ho mají (pravidlo ../entityLinks.ts).
+  const denikKey = selected ? sliceNodeEntityKey(selected) : null;
 
   return (
     <FeedPanelShell
@@ -54,6 +65,25 @@ export default function GraphFeedPanel({
       selected={selected}
       filterLabel={filterLabel}
       onClear={onClear}
+      emptySelection={
+        // Prázdná KNIHA má vlastní větu (`emptyReal` níž) a ta je pravdivější:
+        // tady nejde o vybranou entitu, ale o to, že výřez nemá fakt žádný.
+        facts.length === 0 ? undefined : (
+          <div className="px-4 py-8 text-center">
+            <p className="text-[15px] leading-relaxed text-steel">
+              {tf("emptySelection", { label: filterLabel ?? "", rows: f.int(facts.length) })}
+            </p>
+            {denikKey && (
+              <Link
+                href={denikEntityHref(denikKey)}
+                className="mt-3 inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-widest text-cobalt transition-colors hover:text-signal"
+              >
+                {tf("emptySelectionDenik")} <ArrowUpRight className="h-3 w-3" aria-hidden />
+              </Link>
+            )}
+          </div>
+        )
+      }
       headerLink={
         // Panel je OKNO — 12 faktů o entitách jednoho výřezu. Celý datovaný
         // proud republiky vede deník; bez tohohle odkazu se z okna stal slepý
@@ -69,6 +99,9 @@ export default function GraphFeedPanel({
       footer={
         <>
           <SourceNote>{tf("realSource", { rows: f.int(ledger.considered) })}</SourceNote>
+          {/* Které uzly řádek rozsvítí, je PRAVIDLO (../stateSlice.ts) — a filtr,
+              jehož pravidlo se nevypisuje, je neprůhledný filtr. */}
+          <SourceNote className="mt-1">{tf("filterRule")}</SourceNote>
           <SourceNote className="mt-1">{tf("denikNote")}</SourceNote>
           {/* Nemožné datum se nikdy neopravuje ani mlčky nezahazuje — kniha
               přizná, kolik faktů kvůli němu vypadlo (vada ingesce, ne fakt). */}

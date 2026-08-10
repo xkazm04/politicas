@@ -26,6 +26,7 @@ export default function FeedPanelShell({
   filterLabel,
   onClear,
   footer,
+  emptySelection,
   children,
 }: {
   /** Kolik řádků vyhovuje aktivnímu filtru (bez filtru = všechny). */
@@ -38,6 +39,15 @@ export default function FeedPanelShell({
   filterLabel: string | null;
   onClear: () => void;
   footer: ReactNode;
+  /**
+   * Co se vysází MÍSTO řádků, když vybranému uzlu nevyhovuje ani jeden.
+   *
+   * Dvanáct řádků ztmavených na 40 % je vizuální stav bez věty: čtenář vidí
+   * seznam, který se o vybrané entitě nezmiňuje, a nedozví se proč. Panel, který
+   * tuhle větu umí, ji sem pošle; ten, který ne, nechá `undefined` a chová se
+   * jako dřív (vzorkový provoz nese i řádky bez uzlů, které ztmavnout nesmějí).
+   */
+  emptySelection?: ReactNode;
   children: ReactNode;
 }) {
   const tf = useTranslations("dashboard.feed");
@@ -83,7 +93,9 @@ export default function FeedPanelShell({
         </div>
       )}
 
-      <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
+      <div className="min-h-0 flex-1 overflow-y-auto">
+        {selected !== null && matchCount === 0 && emptySelection ? emptySelection : children}
+      </div>
 
       <div className="border-t-2 border-ink px-4 py-2.5">{footer}</div>
     </div>

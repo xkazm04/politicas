@@ -150,6 +150,24 @@ describe("dashboard message catalog", () => {
     }
   });
 
+  it("a selection that matches no row gets a sentence, not twelve dimmed rows", () => {
+    // The feed used to answer a law/party selection with a deterministic „0 z 12" and
+    // no explanation at all. The empty state must NAME the entity, state the window's
+    // limit, and offer the diary — and it must claim nothing about the world.
+    for (const ns of [cs, en]) {
+      for (const k of ["feed.emptySelection", "feed.emptySelectionDenik", "feed.filterRule"]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(placeholders(ns["feed.emptySelection"])).toEqual(["label", "rows"]);
+    }
+    // Silence is not a claim that nothing happened.
+    expect(cs["feed.emptySelection"]).toContain("netvrdí");
+    expect(en["feed.emptySelection"]).toContain("claims nothing");
+    // The filter rule is printed on the surface, so it may not stay a source comment.
+    expect(cs["feed.filterRule"]).toContain("dva kroky");
+    expect(en["feed.filterRule"]).toContain("two-hop");
+  });
+
   it("the law tile can state the forensic layer, not only the plumbing", () => {
     // `flaggedCount` / `forensicCount` / `paragraphDiffCount` / `summaryCount` /
     // `forensicWithheldCount` were all in LawData and rendered nowhere here: the front

@@ -21,6 +21,10 @@
  *    explicitní (`subjectRef`, viz níž), protože pořadí v `refs` je detail
  *    sestavení — kdyby o výběru rozhodovalo, stačilo by prohodit dva řádky ve
  *    stateSlice.ts a zaměřovač by beze slova začal připínat něco jiného.
+ * 3c. `refs` JE FILTR, `subjectRef` PODMĚT — a jsou to dvě různá pole právě
+ *    proto, aby se `refs` daly rozšířit (které uzly řádek rozsvítí), aniž by se
+ *    hnul zaměřovač. Které uzly to jsou, rozhoduje výhradně stateSlice.ts;
+ *    tenhle modul je jen přebírá a nikdy si k nim žádný nedomýšlí.
  * 4. CO STOJÍ NA NEOVĚŘENÉ VAZBĚ, JE OZNAČENO. Smlouva i role visí na
  *    `linked_to`, které čeká na lidskou kontrolu; řádek to říká.
  * 5. PENÍZE JEN TAM, KAM SE SMÍ PŘISOUDIT. Smlouvy institucí, kde poslanec jen
@@ -95,6 +99,12 @@ export interface FactContract {
 
 export interface FactTie {
   company: string;
+  /**
+   * Uzel firmy, u které role platí. Do IDENTITY faktu vstupuje tenhle uzel a
+   * podmět — NE `refs`: ty se rozšiřují podle toho, co všechno výřez kolem
+   * nakreslil (strana, peníze), a identita faktu se s tím pohnout nesmí.
+   */
+  companyRef: string;
   mpName: string;
   role: string;
   roleValidFrom: string | null;
@@ -169,8 +179,12 @@ export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
       source: SOURCE_REGISTRY,
       tone: "cobalt" as const,
     };
-    raw.push({ id: `role-from:${t.refs.join("|")}`, date: t.roleValidFrom, kind: "roleStart", ...base });
-    raw.push({ id: `role-to:${t.refs.join("|")}`, date: t.roleValidTo, kind: "roleEnd", ...base });
+    // Identita = podmět + firma (viz FactTie.companyRef). Dřív to byl `refs`
+    // spojený svislítkem, takže rozšíření filtru přepisovalo trvalé adresy
+    // exponátů — id faktu nesmí záviset na tom, co je kolem něj nakresleno.
+    const key = `${t.subjectRef}|${t.companyRef}`;
+    raw.push({ id: `role-from:${key}`, date: t.roleValidFrom, kind: "roleStart", ...base });
+    raw.push({ id: `role-to:${key}`, date: t.roleValidTo, kind: "roleEnd", ...base });
   }
 
   for (const b of input.bills) {

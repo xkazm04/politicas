@@ -97,6 +97,7 @@ describe("buildDatedFacts — napojení na výřez a označení stavu", () => {
         ties: [
           {
             company: "Firma s.r.o.",
+            companyRef: "c:00000100",
             mpName: "Jan Novák",
             role: "jednatel",
             roleValidFrom: "2012-04-26",
@@ -127,6 +128,40 @@ describe("buildDatedFacts — napojení na výřez a označení stavu", () => {
   });
 });
 
+describe("buildDatedFacts — identita faktu nezávisí na tom, co je kolem nakreslené", () => {
+  const tie = (refs: string[]) => ({
+    company: "Firma s.r.o.",
+    companyRef: "c:00000100",
+    mpName: "Jan Novák",
+    role: "jednatel",
+    roleValidFrom: "2012-04-26",
+    roleValidTo: "2020-01-01",
+    refs,
+    subjectRef: "p:100",
+    pending: true,
+  });
+
+  it("širší `refs` (strana, peníze) nehnou id faktu — a tedy ani adresou exponátu", () => {
+    const narrow = buildDatedFacts(input({ ties: [tie(["p:100", "c:00000100"])] })).facts;
+    const wide = buildDatedFacts(
+      input({ ties: [tie(["p:100", "c:00000100", "m:00000100", "y:KDU-ČSL"])] }),
+    ).facts;
+    expect(narrow.map((f) => f.id)).toEqual(wide.map((f) => f.id));
+    expect(narrow.find((f) => f.kind === "roleStart")!.id).toBe("role-from:p:100|c:00000100");
+    // Filtr se ale rozšířil — o to celé jde.
+    expect(wide.find((f) => f.kind === "roleStart")!.refs).toContain("y:KDU-ČSL");
+  });
+
+  it("dvě role téhož poslance u dvou firem jsou dva různé fakty", () => {
+    const { facts } = buildDatedFacts(
+      input({
+        ties: [tie(["p:100", "c:00000100"]), { ...tie(["p:100", "c:00000200"]), companyRef: "c:00000200" }],
+      }),
+    );
+    expect(new Set(facts.map((f) => f.id)).size).toBe(facts.length);
+  });
+});
+
 describe("buildDatedFacts — zaměřovač připíná PODMĚT, ne první prvek pole", () => {
   const facts = buildDatedFacts(
     input({
@@ -136,6 +171,7 @@ describe("buildDatedFacts — zaměřovač připíná PODMĚT, ne první prvek p
       ties: [
         {
           company: "Firma s.r.o.",
+          companyRef: "c:00000100",
           mpName: "Jan Novák",
           role: "jednatel",
           roleValidFrom: "2012-04-26",
@@ -173,6 +209,7 @@ describe("buildDatedFacts — zaměřovač připíná PODMĚT, ne první prvek p
         ties: [
           {
             company: "Firma s.r.o.",
+            companyRef: "c:00000100",
             mpName: "Jan Novák",
             role: "jednatel",
             roleValidFrom: "2012-04-26",
@@ -200,6 +237,10 @@ describe("copy knihy provozu", () => {
       feed.factPending,
       feed.realSource,
       feed.droppedImplausible,
+      // Věta prázdného výběru a pravidlo filtru jsou taky prose, kterou píšeme MY.
+      feed.emptySelection,
+      feed.emptySelectionDenik,
+      feed.filterRule,
       ...Object.values(fact),
     ] as string[];
     for (const text of strings) {
