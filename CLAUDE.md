@@ -425,6 +425,32 @@ Route map (politicas.md roadmap execution, sample data):
   chamber detail: hemicycle + party breakdown it drives), Linie (club
   discipline board, line matrix, rebellion chronicle). Feeds pillars
   Aktivita/Docházka/Nezávislost; pure vote logic in `lib/civic/votes.ts`.
+  **The record has a warm path (2026-08-10).** `ledgerRead.ts` is the ONE
+  row→input projection both loaders share; the 406 k-ballot derivation carries a
+  cross-request memo on `MONEY_MEMO_TTL_MS` (imported, never re-declared) and the
+  page streams shells while the first cold read runs.
+  **The chamber checks itself (2026-08-10).** `record/reconcile.ts` (pure,
+  fixture-tested) compares OUR recount per roll call against the Chamber's own
+  published tallies (`vote_event.yes/no/abstain/notVoting`, read nowhere before):
+  pro↔yes, proti↔no, merged K↔abstain+notVoting; `away` is deliberately
+  uncompared (the source publishes no column). A discrepancy is a FINDING —
+  counted, worst example named with its psp.cz address, never repaired (the
+  impossible-dates precedent); missing columns are uncompared, never guessed
+  zeros. /kompas reads `vote_tag.confidence` it used to drop: `MIN_TAG_CONFIDENCE
+  = 0.7` in `kompas/select.ts`, printed as a LIVE value in the published rule;
+  equal-to-floor passes, a missing confidence is kept (a missing value is not a
+  low value) and both counts are disclosed.
+  **Anchors land (2026-08-10).** `sortValidNewestFirst()` is exported from
+  `record/derive.ts` so the kompas measures `inLedger` against the SAME ledger
+  window /hlasovani draws — a question outside it says so and links psp.cz
+  instead of a silently dead `#h-` anchor (the rebellionRecord `appHref`
+  pattern). Ledger rows carry the shared `CopyLinkButton` (row demoted from
+  button to wrapper — no nested buttons); navModel lists the five REAL sections
+  incl. `#seismograf`; theme rows format via `useFormat`, link their psp.cz
+  record and disclose the 80-row cap; the kompas ShareButton guards
+  `navigator.clipboard` so the failure copy is reachable.
+  `features/votetrack/messages.test.ts` pins the namespace (cs/en parity, ICU +
+  t.rich tag parity, Czech gate).
 - `/penize` — **FollowTheMoney** (features/money): the Rentgen money-graph's
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
@@ -949,6 +975,37 @@ Route map (politicas.md roadmap execution, sample data):
   `features/lawwatch/messages.test.ts` is the feature's first messages test: cs/en
   key parity, ICU-variable parity, the Czech gate over every `sectorAttribution.*`
   string, and no `dávka`/`batch`/`pass` token leaking into reader-facing copy.
+  **The forensic corpus has an index (2026-08-10).** The corpus closed at 141/141
+  gated verdicts (law-loop pass 55) and `features/lawwatch/forensicIndex.ts`
+  derives the census closure + severity distribution the page's §03 register
+  renders — browsable, not one-per-dossier; a WITHHELD verdict is disclosed as
+  withheld („zadrženo neznamená chybí").
+  **The triangle closes (2026-08-10).** The bill dossier's conflict block links
+  every sponsor's `/penize/<pspId>` case file plus `/penize/strety`, and PRINTS
+  the attribution-rule difference (the stored figure sums steward seats; /penize
+  attributes an institution's money to the institution) — it still names NO
+  company, because the graph stores only counts. Sector flags render their
+  sponsor (linked only on an exact-unique name match) and link the company via
+  `buildCompanyIcoResolver` in `sectorAttribution.ts` — exact-and-unique label→IČO
+  or nothing (ambiguous/unknown/non-canonical all refuse; 9 tests).
+  `/zakony/kolize` bill chips link the tisk's deník through the IMPORTED codec
+  (`billEntityKey` + `entityDenikHref`); the dossier crumb links back to /zakony
+  (only the „zákony" segment); the dependency section renders ALWAYS (honest
+  empty state on an unreadable census) so navModel can carry `#zavislosti`;
+  `/zakony/predpis` gets an honest empty state; mock MP chips stopped minting
+  404 addresses (slug ids ≠ pspIds — the shape-refusal precedent).
+  **The wire diet (2026-08-10).** `features/lawwatch/publicWire.ts` (the
+  TIE_WIRE pattern): `LAW_WIRE`/`BILL_WIRE` classify every field under
+  `satisfies Record<keyof …>`, applied in `app/zakony/page.tsx` between loader
+  and client — /zakony stops shipping ~1 MB of forensic prose, §-diff text and
+  rosters the index never renders; four measured booleans (`hasForensic` etc.)
+  replace fields the browser only measured; `/zakony/[cislo]` keeps the FULL
+  shape. MockLawWatch is code-split via `next/dynamic` (no ssr:false).
+  `getCollisionData` is `cache()`-wrapped + memoized on `MONEY_MEMO_TTL_MS`
+  (refusing store-less, title-less reads); `getLawData` reads at `KG_READ_CAP`
+  in one `Promise.all` with the same memo — readiness gate deliberately OUTSIDE
+  it. The 27 incidental close-read pairs (same §, different statute) are now
+  counted and disclosed on /zakony/kolize (`incidentalPairCount`).
 - `/denik` — **Deník republiky** (features/denik): the chronological daily
   record of the state — signed contracts of firms MPs own/run, committee
   assignments, Sbírka publication, registry role starts/ends, human-gate
