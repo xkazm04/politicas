@@ -6,63 +6,56 @@
 // is computed client-side (kompas/score.ts) from the reader's answers — the
 // URL is the whole state, no accounts.
 //
-// Mirrors getVoteRecord.ts: degrades gracefully to null (→ the page renders
-// the honest DataUnavailable state) if no store is configured, the ledger or
-// the tag layer is below readiness, or PGlite is unavailable at request time.
+// ── Čtecí cesta (2026-08-10) ───────────────────────────────────────────────
+// Do 2026-08-10 si tenhle loader četl SVÝCH pět relací vedle getVoteRecord.ts —
+// stejné události, stejných ~406 000 hlasů, stejný registr, jen o dvě stě řádků
+// vedle. Teď obojí jde přes `readLedger()` (ledgerRead.ts, `react.cache()`d), takže
+// v jednom požadavku je čtení JEDNO; přes požadavky drží výsledek memo na stejném
+// okně jako peněžní vrstva (`MONEY_MEMO_TTL_MS`). Jediné čtení navíc, které tahle
+// plocha potřebuje a záznam ne, jsou tagy — `readVoteTags()`, taky sdílené.
+//
+// Degrades gracefully to null (→ the page renders the honest DataUnavailable
+// state) if no store is configured, the ledger or the tag layer is below
+// readiness, or PGlite is unavailable at request time.
 
 import "server-only";
 import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
-import { getStore } from "@/lib/db/store";
-import { BALLOT_FLOOR, EVENT_FLOOR } from "./getVoteRecord";
-import { bucketOf, lineOf, type EventIn } from "./record/derive";
+import { createLedgerMemo } from "./ledgerMemo";
+import { readLedger, readVoteTags } from "./ledgerRead";
+import { bucketOf, lineOf } from "./record/derive";
 import type { ClubTally } from "./record/types";
 import { selectQuestions } from "./kompas/select";
 import type { KompasBallots, KompasClubLines, KompasData, KompasMp } from "./kompas/types";
 
-const TERM = "PSP10";
-
 const emptyTally = (): ClubTally => ({ yes: 0, no: 0, k: 0, away: 0 });
+
+/** Cross-request memo of the DERIVED compass (compact), bounded by the money layer's
+ *  window. A compass with no questions is never memoized — see ledgerMemo.ts. */
+const kompasMemo = createLedgerMemo<KompasData>({ usable: (d) => d.questions.length > 0 });
+
+/** Test seam: drop the cross-request memo. Never called by the app. */
+export function resetKompasMemo(): void {
+  kompasMemo.reset();
+}
 
 export const getKompas = cache(async function getKompas(): Promise<KompasData | null> {
   try {
-    const store = await getStore();
-    if (!store) return null;
+    const memoized = kompasMemo.read();
+    if (memoized !== null) return memoized;
 
-    const events = await store.listVoteEvents({ termCode: TERM, limit: 100_000 });
-    if (events.length < EVENT_FLOOR) {
-      if (events.length > 0) {
-        reportLoaderFailure("getKompas", new Error(`vote_event below readiness floor: ${events.length}<${EVENT_FLOOR}`));
-      }
-      return null;
-    }
-    const tags = await store.listVoteTags({ limit: 100_000 });
+    const ledger = await readLedger();
+    if (ledger === null) return null;
+
+    const tags = await readVoteTags();
     if (tags.length === 0) return null;
 
-    const ballots = await store.listVoteBallots({ termCode: TERM, limit: 1_000_000 });
-    if (ballots.length < BALLOT_FLOOR) {
-      reportLoaderFailure("getKompas", new Error(`vote_ballot below readiness floor: ${ballots.length}<${BALLOT_FLOOR}`));
-      return null;
-    }
-
-    const eventsIn: EventIn[] = events.map((e) => ({
-      pspId: e.pspId,
-      votedOn: e.votedOn,
-      votedAt: e.votedAt,
-      sessionNo: e.sessionNo,
-      voteNo: e.voteNo,
-      outcome: e.outcome,
-      voided: e.voided,
-      titleLong: e.titleLong,
-      titleShort: e.titleShort,
-      titleNorm: e.titleNorm,
-      sourceUrl: e.sourceUrl,
-    }));
+    const eventsIn = ledger.events;
     const themeByVote = new Map(tags.map((t) => [t.votePspId, t.theme]));
 
     /* full-chamber tallies for tagged votes (one O(ballots) pass) */
     const totals = new Map<number, ClubTally>();
-    for (const b of ballots) {
+    for (const b of ledger.ballots) {
       if (!themeByVote.has(b.votePspId)) continue;
       let t = totals.get(b.votePspId);
       if (!t) {
@@ -77,16 +70,12 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
     const selectedIds = new Set(selected.map((s) => s.event.pspId));
 
     /* per-question positional record + club tallies (second O(ballots) pass) */
-    const clubByMandate = await store.clubByMandate(TERM);
-    const mandates = await store.listMandates({ termCode: TERM });
-    const personByMandate = new Map(mandates.map((m) => [m.pspId, m.personPspId]));
-    const persons = await store.listPersons({ limit: 100_000 });
-    const nameByPerson = new Map(persons.map((p) => [p.pspId, p.nameFull]));
+    const { clubByMandate, personByMandate, nameByPerson } = ledger;
 
     const ballotMap: KompasBallots = {};
     const clubTallies = new Map<number, Map<string, ClubTally>>();
     const mpSeen = new Map<number, KompasMp>();
-    for (const b of ballots) {
+    for (const b of ledger.ballots) {
       if (!selectedIds.has(b.votePspId)) continue;
       const person = personByMandate.get(b.mandatePspId);
       if (person === undefined) continue;
@@ -126,7 +115,7 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
     let tagged = 0;
     for (const e of valid) if (themeByVote.has(e.pspId)) tagged++;
 
-    return {
+    const data: KompasData = {
       questions: selected.map((s) => ({
         votePspId: s.event.pspId,
         title: (s.event.titleLong ?? s.event.titleShort ?? s.event.titleNorm ?? "").trim() || `#${s.event.pspId}`,
@@ -150,6 +139,8 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
         to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,
       },
     };
+    kompasMemo.write(data);
+    return data;
   } catch (err) {
     reportLoaderFailure("getKompas", err);
     return null;

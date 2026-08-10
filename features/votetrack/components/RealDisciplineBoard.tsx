@@ -11,10 +11,17 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { clubStyle } from "../record/clubStyle";
 import type { ClubAggregate, LedgerVote, VoteRecordData } from "../record/types";
 
 const MATRIX_WINDOW = 12;
+
+/** Co dnes SKUTEČNĚ omezuje stáří čísel na téhle ploše: ne revalidace routy
+ *  (lib/i18n/request.ts čte cookie, takže je celá aplikace dynamická), ale memo
+ *  odvozeného záznamu — features/votetrack/ledgerMemo.ts. Okno je importované
+ *  z /dashboard, nikdy tu předeklarované (vzor FollowTheMoneyPage). */
+const RECORD_MEMO_HOURS = MONEY_MEMO_TTL_MS / 3_600_000;
 
 export default function RealDisciplineBoard({
   data,
@@ -172,6 +179,9 @@ export default function RealDisciplineBoard({
             from: data.coverage.from ? f.date(data.coverage.from) : "—",
             to: data.coverage.to ? f.date(data.coverage.to) : "—",
           })}
+        </SourceNote>
+        <SourceNote className="mt-2">
+          {t("record.freshness", { ballots: f.int(data.coverage.ballots), hours: f.int(RECORD_MEMO_HOURS) })}
         </SourceNote>
       </div>
     </div>

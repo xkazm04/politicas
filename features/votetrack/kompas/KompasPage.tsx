@@ -17,6 +17,7 @@ import { useTranslations } from "next-intl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { useFormat } from "@/lib/i18n/useFormat";
 import QuestionCard from "./QuestionCard";
 import ResultsBoard from "./ResultsBoard";
@@ -24,6 +25,9 @@ import { MIN_ANSWERS, scoreAlignment } from "./score";
 import { MIN_POSITIONAL, PER_THEME_CAP, QUESTIONS_CAP } from "./select";
 import type { KompasData } from "./types";
 import { useKompasAnswers } from "./useKompasAnswers";
+
+/** Stejná mez jako na /hlasovani a /penize — importovaná, nikdy předeklarovaná. */
+const RECORD_MEMO_HOURS = MONEY_MEMO_TTL_MS / 3_600_000;
 
 export default function KompasPage({ data }: { data: KompasData }) {
   const t = useTranslations("votetrack");
@@ -50,6 +54,7 @@ export default function KompasPage({ data }: { data: KompasData }) {
         from: data.coverage.from ? f.date(data.coverage.from) : "—",
         to: data.coverage.to ? f.date(data.coverage.to) : "—",
       }),
+      freshness: t("kompas.freshness", { hours: f.int(RECORD_MEMO_HOURS) }),
     }),
     [data.coverage, f, t],
   );
@@ -137,6 +142,9 @@ export default function KompasPage({ data }: { data: KompasData }) {
                   <SourceNote>{rules.selection}</SourceNote>
                   <div className="mt-2">
                     <SourceNote>{rules.source}</SourceNote>
+                  </div>
+                  <div className="mt-2">
+                    <SourceNote>{rules.freshness}</SourceNote>
                   </div>
                 </div>
               </div>

@@ -205,7 +205,7 @@ export default function ResultsBoard({
   answers: ReadonlyMap<number, Answer>;
   onReset: () => void;
   /** The verbatim disclosed rules + coverage line, rendered inside the frame. */
-  rules: { selection: string; scoring: string; source: string };
+  rules: { selection: string; scoring: string; source: string; freshness: string };
 }) {
   const t = useTranslations("votetrack");
   const f = useFormat();
@@ -317,6 +317,7 @@ export default function ResultsBoard({
           <SourceNote>{rules.selection}</SourceNote>
           <SourceNote>{rules.scoring}</SourceNote>
           <SourceNote>{rules.source}</SourceNote>
+          <SourceNote>{rules.freshness}</SourceNote>
         </div>
       </div>
     </div>

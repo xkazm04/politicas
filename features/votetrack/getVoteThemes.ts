@@ -8,21 +8,29 @@
 // Called only from the /hlasovani server component; the `server-only` import
 // makes any client-component import a build-time error. (The runtime client
 // guard lives in lib/db/pglite-store.ts, not getStore() itself.)
+//
+// 2026-08-10: the tag and event reads moved to ledgerRead.ts, where they are
+// `react.cache()`d — /hlasovani awaits getVoteRecord() and getVoteThemes() in the
+// same render, and both wanted the same `vote_event` relation. The ad-hoc 100 000
+// limits went with them: a limit BELOW the row count is a silent truncation, and a
+// small one makes PGlite walk the primary key instead of the index (CLAUDE.md,
+// /zebricek 2026-08-04). One cap for the whole app: `KG_READ_CAP`.
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
+import { readVoteEvents, readVoteTags } from "./ledgerRead";
 import type { VoteThemeData } from "./themeTypes";
 
 export async function getVoteThemes(): Promise<VoteThemeData | null> {
   try {
     const store = await getStore();
     if (!store) return null;
-    const tags = await store.listVoteTags({ limit: 100_000 });
+    const tags = await readVoteTags();
     if (tags.length === 0) return null;
 
     const counts = await store.voteTagCountsByTheme();
-    const events = await store.listVoteEvents({ termCode: "PSP10", limit: 100_000 });
+    const events = await readVoteEvents();
     const byId = new Map(events.map((e) => [e.pspId, e]));
 
     const votes = tags
