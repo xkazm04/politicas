@@ -63,17 +63,13 @@ export default function Sidebar({ pathname, sections, activeSection, activeEntry
                     {labels.tag(entry)}
                   </span>
                 </span>
-                {/* Schránka nese místo metriky odznak novinek sledovaných entit. */}
-                {entry.key === "schranka" ? (
-                  <SchrankaBadge />
-                ) : (
-                  !open &&
-                  labels.metric(entry) && (
-                    <span className="shrink-0 font-mono text-[11px] font-bold text-cobalt">
-                      {labels.metric(entry)}
-                    </span>
-                  )
-                )}
+                {/* Jediné číslo v railu je odznak schránky — a ten je REÁLNÝ (počet
+                    novinek sledovaných entit). Ostatní řádky tu nesly `metricValue`
+                    z katalogu („2,1 mld Kč", „312", „5 214") — vymyšlená čísla bez
+                    citace na KAŽDÉ routě aplikace, jejíž značkové pravidlo zní, že
+                    každé vypsané číslo cituje svůj zdroj. Plakát je smazal už dřív
+                    (features/landing/components/SystemModules.tsx); rail teď taky. */}
+                {entry.key === "schranka" && <SchrankaBadge />}
               </Link>
 
               {/* Obsah stránky visí pod svým modulem — a jen pod ním. */}

@@ -376,6 +376,18 @@ export interface LeaderboardData {
   /** Chamber-wide `{pass, ref}` aggregate + the formula-ref comparison (./provenance.ts). */
   provenance: ContributionProvenance;
   dossierCoverage: { withDossier: number; total: number }; // effort-loop enrichment reach
+  /**
+   * Party abbrev → its `kg_node` id, from the `kind:"party"` read this pass ALREADY
+   * performs at `KG_READ_CAP` (it was folded into `seatsByAbbrev` and the ids thrown
+   * away). Optional and additive: /zebricek, /metodika and /kraj ignore it.
+   *
+   * It exists because /dashboard ran its OWN `listKgNodes({kind:"party", limit:50})`
+   * for exactly this map — the measured small-LIMIT anti-pattern documented at
+   * `readChamber()` below (498/632/723 ms for 8 rows vs 2,4/2,9/41,7 ms at the cap),
+   * on a page that awaits this payload anyway. Reading it here costs nothing new and
+   * rides the cross-request chamber memo.
+   */
+  partyNodeIdByLabel?: Record<string, string>;
 }
 
 /** Same shape as `LeaderboardData` but with the trimmed `LeaderboardListEntry`
@@ -619,6 +631,8 @@ async function readChamber(): Promise<BuiltChamber | null> {
         provenancePass: provenance.state === "uniform" ? provenance.pass : null,
         provenance,
         dossierCoverage: { withDossier: entries.filter((e) => e.effortHasDossier).length, total: entries.length },
+        // Same read as `seatsByAbbrev` above — the ids were simply discarded.
+        partyNodeIdByLabel: Object.fromEntries(partyNodes.map((p) => [p.label, p.id])),
       },
     };
   } catch (err) {

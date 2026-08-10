@@ -21,10 +21,22 @@ export interface SidebarProps {
   activeEntry: NavEntry | undefined;
 }
 
-/** Jméno modulu je značka (data), doprovodné popisky jdou z katalogu.
- *  Řádky mimo katalog modulů (schranka, zaznam — moonshot 7A) nesou od
- *  bilingvního launche vlastní klíče v `nav.entries.*` (labelKey/tagKey);
- *  metriku mají jen skutečné moduly — řádky s labelKey ji nenesou. */
+/**
+ * Jméno modulu je značka (data), doprovodné popisky jdou z katalogu.
+ * Řádky mimo katalog modulů (schranka, zaznam — moonshot 7A) nesou od
+ * bilingvního launche vlastní klíče v `nav.entries.*` (labelKey/tagKey).
+ *
+ * ── ŽÁDNÁ METRIKA (2026-08-11) ─────────────────────────────────────────────
+ * `metric()` sem tahalo `content.modules.<key>.metricValue` — „2,1 mld Kč",
+ * „312", „5 214", „6 254", „200" — a rail i mobilní navigace to vypisovaly na
+ * KAŽDÉ routě: vymyšlená čísla bez citace, v aplikaci, jejíž značkové pravidlo
+ * zní, že každé vypsané číslo cituje svůj zdroj. Doprovodné `metricLabel`
+ * („— ilustrativní ukázka"), které jediné to přiznávalo, nerenderoval nikdo;
+ * `metricLabel()` bylo mrtvé od začátku. Plakát tuhle dvojici smazal už dřív
+ * (features/landing/components/SystemModules.tsx). Rail teď nese identitu
+ * modulu — jméno a rubriku — a jediné číslo v navigaci je REÁLNÝ odznak
+ * schránky. Zpátky to nepatří: pinuje to ./sidebarParts.test.ts.
+ */
 export function useNavLabels() {
   const t = useTranslations();
   const tc = useTranslations("content");
@@ -34,8 +46,6 @@ export function useNavLabels() {
       entry.labelKey ? t(entry.labelKey) : (MODULES.find((m) => m.key === entry.key)?.name ?? entry.key),
     tag: (entry: NavEntry) =>
       entry.tagKey ? t(entry.tagKey) : entry.key === "overview" ? t("nav.overviewHint") : tc(`modules.${entry.key}.tag`),
-    metric: (entry: NavEntry) => (entry.labelKey ? null : tc(`modules.${entry.key}.metricValue`)),
-    metricLabel: (entry: NavEntry) => (entry.labelKey ? null : tc(`modules.${entry.key}.metricLabel`)),
     label: (key: string) => t(key),
     childLabel: (c: NavChild) => t(c.labelKey),
   };

@@ -3,13 +3,22 @@
 // figure the Velín stat strip renders.
 //
 // ── one aggregate, one owner ────────────────────────────────────────────────
-// This loader does NOT re-derive anything. Each figure comes from the loader
-// that already owns it, so the dashboard can never disagree with the module it
-// links to:
+// Each figure comes from the loader that already owns it, so the dashboard can
+// never disagree with the module it links to:
 //   ranking + chamber summary + attendance → getLeaderboardData()  (civicscore)
 //   public money reachable through MPs      → getMoneyData()       (money)
 //   bills → laws                            → getLawData()         (lawwatch)
-// The dashboard only picks the fields it shows and passes them through.
+// The dashboard picks the fields it shows and passes them through.
+//
+// ONE EXCEPTION, named rather than hidden: `attendanceAvgPct`. The header used to
+// claim this loader "re-derives nothing" while `getDashboardData` folded 207 rows
+// of `absenceRate` into a mean right below it. The mean is kept HERE on purpose —
+// it is a figure only /dashboard renders (the civicscore payload publishes the
+// per-MP rate, and pushing a dashboard-only aggregate into the chamber pass would
+// make every other surface carry it) — but the input is the owner's, the fold is
+// one line, and no other surface computes a second version of it. If a second
+// surface ever prints chamber attendance, the mean moves to civicscore and this
+// note goes with it.
 //
 // ── why the money read is memoized, and why the memo EXPIRES ────────────────
 // getMoneyData() walks the whole money layer (~153 k contracts + ~154 k supplies
@@ -38,7 +47,6 @@ import { getMoneyData } from "@/features/money/getMoneyData";
 import type { MoneyData } from "@/features/money/moneyTypes";
 import { reviewSummary, type ReviewSummary } from "@/features/money/reviewSummary";
 import { storedRefLabel } from "@/features/civicscore/provenance";
-import { getRecomputeFact } from "@/features/schranka/getRecomputeFact";
 import { buildStateSlice, type StateSlice } from "./stateSlice";
 import { buildDatedFacts, type DatedFactLedger, type FactContract } from "./datedFacts";
 
@@ -353,38 +361,28 @@ async function sliceContracts(
   }
 }
 
-/** Party abbrev → its kg node id, so the slice's party node carries a real id
- *  rather than a bare string. Cheap read (8 rows); absence is not fatal. */
-async function partyNodeIds(): Promise<Record<string, string>> {
-  try {
-    const store = await getStore();
-    if (!store) return {};
-    const parties = await store.listKgNodes({ kind: "party", limit: 50 });
-    return Object.fromEntries(parties.map((p) => [p.label, p.id]));
-  } catch (err) {
-    reportLoaderFailure("getDashboardData.parties", err);
-    return {};
-  }
-}
-
-// ── provenance date ─────────────────────────────────────────────────────────
+// ── party node ids, and the recompute date: TWO READS THIS LOADER NO LONGER DOES ──
 //
-// The recompute date is NOT read here any more. This loader used to run its OWN
-// `listKgNodes({kind:"person", limit:1000})` and return the FIRST `computedAt` it
-// happened to iterate — two defects in one read:
+// Party abbrev → kg node id used to be its own `listKgNodes({kind:"party", limit:50})`.
+// A small limit is not a small read: it makes PGlite walk the `kg_node` primary key and
+// filter by kind instead of using `kg_node_kind_idx`, so it scans the whole ~154 k-row
+// table until it has collected N matches — measured in this repo at 498/632/723 ms for
+// 8 party rows, against 2,4/2,9/41,7 ms for the same read at `KG_READ_CAP`
+// (getLeaderboardData.ts, `readChamber`). The chamber pass this loader already awaits
+// performs exactly that read at the cap and simply discarded the ids; it now publishes
+// them as `LeaderboardData.partyNodeIdByLabel`, so the map costs ZERO here and rides the
+// cross-request chamber memo. Absent ⇒ `{}`, and the slice's party node falls back to
+// its label (its existing honest fallback), never an invented id.
 //
-//   1. a small limit makes PGlite walk the `kg_node` primary key and filter by kind
-//      instead of using `kg_node_kind_idx`, so it scans the whole ~154 k-row table
-//      (measured elsewhere in this repo at 419–723 ms for a handful of rows);
-//   2. „the first node's date" is the exact mistake `features/civicscore/provenance.ts`
-//      exists to remove — a half-recomputed chamber would be dated by whichever node
-//      the iteration reached first.
-//
-// `getRecomputeFact()` (features/schranka) already owns this fact: ONE indexed read at
-// `KG_READ_CAP`, `react.cache()`-wrapped, and it returns a date ONLY when the whole
-// chamber agrees on one `{pass, ref, computedAt}` — the same uniformity rule the
-// provenance aggregate applies. A non-uniform store yields null and the header says so
-// rather than dating the ranking by a pass that may not have recomputed every MP.
+// The recompute DATE went the same way. It was once read off the FIRST person node this
+// loader iterated — the exact mistake `features/civicscore/provenance.ts` exists to
+// remove — then delegated to `getRecomputeFact()`, which is correct but is a SECOND full
+// `kind:"person"` read per request for one field, on a page that awaits the chamber
+// aggregate anyway. `ContributionProvenance.computedAt` now carries it under the same
+// uniformity bar (one `{pass, ref}`, one day, no scored person without a stamp), so a
+// half-recomputed store still yields null and the header says so rather than dating the
+// ranking by a pass that may not have reached every MP. /schranka keeps calling
+// `getRecomputeFact()` — its badge asks from every route and must not build a chamber.
 
 export async function getDashboardData(): Promise<DashboardData | null> {
   const lb = await getLeaderboardData();
@@ -397,17 +395,14 @@ export async function getDashboardData(): Promise<DashboardData | null> {
     );
     return null;
   }
+  // The one derivation this loader performs — declared in the header, not hidden.
   const attendanceAvgPct =
     Math.round(
       (lb.entries.reduce((s, e) => s + (1 - e.absenceRate), 0) / lb.entries.length) * 1000,
     ) / 10;
 
-  const [money, law, recompute, partyIds] = await Promise.all([
-    moneyLayer(),
-    lawLayer(),
-    getRecomputeFact(),
-    partyNodeIds(),
-  ]);
+  const [money, law] = await Promise.all([moneyLayer(), lawLayer()]);
+  const partyIds = lb.partyNodeIdByLabel ?? {};
 
   // The slice needs BOTH layers — a graph slice missing its money or its
   // legislation band could not span the six node kinds it promises, so it is
@@ -454,8 +449,8 @@ export async function getDashboardData(): Promise<DashboardData | null> {
     provenance: {
       state: lb.provenance.state,
       pass: lb.provenance.pass,
-      // Only a uniform chamber has ONE recompute date; `getRecomputeFact` enforces that.
-      computedAt: recompute?.computedAt ?? null,
+      // Only a uniform chamber has ONE recompute date; the aggregate enforces that.
+      computedAt: lb.provenance.computedAt,
       distinctCount: lb.provenance.distinctCount,
       covered: lb.provenance.covered,
       total: lb.provenance.total,

@@ -2,11 +2,12 @@ import { describe, expect, it } from "vitest";
 import { CONTRIBUTION_FORMULA_REF } from "@/lib/analysis/contribution";
 import { summarizeContributionProvenance, storedRefLabel } from "./provenance";
 
-const person = (pass: number | null, ref: string | null) => ({
+const person = (pass: number | null, ref: string | null, computedAt?: string) => ({
   contribution_score: 50,
   contribution_provenance: {
     ...(pass === null ? {} : { pass }),
     ...(ref === null ? {} : { ref }),
+    ...(computedAt === undefined ? {} : { computedAt }),
     method: "deterministic",
   },
 });
@@ -90,6 +91,60 @@ describe("summarizeContributionProvenance", () => {
     ]);
     expect(p.state).toBe("absent");
     expect(p.covered).toBe(0);
+  });
+
+  it("dates the ranking only when the WHOLE chamber agrees on one day", () => {
+    // /dashboard reads this instead of running a second full person-relation scan
+    // for one date (getRecomputeFact), so the uniformity bar has to be the strict one.
+    const p = summarizeContributionProvenance([
+      person(42, CONTRIBUTION_FORMULA_REF, "2026-08-04"),
+      person(42, CONTRIBUTION_FORMULA_REF, "2026-08-04"),
+    ]);
+    expect(p.state).toBe("uniform");
+    expect(p.computedAt).toBe("2026-08-04");
+  });
+
+  it("accepts a full instant but publishes the DAY", () => {
+    const p = summarizeContributionProvenance([
+      person(42, CONTRIBUTION_FORMULA_REF, "2026-08-04T09:12:33.000Z"),
+    ]);
+    expect(p.computedAt).toBe("2026-08-04");
+  });
+
+  it("MIXED — a half-recomputed chamber has no single day either", () => {
+    const p = summarizeContributionProvenance([
+      person(42, CONTRIBUTION_FORMULA_REF, "2026-08-04"),
+      person(11, "contribution", "2026-07-29"),
+    ]);
+    expect(p.state).toBe("mixed");
+    expect(p.computedAt).toBeNull();
+  });
+
+  it("one pass written on two days is not one day (two writes of one pass)", () => {
+    const p = summarizeContributionProvenance([
+      person(42, CONTRIBUTION_FORMULA_REF, "2026-08-04"),
+      person(42, CONTRIBUTION_FORMULA_REF, "2026-08-05"),
+    ]);
+    expect(p.state).toBe("uniform"); // {pass, ref} still agree
+    expect(p.computedAt).toBeNull(); // …but „when" does not
+  });
+
+  it("a scored person with no stamp costs the chamber its date, not a guess", () => {
+    const p = summarizeContributionProvenance([
+      person(42, CONTRIBUTION_FORMULA_REF, "2026-08-04"),
+      person(42, CONTRIBUTION_FORMULA_REF),
+    ]);
+    expect(p.state).toBe("uniform");
+    expect(p.computedAt).toBeNull();
+  });
+
+  it("an unparseable stamp is not a date and is never repaired into one", () => {
+    const p = summarizeContributionProvenance([person(42, CONTRIBUTION_FORMULA_REF, "loni")]);
+    expect(p.computedAt).toBeNull();
+  });
+
+  it("ABSENT — no provenance, no date", () => {
+    expect(summarizeContributionProvenance([{}, {}]).computedAt).toBeNull();
   });
 
   it("is order-independent — the same multiset yields the same variants", () => {

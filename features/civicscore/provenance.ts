@@ -37,6 +37,23 @@ export interface ContributionProvenance {
   pass: number | null;
   /** The formula ref, when `uniform`; null otherwise. */
   ref: string | null;
+  /**
+   * `YYYY-MM-DD` of `contribution_provenance.computedAt` — WHEN the ranking was
+   * computed — and null unless the whole chamber agrees on one day, on one
+   * `{pass, ref}`, with no scored person missing a day.
+   *
+   * Added 2026-08-11 so a surface that already awaits this aggregate does not
+   * have to re-read the person relation for one date. /dashboard used to call
+   * `getRecomputeFact()` (a second full `kind:"person"` read per request) purely
+   * for this field, while the leaderboard payload it also awaits was carrying
+   * everything else about the same pass.
+   *
+   * The uniformity bar is deliberately the STRICTER one, identical to
+   * `features/schranka/recomputeFact.ts`'s: two days are two writes of one pass,
+   * and dating a chamber by whichever half was recomputed first is the same
+   * mistake as reading the pass off the first node.
+   */
+  computedAt: string | null;
   /** How many distinct `{pass, ref}` combinations the chamber carries (0 when absent). */
   distinctCount: number;
   /** Every combination, count desc then pass desc — pinned so reports diff cleanly. */
@@ -54,14 +71,21 @@ export interface ContributionProvenance {
   formulaMatch: boolean;
 }
 
-const readProv = (props: Record<string, unknown>): { pass: number | null; ref: string | null } | null => {
+const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+const readProv = (
+  props: Record<string, unknown>,
+): { pass: number | null; ref: string | null; computedAt: string | null } | null => {
   const raw = props.contribution_provenance;
   if (!raw || typeof raw !== "object") return null;
   const o = raw as Record<string, unknown>;
   const pass = typeof o.pass === "number" && Number.isFinite(o.pass) ? o.pass : null;
   const ref = typeof o.ref === "string" && o.ref.length > 0 ? o.ref : null;
   if (pass === null && ref === null) return null;
-  return { pass, ref };
+  // The stamp may be a full instant; the ranking is dated by its DAY. An
+  // unparseable value is not a date and is never repaired into one.
+  const at = typeof o.computedAt === "string" ? o.computedAt.slice(0, 10) : null;
+  return { pass, ref, computedAt: at !== null && DAY_RE.test(at) ? at : null };
 };
 
 /**
@@ -72,11 +96,15 @@ export function summarizeContributionProvenance(
   personProps: readonly Record<string, unknown>[],
 ): ContributionProvenance {
   const buckets = new Map<string, ProvenanceVariant>();
+  const days = new Set<string>();
   let covered = 0;
+  let withoutDay = 0;
   for (const props of personProps) {
     const p = readProv(props);
     if (!p) continue;
     covered++;
+    if (p.computedAt === null) withoutDay++;
+    else days.add(p.computedAt);
     const key = `${p.pass ?? "—"}|${p.ref ?? "—"}`;
     const hit = buckets.get(key);
     if (hit) hit.count++;
@@ -93,6 +121,9 @@ export function summarizeContributionProvenance(
     state,
     pass: state === "uniform" ? variants[0].pass : null,
     ref: state === "uniform" ? variants[0].ref : null,
+    // One pass, one day, and not one scored person without a stamp. Anything
+    // else has no single answer to „when", so it gets none.
+    computedAt: state === "uniform" && days.size === 1 && withoutDay === 0 ? [...days][0] : null,
     distinctCount: variants.length,
     variants,
     covered,

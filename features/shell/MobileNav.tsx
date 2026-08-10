@@ -105,15 +105,10 @@ export default function MobileNav({ pathname, sections, activeSection, activeEnt
                       {labels.name(entry)}
                     </span>
                   </span>
-                  {entry.key === "schranka" ? (
-                    <SchrankaBadge />
-                  ) : (
-                    labels.metric(entry) && (
-                      <span className="shrink-0 font-mono text-[11px] font-bold text-cobalt">
-                        {labels.metric(entry)}
-                      </span>
-                    )
-                  )}
+                  {/* Parita s desktopem: jediné číslo v navigaci je REÁLNÝ odznak
+                      schránky. Vymyšlené `metricValue` z katalogu je pryč — viz
+                      Sidebar.tsx. */}
+                  {entry.key === "schranka" && <SchrankaBadge />}
                 </Link>
                 {/* Parita s desktopem (7A): podstránky modulu musí být dosažitelné
                     i z telefonu — dřív mobil děti railu vůbec nenesl. */}
