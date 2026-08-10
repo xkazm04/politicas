@@ -21,3 +21,11 @@ It produced the byte-identity evidence for the money-layer indexed reads (dump l
 output to JSON on the old code, `git stash`, dump again, `JSON.stringify` compare — 8 MPs
 plus the whole ledger and console queue, all identical). PGlite is single-connection, so
 stop any dev server first.
+
+**End every probe with `process.exit(0)`** — `getStore()` keeps the PGlite WASM instance
+alive, so a script without it finishes its work and then idles FOREVER holding the store
+open. Found 2026-08-11: six such zombies from a dead 2026-08-05 session had held the store
+for six days. Before any live-store work, sweep for them:
+`Get-CimInstance Win32_Process` filtered to node processes whose command line contains
+`politicas\node_modules\tsx` — kill only what you can attribute to a dead session
+(see [[robocopy-of-a-live-pglite-store-can-corrupt]] for the diagnosis order).
