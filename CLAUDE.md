@@ -245,6 +245,39 @@ Route map (politicas.md roadmap execution, sample data):
   textual list. Honest gap: this repo has no jsdom/testing-library, so the DOM wiring
   is covered by that live pass plus `graphTraversal.test.ts` over the pure rule — not
   by a component test.
+  **The feed lights the whole node (2026-08-11).** `refs` — the feed's FILTER —
+  used to name only the nodes a fact literally mentions, so NO row ever carried
+  a law (`l:`) or party (`y:`) id and no contract/bill row a person (`p:`):
+  ~10 of 16 nodes selected to a deterministic „0 z 12" of rows dimmed with no
+  sentence. The broadening is TYPED, printed on the surface (`feed.filterRule`)
+  and read ONLY off edges the slice drew (zero new store reads): company+money
+  are one entity, a contract fact carries the tied MPs, a role fact carries the
+  firm and the party it donated to, a bill fact carries its sponsors and the
+  amended statute. **Refused: a contract fact never carries the party** —
+  lighting a contract under a selected party is accusation-by-adjacency, the
+  same thing the seed rule refuses; two-hop adjacency is computed nowhere.
+  `subjectRef` (the crosshair) is untouched — refs broaden the filter, never
+  the subject. A matched-nothing selection renders ONE honest sentence naming
+  the entity + its deník link (only while `entityLinks` gives it a key) instead
+  of twelve dimmed rows; an entirely empty ledger keeps its own truer sentence.
+  Also: a tie fact's id was keyed on `refs` — widening the filter would have
+  silently moved every registry-role exhibit; identity is now the subject +
+  company, pinned by test.
+  **The velín reads what it already has (2026-08-11).** Two reads deleted: the
+  party map now rides the memoized chamber pass (`LeaderboardData.
+  partyNodeIdByLabel`, additive) instead of a `limit:50` read measured at
+  498–723 ms for 8 rows; `computedAt` joined the chamber provenance aggregate
+  (`ContributionProvenance.computedAt`, uniform-only at DAY granularity, the
+  /schranka bar) so the dashboard dropped its per-request `getRecomputeFact()`
+  person scan (/schranka keeps its own — its badge must not build a chamber).
+  The left rail STOPPED INVENTING NUMBERS: `content.modules.*` metricValue
+  („2,1 mld Kč", „312"…) rendered in cobalt on every route while the
+  „ilustrativní ukázka" qualifier was dead code with no renderer — deleted from
+  the content model and both catalogs, pinned by `features/shell/
+  sidebarParts.test.ts` (the one surviving pair, follow-the-money's, has a live
+  labelled consumer in `MockStatTiles.tsx` and the test verifies that consumer
+  still reads it). The loader header now names `attendanceAvgPct` as its ONE
+  derivation, and the store-down header note no longer asserts the term.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the
@@ -323,6 +356,47 @@ Route map (politicas.md roadmap execution, sample data):
   spis immediately. Neither an empty index nor a failure is memoized; a null
   renders „hlasovací záznam není dostupný", never an empty list, and an MP who
   never broke the line gets a stated empty record.
+  **One ledger pass for both surfaces (2026-08-11).** `getRebellionRecord` was a
+  stale second copy of the read path round 7 unified into `features/votetrack/
+  ledgerRead.ts`: hand-rolled reads with ad-hoc limits (100 000 / 1 000 000), a
+  private copy of the readiness floors, and `EventIn` rows WITHOUT `published`
+  tallies — so the round-7 chamber-reconciliation was structurally dead on the
+  spis (compared 0 on this path) while running on /hlasovani. It now rides
+  `readLedger()`/`toEventIn` (reconciliation live here too, chronicle
+  byte-identical — pinned both ways), and **the derivation itself is shared**:
+  `getFullVoteRecord()` (features/votetrack/getVoteRecord.ts) memoizes the
+  record with the chronicle UNCAPPED, /hlasovani slices its 24-row window off
+  it, and the spis indexes the same object — one ~16 s read + one derivation
+  per TTL window ACROSS both surfaces. That the cap is a pure prefix cut is
+  proven, not assumed: `chronicleCap.test.ts` pins prefix identity, that the
+  other six `VoteRecordData` fields ignore the cap, and that those seven fields
+  are the WHOLE type — a new field cannot join it without someone ruling on the
+  cut. (`getKompas.ts` still holds its own ledger read per window — a third
+  pass, flagged for a future votetrack round.)
+  **Five honesty seams closed (2026-08-11).** The header's absentee qualifier
+  asserted the MP's ties „všechny čekají na lidskou kontrolu" — a LITERAL one
+  /penize/kontrola decision falsifies; it now renders the phase derived by the
+  SAME `reviewSummary()` /penize and /dashboard read (plus its own sentence for
+  „money layer unreadable" — unread is not unreviewed), and the messages-test
+  regex that let it slip (it REQUIRED a digit) now matches the claim's SHAPE.
+  The ally list's `.slice(0, 8)` — the last silent cap on the page — discloses
+  itself with `coVotersTotal`; `listMandates` reads at `KG_READ_CAP`;
+  prior-term membership reads run in parallel; `periodNote` takes its term
+  number from `termNumberOf()` with `periodNoteUnknown` for an unparseable
+  code (a test forbids a term digit in either catalog); `effort_public_role`
+  renders ONCE (the dossier keeps it under its labelled heading; the badge
+  dropped the prop).
+  **The amendment can be read (2026-08-11).** Every `proposes_amendment` edge
+  carries `props.sd_cislos` — the psp.cz sněmovní dokument numbers, i.e. the
+  TEXT each MP actually filed (pass 35; live-probed 172/172) — and the spis
+  read only `weight`. `snemovniDokumentLink()` in `lib/kg/sourceLinks.ts`
+  builds the address (`sd.sqw?o=10&cd=<n>`, tier `detail`, verified by
+  fetching 2026-08-10; the term number is ONE constant shared with the bill
+  link, deliberately NOT a `sourceLinksFor` branch because the number lives on
+  an EDGE, not a node). The dossier's amendment rows render the per-document
+  links; a record with no number renders its count and says so (never a
+  guessed URL), and a list ≠ stored-weight mismatch is DISCLOSED with the
+  weight authoritative — never repaired.
   **The spis links the fabric it belongs to (2026-08-04).** It sat at the centre of
   the graph and pointed almost nowhere: no `/denik?entita=poslanec:<pspId>` (the
   dated stream about the same entity, keyed by `mpEntityKey` — imported, never
@@ -1006,6 +1080,31 @@ Route map (politicas.md roadmap execution, sample data):
   in one `Promise.all` with the same memo — readiness gate deliberately OUTSIDE
   it. The 27 incidental close-read pairs (same §, different statute) are now
   counted and disclosed on /zakony/kolize (`incidentalPairCount`).
+  **The law number gets an address, and the register stops denying its own gate
+  (2026-08-11).** The forensic register printed „deterministické odvození —
+  lidskou branou neprochází" (GATE_UNGATED) directly beside `pending_review ·
+  141` — a sentence its own neighbour falsifies: `kg-forensics.ts` writes every
+  verdict `pending_review` and /dukazy is their sign-off path (zero signed
+  today), so the corpus does not bypass the gate, it is QUEUED at it. The gate
+  sentence is now DERIVED from the stored token through the ONE vocabulary
+  (`features/overeni/gateVocabulary.ts`, where `pending` ≡ `pending_review`),
+  the verbatim token renders beside the translated label, a new sentence names
+  and links /dukazy, and a corpus with more than one stored state gets NO
+  single headline state. `features/lawwatch/lawClaims.ts` (pure + tested)
+  mints the surface's first claims: the CENSUS CLOSURE (chamber-wide
+  3-segment ref, status `pending` — `ungated` would deny a gate that exists
+  and is empty; derivation `<uniformRef>@<uniformPass>` ONLY from the
+  corpus-wide aggregate, never `LawData.pass`) and per-tile STATUTE COVERAGE
+  (subject `law:sb:<n>-<rok>` via `statuteRef.ts`'s own codec, status
+  `ungated` — census arithmetic; a ref that cannot be canonically formed
+  REFUSES a claim). `sponsorContractCzk` is deliberately NEVER claimed (looser
+  attribution rule than /penize) and the per-bill verdict claim stays deferred
+  (blocked by the `lawwatchLabels.czkCompact` duplicate). Both render through
+  `CitableNumber` (byte-identical visible text); `liveFigures.ts` re-derives
+  both at /overeni through `getLawData()`/`deriveStatuteDossier()` — a dark
+  law layer answers `unavailable`, an absent statute `zaznam-nenalezen`, and
+  the subject check moved INTO the branches that need one (a chamber-wide ref
+  has none and was answering `gone` before the metric was read).
 - `/denik` — **Deník republiky** (features/denik): the chronological daily
   record of the state — signed contracts of firms MPs own/run, committee
   assignments, Sbírka publication, registry role starts/ends, human-gate
