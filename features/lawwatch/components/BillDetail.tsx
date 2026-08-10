@@ -347,27 +347,13 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
       )}
 
       {/* příznak střetu (Case ①) */}
-      {bill.flaggedConflict && (
-        <div className="mt-6 border-l-4 border-signal bg-paper-strong p-4">
-          <SourceNote tone="signal" className="!text-[10px]">
-            {t("detail.conflictSource")}
-          </SourceNote>
-          <p className="mt-2 text-[15px] font-medium leading-relaxed">
-            {t.rich("detail.conflictText", {
-              count: bill.sponsorMoneyCompanies,
-              countFmt: f.int(bill.sponsorMoneyCompanies),
-              amount: czkCompact(bill.sponsorContractCzk),
-              b: (chunks) => <span className="font-black">{chunks}</span>,
-            })}
-          </p>
-        </div>
-      )}
+      {bill.flaggedConflict && <ConflictBlock bill={bill} />}
 
       {/* sektorová atribuce na úrovni § (dávka 017) — firma ↔ sponzor ↔ novelizovaný zákon,
           s operativními §, pokud je census dokázal izolovat, a s dispozicí publikovaného
           forenzního posudku, který danou shodu už vyhodnotil. */}
       {bill.sectorAttributionFlags.length > 0 && (
-        <SectorAttributionBlock flags={bill.sectorAttributionFlags} />
+        <SectorAttributionBlock flags={bill.sectorAttributionFlags} sponsors={bill.sponsors} />
       )}
 
       {/* reálný §-diff (e-Sbírka) */}
@@ -375,6 +361,66 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
 
       {/* gatovaný forenzní posudek */}
       {bill.forensic && <ForensicBlock forensic={bill.forensic} summary={bill.summary} />}
+    </div>
+  );
+}
+
+/**
+ * Příznak možného střetu (Case ①) — čísla, která tenhle blok vypisuje, jsou uložená na uzlu
+ * tisku (`sponsor_money_companies`, `sponsor_contract_czk`) a graf u nich nedrží ani jméno
+ * firmy, ani jméno předkladatele, kterému patří. Blok proto ŽÁDNOU firmu nejmenuje: jediné
+ * poctivé vyústění je spis peněz konkrétního předkladatele, kde je každá vazba vidět i se
+ * svou třídou a stavem lidské kontroly.
+ *
+ * Věta o připsání není opatrnost navíc, je to rozdíl v pravidle. Uložené číslo je NEJVYŠŠÍ
+ * případ mezi předkladateli tisku a sčítá všechny firmy, ke kterým je předkladatel v grafu
+ * vázán — včetně institucí, kde má jen správní roli (scripts/data-analysis/
+ * kg-legislation-ingest.ts sčítá `linked_to` bez ohledu na třídu vazby). /penize peníze
+ * instituce připisuje instituci, nikdy poslanci, takže spis předkladatele ukáže jinou,
+ * přísněji připsanou částku. Kdyby tenhle blok firmy jmenoval, publikoval by je pod
+ * pravidlem, které peněžní modul zrušil.
+ */
+function ConflictBlock({ bill }: { bill: LawBillView }) {
+  const t = useTranslations("lawwatch");
+  const f = useFormat();
+  return (
+    <div className="mt-6 border-l-4 border-signal bg-paper-strong p-4">
+      <SourceNote tone="signal" className="!text-[10px]">
+        {t("detail.conflictSource")}
+      </SourceNote>
+      <p className="mt-2 text-[15px] font-medium leading-relaxed">
+        {t.rich("detail.conflictText", {
+          count: bill.sponsorMoneyCompanies,
+          countFmt: f.int(bill.sponsorMoneyCompanies),
+          amount: czkCompact(bill.sponsorContractCzk),
+          b: (chunks) => <span className="font-black">{chunks}</span>,
+        })}
+      </p>
+      <p className="mt-2 text-[13px] leading-relaxed text-steel">{t("detail.conflictAttribution")}</p>
+      {bill.sponsors.length > 0 && (
+        <div className="mt-3">
+          <SourceNote className="!text-[10px]">{t("detail.conflictMoneyFiles")}</SourceNote>
+          <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1.5">
+            {bill.sponsors.map((s) => (
+              <Link
+                key={s.pspId}
+                href={`/penize/${s.pspId}`}
+                aria-label={t("detail.conflictMoneyFileAria", { name: s.name })}
+                className="group inline-flex items-baseline gap-1.5 text-sm font-bold transition-colors hover:text-signal"
+              >
+                {s.name}
+                <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+      <Link
+        href="/penize/strety"
+        className="mt-3 inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+      >
+        {t("detail.conflictStrety")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+      </Link>
     </div>
   );
 }
@@ -630,13 +676,29 @@ function CitationList({ citations }: { citations: NonNullable<LawBillView["foren
  * posudku, který ji už vyhodnotil — bez dispozice by shoda četla jako holé, nevyhodnocené
  * podezření. Řádek bez operativních § řekne poctivě proč (census bez §-koše vs. selhání
  * rozdělovače) místo aby paragraf jen vynechal beze slova. */
-function SectorAttributionBlock({ flags }: { flags: LawBillView["sectorAttributionFlags"] }) {
+function SectorAttributionBlock({
+  flags,
+  sponsors,
+}: {
+  flags: LawBillView["sectorAttributionFlags"];
+  sponsors: LawBillView["sponsors"];
+}) {
   const t = useTranslations("lawwatch");
   // The ungated-label sentence is byte-identical to overeni's own — imported from the ONE
   // vocabulary (features/overeni/gateVocabulary.ts) rather than kept as a second copy under
   // the lawwatch namespace (2026-08-06 fix).
   const tOvereni = useTranslations("overeni");
   const f = useFormat();
+  // `flag.sponsor` is a NAME — the payload's producer wrote `personName.get(sid)` for one of
+  // this print's own sponsors, i.e. the same `listPersons().nameFull` string `bill.sponsors`
+  // carries. The join is therefore exact equality, and it links only when exactly ONE sponsor
+  // answers to that name: a second match makes the pspId unknowable, and „the closest one" is
+  // an address about the WRONG person on a conflict surface. No match ⇒ the name still renders,
+  // verbatim, unlinked.
+  const pspIdOfSponsor = (name: string): number | null => {
+    const hits = sponsors.filter((s) => s.name === name);
+    return hits.length === 1 ? hits[0].pspId : null;
+  };
   return (
     <div className="mt-6 border-l-4 border-ochre bg-ochre/5 p-4">
       <SourceNote tone="steel" className="!text-ochre">
@@ -647,14 +709,45 @@ function SectorAttributionBlock({ flags }: { flags: LawBillView["sectorAttributi
       </p>
       <p className="mt-1.5 text-[13px] leading-relaxed text-steel">{t("detail.sectorAttribution.intro")}</p>
       <ul className="mt-4 space-y-4">
-        {flags.map((flag, i) => (
+        {flags.map((flag, i) => {
+          const sponsorPspId = pspIdOfSponsor(flag.sponsor);
+          return (
           <li key={i} className="border-l-2 border-ink/20 pl-3">
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-              <span className="text-sm font-bold">{flag.company}</span>
+              {/* Firma vede na svůj vlastní spis peněz jen tehdy, když se její název v grafu
+                  jednoznačně přeložil na IČO — jinak zůstane jménem bez odkazu (nikdy adresa
+                  „nejspíš správná"). */}
+              {flag.companyIco ? (
+                <Link
+                  href={`/penize/firma/${flag.companyIco}`}
+                  aria-label={t("detail.sectorAttribution.companyFileAria", { company: flag.company })}
+                  className="group inline-flex items-baseline gap-1 text-sm font-bold transition-colors hover:text-signal"
+                >
+                  {flag.company}
+                  <ArrowUpRight className="h-3 w-3 shrink-0 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
+                </Link>
+              ) : (
+                <span className="text-sm font-bold">{flag.company}</span>
+              )}
               <span className="font-mono text-[10px] font-black uppercase tracking-wider text-steel">
                 {SECTOR_KEYS.has(flag.sector) ? t(`sector.${flag.sector}`) : flag.sector}
               </span>
             </div>
+            {/* Předkladatel, jehož firma shodu vyvolala — bez něj řádek říká „firma × zákon"
+                a zamlčí, čí vazba to vůbec je. */}
+            <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel">
+              {t("detail.sectorAttribution.sponsorLabel")}{" "}
+              {sponsorPspId != null ? (
+                <Link
+                  href={`/poslanec/${sponsorPspId}`}
+                  className="font-black text-ink transition-colors hover:text-signal"
+                >
+                  {flag.sponsor}
+                </Link>
+              ) : (
+                <span className="font-black text-ink">{flag.sponsor}</span>
+              )}
+            </p>
             <p className="mt-1 text-[13px] leading-relaxed text-steel">
               {t.rich("detail.sectorAttribution.viaLaw", {
                 sector: SECTOR_KEYS.has(flag.sector) ? t(`sector.${flag.sector}`) : flag.sector,
@@ -692,7 +785,8 @@ function SectorAttributionBlock({ flags }: { flags: LawBillView["sectorAttributi
               {tOvereni(GATE_UNGATED_KEY)}
             </p>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </div>
   );

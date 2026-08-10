@@ -65,7 +65,26 @@ export interface SectorAttributionFlag {
    * the pipeline-jargon gate, so it was withheld rather than rendered. The render site must
    * disclose this, not drop the row. */
   dispositionWithheld: boolean;
+  /** Canonical 8-digit IČO of `company`, so a named firm can open its own money case file
+   * (`/penize/firma/<ičo>`) — or null when it could not be resolved WITHOUT GUESSING.
+   *
+   * The payload carries no IČO. Its `company` string is the graph company node's own `label`,
+   * copied verbatim by the producer (scripts/case-loops/law/triage-002.ts reads `c.label`), so
+   * the loader resolves it by EXACT label equality against the company nodes it reads — and
+   * only when exactly ONE node carries that label. An ambiguous label, an unknown label or a
+   * node id outside the canonical `company:ico:<8 digits>` form all yield null and no link: a
+   * near-miss address about a NAMED company on a conflict surface is precisely the failure the
+   * shape-refusal precedent (features/dashboard/entityLinks.ts) exists to prevent. */
+  companyIco: string | null;
 }
+
+/** Resolves a company LABEL to its canonical IČO, or null when the label is unknown or
+ * ambiguous. Injected rather than imported so this module stays fs-free and store-free:
+ * `getLawData.ts` owns the company read, this module owns the join rule (and its test can
+ * pin the refusals without a store). Default: resolve nothing. */
+export type CompanyIcoResolver = (companyLabel: string) => string | null;
+
+const RESOLVES_NOTHING: CompanyIcoResolver = () => null;
 
 function asStr(v: unknown): string | null {
   return typeof v === "string" && v.length > 0 ? v : null;
@@ -83,7 +102,10 @@ function asStrArray(v: unknown): string[] | null {
  * `verdictDisposition: null` and `dispositionWithheld: true` so the render site can say so,
  * rather than the money↔statute adjacency vanishing whole (2026-08-06 fix — see the
  * interface doc above). */
-export function projectSectorAttributionFlag(raw: SectorAttributionRaw): SectorAttributionFlag | null {
+export function projectSectorAttributionFlag(
+  raw: SectorAttributionRaw,
+  resolveCompanyIco: CompanyIcoResolver = RESOLVES_NOTHING,
+): SectorAttributionFlag | null {
   const cislo = typeof raw.cislo === "number" ? raw.cislo : null;
   const company = asStr(raw.company);
   const sector = asStr(raw.sector);
@@ -107,6 +129,7 @@ export function projectSectorAttributionFlag(raw: SectorAttributionRaw): SectorA
     diagnosticsClean: raw.diagnosticsClean === true,
     verdictDisposition: gated ? safeDisposition : null,
     dispositionWithheld: !gated,
+    companyIco: resolveCompanyIco(company),
   };
 }
 
@@ -129,10 +152,13 @@ export function groupSectorAttributionFlags(
  * `getLawData.ts` calls after reading the JSON file. Malformed or gate-failing rows are
  * dropped silently at the row level (never surfaced as a fabricated partial flag); a
  * caller that wants the drop count can compare `rows.length` to the sum of bucket sizes. */
-export function buildSectorAttributionIndex(rows: SectorAttributionRaw[]): Map<number, SectorAttributionFlag[]> {
+export function buildSectorAttributionIndex(
+  rows: SectorAttributionRaw[],
+  resolveCompanyIco: CompanyIcoResolver = RESOLVES_NOTHING,
+): Map<number, SectorAttributionFlag[]> {
   const projected = rows.flatMap((raw) => {
     const cislo = typeof raw.cislo === "number" ? raw.cislo : null;
-    const flag = projectSectorAttributionFlag(raw);
+    const flag = projectSectorAttributionFlag(raw, resolveCompanyIco);
     return cislo !== null && flag ? [{ cislo, flag }] : [];
   });
   return groupSectorAttributionFlags(projected);

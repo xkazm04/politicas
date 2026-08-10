@@ -22,11 +22,14 @@ import { join } from "node:path";
 import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
+import { icoFromCompanyNodeId } from "@/features/money/companyId";
 import { deriveForensicIndex, type ForensicIndexView } from "./forensicIndex";
 import {
   buildSectorAttributionIndex,
+  type CompanyIcoResolver,
   type SectorAttributionFlag,
   type SectorAttributionRaw,
 } from "./sectorAttribution";
@@ -120,22 +123,41 @@ const SECTOR_ATTRIBUTION_FILE = "docs/data-analysis/case-law/payloads/batch-017-
 interface SectorAttributionArtifact {
   rows?: SectorAttributionRaw[];
 }
-function loadSectorAttributionIndex(): Map<number, SectorAttributionFlag[]> {
+function loadSectorAttributionRows(): SectorAttributionRaw[] {
   try {
     if (!existsSync(SECTOR_ATTRIBUTION_FILE)) {
       reportLoaderFailure("getLawData.sectorAttribution", new Error(`missing payload: ${SECTOR_ATTRIBUTION_FILE}`));
-      return new Map();
+      return [];
     }
     const raw = JSON.parse(readFileSync(SECTOR_ATTRIBUTION_FILE, "utf8")) as SectorAttributionArtifact;
     if (!Array.isArray(raw.rows)) {
       reportLoaderFailure("getLawData.sectorAttribution", new Error(`payload carries no rows array: ${SECTOR_ATTRIBUTION_FILE}`));
-      return new Map();
+      return [];
     }
-    return buildSectorAttributionIndex(raw.rows);
+    return raw.rows;
   } catch (err) {
     reportLoaderFailure("getLawData.sectorAttribution", err);
-    return new Map();
+    return [];
   }
+}
+
+/** company LABEL → canonical IČO, for the sector-attribution flags' `/penize/firma/<ičo>` link.
+ *
+ * The batch-017 payload names a firm by the graph node's own `label` and nothing else, so this
+ * is the ONE join that can turn a named company on /zakony/<číslo> into its money case file.
+ * The rule is exact-and-unique or nothing: a label carried by two nodes maps to null (which
+ * firm the payload meant is unknowable), and the IČO itself comes from
+ * `icoFromCompanyNodeId` — imported from features/money/companyId.ts, never a second parser of
+ * what our ids look like. */
+function companyIcoByLabel(nodes: { id: string; label: string }[]): CompanyIcoResolver {
+  const byLabel = new Map<string, string | null>();
+  for (const n of nodes) {
+    const ico = icoFromCompanyNodeId(n.id);
+    if (ico === null) continue;
+    // Second node under the same label ⇒ ambiguous ⇒ no link at all.
+    byLabel.set(n.label, byLabel.has(n.label) ? null : ico);
+  }
+  return (label: string) => byLabel.get(label) ?? null;
 }
 
 export const BILL_ORIGINS = ["government", "mp", "mp_group", "senate", "other"] as const;
@@ -391,7 +413,13 @@ async function loadLawData(): Promise<LawData | null> {
 
     const paragraphDiffs = loadParagraphDiffs();
     const summaries = loadBillSummaries();
-    const sectorAttributionIndex = loadSectorAttributionIndex();
+    // The company read exists ONLY to give a sector-attribution flag its firm's money case
+    // file, so it is skipped entirely when the payload carries no rows — an indexed
+    // kind-scoped node read (~196 rows on the live corpus), never a relation scan.
+    const sectorAttributionRows = loadSectorAttributionRows();
+    const companyNodes =
+      sectorAttributionRows.length > 0 ? await store.listKgNodes({ kind: "company", limit: KG_READ_CAP }) : [];
+    const sectorAttributionIndex = buildSectorAttributionIndex(sectorAttributionRows, companyIcoByLabel(companyNodes));
     const diffsByLawRef = new Map<string, ParagraphDiff[]>();
     for (const d of paragraphDiffs) diffsByLawRef.set(d.law, [...(diffsByLawRef.get(d.law) ?? []), d]);
 
