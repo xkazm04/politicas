@@ -1062,6 +1062,9 @@ describe("getProfileData against a seeded graph", () => {
         url: "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
         appUrl: "/zakony/4",
         count: 3,
+        // spoke_on carries no sněmovní dokument — the shared mapper yields an
+        // empty list, and the dossier only opens the document line for amendments.
+        sdCislos: [],
       },
     ]);
     expect(p.floorSpeechTurns).toBe(3);
@@ -1072,6 +1075,8 @@ describe("getProfileData against a seeded graph", () => {
         url: "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
         appUrl: "/zakony/4",
         count: 2,
+        // the seeded edge carries no sd_cislos prop → empty, never reconstructed
+        sdCislos: [],
       },
     ]);
     expect(p.amendmentBillCount).toBe(2);
