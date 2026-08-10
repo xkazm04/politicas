@@ -1075,8 +1075,9 @@ describe("getProfileData against a seeded graph", () => {
         url: "https://www.psp.cz/sqw/historie.sqw?o=10&t=4",
         appUrl: "/zakony/4",
         count: 2,
-        // the seeded edge carries no sd_cislos prop → empty, never reconstructed
-        sdCislos: [],
+        // the seeded edge carries props.sd_cislos [3, 4] — projected and sorted,
+        // proving the amendment-document numbers survive the read end-to-end
+        sdCislos: [3, 4],
       },
     ]);
     expect(p.amendmentBillCount).toBe(2);
