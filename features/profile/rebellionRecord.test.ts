@@ -5,9 +5,17 @@
 // the rebellion rule on the profile side fails here rather than shipping a second
 // answer about a named person.
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { toEventIn } from "@/features/votetrack/ledgerRead";
 import { deriveVoteRecord, type BallotIn, type EventIn } from "@/features/votetrack/record/derive";
-import { indexRebellions, rebellionRecordFor, toInstance } from "./rebellionRecord";
+import type { VoteEventRow } from "@/lib/db/types";
+import {
+  deriveRebellionIndex,
+  indexRebellions,
+  rebellionRecordFor,
+  toInstance,
+} from "./rebellionRecord";
 
 /* A two-club chamber over N roll calls. Mandates 1–3 are club A, 4–5 club B; person
  * ids equal mandate ids + 100. On every vote club A's line is "yes" and mandate 1
@@ -127,5 +135,108 @@ describe("rebellion instances on the spis", () => {
     expect(out.appHref).toBeNull();
     expect(out.pspUrl).toBe("https://www.psp.cz/sqw/hlasy.sqw?g=92793");
     expect(out.sourceUrl).toBe(base.sourceUrl);
+  });
+
+  it("derives through the shared uncapped rule — deriveRebellionIndex IS the loader's step", () => {
+    // The loader does nothing to the ledger but call this; if the uncapped bound ever
+    // slips back into the loader (or out of it), the two stop agreeing here first.
+    expect(deriveRebellionIndex(input())).toEqual(indexRebellions(uncapped()));
+  });
+});
+
+/* ── the read path ──────────────────────────────────────────────────────────────
+ * The spis used to build its own `EventIn` rows out of `vote_event`, and it left
+ * `published` off them — so `record/reconcile.ts`, the check that holds OUR recount
+ * against the Chamber's own published tallies, compared NOTHING on /poslanec while
+ * running on /hlasovani. It is the failure mode this whole platform is built against:
+ * not a wrong number, an invisible absence of checking. These two tests pin the fix
+ * from both ends — the projection, and the module that must use it. */
+
+/** A raw `vote_event` row as the store returns it, published columns included. */
+const eventRow = (i: number, published: Partial<VoteEventRow> = {}): VoteEventRow =>
+  ({
+    id: `psp:vote:${i + 1}`,
+    pspId: i + 1,
+    termPspId: 10,
+    termCode: "PSP10",
+    sessionNo: 1,
+    voteNo: i + 1,
+    agendaItem: null,
+    votedAt: null,
+    votedOn: `2026-01-${String((i % 28) + 1).padStart(2, "0")}`,
+    yes: 2,
+    no: 3,
+    abstain: 0,
+    notVoting: 0,
+    present: 5,
+    quorum: 3,
+    kind: "normal",
+    outcome: "prijato",
+    titleLong: `Hlasování ${i + 1}`,
+    titleShort: null,
+    titleNorm: `hlasovani-${i + 1}`,
+    voided: false,
+    sourceUrl: "https://www.psp.cz/eknih/cdrom/opendata/hl-2025ps.zip",
+    ...published,
+  }) as VoteEventRow;
+
+describe("the spis reads the ledger through ledgerRead", () => {
+  it("carries the Chamber's OWN tallies, so the profile path is reconciled too", () => {
+    const rows = Array.from({ length: VOTES }, (_, i) => eventRow(i));
+    const ledger = { ...input(), events: rows.map(toEventIn) };
+
+    // `toEventIn` is the one row→input projection; it must carry `published` verbatim.
+    expect(toEventIn(rows[0]).published).toEqual({ yes: 2, no: 3, abstain: 0, notVoting: 0 });
+
+    const withPublished = deriveVoteRecord(ledger, { chronicleCap: Number.MAX_SAFE_INTEGER });
+    expect(withPublished.reconciliation.compared).toBe(VOTES);
+    expect(withPublished.reconciliation.uncompared).toBe(0);
+    // Our synthetic ballots ARE the published tallies (2 yes / 3 no), so the check agrees.
+    expect(withPublished.reconciliation.agreed).toBe(VOTES);
+    expect(withPublished.reconciliation.discrepancies).toBe(0);
+
+    // …and the shape the spis used to build by hand: same rows, `published` dropped.
+    // Every roll call falls out of the comparison — silently, which is the whole point.
+    const handRolled = deriveVoteRecord(
+      { ...ledger, events: ledger.events.map(({ published: _drop, ...e }) => e) },
+      { chronicleCap: Number.MAX_SAFE_INTEGER },
+    );
+    expect(handRolled.reconciliation.compared).toBe(0);
+    expect(handRolled.reconciliation.uncompared).toBe(VOTES);
+    // The rebellion rows themselves are unaffected — this is a check, not an input.
+    expect(handRolled.chronicle).toEqual(withPublished.chronicle);
+  });
+
+  it("keeps no read of its own: no relation reads, no ad-hoc limits in the loader", () => {
+    // A source-level pin, deliberately. The loader cannot be exercised without a store
+    // (which tests must never open), and the regression this guards against is textual:
+    // a second hand-rolled read growing back beside the shared one.
+    const src = readFileSync(new URL("./getRebellionRecord.ts", import.meta.url), "utf8");
+    // Comments are stripped first: the header NAMES the reads it no longer performs
+    // (that history is the point of the file), and a scanner that cannot tell prose
+    // from code would force the explanation out of the module.
+    const code = src
+      .split("\n")
+      .filter((l) => {
+        const s = l.trimStart();
+        return !s.startsWith("//") && !s.startsWith("*") && !s.startsWith("/*");
+      })
+      .join("\n");
+    expect(code).toMatch(/from "@\/features\/votetrack\/ledgerRead"/);
+    for (const read of [
+      "listVoteBallots",
+      "listVoteEvents",
+      "listMandates",
+      "listPersons",
+      "clubByMandate",
+      "getStore",
+    ]) {
+      expect(code.includes(read), `${read} must come from readLedger, not from here`).toBe(false);
+    }
+    // No numeric literal limits: the one cap lives in ledgerRead (KG_READ_CAP).
+    expect(code).not.toMatch(/limit:\s*[\d_]+/);
+    // The TTL is the shared one, imported inside createLedgerMemo — never re-declared.
+    expect(code).not.toMatch(/MONEY_MEMO_TTL_MS/);
+    expect(code).toMatch(/createLedgerMemo/);
   });
 });
