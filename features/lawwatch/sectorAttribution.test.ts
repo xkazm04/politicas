@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  buildCompanyIcoResolver,
   buildSectorAttributionIndex,
   groupSectorAttributionFlags,
   projectSectorAttributionFlag,
@@ -101,6 +102,94 @@ describe("projectSectorAttributionFlag", () => {
   it("reads partitionFallback and diagnosticsClean as strict booleans", () => {
     expect(projectSectorAttributionFlag(row({ partitionFallback: "true" as unknown }))?.partitionFallback).toBe(false);
     expect(projectSectorAttributionFlag(row({ diagnosticsClean: false }))?.diagnosticsClean).toBe(false);
+  });
+});
+
+describe("buildCompanyIcoResolver", () => {
+  // The rule is EXACT-AND-UNIQUE or nothing. Every refusal below leaves the company
+  // rendered by name and unlinked — a near-miss address about a NAMED firm on a conflict
+  // surface is the failure features/dashboard/entityLinks.ts's shape refusal exists to stop.
+  it("resolves a label carried by exactly one company node", () => {
+    const r = buildCompanyIcoResolver([{ id: "company:ico:46347534", label: "Teplárny Brno, a.s." }]);
+    expect(r("Teplárny Brno, a.s.")).toBe("46347534");
+  });
+
+  it("pads a short IČO to the canonical 8 digits (never a second parser of our ids)", () => {
+    const r = buildCompanyIcoResolver([{ id: "company:ico:2867681", label: "Krátké IČO s.r.o." }]);
+    expect(r("Krátké IČO s.r.o.")).toBe("02867681");
+  });
+
+  it("refuses an AMBIGUOUS label — two nodes, one name, no knowable firm", () => {
+    const r = buildCompanyIcoResolver([
+      { id: "company:ico:11111111", label: "Stejné jméno a.s." },
+      { id: "company:ico:22222222", label: "Stejné jméno a.s." },
+    ]);
+    expect(r("Stejné jméno a.s.")).toBeNull();
+  });
+
+  it("refuses an UNKNOWN label", () => {
+    const r = buildCompanyIcoResolver([{ id: "company:ico:46347534", label: "Teplárny Brno, a.s." }]);
+    expect(r("Firma, kterou graf nezná")).toBeNull();
+  });
+
+  it("refuses a NON-CANONICAL node id — a trailing number is not an IČO", () => {
+    const r = buildCompanyIcoResolver([
+      { id: "psp:person:6751", label: "Karel Haas" },
+      { id: "c:3", label: "Ukázková firma" },
+      { id: "company:ico:123456789", label: "Devět číslic s.r.o." },
+      { id: "company:ico:", label: "Bez IČO s.r.o." },
+    ]);
+    expect(r("Karel Haas")).toBeNull();
+    expect(r("Ukázková firma")).toBeNull();
+    expect(r("Devět číslic s.r.o.")).toBeNull();
+    expect(r("Bez IČO s.r.o.")).toBeNull();
+  });
+
+  it("does not let an id-refused node make a resolvable label ambiguous", () => {
+    // The refused node never carried an address, so it cannot take one away.
+    const r = buildCompanyIcoResolver([
+      { id: "company:ico:46347534", label: "Teplárny Brno, a.s." },
+      { id: "bill:tisk:43111", label: "Teplárny Brno, a.s." },
+    ]);
+    expect(r("Teplárny Brno, a.s.")).toBe("46347534");
+  });
+
+  it("resolves nothing over an empty node set", () => {
+    expect(buildCompanyIcoResolver([])("Cokoli")).toBeNull();
+  });
+});
+
+describe("projectSectorAttributionFlag — companyIco", () => {
+  it("carries the resolved IČO onto the flag", () => {
+    const flag = projectSectorAttributionFlag(
+      row({ company: "Teplárny Brno, a.s." }),
+      buildCompanyIcoResolver([{ id: "company:ico:46347534", label: "Teplárny Brno, a.s." }]),
+    );
+    expect(flag?.companyIco).toBe("46347534");
+  });
+
+  it("defaults to null — a module with no injected resolver mints no address", () => {
+    expect(projectSectorAttributionFlag(row())?.companyIco).toBeNull();
+  });
+
+  it("keeps the flag (name, sector, statute) when the IČO cannot be resolved", () => {
+    // An unresolvable firm loses its LINK, never its row: the adjacency is the finding.
+    const flag = projectSectorAttributionFlag(row({ company: "Neznámá firma a.s." }), buildCompanyIcoResolver([]));
+    expect(flag?.company).toBe("Neznámá firma a.s.");
+    expect(flag?.companyIco).toBeNull();
+    expect(flag?.viaLawRef).toBe("589/1992");
+  });
+
+  it("carries the resolver through the whole index pipeline", () => {
+    const idx = buildSectorAttributionIndex(
+      [row({ cislo: 11, company: "Teplárny Brno, a.s." }), row({ cislo: 11, company: "Neznámá firma a.s." })],
+      buildCompanyIcoResolver([{ id: "company:ico:46347534", label: "Teplárny Brno, a.s." }]),
+    );
+    // (bucket order is the module's own cs-collated company name, hence N before T)
+    expect(idx.get(11)?.map((f) => [f.company, f.companyIco])).toEqual([
+      ["Neznámá firma a.s.", null],
+      ["Teplárny Brno, a.s.", "46347534"],
+    ]);
   });
 });
 

@@ -19,6 +19,14 @@
  * Reverted rather than backfilled: this file owns no shared i18n surface, and
  * the inline pattern is the documented norm for this exact area.)
  *
+ * ONE string is the exception since 2026-08-10, and for the reason the rule
+ * itself names: the section TITLE became a shared surface the moment the left
+ * rail started offering the `#zavislosti` anchor (features/shell/navModel.ts
+ * addresses it by `labelKey`, and the rail is catalog-driven). It is therefore
+ * read from `lawwatch.dependencies.title` — ONE definition for the rail and the
+ * heading — and the key exists in BOTH catalogs, which is exactly what the
+ * reverted edit lacked. Everything else here stays an inline literal.
+ *
  * getDependencyData.ts already ran every reader-facing string through the
  * Czech + law-jargon gate — nothing here re-checks language. This component's
  * own job is gating LINKS, not text: a companion tisk number only becomes a
@@ -32,6 +40,7 @@
 
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -59,17 +68,43 @@ export default function DependencyRadar({
   index,
 }: {
   data: LawData;
-  dependencyData: DependencyData;
+  /** null ⇒ oba census payloady jsou nečitelné. Sekce se pak NEVYNECHÁ, jen řekne
+   *  proč je prázdná: kotva `#zavislosti` je v levém pruhu, a pruh nesmí nabízet
+   *  kotvu, která někdy nikam nevede (pravidlo z /poslanec). Prázdno se přiznává,
+   *  stejně jako rejstřík posudků nad nulou posudků. */
+  dependencyData: DependencyData | null;
   index: number;
 }) {
+  const t = useTranslations("lawwatch");
   const f = useFormat();
   const billTitleByCislo = new Map(data.bills.filter((b) => b.cislo != null).map((b) => [b.cislo as number, b.title]));
+
+  if (!dependencyData) {
+    return (
+      <section id="zavislosti" className="mt-14 border-t-4 border-ink pt-10 pb-20">
+        <SectionHeading
+          index={index}
+          title={t("dependencies.title")}
+          aside={<SourceNote>census závislostí není k dispozici</SourceNote>}
+        />
+        <div className="mt-8 border-2 border-dashed border-hairline bg-paper-strong px-6 py-8">
+          <p className="font-mono text-xs uppercase tracking-widest text-steel">census se nepodařilo přečíst</p>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-steel">
+            Detektor zástupných citací e-Sbírky běží nad vlastními texty tisků a jeho výstup je
+            samostatný artefakt, ne součást grafu — teď ho nelze přečíst. Sekce proto nic
+            nevypisuje. Není to zjištění, že žádné závislosti nejsou; je to přiznaný výpadek
+            vstupu.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="zavislosti" className="mt-14 border-t-4 border-ink pt-10 pb-20">
       <SectionHeading
         index={index}
-        title="Závislosti na doprovodných tiscích"
+        title={t("dependencies.title")}
         aside={
           <SourceNote>
             {f.int(dependencyData.bills.length)} tisků · {f.int(dependencyData.companionCount)}{" "}

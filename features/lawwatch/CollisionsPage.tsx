@@ -20,8 +20,10 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { CalendarDays, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { billEntityKey } from "@/features/denik/deriveDenik";
+import { entityDenikHref } from "@/features/schranka/followCodec";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -204,7 +206,11 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
       <div className="px-4 py-4">
         {cluster.lawTitle && <p className="text-sm leading-snug text-steel">{cluster.lawTitle}</p>}
 
-        {/* dotčené tisky — dosje na /zakony/[cislo] (restrukturalizace), historie na psp.cz */}
+        {/* dotčené tisky — dosje na /zakony/[cislo] (restrukturalizace), datované kroky
+            v deníku republiky (týž veřejný klíč `tisk:<číslo>`, klíč staví builder deníku
+            a adresu kodek schránky — ani jedno se tu neopisuje), historie na psp.cz.
+            Kolize je nález o SOUBĚHU dvou tisků v čase; bez deníku si čtenář jejich
+            časovou osu nemá kde přečíst. */}
         <div className="mt-2 flex flex-wrap gap-2">
           {cluster.bills.map((b) => (
             <span
@@ -216,6 +222,14 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
                 {t("printNumbered", { cislo: b.cislo })}
               </Link>
               {b.title && <span className="truncate text-[13px] font-medium">{b.title}</span>}
+              <Link
+                href={entityDenikHref(billEntityKey(b.cislo))}
+                title={t("collisions.denikLink", { cislo: b.cislo })}
+                aria-label={t("collisions.denikLink", { cislo: b.cislo })}
+                className="shrink-0 text-steel opacity-0 transition-opacity group-hover:opacity-100 hover:text-cobalt"
+              >
+                <CalendarDays className="h-3 w-3" />
+              </Link>
               <a
                 href={pspBillUrl(b.cislo)}
                 target="_blank"

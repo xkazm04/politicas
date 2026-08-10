@@ -252,8 +252,12 @@ function RealLawWatch({ data, dependencyData }: { data: LawData; dependencyData:
           občas nikam nevede), a proto stojí mimo podmínku níže. */}
       <ForensicIndexSection data={data} index={3} />
 
-      {/* ── 04 Závislosti na doprovodných tiscích (batch-014 census) ──── */}
-      {dependencyData && <DependencyRadar data={data} dependencyData={dependencyData} index={4} />}
+      {/* ── 04 Závislosti na doprovodných tiscích (batch-014 census) ────
+          Vykresluje se VŽDY, když jsou reálná data — stejně jako rejstřík posudků
+          nad ním. Kotva `#zavislosti` je od téhle změny v levém pruhu, a pruh nesmí
+          nabízet kotvu, která někdy nikam nevede; nečitelný census proto sekci
+          neruší, jen v ní stojí přiznané prázdno. */}
+      <DependencyRadar data={data} dependencyData={dependencyData} index={4} />
     </>
   );
 }
@@ -374,24 +378,29 @@ function MockLawWatch() {
                   {tcom(`voteResult.${rc.result === "přijato" ? "accepted" : "rejected"}`)} · {f.int(rc.pro)}:{f.int(rc.proti)}
                 </span>
               </p>
+              {/* Žetony poslanců ukázky NEJSOU odkazy. `lib/civic/data.ts` nese slugy
+                  („novakova-p"), zatímco /poslanec/[id] klíčuje mandátním číslem, takže
+                  každý takový odkaz končil 404 — a přesto vypadal jako adresa reálného
+                  spisu. Odmítnutí podle TVARU id je stejné pravidlo, jaké drží
+                  features/dashboard/entityLinks.ts pro uzly vzorku: ukázkové id nesmí
+                  razit reálně vypadající adresu. Věta pod žetony to říká nahlas. */}
               <div className="mt-3 flex flex-wrap gap-2">
                 {MPS.map((m) => {
                   const vote = rc.perMP[m.id];
                   return (
-                    <Link
+                    <span
                       key={m.id}
-                      href={`/poslanec/${m.id}`}
-                      className="group inline-flex items-center gap-2 border-2 border-hairline px-3 py-1.5 transition-colors hover:border-ink hover:bg-paper-strong"
+                      className="inline-flex items-center gap-2 border-2 border-hairline px-3 py-1.5"
                     >
                       <span className="text-sm font-bold">{m.name.split(" ").at(-1)}</span>
                       <span className={`font-mono text-[11px] font-bold uppercase tracking-wider ${VOTE_TEXT[vote]}`}>
                         {tcom(`voteChoice.${VOTE_KEY[vote]}`)}
                       </span>
-                      <ArrowUpRight className="h-3.5 w-3.5 text-signal opacity-0 transition-opacity group-hover:opacity-100" />
-                    </Link>
+                    </span>
                   );
                 })}
               </div>
+              <p className="mt-2 text-[13px] italic leading-relaxed text-steel">{t("mockNoProfileLink")}</p>
             </div>
           </motion.div>
         </div>

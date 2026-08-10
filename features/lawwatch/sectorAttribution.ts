@@ -15,6 +15,7 @@
 
 import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { lawJargonIssues } from "@/lib/analysis/law-verdict";
+import { icoFromCompanyNodeId } from "@/features/money/companyId";
 
 /** Sector vocabulary the payload actually carries (scripts/case-loops/law/company-sectors.ts
  * defines more; only the ones present in the batch-017 payload get a `lawwatch.sector.*`
@@ -85,6 +86,36 @@ export interface SectorAttributionFlag {
 export type CompanyIcoResolver = (companyLabel: string) => string | null;
 
 const RESOLVES_NOTHING: CompanyIcoResolver = () => null;
+
+/**
+ * Builds the label→IČO resolver over the company nodes the loader read.
+ *
+ * It lives HERE, not in `getLawData.ts`, because it IS the join rule this module claims to
+ * own — and the rule is made of REFUSALS, which a `server-only` module cannot have a test
+ * for. Three of them, all yielding null and therefore no link:
+ *
+ *  1. **ambiguous label** — two nodes carrying the same label make it unknowable which firm
+ *     the payload meant; „the first one" would be an address about a possibly different
+ *     company on a conflict surface.
+ *  2. **unknown label** — the payload names a firm the graph does not carry.
+ *  3. **non-canonical node id** — the IČO comes from `icoFromCompanyNodeId` (imported from
+ *     features/money/companyId.ts, never a second parser of what our ids look like), which
+ *     refuses anything outside `company:ico:<≤8 digits>`; `psp:person:6751` also ends in
+ *     digits, and reading it as an IČO is the exact silent mis-join that module exists to
+ *     stop (memory/ico-node-id-canonical-form.md).
+ *
+ * A node whose id is refused is skipped BEFORE the ambiguity bookkeeping — it never carried
+ * an address, so it cannot make a resolvable label ambiguous.
+ */
+export function buildCompanyIcoResolver(nodes: readonly { id: string; label: string }[]): CompanyIcoResolver {
+  const byLabel = new Map<string, string | null>();
+  for (const n of nodes) {
+    const ico = icoFromCompanyNodeId(n.id);
+    if (ico === null) continue;
+    byLabel.set(n.label, byLabel.has(n.label) ? null : ico);
+  }
+  return (label: string) => byLabel.get(label) ?? null;
+}
 
 function asStr(v: unknown): string | null {
   return typeof v === "string" && v.length > 0 ? v : null;

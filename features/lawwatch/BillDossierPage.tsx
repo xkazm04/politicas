@@ -26,8 +26,20 @@ export default function BillDossierPage({ dossier }: { dossier: BillDossier }) {
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 py-4">
+          {/* Drobenka je jediná cesta z dosje zpět do rejstříku — do teď to byl mrtvý
+              text, takže se čtenář z tisku dostal ven jen tlačítkem zpět. Odkazem je
+              POUZE segment „zákony“: celý řetězec „/ zákony / tisk“ jako jeden odkaz na
+              /zakony by tvrdil, že i „tisk“ vede na přehled. */}
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-steel">{t("dossierPage.crumb")}</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-steel">
+              {t.rich("dossierPage.crumb", {
+                m: (chunks) => (
+                  <Link href="/zakony" className="text-cobalt transition-colors hover:text-signal">
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </span>
           </div>
         </div>
       </header>

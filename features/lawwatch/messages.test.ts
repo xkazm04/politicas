@@ -27,6 +27,13 @@ const en = flatten(enCatalog.lawwatch as Ns);
 const csOvereni = flatten(csCatalog.overeni as Ns);
 const enOvereni = flatten(enCatalog.overeni as Ns);
 
+/** The `t.rich` tags a message declares (`<b>…</b>` → "b"). A tag the component does not
+ * supply renders as literal markup, and a tag present in one locale only is a rendering
+ * bug that no key-parity check can see. Self-closing/`</…>` forms are normalized away. */
+function richTags(s: string): string[] {
+  return [...new Set([...s.matchAll(/<\/?([a-zA-Z][\w-]*)\s*\/?>/g)].map((m) => m[1]))].sort();
+}
+
 /** Named ICU variables only (`{name}` / `{name, plural, ...}` / `{name, ...}`), not the
  * word-content of a plural's category branches — a naive `\{(\w+)[^}]*\}` scan over
  * `{count, plural, one {tisk} few {tisky} other {tisků}}` would (wrongly) also capture
@@ -39,6 +46,12 @@ function variables(s: string): string[] {
 describe("lawwatch message catalog", () => {
   it("cs and en declare exactly the same keys", () => {
     expect(Object.keys(cs).sort()).toEqual(Object.keys(en).sort());
+  });
+
+  it("declares the same t.rich tags in both locales", () => {
+    for (const k of Object.keys(cs)) {
+      expect(richTags(en[k] ?? ""), k).toEqual(richTags(cs[k]));
+    }
   });
 
   it("declares one sector label per token the batch-017 payload actually carries", () => {
@@ -175,6 +188,93 @@ describe("lawwatch message catalog", () => {
         // "dávka 017" inside the SourceNote citation is a deliberate exception — it names the
         // batch as a citable artifact id, the same way `graphPass`/`kg-pass:NN` do elsewhere.
         if (k === "detail.sectorAttribution.source") continue;
+        expect(cs[k], k).not.toMatch(/\bdávka\s*\d/i);
+        expect(cs[k], k).not.toMatch(/\bbatch\b|\bpass\s*\d/i);
+      }
+    });
+  });
+
+  /*
+   * THE TRIANGLE (2026-08-10) — law ↔ money ↔ deník. Every key below exists because a
+   * surface started NAMING an entity that lives on another surface, and the copy has to
+   * carry the rule that link rests on. They are pinned together because they fail
+   * together: a missing key here renders as `MISSING_MESSAGE` inside a conflict block,
+   * i.e. as a defect on the most trust-sensitive text the app publishes.
+   */
+  describe("the law ↔ money ↔ deník triangle", () => {
+    const triangleKeys = [
+      "detail.conflictAttribution",
+      "detail.conflictMoneyFiles",
+      "detail.conflictMoneyFileAria",
+      "detail.conflictStrety",
+      "detail.sectorAttribution.sponsorLabel",
+      "detail.sectorAttribution.companyFileAria",
+      "collisions.denikLink",
+      "dossierPage.crumb",
+      "registry.emptyLabel",
+      "registry.emptyText",
+      "dependencies.title",
+      "mockNoProfileLink",
+    ];
+
+    it("declares every key in both locales, non-empty", () => {
+      for (const k of triangleKeys) {
+        expect(cs[k]?.trim(), k).toBeTruthy();
+        expect(en[k]?.trim(), k).toBeTruthy();
+      }
+    });
+
+    it("declares the same ICU variables in both locales", () => {
+      for (const k of triangleKeys) expect(variables(en[k]), k).toEqual(variables(cs[k]));
+    });
+
+    it("every Czech sentence passes the Czech-language gate", () => {
+      for (const k of triangleKeys) {
+        if (/,\s*(plural|select|selectordinal)\s*,/.test(cs[k])) continue;
+        expect(isCzechSafe(cs[k]), k).toBe(true);
+      }
+    });
+
+    it("names the entity in each accessible label — a link list of bare names is unusable", () => {
+      // Every one of these is the accessible name of an icon-or-name-only link that sits in a
+      // list of its siblings; without the entity in it, a screen reader hears N identical links.
+      expect(variables(cs["detail.conflictMoneyFileAria"])).toEqual(["name"]);
+      expect(variables(cs["detail.sectorAttribution.companyFileAria"])).toEqual(["company"]);
+      expect(variables(cs["collisions.denikLink"])).toEqual(["cislo"]);
+    });
+
+    it("states the attribution rule the conflict flag's number does NOT follow", () => {
+      // The stored figure is the worst case among sponsors and sums EVERY tied company,
+      // stewardship seats included; /penize attributes an institution's money to the
+      // institution. Linking the money file without saying so publishes two different
+      // numbers for one person and lets the reader assume the bigger one is the MP's.
+      expect(cs["detail.conflictAttribution"]).toMatch(/instituc/i);
+      expect(cs["detail.conflictAttribution"]).toMatch(/nikdy poslanci/i);
+      expect(en["detail.conflictAttribution"]).toMatch(/institution/i);
+    });
+
+    it("keeps the dossier crumb's back-link on the register segment only", () => {
+      // The crumb reads „/ zákony / tisk"; only „zákony" may be the link to /zakony —
+      // wrapping the whole string would claim „tisk" leads to the overview too.
+      expect(richTags(cs["dossierPage.crumb"])).toEqual(["m"]);
+      expect(richTags(en["dossierPage.crumb"])).toEqual(["m"]);
+      expect(cs["dossierPage.crumb"]).toMatch(/<m>zákony<\/m>/);
+    });
+
+    it("says WHY a sample MP's name is not a link", () => {
+      // The mock ids are slugs and /poslanec is keyed by mandate number, so every such link
+      // 404s. Withdrawing it silently would read as an oversight; the copy owns the rule.
+      expect(cs["mockNoProfileLink"]).toMatch(/smyšlen/i);
+      expect(en["mockNoProfileLink"]).toMatch(/invented/i);
+    });
+
+    it("states an empty statute register as a state of the record, never as a finding", () => {
+      expect(cs["registry.emptyText"]).toMatch(/evidence/i);
+      expect(cs["registry.emptyText"]).toMatch(/nedomýšlí|nic si/i);
+    });
+
+    it("carries no internal pipeline jargon in reader-facing copy", () => {
+      for (const k of triangleKeys) {
         expect(cs[k], k).not.toMatch(/\bdávka\s*\d/i);
         expect(cs[k], k).not.toMatch(/\bbatch\b|\bpass\s*\d/i);
       }

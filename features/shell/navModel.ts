@@ -161,10 +161,18 @@ export const PAGE_SECTIONS: Record<string, NavSection[]> = {
     { id: "souboj", labelKey: "civicscore.duelTitle" },
     { id: "vsichni", labelKey: "civicscore.allTitle" },
   ],
+  // Kotvy REÁLNÉ plochy (components/RealVoteTrack.tsx) i s jejími vlastními
+  // názvy — do 2026-08-10 tu stály názvy MOCKU (section1–3Title), takže lišta
+  // pojmenovávala sekce jinak než stránka, a Seismograf, který je na téhle ploše
+  // hlavní, se z railu nedal otevřít vůbec. Sekce mocku (deník, linie, rebelie)
+  // jsou podmnožinou téhle sady, takže při výpadku store rail dál funguje; jediná
+  // kotva, která tehdy nemá cíl, je „seismograf" — mock ho nevykresluje a
+  // vymýšlet mu náhradní kotvu by znamenalo slíbit sekci, která tam není.
   "/hlasovani": [
-    { id: "denik", labelKey: "votetrack.section1Title" },
-    { id: "linie", labelKey: "votetrack.section2Title" },
-    { id: "rebelie", labelKey: "votetrack.section3Title" },
+    { id: "seismograf", labelKey: "votetrack.record.seismoTitle" },
+    { id: "denik", labelKey: "votetrack.record.ledgerTitle" },
+    { id: "linie", labelKey: "votetrack.record.disciplineTitle" },
+    { id: "rebelie", labelKey: "votetrack.record.rebelsTitle" },
     { id: "temata", labelKey: "votetrack.section4Title" },
   ],
   "/penize": [
@@ -180,10 +188,13 @@ export const PAGE_SECTIONS: Record<string, NavSection[]> = {
   "/zakony": [
     { id: "tisky", labelKey: "lawwatch.realSection1Title" },
     { id: "zakony", labelKey: "lawwatch.realSection2Title" },
-    // Rejstřík posudků se na reálné ploše vykresluje VŽDY (i s nulou posudků
-    // má vlastní prázdný stav), takže kotva nikdy nevede do prázdna — na
-    // rozdíl od podmíněné sekce závislostí, která proto kotvu v pruhu nemá.
+    // Obě sekce níže se na reálné ploše vykreslují VŽDY a obě mají vlastní
+    // přiznaný prázdný stav (rejstřík posudků nad nulou posudků, závislosti nad
+    // nečitelným censem), takže kotva nikdy nevede do prázdna. Sekce závislostí
+    // kotvu dřív neměla právě proto, že se vykreslovala podmíněně — od chvíle,
+    // kdy se vykresluje vždy, ta výjimka zanikla.
     { id: "posudky", labelKey: "lawwatch.forensicIndex.title" },
+    { id: "zavislosti", labelKey: "lawwatch.dependencies.title" },
   ],
   "/poslanec": [
     { id: "slozky", labelKey: "profile.componentsHeading" },

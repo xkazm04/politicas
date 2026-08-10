@@ -72,6 +72,16 @@ export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow
             title={t("registry.sectionTitle")}
             aside={<SourceNote>{t("registry.sortAside")}</SourceNote>}
           />
+          {/* Poctivé prázdno místo holého pravidla: s nulou řádků zbyla na ploše jen
+              věta „řazeno počtem tisků" nad ničím a pod tím poznámka o §-stopě —
+              čtenář nemá jak poznat, jestli se rejstřík nenačetl, nebo je opravdu
+              prázdný. (Idiom dashed rámečku — CollisionsPage.EmptyState.) */}
+          {rows.length === 0 ? (
+            <div className="mt-8 border-2 border-dashed border-hairline bg-paper-strong px-6 py-8">
+              <p className="font-mono text-xs uppercase tracking-widest text-steel">{t("registry.emptyLabel")}</p>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-steel">{t("registry.emptyText")}</p>
+            </div>
+          ) : (
           <div className="mt-8 border-t-2 border-ink">
             {rows.map((r) => (
               <Link
@@ -106,6 +116,7 @@ export default function StatuteRegistryPage({ rows }: { rows: StatuteRegistryRow
               </Link>
             ))}
           </div>
+          )}
           <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
             {t("registry.footnote")}
           </p>
