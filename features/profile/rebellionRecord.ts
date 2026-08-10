@@ -12,7 +12,6 @@
  */
 
 import { voteAnchorId, votePspUrl } from "@/features/votetrack/record/anchor";
-import { deriveVoteRecord, type BallotIn, type EventIn } from "@/features/votetrack/record/derive";
 import type { ChronicleEntry, VoteRecordData } from "@/features/votetrack/record/types";
 
 /** Rows the spis prints per MP. The rest is COUNTED and the section says so —
@@ -88,36 +87,6 @@ export function indexRebellions(record: VoteRecordData): RebellionIndex {
     byMp,
     coverage: { votes: record.coverage.valid, from: record.coverage.from, to: record.coverage.to },
   };
-}
-
-/**
- * Vstup derivace — TÝŽ tvar, jaký vrací `readLedger()` v
- * features/votetrack/ledgerRead.ts (`LedgerRead`). Je tu zapsaný strukturálně,
- * ne importem: ten modul je `server-only` a tenhle musí zůstat čistý, aby ho
- * sdílel loader i test. Kdo sem předá vlastnoručně poskládané `events`, přijde
- * o `published` — a tím o celou kontrolu proti zveřejněným součtům sněmovny
- * (record/reconcile.ts). Právě to dělal spis do 2026-08-10.
- */
-export interface RebellionLedgerInput {
-  events: readonly EventIn[];
-  ballots: readonly BallotIn[];
-  clubByMandate: ReadonlyMap<number, string>;
-  personByMandate: ReadonlyMap<number, number>;
-  nameByPerson: ReadonlyMap<number, string>;
-}
-
-/** Kronika BEZ prezentačního stropu. /hlasovani ukazuje 24 nejnovějších rebelií
- *  celé sněmovny; spis potřebuje celý záznam jednoho poslance, takže je tohle
- *  JEDINÁ volba, kterou profil derivaci mění. */
-export const UNCAPPED_CHRONICLE = Number.MAX_SAFE_INTEGER;
-
-/**
- * Celá derivace, jak ji platí spis: sdílené pravidlo rebelie, neomezená kronika,
- * index podle osoby. Čistá, takže ji test spustí nad syntetickým obdobím přesně
- * v té podobě, v jaké běží v loaderu.
- */
-export function deriveRebellionIndex(ledger: RebellionLedgerInput): RebellionIndex {
-  return indexRebellions(deriveVoteRecord(ledger, { chronicleCap: UNCAPPED_CHRONICLE }));
 }
 
 /** One MP's record. An MP with no rebellion gets `total: 0`, which is an answer. */

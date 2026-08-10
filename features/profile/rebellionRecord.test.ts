@@ -10,12 +10,7 @@ import { describe, expect, it } from "vitest";
 import { toEventIn } from "@/features/votetrack/ledgerRead";
 import { deriveVoteRecord, type BallotIn, type EventIn } from "@/features/votetrack/record/derive";
 import type { VoteEventRow } from "@/lib/db/types";
-import {
-  deriveRebellionIndex,
-  indexRebellions,
-  rebellionRecordFor,
-  toInstance,
-} from "./rebellionRecord";
+import { indexRebellions, rebellionRecordFor, toInstance } from "./rebellionRecord";
 
 /* A two-club chamber over N roll calls. Mandates 1–3 are club A, 4–5 club B; person
  * ids equal mandate ids + 100. On every vote club A's line is "yes" and mandate 1
@@ -137,11 +132,6 @@ describe("rebellion instances on the spis", () => {
     expect(out.sourceUrl).toBe(base.sourceUrl);
   });
 
-  it("derives through the shared uncapped rule — deriveRebellionIndex IS the loader's step", () => {
-    // The loader does nothing to the ledger but call this; if the uncapped bound ever
-    // slips back into the loader (or out of it), the two stop agreeing here first.
-    expect(deriveRebellionIndex(input())).toEqual(indexRebellions(uncapped()));
-  });
 });
 
 /* ── the read path ──────────────────────────────────────────────────────────────
@@ -207,10 +197,11 @@ describe("the spis reads the ledger through ledgerRead", () => {
     expect(handRolled.chronicle).toEqual(withPublished.chronicle);
   });
 
-  it("keeps no read of its own: no relation reads, no ad-hoc limits in the loader", () => {
+  it("keeps no read, no derivation and no memo of its own", () => {
     // A source-level pin, deliberately. The loader cannot be exercised without a store
     // (which tests must never open), and the regression this guards against is textual:
-    // a second hand-rolled read growing back beside the shared one.
+    // a second hand-rolled read, a second derivation, or a second memo growing back
+    // beside the one record both surfaces now ride.
     const src = readFileSync(new URL("./getRebellionRecord.ts", import.meta.url), "utf8");
     // Comments are stripped first: the header NAMES the reads it no longer performs
     // (that history is the point of the file), and a scanner that cannot tell prose
@@ -222,21 +213,26 @@ describe("the spis reads the ledger through ledgerRead", () => {
         return !s.startsWith("//") && !s.startsWith("*") && !s.startsWith("/*");
       })
       .join("\n");
-    expect(code).toMatch(/from "@\/features\/votetrack\/ledgerRead"/);
-    for (const read of [
+    // The record comes from votetrack, already derived and already memoized.
+    expect(code).toMatch(/getFullVoteRecord/);
+    for (const forbidden of [
       "listVoteBallots",
       "listVoteEvents",
       "listMandates",
       "listPersons",
       "clubByMandate",
       "getStore",
+      "readLedger",
+      // A second derivation would be a second answer about a named person…
+      "deriveVoteRecord",
+      "chronicleCap",
+      // …and a second memo would be a second clock over one record.
+      "createLedgerMemo",
+      "MONEY_MEMO_TTL_MS",
     ]) {
-      expect(code.includes(read), `${read} must come from readLedger, not from here`).toBe(false);
+      expect(code.includes(forbidden), `${forbidden} belongs to votetrack, not here`).toBe(false);
     }
     // No numeric literal limits: the one cap lives in ledgerRead (KG_READ_CAP).
     expect(code).not.toMatch(/limit:\s*[\d_]+/);
-    // The TTL is the shared one, imported inside createLedgerMemo — never re-declared.
-    expect(code).not.toMatch(/MONEY_MEMO_TTL_MS/);
-    expect(code).toMatch(/createLedgerMemo/);
   });
 });
