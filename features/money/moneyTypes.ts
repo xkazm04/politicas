@@ -207,6 +207,13 @@ export interface DossierMediaContext {
   url: string;
   gist: string;
 }
+/** Kontext média je v korpusu DVOU TVARŮ a oba jsou legální: batch-005-lead-okamura
+ *  nese objekty `{outlet, url, gist}`, batch-005-lead-juchelka holé věty. Do
+ *  2026-08-11 typ přiznával jen ten první, takže se juchelkovy čtyři odstavce
+ *  vykreslily jako čtyři prázdné řádky s odkazem bez adresy — text, který
+ *  analytik napsal, na stránce prostě nebyl. Union je to, co data OPRAVDU nesou;
+ *  plocha sází obě větve. */
+export type DossierMediaEntry = DossierMediaContext | string;
 /** A "Kauzy / rozpracovaný podnět" dossier — batch-005 lead payload, rendered
  *  verbatim-faithful. Every claim carries its own citation; `whatSourcesSustain` /
  *  `whatSourcesDoNotSustain` are the honest two-column split the product renders —
@@ -220,13 +227,27 @@ export interface LeadDossier {
   /** Free-form registry-findings block — shape varies per dossier, rendered as
    *  labelled key/value pairs, never re-summarized. */
   registryFindings: Record<string, unknown>;
-  mediaContext: DossierMediaContext[];
+  mediaContext: DossierMediaEntry[];
   signalScore: number;
   signalWhy: string;
   whatSourcesSustain: string;
   whatSourcesDoNotSustain: string;
   proposedAnnotation: Record<string, unknown>;
   confidence: string;
+}
+
+/** Stabilní kotva jednoho spisu: `#kauza-<leadId>`. Odvozuje se z leadId, které
+ *  spis nese SÁM (Q-money-5) — nikdy z pozice v poli, protože pole se řadí podle
+ *  signálu a třetí spis by přeadresoval oba stávající. Malá písmena + pomlčky,
+ *  aby adresa přežila kopírování mezi systémy; prázdné leadId kotvu nedostane
+ *  (raději žádná adresa než adresa, která znamená „ten první"). */
+export function dossierAnchorId(leadId: string): string | null {
+  const slug = leadId
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug.length > 0 ? `kauza-${slug}` : null;
 }
 
 /** An MP with at least one tie, grouped for the ledger. */

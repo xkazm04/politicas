@@ -17,20 +17,45 @@
 // code change and a deploy — `/penize/kauzy` broke at n=3 by construction.
 
 import "server-only";
+import { cache } from "react";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+// JEDNA politika memoizace nad dávkovými artefakty téhle aplikace — okno je
+// MONEY_MEMO_TTL_MS, importované, nikdy nepředeklarované (dvě mema nad jednou
+// vrstvou na dvou hodinách jsou přesně to, jak dvě plochy začnou tisknout dvě
+// různá vydání jednoho čísla).
+import { createLedgerMemo } from "@/features/votetrack/ledgerMemo";
 import type { LeadDossier } from "./moneyTypes";
 
 const PAYLOAD_DIR = path.join(process.cwd(), "docs", "data-analysis", "case-money", "payloads");
 
-function isDossier(v: unknown): v is LeadDossier {
+/** Kachní typ spisu — schválně VOLNÝ, ale ne děravý.
+ *
+ *  Adresář drží 18 payloadů a jen 2 z nich jsou spisy; zbytek jsou tabulky
+ *  review-ranku, korroborační dumpy a migrační zápisy. Sada podmínek je proto
+ *  minimální množina polí, kterou plocha SKUTEČNĚ vykresluje jako spis: bez
+ *  `signalWhy` by se vysázel prázdný odstavec pod signálem, bez `confidence`
+ *  by slovník dostal `undefined` místo tokenu a bez `mediaContext` /
+ *  `registryFindings` by `.map` / `Object.entries` spadly na tvaru, který
+ *  loader prohlásil za spis. Kontrola je pin, ne kosmetika — má ji
+ *  getLeadDossiers.test.ts. */
+export function isDossier(v: unknown): v is LeadDossier {
   if (!v || typeof v !== "object") return false;
   const d = v as Record<string, unknown>;
   return (
     typeof d.leadId === "string" &&
     typeof d.subject === "object" &&
+    d.subject !== null &&
     Array.isArray(d.claims) &&
+    Array.isArray(d.mediaContext) &&
+    typeof d.registryFindings === "object" &&
+    d.registryFindings !== null &&
+    typeof d.proposedAnnotation === "object" &&
+    d.proposedAnnotation !== null &&
+    typeof d.signalScore === "number" &&
+    typeof d.signalWhy === "string" &&
+    typeof d.confidence === "string" &&
     typeof d.whatSourcesSustain === "string" &&
     typeof d.whatSourcesDoNotSustain === "string"
   );
@@ -47,7 +72,35 @@ export interface LeadDossiers {
   unreadableFiles: string[];
 }
 
-export async function getLeadDossiers(): Promise<LeadDossiers> {
+/** Memo napříč požadavky. Payloady jsou DÁVKOVÝ artefakt na disku — mění se
+ *  commitem, ne za běhu požadavku — a čtou se celé: 18 souborů, ~490 kB
+ *  rozparsovaného JSONu, z nichž 2 projdou kachním typem. `react.cache()` má
+ *  rozsah jednoho požadavku, takže tuhle práci platila každá návštěva /penize
+ *  i /penize/kauzy.
+ *
+ *  ZAPAMATUJE SE JEN ÚPLNÉ ČTENÍ (`usable`): nedostupný adresář ani jediný
+ *  nečitelný soubor se nememoizují — jinak by přechodná chyba na den zmrazila
+ *  větu „spisy se nepodařilo přečíst" na nejcitlivější ploše platformy.
+ *  Prázdný seznam nad ČITELNÝM adresářem memoizovaný je: to je výsledek
+ *  (adresář existuje a spis v něm není), ne výpadek. */
+const dossierMemo = createLedgerMemo<LeadDossiers>({
+  usable: (v) => !v.directoryUnreadable && v.unreadableFiles.length === 0,
+});
+
+/** Testovací šev (vzor `resetSuppliesMemo`) — aplikace ho nikdy nevolá. */
+export function resetLeadDossierMemo(): void {
+  dossierMemo.reset();
+}
+
+export const getLeadDossiers = cache(async function getLeadDossiers(): Promise<LeadDossiers> {
+  const memoized = dossierMemo.read();
+  if (memoized) return memoized;
+  const fresh = await readLeadDossiers();
+  dossierMemo.write(fresh);
+  return fresh;
+});
+
+async function readLeadDossiers(): Promise<LeadDossiers> {
   const dossiers: LeadDossier[] = [];
   const unreadableFiles: string[] = [];
   let files: string[];

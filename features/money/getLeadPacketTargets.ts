@@ -15,6 +15,7 @@ import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+import { canonicalIco, companyNodeId } from "./companyId";
 import { pspIdFromNodeId } from "./moneyLoader";
 
 export interface PacketTarget {
@@ -32,7 +33,16 @@ export async function getLeadPacketTargets(icos: string[]): Promise<Record<strin
     if (!(await storeReady(store, ["person", "company"]))) return out;
 
     for (const ico of [...new Set(icos)].filter(Boolean)) {
-      const companyId = `company:ico:${ico}`;
+      /* IČO ze SPISU je ruční zápis, ne uzel grafu — a graf klíčuje firmu na
+       * osmimístný tvar (memory/ico-node-id-canonical-form.md). Nekanonizovaný
+       * segment tu vyráběl TICHÝ FALEŠNÝ ZÁPOR: `company:ico:2867681` v grafu
+       * není, kgNeighbours vrátí prázdno a kauza mlčky přijde o odkaz na paket,
+       * jako by na firmu žádný poslanec navázaný nebyl. Kanonizuje se týmž
+       * pravidlem, na kterém stojí routa /penize/firma/[ico] — a IČO, které
+       * IČO být nemůže, se přeskočí, nikdy „neopraví". */
+      const canonical = canonicalIco(ico);
+      if (!canonical) continue;
+      const companyId = companyNodeId(canonical);
       const read = await store.kgNeighbours({ id: companyId, rels: ["linked_to"], limit: KG_READ_CAP });
       const nodeById = new Map(read.nodes.map((n) => [n.id, n]));
       const targets: PacketTarget[] = [];

@@ -36,7 +36,16 @@ const MockStatTiles = dynamic(() => import("./components/MockStatTiles"));
  *  je dnes to, co stáří těch čísel skutečně omezuje. */
 const MONEY_MEMO_HOURS = MONEY_MEMO_TTL_MS / 3_600_000;
 
-export default function FollowTheMoneyPage({ data }: { data?: MoneyLedgerData | null }) {
+export default function FollowTheMoneyPage({
+  data,
+  leadDossierCount,
+}: {
+  data?: MoneyLedgerData | null;
+  /** Kolik ručních spisů /penize/kauzy dnes skutečně nese — z DISKOVANÉ populace
+   *  (getLeadDossiers), ne z literálu. `undefined` = stránka to nezjišťovala;
+   *  upoutávka pak počet netvrdí vůbec. */
+  leadDossierCount?: number;
+}) {
   const t = useTranslations("money");
   const tcom = useTranslations("common");
   const f = useFormat();
@@ -250,18 +259,23 @@ export default function FollowTheMoneyPage({ data }: { data?: MoneyLedgerData | 
           <div className="mt-8">
             <TiesLedger data={data ?? null} />
           </div>
+          {/* „Dva ručně dořešené spisy" byl LITERÁL — v obou jazycích, přímo
+              v JSX — nad adresářem, jehož populace je DISKOVANÁ (getLeadDossiers
+              nezná pevný seznam souborů právě proto, že třetí spis se nemá
+              vyžádat deploy). Číslo teď přichází z toho seznamu; když ho stránka
+              nedostane (fallback bez čtení disku), věta počet vůbec netvrdí. */}
           <Link
             href="/penize/kauzy"
             className="group mt-8 flex items-center justify-between gap-4 border-l-4 border-signal bg-signal/5 px-5 py-4 transition-colors hover:bg-signal/10"
           >
             <span>
               <span className="block font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
-                {locale === "en" ? "kauzy / open leads" : "kauzy / rozpracované podněty"}
+                {t("kauzy.teaserEyebrow")}
               </span>
-              <span className="mt-1 block text-sm text-steel">
-                {locale === "en"
-                  ? "Two hand-researched dossiers, cited claim by claim — what the sources sustain and what they don't."
-                  : "Dva ručně dořešené spisy, tvrzení po tvrzení citované — co zdroje dokládají a co ne."}
+              <span className="mt-1 block text-sm text-steel-aa">
+                {typeof leadDossierCount === "number"
+                  ? t("kauzy.teaserBody", { count: leadDossierCount })
+                  : t("kauzy.teaserBodyNoCount")}
               </span>
             </span>
             <span className="shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-signal">→</span>
