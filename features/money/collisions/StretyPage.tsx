@@ -24,6 +24,11 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import SectionRule from "@/features/shared/components/SectionRule";
 import { votePspUrl } from "@/features/votetrack/record/anchor";
+// JEDINÝ kodek trvalé adresy tvrzení v repu — kandidát cituje TÚTÉŽ účtenku,
+// kterou razí `mapLinkedToTie` do `MoneyTie.receiptRef`; druhá gramatika by
+// vypadala správně a /overeni by ji rozhodlo na `gone`.
+import { claimRefPath, edgeClaimRef } from "@/features/shared/provenance/claimRef";
+import { canonicalIco } from "../companyId";
 import type { CollisionCandidate, CollisionData } from "./collisionTypes";
 import { collisionAnchorId } from "./collisionTypes";
 import {
@@ -86,6 +91,10 @@ export default function StretyPage({ data }: { data: CollisionData | null }) {
 function Methodology({ data, fInt }: { data: CollisionData; fInt: (n: number) => string }) {
   const t = useTranslations("money");
   const c = data.coverage;
+  /* `null` v coverage NENÍ nula — je to „nečteno" (viz CollisionCoverage).
+   * Vytisknout nulu do buňky, na kterou se nikdo nedíval, je přesně ten druh
+   * čísla bez krytí, který tahle plocha existuje vyloučit. */
+  const cell = (n: number | null): string => (n === null ? t("strety.covNotRead") : fInt(n));
   const tables: { title: string; rows: readonly { ref: string; label: string }[] }[] = [
     { title: t("strety.tableContracts"), rows: CONTRACT_STATUTES },
     { title: t("strety.tableSubsidies"), rows: SUBSIDY_STATUTES },
@@ -130,12 +139,17 @@ function Methodology({ data, fInt }: { data: CollisionData; fInt: (n: number) =>
         <CoverageCell label={t("strety.covVerified")} value={fInt(c.tiesVerified)} />
         <CoverageCell label={t("strety.covEntering")} value={fInt(c.tiesEntering)} />
         <CoverageCell label={t("strety.covCandidates")} value={fInt(c.candidates)} />
-        <CoverageCell label={t("strety.covEvents")} value={fInt(c.events)} />
-        <CoverageCell label={t("strety.covLinked")} value={fInt(c.eventsLinked)} />
-        <CoverageCell label={t("strety.covAmbiguous")} value={fInt(c.eventsAmbiguousAgenda)} />
-        <CoverageCell label={t("strety.covBills")} value={fInt(c.billsMatchedToVotes)} />
+        <CoverageCell label={t("strety.covEvents")} value={cell(c.events)} />
+        <CoverageCell label={t("strety.covLinked")} value={cell(c.eventsLinked)} />
+        <CoverageCell label={t("strety.covAmbiguous")} value={cell(c.eventsAmbiguousAgenda)} />
+        <CoverageCell label={t("strety.covBills")} value={cell(c.billsMatchedToVotes)} />
       </div>
-      {!data.agendaAvailable && (
+      {/* Dva různé důvody, proč sloupce o hlasování nic neříkají — každý má
+          vlastní větu, protože každý znamená něco jiného. */}
+      {!data.voteLayerConsulted && (
+        <p className="mt-2 max-w-3xl text-xs leading-relaxed text-steel-aa">{t("strety.notReadNote")}</p>
+      )}
+      {data.agendaAvailable === false && (
         <p className="mt-2 max-w-3xl text-xs leading-relaxed text-steel-aa">{t("strety.agendaNote")}</p>
       )}
       <p className="mt-2 max-w-3xl text-xs leading-relaxed text-steel-aa">
@@ -173,6 +187,12 @@ function Candidates({ data }: { data: CollisionData }) {
       </div>
 
       {data.candidates.length === 0 ? (
+        /* TŘI RŮZNÉ NULY, tři různé věty. „Kandidátů je nula" znamená pokaždé
+           něco jiného a splynout nesmí:
+             1. brána vazeb je zavřená — hlasování se proto vůbec nečetlo,
+             2. join proběhl, ale chybí pořad schůze (schuze.zip) — instalatérská
+                mezera, ne výsledek, a napojení hlasování na tisky je dolní mez,
+             3. join proběhl nad úplným vstupem a nenašel překryv — výsledek. */
         <div className="mt-6 border-2 border-dashed border-hairline p-8">
           {c.tiesEntering === 0 ? (
             <>
@@ -183,6 +203,12 @@ function Candidates({ data }: { data: CollisionData }) {
                   {t("strety.openConsole")}
                 </Link>
               </p>
+              <p className="mt-2 text-sm leading-relaxed text-steel-aa">{t("strety.emptyGateSkip")}</p>
+            </>
+          ) : data.agendaAvailable === false ? (
+            <>
+              <p className="text-lg">{t("strety.emptyAgendaGap")}</p>
+              <p className="mt-2 text-sm leading-relaxed text-steel-aa">{t("strety.emptyAgendaGapNote")}</p>
             </>
           ) : (
             <p className="text-lg">{t("strety.emptyResult")}</p>
@@ -205,6 +231,14 @@ function CandidateRow({ c }: { c: CollisionCandidate }) {
   const anchor = collisionAnchorId(c.id);
   const statuteList = c.statutes.map((s) => `${s.ref} Sb.`).join(", ");
   const choice = c.choice === "yes" ? t("strety.choiceYes") : t("strety.choiceNo");
+  /* Kandidát STOJÍ na jedné hraně grafu — a ta má trvalou adresu. Skládá se
+     jediným kodekem z hrany, kterou kandidát doslova nese (tieRef), nikdy
+     z rekonstruovaných id. */
+  const receiptHref = claimRefPath(edgeClaimRef(c.tieRef.src, c.tieRef.rel, c.tieRef.dst));
+  /* Firma je v grafu KŘIŽOVATKA (14 jich váže víc poslanců), takže má vlastní
+     spis. Segment se kanonizuje TÝMŽ pravidlem, na kterém ta routa stojí —
+     nekanonický IČO nedostane adresu, místo aby vedl do prázdna. */
+  const companyIco = canonicalIco(c.ico);
   return (
     <article
       id={anchor}
@@ -267,6 +301,17 @@ function CandidateRow({ c }: { c: CollisionCandidate }) {
           </a>
           <Link href={`/penize/${c.personPspId}`} className="text-steel-aa underline underline-offset-4 hover:text-ink focus-visible:text-cobalt">
             {t("shared.mpMoneyFile")}
+          </Link>
+          {companyIco && (
+            <Link
+              href={`/penize/firma/${companyIco}`}
+              className="text-steel-aa underline underline-offset-4 hover:text-ink focus-visible:text-cobalt"
+            >
+              {t("strety.companyFile")}
+            </Link>
+          )}
+          <Link href={receiptHref} className="text-cobalt underline underline-offset-4 hover:text-signal focus-visible:text-cobalt">
+            {t("shared.provenanceReceipt")}
           </Link>
         </p>
       </div>

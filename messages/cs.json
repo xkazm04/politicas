@@ -1526,12 +1526,17 @@
       "covLinked": "napojených na tisk",
       "covAmbiguous": "vynecháno: společné rozpravy",
       "covBills": "tisků napojených na hlasování",
+      "covNotRead": "nečteno",
+      "notReadNote": "Sloupce o hlasování jsou prázdné, protože se hlasovací ani legislativní vrstva vůbec nečetla: branou vazeb neprošla ani jedna vazba (pravidlo 1 výš), takže join by nad libovolným záznamem vrátil týž prázdný výsledek. Napsat sem nulu by znamenalo tvrdit něco o datech, na která se nikdo nepodíval — proto tam je „nečteno“, ne 0.",
       "agendaNote": "Dump pořadu schůze (schuze.zip) není v tomto prostředí dostupný — hlasování se na tisky napojují jen záložním titulkovým pravidlem, takže počet napojených je dolní mez, ne záznam.",
       "pendingNote": "{pending} rejstříkem potvrzených vazeb se zapsaným obdobím role teprve čeká na lidskou kontrolu a do joinu by vstoupily po ověření; {noPeriod} ověřených vazeb zůstává mimo jen proto, že chybí rejstříkové období. Ani jedna skupina tady kandidáty netvoří.",
       "candidates": "Kandidáti",
       "emptyGate": "Žádná vazba zatím neprošla vstupní branou joinu — kandidátů je proto nula poctivě, ne proto, že by se nic nekontrolovalo.",
       "emptyGateNote": "Brána vyžaduje lidskou kontrolu + potvrzení rejstříkem + zapsané období role (pravidlo 1 výš). Fronta pro kontrolory je na /penize/kontrola.",
       "openConsole": "otevřít kontrolní konzoli",
+      "emptyGateSkip": "Protože zavřená brána určuje výsledek sama, hlasovací záznam PSP10 se pro tuhle stránku vůbec nečte. Není to mezera v datech: hlasování se čtou až ve chvíli, kdy je co s nimi spojit.",
+      "emptyAgendaGap": "Join proběhl, ale bez pořadu schůze — nula kandidátů tady může být instalatérská mezera, ne výsledek.",
+      "emptyAgendaGapNote": "Bez dumpu schuze.zip se hlasování napojují na tisky jen záložním titulkovým pravidlem, které na živých datech PSP10 číslo tisku skoro nikdy nenajde. Počet napojených hlasování je proto dolní mez a nula kandidátů se nesmí číst jako „žádné střety nejsou“.",
       "emptyResult": "Join proběhl přes všechny způsobilé vazby a celý hlasovací ledger a nenašel žádný časový překryv splňující pravidlo. Nula je výsledek, ne mezera.",
       "candidateBadge": "kandidát · vyžaduje lidské ověření",
       "permalinkAria": "trvalý odkaz na tohoto kandidáta ({name})",
@@ -1541,7 +1546,8 @@
       "rolePeriod": "období role dle rejstříku",
       "noRecordedEnd": "bez zapsaného konce",
       "overlapNote": "Časový překryv je vypočtený; věcná souvislost tady doložena není a musí ji posoudit člověk.",
-      "rollCall": "hlasování na psp.cz"
+      "rollCall": "hlasování na psp.cz",
+      "companyFile": "spis firmy"
     },
     "tieExplainer": {
       "originHeading": "odkud třída pochází"

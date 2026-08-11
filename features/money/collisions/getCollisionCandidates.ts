@@ -3,12 +3,36 @@
 // cesty, nic nového nematerializuje a NIC NEZAPISUJE:
 //   • peněžní vrstvu grafu přes loadMoneyLayer + mapLinkedToTie (JEDINÉ místo,
 //     kde se linked_to hrana stává vazbou — paritní pravidlo se veze zdarma),
-//   • reálný hlasovací ledger PSP10 (vote_event + vote_ballot + mandáty),
-//     tytéž readiness floory jako getVoteRecord.ts,
+//   • reálný hlasovací ledger PSP10 přes SDÍLENOU cestu features/votetrack/
+//     ledgerRead.ts (readLedger — prahy připravenosti jsou její součástí),
 //   • legislativní vrstvu (bill uzly + amends hrany + law uzly pro názvy).
 // Degraduje na null přesně jako loadery, na kterých stojí: žádný store, ledger
 // pod floorem, prázdná peněžní vrstva nebo chyba čtení → null, nikdy částečný
 // tvar. `server-only` udělá z importu v klientské komponentě build-time chybu.
+//
+// ── ZKRAT PRÁZDNÉ BRÁNY (2026-08-11) ────────────────────────────────────────
+// Vstupní brána joinu vyžaduje `review_state === "verified"` (statuteRelevance
+// .tieEntersJoin). Na živém grafu je VŠECH 211 vazeb `pending_review`, takže
+// `tiesEntering` = 0 a kandidátů je nula bez ohledu na to, co je v ledgeru.
+// Přesto se každý požadavek četlo ~410 000 řádků (2 030 hlasování + 406 000
+// lístků + mandáty + celá legislativní vrstva) — změřeno 15 800 ms studeně,
+// 10 409 ms znovu — aby se vykreslily čtyři sloupce nul.
+// Brána se proto počítá PŘED čtením ledgeru: když je prázdná, hlasovací ani
+// legislativní vrstva se nečte VŮBEC a coverage o hlasování je `null`, ne nula
+// (viz CollisionCoverage — dva druhy nuly). Plocha to říká vlastní větou.
+//
+// ── MEMOIZACE ───────────────────────────────────────────────────────────────
+// `react.cache()` má rozsah JEDNOHO požadavku. Odvozený výsledek se proto drží
+// napříč požadavky na `MONEY_MEMO_TTL_MS` (importované, nikdy nepředeklarované)
+// stejným primitivem, jaký používá /hlasovani (createLedgerMemo). `null` se
+// nememoizuje nikdy — jeden výpadek PGlite by jinak na den zmrazil větu
+// „datová vrstva je nedostupná".
+// PRÁZDNÝ VÝSLEDEK SE NAOPAK MEMOIZUJE, a to je vědomý rozdíl proti ledgerMemo
+// /hlasovani i proti chamberMemo /zebricek: tam je prázdno k nerozeznání od
+// nenaingestovaného záznamu, kdežto tady je nula kandidátů PLNOHODNOTNÝ
+// VÝSLEDEK odvozený z reálných čtení (vazby se přečetly, brána je zavřená).
+// Zahodit ji jako „podezřelou" by znamenalo platit celý průchod znovu za to,
+// že produkt funguje, jak má.
 
 import "server-only";
 import { cache } from "react";
@@ -17,15 +41,18 @@ import { join } from "node:path";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
-import { EVENT_FLOOR, BALLOT_FLOOR } from "@/features/votetrack/getVoteRecord";
+// JEDNA čtecí cesta k hlasovacímu záznamu (prahy připravenosti uvnitř) a JEDNA
+// politika memoizace nad grafem — obojí vlastní votetrack; tenhle modul je jen
+// importuje, aby dvě plochy nad jedním ledgerem nemohly mít dvě různá pravidla.
+import { readLedger, readVoteEvents } from "@/features/votetrack/ledgerRead";
+import { createLedgerMemo } from "@/features/votetrack/ledgerMemo";
 import { decodeUnl, parseUnl } from "@/lib/ingest/unl";
 import { readZipMap } from "@/lib/ingest/zip";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "../moneyLoader";
 import type { CollisionBillIn, CollisionData, CollisionTieIn } from "./collisionTypes";
 import { deriveCollisions } from "./deriveCollisions";
+import { tieEntersJoin } from "./statuteRelevance";
 import { buildAgendaTiskMap, type AgendaTisk } from "./voteAgenda";
-
-const TERM = "PSP10";
 
 /* Pořad schůze (schuze.zip, týž lokální cache adresář jako ingest —
  * scripts/data-analysis/ingest.ts). bod_schuze.unl má ~20 MB; mapa se proto
@@ -56,7 +83,17 @@ function loadAgendaTiskMap(): Map<string, AgendaTisk> | undefined {
   }
 }
 
-export const getCollisionCandidates = cache(async function getCollisionCandidates(): Promise<CollisionData | null> {
+/** Memo napříč požadavky. `usable: () => true` — o prázdnu rozhoduje komentář
+ *  v hlavičce modulu, ne tenhle predikát: `write()` už `null` odfiltroval a
+ *  nula kandidátů je výsledek, ne prázdné čtení. */
+const collisionMemo = createLedgerMemo<CollisionData>({ usable: () => true });
+
+/** Testovací šev (vzor `resetSuppliesMemo`) — aplikace ho nikdy nevolá. */
+export function resetCollisionMemo(): void {
+  collisionMemo.reset();
+}
+
+async function computeCollisions(): Promise<CollisionData | null> {
   try {
     const store = await getStore();
     if (!store) return null;
@@ -84,6 +121,7 @@ export const getCollisionCandidates = cache(async function getCollisionCandidate
         personName: person?.label ?? `#${personPspId}`,
         club: layer.clubByPerson.get(personPspId) ?? null,
         edgeSrc: e.src,
+        edgeRel: e.rel,
         edgeDst: e.dst,
         companyId: tie.companyId,
         company: tie.company,
@@ -101,28 +139,36 @@ export const getCollisionCandidates = cache(async function getCollisionCandidate
     }
     if (ties.length === 0) return null;
 
-    /* hlasovací ledger — tytéž floory jako Seismograf: pod nimi by join
-     * publikoval kandidáty (i poctivé nuly) nad polovičním záznamem */
-    const events = await store.listVoteEvents({ termCode: TERM, limit: 100_000 });
-    if (events.length < EVENT_FLOOR) {
-      if (events.length > 0) {
-        reportLoaderFailure(
-          "getCollisionCandidates",
-          new Error(`vote_event below readiness floor: ${events.length}<${EVENT_FLOOR}`),
-        );
-      }
-      return null;
+    /* ── zkrat: prázdná brána vazeb ──────────────────────────────────────────
+     * TÝŽ predikát, který o vstupu rozhoduje uvnitř derivace (tieEntersJoin,
+     * importovaný — druhá kopie brány by se dřív nebo později rozešla a
+     * stránka by pak přeskakovala čtení, které výsledek MĚNIT může). Prázdné
+     * `votes`/`ballots`/`bills` jsou tu záměr, ne výpadek; derivace to ví
+     * z `voteLayerConsulted` a coverage o hlasování vyjde `null`. */
+    if (!ties.some(tieEntersJoin)) {
+      return deriveCollisions({
+        ties,
+        votes: [],
+        ballots: [],
+        bills: [],
+        personByMandate: new Map(),
+        voteLayerConsulted: false,
+        pass: layer.pass,
+      });
     }
-    const ballots = await store.listVoteBallots({ termCode: TERM, limit: 1_000_000 });
-    if (ballots.length < BALLOT_FLOOR) {
-      reportLoaderFailure(
-        "getCollisionCandidates",
-        new Error(`vote_ballot below readiness floor: ${ballots.length}<${BALLOT_FLOOR}`),
-      );
-      return null;
-    }
-    const mandates = await store.listMandates({ termCode: TERM });
-    const personByMandate = new Map(mandates.map((m) => [m.pspId, m.personPspId]));
+
+    /* hlasovací ledger — SDÍLENÁ cesta votetracku i s prahy připravenosti
+     * (EVENT_FLOOR / BALLOT_FLOOR běží uvnitř readLedger, PŘED memem, takže
+     * polovičně naingestovaný záznam se nikdy nezapamatuje). `null` = store
+     * nedostupný nebo záznam pod prahem → celá stránka degraduje, nikdy
+     * částečný join.
+     * `readVoteEvents()` se volá zvlášť kvůli SYROVÝM řádkům: projekce
+     * `toEventIn` nenese `termPspId` ani `agendaItem`, tedy klíč do pořadu
+     * schůze. Obě funkce jsou `react.cache()`d, takže vote_event se přesto čte
+     * jen jednou za požadavek. */
+    const ledger = await readLedger();
+    if (!ledger) return null;
+    const events = await readVoteEvents();
 
     /* legislativní vrstva: tisk → novelizované zákony (amends hrany; law uzly
      * jen kvůli lidskému názvu — týž fallback ref jako getLawData.lawRefOf) */
@@ -167,12 +213,20 @@ export const getCollisionCandidates = cache(async function getCollisionCandidate
       })),
       agendaTisk: loadAgendaTiskMap(),
       bills,
-      ballots,
-      personByMandate,
+      ballots: ledger.ballots,
+      personByMandate: ledger.personByMandate,
       pass: layer.pass,
     });
   } catch (err) {
     reportLoaderFailure("getCollisionCandidates", err);
     return null;
   }
+}
+
+export const getCollisionCandidates = cache(async function getCollisionCandidates(): Promise<CollisionData | null> {
+  const memoized = collisionMemo.read();
+  if (memoized) return memoized;
+  const fresh = await computeCollisions();
+  collisionMemo.write(fresh);
+  return fresh;
 });

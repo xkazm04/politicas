@@ -57,12 +57,23 @@ export interface CollisionCandidate {
    *  zasažených zákonů se sčítá sem, netvoří další řádky. */
   statutes: RelevantStatute[];
   /** Hrana linked_to, na které kandidát stojí — tvar kompatibilní s review
-   *  bránou (/penize/kontrola čte tentýž src/dst). Žádný zápis se nekoná. */
-  tieRef: { src: string; dst: string };
+   *  bránou (/penize/kontrola čte tentýž src/dst). Žádný zápis se nekoná.
+   *  `rel` se veze proto, aby plocha složila TRVALOU ADRESU účtenky
+   *  (`claimRefPath(edgeClaimRef(src, rel, dst))`) tímtéž jediným kodekem, co
+   *  `mapLinkedToTie` razí do `MoneyTie.receiptRef` — druhá gramatika adresy by
+   *  vypadala správně a rozhodla se na `gone`. */
+  tieRef: { src: string; rel: string; dst: string };
 }
 
 /** Poctivá čísla o tom, co do joinu vstoupilo a co ne — vykreslují se v bloku
- *  metodiky PŘED kandidáty. */
+ *  metodiky PŘED kandidáty.
+ *
+ *  DVA DRUHY NULY (2026-08-11): pole odvozená z hlasovací a legislativní vrstvy
+ *  jsou `number | null`. `null` NENÍ nula — znamená „nečteno": brána vazeb byla
+ *  prázdná, join by nad jakýmkoli ledgerem vyrobil týž prázdný výsledek, a
+ *  loader proto těch ~410 000 řádků vůbec nečetl (viz getCollisionCandidates).
+ *  Vytisknout tam 0 by byl údaj bez krytí — plocha místo něj říká, že se
+ *  nečetlo, a proč. */
 export interface CollisionCoverage {
   tiesTotal: number; // všech linked_to vazeb
   tiesVerified: number; // review_state === "verified"
@@ -74,17 +85,17 @@ export interface CollisionCoverage {
   /** Vazby s potvrzeným obdobím, které by do joinu vstoupily, jakmile projdou
    *  lidskou kontrolou (dnes pending_review). Číslo o frontě, ne kandidáti. */
   tiesPendingWouldEnter: number;
-  events: number; // platná (nezmatečná) hlasování PSP10
-  eventsVoided: number;
+  events: number | null; // platná (nezmatečná) hlasování PSP10
+  eventsVoided: number | null;
   /** Platná hlasování napojená na tisk — primárně přes pořad schůze
    *  (bod_schuze → interní id tisku), záložně přes „tisk N" v titulku. */
-  eventsLinked: number;
+  eventsLinked: number | null;
   /** Body pořadu s víc tisky najednou (společná rozprava) — konzervativně
    *  vynechané, nikdy kandidát nad nejednoznačným klíčem. */
-  eventsAmbiguousAgenda: number;
-  billsInGraph: number;
+  eventsAmbiguousAgenda: number | null;
+  billsInGraph: number | null;
   /** Tisky z grafu, na které se povedlo napojit aspoň jedno hlasování. */
-  billsMatchedToVotes: number;
+  billsMatchedToVotes: number | null;
   candidates: number;
 }
 
@@ -94,8 +105,15 @@ export interface CollisionData {
   /** Verze vyhlášeného pravidla joinu — cituje se v metodice i v testech. */
   ruleVersion: string;
   /** Pořad schůze (schuze.zip) byl k dispozici — bez něj zbývá jen záložní
-   *  titulkové pravidlo a stránka to poctivě řekne. */
-  agendaAvailable: boolean;
+   *  titulkové pravidlo a stránka to poctivě řekne. `null` = nezjišťováno
+   *  (hlasovací vrstva se vůbec nečetla, viz `voteLayerConsulted`); tvrdit
+   *  „pořad chybí" o dumpu, na který se nikdo nepodíval, by byl výmysl. */
+  agendaAvailable: boolean | null;
+  /** Četl se vůbec hlasovací a legislativní ledger? `false` = branou vazeb
+   *  neprošla ANI JEDNA vazba (tiesEntering === 0), takže join nemůže vyrobit
+   *  kandidáta ať by ledger obsahoval cokoli — čtení ~410 000 řádků by výsledek
+   *  nezměnilo, jen ho o 10 s zdrželo. Coverage o hlasování je pak `null`. */
+  voteLayerConsulted: boolean;
   /** kg pass peněžní vrstvy (sebepoznávací údaj, jako MoneyData.pass). */
   pass: number;
 }
@@ -106,6 +124,9 @@ export interface CollisionTieIn {
   personName: string;
   club: string | null;
   edgeSrc: string;
+  /** Doslovné `rel` hrany (dnes vždy "linked_to") — nese se až do
+   *  `CollisionCandidate.tieRef`, aby adresu účtenky skládal jediný kodek. */
+  edgeRel: string;
   edgeDst: string;
   companyId: string;
   company: string;

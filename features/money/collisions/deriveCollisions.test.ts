@@ -11,6 +11,8 @@ import type {
   CollisionVoteIn,
 } from "./collisionTypes";
 import { collisionAnchorId, parseCollisionAnchor } from "./collisionTypes";
+import { claimRefPath, decodeClaimRef, edgeClaimRef } from "@/features/shared/provenance/claimRef";
+import { canonicalIco } from "../companyId";
 import { deriveCollisions, collisionCandidateId } from "./deriveCollisions";
 import { buildAgendaTiskMap } from "./voteAgenda";
 import {
@@ -27,6 +29,7 @@ const tie = (over: Partial<CollisionTieIn> = {}): CollisionTieIn => ({
   personName: "Jan Novák",
   club: "TEST",
   edgeSrc: "psp:person:100",
+  edgeRel: "linked_to",
   edgeDst: "company:ico:11111111",
   companyId: "company:ico:11111111",
   company: "Testovka s.r.o.",
@@ -241,6 +244,78 @@ describe("nulový stav", () => {
     expect(out.candidates).toEqual([]);
     expect(out.coverage.tiesEntering).toBe(1);
     expect(out.coverage.eventsLinked).toBe(1);
+    expect(out.voteLayerConsulted).toBe(true);
+  });
+
+  /* Zkrat prázdné brány (getCollisionCandidates): loader hlasovací ani
+   * legislativní vrstvu vůbec nečte, protože zavřená brána určuje výsledek
+   * sama. Derivace o tom musí vědět — jinak by z „nečteno" udělala nulu. */
+  it("nečtená hlasovací vrstva se hlásí jako null, ne jako nula", () => {
+    const out = deriveCollisions({
+      ties: [tie({ reviewState: "pending_review" })],
+      votes: [],
+      bills: [],
+      ballots: [],
+      personByMandate: new Map(),
+      voteLayerConsulted: false,
+      pass: 42,
+    });
+    expect(out.voteLayerConsulted).toBe(false);
+    expect(out.candidates).toEqual([]);
+    // to, co se OPRAVDU četlo, číslem zůstává
+    expect(out.coverage.tiesTotal).toBe(1);
+    expect(out.coverage.tiesEntering).toBe(0);
+    expect(out.coverage.tiesPendingWouldEnter).toBe(1);
+    expect(out.coverage.candidates).toBe(0);
+    // to, na co se nikdo nepodíval, je null
+    expect(out.coverage.events).toBeNull();
+    expect(out.coverage.eventsVoided).toBeNull();
+    expect(out.coverage.eventsLinked).toBeNull();
+    expect(out.coverage.eventsAmbiguousAgenda).toBeNull();
+    expect(out.coverage.billsInGraph).toBeNull();
+    expect(out.coverage.billsMatchedToVotes).toBeNull();
+    // o pořadu schůze se netvrdí nic — nenačítal se
+    expect(out.agendaAvailable).toBeNull();
+    expect(out.ruleVersion).toBe(COLLISION_RULE_VERSION);
+    expect(out.pass).toBe(42);
+  });
+
+  it("zkrat NEPLATÍ, jakmile branou vazba projde — coverage je zase číselné", () => {
+    const out = derive({});
+    expect(out.voteLayerConsulted).toBe(true);
+    expect(out.coverage.events).toBe(1);
+    expect(out.agendaAvailable).toBe(false);
+  });
+});
+
+/* ── adresy, které kandidát nabízí ─────────────────────────────────────────── */
+
+describe("kandidát nese adresovatelnou hranu", () => {
+  it("tieRef je celá trojice hrany a skládá TÚTÉŽ účtenku jako mapLinkedToTie", () => {
+    const out = derive({});
+    const c = out.candidates[0];
+    expect(c?.tieRef).toEqual({
+      src: "psp:person:100",
+      rel: "linked_to",
+      dst: "company:ico:11111111",
+    });
+    // jediná gramatika adresy v repu — /zdroj/<ref>, dekódovatelná zpátky
+    const ref = edgeClaimRef(c!.tieRef.src, c!.tieRef.rel, c!.tieRef.dst);
+    expect(claimRefPath(ref)).toBe(`/zdroj/${ref}`);
+    expect(decodeClaimRef(ref)).toEqual({
+      kind: "edge",
+      src: "psp:person:100",
+      rel: "linked_to",
+      dst: "company:ico:11111111",
+    });
+  });
+
+  it("IČO kandidáta se kanonizuje na adresu spisu firmy stejným pravidlem jako routa", () => {
+    const out = derive({ ties: [tie({ ico: "2867681" })] });
+    // sedmimístné IČO je legální vstup — routa /penize/firma/[ico] ho doplní
+    expect(canonicalIco(out.candidates[0]!.ico)).toBe("02867681");
+    // …a nekanonický řetězec adresu NEDOSTANE (raději žádný odkaz než slepý)
+    expect(canonicalIco("nefirma")).toBeNull();
   });
 });
 

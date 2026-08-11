@@ -62,6 +62,11 @@ export interface DeriveCollisionsInput {
   agendaTisk?: ReadonlyMap<string, AgendaTisk>;
   /** kg pass peněžní vrstvy — jen se protahuje do výstupu. */
   pass?: number;
+  /** Četl volající hlasovací + legislativní vrstvu? Výchozí `true`.
+   *  `false` znamená, že `votes`/`ballots`/`bills` jsou prázdné ZÁMĚRNĚ (brána
+   *  vazeb byla prázdná, join by nad jakýmkoli ledgerem vrátil totéž) — coverage
+   *  o hlasování pak není nula, ale `null`: nečteno. */
+  voteLayerConsulted?: boolean;
 }
 
 /** bill:tisk:<interní id> → interní id (klíč pořadu schůze); jinak null. */
@@ -211,7 +216,7 @@ export function deriveCollisions(input: DeriveCollisionsInput): CollisionData {
         billNodeId: bill.nodeId,
         billTitle: bill.title,
         statutes: statutes.filter((s) => hitRefs.has(s.ref)),
-        tieRef: { src: t.edgeSrc, dst: t.edgeDst },
+        tieRef: { src: t.edgeSrc, rel: t.edgeRel, dst: t.edgeDst },
       });
     }
   }
@@ -226,6 +231,13 @@ export function deriveCollisions(input: DeriveCollisionsInput): CollisionData {
       b.votePspId - a.votePspId,
   );
 
+  /* Nečtená vrstva se přiznává jako `null`, ne jako nula: `votes.length - 0`
+   * by vypadalo jako „sněmovna nehlasovala", což je tvrzení, které tenhle běh
+   * nikdy neověřoval. Číslo o vazbách (jediné, co se opravdu četlo) zůstává
+   * číslem, protože kandidátů je poctivá nula z něj. */
+  const consulted = input.voteLayerConsulted ?? true;
+  const orNull = (n: number): number | null => (consulted ? n : null);
+
   return {
     candidates,
     coverage: {
@@ -234,16 +246,17 @@ export function deriveCollisions(input: DeriveCollisionsInput): CollisionData {
       tiesEntering: entering.length,
       tiesVerifiedWithoutPeriod,
       tiesPendingWouldEnter,
-      events: votes.length - eventsVoided,
-      eventsVoided,
-      eventsLinked,
-      eventsAmbiguousAgenda,
-      billsInGraph: bills.length,
-      billsMatchedToVotes: matchedBillNodes.size,
+      events: orNull(votes.length - eventsVoided),
+      eventsVoided: orNull(eventsVoided),
+      eventsLinked: orNull(eventsLinked),
+      eventsAmbiguousAgenda: orNull(eventsAmbiguousAgenda),
+      billsInGraph: orNull(bills.length),
+      billsMatchedToVotes: orNull(matchedBillNodes.size),
       candidates: candidates.length,
     },
     ruleVersion: COLLISION_RULE_VERSION,
-    agendaAvailable: agendaTisk !== undefined,
+    agendaAvailable: consulted ? agendaTisk !== undefined : null,
+    voteLayerConsulted: consulted,
     pass: input.pass ?? 0,
   };
 }

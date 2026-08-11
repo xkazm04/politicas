@@ -1526,12 +1526,17 @@
       "covLinked": "linked to a print",
       "covAmbiguous": "skipped: joint debates",
       "covBills": "prints matched to votes",
+      "covNotRead": "not read",
+      "notReadNote": "The roll-call columns are blank because neither the vote nor the legislation layer was read at all: not one tie cleared the entry gate (rule 1 above), so the join would return the same empty result over any record. Printing a zero here would assert something about data nobody looked at — hence “not read”, not 0.",
       "agendaNote": "The session agenda dump (schuze.zip) is unavailable in this environment — only the title fallback links votes to prints here, so the linked count is a floor, not the record.",
       "pendingNote": "{pending} registry-confirmed tie(s) with a recorded role period are still awaiting human review and would enter the join once verified; {noPeriod} verified tie(s) stay out solely because the registry period is missing. Neither group produces candidates here.",
       "candidates": "Candidates",
       "emptyGate": "No tie currently clears the join's entry gate — so there are zero candidates, honestly, not because nothing was checked.",
       "emptyGateNote": "The gate requires human review + registry confirmation + a recorded role period (rule 1 above). The queue for reviewers lives at /penize/kontrola.",
       "openConsole": "open the review console",
+      "emptyGateSkip": "Because a closed gate decides the outcome on its own, the PSP10 roll-call record is not read for this page at all. That is not a data gap: the votes are read the moment there is something to join them to.",
+      "emptyAgendaGap": "The join ran, but without the session agenda — zero candidates here may be a plumbing gap rather than a result.",
+      "emptyAgendaGapNote": "Without the schuze.zip dump, votes link to prints only through the fallback title rule, which on live PSP10 data almost never finds a print number. The linked-vote count is therefore a floor, and zero candidates must not be read as “there are no collisions”.",
       "emptyResult": "The join ran over every eligible tie and the full roll-call ledger and found no time overlap that satisfies the rule. Zero is the result, not a gap.",
       "candidateBadge": "candidate · requires human verification",
       "permalinkAria": "permanent link to this candidate ({name})",
@@ -1541,7 +1546,8 @@
       "rolePeriod": "registry role period",
       "noRecordedEnd": "no recorded end",
       "overlapNote": "The time overlap is computed; the substantive link is not established here and must be assessed by a human reviewer.",
-      "rollCall": "roll call on psp.cz"
+      "rollCall": "roll call on psp.cz",
+      "companyFile": "the company's file"
     },
     "tieExplainer": {
       "originHeading": "where a class comes from"
