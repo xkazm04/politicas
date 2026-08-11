@@ -38,8 +38,13 @@ const sameWeights = (a: WeightVector, b: WeightVector) =>
   LENS_COMPONENT_ORDER.every((k) => a[k] === b[k]);
 
 /** Tlačítko „kopírovat odkaz" s potvrzením — jen u vlastní čočky (u výchozí
- *  metodiky adresa žádnou čočku nenese, není co sdílet). */
-function CopyLensLink() {
+ *  metodiky adresa žádnou čočku nenese, není co sdílet).
+ *
+ *  Adresu si NEČTE z `window.location`: zápis do historie je od 2026-08-11
+ *  odložený na konec interakce, takže řádek prohlížeče může být uprostřed tahu
+ *  o krok pozadu. `getHref()` vektor sám složí A zapíše — zkopírovaný odkaz a
+ *  adresa v prohlížeči tedy souhlasí přesně v okamžiku kopírování. */
+function CopyLensLink({ getHref }: { getHref: () => string }) {
   const t = useTranslations("civicscore");
   const [state, setState] = useState<"idle" | "ok" | "fail">("idle");
   useEffect(() => {
@@ -47,15 +52,24 @@ function CopyLensLink() {
     const id = setTimeout(() => setState("idle"), 2500);
     return () => clearTimeout(id);
   }, [state]);
+  const copy = () => {
+    const href = getHref();
+    // Bez schránky (nezabezpečený kontext, starší prohlížeč) se nesmí vyhodit
+    // výjimka místo věty — čtenář má adresu opsat ručně, ne hádat, co se stalo.
+    try {
+      navigator.clipboard.writeText(href).then(
+        () => setState("ok"),
+        () => setState("fail"),
+      );
+    } catch (err) {
+      console.warn("[zebricek] schránka není k dispozici — odkaz je v adrese", err);
+      setState("fail");
+    }
+  };
   return (
     <button
       type="button"
-      onClick={() =>
-        navigator.clipboard.writeText(window.location.href).then(
-          () => setState("ok"),
-          () => setState("fail"),
-        )
-      }
+      onClick={copy}
       className="inline-flex items-center gap-1.5 border-2 border-cobalt px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:bg-cobalt hover:text-paper"
     >
       {state === "ok" ? <Check className="h-3 w-3" aria-hidden /> : <Link2 className="h-3 w-3" aria-hidden />}
@@ -78,7 +92,7 @@ export default function WeightPanel({
   const t = useTranslations("civicscore");
   const tcom = useTranslations("common");
   const f = useFormat();
-  const { weights, isDefault, setWeight, setAll, reset } = lens;
+  const { weights, isDefault, setWeight, setAll, commit, shareHref, reset } = lens;
   const eff = effectiveWeights(weights);
   const vector = encodeWeights(weights);
 
@@ -134,7 +148,7 @@ export default function WeightPanel({
                 {t("resetToPublished")}
               </button>
             )}
-            {!isDefault && <CopyLensLink />}
+            {!isDefault && <CopyLensLink getHref={shareHref} />}
           </div>
         </div>
 
@@ -163,10 +177,26 @@ export default function WeightPanel({
                     max={100}
                     step={1}
                     value={weights[c.key]}
+                    // Krok posuvníku mění JEN React stav — žebříček se
+                    // přepočítává živě, adresa se dopíše až na konci gesta.
                     onChange={(e) => setWeight(c.key, Number(e.target.value))}
                     // Aktivační trychtýř: jedna událost na KONEC tahu, ne na
-                    // každý krok posuvníku (onChange střílí desítkykrát).
-                    onPointerUp={() => trackEvent("weights-adjusted")}
+                    // každý krok posuvníku (onChange střílí desítkykrát) — a
+                    // od 2026-08-11 tudy teče i zápis čočky do adresy. Jeden
+                    // tah je 35–100 kroků; WebKit shodí replaceState nad ~100
+                    // voláními za 30 s, takže zápis na krok tichou ztrátu
+                    // sdílené čočky přímo vyráběl.
+                    onPointerUp={() => {
+                      trackEvent("weights-adjusted");
+                      commit();
+                    }}
+                    // Klávesnice nemá pointerup: šipka/Home/End musí skončit
+                    // stejně zapsanou adresou jako tah myší. Autorepeat drží
+                    // keydown, keyup přijde jednou — jeden zápis na gesto.
+                    onKeyUp={commit}
+                    // Poslední záchytný bod: gesto ukončené jinak (ztráta
+                    // pointeru, přepnutí okna) nesmí nechat adresu pozadu.
+                    onBlur={commit}
                     aria-label={t("weightSliderAria", { label: c.label, weight: c.weight })}
                     aria-valuetext={t("weightSliderValue", { value: weights[c.key], effective: f.dec(eff[c.key]) })}
                     className="k-range"

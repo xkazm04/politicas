@@ -163,6 +163,18 @@ export default function ReferendumPage({
             vestavným widgetem pro každou redakci. A když svůj vektor odevzdáte, přibude do
             anonymního agregátu „jak váží Česko“ vedle zveřejněné metodiky.
           </p>
+          {/* Stránka, která zve čtenáře vzorec PŘEPSAT, mu ho dosud neukázala.
+              /metodika vykresluje váhy, saturace i otisk vzorce přímo z
+              lib/analysis/contribution.ts — bez toho se váhy nastavují naslepo. */}
+          <p className="mt-3">
+            <Link
+              href="/metodika"
+              className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-wider text-signal hover:underline"
+            >
+              co váhy počítají — metodika indexu
+              <ArrowUpRight className="h-3 w-3" aria-hidden />
+            </Link>
+          </p>
         </div>
 
         {data === null ? (

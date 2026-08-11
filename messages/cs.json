@@ -14,6 +14,8 @@
     "lawwatchDescription": "Co se v zákonech skutečně změnilo: rozdíly po paragrafech propojené na jmenovitá hlasování a legislativní potrubí sněmovních tisků.",
     "civicscoreTitle": "CivicScore — žebříček republiky · Politicas",
     "civicscoreDescription": "Všech 200 poslanců podle kompozitního skóre efektivity: rozložení sněmovny, plný žebříček s filtrem po stranách a souboj dvou poslanců pilíř po pilíři.",
+    "civicscoreLensTitle": "Žebříček pod čočkou {weights} — CivicScore · Politicas",
+    "civicscoreLensDescription": "Žebříček sněmovny přepočtený čtenářskou čočkou {weights} nad šesti zveřejněnými složkami indexu přispění (psp.cz, deterministický výpočet). Nejde o zveřejněnou metodiku — odkaz nese svou čočku v sobě.",
     "profileTitle": "{name} — spis č. {rank} · Politicas",
     "profileDescription": "Kompozitní skóre {score}/100 ({party}, {region}): pilíře, jmenovitá hlasování a doložené peněžní vazby. Každé číslo cituje svůj otevřený zdroj.",
     "profileNotFound": "Politicas — spis nenalezen",
