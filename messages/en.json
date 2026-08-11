@@ -13,7 +13,7 @@
     "lawwatchTitle": "LawWatch — section watch · Politicas",
     "lawwatchDescription": "What actually changed in the law: section-by-section diffs linked to roll-call votes, and the legislative pipeline of House prints.",
     "civicscoreTitle": "CivicScore — the republic's ranking · Politicas",
-    "civicscoreDescription": "All 200 MPs by composite effectiveness score: the chamber distribution, the full ranking with a party filter, and a head-to-head of two MPs pillar by pillar.",
+    "civicscoreDescription": "All 207 MPs by contribution index: the chamber distribution, the full ranking with a club filter, and a head-to-head of two MPs component by component.",
     "civicscoreLensTitle": "The ranking under the lens {weights} — CivicScore · Politicas",
     "civicscoreLensDescription": "The chamber's ranking recomputed under the reader's lens {weights} over the six published components of the contribution index (psp.cz, deterministic computation). Not the published methodology — the link carries its lens in itself.",
     "profileTitle": "{name} — file no. {rank} · Politicas",
