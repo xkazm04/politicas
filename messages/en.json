@@ -1399,6 +1399,7 @@
       "partyDonations": "party donations",
       "tileSource": "source: registr smluv · kg_edge supplies.weight, one row per company",
       "tileSourceFloor": " · lower bound: the ingest pulled at most {cap} contracts per company ({companies} at that ceiling)",
+      "tileSourceReadCapped": " · lower bound: reading one company's contracts hit the read's own ceiling, so some contracts never entered this sum. How many are missing is not something this page knows, and it does not guess.",
       "contractsLabel": "contracts",
       "flagTriangle": "full triangle",
       "flagNearLimit": "near limit",

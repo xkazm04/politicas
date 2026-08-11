@@ -10,6 +10,7 @@ import {
   contractCoverage,
   isAttributable,
   reachableMoney,
+  sliceCoverage,
   tieReach,
   type ReachableTie,
 } from "./reachableMoney";
@@ -120,6 +121,53 @@ describe("contractCoverage — a capped corpus is a floor, not a total", () => {
 
   it("is empty-safe", () => {
     expect(contractCoverage([])).toEqual({ perCompanyCap: null, companiesAtCap: 0, isFloor: false });
+  });
+
+  /* Slice vs corpus (2026-08-11). The heuristic was calibrated on the ~196-company money
+   * layer; the median MP's case file holds THREE tied companies. Three small firms with
+   * the same contract count therefore satisfied `observedMax <= 100 && companiesAtCap >= 3`
+   * and the case file printed „nejméně" plus a per-company cap that does not exist. */
+  it("a per-MP slice does NOT let three equal small companies fake a cap", () => {
+    const sliceTies = [
+      tie({ companyId: "co:1", contractCount: 3 }),
+      tie({ companyId: "co:2", contractCount: 3 }),
+      tie({ companyId: "co:3", contractCount: 3 }),
+    ];
+    // what the corpus heuristic would have said about that same sample:
+    expect(reachableMoney(sliceTies).coverage).toEqual({
+      perCompanyCap: 3,
+      companiesAtCap: 3,
+      isFloor: true,
+    });
+    // …and what a slice that KNOWS it read completely says instead:
+    const complete = reachableMoney(sliceTies, { readScope: "slice-complete" });
+    expect(complete.coverage).toEqual({ perCompanyCap: null, companiesAtCap: 0, isFloor: false });
+    // the money itself is untouched — only the claim about coverage changed
+    expect(complete.attributable).toEqual(reachableMoney(sliceTies).attributable);
+    expect(complete.totalCzk).toBe(reachableMoney(sliceTies).totalCzk);
+  });
+
+  it("a slice that DID hit its read cap is a floor — with no invented cap number", () => {
+    const truncated = reachableMoney([tie({ companyId: "co:1", contractCount: 3 })], {
+      readScope: "slice-truncated",
+    });
+    expect(truncated.coverage.isFloor).toBe(true);
+    // The ingest-cap figure belongs to the corpus heuristic; a read cap knows no such
+    // number, and the surface renders a different sentence rather than „nejvýše 0 smluv".
+    expect(truncated.coverage.perCompanyCap).toBeNull();
+    expect(truncated.coverage.companiesAtCap).toBe(0);
+  });
+
+  it("sliceCoverage is the only coverage a slice may publish", () => {
+    expect(sliceCoverage("slice-complete")).toEqual({ perCompanyCap: null, companiesAtCap: 0, isFloor: false });
+    expect(sliceCoverage("slice-truncated")).toEqual({ perCompanyCap: null, companiesAtCap: 0, isFloor: true });
+  });
+
+  it("the corpus path is unchanged when no readScope is passed", () => {
+    const counts = [25, 25, 25, 12, 4];
+    const ties = counts.map((n, i) => tie({ companyId: `co:${i}`, contractCount: n }));
+    expect(reachableMoney(ties).coverage).toEqual(contractCoverage(counts));
+    expect(reachableMoney(ties, {}).coverage).toEqual(contractCoverage(counts));
   });
 
   it("reachableMoney computes coverage over the DE-DUPLICATED companies", () => {

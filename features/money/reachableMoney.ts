@@ -105,6 +105,16 @@ const emptyBucket = (): MoneyBucket => ({
  *
  * A real ceiling is low AND shared by several companies; one big supplier that happens to
  * top the list is not a cap.
+ *
+ * THIS IS A CORPUS-LEVEL STATISTIC AND ONLY THE CORPUS MAY RUN IT. It was calibrated on
+ * the ~196-company money layer, where "3 companies share the maximum" is a signature. On
+ * ONE MP's slice it is noise: the median MP has 3 tied companies (max 14, measured on the
+ * live store), so three small firms that happen to have the same number of contracts —
+ * `[3, 3, 3]` — satisfy `observedMax <= 100 && companiesAtCap >= 3` and the case file
+ * starts printing „nejméně" plus a sentence naming a per-company cap that does not exist.
+ * Eva Decroix's file sits at `[3, 3, 0]` today: ONE more three-contract company and a
+ * complete read would have been published as a truncated one. Slices must therefore pass
+ * `readScope` (below) instead of letting this function guess from their sample.
  */
 export function contractCoverage(perCompanyCounts: readonly number[]): ContractCoverage {
   const observedMax = perCompanyCounts.length ? Math.max(...perCompanyCounts) : 0;
@@ -117,9 +127,32 @@ export function contractCoverage(perCompanyCounts: readonly number[]): ContractC
   };
 }
 
+/**
+ * What the CALLER knows about the completeness of its own contract read.
+ *
+ *  • absent          — the caller read the whole money layer (the ledger, the review
+ *                      queue). `contractCoverage` may look for the cap signature.
+ *  • "slice-complete"   — an indexed per-entity read that did NOT hit its limit. Its
+ *                      figures are what the graph holds; the cap question belongs to the
+ *                      corpus and this slice makes no claim about it.
+ *  • "slice-truncated"  — the read hit its own cap, so the figures ARE a floor, for a
+ *                      reason that has nothing to do with the ingest-time cap: the
+ *                      per-company `perCompanyCap` is therefore null, not invented.
+ */
+export type ContractReadScope = "slice-complete" | "slice-truncated";
+
+/** Coverage for a slice: never a cap signature, only what the read itself knows. */
+export function sliceCoverage(scope: ContractReadScope): ContractCoverage {
+  return { perCompanyCap: null, companiesAtCap: 0, isFloor: scope === "slice-truncated" };
+}
+
 /** Reachable public money for a set of ties — the ledger's whole population, one MP's
- *  case file, or the console's pending queue. Same rules for all three. */
-export function reachableMoney(ties: readonly ReachableTie[]): ReachableMoney {
+ *  case file, or the console's pending queue. Same rules for all three; the only thing a
+ *  caller may vary is what it knows about ITS OWN read (`readScope`). */
+export function reachableMoney(
+  ties: readonly ReachableTie[],
+  opts?: { readScope?: ContractReadScope },
+): ReachableMoney {
   // Rule 1 + rule 3: collapse to one row per company first, deciding the bucket from
   // ALL of that company's ties rather than from whichever arrived first.
   const byCompany = new Map<string, { tie: ReachableTie; attributable: boolean }>();
@@ -148,7 +181,9 @@ export function reachableMoney(ties: readonly ReachableTie[]): ReachableMoney {
     steward,
     totalCzk: attributable.contractCzk + steward.contractCzk,
     companies: byCompany.size,
-    coverage: contractCoverage(counts),
+    // A slice never runs the corpus heuristic (see contractCoverage's header); the
+    // corpus path is unchanged and stays byte-identical.
+    coverage: opts?.readScope ? sliceCoverage(opts.readScope) : contractCoverage(counts),
   };
 }
 

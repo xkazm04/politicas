@@ -246,14 +246,21 @@ function MoneyTile({
           <p className="mt-2 text-sm leading-relaxed text-steel">{rule}</p>
         </>
       )}
+      {/* DVA různé důvody pro „nejméně“, a nesmějí splynout. `perCompanyCap` nese jen
+          korpusová heuristika (dolní odhad z ingestu); na spisu jednoho poslance ji
+          `reachableMoney` vůbec nespouští — tady může být dolní odhad jedině proto, že
+          ČTENÍ narazilo na vlastní strop, a to je jiná věta a žádné číslo stropu.
+          Vytisknout „nejvýše 0 smluv“ by byl výmysl. */}
       <SourceNote className="mt-3 !text-[10px]">
         {t("caseFile.tileSource")}
-        {coverage.isFloor
-          ? t("caseFile.tileSourceFloor", {
-              cap: coverage.perCompanyCap ?? 0,
-              companies: coverage.companiesAtCap,
-            })
-          : ""}
+        {!coverage.isFloor
+          ? ""
+          : coverage.perCompanyCap !== null
+            ? t("caseFile.tileSourceFloor", {
+                cap: coverage.perCompanyCap,
+                companies: coverage.companiesAtCap,
+              })
+            : t("caseFile.tileSourceReadCapped")}
       </SourceNote>
     </div>
   );

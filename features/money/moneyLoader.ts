@@ -333,8 +333,14 @@ export const loadMoneyLayer = cache(async function loadMoneyLayer(): Promise<Mon
 async function readCompanySupplies(
   store: Store,
   companyId: string,
-): Promise<{ contracts: CompanyContracts; lines: ContractLine[] }> {
+): Promise<{ contracts: CompanyContracts; lines: ContractLine[]; truncated: boolean }> {
   const supplied = await store.kgNeighbours({ id: companyId, rels: ["supplies"], limit: KG_READ_CAP });
+  /* Truncation by the `warnIfTruncated` shape (lib/db/pglite/internals.ts): a read that
+   * returned exactly its own limit is indistinguishable from one that was cut off. The
+   * per-MP case file needs this ANSWER, not a guess — see reachableMoney's `readScope`:
+   * a slice that read complete may not print a lower-bound claim, and one that did
+   * truncate must. */
+  const truncated = supplied.edges.length >= KG_READ_CAP;
   const edges = supplied.edges.filter((e) => e.src === companyId).sort(byListOrder);
   const nodeById = new Map(supplied.nodes.map((n) => [n.id, n]));
   const contracts: CompanyContracts = { count: 0, czk: 0, amounts: [] };
@@ -355,7 +361,7 @@ async function readCompanySupplies(
     }
   }
   lines.sort((a, b) => (b.amountCzk ?? 0) - (a.amountCzk ?? 0));
-  return { contracts, lines };
+  return { contracts, lines, truncated };
 }
 
 /** One MP's money, read through the INDEX only — never a whole-relation scan. */
@@ -368,6 +374,9 @@ export interface MpMoneySlice {
   contractsByCompany: Map<string, CompanyContracts>;
   /** company id → its contract line items, amount desc, capped like the ledger's. */
   linesByCompany: Map<string, ContractLine[]>;
+  /** Did ANY per-company supplies read hit its own cap? The slice knows this and the
+   *  cap heuristic must not guess it — see reachableMoney.ts::ContractReadScope. */
+  contractsTruncated: boolean;
   pass: number;
 }
 
@@ -409,10 +418,12 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
 
     const contractsByCompany = new Map<string, CompanyContracts>();
     const linesByCompany = new Map<string, ContractLine[]>();
+    let contractsTruncated = false;
     for (const comp of companyById.values()) {
-      const { contracts, lines } = await readCompanySupplies(store, comp.id);
+      const { contracts, lines, truncated } = await readCompanySupplies(store, comp.id);
       contractsByCompany.set(comp.id, contracts);
       linesByCompany.set(comp.id, lines);
+      if (truncated) contractsTruncated = true;
     }
 
     const clubByPerson = await loadClubs(store);
@@ -425,6 +436,7 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
       companyById,
       contractsByCompany,
       linesByCompany,
+      contractsTruncated,
       pass,
     };
   } catch (err) {

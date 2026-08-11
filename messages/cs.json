@@ -1399,6 +1399,7 @@
       "partyDonations": "dary straně",
       "tileSource": "zdroj: registr smluv · kg_edge supplies.weight, jedna firma jednou",
       "tileSourceFloor": " · dolní odhad: sběr stáhl u firmy nejvýše {cap} smluv ({companies} firem na stropu)",
+      "tileSourceReadCapped": " · dolní odhad: čtení smluv u některé z firem narazilo na vlastní strop, takže část smluv se do součtu nedostala. Kolik jich chybí, tahle stránka neví a nehádá.",
       "contractsLabel": "zakázky",
       "flagTriangle": "úplný trojúhelník",
       "flagNearLimit": "u limitu",

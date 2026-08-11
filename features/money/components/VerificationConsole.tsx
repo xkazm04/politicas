@@ -37,6 +37,10 @@ import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useLocale } from "next-intl";
 import FlagList from "@/features/shared/components/FlagList";
+// Jediný kodek trvalé adresy tvrzení v repu — konzole cituje TUTÉŽ účtenku,
+// kterou u té vazby publikuje /penize.
+import { claimRefPath } from "@/features/shared/provenance/claimRef";
+import { canonicalIco } from "../companyId";
 import { compactCzk, temporalBadge, tieClassOriginInfo } from "../moneyTypes";
 import { hasStaleOngoingFlag, tieFlagInfos } from "../tieFlags";
 import { submitReviewDecision } from "../reviewActions";
@@ -480,13 +484,19 @@ export default function VerificationConsole({
           {int(data.stats.pending)} vazeb, alespoň jeden příznak{" "}
           <span className="font-bold text-ink">{int(data.stats.flagged)}</span>, a u{" "}
           <span className="font-bold text-ink">{int(data.stats.staleOngoing)}</span> z nich příznak
-          říká, že období „trvá“ je proti obchodnímu rejstříku zastaralé. Poznámky píšou
+          říká, že období „trvá“ je proti obchodnímu rejstříku zastaralé. U{" "}
+          <span className="font-bold text-ink">{int(data.stats.nearThreshold)}</span> vazeb má aspoň
+          jedna smlouva firmy hodnotu těsně pod zákonným limitem pro zadávací řízení — počítá se
+          v loaderu od začátku, na kartě je to příznak „N× u limitu“, ale kolik jich fronta nese
+          celkem, konzole neřekla. Blízkost limitu není zjištění: je to vzorec, který stojí za
+          pohled. Poznámky píšou
           analytické průchody (ARES VR, dataor.justice.cz), ne lidská kontrola — jsou to
           vodítka, ne zjištění, a stav vazby nemění. Karta zároveň říká, co graf u vazby
           nevede, místo aby prázdné místo vydávala za čistý štít.
         </p>
         <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
-          zdroj: kg_edge linked_to · props.reviewer_note / flags / corroboration_source
+          zdroj: kg_edge linked_to · props.reviewer_note / flags / corroboration_source · registr smluv
+          supplies.weight (blízkost limitu)
         </p>
 
         <p className="mt-6 max-w-3xl text-sm italic leading-relaxed text-steel">
@@ -506,10 +516,26 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <header className="border-b-4 border-ink">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-4">
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs uppercase tracking-widest text-steel">/ penize / kontrola</span>
           </div>
+          {/* Cesta zpátky k tomu, co o týchž vazbách čte veřejnost. /penize na
+              konzoli odkazuje ze své hlavičky; opačným směrem odsud nevedlo nic. */}
+          <span className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs uppercase tracking-widest">
+            <Link
+              href="/penize"
+              className="text-steel-aa underline-offset-4 hover:text-ink hover:underline focus-visible:text-cobalt"
+            >
+              zpět na peněžní ledger
+            </Link>
+            <Link
+              href="/dukazy"
+              className="text-steel-aa underline-offset-4 hover:text-ink hover:underline focus-visible:text-cobalt"
+            >
+              veřejná nástěnka rozhodnutí
+            </Link>
+          </span>
         </div>
       </header>
       <div className="mx-auto max-w-6xl px-6 py-10">
@@ -523,6 +549,42 @@ function Shell({ children }: { children: React.ReactNode }) {
           a teprve pak se z ní může stát potvrzená vazba.
         </p>
         <div className="mt-8">{children}</div>
+      </div>
+    </>
+  );
+}
+
+/**
+ * Vnitřní adresy jedné vazby — spis poslance, spis firmy a TRVALÁ ADRESA tvrzení.
+ *
+ * Konzole je jediné místo, kde se o vazbě rozhoduje, a do 2026-08-11 z karty
+ * vedl jediný vnitřní odkaz: na profil poslance. Recenzent tak neměl jak se
+ * podívat na to, co o téže vazbě čte veřejnost, ani otevřít firmu, která je
+ * v grafu KŘIŽOVATKA (14 jich váže víc poslanců, což karta jedné vazby ukázat
+ * neumí). Účtenka se skládá `claimRefPath(receiptRef)` — TÝŽ ref, který razí
+ * `mapLinkedToTie`, žádná druhá gramatika adresy — a IČO se kanonizuje pravidlem
+ * routy `/penize/firma/[ico]`; nekanonický zápis odkaz nedostane.
+ */
+function InternalTieLinks({ tie }: { tie: ReviewTie }) {
+  const ico = canonicalIco(tie.ico);
+  const items: { key: string; href: string; label: string }[] = [
+    { key: "mp", href: `/penize/${tie.pspId}`, label: "peněžní spis poslance" },
+    ...(ico ? [{ key: "co", href: `/penize/firma/${ico}`, label: "spis firmy" }] : []),
+    { key: "receipt", href: claimRefPath(tie.receiptRef), label: "účtenka původu (veřejná adresa)" },
+  ];
+  return (
+    <>
+      <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">co o vazbě čte veřejnost</p>
+      <div className="mt-2 flex flex-col gap-1.5">
+        {items.map((i) => (
+          <Link
+            key={i.key}
+            href={i.href}
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+          >
+            <ArrowUpRight className="h-3 w-3" aria-hidden /> {i.label}
+          </Link>
+        ))}
       </div>
     </>
   );
@@ -648,13 +710,12 @@ function ReviewCard({
             {tie.triangle && <Flag>úplný trojúhelník</Flag>}
             {tie.nearThresholdCount > 0 && <Flag>{int(tie.nearThresholdCount)}× u limitu</Flag>}
             {/* Zastaralé „trvá“ pozná hrana sama (příznak `stale-ongoing-in-graph`, 42 z
-                211 vazeb). Podmínka, která tady stála do 2026-08-04
+                211 vazeb). Podmínka, která tady stála vedle
                 (`periodTo === null && !corroboration`), neplatila ANI JEDNOU: korroboraci
-                nese všech 211 vazeb, takže výzva mlčela právě u vazeb, pro které vznikla. */}
+                nese všech 211 vazeb, takže výzva mlčela právě u vazeb, pro které vznikla.
+                Byla popsaná jako mrtvá už 2026-08-04 a přesto se vykreslovala dál; mrtvá
+                větev, kterou komentář omlouvá, je pořád mrtvá větev — 2026-08-11 smazána. */}
             {stale && <Flag>období „trvá“ je proti rejstříku zastaralé — řiďte se daty z ARES VR</Flag>}
-            {tie.periodTo === null && !tie.corroboration && (
-              <Flag>období „trvá“ (dle Hlídače) — vazba ještě neprošla rekonciliací, ověřit v ARES VR</Flag>
-            )}
             {tie.corroboration && tie.roleValidFrom && (
               <Flag>
                 ARES VR: {tie.roleValidFrom} – {tie.roleValidTo ?? "trvá"}
@@ -750,6 +811,12 @@ function ReviewCard({
               </a>
             ))}
           </div>
+          {/* …a co o téhle vazbě ukazuje NAŠE strana. Do 2026-08-11 vedl z karty
+              jediný vnitřní odkaz (na profil poslance), takže recenzent neměl
+              cestu k tomu, co o vazbě čte veřejnost — ke spisu poslance, ke spisu
+              firmy (14 firem váže víc poslanců) ani k trvalé adrese samotného
+              tvrzení, kterou plocha /penize u té vazby publikuje. */}
+          <InternalTieLinks tie={tie} />
         </div>
       </div>
 
@@ -759,10 +826,24 @@ function ReviewCard({
           value={noteDraft}
           onChange={(e) => setNoteDraft(e.target.value)}
           disabled={writeStatus.phase === "pending" || writeStatus.phase === "done"}
-          placeholder="poznámka k rozhodnutí (co je třeba doplnit, na co si dát pozor…) — nepovinné"
+          placeholder="poznámka k rozhodnutí (co je třeba doplnit, na co si dát pozor…)"
           rows={2}
+          aria-describedby={`note-rules-${tie.id}`}
           className="w-full resize-y border-2 border-hairline bg-paper px-2 py-1.5 font-mono text-xs text-ink outline-none placeholder:text-steel focus:border-cobalt disabled:opacity-50"
         />
+        {/* „nepovinné“ bylo NEPRAVDA ve dvou směrech naráz a obě se dají ověřit
+            v reviewActions.ts: „doplnit“ bez poznámky sice projde, ale neuloží
+            žádnou informaci nad rámec „ještě nerozhodnuto“, a VRÁCENÍ rozhodnutí
+            se bez důvodu vůbec nezapíše (`setTieReviewState` vrátí „reversal
+            requires a note“ a nezapíše ani řádek řetězce). Obě pravidla teď
+            stojí u pole, ne v hlavičce modulu. */}
+        <p id={`note-rules-${tie.id}`} className="text-[11px] leading-relaxed text-steel-aa">
+          <span className="font-bold text-ink">Doplnit</span> bez poznámky je prázdný krok — vazba
+          zůstane ve frontě a nikde nezůstane, co se má doplnit.{" "}
+          <span className="font-bold text-ink">Vrácení už rozhodnuté vazby</span> poznámku vyžaduje:
+          bez ní server zápis odmítne a do auditní stopy nepřipíše nic, protože důvod se jinam než
+          do řetězce neuloží (poznámka na hraně se dalším rozhodnutím přepíše).
+        </p>
         <div className="flex flex-wrap items-center gap-2">
           {DECISIONS.map((d) => (
             <button
@@ -822,6 +903,9 @@ function DecidedCard({
             IČO {tie.ico}
             {tie.role ? ` · ${tie.role}` : ""}
           </p>
+          {/* Rozhodnutá vazba potřebuje tytéž adresy jako čekající — vrácení se
+              zvažuje proti tomu, co o ní čte veřejnost, ne proti paměti. */}
+          <InternalTieLinks tie={tie} />
         </div>
         <div className="flex flex-col items-end gap-1.5">
           <span

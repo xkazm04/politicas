@@ -63,6 +63,11 @@ export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | n
           subsidiesCzk: t.subsidiesCzk,
           donatedToPartyCzk: t.donatedToPartyCzk,
         })),
+        // This is a SLICE (median 3 tied companies), not the ~196-company corpus the
+        // per-company cap heuristic was calibrated on — three small firms with the same
+        // contract count would have made it print „nejméně" plus a cap that does not
+        // exist. The read itself knows the honest answer, so it gives it.
+        { readScope: slice.contractsTruncated ? "slice-truncated" : "slice-complete" },
       ),
       source: "registr smluv ⋈ ares ⋈ hlídač státu",
       pass,
