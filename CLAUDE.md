@@ -525,6 +525,26 @@ Route map (politicas.md roadmap execution, sample data):
   `navigator.clipboard` so the failure copy is reachable.
   `features/votetrack/messages.test.ts` pins the namespace (cs/en parity, ICU +
   t.rich tag parity, Czech gate).
+  **The kompas rides the record (2026-08-11).** `getKompas`'s private memo cell
+  (its own clock beside `getVoteRecord`'s — the exact two-vintages hazard
+  `ledgerMemo.ts` names) is DELETED. `VoteRecordData.voteIndex` is the record's
+  own per-VALID-vote index (chamber tally · club lines · the event fields the
+  kompas renders · `inLedger`) — zero extra derivation passes, chronicle-cap
+  independent by an explicit `chronicleCap.test.ts` ruling, and the ONE field
+  `toWireRecord()` strips before /hlasovani's client (746,7 kB that page draws
+  nothing of). `selectQuestions` takes the index, so the kompas knows its ~20
+  roll calls without reading a ballot; the named votes come through the new
+  scoped `listVoteBallots({voteIds})` (`vote_ballot_vote_idx`, unused since the
+  first DDL: bitmap index scan, 4 000 rows / 29 ms vs 406 000 / ~7,5 s — the
+  small-LIMIT planner hazard does not apply when the predicate itself is
+  indexed). Measured: cold 14 283 → 922 ms; after a warm /hlasovani 19 294 →
+  6 ms. Selection equivalence proven over all 2 014 live roll calls (0 tally,
+  0 club-line mismatches), pinned by `kompasIndex.test.ts`. Tags are read FIRST
+  (found live: `vote_tag` = 0 rows — the silver layer is empty, so /kompas paid
+  ~15 s per request to answer „unavailable"; populating tags is an un-owned
+  batch job, flagged). All four selection floors now count their casualties
+  („no ballots held" ≠ „few voted"), and an empty selection renders its own
+  sentence instead of the outage state.
 - `/penize` — **FollowTheMoney** (features/money): the Rentgen money-graph's
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
@@ -751,6 +771,54 @@ Route map (politicas.md roadmap execution, sample data):
   it. Fallback verified against the production build with `PGLITE_PATH` pointed at a
   nonexistent dir: /penize renders the labelled mock, `/penize/firma/<ico>` renders its
   honest empty state at HTTP 200, `/penize/firma/abc` 404s.
+  **Střety stop reading 410 000 rows to print zeros (2026-08-11).** The join
+  gate (`tieEntersJoin`, imported — never a second copy) is computed BEFORE the
+  ledger read: with all 211 ties `pending_review` it is empty by construction,
+  so the vote+legislative layers are not read at all and their coverage is
+  `null`, never 0 — „nečteno" is a different claim than a zero, and the page has
+  three sentences for three zeros (gate shut · schuze.zip missing · a real
+  empty result). The non-empty path rides votetrack's `readLedger()` (floors
+  included); the whole derivation memoizes on `MONEY_MEMO_TTL_MS` (null never
+  memoized; an EMPTY candidates result IS — it derives from real reads, stated
+  in the module header as a deliberate difference from ledgerMemo/chamberMemo).
+  Measured: cold 15 800 → 3 761 ms, repeat 10 409 → 0 ms. Candidate rows carry
+  `/zdroj/<ref>` (tieRef grew `rel` so `edgeClaimRef` composes the ONE grammar)
+  + `/penize/firma/<ičo>`; route declares `revalidate = 86_400`.
+  **The kauza can be read and cited (2026-08-11).** /penize/kauzy renders its
+  hardest evidence for the first time: `registryFindings` as the labelled
+  key/value pairs its own doc comment always promised, `proposedAnnotation` as
+  labelled fields (never `JSON.stringify` at a reader, depth-capped and
+  disclosed past the cap). Machine enums go through
+  `features/money/dossierVocabulary.ts` (the tieFlags contract: closed cs/en
+  vocabulary, unmapped renders VERBATIM + labelled); the English analyst prose
+  is DATA — disclosed as verbatim working material, never rewritten — and the
+  dossier's gate state renders through the shared `gateVocabulary`
+  (`LEAD_DOSSIER_GATE_TOKEN` is the one place „a hand lead never auto-verifies"
+  is a token). Each kauza anchors `#kauza-<leadId>` + `CopyLinkButton`, the
+  company links its case file via `canonicalIco` (also fixed in
+  `getLeadPacketTargets` — a 7-digit dossier IČO was a SILENT false negative),
+  and the /penize teaser derives its dossier count from the discovered list
+  (was a bilingual „Dva ručně dořešené spisy" literal). Payload read memoized
+  on `MONEY_MEMO_TTL_MS` (18 files / 490 471 B parsed per request before);
+  `isDossier` tightened 5 → 13 checks and finally tested. Found in the corpus:
+  `mediaContext` has TWO live shapes (objects and bare strings) — the bare-
+  string kauza rendered four empty rows with hrefless anchors; both branches
+  render now.
+  **Console + case-file honesty set (2026-08-11).** The review console — the
+  most leveraged user in the product, 211 pending decisions gating strety,
+  packets and /dukazy — finally links the fabric it decides on: each card
+  carries `/penize/<pspId>`, `/penize/firma/<ičo>` and `/zdroj/<receiptRef>`,
+  the header links /penize + /dukazy. The dead staleness prompt (0/211 by its
+  own comment) is deleted; the note field states BOTH real rules (needs-more
+  without a note no-ops; reversal requires one); `nearThreshold` renders (94 of
+  211 — a pattern, the copy says, not a finding). And `contractCoverage`'s cap
+  heuristic is CORPUS-ONLY now: a per-MP slice passes `readScope` derived from
+  its own read (`readCompanySupplies` reports truncation by the
+  `warnIfTruncated` shape), so a complete slice makes NO floor claim and a
+  truncated one is a floor with `perCompanyCap: null` and its own sentence —
+  three small firms `[3,3,3]` used to fabricate „nejméně" plus a cap that does
+  not exist (Decroix sits at `[3,3,0]` today). Corpus path byte-identical,
+  verified to the cent on Hladík and Babiš.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored
@@ -983,6 +1051,30 @@ Route map (politicas.md roadmap execution, sample data):
   složky" note now NAMES what `trend.pendingComponents` actually carries instead of
   asserting „účast a docházka" regardless, and cites the `hl-2021ps.zip` dump only for
   the term it belongs to.
+  **The printed sheet carries the same truth (2026-08-11).** `/kraj/[kraj]` —
+  the PRINTABLE slate — had dropped the honesty apparatus /zebricek carries;
+  the data was already on every entry. Now: `LowScoreReasonChip` on slate rows
+  (34/207 carry a reason; a relinquished mandate no longer prints a bare bottom
+  score on paper), `mixed`/`absent` provenance sentences on the page (same
+  keys, same aggregate — no second copy), and the citation footer suppresses
+  the pass number STRUCTURALLY for a non-uniform chamber
+  (`posterProvenanceNote()` in `features/shared/poster/citation.ts`, pure +
+  pinned incl. omitted-state byte-identity) — it used to print nothing, which
+  is indistinguishable from „carries no pass". The kraj score renders through
+  `CitableNumber` with the SAME `contributionScoreClaim` (imported, withheld
+  under a custom lens with the reason in the footnote); `RapporteurBadge`
+  joins compact + dated.
+  **The lens survives the drag and reaches the preview (2026-08-11).**
+  /zebricek's `generateMetadata` decodes `?vahy=` (referendum's own codec,
+  imported) and points OG at the EXISTING `/referendum/og` — an invalid vector
+  passes through raw so the generator emits its own „Neplatné váhy" card,
+  never a silently repaired one. The URL write moved from per-slider-step
+  (35–100 `replaceState`/drag; WebKit hard-fails >100/30 s and the reader
+  would share a lens-less link with no signal) to commit time:
+  `lensAddress()` is the ONE pure address composer (`useLensWeights.test.ts`),
+  `commit()` fires on pointerup/keyup/blur, presets stay one-click-one-write,
+  and `shareHref()` composes AND writes so the copied link and the address bar
+  cannot disagree mid-drag. /referendum finally links /metodika.
 - `/metodika` — **Metodika** (features/civicscore/MetodikaPage.tsx, thin route
   `app/metodika/page.tsx`). Added 2026-08-04. The platform positions itself as
   methodology-transparent, `/zebricek` cites „průchod grafu č. 42" and
