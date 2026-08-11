@@ -24,18 +24,23 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, RotateCcw } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { buildPosterCitation } from "@/features/shared/poster/citation";
 import PosterFrame, { type PosterFormat } from "@/features/shared/poster/PosterFrame";
 import PosterToolbar from "@/features/shared/poster/PosterToolbar";
 import { usePosterMode } from "@/features/shared/poster/usePosterMode";
+import CitableNumber from "@/lib/claims/CitableNumber";
+import type { Locale } from "@/lib/i18n/config";
 import { useFormat } from "@/lib/i18n/useFormat";
 import type { LeaderboardListData } from "./getLeaderboardData";
 import { krajSlate, listKraje, krajCitationInput, type KrajSlateRow } from "./kraj";
 import { encodeWeights, reweigh, LENS_COMPONENT_ORDER } from "./lens";
-import { formulaMismatchOrNull } from "./provenance";
+import { formulaMismatchOrNull, storedRefLabel } from "./provenance";
+import { contributionScoreClaim } from "./scoreClaim";
 import { useLensWeights } from "./useLensWeights";
+import LowScoreReasonChip from "./components/LowScoreReasonChip";
+import RapporteurBadge from "./components/RapporteurBadge";
 import WorkhorseBadge from "./components/WorkhorseBadge";
 
 /** Zkratky složek pro miniaturní rozpad na kartě — pořadí = zveřejněné váhy. */
@@ -96,6 +101,7 @@ export default function KrajPage({
   liveUrl: string;
 }) {
   const f = useFormat();
+  const locale = useLocale();
   const t = useTranslations("civicscore");
   const tm = useTranslations("metodika");
   const { printPoster } = usePosterMode();
@@ -116,15 +122,20 @@ export default function KrajPage({
   const kraje = useMemo(() => listKraje(data.entries), [data.entries]);
   const unassignedInfo = kraje.find((k) => k.unassigned);
 
-  const citation = buildPosterCitation(
-    krajCitationInput({
+  // Citace jde dál VÝHRADNĚ přes buildPosterCitation; navíc jí podáváme stav
+  // KOMOROVÉ provenience, aby arch u nejednotného (nebo chybějícího) původu
+  // výpočtu nemlčel, ale řekl to — mlčení nerozliší „nevíme" od „neshodneme se".
+  const citation = buildPosterCitation({
+    ...krajCitationInput({
       liveUrl,
       retrievedAt,
       provenancePass: data.provenancePass,
       formulaMismatch: formulaMismatchOrNull(data.provenance),
       weights: lens.weights,
     }),
-  );
+    provenanceState: data.provenance.state,
+    provenanceVariants: data.provenance.distinctCount,
+  });
 
   // Slug byl ověřen routou nad oficiálními daty; reweigh identitu (region)
   // nemění, takže výřez existuje pod každou čočkou. Kdyby ne, přiznat.
@@ -188,6 +199,31 @@ export default function KrajPage({
             subject: slate.unassigned ? t("krajUnassignedSubject") : slate.label,
           })}
         </p>
+
+        {/* Poctivost žebříčku platí i na kartě, která se tiskne: pokud komora
+            nemá jeden původ výpočtu (poloviční přepočet) nebo ho nenese vůbec,
+            řekne to STRÁNKA — ne jen patička archu. Tytéž věty jako /zebricek,
+            týž agregát (features/civicscore/provenance.ts), žádná druhá kopie. */}
+        {data.provenance.state === "mixed" && (
+          <SourceNote className="mt-3">
+            {t("provenanceMixed", {
+              count: f.int(data.provenance.distinctCount),
+              withProv: f.int(data.provenance.covered),
+              total: f.int(data.provenance.total),
+            })}
+          </SourceNote>
+        )}
+        {data.provenance.state === "absent" && (
+          <SourceNote className="mt-3">{t("provenanceAbsent")}</SourceNote>
+        )}
+        {!data.provenance.formulaMatch && data.provenance.state !== "absent" && (
+          <SourceNote className="mt-1.5">
+            {t("provenanceMismatch", {
+              dataRef: storedRefLabel(data.provenance),
+              codeRef: data.provenance.declaredRef,
+            })}
+          </SourceNote>
+        )}
 
         <p className="mt-3">
           {/* Táž metodika jako celostátní žebříček — a od 2026-08-04 je i vidět. */}
@@ -268,6 +304,17 @@ export default function KrajPage({
                       >
                         {r.name}
                       </Link>
+                      {/* Korektiv stojí VEDLE čísla, které opravuje — i na papíře.
+                          34 z 207 poslanců ho nese; kandidátka bez něj tiskne nízké
+                          číslo a nic vedle něj, a z pořadí se stává obvinění. Text je
+                          verbatim z uzavřeného slovníku a je DATOVANÝ. */}
+                      {r.effortLowScoreReason && (
+                        <LowScoreReasonChip
+                          reason={r.effortLowScoreReason}
+                          recordedAt={r.effortRecordedAt}
+                          dateLabel={r.effortRecordedAt ? f.date(r.effortRecordedAt) : null}
+                        />
+                      )}
                       <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
                         {/* barva klubu je datový údaj (lib/civic/data.ts), ne dekorace */}
                         <span
@@ -285,6 +332,10 @@ export default function KrajPage({
                           compact
                         />
                       )}
+                      {/* Zpravodajská zátěž je táž třída datovaného verdiktu — na
+                          žebříčku se tiskne, na kandidátce chyběla. Pod prahem se
+                          nevykreslí vůbec (čestná degradace v komponentě). */}
+                      <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
                     </span>
                     <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-wider text-steel-aa">
                       {t("krajNationalRank", { rank: f.int(r.rank), total: f.int(slate.totalMps) })}
@@ -292,8 +343,21 @@ export default function KrajPage({
                     </span>
                   </span>
                   <PillarBars row={r} components={components} />
+                  {/* Skóre na kartě je TÝŽ zveřejněný index jako na žebříčku, takže
+                      nese TÝŽ claim (scoreClaim.ts — importovaný, nikdy druhá ražba):
+                      číslo opsané z vytištěné kandidátky se dá ověřit na /overeni.
+                      Pod čtenářovou čočkou se claim ZADRŽUJE — to vážení v grafu
+                      nikde nestojí (totéž pravidlo jako v LeaderboardTable). */}
                   <span className={`w-16 shrink-0 text-right text-2xl font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>
-                    {f.dec(r.score)}
+                    {custom ? (
+                      f.dec(r.score)
+                    ) : (
+                      <CitableNumber
+                        value={r.score}
+                        claim={contributionScoreClaim(r.pspId, r.score, data.provenance).claim}
+                        locale={locale as Locale}
+                      />
+                    )}
                     {r.krajTiedCount > 1 && (
                       <span className="font-mono text-[11px] font-bold text-steel-aa"> =</span>
                     )}
@@ -304,6 +368,9 @@ export default function KrajPage({
 
             <p className="mt-3 font-mono text-xs leading-relaxed text-steel-aa">
               {t("krajFootnote")}
+              {/* Proč pod čočkou u čísel nestojí citace — řečeno tam, kde ta čísla
+                  jsou, a tedy i na papíře. */}
+              {custom && <> · {t("krajLensNoClaim")}</>}
               {!slate.unassigned && unassignedInfo && (
                 <>
                   {" "}· {t("krajUnassignedNote", { count: f.int(unassignedInfo.count) })} —{" "}

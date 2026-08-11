@@ -1180,6 +1180,7 @@
     "krajSharedRank": "(shared rung)",
     "krajMandate": "PSP10 mandate",
     "krajFootnote": "order: competition ranking (1, 2, 2, 4) in the region and nationally — identical scores share a rung, “=” marks a shared one; within a tie only the alphabet decides and it carries no meaning · component bars: fill rate of the six index components (úč = participation, výb = committees, leg = legislation, sál = floor speeches, doch = attendance, ved = leadership)",
+    "krajLensNoClaim": "a score under your own lens carries no citable address — only the published index can be verified, because only it carries a computation pass and a formula ref",
     "krajUnassignedNote": "{count} mandates carry no region in the register",
     "krajUnassignedLink": "the “region not stated” card",
     "krajLensHint": "You can re-set the index weights on <link>the leaderboard (Open index section)</link> — a link with <code>?vahy=…</code> then carries your lens here onto the card too.",

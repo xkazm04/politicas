@@ -1180,6 +1180,7 @@
     "krajSharedRank": "(sdílená příčka)",
     "krajMandate": "mandát PSP10",
     "krajFootnote": "pořadí: competition ranking (1, 2, 2, 4) v kraji i celostátně — shodné skóre sdílí příčku, „=“ značí sdílenou; uvnitř shody rozhoduje jen abeceda a nenese žádný význam · složkové pruhy: míra naplnění šesti složek indexu (úč = účast, výb = výbory, leg = legislativa, sál = vystoupení, doch = docházka, ved = vedení orgánů)",
+    "krajLensNoClaim": "skóre pod vlastní čočkou nenese citovatelnou adresu — ověřit se dá jen zveřejněný index, který má vlastní výpočetní pas i linii metodiky",
     "krajUnassignedNote": "{count} mandátů v registru kraj neuvádí",
     "krajUnassignedLink": "karta „kraj neuveden“",
     "krajLensHint": "Váhy indexu si můžete přenastavit na <link>žebříčku (sekce Otevřený index)</link> — odkaz s <code>?vahy=…</code> pak nese vaši čočku i sem, na kartu.",

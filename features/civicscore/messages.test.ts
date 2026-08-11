@@ -77,6 +77,25 @@ describe("civicscore — provenience skóre je česky a nese obě linie", () => 
   });
 });
 
+// Volební karta kraje (/kraj/[kraj]) se TISKNE, a od 2026-08-11 nese tytéž
+// poctivé věty jako žebříček: korektiv nízkého skóre, datované verdikty a
+// citovatelné skóre. Věta, která vysvětluje ZADRŽENOU citaci pod čtenářovou
+// čočkou, je jediná nová kopie — a stojí na papíře, kde ji nikdo neopraví.
+describe("civicscore — kandidátka kraje vysvětluje zadrženou citaci", () => {
+  it("věta existuje v obou katalozích", () => {
+    expect(csNs.krajLensNoClaim, "cs.krajLensNoClaim").toBeTruthy();
+    expect(enNs.krajLensNoClaim, "en.krajLensNoClaim").toBeTruthy();
+  });
+
+  it("česká věta neprojde jako anglická (jazyková brána)", () => {
+    expect(looksEnglish(csNs.krajLensNoClaim), "cs.krajLensNoClaim").toBe(false);
+  });
+
+  it("nenese žádný ICU parametr — je to pravidlo, ne měřený údaj", () => {
+    expect(placeholders(csNs.krajLensNoClaim)).toEqual([]);
+  });
+});
+
 // /metodika je stránka, jejíž jediný obsah je TVRZENÍ O VZORCI. Kdyby se rozešla
 // s katalogem druhého jazyka nebo dojela na plochu anglicky, byla by to přesně ta
 // třída chyby, kterou má zavírat (metodická průhlednost, která sama sobě nesedí).

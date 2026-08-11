@@ -11,6 +11,11 @@
 
 import { czechDate, czechInt } from "@/lib/format";
 
+/** Stav původu výpočtu nad CELÝM souborem, ze kterého arch čerpá — týž slovník
+ *  jako `ContributionProvenance.state`, jen bez importu z feature (modul je
+ *  sdílený primitiv a nesmí viset na jedné ploše). */
+export type PosterProvenanceState = "uniform" | "mixed" | "absent";
+
 export interface PosterCitationInput {
   /** Odkud data jsou, včetně kadence — „psp.cz — hlasování, tisky, členství". */
   sourceLabel: string;
@@ -22,6 +27,16 @@ export interface PosterCitationInput {
   methodology: string;
   /** Výpočetní pas, který čísla autorizoval (contribution_provenance.pass). */
   provenancePass?: number | null;
+  /**
+   * Shodne-li se CELÝ soubor, ze kterého arch čerpá, na jednom původu výpočtu.
+   * Zrcadlí `ContributionProvenance.state` (features/civicscore/provenance.ts):
+   * `uniform` = jedna dvojice {pass, ref} na všech uzlech, `mixed` = víc verzí
+   * (poloviční přepočet), `absent` = záznam o původu chybí. Vynecháno = volající
+   * o tom nic netvrdí a patička se chová jako dosud.
+   */
+  provenanceState?: PosterProvenanceState | null;
+  /** Kolik různých kombinací pasu a metodiky soubor nese (má smysl jen u `mixed`). */
+  provenanceVariants?: number | null;
   /**
    * Linie formule, kterou nesou DATA, když se liší od té, kterou dnes deklaruje kód
    * (lib/analysis/contribution.ts CONTRIBUTION_FORMULA_REF). Vytištěný arch je archivní
@@ -50,7 +65,11 @@ export interface PosterCitation {
   /** ISO datum (YYYY-MM-DD) — formátuje až sazba podle aktivního locale. */
   retrievedAt: string;
   methodology: string;
-  /** Výpočetní pas jako číslo; null = záznam ho nenese a nic se nedomýšlí. */
+  /**
+   * Výpočetní pas jako číslo; null = záznam ho nenese a nic se nedomýšlí.
+   * Null i tehdy, když se soubor na jednom původu NESHODNE (`mixed`/`absent`) —
+   * jistota, kterou data nemají, se z archu nevytiskne ani na přání volajícího.
+   */
   pass: number | null;
   mismatch: { storedRef: string; declaredRef: string } | null;
 }
@@ -64,12 +83,50 @@ export function posterDisplayUrl(url: string): string {
     .replace(/\/+$/, "");
 }
 
+/**
+ * Věta, kterou patička řekne MÍSTO čísla pasu, když se soubor na jednom původu
+ * výpočtu neshodne — nebo null, když se shodne (a číslo pasu tedy platí).
+ *
+ * Proč to není mlčení: dosud arch prostě žádný pas nevytiskl (loader ho u
+ * nejednotné komory posílá jako null), takže vytištěná citace vypadala stejně
+ * jako u záznamu, který pas nenese — mlčení nerozliší „nevíme" od „neshodneme
+ * se". Archivní dokument musí umět říct obojí.
+ *
+ * Věta se připojuje k METODICE, protože pas je součástí řádku metodiky
+ * (PosterFrame skládá `metodika · výpočetní pas N · rozpor linie`), a protože
+ * arch sází strukturovaná pole přes katalog — nová věta by jinak potřebovala
+ * vlastní klíč a nikdo by ji nevytiskl. Čeština je tu záměrná: `methodology`
+ * je český řetězec skládaný volajícím (viz krajCitationInput) v obou jazycích.
+ */
+export function posterProvenanceNote(
+  state: PosterProvenanceState | null | undefined,
+  variants?: number | null,
+): string | null {
+  if (state === "mixed") {
+    const n =
+      typeof variants === "number" && Number.isFinite(variants) && variants > 1
+        ? `${czechInt(variants)} různých kombinací`
+        : "víc různých kombinací";
+    return `POZOR: čísla nespočítal jeden a týž průchod — záznam nese ${n} pasu a metodiky, jediné číslo pasu proto tento arch neuvádí`;
+  }
+  if (state === "absent")
+    return "POZOR: záznam o původu výpočtu chybí — kterou verzí metodiky čísla vznikla, nelze doložit";
+  return null;
+}
+
 export function buildPosterCitation(input: PosterCitationInput): PosterCitation {
   const displayUrl = posterDisplayUrl(input.sourceUrl);
+  // Nejednotný (ani chybějící) původ výpočtu ruší číslo pasu strukturálně — ne
+  // proto, že by ho volající neposlal, ale proto, že žádné jedno číslo neplatí.
+  const provenanceNote = posterProvenanceNote(input.provenanceState, input.provenanceVariants);
   const passValue =
-    typeof input.provenancePass === "number" && Number.isFinite(input.provenancePass)
+    provenanceNote === null &&
+    typeof input.provenancePass === "number" &&
+    Number.isFinite(input.provenancePass)
       ? input.provenancePass
       : null;
+  const methodology =
+    provenanceNote === null ? input.methodology : `${input.methodology} · ${provenanceNote}`;
   const pass = passValue !== null ? ` · výpočetní pas ${czechInt(passValue)}` : "";
   const mismatch = input.formulaMismatch
     ? ` · POZOR: čísla spočítala starší linie metodiky „${input.formulaMismatch.storedRef}“, kód dnes deklaruje „${input.formulaMismatch.declaredRef}“`
@@ -77,12 +134,12 @@ export function buildPosterCitation(input: PosterCitationInput): PosterCitation 
   return {
     sourceLine: `zdroj: ${input.sourceLabel}`,
     retrievedLine: `stav dat ke dni ${czechDate(input.retrievedAt)} — plakát je datovaný otisk, čísla se v čase mění`,
-    methodologyLine: `metodika: ${input.methodology}${pass}${mismatch}`,
+    methodologyLine: `metodika: ${methodology}${pass}${mismatch}`,
     liveLine: `živá verze: ${displayUrl}`,
     displayUrl,
     source: input.sourceLabel,
     retrievedAt: input.retrievedAt,
-    methodology: input.methodology,
+    methodology,
     pass: passValue,
     mismatch: input.formulaMismatch ?? null,
   };

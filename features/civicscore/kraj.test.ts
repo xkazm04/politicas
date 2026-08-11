@@ -224,3 +224,74 @@ describe("krajCitationInput — the card reuses the canonical citation lines", (
     expect(c.methodologyLine).toContain("nejde o zveřejněnou metodiku");
   });
 });
+
+// Vytištěná kandidátka je archivní dokument: dokud komora nemá JEDEN původ
+// výpočtu, nesmí patička tvrdit jedno číslo pasu — a nesmí ani mlčet, protože
+// mlčení vypadá stejně jako záznam, který pas prostě nenese. Stav provenience
+// podává karta (KrajPage) přímo buildPosterCitation, výsledná věta je čistá.
+describe("krajCitationInput + provenience komory — patička nepřetiskne jistotu, kterou data nemají", () => {
+  const base = {
+    liveUrl: "https://politicas.cz/kraj/jihomoravsky/",
+    retrievedAt: "2026-07-30",
+    provenancePass: 42,
+    weights: { ...PUBLISHED_WEIGHTS },
+  };
+
+  it("jednotná komora: číslo pasu se tiskne beze změny (žádná nová věta)", () => {
+    const c = buildPosterCitation({
+      ...krajCitationInput(base),
+      provenanceState: "uniform",
+      provenanceVariants: 1,
+    });
+    expect(c.pass).toBe(42);
+    expect(c.methodologyLine).toContain("výpočetní pas 42");
+    expect(c.methodologyLine).not.toContain("nespočítal jeden a týž průchod");
+  });
+
+  it("smíšená komora: žádné číslo pasu, ale VĚTA — a s počtem verzí", () => {
+    const c = buildPosterCitation({
+      ...krajCitationInput(base),
+      provenanceState: "mixed",
+      provenanceVariants: 2,
+    });
+    expect(c.pass).toBeNull();
+    expect(c.methodologyLine).not.toContain("výpočetní pas");
+    expect(c.methodologyLine).toContain("nespočítal jeden a týž průchod");
+    expect(c.methodologyLine).toContain("2 různých kombinací");
+    // Strukturované pole čte sazba archu (PosterFrame) — věta musí být v něm.
+    expect(c.methodology).toContain("nespočítal jeden a týž průchod");
+  });
+
+  it("chybějící provenience: patička to přizná, nikdy nedomýšlí pas", () => {
+    const c = buildPosterCitation({
+      ...krajCitationInput(base),
+      provenanceState: "absent",
+      provenanceVariants: 0,
+    });
+    expect(c.pass).toBeNull();
+    expect(c.methodologyLine).not.toContain("výpočetní pas");
+    expect(c.methodologyLine).toContain("záznam o původu výpočtu chybí");
+  });
+
+  it("věta o nejednotnosti nepřebíjí čočku ani rozpor linie formule — stojí vedle nich", () => {
+    const weights = w({ attendance: 45, participation: 5 });
+    const c = buildPosterCitation({
+      ...krajCitationInput({
+        ...base,
+        weights,
+        formulaMismatch: { storedRef: "contribution", declaredRef: "contribution-committee-dedupe" },
+      }),
+      provenanceState: "mixed",
+      provenanceVariants: 3,
+    });
+    expect(c.methodologyLine).toContain("VLASTNÍ ČOČKA ČTENÁŘE");
+    expect(c.methodologyLine).toContain("3 různých kombinací");
+    expect(c.methodologyLine).toContain("kód dnes deklaruje „contribution-committee-dedupe“");
+  });
+
+  it("bez stavu provenience se chová přesně jako dřív (zpětná kompatibilita archu)", () => {
+    expect(buildPosterCitation(krajCitationInput(base))).toEqual(
+      buildPosterCitation({ ...krajCitationInput(base), provenanceState: null, provenanceVariants: null }),
+    );
+  });
+});
