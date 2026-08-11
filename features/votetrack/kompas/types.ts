@@ -67,6 +67,17 @@ export interface KompasData {
     tagged: number;
     /** Candidates that passed the selection-rule floors. */
     candidates: number;
+    /** Tagged roll calls excluded because their theme is on `EXCLUDED_THEMES`
+     *  (Procedura / Jiné) — a published rule whose casualties were, until
+     *  2026-08-11, dropped without a number. */
+    droppedByTheme: number;
+    /** Tagged, non-excluded roll calls the record holds no ballot for: their
+     *  participation could not be measured at all. Kept apart from
+     *  `droppedByPositional` — the floor did not judge them. */
+    withoutBallots: number;
+    /** Would-be candidates below the participation floor (select.ts
+     *  `MIN_POSITIONAL`) — the second floor that used to drop rows silently. */
+    droppedByPositional: number;
     /** Would-be candidates dropped by the tag-confidence floor (select.ts
      *  `MIN_TAG_CONFIDENCE`) — a stated loss, never a silent one. */
     droppedByConfidence: number;

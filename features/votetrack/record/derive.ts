@@ -26,11 +26,12 @@ import type {
   ClubAggregate,
   ClubTally,
   ClubVoteStat,
+  FullVoteRecord,
   LedgerVote,
   RebelEntry,
   RebelRank,
   SeismoDay,
-  VoteRecordData,
+  VoteIndexEntry,
   VoteStat,
 } from "./types";
 
@@ -183,7 +184,7 @@ export function deriveVoteRecord(
     nameByPerson: ReadonlyMap<number, string>;
   },
   opts: DeriveOptions = {},
-): VoteRecordData {
+): FullVoteRecord {
   const minClubPositional = opts.minClubPositional ?? MIN_CLUB_POSITIONAL;
   const minEligible = opts.minEligible ?? MIN_ELIGIBLE_VOTES;
   const ledgerWindow = opts.ledgerWindow ?? LEDGER_WINDOW;
@@ -296,6 +297,34 @@ export function deriveVoteRecord(
     rebels: rebelsByVote.get(e.pspId) ?? [],
   }));
   const inLedger = new Set(ledger.map((l) => l.pspId));
+
+  /* per-vote index — the compact projection /kompas selects its questions from.
+   * Zero extra passes over the ballots: everything here is already in `valid`,
+   * `totals` and `statById`. It exists so the compass can never compute a SECOND
+   * answer about one roll call (before 2026-08-11 it re-folded all ~406 000
+   * ballots for exactly these two facts — the chamber tally and the club line).
+   * `total` stays `null` for a roll call we hold no ballot for: the same rule the
+   * reconciliation below follows, and the reason `stat.total`'s zero-filled tally
+   * (which exists for rendering) must not be used here. */
+  const voteIndex: VoteIndexEntry[] = valid.map((e) => {
+    const stat = statById.get(e.pspId)!;
+    const clubLines: Record<string, "yes" | "no"> = {};
+    for (const [club, s] of Object.entries(stat.byClub)) {
+      if (s.line !== null) clubLines[club] = s.line;
+    }
+    return {
+      pspId: e.pspId,
+      title: titleOf(e),
+      votedOn: e.votedOn,
+      sessionNo: e.sessionNo,
+      voteNo: e.voteNo,
+      outcome: e.outcome,
+      sourceUrl: e.sourceUrl,
+      total: totals.get(e.pspId) ?? null,
+      clubLines,
+      inLedger: inLedger.has(e.pspId),
+    };
+  });
 
   /* seismogram — one bucket per voting day, oldest first */
   const byDay = new Map<string, { votes: number; rebels: number; cohesions: number[]; worst: { pspId: number; cohesion: number } | null }>();
@@ -430,6 +459,7 @@ export function deriveVoteRecord(
     chronicle,
     topRebels,
     reconciliation,
+    voteIndex,
     coverage: {
       events: events.length,
       valid: valid.length,

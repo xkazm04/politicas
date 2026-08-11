@@ -6,86 +6,127 @@
 // is computed client-side (kompas/score.ts) from the reader's answers — the
 // URL is the whole state, no accounts.
 //
-// ── Čtecí cesta (2026-08-10) ───────────────────────────────────────────────
-// Do 2026-08-10 si tenhle loader četl SVÝCH pět relací vedle getVoteRecord.ts —
-// stejné události, stejných ~406 000 hlasů, stejný registr, jen o dvě stě řádků
-// vedle. Teď obojí jde přes `readLedger()` (ledgerRead.ts, `react.cache()`d), takže
-// v jednom požadavku je čtení JEDNO; přes požadavky drží výsledek memo na stejném
-// okně jako peněžní vrstva (`MONEY_MEMO_TTL_MS`). Jediné čtení navíc, které tahle
-// plocha potřebuje a záznam ne, jsou tagy — `readVoteTags()`, taky sdílené.
+// ── Čtecí cesta (2026-08-11) ───────────────────────────────────────────────
+// Do 2026-08-10 si tenhle loader četl SVÝCH pět relací vedle getVoteRecord.ts.
+// Pak obojí šlo přes `readLedger()` — jedno čtení v jednom požadavku — ale
+// napříč požadavky si kompas držel VLASTNÍ memo nad VLASTNÍ derivací, takže
+// studený /kompas platil celý průchod 406 000 hlasy i ve chvíli, kdy /hlasovani
+// mělo záznam teplý. A počítal si přitom dvě věci, které ta derivace už spočítala
+// a zahodila: celosněmovní tally každého otagovaného hlasování a linii klubu.
+//
+// Teď kompas JEDE NA ZÁZNAMU: otázky vybírá z `record.voteIndex`
+// (record/types.ts) — rejstříku, který `getFullVoteRecord()` odvozuje a memoizuje
+// pro obě plochy. Vlastní memo tady žádné není: dvě mema nad jedním záznamem jsou
+// dvoje hodiny nad jedním číslem (precedens features/profile/getRebellionRecord.ts).
+//
+// Jediné, co kompas z hlasů opravdu potřebuje a záznam to neveze, jsou JMENOVITÉ
+// hlasy vybraných ~20 hlasování. Ty se čtou indexovaně přes `vote_ballot_vote_idx`
+// (`readBallotsForVotes`) — ~4 000 řádků místo 406 000.
+//
+// Pořadí čtení je taky rozhodnutí: tagy jdou PRVNÍ. Jsou to jednotky ms a bez nich
+// kompas neexistuje; do 2026-08-11 se četly až po záznamu, takže store s prázdnou
+// silver vrstvou (dnešní živý stav: 0 řádků ve `vote_tag`) platil ~15 s čtení hlasů
+// jen proto, aby vzápětí odpověděl „data nedostupná".
 //
 // Degrades gracefully to null (→ the page renders the honest DataUnavailable
 // state) if no store is configured, the ledger or the tag layer is below
-// readiness, or PGlite is unavailable at request time.
+// readiness, or PGlite is unavailable at request time. VÝBĚR, KTERÝ POCTIVĚ
+// NEVYBRAL NIC, null NENÍ — vrací se záznam s prázdnými otázkami a stránka pro něj
+// má vlastní větu (výpadek a prázdno jsou dvě různá tvrzení).
 
 import "server-only";
 import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
-import { createLedgerMemo } from "./ledgerMemo";
-import { readLedger, readVoteTags } from "./ledgerRead";
-import { bucketOf, LEDGER_WINDOW, lineOf, sortValidNewestFirst } from "./record/derive";
-import type { ClubTally } from "./record/types";
+import { getFullVoteRecord } from "./getVoteRecord";
+import { readBallotsForVotes, readRegistry, readVoteTags } from "./ledgerRead";
+import { bucketOf } from "./record/derive";
 import { selectQuestions } from "./kompas/select";
 import type { KompasBallots, KompasClubLines, KompasData, KompasMp } from "./kompas/types";
 
-const emptyTally = (): ClubTally => ({ yes: 0, no: 0, k: 0, away: 0 });
-
-/** Cross-request memo of the DERIVED compass (compact), bounded by the money layer's
- *  window. A compass with no questions is never memoized — see ledgerMemo.ts. */
-const kompasMemo = createLedgerMemo<KompasData>({ usable: (d) => d.questions.length > 0 });
-
-/** Test seam: drop the cross-request memo. Never called by the app. */
-export function resetKompasMemo(): void {
-  kompasMemo.reset();
-}
-
 export const getKompas = cache(async function getKompas(): Promise<KompasData | null> {
   try {
-    const memoized = kompasMemo.read();
-    if (memoized !== null) return memoized;
-
-    const ledger = await readLedger();
-    if (ledger === null) return null;
-
     const tags = await readVoteTags();
     if (tags.length === 0) return null;
 
-    const eventsIn = ledger.events;
+    const record = await getFullVoteRecord();
+    if (record === null) return null;
+
     const themeByVote = new Map(tags.map((t) => [t.votePspId, t.theme]));
     // Sebehlášená jistota klasifikátoru — dosud se při mapování tagů zahazovala,
     // takže špatně zařazené hlasování mohlo tiše změnit, kterých ~20 hlasování
     // reprezentuje období. Práh (select.ts) i počty vyřazených jdou na stránku.
     const confidenceByVote = new Map(tags.map((t) => [t.votePspId, t.confidence]));
 
-    /* full-chamber tallies for tagged votes (one O(ballots) pass) */
-    const totals = new Map<number, ClubTally>();
-    for (const b of ledger.ballots) {
-      if (!themeByVote.has(b.votePspId)) continue;
-      let t = totals.get(b.votePspId);
-      if (!t) {
-        t = emptyTally();
-        totals.set(b.votePspId, t);
-      }
-      t[bucketOf(b.choice)]++;
+    const selection = selectQuestions({ votes: record.voteIndex, themeByVote, confidenceByVote });
+
+    let tagged = 0;
+    for (const v of record.voteIndex) if (themeByVote.has(v.pspId)) tagged++;
+
+    // Pokrytí se NEPOČÍTÁ ZNOVU: `valid`, okno deníku i rozsah dat jsou pole
+    // téhož záznamu, který kreslí /hlasovani. Kdyby se dopočítávala tady, mohly
+    // by dvě plochy o jednom období tvrdit dvě různá čísla.
+    const coverage: KompasData["coverage"] = {
+      valid: record.coverage.valid,
+      tagged,
+      candidates: selection.candidates,
+      droppedByTheme: selection.droppedByTheme,
+      withoutBallots: selection.withoutBallots,
+      droppedByPositional: selection.droppedByPositional,
+      droppedByConfidence: selection.droppedByConfidence,
+      withoutConfidence: selection.withoutConfidence,
+      ledgerWindow: record.coverage.ledgerWindow,
+      from: record.coverage.from,
+      to: record.coverage.to,
+    };
+
+    const questions = selection.selected.map((s) => ({
+      votePspId: s.vote.pspId,
+      title: s.vote.title,
+      theme: s.theme,
+      votedOn: s.vote.votedOn,
+      sessionNo: s.vote.sessionNo,
+      voteNo: s.vote.voteNo,
+      outcome: s.vote.outcome,
+      total: s.total,
+      margin: s.margin,
+      sourceUrl: s.vote.sourceUrl,
+      inLedger: s.vote.inLedger,
+    }));
+
+    // Poctivé prázdno: pravidlo proběhlo nad přečteným záznamem a nevybralo nic.
+    // Žádné čtení hlasů se kvůli tomu nekoná — a stránka to smí říct jinak než výpadek.
+    if (questions.length === 0) {
+      return { questions, mps: [], ballots: {}, clubLines: {}, coverage };
     }
 
-    const { selected, candidates, droppedByConfidence, withoutConfidence } = selectQuestions({
-      events: eventsIn,
-      totals,
-      themeByVote,
-      confidenceByVote,
-    });
-    if (selected.length === 0) return null;
-    const selectedIds = new Set(selected.map((s) => s.event.pspId));
+    // Linie klubů si kompas UŽ NEPOČÍTÁ — jsou to tytéž přísné většiny, které
+    // record/derive.ts spočítal pro celou sněmovnu (a /hlasovani z nich kreslí
+    // disciplínu klubů). Druhá kopie toho pravidla by znamenala dvě odpovědi na
+    // otázku, jak klub v jednom hlasování stál.
+    const clubLines: KompasClubLines = {};
+    for (const s of selection.selected) {
+      if (Object.keys(s.vote.clubLines).length > 0) clubLines[s.vote.pspId] = { ...s.vote.clubLines };
+    }
 
-    /* per-question positional record + club tallies (second O(ballots) pass) */
-    const { clubByMandate, personByMandate, nameByPerson } = ledger;
+    /* jmenovité hlasy vybraných hlasování — jediné, co potřebuje syrové hlasy */
+    const registry = await readRegistry();
+    if (registry === null) return null;
+    const rows = await readBallotsForVotes(questions.map((q) => q.votePspId));
+    if (rows.length === 0) {
+      // Vybraná hlasování existují, hlasy k nim ne — to je nečitelná vrstva, ne
+      // sněmovna, ve které nikdo nehlasoval. Prázdný poziční záznam by z výpadku
+      // udělal tvrzení o poslancích.
+      reportLoaderFailure(
+        "getKompas",
+        new Error(`no ballots for ${questions.length} selected roll calls`),
+      );
+      return null;
+    }
 
+    const { clubByMandate, personByMandate, nameByPerson } = registry;
     const ballotMap: KompasBallots = {};
-    const clubTallies = new Map<number, Map<string, ClubTally>>();
     const mpSeen = new Map<number, KompasMp>();
-    for (const b of ledger.ballots) {
-      if (!selectedIds.has(b.votePspId)) continue;
+    for (const b of rows) {
       const person = personByMandate.get(b.mandatePspId);
       if (person === undefined) continue;
       const club = clubByMandate.get(b.mandatePspId) ?? null;
@@ -96,68 +137,15 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
       if (bucket !== "away") {
         (ballotMap[b.votePspId] ??= {})[person] = bucket;
       }
-      if (club !== null) {
-        let clubs = clubTallies.get(b.votePspId);
-        if (!clubs) {
-          clubs = new Map();
-          clubTallies.set(b.votePspId, clubs);
-        }
-        let t = clubs.get(club);
-        if (!t) {
-          t = emptyTally();
-          clubs.set(club, t);
-        }
-        t[bucket]++;
-      }
     }
 
-    const clubLines: KompasClubLines = {};
-    for (const [voteId, clubs] of clubTallies) {
-      for (const [club, t] of clubs) {
-        const line = lineOf(t);
-        if (line !== null) (clubLines[voteId] ??= {})[club] = line;
-      }
-    }
-
-    // Pořadí deníku a jeho okno se NEPOČÍTAJÍ znovu: `sortValidNewestFirst` je
-    // táž funkce, kterou si okno vyřezává deriveVoteRecord(), takže „uvnitř okna"
-    // znamená na obou plochách totéž a odkaz na kotvu nikdy nevede do prázdna.
-    const valid = sortValidNewestFirst(eventsIn);
-    const inLedger = new Set(valid.slice(0, LEDGER_WINDOW).map((e) => e.pspId));
-    const validDates = valid.map((e) => e.votedOn).filter((d): d is string => d !== null);
-    let tagged = 0;
-    for (const e of valid) if (themeByVote.has(e.pspId)) tagged++;
-
-    const data: KompasData = {
-      questions: selected.map((s) => ({
-        votePspId: s.event.pspId,
-        title: (s.event.titleLong ?? s.event.titleShort ?? s.event.titleNorm ?? "").trim() || `#${s.event.pspId}`,
-        theme: s.theme,
-        votedOn: s.event.votedOn,
-        sessionNo: s.event.sessionNo,
-        voteNo: s.event.voteNo,
-        outcome: s.event.outcome,
-        total: s.total,
-        margin: s.margin,
-        sourceUrl: s.event.sourceUrl,
-        inLedger: inLedger.has(s.event.pspId),
-      })),
+    return {
+      questions,
       mps: [...mpSeen.values()].sort((a, b) => a.name.localeCompare(b.name, "cs")),
       ballots: ballotMap,
       clubLines,
-      coverage: {
-        valid: valid.length,
-        tagged,
-        candidates,
-        droppedByConfidence,
-        withoutConfidence,
-        ledgerWindow: Math.min(LEDGER_WINDOW, valid.length),
-        from: validDates.length ? validDates.reduce((a, b) => (a < b ? a : b)) : null,
-        to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,
-      },
+      coverage,
     };
-    kompasMemo.write(data);
-    return data;
   } catch (err) {
     reportLoaderFailure("getKompas", err);
     return null;

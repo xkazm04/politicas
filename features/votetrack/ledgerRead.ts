@@ -42,6 +42,15 @@ export const TERM = "PSP10";
 export const EVENT_FLOOR = 1400;
 export const BALLOT_FLOOR = 280_000;
 
+/** Klub / osoba / jméno pro mandáty období — registr bez jediného hlasu.
+ *  Vlastní ho `readLedger()`, ale čte se i samostatně: /kompas potřebuje jména
+ *  a kluby k ~4 000 hlasům vybraných hlasování, ne k 406 000. */
+export interface RegistryRead {
+  clubByMandate: ReadonlyMap<number, string>;
+  personByMandate: ReadonlyMap<number, number>;
+  nameByPerson: ReadonlyMap<number, string>;
+}
+
 /** Whole-ledger read + registry, floors already applied. */
 export interface LedgerRead {
   events: EventIn[];
@@ -92,6 +101,40 @@ export const readVoteTags = cache(async function readVoteTags(): Promise<VoteTag
 });
 
 /**
+ * Kluby, mandáty a jména — JEDNA definice registru pro obě plochy.
+ *
+ * Vyňato z `readLedger()` (2026-08-11), ne zkopírováno: /kompas si k jmenovitým
+ * hlasům ~20 vybraných hlasování potřebuje týž registr, ale ne 406 000 hlasů,
+ * kvůli kterým by celý `readLedger()` volat musel. Cena na živém store:
+ * clubByMandate 28 ms · listMandates 12 ms · listPersons 314 ms.
+ */
+export const readRegistry = cache(async function readRegistry(): Promise<RegistryRead | null> {
+  const store = await getStore();
+  if (!store) return null;
+  const clubByMandate = await store.clubByMandate(TERM);
+  const mandates = await store.listMandates({ termCode: TERM, limit: KG_READ_CAP });
+  const personByMandate = new Map(mandates.map((m) => [m.pspId, m.personPspId]));
+  const persons = await store.listPersons({ limit: KG_READ_CAP });
+  const nameByPerson = new Map(persons.map((p) => [p.pspId, p.nameFull]));
+  return { clubByMandate, personByMandate, nameByPerson };
+});
+
+/**
+ * Jmenovité hlasy VYJMENOVANÝCH hlasování — indexované čtení přes
+ * `vote_ballot_vote_idx` (lib/db/store.ts `BallotListOptions`).
+ *
+ * Existuje pro /kompas: jediná věc, kterou ta plocha z hlasů opravdu potřebuje,
+ * jsou poziční hlasy ~20 vybraných hlasování, a do 2026-08-11 si kvůli nim četla
+ * celou relaci. Prázdný seznam id vrací prázdno, ne celé období.
+ */
+export async function readBallotsForVotes(voteIds: readonly number[]): Promise<VoteBallotRow[]> {
+  if (voteIds.length === 0) return [];
+  const store = await getStore();
+  if (!store) return [];
+  return store.listVoteBallots({ voteIds, limit: KG_READ_CAP });
+}
+
+/**
  * The whole ledger, ready to derive from. `null` = no store, PGlite unavailable, or
  * the record is BELOW its readiness floor — and the floor runs HERE, before any
  * caller can memoize, so a half-ingested ledger is never frozen for a TTL window.
@@ -120,11 +163,8 @@ export const readLedger = cache(async function readLedger(): Promise<LedgerRead 
     return null;
   }
 
-  const clubByMandate = await store.clubByMandate(TERM);
-  const mandates = await store.listMandates({ termCode: TERM, limit: KG_READ_CAP });
-  const personByMandate = new Map(mandates.map((m) => [m.pspId, m.personPspId]));
-  const persons = await store.listPersons({ limit: KG_READ_CAP });
-  const nameByPerson = new Map(persons.map((p) => [p.pspId, p.nameFull]));
+  const registry = await readRegistry();
+  if (registry === null) return null;
 
-  return { events: events.map(toEventIn), ballots, clubByMandate, personByMandate, nameByPerson };
+  return { events: events.map(toEventIn), ballots, ...registry };
 });

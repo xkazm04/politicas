@@ -58,10 +58,20 @@ export default function KompasPage({ data }: { data: KompasData }) {
         tagged: data.coverage.tagged,
         candidates: data.coverage.candidates,
         minConfidence: minConfidencePct,
-        droppedByConfidence: f.int(data.coverage.droppedByConfidence),
-        withoutConfidence: f.int(data.coverage.withoutConfidence),
         from: data.coverage.from ? f.date(data.coverage.from) : "—",
         to: data.coverage.to ? f.date(data.coverage.to) : "—",
+      }),
+      // Každý práh výběru se počítá a jde na stránku — do 2026-08-11 to platilo
+      // jen o jistotě tématu, zatímco vyloučená témata a účast zahazovaly
+      // kandidáty mlčky. Prahy samotné se tisknou ŽIVÝMI konstantami ze select.ts.
+      floors: t("kompas.selectionFloors", {
+        droppedByTheme: f.int(data.coverage.droppedByTheme),
+        withoutBallots: f.int(data.coverage.withoutBallots),
+        droppedByPositional: f.int(data.coverage.droppedByPositional),
+        minPositional: MIN_POSITIONAL,
+        droppedByConfidence: f.int(data.coverage.droppedByConfidence),
+        withoutConfidence: f.int(data.coverage.withoutConfidence),
+        minConfidence: minConfidencePct,
       }),
       freshness: t("kompas.freshness", { hours: f.int(RECORD_MEMO_HOURS) }),
     }),
@@ -101,6 +111,36 @@ export default function KompasPage({ data }: { data: KompasData }) {
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-steel-aa">{t("kompas.howTo")}</p>
         </div>
 
+        {/* Poctivé prázdno NENÍ výpadek. `getKompas()` vrací `null` jen když se
+            hlasovací nebo tematická vrstva vůbec nepřečetla (→ DataUnavailable);
+            pravidlo, které nad přečteným záznamem poctivě nevybralo nic, vrací
+            záznam s prázdnými otázkami a dostane vlastní větu — jinak by výpadek
+            a prázdno vypadaly na ploše stejně. */}
+        {total === 0 ? (
+          <section id="otazky" className="pb-20">
+            <SectionHeading
+              index={1}
+              title={t("kompas.emptyTitle")}
+              aside={<SourceNote>{t("kompas.questionsNote", { n: total })}</SourceNote>}
+            />
+            <div className="mt-6 border-2 border-hairline p-6">
+              <p className="text-base leading-relaxed text-steel">{t("kompas.emptyBody")}</p>
+              <div className="mt-3 border-l-4 border-cobalt pl-4">
+                <SourceNote>{rules.selection}</SourceNote>
+                <div className="mt-2">
+                  <SourceNote>{rules.source}</SourceNote>
+                </div>
+                <div className="mt-2">
+                  <SourceNote>{rules.floors}</SourceNote>
+                </div>
+                <div className="mt-2">
+                  <SourceNote>{rules.freshness}</SourceNote>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <>
         {/* ── 01 Otázky ─────────────────────────────────────── */}
         <section id="otazky">
           <SectionHeading index={1} title={t("kompas.questionsTitle")} aside={<SourceNote>{t("kompas.questionsNote", { n: total })}</SourceNote>} />
@@ -154,6 +194,9 @@ export default function KompasPage({ data }: { data: KompasData }) {
                     <SourceNote>{rules.source}</SourceNote>
                   </div>
                   <div className="mt-2">
+                    <SourceNote>{rules.floors}</SourceNote>
+                  </div>
+                  <div className="mt-2">
                     <SourceNote>{rules.freshness}</SourceNote>
                   </div>
                 </div>
@@ -161,6 +204,8 @@ export default function KompasPage({ data }: { data: KompasData }) {
             )}
           </div>
         </section>
+          </>
+        )}
       </div>
     </main>
   );

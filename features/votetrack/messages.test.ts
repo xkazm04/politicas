@@ -184,11 +184,79 @@ describe("kompas selection rule — the tag-confidence floor", () => {
     expect(en["kompas.selectionRule"]).toMatch(/no stated confidence/i);
   });
 
-  it("the data-basis line carries the floor and the counts it produced", () => {
-    for (const v of ["minConfidence", "droppedByConfidence", "withoutConfidence"]) {
-      expect(variables(cs["kompas.rulesSource"]), v).toContain(v);
-      expect(variables(en["kompas.rulesSource"]), v).toContain(v);
+  it("the data-basis line carries the floor's live value", () => {
+    expect(variables(cs["kompas.rulesSource"])).toContain("minConfidence");
+    expect(variables(en["kompas.rulesSource"])).toContain("minConfidence");
+  });
+});
+
+/* ── každý práh výběru má své číslo ────────────────────────────────────────── */
+
+describe("kompas.selectionFloors — every floor counts its casualties", () => {
+  // Do 2026-08-11 se počítal JEDINÝ ze čtyř prahů. `MIN_POSITIONAL` a
+  // `EXCLUDED_THEMES` zahazovaly kandidáty bez čísla, přestože obojí je součástí
+  // ZVEŘEJNĚNÉHO pravidla — tj. plocha tiskla pravidlo, jehož dopad nešlo ověřit.
+  it("names all four floors plus the two counts that are not a drop", () => {
+    for (const v of [
+      "droppedByTheme",
+      "withoutBallots",
+      "droppedByPositional",
+      "minPositional",
+      "droppedByConfidence",
+      "withoutConfidence",
+      "minConfidence",
+    ]) {
+      expect(variables(cs["kompas.selectionFloors"]), v).toContain(v);
+      expect(variables(en["kompas.selectionFloors"]), v).toContain(v);
     }
+  });
+
+  it("states that the floors are ordered, so the counts are a loss and not an overlap", () => {
+    expect(cs["kompas.selectionFloors"]).toMatch(/pořadí/);
+    expect(cs["kompas.selectionFloors"]).toMatch(/překryv/);
+    expect(en["kompas.selectionFloors"]).toMatch(/overlap/i);
+  });
+
+  it("says a roll call with no stored ballots was not measured, not that nobody voted", () => {
+    expect(cs["kompas.selectionFloors"]).toMatch(/nedržíme ani jeden/);
+    expect(en["kompas.selectionFloors"]).toMatch(/not a single named ballot/i);
+  });
+});
+
+/* ── prázdný výběr ≠ výpadek ───────────────────────────────────────────────── */
+
+describe("kompas.empty* — an honest empty selection is not an outage", () => {
+  it("declares both sentences in both locales", () => {
+    for (const k of ["kompas.emptyTitle", "kompas.emptyBody"]) {
+      expect(cs[k], k).toBeTruthy();
+      expect(en[k], k).toBeTruthy();
+    }
+  });
+
+  it("says out loud that the record WAS read — an outage claim would be false", () => {
+    expect(cs["kompas.emptyBody"]).toMatch(/přečetl/);
+    expect(cs["kompas.emptyBody"]).toMatch(/není to výpadek/i);
+    expect(en["kompas.emptyBody"]).toMatch(/not an outage/i);
+    // …and it must not read like the unavailable state next door.
+    expect(cs["kompas.emptyBody"]).not.toBe(cs["kompas.unavailableWhat"]);
+  });
+});
+
+/* ── čerstvost říká, co se memoizuje a co ne ───────────────────────────────── */
+
+describe("kompas.freshness — the bound the page actually has", () => {
+  // Od 2026-08-11 je kompas projekcí memoizovaného ZÁZNAMU (otázky, součty,
+  // linie klubů) plus čtení jmenovitých hlasů PŘI KAŽDÉM POŽADAVKU. Věta, která
+  // by tvrdila, že „výsledek je memoizovaný", by o půlce plochy lhala.
+  it("names the memo window and says what is read fresh instead", () => {
+    expect(variables(cs["kompas.freshness"])).toEqual(["hours"]);
+    expect(cs["kompas.freshness"]).toMatch(/při každém požadavku/);
+    expect(en["kompas.freshness"]).toMatch(/on every request/i);
+  });
+
+  it("still names the shared bound the rest of the app declares", () => {
+    expect(cs["kompas.freshness"]).toMatch(/penize/);
+    expect(en["kompas.freshness"]).toMatch(/penize/);
   });
 });
 

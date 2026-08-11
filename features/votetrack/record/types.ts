@@ -102,6 +102,44 @@ export interface RebelRank {
   rate: number;
 }
 
+/**
+ * Jedno PLATNÉ hlasování v kompaktním rejstříku — to, co si o hlasování
+ * odvodila derivace a co z toho čte volební kompas.
+ *
+ * ── Proč to tu je (2026-08-11) ─────────────────────────────────────────────
+ * `getKompas.ts` si nad týmiž 406 000 hlasy počítal DVĚ věci, které tahle
+ * derivace už spočítala a zahodila: celosněmovní tally každého otagovaného
+ * hlasování (průchod A) a linii klubu podle přísné většiny (půlka průchodu B).
+ * Dvě kopie jednoho pravidla nad jedním záznamem znamenají dvě čísla o jednom
+ * hlasování — a v tomhle případě i druhý šestnáctisekundový průchod na okno
+ * mema. Rejstřík je to jediné, co kompas z hlasů potřebuje pro VÝBĚR otázek;
+ * jmenovité hlasy vybraných ~20 hlasování si dočítá zvlášť a indexovaně.
+ *
+ * Rejstřík je jen z PLATNÝCH hlasování (zmatečná sem nepatří stejně jako do
+ * žádné jiné metriky) a v pořadí deníku — od nejnovějšího.
+ */
+export interface VoteIndexEntry {
+  pspId: number;
+  /** titleLong ?? titleShort ?? titleNorm, jinak `#pspId` — táž funkce jako deník. */
+  title: string;
+  votedOn: string | null;
+  sessionNo: number | null;
+  voteNo: number | null;
+  outcome: string;
+  sourceUrl: string;
+  /**
+   * Celosněmovní tally hlasování (všechny uložené hlasy, bucketované), nebo
+   * `null`, pokud k hlasování NEDRŽÍME ani jeden hlas — přesně jako v kontrole
+   * proti zveřejněným součtům. Nulový přepočet se nedopočítává: „nemáme hlasy"
+   * a „nikdo nehlasoval" jsou dvě různá tvrzení.
+   */
+  total: ClubTally | null;
+  /** Linie klubu (přísná většina pozičních hlasů); klub bez linie tu není. */
+  clubLines: Record<string, "yes" | "no">;
+  /** Leží hlasování v okně deníku (`coverage.ledgerWindow` nejnovějších platných)? */
+  inLedger: boolean;
+}
+
 export interface VoteRecordData {
   /** The `ledgerWindow` most recent valid roll calls, newest first. */
   ledger: LedgerVote[];
@@ -120,6 +158,17 @@ export interface VoteRecordData {
    * zveřejněných sloupců je NEPOROVNANÉ, nikdy dohadované.
    */
   reconciliation: ReconciliationSummary;
+  /**
+   * Rejstřík VŠECH platných hlasování (viz `VoteIndexEntry`) — vstup, ze kterého
+   * volební kompas vybírá otázky.
+   *
+   * VOLITELNÝ SCHVÁLNĚ, a je to jediné pole záznamu, které je: `getVoteRecord()`
+   * ho před předáním klientovi /hlasovani ZAHAZUJE (`toWireRecord`), protože ta
+   * stránka z něj nevykresluje nic a jsou to stovky kB navíc přes síť. Derivace
+   * ho plní vždy — proto `FullVoteRecord` níž, který ho má povinný a který
+   * memoizuje `getFullVoteRecord()`.
+   */
+  voteIndex?: VoteIndexEntry[];
   coverage: {
     events: number;
     valid: number;
@@ -131,3 +180,6 @@ export interface VoteRecordData {
     unaffiliatedSeats: number;
   };
 }
+
+/** Záznam tak, jak ho derivace VRACÍ a jak ho drží memo: s rejstříkem. */
+export type FullVoteRecord = VoteRecordData & { voteIndex: VoteIndexEntry[] };

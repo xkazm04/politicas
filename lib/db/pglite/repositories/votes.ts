@@ -2,7 +2,7 @@
 
 import type { VoteRepository } from "../../store";
 import type { AbsenceRow, VoteBallotRow, VoteEventRow } from "../../types";
-import { limitOf, num, str, upsertMany, type Pglite } from "../internals";
+import { limitOf, num, str, upsertMany, warnIfTruncated, type Pglite } from "../internals";
 import {
   ABSENCE_COLS,
   BALLOT_COLS,
@@ -51,12 +51,28 @@ export function makeVoteRepo(pg: Pglite): VoteRepository {
       return rows.map(mapVoteEvent);
     },
     async listVoteBallots(opts) {
+      const limit = limitOf(opts);
+      const ids = opts?.voteIds;
+      // An empty id list is a REAL filter that matches nothing — dropping it and
+      // reading the whole 406 000-row relation instead would be the worst possible
+      // reading of "no votes selected".
+      if (ids !== undefined && ids.length === 0) return [];
       const j = termJoinBallots(opts?.termCode);
+      // Both filters apply when both are given; the roll-call predicate rides
+      // `vote_ballot_vote_idx` (bitmap index scan — measured, see BallotListOptions).
+      const where = ids === undefined ? "" : ` where vote_ballot.vote_psp_id = any($${j.params.length + 1}::int[])`;
+      const params = ids === undefined ? j.params : [...j.params, [...ids]];
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select vote_ballot.* from vote_ballot${j.sql}
+        `select vote_ballot.* from vote_ballot${j.sql}${where}
           order by vote_ballot.vote_psp_id, vote_ballot.mandate_psp_id
-          limit ${limitOf(opts)}`,
-        j.params,
+          limit ${limit}`,
+        params,
+      );
+      warnIfTruncated(
+        "listVoteBallots",
+        rows.length,
+        limit,
+        ids === undefined ? opts?.termCode : `${opts?.termCode ?? "*"}/voteIds=${ids.length}`,
       );
       return rows.map(mapBallot);
     },

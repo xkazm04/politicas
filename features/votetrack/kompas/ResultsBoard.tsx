@@ -255,8 +255,10 @@ export default function ResultsBoard({
   ballots: KompasBallots;
   answers: ReadonlyMap<number, Answer>;
   onReset: () => void;
-  /** The verbatim disclosed rules + coverage line, rendered inside the frame. */
-  rules: { selection: string; scoring: string; source: string; freshness: string };
+  /** The verbatim disclosed rules + coverage line, rendered inside the frame.
+   *  `floors` counts what each selection floor dropped — every one of them, since
+   *  2026-08-11; before that only the confidence floor was ever counted. */
+  rules: { selection: string; scoring: string; source: string; floors: string; freshness: string };
   /** How many newest roll calls the /hlasovani ledger draws — named in the
    *  receipt note that explains why some rows link psp.cz instead of an anchor. */
   ledgerWindow: number;
@@ -387,6 +389,7 @@ export default function ResultsBoard({
           <SourceNote>{rules.selection}</SourceNote>
           <SourceNote>{rules.scoring}</SourceNote>
           <SourceNote>{rules.source}</SourceNote>
+          <SourceNote>{rules.floors}</SourceNote>
           <SourceNote>{rules.freshness}</SourceNote>
         </div>
       </div>

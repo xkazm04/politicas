@@ -56,13 +56,29 @@ export interface GraphRepository {
   clubByMandate(termCode: string): Promise<Map<number, string>>;
 }
 
+/**
+ * Ballot reads take one option the other listers do not: a roll-call filter.
+ *
+ * `vote_ballot` is the corpus hot table (~406 000 rows, ~8 s to read whole), and
+ * a surface that needs the named votes of TWENTY roll calls should not pay for
+ * the term. `vote_ballot_vote_idx` has existed since the first DDL and nothing
+ * exposed it — /kompas re-read the whole relation for ~4 000 rows. Measured on
+ * the live store: bitmap index scan, 4 000 rows in 29 ms (planner output in the
+ * commit that added this) against 7 281–7 705 ms for the full term read.
+ */
+export interface BallotListOptions extends ListOptions {
+  /** Restrict to these roll calls (`vote_ballot.vote_psp_id`). An EMPTY array
+   *  means no roll calls and returns no rows — never "no filter". */
+  voteIds?: readonly number[];
+}
+
 /** roll calls, per-MP ballots, excused absences — the temporal side. */
 export interface VoteRepository {
   upsertVoteEvents(rows: VoteEventRow[]): Promise<number>;
   upsertVoteBallots(rows: VoteBallotRow[]): Promise<number>;
   upsertAbsences(rows: AbsenceRow[]): Promise<number>;
   listVoteEvents(opts?: ListOptions): Promise<VoteEventRow[]>;
-  listVoteBallots(opts?: ListOptions): Promise<VoteBallotRow[]>;
+  listVoteBallots(opts?: BallotListOptions): Promise<VoteBallotRow[]>;
   listAbsences(opts?: ListOptions): Promise<AbsenceRow[]>;
   countVoteBallots(termCode?: string): Promise<number>;
   /** Per-MP ballot tallies for a term: mandatePspId → {choice → count}. */

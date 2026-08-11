@@ -34,6 +34,14 @@
 // 24 (~stovky kB proti jednotkám). Vedle 406 000 hlasů, které se v memu záměrně
 // nedrží (viz ledgerMemo.ts), je to zaokrouhlovací chyba — a kupuje se za ni celý
 // jeden průchod záznamem na okno.
+//
+// ── A KOMPAS JEDE NA TÉMŽE ZÁZNAMU (2026-08-11) ────────────────────────────────
+// Od téhož dne se v memoizovaném objektu veze i `voteIndex` — rejstřík všech
+// platných hlasování s celosněmovním tally a linií klubu (record/types.ts). Ten
+// existuje kvůli /kompas, který si obojí do teď počítal SÁM nad týmiž 406 000 hlasy
+// ve vlastním memu s vlastním průchodem. Rejstřík derivaci nestojí ani jeden průchod
+// navíc (všechno v něm už je spočítané) a přes hranici ke klientovi /hlasovani
+// NEJDE: `toWireRecord()` ho zahazuje, protože ta stránka z něj nekreslí nic.
 
 import "server-only";
 import { cache } from "react";
@@ -41,7 +49,7 @@ import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { createLedgerMemo } from "./ledgerMemo";
 import { readLedger } from "./ledgerRead";
 import { CHRONICLE_CAP, deriveVoteRecord } from "./record/derive";
-import type { VoteRecordData } from "./record/types";
+import type { FullVoteRecord, VoteRecordData } from "./record/types";
 
 // The floors are the ledger read's; re-exported because features/profile/
 // getRebellionRecord.ts imports them from here and must refuse a half-ingested
@@ -55,7 +63,32 @@ export const UNCAPPED_CHRONICLE = Number.MAX_SAFE_INTEGER;
 
 /** Cross-request memo of the DERIVED record (compact), bounded by the money layer's
  *  window. An empty ledger is never memoized — see ledgerMemo.ts for the discipline. */
-const recordMemo = createLedgerMemo<VoteRecordData>({ usable: (r) => r.ledger.length > 0 });
+const recordMemo = createLedgerMemo<FullVoteRecord>({ usable: (r) => r.ledger.length > 0 });
+
+/**
+ * Co ze záznamu přechází k /hlasovani na KLIENTA.
+ *
+ * `voteIndex` ne, a je to jediné vynechané pole: rejstřík všech platných
+ * hlasování vzniká pro výběr otázek kompasu, /hlasovani z něj nevykresluje nic
+ * a přes síť by to byly stovky kB navíc (vzor `TIE_WIRE` z /penize — projekce
+ * mezi loaderem a klientem, ne druhá derivace). Kronika se tu ještě ořízne na
+ * prezentační okno stránky.
+ *
+ * Vypsáno POLE PO POLI schválně: kdo do `VoteRecordData` přidá pole, narazí tady
+ * a musí rozhodnout, jestli patří přes hranici — mlčky projít to nemůže.
+ */
+export function toWireRecord(full: FullVoteRecord): VoteRecordData {
+  return {
+    ledger: full.ledger,
+    seismogram: full.seismogram,
+    clubs: full.clubs,
+    chronicle:
+      full.chronicle.length <= CHRONICLE_CAP ? full.chronicle : full.chronicle.slice(0, CHRONICLE_CAP),
+    topRebels: full.topRebels,
+    reconciliation: full.reconciliation,
+    coverage: full.coverage,
+  };
+}
 
 /** Test seam: drop the cross-request memo (the `resetSuppliesMemo` precedent).
  *  Never called by the app. */
@@ -74,7 +107,7 @@ export function resetVoteRecordMemo(): void {
  * floors run inside `readLedger()` (before anything here can memoize), and
  * `createLedgerMemo` refuses to store a null or an empty record.
  */
-export const getFullVoteRecord = cache(async function getFullVoteRecord(): Promise<VoteRecordData | null> {
+export const getFullVoteRecord = cache(async function getFullVoteRecord(): Promise<FullVoteRecord | null> {
   try {
     const memoized = recordMemo.read();
     if (memoized !== null) return memoized;
@@ -92,13 +125,12 @@ export const getFullVoteRecord = cache(async function getFullVoteRecord(): Promi
 });
 
 /**
- * The record as /hlasovani renders it: same object, chronicle cut to the page's
- * own presentation window (`CHRONICLE_CAP`, disclosed in the copy). The cut is a
- * prefix of the full chronicle, so the rendered output is what it always was.
+ * The record as /hlasovani renders it: the same object minus the compass's vote
+ * index, chronicle cut to the page's own presentation window (`CHRONICLE_CAP`,
+ * disclosed in the copy). The cut is a prefix of the full chronicle, so the
+ * rendered output is what it always was.
  */
 export const getVoteRecord = cache(async function getVoteRecord(): Promise<VoteRecordData | null> {
   const full = await getFullVoteRecord();
-  if (full === null) return null;
-  if (full.chronicle.length <= CHRONICLE_CAP) return full;
-  return { ...full, chronicle: full.chronicle.slice(0, CHRONICLE_CAP) };
+  return full === null ? null : toWireRecord(full);
 });

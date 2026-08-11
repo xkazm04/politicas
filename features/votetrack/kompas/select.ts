@@ -3,6 +3,21 @@
 // editorial hand touches the set: the same ledger always yields the same
 // questions.
 //
+// ── Vstup je REJSTŘÍK ZÁZNAMU (2026-08-11) ─────────────────────────────────
+// Dřív sem chodily `EventIn[]` plus mapa celosněmovních tally, kterou si
+// getKompas.ts počítal vlastním průchodem 406 000 hlasů. Teď chodí
+// `VoteIndexEntry[]` — rejstřík, který derivace záznamu (record/derive.ts)
+// stejně vyrábí a memoizuje. Rejstřík je z definice jen z PLATNÝCH hlasování,
+// takže tady žádný filtr zmatečnosti není: kdo ho obchází a staví si vstup
+// jinudy, musí zmatečná vyřadit sám.
+//
+// ── KAŽDÝ PRÁH SE POČÍTÁ (2026-08-11) ──────────────────────────────────────
+// Do dneška se počítal jen práh jistoty tématu; vyloučená témata a účast
+// zahazovaly kandidáty MLČKY — na ploše, jejíž celý slib je, že pravidlo je
+// zkontrolovatelné. Prahy se vyhodnocují v pořadí, ve kterém jsou napsané, a
+// hlasování vyřazené dřív se do dalšího počtu už nezapočítá; jinak by součty
+// popisovaly překryv, ne ztrátu.
+//
 // The rule:
 //   1. Candidates are valid (non-voided) PSP10 roll calls that carry a
 //      Silver-layer theme tag, excluding the themes `procedura` and `jine`
@@ -22,8 +37,7 @@
 // Pure + fixture-tested in select.test.ts; the loader (getKompas.ts) is a
 // thin IO shell.
 
-import type { EventIn } from "../record/derive";
-import type { ClubTally } from "../record/types";
+import type { ClubTally, VoteIndexEntry } from "../record/types";
 
 export const QUESTIONS_CAP = 20;
 export const PER_THEME_CAP = 2;
@@ -62,7 +76,7 @@ export interface SelectOptions {
 }
 
 export interface SelectedVote {
-  event: EventIn;
+  vote: VoteIndexEntry;
   theme: string;
   total: ClubTally;
   /** |yes − no| / (yes + no), 3dp. */
@@ -73,6 +87,16 @@ export interface SelectionResult {
   selected: SelectedVote[];
   /** Candidates that passed all floors (before the caps). */
   candidates: number;
+  /** Tagged roll calls whose theme is on the excluded list (`EXCLUDED_THEMES`) —
+   *  counted, so the exclusion is a stated loss rather than a silent one. */
+  droppedByTheme: number;
+  /** Tagged, non-excluded roll calls for which the record holds NO ballot at all:
+   *  participation could not be measured, so the floor never judged them. Kept
+   *  apart from `droppedByPositional` — "we have no ballots" and "too few voted"
+   *  are two different statements. */
+  withoutBallots: number;
+  /** Would-be candidates below the participation floor (`MIN_POSITIONAL`). */
+  droppedByPositional: number;
   /** Would-be candidates whose tag REPORTS a confidence below the floor — dropped
    *  and disclosed, so the floor is never a silent loss. */
   droppedByConfidence: number;
@@ -84,9 +108,10 @@ export interface SelectionResult {
 
 export function selectQuestions(
   input: {
-    events: readonly EventIn[];
-    /** Bucketed 200-ballot tallies per vote (record/derive.ts bucketOf rule). */
-    totals: ReadonlyMap<number, ClubTally>;
+    /** The record's own per-VALID-vote index (record/types.ts) — carries the
+     *  chamber tally and the club lines derive.ts already computed. Voided roll
+     *  calls are absent from it by construction. */
+    votes: readonly VoteIndexEntry[];
     /** Silver-layer theme per vote. */
     themeByVote: ReadonlyMap<number, string>;
     /** Classifier self-reported confidence per vote (`vote_tag.confidence`, 0–1).
@@ -104,19 +129,33 @@ export function selectQuestions(
   /* 1 — candidate floor */
   const byTheme = new Map<string, SelectedVote[]>();
   let candidates = 0;
+  let droppedByTheme = 0;
+  let withoutBallots = 0;
+  let droppedByPositional = 0;
   let droppedByConfidence = 0;
   let withoutConfidence = 0;
-  for (const event of input.events) {
-    if (event.voided) continue;
-    const theme = input.themeByVote.get(event.pspId);
-    if (theme === undefined || excluded.has(theme)) continue;
-    const total = input.totals.get(event.pspId);
-    if (!total) continue;
+  for (const vote of input.votes) {
+    const theme = input.themeByVote.get(vote.pspId);
+    // Netagované hlasování NENÍ obětí prahu — pravidlo o něm nerozhoduje, jen o něm
+    // nic neví. Kolik jich je, říká `coverage.tagged`.
+    if (theme === undefined) continue;
+    if (excluded.has(theme)) {
+      droppedByTheme++;
+      continue;
+    }
+    const total = vote.total;
+    if (!total) {
+      withoutBallots++;
+      continue;
+    }
     const pos = total.yes + total.no;
-    if (pos < minPositional) continue;
+    if (pos < minPositional) {
+      droppedByPositional++;
+      continue;
+    }
     // Poslední práh SCHVÁLNĚ: `droppedByConfidence` má být počet kandidátů, které
     // vzala jistota — ne směs s hlasováními, která stejně neprošla účastí.
-    const confidence = input.confidenceByVote?.get(event.pspId) ?? null;
+    const confidence = input.confidenceByVote?.get(vote.pspId) ?? null;
     if (confidence === null || !Number.isFinite(confidence)) {
       withoutConfidence++;
     } else if (confidence < minConfidence) {
@@ -130,7 +169,7 @@ export function selectQuestions(
       list = [];
       byTheme.set(theme, list);
     }
-    list.push({ event, theme, total, margin });
+    list.push({ vote, theme, total, margin });
   }
 
   /* 2 — per-theme rank: margin asc, positional desc, newest, higher id */
@@ -139,8 +178,8 @@ export function selectQuestions(
       (a, b) =>
         a.margin - b.margin ||
         b.total.yes + b.total.no - (a.total.yes + a.total.no) ||
-        (b.event.votedOn ?? "").localeCompare(a.event.votedOn ?? "") ||
-        b.event.pspId - a.event.pspId,
+        (b.vote.votedOn ?? "").localeCompare(a.vote.votedOn ?? "") ||
+        b.vote.pspId - a.vote.pspId,
     );
   }
 
@@ -156,5 +195,13 @@ export function selectQuestions(
       if (pick) selected.push(pick);
     }
   }
-  return { selected, candidates, droppedByConfidence, withoutConfidence };
+  return {
+    selected,
+    candidates,
+    droppedByTheme,
+    withoutBallots,
+    droppedByPositional,
+    droppedByConfidence,
+    withoutConfidence,
+  };
 }

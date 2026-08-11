@@ -100,6 +100,13 @@ describe("chronicleCap je prezentační řez, ne vstup derivace", () => {
       "clubs",
       "topRebels",
       "reconciliation",
+      // 2026-08-11: `voteIndex` (rejstřík platných hlasování, ze kterého /kompas
+      // vybírá otázky) je na mezi NEZÁVISLÝ — a musí být. Mez kroniky je
+      // prezentační okno /hlasovani; kdyby se jí hnul rejstřík, uříznutý běh by
+      // vybral jiné otázky než neuříznutý a kompas by měl dvě sady podle toho,
+      // která plocha záznam zrovna zahřála. Rejstřík se plní z `valid`, `totals`
+      // a `statById` — kronika do žádného z nich nemluví.
+      "voteIndex",
       "coverage",
     ];
     for (const key of fields) expect(c[key], key).toEqual(f[key]);
