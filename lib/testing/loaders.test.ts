@@ -1473,7 +1473,7 @@ describe("getAdminData", () => {
     expect(audit.lastDecidedAt).toContain("2026-07-03");
   });
 
-  it("reports real graph totals and the paused-loop state", async () => {
+  it("reports real graph totals and the loop state it READ (never a constant)", async () => {
     const data = await getAdminData();
     const g = data.systemState.graph!;
     expect(g).not.toBeNull();
@@ -1485,8 +1485,18 @@ describe("getAdminData", () => {
     expect(Object.values(g.edgesByRel).reduce((s, n) => s + n, 0)).toBe(g.edges);
     expect(g.nodesByKind.mimozemstan).toBe(1);
     expect(g.edgesByRel.linked_to).toBe(4);
-    expect(data.systemState.loopsPaused).toBe(true);
-    expect(data.systemState.loopsPausedLabel.length).toBeGreaterThan(0);
+    // Until 2026-08-12 this asserted a hardcoded `loopsPaused === true` while
+    // docs/case-loops.md had said RUNNING since 2026-07-25 — the test pinned the
+    // lie. The state is now DERIVED from that document's STATUS line, so this
+    // re-derives it independently (own fs read + the pure parser) rather than
+    // freezing a value the document is free to change.
+    const { parseLoopsStatus, LOOPS_STATUS_SOURCE } = await import("../../features/admin/loops/loopState");
+    const { readFileSync } = await import("node:fs");
+    const expected = parseLoopsStatus(readFileSync(LOOPS_STATUS_SOURCE, "utf8"));
+    expect(data.systemState.loopsRunState).toBe(expected.state);
+    expect(data.systemState.loopsStatusLabel).toBe(expected.labelCs);
+    expect(data.systemState.loopsStatusSource).toBe(LOOPS_STATUS_SOURCE);
+    expect(data.systemState.loopsStatusLabel.length).toBeGreaterThan(0);
   });
 
   it("reads the three case ledgers off disk, each degrading independently", async () => {

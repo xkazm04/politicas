@@ -1,8 +1,12 @@
 // Server-only: the /admin loader. The case loops (money/effort/law —
-// docs/case-loops.md) are PAUSED in the manifestation phase; this reads their
-// left-behind state so the operator can see progress and drive review without
-// digging through the vault by hand. Three source families, each read
-// independently and each allowed to fail on its own:
+// docs/case-loops.md) leave their state behind in the vault; this reads it so
+// the operator can see progress and drive review without digging through the
+// files by hand. WHETHER THE LOOPS RUN IS READ, NOT DECLARED (2026-08-12):
+// until now a `LOOPS_PAUSED = true` constant asserted "manifestační fáze"
+// while the document itself has said RUNNING since 2026-07-25 and the vault
+// stands at pass 55 — a hardcoded flag outlived the operation it described and
+// silenced the staleness half of mission control. Three source families, each
+// read independently and each allowed to fail on its own:
 //
 //   1. Case ledgers (docs/data-analysis/case-{money,effort,law}/ledger.json +
 //      ledger.md / batch-NNN.md) — hand-written by loop drivers, DIFFERENT
@@ -23,12 +27,13 @@ import "server-only";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { czechInt } from "@/lib/format";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
 import { getTripwireData } from "./getTripwireData";
-import { parsePassLog } from "./loops/loopState";
+import { LOOPS_STATUS_SOURCE, parseLoopsStatus, parsePassLog, type LoopsStatusFact } from "./loops/loopState";
 import type {
   AdminData,
   CaseId,
@@ -47,12 +52,6 @@ import type {
 
 const ROOT = process.cwd();
 const VAULT = "docs/data-analysis";
-
-/** hardcode-and-flip: the loops are paused for the manifestation phase. Flip
- *  this (and the label) when a case loop resumes. Exported for the loop
- *  mission-control loader (loops/getLoopState.ts) — one flag, one truth. */
-export const LOOPS_PAUSED = true;
-export const LOOPS_PAUSED_LABEL = "loopy pozastaveny — manifestační fáze";
 
 // ── generic disk helpers ─────────────────────────────────────────────────
 
@@ -80,6 +79,66 @@ function readJsonSafe<T>(relPath: string): T | null {
 
 function numOrNull(v: unknown): number | null {
   return typeof v === "number" && Number.isFinite(v) ? v : null;
+}
+
+// ── docs/case-loops.md: whether the loops run at all ──────────────────────
+
+/**
+ * Stav case-smyček ČTENÝ z operátorova vlastního dokumentu (STATUS řádek).
+ * `readTextSafe` hlásí selhání přes `reportLoaderFailure` a vrací null; null
+ * projde `parseLoopsStatus` do stavu „unknown“, takže nečitelný soubor nikdy
+ * nedosadí pauzu ani běh — přizná se, že se stav nepřečetl. Exportováno pro
+ * velín smyček (loops/getLoopState.ts): jeden pramen, jedna pravda.
+ */
+export function loadLoopsStatus(): LoopsStatusFact {
+  return parseLoopsStatus(readTextSafe(LOOPS_STATUS_SOURCE));
+}
+
+/**
+ * Kolik dávek case-smyčka opravdu odjela = kolik `batch-NNN.md` zpráv v jejím
+ * adresáři leží. Žurnály (ledger.json) za realitou zaostávají — case-money jich
+ * v `summary` nese 6, na disku je 11 — a číslo v konzoli má popisovat provoz,
+ * ne poslední ruční editaci JSONu. Počítají se ROZLIŠENÉ dávky, ne maximum:
+ * díra v číslování by se maximem tvářila jako hotová práce, a díry tu opravdu
+ * jsou (case-law nemá `batch-008.md`, jen jeho audit a reflexi → 20 dávek, ne
+ * 21; case-money postrádá 005 a 007 → 11). Varianty (`batch-008-audit.md`,
+ * `batch-012-p1.md`) se nezapočítávají — nejsou to dávky.
+ */
+function countBatchReports(caseDir: string): number | null {
+  try {
+    const dir = join(ROOT, caseDir);
+    if (!existsSync(dir)) return null;
+    const nums = new Set(
+      readdirSync(dir)
+        .map((f) => f.match(/^batch-(\d+)\.md$/))
+        .filter((m): m is RegExpMatchArray => m != null)
+        .map((m) => Number(m[1])),
+    );
+    return nums.size > 0 ? nums.size : null;
+  } catch (err) {
+    // A nice-to-have: the ledger's own numbers still stand without it — but a
+    // degradation still leaves a trace, never a silent null.
+    reportLoaderFailure(`getAdminData.countBatchReports:${caseDir}`, err);
+    return null;
+  }
+}
+
+/** Nejnovější zpráva o dávce jako lidský titulek — poslední oddíl souboru. */
+function latestBatchReportHeadline(caseDir: string): string | null {
+  try {
+    const dir = join(ROOT, caseDir);
+    if (!existsSync(dir)) return null;
+    const newest = readdirSync(dir)
+      .map((f) => ({ f, m: f.match(/^batch-(\d+)\.md$/) }))
+      .filter((e): e is { f: string; m: RegExpMatchArray } => e.m != null)
+      .sort((a, b) => Number(b.m[1]) - Number(a.m[1]))[0];
+    if (!newest) return null;
+    const md = readTextSafe(`${caseDir}/${newest.f}`);
+    return md ? extractLatestSection(md) : null;
+  } catch (err) {
+    reportLoaderFailure(`getAdminData.latestBatchReportHeadline:${caseDir}`, err);
+    return null;
+  }
 }
 
 function pct(processed: number | null, total: number | null): number | null {
@@ -176,44 +235,77 @@ function emptyProgress(id: CaseId, labelCs: string, source: string): LoopCasePro
     unitsProcessed: null,
     unitsTotal: null,
     progressPct: null,
+    progressNoteCs: null,
     latestHeadline: null,
     openFrontier: null,
     source,
   };
 }
 
+const MONEY_DIR = `${VAULT}/case-money`;
+const LAW_DIR = `${VAULT}/case-law`;
+
 function loadMoneyProgress(): LoopCaseProgress {
-  const source = "docs/data-analysis/case-money/ledger.json";
+  const source = "docs/data-analysis/case-money/ledger.json + batch-NNN.md";
+  const labelCs = "Peníze (FollowTheMoney)";
   try {
-    const ledger = readJsonSafe<{ summary?: Record<string, unknown> }>(`${VAULT}/case-money/ledger.json`);
-    if (!ledger?.summary) return emptyProgress("money", "Peníze (FollowTheMoney)", source);
+    const ledger = readJsonSafe<{ summary?: Record<string, unknown>; units?: Array<{ stage?: string }> }>(
+      `${MONEY_DIR}/ledger.json`,
+    );
+    const batchesCompleted = countBatchReports(MONEY_DIR);
+    if (!ledger?.summary) {
+      return {
+        ...emptyProgress("money", labelCs, source),
+        batchesCompleted,
+        latestHeadline: latestBatchReportHeadline(MONEY_DIR),
+      };
+    }
     const summary = ledger.summary;
     const batchNums = Object.keys(summary)
       .map((k) => k.match(/^batch(\d+)$/))
       .filter((m): m is RegExpMatchArray => m != null)
       .map((m) => Number(m[1]));
-    const batchesCompleted = batchNums.length ? Math.max(...batchNums) : null;
-    const lastBatch = batchesCompleted != null ? (summary[`batch${batchesCompleted}`] as Record<string, unknown> | undefined) : undefined;
+    const lastLedgerBatch = batchNums.length ? Math.max(...batchNums) : null;
+    const lastBatch = lastLedgerBatch != null ? (summary[`batch${lastLedgerBatch}`] as Record<string, unknown> | undefined) : undefined;
     const counts = (summary.counts ?? {}) as Record<string, unknown>;
     const unitsTotal = numOrNull(counts.tiesEnumerated);
-    // The 211/211 population was fully reconciled by batch 2 (see ledger.md);
-    // later batches re-rank/build rather than process new units, so
-    // "processed" tracks the same population once reconciliation completed.
-    const unitsProcessed = unitsTotal;
-    const headline = typeof lastBatch?.note === "string" ? truncate(lastBatch.note, 320) : null;
+
+    // BEZ MĚŘITELNÉHO POSTUPU (2026-08-12). Do teď tu stálo `unitsProcessed =
+    // unitsTotal` — přiřazení, ne měření, takže lišta byla trvale na 100 %
+    // bez ohledu na to, co v žurnálu je. Měřit je z čeho, ale ŽURNÁL SI SÁM
+    // ODPORUJE: jeho per-unit sloupec `units[].stage` hlásí 0 z 211 posunutých,
+    // zatímco `summary.batchN.gate` hlásí populaci za uzavřenou. Dvě tvrzení
+    // jednoho souboru, nic na disku je nerozsoudí — takže se nevybírá ani
+    // jedno: postup zůstane nehodnocen, obě čísla se vypíšou a lišta se
+    // nevykreslí. (Fronta lidské brány je vlastní veličina — /penize/kontrola.)
+    const stageAdvanced = Array.isArray(ledger.units)
+      ? ledger.units.filter((u) => u.stage && u.stage !== "pending").length
+      : null;
+    const progressNoteCs =
+      unitsTotal == null
+        ? "bez měřitelného postupu — žurnál nenese počet vyčtených vazeb"
+        : `bez měřitelného postupu — žurnál si odporuje: per-unit sloupec units[].stage hlásí ` +
+          `${stageAdvanced == null ? "nečitelný počet" : czechInt(stageAdvanced)} z ${czechInt(unitsTotal)} ` +
+          `posunutých vazeb, souhrn summary.batch${lastLedgerBatch ?? "N"} hlásí populaci za uzavřenou. ` +
+          `Nic na disku to nerozsoudí, takže se nevybírá ani jedno. Fronta lidské brány je vlastní ` +
+          `veličina — /penize/kontrola.`;
+
     return {
       case: "money",
-      labelCs: "Peníze (FollowTheMoney)",
+      labelCs,
       batchesCompleted,
-      unitsProcessed,
+      unitsProcessed: null,
       unitsTotal,
-      progressPct: pct(unitsProcessed, unitsTotal),
-      latestHeadline: headline,
+      progressPct: null,
+      progressNoteCs,
+      latestHeadline:
+        (typeof lastBatch?.note === "string" ? truncate(lastBatch.note, 320) : null) ??
+        latestBatchReportHeadline(MONEY_DIR),
       openFrontier: null,
       source,
     };
   } catch {
-    return emptyProgress("money", "Peníze (FollowTheMoney)", source);
+    return emptyProgress("money", labelCs, source);
   }
 }
 
@@ -237,6 +329,10 @@ function loadEffortProgress(): LoopCaseProgress {
       unitsProcessed,
       unitsTotal,
       progressPct: pct(unitsProcessed, unitsTotal),
+      progressNoteCs:
+        unitsProcessed == null
+          ? "postup nehodnocen — žurnál nenese per-unit sloupec units[].stage"
+          : "měřeno per-unit sloupcem units[].stage v ledger.json (posunuté ≠ „pending“)",
       latestHeadline: headline,
       openFrontier: null,
       source,
@@ -246,53 +342,102 @@ function loadEffortProgress(): LoopCaseProgress {
   }
 }
 
+/** Jeden blok `totals.batchNNNVerdicts` po projekci. `billsWithVerdictTotal` je
+ *  KUMULATIVNÍ pokrytí korpusu k té dávce — ne přírůstek; sčítat přírůstky
+ *  (49 + 8 + 0 + 114) dá 171 ze 141 bilů, tedy nesmysl přes 100 %. */
+interface LawVerdictBlock {
+  batch: number;
+  cumulative: number | null;
+  note: string | null;
+}
+
+function readLawVerdictBlocks(totals: Record<string, unknown>): LawVerdictBlock[] {
+  return Object.keys(totals)
+    .map((k) => ({ key: k, m: k.match(/^batch(\d+)Verdicts$/) }))
+    .filter((e): e is { key: string; m: RegExpMatchArray } => e.m != null)
+    .map(({ key, m }) => {
+      const block = totals[key];
+      const rec = (block && typeof block === "object" ? block : {}) as Record<string, unknown>;
+      return {
+        batch: Number(m[1]),
+        cumulative: numOrNull(rec.billsWithVerdictTotal),
+        note: typeof rec.note === "string" ? truncate(rec.note, 320) : null,
+      };
+    })
+    .sort((a, b) => b.batch - a.batch);
+}
+
 function loadLawProgress(): LoopCaseProgress {
-  const source = "docs/data-analysis/case-law/ledger.json";
+  const source = "docs/data-analysis/case-law/ledger.json + batch-NNN.md";
+  const labelCs = "Zákony (LawWatch)";
   try {
-    const ledger = readJsonSafe<{ totals?: Record<string, unknown> } & Record<string, unknown>>(`${VAULT}/case-law/ledger.json`);
-    const caseDir = join(ROOT, `${VAULT}/case-law`);
-    let batchesCompleted: number | null = null;
-    try {
-      const files = existsSync(caseDir) ? readdirSync(caseDir) : [];
-      const nums = files
-        .map((f) => f.match(/^batch-(\d+)\.md$/))
-        .filter((m): m is RegExpMatchArray => m != null)
-        .map((m) => Number(m[1]));
-      batchesCompleted = nums.length ? Math.max(...nums) : null;
-    } catch (err) {
-      // batch file listing is a nice-to-have; ledger.json numbers still stand.
-      console.warn("[getAdminData] law batch-file listing failed", err);
+    const ledger = readJsonSafe<{ totals?: Record<string, unknown> } & Record<string, unknown>>(`${LAW_DIR}/ledger.json`);
+    const batchesCompleted = countBatchReports(LAW_DIR);
+    if (!ledger?.totals) {
+      return {
+        ...emptyProgress("law", labelCs, source),
+        batchesCompleted,
+        latestHeadline: latestBatchReportHeadline(LAW_DIR),
+      };
     }
-    if (!ledger?.totals) return { ...emptyProgress("law", "Zákony (LawWatch)", source), batchesCompleted };
     const totals = ledger.totals;
     const unitsTotal = numOrNull(totals.bills);
-    const existingForensic = numOrNull(totals.existingForensic) ?? 0;
-    const batch003 = numOrNull(totals.batch003NewVerdicts) ?? 0;
-    const batch004 = numOrNull(totals.batch004NewVerdicts) ?? 0;
-    const unitsProcessed = existingForensic + batch003 + batch004; // forensic-reviewed bills
-    // headline: the highest-numbered `batchNNNNote` — lives at the ledger ROOT
-    // (not inside `totals`, unlike everything else here — case-law's ledger.json
-    // shape quirk). Keys are zero-padded ("batch004Note") — sort by the parsed
-    // number but look up by the ORIGINAL key string; reconstructing an
-    // unpadded key ("batch4Note") silently misses every real key.
-    const noteEntries = Object.keys(ledger)
+
+    // POKRYTÍ SE ČTE Z NEJNOVĚJŠÍ DÁVKY (2026-08-12). Do teď se sčítalo
+    // `existingForensic + batch003 + batch004` a lišta stála na 57 ze 141,
+    // zatímco žurnál nese dávky 011–021, každou „APPLIED to live graph“, a
+    // poslední z nich hlásí korpus uzavřený (141/141, pass 55). Sčítat je
+    // nelze — `billsWithVerdictTotal` je kumulativní pokrytí, ne přírůstek —
+    // takže se bere nejnovější dávka, která ho nese, a bloky BEZ něj se
+    // POČÍTAJÍ a přiznají, místo aby se dopočítávaly odhadem.
+    const blocks = readLawVerdictBlocks(totals);
+    const newestWithCoverage = blocks.find((b) => b.cumulative != null) ?? null;
+    const skippedBlocks = blocks.filter((b) => b.cumulative == null).length;
+
+    // Záložní (starý) součet — jen když žádný blok kumulativní pokrytí nenese.
+    const legacySum =
+      (numOrNull(totals.existingForensic) ?? 0) +
+      (numOrNull(totals.batch003NewVerdicts) ?? 0) +
+      (numOrNull(totals.batch004NewVerdicts) ?? 0);
+    const unitsProcessed = newestWithCoverage?.cumulative ?? (blocks.length === 0 ? legacySum : null);
+
+    const measuredNote =
+      newestWithCoverage != null
+        ? `pokrytí = totals.batch${String(newestWithCoverage.batch).padStart(3, "0")}Verdicts.billsWithVerdictTotal ` +
+          `(kumulativní, nesčítá se přes dávky)`
+        : blocks.length === 0
+          ? "pokrytí = existingForensic + batch003 + batch004 (starší tvar žurnálu — bloky batchNNNVerdicts chybí)"
+          : "postup nehodnocen — žádná dávka nenese billsWithVerdictTotal";
+    const skippedNote =
+      skippedBlocks > 0 ? ` · ${czechInt(skippedBlocks)} blok(ů) dávek bez čitelného pokrytí přeskočeno` : "";
+
+    // headline: nejnovější poznámka o dávce. Kořenové `batchNNNNote` klíče
+    // (zero-padded — hledat je nutné PŮVODNÍM řetězcem, „batch4Note“ nesedí na
+    // nic) zamrzly na 004, takže prvenství má poznámka nejnovějšího
+    // verdiktového bloku a zpráva batch-NNN.md je poslední záchrana.
+    const rootNoteEntries = Object.keys(ledger)
       .map((k) => ({ key: k, m: k.match(/^batch(\d+)Note$/) }))
       .filter((e): e is { key: string; m: RegExpMatchArray } => e.m != null)
       .sort((a, b) => Number(b.m[1]) - Number(a.m[1]));
-    const headline = noteEntries.length ? truncate(String(ledger[noteEntries[0].key]), 320) : null;
+    const headline =
+      blocks[0]?.note ??
+      (rootNoteEntries.length ? truncate(String(ledger[rootNoteEntries[0].key]), 320) : null) ??
+      latestBatchReportHeadline(LAW_DIR);
+
     return {
       case: "law",
-      labelCs: "Zákony (LawWatch)",
+      labelCs,
       batchesCompleted,
       unitsProcessed,
       unitsTotal,
       progressPct: pct(unitsProcessed, unitsTotal),
+      progressNoteCs: `${measuredNote}${skippedNote}`,
       latestHeadline: headline,
       openFrontier: null,
       source,
     };
   } catch {
-    return emptyProgress("law", "Zákony (LawWatch)", source);
+    return emptyProgress("law", labelCs, source);
   }
 }
 
@@ -467,12 +612,13 @@ async function loadReviewHub(): Promise<ReviewHubData> {
 
 // ── live graph: system totals ──────────────────────────────────────────────
 
-async function loadSystemState(vaultHeads: VaultHeads): Promise<SystemState> {
+async function loadSystemState(vaultHeads: VaultHeads, loopsStatus: LoopsStatusFact): Promise<SystemState> {
   const base: SystemState = {
     graph: null,
     lastPass: vaultHeads.lastPass,
-    loopsPaused: LOOPS_PAUSED,
-    loopsPausedLabel: LOOPS_PAUSED_LABEL,
+    loopsRunState: loopsStatus.state,
+    loopsStatusLabel: loopsStatus.labelCs,
+    loopsStatusSource: LOOPS_STATUS_SOURCE,
   };
   try {
     const store = await getStore();
@@ -484,9 +630,13 @@ async function loadSystemState(vaultHeads: VaultHeads): Promise<SystemState> {
     ]);
     let nodesByKind: Record<string, number> = {};
     try {
-      const allNodes = await store.listKgNodes({ limit: KG_READ_CAP });
+      // Sčítá DB, ne JS: `listKgNodes({limit: KG_READ_CAP})` sem materializoval
+      // ~154 tisíc řádků kvůli sloupci `kind`. `kgKindCounts()` je jedno indexované
+      // group-by, které odpoví na totéž (lib/db/readiness.ts to takto předepisuje
+      // a /data už tak čte).
+      const counts = await store.kgKindCounts();
       const byKind: Record<string, number> = {};
-      for (const n of allNodes) byKind[n.kind] = (byKind[n.kind] ?? 0) + 1;
+      for (const c of counts) byKind[c.kind] = c.count;
       nodesByKind = byKind;
     } catch {
       nodesByKind = {};
@@ -503,11 +653,12 @@ async function loadSystemState(vaultHeads: VaultHeads): Promise<SystemState> {
 export async function getAdminData(): Promise<AdminData> {
   const loopProgress = loadLoopProgress();
   const vaultHeads = loadVaultHeads();
+  const loopsStatus = loadLoopsStatus();
   // Hlídky grafu sdílejí "degrade to partial, never crash": vlastní loader
   // vrací null (a hlásí přes reportLoaderFailure), zbytek stránky žije dál.
   const [reviewHub, systemState, tripwires] = await Promise.all([
     loadReviewHub(),
-    loadSystemState(vaultHeads),
+    loadSystemState(vaultHeads, loopsStatus),
     getTripwireData(),
   ]);
   return { loopProgress, vaultHeads, reviewHub, tripwires, systemState };

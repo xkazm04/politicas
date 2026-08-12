@@ -2,12 +2,16 @@
 // čerstvosti (kadence × 2 = hranice „stalled“) a práh série selhání.
 
 import { describe, expect, it } from "vitest";
+import { SOURCE_CADENCE_DAYS } from "@/lib/analysis/atlas";
 import {
   deriveLoopState,
+  parseLoopsStatus,
   parsePassLog,
   stalenessOf,
   ageDaysBetween,
   FAILURE_STREAK_THRESHOLD,
+  LOOP_CADENCE_DAYS,
+  LOOPS_STATUS_SOURCE,
   type IngestRunIn,
   type LoopStateInputs,
 } from "./loopState";
@@ -26,7 +30,7 @@ const run = (over: Partial<IngestRunIn>): IngestRunIn => ({
 
 const baseInputs = (over: Partial<LoopStateInputs>): LoopStateInputs => ({
   now: NOW,
-  loopsPaused: true,
+  loopsRunState: "paused",
   caseLoops: [
     {
       id: "money",
@@ -40,6 +44,68 @@ const baseInputs = (over: Partial<LoopStateInputs>): LoopStateInputs => ({
   casePasses: [],
   ingestRuns: [],
   ...over,
+});
+
+describe("LOOP_CADENCE_DAYS — dohoda s /atlas drží testem, ne importem", () => {
+  // 2026-08-12: `pumper-psp-opendata` tu stálo na 1 dni proti atlasovým 7 (ZAPSANÁ
+  // oprava sentinelu z 2026-07-31), takže velín hlásil „stalled“ nad zdrojem, který
+  // /atlas ve stejnou chvíli označoval za čerstvý. Modul si nechává vlastní
+  // deklaraci (jiná plocha), rovnost hlídá tenhle test.
+  it("obě mapy nesou tytéž zdroje i tytéž kadence", () => {
+    expect(LOOP_CADENCE_DAYS).toEqual(SOURCE_CADENCE_DAYS);
+  });
+});
+
+describe("parseLoopsStatus — stav smyček se ČTE, nekóduje", () => {
+  it("RUNNING řádek: běh, datum, doslovný token", () => {
+    const fact = parseLoopsStatus(
+      ["# Case loops", "", "> **STATUS 2026-07-25: RUNNING — batch 006.** Pauza je uzavřena.", ""].join("\n"),
+    );
+    expect(fact.state).toBe("running");
+    expect(fact.statedOn).toBe("2026-07-25");
+    expect(fact.token).toBe("RUNNING");
+    expect(fact.labelCs).toContain("smyčky běží");
+    expect(fact.labelCs).toContain(LOOPS_STATUS_SOURCE);
+  });
+
+  it("PAUSED řádek: pauza, a přizná se doslova", () => {
+    const fact = parseLoopsStatus("> **STATUS 2026-06-01: PAUSED — manifestační fáze.**");
+    expect(fact.state).toBe("paused");
+    expect(fact.statedOn).toBe("2026-06-01");
+    expect(fact.token).toBe("PAUSED");
+    expect(fact.labelCs).toContain("smyčky pozastaveny");
+  });
+
+  it("token bez data: stav platí, datum se nevymýšlí", () => {
+    const fact = parseLoopsStatus("> **STATUS: RUNNING**");
+    expect(fact.state).toBe("running");
+    expect(fact.statedOn).toBeNull();
+    expect(fact.labelCs).toContain("bez data");
+  });
+
+  it("dokument bez STATUS řádku: nečitelný stav, nikdy dosazená pauza", () => {
+    const fact = parseLoopsStatus("# Case loops\n\nŽádná hlavička stavu.");
+    expect(fact.state).toBe("unknown");
+    expect(fact.token).toBeNull();
+    expect(fact.labelCs).toContain("stav smyček nečitelný");
+  });
+
+  it("soubor nejde přečíst (null): nečitelný stav a řekne který soubor", () => {
+    const fact = parseLoopsStatus(null);
+    expect(fact.state).toBe("unknown");
+    expect(fact.statedOn).toBeNull();
+    expect(fact.token).toBeNull();
+    expect(fact.labelCs).toContain(LOOPS_STATUS_SOURCE);
+  });
+
+  it("neznámý token: nečitelný stav, ale token se vypíše doslova", () => {
+    const fact = parseLoopsStatus("> **STATUS 2026-08-12: HIBERNATED — pokus.**");
+    expect(fact.state).toBe("unknown");
+    expect(fact.token).toBe("HIBERNATED");
+    expect(fact.statedOn).toBe("2026-08-12");
+    expect(fact.labelCs).toContain("HIBERNATED");
+    expect(fact.labelCs).toContain("nezná");
+  });
 });
 
 describe("parsePassLog", () => {
@@ -108,8 +174,34 @@ describe("deriveLoopState — case-smyčky", () => {
   });
 
   it("neběžela-li smyčka nikdy a není pozastavená, stav je neznámo", () => {
-    const { loops } = deriveLoopState(baseInputs({ loopsPaused: false }));
+    const { loops } = deriveLoopState(baseInputs({ loopsRunState: "running" }));
     expect(loops.find((l) => l.id === "case:money")?.status).toBe("neznámo");
+  });
+
+  it("běžící smyčka se záznamem: v pořádku, a čerstvost se zase MĚŘÍ (bez kadence)", () => {
+    const { loops } = deriveLoopState(
+      baseInputs({
+        loopsRunState: "running",
+        casePasses: [{ pass: 55, track: "money", title: "batch 013", date: "2026-07-28" }],
+      }),
+    );
+    const money = loops.find((l) => l.id === "case:money");
+    expect(money?.status).toBe("v pořádku");
+    // Důvod „nehodnoceno“ už není pauza — je jím chybějící deklarovaná kadence.
+    expect(money?.stalenessReason).toContain("kadence");
+    expect(money?.stalenessReason).not.toContain("pozastavena");
+  });
+
+  it("nečitelný stav: neznámo, a důvod jmenuje dokument — nikdy dosazená pauza ani běh", () => {
+    const { loops } = deriveLoopState(
+      baseInputs({
+        loopsRunState: "unknown",
+        casePasses: [{ pass: 55, track: "money", title: "batch 013", date: "2026-07-28" }],
+      }),
+    );
+    const money = loops.find((l) => l.id === "case:money");
+    expect(money?.status).toBe("neznámo");
+    expect(money?.stalenessReason).toContain(LOOPS_STATUS_SOURCE);
   });
 });
 

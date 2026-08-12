@@ -17,6 +17,10 @@ export interface LoopCaseProgress {
   unitsTotal: number | null;
   /** 0–100, derived from processed/total; null when either side is unknown. */
   progressPct: number | null;
+  /** Česky, co se vlastně měřilo — a co se NEZMĚŘILO. Případ, jehož žurnál si
+   *  o postupu protiřečí, tu přizná „bez měřitelného postupu“ místo lišty;
+   *  přeskočené (nečitelné) bloky žurnálu se počítají a jmenují. */
+  progressNoteCs: string | null;
   /** One-line summary of the most recent batch, pulled from the ledger/batch note. */
   latestHeadline: string | null;
   /** Open frontier.md items scoped to this case (best-effort table parse). */
@@ -101,10 +105,16 @@ export interface GraphTotals {
 export interface SystemState {
   graph: GraphTotals | null;
   lastPass: number | null;
-  loopsPaused: boolean;
-  loopsPausedLabel: string;
+  /** Běh · pauza · nečitelný stav — ODVOZENO ze STATUS řádku docs/case-loops.md
+   *  (parseLoopsStatus), nikdy z konstanty v kódu. */
+  loopsRunState: LoopsRunState;
+  /** Česká věta o stavu i jeho prameni (LoopsStatusFact.labelCs). */
+  loopsStatusLabel: string;
+  /** Dokument, ze kterého se stav přečetl — vypisuje se čtenáři. */
+  loopsStatusSource: string;
 }
 
+import type { LoopsRunState } from "./loops/loopState";
 import type { TripwireData } from "@/lib/analysis/tripwires";
 
 export interface AdminData {

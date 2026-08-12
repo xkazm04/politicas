@@ -163,11 +163,18 @@ export default function LoopMissionControl({ doc }: { doc: LoopsDoc }) {
         .
       </p>
 
-      {doc.pausedNoteCs && (
-        <p className="border-l-4 border-ochre bg-paper py-1 pl-3 font-mono text-xs uppercase tracking-widest text-ink">
-          {doc.pausedNoteCs} — pozastavené smyčky se jako „stalled“ nehlásí
-        </p>
-      )}
+      {/* Stav smyček se ČTE ze STATUS řádku dokumentu (do 2026-08-12 to byla
+          konstanta v kódu, která tvrdila pauzu nad běžícími smyčkami). Doušku
+          „stalled se nehlásí“ nese jen stav, na který opravdu sedí. */}
+      <p
+        className={`border-l-4 bg-paper py-1 pl-3 font-mono text-xs uppercase tracking-widest text-ink ${
+          doc.runState === "paused" ? "border-ochre" : doc.runState === "running" ? "border-signal" : "border-steel"
+        }`}
+      >
+        {doc.statusNoteCs}
+        {doc.runState === "paused" && " — pozastavené smyčky se jako „stalled“ nehlásí"}
+        {doc.runState === "unknown" && " — dokud se stav nepřečte, case-smyčky zůstávají „neznámo“"}
+      </p>
 
       {lastError && (
         <p role="alert" className="border-2 border-signal p-3 text-sm font-bold text-signal">
@@ -291,8 +298,13 @@ export default function LoopMissionControl({ doc }: { doc: LoopsDoc }) {
           ))}
           {doc.alerts.length === 0 && (
             <p className="text-sm text-steel">
-              Žádné výstrahy. Pozastavené case-smyčky se jako „stalled“ nehlásí a zdroj bez
-              deklarované kadence nebo bez záznamu běhů je „nehodnoceno“ — ticho tu znamená
+              Žádné výstrahy.{" "}
+              {doc.runState === "paused"
+                ? "Pozastavené case-smyčky se jako „stalled“ nehlásí a zdroj"
+                : doc.runState === "unknown"
+                  ? "Dokud je stav smyček nečitelný, case-smyčky se jako „stalled“ nehlásí a zdroj"
+                  : "Case-smyčka nemá deklarovanou kadenci, takže se jako „stalled“ nehlásí, a zdroj"}{" "}
+              bez deklarované kadence nebo bez záznamu běhů je „nehodnoceno“ — ticho tu znamená
               „není z čeho hlásit“, ne „vše ověřeno“.
             </p>
           )}

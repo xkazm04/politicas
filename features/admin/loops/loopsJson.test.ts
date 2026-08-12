@@ -8,7 +8,7 @@ import { DRIVE_CHAIN_NOTE_CS, encodeLoopsDoc, parseLoopsDoc, type LoopsDoc } fro
 function fixtureDoc(): LoopsDoc {
   const { loops, alerts } = deriveLoopState({
     now: "2026-07-30T12:00:00.000Z",
-    loopsPaused: true,
+    loopsRunState: "running",
     caseLoops: [
       {
         id: "money",
@@ -34,7 +34,9 @@ function fixtureDoc(): LoopsDoc {
   return {
     schema: LOOPS_SCHEMA,
     generatedAt: "2026-07-30T12:00:00.000Z",
-    pausedNoteCs: "loopy pozastaveny — manifestační fáze",
+    runState: "running",
+    statusNoteCs: "smyčky běží — docs/case-loops.md, STATUS 2026-07-25: RUNNING",
+    statusSource: "docs/case-loops.md",
     loops,
     alerts: alerts.map((a) => ({ ...a, acknowledged: false, acknowledgedAt: null })),
     drive: {
@@ -66,5 +68,8 @@ describe("loops.json kodek", () => {
     expect(parseLoopsDoc(JSON.stringify({ ...doc, drive: undefined }))).toBeNull();
     const badAlert = { ...doc, alerts: [{ id: 1 }] };
     expect(parseLoopsDoc(JSON.stringify(badAlert))).toBeNull();
+    // Stav smyček je součást kontraktu: neznámý token ani chybějící věta neprojdou.
+    expect(parseLoopsDoc(JSON.stringify({ ...doc, runState: "hibernated" }))).toBeNull();
+    expect(parseLoopsDoc(JSON.stringify({ ...doc, statusNoteCs: undefined }))).toBeNull();
   });
 });

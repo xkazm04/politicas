@@ -14,13 +14,14 @@ import { cache } from "react";
 import { existsSync, readFileSync } from "node:fs";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
-import { loadLoopProgress, LOOPS_PAUSED, LOOPS_PAUSED_LABEL } from "../getAdminData";
+import { loadLoopProgress, loadLoopsStatus } from "../getAdminData";
 import {
   deriveLoopState,
   parsePassLog,
   type CaseLoopIn,
   type IngestRunIn,
   LOOPS_SCHEMA,
+  LOOPS_STATUS_SOURCE,
 } from "./loopState";
 import { DRIVE_CHAIN_NOTE_CS, type LoopsDoc } from "./loopsJson";
 import { driveLogDisplayPath, readDriveLog } from "./driveLog";
@@ -72,10 +73,13 @@ export const getLoopsDoc = cache(async function getLoopsDoc(): Promise<LoopsDoc>
   }));
   const [ingestRuns] = await Promise.all([loadIngestRuns()]);
   const drive = readDriveLog();
+  // Stav smyček se ČTE z docs/case-loops.md (jeden pramen s /admin stripem),
+  // nikdy z konstanty — viz getAdminData.loadLoopsStatus.
+  const status = loadLoopsStatus();
 
   const { loops, alerts } = deriveLoopState({
     now: new Date().toISOString(),
-    loopsPaused: LOOPS_PAUSED,
+    loopsRunState: status.state,
     caseLoops,
     casePasses: loadCasePasses(),
     ingestRuns,
@@ -84,7 +88,9 @@ export const getLoopsDoc = cache(async function getLoopsDoc(): Promise<LoopsDoc>
   return {
     schema: LOOPS_SCHEMA,
     generatedAt: new Date().toISOString(),
-    pausedNoteCs: LOOPS_PAUSED ? LOOPS_PAUSED_LABEL : null,
+    runState: status.state,
+    statusNoteCs: status.labelCs,
+    statusSource: LOOPS_STATUS_SOURCE,
     loops,
     alerts: alerts.map((a) => ({
       ...a,

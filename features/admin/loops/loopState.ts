@@ -37,12 +37,90 @@ export type LoopStaleness = "čerstvé" | "stárnoucí" | "zastaralé";
  * ne SLA vydavatele. Hodnoty drží slovo s 6D (lib/analysis/atlas.ts
  * SOURCE_CADENCE_DAYS — záměrně bez importu, jiná plocha). Zdroj bez
  * deklarované kadence má čerstvost „nehodnoceno“ a nikdy nehlásí „stalled“.
+ *
+ * TO SLOVO SE ROZEŠLO (opraveno 2026-08-12): `pumper-psp-opendata` tu stálo na
+ * 1 dni, zatímco atlas ho má na 7. Sedmička není překlep — je to ZAPSANÁ
+ * oprava sentinelu z 2026-07-31 (Pumper není démon, mirroruje se v rytmu
+ * ostatních psp snapshotů), takže tenhle velín měřil aspiraci a hlásil
+ * „stalled“ nad zdrojem, který /atlas ve stejnou chvíli označuje za čerstvý.
+ * Dohodu drží TEST (loopState.test.ts porovnává obě mapy na rovnost), ne
+ * import — modul si záměrně nechává vlastní deklaraci; ale mlčky se rozejít
+ * už podruhé nemůže.
  */
 export const LOOP_CADENCE_DAYS: Readonly<Record<string, number>> = {
   "psp-poslanci": 7,
   "psp-hlasovani": 7,
-  "pumper-psp-opendata": 1,
+  "pumper-psp-opendata": 7,
 };
+
+/* ── stav smyček: DERIVOVANÝ ze STATUS řádku docs/case-loops.md ───────────── */
+
+/** Běh · pozastaveno · nečitelný stav. Třetí hodnota je plnohodnotná: hádaná
+ *  pauza i hádaný běh jsou obě lež o provozu, který velín popisuje. */
+export type LoopsRunState = "running" | "paused" | "unknown";
+
+/** Dokument, ze kterého se stav smyček čte — vypisuje se čtenáři. */
+export const LOOPS_STATUS_SOURCE = "docs/case-loops.md";
+
+export interface LoopsStatusFact {
+  state: LoopsRunState;
+  /** Datum ze STATUS řádku (YYYY-MM-DD); null = řádek ho nenese. */
+  statedOn: string | null;
+  /** Doslovný token ze STATUS řádku; null = řádek se nenašel vůbec. */
+  token: string | null;
+  /** Česká věta pro operátora — pojmenuje stav i jeho pramen. */
+  labelCs: string;
+}
+
+/** Slovník tokenů, které STATUS řádek smí nést. Cokoli jiného je „unknown“ —
+ *  nový token je pro tenhle build neznámý stav, ne důvod k domněnce. */
+const STATUS_TOKENS: Readonly<Record<string, Exclude<LoopsRunState, "unknown">>> = {
+  RUNNING: "running",
+  PAUSED: "paused",
+};
+
+/**
+ * Stav smyček z vlastního zdroje pravdy operátora (docs/case-loops.md, řádek
+ * `**STATUS <datum>: <TOKEN> …**`).
+ *
+ * Do 2026-08-12 tu stála konstanta `LOOPS_PAUSED = true` s popiskem
+ * „manifestační fáze“ — jenže dokument sám od 2026-07-25 hlásí RUNNING a
+ * trezor je na průchodu 55. Konstanta tak nutila KAŽDOU case-smyčku do stavu
+ * „pozastaveno“, umlčela čerstvost a udělala z výstražného bloku mrtvý kód.
+ *
+ * `null` (soubor nejde přečíst) i neznámý token končí v „unknown“ — velín pak
+ * řekne „stav smyček nečitelný“, nikdy nedosadí pauzu ani běh.
+ */
+export function parseLoopsStatus(text: string | null | undefined): LoopsStatusFact {
+  const unreadable = (reason: string, token: string | null, statedOn: string | null): LoopsStatusFact => ({
+    state: "unknown",
+    statedOn,
+    token,
+    labelCs: `stav smyček nečitelný — ${reason}`,
+  });
+  if (!text) {
+    return unreadable(`${LOOPS_STATUS_SOURCE} se nepodařilo přečíst`, null, null);
+  }
+  // Řádek: `> **STATUS 2026-07-25: RUNNING — batch 006.**`. Datum je volitelné;
+  // token povinný — bez něj není co číst.
+  const m = text.match(/\*\*\s*STATUS\b([^:*]*):\s*([A-Za-z-]+)/);
+  if (!m) {
+    return unreadable(`${LOOPS_STATUS_SOURCE} nenese čitelný řádek STATUS`, null, null);
+  }
+  const statedOn = m[1].match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? null;
+  const token = m[2].toUpperCase();
+  const state = STATUS_TOKENS[token];
+  const stamp = `${LOOPS_STATUS_SOURCE}, STATUS ${statedOn ?? "bez data"}: ${token}`;
+  if (!state) {
+    return unreadable(`${stamp} — tenhle stav velín nezná`, token, statedOn);
+  }
+  return {
+    state,
+    statedOn,
+    token,
+    labelCs: state === "running" ? `smyčky běží — ${stamp}` : `smyčky pozastaveny — ${stamp}`,
+  };
+}
 
 /* ── vstupní tvary (plní je loader, čistě z existujících čtecích cest) ────── */
 
@@ -77,8 +155,9 @@ export interface IngestRunIn {
 export interface LoopStateInputs {
   /** Okamžik hodnocení (ISO) — vstup, ne Date.now(); drží determinismus. */
   now: string;
-  /** Case-smyčky jsou v manifestační fázi pozastavené (getAdminData konstanta). */
-  loopsPaused: boolean;
+  /** Stav case-smyček ODVOZENÝ ze STATUS řádku docs/case-loops.md
+   *  (parseLoopsStatus), nikdy konstanta v kódu. */
+  loopsRunState: LoopsRunState;
   caseLoops: ReadonlyArray<CaseLoopIn>;
   casePasses: ReadonlyArray<CasePassIn>;
   ingestRuns: ReadonlyArray<IngestRunIn>;
@@ -90,7 +169,7 @@ export interface LoopStateInputs {
 export type LoopKind = "case" | "ingest";
 
 export type LoopRunStatus =
-  | "pozastaveno" // case-smyčka v manifestační fázi
+  | "pozastaveno" // case-smyčka pozastavena podle STATUS řádku docs/case-loops.md
   | "v pořádku" // poslední dokončený běh uspěl / smyčka má záznam
   | "běží" // ingest běh startedAt bez finishedAt
   | "selhává" // poslední dokončený běh selhal
@@ -192,20 +271,26 @@ const CASE_TRACK_LABELS: Readonly<Record<string, string>> = {
   sources: "Zdrojová smyčka (track: sources)",
 };
 
+/** Důvod „nehodnoceno“ u case-smyčky podle stavu, který se PŘEČETL — ne podle
+ *  konstanty v kódu. Nečitelný stav je vlastní věta, ne tichá pauza. */
+const CASE_STALENESS_REASON: Readonly<Record<LoopsRunState, string>> = {
+  paused: "smyčka pozastavena (docs/case-loops.md) — kadence se neměří, „stalled“ se nehlásí",
+  running: "kadence case-smyčky není deklarována — stáří bez měřítka není stav",
+  unknown: `stav smyček nečitelný (${LOOPS_STATUS_SOURCE}) — čerstvost se nehodnotí, dokud se stav nepřečte`,
+};
+
 function caseLoopStatus(
   input: CaseLoopIn,
   passes: CasePassIn[],
-  loopsPaused: boolean,
+  runState: LoopsRunState,
 ): LoopStatus {
   const last = passes.length ? passes[passes.length - 1] : null;
-  const stalenessReason = loopsPaused
-    ? "smyčka pozastavena (manifestační fáze) — kadence se neměří, „stalled“ se nehlásí"
-    : "kadence case-smyčky není deklarována — stáří bez měřítka není stav";
+  const stalenessReason = CASE_STALENESS_REASON[runState];
   return {
     id: `case:${input.id}`,
     kind: "case",
     labelCs: input.labelCs,
-    status: loopsPaused ? "pozastaveno" : last ? "v pořádku" : "neznámo",
+    status: runState === "paused" ? "pozastaveno" : runState === "running" && last ? "v pořádku" : "neznámo",
     lastActivityAt: last ? last.date : null,
     lastActivityLabel: last ? `pass #${last.pass} — ${last.title}` : null,
     lastDurationMs: null,
@@ -324,7 +409,7 @@ export function deriveLoopState(inputs: LoopStateInputs): LoopsDerived {
   }
   const knownCases = new Set(inputs.caseLoops.map((c) => c.id));
   const caseStatuses: LoopStatus[] = inputs.caseLoops.map((c) =>
-    caseLoopStatus(c, passByTrack.get(c.id) ?? [], inputs.loopsPaused),
+    caseLoopStatus(c, passByTrack.get(c.id) ?? [], inputs.loopsRunState),
   );
   const extraTracks = [...passByTrack.keys()].filter((t) => !knownCases.has(t)).sort();
   for (const track of extraTracks) {
@@ -339,7 +424,7 @@ export function deriveLoopState(inputs: LoopStateInputs): LoopsDerived {
           openFrontier: null,
         },
         passByTrack.get(track) ?? [],
-        inputs.loopsPaused,
+        inputs.loopsRunState,
       ),
     );
   }

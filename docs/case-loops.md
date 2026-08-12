@@ -11,6 +11,16 @@
 > accepted the non-commercial + GDPR-controller conditions) and **kiosek**
 > (úřední desky — unanonymized IČOs + statute citations; feeds BOTH cases).
 
+> **That STATUS line is MACHINE-READ.** `/admin` derives whether the case loops
+> run from it (`features/admin/loops/loopState.ts` → `parseLoopsStatus`, read by
+> `getAdminData.loadLoopsStatus`). The vocabulary is exactly two tokens —
+> `RUNNING` and `PAUSED`; the date is optional. Anything else, or a missing
+> line, is **„stav smyček nečitelný"**: the console then asserts neither a pause
+> nor a run, and the case loops render „neznámo". Keep the shape
+> `**STATUS <YYYY-MM-DD>: <TOKEN> — …**`. Until 2026-08-12 a hardcoded
+> `LOOPS_PAUSED = true` constant overrode this line and reported a pause over
+> running loops for the eighteen days since it flipped to RUNNING.
+
 The third generation of the loop family, and the design doc the three case skills
 (`.claude/skills/{money-loop,effort-loop,law-loop}.md`) extend. Read this before
 running any of them.

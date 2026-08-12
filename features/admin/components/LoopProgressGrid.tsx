@@ -4,9 +4,11 @@ import { czech, czechInt } from "@/lib/format";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { LoopCaseProgress } from "../adminTypes";
 
-function ProgressBar({ pct }: { pct: number | null }) {
+function ProgressBar({ pct, note }: { pct: number | null; note: string | null }) {
+  // Nehodnocený postup NENÍ nulový postup: prázdná lišta je poctivá jen tehdy,
+  // když vedle ní stojí věta, proč se neměří. Bez věty by vypadala jako 0 %.
   if (pct == null) {
-    return <div className="h-2 w-full border border-hairline bg-paper" aria-hidden />;
+    return <div className="h-2 w-full border border-hairline bg-paper" role="img" aria-label={note ?? "postup nehodnocen"} />;
   }
   return (
     <div className="h-2 w-full border border-ink bg-paper" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
@@ -44,7 +46,11 @@ function CaseTile({ p }: { p: LoopCaseProgress }) {
         <Stat label="Frontier" value={p.openFrontier != null ? czechInt(p.openFrontier) : "—"} />
       </div>
 
-      <ProgressBar pct={p.progressPct} />
+      <ProgressBar pct={p.progressPct} note={p.progressNoteCs} />
+
+      {p.progressNoteCs && (
+        <p className="text-xs leading-relaxed text-steel-aa">{p.progressNoteCs}</p>
+      )}
 
       <p className="min-h-[3rem] text-sm leading-relaxed text-ink">
         {p.latestHeadline ?? <span className="text-steel">Poslední dávka se nepodařilo načíst.</span>}

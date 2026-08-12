@@ -4,7 +4,7 @@
 // (loopsJson.test.ts). Vzor: features/dukazy/feedCodecs.ts — kodek je oddělený
 // od loaderu, aby se dal ověřit bez serveru.
 
-import type { LoopAlert, LoopStatus } from "./loopState";
+import type { LoopAlert, LoopsRunState, LoopStatus } from "./loopState";
 import { LOOPS_SCHEMA } from "./loopState";
 import type { PendingQueueItem } from "./driveState";
 
@@ -17,8 +17,13 @@ export interface LoopsDocAlert extends LoopAlert {
 export interface LoopsDoc {
   schema: typeof LOOPS_SCHEMA;
   generatedAt: string;
-  /** Přiznání pozastavení case-smyček (getAdminData konstanta), jinak null. */
-  pausedNoteCs: string | null;
+  /** Běh · pauza · nečitelný stav — ODVOZENO ze STATUS řádku dokumentu níže.
+   *  Do 2026-08-12 tu byl jen `pausedNoteCs`, plněný konstantou v kódu. */
+  runState: LoopsRunState;
+  /** Česká věta o stavu i jeho prameni (parseLoopsStatus().labelCs). */
+  statusNoteCs: string;
+  /** Dokument, ze kterého se stav přečetl (docs/case-loops.md). */
+  statusSource: string;
   loops: LoopStatus[];
   alerts: LoopsDocAlert[];
   drive: {
@@ -52,7 +57,8 @@ export function parseLoopsDoc(text: string): LoopsDoc | null {
     if (raw.schema !== LOOPS_SCHEMA) return null;
     if (typeof raw.generatedAt !== "string") return null;
     if (!Array.isArray(raw.loops) || !Array.isArray(raw.alerts)) return null;
-    if (raw.pausedNoteCs !== null && typeof raw.pausedNoteCs !== "string") return null;
+    if (raw.runState !== "running" && raw.runState !== "paused" && raw.runState !== "unknown") return null;
+    if (typeof raw.statusNoteCs !== "string" || typeof raw.statusSource !== "string") return null;
     const drive = raw.drive;
     if (!drive || !Array.isArray(drive.pending) || !drive.log) return null;
     if (typeof drive.log.entries !== "number" || typeof drive.log.chainOk !== "boolean") return null;
