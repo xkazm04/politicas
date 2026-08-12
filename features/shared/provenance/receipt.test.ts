@@ -8,6 +8,7 @@ import {
   gateFromEdge,
   relLabelCs,
   toClaimReviewJsonLd,
+  toDecodedClaim,
   toEndpoint,
   toProvenance,
 } from "./receipt";
@@ -207,24 +208,131 @@ describe("relLabelCs", () => {
   });
 });
 
-// ── ClaimReview JSON-LD (strukturální tvar, viz koordinace s 2E) ────────────
+// ── Zaniklá adresa: co tvrdila ──────────────────────────────────────────────
 
-describe("toClaimReviewJsonLd", () => {
-  it("nese @type ClaimReview, tvrzení a stav brány jako hodnocení", () => {
+describe("toDecodedClaim — adresa nese tvrzení i bez záznamu v grafu", () => {
+  const nodes = new Map([
+    [person.id, person],
+    [company.id, company],
+  ]);
+
+  it("hrana: subjekt — relace — objekt, se štítky uzlů, které graf ještě nese", () => {
+    const d = toDecodedClaim({ kind: "edge", src: person.id, rel: "linked_to", dst: company.id }, nodes);
+    expect(d.kind).toBe("edge");
+    expect(d.subject).toEqual({ id: person.id, kind: "person", label: "Jana Nováková" });
+    expect(d.object).toEqual({ id: company.id, kind: "company", label: "STAVBY NOVÁK s.r.o." });
+    expect(d.rel).toBe("linked_to");
+    expect(d.relLabel).toBe("má vazbu na");
+  });
+
+  it("uzel, který v grafu není, dostane doslovné id a kind null — nikdy hádaný druh", () => {
+    const d = toDecodedClaim(
+      { kind: "edge", src: person.id, rel: "linked_to", dst: "company:ico:404" },
+      nodes,
+    );
+    expect(d.object).toEqual({ id: "company:ico:404", kind: null, label: "company:ico:404" });
+  });
+
+  it("uzlová adresa nemá relaci ani protějšek", () => {
+    const d = toDecodedClaim({ kind: "node", id: "psp:person:9999" }, new Map());
+    expect(d).toEqual({
+      kind: "node",
+      subject: { id: "psp:person:9999", kind: null, label: "psp:person:9999" },
+      rel: null,
+      relLabel: null,
+      object: null,
+    });
+  });
+
+  it("neznámou relaci vypíše doslova, nepovýší ji na větu", () => {
+    const d = toDecodedClaim({ kind: "edge", src: "a", rel: "mystery_rel", dst: "b" }, new Map());
+    expect(d.relLabel).toBe("mystery_rel");
+  });
+});
+
+// ── ClaimReview JSON-LD (strukturální tvar, viz koordinace s 2E) ────────────
+//
+// AKCEPTAČNÍ MEZ: fact-check značka jde ven POUZE za tvrzení, které prošlo
+// lidskou branou — týž zákon, jaký vyhlašuje lib/claims/claim.ts §3. Test drží
+// obě strany: ověřená hrana značku VYDÁ, nezkontrolovaná/zamítnutá/negated ji
+// nedostane.
+
+const verifiedReceipt = () =>
+  deriveEdgeReceipt({
+    edge: linkedTo({
+      review_state: "verified",
+      last_reviewer: "redakce",
+      last_reviewed_at: "2026-07-26T12:00:00Z",
+    }),
+    srcNode: person,
+    dstNode: company,
+    audit,
+  });
+
+describe("toClaimReviewJsonLd — brána", () => {
+  it("ověřená hrana vydá ClaimReview s numerickým hodnocením", () => {
+    const ld = toClaimReviewJsonLd(verifiedReceipt(), "https://politicas.example/zdroj/abc");
+    expect(ld).not.toBeNull();
+    expect(ld?.["@type"]).toBe("ClaimReview");
+    expect(ld?.claimReviewed).toContain("Jana Nováková");
+    expect(ld?.reviewRating.ratingValue).toBe(5);
+    expect(ld?.reviewRating.bestRating).toBe(5);
+    expect(ld?.reviewRating.alternateName).toBe("ověřeno");
+  });
+
+  it("nezkontrolovaná vazba NEVYDÁ fact-check značku", () => {
+    const r = deriveEdgeReceipt({ edge: linkedTo({}), srcNode: person, dstNode: company });
+    expect(r.kind === "edge" && r.gate?.status).toBe("pending_review");
+    expect(toClaimReviewJsonLd(r, "https://politicas.example/zdroj/abc")).toBeNull();
+  });
+
+  it("zamítnutá vazba NEVYDÁ fact-check značku", () => {
     const r = deriveEdgeReceipt({
-      edge: linkedTo({ review_state: "verified" }),
+      edge: linkedTo({ review_state: "rejected" }),
       srcNode: person,
       dstNode: company,
     });
-    const ld = toClaimReviewJsonLd(r, "/zdroj/abc");
-    expect(ld["@type"]).toBe("ClaimReview");
-    expect(ld.claimReviewed).toContain("Jana Nováková");
-    expect((ld.reviewRating as { ratingValue: string }).ratingValue).toBe("ověřeno člověkem");
+    expect(toClaimReviewJsonLd(r, "https://politicas.example/zdroj/abc")).toBeNull();
   });
 
-  it("negated tvrzení hlásí deterministické odvození, ne falešnou kontrolu", () => {
+  it("deterministické odvození (bez brány) fact-check značku nedostane", () => {
     const r = deriveEdgeReceipt({ edge: coVotes, srcNode: person, dstNode: undefined });
-    const ld = toClaimReviewJsonLd(r, "/zdroj/abc");
-    expect((ld.reviewRating as { ratingValue: string }).ratingValue).toContain("deterministické odvození");
+    expect(toClaimReviewJsonLd(r, "https://politicas.example/zdroj/abc")).toBeNull();
+  });
+
+  it("uzlová účtenka fact-check značku nedostane", () => {
+    expect(toClaimReviewJsonLd(deriveNodeReceipt(company), "https://politicas.example/zdroj/u")).toBeNull();
+  });
+});
+
+describe("toClaimReviewJsonLd — tvar", () => {
+  it("adresa je absolutní a jde do `url`; itemReviewed nese trvalý ref", () => {
+    const r = verifiedReceipt();
+    const ld = toClaimReviewJsonLd(r, "https://politicas.example/zdroj/abc");
+    expect(ld?.url).toBe("https://politicas.example/zdroj/abc");
+    expect(ld?.itemReviewed.name).toBe(r.ref);
+  });
+
+  it("bez poctivě zjistitelného základu adresy se `url` VYNECHÁ, nevymyslí", () => {
+    const ld = toClaimReviewJsonLd(verifiedReceipt(), null);
+    expect(ld).not.toBeNull();
+    expect(ld && "url" in ld).toBe(false);
+  });
+
+  it("appearance je CreativeWork (ne holý řetězec) a nese registry obou stran", () => {
+    const ld = toClaimReviewJsonLd(verifiedReceipt(), null);
+    const appearance = ld?.itemReviewed.appearance ?? [];
+    expect(appearance.length).toBeGreaterThan(0);
+    for (const a of appearance) {
+      expect(a["@type"]).toBe("CreativeWork");
+      expect(a.url).toMatch(/^https?:\/\//);
+    }
+    // Bez duplicit — výstup musí být bajtově stabilní.
+    expect(new Set(appearance.map((a) => a.url)).size).toBe(appearance.length);
+  });
+
+  it("datePublished je datum ROZHODNUTÍ brány, ne odvození", () => {
+    const ld = toClaimReviewJsonLd(verifiedReceipt(), null);
+    expect(ld?.datePublished).toBe("2026-07-26T12:00:00Z");
   });
 });

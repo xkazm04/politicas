@@ -3007,7 +3007,7 @@
       },
       "unavailable": {
         "what": "Účtenka původu",
-        "back": "zpět do velína"
+        "back": "zpět na úvodní stranu"
       },
       "page": {
         "brand": "politicas / zdroj",
@@ -3017,6 +3017,9 @@
         "lead": "Každé číslo na politicas je dveře, ne tvrzení: tahle adresa nese celý identifikátor záznamu ve znalostním grafu a server z něj účtenku při každém zobrazení deterministicky odvodí znovu — záznam, jeho původ, stav lidské kontroly a registry, kde si ho ověříte sami.",
         "goneTitle": "Dnešní graf tohle tvrzení nenese",
         "goneBody": "Adresa je rozluštitelná, ale záznam v dnešním sestavení znalostního grafu není — mohl být přepočítán, zamítnut při kontrole, nebo se podkladová data změnila. Nic podobného se nedosazuje: účtenka buď doloží přesně citovaný záznam, nebo to řekne.",
+        "goneClaimKicker": "co tahle adresa tvrdila",
+        "goneNodeHere": "tento uzel dnešní graf nese",
+        "goneNodeMissing": "tento uzel v dnešním grafu není",
         "goneRef": "adresa tvrzení: {ref}",
         "citationKicker": "citace",
         "verify": "ověřit tuto citaci",

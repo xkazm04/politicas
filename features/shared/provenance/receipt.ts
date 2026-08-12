@@ -16,7 +16,13 @@
  * KOORDINACE S 2E (lib/claims): slovník tvrzení pro strojové čtení má vlastnit
  * lib/claims/** (Batch 2, položka 2E). V době stavby této plochy modul
  * neexistoval, proto je ClaimReview tvar definovaný lokálně ve STEJNÉM tvaru
- * (schema.org/ClaimReview) — orchestrátor obě definice sladí při review.
+ * (schema.org/ClaimReview) — orchestrátor obě definice sloučí později.
+ * Od 2026-08-12 se ale obě emise řídí TÝMŽ pravidlem, které lib/claims/claim.ts
+ * vyhlašuje ve svém §3: ClaimReview jde ven POUZE za tvrzení, které prošlo
+ * lidskou branou. Do té doby /zdroj vydávalo fact-check značku i nad hranou
+ * s `pending_review` a hodnocením „čeká na lidskou kontrolu" — crawler, který
+ * ratingValue nečte jako větu, dostával naši nezkontrolovanou stopu jako
+ * ověřený fakt. Viz `toClaimReviewJsonLd` dole.
  */
 
 import type { KgEdgeRow, KgNodeRow, ReviewAuditRow } from "@/lib/db/types";
@@ -237,36 +243,144 @@ export const formatWeightCs = (n: number): string =>
 export const formatWeight = (n: number, locale: string): string =>
   locale === "cs" ? formatWeightCs(n) : Number.isFinite(n) ? String(n) : "—";
 
+// ── Odkud odešla adresa, kterou dnešní graf nenese ───────────────────────────
+//
+// Stav „gone" (rozluštitelná adresa bez záznamu) je pro čtenáře ta NEJHORŠÍ
+// chvíle: přišel po citaci a nemá se čeho chytit. Adresa přitom celé tvrzení
+// nese — dekodér z ní vytáhne src/rel/dst — a KONCOVÉ UZLY v grafu obvykle
+// dál jsou (zmizela hrana, ne lidé a firmy). Tenhle tvar proto vyplní, co se
+// dnes o citovaném tvrzení ještě VÍ, a mlčí o zbytku: chybějící uzel dostane
+// doslovné id a `kind: null`, nikdy vymyšlené jméno ani odhadnutý druh.
+
+export interface DecodedEndpoint {
+  id: string;
+  /** Druh uzlu, JEN pokud ho dnešní graf ještě nese; null = uzel v grafu není
+   *  (a plocha pak nesmí nabídnout spis — vedl by do prázdna). */
+  kind: string | null;
+  /** Štítek uzlu, jinak doslovné id. */
+  label: string;
+}
+
+export interface DecodedClaim {
+  kind: "edge" | "node";
+  subject: DecodedEndpoint;
+  /** Strojový token relace; null u uzlové adresy. */
+  rel: string | null;
+  /** Česká čitelná podoba relace (katalogová cesta je `relLabelKey`). */
+  relLabel: string | null;
+  object: DecodedEndpoint | null;
+}
+
+const decodedEndpoint = (id: string, node: KgNodeRow | null | undefined): DecodedEndpoint => ({
+  id,
+  kind: node ? node.kind : null,
+  label: node ? node.label : id,
+});
+
+/** Co adresa TVRDILA — čistě z rozluštěného refu plus uzlů, které dnešní graf
+ *  ještě nese. `nodes` smí být prázdná mapa (uzel zmizel taky). */
+export function toDecodedClaim(
+  ref: ClaimRef,
+  nodes: ReadonlyMap<string, KgNodeRow>,
+): DecodedClaim {
+  if (ref.kind === "node") {
+    return {
+      kind: "node",
+      subject: decodedEndpoint(ref.id, nodes.get(ref.id)),
+      rel: null,
+      relLabel: null,
+      object: null,
+    };
+  }
+  return {
+    kind: "edge",
+    subject: decodedEndpoint(ref.src, nodes.get(ref.src)),
+    rel: ref.rel,
+    relLabel: relLabelCs(ref.rel),
+    object: decodedEndpoint(ref.dst, nodes.get(ref.dst)),
+  };
+}
+
 // ── Strojově čitelný tvar (schema.org/ClaimReview — viz koordinace s 2E) ────
 
-/** Strukturální ClaimReview objekt pro <script type="application/ld+json"> na
- *  stránce účtenky. Bez sítě, bez validátoru — jen stabilní tvar, který
- *  fact-check crawler přečte. Hodnocení nevymýšlíme: ratingValue nese stav
- *  lidské brány (ověřeno/čeká/zamítnuto), u negated tvrzení metodu odvození. */
-export function toClaimReviewJsonLd(receipt: ProvenanceReceipt, permalink: string): Record<string, unknown> {
-  const claim =
-    receipt.kind === "edge"
-      ? `${receipt.subject.label} ${receipt.relLabel} ${receipt.object.label}`
-      : receipt.subject.label;
-  const rating =
-    receipt.kind === "edge" && receipt.gate
-      ? receipt.gate.status === "verified"
-        ? "ověřeno člověkem"
-        : receipt.gate.status === "rejected"
-          ? "zamítnuto při kontrole"
-          : "čeká na lidskou kontrolu"
-      : `deterministické odvození${receipt.provenance.method ? ` (${receipt.provenance.method})` : ""}`;
-  return {
+/** Strukturální tvar emitovaného JSON-LD — minimální stabilní podmnožina
+ *  schema.org/ClaimReview, tvarově shodná s `lib/claims/claim.ts`
+ *  (`ClaimReviewJsonLd`): numerické `ratingValue` s bestRating/worstRating,
+ *  `itemReviewed.name` = trvalá adresa tvrzení, `appearance` jako CreativeWork.
+ *  Řetězcový ratingValue, který tu stál dřív, není platné hodnocení — je to
+ *  věta v poli, kde spotřebitel čeká číslo. */
+export interface ReceiptClaimReviewJsonLd {
+  "@context": "https://schema.org";
+  "@type": "ClaimReview";
+  claimReviewed: string;
+  itemReviewed: {
+    "@type": "Claim";
+    name: string;
+    appearance?: Array<{ "@type": "CreativeWork"; url: string }>;
+  };
+  reviewRating: {
+    "@type": "Rating";
+    ratingValue: 5;
+    bestRating: 5;
+    worstRating: 1;
+    alternateName: "ověřeno";
+  };
+  author: { "@type": "Organization"; name: "Politicas" };
+  datePublished?: string;
+  url?: string;
+}
+
+/**
+ * ClaimReview POUZE za záznam, který prošel lidskou branou; jinak null.
+ *
+ * Brána je vynucená TADY, ne na volajícím — přesně jako v `lib/claims/claim.ts`
+ * (`claimReviewJsonLd`), jehož §3 pravidlo tenhle modul do 2026-08-12 porušoval:
+ * /zdroj sázelo fact-check značku na každou účtenku a stav brány schovávalo do
+ * `ratingValue` jako českou větu. Nezkontrolovaná vazba, deterministické
+ * odvození (`gate === null`) ani uzlová účtenka fact-check značku nedostanou —
+ * mlčení je jediné poctivé strojové vyjádření „tohle nikdo neschválil".
+ * Zeslabený náhradní typ se ZÁMĚRNĚ nevymýšlí.
+ *
+ * `permalink` musí být ABSOLUTNÍ adresa (relativní URL spotřebitelé odmítají);
+ * null = základ adresy se nedal poctivě zjistit a pole `url` se vynechá —
+ * vymyšlená doména by byla horší než chybějící pole (precedens app/sitemap.ts).
+ */
+export function toClaimReviewJsonLd(
+  receipt: ProvenanceReceipt,
+  permalink: string | null,
+): ReceiptClaimReviewJsonLd | null {
+  if (receipt.kind !== "edge") return null;
+  if (receipt.gate?.status !== "verified") return null;
+
+  // „Kde se tvrzení objevuje" = veřejné registry OBOU koncových bodů, doslova
+  // z uložených identifikátorů (sourceLinksFor nikdy nehádá). Deduplikace drží
+  // pořadí, ať je výstup bajtově stabilní.
+  const appearance = [...new Set([...receipt.subject.links, ...receipt.object.links].map((l) => l.url))].map(
+    (url) => ({ "@type": "CreativeWork" as const, url }),
+  );
+  // datePublished je datum RECENZE, ne odvození — u ověřené hrany tedy nejdřív
+  // okamžik rozhodnutí brány, teprve pak výpočet, který hranu navrhl.
+  const published = receipt.gate.reviewedAt ?? receipt.provenance.computedAt;
+
+  const jsonLd: ReceiptClaimReviewJsonLd = {
     "@context": "https://schema.org",
     "@type": "ClaimReview",
-    url: permalink,
-    claimReviewed: claim,
-    reviewRating: { "@type": "Rating", ratingValue: rating },
-    author: { "@type": "Organization", name: "politicas" },
-    ...(receipt.provenance.computedAt ? { datePublished: receipt.provenance.computedAt } : {}),
+    claimReviewed: `${receipt.subject.label} ${receipt.relLabel} ${receipt.object.label}`,
     itemReviewed: {
       "@type": "Claim",
-      appearance: receipt.subject.links.map((l) => l.url),
+      name: receipt.ref,
+      ...(appearance.length > 0 ? { appearance } : {}),
     },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: 5,
+      bestRating: 5,
+      worstRating: 1,
+      alternateName: "ověřeno",
+    },
+    author: { "@type": "Organization", name: "Politicas" },
   };
+  if (published) jsonLd.datePublished = published;
+  if (permalink) jsonLd.url = permalink;
+  return jsonLd;
 }

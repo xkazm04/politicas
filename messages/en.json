@@ -3007,7 +3007,7 @@
       },
       "unavailable": {
         "what": "Provenance receipt",
-        "back": "back to the control room"
+        "back": "back to the front page"
       },
       "page": {
         "brand": "politicas / zdroj",
@@ -3017,6 +3017,9 @@
         "lead": "Every number on politicas is a door, not a claim: this address carries the full identifier of a knowledge-graph record, and the server deterministically re-derives the receipt from it on every view — the record, its origin, the state of human review, and the registers where you can verify it yourself.",
         "goneTitle": "Today's graph does not carry this claim",
         "goneBody": "The address decodes, but the record is not in today's build of the knowledge graph — it may have been recomputed, rejected in review, or the underlying data changed. Nothing similar is substituted: the receipt either documents the exact record cited, or says so.",
+        "goneClaimKicker": "what this address claimed",
+        "goneNodeHere": "today's graph still carries this node",
+        "goneNodeMissing": "this node is not in today's graph",
         "goneRef": "claim address: {ref}",
         "citationKicker": "citation",
         "verify": "verify this citation",

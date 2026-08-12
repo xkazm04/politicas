@@ -26,13 +26,18 @@ import {
   deriveEdgeReceipt,
   deriveNodeReceipt,
   GATED_RELS,
+  toDecodedClaim,
+  type DecodedClaim,
   type ProvenanceReceipt,
 } from "./receipt";
 
 export type ReceiptResult =
   | { status: "invalid" }
   | { status: "unavailable" }
-  | { status: "gone"; ref: string }
+  /** `decoded` = co adresa TVRDILA. Loader ref stejně luští (jinak by nevěděl,
+   *  co hledat), takže ho odsud vydává i tehdy, když dnešní graf záznam nenese —
+   *  jinak čtenář, který přišel po citaci, zůstane stát nad base64 blobem. */
+  | { status: "gone"; ref: string; decoded: DecodedClaim }
   | { status: "ok"; receipt: ProvenanceReceipt };
 
 export const getReceiptData = cache(async function getReceiptData(
@@ -51,7 +56,9 @@ export const getReceiptData = cache(async function getReceiptData(
 
     if (ref.kind === "node") {
       const [node] = await store.getKgNodes([ref.id]);
-      if (!node) return { status: "gone", ref: encodedRef };
+      // Uzel v grafu není, takže o něm není co dodat — `decoded` nese doslovné
+      // id a `kind: null`, aby plocha nenabídla spis, který by vedl do prázdna.
+      if (!node) return { status: "gone", ref: encodedRef, decoded: toDecodedClaim(ref, new Map()) };
       return { status: "ok", receipt: deriveNodeReceipt(node) };
     }
 
@@ -61,7 +68,17 @@ export const getReceiptData = cache(async function getReceiptData(
     const edge = read.edges.find(
       (e) => e.src === ref.src && e.rel === ref.rel && e.dst === ref.dst,
     );
-    if (!edge) return { status: "gone", ref: encodedRef };
+    if (!edge) {
+      // Zmizela HRANA — koncové uzly (lidé, firmy) v grafu obvykle dál jsou.
+      // Jedno bodové indexované čtení navíc (getKgNodes po id) proto koupí
+      // čtenáři jména obou stran a odkazy do spisů místo base64 blobu.
+      const goneNodes = await store.getKgNodes([ref.src, ref.dst]);
+      return {
+        status: "gone",
+        ref: encodedRef,
+        decoded: toDecodedClaim(ref, new Map(goneNodes.map((n) => [n.id, n]))),
+      };
+    }
 
     const nodes = await store.getKgNodes([ref.src, ref.dst]);
     const nodeById = new Map(nodes.map((n) => [n.id, n]));
