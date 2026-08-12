@@ -109,8 +109,13 @@ function RealLawWatch({ data, dependencyData }: { data: LawWatchWire; dependency
         ))}
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
+        {/* „?" místo průchodu byl otazník vydávaný za citaci. Když uzly tisků
+            provenienci nenesou, řekne se to větou — vzor `forensicIndex.sourceNoPass`
+            hned pod touhle sekcí. */}
         <SourceNote>
-          {t("statsSource", { pass: data.pass ?? "?", committeeRouted: f.int(data.committeeRoutedBills) })}
+          {data.pass !== null
+            ? t("statsSource", { pass: data.pass, committeeRouted: f.int(data.committeeRoutedBills) })
+            : t("statsSourceNoPass", { committeeRouted: f.int(data.committeeRoutedBills) })}
         </SourceNote>
         <span className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-wider text-steel">
           {originOrder
@@ -220,6 +225,27 @@ function RealLawWatch({ data, dependencyData }: { data: LawWatchWire; dependency
             );
           })}
         </div>
+        {/* STROP SE PŘIZNÁVÁ. Dvacet řádků je řez, ne výstup — a dokud se řez
+            nepojmenoval, četl se jako „tolik zákonů někdo novelizuje". Populace se
+            počítá na serveru PŘED řezem (publicWire.ts `topLawsTotal`); `totalLaws`
+            to není, ten počítá všechny uzly zákonů v grafu, tedy jinou množinu. */}
+        {data.topLawsTotal > data.topLaws.length && (
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+            <SourceNote>
+              {t("section2Capped", {
+                shownFmt: f.int(data.topLaws.length),
+                total: data.topLawsTotal,
+                totalFmt: f.int(data.topLawsTotal),
+              })}
+            </SourceNote>
+            <Link
+              href="/zakony/predpis"
+              className="font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              {t("section2RegistryLink")}
+            </Link>
+          </div>
+        )}
         <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
           {t("titleLinkNote")}{" "}
           {data.paragraphDiffCount > 0

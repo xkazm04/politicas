@@ -124,11 +124,13 @@ function RealCollisions({ data }: { data: CollisionData }) {
     <>
       {/* Statistický pás */}
       <div className="grid grid-cols-2 gap-px border-2 border-ink bg-ink sm:grid-cols-4">
+        {/* Čtyři čísla pásu přes `lib/format.ts` — `useFormat` je tu vázaný od
+            začátku a čísla ho přesto míjela, takže se sázela syrovým JS. */}
         {[
-          { v: data.confirmedPairCount, l: t("collisions.stats.confirmed") },
-          { v: data.coordinationRiskPairCount, l: t("collisions.stats.risks") },
-          { v: data.clusterCount, l: t("collisions.stats.clusters") },
-          { v: data.nWayClusterCount, l: t("collisions.stats.nWay") },
+          { v: f.int(data.confirmedPairCount), l: t("collisions.stats.confirmed") },
+          { v: f.int(data.coordinationRiskPairCount), l: t("collisions.stats.risks") },
+          { v: f.int(data.clusterCount), l: t("collisions.stats.clusters") },
+          { v: f.int(data.nWayClusterCount), l: t("collisions.stats.nWay") },
         ].map((s) => (
           <div key={s.l} className="bg-paper px-4 py-4">
             <div className="text-3xl font-black tabular-nums">{s.v}</div>
@@ -137,7 +139,12 @@ function RealCollisions({ data }: { data: CollisionData }) {
         ))}
       </div>
       <div className="mt-2">
-        <SourceNote>{t("collisions.statsSource", { batches: data.batchesRun })}</SourceNote>
+        <SourceNote>
+          {t("collisions.statsSource", {
+            batches: data.batchesRun,
+            batchesFmt: f.int(data.batchesRun),
+          })}
+        </SourceNote>
       </div>
       {/* Vyřazené nahodilé dvojice se počítají a přiznávají. Pravidlo („stejné číslo §,
           jiný zákon") stálo v citaci pod pásem už dřív, ale bez čísla — a čtyři čísla nad
@@ -156,7 +163,10 @@ function RealCollisions({ data }: { data: CollisionData }) {
       {data.czechPendingCount > 0 && (
         <div className="mt-2 border-2 border-dashed border-ochre bg-ochre/5 px-4 py-3">
           <p className="font-mono text-[11px] uppercase tracking-wider text-ochre">
-            {t("collisions.czechPending", { count: data.czechPendingCount })}
+            {t("collisions.czechPending", {
+              count: data.czechPendingCount,
+              countFmt: f.int(data.czechPendingCount),
+            })}
           </p>
         </div>
       )}
@@ -169,7 +179,9 @@ function RealCollisions({ data }: { data: CollisionData }) {
             <SourceNote>
               {t("collisions.clustersAside", {
                 clusters: data.clusterCount,
+                clustersFmt: f.int(data.clusterCount),
                 pairs: data.confirmedPairCount + data.coordinationRiskPairCount,
+                pairsFmt: f.int(data.confirmedPairCount + data.coordinationRiskPairCount),
               })}
             </SourceNote>
           }
@@ -279,9 +291,26 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
   return (
     <div className={`border-l-4 ${tone.border} bg-paper-strong/60 pl-3`}>
       <div className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-        <span className="text-sm font-bold">
-          {t("printInternal", { tiskId: pair.billA })} × {t("printInternal", { tiskId: pair.billB })}
-          <span className="ml-2 font-mono text-[11px] font-normal uppercase tracking-wider text-steel">
+        {/* VEŘEJNÉ číslo tisku, ne interní id. `billA`/`billB` nesou totéž číslo, jaké
+            o dva řádky níž popisky citací předávají jako `cislo` a jakým je klíčovaný
+            dosje /zakony/<cislo> — přesto se tu sázela zpráva „tisk {tiskId}", takže
+            272 karet nálezů pojmenovávalo tisk špatným rejstříkem a nevedlo nikam.
+            Odkaz je týž vzor jako v hlavičce shluku výš. */}
+        <span className="flex flex-wrap items-baseline gap-x-1.5 text-sm font-bold">
+          <Link
+            href={`/zakony/${pair.billA}`}
+            className="text-signal underline decoration-hairline underline-offset-2 transition-colors hover:text-cobalt"
+          >
+            {t("printNumbered", { cislo: pair.billA })}
+          </Link>
+          <span className="text-steel">×</span>
+          <Link
+            href={`/zakony/${pair.billB}`}
+            className="text-signal underline decoration-hairline underline-offset-2 transition-colors hover:text-cobalt"
+          >
+            {t("printNumbered", { cislo: pair.billB })}
+          </Link>
+          <span className="font-mono text-[11px] font-normal uppercase tracking-wider text-steel">
             § {pair.sharedParagraph}
           </span>
         </span>

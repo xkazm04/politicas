@@ -9,6 +9,7 @@ import type { LawBillView, LawData } from "./getLawData";
 import {
   BILL_WIRE,
   DERIVED_BILL_KEYS,
+  DERIVED_LAW_KEYS,
   LAW_WIRE,
   PUBLIC_BILL_KEYS,
   PUBLIC_LAW_KEYS,
@@ -189,8 +190,10 @@ describe("BILL_WIRE / toPublicBill", () => {
 });
 
 describe("LAW_WIRE / toLawWatchWire", () => {
-  it("ships exactly the public keys — nothing else", () => {
-    expect(Object.keys(toLawWatchWire(lawData())).sort()).toEqual([...PUBLIC_LAW_KEYS].sort());
+  it("ships exactly the public keys plus the declared measurements — nothing else", () => {
+    expect(Object.keys(toLawWatchWire(lawData())).sort()).toEqual(
+      [...PUBLIC_LAW_KEYS, ...DERIVED_LAW_KEYS].sort(),
+    );
   });
 
   it("ships no field classified internal", () => {
@@ -206,10 +209,21 @@ describe("LAW_WIRE / toLawWatchWire", () => {
     expect(toLawWatchWire(lawData()).forensicIndex.withheldVerdictCount).toBe(1);
   });
 
-  it("cuts topLaws to what §02 draws, and leaves the honest total in totalLaws", () => {
+  it("cuts topLaws to what §02 draws, and ships the population it cut FROM", () => {
     const wired = toLawWatchWire(lawData());
     expect(wired.topLaws).toHaveLength(TOP_LAWS_RENDERED);
+    // The cap's own denominator: how many statutes a print amends, counted BEFORE the
+    // slice. `totalLaws` is NOT that number — it counts every law node in the graph, a
+    // different and larger population, and the cap's doc comment used to claim it
+    // reconciled the two.
+    expect(wired.topLawsTotal).toBe(lawData().topLaws.length);
+    expect(wired.topLawsTotal).toBeGreaterThan(TOP_LAWS_RENDERED);
     expect(wired.totalLaws).toBe(31);
+    // …and it tracks the LIST, not the law-node count: a graph carrying statutes no
+    // print amends moves `totalLaws` and must leave this denominator alone.
+    expect(toLawWatchWire(lawData({ totalLaws: 293 })).topLawsTotal).toBe(
+      wired.topLawsTotal,
+    );
     // The cut keeps the loader's own ordering (most-amended first) — never re-sorts.
     expect(wired.topLaws.map((l) => l.billCount)).toEqual(
       lawData().topLaws.slice(0, TOP_LAWS_RENDERED).map((l) => l.billCount),

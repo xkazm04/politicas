@@ -133,13 +133,27 @@ type PublicLawKey = {
 /**
  * How many most-amended statutes §02 draws. Exported so the SERVER cuts the list and
  * the component's own slice reads the same constant — a cap declared in two places is
- * a cap that drifts, and the honest total is `totalLaws`, which ships regardless.
+ * a cap that drifts.
+ *
+ * The doc comment here used to claim „the honest total is `totalLaws`, which ships
+ * regardless". IT IS NOT: `totalLaws` counts every law NODE in the graph, while
+ * `topLaws` is the statutes at least one print amends — a different, smaller
+ * population, so the cap reconciled against a number that is not its own. §02 now
+ * ships `topLawsTotal` (the length BEFORE the slice) and prints „20 z N" beside the
+ * list, with a door to the full statute register.
  */
 export const TOP_LAWS_RENDERED = 20;
 
 /** What `/zakony` ships. Everything `LawData` marks `public`, with `bills` narrowed. */
 export interface LawWatchWire extends Omit<Pick<LawData, PublicLawKey>, "bills"> {
   bills: PublicLawBill[];
+  /**
+   * How many statutes `topLaws` held BEFORE `TOP_LAWS_RENDERED` cut it — i.e. the
+   * population §02's twenty rows are twenty OF. Derived like the four measured bill
+   * fields: it stands in for a list the browser never receives, so the reader can be
+   * told what is missing without shipping it.
+   */
+  topLawsTotal: number;
 }
 
 /** The `public` halves as runtime lists — the colocated test holds the mappers to
@@ -156,6 +170,11 @@ export const PUBLIC_LAW_KEYS: readonly PublicLawKey[] = Object.entries(LAW_WIRE)
 /** The four measured fields, as a runtime list — pinned by the test beside the keys
  *  they stand in for, so a measurement can never quietly become a second payload. */
 export const DERIVED_BILL_KEYS = ["amendedLawRefs", "hasForensic", "hasParagraphDiff", "hasCommittees"] as const;
+
+/** The payload-level measurements — same rule as `DERIVED_BILL_KEYS`: each stands in
+ *  for something the wire deliberately does NOT ship, so the reader can be told what
+ *  is missing without the bytes. */
+export const DERIVED_LAW_KEYS = ["topLawsTotal"] as const;
 
 export function toPublicBill(b: LawBillView): PublicLawBill {
   return {
@@ -180,6 +199,8 @@ export function toLawWatchWire(data: LawData): LawWatchWire {
   return {
     bills: data.bills.map(toPublicBill),
     topLaws: data.topLaws.slice(0, TOP_LAWS_RENDERED),
+    // Counted BEFORE the cut — the whole point is that the cut becomes visible.
+    topLawsTotal: data.topLaws.length,
     originCounts: data.originCounts,
     totalBills: data.totalBills,
     totalLaws: data.totalLaws,

@@ -3,6 +3,7 @@
 // §-level sector-attribution block is the first surface here to carry reader-facing prose
 // straight from a DERIVED, UNGATED ledger (the `verdictDisposition` sentences), so its own
 // key parity, ICU placeholders and Czech-language discipline are pinned explicitly.
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import csCatalog from "@/messages/cs.json";
@@ -35,13 +36,50 @@ function richTags(s: string): string[] {
   return [...new Set([...s.matchAll(/<\/?([a-zA-Z][\w-]*)\s*\/?>/g)].map((m) => m[1]))].sort();
 }
 
-/** Named ICU variables only (`{name}` / `{name, plural, ...}` / `{name, ...}`), not the
- * word-content of a plural's category branches — a naive `\{(\w+)[^}]*\}` scan over
- * `{count, plural, one {tisk} few {tisky} other {tisků}}` would (wrongly) also capture
- * "tisk"/"tisky"/"tisků" as if they were variable names, and the two locales legitimately
- * choose different words per category. This regex anchors on the FIRST token after `{`. */
+/** Every `{…}` group at the TOP nesting level of `s`, returned as its inner text. */
+function topLevelArgs(s: string): string[] {
+  const out: string[] = [];
+  let depth = 0;
+  let start = -1;
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "{") {
+      if (depth === 0) start = i + 1;
+      depth++;
+    } else if (s[i] === "}") {
+      depth--;
+      if (depth === 0 && start >= 0) out.push(s.slice(start, i));
+    }
+  }
+  return out;
+}
+
+/**
+ * Named ICU variables only (`{name}` / `{name, plural, …}`), never the word-content of a
+ * plural's category branches: the two locales legitimately choose different words per
+ * category, and a Czech branch may be a whole clause.
+ *
+ * This USED to be one regex anchored on the first token after `{` — and it silently did
+ * not work in English. „one {batch}" is itself a `{word}` group, so it was captured as a
+ * variable named `batch`; the Czech side dodged it only by accident, because `\w` does
+ * not match „á" and so „{dávka}" never matched at all. Two locales were therefore
+ * compared under two different rules. The parser below walks brace depth instead: a
+ * plural's branch BODIES are recursed into (a `{countFmt}` inside a branch is a real
+ * variable) while the branch keywords and their prose are not.
+ */
 function variables(s: string): string[] {
-  return [...new Set([...s.matchAll(/\{\s*(\w+)[,}]/g)].map((m) => m[1]))].sort();
+  const names = new Set<string>();
+  for (const arg of topLevelArgs(s)) {
+    const head = /^\s*(\w+)\s*(,|$)/.exec(arg);
+    if (!head) continue;
+    names.add(head[1]);
+    const rest = arg.slice(head[0].length);
+    const kind = /^\s*(plural|select|selectordinal)\s*,/.exec(rest);
+    if (!kind) continue;
+    for (const branch of topLevelArgs(rest.slice(kind[0].length))) {
+      for (const v of variables(branch)) names.add(v);
+    }
+  }
+  return [...names].sort();
 }
 
 describe("lawwatch message catalog", () => {
@@ -53,6 +91,62 @@ describe("lawwatch message catalog", () => {
     for (const k of Object.keys(cs)) {
       expect(richTags(en[k] ?? ""), k).toEqual(richTags(cs[k]));
     }
+  });
+
+  /*
+   * ONE JARGON GATE OVER THE WHOLE NAMESPACE, IN BOTH LOCALES.
+   *
+   * There were three of these checks before (forensicIndex.*, detail.sectorAttribution.*,
+   * the triangle key list) — each over its own handful of keys, each cs-only, and none of
+   * them able to match the Czech phrase at all: `/\bbatch\b|\bpass\s*\d/i` never fires on
+   * „průchod grafu 20". Three keys therefore hardcoded a pass number for months on the
+   * three most-read law surfaces, in both languages.
+   *
+   * WHAT IS BANNED IS A LITERAL DIGIT after a pipeline word. `{pass}` / `{batch}` are
+   * fine and deliberate — they name a citable artifact id the surface derives at render
+   * time, which is the whole difference between a citation and a stale number.
+   */
+  describe("pipeline jargon", () => {
+    const JARGON = [
+      /pr[ůu]chod\w*\s+grafu\s*\d/i, // „průchod grafu 20"
+      /graph\s+pass\w*\s*\d/i, // "graph pass 20"
+      /\bpass\s*\d/i, // bare "pass 20"
+      /d[áa]vk\w*\s*\d/i, // „dávka 017" / „dávky 3"
+      /\bbatch\w*\s*\d/i, // "batch 017"
+    ];
+
+    /**
+     * The ONE sanctioned exception, and it was already documented twice in this file:
+     * the sector-attribution citation names batch 017 as a citable ARTIFACT ID, the way
+     * `graphPass` names a pass. Everything else must interpolate or say nothing.
+     */
+    const ARTIFACT_ID_KEYS = new Set(["detail.sectorAttribution.source"]);
+
+    it("no key hardcodes a pass or batch NUMBER, in either locale", () => {
+      for (const [loc, ns] of [
+        ["cs", cs],
+        ["en", en],
+      ] as const) {
+        for (const [k, v] of Object.entries(ns)) {
+          if (ARTIFACT_ID_KEYS.has(k)) continue;
+          for (const rx of JARGON) {
+            expect(v, `${loc}.${k} hardcodes a pipeline number — ${rx}`).not.toMatch(rx);
+          }
+        }
+      }
+    });
+
+    it("the gate can actually see the Czech phrase (the old regex could not)", () => {
+      // Falsification of the gate itself: the pattern set must reject the exact string
+      // that survived three narrower checks, and must accept the interpolated form.
+      const fire = (s: string) => JARGON.some((rx) => rx.test(s));
+      expect(fire("census plného textu (průchod grafu 20)")).toBe(true);
+      expect(fire("full-text census (graph pass 20)")).toBe(true);
+      expect(fire("sektorová atribuce (dávka 017)")).toBe(true);
+      expect(fire("psp.cz tisky · průchod grafu {pass}")).toBe(false);
+      expect(fire("dávka {batch} · {method}")).toBe(false);
+      expect(fire("{batches, plural, one {# dávka} few {# dávky} other {# dávek}}")).toBe(false);
+    });
   });
 
   it("declares one sector label per token the batch-017 payload actually carries", () => {
@@ -376,6 +470,119 @@ describe("lawwatch message catalog", () => {
         expect(cs[k], k).not.toMatch(/\bbatch\b|\bpass\s*\d/i);
       }
     });
+  });
+
+  /*
+   * ČÍSLO V ČESKÉ VĚTĚ SE SKLOŇUJE. Tři počítající věty /zakony/kolize sázely tvar
+   * natvrdo — „{batches} dávky" nad živou hodnotou 11 („dávek"), „{clusters} shluků"
+   * rozbité na jedničce, „U {count}× dvojice" úplně mimo. Vzor je
+   * `collisions.incidentalDropped`, který to už dělá správně: `count` vybírá tvar,
+   * `countFmt` nese číslo naformátované lib/format.ts (ICU `#` by formátovalo samo a
+   * obešlo by jediné místo, kde se o českém formátu rozhoduje).
+   */
+  describe("counting sentences decline", () => {
+    const PLURALIZED = [
+      "collisions.statsSource",
+      "collisions.clustersAside",
+      "collisions.czechPending",
+      "collisions.incidentalDropped",
+      "section2Capped",
+    ];
+
+    it("selects a form with ICU plural in both locales", () => {
+      for (const k of PLURALIZED) {
+        expect(cs[k], `cs.${k}`).toMatch(/,\s*plural\s*,/);
+        expect(en[k], `en.${k}`).toMatch(/,\s*plural\s*,/);
+      }
+    });
+
+    it("gives Czech all three categories, and English two", () => {
+      for (const k of PLURALIZED) {
+        for (const cat of ["one", "few", "other"]) {
+          expect(cs[k], `cs.${k} missing the ${cat} branch`).toMatch(
+            new RegExp(`\\b${cat}\\s*\\{`),
+          );
+        }
+        for (const cat of ["one", "other"]) {
+          expect(en[k], `en.${k} missing the ${cat} branch`).toMatch(
+            new RegExp(`\\b${cat}\\s*\\{`),
+          );
+        }
+      }
+    });
+
+    it("declares the same ICU variables in both locales", () => {
+      for (const k of PLURALIZED) expect(variables(en[k]), k).toEqual(variables(cs[k]));
+    });
+
+    it("formats the number through lib/format.ts, never through ICU's own #", () => {
+      // A `#` would let intl-messageformat format the figure, i.e. a second place where
+      // Czech number formatting is decided. Every one of these carries a `*Fmt` sibling.
+      for (const k of PLURALIZED) {
+        expect(cs[k], `cs.${k} uses ICU #`).not.toContain("#");
+        expect(en[k], `en.${k} uses ICU #`).not.toContain("#");
+        expect(variables(cs[k]).some((v) => v.endsWith("Fmt")), `cs.${k}`).toBe(true);
+      }
+    });
+  });
+
+  describe("a surface that cannot name its pass says so", () => {
+    it("declares a no-pass sibling for every pass citation the index renders", () => {
+      for (const ns of [cs, en]) {
+        for (const [withPass, without] of [
+          ["statsSource", "statsSourceNoPass"],
+          ["graphPassSource", "graphPassSourceNoPass"],
+          ["forensicIndex.source", "forensicIndex.sourceNoPass"],
+        ] as const) {
+          expect(ns[withPass], withPass).toBeTruthy();
+          expect(ns[without], without).toBeTruthy();
+          // The no-pass form may not carry the placeholder — a `?` in its slot was the
+          // defect: „průchod grafu ?" is a citation asserting a pass we do not have.
+          expect(variables(ns[without]), without).not.toContain("pass");
+        }
+      }
+    });
+
+    it("keeps the committee figure in the no-pass form of the stat citation", () => {
+      // Dropping the pass may not drop the sentence's other number with it.
+      for (const ns of [cs, en]) {
+        expect(variables(ns["statsSourceNoPass"])).toEqual(["committeeRouted"]);
+      }
+    });
+  });
+
+  describe("§02 discloses its cap and offers the register", () => {
+    it("declares both keys in both locales", () => {
+      for (const ns of [cs, en]) {
+        expect(ns["section2Capped"]?.trim()).toBeTruthy();
+        expect(ns["section2RegistryLink"]?.trim()).toBeTruthy();
+        expect(variables(ns["section2RegistryLink"])).toEqual([]);
+      }
+    });
+
+    it("states that the list is cut, not the whole population", () => {
+      expect(cs["section2Capped"]).toMatch(/useknut|není úplný|ne úplný/i);
+      expect(en["section2Capped"]).toMatch(/capped|not complete/i);
+    });
+  });
+
+  it("declares no key with zero call sites (lawwatch.back is gone)", () => {
+    // `back` had no consumer anywhere in app/ or features/ — a dead key in two
+    // catalogs reads as an affordance the surface owes the reader.
+    expect(cs["back"]).toBeUndefined();
+    expect(en["back"]).toBeUndefined();
+  });
+
+  it("the collision pair card labels the PUBLIC print number and links it", () => {
+    // `printInternal` („tisk {tiskId}") is the message for the graph's internal id.
+    // /zakony/kolize passed it `pair.billA`, which is the public číslo — the same value
+    // the excerpt caption two rows below already passes as `cislo`, and the key
+    // /zakony/<cislo> is addressed by. Source-grep, in the publicWire.test.ts pattern:
+    // this repo has no jsdom, so the wiring is pinned where it can be.
+    const page = readFileSync("features/lawwatch/CollisionsPage.tsx", "utf8");
+    expect(page).not.toContain("printInternal");
+    expect(page).toContain("href={`/zakony/${pair.billA}`}");
+    expect(page).toContain("href={`/zakony/${pair.billB}`}");
   });
 
   describe("the dropped-pair disclosure (/zakony/kolize)", () => {

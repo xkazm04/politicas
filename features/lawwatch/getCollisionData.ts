@@ -61,6 +61,13 @@ export interface CollisionEvidence {
 
 export interface CollisionPairView {
   pairId: string;
+  /**
+   * The PUBLIC sněmovní-tisk print numbers — the same thing `CollisionBillRef.cislo`
+   * carries and what `/zakony/<cislo>` is keyed by. NOT the graph's internal
+   * `bill:tisk:<id>` suffix. Stated here because the surface labelled these two with
+   * „tisk {tiskId}" (the INTERNAL-id message) for months while the excerpt captions
+   * two rows below already passed the very same value as `cislo`.
+   */
   billA: number;
   billB: number;
   classification: CollisionClassification;
