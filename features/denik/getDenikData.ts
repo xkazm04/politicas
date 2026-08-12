@@ -1,27 +1,33 @@
-// Server-only: loader /denik — čte STRIKTNĚ read-only tři vrstvy, které už
-// vlastní jiné loadery, a mapuje je na vstup čistého odvození (deriveDenik.ts):
+// Server-only: loader /denik — skládá ČTYŘI vrstvy, které už vlastní jiné
+// loadery, a mapuje je na vstup čistého odvození (deriveDenik.ts):
 //
 //   1. Peněžní vrstva (getMoneyData) → rejstříkové role všech vazeb a smlouvy
 //      PŘISOUDITELNÝCH firem (vlastník/jednatel — pravidlo /penize; steward
 //      smlouvy jsou aktivitou instituce a do deníku poslanců nepatří).
 //      Jednotlivé smlouvy se čtou indexovaně přes kgNeighbours po firmách,
-//      nikdy scanem 153k řádků `supplies`.
+//      nikdy scanem 153k řádků `supplies`. Read-only.
 //   2. Legislativní vrstva (getLawData) → přikázání výborům + vyhlášení ve
-//      Sbírce.
-//   3. Lidská brána (store.listReviewAudit + getKgNodes na labely) — jediný
-//      append-only log; čte se ČERSTVĚ za requestu (rozhodnutí revizora se
-//      nesmí opozdit o memo okno dávkových vrstev).
+//      Sbírce. Read-only.
+//   3. Lidská brána — SDÍLENÝ odečet features/dukazy/readReviewAudit.ts
+//      (review_audit + labely obou konců vazby). Read-only, čte se ČERSTVĚ za
+//      requestu (rozhodnutí revizora se nesmí opozdit o memo okno dávkových
+//      vrstev) a JEDNOU: /dukazy čte týž log a schránka spouští oba loadery
+//      v jednom Promise.all.
 //   4. Proud „zaznamenáno" (change_event, 5C) — typované change eventy grafu
 //      (nová vazba, změna vazby, smlouva v grafu), datované časem ZÁZNAMU.
-//      Idempotentní backfill běží nejvýš jednou za memo okno; čtení eventů za
-//      requestu. review-decision eventy se nepřebírají (viz readChanges).
+//      TATO VRSTVA JAKO JEDINÁ ZAPISUJE: `backfillChangeEvents()` je
+//      idempotentní odvození (deterministická id → opakovaný běh přepíše řádky
+//      na místě), ale je to zápis do change_event, ne čtení. Hlavička tvrdila
+//      „STRIKTNĚ read-only tři vrstvy" a nesouhlasila ani v počtu, ani v tom
+//      zápisu — opraveno 2026-08-12.
 //
 // Dávkové vrstvy (1+2) jsou drahé (~12 s studený start peněz) a mění se jen
 // s `npm run da:kg-compute` — memoizují se s expirací MONEY_MEMO_TTL_MS,
 // stejná politika a stejné zdůvodnění jako features/dashboard/getDashboardData.
-// Neúspěch se nememoizuje. Každá vrstva degraduje NEZÁVISLE; `coverage` říká
-// ploše, které skupiny záznamů deník právě unese, a plocha to přizná.
-// null vrací loader jen když nie je čitelná ŽÁDNÁ vrstva (úložiště nedostupné).
+// Vrstva 4 se memoizuje NA TÉMŽ OKNĚ jako backfill, který ji plní (viz
+// changeLayer). Neúspěch se nememoizuje. Každá vrstva degraduje NEZÁVISLE;
+// `coverage` říká ploše, které skupiny záznamů deník právě unese, a plocha to
+// přizná. null vrací loader jen když není čitelná ŽÁDNÁ vrstva.
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
@@ -33,6 +39,7 @@ import { isAttributable } from "@/features/money/reachableMoney";
 import { canonicalIco } from "@/features/money/companyId";
 import { getLawData } from "@/features/lawwatch/getLawData";
 import { icoFromDst, pspIdFromSrc } from "@/features/dukazy/deriveFeed";
+import { readReviewAudit } from "@/features/dukazy/readReviewAudit";
 import { pragueDay } from "./pragueDay";
 import { DENIK_CHANGE_TYPES } from "./deriveDenik";
 import type {
@@ -56,15 +63,23 @@ export interface DenikCoverage {
 }
 
 /**
- * MEZE ČTENÍ, SPOČÍTANÉ A PŘIZNANÉ (2026-08-04).
+ * MEZE ČTENÍ, SPOČÍTANÉ A PŘIZNANÉ (2026-08-04, doplněno 2026-08-12).
  *
- * Do téhle opravy hlásil loader jen strop FIREM (reportLoaderFailure do
+ * Do opravy 2026-08-04 hlásil loader jen strop FIREM (reportLoaderFailure do
  * konzole), zatímco strop HRAN na firmu (`kgNeighbours limit`) ořezával mlčky:
- * na živém grafu narazilo 5 z 35 čtených firem přesně na 500 hran, takže
+ * při tehdejším čtení narazilo 5 z 35 čtených firem přesně na 500 hran, takže
  * **4 872 smluv** — víc, než kolik jich deník vůbec ukazoval — z ledgeru mizelo
- * bez jediné věty. Precedens je `droppedImplausible`: vyhozeno, spočítáno,
- * počet vypsán. Detekce je táž heuristika jako `warnIfTruncated` v lib/db
- * (výsledek délky přesně `limit` je pravděpodobně useknutý).
+ * bez jediné věty. (To „35" je počet firem TOHO měření, ne dnešní stav; dnešní
+ * počet nese `contractCompanies`, spočítaný za běhu. Dvě čísla jednoho jevu
+ * v jedné hlavičce četla jako rozpor — proto ta věta.) Precedens je
+ * `droppedImplausible`: vyhozeno, spočítáno, počet vypsán. Detekce je táž
+ * heuristika jako `warnIfTruncated` v lib/db (výsledek délky přesně `limit` je
+ * pravděpodobně useknutý).
+ *
+ * 2026-08-12 dostaly svůj počet i zbylé dvě mlčící meze: strop lidské brány
+ * (`listReviewAudit`, jehož repozitář sám varuje, že useknuté čtení
+ * „publikuje špatné číslo") a strop proudu záznamu grafu (`listChangeEvents`
+ * řadí od NEJNOVĚJŠÍCH, takže useknutí ukusuje nejstarší historii).
  */
 export interface DenikLimits {
   /** Firem s vazbou vlastník/jednatel, jejichž smlouvy se četly. */
@@ -82,6 +97,15 @@ export interface DenikLimits {
   changesFromGate: number;
   /** change eventy, jejichž typ deník neumí vyslovit — spočítané, ne zamlčené. */
   changesUndisplayable: number;
+  /** Strop odečtu lidské brány; `true` = narazilo se na něj, takže `auditRows`
+   *  je SPODNÍ mez, ne počet rozhodnutí. */
+  auditCap: number;
+  auditTruncated: boolean;
+  /** Strop čtení change eventů, kolik jich čtení vrátilo a jestli narazilo.
+   *  Řazení je od nejnovějších, takže useknutí bere NEJSTARŠÍ události. */
+  changeCap: number;
+  changesRead: number;
+  changesTruncated: boolean;
 }
 
 export interface DenikSourceData {
@@ -345,36 +369,43 @@ function batchLayers(): Promise<BatchLayers> {
 
 // ── lidská brána: čerstvě za requestu ───────────────────────────────────────
 
-async function readReviews(): Promise<{ reviews: DenikReview[]; ok: boolean; auditRows: number }> {
+interface GateLayer {
+  reviews: DenikReview[];
+  ok: boolean;
+  auditRows: number;
+  truncated: boolean;
+  cap: number;
+}
+
+const GATE_DOWN = (cap: number): GateLayer => ({
+  reviews: [],
+  ok: false,
+  auditRows: 0,
+  truncated: false,
+  cap,
+});
+
+/** Odečet i labely jdou SDÍLENÝM čtecím modulem (features/dukazy) — /dukazy čte
+ *  týž append-only log a schránka volá oba loadery v jednom Promise.all. Druhá
+ *  kopie téhož dotazu byla i druhé místo, kde se dá zapomenout na strop. */
+async function readReviews(): Promise<GateLayer> {
   try {
-    const store = await getStore();
-    if (!store) return { reviews: [], ok: false, auditRows: 0 };
-    const audit = await store.listReviewAudit({ limit: 10_000 });
+    const gate = await readReviewAudit();
+    if (!gate) return GATE_DOWN(0);
 
-    const ids = [...new Set(audit.flatMap((r) => [r.src, r.dst]))];
-    const labels = new Map<string, string>();
-    if (ids.length > 0) {
-      try {
-        for (const n of await store.getKgNodes(ids)) labels.set(n.id, n.label);
-      } catch (err) {
-        // Labely jsou obohacení; deník degraduje na id uzlů, neumírá.
-        reportLoaderFailure("getDenikData.reviewLabels", err);
-      }
-    }
-
-    const reviews: DenikReview[] = audit.map((r) => ({
+    const reviews: DenikReview[] = gate.rows.map((r) => ({
       id: r.id,
       decision: r.decision,
       decidedAt: r.decidedAt,
-      mpName: labels.get(r.src) ?? r.src,
-      company: labels.get(r.dst) ?? r.dst,
+      mpName: gate.nodeLabels.get(r.src) ?? r.src,
+      company: gate.nodeLabels.get(r.dst) ?? r.dst,
       pspId: pspIdFromSrc(r.src),
       ico: icoFromDst(r.dst),
     }));
-    return { reviews, ok: true, auditRows: audit.length };
+    return { reviews, ok: true, auditRows: gate.rows.length, truncated: gate.truncated, cap: gate.cap };
   } catch (err) {
     reportLoaderFailure("getDenikData.reviews", err);
-    return { reviews: [], ok: false, auditRows: 0 };
+    return GATE_DOWN(0);
   }
 }
 
@@ -383,44 +414,87 @@ async function readReviews(): Promise<{ reviews: DenikReview[]; ok: boolean; aud
 // Odvození (backfill) je idempotentní — deterministická id znamenají, že
 // opakovaný běh přepíše řádky na místě a nikdy nezdvojí proud. Běží nejvýš
 // jednou za MONEY_MEMO_TTL_MS (stejná politika jako dávkové vrstvy: korpus se
-// mění jen s ingestem/kg-compute); neúspěch se nememoizuje. Čtení eventů je
-// pak levné a běží za requestu.
+// mění jen s ingestem/kg-compute); neúspěch se nememoizuje.
+//
+// ČTENÍ JEDE NA TÉMŽ OKNĚ (2026-08-12). Do téhle opravy tu stálo, že čtení
+// eventů je „pak levné a běží za requestu" — nezměřené tvrzení, které navíc
+// popisovalo dvě různá okna: backfill jednou za MONEY_MEMO_TTL_MS, čtení
+// pokaždé. Přitom se ZOBRAZITELNÁ množina mezi dvěma backfilly změnit NEMŮŽE:
+// review-decision eventy deník záměrně nepřebírá (a jsou to jediné, které mezi
+// backfilly přibývají — z rozhodnutí revizora), a mandátové/orgánové typy nemají
+// v produkci žádného pisatele (lib/db/pglite/repositories/changes.ts: „Mandate/
+// role events have NO backfill source … they only accrue forward, via the
+// adapter snapshot-diff layer" — a ten běží v ingestu, ne za requestu). Backfill
+// a čtení proto tvoří JEDNU memoizovanou vrstvu; čerstvost brány tím netrpí,
+// protože rozhodnutí revizora nese vrstva 3, která se memo okna nedotýká.
+//
+// MĚŘENO: na záloze .pglite-backup-20260806-pass55 je `change_event` PRÁZDNÁ
+// (0 řádků; `listChangeEvents(5 000)` 1 ms), takže cena čtení naplněné tabulky
+// změřená NENÍ — živý adresář drží běžící dev server. Memo tedy nestojí na
+// naměřené ceně, ale na tom, že opakované čtení mezi backfilly nemůže vrátit
+// nic nového.
 
-let changesBackfillPromise: Promise<void> | null = null;
-let changesBackfillAt = 0;
-
-function ensureChangesBackfilled(): Promise<void> {
-  if (changesBackfillPromise !== null && Date.now() - changesBackfillAt >= MONEY_MEMO_TTL_MS) {
-    changesBackfillPromise = null;
-  }
-  if (changesBackfillPromise === null) {
-    changesBackfillAt = Date.now();
-    changesBackfillPromise = (async () => {
-      const repo = await getChangesRepo();
-      if (!repo) return;
-      await repo.backfillChangeEvents();
-    })().catch((err) => {
-      changesBackfillPromise = null;
-      reportLoaderFailure("getDenikData.changesBackfill", err);
-    });
-  }
-  return changesBackfillPromise;
-}
-
-/** Strop čtených eventů — pojistka, ne stránkování; plocha řeže po dnech. */
+/** Strop čtených eventů — pojistka, ne stránkování; plocha řeže po dnech.
+ *  `listChangeEvents` řadí od NEJNOVĚJŠÍCH, takže useknutí bere nejstarší
+ *  historii — proto se přiznává (DenikLimits.changesTruncated). */
 const MAX_CHANGE_EVENTS = 5_000;
 
-async function readChanges(): Promise<{
+interface ChangeLayer {
   changes: DenikChange[];
   ok: boolean;
   fromGate: number;
   undisplayable: number;
-}> {
+  read: number;
+  truncated: boolean;
+}
+
+const CHANGES_DOWN: ChangeLayer = {
+  changes: [],
+  ok: false,
+  fromGate: 0,
+  undisplayable: 0,
+  read: 0,
+  truncated: false,
+};
+
+let changesPromise: Promise<ChangeLayer> | null = null;
+let changesMemoAt = 0;
+
+/** Backfill + čtení jako JEDNA vrstva na jednom okně (viz komentář výš).
+ *  Neúspěch se nememoizuje — příští request to zkusí znovu. */
+function changeLayer(): Promise<ChangeLayer> {
+  if (changesPromise !== null && Date.now() - changesMemoAt >= MONEY_MEMO_TTL_MS) changesPromise = null;
+  if (changesPromise === null) {
+    changesMemoAt = Date.now();
+    changesPromise = readChanges().then((value) => {
+      if (!value.ok) changesPromise = null;
+      return value;
+    });
+    changesPromise = changesPromise.catch((err) => {
+      changesPromise = null;
+      reportLoaderFailure("getDenikData.changeLayer", err);
+      return CHANGES_DOWN;
+    });
+  }
+  return changesPromise;
+}
+
+async function readChanges(): Promise<ChangeLayer> {
   try {
     const repo = await getChangesRepo();
-    if (!repo) return { changes: [], ok: false, fromGate: 0, undisplayable: 0 };
-    await ensureChangesBackfilled();
+    if (!repo) return CHANGES_DOWN;
+    await repo.backfillChangeEvents();
     const events = await repo.listChangeEvents({ limit: MAX_CHANGE_EVENTS });
+    // Táž heuristika jako warnIfTruncated: délka přesně na stropu je useknutí.
+    const truncated = events.length >= MAX_CHANGE_EVENTS;
+    if (truncated) {
+      reportLoaderFailure(
+        "getDenikData.changes",
+        new Error(
+          `change_event vrátil přesně strop ${MAX_CHANGE_EVENTS} událostí — nejstarší záznam grafu se nepřečetl`,
+        ),
+      );
+    }
 
     // Tabulka deklaruje 10 typů; deník jich vyslovuje 9. Do 2026-08-04 uměl
     // TŘI a zbylých šest (mandátové a orgánové) mizelo mlčky — „poslanec
@@ -509,17 +583,17 @@ async function readChanges(): Promise<{
         pending: isTie && e.payload.review_state !== "verified",
       };
     });
-    return { changes, ok: true, fromGate, undisplayable };
+    return { changes, ok: true, fromGate, undisplayable, read: events.length, truncated };
   } catch (err) {
     reportLoaderFailure("getDenikData.changes", err);
-    return { changes: [], ok: false, fromGate: 0, undisplayable: 0 };
+    return CHANGES_DOWN;
   }
 }
 
 // ── vstupní bod ─────────────────────────────────────────────────────────────
 
 export async function getDenikData(): Promise<DenikSourceData | null> {
-  const [batch, gate, changeStream] = await Promise.all([batchLayers(), readReviews(), readChanges()]);
+  const [batch, gate, changeStream] = await Promise.all([batchLayers(), readReviews(), changeLayer()]);
   const coverage: DenikCoverage = {
     money: batch.moneyOk,
     law: batch.lawOk,
@@ -548,6 +622,11 @@ export async function getDenikData(): Promise<DenikSourceData | null> {
       edgeCap: MAX_CONTRACT_EDGES,
       changesFromGate: changeStream.fromGate,
       changesUndisplayable: changeStream.undisplayable,
+      auditCap: gate.cap,
+      auditTruncated: gate.truncated,
+      changeCap: MAX_CHANGE_EVENTS,
+      changesRead: changeStream.read,
+      changesTruncated: changeStream.truncated,
     },
     auditRows: gate.auditRows,
     builtOn: pragueDay(),

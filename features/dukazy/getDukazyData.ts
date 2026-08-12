@@ -2,11 +2,15 @@
 // read-only (design doc batch-2 §2C) and hands it to the pure derivation in
 // deriveFeed.ts. Three reads, all against the existing Store interface:
 //
-//   1. review_audit via store.listReviewAudit — the append-only decision trail
-//      written by ReviewRepository.setTieReviewState (the only write path).
-//   2. kg nodes via store.getKgNodes — labels for both tie endpoints, so the
-//      feed names the MP and the company instead of leaking node urns.
-//   3. linked_to edges + bill nodes — the verbatim per-tie `props.source`
+//   1. review_audit + endpoint labels via the SHARED reader
+//      (./readReviewAudit.ts) — the append-only decision trail written by
+//      ReviewRepository.setTieReviewState (the only write path), plus the
+//      labels that let the feed name the MP and the company instead of
+//      leaking node urns. /denik reads the same log; since 2026-08-12 both go
+//      through that one reader, so a subscriber poll (which runs BOTH loaders
+//      in one Promise.all) pays for the log once and neither surface can
+//      forget the cap.
+//   2. linked_to edges + bill nodes — the verbatim per-tie `props.source`
 //      provenance string, and forensic verdicts a human signed off.
 //
 // Degrade contract mirrors getAdminData.ts: store unavailable → null (the page
@@ -21,11 +25,17 @@ import {
   type EvidenceEntry,
   type ForensicSignoffLike,
 } from "./deriveFeed";
+import { readReviewAudit } from "./readReviewAudit";
 
 export interface DukazyData {
   entries: EvidenceEntry[];
   /** How many audit rows fed the feed — cited in the page header SourceNote. */
   auditRows: number;
+  /** The audit read hit its cap, so `auditRows` is a FLOOR, not a count of the
+   *  gate's decisions. The page says so beside the figure (the repository's own
+   *  warning: a truncated read here "publishes a wrong number"). */
+  auditTruncated: boolean;
+  auditCap: number;
 }
 
 function asStr(v: unknown): string | null {
@@ -37,19 +47,13 @@ export async function getDukazyData(): Promise<DukazyData | null> {
     const store = await getStore();
     if (!store) return null;
 
-    const audit = await store.listReviewAudit({ limit: 10_000 });
-
-    // Labels for every node an audit row references (batch fetch, read-only).
-    const ids = [...new Set(audit.flatMap((r) => [r.src, r.dst]))];
-    const nodeLabels = new Map<string, string>();
-    if (ids.length > 0) {
-      try {
-        for (const n of await store.getKgNodes(ids)) nodeLabels.set(n.id, n.label);
-      } catch (err) {
-        // Labels are an enrichment; the feed degrades to node ids, never dies.
-        reportLoaderFailure("getDukazyData.getKgNodes", err);
-      }
-    }
+    // The audit log + endpoint labels come from the ONE shared reader; a null
+    // here means the record is unreadable, which is what this loader's own null
+    // means too.
+    const gate = await readReviewAudit();
+    if (!gate) return null;
+    const audit = gate.rows;
+    const nodeLabels = gate.nodeLabels;
 
     // Verbatim provenance string per tie — only for ties the audit mentions.
     const tieSources = new Map<string, string>();
@@ -96,6 +100,8 @@ export async function getDukazyData(): Promise<DukazyData | null> {
     return {
       entries: deriveEvidenceFeed({ audit, nodeLabels, tieSources, forensic }),
       auditRows: audit.length,
+      auditTruncated: gate.truncated,
+      auditCap: gate.cap,
     };
   } catch (err) {
     reportLoaderFailure("getDukazyData", err);

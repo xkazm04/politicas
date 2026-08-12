@@ -55,6 +55,13 @@ export interface EvidenceLink {
 
 export type EvidenceDecision = "confirm" | "reject" | "needs-more" | "forensic-verified";
 
+/** In-page anchor of one evidence entry (`z-<id>`) and its permanent address.
+ *  ONE owner of that shape: /denik links a gate decision back here by the SAME
+ *  audit-row id, and a second `z-`/`/dukazy#` template on the other side would
+ *  be a permalink that drifts silently (both look right until one changes). */
+export const evidenceAnchor = (id: string): string => `z-${id}`;
+export const evidenceHref = (id: string): string => `/dukazy#${evidenceAnchor(id)}`;
+
 export interface EvidenceEntry {
   /** Stable public id: audit-row uuid, or `tisk-<tiskId>` for forensic. */
   id: string;
@@ -81,6 +88,12 @@ export interface EvidenceEntry {
   links: EvidenceLink[];
   /** Internal evidence route (/poslanec/<id>, /zakony/<cislo>), if resolvable. */
   internalHref: string | null;
+  /** The MP this decision is about (`psp:person:<n>` on the audit row's src),
+   *  when the id is readable. The page composes the deník address from it —
+   *  the two journals key on the same public entity, and only the deník can be
+   *  asked for „that day, that MP". Absent for forensic entries: a signed
+   *  verdict is not a deník row, so no day of it exists to link to. */
+  mpPspId?: number | null;
   /** Verbatim provenance line for the entry's SourceNote (feed content). */
   sourceCs: string;
   /** Provenance line as a `dukazy.*` catalog key + verbatim detail — the
@@ -148,7 +161,7 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
 
   return {
     id: row.id,
-    anchor: `z-${row.id}`,
+    anchor: evidenceAnchor(row.id),
     kind: "tie",
     decision: row.decision,
     decisionCs: DECISION_CS[row.decision],
@@ -159,6 +172,7 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
     priorState: row.priorState,
     links,
     internalHref: pspId != null ? `/poslanec/${pspId}` : null,
+    mpPspId: pspId,
     // Verbatim edge provenance when the edge still exists; the audit table is
     // always cited — it IS the record being published.
     sourceCs: source ? `zdroj: review_audit · kg_edge linked_to · ${source}` : "zdroj: review_audit · kg_edge linked_to",
@@ -171,7 +185,7 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
   const id = `tisk-${f.tiskId}`;
   return {
     id,
-    anchor: `z-${id}`,
+    anchor: evidenceAnchor(id),
     kind: "forensic",
     decision: "forensic-verified",
     decisionCs: DECISION_CS["forensic-verified"],
@@ -182,6 +196,9 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
     priorState: "pending_review",
     links: [],
     internalHref: f.cislo != null ? `/zakony/${f.cislo}` : null,
+    // Podepsaný posudek NENÍ řádek deníku (ten nese smlouvy, role, kroky tisku,
+    // bránu a change eventy) — nemá tedy den, na který by se dalo odkázat.
+    mpPspId: null,
     sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity}`,
     sourceKey: "entry.sourceForensic",
     sourceDetail: f.severity,

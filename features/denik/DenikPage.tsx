@@ -30,6 +30,7 @@ import {
   TIME_BASIS_LABEL_KEYS,
   TIME_BASIS_TITLE_KEYS,
 } from "./kindLabels";
+import { limitNotes } from "./limitNotes";
 import type { DenikCoverage, DenikLimits } from "./getDenikData";
 import FollowButton from "@/features/schranka/FollowButton";
 
@@ -142,14 +143,31 @@ function EntryRow({
                 <ArrowUpRight className="h-3 w-3" aria-hidden />
               </a>
             ))}
-            {e.evidence.map((ev) => (
-              <span
-                key={`${ev.label}:${ev.value}`}
-                className="font-mono text-[11px] tracking-wider text-steel"
-              >
-                {ev.label}: {ev.value}
-              </span>
-            ))}
+            {/* Ukazatel, který má na platformě vlastní adresu, JE odkaz: řádek
+                rozhodnutí brány nese id, pod kterým totéž rozhodnutí kotví
+                Deník důkazů (`/dukazy#z-<id>`). Adresu skládá kodek u zdroje
+                (deriveDenik → evidenceHref), tady se jen vykresluje; ukazatel
+                bez adresy (tabulka, hrana grafu) zůstává textem — odkaz se
+                nedomýšlí. */}
+            {e.evidence.map((ev) =>
+              ev.href ? (
+                <Link
+                  key={`${ev.label}:${ev.value}`}
+                  href={ev.href}
+                  className="font-mono text-[11px] tracking-wider text-signal-deep hover:underline"
+                  aria-label={t("entryRow.evidenceAria", { label: ev.label, value: ev.value })}
+                >
+                  {ev.label}: {ev.value}
+                </Link>
+              ) : (
+                <span
+                  key={`${ev.label}:${ev.value}`}
+                  className="font-mono text-[11px] tracking-wider text-steel"
+                >
+                  {ev.label}: {ev.value}
+                </span>
+              ),
+            )}
           </span>
         )}
         {/* Filtr je adresa — každý čip je odkaz na vlastní deník entity. Sledovat
@@ -217,53 +235,6 @@ const COVERAGE_NOTE_KEYS: { key: keyof DenikCoverage; noteKey: string }[] = [
   { key: "reviews", noteKey: "coverage.reviews" },
   { key: "changes", noteKey: "coverage.changes" },
 ];
-
-/**
- * MEZE ČTENÍ, VYPSANÉ VĚTOU (2026-08-04). Každý strop, který smí ztratit řádek,
- * má svou větu a svůj počet — precedens `droppedImplausible`: vyhozeno,
- * spočítáno, počet vypsán. Věta se ukáže jen tehdy, když se mez SKUTEČNĚ
- * dotkla dat; nulová mez je pojistka, ne sdělení. Věty jdou katalogem — tady
- * se skládají jen klíče a spočítané hodnoty.
- */
-function limitNotes(
-  limits: DenikLimits,
-  ledger: DenikLedger | null,
-  locale: Locale,
-): { key: string; values: Record<string, string> }[] {
-  const int = (n: number) => formatInt(n, locale);
-  const notes: { key: string; values: Record<string, string> }[] = [];
-  if (limits.companiesOverCap > 0) {
-    notes.push({
-      key: "limits.companiesOverCap",
-      values: { cap: int(limits.companyCap), n: int(limits.companiesOverCap) },
-    });
-  }
-  if (limits.companiesEdgeTruncated > 0) {
-    notes.push({
-      key: "limits.companiesEdgeTruncated",
-      values: { n: int(limits.companiesEdgeTruncated), cap: int(limits.edgeCap) },
-    });
-  }
-  if (limits.malformedIco > 0) {
-    notes.push({ key: "limits.malformedIco", values: { n: int(limits.malformedIco) } });
-  }
-  if (limits.changesUndisplayable > 0) {
-    notes.push({ key: "limits.changesUndisplayable", values: { n: int(limits.changesUndisplayable) } });
-  }
-  if (limits.changesFromGate > 0) {
-    notes.push({ key: "limits.changesFromGate", values: { n: int(limits.changesFromGate) } });
-  }
-  if (ledger && ledger.mergedContractRows > 0) {
-    notes.push({ key: "limits.mergedContractRows", values: { n: int(ledger.mergedContractRows) } });
-  }
-  if (ledger && ledger.contractAmountConflicts > 0) {
-    notes.push({
-      key: "limits.contractAmountConflicts",
-      values: { n: int(ledger.contractAmountConflicts) },
-    });
-  }
-  return notes;
-}
 
 export interface DenikPageProps {
   /** null ⇒ žádná vrstva nebyla čitelná (čestný stav „nečitelné, ne prázdné"). */

@@ -21,6 +21,7 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { formatDate, formatInt } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
+import { entityDayHref, mpEntityKey } from "@/features/denik/deriveDenik";
 import type { EvidenceEntry } from "./deriveFeed";
 import type { DukazyData } from "./getDukazyData";
 
@@ -38,6 +39,17 @@ const DECISION_TONE: Record<EvidenceEntry["decision"], string> = {
 };
 
 function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) {
+  /*
+   * Den, ve kterém TOTÉŽ rozhodnutí nese Deník republiky. Oba deníky klíčují
+   * poslance stejným veřejným klíčem, ale jen /denik umí odpovědět „ten den,
+   * ten poslanec" — adresu proto skládá kodek deníku (`mpEntityKey` +
+   * `entityDayHref`), importovaný, nikdy přepsaný do šablony u sebe. Vrátí-li
+   * skladač null (okamžik, ze kterého se den přečíst nedá), odkaz se
+   * nezobrazí; forenzní záznam pspId nemá vůbec — podepsaný posudek není
+   * řádkem deníku, takže žádný jeho den neexistuje.
+   */
+  const denikHref =
+    e.mpPspId == null ? null : entityDayHref(mpEntityKey(e.mpPspId), e.decidedAt);
   return (
     <article
       id={e.anchor}
@@ -81,6 +93,15 @@ function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) 
             e.subjectCs
           )}
         </p>
+        {denikHref && (
+          <Link
+            href={denikHref}
+            className="inline-flex w-fit items-center gap-1 font-mono text-xs uppercase tracking-widest text-signal-deep hover:underline"
+            aria-label={t("entry.denikDayAria", { subject: e.subjectCs })}
+          >
+            {t("entry.denikDay")} <ArrowUpRight className="h-3 w-3" aria-hidden />
+          </Link>
+        )}
         {e.links.length > 0 && (
           <ul className="flex flex-wrap gap-x-4 gap-y-1">
             {e.links.map((l) => (
@@ -115,7 +136,18 @@ export default function DukazyPage({ data, locale }: { data: DukazyData | null; 
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">/ dukazy</span>
+          {/* Kde jsem — a kde je druhý deník platformy. /denik nese táž
+              rozhodnutí jako jednu skupinu svého dne a sem odkazoval; zpátky
+              nevedlo nic. */}
+          <div className="flex items-baseline gap-4">
+            <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">/ dukazy</span>
+            <Link
+              href="/denik"
+              className="font-mono text-xs uppercase tracking-widest text-cobalt hover:underline"
+            >
+              {t("denikLink")}
+            </Link>
+          </div>
           {/* Strojově čitelné podoby věstníku — veřejné API deníku. */}
           <div className="flex items-center gap-4">
             <a
@@ -168,7 +200,15 @@ export default function DukazyPage({ data, locale }: { data: DukazyData | null; 
             title={t("section.title")}
             aside={
               data && (
-                <SourceNote>{t("section.source", { rows: formatInt(data.auditRows, locale) })}</SourceNote>
+                <SourceNote>
+                  {t("section.source", { rows: formatInt(data.auditRows, locale) })}
+                  {/* Useknuté čtení JE tvrzení o počtu — a repozitář u tohohle
+                      stropu sám varuje, že pak „publikuje špatné číslo". Věta
+                      se přidává jen tehdy, když se na strop skutečně narazilo. */}
+                  {data.auditTruncated
+                    ? ` · ${t("section.sourceFloor", { cap: formatInt(data.auditCap, locale) })}`
+                    : ""}
+                </SourceNote>
               )
             }
           />

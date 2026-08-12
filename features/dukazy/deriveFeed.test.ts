@@ -7,6 +7,8 @@ import { describe, expect, it } from "vitest";
 import {
   DECISION_CS,
   deriveEvidenceFeed,
+  evidenceAnchor,
+  evidenceHref,
   icoFromDst,
   pspIdFromSrc,
   type AuditRowLike,
@@ -136,6 +138,72 @@ describe("deriveEvidenceFeed — forensic gate", () => {
     const signed: ForensicSignoffLike = { ...pending, tiskId: 2, cislo: 2, title: "Signed", reviewState: "verified" };
     const feed = deriveEvidenceFeed(input({ forensic: [pending, signed] }));
     expect(feed.map((e) => e.id)).toEqual(["tisk-2"]);
+  });
+});
+
+describe("evidenceAnchor / evidenceHref — JEDEN vlastník tvaru z-<id>", () => {
+  // Deník republiky odkazuje rozhodnutí brány sem, pod TÝMŽ id řádku
+  // review_audit. Druhá šablona `z-`/`/dukazy#` na jeho straně by byla
+  // permalink, který se rozejde potichu — proto kodek žije tady a tam se
+  // importuje. Tenhle test drží obě půlky u sebe.
+  it("kotva je z-<id> a adresa je /dukazy# nad TOUŽ kotvou", () => {
+    expect(evidenceAnchor("5f3a")).toBe("z-5f3a");
+    expect(evidenceHref("5f3a")).toBe(`/dukazy#${evidenceAnchor("5f3a")}`);
+  });
+
+  it("obojí platí pro OBA druhy záznamu — vazbu i podepsaný posudek", () => {
+    const feed = deriveEvidenceFeed(
+      input({
+        audit: [row({ id: "5f3a" })],
+        forensic: [
+          {
+            tiskId: 812,
+            cislo: 812,
+            title: "Novela zákona X",
+            severity: "high",
+            reviewState: "verified",
+            signedAt: "2026-07-19T08:00:00.000Z",
+          },
+        ],
+      }),
+    );
+    for (const e of feed) {
+      expect(e.anchor, e.id).toBe(evidenceAnchor(e.id));
+      expect(evidenceHref(e.id), e.id).toBe(`/dukazy#${e.anchor}`);
+    }
+  });
+});
+
+describe("mpPspId — klíč, kterým se lze zeptat deníku republiky", () => {
+  it("záznam o vazbě nese pspId ze svého src uzlu", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({})] }));
+    expect(e.mpPspId).toBe(6543);
+  });
+
+  it("nečitelný src uzel dá null — id se nerekonstruuje", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({ src: "kg:organ:senat" })] }));
+    expect(e.mpPspId).toBeNull();
+    expect(e.internalHref).toBeNull();
+  });
+
+  it("podepsaný posudek nese null — den v deníku republiky nemá", () => {
+    // Deník nese smlouvy, role, kroky tisku, bránu a change eventy — podepsaný
+    // forenzní posudek žádným z nich není, takže žádný jeho den neexistuje.
+    const [e] = deriveEvidenceFeed(
+      input({
+        forensic: [
+          {
+            tiskId: 812,
+            cislo: 812,
+            title: "Novela zákona X",
+            severity: "high",
+            reviewState: "verified",
+            signedAt: "2026-07-19T08:00:00.000Z",
+          },
+        ],
+      }),
+    );
+    expect(e.mpPspId).toBeNull();
   });
 });
 

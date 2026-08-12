@@ -10,6 +10,7 @@ import {
   DAYS_SHOWN,
   dayAnchor,
   deriveDenikEntries,
+  entityDayHref,
   entityLabel,
   filterDenikEntries,
   groupDenikDays,
@@ -19,6 +20,8 @@ import {
   type DenikInput,
   DENIK_CHANGE_TYPES,
 } from "./deriveDenik";
+import { evidenceAnchor, evidenceHref } from "@/features/dukazy/deriveFeed";
+import { entityDenikHref } from "@/features/schranka/followCodec";
 import { pragueDay } from "./pragueDay";
 
 const input = (over: Partial<DenikInput> = {}): DenikInput => ({
@@ -657,9 +660,17 @@ describe("řádek nese svůj doklad, ne jen jméno rejstříku", () => {
     ]);
   });
 
-  it("rozhodnutí brány nese id svého řádku v append-only logu", () => {
+  it("rozhodnutí brány nese id svého řádku v append-only logu — a ODKAZ na týž záznam v deníku důkazů", () => {
+    // Oba deníky publikují totéž rozhodnutí pod týmž id a do 2026-08-12 na sebe
+    // nevedl ani jeden. Adresa se pin-uje proti IMPORTOVANÉMU kodeku, ne proti
+    // přepsané šabloně — druhá šablona téhož tvaru je permalink, který se
+    // rozejde potichu.
     const { entries } = deriveDenikEntries(input({ reviews: [review("r1", "2026-07-21T09:00:00.000Z")] }));
-    expect(entries[0].evidence).toEqual([{ label: "review_audit", value: "r1" }]);
+    expect(entries[0].evidence).toEqual([
+      { label: "review_audit", value: "r1", href: evidenceHref("r1") },
+    ]);
+    // …a ukazatel i kotva stojí na TÉMŽE id (jedna identita, dvě plochy).
+    expect(entries[0].evidence[0].href).toContain(evidenceAnchor("r1"));
   });
 
   it("řádek proudu „zaznamenáno“ nese ukazatel na doklad, ne jen tvrzení o změně", () => {
@@ -689,5 +700,39 @@ describe("řádek nese svůj doklad, ne jen jméno rejstříku", () => {
       { label: "rel", value: "linked_to" },
       { label: "rowId", value: "7" },
     ]);
+  });
+});
+
+describe("entityDayHref — adresa JEDNOHO DNE jedné entity", () => {
+  // Tudy vede Deník důkazů z rozhodnutí brány zpátky do dne, ve kterém deník
+  // nese totéž rozhodnutí. Skládá se ze dvou kusů, které oba vlastní tenhle
+  // modul: veřejný klíč entity a kotva dne.
+  it("skládá filtr entity a kotvu dne z okamžiku rozhodnutí", () => {
+    const href = entityDayHref(mpEntityKey(6543), "2026-07-21T09:00:00.000Z");
+    expect(href).toBe(`${entityDenikHref(mpEntityKey(6543))}#${dayAnchor("2026-07-21")}`);
+    // Obě půlky jsou v adrese vidět — filtr i kotva (proti tiché ztrátě jedné).
+    expect(href).toContain("entita=");
+    expect(href).toContain("#d-2026-07-21");
+  });
+
+  it("funguje pro každý veřejný klíč, ne jen pro poslance", () => {
+    expect(entityDayHref(companyEntityKey("00000100"), "2026-07-21T09:00:00.000Z")).toBe(
+      `${entityDenikHref("firma:00000100")}#${dayAnchor("2026-07-21")}`,
+    );
+    expect(entityDayHref(billEntityKey(58), "2026-07-21T09:00:00.000Z")).toBe(
+      `${entityDenikHref("tisk:58")}#${dayAnchor("2026-07-21")}`,
+    );
+  });
+
+  it("den se bere z okamžiku, ne z časového pásma čtenáře", () => {
+    // Vstup je ISO okamžik a den je jeho prvních deset znaků — žádné převádění
+    // zóny na klientu, které by tutéž adresu vyrobilo dvakrát různě.
+    expect(entityDayHref(mpEntityKey(1), "2026-07-21T23:59:59.999Z")).toContain("#d-2026-07-21");
+  });
+
+  it("vrací null pro okamžik, ze kterého se den přečíst nedá — kotva se nedomýšlí", () => {
+    for (const bad of ["", "včera", "2026-7-1", "21.07.2026", "neznámo"]) {
+      expect(entityDayHref(mpEntityKey(6543), bad), bad).toBeNull();
+    }
   });
 });

@@ -45,9 +45,10 @@
  */
 
 import { PLAUSIBLE_FROM } from "@/features/dashboard/datedFacts";
-import { DECISION_CS } from "@/features/dukazy/deriveFeed";
+import { DECISION_CS, evidenceHref } from "@/features/dukazy/deriveFeed";
 import { canonicalIco } from "@/features/money/companyId";
 import { buildRegistryLinks } from "@/features/money/reviewTypes";
+import { entityDenikHref } from "@/features/schranka/followCodec";
 import { sourceLinksFor } from "@/lib/kg/sourceLinks";
 
 export type DenikKind =
@@ -88,6 +89,11 @@ export interface DenikLink {
 export interface DenikEvidence {
   label: string;
   value: string;
+  /** Adresa TOHOTO záznamu, když ho platforma zveřejňuje na vlastní ploše —
+   *  rozhodnutí brány má na /dukazy kotvu pod TÝMŽ id (`z-<id>`). Odkaz se
+   *  nedomýšlí: `undefined` znamená, že ukazatel je jen identifikátor a čtenář
+   *  se za ním nikam neproklikne (tabulka a řádek grafu vlastní stránku nemají). */
+  href?: string;
 }
 
 /**
@@ -212,6 +218,24 @@ export function weekdayKey(isoDate: string): string | null {
 export const mpEntityKey = (pspId: number) => `poslanec:${pspId}`;
 export const companyEntityKey = (ico: string) => `firma:${ico}`;
 export const billEntityKey = (cislo: number) => `tisk:${cislo}`;
+
+/**
+ * Adresa JEDNOHO DNE jedné entity — filtr `?entita=` plus kotva dne `#d-<datum>`.
+ *
+ * Skládá ji tenhle modul, protože oba kusy jsou jeho: klíč entity i `dayAnchor`.
+ * /dukazy tudy vede z rozhodnutí brány zpátky do dne, ve kterém deník totéž
+ * rozhodnutí nese — a dělá to importem, ne šablonou u sebe, aby se dvě podoby
+ * jedné veřejné adresy nemohly rozejít (`entityDenikHref` je táž funkce, jakou
+ * skládá odkaz schránka).
+ *
+ * `null` pro okamžik, ze kterého se den přečíst nedá: adresa s vymyšlenou
+ * kotvou vypadá správně a nikam nevede.
+ */
+export function entityDayHref(entityKey: string, instant: string): string | null {
+  const day = instant.slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return null;
+  return `${entityDenikHref(entityKey)}#${dayAnchor(day)}`;
+}
 
 const SOURCE_CONTRACT = "registr smluv — smlouvy.gov.cz";
 const SOURCE_REGISTRY = "ares — veřejný rejstřík";
@@ -754,8 +778,12 @@ function collectRaw(input: DenikInput): RawCollection {
       entities: entities.length > 0 ? entities : [{ key: `zaznam:${rv.id}`, label: `${rv.mpName} ↔ ${rv.company}`, href: null }],
       internalHref: firstHref(entities),
       links: companyLinks(rv.ico),
-      // review_audit je append-only log; id řádku JE ukazatel na rozhodnutí.
-      evidence: [{ label: "review_audit", value: rv.id }],
+      // review_audit je append-only log; id řádku JE ukazatel na rozhodnutí — a
+      // od 2026-08-12 je to i ODKAZ: /dukazy kotví týž řádek pod týmž id
+      // (`z-<id>`). Dva deníky jedné platformy publikovaly totéž rozhodnutí pod
+      // stejným identifikátorem a ani jeden na ten druhý nevedl; adresa se
+      // skládá importovaným kodekem (features/dukazy/deriveFeed), ne šablonou.
+      evidence: [{ label: "review_audit", value: rv.id, href: evidenceHref(rv.id) }],
     });
   }
 
