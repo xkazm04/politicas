@@ -7,17 +7,21 @@
 
 import { describe, expect, it } from "vitest";
 import { buildStateSlice, type SliceInput, type SliceMp, type SliceTie } from "./stateSlice";
-import type { DatedFact } from "./datedFacts";
+import { FEED_ROWS, type DatedFact, type DatedFactLedger } from "./datedFacts";
 import {
   canonicalJson,
   contentHash,
   decodeExhibitId,
   encodeExhibitId,
+  exhibitAddresses,
+  exhibitPath,
   factExhibitId,
+  factExhibitView,
   fromBase64Url,
   hashFact,
   hashSlice,
   sliceExhibitId,
+  sliceExhibitView,
   toBase64Url,
 } from "./exhibit";
 
@@ -137,6 +141,111 @@ describe("hashFact / factExhibitId", () => {
   it("týž fakt ⇒ táž adresa; jiné datum ⇒ jiný otisk", () => {
     expect(factExhibitId(fact())).toBe(factExhibitId(fact()));
     expect(hashFact(fact({ date: "2019-04-02" }))).not.toBe(hashFact(fact()));
+  });
+});
+
+// ── Pohled exponátu: citovaná vs. dnešní adresa, okno vs. odvoditelnost ─────
+//
+// Dvě chyby, které tenhle blok hlídá:
+//  1. zastaralý exponát si přepisoval adresu na dnešní kanonickou a VŠECHNY
+//     afordance (kopírovat / ověřit / nahlásit) pak mířily na tvrzení, které
+//     nikdo nevydal — brána na ně odpověděla „sedí";
+//  2. fakt za oknem rubriky se hlásil jako „gone", ačkoli ho týž průchod
+//     odvozuje.
+
+const META = { builtOn: "2026-08-12", pass: 42 };
+
+/** Kniha `n` faktů, datum sestupně (jako `buildDatedFacts` bez seříznutí). */
+function ledgerOf(n: number): DatedFactLedger {
+  const facts = Array.from({ length: n }, (_, i) =>
+    fact({ id: `contract:${String(i).padStart(2, "0")}`, date: `2025-01-${String(n - i).padStart(2, "0")}` }),
+  );
+  return { facts, droppedImplausible: 0, considered: n };
+}
+
+describe("factExhibitView — okno rubriky nezabíjí citaci", () => {
+  const ledger = ledgerOf(FEED_ROWS + 3);
+  const beyond = ledger.facts.at(-1)!;
+
+  it("čerstvý fakt: citovaná i dnešní adresa jsou tatáž, druhá se nenabízí", () => {
+    const f = ledger.facts[0];
+    const cited = factExhibitId(f);
+    const view = factExhibitView(cited, { kind: "fakt", factId: f.id, hash: hashFact(f) }, ledger, META);
+    expect(view.status).toBe("ok");
+    if (view.status !== "ok" || view.kind !== "fakt") return;
+    expect(view.fresh).toBe(true);
+    expect(view.beyondWindow).toBe(false);
+    expect(view.citedId).toBe(cited);
+    expect(view.id).toBe(cited);
+    expect(exhibitAddresses(view)).toEqual({ citedPath: exhibitPath(cited), todayPath: null });
+  });
+
+  it("fakt ZA oknem se odvodí normálně a jen to o sobě řekne", () => {
+    const view = factExhibitView(
+      factExhibitId(beyond),
+      { kind: "fakt", factId: beyond.id, hash: hashFact(beyond) },
+      ledger,
+      META,
+    );
+    expect(view.status).toBe("ok");
+    if (view.status !== "ok" || view.kind !== "fakt") return;
+    expect(view.beyondWindow).toBe(true);
+    expect(view.fresh).toBe(true);
+    expect(view.fact).toEqual(beyond);
+  });
+
+  it("ZASTARALÝ fakt: afordance drží CITOVANOU adresu, dnešní je vedle a označená", () => {
+    const f = ledger.facts[0];
+    // Obsah se od vydání změnil (jiná částka) → otisk v adrese už nesedí.
+    const changed: DatedFactLedger = {
+      ...ledger,
+      facts: [{ ...f, czk: 999 }, ...ledger.facts.slice(1)],
+    };
+    const citedHash = hashFact(f);
+    const cited = encodeExhibitId({ kind: "fakt", factId: f.id, hash: citedHash });
+    const view = factExhibitView(cited, { kind: "fakt", factId: f.id, hash: citedHash }, changed, META);
+    if (view.status !== "ok" || view.kind !== "fakt") throw new Error("stale exhibit must resolve");
+    expect(view.fresh).toBe(false);
+    expect(view.urlHash).toBe(citedHash);
+    expect(view.currentHash).not.toBe(citedHash);
+    const { citedPath, todayPath } = exhibitAddresses(view);
+    expect(citedPath).toBe(exhibitPath(cited));
+    expect(citedPath).toContain(citedHash);
+    expect(todayPath).toBe(exhibitPath(view.id));
+    expect(todayPath).toContain(view.currentHash);
+    expect(todayPath).not.toBe(citedPath);
+  });
+
+  it("fakt, který kniha neodvozuje, je gone — a i tehdy si drží citovanou adresu", () => {
+    const cited = encodeExhibitId({ kind: "fakt", factId: "contract:pryc", hash: "deadbeef" });
+    const view = factExhibitView(cited, { kind: "fakt", factId: "contract:pryc", hash: "deadbeef" }, ledger, META);
+    expect(view.status).toBe("gone");
+    if (view.status !== "gone") return;
+    expect(view.citedId).toBe(cited);
+    expect(view.urlHash).toBe("deadbeef");
+    expect(view.builtOn).toBe(META.builtOn);
+    expect(exhibitAddresses(view)).toEqual({ citedPath: exhibitPath(cited), todayPath: null });
+  });
+});
+
+describe("sliceExhibitView — táž disciplína pro výřez", () => {
+  it("zastaralý výřez: citovaná adresa zůstává, dnešní se nabídne zvlášť", () => {
+    const s = build();
+    const view = sliceExhibitView("rez.deadbeef", { kind: "rez", hash: "deadbeef" }, s, META);
+    if (view.status !== "ok" || view.kind !== "rez") throw new Error("slice exhibit must resolve");
+    expect(view.fresh).toBe(false);
+    expect(view.citedId).toBe("rez.deadbeef");
+    expect(view.id).toBe(`rez.${hashSlice(s)}`);
+    const { citedPath, todayPath } = exhibitAddresses(view);
+    expect(citedPath).toBe("/dashboard/exponat/rez.deadbeef");
+    expect(todayPath).toBe(`/dashboard/exponat/rez.${hashSlice(s)}`);
+  });
+
+  it("čerstvý výřez druhou adresu nenabízí", () => {
+    const s = build();
+    const cited = sliceExhibitId(s);
+    const view = sliceExhibitView(cited, { kind: "rez", hash: hashSlice(s) }, s, META);
+    expect(exhibitAddresses(view).todayPath).toBeNull();
   });
 });
 

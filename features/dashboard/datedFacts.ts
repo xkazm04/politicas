@@ -30,6 +30,21 @@
  * 5. PENÍZE JEN TAM, KAM SE SMÍ PŘISOUDIT. Smlouvy institucí, kde poslanec jen
  *    zasedá v orgánu (steward), do knihy nepatří — jsou to peníze té instituce.
  *    Filtr dělá volající tím, co sem pošle.
+ * 6. OKNO KNIHY NENÍ HRANICE ODVODITELNOSTI. `facts` nese jen `FEED_ROWS`
+ *    nejnovějších řádků, protože panel je rubrika, ne výpis logu. Kdo se ptá na
+ *    KONKRÉTNÍ fakt (exponát /dashboard/exponat/…, brána /overeni), staví tutéž
+ *    knihu BEZ seříznutí (`limit: null`) — jinak by citovaný řádek umřel
+ *    dvanáctým novějším faktem, ačkoli ho týž průchod pořád odvozuje, a brána by
+ *    o existujícím záznamu odpovídala „zaznam-nenalezen".
+ *
+ * ── PROČ PARAMETR, A NE DRUHÝ SEZNAM V KNIZE ────────────────────────────────
+ * Zvažovaná varianta byla `DatedFactLedger.lookup` (plná množina vedle okna).
+ * Odmítnuta: kniha by pak měla DVA tvary téhož obsahu a ten širší by musel
+ * vypadnout na drátě (features/dashboard/publicWire.ts) — tedy další místo,
+ * kde se dá tiše zapomenout. Seříznutí je rozhodnutí VOLAJÍCÍHO: titulní strana
+ * si ho vyžádá (výchozí `FEED_ROWS`), rozlišovací cesta exponátu ne. Kniha má
+ * pořád jeden tvar, drát se nemění a `locateDatedFact()` níž řekne oběma
+ * volajícím totéž.
  *
  * ── POŘADÍ ──────────────────────────────────────────────────────────────────
  * Datum sestupně, při shodě id vzestupně. Nic jiného. Dvě sestavení téhož
@@ -67,11 +82,23 @@ export interface DatedFact {
 }
 
 export interface DatedFactLedger {
+  /** Řádky knihy — datum sestupně. Seříznuté podle `DatedFactOptions.limit`
+   *  (výchozí `FEED_ROWS`); bez seříznutí je to celá možná množina. */
   facts: DatedFact[];
   /** Kolik faktů mělo nemožné datum a bylo vyhozeno (nikdy opraveno). */
   droppedImplausible: number;
   /** Kolik datovaných faktů výřez celkem nabídl, než se seřízl na `FEED_ROWS`. */
   considered: number;
+}
+
+export interface DatedFactOptions {
+  /**
+   * Kolik nejnovějších řádků kniha ponese. Výchozí `FEED_ROWS` (rubrika velína);
+   * `null` = bez seříznutí, což je cesta rozlišení jednoho citovaného faktu
+   * (viz pravidlo 6 v hlavičce). Nikdy se nepředává na drát — plnou knihu čte
+   * jen server.
+   */
+  limit?: number | null;
 }
 
 /** Registr smluv začíná 2016, ale rejstříkové role sahají do 90. let; hranice je
@@ -147,8 +174,12 @@ const SOURCE_PSP = "psp.cz — historie tisku";
 const subjectRefOf = (refs: string[], subjectRef: string): string | null =>
   refs.includes(subjectRef) ? subjectRef : null;
 
-export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
+export function buildDatedFacts(
+  input: DatedFactInput,
+  options: DatedFactOptions = {},
+): DatedFactLedger {
   const { today } = input;
+  const limit = options.limit === undefined ? FEED_ROWS : options.limit;
   const raw: (Omit<DatedFact, "date"> & { date: string | null })[] = [];
 
   for (const c of input.contracts) {
@@ -224,9 +255,34 @@ export function buildDatedFacts(input: DatedFactInput): DatedFactLedger {
   const plausible = dated.filter((r) => r.date! >= PLAUSIBLE_FROM && r.date! <= today);
   const droppedImplausible = dated.length - plausible.length;
 
-  const facts = (plausible as DatedFact[])
-    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id)))
-    .slice(0, FEED_ROWS);
+  const ordered = (plausible as DatedFact[]).sort((a, b) =>
+    a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id),
+  );
+  const facts = limit === null ? ordered : ordered.slice(0, limit);
 
-  return { facts, droppedImplausible, considered: plausible.length };
+  return { facts, droppedImplausible, considered: ordered.length };
+}
+
+/**
+ * Kde jeden fakt stojí vůči OKNU titulní knihy — jediné pravidlo pro exponát
+ * i pro bránu, aby se dvě plochy nerozešly v tom, co znamená „ten řádek už tu
+ * není".
+ *
+ * `null` = dnešní průchod ten fakt neodvozuje (data se změnila, vazba zmizela,
+ * datum se stalo nemožným) — to je opravdové „gone".
+ * `beyondWindow: true` = fakt odvozený JE, jen sedí za `FEED_ROWS` nejnovějšími
+ * řádky, které rubrika velína ukazuje. Řádek na to čtenáře upozorní; citace
+ * zůstává platná, protože pořadí knihy je deterministické a okno je jen řez
+ * jejím prefixem.
+ *
+ * Nad seříznutou knihou (`limit: FEED_ROWS`) `beyondWindow` z definice nikdy
+ * nenastane — funkce je proto bezpečná na obou cestách.
+ */
+export function locateDatedFact(
+  ledger: DatedFactLedger,
+  factId: string,
+): { fact: DatedFact; beyondWindow: boolean } | null {
+  const index = ledger.facts.findIndex((f) => f.id === factId);
+  if (index < 0) return null;
+  return { fact: ledger.facts[index], beyondWindow: index >= FEED_ROWS };
 }

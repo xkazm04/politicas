@@ -4,7 +4,7 @@
 import { describe, expect, it } from "vitest";
 import { isCzechSafe } from "@/lib/analysis/language-gate";
 import cs from "@/messages/cs.json";
-import { buildDatedFacts, FEED_ROWS, type DatedFactInput } from "./datedFacts";
+import { buildDatedFacts, FEED_ROWS, locateDatedFact, type DatedFactInput } from "./datedFacts";
 
 const input = (over: Partial<DatedFactInput> = {}): DatedFactInput => ({
   today: "2026-07-28",
@@ -79,6 +79,60 @@ describe("buildDatedFacts — pořadí a výběr", () => {
     expect(a.facts).toHaveLength(FEED_ROWS);
     expect(a.considered).toBe(many.length);
     expect(JSON.stringify(a)).toBe(JSON.stringify(b));
+  });
+});
+
+// Okno rubriky velína bylo do 2026-08-12 zároveň hranicí ODVODITELNOSTI: exponát
+// jednoho faktu se rozlišoval proti dvanácti nejnovějším řádkům, takže každá
+// citace umřela dvanáctým novějším faktem a brána /overeni pak o pořád
+// odvoditelném záznamu odpovídala „zaznam-nenalezen".
+describe("buildDatedFacts — okno je ŘEZ, ne hranice odvoditelnosti", () => {
+  const many = Array.from({ length: FEED_ROWS + 8 }, (_, i) =>
+    contract(String(i).padStart(2, "0"), `2025-01-${String(i + 1).padStart(2, "0")}`),
+  );
+  const windowed = buildDatedFacts(input({ contracts: many }));
+  const full = buildDatedFacts(input({ contracts: many }), { limit: null });
+
+  it("výchozí volání seřízne na FEED_ROWS, `limit: null` vrátí celou možnou množinu", () => {
+    expect(windowed.facts).toHaveLength(FEED_ROWS);
+    expect(full.facts).toHaveLength(many.length);
+    // `considered` popisuje celou možnou množinu v OBOU případech — je to počet
+    // nabídnutých faktů, ne délka okna.
+    expect(windowed.considered).toBe(many.length);
+    expect(full.considered).toBe(many.length);
+  });
+
+  it("okno je PREFIX plné knihy — tytéž řádky v tomtéž pořadí", () => {
+    expect(windowed.facts).toEqual(full.facts.slice(0, FEED_ROWS));
+  });
+
+  it("locateDatedFact najde fakt ZA oknem a označí ho, místo aby řekl „není“", () => {
+    const oldest = full.facts.at(-1)!;
+    const hit = locateDatedFact(full, oldest.id);
+    expect(hit).not.toBeNull();
+    expect(hit!.fact).toEqual(oldest);
+    expect(hit!.beyondWindow).toBe(true);
+    // Řádek uvnitř okna je normální nález.
+    expect(locateDatedFact(full, full.facts[0].id)!.beyondWindow).toBe(false);
+  });
+
+  it("nad seříznutou knihou `beyondWindow` z definice nikdy nenastane", () => {
+    for (const f of windowed.facts) {
+      expect(locateDatedFact(windowed, f.id)!.beyondWindow).toBe(false);
+    }
+    // …a fakt za oknem tam prostě není — proto se exponát ptá plné knihy.
+    expect(locateDatedFact(windowed, full.facts.at(-1)!.id)).toBeNull();
+  });
+
+  it("fakt, který kniha neodvozuje, je null — nic podobného se nedosazuje", () => {
+    expect(locateDatedFact(full, "contract:neexistuje")).toBeNull();
+    expect(locateDatedFact({ facts: [], droppedImplausible: 0, considered: 0 }, "cokoliv")).toBeNull();
+  });
+
+  it("limit se dá zadat i číslem a nemění nic jiného než délku", () => {
+    const three = buildDatedFacts(input({ contracts: many }), { limit: 3 });
+    expect(three.facts).toEqual(full.facts.slice(0, 3));
+    expect(three.considered).toBe(many.length);
   });
 });
 

@@ -5,8 +5,10 @@
 // two must agree byte for byte; and the working set the ledger was built from
 // must not be reachable from the wire at all.
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { sliceExhibitId } from "./exhibit";
+import { buildDatedFacts, FEED_ROWS, type FactContract } from "./datedFacts";
 import { MONEY_WIRE, PUBLIC_MONEY_KEYS, toDashboardWire, toPublicMoney } from "./publicWire";
 import { buildStateSlice, type SliceInput } from "./stateSlice";
 import type { DashboardData, DashboardMoney } from "./getDashboardData";
@@ -145,5 +147,46 @@ describe("toDashboardWire", () => {
     const wire = toDashboardWire({ ...dashboardData(), money: null, slice: null });
     expect(wire.money).toBeNull();
     expect(wire.slice).toBeNull();
+  });
+});
+
+// The exhibit resolves a citation against the FULL ledger of dated facts (a row
+// behind the 12-row window is not a lost record — features/dashboard/datedFacts.ts,
+// rule 6). That full book must never reach a browser: it is the whole contract
+// working set of the drawn companies, and the panel renders twelve rows.
+describe("the feed on the wire stays the front-page WINDOW", () => {
+  const contracts: FactContract[] = Array.from({ length: FEED_ROWS + 8 }, (_, i) => ({
+    id: String(i).padStart(2, "0"),
+    title: `Smlouva ${i}`,
+    signedOn: `2025-01-${String(i + 1).padStart(2, "0")}`,
+    amountCzk: 1_000,
+    company: "Firma 00000100",
+    refs: ["c:00000100"],
+    subjectRef: "c:00000100",
+    pending: true,
+  }));
+
+  it("ships exactly FEED_ROWS rows for a ledger built the way the page builds it", () => {
+    const feed = buildDatedFacts({ contracts, ties: [], bills: [], today: "2026-08-04" });
+    const wire = toDashboardWire({ ...dashboardData(), feed });
+    expect(wire.feed!.facts).toHaveLength(FEED_ROWS);
+    expect(wire.feed!.considered).toBe(contracts.length);
+    // The rows the window cut are not reachable from the wire in any other field.
+    const oldest = buildDatedFacts(
+      { contracts, ties: [], bills: [], today: "2026-08-04" },
+      { limit: null },
+    ).facts.at(-1)!;
+    expect(JSON.stringify(wire)).not.toContain(oldest.id);
+  });
+
+  // The bound is the CALL SITE, not the projection: `toDashboardWire` passes the
+  // ledger through, so what keeps the full book on the server is that the page
+  // asks for the window and only the exhibit loader asks for everything.
+  it("the page asks for the window; only the exhibit loader asks for the full book", () => {
+    const page = readFileSync("app/dashboard/page.tsx", "utf8");
+    expect(page).toContain("getDashboardData()");
+    expect(page).not.toContain("factLedger");
+    const exhibit = readFileSync("features/dashboard/getExhibitData.ts", "utf8");
+    expect(exhibit).toContain('factLedger: "full"');
   });
 });

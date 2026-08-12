@@ -26,8 +26,9 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { compactCzk } from "@/features/money/moneyTypes";
 import StateGraphCanvas from "./components/StateGraphCanvas";
-import type { DatedFact } from "./datedFacts";
+import { FEED_ROWS, type DatedFact } from "./datedFacts";
 import {
+  exhibitAddresses,
   FACT_SOURCE_LINKS,
   HASH_ALGORITHM,
   SLICE_SOURCE_LINKS,
@@ -49,7 +50,8 @@ function CitationFooter({
   fresh,
   builtOn,
   pass,
-  path,
+  citedPath,
+  todayPath,
 }: {
   sources: ExhibitSourceLink[];
   currentHash: string;
@@ -57,7 +59,10 @@ function CitationFooter({
   fresh: boolean;
   builtOn: string;
   pass: number | null;
-  path: string;
+  /** Adresa, kterou čtenář drží — přes ni jde KAŽDÁ afordance. */
+  citedPath: string;
+  /** Dnešní kanonická adresa téhož obsahu; null = shoduje se s citovanou. */
+  todayPath: string | null;
 }) {
   const t = useTranslations("dashboard.exhibit");
   const f = useFormat();
@@ -109,14 +114,34 @@ function CitationFooter({
         {/* Jedno tlačítko „kopírovat odkaz" v celém repu — vytažené 2026-08-04
             z ReceiptPage právě proto, aby druhá kopie nezůstala pozadu při
             první opravě (features/shared/components/CopyLinkButton.tsx). */}
-        <CopyLinkButton path={path} errorContext="exponát: kopírování odkazu selhalo" />
-        <p className="mt-2 break-all font-mono text-xs text-steel-aa">{path}</p>
+        {/* VŠECHNY tři afordance míří na CITOVANOU adresu. Dřív se braly z
+            `data.id`, tedy z dnešní kanonické — u zastaralého exponátu se tak
+            „ověřit tuto citaci" ptalo brány na adresu, kterou nikdo nevydal, a
+            dostávalo „sedí". Pravidlo je čisté a připnuté testem
+            (exhibit.ts → exhibitAddresses). */}
+        <CopyLinkButton path={citedPath} errorContext="exponát: kopírování odkazu selhalo" />
+        <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel-aa">
+          {t("citedAddressLabel")}
+        </p>
+        <p className="mt-1 break-all font-mono text-xs text-steel-aa">{citedPath}</p>
+        {todayPath && (
+          <div className="mt-3 border-l-2 border-hairline pl-3">
+            <Link
+              href={todayPath}
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+            >
+              {t("todayAddress")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+            </Link>
+            <p className="mt-1 break-all font-mono text-xs text-steel-aa">{todayPath}</p>
+            <SourceNote className="mt-1">{t("todayAddressNote")}</SourceNote>
+          </div>
+        )}
         {/* Exponát je URČENÝ k citování — a citace, kterou nelze ověřit, je jen
             tvrzení. Brána (/overeni) tenhle tvar adresy zná (`family: exponat`)
             a odvodí ho proti dnešnímu záznamu znovu; odkaz je GET, takže
             odpověď má vlastní sdílitelnou adresu. */}
         <Link
-          href={`/overeni?ref=${encodeURIComponent(path)}`}
+          href={`/overeni?ref=${encodeURIComponent(citedPath)}`}
           className="mt-3 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
         >
           {t("verifyCitation")} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
@@ -125,7 +150,7 @@ function CitationFooter({
             ale „je to špatně U ZDROJE" umí říct jen člověk — poznámkový
             odkaz vedle ověření (env-gated, bez kontaktu se nevykreslí). */}
         <ReportClaimLink
-          claimRef={path}
+          claimRef={citedPath}
           className="mt-2 block font-mono text-[10px] uppercase tracking-widest text-steel transition-colors hover:text-signal"
         />
       </div>
@@ -185,7 +210,9 @@ export default function ExhibitPage({ data }: { data: ExhibitViewModel }) {
   const [selected, setSelected] = useState<string | null>(null);
 
   const isGone = data.status === "gone";
-  const path = `/dashboard/exponat/${data.id}`;
+  // Dvě adresy, jedno pravidlo (viz exhibit.ts → exhibitAddresses): citovaná
+  // nese afordance, dnešní se nabídne jen když se od ní liší.
+  const { citedPath, todayPath } = exhibitAddresses(data);
 
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
@@ -232,6 +259,15 @@ export default function ExhibitPage({ data }: { data: ExhibitViewModel }) {
           </div>
         )}
 
+        {/* Fakt za oknem rubriky NENÍ ztracený fakt — jen starší než dvanáct
+            řádků, které velín ukazuje. Řekne se to nad obsahem, ve steel tónu:
+            je to poznámka o umístění, ne varování o neplatnosti. */}
+        {!isGone && data.kind === "fakt" && data.beyondWindow && (
+          <div className="mb-6 border-2 border-hairline bg-paper-strong px-4 py-3">
+            <SourceNote>{t("beyondWindow", { rows: f.int(FEED_ROWS) })}</SourceNote>
+          </div>
+        )}
+
         {isGone ? (
           <div className="border-2 border-ink bg-paper px-5 py-10 sm:px-10 sm:py-14">
             <p className="max-w-3xl text-2xl font-black leading-snug tracking-tight sm:text-3xl">
@@ -239,7 +275,7 @@ export default function ExhibitPage({ data }: { data: ExhibitViewModel }) {
               <span className="text-signal">.</span>
             </p>
             <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-steel-aa">
-              {t("goneBody")}
+              {t("goneBody", { rows: f.int(FEED_ROWS) })}
             </p>
             <SourceNote className="mt-6">
               {t("goneImprint", {
@@ -272,7 +308,8 @@ export default function ExhibitPage({ data }: { data: ExhibitViewModel }) {
             fresh={data.fresh}
             builtOn={data.builtOn}
             pass={data.pass}
-            path={path}
+            citedPath={citedPath}
+            todayPath={todayPath}
           />
         )}
 

@@ -22,7 +22,7 @@
 
 import type { StateGraph } from "@/lib/civic/stateGraph";
 import type { StateSlice, StateSliceRule } from "./stateSlice";
-import type { DatedFact } from "./datedFacts";
+import { locateDatedFact, type DatedFact, type DatedFactLedger } from "./datedFacts";
 
 // ── Kanonická serializace ───────────────────────────────────────────────────
 
@@ -58,7 +58,16 @@ export function contentHash(text: string): string {
 
 /** Otisk výřezu: uzly + hrany + pravidlo výběru. Pravidlo je součást obsahu
  *  záměrně — výřez se stejným obrázkem, ale jiným popisem populace, je jiné
- *  tvrzení. */
+ *  tvrzení.
+ *
+ *  ZAZNAMENANÝ NÁSLEDNÝ KROK (2026-08-12, tenhle průchod ho ZÁMĚRNĚ nedělá):
+ *  do otisku vstupují i souřadnice `x`/`y` uzlů a `partyCode` — tedy věci
+ *  ROZVRŽENÍ, ne tvrzení. Změna rozvrhovacího algoritmu by tím zneplatnila
+ *  každou dosud vydanou adresu výřezu, přestože obsah („kdo s kým a za kolik")
+ *  by byl týž. Vyjmout je znamená JEDNORÁZOVĚ zneplatnit všechny staré adresy —
+ *  a to se nesmí schovat do průchodu, jehož celý smysl je, aby citace
+ *  PŘEŽILA. Až se to bude dělat, patří k tomu vlastní commit, přechodové okno
+ *  (stará i nová adresa vedle sebe) a věta na ploše. */
 export const hashSlice = (slice: Pick<StateSlice, "graph" | "rule">): string =>
   contentHash(canonicalJson({ graph: slice.graph, rule: slice.rule }));
 
@@ -167,8 +176,20 @@ export const FACT_SOURCE_LINKS: Record<string, string> = {
 // ── Pohledový model exponátu (server ho sestaví, klient jen sází) ───────────
 
 export interface ExhibitCommon {
-  /** Kanonická adresa exponátu (path segment) — pro odkaz i pro kopírování. */
+  /**
+   * DNEŠNÍ kanonická adresa téhož exponátu (path segment) — otisk v ní je
+   * `currentHash`. Vykresluje se jako vlastní, pojmenovaný odkaz („dnešní
+   * adresa"), NIKDY jako podklad afordancí: kopírovat, ověřit ani nahlásit se
+   * musí to, co čtenář drží v ruce (`citedId`).
+   */
   id: string;
+  /**
+   * CITOVANÁ adresa — doslova ten segment, který přišel v URL. Přes ni jde
+   * kopírování, „ověřit tuto citaci" i hlášení chyby: u zastaralého exponátu
+   * se ptát brány na dnešní adresu znamená dostat „sedí" o adrese, kterou nikdo
+   * nikdy necitoval.
+   */
+  citedId: string;
   /** Otisk z adresy — co viděl ten, kdo exponát vydal. */
   urlHash: string;
   /** Otisk dnešního znovuodvození. Rozdíl ⇒ exponát je zastaralý a řekne to. */
@@ -182,7 +203,106 @@ export interface ExhibitCommon {
 
 export type ExhibitViewModel =
   | ({ status: "ok"; kind: "rez"; graph: StateGraph; rule: StateSliceRule } & ExhibitCommon)
-  | ({ status: "ok"; kind: "fakt"; fact: DatedFact } & ExhibitCommon)
-  /** Fakt, který v dnešním sestavení už není (vypadl z okna knihy nebo se
-   *  změnila data). Stránka to přizná — nic „podobného" se nedosazuje. */
-  | { status: "gone"; kind: "fakt"; id: string; urlHash: string; builtOn: string };
+  | ({
+      status: "ok";
+      kind: "fakt";
+      fact: DatedFact;
+      /** Fakt se dnes odvozuje, ale sedí ZA oknem rubriky velína (`FEED_ROWS`
+       *  nejnovějších řádků). Citace tím neumírá — stránka to jen řekne. */
+      beyondWindow: boolean;
+    } & ExhibitCommon)
+  /** Fakt, který dnešní průchod UŽ NEODVOZUJE — data se změnila, vazba zmizela,
+   *  datum přestalo být možné. Stránka to přizná; nic „podobného" se nedosazuje.
+   *  Pozor: „vypadl z okna knihy" sem NEPATŘÍ (viz datedFacts, pravidlo 6) —
+   *  ten případ se řeší normálně, jen s poznámkou. */
+  | { status: "gone"; kind: "fakt"; citedId: string; urlHash: string; builtOn: string };
+
+// ── Sestavení pohledu (ČISTÉ) ───────────────────────────────────────────────
+//
+// Server (./getExhibitData.ts) dodá jen data a metadata — samo pravidlo, co je
+// „dnešní adresa", co „citovaná" a kdy je fakt pryč, žije tady, aby bylo
+// testovatelné bez storu.
+
+export interface ExhibitMeta {
+  /** `YYYY-MM-DD` dnešního sestavení. */
+  builtOn: string;
+  /** Průchod grafu, který spočítal kontribuční index; null = uzly ho nenesou. */
+  pass: number | null;
+}
+
+/** Exponát celého výřezu. */
+export function sliceExhibitView(
+  citedId: string,
+  params: Extract<ExhibitParams, { kind: "rez" }>,
+  slice: Pick<StateSlice, "graph" | "rule">,
+  meta: ExhibitMeta,
+): ExhibitViewModel {
+  const currentHash = hashSlice(slice);
+  return {
+    status: "ok",
+    kind: "rez",
+    id: encodeExhibitId({ kind: "rez", hash: currentHash }),
+    citedId,
+    urlHash: params.hash,
+    currentHash,
+    fresh: currentHash === params.hash,
+    graph: slice.graph,
+    rule: slice.rule,
+    ...meta,
+  };
+}
+
+/**
+ * Exponát jednoho datovaného faktu. `ledger` musí být kniha BEZ seříznutí
+ * (getDashboardData `factLedger: "full"`) — nad oknem by se „za oknem" a
+ * „neodvozuje se" slily do jedné odpovědi, což je přesně ta záměna, kvůli které
+ * citace faktů umíraly po dvanácti novějších řádcích.
+ */
+export function factExhibitView(
+  citedId: string,
+  params: Extract<ExhibitParams, { kind: "fakt" }>,
+  ledger: DatedFactLedger,
+  meta: ExhibitMeta,
+): ExhibitViewModel {
+  const hit = locateDatedFact(ledger, params.factId);
+  if (!hit) {
+    return { status: "gone", kind: "fakt", citedId, urlHash: params.hash, builtOn: meta.builtOn };
+  }
+  const currentHash = hashFact(hit.fact);
+  return {
+    status: "ok",
+    kind: "fakt",
+    id: encodeExhibitId({ kind: "fakt", factId: hit.fact.id, hash: currentHash }),
+    citedId,
+    urlHash: params.hash,
+    currentHash,
+    fresh: currentHash === params.hash,
+    fact: hit.fact,
+    beyondWindow: hit.beyondWindow,
+    ...meta,
+  };
+}
+
+// ── Adresy exponátu na ploše ────────────────────────────────────────────────
+
+/** Segment → veřejná cesta. Jedno místo v repu, ať ji plocha neskládá podruhé. */
+export const exhibitPath = (id: string): string => `/dashboard/exponat/${id}`;
+
+/**
+ * DVĚ ADRESY JEDNOHO EXPONÁTU — pravidlo, ne zvyk plochy.
+ *
+ * `citedPath` je to, co čtenář drží: přes ni jde kopírování, „ověřit tuto
+ * citaci" i hlášení chyby. `todayPath` je dnešní kanonická adresa TÉHOŽ obsahu
+ * a je `null`, když se od citované neliší — nabízet dvě identické adresy vedle
+ * sebe by z rozdílu udělalo šum.
+ */
+export function exhibitAddresses(view: ExhibitViewModel): {
+  citedPath: string;
+  todayPath: string | null;
+} {
+  const citedPath = exhibitPath(view.citedId);
+  return {
+    citedPath,
+    todayPath: view.status === "ok" && view.id !== view.citedId ? exhibitPath(view.id) : null,
+  };
+}

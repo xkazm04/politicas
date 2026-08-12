@@ -228,6 +228,32 @@ describe("dashboard message catalog", () => {
     expect(en["graph.list.mockSource"]).toContain("invented");
   });
 
+  it("the exhibit tells a row behind the window from a row that is gone", () => {
+    // Until 2026-08-12 a fact exhibit died once twelve newer facts existed, and the
+    // page said the ledger „window" had pushed it out — for a record the same pass
+    // still derives. Two different sentences now, and neither hardcodes the window
+    // size: `FEED_ROWS` is a constant the copy interpolates.
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "exhibit.beyondWindow",
+        "exhibit.citedAddressLabel",
+        "exhibit.todayAddress",
+        "exhibit.todayAddressNote",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(placeholders(ns["exhibit.beyondWindow"])).toEqual(["rows"]);
+      expect(placeholders(ns["exhibit.goneBody"])).toEqual(["rows"]);
+    }
+    // „Gone" may no longer be explained by the display window — that is now a
+    // separate, non-fatal state.
+    expect(cs["exhibit.goneBody"]).not.toMatch(/vytlačit|novější fakta mohla/);
+    expect(en["exhibit.goneBody"]).not.toMatch(/pushed this row out/);
+    // The affordances point at the cited address, and the copy says why.
+    expect(cs["exhibit.todayAddressNote"]).toContain("CITOVANOU");
+    expect(en["exhibit.todayAddressNote"]).toContain("CITED");
+  });
+
   it("no hardcoded chamber size stands in for a counted one", () => {
     // `attendanceSub` printed „přes reálný vzorek 207 poslanců" — a literal that goes
     // stale the moment the chamber the loader reads is not 207.

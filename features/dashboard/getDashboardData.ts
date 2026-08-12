@@ -48,7 +48,7 @@ import type { MoneyData } from "@/features/money/moneyTypes";
 import { reviewSummary, type ReviewSummary } from "@/features/money/reviewSummary";
 import { storedRefLabel } from "@/features/civicscore/provenance";
 import { buildStateSlice, type StateSlice } from "./stateSlice";
-import { buildDatedFacts, type DatedFactLedger, type FactContract } from "./datedFacts";
+import { buildDatedFacts, FEED_ROWS, type DatedFactLedger, type FactContract } from "./datedFacts";
 
 /**
  * What the DATA says about the formula that authored the ranking — the chamber-wide
@@ -428,7 +428,28 @@ async function sliceContracts(
 // ranking by a pass that may not have reached every MP. /schranka keeps calling
 // `getRecomputeFact()` — its badge asks from every route and must not build a chamber.
 
-export async function getDashboardData(): Promise<DashboardData | null> {
+/**
+ * JEDINÝ ŠEV, KTERÝ TENHLE LOADER NABÍZÍ — a existuje kvůli citaci.
+ *
+ * Rubrika velína je okno: `buildDatedFacts` vrací `FEED_ROWS` nejnovějších řádků.
+ * Exponát (/dashboard/exponat/…) a přes něj i brána /overeni se ale ptají na
+ * JEDEN KONKRÉTNÍ fakt — a dokud tahle cesta četla totéž okno, každá citace faktu
+ * umřela dvanáctým novějším faktem: stránka odpověděla „gone" a brána
+ * „zaznam-nenalezen" o řádku, který týž průchod pořád odvozuje.
+ *
+ * `factLedger: "full"` proto vypne SEŘÍZNUTÍ (a nic jiného: tytéž reads, tytéž
+ * vrstvy, totéž pořadí — okno je prefix plné knihy). Titulní strana volá loader
+ * bez parametru, takže na drát jde dál přesně `FEED_ROWS` řádků; plnou knihu
+ * nikdy neopouští server (pinuje publicWire.test.ts).
+ */
+export interface DashboardDataOptions {
+  /** `"page"` (výchozí) = kniha seříznutá na `FEED_ROWS`; `"full"` = bez seříznutí. */
+  factLedger?: "page" | "full";
+}
+
+export async function getDashboardData(
+  options: DashboardDataOptions = {},
+): Promise<DashboardData | null> {
   const lb = await getLeaderboardData();
   if (!lb || lb.entries.length === 0) {
     // buildLeaderboard() reports its own exceptions, but a null store or an
@@ -476,12 +497,17 @@ export async function getDashboardData(): Promise<DashboardData | null> {
   let feed: DatedFactLedger | null = null;
   if (slice) {
     const contracts = await sliceContracts(slice.sources.contractCompanies);
-    feed = buildDatedFacts({
-      contracts,
-      ties: slice.sources.ties,
-      bills: slice.sources.bills,
-      today: builtOn,
-    });
+    feed = buildDatedFacts(
+      {
+        contracts,
+        ties: slice.sources.ties,
+        bills: slice.sources.bills,
+        today: builtOn,
+      },
+      // `null` = bez seříznutí (viz DashboardDataOptions). Okno je prefix plné
+      // knihy, takže obě cesty čtou tytéž řádky v tomtéž pořadí.
+      { limit: options.factLedger === "full" ? null : FEED_ROWS },
+    );
   }
 
   return {
