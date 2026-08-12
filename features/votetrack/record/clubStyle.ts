@@ -1,21 +1,14 @@
 // Display metadata for the REAL PSP10 chamber clubs. Colors are DATA, not
-// decoration (docs/DESIGN.md §1 exception 3) — reused from the sanctioned party
-// palette in lib/civic/data.ts via the same abbrev mapping getLeaderboardData
-// uses; Motoristé (MS, no mock entry) and unknown clubs fall back to palette
-// tokens. Used only for small chips/dots, never competing with `signal`.
+// decoration (docs/DESIGN.md §1 exception 3) — read from `CLUB_DISPLAY` in
+// lib/civic/data.ts, the declared non-mock table for real registry clubs
+// (getLeaderboardData reads the same one). This file used to keep its own
+// copy of the abbrev→mock-party mapping AND truncate the display name with
+// `name.split(" ")[0]`, so the hemicycle wedges and the discipline board
+// rendered „TOP" and „ANO" — the exact defect 83cb8a9 removed from /zebricek.
+// Used only for small chips/dots, never competing with `signal`.
 
-import { PARTIES } from "@/lib/civic/data";
-import { OCHRE, STEEL } from "@/features/landing/palette";
-
-const CLUB_TO_PARTY_CODE: Record<string, string> = {
-  ANO2011: "ano",
-  ODS: "ods",
-  STAN: "stan",
-  "KDU-ČSL": "kdu",
-  SPD: "spd",
-  TOP09: "top",
-  Piráti: "pir",
-};
+import { CLUB_DISPLAY } from "@/lib/civic/data";
+import { STEEL } from "@/features/landing/palette";
 
 /** Editorial left-to-right seating of the hemicycle wedges — a DISCLOSED display
  * constant (the UI says so), not data. Clubs missing from this list append after
@@ -30,10 +23,11 @@ export interface ClubStyle {
 }
 
 export function clubStyle(abbrev: string): ClubStyle {
-  const code = CLUB_TO_PARTY_CODE[abbrev];
-  const p = code ? PARTIES.find((x) => x.code === code) : undefined;
-  if (p) return { short: p.name.split(" ")[0], color: p.color };
-  if (abbrev === "MS") return { short: "Motoristé", color: OCHRE };
+  // The display FORM („ANO 2011", „TOP 09") is editorial typography over the
+  // registry abbrev — never truncated back to its first token, and an unknown
+  // abbrev renders as it arrived from the registry, never invented.
+  const d = CLUB_DISPLAY[abbrev];
+  if (d) return { short: d.name, color: d.color };
   return { short: abbrev, color: STEEL };
 }
 
