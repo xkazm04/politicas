@@ -48,9 +48,12 @@ const EN_STOPWORDS = new Set<string>([
   "without", "within", "whether", "though", "although", "since", "until", "unless",
   "here", "very", "just", "even", "still", "already", "rather", "instead", "per",
   "bill", "law", "act", "amendment", "government", "sponsor", "sponsors", "committee", "reading",
-  "public", "budget", "state", "effect", "effects", "evidence", "conflict", "interest",
+  "public", "budget", "state", "effect", "effects", "conflict", "interest",
   // Content words that carry this corpus's English register and have no Czech homograph.
-  // (Deliberately excludes internationalisms Czech shares — index, kontakt, moment, …)
+  // (Deliberately excludes internationalisms Czech shares — index, kontakt, moment, … —
+  // and, since 2026-08-12, "evidence" and "memorandum": both are ordinary Czech words,
+  // and "evidence" (CZ: registry/records) alone flipped genuinely Czech registry notes
+  // to English — measured 14/211 reviewer notes withheld as "Česká verze se připravuje".)
   "amended", "amends", "amend", "statute", "statutes", "repealed", "repeal", "decree",
   "records", "recorded", "holds", "held", "seat", "seats", "board", "tie", "ties", "node",
   "distributed", "listing", "documents", "document", "related", "supervisory", "company",
@@ -58,7 +61,7 @@ const EN_STOPWORDS = new Set<string>([
   "new", "higher", "lower", "large", "small", "parents", "child", "children", "crime",
   "victims", "court", "courts", "tax", "taxes", "credit", "benefit", "benefits",
   "costs", "cost", "price", "prices", "market", "producers", "chamber", "print",
-  "memorandum", "explanatory", "earning", "assessment", "confirmed", "verified",
+  "explanatory", "earning", "assessment", "confirmed", "verified",
 ]);
 
 /**
