@@ -186,50 +186,6 @@
         "feeds": "Links votes → impact"
       }
     },
-    "sources": {
-      "0": {
-        "name": "psp.cz",
-        "what": "Roll-call votes, prints, transcripts",
-        "cadence": "daily",
-        "access": "bulk UNL/XML"
-      },
-      "1": {
-        "name": "Hlídač státu",
-        "what": "People, party ties, donors, salaries",
-        "cadence": "continuous",
-        "access": "REST API"
-      },
-      "2": {
-        "name": "ARES v3",
-        "what": "Company register + statutory bodies",
-        "cadence": "near real-time",
-        "access": "REST, 500 req/min"
-      },
-      "3": {
-        "name": "Contract Register",
-        "what": "Public contracts",
-        "cadence": "daily",
-        "access": "XML dumps"
-      },
-      "4": {
-        "name": "Subsidy Register",
-        "what": "Subsidies",
-        "cadence": "quarterly",
-        "access": "CSV"
-      },
-      "5": {
-        "name": "MONITOR",
-        "what": "State and municipal budgets",
-        "cadence": "quarterly",
-        "access": "CSV/XML + SOAP"
-      },
-      "6": {
-        "name": "e-Sbírka",
-        "what": "Laws and consolidated texts",
-        "cadence": "continuous",
-        "access": "SPARQL"
-      }
-    },
     "regions": {
       "Praha": "Prague",
       "Jihomoravský kraj": "South Moravia Region",

@@ -201,23 +201,6 @@ export const MODULES: Module[] = [
   },
 ];
 
-export interface DataSource {
-  name: string;
-  what: string;
-  cadence: string;
-  access: string;
-}
-
-export const SOURCES: DataSource[] = [
-  { name: "psp.cz", what: "Jmenovitá hlasování, tisky, stenozáznamy", cadence: "denně", access: "bulk UNL/XML" },
-  { name: "Hlídač státu", what: "Osoby, stranické vazby, dárci, platy", cadence: "průběžně", access: "REST API" },
-  { name: "ARES v3", what: "Rejstřík firem + statutární orgány", cadence: "téměř real-time", access: "REST, 500 req/min" },
-  { name: "Registr smluv", what: "Veřejné smlouvy", cadence: "denně", access: "XML dumpy" },
-  { name: "Registr dotací", what: "Dotace", cadence: "čtvrtletně", access: "CSV" },
-  { name: "MONITOR", what: "Státní a obecní rozpočty", cadence: "čtvrtletně", access: "CSV/XML + SOAP" },
-  { name: "e-Sbírka", what: "Zákony a konsolidovaná znění", cadence: "průběžně", access: "SPARQL" },
-];
-
 // Graf peněžní stopy pro investigativní variantu. Jedna realisticky tvarovaná
 // stopa: poslanec → (statutární orgán) → firma → (dodavatel) → smlouva,
 // plus darovací hrana.

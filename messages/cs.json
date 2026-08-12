@@ -186,50 +186,6 @@
         "feeds": "Propojuje hlasování → dopady"
       }
     },
-    "sources": {
-      "0": {
-        "name": "psp.cz",
-        "what": "Jmenovitá hlasování, tisky, stenozáznamy",
-        "cadence": "denně",
-        "access": "bulk UNL/XML"
-      },
-      "1": {
-        "name": "Hlídač státu",
-        "what": "Osoby, stranické vazby, dárci, platy",
-        "cadence": "průběžně",
-        "access": "REST API"
-      },
-      "2": {
-        "name": "ARES v3",
-        "what": "Rejstřík firem + statutární orgány",
-        "cadence": "téměř real-time",
-        "access": "REST, 500 req/min"
-      },
-      "3": {
-        "name": "Registr smluv",
-        "what": "Veřejné smlouvy",
-        "cadence": "denně",
-        "access": "XML dumpy"
-      },
-      "4": {
-        "name": "Registr dotací",
-        "what": "Dotace",
-        "cadence": "čtvrtletně",
-        "access": "CSV"
-      },
-      "5": {
-        "name": "MONITOR",
-        "what": "Státní a obecní rozpočty",
-        "cadence": "čtvrtletně",
-        "access": "CSV/XML + SOAP"
-      },
-      "6": {
-        "name": "e-Sbírka",
-        "what": "Zákony a konsolidovaná znění",
-        "cadence": "průběžně",
-        "access": "SPARQL"
-      }
-    },
     "regions": {
       "Praha": "Praha",
       "Jihomoravský kraj": "Jihomoravský kraj",
