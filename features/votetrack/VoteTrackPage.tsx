@@ -65,7 +65,9 @@ export default function VoteTrackPage({
           {real ? (
             <SourceNote tone="signal">{t("record.heroNote")}</SourceNote>
           ) : (
-            <SourceNote tone="signal">{t("heroSourceNote")}</SourceNote>
+            // Rozsah ukázky se CITUJE z délky vzorku, ne přepisuje do věty —
+            // týž precedens jako `sampleFootnote` (VoteLedger).
+            <SourceNote tone="signal">{t("heroSourceNote", { sample: ROLL_CALLS.length })}</SourceNote>
           )}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -115,7 +117,11 @@ export default function VoteTrackPage({
             {/* Store outage / not-yet-ingested: say it once, loudly, then the
                 labelled illustrative sample (never real-looking numbers). */}
             <div className="mb-10">
-              <LiveDataNotice title={t("record.fallbackTitle")} body={t("record.fallbackBody")} source={t("record.fallbackSource")} />
+              <LiveDataNotice
+                title={t("record.fallbackTitle")}
+                body={t("record.fallbackBody")}
+                source={t("record.fallbackSource", { sample: ROLL_CALLS.length })}
+              />
             </div>
             <MockVoteTrack />
           </>

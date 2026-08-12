@@ -188,11 +188,11 @@ describe("record.* — naměřená hodnota se interpoluje, nikdy nevypisuje", ()
       // kód volebního období („PSP10") — identifikátor, ne množství
       .replace(/\bPSP\d+\b/g, " ");
 
-  /** Věta, která o sobě říká, že její čísla jsou smyšlená (ILUSTRATIVNÍ UKÁZKA /
-   *  fallback), o záznamu netvrdí nic — a rozsah své fikce spočítat smí. */
-  const aboutTheSample = (s: string): boolean =>
-    /ILUSTRATIVNÍ UKÁZKA|ILLUSTRATIVE SAMPLE|fallback:/i.test(s);
-
+  // Výjimka pro věty, které o sobě říkají, že jejich čísla jsou smyšlená, tu
+  // stála do 2026-08-12 kvůli JEDINÉMU klíči — `record.fallbackSource`
+  // („smyšlený vzorek 5 hlasování"). Ten svou délku vzorku od té doby cituje
+  // z `ROLL_CALLS.length`, takže pravidlo platí bez jediné výjimky: i o fikci
+  // se tvrdí jen to, co kód opravdu nese.
   const recordKeys = keys.filter((k) => k.startsWith("record."));
 
   it("is scoped over the whole real-record namespace", () => {
@@ -201,13 +201,12 @@ describe("record.* — naměřená hodnota se interpoluje, nikdy nevypisuje", ()
     }
   });
 
-  it("carries no bare numeral in either locale", () => {
+  it("carries no bare numeral in either locale — no exemptions", () => {
     for (const k of recordKeys) {
       for (const [locale, catalog] of [
         ["cs", cs],
         ["en", en],
       ] as const) {
-        if (aboutTheSample(catalog[k])) continue;
         expect(measured(catalog[k]), `${locale} ${k}`).not.toMatch(/\d/);
       }
     }
@@ -218,6 +217,10 @@ describe("record.* — naměřená hodnota se interpoluje, nikdy nevypisuje", ()
     expect(variables(cs["record.matrixFootnote"])).toContain("threshold");
     expect(variables(cs["record.methodBody"])).toContain("minClubPositional");
     expect(variables(en["record.methodBody"])).toContain("minClubPositional");
+    // I označená ukázka cituje rozsah své fikce (ROLL_CALLS.length), místo aby
+    // ho tvrdila — proto pravidlo výš žádnou výjimku nepotřebuje.
+    expect(variables(cs["record.fallbackSource"])).toContain("sample");
+    expect(variables(en["record.fallbackSource"])).toContain("sample");
   });
 });
 
