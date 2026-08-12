@@ -80,8 +80,21 @@ export interface ClubAggregate {
   avgDiscipline: number | null;
   /** Mean Rice cohesion over qualifying votes (≥ minClubPositional positional), 3dp. */
   cohesion: number | null;
-  /** Votes where the club had a (non-tied) line. */
+  /**
+   * Hlasování, ve kterých klub MĚL linii (nerozhodná většina linii neurčuje) —
+   * JMENOVATEL `avgDiscipline`. Do 2026-08-12 se počítal, vezl přes síť a
+   * nevykresloval, zatímco plocha nad ním tvrdila „přes všech {valid} platných
+   * hlasování": klub, který se půlku období zdržel, tak ukazoval disciplínu
+   * s dvojnásobnou deklarovanou základnou. Každé číslo řádku teď nese vlastní
+   * populaci.
+   */
   lineVotes: number;
+  /**
+   * Hlasování, ve kterých měl klub aspoň `minClubPositional` pozičních hlasů —
+   * JMENOVATEL `cohesion`. Jiná populace než `lineVotes`: linie vzniká už při
+   * jednom pozičním hlasu, Riceův index se počítá až od prahu.
+   */
+  riceVotes: number;
 }
 
 export interface ChronicleEntry extends RebelEntry {
@@ -188,6 +201,14 @@ export interface VoteRecordData {
     events: number;
     valid: number;
     voided: number;
+    /**
+     * Platná hlasování, u kterých zdroj NEUVÁDÍ hlasovací den. Seismogram je
+     * kbelík na den, takže do něj nespadnou — a do 2026-08-12 mizela beze slova,
+     * zatímco deník i titulek tvrdily, že seismograf „pokrývá všechna". Každé
+     * jiné vyřazení v tomhle záznamu se počítá (`voided`, `withoutBallots`);
+     * tohle je čtvrté a chová se stejně: spočítá se a zveřejní, nikdy nedopočítá.
+     */
+    withoutDate: number;
     ballots: number;
     from: string | null;
     to: string | null;

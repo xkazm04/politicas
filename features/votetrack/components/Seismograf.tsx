@@ -9,12 +9,19 @@
  * jump to the day's tightest vote in the ledger (or to psp.cz when it is
  * outside the shipped window). Entry animation is one-shot and gated by
  * useReducedMotion.
+ *
+ * NEMĚŘENO NENÍ NULA (2026-08-12): den, ve kterém žádný klub nedosáhl na
+ * MIN_CLUB_POSITIONAL pozičních hlasů, nemá soudržnost — kreslí se čárkovanou
+ * značkou, ne (jako dřív) pahýlem k nerozeznání od dokonalé jednoty, popisek dne
+ * to říká slovem a počet takových dnů stojí pod nástrojem vedle hlasování, která
+ * do seismogramu nespadla, protože je zdroj nedatoval.
  */
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { MIN_CLUB_POSITIONAL } from "@/lib/analysis/kg";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { votePspUrl } from "../record/anchor";
@@ -41,8 +48,17 @@ const REBELS_FULL_SCALE = 40;
  *  (odchylka 0,5 → soudržnost 50 %). Odvozeno z konstanty, ne z textu. */
 const DEVIATION_FLOOR_PCT = Math.round((1 - DEVIATION_FULL_SCALE) * 100);
 
-const pctDown = (d: SeismoDay): number =>
-  d.meanCohesion === null ? 0 : Math.min(1, (1 - d.meanCohesion) / DEVIATION_FULL_SCALE) * 100;
+/**
+ * Výchylka dne v procentech poloviny pruhu. Volá se JEN nad dnem, který
+ * soudržnost má: `meanCohesion === null` znamená, že se ten den soudržnost
+ * NEDALA ZMĚŘIT (žádný klub nedosáhl na MIN_CLUB_POSITIONAL pozičních hlasů), a
+ * do 2026-08-12 se takový den kreslil jako `pctDown → 0`, tedy pixel po pixelu
+ * stejně jako den s dokonalou jednotou 1,0 — přesně to, co vedle stálo
+ * v popisku („jednotné kluby = žádná výchylka"). Neměřeno není nula: nezměřený
+ * den má vlastní čárkovanou značku a počítá se pod nástrojem.
+ */
+const pctDown = (meanCohesion: number): number =>
+  Math.min(1, (1 - meanCohesion) / DEVIATION_FULL_SCALE) * 100;
 const pctUp = (d: SeismoDay): number => Math.min(1, d.rebels / REBELS_FULL_SCALE) * 100;
 
 export default function Seismograf({
@@ -67,7 +83,15 @@ export default function Seismograf({
     return `${Number(m.slice(5, 7))}/${m.slice(2, 4)}`;
   };
 
-  const cohesionPct = (v: number | null): string => (v === null ? "—" : `${f.int(Math.round(v * 100))} %`);
+  /** Nezměřená soudržnost dostane SLOVO, ne pomlčku: „—" se čte jako chybějící
+   *  buňka tabulky, kdežto tady jde o tvrzení („žádný klub nedosáhl na práh"),
+   *  které stránka umí vysvětlit. Táž věta jde do popisku i do aria-label. */
+  const cohesionText = (v: number | null): string =>
+    v === null ? t("record.seismoUnmeasured") : `${f.int(Math.round(v * 100))} %`;
+
+  /** Dny, ve kterých se soudržnost nedala změřit — populace čárkovaných značek.
+   *  Bez čísla pod nástrojem by značka byla jen dalším nevysvětleným tvarem. */
+  const unmeasuredDays = days.reduce((n, d) => (d.meanCohesion === null ? n + 1 : n), 0);
 
   return (
     <div className="min-w-0">
@@ -97,7 +121,7 @@ export default function Seismograf({
                 aria-label={t("record.seismoDayAria", {
                   date: f.date(d.date),
                   votes: d.votes,
-                  cohesion: cohesionPct(d.meanCohesion),
+                  cohesion: cohesionText(d.meanCohesion),
                   rebels: d.rebels,
                 })}
                 className={`group relative min-w-0 flex-1 transition-colors motion-reduce:transition-none ${
@@ -112,12 +136,23 @@ export default function Seismograf({
                     style={{ height: `${Math.max(4, pctUp(d) * 0.5)}%` }}
                   />
                 )}
-                {/* cohesion deviation — below the baseline */}
-                <span
-                  aria-hidden
-                  className={`absolute left-1/2 top-1/2 w-[2px] -translate-x-1/2 ${active ? "bg-cobalt" : "bg-ink group-hover:bg-cobalt"}`}
-                  style={{ height: `${Math.max(2, pctDown(d) * 0.5)}%` }}
-                />
+                {/* cohesion deviation — below the baseline.
+                    Nezměřený den (žádný klub nad prahem) NEKRESLÍ výchylku:
+                    dostane čárkovanou značku v tlumené barvě, aby ho nešlo
+                    zaměnit s dnem, ve kterém se kluby neštěpily. Dva různé
+                    fakty, dva různé tvary. */}
+                {d.meanCohesion === null ? (
+                  <span
+                    aria-hidden
+                    className="absolute left-1/2 top-1/2 h-3 w-0 -translate-x-1/2 border-l-2 border-dashed border-steel-aa"
+                  />
+                ) : (
+                  <span
+                    aria-hidden
+                    className={`absolute left-1/2 top-1/2 w-[2px] -translate-x-1/2 ${active ? "bg-cobalt" : "bg-ink group-hover:bg-cobalt"}`}
+                    style={{ height: `${Math.max(2, pctDown(d.meanCohesion) * 0.5)}%` }}
+                  />
+                )}
                 {/* active marker on the baseline */}
                 {active && (
                   <span aria-hidden className="absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-signal" />
@@ -154,6 +189,21 @@ export default function Seismograf({
         })}
       </SourceNote>
 
+      {/* Co nástroj SKUTEČNĚ kreslí a co z platného záznamu do něj nespadlo.
+          Dvě ztráty, obě spočítané v derivaci a obě pojmenované: hlasování bez
+          data (coverage.withoutDate — kbelík je den, takže nemá kam) a dny bez
+          měřitelné soudržnosti (žádný klub nad prahem). Do 2026-08-12 první
+          mizela beze slova a druhá se kreslila jako nula. */}
+      <SourceNote className="mt-1">
+        {t("record.seismoCoverage", {
+          dated: f.int(data.coverage.valid - data.coverage.withoutDate),
+          days: f.int(days.length),
+          withoutDate: f.int(data.coverage.withoutDate),
+          unmeasured: f.int(unmeasuredDays),
+          minClubPositional: f.int(MIN_CLUB_POSITIONAL),
+        })}
+      </SourceNote>
+
       {/* ── detail panel for the selected day ─────────────────── */}
       {selected && (
         <div className="mt-4 border-2 border-ink">
@@ -164,7 +214,13 @@ export default function Seismograf({
             </span>
             <span className="font-mono text-xs uppercase tracking-wider">
               <span className="text-steel-aa">{t("record.seismoCohesion")} </span>
-              <span className="font-bold tabular-nums text-cobalt">{cohesionPct(selected.meanCohesion)}</span>
+              {/* Neměřeno se ani nesází jako číslo: tlumená barva a slovo, aby
+                  se nedalo přečíst jako naměřená hodnota. */}
+              <span
+                className={`font-bold ${selected.meanCohesion === null ? "text-steel-aa" : "tabular-nums text-cobalt"}`}
+              >
+                {cohesionText(selected.meanCohesion)}
+              </span>
             </span>
             <span className="font-mono text-xs uppercase tracking-wider">
               <span className="text-steel-aa">{t("record.seismoRebels")} </span>
@@ -177,7 +233,7 @@ export default function Seismograf({
             {selected.worst ? (
               <>
                 <SourceNote>
-                  {t("record.seismoWorst")} {cohesionPct(selected.worst.cohesion)}
+                  {t("record.seismoWorst")} {cohesionText(selected.worst.cohesion)}
                 </SourceNote>
                 <p className="mt-1 text-[15px] font-bold leading-snug">{selected.worst.title}</p>
                 <div className="mt-2 flex flex-wrap gap-4">

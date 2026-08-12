@@ -219,6 +219,43 @@ describe("deriveVoteRecord", () => {
     expect(bClub.avgDiscipline).toBe(1);
   });
 
+  it("each club figure carries its OWN denominator — and the two differ", () => {
+    // Do 2026-08-12 se vezl jen `lineVotes` (a nikam se nekreslil), zatímco
+    // plocha nad oběma čísly tvrdila „přes všech {valid} platných hlasování".
+    // Klub B je protipříklad na obojí: linii měl ve DVOU hlasováních (102 skončilo
+    // remízou 1:1), poziční práh přešel ve TŘECH — a platných hlasování jsou tři.
+    const r = derive(events, ballots);
+    const bClub = r.clubs.find((c) => c.club === "B")!;
+    expect(bClub.lineVotes).toBe(2);
+    expect(bClub.riceVotes).toBe(3);
+    expect(bClub.lineVotes).not.toBe(bClub.riceVotes);
+    // …a jmenovatel soudržnosti je opravdu ten, přes který se průměruje.
+    expect(bClub.cohesion).toBe(round3mean([1, 0, 1]));
+    // Klub A prošel oběma prahy pokaždé — populace se tu shodují, a to je fakt
+    // o datech, ne o definici.
+    const a = r.clubs.find((c) => c.club === "A")!;
+    expect(a.riceVotes).toBe(3);
+  });
+
+  it("a valid roll call with no date is counted, not silently dropped", () => {
+    // Seismogram je kbelík na DEN, takže hlasování bez data do něj nespadne.
+    // Každé jiné vyřazení v tomhle záznamu se počítá — tohle se do 2026-08-12
+    // nepočítalo, a deník i titulek přitom tvrdily, že seismograf „pokrývá všechna".
+    const undated = [...events, ev(105, "2026-01-12", { votedOn: null })];
+    const withBallots = [...ballots, b(105, 10, "yes"), b(105, 20, "no")];
+    const r = deriveVoteRecord(
+      { events: undated, ballots: withBallots, clubByMandate: CLUB, personByMandate: PERSON, nameByPerson: NAME },
+      { minClubPositional: 2, minEligible: 1, ledgerWindow: 10 },
+    );
+    expect(r.coverage.valid).toBe(4);
+    expect(r.coverage.withoutDate).toBe(1);
+    // Platné zůstává: v deníku je, do metrik klubů mluví — jen v seismogramu být nemůže.
+    expect(r.ledger.map((l) => l.pspId)).toContain(105);
+    expect(r.seismogram.reduce((n, d) => n + d.votes, 0)).toBe(r.coverage.valid - r.coverage.withoutDate);
+    // A bez nedatovaného hlasování je počítadlo nula — nepočítá zmatečná ani nic jiného.
+    expect(derive(events, ballots).coverage.withoutDate).toBe(0);
+  });
+
   it("ranks rebels by rate over eligible votes and caps the chronicle newest-first", () => {
     const r = derive(events, ballots);
     expect(r.topRebels[0]).toMatchObject({ personPspId: 3, rebelVotes: 1, club: "A" });

@@ -244,6 +244,158 @@ describe("record.seismoScale — the instrument discloses its own clipping", () 
   });
 });
 
+/* ── absolutní tvrzení jen tam, kde ho kód odvozuje ────────────────────────── */
+
+describe("record.* / kompas.* — kvantifikátor a počet průchodů se netvrdí", () => {
+  // Pravidlo o holé číslici výš (`measured`) hlídá ČÍSLA. Nehlídalo ale dvě
+  // třídy tvrzení, které jdou vyvrátit úplně stejně — a obě tu 2026-08-12 stály:
+  //
+  //   1) ABSOLUTNÍ KVANTIFIKÁTOR. „seismograf výše pokrývá všechna" (ledgerFootnote)
+  //      a „nad všemi platnými hlasováními" (lead) tvrdily úplné pokrytí, přestože
+  //      derivace kbelíkuje po DNECH a platné hlasování bez data z ní vypadne
+  //      (`coverage.withoutDate`). „přes všech {valid}" u disciplíny mluvilo
+  //      o jmenovateli, který ta metrika nemá (`lineVotes` / `riceVotes`).
+  //   2) POČET PRŮCHODŮ. „jedním průchodem" (freshness) — derivace prochází hlasy
+  //      třikrát (record/derive.ts: tally, rebelové, kontrola). Přesně tuhle třídu
+  //      chvástání vymýtil getVoteRecord.ts ve svém komentáři, jenže v katalogu
+  //      přežila, protože není číslicí.
+  //
+  // Pravidlo je TVAROVÉ a bez výjimek: kvantifikátor smí stát jen TĚSNĚ PŘED ICU
+  // proměnnou (tam ho kód dosazuje a čtenář si ho může přepočítat), a počet
+  // průchodů se do čtenářské věty nepíše vůbec — je to vlastnost implementace,
+  // ne zjištění o sněmovně.
+  const rendered = keys.filter((k) => k.startsWith("record.") || k.startsWith("kompas."));
+
+  // `at all` je idiom („not a single ballot at all"), ne kvantifikátor — a jen ten
+  // jediný tvar se vyjímá, protože nic netvrdí o pokrytí.
+  const QUANTIFIER = /(?<!at\s)\b(?:vš(?:ech|echna|echny|echno|emi|ichni)|all|every)\b(?!\s*\{)/i;
+  const PASS_CLAIM = /\bprůchod\w*\b|\bpass(?:es)?\b/i;
+
+  it("is scoped over both rendered namespaces", () => {
+    for (const k of ["record.lead", "record.ledgerFootnote", "record.disciplineNote", "kompas.emptyBody"]) {
+      expect(rendered, k).toContain(k);
+    }
+  });
+
+  it("no absolute quantifier stands without the value it quantifies", () => {
+    for (const k of rendered) {
+      for (const [locale, catalog] of [
+        ["cs", cs],
+        ["en", en],
+      ] as const) {
+        expect(catalog[k], `${locale} ${k}`).not.toMatch(QUANTIFIER);
+      }
+    }
+  });
+
+  it("the two sentences that legitimately quantify do it over a variable", () => {
+    // Kontrola sama o sobě absolutní JE — porovnala {compared} hlasování a ve všech
+    // sedí. To je odvozené tvrzení a smí stát; pravidlo výš ho pouští právě proto,
+    // že kvantifikátor drží proměnná.
+    expect(cs["record.reconcileAgree"]).toMatch(/všech \{compared\}/);
+    expect(en["record.reconcileAgree"]).toMatch(/all \{compared\}/);
+    expect(cs["kompas.showAll"]).toMatch(/všech \{n\}/);
+  });
+
+  it("no sentence claims how many times the derivation walks the ballots", () => {
+    for (const k of rendered) {
+      for (const [locale, catalog] of [
+        ["cs", cs],
+        ["en", en],
+      ] as const) {
+        expect(catalog[k], `${locale} ${k}`).not.toMatch(PASS_CLAIM);
+      }
+    }
+  });
+});
+
+/* ── seismograf: neměřeno není nula ────────────────────────────────────────── */
+
+describe("record.seismo* — an unmeasured day is not a unified day", () => {
+  // `meanCohesion === null` znamená, že v ten den žádný klub nedosáhl na
+  // MIN_CLUB_POSITIONAL pozičních hlasů — soudržnost se NEMĚŘILA. Do 2026-08-12
+  // kreslil takový den týž dvouprocentní pahýl jako den se soudržností 1,0 a
+  // popisek vedle tvrdil „jednotné kluby = žádná výchylka".
+  it("names the unmeasured state as a word, in both locales", () => {
+    expect(cs["record.seismoUnmeasured"]).toBeTruthy();
+    expect(en["record.seismoUnmeasured"]).toBeTruthy();
+    // …a nesmí to být totéž co „bez měřitelné soudržnosti" u nejtěsnějšího hlasování:
+    // tam jde o JEDNO hlasování, tady o celý den.
+    expect(cs["record.seismoUnmeasured"]).not.toBe(cs["record.seismoNoCohesion"]);
+  });
+
+  it("the explainer no longer lets „no deflection“ cover the unmeasured case", () => {
+    expect(cs["record.seismoExplainer"]).toMatch(/nedala změřit/);
+    expect(cs["record.seismoExplainer"]).toMatch(/ne nulovou výchylku/);
+    expect(en["record.seismoExplainer"]).toMatch(/could not be measured/i);
+    expect(en["record.seismoExplainer"]).toMatch(/not a zero deflection/i);
+  });
+
+  it("the instrument discloses BOTH of its losses, each as a variable", () => {
+    // Kolik dnů se nedalo změřit a kolik platných hlasování zdroj nedatoval —
+    // druhé z toho do seismogramu nespadá vůbec (kbelík je den).
+    for (const v of ["dated", "days", "withoutDate", "unmeasured", "minClubPositional"]) {
+      expect(variables(cs["record.seismoCoverage"]), v).toContain(v);
+      expect(variables(en["record.seismoCoverage"]), v).toContain(v);
+    }
+  });
+
+  it("the undated roll calls are counted where their siblings are", () => {
+    // `voided` a `ballots` se vypisují v methodSource; čtvrtá ztráta patří vedle nich.
+    expect(variables(cs["record.methodSource"])).toContain("withoutDate");
+    expect(variables(en["record.methodSource"])).toContain("withoutDate");
+  });
+});
+
+/* ── klub se měří na vlastní populaci ──────────────────────────────────────── */
+
+describe("record.clubBasis / disciplineNote — every figure states its own denominator", () => {
+  // `avgDiscipline` se počítá přes hlasování, kde klub měl LINII, `cohesion` přes
+  // ta, kde měl dost pozičních hlasů. Ani jedno se nerovná `coverage.valid`,
+  // a přesto plocha tvrdila „přes všech {valid} platných hlasování".
+  it("the row carries both denominators as variables", () => {
+    expect(variables(cs["record.clubBasis"])).toEqual(["lineVotes", "riceVotes"]);
+    expect(variables(en["record.clubBasis"])).toEqual(["lineVotes", "riceVotes"]);
+  });
+
+  it("the note says the population is the club's own, not the whole record", () => {
+    expect(cs["record.disciplineNote"]).toMatch(/vlastní populaci/);
+    expect(cs["record.disciplineNote"]).toMatch(/ne na celém záznamu/);
+    expect(en["record.disciplineNote"]).toMatch(/its own population/i);
+    expect(en["record.disciplineNote"]).toMatch(/not on the whole record/i);
+  });
+});
+
+/* ── nález se dá přečíst, ne jen změřit ────────────────────────────────────── */
+
+describe("record.reconcileWorstDeltas / reconcileScope — the finding's content", () => {
+  // `worst.compared` (které sloty šlo porovnat) a `worst.deltas` (o kolik) počítá
+  // reconcile.ts od začátku a plocha je do 2026-08-12 nevykreslovala: čtenář se
+  // dozvěděl vzdálenost a odešel na psp.cz bez tušení, KTERÝ sloupec nesedí.
+  it("the worst example names its date and its per-slot deltas", () => {
+    expect(variables(cs["record.reconcileWorstDeltas"])).toEqual(["date", "deltas", "worstId"]);
+    expect(variables(en["record.reconcileWorstDeltas"])).toEqual(["date", "deltas", "worstId"]);
+    expect(cs["record.reconcileWorstDeltas"]).toMatch(/přepočet minus zveřejněný součet/);
+    expect(en["record.reconcileWorstDeltas"]).toMatch(/recount minus published tally/i);
+  });
+
+  it("it still promises a finding, never a repair", () => {
+    expect(cs["record.reconcileWorstDeltas"]).toMatch(/zůstávají/);
+    expect(cs["record.reconcileWorstDeltas"]).not.toMatch(/oprav(íme|eno|ili)/);
+    expect(en["record.reconcileWorstDeltas"]).not.toMatch(/\bcorrected\b|\brepaired\b/i);
+  });
+
+  it("a worst example with no voting day gets its own words, never an empty slot", () => {
+    expect(cs["record.reconcileWorstNoDate"]).toBeTruthy();
+    expect(en["record.reconcileWorstNoDate"]).toBeTruthy();
+  });
+
+  it("the scope sentence carries all four counts the summary computes", () => {
+    expect(variables(cs["record.reconcileScope"])).toEqual(["agreed", "compared", "recounted", "votes"]);
+    expect(variables(en["record.reconcileScope"])).toEqual(["agreed", "compared", "recounted", "votes"]);
+  });
+});
+
 /* ── mez se nikdy nevydává za počet ────────────────────────────────────────── */
 
 describe("record.chronicleNote / topRebelsNote — a cap ships with its population", () => {
@@ -428,7 +580,10 @@ describe("kompas.freshness — the bound the page actually has", () => {
   it("names the memo window and says what is read fresh instead", () => {
     expect(variables(cs["kompas.freshness"])).toEqual(["hours"]);
     expect(cs["kompas.freshness"]).toMatch(/při každém požadavku/);
-    expect(en["kompas.freshness"]).toMatch(/on every request/i);
+    // „each", ne „every": kvantifikátorové pravidlo níž pouští absolutní tvrzení
+    // jen nad ICU proměnnou, a anglická věta si brala silnější slovo, než jaké
+    // stojí v české („každý" = each). Tvrzení je totéž, jen bez absolutna.
+    expect(en["kompas.freshness"]).toMatch(/on each request/i);
   });
 
   it("still names the shared bound the rest of the app declares", () => {

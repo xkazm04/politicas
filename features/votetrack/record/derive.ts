@@ -21,6 +21,13 @@
 //   • A presentation cap never ships without its population: the chronicle and
 //     the rebel ranking carry `chronicleTotal` / `topRebelsTotal`, counted BEFORE
 //     the slice, so „the worst 12 of N" cannot read as „only 12 exist".
+//   • Every drop counts its casualties. The seismogram buckets by DAY, so a valid
+//     roll call the source dates with nothing falls out of it — that is
+//     `coverage.withoutDate`, and the page names it (it used to vanish silently
+//     under „the seismograph covers them all"). A day where NO club cleared
+//     `minClubPositional` has meanCohesion `null` — NOT MEASURED, which is a
+//     different fact from a perfectly unified day, and the instrument draws it
+//     differently.
 
 import { MIN_CLUB_POSITIONAL, MIN_ELIGIBLE_VOTES } from "@/lib/analysis/kg";
 import { reconcileRecord, type PublishedTally } from "./reconcile";
@@ -400,7 +407,11 @@ export function deriveVoteRecord(
       seats: seatsOf(club),
       avgDiscipline: a.discVotes ? round3(a.discSum / a.discVotes) : null,
       cohesion: a.riceVotes ? round3(a.riceSum / a.riceVotes) : null,
+      // Dva průměry, dva jmenovatele — a oba jdou k ČTENÁŘI. Ani jeden se
+      // nerovná `coverage.valid`, takže věta „přes všech {valid} hlasování"
+      // o nich lhala tím víc, čím míň klub hlasoval pozičně.
       lineVotes: a.lineVotes,
+      riceVotes: a.riceVotes,
     }))
     .sort((a, b) => b.seats - a.seats || a.club.localeCompare(b.club, "cs"));
 
@@ -480,6 +491,10 @@ export function deriveVoteRecord(
       events: events.length,
       valid: valid.length,
       voided: events.length - valid.length,
+      // Platná hlasování bez data spadnou ze seismogramu (kbelík je den) — viz
+      // smyčka `if (!e.votedOn) continue` výš. Počítá se to tady, aby plocha
+      // mohla ztrátu POJMENOVAT místo absolutního „pokrývá všechna".
+      withoutDate: valid.length - validDates.length,
       ballots: ballotCount,
       from: validDates.length ? validDates.reduce((a, b) => (a < b ? a : b)) : null,
       to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,

@@ -15,6 +15,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { clubStyle } from "../record/clubStyle";
 import { votePspUrl } from "../record/anchor";
+import { RECONCILE_BUCKETS, type ReconcileBucket } from "../record/reconcile";
 import type { ClubAggregate, LedgerVote, VoteRecordData } from "../record/types";
 
 /** Kolik nejnovějších zápisů deníku matice sází. Do popisku se INTERPOLUJE —
@@ -79,6 +80,18 @@ export default function RealDisciplineBoard({
                       <span className="font-bold tabular-nums">
                         {c.cohesion === null ? "—" : f.dec(Math.round(c.cohesion * 1000) / 10)}
                       </span>
+                    </span>
+                    {/* Každé z obou čísel řádku má VLASTNÍ jmenovatel a ani jeden
+                        se nerovná počtu platných hlasování: disciplína se měří
+                        tam, kde klub měl linii, soudržnost tam, kde měl dost
+                        pozičních hlasů. Klub, který se půlku období zdržel, tak
+                        stál pod větou o „všech {valid} hlasováních" s dvojnásobnou
+                        deklarovanou základnou. */}
+                    <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-wider text-steel-aa">
+                      {t("record.clubBasis", {
+                        lineVotes: f.int(c.lineVotes),
+                        riceVotes: f.int(c.riceVotes),
+                      })}
                     </span>
                   </span>
                   <span className="h-4 w-full bg-hairline">
@@ -197,6 +210,9 @@ export default function RealDisciplineBoard({
           {t("record.methodSource", {
             valid: data.coverage.valid,
             voided: data.coverage.voided,
+            // Čtvrtá počítaná ztráta záznamu, vedle zmatečných a hlasování bez
+            // jediného uloženého hlasu: platné hlasování, které zdroj nedatoval.
+            withoutDate: f.int(data.coverage.withoutDate),
             ballots: f.int(data.coverage.ballots),
             from: data.coverage.from ? f.date(data.coverage.from) : "—",
             to: data.coverage.to ? f.date(data.coverage.to) : "—",
@@ -224,10 +240,32 @@ export default function RealDisciplineBoard({
  */
 function ReconciliationNote({ data }: { data: VoteRecordData }) {
   const t = useTranslations("votetrack");
+  const tcom = useTranslations("common");
   const f = useFormat();
   const r = data.reconciliation;
   const flagged = r.discrepancies > 0;
   const gaps = r.uncompared + r.withoutBallots;
+
+  /* Obsah nálezu, ne jen jeho velikost. `worst.compared` (které sloty šlo
+   * porovnat) a `worst.deltas` (o kolik se v každém liší) kontrola počítá od
+   * začátku a do 2026-08-12 přecházely přes síť nevykreslené: čtenář se dozvěděl
+   * „hlasování č. X se liší o N hlasů" a odešel na psp.cz bez tušení, KTERÝ
+   * sloupec. Pořadí je RECONCILE_BUCKETS, ne pořadí klíčů objektu — deterministicky.
+   * Znaménko se sází explicitně, číslo přes lib/format; nic se nepřepočítává. */
+  const bucketLabel: Record<ReconcileBucket, string> = {
+    yes: tcom("voteChoice.for"),
+    no: tcom("voteChoice.against"),
+    k: t("record.legendK"),
+  };
+  const worstDeltas = r.worst
+    ? RECONCILE_BUCKETS.filter((b) => r.worst!.compared.includes(b))
+        .map((b) => {
+          const delta = r.worst!.deltas[b] ?? 0;
+          const sign = delta > 0 ? "+" : delta < 0 ? "−" : "±";
+          return `${bucketLabel[b]} ${sign}${f.int(Math.abs(delta))}`;
+        })
+        .join(" · ")
+    : "";
 
   return (
     <div
@@ -250,14 +288,26 @@ function ReconciliationNote({ data }: { data: VoteRecordData }) {
             })}
           </p>
           {r.worst && (
-            <a
-              href={votePspUrl(r.worst.votePspId)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 inline-block font-mono text-xs uppercase tracking-wider text-steel-aa underline-offset-2 hover:text-ink hover:underline"
-            >
-              {t("record.reconcileWorstLink", { worstId: String(r.worst.votePspId) })} ↗
-            </a>
+            <>
+              {/* Nález se dá přečíst až tady: který slot se porovnával a o kolik
+                  se v něm přepočet a zveřejněný součet rozešly. Datum je den
+                  hlasování, ne den výpočtu. */}
+              <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink">
+                {t("record.reconcileWorstDeltas", {
+                  worstId: String(r.worst.votePspId),
+                  date: r.worst.votedOn ? f.date(r.worst.votedOn) : t("record.reconcileWorstNoDate"),
+                  deltas: worstDeltas,
+                })}
+              </p>
+              <a
+                href={votePspUrl(r.worst.votePspId)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-block font-mono text-xs uppercase tracking-wider text-steel-aa underline-offset-2 hover:text-ink hover:underline"
+              >
+                {t("record.reconcileWorstLink", { worstId: String(r.worst.votePspId) })} ↗
+              </a>
+            </>
           )}
         </>
       ) : (
@@ -265,6 +315,19 @@ function ReconciliationNote({ data }: { data: VoteRecordData }) {
           {t("record.reconcileAgree", { compared: f.int(r.compared), buckets: f.int(r.comparedBuckets) })}
         </p>
       )}
+
+      {/* Rozsah kontroly — čtyři čísla, která summary počítá od začátku a která
+          až do 2026-08-12 nikam nešla: kolik hlasování se kontrolovalo, ke kolika
+          držíme aspoň jeden hlas, kolik jich šlo porovnat a kolik z nich sedí
+          přesně. Bez nich se „porovnáno {compared}" nedalo zasadit do ničeho. */}
+      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-steel-aa">
+        {t("record.reconcileScope", {
+          votes: f.int(r.votes),
+          recounted: f.int(r.recounted),
+          compared: f.int(r.compared),
+          agreed: f.int(r.agreed),
+        })}
+      </p>
 
       {gaps > 0 && (
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-steel-aa">
