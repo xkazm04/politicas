@@ -21,15 +21,42 @@ the prototypes in `C:\Users\kazda\kiro\opendata\src\cases\`.
 noindex). Future surface exploration uses the `prototype` skill.
 
 Route map (politicas.md roadmap execution, sample data):
-- `/` — landing (features/landing). Konstrukt, on the `lib/civic` sample. A
-  2026-07-29 `/impeccable` experiment built four alternative landing worlds
-  behind a switcher (bolder · distill · a ledger/registry world · typeset) and
-  **all four were rejected and deleted** — do not rebuild them; the comparison
-  and the reasoning are in `docs/design/impeccable-pass-02.md`. What survived is
-  the accessibility work, which is merged and staying: `SourceNote` sets a
-  citation by measured LENGTH rather than role, the `steel-aa` / `signal-deep`
-  tokens pass WCAG AA where `steel` / `signal` sat at ~4,1:1, and the landing is
-  contrast-clean (135 → 27 detector findings, 0 contrast failures).
+- `/` — landing (features/landing). Konstrukt. **REAL since `0e8410c`** — the
+  hero ranking, hemicycle and specimen ride `getLeaderboardListData()` (the
+  same loader as /zebricek, trimmed to what the page draws); `null` renders an
+  honest degraded state, never the mock. A 2026-07-29 `/impeccable` experiment
+  built four alternative landing worlds behind a switcher (bolder · distill ·
+  a ledger/registry world · typeset) and **all four were rejected and
+  deleted** — do not rebuild them; the comparison and the reasoning are in
+  `docs/design/impeccable-pass-02.md`. What survived is the accessibility
+  work, which is merged and staying: `SourceNote` sets a citation by measured
+  LENGTH rather than role, the `steel-aa` / `signal-deep` tokens pass WCAG AA
+  where `steel` / `signal` sat at ~4,1:1, and the landing is contrast-clean
+  (135 → 27 detector findings, 0 contrast failures).
+  **The façade cites measured sources (2026-08-12).** The „Surový materiál"
+  section rendered seven SAMPLE cadences from `lib/civic/data.ts` („denně",
+  „téměř real-time"…) under „ověřené veřejné zdroje" with zero SourceNote — on
+  the page whose brand is that every number cites its source. It now reads
+  `getAtlasReport()` through the pure projection `features/landing/
+  sourceStates.ts` (nothing recomputed: coverage IS the atlas dimension score;
+  unrated is `null` + a word, never 0; order is the atlas's own), cites
+  /atlas, degrades independently of the leaderboard layer, and the mock
+  `SOURCES` + `content.sources.*` catalog block are deleted. Three falsifiable
+  literals fell in the same pass (`meta.rootDescription`'s „index efektivity
+  … každého politika" → contribution index over 207 MPs of PSP10;
+  `landing.methodBody`'s „citace u každého pilíře" + „verzované váhy";
+  ReferendumTeaser's hand-typed weights prose — now derived from
+  `PUBLISHED_WEIGHTS`, with „207" guarded on data presence). The flagship
+  score claim reached the two highest-traffic surfaces: LiveSpecimen and the
+  /zebricek Souboj mint the composite through the ONE `scoreClaim.ts` stamp,
+  withheld under a reader's custom lens WITH the withholding stated
+  (`krajLensNoClaim` reused, not forked). `features/landing/messages.test.ts`
+  pins all of it. **And the façade works for every reader (2026-08-12):**
+  `.k-range:focus-visible` draws the app's cobalt ring (the sliders were
+  keyboard-invisible, WCAG 2.4.7 — the fix also repairs /zebricek's
+  WeightPanel), and HeroStory / Hemicycle / SystemModules gate on
+  `useReducedMotion` like every sibling surface; `motion.test.ts` pins both
+  by source-grep (no jsdom here), each guard verified by falsification.
 - `/dashboard` — **Velín** (features/dashboard): rebuilt 2026-07-26 as an
   instrument panel. **PARTIALLY REAL** — `getDashboardData.ts` is a `server-only`
   loader that re-uses the loaders which already own each figure rather than
@@ -1105,10 +1132,29 @@ Route map (politicas.md roadmap execution, sample data):
   invites a reader to change those weights. `messages.test.ts` now fails if
   either catalog hardcodes it again, and `lens.test.ts` pins the label to the
   formula.
-- `/rozpocty` — **BudgetMirror** (features/budget): town vs peer-group mirror —
-  metric duos against the computed peer median, debt-per-capita trend lines
-  (town vs median), sortable peer table. Stewardship feeds only executive
-  roles — stated explicitly on the page.
+- `/rozpocty` — **BudgetMirror** (features/budget): **REAL since the
+  2026-07-30 MONITOR moonshot** — 132 towns with wired budget series (FIN
+  2-12 M consolidated figures) + the live supplier trail over the money
+  graph, town vs computed peer-group mirror, debt-per-capita trends,
+  permanent town addresses at `/rozpocty/<ico>`. Stewardship feeds only
+  executive roles — stated explicitly on the page.
+  **The honest sheet (2026-08-12).** The most-seen number (38,78 mld Kč,
+  Praha default) read as payments while being Σ contract VALUE 1995–2026 —
+  the card now carries the /penize qualifier („částka = hodnota smlouvy")
+  and the year span `supplierTrail` always computed and nobody drew (a row
+  with no signing date neither extends nor zeroes the span); „doložené
+  platby" columns renamed to what they are (documented DIRECTION, not
+  payment). §03 peer table gained its SourceNote; the rail contract was
+  repaired three ways (missing `#penize` anchor, §01 label drift, no
+  `sectionsFor` case for town pages) with a parity test in the /hlasovani
+  pattern; nine mock-era keys asserting „smyšlená čísla, MONITOR nenapojen"
+  are deleted from both catalogs and `budget.sourceLine` interpolates the
+  generated retrieved-date constants instead of a hand-typed literal
+  (`features/budget/messages.test.ts` forbids the tokens). ~360 prerendered
+  town pages joined the sitemap through `features/budget/municipalRoutes.ts`
+  — ONE list for `generateStaticParams` AND `app/sitemap.ts` (a municipality
+  is a public register, not a person, and the register is a static module:
+  both sitemap-exclusion reasons lapse — the exception is argued in place).
 - `/zakony` — **LawWatch** (features/lawwatch): **wired 2026-07-24 to the real
   graph** (`getLawData.ts`) — **141 bills → 101 laws via 150 `amends` edges**,
   grouped by most-amended statute, with sponsors (→ `/poslanec/<pspId>`),
@@ -1487,6 +1533,24 @@ Route map (politicas.md roadmap execution, sample data):
   endpoints into our case files through ONE pure resolver
   (`features/shared/provenance/caseFileLink.ts`) that links only from the SHAPE
   of the stored id and never guesses.
+  **The fact-check markup obeys the human gate (2026-08-12).** `/zdroj` emitted
+  schema.org ClaimReview for EVERY receipt — including `pending_review` ties —
+  with the gate state hidden inside `ratingValue` as a Czech sentence and a
+  relative `url` schema consumers reject; a crawler that reads ratingValue as a
+  number received our unreviewed trail as a reviewed claim, the exact thing
+  `lib/claims/claim.ts` §3 forbids. `toClaimReviewJsonLd` now enforces the gate
+  ITSELF (verified edges only; pending/rejected/ungated/node receipts emit
+  NOTHING — no softer substitute schema), rating is numeric 5-of-5 only past
+  the gate, `appearance` is the CreativeWork shape, and the absolute URL comes
+  from request headers (the sitemap precedent) or the field is omitted. And the
+  „gone" receipt stopped dead-ending on a base64 blob: the loader now returns
+  the DECODED claim (subject — rel — object, endpoint nodes re-read so people
+  and firms keep their names even when the edge is gone), rendered with
+  case-file links via `caseFileLinkFor` only where today's graph still carries
+  the node, the copy button, „ověřit tuto citaci" and `ReportClaimLink` in ONE
+  shared citation footer; the unavailable state's backHref points home, not at
+  the operators' velín. Both sides of the gate pinned by
+  `features/shared/provenance/{receipt,messages}.test.ts`.
   **The guide's example is a real edge.** `guide.ts` built the `/zdroj` example
   from fabricated ids („osoba-priklad" / „firma-priklad"), so copy-pasting the
   one address the page invites you to copy returned „Neznámý odkaz." — in a
@@ -1565,8 +1629,10 @@ is **retained only as a graceful fallback** (loader returns `null` → mock). Se
 `docs/data-analysis/{graph-schema,coverage-ledger,graph-log}.md` for the graph
 provenance. **`/dashboard`'s stat strip joined them 2026-07-28** — all four
 headline numbers are now computed from the graph through the loader that owns
-each one; what is still sample data there is the state graph and the traffic
-feed (both labelled), plus `/rozpocty` and landing. Next: port those, or
+each one. **The state graph and the dated-fact feed are real since 2026-07-28,
+`/rozpocty` is real since 2026-07-30 (MONITOR), and the landing is real since
+`0e8410c`** (leaderboard layer) **+ 2026-08-12** (source-quality layer via the
+atlas) — the `lib/civic` mock survives only as the labelled fallback. Next:
 election-cycle hardening per §9 Phase 4.
 
 ## Code structure (patterns adopted from the personas repo)

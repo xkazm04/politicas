@@ -96,7 +96,7 @@ text-steel` — 4,11:1, sometimes 10 px, and letter-spaced verzálky on runs up 
 and a 115-character sentence in a label's clothes goes straight through it.
 
 So the rule now has a second half: **a citation is typeset by its length.** Short
-strings („obr. 4 — ověřené veřejné zdroje", ≤ 48 chars) stay tracked verzálky;
+strings („obr. 4 — měřená kvalita zdrojů", ≤ 48 chars) stay tracked verzálky;
 anything sentence-shaped is set in sentence case. Both modes are `text-xs`
 (12 px) in `steel-aa`.
 
