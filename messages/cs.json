@@ -1345,7 +1345,19 @@
       "ariaLabel": "Graf peněžní stopy: poslanec, firmy, veřejné peníze",
       "edgesInRecord": "{count} hran v záznamu",
       "hoverHint": "najeďte na uzel a stopa se rozsvítí",
-      "sampleNotice": "● ukázková data — žádná hrana neprošla lidskou branou"
+      "sampleNotice": "● ukázková data — žádná hrana neprošla lidskou branou",
+      "sampleNoCaseFiles": "vzorkové uzly nevedou do žádného spisu — stojí za smyšlené osoby a firmy",
+      "keyboardHint": "klávesnice: tabulátor vstoupí do obrázku (jedna zastávka), šipky chodí po hranách na sousední uzel, Home/End skočí na první a poslední uzel, Enter otevře spis uzlu",
+      "nodePosition": "uzel {index} z {total}",
+      "nodeOpens": "otevře spis",
+      "openCaseFile": "otevřít spis",
+      "tieFallback": "vazba",
+      "kind": {
+        "person": "poslanec",
+        "company": "firma",
+        "money": "veřejné peníze",
+        "party": "strana"
+      }
     },
     "ledger": {
       "caseFile": "spis č. {rank}",

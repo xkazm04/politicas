@@ -1345,7 +1345,19 @@
       "ariaLabel": "Money trail graph: MP, companies, public money",
       "edgesInRecord": "{count} edges in the record",
       "hoverHint": "hover a node to light up its trail",
-      "sampleNotice": "● sample data — no edge has been through the human gate"
+      "sampleNotice": "● sample data — no edge has been through the human gate",
+      "sampleNoCaseFiles": "sample nodes lead to no case file — they stand for invented people and firms",
+      "keyboardHint": "keyboard: Tab enters the picture (one stop), arrow keys walk the edges to a neighbouring node, Home/End jump to the first and last node, Enter opens the node's case file",
+      "nodePosition": "node {index} of {total}",
+      "nodeOpens": "opens the case file",
+      "openCaseFile": "open the case file",
+      "tieFallback": "tie",
+      "kind": {
+        "person": "MP",
+        "company": "company",
+        "money": "public money",
+        "party": "party"
+      }
     },
     "ledger": {
       "caseFile": "case file no. {rank}",

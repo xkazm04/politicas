@@ -150,6 +150,55 @@ describe("money message catalog", () => {
     }
   });
 
+  // Klíče, které sází OBA obrázky (reálný i označený vzorek) — jména jsou
+  // kontrakt mezi MoneyGraph.tsx / MockMoneyGraph.tsx a katalogem. Překlep se
+  // na ploše projeví syrovým klíčem, a to zrovna v popisku pro odečítačku,
+  // který nikdo neuvidí.
+  it("graf peněz deklaruje celou klávesovou a popisnou sadu v obou katalozích", () => {
+    const KEYS = [
+      "keyboardHint",
+      "nodePosition",
+      "nodeOpens",
+      "openCaseFile",
+      "tieFallback",
+      "sampleNoCaseFiles",
+      "kind.person",
+      "kind.company",
+      "kind.money",
+      "kind.party",
+    ];
+    for (const k of KEYS) {
+      expect(cs[`graph.${k}`], `cs.graph.${k}`).toBeTruthy();
+      expect(en[`graph.${k}`], `en.graph.${k}`).toBeTruthy();
+    }
+    // Pozice uzlu je ICU věta o dvou měřených hodnotách, ne text s číslem.
+    expect(placeholders(cs["graph.nodePosition"])).toEqual(["index", "total"]);
+    expect(placeholders(en["graph.nodePosition"])).toEqual(["index", "total"]);
+  });
+
+  it("česká klávesová nápověda i názvy druhů uzlů projdou jazykovou branou", () => {
+    for (const k of [
+      "graph.keyboardHint",
+      "graph.nodeOpens",
+      "graph.openCaseFile",
+      "graph.sampleNoCaseFiles",
+      "graph.kind.person",
+      "graph.kind.company",
+      "graph.kind.money",
+      "graph.kind.party",
+    ]) {
+      expect(looksEnglish(cs[k]), `cs.${k}`).toBe(false);
+      expect(cs[k], `${k} is not translated`).not.toEqual(en[k]);
+    }
+  });
+
+  it("popisek hrany bez role je katalogová věta, ne české slovo v kódu", () => {
+    // Do 2026-08-12 stálo v MoneyGraph.tsx `c.role || "vazba"` — jediné české
+    // slovo v obrázku, které anglický čtenář dostal nepřeložené.
+    expect(cs["graph.tieFallback"]).toBe("vazba");
+    expect(en["graph.tieFallback"]).toBe("tie");
+  });
+
   it("the lower-bound explainer is reachable copy, not a dead key", () => {
     // It sat unused in both catalogs while the "nejméně" prefix rendered without it.
     expect(placeholders(cs["real.stats.reachableSubCapped"])).toEqual(["cap", "companies"]);
