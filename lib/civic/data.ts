@@ -454,7 +454,12 @@ export const CHAMBER_TREND = [54.2, 54.9, 55.3, 55.8, 56.3, 56.8];
 
 export type VoteChoice = "pro" | "proti" | "zdržel se" | "omluven";
 
-/** Strana ve sněmovně — barva je datový údaj (malé čipy, nikdy dekorace). */
+/** Strana ve sněmovně — barva je datový údaj (malé čipy, nikdy dekorace).
+ *
+ *  POZOR: `PARTIES` je součást UKÁZKOVÉHO katalogu (viz hlavička souboru) —
+ *  200 křesel 9. období, tedy sněmovna, která už není. Skutečné klubovní
+ *  kluby PSP10 mají vlastní tabulku `CLUB_DISPLAY` na KONCI tohoto souboru;
+ *  reálná cesta (features/civicscore/getLeaderboardData.ts) čte JI, ne tuhle. */
 export interface PartyMeta {
   code: string;
   name: string;
@@ -767,3 +772,56 @@ export const EVENTS: FeedEvent[] = [
     tone: "ink",
   },
 ];
+
+// ═════════════════════════════════════════════════════════════════════════════
+// KONEC UKÁZKOVÉHO KATALOGU. Co je pod touhle linkou, NENÍ mock.
+// ═════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Jak se SÁZÍ skutečné poslanecké klubovní klubu 10. období (PSP10).
+ *
+ * Dvě věci, které nejsou totéž, a proto stojí v jedné tabulce vedle sebe:
+ *
+ *  · `name` — REDAKČNÍ zápis obecně užívaného krátkého názvu klubu („ANO 2011",
+ *    „TOP 09"). Není to tvrzení o datech: rejstřík psp.cz nese na jedné straně
+ *    ZKRATKU (`organ.abbrev` → „ANO2011", „TOP09") a na druhé plný právní
+ *    název v genitivu („Poslanecký klub Občanské demokratické strany"), a ani
+ *    jedno se nedá vysázet do řádku žebříčku. Typografie mezi těmi dvěma je
+ *    naše, a je tady přiznaná.
+ *  · `color` — DESIGNOVÉ PŘIŘAZENÍ identity klubu (tečka u jména, výseč
+ *    hemicyklu). Hodnoty jsou tady proto, že `custom/no-hardcoded-colors`
+ *    označuje právě tento soubor za domov datově řízených barev
+ *    (packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs)
+ *    a jeho výjimková zóna v eslint.config.mjs jinou možnost nedává.
+ *    Hexy jsou převzaté z `PARTIES` beze změny — žádná barva se neposunula.
+ *
+ * KLÍČ JE ZKRATKA Z REJSTŘÍKU, ne mock kód strany. Do 2026-08-12 se reálná
+ * cesta k názvům a barvám dostávala oklikou přes `CLUB_TO_PARTY_CODE` →
+ * `PARTIES`, tedy přes tabulku, jejíž vlastní hlavička o sobě říká
+ * „ilustrativní mock" a jejíž křesla popisují 9. období: 207 skutečných řádků
+ * žebříčku tak bralo jméno svého klubu ze vzorku. Ta závislost tímhle končí.
+ *
+ * Klub, který tady není, se NEDOMÝŠLÍ — volající vysází zkratku tak, jak přišla
+ * z rejstříku, a neutrální barvu (viz `clubMeta` v getLeaderboardData.ts).
+ */
+export interface ClubDisplay {
+  /** Obecně užívaný krátký název klubu — redakční typografie nad zkratkou. */
+  name: string;
+  /** Datová barva identity klubu; mirror tokenu, ne dekorace. */
+  color: string;
+}
+
+export const CLUB_DISPLAY: Record<string, ClubDisplay> = {
+  ANO2011: { name: "ANO 2011", color: "#16255c" },
+  ODS: { name: "ODS", color: "#2172c2" },
+  STAN: { name: "STAN", color: "#147d8d" },
+  "KDU-ČSL": { name: "KDU-ČSL", color: "#c48a0f" },
+  SPD: { name: "SPD", color: "#7a2e2e" },
+  TOP09: { name: "TOP 09", color: "#7b2d8e" },
+  Piráti: { name: "Piráti", color: "#0b6e4f" },
+  // Motoristé sobě: v `PARTIES` nikdy nebyli (mock popisuje 9. období), takže
+  // je reálná cesta až dosud řešila výjimkou přímo v loaderu. Tady jsou
+  // řádným záznamem jako každý jiný klub; `#dfa321` zrcadlí token
+  // `--color-ochre` z app/globals.css (týž hex jako features/landing/palette).
+  MS: { name: "Motoristé", color: "#dfa321" },
+};

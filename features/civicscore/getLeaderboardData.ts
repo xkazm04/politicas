@@ -49,8 +49,8 @@ import {
   SPEECH_SATURATION,
 } from "@/lib/analysis/contribution";
 import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
-import { PARTIES } from "@/lib/civic/data";
-import { OCHRE, STEEL } from "@/features/landing/palette";
+import { CLUB_DISPLAY } from "@/lib/civic/data";
+import { STEEL } from "@/features/landing/palette";
 import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
 import { summarizeContributionProvenance, type ContributionProvenance } from "./provenance";
 import { componentDefs, type ComponentDef, type ComponentKey } from "./componentDefs";
@@ -71,25 +71,30 @@ const numOrNull = (x: unknown): number | null => (typeof x === "number" && Numbe
  */
 export { COMPONENT_DEFS, componentDefs, type ComponentDef, type ComponentKey } from "./componentDefs";
 
-// Real club abbrev → mock PARTIES code — reuses the sanctioned party data-colors
-// from lib/civic/data.ts (the rule's home for data-driven colors). Motoristé
-// (MS) has no mock entry → a palette token; unknown clubs fall back to steel.
-const CLUB_TO_PARTY_CODE: Record<string, string> = {
-  ANO2011: "ano",
-  ODS: "ods",
-  STAN: "stan",
-  "KDU-ČSL": "kdu",
-  SPD: "spd",
-  TOP09: "top",
-  Piráti: "pir",
-};
+// Registry club abbrev -> how that club is SET (short display name + its data
+// color), read straight from `CLUB_DISPLAY` in lib/civic/data.ts.
+//
+// This used to go the long way round: `CLUB_TO_PARTY_CODE` mapped the registry
+// abbrev to a MOCK party code, and the name and color were then looked up in
+// `PARTIES` — a table whose own file header calls itself "ilustrativní mock"
+// and whose seats describe the NINTH term (200 of them). All 207 real rows of
+// the ranking therefore took their club's name from the sample, and Motoristé
+// (absent from a 9th-term table) needed a hardcoded exception right here.
+// `CLUB_DISPLAY` is keyed by the registry abbrev, carries MS as a regular
+// entry, and reuses the same hexes, so nothing about the rendered output
+// changes — only where the strings come from. The display FORMS are kept
+// deliberately (Director ruling 2026-08-12): "ANO 2011" / "TOP 09" is
+// editorial typography over the registry abbrev, not a claim about data, and
+// degrading /dashboard + the landing specimen to "ANO2011" would be a display
+// regression. What was dishonest was the DEPENDENCY, and that is what ended.
+//
+// An unknown abbrev is never invented: it renders as it arrived from the
+// registry, in the neutral palette color.
 export const CLUB_FALLBACK_COLOR = STEEL;
 function clubMeta(abbrev: string | null | undefined): { name: string; color: string } {
-  const code = abbrev ? CLUB_TO_PARTY_CODE[abbrev] : undefined;
-  const p = code ? PARTIES.find((x) => x.code === code) : undefined;
-  if (p) return { name: p.name, color: p.color };
-  if (abbrev === "MS") return { name: "Motoristé", color: OCHRE };
-  return { name: abbrev ?? "—", color: STEEL };
+  const display = abbrev ? CLUB_DISPLAY[abbrev] : undefined;
+  if (display) return { name: display.name, color: display.color };
+  return { name: abbrev ?? "—", color: CLUB_FALLBACK_COLOR };
 }
 
 /** True when the person node carries at least one narrative dossier prop
