@@ -30,13 +30,46 @@
  * vazbu do fronty a PŘIPÍŠE další záznam do hash-řetězce. Historie se nikdy nepřepisuje
  * ani nemaže, takže `verifyAuditChain` platí i po vrácení; vrácení proto vyžaduje důvod,
  * který v řetězci zůstane (poznámka na hraně se dalším rozhodnutím přepíše).
+ *
+ * ── POZNÁMKA RECENZENTA SE UŽ NEZTRATÍ (2026-08-12) ─────────────────────────
+ * Koncept „draft poznámky" žil UVNITŘ karty (`ReviewCard`), zatímco klávesové
+ * zkratky 1/2/3 — inzerovaná cesta, jak se frontou pracuje — visely na `window`
+ * v RODIČI, který se k němu nedostal, a posílaly proto `note: null`. Poznámka je
+ * přitom JEDINÁ věc, která z rozhodnutí přežije do hash-řetězce (`props.review_note`
+ * přepíše další rozhodnutí), a obsluha navíc zkratky ignoruje, dokud je fokus
+ * v `TEXTAREA` — tedy přesně v okamžiku, kdy se draft zahazoval. Recenzent napsal
+ * důvod, opustil pole, zmáčkl 2 a byl přesvědčený, že vazbu označil.
+ *
+ * Draft se proto ZVEDL DO RODIČE (`noteDrafts`, klíčované id vazby) — a ne obráceně,
+ * tj. klávesnice se do karty nestěhovala, protože 211 posluchačů `keydown` místo
+ * jednoho je horší cena než jeden `Record<string, string>`. Rodič je zároveň
+ * JEDINÉ místo, kde se poznámka k rozhodnutí rozhoduje: `handleDecide` si ji vezme
+ * sám, žádné volání jí neposílá `null` a i „vrátit ke kontrole" píše do TÉHOŽ
+ * draftu. Aktuální hodnotu drží ref, takže psaní v poli nepřepisuje posluchače.
+ *
+ * A „doplnit" bez poznámky se už netváří jako zápis: `needs-more` bez důvodu
+ * nezaznamená nad rámec „ještě nerozhodnuto" nic (a nad ROZHODNUTOU vazbou server
+ * nezapíše ani řádek řetězce — `reversal requires a note`), takže se na zápisové
+ * cestě vůbec neodešle a konzole to řekne (`note-required`). V lokálním režimu bez
+ * backendu guard neběží: tam se nezapisuje nic z principu a banner to říká, takže
+ * není jaký falešný úspěch předcházet.
+ *
+ * ── OBSLUHA A OHLÁŠENÍ (2026-08-12) ─────────────────────────────────────────
+ * Šipky hýbou SKUTEČNÝM fokusem (dřív jen přebarvovaly rámeček, takže odečítačka
+ * stála jinde, než kam mířilo 1/2/3) a seznam karet má JEDEN tabstop — roving
+ * tabindex, týž vzor jako plátno velína a graf peněz. Výsledek zápisu, počet
+ * zapsaných i selhání mají po JEDNÉ živé oblasti na celou stránku, ne jednu na
+ * kartu: `role="status"` pro průběh a úspěch, `role="alert"` pro selhání.
  */
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
 import { useLocale } from "next-intl";
 import FlagList from "@/features/shared/components/FlagList";
+import SourceNote from "@/features/shared/components/SourceNote";
+import { useFormat } from "@/lib/i18n/useFormat";
 // Jediný kodek trvalé adresy tvrzení v repu — konzole cituje TUTÉŽ účtenku,
 // kterou u té vazby publikuje /penize.
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
@@ -72,6 +105,61 @@ const TIER_ORDER: (0 | 1 | 2 | 3)[] = [0, 1, 2, 3];
 
 const DECISION_KEYS: Record<string, ReviewDecision> = { "1": "confirm", "2": "needs-more", "3": "reject" };
 
+/**
+ * POHYB PO FRONTĚ — čisté pravidlo, žádný DOM.
+ *
+ * Proč se NEIMPORTUJE `features/dashboard/graphTraversal.ts`, přestože roving
+ * tabindex i „šipky místo tabulátoru" jsou tentýž vzor: `neighbourStep` je
+ * pravidlo v ROVINĚ. Ptá se „který z mých SOUSEDŮ leží tím směrem", a k tomu
+ * potřebuje souřadnice uzlů a seznam hran. Fronta kontroly ani jedno nemá:
+ * je to JEDNOROZMĚRNÝ SEŘAZENÝ seznam, jehož krok zní „předchozí / další
+ * v pořadí, ve kterém se karty sázejí". Vyrobit mu x/y (třeba samé nuly) jen
+ * proto, aby se dal zavolat sdílený modul, by z importu udělalo kulisu —
+ * `neighbourStep` by nad takovým vstupem vracel vždycky null. Sdílené pravidlo
+ * se proto nepřejímá a fronta si drží vlastní tři řádky, které nic jiného
+ * neumějí (Home/End mají naopak přesně tentýž význam jako na plátně velína:
+ * první a poslední položka v pořadí, v jakém je čtenář před sebou vidí).
+ */
+export const QUEUE_NAV_KEYS: readonly string[] = ["ArrowDown", "ArrowUp", "j", "k", "Home", "End"];
+
+/**
+ * Cílová položka jednoho kroku frontou, nebo `null`, když klávesa krok nedělá
+ * (nebo je fronta prázdná). Na krajích se NEZABALUJE — konec seznamu je konec
+ * seznamu, ne skok na začátek.
+ */
+export function queueStep(
+  ids: readonly string[],
+  currentId: string | null,
+  key: string,
+): string | null {
+  if (ids.length === 0) return null;
+  const idx = currentId === null ? -1 : ids.indexOf(currentId);
+  switch (key) {
+    case "ArrowDown":
+    case "j":
+      return ids[Math.min(idx + 1, ids.length - 1)];
+    case "ArrowUp":
+    case "k":
+      return idx <= 0 ? ids[0] : ids[idx - 1];
+    case "Home":
+      return ids[0];
+    case "End":
+      return ids[ids.length - 1];
+    default:
+      return null;
+  }
+}
+
+/**
+ * Karta, která drží JEDINÝ tabstop seznamu (roving tabindex): kde je kurzor
+ * klávesnice, jinak první karta. Kurzor, který ve VYFILTROVANÉM seznamu není
+ * (čtenář přepnul filtr), se ignoruje — jinak by fronta neměla tabstop žádný.
+ */
+export function queueRovingId(focused: string | null, ids: readonly string[]): string | null {
+  if (focused !== null && ids.includes(focused)) return focused;
+  return ids[0] ?? null;
+}
+
 const DECISIONS: { key: ReviewDecision; label: string; cls: string }[] = [
   { key: "confirm", label: "Potvrdit", cls: "border-cobalt text-cobalt hover:bg-cobalt hover:text-paper" },
   { key: "needs-more", label: "Doplnit", cls: "border-ochre text-ink hover:bg-ochre" },
@@ -104,6 +192,14 @@ type WritePhase =
   | "misconfigured"
   /** A reversal of an already-decided tie arrived without a stated reason. */
   | "reason-required"
+  /**
+   * „Doplnit" bez poznámky — konzole ho ZÁMĚRNĚ neodešle. Server by ho na čekající
+   * vazbě sice přijal, jenže by uložil holé „ještě nerozhodnuto" a důvod, kvůli
+   * kterému recenzent tlačítko zmáčkl, by nikde nezůstal; na rozhodnuté vazbě je
+   * to rovnou `reversal requires a note` a nezapíše se ani řádek řetězce. Vlastní
+   * fáze, aby se to nečetlo jako chyba sítě ani jako úspěšný zápis.
+   */
+  | "note-required"
   | "error";
 interface WriteStatus {
   phase: WritePhase;
@@ -124,12 +220,25 @@ export default function VerificationConsole({
   reviewerName: string | null;
 }) {
   const locale = useLocale();
-  const int = (n: number) => n.toLocaleString(locale === "en" ? "en-US" : "cs-CZ");
+  const f = useFormat();
+  const reduceMotion = useReducedMotion();
   const [filter, setFilter] = useState<ClassFilter>("all");
   const [decisions, setDecisions] = useState<Record<string, ReviewDecision>>({});
   const [writeStatus, setWriteStatus] = useState<Record<string, WriteStatus>>({});
   const [token, setToken] = useState("");
   const [focusedId, setFocusedId] = useState<string | null>(null);
+  /** Vazba, o které mluví živá oblast — jinak by se ohlašovalo 211 karet naráz. */
+  const [announced, setAnnounced] = useState<{ id: string; label: string; decision: ReviewDecision } | null>(null);
+
+  // JEDINÝ kanál poznámky k rozhodnutí (viz hlavička): draft žije tady, ne v kartě,
+  // a `handleDecide` si ho bere sám. Ref drží aktuální hodnotu, aby psaní v poli
+  // nepřepisovalo `handleDecide` ani posluchače klávesnice na každý úhoz.
+  const noteDraftsRef = useRef<Record<string, string>>({});
+  const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({});
+  const setNote = useCallback((id: string, value: string) => {
+    noteDraftsRef.current = { ...noteDraftsRef.current, [id]: value };
+    setNoteDrafts(noteDraftsRef.current);
+  }, []);
 
   // data.ties already arrives sorted by reviewRank ASC (batch-005 review order) — the
   // filter narrows the CLASS but never re-sorts, so tier blocks stay contiguous.
@@ -137,8 +246,28 @@ export default function VerificationConsole({
     () => (data ? (filter === "all" ? data.ties : data.ties.filter((t) => t.tieClass === filter)) : []),
     [data, filter],
   );
+  const shownIds = useMemo(() => shown.map((t) => t.id), [shown]);
+  const rovingId = queueRovingId(focusedId, shownIds);
 
-  const handleDecide = useCallback(async (tie: ReviewTie, decision: ReviewDecision, note: string | null) => {
+  /** Fokus je SKUTEČNÝ fokus, ne přebarvený rámeček — jinak odečítačka stojí jinde,
+   *  než kam míří 1/2/3. Plynulé odrolování se řídí `prefers-reduced-motion`. */
+  const focusCard = useCallback(
+    (id: string) => {
+      const el = document.getElementById(`tie-${id}`);
+      if (!el) return;
+      el.focus();
+      el.scrollIntoView({ block: "center", behavior: reduceMotion ? "auto" : "smooth" });
+    },
+    [reduceMotion],
+  );
+  const focusNote = useCallback((id: string) => {
+    document.getElementById(`note-${id}`)?.focus();
+  }, []);
+
+  const handleDecide = useCallback(async (tie: ReviewTie, decision: ReviewDecision) => {
+    // Poznámka se čte na JEDNOM místě, ať rozhodnutí přišlo myší, nebo klávesou.
+    const note = (noteDraftsRef.current[tie.id] ?? "").trim() || null;
+    setAnnounced({ id: tie.id, label: `${tie.mpName} — ${tie.company}`, decision });
     if (!writeConfigured) {
       // No write path configured server-side — keep the old local-scratch behavior
       // (toggle a decision on/off) so the console stays USABLE for prep work
@@ -160,9 +289,20 @@ export default function VerificationConsole({
     const currentPhase = writeStatus[tie.id]?.phase;
     if (currentPhase === "pending" || currentPhase === "done") return;
 
+    // „Doplnit" bez poznámky se neodesílá — viz WritePhase::note-required. Řekneme
+    // to a vrátíme kurzor do pole, místo aby se prázdný krok tvářil jako zápis.
+    if (decision === "needs-more" && note === null) {
+      setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "note-required" } }));
+      focusNote(tie.id);
+      return;
+    }
+
     // optimistic: show the decision immediately, reconcile with the real result after.
     setDecisions((prev) => ({ ...prev, [tie.id]: decision }));
     setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "pending" } }));
+    // Obě tlačítka teď zšednou (disabled) — fokus by jinak spadl na <body> a čtenář
+    // by po každém rozhodnutí začínal od začátku stránky. Kurzor zůstává na kartě.
+    focusCard(tie.id);
 
     const result = await submitReviewDecision({ src: tie.src, dst: tie.dst, decision, note, token });
 
@@ -183,43 +323,42 @@ export default function VerificationConsole({
     } else {
       setWriteStatus((prev) => ({ ...prev, [tie.id]: { phase: "error", message: result.message } }));
     }
-  }, [writeConfigured, token, writeStatus]);
+  }, [writeConfigured, token, writeStatus, focusCard, focusNote]);
 
   // Keyboard flow for a humane 211-tie review session: ↓/↑ (or j/k) move the focused
-  // card, 1/2/3 apply confirm/doplnit/zamítnout to the focused card. Disabled while
-  // typing in the reviewer-token field so it never steals a keystroke there.
+  // card, Home/End jump to its ends, 1/2/3 apply confirm/doplnit/zamítnout to the
+  // focused card — S POZNÁMKOU, kterou má karta rozepsanou (viz hlavička). Disabled
+  // while typing in the reviewer-token field or in a note so it never steals a keystroke.
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       const target = e.target as HTMLElement | null;
       if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) return;
-      if (!shown.length) return;
-      const idx = focusedId ? shown.findIndex((t) => t.id === focusedId) : -1;
+      if (!shownIds.length) return;
 
-      if (e.key === "ArrowDown" || e.key === "j") {
+      const next = queueStep(shownIds, focusedId, e.key);
+      if (next !== null) {
         e.preventDefault();
-        const next = shown[Math.min(idx + 1, shown.length - 1)] ?? shown[0];
-        setFocusedId(next.id);
-        document.getElementById(`tie-${next.id}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
-      } else if (e.key === "ArrowUp" || e.key === "k") {
+        setFocusedId(next);
+        focusCard(next);
+        return;
+      }
+      const decision = DECISION_KEYS[e.key];
+      const tie = focusedId ? shown.find((t) => t.id === focusedId) : undefined;
+      if (decision && tie) {
         e.preventDefault();
-        const prev = shown[Math.max(idx - 1, 0)] ?? shown[0];
-        setFocusedId(prev.id);
-        document.getElementById(`tie-${prev.id}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
-      } else if (idx >= 0 && DECISION_KEYS[e.key]) {
-        e.preventDefault();
-        void handleDecide(shown[idx], DECISION_KEYS[e.key], null);
+        void handleDecide(tie, decision);
       }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [shown, focusedId, handleDecide]);
+  }, [shown, shownIds, focusedId, handleDecide, focusCard]);
 
   if (!data) {
     return (
       <main className="min-h-screen bg-paper font-sans text-ink">
         <Shell>
           <div className="border-2 border-dashed border-hairline p-8">
-            <p className="font-mono text-xs uppercase tracking-widest text-steel">zdroj: znalostní graf</p>
+            <SourceNote>zdroj: znalostní graf</SourceNote>
             <p className="mt-3 text-lg">
               Peněžní vrstva grafu není v tomto prostředí materializovaná — konzole nemá co kontrolovat.
             </p>
@@ -249,26 +388,36 @@ export default function VerificationConsole({
   for (const t of data.ties) if (isTieDecided(t.id)) decidedByTier[t.reviewTier] += 1;
 
   const TILES = [
-    { label: "nepotvrzené vazby", value: int(data.stats.pending), sub: "čekají na lidskou kontrolu", src: "kg_edge linked_to · pending_review" },
+    { label: "nepotvrzené vazby", value: f.int(data.stats.pending), sub: "čekají na lidskou kontrolu", src: "kg_edge linked_to · pending_review" },
     {
       label: "vlastník / jednatel",
-      value: int(data.stats.ownerOperator),
+      value: f.int(data.stats.ownerOperator),
       sub: "soukromá firma dodávající státu",
       // The class is no longer always a heuristic: it is read off the edge where a
       // reviewer/analysis batch recorded one. Cite the real mix, not one of the two.
-      src: `kg_edge props.tie_class ${int(data.stats.classOrigin.stored)}× · heuristika role × název ${int(data.stats.classOrigin.derived)}×`,
+      src: `kg_edge props.tie_class ${f.int(data.stats.classOrigin.stored)}× · heuristika role × název ${f.int(data.stats.classOrigin.derived)}×`,
     },
-    { label: "úplný trojúhelník", value: int(data.stats.triangles), sub: "zakázky + dotace + dar straně", src: "props firmy v kg_node" },
+    { label: "úplný trojúhelník", value: f.int(data.stats.triangles), sub: "zakázky + dotace + dar straně", src: "props firmy v kg_node" },
     {
       // Split, never merged. This tile used to sum per TIE across every class, so the
       // companies tied to more than one MP were counted twice and a hospital's own
       // contracting sat in the same number as a firm an MP owns.
       label: "peníze u firem poslanců",
       value: compactCzk(data.stats.reachable.attributable.contractCzk, locale),
-      sub: `${int(data.stats.reachable.attributable.companies)} firem, které poslanci vlastní nebo řídí · dalších ${compactCzk(data.stats.reachable.steward.contractCzk, locale)} u ${int(data.stats.reachable.steward.companies)} institucí, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze`,
+      sub: `${f.int(data.stats.reachable.attributable.companies)} firem, které poslanci vlastní nebo řídí · dalších ${compactCzk(data.stats.reachable.steward.contractCzk, locale)} u ${f.int(data.stats.reachable.steward.companies)} institucí, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze`,
       src: "registr smluv · kg_edge supplies.weight, jedna firma jednou",
     },
   ];
+
+  // JEDNA živá oblast na stránku, ne jedna na kartu. Text se skládá TÝMŽ pravidlem,
+  // jaké sází poznámku u karty (`writeStatusInfo`), takže se ohlášení a to, co je
+  // vidět, nemůžou rozejít. Selhání má vlastní `role="alert"`, průběh a úspěch
+  // `role="status"` — obě oblasti jsou připojené trvale, protože přepnutí role na
+  // jednom uzlu odečítačka spolehlivě neohlásí.
+  const announcement = announced
+    ? writeStatusInfo(announced.decision, writeConfigured, writeStatus[announced.id] ?? { phase: "idle" })
+    : null;
+  const announceText = announced && announcement ? `${announced.label}: ${announcement.text}` : "";
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -339,7 +488,7 @@ export default function VerificationConsole({
               <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{tile.label}</p>
               <p className="mt-3 text-4xl font-black tabular-nums tracking-tight">{tile.value}</p>
               <p className="mt-2 text-sm text-steel">{tile.sub}</p>
-              <div className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">zdroj: {tile.src}</div>
+              <SourceNote className="mt-3">zdroj: {tile.src}</SourceNote>
             </div>
           ))}
         </div>
@@ -347,11 +496,14 @@ export default function VerificationConsole({
         {/* filter + progress — sticky so it stays visible while scrolling a 211-card queue */}
         <div className="sticky top-0 z-10 mt-10 space-y-3 border-b-2 border-ink bg-paper/95 pb-3 pt-2 backdrop-blur-sm">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap gap-2">
+            {/* Výběr filtru nesl JEN barvu — pro odečítačku čtyři nerozlišitelná
+                tlačítka. Skupina má jméno, každé tlačítko svůj stav. */}
+            <div role="group" aria-label="filtr fronty podle třídy vazby" className="flex flex-wrap gap-2">
               {(["all", "owner-operator", "manager", "steward"] as ClassFilter[]).map((c) => (
                 <button
                   key={c}
                   type="button"
+                  aria-pressed={filter === c}
                   onClick={() => setFilter(c)}
                   className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
                     filter === c ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
@@ -360,25 +512,45 @@ export default function VerificationConsole({
                   {c === "all" ? "vše" : CLASS_LABEL[c]}
                   <span className="ml-1.5 font-normal">
                     {c === "all"
-                      ? int(data.stats.pending)
-                      : int(c === "owner-operator" ? data.stats.ownerOperator : c === "manager" ? data.stats.manager : data.stats.steward)}
+                      ? f.int(data.stats.pending)
+                      : f.int(c === "owner-operator" ? data.stats.ownerOperator : c === "manager" ? data.stats.manager : data.stats.steward)}
                   </span>
                 </button>
               ))}
             </div>
             <p className="font-mono text-[11px] uppercase tracking-widest text-steel">
-              {writeConfigured ? "zapsáno" : "rozhodnuto lokálně"}: <span className="font-bold text-ink">{int(decidedCount)}</span> / {int(data.stats.pending)}
-              <span className="ml-2 hidden text-steel sm:inline">· ↑↓ pohyb · 1/2/3 potvrdit/doplnit/zamítnout</span>
+              {/* Postup zápisu je živá oblast; návod k obsluze VEDLE ní, aby se
+                  nečetl znovu při každém rozhodnutí. */}
+              <span role="status" aria-live="polite">
+                {writeConfigured ? "zapsáno" : "rozhodnuto lokálně"}:{" "}
+                <span className="font-bold text-ink">{f.int(decidedCount)}</span> / {f.int(data.stats.pending)}
+              </span>
+              {/* Legenda kláves byla `hidden sm:inline`, tedy display:none — na mobilu
+                  neexistovala ani pro odečítačku. `sr-only` text klipuje, nemaže. */}
+              <span className="ml-2 text-steel sr-only sm:not-sr-only sm:ml-2 sm:inline">
+                · ↑↓ nebo j/k pohyb · Home/End začátek a konec fronty · 1/2/3 potvrdit/doplnit/zamítnout
+                (rozhodnutí odešle poznámku, kterou má karta rozepsanou)
+              </span>
             </p>
           </div>
           {/* per-tier progress (batch-005): the review-order axis, not just one aggregate */}
           <div className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-[10px] uppercase tracking-widest text-steel">
             {TIER_ORDER.map((tier) => (
               <span key={tier}>
-                {TIER_LABEL[tier]}: <span className="font-bold text-ink">{int(decidedByTier[tier])}</span> / {int(data.stats.tierCounts[tier])}
+                {TIER_LABEL[tier]}: <span className="font-bold text-ink">{f.int(decidedByTier[tier])}</span> / {f.int(data.stats.tierCounts[tier])}
               </span>
             ))}
           </div>
+          {/* Výsledek zápisu — jedna trvalá živá oblast na stránku (viz `announcement`). */}
+          <p role="status" aria-live="polite" className="sr-only">
+            {announcement && !announcement.failure ? announceText : ""}
+          </p>
+          {/* ZÁMĚRNĚ bez `empty:hidden`: živá oblast, která je prázdná schovaná
+              přes display:none, v přístupnostním stromu neexistuje, a odečítačka
+              pak její první naplnění neohlásí. Prázdný <p> nic nezabírá. */}
+          <p role="alert" className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
+            {announcement && announcement.failure ? announceText : ""}
+          </p>
         </div>
 
         {/* review cards — batch-005 review order (tier asc, reachable CZK desc within tier) */}
@@ -389,19 +561,21 @@ export default function VerificationConsole({
               <div key={tie.id}>
                 {showTierHeader && (
                   <p className="mb-3 border-l-4 border-signal pl-3 font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-                    {TIER_LABEL[tie.reviewTier]} <span className="font-normal">({int(data.stats.tierCounts[tie.reviewTier])})</span>
+                    {TIER_LABEL[tie.reviewTier]} <span className="font-normal">({f.int(data.stats.tierCounts[tie.reviewTier])})</span>
                   </p>
                 )}
                 <ReviewCard
                   tie={tie}
                   locale={locale}
-                  int={int}
                   decision={decisions[tie.id] ?? null}
                   writeConfigured={writeConfigured}
                   writeStatus={writeStatus[tie.id] ?? { phase: "idle" }}
                   focused={focusedId === tie.id}
+                  roving={rovingId === tie.id}
+                  note={noteDrafts[tie.id] ?? ""}
+                  onNoteChange={(v) => setNote(tie.id, v)}
                   onFocus={() => setFocusedId(tie.id)}
-                  onDecide={(d, note) => handleDecide(tie, d, note)}
+                  onDecide={(d) => handleDecide(tie, d)}
                 />
               </div>
             );
@@ -425,12 +599,12 @@ export default function VerificationConsole({
             zůstane (poznámka na hraně se dalším rozhodnutím přepíše, záznam v řetězci ne).
             Řazeno od nejnovějšího rozhodnutí; v historii je nejnovější záznam nahoře.
           </p>
-          <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
+          <SourceNote className="mt-2">
             zdroj: kg_edge linked_to props.review_state · review_audit (hash-řetězec)
-          </p>
+          </SourceNote>
           {data.decided.length === 0 ? (
             <p className="mt-6 border-2 border-dashed border-hairline p-6 text-sm leading-relaxed text-steel">
-              Zatím žádná vazba není rozhodnutá — všech {int(data.stats.pending)} čeká na
+              Zatím žádná vazba není rozhodnutá — všech {f.int(data.stats.pending)} čeká na
               lidskou kontrolu. Až první rozhodnutí padne, vazba se objeví tady i s celou
               svojí historií.
             </p>
@@ -442,7 +616,9 @@ export default function VerificationConsole({
                   tie={tie}
                   writeConfigured={writeConfigured}
                   writeStatus={writeStatus[tie.id] ?? { phase: "idle" }}
-                  onRevert={(note) => handleDecide(tie, "needs-more", note)}
+                  note={noteDrafts[tie.id] ?? ""}
+                  onNoteChange={(v) => setNote(tie.id, v)}
+                  onRevert={() => handleDecide(tie, "needs-more")}
                 />
               ))}
             </div>
@@ -453,39 +629,39 @@ export default function VerificationConsole({
             čte, ne přepočítává. Kde přepočet nutný byl, říkáme kolikrát a proč. */}
         <p className="mt-10 max-w-3xl text-sm leading-relaxed text-steel">
           <span className="font-bold text-ink">Třída vazby:</span> u{" "}
-          <span className="font-bold text-ink">{int(data.stats.classOrigin.stored)}</span> z{" "}
-          {int(data.stats.pending)} nepotvrzených vazeb ji nese hrana v grafu
+          <span className="font-bold text-ink">{f.int(data.stats.classOrigin.stored)}</span> z{" "}
+          {f.int(data.stats.pending)} nepotvrzených vazeb ji nese hrana v grafu
           (<span className="font-mono">kg_edge.props.tie_class</span>) — zapsal ji analytický průchod
-          nebo lidská kontrola a má přednost. U {int(data.stats.classOrigin.derived)} zapsaná není a
+          nebo lidská kontrola a má přednost. U {f.int(data.stats.classOrigin.derived)} zapsaná není a
           program ji odhadl z názvu firmy a textu role; taková je na kartě označená jako{" "}
           <span className="text-ochre">odvozená</span>.{" "}
           {data.stats.classDisagreements > 0 ? (
             <>
-              U <span className="font-bold text-ink">{int(data.stats.classDisagreements)}</span> vazeb
+              U <span className="font-bold text-ink">{f.int(data.stats.classDisagreements)}</span> vazeb
               se zapsaná třída s odhadem rozchází — karta ukazuje obě.{" "}
             </>
           ) : null}
           <span className="font-bold text-ink">Pořadí kontroly</span> (tier + rank) je v grafu také
           zapsané, ale je to jen mezivýsledek funkce třída × korroborace × dosažitelné peníze. U{" "}
-          <span className="font-bold text-ink">{int(data.stats.staleReviewOrder)}</span> z{" "}
-          {int(data.stats.pending)} vazeb už zapsaná hodnota neodpovídá vazbě, kterou máte před sebou
+          <span className="font-bold text-ink">{f.int(data.stats.staleReviewOrder)}</span> z{" "}
+          {f.int(data.stats.pending)} vazeb už zapsaná hodnota neodpovídá vazbě, kterou máte před sebou
           (byla spočítaná před doplněním korroborace a před opětovným načtením smluv), a je proto
           přepočítaná — jedna fronta nesmí míchat dvě vintage jednoho třídicího klíče.
         </p>
-        <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
+        <SourceNote className="mt-2">
           zdroj: kg_edge linked_to · props.tie_class / review_tier / review_rank vs. přepočet
-        </p>
+        </SourceNote>
 
         {/* Kolik důkazu fronta vlastně nese. Do 2026-08-04 tenhle materiál konzole
             nečetla vůbec — viděl ho jen čtenář veřejného spisu poslance. */}
         <p className="mt-6 max-w-3xl text-sm leading-relaxed text-steel">
           <span className="font-bold text-ink">Důkaz u karty:</span> poznámku analytického
-          průchodu nese <span className="font-bold text-ink">{int(data.stats.withAnalystNote)}</span> z{" "}
-          {int(data.stats.pending)} vazeb, alespoň jeden příznak{" "}
-          <span className="font-bold text-ink">{int(data.stats.flagged)}</span>, a u{" "}
-          <span className="font-bold text-ink">{int(data.stats.staleOngoing)}</span> z nich příznak
+          průchodu nese <span className="font-bold text-ink">{f.int(data.stats.withAnalystNote)}</span> z{" "}
+          {f.int(data.stats.pending)} vazeb, alespoň jeden příznak{" "}
+          <span className="font-bold text-ink">{f.int(data.stats.flagged)}</span>, a u{" "}
+          <span className="font-bold text-ink">{f.int(data.stats.staleOngoing)}</span> z nich příznak
           říká, že období „trvá“ je proti obchodnímu rejstříku zastaralé. U{" "}
-          <span className="font-bold text-ink">{int(data.stats.nearThreshold)}</span> vazeb má aspoň
+          <span className="font-bold text-ink">{f.int(data.stats.nearThreshold)}</span> vazeb má aspoň
           jedna smlouva firmy hodnotu těsně pod zákonným limitem pro zadávací řízení — počítá se
           v loaderu od začátku, na kartě je to příznak „N× u limitu“, ale kolik jich fronta nese
           celkem, konzole neřekla. Blízkost limitu není zjištění: je to vzorec, který stojí za
@@ -494,10 +670,10 @@ export default function VerificationConsole({
           vodítka, ne zjištění, a stav vazby nemění. Karta zároveň říká, co graf u vazby
           nevede, místo aby prázdné místo vydávala za čistý štít.
         </p>
-        <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-steel">
+        <SourceNote className="mt-2">
           zdroj: kg_edge linked_to · props.reviewer_note / flags / corroboration_source · registr smluv
           supplies.weight (blízkost limitu)
-        </p>
+        </SourceNote>
 
         <p className="mt-6 max-w-3xl text-sm italic leading-relaxed text-steel">
           Fronta je řazená podle pořadí kontroly (batch 005): nejdřív vazby s vlastníkem/jednatelem
@@ -593,24 +769,31 @@ function InternalTieLinks({ tie }: { tie: ReviewTie }) {
 function ReviewCard({
   tie,
   locale,
-  int,
   decision,
   writeConfigured,
   writeStatus,
   focused,
+  roving,
+  note,
+  onNoteChange,
   onFocus,
   onDecide,
 }: {
   tie: ReviewTie;
   locale: string;
-  int: (n: number) => string;
   decision: ReviewDecision | null;
   writeConfigured: boolean;
   writeStatus: WriteStatus;
   focused: boolean;
+  /** Drží tato karta jediný tabstop seznamu? (roving tabindex — viz queueRovingId) */
+  roving: boolean;
+  /** Rozepsaná poznámka k rozhodnutí — stav žije v RODIČI, viz hlavička souboru. */
+  note: string;
+  onNoteChange: (value: string) => void;
   onFocus: () => void;
-  onDecide: (d: ReviewDecision, note: string | null) => void;
+  onDecide: (d: ReviewDecision) => void;
 }) {
+  const f = useFormat();
   const reach = tie.contractCzk + tie.subsidiesCzk;
   const period = `${tie.periodFrom ?? "?"} – ${tie.periodTo ?? "„trvá“"}`;
   const links: { label: string; href: string }[] = [
@@ -630,23 +813,17 @@ function ReviewCard({
     flags.length ? null : "žádné příznaky z průchodů",
     tie.lastDecision ? null : "žádné dřívější rozhodnutí",
   ].filter((x): x is string => x != null);
-  // "Doplnit" (needs-more) exists specifically to record what additional
-  // evidence is needed — without a note it persists no information beyond the
-  // bare decision, making the whole workflow functionally a no-op beyond
-  // "not yet decided". Held locally per-card; sent through onDecide instead of
-  // the previously hardcoded `note: null`.
-  const [noteDraft, setNoteDraft] = useState("");
-
   return (
+    // JEDEN tabstop na celý seznam (roving tabindex): 211 karet s pevným
+    // `tabIndex={0}` znamenalo 211 zastávek tabulátoru — přesně ten anti-vzor,
+    // který features/money/a11y.test.ts zakazuje grafu peněz. Mezi kartami se
+    // chodí šipkami (queueStep) a fokus je SKUTEČNÝ, ne přebarvený rámeček;
+    // `outline-none` proto zmizelo a je pod ním viditelný kroužek.
     <article
       id={`tie-${tie.id}`}
-      tabIndex={0}
+      tabIndex={roving ? 0 : -1}
       onFocus={onFocus}
-      onClick={onFocus}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") onFocus();
-      }}
-      className={`border-2 bg-paper outline-none ${focused ? "border-signal ring-2 ring-signal ring-offset-2 ring-offset-paper" : decision ? "border-ink" : "border-hairline"}`}
+      className={`border-2 bg-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt ${focused ? "border-signal ring-2 ring-signal ring-offset-2 ring-offset-paper" : decision ? "border-ink" : "border-hairline"}`}
     >
       {/* head */}
       <div className="flex flex-wrap items-start justify-between gap-3 border-b-2 border-ink px-5 py-4">
@@ -690,7 +867,7 @@ function ReviewCard({
           <span className="border border-hairline px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">
             pořadí: {TIER_LABEL[tie.reviewTier]}
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-steel">signál {tie.signalScore.toFixed(1)}</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-steel">signál {f.dec(tie.signalScore)}</span>
         </div>
       </div>
 
@@ -698,8 +875,8 @@ function ReviewCard({
       <div className="grid gap-5 px-5 py-4 sm:grid-cols-[1.4fr_1fr]">
         <div>
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-            <Metric label="zakázky" value={tie.contractCzk > 0 ? compactCzk(tie.contractCzk, locale) : "—"} sub={`${int(tie.contractCount)} smluv`} />
-            <Metric label="dotace" value={tie.subsidiesCzk > 0 ? compactCzk(tie.subsidiesCzk, locale) : "—"} sub={tie.subsidiesCount ? `${int(tie.subsidiesCount)} titulů` : "—"} />
+            <Metric label="zakázky" value={tie.contractCzk > 0 ? compactCzk(tie.contractCzk, locale) : "—"} sub={`${f.int(tie.contractCount)} smluv`} />
+            <Metric label="dotace" value={tie.subsidiesCzk > 0 ? compactCzk(tie.subsidiesCzk, locale) : "—"} sub={tie.subsidiesCount ? `${f.int(tie.subsidiesCount)} titulů` : "—"} />
             <Metric
               label="dar straně"
               value={tie.donatedToPartyCzk != null ? compactCzk(tie.donatedToPartyCzk, locale) : "—"}
@@ -708,7 +885,7 @@ function ReviewCard({
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {tie.triangle && <Flag>úplný trojúhelník</Flag>}
-            {tie.nearThresholdCount > 0 && <Flag>{int(tie.nearThresholdCount)}× u limitu</Flag>}
+            {tie.nearThresholdCount > 0 && <Flag>{f.int(tie.nearThresholdCount)}× u limitu</Flag>}
             {/* Zastaralé „trvá“ pozná hrana sama (příznak `stale-ongoing-in-graph`, 42 z
                 211 vazeb). Podmínka, která tady stála vedle
                 (`periodTo === null && !corroboration`), neplatila ANI JEDNOU: korroboraci
@@ -772,9 +949,7 @@ function ReviewCard({
             </p>
           )}
 
-          <p className="mt-4 font-mono text-[10px] leading-relaxed uppercase tracking-wider text-steel">
-            zdroj: {tie.source || "—"}
-          </p>
+          <SourceNote className="mt-4">zdroj: {tie.source || "—"}</SourceNote>
         </div>
 
         {/* registry deep-links + reachable total */}
@@ -794,9 +969,9 @@ function ReviewCard({
                 ? "firma, v jejímž statutárním orgánu poslanec sedí"
                 : "firma, kterou poslanec vlastní nebo řídí"}
           </p>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
+          <SourceNote className="mt-1">
             zdroj: registr smluv Σ supplies.weight + subsidies_total_czk
-          </p>
+          </SourceNote>
           <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">ověřit v rejstříku</p>
           <div className="mt-2 flex flex-col gap-1.5">
             {links.map((l) => (
@@ -822,10 +997,15 @@ function ReviewCard({
 
       {/* actions */}
       <div className="flex flex-col gap-2 border-t-2 border-hairline px-5 py-3">
+        {/* Placeholder NENÍ přístupné jméno: zmizí, jakmile se začne psát, a některé
+            odečítačky ho nečtou vůbec. Jméno navíc jmenuje VAZBU — v seznamu 211 karet
+            je „poznámka k rozhodnutí" bez podmětu k nerozeznání od ostatních 210. */}
         <textarea
-          value={noteDraft}
-          onChange={(e) => setNoteDraft(e.target.value)}
+          id={`note-${tie.id}`}
+          value={note}
+          onChange={(e) => onNoteChange(e.target.value)}
           disabled={writeStatus.phase === "pending" || writeStatus.phase === "done"}
+          aria-label={`poznámka k rozhodnutí — ${tie.mpName}, ${tie.company}`}
           placeholder="poznámka k rozhodnutí (co je třeba doplnit, na co si dát pozor…)"
           rows={2}
           aria-describedby={`note-rules-${tie.id}`}
@@ -839,10 +1019,11 @@ function ReviewCard({
             stojí u pole, ne v hlavičce modulu. */}
         <p id={`note-rules-${tie.id}`} className="text-[11px] leading-relaxed text-steel-aa">
           <span className="font-bold text-ink">Doplnit</span> bez poznámky je prázdný krok — vazba
-          zůstane ve frontě a nikde nezůstane, co se má doplnit.{" "}
-          <span className="font-bold text-ink">Vrácení už rozhodnuté vazby</span> poznámku vyžaduje:
-          bez ní server zápis odmítne a do auditní stopy nepřipíše nic, protože důvod se jinam než
-          do řetězce neuloží (poznámka na hraně se dalším rozhodnutím přepíše).
+          zůstane ve frontě a nikde nezůstane, co se má doplnit; konzole ho proto neodešle a řekne
+          to. <span className="font-bold text-ink">Vrácení už rozhodnuté vazby</span> poznámku
+          vyžaduje: bez ní server zápis odmítne a do auditní stopy nepřipíše nic, protože důvod se
+          jinam než do řetězce neuloží (poznámka na hraně se dalším rozhodnutím přepíše). Poznámka
+          jde do zápisu i tehdy, když rozhodnutí spustí klávesa 1/2/3.
         </p>
         <div className="flex flex-wrap items-center gap-2">
           {DECISIONS.map((d) => (
@@ -850,7 +1031,7 @@ function ReviewCard({
               key={d.key}
               type="button"
               disabled={writeStatus.phase === "pending" || writeStatus.phase === "done"}
-              onClick={() => onDecide(d.key, noteDraft.trim() || null)}
+              onClick={() => onDecide(d.key)}
               className={`border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
                 decision === d.key ? "bg-ink text-paper border-ink" : d.cls
               }`}
@@ -875,14 +1056,18 @@ function DecidedCard({
   tie,
   writeConfigured,
   writeStatus,
+  note,
+  onNoteChange,
   onRevert,
 }: {
   tie: ReviewTie;
   writeConfigured: boolean;
   writeStatus: WriteStatus;
-  onRevert: (note: string) => void;
+  /** TÝŽ draft, jaký používá fronta — jeden kanál poznámky na vazbu, viz hlavička. */
+  note: string;
+  onNoteChange: (value: string) => void;
+  onRevert: () => void;
 }) {
-  const [reason, setReason] = useState("");
   const busy = writeStatus.phase === "pending" || writeStatus.phase === "done";
   const history = tie.gate?.audit ?? [];
   const state = tie.reviewState;
@@ -956,10 +1141,15 @@ function DecidedCard({
       </div>
 
       <div className="flex flex-col gap-2 border-t-2 border-hairline px-5 py-3">
+        {/* Pole, které HLÍDÁ povinný důvod, nemělo přístupné jméno vůbec — jen
+            placeholder, který po prvním znaku zmizí. */}
         <textarea
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
+          id={`note-${tie.id}`}
+          value={note}
+          onChange={(e) => onNoteChange(e.target.value)}
           disabled={busy}
+          aria-label={`důvod vrácení ke kontrole — ${tie.mpName}, ${tie.company}`}
+          aria-describedby={`revert-rules-${tie.id}`}
           placeholder="důvod vrácení ke kontrole — povinný, zůstane v auditní stopě"
           rows={2}
           className="w-full resize-y border-2 border-hairline bg-paper px-2 py-1.5 font-mono text-xs text-ink outline-none placeholder:text-steel focus:border-cobalt disabled:opacity-50"
@@ -967,14 +1157,15 @@ function DecidedCard({
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
-            disabled={busy || reason.trim().length === 0}
-            onClick={() => onRevert(reason.trim())}
+            disabled={busy || note.trim().length === 0}
+            onClick={onRevert}
             className="border-2 border-ochre px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-ink transition-colors hover:bg-ochre disabled:cursor-not-allowed disabled:opacity-50"
           >
             Vrátit ke kontrole
           </button>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
-            vazba se vrátí do fronty · vrácení se připíše do auditní stopy
+          <span id={`revert-rules-${tie.id}`} className="font-mono text-[10px] uppercase tracking-widest text-steel">
+            vazba se vrátí do fronty · vrácení se připíše do auditní stopy · bez důvodu server
+            nezapíše ani řádek řetězce
           </span>
           <WriteStatusNote decision="needs-more" writeConfigured={writeConfigured} status={writeStatus} />
         </div>
@@ -983,9 +1174,67 @@ function DecidedCard({
   );
 }
 
-/** Honest, clearly-visible reconciliation of the optimistic decision with the real
- *  write result — a not-configured state and a network/validation error must never
- *  look the same, and neither may look like a successful write. */
+const STATUS_TONE_CLS = {
+  steel: "font-mono text-[10px] uppercase tracking-widest text-steel",
+  cobalt: "font-mono text-[10px] font-bold uppercase tracking-widest text-cobalt",
+  ochre: "font-mono text-[10px] font-bold uppercase tracking-widest text-ochre",
+  signal: "font-mono text-[10px] font-bold uppercase tracking-widest text-signal",
+} as const;
+
+/**
+ * Honest, clearly-visible reconciliation of the optimistic decision with the real
+ * write result — a not-configured state and a network/validation error must never
+ * look the same, and neither may look like a successful write.
+ *
+ * ČISTÉ PRAVIDLO, ne JSX: TENTÝŽ text čte poznámka u karty i JEDINÁ živá oblast
+ * stránky (viz `announcement` v konzoli). Kdyby si každá skládala vlastní větu,
+ * odečítačka by slyšela něco jiného, než co je vidět. `failure` říká, jestli
+ * hlášení patří do `role="alert"` — tedy jestli se NEZAPSALO.
+ */
+export function writeStatusInfo(
+  decision: ReviewDecision,
+  writeConfigured: boolean,
+  status: WriteStatus,
+): { text: string; tone: keyof typeof STATUS_TONE_CLS; failure: boolean } {
+  if (!writeConfigured) {
+    return { text: `${DECISION_LABEL[decision]} · zápis čeká na backend`, tone: "steel", failure: false };
+  }
+  switch (status.phase) {
+    case "pending":
+      return { text: "zapisuje se…", tone: "steel", failure: false };
+    case "done":
+      return { text: `zapsáno · review_state = ${status.message}`, tone: "cobalt", failure: false };
+    case "not-configured":
+      return { text: "zápis není nastavený (chybí REVIEWER_TOKEN)", tone: "ochre", failure: true };
+    case "unauthorized":
+      return { text: "neplatný token recenzenta", tone: "signal", failure: true };
+    case "misconfigured":
+      return {
+        text: `nezapsáno — chybí REVIEWER_NAME${status.message ? `: ${status.message}` : ""}`,
+        tone: "signal",
+        failure: true,
+      };
+    case "reason-required":
+      return { text: "nezapsáno — vrácení rozhodnutí musí mít důvod v poznámce", tone: "signal", failure: true };
+    case "note-required":
+      return {
+        text: "neodesláno — „doplnit“ bez poznámky nikde nezaznamená, co se má doplnit; napište důvod do poznámky",
+        tone: "ochre",
+        failure: true,
+      };
+    case "error":
+      return {
+        text: `chyba zápisu${status.message ? `: ${status.message}` : ""}`,
+        tone: "signal",
+        failure: true,
+      };
+    default:
+      return { text: DECISION_LABEL[decision], tone: "steel", failure: false };
+  }
+}
+
+/** Viditelná poznámka u karty. ŽÁDNÁ vlastní živá oblast: 211 karet = 211 oblastí,
+ *  a odečítačka by pak četla každý zápis tolikrát, kolikrát je na stránce karta. */
 function WriteStatusNote({
   decision,
   writeConfigured,
@@ -995,61 +1244,8 @@ function WriteStatusNote({
   writeConfigured: boolean;
   status: WriteStatus;
 }) {
-  if (!writeConfigured) {
-    return (
-      <span className="ml-1 font-mono text-[10px] uppercase tracking-widest text-steel">
-        {DECISION_LABEL[decision]} · zápis čeká na backend
-      </span>
-    );
-  }
-  switch (status.phase) {
-    case "pending":
-      return (
-        <span className="ml-1 font-mono text-[10px] uppercase tracking-widest text-steel">zapisuje se…</span>
-      );
-    case "done":
-      return (
-        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-cobalt">
-          zapsáno · review_state = {status.message}
-        </span>
-      );
-    case "not-configured":
-      return (
-        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-ochre">
-          zápis není nastavený (chybí REVIEWER_TOKEN)
-        </span>
-      );
-    case "unauthorized":
-      return (
-        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
-          neplatný token recenzenta
-        </span>
-      );
-    case "misconfigured":
-      return (
-        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
-          nezapsáno — chybí REVIEWER_NAME{status.message ? `: ${status.message}` : ""}
-        </span>
-      );
-    case "reason-required":
-      return (
-        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
-          nezapsáno — vrácení rozhodnutí musí mít důvod v poznámce
-        </span>
-      );
-    case "error":
-      return (
-        <span className="ml-1 font-mono text-[10px] font-bold uppercase tracking-widest text-signal">
-          chyba zápisu{status.message ? `: ${status.message}` : ""}
-        </span>
-      );
-    default:
-      return (
-        <span className="ml-1 font-mono text-[10px] uppercase tracking-widest text-steel">
-          {DECISION_LABEL[decision]}
-        </span>
-      );
-  }
+  const info = writeStatusInfo(decision, writeConfigured, status);
+  return <span className={`ml-1 ${STATUS_TONE_CLS[info.tone]}`}>{info.text}</span>;
 }
 
 function Metric({ label, value, sub }: { label: string; value: string; sub: string }) {
