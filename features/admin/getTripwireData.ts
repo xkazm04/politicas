@@ -243,7 +243,15 @@ export const getTripwireData = cache(async function getTripwireData(): Promise<T
           dstCompanyId: e.dst,
           dstCompany: dst?.label ?? e.dst,
           dstIco: typeof dp.ico === "string" ? dp.ico : null,
-          stakePct: e.props?.stake_pct != null ? num(e.props.stake_pct) : null,
+          // Zapisovač (batch-006 ownership-chains, pass 28) ukládá podíl jako
+          // `share`; `stake_pct` žádný writer nikdy neemitoval a čtení jen jeho
+          // nechávalo T4 trvale v degradovaném „drží podíl" bez procenta.
+          stakePct:
+            e.props?.share != null
+              ? num(e.props.share)
+              : e.props?.stake_pct != null
+                ? num(e.props.stake_pct)
+                : null,
           dstContractCount: money.count,
           dstContractCzk: money.czk,
         });
