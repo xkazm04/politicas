@@ -1105,6 +1105,8 @@
     "duelStatusPair": "V souboji: {a} proti {b}",
     "duelStatusOne": "V souboji zatím jeden poslanec: {name} — vyberte druhého tlačítkem „vs“ v žebříčku.",
     "duelStatusNone": "V souboji zatím nikdo — vyberte dva poslance tlačítkem „vs“ v žebříčku.",
+    "duelGoTo": "přejít na souboj",
+    "duelCopyLink": "kopírovat odkaz na souboj",
     "emptyResults": "Nikdo neodpovídá filtru — zkuste jiné jméno nebo stranu.",
     "shownOf": "zobrazeno {count} z {total} · klikněte na jméno pro spis",
     "avgLabel": "průměr",

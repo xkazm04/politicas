@@ -126,6 +126,9 @@ export default async function ProfilePage({
     speechTurnsTotal: data.speechTurnsTotal,
     interpellations: data.interpellations,
     absenceRate: data.absenceRate,
+    // Řádky pod mírou docházky (evidence omluv) — `null` znamená nečitelnou
+    // evidenci, prázdný záznam znamená „ani jedna omluva".
+    absence: data.absence,
     workhorseFlavour: person.effortWorkhorse ? person.effortWorkhorseFlavour : null,
     rapporteurLoad: person.effortRapporteurLoad,
     effortRecordedAt: person.effortRecordedAt,

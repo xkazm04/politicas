@@ -46,6 +46,8 @@ import RapporteurBadge from "@/features/civicscore/components/RapporteurBadge";
 import { workhorseFlavourCopy } from "@/lib/analysis/workhorse-flavour";
 import { rapporteurLoadCopy } from "@/lib/analysis/rapporteur-load";
 import { snemovniDokumentLink } from "@/lib/kg/sourceLinks";
+import OmluvyTable from "./OmluvyTable";
+import type { ProfileAbsenceRecord } from "../absenceRecord";
 import type { BillEngagement, RapporteurBill, SponsoredBill } from "../getProfileData";
 
 /** next-intl key per zpravodaj assignment scope (pass 34, psp.cz tisky.zip). */
@@ -75,6 +77,9 @@ export interface DossierContent {
   speechTurnsTotal: number | null;
   interpellations: number | null;
   absenceRate: number | null;
+  /** Řádky pod mírou docházky: datovaná evidence omluv (`absence`). `null` = evidenci
+   *  se nepodařilo přečíst, prázdný záznam = poslanec nemá ani jednu omluvu. */
+  absence: ProfileAbsenceRecord | null;
   /** `effort_workhorse_flavour` — closed vocabulary, copy from lib/analysis. */
   workhorseFlavour: string | null;
   /** `effort_rapporteur_load` — badge copy + threshold in lib/analysis. */
@@ -104,6 +109,10 @@ export function hasDossierContent(d: DossierContent): boolean {
     d.speechTurnsTotal != null ||
     d.interpellations != null ||
     d.absenceRate != null ||
+    // Datovaná evidence omluv je obsah sama o sobě: poslanec, kterému graf
+    // nenapsal `absence_rate`, ale sněmovna u něj vede omluvy, by jinak přišel
+    // o celý oddíl. (Nečitelná evidence — `null` — obsah není: to je výpadek.)
+    (d.absence !== null && d.absence.totalDays > 0) ||
     !!workhorseFlavourCopy(d.workhorseFlavour) ||
     !!rapporteurLoadCopy(d.rapporteurLoad)
   );
@@ -134,6 +143,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
     speechTurnsTotal,
     interpellations,
     absenceRate,
+    absence,
     workhorseFlavour,
     rapporteurLoad,
     effortRecordedAt,
@@ -150,6 +160,11 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
     amendmentsAuthored != null ? Math.max(0, amendmentsAuthored - amendmentBillCount) : 0;
   const hasSpeeches = speechTurnsTotal != null || floorSpeeches.length > 0;
   const hasCounters = interpellations != null || absenceRate != null;
+  // Přečtená evidence se vykresluje vždycky — i prázdná: „ani jedna omluva" je
+  // odpověď, ticho by z ní udělalo redakční rozhodnutí. Nečitelná evidence
+  // (`null`) dostane svou větu jen tam, kde spis o docházce něco tvrdí; jinak by
+  // se hlásil výpadek vrstvy, kterou tenhle spis stejně nemá čím doložit.
+  const hasAbsenceRows = absence !== null || absenceRate != null;
   const verdicts = !!workhorseFlavourCopy(workhorseFlavour) || !!rapporteurLoadCopy(rapporteurLoad);
   if (!hasDossierContent(d)) return null;
 
@@ -400,6 +415,11 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
             )}
           </div>
         )}
+
+        {/* Omluvy po dnech — čitatel míry docházky výše, konečně čitelný. Vlastní
+            blok, ne součást `hasCounters`: poslanec může mít v evidenci omluvy
+            i tehdy, když mu graf `absence_rate` nenapsal, a naopak. */}
+        {hasAbsenceRows && <OmluvyTable record={absence} />}
 
         {rapporteurBills.length > 0 && (
           <div>

@@ -206,6 +206,74 @@ describe("profile message catalog", () => {
     }
   });
 
+  it("the excused-absence rows declare all three states, in both locales", () => {
+    // Evidence omluv (`absence`) je datovaná a časovaná — a spis z ní tiskl jediné
+    // číslo. Řádky mají tři stavy jako rebelie: nečitelná evidence · poctivá nula ·
+    // výpis se stropem. Stav bez věty je ticho, které vypadá jako rozhodnutí.
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "dossierAbsenceRowsHeading",
+        "dossierAbsenceRowsLead",
+        "dossierAbsenceRowsWholeDay",
+        "dossierAbsenceRowsFutureTag",
+        "dossierAbsenceRowsFuture",
+        "dossierAbsenceRowsUndated",
+        "dossierAbsenceRowsMore",
+        "dossierAbsenceRowsNone",
+        "dossierAbsenceRowsUnavailable",
+        "dossierAbsenceRowsNoReason",
+        "dossierAbsenceRowsRate",
+        "dossierAbsenceRowsNotBallot",
+        "dossierAbsenceRowsSource",
+        "dossierAbsenceRowsSourceEmpty",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+    }
+    // Nečitelná evidence a prázdná evidence nesmějí znít stejně: jedna je výpadek,
+    // druhá je výrok o poslanci.
+    expect(cs.dossierAbsenceRowsUnavailable).not.toBe(cs.dossierAbsenceRowsNone);
+    expect(en.dossierAbsenceRowsUnavailable).not.toBe(en.dossierAbsenceRowsNone);
+    // Strop se přiznává i s celkem, ne jen počtem vypsaných.
+    expect(placeholders(cs.dossierAbsenceRowsMore)).toEqual(["shown", "total"]);
+  });
+
+  it("the excused-absence copy never implies a reason the source does not publish", () => {
+    // `omluvy.unl` má sloupce (id_organ, id_poslanec, den, od, do) — nic víc.
+    for (const ns of [cs, en]) {
+      expect(ns.dossierAbsenceRowsNoReason).toMatch(/důvod|reason/i);
+    }
+    expect(cs.dossierAbsenceRowsNoReason).toMatch(/nezveřejňuje|nevyčteme/);
+    expect(en.dossierAbsenceRowsNoReason).toMatch(/publishes none|do not guess/i);
+    // Citace jmenuje datovou sadu, ze které řádky jsou.
+    for (const ns of [cs, en]) {
+      expect(ns.dossierAbsenceRowsSource).toMatch(/omluvy\.unl/);
+      expect(ns.dossierAbsenceRowsSourceEmpty).toMatch(/omluvy\.unl/);
+    }
+  });
+
+  it("the rows never claim to BE the stored rate, and never conflate the ballot bucket", () => {
+    // Míra je uložená hodnota z přepočtu indexu, výpis je živá evidence: podání
+    // zapsané po přepočtu je vidět v seznamu a v míře ještě ne. A „omluven" u pultu
+    // při jednom hlasování je jiný fakt z jiné datové sady.
+    expect(cs.dossierAbsenceRowsRate).toMatch(/jednacích dnů/);
+    expect(cs.dossierAbsenceRowsRate).toMatch(/uložená hodnota|přepočt/);
+    expect(en.dossierAbsenceRowsRate).toMatch(/sitting days/i);
+    expect(en.dossierAbsenceRowsRate).toMatch(/stored|recomputation/i);
+    expect(cs.dossierAbsenceRowsNotBallot).toMatch(/hlasování/);
+    expect(en.dossierAbsenceRowsNotBallot).toMatch(/roll call/i);
+  });
+
+  it("a future-dated excuse is disclosed as real, never as an error to be fixed", () => {
+    // Omluva se podává dopředu (10 takových řádků v 10. období) — stránka to říká
+    // a nic nemaže; precedens „nemožná data se přiznávají, neopravují".
+    expect(cs.dossierAbsenceRowsFuture).toMatch(/dopředu/);
+    expect(cs.dossierAbsenceRowsFuture).toMatch(/nemaže|neopravuje/);
+    expect(en.dossierAbsenceRowsFuture).toMatch(/filed ahead/i);
+    expect(en.dossierAbsenceRowsFuture).toMatch(/deleted|corrected/i);
+    expect(placeholders(cs.dossierAbsenceRowsFuture)).toEqual(["count", "countFmt"]);
+  });
+
   it("no Czech sentence reads as English", () => {
     // The same stopword gate the analysis copy is held to, asserted the way that gate
     // is actually defined: `looksEnglish`. It is deliberately NOT the inverse claim —

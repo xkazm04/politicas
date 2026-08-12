@@ -83,12 +83,36 @@ export function makeVoteRepo(pg: Pglite): VoteRepository {
       return rows.map(mapBallot);
     },
     async listAbsences(opts) {
-      const where = opts?.termCode
-        ? `where term_psp_id = (select psp_id from organ where abbrev = $1)`
-        : "";
+      const limit = limitOf(opts);
+      const ids = opts?.mandatePspIds;
+      // An empty id list is a REAL filter that matches nothing. Dropping it and
+      // reading the whole relation instead would be the worst possible reading of
+      // "this MP has no mandate" (the listVoteBallots precedent).
+      if (ids !== undefined && ids.length === 0) return [];
+      const clauses: string[] = [];
+      const params: unknown[] = [];
+      if (opts?.termCode) {
+        params.push(opts.termCode);
+        clauses.push(`term_psp_id = (select psp_id from organ where abbrev = $${params.length})`);
+      }
+      if (ids !== undefined) {
+        params.push([...ids]);
+        // Rides `absence_mandate_idx (mandate_psp_id, day)` — bitmap index scan,
+        // measured 14–20 ms for one mandate against 410–483 ms for the term.
+        clauses.push(`mandate_psp_id = any($${params.length}::int[])`);
+      }
+      const where = clauses.length > 0 ? `where ${clauses.join(" and ")}` : "";
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select * from absence ${where} order by id limit ${limitOf(opts)}`,
-        opts?.termCode ? [opts.termCode] : [],
+        `select * from absence ${where} order by id limit ${limit}`,
+        params,
+      );
+      // The excused-absence record feeds an MP's file AND the index's attendance
+      // component; a truncation here would quietly shorten someone's record.
+      warnIfTruncated(
+        "listAbsences",
+        rows.length,
+        limit,
+        ids === undefined ? opts?.termCode : `${opts?.termCode ?? "*"}/mandates=${ids.length}`,
       );
       // An unknown/misspelled termCode and a real term with genuinely zero
       // absences both produce an empty result — the subquery's zero-row match

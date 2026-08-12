@@ -39,6 +39,8 @@ import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from
 import { computeScoreLegibility, type ScoreLegibility } from "@/lib/analysis/score-legibility";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
 import { getMoneyMpDetail } from "@/features/money/getMpDetail";
+import { pragueDay } from "@/features/denik/pragueDay";
+import { buildAbsenceRecord, type ProfileAbsenceRecord } from "./absenceRecord";
 import { emptyProfileMoney, toProfileMoney, type ProfileMoney } from "./profileMoney";
 import {
   deriveCareerSpine,
@@ -267,6 +269,17 @@ export interface ProfileData {
   speechTurnsTotal: number | null;
   interpellations: number | null;
   absenceRate: number | null;
+  /**
+   * Ta míra po dnech. `absence_rate` je jedno číslo, jehož čitatel — dny
+   * s podanou omluvou — dosud nikde nestál, přestože evidence je datovaná
+   * a časovaná (`absence`, 6 425 řádků za PSP10). Tady jsou její řádky.
+   *
+   * `null` NENÍ prázdný záznam: znamená, že se evidence nepodařilo přečíst
+   * (nebo že poslanec v období nemá mandátní řádek, kterým by se dala klíčovat),
+   * a oddíl pro to má vlastní větu. Prázdný záznam = poslanec nemá ani jednu
+   * omluvu, což je odpověď, ne výpadek.
+   */
+  absence: ProfileAbsenceRecord | null;
   /** `linked_to` money ties (all `pending_review` at pass 41) + the contracts the
    *  attribution rule permits attaching to them. See `ProfileMoney`. */
   money: ProfileMoney;
@@ -513,6 +526,39 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // /zebricek 2026-08-04). ~2 157 rows today, all terms.
     const allMandates = await store.listMandates({ limit: KG_READ_CAP });
     const myMandates = allMandates.filter((m) => m.personPspId === pspId);
+    // ── Omluvy ────────────────────────────────────────────────────────────────
+    // Čte se PODLE MANDÁTU, ne podle období: `absence_mandate_idx` je v DDL od
+    // začátku a nikdo ho nepoužíval. Změřeno na kopii živého store (PSP10,
+    // 6 425 řádků): celé období 410/483/483 ms, jeden mandát 14–20 ms (bitmap
+    // index scan). Mandátní čísla jsou zadarmo — `allMandates` se čte pár řádků
+    // výš kvůli kariérnímu spisu, takže tenhle oddíl přidává JEDNO indexované
+    // čtení a žádné další.
+    //
+    // Poslanec s víc mandátními řádky v jednom období je sjednocení (dnes takový
+    // v PSP10 není: 207 řádků / 207 osob), poslanec BEZ mandátního řádku nemá čím
+    // evidenci klíčovat — a to je nečitelný záznam, ne „žádné omluvy". Selhání
+    // čtení nesmí shodit celý spis, proto vlastní catch: `null` je stav, který
+    // oddíl umí vyslovit.
+    const termMandateIds = myMandates
+      .filter((m) => m.termCode.toUpperCase() === term)
+      .map((m) => m.pspId);
+    const absence: ProfileAbsenceRecord | null =
+      termMandateIds.length === 0
+        ? null
+        : await (async () => {
+            try {
+              const rows = await store.listAbsences({
+                termCode: term,
+                mandatePspIds: termMandateIds,
+                limit: KG_READ_CAP,
+              });
+              return buildAbsenceRecord(rows, pragueDay());
+            } catch (err) {
+              reportLoaderFailure("getProfileData/absence", err);
+              return null;
+            }
+          })();
+
     // Mirrors getLeaderboardData's private regionLabel() so the spine's per-term
     // region reads identically to `person.region` (same organ rows, same copy).
     const regionLabelOf = (nameCz: string | null): string | null => {
@@ -768,6 +814,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       speechTurnsTotal: personNode ? nullableNum(personNode.props.speech_turns) : null,
       interpellations: personNode ? nullableNum(personNode.props.interpellations) : null,
       absenceRate: personNode ? nullableNum(personNode.props.absence_rate) : null,
+      absence,
       money,
       career,
     };

@@ -1105,6 +1105,8 @@
     "duelStatusPair": "In the head-to-head: {a} against {b}",
     "duelStatusOne": "One MP picked so far: {name} — pick a second with the “vs” button in the ranking.",
     "duelStatusNone": "Nobody picked yet — pick two MPs with the “vs” button in the ranking.",
+    "duelGoTo": "go to the head-to-head",
+    "duelCopyLink": "copy a link to this head-to-head",
     "emptyResults": "No one matches this filter — try another name or party.",
     "shownOf": "showing {count} of {total} · click a name for the file",
     "avgLabel": "average",

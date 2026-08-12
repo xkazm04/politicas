@@ -72,6 +72,23 @@ export interface BallotListOptions extends ListOptions {
   voteIds?: readonly number[];
 }
 
+/**
+ * Absence reads take the same shape of filter ballots do: a per-MP predicate.
+ *
+ * `absence_mandate_idx (mandate_psp_id, day)` has existed since the first DDL and
+ * nothing used it — the only caller read the whole term and filtered in JS, which
+ * is fine for an ingest pass and wrong for one MP's file. Measured on a copy of
+ * the live store (10. období, 6 425 rows): whole-term read 410/483/483 ms against
+ * 14–20 ms for one mandate (bitmap index scan on `absence_mandate_idx`, planner
+ * output in the commit that added this).
+ */
+export interface AbsenceListOptions extends ListOptions {
+  /** Restrict to these mandates (`absence.mandate_psp_id`). An EMPTY array means
+   *  no mandates and returns no rows — never "no filter" (the BallotListOptions
+   *  precedent: an empty filter must not silently become a whole-relation read). */
+  mandatePspIds?: readonly number[];
+}
+
 /** roll calls, per-MP ballots, excused absences — the temporal side. */
 export interface VoteRepository {
   upsertVoteEvents(rows: VoteEventRow[]): Promise<number>;
@@ -79,7 +96,7 @@ export interface VoteRepository {
   upsertAbsences(rows: AbsenceRow[]): Promise<number>;
   listVoteEvents(opts?: ListOptions): Promise<VoteEventRow[]>;
   listVoteBallots(opts?: BallotListOptions): Promise<VoteBallotRow[]>;
-  listAbsences(opts?: ListOptions): Promise<AbsenceRow[]>;
+  listAbsences(opts?: AbsenceListOptions): Promise<AbsenceRow[]>;
   countVoteBallots(termCode?: string): Promise<number>;
   /** Per-MP ballot tallies for a term: mandatePspId → {choice → count}. */
   ballotTallies(termCode: string): Promise<Map<number, Record<string, number>>>;
