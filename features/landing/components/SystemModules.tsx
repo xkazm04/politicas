@@ -1,8 +1,10 @@
 "use client";
 
-/** Systém 01–05 — pět nástrojů nad jedním grafem, geometrické glyfy. */
+/** Systém 01–05 — pět nástrojů nad jedním grafem, geometrické glyfy.
+ *  Řádky nabíhají zleva po scrollu; při `prefers-reduced-motion` se vysází
+ *  rovnou na místě (2026-08-12; týž zápis jako RealDisciplineBoard). */
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { MODULES } from "@/lib/civic/data";
@@ -54,6 +56,7 @@ function ModuleGlyph({ index }: { index: number }) {
 export default function SystemModules() {
   const t = useTranslations("landing");
   const tc = useTranslations("content");
+  const reduceMotion = useReducedMotion();
   return (
     <section id="k-system" className="border-t-4 border-ink">
       <div className="mx-auto max-w-6xl px-6 py-16">
@@ -68,10 +71,10 @@ export default function SystemModules() {
             <motion.a
               key={m.key}
               href={m.href ?? "#"}
-              initial={{ opacity: 0, x: -16 }}
+              initial={reduceMotion ? false : { opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.05 }}
+              transition={{ delay: reduceMotion ? 0 : i * 0.05 }}
               className="group grid grid-cols-[3rem_3.5rem_1fr_auto] items-center gap-5 border-b border-hairline py-6 transition-colors hover:bg-paper-strong sm:grid-cols-[3.5rem_4rem_1fr_auto]"
             >
               <span className={`font-mono text-2xl font-bold ${i === 0 ? "text-signal" : "text-steel-aa"}`}>

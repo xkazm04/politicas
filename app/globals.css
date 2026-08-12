@@ -67,7 +67,17 @@ body {
   color: var(--color-paper);
 }
 
-/* Posuvník vah — součást výtvarné řeči plakátu (viz docs/DESIGN.md §Motion). */
+/* Posuvník vah — součást výtvarné řeči plakátu (viz docs/DESIGN.md §Motion).
+ *
+ * `outline: none` zhasínalo prstenec i pro KLÁVESNICI (WCAG 2.4.7): šest
+ * posuvníků vah je hlavní interakce titulní strany a čtenář, který je ovládá
+ * tabulátorem, neviděl, na kterém stojí. Zůstává vypnutý jen pro ukazovátko —
+ * `:focus-visible` prstenec vrací zpět a drží týž idiom jako zbytek aplikace
+ * (`focus-visible:outline-2 outline-offset-2 outline-cobalt`, ~30 míst; kobalt
+ * = interakce). Prstenec sedí na DRÁZE, ne na jezdci: `::-webkit-slider-thumb`
+ * / `::-moz-range-thumb` jsou dodavatelské pseudoelementy a přístupnost nesmí
+ * stát na tom, že je konkrétní engine obarví. Konzumenti: WeightPanel
+ * (/zebricek) a LiveSpecimen (fasáda). */
 .k-range {
   -webkit-appearance: none;
   appearance: none;
@@ -75,6 +85,10 @@ body {
   width: 100%;
   background: var(--color-hairline);
   outline: none;
+}
+.k-range:focus-visible {
+  outline: 2px solid var(--color-cobalt);
+  outline-offset: 2px;
 }
 .k-range::-webkit-slider-thumb {
   -webkit-appearance: none;

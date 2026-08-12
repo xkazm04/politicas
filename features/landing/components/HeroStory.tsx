@@ -2,10 +2,16 @@
 
 /** Levá polovina hero — hlavní zpráva („Změřená republika") + hemicykl.
  *  Hemicykl kreslí REÁLNÝ vektor skóre (viz Hemicycle.tsx); bez dat se
- *  místo něj přizná nedostupnost, nikdy se nekreslí smyšlený obrazec. */
+ *  místo něj přizná nedostupnost, nikdy se nekreslí smyšlený obrazec.
+ *
+ *  Nábeh respektuje `prefers-reduced-motion` (2026-08-12): titulek, lead i CTA
+ *  se při té preferenci vysází rovnou na cílové hodnoty. `initial={false}` je
+ *  týž zápis, jakým se řídí zbytek aplikace (features/votetrack/components/
+ *  RealDisciplineBoard.tsx, features/profile/components/MotionIslands.tsx) —
+ *  fasáda byla poslední plochou, která tuhle preferenci ignorovala. */
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -20,19 +26,20 @@ export default function HeroStory({
   count: number | null;
 }) {
   const t = useTranslations("landing");
+  const reduceMotion = useReducedMotion();
   return (
     <div className="border-b border-hairline py-14 lg:border-b-0 lg:border-r lg:pr-12">
       <motion.p
-        initial={{ opacity: 0 }}
+        initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         className="font-mono text-xs uppercase tracking-[0.3em] text-signal-deep"
       >
         {t("eyebrow")}
       </motion.p>
       <motion.h1
-        initial={{ opacity: 0, y: 24 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.06 }}
+        transition={{ delay: reduceMotion ? 0 : 0.06 }}
         // text-5xl na mobilu: „REPUBLIKA" je v Archivo Black při 60 px široká
         // 372 px, ale k dispozici je 342 px (390 − 2×24), takže poslední písmeno
         // ořízne `overflow-x-clip` na <main>. Nález /impeccable, pass 02.
@@ -43,17 +50,17 @@ export default function HeroStory({
         <span className="text-signal">{t("titleLine2")}</span>
       </motion.h1>
       <motion.p
-        initial={{ opacity: 0, y: 16 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.16 }}
+        transition={{ delay: reduceMotion ? 0 : 0.16 }}
         className="mt-6 max-w-md text-base leading-relaxed text-steel-aa"
       >
         {t("lead")}
       </motion.p>
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.26 }}
+        transition={{ delay: reduceMotion ? 0 : 0.26 }}
         className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"
       >
         {/* Jediné hlavní CTA: skutečný žebříček všech poslanců. */}

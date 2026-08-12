@@ -6,10 +6,13 @@
  * (index přispění, řazeno sestupně), takže obrazec kreslí rozložení
  * sněmovny, ne pseudonáhodnou texturu. Pásma = třetiny pořadí:
  * horní třetina = čerň, střední = kobalt, dolní = signální červená.
- * Řady nabíhají po scrollu (entry once).
+ * Řady nabíhají po scrollu (entry once) — a při `prefers-reduced-motion` se
+ * vysází rovnou, bez náběhu (2026-08-12; týž zápis jako RealDisciplineBoard).
+ * Souřadnice se ZAOKROUHLUJÍ na 2 desetinná místa i nadále — to není součást
+ * pohybu, ale podmínka hydratace (viz buildRows níž).
  */
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 interface Seat {
@@ -51,6 +54,7 @@ export default function Hemicycle({
   scores: number[];
 }) {
   const t = useTranslations("landing");
+  const reduceMotion = useReducedMotion();
   const rows = buildRows(scores.length);
   // Pásma po třetinách POŘADÍ — křeslo k patří k-tému poslanci žebříčku.
   const t1 = Math.floor(scores.length / 3);
@@ -74,10 +78,10 @@ export default function Hemicycle({
       {rows.map((row, r) => (
         <motion.g
           key={r}
-          initial={{ opacity: 0 }}
+          initial={reduceMotion ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ delay: r * 0.09, duration: 0.4 }}
+          transition={{ delay: reduceMotion ? 0 : r * 0.09, duration: reduceMotion ? 0 : 0.4 }}
         >
           {row.map((s, i) => (
             <circle key={i} cx={s.x} cy={s.y} r={3.2} className={bandClass(offsets[r] + i)} opacity={0.92} />
