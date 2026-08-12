@@ -18,6 +18,8 @@ import {
   encodeWeights,
   LENS_COMPONENT_ORDER,
   LENS_PRESETS,
+  PUBLISHED_WEIGHTS,
+  PUBLISHED_WEIGHTS_LABEL,
 } from "@/features/civicscore/lens";
 import { useFormat } from "@/lib/i18n/useFormat";
 
@@ -43,8 +45,23 @@ const COMPONENT_BG: Record<ComponentKey, string> = {
   leadership: "bg-cobalt/50",
 };
 
-export default function ReferendumTeaser() {
+export default function ReferendumTeaser({
+  /** Kolik poslanců index skutečně pokrývá; `null` = store nedostupný, a pak
+   *  se věta o „všech {count} poslancích" NEVYSLOVÍ. Tvrzení o pokrytí nesmí
+   *  přežít data, ze kterých pochází. */
+  count,
+}: {
+  count: number | null;
+}) {
   const f = useFormat();
+  // Zveřejněné váhy se ODVOZUJÍ ze vzorce (lens.ts → CONTRIBUTION_WEIGHTS), ne
+  // z přepsané věty: „účast 25, výbory 20…" tu stálo jako literál na stránce,
+  // která čtenáře zve ty váhy změnit — změna vzorce by ji nechala lhát.
+  const publishedList = LENS_COMPONENT_ORDER.map(
+    (k) => `${SHORT_LABEL[k]} ${f.int(PUBLISHED_WEIGHTS[k])}`,
+  ).join(", ");
+  // I ten součet je derivace, ne literál — „100 bodů" je vlastnost vzorce.
+  const publishedTotal = LENS_COMPONENT_ORDER.reduce((s, k) => s + PUBLISHED_WEIGHTS[k], 0);
   return (
     <section aria-label="Referendum o metodice" className="border-t-4 border-ink">
       <div className="mx-auto max-w-6xl px-6 py-16">
@@ -57,12 +74,18 @@ export default function ReferendumTeaser() {
               Kolik váží dobrý poslanec<span className="text-signal">?</span>
             </h2>
           </div>
-          <SourceNote>šest zveřejněných složek indexu přispění · psp.cz</SourceNote>
+          <SourceNote>
+            šest zveřejněných složek indexu přispění · psp.cz · zveřejněné váhy{" "}
+            {PUBLISHED_WEIGHTS_LABEL}
+          </SourceNote>
         </div>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">
-          Zveřejněná metodika váží účast 25, výbory 20, legislativu 20, vystoupení 15, docházku 10
-          a vedení orgánů 10 body. Vy můžete vážit jinak — a žebříček všech 207 poslanců se pod
-          vaší čočkou přepočítá. Tři redakční ukázky, jak různé priority mění pořadí:
+          {/* Šablonový řetězec, ne holý JSX text: zalomení řádku před tečkou by se
+              vysázelo jako mezera („vedení 10 . Vy"). */}
+          {`Zveřejněná metodika rozděluje ${f.int(publishedTotal)} bodů takto: ${publishedList}.`} Vy
+          můžete vážit jinak — a žebříček
+          {count === null ? " " : ` všech ${f.int(count)} poslanců `}se pod vaší čočkou
+          přepočítá. Tři redakční ukázky, jak různé priority mění pořadí:
         </p>
 
         <div className="mt-8 grid gap-px border border-ink bg-ink sm:grid-cols-3">

@@ -29,9 +29,12 @@ import {
   PUBLISHED_WEIGHTS_LABEL,
   type WeightVector,
 } from "@/features/civicscore/lens";
+import type { ContributionProvenance } from "@/features/civicscore/provenance";
+import { contributionScoreClaim } from "@/features/civicscore/scoreClaim";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import LiveDataNotice from "@/features/shared/components/LiveDataNotice";
+import type { LandingSourceState } from "./sourceStates";
 import SiteHeader from "./components/SiteHeader";
 import HeroStory from "./components/HeroStory";
 import LiveSpecimen from "./components/LiveSpecimen";
@@ -54,6 +57,10 @@ export interface LandingData {
   count: number;
   /** Šest zveřejněných složek (label/weight/source) — z loaderu, ne kopie. */
   components: ComponentDef[];
+  /** Komorový agregát `{pass, ref}` — základ citace skóre (scoreClaim.ts,
+   *  pravidlo 2: půlkou přepočtená komora nemá jednu provenienci a claim
+   *  pak žádný základ nenese). */
+  provenance: ContributionProvenance;
 }
 
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
@@ -71,7 +78,15 @@ function lensScore(e: LeaderboardListEntry, weights: WeightVector): number {
   return round1(s);
 }
 
-export default function LandingPage({ data }: { data: LandingData | null }) {
+export default function LandingPage({
+  data,
+  sources,
+}: {
+  data: LandingData | null;
+  /** Měřený stav zdrojů z atlasu kvality; `null` = atlas nečitelný. Degraduje
+   *  NEZÁVISLE na žebříčku — dvě vrstvy, dvě čtení, dvě přiznání. */
+  sources: LandingSourceState[] | null;
+}) {
   const t = useTranslations("landing");
 
   const featured = data?.featured ?? [];
@@ -87,6 +102,18 @@ export default function LandingPage({ data }: { data: LandingData | null }) {
     return isDefault ? mp.score : lensScore(mp, weights);
   }, [mp, weights, isDefault]);
 
+  // Citace se razí JEN nad zveřejněným kompozitem — týmž čistým razidlem, jaké
+  // používá spis i karta kraje (žádná druhá ražba téže figury). Pod čtenářovou
+  // čočkou se ZADRŽUJE: přepočtené číslo v grafu nikde nestojí, takže by
+  // adresa vedla k něčemu, co nelze ověřit.
+  const scoreClaim = useMemo(
+    () =>
+      mp && data && isDefault
+        ? contributionScoreClaim(mp.pspId, mp.score, data.provenance).claim
+        : undefined,
+    [mp, data, isDefault],
+  );
+
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <SiteHeader />
@@ -101,6 +128,7 @@ export default function LandingPage({ data }: { data: LandingData | null }) {
             components={data.components}
             total={data.count}
             score={score}
+            claim={scoreClaim}
             weights={weights}
             isDefault={isDefault}
             onSelect={setSelectedId}
@@ -166,10 +194,10 @@ export default function LandingPage({ data }: { data: LandingData | null }) {
       <DenikTeaser />
 
       {/* ── Referendum o metodice — tři redakční čočky (moonshot 7B) ── */}
-      <ReferendumTeaser />
+      <ReferendumTeaser count={data?.count ?? null} />
 
       <SystemModules />
-      <DataSources />
+      <DataSources sources={sources} />
       <Methodology />
       <SiteFooter />
     </main>

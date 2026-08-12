@@ -15,15 +15,11 @@ export const OCHRE = "#dfa321";
 export const STEEL = "#77726a";
 export const HAIRLINE = "#d7d3c8";
 
-/** Barva pilíře v grafech — stejné přiřazení drží legenda, posuvníky i sloupce. */
-export const PILLAR_FILL: Record<Pillar["key"], string> = {
-  activity: SIGNAL,
-  attendance: COBALT,
-  independence: INK,
-  integrity: OCHRE,
-};
-
-/** Tailwind bg-* třída pilíře pro DOM (mimo grafy) — drž v sync s PILLAR_FILL. */
+/** Tailwind bg-* třída pilíře pro DOM. Jediný konzument je označená ukázka
+ *  ve velíně (features/dashboard/components/MockRankingLedger.tsx) — čtyři
+ *  mock pilíře na reálných plochách nahradilo šest složek indexu přispění.
+ *  Sesterská mapa `PILLAR_FILL` (hexy pro recharts) zanikla 2026-08-12: po
+ *  odchodu pilířů z grafů ji nečetl nikdo. */
 export const PILLAR_BG: Record<Pillar["key"], string> = {
   activity: "bg-signal",
   attendance: "bg-cobalt",

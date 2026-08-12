@@ -19,6 +19,7 @@ import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import type { WeightVector } from "@/features/civicscore/lens";
 import { PUBLISHED_WEIGHTS_LABEL } from "@/features/civicscore/lens";
 import { useFormat } from "@/lib/i18n/useFormat";
+import type { Claim } from "@/lib/claims/claim";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
 
@@ -28,6 +29,7 @@ export default function LiveSpecimen({
   components,
   total,
   score,
+  claim,
   weights,
   isDefault,
   onSelect,
@@ -42,6 +44,10 @@ export default function LiveSpecimen({
   /** Kolik poslanců index pokrývá (207). */
   total: number;
   score: number;
+  /** Citace ZVEŘEJNĚNÉHO kompozitu (features/civicscore/scoreClaim.ts). Pod
+   *  čtenářovými vahami přichází `undefined` — přepočtené číslo v grafu nikde
+   *  nestojí, takže by nemělo co citovat (totéž pravidlo drží /kraj i žebříček). */
+  claim?: Claim;
   weights: WeightVector;
   isDefault: boolean;
   onSelect: (pspId: number) => void;
@@ -88,6 +94,7 @@ export default function LiveSpecimen({
         <AnimatedScore
           value={score}
           format={f.dec}
+          claim={isDefault ? claim : undefined}
           className={`text-[8rem] font-black leading-[0.85] tracking-tighter sm:text-[10rem] ${
             isDefault ? "text-ink" : "text-cobalt"
           }`}
@@ -133,6 +140,10 @@ export default function LiveSpecimen({
         })}
       </div>
       <SourceNote className="mt-6">{t("specimenSource")}</SourceNote>
+      {/* Zadržená citace se PŘIZNÁVÁ. Číslo pod čtenářovou čočkou nikde v grafu
+          nestojí, takže nemá trvalou adresu — mlčení by čtenáře nechalo hledat
+          citaci, která nikdy nevznikne (táž věta jako na kartě kraje). */}
+      {!isDefault && <SourceNote className="mt-1.5">{t("specimenNoClaim")}</SourceNote>}
     </div>
   );
 }

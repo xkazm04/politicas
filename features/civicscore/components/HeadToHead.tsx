@@ -28,15 +28,30 @@ import { ArrowUpRight } from "lucide-react";
 import type { LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
 import { componentWinner, duelOutcome } from "../duel";
 import { duelFactRows } from "../duelFacts";
+import { contributionScoreClaim } from "../scoreClaim";
+import type { ContributionProvenance } from "../provenance";
 import { tenureClassLabel } from "@/lib/analysis/tenure-copy";
 import { useFormat } from "@/lib/i18n/useFormat";
+import type { Claim } from "@/lib/claims/claim";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
 import SourceNote from "@/features/shared/components/SourceNote";
 import WorkhorseBadge from "./WorkhorseBadge";
 import RapporteurBadge from "./RapporteurBadge";
 import LowScoreReasonChip from "./LowScoreReasonChip";
 
-function Fighter({ row, align, custom }: { row: LeaderboardListEntry; align: "left" | "right"; custom: boolean }) {
+function Fighter({
+  row,
+  align,
+  custom,
+  claim,
+}: {
+  row: LeaderboardListEntry;
+  align: "left" | "right";
+  custom: boolean;
+  /** Citace zveřejněného kompozitu; pod čtenářovou čočkou přichází `undefined`
+   *  (viz pravidlo u ražby níž). */
+  claim?: Claim;
+}) {
   const t = useTranslations("civicscore");
   const f = useFormat();
   const right = align === "right";
@@ -56,10 +71,13 @@ function Fighter({ row, align, custom }: { row: LeaderboardListEntry; align: "le
         {row.clubName.split(" ")[0]} ·{" "}
         {row.tiedCount > 1 ? t("rankShared", { rank: f.int(row.rank) }) : t("rank", { rank: f.int(row.rank) })}
       </div>
-      {/* Kobaltová číslice = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen). */}
+      {/* Kobaltová číslice = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen).
+          A právě proto se ČTENÁŘOVO číslo NERAZÍ jako citace — `claim` k němu
+          nepřijde (týž zákaz jako v LeaderboardTable a na kartě kraje). */}
       <AnimatedScore
         value={row.score}
         format={f.dec}
+        claim={claim}
         className={`mt-2 block text-6xl font-black leading-none tracking-tighter sm:text-7xl ${custom ? "text-cobalt" : ""}`}
       />
       {/* Verdiktová copy VERBATIM z lib/analysis/* — žádný druhý copy engine. */}
@@ -115,6 +133,7 @@ export default function HeadToHead({
   pair,
   components,
   chamber,
+  provenance,
   custom = false,
 }: {
   pair: [LeaderboardListEntry, LeaderboardListEntry] | null;
@@ -122,6 +141,10 @@ export default function HeadToHead({
   /** Celá sněmovna, jak ji stránka už drží — pro SKUTEČNÝ medián u každého faktu.
    *  Prop, ne další čtení storu: souboj nesmí sáhnout do databáze. */
   chamber: readonly LeaderboardListEntry[];
+  /** Komorový agregát `{pass, ref}` — ZÁKLAD citace skóre. Prop ze stránky,
+   *  nikdy druhé čtení: půlkou přepočtená komora nemá jednu provenienci a
+   *  ražba pak základ vynechá (scoreClaim.ts, pravidlo 2). */
+  provenance: ContributionProvenance;
   /** True = položky i váhy jsou čtenářova čočka (otevřený index) — obě pravidla
    *  z ../duel.ts jsou čisté funkce a běží nad libovolnými vahami beze změny;
    *  jen citace musí říct, čí čísla to jsou. Česká kopie inline (messages/*.json
@@ -145,6 +168,12 @@ export default function HeadToHead({
   }
 
   const [a, b] = pair;
+  // Obě čísla souboje se razí TÝMŽ čistým razidlem jako žebříček, spis i karta
+  // kraje (../scoreClaim.ts — importované, nikdy druhá ražba téže figury).
+  // Pod čtenářovou čočkou se citace ZADRŽUJE: přepočtené skóre v grafu nikde
+  // nestojí, takže by adresa vedla k něčemu, co brána nemá proti čemu ověřit.
+  const claimFor = (row: LeaderboardListEntry): Claim | undefined =>
+    custom ? undefined : contributionScoreClaim(row.pspId, row.score, provenance).claim;
   // Nula není náskok. Dřív `diff >= 0 ? a : b` vyhlásilo vítěze i při shodě a
   // vypsalo „vede o 0,0 b" (36 z 21 321 dvojic má shodné skóre). Pravidlo je
   // čistá funkce s testy — viz ../duel.ts.
@@ -164,8 +193,8 @@ export default function HeadToHead({
         transition={{ duration: 0.25 }}
       >
         <div className="grid grid-cols-2 items-end gap-6">
-          <Fighter row={a} align="left" custom={custom} />
-          <Fighter row={b} align="right" custom={custom} />
+          <Fighter row={a} align="left" custom={custom} claim={claimFor(a)} />
+          <Fighter row={b} align="right" custom={custom} claim={claimFor(b)} />
         </div>
         {/* Třída mandátu stojí NAD čísly, protože je jejich podmínkou. */}
         <div className="mt-2 grid grid-cols-2 items-start gap-6">
@@ -289,7 +318,13 @@ export default function HeadToHead({
 
         <div className="mt-4">
           {custom ? (
-            <SourceNote>{t("lensDuelNote")}</SourceNote>
+            // Zadržená citace se PŘIZNÁVÁ — mlčení by čtenáře nechalo hledat
+            // adresu, která nikdy nevznikne. Věta se přebírá VERBATIM z klíče,
+            // který na to zavedla karta kraje (`krajLensNoClaim`): je psaná
+            // obecně o čočce, ne o kraji, a druhá kopie téže věty by se rozešla.
+            <SourceNote>
+              {t("lensDuelNote")} · {t("krajLensNoClaim")}
+            </SourceNote>
           ) : (
             <SourceNote>
               {t("footnote")}
