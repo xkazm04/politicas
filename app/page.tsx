@@ -2,6 +2,8 @@ import LandingPage, { type LandingData } from "@/features/landing/LandingPage";
 import { landingSourceStates } from "@/features/landing/sourceStates";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 import { getAtlasReport } from "@/features/atlas/getAtlasData";
+import { FEED_ENTRIES } from "@/features/denik/deriveDenik";
+import { pragueDay } from "@/features/denik/pragueDay";
 
 /*
  * Titulní strana čte REÁLNÝ graf dvěma nezávislými vrstvami:
@@ -13,6 +15,12 @@ import { getAtlasReport } from "@/features/atlas/getAtlasData";
  *  2. STAV ZDROJŮ — týž atlas kvality jako /atlas (getAtlasReport). Rubrika
  *     „Surový materiál" do 2026-08-12 vypisovala ukázkové kadence z
  *     lib/civic/data.ts; teď nese měřené pokrytí, čerstvost a souhrn.
+ *
+ * Dvě konstanty jdou dolů jako DATA, ne jako funkce: pražský dnešek
+ * (features/denik/pragueDay.ts — rubrika deníku podle něj pozná „dnešní"
+ * zápis; v prohlížeči by to byl UTC den návštěvníka) a strop strojového feedu
+ * deníku, aby rubrika mohla svůj výřez přiznat, aniž by si klient stáhl celý
+ * `deriveDenik`.
  *
  * Obě vrstvy degradují SAMOSTATNĚ: `null` z jedné nezhasne druhou a každá
  * přizná svou nedostupnost vlastní větou. Nikdy se nespadne na ukázková data
@@ -34,5 +42,12 @@ export default async function Home() {
         provenance: data.provenance,
       }
     : null;
-  return <LandingPage data={landing} sources={landingSourceStates(atlas)} />;
+  return (
+    <LandingPage
+      data={landing}
+      sources={landingSourceStates(atlas)}
+      today={pragueDay()}
+      denikFeedCap={FEED_ENTRIES}
+    />
+  );
 }

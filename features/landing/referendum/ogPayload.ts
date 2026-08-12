@@ -25,12 +25,24 @@ import type {
   LeaderboardData,
   LeaderboardListEntry,
 } from "@/features/civicscore/getLeaderboardData";
+import type { ContributionProvenance } from "@/features/civicscore/provenance";
 import { serializeWeights } from "./aggregate";
 
 /** Co karta potřebuje ze žebříčku (podmnožina LeaderboardListData). */
 export interface StandingsInput {
   entries: LeaderboardListEntry[];
   components: LeaderboardData["components"];
+  /**
+   * Komorový agregát `{pass, ref, computedAt}` — KDY byl žebříček spočítán.
+   * Karta samotná ho nepoužívá (`deriveReferendumCard` z něj neodvozuje nic),
+   * ale vestavný widget jím datuje svůj řádek „stav k": do 2026-08-12 tam stál
+   * čas VYSAZENÍ widgetu, tedy `new Date()` route handleru — datum, které se
+   * mění každou vteřinou, zatímco data pod ním jsou stará dávku. Proto je pole
+   * volitelné: je to průvodní list ŽEBŘÍČKU, ne vstup výpočtu karty, a plocha,
+   * která ho nemá, musí umět říct „datum přepočtu neznám" místo aby si ho
+   * vymyslela. `LeaderboardListData` ho nese, takže loader ho předá sám.
+   */
+  provenance?: ContributionProvenance | null;
 }
 
 /** Jeden řádek top žebříčku na kartě. */

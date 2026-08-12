@@ -18,6 +18,11 @@ import { buildEmbedHtml } from "@/features/landing/referendum/embed";
 
 export async function GET(req: NextRequest) {
   const rawVahy = req.nextUrl.searchParams.get(LENS_PARAM);
+  // `LeaderboardListData` nese i komorovou provenienci `{pass, ref, computedAt}`
+  // — tou widget datuje svůj řádek „stav k" (viz embed.ts → statusLine). Dřív
+  // tam stál `generatedAt`, tedy čas vysazení widgetu: každé načtení inzerovalo
+  // dnešek nad daty z dávkového přepočtu. `generatedAt` se posílá dál, ale už
+  // jen jako to, čím je.
   const data = await getLeaderboardListData();
   const { html, status } = buildEmbedHtml({
     data,

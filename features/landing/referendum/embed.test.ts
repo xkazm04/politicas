@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 
 import { componentDefs } from "@/features/civicscore/componentDefs";
 import type { ComponentKey, LeaderboardData, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import type { ContributionProvenance } from "@/features/civicscore/provenance";
 import { LENS_PRESETS } from "@/features/civicscore/lens";
 import { buildEmbedHtml, escapeHtml } from "./embed";
 import { serializeWeights } from "./aggregate";
@@ -47,10 +48,36 @@ function mk(name: string, pspId: number, score: number): LeaderboardListEntry {
   };
 }
 
-const DATA: StandingsInput = {
-  entries: [mk('Zlá <script>alert("x")</script> & spol.', 1, 90), mk("Beneš", 2, 50)],
-  components: COMPONENTS,
+/** Komora, která se shodne na jednom průchodu i jednom dni přepočtu. */
+const UNIFORM: ContributionProvenance = {
+  state: "uniform",
+  pass: 42,
+  ref: "contribution-committee-dedupe",
+  computedAt: "2026-08-04",
+  distinctCount: 1,
+  variants: [{ pass: 42, ref: "contribution-committee-dedupe", count: 2 }],
+  covered: 2,
+  total: 2,
+  declaredRef: "contribution-committee-dedupe",
+  formulaMatch: true,
 };
+
+/** Půlkou přepočtená komora — jeden den ani jeden průchod z ní nevypadne. */
+const MIXED: ContributionProvenance = {
+  ...UNIFORM,
+  state: "mixed",
+  pass: null,
+  ref: null,
+  computedAt: null,
+  distinctCount: 2,
+  variants: [
+    { pass: 42, ref: "contribution-committee-dedupe", count: 1 },
+    { pass: 11, ref: "contribution", count: 1 },
+  ],
+};
+
+const ENTRIES = [mk('Zlá <script>alert("x")</script> & spol.', 1, 90), mk("Beneš", 2, 50)];
+const DATA: StandingsInput = { entries: ENTRIES, components: COMPONENTS, provenance: UNIFORM };
 const BASE = { origin: "https://politicas.example", generatedAt: "2026-07-31T00:00:00.000Z" };
 
 describe("buildEmbedHtml — bezpečnost parametru", () => {
@@ -107,7 +134,7 @@ describe("buildEmbedHtml — poctivé stavy + citace", () => {
     expect(html).toContain("zdroj:");
   });
 
-  it("každý stav nese noindex a datum stavu", () => {
+  it("každý stav nese noindex", () => {
     for (const input of [
       { data: DATA, rawVahy: null },
       { data: DATA, rawVahy: vec },
@@ -116,7 +143,59 @@ describe("buildEmbedHtml — poctivé stavy + citace", () => {
     ]) {
       const { html } = buildEmbedHtml({ ...input, ...BASE });
       expect(html).toContain('name="robots" content="noindex"');
-      expect(html).toContain("stav k 31. 7. 2026");
     }
+  });
+});
+
+// Widget je jediná plocha politicas, která se vykresluje v CIZÍ redakci — a
+// datoval se časem svého vysazení (`new Date()` route handleru), tedy dneškem
+// nad daty z dávkového přepočtu. „Stav k" teď datuje DATA.
+describe("buildEmbedHtml — „stav k“ datuje data, ne vysazení widgetu", () => {
+  const vec = serializeWeights(LENS_PRESETS[0].weights);
+
+  it("uniformní komora: datum přepočtu indexu + průchod, čas vysazení zvlášť a pojmenovaný", () => {
+    for (const rawVahy of [null, vec]) {
+      const { html } = buildEmbedHtml({ data: DATA, rawVahy, ...BASE });
+      expect(html).toContain("stav k 4. 8. 2026");
+      expect(html).toContain("přepočet indexu, průchod č. 42");
+      expect(html).toContain("vysazeno 31. 7. 2026");
+      // Datum vysazení se už nesmí vydávat za stav dat.
+      expect(html).not.toContain("stav k 31. 7. 2026");
+    }
+  });
+
+  it("komora bez jednoho dne přepočtu (mixed) datum nehádá — a ani průchod", () => {
+    const { html } = buildEmbedHtml({ data: { ...DATA, provenance: MIXED }, rawVahy: null, ...BASE });
+    expect(html).toContain("datum přepočtu indexu graf neuvádí jednotně");
+    expect(html).toContain("vysazeno 31. 7. 2026");
+    expect(html).not.toContain("stav k");
+    expect(html).not.toContain("průchod č.");
+  });
+
+  it("chybějící provenience se chová jako neuvedená, ne jako dnešek", () => {
+    const { html } = buildEmbedHtml({
+      data: { entries: ENTRIES, components: COMPONENTS },
+      rawVahy: null,
+      ...BASE,
+    });
+    expect(html).toContain("datum přepočtu indexu graf neuvádí jednotně");
+    expect(html).not.toContain("stav k");
+  });
+
+  it("bez žebříčku i při neplatném vektoru zůstává citace a poctivé datum", () => {
+    for (const input of [
+      { data: null, rawVahy: null },
+      { data: DATA, rawVahy: "smetí" },
+    ]) {
+      const { html } = buildEmbedHtml({ ...input, ...BASE });
+      expect(html).toContain("zdroj:");
+      expect(html).toContain("vysazeno 31. 7. 2026");
+    }
+    // Neplatný vektor nemá s žebříčkem co dělat — datum přepočtu se u něj
+    // vypisuje dál, protože data jsou k dispozici; chybný je parametr.
+    expect(buildEmbedHtml({ data: DATA, rawVahy: "smetí", ...BASE }).html).toContain("stav k 4. 8. 2026");
+    expect(buildEmbedHtml({ data: null, rawVahy: null, ...BASE }).html).toContain(
+      "datum přepočtu indexu graf neuvádí jednotně",
+    );
   });
 });

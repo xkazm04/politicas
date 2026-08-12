@@ -13,11 +13,12 @@
 // důvodu ověřovala živým průchodem). Levné a trvanlivé; precedens je
 // lib/analysis/public-copy.test.ts („source-grep guard, not a runtime check").
 
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const LANDING = "features/landing";
+const SHARED = "features/shared/components";
 
 /** Všechny .tsx zdroje fasády (kořen + components/), cestou od kořene repa. */
 function landingSources(): string[] {
@@ -31,6 +32,49 @@ function landingSources(): string[] {
 }
 
 const MOTION_SOURCES = landingSources().filter((p) => readFileSync(p, "utf8").includes("framer-motion"));
+
+/**
+ * SDÍLENÉ komponenty, které si fasáda IMPORTUJE — a které se tím na titulní
+ * straně vykreslí. Seznam se ODVOZUJE z importů, ne vypisuje: nově importovaná
+ * pohyblivá komponenta z katalogu se tak dostane pod pravidlo sama.
+ *
+ * Proč to sem vůbec patří: `SectionRule` (65 montáží na 20 stranách) preferenci
+ * „méně pohybu" ignoroval půl roku právě proto, že tenhle test končil na hranici
+ * `features/landing/**`. Pravidlo se ale netýká složky, ale toho, co se čtenáři
+ * hýbe před očima.
+ */
+function sharedMotionSourcesUsedByLanding(): string[] {
+  const names = new Set<string>();
+  for (const p of landingSources()) {
+    for (const [, name] of readFileSync(p, "utf8").matchAll(
+      /from "@\/features\/shared\/components\/([A-Za-z0-9_]+)"/g,
+    )) {
+      names.add(name);
+    }
+  }
+  return [...names]
+    .map((n) => join(SHARED, `${n}.tsx`).replace(/\\/g, "/"))
+    .filter((p) => existsSync(p) && readFileSync(p, "utf8").includes("framer-motion"))
+    .sort();
+}
+
+const SHARED_MOTION_SOURCES = sharedMotionSourcesUsedByLanding();
+
+/** Prodlevy a délky zapsané v JSX propu `transition={{ … }}`. Užší záběr než
+ *  u fasády záměrně: `AnimatedScore` hlídá preferenci IMPERATIVNĚ (`if
+ *  (reduceMotion) return` před `animate()`), což grep přes celý soubor vidět
+ *  nemůže — a zeslabit kvůli tomu pravidlo na textovou shodu by z něj udělalo
+ *  ozdobu. Deklarativní přechod, který se dojíždí i při vypnutém pohybu, je
+ *  přitom přesně ta chyba, kvůli které blok vznikl. */
+function jsxTransitionTimings(src: string): string[] {
+  const out: string[] = [];
+  for (const [, body] of src.matchAll(/transition=\{\{([^}]*)\}\}/g)) {
+    for (const [, key, value] of body.matchAll(/\b(delay|duration):\s*([^,}\n]+)/g)) {
+      out.push(`${key}: ${value}`);
+    }
+  }
+  return out;
+}
 
 describe("fasáda respektuje prefers-reduced-motion", () => {
   it("vůbec nějaký pohyb na fasádě je — jinak tenhle test nic nehlídá", () => {
@@ -60,6 +104,31 @@ describe("fasáda respektuje prefers-reduced-motion", () => {
     const src = readFileSync(path, "utf8");
     for (const [, key, value] of src.matchAll(/\b(delay|duration):\s*([^,}\n]+)/g)) {
       expect(value, `${path}: ${key}: ${value}`).toMatch(/reduceMotion/);
+    }
+  });
+});
+
+describe("sdílené komponenty vykreslené fasádou respektují tutéž preferenci", () => {
+  it("nějaká pohyblivá sdílená komponenta se na fasádě vykresluje", () => {
+    expect(SHARED_MOTION_SOURCES.length).toBeGreaterThan(0);
+  });
+
+  it.each(SHARED_MOTION_SOURCES)("%s si preferenci vyžádá (useReducedMotion)", (path) => {
+    const src = readFileSync(path, "utf8");
+    expect(src).toMatch(/import \{[^}]*useReducedMotion[^}]*\} from "framer-motion"/);
+    expect(src).toMatch(/const reduceMotion = useReducedMotion\(\)/);
+  });
+
+  // Platí i pro `whileInView`: bez podmíněného `initial` je to týž náběh, jen
+  // spuštěný scrollem — a právě tak vypadalo pravítko sekce.
+  it.each(SHARED_MOTION_SOURCES)("%s nemá žádný nepodmíněný počáteční stav", (path) => {
+    const ungated = [...readFileSync(path, "utf8").matchAll(/initial=\{\{/g)];
+    expect(ungated, `${path}: initial={{ … }} se přehraje i při prefers-reduced-motion`).toEqual([]);
+  });
+
+  it.each(SHARED_MOTION_SOURCES)("%s nuluje prodlevu i délku deklarativního přechodu", (path) => {
+    for (const timing of jsxTransitionTimings(readFileSync(path, "utf8"))) {
+      expect(timing, `${path}: ${timing}`).toMatch(/reduceMotion/);
     }
   });
 });

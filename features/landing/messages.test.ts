@@ -87,6 +87,31 @@ describe("landing — metoda mluví o šesti složkách, ne o pilířích a verz
   });
 });
 
+// Táž třída tvrzení jako `meta.rootDescription` níž, jen o patro výš: `lead` je
+// PRVNÍ věta produktu (HeroStory) a slibovala „každou korunu veřejných peněz"
+// a „skóre pro každého politika". Loadery měří 207 poslanců 10. období a smlouvy
+// firem, které vlastní nebo řídí — ne rozpočet státu a ne všechny politiky.
+describe("landing.lead — slibuje jen to, co loadery měří", () => {
+  it("netvrdí, že pokrývá každou korunu veřejných peněz", () => {
+    expect(csNs.lead).not.toMatch(/každ(á|ou) korun/i);
+    expect(enNs.lead).not.toMatch(/every crown|every koruna/i);
+  });
+
+  it("netvrdí, že skóruje každého politika — index stojí nad poslanci sněmovny", () => {
+    expect(csNs.lead).not.toMatch(/každého politika|všechny politiky/i);
+    expect(enNs.lead).not.toMatch(/(each|every) politician/i);
+  });
+
+  it("pojmenuje index přispění a období, které loader skutečně čte", () => {
+    expect(csNs.lead).toMatch(/index[uů]? přispění/i);
+    expect(csNs.lead).toMatch(/10\. období/);
+    expect(csNs.lead).not.toMatch(/9\. období/);
+    expect(enNs.lead).toMatch(/contribution index/i);
+    expect(enNs.lead).toMatch(/10th term/);
+    expect(enNs.lead).not.toMatch(/9th term/);
+  });
+});
+
 describe("meta.rootDescription — index přispění nad 207 poslanci, ne „index efektivity“", () => {
   const cs: string = csCatalog.meta.rootDescription;
   const en: string = enCatalog.meta.rootDescription;

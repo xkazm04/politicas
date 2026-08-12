@@ -8,6 +8,17 @@
  * nad vzorkem, takže rubrika čte feed až v prohlížeči — a všechny tři stavy
  * (načítám / prázdné / nečitelné) říká poctivě, nikdy nefabuluje.
  * Copy česky přímo zde (messages/*.json je mimo plochu 3A — precedens /dukazy).
+ *
+ * DVA ÚDAJE PŘICHÁZEJÍ ZE SERVERU JAKO DATA (2026-08-12):
+ *  · `today` — pražský dnešek. Rubrika ho dřív brala z
+ *    `new Date().toISOString()`, tedy z UTC dne PROHLÍŽEČE: mezi půlnocí a
+ *    01:00/02:00 běží pražský den napřed, takže zápis pořízený „dnes" se
+ *    ukazoval jako „poslední zápis". Přesně kvůli téhle třídě chyb vznikl
+ *    features/denik/pragueDay.ts a jeho pravidlo zní: počítat na serveru,
+ *    předat jako data (nikdy jako funkci).
+ *  · `feedCap` — FEED_ENTRIES, strop strojového feedu. Počet zápisů dne je
+ *    počet ve FEEDU, ne za celý den; strop se proto přiznává vedle čísla.
+ *    Konstanta jde propem, aby si klient netáhl celý `deriveDenik`.
  */
 
 import { useEffect, useState } from "react";
@@ -32,7 +43,7 @@ type TeaserState =
   | { kind: "empty" }
   | { kind: "day"; day: TeaserDay; isToday: boolean };
 
-export default function DenikTeaser() {
+export default function DenikTeaser({ today, feedCap }: { today: string; feedCap: number }) {
   const f = useFormat();
   const [state, setState] = useState<TeaserState>({ kind: "loading" });
 
@@ -55,7 +66,8 @@ export default function DenikTeaser() {
         setState({
           kind: "day",
           day: { date, count: dayItems.length, titles: dayItems.slice(0, 3).map((it) => it.title) },
-          isToday: date === new Date().toISOString().slice(0, 10),
+          // Pražský den ze SERVERU (viz hlavička) — ne UTC den prohlížeče.
+          isToday: date === today,
         });
       })
       .catch((err) => {
@@ -65,7 +77,7 @@ export default function DenikTeaser() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [today]);
 
   return (
     <section aria-label="Dnešní zápis" className="border-t-4 border-ink">
@@ -109,7 +121,13 @@ export default function DenikTeaser() {
         {state.kind === "day" && (
           <div className="mt-4 max-w-2xl">
             <p className="font-mono text-sm font-bold uppercase tracking-widest">
-              {f.date(state.day.date)} · zápisů: {f.int(state.day.count)}
+              {f.date(state.day.date)} · zápisů ve feedu: {f.int(state.day.count)}
+            </p>
+            {/* Číslo je počet ve FEEDU, ne za celý den — strop se přiznává
+                vedle něj, ne až v komentáři ve zdrojáku. */}
+            <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
+              feed nese {f.int(feedCap)} nejnovějších zápisů — delší den je tu neúplný a celý ho
+              drží /denik
             </p>
             <ul className="mt-3 list-none space-y-1 border-l-4 border-ink pl-4">
               {state.day.titles.map((t) => (
@@ -127,7 +145,12 @@ export default function DenikTeaser() {
         )}
 
         <div className="mt-4">
-          <SourceNote>zdroj: /denik/feed.json — deník republiky (registr smluv + ares + psp.cz + review_audit)</SourceNote>
+          {/* Čtyři vrstvy deníku, ne tři: `change_event` („zaznamenáno" — diff
+              snímků ingestů) je samostatný pramen a citace ho vynechávala. */}
+          <SourceNote>
+            zdroj: /denik/feed.json — deník republiky (registr smluv + ares + psp.cz + change_event +
+            review_audit)
+          </SourceNote>
         </div>
       </div>
     </section>

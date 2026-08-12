@@ -18,6 +18,7 @@
  */
 
 import { useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { ComponentDef, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
@@ -39,13 +40,26 @@ import SiteHeader from "./components/SiteHeader";
 import HeroStory from "./components/HeroStory";
 import LiveSpecimen from "./components/LiveSpecimen";
 import Standings from "./components/Standings";
-import ScoreBreakdown from "./components/ScoreBreakdown";
 import DenikTeaser from "./components/DenikTeaser";
 import ReferendumTeaser from "./components/ReferendumTeaser";
 import SystemModules from "./components/SystemModules";
 import DataSources from "./components/DataSources";
 import Methodology from "./components/Methodology";
 import SiteFooter from "./components/SiteFooter";
+
+/*
+ * Skládaný rozklad skóre je JEDINÁ plocha fasády, která kreslí recharts —
+ * a vykreslí se jen tehdy, když je store dostupný (`data && mp`). Statickým
+ * importem přesto celá knihovna vstupovala do PRVNÍHO NAČTENÍ titulní strany
+ * (změřeno 401 838 B syrově / 116 667 B gz = 27 % first-loadu), tedy i každému
+ * čtenáři, kterému graf nikdy nenaběhne.
+ *
+ * `next/dynamic` BEZ `ssr: false` — doktrína repa (/penize, /zakony,
+ * /dashboard): fallback i tenhle graf se dál renderují na serveru, mění se jen
+ * to, co musí prohlížeč rozparsovat, než stránka ožije. Poctivá mez: recharts
+ * se tím nemaže, jen odchází z kritické cesty.
+ */
+const ScoreBreakdown = dynamic(() => import("./components/ScoreBreakdown"));
 
 /** Co titulní strana skutečně vykreslí — server ji sestaví z loaderu /zebricek. */
 export interface LandingData {
@@ -81,11 +95,25 @@ function lensScore(e: LeaderboardListEntry, weights: WeightVector): number {
 export default function LandingPage({
   data,
   sources,
+  today,
+  denikFeedCap,
 }: {
   data: LandingData | null;
   /** Měřený stav zdrojů z atlasu kvality; `null` = atlas nečitelný. Degraduje
    *  NEZÁVISLE na žebříčku — dvě vrstvy, dvě čtení, dvě přiznání. */
   sources: LandingSourceState[] | null;
+  /**
+   * Dnešek v PRAZE (`YYYY-MM-DD`), spočítaný na serveru a přenesený jako DATA —
+   * nikdy jako funkce. Rubrika deníku z něj pozná „dnešní" zápis; `new Date()`
+   * v prohlížeči by tu byl UTC den návštěvníka, tedy přesně ta chyba, kvůli
+   * které vznikl features/denik/pragueDay.ts (mezi půlnocí a 01:00/02:00 běží
+   * pražský den o den napřed).
+   */
+  today: string;
+  /** Kolik nejnovějších zápisů nese strojový feed deníku (FEED_ENTRIES) —
+   *  konstanta ze serveru, aby rubrika mohla svůj strop přiznat a přitom se do
+   *  klientského balíku netáhl celý `deriveDenik`. */
+  denikFeedCap: number;
 }) {
   const t = useTranslations("landing");
 
@@ -191,7 +219,7 @@ export default function LandingPage({
       </section>
 
       {/* ── Dnešní zápis — rubrika Deníku republiky (moonshot 3A) ── */}
-      <DenikTeaser />
+      <DenikTeaser today={today} feedCap={denikFeedCap} />
 
       {/* ── Referendum o metodice — tři redakční čočky (moonshot 7B) ── */}
       <ReferendumTeaser count={data?.count ?? null} />

@@ -156,9 +156,15 @@ export default function ReferendumPage({
           <h1 className="mt-3 text-5xl font-black uppercase leading-[0.95] tracking-tight sm:text-6xl">
             Kolik váží dobrý poslanec<span className="text-signal">?</span>
           </h1>
+          {/* Počet poslanců se vypisuje JEN nad skutečným žebříčkem. Tenhle
+              odstavec stojí nad větví `data === null` níž, takže literál „207"
+              v ní vykresloval komorové číslo i nad zhasnutým grafem — na
+              stránce, jejíž degradovaný stav o dvě obrazovky níž říká, že
+              referendum nikdy neukazuje náhradní čísla. */}
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
             Index přispění stojí na šesti zveřejněných vahách. Tady je můžete přepsat: nastavte
-            vlastní priority, žebříček všech {f.int(data?.entries.length ?? 207)} poslanců se
+            vlastní priority, žebříček{" "}
+            {data ? `všech ${f.int(data.entries.length)} poslanců` : "sněmovny"} se
             přepočítá pod vaší čočkou a odkaz ji ponese s sebou — i s kartou pro sociální sítě a
             vestavným widgetem pro každou redakci. A když svůj vektor odevzdáte, přibude do
             anonymního agregátu „jak váží Česko“ vedle zveřejněné metodiky.

@@ -29,8 +29,12 @@ export async function generateMetadata({ searchParams }: SearchParams): Promise<
     title: vector
       ? `Referendum o metodice — váhy ${vector} — Politicas`
       : "Referendum o metodice — Politicas",
+    // Popis se generuje i tehdy, když je znalostní graf nedostupný — počet
+    // poslanců tu tedy nemá odkud vzniknout a hádat se nebude. „207" tu stálo
+    // jako literál, tedy jako tvrzení o komoře, které tahle funkce nikdy
+    // nečetla (loader zná jen `getReferendumData()` v samotné routě).
     description: vector
-      ? `Žebříček 207 poslanců přepočtený čtenářskou čočkou ${vector} nad šesti zveřejněnými složkami indexu přispění (psp.cz, deterministický výpočet). Odkaz nese metodiku v sobě.`
+      ? `Žebříček sněmovny přepočtený čtenářskou čočkou ${vector} nad šesti zveřejněnými složkami indexu přispění (psp.cz, deterministický výpočet). Odkaz nese metodiku v sobě.`
       : "Nastavte si vlastní váhy šesti složek indexu přispění, přepočtěte žebříček sněmovny pod svou čočkou a odevzdejte anonymní hlas do agregátu „jak váží Česko“ vedle zveřejněné metodiky.",
     openGraph: {
       images: [{ url: vector ? `/referendum/og?${LENS_PARAM}=${vector}` : "/referendum/og", width: 1200, height: 630 }],

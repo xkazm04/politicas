@@ -75,9 +75,31 @@ function shell(body: string, title: string): string {
 </html>`;
 }
 
-function footer(origin: string, href: string, generatedAt: string): string {
+/**
+ * ŘÁDEK „STAV K" DATUJE DATA, NE VYSAZENÍ WIDGETU.
+ *
+ * Do 2026-08-12 tu stálo `czechDate(generatedAt)`, tedy `new Date()` route
+ * handleru: každé načtení widgetu inzerovalo dnešek nad žebříčkem, který je
+ * artefakt dávkového přepočtu — čtenář dostal čerstvost, kterou data nemají.
+ * Datum přepočtu je `contribution_provenance.computedAt` a agregát ho vydá jen
+ * tehdy, když se na jednom dni shodne CELÁ komora nad jedním `{pass, ref}`
+ * (features/civicscore/provenance.ts). Když se neshodne — půlkou přepočtená
+ * komora, chybějící razítko, nedostupný žebříček — widget to řekne a datum
+ * nehádá. Čas vysazení zůstává vedle, pojmenovaný jako to, čím je.
+ */
+function statusLine(data: StandingsInput | null, generatedAt: string): string {
+  const prov = data?.provenance ?? null;
+  const rendered = `vysazeno ${czechDate(generatedAt)}`;
+  if (!prov || prov.computedAt === null) {
+    return `datum přepočtu indexu graf neuvádí jednotně · ${rendered}`;
+  }
+  const pass = prov.pass !== null ? `, průchod č. ${czechInt(prov.pass)}` : "";
+  return `stav k ${czechDate(prov.computedAt)} (přepočet indexu${pass}) · ${rendered}`;
+}
+
+function footer(origin: string, href: string, status: string): string {
   const url = `${origin}${href}`;
-  return `<div class="foot">zdroj: <a href="${escapeHtml(url)}" target="_blank" rel="noopener">politicas — otevřený index přispění</a> · psp.cz, deterministický výpočet · stav k ${escapeHtml(czechDate(generatedAt))}</div>`;
+  return `<div class="foot">zdroj: <a href="${escapeHtml(url)}" target="_blank" rel="noopener">politicas — otevřený index přispění</a> · psp.cz, deterministický výpočet · ${escapeHtml(status)}</div>`;
 }
 
 /**
@@ -96,6 +118,7 @@ export function buildEmbedHtml(input: {
   const { data, rawVahy, origin, generatedAt } = input;
   const rows = Math.max(3, Math.min(25, input.rows ?? 10));
   const card = deriveReferendumCard(data, rawVahy, rows);
+  const status = statusLine(data, generatedAt);
 
   if (card.kind === "invalid") {
     // Surový parametr se záměrně NEOTISKUJE — ani escapovaný (adresa je
@@ -103,7 +126,7 @@ export function buildEmbedHtml(input: {
     const body = `<div class="w">
 <div class="head"><div><div class="kicker">politicas / vestavný žebříček</div><h1>Neplatné váhy</h1></div></div>
 <div class="err"><b>chyba parametru.</b> Parametr <code>vahy</code> nesplňuje kodek čočky — šest celých čísel 0–100 oddělených pomlčkou (např. 40-5-10-5-35-5). Nic se tiše neopravuje.</div>
-${footer(origin, "/referendum", generatedAt)}
+${footer(origin, "/referendum", status)}
 </div>`;
     return { html: shell(body, "politicas — neplatné váhy"), status: 400 };
   }
@@ -112,7 +135,7 @@ ${footer(origin, "/referendum", generatedAt)}
     const body = `<div class="w">
 <div class="head"><div><div class="kicker">politicas / vestavný žebříček</div><h1>Záznam teď není k dispozici</h1></div></div>
 <div class="err">Žebříček se nepodařilo načíst ze znalostního grafu — widget nikdy neukazuje náhradní čísla.</div>
-${footer(origin, "/zebricek", generatedAt)}
+${footer(origin, "/zebricek", status)}
 </div>`;
     return { html: shell(body, "politicas — žebříček nedostupný"), status: 200 };
   }
@@ -138,7 +161,7 @@ ${footer(origin, "/zebricek", generatedAt)}
 </div>
 ${lensStrip}
 <table>${trs}</table>
-${footer(origin, href, generatedAt)}
+${footer(origin, href, status)}
 </div>`;
   return { html: shell(body, title), status: 200 };
 }
