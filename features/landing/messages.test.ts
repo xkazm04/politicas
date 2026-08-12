@@ -20,6 +20,7 @@
 import { describe, expect, it } from "vitest";
 
 import { looksEnglish } from "@/lib/analysis/language-gate";
+import { LENS_PRESET_COPY_KEYS } from "@/features/civicscore/lens";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 
@@ -41,6 +42,25 @@ const enKeys = Object.keys(enNs).sort();
 /** `{name}` / `{count}` placeholdery, které řetězec deklaruje, jako setříděná množina. */
 function placeholders(s: string): string[] {
   return [...new Set([...s.matchAll(/\{(\w+)[^}]*\}/g)].map((m) => m[1]))].sort();
+}
+
+/**
+ * Věta bez ICU značkování — to, co čtenář uvidí, zbavené `{n, plural, one {…}}`.
+ *
+ * Jazyková brána nad ICU pluralem selhává ze své podstaty: `plural`, `one`,
+ * `few`, `other` jsou anglická klíčová slova ICU, ne copy, a klasifikátor
+ * `looksEnglish` je počítá jako anglická slova (týž důvod, proč /zebricek
+ * vyjímá ICU značkování a citační klíče). Odstraňují se proto obě vrstvy:
+ * nejdřív placeholdery, pak obaly, které po nich zbudou.
+ */
+function prose(s: string): string {
+  let out = s;
+  for (let i = 0; i < 5; i++) {
+    const next = out.replace(/\{[^{}]*\}/g, " ");
+    if (next === out) break;
+    out = next;
+  }
+  return out.replace(/\b(plural|select|selectordinal|zero|one|two|few|many|other)\b/g, " ");
 }
 
 describe("landing message catalog", () => {
@@ -193,5 +213,217 @@ describe("landing — rubrika Surový materiál je česky a přiznává nehodnoc
   it("titulek rubriky už netvrdí, že jsou zdroje ověřené — tvrdí, že jsou změřené", () => {
     expect(csNs.sourcesCaption).not.toMatch(/ověřen/i);
     expect(enNs.sourcesCaption).not.toMatch(/verified/i);
+  });
+});
+
+/* ── fasáda mluví oběma jazyky HNED ────────────────────────────────────────
+ * Dvě rubriky titulní strany vznikly s poznámkou „copy česky přímo zde
+ * (messages/*.json mimo plochu)". Ta dočasná výjimka přežila obě dávky, kvůli
+ * kterým vznikla, takže anglický čtenář dostal na PRVNÍ stránce produktu
+ * pětatřicet českých vět — včetně `aria-label`ů, které mu nikdo nepřečte
+ * jinak. Jména klíčů jsou kontrakt mezi komponentou a katalogem: překlep se
+ * projeví syrovým klíčem uprostřed rubriky. */
+describe("landing.denik — rubrika deníku mluví z katalogu", () => {
+  const KEYS = [
+    "regionLabel",
+    "eyebrowToday",
+    "eyebrowLatest",
+    "title",
+    "readLink",
+    "loading",
+    "unavailable",
+    "empty",
+    "dayLine",
+    "feedCapNote",
+    "moreInDenik",
+    "source",
+  ].map((k) => `denik.${k}`);
+
+  it("každý klíč existuje v obou katalozích a je přeložený", () => {
+    for (const k of KEYS) {
+      expect(csNs[k], `cs.${k}`).toBeTruthy();
+      expect(enNs[k], `en.${k}`).toBeTruthy();
+      expect(csNs[k], `${k} neni prelozeny`).not.toEqual(enNs[k]);
+    }
+  });
+
+  it("česká věta rubriky projde jazykovou branou", () => {
+    for (const k of KEYS) expect(looksEnglish(csNs[k]), `cs.${k}`).toBe(false);
+  });
+
+  it("nedostupné, prázdné a načítá se jsou TŘI různé věty", () => {
+    for (const ns of [csNs, enNs]) {
+      const said = new Set([ns["denik.unavailable"], ns["denik.empty"], ns["denik.loading"]]);
+      expect(said.size).toBe(3);
+    }
+  });
+
+  it("čísla dne i strop feedu jsou argumenty, ne vysázené hodnoty", () => {
+    for (const ns of [csNs, enNs]) {
+      expect(placeholders(ns["denik.dayLine"])).toEqual(["countFmt", "date"]);
+      expect(placeholders(ns["denik.feedCapNote"])).toEqual(["capFmt"]);
+    }
+  });
+
+  it("citace pojmenuje všechny čtyři vrstvy deníku, ne tři", () => {
+    for (const token of ["registr smluv", "ares", "psp.cz", "change_event", "review_audit"]) {
+      expect(csNs["denik.source"].toLowerCase(), token).toContain(token);
+    }
+    // A ukazuje na to, co se ČTE: rubrika už nesahá na /denik/feed.json.
+    expect(csNs["denik.source"]).not.toContain("/denik/feed.json");
+    expect(enNs["denik.source"]).not.toContain("/denik/feed.json");
+  });
+});
+
+describe("landing.referendum — rubrika čoček mluví z katalogu", () => {
+  const KEYS = [
+    "regionLabel",
+    "eyebrow",
+    "title",
+    "weightsSource",
+    "leadWeights",
+    "leadReweighCount",
+    "leadReweighNoCount",
+    "leadPresets",
+    "openLens",
+    "presetsSource",
+    "cta",
+  ].map((k) => `referendum.${k}`);
+
+  const SHORT = [
+    "participation",
+    "committee",
+    "legislative",
+    "speech",
+    "attendance",
+    "leadership",
+  ].map((k) => `referendum.short.${k}`);
+
+  it("každý klíč existuje v obou katalozích a je přeložený", () => {
+    for (const k of [...KEYS, ...SHORT]) {
+      expect(csNs[k], `cs.${k}`).toBeTruthy();
+      expect(enNs[k], `en.${k}`).toBeTruthy();
+      expect(csNs[k], `${k} neni prelozeny`).not.toEqual(enNs[k]);
+    }
+  });
+
+  it("česká věta rubriky projde jazykovou branou", () => {
+    for (const k of KEYS) expect(looksEnglish(prose(csNs[k])), `cs.${k}`).toBe(false);
+  });
+
+  it("pokrytí se tvrdí jen tam, kde je známé — a jinak vůbec", () => {
+    for (const ns of [csNs, enNs]) {
+      expect(placeholders(ns["referendum.leadReweighCount"])).toEqual(["count"]);
+      expect(placeholders(ns["referendum.leadReweighNoCount"])).toEqual([]);
+    }
+  });
+
+  it("počet redakčních ukázek je ICU plural nad délkou pole, ne přepsané slovo", () => {
+    // „Tři redakční ukázky" byl literál nad `LENS_PRESETS`, které si svou délku
+    // nese samo — čtvrtá čočka by z věty udělala lež.
+    for (const ns of [csNs, enNs]) {
+      expect(placeholders(ns["referendum.leadPresets"])).toEqual(["n", "nFmt"]);
+      expect(ns["referendum.leadPresets"]).toMatch(/\{n, plural,/);
+    }
+    expect(csNs["referendum.leadPresets"]).not.toMatch(/\bTři\b/);
+    expect(enNs["referendum.leadPresets"]).not.toMatch(/\bThree\b/);
+  });
+
+  it("zveřejněný vektor vah zůstává argumentem, ne přepsaným číslem", () => {
+    for (const ns of [csNs, enNs]) {
+      expect(placeholders(ns["referendum.weightsSource"])).toEqual(["weights"]);
+      expect(ns["referendum.weightsSource"]).not.toMatch(/\d+-\d+-\d+/);
+    }
+  });
+});
+
+/* Čočky bydlí v `civicscore.lensPreset.*`, protože je to metodika žebříčku, ne
+ * rubrika fasády — ale vykresluje je fasáda i panel vah, takže se pin drží tady
+ * u toho, kdo je čte první. Seznam klíčů se BERE Z MODULU (LENS_PRESET_COPY_KEYS),
+ * takže nová čočka bez copy neprojde, aniž by na test kdokoli sáhl. */
+describe("civicscore.lensPreset — čočky vydávají klíče, ne české věty", () => {
+  const cs = flatten(csCatalog.civicscore);
+  const en = flatten(enCatalog.civicscore);
+
+  it("každý klíč, který lens.ts umí vydat, katalog nese v obou jazycích", () => {
+    expect(LENS_PRESET_COPY_KEYS.length).toBe(6);
+    for (const k of LENS_PRESET_COPY_KEYS) {
+      expect(cs[k], `cs.${k}`).toBeTruthy();
+      expect(en[k], `en.${k}`).toBeTruthy();
+      expect(cs[k], `${k} neni prelozeny`).not.toEqual(en[k]);
+    }
+  });
+
+  it("česká copy čoček projde jazykovou branou", () => {
+    for (const k of LENS_PRESET_COPY_KEYS) expect(looksEnglish(cs[k]), `cs.${k}`).toBe(false);
+  });
+});
+
+/* ── dvě falzifikovatelná tvrzení fasády ──────────────────────────────────── */
+describe("landing — fasáda netvrdí víc, než čím graf a repozitář disponují", () => {
+  // Repozitář je starý dvacet dní. „Postaveno a otestováno celý volební cyklus
+  // předtím, než na tom bude záležet" je vymyšlená minulost — a to na stránce,
+  // jejíž nadpis zní „Žádná černá skříňka".
+  const TRACK_RECORD =
+    /otestován\w*\s+celý\s+volebn|celý volební cyklus|léty prověřen|osvědčil\s+se|tested\s+(over|through|for)?\s*(a|an|the)?\s*(full|entire|whole)\s*(election\s+)?cycle|battle[- ]tested|proven\s+over\s+(years|cycles)/i;
+
+  it("žádný klíč fasády neslibuje odzkoušení přes celý volební cyklus", () => {
+    expect(csNs.methodBody, "cs.methodBody tvrdi proverenou minulost").not.toMatch(TRACK_RECORD);
+    expect(enNs.methodBody, "en.methodBody claims a tested track record").not.toMatch(TRACK_RECORD);
+    for (const ns of [csNs, enNs]) {
+      for (const [k, v] of Object.entries(ns)) {
+        expect(v, `${k} tvrdi proverenou minulost`).not.toMatch(TRACK_RECORD);
+      }
+    }
+  });
+
+  it("pravidlo je falzifikovatelné — na retirované větě opravdu chytne", () => {
+    expect(
+      "Postaveno a otestováno celý volební cyklus předtím, než na tom bude záležet.",
+    ).toMatch(TRACK_RECORD);
+    expect("Built and tested a full election cycle before it matters.").toMatch(TRACK_RECORD);
+  });
+
+  it("methodBody dál pojmenuje šest složek a zůstane bez pilířů a verzí", () => {
+    expect(csNs.methodBody).toMatch(/šest/i);
+    expect(enNs.methodBody).toMatch(/six/i);
+    expect(csNs.methodBody).not.toMatch(/pilíř|verzovan/i);
+    expect(enNs.methodBody).not.toMatch(/pillar|versioned/i);
+  });
+
+  it("joinKeyDesc tvrdí jen ty spoje, které graf na IČO skutečně drží", () => {
+    // Graf spojuje přes IČO firmu s jejími SMLOUVAMI (hrany `supplies`); dotace
+    // a dary jsou SOUČTY na uzlu firmy (`subsidies_total_czk`,
+    // `donated_to_party_czk` — kg-money.ts, Hlídač ⋈ ARES), ne jednotlivé
+    // záznamy, na které by šlo prokliknout. Věta slibovala čtyři rovnocenné
+    // spoje („firmu ↔ smlouvu ↔ dotaci ↔ dar").
+    expect(csNs.joinKeyDesc).not.toMatch(/↔\s*dotaci\s*↔/);
+    expect(enNs.joinKeyDesc).not.toMatch(/↔\s*subsidy\s*↔/);
+    expect(csNs.joinKeyDesc).toMatch(/součet|souhrn/i);
+    expect(enNs.joinKeyDesc).toMatch(/total/i);
+  });
+
+  it("popis modulu peněz mluví o dotacích stejně jako klíčová věta vedle", () => {
+    const cs: string = flatten(csCatalog.content)["modules.follow-the-money.description"];
+    const en: string = flatten(enCatalog.content)["modules.follow-the-money.description"];
+    expect(cs).toMatch(/součet|souhrn/i);
+    expect(en).toMatch(/total/i);
+    expect(cs).not.toMatch(/zakázky a dotace dohledané/);
+    expect(en).not.toMatch(/contracts and subsidies traced/);
+  });
+
+  it("mrtvý klíč `feeds` je pryč z obou katalogů", () => {
+    // Deset řetězců bez jediného volajícího; `dataReleases.feeds.*` je jiná,
+    // živá věc a zůstává.
+    const cs = flatten(csCatalog.content);
+    const en = flatten(enCatalog.content);
+    for (const m of ["civic-score", "vote-track", "follow-the-money", "budget-mirror", "law-watch"]) {
+      expect(cs[`modules.${m}.feeds`], `cs.modules.${m}.feeds`).toBeUndefined();
+      expect(en[`modules.${m}.feeds`], `en.modules.${m}.feeds`).toBeUndefined();
+      // …a to, co se vykresluje, zůstalo.
+      expect(cs[`modules.${m}.tag`], `cs.modules.${m}.tag`).toBeTruthy();
+      expect(cs[`modules.${m}.description`], `cs.modules.${m}.description`).toBeTruthy();
+    }
+    expect(flatten(csCatalog.dataReleases)["feeds.title"], "dataReleases.feeds is live").toBeTruthy();
   });
 });

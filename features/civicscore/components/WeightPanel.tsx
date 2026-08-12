@@ -132,13 +132,16 @@ export default function WeightPanel({
                   key={p.id}
                   type="button"
                   onClick={() => setAll({ ...p.weights })}
-                  title={p.note}
+                  /* Štítek i poznámka čočky jsou KLÍČE (lens.ts) — do 2026-08-12
+                     tu stály jako české řetězce v čistém modulu a anglický
+                     čtenář je dostal česky. */
+                  title={t(p.noteKey)}
                   aria-pressed={active}
                   className={`border-2 px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-colors ${
                     active ? "border-cobalt bg-cobalt text-paper" : "border-hairline text-steel-aa hover:text-ink"
                   }`}
                 >
-                  {p.label}
+                  {t(p.labelKey)}
                 </button>
               );
             })}

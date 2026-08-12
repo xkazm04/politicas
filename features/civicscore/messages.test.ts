@@ -14,8 +14,23 @@ import { WORKHORSE_COPY_KEYS } from "@/lib/analysis/workhorse-flavour";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 
-const csNs: Record<string, string> = csCatalog.civicscore;
-const enNs: Record<string, string> = enCatalog.civicscore;
+/** Namespace jako PLOCHÉ klíče (`lensPreset.dochazka.label` → jeden řetězec).
+ *  Do 2026-08-12 se tu iterovalo přímo přes `Object.entries`, což platilo jen
+ *  proto, že `civicscore.*` neneslo jediný vnořený objekt — první vnoření
+ *  (štítky ukázkových čoček) by všechna tvarová pravidla níž tiše obešlo,
+ *  protože `.toMatch()` nad objektem není nález, ale výjimka. */
+function flatten(ns: Record<string, unknown>, prefix = ""): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(ns)) {
+    const key = prefix ? `${prefix}.${k}` : k;
+    if (typeof v === "string") out[key] = v;
+    else if (v && typeof v === "object") Object.assign(out, flatten(v as Record<string, unknown>, key));
+  }
+  return out;
+}
+
+const csNs: Record<string, string> = flatten(csCatalog.civicscore);
+const enNs: Record<string, string> = flatten(enCatalog.civicscore);
 const csKeys = Object.keys(csNs).sort();
 const enKeys = Object.keys(enNs).sort();
 

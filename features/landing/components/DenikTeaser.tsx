@@ -1,101 +1,81 @@
-"use client";
-
 /**
  * Dnešní zápis — kompaktní rubrika titulní strany (moonshot 3A, teaser only).
- * Čte veřejný strojový feed /denik/feed.json (týž formát jako Deník důkazů —
- * validátor `parseEvidenceFeedJson` je sdílený) a ukáže poslední zapsaný den:
- * datum, počet zápisů a první řádky. Titulní strana je klientská komponenta
- * nad vzorkem, takže rubrika čte feed až v prohlížeči — a všechny tři stavy
- * (načítám / prázdné / nečitelné) říká poctivě, nikdy nefabuluje.
- * Copy česky přímo zde (messages/*.json je mimo plochu 3A — precedens /dukazy).
+ * Ukáže poslední zapsaný den Deníku republiky: datum, počet zápisů ve feedovém
+ * výřezu a první řádky.
  *
- * DVA ÚDAJE PŘICHÁZEJÍ ZE SERVERU JAKO DATA (2026-08-12):
- *  · `today` — pražský dnešek. Rubrika ho dřív brala z
- *    `new Date().toISOString()`, tedy z UTC dne PROHLÍŽEČE: mezi půlnocí a
- *    01:00/02:00 běží pražský den napřed, takže zápis pořízený „dnes" se
- *    ukazoval jako „poslední zápis". Přesně kvůli téhle třídě chyb vznikl
- *    features/denik/pragueDay.ts a jeho pravidlo zní: počítat na serveru,
- *    předat jako data (nikdy jako funkci).
- *  · `feedCap` — FEED_ENTRIES, strop strojového feedu. Počet zápisů dne je
- *    počet ve FEEDU, ne za celý den; strop se proto přiznává vedle čísla.
- *    Konstanta jde propem, aby si klient netáhl celý `deriveDenik`.
+ * ── SERVEROVÁ, A PROTO BEZ PROBLIKNUTÍ (2026-08-12) ──────────────────────────
+ * Do teď to byl klientský komponent, který si po hydrataci sám stáhl
+ * `/denik/feed.json` (~58 kB, `force-dynamic`) a do té doby vypisoval „Zápis se
+ * načítá…". Čtenář tedy platil druhý kompletní běh loaderu deníku V PROHLÍŽEČI
+ * za data, která server drží. Teď je rubrika ČISTĚ VYKRESLOVACÍ: odečet dělá
+ * server (DenikSlot.tsx) uvnitř `<Suspense>`, skořápka stránky odchází hned a
+ * rubrika dopluje. Žádný `useEffect`, žádný fetch, žádná klientská hranice —
+ * a všechny tři poctivé stavy (nedostupné / prázdné / den) zůstávají.
+ *
+ * DVA ÚDAJE DÁL PŘICHÁZEJÍ ZE SERVERU JAKO DATA:
+ *  · pražský dnešek (features/denik/pragueDay.ts) — podle něj se pozná, jestli
+ *    je poslední zápis „dnešní"; UTC den prohlížeče byl přesně ta chyba, kvůli
+ *    které ten modul vznikl. Rozhodnutí padne v DenikSlotu, sem doteče jako
+ *    `isToday`;
+ *  · `feedCap` — FEED_ENTRIES, strop strojového výřezu. Počet zápisů dne je
+ *    počet V TOM VÝŘEZU, ne za celý den, a strop se přiznává vedle čísla.
+ *
+ * Copy jde z katalogu (`landing.denik.*`) — hlídá features/landing/hardcodedCopy.test.ts.
  */
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { parseEvidenceFeedJson } from "@/features/dukazy/feedCodecs";
-import { useFormat } from "@/lib/i18n/useFormat";
+import { landingIntl } from "../serverIntl";
 
-interface TeaserDay {
-  /** `YYYY-MM-DD` posledního zapsaného dne. */
-  date: string;
-  /** Kolik zápisů ten den nese (ve feedu, seříznutém na FEED_ENTRIES). */
-  count: number;
-  /** První řádky dne — brankované věty záznamů. */
-  titles: string[];
+/** Jeden řádek dne — věta deníku už PŘELOŽENÁ (klíč + parametry řeší slot). */
+export interface TeaserTitle {
+  /** Deterministické id záznamu — veřejná adresa řádku ve feedu, tedy i React key. */
+  id: string;
+  text: string;
 }
 
-type TeaserState =
-  | { kind: "loading" }
+export interface TeaserDay {
+  /** `YYYY-MM-DD` posledního zapsaného dne. */
+  date: string;
+  /** Kolik zápisů ten den nese ve výřezu seříznutém na FEED_ENTRIES. */
+  count: number;
+  /** První řádky dne. */
+  titles: TeaserTitle[];
+}
+
+/** Co rubrika umí vyslovit. Tři stavy, každý s vlastní větou — nikdy ticho. */
+export type TeaserState =
   | { kind: "unavailable" }
   | { kind: "empty" }
   | { kind: "day"; day: TeaserDay; isToday: boolean };
 
-export default function DenikTeaser({ today, feedCap }: { today: string; feedCap: number }) {
-  const f = useFormat();
-  const [state, setState] = useState<TeaserState>({ kind: "loading" });
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/denik/feed.json")
-      .then(async (res) => {
-        if (!res.ok) throw new Error(`feed.json: HTTP ${res.status}`);
-        return parseEvidenceFeedJson(await res.text());
-      })
-      .then((feed) => {
-        if (cancelled) return;
-        if (feed.items.length === 0) {
-          setState({ kind: "empty" });
-          return;
-        }
-        // Feed je seřazený dny sestupně — poslední zapsaný den je první položka.
-        const date = feed.items[0].date_published.slice(0, 10);
-        const dayItems = feed.items.filter((it) => it.date_published.slice(0, 10) === date);
-        setState({
-          kind: "day",
-          day: { date, count: dayItems.length, titles: dayItems.slice(0, 3).map((it) => it.title) },
-          // Pražský den ze SERVERU (viz hlavička) — ne UTC den prohlížeče.
-          isToday: date === today,
-        });
-      })
-      .catch((err) => {
-        console.warn("[DenikTeaser] /denik/feed.json se nepodařilo načíst", err);
-        if (!cancelled) setState({ kind: "unavailable" });
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [today]);
+export default async function DenikTeaser({
+  state,
+  feedCap,
+}: {
+  state: TeaserState;
+  feedCap: number;
+}) {
+  const { t, f } = await landingIntl();
 
   return (
-    <section aria-label="Dnešní zápis" className="border-t-4 border-ink">
+    <section aria-label={t("denik.regionLabel")} className="border-t-4 border-ink">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep">
-              {state.kind === "day" && !state.isToday ? "poslední zápis" : "dnešní zápis"}
+              {state.kind === "day" && !state.isToday ? t("denik.eyebrowLatest") : t("denik.eyebrowToday")}
             </p>
             <h2 className="mt-1 text-3xl font-black uppercase tracking-tight sm:text-4xl">
-              Deník republiky<span className="text-signal">.</span>
+              {t("denik.title")}<span className="text-signal">.</span>
             </h2>
           </div>
           <Link
             href="/denik"
             className="group inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
           >
-            číst deník{" "}
+            {t("denik.readLink")}{" "}
             <ArrowUpRight
               className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               aria-hidden
@@ -103,41 +83,31 @@ export default function DenikTeaser({ today, feedCap }: { today: string; feedCap
           </Link>
         </div>
 
-        {state.kind === "loading" && (
-          <p className="mt-4 max-w-2xl text-sm text-steel-aa">Zápis se načítá…</p>
-        )}
         {state.kind === "unavailable" && (
-          <p className="mt-4 max-w-2xl text-sm text-steel-aa">
-            Zápis se teď nepodařilo načíst — deník není prázdný, jen nečitelný. Celý záznam drží
-            stránka /denik.
-          </p>
+          <p className="mt-4 max-w-2xl text-sm text-steel-aa">{t("denik.unavailable")}</p>
         )}
         {state.kind === "empty" && (
-          <p className="mt-4 max-w-2xl text-sm text-steel-aa">
-            Deník zatím žádný zápis nenese — první se objeví, jakmile registry ponesou datovanou
-            událost.
-          </p>
+          <p className="mt-4 max-w-2xl text-sm text-steel-aa">{t("denik.empty")}</p>
         )}
         {state.kind === "day" && (
           <div className="mt-4 max-w-2xl">
             <p className="font-mono text-sm font-bold uppercase tracking-widest">
-              {f.date(state.day.date)} · zápisů ve feedu: {f.int(state.day.count)}
+              {t("denik.dayLine", { date: f.date(state.day.date), countFmt: f.int(state.day.count) })}
             </p>
-            {/* Číslo je počet ve FEEDU, ne za celý den — strop se přiznává
+            {/* Číslo je počet ve VÝŘEZU, ne za celý den — strop se přiznává
                 vedle něj, ne až v komentáři ve zdrojáku. */}
             <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-              feed nese {f.int(feedCap)} nejnovějších zápisů — delší den je tu neúplný a celý ho
-              drží /denik
+              {t("denik.feedCapNote", { capFmt: f.int(feedCap) })}
             </p>
             <ul className="mt-3 list-none space-y-1 border-l-4 border-ink pl-4">
-              {state.day.titles.map((t) => (
-                <li key={t} className="text-[15px] leading-relaxed">
-                  {t}
+              {state.day.titles.map((title) => (
+                <li key={title.id} className="text-[15px] leading-relaxed">
+                  {title.text}
                 </li>
               ))}
               {state.day.count > state.day.titles.length && (
                 <li className="font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-                  … a další zápisy dne v deníku
+                  {t("denik.moreInDenik")}
                 </li>
               )}
             </ul>
@@ -146,11 +116,10 @@ export default function DenikTeaser({ today, feedCap }: { today: string; feedCap
 
         <div className="mt-4">
           {/* Čtyři vrstvy deníku, ne tři: `change_event` („zaznamenáno" — diff
-              snímků ingestů) je samostatný pramen a citace ho vynechávala. */}
-          <SourceNote>
-            zdroj: /denik/feed.json — deník republiky (registr smluv + ares + psp.cz + change_event +
-            review_audit)
-          </SourceNote>
+              snímků ingestů) je samostatný pramen a citace ho vynechávala.
+              A citace pojmenuje TO, CO SE ČTE: rubrika už nesahá na
+              /denik/feed.json, čte týž loader, jaký ten feed serializuje. */}
+          <SourceNote>{t("denik.source")}</SourceNote>
         </div>
       </div>
     </section>

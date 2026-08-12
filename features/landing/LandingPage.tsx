@@ -17,7 +17,7 @@
  * (LiveDataNotice + panel ve stylu DataUnavailable), nikdy mock.
  */
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -40,7 +40,6 @@ import SiteHeader from "./components/SiteHeader";
 import HeroStory from "./components/HeroStory";
 import LiveSpecimen from "./components/LiveSpecimen";
 import Standings from "./components/Standings";
-import DenikTeaser from "./components/DenikTeaser";
 import ReferendumTeaser from "./components/ReferendumTeaser";
 import SystemModules from "./components/SystemModules";
 import DataSources from "./components/DataSources";
@@ -95,25 +94,23 @@ function lensScore(e: LeaderboardListEntry, weights: WeightVector): number {
 export default function LandingPage({
   data,
   sources,
-  today,
-  denikFeedCap,
+  denikSlot,
 }: {
   data: LandingData | null;
   /** Měřený stav zdrojů z atlasu kvality; `null` = atlas nečitelný. Degraduje
    *  NEZÁVISLE na žebříčku — dvě vrstvy, dvě čtení, dvě přiznání. */
   sources: LandingSourceState[] | null;
   /**
-   * Dnešek v PRAZE (`YYYY-MM-DD`), spočítaný na serveru a přenesený jako DATA —
-   * nikdy jako funkce. Rubrika deníku z něj pozná „dnešní" zápis; `new Date()`
-   * v prohlížeči by tu byl UTC den návštěvníka, tedy přesně ta chyba, kvůli
-   * které vznikl features/denik/pragueDay.ts (mezi půlnocí a 01:00/02:00 běží
-   * pražský den o den napřed).
+   * Rubrika „Dnešní zápis" jako HOTOVÝ UZEL ze serveru (app/page.tsx:
+   * `<Suspense fallback={<DenikTeaserPending/>}><DenikSlot/></Suspense>`).
+   *
+   * Proč slot a ne props: odečet deníku je server-only a studený stojí ~12 s,
+   * takže musí streamovat — a hranice `<Suspense>` se dá otevřít jen tam, kde
+   * ten serverový komponent vzniká. Titulní strana je klient (drží vybraného
+   * poslance a čtenářovy váhy), takže rubrika k ní doputuje jako uzel, ne jako
+   * data. Precedens: `ProfilePage`'s `rebellionSlot`.
    */
-  today: string;
-  /** Kolik nejnovějších zápisů nese strojový feed deníku (FEED_ENTRIES) —
-   *  konstanta ze serveru, aby rubrika mohla svůj strop přiznat a přitom se do
-   *  klientského balíku netáhl celý `deriveDenik`. */
-  denikFeedCap: number;
+  denikSlot: ReactNode;
 }) {
   const t = useTranslations("landing");
 
@@ -218,8 +215,8 @@ export default function LandingPage({
         </div>
       </section>
 
-      {/* ── Dnešní zápis — rubrika Deníku republiky (moonshot 3A) ── */}
-      <DenikTeaser today={today} feedCap={denikFeedCap} />
+      {/* ── Dnešní zápis — rubrika Deníku republiky (moonshot 3A), streamovaná ── */}
+      {denikSlot}
 
       {/* ── Referendum o metodice — tři redakční čočky (moonshot 7B) ── */}
       <ReferendumTeaser count={data?.count ?? null} />

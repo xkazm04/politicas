@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import LandingPage, { type LandingData } from "@/features/landing/LandingPage";
 import { landingSourceStates } from "@/features/landing/sourceStates";
+import DenikSlot from "@/features/landing/components/DenikSlot";
+import DenikTeaserPending from "@/features/landing/components/DenikTeaserPending";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 import { getAtlasReport } from "@/features/atlas/getAtlasData";
-import { FEED_ENTRIES } from "@/features/denik/deriveDenik";
 import { pragueDay } from "@/features/denik/pragueDay";
 
 /*
@@ -16,17 +18,25 @@ import { pragueDay } from "@/features/denik/pragueDay";
  *     „Surový materiál" do 2026-08-12 vypisovala ukázkové kadence z
  *     lib/civic/data.ts; teď nese měřené pokrytí, čerstvost a souhrn.
  *
- * Dvě konstanty jdou dolů jako DATA, ne jako funkce: pražský dnešek
- * (features/denik/pragueDay.ts — rubrika deníku podle něj pozná „dnešní"
- * zápis; v prohlížeči by to byl UTC den návštěvníka) a strop strojového feedu
- * deníku, aby rubrika mohla svůj výřez přiznat, aniž by si klient stáhl celý
- * `deriveDenik`.
+ * TŘETÍ VRSTVA — DENÍK — STREAMUJE (2026-08-12). Rubrika „Dnešní zápis" si
+ * feed do teď stahovala sama v prohlížeči a do té doby psala „Zápis se
+ * načítá…". Odečet teď dělá server (`DenikSlot`), ale VĚDOMĚ MIMO `Promise.all`
+ * níž: `getDenikData()` není `react.cache()`-ované a studený běh stojí ~12 s
+ * (peněžní vrstva), takže by na jednu rubriku čekala celá titulní strana.
+ * `<Suspense>` s pojmenovaným fallbackem je tu proto nosný prvek — skořápka
+ * odchází hned, rubrika dopluje. Fallback je KLIENTSKÝ soubor: `async` fallback
+ * by uspal tutéž hranici, kvůli které existuje (precedens
+ * RebellionInstancesPending).
  *
- * Obě vrstvy degradují SAMOSTATNĚ: `null` z jedné nezhasne druhou a každá
+ * Pražský dnešek (features/denik/pragueDay.ts) jde dolů jako DATA, ne jako
+ * funkce — podle něj se pozná „dnešní" zápis; v prohlížeči by to byl UTC den
+ * návštěvníka.
+ *
+ * Všechny vrstvy degradují SAMOSTATNĚ: `null` z jedné nezhasne druhou a každá
  * přizná svou nedostupnost vlastní větou. Nikdy se nespadne na ukázková data
  * z lib/civic/data.ts — PRODUCT.md: „Real-graph wiring is the intended end
- * state." Oba loadery jsou `react.cache()`-ované a čtou týž store, takže se
- * pouštějí souběžně (precedens: features/dashboard/getDashboardData.ts).
+ * state." Oba awaitované loadery jsou `react.cache()`-ované a čtou týž store,
+ * takže se pouštějí souběžně (precedens: features/dashboard/getDashboardData.ts).
  */
 
 const FEATURED_COUNT = 5;
@@ -46,8 +56,11 @@ export default async function Home() {
     <LandingPage
       data={landing}
       sources={landingSourceStates(atlas)}
-      today={pragueDay()}
-      denikFeedCap={FEED_ENTRIES}
+      denikSlot={
+        <Suspense fallback={<DenikTeaserPending />}>
+          <DenikSlot pragueDay={pragueDay()} />
+        </Suspense>
+      }
     />
   );
 }

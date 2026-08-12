@@ -194,34 +194,53 @@ export function reweigh(
   };
 }
 
-/** Pojmenovaná ukázková čočka. REDAKČNÍ příklady interakce — záměrně NEJSOU
- *  připsané žádné skutečné organizaci (to by byla fabulace autority);
- *  UI je tak i popisuje. */
+/**
+ * Pojmenovaná ukázková čočka. REDAKČNÍ příklady interakce — záměrně NEJSOU
+ * připsané žádné skutečné organizaci (to by byla fabulace autority); UI je tak
+ * i popisuje.
+ *
+ * COPY JE KLÍČ, NE VĚTA (2026-08-12). Do teď tu stály tři české štítky a tři
+ * české poznámky přímo v čistém modulu, takže je anglický čtenář dostal česky
+ * na DVOU plochách naráz — na titulní straně i v panelu vah nad žebříčkem — a
+ * katalog o nich nevěděl. Modul proto vydává klíče do `civicscore.lensPreset.*`
+ * (kmen odvozený z `id`, ne opsaný) a překládá KAŽDÉ místo, které je vykresluje;
+ * týž vzor jako `verdictHeadlineKey` v /overeni.
+ */
 export interface LensPreset {
   id: string;
-  label: string;
-  /** Jednou větou, co čočka zdůrazňuje. */
-  note: string;
+  /** `civicscore.lensPreset.<id>.label` */
+  labelKey: string;
+  /** `civicscore.lensPreset.<id>.note` — jednou větou, co čočka zdůrazňuje. */
+  noteKey: string;
   weights: WeightVector;
 }
+
+const presetCopyKeys = (id: string) => ({
+  labelKey: `lensPreset.${id}.label`,
+  noteKey: `lensPreset.${id}.note`,
+});
 
 export const LENS_PRESETS: readonly LensPreset[] = [
   {
     id: "dochazka",
-    label: "Docházka především",
-    note: "být tam a hlasovat — účast a docházka nesou tři čtvrtiny indexu",
+    ...presetCopyKeys("dochazka"),
     weights: { participation: 40, committee: 5, legislative: 10, speech: 5, attendance: 35, leadership: 5 },
   },
   {
     id: "zakonodarce",
-    label: "Zákonodárce",
-    note: "psát zákony — legislativní výstup a práce ve výborech rozhodují",
+    ...presetCopyKeys("zakonodarce"),
     weights: { participation: 10, committee: 25, legislative: 40, speech: 10, attendance: 10, leadership: 5 },
   },
   {
     id: "hlas-salu",
-    label: "Hlas sálu",
-    note: "mluvit a ptát se — vystoupení v sále váží polovinu indexu",
+    ...presetCopyKeys("hlas-salu"),
     weights: { participation: 10, committee: 10, legislative: 15, speech: 50, attendance: 10, leadership: 5 },
   },
 ];
+
+/** Uzavřený seznam klíčů, které tenhle modul může vydat — katalog se proti němu
+ *  dá připnout, aniž by test opisoval jména čoček (vzor `VERDICT_COPY_KEYS`). */
+export const LENS_PRESET_COPY_KEYS: readonly string[] = LENS_PRESETS.flatMap((p) => [
+  p.labelKey,
+  p.noteKey,
+]);
