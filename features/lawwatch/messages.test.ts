@@ -8,6 +8,7 @@ import { describe, expect, it } from "vitest";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 import { isCzechSafe } from "@/lib/analysis/language-gate";
+import { FORENSIC_CONFIDENCE_SCALE } from "./lawClaims";
 
 type Ns = Record<string, unknown>;
 
@@ -174,6 +175,60 @@ describe("lawwatch message catalog", () => {
         if (k.startsWith("forensicIndex.source")) continue;
         expect(cs[k], k).not.toMatch(/\bdávka\s*\d/i);
         expect(cs[k], k).not.toMatch(/\bbatch\b|\bpass\s*\d/i);
+      }
+    });
+  });
+
+  /*
+   * FORENZNÍ BLOK (/zakony/<cislo>). Od 2026-08-12 nese jistota posudku vlastní
+   * trvalou adresu (features/lawwatch/lawClaims.ts). Nový KLÍČ k tomu nevznikl a
+   * to je záměr — číslo se sází mimo větu (`<CitableNumber>/5` v hlavičce bloku),
+   * ne značkou uvnitř zprávy, takže žádný překlad nemůže figuru od jejího claimu
+   * odtrhnout. Zbývá jediné, co se rozejít MŮŽE: stupnice.
+   */
+  describe("forensic (per-bill verdict block)", () => {
+    const keys = Object.keys(cs).filter((k) => k.startsWith("forensic."));
+
+    it("is non-empty and declares no empty value in either locale", () => {
+      expect(keys.length).toBeGreaterThan(0);
+      for (const k of keys) {
+        expect(cs[k]?.trim(), k).toBeTruthy();
+        expect(en[k]?.trim(), k).toBeTruthy();
+      }
+    });
+
+    it("declares the same ICU variables in both locales", () => {
+      for (const k of keys) expect(variables(en[k]), k).toEqual(variables(cs[k]));
+    });
+
+    it("keeps the confidence figure OUT of the sentence that labels it", () => {
+      // `forensic.confidenceLabel` is a label, not a sentence with a number in it:
+      // the figure is rendered beside it as <CitableNumber>, so the claim payload
+      // cannot be lost by a locale that reorders or drops a placeholder.
+      expect(variables(cs["forensic.confidenceLabel"])).toEqual([]);
+      expect(variables(en["forensic.confidenceLabel"])).toEqual([]);
+      expect(richTags(cs["forensic.confidenceLabel"])).toEqual([]);
+    });
+
+    it("prints the SAME confidence scale the code declares, in both locales", () => {
+      // The scale lives in lawClaims.ts (it sets both the visible „x/5" and the
+      // claim's unit „z 5"). This sentence repeats it as a literal in both
+      // catalogs — a drift here would publish two different scales for one number.
+      for (const [loc, cat] of [["cs", cs], ["en", en]] as const) {
+        expect(cat["forensic.notClaim2WithConfidence"], loc).toContain(
+          `/${FORENSIC_CONFIDENCE_SCALE}`,
+        );
+        expect(variables(cat["forensic.notClaim2WithConfidence"]), loc).toEqual([
+          "confidence",
+          "severity",
+        ]);
+      }
+    });
+
+    it("every Czech sentence passes the Czech-language gate", () => {
+      for (const k of keys) {
+        if (/,\s*(plural|select|selectordinal)\s*,/.test(cs[k])) continue;
+        expect(isCzechSafe(cs[k]), k).toBe(true);
       }
     });
   });

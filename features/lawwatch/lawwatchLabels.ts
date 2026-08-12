@@ -115,10 +115,10 @@ export function citationRef(kind: string, source: string): CitationRef {
   return { registry: "graf", label: graphFactLabel(source), url: null };
 }
 
-/** Kompaktní CZK: 5 397 460 397 → „5,4 mld. Kč". */
-export function czkCompact(n: number): string {
-  if (n >= 1e9) return `${(n / 1e9).toFixed(1).replace(".", ",")} mld. Kč`;
-  if (n >= 1e6) return `${(n / 1e6).toFixed(1).replace(".", ",")} mil. Kč`;
-  if (n >= 1e3) return `${Math.round(n / 1e3)} tis. Kč`;
-  return `${n} Kč`;
-}
+// Kompaktní CZK tady BÝVALA (`czkCompact`) — vlastní kopie `formatCompactCzk`
+// z lib/format.ts, a jediná nesankcionovaná v repozitáři. Byla měřitelně jiná:
+// zápornou částku neseskupila (`-5000000 Kč`) a nekonečno/NaN pustila do
+// výstupu jako „NaN Kč", což deriveRadar.ts publikoval do VEŘEJNÝCH feedů
+// /zakony/kolize. Smazána 2026-08-12; oba volající čtou kanonický formátovač
+// (`czkCompact` je zároveň jméno citovatelného DRUHU v lib/format.ts, takže
+// druhá funkce téhož jména byla i pojmenovaná past).

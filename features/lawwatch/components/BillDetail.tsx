@@ -15,7 +15,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { LawBillView } from "../getLawData";
 import {
   COMMITTEE_ROLE_KEYS,
@@ -27,11 +27,14 @@ import {
   RAPPORTEUR_SCOPE_KEYS,
   SECTOR_KEYS,
   pspBillUrl,
-  czkCompact,
   citationRef,
 } from "../lawwatchLabels";
 import { statuteSlug } from "../statuteRef";
+import { FORENSIC_CONFIDENCE_SCALE, forensicConfidenceClaim } from "../lawClaims";
 import { useFormat } from "@/lib/i18n/useFormat";
+import { formatByKind } from "@/lib/format";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
+import CitableNumber from "@/lib/claims/CitableNumber";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { GATE_UNGATED_KEY } from "@/features/overeni/gateVocabulary";
 
@@ -360,7 +363,9 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
       {bill.paragraphDiffs.length > 0 && <ParagraphDiffBlock diffs={bill.paragraphDiffs} />}
 
       {/* gatovaný forenzní posudek */}
-      {bill.forensic && <ForensicBlock forensic={bill.forensic} summary={bill.summary} />}
+      {bill.forensic && (
+        <ForensicBlock forensic={bill.forensic} summary={bill.summary} tiskId={bill.tiskId} />
+      )}
     </div>
   );
 }
@@ -383,6 +388,11 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
 function ConflictBlock({ bill }: { bill: LawBillView }) {
   const t = useTranslations("lawwatch");
   const f = useFormat();
+  // Kompaktní částka jde kanonickým formátovačem (`czkCompact` druh v lib/format.ts),
+  // ne vlastní funkcí lawwatche — ta uměla vypsat „NaN Kč". Locale se odvozuje TOUŽ
+  // cestou jako v `useFormat`, aby se dvě čísla v jednom odstavci nemohla rozejít.
+  const rawLocale = useLocale();
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   return (
     <div className="mt-6 border-l-4 border-signal bg-paper-strong p-4">
       <SourceNote tone="signal" className="!text-[10px]">
@@ -392,7 +402,7 @@ function ConflictBlock({ bill }: { bill: LawBillView }) {
         {t.rich("detail.conflictText", {
           count: bill.sponsorMoneyCompanies,
           countFmt: f.int(bill.sponsorMoneyCompanies),
-          amount: czkCompact(bill.sponsorContractCzk),
+          amount: formatByKind(bill.sponsorContractCzk, locale, "czkCompact"),
           b: (chunks) => <span className="font-black">{chunks}</span>,
         })}
       </p>
@@ -436,17 +446,34 @@ function ConflictBlock({ bill }: { bill: LawBillView }) {
  *
  * Texty, které neprošly českou jazykovou branou (lib/analysis/language-gate.ts), se
  * NEZOBRAZUJÍ. Jejich počet se čtenáři přiznává, aby zkrácený blok nevypadal jako úplný.
+ *
+ * JISTOTA MÁ OD 2026-08-12 TRVALOU ADRESU. „4/5" je číslo, které se z posudku opisuje
+ * nejčastěji, a bylo jediné na téhle ploše, které nešlo citovat. Claim razí sdílený
+ * modul (features/lawwatch/lawClaims.ts), takže /overeni složí bajtově týž ref, a nese
+ * provenienci TOHOTO posudku (`law-forensics@15`) — korpus se na jednom průchodu
+ * neshodne (14 různých na uloženém grafu), takže korpusový základ by tady lhal.
+ * Viditelný text zůstává bajtově týž: `f.int` nad celým číslem 1–5 vysází tutéž
+ * číslici, jakou plocha sázela předtím.
  */
 function ForensicBlock({
   forensic,
   summary,
+  tiskId,
 }: {
   forensic: NonNullable<LawBillView["forensic"]>;
   summary: string | null;
+  /** Vnitřní id uzlu tisku — předmět claimu (`bill:tisk:<tiskId>`), ne veřejné číslo. */
+  tiskId: number;
 }) {
   const t = useTranslations("lawwatch");
   const f = useFormat();
+  const rawLocale = useLocale();
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const [open, setOpen] = useState(false);
+  // null = tisk bez kanonické adresy uzlu (fallback id) nebo nekonečná hodnota:
+  // číslo se pak vysází beze svědectví, nikdy s rozbitou adresou.
+  const confidenceFigure =
+    forensic.confidence != null ? forensicConfidenceClaim(tiskId, forensic.confidence, forensic) : null;
   const effects = forensic.unstatedEffects.filter((u) => u.effect);
   const hasFindings =
     Boolean(forensic.statedReasoning || forensic.researchedContext || forensic.conflictAssessment) || effects.length > 0;
@@ -477,7 +504,19 @@ function ForensicBlock({
           {forensic.confidence != null && (
             <span>
               {t("forensic.confidenceLabel")}{" "}
-              <span className="text-sm font-black text-ink">{forensic.confidence}/5</span>
+              <span className="text-sm font-black text-ink">
+                {confidenceFigure ? (
+                  <CitableNumber
+                    value={confidenceFigure.value}
+                    claim={confidenceFigure.claim}
+                    locale={locale}
+                    kind="int"
+                  />
+                ) : (
+                  forensic.confidence
+                )}
+                /{FORENSIC_CONFIDENCE_SCALE}
+              </span>
             </span>
           )}
           <span>

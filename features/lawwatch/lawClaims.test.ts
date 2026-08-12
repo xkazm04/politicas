@@ -12,13 +12,19 @@ import {
   forensicCensusClaim,
   forensicCensusDerivation,
   forensicCensusRetrievedAt,
+  forensicConfidenceClaim,
+  forensicConfidenceDerivation,
+  forensicConfidenceRetrievedAt,
   statuteCoverageClaim,
   statuteCoverageValue,
+  FORENSIC_CONFIDENCE_SCALE,
   LAW_CLAIM_DATASET,
   LAW_METRIC,
   type ForensicCensusBasis,
+  type ForensicVerdictBasis,
   type StatuteCoverageCounts,
 } from "./lawClaims";
+import { billNodeId, tiskIdFromBillNodeId } from "./billRef";
 import { refFromLawNodeId } from "./statuteRef";
 
 const basis = (over: Partial<ForensicCensusBasis> = {}): ForensicCensusBasis => ({
@@ -140,6 +146,115 @@ describe("stav brány je součást tvrzení, a obě rodiny se liší", () => {
     for (const m of ["trailBills", "enactedBills", "paragraphs", "changes"] as const) {
       expect(claimStatus(statuteCoverageClaim("586/1992", m, coverage())!.claim), m).toBe("ungated");
     }
+  });
+});
+
+/*
+ * JISTOTA JEDNOHO POSUDKU (2026-08-12). Odložený claim — a ten odklad byl
+ * zapsaný jen v CLAUDE.md. Liší se od censu ve dvou věcech, které se tady
+ * přibíjejí: předmětem je id UZLU TISKU (ne veřejné číslo, ze kterého se skládá
+ * adresa dosjeru) a základ odvození je provenience TOHO posudku, protože korpus
+ * se na jednom průchodu neshodne (14 různých na uloženém grafu).
+ */
+describe("adresa uzlu tisku (kodek)", () => {
+  it("skládá a rozkládá kanonický tvar", () => {
+    expect(billNodeId(43111)).toBe("bill:tisk:43111");
+    expect(tiskIdFromBillNodeId("bill:tisk:43111")).toBe(43111);
+  });
+
+  it("odmítá fallback id 0, záporná i necelá čísla — adresa ze selhání čtení není adresa", () => {
+    expect(billNodeId(0)).toBeNull();
+    expect(billNodeId(-4)).toBeNull();
+    expect(billNodeId(4.5)).toBeNull();
+    expect(billNodeId(Number.NaN)).toBeNull();
+  });
+
+  it("nehádá: cizí prefix, vodicí nula ani prázdný ocas adresu nedají", () => {
+    expect(tiskIdFromBillNodeId("bill:tisk:0")).toBeNull();
+    expect(tiskIdFromBillNodeId("bill:tisk:043111")).toBeNull();
+    expect(tiskIdFromBillNodeId("bill:tisk:")).toBeNull();
+    expect(tiskIdFromBillNodeId("law:sb:586-1992")).toBeNull();
+    expect(tiskIdFromBillNodeId("psp:bill:4")).toBeNull();
+  });
+});
+
+describe("jistota posudku je citovatelná figura", () => {
+  const verdict = (over: Partial<ForensicVerdictBasis> = {}): ForensicVerdictBasis => ({
+    pass: 15,
+    provenanceRef: "law-forensics",
+    computedAt: "2026-07-24T17:41:44.184Z",
+    ...over,
+  });
+
+  it("předmětem je id UZLU tisku a hodnotou je jistota, kterou plocha sází", () => {
+    const figure = forensicConfidenceClaim(43111, 4, verdict())!;
+    const parts = parseClaimRef(figure.claim.ref)!;
+    expect(parts.metric).toBe(LAW_METRIC.forensicConfidence);
+    expect(parts.subject).toBe("bill:tisk:43111");
+    expect(figure.value).toBe(4);
+    // Jednotka nese stupnici z JEDNOHO čísla — viditelné „4/5" a citovaná
+    // jednotka nemůžou tvrdit jiný rozsah.
+    expect(figure.claim.unit).toBe(`z ${FORENSIC_CONFIDENCE_SCALE}`);
+  });
+
+  it("základ odvození je provenience TOHOTO posudku, ne korpusový agregát", () => {
+    expect(forensicConfidenceDerivation(verdict())).toBe("law-forensics@15");
+    expect(forensicConfidenceClaim(43111, 4, verdict())!.claim.derivation).toBe("law-forensics@15");
+    // Týž ref v jiném průchodu je JINÝ základ — brána na tom pozná `moved/basis`.
+    expect(forensicConfidenceClaim(43111, 4, verdict({ pass: 55 }))!.claim.derivation).toBe(
+      "law-forensics@55",
+    );
+  });
+
+  it("chybějící základ nebo datum se VYNECHÁ — nenapsaný základ netvrdí nic", () => {
+    expect(forensicConfidenceDerivation(verdict({ pass: null }))).toBeNull();
+    expect(forensicConfidenceDerivation(verdict({ provenanceRef: null }))).toBeNull();
+    expect(forensicConfidenceClaim(43111, 4, verdict({ pass: null }))!.claim.derivation).toBeUndefined();
+    expect(
+      forensicConfidenceClaim(43111, 4, verdict({ provenanceRef: null }))!.claim.derivation,
+    ).toBeUndefined();
+
+    expect(forensicConfidenceRetrievedAt(verdict())).toBe("2026-07-24");
+    expect(forensicConfidenceRetrievedAt(verdict({ computedAt: null }))).toBeNull();
+    expect(forensicConfidenceRetrievedAt(verdict({ computedAt: "nedávno" }))).toBeNull();
+    expect(
+      forensicConfidenceClaim(43111, 4, verdict({ computedAt: null }))!.claim.retrievedAt,
+    ).toBeUndefined();
+  });
+
+  it("tisk s fallback id 0 claim NEDOSTANE (pravidlo 4)", () => {
+    // `getLawData` píše `Number(...) || 0`, když se id uzlu přečíst nepodaří —
+    // „bill:tisk:0" by byla adresa vyrobená ze selhání čtení.
+    expect(forensicConfidenceClaim(0, 4, verdict())).toBeNull();
+    expect(forensicConfidenceClaim(-1, 4, verdict())).toBeNull();
+  });
+
+  it("nekonečná hodnota claim nedostane — pomlčka nesmí svědčit", () => {
+    expect(forensicConfidenceClaim(43111, Number.NaN, verdict())).toBeNull();
+    expect(forensicConfidenceClaim(43111, Number.POSITIVE_INFINITY, verdict())).toBeNull();
+  });
+
+  it("posudek čeká na lidskou bránu (/dukazy) — pending, nikdy ungated", () => {
+    // Jistota je údaj UVNITŘ posudku uloženého `pending_review`, ne aritmetika
+    // censu; „ungated" by popřelo bránu, která na něj teprve čeká.
+    expect(claimStatus(forensicConfidenceClaim(43111, 4, verdict())!.claim)).toBe("pending");
+  });
+
+  it("brána vydanou adresu přečte a vytáhne z ní týž tisk", () => {
+    const figure = forensicConfidenceClaim(43111, 3, verdict())!;
+    const det = detectRef(figure.claim.ref);
+    expect(det.family).toBe("figura");
+    if (det.family !== "figura") throw new Error("unreachable");
+    expect(det.parts.dataset).toBe(LAW_CLAIM_DATASET);
+    expect(det.parts.metric).toBe(LAW_METRIC.forensicConfidence);
+    expect(tiskIdFromBillNodeId(det.parts.subject!)).toBe(43111);
+  });
+
+  it("je to VLASTNÍ metrika — s censem ani s pokrytím se nesmí splést", () => {
+    const conf = forensicConfidenceClaim(43111, 4, verdict())!.claim;
+    expect(conf.metric).not.toBe(LAW_METRIC.forensicCensus);
+    expect(conf.ref).not.toBe(forensicCensusClaim(141, basis()).claim.ref);
+    expect(conf.ref.split(":")).toHaveLength(4);
   });
 });
 

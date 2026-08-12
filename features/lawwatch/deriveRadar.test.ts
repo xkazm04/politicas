@@ -4,6 +4,7 @@
 // and the severity-free / verification framing of the copy.
 
 import { describe, expect, it } from "vitest";
+import { formatCompactCzk } from "@/lib/format";
 import {
   clusterAnchorOf,
   deriveRadar,
@@ -155,6 +156,33 @@ describe("copy discipline", () => {
     expect(e.detailCs).toContain("12,5 mil. Kč");
     expect(e.requiresVerification).toBe(true);
     expect(e.detectedAt).toBeNull();
+  });
+
+  /*
+   * ČÁSTKA JDE KANONICKÝM FORMÁTOVAČEM (2026-08-12). Do téhle opravy tu byla
+   * vlastní kopie (`czkCompact` v lawwatchLabels.ts), která pro degenerovaný
+   * `sponsor_contract_czk` vysázela „NaN Kč" a zápornou částku neseskupila — a
+   * tenhle řetězec jde rovnou do VEŘEJNÝCH feedů /zakony/kolize.
+   */
+  it("degenerovaná částka nikdy nevypíše NaN — vysází kanonickou pomlčku", () => {
+    for (const czk of [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]) {
+      const [e] = deriveRadar({ collisions: [], flags: [flag({ sponsorContractCzk: czk })] });
+      expect(e.detailCs).toContain("za —");
+      expect(e.detailCs).not.toMatch(/NaN|Infinity/);
+    }
+  });
+
+  it("záporná částka se kompaktuje podle velikosti, ne jako holé číslo", () => {
+    const [e] = deriveRadar({ collisions: [], flags: [flag({ sponsorContractCzk: -5_000_000 })] });
+    expect(e.detailCs).toContain("-5,0 mil. Kč");
+    expect(e.detailCs).not.toContain("-5000000");
+  });
+
+  it("žádná vlastní aritmetika: výstup je bajtově týž jako lib/format", () => {
+    for (const czk of [0, 900, 350_000, 12_500_000, 5_397_460_397, -5_000_000, Number.NaN]) {
+      const [e] = deriveRadar({ collisions: [], flags: [flag({ sponsorContractCzk: czk })] });
+      expect(e.detailCs, String(czk)).toContain(formatCompactCzk(czk, "cs"));
+    }
   });
 });
 

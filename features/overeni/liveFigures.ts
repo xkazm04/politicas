@@ -45,11 +45,13 @@ import { getLawData } from "@/features/lawwatch/getLawData";
 import { deriveStatuteDossier } from "@/features/lawwatch/deriveStatuteDossier";
 import {
   forensicCensusClaim,
+  forensicConfidenceClaim,
   statuteCoverageClaim,
   LAW_CLAIM_DATASET,
   LAW_METRIC,
   type StatuteCoverageMetric,
 } from "@/features/lawwatch/lawClaims";
+import { tiskIdFromBillNodeId } from "@/features/lawwatch/billRef";
 import { refFromLawNodeId } from "@/features/lawwatch/statuteRef";
 
 export type LiveFigureResult =
@@ -100,6 +102,8 @@ export async function resolveLiveFigure(parts: ClaimRefParts): Promise<LiveFigur
       return resolveCompanyReach(subject);
     case SCORE_METRIC.contribution:
       return resolveContributionScore(subject);
+    case LAW_METRIC.forensicConfidence:
+      return resolveForensicConfidence(subject);
     case LAW_METRIC.statuteTrailBills:
       return resolveStatuteCoverage(subject, "trailBills");
     case LAW_METRIC.statuteEnactedBills:
@@ -209,6 +213,40 @@ async function resolveForensicCensus(): Promise<LiveFigureResult> {
   if (fi.verdictCount === 0) return { status: "gone" };
   const { claim, value } = forensicCensusClaim(fi.verdictCount, fi);
   return { status: "ok", figure: { claim, kind: "int", value, issuedAt: "/zakony#posudky" } };
+}
+
+/**
+ * Jistota jednoho posudku. Předmětem je id uzlu TISKU (`bill:tisk:43111`) — čte
+ * ho sdílený kodek adres tisku, ne druhý parser, a rozlišuje ho od veřejného
+ * čísla tisku, ze kterého se skládá adresa dosjeru.
+ *
+ * Tři různé „ne" a každé znamená něco jiného: nečitelná vrstva je `unavailable`
+ * (o tisku to netvrdí nic), tisk, který dnešní korpus nenese, je „záznam
+ * nenalezen", a tisk BEZ posudku (nebo s posudkem bez jistoty) taky — figura,
+ * kterou dnešní odvození nevydá, se ověřit nedá, i když tisk existuje.
+ */
+async function resolveForensicConfidence(subject: string): Promise<LiveFigureResult> {
+  const tiskId = tiskIdFromBillNodeId(subject);
+  if (tiskId === null) return { status: "gone" };
+
+  const data = await getLawData();
+  if (!data) return { status: "unavailable" };
+  const bill = data.bills.find((b) => b.tiskId === tiskId);
+  if (!bill || !bill.forensic || bill.forensic.confidence === null) return { status: "gone" };
+
+  const figure = forensicConfidenceClaim(tiskId, bill.forensic.confidence, bill.forensic);
+  if (!figure) return { status: "gone" };
+  return {
+    status: "ok",
+    figure: {
+      claim: figure.claim,
+      kind: "int",
+      value: figure.value,
+      // Tisk bez veřejného čísla nemá dosje; adresou vydání je pak rejstřík
+      // posudků, nikdy vymyšlená cesta /zakony/null.
+      issuedAt: bill.cislo != null ? `/zakony/${bill.cislo}` : "/zakony#posudky",
+    },
+  };
 }
 
 /** Předmětem je id uzlu předpisu (`law:sb:586-1992`); čte ho sdílený kodek adres

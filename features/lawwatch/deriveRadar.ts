@@ -20,8 +20,21 @@
 // functions over the same shapes. Determinism contract mirrors
 // features/dukazy/deriveFeed.ts: same input rows in ANY order → byte-identical
 // output; ids/anchors are a public API (`#r-<id>`, guid `politicas:radar:<id>`).
+//
+// MONEY FORMATTING, AND WHY THE LOCALE IS PINNED HERE (2026-08-12): every
+// string this module emits is named `*Cs` and is the SINGLE-LOCALE voice of the
+// /zakony/kolize RSS + JSON feeds (`<language>cs</language>`), so the sentence
+// around the figure is Czech by construction and a locale parameter would only
+// let a caller mix a Czech clause with an English amount. The formatter itself
+// is NOT forked: it is lib/format.ts's `formatCompactCzk`, the canonical
+// `czkCompact` kind, called with "cs". Until this date the module used a
+// private copy in lawwatchLabels.ts that rendered "NaN Kč" for a degenerate
+// `sponsor_contract_czk` and refused to group a negative one — into a public
+// feed. The canonical formatter answers "—" for a non-finite value and
+// compacts by magnitude, so a broken stored number reads as missing rather
+// than as an amount.
 
-import { czkCompact } from "./lawwatchLabels";
+import { formatCompactCzk } from "@/lib/format";
 
 /** One close-read collision pair as the radar consumes it (a slice of
  *  CollisionClusterView/CollisionPairView from getCollisionData). */
@@ -123,7 +136,7 @@ function flagEntry(f: RadarFlagInput): RadarEntry {
   const id = `priznak-${f.cislo}`;
   const money =
     f.sponsorMoneyCompanies > 0
-      ? `evidované vazby na ${f.sponsorMoneyCompanies} ${f.sponsorMoneyCompanies === 1 ? "firmu" : f.sponsorMoneyCompanies < 5 ? "firmy" : "firem"} s veřejnými zakázkami za ${czkCompact(f.sponsorContractCzk)}`
+      ? `evidované vazby na ${f.sponsorMoneyCompanies} ${f.sponsorMoneyCompanies === 1 ? "firmu" : f.sponsorMoneyCompanies < 5 ? "firmy" : "firem"} s veřejnými zakázkami za ${formatCompactCzk(f.sponsorContractCzk, "cs")}`
       : "evidované majetkové vazby nad prahem";
   return {
     id,
