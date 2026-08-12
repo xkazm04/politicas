@@ -9,6 +9,12 @@
  *
  * NENÍ TO ŽEBŘÍČEK a nad touhle stránkou žádný rozcestník firem nestojí. Vazby se sázejí
  * v pořadí síly důkazu (reviewRank), ne podle peněz, a sousedství není obvinění.
+ *
+ * DVĚ VARIANTY (2026-08-12). Firma bez jediné vazby na poslance, kolem které ale graf
+ * vede zapsané vlastnictví, dostane REJSTŘÍKOVÝ VÝPIS místo popření: identita, odkazy do
+ * rejstříků, blok vlastnictví a jedna věta o tom, co přesně tu chybí. Žádný dosah, žádná
+ * kniha smluv, žádný ražený claim — bez vazby neexistuje pravidlo přiřazení, které by
+ * řeklo, čí ty peníze jsou. Rozlišuje se polem `variant`, které vazbový payload nemá.
  */
 
 import Link from "next/link";
@@ -29,7 +35,7 @@ import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
 import { companyReachClaim } from "./moneyClaims";
 import { bucketReachCzk, isAttributable } from "./reachableMoney";
-import type { CompanyCaseFileData } from "./ownership";
+import type { CompanyFileData, CompanyRegistryFileData } from "./ownership";
 import {
   compactCzk,
   temporalBadge,
@@ -50,7 +56,7 @@ const CLASS_TONE_CLS: Record<string, string> = {
   steel: "border-hairline text-steel",
 };
 
-export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileData | null }) {
+export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | null }) {
   const locale = useLocale();
   const en = locale === "en";
   const t = useTranslations("money");
@@ -75,6 +81,10 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileDat
     );
   }
 
+  // Firma, kterou graf zná jen z rejstříku vlastnictví. Zúžení přes `in` — vazbový payload
+  // pole `variant` nenese, takže se po drátě nezměnil ani o bajt.
+  if ("variant" in data) return <RegistryOnlyFile data={data} />;
+
   // Which side of the attribution split this firm falls on — from the SHARED definition,
   // not a local class test. Exactly one bucket carries a one-company population.
   const attributable = data.money.attributable.companies > 0;
@@ -83,22 +93,16 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileDat
   // Gate states of the ties the figure rests on — an aggregate is confirmed only when
   // all of them are (moneyClaims.ts rule 4), and all 211 in the graph are pending today.
   const tieStates = data.ties.map((x) => x.reviewState);
-  const links = buildRegistryLinks(data.ico, "");
   const mpCount = new Set(data.ties.map((x) => x.pspId)).size;
+  // „Nejméně" tu může znít z JEDINÉHO důvodu: čtení smluv narazilo na vlastní strop.
+  // Korpusovou heuristiku (`perCompanyCap`) `reachableMoney` nad jednou firmou vůbec
+  // nespouští — od 2026-08-12 dostává `readScope`, takže tenhle příznak je odpověď
+  // čtení, ne odhad ze vzorku (viz MpCaseFilePage, tatáž dvojice vět).
+  const reachIsFloor = data.money.coverage.isFloor;
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
-      <header className="border-b-4 border-ink">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-steel">/ penize / firma</span>
-          <Link
-            href="/penize"
-            className="font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-          >
-            ← {t("companyFile.ledgerShort")}
-          </Link>
-        </div>
-      </header>
+      <FileHeader />
 
       <div className="mx-auto max-w-5xl px-6 py-10">
         <SourceNote tone="signal">{t("companyFile.eyebrow", { pass: data.pass })}</SourceNote>
@@ -163,12 +167,15 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileDat
                   same loader. Gate state is part of the claim: this total is „verified"
                   only if EVERY tie behind it is (moneyClaims.ts, rule 4). */}
               {reachCzk > 0 ? (
-                <CitableNumber
-                  value={reachCzk}
-                  claim={companyReachClaim(data.ico, bucket, tieStates, data.pass).claim}
-                  locale={locale as Locale}
-                  kind="czkCompact"
-                />
+                <>
+                  {reachIsFloor ? `${t("shared.atLeast")} ` : ""}
+                  <CitableNumber
+                    value={reachCzk}
+                    claim={companyReachClaim(data.ico, bucket, tieStates, data.pass).claim}
+                    locale={locale as Locale}
+                    kind="czkCompact"
+                  />
+                </>
               ) : (
                 "—"
               )}
@@ -184,7 +191,10 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileDat
             <p className="mt-2 text-sm leading-relaxed text-steel">
               {attributable ? t("companyFile.attributableRule") : t("companyFile.stewardRule")}
             </p>
-            <SourceNote className="mt-3 !text-[10px]">{t("companyFile.reachSource")}</SourceNote>
+            <SourceNote className="mt-3 !text-[10px]">
+              {t("companyFile.reachSource")}
+              {reachIsFloor ? t("companyFile.reachReadCapped") : ""}
+            </SourceNote>
           </div>
           <div className="bg-paper p-6">
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
@@ -215,31 +225,7 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileDat
         </div>
 
         {/* ── registry ────────────────────────────────────────── */}
-        <div className="mt-8 border-2 border-hairline p-5">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">
-            {t("companyFile.verifyInRegistries")}
-          </p>
-          <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5">
-            {[
-              { label: t("shared.registryAresSubject"), href: links.aresSubject },
-              { label: "ARES VR", href: links.aresVr },
-              { label: t("shared.registryCommercial"), href: links.justiceVr },
-              { label: t("shared.registryContracts"), href: links.registrSmluv },
-              { label: t("shared.registryHlidacCompany"), href: links.hlidacSubjekt },
-            ].map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
-              >
-                <ExternalLink className="h-3 w-3" /> {l.label}
-              </a>
-            ))}
-          </div>
-          <SourceNote className="mt-3 !text-[10px]">{t("companyFile.deepLinksNote")}</SourceNote>
-        </div>
+        <RegistryLinks ico={data.ico} />
 
         {/* ── vlastnická struktura ────────────────────────────── */}
         {/* Zapsané okolí firmy stojí HNED za rejstříkovými odkazy a PŘED vazbami na
@@ -314,6 +300,125 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileDat
         <p className="mt-10 max-w-2xl text-sm italic leading-relaxed text-steel">
           {t("companyFile.disclaimer")}
         </p>
+      </div>
+    </main>
+  );
+}
+
+/** Horní lišta spisu firmy. Jedna pro obě varianty — dvě kopie záhlaví jsou dvě
+ *  místa, kde se od sebe stránka jednou odchýlí. */
+function FileHeader() {
+  const t = useTranslations("money");
+  return (
+    <header className="border-b-4 border-ink">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
+        <span className="font-mono text-xs uppercase tracking-widest text-steel">/ penize / firma</span>
+        <Link
+          href="/penize"
+          className="font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+        >
+          ← {t("companyFile.ledgerShort")}
+        </Link>
+      </div>
+    </header>
+  );
+}
+
+/** Primární záznamy k IČO. Adresy staví sdílený `buildRegistryLinks` z IČO samotného
+ *  uzlu — žádná z nich není tvrzení, jsou to rejstříky, do kterých se dá podívat.
+ *  Rejstříkový výpis firmy bez vazby je vykresluje ze STEJNÉHO builderu, takže obě
+ *  varianty posílají čtenáře na tytéž záznamy. */
+function RegistryLinks({ ico }: { ico: string }) {
+  const t = useTranslations("money");
+  const links = buildRegistryLinks(ico, "");
+  return (
+    <div className="mt-8 border-2 border-hairline p-5">
+      <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-steel">
+        {t("companyFile.verifyInRegistries")}
+      </p>
+      <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1.5">
+        {[
+          { label: t("shared.registryAresSubject"), href: links.aresSubject },
+          { label: "ARES VR", href: links.aresVr },
+          { label: t("shared.registryCommercial"), href: links.justiceVr },
+          { label: t("shared.registryContracts"), href: links.registrSmluv },
+          { label: t("shared.registryHlidacCompany"), href: links.hlidacSubjekt },
+        ].map((l) => (
+          <a
+            key={l.label}
+            href={l.href}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+          >
+            <ExternalLink className="h-3 w-3" /> {l.label}
+          </a>
+        ))}
+      </div>
+      <SourceNote className="mt-3 !text-[10px]">{t("companyFile.deepLinksNote")}</SourceNote>
+    </div>
+  );
+}
+
+/**
+ * Firma, kterou graf drží jen v rejstříkové vrstvě — cíl odkazu z bloku vlastnictví.
+ *
+ * CO TU SCHVÁLNĚ NENÍ:
+ *  • ŽÁDNÉ PENÍZE. Bez vazby neexistuje třída vazby, bez třídy pravidlo přiřazení —
+ *    a `reachableMoney([])` by vrátilo nulu, tedy číslo, které graf nikdy nespočítal.
+ *    Nula jako dosah je tvrzení, ne mlčení.
+ *  • ŽÁDNÉ SLEDOVÁNÍ ANI DENÍK. Deník je klíčovaný přes smlouvy firem, které poslanci
+ *    vlastní nebo řídí; tahle firma tam žádný řádek mít nebude, takže nabídnout odběr
+ *    znamená slíbit doručení, které nikdo nesplní (precedens `obec:` ve schránce).
+ *  • ŽÁDNÝ CITOVATELNÝ CLAIM. Nerazí se adresa čísla, které se nesází.
+ */
+function RegistryOnlyFile({ data }: { data: CompanyRegistryFileData }) {
+  const t = useTranslations("money");
+  const pass = data.ownership.pass;
+
+  return (
+    <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
+      <FileHeader />
+
+      <div className="mx-auto max-w-5xl px-6 py-10">
+        {/* Průchod se bere z PROVENIENCE VLASTNICKÝCH HRAN, nikdy z `ties[0]` — ty tu
+            žádné nejsou a `slice.pass` by byl 0. Když se řádky na jednom průchodu
+            neshodnou (nebo ho nenesou), věta žádný neuvádí. */}
+        <SourceNote tone="signal">
+          {pass != null
+            ? t("companyFile.registryOnlyEyebrow", { pass })
+            : t("companyFile.registryOnlyEyebrowNoPass")}
+        </SourceNote>
+        <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
+          {data.name}
+          <span className="text-signal">.</span>
+        </h1>
+        <p className="mt-2 font-mono text-xs uppercase tracking-widest text-steel">IČO {data.ico}</p>
+
+        <div className="mt-6 max-w-2xl border-l-4 border-hairline bg-paper-strong px-4 py-3">
+          <p className="text-sm leading-relaxed text-ink">{t("companyFile.registryOnlyLead")}</p>
+          <p className="mt-2 text-sm leading-relaxed text-steel">
+            {t("companyFile.registryOnlyNotEmpty")}
+          </p>
+          <SourceNote className="mt-3 !text-[10px]">
+            {t("companyFile.registryOnlySource")}
+          </SourceNote>
+        </div>
+
+        <RegistryLinks ico={data.ico} />
+
+        <OwnershipBlock ownership={data.ownership} />
+
+        <p className="mt-14 max-w-2xl border-t-4 border-ink pt-8 text-sm italic leading-relaxed text-steel">
+          {t("companyFile.registryOnlyDisclaimer")}
+        </p>
+
+        <Link
+          href="/penize"
+          className="mt-6 inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
+        >
+          ← {t("companyFile.backToLedger")}
+        </Link>
       </div>
     </main>
   );

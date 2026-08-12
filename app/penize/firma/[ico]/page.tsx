@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import CompanyCaseFilePage from "@/features/money/CompanyCaseFilePage";
-import { getCompanyDetail } from "@/features/money/getCompanyDetail";
+import { getCompanyCaseFile } from "@/features/money/getCompanyDetail";
 import { canonicalIco } from "@/features/money/companyId";
 
 /** The page asserts a signature-plausibility bound drawn against a DAY (contracts signed
@@ -37,6 +37,9 @@ export default async function CompanyCaseFileRoute({
   // ONE instant for the whole page (see lib/analysis/plausible-date.ts): reading the
   // clock inside the render would drift SSR against CSR.
   const todayIso = new Date().toISOString().slice(0, 10);
-  const data = await getCompanyDetail(icoRaw, todayIso);
+  // Dvě varianty, jeden loader: firma s vazbou dostane peněžní spis, firma bez vazby, ale
+  // se zapsaným vlastnictvím, rejstříkový výpis. `getCompanyDetail()` (užší kontrakt pro
+  // /overeni) tu schválně nestojí — vrátil by `null` i pro firmu, o které graf něco ví.
+  const data = await getCompanyCaseFile(icoRaw, todayIso);
   return <CompanyCaseFilePage data={data} />;
 }

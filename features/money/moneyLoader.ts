@@ -474,6 +474,13 @@ export interface CompanyMoneySlice {
   contracts: CompanyContracts;
   /** the company's contract line items, amount desc, capped like the case file's. */
   lines: ContractLine[];
+  /** Did the supplies read hit its own cap? `readCompanySupplies` computes this and the
+   *  slice used to DROP it, so the company case file ran `reachableMoney()` with no
+   *  `readScope` at all — i.e. it let the CORPUS cap heuristic loose on a one-company
+   *  population, the exact misuse `reachableMoney.ts::contractCoverage` warns about in
+   *  its own header. Same field, same meaning and same reason as `MpMoneySlice
+   *  .contractsTruncated`: the slice ANSWERS the floor question instead of guessing it. */
+  contractsTruncated: boolean;
   /** The company's `owns_stake` edges in BOTH directions — inbound are the firms
    *  registered as its shareholder, outbound the firms it is registered as the
    *  shareholder of. One indexed read, both legs (see the loader's note). */
@@ -482,6 +489,10 @@ export interface CompanyMoneySlice {
    *  labels AND the stored NENALEZENO annotations arrive with the edges, so the
    *  projection needs no second read. */
   ownershipNodeById: Map<string, KgNodeRow>;
+  /** The pass that wrote the TIES — `ties[0].provenance.pass`, so it is **0 for a company
+   *  with no tie at all**. A tie-less payload must therefore never print it as its
+   *  provenance; the ownership layer carries its own (`OwnershipStructure.pass`, uniform
+   *  across the drawn rows or null). */
   pass: number;
 }
 
@@ -524,7 +535,10 @@ export const loadCompanyMoneySlice = cache(async function loadCompanyMoneySlice(
       tieRead.nodes.filter((n) => n.kind === "person").map((n) => [n.id, n] as const),
     );
 
-    const { contracts, lines } = await readCompanySupplies(store, companyId);
+    const { contracts, lines, truncated: contractsTruncated } = await readCompanySupplies(
+      store,
+      companyId,
+    );
 
     // Both legs are wanted here (owners AND subsidiaries), so nothing is filtered by
     // direction — but the set is still re-sorted into `listKgEdges` order: every
@@ -548,6 +562,7 @@ export const loadCompanyMoneySlice = cache(async function loadCompanyMoneySlice(
       clubByPerson,
       contracts,
       lines,
+      contractsTruncated,
       ownershipEdges,
       ownershipNodeById,
       pass,

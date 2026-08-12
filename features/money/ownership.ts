@@ -138,6 +138,38 @@ export interface CompanyCaseFileData extends MoneyCompanyDetail {
   ownership: OwnershipStructure | null;
 }
 
+/**
+ * Spis firmy, kterou graf drží JEN v rejstříkové vrstvě: žádná hrana `linked_to`
+ * na poslance k ní nevede, ale `owns_stake` kolem ní ano.
+ *
+ * Tyhle uzly nejsou okrajové — jsou to CÍLE ODKAZŮ, které blok vlastnictví sám
+ * vykresluje (Město Plzeň, HLAVNÍ MĚSTO PRAHA, Ministerstvo financí, předchůdci
+ * AGROFERTu a osm dalších soukromých matek bez vazby na poslance). Do 2026-08-12
+ * na nich stránka odpovídala „znalostní graf nevede pro tohle IČO žádnou vazbu na
+ * poslance" — tedy popřením té vrstvy, ze které se na ni čtenář právě proklikl,
+ * zatímco graf tu hranu drží.
+ *
+ * CO TAHLE VARIANTA NENESE, JE PODSTATNÉ JAKO CO NESE: žádný dosah, žádný košík,
+ * žádnou smluvní knihu. Bez vazby neexistuje třída vazby, a bez třídy neexistuje
+ * pravidlo přiřazení (`reachableMoney.ts`), které by řeklo, ČÍ ty peníze jsou —
+ * takže se tu žádné peníze nesází ani neraží jako citovatelný claim.
+ *
+ * Rozlišuje se polem `variant`, které vazbový payload NEMÁ: spis firmy s vazbami
+ * jde proto po drátě bajt za bajt stejný jako předtím.
+ */
+export interface CompanyRegistryFileData {
+  variant: "registry-only";
+  companyId: string;
+  ico: string;
+  name: string;
+  /** Nikdy null: bez jediného vykreslitelného zápisu tahle varianta nevznikne
+   *  (loader vrací `null` a stránka zůstává u „graf o téhle firmě nic nevede"). */
+  ownership: OwnershipStructure;
+}
+
+/** Co spis firmy vykresluje — jedna ze dvou variant, nikdy sloučený tvar. */
+export type CompanyFileData = CompanyCaseFileData | CompanyRegistryFileData;
+
 function str(v: unknown): string | null {
   if (typeof v !== "string") return null;
   const t = v.trim();

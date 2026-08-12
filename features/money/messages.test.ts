@@ -200,6 +200,68 @@ describe("money message catalog", () => {
     expect(en["graph.tieFallback"]).toBe("tie");
   });
 
+  /* ── firma bez vazby dostane spis, ne popření ─────────────────────────────
+   * Blok vlastnictví odkazuje na každou protistranu s kanonickým IČEM (Město
+   * Plzeň, HLAVNÍ MĚSTO PRAHA, Ministerstvo financí, předchůdci AGROFERTu), a
+   * loader do 2026-08-12 na `ties.length === 0` končil DŘÍV, než se na
+   * vlastnictví podíval — takže všechny ty odkazy dopadly na větu „graf nevede
+   * pro tohle IČO žádnou vazbu na poslance". Jména klíčů jsou kontrakt mezi
+   * `CompanyCaseFilePage.tsx` a katalogem. */
+  const REGISTRY_ONLY_KEYS = [
+    "companyFile.registryOnlyEyebrow",
+    "companyFile.registryOnlyEyebrowNoPass",
+    "companyFile.registryOnlyLead",
+    "companyFile.registryOnlyNotEmpty",
+    "companyFile.registryOnlySource",
+    "companyFile.registryOnlyDisclaimer",
+  ];
+
+  it("the register-only company file declares every sentence it renders, in both catalogs", () => {
+    for (const k of REGISTRY_ONLY_KEYS) {
+      expect(cs[k], `cs.${k}`).toBeTruthy();
+      expect(en[k], `en.${k}`).toBeTruthy();
+    }
+    // Průchod je ARGUMENT, a druhá věta ho NETVRDÍ VŮBEC — vlastnické hrany se na
+    // jednom průchodu shodnout nemusí a `ties[0].provenance.pass` (= 0) se sem
+    // dosadit nesmí.
+    expect(placeholders(cs["companyFile.registryOnlyEyebrow"])).toEqual(["pass"]);
+    expect(placeholders(en["companyFile.registryOnlyEyebrow"])).toEqual(["pass"]);
+    expect(placeholders(cs["companyFile.registryOnlyEyebrowNoPass"])).toEqual([]);
+    expect(placeholders(en["companyFile.registryOnlyEyebrowNoPass"])).toEqual([]);
+    // A ta věta pro „graf o tomhle IČU neví vůbec nic" zůstává — jsou to dvě
+    // různá tvrzení a jedno se nesmí sázet místo druhého.
+    expect(cs["companyFile.noTie"]).toBeTruthy();
+    expect(en["companyFile.noTie"]).toBeTruthy();
+  });
+
+  it("the register-only file promises no money — not even a zero", () => {
+    // Bez vazby neexistuje třída vazby, bez ní pravidlo přiřazení: tahle varianta
+    // nesází žádnou částku, takže ji nesmí ani slibovat copy.
+    for (const [locale, ns] of [
+      ["cs", cs],
+      ["en", en],
+    ] as const) {
+      for (const k of REGISTRY_ONLY_KEYS) {
+        expect(ns[k], `${locale}.${k} prints a CZK figure`).not.toMatch(/\bK[čc]\b|\bCZK\b|\bmld\b|\bmil\b/i);
+      }
+    }
+    // Dolní odhad má vlastní větu a vlastní důvod: strop ČTENÍ, ne korpusová
+    // heuristika — a proto v ní nesmí stát žádné číslo stropu.
+    for (const ns of [cs, en]) {
+      expect(ns["companyFile.reachReadCapped"]).toBeTruthy();
+      expect(placeholders(ns["companyFile.reachReadCapped"])).toEqual([]);
+    }
+    expect(cs["shared.atLeast"]).toBeTruthy();
+    expect(en["shared.atLeast"]).toBeTruthy();
+  });
+
+  it("the register-only sentences stay Czech in the Czech catalog", () => {
+    for (const k of [...REGISTRY_ONLY_KEYS, "companyFile.reachReadCapped"]) {
+      expect(looksEnglish(cs[k]), `cs.${k} reads as English`).toBe(false);
+      expect(cs[k], `${k} is not translated`).not.toEqual(en[k]);
+    }
+  });
+
   it("the lower-bound explainer is reachable copy, not a dead key", () => {
     // It sat unused in both catalogs while the "nejméně" prefix rendered without it.
     expect(placeholders(cs["real.stats.reachableSubCapped"])).toEqual(["cap", "companies"]);
