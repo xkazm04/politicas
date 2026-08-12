@@ -23,7 +23,14 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { formatCompactCzk, formatDate, formatInt } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
-import { weekdayKey, DAYS_SHOWN, type DenikDay, type DenikEntry, type DenikLedger } from "./deriveDenik";
+import {
+  weekdayKey,
+  DAYS_SHOWN,
+  FEED_ENTRIES,
+  type DenikDay,
+  type DenikEntry,
+  type DenikLedger,
+} from "./deriveDenik";
 import {
   denikKindInfo,
   DENIK_KIND_UNMAPPED_NOTE_KEY,
@@ -33,6 +40,7 @@ import {
 import { limitNotes } from "./limitNotes";
 import type { DenikCoverage, DenikLimits } from "./getDenikData";
 import FollowButton from "@/features/schranka/FollowButton";
+import { isEntityKey } from "@/features/schranka/followCodec";
 
 /** Překladač namespace `denik` — jediný typ, který si komponenty předávají. */
 type T = ReturnType<typeof useTranslations<"denik">>;
@@ -104,24 +112,25 @@ function EntryRow({
         </span>
         {/* Kterým časem je řádek datován — a co to znamená, U ŘÁDKU: výklad
             stál 200 px výš, mimo pohled čtenáře, který zrovna čte tenhle řádek.
-            Tečkované podtržení je viditelný příslib vysvětlení. */}
-        {e.timeBasis === "zaznamenano" ? (
-          <span
-            className="ml-2 cursor-help whitespace-nowrap border border-cobalt px-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt"
-            title={timeBasisTitle}
-            aria-label={timeBasisTitle}
-          >
-            {t(TIME_BASIS_LABEL_KEYS.zaznamenano)}
-          </span>
-        ) : (
-          <span
-            className="ml-2 cursor-help whitespace-nowrap border-b border-dotted border-steel font-mono text-[10px] uppercase tracking-wider text-steel-aa"
-            title={timeBasisTitle}
-            aria-label={timeBasisTitle}
-          >
-            {t(TIME_BASIS_LABEL_KEYS.ucinne)}
-          </span>
-        )}
+            Tečkované podtržení je viditelný příslib vysvětlení.
+
+            VÝKLAD JE TEXT, NE ATRIBUT (2026-08-12): do téhle opravy ho nesl
+            `title` (jen hover myší — klávesnice ani dotyk ho nikdy nedostanou)
+            a `aria-label` na generickém `<span>`u, kde ho ARIA nedovoluje a
+            čtečka ho tiše zahodí. Výklad je proto teď sourozenec `sr-only`,
+            tedy skutečný text v DOM: čte ho čtečka, najde ho hledání ve
+            stránce i tisk. `title` zůstává jako pohodlí pro myš. */}
+        <span
+          className={
+            e.timeBasis === "zaznamenano"
+              ? "ml-2 cursor-help whitespace-nowrap border border-cobalt px-1 font-mono text-[10px] font-bold uppercase tracking-wider text-cobalt"
+              : "ml-2 cursor-help whitespace-nowrap border-b border-dotted border-steel font-mono text-[10px] uppercase tracking-wider text-steel-aa"
+          }
+          title={timeBasisTitle}
+        >
+          {t(TIME_BASIS_LABEL_KEYS[e.timeBasis])}
+        </span>
+        <span className="sr-only">{timeBasisTitle}</span>
         {e.pending && (
           <span className="mt-1 block font-mono text-[11px] uppercase tracking-wider text-ochre">
             {t("entryRow.pending")}
@@ -265,6 +274,17 @@ export default function DenikPage({
   const feedQuery = entityKey ? `?entita=${encodeURIComponent(entityKey)}` : "";
   const missing = coverage ? COVERAGE_NOTE_KEYS.filter((c) => !coverage[c.key]) : [];
   const limitRows = limits ? limitNotes(limits, ledger, locale) : [];
+  /**
+   * TVAR KLÍČE JE JINÁ OTÁZKA NEŽ SHODA (2026-08-12). Routa přijímá jako
+   * `?entita=` jakýkoli neprázdný řetězec, takže se sem dostane i „ahoj";
+   * prázdný výsledek pak čte jako „o téhle entitě záznam nic nemá", což je
+   * nepravda — takový klíč se s ničím porovnat nedá. Test tvaru je JEDEN
+   * (`isEntityKey`, features/schranka/followCodec) a bere se odtud, ne jako
+   * druhá kopie regulárního výrazu: tentýž test rozhoduje, co schránka smí
+   * uložit, a `FollowButton` pod neplatným klíčem stejně vykreslí null —
+   * plocha tedy nabízela příslib doručení do prázdného místa.
+   */
+  const keyValid = entityKey !== null && isEntityKey(entityKey);
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -338,6 +358,14 @@ export default function DenikPage({
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
               {t("limits.kicker")}
             </p>
+            {/* MĚŘÍTKO VĚT: meze počítá loader a odvození nad CELÝM korpusem,
+                nikoli nad filtrem — ve filtrovaném pohledu by se jinak četly
+                jako fakta o té jedné entitě. Rozsah se přiznává větou; typy ani
+                počty se kvůli tomu nepřepočítávají (přepočet na entitu by byl
+                jiné číslo, které se nikde neměří). */}
+            {entityKey && (
+              <p className="mt-1 text-sm leading-relaxed text-steel-aa">{t("limits.corpusScope")}</p>
+            )}
             <ul className="mt-1 list-none space-y-1 text-sm leading-relaxed text-steel-aa">
               {limitRows.map((n) => (
                 <li key={n.key}>{t(n.key, n.values)}</li>
@@ -362,26 +390,36 @@ export default function DenikPage({
                 {t("filter.clear")}
               </Link>
             </div>
-            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
-              <FollowButton
-                entityKey={entityKey}
-                label={entityLabelCs ?? entityKey}
-                subject={entityLabelCs ?? entityKey}
-                compact
-              />
-              <span className="text-sm leading-relaxed text-steel-aa">
-                {t.rich("filter.inboxNote", {
-                  schranka: (chunks) => (
-                    <Link
-                      href="/schranka"
-                      className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
-                    >
-                      {chunks}
-                    </Link>
-                  ),
-                })}
-              </span>
-            </div>
+            {/* Sledování se nabízí JEN pro klíč, který schránka umí přijmout.
+                Neplatný klíč dostane místo příslibu doručení větu o tom, proč
+                se doručit nedá — tlačítko by pod ním vykreslilo null a zbyla by
+                věta slibující schránku, která takový klíč nikdy neuloží. */}
+            {keyValid ? (
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+                <FollowButton
+                  entityKey={entityKey}
+                  label={entityLabelCs ?? entityKey}
+                  subject={entityLabelCs ?? entityKey}
+                  compact
+                />
+                <span className="text-sm leading-relaxed text-steel-aa">
+                  {t.rich("filter.inboxNote", {
+                    schranka: (chunks) => (
+                      <Link
+                        href="/schranka"
+                        className="font-mono text-xs font-bold uppercase tracking-widest text-signal-deep hover:underline"
+                      >
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
+                </span>
+              </div>
+            ) : (
+              <p className="mt-2 text-sm leading-relaxed text-steel-aa">
+                {t("filter.invalidKey", { key: entityKey })}
+              </p>
+            )}
           </div>
         )}
 
@@ -406,16 +444,40 @@ export default function DenikPage({
           ) : ledger.days.length === 0 ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
               {entityKey ? (
-                <p className="text-lg">
-                  {t("emptyEntity.lead")}
-                  <span className="text-signal">.</span> {t("emptyEntity.body", { key: entityKey })}{" "}
-                  <Link
-                    href="/denik"
-                    className="font-mono text-sm uppercase tracking-widest text-cobalt hover:underline"
-                  >
-                    {t("emptyEntity.link")}
-                  </Link>
-                </p>
+                <>
+                  <p className="text-lg">
+                    {t("emptyEntity.lead")}
+                    <span className="text-signal">.</span>{" "}
+                    {/* Neplatný tvar klíče NENÍ „nic se nenašlo": s takovým
+                        klíčem se porovnávat nedá, takže dvojí disjunkce níž
+                        („registry o ní nic nemají / klíč nic neodpovídá") by o
+                        entitě tvrdila něco, co se nezkoumalo. */}
+                    {keyValid
+                      ? t("emptyEntity.body", { key: entityKey })
+                      : t("emptyEntity.invalidBody", { key: entityKey })}{" "}
+                    <Link
+                      href="/denik"
+                      className="font-mono text-sm uppercase tracking-widest text-cobalt hover:underline"
+                    >
+                      {t("emptyEntity.link")}
+                    </Link>
+                  </p>
+                  {/* TŘETÍ MOŽNOST, KTEROU VĚTA VÝŠ NEZNÁ: vrstva, která by
+                      zápisy o téhle entitě nesla, může být zrovna nečitelná —
+                      pak prázdno není tvrzení o entitě, ale o čtení. Vrstvy se
+                      jmenují TOUŽ větou jako prapor pokrytí nahoře (`missing`),
+                      ne druhým slovníkem. */}
+                  {keyValid && missing.length > 0 && (
+                    <div className="mt-3 text-base leading-relaxed text-steel-aa">
+                      <p>{t("emptyEntity.dark")}</p>
+                      <ul className="mt-1 list-none">
+                        {missing.map((m) => (
+                          <li key={m.key}>{t(m.noteKey)}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </>
               ) : (
                 <p className="text-lg">
                   {t("empty.lead")}
@@ -423,8 +485,13 @@ export default function DenikPage({
                 </p>
               )}
               <div className="mt-3">
+                {/* `droppedImplausible` se počítá PŘED filtrem entity, takže ve
+                    filtrovaném pohledu je to údaj o celém deníku — a věta to
+                    musí říct, jinak se čte jako počet vadných dat té entity. */}
                 <SourceNote>
-                  {t("empty.note", { n: formatInt(ledger.droppedImplausible, locale) })}
+                  {t(entityKey ? "empty.noteEntity" : "empty.note", {
+                    n: formatInt(ledger.droppedImplausible, locale),
+                  })}
                 </SourceNote>
               </div>
             </div>
@@ -461,7 +528,13 @@ export default function DenikPage({
                 ))}
               </div>
 
-              {/* Meze plochy — kolik dnů korpus nese a kolik jich stránka ukazuje. */}
+              {/* Meze plochy — kolik dnů korpus nese a kolik jich stránka ukazuje.
+                  Do 2026-08-12 tu stálo, že „starší dny nesou strojové podoby":
+                  nenesou. Feed řeže po ZÁPISECH (FEED_ENTRIES), ne po dnech, a
+                  sto nejnovějších zápisů je v praxi míň dnů, než ukazuje tahle
+                  stránka — odkaz na feed jako na archiv vedl do kratšího výřezu.
+                  Oba stropy jsou proto dosazené z konstant, které řez opravdu
+                  dělají (precedens popisu kanálu schránky). */}
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <SourceNote>
                   {ledger.daysTotal > ledger.days.length
@@ -469,10 +542,15 @@ export default function DenikPage({
                         total: formatInt(ledger.daysTotal, locale),
                         shown: formatInt(ledger.days.length, locale),
                         cap: formatInt(DAYS_SHOWN, locale),
+                        feedCap: formatInt(FEED_ENTRIES, locale),
                       })
                     : t("daysNote.total", { total: formatInt(ledger.daysTotal, locale) })}
+                  {/* Týž korpusový rozsah jako u `empty.note`: zahozené řádky se
+                      počítají před filtrem entity. */}
                   {ledger.droppedImplausible > 0
-                    ? ` · ${t("daysNote.dropped", { n: formatInt(ledger.droppedImplausible, locale) })}`
+                    ? ` · ${t(entityKey ? "daysNote.droppedEntity" : "daysNote.dropped", {
+                        n: formatInt(ledger.droppedImplausible, locale),
+                      })}`
                     : ""}
                 </SourceNote>
               </div>

@@ -4,6 +4,7 @@ import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import DenikPage from "@/features/denik/DenikPage";
 import { buildDenik } from "@/features/denik/deriveDenik";
 import { getDenikData } from "@/features/denik/getDenikData";
+import { isEntityKey } from "@/features/schranka/followCodec";
 
 /*
  * /denik — Deník republiky (moonshot 3A): chronologický denní záznam státu.
@@ -12,28 +13,49 @@ import { getDenikData } from "@/features/denik/getDenikData";
  * Copy včetně metadat žije od 2026-08-05 v messages/{cs,en}.json pod `denik.*`.
  */
 
-export async function generateMetadata(): Promise<Metadata> {
+type DenikSearchParams = Promise<{ entita?: string | string[] }>;
+
+/** Klíč entity z query: routa přijímá jakýkoli neprázdný řetězec (plocha pak
+ *  přizná, že tvar klíče neodpovídá) — tady se jen normalizuje pole/prázdno. */
+function readEntityKey(params: { entita?: string | string[] }): string | null {
+  const raw = params.entita;
+  return typeof raw === "string" && raw.length > 0 ? raw : null;
+}
+
+/**
+ * Autodiscovery míří na TENTÝŽ feed, jaký nese viditelný odkaz v hlavičce.
+ * Do 2026-08-12 bral `generateMetadata` nulu argumentů, takže `alternates`
+ * ohlašovaly NEFILTROVANÝ feed i na pohledu `?entita=…` — čtečka, která si
+ * odběr vezme z hlavičky dokumentu, tedy dostala celý deník místo entity, o
+ * kterou čtenář stál. Filtr se propíše jen pro klíč PLATNÉHO tvaru (týž test
+ * jako plocha): ohlásit odběr adresy, která nemůže nic doručit, je horší než
+ * ohlásit celý deník.
+ */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: DenikSearchParams;
+}): Promise<Metadata> {
   const t = await getTranslations("denik");
+  const entityKey = readEntityKey(await searchParams);
+  const query =
+    entityKey !== null && isEntityKey(entityKey)
+      ? `?entita=${encodeURIComponent(entityKey)}`
+      : "";
   return {
     title: t("meta.title"),
     description: t("meta.description"),
     alternates: {
       types: {
-        "application/rss+xml": "/denik/feed.xml",
-        "application/feed+json": "/denik/feed.json",
+        "application/rss+xml": `/denik/feed.xml${query}`,
+        "application/feed+json": `/denik/feed.json${query}`,
       },
     },
   };
 }
 
-export default async function DenikRoute({
-  searchParams,
-}: {
-  searchParams: Promise<{ entita?: string | string[] }>;
-}) {
-  const params = await searchParams;
-  const raw = params.entita;
-  const entityKey = typeof raw === "string" && raw.length > 0 ? raw : null;
+export default async function DenikRoute({ searchParams }: { searchParams: DenikSearchParams }) {
+  const entityKey = readEntityKey(await searchParams);
 
   const rawLocale = await getLocale();
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;

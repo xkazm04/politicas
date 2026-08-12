@@ -69,9 +69,11 @@ export const TIME_BASIS_LABEL_KEYS: Record<DenikTimeBasis, string> = {
   zaznamenano: "timeBasis.zaznamenano",
 };
 
-/** Vysvětlení obou časových os U ŘÁDKU (title + aria-label štítku) — do
- *  opravy 2026-08-04 stály štítky bez výkladu a ten byl o 200 px výš, mimo
- *  pohled čtenáře, který zrovna čte řádek. */
+/** Vysvětlení obou časových os U ŘÁDKU — do opravy 2026-08-04 stály štítky bez
+ *  výkladu a ten byl o 200 px výš, mimo pohled čtenáře, který zrovna čte řádek.
+ *  Od 2026-08-12 se výklad sází jako `sr-only` TEXT vedle štítku (plus `title`
+ *  pro myš): `aria-label` na generickém `<span>`u ARIA nedovoluje a čtečka ho
+ *  zahodí, takže výklad pro ni do té doby fakticky neexistoval. */
 export const TIME_BASIS_TITLE_KEYS: Record<DenikTimeBasis, string> = {
   ucinne: "timeBasis.ucinneTitle",
   zaznamenano: "timeBasis.zaznamenanoTitle",

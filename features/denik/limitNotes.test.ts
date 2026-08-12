@@ -46,8 +46,10 @@ const ledger = (over: Partial<DenikLedger> = {}): DenikLedger => ({
 const keysOf = (limits: DenikLimits, led: DenikLedger | null = null) =>
   limitNotes(limits, led, "cs").map((n) => n.key);
 
-/** Číslice zformátovaného čísla — oddělovač tisíců vlastní lib/format. */
-const digits = (s: string) => s.replace(/\D/g, "");
+/** Číslice zformátovaného čísla — oddělovač tisíců vlastní lib/format.
+ *  Bere i syrové číslo: počítaná mez posílá do věty obojí (`n` pro shodu
+ *  s číslovkou, `nFmt` pro oči), a test nemá určovat, které z nich čte. */
+const digits = (s: string | number) => String(s).replace(/\D/g, "");
 
 /** Rozbalí `denik.limits.auditTruncated` z katalogu, nebo undefined. */
 function catalogValue(catalog: unknown, key: string): unknown {
@@ -119,6 +121,46 @@ describe("limitNotes — všechny meze pohromadě", () => {
       "limits.contractAmountConflicts",
     ]);
     expect(new Set(keys).size).toBe(keys.length);
+  });
+
+  it("počítaná mez posílá do věty syrové ČÍSLO i zformátovaný tvar", () => {
+    // Bez syrového `n` vybírá `Intl.PluralRules` z řetězce „1 234" NaN a věta
+    // navždy spadne do větve `other` — česká shoda s číslovkou by tiše zmizela.
+    // Bez `nFmt` by zase číslo obešlo lib/format, jediné místo, kde se sází
+    // oddělovač tisíců.
+    const notes = limitNotes({ ...CLEAN, malformedIco: 1_234 }, null, "cs");
+    expect(notes[0].key).toBe("limits.malformedIco");
+    expect(notes[0].values.n).toBe(1_234);
+    expect(typeof notes[0].values.nFmt).toBe("string");
+    expect(digits(notes[0].values.nFmt)).toBe("1234");
+  });
+
+  it("každá počítaná mez nese dvojici n/nFmt — jedna zapomenutá = věta bez shody", () => {
+    const notes = limitNotes(
+      {
+        ...CLEAN,
+        companiesEdgeTruncated: 2,
+        malformedIco: 3,
+        changesUndisplayable: 4,
+        changesFromGate: 5,
+      },
+      ledger({ mergedContractRows: 6, contractAmountConflicts: 7 }),
+      "cs",
+    );
+    const counted = [
+      "limits.companiesEdgeTruncated",
+      "limits.malformedIco",
+      "limits.changesUndisplayable",
+      "limits.changesFromGate",
+      "limits.mergedContractRows",
+      "limits.contractAmountConflicts",
+    ];
+    for (const key of counted) {
+      const note = notes.find((n) => n.key === key);
+      expect(note, key).toBeDefined();
+      expect(typeof note!.values.n, key).toBe("number");
+      expect(typeof note!.values.nFmt, key).toBe("string");
+    }
   });
 
   it("každý klíč, který plocha může vyslovit, je v OBOU katalozích", () => {
