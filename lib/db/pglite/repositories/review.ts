@@ -6,7 +6,7 @@
 import { randomUUID } from "node:crypto";
 import type { ReviewRepository } from "../../store";
 import type { ReviewAuditRow } from "../../types";
-import { isoTs, json, num, str, strOrNull, type Pglite, type PgTransaction } from "../internals";
+import { isoTs, json, num, str, strOrNull, warnIfTruncated, type Pglite, type PgTransaction } from "../internals";
 import { GENESIS_HASH, computeAuditRowHash } from "../ledger";
 
 const LINKED_TO = "linked_to";
@@ -148,6 +148,16 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
       const { rows } = await pg.query<Record<string, unknown>>(
         `select * from review_audit ${where} order by decided_at desc limit ${lim}`,
         params,
+      );
+      // /dukazy renders `audit.length` AS A COUNT of gate decisions and /admin
+      // sums it by reviewer — so a truncated read does not degrade a list, it
+      // publishes a wrong number. Five call sites request exactly the 10 000
+      // hard cap, which is the shape this guard exists to catch.
+      warnIfTruncated(
+        "listReviewAudit",
+        rows.length,
+        lim,
+        clauses.length ? `${opts?.src ?? "*"}→${opts?.dst ?? "*"}` : undefined,
       );
       return rows.map(mapAuditRow);
     },

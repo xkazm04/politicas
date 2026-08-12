@@ -43,11 +43,17 @@ export function makeVoteRepo(pg: Pglite): VoteRepository {
       ]),
 
     async listVoteEvents(opts) {
+      const limit = limitOf(opts);
       const where = opts?.termCode ? `where term_code = $1` : "";
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select * from vote_event ${where} order by psp_id limit ${limitOf(opts)}`,
+        `select * from vote_event ${where} order by psp_id limit ${limit}`,
         opts?.termCode ? [opts.termCode] : [],
       );
+      // The roll-call spine of /hlasovani, /kompas and the spis rebellion
+      // index. Ordered by psp_id, so a truncation would systematically retire
+      // the newest roll calls — and the ledger would report a chamber that
+      // stopped voting.
+      warnIfTruncated("listVoteEvents", rows.length, limit, opts?.termCode);
       return rows.map(mapVoteEvent);
     },
     async listVoteBallots(opts) {

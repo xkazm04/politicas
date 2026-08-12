@@ -30,7 +30,18 @@ import {
   type ClaimVersion,
 } from "../../../ingest/changeEvents";
 import { dbDriver } from "../../config";
-import { isoTs, json, num, numOrNull, open, str, strOrNull, upsertMany, type Pglite } from "../internals";
+import {
+  isoTs,
+  json,
+  num,
+  numOrNull,
+  open,
+  str,
+  strOrNull,
+  upsertMany,
+  warnIfTruncated,
+  type Pglite,
+} from "../internals";
 
 export interface ChangeEventListOptions {
   /** Public watch key (`poslanec:<pspId>` | `firma:<ico>` | `tisk:<n>`). */
@@ -107,6 +118,14 @@ export function makeChangesRepo(pg: Pglite): ChangeEventRepository {
       const { rows } = await pg.query<Record<string, unknown>>(
         `select * from change_event ${where} order by recorded_at desc, id asc limit ${lim}`,
         params,
+      );
+      // Newest-first, so a truncation drops the OLDEST events — the seismograph
+      // would then draw a window and call it a history.
+      warnIfTruncated(
+        "listChangeEvents",
+        rows.length,
+        lim,
+        clauses.length ? `${opts?.entityKey ?? "*"}/${opts?.eventType ?? "*"}` : undefined,
       );
       return rows.map(mapRow);
     },

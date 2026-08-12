@@ -78,6 +78,13 @@ export interface BitemporalKnowledgeGraphRepository extends KnowledgeGraphReposi
  * (`warnIfTruncated`) — the relational listers in `graph.ts` had the same hazard and
  * no guard at all, so the rule has one definition for both sides of the store. */
 
+/** What `kgNeighbours` actually asked for, for the truncation warning — the
+ *  entity plus its rel filter, because "kgNeighbours hit its limit" without the
+ *  id names no company an operator could go and re-read. */
+function neighbourFilter(id: string, rels: readonly string[] | undefined): string {
+  return `${id} rels=${rels && rels.length > 0 ? rels.join("|") : "*"}`;
+}
+
 export function neighbourIds(edges: KgEdgeRow[], id: string): string[] {
   const out = new Set<string>();
   for (const e of edges) {
@@ -285,6 +292,15 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
          limit ${lim}`,
         params,
       );
+      // The guard every sibling lister carries, and the one this read went
+      // WITHOUT the longest — while having the smallest default limit in the
+      // app (500) and being the primitive the read doctrine steers every
+      // per-entity loader toward. Measured cost of the silence: /denik lost
+      // 4 872 contracts to a 500-edge cap on 5 of 35 companies before it
+      // hand-rolled its own detector. Truncation here is systematic, not
+      // random — the read is ordered by weight desc, so what vanishes is
+      // always the CHEAPEST edges of the busiest entity.
+      warnIfTruncated("kgNeighbours", rows.length, lim, neighbourFilter(id, opts.rels));
       const edges = rows.map(mapKgEdge);
       const nodes = await nodesByIds(neighbourIds(edges, id));
       return { edges, nodes };
@@ -419,6 +435,7 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
              limit ${lim}`,
             params,
           );
+          warnIfTruncated("asOf.kgNeighbours", rows.length, lim, neighbourFilter(id, opts.rels));
           const edges = rows.map(mapKgEdge);
           const ids = neighbourIds(edges, id);
           if (ids.length === 0) return { edges, nodes: [] };

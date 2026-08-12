@@ -4,7 +4,7 @@
 
 import type { VoteTagRepository } from "../../store";
 import type { VoteTagRow } from "../../types";
-import { isoTs, num, numOrNull, str, upsertMany, type Pglite } from "../internals";
+import { isoTs, num, numOrNull, str, upsertMany, warnIfTruncated, type Pglite } from "../internals";
 import { VOTE_TAG_COLS } from "../mappers";
 
 export function makeVoteTagRepo(pg: Pglite): VoteTagRepository {
@@ -20,6 +20,10 @@ export function makeVoteTagRepo(pg: Pglite): VoteTagRepository {
         `select * from vote_tag ${where} order by vote_psp_id limit ${lim}`,
         opts?.theme ? [opts.theme] : [],
       );
+      // /kompas selects its ~20 questions from these tags and PRINTS the
+      // confidence floor it applied; a silently short read would move that
+      // selection without moving the published rule.
+      warnIfTruncated("listVoteTags", rows.length, lim, opts?.theme);
       return rows.map((r) => ({
         id: str(r.id),
         votePspId: num(r.vote_psp_id),

@@ -28,7 +28,7 @@
 import { decodeWeights } from "@/features/civicscore/lens";
 import { serializeWeights } from "@/features/landing/referendum/aggregate";
 import { dbDriver } from "../../config";
-import { num, open, str, type Pglite } from "../internals";
+import { num, open, str, warnIfTruncated, type Pglite } from "../internals";
 
 export interface LensSubmissionRepository {
   /**
@@ -67,6 +67,11 @@ export function makeWeightsRepo(pg: Pglite): LensSubmissionRepository {
       const { rows } = await pg.query<Record<string, unknown>>(
         `select vahy from lens_submission order by submitted_at asc, id asc limit ${lim}`,
       );
+      // This read FEEDS A PUBLISHED AGGREGATE — deriveWeightAggregate's median
+      // is the referendum figure the landing page prints. The read is ordered
+      // oldest-first, so a truncation would silently drop the NEWEST
+      // submissions and publish a median of the past under today's count.
+      warnIfTruncated("listLensVectors", rows.length, lim);
       return rows.map((r) => str(r.vahy));
     },
 

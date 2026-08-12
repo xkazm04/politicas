@@ -320,11 +320,31 @@ function lawHeadline(law: LawData): DashboardLaws {
 }
 
 /**
+ * Strop hran na firmu. `kgNeighbours` defaultuje na **500**, což je pod
+ * průměrem ~784 `supplies` hran na firmu — a tenhle loader ten default psal
+ * doslova. Cena mlčení je změřená jinde v repu: /denik takhle ztratil
+ * **4 872 smluv** (5 z 35 čtených firem vrátilo přesně 500), než si detektor
+ * dopsal ručně. Pět tisíc je JEHO číslo (`MAX_CONTRACT_EDGES`,
+ * features/denik/getDenikData.ts) a jeho měření: živý graf měl v maximu 2 387
+ * hran na firmu, 0 firem useknutých. Výřez velína čte PODMNOŽINU týchž firem
+ * týmž `rel`, takže na tomtéž korpusu neseká nic — konstanta se tu deklaruje
+ * znovu jen proto, že tamta není exportovaná; obě popisují jeden strop.
+ */
+const MAX_SLICE_CONTRACT_EDGES = 5_000;
+
+/**
  * Contracts of the slice's attributable firms, read through the INDEXED
  * neighbourhood primitive (`kgNeighbours`) — one point read per drawn company,
  * never a scan of the 153 k-row `supplies` relation. Only companies the slice
  * actually drew are asked for, so the ledger cannot contain a row whose
  * crosshair points off-canvas.
+ *
+ * Useknutí se HLÁSÍ (`reportLoaderFailure`), nikdy neprojde tiše: dotaz je
+ * řazený podle váhy sestupně, takže co zmizí, nezmizí náhodně — jsou to
+ * vždycky nejlevnější smlouvy té nejzaměstnanější firmy, a kniha faktů by o
+ * nich mlčky tvrdila, že neexistují. Táž heuristika jako `warnIfTruncated`
+ * v lib/db (délka výsledku přesně na stropu = pravděpodobně useknuto), který
+ * od téhle změny hlídá i samotný `kgNeighbours`.
  */
 async function sliceContracts(
   companies: { kgId: string; company: string; refs: string[]; subjectRef: string; pending: boolean }[],
@@ -334,8 +354,23 @@ async function sliceContracts(
     const store = await getStore();
     if (!store) return [];
     const out: FactContract[] = [];
+    let truncatedCompanies = 0;
     for (const c of companies) {
-      const { edges, nodes } = await store.kgNeighbours({ id: c.kgId, rels: ["supplies"], limit: 500 });
+      const { edges, nodes } = await store.kgNeighbours({
+        id: c.kgId,
+        rels: ["supplies"],
+        limit: MAX_SLICE_CONTRACT_EDGES,
+      });
+      if (edges.length >= MAX_SLICE_CONTRACT_EDGES) {
+        truncatedCompanies += 1;
+        reportLoaderFailure(
+          "getDashboardData.sliceContracts",
+          new Error(
+            `firma ${c.kgId} vrátila přesně strop ${MAX_SLICE_CONTRACT_EDGES} hran supplies — ` +
+              `nejlevnější smlouvy se do knihy faktů nedostaly`,
+          ),
+        );
+      }
       const byId = new Map(nodes.map((n) => [n.id, n]));
       for (const e of edges) {
         const node = byId.get(e.dst);
@@ -353,6 +388,15 @@ async function sliceContracts(
           pending: c.pending,
         });
       }
+    }
+    if (truncatedCompanies > 0) {
+      reportLoaderFailure(
+        "getDashboardData.sliceContracts",
+        new Error(
+          `${truncatedCompanies} z ${companies.length} firem výřezu narazilo na strop ` +
+            `${MAX_SLICE_CONTRACT_EDGES} hran supplies — kniha faktů je neúplná`,
+        ),
+      );
     }
     return out;
   } catch (err) {
