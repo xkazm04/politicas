@@ -424,6 +424,27 @@ Route map (politicas.md roadmap execution, sample data):
   links; a record with no number renders its count and says so (never a
   guessed URL), and a list ≠ stored-weight mismatch is DISCLOSED with the
   weight authoritative — never repaired.
+  **The absence rate has its rows (2026-08-12).** The dossier printed one
+  scalar `absence_rate` whose own citation named „omluvené dny / jednací dny"
+  — two figures shown nowhere — while 6 425 dated, TIMED excuse filings (the
+  corpus's top-scored slice) sat unrendered. `features/profile/
+  absenceRecord.ts` (pure + tested) projects filings → days: several windows
+  on one day are NEVER merged into a whole day (celodenní is only what the
+  source flags), a future-dated filing is a REAL record (filed ahead —
+  rendered, tagged, counted, never corrected), an unreadable date drops and
+  is counted; cap 12 days, disclosed. The read rides the never-used
+  `absence_mandate_idx`: `listAbsences` gained `mandatePspIds` (an EMPTY
+  array matches NOTHING — the BallotListOptions precedent; measured 14–20 ms
+  per mandate vs 410–483 ms per term; the lister also gained the
+  `warnIfTruncated` it alone lacked). Three states, the RebellionInstances
+  trio: unreadable ≠ zero filings ≠ rows. Three honest limits in the copy,
+  test-pinned: psp.cz publishes NO reason (omluvy.unl has exactly id_organ,
+  id_poslanec, den, od, do); this is NOT the ballot-level „omluven" (a
+  different fact from a different dataset); and the rate above is a STORED
+  pass value, not a live sum — verified through the shipped path that
+  `round3(min(1, totalDays/63))` reproduces the stored rate for 207/207 MPs
+  (one clamps at 100 %: an excuse may be filed for a day with no roll call,
+  so the two day-sets don't nest — the copy says so).
   **The spis links the fabric it belongs to (2026-08-04).** It sat at the centre of
   the graph and pointed almost nowhere: no `/denik?entita=poslanec:<pspId>` (the
   dated stream about the same entity, keyed by `mpEntityKey` — imported, never
@@ -572,6 +593,20 @@ Route map (politicas.md roadmap execution, sample data):
   batch job, flagged). All four selection floors now count their casualties
   („no ballots held" ≠ „few voted"), and an empty selection renders its own
   sentence instead of the outage state.
+  **A never-computed layer is not an outage (2026-08-12).** `vote_tag` = 0
+  rows means OUR derived theme layer was never computed, and both surfaces
+  used to file that under outage. `features/votetrack/silverLayer.ts` is the
+  typed third state (`null` = outage · `{state:"never-computed"}` ·
+  `{state:"ready",data}`), and the middle state may only arise AFTER a
+  successful `getStore()` — `readVoteTags()` returns `[]` without a store,
+  which is exactly how an outage could masquerade as an uncomputed layer.
+  /kompas renders `KompasNeverComputed` (what the layer is, that it is NOT an
+  outage, no promised date, no pipeline jargon); /hlasovani's `#temata` rail
+  anchor finally lands on a sentence instead of a silent spacer, and the
+  kompas CTA switches copy AND tone over an empty layer instead of inviting
+  „spočítejte si shodu" into it; `app/kompas/loading.tsx` stops promising a
+  seconds-long read unconditionally. The `loaders.test.ts` pin that asserted
+  silent hiding as the contract was moved deliberately, stated in the commit.
 - `/penize` — **FollowTheMoney** (features/money): the Rentgen money-graph's
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
@@ -846,6 +881,30 @@ Route map (politicas.md roadmap execution, sample data):
   three small firms `[3,3,3]` used to fabricate „nejméně" plus a cap that does
   not exist (Decroix sits at `[3,3,0]` today). Corpus path byte-identical,
   verified to the cent on Hladík and Babiš.
+  **The company file shows its corporate surroundings (2026-08-12).** The
+  graph has carried a dated ownership layer since pass 28 — 33 `owns_stake`
+  edges + 19 parent nodes (Město Plzeň, HLAVNÍ MĚSTO PRAHA, Ministerstvo
+  financí, the AGROFERT ancestors), every stake a dated sole-shareholder
+  registration from dataor.justice.cz — and NO surface rendered it.
+  `features/money/ownership.ts` (pure + tested) holds six rules: ONE hop,
+  both directions (chain-walking is exposure inference and is computed
+  nowhere — the `genuinelyNew: 0` doctrine); a CLOSED period reads as
+  history, never current ownership; counterparts link only through
+  `canonicalIco` (a non-canonical id gets no link); the two NENALEZENO
+  AGROFERT ancestors render their STORED annotations verbatim + dated
+  (extinct by merger into the named successor, incl. the name-collision
+  warning — never presented as registry-verified subjects, and the Czech
+  analyst prose deliberately does NOT pass the language gate: it is graph
+  DATA); a company with no `owns_stake` edge gets NO block (absent ≠ empty —
+  166 of 195 tied companies); a row whose counterpart the graph did not
+  return drops and is COUNTED. One indexed `kgNeighbours` per company
+  (4–34 ms, `KG_READ_CAP` + `byListOrder` — every owns_stake weight is
+  null), the payload rides `CompanyCaseFileData` so `TIE_WIRE` and /penize's
+  public wire stay byte-identical, and the block's pass renders only when
+  ALL rows agree on one. `graph-schema.md` finally gained the `owns_stake`
+  row per its own sync rule. Related fix: the /admin T4 tripwire now reads
+  `share` — the prop the writer actually emits — so „drží 100 %" renders
+  instead of the eternal degraded fallback.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored
@@ -1102,6 +1161,43 @@ Route map (politicas.md roadmap execution, sample data):
   `commit()` fires on pointerup/keyup/blur, presets stay one-click-one-write,
   and `shareHref()` composes AND writes so the copied link and the address bar
   cannot disagree mid-drag. /referendum finally links /metodika.
+  **The board stops asserting what the data don't carry (2026-08-12).**
+  `factsNoMoney` states the RULE (money is out of the duel by design; an
+  unconfirmed trail is not a finding) instead of „všech 211 vazeb čeká" — a
+  literal the first console decision falsifies; zero literal MP counts remain
+  in rendered civicscore copy (ICU params fed from `summary.count` /
+  `entries.length`; `allTitle` deliberately param-free — the nav rail feeds it
+  with no ICU params); club names stop truncating („TOP 09" no longer renders
+  „TOP") and the real path stops reading mock PARTIES: **`CLUB_DISPLAY`** in
+  `lib/civic/data.ts` (under the „KONEC UKÁZKOVÉHO KATALOGU" line) is the
+  declared NON-mock table of real registry clubs — display forms kept
+  deliberately (editorial typography over the registry abbrev, a Director
+  ruling recorded in 83cb8a9), colours live in that file because the lint rule
+  sanctions it as the home for data-driven colours. `messages.test.ts` bans
+  literal 207/211 and the absolute-gate-claim shape with NO allowlist;
+  `clubDisplay.test.ts` pins colour identity with the old table. votetrack's
+  `clubStyle.ts` reads the same table (the hemicycle wedges and discipline
+  board carried the identical truncation).
+  **The ranking reads as a table (2026-08-12).** role table/row/columnheader/
+  cell + a real header row over the 207 rows; the filter/search count and the
+  empty state announce (`role="status"`); compact mode keeps club/region
+  findable in the DOM (`sr-only`, never removal — pinned against regression);
+  every „vs" button names its MP; the Souboj is a labelled region with ONE
+  `DuelStatus` live region sitting OUTSIDE the AnimatePresence remount, and
+  both mirrored value grids carry sr-only subjects. No jsdom exists here, so
+  `a11y.test.ts` pins the wiring by source-grep — an honest gap, stated.
+  **The Souboj has an address (2026-08-12).** `?souboj=<a>-<b>` —
+  `duelParam.ts` holds the lens codec's exact contract (order-normalized so
+  A-vs-B ≡ B-vs-A, default pair → null so the clean address IS canonical,
+  malformed → null never repaired, `?vahy=`/foreign params/hash preserved by
+  the ONE `duelAddress` composer); `useDuelSelection` reads on mount +
+  popstate (never useSearchParams), writes `replaceState`, and scrubs a pspId
+  today's chamber doesn't carry — but ONLY when the chamber is known: an
+  unreachable store is not evidence an MP doesn't exist. The address is
+  COMPUTED at render (a stored one would desync whenever the lens writes
+  `?vahy=`); the copy affordance is the shared `CopyLinkButton`; selection
+  feedback is the DuelStatus line + a `#souboj` anchor link — never a forced
+  scroll (test bans `scrollIntoView`).
 - `/metodika` — **Metodika** (features/civicscore/MetodikaPage.tsx, thin route
   `app/metodika/page.tsx`). Added 2026-08-04. The platform positions itself as
   methodology-transparent, `/zebricek` cites „průchod grafu č. 42" and
