@@ -16,7 +16,7 @@ import {
   type EvidenceFeedJson,
   type EvidenceFeedJsonItem,
 } from "@/features/dukazy/feedCodecs";
-import { dayAnchor, type DenikEntry } from "./deriveDenik";
+import { dayAnchor, entityDayHref, FEED_ENTRIES, type DenikEntry } from "./deriveDenik";
 import { pragueDayRfc3339 } from "./pragueDay";
 
 /**
@@ -61,11 +61,40 @@ export interface DenikFeedContext {
   entityKey?: string | null;
   /** Metadata jiného kanálu nad týmž serializérem (viz DenikFeedChannel). */
   channel?: DenikFeedChannel;
+  /**
+   * Jedna věta o tom, co tenhle výpis NENESE — tmavá vrstva, useknuté čtení
+   * (skládá `features/denik/feedNotes.ts`). Přilepuje se k popisu kanálu,
+   * protože položka feedu je záznam o státu, ne o našem čtení: syntetická
+   * položka „vrstva je tmavá" by v čtečce stála mezi datovanými fakty a
+   * tvářila se jako jedno z nich. `null`/vynecháno = popis beze změny, takže
+   * kanál, který upozornění nepočítá (schránka), serializuje bajt po bajtu
+   * stejně jako dřív.
+   */
+  notice?: string | null;
 }
 
 export const DENIK_FEED_TITLE = "Deník republiky — Politicas";
 export const DENIK_FEED_DESCRIPTION =
   "Chronologický denní záznam republiky: podepsané smlouvy, přikázání tisků výborům, vyhlášení ve Sbírce, zápisy a výmazy rejstříkových rolí a rozhodnutí lidské brány — každý záznam datovaný, citovaný a trvale odkazovatelný.";
+
+/**
+ * Popis kanálu deníku VČETNĚ STROPU (2026-08-12).
+ *
+ * Obě routy krájejí `slice(0, FEED_ENTRIES)` a popis o tom mlčel, takže
+ * odběratel neměl jak poznat, že vidí výřez — položky se prostě přestaly
+ * objevovat. Strop se navíc počítá po ZÁPISECH, ne po dnech: sto nejnovějších
+ * zápisů je zpravidla míň dnů, než ukazuje plocha, takže feed není archiv a
+ * věta musí říct, kde zbytek je. Číslo je dosazené z konstanty, která řez
+ * opravdu dělá (precedens popisu kanálu schránky) — přepsané do věty by se
+ * s kódem rozešlo první změnou stropu.
+ */
+export function denikFeedDescription(): string {
+  return (
+    `${DENIK_FEED_DESCRIPTION} ` +
+    `Feed nese nejvýš ${FEED_ENTRIES} nejnovějších zápisů a řeže se po zápisech, ne po dnech — ` +
+    `starší dny nese plocha /denik a trvalé kotvy dnů (#d-<datum>).`
+  );
+}
 
 const entityQuery = (ctx: DenikFeedContext): string =>
   ctx.entityKey ? `?entita=${encodeURIComponent(ctx.entityKey)}` : "";
@@ -79,13 +108,36 @@ export function denikFeedUrl(ctx: DenikFeedContext): string {
 }
 
 const channelTitle = (ctx: DenikFeedContext): string => ctx.channel?.title ?? DENIK_FEED_TITLE;
-const channelDescription = (ctx: DenikFeedContext): string =>
-  ctx.channel?.description ?? DENIK_FEED_DESCRIPTION;
+const channelDescription = (ctx: DenikFeedContext): string => {
+  const base = ctx.channel?.description ?? denikFeedDescription();
+  return ctx.notice ? `${base} ${ctx.notice}` : base;
+};
 const itemUrl = (e: DenikFeedItem, ctx: DenikFeedContext): string =>
-  ctx.channel?.entryUrl?.(e, ctx.baseUrl) ?? denikEntryUrl(ctx.baseUrl, e);
+  ctx.channel?.entryUrl?.(e, ctx.baseUrl) ?? denikEntryUrl(ctx.baseUrl, e, ctx.entityKey);
 
-/** Trvalá adresa záznamu = kotva jeho dne (deník adresuje VYDÁNÍ, ne řádky). */
-export function denikEntryUrl(baseUrl: string, e: DenikFeedItem): string {
+/**
+ * Trvalá adresa záznamu = kotva jeho dne (deník adresuje VYDÁNÍ, ne řádky).
+ *
+ * VE FILTROVANÉM FEEDU NESE ADRESA I FILTR (2026-08-12). Do téhle opravy
+ * mířila každá položka na `/denik#d-<datum>`, tedy do NEFILTROVANÉ plochy —
+ * jenže ta ukazuje posledních 30 dnů CELÉHO deníku, kdežto feed jedné entity
+ * sahá o svých sto zápisů mnohem dál. U řídké entity tak položky od jistého
+ * stáří ukazovaly na den, který cílová stránka vůbec nevykresluje: odkaz
+ * vypadal správně a nikam nevedl. Adresu skládá `entityDayHref` — týž kodek,
+ * jakým vede z brány do dne /dukazy, ne druhá šablona u nás.
+ *
+ * Den, ze kterého kotvu složit nejde, spadne zpátky na nefiltrovanou kotvu:
+ * adresa s vymyšleným dnem by vypadala správně a nevedla nikam.
+ */
+export function denikEntryUrl(
+  baseUrl: string,
+  e: DenikFeedItem,
+  entityKey?: string | null,
+): string {
+  if (entityKey) {
+    const href = entityDayHref(entityKey, e.date);
+    if (href !== null) return `${baseUrl}${href}`;
+  }
   return `${baseUrl}/denik#${dayAnchor(e.date)}`;
 }
 

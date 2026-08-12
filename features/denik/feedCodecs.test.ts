@@ -4,16 +4,22 @@
 // jeden čtecí kód pro oba deníky.
 
 import { describe, expect, it } from "vitest";
-import type { DenikEntry } from "./deriveDenik";
+import { FEED_ENTRIES, type DenikEntry } from "./deriveDenik";
 import {
   DENIK_FEED_TITLE,
   denikEntryGuid,
   denikEntrySummaryCs,
   denikEntryUrl,
+  denikFeedDescription,
   denikFeedToJson,
   denikFeedToRss,
   parseEvidenceFeedJson,
 } from "./feedCodecs";
+import { denikFeedNotice } from "./feedNotes";
+import type { DenikCoverage, DenikLimits } from "./getDenikData";
+// Čte se, nezasahuje se: schránka je druhý kanál nad tímhle kodekem a její
+// bajty musí tenhle test uhlídat (viz poslední blok).
+import { schrankaFeedChannel } from "@/features/schranka/feed";
 
 const entry = (over: Partial<DenikEntry> = {}): DenikEntry => ({
   id: "contract:smlouva:1",
@@ -128,6 +134,198 @@ describe("date_published je RFC 3339 — ne holý den", () => {
     const parsed = parseEvidenceFeedJson(denikFeedToJson([entry({ date: "2026-7-2" })], ctx));
     expect(parsed.items[0].date_published).toBe("");
     expect(denikFeedToRss([entry({ date: "2026-7-2" })], ctx)).not.toContain("<pubDate>");
+  });
+});
+
+/* ── popis kanálu přiznává, co feed nenese ──────────────────────────────────── */
+
+describe("popis kanálu přiznává STROP — feed není archiv", () => {
+  it("jmenuje strop zápisů z konstanty, která řez opravdu dělá", () => {
+    // Do 2026-08-12 popis žádnou mez nejmenoval, ačkoli obě routy krájejí
+    // `slice(0, FEED_ENTRIES)`: odběrateli se položky prostě přestaly
+    // objevovat. Číslo je DOSAZENÉ — přepsané do věty by se s kódem rozešlo
+    // první změnou stropu (precedens popisu kanálu schránky).
+    const d = denikFeedDescription();
+    expect(d).toContain(`nejvýš ${FEED_ENTRIES} nejnovějších zápisů`);
+    // A říká, že se řeže po ZÁPISECH, ne po dnech — sto zápisů je zpravidla
+    // míň dnů, než ukazuje plocha, takže feed dozadu nesahá dál než ona.
+    expect(d).toContain("po zápisech, ne po dnech");
+    // Mez bez pokračování jsou jen zavřené dveře: kde zbytek je.
+    expect(d).toContain("/denik");
+  });
+
+  it("popis se propíše do obou formátů", () => {
+    expect(denikFeedToRss([], ctx)).toContain(`nejvýš ${FEED_ENTRIES} nejnovějších zápisů`);
+    expect(parseEvidenceFeedJson(denikFeedToJson([], ctx)).description).toBe(denikFeedDescription());
+  });
+});
+
+describe("upozornění o tmavé vrstvě a useknutém čtení", () => {
+  const COVERAGE_OK: DenikCoverage = { money: true, law: true, reviews: true, changes: true };
+  const LIMITS_CLEAN: DenikLimits = {
+    contractCompanies: 57,
+    companyCap: 500,
+    companiesOverCap: 0,
+    edgeCap: 5_000,
+    companiesEdgeTruncated: 0,
+    malformedIco: 0,
+    changesFromGate: 0,
+    changesUndisplayable: 0,
+    auditCap: 10_000,
+    auditTruncated: false,
+    changeCap: 5_000,
+    changesRead: 0,
+    changesTruncated: false,
+  };
+
+  it("čisté čtení plného pokrytí mlčí — mez, která se nedotkla dat, není sdělení", () => {
+    expect(denikFeedNotice(COVERAGE_OK, LIMITS_CLEAN)).toBeNull();
+  });
+
+  it("neznalost mlčí taky: bez pokrytí i bez mezí se netvrdí nic", () => {
+    expect(denikFeedNotice(null, null)).toBeNull();
+  });
+
+  it("tmavá vrstva se JMENUJE — jinak je k nerozeznání od klidného týdne", () => {
+    const notice = denikFeedNotice({ ...COVERAGE_OK, money: false, reviews: false }, LIMITS_CLEAN);
+    expect(notice).toContain("peněžní vrstva");
+    expect(notice).toContain("lidská brána");
+    // Vrstvy, které čitelné JSOU, se nejmenují — to by byl šum, ne přiznání.
+    expect(notice).not.toContain("legislativní vrstva");
+    expect(notice).toContain("tenhle výpis nenese");
+  });
+
+  it("useknuté čtení nese POČTY i stropy, spočítané z mezí", () => {
+    const notice = denikFeedNotice(COVERAGE_OK, {
+      ...LIMITS_CLEAN,
+      companiesEdgeTruncated: 5,
+      auditTruncated: true,
+      changesTruncated: true,
+      changesUndisplayable: 2,
+    });
+    expect(notice).toContain("5 firem");
+    expect(notice).toContain("2 záznamů grafu");
+    // Oddělovač tisíců vlastní lib/format (je to nezlomitelná mezera, ne ASCII),
+    // takže se porovnává na číslicích — tenhle test o sázení čísel nerozhoduje.
+    const digits = (notice ?? "").replace(/\D/g, "");
+    expect(digits).toContain("10000"); // strop lidské brány
+    expect(digits).toContain("5000"); // strop proudu i smluv na firmu
+  });
+
+  it("přiznává ZTRÁTU, ne evidenci — nekanonické IČO ani deduplikace brány tam nepatří", () => {
+    // `malformedIco` řádek neztrácí (jen mu chybí čip firmy) a `changesFromGate`
+    // je záměrná deduplikace: obojí by ve větě o neúplnosti výpisu lhalo.
+    expect(denikFeedNotice(COVERAGE_OK, { ...LIMITS_CLEAN, malformedIco: 9, changesFromGate: 4 })).toBeNull();
+  });
+
+  it("se přilepí k popisu kanálu, ne jako položka feedu", () => {
+    const notice = denikFeedNotice({ ...COVERAGE_OK, money: false }, LIMITS_CLEAN);
+    const parsed = parseEvidenceFeedJson(denikFeedToJson([entry()], { ...ctx, notice }));
+    expect(parsed.description).toContain("peněžní vrstva");
+    // Syntetická položka by v čtečce stála mezi datovanými fakty o státu a
+    // tvářila se jako jedno z nich.
+    expect(parsed.items).toHaveLength(1);
+    expect(parsed.items[0].id).toBe("politicas:denik:contract:smlouva:1");
+    expect(denikFeedToRss([entry()], { ...ctx, notice })).toContain("peněžní vrstva");
+  });
+
+  it("bez upozornění je popis beze změny", () => {
+    const bare = parseEvidenceFeedJson(denikFeedToJson([], ctx)).description;
+    for (const notice of [null, undefined]) {
+      expect(parseEvidenceFeedJson(denikFeedToJson([], { ...ctx, notice })).description).toBe(bare);
+    }
+  });
+});
+
+/* ── filtrovaný feed drží filtr i v adresách položek ────────────────────────── */
+
+describe("položka filtrovaného feedu míří do FILTROVANÉHO dne", () => {
+  // Do 2026-08-12 mířila každá položka na `/denik#d-<datum>`, tedy do
+  // nefiltrované plochy — ta ukazuje posledních 30 dnů CELÉHO deníku, kdežto
+  // feed jedné entity sahá svých sto zápisů mnohem dál. Odkaz vypadal správně
+  // a u řídké entity nevedl nikam.
+  it("nefiltrovaný feed má kotvu dne beze změny", () => {
+    expect(denikEntryUrl("https://politicas.cz", entry())).toBe(
+      "https://politicas.cz/denik#d-2026-07-20",
+    );
+    expect(denikEntryUrl("https://politicas.cz", entry(), null)).toBe(
+      "https://politicas.cz/denik#d-2026-07-20",
+    );
+  });
+
+  it("filtrovaný feed nese v adrese položky i filtr", () => {
+    expect(denikEntryUrl("https://politicas.cz", entry(), "poslanec:6881")).toBe(
+      "https://politicas.cz/denik?entita=poslanec%3A6881#d-2026-07-20",
+    );
+  });
+
+  it("oba formáty datují a adresují týž řádek stejně", () => {
+    const filtered = { ...ctx, entityKey: "firma:00000100" };
+    const parsed = parseEvidenceFeedJson(denikFeedToJson([entry()], filtered));
+    const url = "https://politicas.cz/denik?entita=firma%3A00000100#d-2026-07-20";
+    expect(parsed.items[0].url).toBe(url);
+    expect(denikFeedToRss([entry()], filtered)).toContain(`<link>${url}</link>`);
+  });
+
+  it("den, ze kterého kotvu složit nejde, spadne na nefiltrovanou — nikdy vymyšlená adresa", () => {
+    expect(denikEntryUrl("https://politicas.cz", entry({ date: "2026-7-2" }), "poslanec:6881")).toBe(
+      "https://politicas.cz/denik#d-2026-7-2",
+    );
+  });
+
+  it("kanál s vlastní adresou položky (schránka) filtr neřeší — jeho pravidlo vyhrává", () => {
+    const parsed = parseEvidenceFeedJson(
+      denikFeedToJson([entry()], {
+        ...ctx,
+        entityKey: "poslanec:6881",
+        channel: {
+          title: "T",
+          description: "D",
+          homeUrl: "https://politicas.cz/schranka",
+          feedUrl: "https://politicas.cz/schranka/feed.json",
+          entryUrl: (e, baseUrl) => `${baseUrl}/vlastni/${e.id}`,
+        },
+      }),
+    );
+    expect(parsed.items[0].url).toBe("https://politicas.cz/vlastni/contract:smlouva:1");
+  });
+});
+
+/* ── druhý kanál nad týmž serializérem se nesmí pohnout ─────────────────────── */
+
+describe("Občanská schránka — kanál nad TÝMŽ kodekem zůstává bajt po bajtu stejný", () => {
+  // Schránka si nepíše vlastní serializér: dodává jen kanálová metadata
+  // (DenikFeedChannel). Každá změna kodeku je tedy změnou JEJÍHO feedu, i když
+  // se v features/schranka nesáhne na řádek — proto ten pin stojí tady, u
+  // kodeku, který ho může rozbít. Schránka svoje upozornění nepočítá a vlastní
+  // adresu položky si drží, takže se jí nesmí dotknout ani strop v popisu, ani
+  // filtr v adresách.
+  const channel = schrankaFeedChannel({
+    baseUrl: "https://politicas.cz",
+    keys: ["poslanec:6881", "firma:46347534"],
+    since: "2026-08-01",
+    format: "json",
+  });
+
+  it("popis kanálu je JEHO popis — bez věty o stropu deníku", () => {
+    const parsed = parseEvidenceFeedJson(denikFeedToJson([entry()], { ...ctx, channel }));
+    expect(parsed.description).toBe(channel.description);
+    expect(parsed.description).not.toContain(`nejvýš ${FEED_ENTRIES} nejnovějších zápisů`);
+    expect(parsed.title).toBe(channel.title);
+    expect(parsed.feed_url).toBe(channel.feedUrl);
+    expect(parsed.home_page_url).toBe(channel.homeUrl);
+  });
+
+  it("adresa položky jde jeho pravidlem i pod nastaveným filtrem entity", () => {
+    const withKey = denikFeedToJson([entry({ internalHref: "/metodika" })], {
+      ...ctx,
+      entityKey: "poslanec:6881",
+      channel,
+    });
+    const withoutKey = denikFeedToJson([entry({ internalHref: "/metodika" })], { ...ctx, channel });
+    // Bajt po bajtu totéž: filtr deníku do cizího kanálu nepromlouvá.
+    expect(withKey).toBe(withoutKey);
+    expect(parseEvidenceFeedJson(withKey).items[0].url).toBe("https://politicas.cz/metodika");
   });
 });
 
