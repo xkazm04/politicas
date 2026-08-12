@@ -125,9 +125,12 @@ export default function GraphFeedPanel({
               {tf("contractsFailed")}
             </SourceNote>
           )}
-          {/* Useknutí na stropu hran bylo do teď jen v logu operátora. Co zmizí,
-              nezmizí náhodně — jsou to nejlevnější smlouvy nejzaměstnanějších
-              firem, takže mlčení by z knihy dělalo tvrzení, že neexistují. */}
+          {/* Useknutí na stropu hran bylo do teď jen v logu operátora. Čtení
+              řadí podle částky sestupně, ale pořadí NENÍ totální (memory/
+              kgneighbours-weight-order-is-not-total) — u shodných a neuvedených
+              částek je řez libovolný, takže věta smí tvrdit jen „část smluv
+              chybí", ne „ty nejlevnější". Mlčení by z knihy dělalo tvrzení,
+              že neexistují. */}
           {contracts?.state === "truncated" && (
             <SourceNote tone="signal" className="mt-1">
               {tf("contractsTruncated", {

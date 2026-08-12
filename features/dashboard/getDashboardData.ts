@@ -376,9 +376,11 @@ const MAX_SLICE_CONTRACT_EDGES = 5_000;
  * crosshair points off-canvas.
  *
  * Useknutí se HLÁSÍ (`reportLoaderFailure`), nikdy neprojde tiše: dotaz je
- * řazený podle váhy sestupně, takže co zmizí, nezmizí náhodně — jsou to
- * vždycky nejlevnější smlouvy té nejzaměstnanější firmy, a kniha faktů by o
- * nich mlčky tvrdila, že neexistují. Táž heuristika jako `warnIfTruncated`
+ * řazený podle váhy sestupně, takže mizí PŘEDEVŠÍM smlouvy s nejnižší nebo
+ * neuvedenou částkou — ale pořadí není totální (memory/kgneighbours-weight-
+ * order-is-not-total), u shodných a neuvedených částek je řez libovolný,
+ * takže „přesně ty nejlevnější" se tvrdit nesmí. Kniha faktů by o useknutých
+ * mlčky tvrdila, že neexistují. Táž heuristika jako `warnIfTruncated`
  * v lib/db (délka výsledku přesně na stropu = pravděpodobně useknuto), který
  * od téhle změny hlídá i samotný `kgNeighbours`.
  *
@@ -421,7 +423,7 @@ async function sliceContracts(
           "getDashboardData.sliceContracts",
           new Error(
             `firma ${c.kgId} vrátila přesně strop ${MAX_SLICE_CONTRACT_EDGES} hran supplies — ` +
-              `nejlevnější smlouvy se do knihy faktů nedostaly`,
+              `část smluv se do knihy faktů nedostala`,
           ),
         );
       }

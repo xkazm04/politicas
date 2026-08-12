@@ -130,8 +130,10 @@ describe("dashboard message catalog", () => {
 
   it("a failed contract read is a sentence, not an empty ledger that looks healthy", () => {
     // Two states, two sentences: a read that THREW (the size of the gap is unknown)
-    // and a read that hit the per-company edge ceiling (the cheapest contracts of the
-    // busiest firms are missing, which used to be an operator-only log line).
+    // and a read that hit the per-company edge ceiling (part of those firms' contracts
+    // is missing — the read orders by weight desc, but the order is not total, so the
+    // copy may not claim the dropped rows are exactly the cheapest; this used to be an
+    // operator-only log line).
     for (const ns of [cs, en]) {
       for (const k of ["feed.contractsFailed", "feed.contractsTruncated"]) {
         expect(ns[k], k).toBeTruthy();

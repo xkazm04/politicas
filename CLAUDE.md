@@ -78,6 +78,27 @@ Route map (politicas.md roadmap execution, sample data):
   in app/page.tsx, crossing as data — the browser's UTC day was exactly the
   bug pragueDay.ts was written to kill), cites all FOUR sources
   (+ change_event), and discloses the FEED_ENTRIES cap beside the day count.
+  **The teasers speak both languages, without waiting (2026-08-12).**
+  DenikTeaser stopped client-fetching the force-dynamic 58 kB
+  /denik/feed.json post-hydration („Zápis se načítá…" flash): `DenikSlot`
+  (server-only, the RebellionSlot pattern) reads `getDenikData()` +
+  `deriveDenikEntries` — the SAME FEED_ENTRIES cut the feed serializes —
+  inside `<Suspense>` in app/page.tsx, deliberately OUTSIDE the page's
+  `Promise.all` (getDenikData is TTL-memoized but not react.cache()d, ~12 s
+  cold; the shell ships immediately, the rubric streams — verified live).
+  The 35 hardcoded Czech strings fell: DenikTeaser (12), ReferendumTeaser
+  (17) and `LENS_PRESETS` (6 — now `labelKey`/`noteKey` message KEYS with a
+  closed `LENS_PRESET_COPY_KEYS` list, translated at BOTH render sites
+  incl. WeightPanel), including two Czech aria-label landmarks in the
+  lang="en" document; `hardcodedCopy.test.ts` is the falsified source-grep
+  guard against regrowth. Two falsifiable claims retired: `joinKeyDesc`
+  stopped selling a subsidy↔donation JOIN (IČO joins firm↔contracts;
+  subsidies/donations are per-company totals, not joinable records — the
+  follow-the-money module description aligned too), and `methodBody`'s
+  „otestováno celý volební cyklus" (first commit 2026-07-23) is replaced
+  with a claim the repo can carry, both pinned. The 10 dead
+  `content.modules.*.feeds` strings (four-pillar-era claims) are deleted
+  from both catalogs along with the dead `MODULES[].feeds` field itself.
 - `/dashboard` — **Velín** (features/dashboard): rebuilt 2026-07-26 as an
   instrument panel. **PARTIALLY REAL** — `getDashboardData.ts` is a `server-only`
   loader that re-uses the loaders which already own each figure rather than
@@ -324,7 +345,7 @@ Route map (politicas.md roadmap execution, sample data):
   the content model and both catalogs, pinned by `features/shell/
   sidebarParts.test.ts` (the one surviving pair, follow-the-money's, has a live
   labelled consumer in `MockStatTiles.tsx` and the test verifies that consumer
-  still reads it). The loader header now names `attendanceAvgPct` as its ONE
+  still reads it). The loader header now names `attendance` as its ONE
   derivation, and the store-down header note no longer asserts the term.
   **The exhibit outlives the window (2026-08-12).** The velín's feed window
   (FEED_ROWS = 12) was acting as a derivability boundary: `getExhibitData`
@@ -346,6 +367,29 @@ Route map (politicas.md roadmap execution, sample data):
   layout from the hash is a one-time invalidation of every issued address and
   is recorded as a follow-up IN the hash's doc comment, not smuggled into a
   pass whose whole point is that citations survive.
+  **The velín admits an outage and cites the omluvy register (2026-08-12).**
+  A sliceContracts failure used to `catch → []` — a partial store failure
+  rendered as a healthy contract-free ledger, with `darkLayers` (only
+  {money, laws, slice}) unable to name it. `ContractLayerRead`
+  (`ok | truncated | failed`, in `datedFacts.ts`) now travels to the READER:
+  `failed` is a fourth darkLayers channel, and both `failed` and `truncated`
+  render their own sentence in the feed footer — „no contracts" and „the
+  contract layer could not be read" are two different claims (the truncated
+  sentence deliberately does NOT claim the dropped rows are „the cheapest":
+  kgNeighbours orders weight desc nulls last, which is not a total order).
+  The attendance tile stopped citing „reálná jmenovitá hlasování" over a
+  number derived from the OMLUVY register — it now cites psp.cz — omluvy
+  (pinned against the imported `COMPONENT_DEFS`), says what it measures, and
+  a missing `absence_rate` is EXCLUDED from the mean (`LeaderboardEntry.
+  absenceRate` is `number | null`; it used to enter as 100 % attendance),
+  with the counted population printed whenever it is smaller than the
+  chamber (`DashboardData.attendance = {avgPct, counted, total}`). The
+  provenance sentence, formula-mismatch warning and freshness bound left
+  their `hidden sm:block` wrapper — no information on the velín is
+  desktop-only. `graph.realRule` narrowed to the population the seed scan
+  actually reads (donor firms among MP-tied companies, not „v grafu
+  jediné") and is pinned; the money and law tiles finally carry doors to
+  /penize and /zakony (the avg-tile /metodika pattern).
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the
@@ -1019,6 +1063,32 @@ Route map (politicas.md roadmap execution, sample data):
   named its subject). Related fix: the /admin T4 tripwire now reads
   `share` — the prop the writer actually emits — so „drží 100 %" renders
   instead of the eternal degraded fallback.
+  **The book speaks from the catalog and sorts truthfully (2026-08-12).**
+  TiesLedger's 25 bilingual `en ? … : …` ternaries — every filter label,
+  column header, placeholder, empty state, pagination — sat OUTSIDE the
+  catalog, so the language gate and the LITERAL_COUNT shape rule were
+  structurally blind to the feature's largest copy surface (two of the
+  literals shadowed live keys char-for-char). All 25 moved into
+  `money.real.ledger.*` (the result count is a real ICU plural); the closed
+  `tieClassInfo`/`temporalBadge` vocabularies deliberately stay where five
+  surfaces share them. The default sort was headed „třída" while sorting by
+  `reviewRank` — corroboration first, then money; measured: the last row of
+  211 was an owner-operator below 154 stewards. ONE control remains,
+  re-headed „síla důkazu" / "evidence strength", with the rule printed
+  above the table. Search folds diacritics through the ingest's own
+  `asciiFold` („teplarny" now finds Teplárny Brno), folded once per list —
+  and `reviewTypes.foldKey` (a second NFD-strip scheme) collapsed onto the
+  same function, pinned by `foldKey.test.ts` incl. classifyTie behavior on
+  live-corpus inputs. The ledger aside stopped describing the MOCK's
+  grouping over the real flat ledger; `reachNote` states the per-row
+  duplication (14 companies sit on >1 row — the tile de-dupes, the column
+  cannot). Six dead keys deleted; `sampleTies.sub` derives its ratio from
+  the mock data; the ARES cadence dropped its uncited „500 dotazů/min".
+  `loadClubs` joined the `MONEY_MEMO_TTL_MS` memo (2 registry reads per
+  request × 3 callers, gone; empty/failed never memoized); strety ↔ kauzy
+  finally cross-link; `GRAPH_COMPANY_CAP` has ONE definition and the graph
+  caption can disclose a crop via `companiesTotal` (live: cap does not
+  bind).
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored
@@ -1492,6 +1562,27 @@ Route map (politicas.md roadmap execution, sample data):
   → `gone`); a bill with no public číslo issues at `/zakony#posudky`, never
   an invented path. The `sponsorContractCzk` never-claim rule is now recorded
   IN `lawClaims.ts` where the next builder will actually see it.
+  **The kolize cards lead somewhere, and no pass number is typed (2026-08-12).**
+  The 272 pair cards on /zakony/kolize labelled PUBLIC print numbers with
+  `printInternal` and linked nothing — they now use `printNumbered` and link
+  both bills to `/zakony/<cislo>` (live: 104 distinct links), and the stat
+  band renders through `f.int`. `collisions.statsSource` / `clustersAside` /
+  `czechPending` became real ICU plurals („11 dávek", correct at 1 and 2–4).
+  The three „průchod grafu 20" literals are GONE — and not replaced by an
+  interpolation: no `census_provenance` prop exists anywhere in the repo, so
+  the census HAS no honest pass value and all three sentences now say the
+  pass is unrecorded (a number would have been `LawData.pass`, which
+  `lawClaims.ts` rule 2 bans for census claims; restoring a real pass is an
+  INGEST change — stamp `census_provenance` on the 53 bills carrying
+  `amended_laws_full`). The messages-test jargon gate now covers ALL
+  lawwatch keys in BOTH locales incl. a Czech-phrase pattern (it was scoped
+  to three families, cs-only, with a regex that could not match the Czech
+  phrase — „graph pass 20" in en was structurally invisible). §02 counts its
+  population BEFORE the slice (`topLawsTotal`) and prints „20 z 284" plus a
+  door to /zakony/predpis — the cap's own doc comment falsely claimed
+  `totalLaws` (293, every law node — a different population) reconciled it.
+  `data.pass ?? "?"` paths render the no-pass sentence pattern; dead
+  `lawwatch.back` deleted.
 - `/denik` — **Deník republiky** (features/denik): the chronological daily
   record of the state — signed contracts of firms MPs own/run, committee
   assignments, Sbírka publication, registry role starts/ends, human-gate
@@ -1533,6 +1624,36 @@ Route map (politicas.md roadmap execution, sample data):
   backup where `change_event` is empty, so the memo rests on the invariant,
   not a measured cost). The false „STRIKTNĚ read-only tři vrstvy" header
   (backfill WRITES) and the 35-vs-57 vintage drift died in the same pass.
+  **The deník speaks correct Czech about entities, and its feeds tell the
+  truth (2026-08-12).** The six counted honesty sentences (`limits.*`) were
+  ungrammatical at n=1–4 in BOTH locales — the namespace carried ZERO ICU
+  plurals; all six are now cs one/few/other + en one/other, the number
+  passed TWICE by design (raw `n` selects the branch, `nFmt` via lib/format
+  renders — a formatted string turns PluralRules into NaN), and the Czech
+  gate now strips only ICU KEYWORDS so every plural branch stays gated
+  (falsified: English inside a `few` branch fails). /schranka re-renders
+  the same keys via imported `limitNotes` and needed no change. The entity
+  empty state names the THIRD cause (a dark layer, in the coverage banner's
+  own words); a malformed `?entita=` gets its own sentence naming the four
+  held shapes instead of a false „matches nothing" plus an inbox promise
+  above a silently-null FollowButton (`isEntityKey` imported, never a
+  second regex); `generateMetadata` reads searchParams so autodiscovery
+  advertises the FILTERED feed on entity views; corpus-wide counters
+  (computed before the entity filter) are labelled corpus-wide where they
+  render inside a filtered view; the účinné/zaznamenáno badge explanation
+  is real `sr-only` TEXT (aria-label on a generic span is ARIA-prohibited
+  and dropped). The feeds: `denikFeedDescription()` interpolates
+  FEED_ENTRIES (the description claimed no cap while both routes slice —
+  and it cuts by ENTRY, not day, which `daysNote` used to misstate);
+  `feedNotes.ts` folds coverage + reached limits into the CHANNEL
+  description (loss-only: a dark layer is no longer indistinguishable from
+  a quiet week at HTTP 200; no synthetic items); filtered item permalinks
+  ride `entityDayHref` (measured: the poslanec:6881 feed spans 74 days and
+  61 of them the unfiltered page never renders — every one was a dead
+  anchor); junk `?entita=` answers 400 naming the held shapes BEFORE any
+  store read (a valid key matching nothing keeps its honest 200); both
+  routes carry the house cache header; schránka feed bytes pinned identical
+  at the codec that could break them.
   **The day is a PRAGUE day since 2026-08-04** (`features/denik/pragueDay.ts`).
   `builtOn` was `new Date().toISOString().slice(0,10)` — UTC — on a ledger whose
   whole subject is Czech days. Between local midnight and 01:00/02:00 the Prague
