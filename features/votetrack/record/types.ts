@@ -149,8 +149,23 @@ export interface VoteRecordData {
   clubs: ClubAggregate[];
   /** Rebellion instances, newest first, capped. */
   chronicle: ChronicleEntry[];
+  /**
+   * Kolik hlasů proti linii vlastního klubu je v záznamu CELKEM — populace, ze
+   * které `chronicle` ukazuje svých `chronicle.length` nejnovějších.
+   *
+   * Existuje proto, že mez kroniky je PREZENTAČNÍ, a mez bez populace je tvrzení:
+   * „24 nejnovějších" se dá přečíst jako „rebelií bylo dvacet čtyři". Číslo se
+   * počítá před řezem a na `chronicleCap` NEZÁVISÍ (chronicleCap.test.ts).
+   */
+  chronicleTotal: number;
   /** Highest rebellion rates over ≥ minEligible eligible votes, capped. */
   topRebels: RebelRank[];
+  /**
+   * Kolik poslanců prošlo prahem měřitelnosti (`minEligible`) — populace, ze
+   * které `topRebels` ukazuje svých `topRebels.length` nejvyšších měr. Bez toho
+   * čísla nejde na ploše odlišit „nejvyšší míry z N" od „rebelovalo jich N".
+   */
+  topRebelsTotal: number;
   /**
    * Kontrola NAŠEHO přepočtu proti součtům, které sněmovna sama zveřejnila
    * (record/reconcile.ts). Je to NÁLEZ, ne oprava: rozdíl se vypíše i s počtem

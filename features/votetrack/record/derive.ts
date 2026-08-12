@@ -18,6 +18,9 @@
 //   • MPs without a resolved club (nezařazení) render but are never scored.
 //   • Every recount is checked against the Chamber's OWN published tallies
 //     (record/reconcile.ts); a difference is DISCLOSED, never repaired.
+//   • A presentation cap never ships without its population: the chronicle and
+//     the rebel ranking carry `chronicleTotal` / `topRebelsTotal`, counted BEFORE
+//     the slice, so „the worst 12 of N" cannot read as „only 12 exist".
 
 import { MIN_CLUB_POSITIONAL, MIN_ELIGIBLE_VOTES } from "@/lib/analysis/kg";
 import { reconcileRecord, type PublishedTally } from "./reconcile";
@@ -401,6 +404,14 @@ export function deriveVoteRecord(
     }))
     .sort((a, b) => b.seats - a.seats || a.club.localeCompare(b.club, "cs"));
 
+  /* Kolik hlasů proti linii vlastního klubu záznam CELKEM nese — populace, ze
+   * které kronika níž ukazuje svých `chronicleCap` nejnovějších. Počítá se PŘED
+   * řezem, protože smyčka pod tím končí `break`em na mezi: délka kroniky o počtu
+   * rebelií neříká vůbec nic a „24 řádků" bez denominátoru se čte jako
+   * „rebelií bylo dvacet čtyři". */
+  let chronicleTotal = 0;
+  for (const list of rebelsByVote.values()) chronicleTotal += list.length;
+
   /* rebellion chronicle — newest first across all valid votes */
   const chronicle: ChronicleEntry[] = [];
   for (const e of valid) {
@@ -420,9 +431,12 @@ export function deriveVoteRecord(
     if (chronicle.length >= chronicleCap) break;
   }
 
-  /* top rebels — rate over ≥ minEligible eligible votes */
-  const topRebels: RebelRank[] = [...rebelAcc.entries()]
-    .filter(([, a]) => a.eligibleVotes >= minEligible)
+  /* top rebels — rate over ≥ minEligible eligible votes.
+   * Práh měřitelnosti se odděluje od PREZENTAČNÍ meze schválně: kdo prošel
+   * prahem, patří do populace žebříčku, i když se do dvanácti řádků nevejde.
+   * Bez toho čísla nejde „nejhorších 12 z N" odlišit od „rebelovalo jen 12". */
+  const qualifiedRebels = [...rebelAcc.entries()].filter(([, a]) => a.eligibleVotes >= minEligible);
+  const topRebels: RebelRank[] = qualifiedRebels
     .map(([personPspId, a]) => ({
       personPspId,
       name: a.name,
@@ -457,7 +471,9 @@ export function deriveVoteRecord(
     seismogram,
     clubs,
     chronicle,
+    chronicleTotal,
     topRebels,
+    topRebelsTotal: qualifiedRebels.length,
     reconciliation,
     voteIndex,
     coverage: {

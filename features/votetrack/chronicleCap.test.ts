@@ -87,6 +87,12 @@ describe("chronicleCap je prezentační řez, ne vstup derivace", () => {
     expect(f.chronicle.length).toBeGreaterThan(CHRONICLE_CAP);
     expect(c.chronicle).toHaveLength(CHRONICLE_CAP);
     expect(c.chronicle).toEqual(f.chronicle.slice(0, CHRONICLE_CAP));
+    // …a mez NENÍ populace: uříznutý běh dál nese celkový počet rebelií, který
+    // se rovná délce neuříznuté kroniky. Kdyby `chronicleTotal` vznikal až po
+    // řezu, byl by to druhý zápis `chronicle.length` a plocha by tiskla mez.
+    expect(f.chronicleTotal).toBe(f.chronicle.length);
+    expect(c.chronicleTotal).toBe(f.chronicleTotal);
+    expect(c.chronicleTotal).toBeGreaterThan(c.chronicle.length);
   });
 
   it("žádné jiné pole záznamu na mezi nezávisí", () => {
@@ -107,6 +113,13 @@ describe("chronicleCap je prezentační řez, ne vstup derivace", () => {
       // která plocha záznam zrovna zahřála. Rejstřík se plní z `valid`, `totals`
       // a `statById` — kronika do žádného z nich nemluví.
       "voteIndex",
+      // 2026-08-12: populace obou oříznutých seznamů. `chronicleTotal` je přesně
+      // to číslo, které mez zahazuje — kdyby na mezi záviselo, byl by to jen
+      // druhý zápis `chronicle.length` a plocha by dál tvrdila „rebelií bylo
+      // tolik, kolik jich vypisujeme". `topRebelsTotal` se meze kroniky netýká
+      // vůbec (počítá se z prahu měřitelnosti), a to se tu drží, ne předpokládá.
+      "chronicleTotal",
+      "topRebelsTotal",
       "coverage",
     ];
     for (const key of fields) expect(c[key], key).toEqual(f[key]);

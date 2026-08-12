@@ -34,7 +34,11 @@ export default function RealRebellions({
     <div className="grid gap-12 lg:grid-cols-2">
       {/* ── kronika ───────────────────────────────────────────── */}
       <div className="min-w-0">
-        <SourceNote>{t("record.chronicleNote", { cap: data.chronicle.length })}</SourceNote>
+        {/* Výpis JE okno; populace je `chronicleTotal` spočítaný před řezem.
+            Bez ní se „24 nejnovějších" čte jako „rebelií bylo dvacet čtyři". */}
+        <SourceNote>
+          {t("record.chronicleNote", { shown: f.int(data.chronicle.length), total: f.int(data.chronicleTotal) })}
+        </SourceNote>
         <div className="mt-3 border-t-2 border-ink">
           {data.chronicle.map((r) => (
             <div key={`${r.votePspId}-${r.personPspId}`} className="border-b border-hairline px-2 py-4">
@@ -83,7 +87,15 @@ export default function RealRebellions({
 
       {/* ── míra rebelie ──────────────────────────────────────── */}
       <div className="min-w-0">
-        <SourceNote>{t("record.topRebelsNote", { minEligible: MIN_ELIGIBLE_VOTES })}</SourceNote>
+        {/* Žebříček je useknutý na TOP_REBELS_CAP; kolik poslanců prošlo prahem
+            měřitelnosti, ví jen derivace — a tady se to říká. */}
+        <SourceNote>
+          {t("record.topRebelsNote", {
+            minEligible: MIN_ELIGIBLE_VOTES,
+            shown: f.int(data.topRebels.length),
+            total: f.int(data.topRebelsTotal),
+          })}
+        </SourceNote>
         <div className="mt-3 border-t-2 border-ink">
           {data.topRebels.map((r) => (
             <Link

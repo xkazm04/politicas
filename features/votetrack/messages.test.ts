@@ -168,6 +168,100 @@ describe("record.reconcile* — the recount checked against the published tallie
   });
 });
 
+/* ── metodická kopie nepřepisuje konstanty ─────────────────────────────────── */
+
+describe("record.* — naměřená hodnota se interpoluje, nikdy nevypisuje", () => {
+  // Precedens je PUBLISHED_WEIGHTS_LABEL na /zebricek a `kompas.selectionRule`
+  // níž: číslo vepsané do věty je tvrzení, které kód může kdykoli vyvrátit.
+  // A vyvrátil: „posledních 12 hlasování", „disciplína pod 90 %" i „s ≥ 5
+  // pozičními hlasy" žily v katalogu vedle konstant, ze kterých se ta plocha
+  // opravdu kreslí (MATRIX_WINDOW, STRONG_DISCIPLINE_PCT, MIN_CLUB_POSITIONAL).
+  //
+  // Pravidlo je TVAROVÉ, ne seznam výjimek: ze zprávy se odečte to, co ve smyslu
+  // naměřené hodnoty číslem není, a co zbude, nesmí nést číslici.
+  const measured = (s: string): string =>
+    s
+      // ICU proměnná — právě sem hodnotu dosazuje kód, o to celé jde
+      .replace(/\{[^{}]*\}/g, " ")
+      // citace předpisu ve Sbírce („90/1995 Sb.", „90/1995 Coll.") — adresa zákona
+      .replace(/\d+\/\d{4}\s*(Sb\.|Coll\.)/g, " ")
+      // kód volebního období („PSP10") — identifikátor, ne množství
+      .replace(/\bPSP\d+\b/g, " ");
+
+  /** Věta, která o sobě říká, že její čísla jsou smyšlená (ILUSTRATIVNÍ UKÁZKA /
+   *  fallback), o záznamu netvrdí nic — a rozsah své fikce spočítat smí. */
+  const aboutTheSample = (s: string): boolean =>
+    /ILUSTRATIVNÍ UKÁZKA|ILLUSTRATIVE SAMPLE|fallback:/i.test(s);
+
+  const recordKeys = keys.filter((k) => k.startsWith("record."));
+
+  it("is scoped over the whole real-record namespace", () => {
+    for (const k of ["record.matrixNote", "record.matrixFootnote", "record.methodBody", "record.seismoScale"]) {
+      expect(recordKeys, k).toContain(k);
+    }
+  });
+
+  it("carries no bare numeral in either locale", () => {
+    for (const k of recordKeys) {
+      for (const [locale, catalog] of [
+        ["cs", cs],
+        ["en", en],
+      ] as const) {
+        if (aboutTheSample(catalog[k])) continue;
+        expect(measured(catalog[k]), `${locale} ${k}`).not.toMatch(/\d/);
+      }
+    }
+  });
+
+  it("the three corrected sentences take their value as a variable", () => {
+    expect(variables(cs["record.matrixNote"])).toContain("window");
+    expect(variables(cs["record.matrixFootnote"])).toContain("threshold");
+    expect(variables(cs["record.methodBody"])).toContain("minClubPositional");
+    expect(variables(en["record.methodBody"])).toContain("minClubPositional");
+  });
+});
+
+/* ── seismograf přiznává své stupnice ──────────────────────────────────────── */
+
+describe("record.seismoScale — the instrument discloses its own clipping", () => {
+  // Obě stupnice jsou useknuté `Math.min(1, …)`: den s 80 rebelskými hlasy kreslí
+  // totéž co den se 40. Do 2026-08-12 tvrdil komentář v Seismograf.tsx, že to
+  // „zveřejňují popisky osy" — jediný popisek pod pruhem je řada měsíců a ta je
+  // aria-hidden. Mez tedy nikde nestála.
+  it("names both full scales as variables, never as typed numbers", () => {
+    expect(variables(cs["record.seismoScale"])).toEqual(["deviationScale", "rebelsScale"]);
+    expect(variables(en["record.seismoScale"])).toEqual(["deviationScale", "rebelsScale"]);
+  });
+
+  it("says out loud that a bigger day draws the same picture", () => {
+    expect(cs["record.seismoScale"]).toMatch(/useknut/);
+    expect(cs["record.seismoScale"]).toMatch(/dvojnásobkem kreslí totéž/);
+    expect(en["record.seismoScale"]).toMatch(/clipped/i);
+    expect(en["record.seismoScale"]).toMatch(/draws the same/i);
+  });
+});
+
+/* ── mez se nikdy nevydává za počet ────────────────────────────────────────── */
+
+describe("record.chronicleNote / topRebelsNote — a cap ships with its population", () => {
+  // `CHRONICLE_CAP` = 24 a `TOP_REBELS_CAP` = 12 jsou PREZENTAČNÍ okna. Bez
+  // denominátoru se „12 nejvyšších měr" čte jako „rebelovalo dvanáct poslanců",
+  // což je nad živým záznamem (188 z 207) nepravda o dvou řádech.
+  it("both sentences carry the shown count AND the population it was cut from", () => {
+    for (const k of ["record.chronicleNote", "record.topRebelsNote"]) {
+      expect(variables(cs[k]), k).toContain("shown");
+      expect(variables(cs[k]), k).toContain("total");
+      expect(variables(en[k]), k).toContain("shown");
+      expect(variables(en[k]), k).toContain("total");
+    }
+  });
+
+  it("the matrix states the row count it really drew when the ledger is shorter", () => {
+    expect(variables(cs["record.matrixNoteShort"])).toEqual(["shown", "window"]);
+    expect(variables(en["record.matrixNoteShort"])).toEqual(["shown", "window"]);
+  });
+});
+
 /* ── práh jistoty tématu v kompasu ─────────────────────────────────────────── */
 
 describe("kompas selection rule — the tag-confidence floor", () => {

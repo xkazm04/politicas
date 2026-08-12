@@ -10,6 +10,7 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useFormat } from "@/lib/i18n/useFormat";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { VoteRecordData } from "../record/types";
@@ -22,6 +23,7 @@ import { useVoteAnchor } from "./useVoteAnchor";
 
 export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
   const t = useTranslations("votetrack");
+  const f = useFormat();
   const [selectedId, setSelectedId] = useState(record.ledger[0].pspId);
   const ledgerIds = useMemo(() => record.ledger.map((l) => l.pspId), [record.ledger]);
   const { highlighted, setAnchor, jumpTo } = useVoteAnchor(ledgerIds, setSelectedId);
@@ -77,7 +79,14 @@ export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
         <SectionHeading
           index={4}
           title={t("record.rebelsTitle")}
-          aside={<SourceNote>{t("record.chronicleNote", { cap: record.chronicle.length })}</SourceNote>}
+          aside={
+            <SourceNote>
+              {t("record.chronicleNote", {
+                shown: f.int(record.chronicle.length),
+                total: f.int(record.chronicleTotal),
+              })}
+            </SourceNote>
+          }
         />
         <div className="mt-8">
           <RealRebellions data={record} onSelectVote={jumpTo} />

@@ -84,7 +84,12 @@ export function toWireRecord(full: FullVoteRecord): VoteRecordData {
     clubs: full.clubs,
     chronicle:
       full.chronicle.length <= CHRONICLE_CAP ? full.chronicle : full.chronicle.slice(0, CHRONICLE_CAP),
+    // Populace obou oříznutých seznamů PŘES HRANICI JDE, a to je celý smysl:
+    // řádek nahoře kroniku ořezává a bez denominátoru by /hlasovani tisklo mez
+    // jako počet. `chronicleTotal` se řezem nemění (je spočítaný před ním).
+    chronicleTotal: full.chronicleTotal,
     topRebels: full.topRebels,
+    topRebelsTotal: full.topRebelsTotal,
     reconciliation: full.reconciliation,
     coverage: full.coverage,
   };

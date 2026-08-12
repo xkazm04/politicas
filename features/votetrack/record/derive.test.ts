@@ -233,6 +233,33 @@ describe("deriveVoteRecord", () => {
       { minClubPositional: 2, minEligible: 10 },
     );
     expect(strict.topRebels).toEqual([]);
+    expect(strict.topRebelsTotal).toBe(0); // nad prahem 10 neprošel nikdo
+  });
+
+  it("counts the population behind each capped list — a window is not a count", () => {
+    const r = derive(events, ballots);
+    // Jediná rebelie záznamu, pět poslanců nad prahem měřitelnosti (minEligible: 1).
+    expect(r.chronicleTotal).toBe(1);
+    expect(r.chronicleTotal).toBe(r.chronicle.length); // bez řezu se populace rovná výpisu
+    expect(r.topRebelsTotal).toBe(5);
+    expect(r.topRebelsTotal).toBe(r.topRebels.length);
+  });
+
+  it("a presentation cap cuts the list, never the population it reports", () => {
+    // Druhá rebelie (Bohumil proti linii A na hlasování 103) — jinak by řez
+    // nebylo na čem ukázat: s jedinou rebelií je mez i populace totéž číslo.
+    const twoRebellions = [
+      ...ballots.filter((x) => !(x.votePspId === 103 && x.mandatePspId === 11)),
+      b(103, 11, "no"),
+    ];
+    const r = deriveVoteRecord(
+      { events, ballots: twoRebellions, clubByMandate: CLUB, personByMandate: PERSON, nameByPerson: NAME },
+      { minClubPositional: 2, minEligible: 1, chronicleCap: 1, topRebelsCap: 1 },
+    );
+    expect(r.chronicle).toHaveLength(1);
+    expect(r.chronicleTotal).toBe(2);
+    expect(r.topRebels).toHaveLength(1);
+    expect(r.topRebelsTotal).toBe(5);
   });
 
   it("is deterministic: same input twice → identical output", () => {

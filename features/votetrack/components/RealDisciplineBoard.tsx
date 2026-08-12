@@ -9,6 +9,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { MIN_CLUB_POSITIONAL } from "@/lib/analysis/kg";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
@@ -16,7 +17,14 @@ import { clubStyle } from "../record/clubStyle";
 import { votePspUrl } from "../record/anchor";
 import type { ClubAggregate, LedgerVote, VoteRecordData } from "../record/types";
 
+/** Kolik nejnovějších zápisů deníku matice sází. Do popisku se INTERPOLUJE —
+ *  „posledních 12" v katalogu bylo číslo, které tenhle řádek mohl kdykoli
+ *  vyvrátit, a nad kratším deníkem bylo rovnou nepravdivé. */
 const MATRIX_WINDOW = 12;
+
+/** Od jaké disciplíny (v %) se buňka kreslí plnou barvou. Táž konstanta pod
+ *  matricí i v poznámce, která ji čtenáři vysvětluje. */
+const STRONG_DISCIPLINE_PCT = 90;
 
 /** Co dnes SKUTEČNĚ omezuje stáří čísel na téhle ploše: ne revalidace routy
  *  (lib/i18n/request.ts čte cookie, takže je celá aplikace dynamická), ale memo
@@ -93,7 +101,13 @@ export default function RealDisciplineBoard({
 
         {/* ── matice linií ──────────────────────────────────── */}
         <div className="min-w-0">
-          <SourceNote>{t("record.matrixNote")}</SourceNote>
+          {/* Deník kratší než okno je reálný stav (čerstvě naingestované období),
+              ne chyba — a věta o „posledních {MATRIX_WINDOW}" by v něm lhala. */}
+          <SourceNote>
+            {matrixVotes.length < MATRIX_WINDOW
+              ? t("record.matrixNoteShort", { shown: f.int(matrixVotes.length), window: f.int(MATRIX_WINDOW) })
+              : t("record.matrixNote", { window: f.int(MATRIX_WINDOW) })}
+          </SourceNote>
           <div className="mt-3 overflow-x-auto">
             <table className="w-full min-w-[34rem] border-collapse text-center">
               <thead>
@@ -139,7 +153,7 @@ export default function RealDisciplineBoard({
                           );
                         }
                         const pct = Math.round(disc * 100);
-                        const strong = pct >= 90;
+                        const strong = pct >= STRONG_DISCIPLINE_PCT;
                         return (
                           <td key={v.pspId} className="px-1.5 py-2.5">
                             <span
@@ -164,14 +178,21 @@ export default function RealDisciplineBoard({
               </tbody>
             </table>
           </div>
-          <p className="mt-3 max-w-md text-sm italic leading-relaxed text-steel-aa">{t("record.matrixFootnote")}</p>
+          <p className="mt-3 max-w-md text-sm italic leading-relaxed text-steel-aa">
+            {t("record.matrixFootnote", { threshold: f.int(STRONG_DISCIPLINE_PCT) })}
+          </p>
         </div>
       </div>
 
       {/* ── zveřejněné pravidlo (stateSlice disclosure pattern) ── */}
       <div className="mt-10 border-2 border-ink p-5">
         <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep">{t("record.methodTitle")}</p>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink">{t("record.methodBody")}</p>
+        {/* Práh pozičních hlasů klubu se bere z konstanty, kterou derivace
+            SKUTEČNĚ filtruje (lib/analysis/kg.ts) — precedens: RealRebellions
+            čte MIN_ELIGIBLE_VOTES ze stejného modulu. */}
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink">
+          {t("record.methodBody", { minClubPositional: f.int(MIN_CLUB_POSITIONAL) })}
+        </p>
         <SourceNote className="mt-3">
           {t("record.methodSource", {
             valid: data.coverage.valid,

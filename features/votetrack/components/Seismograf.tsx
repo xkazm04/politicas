@@ -20,12 +20,26 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { votePspUrl } from "../record/anchor";
 import type { SeismoDay, VoteRecordData } from "../record/types";
 
-/** Deviation display gain: mean Rice on real days sits ~0.75–1.0, so a raw
- * (1 − cohesion) bar would be invisible. 0.5 deviation (cohesion 50 %) already
- * fills the bottom half — disclosed by the axis caption. */
+/**
+ * Zisk zobrazení výchylky: střední Rice na reálných dnech sedí ~0,75–1,0, takže
+ * syrový pruh (1 − soudržnost) by byl neviditelný. Odchylka 0,5 (soudržnost 50 %)
+ * vyplní spodní polovinu celou.
+ *
+ * OBĚ STUPNICE JSOU USEKNUTÉ (`Math.min(1, …)` níž): den se soudržností pod dnem
+ * stupnice se kreslí stejně jako den přesně na dně a den s dvojnásobkem rebelských
+ * hlasů stejně jako den na stropu. To je tvrzení o obrázku, které si čtenář nemá
+ * jak ověřit — do 2026-08-12 tu stálo, že mez „zveřejňují popisky osy", což byla
+ * nepravda: jediný popisek pod pruhem je řada měsíců a ta je `aria-hidden`. Mez se
+ * proto tiskne pod nástrojem (`record.seismoScale`) a OBĚ hodnoty se do věty
+ * interpolují odsud, nikdy se do katalogu nepřepisují.
+ */
 const DEVIATION_FULL_SCALE = 0.5;
 /** Rebel spikes saturate at this many rebel ballots per day. */
 const REBELS_FULL_SCALE = 40;
+
+/** Čtenářský tvar dna výchylky: procento soudržnosti, při kterém je jehla na dně
+ *  (odchylka 0,5 → soudržnost 50 %). Odvozeno z konstanty, ne z textu. */
+const DEVIATION_FLOOR_PCT = Math.round((1 - DEVIATION_FULL_SCALE) * 100);
 
 const pctDown = (d: SeismoDay): number =>
   d.meanCohesion === null ? 0 : Math.min(1, (1 - d.meanCohesion) / DEVIATION_FULL_SCALE) * 100;
@@ -129,6 +143,16 @@ export default function Seismograf({
           <span className="h-6" />
         </div>
       </motion.div>
+
+      {/* Obě stupnice mají dno a strop — a obrázek to sám o sobě neřekne.
+          Hodnoty se interpolují z konstant výš, aby se změnou zisku změnila
+          i věta (vzor PUBLISHED_WEIGHTS_LABEL). */}
+      <SourceNote className="mt-3">
+        {t("record.seismoScale", {
+          deviationScale: f.int(DEVIATION_FLOOR_PCT),
+          rebelsScale: f.int(REBELS_FULL_SCALE),
+        })}
+      </SourceNote>
 
       {/* ── detail panel for the selected day ─────────────────── */}
       {selected && (
