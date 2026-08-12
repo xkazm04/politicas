@@ -2,6 +2,14 @@
  * Jak stopa vzniká — čtyři kroky od rejstříků k doloženému faktu,
  * sutnarovské glyfy + kadence zdrojů. Poslední krok je lidská kontrola:
  * práh spolehlivosti je součást metodiky, ne provozní detail.
+ *
+ * ── ČÍ KADENCE (2026-08-12) ─────────────────────────────────────────────────
+ * Čtyři citace pod dlaždicemi říkaly „téměř real-time", „denně / čtvrtletně",
+ * „průběžně" — bez podmětu, tedy jako by šlo o kadenci NAŠEHO čtení. Žádný
+ * plánovač nad tímhle repozitářem neběží (i noční sentinel je vědomý no-op),
+ * takže to byl slib, který nikdo nedrží. Kadence je teď výslovně REGISTRU a
+ * vedle ní stojí to, co o svém čtení opravdu víme: PRŮCHOD, který peněžní
+ * vrstvu materializoval — týž údaj, jaký stránka tiskne v nadtitulku.
  */
 
 import { useTranslations } from "next-intl";
@@ -38,7 +46,7 @@ const STEP_GLYPHS: Record<string, React.ReactNode> = {
 
 const STEP_KEYS = ["ares", "registers", "watchdog", "resolution"] as const;
 
-export default function TrailMethod() {
+export default function TrailMethod({ pass }: { pass?: number | null }) {
   const t = useTranslations("money");
 
   const STEPS = STEP_KEYS.map((key, i) => ({
@@ -65,6 +73,15 @@ export default function TrailMethod() {
             <SourceNote className="mt-3 !text-[10px]">{s.cadence}</SourceNote>
           </div>
         ))}
+      </div>
+      {/* Kadence NAŠEHO čtení, vedle kadencí registrů — jediné, co o ní stránka
+          skutečně ví, je průchod, který vrstvu spočítal. Bez grafu se to netvrdí. */}
+      <div className="mt-4">
+        <SourceNote>
+          {typeof pass === "number" && pass > 0
+            ? t("method.readCadence", { pass })
+            : t("method.readCadenceUnknown")}
+        </SourceNote>
       </div>
       <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
         {t("method.footnote")}

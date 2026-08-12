@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { LEDGER_CHIP_CAP, PUBLIC_TIE_KEYS, TIE_WIRE, toLedgerData, toPublicTie } from "./publicWire";
+import {
+  LEDGER_CHIP_CAP,
+  PUBLIC_TIE_KEYS,
+  TIE_WIRE,
+  reachInput,
+  toLedgerData,
+  toPublicTie,
+} from "./publicWire";
+import { tieReach } from "./reachableMoney";
 import type { MoneyData, MoneyMpStub, MoneyTie } from "./moneyTypes";
 
 const tie = (over: Partial<MoneyTie> = {}): MoneyTie => ({
@@ -54,7 +62,6 @@ describe("toPublicTie", () => {
         "contractCount",
         "contractCzk",
         "corroboration",
-        "donatedToPartyCzk",
         "ico",
         "receiptRef",
         "reviewRank",
@@ -71,6 +78,10 @@ describe("toPublicTie", () => {
   it("drops the analyst/review evidence the case file and console own", () => {
     const p = toPublicTie(tie()) as Record<string, unknown>;
     for (const dead of [
+      // Nic na /penize tuhle částku nevykresluje: kniha vazeb má sloupce poslanec ·
+      // firma · třída · stav · dosah, dar mezi nimi není, a obrázek nad ní bere svou
+      // stranickou figuru z `MoneyGraphData`, ne odsud.
+      "donatedToPartyCzk",
       "reviewerNote",
       "corroborationProvenance",
       "corroborationSource",
@@ -104,6 +115,48 @@ describe("toPublicTie", () => {
     expect(Object.keys(tie()).sort()).toEqual(classified);
   });
 
+  // Dvě pole, o kterých průchod 2026-08-12 rozhodl jinak, než tabulka tvrdila. Obě
+  // seděla pod komentářem „`tieReach()` inputs" — a ten o obou LHAL: `contractCount`
+  // je vstup dosahu jen v tom smyslu, že ho `reachableMoney` sčítá do rozpočtu, ale
+  // na drát patří proto, že se VYKRESLUJE („{count} smluv" pod buňkou dosahu);
+  // `donatedToPartyCzk` se nevykresluje nikde a v korunách dosahu není vůbec.
+  it("rules on the two fields the 2026-08-12 pass reclassified", () => {
+    expect(TIE_WIRE.contractCount, "the row prints the contract count under the reach cell").toBe(
+      "public",
+    );
+    expect(TIE_WIRE.donatedToPartyCzk, "no /penize surface renders the donation").toBe("internal");
+    expect(PUBLIC_TIE_KEYS).toContain("contractCount");
+    expect(PUBLIC_TIE_KEYS as readonly string[]).not.toContain("donatedToPartyCzk");
+  });
+
+  // Tohle je ta věta, kterou `reachInput`'s doc comment slibuje: `null` tam není
+  // dosazená hodnota, ale NEPŘÍTOMNOST pole, které aritmetika nekonzultuje. Kdyby
+  // ho `bucketReachCzk` nebo `tieReach` četly, dosah řádku by se po zúžení drátu
+  // změnil — a kniha vazeb by tiskla jiné číslo než spis poslance nad týmž grafem.
+  it("reachInput's null is an ABSENCE: the reach arithmetic never consults the donation", () => {
+    const full = tie({ contractCzk: 8_711_232, subsidiesCzk: 37_793_745, donatedToPartyCzk: 4_000_000 });
+    const withDonation = tieReach(full);
+    const overTheWire = tieReach(reachInput(toPublicTie(full)));
+
+    expect(overTheWire.czk).toBe(withDonation.czk);
+    expect(overTheWire.attributable).toBe(withDonation.attributable);
+    // …a ne proto, že by dar náhodou byl nula: v `full` jsou 4 mil. Kč, a v součtu
+    // nejsou ani na jedné straně.
+    expect(full.donatedToPartyCzk).toBeGreaterThan(0);
+    expect(withDonation.czk).toBe(full.contractCzk + full.subsidiesCzk);
+  });
+
+  it("reachInput leaves every field the arithmetic DOES read untouched", () => {
+    const p = toPublicTie(tie({ contractCount: 12, contractCzk: 7, subsidiesCzk: 5 }));
+    const r = reachInput(p);
+    expect(r.donatedToPartyCzk).toBeNull();
+    expect(r.companyId).toBe(p.companyId);
+    expect(r.tieClass).toBe(p.tieClass);
+    expect(r.contractCount).toBe(12);
+    expect(r.contractCzk).toBe(7);
+    expect(r.subsidiesCzk).toBe(5);
+  });
+
   it("preserves the values it does carry, verbatim", () => {
     const t = tie();
     const p = toPublicTie(t);
@@ -133,7 +186,7 @@ const data = (stubs: number): MoneyData =>
     ],
     mpsWithoutTies: Array.from({ length: stubs }, (_, i) => stub(i + 1)),
     graph: null,
-    stats: {} as MoneyData["stats"],
+    stats: { mandatesTotal: 200 } as MoneyData["stats"],
     source: "registr smluv",
     pass: 10,
   }) as MoneyData;
@@ -166,5 +219,13 @@ describe("toLedgerData", () => {
     expect(w.pass).toBe(src.pass);
     expect(w.source).toBe(src.source);
     expect(w.stats).toBe(src.stats);
+  });
+
+  // `stats` prochází celé a jedno z jeho polí je od 2026-08-12 JMENOVATEL dlaždice
+  // „poslanci s vazbou" — do té doby to byl literál „207" v katalogu. Kdyby ho drát
+  // ořízl, věta by tiše spadla do bezjmenovatelové varianty a nikdo by si toho na
+  // ploše nevšiml (obě varianty se čtou dobře).
+  it("ships stats.mandatesTotal — the denominator the MPs tile actually renders", () => {
+    expect(toLedgerData(data(0)).stats.mandatesTotal).toBe(200);
   });
 });

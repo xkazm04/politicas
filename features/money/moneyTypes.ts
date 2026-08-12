@@ -302,6 +302,12 @@ export interface MoneyGraphData {
 
 export interface MoneyStats {
   mpsWithTies: number;
+  /** Kolik mandátů registr pro čtený termín nese — JMENOVATEL dlaždice „poslanci
+   *  s vazbou". Loader ho četl (`listMandates`) a zahazoval, zatímco věta pod
+   *  dlaždicí tiskla „z 207 mandátů" jako literál; jeden doplňovací mandát z toho
+   *  udělá lež. `null` = mandátové čtení selhalo — věta pak jmenovatel NETVRDÍ
+   *  vůbec, nikdy ho nenahradí nulou. */
+  mandatesTotal: number | null;
   companiesLinked: number; // distinct companies across all ties
   /** Reachable public money, from THE shared definition (`reachableMoney.ts`): one row
    *  per company, split into what the attribution rule permits reading as the

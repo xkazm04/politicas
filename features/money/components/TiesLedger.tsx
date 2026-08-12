@@ -17,13 +17,21 @@ import Link from "next/link";
 import { ArrowUpDown, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { useFormat } from "@/lib/i18n/useFormat";
 import {
   temporalBadge,
   tieClassInfo,
   tieClassOriginInfo,
   type TieClass,
 } from "../moneyTypes";
-import { LEDGER_CHIP_CAP, type MoneyLedgerData, type PublicMoneyMp, type PublicMoneyTie } from "../publicWire";
+import {
+  LEDGER_CHIP_CAP,
+  reachInput,
+  type MoneyLedgerData,
+  type PublicMoneyMp,
+  type PublicMoneyTie,
+} from "../publicWire";
+import type { ReviewSummary } from "../reviewSummary";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import ReportClaimLink from "@/features/shared/components/ReportClaimLink";
 import CitableNumber from "@/lib/claims/CitableNumber";
@@ -53,8 +61,17 @@ const CLASS_TONE_CLS: Record<string, string> = {
 
 const PAGE_SIZE = 25;
 
-export default function TiesLedger({ data }: { data: MoneyLedgerData | null }) {
-  if (data) return <RealLedger data={data} />;
+export default function TiesLedger({
+  data,
+  review,
+}: {
+  data: MoneyLedgerData | null;
+  /** Co lidská brána SKUTEČNĚ rozhodla — týž odvozený objekt, jaký sází pruh pod
+   *  titulkem a patička grafu. Do 2026-08-12 tu místo něj stála jedna věta tvrdící,
+   *  že „všechny záznamy" čekají na kontrolu; první rozhodnutí v konzoli ji vyvrátí. */
+  review: ReviewSummary;
+}) {
+  if (data) return <RealLedger data={data} review={review} />;
   return <MockLedger />;
 }
 
@@ -70,10 +87,11 @@ type SortKey = "evidence" | "reach" | "mp" | "company";
 type CorroborationFilter = "all" | "confirmed" | "unconfirmed" | "conflicting" | "unchecked";
 type TemporalFilter = "all" | "current" | "ended" | "warn" | "unknown";
 
-function RealLedger({ data }: { data: MoneyLedgerData }) {
+function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSummary }) {
   const t = useTranslations("money");
   const tcom = useTranslations("common");
   const locale = useLocale();
+  const f = useFormat();
   const en = locale === "en";
 
   const rows: FlatRow[] = useMemo(
@@ -122,7 +140,7 @@ function RealLedger({ data }: { data: MoneyLedgerData }) {
       // Sort key and cell come from the SAME shared definition (`tieReach`) — the column
       // used to re-add `contractCzk + subsidiesCzk` here and again at the cell, which was
       // a fourth answer to "kolik peněz je v dosahu" living inside the ledger.
-      return sortDir * (tieReach(a.tie).czk - tieReach(b.tie).czk);
+      return sortDir * (tieReach(reachInput(a.tie)).czk - tieReach(reachInput(b.tie)).czk);
     });
     return copy;
   }, [filtered, sortKey, sortDir]);
@@ -262,7 +280,7 @@ function RealLedger({ data }: { data: MoneyLedgerData }) {
           </thead>
           <tbody>
             {shown.map(({ mp, tie }) => {
-              const reach = tieReach(tie);
+              const reach = tieReach(reachInput(tie));
               const temporal = temporalBadge(tie);
               const info = tieClassInfo(tie.tieClass);
               return (
@@ -362,7 +380,7 @@ function RealLedger({ data }: { data: MoneyLedgerData }) {
                       {reach.czk > 0 ? (
                         <CitableNumber
                           value={reach.czk}
-                          claim={tieReachClaim(tie, data.pass).claim}
+                          claim={tieReachClaim(reachInput(tie), data.pass).claim}
                           locale={locale as Locale}
                           kind="czkCompact"
                         />
@@ -377,6 +395,17 @@ function RealLedger({ data }: { data: MoneyLedgerData }) {
                           : t("real.ledger.reachSteward")
                         : ""}
                     </span>
+                    {/* KOLIK SMLUV za tím číslem stojí. `contractCount` se vozil na
+                        veřejném drátě klasifikovaný jako vstup dosahu — což byla
+                        nepravda (reachableMoney.ts ho nečte) — a nevykresloval se
+                        nikde, ačkoli `real.ledger.reachNote` pod tabulkou čtenáři
+                        slibuje „smlouvy z registru smluv … + dotace". Jedna miliarda
+                        v jedné smlouvě a v tisíci smlouvách nejsou totéž. */}
+                    {tie.contractCount > 0 && (
+                      <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-widest text-steel">
+                        {t("shared.contractsCount", { count: tie.contractCount })}
+                      </span>
+                    )}
                   </td>
                 </tr>
               );
@@ -454,9 +483,38 @@ function RealLedger({ data }: { data: MoneyLedgerData }) {
         </div>
       </div>
 
-      <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel">
-        {t("real.ledger.disclaimer", { pendingLabel: tcom("pendingReview") })}
-      </p>
+      {/* CO BRÁNA SKUTEČNĚ ROZHODLA — odvozeno, ne napsáno. Do 2026-08-12 tu stálo
+          „Všechny záznamy nesou štítek «čeká na kontrolu»", tedy literál, který první
+          potvrzení v /penize/kontrola vyvrátí; konzole umí zapsat verified i rejected
+          od e8bf6c8. Věta teď čte TÝŽ `ReviewSummary`, jaký sází pruh pod titulkem a
+          patička grafu, takže tři místa jedné stránky nemohou o téže bráně tvrdit tři
+          různé věci. */}
+      <div className="mt-4 max-w-3xl">
+        <p className="text-sm italic leading-relaxed text-steel">
+          {review.phase === "all-pending"
+            ? t("real.ledger.disclaimerAllPending", {
+                total: f.int(review.total),
+                pendingLabel: tcom("pendingReview"),
+              })
+            : review.phase === "all-decided"
+              ? t("real.ledger.disclaimerAllDecided", {
+                  total: f.int(review.total),
+                  verified: f.int(review.verified),
+                  rejected: f.int(review.rejected),
+                })
+              : review.phase === "mixed"
+                ? t("real.ledger.disclaimerMixed", {
+                    decided: f.int(review.decided),
+                    pending: f.int(review.pending),
+                    total: f.int(review.total),
+                    pendingLabel: tcom("pendingReview"),
+                  })
+                : t("real.ledger.disclaimerEmpty")}
+        </p>
+        <SourceNote className="mt-2">
+          {tcom("sourcePrefix")} {t("real.review.source")}
+        </SourceNote>
+      </div>
     </div>
   );
 }

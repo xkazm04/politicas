@@ -37,7 +37,8 @@ export async function getMoneyData(): Promise<MoneyData | null> {
   try {
     const layer = await loadMoneyLayer();
     if (!layer) return null;
-    const { persons, linked, companyById, personById, clubByPerson, contractsByCompany, pass } = layer;
+    const { persons, linked, companyById, personById, clubByPerson, contractsByCompany, pass, mandatesTotal } =
+      layer;
 
     // Group ties by MP.
     const tiesByPerson = new Map<string, MoneyTie[]>();
@@ -176,6 +177,10 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       graph,
       stats: {
         mpsWithTies: mps.length,
+        // The tile's own denominator, read from the mandate registry rather than
+        // written into the copy. `null` when the registry read failed — the sentence
+        // then states no denominator at all (a floor, not a zero).
+        mandatesTotal,
         companiesLinked: distinctCompanies.size,
         money,
         // Views onto `money`, kept because /dashboard's headline reads them by these

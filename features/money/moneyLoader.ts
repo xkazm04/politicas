@@ -188,14 +188,31 @@ export interface MoneyLayer {
   tiedCompanyIds: Set<string>;
   /** the pass that materialized the money layer (self-awareness surface). */
   pass: number;
+  /** Kolik mandátů registr pro `TERM` nese — JMENOVATEL dlaždice „poslanci s vazbou".
+   *  `null` = mandátové čtení selhalo; neznámý jmenovatel se nevykreslí, nikdy se
+   *  nenahradí nulou ani literálem. */
+  mandatesTotal: number | null;
 }
 
-/** personPspId → club abbreviation. Registry tables (207 mandates), not the graph.
- *  Clubs are decorative here: their absence must never drop the money picture. */
-export async function loadClubs(store: Store): Promise<Map<number, string>> {
+/** Co mandátové čtení vrací: kluby (dekorace) a JEJICH POPULACE (údaj o ploše). */
+export interface ClubRead {
+  clubByPerson: Map<number, string>;
+  /** Počet mandátových řádků registru pro `TERM`, nebo `null`, když se čtení
+   *  nepovedlo. Do 2026-08-12 se tenhle počet přečetl a ZAHODIL, zatímco dlaždice
+   *  „poslanci s vazbou" tiskla jmenovatel jako literál „207". */
+  mandatesTotal: number | null;
+}
+
+/** personPspId → club abbreviation, plus kolik mandátů registr pro TERM nese.
+ *  Registry tables, not the graph. Clubs are decorative here: their absence must
+ *  never drop the money picture — proto se výjimka jen zaloguje a plocha dostane
+ *  prázdnou mapu a `null` jmenovatel. */
+export async function loadClubs(store: Store): Promise<ClubRead> {
   const clubByPerson = new Map<number, string>();
+  let mandatesTotal: number | null = null;
   try {
-    const mandates = await store.listMandates({ termCode: TERM });
+    const mandates = await store.listMandates({ termCode: TERM, limit: KG_READ_CAP });
+    mandatesTotal = mandates.length;
     const clubByMandate = await store.clubByMandate(TERM);
     for (const m of mandates) {
       const club = clubByMandate.get(m.pspId);
@@ -204,7 +221,7 @@ export async function loadClubs(store: Store): Promise<Map<number, string>> {
   } catch (err) {
     console.warn("[moneyLoader] club resolution failed; continuing without clubs", err);
   }
-  return clubByPerson;
+  return { clubByPerson, mandatesTotal };
 }
 
 /* ── the supplies fold, memoized across requests ─────────────────────────────
@@ -293,7 +310,7 @@ export const loadMoneyLayer = cache(async function loadMoneyLayer(): Promise<Mon
     // The ~153 731-row supplies read + fold, memoized across requests (see above).
     const contractsByCompany = await contractsByCompanyMemo(store);
 
-    const clubByPerson = await loadClubs(store);
+    const { clubByPerson, mandatesTotal } = await loadClubs(store);
     const pass = num((linked[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
     const tiedCompanyIds = new Set(linked.map((e) => e.dst));
 
@@ -307,6 +324,7 @@ export const loadMoneyLayer = cache(async function loadMoneyLayer(): Promise<Mon
       contractsByCompany,
       tiedCompanyIds,
       pass,
+      mandatesTotal,
     };
   } catch (err) {
     reportLoaderFailure("moneyLoader.loadMoneyLayer", err);
@@ -426,7 +444,7 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
       if (truncated) contractsTruncated = true;
     }
 
-    const clubByPerson = await loadClubs(store);
+    const { clubByPerson } = await loadClubs(store);
     const pass = num((ties[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
 
     return {
@@ -520,7 +538,7 @@ export const loadCompanyMoneySlice = cache(async function loadCompanyMoneySlice(
     const ownershipEdges = ownershipRead.edges.sort(byListOrder);
     const ownershipNodeById = new Map(ownershipRead.nodes.map((n) => [n.id, n] as const));
 
-    const clubByPerson = await loadClubs(store);
+    const { clubByPerson } = await loadClubs(store);
     const pass = num((ties[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
 
     return {

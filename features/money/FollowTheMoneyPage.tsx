@@ -83,10 +83,19 @@ export default function FollowTheMoneyPage({
           source: t("real.stats.ownerSourceSplit"),
         },
         {
+          // Jmenovatel („z N mandátů") přichází z mandátového registru, který loader
+          // celou dobu ČETL a zahazoval, zatímco věta tiskla „z 207" jako literál.
+          // Když se čtení nepovede, věta jmenovatel NETVRDÍ — nula by byla horší lež.
           label: t("real.stats.mpsLabel"),
           value: f.int(data.stats.mpsWithTies),
-          sub: t("real.stats.mpsSub"),
-          source: t("real.stats.mpsSource"),
+          sub:
+            data.stats.mandatesTotal != null
+              ? t("real.stats.mpsSub", { total: f.int(data.stats.mandatesTotal) })
+              : t("real.stats.mpsSubNoTotal"),
+          source:
+            data.stats.mandatesTotal != null
+              ? t("real.stats.mpsSource")
+              : t("real.stats.mpsSourceNoTotal"),
         },
         {
           label: t("real.stats.companiesLabel"),
@@ -257,7 +266,7 @@ export default function FollowTheMoneyPage({
             aside={<SourceNote>{t("sections.ledger.aside")}</SourceNote>}
           />
           <div className="mt-8">
-            <TiesLedger data={data ?? null} />
+            <TiesLedger data={data ?? null} review={review} />
           </div>
           {/* „Dva ručně dořešené spisy" byl LITERÁL — v obou jazycích, přímo
               v JSX — nad adresářem, jehož populace je DISKOVANÁ (getLeadDossiers
@@ -280,6 +289,17 @@ export default function FollowTheMoneyPage({
             </span>
             <span className="shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-signal">→</span>
           </Link>
+          {/* Počet spisů je RENDEROVANÉ ČÍSLO a citaci potřebuje jako každé jiné:
+              nepochází z grafu, ale z DISKOVANÉ populace payload adresáře (getLeadDossiers
+              parsuje každý *.json a nechá ty, které mají tvar spisu). Bez počtu se cituje
+              jen to, odkud seznam je. */}
+          <div className="mt-2">
+            <SourceNote>
+              {typeof leadDossierCount === "number"
+                ? t("kauzy.teaserSource")
+                : t("kauzy.teaserSourceNoCount")}
+            </SourceNote>
+          </div>
         </section>
 
         {/* ── 03 Jak stopa vzniká ───────────────────────────── */}
@@ -290,7 +310,9 @@ export default function FollowTheMoneyPage({
             aside={<SourceNote>{t("sections.method.aside")}</SourceNote>}
           />
           <div className="mt-8">
-            <TrailMethod />
+            {/* Průchod, který peněžní vrstvu materializoval — týž údaj, jaký stránka
+                tiskne v nadtitulku. Bez grafu se metodika o vlastní kadenci nevyjádří. */}
+            <TrailMethod pass={data?.pass ?? null} />
           </div>
         </section>
       </div>

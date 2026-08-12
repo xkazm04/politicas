@@ -6,6 +6,7 @@
 import { describe, expect, it } from "vitest";
 
 import { looksEnglish } from "@/lib/analysis/language-gate";
+import { reviewSummary, type ReviewPhase } from "./reviewSummary";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 
@@ -203,5 +204,188 @@ describe("money message catalog", () => {
     // It sat unused in both catalogs while the "nejméně" prefix rendered without it.
     expect(placeholders(cs["real.stats.reachableSubCapped"])).toEqual(["cap", "companies"]);
     expect(placeholders(en["real.stats.reachableSubCapped"])).toEqual(["cap", "companies"]);
+  });
+
+  /* ── kniha vazeb mluví o bráně tolik, kolik brána rozhodla ─────────────────
+   * Do 2026-08-12 stála pod knihou JEDNA věta: „Všechny záznamy nesou štítek
+   * «čeká na kontrolu»" — literál, který první potvrzení v /penize/kontrola
+   * vyvrátí. Věta teď čte `ReviewSummary`, takže katalog musí mít větu pro
+   * KAŽDOU fázi, ve které ta data mohou být. Mapa je `Record<ReviewPhase, …>`:
+   * nová fáze se bez rozhodnutí o copy ani nezkompiluje. */
+  const LEDGER_DISCLAIMER: Record<ReviewPhase, string> = {
+    empty: "real.ledger.disclaimerEmpty",
+    "all-pending": "real.ledger.disclaimerAllPending",
+    mixed: "real.ledger.disclaimerMixed",
+    "all-decided": "real.ledger.disclaimerAllDecided",
+  };
+
+  it("the ledger has a sentence for every phase the gate can actually be in", () => {
+    // Fáze se nevypisují ručně — projedou se skutečnou `reviewSummary()`, takže
+    // test tvrdí totéž co komponenta, ne totéž co komentář.
+    const cases = [
+      { verified: 0, pending: 0, rejected: 0 },
+      { verified: 0, pending: 211, rejected: 0 },
+      { verified: 3, pending: 208, rejected: 0 },
+      { verified: 3, pending: 0, rejected: 208 },
+    ];
+    const reached = new Set<ReviewPhase>();
+    for (const c of cases) {
+      const { phase } = reviewSummary(c);
+      reached.add(phase);
+      const key = LEDGER_DISCLAIMER[phase];
+      expect(cs[key], `cs.${key} (phase ${phase})`).toBeTruthy();
+      expect(en[key], `en.${key} (phase ${phase})`).toBeTruthy();
+    }
+    expect(reached.size, "every declared phase is exercised").toBe(
+      Object.keys(LEDGER_DISCLAIMER).length,
+    );
+  });
+
+  it("each disclaimer declares exactly the arguments TiesLedger hands it", () => {
+    // Jméno parametru je kontrakt mezi komponentou a katalogem; překlep se na
+    // ploše projeví syrovým `{total}` uprostřed věty o lidské bráně.
+    const ARGS: Record<string, string[]> = {
+      "real.ledger.disclaimerAllPending": ["pendingLabel", "total"],
+      "real.ledger.disclaimerAllDecided": ["rejected", "total", "verified"],
+      "real.ledger.disclaimerMixed": ["decided", "pending", "pendingLabel", "total"],
+      "real.ledger.disclaimerEmpty": [],
+    };
+    for (const [k, args] of Object.entries(ARGS)) {
+      expect(placeholders(cs[k]), `cs.${k}`).toEqual(args);
+      expect(placeholders(en[k]), `en.${k}`).toEqual(args);
+    }
+    // A ta jedna věta, kterou nahradily, je pryč z OBOU katalogů — mrtvý klíč
+    // s nepravdivým tvrzením je pozvánka, aby ho někdo zase někam vysázel.
+    expect(cs["real.ledger.disclaimer"], "the retired all-pending literal").toBeUndefined();
+    expect(en["real.ledger.disclaimer"], "the retired all-pending literal").toBeUndefined();
+  });
+
+  /* ── žádná dlaždice nesmí mít vlastní sněmovnu ─────────────────────────────
+   * „z 207 mandátů" byl literál nad loaderem, který mandátový rejstřík CELOU
+   * DOBU četl a zahazoval; jeden doplňovací mandát z něj dělá lež. Pravidlo je
+   * záměrně TVAROVÉ, ne seznam zakázaných čísel: zakázán je „<číslo> <slovo>",
+   * tedy počet vysázený do věty. Kód období („PSP10") ani řadová číslovka
+   * („10. období") tím netrpí — číslice tam nestojí samostatně před podstatným
+   * jménem. Regex, který by hledal jen „207", je přesně to, čím poslední takový
+   * literál proklouzl. */
+  const LITERAL_COUNT = /(?<![\p{L}\p{N}])\d{2,}\s+\p{L}/u;
+
+  it("no stats sentence writes a count into the copy — denominators are arguments", () => {
+    for (const [locale, ns] of [
+      ["cs", cs],
+      ["en", en],
+    ] as const) {
+      for (const [k, v] of Object.entries(ns)) {
+        if (!k.startsWith("real.stats.")) continue;
+        expect(v, `${locale}.${k} states a count as a literal`).not.toMatch(LITERAL_COUNT);
+      }
+    }
+    // …a ta jedna dlaždice, kde jmenovatel opravdu stojí, ho bere jako argument.
+    expect(placeholders(cs["real.stats.mpsSub"])).toEqual(["total"]);
+    expect(placeholders(en["real.stats.mpsSub"])).toEqual(["total"]);
+    // Když se mandátový rejstřík nepřečte, věta jmenovatel NETVRDÍ VŮBEC —
+    // ani jako argument (nula by byla horší lež než mlčení).
+    for (const ns of [cs, en]) {
+      expect(ns["real.stats.mpsSubNoTotal"]).toBeTruthy();
+      expect(ns["real.stats.mpsSourceNoTotal"]).toBeTruthy();
+      expect(placeholders(ns["real.stats.mpsSubNoTotal"])).toEqual([]);
+      expect(placeholders(ns["real.stats.mpsSourceNoTotal"])).toEqual([]);
+    }
+  });
+
+  /* ── čí je ta kadence ──────────────────────────────────────────────────────
+   * „téměř real-time", „denně / čtvrtletně", „průběžně" stály pod dlaždicemi
+   * BEZ PODMĚTU, takže se četly jako kadence NAŠEHO čtení — a nad tímhle
+   * repozitářem neběží plánovač. Pin je tvarový a odvozený: podmět, který
+   * kadence musí pojmenovat, se bere z NÁZVU vlastního kroku, takže tohle není
+   * seznam schválených frází — je to požadavek, aby věta měla podmět. */
+  const STEP_KEYS = ["ares", "registers", "watchdog", "resolution"] as const;
+  /** Kmeny slov názvu kroku — čtyři znaky kvůli české flexi (rejstřík/rejstříku). */
+  const subjectStems = (title: string): string[] => [
+    ...new Set(
+      (title.toLowerCase().match(/\p{L}+/gu) ?? [])
+        .filter((w) => w.length >= 4)
+        .map((w) => w.slice(0, 4)),
+    ),
+  ];
+  /** Věta, která ZAČÍNÁ frekvencí, je holá kadence bez podmětu — přesně ten tvar. */
+  const BARE_CADENCE =
+    /^\s*(téměř\s+|near\s+|zhruba\s+|about\s+)?(real[-\s]?time|denně|týdně|měsíčně|čtvrtletně|ročně|průběžně|nepřetržitě|daily|weekly|monthly|quarterly|annually|continuous|continuously|ongoing|hourly|nightly)\b/i;
+  /** Kadenci registru nesmí vlastnit první osoba — to je celá ta nepravda. */
+  const FIRST_PERSON =
+    /\b(čteme|stahujeme|načítáme|sbíráme|aktualizujeme|synchronizujeme|obnovujeme|naše|náš|našeho|našem|we|our|us)\b/i;
+  const FREQUENCY =
+    /\b(real[-\s]?time|denně|týdně|měsíčně|čtvrtletně|ročně|průběžně|nepřetržitě|daily|weekly|monthly|quarterly|annually|continuous|continuously|hourly|nightly)\b/i;
+
+  it("every step cadence names the REGISTER it speaks for, never our reading", () => {
+    for (const [locale, ns] of [
+      ["cs", cs],
+      ["en", en],
+    ] as const) {
+      for (const k of STEP_KEYS) {
+        const title = ns[`method.steps.${k}.title`];
+        const cadence = ns[`method.steps.${k}.cadence`];
+        expect(title, `${locale}.${k}.title`).toBeTruthy();
+        expect(cadence, `${locale}.${k}.cadence`).toBeTruthy();
+        expect(cadence, `${locale}.${k}.cadence is a bare frequency, with no subject`).not.toMatch(
+          BARE_CADENCE,
+        );
+        expect(cadence, `${locale}.${k}.cadence claims OUR cadence`).not.toMatch(FIRST_PERSON);
+        const named = subjectStems(title).some((s) => cadence.toLowerCase().includes(s));
+        expect(named, `${locale}.${k}.cadence names no subject from its own title`).toBe(true);
+      }
+    }
+  });
+
+  it("our own reading claims no cadence — nothing schedules it", () => {
+    for (const ns of [cs, en]) {
+      for (const k of ["method.readCadence", "method.readCadenceUnknown"]) {
+        expect(ns[k], k).toBeTruthy();
+        expect(ns[k], `${k} asserts a reading cadence no scheduler delivers`).not.toMatch(FREQUENCY);
+      }
+    }
+    // Jediné datum, které o vlastním čtení známe, je průchod — a je to argument.
+    expect(placeholders(cs["method.readCadence"])).toEqual(["pass"]);
+    expect(placeholders(en["method.readCadence"])).toEqual(["pass"]);
+    expect(placeholders(cs["method.readCadenceUnknown"])).toEqual([]);
+    expect(placeholders(en["method.readCadenceUnknown"])).toEqual([]);
+  });
+
+  it("the kauzy teaser cites where its count comes from, and claims none without it", () => {
+    for (const ns of [cs, en]) {
+      expect(ns["kauzy.teaserSource"]).toBeTruthy();
+      expect(ns["kauzy.teaserSourceNoCount"]).toBeTruthy();
+      // Počet je DISKOVANÁ populace — citace musí ukázat na adresář, ne na graf.
+      expect(ns["kauzy.teaserSource"]).toContain("case-money/payloads");
+      expect(ns["kauzy.teaserSourceNoCount"]).toContain("case-money/payloads");
+      // Bez počtu se žádný počet netvrdí — ani argumentem, ani číslicí.
+      expect(placeholders(ns["kauzy.teaserSourceNoCount"])).toEqual([]);
+      expect(ns["kauzy.teaserSourceNoCount"]).not.toMatch(LITERAL_COUNT);
+    }
+  });
+
+  it("every sentence this pass added stays Czech in the Czech catalog", () => {
+    // memory/reader-facing-loaders-need-the-language-gate.md — a copy set that
+    // nobody gates drifts into English one honest correction at a time.
+    const ADDED = [
+      "real.ledger.disclaimerAllPending",
+      "real.ledger.disclaimerAllDecided",
+      "real.ledger.disclaimerMixed",
+      "real.ledger.disclaimerEmpty",
+      "real.stats.mpsSub",
+      "real.stats.mpsSubNoTotal",
+      "real.stats.mpsSource",
+      "real.stats.mpsSourceNoTotal",
+      "kauzy.teaserSource",
+      "kauzy.teaserSourceNoCount",
+      "method.readCadence",
+      "method.readCadenceUnknown",
+      ...STEP_KEYS.map((k) => `method.steps.${k}.cadence`),
+    ];
+    for (const k of ADDED) {
+      expect(cs[k], `cs.${k} missing`).toBeTruthy();
+      expect(looksEnglish(cs[k]), `cs.${k} reads as English`).toBe(false);
+      expect(cs[k], `${k} is not translated`).not.toEqual(en[k]);
+    }
   });
 });
