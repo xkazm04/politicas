@@ -330,7 +330,10 @@ describe("money message catalog", () => {
    * („10. období") tím netrpí — číslice tam nestojí samostatně před podstatným
    * jménem. Regex, který by hledal jen „207", je přesně to, čím poslední takový
    * literál proklouzl. */
-  const LITERAL_COUNT = /(?<![\p{L}\p{N}])\d{2,}\s+\p{L}/u;
+  // \d+ schválně, ne \d{2,}: jednociferný literál („0 ověřených") prošel
+  // dvouciferným tvarem přímo do katalogu a přežil tam jako mrtvý klíč
+  // s nepravdivým tvrzením — falzifikace 2026-08-12.
+  const LITERAL_COUNT = /(?<![\p{L}\p{N}])\d+\s+\p{L}/u;
 
   it("no stats sentence writes a count into the copy — denominators are arguments", () => {
     for (const [locale, ns] of [
