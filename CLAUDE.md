@@ -57,6 +57,27 @@ Route map (politicas.md roadmap execution, sample data):
   WeightPanel), and HeroStory / Hemicycle / SystemModules gate on
   `useReducedMotion` like every sibling surface; `motion.test.ts` pins both
   by source-grep (no jsdom here), each guard verified by falsification.
+  **The façade got lighter and stopped over-promising (2026-08-12).**
+  recharts left the critical parse path: `ScoreBreakdown` loads via
+  `next/dynamic` (NO `ssr:false` — the chart still server-renders), so the
+  116,7 kB gz / 27 % of first-load that every reader paid for a chart drawn
+  only when `data && mp` now loads lazily (post-change build measured: the
+  landing's 9 referenced client chunks, 344 342 B raw, carry zero recharts
+  markers). `SectionRule` — the repo's most-mounted moving component, 65
+  mounts / 20 pages — finally honours `useReducedMotion`, and `motion.test.ts`
+  now DERIVES a shared-component scan from the landing's own imports, so a
+  moving catalog component can't escape the rule at the folder boundary again.
+  `landing.lead` narrowed to what the loaders measure (no „každá koruna", no
+  „každý politik"; pinned cs+en). /referendum's hardcoded 207 above its own
+  null guard fell in both places (page prose + OG description). The embed's
+  „stav k" dates the DATA — the chamber aggregate's `computedAt`, with a
+  mixed chamber stating it cannot date the recompute and naming no pass —
+  while the deploy instant stays beside it labelled „vysazeno" (it used to
+  BE the „stav k" date: every widget load advertised today over batch data).
+  `DenikTeaser` takes the Prague day as a SERVER prop (`pragueDay` computed
+  in app/page.tsx, crossing as data — the browser's UTC day was exactly the
+  bug pragueDay.ts was written to kill), cites all FOUR sources
+  (+ change_event), and discloses the FEED_ENTRIES cap beside the day count.
 - `/dashboard` — **Velín** (features/dashboard): rebuilt 2026-07-26 as an
   instrument panel. **PARTIALLY REAL** — `getDashboardData.ts` is a `server-only`
   loader that re-uses the loaders which already own each figure rather than
@@ -305,6 +326,26 @@ Route map (politicas.md roadmap execution, sample data):
   labelled consumer in `MockStatTiles.tsx` and the test verifies that consumer
   still reads it). The loader header now names `attendanceAvgPct` as its ONE
   derivation, and the store-down header note no longer asserts the term.
+  **The exhibit outlives the window (2026-08-12).** The velín's feed window
+  (FEED_ROWS = 12) was acting as a derivability boundary: `getExhibitData`
+  resolved a cited fact against the WINDOWED book, so every fact citation died
+  the moment twelve newer facts existed — the page answered „gone" and /overeni
+  „zaznam-nenalezen" about a row the same pass still derives. The cut is now
+  the CALLER's decision (`DatedFactOptions.limit`, default FEED_ROWS;
+  `getDashboardData({factLedger:"full"})` turns it off for the exhibit path
+  only — the wire still carries exactly FEED_ROWS, pinned), and
+  `locateDatedFact()` is the ONE rule: null = today's pass no longer derives
+  the fact (genuinely gone), `beyondWindow` = derived, just older than the
+  front page shows (a note, not a death). A stale exhibit also stopped
+  REWRITING ITS ADDRESS: `citedId` carries the URL segment verbatim, and
+  copy / „ověřit tuto citaci" / report all ride the CITED address
+  (`exhibitAddresses()`, pure) — asking the gate about today's canonical
+  address returned „sedí" about an address nobody ever cited; today's address
+  renders as its own labelled link only when it differs. Fingerprints are
+  deliberately unchanged (x/y + partyCode stay in `hashSlice`): evicting
+  layout from the hash is a one-time invalidation of every issued address and
+  is recorded as a follow-up IN the hash's doc comment, not smuggled into a
+  pass whose whole point is that citations survive.
 - `/poslanec/[id]` — **Spis** (features/profile): the Person profile —
   politicas.md §3's "real product". Wired to the real graph (no mock path):
   poster header + contribution score/rank, the six weighted components, the
@@ -902,7 +943,39 @@ Route map (politicas.md roadmap execution, sample data):
   null), the payload rides `CompanyCaseFileData` so `TIE_WIRE` and /penize's
   public wire stay byte-identical, and the block's pass renders only when
   ALL rows agree on one. `graph-schema.md` finally gained the `owns_stake`
-  row per its own sync rule. Related fix: the /admin T4 tripwire now reads
+  row per its own sync rule.
+  **The money graph reads for keyboards, and the book speaks the gate's truth
+  (2026-08-12).** The hero graph was a dead end and an a11y hole — `role="img"`
+  (a LEAF role) over ~11 focusable `<g tabIndex={0} outline:none>` nodes, zero
+  links out, `reviewState` shipped per company and rendered nowhere. It now
+  follows the velín canvas pattern with `graphTraversal.ts` IMPORTED, never
+  forked: `role="group"`, ONE tab stop (roving tabindex), arrows walk EDGES,
+  Home/End, Enter/Space opens the node's case file, visible focus ring, the
+  keyboard pattern printed under the picture. `features/money/graphNav.ts` is
+  the pure adapter + href resolver: an address derives ONLY from the SHAPE of
+  `entityId` through `caseFileLink.ts` + `canonicalIco` — person → `/penize/
+  <pspId>`, company → `/penize/firma/<ičo>`, anything else (incl. EVERY sample
+  node) → null, stated in the footer. `pending_review` renders AT the node and
+  in its SR label (a shared picture must carry its own caption). Beside the
+  keyboard path a REAL `<Link>` (router.push can't open-in-new-tab). And five
+  falsifiable /penize sentences fell: the ledger disclaimer derives from the
+  SAME `reviewSummary()` the banner/graph read (four phases, four sentences —
+  the „všechny záznamy čekají" literal is deleted from both catalogs); „z 207
+  mandátů" takes its denominator from `MoneyStats.mandatesTotal` (the loader
+  read mandates and THREW THE COUNT AWAY; a failed read asserts NO denominator,
+  never zero); the kauzy teaser count cites its disk population
+  (`case-money/payloads` + the `isDossier` shape check); the method cadences
+  name the REGISTER as their subject (no scheduler runs over this repo — our
+  own reading claims only the pass that materialized the layer); and
+  `TIE_WIRE`'s two mis-justified fields were ruled on — `contractCount` stays
+  public AND now renders („{count} smluv" under the reach cell),
+  `donatedToPartyCzk` went internal (nothing on /penize renders it), with
+  `reachInput()` pinning that the reach arithmetic never consults the donation
+  (same tie with/without a 4M donation → identical CZK). The messages pins are
+  SHAPE rules, not allowlists: a literal „<number> <noun>" is banned in
+  `real.stats.*`, and every step cadence must name a subject derived from its
+  own step's title (falsified: 7 of 8 retired strings caught; the 8th already
+  named its subject). Related fix: the /admin T4 tripwire now reads
   `share` — the prop the writer actually emits — so „drží 100 %" renders
   instead of the eternal degraded fallback.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
@@ -1339,16 +1412,68 @@ Route map (politicas.md roadmap execution, sample data):
   law layer answers `unavailable`, an absent statute `zaznam-nenalezen`, and
   the subject check moved INTO the branches that need one (a chamber-wide ref
   has none and was answering `gone` before the metric was read).
+  **The verdict's confidence is citable, and CZK has one formatter
+  (2026-08-12).** `lawwatchLabels.czkCompact` — the repo's ONE unsanctioned
+  fork of `lib/format.ts`, measurably different (NaN/∞ passed through as
+  „NaN Kč" into the PUBLIC /zakony/kolize feeds; negatives ungrouped) — is
+  DELETED; BillDetail formats via `formatByKind(..., "czkCompact")` and
+  deriveRadar reads `formatCompactCzk` pinned to `cs` (the feed is
+  single-voice by its own declaration). The deferred per-verdict claim
+  exists: `LAW_METRIC.forensicConfidence` („4/5", the surface's most-quoted
+  number), subject = the bill NODE id via the new `features/lawwatch/
+  billRef.ts` codec (sibling of statuteRef — `bill:tisk:<tiskId>` is NOT the
+  public `cislo` that addresses /zakony/<cislo>, and tiskId 0 — getLawData's
+  read-failure fallback — is REFUSED), gate state `pending`, basis = THAT
+  verdict's own `forensic_provenance.ref@pass` — a deliberate refinement of
+  the corpus-basis rule, because a corpus basis for one bill doesn't exist
+  (measured: 141 verdicts, ONE ref, 14 distinct passes 12…55 → uniformPass
+  null). `FORENSIC_CONFIDENCE_SCALE = 5` is the one constant behind both the
+  visible „/5" and the claim's unit. /overeni re-derives via `getLawData`
+  (dark layer → `unavailable`; unknown/non-canonical id or verdict-less bill
+  → `gone`); a bill with no public číslo issues at `/zakony#posudky`, never
+  an invented path. The `sponsorContractCzk` never-claim rule is now recorded
+  IN `lawClaims.ts` where the next builder will actually see it.
 - `/denik` — **Deník republiky** (features/denik): the chronological daily
   record of the state — signed contracts of firms MPs own/run, committee
   assignments, Sbírka publication, registry role starts/ends, human-gate
-  decisions and the `change_event` „zaznamenáno" stream. Copy is deliberately
-  hardcoded Czech (the /dukazy precedent). `getDenikData.ts` re-uses
-  `getMoneyData` / `getLawData` / `listReviewAudit` (batch layers memoized on
-  `MONEY_MEMO_TTL_MS`); every layer degrades independently and `coverage` says
-  which groups the page can carry. `?entita=<klíč>` is the subscription — the
-  same public keys /schranka follows — and `/denik/feed.{xml,json}` serialize
-  the same filter.
+  decisions and the `change_event` „zaznamenáno" stream. Copy is BILINGUAL
+  since 14f0f51 (2026-08-05; the „hardcoded Czech" doctrine ended there —
+  `features/denik/messages.test.ts` pins the namespace). `getDenikData.ts`
+  re-uses `getMoneyData` / `getLawData` and the SHARED gate reader (below;
+  batch layers memoized on `MONEY_MEMO_TTL_MS`); every layer degrades
+  independently and `coverage` says which groups the page can carry.
+  `?entita=<klíč>` is the subscription — the same public keys /schranka
+  follows — and `/denik/feed.{xml,json}` serialize the same filter.
+  **Two journals, one truth (2026-08-12).** Both public gate chronicles
+  (/denik + /dukazy) printed the `review_audit` row count as a COUNT while
+  reading at the repository's hard 10 000 cap — whose own comment warns a
+  truncated read „publishes a wrong number" — and neither page could say so.
+  `features/dukazy/readReviewAudit.ts` is now the ONE shared gate read (rows +
+  endpoint labels + `truncated` + cap): `cache()` for request identity plus
+  IN-FLIGHT promise sharing (the half that dedupes /schranka's `Promise.all`
+  over both loaders — measured: `react.cache()` without a React dispatcher
+  does not dedupe at all, so only this half is vitest-testable, and the test
+  FALSIFIES it: removing the share makes two reads), NOTHING memoized across
+  requests (a reviewer's decision must never lag a batch window). Truncation
+  of the audit read AND of the 5 000-cap `change_event` read (newest-first —
+  truncation eats the OLDEST history, a systematic loss) is detected by the
+  `warnIfTruncated` shape, counted into `DenikLimits`, and rendered: /denik's
+  limit notes now come from the PURE `features/denik/limitNotes.ts` (it was a
+  private function inside the page — the one place deciding whether a
+  truncated read gets admitted, and unpinnable), /dukazy appends a floor
+  sentence beside its only figure. The journals also cross-link on the SHARED
+  id at last: a /denik gate row's evidence pointer links `/dukazy#z-<id>`
+  (the `evidenceAnchor`/`evidenceHref` codec in deriveFeed — ONE owner of
+  that shape), and a /dukazy tie entry links its MP's deník day through
+  `entityDayHref(mpEntityKey(…))` — imported, null on an unreadable instant,
+  and a forensic entry (`mpPspId: null`) gets no link because a signed
+  verdict has no deník day. The deník's `changeLayer()` unified backfill +
+  read on ONE memo window (the displayable set cannot change between
+  backfills — review-decision events are excluded and mandate/role types
+  have no request-time writer; honestly stated: measured on the pass-55
+  backup where `change_event` is empty, so the memo rests on the invariant,
+  not a measured cost). The false „STRIKTNĚ read-only tři vrstvy" header
+  (backfill WRITES) and the 35-vs-57 vintage drift died in the same pass.
   **The day is a PRAGUE day since 2026-08-04** (`features/denik/pragueDay.ts`).
   `builtOn` was `new Date().toISOString().slice(0,10)` — UTC — on a ledger whose
   whole subject is Czech days. Between local midnight and 01:00/02:00 the Prague
