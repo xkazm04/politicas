@@ -1257,8 +1257,10 @@
         "reachableSub": "contracts traced through tied companies — for stewards this is the institution's own money, not the MP's",
         "reachableSource": "registr smluv · Σ of contract values (owner and manager ties)",
         "mpsLabel": "MPs with a tie",
-        "mpsSub": "of 207 mandates in the 10th term (PSP10 — the term the loader actually reads)",
-        "mpsSource": "ares v3 ⋈ Hlídač státu",
+        "mpsSub": "of {total} mandates in the 10th term (PSP10 — the term the loader actually reads)",
+        "mpsSubNoTotal": "the count stands alone: the mandate rows for the 10th term (PSP10) could not be read, so no denominator is stated",
+        "mpsSource": "ares v3 ⋈ Hlídač státu · denominator = psp.cz mandate rows for the PSP10 term",
+        "mpsSourceNoTotal": "ares v3 ⋈ Hlídač státu · psp.cz mandate rows could not be read, so no denominator is stated",
         "companiesLabel": "tied companies",
         "companiesSub": "distinct company IDs in the graph",
         "companiesSource": "ares v3 — join key IČO",
@@ -1296,7 +1298,10 @@
         "noTiesNote": "MPs with no traced company tie — review runs on every daily ingest",
         "moreCount": "+ {count} more MPs",
         "managerFlag": "low chamber work",
-        "disclaimer": "We publish ties as a dated trail, never as an accusation. Every record carries the “{pendingLabel}” label and does not feed the Integrity pillar until a human approves it."
+        "disclaimerAllPending": "We publish ties as a dated trail, never as an accusation. All {total} rows in this ledger carry the “{pendingLabel}” label and not one feeds the Integrity pillar until a human approves it.",
+        "disclaimerAllDecided": "We publish ties as a dated trail, never as an accusation. All {total} rows in this ledger have passed the human gate: {verified} confirmed, {rejected} rejected. Only confirmed ties feed the Integrity pillar; a rejected tie stays in the ledger together with that decision.",
+        "disclaimerMixed": "We publish ties as a dated trail, never as an accusation. Of the {total} rows in this ledger {decided} have passed the human gate; the remaining {pending} carry the “{pendingLabel}” label and do not feed the Integrity pillar until a human approves them.",
+        "disclaimerEmpty": "The ledger of ties is empty — this page claims nothing about any person ↔ company tie today, not even that one is awaiting review."
       }
     },
     "controlRoom": "control room",
@@ -1369,24 +1374,26 @@
         "ares": {
           "title": "ARES v3",
           "body": "The register of companies and their board members — who sits on which board.",
-          "cadence": "near real-time · 500 req/min"
+          "cadence": "the ARES register publishes changes continuously; its API caps reads at 500 requests per minute"
         },
         "registers": {
           "title": "Contract + Subsidy Registers",
           "body": "Public money flowing to companies — contracts daily, subsidies quarterly.",
-          "cadence": "daily / quarterly"
+          "cadence": "the contracts register publishes new contracts daily, the subsidy register quarterly"
         },
         "watchdog": {
           "title": "Hlídač státu",
           "body": "People, party ties and donations — the other side of the graph.",
-          "cadence": "continuous · REST API"
+          "cadence": "Hlídač státu keeps its own data current and serves it over a REST API"
         },
         "resolution": {
           "title": "Entity resolution + human review",
           "body": "A person has no public identifier — we match on name, birth year and address, and carry a confidence score. Disputed records aren't published.",
-          "cadence": "confidence threshold · human sign-off"
+          "cadence": "no register publishes human review — above the confidence threshold a person signs each tie off"
         }
       },
+      "readCadence": "no scheduler runs over this repository, so this page asserts no cadence for its own reading — the one thing it knows is pass no. {pass}, which computed the money layer",
+      "readCadenceUnknown": "no scheduler runs over this repository, and without the graph this page does not even know which pass computed the money layer — so it asserts nothing about its own reading",
       "footnote": "The join key across the whole graph is the eight-digit IČO — a clean link from company ↔ contract ↔ subsidy ↔ donation. The hardest edge is person ↔ company; that's why the last step of the methodology is a human, not a heuristic."
     },
     "shared": {
@@ -1581,6 +1588,8 @@
       "teaserEyebrow": "kauzy / open leads",
       "teaserBody": "{count, plural, one {One hand-researched dossier, cited claim by claim — what the sources sustain and what they don't.} other {# hand-researched dossiers, cited claim by claim — what the sources sustain and what they don't.}}",
       "teaserBodyNoCount": "Hand-researched dossiers, cited claim by claim — what the sources sustain and what they don't.",
+      "teaserSource": "count = the *.json files in docs/data-analysis/case-money/payloads that pass the dossier shape check (isDossier) — the population is read from disk, never written into the copy",
+      "teaserSourceNoCount": "the dossier directory (docs/data-analysis/case-money/payloads) could not be read in this environment — so no count is stated",
       "vocab": {
         "confidenceHigh": "high",
         "confidenceMedium": "medium",
@@ -2093,18 +2102,6 @@
       "citeFailed": "copying failed — select the text manually",
       "citeCopy": "copy citation"
     },
-    "dependency": {
-      "title": "Dependencies on companion prints",
-      "aside": "{billsFmt} prints · {hitsFmt} dependency findings · print texts on psp.cz",
-      "intro": "The detector walks each print’s own text looking for the e-Sbírka drafting placeholder (“zákona č. …/2026 Sb.”), which a drafter inserts into amending sentences before the final act number is known. Each hit falls into one of three classes — the print cites its own later act, the print relies on ANOTHER, companion print that must pass at the same time or earlier, or the hit remains unclear because the available text carries no evidence for either of the first two. The classification was manually audited; even so, <b>{unclearFmt}</b> of <b>{totalFmt}</b> hits honestly remain unclear and are not rendered below. A dependency on a companion print is a fact of the legislative process — it flags an enactment-order risk (this print assumes the companion print will already be law), not an accusation of wrongdoing.",
-      "hitBadge": "derived · awaiting review — a lead to examine, not a finding",
-      "dependsOn": "depends on:",
-      "pendingTranscript": "the dependency description awaits a Czech transcript — the text quotation below is captured",
-      "noteLabel": "Note:",
-      "withheldNote": "{count, plural, one {{countFmt} further dependency finding passed classification, but its description did not pass the language gate (awaiting a Czech transcript), so it is not shown here.} other {{countFmt} further dependency findings passed classification, but their descriptions did not pass the language gate (awaiting a Czech transcript), so they are not shown here.}}",
-      "coverageFootnote": "The census covers the prints in which the drafting placeholder actually appeared in the text — as they accumulate in the corpus. As more prints are processed this list will grow; no row limit is enforced.",
-      "sourceNote": "prints’ own text on psp.cz · deterministic detector, audited classification · {unclearFmt} of {totalFmt} hits unclear"
-    },
     "unavailable": {
       "bill": "Parliamentary print",
       "registry": "Statute registry",
@@ -2561,6 +2558,8 @@
       "companiesOverCap": "there are more companies with an attributable tie than the cap of {cap}; contracts of {n} of them were not read at all",
       "companiesEdgeTruncated": "{n} companies hit the cap of {cap} contracts per company — the journal does not carry their older contracts",
       "malformedIco": "{n} ties carry a company ID that cannot be canonicalised; the row is shown, but the company in it cannot be followed or opened",
+      "auditTruncated": "the human-gate read stopped at the cap of {cap} rows — the decision count cited in the source line is therefore at least that many, not a total; this journal does not carry the older decisions",
+      "changesTruncated": "the “recorded” stream is read newest event first and stopped at the cap of {cap} ({n} read) — the journal does not carry the oldest graph records",
       "changesUndisplayable": "{n} graph records carry a kind this version of the journal cannot voice — they are not shown, but they never vanish uncounted",
       "changesFromGate": "{n} graph records describe human-gate decisions; the journal takes those from review_audit itself, so no event is counted twice",
       "mergedContractRows": "{n} contract rows were merged into another — one contract is one row, even when several companies supply it in the graph",
@@ -2603,7 +2602,8 @@
     },
     "entryRow": {
       "pending": "rests on a tie awaiting human review",
-      "entityAria": "Journal of entity {label}"
+      "entityAria": "Journal of entity {label}",
+      "evidenceAria": "{label} {value} — open the same record in the evidence journal"
     },
     "kind": {
       "contract": "contract",
@@ -2674,7 +2674,8 @@
     },
     "section": {
       "title": "Decisions",
-      "source": "source: review_audit ({rows} rows) + kg_node bill.forensic_*"
+      "source": "source: review_audit ({rows} rows) + kg_node bill.forensic_*",
+      "sourceFloor": "the read stopped at the cap of {cap} rows, so the figure above is a floor, not a count of the gate's decisions"
     },
     "unreadable": "The records cannot be loaded right now — the store is unavailable in this environment. This page cannot say whether any decisions exist; the journal is not empty, just unreadable.",
     "empty": {
@@ -2689,7 +2690,9 @@
       "priorState": "prior state: {state}",
       "sourceTie": "source: review_audit · kg_edge linked_to",
       "sourceTieDetail": "source: review_audit · kg_edge linked_to · {detail}",
-      "sourceForensic": "source: kg_node bill.forensic_* · severity {detail}"
+      "sourceForensic": "source: kg_node bill.forensic_* · severity {detail}",
+      "denikDay": "that day in the journal of the republic",
+      "denikDayAria": "Journal of the Republic — the day of the decision on {subject}"
     },
     "decision": {
       "confirm": "tie verified",
@@ -2698,6 +2701,7 @@
       "forensicVerified": "forensic report confirmed"
     },
     "console": "review console",
+    "denikLink": "journal of the republic",
     "anchorsNote": "record anchors: #z-<id> · id = review_audit row / parliamentary print"
   },
   "schranka": {

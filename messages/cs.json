@@ -1257,8 +1257,10 @@
         "reachableSub": "smlouvy dohledané přes napojené firmy — u stewardů jde o peníze instituce, ne poslance",
         "reachableSource": "registr smluv · Σ hodnot smluv (vlastnické a manažerské vazby)",
         "mpsLabel": "poslanci s vazbou",
-        "mpsSub": "z 207 mandátů 10. období (PSP10 — období, které loader skutečně čte)",
-        "mpsSource": "ares v3 ⋈ hlídač státu",
+        "mpsSub": "z {total} mandátů 10. období (PSP10 — období, které loader skutečně čte)",
+        "mpsSubNoTotal": "počet stojí sám: mandátové řádky 10. období (PSP10) se nepodařilo přečíst, jmenovatel proto neuvádíme",
+        "mpsSource": "ares v3 ⋈ hlídač státu · jmenovatel = mandátové řádky psp.cz pro období PSP10",
+        "mpsSourceNoTotal": "ares v3 ⋈ hlídač státu · mandátové řádky psp.cz se nepodařilo přečíst, jmenovatel proto neuvádíme",
         "companiesLabel": "napojené firmy",
         "companiesSub": "unikátní IČO v grafu",
         "companiesSource": "ares v3 — spojovací klíč IČO",
@@ -1296,7 +1298,10 @@
         "noTiesNote": "poslanci bez dohledané vazby na firmu — kontrola běží při každé denní ingesci",
         "moreCount": "+ {count} dalších poslanců",
         "managerFlag": "málo práce v sále",
-        "disclaimer": "Vazby zveřejňujeme jako datovanou stopu, nikdy jako obvinění. Všechny záznamy nesou štítek „{pendingLabel}“ a do pilíře Integrita se nepropisují, dokud je neschválí člověk."
+        "disclaimerAllPending": "Vazby zveřejňujeme jako datovanou stopu, nikdy jako obvinění. Všech {total} řádků téhle knihy nese štítek „{pendingLabel}“ a do pilíře Integrita se nepropisuje ani jeden, dokud ho neschválí člověk.",
+        "disclaimerAllDecided": "Vazby zveřejňujeme jako datovanou stopu, nikdy jako obvinění. Všech {total} řádků téhle knihy prošlo lidskou branou: {verified} potvrzeno, {rejected} zamítnuto. Do pilíře Integrita se propisují jedině potvrzené; zamítnutá vazba v knize zůstává i s tím rozhodnutím.",
+        "disclaimerMixed": "Vazby zveřejňujeme jako datovanou stopu, nikdy jako obvinění. Z {total} řádků téhle knihy prošlo lidskou branou {decided}; zbylých {pending} nese štítek „{pendingLabel}“ a do pilíře Integrita se nepropisuje, dokud je neschválí člověk.",
+        "disclaimerEmpty": "Kniha vazeb je prázdná — o žádné vazbě osoba ↔ firma tahle stránka dnes netvrdí nic, ani to, že čeká na kontrolu."
       }
     },
     "controlRoom": "velín",
@@ -1369,24 +1374,26 @@
         "ares": {
           "title": "ARES v3",
           "body": "Rejstřík firem a statutárních orgánů — kdo ve které firmě figuruje.",
-          "cadence": "téměř real-time · 500 req/min"
+          "cadence": "rejstřík ARES zveřejňuje změny průběžně; jeho API omezuje čtení na 500 dotazů za minutu"
         },
         "registers": {
           "title": "Registr smluv + dotací",
           "body": "Veřejné peníze tekoucí k firmám — smlouvy denně, dotace čtvrtletně.",
-          "cadence": "denně / čtvrtletně"
+          "cadence": "registr smluv publikuje nové smlouvy denně, registr dotací čtvrtletně"
         },
         "watchdog": {
           "title": "Hlídač státu",
           "body": "Osoby, stranické vazby a dary — druhá strana grafu.",
-          "cadence": "průběžně · REST API"
+          "cadence": "Hlídač státu udržuje svá data průběžně a vydává je přes REST API"
         },
         "resolution": {
           "title": "Rozlišení entit + lidská kontrola",
           "body": "Osoba nemá veřejný identifikátor — párujeme jméno, ročník a adresu, neseme spolehlivost. Sporné záznamy nezveřejňujeme.",
-          "cadence": "práh spolehlivosti · člověk schvaluje"
+          "cadence": "lidskou kontrolu nevydává žádný rejstřík — nad prahem spolehlivosti schvaluje vazbu člověk"
         }
       },
+      "readCadence": "nad tímhle repozitářem neběží plánovač, takže vlastní kadenci čtení netvrdíme — jediné, co o něm víme, je průchod č. {pass}, který peněžní vrstvu spočítal",
+      "readCadenceUnknown": "nad tímhle repozitářem neběží plánovač a bez grafu tahle stránka nezná ani průchod, který peněžní vrstvu spočítal — o vlastním čtení proto netvrdí nic",
       "footnote": "Spojovacím klíčem celého grafu je osmimístné IČO — čisté spojení firma ↔ smlouva ↔ dotace ↔ dar. Nejtěžší hrana je osoba ↔ firma; proto je poslední krok metodiky člověk, ne heuristika."
     },
     "shared": {
@@ -1581,6 +1588,8 @@
       "teaserEyebrow": "kauzy / rozpracované podněty",
       "teaserBody": "{count, plural, one {Jeden ručně dořešený spis, tvrzení po tvrzení citovaný — co zdroje dokládají a co ne.} few {# ručně dořešené spisy, tvrzení po tvrzení citované — co zdroje dokládají a co ne.} other {# ručně dořešených spisů, tvrzení po tvrzení citovaných — co zdroje dokládají a co ne.}}",
       "teaserBodyNoCount": "Ručně dořešené spisy, tvrzení po tvrzení citované — co zdroje dokládají a co ne.",
+      "teaserSource": "počet = soubory *.json v adresáři docs/data-analysis/case-money/payloads, které projdou tvarovou kontrolou spisu (isDossier) — populace se čte z disku, není to literál",
+      "teaserSourceNoCount": "adresář se spisy (docs/data-analysis/case-money/payloads) se v tomhle prostředí nepodařilo přečíst — počet proto neuvádíme",
       "vocab": {
         "confidenceHigh": "vysoká",
         "confidenceMedium": "střední",
@@ -2093,18 +2102,6 @@
       "citeFailed": "kopírování selhalo — vyberte text ručně",
       "citeCopy": "zkopírovat citaci"
     },
-    "dependency": {
-      "title": "Závislosti na doprovodných tiscích",
-      "aside": "{billsFmt} tisků · {hitsFmt} nálezů závislosti · texty tisků na psp.cz",
-      "intro": "Detektor prochází vlastní text každého tisku a hledá zástupnou citaci e-Sbírky („zákona č. …/2026 Sb.“), kterou předkladatel vkládá do novelizačních vět dřív, než je konečné číslo zákona známé. Nález se dělí na tři třídy — tisk cituje sám sebe (vlastní pozdější akt), tisk se opírá o JINÝ, doprovodný tisk, který musí projít současně nebo dřív, nebo nález zůstává nejasný, protože v dostupném textu chybí důkaz pro kteroukoli z předchozích dvou možností. Klasifikace byla ručně auditovaná; přesto <b>{unclearFmt}</b> z <b>{totalFmt}</b> nálezů zůstává poctivě nejasných a níže se nevykreslují. Závislost na doprovodném tisku je fakt legislativního procesu — upozorňuje na riziko chybného pořadí přijetí (tento tisk počítá s tím, že doprovodný tisk už bude zákonem), nikoli obvinění z pochybení.",
-      "hitBadge": "odvozeno · čeká na kontrolu — lead k prověření, ne zjištění",
-      "dependsOn": "závisí na:",
-      "pendingTranscript": "popis závislosti čeká na český přepis — citace textu níže je zachycena",
-      "noteLabel": "Poznámka:",
-      "withheldNote": "{count, plural, one {{countFmt} další nález závislosti prošel klasifikací, ale jeho popis neprošel jazykovou bránou (čeká na český přepis), takže se zde nezobrazuje.} few {{countFmt} další nálezy závislosti prošly klasifikací, ale jejich popis neprošel jazykovou bránou (čeká na český přepis), takže se zde nezobrazují.} other {{countFmt} dalších nálezů závislosti prošlo klasifikací, ale jejich popis neprošel jazykovou bránou (čeká na český přepis), takže se zde nezobrazují.}}",
-      "coverageFootnote": "Census pokrývá tisky, u kterých se zástupná citace v textu vůbec objevila — tak, jak jich aktuálně přibývá v korpusu. S rostoucím počtem zpracovaných tisků poroste i tento seznam; žádný limit počtu řádků se nevynucuje.",
-      "sourceNote": "vlastní text tisků na psp.cz · deterministický detektor, auditovaná klasifikace · {unclearFmt} z {totalFmt} nálezů nejasných"
-    },
     "unavailable": {
       "bill": "Sněmovní tisk",
       "registry": "Rejstřík předpisů",
@@ -2561,6 +2558,8 @@
       "companiesOverCap": "firem s přisouditelnou vazbou je víc než strop {cap}; smlouvy {n} z nich se nečetly vůbec",
       "companiesEdgeTruncated": "u {n} firem se dosáhlo stropu {cap} smluv na firmu — jejich starší smlouvy deník nenese",
       "malformedIco": "{n} vazeb nese IČO, které nelze převést na kanonický tvar; řádek se zobrazuje, ale firmu v něm nelze sledovat ani otevřít",
+      "auditTruncated": "čtení lidské brány se zastavilo na stropu {cap} řádků — počet rozhodnutí uvedený v citaci zdroje je proto nejméně tolik, ne celkový počet; starší rozhodnutí tenhle deník nenese",
+      "changesTruncated": "proud „zaznamenáno“ se čte od nejnovějších událostí a zastavil se na stropu {cap} ({n} přečteno) — nejstarší záznamy grafu deník nenese",
       "changesUndisplayable": "{n} záznamů grafu nese druh, který tahle verze deníku neumí vyslovit — nezobrazují se, ale ani nemizí bez počtu",
       "changesFromGate": "{n} záznamů grafu popisuje rozhodnutí lidské brány; ta deník uvádí ze samotného review_audit, aby se událost nepočítala dvakrát",
       "mergedContractRows": "{n} řádků o smlouvách se slilo do jiného — jedna smlouva je jeden řádek, i když ji v grafu dodává víc firem",
@@ -2603,7 +2602,8 @@
     },
     "entryRow": {
       "pending": "stojí na vazbě čekající na lidskou kontrolu",
-      "entityAria": "Deník entity {label}"
+      "entityAria": "Deník entity {label}",
+      "evidenceAria": "{label} {value} — otevřít týž záznam v deníku důkazů"
     },
     "kind": {
       "contract": "smlouva",
@@ -2674,7 +2674,8 @@
     },
     "section": {
       "title": "Rozhodnutí",
-      "source": "zdroj: review_audit ({rows} řádků) + kg_node bill.forensic_*"
+      "source": "zdroj: review_audit ({rows} řádků) + kg_node bill.forensic_*",
+      "sourceFloor": "čtení se zastavilo na stropu {cap} řádků, takže uvedený počet je spodní mez, ne počet rozhodnutí brány"
     },
     "unreadable": "Záznamy teď nelze načíst — úložiště je v tomto prostředí nedostupné. Tahle stránka nemůže říct, jestli nějaká rozhodnutí existují; deník není prázdný, jen nečitelný.",
     "empty": {
@@ -2689,7 +2690,9 @@
       "priorState": "předchozí stav: {state}",
       "sourceTie": "zdroj: review_audit · kg_edge linked_to",
       "sourceTieDetail": "zdroj: review_audit · kg_edge linked_to · {detail}",
-      "sourceForensic": "zdroj: kg_node bill.forensic_* · závažnost {detail}"
+      "sourceForensic": "zdroj: kg_node bill.forensic_* · závažnost {detail}",
+      "denikDay": "ten den v deníku republiky",
+      "denikDayAria": "Deník republiky — den rozhodnutí o vazbě {subject}"
     },
     "decision": {
       "confirm": "vazba ověřena",
@@ -2698,6 +2701,7 @@
       "forensicVerified": "forenzní posudek potvrzen"
     },
     "console": "revizní konzole",
+    "denikLink": "deník republiky",
     "anchorsNote": "kotvy záznamů: #z-<id> · id = řádek review_audit / sněmovní tisk"
   },
   "schranka": {
