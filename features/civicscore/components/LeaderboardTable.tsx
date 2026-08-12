@@ -291,13 +291,41 @@ export default function LeaderboardTable({
         </button>
       </div>
 
-      {/* řádky */}
-      <div className="mt-4 border-t-2 border-ink">
+      {/* ── řádky ─────────────────────────────────────────────────────────
+          TABULKA, NE MŘÍŽKA DIVŮ (2026-08-12). Dvě stě sedm řádků se sázelo
+          jako `<div>` s CSS gridem a holými `<span>`, bez jediného `role=`
+          v celé složce: odečítačka neměla jak říct, že jde o tabulku, kolik
+          má řádků, ani co které číslo v řádku znamená — čtenář slyšel jen
+          proud jmen a čísel. `role="table"/"row"/"columnheader"/"cell"`
+          nemění ani pixel sazby (grid zůstává na tomtéž prvku) a `motion.div`
+          atributy propouští, takže přeřazení pod čočkou animuje dál.
+
+          Hlavička sloupců se řídí TÝMŽ pravidlem jako řádek: buňka odchylky
+          se v kompaktním režimu nevykresluje, takže se nevykreslí ani její
+          hlavička — jinak by se hlavičky a buňky rozešly o jeden sloupec. */}
+      <div role="table" aria-label={t("tableAria")} className="mt-4 border-t-2 border-ink">
+        <div
+          role="row"
+          className="grid grid-cols-[3.25rem_1fr_auto_auto_auto] items-center gap-3 border-b-2 border-ink px-2 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-steel-aa max-sm:grid-cols-[2.5rem_1fr_auto_auto]"
+        >
+          <span role="columnheader">{t("colRank")}</span>
+          <span role="columnheader">{t("colMp")}</span>
+          {!compact && (
+            <span role="columnheader" className="max-sm:hidden">
+              {t("colStandout")}
+            </span>
+          )}
+          <span role="columnheader" className="w-12 text-right">
+            {t("colScore")}
+          </span>
+          <span role="columnheader">{t("colActions")}</span>
+        </div>
         {rows.map((r) => {
           const inDuel = duel.includes(r.pspId);
           return (
             <motion.div
               key={r.pspId}
+              role="row"
               layout={animateRank ? "position" : false}
               transition={{ duration: 0.35, ease: "easeOut" }}
               className={`grid grid-cols-[3.25rem_1fr_auto_auto_auto] items-center gap-3 border-b border-hairline px-2 py-2.5 transition-colors hover:bg-paper-strong max-sm:grid-cols-[2.5rem_1fr_auto_auto] ${
@@ -308,6 +336,7 @@ export default function LeaderboardTable({
                   ranking). „=" před číslem říká, že o toto místo se dělí víc poslanců —
                   dřív se o červené top-3 rozhodovalo abecedou. */}
               <span
+                role="cell"
                 className={`font-mono text-lg font-bold ${r.rank <= 3 ? (custom ? "text-cobalt" : "text-signal") : "text-steel"}`}
                 title={r.tiedCount > 1 ? t("tieRowTitle", { count: f.int(r.tiedCount) }) : undefined}
               >
@@ -319,7 +348,7 @@ export default function LeaderboardTable({
                 {f.int(r.rank)}
                 {r.tiedCount > 1 && <span className="sr-only"> — {t("tieRowTitle", { count: f.int(r.tiedCount) })}</span>}
               </span>
-              <span className="min-w-0">
+              <span role="cell" className="min-w-0">
                 <Link
                   href={`/poslanec/${r.pspId}`}
                   className="group inline-flex items-center gap-1.5 text-[15px] font-black uppercase tracking-tight hover:text-signal"
@@ -345,29 +374,39 @@ export default function LeaderboardTable({
                     />
                   </span>
                 )}
-                {!compact && (
-                  <span className="flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} aria-hidden />
-                    {/* Zkratka z rejstříku vidět, celý název slyšet — „TOP09", ne „TOP". */}
-                    <span aria-hidden title={r.clubName}>{r.clubAbbrev}</span>
-                    <span className="sr-only">{r.clubName}</span>
-                    {r.region ? ` · ${r.region}` : ""}
-                    {/* Verdikt je DATOVANÉ tvrzení s vlastním číslem — týž standard,
-                        jaký vedle drží LowScoreReasonChip. */}
-                    {r.effortWorkhorse && (
-                      <WorkhorseBadge
-                        flavour={r.effortWorkhorseFlavour}
-                        speechTurns={r.duelFacts.speechTurns}
-                        recordedAt={r.effortRecordedAt}
-                        compact
-                      />
-                    )}
-                    <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
-                  </span>
-                )}
+                {/* KOMPAKTNÍ REŽIM SKRÝVÁ, NEMAŽE (2026-08-12). Do teď stálo
+                    kolem tohohle bloku `{!compact && …}`, takže klub, kraj
+                    i oba verdikty z DOM úplně zmizely: hledání na stránce
+                    (Ctrl+F) je nenašlo a odečítačka o nich nevěděla — hustší
+                    výpis se platil ztrátou obsahu. Nově je to VIZUÁLNÍ
+                    zkrácení (precedens ExpandableText na spisu): `sr-only`
+                    text zůstává vykreslený (klip, ne `display:none`), takže
+                    ho najde i hledání v prohlížeči, jen nezabírá řádek. */}
+                <span
+                  className={`flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel ${
+                    compact ? "sr-only" : ""
+                  }`}
+                >
+                  <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} aria-hidden />
+                  {/* Zkratka z rejstříku vidět, celý název slyšet — „TOP09", ne „TOP". */}
+                  <span aria-hidden title={r.clubName}>{r.clubAbbrev}</span>
+                  <span className="sr-only">{r.clubName}</span>
+                  {r.region ? ` · ${r.region}` : ""}
+                  {/* Verdikt je DATOVANÉ tvrzení s vlastním číslem — týž standard,
+                      jaký vedle drží LowScoreReasonChip. */}
+                  {r.effortWorkhorse && (
+                    <WorkhorseBadge
+                      flavour={r.effortWorkhorseFlavour}
+                      speechTurns={r.duelFacts.speechTurns}
+                      recordedAt={r.effortRecordedAt}
+                      compact
+                    />
+                  )}
+                  <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
+                </span>
               </span>
               {!compact && (
-                <span className="max-sm:hidden">
+                <span role="cell" className="max-sm:hidden">
                   <StandoutStat entry={r} components={components} medians={medians} />
                 </span>
               )}
@@ -375,7 +414,7 @@ export default function LeaderboardTable({
               {/* A právě proto se ČTENÁŘOVO číslo NERAZÍ jako citace: pod čočkou
                   je to jeho vlastní vážení, které v grafu nikde nestojí. Citovat
                   se dá jen zveřejněný index — ten nese svůj pass i ref formule. */}
-              <span className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>
+              <span role="cell" className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>
                 {custom ? (
                   f.dec(r.score)
                 ) : (
@@ -386,7 +425,7 @@ export default function LeaderboardTable({
                   />
                 )}
               </span>
-              <span className="flex items-center gap-1.5">
+              <span role="cell" className="flex items-center gap-1.5">
               {/* Sledovat rovnou z řádku. V husté tabulce jen ikona — význam
                   nese přístupná jmenovka, která JMENUJE poslance (dvě stě
                   tlačítek „sledovat" bez podmětu vedle sebe nerozliší nikdo). */}
@@ -398,10 +437,17 @@ export default function LeaderboardTable({
                 compact
                 iconOnly
               />
+              {/* Dvě stě sedm tlačítek „vs" vedle sebe: bez podmětu je
+                  odečítačka nerozliší o nic líp než dvě stě tlačítek
+                  „sledovat" o buňku vedle (týž precedens, týž lék).
+                  Vidět zůstává „vs", slyšet je jméno. */}
               <button
                 type="button"
                 onClick={() => onToggleDuel(r.pspId)}
                 title={inDuel ? t("toggleDuelRemove") : t("toggleDuelAdd")}
+                aria-label={
+                  inDuel ? t("toggleDuelRemoveNamed", { name: r.name }) : t("toggleDuelAddNamed", { name: r.name })
+                }
                 aria-pressed={inDuel}
                 className={`inline-flex items-center gap-1 border-2 px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors ${
                   inDuel ? "border-signal bg-signal text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
@@ -413,16 +459,26 @@ export default function LeaderboardTable({
             </motion.div>
           );
         })}
-        {rows.length === 0 && (
-          <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel">
-            {t("emptyResults")}
-          </div>
-        )}
       </div>
+      {/* Prázdný výsledek se OHLÁSÍ. Dřív mlčel: kdo filtruje po hmatu nebo
+          poslechu, dostal po napsání jména jen ticho a neměl jak poznat, jestli
+          se nic nenašlo, nebo se nic nestalo. Stojí VEN z `role="table"`, aby
+          nebyl řádkem tabulky, kterou popírá. */}
+      {rows.length === 0 && (
+        <div role="status" className="mt-4 border-2 border-dashed border-hairline p-6 text-sm text-steel">
+          {t("emptyResults")}
+        </div>
+      )}
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-        <SourceNote>
-          {t("shownOf", { count: rows.length, total: entries.length })}
-        </SourceNote>
+        {/* Kolik řádků filtru vyhovuje, je JEDINÁ zpětná vazba na hledání
+            a na osm klubových tlačítek — a byla to obyčejná `<div>` citace,
+            kterou odečítačka po změně filtru nepřečetla. Živá oblast
+            (vzor: features/dashboard/components/FeedPanelShell.tsx). */}
+        <div role="status" aria-live="polite">
+          <SourceNote>
+            {t("shownOf", { count: rows.length, total: entries.length })}
+          </SourceNote>
+        </div>
         {custom ? (
           <SourceNote>{t("lensTableNote")}</SourceNote>
         ) : (

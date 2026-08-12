@@ -236,7 +236,11 @@ export default function HeadToHead({
             const weightLabel = Number.isInteger(c.weight) ? f.int(c.weight) : f.dec(c.weight);
             return (
               <div key={c.key} className="grid grid-cols-[3.5rem_1fr_auto_1fr_3.5rem] items-center gap-3">
+                {/* Číslo bez podmětu není údaj. Zrcadlená mřížka říká vizuálně
+                    „levé je A, pravé je B"; odečítačka to z pořadí buněk
+                    nepozná, tak jí to řekneme jménem (2026-08-12). */}
                 <span className={`text-right text-lg font-black tabular-nums ${winner === "a" ? "text-signal" : "text-ink"}`}>
+                  <span className="sr-only">{a.name}: </span>
                   {va}
                 </span>
                 <div className="flex justify-end bg-hairline">
@@ -259,6 +263,7 @@ export default function HeadToHead({
                   />
                 </div>
                 <span className={`text-lg font-black tabular-nums ${winner === "b" ? "text-signal" : "text-ink"}`}>
+                  <span className="sr-only">{b.name}: </span>
                   {vb}
                 </span>
               </div>
@@ -284,6 +289,8 @@ export default function HeadToHead({
                       r.a === null ? "text-steel-aa" : r.winner === "a" ? "text-signal" : "text-ink"
                     }`}
                   >
+                    {/* Podmět k číslu — viz mřížka složek výš. */}
+                    <span className="sr-only">{a.name}: </span>
                     {r.a === null ? <span className="font-mono text-[10px] uppercase tracking-wider">{missing}</span> : f.int(r.a)}
                   </span>
                   <span className="text-center">
@@ -305,6 +312,7 @@ export default function HeadToHead({
                       r.b === null ? "text-steel-aa" : r.winner === "b" ? "text-signal" : "text-ink"
                     }`}
                   >
+                    <span className="sr-only">{b.name}: </span>
                     {r.b === null ? <span className="font-mono text-[10px] uppercase tracking-wider">{missing}</span> : f.int(r.b)}
                   </span>
                 </div>

@@ -33,6 +33,7 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import ScoreHistogram from "./components/ScoreHistogram";
+import DuelStatus from "./components/DuelStatus";
 import HeadToHead from "./components/HeadToHead";
 import LeaderboardTable from "./components/LeaderboardTable";
 import WeightPanel from "./components/WeightPanel";
@@ -68,6 +69,12 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
     duel.length === 2 && byId.has(duel[0]) && byId.has(duel[1])
       ? ([byId.get(duel[0])!, byId.get(duel[1])!] as [LeaderboardListEntry, LeaderboardListEntry])
       : null;
+  // Rozřešený výběr (0–2) pro stavový řádek: jediné místo, kde se výběr
+  // převádí na jména, aby hlášení a panel nemluvily o dvou různých dvojicích.
+  const selectedEntries = useMemo(
+    () => duel.map((id) => byId.get(id)).filter((e): e is LeaderboardListEntry => e !== undefined),
+    [duel, byId],
+  );
 
   // Pravé meta u sekcí: pod čočkou musí každá sekce říkat, čí čísla ukazuje.
   const lensAside = (
@@ -235,13 +242,25 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
               </div>
             </section>
 
-            {/* ── 03 Souboj ─────────────────────────────────── */}
-            <section id="souboj" className="mt-14 border-t-4 border-ink pt-10">
+            {/* ── 03 Souboj ───────────────────────────────────
+                POJMENOVANÁ OBLAST (2026-08-12): `<section>` s přístupným
+                jménem je `role="region"`, takže se dá v odečítačce vyjmenovat
+                a přeskočit jako celek — do teď to byl bezejmenný blok, do
+                kterého se navíc dá dostat výběrem z místa o čtyři obrazovky
+                níž. `aria-label`, ne `aria-labelledby`: nadpis sází sdílený
+                `SectionHeading`, který id nepřijímá (a je mimo tuhle dávku),
+                a odkaz na jeho obal by do jména vtáhl i index „/03" a citaci
+                vedle. */}
+            <section id="souboj" aria-label={t("duelRegionAria")} className="mt-14 border-t-4 border-ink pt-10">
               <SectionHeading
                 index={3}
                 title={t("duelTitle")}
                 aside={custom ? lensAside : <SourceNote>{t("duelSource")}</SourceNote>}
               />
+              {/* Stojí ZDE, ne uvnitř HeadToHead: panel se přemontovává přes
+                  AnimatePresence a živá oblast uvnitř přemontování je buď dvojí
+                  čtení, nebo mlčení. */}
+              <DuelStatus selected={selectedEntries} />
               <div className="mt-8">
                 <HeadToHead
                   pair={pair}
