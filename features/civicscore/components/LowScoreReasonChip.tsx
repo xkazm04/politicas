@@ -39,13 +39,17 @@ export default function LowScoreReasonChip({
   dateLabel?: string | null;
 }) {
   const t = useTranslations("civicscore");
+  /** Uzavřený verdiktní slovník — text od 2026-08-12 v katalogu (`verdicts`),
+   *  ne v lib/analysis; pravidlo „verbatim, aplikace verdikt nepřebásňuje" platí
+   *  dál, jen ho drží katalog a jazyková brána nad ním. */
+  const tv = useTranslations("verdicts");
   const copy = lowScoreReasonCopy(reason);
   if (!copy) return null;
 
   const positive = copy.tone === "positive";
   const Icon = positive ? ShieldCheck : Info;
-  const dated =
-    recordedAt && dateLabel ? `${copy.detail} ${t("recordedAt", { date: dateLabel })}` : copy.detail;
+  const detail = tv(copy.detailKey);
+  const dated = recordedAt && dateLabel ? `${detail} ${t("recordedAt", { date: dateLabel })}` : detail;
 
   return (
     <span
@@ -55,7 +59,7 @@ export default function LowScoreReasonChip({
       }`}
     >
       <Icon className="h-2.5 w-2.5" aria-hidden />
-      {copy.badge}
+      {tv(copy.badgeKey)}
       <span className="sr-only"> — {dated}</span>
     </span>
   );

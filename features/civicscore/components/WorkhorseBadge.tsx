@@ -50,6 +50,11 @@ export default function WorkhorseBadge({
   compact?: boolean;
 }) {
   const t = useTranslations("civicscore");
+  // Verdiktní slovník je vlastní jmenný prostor (`verdicts`): do 2026-08-12 to
+  // byly české literály v lib/analysis, takže se tady lepila česká věta na
+  // PŘELOŽENÝ dovětek — jedna věta ve dvou jazycích pro každého anglického
+  // čtenáře. Slovník zůstává uzavřený, jen jeho text bydlí v katalogu.
+  const tv = useTranslations("verdicts");
   const f = useFormat();
   const copy = workhorseFlavourCopy(flavour);
   if (!copy) return null;
@@ -57,7 +62,7 @@ export default function WorkhorseBadge({
 
   const turns = speechTurns != null ? f.int(speechTurns) : null;
   const claim =
-    copy.detail +
+    tv(copy.detailKey) +
     (turns ? ` ${t("workhorseSpeechClaim", { turns })}` : "") +
     (recordedAt ? ` ${t("recordedAt", { date: f.date(recordedAt) })}` : "");
 
@@ -71,7 +76,7 @@ export default function WorkhorseBadge({
       className={`inline-flex items-center border-cobalt bg-cobalt/5 font-mono font-bold uppercase tracking-wider text-cobalt ${size}`}
     >
       <Icon className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
-      {copy.badge}
+      {tv(copy.badgeKey)}
       {turns && <span className="tabular-nums">· {t("workhorseTurnsShort", { turns })}</span>}
       <span className="sr-only"> — {claim}</span>
     </span>

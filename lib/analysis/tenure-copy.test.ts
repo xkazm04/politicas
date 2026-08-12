@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { looksEnglish } from "./language-gate";
 import {
   formatCzechDate,
   isTenureClass,
   isTrendTooEarly,
   mandateNoteCopy,
   tenureClassLabel,
+  tenureDetailKey,
+  tenureLabelKey,
+  TENURE_COPY_KEYS,
   TREND_MIN_TENURE_DAYS,
 } from "./tenure-copy";
 
@@ -56,25 +58,38 @@ describe("isTrendTooEarly", () => {
 });
 
 describe("mandateNoteCopy", () => {
-  it("renders a replacement note with the mandate-arose date", () => {
+  it("selects the replacement sentence and hands back the ISO mandate-arose date", () => {
     const c = mandateNoteCopy("replacement", "2025-11-12", null);
     expect(c).not.toBeNull();
-    expect(c!.detail).toContain("12. 11. 2025");
-    expect(c!.detail).toContain("náhradník/nice");
+    expect(c!.detailKey).toBe("mandateNoteReplacement");
+    // ISO, not a formatted Czech date: the consumer formats through lib/format.ts,
+    // so an English reader gets an English-locale date instead of „12. 11. 2025"
+    // sitting inside an English sentence.
+    expect(c!.start).toBe("2025-11-12");
+    expect(c!.end).toBeNull();
   });
 
-  it("renders a departed note with start and end dates when both are present", () => {
+  it("selects the two-date sentence when the mandate also ended", () => {
     const c = mandateNoteCopy("departed", "2025-10-04", "2026-02-01");
     expect(c).not.toBeNull();
-    expect(c!.detail).toContain("4. 10. 2025");
-    expect(c!.detail).toContain("1. 2. 2026");
+    expect(c!.detailKey).toBe("mandateNoteDeparted");
+    expect(c!.start).toBe("2025-10-04");
+    expect(c!.end).toBe("2026-02-01");
   });
 
-  it("renders a departed note without an end date gracefully", () => {
+  it("selects a DIFFERENT sentence when there is no end date — never an empty slot", () => {
     const c = mandateNoteCopy("departed", "2025-10-04", undefined);
     expect(c).not.toBeNull();
-    expect(c!.detail).toContain("4. 10. 2025");
-    expect(c!.detail).not.toContain("zanikl");
+    expect(c!.detailKey).toBe("mandateNoteDepartedNoEnd");
+    expect(c!.end).toBeNull();
+  });
+
+  it("treats a malformed end date as no end date, and never passes it on", () => {
+    // A note that interpolated „not-a-date" would print it to a reader; the
+    // sentence without an end is the honest one.
+    const c = mandateNoteCopy("departed", "2025-10-04", "not-a-date");
+    expect(c!.detailKey).toBe("mandateNoteDepartedNoEnd");
+    expect(c!.end).toBeNull();
   });
 
   it("degrades to null for full_term and never_seated — no note needed", () => {
@@ -89,31 +104,43 @@ describe("mandateNoteCopy", () => {
     expect(mandateNoteCopy("replacement", 12345)).toBeNull();
   });
 
-  // `tenureClassLabel` has been gate-pinned since the head-to-head shipped; this prose
-  // never was, though it renders verbatim in the /poslanec header and is the LONGER of
-  // the two copy sets. All THREE branches are checked — a note that only ever gets its
-  // happy path read is exactly how an English sentence survives a review.
-  it("is Czech in every branch it can produce (language gate)", () => {
+  // All THREE branches are named, because a branch that only ever gets its happy path
+  // read is exactly how a sentence survives a review pointing at a key nobody wrote.
+  // The Czech language gate over these three sentences MOVED with the copy into
+  // features/civicscore/messages.test.ts, which also holds both catalogs to
+  // `TENURE_COPY_KEYS`.
+  it("can emit exactly three note sentences, all of them published", () => {
     const branches = [
-      mandateNoteCopy("replacement", "2025-11-12", null),
-      mandateNoteCopy("departed", "2025-10-04", "2026-02-01"),
-      mandateNoteCopy("departed", "2025-10-04", undefined),
+      mandateNoteCopy("replacement", "2025-11-12", null)!,
+      mandateNoteCopy("departed", "2025-10-04", "2026-02-01")!,
+      mandateNoteCopy("departed", "2025-10-04", undefined)!,
     ];
-    for (const c of branches) {
-      expect(c).not.toBeNull();
-      expect(c!.detail.length).toBeGreaterThan(0);
-      expect(looksEnglish(c!.detail), c!.detail).toBe(false);
-    }
+    const keys = branches.map((c) => c.detailKey);
+    expect(new Set(keys).size, "three branches, three sentences").toBe(3);
+    for (const k of keys) expect(TENURE_COPY_KEYS, k).toContain(k);
   });
 });
 
 describe("tenureClassLabel", () => {
   it("labels all FOUR classes — unlike mandateNoteCopy, which stays silent on two", () => {
+    const seen = new Set<string>();
     for (const c of ["full_term", "replacement", "departed", "never_seated"] as const) {
       const l = tenureClassLabel(c)!;
       expect(l, c).not.toBeNull();
-      expect(l.label.length, c).toBeGreaterThan(0);
-      expect(l.detail.length, c).toBeGreaterThan(0);
+      expect(l.labelKey, c).toBe(tenureLabelKey(c));
+      expect(l.detailKey, c).toBe(tenureDetailKey(c));
+      expect(seen.has(l.labelKey), `${c} reuses a label key`).toBe(false);
+      seen.add(l.labelKey);
+      seen.add(l.detailKey);
+    }
+  });
+
+  it("derives the key stem from the class value, and publishes every key it emits", () => {
+    expect(tenureLabelKey("never_seated")).toBe("tenureNeverSeatedLabel");
+    expect(tenureDetailKey("full_term")).toBe("tenureFullTermDetail");
+    for (const c of ["full_term", "replacement", "departed", "never_seated"] as const) {
+      expect(TENURE_COPY_KEYS).toContain(tenureLabelKey(c));
+      expect(TENURE_COPY_KEYS).toContain(tenureDetailKey(c));
     }
   });
 
@@ -132,10 +159,4 @@ describe("tenureClassLabel", () => {
     expect(tenureClassLabel(42)).toBeNull();
   });
 
-  it("is Czech — it renders verbatim to readers (language gate)", () => {
-    for (const c of ["full_term", "replacement", "departed", "never_seated"] as const) {
-      expect(looksEnglish(tenureClassLabel(c)!.label), c).toBe(false);
-      expect(looksEnglish(tenureClassLabel(c)!.detail), c).toBe(false);
-    }
-  });
 });

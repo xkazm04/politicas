@@ -118,6 +118,9 @@ export default function LeaderboardTable({
 }) {
   const t = useTranslations("civicscore");
   const tcom = useTranslations("common");
+  /** Uzavřený verdiktní slovník (`verdicts`) — od 2026-08-12 v katalogu; filtr
+   *  tichých pracantů tiskl jeho české literály i anglickému čtenáři. */
+  const tv = useTranslations("verdicts");
   const locale = useLocale();
   const f = useFormat();
   const reduceMotion = useReducedMotion();
@@ -249,14 +252,14 @@ export default function LeaderboardTable({
                 key={flav}
                 type="button"
                 onClick={() => setWorkhorseFlavour(active ? null : flav)}
-                title={copy.detail}
+                title={tv(copy.detailKey)}
                 aria-pressed={active}
                 className={`inline-flex items-center gap-1.5 border-2 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider transition-colors ${
                   active ? "border-cobalt bg-cobalt text-paper" : "border-hairline text-steel hover:text-ink"
                 }`}
               >
                 <Icon className="h-3 w-3" aria-hidden />
-                {copy.badge} · {workhorseCounts[flav]}
+                {tv(copy.badgeKey)} · {workhorseCounts[flav]}
               </button>
             );
           })}

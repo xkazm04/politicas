@@ -113,6 +113,10 @@ function Fighter({
  *  Kdo mandát nepřevzal, nemá nízký výkon; nemá záznam. */
 function TenureLine({ row, align }: { row: LeaderboardListEntry; align: "left" | "right" }) {
   const t = useTranslations("civicscore");
+  /** Uzavřený verdiktní slovník (`verdicts`) — od 2026-08-12 v katalogu; třída
+   *  mandátu je PODMÍNKA čtení čísel vedle ní, takže anglickému čtenáři nesmí
+   *  přijít česky. */
+  const tv = useTranslations("verdicts");
   const copy = tenureClassLabel(row.duelFacts.tenureClass);
   const right = align === "right";
   if (!copy) {
@@ -124,13 +128,13 @@ function TenureLine({ row, align }: { row: LeaderboardListEntry; align: "left" |
   }
   return (
     <p
-      title={copy.detail}
+      title={tv(copy.detailKey)}
       className={`font-mono text-[10px] font-bold uppercase tracking-wider ${
         copy.structural ? "text-signal-deep" : "text-steel-aa"
       } ${right ? "text-right" : ""}`}
     >
-      {copy.label}
-      <span className="sr-only"> — {copy.detail}</span>
+      {tv(copy.labelKey)}
+      <span className="sr-only"> — {tv(copy.detailKey)}</span>
     </p>
   );
 }

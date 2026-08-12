@@ -36,13 +36,19 @@ export default async function TenureNote({
    *  `periodNoteUnknown` v hlavičce spisu). */
   termNumber?: number | null;
 }) {
-  const { t, f } = await profileIntl();
+  // Věta mandátové poznámky je od 2026-08-12 v katalogu (`verdicts`) — modul
+  // `lib/analysis/tenure-copy.ts` vrací KLÍČ a ISO data, takže datum projde
+  // jedinou formátovací autoritou (`lib/format.ts`) a anglický čtenář nedostane
+  // českou větu s českým datem uvnitř.
+  const [{ t, f }, { t: tv }] = await Promise.all([profileIntl(), profileIntl("verdicts")]);
   const copy = mandateNoteCopy(tenureClass, tenureStart, tenureEnd);
   if (!copy) return null;
 
   return (
     <div className="mt-3">
-      <p className="text-sm leading-relaxed text-steel">{copy.detail}</p>
+      <p className="text-sm leading-relaxed text-steel">
+        {tv(copy.detailKey, { start: f.date(copy.start), end: copy.end ? f.date(copy.end) : "" })}
+      </p>
       <SourceNote className="mt-1 !text-[10px]">
         {termNumber != null ? t("tenureSource", { term: f.int(termNumber) }) : t("tenureSourceUnknownTerm")}
       </SourceNote>

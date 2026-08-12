@@ -20,10 +20,13 @@
  * důvodem nízkého skóre. Jeden fakt, jedno místo; kontext dodává `copy.detail`
  * z uzavřeného slovníku, ne opsaná biografie.
  *
- * Citace jde přes next-intl (`profile.lowScoreSource`). Samotný text štítku
- * (`badge`/`detail`) zůstává v `lib/analysis/low-score-reason.ts`: je to obsah
- * uzavřeného analytického slovníku, ne UI copy — stejně jako dosierová próza
- * z grafu se vykresluje verbatim a nepřekládá se.
+ * Citace jde přes next-intl (`profile.lowScoreSource`). Text štítku sám je od
+ * 2026-08-12 taky v katalogu, ve vlastním jmenném prostoru `verdicts`:
+ * `lib/analysis/low-score-reason.ts` drží uzavřený SLOVNÍK a vrací KLÍČ věty,
+ * ne větu. Pravidlo se tím nemění — aplikace verdikt nepřebásňuje a
+ * `genuine_absentee` si svou ne-korektivní větu nese dál — jen ho místo
+ * českého literálu v analytickém modulu drží katalog, kde ho přibíjí jazyková
+ * brána a kde má anglický čtenář vlastní znění (dřív dostal české).
  */
 
 import { profileIntl } from "../serverIntl";
@@ -32,7 +35,7 @@ import { lowScoreReasonCopy } from "@/lib/analysis/low-score-reason";
 import SourceNote from "@/features/shared/components/SourceNote";
 
 export default async function LowScoreReasonBadge({ reason }: { reason: string | null }) {
-  const { t } = await profileIntl();
+  const [{ t }, { t: tv }] = await Promise.all([profileIntl(), profileIntl("verdicts")]);
   const copy = lowScoreReasonCopy(reason);
   if (!copy) return null;
 
@@ -48,9 +51,9 @@ export default async function LowScoreReasonBadge({ reason }: { reason: string |
       <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${positive ? "text-cobalt" : "text-steel"}`} aria-hidden />
       <div className="min-w-0">
         <p className={`font-mono text-xs font-bold uppercase tracking-widest ${positive ? "text-cobalt" : "text-steel"}`}>
-          {copy.badge}
+          {tv(copy.badgeKey)}
         </p>
-        <p className="mt-1.5 text-sm leading-relaxed text-ink">{copy.detail}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-ink">{tv(copy.detailKey)}</p>
         <SourceNote className="mt-2 !text-[10px]">{t("lowScoreSource")}</SourceNote>
       </div>
     </div>

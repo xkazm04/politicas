@@ -36,6 +36,8 @@ export default function RapporteurBadge({
   compact?: boolean;
 }) {
   const t = useTranslations("civicscore");
+  /** Verdiktní slovník — `verdicts` (od 2026-08-12 v katalogu, ne v lib/analysis). */
+  const tv = useTranslations("verdicts");
   const f = useFormat();
   const copy = rapporteurLoadCopy(load);
   if (!copy) return null;
@@ -44,7 +46,12 @@ export default function RapporteurBadge({
   // Citaci zdroje (psp.cz tisky.zip / pass 34) nese sekce, ve které štítek stojí —
   // DossierSection má vlastní SourceNote, řádek žebříčku citaci celé tabulky.
   const loadLabel = f.int(copy.load);
-  const claim = copy.detail + (recordedAt ? ` ${t("recordedAt", { date: f.date(recordedAt) })}` : "");
+  // Počet vstupuje do věty UŽ ZFORMÁTOVANÝ (lib/format.ts) — next-intl by ho
+  // jinak protáhl vlastním Intl.NumberFormat, tedy mimo jedinou formátovací
+  // autoritu aplikace (a s rizikem rozchodu SSR/CSR).
+  const claim =
+    tv(copy.detailKey, { load: loadLabel }) +
+    (recordedAt ? ` ${t("recordedAt", { date: f.date(recordedAt) })}` : "");
   const size = compact
     ? "gap-1 border px-1.5 py-0.5 text-[9px]"
     : "gap-1.5 border-2 px-2.5 py-1 text-[11px]";
@@ -55,7 +62,7 @@ export default function RapporteurBadge({
       className={`inline-flex items-center border-ochre bg-ochre/5 font-mono font-bold uppercase tracking-wider text-ochre ${size}`}
     >
       <FileSearch className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
-      {copy.badge}
+      {tv(copy.badgeKey)}
       <span className="tabular-nums">· {loadLabel}</span>
       <span className="sr-only"> — {claim}</span>
     </span>

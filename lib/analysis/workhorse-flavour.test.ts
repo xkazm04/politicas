@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { czechGateErrors } from "./language-gate";
-import { isWorkhorseFlavour, workhorseFlavourCopy, WORKHORSE_FLAVOURS } from "./workhorse-flavour";
+import {
+  isWorkhorseFlavour,
+  workhorseBadgeKey,
+  workhorseDetailKey,
+  workhorseFlavourCopy,
+  WORKHORSE_COPY_KEYS,
+  WORKHORSE_FLAVOURS,
+} from "./workhorse-flavour";
 
 describe("isWorkhorseFlavour", () => {
   it("accepts both vocabulary values", () => {
@@ -18,13 +24,25 @@ describe("isWorkhorseFlavour", () => {
 });
 
 describe("workhorseFlavourCopy", () => {
-  it("returns copy for both flavours with non-empty badge and detail", () => {
+  it("returns a distinct message key pair for both flavours", () => {
+    const seen = new Set<string>();
     for (const f of WORKHORSE_FLAVOURS) {
       const c = workhorseFlavourCopy(f);
       expect(c).not.toBeNull();
-      expect(c!.badge.length).toBeGreaterThan(0);
-      expect(c!.detail.length).toBeGreaterThan(0);
+      expect(c!.badgeKey, f).toBe(workhorseBadgeKey(f));
+      expect(c!.detailKey, f).toBe(workhorseDetailKey(f));
+      expect(seen.has(c!.badgeKey), `${f} reuses a badge key`).toBe(false);
+      seen.add(c!.badgeKey);
+      seen.add(c!.detailKey);
     }
+  });
+
+  it("publishes exactly the keys it can emit", () => {
+    const emitted = WORKHORSE_FLAVOURS.flatMap((f) => {
+      const c = workhorseFlavourCopy(f)!;
+      return [c.badgeKey, c.detailKey];
+    }).sort();
+    expect([...WORKHORSE_COPY_KEYS].sort()).toEqual(emitted);
   });
 
   it("degrades to null for missing or unrecognized flavours — never fabricates a label", () => {
@@ -40,21 +58,11 @@ describe("workhorseFlavourCopy", () => {
   });
 });
 
-/* The MP profile renders `detail` VERBATIM to a Czech reader (batch: spis —
- * pracovní záznam), the same way /zebricek renders `badge`. Reader-facing prose
- * on a Czech-first surface goes through the language gate — see
- * memory/reader-facing-loaders-need-the-language-gate.md, where English analyst
- * copy reached three surfaces before anyone noticed. */
-describe("workhorse copy is reader-facing Czech", () => {
-  it("passes the Czech language gate for every flavour", () => {
-    for (const f of WORKHORSE_FLAVOURS) {
-      const copy = workhorseFlavourCopy(f)!;
-      expect(
-        czechGateErrors([
-          { label: `${f}.badge`, text: copy.badge },
-          { label: `${f}.detail`, text: copy.detail },
-        ]),
-      ).toEqual([]);
-    }
-  });
-});
+/* The sentences moved to messages/{cs,en}.json (namespace `verdicts`, 2026-08-12)
+ * because this module rendered CZECH LITERALS to English readers — and, worse,
+ * `WorkhorseBadge` glued them to a TRANSLATED claim, so one sentence came out in
+ * two languages. The Czech language gate follows the copy: it now runs over the
+ * cs catalog in features/civicscore/messages.test.ts, which also holds the two
+ * catalogs to `WORKHORSE_COPY_KEYS` above. The gate assertion is not lost, it
+ * MOVED: it used to read strings this file declared, and now reads the strings
+ * that actually render. */

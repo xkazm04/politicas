@@ -49,6 +49,7 @@ import {
   SPEECH_SATURATION,
 } from "@/lib/analysis/contribution";
 import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
+import { median } from "@/lib/analysis/score-legibility";
 import { CLUB_DISPLAY } from "@/lib/civic/data";
 import { STEEL } from "@/features/landing/palette";
 import { computeTrend, type ContributionTrend } from "@/lib/analysis/contribution-trend";
@@ -604,8 +605,13 @@ async function readChamber(): Promise<BuiltChamber | null> {
     const scores = entries.map((e) => e.score);
     const n = scores.length;
     const avg = scores.reduce((s, v) => s + v, 0) / n;
-    const sorted = [...scores].sort((a, b) => a - b);
-    const median = n % 2 ? sorted[(n - 1) / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2;
+    // ONE median. `lib/analysis/score-legibility.ts` has exported this exact
+    // computation since the legibility panel shipped — and the chamber summary
+    // carried a second, byte-identical copy of it, over the same 207 scores the
+    // panel medians per component. Two implementations of one statistic on one
+    // page is how they diverge; the empty chamber keeps producing NaN here (the
+    // averages beside it already do), because the pass never memoizes one.
+    const medianScore = median(scores) ?? Number.NaN;
     const sigma = Math.sqrt(scores.reduce((s, v) => s + (v - avg) ** 2, 0) / n);
 
     // Histogram in 5-pt bands spanning the real range. A band is the half-open interval
@@ -630,7 +636,7 @@ async function readChamber(): Promise<BuiltChamber | null> {
       data: {
         entries,
         clubs,
-        summary: { avg: round1(avg), median: round1(median), sigma: round1(sigma), count: n },
+        summary: { avg: round1(avg), median: round1(medianScore), sigma: round1(sigma), count: n },
         histogram,
         components: componentDefs(),
         provenancePass: provenance.state === "uniform" ? provenance.pass : null,

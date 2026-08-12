@@ -22,6 +22,16 @@
 // date the MANDATE AROSE ("mandát vznikl"), not the oath date — never write
 // "složil(a) slib" from this prop.
 //
+// MESSAGE KEYS, NOT SENTENCES (2026-08-12). Both copy sets were Czech literals
+// here, so an English reader met them raw — in the Souboj, where the tenure
+// class is the PRECONDITION for reading every number beside it. Both now return
+// the KEY of the sentence (namespace `verdicts`) plus the values it interpolates;
+// the consumer calls `t(key, …)`. The mandate note additionally hands back the
+// ISO dates rather than a pre-formatted Czech one, so the date goes through the
+// app's single formatting authority (`lib/format.ts`) like every other date on
+// the page — `formatCzechDate` stays as this module's date VALIDATOR (a
+// malformed prop must yield null, never a fabricated date).
+//
 // Pure + defensive, unit-tested by lib/**/*.test.ts — no React, no store access.
 
 export type TenureClass = "full_term" | "replacement" | "departed" | "never_seated";
@@ -48,36 +58,47 @@ export function isTenureClass(x: unknown): x is TenureClass {
  * Graceful null for an unrecognized or absent class — never a fabricated label.
  */
 export interface TenureClassLabel {
-  label: string;
-  detail: string;
+  /** Message key of the short class label. */
+  labelKey: string;
+  /** Message key of the one-sentence explanation. */
+  detailKey: string;
   structural: boolean;
 }
 
-const TENURE_CLASS_LABELS: Record<TenureClass, TenureClassLabel> = {
-  full_term: {
-    label: "Celé období",
-    detail: "Mandát drží po celé sledované období — čísla níže popisují plnou dobu ve Sněmovně.",
-    structural: false,
-  },
-  replacement: {
-    label: "Nastoupil(a) v průběhu",
-    detail: "Mandátu se ujal(a) až v průběhu období — čísla níže popisují kratší reálnou dobu ve Sněmovně.",
-    structural: true,
-  },
-  departed: {
-    label: "Odešel(a) v průběhu",
-    detail: "Mandát zanikl v průběhu období — čísla níže popisují kratší reálnou dobu ve Sněmovně.",
-    structural: true,
-  },
-  never_seated: {
-    label: "Mandát nepřevzal(a)",
-    detail: "Mandátu se vzdal(a) nebo ho nepřevzal(a) — ve Sněmovně nepracoval(a), takže čísla níže nejsou výkon, ale prázdný záznam.",
-    structural: true,
-  },
+/** `never_seated` → `NeverSeated` — derived, so a new class cannot carry a
+ *  hand-typed key that matches nothing in the catalogs. */
+function stem(tenureClass: TenureClass): string {
+  return tenureClass
+    .split("_")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
+}
+
+/** Message key of a class label, inside the `verdicts` namespace. */
+export function tenureLabelKey(tenureClass: TenureClass): string {
+  return `tenure${stem(tenureClass)}Label`;
+}
+
+/** Message key of a class explanation, inside the `verdicts` namespace. */
+export function tenureDetailKey(tenureClass: TenureClass): string {
+  return `tenure${stem(tenureClass)}Detail`;
+}
+
+/** `structural: true` marks the classes that explain the counts beside them. */
+const STRUCTURAL: Record<TenureClass, boolean> = {
+  full_term: false,
+  replacement: true,
+  departed: true,
+  never_seated: true,
 };
 
 export function tenureClassLabel(tenureClass: unknown): TenureClassLabel | null {
-  return isTenureClass(tenureClass) ? TENURE_CLASS_LABELS[tenureClass] : null;
+  if (!isTenureClass(tenureClass)) return null;
+  return {
+    labelKey: tenureLabelKey(tenureClass),
+    detailKey: tenureDetailKey(tenureClass),
+    structural: STRUCTURAL[tenureClass],
+  };
 }
 
 /** Below this many tenure days, term-over-term rate comparisons are too noisy to show. */
@@ -101,14 +122,31 @@ export function formatCzechDate(isoDate: string): string | null {
 }
 
 export interface MandateNoteCopy {
-  /** One-sentence Czech note — when the mandate arose, and ended if applicable. */
-  detail: string;
+  /** Message key of the note — when the mandate arose, and ended if applicable. */
+  detailKey: string;
+  /** ISO start date; the consumer formats it (`lib/format.ts`), this module does not. */
+  start: string;
+  /** ISO end date, or null when the source carries none (a different sentence). */
+  end: string | null;
 }
+
+/** Every key this module can emit (the /overeni `*_COPY_KEYS` contract). */
+export const TENURE_COPY_KEYS: readonly string[] = [
+  ...TENURE_CLASSES.flatMap((c) => [tenureLabelKey(c), tenureDetailKey(c)]),
+  "mandateNoteReplacement",
+  "mandateNoteDeparted",
+  "mandateNoteDepartedNoEnd",
+];
 
 /**
  * Build the mandate-note copy for `replacement`/`departed` tenure classes.
  * Returns null for `full_term`, `never_seated`, unrecognized classes, or when
  * the start date is missing/malformed — graceful null, never a fabricated date.
+ *
+ * The dates come back as ISO strings: an unparseable one still yields null (the
+ * `formatCzechDate` validation below is exactly that check), but the RENDERED
+ * form is the consumer's, so a note reads „12. 11. 2025" in Czech and the
+ * locale's own form in English instead of Czech dates inside English prose.
  */
 export function mandateNoteCopy(
   tenureClass: unknown,
@@ -118,18 +156,18 @@ export function mandateNoteCopy(
   if (!isTenureClass(tenureClass)) return null;
   if (tenureClass !== "replacement" && tenureClass !== "departed") return null;
   if (typeof tenureStart !== "string") return null;
-  const start = formatCzechDate(tenureStart);
-  if (!start) return null;
+  // Validation only — a malformed date must yield null, never a guessed one.
+  if (!formatCzechDate(tenureStart)) return null;
 
   if (tenureClass === "replacement") {
-    return { detail: `Mandát vznikl ${start} (nastoupil/a jako náhradník/nice).` };
+    return { detailKey: "mandateNoteReplacement", start: tenureStart, end: null };
   }
 
   // departed
-  const end = typeof tenureEnd === "string" ? formatCzechDate(tenureEnd) : null;
+  const end = typeof tenureEnd === "string" && formatCzechDate(tenureEnd) ? tenureEnd : null;
   return {
-    detail: end
-      ? `Mandát vznikl ${start}, zanikl ${end} (odešel/odešla v průběhu období).`
-      : `Mandát vznikl ${start} (odešel/odešla v průběhu období).`,
+    detailKey: end ? "mandateNoteDeparted" : "mandateNoteDepartedNoEnd",
+    start: tenureStart,
+    end,
   };
 }

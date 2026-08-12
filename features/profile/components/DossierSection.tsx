@@ -124,7 +124,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
   // otherwise render them through `Intl.NumberFormat`, which is both outside the
   // app's single formatting authority and an SSR/CSR hydration risk (server and
   // client can carry different ICU data).
-  const { t, f } = await profileIntl();
+  const [{ t, f }, { t: tv }] = await Promise.all([profileIntl(), profileIntl("verdicts")]);
   const {
     publicRole,
     workThemes,
@@ -200,14 +200,19 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
               />
               <RapporteurBadge load={rapporteurLoad} recordedAt={effortRecordedAt} />
             </div>
+            {/* Verdiktní věty jdou od 2026-08-12 přes katalog (`verdicts`) —
+                lib/analysis vrací KLÍČ, ne českou větu; počet do věty vstupuje
+                už zformátovaný přes lib/format.ts. */}
             {workhorseFlavourCopy(workhorseFlavour) && (
               <p className="mt-2.5 max-w-3xl text-[14px] leading-relaxed text-steel">
-                {workhorseFlavourCopy(workhorseFlavour)!.detail}
+                {tv(workhorseFlavourCopy(workhorseFlavour)!.detailKey)}
               </p>
             )}
             {rapporteurLoadCopy(rapporteurLoad) && (
               <p className="mt-1.5 max-w-3xl text-[14px] leading-relaxed text-steel">
-                {rapporteurLoadCopy(rapporteurLoad)!.detail}
+                {tv(rapporteurLoadCopy(rapporteurLoad)!.detailKey, {
+                  load: f.int(rapporteurLoadCopy(rapporteurLoad)!.load),
+                })}
               </p>
             )}
             <SourceNote className="mt-2.5 !text-[10px]">{t("dossierVerdictsSource")}</SourceNote>

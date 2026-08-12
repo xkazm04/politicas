@@ -7,6 +7,10 @@
 import { describe, expect, it } from "vitest";
 
 import { looksEnglish } from "@/lib/analysis/language-gate";
+import { LOW_SCORE_COPY_KEYS } from "@/lib/analysis/low-score-reason";
+import { RAPPORTEUR_COPY_KEYS } from "@/lib/analysis/rapporteur-load";
+import { TENURE_COPY_KEYS } from "@/lib/analysis/tenure-copy";
+import { WORKHORSE_COPY_KEYS } from "@/lib/analysis/workhorse-flavour";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 
@@ -250,6 +254,135 @@ describe("katalogy netisknou zveřejněné váhy jako literál", () => {
       expect(flat, `${locale}.json hardcodes the published weight vector`).not.toContain(
         "25-20-20-15-10-10",
       );
+    }
+  });
+});
+
+// ── Verdiktní slovník (`verdicts`) ──────────────────────────────────────────
+// Čtyři čisté moduly v lib/analysis držely svoje věty jako ČESKÉ LITERÁLY, i když
+// produkt má skutečnou anglickou lokalizaci (přepínač v cookie, lib/i18n/config.ts).
+// Anglický čtenář tak dostával verdikt česky — a u `WorkhorseBadge` dokonce jednu
+// větu ve dvou jazycích naráz, protože se česká věta lepila na PŘELOŽENÝ dovětek
+// („Vysoký podíl vlastní … na řečništi. Floor speeches: 12.").
+//
+// Moduly teď vracejí KLÍČ (precedens /overeni: `verdictHeadlineKey`,
+// `gateStatusInfo().labelKey`) a každý publikuje uzavřený seznam klíčů, které umí
+// vydat. Tenhle blok drží OBA katalogy k těm seznamům — a jazyková brána, kterou
+// si moduly nesly nad vlastními literály, se přesunula sem, nad znění, které se
+// doopravdy vykreslí.
+describe("verdicts — verdiktní slovník mluví oběma jazyky", () => {
+  const csV: Record<string, string> = csCatalog.verdicts;
+  const enV: Record<string, string> = enCatalog.verdicts;
+  /** Každý klíč, který některý z těch čtyř modulů může vydat. */
+  const EMITTED = [
+    ...LOW_SCORE_COPY_KEYS,
+    ...WORKHORSE_COPY_KEYS,
+    ...RAPPORTEUR_COPY_KEYS,
+    ...TENURE_COPY_KEYS,
+  ];
+
+  it("cs a en deklarují tytéž klíče", () => {
+    expect(Object.keys(csV).sort()).toEqual(Object.keys(enV).sort());
+  });
+
+  it("každý klíč, který modul umí vydat, v OBOU katalozích existuje a není prázdný", () => {
+    for (const k of EMITTED) {
+      expect(csV[k], `cs.verdicts.${k}`).toBeTruthy();
+      expect(enV[k], `en.verdicts.${k}`).toBeTruthy();
+    }
+  });
+
+  it("jmenný prostor nenese klíč, který nikdo nevydává (mrtvá kopie)", () => {
+    // Pět mrtvých vět v trendCopy.ts přežilo přesun copy do katalogů o týden a
+    // vypadalo jako pravda o ploše, kterou už nepopisovalo. Tady se to stát nemůže:
+    // seznamy klíčů jsou odvozené ze slovníků samotných.
+    expect(Object.keys(csV).sort()).toEqual([...EMITTED].sort());
+  });
+
+  it("každý klíč deklaruje tytéž ICU parametry v obou jazycích", () => {
+    for (const k of Object.keys(csV)) {
+      expect(placeholders(enV[k]), k).toEqual(placeholders(csV[k]));
+    }
+  });
+
+  it("věta zpravodaje nese počet, o který se opírá — v obou jazycích", () => {
+    for (const ns of [csV, enV]) expect(placeholders(ns.rapporteurDetail)).toEqual(["load"]);
+    // Ostatní verdikty žádný parametr nemají: čtou uzavřený slovník, ne měření.
+    for (const k of [...LOW_SCORE_COPY_KEYS, ...WORKHORSE_COPY_KEYS]) {
+      expect(placeholders(csV[k]), k).toEqual([]);
+    }
+  });
+
+  it("mandátová poznámka má tři větve a každá jmenuje data, která opravdu má", () => {
+    for (const ns of [csV, enV]) {
+      expect(placeholders(ns.mandateNoteReplacement)).toEqual(["start"]);
+      expect(placeholders(ns.mandateNoteDeparted).sort()).toEqual(["end", "start"]);
+      // Větev bez data zániku o něm nesmí mít ani prázdné místo — jinak by
+      // vykreslila „zanikl " a čtenář by hledal datum, které zdroj nemá.
+      expect(placeholders(ns.mandateNoteDepartedNoEnd)).toEqual(["start"]);
+    }
+  });
+
+  it("žádná česká věta neprojde jako anglická (jazyková brána)", () => {
+    for (const [k, v] of Object.entries(csV)) {
+      expect(looksEnglish(v), `cs.verdicts.${k}: ${v.slice(0, 60)}`).toBe(false);
+    }
+  });
+
+  it("žádný klíč nezůstal nepřeložený (en ≠ cs)", () => {
+    for (const k of Object.keys(csV)) {
+      expect(enV[k], `en.verdicts.${k} is still the Czech string`).not.toBe(csV[k]);
+    }
+  });
+
+  // Migrace SMÍ přesunout větu, nesmí ji přepsat. Tohle je vzorek českých znění
+  // zkopírovaných z lib/analysis PŘED přesunem — kdyby se cestou „vylepšila",
+  // padne to tady, ne až u čtenáře.
+  it("české znění je totožné s tím, co moduly vykreslovaly před přesunem", () => {
+    expect(csV.lowScoreDeclinedMandateBadge).toBe("Mandátu se vzdal(a)");
+    expect(csV.lowScoreDeclinedMandateDetail).toBe(
+      "Nulová nebo nízká aktivita není absence — mandát byl odmítnut nebo se ho MP vzdal(a) před složením slibu či brzy po něm.",
+    );
+    expect(csV.lowScoreGenuineAbsenteeDetail).toBe(
+      "Enrichment nenašel strukturální vysvětlení nízké aktivity — na rozdíl od ostatních důvodů toto NENÍ korektiv skóre.",
+    );
+    expect(csV.workhorseLegislativeBadge).toBe("Tichý tvůrce zákonů");
+    expect(csV.workhorseOversightDetail).toBe(
+      "Práce spočívá v dozoru a výborové agendě (vedení výborů, delegace, komise) bez vlastní legislativní iniciativy a bez vystoupení v sále.",
+    );
+    expect(csV.rapporteurBadge).toBe("Zpravodajský tahoun");
+    expect(csV.tenureNeverSeatedDetail).toBe(
+      "Mandátu se vzdal(a) nebo ho nepřevzal(a) — ve Sněmovně nepracoval(a), takže čísla níže nejsou výkon, ale prázdný záznam.",
+    );
+    expect(csV.mandateNoteReplacement).toBe("Mandát vznikl {start} (nastoupil/a jako náhradník/nice).");
+  });
+
+  // Dvě věty nesou VÝROK, který se překladem snadno ztratí: `genuine_absentee` je
+  // jediný důvod, který NENÍ korektivem skóre, a počet zpravodajských tisků říká
+  // rozsah role, ne kvalitu. Obojí musí stát v obou jazycích.
+  it("obě jazykové verze si nechávají výhrady, kvůli kterým ty věty existují", () => {
+    expect(csV.lowScoreGenuineAbsenteeDetail).toMatch(/NENÍ korektiv/);
+    expect(enV.lowScoreGenuineAbsenteeDetail).toMatch(/NOT a correction/);
+    expect(csV.rapporteurDetail).toMatch(/ne kvalitu/);
+    expect(enV.rapporteurDetail).toMatch(/not its quality/i);
+  });
+});
+
+// Panel vývoje (`civicscore.trend*`) byl do 2026-08-05 psán inline v JSX, pak žil
+// jako pět českých builderů v trendCopy.ts BEZ jediného volajícího — a jazyková
+// brána běžela nad těmi mrtvými větami, ne nad katalogem, který se vykresluje.
+// Buildery jsou smazané (2026-08-12); brána je tady, nad živým zněním.
+describe("civicscore — copy panelu vývoje je česky", () => {
+  const trendKeys = Object.keys(csNs).filter((k) => k.startsWith("trend"));
+
+  it("panel vůbec nějaké klíče má (jinak by tenhle test mlčel navždy)", () => {
+    expect(trendKeys.length).toBeGreaterThan(3);
+  });
+
+  it("žádná věta panelu neprojde jako anglická", () => {
+    for (const k of trendKeys) {
+      expect(csNs[k], `cs.civicscore.${k}`).toBeTruthy();
+      expect(looksEnglish(csNs[k]), `cs.civicscore.${k}`).toBe(false);
     }
   });
 });

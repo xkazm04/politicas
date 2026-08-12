@@ -8,8 +8,18 @@
 // effort loop's enrichment stage annotates these with a closed-vocabulary
 // `effort_low_score_reason` prop (namespaced, pending_review, NEVER touching the
 // score itself — see docs/case-loops.md guardrails). This module turns that
-// prop into an honest, non-judgmental Czech label the profile can render as a
-// correcting badge, instead of letting a low number imply laziness.
+// prop into an honest, non-judgmental correcting badge the ranking and the
+// profile can render, instead of letting a low number imply laziness.
+//
+// MESSAGE KEYS, NOT SENTENCES (2026-08-12). The copy used to be Czech string
+// literals right here, and the product has a real English locale (cookie switch,
+// lib/i18n/config.ts): an English reader got „Nastoupil(a) jako náhradník/-ce"
+// glued to a translated date, i.e. one sentence in two languages. The module
+// stays PURE — it returns the KEY of the sentence and the consumer calls
+// `t(key)` on the `verdicts` namespace — which is the /overeni precedent
+// (`verdictHeadlineKey`, `gateStatusInfo().labelKey`): the mapping itself
+// becomes testable, and the Czech is pinned to the language gate where it now
+// lives, in messages/cs.json.
 //
 // Pure + defensive: an unknown or missing reason renders nothing (graceful
 // null), never a fabricated explanation.
@@ -36,83 +46,68 @@ export function isLowScoreReason(x: unknown): x is LowScoreReason {
 }
 
 export interface LowScoreReasonCopy {
-  /** Short badge label — fits a single line next to the score. */
-  badge: string;
-  /** One-sentence honest explanation, rendered under the badge. */
-  detail: string;
+  /** Message key of the short badge label — fits a single line next to the score. */
+  badgeKey: string;
+  /** Message key of the one-sentence honest explanation, rendered under the badge. */
+  detailKey: string;
   /** Badge tone: "neutral" (structural, no implication) vs "positive" (an honest correction that reads well for the MP). */
   tone: "neutral" | "positive";
 }
 
+/** `declined_mandate` → `DeclinedMandate` — the key stem is DERIVED from the
+ *  vocabulary, so a new reason cannot be added with a hand-typed key that
+ *  matches nothing in the catalogs. */
+function stem(reason: LowScoreReason): string {
+  return reason
+    .split("_")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join("");
+}
+
+/** Message key of a reason's badge label, inside the `verdicts` namespace. */
+export function lowScoreBadgeKey(reason: LowScoreReason): string {
+  return `lowScore${stem(reason)}Badge`;
+}
+
+/** Message key of a reason's explanation, inside the `verdicts` namespace. */
+export function lowScoreDetailKey(reason: LowScoreReason): string {
+  return `lowScore${stem(reason)}Detail`;
+}
+
 /**
- * Czech copy per reason (fleet: messages/*.json is shared and not editable from
- * this case's boundary — inline literals here, matching the TrendPanel precedent;
- * proposed i18n keys are listed in the batch handoff for the orchestrator).
+ * Every key this module can emit — the /overeni contract (`VERDICT_COPY_KEYS`,
+ * `GUIDE_COPY_KEYS`): a pure module that returns keys must publish the closed
+ * set, so a messages test can assert both catalogs carry all of them.
  */
-const COPY: Record<LowScoreReason, LowScoreReasonCopy> = {
-  declined_mandate: {
-    badge: "Mandátu se vzdal(a)",
-    detail: "Nulová nebo nízká aktivita není absence — mandát byl odmítnut nebo se ho MP vzdal(a) před složením slibu či brzy po něm.",
-    tone: "positive",
-  },
-  replacement: {
-    badge: "Nastoupil(a) jako náhradník/-ce",
-    detail: "Mandátu se ujal(a) až v průběhu období — nízké skóre odráží kratší reálnou dobu ve Sněmovně, ne nezájem.",
-    tone: "positive",
-  },
-  institutional_promotion: {
-    badge: "Zvolen(a) do vedení Sněmovny",
-    detail: "V průběhu období byl(a) zvolen(a) do vedení Sněmovny (např. místopředseda/kyně) — nízké skóre v původní roli je artefaktem této institucionální změny, ne nezájmu.",
-    tone: "positive",
-  },
-  dual_mandate: {
-    badge: "Souběžný veřejný mandát",
-    detail: "Poslanec/poslankyně zároveň zastává jiný volený úřad (např. starosta, krajský radní) — nízké skóre odráží souběh funkcí.",
-    tone: "neutral",
-  },
-  prime_minister: {
-    badge: "Bývalý/á předseda/kyně vlády",
-    detail: "Nízké skóre je artefaktem předání vlády nebo stranického vedení na počátku období, ne absence na půdě Sněmovny.",
-    tone: "neutral",
-  },
-  minister: {
-    badge: "Člen vlády",
-    detail: "Jako člen/členka vlády tráví většinu času exekutivní agendou mimo Sněmovnu — index měří jen sněmovní aktivitu.",
-    tone: "neutral",
-  },
-  deputy_pm: {
-    badge: "Místopředseda/kyně vlády",
-    detail: "Jako místopředseda/kyně vlády tráví většinu času exekutivní agendou mimo Sněmovnu — index měří jen sněmovní aktivitu.",
-    tone: "neutral",
-  },
-  opposition_leader: {
-    badge: "Vedení opoziční strany",
-    detail: "Stranické vedení mimo výbory zabírá čas, který index nezachycuje — nízké skóre neznamená nečinnost.",
-    tone: "neutral",
-  },
-  new_mp: {
-    badge: "Nováček/nováčka",
-    detail: "První období ve Sněmovně — nízké skóre v raných měsících je u nováčků obvyklé, ne známkou nezájmu.",
-    tone: "neutral",
-  },
-  genuine_absentee: {
-    badge: "Nízká aktivita",
-    detail: "Enrichment nenašel strukturální vysvětlení nízké aktivity — na rozdíl od ostatních důvodů toto NENÍ korektiv skóre.",
-    tone: "neutral",
-  },
-  low_legislative_output: {
-    badge: "Bez vlastní legislativy",
-    detail: "Přítomnost a hlasování odpovídají klubu, ale bez vlastního tisku či pozměňovacího návrhu — jiný typ přispění (organizační, klubová role).",
-    tone: "neutral",
-  },
-  unknown: {
-    badge: "Neobjasněno",
-    detail: "Nízké skóre bylo prověřeno, ale konkrétní příčina nebyla veřejně dohledatelná.",
-    tone: "neutral",
-  },
+export const LOW_SCORE_COPY_KEYS: readonly string[] = LOW_SCORE_REASONS.flatMap((r) => [
+  lowScoreBadgeKey(r),
+  lowScoreDetailKey(r),
+]);
+
+/** Tone is NOT copy — it is the vocabulary's own judgement about the reason, and
+ *  `genuine_absentee` is deliberately neutral: its sentence says in as many words
+ *  that it is NOT a correction, so the chip must not colour it like one. */
+const TONE: Record<LowScoreReason, LowScoreReasonCopy["tone"]> = {
+  declined_mandate: "positive",
+  replacement: "positive",
+  institutional_promotion: "positive",
+  dual_mandate: "neutral",
+  prime_minister: "neutral",
+  minister: "neutral",
+  deputy_pm: "neutral",
+  opposition_leader: "neutral",
+  new_mp: "neutral",
+  genuine_absentee: "neutral",
+  low_legislative_output: "neutral",
+  unknown: "neutral",
 };
 
 /** Look up the badge copy for a stored `effort_low_score_reason` value; null when absent/unrecognized. */
 export function lowScoreReasonCopy(reason: unknown): LowScoreReasonCopy | null {
-  return isLowScoreReason(reason) ? COPY[reason] : null;
+  if (!isLowScoreReason(reason)) return null;
+  return {
+    badgeKey: lowScoreBadgeKey(reason),
+    detailKey: lowScoreDetailKey(reason),
+    tone: TONE[reason],
+  };
 }

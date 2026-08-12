@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { looksEnglish } from "./language-gate";
-import { isLowScoreReason, lowScoreReasonCopy, LOW_SCORE_REASONS } from "./low-score-reason";
+import {
+  isLowScoreReason,
+  lowScoreReasonCopy,
+  lowScoreBadgeKey,
+  lowScoreDetailKey,
+  LOW_SCORE_COPY_KEYS,
+  LOW_SCORE_REASONS,
+} from "./low-score-reason";
 
 describe("isLowScoreReason", () => {
   it("accepts every vocabulary value", () => {
@@ -18,14 +24,39 @@ describe("isLowScoreReason", () => {
 });
 
 describe("lowScoreReasonCopy", () => {
-  it("returns copy for every vocabulary value with non-empty badge and detail", () => {
+  it("returns a distinct message key pair for every vocabulary value", () => {
+    const seen = new Set<string>();
     for (const r of LOW_SCORE_REASONS) {
       const c = lowScoreReasonCopy(r);
       expect(c).not.toBeNull();
-      expect(c!.badge.length).toBeGreaterThan(0);
-      expect(c!.detail.length).toBeGreaterThan(0);
+      expect(c!.badgeKey, r).toBe(lowScoreBadgeKey(r));
+      expect(c!.detailKey, r).toBe(lowScoreDetailKey(r));
       expect(["neutral", "positive"]).toContain(c!.tone);
+      // Two reasons sharing one key would silently render one sentence for both.
+      expect(seen.has(c!.badgeKey), `${r} reuses a badge key`).toBe(false);
+      expect(seen.has(c!.detailKey), `${r} reuses a detail key`).toBe(false);
+      seen.add(c!.badgeKey);
+      seen.add(c!.detailKey);
     }
+  });
+
+  it("publishes exactly the keys it can emit, and no others", () => {
+    // The /overeni contract: a pure module that returns keys publishes the closed
+    // set, so the messages test can hold BOTH catalogs to it. A key emitted but not
+    // published would render its own name to a reader and no test would see it.
+    const emitted = LOW_SCORE_REASONS.flatMap((r) => {
+      const c = lowScoreReasonCopy(r)!;
+      return [c.badgeKey, c.detailKey];
+    }).sort();
+    expect([...LOW_SCORE_COPY_KEYS].sort()).toEqual(emitted);
+  });
+
+  it("derives the key stem from the vocabulary value itself", () => {
+    // Hand-typed keys are how a new reason ships pointing at a catalog entry that
+    // does not exist; the stem is computed, so the two cannot drift apart.
+    expect(lowScoreBadgeKey("declined_mandate")).toBe("lowScoreDeclinedMandateBadge");
+    expect(lowScoreDetailKey("low_legislative_output")).toBe("lowScoreLowLegislativeOutputDetail");
+    expect(lowScoreBadgeKey("unknown")).toBe("lowScoreUnknownBadge");
   });
 
   it("degrades to null for missing or unrecognized reasons — never fabricates a label", () => {
@@ -40,20 +71,10 @@ describe("lowScoreReasonCopy", () => {
   });
 
   it("marks genuine_absentee as the one reason that is NOT a score correction", () => {
-    expect(lowScoreReasonCopy("genuine_absentee")!.detail).toMatch(/NENÍ korektiv/);
-  });
-});
-
-// This vocabulary renders VERBATIM to Czech readers — on /poslanec since batch 002 and
-// on the /zebricek row since 2026-08-04. Analyst prose has reached three surfaces in
-// English before (memory/reader-facing-loaders-need-the-language-gate.md), so the copy
-// is pinned to the gate here rather than trusted.
-describe("lowScoreReasonCopy — Czech language gate", () => {
-  it("no badge or detail reads as English", () => {
-    for (const r of LOW_SCORE_REASONS) {
-      const c = lowScoreReasonCopy(r)!;
-      expect(looksEnglish(c.badge), `${r}.badge`).toBe(false);
-      expect(looksEnglish(c.detail), `${r}.detail`).toBe(false);
-    }
+    // The SENTENCE that says so now lives in the catalogs and is pinned there
+    // (features/civicscore/messages.test.ts — „NENÍ korektiv" / „NOT a correction"),
+    // together with the Czech language gate this module used to carry itself.
+    expect(lowScoreReasonCopy("genuine_absentee")!.tone).toBe("neutral");
+    expect(lowScoreReasonCopy("genuine_absentee")!.detailKey).toBe("lowScoreGenuineAbsenteeDetail");
   });
 });
