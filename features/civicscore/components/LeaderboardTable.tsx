@@ -24,7 +24,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
-import { ArrowUpRight, FileText, Gavel, Rows3, ShieldCheck, Swords } from "lucide-react";
+import { ArrowUp, ArrowUpRight, FileText, Gavel, Rows3, ShieldCheck, Swords } from "lucide-react";
 import type { ClubFacet, LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
 import { useFormat } from "@/lib/i18n/useFormat";
 import CitableNumber from "@/lib/claims/CitableNumber";
@@ -453,8 +453,24 @@ export default function LeaderboardTable({
                   inDuel ? "border-signal bg-signal text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
                 }`}
               >
-                <Swords className="h-3 w-3" /> {t("vsButton")}
+                <Swords className="h-3 w-3" aria-hidden /> {t("vsButton")}
               </button>
+              {/* Sekce se soubojem sedí NAD žebříčkem, takže klik na „vs"
+                  u sto padesátého řádku mění panel o čtyři obrazovky výš.
+                  Vybraný řádek proto nabídne cestu k němu — ODKAZ, ne skok:
+                  vynucené rolování při každém kliknutí by odneslo čtenáře
+                  pryč z místa, kde právě vybírá. Hlásí se jinde a jednou
+                  (DuelStatus); tohle je jen viditelná afordance. */}
+              {inDuel && (
+                <a
+                  href="#souboj"
+                  aria-label={t("duelGoTo")}
+                  title={t("duelGoTo")}
+                  className="inline-flex items-center border-2 border-hairline px-1.5 py-1 text-cobalt transition-colors hover:border-cobalt"
+                >
+                  <ArrowUp className="h-3 w-3" aria-hidden />
+                </a>
+              )}
               </span>
             </motion.div>
           );

@@ -23,7 +23,7 @@
  * Null (bez storu / prázdný graf) → stránka se vykreslí s ohlášeným upozorněním.
  */
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -39,7 +39,9 @@ import LeaderboardTable from "./components/LeaderboardTable";
 import WeightPanel from "./components/WeightPanel";
 import { encodeWeights, PUBLISHED_WEIGHTS_LABEL, reweigh } from "./lens";
 import { storedRefLabel } from "./provenance";
+import { useDuelSelection } from "./useDuelSelection";
 import { useLensWeights } from "./useLensWeights";
+import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import { useFormat } from "@/lib/i18n/useFormat";
 
 export default function CivicScorePage({ data }: { data: LeaderboardListData | null }) {
@@ -47,10 +49,14 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
   const tm = useTranslations("metodika");
   const f = useFormat();
   // Souboj: max dva vybraní (klíč = pspId); třetí výběr vyřadí staršího.
-  const initial = data?.entries.slice(0, 2).map((e) => e.pspId) ?? [];
-  const [duel, setDuel] = useState<number[]>(initial);
-  const toggleDuel = (pspId: number) =>
-    setDuel((d) => (d.includes(pspId) ? d.filter((x) => x !== pspId) : [...d.slice(-1), pspId]));
+  // Od 2026-08-12 žije výběr v ADRESE (?souboj=6150-6881, ./useDuelSelection) —
+  // do té doby to byl holý useState, takže souboj nešlo sdílet, nepřežil
+  // obnovení stránky ani tlačítko zpět. Výchozí dvojice = první dva
+  // ZVEŘEJNĚNÉHO pořadí (ne čočkou přeřazeného): čistá adresa musí znamenat
+  // jednu a tutéž dvojici bez ohledu na to, jak si čtenář nastavil váhy.
+  const defaultPair = useMemo(() => data?.entries.slice(0, 2).map((e) => e.pspId) ?? [], [data]);
+  const chamberIds = useMemo(() => data?.entries.map((e) => e.pspId) ?? [], [data]);
+  const { duel, toggle: toggleDuel, address: duelHref } = useDuelSelection({ defaultPair, chamberIds });
 
   // Čtenářova čočka (?vahy=…). Výchozí metodika ⇒ lensView je null a všechny
   // sekce čtou autoritativní data z grafu beze změny.
@@ -260,7 +266,21 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
               {/* Stojí ZDE, ne uvnitř HeadToHead: panel se přemontovává přes
                   AnimatePresence a živá oblast uvnitř přemontování je buď dvojí
                   čtení, nebo mlčení. */}
-              <DuelStatus selected={selectedEntries} />
+              <DuelStatus
+                selected={selectedEntries}
+                action={
+                  // Zkopírovaný odkaz a řádek prohlížeče vznikají z JEDNOHO
+                  // `duelAddress()` (viz useDuelSelection) — nemohou se rozejít.
+                  // Sdílený primitiv z katalogu, ne druhé tlačítko schránky.
+                  duelHref !== null && selectedEntries.length >= 2 ? (
+                    <CopyLinkButton
+                      path={duelHref}
+                      label={t("duelCopyLink")}
+                      errorContext="[zebricek] kopírování odkazu na souboj selhalo"
+                    />
+                  ) : null
+                }
+              />
               <div className="mt-8">
                 <HeadToHead
                   pair={pair}
