@@ -417,13 +417,13 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const organByPsp = directory.organByPspId;
     // DEDUPE BY ORGAN (batch-006): psp.cz stores a leadership seat as TWO membership rows
     // — one `kind:"member"` and one `kind:"function"` on the SAME organ (251 of 1062 PSP10
-    // person-organ pairs). committee_count counts ROWS, so it double-counts those bodies;
-    // that overcount is a defect in the deterministic index itself, which case gate (a)
-    // forbids this loop from "fixing" — it is escalated in the batch-006 handoff instead.
-    // What we MUST not do is render one committee twice to a reader, so the profile shows
-    // each body ONCE at its highest role. (The effort-loop's dossier extractor deliberately
-    // does NOT dedupe: there it must mirror committee_count exactly so an analyst comparing
-    // the two never sees a phantom mismatch.)
+    // person-organ pairs). The batch-006 escalation about committee_count double-counting
+    // was RESOLVED by the pass-42 recompute: the formula dedupes by seatKey since
+    // CONTRIBUTION_FORMULA_REF = "contribution-committee-dedupe" (lib/analysis/
+    // contribution.ts), and the store carries pass-42 provenance on all 207 nodes.
+    // The profile's own render-side dedupe below PREDATES that fix and stays for its
+    // original reason: one committee must never render twice to a reader, so each body
+    // shows ONCE at its highest role.
     // Selection rule, deliberately NOT "max role, OR-ed current" — that would build a
     // chimera out of two different rows (a role from an ENDED row married to `current`
     // from a still-open one) and could render "chair · current" for a chairmanship that

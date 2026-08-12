@@ -430,8 +430,9 @@ type BuiltChamber = { data: LeaderboardData; directory: Directory };
  * `kg_node` person slice plus mandates, clubs, organs and party nodes, and it
  * changes only when `da:kg-compute` writes. /poslanec is 207 statically
  * generated pages that each await it, so a build ran the chamber pass 207 times
- * for one identical answer; /zebricek, /kraj, /dashboard, /schranka and
- * /overeni pay it again per request.
+ * for one identical answer; /zebricek, /kraj, /dashboard and /overeni pay it
+ * again per request. (/schranka does NOT — its badge reads the narrower
+ * `getRecomputeFact` on purpose.)
  *
  * The bound is the money layer's — `MONEY_MEMO_TTL_MS`, imported, never
  * re-declared: two memos over one graph on two clocks is how two surfaces print

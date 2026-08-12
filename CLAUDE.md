@@ -436,11 +436,12 @@ Route map (politicas.md roadmap execution, sample data):
   record with the chronicle UNCAPPED, /hlasovani slices its 24-row window off
   it, and the spis indexes the same object — one ~16 s read + one derivation
   per TTL window ACROSS both surfaces. That the cap is a pure prefix cut is
-  proven, not assumed: `chronicleCap.test.ts` pins prefix identity, that the
-  other six `VoteRecordData` fields ignore the cap, and that those seven fields
-  are the WHOLE type — a new field cannot join it without someone ruling on the
-  cut. (`getKompas.ts` still holds its own ledger read per window — a third
-  pass, flagged for a future votetrack round.)
+  proven, not assumed: `chronicleCap.test.ts` pins prefix identity, that every
+  other `VoteRecordData` field ignores the cap, and that the pinned field list
+  is the WHOLE type — a new field cannot join it without someone ruling on the
+  cut. (The „getKompas holds a third ledger pass" flag is RESOLVED — round 9's
+  kompas-rides-the-record deleted its private memo; today it rides
+  `getFullVoteRecord()` + the scoped `readBallotsForVotes`.)
   **Five honesty seams closed (2026-08-11).** The header's absentee qualifier
   asserted the MP's ties „všechny čekají na lidskou kontrolu" — a LITERAL one
   /penize/kontrola decision falsifies; it now renders the phase derived by the
@@ -486,6 +487,17 @@ Route map (politicas.md roadmap execution, sample data):
   `round3(min(1, totalDays/63))` reproduces the stored rate for 207/207 MPs
   (one clamps at 100 %: an excuse may be filed for a day with no roll call,
   so the two day-sets don't nest — the copy says so).
+  **Silence tells the truth (2026-08-12).** Three round-13 honesty fixes:
+  `generateMetadata` distinguishes outage from non-MP the same way the body
+  does (outage → its own unavailable copy + `robots:{index:false}`, never
+  „spis nenalezen" — a crawler must not store a claim a broken database
+  invented); the empty rebellions state names the `MIN_ELIGIBLE_VOTES = 50`
+  floor (imported, interpolated) and admits the aggregate wasn't measured —
+  empty means BELOW THE FLOOR, never „never deviated", because the edge
+  writer emits `0/N` rows for above-floor conformists; and the term literals
+  („10. období"/PSP10 in tenure + omluvy citations) fell to `{term}` params
+  while the guard regex that was supposed to catch them — structurally dead,
+  JS `\b` after „í" never matches — was fixed and FALSIFIED in both catalogs.
   **The spis links the fabric it belongs to (2026-08-04).** It sat at the centre of
   the graph and pointed almost nowhere: no `/denik?entita=poslanec:<pspId>` (the
   dated stream about the same entity, keyed by `mpEntityKey` — imported, never
@@ -648,6 +660,19 @@ Route map (politicas.md roadmap execution, sample data):
   „spočítejte si shodu" into it; `app/kompas/loading.tsx` stops promising a
   seconds-long read unconditionally. The `loaders.test.ts` pin that asserted
   silent hiding as the contract was moved deliberately, stated in the commit.
+  **The seismograf measures honestly (2026-08-12).** The hero instrument
+  clamps BOTH axes (`Math.min(1,…)` — deviation full-scale 0,5, rebel spikes
+  saturate at 40/day) and a comment claimed the clamp was „disclosed by the
+  axis caption" while the only caption was `aria-hidden`; both scales now
+  print under the instrument (`record.seismoScale`, constants interpolated)
+  and the comment tells the truth. Four falsifiable method literals became
+  live values (`MATRIX_WINDOW`, `STRONG_DISCIPLINE_PCT`, `MIN_CLUB_POSITIONAL`,
+  the mock sample length via `ROLL_CALLS.length`); a shorter-than-window
+  ledger gets its own sentence. The chronicle and the rebel board carry their
+  POPULATIONS, counted BEFORE the slice (`chronicleTotal` 1 301 live,
+  `topRebelsTotal` 203) — „24 rows" no longer reads as „24 rebellions ever".
+  The messages pin is a shape rule over the whole `record.*` namespace with
+  ZERO exemptions, falsified twice.
 - `/penize` — **FollowTheMoney** (features/money): the Rentgen money-graph's
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
@@ -944,6 +969,22 @@ Route map (politicas.md roadmap execution, sample data):
   public wire stay byte-identical, and the block's pass renders only when
   ALL rows agree on one. `graph-schema.md` finally gained the `owns_stake`
   row per its own sync rule.
+  **The ownership chain is walkable (2026-08-12).** The block's counterpart
+  links (Město Plzeň, Praha, Ministerstvo financí, the AGROFERT ancestors, 8
+  private non-tied parents) used to land on „graf nevede žádnou vazbu" —
+  `getCompanyDetail` bailed on `ties.length === 0` BEFORE looking at the
+  ownership it had already fetched. `getCompanyCaseFile()` now returns one of
+  two payloads from the SAME single read: the money case file (byte-identical
+  wire, pinned) or `CompanyRegistryFileData` — identity + registry links +
+  ownership block, NO money (not even a zero: no tie → no attribution rule →
+  a 0 Kč would be a claim), NO follow/deník affordance (no stream is keyed by
+  a tie-less firm — the `obec:` precedent), provenance from the ownership
+  edges' own uniform pass, never `ties[0]`. Neither-ties-nor-ownership still
+  → null (no address minted for nothing), and `getCompanyDetail()` keeps the
+  narrow money contract so /overeni answers `zaznam-nenalezen`, never
+  „Ověřeno, 0 Kč". Riders: the company slice passes `readScope` (the
+  corpus-only cap heuristic no longer runs on a one-firm population) and the
+  `truncated` flag is threaded, not discarded.
   **The money graph reads for keyboards, and the book speaks the gate's truth
   (2026-08-12).** The hero graph was a dead end and an a11y hole — `role="img"`
   (a LEAF role) over ~11 focusable `<g tabIndex={0} outline:none>` nodes, zero
@@ -1271,6 +1312,24 @@ Route map (politicas.md roadmap execution, sample data):
   `?vahy=`); the copy affordance is the shared `CopyLinkButton`; selection
   feedback is the DuelStatus line + a `#souboj` anchor link — never a forced
   scroll (test bans `scrollIntoView`).
+  **The verdicts speak both languages (2026-08-12).** Four copy modules
+  (low-score-reason, workhorse-flavour, rapporteur-load, tenure-copy) held
+  hardcoded Czech in a bilingual product, so the EN locale rendered
+  concatenated half-Czech sentences („Vysoký podíl vlastní … na řečništi.
+  Floor speeches: 12."). They now return MESSAGE KEYS (the /overeni pattern):
+  key stems DERIVED from the vocabulary values, closed `*_COPY_KEYS` lists,
+  the Czech moved byte-for-byte into `verdicts.*` (41 keys, sample pinned),
+  EN complete, the language gate binding the cs side — including workhorse +
+  rapporteur, never gate-pinned before. `mandateNoteCopy` hands back ISO
+  dates so `lib/format.ts` formats per locale, and a malformed end date
+  selects a DIFFERENT sentence, never an empty slot. Fold-ins: `trendCopy`'s
+  5/6 dead exports deleted; `getLeaderboardData`'s second median deleted for
+  `score-legibility`'s export. **`componentDefs` is deliberately NOT
+  migrated**: its labels ride the cross-request-memoized chamber payload, so
+  translating in the loader would serve a cs-warmed memo to an EN reader —
+  the fix is the payload carrying KEYS and ~12 render sites translating
+  (incl. the referendum OG image); recorded as its own future direction.
+  /metodika's weights table therefore stays Czech-only in EN for now.
 - `/metodika` — **Metodika** (features/civicscore/MetodikaPage.tsx, thin route
   `app/metodika/page.tsx`). Added 2026-08-04. The platform positions itself as
   methodology-transparent, `/zebricek` cites „průchod grafu č. 42" and
@@ -1626,9 +1685,9 @@ Route map (politicas.md roadmap execution, sample data):
   reused — compact and icon-only densities) is inline on `/poslanec`, every
   `/zebricek` row, `/penize/firma/[ico]` and the `/denik` entity view, beside a
   backlink to /schranka; its accessible label NAMES the entity, and the nav
-  badge is a permanent `aria-live="polite"` region. Copy is hardcoded Czech
-  (the /denik precedent); only strings on catalog-driven surfaces go through
-  `messages/{cs,en}.json` (`common.follow*`).
+  badge is a permanent `aria-live="polite"` region. Schránka copy lives in the
+  catalogs since 14f0f51 (2026-08-05, `schranka.*` + `common.follow*`) — the
+  „hardcoded Czech" era ended with /denik's.
   **`firma:` links to `/penize/firma/<ičo>`** since that page exists (6bc8780) —
   in the codec AND in `deriveDenik`'s company entity, both normalizing through
   `canonicalIco()`, so a contract row in the deník now links to the company
@@ -1700,6 +1759,22 @@ Route map (politicas.md roadmap execution, sample data):
   stored server-side, and that the keys are scrubbed from telemetry; both routes
   503 on an unreadable store (the `/denik/feed.*` precedent) and the JSON side is
   validated by the SAME `parseEvidenceFeedJson` both deníky use.
+  **The schránka stops slandering its own rows (2026-08-12).** `novinky.ts`'s
+  hand-typed nine-kind Set was missing `mandate` + `organRole` (kinds the
+  deník emits since round 6), so the platform's own rows would be dropped AND
+  counted into „N řádků … byly zahozeny" — the badge saying 5 while the page
+  shows 3 plus an accusation, with the FEED still carrying the rows (the
+  exact page/feed divergence `getSchrankaDeltas` exists to prevent). KINDS
+  now derives from the TYPED `KIND_NOUN_KEYS`, cross-checked round-trip
+  against `KIND_ORDER` — two truth sources holding each other. `DenikLimits`
+  ride the novinky wire (validated field-by-field, half a block yields
+  nothing) and render through the IMPORTED `limitNotes` — the deník's own
+  sentences plus one schránka framing line; `ledger` is passed `null`
+  deliberately (merged-row/conflict counts are properties of the rendered
+  day-book the schránka doesn't build). The feed channel description names
+  both caps (`SCHRANKA_FEED_ITEMS` 100 / `DELTA_ENTRIES_CAP` 25,
+  interpolated). `recomputeFactFromProps` collapsed onto
+  `prov.computedAt` — one aggregator, fails closed, pinned.
 - `/graf` — **Graph playground** (features/graph): the full knowledge graph on
   a full-viewport `<canvas>`; the page opts out of the app shell
   (`isBareRoute`) to own the whole window width — chrome floats over the
@@ -1836,6 +1911,20 @@ Route map (politicas.md roadmap execution, sample data):
   Verified against the live store in a production build: the same real pending
   tie renders „Záznam v grafu je — lidskou kontrolou ještě neprošel." / „The
   record is in the graph — human review has not reached it yet."
+  **The gate verifies its own address (2026-08-12).** `/overeni?ref=…` — the
+  exact URL the product hands out as „ověřit tuto citaci" — used to answer
+  `politicas-neni-citace` when pasted back. `detectAt` now unwraps the `ref`
+  param of OUR /overeni address and re-detects it at DEPTH 1 (a decision, not
+  an omission: /overeni-in-/overeni is a cycle, not a citation); only `ref`
+  is recognised because the route reads no other param; escapes decode,
+  fragments drop, empty stays non-citation. And the metric router finally has
+  its missing test: `liveFiguresRoundTrip.test.ts` enumerates ALL metric
+  constants (money + score minted live over mocked loaders, law pinned at
+  routing level — building a fake LawData would be a second untrue corpus),
+  asserts mint → bare ref → `verified` with the identical value, registry
+  refs never touch the store, store-null answers `unavailable` never
+  `mimo-rejstrik`. A metric added without a routing branch now FAILS a test
+  instead of silently degrading to „rejstřík ji nezná".
 - `/rentgen` — archived art direction.
 
 All five politicas.md modules now have surfaces. **Update 2026-07-24 — four
