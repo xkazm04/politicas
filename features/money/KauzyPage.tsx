@@ -69,6 +69,13 @@ export default function KauzyPage({
             >
               {t("kauzy.backToLedger")}
             </Link>
+            {/* Čtvrtý konec: kde se vazba potká s hlasováním. */}
+            <Link
+              href="/penize/strety"
+              className="text-steel-aa underline-offset-4 hover:text-ink hover:underline focus-visible:text-cobalt"
+            >
+              {t("kauzy.voteCollisions")}
+            </Link>
             <Link
               href="/dukazy"
               className="text-steel-aa underline-offset-4 hover:text-ink hover:underline focus-visible:text-cobalt"

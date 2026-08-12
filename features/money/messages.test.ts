@@ -429,6 +429,184 @@ describe("money message catalog", () => {
     }
   });
 
+  /* ── kniha vazeb mluví z katalogu ─────────────────────────────────────────
+   * Do 2026-08-12 nesla `TiesLedger.tsx` pětadvacet dvojjazyčných ternárů
+   * `en ? "…" : "…"` — každý filtr, každá hlavička sloupce, placeholder
+   * hledání, prázdný stav i stránkování. Katalog o nich nevěděl, takže je
+   * neviděla ani jazyková brána, ani kontrola parity: kniha byla jediná plocha
+   * /penize mimo všechny audity, které pro ni vznikly. Jména klíčů jsou teď
+   * kontrakt mezi komponentou a katalogem. */
+  const LEDGER_CHROME_KEYS = [
+    "real.ledger.searchPlaceholder",
+    "real.ledger.filterAllClasses",
+    "real.ledger.filterCorrAll",
+    "real.ledger.filterCorrConfirmed",
+    "real.ledger.filterCorrUnconfirmed",
+    "real.ledger.filterCorrConflicting",
+    "real.ledger.filterCorrUnchecked",
+    "real.ledger.filterStatusAll",
+    "real.ledger.filterStatusCurrent",
+    "real.ledger.filterStatusEnded",
+    "real.ledger.filterStatusWarn",
+    "real.ledger.filterStatusUnknown",
+    "real.ledger.filterAllClubs",
+    "real.ledger.colMp",
+    "real.ledger.colCompany",
+    "real.ledger.colEvidence",
+    "real.ledger.colStatus",
+    "real.ledger.emptyFilters",
+    "real.ledger.prevPage",
+    "real.ledger.nextPage",
+    "real.ledger.evidenceRule",
+    "sections.ledger.asideReal",
+  ];
+
+  it("the ledger chrome is catalog copy in both locales, and translated", () => {
+    for (const k of LEDGER_CHROME_KEYS) {
+      expect(cs[k], `cs.${k}`).toBeTruthy();
+      expect(en[k], `en.${k}`).toBeTruthy();
+      expect(cs[k], `${k} is not translated`).not.toEqual(en[k]);
+    }
+  });
+
+  it("the ledger chrome stays Czech in the Czech catalog", () => {
+    for (const k of LEDGER_CHROME_KEYS) {
+      expect(looksEnglish(cs[k]), `cs.${k} reads as English`).toBe(false);
+    }
+  });
+
+  it("the two shadow literals reuse the LIVE keys instead of duplicating them", () => {
+    // `shared.rejected` a `shared.howToReadTieClass` stály v knize znovu jako
+    // literály, znak po znaku shodné s klíči, které katalog už nesl.
+    expect(cs["shared.rejected"]).toBe("zamítnuto");
+    expect(en["shared.rejected"]).toBe("rejected");
+    expect(cs["shared.howToReadTieClass"]).toBe("jak číst třídu vazby");
+    expect(en["shared.howToReadTieClass"]).toBe("how to read the tie class");
+    // …a nevznikla pro ně druhá, ledgerová kopie.
+    for (const k of ["real.ledger.rejected", "real.ledger.howToReadTieClass"]) {
+      expect(cs[k], `${k} is a duplicate of a live shared key`).toBeUndefined();
+      expect(en[k], `${k} is a duplicate of a live shared key`).toBeUndefined();
+    }
+  });
+
+  it("the result count is an ICU plural over the counted noun, not a formatted string", () => {
+    // „3 z 211 vazeb" se sázelo šablonovým řetězcem v komponentě, takže české
+    // skloňování bylo zafixované na „vazeb" pro každý počet.
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns["real.ledger.resultCount"])).toEqual(["shownFmt", "total", "totalFmt"]);
+      expect(ns["real.ledger.resultCount"]).toMatch(/\{total, plural,/);
+    }
+    for (const form of ["one", "few", "other"]) {
+      expect(cs["real.ledger.resultCount"], `cs plural category ${form}`).toContain(`${form} {`);
+    }
+    // Čeština má tři kategorie a jednotné číslo se od nich MUSÍ lišit —
+    // „1 vazby" a „5 vazeb" nejsou totéž.
+    const one = /one \{\{totalFmt\} ([^}]+)\}/.exec(cs["real.ledger.resultCount"])![1];
+    const other = /other \{\{totalFmt\} ([^}]+)\}/.exec(cs["real.ledger.resultCount"])![1];
+    expect(one).not.toEqual(other);
+  });
+
+  it("the sort control's header names what it sorts BY, not what the cell shows", () => {
+    // Komparátor je `reviewRank` — korroborace nejdřív, peníze až uvnitř úrovně
+    // (reviewTypes.ts) — a hlavička nad ním četla „třída".
+    expect(cs["real.ledger.colEvidence"]).toBe("síla důkazu");
+    expect(en["real.ledger.colEvidence"]).toBe("evidence strength");
+    expect(cs["real.ledger.colEvidence"]).not.toMatch(/^třída$/);
+    // A pravidlo se na ploše VYPISUJE: korroborace před penězi, obojí pojmenované.
+    for (const [locale, ns] of [
+      ["cs", cs],
+      ["en", en],
+    ] as const) {
+      const rule = ns["real.ledger.evidenceRule"];
+      expect(rule, `${locale}.evidenceRule names corroboration`).toMatch(/korrobora|rejstřík|corroborat|registry/i);
+      expect(rule, `${locale}.evidenceRule names money`).toMatch(/peníz|částk|money|amount/i);
+    }
+  });
+
+  it("the reach note stops claiming the column and the tiles sum the same way", () => {
+    // Sloupec je dosah JEDNÉ vazby a firma vázaná víc poslanci se opakuje na víc
+    // řádcích; dlaždice počítají firmu jednou. Věta tvrdila „táž definice".
+    expect(cs["real.ledger.reachNote"]).not.toMatch(/táž definice/);
+    expect(en["real.ledger.reachNote"]).not.toMatch(/the same definition the tiles/);
+    expect(cs["real.ledger.reachNote"]).toMatch(/sečíst|opakuje/);
+    expect(en["real.ledger.reachNote"]).toMatch(/summed|repeats/);
+    // …a to bez vysázeného počtu firem: disclosure se počítá, nepíše.
+    for (const ns of [cs, en]) expect(ns["real.ledger.reachNote"]).not.toMatch(LITERAL_COUNT);
+  });
+
+  it("the real ledger's aside describes the real ledger", () => {
+    // `sections.ledger.aside` („seskupeno po poslancích") popisuje MOCK; reálná
+    // kniha je plochá, filtrovatelná, řaditelná a stránkovaná.
+    expect(cs["sections.ledger.aside"]).toContain("seskupeno po poslancích");
+    expect(cs["sections.ledger.asideReal"]).not.toContain("seskupeno po poslancích");
+    for (const [locale, v] of [
+      ["cs", cs["sections.ledger.asideReal"]],
+      ["en", en["sections.ledger.asideReal"]],
+    ] as const) {
+      expect(v, `${locale}.asideReal names the real controls`).toMatch(
+        /filtr|řaz|stránkov|filter|sort|pagination/i,
+      );
+    }
+  });
+
+  it("six dead keys are gone from BOTH catalogs", () => {
+    // Mrtvý klíč s tvrzením je pozvánka, aby ho někdo zase někam vysázel.
+    for (const k of [
+      "real.stats.ownerSub",
+      "real.stats.ownerSource",
+      "real.stats.reachableSub",
+      "real.ledger.reachLabel",
+      "real.ledger.contractsLabel",
+      "real.ledger.noReach",
+    ]) {
+      expect(cs[k], `cs.${k} is dead`).toBeUndefined();
+      expect(en[k], `en.${k} is dead`).toBeUndefined();
+    }
+    // …a jejich živí jmenovci zůstávají, protože je někdo vykresluje.
+    for (const k of ["companyFile.reachLabel", "caseFile.contractsLabel", "packet.noReach"]) {
+      expect(cs[k], `cs.${k}`).toBeTruthy();
+      expect(en[k], `en.${k}`).toBeTruthy();
+    }
+  });
+
+  it("the sample tile's ratio is an argument, never a typed pair of numbers", () => {
+    // „u 3 z 5 sledovaných poslanců" byl literál nad vzorkem, který ten poměr
+    // nese sám (MONEY_TIES × MPS) — přidaná ukázková vazba by z něj udělala lež.
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns["stats.sampleTies.sub"])).toEqual(["total", "totalFmt", "withTiesFmt"]);
+      expect(ns["stats.sampleTies.sub"]).not.toMatch(LITERAL_COUNT);
+    }
+  });
+
+  it("no step cadence claims a number nobody in this repo measures", () => {
+    // „500 dotazů za minutu" byla necitovaná vlastnost cizího API.
+    for (const ns of [cs, en]) {
+      for (const k of STEP_KEYS) {
+        expect(ns[`method.steps.${k}.cadence`], `${k}.cadence quotes a rate limit`).not.toMatch(
+          /\b\d+\s*(dotaz|požadav|request|call)/i,
+        );
+      }
+    }
+  });
+
+  it("the featured graph can say it is a crop, in both locales", () => {
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns["real.graphCap"])).toEqual(["shownFmt", "total", "totalFmt"]);
+      expect(ns["real.graphCap"]).toMatch(/\{total, plural,/);
+    }
+    expect(looksEnglish(cs["real.graphCap"]), "cs.real.graphCap").toBe(false);
+  });
+
+  it("strety and kauzy name each other, and the labels are catalog copy", () => {
+    for (const k of ["strety.leadDossiers", "kauzy.voteCollisions"]) {
+      expect(cs[k], `cs.${k}`).toBeTruthy();
+      expect(en[k], `en.${k}`).toBeTruthy();
+      expect(cs[k], `${k} is not translated`).not.toEqual(en[k]);
+    }
+    expect(cs["strety.leadDossiers"]).toContain("/penize/kauzy");
+    expect(cs["kauzy.voteCollisions"]).toContain("/penize/strety");
+  });
+
   it("every sentence this pass added stays Czech in the Czech catalog", () => {
     // memory/reader-facing-loaders-need-the-language-gate.md — a copy set that
     // nobody gates drifts into English one honest correction at a time.

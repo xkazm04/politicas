@@ -48,12 +48,22 @@ export default function StretyPage({ data }: { data: CollisionData | null }) {
       <header className="border-b-4 border-ink">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-4">
           <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">/ penize / strety</span>
-          <Link
-            href="/penize"
-            className="font-mono text-xs uppercase tracking-widest text-steel-aa underline-offset-4 hover:text-ink hover:underline focus-visible:text-cobalt"
-          >
-            {t("strety.backToLedger")}
-          </Link>
+          {/* Střet u hlasování a ručně dořešený spis jsou dva konce téže stopy —
+              a do 2026-08-12 odsud na kauzy nevedlo nic (idiom hlavičky /penize/kauzy). */}
+          <span className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs uppercase tracking-widest">
+            <Link
+              href="/penize"
+              className="text-steel-aa underline-offset-4 hover:text-ink hover:underline focus-visible:text-cobalt"
+            >
+              {t("strety.backToLedger")}
+            </Link>
+            <Link
+              href="/penize/kauzy"
+              className="text-steel-aa underline-offset-4 hover:text-ink hover:underline focus-visible:text-cobalt"
+            >
+              {t("strety.leadDossiers")}
+            </Link>
+          </span>
         </div>
       </header>
 

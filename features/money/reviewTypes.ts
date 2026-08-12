@@ -29,6 +29,7 @@ export type TieClassOrigin = "stored" | "derived";
 
 export type ReviewDecision = "confirm" | "reject" | "needs-more";
 
+import { asciiFold } from "@/lib/ingest/normalize";
 import type { ReachableMoney } from "./reachableMoney";
 // Type-only, and deliberately circular with moneyTypes.ts (which imports TieClass from
 // here): both modules are erased at runtime, and ONE tie projection is worth more than a
@@ -143,8 +144,21 @@ const PUBLIC_MARKERS = [
 const OWNER_ROLES = ["jednatel", "spolecnik", "akcionar", "majitel", "vlastnik"];
 const BOARD_MGMT_ROLES = ["predstavenstv"];
 
+/**
+ * Skládání diakritiky pro POROVNÁNÍ (heuristika `classifyTie` a hledání v knize
+ * vazeb). Do 2026-08-12 tu stálo druhé schéma skládání — `normalize("NFD")` +
+ * odstranění kombinujících znamének — vedle `asciiFold()`, které při ingestu
+ * plní `person.name_norm`. Dvě schémata skládání nad jedním korpusem se liší
+ * přesně tam, kde na tom záleží: `đ`, `ø`, `ß`, `æ` a `œ` se kanonicky
+ * NEROZKLÁDAJÍ, takže je NFD-varianta nechávala projít, zatímco tabulka
+ * `asciiFold` je mapuje. Zůstává tedy JEDNA funkce, ta ingestová.
+ *
+ * Pro české vstupy, které tahle heuristika čte (názvy firem × text role), jsou
+ * obě shodné — `foldKey.test.ts` to drží na ď/ť/ň/ř/ů i na tom, že žádná vazba
+ * živého korpusu nemění třídu.
+ */
 export function foldKey(s: string): string {
-  return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+  return asciiFold(s);
 }
 
 /** The HEURISTIC. A guess over two free-text strings (company name × role text) with no

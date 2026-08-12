@@ -280,11 +280,21 @@ export interface MoneyMpStub {
 }
 
 /** The featured single-MP subgraph rendered as the entity graph. */
+/** Kolik firem spisu se do titulního obrázku vejde. JEDNA definice: řez dělá
+ *  SERVER (getMoneyData) a renderer mu věří — do 2026-08-12 stál týž `slice(0, 5)`
+ *  bez jména i v MoneyGraph.tsx, takže strop obrázku byl dvě čísla na dvou
+ *  místech. Bydlí tady, protože loader je `server-only` a obrázek je klient. */
+export const GRAPH_COMPANY_CAP = 5;
+
 export interface MoneyGraphData {
   mp: MoneyMpStub;
   /** The value the selection rule ranked on — this MP's attributable reach. Rendered in
    *  the caption so the picture states WHY it is this MP and not another. */
   selectedByCzk: number;
+  /** Kolik vazeb ten spis CELKEM nese, než ho `GRAPH_COMPANY_CAP` seřízl. Bez
+   *  něj nešlo přiznat, že obrázek je výřez — a „stopa poslance" pak četla jako
+   *  celý spis. `companies.length` je to, co se kreslí; tohle je populace. */
+  companiesTotal: number;
   companies: Array<{
     id: string;
     company: string;

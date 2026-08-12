@@ -29,9 +29,14 @@ import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
 import { bucketReachCzk, reachableMoney, tieReach, type ReachableTie } from "./reachableMoney";
-import type { MoneyData, MoneyGraphData, MoneyMp, MoneyMpStub, MoneyTie } from "./moneyTypes";
-
-const GRAPH_COMPANY_CAP = 5; // companies rendered in the featured entity graph
+import {
+  GRAPH_COMPANY_CAP,
+  type MoneyData,
+  type MoneyGraphData,
+  type MoneyMp,
+  type MoneyMpStub,
+  type MoneyTie,
+} from "./moneyTypes";
 
 export async function getMoneyData(): Promise<MoneyData | null> {
   try {
@@ -145,6 +150,8 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       graph = {
         mp: { pspId: lead.pspId, name: lead.name, club: lead.club },
         selectedByCzk: lead.attributableReachCzk,
+        // Populace PŘED řezem — obrázek pak umí přiznat, že je výřez.
+        companiesTotal: lead.ties.length,
         companies: lead.ties.slice(0, GRAPH_COMPANY_CAP).map((t) => {
           const reach = tieReach(t);
           return {

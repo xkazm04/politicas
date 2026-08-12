@@ -207,7 +207,7 @@ export interface ClubRead {
  *  Registry tables, not the graph. Clubs are decorative here: their absence must
  *  never drop the money picture — proto se výjimka jen zaloguje a plocha dostane
  *  prázdnou mapu a `null` jmenovatel. */
-export async function loadClubs(store: Store): Promise<ClubRead> {
+async function readClubs(store: Store): Promise<ClubRead> {
   const clubByPerson = new Map<number, string>();
   let mandatesTotal: number | null = null;
   try {
@@ -222,6 +222,42 @@ export async function loadClubs(store: Store): Promise<ClubRead> {
     console.warn("[moneyLoader] club resolution failed; continuing without clubs", err);
   }
   return { clubByPerson, mandatesTotal };
+}
+
+/* ── mandátový odečet, memoizovaný přes requesty ─────────────────────────────
+ *
+ * `readClubs` dělá DVA registrová čtení (`listMandates` + `clubByMandate`) a má tři
+ * volající (peněžní vrstva, per-poslanecký řez, firemní řez), takže jeden request
+ * /penize je zaplatí a další request je zaplatí znovu — a mandátový registr se mění
+ * jen s ingestem, ne za běhu. Memo běží na TÉMŽE okně jako fold hran `supplies`
+ * o pár řádků níž (`MONEY_MEMO_TTL_MS`, importované, nikdy nepředeklarované):
+ * dvě memoizace nad jednou vrstvou na dvou hodinách jsou přesně to, jak dvě plochy
+ * začnou tisknout dvě vintage jednoho čísla.
+ *
+ * NEMEMOIZUJE SE ANI PRÁZDNÝ ODEČET, ANI SELHÁNÍ — domácí pravidlo: `readClubs`
+ * chybu polkne a vrátí prázdnou mapu s `mandatesTotal: null`, což je přesně tvar,
+ * pod kterým by se přechodný výpadek PGlite na studeném startu zapamatoval na den
+ * a dlaždice „poslanci s vazbou" by celou tu dobu neuváděla jmenovatel. */
+let clubRead: Promise<ClubRead> | null = null;
+let clubReadAt = 0;
+
+export function loadClubs(store: Store): Promise<ClubRead> {
+  if (clubRead !== null && Date.now() - clubReadAt >= MONEY_MEMO_TTL_MS) clubRead = null;
+  if (clubRead === null) {
+    clubReadAt = Date.now();
+    clubRead = readClubs(store)
+      .then((read) => {
+        // Prázdný odečet není odečet: mandatesTotal null nebo nula = čtení se
+        // nepovedlo (nebo registr nic nevrátil), a to se nepamatuje.
+        if (read.mandatesTotal === null || read.mandatesTotal === 0) clubRead = null;
+        return read;
+      })
+      .catch((err) => {
+        clubRead = null;
+        throw err;
+      });
+  }
+  return clubRead;
 }
 
 /* ── the supplies fold, memoized across requests ─────────────────────────────
@@ -280,6 +316,8 @@ function contractsByCompanyMemo(store: Store): Promise<Map<string, CompanyContra
 export function resetSuppliesMemo(): void {
   suppliesFold = null;
   suppliesFoldAt = 0;
+  clubRead = null;
+  clubReadAt = 0;
 }
 
 /**

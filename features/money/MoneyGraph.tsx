@@ -117,7 +117,10 @@ function RealGraph({ data, review }: { data: MoneyGraphData; review: ReviewSumma
   const { nodes, edges } = useMemo(() => {
     const ns: GNode[] = [];
     const es: GEdge[] = [];
-    const companies = data.companies.slice(0, 5);
+    // ŘEZ DĚLÁ SERVER (getMoneyData, GRAPH_COMPANY_CAP) — tady stál bezejmenný
+    // `slice(0, 5)`, tedy druhá definice téhož stropu. Renderer kreslí, co dostal;
+    // že jde o výřez, přiznává popiska pod obrázkem (`money.real.graphCap`).
+    const companies = data.companies;
     const n = companies.length;
     const yFor = (i: number) => (n === 1 ? 50 : 12 + (i * 76) / (n - 1));
 

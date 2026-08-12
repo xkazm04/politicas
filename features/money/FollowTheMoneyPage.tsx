@@ -256,14 +256,31 @@ export default function FollowTheMoneyPage({
                 : t("graphCaption")}
             </SourceNote>
           </div>
+          {/* Obrázek kreslí nejvýš GRAPH_COMPANY_CAP firem spisu (řez dělá server,
+              renderer mu věří). Když strop skutečně zabere, přizná se to u obrázku —
+              jinak „stopa poslance" tvrdí, že tolik firem ten spis má. */}
+          {data?.graph && data.graph.companiesTotal > data.graph.companies.length && (
+            <div className="mt-1">
+              <SourceNote>
+                {t("real.graphCap", {
+                  shownFmt: f.int(data.graph.companies.length),
+                  total: data.graph.companiesTotal,
+                  totalFmt: f.int(data.graph.companiesTotal),
+                })}
+              </SourceNote>
+            </div>
+          )}
         </section>
 
         {/* ── 02 Kniha vazeb ────────────────────────────────── */}
         <section id="kniha" className="mt-16 border-t-4 border-ink pt-10">
+          {/* Podtitul popisoval MOCK („seskupeno po poslancích") i nad reálnou
+              knihou, která je plochá, filtrovatelná, řaditelná a stránkovaná —
+              tedy věta o jiné tabulce, než jakou má čtenář pod očima. */}
           <SectionHeading
             index={2}
             title={t("sections.ledger.title")}
-            aside={<SourceNote>{t("sections.ledger.aside")}</SourceNote>}
+            aside={<SourceNote>{data ? t("sections.ledger.asideReal") : t("sections.ledger.aside")}</SourceNote>}
           />
           <div className="mt-8">
             <TiesLedger data={data ?? null} review={review} />

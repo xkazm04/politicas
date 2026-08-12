@@ -18,6 +18,7 @@ import { ArrowUpDown, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
+import { foldTieQuery, tieMatches, tieSearchFold } from "../ledgerSearch";
 import {
   temporalBadge,
   tieClassInfo,
@@ -78,11 +79,22 @@ export default function TiesLedger({
 // ── Real: filterable/sortable/paginated ledger over the knowledge-graph money layer ──
 
 type FlatRow = { mp: PublicMoneyMp; tie: PublicMoneyTie };
+/** Řádek + jeho složený tvar pro hledání. Skládá se JEDNOU na seznam, ne při
+ *  každém úhozu nad každým řádkem (vzor LeaderboardTable.tsx). */
+type SearchRow = FlatRow & { fold: string };
 // "evidence" = the batch-005 review order (reviewRank: registry-confirmed
 // owner-operator first, then manager, then steward, unconfirmed/conflicting
 // last; reachable CZK only breaks ties within the same tier). Default sort —
 // a reader should meet the strongest-evidence tie first, not the biggest
 // number (UX audit 2026-07-27, #3).
+//
+// TEN SLOUPEC SE JMENUJE PODLE TOHO, PODLE ČEHO ŘADÍ (2026-08-12). Do teď nesl
+// hlavičku „třída" nad komparátorem `reviewRank`, který je ale korroborace
+// NEJDŘÍV a peníze až uvnitř úrovně (reviewTypes.ts) — takže poslední řádek z 211
+// je vlastník-provozovatel pod 154 stewardy a čtenář, který kliknul na „třída",
+// dostal pořadí, o kterém hlavička nic neřekla. Ovládací prvek zůstal JEDEN
+// (druhý by jen zdvojil totéž řazení), přejmenoval se na „sílu důkazu" a pravidlo
+// se VYPISUJE nad tabulkou.
 type SortKey = "evidence" | "reach" | "mp" | "company";
 type CorroborationFilter = "all" | "confirmed" | "unconfirmed" | "conflicting" | "unchecked";
 type TemporalFilter = "all" | "current" | "ended" | "warn" | "unknown";
@@ -97,6 +109,16 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
   const rows: FlatRow[] = useMemo(
     () => data.mps.flatMap((mp) => mp.ties.map((tie) => ({ mp, tie }))),
     [data.mps],
+  );
+  /* HLEDÁNÍ BEZ DIAKRITIKY (2026-08-12). Do teď se porovnávalo syrové
+     `toLowerCase()`, takže „teplarny" nenašlo Teplárny Brno a „reznicek"
+     nenašlo Řezníčka — v české sněmovně a v českém obchodním rejstříku to není
+     okrajový případ, je to většina jmen. Pravidlo je čistá funkce s testy
+     (../ledgerSearch.ts); složený tvar se počítá JEDNOU na seznam, nikdy per
+     úhoz per řádek (vzor LeaderboardTable.tsx). */
+  const searchRows: SearchRow[] = useMemo(
+    () => rows.map((r) => ({ ...r, fold: tieSearchFold(r.mp.name, r.tie.company, r.tie.ico) })),
+    [rows],
   );
   const clubs = useMemo(
     () => Array.from(new Set(data.mps.map((mp) => mp.club).filter((c): c is string => Boolean(c)))).sort(),
@@ -113,8 +135,8 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
   const [page, setPage] = useState(0);
 
   const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    return rows.filter(({ mp, tie }) => {
+    const q = foldTieQuery(search);
+    return searchRows.filter(({ mp, tie, fold }) => {
       if (classFilter !== "all" && tie.tieClass !== classFilter) return false;
       if (clubFilter !== "all" && mp.club !== clubFilter) return false;
       if (corrFilter !== "all") {
@@ -125,11 +147,10 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
         if (corrFilter === "unchecked" && c !== null) return false;
       }
       if (temporalFilter !== "all" && temporalBadge(tie).tone !== temporalFilter) return false;
-      if (q && !mp.name.toLowerCase().includes(q) && !tie.company.toLowerCase().includes(q) && !tie.ico.includes(q))
-        return false;
+      if (!tieMatches(fold, q)) return false;
       return true;
     });
-  }, [rows, search, classFilter, corrFilter, temporalFilter, clubFilter]);
+  }, [searchRows, search, classFilter, corrFilter, temporalFilter, clubFilter]);
 
   const sorted = useMemo(() => {
     const copy = [...filtered];
@@ -174,7 +195,7 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
             setSearch(e.target.value);
             setPage(0);
           }}
-          placeholder={en ? "search MP, company, IČO…" : "hledat poslance, firmu, IČO…"}
+          placeholder={t("real.ledger.searchPlaceholder")}
           className="w-full max-w-sm border-2 border-hairline bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-ink"
         />
         <div className="flex flex-wrap gap-2">
@@ -187,18 +208,21 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
                 setPage(0);
               }}
             >
-              {c === "all" ? (en ? "all classes" : "všechny třídy") : en ? tieClassInfo(c).labelEn : tieClassInfo(c).labelCs}
+              {/* `tieClassInfo` je UZAVŘENÝ dvojjazyčný slovník sdílený pěti
+                  plochami (spis, konzole, paket, graf, kniha) — zůstává tam, kde
+                  je; do katalogu šla jen věta, která patřila TÉHLE ploše. */}
+              {c === "all" ? t("real.ledger.filterAllClasses") : en ? tieClassInfo(c).labelEn : tieClassInfo(c).labelCs}
             </FilterChip>
           ))}
         </div>
         <div className="flex flex-wrap gap-2">
           {(
             [
-              ["all", en ? "any corroboration" : "vše (korroborace)"],
-              ["confirmed", en ? "registry-confirmed" : "potvrzeno OR"],
-              ["unconfirmed", en ? "no registry record" : "OR bez záznamu"],
-              ["conflicting", en ? "conflicting" : "v rozporu"],
-              ["unchecked", en ? "not checked" : "neověřeno"],
+              ["all", t("real.ledger.filterCorrAll")],
+              ["confirmed", t("real.ledger.filterCorrConfirmed")],
+              ["unconfirmed", t("real.ledger.filterCorrUnconfirmed")],
+              ["conflicting", t("real.ledger.filterCorrConflicting")],
+              ["unchecked", t("real.ledger.filterCorrUnchecked")],
             ] as [CorroborationFilter, string][]
           ).map(([key, label]) => (
             <FilterChip
@@ -216,11 +240,11 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
         <div className="flex flex-wrap items-center gap-2">
           {(
             [
-              ["all", en ? "any status" : "vše (stav)"],
-              ["current", en ? "current" : "trvá"],
-              ["ended", en ? "ended" : "ukončeno"],
-              ["warn", en ? "flagged" : "k prověření"],
-              ["unknown", en ? "unknown" : "neznámo"],
+              ["all", t("real.ledger.filterStatusAll")],
+              ["current", t("real.ledger.filterStatusCurrent")],
+              ["ended", t("real.ledger.filterStatusEnded")],
+              ["warn", t("real.ledger.filterStatusWarn")],
+              ["unknown", t("real.ledger.filterStatusUnknown")],
             ] as [TemporalFilter, string][]
           ).map(([key, label]) => (
             <FilterChip
@@ -243,7 +267,7 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
               }}
               className="border-2 border-hairline bg-paper px-2 py-1.5 font-mono text-[11px] font-bold uppercase tracking-wider text-steel outline-none focus:border-ink"
             >
-              <option value="all">{en ? "all clubs" : "všechny kluby"}</option>
+              <option value="all">{t("real.ledger.filterAllClubs")}</option>
               {clubs.map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -255,8 +279,18 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
       </div>
 
       <p className="mb-2 font-mono text-[11px] uppercase tracking-widest text-steel">
-        {en ? `${sorted.length} of ${rows.length} ties` : `${sorted.length} z ${rows.length} vazeb`}
+        {t("real.ledger.resultCount", {
+          shownFmt: f.int(sorted.length),
+          total: rows.length,
+          totalFmt: f.int(rows.length),
+        })}
       </p>
+      {/* PRAVIDLO VÝCHOZÍHO POŘADÍ, vypsané u tabulky, které se týká. Sloupec
+          nese třídu vazby, ale řadí se podle síly důkazu (`reviewRank`) —
+          korroborace před penězi — a to z hlavičky uhodnout nejde. */}
+      <div className="mb-3">
+        <SourceNote>{t("real.ledger.evidenceRule")}</SourceNote>
+      </div>
 
       {/* ── table ───────────────────────────────────────────── */}
       <div className="overflow-x-auto border-t-2 border-ink">
@@ -264,15 +298,17 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
           <thead>
             <tr className="border-b-2 border-ink font-mono text-[10px] uppercase tracking-widest text-steel">
               <Th onClick={() => toggleSort("mp")} active={sortKey === "mp"} dir={sortDir}>
-                {en ? "MP" : "poslanec"}
+                {t("real.ledger.colMp")}
               </Th>
               <Th onClick={() => toggleSort("company")} active={sortKey === "company"} dir={sortDir}>
-                {en ? "company" : "firma"}
+                {t("real.ledger.colCompany")}
               </Th>
+              {/* „třída" → „síla důkazu": hlavička pojmenuje to, podle čeho
+                  tlačítko řadí (reviewRank), ne to, co v buňce svítí. */}
               <Th onClick={() => toggleSort("evidence")} active={sortKey === "evidence"} dir={sortDir}>
-                {en ? "class" : "třída"}
+                {t("real.ledger.colEvidence")}
               </Th>
-              <th className="px-3 py-2">{en ? "status" : "stav"}</th>
+              <th className="px-3 py-2">{t("real.ledger.colStatus")}</th>
               <Th onClick={() => toggleSort("reach")} active={sortKey === "reach"} dir={sortDir} align="right">
                 {t("real.ledger.reachHeader")}
               </Th>
@@ -351,7 +387,7 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
                         </span>
                       ) : tie.reviewState === "rejected" ? (
                         <span className="border-2 border-steel px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">
-                          {en ? "rejected" : "zamítnuto"}
+                          {t("shared.rejected")}
                         </span>
                       ) : (
                         <span className="border-2 border-ochre bg-ochre/15 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-ink">
@@ -413,7 +449,7 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
             {shown.length === 0 && (
               <tr>
                 <td colSpan={5} className="px-3 py-8 text-center italic text-steel">
-                  {en ? "no ties match these filters" : "žádná vazba neodpovídá filtru"}
+                  {t("real.ledger.emptyFilters")}
                 </td>
               </tr>
             )}
@@ -436,7 +472,7 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
             onClick={() => setPage((p) => Math.max(0, p - 1))}
             className="border-2 border-hairline px-3 py-1.5 font-bold transition-colors hover:border-ink disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {en ? "prev" : "předchozí"}
+            {t("real.ledger.prevPage")}
           </button>
           <span>
             {clampedPage + 1} / {pageCount}
@@ -447,14 +483,15 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
             onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
             className="border-2 border-hairline px-3 py-1.5 font-bold transition-colors hover:border-ink disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {en ? "next" : "další"}
+            {t("real.ledger.nextPage")}
           </button>
         </div>
       )}
 
       {/* ── tie-class explainer (P29 rule) ─────────────────────── */}
       <div className="mt-10">
-        <SourceNote>{en ? "how to read the tie class" : "jak číst třídu vazby"}</SourceNote>
+        {/* Týž klíč, jaký nese spis i konzole — věta tu stála znovu jako literál. */}
+        <SourceNote>{t("shared.howToReadTieClass")}</SourceNote>
         <div className="mt-3">
           <TieClassExplainer compact />
         </div>
