@@ -20,6 +20,7 @@ import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { buildRegistryLinks } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
+import OwnershipBlock from "./components/OwnershipBlock";
 import TieClassExplainer from "./components/TieClassExplainer";
 import FollowButton from "@/features/schranka/FollowButton";
 import { companyEntityKey } from "@/features/denik/deriveDenik";
@@ -28,13 +29,13 @@ import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
 import { companyReachClaim } from "./moneyClaims";
 import { bucketReachCzk, isAttributable } from "./reachableMoney";
+import type { CompanyCaseFileData } from "./ownership";
 import {
   compactCzk,
   temporalBadge,
   tieClassInfo,
   tieClassOriginInfo,
   type CompanyTie,
-  type MoneyCompanyDetail,
 } from "./moneyTypes";
 
 const BADGE_TONE_CLS: Record<string, string> = {
@@ -49,7 +50,7 @@ const CLASS_TONE_CLS: Record<string, string> = {
   steel: "border-hairline text-steel",
 };
 
-export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail | null }) {
+export default function CompanyCaseFilePage({ data }: { data: CompanyCaseFileData | null }) {
   const locale = useLocale();
   const en = locale === "en";
   const t = useTranslations("money");
@@ -239,6 +240,13 @@ export default function CompanyCaseFilePage({ data }: { data: MoneyCompanyDetail
           </div>
           <SourceNote className="mt-3 !text-[10px]">{t("companyFile.deepLinksNote")}</SourceNote>
         </div>
+
+        {/* ── vlastnická struktura ────────────────────────────── */}
+        {/* Zapsané okolí firmy stojí HNED za rejstříkovými odkazy a PŘED vazbami na
+            poslance: je to rejstříkový fakt o firmě samotné, ne tvrzení o žádném
+            člověku. Blok se vykreslí jen tehdy, když pro tuhle firmu graf zápis
+            vlastnictví vede (živě 29 ze 195 firem s vazbou) — jinak neexistuje. */}
+        {data.ownership && <OwnershipBlock ownership={data.ownership} />}
 
         {/* ── ties ────────────────────────────────────────────── */}
         <section className="mt-12">

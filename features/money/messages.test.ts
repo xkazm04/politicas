@@ -5,6 +5,7 @@
 // PSP10, the tenth.
 import { describe, expect, it } from "vitest";
 
+import { looksEnglish } from "@/lib/analysis/language-gate";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 
@@ -67,6 +68,86 @@ describe("money message catalog", () => {
     expect(cs["graph.allEdgesVerified"]).toBeUndefined();
     expect(cs["graph.sampleNotice"]).toContain("ukázková data");
     expect(en["graph.sampleNotice"]).toContain("sample data");
+  });
+
+  it("the ownership block declares every sentence it can render, in both catalogs", () => {
+    // Jména klíčů jsou kontrakt mezi `OwnershipBlock.tsx` a katalogem: překlep tady
+    // se na ploše projeví syrovým klíčem místo věty, a to zrovna v bloku, který má
+    // říkat „tenhle uzel nelze ověřit v registru".
+    const KEYS = [
+      "title",
+      "rule",
+      "ownersHeading",
+      "subsidiariesHeading",
+      "stateOwnerCurrent",
+      "stateOwnerFormer",
+      "stateSubsidiaryCurrent",
+      "stateSubsidiaryFormer",
+      "sharePeriodPrefix",
+      "shareUnknown",
+      "periodOpen",
+      "periodOpenNoStart",
+      "periodClosed",
+      "periodClosedNoStart",
+      "periodUnknown",
+      "roleLabel",
+      "multiPeriod",
+      "droppedUnresolved",
+      "nameHistoryHeading",
+      "verbatimNote",
+      "source",
+      "sourceWithPass",
+      "rowSourceLabel",
+      "rowSourceMissing",
+      "recorded",
+      "unresolvableBadge",
+      "notRegistryVerified",
+      "extinctionReasonLabel",
+      "mergedIntoLabel",
+      "mergedOnLabel",
+      "successorLabel",
+      "checkResultLabel",
+      "checkedEndpointsLabel",
+      "endpointOrdinal",
+      "notAnomaly",
+      "analystNoteHeading",
+      "annotationSource",
+      "annotationSourceDated",
+    ];
+    for (const k of KEYS) {
+      expect(cs[`ownership.${k}`], `cs.ownership.${k}`).toBeTruthy();
+      expect(en[`ownership.${k}`], `en.ownership.${k}`).toBeTruthy();
+    }
+  });
+
+  it("the ownership block keeps its tenses apart and presents no inference", () => {
+    for (const ns of [cs, en]) {
+      // Otevřený a ukončený zápis nesmějí znít stejně: jinak stránka tvrdí dnešní
+      // vlastnictví nad zápisem, který rejstřík uzavřel (u AGROFERTu jsou takové
+      // všechny čtyři).
+      expect(ns["ownership.stateOwnerCurrent"]).not.toEqual(ns["ownership.stateOwnerFormer"]);
+      expect(ns["ownership.stateSubsidiaryCurrent"]).not.toEqual(
+        ns["ownership.stateSubsidiaryFormer"],
+      );
+      // Blok ukazuje zapsané vlastnictví, nikdy „stopu" nebo „odhalení" —
+      // dvoukrokové sousedství se v něm nepočítá a copy to nesmí naznačovat.
+      for (const [k, v] of Object.entries(ns)) {
+        if (!k.startsWith("ownership.")) continue;
+        expect(v, `${k} reads as an exposure finding`).not.toMatch(
+          /nová stopa|odhaluj|odhalen|reveals|exposure|uncovers/i,
+        );
+      }
+    }
+    // A česká věta zůstává česká (memory/reader-facing-loaders-need-the-language-gate.md).
+    for (const [k, v] of Object.entries(cs)) {
+      if (!k.startsWith("ownership.")) continue;
+      // Bez zástupných symbolů: „{from} → {to}" je v obou katalozích totéž a
+      // není na něm co překládat.
+      const prose = v.replace(/\{[^}]*\}/g, " ");
+      if (!/\p{L}{3}/u.test(prose)) continue;
+      expect(looksEnglish(v), `cs.${k}`).toBe(false);
+      expect(v, `${k} is not translated`).not.toEqual(en[k]);
+    }
   });
 
   it("the lower-bound explainer is reachable copy, not a dead key", () => {

@@ -456,6 +456,14 @@ export interface CompanyMoneySlice {
   contracts: CompanyContracts;
   /** the company's contract line items, amount desc, capped like the case file's. */
   lines: ContractLine[];
+  /** The company's `owns_stake` edges in BOTH directions — inbound are the firms
+   *  registered as its shareholder, outbound the firms it is registered as the
+   *  shareholder of. One indexed read, both legs (see the loader's note). */
+  ownershipEdges: KgEdgeRow[];
+  /** Every node at the far end of `ownershipEdges`, by id — the parent/subsidiary
+   *  labels AND the stored NENALEZENO annotations arrive with the edges, so the
+   *  projection needs no second read. */
+  ownershipNodeById: Map<string, KgNodeRow>;
   pass: number;
 }
 
@@ -469,6 +477,15 @@ export interface CompanyMoneySlice {
  * this is the only read in the feature that starts from the company rather than from a
  * person. `companyId` must already be canonical (`companyId.ts::companyNodeId`): an
  * unpadded IČO resolves to nothing here, silently.
+ *
+ * OWNERSHIP (2026-08-12) is a THIRD indexed read on the same node: `kgNeighbours` returns
+ * the incident `owns_stake` edges in both directions at once, with the counterpart company
+ * nodes — so the corporate surroundings (owners, subsidiaries and the stored NENALEZENO
+ * annotations) cost one index hit, not a scan of the 33-row relation plus a node fetch.
+ * Measured on the live corpus: 4 ms (1 edge, Plzeňské MDP) to 34 ms (4 edges, AGROFERT).
+ * It runs unconditionally, including for a company with no `linked_to` tie: the slice
+ * describes the graph around one node, and letting a caller's rendering decision silence
+ * a layer is how a layer goes missing without anyone noticing.
  */
 export const loadCompanyMoneySlice = cache(async function loadCompanyMoneySlice(
   companyId: string,
@@ -490,10 +507,33 @@ export const loadCompanyMoneySlice = cache(async function loadCompanyMoneySlice(
     );
 
     const { contracts, lines } = await readCompanySupplies(store, companyId);
+
+    // Both legs are wanted here (owners AND subsidiaries), so nothing is filtered by
+    // direction — but the set is still re-sorted into `listKgEdges` order: every
+    // `owns_stake` weight is null, so `kgNeighbours`' `weight desc nulls last` leaves the
+    // rows in an order Postgres may vary between runs of the same build.
+    const ownershipRead = await store.kgNeighbours({
+      id: companyId,
+      rels: ["owns_stake"],
+      limit: KG_READ_CAP,
+    });
+    const ownershipEdges = ownershipRead.edges.sort(byListOrder);
+    const ownershipNodeById = new Map(ownershipRead.nodes.map((n) => [n.id, n] as const));
+
     const clubByPerson = await loadClubs(store);
     const pass = num((ties[0]?.provenance as Record<string, unknown> | undefined)?.pass) || 0;
 
-    return { company, ties, personById, clubByPerson, contracts, lines, pass };
+    return {
+      company,
+      ties,
+      personById,
+      clubByPerson,
+      contracts,
+      lines,
+      ownershipEdges,
+      ownershipNodeById,
+      pass,
+    };
   } catch (err) {
     reportLoaderFailure("moneyLoader.loadCompanyMoneySlice", err);
     return null;

@@ -7,9 +7,16 @@
 // cross-MP fact — "these three MPs sit on the same board" — was computable and never
 // published anywhere.
 //
-// READS ARE INDEXED ONLY. Two `kgNeighbours` calls per company (`loadCompanyMoneySlice`),
-// never a `listKgEdges`/`listKgNodes` relation scan: the whole money layer is ~307 000
-// rows and this page needs the two or three ties that touch one firm.
+// READS ARE INDEXED ONLY. Three `kgNeighbours` calls per company (`loadCompanyMoneySlice`
+// — ties, contracts, ownership), never a `listKgEdges`/`listKgNodes` relation scan: the
+// whole money layer is ~307 000 rows and this page needs the two or three ties that touch
+// one firm.
+//
+// Since 2026-08-12 the payload also carries the firm's REGISTERED CORPORATE SURROUNDINGS
+// (`ownership`, projected by the pure `ownership.ts`): who the register enters as its sole
+// shareholder and which firms it is entered as the sole shareholder of. One hop, both
+// directions, nothing inferred — and `null` for the 166 of 195 tied companies the graph
+// carries no such record for, so the block is ABSENT rather than empty.
 //
 // The `server-only` import makes any client-component import a build-time error.
 
@@ -19,7 +26,8 @@ import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 import { loadCompanyMoneySlice, mapLinkedToTie, num, pspIdFromNodeId } from "./moneyLoader";
 import { reachableMoney } from "./reachableMoney";
 import { canonicalIco, companyNodeId } from "./companyId";
-import type { CompanyTie, ContractLine, MoneyCompanyDetail } from "./moneyTypes";
+import { projectOwnership, type CompanyCaseFileData } from "./ownership";
+import type { CompanyTie, ContractLine } from "./moneyTypes";
 
 /** Contract lines rendered on the company page. The MP case file shows 8 of a firm's
  *  contracts because it shows several firms; this page IS one firm, so it can afford the
@@ -32,14 +40,24 @@ export async function getCompanyDetail(
    *  from the clock inside a render: `lib/analysis/plausible-date.ts` requires one
    *  instant for the whole page, and the page prints it. */
   todayIso: string,
-): Promise<MoneyCompanyDetail | null> {
+): Promise<CompanyCaseFileData | null> {
   try {
     const ico = canonicalIco(icoRaw);
     if (!ico) return null;
 
     const slice = await loadCompanyMoneySlice(companyNodeId(ico));
     if (!slice) return null;
-    const { company, ties: tieEdges, personById, clubByPerson, contracts, lines, pass } = slice;
+    const {
+      company,
+      ties: tieEdges,
+      personById,
+      clubByPerson,
+      contracts,
+      lines,
+      ownershipEdges,
+      ownershipNodeById,
+      pass,
+    } = slice;
 
     const ties: CompanyTie[] = [];
     for (const e of tieEdges) {
@@ -103,6 +121,16 @@ export async function getCompanyDetail(
           donatedToPartyCzk: t.donatedToPartyCzk,
         })),
       ),
+      // Zapsané okolí firmy — jeden krok, obě strany, nic dopočítaného. `null` znamená,
+      // že graf o téhle firmě žádný zápis vlastnictví nevede, a blok se nevykreslí vůbec
+      // (ownership.ts, pravidlo 5) — prázdná sekce by tvrdila, že jsme se dívali a nic
+      // tam není, což je jiná věta než „tuhle vrstvu pro tuhle firmu nemáme".
+      ownership: projectOwnership({
+        companyId: company.id,
+        companyProps: cp,
+        edges: ownershipEdges,
+        nodeById: ownershipNodeById,
+      }),
       subsidiesCount: num(cp.subsidies_count),
       subsidiesCzk: num(cp.subsidies_total_czk),
       donatedToPartyCzk: cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null,
