@@ -14,8 +14,11 @@
  * Tři věci, které se tu nesmí stát:
  *  · chybějící údaj se NIKDY nekreslí jako nula („údaj v grafu chybí"),
  *  · `never_seated` poslanec je OZNAČEN — jeho prázdný záznam není nízký výkon,
- *  · PENÍZE se neporovnávají: všech 211 vazeb v grafu je `pending_review` a
- *    souboj nesmí z nepotvrzené stopy udělat zjištění. Patička to říká nahlas.
+ *  · PENÍZE se neporovnávají, a je to PRAVIDLO, ne popis dat: vazba prochází
+ *    lidskou branou (/penize/kontrola umí zapsat rozhodnutí od e8bf6c8), takže
+ *    věta „všech 211 vazeb čeká na kontrolu" — která tu stála do 2026-08-12 —
+ *    je od prvního potvrzení nepravdivá. Souboj nesmí z nepotvrzené stopy
+ *    udělat zjištění; patička to říká nahlas, bez počtu, který by ji vyvrátil.
  *
  * Verdiktová copy („tichý pracant", „zpravodajský tahoun", korektiv, třída
  * mandátu) se přebírá VERBATIM z lib/analysis/* — žádný druhý copy engine.
@@ -67,8 +70,11 @@ function Fighter({
         </Link>
       </div>
       <div className={`mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel ${right ? "justify-end" : ""}`}>
-        <span className="inline-block h-2 w-2 rounded-full" style={{ background: row.clubColor }} />
-        {row.clubName.split(" ")[0]} ·{" "}
+        <span className="inline-block h-2 w-2 rounded-full" style={{ background: row.clubColor }} aria-hidden />
+        {/* Zkratka z rejstříku vidět, celý název slyšet — `clubName.split(" ")[0]`
+            tu z „TOP 09" dělalo „TOP" a z „ANO 2011" „ANO". */}
+        <span aria-hidden title={row.clubName}>{row.clubAbbrev}</span>
+        <span className="sr-only">{row.clubName}</span> ·{" "}
         {row.tiedCount > 1 ? t("rankShared", { rank: f.int(row.rank) }) : t("rank", { rank: f.int(row.rank) })}
       </div>
       {/* Kobaltová číslice = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen).

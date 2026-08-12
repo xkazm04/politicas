@@ -129,8 +129,11 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
           <div className="mt-4 max-w-xl">
             <SectionRule />
           </div>
+          {/* Počet poslanců je MĚŘENÝ údaj, ne literál: „Všech 207" stálo v katalogu
+              v obou jazycích a přežilo by i změnu sněmovny. Bez storu se počet
+              netvrdí vůbec — věta bez čísla je poctivější než číslo bez dat. */}
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-            {t("lead")}
+            {data ? t("lead", { count: f.int(data.summary.count) }) : t("leadNoData")}
           </p>
           {data && (
             <>
@@ -207,7 +210,12 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
                 }
               />
               <div className="mt-8">
-                <WeightPanel components={data.components} lens={lens} totalRaw={lensView?.totalRaw ?? 100} />
+                <WeightPanel
+                  components={data.components}
+                  lens={lens}
+                  totalRaw={lensView?.totalRaw ?? 100}
+                  rowCount={entries.length}
+                />
               </div>
             </section>
 
@@ -216,7 +224,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
               <SectionHeading
                 index={2}
                 title={t("distributionTitle")}
-                aside={custom ? lensAside : <SourceNote>{t("realNote")}</SourceNote>}
+                aside={custom ? lensAside : <SourceNote>{t("realNote", { count: f.int(entries.length) })}</SourceNote>}
               />
               <div className="mt-8">
                 <ScoreHistogram
@@ -250,7 +258,7 @@ export default function CivicScorePage({ data }: { data: LeaderboardListData | n
               <SectionHeading
                 index={4}
                 title={t("allTitle")}
-                aside={custom ? lensAside : <SourceNote>{t("realNote")}</SourceNote>}
+                aside={custom ? lensAside : <SourceNote>{t("realNote", { count: f.int(entries.length) })}</SourceNote>}
               />
               <div className="mt-8">
                 <LeaderboardTable

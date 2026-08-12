@@ -82,12 +82,20 @@ export default function WeightPanel({
   components,
   lens,
   totalRaw,
+  rowCount,
 }: {
   /** ZVEŘEJNĚNÉ složkové definice (labels, zdroje, oficiální váhy) z loaderu. */
   components: LeaderboardData["components"];
   lens: LensWeightsState;
   /** Surový součet posuvníků (z reweigh), u výchozí metodiky 100. */
   totalRaw: number;
+  /** Kolik řádků čočka opravdu přepočítá. Do 2026-08-12 tu stálo `f.int(207)` —
+   *  literál na místě, kde klíč {count} celou dobu čekal na měřený údaj.
+   *
+   *  Volitelný schválně: panel visí i na /referendum, které žebříček nedrží
+   *  a počet tedy nemá odkud vzít. Bez propu se počet NEUVÁDÍ (vlastní věta),
+   *  nikdy se nedosazuje odhad — týž princip jako `leadNoData` na žebříčku. */
+  rowCount?: number | null;
 }) {
   const t = useTranslations("civicscore");
   const tcom = useTranslations("common");
@@ -102,7 +110,9 @@ export default function WeightPanel({
         {/* ── stav + presety + pravidlo ─────────────────────────── */}
         <div>
           <p className="max-w-md text-[15px] leading-relaxed text-steel-aa">
-            {t("weightPanelLead", { count: f.int(207) })}
+            {typeof rowCount === "number"
+              ? t("weightPanelLead", { count: f.int(rowCount) })
+              : t("weightPanelLeadNoCount")}
           </p>
 
           <p

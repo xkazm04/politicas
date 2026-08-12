@@ -213,9 +213,15 @@ export default function LeaderboardTable({
               club === c.abbrev ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:text-ink"
             }`}
             aria-pressed={club === c.abbrev}
+            title={c.name}
           >
-            <span className="inline-block h-2 w-2 rounded-full" style={{ background: c.color }} />
-            {c.name.split(" ")[0]} · {c.seats}
+            <span className="inline-block h-2 w-2 rounded-full" style={{ background: c.color }} aria-hidden />
+            {/* Klub se JMENUJE zkratkou z rejstříku, ne prvním slovem svého názvu:
+                `name.split(" ")[0]` dělalo z „TOP 09" → „TOP" a z „ANO 2011" → „ANO".
+                Vidět je zkratka (týž tvar, na kterém stojí i filtr a karta kraje),
+                slyšet celý název. */}
+            <span aria-hidden>{c.abbrev}</span>
+            <span className="sr-only">{c.name}</span> · {c.seats}
           </button>
         ))}
         <input
@@ -341,8 +347,11 @@ export default function LeaderboardTable({
                 )}
                 {!compact && (
                   <span className="flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} />
-                    {r.clubName.split(" ")[0]}{r.region ? ` · ${r.region}` : ""}
+                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} aria-hidden />
+                    {/* Zkratka z rejstříku vidět, celý název slyšet — „TOP09", ne „TOP". */}
+                    <span aria-hidden title={r.clubName}>{r.clubAbbrev}</span>
+                    <span className="sr-only">{r.clubName}</span>
+                    {r.region ? ` · ${r.region}` : ""}
                     {/* Verdikt je DATOVANÉ tvrzení s vlastním číslem — týž standard,
                         jaký vedle drží LowScoreReasonChip. */}
                     {r.effortWorkhorse && (
@@ -412,12 +421,12 @@ export default function LeaderboardTable({
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
         <SourceNote>
-          {t("shownOf", { count: rows.length })}
+          {t("shownOf", { count: rows.length, total: entries.length })}
         </SourceNote>
         {custom ? (
           <SourceNote>{t("lensTableNote")}</SourceNote>
         ) : (
-          <SourceNote className="!text-[10px]">{t("realNote")}</SourceNote>
+          <SourceNote className="!text-[10px]">{t("realNote", { count: f.int(entries.length) })}</SourceNote>
         )}
       </div>
       {correctionCount > 0 && (
