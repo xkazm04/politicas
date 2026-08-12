@@ -4,8 +4,9 @@ import type { MetadataRoute } from "next";
  * ROBOTS — the crawler-facing half of "internal" .
  *
  * The repo had no robots.ts at all, so every route was crawlable, including
- * `/penize/kontrola`: the human-review console, which is LINKED IN PUBLIC from the
- * /penize header. It is not a publication — it is the queue of undecided ties, showing
+ * `/penize/kontrola`: the human-review console (unlinked from the /penize header
+ * in 211ced5, but still reachable from public pages — /dukazy and /penize/strety
+ * point at it). It is not a publication — it is the queue of undecided ties, showing
  * reviewer notes and unreviewed analyst prose about named people, and its buttons write
  * to the audit chain. Having it turn up in a search result for a politician's name is a
  * different product from the one /penize documents.

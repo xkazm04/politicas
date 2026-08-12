@@ -17,6 +17,7 @@
  */
 
 import "server-only";
+import { cache } from "react";
 import {
   deriveAtlas,
   type AtlasEntityCoverage,
@@ -80,8 +81,11 @@ async function readRunStats(pg: Pglite): Promise<AtlasSourceRunStats[]> {
   }));
 }
 
-/** Atlas nad aktuálním store; null jen když je store nečitelný. */
-export async function getAtlasReport(): Promise<AtlasReport | null> {
+/** Atlas nad aktuálním store; null jen když je store nečitelný.
+ *  `react.cache()` — titulní strana i /atlas ho volají v jednom stromě;
+ *  bez obalu platil každý volající devět dotazů znovu (a komentář v
+ *  app/page.tsx tvrdil obalení, které tu nebylo — opraveno 2026-08-12). */
+export const getAtlasReport = cache(async (): Promise<AtlasReport | null> => {
   try {
     const store = await getStore();
     if (!store) return null;
@@ -94,4 +98,4 @@ export async function getAtlasReport(): Promise<AtlasReport | null> {
     reportLoaderFailure("getAtlasReport", err);
     return null;
   }
-}
+});
