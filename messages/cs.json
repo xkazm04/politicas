@@ -160,30 +160,25 @@
     "modules": {
       "civic-score": {
         "tag": "Syntéza",
-        "description": "Souhrnný index přispění 0–100 pro každého poslance Sněmovny — šest složek se zveřejněnými váhami, každé číslo dohledatelné ke svému datasetu psp.cz.",
-        "feeds": "Plocha, kterou sytí ostatní čtyři moduly"
+        "description": "Souhrnný index přispění 0–100 pro každého poslance Sněmovny — šest složek se zveřejněnými váhami, každé číslo dohledatelné ke svému datasetu psp.cz."
       },
       "vote-track": {
         "tag": "Analýza hlasování",
-        "description": "Každé jmenovité hlasování Sněmovny i Senátu — docházka, odchylky od stranické linie, rebelie a kdo co předložil.",
-        "feeds": "Pilíře Aktivita + Docházka"
+        "description": "Každé jmenovité hlasování Sněmovny i Senátu — docházka, odchylky od stranické linie, rebelie a kdo co předložil."
       },
       "follow-the-money": {
         "tag": "Síť peněz",
-        "description": "Veřejné zakázky a dotace dohledané přes firmy až k politikům, kteří jsou s nimi spojeni — propojeno přes osmimístné IČO.",
+        "description": "Veřejné zakázky dohledané přes firmy až k politikům, kteří jsou s nimi spojeni; dotace a dary nese firma jako součet z Hlídače — propojeno přes osmimístné IČO.",
         "metricValue": "2,1 mld Kč",
-        "metricLabel": "dohledáno k napojeným firmám — ilustrativní ukázka",
-        "feeds": "Pilíř Integrita"
+        "metricLabel": "dohledáno k napojeným firmám — ilustrativní ukázka"
       },
       "budget-mirror": {
         "tag": "Rozpočtové srovnání",
-        "description": "Hospodaření obcí srovnané s podobnými městy — dluh na obyvatele, podíl investic, správcovství v čase.",
-        "feeds": "Správcovství, pro exekutivní role"
+        "description": "Hospodaření obcí srovnané s podobnými městy — dluh na obyvatele, podíl investic, správcovství v čase."
       },
       "law-watch": {
         "tag": "Monitor legislativy",
-        "description": "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování a poslance, kteří je odhlasovali.",
-        "feeds": "Propojuje hlasování → dopady"
+        "description": "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování a poslance, kteří je odhlasovali."
       }
     },
     "regions": {
@@ -461,9 +456,9 @@
     "sourcesTitle": "Surový materiál",
     "sourcesCaption": "obr. 4 — měřená kvalita zdrojů",
     "joinKeyLabel": "spojovací klíč",
-    "joinKeyDesc": "8 číslic spojujících firmu ↔ smlouvu ↔ dotaci ↔ dar.",
+    "joinKeyDesc": "8 číslic, na kterých graf drží firmu a její smlouvy z registru smluv. Dotace a dary nese firma jako součet z Hlídače, ne jako jednotlivé záznamy.",
     "methodTitle": "Žádná černá skříňka",
-    "methodBody": "Šest zveřejněných složek se svou vahou, citace u každého čísla, proklik až k doloženému faktu. Vazby mezi politiky a firmami zveřejňujeme jako datovaná, doložená fakta — nikdy jako obvinění. Postaveno a otestováno celý volební cyklus předtím, než na tom bude záležet.",
+    "methodBody": "Šest zveřejněných složek se svou vahou, citace u každého čísla, proklik až k doloženému faktu. Vazby mezi politiky a firmami zveřejňujeme jako datovaná, doložená fakta — nikdy jako obvinění. Stavíme to otevřeně a před kampaní: vzorec nese svůj otisk a jeho oprava se pozná na datech, ne v tiskové zprávě.",
     "methodCtaFind": "Najdi svého poslance",
     "footerLeft": "Politicas — empirický záznam republiky",
     "footerRight": "otevřená data · cc by",
@@ -499,7 +494,42 @@
     "sourcesAtlasLink": "atlas kvality dat",
     "sourcesUnavailable": "Stav zdrojů teď nelze změřit",
     "sourcesUnavailableBody": "Atlas čte databázi grafu přímo a ta je právě nedostupná. Zdroje existují — jen o nich teď nemáme co poctivě tvrdit.",
-    "sourcesUnavailableSource": "atlas kvality dat — čte se přímo ze store; místo měření tu nikdy neukazujeme ukázkové kadence"
+    "sourcesUnavailableSource": "atlas kvality dat — čte se přímo ze store; místo měření tu nikdy neukazujeme ukázkové kadence",
+    "denik": {
+      "regionLabel": "Dnešní zápis",
+      "eyebrowToday": "dnešní zápis",
+      "eyebrowLatest": "poslední zápis",
+      "title": "Deník republiky",
+      "readLink": "číst deník",
+      "loading": "Zápis se načítá…",
+      "unavailable": "Zápis se teď nepodařilo načíst — deník není prázdný, jen nečitelný. Celý záznam drží stránka /denik.",
+      "empty": "Deník zatím žádný zápis nenese — první se objeví, jakmile registry ponesou datovanou událost.",
+      "dayLine": "{date} · zápisů ve feedu: {countFmt}",
+      "feedCapNote": "feed nese {capFmt} nejnovějších zápisů — delší den je tu neúplný a celý ho drží /denik",
+      "moreInDenik": "… a další zápisy dne v deníku",
+      "source": "zdroj: deník republiky — týž odečet, jaký sází /denik a jeho strojový feed (registr smluv + ares + psp.cz + change_event + review_audit)"
+    },
+    "referendum": {
+      "regionLabel": "Referendum o metodice",
+      "eyebrow": "referendum o metodice",
+      "title": "Kolik váží dobrý poslanec",
+      "weightsSource": "šest zveřejněných složek indexu přispění · psp.cz · zveřejněné váhy {weights}",
+      "leadWeights": "Zveřejněná metodika rozděluje {total} bodů takto: {list}.",
+      "leadReweighCount": "Vy můžete vážit jinak — a žebříček všech {count} poslanců se pod vaší čočkou přepočítá.",
+      "leadReweighNoCount": "Vy můžete vážit jinak — a žebříček se pod vaší čočkou přepočítá.",
+      "leadPresets": "{n, plural, one {Jedna redakční ukázka} few {{nFmt} redakční ukázky} other {{nFmt} redakčních ukázek}}, jak různé priority mění pořadí:",
+      "openLens": "otevřít tuhle čočku",
+      "presetsSource": "ukázkové čočky redakce — nejsou metodikou žádné organizace · efektivní váhy (součet 100)",
+      "cta": "Nastav si váhy sám",
+      "short": {
+        "participation": "účast",
+        "committee": "výbory",
+        "legislative": "legislativa",
+        "speech": "vystoupení",
+        "attendance": "docházka",
+        "leadership": "vedení"
+      }
+    }
   },
   "dashboard": {
     "headerTag": "velín",
@@ -531,7 +561,7 @@
       "countSource": "zdroj: počet vykreslených uzlů a hran tohoto výřezu",
       "realCaption": "osoba ⋈ strana ⋈ firma ⋈ veřejné peníze ⋈ sněmovní tisk ⋈ zákon",
       "realSource": "zdroj: znalostní graf politicas — psp.cz ⋈ ares ⋈ registr smluv ⋈ e-sbírka; jména, IČO i částky jsou reálné",
-      "realRule": "VÝŘEZ, NE ŽEBŘÍČEK · řadí ČÍSLO MANDÁTU vzestupně — ne peníze, ne stupeň uzlu, ne čerstvost smlouvy · semena: {seeds} · populace: {dual} z {chamber} poslanců, kteří mají v grafu zároveň firemní vazbu i vlastní tisk novelizující zákon; ten průnik je tam proto, aby výřez unesl všech šest druhů uzlů · dárcovské firmy, v grafu jediné: {donors} · celý graf je na /graf",
+      "realRule": "VÝŘEZ, NE ŽEBŘÍČEK · řadí ČÍSLO MANDÁTU vzestupně — ne peníze, ne stupeň uzlu, ne čerstvost smlouvy · semena: {seeds} · populace: {dual} z {chamber} poslanců, kteří mají v grafu zároveň firemní vazbu i vlastní tisk novelizující zákon; ten průnik je tam proto, aby výřez unesl všech šest druhů uzlů · dárcovské firmy nalezené mezi firmami, na které v peněžní projekci vede vazba poslance: {donors} — jiné firmy se na dar neprohledávaly · celý graf je na /graf",
       "realGate": "vazby čekající na lidskou kontrolu: {pending} z {ties} vykreslených — kreslí se čárkovaně, do skóre nejdou a nejsou to zjištění",
       "realAttribution": "peníze se kreslí jen u firem, které poslanec vlastní nebo řídí; u institucí, kde jen zasedá v orgánu, jsou smlouvy aktivitou té instituce, ne poslance",
       "realAttributionWithSteward": "peníze se kreslí jen u firem, které poslanec vlastní nebo řídí; u institucí, kde jen zasedá v orgánu, jsou smlouvy aktivitou té instituce, ne poslance · semena bez přisouditelné vazby: {count}, ta v peněžním pruhu nemají nic",
@@ -591,6 +621,8 @@
       "factPending": "vazba, na které fakt stojí, čeká na lidskou kontrolu",
       "realSource": "datovaná fakta ze znalostního grafu · řadí datum sestupně, při shodě identifikátor vzestupně · nabídnuto k zobrazení: {rows}",
       "droppedImplausible": "vyřazeno pro nemožné datum: {count} — podpis v roce 0002 nebo 3062 není datum, ale vada dat; neopravujeme ho, jen ho do chronologie nepustíme",
+      "contractsFailed": "smluvní vrstvu knihy se teď nepodařilo přečíst — řádky níž stojí jen na rejstříkových rolích a krocích tisků; kolik smluv chybí, tahle stránka neví a nedopočítává to, prázdno tady tedy neznamená, že výřez žádnou smlouvu nemá",
+      "contractsTruncated": "{truncated} z {companies} firem výřezu se vrátilo přesně na stropu {cap} hran — část jejich smluv se do knihy nedostala (čtení řadí podle částky sestupně, ale pořadí u shodných či neuvedených částek určené není); strop se přiznává, neobchází",
       "fact": {
         "contract": "podepsána smlouva — {subject}: {detail}",
         "roleStart": "{subject} zapsán do rejstříku — {detail}",
@@ -624,13 +656,17 @@
       "avgSource": "kontribuční index — reálný graf",
       "methodologyLink": "metodika indexu",
       "attendanceLabel": "průměrná docházka",
-      "attendanceSub": "průměr přes {count} reálných poslanců",
-      "attendanceSource": "psp.cz — reálná jmenovitá hlasování, 10. období",
+      "attendanceSub": "podíl jednacích dnů, na které poslanec nepodal omluvu · průměr přes všech {count} poslanců, kteří údaj v grafu nesou",
+      "attendanceSubPartial": "podíl jednacích dnů, na které poslanec nepodal omluvu · průměr z {counted} poslanců, kteří údaj nesou; sněmovna jich má {total} — chybějící údaj do průměru nevstupuje a plná docházka se za něj nedosazuje",
+      "attendanceNone": "údaj o omluvách nenese ani jeden z {total} přečtených poslanců, takže se průměr nepočítá — nula by tady znamenala plnou docházku, a to graf netvrdí",
+      "attendanceSource": "psp.cz — omluvy, 10. období",
       "moneyLabel": "veřejné peníze u firem poslanců",
       "moneyValueFloor": "nejméně {czk}",
       "moneySub": "smlouvy firem, které poslanci vlastní nebo řídí · dalších {steward} připadá na instituce, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze",
       "moneyFloorNote": "součet je DOLNÍ MEZ: ingesce narazila na strop {cap} smluv na firmu u {companies} firem, takže skutečná částka je vyšší — o kolik, korpus neříká",
       "moneySource": "registr smluv ⋈ ares ⋈ hlídač státu · průchod {pass}",
+      "moneyLink": "modul Peníze",
+      "lawsLink": "modul Zákony",
       "moneyReview": {
         "allPending": "všech {total} vazeb poslanec ↔ firma čeká na lidskou kontrolu, do skóre se nepropisují",
         "mixed": "lidskou branou prošlo {decided} z {total} vazeb — {verified} potvrzeno, {rejected} zamítnuto; {pending} stále čeká",
@@ -657,12 +693,13 @@
     },
     "partial": {
       "title": "část živých dat chybí",
-      "body": "Tyhle vrstvy grafu se teď nepodařilo přečíst: {layers}. Na jejich místě je označená ilustrativní ukázka — smyšlené osoby, firmy a částky. Zbytek plochy je reálný a čte se ze znalostního grafu.",
+      "body": "Tyhle vrstvy grafu se teď nepodařilo přečíst: {layers}. Kde to jde, stojí na jejich místě označená ilustrativní ukázka — smyšlené osoby, firmy a částky; kde to nejde, prostě chybí řádky a plocha to přizná u nich. Zbytek plochy je reálný a čte se ze znalostního grafu.",
       "source": "zdroj: loader velína — vrstvy degradují nezávisle na sobě",
       "layers": {
         "money": "veřejné peníze",
         "laws": "legislativa",
-        "slice": "výřez grafu a jeho provoz"
+        "slice": "výřez grafu a jeho provoz",
+        "contracts": "smlouvy v knize datovaných faktů"
       }
     },
     "freshness": "stránka sestavena {built} · peněžní vrstva se čte nejvýš jednou za {hours} h, o tolik může být na ploše nejstarší údaj starší — graf je dávkový artefakt, mění se přepočtem, ne za běhu",
@@ -1213,6 +1250,20 @@
     "lensLinkCopyFailed": "Zkopírujte adresu ručně",
     "lensShare": "Sdílet moji čočku",
     "lensPresetsNote": "ukázkové čočky redakce — nejsou metodikou žádné organizace",
+    "lensPreset": {
+      "dochazka": {
+        "label": "Docházka především",
+        "note": "být tam a hlasovat — účast a docházka nesou tři čtvrtiny indexu"
+      },
+      "zakonodarce": {
+        "label": "Zákonodárce",
+        "note": "psát zákony — legislativní výstup a práce ve výborech rozhodují"
+      },
+      "hlas-salu": {
+        "label": "Hlas sálu",
+        "note": "mluvit a ptát se — vystoupení v sále váží polovinu indexu"
+      }
+    },
     "weightRowTitle": "{label} — zveřejněná váha ×{weight} ({source})",
     "weightSliderAria": "Váha složky {label} (zveřejněná {weight})",
     "weightSliderValue": "{value} ze 100, efektivně {effective} bodu",
@@ -1297,12 +1348,9 @@
       },
       "stats": {
         "ownerLabel": "poslanci s vlastní firmou u státu",
-        "ownerSub": "vlastník/jednatel firmy, která dodává státu — skutečná vazba",
-        "ownerSource": "ares v3 — role v obchodním rejstříku",
         "ownerSubSplit": "vlastník/jednatel firmy, která dodává státu — skutečná vazba · {stored} z nich stojí na zapsané třídě, {derived} jen na odhadu programu z názvu firmy",
         "ownerSourceSplit": "ares v3 ⋈ kg_edge.props.tie_class — zapsaná třída; odvozená třída (classifyTie) není rejstříkový údaj",
         "reachableLabel": "veřejné peníze u firem poslanců",
-        "reachableSub": "smlouvy dohledané přes napojené firmy — u stewardů jde o peníze instituce, ne poslance",
         "reachableSource": "registr smluv · Σ hodnot smluv (vlastnické a manažerské vazby)",
         "mpsLabel": "poslanci s vazbou",
         "mpsSub": "z {total} mandátů 10. období (PSP10 — období, které loader skutečně čte)",
@@ -1326,18 +1374,38 @@
       },
       "graphCaption": "obr. — stopa poslance {name} · osoba kobalt · firma čerň · veřejné peníze signální ◆ · vše čeká na lidskou kontrolu",
       "freshness": "peněžní vrstva se čte z memoizovaného foldu hran supplies v grafu; memo vyprší po {hours} h, takže tak stará mohou tahle čísla nejvýš být — stejnou mez deklaruje /dashboard",
+      "graphCap": "obrázek kreslí {shownFmt} z {total, plural, one {{totalFmt} firmy} few {{totalFmt} firem} other {{totalFmt} firem}} tohoto spisu — zbytek nese spis poslance",
       "graphSelection": "obr. — stopa poslance {name} · vybrán pravidlem: nejvyšší přisouditelný dosah v grafu ({value}) — smlouvy a dotace firem, které poslanec vlastní nebo řídí; peníze institucí, kde jen zasedá v orgánu, do výběru nevstupují a v grafu jsou ocelové · osoba kobalt · firma čerň",
       "ledger": {
         "tiesCount": "{count} evidovaných vazeb",
-        "reachLabel": "veřejné peníze v dosahu firmy",
         "reachHeader": "dosah firmy",
         "receiptLink": "účtenka původu ↗",
         "reachAttributable": "firma poslance",
         "reachSteward": "peníze instituce",
-        "reachNote": "dosah = smlouvy z registru smluv (Σ supplies.weight) + dotace té jedné firmy, jedna firma jednou — táž definice, jakou sčítají dlaždice nahoře (reachableMoney.ts). Třída vazby rozhoduje, jak číslo číst: „firma poslance\" jsou peníze u firmy, kterou vlastní nebo řídí; „peníze instituce\" jsou vlastní veřejnou činností nemocnice, vodárny či fondu, kde poslanec jen zasedá v orgánu — proto nikdy nesvítí signální barvou.",
-        "contractsLabel": "smlouvy",
+        "reachNote": "dosah = smlouvy z registru smluv (Σ supplies.weight) + dotace té jedné firmy. Je to dosah JEDNÉ VAZBY, ne díl součtu: firma, která váže víc poslanců, stojí v knize na tolika řádcích, kolik má vazeb, a její dosah se v každém z nich opakuje — sloupec proto sečíst nelze. Dlaždice nahoře počítají každou firmu jen jednou (reachableMoney.ts). Třída vazby rozhoduje, jak číslo číst: „firma poslance\" jsou peníze u firmy, kterou vlastní nebo řídí; „peníze instituce\" jsou vlastní veřejnou činností nemocnice, vodárny či fondu, kde poslanec jen zasedá v orgánu — proto nikdy nesvítí signální barvou.",
         "donationLabel": "dar straně",
-        "noReach": "bez dohledaných veřejných peněz",
+        "searchPlaceholder": "hledat poslance, firmu, IČO…",
+        "filterAllClasses": "všechny třídy",
+        "filterCorrAll": "vše (korroborace)",
+        "filterCorrConfirmed": "potvrzeno OR",
+        "filterCorrUnconfirmed": "OR bez záznamu",
+        "filterCorrConflicting": "v rozporu",
+        "filterCorrUnchecked": "neověřeno",
+        "filterStatusAll": "vše (stav)",
+        "filterStatusCurrent": "trvá",
+        "filterStatusEnded": "ukončeno",
+        "filterStatusWarn": "k prověření",
+        "filterStatusUnknown": "neznámo",
+        "filterAllClubs": "všechny kluby",
+        "resultCount": "{shownFmt} z {total, plural, one {{totalFmt} vazby} few {{totalFmt} vazeb} other {{totalFmt} vazeb}}",
+        "colMp": "poslanec",
+        "colCompany": "firma",
+        "colEvidence": "síla důkazu",
+        "colStatus": "stav",
+        "evidenceRule": "výchozí pořadí je podle síly důkazu, ne podle částky: korroborace v obchodním rejstříku rozhoduje o důvěře dřív, než peníze rozhodnou o velikosti — vazba potvrzená rejstříkem stojí výš než větší, ale nepotvrzená částka. Teprve uvnitř téže úrovně řadí dosažitelné peníze sestupně. Sloupec ukazuje třídu vazby, řadí se ale podle téhle síly (reviewTypes.ts).",
+        "emptyFilters": "žádná vazba neodpovídá filtru",
+        "prevPage": "předchozí",
+        "nextPage": "další",
         "noTiesNote": "poslanci bez dohledané vazby na firmu — kontrola běží při každé denní ingesci",
         "moreCount": "+ {count} dalších poslanců",
         "disclaimerAllPending": "Vazby zveřejňujeme jako datovanou stopu, nikdy jako obvinění. Všech {total} řádků téhle knihy nese štítek „{pendingLabel}“ a do pilíře Integrita se nepropisuje ani jeden, dokud ho neschválí člověk.",
@@ -1356,7 +1424,7 @@
       },
       "sampleTies": {
         "label": "doložené vazby vzorku",
-        "sub": "u 3 z 5 sledovaných poslanců",
+        "sub": "u {withTiesFmt} z {total, plural, one {{totalFmt} sledovaného poslance} few {{totalFmt} sledovaných poslanců} other {{totalFmt} sledovaných poslanců}}",
         "source": "ares v3 · registr oznámení"
       },
       "pendingReview": {
@@ -1377,7 +1445,8 @@
       },
       "ledger": {
         "title": "Kniha vazeb",
-        "aside": "seskupeno po poslancích · jméno otevírá spis"
+        "aside": "seskupeno po poslancích · jméno otevírá spis",
+        "asideReal": "plochý seznam vazeb · filtry, řazení a stránkování · jméno otevírá spis poslance, firma svůj vlastní"
       },
       "method": {
         "title": "Jak stopa vzniká",
@@ -1415,7 +1484,7 @@
         "ares": {
           "title": "ARES v3",
           "body": "Rejstřík firem a statutárních orgánů — kdo ve které firmě figuruje.",
-          "cadence": "rejstřík ARES zveřejňuje změny průběžně; jeho API omezuje čtení na 500 dotazů za minutu"
+          "cadence": "rejstřík ARES zveřejňuje změny v obchodním rejstříku průběžně"
         },
         "registers": {
           "title": "Registr smluv + dotací",
@@ -1628,6 +1697,7 @@
       "mediaContext": "mediální kontext",
       "proposedAnnotation": "navržená anotace (nezapsáno)",
       "backToLedger": "zpět na peněžní ledger",
+      "voteCollisions": "střety u hlasování (/penize/strety)",
       "evidenceBulletin": "rozhodnutí brány (/dukazy)",
       "gateNote": "Ruční podnět neprochází automaticky nikam: nemění stav kontroly vazby, nesytí skóre a sám o sobě není zjištěním.",
       "proseDisclosure": "Souvislý text níž — proč signál, co zdroje dokládají a nedokládají, znění tvrzení a shrnutí médií — je DOSLOVNÝ pracovní materiál analytika, vedený v angličtině. Nepřekládáme ho ani nepřepisujeme: přepsat cizí evidenci vlastními slovy je výklad, ne citace.",
@@ -1653,6 +1723,7 @@
     },
     "strety": {
       "backToLedger": "zpět na peněžní ledger",
+      "leadDossiers": "ručně dořešené spisy (/penize/kauzy)",
       "eyebrow": "deterministický výpočet nad grafem · každý kandidát vyžaduje lidské ověření",
       "title": "Střety u hlasování",
       "intro": "Kde se ověřená role ve firmě a sněmovní hlasování potkávají v čase. Každý řádek níž je vypočtený kandidát: poslanec hlasoval (ano/ne) o tisku novelizujícím zákon, který upravuje kanál veřejných peněz firmy, kde podle obchodního rejstříku v den hlasování zastával roli. Časový překryv je fakt; jestli se hlasování věcně týkalo zájmu té firmy, se tady NEPOČÍTÁ — to musí posoudit člověk.",
@@ -1809,7 +1880,6 @@
     "trailFootnote": "Vrstevnický medián u protistrany se počítá jen z obcí téhož pásma, které mají s touž firmou smlouvy v záznamu — obec mimo záznam medián nesráží k nule. Smlouva, kde směr platby registr neuvádí, se nikdy nevykládá jako výdaj ani příjem obce."
   },
   "lawwatch": {
-    "back": "velín",
     "eyebrow": "lawwatch · monitor legislativy · propojuje hlasování → dopady",
     "title": "Hlídač paragrafů",
     "intro": "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování, které je odhlasovalo. Váš poslanec hlasoval pro novelu, která změnila § — tady je obojí vedle sebe.",
@@ -1838,6 +1908,7 @@
       "flagged": "tisků s možným střetem"
     },
     "statsSource": "psp.cz tisky · průchod grafu {pass} · vazby tisk → zákon a přikázání výborům · {committeeRouted} tisků přikázáno výborům",
+    "statsSourceNoPass": "psp.cz tisky · uzly tisků nenesou zapsaný průchod, takže ho neuvádíme · vazby tisk → zákon a přikázání výborům · {committeeRouted} tisků přikázáno výborům",
     "origin": {
       "government": "vládní návrh",
       "mp": "poslanecký návrh",
@@ -1900,6 +1971,7 @@
     "less": "méně —",
     "graphPass": "průchod grafu {pass}",
     "graphPassSource": "psp.cz tisky · průchod grafu {pass}",
+    "graphPassSourceNoPass": "psp.cz tisky · uzly tisků nenesou zapsaný průchod, takže ho neuvádíme",
     "radarBanner": {
       "title": "Kolizní radar",
       "text": "chronologická kniha nálezů legislativního procesu: souběžně projednávané tisky novelizující stejný § téhož zákona a odvozené příznaky střetu, s trvalými kotvami, citačními bloky a RSS/JSON odběrem.",
@@ -1913,6 +1985,8 @@
     },
     "section1AsideReal": "{bills} tisků · {summaries} se shrnutím · {amends} novelizačních vazeb · psp.cz",
     "section2AsideReal": "psp.cz tisky · počet tisků na zákon",
+    "section2Capped": "vypsáno {shownFmt} z {totalFmt} {total, plural, one {zákona} few {zákonů} other {zákonů}}, které v této stopě někdo novelizuje — seznam je useknutý, ne úplný",
+    "section2RegistryLink": "celý rejstřík předpisů",
     "dependencies": {
       "title": "Závislosti na doprovodných tiscích"
     },
@@ -1941,7 +2015,7 @@
     "titleLinkNoteNoDiff": "diff „před/po“ na úrovni § se zatím nevykresluje — Politicas nezobrazuje smyšlená data.",
     "honesty": {
       "label": "Poctivost čísel:",
-      "text": "vazba tisk → zákon výše je z citace v NÁZVU tisku — pro velké novely a doprovodné zákony to systematicky podhodnocuje, kolik zákonů tisk skutečně mění. Nezávislý census plného textu (průchod grafu 20) na {census} tiscích doplnil dohromady <b>{undercount}</b> dalších novelizovaných zákonů, které vazba z názvu minula. Vlastní census má každý tisk ve svém detailu, pokud pro něj existuje."
+      "text": "vazba tisk → zákon výše je z citace v NÁZVU tisku — pro velké novely a doprovodné zákony to systematicky podhodnocuje, kolik zákonů tisk skutečně mění. Nezávislý census plného textu na {census} tiscích doplnil dohromady <b>{undercount}</b> dalších novelizovaných zákonů, které vazba z názvu minula. Který průchod grafu census zapsal, u téhle vrstvy uložené není — číslo průchodu proto neuvádíme, místo abychom tiskli takové, které nemáme z čeho odvodit. Vlastní census má každý tisk ve svém detailu, pokud pro něj existuje."
     },
     "filterAll": "vše",
     "statusFilterLabel": "Stav:",
@@ -1969,7 +2043,7 @@
       "stateSource": "stav dle psp.cz — tisky (stavy/hist)",
       "amendsHeading": "novelizuje — {countFmt} {count, plural, one {zákon} few {zákony} other {zákonů}} (dle citace v názvu)",
       "amendsNone": "Graf u tohoto tisku nenašel v názvu citaci konkrétního zákona (č. N/RRRR Sb.).",
-      "censusSource": "census textu tisku (průchod grafu 20) · plný výčet z textu, ne z názvu",
+      "censusSource": "census textu tisku · plný výčet z textu, ne z názvu · graf u téhle vrstvy nenese průchod, kterým census vznikl",
       "censusText": "Tento tisk ve skutečnosti novelizuje <b>{fullFmt}</b> {full, plural, one {zákon} few {zákony} other {zákonů}} — o <u>{undercountFmt}</u> více, než kolik zachytí vazba odvozená jen z citace v názvu tisku (obvyklé u obřích novel / doprovodných zákonů). Toto je systematický, ne ojedinělý jev — viz poznámku u nejčastěji novelizovaných zákonů.",
       "committeesHeading": "projednávají výbory — přikázání podle psp.cz",
       "sponsorsHeading": "předkladatelé — psp.cz predkladatel (pořadí podpisu)",
@@ -2053,7 +2127,7 @@
       "emptyLabel": "rejstřík je prázdný",
       "emptyText": "Graf je dostupný, ale nenese jediný předpis, který by některý sněmovní tisk novelizoval. Není to nález o zákonodárství — je to stav evidence: dokud v grafu není hrana tisk → zákon, nemá rejstřík co vypsat a nic si nedomýšlí.",
       "trailBadge": "§-stopa · {count, plural, one {{countFmt} změna} few {{countFmt} změny} other {{countFmt} změn}}",
-      "footnote": "Stopa zahrnuje vazby z názvu tisku (citace „č. N/RRRR Sb.“) i nezávislý census plného textu (průchod grafu 20) — obě provenience se na stránce předpisu rozlišují. Předpis bez §-stopy není prázdná stránka: kronika tisků platí i bez e-Sbírka diffu."
+      "footnote": "Stopa zahrnuje vazby z názvu tisku (citace „č. N/RRRR Sb.“) i nezávislý census plného textu, u kterého graf průchod svého vzniku nenese — obě provenience se na stránce předpisu rozlišují. Předpis bez §-stopy není prázdná stránka: kronika tisků platí i bez e-Sbírka diffu."
     },
     "statute": {
       "backToRegistry": "rejstřík předpisů",
@@ -2108,11 +2182,11 @@
         "clusters": "shluků podle §",
         "nWay": "shluků 3+ tisků"
       },
-      "statsSource": "{batches} dávky ručního porovnání textů · nejprve deterministická předfiltrace shodných paragrafů, teprve pak čtení obou textů, potvrzené dvojice ověřeny vyhledáním v archivovaném textu z psp.cz · „nahodilé“ dvojice (stejné číslo §, jiný zákon) vyřazeny — nejsou zde zobrazeny",
-      "czechPending": "U {count}× dvojice zatím nezobrazujeme rozbor — existuje jen v angličtině a české znění se připravuje. Zjištění samotné (které tisky, který §, jak je vyhodnocen) tím dotčeno není.",
+      "statsSource": "{batchesFmt} {batches, plural, one {dávka} few {dávky} other {dávek}} ručního porovnání textů · nejprve deterministická předfiltrace shodných paragrafů, teprve pak čtení obou textů, potvrzené dvojice ověřeny vyhledáním v archivovaném textu z psp.cz · „nahodilé“ dvojice (stejné číslo §, jiný zákon) vyřazeny — nejsou zde zobrazeny",
+      "czechPending": "U {countFmt} {count, plural, one {dvojice} few {dvojic} other {dvojic}} zatím nezobrazujeme rozbor — existuje jen v angličtině a české znění se připravuje. Zjištění samotné (které tisky, který §, jak je vyhodnocen) tím dotčeno není.",
       "incidentalDropped": "Z ručního porovnání textů bylo navíc {countFmt} {count, plural, one {dvojice vyřazena} few {dvojice vyřazeny} other {dvojic vyřazeno}} jako nahodilá shoda: stejné číslo paragrafu, ale jiný zákon. Do žádného čísla výše se nepočítají a na stránce se nevypisují — nejde o nález, ale o šum deterministické předfiltrace.",
       "clustersTitle": "Shluky podle zákona a §",
-      "clustersAside": "{clusters} shluků · {pairs} dvojic tisků",
+      "clustersAside": "{clustersFmt} {clusters, plural, one {shluk} few {shluky} other {shluků}} · {pairsFmt} {pairs, plural, one {dvojice tisků} few {dvojice tisků} other {dvojic tisků}}",
       "clustersFootnote": "Shluk = jeden § jednoho zákona, ne dvojice tisků — několik nálezů je skutečně vícecestných (např. §35c zákona 586/1992 nyní spojuje 4 tisky). Klasifikace je odvozený nález (kontrola proti fabrikaci, metoda: deterministická předfiltrace shodných paragrafů a následné čtení obou textů s ověřením výskytu v textu), nikdy prokázané pochybení — jde o riziko legislativní koordinace mezi souběžně podanými návrhy, ne o etický nález.",
       "class": {
         "confirmed-collision": "potvrzená kolize textu",
@@ -2604,19 +2678,21 @@
     "limits": {
       "kicker": "meze čtení",
       "companiesOverCap": "firem s přisouditelnou vazbou je víc než strop {cap}; smlouvy {n} z nich se nečetly vůbec",
-      "companiesEdgeTruncated": "u {n} firem se dosáhlo stropu {cap} smluv na firmu — jejich starší smlouvy deník nenese",
-      "malformedIco": "{n} vazeb nese IČO, které nelze převést na kanonický tvar; řádek se zobrazuje, ale firmu v něm nelze sledovat ani otevřít",
+      "companiesEdgeTruncated": "{n, plural, one {u {nFmt} firmy se dosáhlo stropu {cap} smluv na firmu — její starší smlouvy deník nenese} few {u {nFmt} firem se dosáhlo stropu {cap} smluv na firmu — jejich starší smlouvy deník nenese} other {u {nFmt} firem se dosáhlo stropu {cap} smluv na firmu — jejich starší smlouvy deník nenese}}",
+      "malformedIco": "{n, plural, one {{nFmt} vazba nese IČO, které nelze převést na kanonický tvar; řádek se zobrazuje, ale firmu v něm nelze sledovat ani otevřít} few {{nFmt} vazby nesou IČO, které nelze převést na kanonický tvar; řádek se zobrazuje, ale firmu v něm nelze sledovat ani otevřít} other {{nFmt} vazeb nese IČO, které nelze převést na kanonický tvar; řádek se zobrazuje, ale firmu v něm nelze sledovat ani otevřít}}",
       "auditTruncated": "čtení lidské brány se zastavilo na stropu {cap} řádků — počet rozhodnutí uvedený v citaci zdroje je proto nejméně tolik, ne celkový počet; starší rozhodnutí tenhle deník nenese",
       "changesTruncated": "proud „zaznamenáno“ se čte od nejnovějších událostí a zastavil se na stropu {cap} ({n} přečteno) — nejstarší záznamy grafu deník nenese",
-      "changesUndisplayable": "{n} záznamů grafu nese druh, který tahle verze deníku neumí vyslovit — nezobrazují se, ale ani nemizí bez počtu",
-      "changesFromGate": "{n} záznamů grafu popisuje rozhodnutí lidské brány; ta deník uvádí ze samotného review_audit, aby se událost nepočítala dvakrát",
-      "mergedContractRows": "{n} řádků o smlouvách se slilo do jiného — jedna smlouva je jeden řádek, i když ji v grafu dodává víc firem",
-      "contractAmountConflicts": "{n} slitých smluv neslo rozporné částky, a proto neuvádějí žádnou (vybrat jednu by znamenalo vymyslet peníze)"
+      "changesUndisplayable": "{n, plural, one {{nFmt} záznam grafu nese druh, který tahle verze deníku neumí vyslovit — nezobrazuje se, ale ani nemizí bez počtu} few {{nFmt} záznamy grafu nesou druh, který tahle verze deníku neumí vyslovit — nezobrazují se, ale ani nemizí bez počtu} other {{nFmt} záznamů grafu nese druh, který tahle verze deníku neumí vyslovit — nezobrazují se, ale ani nemizí bez počtu}}",
+      "changesFromGate": "{n, plural, one {{nFmt} záznam grafu popisuje rozhodnutí lidské brány; ta deník uvádí ze samotného review_audit, aby se událost nepočítala dvakrát} few {{nFmt} záznamy grafu popisují rozhodnutí lidské brány; ta deník uvádí ze samotného review_audit, aby se událost nepočítala dvakrát} other {{nFmt} záznamů grafu popisuje rozhodnutí lidské brány; ta deník uvádí ze samotného review_audit, aby se událost nepočítala dvakrát}}",
+      "mergedContractRows": "{n, plural, one {{nFmt} řádek o smlouvě se slil do jiného — jedna smlouva je jeden řádek, i když ji v grafu dodává víc firem} few {{nFmt} řádky o smlouvách se slily do jiného — jedna smlouva je jeden řádek, i když ji v grafu dodává víc firem} other {{nFmt} řádků o smlouvách se slilo do jiného — jedna smlouva je jeden řádek, i když ji v grafu dodává víc firem}}",
+      "contractAmountConflicts": "{n, plural, one {{nFmt} slitá smlouva nesla rozporné částky, a proto neuvádí žádnou (vybrat jednu by znamenalo vymyslet peníze)} few {{nFmt} slité smlouvy nesly rozporné částky, a proto neuvádějí žádnou (vybrat jednu by znamenalo vymyslet peníze)} other {{nFmt} slitých smluv neslo rozporné částky, a proto neuvádějí žádnou (vybrat jednu by znamenalo vymyslet peníze)}}",
+      "corpusScope": "Meze níž popisují čtení celého deníku, ne jen filtrované entity — jejich počty jsou proto údaje o celém deníku."
     },
     "filter": {
       "label": "filtr entity: {entity}",
       "clear": "zrušit filtr",
-      "inboxNote": "Sledovaná entita se ukládá jen ve vašem prohlížeči; co jí přibylo od minulé návštěvy, pak sečte <schranka>občanská schránka</schranka>."
+      "inboxNote": "Sledovaná entita se ukládá jen ve vašem prohlížeči; co jí přibylo od minulé návštěvy, pak sečte <schranka>občanská schránka</schranka>.",
+      "invalidKey": "Klíč „{key}“ nemá tvar veřejného klíče entity, takže mu žádný záznam odpovídat nemůže a sledovat se nedá. Klíč má tvar druh:identifikátor a deník drží čtyři druhy: poslanec (číslo mandátu), tisk (číslo sněmovního tisku), firma (IČO) a obec (IČO)."
     },
     "section": {
       "title": "Zápisy",
@@ -2627,17 +2703,21 @@
     "emptyEntity": {
       "lead": "Pro sledovanou entitu deník žádný zápis nenese",
       "body": "Buď o ní registry nedrží žádnou datovanou událost, nebo klíč „{key}“ neodpovídá žádné entitě záznamu.",
+      "dark": "Je tu ale i třetí možnost: vrstva, která by takové zápisy nesla, je právě teď nečitelná.",
+      "invalidBody": "Není to prázdný výsledek, ale neplatná adresa: klíč „{key}“ nemá tvar veřejného klíče entity, takže se s ničím v záznamu porovnat nedá.",
       "link": "celý deník"
     },
     "empty": {
       "lead": "Deník je zatím prázdný",
       "body": "Čitelné vrstvy nenesou žádnou datovanou událost — první zápis se objeví, jakmile registry nějakou ponesou.",
-      "note": "žádný záznam není zamlčen; vyhozená nemožná data: {n}"
+      "note": "žádný záznam není zamlčen; vyhozená nemožná data: {n}",
+      "noteEntity": "žádný záznam není zamlčen; vyhozená nemožná data v celém deníku: {n}"
     },
     "daysNote": {
-      "truncated": "zapsaných dnů celkem {total}; stránka ukazuje posledních {shown} (strop {cap}) — starší dny nese filtr entity a strojové podoby",
+      "truncated": "zapsaných dnů celkem {total}; stránka ukazuje posledních {shown} (strop {cap} dnů) — strojové podoby řežou po zápisech, nejvýš {feedCap} nejnovějších, takže dozadu zpravidla nesahají dál; filtr entity má vlastních posledních {cap} dnů, a tam starší dny jsou",
       "total": "zapsaných dnů celkem {total}",
-      "dropped": "záznamů s nemožným datem vyhozeno {n} (datum se nikdy neopravuje)"
+      "dropped": "záznamů s nemožným datem vyhozeno {n} (datum se nikdy neopravuje)",
+      "droppedEntity": "záznamů s nemožným datem vyhozeno v celém deníku {n} (datum se nikdy neopravuje)"
     },
     "evidenceLink": "deník důkazů",
     "anchorsNote": "kotvy dnů: #d-<datum> · guid záznamu: politicas:denik:<id>",

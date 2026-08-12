@@ -137,7 +137,6 @@ export interface Module {
   tag: string;
   description: string;
   metric: { value: string; label: string };
-  feeds: string; // co dodává do CivicScore
   source: string;
   /** Cesta na plochu modulu, jakmile existuje. */
   href?: string;
@@ -151,7 +150,6 @@ export const MODULES: Module[] = [
     description:
       "Souhrnný index efektivity 0–100 pro každého poslance — čtyři pilíře, zveřejněné váhy, každé číslo dohledatelné ke svému datasetu.",
     metric: { value: "200", label: "hodnocených poslanců, každé čtvrtletí" },
-    feeds: "Plocha, kterou sytí ostatní čtyři moduly",
     source: "všechny moduly",
     href: "/zebricek",
   },
@@ -162,7 +160,6 @@ export const MODULES: Module[] = [
     description:
       "Každé jmenovité hlasování Sněmovny i Senátu — docházka, odchylky od stranické linie, rebelie a kdo co předložil.",
     metric: { value: "5 214", label: "jmenovitých hlasování, 9. období" },
-    feeds: "Pilíře Aktivita + Docházka",
     source: "psp.cz · Senát XML",
     href: "/hlasovani",
   },
@@ -173,7 +170,6 @@ export const MODULES: Module[] = [
     description:
       "Veřejné zakázky a dotace dohledané přes firmy až k politikům, kteří jsou s nimi spojeni — propojeno přes osmimístné IČO.",
     metric: { value: "2,1 mld Kč", label: "dohledáno k napojeným firmám" },
-    feeds: "Pilíř Integrita",
     source: "Registr smluv · ARES · Hlídač",
     href: "/penize",
   },
@@ -184,7 +180,6 @@ export const MODULES: Module[] = [
     description:
       "Hospodaření obcí srovnané s podobnými městy — dluh na obyvatele, podíl investic, správcovství v čase.",
     metric: { value: "6 254", label: "porovnávaných obcí" },
-    feeds: "Správcovství, pro exekutivní role",
     source: "MONITOR / Státní pokladna",
     href: "/rozpocty",
   },
@@ -195,7 +190,6 @@ export const MODULES: Module[] = [
     description:
       "Co se v zákonech skutečně změnilo — rozdíly po paragrafech propojené zpět na hlasování a poslance, kteří je odhlasovali.",
     metric: { value: "312", label: "novelizovaných zákonů v tomto období" },
-    feeds: "Propojuje hlasování → dopady",
     source: "e-Sbírka SPARQL · psp.cz tisky",
     href: "/zakony",
   },
