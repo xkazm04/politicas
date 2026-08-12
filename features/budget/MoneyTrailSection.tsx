@@ -117,6 +117,22 @@ export default function MoneyTrailSection({
   const bandLabel = t(`band${group.bandIndex}`);
   const sourceLine = t("trailSource", { pass: coverage.pass, date: coverage.retrievedOn });
 
+  /** ROZSAH LET u součtu (2026-08-12). Bez něj se Σ hodnot smluv za tři dekády
+   *  čte jako roční tok — u Prahy jde o 38,78 mld. Kč vzniklých mezi lety 1995
+   *  a 2026. Roky se předávají jako ŘETĚZCE: číselný argument by prošel
+   *  Intl.NumberFormat a vysázel se jako „2 026" (vzor coverageBody). Smlouvy
+   *  bez data podpisu rozsah nerozšiřují — a když ho nemá žádná, plocha to
+   *  řekne, místo aby roky mlčky vynechala. */
+  const contractYears =
+    summary === null || summary.firstYear === null || summary.lastYear === null
+      ? t("cardContractsYearsUnknown")
+      : summary.firstYear === summary.lastYear
+        ? t("cardContractsYear", { year: String(summary.firstYear) })
+        : t("cardContractsYears", {
+            firstYear: String(summary.firstYear),
+            lastYear: String(summary.lastYear),
+          });
+
   return (
     <section id="penize" className="mt-14 border-t-4 border-ink pt-10">
       <SectionHeading index={4} title={t("trailTitle")} aside={<SourceNote>{sourceLine}</SourceNote>} />
@@ -173,6 +189,15 @@ export default function MoneyTrailSection({
                   contracts: f.int(summary.contractCount),
                   suppliers: f.int(summary.supplierCount),
                 })}
+              </p>
+              <p className="mt-1 font-mono text-[11px] leading-snug tabular-nums text-steel-aa">
+                {contractYears}
+              </p>
+              {/* Kvalifikátor částky u čísla, ne v patičce sekce: pravidlo /penize
+                  („částka = hodnota smlouvy") platí i tady, protože obě plochy
+                  čtou tutéž váhu hrany `supplies`. */}
+              <p className="mt-1 font-mono text-[11px] leading-snug text-steel-aa">
+                {t("contractValueRule")}
               </p>
             </div>
             <div className="bg-paper p-5">

@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import BudgetMirrorPage from "@/features/budget/BudgetMirrorPage";
 import { getSupplierTies } from "@/features/budget/getSupplierTies";
-import { getBudgetSeries, getMunicipality } from "@/features/budget/mirrorData";
-import { getSupplierTable } from "@/features/budget/supplierTrail";
+import { getMunicipality } from "@/features/budget/mirrorData";
+import { municipalRouteIcos } from "@/features/budget/municipalRoutes";
 
 /*
  * /rozpocty/[ico] — trvalá adresa zrcadla jedné obce (IČO = klíč MONITORu
@@ -16,9 +16,10 @@ import { getSupplierTable } from "@/features/budget/supplierTrail";
 export function generateStaticParams(): { ico: string }[] {
   // Předgeneruj obce s napojenou rozpočtovou řadou (132 v této dávce) i obce
   // se smlouvami v peněžním grafu (4D); zbytek rejstříku se renderuje na
-  // vyžádání (dynamicParams default).
-  const icos = new Set([...getBudgetSeries().keys(), ...getSupplierTable().keys()]);
-  return [...icos].map((ico) => ({ ico }));
+  // vyžádání (dynamicParams default). Seznam vlastní features/budget/
+  // municipalRoutes.ts — TÝŽ, ze kterého čte app/sitemap.ts, aby se to, co se
+  // staví, nemohlo rozejít s tím, co se nabízí robotovi.
+  return municipalRouteIcos().map((ico) => ({ ico }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ ico: string }> }): Promise<Metadata> {

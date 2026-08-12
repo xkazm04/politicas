@@ -61,11 +61,17 @@ export const rowTotalCount = (r: SupplierRow): number => r.paidCount + r.otherCo
 export interface TownSupplierSummary {
   /** Řádky obce, celkové CZK sestupně (pořadí z generátoru, deterministické). */
   rows: SupplierRow[];
+  /** Σ hodnot smluv v záznamu — NIKOLI uskutečněné platby (pravidlo 4: částka
+   *  je váha hrany `supplies`, tedy hodnota smlouvy podle registru). */
   totalCzk: number;
   paidCzk: number;
   contractCount: number;
   paidContractCount: number;
   supplierCount: number;
+  /** Rozsah let podpisu smluv v záznamu — bez něj se Σ za roky 1995–2026 čte
+   *  jako roční tok. null = žádná smlouva obce nenese datum podpisu. */
+  firstYear: number | null;
+  lastYear: number | null;
 }
 
 /* ── Odvození spojení (čisté — sdílí ho generátor i testy) ────────────────── */
@@ -353,13 +359,28 @@ export function townSupplierSummary(
   let paidCzk = 0;
   let contractCount = 0;
   let paidContractCount = 0;
+  let firstYear: number | null = null;
+  let lastYear: number | null = null;
   for (const r of rows) {
     totalCzk += rowTotalCzk(r);
     paidCzk += r.paidCzk;
     contractCount += rowTotalCount(r);
     paidContractCount += r.paidCount;
+    // Řádek bez data podpisu rozsah NEROZŠIŘUJE (a nenuluje ho) — chybějící
+    // datum není rok 0; týž postoj jako `firstYear === null` na řádku samém.
+    if (r.firstYear !== null) firstYear = firstYear === null ? r.firstYear : Math.min(firstYear, r.firstYear);
+    if (r.lastYear !== null) lastYear = lastYear === null ? r.lastYear : Math.max(lastYear, r.lastYear);
   }
-  return { rows, totalCzk, paidCzk, contractCount, paidContractCount, supplierCount: rows.length };
+  return {
+    rows,
+    totalCzk,
+    paidCzk,
+    contractCount,
+    paidContractCount,
+    supplierCount: rows.length,
+    firstYear,
+    lastYear,
+  };
 }
 
 /* ── Srovnání s vrstevníky ────────────────────────────────────────────────── */

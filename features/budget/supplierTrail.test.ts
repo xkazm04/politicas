@@ -308,6 +308,32 @@ describe("townSupplierSummary", () => {
   it("returns null for a town absent from the record — absence is not zero", () => {
     expect(townSupplierSummary("00999999", table)).toBeNull();
   });
+
+  /*
+   * The YEAR SPAN of the summed contract value (2026-08-12). Without it the
+   * card's Σ — 38,78 mld. Kč for Prague — reads as an annual flow, when it is
+   * the value of contracts signed between 1995 and 2026.
+   */
+  it("spans the signature years of the rows it sums", () => {
+    const s = townSupplierSummary(TOWN, table);
+    expect(s).toMatchObject({ firstYear: 2021, lastYear: 2024 });
+  });
+
+  it("a row with no signature date neither widens the span nor zeroes it", () => {
+    // A missing date is not year 0 — the same stance the row itself takes.
+    expect(townSupplierSummary(TOWN2, table)).toMatchObject({ firstYear: null, lastYear: null });
+
+    const mixed = new Map<string, SupplierRow[]>([
+      [
+        TOWN,
+        [
+          { ...table.get(TOWN)![0], firstYear: null, lastYear: null },
+          { ...table.get(TOWN)![0], supplierIco: SUP2, firstYear: 2019, lastYear: 2020 },
+        ],
+      ],
+    ]);
+    expect(townSupplierSummary(TOWN, mixed)).toMatchObject({ firstYear: 2019, lastYear: 2020 });
+  });
 });
 
 describe("supplierPeerStats / peerSupplierTotals", () => {

@@ -180,10 +180,17 @@ export const PAGE_SECTIONS: Record<string, NavSection[]> = {
     { id: "kniha", labelKey: "money.sections.ledger.title" },
     { id: "metodika", labelKey: "money.sections.method.title" },
   ],
+  // Kotvy REÁLNÉ plochy včetně peněžní stopy (#penize, MoneyTrailSection) —
+  // ta v railu chyběla od svého vzniku, takže sekce 04 se z lišty nedala
+  // otevřít vůbec. Popisek §01 přitom ukazoval na `budget.section1Title`
+  // („Město vs. vrstevníci") — titulek MOCKU; plocha vykresluje
+  // `sectionMirrorTitle` („Obec vs. vrstevníci"). Táž třída rozejití jako
+  // /hlasovani výš, jen tišší: lišta pojmenovávala sekci jinak než stránka.
   "/rozpocty": [
-    { id: "zrcadlo", labelKey: "budget.section1Title" },
+    { id: "zrcadlo", labelKey: "budget.sectionMirrorTitle" },
     { id: "dluh", labelKey: "budget.section2Title" },
     { id: "skupina", labelKey: "budget.section3Title" },
+    { id: "penize", labelKey: "budget.trailTitle" },
   ],
   "/zakony": [
     { id: "tisky", labelKey: "lawwatch.realSection1Title" },
@@ -208,13 +215,20 @@ export const PAGE_SECTIONS: Record<string, NavSection[]> = {
 };
 
 /**
- * Kotvy pro danou cestu. Shoda je přesná, s jedinou výjimkou pro spis
- * poslance (/poslanec/<id>) — podstránky modulů vlastní kotvy nemají a
- * zdědit ty rodičovské by znamenalo nabídnout odkazy do prázdna.
+ * Kotvy pro danou cestu. Shoda je přesná, se dvěma výjimkami — obě proto, že
+ * cesta vykresluje TUTÉŽ komponentu jako rodič, jen s jinými daty:
+ *   – spis poslance (/poslanec/<id>),
+ *   – zrcadlo jedné obce (/rozpocty/<IČO>), což je `BudgetMirrorPage`
+ *     s předvybraným IČO, tedy táž čtveřice kotev; bez téhle větve mizel
+ *     blok „na této stránce" právě na trvalých adresách, na které vede
+ *     sitemapa i sdílené odkazy.
+ * Podstránky, které vlastní kotvy nemají, si ty rodičovské NEDĚDÍ — bylo by to
+ * nabídnout odkazy do prázdna.
  */
 export function sectionsFor(pathname: string): NavSection[] {
   if (PAGE_SECTIONS[pathname]) return PAGE_SECTIONS[pathname];
   if (pathname.startsWith("/poslanec/")) return PAGE_SECTIONS["/poslanec"];
+  if (pathname.startsWith("/rozpocty/")) return PAGE_SECTIONS["/rozpocty"];
   return [];
 }
 

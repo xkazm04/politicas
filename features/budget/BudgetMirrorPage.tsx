@@ -33,7 +33,12 @@ import {
   type Municipality,
 } from "./mirrorData";
 import { peerGroupFor, peerMedians, MIN_PEERS } from "./peerGroups";
-import { SNAPSHOT_YEARS, SNAPSHOT_FLOOR_POPULATION } from "./data/budgetSnapshots.generated";
+import {
+  SNAPSHOT_YEARS,
+  SNAPSHOT_FLOOR_POPULATION,
+  SNAPSHOTS_RETRIEVED_ON,
+} from "./data/budgetSnapshots.generated";
+import { REGISTRY_PERIOD_LABEL, REGISTRY_RETRIEVED_ON } from "./data/registryData.generated";
 import TownPicker from "./TownPicker";
 import MoneyTrailSection from "./MoneyTrailSection";
 import type { SupplierTiesResult } from "./getSupplierTies";
@@ -197,7 +202,17 @@ export default function BudgetMirrorPage({
   const scopeLabel =
     group.scope === "kraj" ? t("scopeKraj", { kraj: town.krajName }) : t("scopeNationwide");
   const bandLabel = t(`band${group.bandIndex}`);
-  const sourceLine = t("sourceLine");
+  /** Citace zdroje se skládá z GENEROVANÝCH konstant dávky, ne z literálu:
+   *  do 2026-08-12 tu stálo „staženo 30. 7. 2026" napsané rukou v obou
+   *  katalozích, takže další stažení dat by datum nechalo stát na místě.
+   *  Vzor je `trailSource` v sekci 04 (interpolované {date}); datum se předává
+   *  v ISO tvaru, jak ho nese generátor — žádné formátování na klientu, které
+   *  by se lišilo verzí ICU (precedens hydratace v /denik). */
+  const sourceLine = t("sourceLine", {
+    snapshots: SNAPSHOTS_RETRIEVED_ON,
+    registry: REGISTRY_RETRIEVED_ON,
+    period: REGISTRY_PERIOD_LABEL,
+  });
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -470,6 +485,12 @@ export default function BudgetMirrorPage({
               {t("peersEmpty", { band: bandLabel })}
             </p>
           )}
+          {/* Citace zdroje — sekce 03 ji jako jediná neměla: aside nad tabulkou
+              popisuje jen pásmo a řazení, takže pět sloupců čísel o cizích
+              obcích stálo bez uvedeného původu (pravidlo značky). */}
+          <div className="mt-4">
+            <SourceNote>{sourceLine}</SourceNote>
+          </div>
           <p className="mt-4 max-w-3xl text-sm italic leading-relaxed text-steel-aa">
             {t("stewardshipNoteLive")}
           </p>
