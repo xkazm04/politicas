@@ -313,4 +313,40 @@ describe("recomputeFactFromProps — jednotnost, nebo nic", () => {
   it("graf bez provenance → null", () => {
     expect(recomputeFactFromProps([{}, {}])).toBeNull();
   });
+
+  /* JEDEN AGREGÁTOR (2026-08-12). `computedAt` si tenhle modul dopočítával
+   * druhým průchodem props, přestože `summarizeContributionProvenance` ho od
+   * 2026-08-11 nese pod TOUŽ přísnou laťkou (jeden průchod, jeden den, žádný
+   * hodnocený uzel bez razítka) a jeho hlavička výslovně říká, že se nemá
+   * odvozovat znovu. Tyhle testy drží, že se zavřenost nerozvolnila. */
+  it("den se bere z agregátu a datuje se DNEM, ne okamžikem", () => {
+    const fact = recomputeFactFromProps([props(), props({ computedAt: "2026-08-04T23:59:59.999Z" })]);
+    expect(fact?.computedAt).toBe("2026-08-04");
+  });
+
+  it("nepoužitelné razítko dne není den → null (nikdy se neopraví)", () => {
+    expect(recomputeFactFromProps([props({ computedAt: "srpen 2026" })])).toBeNull();
+    expect(recomputeFactFromProps([props({ computedAt: 20260804 })])).toBeNull();
+  });
+
+  it("prázdný vstup → null (žádná sněmovna, žádný přepočet)", () => {
+    expect(recomputeFactFromProps([])).toBeNull();
+  });
+
+  it("razítko bez průchodu i refu není razítko — o jednotnosti rozhoduje agregát", () => {
+    // Rozhodnutí, ne náhoda: `readProv` takový zápis nepovažuje za provenienci
+    // vůbec (viz features/civicscore/provenance.ts), a schránka to posuzování
+    // nedubluje. Sněmovna, která JE orazítkovaná, je pořád jednotná.
+    const fact = recomputeFactFromProps([
+      props(),
+      props(),
+      { contribution_provenance: { computedAt: "2026-08-04T09:00:00.000Z" } },
+    ]);
+    expect(fact).toEqual({
+      computedAt: "2026-08-04",
+      pass: 42,
+      ref: CONTRIBUTION_FORMULA_REF,
+      covered: 2,
+    });
+  });
 });

@@ -43,6 +43,9 @@ export async function GET(request: Request): Promise<Response> {
     builtOn: built.builtOn,
     since: built.since,
     coverage: built.coverage,
+    // Meze čtení jedou s odpovědí: plocha o nich píše větu (features/denik/
+    // limitNotes.ts, tentýž modul jako deník) a odznak je ignoruje.
+    limits: built.limits,
     deltas: built.deltas,
   };
 

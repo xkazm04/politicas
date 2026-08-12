@@ -4,8 +4,9 @@ import {
   denikFeedToRss,
   parseEvidenceFeedJson,
 } from "@/features/denik/feedCodecs";
-import type { EntityDelta } from "./deriveDeltas";
+import { DELTA_ENTRIES_CAP, type EntityDelta } from "./deriveDeltas";
 import {
+  SCHRANKA_FEED_ITEMS,
   SCHRANKA_FEED_TITLE,
   schrankaFeedChannel,
   schrankaFeedDescription,
@@ -68,6 +69,39 @@ describe("schrankaFeedEntries — jeden řádek jednou", () => {
     expect(schrankaFeedEntries([delta("poslanec:1", many)], 2)).toHaveLength(2);
     expect(schrankaFeedEntries([delta("poslanec:1", many)], 0)).toHaveLength(0);
   });
+
+  it("výstup feedu se opravou plochy NEZMĚNIL — ani u druhů, které plocha zahazovala", () => {
+    /* Feed `parseNovinkyResponse` nevolá: staví se ze serverových `DeltaEntry`,
+     * takže `mandate` a `organRole` vydával celou dobu, zatímco plocha o nich
+     * psala „nerozumím". Oprava je na strane plochy a tenhle pin drží, že se
+     * druhá strana té divergence nehnula ani o bajt. */
+    const items = schrankaFeedEntries([
+      delta("poslanec:6881", [
+        row("mandate:6881", "2026-08-04", { kind: "mandate", timeBasis: "zaznamenano", tone: "ink" }),
+        row("organRole:6881:1", "2026-08-03", { kind: "organRole", tone: "cobalt" }),
+      ]),
+    ]);
+    expect(JSON.stringify(items)).toBe(
+      JSON.stringify([
+        {
+          id: "mandate:6881",
+          date: "2026-08-04",
+          titleCs: "zápis mandate:6881",
+          pending: false,
+          source: "registr smluv — smlouvy.gov.cz",
+          internalHref: null,
+        },
+        {
+          id: "organRole:6881:1",
+          date: "2026-08-03",
+          titleCs: "zápis organRole:6881:1",
+          pending: false,
+          source: "registr smluv — smlouvy.gov.cz",
+          internalHref: null,
+        },
+      ]),
+    );
+  });
 });
 
 describe("kanál schránky — adresa JE odběr a popis to říká", () => {
@@ -89,6 +123,18 @@ describe("kanál schránky — adresa JE odběr a popis to říká", () => {
     expect(d).toContain("2026-08-01");
     // Prázdný seznam se přizná, nepředstírá se výběr.
     expect(schrankaFeedDescription(0, "2026-08-01")).toContain("žádnou sledovanou entitu");
+  });
+
+  it("popis přizná OBA stropy — čtečka jinak nepozná, že vidí výřez", () => {
+    // Do 2026-08-12 jmenoval popis klíče, práh i škrtání z telemetrie, ale ani
+    // jedno z čísel, která feed skutečně řežou: položky se odběrateli prostě
+    // přestaly objevovat. Čísla se BEROU Z KONSTANT — přepsaná do věty by se
+    // s kódem rozešla první změnou stropu.
+    const d = schrankaFeedDescription(2, "2026-08-01");
+    expect(d).toContain(`nejvýš ${SCHRANKA_FEED_ITEMS} položek`);
+    expect(d).toContain(`nejvýš ${DELTA_ENTRIES_CAP} nejnovějších zápisů`);
+    // A říká, kde chybějící zbytek je — mez bez pokračování je jen zavřené dveře.
+    expect(d).toContain("deník té entity");
   });
 
   it("prázdný seznam bez prahu = prázdná query (adresa bez ocasu)", () => {

@@ -19,7 +19,7 @@
  */
 
 import type { DenikFeedChannel, DenikFeedItem } from "@/features/denik/feedCodecs";
-import type { DeltaEntry, EntityDelta } from "./deriveDeltas";
+import { DELTA_ENTRIES_CAP, type DeltaEntry, type EntityDelta } from "./deriveDeltas";
 
 export const SCHRANKA_FEED_TITLE = "Občanská schránka — sledované entity | Politicas";
 
@@ -49,6 +49,12 @@ export function schrankaFeedDescription(keyCount: number, since: string): string
     `podepsané forenzní posudky a přepočty indexu přispění, každý se svým zdrojem. ` +
     `${list} Odběr je tedy jen adresa: žádný účet, žádné cookies, nic uloženého na serveru — ` +
     `kdo adresu zná, vidí týž výběr, tak s ní zacházejte. Prahem je den „od“ (teď ${since}). ` +
+    // Oba stropy stojí v popisu KANÁLU, protože čtečka jinak nemá jak poznat, že
+    // vidí výřez: položky se prostě přestanou objevovat. Čísla jsou dosazená
+    // z konstant, které řez opravdu dělají — přepsané do věty by se rozešla
+    // s kódem první změnou stropu.
+    `Feed nese nejvýš ${SCHRANKA_FEED_ITEMS} položek a z každé sledované entity nejvýš ` +
+    `${DELTA_ENTRIES_CAP} nejnovějších zápisů; starší nese deník té entity. ` +
     `Klíče se ze serverové telemetrie škrtají; zůstává jen jejich počet.`
   );
 }

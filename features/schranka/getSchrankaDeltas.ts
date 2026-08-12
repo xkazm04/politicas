@@ -15,7 +15,7 @@
 
 import "server-only";
 import { deriveDenikEntries } from "@/features/denik/deriveDenik";
-import { getDenikData } from "@/features/denik/getDenikData";
+import { getDenikData, type DenikLimits } from "@/features/denik/getDenikData";
 import { getDukazyData } from "@/features/dukazy/getDukazyData";
 import {
   daysBefore,
@@ -32,6 +32,12 @@ export interface SchrankaDeltas {
   /** Práh, který se SKUTEČNĚ použil — volající ho cituje (feed i odpověď). */
   since: string;
   coverage: NovinkyCoverage;
+  /** Meze ČTENÍ, ze kterého tyhle delty vznikly — doslova `DenikLimits`
+   *  loaderu deníku, nic přepočítaného. `coverage` říká, jestli šla vrstva
+   *  přečíst; tohle, jestli se přečetla celá. Do 2026-08-12 se sem nepředávalo
+   *  nic, takže useknutý odečet zkrátil čtenáři deltu beze slova — na ploše,
+   *  která hned vedle přiznává i jeden zahozený řádek odpovědi. */
+  limits: DenikLimits;
   /** `YYYY-MM-DD` serveru — den sestavení (z loaderu deníku). */
   builtOn: string;
 }
@@ -75,6 +81,7 @@ export async function getSchrankaDeltas(
       cap: DELTA_ENTRIES_CAP,
     }),
     coverage: { ...denik.coverage, dukazy: dukazy !== null, recompute: recompute !== null },
+    limits: denik.limits,
     builtOn: denik.builtOn,
   };
 }

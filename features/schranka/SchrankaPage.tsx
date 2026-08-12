@@ -25,6 +25,7 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
+import type { Locale } from "@/lib/i18n/config";
 import { compactCzk } from "@/features/money/moneyTypes";
 import {
   DELTA_ENTRIES_CAP,
@@ -33,6 +34,10 @@ import {
   type DeltaEntry,
   type EntityDelta,
 } from "./deriveDeltas";
+// Meze čtení se NEPŘEPISUJÍ: schránka sází tytéž věty ze stejného čistého
+// modulu jako deník (klíče `denik.limits.*`). Druhá sada vět o jednom stropu je
+// druhá pravda o jednom čísle.
+import { limitNotes } from "@/features/denik/limitNotes";
 import { schrankaFeedQuery } from "./feed";
 import { kindTallies } from "./kindVocabulary";
 import type { NovinkyResponse } from "./novinky";
@@ -188,6 +193,8 @@ function EntityBlock({ delta, storedLabel }: { delta: EntityDelta; storedLabel: 
 
 export default function SchrankaPage() {
   const t = useTranslations("schranka");
+  const tAll = useTranslations();
+  const locale = useLocale();
   const f = useFormat();
   const { state, stampVisit, markSeen } = useSchranka();
   const today = useToday();
@@ -271,6 +278,16 @@ export default function SchrankaPage() {
   if (data && !data.coverage.changes) coverageMissing.push(t("coverage.changes"));
   if (data && !data.coverage.dukazy) coverageMissing.push(t("coverage.dukazy"));
   if (data && !data.coverage.recompute) coverageMissing.push(t("coverage.recompute"));
+
+  /* Meze ČTENÍ záznamu, ze kterého delty vznikly. Tentýž čistý modul a tytéž
+     věty jako /denik — schránka jen dodá rámující větu, protože čtenář tu nemá
+     ledger před sebou a musí vědět, ČEHO se ten strop týká. Ledger se předává
+     jako null schválně: `mergedContractRows` / `contractAmountConflicts` jsou
+     vlastnosti VYKRESLENÉ knihy dnů, kterou schránka nestaví, a vyrábět si
+     kvůli dvěma číslům falešný ledger by byl výmysl většího řádu než ta dvě
+     čísla. Chybějící `limits` (starší odpověď serveru) = žádná věta: mlčení
+     není tvrzení, nula by byla. */
+  const limitRows = data?.limits ? limitNotes(data.limits, null, locale as Locale) : [];
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -389,6 +406,20 @@ export default function SchrankaPage() {
                   <p className="mt-1 text-sm leading-relaxed text-steel-aa">
                     {[t("coverage.intro"), ...coverageMissing, t("coverage.outro")].join(" ")}
                   </p>
+                </div>
+              )}
+
+              {limitRows.length > 0 && (
+                <div className="mt-6 max-w-2xl border-l-4 border-steel bg-paper-strong px-4 py-3">
+                  <p className="font-mono text-[11px] font-bold uppercase tracking-widest">
+                    {tAll("denik.limits.kicker")}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-steel-aa">{t("limits.intro")}</p>
+                  <ul className="mt-1 list-none space-y-1 text-sm leading-relaxed text-steel-aa">
+                    {limitRows.map((n) => (
+                      <li key={n.key}>{tAll(`denik.${n.key}`, n.values)}</li>
+                    ))}
+                  </ul>
                 </div>
               )}
 

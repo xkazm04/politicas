@@ -11,7 +11,9 @@
  * říct nic.
  */
 
+import type { DenikLimits } from "@/features/denik/getDenikData";
 import type { DeltaEntry, EntityDelta } from "./deriveDeltas";
+import { KIND_NOUN_KEYS } from "./kindVocabulary";
 
 export interface NovinkyCoverage {
   money: boolean;
@@ -32,6 +34,20 @@ export interface NovinkyResponse {
   /** Práh delty, který server skutečně použil (`YYYY-MM-DD`). */
   since: string;
   coverage: NovinkyCoverage;
+  /**
+   * MEZE ČTENÍ ZÁZNAMU, ze kterého delty vznikly (`DenikLimits`).
+   *
+   * `coverage` odpovídá na „šla ta vrstva přečíst"; tohle na „přečetla se
+   * CELÁ". Deník ty počty sází větou od 2026-08-12 (features/denik/
+   * limitNotes.ts), zatímco schránka — druhá plocha nad TÝMŽ čtením — o nich
+   * mlčela: čtenáři, jemuž strop hran useknul starší smlouvy sledované firmy,
+   * se prostě zobrazilo míň řádků a nic to neřeklo.
+   *
+   * Volitelné, protože odpověď staršího serveru je nenese; chybějící nebo
+   * vadný tvar znamená „nevíme", ne „žádné meze" — plocha pak nepíše nic
+   * (mlčení není tvrzení, nula by byla).
+   */
+  limits?: DenikLimits;
   deltas: EntityDelta[];
   /** Kolik řádků odpověď nesla v neznámém tvaru a klient je zahodil.
    *  Chybí u odpovědi, kterou sestavuje server (ten vadné řádky netvoří). */
@@ -42,17 +58,21 @@ export interface NovinkyResponse {
 
 const TONES = new Set(["signal", "cobalt", "ink", "ochre"]);
 const TIME_BASES = new Set(["ucinne", "zaznamenano"]);
-const KINDS = new Set([
-  "contract",
-  "billAssigned",
-  "billPublished",
-  "roleStart",
-  "roleEnd",
-  "review",
-  "change",
-  "forensic",
-  "recompute",
-]);
+/**
+ * Přípustné druhy se ODVOZUJÍ z typované tabulky, nikdy nevypisují ručně.
+ *
+ * Do 2026-08-12 to byl ručně psaný `Set` devíti řetězců, kterému chyběly
+ * `mandate` a `organRole` — druhy, které deník i `KIND_ORDER` vedou od
+ * 2026-08-04. Následek nebyl tichý, ale HLASITĚ NEPRAVDIVÝ: server takový
+ * řádek pošle, `parseDeltaEntry` ho zahodí a plocha o něm napíše „N řádků
+ * odpověď nesla v neznámém tvaru" — schránka pomlouvala vlastní data. A feed,
+ * který parse vůbec nevolá (sestavuje se ze serverových `DeltaEntry`), týž
+ * řádek klidně vydal: dvě adresy jednoho odběru, dvě různé pravdy.
+ *
+ * `KIND_NOUN_KEYS` je `Record<DeltaEntry["kind"], string>`, takže nový druh
+ * v unii se bez zápisu do slovníku ani nezkompiluje — a odsud se propíše sem.
+ */
+const KINDS = new Set<string>(Object.keys(KIND_NOUN_KEYS));
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 const isStr = (v: unknown): v is string => typeof v === "string";
@@ -162,6 +182,39 @@ function parseEntityDelta(v: unknown): { delta: EntityDelta; dropped: number } |
   };
 }
 
+/**
+ * Meze čtení — pole po poli, jako všechno ostatní tady. Chybí-li jediné,
+ * vrací se undefined CELÝ: půlka mezí je horší než žádná, protože věty se
+ * vypisují jen u nenulových hodnot a chybějící pole by se četlo jako „ta mez
+ * se nedotkla dat".
+ */
+function parseLimits(v: unknown): DenikLimits | undefined {
+  if (typeof v !== "object" || v === null || Array.isArray(v)) return undefined;
+  const o = v as Record<string, unknown>;
+  const int = (k: string): number | null => {
+    const n = o[k];
+    return typeof n === "number" && Number.isInteger(n) && n >= 0 ? n : null;
+  };
+  const bool = (k: string): boolean | null => (typeof o[k] === "boolean" ? (o[k] as boolean) : null);
+  const nums = {
+    contractCompanies: int("contractCompanies"),
+    companyCap: int("companyCap"),
+    companiesOverCap: int("companiesOverCap"),
+    edgeCap: int("edgeCap"),
+    companiesEdgeTruncated: int("companiesEdgeTruncated"),
+    malformedIco: int("malformedIco"),
+    changesFromGate: int("changesFromGate"),
+    changesUndisplayable: int("changesUndisplayable"),
+    auditCap: int("auditCap"),
+    changeCap: int("changeCap"),
+    changesRead: int("changesRead"),
+  };
+  const bools = { auditTruncated: bool("auditTruncated"), changesTruncated: bool("changesTruncated") };
+  if (Object.values(nums).some((n) => n === null)) return undefined;
+  if (Object.values(bools).some((b) => b === null)) return undefined;
+  return { ...nums, ...bools } as DenikLimits;
+}
+
 /** Tolerantní parse odpovědi: rozbitá obálka → null (plocha ukáže čestný
  *  stav „novinky teď nelze načíst", nikdy nespadne na cizím JSONu); vadné
  *  entity a řádky se zahodí a spočítají. */
@@ -187,6 +240,7 @@ export function parseNovinkyResponse(data: unknown): NovinkyResponse | null {
   }
 
   const coverage = o.coverage as Record<string, unknown>;
+  const limits = parseLimits(o.limits);
   return {
     v: 1,
     builtOn: o.builtOn,
@@ -199,6 +253,7 @@ export function parseNovinkyResponse(data: unknown): NovinkyResponse | null {
       dukazy: coverage.dukazy === true,
       recompute: coverage.recompute === true,
     },
+    ...(limits !== undefined ? { limits } : {}),
     deltas,
     droppedEntries,
     droppedDeltas,

@@ -43,33 +43,27 @@ const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
  * Fakt o přepočtu z props uzlů osob — nebo null, když sněmovna nedrží JEDEN
  * `{pass, ref, computedAt}`.
  *
- * Jednotnost `{pass, ref}` posuzuje `summarizeContributionProvenance`
- * (features/civicscore/provenance.ts) — tentýž agregát, který o svém původu
- * mluví na /zebricek, /poslanec a /metodika. Druhý agregátor téhož by byl
- * druhá pravda o jednom faktu; tenhle modul k němu jen přidává `computedAt`,
- * který provenance agregát nesleduje (žebříčku stačí průchod).
+ * JEDEN AGREGÁTOR, ne půldruhého. Jednotnost `{pass, ref}` sem odjakživa
+ * počítal `summarizeContributionProvenance` (features/civicscore/provenance.ts)
+ * — tentýž agregát, kterým o svém původu mluví /zebricek, /poslanec a
+ * /metodika — a `computedAt` si tenhle modul dopočítával sám, protože ho tehdy
+ * agregát nesledoval. Od 2026-08-11 ho nese (`ContributionProvenance
+ * .computedAt`) a jeho vlastní hlavička říká, že se nemá znovu odvozovat: laťka
+ * je ZÁMĚRNĚ táž přísná, jakou držel tenhle soubor — jeden průchod, jeden den,
+ * a ani jeden hodnocený uzel bez razítka.
+ *
+ * Selhává se ZAVŘENĚ: cokoli jiného než jednotný stav s dnem znamená, že se
+ * řádek o přepočtu nehlásí vůbec. Datovat poslance průchodem, který ho možná
+ * nepřepočítal, je táž chyba jako číst průchod z prvního uzlu.
  */
 export function recomputeFactFromProps(
   personProps: readonly Record<string, unknown>[],
 ): RecomputeFact | null {
   const prov = summarizeContributionProvenance(personProps);
   if (prov.state !== "uniform" || prov.pass === null || prov.ref === null) return null;
+  if (prov.computedAt === null || !DAY_RE.test(prov.computedAt)) return null;
 
-  const days = new Set<string>();
-  let covered = 0;
-  for (const props of personProps) {
-    const raw = props.contribution_provenance;
-    if (!raw || typeof raw !== "object") continue;
-    const at = (raw as Record<string, unknown>).computedAt;
-    if (typeof at !== "string" || !DAY_RE.test(at.slice(0, 10))) continue;
-    days.add(at.slice(0, 10));
-    covered += 1;
-  }
-  // Dva dny = dva zápisy jednoho průchodu; „kdy" pak nemá jednu odpověď
-  // a schránka radši nehlásí nic než datum, které pro část sněmovny neplatí.
-  if (days.size !== 1 || covered !== prov.covered) return null;
-
-  return { computedAt: [...days][0], pass: prov.pass, ref: prov.ref, covered };
+  return { computedAt: prov.computedAt, pass: prov.pass, ref: prov.ref, covered: prov.covered };
 }
 
 /** Klíč sledování je poslanec? Přepočet indexu se týká JEN jich. */
