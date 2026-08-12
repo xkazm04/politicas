@@ -31,11 +31,12 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import FactRow from "./FactRow";
 import FeedPanelShell from "./FeedPanelShell";
-import type { DatedFactLedger } from "../datedFacts";
+import type { ContractLayerRead, DatedFactLedger } from "../datedFacts";
 import { denikEntityHref, sliceNodeEntityKey } from "../entityLinks";
 
 export default function GraphFeedPanel({
   ledger,
+  contracts,
   selected,
   selectedLabel,
   onPick,
@@ -43,6 +44,13 @@ export default function GraphFeedPanel({
 }: {
   /** Kniha REÁLNÝCH datovaných faktů. */
   ledger: DatedFactLedger;
+  /**
+   * Jak dopadlo ČTENÍ smluvní vrstvy téhle knihy. Kniha se složí i bez smluv
+   * (z rejstříkových rolí a kroků tisků) a nedá se na ní poznat, že jedna
+   * vrstva chybí — proto se stav čtení přináší zvlášť a přiznává se u paty,
+   * vedle věty o vyhozených nemožných datech. `null` = volající stav nehlásí.
+   */
+  contracts?: ContractLayerRead | null;
   /** Vybraný uzel — týž stav, jaký drží plátno a URL. */
   selected: string | null;
   selectedLabel: string | null;
@@ -108,6 +116,25 @@ export default function GraphFeedPanel({
           {ledger.droppedImplausible > 0 && (
             <SourceNote tone="signal" className="mt-1">
               {tf("droppedImplausible", { count: f.int(ledger.droppedImplausible) })}
+            </SourceNote>
+          )}
+          {/* Výpadek smluvní vrstvy: kniha níž stojí jen na rolích a tiscích a
+              sama o sobě vypadá zdravě. Kolik smluv chybí, se nedopočítává. */}
+          {contracts?.state === "failed" && (
+            <SourceNote tone="signal" className="mt-1">
+              {tf("contractsFailed")}
+            </SourceNote>
+          )}
+          {/* Useknutí na stropu hran bylo do teď jen v logu operátora. Co zmizí,
+              nezmizí náhodně — jsou to nejlevnější smlouvy nejzaměstnanějších
+              firem, takže mlčení by z knihy dělalo tvrzení, že neexistují. */}
+          {contracts?.state === "truncated" && (
+            <SourceNote tone="signal" className="mt-1">
+              {tf("contractsTruncated", {
+                truncated: f.int(contracts.truncatedCompanies),
+                companies: f.int(contracts.companies),
+                cap: f.int(contracts.edgeCap),
+              })}
             </SourceNote>
           )}
         </>

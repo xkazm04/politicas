@@ -72,7 +72,7 @@ const dashboardData = (): DashboardData => {
     top: [],
     summary: { avg: 60.1, median: 61, sigma: 12.4, count: 207 },
     histogram: [],
-    attendanceAvgPct: 88.2,
+    attendance: { avgPct: 88.2, counted: 207, total: 207 },
     provenance: {
       state: "uniform",
       pass: 42,
@@ -88,6 +88,7 @@ const dashboardData = (): DashboardData => {
     laws: null,
     slice,
     feed: null,
+    factContracts: { state: "ok", companies: 1, truncatedCompanies: 0, edgeCap: 5_000 },
     builtOn: "2026-08-04",
   };
 };

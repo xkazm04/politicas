@@ -81,6 +81,33 @@ export interface DatedFact {
   tone: "signal" | "cobalt" | "ink";
 }
 
+/**
+ * JAK DOPADLO ČTENÍ SMLUVNÍ VRSTVY KNIHY — sourozenec pravidla 2 v hlavičce.
+ *
+ * Kniha se složí i tehdy, když se smlouvy nepřečtou: zbydou rejstříkové role a
+ * kroky tisků a plocha vypadá zdravě. „Výřez nemá přisouditelnou smlouvu" a
+ * „smlouvy se nepodařilo přečíst" jsou přitom dvě různá tvrzení a jenom první
+ * je o výřezu. Stav čtení proto putuje s knihou až na plochu.
+ *
+ * Nic se nedopočítává a nic neopravuje: čísla jsou to, co čtení skutečně
+ * vidělo, a `failed` říká, že velikost mezery NEZNÁME — ne že je nulová.
+ *
+ * Typ bydlí tady (čistý modul), aby ho směl číst i klientský panel; hodnotu
+ * plní loader, který jediný čte graf (features/dashboard/getDashboardData.ts).
+ */
+export interface ContractLayerRead {
+  /** `ok` — každá firma výřezu přečtena celá · `truncated` — aspoň jedna vrátila
+   *  přesně strop hran, takže její nejlevnější smlouvy v knize nejsou ·
+   *  `failed` — čtení spadlo; kolik smluv chybí, nevíme. */
+  state: "ok" | "truncated" | "failed";
+  /** Kolik firem výřezu se četlo. */
+  companies: number;
+  /** Kolik z nich se vrátilo přesně na stropu. */
+  truncatedCompanies: number;
+  /** Ten strop — vlastní evidence věty o useknutí. */
+  edgeCap: number;
+}
+
 export interface DatedFactLedger {
   /** Řádky knihy — datum sestupně. Seříznuté podle `DatedFactOptions.limit`
    *  (výchozí `FEED_ROWS`); bez seříznutí je to celá možná množina. */

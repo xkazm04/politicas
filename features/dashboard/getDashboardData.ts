@@ -10,7 +10,7 @@
 //   bills → laws                            → getLawData()         (lawwatch)
 // The dashboard picks the fields it shows and passes them through.
 //
-// ONE EXCEPTION, named rather than hidden: `attendanceAvgPct`. The header used to
+// ONE EXCEPTION, named rather than hidden: `attendance`. The header used to
 // claim this loader "re-derives nothing" while `getDashboardData` folded 207 rows
 // of `absenceRate` into a mean right below it. The mean is kept HERE on purpose —
 // it is a figure only /dashboard renders (the civicscore payload publishes the
@@ -19,6 +19,11 @@
 // one line, and no other surface computes a second version of it. If a second
 // surface ever prints chamber attendance, the mean moves to civicscore and this
 // note goes with it.
+// What the mean MEASURES is the omluvy register — `absence_rate` is
+// `excusedDays / sessionDays` (lib/analysis/contribution.ts), the same input the
+// index's docházka component scores — and the tile says so and cites psp.cz omluvy.
+// It is NOT the roll-call participation rate, which is a different figure from a
+// different dump and lives in `participationRate`.
 //
 // ── why the money read is memoized, and why the memo EXPIRES ────────────────
 // getMoneyData() walks the whole money layer (~153 k contracts + ~154 k supplies
@@ -48,7 +53,13 @@ import type { MoneyData } from "@/features/money/moneyTypes";
 import { reviewSummary, type ReviewSummary } from "@/features/money/reviewSummary";
 import { storedRefLabel } from "@/features/civicscore/provenance";
 import { buildStateSlice, type StateSlice } from "./stateSlice";
-import { buildDatedFacts, FEED_ROWS, type DatedFactLedger, type FactContract } from "./datedFacts";
+import {
+  buildDatedFacts,
+  FEED_ROWS,
+  type ContractLayerRead,
+  type DatedFactLedger,
+  type FactContract,
+} from "./datedFacts";
 
 /**
  * What the DATA says about the formula that authored the ranking — the chamber-wide
@@ -113,6 +124,26 @@ export interface DashboardMoney {
   /** The ceiling and how many companies sit at it — the floor note's own evidence. */
   perCompanyCap: number | null;
   companiesAtCap: number;
+}
+
+/**
+ * CHAMBER ATTENDANCE, WITH ITS POPULATION.
+ *
+ * The tile used to print one number folded out of 207 rows through `num()`, so an MP
+ * whose node carries no `absence_rate` entered the mean as `0` — a politician with
+ * PERFECT attendance, invented by a coercion. `LeaderboardEntry.absenceRate` is now
+ * nullable and this fold excludes nulls; what is left is a mean over a POPULATION, so
+ * the population travels with it and the tile prints it whenever it is smaller than
+ * the chamber. A missing figure is never read as a value in either direction.
+ */
+export interface DashboardAttendance {
+  /** Mean share of session days with NO excuse filed, 0–100 %. `null` ⇒ not one MP
+   *  carries the figure, so no mean exists — the tile says that rather than print 0. */
+  avgPct: number | null;
+  /** How many MPs entered the mean (those carrying `absence_rate`). */
+  counted: number;
+  /** How many MPs the chamber pass read — the denominator `counted` is read against. */
+  total: number;
 }
 
 /** Legislation headline — bill → law edges actually recorded in the graph. */
@@ -188,8 +219,9 @@ export interface DashboardData {
   top: DashboardTopEntry[];
   summary: { avg: number; median: number; sigma: number; count: number };
   histogram: { from: number; label: string; count: number }[];
-  /** Average attendance across all real MPs, as a 0–100 percentage. */
-  attendanceAvgPct: number;
+  /** Chamber attendance derived from the omluvy register, WITH the population it
+   *  was averaged over — see `DashboardAttendance`. */
+  attendance: DashboardAttendance;
   provenance: DashboardProvenance;
   /** null ⇒ money layer unavailable; the strip shows a labelled illustrative tile. */
   money: DashboardMoney | null;
@@ -202,6 +234,10 @@ export interface DashboardData {
   /** Chronological ledger of REAL dated facts about the slice's entities.
    *  null ⇒ no slice, so the panel keeps the labelled sample feed. */
   feed: DatedFactLedger | null;
+  /** How the ledger's contract layer was read — see `ContractLayerRead`.
+   *  null ⇒ there is no slice, so no contract read was attempted at all (which is a
+   *  different thing from a read that failed, and the page keeps them apart). */
+  factContracts: ContractLayerRead | null;
   /** `YYYY-MM-DD` on which THIS rendering was produced. The page is statically
    *  generated and revalidated (see ./freshness.ts), so without it a reader
    *  cannot tell whether what they are looking at is hours or months old. */
@@ -345,14 +381,32 @@ const MAX_SLICE_CONTRACT_EDGES = 5_000;
  * nich mlčky tvrdila, že neexistují. Táž heuristika jako `warnIfTruncated`
  * v lib/db (délka výsledku přesně na stropu = pravděpodobně useknuto), který
  * od téhle změny hlídá i samotný `kgNeighbours`.
+ *
+ * A OD 2026-08-12 SE STAV VRACÍ VOLAJÍCÍMU, ne jen do logu. Prázdné pole je
+ * legitimní odpověď („výřez nemá přisouditelnou smlouvu") i odpověď na výpadek,
+ * a mezi těmihle dvěma větami je celý rozdíl mezi zdravou plochou a mlčky
+ * neúplnou. Stav proto doputuje až na plochu (`ContractLayerRead`).
  */
 async function sliceContracts(
   companies: { kgId: string; company: string; refs: string[]; subjectRef: string; pending: boolean }[],
-): Promise<FactContract[]> {
-  if (companies.length === 0) return [];
+): Promise<{ contracts: FactContract[]; read: ContractLayerRead }> {
+  const base = {
+    companies: companies.length,
+    truncatedCompanies: 0,
+    edgeCap: MAX_SLICE_CONTRACT_EDGES,
+  };
+  // Žádná firma ke čtení není poctivé „ok" — nic se nečetlo, takže se nic
+  // neztratilo. Prázdná kniha smluv to pak říká vlastní větou.
+  if (companies.length === 0) return { contracts: [], read: { ...base, state: "ok" } };
   try {
     const store = await getStore();
-    if (!store) return [];
+    if (!store) {
+      reportLoaderFailure(
+        "getDashboardData.sliceContracts",
+        new Error("store unavailable — smluvní vrstva knihy faktů se nepřečetla"),
+      );
+      return { contracts: [], read: { ...base, state: "failed" } };
+    }
     const out: FactContract[] = [];
     let truncatedCompanies = 0;
     for (const c of companies) {
@@ -398,10 +452,19 @@ async function sliceContracts(
         ),
       );
     }
-    return out;
+    return {
+      contracts: out,
+      read: {
+        ...base,
+        truncatedCompanies,
+        state: truncatedCompanies > 0 ? "truncated" : "ok",
+      },
+    };
   } catch (err) {
     reportLoaderFailure("getDashboardData.sliceContracts", err);
-    return [];
+    // Prázdné pole SE ZDE VRACÍ TAKY, ale už ne mlčky: `failed` řekne ploše, že
+    // absence smluv v knize není zjištění o výřezu, ale výpadek čtení.
+    return { contracts: [], read: { ...base, state: "failed" } };
   }
 }
 
@@ -461,10 +524,23 @@ export async function getDashboardData(
     return null;
   }
   // The one derivation this loader performs — declared in the header, not hidden.
-  const attendanceAvgPct =
-    Math.round(
-      (lb.entries.reduce((s, e) => s + (1 - e.absenceRate), 0) / lb.entries.length) * 1000,
-    ) / 10;
+  // NULLS ARE EXCLUDED, NOT COERCED: an MP whose node carries no `absence_rate` used
+  // to arrive as 0 and entered this mean as 100 % attendance. What is left is a mean
+  // over a population, so the population is published with it.
+  const rates = lb.entries
+    .map((e) => e.absenceRate)
+    .filter((r): r is number => r !== null);
+  const attendance: DashboardAttendance = {
+    avgPct:
+      rates.length === 0
+        ? null
+        : Math.round((rates.reduce((s, r) => s + (1 - r), 0) / rates.length) * 1000) / 10,
+    counted: rates.length,
+    total: lb.entries.length,
+  };
+  // Chybějící sazba NENÍ výpadek loaderu (nic nespadlo, graf ten údaj prostě
+  // nenese), takže se nehlásí `reportLoaderFailure` — přiznává se na ploše,
+  // kde se to čtenáře týká: dlaždice vytiskne populaci průměru.
 
   const [money, law] = await Promise.all([moneyLayer(), lawLayer()]);
   const partyIds = lb.partyNodeIdByLabel ?? {};
@@ -495,11 +571,13 @@ export async function getDashboardData(
   // the builder must stay deterministic for its tests.
   const builtOn = new Date().toISOString().slice(0, 10);
   let feed: DatedFactLedger | null = null;
+  let factContracts: ContractLayerRead | null = null;
   if (slice) {
-    const contracts = await sliceContracts(slice.sources.contractCompanies);
+    const read = await sliceContracts(slice.sources.contractCompanies);
+    factContracts = read.read;
     feed = buildDatedFacts(
       {
-        contracts,
+        contracts: read.contracts,
         ties: slice.sources.ties,
         bills: slice.sources.bills,
         today: builtOn,
@@ -515,7 +593,7 @@ export async function getDashboardData(
     top: lb.entries.slice(0, TOP_N).map(toTopEntry),
     summary: lb.summary,
     histogram: lb.histogram,
-    attendanceAvgPct,
+    attendance,
     provenance: {
       state: lb.provenance.state,
       pass: lb.provenance.pass,
@@ -532,6 +610,7 @@ export async function getDashboardData(
     laws: law ? lawHeadline(law) : null,
     slice,
     feed,
+    factContracts,
     builtOn,
   };
 }

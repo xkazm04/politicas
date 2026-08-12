@@ -10,6 +10,7 @@
 //      because the graph keeps no changelog (that is exactly why the feed is DATED FACTS).
 import { describe, expect, it } from "vitest";
 
+import { COMPONENT_DEFS } from "@/features/civicscore/componentDefs";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
 
@@ -116,10 +117,102 @@ describe("dashboard message catalog", () => {
       for (const k of ["partial.title", "partial.body", "partial.source"]) {
         expect(ns[k], k).toBeTruthy();
       }
-      for (const layer of ["money", "laws", "slice"]) {
+      // `contracts` joined the three on 2026-08-12: the contract read of the fact
+      // ledger answered a failure with an empty array, so the book assembled itself
+      // out of registry roles and print steps and looked perfectly healthy. It is a
+      // FOURTH channel and not a null layer — the page keeps them apart.
+      for (const layer of ["money", "laws", "slice", "contracts"]) {
         expect(ns[`partial.layers.${layer}`], layer).toBeTruthy();
       }
       expect(placeholders(ns["partial.body"])).toEqual(["layers"]);
+    }
+  });
+
+  it("a failed contract read is a sentence, not an empty ledger that looks healthy", () => {
+    // Two states, two sentences: a read that THREW (the size of the gap is unknown)
+    // and a read that hit the per-company edge ceiling (the cheapest contracts of the
+    // busiest firms are missing, which used to be an operator-only log line).
+    for (const ns of [cs, en]) {
+      for (const k of ["feed.contractsFailed", "feed.contractsTruncated"]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(placeholders(ns["feed.contractsTruncated"])).toEqual([
+        "cap",
+        "companies",
+        "truncated",
+      ]);
+      // The failure may not read as a finding about the slice.
+      expect(placeholders(ns["feed.contractsFailed"])).toEqual([]);
+    }
+    expect(cs["feed.contractsFailed"]).toContain("nedopočítává");
+    expect(en["feed.contractsFailed"]).toContain("does not estimate");
+  });
+
+  it("the attendance tile says what it measures and cites the register it measures it from", () => {
+    // The tile prints `1 − absence_rate`, and `absence_rate` is excused days / session
+    // days from the OMLUVY register (lib/analysis/contribution.ts) — it cited
+    // „reálná jmenovitá hlasování" (roll calls), which is a different dump and a
+    // different figure. The citation is now the index's own docházka citation, taken
+    // from `componentDefs` rather than retyped.
+    const attendance = COMPONENT_DEFS.find((c) => c.key === "attendance")!;
+    expect(cs["realStats.attendanceSource"]).toContain(attendance.source);
+    expect(cs["realStats.attendanceSource"]).not.toMatch(/hlasování/);
+    expect(en["realStats.attendanceSource"]).not.toMatch(/roll[- ]call/i);
+    // What the number MEASURES is on the tile, in both languages.
+    expect(cs["realStats.attendanceSub"]).toContain("omluvu");
+    expect(en["realStats.attendanceSub"]).toContain("excuse");
+  });
+
+  it("the attendance mean publishes the population it was averaged over", () => {
+    // A missing `absence_rate` used to be coerced to 0, i.e. read as PERFECT
+    // attendance. Nulls are excluded now, so the mean stands over a population — and
+    // a population smaller than the chamber has to be stated, never implied.
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "realStats.attendanceSub",
+        "realStats.attendanceSubPartial",
+        "realStats.attendanceNone",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+      }
+      expect(placeholders(ns["realStats.attendanceSub"])).toEqual(["count"]);
+      expect(placeholders(ns["realStats.attendanceSubPartial"])).toEqual(["counted", "total"]);
+      expect(placeholders(ns["realStats.attendanceNone"])).toEqual(["total"]);
+    }
+    // The reason the empty state is not a zero is stated, not left to the reader.
+    expect(cs["realStats.attendanceNone"]).toContain("plnou docházku");
+    expect(en["realStats.attendanceNone"]).toContain("full attendance");
+  });
+
+  it("the slice's printed rule claims only the population it actually scanned", () => {
+    // `buildStateSlice` looks for donations ONLY among companies already tied to an MP
+    // in the money projection — the copy called those firms the only donor firms IN
+    // THE GRAPH, a claim about a population nothing on this path reads. (No `\b` in
+    // these patterns: JS word boundaries do not fire after „é".)
+    const ABSOLUTE = /v grafu jediné|jediné v grafu|the only ones in the graph/i;
+    for (const ns of [cs, en]) {
+      for (const k of [
+        "graph.realRule",
+        "graph.realGate",
+        "graph.realAttribution",
+        "graph.realAttributionWithSteward",
+      ]) {
+        expect(ns[k], k).toBeTruthy();
+        expect(ns[k], `${k} claims graph-wide exhaustivity`).not.toMatch(ABSOLUTE);
+      }
+    }
+    expect(cs["graph.realRule"]).toContain("vazba poslance");
+    expect(en["graph.realRule"]).toContain("tied to");
+  });
+
+  it("every real stat tile carries a door into the module it summarizes", () => {
+    // The velín summarizes four modules; the money and law tiles led nowhere, while
+    // the index tile has linked /metodika from inside its own citation for weeks.
+    for (const ns of [cs, en]) {
+      for (const k of ["realStats.methodologyLink", "realStats.moneyLink", "realStats.lawsLink"]) {
+        expect(ns[k], k).toBeTruthy();
+        expect(placeholders(ns[k]), k).toEqual([]);
+      }
     }
   });
 

@@ -134,12 +134,19 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
    * peněžní vrstva, jediným signálem byl štítek u dlaždice, který se čte jako
    * redakční volba, ne jako výpadek databáze. Seznam se skládá z toho, co je
    * skutečně null; nic se nedopočítává.
+   *
+   * ČTVRTÝ KANÁL: smluvní vrstva knihy faktů. Ta se nedegraduje na null — kniha
+   * se složí i bez ní, jen z rejstříkových rolí a kroků tisků, a vypadá zdravě.
+   * Proto se čte STAV ČTENÍ (`factContracts.state`), ne přítomnost dat: „žádná
+   * smlouva" a „smlouvy se nepodařilo přečíst" jsou dvě různá tvrzení a jenom
+   * jedno z nich je o výřezu.
    */
   const darkLayers = data
     ? ([
         data.money === null ? "money" : null,
         data.laws === null ? "laws" : null,
         data.slice === null ? "slice" : null,
+        data.factContracts?.state === "failed" ? "contracts" : null,
       ].filter(Boolean) as string[])
     : [];
 
@@ -168,14 +175,18 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
-        <div className="flex items-center justify-between gap-4 px-6 py-3.5">
+        {/* Na úzké ploše se hlavička SKLÁDÁ POD SEBE, nemizí. Provenience,
+            rozpor vzorce i mez čerstvosti tu dřív visely na `hidden sm:block`,
+            takže čtenář na telefonu viděl číslo bez data platnosti a bez věty
+            o tom, čím bylo spočítané. Žádná informace nesmí být jen pro desktop. */}
+        <div className="flex flex-col gap-2 px-6 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <span className="font-mono text-xs uppercase tracking-widest text-steel">
             politicas / {t("headerTag")}
           </span>
           {/* Datum přepočtu je provenience z grafu (`contribution_provenance`),
               ne literál v překladech. Když ho uzly nenesou, řekneme to —
               vymyšlené datum je vymyšlené číslo. */}
-          <div className="hidden sm:block sm:text-right">
+          <div className="min-w-0 sm:text-right">
             <SourceNote>{provenanceNote}</SourceNote>
             {/* Data a kód se rozešly ve VZORCI — to není chyba stránky, ale fakt o
                 žebříčku, který se musí říct nahlas (přesně případ 2026-07-29 → 08-04).
@@ -278,10 +289,29 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                   </>
                 }
               />
+              {/* DOCHÁZKA JE OMLUVY, ne jmenovitá hlasování. Číslo je
+                  1 − `absence_rate`, a `absence_rate` = omluvené dny / jednací dny
+                  (lib/analysis/contribution.ts) — týž vstup, jaký boduje složka
+                  „Docházka" v indexu, a proto i táž citace jako v componentDefs.
+                  Poslanec bez údaje do průměru NEVSTUPUJE; kolik jich průměr
+                  nese, se tiskne, jakmile je jich míň než celá sněmovna. */}
               <StatTile
                 label={t("realStats.attendanceLabel")}
-                value={`${f.dec(data.attendanceAvgPct)} %`}
-                sub={t("realStats.attendanceSub", { count: f.int(data.summary.count) })}
+                value={
+                  data.attendance.avgPct === null
+                    ? "—"
+                    : `${f.dec(data.attendance.avgPct)} %`
+                }
+                sub={
+                  data.attendance.avgPct === null
+                    ? t("realStats.attendanceNone", { total: f.int(data.attendance.total) })
+                    : data.attendance.counted < data.attendance.total
+                      ? t("realStats.attendanceSubPartial", {
+                          counted: f.int(data.attendance.counted),
+                          total: f.int(data.attendance.total),
+                        })
+                      : t("realStats.attendanceSub", { count: f.int(data.attendance.counted) })
+                }
                 source={`${tcom("sourcePrefix")} ${t("realStats.attendanceSource")}`}
               />
               {data.money ? (
@@ -316,7 +346,16 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                     <>
                       {tcom("sourcePrefix")}{" "}
                       {t("realStats.moneySource", { pass: data.money.pass })} ·{" "}
-                      {moneyReviewNote(data.money.review)}
+                      {moneyReviewNote(data.money.review)} ·{" "}
+                      {/* Dlaždice shrnuje modul, který má vlastní plochu —
+                          bez dveří byla shrnutím bez pokračování (vzor: odkaz
+                          na /metodika u indexové dlaždice vedle). */}
+                      <Link
+                        href="/penize"
+                        className="font-bold text-cobalt underline decoration-hairline underline-offset-2 transition-colors hover:text-signal"
+                      >
+                        {t("realStats.moneyLink")}
+                      </Link>
                     </>
                   }
                 />
@@ -364,6 +403,13 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                           })}
                         </>
                       )}
+                      {" · "}
+                      <Link
+                        href="/zakony"
+                        className="font-bold text-cobalt underline decoration-hairline underline-offset-2 transition-colors hover:text-signal"
+                      >
+                        {t("realStats.lawsLink")}
+                      </Link>
                     </>
                   }
                 />
@@ -431,6 +477,10 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
               {data?.feed ? (
                 <GraphFeedPanel
                   ledger={data.feed}
+                  // Stav čtení smluvní vrstvy patří pod knihu, kterou složil —
+                  // vedle věty o vyhozených nemožných datech, ne do samostatné
+                  // hlášky někde jinde na ploše.
+                  contracts={data.factContracts}
                   selected={selected}
                   selectedLabel={selectedLabel}
                   onPick={select}

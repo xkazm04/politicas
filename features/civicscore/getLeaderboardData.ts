@@ -207,7 +207,18 @@ export interface LeaderboardEntry {
   participationRate: number;
   committeeCount: number;
   leadershipCount: number;
-  absenceRate: number;
+  /**
+   * `absence_rate` = omluvené dny / jednací dny (lib/analysis/contribution.ts) — the
+   * OMLUVY register, the same input the index's docházka component scores.
+   *
+   * NULLABLE SINCE 2026-08-12, and that is the whole point: it used to arrive through
+   * `num()`, so an MP whose node carries no `absence_rate` entered every average as
+   * `0` — i.e. as a POLITICIAN WITH PERFECT ATTENDANCE. The only consumer is the
+   * chamber mean on /dashboard, and a mean that reads a missing figure as the best
+   * possible one is a claim the graph does not carry. `null` means the node carries
+   * no rate; a surface must exclude it and say so, never substitute a value.
+   */
+  absenceRate: number | null;
   billsAuthored: number;
   interpellations: number;
   speechTurns: number;
@@ -537,7 +548,9 @@ async function readChamber(): Promise<BuiltChamber | null> {
         participationRate: num(p.props.participation_rate),
         committeeCount,
         leadershipCount,
-        absenceRate: num(p.props.absence_rate),
+        // MISSING IS NOT ZERO — a node without an excuse rate is not an MP who never
+        // filed one. See the field's doc comment on `LeaderboardEntry`.
+        absenceRate: numOrNull(p.props.absence_rate),
         billsAuthored,
         interpellations,
         speechTurns,
