@@ -313,6 +313,14 @@ export async function getAllProfilePspIds(): Promise<number[]> {
  * neither (it used to read person nodes a third time and the organ table a second
  * time, at a different limit).
  *
+ * REGISTRY reads follow the same rule since 2026-08-12: memberships (current term AND
+ * every prior term served) and mandates are read PODLE OSOBY through
+ * `PersonListOptions.personPspIds`, over `membership_person_idx` / `mandate_person_idx` —
+ * two indexes the DDL has carried since the first migration with no lister able to use
+ * them. Nothing in this loader filters a whole relation down to one person in JS any
+ * more; the predicate is the same one the JS filter applied, so the RESULT is unchanged
+ * and only the cost moves.
+ *
  * Ordering note: `kgNeighbours` orders by `weight desc`, and Postgres gives NO
  * stable order for equal weights — co-voting agreement is stored rounded to 3 dp,
  * so ties are dense — measured: leaving the tie-break to the database reordered
@@ -410,7 +418,12 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // (39/207 MPs affected) — and because those edges carry no fromAt/toAt at all, so a
     // seat vacated for a ministerial post rendered as an active committee membership.
     const term = "PSP10";
-    const memberships = await store.listMemberships({ termCode: term });
+    // Read PODLE OSOBY, ne podle období: `membership_person_idx (person_psp_id)` je
+    // v DDL od první migrace a žádný lister pro něj neměl predikát, takže tenhle řádek
+    // četl VŠECHNA členství období (sněmovna + každý podřízený organ) a filtroval je
+    // v JS na jednoho člověka — jednou za každý vykreslený spis, tedy 207× za statický
+    // build. Týž zápis jako omluvy o pár desítek řádků níž (`absence_mandate_idx`).
+    const memberships = await store.listMemberships({ termCode: term, personPspIds: [pspId] });
     // Organs come from the chamber pass's single read (directory.organByPspId) —
     // this loader used to issue a SECOND full `organ` scan at limit 3000 against
     // buildLeaderboard's 2000, over the same 1 790 rows.
@@ -438,8 +451,10 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const asOfMs = Date.now();
     const seatsAsOf = new Date(asOfMs).toISOString().slice(0, 10);
     const rowsByOrgan = new Map<number, CommitteeSeat[]>();
+    // `memberships` je už čtený PODLE OSOBY (viz predikát výš), takže se tu na
+    // `personPspId` nefiltruje — jediné, co řádek diskvalifikuje, je chybějící organ.
     for (const m of memberships) {
-      if (m.personPspId !== pspId || m.organPspId == null) continue;
+      if (m.organPspId == null) continue;
       const organType = organByPsp.get(m.organPspId)?.organTypeCz ?? null;
       const seat: ContributionCommitteeSeat = { organType, functionType: m.functionTypeCz };
       if (!isCommitteeSeat(seat)) continue;
@@ -519,18 +534,21 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // actually served (median MP: 0–2 extra reads — 92/207 are first-termers).
     // Activity beyond presence exists ONLY for PSP10 (+ a partial PSP9 via the
     // `contribution_psp9` prop) — deriveCareerSpine discloses that per term.
+    // Read PODLE OSOBY přes `mandate_person_idx (person_psp_id)`: tenhle řádek četl
+    // CELOU mandátní tabulku (~2 157 řádků, všechna období) a filtroval ji v JS na
+    // jednoho člověka. Predikát je aditivní a prázdné pole neznamená „bez filtru", ale
+    // „žádná osoba" (viz PersonListOptions).
     // `KG_READ_CAP`, not an ad-hoc 5 000: the mandate registry grows by a whole term
     // every four years, and a snug literal limit is exactly how a read starts losing
     // rows silently (lib/db/readCap.ts). It is also not free in PGlite — a small limit
     // makes the planner walk the primary key instead of the index (CLAUDE.md,
-    // /zebricek 2026-08-04). ~2 157 rows today, all terms.
-    const allMandates = await store.listMandates({ limit: KG_READ_CAP });
-    const myMandates = allMandates.filter((m) => m.personPspId === pspId);
+    // /zebricek 2026-08-04).
+    const myMandates = await store.listMandates({ limit: KG_READ_CAP, personPspIds: [pspId] });
     // ── Omluvy ────────────────────────────────────────────────────────────────
     // Čte se PODLE MANDÁTU, ne podle období: `absence_mandate_idx` je v DDL od
     // začátku a nikdo ho nepoužíval. Změřeno na kopii živého store (PSP10,
     // 6 425 řádků): celé období 410/483/483 ms, jeden mandát 14–20 ms (bitmap
-    // index scan). Mandátní čísla jsou zadarmo — `allMandates` se čte pár řádků
+    // index scan). Mandátní čísla jsou zadarmo — `myMandates` se čte pár řádků
     // výš kvůli kariérnímu spisu, takže tenhle oddíl přidává JEDNO indexované
     // čtení a žádné další.
     //
@@ -579,14 +597,13 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const chamberOrgans = [...organByPsp.values()].filter((o) => /^PSP\d+$/i.test(o.abbrev ?? ""));
     const chamberTermByPspId = new Map(chamberOrgans.map((o) => [o.pspId, (o.abbrev ?? "").toUpperCase()]));
     const chamberByTermCode = new Map(chamberOrgans.map((o) => [(o.abbrev ?? "").toUpperCase(), o]));
+    // Řádky sem chodí z person-scoped čtení (oba zdroje níž), takže se tu na osobu
+    // nefiltruje — zbývá jen to, co je o organu: členský řádek na sněmovním organu
+    // toho období.
     const chamberWindowRows = (rows: MembershipRow[], onlyTerm: string): ChamberWindowInput[] =>
       rows
         .filter(
-          (m) =>
-            m.personPspId === pspId &&
-            m.kind === "member" &&
-            m.organPspId != null &&
-            chamberTermByPspId.get(m.organPspId) === onlyTerm,
+          (m) => m.kind === "member" && m.organPspId != null && chamberTermByPspId.get(m.organPspId) === onlyTerm,
         )
         .map((m) => ({ termCode: onlyTerm, fromAt: m.fromAt, toAt: m.toAt }));
     // PSP10 windows come from the membership read this loader already did above.
@@ -598,10 +615,12 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // reads, so awaiting them in a loop made a five-term veteran pay five round trips in
     // series for data that has no ordering relation at all. `windows` is still appended
     // in `priorTermCodes` order (which is sorted), so the derived spine is unchanged.
+    // Each read is ALSO person-scoped now: a veteran used to pull a whole term's
+    // memberships per prior term to find their own handful of chamber rows.
     const priorReads = await Promise.all(
       priorTermCodes.map(async (priorTerm) => ({
         priorTerm,
-        rows: await store.listMemberships({ termCode: priorTerm }),
+        rows: await store.listMemberships({ termCode: priorTerm, personPspIds: [pspId] }),
       })),
     );
     for (const { priorTerm, rows } of priorReads) {

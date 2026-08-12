@@ -318,6 +318,7 @@ export function resetSuppliesMemo(): void {
   suppliesFoldAt = 0;
   clubRead = null;
   clubReadAt = 0;
+  companySupplies.clear();
 }
 
 /**
@@ -386,10 +387,13 @@ export const loadMoneyLayer = cache(async function loadMoneyLayer(): Promise<Mon
  * `listKgEdges`' `(src, rel, dst)` order before anything reads it — including the CZK
  * sum, whose floating-point result depends on the addition order.
  */
-async function readCompanySupplies(
-  store: Store,
-  companyId: string,
-): Promise<{ contracts: CompanyContracts; lines: ContractLine[]; truncated: boolean }> {
+export interface CompanySupplies {
+  contracts: CompanyContracts;
+  lines: ContractLine[];
+  truncated: boolean;
+}
+
+async function readCompanySupplies(store: Store, companyId: string): Promise<CompanySupplies> {
   const supplied = await store.kgNeighbours({ id: companyId, rels: ["supplies"], limit: KG_READ_CAP });
   /* Truncation by the `warnIfTruncated` shape (lib/db/pglite/internals.ts): a read that
    * returned exactly its own limit is indistinguishable from one that was cut off. The
@@ -418,6 +422,57 @@ async function readCompanySupplies(
   }
   lines.sort((a, b) => (b.amountCzk ?? 0) - (a.amountCzk ?? 0));
   return { contracts, lines, truncated };
+}
+
+/* ── the per-company supplies read, memoized across requests ─────────────────
+ *
+ * One company's `supplies` slice changes only when the graph is re-materialized by
+ * `npm run da:kg-compute` — never at request time — yet EVERY /penize/[pspId],
+ * /penize/firma/[ico] and /poslanec/[id] request re-read it, because `cache()` is scoped
+ * to ONE request. The MP case file pays it once per TIED COMPANY (median 3, max 14), and
+ * the spis calls the same loader, so a firm tied to more than one MP was re-read once per
+ * file that mentions it.
+ *
+ * SAME WINDOW as the two memos above (`MONEY_MEMO_TTL_MS`, imported from
+ * features/dashboard/freshness.ts, never re-declared): three memos over one graph layer
+ * on three clocks is exactly how two surfaces start printing two vintages of one number.
+ *
+ * NEITHER AN EMPTY READ NOR A FAILURE IS MEMOIZED — the `loadClubs` discipline: a company
+ * that answered "no contracts" because PGlite hiccuped on a cold start must not keep
+ * answering that for a day. The dropped cell is compared by IDENTITY before deletion, so
+ * a later read that has already replaced it is never evicted by an earlier one's result.
+ *
+ * The map is bounded by the number of companies in the graph (~196 today) and every cell
+ * is one small aggregate plus at most CONTRACT_LINES_PER_COMPANY line items. */
+interface CompanySuppliesCell {
+  at: number;
+  read: Promise<CompanySupplies>;
+}
+const companySupplies = new Map<string, CompanySuppliesCell>();
+
+function companySuppliesMemo(store: Store, companyId: string): Promise<CompanySupplies> {
+  const hit = companySupplies.get(companyId);
+  if (hit !== undefined && Date.now() - hit.at < MONEY_MEMO_TTL_MS) return hit.read;
+  companySupplies.delete(companyId);
+  const cell: CompanySuppliesCell = { at: Date.now(), read: readCompanySupplies(store, companyId) };
+  // Identity-checked eviction: a cell that has ALREADY been replaced (an expiry between
+  // issue and settle) must never be dropped by the older read's outcome.
+  const drop = () => {
+    if (companySupplies.get(companyId) === cell) companySupplies.delete(companyId);
+  };
+  cell.read = cell.read
+    .then((res) => {
+      // An absent slice is not an answer: a company the read returned nothing for is
+      // re-read next time rather than remembered as contract-free for a day.
+      if (res.contracts.count === 0) drop();
+      return res;
+    })
+    .catch((err) => {
+      drop();
+      throw err;
+    });
+  companySupplies.set(companyId, cell);
+  return cell.read;
 }
 
 /** One MP's money, read through the INDEX only — never a whole-relation scan. */
@@ -472,14 +527,25 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
       tieRead.nodes.filter((n) => n.kind === "company").map((n) => [n.id, n] as const),
     );
 
+    // PARALLEL, not serial. These are independent indexed reads with no ordering
+    // relation at all, and the loop awaited them one by one — an MP with 14 tied
+    // companies paid 14 round trips in series (the identical fix getProfileData's
+    // prior-term membership reads already made). Results are consumed in
+    // `companyById.values()` order, so both maps keep the insertion order the serial
+    // loop produced and `contractsTruncated` folds over the same set.
+    const companyReads = await Promise.all(
+      [...companyById.values()].map(async (comp) => ({
+        id: comp.id,
+        supplies: await companySuppliesMemo(store, comp.id),
+      })),
+    );
     const contractsByCompany = new Map<string, CompanyContracts>();
     const linesByCompany = new Map<string, ContractLine[]>();
     let contractsTruncated = false;
-    for (const comp of companyById.values()) {
-      const { contracts, lines, truncated } = await readCompanySupplies(store, comp.id);
-      contractsByCompany.set(comp.id, contracts);
-      linesByCompany.set(comp.id, lines);
-      if (truncated) contractsTruncated = true;
+    for (const { id, supplies } of companyReads) {
+      contractsByCompany.set(id, supplies.contracts);
+      linesByCompany.set(id, supplies.lines);
+      if (supplies.truncated) contractsTruncated = true;
     }
 
     const { clubByPerson } = await loadClubs(store);
@@ -573,7 +639,9 @@ export const loadCompanyMoneySlice = cache(async function loadCompanyMoneySlice(
       tieRead.nodes.filter((n) => n.kind === "person").map((n) => [n.id, n] as const),
     );
 
-    const { contracts, lines, truncated: contractsTruncated } = await readCompanySupplies(
+    // Same memoized read the per-MP slice uses — one company's contracts must not have
+    // two vintages depending on which case file asked for them.
+    const { contracts, lines, truncated: contractsTruncated } = await companySuppliesMemo(
       store,
       companyId,
     );

@@ -38,6 +38,28 @@ export interface ListOptions {
   termCode?: string;
 }
 
+/**
+ * Registry reads take the same shape of filter ballots and absences already do: a
+ * per-PERSON predicate.
+ *
+ * `mandate_person_idx (person_psp_id)` and `membership_person_idx (person_psp_id)` have
+ * existed since the first DDL (lib/db/pglite/ddl.ts) and NOTHING exposed a predicate for
+ * them — so `/poslanec/<id>`, the most-linked page in the product and the one behind ~207
+ * prerendered pages, read EVERY PSP10 membership row (chamber + every child organ, via the
+ * organ subquery) and the WHOLE mandate table (all terms, ~2 157 rows) and then filtered
+ * each down to ONE person in JS, once per rendered file — plus one more whole-term
+ * membership read for every prior term served.
+ *
+ * That is the identical shape `AbsenceListOptions` fixed for `absence_mandate_idx`
+ * (measured there: 14–20 ms per mandate against 410–483 ms per term).
+ */
+export interface PersonListOptions extends ListOptions {
+  /** Restrict to these people (`person_psp_id`). An EMPTY array means no people and
+   *  returns no rows — never "no filter" (the `BallotListOptions` / `AbsenceListOptions`
+   *  precedent: an empty filter must not silently become a whole-relation read). */
+  personPspIds?: readonly number[];
+}
+
 /** person ↔ party/committee ↔ mandate — the static side of the graph. */
 export interface GraphRepository {
   upsertPersons(rows: PersonRow[]): Promise<number>;
@@ -46,8 +68,8 @@ export interface GraphRepository {
   upsertMemberships(rows: MembershipRow[]): Promise<number>;
   listPersons(opts?: ListOptions): Promise<PersonRow[]>;
   listOrgans(opts?: ListOptions): Promise<OrganRow[]>;
-  listMandates(opts?: ListOptions): Promise<MandateRow[]>;
-  listMemberships(opts?: ListOptions): Promise<MembershipRow[]>;
+  listMandates(opts?: PersonListOptions): Promise<MandateRow[]>;
+  listMemberships(opts?: PersonListOptions): Promise<MembershipRow[]>;
   /**
    * The club (poslanecký klub) each mandate belonged to, resolved through
    * `membership` → `organ` where the organ's parent is the term's chamber and
