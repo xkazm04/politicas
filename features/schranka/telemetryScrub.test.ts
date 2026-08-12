@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import * as Sentry from "@sentry/node";
 import { scrubFollowTelemetry, scrubFollowUrl } from "./telemetryScrub";
 
@@ -119,4 +121,22 @@ describe("scrubFollowTelemetry — ostatní místa události", () => {
       spans: "ne",
     });
   });
+});
+
+describe("scrub je NAVÁZANÝ na obou stranách — zdrojová pojistka", () => {
+  // Funkce, kterou nikdo nezavolá, nic nechrání. Únik jde z PROHLÍŽEČE
+  // (SchrankaBadge → useNews → fetch s ?e=… na každé stránce), a do
+  // 2026-08-12 vázal scrub jen serverový config. Tahle pojistka čte oba
+  // konfigurační soubory a spadne, kdyby některý z háků zase zmizel.
+  const read = (rel: string) =>
+    readFileSync(join(process.cwd(), rel), "utf8");
+
+  it.each(["sentry.server.config.ts", "instrumentation-client.ts"])(
+    "%s váže scrubFollowTelemetry na beforeSend i beforeSendTransaction",
+    (file) => {
+      const src = read(file);
+      expect(src).toMatch(/beforeSend:\s*scrubFollowTelemetry/);
+      expect(src).toMatch(/beforeSendTransaction:\s*scrubFollowTelemetry/);
+    },
+  );
 });
