@@ -39,6 +39,9 @@ jobs:
       - name: Test
         run: npm run test
 
+      - name: Custom lint-rule tests (RuleTester)
+        run: npm run test:rules
+
       # lib/db/migrations/0001_civic_graph.sql je snapshot CORE_DDL
       # (lib/db/pglite/ddl.ts) — nesmí se rozejít.
       - name: Schema snapshot drift
