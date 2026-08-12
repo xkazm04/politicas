@@ -15,6 +15,11 @@
  * Dekodéry se NEFORKUJÍ — importují se přímo z vlastnických modulů rodin
  * (adresa je tvrzení a jeho gramatiku vlastní ten, kdo ji vydává). Detekce
  * nic neopravuje: nerozluštitelný vstup je nerozluštitelný.
+ *
+ * Šestou „rodinou" je adresa SAMOTNÉ BRÁNY: `/overeni?ref=<citace>` je to, co
+ * produkt vydává pod odkazem „ověřit tuto citaci", takže vložit ji zpátky musí
+ * skončit stejně jako vložit tu citaci samotnou. Parametr se rozbalí a projde
+ * detekcí znovu — jednou (viz `detectAt`).
  */
 
 import { parseClaimRef, type ClaimRefParts } from "@/lib/claims/claim";
@@ -51,7 +56,8 @@ export type NeznamyReason =
   | "nerozlustitelny"
   /** NAŠE stránka, ale ne citovatelná adresa (/penize/firma/…, /poslanec/…,
    *  /zebricek…). Není to „mimo politicas" — čtenář jen vložil plochu místo
-   *  adresy tvrzení, kterou ta plocha vydává. */
+   *  adresy tvrzení, kterou ta plocha vydává. Sem patří i holé `/overeni`
+   *  a `/overeni?ref=` s prázdnou hodnotou: brána bez citace citací není. */
   | "politicas-neni-citace"
   /** Volný text / cizí URL — brána volný text neověřuje (hranice produktu). */
   | "nepodporovany";
@@ -177,6 +183,40 @@ export function isAppRouteWithoutClaim(input: string): boolean {
   return seg !== null && APP_SEGMENTS.has(seg);
 }
 
+// ── Adresa samotné brány ────────────────────────────────────────────────────
+//
+// „Ověřit tuto citaci" vede na `/overeni?ref=…` (ReceiptPage, MoneySection,
+// ProfilePage, ExhibitPage, návod na samotné /overeni) a stránka o sobě tvrdí,
+// že URL JE to ověření a dá se sdílet. Přesně tuhle adresu tedy čtenář zkopíruje
+// a vloží zpátky do formuláře — a do 2026-08-12 na ni brána odpovídala „naše
+// stránka, ale ne citovatelná adresa": o adrese, kterou sama vydala jako ZPŮSOB,
+// jak citaci ověřit. Parametr se proto rozbalí a detekce se pustí znovu.
+
+/** JEDINÝ parametr, pod kterým brána citaci přijímá — `searchParams.ref`
+ *  v app/overeni/page.tsx. Žádný druhý název se nepřidává: rozpoznat parametr,
+ *  který routa nečte, by znamenalo odpovědět o adrese, která nic nevykreslí. */
+const GATE_PARAM = "ref";
+
+/** Obsah `?ref=` NAŠÍ adresy /overeni; jinak (cizí origin, jiná cesta, chybějící
+ *  nebo prázdný parametr) null — a vstup pak dopadne, jak dopadal. */
+function gateParamValue(input: string): string | null {
+  const path = politicasPath(input);
+  if (path === null || firstSegment(path) !== "overeni") return null;
+  const q = path.indexOf("?");
+  if (q === -1) return null;
+  // Fragment (`#verdikt`, který k odkazu přidává návod) do dotazu nepatří.
+  const query = path.slice(q + 1).split("#")[0];
+  for (const pair of query.split("&")) {
+    const eq = pair.indexOf("=");
+    if (eq === -1 || pair.slice(0, eq) !== GATE_PARAM) continue;
+    // `+` je v dotazu mezera; vadný escape nechá decodeSegment doslova a
+    // o platnosti rozhodne až dekodér rodiny, ne dekodér URL.
+    const value = decodeSegment(pair.slice(eq + 1).replace(/\+/g, " ")).trim();
+    if (value !== "") return value;
+  }
+  return null;
+}
+
 function decodeFamily(family: PathFamily, encoded: string): DetectedRef {
   if (family === "zdroj") {
     const ref = decodeClaimRef(encoded);
@@ -193,6 +233,13 @@ function decodeFamily(family: PathFamily, encoded: string): DetectedRef {
 // ── Hlavní detekce ──────────────────────────────────────────────────────────
 
 export function detectRef(raw: string): DetectedRef {
+  return detectAt(raw, 0);
+}
+
+/** `depth` = kolikrát se už rozbaloval parametr brány (viz krok 3). Mez je JEDNA
+ *  a je to rozhodnutí, ne opomenutí: /overeni zabalené v /overeni je zacyklení,
+ *  ne citace, a rozbalovat donekonečna by z detekce udělalo interpret adres. */
+function detectAt(raw: string, depth: number): DetectedRef {
   const input = raw.trim();
   if (input === "") return neznamy("prazdny");
   if (input.length > MAX_INPUT_LENGTH) return neznamy("prilis-dlouhy");
@@ -207,13 +254,23 @@ export function detectRef(raw: string): DetectedRef {
     if (m) return decodeFamily(family, decodeSegment(m[1]));
   }
 
-  // 3) Naše plocha, která ale citací není (/penize/firma/…, /poslanec/…).
+  // 3) NAŠE adresa brány s citací v parametru — `/overeni?ref=…` je adresa,
+  //    kterou produkt sám vydává jako „ověřit tuto citaci". Rozbalí se a projde
+  //    detekcí znovu, takže vložit ji zpátky dá TUTÉŽ odpověď jako vložit
+  //    samotnou citaci. Jen z původního vstupu (depth 0): vnořené /overeni už
+  //    citace není a dopadne na krok 4 jako každá jiná naše plocha.
+  if (depth === 0 && !/\s/.test(input)) {
+    const inner = gateParamValue(input);
+    if (inner !== null) return detectAt(inner, depth + 1);
+  }
+
+  // 4) Naše plocha, která ale citací není (/penize/firma/…, /poslanec/…).
   //    Vlastní důvod — „tohle není politicas odkaz" by tu byla nepravda.
   if (!/\s/.test(input) && isAppRouteWithoutClaim(input)) {
     return neznamy("politicas-neni-citace");
   }
 
-  // 4) Holý token jedné rodiny. Víceslovný vstup bez rozpoznané cesty je
+  // 5) Holý token jedné rodiny. Víceslovný vstup bez rozpoznané cesty je
   //    volný text — hranice produktu, žádný fact-check.
   if (/\s/.test(input)) return neznamy("nepodporovany");
 

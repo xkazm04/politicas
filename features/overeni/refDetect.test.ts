@@ -152,3 +152,104 @@ describe("hranice produktu — co brána nepřijímá", () => {
     expect(detectRef("rez.nenihex")).toEqual({ family: "neznamy", reason: "nerozlustitelny" });
   });
 });
+
+/* ── brána pozná sama sebe ─────────────────────────────────────────────────── */
+
+describe("adresa brány — /overeni?ref=<citace>", () => {
+  // Tohle JE adresa, kterou produkt vydává pod „ověřit tuto citaci"
+  // (ReceiptPage, MoneySection, ProfilePage, ExhibitPage, návod na /overeni)
+  // a o které stránka tvrdí, že se dá sdílet. Do 2026-08-12 na ni brána
+  // odpovídala „naše stránka, ale ne citovatelná adresa".
+  const receipt = edgeClaimRef("psp:person:6881", "linked_to", "company:ico:46347534");
+
+  it("vložená zpátky dá TUTÉŽ odpověď jako vložená citace — všechny tvary adresy", () => {
+    const direct = detectRef(FIGURE_CLAIM.ref);
+    for (const address of [
+      `https://politicas.cz/overeni?ref=${encodeURIComponent(FIGURE_CLAIM.ref)}`,
+      `/overeni?ref=${encodeURIComponent(FIGURE_CLAIM.ref)}`,
+      `http://localhost:3000/overeni?ref=${encodeURIComponent(FIGURE_CLAIM.ref)}`,
+      // …i s kotvou, kterou k odkazu přidává návod (OvereniPage), a s cizím
+      // parametrem, který se po cestě nabalí
+      `/overeni?ref=${encodeURIComponent(FIGURE_CLAIM.ref)}#verdikt`,
+      `/overeni?utm_source=x&ref=${encodeURIComponent(FIGURE_CLAIM.ref)}`,
+    ]) {
+      expect(detectRef(address), address).toEqual(direct);
+    }
+  });
+
+  it("rozbalí každou rodinu, ne jen figuru", () => {
+    const zdroj = detectRef(`/overeni?ref=${encodeURIComponent(`/zdroj/${receipt}`)}`);
+    expect(zdroj.family).toBe("zdroj");
+    if (zdroj.family === "zdroj") expect(zdroj.encoded).toBe(receipt);
+    // holý token rodiny v parametru (bez cesty) taky
+    expect(detectRef(`/overeni?ref=${encodeURIComponent(receipt)}`).family).toBe("zdroj");
+    const exponat = detectRef(`/overeni?ref=${encodeURIComponent(encodeExhibitId({ kind: "rez", hash: "0a1b2c3d" }))}`);
+    expect(exponat.family).toBe("exponat");
+  });
+
+  it("dvojitě zakódovaný parametr se rozbalí JEDNOU a nezacyklí se", () => {
+    // Rozbalení má hloubku 1: druhá vrstva escapů zůstane doslova a skončí
+    // poctivým „nepodporováno", ne dalším kolem dekódování.
+    const twice = `/overeni?ref=${encodeURIComponent(encodeURIComponent(`/zdroj/${receipt}`))}`;
+    expect(detectRef(twice)).toEqual({ family: "neznamy", reason: "nepodporovany" });
+    // …a brána zabalená v bráně je zacyklení, ne citace: vnitřní /overeni už
+    // dopadne jako každá jiná naše plocha bez citace.
+    const nested = `/overeni?ref=${encodeURIComponent(`/overeni?ref=${encodeURIComponent(FIGURE_CLAIM.ref)}`)}`;
+    expect(detectRef(nested)).toEqual({ family: "neznamy", reason: "politicas-neni-citace" });
+  });
+
+  it("brána bez použitelné citace zůstává „naše plocha, ne citace“", () => {
+    for (const address of [
+      "/overeni",
+      "/overeni?ref=",
+      "/overeni?ref=%20",
+      "/overeni?vstup=claim:x:y", // parametr, který routa nečte
+      "https://politicas.cz/overeni?jinyparametr=1",
+    ]) {
+      expect(detectRef(address), address).toEqual({
+        family: "neznamy",
+        reason: "politicas-neni-citace",
+      });
+    }
+  });
+
+  it("nerozluštitelná citace v parametru je nerozluštitelná, ne „není citace“", () => {
+    expect(detectRef("/overeni?ref=claim%3Ajen-dataset")).toEqual({
+      family: "neznamy",
+      reason: "nerozlustitelny",
+    });
+  });
+
+  it("cizí origin na téže cestě se chová jako dřív", () => {
+    expect(detectRef(`https://example.com/overeni?ref=${encodeURIComponent(FIGURE_CLAIM.ref)}`)).toEqual({
+      family: "neznamy",
+      reason: "nepodporovany",
+    });
+  });
+});
+
+/* ── znaková třída cest ────────────────────────────────────────────────────── */
+
+describe("PATH_PATTERNS pokrývají celou abecedu kodeků", () => {
+  it("base64url („-“ i „_“) přežije cestu i celé URL", () => {
+    // claimRef.ts kóduje base64url, jehož abeceda končí „-_“. Kdyby znaková
+    // třída v PATH_PATTERNS „_“ nenesla, useklo by se to na prvním podtržítku
+    // a adresa by odpověděla o JINÉM tvrzení, než jaké čtenář vložil.
+    // Vstup je vybraný tak, aby ZAKÓDOVANÁ podoba nesla obojí: „-“ i „_“ jsou
+    // v base64url hodnoty 62 a 63, tj. vzniknou jen z konkrétních bajtů (tady
+    // z tildy a české diakritiky). Náhodné id je skoro nikdy neobsahuje, takže
+    // díra ve znakové třídě by se bez tohohle vstupu neprojevila.
+    const withUnderscore = nodeClaimRef("psp:person:~ďá");
+    expect(withUnderscore).toContain("-");
+    expect(withUnderscore).toContain("_");
+    for (const address of [
+      `/zdroj/${withUnderscore}`,
+      `https://politicas.cz/zdroj/${withUnderscore}#kotva`,
+      `/overeni?ref=${encodeURIComponent(`/zdroj/${withUnderscore}`)}`,
+    ]) {
+      const det = detectRef(address);
+      expect(det.family, address).toBe("zdroj");
+      if (det.family === "zdroj") expect(det.encoded).toBe(withUnderscore);
+    }
+  });
+});
