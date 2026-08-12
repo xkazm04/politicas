@@ -26,12 +26,42 @@ export async function generateStaticParams() {
   return ids.map((pspId) => ({ id: String(pspId) }));
 }
 
+/**
+ * VÝPADEK NENÍ „NENALEZENO" — ani ve sdílené kartě.
+ *
+ * `getProfileData` vrací `null` ze DVOU důvodů: buď graf nejde přečíst
+ * (jednospojkový PGlite drží jiný proces), nebo tohle pspId žádný poslanec
+ * není. Tělo stránky ty dva stavy rozlišuje od začátku (`getAllProfilePspIds`
+ * — prázdný seznam ⇒ není store); metadata ne, takže při výpadku odcházel do
+ * vyhledávačů a náhledů odkazů titulek „spis nenalezen" — výrok o člověku,
+ * který si vymyslel výpadek databáze.
+ *
+ * Cena: pod obojím sedí `buildLeaderboard()`, který je `react.cache()`d v rámci
+ * požadavku A memoizovaný napříč požadavky, takže tohle je týž průchod, na
+ * který čeká tělo stránky — nikdy druhé čtení.
+ */
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const t = await getTranslations("meta");
   const pspId = Number(id);
-  const data = Number.isFinite(pspId) ? await getProfileData(pspId) : null;
-  if (!data) return { title: t("profileNotFound") };
+  // Nečíselný slug není poslanec za žádného stavu store — tělo na něj volá
+  // `notFound()` bez čtení, a metadata proto taky nečtou.
+  if (!Number.isFinite(pspId)) return { title: t("profileNotFound") };
+  const data = await getProfileData(pspId);
+  if (!data) {
+    const known = await getAllProfilePspIds();
+    if (known.length === 0) {
+      const tp = await getTranslations("profile");
+      return {
+        title: tp("metaUnavailableTitle"),
+        description: tp("metaUnavailableDescription"),
+        // Degradovaná stránka se neindexuje: co robot uloží při výpadku, tvrdí
+        // pak o poslanci ještě dlouho poté, co je graf zase čitelný.
+        robots: { index: false },
+      };
+    }
+    return { title: t("profileNotFound") };
+  }
   const locale = await getLocale();
   return {
     title: t("profileTitle", { name: data.person.name, rank: data.person.rank }),

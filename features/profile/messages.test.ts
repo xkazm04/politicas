@@ -109,16 +109,63 @@ describe("profile message catalog", () => {
     // over a loader reading PSP10 and each had to fix it separately. Here the number
     // comes from `termNumberOf(TERM)` — so the catalogs must not carry one at all,
     // and there must be a sentence for a term code the loader cannot parse.
+    //
+    // THE GUARD ITSELF WAS DEAD until 2026-08-12, and it let three literals through
+    // („10. období" ×2, „PSP10"). Two reasons, both worth keeping in view:
+    //   • `období\b` — JS `\b` is ASCII-only, so „í" is a NON-word character; the
+    //     boundary then requires a word character right after „období", and every
+    //     real occurrence is followed by „)" or „,". The trailing anchor is gone.
+    //   • the English alternative demanded the words „parliamentary term", while
+    //     the en catalog wrote „10th term". Both orders are matched now, plus the
+    //     term CODE (`PSP10`), which is a term literal in machine clothing.
+    const TERM_LITERAL =
+      /\b\d+\.\s*(volební\s+)?období|\b\d+\s*(st|nd|rd|th)\s+(parliamentary\s+)?term\b|\bterm\s+\d+\b|\bPSP\s?-?\d+\b/i;
     for (const ns of [cs, en]) {
       expect(placeholders(ns.periodNote)).toEqual(["term"]);
       expect(ns.periodNoteUnknown, "a term with no number still needs a sentence").toBeTruthy();
       expect(placeholders(ns.periodNoteUnknown)).toEqual([]);
+      // The tenure citation follows the same two-key shape as the period note.
+      expect(placeholders(ns.tenureSource)).toEqual(["term"]);
+      expect(ns.tenureSourceUnknownTerm, "an unparseable term code still needs a citation").toBeTruthy();
+      expect(placeholders(ns.tenureSourceUnknownTerm)).toEqual([]);
       for (const [k, v] of Object.entries(ns)) {
-        expect(v, `${k} hard-codes an electoral term number`).not.toMatch(
-          /\b\d+\.\s*(volební\s+)?období\b|\b\d+(st|nd|rd|th)\s+parliamentary\s+term\b/i,
-        );
+        expect(v, `${k} hard-codes an electoral term number`).not.toMatch(TERM_LITERAL);
       }
     }
+  });
+
+  it("the empty rebellion state names the floor that produced it", () => {
+    // `rebels_against` is only emitted above `MIN_ELIGIBLE_VOTES` (lib/analysis/kg.ts),
+    // and an MP ABOVE the floor who never broke the line still gets an edge (rate 0,
+    // rendered as a row). So an empty section means „below the floor", never „this MP
+    // never deviated" — the copy used to assert the second. The floor is INTERPOLATED
+    // from the constant, never typed, exactly like `noAllies`.
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns.noRebellions), "the rebellion floor must be interpolated").toEqual([
+        "minEligible",
+      ]);
+      expect(placeholders(ns.noAllies), "the co-voting floor must be interpolated").toEqual([
+        "minShared",
+      ]);
+    }
+    // „Not measured" and „zero" must not read as the same answer.
+    expect(cs.noRebellions).toMatch(/nezměřeno|neměřen/);
+    expect(en.noRebellions).toMatch(/unmeasured/i);
+  });
+
+  it("a store outage and a non-existent MP get different metadata", () => {
+    // `generateMetadata` used to answer „spis nenalezen" for BOTH — so an unreadable
+    // graph published a claim about a person to crawlers and share cards. The page
+    // body always told them apart (`getAllProfilePspIds`); the head now does too.
+    for (const ns of [cs, en]) {
+      expect(ns.metaUnavailableTitle, "outage title").toBeTruthy();
+      expect(ns.metaUnavailableDescription, "outage description").toBeTruthy();
+      expect(placeholders(ns.metaUnavailableTitle)).toEqual([]);
+      expect(placeholders(ns.metaUnavailableDescription)).toEqual([]);
+    }
+    // The outage copy must explicitly refuse the „this MP does not exist" reading.
+    expect(cs.metaUnavailableDescription).toMatch(/neexistuje/);
+    expect(en.metaUnavailableDescription).toMatch(/does not exist/i);
   });
 
   it("a written amendment is addressable, and a missing address says so", () => {

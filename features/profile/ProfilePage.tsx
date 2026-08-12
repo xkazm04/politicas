@@ -52,7 +52,7 @@ import MoneySection from "@/features/profile/components/MoneySection";
 import ScoreLegibilityPanel from "@/features/profile/components/ScoreLegibilityPanel";
 import FollowButton from "@/features/schranka/FollowButton";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
-import { MIN_SHARED_VOTES } from "@/lib/analysis/kg";
+import { MIN_ELIGIBLE_VOTES, MIN_SHARED_VOTES } from "@/lib/analysis/kg";
 
 /** Internal committee-role enum -> the copy a reader sees. The enum
  *  (`chair` | `vice` | `member`, lib/analysis/kg.ts) used to print raw on an
@@ -378,6 +378,7 @@ export default async function ProfilePage({
             tenureClass={data.effortTenureClass}
             tenureStart={data.effortTenureStart}
             tenureEnd={data.effortTenureEnd}
+            termNumber={data.termNumber}
           />
 
           {/* Vývoj proti minulému období — vykreslí se jen když existuje reálné
@@ -511,9 +512,18 @@ export default async function ProfilePage({
             title={t("rebellionsHeading")}
             aside={<SourceNote>{t("rebellionsAside")}</SourceNote>}
           />
+          {/* Prázdno tady NENÍ výrok o poslanci. Hrana `rebels_against` vzniká až
+              nad prahem `MIN_ELIGIBLE_VOTES` (lib/analysis/kg.ts) — poslanec nad
+              prahem, který linii nikdy neporušil, dostane řádek s 0/N a 0,0 %,
+              zatímco poslanec s krátkým mandátem se pod prahem propadne úplně.
+              Věta proto jmenuje práh (interpolovaný z konstanty, ne opsaný — týž
+              zápis jako `noAllies` o 60 řádků výš) a mlčení přiznává jako
+              nezměřeno; jmenovité rebelie pod tím žádný takový práh nemají. */}
           {rebellions.length === 0 ? (
             <div className="mt-8 border-2 border-dashed border-hairline p-8">
-              <p className="text-[15px] leading-relaxed text-steel">{t("noRebellions")}</p>
+              <p className="text-[15px] leading-relaxed text-steel">
+                {t("noRebellions", { minEligible: f.int(MIN_ELIGIBLE_VOTES) })}
+              </p>
             </div>
           ) : (
             <div className="mt-8 border-t-2 border-ink">

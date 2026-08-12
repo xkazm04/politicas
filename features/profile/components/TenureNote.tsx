@@ -24,19 +24,28 @@ export default async function TenureNote({
   tenureClass,
   tenureStart,
   tenureEnd,
+  termNumber,
 }: {
   tenureClass: string | null;
   tenureStart: string | null;
   tenureEnd?: string | null;
+  /** Číslo volebního období z `termNumberOf(TERM)` (ProfileData.termNumber), NIKDY
+   *  literál v katalogu: citace psala „PSP10" nad loaderem, který ten kód drží
+   *  jako konstantu — týž rozchod, který /zebricek i /penize už opravovaly. Když
+   *  kód období nemá tvar PSP<n>, období se prostě netvrdí (vzor `periodNote` /
+   *  `periodNoteUnknown` v hlavičce spisu). */
+  termNumber?: number | null;
 }) {
-  const { t } = await profileIntl();
+  const { t, f } = await profileIntl();
   const copy = mandateNoteCopy(tenureClass, tenureStart, tenureEnd);
   if (!copy) return null;
 
   return (
     <div className="mt-3">
       <p className="text-sm leading-relaxed text-steel">{copy.detail}</p>
-      <SourceNote className="mt-1 !text-[10px]">{t("tenureSource")}</SourceNote>
+      <SourceNote className="mt-1 !text-[10px]">
+        {termNumber != null ? t("tenureSource", { term: f.int(termNumber) }) : t("tenureSourceUnknownTerm")}
+      </SourceNote>
     </div>
   );
 }
