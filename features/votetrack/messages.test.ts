@@ -242,6 +242,86 @@ describe("kompas.empty* — an honest empty selection is not an outage", () => {
   });
 });
 
+/* ── nikdy nespočítaná vrstva ≠ výpadek ────────────────────────────────────── */
+
+describe("kompas.neverComputed* / themesNeverComputed — a layer that was never computed", () => {
+  // `vote_tag` je NAŠE odvozená vrstva a na živém store má nula řádků. Do
+  // 2026-08-12 na to /kompas odpovídal hláškou o nedostupném zdroji (tvrzení
+  // o výpadku, který se nekonal) a /hlasovani sekci mlčky schovalo.
+  const neverComputed = [
+    "kompas.neverComputedBadge",
+    "kompas.neverComputedTitle",
+    "kompas.neverComputedBody",
+    "kompas.neverComputedWhat",
+    "kompas.neverComputedNoDate",
+    "kompas.neverComputedSource",
+    "kompas.neverComputedLedgerLink",
+    "kompas.entryNeverComputed",
+    "themesNeverComputed",
+    "themesNeverComputedSource",
+  ];
+
+  it("declares a sentence for the third state in both locales", () => {
+    for (const k of neverComputed) {
+      expect(cs[k], k).toBeTruthy();
+      expect(en[k], k).toBeTruthy();
+    }
+  });
+
+  it("says out loud that this is NOT an outage", () => {
+    expect(cs["kompas.neverComputedBody"]).toMatch(/není to výpadek|nedostupn/i);
+    expect(cs["kompas.neverComputedBody"]).toMatch(/nikdy nespočítala/);
+    expect(cs["themesNeverComputed"]).toMatch(/není to výpadek/i);
+    expect(en["kompas.neverComputedBody"]).toMatch(/never been computed/i);
+    expect(en["themesNeverComputed"]).toMatch(/not an outage/i);
+  });
+
+  it("reads differently from the unavailable state next door", () => {
+    // Precedens kompas.emptyBody ≠ kompas.unavailableWhat: tři stavy, tři věty.
+    for (const k of ["kompas.neverComputedBody", "kompas.neverComputedTitle", "themesNeverComputed"]) {
+      expect(cs[k], k).not.toBe(cs["kompas.unavailableWhat"]);
+      expect(cs[k], k).not.toBe(cs["kompas.emptyBody"]);
+      expect(en[k], k).not.toBe(en["kompas.emptyBody"]);
+    }
+  });
+
+  it("names WHAT the missing layer is, not just that it is missing", () => {
+    expect(cs["kompas.neverComputedWhat"]).toMatch(/téma|štítek|štítk/i);
+    expect(en["kompas.neverComputedWhat"]).toMatch(/theme|tag/i);
+  });
+
+  it("promises no delivery date", () => {
+    expect(cs["kompas.neverComputedNoDate"]).toMatch(/neslibujeme/);
+    expect(en["kompas.neverComputedNoDate"]).toMatch(/no date/i);
+    // …and no sentence of the third state may smuggle one in.
+    for (const k of neverComputed) {
+      expect(cs[k], k).not.toMatch(/\bbrzy\b|\bpřipravujeme\b|\bdo konce\b/i);
+      expect(en[k], k).not.toMatch(/\bsoon\b|\bcoming\b/i);
+    }
+  });
+
+  it("the /hlasovani entry point does not advertise a compass with no questions", () => {
+    // Pozvánka „spočítejte si shodu" nesmí nad prázdnou vrstvou stát bez věty.
+    expect(cs["kompas.entryNeverComputed"]).toMatch(/nespočítala|nemá z čeho/);
+    expect(cs["kompas.entryNeverComputed"]).not.toBe(cs["kompas.entryBody"]);
+    expect(en["kompas.entryNeverComputed"]).not.toBe(en["kompas.entryBody"]);
+  });
+
+  it("cites the source of both halves of the claim", () => {
+    for (const k of ["kompas.neverComputedSource", "themesNeverComputedSource"]) {
+      expect(cs[k], k).toMatch(/psp\.cz/);
+      expect(en[k], k).toMatch(/psp\.cz/);
+    }
+  });
+
+  it("the loading shell no longer promises a long read unconditionally", () => {
+    // Štítky se čtou první (jednotky ms); nad prázdnou vrstvou loader odpoví dřív,
+    // než přečte jediný hlas — „čtení trvá řádově sekundy" tam pak byla nepravda.
+    expect(cs["kompas.loadingBody"]).toMatch(/pokud|může/i);
+    expect(en["kompas.loadingBody"]).toMatch(/\bif\b|\bmay\b/i);
+  });
+});
+
 /* ── čerstvost říká, co se memoizuje a co ne ───────────────────────────────── */
 
 describe("kompas.freshness — the bound the page actually has", () => {

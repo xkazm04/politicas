@@ -29,24 +29,39 @@
 // jen proto, aby vzápětí odpověděl „data nedostupná".
 //
 // Degrades gracefully to null (→ the page renders the honest DataUnavailable
-// state) if no store is configured, the ledger or the tag layer is below
-// readiness, or PGlite is unavailable at request time. VÝBĚR, KTERÝ POCTIVĚ
-// NEVYBRAL NIC, null NENÍ — vrací se záznam s prázdnými otázkami a stránka pro něj
-// má vlastní větu (výpadek a prázdno jsou dvě různá tvrzení).
+// state) if no store is configured, the ledger is below readiness, or PGlite is
+// unavailable at request time. VÝBĚR, KTERÝ POCTIVĚ NEVYBRAL NIC, null NENÍ —
+// vrací se záznam s prázdnými otázkami a stránka pro něj má vlastní větu
+// (výpadek a prázdno jsou dvě různá tvrzení).
+//
+// ── A od 2026-08-12 ani prázdná vrstva štítků není výpadek ─────────────────────
+// `vote_tag` je NAŠE odvozená vrstva a na živém store má nula řádků — nikdy se
+// nespočítala. Loader na to vracel `null`, tedy tutéž odpověď jako na nečitelný
+// store, a /kompas nad tím tiskl „data nedostupná". Teď se vrací třetí, TYPOVANÝ
+// stav (`silverLayer.ts`) a stránka pro něj má vlastní věty.
+//
+// Ten stav musí stát na ÚSPĚŠNÉM čtení: `readVoteTags()` vrací prázdné pole i bez
+// store, takže se napřed sáhne pro store (`getStore()` — memoizovaný handle, žádný
+// dotaz navíc, `readVoteTags` si o něj stejně říká vzápětí). Bez toho by se výpadek
+// vydával za nespočítanou vrstvu.
 
 import "server-only";
 import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { getStore } from "@/lib/db/store";
 import { getFullVoteRecord } from "./getVoteRecord";
 import { readBallotsForVotes, readRegistry, readVoteTags } from "./ledgerRead";
 import { bucketOf } from "./record/derive";
 import { selectQuestions } from "./kompas/select";
+import { SILVER_NEVER_COMPUTED, silverReady, type SilverLayerRead } from "./silverLayer";
 import type { KompasBallots, KompasClubLines, KompasData, KompasMp } from "./kompas/types";
 
-export const getKompas = cache(async function getKompas(): Promise<KompasData | null> {
+export const getKompas = cache(async function getKompas(): Promise<SilverLayerRead<KompasData> | null> {
   try {
+    const store = await getStore();
+    if (!store) return null;
     const tags = await readVoteTags();
-    if (tags.length === 0) return null;
+    if (tags.length === 0) return SILVER_NEVER_COMPUTED;
 
     const record = await getFullVoteRecord();
     if (record === null) return null;
@@ -96,7 +111,7 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
     // Poctivé prázdno: pravidlo proběhlo nad přečteným záznamem a nevybralo nic.
     // Žádné čtení hlasů se kvůli tomu nekoná — a stránka to smí říct jinak než výpadek.
     if (questions.length === 0) {
-      return { questions, mps: [], ballots: {}, clubLines: {}, coverage };
+      return silverReady({ questions, mps: [], ballots: {}, clubLines: {}, coverage });
     }
 
     // Linie klubů si kompas UŽ NEPOČÍTÁ — jsou to tytéž přísné většiny, které
@@ -139,13 +154,13 @@ export const getKompas = cache(async function getKompas(): Promise<KompasData | 
       }
     }
 
-    return {
+    return silverReady({
       questions,
       mps: [...mpSeen.values()].sort((a, b) => a.name.localeCompare(b.name, "cs")),
       ballots: ballotMap,
       clubLines,
       coverage,
-    };
+    });
   } catch (err) {
     reportLoaderFailure("getKompas", err);
     return null;

@@ -1,9 +1,15 @@
 // Server-only: the FIRST real-store read in a feature surface. Joins the
 // Silver-layer `vote_tag` dataset (materialized by the benchmarked haiku
 // classifier) with the real PSP10 `vote_events` to feed the VoteTrack theme
-// filter. Degrades gracefully to null (→ the section is hidden) if no store is
-// configured, no tags have been materialized yet, or PGlite is unavailable at
-// request time — so introducing the store read can never break the page.
+// filter. Degrades gracefully to null if no store is configured or PGlite is
+// unavailable at request time — so introducing the store read can never break
+// the page.
+//
+// TŘI STAVY OD 2026-08-12 (silverLayer.ts): `null` znamená VÝPADEK, zatímco
+// úspěšné čtení prázdné vrstvy vrací `{ state: "never-computed" }` a /hlasovani
+// pro něj má vlastní větu. Do té doby obojí končilo `null` a sekce se mlčky
+// schovala — přestože rail (`PAGE_SECTIONS["/hlasovani"]`) na kotvu `#temata`
+// odkazoval pořád, takže odkaz vedl do prázdna.
 //
 // Called only from the /hlasovani server component; the `server-only` import
 // makes any client-component import a build-time error. (The runtime client
@@ -20,14 +26,17 @@ import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { readVoteEvents, readVoteTags } from "./ledgerRead";
+import { SILVER_NEVER_COMPUTED, silverReady, type SilverLayerRead } from "./silverLayer";
 import type { VoteThemeData } from "./themeTypes";
 
-export async function getVoteThemes(): Promise<VoteThemeData | null> {
+export async function getVoteThemes(): Promise<SilverLayerRead<VoteThemeData> | null> {
   try {
+    // Pořadí je součást tvrzení: bez store se NIC nepřečetlo (výpadek), kdežto
+    // prázdné pole PO úspěšném čtení znamená, že se vrstva nikdy nespočítala.
     const store = await getStore();
     if (!store) return null;
     const tags = await readVoteTags();
-    if (tags.length === 0) return null;
+    if (tags.length === 0) return SILVER_NEVER_COMPUTED;
 
     const counts = await store.voteTagCountsByTheme();
     const events = await readVoteEvents();
@@ -52,7 +61,7 @@ export async function getVoteThemes(): Promise<VoteThemeData | null> {
       .map(([slug, count]) => ({ slug, count }))
       .sort((a, b) => b.count - a.count);
 
-    return { themes, votes, total: votes.length, model: tags[0]?.model ?? null };
+    return silverReady({ themes, votes, total: votes.length, model: tags[0]?.model ?? null });
   } catch (err) {
     reportLoaderFailure("getVoteThemes", err);
     return null;

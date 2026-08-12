@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import KompasPage from "@/features/votetrack/kompas/KompasPage";
+import KompasNeverComputed from "@/features/votetrack/kompas/KompasNeverComputed";
 import { getKompas } from "@/features/votetrack/getKompas";
 
 /*
@@ -10,12 +11,14 @@ import { getKompas } from "@/features/votetrack/getKompas";
  * záznam vybraných hlasování) a předá klientovi; shoda se počítá u čtenáře
  * a celý výsledek žije v adrese (?hlasy=…).
  *
- * DVA různé neúspěchy, dvě různé věty (2026-08-11): `null` znamená VÝPADEK —
- * hlasovací nebo tematická vrstva se nepřečetla — a jen ten vykresluje
- * DataUnavailable. Výběr, který nad přečteným záznamem poctivě nevybral ani
- * jednu otázku, vrací záznam s prázdnými otázkami a vlastní větu si vykreslí
- * KompasPage; do 2026-08-11 obojí končilo stejnou hláškou o nedostupnosti dat,
- * tedy tvrzením o výpadku, který se nekonal.
+ * TŘI různé neúspěchy, tři různé věty. `null` znamená VÝPADEK — store není nebo
+ * se z něj nedá číst — a jen ten vykresluje DataUnavailable. `never-computed`
+ * (2026-08-12) znamená, že se čtení POVEDLO a tematická vrstva je prázdná: nikdy
+ * se nespočítala, což není totéž co nedostupný zdroj. A výběr, který nad
+ * přečteným záznamem poctivě nevybral ani jednu otázku, vrací záznam s prázdnými
+ * otázkami a vlastní větu si vykreslí KompasPage. Do 2026-08-11 končily všechny
+ * tři stejnou hláškou o nedostupnosti dat, tedy tvrzením o výpadku, který se
+ * nekonal.
  */
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -27,8 +30,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function KompasRoute() {
-  const data = await getKompas();
-  if (!data) {
+  const read = await getKompas();
+  if (read === null) {
     const t = await getTranslations("votetrack");
     return (
       <DataUnavailable
@@ -38,5 +41,6 @@ export default async function KompasRoute() {
       />
     );
   }
-  return <KompasPage data={data} />;
+  if (read.state === "never-computed") return <KompasNeverComputed />;
+  return <KompasPage data={read.data} />;
 }

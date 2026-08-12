@@ -4,6 +4,11 @@ import { getTranslations } from "next-intl/server";
  * Streaming shell for /kompas — same reason as app/hlasovani/loading.tsx: the
  * compass derives from the same ~406 000-ballot ledger, so a cold request would
  * otherwise show nothing at all for the length of that read.
+ *
+ * Ta věta ale nesmí slibovat dlouhé čtení VŽDYCKY (2026-08-12). Loader čte
+ * napřed tematické štítky — jednotky ms — a když se ta vrstva nikdy nespočítala
+ * (dnešní živý stav), odpovídá dřív, než stihne přečíst jediný hlas. „Čtení trvá
+ * řádově sekundy" tu pak stálo nad požadavkem, který skončil hned.
  */
 
 export default async function KompasLoading() {

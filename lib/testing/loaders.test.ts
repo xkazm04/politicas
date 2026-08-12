@@ -1368,11 +1368,14 @@ describe("graphLoader over a seeded graph", () => {
 describe("getVoteThemes", () => {
   beforeAll(ensureSeeded);
 
-  it("returns null while no tags are materialized (empty ≠ crash)", async () => {
+  it("reports a NEVER-COMPUTED layer, which is not the outage null (2026-08-12)", async () => {
     // The fixture seeds no vote_tag rows; this loader has no readiness gate by design
-    // (vote_tag is a Silver-layer enrichment, not a cardinality-floored ingest slice),
-    // so its whole degradation contract is "no tags → null → the section is hidden".
-    expect(await getVoteThemes()).toBeNull();
+    // (vote_tag is a derived enrichment, not a cardinality-floored ingest slice).
+    // Until 2026-08-12 the contract was "no tags → null → the section hides", which
+    // made an uncomputed layer indistinguishable from an unreadable store — and the
+    // rail kept pointing at the #temata anchor either way. The read SUCCEEDED here,
+    // so the answer is the third state, and /hlasovani has its own sentence for it.
+    expect(await getVoteThemes()).toEqual({ state: "never-computed" });
   });
 
   it("joins tags to roll calls, newest first, and counts themes by frequency", async () => {
@@ -1391,8 +1394,11 @@ describe("getVoteThemes", () => {
         ('t:3', 3, 'rozpocet', 0.7, 'haiku', 'sem_classify', now())`,
     );
 
-    const data = (await getVoteThemes())!;
-    expect(data).not.toBeNull();
+    const read = (await getVoteThemes())!;
+    expect(read).not.toBeNull();
+    // A materialized layer answers `ready` — the state the section renders from.
+    expect(read.state).toBe("ready");
+    const data = read.state === "ready" ? read.data : null!;
 
     // Newest roll call first (votedOn desc, lexicographic on RFC3339 dates).
     expect(data.votes.map((v) => v.votePspId)).toEqual([2, 1, 3]);

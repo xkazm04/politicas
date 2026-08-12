@@ -26,6 +26,7 @@ import Rebellions from "./components/Rebellions";
 import RealVoteTrack from "./components/RealVoteTrack";
 import VoteThemeFilter from "./components/VoteThemeFilter";
 import type { VoteRecordData } from "./record/types";
+import type { SilverLayerRead } from "./silverLayer";
 import type { VoteThemeData } from "./themeTypes";
 
 export default function VoteTrackPage({
@@ -33,11 +34,19 @@ export default function VoteTrackPage({
   themeData,
 }: {
   record: VoteRecordData | null;
-  themeData: VoteThemeData | null;
+  /** Tři stavy (silverLayer.ts): `null` = výpadek, `never-computed` = vrstva se
+   *  nikdy nespočítala, `ready` = spočítaná. */
+  themeData: SilverLayerRead<VoteThemeData> | null;
 }) {
   const t = useTranslations("votetrack");
   const real = record !== null && record.ledger.length > 0;
   const themesIndex = real ? 5 : 4;
+  const themes = themeData?.state === "ready" && themeData.data.votes.length > 0 ? themeData.data : null;
+  // „Nikdy nespočítáno" je tvrzení o NAŠÍ odvozené vrstvě, ne o zdroji. Sekce se
+  // proto už nesmí mlčky schovat: rail (PAGE_SECTIONS) na kotvu #temata odkazuje
+  // pořád, takže odkaz vedl do prázdna, a čtenář neměl jak poznat, jestli témata
+  // chybí kvůli výpadku, nebo proto, že je nikdo nespočítal.
+  const themesNeverComputed = themeData?.state === "never-computed";
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -70,16 +79,32 @@ export default function VoteTrackPage({
           </div>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">{real ? t("record.lead") : t("lead")}</p>
 
-          {/* Vstup do kompasu (moonshot 5B) — kobalt = váš pohled na záznam. */}
+          {/* Vstup do kompasu (moonshot 5B) — kobalt = váš pohled na záznam.
+              Když se tematická vrstva nikdy nespočítala, kompas nemá z čeho
+              vybírat otázky; odkaz zůstává (stránka to čtenáři vysvětlí), ale
+              pozvánka „spočítejte si shodu" nesmí stát bez té věty. */}
           <Link
             href="/kompas"
-            className="group mt-6 inline-flex max-w-2xl flex-wrap items-center gap-x-3 gap-y-1 border-2 border-cobalt px-4 py-3 transition-colors hover:bg-cobalt motion-reduce:transition-none"
+            className={`group mt-6 inline-flex max-w-2xl flex-wrap items-center gap-x-3 gap-y-1 border-2 px-4 py-3 transition-colors motion-reduce:transition-none ${
+              themesNeverComputed
+                ? "border-hairline hover:border-steel"
+                : "border-cobalt hover:bg-cobalt"
+            }`}
           >
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-cobalt group-hover:text-paper">
+            <span
+              className={`font-mono text-xs font-bold uppercase tracking-widest ${
+                themesNeverComputed ? "text-steel-aa" : "text-cobalt group-hover:text-paper"
+              }`}
+            >
               {t("kompas.entryTitle")}
             </span>
-            <span className="text-sm text-steel-aa group-hover:text-paper">{t("kompas.entryBody")}</span>
-            <ArrowRight className="h-4 w-4 text-cobalt group-hover:text-paper" aria-hidden />
+            <span className={`text-sm text-steel-aa ${themesNeverComputed ? "" : "group-hover:text-paper"}`}>
+              {themesNeverComputed ? t("kompas.entryNeverComputed") : t("kompas.entryBody")}
+            </span>
+            <ArrowRight
+              className={`h-4 w-4 ${themesNeverComputed ? "text-steel-aa" : "text-cobalt group-hover:text-paper"}`}
+              aria-hidden
+            />
           </Link>
         </div>
 
@@ -96,8 +121,8 @@ export default function VoteTrackPage({
           </>
         )}
 
-        {/* ── Témata hlasování (reálná data ze store — Silver vrstva) ── */}
-        {themeData && themeData.votes.length > 0 && (
+        {/* ── Témata hlasování (reálná data ze store — odvozená vrstva) ── */}
+        {themes && (
           <section id="temata" className="mt-14 border-t-4 border-ink pt-10 pb-20">
             <SectionHeading
               index={themesIndex}
@@ -105,11 +130,26 @@ export default function VoteTrackPage({
               aside={<SourceNote>{t("section4Note")}</SourceNote>}
             />
             <div className="mt-8">
-              <VoteThemeFilter data={themeData} />
+              <VoteThemeFilter data={themes} />
             </div>
           </section>
         )}
-        {!(themeData && themeData.votes.length > 0) && <div className="pb-20" />}
+        {/* Nespočítaná vrstva dostává větu, ne mezeru. Prázdný `<div className="pb-20" />`
+            tady stál od začátku a byl nerozeznatelný od redakčního rozhodnutí témata
+            neukazovat. */}
+        {!themes && themesNeverComputed && (
+          <section id="temata" className="mt-14 border-t-4 border-ink pt-10 pb-20">
+            <SectionHeading
+              index={themesIndex}
+              title={t("section4Title")}
+              aside={<SourceNote>{t("themesNeverComputedSource")}</SourceNote>}
+            />
+            <div className="mt-6 max-w-2xl border-l-4 border-hairline pl-4">
+              <p className="text-base leading-relaxed text-steel">{t("themesNeverComputed")}</p>
+            </div>
+          </section>
+        )}
+        {!themes && !themesNeverComputed && <div className="pb-20" />}
       </div>
     </main>
   );
