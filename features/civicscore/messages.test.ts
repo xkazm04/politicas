@@ -4,6 +4,8 @@
 // weight nobody notices. Five such dead keys (distributionSource, allSource, mockNote,
 // componentLegendNote, legendWidthNote) survived in both catalogs with ZERO call sites
 // until 2026-08-04, one of them still claiming the chamber was in its 9th term.
+import { readdirSync, readFileSync } from "node:fs";
+
 import { describe, expect, it } from "vitest";
 
 import { looksEnglish } from "@/lib/analysis/language-gate";
@@ -262,14 +264,68 @@ describe("metodika — katalog stránky metodiky", () => {
 // Vektor zveřejněných vah je odvozený (lens.PUBLISHED_WEIGHTS_LABEL), ne psaný. Do
 // 2026-08-04 stál jako literál na čtyřech vykreslovaných místech a v OBOU katalozích,
 // takže by ho změna vzorce nechala tvrdit staré číslo.
-describe("katalogy netisknou zveřejněné váhy jako literál", () => {
-  it("žádný řetězec v cs ani en nenese '25-20-20-15-10-10'", () => {
-    for (const [locale, cat] of [["cs", csCatalog], ["en", enCatalog]] as const) {
-      const flat = JSON.stringify(cat);
-      expect(flat, `${locale}.json hardcodes the published weight vector`).not.toContain(
-        "25-20-20-15-10-10",
-      );
+//
+// STRÁŽ BYLA DĚRAVÁ DVAKRÁT NARÁZ (2026-08-12). Hlídala jen KATALOGY a jen tvar
+// s pomlčkou — a přesně tou dvojitou dírou jí prošel literál na TIŠTĚNÉM archu:
+// `features/civicscore/kraj.ts` sázel do citace volební karty „publikovanou vahou
+// 25/20/20/15/10/10", tedy ve ZDROJI a s LOMÍTKY. Ze všech ploch zrovna ta, kterou
+// po vytištění nikdo neopraví, a na stránce, jejíž celý smysl je, že váhy jde
+// převážit. Hlídá se proto obojí: oba oddělovače, katalog i zdroj.
+//
+// Jehly se skládají z čísel, ne opisují — jinak by tenhle soubor byl sám prvním
+// nálezem vlastní stráže.
+const PUBLISHED_VECTOR = [25, 20, 20, 15, 10, 10];
+const WEIGHT_NEEDLES = [PUBLISHED_VECTOR.join("-"), PUBLISHED_VECTOR.join("/")];
+
+/**
+ * Zdroj bez komentářů. Komentář, který připomíná, JAK vektor vypadal, než se
+ * začal odvozovat (`lens.ts`, `MetodikaPage.tsx`), není tvrzení vůči čtenáři —
+ * a `lens.ts` je navíc modul, který ten řetězec vyrábí, takže ho jeho vlastní
+ * dokumentace smí pojmenovat. Přiznaná mez heuristiky: `//` se ořezává jen mimo
+ * `://`, takže literál napsaný na tomtéž řádku ZA odkazem by prošel.
+ */
+const stripComments = (src: string): string =>
+  src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:\w])\/\/.*$/gm, "$1");
+
+/** Ploché `klíč → řetězec` nad CELÝM katalogem (ne jen nad `civicscore.*`). */
+const flatCs = flatten(csCatalog as unknown as Record<string, unknown>);
+const flatEn = flatten(enCatalog as unknown as Record<string, unknown>);
+
+/**
+ * JEDINÁ známá výjimka: ukázkový arch `/plakat/[view]`. Je to TÝŽ nález — literál
+ * na tištěné ploše — jenže jeho renderer (`features/shared/poster/demo/
+ * LeaderboardPoster.tsx`) i jmenný prostor `shared.*` patří jinému vlastníkovi než
+ * tahle změna, a katalog se v tomhle kole dělí mezi víc souběžných úprav. Není to
+ * povolení: je to zaznamenaný dluh, a test drží, že je JEDINÝ a že cíl pořád existuje.
+ */
+const CATALOG_DEBT_KEY = "shared.poster.demo.methodology";
+
+describe("zveřejněné váhy se nikde nepíšou — ani v katalogu, ani ve zdroji", () => {
+  it.each(["cs", "en"])("%s katalog nenese vektor vah v žádném z obou tvarů", (locale) => {
+    const flat = locale === "cs" ? flatCs : flatEn;
+    const hits = Object.entries(flat)
+      .filter(([, v]) => WEIGHT_NEEDLES.some((n) => v.includes(n)))
+      .map(([k]) => k);
+    expect(flat[CATALOG_DEBT_KEY], `${CATALOG_DEBT_KEY} zmizel — smažte i výjimku`).toBeTruthy();
+    expect(hits, `${locale}.json hardcodes the published weight vector`).toEqual([CATALOG_DEBT_KEY]);
+  });
+
+  it("žádný zdroj features/civicscore/** nenese vektor vah v žádném z obou tvarů", () => {
+    const files = readdirSync("features/civicscore", { recursive: true, encoding: "utf8" })
+      .filter((p) => /\.tsx?$/.test(p) && !/\.test\.tsx?$/.test(p))
+      // Testy pinují VZOREC (lens.test.ts, componentDefs.test.ts) — to je jejich
+      // práce; zakázaná je jen vykreslovaná kopie ve zdroji produktu.
+      .map((p) => `features/civicscore/${p.replace(/\\/g, "/")}`);
+    expect(files.length, "sken nenašel žádný zdroj — cesta se rozešla se stromem").toBeGreaterThan(10);
+
+    const hits: string[] = [];
+    for (const file of files) {
+      const code = stripComments(readFileSync(file, "utf8"));
+      if (WEIGHT_NEEDLES.some((n) => code.includes(n))) hits.push(file);
     }
+    expect(hits, "zdroj tiskne zveřejněné váhy jako literál — patří tam PUBLISHED_WEIGHTS_LABEL").toEqual(
+      [],
+    );
   });
 });
 

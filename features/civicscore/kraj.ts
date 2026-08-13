@@ -17,7 +17,7 @@
 
 import type { PosterCitationInput } from "@/features/shared/poster/citation";
 import type { LeaderboardListEntry } from "./getLeaderboardData";
-import { encodeWeights, isPublishedWeights, type WeightVector } from "./lens";
+import { encodeWeights, isPublishedWeights, PUBLISHED_WEIGHTS_LABEL, type WeightVector } from "./lens";
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
 
@@ -133,10 +133,22 @@ export const KRAJ_SOURCE_LABEL =
  * podá buildPosterCitation() (kanonický tvar patičky, batch 1D). Pod čtenářovou
  * čočkou řádek metodiky PŘIZNÁVÁ vektor vah — vytištěná karta s cizí čočkou
  * nesmí jít vydávat za zveřejněný index.
+ *
+ * Vektor zveřejněných vah se NEPÍŠE (2026-08-12). Do teď tu stál literál
+ * „25/20/20/15/10/10" — na jediné ploše, kterou po vytištění nikdo neopraví,
+ * a na stránce, jejíž celý smysl je, že ty váhy jde převážit. Stráž v
+ * messages.test.ts ho neviděla dvakrát naráz: hlídala jen katalogy a jen tvar
+ * s pomlčkou. Zdrojem je `PUBLISHED_WEIGHTS_LABEL`, odvozený z
+ * CONTRIBUTION_WEIGHTS — změna vzorce teď arch přeteče, ne nechá lhát.
  */
 export function krajCitationInput(args: {
   liveUrl: string;
-  retrievedAt: string;
+  /**
+   * Den, KE KTERÉMU ČÍSLA PLATÍ — `contribution_provenance.computedAt` komory,
+   * ne okamžik tisku. `null` = komora se na jednom dni neshodne a arch datum
+   * neuvádí; nikdy se nenahrazuje dneškem (viz PosterCitationInput.retrievedAt).
+   */
+  retrievedAt: string | null;
   provenancePass: number | null;
   /** Rozpor mezi linií formule v datech a v kódu (formulaMismatchOrNull); null = shoda. */
   formulaMismatch?: { storedRef: string; declaredRef: string } | null;
@@ -149,7 +161,7 @@ export function krajCitationInput(args: {
     retrievedAt: args.retrievedAt,
     methodology: custom
       ? `VLASTNÍ ČOČKA ČTENÁŘE — váhy ${encodeWeights(args.weights)} (přepočet šesti zveřejněných složek; nejde o zveřejněnou metodiku)`
-      : "index přispění 0–100, šest složek s publikovanou vahou 25/20/20/15/10/10",
+      : `index přispění 0–100, šest složek s publikovanou vahou ${PUBLISHED_WEIGHTS_LABEL}`,
     provenancePass: args.provenancePass,
     formulaMismatch: args.formulaMismatch ?? null,
   };
