@@ -49,6 +49,7 @@ import {
   type CommitteeSeat,
 } from "@/lib/analysis/contribution";
 import { legacyScore } from "@/lib/analysis/contribution-legacy";
+import { nextPass } from "@/lib/analysis/kg";
 import { isoDay } from "@/lib/analysis/money-feed";
 import { staleScoreWarnings } from "@/lib/analysis/score-citations";
 import { getStore } from "@/lib/db/store";
@@ -148,7 +149,7 @@ async function main() {
   }
 
   const nodeById = new Map(personNodes.map((n) => [n.id, n]));
-  const pass = Number(arg("pass")) || Math.max(0, ...personNodes.map((n) => n.firstSeenPass)) + 1;
+  const pass = Number(arg("pass")) || nextPass(personNodes);
   const computedAt = new Date().toISOString();
 
   const currentPersonIds = [...new Set(mandates.map((m) => m.personPspId))];

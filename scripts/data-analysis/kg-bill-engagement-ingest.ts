@@ -20,6 +20,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { nextPass } from "@/lib/analysis/kg";
 import { normalizeBillEngagement } from "@/lib/ingest/sources/psp-activity";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
@@ -87,7 +88,7 @@ async function main() {
       personById.set(n.id, n);
     }
   }
-  const pass = Number(argOf("pass")) || Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1;
+  const pass = Number(argOf("pass")) || nextPass(nodes);
   const provenance = { pass, method: "deterministic", ref: "psp-bill-engagement", computedAt: new Date().toISOString() };
 
   // ── spoke_on edges (only pairs where both endpoints are graph nodes) ─────────

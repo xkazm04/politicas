@@ -16,6 +16,7 @@
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
+import { nextPass } from "@/lib/analysis/kg";
 import { validateLawVerdict, type LawForensicVerdict } from "@/lib/analysis/law-verdict";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
@@ -113,7 +114,7 @@ async function write(store: NonNullable<Awaited<ReturnType<typeof getStore>>>, n
   const billByCislo = new Map(nodes.filter((n) => n.kind === "bill").map((n) => [Number(n.props.cislo), n]));
   // Pass is assigned by the write-lock holder (kernel §Provenance); --pass overrides the computed default.
   const passFlag = Number(process.argv.find((a) => a.startsWith("--pass="))?.split("=")[1]);
-  const pass = Number.isFinite(passFlag) && passFlag > 0 ? passFlag : Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1;
+  const pass = Number.isFinite(passFlag) && passFlag > 0 ? passFlag : nextPass(nodes);
   const computedAt = new Date().toISOString();
 
   const toWrite: KgNodeRow[] = [];

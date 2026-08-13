@@ -42,6 +42,7 @@ import {
   type HlidacPersonDetail,
   type RosterPerson,
 } from "@/lib/analysis/money-feed";
+import { nextPass } from "@/lib/analysis/kg";
 import {
   buildMoneyGraph,
   mergePreservedTieProps,
@@ -120,7 +121,7 @@ async function main() {
   const roster: RosterPerson[] = persons.map((p) => ({ personPspId: p.pspId, firstName: p.firstName, lastName: p.lastName, birthDate: p.birthDate }));
   const nameOf = new Map(persons.map((p) => [p.pspId, p.nameFull]));
   const existingNodes = await store.listKgNodes();
-  const pass = Number(arg("pass")) || Math.max(0, ...existingNodes.map((n) => n.firstSeenPass)) + 1;
+  const pass = Number(arg("pass")) || nextPass(existingNodes);
   // D1: read the CURRENT linked_to props once, up front, so re-derived props can be
   // merge-preserved against them instead of wholesale-replacing human review decisions.
   const existingLinkedToProps = new Map<string, Record<string, unknown>>(

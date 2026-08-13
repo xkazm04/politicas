@@ -12,6 +12,10 @@
 // scripts/data-analysis/kg-compute.ts is the thin IO wrapper that loads the graph
 // via the Store, calls these functions, and persists kg_node/kg_edge.
 //
+// The tail of the file (§ "writer plumbing") holds rules EVERY kg_* ingest script
+// needs and each of them used to retype — starting with `nextPass` (which pass am
+// I?). They live here rather than in a script so they are pure and tested.
+//
 // Two bases, reused from lib/ingest/normalize.ts (the codebase convention, not a
 // local reinvention):
 //   • POSITIONAL_CHOICES = {yes,no} — the ONLY choices a party line / agreement is
@@ -344,4 +348,40 @@ export function committeeInfluence(
   }
   edges.sort((a, b) => a.person - b.person || a.organId - b.organId);
   return { edges, degree };
+}
+
+/* ── writer plumbing shared by every kg_* ingest script ────────────────────────
+ *
+ * Not edge computation, but the same discipline: one definition, unit-tested,
+ * imported by the scripts rather than retyped in each of them. Both rules below
+ * exist because the retyped version was wrong in six and five places respectively.
+ */
+
+/** The minimum a row must carry for `nextPass` to read it — every `kg_node` does. */
+export interface PassStampedRow {
+  readonly firstSeenPass: number;
+}
+
+/**
+ * The pass number a writer stamps when the operator did not name one: one past
+ * the highest `firstSeenPass` in the graph (an empty graph therefore starts at 1).
+ *
+ * WHY THIS IS A FUNCTION AND NOT `Math.max(0, ...rows.map(…)) + 1`: the spread
+ * pushes ONE ARGUMENT PER ROW onto the call stack, and the live graph holds
+ * ~153 700 `kg_node` rows — measured on node 24, a 200 000-element spread throws
+ * `RangeError: Maximum call stack size exceeded`. Every writer that wrote it that
+ * way therefore died before reading a single value, i.e. it worked ONLY when the
+ * operator passed an explicit `--pass=N` and failed on the bare invocation each
+ * script's own header documents as its default. Found and fixed in
+ * kg-contribution-ingest.ts on 2026-08-04; six siblings carried the same line
+ * until 2026-08-13, when it became this one helper. A `reduce` walks the rows and
+ * allocates no argument list.
+ *
+ * UNCHANGED BY THIS HELPER, and still true: `firstSeenPass` UNDERSTATES the
+ * graph-log sequence, because later passes enrich props without creating nodes.
+ * An explicit `--pass=N` remains the right answer whenever the operator knows it;
+ * `docs/data-analysis/graph-log.md` is the pass ledger.
+ */
+export function nextPass(rows: readonly PassStampedRow[]): number {
+  return rows.reduce((max, r) => Math.max(max, r.firstSeenPass), 0) + 1;
 }

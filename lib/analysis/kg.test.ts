@@ -3,6 +3,7 @@ import {
   classifyRole,
   coVotingEdges,
   committeeInfluence,
+  nextPass,
   partyCohesion,
   positionOf,
   rebellion,
@@ -176,5 +177,38 @@ describe("committeeInfluence", () => {
     ]);
     expect(degree.get(1)).toBe(2);
     expect(degree.has(2)).toBe(false);
+  });
+});
+
+/* ── nextPass — the six-script call-stack bug (D6, 2026-08-13) ────────────────
+ *
+ * Six kg_* writers computed their default pass as
+ * `Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1`. The live graph holds
+ * ~153 700 kg_node rows, so that spread blew the call stack: each of those
+ * scripts ran ONLY when the operator passed --pass=N and died on the bare
+ * invocation its own header documents as the default. One helper now, six call
+ * sites. */
+describe("nextPass", () => {
+  it("returns one past the highest firstSeenPass in the graph", () => {
+    expect(nextPass([{ firstSeenPass: 3 }, { firstSeenPass: 11 }, { firstSeenPass: 7 }])).toBe(12);
+  });
+
+  it("an empty graph starts at pass 1", () => {
+    expect(nextPass([])).toBe(1);
+  });
+
+  it("agrees with the naive spread it replaces, on an input small enough for one", () => {
+    const rows = [{ firstSeenPass: 3 }, { firstSeenPass: 11 }, { firstSeenPass: 7 }, { firstSeenPass: 1 }];
+    expect(nextPass(rows)).toBe(Math.max(0, ...rows.map((r) => r.firstSeenPass)) + 1);
+    expect(nextPass([])).toBe(Math.max(0, ...[].map(() => 0)) + 1);
+  });
+
+  it("survives 200 000 rows — the input on which the spread it replaces throws", () => {
+    // The live graph is ~153 700 nodes; 200 000 is the headroom the six writers
+    // now have. The second assertion is the BUG, pinned: if a future refactor
+    // reintroduces a spread here, this is the shape that kills it.
+    const rows = Array.from({ length: 200_000 }, (_, i) => ({ firstSeenPass: (i % 41) + 1 }));
+    expect(nextPass(rows)).toBe(42);
+    expect(() => Math.max(0, ...rows.map((r) => r.firstSeenPass))).toThrow(RangeError);
   });
 });

@@ -19,6 +19,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { nextPass } from "@/lib/analysis/kg";
 import { normalizeLegislation, type LawBill } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
@@ -110,7 +111,7 @@ async function main() {
     process.exit(1);
   }
   const bills: LawBill[] = normalizeLegislation(tiskyZip, termPspId);
-  const pass = Number(arg("pass")) || Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1;
+  const pass = Number(arg("pass")) || nextPass(nodes);
   const computedAt = new Date().toISOString();
   const provenance = { pass, method: "deterministic", ref: "psp-tisky", computedAt };
 

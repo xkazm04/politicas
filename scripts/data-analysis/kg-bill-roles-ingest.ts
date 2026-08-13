@@ -25,6 +25,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { nextPass } from "@/lib/analysis/kg";
 import { normalizeBillRoles, type RapporteurScope } from "@/lib/ingest/sources/psp-legislation";
 import { splitBillAuthorship } from "@/lib/ingest/sources/psp-activity";
 import { decodeUnl, parseUnl, type UnlRow } from "@/lib/ingest/unl";
@@ -103,7 +104,7 @@ async function main() {
 
   // firstSeenPass understates the graph-log sequence (later passes touch props only),
   // so prefer an explicit --pass; graph-log.md is the pass ledger.
-  const pass = Number(argOf("pass")) || Math.max(0, ...nodes.map((n) => n.firstSeenPass)) + 1;
+  const pass = Number(argOf("pass")) || nextPass(nodes);
   const provenance = { pass, method: "deterministic", ref: "psp-tisky-roles", computedAt: new Date().toISOString() };
 
   // ── sponsors edge props (rank/role) — only edges that already exist ──────────
