@@ -1,10 +1,14 @@
 /*
  * Čtecí vrstva playgroundu nad znalostním grafem.
  *
- * SERVEROVÝ MODUL — nikdy se neimportuje do klientské komponenty. Balíček
- * `server-only` v projektu není; hlídá to stejná konvence jako u ostatních
- * loaderů (getMoneyData, getLawData): tenhle komentář plus `getStore()`, které
- * v prohlížeči rovnou vyhodí výjimku (lib/db/pglite-store.ts).
+ * SERVEROVÝ MODUL — nikdy se neimportuje do klientské komponenty. Hlídá to
+ * `import "server-only"` níž: hranice padne při BUILDU, ne až za běhu.
+ *
+ * (Do 2026-08-13 tu stálo „balíček `server-only` v projektu není" a hranici
+ * držel jen tenhle komentář plus `getStore()`, které v prohlížeči vyhodí
+ * výjimku — tedy až za běhu. Ta věta byla nepravdivá: `server-only` je v
+ * package.json a `features/admin/getTripwireData.ts` ho importuje. Byl to
+ * bod 1 odloženého seznamu v memory/architect-graph-deferrals.md.)
  *
  * TŘI RŮZNÉ DOTAZY, TŘI RŮZNÉ NÁSTROJE — schválně:
  *
@@ -40,6 +44,8 @@
  * stopu. Rozsoudit je umí volající (getPermalinkData druhým, levným dotazem);
  * kdyby stopu nechávaly obě, log by o zaniklém uzlu tvrdil výpadek.
  */
+
+import "server-only";
 
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
