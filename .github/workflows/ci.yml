@@ -17,7 +17,7 @@ jobs:
   checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # Node 24 = npm 11, stejná major verze jako generuje package-lock.json
       # lokálně. Na Node 22 (npm 10) se strom volitelných peer závislostí
