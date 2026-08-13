@@ -20,15 +20,27 @@
  *
  * Output: human summary on stdout, machine JSON (canonical, politicas.sentinel/1)
  * after the marker line, exit 0 = all invariants hold, 1 = violation, 2 = store
- * unreadable.
+ * unreadable (nothing was evaluated).
  *
- * THIS COMMAND IS THE REAL EXECUTION PATH. `.github/workflows/sentinel.yml` exists,
- * but on a hosted runner there is no `./.pglite` (a local, gitignored 1.6 GB data dir),
- * so its guard step turns the nightly into a deliberate no-op. A green nightly is
- * therefore NOT evidence that the invariants hold — including the four scoring
- * invariants added 2026-08-04, which are the only thing standing between a formula
- * correction and a silently stale published ranking. Run this locally after any
- * contribution pass.
+ * A RUN THAT NEVER REACHED THE DATA STILL WRITES A REPORT (2026-08-13). Until
+ * now the two unreadable paths — store dir absent, open/collect threw — printed
+ * a stderr line and wrote NO machine report even with SENTINEL_JSON set. So
+ * nothing anywhere distinguished "ran and passed" from "never ran": both left
+ * the same artifact, none. Both paths now emit `unevaluableSentinelReport` —
+ * the SAME eleven rows in the SAME order, every one `unevaluable` with the
+ * reason — which parses as a valid politicas.sentinel/1 report, renders as
+ * "0 of 11 invariants could be evaluated", and keeps exit code 2. It is not a
+ * pass and it does not pretend to be one.
+ *
+ * THIS COMMAND IS THE REAL EXECUTION PATH. `.github/workflows/sentinel.yml` runs
+ * it on a hosted runner where there is no `./.pglite` (a local, gitignored 1.6 GB
+ * data dir), so the job goes RED with an unevaluable report attached — which is
+ * the truth, and is why the run step is no longer gated behind a guard that made
+ * "never ran" render as a pass. Local `npm run sentinel` against a copy of the
+ * real store is the only path on which the invariants actually execute —
+ * including the four scoring ones added 2026-08-04, the only thing standing
+ * between a formula correction and a silently stale published ranking. Run this
+ * locally after any contribution pass.
  */
 
 import { cpSync, existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
@@ -37,11 +49,43 @@ import { join, resolve } from "node:path";
 
 const JSON_MARKER = "--- sentinel machine report (politicas.sentinel/1) ---";
 
+/** Print the summary + canonical JSON, and write the machine report when asked.
+ *  ONE emit path, so an unevaluable run leaves exactly the artifact a real one
+ *  does — a diff between them shows which invariants stopped being evaluated. */
+async function emit(report: import("@/lib/testing/sentinel/report").SentinelReport): Promise<void> {
+  const { renderSentinelSummary, serializeSentinelReport } = await import(
+    "@/lib/testing/sentinel/report"
+  );
+  console.log(renderSentinelSummary(report));
+  const json = serializeSentinelReport(report);
+  console.log(`\n${JSON_MARKER}\n${json}`);
+  if (process.env.SENTINEL_JSON) {
+    writeFileSync(resolve(process.env.SENTINEL_JSON), json + "\n", "utf8");
+    console.error(`[sentinel] machine report written to ${resolve(process.env.SENTINEL_JSON)}`);
+  }
+}
+
+/** The store could not be read. Emit the all-`unevaluable` report and exit 2 —
+ *  never silence, because silence is what "ran and passed" also looks like. */
+async function emitUnevaluable(args: {
+  storePath: string;
+  copiedFrom: string | null;
+  reason: string;
+}): Promise<number> {
+  const { unevaluableSentinelReport } = await import("@/lib/testing/sentinel/invariants");
+  await emit(unevaluableSentinelReport({ now: new Date().toISOString(), ...args }));
+  return 2;
+}
+
 async function main(): Promise<number> {
   const source = resolve(process.env.SENTINEL_STORE || "./.pglite");
   if (!existsSync(source)) {
     console.error(`[sentinel] store not found: ${source} — nothing to audit (exit 2)`);
-    return 2;
+    return emitUnevaluable({
+      storePath: source,
+      copiedFrom: null,
+      reason: `store directory not found: ${source}`,
+    });
   }
 
   const skipCopy = process.env.SENTINEL_NO_COPY === "1" && Boolean(process.env.SENTINEL_STORE);
@@ -71,7 +115,6 @@ async function main(): Promise<number> {
   const { open } = await import("@/lib/db/pglite/internals");
   const { collectSentinelFacts } = await import("@/lib/testing/sentinel/facts");
   const { evaluateSentinel } = await import("@/lib/testing/sentinel/invariants");
-  const { renderSentinelSummary, serializeSentinelReport } = await import("@/lib/testing/sentinel/report");
 
   let exitCode: number;
   try {
@@ -86,20 +129,21 @@ async function main(): Promise<number> {
         storePath,
         copiedFrom,
       });
-      console.log(renderSentinelSummary(report));
-      const json = serializeSentinelReport(report);
-      console.log(`\n${JSON_MARKER}\n${json}`);
-      if (process.env.SENTINEL_JSON) {
-        writeFileSync(resolve(process.env.SENTINEL_JSON), json + "\n", "utf8");
-        console.error(`[sentinel] machine report written to ${resolve(process.env.SENTINEL_JSON)}`);
-      }
-      exitCode = report.verdict === "ok" ? 0 : 1;
+      await emit(report);
+      // Three verdicts, three exits: `unevaluable` shares 2 with the unreadable
+      // store because both mean the same thing to a caller — nothing was judged.
+      exitCode = report.verdict === "ok" ? 0 : report.verdict === "violation" ? 1 : 2;
     } finally {
       await pg.close();
     }
   } catch (err) {
-    console.error(`[sentinel] store unreadable or audit crashed: ${err instanceof Error ? err.stack ?? err.message : String(err)}`);
-    exitCode = 2;
+    const reason = err instanceof Error ? (err.stack ?? err.message) : String(err);
+    console.error(`[sentinel] store unreadable or audit crashed: ${reason}`);
+    exitCode = await emitUnevaluable({
+      storePath,
+      copiedFrom,
+      reason: err instanceof Error ? err.message : String(err),
+    });
   } finally {
     if (copyDir) {
       try {

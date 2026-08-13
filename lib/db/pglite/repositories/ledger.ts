@@ -61,6 +61,31 @@ export interface LedgerHeads {
   sealedRuns: SealedRunHead[];
 }
 
+/**
+ * How many decisions the ledger holds vs. how many the chain actually covers.
+ *
+ * WHY THIS EXISTS (2026-08-13): every chain read in this file filters
+ * `where chain_pos is not null`, which is correct for verification — an
+ * unchained row has nothing to re-hash — but it makes the chain BLIND to its
+ * own erasure. `update review_audit set chain_pos = null` empties the filtered
+ * set, `verifyAuditChain([])` reports a valid empty chain, and a wiped
+ * tamper-evident ledger reads exactly like a store where nobody has decided
+ * anything yet. The two are opposite findings.
+ *
+ * So the counts are read BESIDE the verification instead of widening its
+ * query: `verifyReviewChain` keeps its contract (re-hash what is chained),
+ * and a caller that must tell "empty" from "erased" asks for both numbers.
+ * `chained <= total` always; `chained < total` means rows exist outside the
+ * chain, which no writer in this repo produces (setTieReviewState appends
+ * chained rows inside its transaction).
+ */
+export interface ReviewAuditCounts {
+  /** Every row in `review_audit`, chained or not. */
+  total: number;
+  /** Rows carrying a `chain_pos` — the population `verifyReviewChain` reads. */
+  chained: number;
+}
+
 export interface LedgerRepository {
   /** Newest chained audit row, or null while the chain is empty. */
   getReviewChainHead(): Promise<ReviewChainHead | null>;
@@ -70,6 +95,12 @@ export interface LedgerRepository {
    * before the chain existed (NULL chain_pos) are outside the chain by design.
    */
   verifyReviewChain(): Promise<ChainVerification>;
+  /**
+   * Row counts of `review_audit`: everything vs. what the chain covers. Read
+   * beside `verifyReviewChain` so a caller can tell an empty ledger from an
+   * erased one (see ReviewAuditCounts).
+   */
+  countReviewAudit(): Promise<ReviewAuditCounts>;
   /**
    * Compute + store the Merkle root over every row `ingest_run_id = runId` wrote
    * (see RUN_TABLES). Idempotent: re-sealing the same unchanged data yields the
@@ -123,6 +154,15 @@ export function makeLedgerRepo(pg: Pglite): LedgerRepository {
         `select * from review_audit where chain_pos is not null order by chain_pos asc`,
       );
       return verifyAuditChain(rows.map(mapChainedRow));
+    },
+
+    async countReviewAudit() {
+      const { rows } = await pg.query<Record<string, unknown>>(
+        `select count(*)::int as total,
+                count(chain_pos)::int as chained
+           from review_audit`,
+      );
+      return { total: num(rows[0]?.total), chained: num(rows[0]?.chained) };
     },
 
     async sealIngestRun(runId) {

@@ -14,7 +14,14 @@ process.env.PGLITE_PATH = dataDir;
 const { open } = await import("../../db/pglite/internals");
 const { GENESIS_HASH, computeAuditRowHash } = await import("../../db/pglite/ledger");
 const { collectSentinelFacts } = await import("./facts");
-const { evaluateSentinel, sampleForRecompute, RECOMPUTE_SAMPLE_SIZE } = await import("./invariants");
+const {
+  evaluateSentinel,
+  sampleForRecompute,
+  unevaluableSentinelReport,
+  RECOMPUTE_SAMPLE_SIZE,
+  SENTINEL_CHECK_LABELS,
+  SENTINEL_CHECK_ORDER,
+} = await import("./invariants");
 const { parseSentinelReport, renderSentinelSummary, serializeSentinelReport, SENTINEL_SCHEMA } =
   await import("./report");
 const { CARDINALITY_FLOORS } = await import("../../db/readiness");
@@ -115,10 +122,14 @@ describe("live-graph sentinel against fixture stores", () => {
     expect(check(report, "provenance-uniformity").status).toBe("violation");
     expect(check(report, "components-sum").status).toBe("violation");
     expect(check(report, "recompute-sample").status).toBe("violation");
-    // An empty chain and an empty edge set are honestly valid.
-    expect(check(report, "audit-chain").status).toBe("ok");
+    // An empty edge set is honestly valid — every edge that exists resolves.
     expect(check(report, "orphan-edges").status).toBe("ok");
     expect(check(report, "determinism").status).toBe("ok");
+    // An empty LEDGER is not. Nobody has decided anything, so the chain proves
+    // nothing about tamper-evidence — that is "not evaluated", never a pass
+    // (this row said `ok` / "trivially valid" until 2026-08-13).
+    expect(check(report, "audit-chain").status).toBe("unevaluable");
+    expect(check(report, "audit-chain").detail).toContain("no rows");
   });
 
   it("clean fixture store: every invariant passes", async () => {
@@ -189,7 +200,14 @@ describe("live-graph sentinel against fixture stores", () => {
     ]);
     expect(report.verdict).toBe("ok");
     expect(report.manifestVersion).toBe("2026.07.31");
-    expect(check(report, "audit-chain").detail).toContain("2 chained rows verify");
+    expect(check(report, "audit-chain").detail).toContain("all 2 review_audit rows are chained");
+    // The roster is load-bearing: a real audit emits exactly the pinned check
+    // list, in the pinned order — the same rows an unevaluable run emits, so
+    // the two are diffable.
+    expect(report.checks.map((c) => c.id)).toEqual([...SENTINEL_CHECK_ORDER]);
+    // A run with nothing skipped says so in the old words.
+    expect(renderSentinelSummary(report)).toContain(`all ${report.checks.length} invariants hold`);
+    expect(renderSentinelSummary(report)).not.toContain("NOT EVALUATED");
   });
 
   it("orphan edge fires exactly the orphan-edges invariant", async () => {
@@ -216,6 +234,65 @@ describe("live-graph sentinel against fixture stores", () => {
     expect(c.detail).toContain("row-hash-mismatch");
     expect(c.detail).toContain("pos 2");
     await pg.query(`update review_audit set note = 'fixture' where chain_pos = 2`);
+  });
+
+  // ── THE ERASURE PROOF ────────────────────────────────────────────────────
+  // Tampering with ONE row fired the invariant above. Wiping the WHOLE chain
+  // used to PASS: every chain read filters `where chain_pos is not null`, so
+  // nulling the column empties the read, verifyAuditChain([]) reports a valid
+  // empty chain of length 0, and the old check answered "chain is empty —
+  // trivially valid". The cheapest attack on a tamper-evident ledger was the
+  // one attack the sentinel endorsed. Verified before the 2026-08-13 fix: this
+  // exact store produced audit-chain `ok`.
+  it("a chain wiped by nulling every chain_pos is a VIOLATION, not an empty chain", async () => {
+    const pg = await open();
+    await pg.query(`update review_audit set chain_pos = null`);
+    const report = await audit();
+    const c = check(report, "audit-chain");
+    expect(c.status).toBe("violation");
+    // Both counts are named — "0 of 2" is a different finding from "0 of 0".
+    expect(c.detail).toContain("0 of 2");
+    expect(c.detail).toContain("OUTSIDE the tamper-evident chain");
+    expect(report.verdict).toBe("violation");
+    expect(report.checks.filter((x) => x.status === "violation").map((x) => x.id)).toEqual([
+      "audit-chain",
+    ]);
+
+    await pg.query(`update review_audit set chain_pos = 1 where id = 'audit-1'`);
+    await pg.query(`update review_audit set chain_pos = 2 where id = 'audit-2'`);
+    expect((await audit()).verdict).toBe("ok");
+  });
+
+  // Half an erasure is still an erasure — and the count says which half.
+  it("one row dropped out of the chain fires the same invariant with both counts", async () => {
+    const pg = await open();
+    await pg.query(`update review_audit set chain_pos = null where id = 'audit-2'`);
+    const c = check(await audit(), "audit-chain");
+    expect(c.status).toBe("violation");
+    expect(c.detail).toContain("1 of 2");
+    await pg.query(`update review_audit set chain_pos = 2 where id = 'audit-2'`);
+    expect((await audit()).verdict).toBe("ok");
+  });
+
+  // A source that writes into ingest_run without a declared cadence was
+  // INVISIBLE to the freshness check: not stale, not fresh, not mentioned — so
+  // a green line covered an unknown fraction of the sources. It is not a
+  // violation (nobody declared a promise to break), but it is never silent.
+  it("freshness names the sources it did NOT judge, without failing on them", async () => {
+    const pg = await open();
+    await pg.query(
+      `insert into ingest_run (source, started_at, finished_at, status, rows_written) values
+        ('fx-source-without-cadence', $1, $1, 'ok', 1)`,
+      [NOW],
+    );
+    const c = check(await audit(), "freshness");
+    expect(c.status).toBe("ok");
+    expect(c.detail).toContain("fx-source-without-cadence");
+    expect(c.detail).toContain("NOT COVERED");
+    await pg.query(`delete from ingest_run where source = 'fx-source-without-cadence'`);
+    const clean = check(await audit(), "freshness");
+    expect(clean.status).toBe("ok");
+    expect(clean.detail).not.toContain("NOT COVERED");
   });
 
   it("a run older than 2× its cadence fires the freshness invariant", async () => {
@@ -390,6 +467,90 @@ describe("sentinel report codec", () => {
     const lying = { ...report, verdict: "violation" as const };
     expect(() => parseSentinelReport(JSON.stringify(lying))).toThrow(/does not agree/);
     expect(() => parseSentinelReport("not json")).toThrow(/not JSON/);
+  });
+});
+
+// ── A run that never reached the data ──────────────────────────────────────
+//
+// Until 2026-08-13 the store-unreadable path (scripts/sentinel/run.ts) wrote no
+// report at all, so "ran and passed" and "never ran" left the same artifact:
+// none. These pin the third state end to end — the shape, the headline, and the
+// one sentence it may never print.
+describe("unevaluable report (the run never reached the store)", () => {
+  const OPTS_MISSING = {
+    now: "2026-08-13T00:00:00.000Z",
+    storePath: "/nowhere/.pglite",
+    copiedFrom: null,
+    reason: "store directory not found: /nowhere/.pglite",
+  };
+
+  it("carries the SAME rows in the SAME order as a real audit, every one unevaluable", async () => {
+    const real = await audit();
+    const none = unevaluableSentinelReport(OPTS_MISSING);
+    expect(none.checks.map((c) => c.id)).toEqual(real.checks.map((c) => c.id));
+    expect(none.checks.map((c) => c.label)).toEqual(real.checks.map((c) => c.label));
+    expect(none.checks.map((c) => c.id)).toEqual([...SENTINEL_CHECK_ORDER]);
+    expect(new Set(none.checks.map((c) => c.status))).toEqual(new Set(["unevaluable"]));
+    for (const c of none.checks) expect(c.detail).toContain(OPTS_MISSING.reason);
+    // No store was read, so there is no release to name — a version from
+    // anywhere else would be a claim about data this run never saw.
+    expect(none.manifestVersion).toBeNull();
+    expect(none.manifestHash).toBeNull();
+  });
+
+  it("verdict is unevaluable — never ok — and the headline never claims the invariants hold", () => {
+    const none = unevaluableSentinelReport(OPTS_MISSING);
+    expect(none.verdict).toBe("unevaluable");
+    const summary = renderSentinelSummary(none);
+    expect(summary).toContain("VERDICT: NOT EVALUATED");
+    expect(summary).toContain(`0 of ${none.checks.length} invariants`);
+    expect(summary).not.toContain("invariants hold");
+    expect(summary).not.toContain("VERDICT: OK");
+    expect(summary).toContain("[UNEVAL]");
+  });
+
+  it("round-trips through the codec (a report of nothing is still a valid report)", () => {
+    const none = unevaluableSentinelReport(OPTS_MISSING);
+    const wire = serializeSentinelReport(none);
+    const parsed = parseSentinelReport(wire);
+    expect(parsed).toEqual(none);
+    expect(serializeSentinelReport(parsed)).toBe(wire);
+  });
+
+  it("the parser refuses a green headline over checks that were never evaluated", () => {
+    const none = unevaluableSentinelReport(OPTS_MISSING);
+    expect(() => parseSentinelReport(JSON.stringify({ ...none, verdict: "ok" }))).toThrow(
+      /does not agree/,
+    );
+    expect(() => parseSentinelReport(JSON.stringify({ ...none, verdict: "vymyslene" }))).toThrow(
+      /ok\|violation\|unevaluable/,
+    );
+  });
+
+  it("a mixed report counts the unevaluated rows in its headline instead of hiding them", () => {
+    const none = unevaluableSentinelReport(OPTS_MISSING);
+    const mixed = {
+      ...none,
+      verdict: "ok" as const,
+      checks: [
+        { ...none.checks[0], status: "ok" as const, detail: "held" },
+        ...none.checks.slice(1),
+      ],
+    };
+    const summary = renderSentinelSummary(mixed);
+    expect(summary).toContain(`1 of ${mixed.checks.length} invariants hold`);
+    expect(summary).toContain(`${mixed.checks.length - 1} NOT EVALUATED`);
+    // The old sentence is the one thing a partially-evaluated run may not say.
+    expect(summary).not.toContain(`all ${mixed.checks.length} invariants hold`);
+    expect(parseSentinelReport(JSON.stringify(mixed)).verdict).toBe("ok");
+  });
+
+  it("every roster id carries a label — the unevaluable report cannot ship a blank row", () => {
+    for (const id of SENTINEL_CHECK_ORDER) {
+      expect(SENTINEL_CHECK_LABELS[id], `label for ${id}`).toBeTruthy();
+    }
+    expect(new Set(SENTINEL_CHECK_ORDER).size).toBe(SENTINEL_CHECK_ORDER.length);
+    expect(SENTINEL_CHECK_ORDER.length).toBe(Object.keys(SENTINEL_CHECK_LABELS).length);
   });
 });
 

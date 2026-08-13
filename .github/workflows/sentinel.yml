@@ -1,23 +1,38 @@
-# Live-Graph Sentinel — nightly invariant audit of the real ingested store
-# (batch-7 item 7E). PROPOSAL: this file is new and touches no existing
-# workflow; adopt or drop at orchestrator review.
+# Live-Graph Sentinel — invariant audit of the real ingested store
+# (batch-7 item 7E).
 #
 # HONEST LIMITATION: the live `.pglite` store is a local, gitignored 1.6 GB
-# data dir — it does not exist on a hosted GitHub runner. This workflow
-# therefore only earns its cron once the store is reachable from CI (a
-# self-hosted runner on the ingest machine, or a store artifact download step
-# added where marked). Until then the guard step makes the run a loud no-op
-# instead of a false green.
+# data dir — it does not exist on a hosted GitHub runner. This workflow only
+# earns a schedule once the store is reachable from CI (a self-hosted runner on
+# the ingest machine, or a store artifact download step at the ADOPTION POINT
+# below).
+#
+# WHY THIS JOB NOW GOES RED WITHOUT A STORE (2026-08-13). Until today the run
+# step was gated on a guard step (`if: steps.guard.outputs.present == 'true'`),
+# and a SKIPPED step does not fail a job — so on `ubuntu-latest`, where the
+# store can never exist, this workflow rendered as a green check mark with zero
+# invariants evaluated. The header claimed the guard was "a loud no-op instead
+# of a false green"; it was a QUIET no-op that looked exactly like a pass. That
+# is the precise confusion the sentinel exists to abolish, turned on itself.
+#
+# The fix chosen, and why: the run step is now UNCONDITIONAL. Running it is
+# strictly more informative than guarding it — `npm run sentinel` detects the
+# absent store itself, writes a schema-valid report whose eleven checks are all
+# `unevaluable` (verdict "unevaluable", never "ok"), and exits 2. So the job
+# fails, the failure NAMES the adoption point, and the artifact says which
+# invariants were not evaluated. The alternative (keep the guard, fail the job
+# in the absent branch) produces the same red with one more moving part and no
+# machine report. The artifact upload is `if: always()` on BOTH branches: a run
+# that evaluated nothing still owes the reader its report.
+#
+# There is no cron. A red on every hosted nightly is noise, not signal — the
+# store's absence is a known, stated fact about hosted runners, not news. Once
+# the ADOPTION POINT is wired (or a self-hosted runner is used), restore:
+#   schedule:
+#     - cron: "17 3 * * *"   # nightly 03:17 UTC, off the hour to dodge cron herds
 name: sentinel
 
 on:
-  # Cron disabled 2026-08-05: hosted runners never have the local 1.6 GB
-  # `.pglite` store (see HONEST LIMITATION above), so the nightly run only
-  # accumulated red. Run manually via workflow_dispatch from the ingest
-  # machine's self-hosted runner (or after wiring the ADOPTION POINT below);
-  # restore the schedule block once the store is reachable from CI:
-  #   schedule:
-  #     - cron: "17 3 * * *"   # nightly 03:17 UTC, off the hour to dodge cron herds
   workflow_dispatch: {}
 
 jobs:
@@ -28,26 +43,34 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          # Pinned to 24 for the same reason as ci.yml: the lockfile is written
+          # by npm 11 (node 24) and npm 10 (node 22) places optional peer deps
+          # differently, so a node-22 runner fails `npm ci` with a permanent
+          # phantom "lock file out of sync". This job sat on 22 and would have
+          # died at `npm ci` before ever reaching the sentinel.
+          node-version: 24
           cache: npm
       - run: npm ci
       # ADOPTION POINT: materialize the store here (self-hosted runner path,
-      # artifact download, object-storage sync…) so ./.pglite exists.
-      - name: Guard — store present?
-        id: guard
+      # artifact download, object-storage sync…) so ./.pglite exists. Until
+      # then the step below fails on purpose and says so.
+      - name: Store present?
+        # Annotation only — this step NEVER gates the run. It exists so the log
+        # names the adoption point next to the failure that follows.
         run: |
           if [ -d ./.pglite ]; then
-            echo "present=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::.pglite store present — the sentinel will evaluate the real invariants"
           else
-            echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::.pglite store not present on this runner — sentinel skipped (see workflow header)"
+            echo "::warning::.pglite store not present on this runner — the sentinel will report every invariant as UNEVALUATED and this job will fail (exit 2). Wire the ADOPTION POINT in .github/workflows/sentinel.yml, or run \`npm run sentinel\` on the ingest machine."
           fi
-      - name: Run sentinel (read-only, exits non-zero on violation)
-        if: steps.guard.outputs.present == 'true'
+      - name: Run sentinel (read-only; exit 1 = violation, exit 2 = nothing evaluated)
         run: SENTINEL_JSON=sentinel-report.json npm run sentinel
       - name: Upload machine report
-        if: always() && steps.guard.outputs.present == 'true'
+        # BOTH branches, always: the whole point of the unevaluable report is
+        # that "never ran" leaves an artifact instead of silence.
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sentinel-report
           path: sentinel-report.json
+          if-no-files-found: warn

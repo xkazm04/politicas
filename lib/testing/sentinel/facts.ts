@@ -24,7 +24,7 @@
 import type { AtlasEntityCoverage, AtlasSourceRunStats } from "@/lib/analysis/atlas";
 import { isoTs, num, str, strOrNull, type Pglite } from "@/lib/db/pglite/internals";
 import type { ChainVerification } from "@/lib/db/pglite/ledger";
-import { makeLedgerRepo } from "@/lib/db/pglite/repositories/ledger";
+import { makeLedgerRepo, type ReviewAuditCounts } from "@/lib/db/pglite/repositories/ledger";
 import type { IngestRunRow } from "@/lib/db/types";
 import type { ReleaseStats } from "@/features/data-releases/manifest";
 
@@ -72,6 +72,14 @@ export interface SentinelFacts {
   releaseStats: ReleaseStats;
   /** O(n) re-verification of the review_audit hash chain (ground truth: ledger.ts). */
   chain: ChainVerification;
+  /**
+   * Rows in `review_audit` vs. rows the chain covers. WITHOUT this the chain
+   * invariant could not tell "nobody has decided anything yet" from "somebody
+   * dropped every chain_pos": `verifyReviewChain` reads only chained rows, so
+   * both stores hand it an empty list. Tampering with one row is a violation;
+   * erasing the whole chain used to be a PASS.
+   */
+  auditCounts: ReviewAuditCounts;
   orphanEdges: OrphanEdgeFacts;
   /** Per-source ingest-run stats — freshness input (ground truth: atlas.ts cadences). */
   runStats: AtlasSourceRunStats[];
@@ -245,10 +253,12 @@ async function readPersonScores(pg: Pglite): Promise<PersonScoreFact[]> {
  *  the determinism invariant compares the two passes' derivations. */
 export async function collectSentinelFacts(pg: Pglite): Promise<SentinelFacts> {
   const releaseStats = await readReleaseStats(pg);
-  const chain = await makeLedgerRepo(pg).verifyReviewChain();
+  const ledger = makeLedgerRepo(pg);
+  const chain = await ledger.verifyReviewChain();
+  const auditCounts = await ledger.countReviewAudit();
   const orphanEdges = await readOrphanEdges(pg);
   const runStats = await readRunStats(pg);
   const entityCoverage = await readEntityCoverage(pg);
   const persons = await readPersonScores(pg);
-  return { releaseStats, chain, orphanEdges, runStats, entityCoverage, persons };
+  return { releaseStats, chain, auditCounts, orphanEdges, runStats, entityCoverage, persons };
 }
