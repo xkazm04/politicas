@@ -129,7 +129,7 @@ export default function VoteTrackPage({
 
         {/* ── Témata hlasování (reálná data ze store — odvozená vrstva) ── */}
         {themes && (
-          <section id="temata" className="mt-14 border-t-4 border-ink pt-10 pb-20">
+          <section id="temata" aria-label={t("section4Title")} className="mt-14 border-t-4 border-ink pt-10 pb-20">
             <SectionHeading
               index={themesIndex}
               title={t("section4Title")}
@@ -144,7 +144,7 @@ export default function VoteTrackPage({
             tady stál od začátku a byl nerozeznatelný od redakčního rozhodnutí témata
             neukazovat. */}
         {!themes && themesNeverComputed && (
-          <section id="temata" className="mt-14 border-t-4 border-ink pt-10 pb-20">
+          <section id="temata" aria-label={t("section4Title")} className="mt-14 border-t-4 border-ink pt-10 pb-20">
             <SectionHeading
               index={themesIndex}
               title={t("section4Title")}
@@ -171,7 +171,7 @@ function MockVoteTrack() {
   return (
     <>
       {/* ── 01 Deník + sál ────────────────────────────────── */}
-      <section id="denik">
+      <section id="denik" aria-label={t("section1Title")}>
         <SectionHeading
           index={1}
           title={t("section1Title")}
@@ -186,7 +186,7 @@ function MockVoteTrack() {
       </section>
 
       {/* ── 02 Linie klubů ────────────────────────────────── */}
-      <section id="linie" className="mt-14 border-t-4 border-ink pt-10">
+      <section id="linie" aria-label={t("section2Title")} className="mt-14 border-t-4 border-ink pt-10">
         <SectionHeading
           index={2}
           title={t("section2Title")}
@@ -198,7 +198,7 @@ function MockVoteTrack() {
       </section>
 
       {/* ── 03 Rebelie a nezávislost ──────────────────────── */}
-      <section id="rebelie" className="mt-14 border-t-4 border-ink pt-10">
+      <section id="rebelie" aria-label={t("section3Title")} className="mt-14 border-t-4 border-ink pt-10">
         <SectionHeading
           index={3}
           title={t("section3Title")}

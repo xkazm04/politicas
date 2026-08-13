@@ -36,8 +36,11 @@ export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
 
   return (
     <>
+      {/* Nepojmenovaná `<section>` se jako orientační bod vůbec nevystaví, takže
+          pět kotev lišty nemělo v odečítačce protějšek. Jméno je titulek sekce
+          — týž řetězec, jaký na kotvu ukazuje PAGE_SECTIONS. */}
       {/* ── 01 Seismograf ─────────────────────────────────────── */}
-      <section id="seismograf">
+      <section id="seismograf" aria-label={t("record.seismoTitle")}>
         <SectionHeading index={1} title={t("record.seismoTitle")} aside={<SourceNote>{t("record.seismoNote")}</SourceNote>} />
         <div className="mt-8">
           <Seismograf data={record} onJumpToVote={jumpTo} />
@@ -45,8 +48,17 @@ export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
       </section>
 
       {/* ── 02 Deník + sál ────────────────────────────────────── */}
-      <section id="denik" className="mt-14 border-t-4 border-ink pt-10">
+      <section id="denik" aria-label={t("record.ledgerTitle")} className="mt-14 border-t-4 border-ink pt-10">
         <SectionHeading index={2} title={t("record.ledgerTitle")} aside={<SourceNote>{t("record.ledgerNote")}</SourceNote>} />
+        {/* Výběr zápisu vymění CELÝ pohled do sálu vedle — a dělal to mlčky.
+            JEDNA živá oblast na celou tu výměnu (ne jedna na řádek), a stojí
+            MIMO panel, který se přerenderovává, aby ji výměna nesmazala. */}
+        <p role="status" aria-live="polite" className="sr-only">
+          {t("record.selectionAria", {
+            title: selected.title,
+            date: selected.votedOn ? f.date(selected.votedOn) : t("record.reconcileWorstNoDate"),
+          })}
+        </p>
         <div className="mt-8 grid gap-10 pb-4 lg:grid-cols-[5fr_7fr]">
           <RealVoteLedger
             votes={record.ledger}
@@ -63,7 +75,7 @@ export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
       </section>
 
       {/* ── 03 Linie klubů ────────────────────────────────────── */}
-      <section id="linie" className="mt-14 border-t-4 border-ink pt-10">
+      <section id="linie" aria-label={t("record.disciplineTitle")} className="mt-14 border-t-4 border-ink pt-10">
         <SectionHeading
           index={3}
           title={t("record.disciplineTitle")}
@@ -75,7 +87,7 @@ export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
       </section>
 
       {/* ── 04 Rebelie ────────────────────────────────────────── */}
-      <section id="rebelie" className="mt-14 border-t-4 border-ink pt-10">
+      <section id="rebelie" aria-label={t("record.rebelsTitle")} className="mt-14 border-t-4 border-ink pt-10">
         <SectionHeading
           index={4}
           title={t("record.rebelsTitle")}

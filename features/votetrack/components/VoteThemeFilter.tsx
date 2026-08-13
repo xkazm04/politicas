@@ -63,9 +63,12 @@ export default function VoteThemeFilter({ data }: { data: VoteThemeData }) {
       </div>
 
       {/* ── Hlasování ve vybraném tématu ────────────────────── */}
-      <div className="mt-6 border-t-2 border-ink">
+      {/* Výpis JE seznam; a stiskem štítku se mlčky měnil — počet dole se
+          přepsal, ale odečítačka o tom nevěděla. Živá oblast je JEDNA (dole
+          u počtu, vzor LeaderboardTable), ne jedna na řádek. */}
+      <ul className="mt-6 list-none border-t-2 border-ink" aria-label={t("themeListAria")}>
         {listed.map((v) => (
-          <div key={v.votePspId} className="border-b border-hairline py-3">
+          <li key={v.votePspId} className="border-b border-hairline py-3">
             <div className="flex items-baseline justify-between gap-3">
               <span className="font-mono text-xs uppercase tracking-wider text-steel">
                 {v.votedOn ? f.date(v.votedOn) : "—"} · {themeName(v.theme)}
@@ -91,11 +94,14 @@ export default function VoteThemeFilter({ data }: { data: VoteThemeData }) {
             >
               {t("themeVoteLink")} ↗
             </a>
-          </div>
+          </li>
         ))}
-      </div>
+        {listed.length === 0 && (
+          <li className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("themeListEmpty")}</li>
+        )}
+      </ul>
 
-      <div className="mt-3">
+      <div className="mt-3" role="status" aria-live="polite">
         <SourceNote>{t("themeListCount", { shown: f.int(listed.length), matched: f.int(shown.length), cap: f.int(LIST_CAP) })}</SourceNote>
       </div>
       <div className="mt-1">

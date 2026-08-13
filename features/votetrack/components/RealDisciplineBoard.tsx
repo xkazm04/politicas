@@ -122,14 +122,21 @@ export default function RealDisciplineBoard({
               : t("record.matrixNote", { window: f.int(MATRIX_WINDOW) })}
           </SourceNote>
           <div className="mt-3 overflow-x-auto">
+            {/* Matice JE tabulka a od 2026-08-12 se tak i čte: `scope` říká
+                odečítačce, ke které hlavičce buňka patří (bez něj čte holá
+                čísla), a klubový sloupec je hlavičkou řádku, ne buňkou. */}
             <table className="w-full min-w-[34rem] border-collapse text-center">
+              <caption className="sr-only">{t("record.matrixCaption")}</caption>
               <thead>
                 <tr>
-                  <th className="border-b-2 border-ink py-2 pr-3 text-left font-mono text-[11px] uppercase tracking-widest text-steel-aa">
+                  <th
+                    scope="col"
+                    className="border-b-2 border-ink py-2 pr-3 text-left font-mono text-[11px] uppercase tracking-widest text-steel-aa"
+                  >
                     {t("record.partyHeader")}
                   </th>
                   {matrixVotes.map((v) => (
-                    <th key={v.pspId} className="border-b-2 border-ink px-1.5 py-2">
+                    <th key={v.pspId} scope="col" className="border-b-2 border-ink px-1.5 py-2">
                       <button
                         type="button"
                         onClick={() => onSelectVote(v.pspId)}
@@ -147,12 +154,19 @@ export default function RealDisciplineBoard({
                   const style = clubStyle(c.club);
                   return (
                     <tr key={c.club} className="border-b border-hairline">
-                      <td className="py-2.5 pr-3 text-left">
+                      <th scope="row" className="py-2.5 pr-3 text-left font-normal">
                         <span className="flex items-center gap-1.5 text-sm font-black uppercase">
-                          <span className="inline-block h-2 w-2 shrink-0 rounded-full" style={{ background: style.color }} />
-                          {style.short}
+                          <span
+                            aria-hidden
+                            className="inline-block h-2 w-2 shrink-0 rounded-full"
+                            style={{ background: style.color }}
+                          />
+                          <span aria-hidden>{style.short}</span>
+                          {/* Zkratka vidět, celý název klubu slyšet — vzor
+                              LeaderboardTable („TOP09", ne „TOP"). */}
+                          <span className="sr-only">{c.club}</span>
                         </span>
-                      </td>
+                      </th>
                       {matrixVotes.map((v) => {
                         const s = v.stat.byClub[c.club];
                         const disc = s?.discipline ?? null;
@@ -160,7 +174,10 @@ export default function RealDisciplineBoard({
                           return (
                             <td key={v.pspId} className="px-1.5 py-2.5">
                               <span className="inline-flex min-w-[3.75rem] items-center justify-center border-2 border-dashed border-hairline px-1.5 py-1 font-mono text-xs text-steel-aa">
-                                —
+                                <span aria-hidden>—</span>
+                                {/* Pomlčka je tvrzení („klub linii neměl"), ne
+                                    prázdná buňka — a odečítačce se dá říct jen slovem. */}
+                                <span className="sr-only">{t("record.matrixNoLine")}</span>
                               </span>
                             </td>
                           );
@@ -180,7 +197,19 @@ export default function RealDisciplineBoard({
                                     : "border-signal-deep text-signal-deep"
                               }`}
                             >
-                              {s.line === "yes" ? "▲" : "▼"} {f.int(pct)}
+                              {/* Šipka NESE VÝZNAM (linie klubu), a byla to holá
+                                  glyfa: kdo ji nevidí nebo nerozliší dva
+                                  trojúhelníky, četl jen číslo. Vidět zůstává
+                                  glyfa, slyšet je linie i to, že číslo je
+                                  disciplína v procentech. */}
+                              <span aria-hidden>{s.line === "yes" ? "▲" : "▼"}</span>
+                              <span className="sr-only">
+                                {t("record.matrixCellAria", {
+                                  line: s.line === "yes" ? tcom("voteChoice.for") : tcom("voteChoice.against"),
+                                  pct: f.int(pct),
+                                })}
+                              </span>
+                              <span aria-hidden>{f.int(pct)}</span>
                             </span>
                           </td>
                         );

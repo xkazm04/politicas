@@ -58,7 +58,19 @@ export default function RealVoteLedger({
       .join(" · ");
   return (
     <div className="min-w-0">
-      <div className="border-t-2 border-ink">
+      {/* Deník JE seznam a odečítačka to má vědět — kolik má položek a kde
+          položka končí. Do 2026-08-12 to byl proud holých <div>ů (týž nález
+          a týž lék jako v /denik, kde se vydání dne stalo <article> a jeho
+          zápisy <ul>/<li>).
+
+          Tabulkou to schválně NENÍ: řádek deníku není mřížka hodnot, ale
+          skládaná karta (datum · titulek na dva řádky · pruh sálu · poměr
+          a odkaz) a od 2026-08-10 je celý obalem kolem tlačítka + kopírovacího
+          odkazu. Role `row`/`cell` by nad tímhle tvarem musely obalit tlačítko
+          buňkou — tedy zahodit jeho roli — nebo celý řádek prohlásit za jednu
+          buňku, což je tabulka jen naoko. Sloupcovou mřížkou je vedle matice
+          linií a ta tabulka opravdu je. */}
+      <ul className="list-none border-t-2 border-ink" aria-label={t("record.ledgerListAria")}>
         {votes.map((v) => {
           const selected = v.pspId === selectedId;
           const flashed = v.pspId === highlightedId;
@@ -67,7 +79,7 @@ export default function RealVoteLedger({
             // `title`, takže si ho čtenář musel složit z adresního řádku sám —
             // a tlačítko „kopírovat odkaz" uvnitř tlačítka je neplatné HTML.
             // Kotva `#h-…` proto sedí na obalu, který se i posouvá do zorného pole.
-            <div
+            <li
               key={v.pspId}
               id={voteAnchorId(v.pspId)}
               className={`scroll-mt-24 border-b border-hairline transition-colors duration-500 motion-reduce:transition-none ${
@@ -101,8 +113,13 @@ export default function RealVoteLedger({
               </button>
               <div className="mt-1 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 pb-3 pr-2">
                 <span className="flex flex-wrap items-center gap-x-3 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-                  <span className="tabular-nums">
+                  {/* „150:30" je pro odečítačku jen dvě čísla s dvojtečkou.
+                      Vidět zůstává poměr, slyšet obě strany i s podmětem. */}
+                  <span className="tabular-nums" aria-hidden>
                     {f.int(v.stat.total.yes)}:{f.int(v.stat.total.no)}
+                  </span>
+                  <span className="sr-only">
+                    {t("record.tallyAria", { yes: f.int(v.stat.total.yes), no: f.int(v.stat.total.no) })}
                   </span>
                   {v.rebels.length > 0 && (
                     <span className="font-bold text-signal-deep">{t("rebelsCount", { n: v.rebels.length })}</span>
@@ -116,10 +133,10 @@ export default function RealVoteLedger({
                   errorContext="deník hlasování: kopírování trvalého odkazu selhalo"
                 />
               </div>
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
       <div className="mt-3">
         <SourceNote>{t("record.ledgerFootnote", { window: ledgerWindow, valid: validTotal })}</SourceNote>
       </div>

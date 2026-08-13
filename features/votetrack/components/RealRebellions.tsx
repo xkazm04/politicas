@@ -39,9 +39,15 @@ export default function RealRebellions({
         <SourceNote>
           {t("record.chronicleNote", { shown: f.int(data.chronicle.length), total: f.int(data.chronicleTotal) })}
         </SourceNote>
-        <div className="mt-3 border-t-2 border-ink">
+        {/* Kronika i žebříček JSOU seznamy — do 2026-08-12 to byly holé <div>y,
+            takže odečítačka neuměla říct, že jde o seznam, ani kolik má položek
+            (týž nález a týž lék jako v /denik). Tabulkou schválně nejsou: řádek
+            kroniky je věta („X hlasoval PRO proti linii klubu, tisk Y"), ne
+            mřížka hodnot, a řádek žebříčku je celý jedním odkazem na spis —
+            role `row`/`cell` by tu roli odkazu přepsaly. */}
+        <ul className="mt-3 list-none border-t-2 border-ink" aria-label={t("record.chronicleListAria")}>
           {data.chronicle.map((r) => (
-            <div key={`${r.votePspId}-${r.personPspId}`} className="border-b border-hairline px-2 py-4">
+            <li key={`${r.votePspId}-${r.personPspId}`} className="border-b border-hairline px-2 py-4">
               <span className="flex items-center justify-between gap-3">
                 <span className="font-mono text-xs uppercase tracking-wider text-steel-aa">
                   {r.votedOn ? f.date(r.votedOn) : "—"}
@@ -77,12 +83,12 @@ export default function RealRebellions({
                 </span>{" "}
                 {t("againstPartyLine")} <span className="line-clamp-2">{r.title}</span>
               </span>
-            </div>
+            </li>
           ))}
           {data.chronicle.length === 0 && (
-            <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("record.noRebellions")}</div>
+            <li className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("record.noRebellions")}</li>
           )}
-        </div>
+        </ul>
       </div>
 
       {/* ── míra rebelie ──────────────────────────────────────── */}
@@ -96,10 +102,10 @@ export default function RealRebellions({
             total: f.int(data.topRebelsTotal),
           })}
         </SourceNote>
-        <div className="mt-3 border-t-2 border-ink">
+        <ul className="mt-3 list-none border-t-2 border-ink" aria-label={t("record.topRebelsListAria")}>
           {data.topRebels.map((r) => (
+            <li key={r.personPspId}>
             <Link
-              key={r.personPspId}
               href={`/poslanec/${r.personPspId}`}
               className="group grid grid-cols-[10.5rem_1fr_5.5rem] items-center gap-3 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong motion-reduce:transition-none"
             >
@@ -120,6 +126,8 @@ export default function RealRebellions({
                 />
               </span>
               <span className="text-right text-lg font-black tabular-nums">
+                {/* Holé „41,6 %" nemá bez sloupce podmět — jmenovku nese sr-only text. */}
+                <span className="sr-only">{t("record.rateAria")} </span>
                 {f.dec(Math.round(r.rate * 1000) / 10)} %
                 <ArrowUpRight
                   className="ml-1 inline h-3.5 w-3.5 align-baseline text-steel-aa transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none"
@@ -127,11 +135,12 @@ export default function RealRebellions({
                 />
               </span>
             </Link>
+            </li>
           ))}
           {data.topRebels.length === 0 && (
-            <div className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("record.topRebelsEmpty")}</div>
+            <li className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("record.topRebelsEmpty")}</li>
           )}
-        </div>
+        </ul>
       </div>
     </div>
   );

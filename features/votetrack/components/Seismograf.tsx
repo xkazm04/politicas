@@ -17,11 +17,18 @@
  * do seismogramu nespadla, protože je zdroj nedatoval.
  */
 
-import { useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { MIN_CLUB_POSITIONAL } from "@/lib/analysis/kg";
+import {
+  firstNodeId,
+  isArrowKey,
+  lastNodeId,
+  neighbourStep,
+  rovingNodeId,
+} from "@/features/dashboard/graphTraversal";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { votePspUrl } from "../record/anchor";
@@ -76,6 +83,38 @@ export default function Seismograf({
   const [selectedDate, setSelectedDate] = useState<string | null>(days.length ? days[days.length - 1].date : null);
   const selected = days.find((d) => d.date === selectedDate) ?? null;
 
+  /*
+   * KLÁVESNICE (2026-08-12) — jeden tabstop, šipky po ose dnů.
+   *
+   * Pruh kreslí jedno `<button>` na hlasovací den, tedy nad reálným záznamem
+   * ~74 tabstopů, kterými musel čtenář projít, než se dostal k detailu pod
+   * nástrojem. Pravidlo je IMPORTOVANÉ z velína (features/dashboard/
+   * graphTraversal.ts), ne přepsané: osa dnů se popíše jako graf s uzly
+   * v řadě (x = pořadí, y = 0) a hranou mezi sousedními dny, a `neighbourStep`
+   * z toho odvodí přesně to, co se od osy čeká — vlevo předchozí den, vpravo
+   * následující, nahoru a dolů NIC (kolmý směr nemá souseda, takže klávesa
+   * podle vlastního pravidla nic nedělá, místo aby se zabalila jinam).
+   * Home/End berou první a poslední uzel v pořadí, ve kterém se kreslí.
+   */
+  const traversal = useMemo(
+    () => ({
+      nodes: days.map((d, i) => ({ id: d.date, x: i, y: 0 })),
+      edges: days.slice(1).map((d, i) => ({ from: days[i].date, to: d.date })),
+    }),
+    [days],
+  );
+  // PAMĚŤ tabstopu (vzor StateGraphCanvas): kam se má tabulátor do obrázku vrátit.
+  const [rovingMemo, setRovingMemo] = useState<string | null>(null);
+  const dayRefs = useRef(new Map<string, HTMLButtonElement | null>());
+  const rovingId = rovingNodeId(rovingMemo, selectedDate, traversal.nodes);
+  const focusDay = useCallback((id: string | null) => {
+    if (id === null) return;
+    const el = dayRefs.current.get(id);
+    if (!el) return;
+    setRovingMemo(id);
+    el.focus();
+  }, []);
+
   // First day of each month gets a tick label.
   const monthTick = (i: number): string | null => {
     const m = days[i].date.slice(0, 7);
@@ -116,6 +155,35 @@ export default function Seismograf({
               <button
                 key={d.date}
                 type="button"
+                ref={(el) => {
+                  dayRefs.current.set(d.date, el);
+                }}
+                // Jediný tabstop pruhu; uvnitř se chodí šipkami. Enter i mezerník
+                // vybírají BEZ vlastní obsluhy — je to nativní <button>, takže
+                // druhá obsluha by výběr spustila dvakrát.
+                tabIndex={rovingId === d.date ? 0 : -1}
+                onFocus={() => setRovingMemo(d.date)}
+                onKeyDown={(ev) => {
+                  if (isArrowKey(ev.key)) {
+                    const next = neighbourStep(d.date, ev.key, traversal.nodes, traversal.edges);
+                    // Směr bez souseda = klávesa nedělá nic (nezabalí se na druhý
+                    // konec) a událost si nechá probublat.
+                    if (next !== null) {
+                      ev.preventDefault();
+                      focusDay(next);
+                    }
+                    return;
+                  }
+                  if (ev.key === "Home") {
+                    ev.preventDefault();
+                    focusDay(firstNodeId(traversal.nodes));
+                    return;
+                  }
+                  if (ev.key === "End") {
+                    ev.preventDefault();
+                    focusDay(lastNodeId(traversal.nodes));
+                  }
+                }}
                 onClick={() => setSelectedDate(d.date)}
                 aria-pressed={active}
                 aria-label={t("record.seismoDayAria", {
@@ -124,7 +192,7 @@ export default function Seismograf({
                   cohesion: cohesionText(d.meanCohesion),
                   rebels: d.rebels,
                 })}
-                className={`group relative min-w-0 flex-1 transition-colors motion-reduce:transition-none ${
+                className={`group relative min-w-0 flex-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-cobalt motion-reduce:transition-none ${
                   active ? "bg-paper-strong" : "hover:bg-paper-strong"
                 }`}
               >
@@ -182,7 +250,11 @@ export default function Seismograf({
       {/* Obě stupnice mají dno a strop — a obrázek to sám o sobě neřekne.
           Hodnoty se interpolují z konstant výš, aby se změnou zisku změnila
           i věta (vzor PUBLISHED_WEIGHTS_LABEL). */}
-      <SourceNote className="mt-3">
+      {/* Jeden tabstop plus šipky po ose se z obrázku nedá uhodnout — vzor
+          `dashboard.graph.keyboardHint`: pravidlo se TISKNE na ploše. */}
+      <SourceNote className="mt-3">{t("record.seismoKeyboard")}</SourceNote>
+
+      <SourceNote className="mt-1">
         {t("record.seismoScale", {
           deviationScale: f.int(DEVIATION_FLOOR_PCT),
           rebelsScale: f.int(REBELS_FULL_SCALE),
