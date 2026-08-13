@@ -118,11 +118,23 @@ const eslintConfig = defineConfig([
       "custom/no-silent-null-catch": "error",
     },
   },
-  // Catalog boundary (personas pattern): features/shared/components is the
-  // domain-agnostic primitive catalog. It must not import domain data or
-  // feature code — pass data via props, or the component belongs to a feature.
+  // Catalog boundary (personas pattern): features/shared is the domain-agnostic
+  // primitive catalog. It must not import domain data or feature code — pass
+  // data via props, or the component belongs to a feature.
+  //
+  // SCOPE WIDENED 2026-08-13 from `components/**` to all of `features/shared/**`.
+  // The rule guarded ten small components while `poster/`, `provenance/` and
+  // `forensic/` — 20 files, including `PosterFrame.tsx` (the canonical export
+  // primitive), `ProvenanceCapsule.tsx` and `receipt.ts` — held the same
+  // boundary by CONVENTION ALONE. Verified by probe before widening: two
+  // synthetic files — `poster/__probe.tsx` importing `@/lib/civic/data` and
+  // `forensic/__probe.tsx` importing `@/features/graph/stagePalette` — were
+  // accepted by the old scope and are rejected by the new one, and the widening
+  // is a NO-OP on today's code (repo-wide lint unchanged at 0 errors / 12
+  // warnings) — which is exactly why now is the moment. The `!@/features/shared`
+  // negation keeps shared→shared legal (SourceNote → ProvenanceCapsule).
   {
-    files: ["features/shared/components/**/*.{ts,tsx}"],
+    files: ["features/shared/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": [
         "error",
@@ -131,12 +143,12 @@ const eslintConfig = defineConfig([
             {
               group: ["@/lib/civic/*", "**/lib/civic/*"],
               message:
-                "features/shared/components is the domain-agnostic catalog — no domain-data imports. Pass data via props, or move the component to its owning feature.",
+                "features/shared is the domain-agnostic catalog — no domain-data imports. Pass data via props, or move the module to its owning feature.",
             },
             {
               group: ["@/features/*", "!@/features/shared"],
               message:
-                "features/shared/components is the catalog — it must not import from a feature. Pass via props, or relocate the component.",
+                "features/shared is the catalog — it must not import from a feature. Pass via props, or relocate the module.",
             },
           ],
         },
