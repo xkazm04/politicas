@@ -10,13 +10,15 @@
  *       pass, metoda (deterministic = spočítáno kódem / verdict = návrh
  *       modelu prošlý branou), ref a čas výpočtu. Tohle máme vždycky.
  *   REGISTRY — kde si to čtenář ověří u zdroje. Odkazy se skládají z uloženého
- *       identifikátoru (IČO, pspId, číslo tisku). Rozlišujeme „detail"
- *       (kanonická stránka té entity) a „dotaz" (hledání v registru, které
- *       netvrdí, že vede přesně sem).
+ *       identifikátoru (IČO, pspId, číslo tisku), nebo — když ho uzel nese —
+ *       z uložené adresy (smlouva, vývěska). Rozlišujeme „detail" (kanonická
+ *       stránka té entity) a „dotaz" (hledání v registru, které netvrdí, že
+ *       vede přesně sem); to rozlišení je celý smysl tohohle panelu.
  *
- * Když registr chybí, panel to ŘEKNE. Odvozené uzly (blok, téma) žádný
- * registr nevedou a vývěskám ingest URL zahazuje — mlčet o tom by bylo horší
- * než prázdno.
+ * Když registr chybí, panel to ŘEKNE. Odvozené uzly (blok, téma) žádný registr
+ * nevedou, klub ani výbor nemají na psp.cz vlastní stránku — mlčet o tom by
+ * bylo horší než prázdno. (Do 2026-08-13 tenhle komentář tvrdil, že ingest
+ * zahazuje i URL vývěsky; nezahazuje — viz lib/kg/sourceLinks.ts.)
  */
 
 import { useTranslations } from "next-intl";
