@@ -3,6 +3,8 @@ import {
   classifyRole,
   coVotingEdges,
   committeeInfluence,
+  guardKgReset,
+  mergeComputedNodeProps,
   nextPass,
   partyCohesion,
   positionOf,
@@ -210,5 +212,154 @@ describe("nextPass", () => {
     const rows = Array.from({ length: 200_000 }, (_, i) => ({ firstSeenPass: (i % 41) + 1 }));
     expect(nextPass(rows)).toBe(42);
     expect(() => Math.max(0, ...rows.map((r) => r.firstSeenPass))).toThrow(RangeError);
+  });
+});
+
+/* ── mergeComputedNodeProps — kg-compute erased what it did not compute (D5) ───
+ *
+ * upsertKgNodes does `props = excluded.props`, a wholesale replace. kg-compute
+ * built each node's props from scratch, so a --commit erased contribution_score,
+ * every effort_* dossier field and the whole money crossover on all 207 MPs. */
+describe("mergeComputedNodeProps", () => {
+  it("a stored key the writer does not compute SURVIVES", () => {
+    const stored = { contribution_score: 96.8, effort_tenure_class: "full_term", rebellion_rate: 0.11 };
+    const merged = mergeComputedNodeProps(stored, { committee_count: 2 });
+    expect(merged.contribution_score).toBe(96.8);
+    expect(merged.effort_tenure_class).toBe("full_term");
+    expect(merged.committee_count).toBe(2);
+  });
+
+  it("a computed key OVERWRITES the stored one — this run owns what it computes", () => {
+    const merged = mergeComputedNodeProps({ rebellion_rate: 0.11 }, { rebellion_rate: 0.07 });
+    expect(merged.rebellion_rate).toBe(0.07);
+  });
+
+  it("a node with no stored props yields exactly the computed ones", () => {
+    expect(mergeComputedNodeProps(undefined, { seats: 8 })).toEqual({ seats: 8 });
+    expect(mergeComputedNodeProps(null, { seats: 8 })).toEqual({ seats: 8 });
+    expect(mergeComputedNodeProps({}, {})).toEqual({});
+  });
+
+  it("does not mutate either input", () => {
+    const stored = { a: 1 };
+    const computed = { b: 2 };
+    mergeComputedNodeProps(stored, computed);
+    expect(stored).toEqual({ a: 1 });
+    expect(computed).toEqual({ b: 2 });
+  });
+
+  it("the disclosed limit is real: a conditionally-computed key keeps its old value when the condition lapses", () => {
+    // An MP who fell below MIN_ELIGIBLE_VOTES gets no rebellion_rate this pass, so
+    // the stored one survives under the EARLIER pass's provenance. Pinned so the
+    // gap is a known, documented property (frontier F24) rather than a surprise.
+    const merged = mergeComputedNodeProps({ rebellion_rate: 0.11 }, { committee_count: 1 });
+    expect(merged.rebellion_rate).toBe(0.11);
+  });
+});
+
+/* ── guardKgReset — frontier F5 prescribed a graph-wide wipe as maintenance ──── */
+describe("guardKgReset", () => {
+  // Today's shape: kg-compute rebuilds 3 kinds / 3 rels; the graph carries far more.
+  const LIVE = {
+    storedNodeKinds: [
+      { kind: "contract", count: 153_000 },
+      { kind: "person", count: 207 },
+      { kind: "company", count: 214 },
+      { kind: "bill", count: 141 },
+      { kind: "party", count: 8 },
+      { kind: "organ", count: 33 },
+    ],
+    storedEdgeRels: { co_votes_with: 20_496, supplies: 153_731, linked_to: 211, rebels_against: 188, influential_in: 150 },
+    storedNodeIdsOfRebuiltKinds: ["psp:person:6790", "psp:organ:174"],
+    rebuiltNodeIds: ["psp:person:6790", "psp:organ:174"],
+    rebuiltNodeKinds: ["person", "party", "organ"],
+    rebuiltEdgeRels: ["co_votes_with", "rebels_against", "influential_in"],
+    supersede: false,
+  };
+
+  it("REFUSES a reset that would wipe kinds and rels this writer never rebuilds, and names them", () => {
+    const v = guardKgReset(LIVE);
+    expect(v.allowed).toBe(false);
+    expect(v.droppedNodeKinds.map((k) => k.kind)).toEqual(["contract", "company", "bill"]); // count desc
+    expect(v.droppedEdgeRels.map((r) => r.rel)).toEqual(["supplies", "linked_to"]);
+    expect(v.droppedNodes).toBe(153_000 + 214 + 141);
+    expect(v.droppedEdges).toBe(153_731 + 211);
+    expect(v.message).toContain("contract=153000");
+    expect(v.message).toContain("supplies=153731");
+    expect(v.message).toContain("--supersede");
+  });
+
+  it("allows the wipe under --supersede, but still names the casualties", () => {
+    const v = guardKgReset({ ...LIVE, supersede: true });
+    expect(v.allowed).toBe(true);
+    expect(v.message).toContain("OVERRIDDEN by --supersede");
+    expect(v.message).toContain("contract=153000");
+  });
+
+  it("allows a reset over a graph that holds nothing but what this run rebuilds", () => {
+    const v = guardKgReset({
+      storedNodeKinds: [{ kind: "person", count: 207 }],
+      storedEdgeRels: { co_votes_with: 20_496 },
+      storedNodeIdsOfRebuiltKinds: ["psp:person:6790"],
+      rebuiltNodeIds: ["psp:person:6790"],
+      rebuiltNodeKinds: ["person", "party", "organ"],
+      rebuiltEdgeRels: ["co_votes_with", "rebels_against", "influential_in"],
+      supersede: false,
+    });
+    expect(v.allowed).toBe(true);
+    expect(v.droppedNodes).toBe(0);
+    expect(v.droppedEdges).toBe(0);
+    expect(v.message).toBe("--reset would drop nothing this run does not rebuild.");
+  });
+
+  it("an empty graph is trivially safe to reset", () => {
+    const v = guardKgReset({
+      storedNodeKinds: [],
+      storedEdgeRels: {},
+      storedNodeIdsOfRebuiltKinds: [],
+      rebuiltNodeIds: ["psp:person:6790"],
+      rebuiltNodeKinds: ["person"],
+      rebuiltEdgeRels: ["co_votes_with"],
+      supersede: false,
+    });
+    expect(v.allowed).toBe(true);
+  });
+
+  it("REFUSES on a row of a REBUILT kind that this run does not re-emit (a departed MP)", () => {
+    // The kind survives the wipe; that row does not. A committee whose last member
+    // left is the same shape — kg-compute skips it (`if (!members) continue`).
+    const v = guardKgReset({
+      storedNodeKinds: [{ kind: "person", count: 208 }],
+      storedEdgeRels: { co_votes_with: 20_496 },
+      storedNodeIdsOfRebuiltKinds: ["psp:person:6790", "psp:person:9999"],
+      rebuiltNodeIds: ["psp:person:6790"],
+      rebuiltNodeKinds: ["person"],
+      rebuiltEdgeRels: ["co_votes_with"],
+      supersede: false,
+    });
+    expect(v.allowed).toBe(false);
+    expect(v.orphanedNodeIds).toEqual(["psp:person:9999"]);
+    expect(v.droppedNodes).toBe(1);
+    expect(v.message).toContain("psp:person:9999");
+  });
+
+  it("the verdict is deterministic — casualties sort by count desc, then name", () => {
+    const input = {
+      storedNodeKinds: [
+        { kind: "bill", count: 141 },
+        { kind: "law", count: 141 },
+        { kind: "company", count: 214 },
+      ],
+      storedEdgeRels: {},
+      storedNodeIdsOfRebuiltKinds: [],
+      rebuiltNodeIds: [],
+      rebuiltNodeKinds: ["person"],
+      rebuiltEdgeRels: [],
+      supersede: false,
+    };
+    // company (214) first; bill and law tie at 141 and break on the name.
+    expect(guardKgReset(input).droppedNodeKinds.map((k) => k.kind)).toEqual(["company", "bill", "law"]);
+    const reordered = { ...input, storedNodeKinds: [...input.storedNodeKinds].reverse() };
+    expect(guardKgReset(reordered).message).toBe(guardKgReset(input).message);
   });
 });

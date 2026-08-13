@@ -10,6 +10,36 @@
  * Node props: person.rebellion_rate / .committee_count · party.cohesion / .seats ·
  *   organ.member_count.
  *
+ * ── THIS WRITER DOES NOT ERASE WHAT IT DID NOT COMPUTE (2026-08-13) ──────────────
+ * `upsertKgNodes` does `props = excluded.props` — a WHOLESALE REPLACE
+ * (lib/db/pglite/repositories/kg.ts; memory/kg-upsert-replaces-props.md). This script
+ * used to build each node's props from scratch, so a `--commit` erased, on all 207 MPs,
+ * every prop written by any other pass: contribution_score, participation_rate,
+ * absence_rate, bills_authored, speech_turns, interpellations, leadership_count,
+ * absentee_manager_lead, contribution_psp9, amendments_authored, bills_first_signed/
+ * co_signed, effort_tenure_class — each of them read today by
+ * features/civicscore/getLeaderboardData.ts, features/profile/getProfileData.ts and
+ * features/money/moneyLoader.ts. Four sibling writers had already adopted the
+ * read-merge for exactly this reason; this one, the area's main entry point, had not.
+ *
+ * It now reads the nodes it is about to write BEFORE writing them and merges through
+ * `mergeComputedNodeProps` (lib/analysis/kg.ts): the props THIS run computes win,
+ * every other stored prop survives. `firstSeenPass` is carried through from the
+ * existing node — it records which pass CREATED the node, and a re-run with
+ * `--pass=50` used to restamp all ~250 of them. `provenance` IS restamped, on
+ * purpose: it dates the numbers in `props`, and leaving it frozen at pass 1 beside a
+ * freshly recomputed rebellion_rate would be a false vintage on a surface whose whole
+ * brand is that a number carries its source.
+ *
+ * ── AND --reset IS GUARDED ────────────────────────────────────────────────────────
+ * `clearKg()` deletes EVERY node and edge, not just this writer's. On today's graph
+ * that is ~154 000 nodes / ~178 000 edges wiped and ~1 000 written back — /penize,
+ * /zakony, /denik and /graf go dark. `guardKgReset` names what would be lost and
+ * refuses; `--supersede` is the explicit override (the kg-contribution-ingest
+ * precedent) and a dry run always prints the verdict.
+ *
+ * A recompute does NOT need `--reset`: the upsert replaces each claim in place.
+ *
  * PGLITE IS SINGLE-CONNECTION and this script READS ballots and (with --commit)
  * WRITES the kg_* tables through one connection. Run it when no dev server holds
  * ./.pglite. For a read-only dry-run against a live DB, point it at a copy:
@@ -17,8 +47,8 @@
  *   PGLITE_PATH=./.pglite-copy npx tsx scripts/data-analysis/kg-compute.ts
  *
  *   npx tsx scripts/data-analysis/kg-compute.ts            # dry-run (default): compute + hand-checks
- *   npx tsx scripts/data-analysis/kg-compute.ts --commit   # persist kg_node/kg_edge
- *   npx tsx scripts/data-analysis/kg-compute.ts --commit --reset   # clear kg_* first
+ *   npx tsx scripts/data-analysis/kg-compute.ts --commit   # upsert kg_node/kg_edge (merge-preserving)
+ *   npx tsx scripts/data-analysis/kg-compute.ts --commit --reset --supersede   # wipe kg_* first (destructive)
  */
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
@@ -26,6 +56,8 @@ import type { VoteChoice } from "@/lib/ingest/normalize";
 import {
   coVotingEdges,
   committeeInfluence,
+  guardKgReset,
+  mergeComputedNodeProps,
   partyCohesion,
   positionOf,
   rebellion,
@@ -55,6 +87,7 @@ async function main() {
   const pass = Number(arg("pass", "1"));
   const commit = process.argv.includes("--commit");
   const reset = process.argv.includes("--reset");
+  const supersede = process.argv.includes("--supersede");
   const computedAt = new Date().toISOString();
   const provenance = (ref: string) => ({ pass, method: "deterministic", ref, computedAt });
 
@@ -123,8 +156,18 @@ async function main() {
   const memberCountByCommittee = new Map<number, number>();
   for (const e of influence) memberCountByCommittee.set(e.organId, (memberCountByCommittee.get(e.organId) ?? 0) + 1);
 
-  /* ── assemble nodes ──────────────────────────────────────────────────────── */
-  const nodes: KgNodeRow[] = [];
+  /* ── assemble nodes ──────────────────────────────────────────────────────────
+   * Two steps on purpose. First the props THIS run computes; then the read-merge
+   * against the node as it stands in the store, so no other pass's enrichment is
+   * lost (see the header). `computed` is what this writer OWNS — nothing else. */
+  interface ComputedNode {
+    id: string;
+    kind: KgNodeRow["kind"];
+    label: string;
+    props: Record<string, unknown>;
+    ref: string;
+  }
+  const computed: ComputedNode[] = [];
 
   const personIds = new Set(mandateToPerson.values());
   for (const pid of personIds) {
@@ -133,13 +176,12 @@ async function main() {
     if (reb) props.rebellion_rate = reb.rate;
     const deg = committeeDegree.get(pid);
     if (deg !== undefined) props.committee_count = deg;
-    nodes.push({
+    computed.push({
       id: personUrn(pid),
       kind: "person",
       label: personName.get(pid) ?? `MP ${pid}`,
       props,
-      firstSeenPass: pass,
-      provenance: provenance("kg-compute:person"),
+      ref: "kg-compute:person",
     });
   }
 
@@ -150,28 +192,52 @@ async function main() {
       props.cohesion = coh.cohesion;
       props.cohesion_votes = coh.votes;
     }
-    nodes.push({
+    computed.push({
       id: organUrn(o.pspId),
       kind: "party",
       label: o.abbrev ?? o.nameCz ?? `organ ${o.pspId}`,
       props,
-      firstSeenPass: pass,
-      provenance: provenance("kg-compute:party"),
+      ref: "kg-compute:party",
     });
   }
 
   for (const o of committeeOrgans) {
     const members = memberCountByCommittee.get(o.pspId);
     if (!members) continue; // no PSP10 members resolved → skip a dangling node
-    nodes.push({
+    computed.push({
       id: organUrn(o.pspId),
       kind: "organ",
       label: o.abbrev ?? o.nameCz ?? `organ ${o.pspId}`,
       props: { member_count: members, organ_type: o.organTypeCz },
-      firstSeenPass: pass,
-      provenance: provenance("kg-compute:organ"),
+      ref: "kg-compute:organ",
     });
   }
+
+  // The stored nodes of the three kinds this writer rebuilds. Read by KIND (indexed,
+  // ~250 rows here) rather than by the id list, because the same read answers the
+  // second question --reset needs: which stored rows would this run NOT put back.
+  const REBUILT_KINDS = ["person", "party", "organ"] as const;
+  const storedRebuilt = (
+    await Promise.all(REBUILT_KINDS.map((kind) => store.listKgNodes({ kind })))
+  ).flat();
+  const storedById = new Map(storedRebuilt.map((n) => [n.id, n]));
+
+  let preservedProps = 0; // props kept alive by the merge that a from-scratch build would have erased
+  const nodes: KgNodeRow[] = computed.map((c) => {
+    const prev = storedById.get(c.id);
+    // THE FIX: computed props win, every other stored prop survives.
+    const props = mergeComputedNodeProps(prev?.props, c.props);
+    preservedProps += Object.keys(props).length - Object.keys(c.props).length;
+    return {
+      id: c.id,
+      kind: c.kind,
+      label: c.label,
+      props,
+      // Which pass CREATED the node — never restamped by a recompute.
+      firstSeenPass: prev?.firstSeenPass ?? pass,
+      provenance: provenance(c.ref),
+    };
+  });
 
   /* ── assemble edges ──────────────────────────────────────────────────────── */
   const edges: KgEdgeRow[] = [];
@@ -258,10 +324,36 @@ async function main() {
   }
 
   /* ── persist ─────────────────────────────────────────────────────────────── */
+  console.log(
+    `\nprop merge: ${storedById.size} of ${nodes.length} nodes already existed · ` +
+      `${preservedProps} stored prop(s) preserved that a from-scratch build would have erased ` +
+      `(contribution_score, effort_*, … — see the header).`,
+  );
+
+  // The --reset verdict is computed and PRINTED even on a dry run: the operator must
+  // be able to see the refusal before reaching for the flag, not after.
+  const resetVerdict = reset
+    ? guardKgReset({
+        storedNodeKinds: await store.kgKindCounts(),
+        storedEdgeRels: await store.countKgEdgesByRel(),
+        storedNodeIdsOfRebuiltKinds: storedRebuilt.map((n) => n.id),
+        rebuiltNodeIds: nodes.map((n) => n.id),
+        rebuiltNodeKinds: REBUILT_KINDS,
+        rebuiltEdgeRels: edges.map((e) => e.rel),
+        supersede,
+      })
+    : null;
+  if (resetVerdict) console.log(`\nreset guard: ${resetVerdict.message}`);
+
   if (!commit) {
     console.log(`\nDRY-RUN — pass --commit to upsert ${nodes.length} nodes + ${edges.length} edges into kg_node/kg_edge.`);
     await store.close();
     return;
+  }
+  if (resetVerdict && !resetVerdict.allowed) {
+    console.error("\nNOTHING WRITTEN.");
+    await store.close();
+    process.exit(3);
   }
   if (reset) {
     await store.clearKg();

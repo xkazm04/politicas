@@ -13,8 +13,10 @@
 // via the Store, calls these functions, and persists kg_node/kg_edge.
 //
 // The tail of the file (§ "writer plumbing") holds rules EVERY kg_* ingest script
-// needs and each of them used to retype — starting with `nextPass` (which pass am
-// I?). They live here rather than in a script so they are pure and tested.
+// needs and each of them used to retype: `nextPass` (which pass am I?),
+// `mergeComputedNodeProps` (upsertKgNodes replaces props wholesale, so a writer must
+// read-merge) and `guardKgReset` (clearKg deletes what this writer cannot put back).
+// They live here rather than in a script so they are pure and tested.
 //
 // Two bases, reused from lib/ingest/normalize.ts (the codebase convention, not a
 // local reinvention):
@@ -384,4 +386,166 @@ export interface PassStampedRow {
  */
 export function nextPass(rows: readonly PassStampedRow[]): number {
   return rows.reduce((max, r) => Math.max(max, r.firstSeenPass), 0) + 1;
+}
+
+/**
+ * The read-merge every node writer owes `upsertKgNodes`, which does
+ * `props = excluded.props` — a WHOLESALE REPLACE, not a merge
+ * (`lib/db/pglite/repositories/kg.ts`; `memory/kg-upsert-replaces-props.md`
+ * catalogues the class). A writer that hands it a freshly-built props object
+ * deletes every prop any OTHER pass ever computed for that node.
+ *
+ * The rule — identical to the one kg-contribution-ingest, kg-contribution-recompute,
+ * kg-bill-roles-ingest and kg-bill-engagement-ingest each spell out inline as
+ * `{...node.props, ...new}`: **what this run computed wins; everything else the node
+ * already carried survives.** This is that idiom named once so it can be tested and
+ * cited — deliberately NOT a fifth variant of it.
+ *
+ * HONEST LIMIT, disclosed because the merge is what introduces it: a prop a writer
+ * computes CONDITIONALLY keeps its previous value when the condition lapses. If
+ * kg-compute stops emitting `rebellion_rate` for an MP who fell below
+ * `MIN_ELIGIBLE_VOTES`, the stored rate from the earlier pass survives under that
+ * pass's provenance. That is a stale value — strictly less harmful than the erasure
+ * it replaces, but real, and not closed by pretending an owned-key deletion list
+ * exists. Tracked as F24 in `docs/data-analysis/frontier.md`.
+ */
+export function mergeComputedNodeProps(
+  existing: Readonly<Record<string, unknown>> | null | undefined,
+  computed: Readonly<Record<string, unknown>>,
+): Record<string, unknown> {
+  return { ...(existing ?? {}), ...computed };
+}
+
+/* ── the --reset guard ───────────────────────────────────────────────────────── */
+
+export interface KgResetInput {
+  /** `store.kgKindCounts()` — every node kind in the store, with its row count. */
+  storedNodeKinds: readonly { kind: string; count: number }[];
+  /** `store.countKgEdgesByRel()` — every edge rel in the store, with its row count. */
+  storedEdgeRels: Readonly<Record<string, number>>;
+  /** Stored ids of the kinds this run DOES rebuild — to find rows it would not restore. */
+  storedNodeIdsOfRebuiltKinds: readonly string[];
+  /** What this run is about to write. */
+  rebuiltNodeIds: Iterable<string>;
+  rebuiltNodeKinds: Iterable<string>;
+  rebuiltEdgeRels: Iterable<string>;
+  /** The operator passed --supersede: they have decided the wipe happens anyway. */
+  supersede: boolean;
+}
+
+export interface KgResetVerdict {
+  allowed: boolean;
+  /** Kinds/rels in the store that this run does not write at all — wiped, never restored. */
+  droppedNodeKinds: { kind: string; count: number }[];
+  droppedEdgeRels: { rel: string; count: number }[];
+  /** Ids of a REBUILT kind that this run does not re-emit (a departed MP, an emptied committee). */
+  orphanedNodeIds: string[];
+  droppedNodes: number;
+  droppedEdges: number;
+  message: string;
+}
+
+const byCountDesc = <T extends { count: number }>(a: T & { name: string }, b: T & { name: string }) =>
+  b.count - a.count || a.name.localeCompare(b.name);
+
+/**
+ * Would `clearKg()` destroy data this run cannot put back?
+ *
+ * `clearKg` deletes EVERY kg_node and kg_edge (archiving them to the history tables,
+ * which is a record — not a restore). kg-compute rebuilds three node kinds and three
+ * edge rels; the live graph carries ten kinds and seventeen rels, so on today's store
+ * a `--reset` wipes ~154 000 nodes and ~178 000 edges and writes ~1 000 back. Yet
+ * `docs/data-analysis/frontier.md` F5 prescribed exactly that command as routine
+ * maintenance until 2026-08-13.
+ *
+ * The verdict is computed from what the STORE actually holds against what THIS RUN
+ * actually emits — never a hardcoded list, so a kind or rel a future pass introduces
+ * is protected the day it lands, without anyone remembering to add it here.
+ *
+ * Three findings, and each is a separate sentence because they are separate claims:
+ *   • `droppedNodeKinds` / `droppedEdgeRels` — present in the store, absent from this
+ *     run's output. Wiped and never restored.
+ *   • `orphanedNodeIds` — a kind this run rebuilds, but an id it does not re-emit
+ *     (an MP whose mandate ended, a committee that lost its last member). The kind
+ *     survives; that row does not.
+ *
+ * SCOPE, stated rather than implied: edges are judged by REL only. An edge carries a
+ * weight and small props that this run regenerates wholesale for its own three rels,
+ * so a per-edge id comparison would cost a 20 000-row read to protect nothing. Nodes
+ * are judged per id because a node is where enrichment props live.
+ */
+export function guardKgReset(input: KgResetInput): KgResetVerdict {
+  const rebuiltKinds = new Set(input.rebuiltNodeKinds);
+  const rebuiltRels = new Set(input.rebuiltEdgeRels);
+  const rebuiltIds = new Set(input.rebuiltNodeIds);
+
+  const droppedNodeKinds = input.storedNodeKinds
+    .filter((k) => !rebuiltKinds.has(k.kind))
+    .map((k) => ({ ...k, name: k.kind }))
+    .sort(byCountDesc)
+    .map(({ kind, count }) => ({ kind, count }));
+
+  const droppedEdgeRels = Object.entries(input.storedEdgeRels)
+    .filter(([rel]) => !rebuiltRels.has(rel))
+    .map(([rel, count]) => ({ rel, count, name: rel }))
+    .sort(byCountDesc)
+    .map(({ rel, count }) => ({ rel, count }));
+
+  const orphanedNodeIds = input.storedNodeIdsOfRebuiltKinds.filter((id) => !rebuiltIds.has(id)).sort();
+
+  const droppedNodes = droppedNodeKinds.reduce((n, k) => n + k.count, 0) + orphanedNodeIds.length;
+  const droppedEdges = droppedEdgeRels.reduce((n, r) => n + r.count, 0);
+
+  if (droppedNodeKinds.length === 0 && droppedEdgeRels.length === 0 && orphanedNodeIds.length === 0) {
+    return {
+      allowed: true,
+      droppedNodeKinds,
+      droppedEdgeRels,
+      orphanedNodeIds,
+      droppedNodes,
+      droppedEdges,
+      message: "--reset would drop nothing this run does not rebuild.",
+    };
+  }
+
+  const parts: string[] = [];
+  if (droppedNodeKinds.length > 0) {
+    parts.push(
+      `node kinds this run never writes: ${droppedNodeKinds.map((k) => `${k.kind}=${k.count}`).join(", ")}`,
+    );
+  }
+  if (droppedEdgeRels.length > 0) {
+    parts.push(`edge rels this run never writes: ${droppedEdgeRels.map((r) => `${r.rel}=${r.count}`).join(", ")}`);
+  }
+  if (orphanedNodeIds.length > 0) {
+    parts.push(
+      `${orphanedNodeIds.length} node(s) of a rebuilt kind that this run does not re-emit ` +
+        `(e.g. ${orphanedNodeIds.slice(0, 3).join(", ")})`,
+    );
+  }
+  const head = `--reset would delete ${droppedNodes} node(s) and ${droppedEdges} edge(s) it cannot put back — ${parts.join(" · ")}`;
+
+  if (input.supersede) {
+    return {
+      allowed: true,
+      droppedNodeKinds,
+      droppedEdgeRels,
+      orphanedNodeIds,
+      droppedNodes,
+      droppedEdges,
+      message: `${head}. OVERRIDDEN by --supersede; the wipe is proceeding.`,
+    };
+  }
+  return {
+    allowed: false,
+    droppedNodeKinds,
+    droppedEdgeRels,
+    orphanedNodeIds,
+    droppedNodes,
+    droppedEdges,
+    message:
+      `${head}. REFUSING to reset. This writer owns only the deterministic layer; every other kind and rel ` +
+      `belongs to a case loop that would have to re-ingest it. Recomputing does NOT need a wipe — the upsert ` +
+      `replaces each claim in place and read-merges the props. To wipe anyway, re-run with --supersede.`,
+  };
 }

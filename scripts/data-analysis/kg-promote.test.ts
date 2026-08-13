@@ -11,8 +11,14 @@
 // edge whose rel is case-owned, while still promoting the interpretive rels it's
 // actually meant for.
 import { describe, expect, it } from "vitest";
-import { CASE_OWNED_EDGE_RELS, dropNonResidentEdges, toRows } from "./kg-promote";
-import type { KgVerdict } from "@/lib/analysis/kg-verdict";
+import {
+  CASE_OWNED_EDGE_RELS,
+  CASE_OWNED_NODE_KINDS,
+  PROMOTABLE_NODE_KINDS,
+  dropNonResidentEdges,
+  toRows,
+} from "./kg-promote";
+import { KG_NODE_KINDS, type KgVerdict } from "@/lib/analysis/kg-verdict";
 
 function verdict(overrides: Partial<KgVerdict>): KgVerdict {
   return {
@@ -79,6 +85,87 @@ describe("kg-promote toRows — case-owned rel guard (D-gap-1, batch 004)", () =
     expect(edges).toHaveLength(1);
     expect(edges[0].rel).toBe("belongs_to");
     expect(droppedRels).toEqual(["linked_to"]);
+  });
+});
+
+// D5 (2026-08-13): the same defect on the NODE side. toRows built props
+// `{rationale}` for ANY declared node id and the only kind gate was the shared
+// KG_NODE_KINDS enum — which admits person/company/bill/law/… So a verdict declaring
+// `psp:person:6790` passed the gate and, on --commit, replaced that MP's props with
+// `{rationale}` alone, destroying the contribution + effort layers. These mirror the
+// edge cases above.
+describe("kg-promote toRows — case-owned NODE-kind guard (D5)", () => {
+  it("the promotable set is exactly this script's stated interpretive layer", () => {
+    expect([...PROMOTABLE_NODE_KINDS].sort()).toEqual(["bloc", "theme"]);
+  });
+
+  it("CASE_OWNED_NODE_KINDS is derived as the enum minus what we own — a NEW kind is refused by default", () => {
+    // The point of deriving it: nobody has to remember to come back here when
+    // KG_NODE_KINDS grows. Every enum member is either promotable or case-owned.
+    for (const kind of KG_NODE_KINDS) {
+      expect(PROMOTABLE_NODE_KINDS.has(kind) !== CASE_OWNED_NODE_KINDS.has(kind)).toBe(true);
+    }
+    expect(CASE_OWNED_NODE_KINDS.has("person")).toBe(true);
+    expect(CASE_OWNED_NODE_KINDS.has("bill")).toBe(true);
+    expect(CASE_OWNED_NODE_KINDS.has("company")).toBe(true);
+    expect(CASE_OWNED_NODE_KINDS.has("law")).toBe(true);
+  });
+
+  it("refuses a person node instead of replacing an MP's contribution layer with {rationale}", () => {
+    const v = verdict({
+      nodes: [{ id: "psp:person:6790", kind: "person", label: "Some MP", rationale: "an LLM re-describes an MP" }],
+    });
+    const { nodes, droppedKinds } = toRows(v, 2, "2026-07-24T00:00:00.000Z");
+    expect(nodes).toHaveLength(0); // never built, never handed to upsertKgNodes
+    expect(droppedKinds).toEqual(["person"]);
+  });
+
+  it("refuses a bill node the same way (summary_cz + forensic_* would have been erased)", () => {
+    const v = verdict({
+      nodes: [{ id: "bill:tisk:43179", kind: "bill", label: "A print", rationale: "an LLM re-describes a bill" }],
+    });
+    const { nodes, droppedKinds } = toRows(v, 2, "2026-07-24T00:00:00.000Z");
+    expect(nodes).toHaveLength(0);
+    expect(droppedKinds).toEqual(["bill"]);
+  });
+
+  it("still promotes the interpretive kinds this script actually owns (bloc/theme)", () => {
+    const v = verdict({
+      nodes: [
+        { id: "bloc:fiscal-hawks", kind: "bloc", label: "Fiscal Hawks", rationale: "co-voting cluster" },
+        { id: "theme:tax", kind: "theme", label: "Tax", rationale: "subject group" },
+      ],
+    });
+    const { nodes, droppedKinds } = toRows(v, 2, "2026-07-24T00:00:00.000Z");
+    expect(nodes.map((n) => n.kind).sort()).toEqual(["bloc", "theme"]);
+    expect(droppedKinds).toEqual([]);
+  });
+
+  it("a mixed verdict drops only the case-owned nodes, keeps the interpretive ones", () => {
+    const v = verdict({
+      nodes: [
+        { id: "bloc:fiscal-hawks", kind: "bloc", label: "Fiscal Hawks", rationale: "ok" },
+        { id: "psp:person:6790", kind: "person", label: "Some MP", rationale: "must be dropped" },
+      ],
+    });
+    const { nodes, droppedKinds } = toRows(v, 2, "2026-07-24T00:00:00.000Z");
+    expect(nodes).toHaveLength(1);
+    expect(nodes[0].id).toBe("bloc:fiscal-hawks");
+    expect(droppedKinds).toEqual(["person"]);
+  });
+
+  it("a refused node is not offered as an edge endpoint — the caller only residents what it kept", () => {
+    // main() adds `nodes` (the KEPT ones) to kgResident, so an edge pointing at a
+    // refused declaration falls to dropNonResidentEdges rather than dangling.
+    const v = verdict({
+      nodes: [{ id: "company:ico:111", kind: "company", label: "A firm", rationale: "must be dropped" }],
+      edges: [{ src: "bloc:x", rel: "about", dst: "company:ico:111", rationale: "rests on a refused node" }],
+    });
+    const { nodes, edges } = toRows(v, 2, "2026-07-24T00:00:00.000Z");
+    const kgResident = new Set(nodes.map((n) => n.id)); // exactly what main() does
+    const { kept, droppedEndpoints } = dropNonResidentEdges(edges, kgResident);
+    expect(kept).toHaveLength(0);
+    expect(droppedEndpoints).toContain("company:ico:111");
   });
 });
 

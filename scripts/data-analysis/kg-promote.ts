@@ -7,7 +7,11 @@
  *
  * The deterministic edges (co_votes_with, rebels_against, influential_in) are NOT
  * written here — kg-compute owns those. This script only lands the INTERPRETIVE
- * layer (bloc/theme nodes, belongs_to/about edges) a subagent proposed.
+ * layer (bloc/theme nodes, belongs_to/about edges) a subagent proposed — and since
+ * 2026-08-13 that sentence is ENFORCED ON BOTH HALVES, not just asserted:
+ * `CASE_OWNED_EDGE_RELS` refuses another loop's rels (2026-07-24) and
+ * `CASE_OWNED_NODE_KINDS` refuses another loop's node kinds. Both are refusals with a
+ * printed reason, never a silent drop.
  *
  * DEFAULT DRY-RUN. Pass --commit to write. PGlite is single-connection — no dev
  * server may hold ./.pglite during a --commit.
@@ -20,7 +24,7 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { getStore } from "@/lib/db/store";
-import { parseAndValidateKgVerdict, type KgVerdict } from "@/lib/analysis/kg-verdict";
+import { KG_NODE_KINDS, parseAndValidateKgVerdict, type KgVerdict } from "@/lib/analysis/kg-verdict";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
 function arg(name: string, fallback = ""): string {
@@ -60,6 +64,34 @@ function verdictFiles(): string[] {
 // rels correctly, through their own merge-preserving writers).
 export const CASE_OWNED_EDGE_RELS = new Set<string>(["linked_to", "supplies"]);
 
+// D5 (2026-08-13): the edge half of that fix left the NODE half open, and the node
+// half is worse. `toRows` builds `props: { rationale: n.rationale }` for ANY declared
+// node id, and the only kind gate is the shared `KG_NODE_KINDS` enum — which admits
+// person, party, organ, company, contract, bill, law and notice. So a verdict
+// declaring `psp:person:6790` passed the gate and, on --commit, replaced that MP's
+// props with `{rationale}` alone: contribution_score, the six components,
+// contribution_psp9, every effort_* dossier field — gone, exactly as the edge case
+// would have destroyed a human-gated tie's review state. A bill node would have lost
+// its summary_cz and all forensic_* verdicts; a company node its money layer.
+//
+// The rule is an ALLOW-list, deliberately, and derived from the enum rather than
+// written out: this script's own header says it "only lands the INTERPRETIVE layer
+// (bloc/theme nodes, belongs_to/about edges)", and the graph-log agrees — pass 2 wrote
+// 2 `bloc` nodes, pass 3 wrote 13 `theme` nodes, and this path has never legitimately
+// written any other kind. Everything else is CASE-OWNED: created and enriched by a
+// writer that read-merges. Deriving the deny-list as "the enum minus what we own"
+// means a kind a future pass adds to KG_NODE_KINDS is refused HERE the day it lands,
+// without anyone remembering to come back to this file — the opposite of how the
+// `linked_to`/`supplies` hole opened.
+//
+// A refused node is dropped and reported, never upserted, and — unlike a kept one —
+// its id is NOT added to the kg-resident set, so an edge cannot come to rest on a
+// node this batch declared and then refused to create.
+export const PROMOTABLE_NODE_KINDS = new Set<string>(["bloc", "theme"]);
+export const CASE_OWNED_NODE_KINDS: ReadonlySet<string> = new Set(
+  KG_NODE_KINDS.filter((k) => !PROMOTABLE_NODE_KINDS.has(k)),
+);
+
 // Sentinel finding 2026-07-31 (orphan-edges invariant): the membership gate's
 // known-id base deliberately includes raw entity urns (persons, organs, VOTE
 // EVENTS) so verdicts can *reference* real entities — but vote events exist only
@@ -86,16 +118,28 @@ export function dropNonResidentEdges(
   return { kept, droppedEndpoints };
 }
 
-export function toRows(v: KgVerdict, pass: number, computedAt: string): { nodes: KgNodeRow[]; edges: KgEdgeRow[]; droppedRels: string[] } {
+export function toRows(
+  v: KgVerdict,
+  pass: number,
+  computedAt: string,
+): { nodes: KgNodeRow[]; edges: KgEdgeRow[]; droppedRels: string[]; droppedKinds: string[] } {
   const provenance = { pass, method: "verdict", ref: v.target, computedAt };
-  const nodes: KgNodeRow[] = v.nodes.map((n) => ({
-    id: n.id,
-    kind: n.kind,
-    label: n.label,
-    props: { rationale: n.rationale },
-    firstSeenPass: pass,
-    provenance,
-  }));
+  const droppedKinds: string[] = [];
+  const nodes: KgNodeRow[] = [];
+  for (const n of v.nodes) {
+    if (CASE_OWNED_NODE_KINDS.has(n.kind)) {
+      droppedKinds.push(n.kind);
+      continue;
+    }
+    nodes.push({
+      id: n.id,
+      kind: n.kind,
+      label: n.label,
+      props: { rationale: n.rationale },
+      firstSeenPass: pass,
+      provenance,
+    });
+  }
   const droppedRels: string[] = [];
   const edges: KgEdgeRow[] = [];
   for (const e of v.edges) {
@@ -112,7 +156,7 @@ export function toRows(v: KgVerdict, pass: number, computedAt: string): { nodes:
       provenance,
     });
   }
-  return { nodes, edges, droppedRels };
+  return { nodes, edges, droppedRels, droppedKinds };
 }
 
 async function main() {
@@ -162,8 +206,10 @@ async function main() {
       continue;
     }
     gated++;
-    const { nodes, edges, droppedRels } = toRows(parsed.value, pass, computedAt);
-    // A node this verdict declares becomes a valid endpoint for the NEXT file too.
+    const { nodes, edges, droppedRels, droppedKinds } = toRows(parsed.value, pass, computedAt);
+    // A node this verdict declares AND THIS SCRIPT WILL CREATE becomes a valid
+    // endpoint for the NEXT file too. A refused one must not: it is never upserted,
+    // so an edge resting on it would dangle (the orphan-edges invariant below).
     for (const n of nodes) {
       known.add(n.id);
       kgResident.add(n.id);
@@ -172,6 +218,13 @@ async function main() {
     allNodes.push(...nodes);
     allEdges.push(...kept);
     console.log(`  gated ${file}: +${nodes.length} nodes, +${kept.length} edges  (target: ${parsed.value.target})`);
+    if (droppedKinds.length > 0) {
+      console.log(
+        `    REFUSED ${droppedKinds.length} node(s) of case-owned kind(s) ${JSON.stringify([...new Set(droppedKinds)])} — ` +
+          `this path writes props {rationale} only, so promoting one would erase that node's whole enrichment layer ` +
+          `(a person's contribution_score/effort_*, a bill's summary_cz/forensic_*). Only ${JSON.stringify([...PROMOTABLE_NODE_KINDS])} are promotable here.`,
+      );
+    }
     if (droppedRels.length > 0) {
       console.log(
         `    REFUSED ${droppedRels.length} edge(s) with case-owned rel(s) ${JSON.stringify([...new Set(droppedRels)])} — ` +
