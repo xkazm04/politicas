@@ -56,6 +56,12 @@ export async function getMoneyData(): Promise<MoneyData | null> {
      *  (reachableMoney.ts) — per-company de-duplication and the steward/attributable
      *  split are not this surface's private choices. */
     const reachable: ReachableTie[] = [];
+    /** Kolik hran `linked_to` vypadlo na nedohledatelnem konci. HLASI SE JEDNOU
+     *  VETOU ZA CELE CTENI, ne radek po radku: tenhle warn stal UVNITR smycky
+     *  pres ~211 hran a v nejhorsim pripade umel vytisknout 211 radku do logu —
+     *  presne ten tvar, ktery `features/admin/getAdminData.ts` uz agreguje.
+     *  Co se zahazuje, se nemeni; meni se jen, jak se to hlasi. */
+    let unresolvedPersonTotal = 0;
 
     for (const e of linked) {
       const comp = companyById.get(e.dst);
@@ -72,7 +78,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       const pnode = personById.get(e.src);
       const pspId = pspIdFromNodeId(e.src);
       if (!pnode || pspId == null) {
-        console.warn(`[getMoneyData] dropping linked_to edge — person unresolved: ${e.src} -> ${e.dst}`);
+        unresolvedPersonTotal += 1;
         continue;
       }
 
@@ -94,6 +100,11 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         subsidiesCzk: tie.subsidiesCzk,
         donatedToPartyCzk: tie.donatedToPartyCzk,
       });
+    }
+    if (unresolvedPersonTotal > 0) {
+      console.warn(
+        `[getMoneyData] dropped ${unresolvedPersonTotal} linked_to edge(s) with unresolved person from the ledger`,
+      );
     }
     const money = reachableMoney(reachable);
 

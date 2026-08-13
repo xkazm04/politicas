@@ -101,13 +101,16 @@ export async function getCompanyCaseFile(
     });
 
     const ties: CompanyTie[] = [];
+    /** Agregovane, ne radek po radku — tyz tvar jako `features/admin/getAdminData.ts`.
+     *  Co se zahazuje, se nemeni; meni se jen, jak se to hlasi. */
+    let unresolvedPersonTotal = 0;
     for (const e of tieEdges) {
       const person = personById.get(e.src);
       const pspId = pspIdFromNodeId(e.src);
       // An unresolved person side is dropped, never guessed — the same rule the ledger
       // applies, so the two surfaces cannot disagree about who is tied to this firm.
       if (!person || pspId == null) {
-        console.warn(`[getCompanyDetail] dropping linked_to edge — person unresolved: ${e.src} -> ${e.dst}`);
+        unresolvedPersonTotal += 1;
         continue;
       }
       ties.push({
@@ -119,6 +122,12 @@ export async function getCompanyCaseFile(
         club: clubByPerson.get(pspId) ?? null,
       });
     }
+    if (unresolvedPersonTotal > 0) {
+      console.warn(
+        `[getCompanyDetail] dropped ${unresolvedPersonTotal} linked_to edge(s) with unresolved person from ${companyNodeId(ico)}`,
+      );
+    }
+
     // Bez vazby na poslance tahle stránka NEVYDÁ peněžní spis — ale pořád může vydat to,
     // co graf o firmě skutečně drží. Rozhodnutí je binární a v tomhle pořadí schválně:
     // vazba → spis; žádná vazba, ale zapsané vlastnictví → rejstříkový výpis; ani jedno
