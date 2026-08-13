@@ -379,22 +379,56 @@ async function seedFixture(): Promise<void> {
 describe("graphLoader on a cold start over an empty graph", () => {
   // 30s: the first test in the file pays the PGlite WASM boot, which contends
   // when several PGlite test files run in parallel workers.
-  it("returns null/empty — and then STAYS null for the process (memoised)", { timeout: 30_000 }, async () => {
+  //
+  // CONTRACT CHANGED 2026-08-13. This block used to pin the OPPOSITE — a "KNOWN GAP,
+  // pinned deliberately (reported, not fixed)": `indexPromise ??= buildIndex()` memoised
+  // a promise that RESOLVED TO NULL, so a process that booted before the graph was
+  // materialized (or through one transient store failure) served an empty /graf for its
+  // whole lifetime, with no retry and no failure trace. That is not a gap a test should
+  // hold in place: an empty canvas renders as a REAL empty graph, so the surface whose
+  // whole subject is traceability was quietly asserting the graph holds nothing. The
+  // assertion is replaced, not deleted — the loader now follows the doctrine
+  // lib/db/pglite/internals.ts open() already had (ADR 2026-07-26-memoised-rejection-open)
+  // and moneyLoader/profile already had for their memos: neither an empty read nor a
+  // failure is memoised, and every degradation leaves a reportLoaderFailure trace.
+  it("degrades WITH A TRACE and retries once the graph exists", { timeout: 30_000 }, async () => {
     const cold = await import("../../features/graph/graphLoader");
-    // PGlite creates an empty-but-healthy schema on open → zero nodes.
-    expect(await cold.getGraphSeed()).toBeNull();
-    expect(await cold.searchGraph("novak", null)).toEqual([]);
-    expect(await cold.getMapData()).toBeNull();
-    expect(await cold.getTrails()).toBeNull();
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      // PGlite creates an empty-but-healthy schema on open → zero nodes.
+      expect(await cold.getGraphSeed()).toBeNull();
+      expect(await cold.searchGraph("novak", null)).toEqual([]);
+      expect(await cold.getMapData()).toBeNull();
+      expect(await cold.getTrails()).toBeNull();
+      expect((await cold.getPathBetween("psp:person:100", "psp:person:200")).status).toBe("unavailable");
 
-    // KNOWN GAP, pinned deliberately (reported, not fixed): `indexPromise ??= buildIndex()`
-    // memoises a promise that RESOLVED TO NULL, so a process that boots before the graph is
-    // materialized — or through one transient store failure — serves an empty /graf for its
-    // whole lifetime, with no retry and (unlike every other loader) no reportLoaderFailure
-    // trace. Compare lib/db/pglite/internals.ts open(), which explicitly de-memoises a
-    // failed attempt (ADR 2026-07-26-memoised-rejection-open).
+      // Every degrading layer names ITSELF, so a log line says which read went dark.
+      const traces = spy.mock.calls.map((c) => String(c[0])).join("\n");
+      for (const loader of [
+        "graphLoader.buildIndex",
+        "graphLoader.getMapData",
+        "graphLoader.getTrails",
+        "graphLoader.pathAdjacency",
+      ]) {
+        expect(traces, loader).toContain(`[loader:${loader}]`);
+      }
+    } finally {
+      spy.mockRestore();
+    }
+
+    // THE POINT: the same module instance — no vi.resetModules() — sees the data as soon
+    // as it exists. A failed/empty read is never memoised, so /graf recovers without a
+    // process restart.
     await ensureSeeded();
-    expect(await cold.getGraphSeed()).toBeNull(); // the data is there now; the loader can't see it
+    const seed = (await cold.getGraphSeed())!;
+    expect(seed).not.toBeNull();
+    expect(seed.totalNodes).toBe(FIXTURE.knownKindNodes);
+    const map = (await cold.getMapData())!;
+    expect(map).not.toBeNull();
+    expect(await cold.getTrails()).not.toBeNull();
+    // ...and a SUCCESSFUL read still memoises: the graph is a batch artefact that
+    // only changes on `npm run da:kg-compute`, so the layout is computed once.
+    expect(await cold.getMapData()).toBe(map);
   });
 });
 
@@ -1372,6 +1406,25 @@ describe("graphLoader over a seeded graph", () => {
     // Unknown id and unknown kind both degrade to null, never a half-shaped node.
     expect(await g.getNodeDetail("psp:person:neexistuje", "cs")).toBeNull();
     expect(await g.getNodeDetail("kg:mimozemstan:1", "cs")).toBeNull();
+  });
+
+  it("a MISSING node is not an outage — it leaves no failure trace", async () => {
+    // getNodeDetail answers null for both "the store is down" and "no such node",
+    // and getPermalinkData disambiguates them for the READER with a second probe.
+    // The observability layer must keep the same two answers apart: a node that was
+    // never in the graph (or a kind the canvas refuses) is a fact about the graph,
+    // not a degradation — reporting it would fill the log and Sentry with outages
+    // that never happened, which is how a real one stops being noticed.
+    const g = await fresh();
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    try {
+      expect(await g.getNodeDetail("psp:person:neexistuje", "cs")).toBeNull();
+      expect(await g.getNodeDetail("kg:mimozemstan:1", "cs")).toBeNull();
+      const traces = spy.mock.calls.map((c) => String(c[0])).join("\n");
+      expect(traces).not.toContain("[loader:graphLoader.getNodeDetail]");
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
 

@@ -40,6 +40,43 @@ the new rule and wired too; (c) **`features/graph/graphLoader.ts`'s 4 sites defe
 `features/graph/**` until that lands. Follow-up: wire those 4 sites and drop the
 exclusion.
 
+## Follow-up closed 2026-08-13 (branch `perfect/2026-08-13-r18`)
+
+The deferred carve-out was **9 sites, not 4**, and the exclusion had stopped being a
+temporary note: `memory/architect-graph-deferrals.md` already recorded that "the lint
+exclusion actively hides class-2 violations until removed", and it did.
+
+Wired in `features/graph/graphLoader.ts`, each with its own greppable loader name
+(`graphLoader.buildIndex` · `.getMapData` · `.getTrails` · `.pathAdjacency` ·
+`.getNodeDetail`): 4 `catch` blocks that logged to `console.error` but reached neither
+Sentry nor the ADR's convention, 1 bare `catch { return null }` in `getNodeDetail` (the
+exact class-2 shape the rule exists for), and **4 early `return null` paths that logged
+nothing at all** — `!store` and `nodes.length === 0` in `buildIndex`, `!store || !idx`
+in the three memoised builders. `eslint.config.mjs` no longer excludes any zone.
+
+Found on the way, and worse than the missing log line: `graphIndex()` did
+`indexPromise ??= buildIndex()`, so **a promise that resolved to `null` was memoised for
+the process lifetime**. One unlucky boot (store still initializing, one transient read
+error, graph not yet materialized) pinned an empty `/graf` until a restart — and an empty
+canvas renders as a *genuinely empty graph*, not as an outage, so the surface whose whole
+subject is traceability quietly asserted the graph holds nothing. `memoNonNull()` now
+keeps only success, matching what `lib/db/pglite/internals.ts` `open()`
+(ADR 2026-07-26-memoised-rejection-open), `features/money/moneyLoader.ts` and
+`features/profile` already did for their memos.
+
+**Store-down and node-gone deliberately stay two different answers.** `getNodeDetail`
+returns `null` for both, and `getPermalinkData` disambiguates them for the reader with a
+second cheap probe; the trace keeps them apart too — a missing node (or a kind the canvas
+refuses) reports **nothing**, because filling the log and Sentry with outages that never
+happened is how a real one stops being noticed. Pinned in both directions by
+`lib/testing/loaders.test.ts`.
+
+That test file previously **pinned the defect as the contract** ("KNOWN GAP, pinned
+deliberately … the data is there now; the loader can't see it"). The assertion was
+replaced, not deleted: the cold-start block now asserts the trace per layer and that the
+same module instance recovers after the graph appears — with a successful read still
+memoised. Falsified both ways (re-memoising null, and collapsing one loader name).
+
 ## Pre-flight baseline (2026-07-26)
 `npm run check` fully green: 0 tsc errors, 0 lint problems, 33 files / 340 tests pass.
 Post-rollout: identical (zero delta).
@@ -54,7 +91,13 @@ Post-rollout: identical (zero delta).
       is a documented no-op without DSN). NOT runtime-verified against a killed DB — code-level only.
 - [x] `catch { return null }` in loader files fails lint (verified: the rule found the 3
       getAdminData sites before they were fixed; suite now green).
-- [ ] `/graf` loader sites report — deferred to the graph round-4 session.
+- [x] `/graf` loader sites report — closed 2026-08-13, see the follow-up above. 9 sites
+      wired; `custom/no-silent-null-catch` now runs over `features/graph/**` with zero
+      suppressions. Verified by falsification: restoring `getNodeDetail`'s bare catch
+      makes `npx eslint features/graph/graphLoader.ts` fail with 1 error.
+- [x] A null/empty read is never memoised, so a degradation is retryable rather than
+      pinned for the process lifetime (added 2026-08-13 — the stub did not ask for this
+      because nobody had looked at the memo).
 
 ## Regression checklist
 - [x] `npm run check` green at baseline parity (typecheck + lint + 340 tests).

@@ -109,11 +109,16 @@ const eslintConfig = defineConfig([
   // Loader-boundary observability (/architect 2026-07-26): a loader's
   // `catch { return null }` silently degrades the surface to mock — require
   // reportLoaderFailure() so every degradation leaves a trace. Scoped to the
-  // loader files; features/graph is excluded until its in-flight round-4
-  // rework lands (its 4 sites are queued in the ADR).
+  // loader files.
+  //
+  // The `features/graph/**` exclusion is GONE (2026-08-13). It was written as a
+  // temporary carve-out "until the in-flight round-4 rework lands", and the
+  // round-4 work has since moved on without it — meanwhile the exclusion hid a
+  // real class-2 site (`getNodeDetail`'s bare `catch { return null }`) and the
+  // memoised null it sat next to, which pinned an empty `/graf` for the whole
+  // process lifetime. Both are fixed in graphLoader.ts; no zone is exempt now.
   {
     files: ["features/**/get*.ts", "features/**/*Loader.ts"],
-    ignores: ["features/graph/**"],
     rules: {
       "custom/no-silent-null-catch": "error",
     },

@@ -25,8 +25,23 @@
  * Cache je platná po dobu běhu procesu: graf je odvozený artefakt, mění se
  * dávkou (`npm run da:kg-compute`), ne za provozu. Po přepočtu je potřeba
  * restart — levnější než invalidace, kterou by nikdo netestoval.
+ *
+ * ALE CACHE SI NIKDY NENECHÁ SELHÁNÍ ANI PRÁZDNO (opraveno 2026-08-13).
+ * `indexPromise ??= buildIndex()` memoizoval i promisu, která se vyřešila na
+ * null — takže JEDEN nešťastný start (sklad se ještě probouzí, přechodná chyba
+ * čtení, graf ještě není zmaterializovaný) uzamkl prázdné `/graf` na CELÝ ŽIVOT
+ * PROCESU, bez opakování a bez jediného řádku v logu. Prázdný graf se přitom
+ * vykresluje jako SKUTEČNĚ prázdný graf, ne jako výpadek — plocha o dohledatel-
+ * nosti tak tiše tvrdila, že v grafu nic není. Memoizace teď drží jen úspěch
+ * (viz memoNonNull) a každá degradace volá `reportLoaderFailure`.
+ *
+ * DVĚ ODPOVĚDI, KTERÉ SE NESMÍ SLÍT: „sklad neběží" a „uzel v grafu není" jsou
+ * obě `null` z getNodeDetail — ale jen ta první je selhání a jen ta první nechá
+ * stopu. Rozsoudit je umí volající (getPermalinkData druhým, levným dotazem);
+ * kdyby stopu nechávaly obě, log by o zaniklém uzlu tvrdil výpadek.
  */
 
+import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { formattersFor } from "@/lib/format";
 import { isLocale, defaultLocale } from "@/lib/i18n/config";
@@ -76,7 +91,40 @@ interface GraphIndex {
   totalEdges: number;
 }
 
-let indexPromise: Promise<GraphIndex | null> | null = null;
+/**
+ * Buňka memoizace, která si nechá JEN úspěch.
+ *
+ * Doktrína je stejná jako u `features/money/moneyLoader.ts` a `features/profile`
+ * („ani prázdné čtení, ani selhání se nememoizuje") a jako u
+ * `lib/db/pglite/internals.ts` `open()`, které vědomě odmemoizuje neúspěšný
+ * pokus (ADR 2026-07-26-memoised-rejection-open). Tady chyběla — a stálo to
+ * celé `/graf` po jednom nešťastném startu.
+ *
+ * Odmemoizování běží AŽ v `.then`, tedy zaručeně po přiřazení buňky: souběžní
+ * volající v témž ticku sdílejí jednu promisu (jedno čtení, ne N), a teprve
+ * další volání po jejím vyřešení čte znovu.
+ */
+interface MemoCell<T> {
+  promise: Promise<T | null> | null;
+}
+
+function memoNonNull<T>(cell: MemoCell<T>, load: () => Promise<T | null>): Promise<T | null> {
+  cell.promise ??= load().then(
+    (value) => {
+      if (value === null) cell.promise = null;
+      return value;
+    },
+    (err) => {
+      // Loadery níž převádějí každé selhání na null, takže sem se to nedostane;
+      // kdyby přesto, odmítnutá promisa se nesmí zabetonovat do procesu.
+      cell.promise = null;
+      throw err;
+    },
+  );
+  return cell.promise;
+}
+
+const indexCell: MemoCell<GraphIndex> = { promise: null };
 
 /** „Nováková" → „novakova". Jediné místo, kde se skládá diakritika. */
 export function fold(s: string): string {
@@ -90,10 +138,25 @@ export function fold(s: string): string {
 async function buildIndex(): Promise<GraphIndex | null> {
   try {
     const store = await getStore();
-    if (!store) return null;
+    if (!store) {
+      reportLoaderFailure(
+        "graphLoader.buildIndex",
+        new Error("datový sklad není dostupný — /graf degraduje na prázdné plátno"),
+      );
+      return null;
+    }
 
     const nodes = await store.listKgNodes({ limit: KG_READ_CAP });
-    if (nodes.length === 0) return null;
+    if (nodes.length === 0) {
+      // Prázdné čtení NENÍ výjimka, ale je to degradace: plátno vykreslí graf
+      // bez jediného uzlu a nemá jak říct, jestli je graf prázdný, nebo se jen
+      // nepřečetl. Stopa to rozliší (a memoizace si to nenechá).
+      reportLoaderFailure(
+        "graphLoader.buildIndex",
+        new Error("kg_node nevrátil žádný uzel — graf zřejmě není zmaterializovaný (npm run da:kg-compute)"),
+      );
+      return null;
+    }
 
     // Stupeň se počítá z hran jednou; jinak by ho každý našeptávač dopočítával
     // znovu a „kolik toho na uzlu visí" je přitom hlavní řadicí klíč.
@@ -128,21 +191,13 @@ async function buildIndex(): Promise<GraphIndex | null> {
       totalEdges: edges.length,
     };
   } catch (err) {
-    // A transient hiccup (PGlite still initializing on cold start, a
-    // one-off store error) must not get memoized identically to a
-    // genuinely absent dataset — indexPromise ??= would otherwise pin this
-    // null result for the process lifetime, permanently disabling the
-    // whole Graph Playground until a restart even though the very next
-    // call would have succeeded. Clear the memo so the next call retries.
-    console.error("[graphLoader] buildIndex failed — will retry on next call", err);
-    indexPromise = null;
+    reportLoaderFailure("graphLoader.buildIndex", err);
     return null;
   }
 }
 
 function graphIndex(): Promise<GraphIndex | null> {
-  indexPromise ??= buildIndex();
-  return indexPromise;
+  return memoNonNull(indexCell, buildIndex);
 }
 
 // ── Veřejné čtení ────────────────────────────────────────────────────────────
@@ -205,7 +260,7 @@ const MAP_WORLD = { width: 3200, height: 2100 };
 /** Kolik smluv nejvýše vykreslit kolem jednoho dodavatele (viz getMapData). */
 const MAP_CONTRACTS_PER_SUPPLIER = 12;
 
-let mapPromise: Promise<MapData | null> | null = null;
+const mapCell: MemoCell<MapData> = { promise: null };
 
 const clampR2 = (v: number, min: number, max: number) =>
   Math.round(Math.max(min, Math.min(max, v)) * 100) / 100;
@@ -225,334 +280,347 @@ const clampR2 = (v: number, min: number, max: number) =>
  * Payload ~3 200 uzlů i se štítky ≈ stovky KB — pro prototyp v pořádku;
  * produkce by štítky dotahovala podle výřezu.
  */
-export async function getMapData(): Promise<MapData | null> {
-  mapPromise ??= (async () => {
-    try {
-      const store = await getStore();
-      const idx = await graphIndex();
-      if (!store || !idx) return null;
+export function getMapData(): Promise<MapData | null> {
+  return memoNonNull(mapCell, buildMapData);
+}
 
-      const allEdges = await store.listKgEdges({ limit: KG_READ_CAP });
-      const evidence = allEdges.filter((e) => e.rel !== "co_votes_with");
-
-      const eDeg = new Map<string, number>();
-      for (const e of evidence) {
-        eDeg.set(e.src, (eDeg.get(e.src) ?? 0) + 1);
-        eDeg.set(e.dst, (eDeg.get(e.dst) ?? 0) + 1);
-      }
-
-      const core = idx.entries.filter((e) => e.kind !== "contract");
-      const coreIds = new Set(core.map((e) => e.id));
-      const corePos = forceLayout(
-        core,
-        evidence.filter((e) => coreIds.has(e.src) && coreIds.has(e.dst)),
-        { ...MAP_WORLD, iterations: 130, seed: "mapa" },
+async function buildMapData(): Promise<MapData | null> {
+  try {
+    const store = await getStore();
+    const idx = await graphIndex();
+    if (!store || !idx) {
+      // Která polovina chybí, se z „null" nepozná — a jsou to dvě různá
+      // sdělení: sklad neběží ×  index je prázdný (ten už svou stopu nechal
+      // v buildIndex). Zpráva to proto pojmenuje.
+      reportLoaderFailure(
+        "graphLoader.getMapData",
+        new Error(store ? "index grafu je prázdný — mapa masy se nekreslí" : "datový sklad není dostupný"),
       );
-
-      // supplies je firma → smlouva; kotva smlouvy = její dodavatel.
-      const supplierOf = new Map<string, string>();
-      for (const e of evidence) if (e.rel === "supplies") supplierOf.set(e.dst, e.src);
-
-      // Batch-012 zvětšila korpus smluv z 2 287 na 152 788. Vykreslit je všechny znamená
-      // poslat do prohlížeče přes 150 tisíc uzlů — plátno tím ztratí smysl i výkon.
-      // Kolem každého dodavatele proto kreslíme jen omezený „prstenec" smluv; výběr je
-      // deterministický (podle id), aby byl mezi načteními stabilní, a payload nese
-      // počty, takže mapa nikdy netvrdí, že ukazuje celý graf.
-      const contractEntries = idx.entries.filter((e) => e.kind === "contract");
-      const perSupplier = new Map<string, number>();
-      const shownContracts = new Set<string>();
-      for (const entry of [...contractEntries].sort((a, b) => a.id.localeCompare(b.id))) {
-        const supplier = supplierOf.get(entry.id) ?? "(bez dodavatele)";
-        const n = perSupplier.get(supplier) ?? 0;
-        if (n >= MAP_CONTRACTS_PER_SUPPLIER) continue;
-        perSupplier.set(supplier, n + 1);
-        shownContracts.add(entry.id);
-      }
-
-      const visible = idx.entries.filter((e) => e.kind !== "contract" || shownContracts.has(e.id));
-      const nodes = visible.map((entry) => {
-        const degree = eDeg.get(entry.id) ?? 0;
-        if (entry.kind !== "contract") {
-          const p = corePos.get(entry.id)!;
-          return { id: entry.id, kind: entry.kind, label: entry.label, degree, x: p.x, y: p.y };
-        }
-        const supplier = supplierOf.get(entry.id);
-        const anchor = supplier ? corePos.get(supplier) : undefined;
-        const cx = anchor?.x ?? MAP_WORLD.width - 150;
-        const cy = anchor?.y ?? MAP_WORLD.height - 120;
-        const angle = (hashId(entry.id) / 0x100000000) * Math.PI * 2;
-        const radius = 22 + (hashId(`r${entry.id}`) / 0x100000000) * 36;
-        return {
-          id: entry.id,
-          kind: entry.kind,
-          label: entry.label,
-          degree,
-          x: clampR2(cx + Math.cos(angle) * radius, 20, MAP_WORLD.width - 20),
-          y: clampR2(cy + Math.sin(angle) * radius, 20, MAP_WORLD.height - 20),
-        };
-      });
-
-      // Hrany jen mezi vykreslenými uzly — jinak by plátno dostalo hranu do prázdna.
-      const visibleIds = new Set(visible.map((e) => e.id));
-      const visibleEdges = evidence.filter((e) => visibleIds.has(e.src) && visibleIds.has(e.dst));
-
-      return {
-        nodes,
-        edges: visibleEdges.map(toEdge),
-        world: MAP_WORLD,
-        omitted: {
-          contractsShown: shownContracts.size,
-          contractsTotal: contractEntries.length,
-          perSupplierCap: MAP_CONTRACTS_PER_SUPPLIER,
-        },
-      };
-    } catch (err) {
-      // See buildIndex's catch above — don't memoize a transient failure.
-      console.error("[graphLoader] getMapData failed — will retry on next call", err);
-      mapPromise = null;
       return null;
     }
-  })();
-  return mapPromise;
+
+    const allEdges = await store.listKgEdges({ limit: KG_READ_CAP });
+    const evidence = allEdges.filter((e) => e.rel !== "co_votes_with");
+
+    const eDeg = new Map<string, number>();
+    for (const e of evidence) {
+      eDeg.set(e.src, (eDeg.get(e.src) ?? 0) + 1);
+      eDeg.set(e.dst, (eDeg.get(e.dst) ?? 0) + 1);
+    }
+
+    const core = idx.entries.filter((e) => e.kind !== "contract");
+    const coreIds = new Set(core.map((e) => e.id));
+    const corePos = forceLayout(
+      core,
+      evidence.filter((e) => coreIds.has(e.src) && coreIds.has(e.dst)),
+      { ...MAP_WORLD, iterations: 130, seed: "mapa" },
+    );
+
+    // supplies je firma → smlouva; kotva smlouvy = její dodavatel.
+    const supplierOf = new Map<string, string>();
+    for (const e of evidence) if (e.rel === "supplies") supplierOf.set(e.dst, e.src);
+
+    // Batch-012 zvětšila korpus smluv z 2 287 na 152 788. Vykreslit je všechny znamená
+    // poslat do prohlížeče přes 150 tisíc uzlů — plátno tím ztratí smysl i výkon.
+    // Kolem každého dodavatele proto kreslíme jen omezený „prstenec" smluv; výběr je
+    // deterministický (podle id), aby byl mezi načteními stabilní, a payload nese
+    // počty, takže mapa nikdy netvrdí, že ukazuje celý graf.
+    const contractEntries = idx.entries.filter((e) => e.kind === "contract");
+    const perSupplier = new Map<string, number>();
+    const shownContracts = new Set<string>();
+    for (const entry of [...contractEntries].sort((a, b) => a.id.localeCompare(b.id))) {
+      const supplier = supplierOf.get(entry.id) ?? "(bez dodavatele)";
+      const n = perSupplier.get(supplier) ?? 0;
+      if (n >= MAP_CONTRACTS_PER_SUPPLIER) continue;
+      perSupplier.set(supplier, n + 1);
+      shownContracts.add(entry.id);
+    }
+
+    const visible = idx.entries.filter((e) => e.kind !== "contract" || shownContracts.has(e.id));
+    const nodes = visible.map((entry) => {
+      const degree = eDeg.get(entry.id) ?? 0;
+      if (entry.kind !== "contract") {
+        const p = corePos.get(entry.id)!;
+        return { id: entry.id, kind: entry.kind, label: entry.label, degree, x: p.x, y: p.y };
+      }
+      const supplier = supplierOf.get(entry.id);
+      const anchor = supplier ? corePos.get(supplier) : undefined;
+      const cx = anchor?.x ?? MAP_WORLD.width - 150;
+      const cy = anchor?.y ?? MAP_WORLD.height - 120;
+      const angle = (hashId(entry.id) / 0x100000000) * Math.PI * 2;
+      const radius = 22 + (hashId(`r${entry.id}`) / 0x100000000) * 36;
+      return {
+        id: entry.id,
+        kind: entry.kind,
+        label: entry.label,
+        degree,
+        x: clampR2(cx + Math.cos(angle) * radius, 20, MAP_WORLD.width - 20),
+        y: clampR2(cy + Math.sin(angle) * radius, 20, MAP_WORLD.height - 20),
+      };
+    });
+
+    // Hrany jen mezi vykreslenými uzly — jinak by plátno dostalo hranu do prázdna.
+    const visibleIds = new Set(visible.map((e) => e.id));
+    const visibleEdges = evidence.filter((e) => visibleIds.has(e.src) && visibleIds.has(e.dst));
+
+    return {
+      nodes,
+      edges: visibleEdges.map(toEdge),
+      world: MAP_WORLD,
+      omitted: {
+        contractsShown: shownContracts.size,
+        contractsTotal: contractEntries.length,
+        perSupplierCap: MAP_CONTRACTS_PER_SUPPLIER,
+      },
+    };
+  } catch (err) {
+    reportLoaderFailure("graphLoader.getMapData", err);
+    return null;
+  }
 }
 
 // ── Trasy (kurátorské výřezy spočítané z hran) ───────────────────────────────
 
-let trailsPromise: Promise<Trail[] | null> | null = null;
+const trailsCell: MemoCell<Trail[]> = { promise: null };
 
 /**
  * Čtyři trasy = čtyři spočítané odpovědi. Nic se nevymýšlí: uzly a hrany
  * pocházejí z grafu, částky ze `supplies` vah a props firem. Locale se
  * cache nedotýká — částky jdou ven jako čísla (moneyCzk) a formátuje klient.
  */
-export async function getTrails(): Promise<Trail[] | null> {
-  trailsPromise ??= (async () => {
-    try {
-      const store = await getStore();
-      const idx = await graphIndex();
-      if (!store || !idx) return null;
+export function getTrails(): Promise<Trail[] | null> {
+  return memoNonNull(trailsCell, buildTrails);
+}
 
-      const [companies, bills, allEdges] = await Promise.all([
-        store.listKgNodes({ kind: "company", limit: 10_000 }),
-        store.listKgNodes({ kind: "bill", limit: 10_000 }),
-        store.listKgEdges({ limit: KG_READ_CAP }),
-      ]);
-
-      const byRel = (rel: string) => allEdges.filter((e) => e.rel === rel);
-      const linked = byRel("linked_to");
-      const supplies = byRel("supplies");
-      const amends = byRel("amends");
-      const sponsors = byRel("sponsors");
-      const influential = byRel("influential_in");
-
-      const asNode = (id: string, column: number, moneyCzk?: number): TrailNode | null => {
-        const e = idx.byId.get(id);
-        if (!e) return null;
-        return { id: e.id, kind: e.kind, label: e.label, degree: e.degree, column, order: 0, moneyCzk };
-      };
-      const num = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? v : 0);
-
-      // Peníze firmy = smlouvy (váhy supplies) + dotace (prop uzlu).
-      const contractCzk = new Map<string, number>();
-      for (const e of supplies) contractCzk.set(e.src, (contractCzk.get(e.src) ?? 0) + num(e.weight));
-      const companyMoney = new Map<string, number>();
-      const donated = new Map<string, number>();
-      for (const c of companies) {
-        companyMoney.set(c.id, (contractCzk.get(c.id) ?? 0) + num(c.props?.subsidies_total_czk));
-        const d = num(c.props?.donated_to_party_czk);
-        if (d > 0) donated.set(c.id, d);
-      }
-
-      const companiesOf = new Map<string, string[]>();
-      const personsOf = new Map<string, string[]>();
-      for (const e of linked) {
-        companiesOf.set(e.src, [...(companiesOf.get(e.src) ?? []), e.dst]);
-        personsOf.set(e.dst, [...(personsOf.get(e.dst) ?? []), e.src]);
-      }
-      const pendingLink = new Set(
-        linked.filter((e) => e.props?.review_state === "pending_review").map((e) => e.src + "|" + e.dst),
+async function buildTrails(): Promise<Trail[] | null> {
+  try {
+    const store = await getStore();
+    const idx = await graphIndex();
+    if (!store || !idx) {
+      reportLoaderFailure(
+        "graphLoader.getTrails",
+        new Error(store ? "index grafu je prázdný — trasy se nepočítají" : "datový sklad není dostupný"),
       );
-      const linkEdge = (p: string, c: string): GraphEdge => ({
-        src: p,
-        dst: c,
-        rel: "linked_to",
-        weight: null,
-        pending: pendingLink.has(p + "|" + c),
-      });
-      const plainEdge = (src: string, dst: string, rel: string): GraphEdge => ({
-        src,
-        dst,
-        rel,
-        weight: null,
-        pending: false,
-      });
+      return null;
+    }
 
-      const trails: Trail[] = [];
+    const [companies, bills, allEdges] = await Promise.all([
+      store.listKgNodes({ kind: "company", limit: 10_000 }),
+      store.listKgNodes({ kind: "bill", limit: 10_000 }),
+      store.listKgEdges({ limit: KG_READ_CAP }),
+    ]);
 
-      // 1 · Peníze kolem poslanců: top 8 podle peněz dosažitelných přes firmy.
-      {
-        const nodes: TrailNode[] = [];
-        const edges: GraphEdge[] = [];
-        const seenCo = new Set<string>();
-        const top = [...companiesOf]
-          .map(([p, cs]) => [p, cs.reduce((s, c) => s + (companyMoney.get(c) ?? 0), 0)] as const)
-          .filter(([, m]) => m > 0)
+    const byRel = (rel: string) => allEdges.filter((e) => e.rel === rel);
+    const linked = byRel("linked_to");
+    const supplies = byRel("supplies");
+    const amends = byRel("amends");
+    const sponsors = byRel("sponsors");
+    const influential = byRel("influential_in");
+
+    const asNode = (id: string, column: number, moneyCzk?: number): TrailNode | null => {
+      const e = idx.byId.get(id);
+      if (!e) return null;
+      return { id: e.id, kind: e.kind, label: e.label, degree: e.degree, column, order: 0, moneyCzk };
+    };
+    const num = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? v : 0);
+
+    // Peníze firmy = smlouvy (váhy supplies) + dotace (prop uzlu).
+    const contractCzk = new Map<string, number>();
+    for (const e of supplies) contractCzk.set(e.src, (contractCzk.get(e.src) ?? 0) + num(e.weight));
+    const companyMoney = new Map<string, number>();
+    const donated = new Map<string, number>();
+    for (const c of companies) {
+      companyMoney.set(c.id, (contractCzk.get(c.id) ?? 0) + num(c.props?.subsidies_total_czk));
+      const d = num(c.props?.donated_to_party_czk);
+      if (d > 0) donated.set(c.id, d);
+    }
+
+    const companiesOf = new Map<string, string[]>();
+    const personsOf = new Map<string, string[]>();
+    for (const e of linked) {
+      companiesOf.set(e.src, [...(companiesOf.get(e.src) ?? []), e.dst]);
+      personsOf.set(e.dst, [...(personsOf.get(e.dst) ?? []), e.src]);
+    }
+    const pendingLink = new Set(
+      linked.filter((e) => e.props?.review_state === "pending_review").map((e) => e.src + "|" + e.dst),
+    );
+    const linkEdge = (p: string, c: string): GraphEdge => ({
+      src: p,
+      dst: c,
+      rel: "linked_to",
+      weight: null,
+      pending: pendingLink.has(p + "|" + c),
+    });
+    const plainEdge = (src: string, dst: string, rel: string): GraphEdge => ({
+      src,
+      dst,
+      rel,
+      weight: null,
+      pending: false,
+    });
+
+    const trails: Trail[] = [];
+
+    // 1 · Peníze kolem poslanců: top 8 podle peněz dosažitelných přes firmy.
+    {
+      const nodes: TrailNode[] = [];
+      const edges: GraphEdge[] = [];
+      const seenCo = new Set<string>();
+      const top = [...companiesOf]
+        .map(([p, cs]) => [p, cs.reduce((s, c) => s + (companyMoney.get(c) ?? 0), 0)] as const)
+        .filter(([, m]) => m > 0)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8);
+      for (const [pid, money] of top) {
+        const p = asNode(pid, 0, money);
+        if (!p) continue;
+        nodes.push(p);
+        for (const cid of companiesOf.get(pid) ?? []) {
+          if (!seenCo.has(cid)) {
+            const c = asNode(cid, 1, companyMoney.get(cid));
+            if (!c) continue;
+            seenCo.add(cid);
+            nodes.push(c);
+          }
+          edges.push(linkEdge(pid, cid));
+        }
+      }
+      if (nodes.length > 0) trails.push({ key: "penize-poslancu", columns: ["person", "company"], nodes, edges });
+    }
+
+    // 2 · Nejpřepisovanější zákony: zákon ← tisky ← předkladatelé.
+    {
+      const amendCount = new Map<string, number>();
+      for (const e of amends) amendCount.set(e.dst, (amendCount.get(e.dst) ?? 0) + 1);
+      const flagged = new Set(bills.filter((b) => b.props?.flagged_conflict === true).map((b) => b.id));
+      const nodes: TrailNode[] = [];
+      const edges: GraphEdge[] = [];
+      const billSet = new Set<string>();
+      const personSet = new Set<string>();
+      for (const [lawId] of [...amendCount].sort((a, b) => b[1] - a[1]).slice(0, 6)) {
+        const l = asNode(lawId, 2);
+        if (!l) continue;
+        nodes.push(l);
+        const billIds = amends
+          .filter((e) => e.dst === lawId)
+          .map((e) => e.src)
+          .sort((a, b) => Number(flagged.has(b)) - Number(flagged.has(a)))
+          .slice(0, 3);
+        for (const bid of billIds) {
+          if (!billSet.has(bid)) {
+            const b = asNode(bid, 1);
+            if (!b) continue;
+            billSet.add(bid);
+            nodes.push(b);
+          }
+          edges.push(plainEdge(bid, lawId, "amends"));
+          for (const sp of sponsors.filter((e) => e.dst === bid).slice(0, 2)) {
+            if (!personSet.has(sp.src)) {
+              const p = asNode(sp.src, 0);
+              if (!p) continue;
+              personSet.add(sp.src);
+              nodes.push(p);
+            }
+            edges.push(plainEdge(sp.src, bid, "sponsors"));
+          }
+        }
+      }
+      if (nodes.length > 0)
+        trails.push({ key: "nejnovelizovanejsi", columns: ["person", "bill", "law"], nodes, edges });
+    }
+
+    // 3 · Dárci stran: firmy s darem straně + poslanci s vazbou na ně.
+    {
+      const nodes: TrailNode[] = [];
+      const edges: GraphEdge[] = [];
+      const personSet = new Set<string>();
+      for (const [cid, czk] of [...donated].sort((a, b) => b[1] - a[1]).slice(0, 10)) {
+        const c = asNode(cid, 1, czk);
+        if (!c) continue;
+        nodes.push(c);
+        for (const pid of personsOf.get(cid) ?? []) {
+          if (!personSet.has(pid)) {
+            const p = asNode(pid, 0);
+            if (!p) continue;
+            personSet.add(pid);
+            nodes.push(p);
+          }
+          edges.push(linkEdge(pid, cid));
+        }
+      }
+      if (nodes.length > 0) trails.push({ key: "darci-stran", columns: ["person", "company"], nodes, edges });
+    }
+
+    // 4 · Výbory a peníze: výbor ← členové s vazbami ← jejich firmy.
+    {
+      const withTies = new Set(companiesOf.keys());
+      const byOrgan = new Map<string, string[]>();
+      for (const e of influential) {
+        if (!withTies.has(e.src)) continue;
+        byOrgan.set(e.dst, [...(byOrgan.get(e.dst) ?? []), e.src]);
+      }
+      const nodes: TrailNode[] = [];
+      const edges: GraphEdge[] = [];
+      const personSet = new Set<string>();
+      const coSet = new Set<string>();
+      for (const [oid, members] of [...byOrgan].sort((a, b) => b[1].length - a[1].length).slice(0, 5)) {
+        const o = asNode(oid, 0);
+        if (!o) continue;
+        nodes.push(o);
+        const ranked = members
+          .map(
+            (pid) =>
+              [pid, (companiesOf.get(pid) ?? []).reduce((s, c) => s + (companyMoney.get(c) ?? 0), 0)] as const,
+          )
           .sort((a, b) => b[1] - a[1])
-          .slice(0, 8);
-        for (const [pid, money] of top) {
-          const p = asNode(pid, 0, money);
-          if (!p) continue;
-          nodes.push(p);
-          for (const cid of companiesOf.get(pid) ?? []) {
-            if (!seenCo.has(cid)) {
-              const c = asNode(cid, 1, companyMoney.get(cid));
+          .slice(0, 3);
+        for (const [pid, money] of ranked) {
+          if (!personSet.has(pid)) {
+            const p = asNode(pid, 1, money > 0 ? money : undefined);
+            if (!p) continue;
+            personSet.add(pid);
+            nodes.push(p);
+          }
+          edges.push(plainEdge(pid, oid, "influential_in"));
+          for (const cid of (companiesOf.get(pid) ?? []).slice(0, 2)) {
+            if (!coSet.has(cid)) {
+              const c = asNode(cid, 2, companyMoney.get(cid));
               if (!c) continue;
-              seenCo.add(cid);
+              coSet.add(cid);
               nodes.push(c);
             }
             edges.push(linkEdge(pid, cid));
           }
         }
-        if (nodes.length > 0) trails.push({ key: "penize-poslancu", columns: ["person", "company"], nodes, edges });
       }
-
-      // 2 · Nejpřepisovanější zákony: zákon ← tisky ← předkladatelé.
-      {
-        const amendCount = new Map<string, number>();
-        for (const e of amends) amendCount.set(e.dst, (amendCount.get(e.dst) ?? 0) + 1);
-        const flagged = new Set(bills.filter((b) => b.props?.flagged_conflict === true).map((b) => b.id));
-        const nodes: TrailNode[] = [];
-        const edges: GraphEdge[] = [];
-        const billSet = new Set<string>();
-        const personSet = new Set<string>();
-        for (const [lawId] of [...amendCount].sort((a, b) => b[1] - a[1]).slice(0, 6)) {
-          const l = asNode(lawId, 2);
-          if (!l) continue;
-          nodes.push(l);
-          const billIds = amends
-            .filter((e) => e.dst === lawId)
-            .map((e) => e.src)
-            .sort((a, b) => Number(flagged.has(b)) - Number(flagged.has(a)))
-            .slice(0, 3);
-          for (const bid of billIds) {
-            if (!billSet.has(bid)) {
-              const b = asNode(bid, 1);
-              if (!b) continue;
-              billSet.add(bid);
-              nodes.push(b);
-            }
-            edges.push(plainEdge(bid, lawId, "amends"));
-            for (const sp of sponsors.filter((e) => e.dst === bid).slice(0, 2)) {
-              if (!personSet.has(sp.src)) {
-                const p = asNode(sp.src, 0);
-                if (!p) continue;
-                personSet.add(sp.src);
-                nodes.push(p);
-              }
-              edges.push(plainEdge(sp.src, bid, "sponsors"));
-            }
-          }
-        }
-        if (nodes.length > 0)
-          trails.push({ key: "nejnovelizovanejsi", columns: ["person", "bill", "law"], nodes, edges });
-      }
-
-      // 3 · Dárci stran: firmy s darem straně + poslanci s vazbou na ně.
-      {
-        const nodes: TrailNode[] = [];
-        const edges: GraphEdge[] = [];
-        const personSet = new Set<string>();
-        for (const [cid, czk] of [...donated].sort((a, b) => b[1] - a[1]).slice(0, 10)) {
-          const c = asNode(cid, 1, czk);
-          if (!c) continue;
-          nodes.push(c);
-          for (const pid of personsOf.get(cid) ?? []) {
-            if (!personSet.has(pid)) {
-              const p = asNode(pid, 0);
-              if (!p) continue;
-              personSet.add(pid);
-              nodes.push(p);
-            }
-            edges.push(linkEdge(pid, cid));
-          }
-        }
-        if (nodes.length > 0) trails.push({ key: "darci-stran", columns: ["person", "company"], nodes, edges });
-      }
-
-      // 4 · Výbory a peníze: výbor ← členové s vazbami ← jejich firmy.
-      {
-        const withTies = new Set(companiesOf.keys());
-        const byOrgan = new Map<string, string[]>();
-        for (const e of influential) {
-          if (!withTies.has(e.src)) continue;
-          byOrgan.set(e.dst, [...(byOrgan.get(e.dst) ?? []), e.src]);
-        }
-        const nodes: TrailNode[] = [];
-        const edges: GraphEdge[] = [];
-        const personSet = new Set<string>();
-        const coSet = new Set<string>();
-        for (const [oid, members] of [...byOrgan].sort((a, b) => b[1].length - a[1].length).slice(0, 5)) {
-          const o = asNode(oid, 0);
-          if (!o) continue;
-          nodes.push(o);
-          const ranked = members
-            .map(
-              (pid) =>
-                [pid, (companiesOf.get(pid) ?? []).reduce((s, c) => s + (companyMoney.get(c) ?? 0), 0)] as const,
-            )
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 3);
-          for (const [pid, money] of ranked) {
-            if (!personSet.has(pid)) {
-              const p = asNode(pid, 1, money > 0 ? money : undefined);
-              if (!p) continue;
-              personSet.add(pid);
-              nodes.push(p);
-            }
-            edges.push(plainEdge(pid, oid, "influential_in"));
-            for (const cid of (companiesOf.get(pid) ?? []).slice(0, 2)) {
-              if (!coSet.has(cid)) {
-                const c = asNode(cid, 2, companyMoney.get(cid));
-                if (!c) continue;
-                coSet.add(cid);
-                nodes.push(c);
-              }
-              edges.push(linkEdge(pid, cid));
-            }
-          }
-        }
-        if (nodes.length > 0)
-          trails.push({ key: "vybory-a-penize", columns: ["organ", "person", "company"], nodes, edges });
-      }
-
-      // Pořadí ve sloupci = řádek sazby: podle peněz, pak podle stupně.
-      // BEZ TOHOTO se celý sloupec položí na jeden bod (order 0) a z trasy
-      // zbydou tři uzly — přesně tak se to jednou rozbilo.
-      for (const trail of trails) {
-        const perColumn = new Map<number, number>();
-        for (const n of [...trail.nodes].sort(
-          (a, b) => (b.moneyCzk ?? 0) - (a.moneyCzk ?? 0) || b.degree - a.degree,
-        )) {
-          const next = perColumn.get(n.column) ?? 0;
-          n.order = next;
-          perColumn.set(n.column, next + 1);
-        }
-      }
-
-      return trails;
-    } catch (err) {
-      // See buildIndex's catch above — don't memoize a transient failure.
-      console.error("[graphLoader] getTrails failed — will retry on next call", err);
-      trailsPromise = null;
-      return null;
+      if (nodes.length > 0)
+        trails.push({ key: "vybory-a-penize", columns: ["organ", "person", "company"], nodes, edges });
     }
-  })();
-  return trailsPromise;
+
+    // Pořadí ve sloupci = řádek sazby: podle peněz, pak podle stupně.
+    // BEZ TOHOTO se celý sloupec položí na jeden bod (order 0) a z trasy
+    // zbydou tři uzly — přesně tak se to jednou rozbilo.
+    for (const trail of trails) {
+      const perColumn = new Map<number, number>();
+      for (const n of [...trail.nodes].sort(
+        (a, b) => (b.moneyCzk ?? 0) - (a.moneyCzk ?? 0) || b.degree - a.degree,
+      )) {
+        const next = perColumn.get(n.column) ?? 0;
+        n.order = next;
+        perColumn.set(n.column, next + 1);
+      }
+    }
+
+    return trails;
+  } catch (err) {
+    reportLoaderFailure("graphLoader.getTrails", err);
+    return null;
+  }
 }
 
 // ── Spoj dva body (důkazní cesty) ────────────────────────────────────────────
 
-let pathAdjPromise: Promise<Adjacency | null> | null = null;
+const pathAdjCell: MemoCell<Adjacency> = { promise: null };
 
 /**
  * Sousedství pro hledání cest — jednou za život procesu, stejná doktrína jako
@@ -561,32 +629,37 @@ let pathAdjPromise: Promise<Adjacency | null> | null = null;
  * „ověřené bije čekající" stálo na stejné pravdě jako čárkování na plátně.
  */
 function pathAdjacency(): Promise<Adjacency | null> {
-  pathAdjPromise ??= (async () => {
-    try {
-      const store = await getStore();
-      const idx = await graphIndex();
-      if (!store || !idx) return null;
-      const all = await store.listKgEdges({ limit: KG_READ_CAP });
-      const evidence: PathEdge[] = [];
-      for (const e of all) {
-        if (!idx.byId.has(e.src) || !idx.byId.has(e.dst)) continue;
-        evidence.push({
-          src: e.src,
-          dst: e.dst,
-          rel: e.rel,
-          weight: e.weight,
-          pending: e.props?.review_state === "pending_review",
-        });
-      }
-      return buildAdjacency(evidence);
-    } catch (err) {
-      // See buildIndex's catch above — don't memoize a transient failure.
-      console.error("[graphLoader] pathAdjacency failed — will retry on next call", err);
-      pathAdjPromise = null;
+  return memoNonNull(pathAdjCell, buildPathAdjacency);
+}
+
+async function buildPathAdjacency(): Promise<Adjacency | null> {
+  try {
+    const store = await getStore();
+    const idx = await graphIndex();
+    if (!store || !idx) {
+      reportLoaderFailure(
+        "graphLoader.pathAdjacency",
+        new Error(store ? "index grafu je prázdný — cesty se nehledají" : "datový sklad není dostupný"),
+      );
       return null;
     }
-  })();
-  return pathAdjPromise;
+    const all = await store.listKgEdges({ limit: KG_READ_CAP });
+    const evidence: PathEdge[] = [];
+    for (const e of all) {
+      if (!idx.byId.has(e.src) || !idx.byId.has(e.dst)) continue;
+      evidence.push({
+        src: e.src,
+        dst: e.dst,
+        rel: e.rel,
+        weight: e.weight,
+        pending: e.props?.review_state === "pending_review",
+      });
+    }
+    return buildAdjacency(evidence);
+  } catch (err) {
+    reportLoaderFailure("graphLoader.pathAdjacency", err);
+    return null;
+  }
 }
 
 /**
@@ -693,11 +766,33 @@ function formatFact(key: string, value: unknown, locale: string): string | null 
   return null;
 }
 
+/**
+ * Detail jednoho uzlu. `null` znamená DVĚ RŮZNÉ VĚCI a jen jedna z nich je
+ * selhání:
+ *
+ *   sklad neběží / čtení spadlo → degradace, nechává stopu (reportLoaderFailure);
+ *   uzel v dnešním grafu není   → poctivá odpověď, NEnechává stopu.
+ *
+ * Kdyby stopu nechávaly obě, log (a Sentry) by o zaniklém uzlu tvrdily výpadek —
+ * a naopak: kdyby ji nenechávala ani jedna, byl by výpadek k nerozeznání od
+ * mazání. Rozsoudit tyhle dva stavy pro čtenáře umí volající: getPermalinkData
+ * na null odpoví druhým, levným dotazem (getTrails) a teprve podle něj řekne
+ * „gone" nebo „unavailable".
+ */
 export async function getNodeDetail(id: string, locale: string): Promise<NodeDetail | null> {
   try {
     const store = await getStore();
-    if (!store) return null;
+    if (!store) {
+      reportLoaderFailure(
+        "graphLoader.getNodeDetail",
+        new Error(`datový sklad není dostupný — detail uzlu ${id.slice(0, 120)} se nepřečetl`),
+      );
+      return null;
+    }
     const [row] = await store.getKgNodes([id]);
+    // ZÁMĚRNĚ BEZ STOPY: čtení proběhlo a odpovědělo „takový uzel tu není"
+    // (nebo je to druh, který plátno odmítá kreslit). To je fakt o grafu, ne
+    // degradace plochy.
     if (!row || !isKgNodeKind(row.kind)) return null;
     const idx = await graphIndex();
 
@@ -728,7 +823,8 @@ export async function getNodeDetail(id: string, locale: string): Promise<NodeDet
       facts,
       degree: idx?.byId.get(row.id)?.degree ?? 0,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("graphLoader.getNodeDetail", err);
     return null;
   }
 }
