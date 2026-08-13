@@ -27,6 +27,7 @@ import type { ContractCoverage } from "./moneyTypes";
 import { isAttributable, tieReach, type MoneyBucket } from "./reachableMoney";
 import {
   compactCzk,
+  displaySignedOn,
   temporalBadge,
   tieClassInfo,
   tieClassOriginInfo,
@@ -504,7 +505,19 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
                 <span className="truncate text-steel">{c.label}</span>
                 <span className="shrink-0 font-mono text-xs font-bold tabular-nums">
                   {c.amountCzk != null ? compactCzk(c.amountCzk, locale) : "—"}
-                  {c.signedOn ? <span className="ml-2 text-steel">{c.signedOn}</span> : null}
+                  {/* JEDINÁ cesta datu na plochu (`displaySignedOn`) — do
+                      2026-08-13 tu stálo `{c.signedOn}` doslova, takže spis
+                      poslance vysázel „0002-01-01" u téže smlouvy, u které
+                      firemní spis datum potlačoval. Prázdné místo by se navíc
+                      četlo jako smlouva bez podpisu, takže se to řekne — týmž
+                      klíčem, jakým to říká firemní spis nad TOUTÉŽ smlouvou. */}
+                  {displaySignedOn(c) ? (
+                    <span className="ml-2 text-steel">{displaySignedOn(c)}</span>
+                  ) : (
+                    <span className="ml-2 font-normal uppercase tracking-wider text-steel">
+                      {t("companyFile.noUsableDate")}
+                    </span>
+                  )}
                 </span>
               </li>
             ))}
@@ -514,9 +527,35 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
               {t("caseFile.moreContracts", { count: tie.contractsMoreCount })}
             </p>
           )}
+          <ImplausibleDateNote contracts={tie.contracts} />
         </div>
       )}
     </article>
+  );
+}
+
+/**
+ * POTLAČENÉ DATUM SE PŘIZNÁVÁ. Řádek i částka zůstávají, datum mizí — a bez
+ * téhle věty by se to nedalo odlišit od smlouvy, kterou nikdo nedatoval.
+ *
+ * Počítá se nad řádky, které se OPRAVDU VYKRESLILY (spis ukazuje top-8 smluv na
+ * vazbu), stejně jako to dělá firemní spis — počet přes materiál, který čtenář
+ * nevidí, by byl tvrzení o něčem jiném, než co má před sebou. Klíč i formulace
+ * jsou tytéž jako na `/penize/firma/[ico]`: jeden fakt, jedna věta.
+ * `dateWithheldOn` nese den, proti kterému se hranice kreslila, takže si test
+ * může kdokoli zopakovat.
+ */
+function ImplausibleDateNote({ contracts }: { contracts: MoneyTieDetail["contracts"] }) {
+  const t = useTranslations("money");
+  const withheld = contracts.filter((c) => c.dateWithheldOn != null);
+  if (withheld.length === 0) return null;
+  return (
+    <p className="mt-3 max-w-2xl border-l-2 border-ochre pl-3 text-sm leading-relaxed text-steel">
+      {t("companyFile.implausibleDates", {
+        count: withheld.length,
+        asOf: withheld[0].dateWithheldOn as string,
+      })}
+    </p>
   );
 }
 

@@ -26,6 +26,7 @@
 // Čisté funkce + přísné kodeky (fail-loud, vzor mirrorData) — testy
 // kolokované v supplierTrail.test.ts. Generátor: tools/generate-municipal-suppliers.ts.
 
+import { isPlausibleIsoDate, PLAUSIBLE_FROM } from "@/lib/analysis/plausible-date";
 import { median } from "./peerGroups";
 import {
   SUPPLIERS_PACKED,
@@ -50,9 +51,15 @@ export interface SupplierRow {
   /** Smlouvy, u nichž záznam směr platby neuvádí. */
   otherCount: number;
   otherCzk: number;
-  /** Rok první/poslední podepsané smlouvy; null = datum podpisu bez záznamu. */
+  /** Rok první/poslední podepsané smlouvy; null = datum podpisu bez záznamu
+   *  NEBO potlačený nemožný rok (rozlišuje `yearsWithheld`). */
   firstYear: number | null;
   lastYear: number | null;
+  /** Řádek nesl rok podpisu, který se nemohl stát (viz `isPlausibleSignatureYear`),
+   *  takže se rozsah NEUVÁDÍ. Přítomné jen když k tomu došlo — absence znamená
+   *  „nic se nezamlčelo", ne „nekontrolováno" (kodek kontroluje každý řádek).
+   *  Řádek ani jeho peníze se nezahazují: chybný je údaj o datu, ne smlouva. */
+  yearsWithheld?: true;
 }
 
 export const rowTotalCzk = (r: SupplierRow): number => r.paidCzk + r.otherCzk;
@@ -69,9 +76,12 @@ export interface TownSupplierSummary {
   paidContractCount: number;
   supplierCount: number;
   /** Rozsah let podpisu smluv v záznamu — bez něj se Σ za roky 1995–2026 čte
-   *  jako roční tok. null = žádná smlouva obce nenese datum podpisu. */
+   *  jako roční tok. null = žádná smlouva obce nenese použitelné datum podpisu. */
   firstYear: number | null;
   lastYear: number | null;
+  /** Kolika řádkům obce se rozsah POTLAČIL, protože nesly nemožný rok podpisu.
+   *  Plocha to říká vedle rozsahu — potlačené ≠ chybějící, a Σ peněz zůstává. */
+  yearsWithheldRows: number;
 }
 
 /* ── Odvození spojení (čisté — sdílí ho generátor i testy) ────────────────── */
@@ -112,11 +122,43 @@ export function icoFromCompanyId(id: string): string | null {
   return m ? m[1] : null;
 }
 
-const yearOf = (signedOn: unknown): number | null => {
+/**
+ * NEMOŽNÉ DATUM MÁ JEDNU HRANICI — i tady (2026-08-13).
+ *
+ * `yearOf` si do 2026-08-13 držel VLASTNÍ mez `y > 1900 && y < 2100`, přestože
+ * `lib/analysis/plausible-date.ts` existuje s odůvodněním „aby hranice byla
+ * v celé aplikaci jedna a stejná". Ta soukromá mez pouštěla budoucí roky dál a
+ * plocha je publikovala jako rozsah smluvní historie obce: v ZAPSANÉ dávce
+ * (`municipalSuppliers.generated.ts`) je řádek `00279676 × Československá
+ * obchodní banka` s rozsahem **2009–2043**. Obec s historií zakázek do roku
+ * 2043 vysázená vedle Σ hodnoty smluv je přesně ten druh čísla, kvůli kterému
+ * modul možných dat vznikl.
+ *
+ * Horní mez je den, ke kterému se registr ČETL (`SUPPLIERS_RETRIEVED_ON`,
+ * z téže generované dávky, takže obě konstanty cestují spolu) — smlouva
+ * podepsaná po dni čtení není datum, ale vada dat. Datum se NIKDY neopravuje:
+ * potlačí se a přizná (`SupplierRow.yearsWithheld`).
+ */
+const PLAUSIBLE_YEAR_FROM = Number(PLAUSIBLE_FROM.slice(0, 4));
+
+/** Rok podpisu, nebo `null` — pro cokoli, co není datum v možném rozsahu.
+ *  `todayIso` se předává (ne čte z hodin) přesně jako v plausible-date.ts. */
+const yearOf = (signedOn: unknown, todayIso: string): number | null => {
   if (typeof signedOn !== "string") return null;
-  const y = Number(signedOn.slice(0, 4));
-  return Number.isInteger(y) && y > 1900 && y < 2100 ? y : null;
+  return isPlausibleIsoDate(signedOn, todayIso) ? Number(signedOn.slice(0, 4)) : null;
 };
+
+/** Je rok v mezích, které smí být vysázeny jako rok podpisu? Meze jsou tytéž
+ *  jako u `yearOf`, jen na ročníkové zrnitosti: kodek nese rok, ne datum. */
+export function isPlausibleSignatureYear(year: number, retrievedOn: string): boolean {
+  const upper = Number(retrievedOn.slice(0, 4));
+  return (
+    Number.isInteger(year) &&
+    Number.isInteger(upper) &&
+    year >= PLAUSIBLE_YEAR_FROM &&
+    year <= upper
+  );
+}
 
 export interface DeriveStats {
   contractsScanned: number;
@@ -139,8 +181,14 @@ export function deriveMunicipalSupplierRows(args: {
   supplies: readonly SuppliesEdgeLike[];
   companyLabelByIco: ReadonlyMap<string, string>;
   municipalIcs: ReadonlySet<string>;
+  /** Den, ke kterému se registr čte — horní mez možného data podpisu. Generátor
+   *  by měl předat SVŮJ den čtení; výchozí je den zapsané dávky, což je jediná
+   *  hodnota, kterou tenhle čistý modul poctivě zná (hodiny nečte — viz
+   *  lib/analysis/plausible-date.ts). */
+  retrievedOn?: string;
 }): { rows: SupplierRow[]; stats: DeriveStats } {
   const { contracts, supplies, companyLabelByIco, municipalIcs } = args;
+  const retrievedOn = args.retrievedOn ?? SUPPLIERS_RETRIEVED_ON;
 
   const suppliersByContract = new Map<string, { ico: string; czk: number }[]>();
   for (const e of supplies) {
@@ -193,7 +241,7 @@ export function deriveMunicipalSupplierRows(args: {
     for (const ico of partyIcos) if (ico !== null) knownSides.add(ico);
 
     const directions = (props.partyDirections ?? {}) as Record<string, unknown>;
-    const year = yearOf(props.signedOn);
+    const year = yearOf(props.signedOn, retrievedOn);
 
     let contractPaired = false;
     let contractPaid = false;
@@ -314,6 +362,21 @@ export function parseSupplierRows(packed: string): SupplierRow[] {
     ) {
       throw new Error(`parseSupplierRows: vadný řádek "${line.slice(0, 40)}"`);
     }
+    /* NEMOŽNÝ ROK SE POTLAČÍ, ŘÁDEK ZŮSTANE — a NEshodí modul.
+     *
+     * Kodek je jinak fail-loud (vzor mirrorData) a to se nemění: vadná
+     * STRUKTURA je chyba kodeku a hází dál. Nemožný ROK je ale vada DAT, a na
+     * ty má produkt jiné pravidlo (lib/analysis/plausible-date.ts): potlačit,
+     * řádek i peníze ponechat, mezeru přiznat čtenáři. `throw` by tady navíc
+     * kvůli jedinému řádku (00279676 × ČSOB, „2009–2043") sebral celou sekci
+     * dodavatelů na /rozpocty — tedy trest za vadu dat by nesl čtenář.
+     *
+     * Potlačují se OBĚ meze najednou: dávka nese jen minimum a maximum, takže
+     * po vyřazení nemožné meze se pravdivý rozsah z ničeho nedopočítá. Nechat
+     * druhou by byl odhad, a ten je zakázaný. */
+    const yearsBad =
+      (firstYear !== null && !isPlausibleSignatureYear(firstYear, SUPPLIERS_RETRIEVED_ON)) ||
+      (lastYear !== null && !isPlausibleSignatureYear(lastYear, SUPPLIERS_RETRIEVED_ON));
     out.push({
       townIc,
       supplierIco,
@@ -323,8 +386,9 @@ export function parseSupplierRows(packed: string): SupplierRow[] {
       paidCzk,
       otherCount,
       otherCzk,
-      firstYear,
-      lastYear,
+      firstYear: yearsBad ? null : firstYear,
+      lastYear: yearsBad ? null : lastYear,
+      ...(yearsBad ? { yearsWithheld: true as const } : {}),
     });
   }
   return out;
@@ -361,11 +425,13 @@ export function townSupplierSummary(
   let paidContractCount = 0;
   let firstYear: number | null = null;
   let lastYear: number | null = null;
+  let yearsWithheldRows = 0;
   for (const r of rows) {
     totalCzk += rowTotalCzk(r);
     paidCzk += r.paidCzk;
     contractCount += rowTotalCount(r);
     paidContractCount += r.paidCount;
+    if (r.yearsWithheld) yearsWithheldRows++;
     // Řádek bez data podpisu rozsah NEROZŠIŘUJE (a nenuluje ho) — chybějící
     // datum není rok 0; týž postoj jako `firstYear === null` na řádku samém.
     if (r.firstYear !== null) firstYear = firstYear === null ? r.firstYear : Math.min(firstYear, r.firstYear);
@@ -380,6 +446,7 @@ export function townSupplierSummary(
     supplierCount: rows.length,
     firstYear,
     lastYear,
+    yearsWithheldRows,
   };
 }
 

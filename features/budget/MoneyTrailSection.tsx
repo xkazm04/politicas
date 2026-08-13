@@ -193,6 +193,18 @@ export default function MoneyTrailSection({
               <p className="mt-1 font-mono text-[11px] leading-snug tabular-nums text-steel-aa">
                 {contractYears}
               </p>
+              {/* POTLAČENÉ ≠ CHYBĚJÍCÍ. Řádek s nemožným rokem podpisu rozsah
+                  neuvádí (kodek ho potlačil, nikdy neopravil) — bez téhle věty
+                  by mlčel stejně jako smlouva, u které datum prostě není. */}
+              {summary.yearsWithheldRows > 0 && (
+                <p className="mt-1 border-l-2 border-ochre pl-2 font-mono text-[11px] leading-snug text-steel-aa">
+                  {t("trailYearsWithheld", {
+                    count: summary.yearsWithheldRows,
+                    countFmt: f.int(summary.yearsWithheldRows),
+                    retrievedOn: coverage.retrievedOn,
+                  })}
+                </p>
+              )}
               {/* Kvalifikátor částky u čísla, ne v patičce sekce: pravidlo /penize
                   („částka = hodnota smlouvy") platí i tady, protože obě plochy
                   čtou tutéž váhu hrany `supplies`. */}
@@ -321,7 +333,19 @@ export default function MoneyTrailSection({
                         )}
                       </td>
                       <td className="py-3.5 text-right font-mono text-sm tabular-nums text-steel-aa">
-                        {r.firstYear === null ? "—" : r.firstYear === r.lastYear ? r.firstYear : `${r.firstYear}–${r.lastYear}`}
+                        {r.yearsWithheld ? (
+                          // Potlačený rok se od chybějícího musí LIŠIT: „—" u obou
+                          // by dvě různá tvrzení sloučilo do jednoho mlčení.
+                          <span className="text-[11px] uppercase tracking-wider text-ochre">
+                            {t("trailYearsWithheldCell")}
+                          </span>
+                        ) : r.firstYear === null ? (
+                          "—"
+                        ) : r.firstYear === r.lastYear ? (
+                          r.firstYear
+                        ) : (
+                          `${r.firstYear}–${r.lastYear}`
+                        )}
                       </td>
                     </tr>
                   );

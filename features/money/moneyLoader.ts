@@ -17,6 +17,8 @@ import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import { asUnion } from "@/lib/db/narrow";
 import { byListOrder } from "@/lib/db/kgOrder";
 import { CORROBORATIONS, type ContractLine, type MoneyTie, type ReviewState } from "./moneyTypes";
+// JEDNA hranice možného data v celé aplikaci (modul si to říká ve své hlavičce).
+import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 // One reader of `provenance`-shaped props across the platform (features/shared/provenance):
 // the receipt page and the money tie must date an analyst note by the same rule.
 import { toProvenance } from "@/features/shared/provenance/receipt";
@@ -475,6 +477,35 @@ function companySuppliesMemo(store: Store, companyId: string): Promise<CompanySu
   return cell.read;
 }
 
+/**
+ * HRANICE MOŽNÉHO DATA, uplatněná na řádky smluv (2026-08-13).
+ *
+ * `/penize/firma/[ico]` tenhle test dělá od svého vzniku; `/penize/[pspId]`
+ * četl `props.signedOn` bez kontroly a `MpCaseFilePage` ho tiskl doslova —
+ * takže jedna a táž smlouva měla na jedné ploše datum potlačené a na druhé
+ * vysázené („0002-01-01"), a paket poslance ho zapékal do otiskem
+ * orazítkovaného svazku pro novináře.
+ *
+ * Verdikt se PŘIPÍNÁ, hrubá hodnota zůstává (proč — viz `ContractLine
+ * .dateWithheldOn`): vysází se přes `displaySignedOn()`, takže datum, které se
+ * nemohlo stát, se nikam nedostane, a přitom se nerozbije spis poslance, který
+ * si svůj počet vadných dat z hrubé hodnoty přepočítává. Řádek ani částka se
+ * nezahazují a datum se NIKDY neopravuje.
+ *
+ * ZÁMĚRNĚ MIMO `readCompanySupplies`: ten čtou OBĚ plochy a firemní spis si
+ * svůj počet potlačených dat počítá SÁM, nad řádky, které opravdu vykresluje
+ * (`getCompanyDetail`, `implausibleDateCount`) — a to číslo je už publikované.
+ * Kdyby se hranice uplatnila ve sdíleném čtení, firemní stránce by napočítala
+ * nulu. Řez poslance je proto jediné místo, kde se to tady dělá.
+ */
+export function gateContractDates(lines: readonly ContractLine[], todayIso: string): ContractLine[] {
+  return lines.map((l) =>
+    l.signedOn !== null && plausibleIsoDateOrNull(l.signedOn, todayIso) === null
+      ? { ...l, dateWithheldOn: todayIso }
+      : l,
+  );
+}
+
 /** One MP's money, read through the INDEX only — never a whole-relation scan. */
 export interface MpMoneySlice {
   person: KgNodeRow;
@@ -483,8 +514,12 @@ export interface MpMoneySlice {
   ties: KgEdgeRow[];
   companyById: Map<string, KgNodeRow>;
   contractsByCompany: Map<string, CompanyContracts>;
-  /** company id → its contract line items, amount desc, capped like the ledger's. */
+  /** company id → its contract line items, amount desc, capped like the ledger's.
+   *  Podpisy jsou už PROŠLÉ hranicí možného data (`gateContractDates`) — nemožné
+   *  datum je potlačené a řádek si nese `dateWithheldOn`. */
   linesByCompany: Map<string, ContractLine[]>;
+  /** Den, proti kterému se hranice kreslila (tiskne se, aby šel test zopakovat). */
+  datesCheckedOn: string;
   /** Did ANY per-company supplies read hit its own cap? The slice knows this and the
    *  cap heuristic must not guess it — see reachableMoney.ts::ContractReadScope. */
   contractsTruncated: boolean;
@@ -539,12 +574,22 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
         supplies: await companySuppliesMemo(store, comp.id),
       })),
     );
+    // JEDEN okamžik na celý řez (viz lib/analysis/plausible-date.ts): loader je
+    // server, ne render, takže se hodiny číst smějí — a hodnota přechází ke
+    // klientovi jako DATA. Počítá se AŽ TADY, za memoizovaným čtením smluv:
+    // uvnitř `companySuppliesMemo` by se hranice zamrazila na den, kdy se buňka
+    // naplnila, a den by pak zestárnul o celé okno TTL.
+    // Týž tvar jako `/penize/firma/[ico]`, aby dvě sousední plochy nekreslily
+    // hranici k jinému dni (pražský den deníku je vědomě jiné pravidlo — jeho
+    // sjednocení by pohnulo publikovaným počtem firemního spisu, a to se sem
+    // nepropašuje; viz zpráva k této změně).
+    const datesCheckedOn = new Date().toISOString().slice(0, 10);
     const contractsByCompany = new Map<string, CompanyContracts>();
     const linesByCompany = new Map<string, ContractLine[]>();
     let contractsTruncated = false;
     for (const { id, supplies } of companyReads) {
       contractsByCompany.set(id, supplies.contracts);
-      linesByCompany.set(id, supplies.lines);
+      linesByCompany.set(id, gateContractDates(supplies.lines, datesCheckedOn));
       if (supplies.truncated) contractsTruncated = true;
     }
 
@@ -558,6 +603,7 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
       companyById,
       contractsByCompany,
       linesByCompany,
+      datesCheckedOn,
       contractsTruncated,
       pass,
     };

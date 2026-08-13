@@ -24,7 +24,7 @@
 import { czechDate, czechInt } from "@/lib/format";
 import { canonicalJson, contentHash, HASH_ALGORITHM } from "@/features/dashboard/exhibit";
 import { buildRegistryLinks, type RegistryLinks } from "./reviewTypes";
-import { compactCzk, tieClassInfo, type MoneyMpDetail, type MoneyTieDetail } from "./moneyTypes";
+import { compactCzk, displaySignedOn, tieClassInfo, type MoneyMpDetail, type MoneyTieDetail } from "./moneyTypes";
 import type { TieClass, TieClassOrigin } from "./reviewTypes";
 import type { ContractLine } from "./moneyTypes";
 
@@ -100,8 +100,19 @@ export interface EvidencePacket {
   exclusions: PacketExclusions;
   /** Smlouvy nad top-N řez spisu — v paketu nejsou a paket to říká. */
   contractsOmitted: number;
-  /** Zobrazené smlouvy bez data podpisu — v časové ose chybět MUSÍ přiznaně. */
+  /** Zobrazené smlouvy, které DATUM PODPISU NENESOU — v časové ose chybět MUSÍ
+   *  přiznaně. Nezahrnuje ty, u kterých datum bylo, ale nemohlo se stát; to je
+   *  jiné tvrzení a má vlastní číslo. */
   undatedContracts: number;
+  /**
+   * Zobrazené smlouvy, u kterých graf datum podpisu NESL a hranice možného data
+   * ho odmítla (`lib/analysis/plausible-date.ts`; korpus drží podpisy v letech
+   * 0002, 1970, 2027, 3062). V časové ose nejsou — a paket to musí říct nahlas:
+   * svazek orazítkovaný otiskem, který pole tiše upustí, je horší než ten, který
+   * vytiskne vadné datum, protože příjemce nemá jak poznat, že něco chybí.
+   * Datum se nikdy neopravuje; smlouva ani její částka se nezahazují.
+   */
+  withheldDateContracts: number;
   hash: string;
   hashAlgorithm: string;
   source: string;
@@ -159,10 +170,33 @@ function citeMoney(t: PacketTie): string {
   return parts.length > 0 ? ` Dosažitelné veřejné peníze: ${parts.join(", ")}.` : "";
 }
 
+/** Kolik smluv vazby neslo datum podpisu, které se nemohlo stát. Počítá se nad
+ *  řádky, které paket OPRAVDU nese (top-N řez spisu) — o zbytku mluví
+ *  `contractsMoreCount`. */
+function withheldDateCount(t: PacketTie): number {
+  return t.contracts.filter((c) => c.dateWithheldOn != null).length;
+}
+
+/** Přiznání potlačeného data přímo do CITACE — tedy do věty, kterou si redakce
+ *  zkopíruje. Číslo v patičce paketu zůstane na obrazovce; citace cestuje.
+ *  Uvádí se i den, proti kterému se hranice kreslila, aby šel test zopakovat. */
+function citeWithheldDates(t: PacketTie): string {
+  const n = withheldDateCount(t);
+  if (n === 0) return "";
+  const day = t.contracts.find((c) => c.dateWithheldOn != null)!.dateWithheldOn as string;
+  const noun = n === 1 ? "smlouva nese" : n >= 2 && n <= 4 ? "smlouvy nesou" : "smluv nese";
+  return (
+    ` Pozn.: ${czechInt(n)} ${noun} v grafu datum podpisu, které nemohlo nastat` +
+    ` (před 1. 1. 1993 nebo po ${czechDate(day)}); datum je zamlčené, částka i smlouva zůstávají` +
+    ` a datum se neopravuje. V časové ose paketu proto tyto smlouvy nejsou.`
+  );
+}
+
 /** Hotový citační blok pro jednu OVĚŘENOU vazbu. Třídní popisek jde z
  *  tieClassInfo (jediný zdroj kopie, nikdy nepřepisovat); u stewarda citace
  *  nese celé P29 pravidlo — velké číslo instituce se bez něj nesmí citovat.
- *  Odvozená (neuložená) třída se v citaci přizná. */
+ *  Odvozená (neuložená) třída se v citaci přizná, stejně jako potlačené datum
+ *  podpisu: co paket upustil, musí být vidět v tom, co se z něj cituje. */
 export function buildCiteCs(args: {
   pspId: number;
   name: string;
@@ -180,7 +214,7 @@ export function buildCiteCs(args: {
   return (
     `${name}${club ? ` (${club})` : ""} — ${t.company}, IČO ${t.ico}: ` +
     `${t.role || "vazba"}${citePeriod(t)}; třída „${info.labelCs}“${originNote}.` +
-    `${reviewed}${citeMoney(t)}${stewardRule}` +
+    `${reviewed}${citeMoney(t)}${stewardRule}${citeWithheldDates(t)}` +
     ` Zdroj: ${t.source || "znalostní graf politicas"} · registr smluv · ARES VR.` +
     ` Stav ke dni ${czechDate(args.compiledAt)}, živá verze: politicas.cz/penize/${String(args.pspId)}/paket#${t.anchor}`
   );
@@ -219,15 +253,28 @@ function toPacketTie(t: MoneyTieDetail): Omit<PacketTie, "citeCs"> {
     lastReviewedAt: t.lastReviewedAt,
     source: t.source,
     links: buildRegistryLinks(t.ico, t.source),
-    contracts: t.contracts,
+    // DATUM, KTERÉ SE NEMOHLO STÁT, DO PAKETU NEVSTUPUJE. Paket je stažitelný
+    // svazek orazítkovaný otiskem — hrubou hodnotu, kterou spis poslance nechává
+    // projít kvůli vlastnímu přepočtu (viz ContractLine), by tady zapekl do
+    // artefaktu, který se po vydání neopravuje. Zůstává důvod (`dateWithheldOn`),
+    // takže příjemce pozná potlačené datum od nedatované smlouvy.
+    contracts: t.contracts.map((c) => ({ ...c, signedOn: displaySignedOn(c) })),
     contractsMoreCount: t.contractsMoreCount,
     anchor: `p-${t.ico}`,
   };
 }
 
-function deriveTimeline(ties: PacketTie[]): { events: PacketEvent[]; undatedContracts: number } {
+function deriveTimeline(ties: PacketTie[]): {
+  events: PacketEvent[];
+  undatedContracts: number;
+  withheldDateContracts: number;
+} {
   const events: PacketEvent[] = [];
   let undated = 0;
+  // „Datum nebylo" a „datum bylo nemožné" jsou dvě různá tvrzení a paket je
+  // nesmí sloučit do jednoho čísla — dřív spadla obě do `undated`, takže
+  // příjemce nepoznal, že se nějaké pole zahodilo.
+  let withheld = 0;
   for (const t of ties) {
     const base = { companyId: t.companyId, company: t.company, ico: t.ico };
     if (t.roleValidFrom) {
@@ -237,8 +284,11 @@ function deriveTimeline(ties: PacketTie[]): { events: PacketEvent[]; undatedCont
       events.push({ ...base, date: t.roleValidTo.slice(0, 10), kind: "role-end", detail: t.role, amountCzk: null });
     }
     for (const c of t.contracts) {
-      if (c.signedOn) {
-        events.push({ ...base, date: c.signedOn.slice(0, 10), kind: "contract", detail: c.label, amountCzk: c.amountCzk });
+      const signedOn = displaySignedOn(c);
+      if (signedOn) {
+        events.push({ ...base, date: signedOn.slice(0, 10), kind: "contract", detail: c.label, amountCzk: c.amountCzk });
+      } else if (c.dateWithheldOn != null) {
+        withheld++;
       } else {
         undated++;
       }
@@ -260,7 +310,7 @@ function deriveTimeline(ties: PacketTie[]): { events: PacketEvent[]; undatedCont
       a.companyId.localeCompare(b.companyId) ||
       a.detail.localeCompare(b.detail),
   );
-  return { events, undatedContracts: undated };
+  return { events, undatedContracts: undated, withheldDateContracts: withheld };
 }
 
 /**
@@ -270,9 +320,21 @@ function deriveTimeline(ties: PacketTie[]): { events: PacketEvent[]; undatedCont
  *     parita moneyLoaderu už předtím normalizovala chybějící stav na pending).
  *  2. POŘADÍ: batch-005 review-order (reviewRank vzestupně, tiebreak companyId)
  *     — stejné pravidlo, kterým řadí spis; časová osa vzestupně podle data.
- *  3. PŘIZNÁNÍ: počty vyloučených (pending/rejected), smlouvy nad top-N řez a
- *     nedatované smlouvy se vracejí jako čísla k vysázení, nikdy se nezamlčí.
+ *  3. PŘIZNÁNÍ: počty vyloučených (pending/rejected), smlouvy nad top-N řez,
+ *     nedatované smlouvy a smlouvy s POTLAČENÝM nemožným datem se vracejí jako
+ *     čísla k vysázení, nikdy se nezamlčí. Poslední jmenované se navíc přiznává
+ *     v samotné CITACI vazby (`citeWithheldDates`) — číslo v patičce zůstane na
+ *     obrazovce, kdežto citace putuje do redakce.
  *  4. OTISK: fnv-1a/32 nad kanonickým JSON obsahu (bez compiledAt).
+ *     POZOR — OTISK SE U DOTČENÝCH VAZEB MĚNÍ, a je to čekané: řádky smluv do
+ *     otisku vstupují a u smlouvy s nemožným datem se v nich nově mění dvě věci
+ *     (datum zmizí, přibude `dateWithheldOn`). Dřív měla dvě různá tvrzení —
+ *     „datum nebylo" a „datum bylo nemožné" — jeden a týž otisk, a to druhé
+ *     nešlo z paketu vůbec poznat. Řádek BEZ potlačení serializuje beze změny
+ *     (`canonicalJson` vynechává `undefined`), takže se otisk hne JEN tam, kde
+ *     se změnil obsah. Změřeno na živém korpusu: všech 211 vazeb je
+ *     `pending_review`, takže dnes žádný vydaný paket žádnou vazbu nenese a
+ *     ANI JEDEN existující otisk se nemění.
  */
 export function compileEvidencePacket(
   detail: MoneyMpDetail,
@@ -297,7 +359,7 @@ export function compileEvidencePacket(
       compiledAt: opts.compiledAt,
     }),
   }));
-  const { events, undatedContracts } = deriveTimeline(ties);
+  const { events, undatedContracts, withheldDateContracts } = deriveTimeline(ties);
   const contractsOmitted = ordered.reduce((n, t) => n + t.contractsMoreCount, 0);
   const exclusions: PacketExclusions = { pending, rejected };
 
@@ -324,6 +386,7 @@ export function compileEvidencePacket(
     exclusions,
     contractsOmitted,
     undatedContracts,
+    withheldDateContracts,
     hash,
     hashAlgorithm: PACKET_HASH_ALGORITHM,
     source: detail.source,

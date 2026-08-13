@@ -119,7 +119,42 @@ export interface ContractLine {
   id: string;
   label: string;
   amountCzk: number | null;
+  /** ISO den podpisu tak, jak ho nese GRAF — včetně dat, která se nemohla stát
+   *  (korpus drží podpisy v letech 0002, 1970, 2027, 3062). SÁZET SE NESMÍ
+   *  přímo: jediná cesta na plochu je `displaySignedOn()` níž. */
   signedOn: string | null;
+  /**
+   * VERDIKT hranice možného data (`lib/analysis/plausible-date.ts`), přítomný
+   * JEN u řádku, u kterého graf datum nesl a hranice ho odmítla. Hodnotou je
+   * den, proti kterému se hranice kreslila, aby si test mohl čtenář zopakovat.
+   *
+   * Verdikt si nese sám ŘÁDEK, a to schválně: cestuje s tím, o čem je, takže
+   * „datum nebylo" a „datum bylo nemožné" jsou dvě různá tvrzení všude, kam se
+   * řádek dostane, a žádný spotřebitel k tomu nepotřebuje druhý seznam.
+   *
+   * PROČ SE `signedOn` NENULUJE, KDYŽ JE VERDIKT PŘÍTOMNÝ. `MoneyMpDetail` čte
+   * i spis poslance (`features/profile/profileMoney.ts`, commit 7d1e274) a ten
+   * si své `dateUnusable`/`unusableDates` PŘEPOČÍTÁVÁ z hrubé hodnoty. Kdyby ji
+   * loader vymazal, /poslanec by tiše přestal přiznávat vadná data — výpadek
+   * přiznání za dedup se neplatí. Hrubá hodnota tedy zůstává jako to, co graf
+   * říká, a rozhodnutí „tohle se nevykresluje" je verdikt vedle ní. Konečný tvar
+   * (jedna brána v `getMpDetail.ts`, spis čte `dateWithheldOn`) je změna dvou
+   * souborů mimo tuhle sadu a je vedená jako navazující krok.
+   */
+  dateWithheldOn?: string;
+}
+
+/**
+ * JEDINÁ cesta, kterou smí datum podpisu na plochu — vrací `null` u řádku,
+ * jehož datum hranice odmítla. Bez ní by každý spotřebitel `ContractLine`
+ * musel na verdikt myslet sám, a přesně na tom se `/penize/[pspId]` a
+ * `/penize/firma/[ico]` rozešly: firemní spis datum hlídal, spis poslance
+ * tiskl `{c.signedOn}` doslova a paket ho zapékal do svazku s otiskem.
+ *
+ * Datum se NIKDY neopravuje — jen se nevysází; řádek i částka zůstávají.
+ */
+export function displaySignedOn(c: Pick<ContractLine, "signedOn" | "dateWithheldOn">): string | null {
+  return c.dateWithheldOn != null ? null : c.signedOn;
 }
 
 /** A tie enriched with its top-N contract line items — the per-MP case-file view. */

@@ -51,6 +51,8 @@
  * vstupu proto dají tutéž knihu.
  */
 
+import { PLAUSIBLE_FROM } from "@/lib/analysis/plausible-date";
+
 export type DatedFactKind = "contract" | "roleStart" | "roleEnd" | "billAssigned" | "billPublished";
 
 export interface DatedFact {
@@ -128,9 +130,14 @@ export interface DatedFactOptions {
   limit?: number | null;
 }
 
-/** Registr smluv začíná 2016, ale rejstříkové role sahají do 90. let; hranice je
- *  vznik ČR. Pod ní a nad „dnes" už nejde o datum, ale o vadu dat. */
-export const PLAUSIBLE_FROM = "1993-01-01";
+/* Hranice možného data se sem od 2026-08-13 IMPORTUJE, nepřepisuje.
+ * `lib/analysis/plausible-date.ts` existuje s odůvodněním „aby hranice byla
+ * v celé aplikaci jedna a stejná" — a tenhle soubor si vedle něj deklaroval
+ * vlastní `PLAUSIBLE_FROM = "1993-01-01"` se stejnou hodnotou, ze kterého si ji
+ * pak IMPORTOVAL i deník (`features/denik/deriveDenik.ts`), takže konstanta,
+ * jejímž jediným smyslem je, že je jedna, měla dvě adresy a dva skoky.
+ * Hodnota je identická, takže se tím nemění, co /dashboard a /denik považují za
+ * nemožné datum — a to je na téhle změně to podstatné (dedup, ne oprava). */
 
 /** Kolik řádků kniha ukáže. Panel scrolluje; víc řádků z něj dělá výpis logu. */
 export const FEED_ROWS = 12;

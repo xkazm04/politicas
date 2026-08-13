@@ -44,7 +44,10 @@
  * v libovolném pořadí dají byte-identický deník — testy to přibíjejí.
  */
 
-import { PLAUSIBLE_FROM } from "@/features/dashboard/datedFacts";
+// Hranice možného data přímo z modulu, který ji vlastní — do 2026-08-13 sem
+// chodila přes `features/dashboard/datedFacts`, tedy dvouskokovou odbočkou
+// kolem konstanty, jejímž jediným smyslem je, že je jedna. Hodnota beze změny.
+import { PLAUSIBLE_FROM } from "@/lib/analysis/plausible-date";
 import { DECISION_CS, evidenceHref } from "@/features/dukazy/deriveFeed";
 import { canonicalIco } from "@/features/money/companyId";
 import { buildRegistryLinks } from "@/features/money/reviewTypes";
