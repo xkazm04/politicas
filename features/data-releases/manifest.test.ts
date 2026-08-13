@@ -67,6 +67,36 @@ describe("floorVerdicts", () => {
   });
 });
 
+/*
+ * PRÁH SMLUV JE ZASE PRÁH (2026-08-13).
+ *
+ * `contract` stál na 1 500 proti korpusu 152 788 (peněžní dávka 012,
+ * 2026-07-27) — 0,98 %. Vydávací brána tedy tiskla `contract · 152 788 ·
+ * ≥ 1 500 · SPLNĚNO` a razítkovala verzi `latest`; přesně tak by orazítkovala
+ * i store, který o 98,7 % korpusu přišel. Test drží obě strany: katastrofa
+ * musí propadnout, dnešní korpus musí projít. Zdroj čísla:
+ * docs/data-analysis/case-money/ledger.md, „Batch 012".
+ */
+describe("vydávací brána: práh smluv je práh, ne dekorace", () => {
+  const CONTRACT_CORPUS = 152_788;
+
+  it("ztráta 99 % smluvního korpusu je pod prahem a degraduje vydání", () => {
+    const survivors = Math.round(CONTRACT_CORPUS * 0.01); // 1 528 — nad starým prahem 1 500
+    expect(floorVerdicts({ contract: survivors }).find((v) => v.kind === "contract")?.ok).toBe(false);
+    const stats = healthyStats();
+    stats.kindCounts = stats.kindCounts.map((k) =>
+      k.kind === "contract" ? { ...k, count: survivors } : k,
+    );
+    expect(deriveReleaseManifest(stats).degraded).toBe(true);
+  });
+
+  it("dnešní korpus prochází — brána hlídá katastrofu, ne vlastní store", () => {
+    expect(floorVerdicts({ contract: CONTRACT_CORPUS }).find((v) => v.kind === "contract")?.ok).toBe(
+      true,
+    );
+  });
+});
+
 describe("deriveReleaseManifest", () => {
   it("verzi řeže nejnovější dokončený úspěšný běh", () => {
     const m = deriveReleaseManifest(healthyStats());

@@ -2,13 +2,46 @@ import { reportLoaderFailure } from "./loaderGuard";
 import type { Store } from "./store";
 
 /**
- * Cardinality floors ≈70 % of the 2026-07-24 ingest (207 persons / 196
- * companies / 141 bills / 101 laws / 2 287 contracts). PGlite creates a
- * missing data dir as an empty-but-healthy store, so "mid-ingest" and
- * "broken" are otherwise indistinguishable from real data — a half-ingested
- * graph would render partial numbers with real citations (the brand rule
- * inverted). Public loaders call storeReady() and degrade to their fallback
- * below a floor. Raise the floors alongside major ingests.
+ * Cardinality floors — the readiness gate every public loader passes through
+ * AND the release gate `/data` renders (features/data-releases/manifest.ts:
+ * a kind below its floor makes the release `degraded`, never `latest`).
+ *
+ * PGlite creates a missing data dir as an empty-but-healthy store, so
+ * "mid-ingest" and "broken" are otherwise indistinguishable from real data — a
+ * half-ingested graph would render partial numbers with real citations (the
+ * brand rule inverted). Public loaders call storeReady() and degrade to their
+ * fallback below a floor.
+ *
+ * THE RULE: a floor is ~65–72 % of the corpus it guards AT THE INGEST THAT
+ * LAST GREW IT — low enough that an ordinary re-ingest (de-duplication, a
+ * dropped superseded version) never blacks out the product, high enough that a
+ * catastrophic loss fails it. So the next ingest can check them, each floor is
+ * recorded against the corpus it was set from:
+ *
+ *   kind      floor    corpus at the ingest that set it       share
+ *   person      150    207   psp.cz PSP10 mandates, 2026-07-24  72 %
+ *   company     140    196   ARES ⋈ Hlídač join, pass 10        71 %
+ *   bill        100    141   psp.cz tisky, pass 11              71 %
+ *   law          70    101   e-Sbírka, pass 11                  69 %
+ *   contract 100 000   152 788 Registr smluv bulk dumps,        65 %
+ *                            money batch 012, 2026-07-27
+ *
+ * WHY `contract` IS ROUNDER THAN THE REST: the four small kinds are stable
+ * registers re-read whole; the contract corpus is a 123-month bulk re-ingest
+ * (~26 GB streamed) whose row count moves in tens of thousands when the
+ * version rule changes — batch 012 alone dropped 13 174 superseded versions.
+ * 100 000 is the roundest number under the ~70 % line, which buys that
+ * headroom without lowering the gate to decoration.
+ *
+ * WHY THIS COMMENT NOW: `contract` sat at 1 500 from 2026-07-24 to 2026-08-13
+ * against a corpus of 152 788 — 0,98 % — because the floor was not raised in
+ * the change that grew the corpus 2 287 → 152 788 the very next day
+ * (docs/data-analysis/case-money/ledger.md, "Batch 012"). `/data` therefore
+ * printed `contract · 152 788 · ≥ 1 500 · SPLNĚNO` and stamped the version
+ * `latest` — and would have stamped a store that had lost 98,7 % of its
+ * contracts exactly the same way. RAISE A FLOOR IN THE SAME CHANGE THAT GROWS
+ * ITS CORPUS: a floor two orders of magnitude below what it guards certifies
+ * catastrophe as a release.
  * See docs/architect/decisions/2026-07-26-ingest-readiness-guard.md.
  */
 export const CARDINALITY_FLOORS = {
@@ -16,7 +49,7 @@ export const CARDINALITY_FLOORS = {
   company: 140,
   bill: 100,
   law: 70,
-  contract: 1500,
+  contract: 100_000,
 } as const;
 
 export type FloorKind = keyof typeof CARDINALITY_FLOORS;
