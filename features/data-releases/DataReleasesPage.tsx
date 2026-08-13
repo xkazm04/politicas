@@ -19,17 +19,24 @@ import { Download, ExternalLink } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { DASHBOARD_REVALIDATE_HOURS } from "@/features/dashboard/freshness";
 import { formattersFor } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
 import { CARDINALITY_FLOORS } from "@/lib/db/readiness";
-import { bytesToMegabytes, SNAPSHOT_EDGE_CAP, SNAPSHOT_NODE_CAP } from "./snapshot";
+import {
+  bytesToMegabytes,
+  snapshotCasualties,
+  SNAPSHOT_EDGE_CAP,
+  SNAPSHOT_NODE_CAP,
+  type SnapshotCut,
+} from "./snapshot";
 import {
   FEED_ADDRESSES,
   FEED_FAMILIES,
   FEED_FORMATS,
   MACHINE_ENDPOINTS,
 } from "./feedIndex";
-import type { DataReleasesData } from "./getDataReleasesData";
+import type { DataReleasesData, SnapshotFacts } from "./getDataReleasesData";
 
 /** sha256 kořeny mají 64 znaků — v tabulce se sází zkrácený otisk, plná
  *  hodnota zůstává v title (a strojově v /data/manifest.json). */
@@ -42,6 +49,174 @@ function StoreDownState() {
       <p className="text-lg">{t("storeDown.body")}</p>
       <div className="mt-3">
         <SourceNote>{t("storeDown.source")}</SourceNote>
+      </div>
+    </div>
+  );
+}
+
+/** Číslo výřezu proti číslu store — párový údaj, nikdy jen ten první. */
+function CutFigure({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="bg-paper px-4 py-3">
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">{label}</p>
+      <p className="mt-1 font-mono text-lg font-black tabular-nums">{value}</p>
+    </div>
+  );
+}
+
+/**
+ * Složení výřezu po druzích. Řádek s `included === 0` je TA ZPRÁVA — druh,
+ * ze kterého stažený soubor nenese nic — a sází se v signální barvě, ne jako
+ * nula k přehlédnutí.
+ */
+function CutTable({
+  titleKey,
+  keyColKey,
+  cuts,
+  locale,
+}: {
+  titleKey: string;
+  keyColKey: string;
+  cuts: SnapshotCut[];
+  locale: Locale;
+}) {
+  const t = useTranslations("dataReleases");
+  const f = formattersFor(locale);
+  return (
+    <div>
+      <h4 className="font-mono text-[11px] font-bold uppercase tracking-widest">{t(titleKey)}</h4>
+      <div className="mt-2 overflow-x-auto">
+        <table className="w-full border-collapse text-left">
+          <thead>
+            <tr className="border-b-2 border-ink font-mono text-xs uppercase tracking-widest text-steel-aa">
+              <th className="py-2 pr-4 font-bold">{t(keyColKey)}</th>
+              <th className="py-2 pr-4 text-right font-bold">{t("download.cut.colIncluded")}</th>
+              <th className="py-2 pr-4 text-right font-bold">{t("download.cut.colTotal")}</th>
+              <th className="py-2 font-bold">{t("download.cut.colState")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cuts.map((c) => {
+              const absent = c.included === 0;
+              const partial = c.included > 0 && c.included < c.total;
+              return (
+                <tr key={c.key} className="border-b border-hairline">
+                  <td className="py-2 pr-4 font-mono text-sm">{c.key}</td>
+                  <td className="py-2 pr-4 text-right font-mono text-sm tabular-nums">{f.int(c.included)}</td>
+                  <td className="py-2 pr-4 text-right font-mono text-sm tabular-nums text-steel-aa">
+                    {f.int(c.total)}
+                  </td>
+                  <td className="py-2">
+                    <span
+                      className={`px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-widest ${
+                        absent ? "bg-signal-deep text-paper" : partial ? "border border-ink" : "bg-ink text-paper"
+                      }`}
+                    >
+                      {absent
+                        ? t("download.cut.stateAbsent")
+                        : partial
+                          ? t("download.cut.statePartial")
+                          : t("download.cut.stateFull")}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * CO VE VÝŘEZU NENÍ.
+ *
+ * Strop byl přiznaný od začátku; ZTRÁTA ne — a protože jsou obě čtení seřazená,
+ * výřez je abecední PREFIX, ne vzorek: nemizí poměrný vzorek, ale celé druhy
+ * uzlů a celé vztahy hran. Čísla i složení jsou TÁŽ `limits`, jaká nese stažený
+ * soubor (jedna stavba, dvě plochy), takže se stránka a payload nemají jak
+ * rozejít. `facts === null` znamená, že se výřez nepodařilo přečíst — pak se
+ * neříká nic o obsahu souboru, ne že je prázdný.
+ */
+function CutBlock({ facts, locale }: { facts: SnapshotFacts | null; locale: Locale }) {
+  const t = useTranslations("dataReleases");
+  const f = formattersFor(locale);
+  if (facts === null) {
+    return (
+      <div className="mt-8 border-2 border-dashed border-hairline p-6">
+        <p className="text-base leading-relaxed">{t("download.cut.unavailable")}</p>
+        <div className="mt-3">
+          <SourceNote>{t("download.cut.unavailableSource")}</SourceNote>
+        </div>
+      </div>
+    );
+  }
+  const { limits } = facts;
+  const lost = snapshotCasualties(limits);
+  return (
+    <div className="mt-10 border-t-2 border-ink pt-6">
+      <h3 className="font-mono text-sm font-bold uppercase tracking-widest">{t("download.cut.title")}</h3>
+      <div className="mt-4 grid gap-px border-2 border-ink bg-ink sm:grid-cols-2 lg:grid-cols-4">
+        <CutFigure
+          label={t("download.cut.nodesLabel")}
+          value={t("download.cut.ofTotal", {
+            n: f.int(limits.nodesIncluded),
+            total: f.int(limits.nodesTotal),
+          })}
+        />
+        <CutFigure label={t("download.cut.missingNodesLabel")} value={f.int(lost.nodesMissing)} />
+        <CutFigure
+          label={t("download.cut.edgesLabel")}
+          value={t("download.cut.ofTotal", {
+            n: f.int(limits.edgesIncluded),
+            total: f.int(limits.edgesTotal),
+          })}
+        />
+        <CutFigure label={t("download.cut.missingEdgesLabel")} value={f.int(lost.edgesMissing)} />
+      </div>
+
+      {limits.truncated ? (
+        <>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">
+            {t("download.cut.rule", { nodeCap: f.int(limits.nodeCap), edgeCap: f.int(limits.edgeCap) })}
+          </p>
+          {(lost.absentKinds.length > 0 || lost.absentRels.length > 0) && (
+            <div className="mt-4 max-w-2xl border-l-4 border-signal-deep bg-paper-strong px-4 py-3">
+              {lost.absentKinds.length > 0 && (
+                <p className="text-sm leading-relaxed">
+                  {t("download.cut.absentKinds", { keys: lost.absentKinds.join(" · ") })}
+                </p>
+              )}
+              {lost.absentRels.length > 0 && (
+                <p className="mt-1 text-sm leading-relaxed">
+                  {t("download.cut.absentRels", { keys: lost.absentRels.join(" · ") })}
+                </p>
+              )}
+              <p className="mt-2 text-sm leading-relaxed text-steel-aa">{t("download.cut.absentMeaning")}</p>
+            </div>
+          )}
+        </>
+      ) : (
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">{t("download.cut.complete")}</p>
+      )}
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+        <CutTable
+          titleKey="download.cut.nodeTableTitle"
+          keyColKey="download.cut.colKind"
+          cuts={limits.nodeKinds}
+          locale={locale}
+        />
+        <CutTable
+          titleKey="download.cut.edgeTableTitle"
+          keyColKey="download.cut.colRel"
+          cuts={limits.edgeRels}
+          locale={locale}
+        />
+      </div>
+      <div className="mt-3">
+        <SourceNote>{t("download.cut.source")}</SourceNote>
       </div>
     </div>
   );
@@ -313,19 +488,27 @@ export default function DataReleasesPage({
                   <Download className="h-4 w-4" aria-hidden />
                   {data.snapshotFilename}
                 </a>
-                <span className="font-mono text-sm tabular-nums text-steel-aa">
-                  {t("download.size", {
-                    mb: f.dec(bytesToMegabytes(data.snapshotBytes)),
-                    bytes: f.int(data.snapshotBytes),
-                  })}
-                </span>
+                {data.snapshot && (
+                  <span className="font-mono text-sm tabular-nums text-steel-aa">
+                    {t("download.size", {
+                      mb: f.dec(bytesToMegabytes(data.snapshot.bytes)),
+                      bytes: f.int(data.snapshot.bytes),
+                    })}
+                  </span>
+                )}
               </div>
-              <div className="mt-3">
-                <SourceNote>{t("download.sizeNote")}</SourceNote>
-              </div>
+              {data.snapshot && (
+                <div className="mt-3">
+                  <SourceNote>
+                    {t("download.sizeNote", { hours: f.int(DASHBOARD_REVALIDATE_HOURS) })}
+                  </SourceNote>
+                </div>
+              )}
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">
                 {t("download.body")}
               </p>
+
+              <CutBlock facts={data.snapshot} locale={locale} />
             </section>
 
             {/* ── /04 Changelog ── */}
