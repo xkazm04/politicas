@@ -474,7 +474,12 @@ async function loadLawData(): Promise<LawData | null> {
         organUrn: e.dst,
         organLabel: organLabelByUrn.get(e.dst) ?? e.dst,
         role: asStr(p.role) ?? "dalsi",
-        status: asStr(p.status) ?? "navrzeno",
+        // NE `?? "navrzeno"`: chybějící prop by se vykreslil jako faktické tvrzení
+        // o legislativním kroku, který zdroj neuvádí. Táž vada, jakou 6a30205
+        // odstranil na straně PARSERU (`STATUS_BY_TYP[…] ?? "navrzeno"`) — tady
+        // seděla i na straně ČTENÍ, takže hranu zapsanou starším průchodem bez
+        // `status` by /zakony pořád tvrdilo jako „navrženo".
+        status: asStr(p.status) ?? "unknown",
         assignedOn: asStr(p.assignedOn),
       });
       committeesByBill.set(e.src, arr);

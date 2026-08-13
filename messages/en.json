@@ -1959,7 +1959,8 @@
     "committeeStatus": {
       "prikazano": "referred",
       "navrzeno": "proposed",
-      "iniciativne": "taken up on own initiative"
+      "iniciativne": "taken up on own initiative",
+      "unknown": "the source labelled no step"
     },
     "diffOp": {
       "modified": "amended",

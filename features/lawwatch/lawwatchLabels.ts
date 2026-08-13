@@ -14,7 +14,13 @@
 export const COMMITTEE_ROLE_KEYS: ReadonlySet<string> = new Set(["garancni", "dalsi"]);
 
 /** assigned_to.props.status tokens with a `lawwatch.committeeStatus.*` label. */
-export const COMMITTEE_STATUS_KEYS: ReadonlySet<string> = new Set(["prikazano", "navrzeno", "iniciativne"]);
+/** `unknown` je čtvrtý PLNOPRÁVNÝ token, ne díra: parser od 6a30205 mapuje
+ *  nezdokumentovaný `hist_vybory.typ` (v dumpu existuje `typ = 4`) výslovně na
+ *  „unknown" místo na nejslabší SKUTEČNÝ status — domácí doktrína
+ *  packages/czech-civic-data/src/normalize.ts. Má tu svůj klíč proto, aby ho
+ *  čtenář dostal jako větu, ne jako holý token; neznámý token MIMO tenhle výčet
+ *  se pořád sází doslova (BillDetail.tsx). */
+export const COMMITTEE_STATUS_KEYS: ReadonlySet<string> = new Set(["prikazano", "navrzeno", "iniciativne", "unknown"]);
 
 /** Forensic severity tokens with a `lawwatch.severity.*` label. */
 export const SEVERITY_KEYS: ReadonlySet<string> = new Set(["low", "medium", "high"]);

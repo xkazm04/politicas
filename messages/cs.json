@@ -1959,7 +1959,8 @@
     "committeeStatus": {
       "prikazano": "přikázáno",
       "navrzeno": "navrženo",
-      "iniciativne": "projednáno iniciativně"
+      "iniciativne": "projednáno iniciativně",
+      "unknown": "krok zdroj neoznačil"
     },
     "diffOp": {
       "modified": "změněno",
