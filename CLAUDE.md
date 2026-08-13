@@ -1899,6 +1899,45 @@ Route map (politicas.md roadmap execution, sample data):
   gone. (`features/dashboard/entityLinks.ts` keeps its own `denikEntityHref` on
   purpose — importing `followCodec` there is not worth the reshuffle, and both are
   pinned by tests.)
+  **/dukazy counts what it throws away, and publishes the chain (2026-08-13).**
+  The gate bulletin's empty state rendered **„0 řádků; žádný záznam není
+  zamlčen"** while the same request read every bill node and discarded **141
+  `pending_review` forensic verdicts, uncounted** — and `section.source` two
+  lines above cited `kg_node bill.forensic_*` as a source. The journal is a
+  QUEUE AT CAPACITY and read as a dead feature. `isPublishedForensic` is now the
+  ONE predicate for both the filter and `withheldForensic()`, the count renders
+  with its verbatim state tokens, and **„nothing is suppressed" became a DERIVED
+  conclusion** (`limits.nothingWithheld`), spoken only when the cap did not bind,
+  the queue is empty AND all three layers were read. The three silent `catch`
+  blocks now travel their outcome to the reader (`forensicRead` /
+  `tieSourcesRead` / `labelsRead`), each naming the fidelity that was LOST rather
+  than implying absent data, and `section.sourceNoForensic` stops citing a source
+  the loader failed to read. Both feeds stopped asserting „každé rozhodnutí" over
+  a 10 000-row capped read — the shared cap clause is **composed by `/denik`'s own
+  `denikFeedNotice()`, imported and pinned to byte-identity with it**, not written
+  a second time. Two `limit: 100_000` literals went through `KG_READ_CAP`.
+  Found on the way and worth keeping: **the Czech language gate SKIPPED ICU plural
+  branches**, so the new 141-verdict sentence would have entered ungated; the gate
+  now strips only ICU keywords (the /denik precedent) and English inside a `few`
+  branch fails.
+  And the bulletin of the hash chain finally publishes the chain: `review_audit`
+  carries `chain_pos`/`prev_hash`/`row_hash`, the columns were SELECTed and then
+  dropped by the mapper, so a journalist could not verify a single published
+  decision — while the only pointer offered was `/admin`, which is `ADMIN_TOKEN`
+  gated AND in `DISALLOWED_PATHS`, and the PUBLIC `/data` was already rendering
+  chain length and head hash. Chain position and row hash now render per row and
+  in both feeds, `method.body` points at `/data` (a test bans `/admin` across the
+  whole namespace), and the note states what the chain proves — ORDER and
+  non-tampering, explicitly **not** correctness. Receipts use the ONE ref grammar:
+  `edgeClaimRef` imported, then **decoded back and refused on mismatch**, and
+  `AuditRowLike.rel` is required so the ref cites the row's own relation rather
+  than a hardcoded `linked_to`. The shared row fields are additive and optional,
+  and that is proved EMPIRICALLY over a real PGlite (`chainRow.test.ts` writes two
+  decisions, reads them back through the mapper, and `verifyAuditChain` passes over
+  fields built exclusively from the mapper's output; falsified by nulling the
+  mapper → `gap-in-chain-pos`). `feedIndex.ts`'s existing promise that this family
+  carries a chain link was made TRUE rather than edited — it belongs to another
+  surface's write set, and the payload was the honest place to fix it.
 - `/data` — **Datové verze** (features/data-releases): the release train of the
   data layer (version, cut date, cardinality gates, integrity, snapshot,
   changelog). **It is also the app's feed address book since 2026-08-04** — four
@@ -1933,6 +1972,95 @@ Route map (politicas.md roadmap execution, sample data):
   because no route records one and the build clock is not a content date.
   `publicRoutes.test.ts` scans `app/` and fails on any static public page missing
   from the sitemap.
+  **The snapshot says what is NOT in it (2026-08-13).** `/data` offered a
+  downloadable „civic graph snapshot" under the words „Co si stáhnete dnes,
+  můžete citovat", and the artifact **contained no politicians at all**:
+  `SNAPSHOT_NODE_CAP = 20 000` against ~153 720 nodes read `order by id limit`,
+  i.e. an ALPHABETICAL PREFIX, not a sample. Measured on a real store copy, the
+  cut is `bill 141 · bloc 2 · company 214 · contract 19 643` — **absent: law
+  (293), notice (20), organ (33), party (8), person (207), theme (14)**. Edges
+  are worse: ordered `src, rel, dst`, so the window is `amends 582 ·
+  assigned_to 150 · owns_stake 2 · supplies 19 266` and **11 of 15 relations are
+  absent, including `linked_to` (211)** — every human-gated MP↔company tie, plus
+  `co_votes_with` (20 496) and `sponsors` (528). `buildSnapshot` already computed
+  `truncated`/`nodesIncluded`/`nodesTotal` correctly and `DataReleasesData`
+  carried NONE of them, while §01 printed the full corpus count. `limits` now
+  carries `nodeKinds`/`edgeRels` (in-cut vs in-store), measured **on the very
+  rows that ship**, with totals from the census the manifest already read —
+  **zero new store reads** — and §03 prints the four figures, the
+  prefix-not-a-sample rule, the named absent kinds and relations, and two
+  composition tables. The page and `/data/snapshot.json` cannot disagree:
+  `loader.test.ts` compares the page's `limits` against the **parsed serialized
+  payload**, not the type. **Raising the cap was ruled out**, not overlooked — a
+  bigger silent prefix is still a silent prefix. Same pass: the page stopped
+  building a ~27 MB JSON string and a second ~28 MB encoder buffer **per view**
+  to keep one integer (`measureSnapshotBytes()`, byte-identical on the real
+  artifact at 28 758 744 B, 495 ms vs 693 ms, post-GC retained heap −54,3 MB),
+  memoized on `MONEY_MEMO_TTL_MS` **keyed on `manifestHash`** so any ingest
+  self-invalidates; only numbers are cached, never rows, and the download never
+  reads the memo. Honest limit: the `warnIfTruncated` false positives (two per
+  view — `/data` was burying the repo's own early-warning signal for real silent
+  loss) are reduced to twice per manifest fingerprint plus once per download, not
+  to zero; eliminating them needs a declared-cap opt-out in
+  `lib/db/pglite/{internals.ts,repositories/kg.ts}` and is recorded as a
+  follow-up rather than smuggled in.
+  **The contract floor stopped certifying a catastrophe as `latest`
+  (2026-08-13).** `CARDINALITY_FLOORS.contract` stood at 1 500 against 152 788 —
+  **0,98 %** — so the release gate printed `SPLNĚNO` and `deriveReleaseManifest`
+  stamped `latest`/`degraded: false`, and would have done exactly the same for a
+  regression that deleted 98,7 % of the contract corpus. The floors last moved
+  2026-07-26; money batch 012 grew contracts 2 287 → 152 788 the NEXT DAY and the
+  floor did not follow, while the doc comment still described the store two
+  orders of magnitude off and instructed raising floors alongside major ingests.
+  Now 100 000 (65 %), **and only that floor moved** — `storeReady()` reads the
+  same table for every public loader, so an over-aggressive floor takes the whole
+  product to its fallback. The rule is written in code against the corpus each
+  floor guards, with the corpus and ingest that set it recorded per row, so the
+  next ingest has something to check against. Pinned both ways: a 99 % loss
+  (1 528 survivors — **above the old floor**) degrades the release; today's
+  corpus passes.
+- `/atlas` — **Atlas kvality otevřených dat** (features/atlas, thin route
+  `app/atlas/page.tsx`, machine twin `app/atlas/atlas.json`). Per-source
+  data-quality scorecard: coverage / freshness / integrity / completeness, each
+  0–100, each printing the rule that produced it. Pure derivation over three
+  read-only store queries plus a census (nine queries in total — the loader's own
+  header saying „tři čtení" is wrong and its `cache()` comment nine lines down is
+  right). **Unrated is structurally never zero** — the discriminated union
+  carries no `score` field on the unrated arm — and that discipline is enforced
+  in the derivation, in the sort (`sortScore` returns `null`, unrated always
+  last) and in the landing's `sourceStates.ts`. `now` is an INPUT, never
+  `Date.now()` inside the pure layer, and byte-identical output under input
+  reordering is asserted by test.
+  **The atlas admits how many sources it cannot score (2026-08-13).** It scored
+  **three**; the platform declares **twelve**. The nine invisible ones included
+  `smlouvy` and `dataor` — the entire data foundation of `/penize` — so a reader
+  checking the quality of the data behind the module that names companies and
+  contracts found no card at all, and the page silently implied the platform had
+  three sources. `INGESTED_SOURCES` now declares all twelve with the LANDING each
+  one's rows reach (`entity` / `graph` / `generated-module` / `none`) and
+  `unscoredSources()` derives the nine, at zero new store reads. **An unscored
+  source deliberately carries NO number**: four `nehodnoceno` scores would assert
+  „this source has no rows in the store", which is false — the reason is stated
+  as a limit of OUR pipeline (`kg_node`/`kg_edge` have no `source` column and no
+  `ingest_run_id`, so no join key runs to `ingest_run`) and says explicitly that
+  the data IS in the store. Scoring `kg_*` coverage was ruled OUT of scope: it
+  would break the integrity rule's printed claim that the sealed tables and the
+  scored tables are the same set — name the gap, do not close it by loosening a
+  printed rule. Two brief claims were corrected by the builder against the tree
+  and are worth keeping: `volby-ps2025-candidates` has **no importer outside its
+  own test**, and `monitor-statni-pokladna` reaches no table at all (`/rozpocty`
+  reads checked-in `features/budget/data/*.generated.ts`).
+  **The printed rule cannot drift from the score (2026-08-13).** The rule existed
+  TWICE — `ATLAS_RULES` for `/atlas/atlas.json`, four catalog strings for the HTML
+  page — byte-identical but bound by nothing; the only test compared the object to
+  itself. The catalog stays the RENDER source (so the English reader gets real
+  English) and the constant stays the PUBLISH source, and the test asserts the
+  **Czech string after ICU substitution is byte-identical to `ATLAS_RULES`** while
+  the English must NOT equal it and must pass `looksEnglish`. `ATLAS_RULE_PARAMS`
+  is the one declaration of the thresholds and parameterises both catalogs, so a
+  constant change reflows the machine rule and both locales from one edit
+  (demonstrated). `features/atlas/messages.test.ts` is the feature's first — it was
+  the only catalogued surface without one.
 - `/schranka` — **Občanská schránka** (features/schranka): a follow list with no
   account — the whole state is one localStorage record (`politicas:schranka:v1`,
   `followCodec.ts`) keyed by the SAME public entity keys `/denik` addresses with
