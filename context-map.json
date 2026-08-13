@@ -1378,7 +1378,7 @@
       ]
     },
     {
-      "api_surface": "smlouvy.gov.cz API, ARES VR API, kiosek.gov.cz, monitor.statnipokladna.cz, volby.cz",
+      "api_surface": "smlouvy.gov.cz API, ARES VR API, kiosek.justice.cz, monitor.statnipokladna.gov.cz, volby.cz",
       "business_feature": "External Open-Data Ingestion",
       "category": "lib",
       "cross_refs": [
@@ -1389,7 +1389,7 @@
         "kg_node",
         "kg_edge"
       ],
-      "description": "Adapters for external open-data sources beyond psp.cz: Smlouvy.gov.cz contract registry (both API and full dump), ARES/dataor company registry, kiosek subsidy data (including PDF parsing), Monitor state budget, pumper (batch orchestration helper), and Czech election results (volby.cz). These adapters feed the FollowTheMoney money graph with contract amounts, company roles, and subsidy flows.",
+      "description": "Adapters for external open-data sources beyond psp.cz: Smlouvy.gov.cz contract registry (both API and full dump), ARES/dataor company registry, kiosek (kiosek.justice.cz — the courts' and prosecutors' official notice boards, \"úřední desky\", incl. PDF parsing; NOT subsidy data), Monitor state budget, pumper (batch orchestration helper), and Czech election results (volby.cz). These adapters feed the FollowTheMoney money graph with contract amounts and company roles; subsidies come from lib/analysis/money-feed.ts, not from any adapter here. volby.ts has no importer and no table — /atlas declares it landing: \"none\".",
       "entry_points": [
         "lib/ingest/sources/smlouvy.ts",
         "lib/ingest/sources/smlouvy-dump.ts",
