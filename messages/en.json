@@ -94,6 +94,7 @@
     "followInbox": "overview in your inbox"
   },
   "nav": {
+    "skipToContent": "Skip to content",
     "sidebarLabel": "Main navigation",
     "modules": "modules",
     "overview": "control room",
@@ -2826,18 +2827,31 @@
     "lead": "Every decision that passes human review — verifying or rejecting an MP ↔ company tie, requesting additional evidence, a signed forensic report — becomes a public, dated, permanently linkable record here. The gate itself is a publication event.",
     "method": {
       "kicker": "publication method",
-      "body": "What is published: the ruling, the subject, the date, the reviewer's role and links to the primary registers — never the reviewer's working notes. “Additional evidence requested” is not a verdict: the tie keeps waiting for review. The record's verifiability (audit trail and vault heads) is held by the <admin>operations console /admin</admin>."
+      "body": "What is published: the ruling, the subject, the date, the reviewer's role and links to the primary registers — never the reviewer's working notes. “Additional evidence requested” is not a verdict: the tie keeps waiting for review. Every decision carries its position in the append-only chain and the fingerprint of its own row; the chain's length and its head are published openly on the <data>data releases page</data>."
+    },
+    "chain": {
+      "pos": "chain — position {pos}",
+      "unchained": "chain — this row has no place in it; it was written before the chain existed",
+      "note": "The row fingerprint proves ORDER and non-tampering: that the decision was recorded exactly here and has not changed since. It does not prove the decision is right — that is the human reviewer's call, and anyone can weigh it against the links to the primary registers. The chain's head and length are also served machine-readably by the <manifest>data manifest</manifest>."
     },
     "section": {
       "title": "Decisions",
       "source": "source: review_audit ({rows} rows) + kg_node bill.forensic_*",
+      "sourceNoForensic": "source: review_audit ({rows} rows); the kg_node bill.forensic_* layer could not be read",
       "sourceFloor": "the read stopped at the cap of {cap} rows, so the figure above is a floor, not a count of the gate's decisions"
+    },
+    "limits": {
+      "withheld": "{n, plural, one {{nFmt} forensic report is waiting at the human gate} other {{nFmt} forensic reports are waiting at the human gate}} — the journal carries a report only once it is signed, so you will not find them here; state in the graph: {states}",
+      "forensicUnread": "the signed-reports layer could not be read — a signed report may exist and this journal does not know about it; that is not a claim that none exists",
+      "tieSourcesUnread": "the ties' provenance could not be read — the citations on the records therefore name only the tables, not the original source the tie came from",
+      "labelsUnread": "the names of both ends of the tie could not be read — the records therefore name graph nodes by their urns, not people and companies",
+      "nothingWithheld": "the read cap did not bind, all three layers were read and no report is waiting at the gate — nothing is withheld in this edition"
     },
     "unreadable": "The records cannot be loaded right now — the store is unavailable in this environment. This page cannot say whether any decisions exist; the journal is not empty, just unreadable.",
     "empty": {
       "lead": "The journal is empty so far",
       "body": "No decision has passed the human gate yet — the first verified or rejected tie will appear here the moment a reviewer decides it in the <kontrola>/penize/kontrola</kontrola> console.",
-      "note": "source: review_audit — 0 rows; no record is suppressed"
+      "note": "source: review_audit — {rows} rows"
     },
     "entry": {
       "permalinkAria": "Permanent link to record {id}",
@@ -2847,6 +2861,10 @@
       "sourceTie": "source: review_audit · kg_edge linked_to",
       "sourceTieDetail": "source: review_audit · kg_edge linked_to · {detail}",
       "sourceForensic": "source: kg_node bill.forensic_* · severity {detail}",
+      "receipt": "permanent receipt",
+      "receiptAria": "Permanent receipt for the record of the tie {subject}",
+      "companyFile": "company money file",
+      "companyFileAria": "Money case file of the company in the tie {subject}",
       "denikDay": "that day in the journal of the republic",
       "denikDayAria": "Journal of the Republic — the day of the decision on {subject}"
     },
@@ -3006,7 +3024,7 @@
       },
       "freshness": {
         "label": "freshness",
-        "rule": "Age = today minus the finish of the source’s last successful ingest run. Score 100 at age ≤ cadence, then linear to 0 at age = 3× cadence. In words: ≤ cadence is “fresh”, ≤ 2× cadence “aging”, beyond 2× cadence “stale”. Cadence is politicas’ declared expectation, not the publisher’s SLA. Without a declared cadence or a successful run = unrated."
+        "rule": "Age = today minus the finish of the source’s last successful ingest run. Score 100 at age ≤ cadence, then linear to 0 at age = {zero}× cadence. In words: ≤ cadence is “fresh”, ≤ {stale}× cadence “aging”, beyond {stale}× cadence “stale”. Cadence is politicas’ declared expectation, not the publisher’s SLA. Without a declared cadence or a successful run = unrated."
       },
       "integrity": {
         "label": "integrity",
@@ -3014,7 +3032,7 @@
       },
       "completeness": {
         "label": "completeness",
-        "rule": "100 minus 10 points for every admitted upstream gap (KNOWN ISSUES in the source context, lib/analysis/context-model.ts), floored at 0. A low score is a statement about the publisher’s data, not about politicas’ processing — gaps are admitted, not hidden. A source without a processed context = unrated (undocumented ≠ complete)."
+        "rule": "100 minus {points} points for every admitted upstream gap (KNOWN ISSUES in the source context, lib/analysis/context-model.ts), floored at 0. A low score is a statement about the publisher’s data, not about politicas’ processing — gaps are admitted, not hidden. A source without a processed context = unrated (undocumented ≠ complete)."
       }
     },
     "staleness": {
@@ -3046,6 +3064,24 @@
       "knownIssues": "{count} admitted upstream gaps",
       "contextProvenance": "context provenance: {provenance}",
       "source": "source: entity tables (provenance quartet) + ingest_run (runs, Merkle roots from LedgerRepository.sealIngestRun) + source context (lib/analysis/context-model.ts)"
+    },
+    "unscored": {
+      "title": "Sources beyond the atlas’s reach",
+      "aside": "source: the source registry (lib/analysis/atlas.ts) — a declaration in code, not a measurement",
+      "lead": "Politicas works with {declared} sources. This page can rate {scored} of them; the remaining {unscored} it cannot. Saying nothing about them would amount to claiming the platform only has the rated ones — and the two that carry the whole public-money module are among those left unsaid. None of them gets a number here: each gets a sentence naming where its rows land and why the atlas cannot measure them. A zero would be a statement about data quality; this is a statement about what our own storage cannot do.",
+      "source": "source: the source registry in lib/analysis/atlas.ts; every row names the module that reads that source — verifiable in the repository",
+      "scopeNote": "Why the atlas is not simply widened: the integrity rule printed beside every score states that the sealed set of tables and the rated set are the same. Scoring the knowledge graph would mean loosening that rule before the pipeline can do what it promises. So the limit is named rather than pushed through a printed rule — connecting these sources is a change to ingest and to the ledger, not to this page.",
+      "landingNote": "Listed here are the sources the atlas can measure — {shown}. Politicas reads {declared}; for the remaining {unscored} the atlas states why it cannot measure them.",
+      "landing": {
+        "graph": "lands in the knowledge graph (kg_node / kg_edge)",
+        "generatedModule": "frozen into a generated module in the repository",
+        "none": "nothing in the product reads it"
+      },
+      "reason": {
+        "graph": "This source’s rows land in kg_node/kg_edge. Those tables have no source column and no ingest_run_id — provenance in them is free text in a provenance.ref field, so no join key runs between a row and the ingest_run table. Provenance coverage, freshness and the Merkle seal therefore cannot be measured for them. This is a limit of OUR pipeline, not a statement about the publisher: the data is in the store, the atlas just has no measurable link to it.",
+        "generatedModule": "This source’s harvest is frozen into a generated module in the repository, which the page reads directly — nothing lands in the store. With no row in the store and no ingest run there is nothing to measure; the retrieval date is carried by that module itself and printed on the page. This is a limit of OUR pipeline, not a statement about the publisher.",
+        "none": "This source’s adapter is written and tested, but nothing in the product reads it — it is not ingested. The atlas measures nothing here because there is nothing to measure. It is listed so that the list of sources does not conceal what lies unconnected in the repository."
+      }
     }
   },
   "dataReleases": {
@@ -3060,7 +3096,7 @@
     },
     "methodology": {
       "kicker": "release methodology",
-      "body": "Version = the day of the last finished successful ingest run (the ingest_run table). A version that misses the cardinality floors (CARDINALITY_FLOORS) is marked “degraded” and is never “latest”. Floor verdicts are computed from the current state of the store — about historical versions this page claims nothing it could not prove. The snapshot is a cut of the derived graph (kg_node / kg_edge) capped at {nodeCap} nodes and {edgeCap} edges; any truncation is admitted in the limits field."
+      "body": "Version = the day of the last finished successful ingest run (the ingest_run table). A version that misses the cardinality floors (CARDINALITY_FLOORS) is marked “degraded” and is never “latest”. Floor verdicts are computed from the current state of the store — about historical versions this page claims nothing it could not prove. The snapshot is a cut of the derived graph (kg_node / kg_edge) capped at {nodeCap} nodes and {edgeCap} edges; both the truncation and the cut's composition — how many rows of each kind it carries against the store — are admitted in the limits field."
     },
     "storeDown": {
       "body": "The manifest cannot be built right now — the store is unavailable in this environment. This page cannot say which versions exist or how integrity is doing; the release train is not empty, just unreadable.",
@@ -3118,8 +3154,34 @@
       "title": "Download",
       "aside": "source: kg_node + kg_edge — a cut of the derived graph, read-only",
       "size": "{mb} MB ({bytes} B)",
-      "sizeNote": "size: the exact UTF-8 payload length at the moment this page was built — the downloaded file is rebuilt from the current store and may differ between ingests; the exact download size is carried by Content-Length",
-      "body": "The snapshot carries the version, the manifest fingerprint and a limits field with the cut’s admitted caps. Raw source data (raw registry payloads) are not included — the snapshot is the derived layer the application itself reads."
+      "sizeNote": "size: the exact UTF-8 payload length, summed row by row over the very rows that get downloaded — the file is not assembled to produce this number. It is re-measured as soon as the manifest fingerprint changes, and after {hours} h at the latest; the downloaded file is rebuilt from the current store, so it may differ between ingests — the exact download size is carried by Content-Length",
+      "body": "The snapshot carries the version, the manifest fingerprint and a limits field with the cut’s admitted caps. Raw source data (raw registry payloads) are not included — the snapshot is the derived layer the application itself reads.",
+      "cut": {
+        "title": "What the cut contains, and what it does not",
+        "rule": "The cut is not a sample. Both reads are ordered — nodes by identifier, edges by the src–rel–dst triple — and take the first {nodeCap} nodes and {edgeCap} edges. The window is therefore an ALPHABETICAL PREFIX: whole kinds fall inside it and whole kinds do not. A percentage on its own hides that, so the composition is listed kind by kind.",
+        "nodesLabel": "nodes in the cut",
+        "edgesLabel": "edges in the cut",
+        "missingNodesLabel": "nodes outside the cut",
+        "missingEdgesLabel": "edges outside the cut",
+        "ofTotal": "{n} of {total}",
+        "absentKinds": "Node kinds the cut carries not one row of: {keys}.",
+        "absentRels": "Edge relations the cut carries not one row of: {keys}.",
+        "absentMeaning": "A missing kind is not a smaller sample — it is a whole layer of the graph that is not in the downloaded file.",
+        "complete": "The cut carries the whole graph: not one node and not one edge was truncated.",
+        "nodeTableTitle": "nodes by kind",
+        "edgeTableTitle": "edges by relation",
+        "colKind": "kind",
+        "colRel": "relation",
+        "colIncluded": "in the cut",
+        "colTotal": "in the store",
+        "colState": "state",
+        "stateAbsent": "entirely absent",
+        "statePartial": "partial",
+        "stateFull": "complete",
+        "source": "source: kg_node + kg_edge — composition measured on the very rows that get downloaded; totals from the manifest census, and the downloaded file carries the same limits field",
+        "unavailable": "The cut could not be measured at this moment. The manifest above is readable — what the downloadable file contains, this page cannot say right now, and it computes nothing in its place. The file is still built from the current store and its exact size is carried by Content-Length.",
+        "unavailableSource": "source: kg_node + kg_edge — the cut read failed; nothing is concealed"
+      }
     },
     "changelog": {
       "title": "Changelog",

@@ -94,6 +94,7 @@
     "followInbox": "přehled ve schránce"
   },
   "nav": {
+    "skipToContent": "Přeskočit na obsah",
     "sidebarLabel": "Hlavní navigace",
     "modules": "moduly",
     "overview": "velín",
@@ -2826,18 +2827,31 @@
     "lead": "Každé rozhodnutí, které projde lidskou kontrolou — ověření či zamítnutí vazby poslanec ↔ firma, žádost o doplnění podkladů, podepsaný forenzní posudek — se tady stává veřejným, datovaným a trvale odkazovatelným záznamem. Brána sama je publikační událost.",
     "method": {
       "kicker": "metodika zveřejnění",
-      "body": "Zveřejňuje se výrok, subjekt, datum, role revizora a odkazy na primární registry — nikdy pracovní poznámky revizora. „Vyžádáno doplnění podkladů“ není verdikt: vazba dál čeká na kontrolu. Ověřitelnost záznamu (audit trail a hlavy trezoru) drží <admin>provozní konzole /admin</admin>."
+      "body": "Zveřejňuje se výrok, subjekt, datum, role revizora a odkazy na primární registry — nikdy pracovní poznámky revizora. „Vyžádáno doplnění podkladů“ není verdikt: vazba dál čeká na kontrolu. Každé rozhodnutí nese svou pozici v připojeném řetězu a otisk vlastního řádku; délku řetězu a jeho hlavu vydává veřejně <data>stránka datových verzí</data>."
+    },
+    "chain": {
+      "pos": "řetěz — pozice {pos}",
+      "unchained": "řetěz — tenhle řádek v něm místo nemá, je z doby před jeho zavedením",
+      "note": "Otisk řádku dokazuje POŘADÍ a nedotčenost: že rozhodnutí bylo zapsáno právě tady a od té chvíle se nezměnilo. Nedokazuje, že je správné — o tom rozhoduje člověk u brány a posoudit ho může kdokoli podle odkazů na primární registry. Hlavu řetězu a jeho délku vydává i strojová podoba <manifest>manifestu dat</manifest>."
     },
     "section": {
       "title": "Rozhodnutí",
       "source": "zdroj: review_audit ({rows} řádků) + kg_node bill.forensic_*",
+      "sourceNoForensic": "zdroj: review_audit ({rows} řádků); vrstvu kg_node bill.forensic_* se přečíst nepodařilo",
       "sourceFloor": "čtení se zastavilo na stropu {cap} řádků, takže uvedený počet je spodní mez, ne počet rozhodnutí brány"
+    },
+    "limits": {
+      "withheld": "{n, plural, one {u lidské brány čeká {nFmt} forenzní posudek} few {u lidské brány čekají {nFmt} forenzní posudky} other {u lidské brány čeká {nFmt} forenzních posudků}} — věstník je nese až po podpisu, takže tady je nenajdete; stav v grafu: {states}",
+      "forensicUnread": "vrstvu podepsaných posudků se přečíst nepodařilo — podepsaný posudek může existovat a tenhle věstník o něm neví; není to tvrzení, že žádný není",
+      "tieSourcesUnread": "provenienci vazeb se přečíst nepodařilo — citace u záznamů proto jmenují jen tabulky, ne původní zdroj, ze kterého vazba pochází",
+      "labelsUnread": "jména obou konců vazby se přečíst nepodařilo — záznamy proto jmenují uzly grafu jejich urnami, ne lidmi a firmami",
+      "nothingWithheld": "strop čtení nenarazil, všechny tři vrstvy se přečetly a u brány nečeká žádný posudek — v tomhle vydání se nezadržuje nic"
     },
     "unreadable": "Záznamy teď nelze načíst — úložiště je v tomto prostředí nedostupné. Tahle stránka nemůže říct, jestli nějaká rozhodnutí existují; deník není prázdný, jen nečitelný.",
     "empty": {
       "lead": "Deník je zatím prázdný",
       "body": "Lidskou branou dosud neprošlo žádné rozhodnutí — první ověřená či zamítnutá vazba se tu objeví ve chvíli, kdy ji revizor rozhodne v konzoli <kontrola>/penize/kontrola</kontrola>.",
-      "note": "zdroj: review_audit — 0 řádků; žádný záznam není zamlčen"
+      "note": "zdroj: review_audit — {rows} řádků"
     },
     "entry": {
       "permalinkAria": "Trvalý odkaz na záznam {id}",
@@ -2847,6 +2861,10 @@
       "sourceTie": "zdroj: review_audit · kg_edge linked_to",
       "sourceTieDetail": "zdroj: review_audit · kg_edge linked_to · {detail}",
       "sourceForensic": "zdroj: kg_node bill.forensic_* · závažnost {detail}",
+      "receipt": "trvalá účtenka",
+      "receiptAria": "Trvalá účtenka záznamu o vazbě {subject}",
+      "companyFile": "peněžní spis firmy",
+      "companyFileAria": "Peněžní spis firmy z vazby {subject}",
       "denikDay": "ten den v deníku republiky",
       "denikDayAria": "Deník republiky — den rozhodnutí o vazbě {subject}"
     },
@@ -3006,7 +3024,7 @@
       },
       "freshness": {
         "label": "čerstvost",
-        "rule": "Stáří = dnešek minus dokončení posledního úspěšného ingest běhu zdroje. Skóre 100 při stáří ≤ kadence, pak lineárně k 0 při stáří = 3× kadence. Slovně: ≤ kadence „čerstvé“, ≤ 2× kadence „stárnoucí“, nad 2× kadence „zastaralé“. Kadence je deklarované očekávání politicas, ne SLA vydavatele. Bez deklarované kadence nebo bez úspěšného běhu = nehodnoceno."
+        "rule": "Stáří = dnešek minus dokončení posledního úspěšného ingest běhu zdroje. Skóre 100 při stáří ≤ kadence, pak lineárně k 0 při stáří = {zero}× kadence. Slovně: ≤ kadence „čerstvé“, ≤ {stale}× kadence „stárnoucí“, nad {stale}× kadence „zastaralé“. Kadence je deklarované očekávání politicas, ne SLA vydavatele. Bez deklarované kadence nebo bez úspěšného běhu = nehodnoceno."
       },
       "integrity": {
         "label": "integrita",
@@ -3014,7 +3032,7 @@
       },
       "completeness": {
         "label": "úplnost",
-        "rule": "100 minus 10 bodů za každou přiznanou mezeru upstreamu (KNOWN ISSUES v kontextu zdroje, lib/analysis/context-model.ts), nejméně 0. Nízké skóre je výpověď o datech vydavatele, ne o zpracování politicas — mezery se přiznávají, neschovávají. Zdroj bez zpracovaného kontextu = nehodnoceno (nedokumentováno ≠ úplné)."
+        "rule": "100 minus {points} bodů za každou přiznanou mezeru upstreamu (KNOWN ISSUES v kontextu zdroje, lib/analysis/context-model.ts), nejméně 0. Nízké skóre je výpověď o datech vydavatele, ne o zpracování politicas — mezery se přiznávají, neschovávají. Zdroj bez zpracovaného kontextu = nehodnoceno (nedokumentováno ≠ úplné)."
       }
     },
     "staleness": {
@@ -3046,6 +3064,24 @@
       "knownIssues": "{count} přiznaných mezer upstreamu",
       "contextProvenance": "provenience kontextu: {provenance}",
       "source": "zdroj: entitní tabulky (provenance kvartet) + ingest_run (běhy, Merkle kořeny od LedgerRepository.sealIngestRun) + kontext zdroje (lib/analysis/context-model.ts)"
+    },
+    "unscored": {
+      "title": "Zdroje mimo dosah atlasu",
+      "aside": "zdroj: registr zdrojů (lib/analysis/atlas.ts) — deklarace v kódu, ne měření",
+      "lead": "Politicas pracuje s {declared} zdroji. Ohodnotit jich tahle stránka umí {scored}; zbylých {unscored} ne. Mlčet o nich by znamenalo tvrdit, že platforma má jen ty ohodnocené — a mezi těmi zamlčenými jsou oba, které nesou celý modul o veřejných penězích. Žádný z nich tu nedostane číslo: dostane větu, kam jeho řádky dopadají a proč to atlas neumí změřit. Nula by byla tvrzení o kvalitě dat; tohle je tvrzení o tom, co neumí naše ukládání.",
+      "source": "zdroj: registr zdrojů v lib/analysis/atlas.ts; každý řádek nese modul, který ten zdroj čte — dohledatelný v repozitáři",
+      "scopeNote": "Proč se atlas prostě nerozšíří: pravidlo integrity vedle skóre tiskne, že zapečetěná a hodnocená množina tabulek je táž. Skórovat znalostní graf by znamenalo to pravidlo uvolnit dřív, než roura umí to, co slibuje. Mez se proto pojmenuje, netlačí se přes vytištěné pravidlo — napojit tyhle zdroje je změna ingestu a ledgeru, ne téhle stránky.",
+      "landingNote": "Vypsané jsou zdroje, které atlas umí změřit — {shown}. Politicas jich čte {declared}; u zbylých {unscored} atlas říká, proč je změřit neumí.",
+      "landing": {
+        "graph": "dopadá do znalostního grafu (kg_node / kg_edge)",
+        "generatedModule": "zamrazeno do generovaného modulu v repozitáři",
+        "none": "v produktu to nečte nic"
+      },
+      "reason": {
+        "graph": "Řádky tohoto zdroje dopadají do kg_node/kg_edge. Ty nemají sloupec source ani ingest_run_id — původ v nich je volný text v poli provenance.ref, takže mezi řádkem a tabulkou ingest_run nevede žádný spojovací klíč. Pokrytí provenancí, čerstvost ani Merkle pečeť se u nich proto změřit nedají. Je to mez NAŠÍ roury, ne výpověď o vydavateli: data ve store jsou, jen k nim atlas nevede měřitelnou vazbu.",
+        "generatedModule": "Sklizeň tohoto zdroje je zamrazená do generovaného modulu v repozitáři, který plocha čte přímo — do úložiště nedopadá nic. Bez řádku ve store a bez ingest běhu není co měřit; datum stažení nese ten modul sám a plocha ho tiskne. Je to mez NAŠÍ roury, ne výpověď o vydavateli.",
+        "none": "Adaptér tohoto zdroje je napsaný a otestovaný, ale v produktu ho nečte nic — nenasypává se. Atlas tu neměří proto, že tu měřit není co. Uvádí se, aby seznam zdrojů nezamlčel, co v repozitáři leží nezapojené."
+      }
     }
   },
   "dataReleases": {
@@ -3060,7 +3096,7 @@
     },
     "methodology": {
       "kicker": "metodika vydání",
-      "body": "Verze = den posledního dokončeného úspěšného ingest běhu (tabulka ingest_run). Verze, která nesplňuje kardinalitní prahy (CARDINALITY_FLOORS), je označena „degradováno“ a nikdy není „latest“. Verdikty prahů se počítají z aktuálního stavu úložiště — o historických verzích tahle stránka netvrdí nic, co by neuměla doložit. Snapshot je výřez odvozeného grafu (kg_node / kg_edge) se stropem {nodeCap} uzlů a {edgeCap} hran; případný ořez je přiznán v poli limits."
+      "body": "Verze = den posledního dokončeného úspěšného ingest běhu (tabulka ingest_run). Verze, která nesplňuje kardinalitní prahy (CARDINALITY_FLOORS), je označena „degradováno“ a nikdy není „latest“. Verdikty prahů se počítají z aktuálního stavu úložiště — o historických verzích tahle stránka netvrdí nic, co by neuměla doložit. Snapshot je výřez odvozeného grafu (kg_node / kg_edge) se stropem {nodeCap} uzlů a {edgeCap} hran; ořez i složení výřezu — kolik řádků kterého druhu v něm proti store je — jsou přiznané v poli limits."
     },
     "storeDown": {
       "body": "Manifest teď nelze sestavit — úložiště je v tomto prostředí nedostupné. Tahle stránka nemůže říct, jaké verze existují ani jak je na tom integrita; vydávací vlak není prázdný, jen nečitelný.",
@@ -3083,7 +3119,7 @@
       "verdict": "verdikt",
       "met": "splněno",
       "below": "pod prahem",
-      "source": "zdroj: kg_node (plné počty per kind) proti CARDINALITY_FLOORS — {count} bran; viz lib/db/readiness.ts"
+      "source": "zdroj: kg_node (plné počty podle druhu uzlu) proti prahům v CARDINALITY_FLOORS — {count} bran; viz lib/db/readiness.ts"
     },
     "counts": {
       "nodes": "uzly grafu",
@@ -3118,8 +3154,34 @@
       "title": "Stažení",
       "aside": "zdroj: kg_node + kg_edge — výřez odvozeného grafu, jen čtení",
       "size": "{mb} MB ({bytes} B)",
-      "sizeNote": "velikost: přesná délka UTF-8 payloadu v okamžiku sestavení stránky — stažený soubor se sestavuje znovu z aktuálního úložiště a mezi ingesty se může lišit; přesnou velikost stažení nese Content-Length",
-      "body": "Snapshot nese verzi, otisk manifestu a pole limits s přiznanými stropy výřezu. Surová zdrojová data (raw payloady registrů) součástí nejsou — snapshot je odvozená vrstva, kterou aplikace sama čte."
+      "sizeNote": "velikost: přesná délka UTF-8 payloadu, sečtená po řádcích z týchž řádků, které se stahují — soubor se kvůli tomu číslu nesestavuje. Přeměří se, jakmile se změní otisk manifestu, nejpozději po {hours} h; stažený soubor se staví znovu z aktuálního úložiště, takže se mezi ingesty může lišit — přesnou velikost stažení nese Content-Length",
+      "body": "Snapshot nese verzi, otisk manifestu a pole limits s přiznanými stropy výřezu. Surová zdrojová data (raw payloady registrů) součástí nejsou — snapshot je odvozená vrstva, kterou aplikace sama čte.",
+      "cut": {
+        "title": "Co ve výřezu je a co v něm není",
+        "rule": "Výřez není vzorek. Obě čtení jsou seřazená — uzly podle identifikátoru, hrany podle trojice src–rel–dst — a berou prvních {nodeCap} uzlů a {edgeCap} hran. Okno je tedy ABECEDNÍ PREFIX: vejdou se do něj celé druhy a jiné vůbec žádné. Samotné procento to zamlčí, proto je složení vypsané druh po druhu.",
+        "nodesLabel": "uzly ve výřezu",
+        "edgesLabel": "hrany ve výřezu",
+        "missingNodesLabel": "uzly mimo výřez",
+        "missingEdgesLabel": "hrany mimo výřez",
+        "ofTotal": "{n} z {total}",
+        "absentKinds": "Druhy uzlů, ze kterých výřez nenese ani jeden řádek: {keys}.",
+        "absentRels": "Vztahy hran, ze kterých výřez nenese ani jeden řádek: {keys}.",
+        "absentMeaning": "Chybějící druh není zmenšený vzorek — je to celá vrstva grafu, která ve staženém souboru není.",
+        "complete": "Výřez nese celý graf: neořezal se ani jeden uzel a ani jedna hrana.",
+        "nodeTableTitle": "uzly podle druhu",
+        "edgeTableTitle": "hrany podle vztahu",
+        "colKind": "druh",
+        "colRel": "vztah",
+        "colIncluded": "ve výřezu",
+        "colTotal": "ve store",
+        "colState": "stav",
+        "stateAbsent": "chybí celý",
+        "statePartial": "zčásti",
+        "stateFull": "úplné",
+        "source": "zdroj: kg_node + kg_edge — složení změřené na týchž řádcích, které se stahují; totály z censu manifestu, totéž pole limits nese i stažený soubor",
+        "unavailable": "Výřez se v tomhle okamžiku nepodařilo změřit. Manifest výše čitelný je — co obsahuje soubor ke stažení, tahle stránka teď říct neumí, a nic si nedopočítává. Soubor se přesto staví z aktuálního úložiště a jeho přesnou velikost nese Content-Length.",
+        "unavailableSource": "zdroj: kg_node + kg_edge — čtení výřezu selhalo; zamlčeno není nic"
+      }
     },
     "changelog": {
       "title": "Changelog",
