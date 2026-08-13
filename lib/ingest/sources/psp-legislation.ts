@@ -26,6 +26,8 @@
 // strongest status seen (přikázáno > iniciativně > navrženo). This upgrades F12's name-based
 // committee remit (owns) to formal per-bill routing.
 
+import { isPlausibleIsoDate } from "@/lib/analysis/plausible-date";
+
 import { col, colInt, decodeUnl, parseUnl, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
 
@@ -129,8 +131,23 @@ export function normalizeLegislation(tiskyZip: Uint8Array, termPspId: number): L
 
 /* ── F15: formal per-bill committee routing (hist_vybory ⋈ hist) ──────────── */
 
-/** The strongest routing state a print reached with a committee (přikázáno beats navrženo). */
-export type AssignmentStatus = "prikazano" | "iniciativne" | "navrzeno";
+/**
+ * The strongest routing state a print reached with a committee (přikázáno beats
+ * navrženo). `"unknown"` is a REAL member, not a placeholder: `hist_vybory.typ` is an
+ * open code space — the live dump carries a `typ = 4` that no documented constant
+ * covers — and this parser used to fold every unknown or NULL code into `"navrzeno"`,
+ * the weakest REAL status, which then rendered on /zakony as a factual claim that the
+ * print had been proposed for referral. House doctrine (packages/czech-civic-data/src/
+ * normalize.ts, and `voteChoice`/`voteOutcome` obey it): missing beats wrong — an
+ * unknown code maps to an explicit "unknown", never to a guess.
+ *
+ * The token is deliberately outside `COMMITTEE_STATUS_KEYS`
+ * (features/lawwatch/lawwatchLabels.ts), so the renderer's existing
+ * `KEYS.has(x) ? t(x) : x` fallback prints it verbatim instead of dressing it as one
+ * of the three real statuses. Giving it a translated label is a message-catalog
+ * change and is left to whoever owns those files.
+ */
+export type AssignmentStatus = "prikazano" | "iniciativne" | "navrzeno" | "unknown";
 /** garanční/věcně příslušný výbor vs a further (další) committee the print was routed to. */
 export type AssignmentRole = "garancni" | "dalsi";
 
@@ -139,11 +156,13 @@ export interface CommitteeAssignment {
   organId: number; // global organy.id_organ — same id as psp:organ:<pspId>
   role: AssignmentRole; // garanční výbor, else a further committee
   status: AssignmentStatus; // strongest hist_vybory.typ collapsed over the print's rows
-  assignedOn: string | null; // YYYY-MM-DD from the linked hist step (null if the step has no date)
+  assignedOn: string | null; // YYYY-MM-DD of the EARLIEST step at that status (see below)
 }
 
 const STATUS_BY_TYP: Record<string, AssignmentStatus> = { "1": "navrzeno", "2": "prikazano", "3": "iniciativne" };
-const STATUS_RANK: Record<AssignmentStatus, number> = { navrzeno: 1, iniciativne: 2, prikazano: 3 };
+// "unknown" ranks BELOW every real status, so a pair that has any documented row is
+// reported by that row; only a pair whose every row carries an unknown code stays unknown.
+const STATUS_RANK: Record<AssignmentStatus, number> = { unknown: 0, navrzeno: 1, iniciativne: 2, prikazano: 3 };
 
 /** `hist.datum` is `YYYY-MM-DD HH:MM`; keep the date only (assignment resolves to a day). */
 function histDate(v: string | null): string | null {
@@ -158,6 +177,22 @@ function histDate(v: string | null): string | null {
  * pair. We keep the strongest status and mark the pair garanční if any of its rows do, and
  * date it from the linked `hist` step (hist_vybory itself carries no date). Term/bill
  * filtering is the caller's job (the graph's 141 bills gate which pairs become edges).
+ *
+ * ── THE DATE RULE, stated because it used to be dump row order (fixed 2026-08-13) ──
+ * `assignedOn` is the date of the EARLIEST step at the STRONGEST status the pair
+ * reached. The previous rule was `if (rank >= prev.rank) … if (date) prev.assignedOn =
+ * date`, so when two rows tied at the strongest status the LAST one in file order won —
+ * i.e. the order psp.cz happened to write the dump decided a date the product prints.
+ * Measured: 180 (tisk, committee) pairs have more than one row at their strongest
+ * status and 175 of them resolve to different `hist` dates; scoped to PSP10 one pair is
+ * live today — tisk 43204 → organ 1772, 2026-02-03 vs 2026-02-12 — and that date is
+ * what /denik prints as the bill's day. Earliest is the defensible tie-break: it is the
+ * first moment the print demonstrably held that status.
+ *
+ * A WEAKER step's date is never borrowed. If the strongest status carries no dated
+ * step, the pair is reported undated rather than dated by an event that is not the one
+ * the status names — `přikázáno · <the day it was merely navrženo>` is a false claim
+ * about when the print was referred, and the consumer renders the two side by side.
  */
 export function parseCommitteeAssignments(
   histVybory: readonly UnlRow[],
@@ -174,7 +209,8 @@ export function parseCommitteeAssignments(
     const tiskId = colInt(r, 0);
     const organId = colInt(r, 1);
     if (tiskId == null || organId == null) continue;
-    const status = STATUS_BY_TYP[col(r, 2) ?? ""] ?? "navrzeno";
+    // An undocumented or NULL typ is UNKNOWN, never downgraded to the weakest real status.
+    const status = STATUS_BY_TYP[col(r, 2) ?? ""] ?? "unknown";
     const garancni = col(r, 6) === "1" || col(r, 6) === "2";
     const idHist = colInt(r, 3);
     const date = idHist != null ? (dateByHist.get(idHist) ?? null) : null;
@@ -194,11 +230,15 @@ export function parseCommitteeAssignments(
       continue;
     }
     if (garancni) prev.role = "garancni"; // garanční is the committee's strongest role for the print
-    if (rank >= prev.rank) {
+    if (rank > prev.rank) {
+      // A strictly stronger step. It brings its OWN date — including a null one:
+      // the date must describe the step the status names.
       prev.rank = rank;
       prev.status = status;
-      if (date) prev.assignedOn = date; // prefer the stronger step's date
-    } else if (prev.assignedOn == null && date) {
+      prev.assignedOn = date;
+    } else if (rank === prev.rank && date !== null && (prev.assignedOn === null || date < prev.assignedOn)) {
+      // Same status, another row: the EARLIEST date wins. Deterministic under any
+      // input order — which is the whole point.
       prev.assignedOn = date;
     }
   }
@@ -297,19 +337,57 @@ export interface BillFate {
   stav: string | null; // Czech state name from typ_stavu ("1. čtení", "Senát", "KONEC", …)
   sb: string | null; // "583/2025" when the hist zaver step records a Sbírka publication
   publishedOn: string | null; // YYYY-MM-DD from zaver_publik
+  /** Publication steps REFUSED because their zaver date could not have happened.
+   *  The row is kept and its `stav` still stands — only the citation is withheld,
+   *  never repaired. Read by kg-bill-roles-ingest, which reports the corpus total. */
+  refusedPublications: number;
 }
 
 const ZAVER_DATE = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
 
-/** Current procedural state per tisk (every input row), plus the Sbírka publication
+/**
+ * `DD.MM.YYYY` → `YYYY-MM-DD`, or null when those three numbers are not a calendar
+ * date at all (month 13, 31 February). Separate from the plausibility RANGE check
+ * below because they are different findings: this one says "not a date", that one
+ * says "not a date that could have happened".
+ */
+function zaverIsoDate(day: number, month: number, year: number): string | null {
+  const iso = `${String(year).padStart(4, "0")}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+  const t = new Date(Date.UTC(year, month - 1, day));
+  // Date.UTC maps years 0–99 to 1900+y, so a two-digit year fails this round-trip and
+  // is refused — which is the right outcome either way (it is not a publication year).
+  if (t.getUTCFullYear() !== year || t.getUTCMonth() !== month - 1 || t.getUTCDate() !== day) return null;
+  return iso;
+}
+
+/**
+ * Current procedural state per tisk (every input row), plus the Sbírka publication
  * where a hist step genuinely records one — rows whose zaver fields are empty or the
  * literal "null" are NOT publications and are skipped (verified live: transition
- * 2031/2047 rows carry cislo=7 with null publik and are something else entirely). */
+ * 2031/2047 rows carry cislo=7 with null publik and are something else entirely).
+ *
+ * ── IMPOSSIBLE DATES ARE REFUSED, NEVER REPAIRED (2026-08-13) ────────────────────
+ * This built a Sbírka citation out of anything regex-shaped like a date, so the dump's
+ * `zaver_publik = "28.08.0202"` (a publisher typo) published `sb: "88/0202"` and
+ * `publishedOn: "0202-08-28"` — a law of the year 202. The app already owns ONE
+ * plausibility boundary for exactly this, `lib/analysis/plausible-date.ts`, and it is
+ * IMPORTED here rather than re-declared (its own header: „aby hranice byla v celé
+ * aplikaci jedna a stejná"). A refused step leaves `sb`/`publishedOn` null, keeps the
+ * bill and its `stav`, and increments `refusedPublications` so the gap is countable
+ * instead of silent.
+ *
+ * `retrievedOn` is the upper bound — the day the dump was read, not "now" at render:
+ * a publication is a past event, and the /rozpocty precedent
+ * (`SUPPLIERS_RETRIEVED_ON`) is that the ceiling travels with the rows. It defaults to
+ * the current UTC day because at INGEST the clock IS the retrieval instant; tests and
+ * any caller that pins a dump pass it explicitly.
+ */
 export function parseBillFates(
   tisky: readonly UnlRow[],
   stavy: readonly UnlRow[],
   typStavu: readonly UnlRow[],
   hist: readonly UnlRow[],
+  retrievedOn: string = new Date().toISOString().slice(0, 10),
 ): Map<number, BillFate> {
   const typById = new Map<number, string>();
   for (const r of typStavu) {
@@ -330,7 +408,13 @@ export function parseBillFates(
     if (tiskId == null) continue;
     const stavId = colInt(r, 2);
     const typ = stavId != null ? typByStav.get(stavId) : undefined;
-    out.set(tiskId, { stavId, stav: typ != null ? (typById.get(typ) ?? null) : null, sb: null, publishedOn: null });
+    out.set(tiskId, {
+      stavId,
+      stav: typ != null ? (typById.get(typ) ?? null) : null,
+      sb: null,
+      publishedOn: null,
+      refusedPublications: 0,
+    });
   }
   for (const r of hist) {
     const tiskId = colInt(r, 1);
@@ -339,7 +423,14 @@ export function parseBillFates(
     const cislo = colInt(r, 13);
     const m = ZAVER_DATE.exec((col(r, 11) ?? "").trim());
     if (cislo == null || !m) continue; // not a real publication row
-    const publishedOn = `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}`;
+    const publishedOn = zaverIsoDate(Number(m[1]), Number(m[2]), Number(m[3]));
+    if (publishedOn === null || !isPlausibleIsoDate(publishedOn, retrievedOn)) {
+      // The step claims a publication on a day that could not have happened. Refuse
+      // the citation whole — publishing `sb` off a broken date would carry the fault
+      // into a law number — keep the bill, and count the refusal.
+      fate.refusedPublications++;
+      continue;
+    }
     // keep the latest publication step if several exist
     if (fate.publishedOn == null || publishedOn > fate.publishedOn) {
       fate.sb = `${cislo}/${m[3]}`;
@@ -355,12 +446,21 @@ export interface BillRolesBundle {
   fates: Map<number, BillFate>;
 }
 
-/** IO wrapper: read tisky.zip once and produce all three role/fate structures. */
-export function normalizeBillRoles(tiskyZip: Uint8Array): BillRolesBundle {
+/** IO wrapper: read tisky.zip once and produce all three role/fate structures.
+ *  `retrievedOn` is the upper plausibility bound for Sbírka publication dates — the
+ *  day this dump was read; it defaults to today because the caller fetches the zip in
+ *  the same run. */
+export function normalizeBillRoles(tiskyZip: Uint8Array, retrievedOn?: string): BillRolesBundle {
   const m = readZipMap(tiskyZip);
   return {
     sponsorRoles: parseSponsorRoles(unlOf(m, "predkladatel.unl")),
     rapporteurs: parseRapporteurs(unlOf(m, "hist.unl"), unlOf(m, "hist_vybory.unl"), unlOf(m, "tisky_za.unl")),
-    fates: parseBillFates(unlOf(m, "tisky.unl"), unlOf(m, "stavy.unl"), unlOf(m, "typ_stavu.unl"), unlOf(m, "hist.unl")),
+    fates: parseBillFates(
+      unlOf(m, "tisky.unl"),
+      unlOf(m, "stavy.unl"),
+      unlOf(m, "typ_stavu.unl"),
+      unlOf(m, "hist.unl"),
+      retrievedOn,
+    ),
   };
 }

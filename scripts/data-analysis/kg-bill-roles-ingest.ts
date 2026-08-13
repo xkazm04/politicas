@@ -201,11 +201,25 @@ async function main() {
   }
 
   const publishedBills = billUpdates.filter((b) => b.props.fate_sb != null).length;
+  // Sbírka publication steps the parser REFUSED because their zaver date could not have
+  // happened (the dump carries e.g. "28.08.0202"). The bill keeps its stav; only the
+  // citation is withheld, and never repaired — lib/analysis/plausible-date.ts is the one
+  // boundary. Reported here because a silent refusal is the same failure as a silent guess.
+  const refusedPublications = [...billNodeById.keys()].reduce(
+    (n, id) => n + (fates.get(tiskIdOfBill(id))?.refusedPublications ?? 0),
+    0,
+  );
   console.log(`Bill roles backfill · term ${term} (organ ${termPspId}) · ${commit ? "COMMIT" : "DRY-RUN"} · pass ${pass}`);
   console.log(`  sponsors edges: ${sponsorEdges.length} existing → ${edgeUpdates.length} get {rank, role} (${edgesWithoutRole} without a predkladatel row — left untouched)`);
   console.log(`    of which rank 1 (predkladatel): ${edgeUpdates.filter((e) => e.props.rank === 1).length}`);
   console.log(`  rapporteur edges: ${rapporteurEdges.length} pairs (skipped: ${rapUnmappedPoslanec} unmapped poslanec ids, ${rapOutsideGraph} persons outside graph)`);
   console.log(`  bill nodes: ${billUpdates.length} get stav/fate (${publishedBills} published in Sbírka) — props MERGED, summaries/forensics preserved`);
+  if (refusedPublications > 0) {
+    console.warn(
+      `  ⚠ ${refusedPublications} Sbírka publication step(s) REFUSED — zaver_publik is not a date that could have happened. ` +
+        `The citation is withheld, never repaired; the bill keeps its stav.`,
+    );
+  }
   console.log(`  person nodes: ${personUpdates.length} get bills_first_signed/bills_co_signed`);
   if (splitMismatches > 0) {
     console.warn(`  ⚠ ${splitMismatches} persons where first+co ≠ stored bills_authored — bills_authored NOT touched; investigate before trusting the split for those`);

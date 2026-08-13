@@ -110,6 +110,82 @@ describe("parseCommitteeAssignments (F15)", () => {
   });
 });
 
+/* ── RIDER 1: the date was decided by dump row order (fixed 2026-08-13) ───────
+ *
+ * `if (rank >= prev.rank) … if (date) prev.assignedOn = date` let the LAST row at the
+ * strongest status win, so the order psp.cz happened to write the file decided a date
+ * the product prints. 180 (tisk, committee) pairs have >1 row at their strongest
+ * status, 175 resolve to different hist dates; live in PSP10 today: tisk 43204 →
+ * organ 1772, 2026-02-03 vs 2026-02-12 — the day /denik prints for that bill. */
+describe("parseCommitteeAssignments — the date is the EARLIEST step at the strongest status", () => {
+  // The live pair, both orders. hist_vybory: 0 id_tisku | 1 id_organ | 2 typ | 3 id_hist
+  const HIST = rows(
+    ["300003|43204|2026-02-03 09:00||||||||||||", "300012|43204|2026-02-12 11:30||||||||||||"].join("\n"),
+  );
+  const pairIn = (order: string[]) => parseCommitteeAssignments(rows(order.join("\n")), HIST)[0];
+
+  it("is order-independent: the same two rows give the same date either way round", () => {
+    const early = ["43204|1772|2|300003|||1||", "43204|1772|2|300012|||1||"];
+    const late = [...early].reverse();
+    expect(pairIn(early).assignedOn).toBe("2026-02-03");
+    expect(pairIn(late).assignedOn).toBe("2026-02-03");
+    expect(pairIn(late)).toEqual(pairIn(early));
+  });
+
+  it("a strictly stronger step still replaces a weaker step's earlier date", () => {
+    // navrženo on the 3rd, přikázáno on the 12th → the assignment is the přikázání.
+    const a = pairIn(["43204|1772|1|300003|||1||", "43204|1772|2|300012|||1||"]);
+    expect(a.status).toBe("prikazano");
+    expect(a.assignedOn).toBe("2026-02-12");
+  });
+
+  it("a weaker step's date is NOT borrowed when the strongest status has none", () => {
+    // přikázáno with no linked hist step + navrženo on the 3rd. Dating the přikázání
+    // by the day it was merely proposed is a false claim; the pair is undated instead.
+    const a = pairIn(["43204|1772|1|300003|||1||", "43204|1772|2||||1||"]);
+    expect(a.status).toBe("prikazano");
+    expect(a.assignedOn).toBeNull();
+  });
+});
+
+/* ── RIDER 2: an unknown typ was silently downgraded to the weakest REAL status ── */
+describe("parseCommitteeAssignments — an unknown typ is unknown, not 'navrzeno'", () => {
+  const HIST = rows(["300003|43204|2026-02-03 09:00||||||||||||"].join("\n"));
+
+  it("maps an undocumented code (the live typ = 4) to an explicit unknown", () => {
+    const a = parseCommitteeAssignments(rows("43204|1772|4|300003|||1||"), HIST)[0];
+    expect(a.status).toBe("unknown");
+    expect(a.assignedOn).toBe("2026-02-03"); // the row is kept, only the status is withheld
+  });
+
+  it("maps an empty/NULL typ to unknown too", () => {
+    expect(parseCommitteeAssignments(rows("43204|1772||300003|||1||"), HIST)[0].status).toBe("unknown");
+    expect(parseCommitteeAssignments(rows("43204|1772|null|300003|||1||"), HIST)[0].status).toBe("unknown");
+  });
+
+  it("unknown never outranks a documented status on the same pair, in either order", () => {
+    const documentedFirst = parseCommitteeAssignments(
+      rows(["43204|1772|1|300003|||1||", "43204|1772|4|300003|||1||"].join("\n")),
+      HIST,
+    )[0];
+    const unknownFirst = parseCommitteeAssignments(
+      rows(["43204|1772|4|300003|||1||", "43204|1772|1|300003|||1||"].join("\n")),
+      HIST,
+    )[0];
+    expect(documentedFirst.status).toBe("navrzeno");
+    expect(unknownFirst.status).toBe("navrzeno");
+  });
+
+  it("the token is outside the renderer's key whitelist, so it cannot print as a real status", () => {
+    // features/lawwatch/lawwatchLabels.ts COMMITTEE_STATUS_KEYS — retyped here on
+    // purpose: this test guards the CONTRACT between the two files, and importing the
+    // consumer would make it pass by construction.
+    const COMMITTEE_STATUS_KEYS = new Set(["prikazano", "navrzeno", "iniciativne"]);
+    const a = parseCommitteeAssignments(rows("43204|1772|4|300003|||1||"), HIST)[0];
+    expect(COMMITTEE_STATUS_KEYS.has(a.status)).toBe(false);
+  });
+});
+
 describe("parseSponsorRoles (Q-effort-2)", () => {
   // predkladatel.unl: id_tisk | id_osoba | poradi | typ
   const roles = parseSponsorRoles(
@@ -180,7 +256,8 @@ describe("parseBillFates", () => {
     ].join("\n"),
   );
 
-  const fates = parseBillFates(tisky, stavy, typStavu, hist);
+  const RETRIEVED_ON = "2026-08-13"; // the day the dump was read — pinned, never the clock
+  const fates = parseBillFates(tisky, stavy, typStavu, hist, RETRIEVED_ON);
 
   it("resolves the Czech state name per tisk", () => {
     expect(fates.get(43132)!.stav).toBe("KONEC");
@@ -193,5 +270,66 @@ describe("parseBillFates", () => {
     expect(fates.get(43132)!.publishedOn).toBe("2025-12-29");
     expect(fates.get(43185)!.sb).toBe("59/2026");
     expect(fates.get(43200)!.sb).toBeNull(); // the "null"-publik transition row is not a publication
+  });
+
+  it("a row that is not a publication is not counted as a refusal", () => {
+    expect(fates.get(43200)!.refusedPublications).toBe(0);
+    expect(fates.get(43132)!.refusedPublications).toBe(0);
+  });
+});
+
+/* ── RIDER 3: an impossible zaver date was published as a law citation ────────
+ *
+ * parseBillFates built a Sbírka citation out of anything regex-shaped like a date, so
+ * the dump's `zaver_publik = "28.08.0202"` (a publisher typo) published
+ * `sb: "88/0202"`, `publishedOn: "0202-08-28"`. lib/analysis/plausible-date.ts is the
+ * app's ONE boundary for exactly this and is imported, never forked. */
+describe("parseBillFates — an impossible publication date is refused, never repaired", () => {
+  const RETRIEVED_ON = "2026-08-13";
+  const tisky = rows(["43132|1|110|583|||||||||||||", "43185|2|120|59|||||||||||||"].join("\n"));
+  const stavy = rows(["110|6|1||||", "120|11|1||||"].join("\n"));
+  const typStavu = rows(["6|KONEC|", "11|Sbírka zákonů|"].join("\n"));
+  // hist: 11 zaver_publik | 13 cislo
+  const fatesFor = (histRows: string[]) =>
+    parseBillFates(tisky, stavy, typStavu, rows(histRows.join("\n")), RETRIEVED_ON);
+
+  it("refuses the year-0202 typo the live dump carries — no sb, no publishedOn, counted", () => {
+    const f = fatesFor(["210417|43132|2025-12-23 00:00||57|||||||28.08.0202|88|88|"]).get(43132)!;
+    expect(f.sb).toBeNull(); // would have been "88/0202"
+    expect(f.publishedOn).toBeNull(); // would have been "0202-08-28"
+    expect(f.refusedPublications).toBe(1);
+    expect(f.stav).toBe("KONEC"); // the ROW survives — only the citation is withheld
+  });
+
+  it("refuses a date after the day the dump was read, and a date before the republic", () => {
+    expect(fatesFor(["210417|43132|2025-12-23 00:00||57|||||||01.01.2029|9|9|"]).get(43132)!.sb).toBeNull();
+    expect(fatesFor(["210417|43132|2025-12-23 00:00||57|||||||01.01.1970|9|9|"]).get(43132)!.sb).toBeNull();
+    expect(fatesFor(["210417|43132|2025-12-23 00:00||57|||||||01.01.2029|9|9|"]).get(43132)!.refusedPublications).toBe(1);
+  });
+
+  it("refuses numbers that are regex-shaped but not a calendar date at all", () => {
+    // "2025-13-32" passes an ISO-lexicographic range check; it is still not a date.
+    const f = fatesFor(["210417|43132|2025-12-23 00:00||57|||||||32.13.2025|9|9|"]).get(43132)!;
+    expect(f.sb).toBeNull();
+    expect(f.refusedPublications).toBe(1);
+    expect(fatesFor(["210417|43132|2025-12-23 00:00||57|||||||31.02.2025|9|9|"]).get(43132)!.sb).toBeNull();
+  });
+
+  it("a plausible date is still published, and the boundary day itself passes", () => {
+    expect(fatesFor(["210417|43132|2025-12-23 00:00||57|||||||29.12.2025|583|583|"]).get(43132)!.sb).toBe("583/2025");
+    // retrievedOn is inclusive: a dump read on the day of publication still cites it.
+    const sameDay = fatesFor([`210417|43132|2025-12-23 00:00||57|||||||13.08.2026|9|9|`]).get(43132)!;
+    expect(sameDay.sb).toBe("9/2026");
+    expect(sameDay.refusedPublications).toBe(0);
+  });
+
+  it("a refused step does not evict an already-accepted publication", () => {
+    const f = fatesFor([
+      "210417|43132|2025-12-23 00:00||57|||||||29.12.2025|583|583|",
+      "210999|43132|2026-01-05 00:00||57|||||||28.08.0202|88|88|",
+    ]).get(43132)!;
+    expect(f.sb).toBe("583/2025");
+    expect(f.publishedOn).toBe("2025-12-29");
+    expect(f.refusedPublications).toBe(1);
   });
 });
