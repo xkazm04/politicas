@@ -12,7 +12,7 @@ import {
   krajSlug,
   listKraje,
 } from "./kraj";
-import { PUBLISHED_WEIGHTS, reweigh, type WeightVector } from "./lens";
+import { PUBLISHED_WEIGHTS, PUBLISHED_WEIGHTS_LABEL, reweigh, type WeightVector } from "./lens";
 
 // ── fixtures ────────────────────────────────────────────────────────────────
 
@@ -210,9 +210,15 @@ describe("krajCitationInput — the card reuses the canonical citation lines", (
     expect(c.methodologyLine).toContain("výpočetní pas 42");
   });
 
-  it("published weights cite the published methodology, without any weight vector", () => {
+  it("published weights cite the published methodology through the DERIVED label", () => {
+    // Do 2026-08-12 tu stál literál „25/20/20/15/10/10". Byl to jediný vektor vah,
+    // který přežil batch 1D — a přežil ho dvakrát: stráž v messages.test.ts hlídala
+    // jen katalogy a jen tvar s pomlčkou, takže lomítkový literál ve ZDROJI neviděl
+    // nikdo. Test proto nesmí znovu napsat žádný tvar toho vektoru: porovnává se
+    // s `PUBLISHED_WEIGHTS_LABEL`, který se odvozuje z CONTRIBUTION_WEIGHTS, takže
+    // změna vzorce tenhle řádek přeteče, místo aby ho nechala lhát.
     const c = buildPosterCitation(krajCitationInput(base));
-    expect(c.methodologyLine).toContain("publikovanou vahou 25/20/20/15/10/10");
+    expect(c.methodologyLine).toContain(`publikovanou vahou ${PUBLISHED_WEIGHTS_LABEL}`);
     expect(c.methodologyLine).not.toContain("VLASTNÍ ČOČKA");
   });
 
@@ -293,5 +299,43 @@ describe("krajCitationInput + provenience komory — patička nepřetiskne jisto
     expect(buildPosterCitation(krajCitationInput(base))).toEqual(
       buildPosterCitation({ ...krajCitationInput(base), provenanceState: null, provenanceVariants: null }),
     );
+  });
+});
+
+// KARTA DATUJE DATA, NE TISK (2026-08-12). Do teď routa /kraj/[kraj] posílala
+// do `retrievedAt` `new Date()`, takže vytištěná kandidátka nesla „stav dat ke
+// dni <dnešek>" nad žebříčkem z dávkového přepočtu — čerstvost, kterou data
+// nemají, na ploše, kterou po vytištění nikdo neopraví. Den teď vydává komorový
+// agregát `ContributionProvenance.computedAt` (jedno pravidlo, jedno místo,
+// týž zdroj jako `statusLine` vestavného widgetu), a když ho komora nemá,
+// karta den NEUVEDE.
+describe("krajCitationInput — den je datem DAT, ne dnem tisku", () => {
+  const base = {
+    liveUrl: "https://politicas.cz/kraj/jihomoravsky/",
+    provenancePass: 42,
+    weights: { ...PUBLISHED_WEIGHTS },
+  };
+
+  it("den z komorové provenience projde beze změny až na arch", () => {
+    const c = buildPosterCitation(krajCitationInput({ ...base, retrievedAt: "2026-08-04" }));
+    expect(c.retrievedAt).toBe("2026-08-04");
+    expect(c.retrievedLine).toContain("4. 8. 2026");
+  });
+
+  it("bez shody komory na jednom dni karta datum neuvede a řekne proč", () => {
+    const c = buildPosterCitation(krajCitationInput({ ...base, retrievedAt: null }));
+    expect(c.retrievedAt).toBe("");
+    expect(c.methodologyLine).toContain("nenahradil ho dnem tisku");
+    // Žádné datum — a jmenovitě ne dnešní. Tohle je ta regrese, kvůli které
+    // celá změna vznikla: kdyby se dnešek vrátil, padne to tady.
+    expect(c.retrievedLine).not.toMatch(/\d{1,2}\. \d{1,2}\. \d{4}/);
+    expect(c.methodologyLine).not.toContain(String(new Date().getFullYear()));
+  });
+
+  // Vektor vah je na archu pořád, i když datum chybí — nedatovanost není důvod
+  // ztratit metodiku, podle které čísla vznikla.
+  it("nedatovaná karta pořád cituje odvozený vektor zveřejněných vah", () => {
+    const c = buildPosterCitation(krajCitationInput({ ...base, retrievedAt: null }));
+    expect(c.methodologyLine).toContain(`publikovanou vahou ${PUBLISHED_WEIGHTS_LABEL}`);
   });
 });

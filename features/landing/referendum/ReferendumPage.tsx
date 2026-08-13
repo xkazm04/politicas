@@ -15,18 +15,27 @@
  * jazyk „vaše číslo, ne zveřejněné".
  *
  * Česká kopie inline literálem — messages/*.json je mimo plochu (precedens
- * /kompas, /denik, WeightPanel).
+ * /kompas, /denik, WeightPanel). VÝJIMKA: věty o PROVENIENCI skóre jdou z
+ * katalogu (`civicscore.provenance*`, useTranslations). Není to nedůslednost,
+ * je to celý smysl té změny — pět jiných ploch (žebříček, kandidátka kraje,
+ * velín, /metodika, spis) tvrdí o původu čísel přesně tyhle věty a šestá kopie
+ * napsaná tady by se od nich rozešla při první opravě. Referendum je navíc
+ * plocha, která čtenáře zve vzorec PŘEPSAT — a do 2026-08-12 o provenienci
+ * indexu, který přepisuje, neřeklo ani slovo (`grep -c provenance` → 0).
  */
 
-import { useEffect, useMemo, useState, useSyncExternalStore, useTransition } from "react";
+import { useMemo, useState, useSyncExternalStore, useTransition } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Check, Code2, Vote } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { ArrowUpRight, Code2, Vote } from "lucide-react";
+import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import WeightPanel from "@/features/civicscore/components/WeightPanel";
 import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import type { LeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 import { encodeWeights, PUBLISHED_WEIGHTS_LABEL, reweigh } from "@/features/civicscore/lens";
+import { storedRefLabel } from "@/features/civicscore/provenance";
 import { useLensWeights } from "@/features/civicscore/useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { submitLensVector } from "./actions";
@@ -52,6 +61,7 @@ export default function ReferendumPage({
   initialAggregate: WeightAggregate | null;
 }) {
   const f = useFormat();
+  const t = useTranslations("civicscore");
   const lens = useLensWeights();
   const lensView = useMemo(
     () => (data && !lens.isDefault ? reweigh(data.entries, data.components, lens.weights) : null),
@@ -111,13 +121,6 @@ export default function ReferendumPage({
       }
     });
   };
-
-  const [copied, setCopied] = useState(false);
-  useEffect(() => {
-    if (!copied) return;
-    const id = setTimeout(() => setCopied(false), 2500);
-    return () => clearTimeout(id);
-  }, [copied]);
 
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -265,6 +268,57 @@ export default function ReferendumPage({
                   <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
                 </Link>
               </div>
+
+              {/* ── původ výpočtu ────────────────────────────────────────────
+                  Referendum zve čtenáře index PŘEVÁŽIT — a o tom, ČÍM byla
+                  převažovaná čísla spočítána, dosud nemělo jedinou větu.
+                  Tytéž klíče a týž agregát jako /zebricek, /kraj, velín,
+                  /metodika a spis (features/civicscore/provenance.ts); žádná
+                  druhá kopie a žádné odvození navíc.
+
+                  Čtyři stavy plochy: graf nedostupný (poctivá větev `data ===
+                  null` výš — referendum pak neukazuje žádná čísla, takže o
+                  jejich původu nemá co tvrdit), jednotná komora s číslem
+                  průchodu, půlkou přepočtená komora, komora bez razítka.
+                  Vedle nich stojí věta o rozporu linie formule — ta není stav
+                  provenience, ale porovnání dat s kódem, a smí padnout ke
+                  každému stavu kromě chybějícího záznamu (o prázdnu se
+                  neobviňuje).
+
+                  Věty platí i pod čtenářovou čočkou: reweigh() přepočítává
+                  ULOŽENÉ složky, takže provenience toho, co se přepočítává,
+                  se čočkou nemění. */}
+              {data.provenancePass !== null && (
+                <div className="mt-3">
+                  <SourceNote>{t("provenanceNote", { pass: f.int(data.provenancePass) })}</SourceNote>
+                </div>
+              )}
+              {data.provenance.state === "mixed" && (
+                <div className="mt-1.5">
+                  <SourceNote>
+                    {t("provenanceMixed", {
+                      count: f.int(data.provenance.distinctCount),
+                      withProv: f.int(data.provenance.covered),
+                      total: f.int(data.provenance.total),
+                    })}
+                  </SourceNote>
+                </div>
+              )}
+              {data.provenance.state === "absent" && (
+                <div className="mt-1.5">
+                  <SourceNote>{t("provenanceAbsent")}</SourceNote>
+                </div>
+              )}
+              {!data.provenance.formulaMatch && data.provenance.state !== "absent" && (
+                <div className="mt-1.5">
+                  <SourceNote>
+                    {t("provenanceMismatch", {
+                      dataRef: storedRefLabel(data.provenance),
+                      codeRef: data.provenance.declaredRef,
+                    })}
+                  </SourceNote>
+                </div>
+              )}
             </section>
 
             {/* ── 03 Sdílení a vestavění ──────────────────────── */}
@@ -285,18 +339,20 @@ export default function ReferendumPage({
                     poslanci pod {custom ? "vaší čočkou" : "oficiálním indexem"} — každé číslo na ní
                     má týž zdroj jako stránka sama.
                   </p>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      navigator.clipboard
-                        .writeText(`${window.location.origin}${shareHref}`)
-                        .then(() => setCopied(true))
-                    }
-                    className="mt-4 inline-flex items-center gap-1.5 border-2 border-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-wider transition-colors hover:bg-ink hover:text-paper"
-                  >
-                    {copied ? <Check className="h-3 w-3" aria-hidden /> : null}
-                    {copied ? "Odkaz zkopírován" : "Kopírovat odkaz"}
-                  </button>
+                  {/* Sdílený primitiv, ne vlastní tlačítko: tenhle `onClick` byl
+                      `clipboard.writeText().then(ok)` BEZ větve odmítnutí, takže
+                      v nezabezpečeném kontextu (a při zamítnutém oprávnění) slib
+                      tiše spadl — čtenář zmáčkl a nestalo se nic, ani věta.
+                      CopyLinkButton (@catalog, vytažený z ReceiptPage 2026-08-04)
+                      selhání POJMENUJE do aria-live a nechá ruční cestu; adresa
+                      je vypsaná nad tlačítkem, jak jeho kontrakt předpokládá.
+                      Popisky jdou z `shared.copyLink.*`, takže jsou dvojjazyčné —
+                      předchozí české literály nebyly. Týž vzor, jaký správně drží
+                      WeightPanel/CopyLensLink; ten si vlastní tlačítko nechává,
+                      protože adresu skládá A zapisuje uprostřed tahu posuvníku. */}
+                  <div className="mt-4">
+                    <CopyLinkButton path={shareHref} errorContext="[referendum] kopírování odkazu selhalo" />
+                  </div>
                 </div>
                 <div className="border-2 border-ink p-6">
                   <p className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-steel-aa">

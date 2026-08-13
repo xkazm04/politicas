@@ -89,14 +89,11 @@ function PillarBars({
 export default function KrajPage({
   data,
   slug,
-  retrievedAt,
   liveUrl,
 }: {
   data: LeaderboardListData;
   /** Slug kraje — routa ho už ověřila proti listKraje(). */
   slug: string;
-  /** ISO datum dne, ke kterému byla karta vykreslena ze živého grafu. */
-  retrievedAt: string;
   /** Živá URL této karty (z request hlaviček — nikdy vymyšlená doména). */
   liveUrl: string;
 }) {
@@ -125,10 +122,18 @@ export default function KrajPage({
   // Citace jde dál VÝHRADNĚ přes buildPosterCitation; navíc jí podáváme stav
   // KOMOROVÉ provenience, aby arch u nejednotného (nebo chybějícího) původu
   // výpočtu nemlčel, ale řekl to — mlčení nerozliší „nevíme" od „neshodneme se".
+  //
+  // ARCH DATUJE DATA, NE TISK (2026-08-12). Do teď sem routa posílala
+  // `new Date()`, takže vytištěná kandidátka nesla „stav dat ke dni <dnešek>"
+  // nad žebříčkem, který je artefakt dávkového přepočtu — a papír se po tisku
+  // neopraví. Den vydává KOMOROVÝ agregát (`provenance.computedAt`, jediné
+  // místo, kde pravidlo „jeden den, jeden průchod, nikdo bez razítka" žije);
+  // `null` znamená, že se komora neshodne, a arch to řekne místo aby hádal —
+  // totéž pravidlo a totéž rozhodnutí jako `statusLine` vestavného widgetu.
   const citation = buildPosterCitation({
     ...krajCitationInput({
       liveUrl,
-      retrievedAt,
+      retrievedAt: data.provenance.computedAt,
       provenancePass: data.provenancePass,
       formulaMismatch: formulaMismatchOrNull(data.provenance),
       weights: lens.weights,

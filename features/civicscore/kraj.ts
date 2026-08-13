@@ -144,9 +144,12 @@ export const KRAJ_SOURCE_LABEL =
 export function krajCitationInput(args: {
   liveUrl: string;
   /**
-   * Den, KE KTERÉMU ČÍSLA PLATÍ — `contribution_provenance.computedAt` komory,
-   * ne okamžik tisku. `null` = komora se na jednom dni neshodne a arch datum
-   * neuvádí; nikdy se nenahrazuje dneškem (viz PosterCitationInput.retrievedAt).
+   * Den, KE KTERÉMU ČÍSLA PLATÍ — `ContributionProvenance.computedAt` komory,
+   * ne okamžik tisku. `null` = komora se na jednom dni pod jedním `{pass, ref}`
+   * neshodne (nebo razítko chybí) a arch den neuvádí; nikdy se nenahrazuje
+   * dneškem. Pravidlo se tu NEPOČÍTÁ podruhé — vydává ho agregát v
+   * `./provenance.ts` a čte ho stejně vestavný widget (features/landing/
+   * referendum/embed.ts, `statusLine`); viz posterUndatedNote().
    */
   retrievedAt: string | null;
   provenancePass: number | null;

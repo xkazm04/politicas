@@ -5,7 +5,7 @@ import { LENS_PARAM, PUBLISHED_WEIGHTS_LABEL } from "@/features/civicscore/lens"
 import { deriveReferendumCard } from "@/features/landing/referendum/ogPayload";
 import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import { HAIRLINE, INK, OCHRE, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
-import { czech, czechInt } from "@/lib/format";
+import { czech, czechDate, czechInt } from "@/lib/format";
 
 /*
  * OG karta referenda o metodice (moonshot 7B) — sdílený odkaz /referendum
@@ -63,6 +63,42 @@ export async function GET(req: NextRequest) {
   const kicker = "politicas / referendum o metodice";
   const sourcesLine = "zdroj: psp.cz · deterministický výpočet · index přispění 0–100";
 
+  /*
+   * PŮVOD VÝPOČTU NA SDÍLENÉ KARTĚ (2026-08-12).
+   *
+   * Karta je nejtrvanlivější artefakt, který tahle aplikace vypouští: žije na
+   * cizích timelinách dál, než trvá jedna dávka přepočtu — a o původu čísel na
+   * ní dosud nestálo nic (`grep -c provenance` → 0), zatímco šest slabších
+   * ploch komorový agregát vykresluje.
+   *
+   * NESE JEN DEN A PRŮCHOD, ne čtyři stavové věty ze stránky. Ty jsou
+   * 150–250 znaků a karta 1200×630 už drží šest pruhů otisku vah a pět řádků
+   * žebříčku; ve velikosti, ve které se sdílený náhled doopravdy zobrazuje,
+   * by buď přetekly, nebo musely spadnout pod čitelnou velikost písma. Věty
+   * má stránka i widget — karta jen NESMÍ tvrdit víc, než se na ni vejde:
+   * když se komora na jednom dni neshodne (půlkou přepočtená, bez razítka),
+   * karta žádný den ani průchod neuvádí a řekne to. Rozpor mezi linií
+   * metodiky v datech a v kódu se přidává jako krátká výhrada — je to jediný
+   * stav, kdy datum i pas platí, a přesto by karta bez ní tvrdila metodiku,
+   * podle které její čísla nevznikla.
+   *
+   * Pravidlo, KDY se smí datovat, se tu nepočítá: vydává ho
+   * `ContributionProvenance.computedAt` (jeden den nad jedním `{pass, ref}`,
+   * nikdo bez razítka) — týž zdroj, jaký čte `statusLine` vestavného widgetu
+   * i patička tištěného archu.
+   */
+  const prov = data?.provenance ?? null;
+  const provenanceLine =
+    card.kind !== "official" && card.kind !== "lens"
+      ? // Karta bez čísel (neplatný vektor / graf nedostupný) o původu čísel
+        // nemá co tvrdit — není co datovat.
+        null
+      : prov === null || prov.computedAt === null
+        ? "datum přepočtu indexu graf neuvádí jednotně"
+        : `stav dat k ${czechDate(prov.computedAt)}` +
+          (prov.pass !== null ? ` · přepočet indexu, průchod č. ${czechInt(prov.pass)}` : "") +
+          (prov.formulaMatch ? "" : " · pozor: čísla spočítala starší linie metodiky");
+
   const title =
     card.kind === "invalid"
       ? "Neplatné váhy"
@@ -105,6 +141,9 @@ export async function GET(req: NextRequest) {
     title,
     stateLine,
     sourcesLine,
+    // Bez tohohle by satori vysadil řádek původu bez diakritiky: podmnožina
+    // písma se objednává PODLE textu, který se opravdu sází.
+    provenanceLine ?? "",
     ...rows.flatMap((r) => [r.rank, r.name, r.club, r.score]),
     ...bars.flatMap((b) => [b.label, b.value]),
   ].join("");
@@ -239,11 +278,18 @@ export async function GET(req: NextRequest) {
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
+            gap: 6,
             borderTop: `3px solid ${STEEL}`,
             paddingTop: 22,
           }}
         >
           <div style={{ fontFamily: mono, fontSize: 22, color: STEEL, display: "flex" }}>{sourcesLine}</div>
+          {provenanceLine !== null && (
+            <div style={{ fontFamily: mono, fontSize: 20, color: STEEL, display: "flex" }}>
+              {provenanceLine}
+            </div>
+          )}
         </div>
       </div>
     ),

@@ -10,8 +10,8 @@ import { krajSlate, listKraje } from "@/features/civicscore/kraj";
 /*
  * /kraj/[kraj] — volební karta kraje (moonshot 5E): trvalý odkaz na kandidátku
  * poslanců jednoho kraje (slug bez diakritiky, viz krajSlug). Tenká routa:
- * ověří slug proti krajům odvozeným z reálného grafu, ořeže vstupy archu
- * (datum, živá URL) a vše ostatní žije ve features/civicscore/KrajPage.
+ * ověří slug proti krajům odvozeným z reálného grafu, složí živou URL archu
+ * z request hlaviček a vše ostatní žije ve features/civicscore/KrajPage.
  *
  * Neznámý slug = skutečná 404 (kraj neexistuje); nedostupný store = poctivé
  * DataUnavailable (HTTP 200) — kraj existuje, databáze byla jen zaneprázdněná.
@@ -53,13 +53,10 @@ export default async function KrajKartaPage({ params }: { params: Promise<{ kraj
   // Slug je platný jen pro kraj, který v žebříčku skutečně existuje.
   if (!listKraje(data.entries).some((k) => k.slug === kraj)) notFound();
 
-  return (
-    <KrajPage
-      data={data}
-      slug={kraj}
-      // Datum, ke kterému čísla platí = den vykreslení ze živého grafu.
-      retrievedAt={new Date().toISOString().slice(0, 10)}
-      liveUrl={await liveKrajUrl(kraj)}
-    />
-  );
+  // Den, ke kterému čísla platí, routa NEPODÁVÁ: do 2026-08-12 tu stálo
+  // `new Date()`, tedy okamžik vykreslení, a vytištěný arch tím datoval sám
+  // sebe místo dat pod sebou. Datum si karta bere z komorového agregátu
+  // provenience, který je součástí `data` (viz KrajPage) — jeden zdroj dne,
+  // žádný prop, kterým by šel dnešek propašovat zpátky.
+  return <KrajPage data={data} slug={kraj} liveUrl={await liveKrajUrl(kraj)} />;
 }

@@ -310,13 +310,28 @@ describe("zveřejněné váhy se nikde nepíšou — ani v katalogu, ani ve zdro
     expect(hits, `${locale}.json hardcodes the published weight vector`).toEqual([CATALOG_DEBT_KEY]);
   });
 
-  it("žádný zdroj features/civicscore/** nenese vektor vah v žádném z obou tvarů", () => {
-    const files = readdirSync("features/civicscore", { recursive: true, encoding: "utf8" })
-      .filter((p) => /\.tsx?$/.test(p) && !/\.test\.tsx?$/.test(p))
-      // Testy pinují VZOREC (lens.test.ts, componentDefs.test.ts) — to je jejich
-      // práce; zakázaná je jen vykreslovaná kopie ve zdroji produktu.
-      .map((p) => `features/civicscore/${p.replace(/\\/g, "/")}`);
+  /**
+   * Plochy, které vektor vah VYKRESLUJÍ: žebříček s kandidátkou kraje a
+   * referendum (stránka, OG karta, vestavný widget berou řetězec odsud).
+   * Ostatní zdroj o zveřejněných vahách nemluví, a sken, který by šel přes
+   * celé `features/`, by hlídal hlavně cizí lot.
+   */
+  const SCANNED_ROOTS = ["features/civicscore", "features/landing/referendum"];
+
+  it("žádný zdroj vykreslujících ploch nenese vektor vah v žádném z obou tvarů", () => {
+    const files = SCANNED_ROOTS.flatMap((root) =>
+      readdirSync(root, { recursive: true, encoding: "utf8" })
+        .filter((p) => /\.tsx?$/.test(p) && !/\.test\.tsx?$/.test(p))
+        // Testy pinují VZOREC (lens.test.ts, componentDefs.test.ts) — to je jejich
+        // práce; zakázaná je jen vykreslovaná kopie ve zdroji produktu.
+        .map((p) => `${root}/${p.replace(/\\/g, "/")}`),
+    );
     expect(files.length, "sken nenašel žádný zdroj — cesta se rozešla se stromem").toBeGreaterThan(10);
+    // Sken musí vidět OBA kořeny — kdyby se jeden přejmenoval, `flatMap` by
+    // tiše vrátil o pár souborů míň a stráž by nad ním přestala platit.
+    for (const root of SCANNED_ROOTS) {
+      expect(files.some((f) => f.startsWith(`${root}/`)), `${root} nedodal ani jeden zdroj`).toBe(true);
+    }
 
     const hits: string[] = [];
     for (const file of files) {

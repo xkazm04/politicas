@@ -8,6 +8,10 @@
 //
 // Datum jde přes lib/format (deterministicky, bez Intl — viz tamní hlavička);
 // nevalidní vstup se propíše jako „—", nikdy jako „NaN. NaN. NaN".
+//
+// „KE KTERÉMU DNI" DATUJE DATA, NE TISK (2026-08-12): `retrievedAt` je den, ke
+// kterému čísla platí — ne okamžik vykreslení. Volající, který ten den nemá,
+// posílá `null` a arch to řekne (posterUndatedNote); dnešek se nedosazuje.
 
 import { czechDate, czechInt } from "@/lib/format";
 
@@ -21,8 +25,15 @@ export interface PosterCitationInput {
   sourceLabel: string;
   /** Živá verze plochy, plná URL — na plakátě se sází bez protokolu. */
   sourceUrl: string;
-  /** ISO datum (YYYY-MM-DD), ke kterému dni čísla platí. */
-  retrievedAt: string;
+  /**
+   * ISO datum (YYYY-MM-DD), ke kterému dni čísla platí — a `null`, když ten den
+   * zdroj doložit neumí (viz posterUndatedNote níž).
+   *
+   * Do 2026-08-12 bylo pole povinné a volající do něj sázel `new Date()`, takže
+   * arch datoval OKAMŽIK TISKU nad čísly z dávkového přepočtu. `null` je tu
+   * proto, aby „nevím" mělo kam jít; nikdy se nenahrazuje dneškem.
+   */
+  retrievedAt: string | null;
   /** Jednořádkové shrnutí metodiky — „index přispění, šest vážených složek…". */
   methodology: string;
   /** Výpočetní pas, který čísla autorizoval (contribution_provenance.pass). */
@@ -62,7 +73,14 @@ export interface PosterCitation {
   displayUrl: string;
   /** Strukturovaná pole — komponenta z nich sází přes katalog `shared.poster.*`. */
   source: string;
-  /** ISO datum (YYYY-MM-DD) — formátuje až sazba podle aktivního locale. */
+  /**
+   * ISO datum (YYYY-MM-DD) — formátuje až sazba podle aktivního locale.
+   * PRÁZDNÝ ŘETĚZEC = arch den neuvádí: sazba z něj vykreslí „—" (lib/format
+   * vrací placeholder pro cokoli, co není ISO den) a DŮVOD stojí v řádku
+   * metodiky, kam ho přidal posterUndatedNote(). Prázdno je tu záměrné —
+   * `string | null` by rozbilo sazbu patičky, která pole podává formátovači
+   * data, a mlčení bez věty by vypadalo jako pokažené datum.
+   */
   retrievedAt: string;
   methodology: string;
   /**
@@ -114,31 +132,66 @@ export function posterProvenanceNote(
   return null;
 }
 
+/**
+ * Věta, kterou patička řekne MÍSTO dne, ke kterému čísla platí — nebo null,
+ * když ten den zdroj doložit umí.
+ *
+ * PRAVIDLO SE NEPÍŠE PODRUHÉ. Kdy smí plocha datovat čísla, rozhoduje jediné
+ * místo: `ContributionProvenance.computedAt` (features/civicscore/provenance.ts),
+ * a ten vydá den jen tehdy, když se na něm shodne CELÁ komora nad jedním
+ * `{pass, ref}` a žádný ohodnocený poslanec razítko nepostrádá. Vestavný widget
+ * (features/landing/referendum/embed.ts, `statusLine`) je precedens, který to
+ * pravidlo čte správně od 2026-08-12 — arch ho odtud čte stejně a nic
+ * nedopočítává. Tenhle modul o tom agregátu úmyslně neví: je to sdílený
+ * primitiv a nesmí viset na jedné feature (týž důvod jako u
+ * `PosterProvenanceState`).
+ *
+ * Proč to nesmí spadnout na dnešek: arch je DATOVANÝ OTISK. `new Date()` v
+ * routě datoval okamžik TISKU nad čísly z dávkového přepočtu, takže každý výtisk
+ * inzeroval čerstvost, kterou data nemají — na ploše, kterou po vytištění nikdo
+ * neopraví.
+ *
+ * Věta jde do řádku METODIKY ze stejného důvodu jako posterProvenanceNote:
+ * patička se sází z katalogu (`shared.poster.*`) nad strukturovanými poli, takže
+ * nová věta bez vlastního klíče nemá kudy vyjít — a `methodology` je jediné
+ * pole, které sazba propouští doslova (viz hlavička modulu).
+ */
+export function posterUndatedNote(retrievedAt: string | null | undefined): string | null {
+  if (typeof retrievedAt === "string" && retrievedAt.length > 0) return null;
+  return "den, ke kterému čísla platí, záznam neuvádí jednotně — arch ho proto nevytiskl a nenahradil ho dnem tisku";
+}
+
 export function buildPosterCitation(input: PosterCitationInput): PosterCitation {
   const displayUrl = posterDisplayUrl(input.sourceUrl);
   // Nejednotný (ani chybějící) původ výpočtu ruší číslo pasu strukturálně — ne
   // proto, že by ho volající neposlal, ale proto, že žádné jedno číslo neplatí.
   const provenanceNote = posterProvenanceNote(input.provenanceState, input.provenanceVariants);
+  const undatedNote = posterUndatedNote(input.retrievedAt);
+  const retrievedAt = input.retrievedAt ?? "";
   const passValue =
     provenanceNote === null &&
     typeof input.provenancePass === "number" &&
     Number.isFinite(input.provenancePass)
       ? input.provenancePass
       : null;
-  const methodology =
-    provenanceNote === null ? input.methodology : `${input.methodology} · ${provenanceNote}`;
+  const methodology = [input.methodology, provenanceNote, undatedNote]
+    .filter((s): s is string => s !== null)
+    .join(" · ");
   const pass = passValue !== null ? ` · výpočetní pas ${czechInt(passValue)}` : "";
   const mismatch = input.formulaMismatch
     ? ` · POZOR: čísla spočítala starší linie metodiky „${input.formulaMismatch.storedRef}“, kód dnes deklaruje „${input.formulaMismatch.declaredRef}“`
     : "";
   return {
     sourceLine: `zdroj: ${input.sourceLabel}`,
-    retrievedLine: `stav dat ke dni ${czechDate(input.retrievedAt)} — plakát je datovaný otisk, čísla se v čase mění`,
+    retrievedLine:
+      undatedNote !== null
+        ? `stav dat ke dni: ${undatedNote}`
+        : `stav dat ke dni ${czechDate(retrievedAt)} — plakát je datovaný otisk, čísla se v čase mění`,
     methodologyLine: `metodika: ${methodology}${pass}${mismatch}`,
     liveLine: `živá verze: ${displayUrl}`,
     displayUrl,
     source: input.sourceLabel,
-    retrievedAt: input.retrievedAt,
+    retrievedAt,
     methodology,
     pass: passValue,
     mismatch: input.formulaMismatch ?? null,
