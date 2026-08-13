@@ -1104,7 +1104,29 @@
       "matrixNoLine": "klub v tomhle hlasování linii neměl",
       "chronicleListAria": "Kronika hlasů proti linii vlastního klubu",
       "topRebelsListAria": "Žebříček poslanců podle míry rebelie",
-      "rateAria": "míra rebelie"
+      "rateAria": "míra rebelie",
+      "thresholdTitle": "kolik hlasů bylo potřeba",
+      "thresholdPresent": "přítomno",
+      "thresholdQuorum": "potřeba hlasů",
+      "thresholdYes": "pro (zveřejněno)",
+      "thresholdUnstated": "zdroj neuvádí",
+      "thresholdDerived": "odvozeno ze sloupců výše",
+      "thresholdOver": "Zveřejněné „pro“ stálo o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} nad prahem.",
+      "thresholdUnder": "Zveřejněné „pro“ zůstalo o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} pod prahem.",
+      "thresholdExact": "Zveřejněné „pro“ stálo přesně na prahu.",
+      "thresholdMarginUnknown": "Rozdíl proti prahu spočítat nejde — zdroj u tohoto hlasování neuvádí obě čísla, ze kterých vzniká.",
+      "thresholdSimple": "Práh odpovídá prosté většině přítomných.",
+      "thresholdDiffers": "Práh se od prosté většiny přítomných liší; ta by u tohoto hlasování byla {simple}. Podle jakého pravidla práh vznikl, zdroj neuvádí, a stránka to nedoplňuje.",
+      "thresholdUnassessed": "Jestli práh odpovídá prosté většině přítomných, posoudit nejde — zdroj u tohoto hlasování neuvádí obě čísla, která by se porovnávala.",
+      "thresholdNote": "psp.cz — jmenovité hlasování PSP10: počet přítomných, počet potřebných hlasů i zveřejněné „pro“ jsou sloupce zdroje u tohoto hlasování · rozdíl proti prahu a prostá většina přítomných jsou odvozené · počet přítomných je údaj sněmovny k tomuto hlasování, ne docházka poslance",
+      "thresholdRowPresent": "přítomno {nFmt}",
+      "thresholdRowPresentNone": "počet přítomných zdroj neuvádí",
+      "thresholdRowQuorum": "potřeba {nFmt}",
+      "thresholdRowQuorumNone": "počet potřebných hlasů zdroj neuvádí",
+      "thresholdRowOver": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} nad prahem",
+      "thresholdRowUnder": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} pod prahem",
+      "thresholdRowExact": "přesně na prahu",
+      "thresholdFootnote": "psp.cz — jmenovitá hlasování PSP10: kolik hlasů bylo potřeba a kolik poslanců bylo přítomno, jsou sloupce zdroje u hlasování; rozdíl proti prahu je odvozený · v záznamu nese obojí {comparable} platných hlasování a u {differs} z nich je práh jiný než prostá většina přítomných · u {withoutQuorum} platných hlasování zdroj počet potřebných hlasů neuvádí, a práh se u nich s ničím neporovnával"
     },
     "kompas": {
       "heroNote": "reálná data · psp.cz — jmenovitá hlasování PSP10 · otázky vybírá zveřejněné pravidlo, shodu počítají skutečné hlasy",
@@ -1671,7 +1693,9 @@
       "notAnomaly": "Analytický průchod výslovně uzavřel, že nejde o chybu dat ani o smyšlený subjekt: IČO zaniklo a rejstřík ho už nevede.",
       "analystNoteHeading": "poznámka analýzy (doslovně)",
       "annotationSource": "zdroj: kg_node.props protistrany — uložená anotace zaniklého IČO",
-      "annotationSourceDated": "zdroj: kg_node.props protistrany · zapsáno {date} · průchod grafu č. {pass}"
+      "annotationSourceDated": "zdroj: kg_node.props protistrany · zapsáno {date} · průchod grafu č. {pass}",
+      "shareSoleOwner": "registr uvádí jediného vlastníka",
+      "shareSoleOwnerRule": "Podíl v procentech se tu nesází: rejstřík ho v tomto výpisu nezveřejňuje. Údaj o jediném vlastníkovi je odvozený z textu funkce, který rejstřík u zápisu vede — týká se {count, plural, one {# zápisu} few {# zápisů} other {# zápisů}} níže a text funkce je u každého z nich uveden."
     },
     "packet": {
       "print": "Tisk paketu",
@@ -1815,6 +1839,21 @@
       "stillPending": "vazba stále čeká na kontrolu",
       "sourceLink": "doklad, ze kterého průchod četl",
       "noSource": "k poznámce není uvedený rejstříkový doklad"
+    },
+    "basis": {
+      "tagLabel": "daňová základna",
+      "tagBezDph": "bez DPH",
+      "tagVcetneDph": "s DPH",
+      "tagCiziMena": "cizí měna",
+      "tagNone": "bez hodnoty",
+      "tagUnrecorded": "základna neuvedena",
+      "rule": "Registr smluv zveřejňuje hodnotu smlouvy ve dvou základnách — bez DPH a včetně DPH — a jako sčitatelné je neuvádí. Sazbu DPH u jednotlivé smlouvy graf nenese, takže se nic nepřepočítává; místo toho se vypisuje složení. Zdroj: pole amountBasis ze sklizně registru smluv.",
+      "mixed": "Součet míchá dvě daňové základny: {bez, plural, one {{bezFmt} smlouva bez DPH} few {{bezFmt} smlouvy bez DPH} other {{bezFmt} smluv bez DPH}} a {vcetne, plural, one {{vcetneFmt} smlouva včetně DPH} few {{vcetneFmt} smlouvy včetně DPH} other {{vcetneFmt} smluv včetně DPH}}. Registr obě publikuje vedle sebe a jako sčitatelné je neuvádí; sazbu DPH graf nenese, takže se nic nepřepočítává.",
+      "allBezDph": "{count, plural, one {{countFmt} započtená smlouva uvádí} few {{countFmt} započtené smlouvy uvádějí} other {{countFmt} započtených smluv uvádí}} hodnotu bez DPH.",
+      "allVcetneDph": "{count, plural, one {{countFmt} započtená smlouva uvádí} few {{countFmt} započtené smlouvy uvádějí} other {{countFmt} započtených smluv uvádí}} hodnotu včetně DPH.",
+      "noVatBasis": "{count, plural, one {{countFmt} započtená smlouva neuvádí} few {{countFmt} započtené smlouvy neuvádějí} other {{countFmt} započtených smluv neuvádí}} hodnotu v porovnatelné daňové základně.",
+      "foreignCurrency": "{count, plural, one {{countFmt} smlouva je vedena} few {{countFmt} smlouvy jsou vedeny} other {{countFmt} smluv je vedeno}} v cizí měně.",
+      "unstated": "U {count, plural, one {{countFmt} smlouvy} few {{countFmt} smluv} other {{countFmt} smluv}} daňovou základnu graf neuvádí — do žádné ze stran se nepočítají."
     }
   },
   "budget": {
@@ -2338,10 +2377,10 @@
         "bloc": "Blok je odvozený uzel — vznikl výpočtem nad maticí společného hlasování. Žádný registr ho nevede; jeho zdrojem je provenience níže.",
         "theme": "Téma je odvozený uzel — vznikl klasifikací hlasování. Žádný registr ho nevede; jeho zdrojem je provenience níže.",
         "company": "IČO u tohoto uzlu chybí, takže odkaz do ARES ani do rejstříku sestavit nejde.",
-        "contract": "K této smlouvě nemáme uložené IČO dodavatele, přes které se do Registru smluv dotazujeme.",
+        "contract": "U této smlouvy nemáme ani uloženou adresu v Registru smluv, ani IČO dodavatele, přes které se do rejstříku dotazujeme.",
         "bill": "U tohoto tisku chybí číslo, kterým se na psp.cz odkazuje.",
         "law": "Citace zákona v záznamu nemá rozpoznatelné číslo a ročník, takže odkaz do e-Sbírky sestavit nejde.",
-        "notice": "Zdrojová data vývěsky URL nesou, ale náš ingest ji na uzel zatím nepřenáší. Rekonstruovat ji by znamenalo hádat — zůstává spisová značka."
+        "notice": "Tahle vývěska nenese adresu, na které byla vyvěšena — bez ní odkaz sestavit nejde a rekonstruovat ho by znamenalo hádat. Zůstává spisová značka."
       }
     },
     "stage": {

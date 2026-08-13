@@ -1104,7 +1104,29 @@
       "matrixNoLine": "the club had no line in this roll call",
       "chronicleListAria": "Chronicle of ballots cast against a member's own club line",
       "topRebelsListAria": "Ranking of MPs by rebellion rate",
-      "rateAria": "rebellion rate"
+      "rateAria": "rebellion rate",
+      "thresholdTitle": "how many votes were needed",
+      "thresholdPresent": "present",
+      "thresholdQuorum": "votes needed",
+      "thresholdYes": "in favour (published)",
+      "thresholdUnstated": "the source states none",
+      "thresholdDerived": "derived from the columns above",
+      "thresholdOver": "The published “in favour” stood {n, plural, one {{nFmt} vote} other {{nFmt} votes}} above the threshold.",
+      "thresholdUnder": "The published “in favour” stayed {n, plural, one {{nFmt} vote} other {{nFmt} votes}} below the threshold.",
+      "thresholdExact": "The published “in favour” stood exactly on the threshold.",
+      "thresholdMarginUnknown": "The distance to the threshold cannot be computed — the source does not state both numbers it is made of for this roll call.",
+      "thresholdSimple": "The threshold matches a simple majority of those present.",
+      "thresholdDiffers": "The threshold differs from a simple majority of those present, which would be {simple} for this roll call. The source states no rule behind the threshold, and this page adds none.",
+      "thresholdUnassessed": "Whether the threshold matches a simple majority of those present cannot be judged — the source does not state both numbers the comparison would use.",
+      "thresholdNote": "psp.cz — named roll call, PSP10: the number present, the number of votes needed and the published “in favour” are the source's own columns for this roll call · the distance to the threshold and the simple majority of those present are derived · the number present is the Chamber's figure for this roll call, not an MP's attendance record",
+      "thresholdRowPresent": "present {nFmt}",
+      "thresholdRowPresentNone": "the source states no attendance count",
+      "thresholdRowQuorum": "needed {nFmt}",
+      "thresholdRowQuorumNone": "the source states no threshold",
+      "thresholdRowOver": "{n, plural, one {{nFmt} vote} other {{nFmt} votes}} above the threshold",
+      "thresholdRowUnder": "{n, plural, one {{nFmt} vote} other {{nFmt} votes}} below the threshold",
+      "thresholdRowExact": "exactly on the threshold",
+      "thresholdFootnote": "psp.cz — named roll calls, PSP10: how many votes were needed and how many MPs were present are the source's own columns for a roll call; the distance to the threshold is derived · the record holds both for {comparable} valid roll calls, and for {differs} of them the threshold is other than a simple majority of those present · for {withoutQuorum} valid roll calls the source states no number of votes needed, so the threshold there was compared with nothing"
     },
     "kompas": {
       "heroNote": "real data · psp.cz — PSP10 roll-call votes · questions picked by a disclosed rule, matches computed from actual ballots",
@@ -1671,7 +1693,9 @@
       "notAnomaly": "The analysis pass concluded explicitly that this is neither a data fault nor an invented subject: the IČO ceased to exist and the register no longer carries it.",
       "analystNoteHeading": "analyst note (verbatim)",
       "annotationSource": "source: kg_node.props of the counterpart — stored annotation of an extinct IČO",
-      "annotationSourceDated": "source: kg_node.props of the counterpart · recorded {date} · graph pass no. {pass}"
+      "annotationSourceDated": "source: kg_node.props of the counterpart · recorded {date} · graph pass no. {pass}",
+      "shareSoleOwner": "the register names a sole owner",
+      "shareSoleOwnerRule": "No ownership percentage is typeset here: this register export publishes none. The sole-owner reading is derived from the role wording the register carries on the entry — it applies to {count, plural, one {# entry} other {# entries}} below, and that wording is shown on each of them."
     },
     "packet": {
       "print": "Print packet",
@@ -1815,6 +1839,21 @@
       "stillPending": "the tie is still pending review",
       "sourceLink": "the registry record the pass read",
       "noSource": "no registry document cited for this note"
+    },
+    "basis": {
+      "tagLabel": "tax base",
+      "tagBezDph": "excl. VAT",
+      "tagVcetneDph": "incl. VAT",
+      "tagCiziMena": "foreign currency",
+      "tagNone": "no value",
+      "tagUnrecorded": "base not recorded",
+      "rule": "The contract register publishes a contract's value on two bases — excluding and including VAT — and never publishes them as summable. The graph carries no VAT rate for an individual contract, so nothing is converted; the composition is stated instead. Source: the amountBasis field written by the contract-register harvest.",
+      "mixed": "This total mixes two tax bases: {bez, plural, one {{bezFmt} contract excluding VAT} other {{bezFmt} contracts excluding VAT}} and {vcetne, plural, one {{vcetneFmt} contract including VAT} other {{vcetneFmt} contracts including VAT}}. The register publishes both side by side and never as summable; the graph carries no VAT rate, so nothing is converted.",
+      "allBezDph": "All {count, plural, one {{countFmt} counted contract states} other {{countFmt} counted contracts state}} a value excluding VAT.",
+      "allVcetneDph": "All {count, plural, one {{countFmt} counted contract states} other {{countFmt} counted contracts state}} a value including VAT.",
+      "noVatBasis": "{count, plural, one {{countFmt} counted contract states} other {{countFmt} counted contracts state}} no value on a comparable tax base.",
+      "foreignCurrency": "{count, plural, one {{countFmt} contract is} other {{countFmt} contracts are}} recorded in a foreign currency.",
+      "unstated": "For {count, plural, one {{countFmt} contract} other {{countFmt} contracts}} the graph states no tax base — they count towards neither side."
     }
   },
   "budget": {
@@ -2338,10 +2377,10 @@
         "bloc": "A bloc is a derived node — it comes from a computation over the co-voting matrix. No register maintains it; its source is the provenance below.",
         "theme": "A theme is a derived node — it comes from classifying votes. No register maintains it; its source is the provenance below.",
         "company": "This node is missing an IČO, so a link into ARES or the company register can't be built.",
-        "contract": "We don't have the supplier's IČO stored for this contract, which is what we use to query the Contract Register.",
+        "contract": "This contract carries neither its own address in the Contract Register nor the supplier's IČO we use to query it.",
         "bill": "This bill is missing the number psp.cz uses to reference it.",
         "law": "The law citation in the record has no recognizable number and year, so a link into e-Sbírka can't be built.",
-        "notice": "The source data for the notice does carry a URL, but our ingest doesn't carry it through to the node yet. Reconstructing it would mean guessing — it stays at the case number."
+        "notice": "This notice doesn't carry the address it was posted at — without it no link can be built, and reconstructing one would mean guessing. It stays at the case number."
       }
     },
     "stage": {
