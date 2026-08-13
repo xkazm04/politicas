@@ -8,9 +8,17 @@
  * neprojde jako doložený subjekt; a že žádná ztráta neodejde potichu.
  */
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
-import { projectOwnership, sourceFileLabel, successorIcoFrom } from "./ownership";
+import {
+  SOLE_OWNER_ROLE_RE,
+  SOLE_OWNER_SHARE,
+  classifyShare,
+  projectOwnership,
+  sourceFileLabel,
+  successorIcoFrom,
+} from "./ownership";
 
 const SUBJECT = "company:ico:26185610";
 
@@ -168,6 +176,9 @@ describe("projectOwnership", () => {
     expect(row.to).toBeNull();
     expect(row.from).toBe("2013-09-04");
     expect(row.sharePct).toBe(100);
+    // …ale je to ODVOZENÍ ze slova v roli, ne zveřejněné procento — plocha
+    // to podle `shareOrigin` nesází jako změřený údaj.
+    expect(row.shareOrigin).toBe("sole-owner-role");
     expect(row.role).toBe("jediný akcionář");
     // Rejstřík vede u tohohle vztahu dvě období a nahoře je poslední z nich.
     expect(row.periodCount).toBe(2);
@@ -262,6 +273,81 @@ describe("projectOwnership", () => {
       nodeById: new Map([["company:ico:00075370", node("company:ico:00075370", "Město Plzeň")]]),
     })!;
     expect(s.owners[0].sharePct).toBeNull();
+    // Nepřítomný podíl je NEPŘÍTOMNOST — nikdy „0 %", a tedy ani `published`.
+    expect(s.owners[0].shareOrigin).toBeNull();
+  });
+
+  /* ── STO PROCENT, KTERÉ NIKDO NEZMĚŘIL ───────────────────────────────────
+   *
+   * `share` u téhle vrstvy nezveřejnil žádný rejstřík: jediný zapisovatel
+   * (`scripts/case-loops/money/dataor-ownership-chains.ts:177`) ho vyrábí jako
+   * `role && /jedin[ýá]/i.test(role) ? 100 : null`, tedy shodou regulárního
+   * výrazu nad volným textem funkce. Blok to tiskl jako „100 %".
+   */
+  describe("podíl říká, odkud je", () => {
+    it("JEN role tvaru „jediný …“ umí vyrobit hodnotu 100", () => {
+      for (const role of ["jediný akcionář", "jediný společník", "Jediná akcionářka"]) {
+        expect(SOLE_OWNER_ROLE_RE.test(role)).toBe(true);
+        expect(classifyShare(SOLE_OWNER_SHARE, role)).toBe("sole-owner-role");
+      }
+    });
+
+    it("role bez toho slova žádné číslo nevyrobí — a tedy ani žádné nevykreslí", () => {
+      // Přesně to, co dělá zapisovatel: bez shody píše `null`, takže projekce
+      // nemá co klasifikovat a řádek zůstane bez čísla.
+      for (const role of ["člen představenstva", "jednatel", "akcionář", "dozorčí rada"]) {
+        expect(SOLE_OWNER_ROLE_RE.test(role)).toBe(false);
+        expect(classifyShare(null, role)).toBeNull();
+      }
+      expect(classifyShare(null, null)).toBeNull();
+    });
+
+    it("procento, které ten odhad vyrobit NEMOHL, se nedegraduje", () => {
+      // Kdyby se objevil skutečně zveřejněný podíl, projde jako změřený údaj:
+      // ani jiná hodnota u sole-owner role, ani 100 u jiné role není odvození.
+      expect(classifyShare(60, "jediný akcionář")).toBe("published");
+      expect(classifyShare(SOLE_OWNER_SHARE, "akcionář")).toBe("published");
+      expect(classifyShare(33.5, "společník")).toBe("published");
+      expect(classifyShare(SOLE_OWNER_SHARE, null)).toBe("published");
+    });
+
+    it("projekce počítá, kolik řádků na tom odvození stojí — blok podle toho mluví", () => {
+      const derived = projectOwnership({
+        companyId: "company:ico:25220683",
+        edges: [PLZEN_EDGE],
+        nodeById: new Map([["company:ico:00075370", node("company:ico:00075370", "Město Plzeň")]]),
+      })!;
+      expect(derived.soleOwnerDerived).toBe(1);
+
+      // AGROFERT: všechny čtyři zápisy nesou „jediný akcionář" + 100 — tak, jak
+      // to nese ŽIVÝ korpus (33/33 hran). Celý blok tedy stojí na odvození a
+      // věta o tom se musí vykreslit.
+      const all = projectOwnership({
+        companyId: SUBJECT,
+        edges: AGROFERT_EDGES,
+        nodeById: AGROFERT_NODES,
+      })!;
+      expect(all.soleOwnerDerived).toBe(4);
+      expect(
+        [...all.owners, ...all.subsidiaries].every((r) => r.shareOrigin === "sole-owner-role"),
+      ).toBe(true);
+
+      // …a zápis bez podílu žádné odvození nevyrábí, takže věta se nevykreslí.
+      const none = projectOwnership({
+        companyId: SUBJECT,
+        edges: [edge("company:ico:00000042", SUBJECT, { role: "člen představenstva", from: "2020-01-01" })],
+        nodeById: new Map([["company:ico:00000042", node("company:ico:00000042", "Firma bez podílu")]]),
+      })!;
+      expect(none.soleOwnerDerived).toBe(0);
+      expect(none.owners[0].shareOrigin).toBeNull();
+    });
+
+    it("plocha nesází holé procento u odvozeného podílu", () => {
+      // Pin na TVAR, ne na text věty: číselná větev musí být za `published`.
+      const src = readFileSync("features/money/components/OwnershipBlock.tsx", "utf8");
+      expect(src).toMatch(/shareOrigin === "sole-owner-role"[\s\S]*?t\("shareSoleOwner"\)/);
+      expect(src).toMatch(/shareOrigin === "published"[\s\S]*?t\("sharePeriodPrefix"/);
+    });
   });
 
   it("passes the subject's own verbatim name history through when the node carries one", () => {

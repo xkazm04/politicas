@@ -38,6 +38,14 @@
  *     vůbec — `projectOwnership` vrací `null`.
  *  6. ZTRÁTA SE POČÍTÁ. Zápis, jehož protistranu graf nevrátil, se nevykreslí
  *     napůl: vypadne a přizná se v `droppedUnresolved`.
+ *  7. PODÍL ŘEKNE, ODKUD JE (2026-08-13). Blok tiskl „100 %" jako zapsaný podíl.
+ *     Nebyl to zapsaný podíl: jediný zapisovatel té hodnoty
+ *     (`scripts/case-loops/money/dataor-ownership-chains.ts:177`) ji vyrábí
+ *     shodou `/jedin[ýá]/i` NAD TEXTEM ROLE — a skutečné pole `stakePct`
+ *     v `lib/ingest/sources/dataor.ts` je mrtvé (obě konstrukce píšou `null`).
+ *     Číslo z odhadu se proto nesází jako procento; `shareOrigin` to rozliší a
+ *     hodnota, kterou ten odhad vyrobit nemohl, si svoje procento ponechá.
+ *     Nepřítomný podíl zůstává nepřítomný — nikdy z něj nebude „0 %".
  *
  * Čistý modul (žádný server, žádný DOM) — pravidla se testují bez PGlite,
  * viz `ownership.test.ts`.
@@ -54,6 +62,42 @@ export const OWNS_STAKE_REL = "owns_stake";
 /** Z pohledu zobrazované firmy: `owner` = protistrana ji vlastní,
  *  `subsidiary` = ona vlastní protistranu. */
 export type OwnershipDirection = "owner" | "subsidiary";
+
+/**
+ * SLOVO „JEDINÝ" V TEXTU ROLE, ne procento z rejstříku.
+ *
+ * Zrcadlí VÝHRADNÍ tvar, kterým `scripts/case-loops/money/
+ * dataor-ownership-chains.ts:177` vyrábí hodnotu `share`. Deklarované je to tady,
+ * protože tenhle modul o tom pravidle ČTE a plocha na něm staví větu; správný
+ * konečný stav je, aby ten skript importoval TENHLE výraz (precedent
+ * `classifyTie` v `reviewTypes.ts`, který si tři skripty case-loopu importují) —
+ * skript je mimo tuhle sadu, takže je to vedeno jako navazující krok a rozdíl
+ * hlídá test.
+ */
+export const SOLE_OWNER_ROLE_RE = /jedin[ýá]/i;
+
+/** Hodnota, kterou umí vyrobit `SOLE_OWNER_ROLE_RE` — a jen ta. */
+export const SOLE_OWNER_SHARE = 100;
+
+/** Odkud pochází `sharePct` u řádku (viz `OwnershipRow.shareOrigin`). */
+export type ShareOrigin = "sole-owner-role" | "published" | null;
+
+/**
+ * Klasifikace podílu. Jediné místo, kde se rozhoduje, jestli se číslo smí vysázet
+ * jako změřený údaj.
+ *
+ * Test hlídá obě strany: `100` z role tvaru „jediný akcionář" je ODVOZENÍ, a role
+ * bez toho slova žádné číslo nevyrábí — takže jakmile by se v datech objevilo
+ * procento, které tenhle odhad vyrobit nemohl, projde jako `published` a nikdo ho
+ * nedegraduje.
+ */
+export function classifyShare(sharePct: number | null, role: string | null): ShareOrigin {
+  if (sharePct === null) return null;
+  if (sharePct === SOLE_OWNER_SHARE && role !== null && SOLE_OWNER_ROLE_RE.test(role)) {
+    return "sole-owner-role";
+  }
+  return "published";
+}
 
 /** Uložená pravda o protistraně, kterou nelze ověřit v registru. Všechna pole
  *  jsou DOSLOVNÝ obsah `kg_node.props` — nic z toho produkt nepřepisuje. */
@@ -92,8 +136,26 @@ export interface OwnershipRow {
   counterpartIco: string | null;
   /** `props.role`, doslova (živě 33/33 „jediný akcionář"). */
   role: string | null;
-  /** `props.share` v procentech; null, když hrana číslo nenese. */
+  /** `props.share` v procentech; null, když hrana číslo nenese. SÁZET SE NESMÍ
+   *  bez `shareOrigin` — viz jeho komentář. */
   sharePct: number | null;
+  /**
+   * ODKUD TO ČÍSLO JE. Do 2026-08-13 se `sharePct` sázelo jako „100 %", tedy
+   * jako zapsaný podíl. Nebyl to zapsaný podíl: `scripts/case-loops/money/
+   * dataor-ownership-chains.ts:177` píše `share: h.role && /jedin[ýá]/i
+   * .test(h.role) ? 100 : null`, což je SHODA REGULÁRNÍHO VÝRAZU NA SLOVĚ
+   * v textovém popisu funkce, ne procento, které by nějaký rejstřík zveřejnil.
+   * (`lib/ingest/sources/dataor.ts` deklaruje skutečné pole `stakePct`, ale obě
+   * jeho konstrukce píšou `null` — je mrtvé.)
+   *
+   *  • `sole-owner-role` — 100 vzniklo z toho odhadu nad textem role. Plocha
+   *    NEVYSÁZÍ holé procento; řekne, co ta hodnota doopravdy znamená („registr
+   *    uvádí jediného vlastníka"), a role se sází vedle jako doklad.
+   *  • `published`       — číslo, které ten odhad vyrobit NEMOHL, takže pochází
+   *    z jiného zápisu; sází se jako změřený údaj a nesmí se degradovat.
+   *  • `null`            — hrana číslo nenese. NEPŘÍTOMNOST, nikdy nula.
+   */
+  shareOrigin: ShareOrigin;
   from: string | null;
   to: string | null;
   /** `to === null` — podle rejstříku zápis trvá. */
@@ -120,6 +182,11 @@ export interface OwnershipStructure {
   subsidiaries: OwnershipRow[];
   /** Zápisy vypuštěné proto, že protistranu graf nevrátil. Přiznává se na ploše. */
   droppedUnresolved: number;
+  /** Kolik vykreslených řádků má podíl ODVOZENÝ ze slova v textu role
+   *  (`shareOrigin === "sole-owner-role"`). Blok podle toho vykreslí větu o tom,
+   *  odkud ta hodnota je — jednou nad seznamem, ne u každého řádku. Nula znamená,
+   *  že žádné takové odvození na ploše není, a věta se nevykreslí. */
+  soleOwnerDerived: number;
   /** `name_history_cs` samotné zobrazované firmy — doslovný záznam, který u
    *  AGROFERTu odlišuje tři různé subjekty téhož jména. Null, když ho uzel nenese. */
   subjectNameHistoryCs: string | null;
@@ -301,13 +368,16 @@ export function projectOwnership(args: {
     const to = str(props.to);
     const source = str(props.source);
     const periods = Array.isArray(props.periods) ? (props.periods as unknown[]).length : 0;
+    const role = str(props.role);
+    const sharePct = pct(props.share);
     const row: OwnershipRow = {
       direction: isOwner ? "owner" : "subsidiary",
       counterpartId,
       counterpartName: node.label,
       counterpartIco: icoFromCompanyNodeId(counterpartId),
-      role: str(props.role),
-      sharePct: pct(props.share),
+      role,
+      sharePct,
+      shareOrigin: classifyShare(sharePct, role),
       from: str(props.from),
       to,
       open: to === null,
@@ -338,6 +408,8 @@ export function projectOwnership(args: {
     owners,
     subsidiaries,
     droppedUnresolved,
+    soleOwnerDerived: [...owners, ...subsidiaries].filter((r) => r.shareOrigin === "sole-owner-role")
+      .length,
     subjectNameHistoryCs: str((args.companyProps ?? {}).name_history_cs),
     pass: uniformPass,
   };

@@ -27,12 +27,22 @@ import type { OwnershipAnnotation, OwnershipRow, OwnershipStructure } from "../o
 
 export default function OwnershipBlock({ ownership }: { ownership: OwnershipStructure }) {
   const t = useTranslations("money.ownership");
-  const { owners, subsidiaries, droppedUnresolved, subjectNameHistoryCs, pass } = ownership;
+  const { owners, subsidiaries, droppedUnresolved, soleOwnerDerived, subjectNameHistoryCs, pass } =
+    ownership;
 
   return (
     <section id="vlastnictvi" className="mt-8 border-2 border-hairline p-5">
       <h2 className="text-xl font-black uppercase tracking-tight">{t("title")}</h2>
       <p className="mt-2 max-w-3xl text-sm leading-relaxed text-steel-aa">{t("rule")}</p>
+
+      {/* ODKUD JE ÚDAJ O JEDINÉM VLASTNÍKOVI — jednou nad seznamem, ne u každého
+          řádku. Vykreslí se JEN tehdy, když na ploše nějaké takové odvození je;
+          nula znamená, že se o něm nemluví (věta o něčem, co tu není, je šum). */}
+      {soleOwnerDerived > 0 && (
+        <p className="mt-2 max-w-3xl border-l-2 border-ochre pl-3 text-sm leading-relaxed text-steel-aa">
+          {t("shareSoleOwnerRule", { count: soleOwnerDerived })}
+        </p>
+      )}
 
       {owners.length > 0 && (
         <OwnershipList heading={t("ownersHeading")} rows={owners} />
@@ -123,11 +133,19 @@ function OwnershipRowItem({ row }: { row: OwnershipRow }) {
       </div>
 
       <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-        {row.sharePct != null
-          ? t("sharePeriodPrefix", {
-              share: Number.isInteger(row.sharePct) ? f.int(row.sharePct) : f.dec(row.sharePct),
-            })
-          : t("shareUnknown")}
+        {/* PODÍL ŘEKNE, ODKUD JE. „100 %" tu stálo jako zapsaný podíl, ale
+            jediný zapisovatel té hodnoty ji vyrábí shodou `/jedin[ýá]/i` nad
+            TEXTEM ROLE — žádný rejstřík takové procento nezveřejnil. Odvozený
+            případ proto vysází, co ta hodnota doopravdy znamená (a role se sází
+            hned pod tím jako doklad); číslo, které ten odhad vyrobit nemohl, si
+            svoje procento ponechá. Nepřítomný podíl zůstává nepřítomný. */}
+        {row.shareOrigin === "sole-owner-role"
+          ? t("shareSoleOwner")
+          : row.shareOrigin === "published" && row.sharePct != null
+            ? t("sharePeriodPrefix", {
+                share: Number.isInteger(row.sharePct) ? f.int(row.sharePct) : f.dec(row.sharePct),
+              })
+            : t("shareUnknown")}
         {" · "}
         {row.open
           ? row.from
