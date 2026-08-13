@@ -19,19 +19,34 @@
 //      is decidedAt DESC with the id as a deterministic tiebreak. Permalinks
 //      are a public API — nothing here may depend on array order of the input.
 
+import { canonicalIco } from "@/features/money/companyId";
 import { buildRegistryLinks } from "@/features/money/reviewTypes";
+import { claimRefPath, decodeClaimRef, edgeClaimRef } from "@/features/shared/provenance/claimRef";
 
 /** The slice of `ReviewAuditRow` (lib/db/types.ts) the feed needs. `note` is
  *  present so the loader can pass rows through unchanged — see discipline #1. */
 export interface AuditRowLike {
   id: string;
   src: string;
+  /** The audited relation. Present on every `ReviewAuditRow` the writer emits
+   *  (always `linked_to` today) and REQUIRED here rather than assumed, because
+   *  the receipt address is composed from it — a hardcoded `"linked_to"` would
+   *  mint a permanent address for a relation the row is not about. */
+  rel: string;
   dst: string;
   decision: "confirm" | "reject" | "needs-more";
   reviewer: string;
   note: string | null;
   decidedAt: string;
   priorState: string | null;
+  /**
+   * Position in the tamper-evident append-only chain (`review_audit.chain_pos`)
+   * and this row's own hash. Optional: rows written before the chain existed
+   * carry neither, and a surface must render „this row predates the chain"
+   * rather than a fabricated position. See `lib/db/pglite/ledger.ts`.
+   */
+  chainPos?: number | null;
+  rowHash?: string | null;
 }
 
 /** A bill node whose forensic verdict a human signed off (state left
@@ -94,6 +109,28 @@ export interface EvidenceEntry {
    *  asked for „that day, that MP". Absent for forensic entries: a signed
    *  verdict is not a deník row, so no day of it exists to link to. */
   mpPspId?: number | null;
+  /**
+   * The row's place in the tamper-evident chain and its own hash — the two
+   * fields that make a published decision INDEPENDENTLY checkable (order +
+   * non-tampering). `null` = this row is not chained (legacy) or the entry is
+   * not an audit row at all; a surface then says so instead of printing a
+   * position nobody assigned. Optional for the same structural-compatibility
+   * reason as `decisionKey` (foreign fixtures, schránka): this module always
+   * sets all four, and every consumer treats absent exactly as `null`.
+   */
+  chainPos?: number | null;
+  rowHash?: string | null;
+  /**
+   * Permanent receipt address of the gated record (`/zdroj/<ref>`), composed
+   * with the ONE ref grammar (`edgeClaimRef`) from the row's own endpoints and
+   * VERIFIED by decoding it back. `null` when the endpoints cannot form a
+   * canonical ref — the house shape-refusal rule: no link beats an address
+   * into nothing.
+   */
+  receiptHref?: string | null;
+  /** The tied company's own case file (`/penize/firma/<ičo>`), when the dst id
+   *  yields a canonical IČO. Same refusal rule. */
+  companyHref?: string | null;
   /** Verbatim provenance line for the entry's SourceNote (feed content). */
   sourceCs: string;
   /** Provenance line as a `dukazy.*` catalog key + verbatim detail — the
@@ -133,6 +170,61 @@ export function icoFromDst(dst: string): string | null {
   return /^\d{6,8}$/.test(seg) ? seg : null;
 }
 
+/**
+ * `/zdroj/<ref>` for one gated edge — the SAME grammar `/penize` mints its
+ * receipts with (`edgeClaimRef`, imported, never a hand-built string).
+ *
+ * The ref is minted and then DECODED BACK: a segment the codec cannot carry
+ * (empty endpoint, an address past `MAX_REF_LENGTH`) would encode into
+ * something that looks like an address and resolves to nothing. A ref that does
+ * not survive the round trip yields `null`, and the row renders without a
+ * receipt link — the same shape-refusal `features/dashboard/entityLinks.ts` and
+ * `canonicalIco` apply to their own ids.
+ */
+export function receiptHrefFor(src: string, rel: string, dst: string): string | null {
+  if (!src || !rel || !dst) return null;
+  const ref = edgeClaimRef(src, rel, dst);
+  const back = decodeClaimRef(ref);
+  if (back === null || back.kind !== "edge") return null;
+  if (back.src !== src || back.rel !== rel || back.dst !== dst) return null;
+  return claimRefPath(ref);
+}
+
+/** The ONE publication rule for a forensic verdict: only a verdict a human
+ *  flipped to `verified` is a decision. Everything else is working material —
+ *  used BOTH by the feed and by the counter below, so „published" and
+ *  „withheld" can never drift apart into two different predicates. */
+export const isPublishedForensic = (f: ForensicSignoffLike): boolean =>
+  f.reviewState === "verified";
+
+/** What the publication rule KEPT OUT, counted rather than dropped in silence. */
+export interface WithheldForensic {
+  total: number;
+  /** Verbatim `forensic_review_state` tokens with their counts, state asc —
+   *  deterministic, and never rewritten into a friendlier word. */
+  byState: { state: string; count: number }[];
+}
+
+/**
+ * The verdicts the gate has NOT signed. The journal reads every bill node and
+ * publishes only the signed ones; on today's corpus that is 141 verdicts held
+ * back, and until 2026-08-13 the page answered „0 řádků; žádný záznam není
+ * zamlčen" over exactly them. A queue at capacity is not an empty feature.
+ */
+export function withheldForensic(forensic: readonly ForensicSignoffLike[]): WithheldForensic {
+  const counts = new Map<string, number>();
+  let total = 0;
+  for (const f of forensic) {
+    if (isPublishedForensic(f)) continue;
+    total += 1;
+    counts.set(f.reviewState, (counts.get(f.reviewState) ?? 0) + 1);
+  }
+  const byState = [...counts]
+    .map(([state, count]) => ({ state, count }))
+    .sort((a, b) => (a.state < b.state ? -1 : a.state > b.state ? 1 : 0));
+  return { total, byState };
+}
+
 export interface EvidenceFeedInput {
   audit: readonly AuditRowLike[];
   /** kg node id → label, for naming both tie endpoints in gated copy. */
@@ -159,6 +251,8 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
     );
   }
 
+  const canonical = ico ? canonicalIco(ico) : null;
+
   return {
     id: row.id,
     anchor: evidenceAnchor(row.id),
@@ -173,6 +267,10 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
     links,
     internalHref: pspId != null ? `/poslanec/${pspId}` : null,
     mpPspId: pspId,
+    chainPos: row.chainPos ?? null,
+    rowHash: row.rowHash ?? null,
+    receiptHref: receiptHrefFor(row.src, row.rel, row.dst),
+    companyHref: canonical ? `/penize/firma/${canonical}` : null,
     // Verbatim edge provenance when the edge still exists; the audit table is
     // always cited — it IS the record being published.
     sourceCs: source ? `zdroj: review_audit · kg_edge linked_to · ${source}` : "zdroj: review_audit · kg_edge linked_to",
@@ -199,6 +297,13 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
     // Podepsaný posudek NENÍ řádek deníku (ten nese smlouvy, role, kroky tisku,
     // bránu a change eventy) — nemá tedy den, na který by se dalo odkázat.
     mpPspId: null,
+    // Posudek se nezapisuje do review_audit — nemá v řetězu místo ani hash a
+    // netvrdí se, že má. Účtenka /zdroj cituje HRANU; verdikt je vlastnost uzlu
+    // tisku, takže adresa tohohle tvaru pro něj neexistuje.
+    chainPos: null,
+    rowHash: null,
+    receiptHref: null,
+    companyHref: null,
     sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity}`,
     sourceKey: "entry.sourceForensic",
     sourceDetail: f.severity,
@@ -214,7 +319,7 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
 export function deriveEvidenceFeed(input: EvidenceFeedInput): EvidenceEntry[] {
   const entries: EvidenceEntry[] = [
     ...input.audit.map((r) => tieEntry(r, input)),
-    ...input.forensic.filter((f) => f.reviewState === "verified").map(forensicEntry),
+    ...input.forensic.filter(isPublishedForensic).map(forensicEntry),
   ];
   entries.sort((a, b) => {
     if (a.decidedAt !== b.decidedAt) return a.decidedAt < b.decidedAt ? 1 : -1;

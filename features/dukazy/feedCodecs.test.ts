@@ -3,8 +3,11 @@
 // round-trip through the strict parser.
 
 import { describe, expect, it } from "vitest";
+import { formatInt } from "@/lib/format";
 import type { EvidenceEntry } from "./deriveFeed";
 import {
+  FEED_DESCRIPTION,
+  dukazyFeedDescription,
   entryGuid,
   entrySummaryCs,
   entryUrl,
@@ -25,11 +28,19 @@ const entry = (over: Partial<EvidenceEntry>): EvidenceEntry => ({
   priorState: "pending_review",
   links: [{ label: "ARES VR", href: "https://ares.gov.cz/x?ico=1&b=2" }],
   internalHref: "/poslanec/6543",
+  chainPos: 7,
+  rowHash: "b1946ac92492d2347c6235b4d2611184",
+  receiptHref: "/zdroj/h.cHNwOnBlcnNvbjo2NTQz.bGlua2VkX3Rv.a2c6Y29tcGFueTowNDU0NDE1Mg",
+  companyHref: "/penize/firma/04544152",
   sourceCs: "zdroj: review_audit · kg_edge linked_to",
   ...over,
 });
 
-const CTX = { baseUrl: "https://politicas.example", generatedAt: "2026-07-30T12:00:00.000Z" };
+const CTX = {
+  baseUrl: "https://politicas.example",
+  generatedAt: "2026-07-30T12:00:00.000Z",
+  auditCap: 10_000,
+};
 
 describe("permalink primitives", () => {
   it("guid is namespaced and the url targets the #z-<id> anchor", () => {
@@ -116,5 +127,76 @@ describe("JSON codec — round-trip", () => {
     const json = evidenceFeedToJson([entry({})], CTX);
     expect(json).not.toContain('"note"');
     expect(json).not.toContain("priorState"); // internal field name stays internal
+  });
+});
+
+/* ── popis kanálu přestal tvrdit absolutno ──────────────────────────────────── */
+
+describe("popis kanálu — žádné absolutno nad useknutelným čtením", () => {
+  it("základní popis netvrdí „každé rozhodnutí“ ani „každý posudek“", () => {
+    expect(FEED_DESCRIPTION).not.toMatch(/každé rozhodnutí/);
+    expect(FEED_DESCRIPTION).not.toMatch(/každý podepsaný/);
+  });
+
+  it("popis vyslovuje strop, se kterým se deník brány čte — z hodnoty, ne z literálu", () => {
+    const cap = formatInt(10_000, "cs");
+    expect(dukazyFeedDescription(10_000)).toContain(cap);
+    expect(dukazyFeedDescription(25)).toContain("25");
+    expect(dukazyFeedDescription(25)).not.toContain(cap);
+  });
+
+  it("obě podoby nesou strop a přilepené upozornění", () => {
+    const notice = "Upozornění k tomuto vydání: test.";
+    const cap = formatInt(10_000, "cs");
+    const xml = evidenceFeedToRss([entry({})], { ...CTX, notice });
+    expect(xml).toContain(cap);
+    expect(xml).toContain("Upozornění k tomuto vydání: test.");
+
+    const feed = parseEvidenceFeedJson(evidenceFeedToJson([entry({})], { ...CTX, notice }));
+    expect(feed.description).toContain(cap);
+    expect(feed.description).toContain("Upozornění k tomuto vydání: test.");
+  });
+
+  it("bez upozornění zůstává popis holý (mlčení = nic se neztratilo)", () => {
+    const feed = parseEvidenceFeedJson(evidenceFeedToJson([entry({})], CTX));
+    expect(feed.description).toBe(dukazyFeedDescription(10_000));
+  });
+});
+
+/* ── řetěz a účtenka v obou strojových podobách ─────────────────────────────── */
+
+describe("položka feedu nese, čím se dá rozhodnutí ověřit", () => {
+  it("shrnutí nese pozici v řetězu, otisk řádku a absolutní adresu účtenky", () => {
+    const s = entrySummaryCs(entry({}), CTX.baseUrl);
+    expect(s).toContain("pozice 7");
+    expect(s).toContain("b1946ac92492d2347c6235b4d2611184");
+    expect(s).toContain(`${CTX.baseUrl}/zdroj/`);
+  });
+
+  it("nezřetězený řádek to ŘEKNE, místo aby si pozici vymyslel", () => {
+    const s = entrySummaryCs(entry({ chainPos: null, rowHash: null }), CTX.baseUrl);
+    expect(s).not.toContain("pozice");
+    expect(s).toMatch(/před jeho zavedením/);
+  });
+
+  it("záznam bez kanonické účtenky odkaz nenese", () => {
+    const s = entrySummaryCs(entry({ receiptHref: null }), CTX.baseUrl);
+    expect(s).not.toContain("účtenka:");
+  });
+
+  it("podepsaný posudek o řetězu nic netvrdí — v review_audit není", () => {
+    const s = entrySummaryCs(
+      entry({ kind: "forensic", chainPos: null, rowHash: null, receiptHref: null }),
+      CTX.baseUrl,
+    );
+    expect(s).not.toContain("řetěz brány");
+  });
+
+  it("obě podoby publikují týž řetěz a touž účtenku", () => {
+    const xml = evidenceFeedToRss([entry({})], CTX);
+    const feed = parseEvidenceFeedJson(evidenceFeedToJson([entry({})], CTX));
+    expect(xml).toContain("b1946ac92492d2347c6235b4d2611184");
+    expect(feed.items[0].content_text).toContain("b1946ac92492d2347c6235b4d2611184");
+    expect(feed.items[0].content_text).toContain("pozice 7");
   });
 });

@@ -24,9 +24,14 @@ import type { Locale } from "@/lib/i18n/config";
 import { entityDayHref, mpEntityKey } from "@/features/denik/deriveDenik";
 import type { EvidenceEntry } from "./deriveFeed";
 import type { DukazyData } from "./getDukazyData";
+import { dukazyLimitNotes } from "./limitNotes";
 
 /** Překladač namespace `dukazy` — jediný typ, který si komponenty předávají. */
 type T = ReturnType<typeof useTranslations<"dukazy">>;
+
+/** Otisk řádku zkrácený pro oči; celý zůstává v `title` a ve strojových
+ *  podobách věstníku — nikdy se nezaokrouhluje ani nepřepisuje. */
+const shortHash = (h: string): string => (h.length > 16 ? `${h.slice(0, 16)}…` : h);
 
 /** Výrok nese barvu stavu: ověřeno = inkoust (pravomocné), zamítnuto =
  *  signal-deep (AA na textu i ploše), doplnění = obrys (neuzavřené),
@@ -67,6 +72,23 @@ function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) 
         >
           #{e.anchor.length > 14 ? `${e.anchor.slice(0, 13)}…` : e.anchor}
         </a>
+        {/* MÍSTO V ŘETĚZU BRÁNY. `review_audit` je připojený append-only řetěz
+            (chain_pos + prev_hash + row_hash) a věstník, který ho publikuje,
+            z něj do 2026-08-13 neukazoval nic — čtenář neměl jak si rozhodnutí
+            ověřit. Řádek bez pozice ji nedostane vymyšlenou; řekne se to. */}
+        {e.kind === "tie" &&
+          (e.chainPos != null && e.rowHash ? (
+            <span className="flex flex-col gap-0.5 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
+              <span className="tabular-nums">{t("chain.pos", { pos: formatInt(e.chainPos, locale) })}</span>
+              <span className="break-all normal-case tracking-normal" title={e.rowHash}>
+                {shortHash(e.rowHash)}
+              </span>
+            </span>
+          ) : (
+            <span className="font-mono text-[11px] uppercase tracking-widest text-steel-aa">
+              {t("chain.unchained")}
+            </span>
+          ))}
       </div>
       <div className="flex min-w-0 flex-col gap-2">
         <div className="flex flex-wrap items-baseline gap-2">
@@ -93,14 +115,47 @@ function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) 
             e.subjectCs
           )}
         </p>
-        {denikHref && (
-          <Link
-            href={denikHref}
-            className="inline-flex w-fit items-center gap-1 font-mono text-xs uppercase tracking-widest text-signal-deep hover:underline"
-            aria-label={t("entry.denikDayAria", { subject: e.subjectCs })}
-          >
-            {t("entry.denikDay")} <ArrowUpRight className="h-3 w-3" aria-hidden />
-          </Link>
+        {/* Kam se z rozhodnutí dá jít UVNITŘ platformy: trvalá účtenka (tam se
+            záznam znovu odvodí a ukáže se stav brány), spis firmy, které se
+            vazba týká, a den druhého deníku. Účtenka se skládá JEDINOU gramatikou
+            (`edgeClaimRef` v deriveFeed.ts) a řádek, jehož konce kanonickou
+            adresu neunesou, ji nedostane vůbec. */}
+        {(e.receiptHref || e.companyHref || denikHref) && (
+          <ul className="flex flex-wrap gap-x-4 gap-y-1">
+            {e.receiptHref && (
+              <li>
+                <Link
+                  href={e.receiptHref}
+                  className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-signal-deep hover:underline"
+                  aria-label={t("entry.receiptAria", { subject: e.subjectCs })}
+                >
+                  {t("entry.receipt")} <ArrowUpRight className="h-3 w-3" aria-hidden />
+                </Link>
+              </li>
+            )}
+            {e.companyHref && (
+              <li>
+                <Link
+                  href={e.companyHref}
+                  className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-signal-deep hover:underline"
+                  aria-label={t("entry.companyFileAria", { subject: e.subjectCs })}
+                >
+                  {t("entry.companyFile")} <ArrowUpRight className="h-3 w-3" aria-hidden />
+                </Link>
+              </li>
+            )}
+            {denikHref && (
+              <li>
+                <Link
+                  href={denikHref}
+                  className="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest text-signal-deep hover:underline"
+                  aria-label={t("entry.denikDayAria", { subject: e.subjectCs })}
+                >
+                  {t("entry.denikDay")} <ArrowUpRight className="h-3 w-3" aria-hidden />
+                </Link>
+              </li>
+            )}
+          </ul>
         )}
         {e.links.length > 0 && (
           <ul className="flex flex-wrap gap-x-4 gap-y-1">
@@ -127,6 +182,22 @@ function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) 
         </SourceNote>
       </div>
     </article>
+  );
+}
+
+/** Přiznané meze čtení — táž sada v prázdném i plném stavu, protože „co tenhle
+ *  věstník nenese" je vlastnost ODEČTU, ne počtu vypsaných řádků. */
+function LimitNotes({ data, locale, t }: { data: DukazyData; locale: Locale; t: T }) {
+  const notes = dukazyLimitNotes(data.limits, locale);
+  if (notes.length === 0) return null;
+  return (
+    <ul className="mt-3 space-y-1">
+      {notes.map((n) => (
+        <li key={n.key}>
+          <SourceNote>{t(n.key, n.values)}</SourceNote>
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -181,14 +252,31 @@ export default function DukazyPage({ data, locale }: { data: DukazyData | null; 
         <div className="mt-8 max-w-2xl border-l-4 border-ink bg-paper-strong px-4 py-3">
           <p className="font-mono text-[11px] font-bold uppercase tracking-widest">{t("method.kicker")}</p>
           <p className="mt-1 text-sm leading-relaxed text-steel-aa">
+            {/* Ověřitelnost vedla do /admin — konzole za tokenem, kterou robots.ts
+                navíc zakazuje procházet. Veřejný čtenář tam nemá jak dojít, takže
+                to nebyla cesta k ověření, ale slepá ulička. Hlava řetězu je
+                VEŘEJNÁ na /data (a strojově na /data/manifest.json). */}
             {t.rich("method.body", {
-              admin: (chunks) => (
+              data: (chunks) => (
                 <Link
-                  href="/admin"
+                  href="/data"
                   className="font-mono text-xs uppercase tracking-widest text-cobalt hover:underline"
                 >
                   {chunks}
                 </Link>
+              ),
+            })}
+          </p>
+          {/* Co otisk dokazuje a co NE — pořadí a nedotčenost, ne správnost. */}
+          <p className="mt-2 text-sm leading-relaxed text-steel-aa">
+            {t.rich("chain.note", {
+              manifest: (chunks) => (
+                <a
+                  href="/data/manifest.json"
+                  className="font-mono text-xs uppercase tracking-widest text-cobalt hover:underline"
+                >
+                  {chunks}
+                </a>
               ),
             })}
           </p>
@@ -201,12 +289,17 @@ export default function DukazyPage({ data, locale }: { data: DukazyData | null; 
             aside={
               data && (
                 <SourceNote>
-                  {t("section.source", { rows: formatInt(data.auditRows, locale) })}
+                  {/* Citace jmenuje jen to, co se OPRAVDU přečetlo: selhal-li
+                      odečet uzlů tisků, věstník se na `kg_node bill.forensic_*`
+                      odvolávat nesmí — zdroj, ke kterému se nedostal, není zdroj. */}
+                  {data.limits.forensicRead
+                    ? t("section.source", { rows: formatInt(data.auditRows, locale) })
+                    : t("section.sourceNoForensic", { rows: formatInt(data.auditRows, locale) })}
                   {/* Useknuté čtení JE tvrzení o počtu — a repozitář u tohohle
                       stropu sám varuje, že pak „publikuje špatné číslo". Věta
                       se přidává jen tehdy, když se na strop skutečně narazilo. */}
-                  {data.auditTruncated
-                    ? ` · ${t("section.sourceFloor", { cap: formatInt(data.auditCap, locale) })}`
+                  {data.limits.auditTruncated
+                    ? ` · ${t("section.sourceFloor", { cap: formatInt(data.limits.auditCap, locale) })}`
                     : ""}
                 </SourceNote>
               )
@@ -234,15 +327,24 @@ export default function DukazyPage({ data, locale }: { data: DukazyData | null; 
                 })}
               </p>
               <div className="mt-3">
-                <SourceNote>{t("empty.note")}</SourceNote>
+                {/* Věta „žádný záznam není zamlčen" tu stála jako LITERÁL —
+                    a týž požadavek ji vyvracel: loader čte všechny uzly tisků
+                    a publikuje jen podepsané. Zbyla holá citace zdroje; závěr
+                    o zamlčování se ODVOZUJE v `limitNotes.ts` a vysloví se jen
+                    tehdy, když ho měřidla unesou. */}
+                <SourceNote>{t("empty.note", { rows: formatInt(data.auditRows, locale) })}</SourceNote>
+                <LimitNotes data={data} locale={locale} t={t} />
               </div>
             </div>
           ) : (
-            <div className="mt-8 border-t-2 border-ink">
-              {data.entries.map((e) => (
-                <EntryRow key={e.id} e={e} locale={locale} t={t} />
-              ))}
-            </div>
+            <>
+              <div className="mt-8 border-t-2 border-ink">
+                {data.entries.map((e) => (
+                  <EntryRow key={e.id} e={e} locale={locale} t={t} />
+                ))}
+              </div>
+              <LimitNotes data={data} locale={locale} t={t} />
+            </>
           )}
 
           <div className="mt-8 flex flex-wrap items-center gap-4">

@@ -39,6 +39,21 @@ function richTags(s: string): string[] {
   return [...new Set([...s.matchAll(/<(\w+)>(?=[\s\S]*?<\/\1>)/g)].map((m) => m[1]))].sort();
 }
 
+/**
+ * ICU plural/select SCAFFOLDING removed, branch prose KEPT (2026-08-13).
+ *
+ * `limits.withheld` became the namespace's first ICU plural in the same pass
+ * that made it load-bearing — it is the sentence disclosing the 141 forensic
+ * verdicts the journal withholds. The old gate SKIPPED any key containing a
+ * plural, so that sentence would have entered the catalog ungated on the day it
+ * was written. The scaffolding is stripped instead (the /denik precedent), so
+ * every branch still has to read as Czech.
+ */
+const stripIcuScaffolding = (s: string) =>
+  s
+    .replace(/\{\s*\w+\s*,\s*(?:plural|selectordinal|select)\s*,\s*/g, " ")
+    .replace(/(?:^|[\s}])(?:=\d+|zero|one|two|few|many|other)\s*\{/g, " ");
+
 /** The RENDERED words: ICU markup out, and machine identifiers out too —
  *  `review_audit` and `kg_node bill.forensic_*` are the record's own column
  *  names, cited verbatim in both locales, and the stopword classifier scores
@@ -46,7 +61,10 @@ function richTags(s: string): string[] {
  *  those two tokens alone). An identifier must carry a `.` or `_` BETWEEN two
  *  word characters, so no prose word can be swallowed by this. */
 const prose = (s: string) =>
-  s.replace(/\{[^{}]*\}/g, " ").replace(/[\p{L}\d]+(?:[._][\p{L}\d]+)+/gu, " ");
+  stripIcuScaffolding(s)
+    .replace(/\{[^{}]*\}/g, " ")
+    .replace(/[{}]/g, " ")
+    .replace(/[\p{L}\d]+(?:[._][\p{L}\d]+)+/gu, " ");
 
 const keys = Object.keys(cs).sort();
 
@@ -71,8 +89,9 @@ describe("dukazy message catalog", () => {
   });
 
   it("every Czech sentence passes the Czech-language gate", () => {
+    // NO plural/select escape hatch: `prose` strips the ICU KEYWORDS and leaves
+    // every branch's words in, so a plural key is gated exactly like a flat one.
     for (const k of keys) {
-      if (/,\s*(plural|select|selectordinal)\s*,/.test(cs[k])) continue;
       expect(isCzechSafe(prose(cs[k])), k).toBe(true);
     }
   });
@@ -110,6 +129,131 @@ describe("section.sourceFloor — the audit figure when the read hit its cap", (
 
   it("does not restate the unqualified source line", () => {
     expect(cs["section.sourceFloor"]).not.toBe(cs["section.source"]);
+  });
+});
+
+/* ── co věstník zadržel, se počítá ──────────────────────────────────────────── */
+
+describe("limits.* — fronta u brány a tři degradace, které mlčely", () => {
+  it("declares every sentence the pure module can emit, in both locales", () => {
+    // Klíč bez věty by přiznanou mez vykreslil prázdnou — tedy zas potichu.
+    for (const k of [
+      "limits.withheld",
+      "limits.forensicUnread",
+      "limits.tieSourcesUnread",
+      "limits.labelsUnread",
+      "limits.nothingWithheld",
+      "section.sourceNoForensic",
+    ]) {
+      expect(cs[k], k).toBeTruthy();
+      expect(en[k], k).toBeTruthy();
+    }
+  });
+
+  it("the withheld sentence carries its COUNT as a value, never as a literal", () => {
+    // 141 posudků je dnešní stav korpusu, ne konstanta produktu.
+    expect(variables(cs["limits.withheld"])).toEqual(["n", "nFmt", "states"]);
+    expect(variables(en["limits.withheld"])).toEqual(["n", "nFmt", "states"]);
+    expect(cs["limits.withheld"]).not.toMatch(/\b141\b/);
+    expect(en["limits.withheld"]).not.toMatch(/\b141\b/);
+  });
+
+  it("the Czech withheld sentence agrees with its numeral (one/few/other)", () => {
+    // Bez plurálu by věta byla „čeká 2 forenzních posudků" — a je to nejčastěji
+    // čtená disclosure věta téhle plochy.
+    for (const cat of ["one", "few", "other"]) {
+      expect(cs["limits.withheld"], cat).toMatch(new RegExp(`\\b${cat}\\s*\\{`));
+    }
+  });
+
+  it("an unread layer says which FIDELITY was lost, not that nothing exists", () => {
+    // „Nepodařilo se přečíst" a „žádný není" jsou dvě různá tvrzení.
+    expect(cs["limits.forensicUnread"]).toMatch(/nepodařilo/);
+    expect(cs["limits.forensicUnread"]).toMatch(/není to tvrzení/);
+    expect(cs["limits.tieSourcesUnread"]).toMatch(/nepodařilo/);
+    expect(cs["limits.labelsUnread"]).toMatch(/nepodařilo/);
+    expect(en["limits.forensicUnread"]).toMatch(/could not be read/i);
+    expect(en["limits.forensicUnread"]).toMatch(/not a claim that none exists/i);
+  });
+
+  it("the source line has a variant that does NOT cite an unread layer", () => {
+    expect(cs["section.source"]).toMatch(/bill\.forensic/);
+    expect(cs["section.sourceNoForensic"]).toMatch(/nepodařilo/);
+    expect(en["section.sourceNoForensic"]).toMatch(/could not be read/i);
+    expect(variables(cs["section.sourceNoForensic"])).toEqual(["rows"]);
+    expect(variables(en["section.sourceNoForensic"])).toEqual(["rows"]);
+  });
+
+  it("the empty state no longer asserts that nothing is suppressed", () => {
+    // Tenhle absolutní literál byl vyvrácen vlastním požadavkem stránky.
+    expect(cs["empty.note"]).not.toMatch(/zamlčen/);
+    expect(en["empty.note"]).not.toMatch(/suppressed/i);
+    // Počet řádků je teď hodnota, ne natvrdo napsaná nula.
+    expect(variables(cs["empty.note"])).toEqual(["rows"]);
+    expect(variables(en["empty.note"])).toEqual(["rows"]);
+    expect(cs["empty.note"]).not.toMatch(/—\s*0\s/);
+  });
+
+  it("the ONLY sentence claiming nothing is withheld is the derived one", () => {
+    const claims = keys.filter((k) => /zamlčen|nezadržuje/.test(cs[k]));
+    expect(claims).toEqual(["limits.nothingWithheld"]);
+  });
+});
+
+/* ── řetěz brány: pořadí a nedotčenost, ne správnost ────────────────────────── */
+
+describe("chain.* — publikovaný řetěz a to, co NEDOKAZUJE", () => {
+  it("declares the position, the unchained sentence and the note in both locales", () => {
+    for (const k of ["chain.pos", "chain.unchained", "chain.note"]) {
+      expect(cs[k], k).toBeTruthy();
+      expect(en[k], k).toBeTruthy();
+    }
+    expect(variables(cs["chain.pos"])).toEqual(["pos"]);
+    expect(variables(en["chain.pos"])).toEqual(["pos"]);
+  });
+
+  it("says what the fingerprint proves — and, explicitly, what it does not", () => {
+    expect(cs["chain.note"]).toMatch(/POŘADÍ|pořadí/);
+    expect(cs["chain.note"]).toMatch(/Nedokazuje/);
+    expect(cs["chain.note"]).toMatch(/správn/);
+    expect(en["chain.note"]).toMatch(/order/i);
+    expect(en["chain.note"]).toMatch(/does not prove/i);
+  });
+
+  it("an unchained row is stated, never given an invented position", () => {
+    expect(cs["chain.unchained"]).toMatch(/místo nemá/);
+    expect(en["chain.unchained"]).toMatch(/no place/i);
+  });
+});
+
+/* ── kudy se dá rozhodnutí ověřit ───────────────────────────────────────────── */
+
+describe("verification affordances — nikdy do konzole za tokenem", () => {
+  it("the method paragraph points at the PUBLIC data page, not /admin", () => {
+    // /admin je za ADMIN_TOKENem a robots.ts ho zakazuje procházet — jako cesta
+    // k ověření to byla slepá ulička.
+    expect(richTags(cs["method.body"])).toEqual(["data"]);
+    expect(richTags(en["method.body"])).toEqual(["data"]);
+    for (const k of keys) {
+      expect(cs[k], k).not.toMatch(/\/admin/);
+      expect(en[k], k).not.toMatch(/\/admin/);
+    }
+  });
+
+  it("the machine-readable chain head is offered through a rich tag", () => {
+    expect(richTags(cs["chain.note"])).toEqual(["manifest"]);
+    expect(richTags(en["chain.note"])).toEqual(["manifest"]);
+  });
+
+  it("the per-record receipt and company file name their subject in the a11y name", () => {
+    // Bez subjektu by čtečka přečetla desítky totožných „trvalá účtenka".
+    for (const k of ["entry.receiptAria", "entry.companyFileAria"]) {
+      expect(variables(cs[k]), k).toEqual(["subject"]);
+      expect(variables(en[k]), k).toEqual(["subject"]);
+    }
+    expect(cs["entry.receipt"]).toBeTruthy();
+    expect(cs["entry.companyFile"]).toBeTruthy();
+    expect(cs["entry.receipt"]).not.toBe(cs["entry.companyFile"]);
   });
 });
 

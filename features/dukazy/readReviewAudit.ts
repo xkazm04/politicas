@@ -44,6 +44,14 @@ export interface ReviewAuditRead {
   /** id uzlu → label pro oba konce vazby. Obohacení: při selhání zůstane
    *  prázdná a plochy degradují na id uzlů, nikdy neumřou. */
   nodeLabels: Map<string, string>;
+  /**
+   * Podařilo se labely přečíst? PŘÍDAVNÉ POLE (2026-08-13): prázdná mapa má dvě
+   * příčiny, které čtenář rozezná jen tehdy, když mu je plocha řekne — buď
+   * nebylo co číst (žádné řádky), nebo čtení SELHALO a záznam pak jmenuje uzly
+   * urnami (`psp:person:6543 ↔ kg:company:04544152`) bez jediného vysvětlení.
+   * `true` i tehdy, když se nečetlo nic: neproběhlé čtení nic neztratilo.
+   */
+  labelsRead: boolean;
   /** Čtení vrátilo přesně strop → `rows.length` je SPODNÍ mez, ne počet. */
   truncated: boolean;
   cap: number;
@@ -69,15 +77,18 @@ async function readOnce(): Promise<ReviewAuditRead | null> {
 
     const ids = [...new Set(rows.flatMap((r) => [r.src, r.dst]))];
     const nodeLabels = new Map<string, string>();
+    // Nečetlo-li se nic, nic se neztratilo — degradace začíná až selháním.
+    let labelsRead = true;
     if (ids.length > 0) {
       try {
         for (const n of await store.getKgNodes(ids)) nodeLabels.set(n.id, n.label);
       } catch (err) {
+        labelsRead = false;
         reportLoaderFailure("readReviewAudit.getKgNodes", err);
       }
     }
 
-    return { rows, nodeLabels, truncated, cap: REVIEW_AUDIT_CAP };
+    return { rows, nodeLabels, labelsRead, truncated, cap: REVIEW_AUDIT_CAP };
   } catch (err) {
     reportLoaderFailure("readReviewAudit", err);
     return null;

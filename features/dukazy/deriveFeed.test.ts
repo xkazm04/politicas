@@ -10,21 +10,28 @@ import {
   evidenceAnchor,
   evidenceHref,
   icoFromDst,
+  isPublishedForensic,
   pspIdFromSrc,
+  receiptHrefFor,
+  withheldForensic,
   type AuditRowLike,
   type EvidenceFeedInput,
   type ForensicSignoffLike,
 } from "./deriveFeed";
+import { decodeClaimRef } from "@/features/shared/provenance/claimRef";
 
 const row = (over: Partial<AuditRowLike>): AuditRowLike => ({
   id: "a1",
   src: "psp:person:6543",
+  rel: "linked_to",
   dst: "kg:company:04544152",
   decision: "confirm",
   reviewer: "recenzent",
   note: "TAJNÁ pracovní poznámka — nesmí ven",
   decidedAt: "2026-07-20T10:00:00.000Z",
   priorState: "pending_review",
+  chainPos: 7,
+  rowHash: "b1946ac92492d2347c6235b4d2611184",
   ...over,
 });
 
@@ -213,5 +220,126 @@ describe("id helpers", () => {
     expect(pspIdFromSrc("kg:company:123")).toBeNull();
     expect(icoFromDst("kg:company:04544152")).toBe("04544152");
     expect(icoFromDst("kg:organ:senat")).toBeNull();
+  });
+});
+
+/* ── co filtr zahodil, se počítá ────────────────────────────────────────────── */
+
+describe("withheldForensic — fronta u brány je fakt, ne prázdno", () => {
+  const f = (over: Partial<ForensicSignoffLike>): ForensicSignoffLike => ({
+    tiskId: 1,
+    cislo: 1,
+    title: "Novela",
+    severity: "high",
+    reviewState: "pending_review",
+    signedAt: null,
+    ...over,
+  });
+
+  it("počítá přesně to, co publikační pravidlo nepustilo ven", () => {
+    const forensic = [
+      f({ tiskId: 1 }),
+      f({ tiskId: 2 }),
+      f({ tiskId: 3, reviewState: "verified" }),
+      f({ tiskId: 4, reviewState: "withheld" }),
+    ];
+    const published = deriveEvidenceFeed(input({ forensic }));
+    const withheld = withheldForensic(forensic);
+    // Dvě strany jednoho pravidla se musí sečíst na celek — kdyby se rozešly,
+    // věstník by tvrdil, že nezadržuje nic, a přitom zadržoval.
+    expect(published).toHaveLength(1);
+    expect(withheld.total).toBe(3);
+    expect(published.length + withheld.total).toBe(forensic.length);
+  });
+
+  it("vypisuje stavy VERBATIM a deterministicky (stav vzestupně)", () => {
+    const withheld = withheldForensic([
+      f({ tiskId: 1, reviewState: "withheld" }),
+      f({ tiskId: 2, reviewState: "pending_review" }),
+      f({ tiskId: 3, reviewState: "pending_review" }),
+    ]);
+    expect(withheld.byState).toEqual([
+      { state: "pending_review", count: 2 },
+      { state: "withheld", count: 1 },
+    ]);
+  });
+
+  it("prázdná vrstva zadržuje nula — a nezadržuje ani podepsané posudky", () => {
+    expect(withheldForensic([])).toEqual({ total: 0, byState: [] });
+    expect(withheldForensic([f({ reviewState: "verified" })]).total).toBe(0);
+  });
+
+  it("JEDNO publikační pravidlo pro obě strany", () => {
+    expect(isPublishedForensic(f({ reviewState: "verified" }))).toBe(true);
+    expect(isPublishedForensic(f({ reviewState: "pending_review" }))).toBe(false);
+  });
+});
+
+/* ── řetěz brány a trvalá účtenka ───────────────────────────────────────────── */
+
+describe("řetěz a účtenka — čím se rozhodnutí dá nezávisle ověřit", () => {
+  it("záznam o vazbě nese pozici v řetězu a otisk vlastního řádku", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({ chainPos: 42, rowHash: "deadbeef" })] }));
+    expect(e.chainPos).toBe(42);
+    expect(e.rowHash).toBe("deadbeef");
+  });
+
+  it("nezřetězený řádek pozici NEDOSTANE vymyšlenou", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({ chainPos: null, rowHash: null })] }));
+    expect(e.chainPos).toBeNull();
+    expect(e.rowHash).toBeNull();
+  });
+
+  it("účtenka se skládá JEDINOU gramatikou a dekóduje se zpátky na tutéž hranu", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({})] }));
+    expect(e.receiptHref).toBe(receiptHrefFor("psp:person:6543", "linked_to", "kg:company:04544152"));
+    const encoded = e.receiptHref!.replace("/zdroj/", "");
+    expect(decodeClaimRef(encoded)).toEqual({
+      kind: "edge",
+      src: "psp:person:6543",
+      rel: "linked_to",
+      dst: "kg:company:04544152",
+    });
+  });
+
+  it("účtenka cituje relaci ŘÁDKU, ne natvrdo linked_to", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({ rel: "owns_stake" })] }));
+    const back = decodeClaimRef(e.receiptHref!.replace("/zdroj/", ""));
+    expect(back).toMatchObject({ rel: "owns_stake" });
+  });
+
+  it("konec, který kanonickou adresu neunese, ji NEDOSTANE (odmítnutí tvarem)", () => {
+    expect(receiptHrefFor("", "linked_to", "kg:company:1")).toBeNull();
+    expect(receiptHrefFor("psp:person:1", "", "kg:company:1")).toBeNull();
+    // Adresa delší než strop kodeku se nedá dekódovat zpátky → žádný odkaz.
+    expect(receiptHrefFor("psp:person:1", "linked_to", "x".repeat(600))).toBeNull();
+  });
+
+  it("firma dostane svůj spis přes kanonické IČO; cizí tvar dst žádný", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({ dst: "company:ico:2867681" })] }));
+    expect(e.companyHref).toBe("/penize/firma/02867681");
+    const [x] = deriveEvidenceFeed(input({ audit: [row({ dst: "kg:organ:senat" })] }));
+    expect(x.companyHref).toBeNull();
+  });
+
+  it("podepsaný posudek řetěz ani účtenku netvrdí — v review_audit není", () => {
+    const [e] = deriveEvidenceFeed(
+      input({
+        forensic: [
+          {
+            tiskId: 812,
+            cislo: 812,
+            title: "Novela zákona X",
+            severity: "high",
+            reviewState: "verified",
+            signedAt: "2026-07-19T08:00:00.000Z",
+          },
+        ],
+      }),
+    );
+    expect(e.chainPos).toBeNull();
+    expect(e.rowHash).toBeNull();
+    expect(e.receiptHref).toBeNull();
+    expect(e.companyHref).toBeNull();
   });
 });

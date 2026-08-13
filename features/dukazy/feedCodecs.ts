@@ -4,6 +4,7 @@
 // batch-2 §2C: "feed stability contract") — guids are `politicas:dukazy:<id>`
 // with isPermaLink=false and every url points at `/dukazy#z-<id>`.
 
+import { formatInt } from "@/lib/format";
 import type { EvidenceEntry } from "./deriveFeed";
 
 export interface FeedContext {
@@ -11,11 +12,43 @@ export interface FeedContext {
   baseUrl: string;
   /** ISO timestamp the feed was generated at (injected for determinism). */
   generatedAt: string;
+  /**
+   * Strop, se kterým se deník brány čte. POVINNÝ: popis kanálu ho vyslovuje,
+   * takže volající, který strop nezná, nesmí umět feed vůbec složit — jinak se
+   * absolutní věta vrátí zadními vrátky. Hodnota jde z odečtu (`DukazyLimits
+   * .auditCap`), nikdy z literálu tady (`REVIEW_AUDIT_CAP` žije v `server-only`
+   * modulu, tenhle kodek je čistý).
+   */
+  auditCap: number;
+  /**
+   * Jedna až dvě věty o tom, co tenhle výpis NENESE (skládá `./feedNotes.ts`).
+   * Přilepují se k popisu KANÁLU, ne jako položka: syntetický záznam „vrstva je
+   * tmavá" by v čtečce stál mezi datovanými rozhodnutími a tvářil se jako jedno
+   * z nich (precedens features/denik/feedCodecs.ts). `null`/vynecháno = popis
+   * beze změny.
+   */
+  notice?: string | null;
 }
 
 export const FEED_TITLE = "Deník důkazů — Politicas";
+/** Věcný popis BEZ ABSOLUTNA (2026-08-13). Dřív tu stálo „každé rozhodnutí
+ *  revizora … a každý podepsaný forenzní posudek" — tvrzení o úplnosti nad
+ *  čtením s tvrdým stropem, které obě routy uměly detekovat a zahazovaly. */
 export const FEED_DESCRIPTION =
-  "Veřejný věstník lidské brány: každé rozhodnutí revizora nad vazbou poslanec ↔ firma a každý podepsaný forenzní posudek, chronologicky, s odkazy na primární registry.";
+  "Veřejný věstník lidské brány: rozhodnutí revizora nad vazbou poslanec ↔ firma a podepsané forenzní posudky, chronologicky, s odkazy na primární registry, s pozicí v řetězu brány a s trvalou účtenkou u každého záznamu.";
+
+/**
+ * Popis kanálu VČETNĚ STROPU, kterým se věstník čte (vzor
+ * `denikFeedDescription()`). Číslo se dosazuje z konstanty, která řez opravdu
+ * dělá — přepsané do věty by se s kódem rozešlo první změnou stropu.
+ */
+export function dukazyFeedDescription(auditCap: number): string {
+  return (
+    `${FEED_DESCRIPTION} ` +
+    `Deník brány se čte se stropem ${formatInt(auditCap, "cs")} řádků; posudek, který branou ` +
+    `zatím neprošel, je pracovní materiál a tenhle výpis ho nenese.`
+  );
+}
 
 export function entryUrl(baseUrl: string, e: EvidenceEntry): string {
   return `${baseUrl}/dukazy#${e.anchor}`;
@@ -25,10 +58,27 @@ export function entryGuid(e: EvidenceEntry): string {
   return `politicas:dukazy:${e.id}`;
 }
 
-/** Gated one-line body shared by both formats — never the reviewer's raw note. */
-export function entrySummaryCs(e: EvidenceEntry): string {
+/**
+ * Gated one-line body shared by both formats — never the reviewer's raw note.
+ *
+ * Od 2026-08-13 nese i to, čím se rozhodnutí dá NEZÁVISLE ověřit: pozici
+ * v připojeném řetězu a otisk vlastního řádku (`review_audit.chain_pos` /
+ * `row_hash`), plus trvalou účtenku `/zdroj/<ref>`. RSS ani JSON Feed pro ně
+ * nemají vlastní element, takže jdou do textu položky — tam, kde je čtečka
+ * skutečně ukáže, a bez rozšíření, které by validátor obou deníků zahodil.
+ */
+export function entrySummaryCs(e: EvidenceEntry, baseUrl?: string): string {
   const prior = e.priorState ? ` (předchozí stav: ${e.priorState})` : "";
-  return `${e.decisionCs} — ${e.subjectCs}. Rozhodl: ${e.reviewer}${prior}. ${e.sourceCs}`;
+  const parts = [`${e.decisionCs} — ${e.subjectCs}`, `Rozhodl: ${e.reviewer}${prior}`];
+  if (e.chainPos != null && e.rowHash) {
+    parts.push(`řetěz brány: pozice ${e.chainPos}, otisk řádku ${e.rowHash}`);
+  } else if (e.kind === "tie") {
+    // Řádek zapsaný před zavedením řetězu pozici nemá — a nevymýšlí se mu.
+    parts.push("řetěz brány: tenhle řádek v něm místo nemá, je z doby před jeho zavedením");
+  }
+  if (e.receiptHref) parts.push(`účtenka: ${baseUrl ?? ""}${e.receiptHref}`);
+  parts.push(e.sourceCs);
+  return `${parts.join(". ")}.`;
 }
 
 function escapeXml(s: string): string {
@@ -47,6 +97,12 @@ function rfc822(iso: string): string | null {
   return Number.isFinite(t) ? new Date(t).toUTCString() : null;
 }
 
+/** Popis kanálu + přilepené upozornění o tomhle vydání (viz `FeedContext.notice`). */
+function channelDescription(ctx: FeedContext): string {
+  const base = dukazyFeedDescription(ctx.auditCap);
+  return ctx.notice ? `${base} ${ctx.notice}` : base;
+}
+
 export function evidenceFeedToRss(entries: readonly EvidenceEntry[], ctx: FeedContext): string {
   const items = entries
     .map((e) => {
@@ -57,7 +113,7 @@ export function evidenceFeedToRss(entries: readonly EvidenceEntry[], ctx: FeedCo
         `      <link>${escapeXml(entryUrl(ctx.baseUrl, e))}</link>`,
         `      <title>${escapeXml(`${e.decisionCs}: ${e.subjectCs}`)}</title>`,
         ...(pub ? [`      <pubDate>${pub}</pubDate>`] : []),
-        `      <description>${escapeXml(entrySummaryCs(e))}</description>`,
+        `      <description>${escapeXml(entrySummaryCs(e, ctx.baseUrl))}</description>`,
         "    </item>",
       ].join("\n");
     })
@@ -70,7 +126,7 @@ export function evidenceFeedToRss(entries: readonly EvidenceEntry[], ctx: FeedCo
     `  <channel>`,
     `    <title>${escapeXml(FEED_TITLE)}</title>`,
     `    <link>${escapeXml(`${ctx.baseUrl}/dukazy`)}</link>`,
-    `    <description>${escapeXml(FEED_DESCRIPTION)}</description>`,
+    `    <description>${escapeXml(channelDescription(ctx))}</description>`,
     `    <language>cs</language>`,
     ...(build ? [`    <lastBuildDate>${build}</lastBuildDate>`] : []),
     items,
@@ -107,13 +163,13 @@ export function evidenceFeedToJson(entries: readonly EvidenceEntry[], ctx: FeedC
     title: FEED_TITLE,
     home_page_url: `${ctx.baseUrl}/dukazy`,
     feed_url: `${ctx.baseUrl}/dukazy/feed.json`,
-    description: FEED_DESCRIPTION,
+    description: channelDescription(ctx),
     language: "cs",
     items: entries.map((e) => ({
       id: entryGuid(e),
       url: entryUrl(ctx.baseUrl, e),
       title: `${e.decisionCs}: ${e.subjectCs}`,
-      content_text: entrySummaryCs(e),
+      content_text: entrySummaryCs(e, ctx.baseUrl),
       date_published: e.decidedAt,
       authors: [{ name: e.reviewer }],
       ...(e.links[0] ? { external_url: e.links[0].href } : {}),
