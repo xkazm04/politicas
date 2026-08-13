@@ -814,6 +814,35 @@ Route map (politicas.md roadmap execution, sample data):
   stored value is the investigated one — IČO 24227901 is the MP's own SVJ, and
   the product used to caption it "vlastní nebo řídí soukromou firmu, která
   dodává státu". Never call `classifyTie` to decide what renders.
+  **But „stored" never meant „a person decided it" (2026-08-13).** Every one of the
+  211 ties rendered „zapsal ji analytický průchod **nebo lidská kontrola**, není to
+  automatický odhad", and both halves were false for the whole live corpus. (1) The
+  human gate cannot write this field at all: `ReviewRepository.setTieReviewState` — the
+  ONLY write path of `/penize/kontrola` — builds `nextProps` from `review_state`,
+  `review_note`, `last_decision`, `last_reviewer`, `last_reviewed_at`; `tie_class` is
+  not among them and never was, so **no stored class can be a human decision**. (2) The
+  pass that wrote the overwhelming majority computed `tie_class` with the SAME
+  `classifyTie` the read path labels „odhad": batch-002 wrote **245** edges that way,
+  batch-006 two more, and only **15** (batch-001) came from genuine per-tie registry
+  research. So „zapsaná × odvozená" is largely two vintages of one guess — which is
+  exactly why **Vodovody a kanalizace Vsetín/Vyškov carry `manager`**: the writing
+  pass's marker table did not yet know `vodovody a kanalizace`, and `isAttributable`
+  (`tieClass !== "steward"`) therefore hangs two municipal water utilities' public
+  contract volume on named MPs. **No discriminator exists** — there is no
+  `tie_class_provenance` beside `tie_class`, and deriving class origin from
+  `corroboration_provenance`'s free text would be inventing a field the data lacks — so
+  the copy says which pass wrote a given class is NOT recorded, rather than guessing.
+  The heuristic now has ONE definition: `PUBLIC_MARKERS` / `OWNER_ROLES` /
+  `BOARD_MGMT_ROLES` / `classifyTie` are exported from `features/money/reviewTypes.ts`
+  and the three `scripts/case-loops/money/*` copies import them (`triage.ts` also
+  stopped copying `reviewTier`/`reviewRank`, whose comment said „MUST agree exactly"
+  with nothing enforcing it). Marker rulings recorded in code: **`krajsk` NOT added**
+  (`kraj` is its prefix, so it cannot change one answer — proven by test); **`z. u` /
+  `z. s` added** (a spelling gap in forms the list already carries). **No stored value
+  is rewritten** — re-classifying a tie is a human decision at `/penize/kontrola`.
+  `/penize/kontrola`'s own summary carried a hardcoded FOURTH copy of the retired
+  sentence and was the last place in the product still making the claim — worst there,
+  since the reviewer deciding the tie was told a human might already have classified it.
   `review_tier`/`review_rank` are a different thing — a pass-24 CACHE of a pure
   function, stale on 153/208 ranks after the batch-012 contract re-ingest — so
   `resolveReviewOrder()` keeps a stored key only while it still matches the tie
@@ -1272,8 +1301,44 @@ Route map (politicas.md roadmap execution, sample data):
   proves formula-ref AND recompute-sample fire on it. Live run 2026-08-04: **all 11
   invariants PASS**. The sentinel stays strictly read-only (SELECT only, over a copy).
   **`npm run sentinel` is the only path on which these actually execute** —
-  `.github/workflows/sentinel.yml` has no `./.pglite` on a hosted runner and its guard
-  makes the nightly a deliberate no-op; a green nightly is not coverage.
+  `.github/workflows/sentinel.yml` has no `./.pglite` on a hosted runner; there is no
+  nightly (the cron was removed 2026-08-05), and a green sentinel is not coverage.
+  **„Nevyhodnoceno" není „splněno" (2026-08-13).** The instrument built because a wrong
+  ranking shipped for six days could not itself distinguish *checked and clean* from
+  *never looked* — three ways. `SentinelCheckStatus` was `"ok" | "violation"` with no
+  third state, so `report.ts` rendered every non-violation as `PASS`. **Erasing the whole
+  tamper-evident audit chain scored GREENER than altering one row of it**: every chain
+  read filters `where chain_pos is not null`, so `update review_audit set chain_pos =
+  null` emptied the filtered set and the invariant returned „chain is empty — trivially
+  valid"; tamper with ONE row and it fired. And a dispatched workflow on `ubuntu-latest`
+  produced a **green job with zero invariants evaluated**, because the run step was
+  gated on a guard and a *skipped* step does not fail a job — the header claimed the
+  guard was „a loud no-op instead of a false green"; it was a quiet one that read as a
+  pass. Now: `unevaluable` is a first-class status and `sentinelVerdict()` is the ONE
+  derivation from checks, read by the evaluator, the store-unreadable path AND the
+  parser's consistency gate, so a report can never carry a headline its own rows
+  contradict. The chain invariant compares chained rows against the WHOLE `review_audit`
+  (`LedgerRepository.countReviewAudit`, read BESIDE `verifyReviewChain` rather than
+  widening its query): `chained < total` is a violation naming both counts, `total === 0`
+  is `unevaluable` — an empty ledger proves nothing about tamper-evidence and is not a
+  pass. `checkFreshness` NAMES the `ingest_run` sources carrying no declared cadence
+  (not a violation — no promise was broken — but never invisible again). `run.ts` writes
+  a schema-valid all-`unevaluable` report on the unreadable path too, keeping exit 2, so
+  „ran and passed" and „never ran" no longer leave the same (empty) trace. The workflow's
+  run step is now UNCONDITIONAL with the artifact uploaded `if: always()` on both
+  branches, and `node-version` moved 22 → 24 — the job would have died at `npm ci` before
+  ever reaching the sentinel (`ci.yml:19-22` documents why). `SENTINEL_SCHEMA` stays `/1`
+  deliberately, reasoned in the constant's own doc comment: the change is additive at the
+  wire and old artifacts still parse. Verified live on this machine: exit 2, 11 `[UNEVAL]`
+  rows, `verdict: "unevaluable"`, „**0 of 11 invariants could be evaluated; this run
+  proves nothing about the data (it is not a pass)**". Falsified: with the old
+  `chain.length === 0` branch restored, a store with rows and every `chain_pos` nulled
+  returns `ok`. **Still uncovered and recorded as the next item here: the money and law
+  layers have ZERO invariants** — grep `lib/testing/sentinel/*.ts` for
+  `review_state|tie_class|supplies|amends` and nothing answers, so a mass
+  `pending_review → verified` flip across the 211 ties, a `tie_class` blanking, a
+  negative `supplies` weight inflating a published CZK total, or a mass blanking of the
+  141 forensic verdicts all pass all eleven checks.
   **A writer cannot regress a correction (2026-08-04).** `kg-contribution-ingest.ts`
   re-derives scores from live psp.cz dumps; run over a store the recompute has
   corrected it would have replaced that correction with fresh numbers under a commit
@@ -1587,6 +1652,39 @@ Route map (politicas.md roadmap execution, sample data):
   graph, town vs computed peer-group mirror, debt-per-capita trends,
   permanent town addresses at `/rozpocty/<ico>`. Stewardship feeds only
   executive roles — stated explicitly on the page.
+  **The impossible date has ONE boundary (2026-08-13).**
+  `lib/analysis/plausible-date.ts` says in its own header that it exists „aby
+  hranice byla v celé aplikaci jedna a stejná". It was not: `/rozpocty` carried a
+  PRIVATE `y > 1900 && y < 2100` fork in `supplierTrail.ts`, so the corpus's future
+  years passed straight through — and the checked-in `municipalSuppliers.generated.ts`
+  holds `00279676 × Československá obchodní banka` spanning **2009–2043**, i.e. the
+  page published a municipality's contract history running to 2043. Two further
+  findings shaped the fix: `yearOf` ran at GENERATION time, so repairing it there
+  would have changed nothing on the live page (the gate had to go at the DECODE
+  boundary, the path the page actually reads); and the upper bound is now
+  `SUPPLIERS_RETRIEVED_ON` — the day the register was read, travelling with the rows
+  in the same batch — not „today", which would have been a second guess. **Both
+  bounds are withheld together** on an implausible year (withholding one would be an
+  estimate), the row and its money stay, the count is typeset, and a structural codec
+  error still fails loud while a DATA fault no longer takes the supplier section down.
+  Same pass on the money side: `/penize/[pspId]` printed `{c.signedOn}` verbatim while
+  its sibling `/penize/firma/[ico]` suppressed and disclosed the SAME graph field, and
+  `/penize/[pspId]/paket` baked impossible dates into a hash-stamped **downloadable**
+  bundle; the MP file now reuses the company file's exact keys (zero new money keys),
+  the packet strips the date, splits „no date" from „impossible date" as two counts,
+  and discloses the suppression inside `citeCs` — the sentence a journalist pastes.
+  The packet hash changes for an affected tie, which is expected and stated: measured,
+  **zero existing packets change today** because all 211 ties are `pending_review`, so
+  every packet's `ties` is empty. Note the shape deliberately chosen: the raw
+  `signedOn` STAYS on `MoneyMpDetail` and the verdict is attached beside it
+  (`ContractLine.dateWithheldOn`, with `displaySignedOn()` the one path to a surface),
+  because `features/profile/profileMoney.ts` RECOMPUTES its own `dateUnusable` from the
+  raw value — nulling it would have made /poslanec silently stop disclosing bad dates.
+  A loss of disclosure is not a price worth paying for de-duplication.
+  `features/dashboard/datedFacts.ts` (which re-declared `PLAUSIBLE_FROM`) and
+  `features/denik/deriveDenik.ts` (which imported it THROUGH datedFacts) now read the
+  canonical module; the value is unchanged, so what those two count as impossible does
+  not move — de-duplication, not a fix, pinned by a one-declaration test.
   **The honest sheet (2026-08-12).** The most-seen number (38,78 mld Kč,
   Praha default) read as payments while being Σ contract VALUE 1995–2026 —
   the card now carries the /penize qualifier („částka = hodnota smlouvy")
@@ -2326,6 +2424,92 @@ Route map (politicas.md roadmap execution, sample data):
   `mimo-rejstrik`. A metric added without a routing branch now FAILS a test
   instead of silently degrading to „rejstřík ji nezná".
 - `/rentgen` — archived art direction.
+- **App shell — the failure surfaces and what every route ships (2026-08-13).**
+  Three surfaces a reader meets only when something has gone wrong, all careless in a
+  product careful everywhere else. **There was no 404 page at all**: the repo had no
+  `app/not-found.tsx`, so twelve `notFound()` call sites (`/poslanec/[id]`,
+  `/zakony/[cislo]`, `/zakony/predpis/[ref]`, `/penize/[pspId]`(+`/paket`),
+  `/penize/firma/[ico]`, `/rozpocty/[ico]`, `/kraj/[kraj]`, `/zdroj/[ref]`,
+  `/graf/p/[ref]`, `/dashboard/exponat/[id]`, `/plakat/[view]`) — and every mistyped
+  address — answered with Next's built-in **English** „This page could not be found.",
+  system-font, no way out, inside the Czech root layout. The new page is a SERVER
+  component (zero client JS) rendering its own `<main>` inside the layout so the rail
+  survives, catalog-driven in both locales, and its core job is the distinction
+  `DataUnavailable.tsx` was written for: **„záznam neexistuje" ≠ „zdroj se nepodařilo
+  přečíst"**. Its doors are keyed by WHAT the reader was looking for (MP → /zebricek,
+  law/tisk → /zakony, firm → /penize, town → /rozpocty, citation → /overeni), not
+  „back home". **It deliberately prints no status numeral**: Next returns 404 only for
+  non-streamed responses, so typesetting „404" would assert something false for part of
+  the traffic — the status belongs in the header, not the typography. Both error
+  boundaries stopped claiming „Hlášení jsme odeslali" / „A report has been sent":
+  Sentry is env-gated to a silent no-op without `NEXT_PUBLIC_SENTRY_DSN` and this repo
+  has none, so the sentence was plausible-but-false at the exact moment a reader's
+  trust is already dented. What replaced it is the digest plus a note that is true with
+  or without a DSN. `global-error`'s `lang` was corrected the RIGHT way round: root
+  `lang="cs"` stays (the root lang is the document's DEFAULT language, Czech is the
+  primary voice, and the locale is unknowable there) — what was broken is that **only 2
+  of its 7 English fragments carried `lang="en"`**; every one does now, including the
+  halves inside bilingual lines, via class-less `<span>`s that change no pixel.
+  `app/robots.ts` finally publishes `Sitemap:` (base from request headers like
+  `sitemap.ts` and the four feeds — honest localhost in dev, **never a guessed domain**,
+  and the field is omitted entirely with no host).
+  **And the rail stopped shipping invented people.** `features/shell/sidebarParts.tsx`
+  imported `MODULES` from `lib/civic/data.ts` for ONE `.name` lookup, dragging the whole
+  mock catalog — „Petra Nováková", „Karel Hruška", „Silnice MSK a.s." / IČO 258 41 991,
+  „Agrofond s.r.o." / 470 12 336, „2,1 mld Kč" — into a chunk the layout loads, i.e.
+  everywhere, in an anti-disinformation product. The rendered half of this fell
+  2026-08-11; the SHIPPED half only now. Module names are declared in
+  `features/shell/navModel.ts` (new `brandName`), which already owns the module list —
+  a third file would be a third declaration of module identity — and deliberately NOT as
+  a catalog key, because „CivicScore" does not translate and both catalogs would hold
+  the same string until a translator localized one. Measured by a controlled A/B over
+  two real webpack builds differing in that one expression, read from `<script src>` in
+  the SERVED HTML (the client-reference manifest is a global superset and cannot answer
+  „what does this route load"): `/podminky` `/ochrana-osobnich-udaju` `/atlas`
+  `/overeni` `/data` `/denik` each **−14 652 B**, chunk 975 gone. **Honest limit, not a
+  clean sweep: 8 of 23 routes are clean; 15 still carry it through their OWN importers**
+  (landing `SystemModules`, `/svedectvi` `CHAMBER_STATS`, `/dashboard` `CHAMBER_TREND` +
+  `graphText`, `/hlasovani` `ROLL_CALLS`, `/kompas` → `clubStyle` → `CLUB_DISPLAY`,
+  `/rentgen`, `/penize` + `/zakony` via `Mock*`). What was removed is the CHROME's
+  dependency — precisely the standing limit the /penize and /dashboard code-splitting
+  passes each recorded as unfixable from inside a feature. Same pass: **Fraunces was
+  `rel=preload`ed on every route and rendered by nothing** — one repo-wide grep hit, its
+  own declaration — costing 67 388 + 59 540 = **126 928 B, 46,9 % of the 270 316 B
+  preloaded font payload, for zero glyphs**. Removed: preloaded **270 316 → 143 388 B**,
+  all font files **358 908 → 212 232 B (−40,9 %)**. The `.font-serif` utility stays and
+  falls back to Tailwind's system serif — honester than a token pointing at a face that
+  is not loaded — and `docs/DESIGN.md` §2's „reserved" claim is corrected in the same
+  change (a reserve that ships is not a reserve). No appearance or a11y change: all five
+  brands render byte-identically in cs and en, and `sidebarParts.test.ts` +
+  `a11y.test.ts` pass with **no assertion edited**.
+- **`/graf/p/[ref]` — the citation card tells its age (2026-08-13).**
+  `features/graph/PermalinkPage.tsx` states the contract in its own header — staleness
+  is posted ABOVE the content, and each edge's `pending_review` survives into **KAŽDÝ**
+  citation format, „sazby, JSON-LD **i OG obrazu**". The OG image is named in that
+  sentence and never read `view.fresh` (grep: zero hits). So the least-correctable
+  artifact the product emits — cached by every social platform, screenshotted into
+  articles — printed today's fingerprint under „stav ověření k {date}" and, when
+  today's edges happened to resolve, „vše ověřeno" in confirming cobalt, for a citation
+  the page behind it would have flagged as diverged. `permalinkCardModel` (pure, tested)
+  now decides what the card may say: staleness posts above the content with BOTH
+  fingerprints and a stale view never gets the confirming colour. `invalid` / `gone` /
+  `unavailable` stopped sharing one frame — our outage no longer reads as the death of a
+  documented view, and no fallback claims the address carries a view and a fingerprint
+  when it carries nothing (the „TŘI STAVY, KTERÉ SE NESMÍ SLÍT" rule from
+  `getPermalinkData.ts`, finally honoured in the card). `permalinkSources()` is ONE rule
+  read by both the card and `isBasedOn`: a node's own registry links win over the
+  platform's four blanket sources (verified live — a firm returns ARES/OR/Hlídač/Registr
+  smluv). The evidence bundle carries the search bound the page prints under „bez něj by
+  generovaná cesta byla obvinění" (`path_max_cost_steps`, `path_hub_degree_threshold`,
+  `paths_found`, `path_search_capped`) plus the localized ordering rule, and its
+  `url`/`identifier` are ABSOLUTE from request headers (omitted with no host, never a
+  guessed domain); the Dataset `description` left its hardcoded Czech for the catalog.
+  Found only by rendering the card: **the font subset was requested over the
+  un-uppercased text while the card sets `textTransform: uppercase`**, so a title drew
+  one Archivo capital and dropped the rest mid-word to the fallback face; both cases are
+  requested now. Honest carry-over: for `cesta`/`trasa` the sources still fall back to
+  all four registries — narrowing by node kind needs `PermalinkPage.tsx` to adopt the
+  same rule, and shipping half of it would have put two rules on one citation.
 
 All five politicas.md modules now have surfaces. **Update 2026-07-24 — four
 surfaces are wired to the real knowledge graph** (`kg_node`/`kg_edge`, embedded
