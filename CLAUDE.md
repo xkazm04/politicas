@@ -639,6 +639,55 @@ Route map (politicas.md roadmap execution, sample data):
   `store.kgNeighbours()`; it must never scan a whole `kg_edge` relation (see
   `lib/db/kgOrder.ts` for why the result is re-sorted). The route carries an
   explicit `revalidate` because the page asserts a committee-seat as-of date.
+  **The registry is read PER PERSON since 2026-08-13.** `membership_person_idx`
+  and `mandate_person_idx` have been in the DDL since the first migration with
+  no lister able to use them, so the most-linked page in the product — and 207
+  prerendered pages — read every PSP10 membership row (chamber + every child
+  organ) and the whole ~2 157-row mandate table across all terms, then filtered
+  each to ONE person in JS, plus one more whole-term membership read per prior
+  term served. `PersonListOptions.personPspIds` is the additive predicate; an
+  EMPTY array matches NOTHING (the `BallotListOptions`/`AbsenceListOptions`
+  rule — an empty filter must never become a whole-relation read), the omitted
+  option leaves every existing caller byte-identical (pinned by test, as is the
+  predicate returning exactly what the JS filter did), and `warnIfTruncated`
+  NAMES the new filter (`persons=N`) because a capped read tells a different
+  story with a person predicate than without one. Same pass: the money slice's
+  `readCompanySupplies` loop ran SERIALLY (an MP with 14 tied companies paid 14
+  round trips in series) with no memo although two reads above it have one — now
+  parallel, insertion order preserved, each company on the IMPORTED
+  `MONEY_MEMO_TTL_MS`, with neither an empty read nor a failure memoized and
+  eviction compared by cell IDENTITY.
+  **The spis stopped printing two measurements as one (2026-08-13).** „Rebelie
+  proti klubu" set the stored `rebels_against` SNAPSHOT beside the LIVE
+  `deriveVoteRecord` chronicle as if the second were a breakdown of the first.
+  They diverge structurally in four ways — vintage (new roll calls grow the list
+  and never touch the rate until the next pass); floor (`MIN_ELIGIBLE_VOTES ≥ 50`
+  on the aggregate, none on the chronicle, so a below-floor MP got „not measured"
+  ABOVE a named list of rebellions); a different club-line denominator; and
+  keying (the aggregate is per PERSON, so a club-switcher's whole record folds
+  under his first club while the rows beneath carry per-ballot clubs) — and its
+  only citation named no pass, no date and no dataset, thirty lines under the
+  page's own correct idiom. `features/profile/rebellionProvenance.ts` is the pure
+  four-state aggregate over the edges' own `{pass, ref, computedAt}`, and the
+  reason it exists is a bug the first inline version shipped: on disagreeing rows
+  it printed „the edge names neither a pass nor a computation day" ABOUT ROWS
+  THAT CARRY ONE. **„Nothing is here" and „we did not agree" are two findings and
+  need two sentences** (the `indexPassMixed` discipline); the day is compared at
+  DAY granularity and a junk date is never repaired.
+  **The career spine stopped hard-coding a term.** `careerSpine.ts` carried
+  `"PSP9"` in the DERIVATION — round 13 drove term digits out of both catalogs and
+  this one survived in code, so when PSP11 opens all 207 spisy would print
+  „období zatím mimo záznam" about a fully-ingested PSP10 with the test pinning
+  the silence. Coverage now reads the term code from the data. Also: `current` (a
+  fact about the CHAMBER) is split from `serving` (a fact about the PERSON), so a
+  relinquished mandate no longer renders as active; `stintCount` counts DISTINCT
+  windows, not registry rows (the corpus carries duplicates, and two identical
+  rows are not a departure and a return); and the years column is the pure
+  `careerYears()` — **both bounds always from ONE window**, where
+  `mandateFrom ?? chamberFrom` – `mandateTo ?? chamberTo` used to mix a
+  replacement's own start with the chamber's end, and an end suppressed as
+  unreadable silently borrowed the very date that had just been refused. The
+  unrendered `firstRecordFrom` is deleted: it had exactly that defect.
 - `/hlasovani` — **VoteTrack** (features/votetrack): fusion of all three
   prototype variants — Deník (chronological ledger as master), Sál (sticky
   chamber detail: hemicycle + party breakdown it drives), Linie (club
@@ -717,6 +766,41 @@ Route map (politicas.md roadmap execution, sample data):
   `topRebelsTotal` 203) — „24 rows" no longer reads as „24 rebellions ever".
   The messages pin is a shape rule over the whole `record.*` namespace with
   ZERO exemptions, falsified twice.
+  **The record can be read with a keyboard (2026-08-13).** `features/votetrack`
+  had ZERO `role=` and zero live regions — a larger surface than /zebricek, which
+  had passed the same set two days earlier. The ledger and both rebellion lists
+  were streams of bare `<div>`s and are now named `<ul>`/`<li>` (the /denik
+  shape). **They are deliberately NOT tables, and the refusal is pinned WITH its
+  reasoning**: a ledger row is a stacked card wrapping a `<button>` and a
+  `CopyLinkButton`, a chronicle row is a SENTENCE, and a rebel row is one
+  whole-row `<Link>` — `role="row"`/`"cell"` would either swallow the button's
+  role or declare the row one cell, a table in appearance only.
+  `LeaderboardTable` IS a table precisely because its link sits INSIDE a cell
+  around the name; copying that here would shrink the click target from the row
+  to the name, which is a layout change, not an a11y fix. The one real grid, the
+  line matrix, got the full treatment (`scope="col"`, club as `<th scope="row">`
+  — it was a `<td>`, so a screen reader read only a date and a bare number in
+  every cell — and an `sr-only` `<caption>`). Bare numbers got subjects and the
+  ▲/▼ glyphs got words (they carried the club LINE in a glyph alone); the dash is
+  a CLAIM („the club had no line"), not an empty cell. Text is hidden VISUALLY,
+  never removed from the DOM (the round-12 rule), pinned by a check that
+  TOKENIZES classNames — a flat `\bhidden\b` would flag legitimate
+  `overflow-hidden`. Selection and the theme count each announce through exactly
+  ONE live region placed OUTSIDE the panel that remounts (the DuelStatus
+  precedent: a live region inside a remounted panel is destroyed before it is
+  read), and the empty state moved OUT of the list it contradicts — it was an
+  `<li>` asserting the list had no items. The seismograf drew one `<button>` per
+  sitting day (~74 tab stops over the real record, none with a focus ring): now
+  ONE tab stop, arrows walking the day axis through the IMPORTED
+  `features/dashboard/graphTraversal.ts` (a perpendicular direction has no
+  neighbour and so does NOTHING, rather than wrapping to the far end), Home/End,
+  native Enter/Space, and the pattern PRINTED on the surface — as a plain `<p>`,
+  not a `SourceNote`, because the brand rule binds citations to NUMBERS and that
+  line carries none. Every `<section id>` the rail targets now has an accessible
+  name, pinned in BOTH directions. `features/votetrack/a11y.test.ts` (30 tests)
+  pins the wiring by source-grep with the jsdom gap stated in its header, and
+  **51 source mutations were run against it, 51 caught**; two assertions passed
+  their own falsification, were therefore too loose, and were tightened.
 - `/penize` — **FollowTheMoney** (features/money): the Rentgen money-graph's
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
@@ -1089,6 +1173,38 @@ Route map (politicas.md roadmap execution, sample data):
   finally cross-link; `GRAPH_COMPANY_CAP` has ONE definition and the graph
   caption can disclose a crop via `companiesTotal` (live: cap does not
   bind).
+  **The review console stopped losing what the reviewer wrote (2026-08-13).**
+  `/penize/kontrola` is the most leveraged user in the product — 211 pending
+  decisions gate /penize/strety, the evidence packets and /dukazy, and every
+  decision is appended to the tamper-evident hash chain — and its WRITE PATH had
+  a silent data loss. The advertised `1`/`2`/`3` queue shortcuts called
+  `handleDecide(…, null)` while the mouse path sent `noteDraft`, which was state
+  local to `ReviewCard` and unreachable from the parent's `window` listener; the
+  note is the ONLY thing that survives a decision into the chain
+  (`props.review_note` is overwritten by the next one), the shortcut handler
+  bails on TEXTAREA targets — i.e. precisely when a draft existed — and
+  `needs-more` without a note is a documented **no-op that writes nothing at
+  all**. So a reviewer could type a reason, blur the field, press `2`, and
+  believe a tie had been flagged when nothing happened. The draft is now lifted
+  to the parent as a ref (211 keydown listeners would have been the worse price)
+  and `handleDecide` is the ONE place a note is resolved; no call site passes
+  `null`, pinned by shape. A note-less `needs-more` is no longer submitted at all
+  and says so, returning the cursor to the field. Arrows move REAL DOM focus (they
+  used to repaint a border, so the screen reader stood somewhere other than where
+  `1`/`2`/`3` pointed) and the queue has ONE tab stop instead of 211 —
+  **`graphTraversal` is deliberately NOT imported here and the reason is in a doc
+  comment: that rule is planar (coordinates + edges) and this queue is a 1-D
+  list.** Write outcomes announce ONCE PER PAGE (`role="status"` for progress and
+  success, `role="alert"` for failure, both permanently mounted) from one pure
+  `writeStatusInfo` that the card's own note also reads, so the announcement and
+  the visible text cannot diverge. Three live lint warnings were fixed AT CAUSE:
+  `toLocaleString` on a server-rendered client surface (ICU thousands-separator
+  drift over ~30 counts) went through `useFormat`, and seven hand-rolled
+  `<p>zdroj: …</p>` became the shared `SourceNote`. `console.a11y.test.ts` strips
+  comments from the source before asserting, so the file's own header can neither
+  satisfy nor break a test. **Write semantics in `review.ts` / `reviewActions.ts`
+  are untouched**, and the ~95 hardcoded Czech literals in that file remain a
+  DEFERRED direction, deliberately sequenced after this fix.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored
@@ -1400,6 +1516,41 @@ Route map (politicas.md roadmap execution, sample data):
   the fix is the payload carrying KEYS and ~12 render sites translating
   (incl. the referendum OG image); recorded as its own future direction.
   /metodika's weights table therefore stays Czech-only in EN for now.
+  **The printed sheet and the shared card tell the truth (2026-08-13).** The two
+  most DURABLE artifacts this app emits were its least honest surfaces — paper and
+  a foreign timeline are never corrected after publication, so a lie lasts longest
+  exactly there. (1) `kraj.ts` typed the published weight vector
+  `25/20/20/15/10/10` into the poster citation. Batch 1D had removed that literal
+  from four surfaces and both catalogs and declared `PUBLISHED_WEIGHTS_LABEL` the
+  ONE source; this one survived because the guard scanned only the CATALOGS and
+  only the HYPHEN form — it went through both holes at once, on the page whose
+  whole premise is that the weights are re-weighable. The guard now scans SOURCES
+  too, across both roots that render the vector, both separators, and **asserts
+  each root contributed files** so a rename cannot silently mute it; falsified
+  four ways. (2) The route passed `new Date()` as „stav dat ke dni", so every
+  printout dated the moment of PRINTING over numbers from a batch recompute. The
+  `retrievedAt` prop is DELETED from both the route and `KrajPage` — there is no
+  path for today's date to get back in — and the day now comes from the chamber's
+  `ContributionProvenance.computedAt`, the same field the embeddable widget reads;
+  **the rule is not written a second time.** A chamber with no agreed day prints
+  NO date and says why (`posterUndatedNote`, routed through the methodology line —
+  the only footer field typeset verbatim). `PosterCitationInput.retrievedAt` is
+  `string | null`; `PosterCitation.retrievedAt` stays `""` as a documented
+  sentinel (`string | null` would break `PosterFrame`'s formatter call, and
+  silence without a sentence reads as a broken date) — the clean fix wants a
+  `shared.poster.undated` key and is recorded as a follow-up. (3) `/referendum`
+  and its OG card disclosed provenance NOT AT ALL (`grep -c` → 0 in both) while
+  six lesser surfaces render the aggregate — on the page that invites citizens to
+  re-weigh the index and mints a card from the result. The page now renders the
+  same four `civicscore.provenance*` sentences (no sixth copy) plus the
+  formula-mismatch line; the OG card carries day + pass only, and claims neither
+  when the chamber disagrees, because four sentences of prose do not fit legibly
+  beside six weight bars and five rows at 1200×630 — fewer claims beats
+  unreadable ones. (4) The referendum copy affordance was
+  `clipboard.writeText().then(ok)` with NO rejection branch — in an insecure
+  context the reader pressed it and nothing happened, not even a sentence; it now
+  rides the shared `CopyLinkButton`, which names the failure into a live region
+  and is bilingual where the old literals were not.
 - `/metodika` — **Metodika** (features/civicscore/MetodikaPage.tsx, thin route
   `app/metodika/page.tsx`). Added 2026-08-04. The platform positions itself as
   methodology-transparent, `/zebricek` cites „průchod grafu č. 42" and
