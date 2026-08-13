@@ -1884,6 +1884,8 @@
     "cardContractsYears": "contracts signed {firstYear}–{lastYear}",
     "cardContractsYear": "contracts signed in {year}",
     "cardContractsYearsUnknown": "the record does not state the signing years of these contracts",
+    "trailYearsWithheld": "{count, plural, one {One row below carries a signature year that could not have happened (before 1993-01-01 or after {retrievedOn}, the day the register was read) — its year span is withheld.} other {{countFmt} rows below carry a signature year that could not have happened (before 1993-01-01 or after {retrievedOn}, the day the register was read) — their year spans are withheld.}} Neither the contracts nor their value are discarded, and the date is never corrected.",
+    "trailYearsWithheldCell": "unusable year",
     "contractValueRule": "amount = contract value per the Contracts Register (the same edge weight /penize reads), not a payment made and not an annual flow",
     "cardPaid": "of which contracts with a documented payment direction",
     "cardPaidMeta": "{count} contracts with a recorded direction · amount = contract value",
@@ -2483,6 +2485,7 @@
       "copyLink": "copy link",
       "bundleLink": "evidence bundle (JSON-LD)",
       "bundleNote": "a machine-readable list of claims with the human-review state of every edge",
+      "bundleDescription": "A permanent citation of one view of the knowledge graph of Czech politics: claims, their human-review state and links into the public registries, with a fingerprint of the content at the moment of re-derivation.",
       "goneTitle": "Today's graph no longer documents this view",
       "goneBody": "The address is readable and once carried a documented view, but the knowledge graph is recomputed in batches and the cited node, trail or path is not in today's build. Nothing similar is substituted: a citation either matches the issued fingerprint, or says so.",
       "goneImprint": "fingerprint in the address: {algo} {hash} · re-derived {date}",
@@ -2496,7 +2499,13 @@
         "hashLine": "fingerprint {algo} {hash} · review state as of {date}",
         "hashFallback": "the permanent address carries the whole view and the evidence fingerprint",
         "fallbackTitle": "A knowledge graph of Czech politics",
-        "sources": "sources: psp.cz · ares · Contract Register · e-Sbírka"
+        "sources": "sources: psp.cz · ares · Contract Register · e-Sbírka",
+        "sourcesLine": "sources: {list}",
+        "stale": "stale citation · in the address {urlHash} ≠ today {currentHash}",
+        "goneNote": "the citation has not changed — the graph beneath it has",
+        "unavailableTitle": "The data cannot be read right now",
+        "unavailableNote": "an outage on our side, not the end of this citation — please try again",
+        "invalidNote": "this address cannot be decoded — it is not a politicas citation"
       }
     }
   },
@@ -3361,10 +3370,27 @@
     "route": {
       "kicker": "rendering error",
       "title": "This page failed to render",
-      "body": "This was not a missing record or empty data — the page code itself crashed. A report has been sent. The other modules in the left rail keep working.",
+      "body": "This was not a missing record or empty data — the page code itself crashed. The other modules in the left rail keep working.",
       "digestLabel": "error id:",
+      "digestNote": "Copy it down if you report the error — it is the only unambiguous name this crash has. This page does not claim a report was sent on its own: error collection is switched on per deployment and may not be running.",
       "retry": "Try again",
       "backToDashboard": "Back to the control room"
+    },
+    "notFound": {
+      "kicker": "no such address",
+      "title": "We do not have this address",
+      "body": "No record lives at this address. Either it never existed, or its number has changed — for an MP's mandate, a chamber print, a company's IČO or a law number, a single digit decides.",
+      "distinction": "This is not a source outage. “The record does not exist” and “the source could not be read” are two different claims, and this page only makes the first — when the database is temporarily unavailable, detail pages render their own stated state instead of a 404.",
+      "doorsTitle": "What you were looking for",
+      "doors": {
+        "poslanec": "An MP — the index of case files is the leaderboard",
+        "zakon": "A law or a chamber print",
+        "firma": "A company and the public money reaching it",
+        "obec": "A municipality and its budget",
+        "citace": "A citation, a provenance receipt or a number's permanent address"
+      },
+      "home": "To the home page",
+      "dashboard": "To the control room"
     }
   },
   "svedectvi": {

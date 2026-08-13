@@ -1884,6 +1884,8 @@
     "cardContractsYears": "smlouvy podepsané {firstYear}–{lastYear}",
     "cardContractsYear": "smlouvy podepsané v roce {year}",
     "cardContractsYearsUnknown": "roky podpisu záznam u těchto smluv neuvádí",
+    "trailYearsWithheld": "{count, plural, one {U jednoho řádku níže nese záznam rok podpisu, který se nemohl stát (před 1. 1. 1993 nebo po dni čtení registru {retrievedOn}) — rozsah let se u něj neuvádí.} other {U {countFmt} řádků níže nese záznam rok podpisu, který se nemohl stát (před 1. 1. 1993 nebo po dni čtení registru {retrievedOn}) — rozsah let se u nich neuvádí.}} Smlouvy ani jejich hodnota se nezahazují a datum se nikdy neopravuje.",
+    "trailYearsWithheldCell": "rok nepoužitelný",
     "contractValueRule": "částka = hodnota smlouvy podle Registru smluv (táž váha hrany jako na /penize), ne uhrazená platba ani roční tok",
     "cardPaid": "z toho smlouvy s doloženým směrem platby obce",
     "cardPaidMeta": "{count} smluv se zaznamenaným směrem · částka = hodnota smlouvy",
@@ -2483,6 +2485,7 @@
       "copyLink": "kopírovat odkaz",
       "bundleLink": "balíček důkazů (JSON-LD)",
       "bundleNote": "strojově čitelný výpis tvrzení se stavem lidské kontroly každé hrany",
+      "bundleDescription": "Trvalá citace pohledu na znalostní graf české politiky: tvrzení, jejich stav lidské kontroly a odkazy do veřejných registrů, s otiskem obsahu v okamžiku znovuodvození.",
       "goneTitle": "Tento pohled už dnešní graf nedokládá",
       "goneBody": "Adresa je čitelná a kdysi nesla doložený pohled, ale znalostní graf se přepočítává dávkou a citovaný uzel, trasa nebo cesta v dnešním sestavení není. Nic podobného se nedosazuje: citace buď odpovídá vydanému otisku, nebo to řekne.",
       "goneImprint": "otisk v adrese: {algo} {hash} · znovuodvozeno {date}",
@@ -2496,7 +2499,13 @@
         "hashLine": "otisk {algo} {hash} · stav ověření k {date}",
         "hashFallback": "trvalá adresa nese celý pohled i otisk důkazů",
         "fallbackTitle": "Znalostní graf české politiky",
-        "sources": "zdroje: psp.cz · ares · registr smluv · e-sbírka"
+        "sources": "zdroje: psp.cz · ares · registr smluv · e-sbírka",
+        "sourcesLine": "zdroje: {list}",
+        "stale": "zastaralá citace · v adrese {urlHash} ≠ dnes {currentHash}",
+        "goneNote": "citace se nezměnila — změnil se graf pod ní",
+        "unavailableTitle": "Data se právě nedají přečíst",
+        "unavailableNote": "výpadek na naší straně, ne zánik citace — zkuste to prosím znovu",
+        "invalidNote": "tuhle adresu nelze rozluštit — není to citace politicas"
       }
     }
   },
@@ -3361,10 +3370,27 @@
     "route": {
       "kicker": "chyba vykreslení",
       "title": "Tuhle plochu se nepodařilo vykreslit",
-      "body": "Nešlo o chybějící záznam ani o prázdná data — kód stránky sám skončil chybou. Hlášení jsme odeslali. Ostatní moduly v levé liště fungují dál.",
+      "body": "Nešlo o chybějící záznam ani o prázdná data — kód stránky sám skončil chybou. Ostatní moduly v levé liště fungují dál.",
       "digestLabel": "identifikátor chyby:",
+      "digestNote": "Opište si ho, pokud budete chybu hlásit — je to jediný jednoznačný název tohohle pádu. Že se hlášení odeslalo samo, tahle plocha netvrdí: sběr chyb se zapíná v nasazení a nemusí běžet.",
       "retry": "Zkusit znovu",
       "backToDashboard": "Zpět do velína"
+    },
+    "notFound": {
+      "kicker": "neexistující adresa",
+      "title": "Tuhle adresu tu nemáme",
+      "body": "Na téhle adrese nevede žádný záznam. Buď nikdy neexistoval, nebo se změnilo jeho číslo — u mandátu poslance, sněmovního tisku, IČO firmy i čísla zákona rozhoduje jediná číslice.",
+      "distinction": "Není to výpadek zdroje. „Záznam neexistuje“ a „zdroj se nepodařilo přečíst“ jsou dvě různá tvrzení a tahle plocha dělá jen to první — když je databáze dočasně nedostupná, detailní plochy místo 404 vykreslují vlastní přiznaný stav.",
+      "doorsTitle": "Co jste hledali",
+      "doors": {
+        "poslanec": "Poslanec — index spisů je žebříček",
+        "zakon": "Zákon nebo sněmovní tisk",
+        "firma": "Firma a veřejné peníze, které k ní vedou",
+        "obec": "Obec a její rozpočet",
+        "citace": "Citace, účtenka původu nebo trvalá adresa čísla"
+      },
+      "home": "Na úvodní stranu",
+      "dashboard": "Do velína"
     }
   },
   "svedectvi": {
