@@ -626,14 +626,27 @@ export default function VerificationConsole({
         </section>
 
         {/* Odkud se bere třída a odkud pořadí — obojí je zapsané v grafu a obojí se tady
-            čte, ne přepočítává. Kde přepočet nutný byl, říkáme kolikrát a proč. */}
-        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-steel">
+            čte, ne přepočítává. Kde přepočet nutný byl, říkáme kolikrát a proč.
+
+            2026-08-13: tenhle odstavec byl POSLEDNÍ místo v produktu, které o zapsané
+            třídě tvrdilo „zapsal ji analytický průchod NEBO LIDSKÁ KONTROLA". Nikde to
+            neplatilo (viz rozbor v `tieClassOriginInfo`), ale právě tady to bylo nejhorší:
+            recenzent, který o vazbě rozhoduje, se dočetl, že ji možná už jednou posoudil
+            člověk. Zapisovací cesta téhle brány — `setTieReviewState` — do pole
+            `tie_class` NEPÍŠE, takže žádná zapsaná třída rozhodnutím člověka být nemůže.
+            Souhrnná věta proto říká jen to, co je o agregátu pravda, a výklad jedné
+            konkrétní třídy nechává na kartě, kde ho sází importovaný
+            `tieClassOriginInfo` — druhá kopie toho vysvětlení sem nepatří. */}
+        <p className="mt-10 max-w-3xl text-sm leading-relaxed text-steel-aa">
           <span className="font-bold text-ink">Třída vazby:</span> u{" "}
           <span className="font-bold text-ink">{f.int(data.stats.classOrigin.stored)}</span> z{" "}
           {f.int(data.stats.pending)} nepotvrzených vazeb ji nese hrana v grafu
-          (<span className="font-mono">kg_edge.props.tie_class</span>) — zapsal ji analytický průchod
-          nebo lidská kontrola a má přednost. U {f.int(data.stats.classOrigin.derived)} zapsaná není a
-          program ji odhadl z názvu firmy a textu role; taková je na kartě označená jako{" "}
+          (<span className="font-mono">kg_edge.props.tie_class</span>) — zapsala ji dávka, ne tahle
+          brána: <span className="font-mono">setTieReviewState</span> do pole{" "}
+          <span className="font-mono">tie_class</span> nezapisuje, takže žádná zapsaná třída není
+          ničím rozhodnutím. Přednost před dnešním odhadem přesto má. U{" "}
+          {f.int(data.stats.classOrigin.derived)} zapsaná není a program ji odhadl z názvu firmy a
+          textu role; taková je na kartě označená jako{" "}
           <span className="text-ochre">odvozená</span>.{" "}
           {data.stats.classDisagreements > 0 ? (
             <>
