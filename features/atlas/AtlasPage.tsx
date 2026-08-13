@@ -21,9 +21,11 @@ import type { Locale } from "@/lib/i18n/config";
 import {
   STALE_CADENCE_MULTIPLIER,
   ZERO_CADENCE_MULTIPLIER,
+  unscoredSources,
   type AtlasReport,
 } from "@/lib/analysis/atlas";
 import AtlasCards from "./AtlasCards";
+import AtlasUnscored from "./AtlasUnscored";
 
 function StoreDownState() {
   const t = useTranslations("atlas");
@@ -39,6 +41,18 @@ function StoreDownState() {
 
 export default function AtlasPage({ report, locale }: { report: AtlasReport | null; locale: Locale }) {
   const t = useTranslations("atlas");
+  // Zdroje mimo dosah atlasu se vypisují i při NEČITELNÉM úložišti: seznam je
+  // deklarace v kódu, ne měření, takže výpadek store o něm nic nemění. Volá se
+  // TÁŽ funkce, jakou použila derivace (`report.unscored`), nikdy druhá kopie —
+  // bez reportu nedostal kartu nikdo, a tak je množina „s kartou“ prázdná.
+  const unscored = report?.unscored ?? unscoredSources();
+  // Čísla sekcí se odvozují z toho, co se SKUTEČNĚ vykreslí (vzor /poslanec):
+  // bez reportu sekce „Zdroje“ chybí a prázdný registr by vynechal tu druhou,
+  // takže žádné číslo nesmí být natvrdo.
+  let section = 0;
+  const sourcesIndex = report === null ? null : ++section;
+  const unscoredIndex = unscored.length > 0 ? ++section : null;
+  const relatedIndex = ++section;
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
@@ -78,12 +92,12 @@ export default function AtlasPage({ report, locale }: { report: AtlasReport | nu
           </p>
         </div>
 
-        {report === null ? (
+        {report === null || sourcesIndex === null ? (
           <StoreDownState />
         ) : (
           <section className="mt-14 border-t-4 border-ink pt-10">
             <SectionHeading
-              index={1}
+              index={sourcesIndex}
               title={t("sources.title")}
               aside={<SourceNote>{t("sources.aside")}</SourceNote>}
             />
@@ -96,9 +110,13 @@ export default function AtlasPage({ report, locale }: { report: AtlasReport | nu
           </section>
         )}
 
+        {unscoredIndex !== null && (
+          <AtlasUnscored unscored={unscored} index={unscoredIndex} locale={locale} />
+        )}
+
         <section className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
-            index={2}
+            index={relatedIndex}
             title={t("related.title")}
             aside={<SourceNote>{t("related.aside")}</SourceNote>}
           />

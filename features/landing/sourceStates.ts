@@ -20,6 +20,13 @@
  *  3. POŘADÍ JE POŘADÍ ATLASU. `AtlasReport.sources` je řazený podle klíče
  *     zdroje vzestupně (deterministicky); titulní strana ho nepřerovnává —
  *     jakékoli řazení podle skóre by z rubriky udělalo žebříček zdrojů.
+ *  4. TOHLE NENÍ SEZNAM ZDROJŮ PLATFORMY (přidáno 2026-08-13). `AtlasReport
+ *     .sources` nese jen ty zdroje, které atlas UMÍ změřit — dnes tři z dvanácti,
+ *     se kterými politicas pracuje. Rubrika proto vedle dlaždic vypisuje větu
+ *     o dosahu atlasu (`atlas.unscored.landingNote` v DataSources.tsx) a vede na
+ *     /atlas, kde je zbytek pojmenovaný i s důvodem. Bez ní tři dlaždice mlčky
+ *     tvrdily, že platforma má tři zdroje. Počty tam jsou DEKLAROVANÉ (registr
+ *     `INGESTED_SOURCES`), ne měřené — nepatří sem, do projekce měření.
  */
 
 import type { AtlasReport, AtlasScore, Staleness } from "@/lib/analysis/atlas";

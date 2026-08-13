@@ -6,7 +6,12 @@ import {
   ATLAS_RULES,
   deriveAtlas,
   freshnessScore,
+  INGESTED_SOURCES,
+  SOURCE_CADENCE_DAYS,
   stalenessOf,
+  unscoredSources,
+  UNSCORED_REASON_KEYS,
+  UNSCORED_REASONS,
   type AtlasInputs,
   type AtlasSourceCard,
 } from "./atlas";
@@ -229,6 +234,15 @@ describe("determinismus a tvar reportu", () => {
     expect(keys).toContain("pumper-psp-opendata"); // jen z kontextu
   });
 
+  it("determinismus platí i pro seznam zdrojů mimo dosah", () => {
+    const a = deriveAtlas(fullInputs());
+    const shuffled = fullInputs();
+    shuffled.entityCoverage = [...shuffled.entityCoverage].reverse();
+    const b = deriveAtlas(shuffled);
+    expect(JSON.stringify(a.unscored)).toBe(JSON.stringify(b.unscored));
+    expect(a.unscored.map((s) => s.source)).toEqual([...a.unscored.map((s) => s.source)].sort());
+  });
+
   it("každá dimenze má publikované pravidlo a report nese metodiku + slovník", () => {
     const report = deriveAtlas(fullInputs());
     for (const d of ATLAS_DIMENSIONS) {
@@ -243,5 +257,114 @@ describe("determinismus a tvar reportu", () => {
       stale: "zastaralé",
     });
     expect(report.methodology.staleCadenceMultiplier).toBe(2);
+  });
+});
+
+/* ── Zdroje mimo dosah atlasu (2026-08-13) ──────────────────────────────────── */
+
+describe("registr zdrojů — atlas mlčí o devíti z dvanácti, nebo o nich mluví", () => {
+  it("registr nese víc zdrojů, než kolik jich atlas umí ohodnotit", () => {
+    // Tohle JE ten nález: množina klíčů atlasu byla sjednocením tří pohledů,
+    // které všechny vracely tytéž tři klíče, takže stránka o kvalitě dat mlčky
+    // tvrdila, že platforma má tři zdroje.
+    const entity = INGESTED_SOURCES.filter((s) => s.landing === "entity");
+    expect(entity.map((s) => s.source).sort()).toEqual(Object.keys(SOURCE_DOCS).sort());
+    expect(INGESTED_SOURCES.length).toBeGreaterThan(entity.length);
+  });
+
+  it("klíče registru jsou jedinečné a modul nese každý řádek", () => {
+    const keys = INGESTED_SOURCES.map((s) => s.source);
+    expect(new Set(keys).size).toBe(keys.length);
+    for (const s of INGESTED_SOURCES) {
+      expect(s.adapter, s.source).toMatch(/^lib\/ingest\/sources\/[a-z-]+\.ts$/);
+    }
+  });
+
+  it("oba zdroje, které nesou modul o veřejných penězích, jsou pojmenované", () => {
+    // Kdyby vypadly, vrátí se přesně ten stav, kvůli kterému tahle sekce vznikla:
+    // čtenář kontrolující kvalitu dat pod /penize nenajde ani řádek.
+    const money = INGESTED_SOURCES.filter((s) => /smlouvy|dataor/.test(s.source));
+    expect(money.map((s) => s.source).sort()).toEqual(["dataor-justice-cz", "smlouvy-gov-cz"]);
+    for (const s of money) expect(s.landing).toBe("graph");
+  });
+
+  it("zdroj mimo dosah nedostane ŽÁDNÉ číslo — jen krajinu a modul", () => {
+    const report = deriveAtlas(fullInputs());
+    expect(report.unscored.length).toBeGreaterThan(0);
+    for (const s of report.unscored) {
+      // Nula je tvrzení o kvalitě; tady se nesmí objevit ani ta, ani skóre.
+      expect(Object.keys(s).sort()).toEqual(["adapter", "landing", "source"]);
+      expect(s.landing).not.toBe("entity");
+      expect(UNSCORED_REASONS[s.landing]).toBeTruthy();
+      expect(UNSCORED_REASON_KEYS[s.landing]).toBeTruthy();
+    }
+  });
+
+  it("zdroj s kartou v seznamu mimo dosah NIKDY není", () => {
+    const report = deriveAtlas(fullInputs());
+    const carded = new Set(report.sources.map((s) => s.source));
+    for (const s of report.unscored) expect(carded.has(s.source), s.source).toBe(false);
+  });
+
+  it("seznam je derivovaný: zdroj, který dostane kartu, z něj vypadne sám", () => {
+    // Až `smlouvy-gov-cz` začne psát do entitní tabulky s ingest během, přestane
+    // být „mimo dosah“ — bez jediné ruční úpravy seznamu.
+    const before = deriveAtlas(fullInputs());
+    expect(before.unscored.map((s) => s.source)).toContain("smlouvy-gov-cz");
+
+    const inputs = fullInputs();
+    inputs.entityCoverage = [
+      ...inputs.entityCoverage,
+      { source: "smlouvy-gov-cz", entity: "person", rows: 10, rowsWithRun: 10 },
+    ];
+    const after = deriveAtlas(inputs);
+    expect(after.unscored.map((s) => s.source)).not.toContain("smlouvy-gov-cz");
+    expect(after.sources.map((s) => s.source)).toContain("smlouvy-gov-cz");
+  });
+
+  it("seznam nezávisí na store — bez reportu ho stránka vypíše celý", () => {
+    // Výpadek úložiště nesmí umlčet větu, která je deklarací v kódu.
+    expect(unscoredSources().map((s) => s.source)).toEqual(
+      INGESTED_SOURCES.filter((s) => s.landing !== "entity")
+        .map((s) => s.source)
+        .sort(),
+    );
+  });
+
+  it("skóre tří hodnocených karet se nepohnulo", () => {
+    // Akceptační mez: tahle změna přidává větu, nesahá na aritmetiku.
+    const c = card(deriveAtlas(fullInputs()), "psp-poslanci");
+    expect(c.composite).toEqual({ status: "hodnoceno", score: 68, evaluated: 4, of: 4 });
+    expect(c.dimensions.coverage).toMatchObject({ status: "hodnoceno", score: 80 });
+    expect(c.dimensions.completeness).toMatchObject({ status: "hodnoceno", score: 40 });
+  });
+
+  it("důvod mluví o NAŠÍ rouře a nesmí znít jako „ten zdroj jsme nenasypali“", () => {
+    // Kritérium 3: nescorovatelnost je fakt o našem ukládání, ne o vydavateli.
+    expect(UNSCORED_REASONS.graph).toContain("kg_node");
+    expect(UNSCORED_REASONS.graph).toContain("ingest_run_id");
+    expect(UNSCORED_REASONS.graph).toContain("NAŠÍ roury");
+    // …a výslovně nesmí popřít, že ta data ve store jsou.
+    expect(UNSCORED_REASONS.graph).toContain("data ve store jsou");
+    for (const reason of Object.values(UNSCORED_REASONS)) {
+      expect(reason).not.toMatch(/vydavatel[ai]? (to )?nezveřej/i);
+    }
+  });
+
+  it("metodika reportu publikuje tytéž důvody, ne druhou kopii", () => {
+    expect(deriveAtlas(fullInputs()).methodology.unscoredReasons).toBe(UNSCORED_REASONS);
+  });
+});
+
+describe("kadence se deklaruje jen tam, kde ji jde změřit", () => {
+  it("žádný zdroj mimo dosah atlasu nemá deklarovanou kadenci", () => {
+    // Sentinelová invarianta „freshness“ (lib/testing/sentinel/invariants.ts)
+    // iteruje SOURCE_CADENCE_DAYS a JAKÝKOLI zdroj bez dokončeného úspěšného
+    // běhu hlásí jako porušení. Deklarovat kadenci u zdroje, který žádný běh
+    // nemá a mít nemůže, by tedy shodilo sentinel a zároveň vyhlásilo očekávání,
+    // které nikdo neumí změřit. Napojení je změna ingestu, ne téhle mapy.
+    for (const s of unscoredSources()) {
+      expect(SOURCE_CADENCE_DAYS[s.source], s.source).toBeUndefined();
+    }
   });
 });

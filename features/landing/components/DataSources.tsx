@@ -24,7 +24,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
-import type { Staleness } from "@/lib/analysis/atlas";
+import { INGESTED_SOURCES, unscoredSources, type Staleness } from "@/lib/analysis/atlas";
 import type { LandingSourceState } from "../sourceStates";
 
 /** Strojové pásmo čerstvosti z atlasu → klíč katalogu (vzor AtlasCards.tsx). */
@@ -49,7 +49,17 @@ export default function DataSources({
 }) {
   const t = useTranslations("landing");
   const tc = useTranslations("common");
+  // Věta o dosahu atlasu se sází z NAMESPACE `atlas`, ne `landing` — jejím
+  // předmětem je atlas, ne fasáda, a nesmí se od jeho vlastní copy odchýlit
+  // (fasáda by pak o dosahu atlasu tvrdila něco jiného než /atlas).
+  const tAtlas = useTranslations("atlas");
   const f = useFormat();
+  // Deklarované počty, ne měření: registr zdrojů je konstanta v kódu, takže
+  // tahle věta platí i ve chvíli, kdy je úložiště nečitelné. Vykresluje se ale
+  // jen VEDLE změřených dlaždic — nad nedostupným atlasem by „ohodnoceno 3 z 12"
+  // stálo proti větě, že se stav zdrojů teď změřit nedá.
+  const declared = INGESTED_SOURCES.length;
+  const unscoredCount = unscoredSources().length;
   return (
     <section id="k-data" className="bg-cobalt text-paper">
       <div className="mx-auto max-w-6xl px-6 py-16">
@@ -111,6 +121,20 @@ export default function DataSources({
             <p className="text-sm text-paper">{t("joinKeyDesc")}</p>
           </div>
         </div>
+        {/* Rubrika kreslí jen tu podmnožinu zdrojů, kterou atlas UMÍ změřit —
+            do 2026-08-13 to nikde neřekla, takže tři dlaždice mlčky tvrdily, že
+            platforma má tři zdroje. Není to zastřený ořez: grid nic neřeže
+            (žádný slice), měřených zdrojů jsou právě tři. Zbytek pojmenuje
+            /atlas, kam vede odkaz vedle. */}
+        {sources !== null && (
+          <p className="mt-4 max-w-3xl text-sm text-paper">
+            {tAtlas("unscored.landingNote", {
+              shown: f.int(sources.length),
+              declared: f.int(declared),
+              unscored: f.int(unscoredCount),
+            })}
+          </p>
+        )}
         <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
           <SourceNote tone="paper" className="max-w-3xl">
             {sources === null ? t("sourcesUnavailableSource") : t("sourcesSource")}

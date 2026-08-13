@@ -2,7 +2,7 @@
 // čerstvosti (kadence × 2 = hranice „stalled“) a práh série selhání.
 
 import { describe, expect, it } from "vitest";
-import { SOURCE_CADENCE_DAYS } from "@/lib/analysis/atlas";
+import { INGESTED_SOURCES, SOURCE_CADENCE_DAYS, unscoredSources } from "@/lib/analysis/atlas";
 import {
   deriveLoopState,
   parseLoopsStatus,
@@ -53,6 +53,31 @@ describe("LOOP_CADENCE_DAYS — dohoda s /atlas drží testem, ne importem", () 
   // deklaraci (jiná plocha), rovnost hlídá tenhle test.
   it("obě mapy nesou tytéž zdroje i tytéž kadence", () => {
     expect(LOOP_CADENCE_DAYS).toEqual(SOURCE_CADENCE_DAYS);
+  });
+
+  // 2026-08-13: /atlas začal pojmenovávat i zdroje, které NEUMÍ ohodnotit
+  // (registr INGESTED_SOURCES — dvanáct zdrojů, tři měřitelné). Přirozený další
+  // krok „tak jim dopiš kadenci“ je past a musí zůstat zavřená v OBOU mapách:
+  //   · sentinelová invarianta „freshness“ (lib/testing/sentinel/invariants.ts)
+  //     iteruje SOURCE_CADENCE_DAYS a každý zdroj bez dokončeného úspěšného běhu
+  //     hlásí jako PORUŠENÍ — a tyhle zdroje žádný ingest_run nemají a mít
+  //     nemohou (jejich řádky nedopadají do entitních tabulek),
+  //   · velín by nad nimi hlásil „stalled“ pro obnovu, kterou neumí změřit.
+  // Kadence je očekávání, které někdo umí ověřit; jinde je to jen věta.
+  it("kadenci má jen zdroj, jehož obnovu jde skutečně změřit", () => {
+    for (const s of unscoredSources()) {
+      expect(SOURCE_CADENCE_DAYS[s.source], `atlas: ${s.source}`).toBeUndefined();
+      expect(LOOP_CADENCE_DAYS[s.source], `velín: ${s.source}`).toBeUndefined();
+    }
+  });
+
+  it("každý zdroj s kadencí je deklarovaný jako entitní", () => {
+    const entity = new Set(
+      INGESTED_SOURCES.filter((s) => s.landing === "entity").map((s) => s.source),
+    );
+    for (const source of Object.keys(LOOP_CADENCE_DAYS)) {
+      expect(entity.has(source), source).toBe(true);
+    }
   });
 });
 

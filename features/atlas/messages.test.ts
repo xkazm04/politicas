@@ -35,11 +35,18 @@ import {
   ATLAS_RULES,
   COMPLETENESS_POINTS_PER_ISSUE,
   STALE_CADENCE_MULTIPLIER,
+  UNSCORED_REASON_KEYS,
+  UNSCORED_REASONS,
   ZERO_CADENCE_MULTIPLIER,
+  type AtlasUnscorableLanding,
 } from "@/lib/analysis/atlas";
 import { formatInt } from "@/lib/format";
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
+
+/** Krajiny, ve kterých atlas nemá co měřit — odvozené z vlastní mapy důvodů,
+ *  takže nová krajina rovnou vyžádá katalogovou větu místo tichého vynechání. */
+const UNSCORABLE_LANDINGS = Object.keys(UNSCORED_REASONS) as AtlasUnscorableLanding[];
 
 type Nested = Record<string, unknown>;
 
@@ -183,5 +190,61 @@ describe("pravidlo cituje konstantu, ne přepsané číslo", () => {
       expect(formatInt(n, "cs"), `cs ${n}`).toBe(String(n));
       expect(formatInt(n, "en"), `en ${n}`).toBe(String(n));
     }
+  });
+});
+
+/* ── Zdroje mimo dosah atlasu (2026-08-13) ──────────────────────────────────── */
+
+describe("katalog pokrývá všechno, co registr zdrojů umí vrátit", () => {
+  it("každá krajina má popisek i důvod, v obou jazycích", () => {
+    for (const landing of UNSCORABLE_LANDINGS) {
+      const reasonKey = UNSCORED_REASON_KEYS[landing];
+      expect(csNs[reasonKey], `cs.${reasonKey}`).toBeTruthy();
+      expect(enNs[reasonKey], `en.${reasonKey}`).toBeTruthy();
+    }
+    // Popisky skupin drží týž tvar klíče, jaký sází AtlasUnscored.
+    for (const key of ["graph", "generatedModule", "none"]) {
+      expect(csNs[`unscored.landing.${key}`], `cs.unscored.landing.${key}`).toBeTruthy();
+      expect(enNs[`unscored.landing.${key}`], `en.unscored.landing.${key}`).toBeTruthy();
+    }
+  });
+
+  it("česká věta důvodu je BAJTOVĚ táž jako UNSCORED_REASONS", () => {
+    // Táž vazba jako u pravidel dimenzí: strojový report publikuje prózu,
+    // stránka sází katalog, a rozejít se nesmějí.
+    for (const landing of UNSCORABLE_LANDINGS) {
+      expect(csNs[UNSCORED_REASON_KEYS[landing]], landing).toBe(UNSCORED_REASONS[landing]);
+    }
+  });
+
+  it("důvod nikdy nezní jako „ten zdroj jsme nenasypali“ — ani jako výtka vydavateli", () => {
+    // Kritérium 3 směru: nescorovatelnost je fakt o NAŠÍ rouře. „Zdroj nemá
+    // řádky“ je JINÉ tvrzení a u smlouvy-gov-cz (přes 150 tisíc řádků v grafu)
+    // by bylo prostě nepravdivé.
+    for (const landing of UNSCORABLE_LANDINGS) {
+      const cs = csNs[UNSCORED_REASON_KEYS[landing]];
+      const en = enNs[UNSCORED_REASON_KEYS[landing]];
+      expect(cs, landing).not.toMatch(/nemá (ve store )?žádné řádky|zdroj nemá řádk/i);
+      expect(en, landing).not.toMatch(/has no rows|source has no rows/i);
+    }
+    // Grafová věta musí naopak výslovně přiznat, že ta data ve store JSOU.
+    expect(csNs["unscored.reason.graph"]).toContain("data ve store jsou");
+    expect(enNs["unscored.reason.graph"]).toContain("the data is in the store");
+  });
+
+  it("úvod sekce nese všechny tři počty jako ICU parametry, ne jako číslice", () => {
+    for (const ns of [csNs, enNs]) {
+      expect(placeholders(ns["unscored.lead"])).toEqual(["declared", "scored", "unscored"]);
+      expect(placeholders(ns["unscored.landingNote"])).toEqual(["declared", "shown", "unscored"]);
+      // Žádný počet zdrojů se nesmí vysázet natvrdo — registr je jediný zdroj čísla.
+      expect(ns["unscored.lead"]).not.toMatch(/\b(3|9|12)\b/);
+      expect(ns["unscored.landingNote"]).not.toMatch(/\b(3|9|12)\b/);
+    }
+  });
+
+  it("sekce přiznává, proč se atlas nerozšiřuje, místo aby to vydávala za hotové", () => {
+    // Ruling směru: mez se pojmenuje, netlačí se přes vytištěné pravidlo integrity.
+    expect(csNs["unscored.scopeNote"]).toMatch(/integrit/i);
+    expect(enNs["unscored.scopeNote"]).toMatch(/integrity/i);
   });
 });
