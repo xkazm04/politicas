@@ -1005,7 +1005,21 @@ describe("getProfileData against a seeded graph", () => {
   it("reads rebellions and the honest extra signals off the graph", async () => {
     const p = (await withReadinessOff(() => getProfileData(100)))!;
     expect(p.rebellions).toEqual([
-      { club: "ODS", rate: expect.closeTo(0.12, 5), rebelVotes: 3, eligibleVotes: 25 },
+      // Od 2026-08-13 nese každý řádek i svůj původ — spis u agregátu tiskne
+      // citaci, která má pojmenovat průchod, ref a den přepočtu. Fixture zapisuje
+      // hranu s `'{}'::jsonb`, takže všechny tři jsou POCTIVĚ null a spis vykreslí
+      // svou větu „hrana průchod ani den neuvádí" místo vymyšleného čísla.
+      // Shoda je záměrně PŘESNÁ: kdyby se sem přidalo pole a nikdo o něm
+      // nerozhodl, tenhle řádek spadne dřív, než se dostane ke čtenáři.
+      {
+        club: "ODS",
+        rate: expect.closeTo(0.12, 5),
+        rebelVotes: 3,
+        eligibleVotes: 25,
+        pass: null,
+        ref: null,
+        computedAt: null,
+      },
     ]);
     // rebellion_rate / contested_vote_rebellion are NOT returned: they were shipped
     // to the client for months and rendered nowhere.
