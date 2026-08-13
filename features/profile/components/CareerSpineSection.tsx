@@ -27,37 +27,62 @@ type T = ProfileIntl["t"];
 const termTitle = (t: T, term: CareerTerm): string =>
   term.termNumber !== null ? t("careerTermTitle", { n: term.termNumber }) : term.termCode;
 
-/** Roky do datového sloupce: „2017–2021", u běžícího „od 2025". */
+/**
+ * Roky do datového sloupce — OBĚ MEZE Z JEDNOHO ZDROJE.
+ *
+ * Do 2026-08-13 tu stálo `mandateFrom ?? chamberFrom` – `mandateTo ?? chamberTo`,
+ * takže poslanec nastoupivší v půlce období (náhradník) dostal „2015–2017", kde
+ * 2015 je jeho a 2017 sněmovny, a nic to neříkalo. A potlačený nečitelný konec
+ * (`dateUnreadable`) si tiše půjčil rok sněmovny — tedy datum, které se právě
+ * odmítlo vykreslit, nahradila cizí hodnota.
+ *
+ * Pravidlo: osobní okno, dokud ho registr nese; jinak okno SNĚMOVNY, a to řádek
+ * pojmenuje. Chybějící konec osobního okna se nedoplňuje odnikud.
+ */
 const yearsOf = (t: T, term: CareerTerm): string => {
-  const fromYear = (term.mandateFrom ?? term.chamberFrom)?.slice(0, 4) ?? null;
-  const toYear = (term.mandateTo ?? term.chamberTo)?.slice(0, 4) ?? null;
-  if (fromYear === null) return "—";
-  if (term.openEnded || toYear === null) return t("careerYearsSince", { year: fromYear });
-  return `${fromYear}–${toYear}`;
+  if (term.mandateFrom !== null) {
+    const from = term.mandateFrom.slice(0, 4);
+    if (term.openEnded) return t("careerYearsSince", { year: from });
+    if (term.mandateTo !== null) return `${from}–${term.mandateTo.slice(0, 4)}`;
+    return t("careerYearsFromOnly", { year: from });
+  }
+  const chamberFrom = term.chamberFrom?.slice(0, 4) ?? null;
+  const chamberTo = term.chamberTo?.slice(0, 4) ?? null;
+  if (chamberFrom === null) return "—";
+  return chamberTo === null
+    ? t("careerYearsChamberSince", { year: chamberFrom })
+    : t("careerYearsChamber", { from: chamberFrom, to: chamberTo });
 };
 
 function TermRow({ term, t, f }: { term: CareerTerm; t: T; f: Formatters }) {
+  // ZVÝRAZNĚNÍ PATŘÍ SLUŽBĚ, NE KALENDÁŘI. `current` je fakt o období, `serving`
+  // o člověku: poslanec, který se mandátu v běžícím období vzdal, tu dosud
+  // dostával signální rámeček a četl se jako aktivní.
+  const serving = term.serving === true;
   return (
     <div
       className={`grid grid-cols-[auto_1fr] items-baseline gap-x-3 gap-y-1 border-b border-hairline py-3 pr-2 sm:grid-cols-[5.5rem_auto_1fr] ${
-        term.current ? "border-l-4 border-l-signal bg-paper-strong pl-3" : "pl-4"
+        serving ? "border-l-4 border-l-signal bg-paper-strong pl-3" : "pl-4"
       }`}
     >
       <span className="col-span-2 font-mono text-[11px] uppercase tracking-wider text-steel sm:col-span-1">
         {yearsOf(t, term)}
       </span>
       <span
-        className={`mt-1.5 inline-block h-2.5 w-2.5 shrink-0 ${term.current ? "bg-signal" : "bg-steel"}`}
+        className={`mt-1.5 inline-block h-2.5 w-2.5 shrink-0 ${serving ? "bg-signal" : "bg-steel"}`}
         aria-hidden
       />
       <span className="min-w-0 text-[15px] leading-relaxed">
-        <span className={term.current ? "font-black uppercase tracking-tight" : "font-bold"}>
+        <span className={serving ? "font-black uppercase tracking-tight" : "font-bold"}>
           {termTitle(t, term)}
         </span>
         {term.partyList && <span className="text-steel"> · {t("careerPartyList", { list: term.partyList })}</span>}
         {term.region && <span className="text-steel"> · {term.region}</span>}
+        {/* Citace řádku jde z katalogu jako každá jiná — „[psp.cz]" tu bylo
+            napsané natvrdo v JSX, mimo katalog i mimo SourceNote, v oddílu,
+            který vlastní SourceNote o pár řádků níž má. */}
         <span className="ml-2 whitespace-nowrap font-mono text-[11px] uppercase tracking-wider text-steel">
-          [psp.cz]
+          {t("careerRowSource")}
         </span>
         {/* Osobní okno mandátu — jen když ho registr doopravdy nese. */}
         {term.mandateFrom && (
@@ -93,9 +118,16 @@ function TermRow({ term, t, f }: { term: CareerTerm; t: T; f: Formatters }) {
             {t("careerCoveragePartial")}
           </span>
         )}
+        {/* Věta o POKRYTÍ ZÁZNAMU (fakt o období), proto visí na `current`.
+            Že poslanec v tom období už nesedí, je jiný fakt a má vlastní řádek. */}
         {term.current && (
           <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-signal">
             {t("careerCoverageCurrent")}
+          </span>
+        )}
+        {term.current && term.serving === false && (
+          <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wider text-ochre">
+            {t("careerNotServing")}
           </span>
         )}
       </span>

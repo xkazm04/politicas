@@ -134,6 +134,34 @@ describe("profile message catalog", () => {
     }
   });
 
+  it("no sentence hard-codes a DATE — a date is interpolated from the data or absent", () => {
+    // `committeeCountNote` said „Od 29. 7. 2026 počítají obě čísla TÉŽ…" — the date of a
+    // CODE CHANGE, typed into per-MP copy, describing something the data does not carry:
+    // no node, no edge and no pass records when the committee formula was corrected, so
+    // nothing on this page can ever falsify or refresh that sentence. The term-literal
+    // guard right above cannot see a date (its regexes are about „N. období"), which is
+    // exactly why this one exists.
+    //
+    // Every legitimate date on the spis arrives as an ICU parameter and is formatted by
+    // lib/format for the reader's locale (`seatsAsOf`, `trendNoteSourceDated`,
+    // `careerSource`…). A LITERAL date is therefore always one of two things: a claim
+    // about our own history, or a value that stopped being read from the data.
+    const DATE_LITERALS: RegExp[] = [
+      /\b\d{1,2}\.\s*\d{1,2}\.\s*\d{4}\b/, // 29. 7. 2026
+      /\b\d{4}-\d{2}-\d{2}\b/, // 2026-07-29
+      /\b\d{1,2}(st|nd|rd|th)?\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\b/i,
+      /\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(st|nd|rd|th)?,?\s+\d{4}\b/i,
+      /\b\d{1,2}\.\s*(ledna|února|března|dubna|května|června|července|srpna|září|října|listopadu|prosince)\s+\d{4}\b/i,
+    ];
+    for (const ns of [cs, en]) {
+      for (const [k, v] of Object.entries(ns)) {
+        for (const re of DATE_LITERALS) {
+          expect(v, `${k} hard-codes a date instead of interpolating one`).not.toMatch(re);
+        }
+      }
+    }
+  });
+
   it("the empty rebellion state names the floor that produced it", () => {
     // `rebels_against` is only emitted above `MIN_ELIGIBLE_VOTES` (lib/analysis/kg.ts),
     // and an MP ABOVE the floor who never broke the line still gets an edge (rate 0,

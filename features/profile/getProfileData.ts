@@ -68,11 +68,38 @@ export interface CoVoter {
   shared: number; // ballots compared
 }
 
+/**
+ * Agregát odchylek od klubu — SNÍMEK, který napsal dávkový průchod
+ * (`lib/analysis/kg.ts::rebellion`, hrana `rebels_against`).
+ *
+ * Není to součet toho, co pod ním na spisu stojí. Jmenovité rebelie
+ * (`RebellionInstances`) jsou ŽIVÁ derivace deníku hlasování, takže se ta dvě
+ * čísla liší strukturálně, ne omylem: jiný ročník (nové hlasování zvětší výpis
+ * a agregátu se nedotkne až do dalšího průchodu), jiný práh (agregát vzniká až
+ * od `MIN_ELIGIBLE_VOTES`, kronika žádný práh nemá), jiný jmenovatel (agregát
+ * zahodí hlas, u kterého mandát nedá zároveň osobu i klub) a jiné klíčování
+ * (agregát klíčuje podle OSOBY, takže poslanci, který přestoupil, splyne celý
+ * záznam do jednoho řádku pod prvním klubem; kronika nese klub každého hlasu).
+ * Stránka to říká vlastní větou — dvě poctivá měření vedle sebe, ne jedno.
+ */
 export interface Rebellion {
   club: string; // club rebelled against
-  rate: number; // 0–1
-  rebelVotes: number;
-  eligibleVotes: number;
+  /**
+   * `rate` / `rebelVotes` / `eligibleVotes`: `null` znamená, že hrana tu
+   * vlastnost NENESE. `num()` by z chybějící hodnoty udělal tvrdou nulu, tedy
+   * výrok o člověku vyrobený z mezery v datech — táž disciplína jako
+   * `speechTurnsTotal` a spol. o pár desítek řádků níž. Dnes `kg-compute`
+   * zapisuje všechny tři vždy, takže je to LATENTNÍ, ne živá vada.
+   */
+  rate: number | null; // 0–1
+  rebelVotes: number | null;
+  eligibleVotes: number | null;
+  /** Průchod, který ten snímek napsal (`provenance` hrany). Jediná citace toho
+   *  oddílu byla „graf rebels-against · odchylky od klubu" — bez průchodu, data
+   *  i datové sady — vedle živé derivace, která plnou datovanou citaci nese. */
+  pass: number | null;
+  ref: string | null;
+  computedAt: string | null;
 }
 
 export interface CommitteeSeat {
@@ -401,14 +428,19 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       .filter((e) => e.src === selfId)
       .map((e) => {
         const props = e.props as { club?: string; rebelVotes?: unknown; eligibleVotes?: unknown };
+        const prov = (e.provenance ?? {}) as Record<string, unknown>;
         return {
           club: props.club ?? partyLabelById.get(e.dst) ?? "—",
-          rate: num(e.weight),
-          rebelVotes: num(props.rebelVotes),
-          eligibleVotes: num(props.eligibleVotes),
+          rate: nullableNum(e.weight),
+          rebelVotes: nullableNum(props.rebelVotes),
+          eligibleVotes: nullableNum(props.eligibleVotes),
+          pass: nullableNum(prov.pass),
+          ref: typeof prov.ref === "string" ? prov.ref : null,
+          computedAt: typeof prov.computedAt === "string" ? prov.computedAt : null,
         };
       })
-      .sort((a, b) => b.rate - a.rate || a.club.localeCompare(b.club, "cs"));
+      // Chybějící míra se neřadí jako nula: bez hodnoty jde řádek na konec.
+      .sort((a, b) => (b.rate ?? -1) - (a.rate ?? -1) || a.club.localeCompare(b.club, "cs"));
 
     // committees — rebuilt from raw membership rows (NOT influential_in edges), the same
     // basis kg-contribution-ingest.ts feeds computeContribution for committee_count (see
@@ -626,12 +658,18 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     for (const { priorTerm, rows } of priorReads) {
       windows.push(...chamberWindowRows(rows, priorTerm));
     }
-    // PSP9 coverage: the effort loop's `contribution_psp9` prop (partial until
-    // the PSP9 roll-call ingest flips `complete` — see contribution-trend.ts).
-    const psp9Prop = personNode?.props.contribution_psp9;
-    const psp9Coverage: TermCoverage =
-      psp9Prop && typeof psp9Prop === "object"
-        ? (psp9Prop as Record<string, unknown>).complete === true
+    // Pokrytí záznamu aktivity PODLE OBDOBÍ. `contribution_psp9` (effort loop,
+    // partial until the PSP9 roll-call ingest flips `complete` — see
+    // contribution-trend.ts) popisuje JMENOVITĚ deváté období, takže kód období
+    // se odvozuje z názvu té vlastnosti: až se sněmovna posune, ta vlastnost
+    // pořád popisuje PSP9, ne „období před běžícím". Odvození spisu proto žádný
+    // kód období nezná (viz CareerSpineOptions.termCoverage).
+    const PRIOR_TERM_PROP = "contribution_psp9";
+    const priorTermCode = PRIOR_TERM_PROP.replace(/^contribution_/, "").toUpperCase();
+    const priorProp = personNode?.props[PRIOR_TERM_PROP];
+    const priorCoverage: TermCoverage =
+      priorProp && typeof priorProp === "object"
+        ? (priorProp as Record<string, unknown>).complete === true
           ? "full"
           : "partial"
         : "none";
@@ -645,7 +683,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       windows,
       currentTermCode: term,
       asOf: seatsAsOf,
-      psp9Coverage,
+      termCoverage: { [priorTermCode]: priorCoverage },
     });
 
     // sponsors — person → bill (kind "bill"), resolved to the psp.cz historie

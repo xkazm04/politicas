@@ -107,6 +107,24 @@ export default async function ProfilePage({
     ? "absenteeFlagGateUnavailable"
     : REVIEW_KEY[moneyReview.phase];
 
+  /*
+   * PŮVOD AGREGÁTU ODCHYLEK. Hrana `rebels_against` nese vlastní `provenance`
+   * {pass, ref, computedAt} a spis ji dosud nikde netiskl — jediná citace toho
+   * oddílu jmenovala datovou sadu bez průchodu a bez data, zatímco jmenovité
+   * rebelie pod ní nesou plnou datovanou citaci. Tiskne se JEN tehdy, když se
+   * všechny řádky shodnou na jednom původu: dva ročníky pod jednou větou by
+   * byly horší než přiznané „průchod hrana neuvádí" (týž zápis jako
+   * `indexPassMixed` u skóre).
+   */
+  const aggregateProvenance = ((): { pass: number | null; ref: string | null; computedAt: string | null } | null => {
+    const [head, ...tail] = rebellions;
+    if (head === undefined) return null;
+    const uniform = tail.every(
+      (r) => r.pass === head.pass && r.ref === head.ref && r.computedAt === head.computedAt,
+    );
+    return uniform ? { pass: head.pass, ref: head.ref, computedAt: head.computedAt } : null;
+  })();
+
   const dossier: DossierContent = {
     publicRole: person.effortPublicRole,
     workThemes: data.effortWorkThemes,
@@ -526,22 +544,50 @@ export default async function ProfilePage({
               </p>
             </div>
           ) : (
-            <div className="mt-8 border-t-2 border-ink">
-              {rebellions.map((r) => (
-                <div
-                  key={r.club}
-                  className="grid grid-cols-[1fr_auto_auto] items-center gap-3 border-b border-hairline px-2 py-4"
-                >
-                  <span className="text-lg font-black uppercase tracking-tight">{r.club}</span>
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                    {f.int(r.rebelVotes)} / {f.int(r.eligibleVotes)}
-                  </span>
-                  <span className="w-16 text-right text-lg font-black tabular-nums text-signal">
-                    {f.dec(r.rate * 100)}%
-                  </span>
-                </div>
-              ))}
-            </div>
+            <>
+              <div className="mt-8 border-t-2 border-ink">
+                {rebellions.map((r) => (
+                  <div
+                    key={r.club}
+                    className="grid grid-cols-[1fr_auto_auto] items-center gap-3 border-b border-hairline px-2 py-4"
+                  >
+                    <span className="text-lg font-black uppercase tracking-tight">{r.club}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+                      {/* Chybějící čitatel/jmenovatel se nevykresluje jako nula —
+                          absentní vlastnost hrany není výrok o poslanci. */}
+                      {r.rebelVotes != null && r.eligibleVotes != null
+                        ? `${f.int(r.rebelVotes)} / ${f.int(r.eligibleVotes)}`
+                        : t("dossierCounterMissing")}
+                    </span>
+                    <span className="w-16 text-right text-lg font-black tabular-nums text-signal">
+                      {r.rate != null ? `${f.dec(r.rate * 100)}%` : "—"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              {/* DVĚ MĚŘENÍ, NE JEDNO. Agregát nad tímhle odstavcem je snímek
+                  dávkového průchodu; jmenovitá hlasování pod ním jsou živá
+                  derivace deníku. Věta stojí ve stejném zápisu jako
+                  `committeeCountNote` — druhý výklad téhož rozporu si tahle
+                  stránka nepořizuje. */}
+              <p className="mt-6 max-w-3xl border-l-4 border-hairline pl-4 text-[13px] leading-relaxed text-steel">
+                {t("rebellionsAggregateNote", { minEligible: f.int(MIN_ELIGIBLE_VOTES) })}
+              </p>
+              <SourceNote className="mt-3 !text-[10px]">
+                {aggregateProvenance !== null && aggregateProvenance.pass !== null && aggregateProvenance.ref !== null
+                  ? aggregateProvenance.computedAt !== null
+                    ? t("rebellionsAggregateSource", {
+                        pass: f.int(aggregateProvenance.pass),
+                        ref: aggregateProvenance.ref,
+                        date: f.date(aggregateProvenance.computedAt),
+                      })
+                    : t("rebellionsAggregateSourceUndated", {
+                        pass: f.int(aggregateProvenance.pass),
+                        ref: aggregateProvenance.ref,
+                      })
+                  : t("rebellionsAggregateSourceUnknown")}
+              </SourceNote>
+            </>
           )}
           {/* Míra je odvozená z jednotlivých hlasování; tady jsou ta hlasování.
               Vykresluje se i u poslance bez rebelie (čestný prázdný stav), aby

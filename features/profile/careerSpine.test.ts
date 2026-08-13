@@ -26,7 +26,7 @@ const base = (over: Partial<CareerSpineOptions> = {}): CareerSpineOptions => ({
   ],
   currentTermCode: "PSP10",
   asOf: ASOF,
-  psp9Coverage: "partial",
+  termCoverage: { PSP9: "partial" },
   ...over,
 });
 
@@ -125,9 +125,44 @@ describe("deriveCareerSpine — mezery a pokrytí", () => {
     ]);
   });
 
-  it("PSP9 s úplným záznamem propaguje complete pokrytí", () => {
-    const spine = deriveCareerSpine(base({ psp9Coverage: "full" }));
+  it("období s úplným záznamem propaguje complete pokrytí", () => {
+    const spine = deriveCareerSpine(base({ termCoverage: { PSP9: "full" } }));
     expect(spine.terms.find((t) => t.termCode === "PSP9")!.coverage).toBe("full");
+  });
+
+  it("pokrytí čte KÓD OBDOBÍ z dat, ne z literálu v odvození", () => {
+    // Odvození do 2026-08-13 znělo `termCode === "PSP9" ? psp9Coverage : "none"`.
+    // Až se sněmovna posune, období, jehož záznam JE ingestovaný, by na všech
+    // spisech tisklo „období zatím mimo záznam" — a nic v testech by se nehnulo.
+    // Tenhle případ je proti staré podobě ČERVENÝ: PSP10 by dostalo „none".
+    const spine = deriveCareerSpine(
+      base({
+        served: [
+          { termCode: "PSP9", region: null, partyList: null },
+          { termCode: "PSP10", region: null, partyList: null },
+          { termCode: "PSP11", region: null, partyList: null },
+        ],
+        chambers: [...CHAMBERS, { termCode: "PSP11", validFrom: "2029-10-05", validTo: null }],
+        windows: [],
+        currentTermCode: "PSP11",
+        asOf: "2030-01-01",
+        termCoverage: { PSP10: "full", PSP9: "partial" },
+      }),
+    );
+    expect(spine.terms.map((t) => [t.termCode, t.coverage])).toEqual([
+      ["PSP9", "partial"],
+      ["PSP10", "full"],
+      ["PSP11", "full"],
+    ]);
+  });
+
+  it("období, které mapa pokrytí nezná, je přiznaná mezera", () => {
+    const spine = deriveCareerSpine(base({ termCoverage: {} }));
+    expect(spine.terms.map((t) => [t.termCode, t.coverage])).toEqual([
+      ["PSP8", "none"],
+      ["PSP9", "none"],
+      ["PSP10", "full"],
+    ]);
   });
 
   it("served období bez membership okna přizná windowUnknown, žádné datum si nevymyslí", () => {
@@ -188,15 +223,74 @@ describe("deriveCareerSpine — mezery a pokrytí", () => {
     expect(spine.terms[0].dateUnreadable).toBe(true);
   });
 
-  it("firstRecordFrom bere první osobní okno, fallback okno sněmovny", () => {
-    expect(deriveCareerSpine(base()).firstRecordFrom).toBe("2017-10-21");
-    const noWin = deriveCareerSpine(
+});
+
+describe("deriveCareerSpine — úseky služby", () => {
+  it("stintCount počítá RŮZNÁ okna, ne řádky registru", () => {
+    // Korpus psp.cz nese duplicitní řádky členství (proto dedupe v getProfileData).
+    // Dva identické řádky jsou jeden úsek služby; „2 úseky" by čtenáři tvrdily
+    // odchod a návrat, který se nikdy nestal.
+    const spine = deriveCareerSpine(
       base({
-        served: [{ termCode: "PSP8", region: null, partyList: null }],
-        windows: [],
+        served: [{ termCode: "PSP10", region: null, partyList: null }],
+        windows: [
+          { termCode: "PSP10", fromAt: "2025-10-04T00:00:00.000Z", toAt: null },
+          { termCode: "PSP10", fromAt: "2025-10-04T00:00:00.000Z", toAt: null },
+        ],
       }),
     );
-    expect(noWin.firstRecordFrom).toBe("2017-10-21");
-    expect(deriveCareerSpine(base({ served: [], windows: [] })).firstRecordFrom).toBeNull();
+    expect(spine.terms[0].stintCount).toBe(1);
+  });
+
+  it("skutečný odchod a návrat zůstávají dva úseky", () => {
+    const spine = deriveCareerSpine(
+      base({
+        served: [{ termCode: "PSP10", region: null, partyList: null }],
+        windows: [
+          { termCode: "PSP10", fromAt: "2025-10-04T00:00:00.000Z", toAt: "2025-12-01T00:00:00.000Z" },
+          { termCode: "PSP10", fromAt: "2026-02-01T00:00:00.000Z", toAt: null },
+          // třetí, duplicitní řádek prvního úseku
+          { termCode: "PSP10", fromAt: "2025-10-04T00:00:00.000Z", toAt: "2025-12-01T00:00:00.000Z" },
+        ],
+      }),
+    );
+    expect(spine.terms[0].stintCount).toBe(2);
+  });
+});
+
+describe("deriveCareerSpine — běžící období není totéž co stále slouží", () => {
+  const oneTerm = (windows: CareerSpineOptions["windows"]) =>
+    deriveCareerSpine(base({ served: [{ termCode: "PSP10", region: null, partyList: null }], windows }))
+      .terms[0];
+
+  it("otevřené okno v běžícím období = slouží", () => {
+    const t = oneTerm([{ termCode: "PSP10", fromAt: "2025-10-04T00:00:00.000Z", toAt: null }]);
+    expect(t.current).toBe(true);
+    expect(t.serving).toBe(true);
+  });
+
+  it("uzavřené okno v běžícím období = NESLOUŽÍ, i když období běží dál", () => {
+    // Přesně ten případ, který se na spisu kreslil jako aktivní.
+    const t = oneTerm([{ termCode: "PSP10", fromAt: "2025-10-04T00:00:00.000Z", toAt: "2026-03-01T00:00:00.000Z" }]);
+    expect(t.current).toBe(true);
+    expect(t.openEnded).toBe(false);
+    expect(t.serving).toBe(false);
+  });
+
+  it("bez osobního okna se služba netvrdí ani jedním směrem", () => {
+    const t = oneTerm([]);
+    expect(t.windowUnknown).toBe(true);
+    expect(t.serving).toBeNull();
+  });
+
+  it("nečitelný konec není důkaz odchodu", () => {
+    const t = oneTerm([{ termCode: "PSP10", fromAt: "2025-10-04T00:00:00.000Z", toAt: "2925-01-01T00:00:00.000Z" }]);
+    expect(t.dateUnreadable).toBe(true);
+    expect(t.serving).toBeNull();
+  });
+
+  it("minulé období nikdy neslouží", () => {
+    const spine = deriveCareerSpine(base());
+    expect(spine.terms.filter((t) => !t.current).every((t) => t.serving === false)).toBe(true);
   });
 });

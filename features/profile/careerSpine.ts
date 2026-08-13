@@ -60,7 +60,19 @@ export interface CareerTerm {
   termCode: string;
   /** 10 z "PSP10"; null u kódu mimo konvenci (ORGANx fallback ingestu). */
   termNumber: number | null;
+  /** Tohle je BĚŽÍCÍ OBDOBÍ. Fakt o SNĚMOVNĚ, ne o člověku. */
   current: boolean;
+  /**
+   * Poslanec ve sněmovně STÁLE SEDÍ. Do 2026-08-13 tenhle fakt neexistoval a
+   * plocha četla `current` jako „slouží": poslanec, který se mandátu v běžícím
+   * období vzdal (uzavřené okno, `openEnded: false`), dostával signální rámeček
+   * a větu o běžícím záznamu, jako by seděl dál.
+   *
+   * `null` = z registru se to přečíst NEDÁ (žádné osobní okno, nebo konec
+   * s nečitelným datem). Tvrdit „už neslouží" by byl výrok o člověku vyrobený
+   * z mezery v datech — a mezeru už přiznává `windowUnknown` / `dateUnreadable`.
+   */
+  serving: boolean | null;
   /** Okno celé sněmovny (datum, YYYY-MM-DD), z registru organů. */
   chamberFrom: string | null;
   chamberTo: string | null;
@@ -69,7 +81,10 @@ export interface CareerTerm {
   mandateTo: string | null;
   /** Běžící mandát: aktuální období a žádný konec v registru. */
   openEnded: boolean;
-  /** Počet mandátových úseků v období (odchod a návrat = 2). */
+  /** Počet mandátových ÚSEKŮ v období (odchod a návrat = 2) — tedy počet
+   *  RŮZNÝCH oken (od, do), ne počet řádků: registr psp.cz nese duplicitní
+   *  řádky členství (viz dedupe v getProfileData) a dva identické řádky nejsou
+   *  dva úseky služby. */
   stintCount: number;
   /** Served podle `mandate`, ale žádný membership řádek na sněmovně —
    *  osobní okno není z čeho číst a spis to přizná. */
@@ -91,13 +106,19 @@ export interface CareerBreak {
   missedTermCodes: string[];
 }
 
+/*
+ * `firstRecordFrom` tu do 2026-08-13 bylo — počítalo se, testovalo se a
+ * NEVYKRESLOVALO se nikde. Je smazané, ne dorenderované, protože mělo přesně tu
+ * vadu, kterou tenhle průchod odstraňuje ze sloupce s roky: fallback
+ * `mandateFrom ?? chamberFrom` míchá dvě různá měření do jednoho čísla, takže
+ * „v evidenci od 2010" mohlo být datum ustavení SNĚMOVNY, ne den, kdy poslanec
+ * složil slib. Věta, kterou nelze vyslovit poctivě, se nemá dopočítávat.
+ */
 export interface CareerSpine {
   /** Chronologicky, nejstarší první; běžící období poslední. */
   terms: CareerTerm[];
   breaks: CareerBreak[];
   servedTermCount: number;
-  /** Začátek prvního doloženého osobního okna (fallback: okno sněmovny). */
-  firstRecordFrom: string | null;
 }
 
 export interface CareerSpineOptions {
@@ -107,8 +128,18 @@ export interface CareerSpineOptions {
   currentTermCode: string;
   /** Jeden okamžik hodnocení celé stránky (YYYY-MM-DD) — viz seatsAsOf. */
   asOf: string;
-  /** Pokrytí PSP9 podle přítomnosti/úplnosti `contribution_psp9`. */
-  psp9Coverage: TermCoverage;
+  /**
+   * Pokrytí ingestovaného záznamu aktivity PODLE KÓDU OBDOBÍ — z toho, co uzel
+   * osoby doopravdy nese. Období, které v mapě není, nemá záznam („none").
+   *
+   * Do 2026-08-13 tu stál `psp9Coverage` a odvození obsahovalo LITERÁL
+   * `termCode === "PSP9"`. Až se sněmovna posune, 10. období — jehož záznam je
+   * ingestovaný celý — by na všech 207 spisech tisklo „období zatím mimo
+   * záznam", a nic v testech by se nehnulo. Kód období tady proto nefiguruje
+   * vůbec: který kód která vlastnost uzlu popisuje, ví loader, který tu
+   * vlastnost čte.
+   */
+  termCoverage: Record<string, TermCoverage>;
 }
 
 /**
@@ -138,9 +169,12 @@ const plausibleDay = (iso: string | null, asOf: string): string | null => {
  * i obsah (řazení má úplný pořádek: číslo období, pak kód).
  */
 export function deriveCareerSpine(opts: CareerSpineOptions): CareerSpine {
-  const { served, chambers, windows, currentTermCode, asOf, psp9Coverage } = opts;
+  const { served, chambers, windows, currentTermCode, asOf, termCoverage } = opts;
 
   const chamberByTerm = new Map(chambers.map((c) => [c.termCode.toUpperCase(), c]));
+  const coverageByTerm = new Map(
+    Object.entries(termCoverage).map(([code, cov]) => [code.toUpperCase(), cov] as const),
+  );
 
   // Dedupe mandátů podle období (registr nese jeden řádek na osobu × období;
   // duplicitní vstup nesmí vyrobit dvojí řádek záznamu). První výskyt vyhrává —
@@ -173,7 +207,11 @@ export function deriveCareerSpine(opts: CareerSpineOptions): CareerSpine {
     let mandateTo: string | null = null;
     let anyOpen = false;
     let dateUnreadable = false;
+    // Úseky se počítají podle RŮZNÝCH oken, ne podle řádků: dva identické řádky
+    // registru (a ty korpus nese) jsou jeden úsek služby, ne dva.
+    const stints = new Set<string>();
     for (const r of rows) {
+      stints.add(`${r.fromAt ?? ""}|${r.toAt ?? ""}`);
       const from = plausibleDay(r.fromAt, asOf);
       if (r.fromAt != null && from === null) dateUnreadable = true;
       if (from !== null && (mandateFrom === null || from < mandateFrom)) mandateFrom = from;
@@ -187,12 +225,27 @@ export function deriveCareerSpine(opts: CareerSpineOptions): CareerSpine {
     }
     if (anyOpen) mandateTo = null;
 
-    const coverage: TermCoverage = current ? "full" : s.termCode === "PSP9" ? psp9Coverage : "none";
+    // Běžící období má úplný záznam z definice (je to období, které tenhle spis
+    // celé čte); u ostatních rozhoduje jen to, co uzel osoby nese.
+    const coverage: TermCoverage = current ? "full" : (coverageByTerm.get(s.termCode) ?? "none");
+
+    // „Sedí dál" ≠ „je to běžící období". Nečitelný nebo chybějící konec není
+    // důkaz odchodu, proto null, ne false.
+    const serving: boolean | null = !current
+      ? false
+      : rows.length === 0
+        ? null
+        : anyOpen
+          ? true
+          : mandateTo !== null
+            ? false
+            : null;
 
     return {
       termCode: s.termCode,
       termNumber: termNumberOf(s.termCode),
       current,
+      serving,
       chamberFrom: chamber ? plausibleDay(chamber.validFrom, asOf) : null,
       // Konec běžícího období je legitimně null; budoucí datum by tu bylo
       // vadou dat a potlačí se stejně jako jinde.
@@ -200,7 +253,7 @@ export function deriveCareerSpine(opts: CareerSpineOptions): CareerSpine {
       mandateFrom,
       mandateTo,
       openEnded: current && anyOpen,
-      stintCount: rows.length,
+      stintCount: stints.size,
       windowUnknown: rows.length === 0,
       dateUnreadable,
       region: s.region,
@@ -233,7 +286,5 @@ export function deriveCareerSpine(opts: CareerSpineOptions): CareerSpine {
     breaks.push({ afterTermCode: a.termCode, missedTermCodes: missed });
   }
 
-  const firstRecordFrom = terms.length > 0 ? (terms[0].mandateFrom ?? terms[0].chamberFrom) : null;
-
-  return { terms, breaks, servedTermCount: terms.length, firstRecordFrom };
+  return { terms, breaks, servedTermCount: terms.length };
 }
