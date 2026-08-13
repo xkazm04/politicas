@@ -11,7 +11,14 @@
  *    je testovaný).
  * 2. PRAVIDLO JE SOUČÁST SKÓRE: každá dimenze nese své pravidlo jako text
  *    (ATLAS_RULES) a report ho publikuje vedle čísla — skóre bez vytištěného
- *    pravidla neexistuje.
+ *    pravidla neexistuje. Pravidlo existuje DVAKRÁT: tady (a odsud v
+ *    /atlas/atlas.json) a jako katalogová věta `atlas.dimension.*.rule`, kterou
+ *    sází lidská stránka. Do 2026-08-13 je nedrželo pohromadě NIC — jediný test
+ *    porovnával report sám se sebou. Drží je teď features/atlas/messages.test.ts
+ *    (bajtová shoda české věty s ATLAS_RULES po dosazení ICU parametrů); rozejít
+ *    se tiše už nemohou. Prahy pravidla se dosazují z konstant
+ *    (ATLAS_RULE_PARAMS), ne přepisují — jinak by změna konstanty pohnula skórem
+ *    a ne větou, která ho vysvětluje.
  * 3. POCTIVÉ NEZNÁMÉ: dimenze bez podkladu je „nehodnoceno“ s důvodem, nikdy
  *    0 — nula je tvrzení o kvalitě, nehodnoceno je tvrzení o podkladu.
  * 4. SLOVNÍK KADENCE je sdílený s /admin smyčkami (batch-6 §6E, koherence přes
@@ -40,6 +47,8 @@ export type Staleness = "čerstvé" | "stárnoucí" | "zastaralé";
 export const STALE_CADENCE_MULTIPLIER = 2;
 /** Skóre čerstvosti klesá lineárně k 0 při stáří = kadence × 3. */
 export const ZERO_CADENCE_MULTIPLIER = 3;
+/** Srážka úplnosti za jednu přiznanou mezeru upstreamu. */
+export const COMPLETENESS_POINTS_PER_ISSUE = 10;
 
 /**
  * Deklarovaná kadence obnovy per zdroj, ve dnech. Je to OČEKÁVÁNÍ politicas
@@ -59,6 +68,24 @@ export const SOURCE_CADENCE_DAYS: Readonly<Record<string, number>> = {
   "pumper-psp-opendata": 7,
 };
 
+/**
+ * Prahy, které pravidla CITUJÍ. Vytištěné pravidlo nesmí opsat číslo, které
+ * jinde v tomhle souboru žije jako konstanta — jinak se změna konstanty
+ * projeví ve skóre a NE v pravidle, které to skóre vysvětluje. Táž mapa je
+ * ICU parametrizací katalogových vět (`atlas.dimension.*.rule`), takže se
+ * strojový report i lidská stránka přeformulují jedním zápisem.
+ *
+ * `String()`, ne `lib/format.ts`: tenhle modul je čistý a bez Intl (verze ICU
+ * se v repu už jednou rozešla a shodila hydrataci). Že se obě podoby čísla
+ * shodují pro DNEŠNÍ hodnoty, drží test (features/atlas/messages.test.ts) —
+ * konstanta ≥ 1000 ho shodí a někdo o tom musí rozhodnout, ne ji protlačit.
+ */
+export const ATLAS_RULE_PARAMS: Readonly<Record<"stale" | "zero" | "points", string>> = {
+  stale: String(STALE_CADENCE_MULTIPLIER),
+  zero: String(ZERO_CADENCE_MULTIPLIER),
+  points: String(COMPLETENESS_POINTS_PER_ISSUE),
+};
+
 /** Pravidlo každé dimenze — publikuje se VEDLE skóre, doslova. */
 export const ATLAS_RULES: Readonly<Record<AtlasDimension, { label: string; rule: string }>> = {
   coverage: {
@@ -72,8 +99,8 @@ export const ATLAS_RULES: Readonly<Record<AtlasDimension, { label: string; rule:
     label: "čerstvost",
     rule:
       "Stáří = dnešek minus dokončení posledního úspěšného ingest běhu zdroje. Skóre 100 při stáří " +
-      "≤ kadence, pak lineárně k 0 při stáří = 3× kadence. Slovně: ≤ kadence „čerstvé“, ≤ 2× kadence " +
-      "„stárnoucí“, nad 2× kadence „zastaralé“. Kadence je deklarované očekávání politicas, ne SLA " +
+      `≤ kadence, pak lineárně k 0 při stáří = ${ATLAS_RULE_PARAMS.zero}× kadence. Slovně: ≤ kadence „čerstvé“, ≤ ${ATLAS_RULE_PARAMS.stale}× kadence ` +
+      `„stárnoucí“, nad ${ATLAS_RULE_PARAMS.stale}× kadence „zastaralé“. Kadence je deklarované očekávání politicas, ne SLA ` +
       "vydavatele. Bez deklarované kadence nebo bez úspěšného běhu = nehodnoceno.",
   },
   integrity: {
@@ -86,14 +113,12 @@ export const ATLAS_RULES: Readonly<Record<AtlasDimension, { label: string; rule:
   completeness: {
     label: "úplnost",
     rule:
-      "100 minus 10 bodů za každou přiznanou mezeru upstreamu (KNOWN ISSUES v kontextu zdroje, " +
+      `100 minus ${ATLAS_RULE_PARAMS.points} bodů za každou přiznanou mezeru upstreamu (KNOWN ISSUES v kontextu zdroje, ` +
       "lib/analysis/context-model.ts), nejméně 0. Nízké skóre je výpověď o datech vydavatele, ne o " +
       "zpracování politicas — mezery se přiznávají, neschovávají. Zdroj bez zpracovaného kontextu " +
       "= nehodnoceno (nedokumentováno ≠ úplné).",
   },
 };
-
-export const COMPLETENESS_POINTS_PER_ISSUE = 10;
 
 /* ── Vstupy (posbírá server loader, jen čtení) ──────────────────────────────── */
 

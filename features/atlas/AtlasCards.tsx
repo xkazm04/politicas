@@ -23,6 +23,9 @@ import { formattersFor, type Formatters } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
 import {
   ATLAS_DIMENSIONS,
+  COMPLETENESS_POINTS_PER_ISSUE,
+  STALE_CADENCE_MULTIPLIER,
+  ZERO_CADENCE_MULTIPLIER,
   type AtlasDimension,
   type AtlasReport,
   type AtlasScore,
@@ -122,9 +125,19 @@ function DimensionRow({
           ? t("card.basis", { basis: score.basis })
           : t("card.reason", { reason: score.reason })}
       </p>
-      {/* Vytištěné pravidlo — skóre bez pravidla na téhle stránce neexistuje. */}
+      {/* Vytištěné pravidlo — skóre bez pravidla na téhle stránce neexistuje.
+          Prahy se INTERPOLUJÍ z konstant (vzor: methodology.body v AtlasPage),
+          takže změna konstanty přeformuluje i pravidlo, které skóre vysvětluje.
+          Že se katalogová věta nerozešla se strojovou ATLAS_RULES, drží
+          features/atlas/messages.test.ts — do 2026-08-13 je nedržel nikdo. */}
       <p className="mt-1.5 border-l-2 border-hairline pl-2 text-xs leading-relaxed text-steel-aa">
-        {t("card.rule", { rule: t(`dimension.${dim}.rule`) })}
+        {t("card.rule", {
+          rule: t(`dimension.${dim}.rule`, {
+            stale: f.int(STALE_CADENCE_MULTIPLIER),
+            zero: f.int(ZERO_CADENCE_MULTIPLIER),
+            points: f.int(COMPLETENESS_POINTS_PER_ISSUE),
+          }),
+        })}
       </p>
     </div>
   );
