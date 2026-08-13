@@ -1,7 +1,12 @@
 import { ImageResponse } from "next/og";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getPermalinkData } from "@/features/graph/getPermalinkData";
-import { HASH_ALGORITHM, KIND_LABELS } from "@/features/graph/permalink";
+import {
+  HASH_ALGORITHM,
+  KIND_LABELS,
+  permalinkCardModel,
+  permalinkSources,
+} from "@/features/graph/permalink";
 import { KIND_STYLE } from "@/features/graph/kindStyle";
 import { glyphPath, type GlyphShape } from "@/lib/kg/glyph";
 import { COBALT, HAIRLINE, INK, OCHRE, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
@@ -16,10 +21,25 @@ import { defaultLocale, isLocale } from "@/lib/i18n/config";
  * citace — karta proto nese „vše ověřeno" / „N hran čeká na kontrolu" a
  * otisk obsahu s datem, stejně jako sazba a JSON-LD.
  *
+ * A ZASTARALOST TAKY NE (2026-08-13). Karta je nejhůř opravitelný artefakt,
+ * který produkt vydává: sítě si ji nacachují a redakce ji screenshotují do
+ * článků, takže ji za rok nikdo neopraví. Do dneška `fresh` VŮBEC nečetla —
+ * nad citací, o které stránka za ní vyvěsila rozpor, tiskla dnešní otisk
+ * s dnešním datem a „vše ověřeno" v potvrzující modré. Teď zastaralost
+ * vyvěšuje NAD obsahem (pravidlo Exponátu, jako sazba) a potvrzující barvu
+ * zastaralý pohled nedostane.
+ *
+ * TŘI NEPOHLEDY SE NESLÉVAJÍ. `invalid` (404), `gone` (410) a `unavailable`
+ * (503) měly jeden společný náhradní rám, který navíc tvrdil „trvalá adresa
+ * nese celý pohled i otisk důkazů" nad adresou, která nenese nic — takže náš
+ * výpadek vypadal jako zánik doloženého pohledu. Rozhodnutí, co karta smí
+ * říct, dělá čistý `permalinkCardModel`; tenhle soubor jen sází.
+ *
  * Písmo: satori bundluje jen latin subset — česká diakritika by vypadla.
  * Načítá se proto Archivo + IBM Plex Mono podmnožinou přes Google Fonts
  * (vzor z dokumentace next/og „dynamic text"); když fetch selže, obraz se
- * vykreslí výchozím písmem — degradace, ne výpadek karty.
+ * vykreslí výchozím písmem — degradace, ne výpadek karty. KAŽDÝ nový řetězec
+ * musí být v `allText`, jinak se z něj stanou tofu obdélníky.
  */
 
 export const size = { width: 1200, height: 630 };
@@ -63,22 +83,34 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const fInt = (n: number) => formatInt(n, locale);
 
+  // Co karta SMÍ říct — čisté pravidlo (permalink.ts), tady jen sazba.
+  const card = permalinkCardModel(result);
   const view = result.status === "ok" ? result.view : null;
-  const title = view ? view.title : t("permalink.og.fallbackTitle");
   const kicker = `politicas / graf · ${t("permalink.tag")}`;
-  const sourcesLine = t("permalink.og.sources");
   const pendingLine = (pending: number) =>
     pending === 0 ? t("allVerified") : t("pendingEdges", { count: pending, countFmt: fInt(pending) });
+
+  // Prameny: registry uzlu mají přednost před pramennou základnou platformy —
+  // TÉŽ pravidlo, kterým se řídí citační lišta a `isBasedOn` (permalinkSources).
+  const sources = view ? permalinkSources(view) : null;
+  const sourcesLine = !sources
+    ? ""
+    : sources.fromView
+      ? t("permalink.og.sourcesLine", {
+          list: [...new Set(sources.links.map((l) => l.label))].slice(0, 4).join(" · "),
+        })
+      : t("permalink.og.sources");
 
   // Stav kontroly + statistika — spočítané dopředu (žádné formátování v JSX).
   let reviewLine = "";
   let statLine = "";
-  let allVerified = false;
+  let title = "";
+  let hashLine = "";
   const glyphs: Array<{ shape: GlyphShape; fill: string }> = [];
+
   if (view?.kind === "cesta") {
-    const pending = view.trail?.pendingCount ?? 0;
-    reviewLine = view.trail === null ? t("permalink.og.pathGone") : pendingLine(pending);
-    allVerified = view.trail !== null && pending === 0;
+    title = view.title;
+    reviewLine = view.trail === null ? t("permalink.og.pathGone") : pendingLine(view.trail.pendingCount);
     if (view.trail) {
       const hops = view.trail.hops;
       statLine = `${t("permalink.og.evidencePath")} · ${t("steps", { count: hops, countFmt: fInt(hops) })}`;
@@ -90,9 +122,8 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
       { shape: KIND_STYLE[view.to.kind].shape, fill: darkFill(KIND_STYLE[view.to.kind].fill) },
     );
   } else if (view?.kind === "trasa") {
-    const pending = view.trail.edges.filter((e) => e.pending).length;
-    reviewLine = pendingLine(pending);
-    allVerified = pending === 0;
+    title = view.title;
+    reviewLine = pendingLine(view.trail.edges.filter((e) => e.pending).length);
     statLine = `${t("permalink.og.curatedTrail")} · ${t("counts", {
       nodes: fInt(view.trail.nodes.length),
       edges: fInt(view.trail.edges.length),
@@ -102,6 +133,7 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
       if (style) glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
     }
   } else if (view?.kind === "uzel") {
+    title = view.title;
     const kindKey = `kinds.${view.detail.node.kind}`;
     const kindLabel = t.has(kindKey)
       ? t(kindKey)
@@ -115,18 +147,60 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
           : "";
     const style = KIND_STYLE[view.detail.node.kind];
     glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
+  } else if (card.state === "gone") {
+    // Adresa je čitelná a otisk v ní JE — zanikl doklad, ne citace.
+    title = t("permalink.goneTitle");
+    reviewLine = t("permalink.og.goneNote");
+  } else if (card.state === "unavailable") {
+    // NÁŠ výpadek. Nikdy se nesmí číst jako „graf tenhle pohled nedokládá".
+    title = t("permalink.og.unavailableTitle");
+    reviewLine = t("permalink.og.unavailableNote");
+    // Adresa opravdu nese celý stav pohledu i citovaný otisk — jen se dnes
+    // nedá znovuodvodit. Tady je ta věta pravdivá; nad neplatnou adresou ne.
+    hashLine = t("permalink.og.hashFallback");
+  } else {
+    // invalid: o adrese nevíme NIC, takže karta jmenuje jen produkt.
+    title = t("permalink.og.fallbackTitle");
+    reviewLine = t("permalink.og.invalidNote");
   }
 
-  const hashLine = view
-    ? t("permalink.og.hashLine", {
-        algo: HASH_ALGORITHM,
-        hash: view.currentHash,
-        date: formatDate(view.retrievedOn, locale),
-      })
-    : t("permalink.og.hashFallback");
+  if (card.imprint) {
+    hashLine =
+      card.state === "gone"
+        ? t("permalink.goneImprint", {
+            algo: HASH_ALGORITHM,
+            hash: card.imprint.hash,
+            date: formatDate(card.imprint.retrievedOn, locale),
+          })
+        : t("permalink.og.hashLine", {
+            algo: HASH_ALGORITHM,
+            hash: card.imprint.hash,
+            date: formatDate(card.imprint.retrievedOn, locale),
+          });
+  }
 
-  // Podmnožina písma přesně na vysázené znaky — malý soubor, žádné tofu.
-  const allText = [kicker, title, statLine, reviewLine, hashLine, sourcesLine].join("");
+  // Zastaralost NAD obsahem — čtenář karty ji musí potkat dřív než důkazy.
+  const staleLine =
+    card.stale && card.imprint?.citedHash
+      ? t("permalink.og.stale", {
+          urlHash: card.imprint.citedHash,
+          currentHash: card.imprint.hash,
+        })
+      : "";
+
+  /*
+   * Podmnožina písma přesně na vysázené znaky — malý soubor, žádné tofu.
+   *
+   * VELKÁ PÍSMENA SE MUSÍ VYŽÁDAT ZVLÁŠŤ (nalezeno 2026-08-13 na vyrenderované
+   * kartě). Titulek, kicker i řádek kontroly sázíme přes `textTransform:
+   * "uppercase"`, ale podmnožina se do teď žádala nad NEPŘEVEDENÝM textem —
+   * takže z „Data se právě nedají přečíst" přišlo z Archiva jediné velké „D"
+   * a zbytek verzálek spadl na náhradní písmo. Karta pak míchala dvě písma
+   * uprostřed slova. Připojujeme proto i verzálkovou podobu; přírůstek je pár
+   * desítek glyfů, ne nová sada.
+   */
+  const rendered = [kicker, title, statLine, reviewLine, staleLine, hashLine, sourcesLine].join("");
+  const allText = rendered + rendered.toUpperCase();
   const [archivo, plex] = await Promise.all([
     loadGoogleFont("Archivo", 800, allText),
     loadGoogleFont("IBM Plex Mono", 500, allText),
@@ -167,6 +241,28 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
             {kicker}
           </div>
         </div>
+
+        {/* Zastaralost se říká NAD obsahem (pravidlo Exponátu) — na kartě
+            stejně jako v sazbě, protože kartu nikdo nikdy neopraví. */}
+        {staleLine !== "" && (
+          <div
+            style={{
+              display: "flex",
+              marginTop: 22,
+              borderLeft: `10px solid ${SIGNAL}`,
+              paddingLeft: 18,
+              paddingTop: 8,
+              paddingBottom: 8,
+              fontFamily: mono,
+              fontSize: 25,
+              letterSpacing: 2,
+              textTransform: "uppercase",
+              color: SIGNAL,
+            }}
+          >
+            {staleLine}
+          </div>
+        )}
 
         <div style={{ display: "flex", flexDirection: "column", flexGrow: 1, justifyContent: "center" }}>
           {statLine !== "" && (
@@ -213,7 +309,9 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
                 fontSize: 28,
                 letterSpacing: 3,
                 textTransform: "uppercase",
-                color: allVerified ? COBALT : SIGNAL,
+                // Potvrzující modrá JEN když ji karta smí použít — zastaralý
+                // pohled ji nedostane, i když dnešní hrany ověřené jsou.
+                color: card.review?.confirming ? COBALT : SIGNAL,
                 marginTop: 26,
                 display: "flex",
               }}
@@ -223,17 +321,25 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
           )}
         </div>
 
+        {/* Patička jen když je co pod čáru napsat — nad neplatnou adresou
+            nemáme otisk ani prameny a prázdná linka slibuje obojí. */}
         <div
           style={{
-            display: "flex",
+            display: hashLine === "" && sourcesLine === "" ? "none" : "flex",
             flexDirection: "column",
             gap: 10,
             borderTop: `3px solid ${STEEL}`,
             paddingTop: 24,
           }}
         >
-          <div style={{ fontFamily: mono, fontSize: 24, color: HAIRLINE, display: "flex" }}>{hashLine}</div>
-          <div style={{ fontFamily: mono, fontSize: 22, color: STEEL, display: "flex" }}>{sourcesLine}</div>
+          {hashLine !== "" && (
+            <div style={{ fontFamily: mono, fontSize: 24, color: HAIRLINE, display: "flex" }}>{hashLine}</div>
+          )}
+          {/* Prameny jen tam, kde je pohled skutečně má — nad neplatnou adresou
+              ani nad výpadkem se registry nejmenují: nedokládají nic. */}
+          {sourcesLine !== "" && (
+            <div style={{ fontFamily: mono, fontSize: 22, color: STEEL, display: "flex" }}>{sourcesLine}</div>
+          )}
         </div>
       </div>
     ),

@@ -16,9 +16,20 @@
  * OTISK: hashViewContent nad týmž obsahem, který hashovala vydávající akce
  * (citeViewAction). Detail uzlu se odvozuje VŽDY v locale „cs" — fakta nesou
  * zformátované hodnoty a otisk nesmí záviset na jazyku prohlížeče.
+ *
+ * TŘI POLE NAVÍC V POHLEDU (2026-08-13) — `origin`, `bundleDescription`
+ * a `orderingRule`. Skládají se TADY, protože sem vede jediná cesta všech
+ * ČTYŘ odběratelů citace (sazba stránky, JSON-LD ve <script>, balíček
+ * /bundle, OG obraz) — kdyby si je každý bral sám, měli bychom čtyři
+ * příležitosti, jak se rozejít. `origin` navíc potřebuje hlavičky requestu,
+ * které čistý modul permalink.ts vidět nesmí, a překlady potřebují server.
+ * Do OTISKU nevstupuje ani jedno: hashuje se `content`, ne pohledový model.
  */
 
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
+import { formatInt } from "@/lib/format";
+import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import { getNodeDetail, getPathBetween, getTrails } from "./graphLoader";
 import {
   decodeGraphRef,
@@ -41,6 +52,18 @@ export type PermalinkResult =
 const HASH_LOCALE = "cs";
 
 const today = (): string => new Date().toISOString().slice(0, 10);
+
+/**
+ * Původ requestu, nebo null. Týž tvar jako app/sitemap.ts, /zdroj/[ref]
+ * a čtyři feedy: v dev čestně localhost, v nasazení skutečný host, NIKDY
+ * vymyšlená doména. Bez hostitele se `url` v balíčku důkazů vynechá.
+ */
+async function requestOrigin(): Promise<string | null> {
+  const h = await headers();
+  const host = h.get("host");
+  if (!host) return null;
+  return `${h.get("x-forwarded-proto") ?? "http"}://${host}`;
+}
 
 /** Rozlišený obsah pohledu: jádro pro sazbu + KANONICKÝ obsah pro otisk.
  *  Jediná společná cesta pro vydání citace (citeViewAction) i její
@@ -135,6 +158,27 @@ export async function getPermalinkData(ref: string): Promise<PermalinkResult> {
   }
 
   const currentHash = hashViewContent(resolved.content);
+  const [origin, t, rawLocale] = await Promise.all([
+    requestOrigin(),
+    getTranslations("graph"),
+    getLocale(),
+  ]);
+  const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
+  const core = resolved.core;
+  // TÁŽ věta a TYTÉŽ klíče, jaké sází CestaExhibit — pravidlo, kterým cesta
+  // vznikla, se nesmí formulovat podruhé jen proto, že jde do stroje.
+  const orderingRule =
+    core.kind === "cesta"
+      ? t("permalink.rule", {
+          steps: t("steps", { count: core.maxCost, countFmt: formatInt(core.maxCost, locale) }),
+          hub: formatInt(core.hubDegree, locale),
+          found: t("pathsFound", {
+            capped: core.capped ? "yes" : "no",
+            count: core.totalFound,
+            countFmt: formatInt(core.totalFound, locale),
+          }),
+        })
+      : null;
   return {
     status: "ok",
     view: {
@@ -145,7 +189,10 @@ export async function getPermalinkData(ref: string): Promise<PermalinkResult> {
       fresh: currentHash === decoded.hash,
       retrievedOn: today(),
       title: resolved.title,
-      ...resolved.core,
+      origin,
+      bundleDescription: t("permalink.bundleDescription"),
+      orderingRule,
+      ...core,
     } as PermalinkView,
   };
 }

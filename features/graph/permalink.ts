@@ -201,6 +201,25 @@ export interface PermalinkCommon {
   retrievedOn: string;
   /** Český titulek pohledu — sází ho stránka i OG obraz. */
   title: string;
+  /**
+   * Původ requestu („https://host"), nebo null, když ho nelze poctivě zjistit.
+   * Skládá ho getPermalinkData z hlaviček — týž precedens jako app/sitemap.ts,
+   * /zdroj/[ref] a všechny čtyři feedy: v dev čestně localhost, v nasazení
+   * skutečný host, NIKDY vymyšlená doména. Bez něj balíček důkazů pole `url`
+   * prostě vynechá (viz toEvidenceJsonLd).
+   *
+   * Nevstupuje do otisku: hashuje se `content`, ne pohledový model — adresa
+   * serveru nesmí měnit otisk citovaného obsahu.
+   */
+  origin: string | null;
+  /** Lokalizovaný popis balíčku důkazů (graph.permalink.bundleDescription).
+   *  Sází ho JEN toEvidenceJsonLd; kdysi to byla natvrdo česká věta uvnitř
+   *  čistého modulu, zatímco `name` téhož dokumentu jazyk requestu sledovalo. */
+  bundleDescription: string;
+  /** Lokalizované pravidlo řazení spočítané cesty — táž věta, kterou sází
+   *  stránka (graph.permalink.rule). null pro uzel/trasu, které se nehledají.
+   *  Bez něj nesl balíček obvinění (cestu) bez pravidla, kterým vzniklo. */
+  orderingRule: string | null;
 }
 
 /** Jádro pohledu bez společných polí — server ho složí (getPermalinkData)
@@ -244,6 +263,45 @@ export const GRAPH_SOURCE_LINKS: PermalinkSourceLink[] = [
   { id: "contracts", label: "registr smluv — smlouvy.gov.cz", href: "https://smlouvy.gov.cz" },
   { id: "esbirka", label: "e-sbírka — sbírka zákonů", href: "https://www.e-sbirka.cz" },
 ];
+
+export interface PermalinkSources {
+  /**
+   * true = prameny přišly z DAT pohledu (hluboké odkazy uzlu, sourceLinksFor);
+   * false = pohled vlastní odkazy nenese, takže se jmenuje pramenná ZÁKLADNA
+   * platformy. Rozdíl musí ven: „ARES" je tvrzení o tomhle uzlu, „psp.cz ·
+   * ares · registr smluv · e-sbírka" je tvrzení o tom, z čeho graf vzniká.
+   */
+  fromView: boolean;
+  links: PermalinkSourceLink[];
+}
+
+/**
+ * JEDINÉ pravidlo, které rozhoduje, jaké prameny citace jmenuje.
+ *
+ * Do 2026-08-13 existovalo TŘIKRÁT a jen jednou správně: citační lišta
+ * (PermalinkPage.tsx) upřednostňovala registry uzlu, kdežto `isBasedOn`
+ * v balíčku důkazů i řádek pramenů v OG obrazu vypisovaly všechny čtyři
+ * registry NEPODMÍNĚNĚ — takže karta i strojový balíček u uzlu s vlastními
+ * hlubokými odkazy jmenovaly registry, které s ním nemají co dělat.
+ *
+ * DOSUD NEUZAVŘENÉ (vědomě, ne přehlédnutím): pro `cesta`/`trasa` pohled
+ * vlastní odkazy nenese, takže se pořád jmenují všechny čtyři — cesta mezi
+ * dvěma poslanci bez jediné smlouvy tedy jmenuje i registr smluv. Zúžit to jde
+ * podle DRUHŮ uzlů na cestě (person/organ/bill → psp.cz, company → ares,
+ * contract → registr smluv, law → e-sbírka), ale výsledek musí odebírat i
+ * `CitationRail` v PermalinkPage.tsx, jinak by stránka a karta tvrdily o jedné
+ * citaci dvě různé věci. Až se obojí bude měnit jedním dechem — tady, ne v
+ * pátém opise pravidla.
+ */
+export function permalinkSources(view: PermalinkView): PermalinkSources {
+  if (view.kind === "uzel" && view.detail.links.length > 0) {
+    return {
+      fromView: true,
+      links: view.detail.links.map((l) => ({ label: l.registry, href: l.url })),
+    };
+  }
+  return { fromView: false, links: GRAPH_SOURCE_LINKS };
+}
 
 // ── Lokální česká zrcadla katalogu překladů ─────────────────────────────────
 //
@@ -291,6 +349,97 @@ export const REL_LABELS: Record<string, string> = {
 
 export const relLabel = (rel: string): string => REL_LABELS[rel] ?? rel;
 
+// ── Co smí říct karta odkazu (OG obraz) ─────────────────────────────────────
+//
+// Karta je NEJHŮŘ OPRAVITELNÝ artefakt, který produkt vydává: sociální sítě si
+// ji nacachují, redakce si ji vezmou do článku screenshotem, a nikdo z toho už
+// nikdy neuvidí opravu na stránce za ní. Proto se rozhodnutí, CO na ní stojí,
+// dělá tady — čistě a testovatelně — a obraz jen sází.
+//
+// Dvě věci, které karta do 2026-08-13 dělala špatně:
+//  1. NEZNALA `fresh`. Novinář citoval pohled v červnu, graf se přepočítal,
+//     stránka nad obsahem vyvěsila rozpor — a karta pod tím vytiskla dnešní
+//     otisk s dnešním datem a nad ním „vše ověřeno" v POTVRZUJÍCÍ modré.
+//     Nejtrvalejší artefakt tvrdil ověřený současný stav o citaci, o které
+//     věděl, že se rozešla.
+//  2. Slila `invalid` (404), `gone` (410) a `unavailable` (503) do JEDNOHO
+//     náhradního rámu, který navíc tvrdil „trvalá adresa nese celý pohled
+//     i otisk důkazů" nad adresou, která nenese nic. Výpadek našeho skladu
+//     se tak nedal odlišit od zániku doloženého pohledu — což je přesně to
+//     rozlišení, kvůli kterému getPermalinkData drží tři stavy.
+
+/** Vstup shodný s PermalinkResult (getPermalinkData) — opsaný strukturálně,
+ *  aby čistý modul nesahal na serverový loader. */
+export type PermalinkCardInput =
+  | { status: "invalid" }
+  | { status: "unavailable" }
+  | { status: "gone"; urlHash: string; retrievedOn: string }
+  | { status: "ok"; view: PermalinkView };
+
+/** Řádek lidské kontroly na kartě. null = pohled žádné hrany nesází (uzel,
+ *  nebo cesta, kterou dnešní graf nedokládá). */
+export interface PermalinkCardReview {
+  pendingEdges: number;
+  /** Tvrzení o DNEŠNÍM znovuodvození: žádná hrana nečeká na kontrolu. */
+  allVerified: boolean;
+  /**
+   * Smí se ten řádek vysázet POTVRZUJÍCÍ barvou? Jediné místo, kde se to
+   * rozhoduje — a zastaralý pohled ji nedostane NIKDY: „vše ověřeno" je pravda
+   * o dnešku, ale čtenář karty drží v ruce citaci z června.
+   */
+  confirming: boolean;
+}
+
+export interface PermalinkCardModel {
+  state: PermalinkCardInput["status"];
+  /** Otisk v adrese ≠ dnešní otisk. Jen u `ok`; jinde vždy false. */
+  stale: boolean;
+  /** Nese karta otisk obsahu? `unavailable` a `invalid` nenesou žádný —
+   *  a nesmějí předstírat, že adresa nějaký nese. */
+  imprint: { hash: string; citedHash: string | null; retrievedOn: string } | null;
+  review: PermalinkCardReview | null;
+}
+
+export function permalinkCardModel(input: PermalinkCardInput): PermalinkCardModel {
+  if (input.status === "invalid" || input.status === "unavailable") {
+    return { state: input.status, stale: false, imprint: null, review: null };
+  }
+  if (input.status === "gone") {
+    // Adresa je čitelná a otisk v ní JE — zaniklo doložení, ne citace. Karta
+    // proto otisk z adresy nese; „dnešní otisk" ale žádný není, a nedosazuje se.
+    return {
+      state: "gone",
+      stale: false,
+      imprint: { hash: input.urlHash, citedHash: null, retrievedOn: input.retrievedOn },
+      review: null,
+    };
+  }
+  const view = input.view;
+  const stale = !view.fresh;
+  let review: PermalinkCardReview | null = null;
+  if (view.kind === "cesta" && view.trail !== null) {
+    review = reviewOf(view.trail.pendingCount, stale);
+  } else if (view.kind === "trasa") {
+    review = reviewOf(view.trail.edges.filter((e) => e.pending).length, stale);
+  }
+  return {
+    state: "ok",
+    stale,
+    imprint: {
+      hash: view.currentHash,
+      citedHash: stale ? view.urlHash : null,
+      retrievedOn: view.retrievedOn,
+    },
+    review,
+  };
+}
+
+const reviewOf = (pendingEdges: number, stale: boolean): PermalinkCardReview => ({
+  pendingEdges,
+  allVerified: pendingEdges === 0,
+  confirming: pendingEdges === 0 && !stale,
+});
+
 // ── Citační řádek („citovat") ───────────────────────────────────────────────
 
 /** Věta k vložení do článku — všechna pole přicházejí už zformátovaná
@@ -336,7 +485,10 @@ export interface EvidenceJsonLd {
   "@type": "Dataset";
   name: string;
   identifier: string;
-  url: string;
+  /** Absolutní adresa citace. VOLITELNÁ: bez zjistitelného hostitele se pole
+   *  vynechá — relativní `url` je v JSON-LD nerozluštitelná, jakmile balíček
+   *  jednou opustí náš server (týž závěr jako toClaimReviewJsonLd u /zdroj). */
+  url?: string;
   dateModified: string;
   description: string;
   isBasedOn: string[];
@@ -395,25 +547,47 @@ export function toEvidenceJsonLd(view: PermalinkView): EvidenceJsonLd {
       ],
     });
   }
-  const sources =
-    view.kind === "uzel" && view.detail.links.length > 0
-      ? view.detail.links.map((l) => l.url)
-      : GRAPH_SOURCE_LINKS.map((s) => s.href);
+  // TÝŽ výběr pramenů, jaký sází karta i citační lišta — jedno pravidlo,
+  // ne třetí opis (viz permalinkSources).
+  const sources = permalinkSources(view).links.map((l) => l.href);
+  // Absolutní adresa, nebo žádná. Nikdy hádaná doména a nikdy relativní cesta:
+  // archivovaný balíček se z „/graf/p/…" nikam nedostane.
+  const absolute = view.origin ? `${view.origin}${permalinkPath(view.ref)}` : null;
+  /*
+   * MEZ HLEDÁNÍ A PRAVIDLO ŘAZENÍ — do 2026-08-13 je nesla JEN sazba stránky
+   * („Otištěné pravidlo — bez něj by generovaná cesta byla obvinění"), takže
+   * strojový odběratel dostal obvinění bez pravidla a nikdy se nedozvěděl, že
+   * hledání narazilo na strop. Čísla jdou ven strukturovaně (stroj je čte bez
+   * češtiny) a věta lokalizovaně (je to TÁŽ věta z katalogu, kterou vidí
+   * čtenář stránky — ne druhá formulace téhož).
+   */
+  const searchBound: JsonLdProperty[] =
+    view.kind === "cesta"
+      ? [
+          prop("path_max_cost_steps", view.maxCost),
+          prop("path_hub_degree_threshold", view.hubDegree),
+          prop("paths_found", view.totalFound),
+          prop("path_search_capped", view.capped ? "yes" : "no"),
+          ...(view.orderingRule ? [prop("path_ordering_rule", view.orderingRule)] : []),
+        ]
+      : [];
   return {
     "@context": "https://schema.org",
     "@type": "Dataset",
     name: `politicas — ${view.title}`,
-    identifier: view.ref,
-    url: permalinkPath(view.ref),
+    // Identifikátor je adresa, kde balíček žije; bez hostitele zůstává aspoň
+    // ref — ten je stabilní a NENÍ vymyšlený, jen sám o sobě neadresuje.
+    identifier: absolute ?? view.ref,
+    ...(absolute ? { url: absolute } : {}),
     dateModified: view.retrievedOn,
-    description:
-      "Trvalá citace pohledu na znalostní graf české politiky: tvrzení, jejich stav lidské kontroly a odkazy do veřejných registrů, s otiskem obsahu v okamžiku znovuodvození.",
+    description: view.bundleDescription,
     isBasedOn: sources,
     additionalProperty: [
       prop("content_hash_algorithm", HASH_ALGORITHM),
       prop("content_hash", view.currentHash),
       prop("cited_content_hash", view.urlHash),
       prop("fresh", view.fresh ? "yes" : "no"),
+      ...searchBound,
     ],
     hasPart: parts,
   };
