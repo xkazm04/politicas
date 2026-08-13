@@ -14,6 +14,7 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { voteAnchorId } from "../record/anchor";
+import type { ThresholdCoverage } from "../record/threshold";
 import type { ClubTally, LedgerVote } from "../record/types";
 
 function RatioBar({ total }: { total: ClubTally }) {
@@ -37,6 +38,7 @@ export default function RealVoteLedger({
   onSelect,
   ledgerWindow,
   validTotal,
+  thresholds,
 }: {
   votes: LedgerVote[];
   selectedId: number;
@@ -45,10 +47,24 @@ export default function RealVoteLedger({
   onSelect: (votePspId: number) => void;
   ledgerWindow: number;
   validTotal: number;
+  /** Práh přes CELÝ záznam, ne přes okno deníku. Nález „práh není prostou většinou
+   *  přítomných" je v korpusu vzácný, takže by ho čtenář v padesáti řádcích skoro
+   *  nikdy nepotkal — populace proto stojí pod seznamem. */
+  thresholds: ThresholdCoverage;
 }) {
   const t = useTranslations("votetrack");
   const tcom = useTranslations("common");
   const f = useFormat();
+  /** Rozdíl proti prahu jako krátká fráze do řádku. `null` = spočítat ho nejde,
+   *  a řádek pak mlčí právě o něm — chybějící sloupec pojmenují dvě jmenovky vedle. */
+  const marginPhrase = (margin: number | null): string | null =>
+    margin === null
+      ? null
+      : margin === 0
+        ? t("record.thresholdRowExact")
+        : margin > 0
+          ? t("record.thresholdRowOver", { n: margin, nFmt: f.int(margin) })
+          : t("record.thresholdRowUnder", { n: -margin, nFmt: f.int(-margin) });
   const sessionVote = (session: number | null, vote: number | null) =>
     [
       session !== null ? t("record.sessionLabel", { session }) : null,
@@ -74,6 +90,7 @@ export default function RealVoteLedger({
         {votes.map((v) => {
           const selected = v.pspId === selectedId;
           const flashed = v.pspId === highlightedId;
+          const margin = marginPhrase(v.threshold.margin);
           return (
             // Řádek je od 2026-08-10 obal, ne tlačítko: trvalý odkaz sliboval jen
             // `title`, takže si ho čtenář musel složit z adresního řádku sám —
@@ -121,6 +138,21 @@ export default function RealVoteLedger({
                   <span className="sr-only">
                     {t("record.tallyAria", { yes: f.int(v.stat.total.yes), no: f.int(v.stat.total.no) })}
                   </span>
+                  {/* Kolik jich v sále bylo a kolik hlasů bylo potřeba — sloupce
+                      zdroje u tohoto hlasování. Čtou se jako slova, takže tu
+                      žádná dvojice aria-hidden/sr-only nevzniká; chybějící sloupec
+                      má vlastní větu a nikdy se nesází nulou. */}
+                  <span className="tabular-nums">
+                    {v.threshold.present === null
+                      ? t("record.thresholdRowPresentNone")
+                      : t("record.thresholdRowPresent", { nFmt: f.int(v.threshold.present) })}
+                  </span>
+                  <span className="tabular-nums">
+                    {v.threshold.quorum === null
+                      ? t("record.thresholdRowQuorumNone")
+                      : t("record.thresholdRowQuorum", { nFmt: f.int(v.threshold.quorum) })}
+                  </span>
+                  {margin !== null && <span className="font-bold tabular-nums text-ink">{margin}</span>}
                   {v.rebels.length > 0 && (
                     <span className="font-bold text-signal-deep">{t("rebelsCount", { n: v.rebels.length })}</span>
                   )}
@@ -137,8 +169,19 @@ export default function RealVoteLedger({
           );
         })}
       </ul>
-      <div className="mt-3">
+      <div className="mt-3 space-y-1.5">
         <SourceNote>{t("record.ledgerFootnote", { window: ledgerWindow, valid: validTotal })}</SourceNote>
+        {/* Druhá citace, ne delší první: mluví o JINÉ populaci — o celém záznamu,
+            ne o okně deníku nad ní. Bez ní by se řádkový nález („práh se od prosté
+            většiny přítomných liší") četl jako vlastnost padesáti vypsaných
+            hlasování, přestože derivace ho zná u každého platného. */}
+        <SourceNote>
+          {t("record.thresholdFootnote", {
+            comparable: f.int(thresholds.thresholdComparable),
+            differs: f.int(thresholds.thresholdDiffers),
+            withoutQuorum: f.int(thresholds.withoutQuorum),
+          })}
+        </SourceNote>
       </div>
     </div>
   );

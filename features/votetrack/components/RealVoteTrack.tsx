@@ -67,6 +67,10 @@ export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
             onSelect={select}
             ledgerWindow={record.coverage.ledgerWindow}
             validTotal={record.coverage.valid}
+            // Práh se v deníku tiskne po jednom hlasování, ale jeho populace je
+            // celý záznam — `coverage` ta tři čísla nese a strukturálně JE
+            // `ThresholdCoverage`, takže se tu nic nesestavuje podruhé.
+            thresholds={record.coverage}
           />
           <div className="lg:sticky lg:top-8 lg:self-start">
             <RealChamberDetail vote={selected} />

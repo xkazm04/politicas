@@ -32,6 +32,11 @@ const events = (): EventIn[] =>
   Array.from({ length: VOTES }, (_, i) => ({
     pspId: i + 1,
     published: { yes: 2, no: 3, abstain: 0, notVoting: 0 },
+    // Práh je ve fixtures schválně a schválně STŘÍDAVÝ: každé třetí hlasování má
+    // práh jiný než prostou většinu přítomných (floor(5/2)+1 = 3), takže tvrzení
+    // „pokrytí prahů na mezi kroniky nezávisí" má nad čím platit. S konstantním
+    // prahem by ta kontrola prošla i nad rozbitou derivací.
+    threshold: i % 3 === 0 ? { quorum: 4, present: 5 } : { quorum: 3, present: 5 },
     votedOn: `2026-0${(i % 9) + 1}-${String((i % 28) + 1).padStart(2, "0")}`,
     votedAt: null,
     sessionNo: 1,
@@ -120,11 +125,45 @@ describe("chronicleCap je prezentační řez, ne vstup derivace", () => {
       // vůbec (počítá se z prahu měřitelnosti), a to se tu drží, ne předpokládá.
       "chronicleTotal",
       "topRebelsTotal",
+      // 2026-08-13 · ROZHODNUTÍ O PRAHU HLASOVÁNÍ (runda 18). Práh — „kolik hlasů
+      // bylo potřeba" — přibyl do záznamu na DVĚ místa a ani jedno nezakládá nové
+      // pole nejvyšší úrovně, takže tenhle výčet zůstává beze změny. Ruling je
+      // tenhle, a je vědomý, ne opomenutý:
+      //   · `LedgerVote.threshold` (record/threshold.ts) veze uvnitř `ledger`.
+      //     Na mezi kroniky nezávisí a záviset nesmí: je to vlastnost JEDNOHO
+      //     hlasování, složená ze tří sloupců jeho vlastního řádku `vote_event`,
+      //     do které kronika nemá čím promluvit. Porovnání `ledger` výš tedy
+      //     platí i na něj — a test níž to drží adresně, ať se to nedovozuje
+      //     z hloubky objektu.
+      //   · `coverage.withoutQuorum` / `.thresholdComparable` / `.thresholdDiffers`
+      //     vezou uvnitř `coverage` a počítají se nad `valid`, tedy nad týmž
+      //     seznamem jako `voided` a `withoutDate` — nad kterým se kronika jen
+      //     ČTE, nikdy ho nemění. Kdyby se počítaly až z uříznuté kroniky nebo
+      //     z okna deníku, byl by to nález, který se scvrkává podle prezentační
+      //     meze; přesně to test níž falzifikuje kratším oknem.
       "coverage",
     ];
     for (const key of fields) expect(c[key], key).toEqual(f[key]);
     // A ten výčet je úplný: kromě kroniky nezbylo nic neporovnaného.
     expect([...fields, "chronicle"].sort()).toEqual(Object.keys(f).sort());
+  });
+
+  it("práh hlasování ani jeho populace se mezí kroniky nehnou", () => {
+    const f = full();
+    const c = capped();
+    // Předpoklad: fixtures práh opravdu nesou a opravdu se v něm liší. Bez toho
+    // by porovnání níž bylo shodou samých null.
+    expect(f.ledger[0].threshold.quorum).not.toBeNull();
+    expect(f.coverage.thresholdDiffers).toBeGreaterThan(0);
+    expect(f.coverage.thresholdComparable).toBeGreaterThan(f.coverage.thresholdDiffers);
+    expect(c.ledger.map((l) => l.threshold)).toEqual(f.ledger.map((l) => l.threshold));
+    for (const key of ["withoutQuorum", "thresholdComparable", "thresholdDiffers"] as const) {
+      expect(c.coverage[key], key).toBe(f.coverage[key]);
+    }
+    // …a populace je populace CELÉHO záznamu, ne okna deníku: platných hlasování
+    // je víc, než kolik jich deník vypisuje, a porovnat šlo každé z nich.
+    expect(f.coverage.thresholdComparable).toBe(f.coverage.valid);
+    expect(f.coverage.valid).toBeGreaterThan(f.ledger.length);
   });
 
   it("řez ani derivace nesahají na kontrolu proti zveřejněným součtům", () => {

@@ -4,6 +4,7 @@
 // disclosed in the UI copy (record/../copy.ts) per the brand rule.
 
 import type { ReconciliationSummary } from "./reconcile";
+import type { VoteThreshold } from "./threshold";
 
 /** Per-club ballot buckets for one roll call. The K bucket exists because the
  * Chamber itself stopped distinguishing "zdržel se" from "nehlasoval" in 1995
@@ -59,6 +60,16 @@ export interface LedgerVote {
   sourceUrl: string;
   stat: VoteStat;
   rebels: RebelEntry[];
+  /**
+   * Kolik hlasů bylo u hlasování potřeba, kolik poslanců zdroj uvádí jako
+   * přítomné a jak daleko od prahu stálo zveřejněné „pro" (record/threshold.ts).
+   *
+   * Objekt tu stojí VŽDY, i když jsou v něm samá `null`: „zdroj práh neuvádí" je
+   * zjištění, které plocha umí říct, kdežto chybějící pole by se od nedopatření
+   * nedalo odlišit. Sloupce zdroje se předávají doslova; rozdíl proti prahu
+   * a prostá většina přítomných jsou ODVOZENÉ a jako odvozené se i sázejí.
+   */
+  threshold: VoteThreshold;
 }
 
 export interface SeismoDay {
@@ -214,6 +225,19 @@ export interface VoteRecordData {
     to: string | null;
     ledgerWindow: number;
     unaffiliatedSeats: number;
+    /**
+     * Práh přes CELÝ záznam — populace nálezu, který deník ukazuje po jednom
+     * hlasování (`ThresholdCoverage` v record/threshold.ts).
+     *
+     * Existuje proto, že okno deníku je krátké a nález je vzácný: hlasování,
+     * u kterých práh NENÍ prostou většinou přítomných, jsou v korpusu jednotky
+     * promile, takže by je čtenář v okně skoro nikdy nepotkal a plocha by o nich
+     * mlčela. Tři čísla se počítají nad `valid`, tedy nad týmž seznamem jako
+     * `voided` a `withoutDate`, a plocha je tiskne pod deníkem.
+     */
+    withoutQuorum: number;
+    thresholdComparable: number;
+    thresholdDiffers: number;
   };
 }
 

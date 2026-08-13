@@ -67,11 +67,19 @@ export interface LedgerRead {
  *  `published` nese sloupce, které sněmovna sama zveřejnila u toho hlasování —
  *  jediné místo v aplikaci, kde se z `vote_event` čtou. Předávají se DOSLOVA,
  *  včetně `null`: chybějící sloupec je v kontrole (record/reconcile.ts) neporovnaný
- *  slot, nikdy domyšlená nula. */
+ *  slot, nikdy domyšlená nula.
+ *
+ *  `threshold` je od 2026-08-13 druhá dvojice téhož druhu: `quorum` (kolik hlasů
+ *  bylo podle zdroje potřeba) a `present` (kolik poslanců u toho bylo). Ingesce je
+ *  četla, DDL je držel, mapper je mapoval a kontrola kvality je skórovala — a
+ *  právě tenhle řádek je zahazoval, takže se do produktu za celou dobu nedostaly.
+ *  Táž kázeň jako výš: DOSLOVA, včetně `null`, a práh se z počtu přítomných nikdy
+ *  nedopočítává (record/threshold.ts vysvětluje, proč by dopočet nález zrušil). */
 export function toEventIn(e: VoteEventRow): EventIn {
   return {
     pspId: e.pspId,
     published: { yes: e.yes, no: e.no, abstain: e.abstain, notVoting: e.notVoting },
+    threshold: { quorum: e.quorum, present: e.present },
     votedOn: e.votedOn,
     votedAt: e.votedAt,
     sessionNo: e.sessionNo,

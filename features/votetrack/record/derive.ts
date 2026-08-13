@@ -18,6 +18,11 @@
 //   • MPs without a resolved club (nezařazení) render but are never scored.
 //   • Every recount is checked against the Chamber's OWN published tallies
 //     (record/reconcile.ts); a difference is DISCLOSED, never repaired.
+//   • The threshold („kolik hlasů bylo potřeba") comes from the source's own
+//     `quorum` / `present` columns and is never derived from attendance
+//     (record/threshold.ts). A threshold that is NOT the simple majority of those
+//     present is stated as a FACT with the simple majority printed beside it —
+//     never as a legal category, because the source publishes none.
 //   • A presentation cap never ships without its population: the chronicle and
 //     the rebel ranking carry `chronicleTotal` / `topRebelsTotal`, counted BEFORE
 //     the slice, so „the worst 12 of N" cannot read as „only 12 exist".
@@ -31,6 +36,7 @@
 
 import { MIN_CLUB_POSITIONAL, MIN_ELIGIBLE_VOTES } from "@/lib/analysis/kg";
 import { reconcileRecord, type PublishedTally } from "./reconcile";
+import { deriveThreshold, summarizeThresholds, type ThresholdIn, type VoteThreshold } from "./threshold";
 import type {
   ChronicleEntry,
   ClubAggregate,
@@ -77,6 +83,17 @@ export interface EventIn {
    * ledgerRead.ts, which is the read path both /hlasovani and /kompas go through.
    */
   published?: PublishedTally | null;
+  /**
+   * Práh hlasování ze sloupců `vote_event.quorum` / `.present` — kolik hlasů bylo
+   * podle zdroje potřeba a kolik poslanců u toho bylo přítomno.
+   *
+   * VOLITELNÉ ze stejného důvodu jako `published` a se stejnou kázní: kdo ho
+   * nenese, dostane hlasování BEZ prahu (samá `null`), nikdy práh dopočtený
+   * z počtu přítomných. Dopočet by z nálezu „práh není prostou většinou
+   * přítomných" udělal definiční nemožnost. Plní ho `toEventIn` v ledgerRead.ts,
+   * tedy jediná projekce `vote_event` do aplikace.
+   */
+  threshold?: ThresholdIn | null;
 }
 
 export interface BallotIn {
@@ -206,6 +223,17 @@ export function deriveVoteRecord(
   const valid = sortValidNewestFirst(events);
   const eventById = new Map(valid.map((e) => [e.pspId, e]));
 
+  /* práh hlasování — kolik hlasů bylo potřeba a kolik poslanců u toho bylo.
+   * Nezávisí na jediném jmenovitém hlasu, a to je záměr: `quorum`, `present`
+   * i zveřejněné „pro" jsou tři sloupce TÉHOŽ řádku `vote_event`, takže rozdíl
+   * mezi nimi je tvrzení zdroje o sobě samém a nemísí se do něj náš přepočet ze
+   * 406 000 hlasů (ten kontroluje record/reconcile.ts, a rozpor pojmenuje sám).
+   * Počítá se přes VŠECHNA platná hlasování, ne jen přes okno deníku — nález
+   * o prazích má vlastní populaci, kterou plocha tiskne. */
+  const thresholdById = new Map<number, VoteThreshold>(
+    valid.map((e) => [e.pspId, deriveThreshold(e.threshold, e.published?.yes)]),
+  );
+
   /* pass 1 — per-vote per-club tallies */
   const tallies = new Map<number, Map<string, ClubTally>>();
   const unaffiliated = new Map<number, ClubTally>();
@@ -305,6 +333,7 @@ export function deriveVoteRecord(
     sourceUrl: e.sourceUrl,
     stat: statById.get(e.pspId)!,
     rebels: rebelsByVote.get(e.pspId) ?? [],
+    threshold: thresholdById.get(e.pspId)!,
   }));
   const inLedger = new Set(ledger.map((l) => l.pspId));
 
@@ -500,6 +529,11 @@ export function deriveVoteRecord(
       to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,
       ledgerWindow: Math.min(ledgerWindow, valid.length),
       unaffiliatedSeats: latestStat ? latestStat.unaffiliated.yes + latestStat.unaffiliated.no + latestStat.unaffiliated.k + latestStat.unaffiliated.away : 0,
+      // Populace nálezu o prazích. Deník ukazuje krátké okno a hlasování, u
+      // kterých práh prostou většinou přítomných NENÍ, jsou v korpusu jednotky
+      // promile — bez těchhle tří čísel by o nich plocha mlčela, i když je
+      // derivace u každého platného hlasování zná.
+      ...summarizeThresholds(thresholdById.values()),
     },
   };
 }

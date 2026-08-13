@@ -50,6 +50,34 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
   const un = vote.stat.unaffiliated;
   const unSeats = un.yes + un.no + un.k + un.away;
 
+  // ── kolik hlasů bylo potřeba ────────────────────────────────────────────────
+  // Tři sloupce zdroje (přítomní · práh · zveřejněné „pro") a dvě ODVOZENÁ čísla
+  // vedle nich (rozdíl proti prahu · prostá většina přítomných). Chybějící sloupec
+  // se vysází slovem, nikdy nulou — a rozdíl se z ničeho nedopočítává.
+  const th = vote.threshold;
+  const marginSentence =
+    th.margin === null
+      ? t("record.thresholdMarginUnknown")
+      : th.margin === 0
+        ? t("record.thresholdExact")
+        : th.margin > 0
+          ? t("record.thresholdOver", { n: th.margin, nFmt: f.int(th.margin) })
+          : t("record.thresholdUnder", { n: -th.margin, nFmt: f.int(-th.margin) });
+  // „Práh se liší" je ÚDAJ; jaké pravidlo za ním stojí, zdroj u hlasování nenese,
+  // takže se tu žádný předpis nejmenuje — vedle rozdílu stojí jen prostá většina
+  // přítomných, aby si ho čtenář mohl přepočítat.
+  const simpleSentence =
+    th.differs === null || th.simpleMajority === null
+      ? t("record.thresholdUnassessed")
+      : th.differs
+        ? t("record.thresholdDiffers", { simple: f.int(th.simpleMajority) })
+        : t("record.thresholdSimple");
+  const thresholdCells = [
+    { id: "present", label: t("record.thresholdPresent"), value: th.present },
+    { id: "quorum", label: t("record.thresholdQuorum"), value: th.quorum },
+    { id: "yes", label: t("record.thresholdYes"), value: th.publishedYes },
+  ];
+
   return (
     <motion.div
       key={vote.pspId}
@@ -103,6 +131,39 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
           <span className="font-bold tabular-nums text-cobalt">{f.int(Math.round(vote.stat.cohesion * 100))} %</span>
         </p>
       )}
+
+      {/* ── kolik hlasů bylo potřeba ──────────────────────────── */}
+      <div className="mt-8 border-t-2 border-ink pt-4">
+        <h4 className="font-mono text-xs font-black uppercase tracking-wider">{t("record.thresholdTitle")}</h4>
+        <dl className="mt-3 grid grid-cols-3 gap-3">
+          {thresholdCells.map((cell) => (
+            <div key={cell.id} className="border-l-2 border-hairline pl-2">
+              <dt className="font-mono text-[11px] uppercase tracking-wider text-steel-aa">{cell.label}</dt>
+              <dd className="mt-0.5 font-mono text-lg font-black tabular-nums">
+                {/* Chybějící sloupec je věta, ne nula: „zdroj to neuvádí" a
+                    „bylo potřeba nula hlasů" jsou dvě různá tvrzení. */}
+                {cell.value === null ? (
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-steel-aa">
+                    {t("record.thresholdUnstated")}
+                  </span>
+                ) : (
+                  f.int(cell.value)
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <div className="mt-3">
+          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-steel-aa">
+            {t("record.thresholdDerived")}
+          </span>
+          <p className="mt-1 text-sm leading-relaxed">{marginSentence}</p>
+          <p className="mt-1 text-sm leading-relaxed text-steel-aa">{simpleSentence}</p>
+        </div>
+        <div className="mt-3">
+          <SourceNote>{t("record.thresholdNote")}</SourceNote>
+        </div>
+      </div>
 
       {/* ── rozpad po klubech ─────────────────────────────────── */}
       <div className="mt-8 border-t-2 border-ink pt-4">
