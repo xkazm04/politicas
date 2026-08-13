@@ -57,8 +57,14 @@ of any fact.**
    cp -r .pglite .pglite-copy
    PGLITE_PATH=./.pglite-copy DB_DRIVER=pglite npx tsx scripts/data-analysis/kg-compute.ts
    ```
-   Deterministic edges are already in `kg_edge` (re-`--commit --reset` only if the
-   source re-ingested). For an interpretive item, compute the **aggregates the
+   Deterministic edges are already in `kg_edge`. **Do not reach for `--reset`.**
+   `clearKg()` deletes EVERY node and edge, not just the ones this script rebuilds
+   — on today's graph that is ~154 k nodes / ~178 k edges out and ~1 k back, i.e.
+   /penize, /zakony, /denik and /graf go dark. Since `eab0354` the script refuses
+   it by default and names what it would drop; `--supersede` is the deliberate
+   override, and a dry run prints the verdict first. A source re-ingest needs a
+   plain `--commit` (the write is read-merging, so it no longer erases the props
+   other passes computed). For an interpretive item, compute the **aggregates the
    subagent will reason over** from `kg_node`/`kg_edge` (e.g. for blocs: each MP's
    top co-voting neighbours + club + rebellion_rate; the cross-club high-agreement
    pairs). Write them to `./.kg-analysis/<target>.json`. **Aggregates + sampled
