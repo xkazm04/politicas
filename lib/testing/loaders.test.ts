@@ -464,7 +464,17 @@ describe("loadMoneyLayer (the shared /penize read)", () => {
     expect(lines.map((l) => l.amountCzk)).toEqual([5_000_000, 1_900_000]);
     expect(lines[0].signedOn).toBe("2024-03-01");
     // …and the same aggregate the whole-corpus layer computes, from the same rule.
-    expect(slice.contractsByCompany.get(ALFA)).toEqual({ count: 2, czk: 6_900_000, amounts: [5_000_000, 1_900_000] });
+    const alfa = slice.contractsByCompany.get(ALFA)!;
+    expect(alfa.count).toBe(2);
+    expect(alfa.czk).toBe(6_900_000);
+    expect(alfa.amounts).toEqual([5_000_000, 1_900_000]);
+    // 44c4f07 added the VAT-basis composition to this aggregate (features/money/
+    // amountBasis.ts) — bezDph and vcetneDph are not summable, so the slice counts
+    // the LINES per basis without moving a single koruna (the totals above are
+    // unchanged and that is the point). The fixture's supplies edges carry no
+    // `amountBasis`, so both fall to `unrecorded` — a different claim from `none`
+    // ("the register published no value at all"), and the two must not collapse.
+    expect(alfa.basis).toEqual({ vcetneDph: 0, bezDph: 0, ciziMena: 0, none: 0, unrecorded: 2 });
     expect(slice.pass).toBe(42);
   });
 
