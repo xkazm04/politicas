@@ -399,13 +399,21 @@ export function parseSponsorship(raw: unknown): Donation[] {
 export function companyDonationsToParty(
   donations: readonly Donation[],
   companyIcos: ReadonlySet<string>,
-): Map<string, { total: number; count: number }> {
-  const m = new Map<string, { total: number; count: number }>();
+): Map<string, { total: number; count: number; undisclosedCount: number }> {
+  const m = new Map<string, { total: number; count: number; undisclosedCount: number }>();
   for (const d of donations) {
     if (!d.donorIco || !companyIcos.has(d.donorIco)) continue;
-    const cur = m.get(d.donorIco) ?? { total: 0, count: 0 };
+    const cur = m.get(d.donorIco) ?? { total: 0, count: 0, undisclosedCount: 0 };
     cur.count++;
-    cur.total += d.amount ?? 0;
+    // CHYBĚJÍCÍ NENÍ NULA. `?? 0` tu do 2026-08-13 skládalo dar bez vykázané
+    // částky (`hodnotaDaru` chybí — v datech sponzoringu reálný stav) do součtu,
+    // jako by měl hodnotu 0 Kč, a tím vydávalo neúplný součet za úplný. Sourozenec
+    // `subsidiesByCompany` o dvacet řádků výš byl přesně na tohle opraven; tady
+    // je sázka vyšší, protože `donated_to_party_czk` je třetí vrchol
+    // accountability triangle a jde do veřejné citace „dary straně X Kč".
+    // Nevykázaný dar se proto POČÍTÁ (existuje) a do součtu NEVSTUPUJE.
+    if (d.amount == null) cur.undisclosedCount++;
+    else cur.total += d.amount;
     m.set(d.donorIco, cur);
   }
   return m;
@@ -421,7 +429,7 @@ export function enrichMoneyCompanies(
   g: MoneyGraph,
   opts: {
     subsidies?: ReadonlyMap<string, { total: number; count: number; undisclosedCount?: number }>;
-    donations?: ReadonlyMap<string, { total: number; count: number }>;
+    donations?: ReadonlyMap<string, { total: number; count: number; undisclosedCount?: number }>;
     donationPartyLabel?: string;
   },
 ): MoneyGraph {
@@ -449,6 +457,11 @@ export function enrichMoneyCompanies(
           ? {
               donated_to_party_czk: don.total,
               donation_count: don.count,
+              // Táž disciplína (a týž důvod) jako u `subsidies_undisclosed_count`:
+              // přítomné jen když je nenulové, aby se starší uzly bez toho pole
+              // nečetly jako „0 nevykázaných, ověřeno" — absence znamená
+              // „nepočítáno", nula „počítáno a žádný".
+              ...(don.undisclosedCount ? { donation_undisclosed_count: don.undisclosedCount } : {}),
               ...(opts.donationPartyLabel ? { donation_recipient_party: opts.donationPartyLabel } : {}),
             }
           : {}),

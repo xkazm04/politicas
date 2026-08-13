@@ -51,6 +51,15 @@
  */
 import { getStore } from "@/lib/db/store";
 import { datasetId, fetchAndFindRecord, type DataorOfficer } from "@/lib/ingest/sources/dataor";
+// JEDNA definice heuristiky (2026-08-13). Tenhle skript nesl TŘETÍ kopii
+// `classifyTie` pod komentářem „Same rule as reconcile-ares-vr.ts" — a ta rule
+// se mezitím rozešla s tou, kterou čte /penize. Klasifikátor se importuje
+// z features/money/reviewTypes.ts (čistý modul, jediný běhový import je
+// `asciiFold`), takže „stejné pravidlo" je fakt, ne komentář. Věcně beze změny:
+// „PRaK, a.s. v likvidaci" nenese ani jednu značku veřejného subjektu — ověřeno
+// proti Předmětu podnikání záznamu (běžný obchod/inženýring/reklama, nula
+// železničních/dopravních/obecních termínů).
+import { classifyTie } from "@/features/money/reviewTypes";
 
 const OLD_ICO = "49683144";
 const NEW_ICO = "61858111";
@@ -64,32 +73,6 @@ const CANDIDATES: Candidate[] = [
   { pspId: 346, lastName: "Bendl", firstName: "Petr" },
   { pspId: 6184, lastName: "Brabec", firstName: "Richard" },
 ];
-
-// Same rule as scripts/case-loops/money/reconcile-ares-vr.ts's classifyTie — kept
-// deterministic and IDENTICAL to the rest of the money graph's 260-tie classification, so
-// this one re-point doesn't invent a bespoke standard. No public-marker keyword in "PRaK,
-// a.s. v likvidaci" (verified against the record's own Předmět podnikání — ordinary
-// trading/engineering/advertising, zero rail/transit/municipal terms).
-const PUBLIC_MARKERS = [
-  "nemocnice", "univerzita", "vysoká škola", "vodárna", "vodárenská", "kraj", "krajsk",
-  "městsk", "město", "obec", "nadace", "nadační", "o.p.s", "z.ú", "z.s", "z. ú", "z. s",
-  "příspěvková", "muzeum", "museum", "galerie", "divadlo", "knihovna", "akademie",
-  "komora", "svaz", "spolek", "fakultní", "služba čr", "dopravní podnik", "technické služby",
-  "správa", "ústav", "fond", "sportovní", "rekreační", "lidských zdrojů", "centrum",
-];
-const OWNER_ROLES = ["jednatel", "společník", "spolecnik", "akcionář", "akcionar", "majitel", "vlastník"];
-const BOARD_MGMT_ROLES = ["představenstv", "predstavenstv"];
-function foldLowerLite(s: string): string {
-  return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
-}
-function classifyTie(role: string, company: string): "owner-operator" | "manager" | "steward" {
-  const r = foldLowerLite(role);
-  const c = foldLowerLite(company);
-  const isPublic = PUBLIC_MARKERS.some((m) => c.includes(foldLowerLite(m)));
-  if (!isPublic && OWNER_ROLES.some((k) => r.includes(k))) return "owner-operator";
-  if (!isPublic && BOARD_MGMT_ROLES.some((k) => r.includes(k))) return "manager";
-  return "steward"; // classifier's own default for a non-owner, non-board-management role
-}
 
 function earliest(dates: (string | null)[]): string | null {
   const d = dates.filter((x): x is string => x != null).sort();

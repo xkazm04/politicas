@@ -465,11 +465,38 @@ export function tieClassInfo(cls: TieClass): {
   }
 }
 
-/** How a tie's class was arrived at, in the reader's own words. The P29 caption in
- *  `tieClassInfo` is written as an established fact ("poslanec vlastní nebo řídí…") — it
- *  may only be read that way when a person recorded the class. When `classifyTie` guessed
- *  it from a company name and a role string, the surface says so at the badge. Single
- *  source of truth for the copy, same rule as `tieClassInfo`: import, never re-word. */
+/**
+ * How a tie's class was arrived at, in the reader's own words. The P29 caption in
+ * `tieClassInfo` is written as an established fact ("poslanec vlastní nebo řídí…"); the
+ * badge beside it has to say how much weight that fact can carry. Single source of truth
+ * for the copy, same rule as `tieClassInfo`: import, never re-word.
+ *
+ * ── CO TU DO 2026-08-13 STÁLO A PROČ TO BYLA NEPRAVDA ────────────────────────
+ * „zapsal ji analytický průchod NEBO LIDSKÁ KONTROLA, není to automatický odhad" —
+ * a to na ploše, kde zapsanou třídu nese 211 z 211 vazeb, tedy věta pod každou z nich.
+ * Obě její poloviny neplatí:
+ *
+ *  1. LIDSKÁ KONTROLA DO TOHOHLE POLE NEPÍŠE. `ReviewRepository.setTieReviewState` —
+ *     jediná zapisovací cesta brány /penize/kontrola — mění `review_state`,
+ *     `review_note`, `last_decision`, `last_reviewer`, `last_reviewed_at`. `tie_class`
+ *     mezi nimi není a nikdy nebyl, takže žádná zapsaná třída v grafu nemůže být
+ *     rozhodnutím člověka.
+ *  2. „NENÍ TO AUTOMATICKÝ ODHAD" — u většiny korpusu to odhad JE, jen starší.
+ *     Průchod, který třídy zapsal (`scripts/case-loops/money/reconcile-ares-vr.ts`,
+ *     245 hran; + 2 hrany batch-006), počítal `tie_class` toutéž funkcí `classifyTie`,
+ *     kterou plocha při čtení označuje za „odvozenou". Ručně dohledaných je 15
+ *     (batch-001). Rozdíl „zapsaná × odhadnutá" je pak z části jen rozdíl dvou vintage
+ *     jednoho odhadu — Vodovody a kanalizace Vsetín/Vyškov nesou `manager`, protože
+ *     tabulka značek toho průchodu ještě neznala `vodovody a kanalizace`.
+ *
+ * ROZLIŠIT JE NEJDE, A TAK SE TO NEPŘEDSTÍRÁ. Vedle `tie_class` graf nenese žádný
+ * `tie_class_provenance` ani jiný údaj o tom, který průchod třídu spočítal (ověřeno
+ * grepem přes props všech zapisujících dávek). Datovaný průchod, který vazbu ANOTOVAL,
+ * je v kapsli provenience u vazby (`corroboration_provenance`, kterou plocha vedle
+ * analytikovy poznámky už tiskne) — z jeho volného textu se ale původ TŘÍDY odvozovat
+ * nesmí, to by bylo vymyšlení pole, které data nemají. Věta proto říká to, co platí o
+ * všech zapsaných třídách, a přednost zapsané hodnoty odůvodňuje bez slibu kontroly.
+ */
 export function tieClassOriginInfo(origin: TieClassOrigin): {
   labelCs: string;
   labelEn: string;
@@ -481,9 +508,9 @@ export function tieClassOriginInfo(origin: TieClassOrigin): {
       labelCs: "zapsaná třída",
       labelEn: "recorded class",
       noteCs:
-        "třídu nese hrana v grafu (kg_edge.props.tie_class) — zapsal ji analytický průchod nebo lidská kontrola, není to automatický odhad.",
+        "třídu nese hrana v grafu (kg_edge.props.tie_class) — zapsal ji dávkový analytický průchod, ne lidská kontrola: brána v /penize/kontrola do tohoto pole nezapisuje. Většinu zapsaných tříd spočítal týž odhad z názvu firmy a textu role (classifyTie), jen jeho starší verze; menšinu dohledal analytik v rejstříku. Který z průchodů to u této vazby byl, graf nezaznamenává. Zapsaná hodnota má přednost před dnešním odhadem — sama o sobě ale rejstříkový fakt netvrdí.",
       noteEn:
-        "the class is stored on the edge (kg_edge.props.tie_class) — written by an analysis pass or a human review, not guessed at read time.",
+        "the class is stored on the edge (kg_edge.props.tie_class) — written by a batch analysis pass, not by human review: the gate at /penize/kontrola never writes this field. Most stored classes were computed by the same company-name × role-text guess the read path uses (classifyTie), just an earlier revision of it; a minority were researched in the registry by an analyst. Which pass wrote this one, the graph does not record. The stored value takes precedence over today's guess — on its own it still asserts no registry fact.",
     };
   }
   return {

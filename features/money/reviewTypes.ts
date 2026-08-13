@@ -22,9 +22,18 @@ export const TIE_CLASSES = ["owner-operator", "manager", "steward"] as const;
 export type TieClass = (typeof TIE_CLASSES)[number];
 
 /** WHERE the rendered tie class came from. The product may not present these two in the
- *  same voice: `stored` is a value a human reviewer or an analysis batch WROTE onto the
- *  `linked_to` edge (`kg_edge.props.tie_class`); `derived` is this module's `classifyTie`
- *  guess from two free-text strings. */
+ *  same voice: `stored` is a value an ANALYSIS PASS wrote onto the `linked_to` edge
+ *  (`kg_edge.props.tie_class`); `derived` is this module's `classifyTie` guess from two
+ *  free-text strings, computed at read time.
+ *
+ *  `stored` DOES NOT MEAN "a human ruled on it", and the copy may not say so:
+ *  `ReviewRepository.setTieReviewState` — the only write path the human gate at
+ *  /penize/kontrola has — writes `review_state`, `review_note`, `last_decision`,
+ *  `last_reviewer` and `last_reviewed_at`, and **never `tie_class`**. Nor does it mean
+ *  "not a guess": the pass that wrote most of the corpus's classes
+ *  (`scripts/case-loops/money/reconcile-ares-vr.ts`, 245 of them) computed them with
+ *  `classifyTie` itself. See `tieClassOriginInfo` in moneyTypes.ts for what the reader
+ *  is told. */
 export type TieClassOrigin = "stored" | "derived";
 
 export type ReviewDecision = "confirm" | "reject" | "needs-more";
@@ -133,16 +142,42 @@ const DE_MINIMIS_CZK = 50_000; // below this reachable money the tie is likely n
 const NEAR_THRESHOLDS = [2_000_000, 6_000_000];
 const NEAR_BAND = 0.1;
 
-const PUBLIC_MARKERS = [
+/**
+ * JEDNA definice slovníku heuristiky — od 2026-08-13 ji importují i offline
+ * skripty (`scripts/case-loops/money/{reconcile-ares-vr,prak-repoint,triage}.ts`),
+ * které ji do té doby nesly každý ve vlastní kopii. Kopie se rozešly, a rozešly
+ * se ve prospěch jmenovaných firem: tenhle seznam nesl `vodovody a kanalizace`,
+ * ty tři ne — takže `classifyTie` uvnitř aplikace čte „Vodovody a kanalizace
+ * Vsetín, a.s." jako veřejný subjekt, zatímco průchod, který na hranu ZAPSAL
+ * `tie_class`, ho četl jako soukromou firmu a zapsal `manager`. Pět „rozporů
+ * zapsané a odhadnuté třídy" v korpusu jsou z větší části dvě vintage TÉHOŽ
+ * odhadu, ne analytikova oprava (viz `tieClassOriginInfo` v moneyTypes.ts).
+ *
+ * ROZHODNUTÍ o třech značkách, které nesly jen ty skriptové kopie (2026-08-13):
+ *  • `krajsk` — NEPŘIDÁNO, je nadbytečná: `kraj` je její předpona, takže
+ *    `c.includes("kraj")` platí vždycky, když platí `c.includes("krajsk")`.
+ *    Sjednocení tady nemění ani jednu odpověď.
+ *  • `z. ú`, `z. s` → `z. u`, `z. s` — PŘIDÁNO. Jsou to TYTÉŽ právní formy
+ *    (zapsaný ústav / zapsaný spolek), které seznam už nese bez mezery
+ *    (`z.u`, `z.s`); rejstřík píše obojí. Nejde o rozšíření pravidla, ale o
+ *    doplnění druhého pravopisu.
+ *
+ * Změna téhle tabulky MĚNÍ, co `classifyTie` odpovídá — a tím i to, u kolika
+ * vazeb se odhad rozchází se zapsanou hodnotou (`ResolvedTieClass.disagrees`,
+ * `ReviewStats.classDisagreements`). To je SIGNÁL, který plocha přizná; zapsaná
+ * data se tím nikdy nepřepisují (o třídě rozhoduje člověk v /penize/kontrola).
+ */
+export const PUBLIC_MARKERS = [
   "nemocnice", "univerzita", "vysoka skola", "vodarna", "vodarenska", "kraj",
   "mestsk", "mesto", "obec", "nadace", "nadacni", "o.p.s", "z.u", "z.s",
+  "z. u", "z. s",
   "prispevkova", "muzeum", "museum", "galerie", "divadlo", "knihovna", "akademie",
   "komora", "svaz", "spolek", "fakultni", "sluzba cr", "dopravni podnik",
   "technicke sluzby", "sprava", "ustav", "fond", "sportovni", "rekreacni",
   "lidskych zdroju", "centrum", "vodovody a kanalizace",
 ];
-const OWNER_ROLES = ["jednatel", "spolecnik", "akcionar", "majitel", "vlastnik"];
-const BOARD_MGMT_ROLES = ["predstavenstv"];
+export const OWNER_ROLES = ["jednatel", "spolecnik", "akcionar", "majitel", "vlastnik"];
+export const BOARD_MGMT_ROLES = ["predstavenstv"];
 
 /**
  * Skládání diakritiky pro POROVNÁNÍ (heuristika `classifyTie` a hledání v knize
@@ -190,17 +225,27 @@ export interface ResolvedTieClass {
 /**
  * THE PRECEDENCE RULE for a tie's class, and the only entry point a surface may use.
  *
- * **A stored class wins, always.** `kg_edge.props.tie_class` is a value a human reviewer
- * or an analysis batch wrote after looking at the registry; `classifyTie` is a substring
- * guess. When the two disagree the stored one is the one that was *investigated* — IČO
- * 24227901 is the MP's own residential owners' association (SVJ), recorded as `steward`,
- * which the heuristic reads as `owner-operator` and the product used to caption
- * "poslanec vlastní nebo řídí soukromou firmu, která dodává státu". Recomputing at read
- * time made every such correction dead data.
+ * **A stored class wins, always.** `kg_edge.props.tie_class` was written by an analysis
+ * pass that had the registry record in front of it; `classifyTie` is a substring guess
+ * recomputed at read time from two free-text strings. IČO 24227901 is the MP's own
+ * residential owners' association (SVJ), stored as `steward`, which the heuristic reads
+ * as `owner-operator` and the product used to caption "poslanec vlastní nebo řídí
+ * soukromou firmu, která dodává státu". Recomputing at read time made every such
+ * correction dead data.
+ *
+ * THE PRECEDENCE IS RIGHT; WHAT IT DOES NOT LICENSE IS A CLAIM ABOUT PROVENANCE.
+ * A disagreement does not prove the stored value was *investigated*: measured against the
+ * batch payloads, 15 of the corpus's classes come from batch-001's per-tie registry
+ * research and ~247 from passes that ran THIS heuristic (batch-002's 245 + batch-006's
+ * PRaK re-point), so a stored value can also be an older revision of the same guess — as
+ * with Vodovody a kanalizace Vsetín/Vyškov, stored `manager` by a pass whose marker table
+ * did not yet carry `vodovody a kanalizace`. The graph carries NO field beside `tie_class`
+ * recording which pass wrote it, so nothing here may derive that; the surface says what is
+ * true of all of them (`tieClassOriginInfo`) instead of promising a review.
  *
  * The heuristic survives ONLY as the fallback for an edge that carries no stored class,
- * and it is labelled derived wherever it is used (`tieClassOriginInfo` in moneyTypes.ts).
- * An unrecognised stored value is treated as absent — the graph is not a type system.
+ * and it is labelled derived wherever it is used. An unrecognised stored value is treated
+ * as absent — the graph is not a type system.
  */
 export function resolveTieClass(stored: unknown, role: string, company: string): ResolvedTieClass {
   const heuristic = classifyTie(role, company);

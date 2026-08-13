@@ -302,8 +302,36 @@ describe("party donations (sponzoring) — the accountability triangle", () => {
     const donations = parseSponsorship(donors);
     expect(donations).toHaveLength(4);
     const triangle = companyDonationsToParty(donations, new Set(["26185610"]));
-    expect(triangle.get("26185610")).toEqual({ total: 1500000, count: 2 });
+    expect(triangle.get("26185610")).toEqual({ total: 1500000, count: 2, undisclosedCount: 0 });
     expect(triangle.has("11111111")).toBe(false); // not a linked company
+  });
+
+  /*
+   * CHYBĚJÍCÍ NENÍ NULA — u darů stejně jako u dotací.
+   *
+   * `hodnotaDaru: null` je v datech sponzoringu reálný stav (dar evidovaný bez
+   * vykázané částky). Do 2026-08-13 ho `?? 0` skládalo do `donated_to_party_czk`
+   * jako dar za 0 Kč, takže neúplný součet vycházel jako úplný — a to na čísle,
+   * které tvoří třetí vrchol accountability triangle a cituje se veřejně.
+   * Tenhle řádek v testech chyběl, proto to nikdo nechytil.
+   */
+  it("counts a donation with no disclosed amount instead of summing it as 0 CZK", () => {
+    const donations = parseSponsorship([
+      ...donors,
+      { icoDarce: "26185610", nameIdDarce: null, icoPrijemce: "71443339", hodnotaDaru: null, darovanoDne: "2018-01-01T00:00:00" },
+    ]);
+    const triangle = companyDonationsToParty(donations, new Set(["26185610"]));
+    // Součet se NEPOHNE (nevykázaná částka do něj nevstupuje), počet ANO (dar je),
+    // a nevykázanost má vlastní číslo.
+    expect(triangle.get("26185610")).toEqual({ total: 1500000, count: 3, undisclosedCount: 1 });
+  });
+
+  it("a company whose every donation is undisclosed sums to 0 — but says why", () => {
+    const donations = parseSponsorship([
+      { icoDarce: "26185610", nameIdDarce: null, icoPrijemce: "71443339", hodnotaDaru: null, darovanoDne: "2018-01-01T00:00:00" },
+    ]);
+    const triangle = companyDonationsToParty(donations, new Set(["26185610"]));
+    expect(triangle.get("26185610")).toEqual({ total: 0, count: 1, undisclosedCount: 1 });
   });
 });
 
@@ -322,6 +350,22 @@ describe("enrichMoneyCompanies", () => {
     expect(company.props.donation_recipient_party).toBe("ANO");
     // contract money still intact
     expect(g.edges.filter((e) => e.rel === "supplies")).toHaveLength(2);
+    // Nic nevykázaného → pole se na uzel VŮBEC nezapíše (absence = „nepočítáno",
+    // nula = „počítáno a žádný"; táž disciplína jako u dotací).
+    expect("donation_undisclosed_count" in company.props).toBe(false);
+  });
+
+  it("carries the undisclosed-donation count onto the node when there is one", () => {
+    const links = buildPersonCompanyLinks(babisDetail, 5878, { resolveIco });
+    const g0 = buildMoneyGraph(links, dedupeCompanies([parseAresCompany(aresAgrofert)!]), parseContracts(contractSearch, { supplierIco: ICO_AGROFERT }));
+    const g = enrichMoneyCompanies(g0, {
+      donations: new Map([[ICO_AGROFERT, { total: 1500000, count: 3, undisclosedCount: 1 }]]),
+      donationPartyLabel: "ANO",
+    });
+    const company = g.nodes.find((n) => n.kind === "company")!;
+    expect(company.props.donated_to_party_czk).toBe(1500000);
+    expect(company.props.donation_count).toBe(3);
+    expect(company.props.donation_undisclosed_count).toBe(1);
   });
 });
 

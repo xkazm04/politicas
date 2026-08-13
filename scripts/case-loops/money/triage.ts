@@ -10,6 +10,22 @@
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/triage.ts
  */
 import { getStore } from "@/lib/db/store";
+// JEDNA definice heuristiky i pořadí kontroly (2026-08-13). Tenhle skript nesl
+// vlastní kopii `PUBLIC_MARKERS`/`OWNER_ROLES`/`BOARD_MGMT_ROLES`/`classifyTie`
+// a vlastní `reviewTier`/`reviewRank` s komentářem „MUST agree exactly" — což
+// je přesně ten druh smlouvy, který se nedá vynutit ničím jiným než importem.
+// Kopie se rozešly: aplikace zná značku `vodovody a kanalizace`, tenhle skript
+// ne, takže třídy, které jeho průchody ZAPSALY do grafu, se od dnešního odhadu
+// liší — a plocha ten rozpor četla jako analytikovu opravu.
+// `reviewTypes.ts` je čistý modul (jediný běhový import je `asciiFold`), takže
+// se z tsx skriptu importuje bez server-only hranice.
+import {
+  classifyTie,
+  reviewRank as sharedReviewRank,
+  reviewTier as sharedReviewTier,
+  type TieClass,
+} from "@/features/money/reviewTypes";
+import { CORROBORATIONS, type Corroboration } from "@/features/money/moneyTypes";
 
 const NEAR_THRESHOLDS = [2_000_000, 6_000_000]; // CZK zadávací limity
 const NEAR_BAND = 0.1; // within 10% below a limit = "near-threshold"
@@ -39,43 +55,12 @@ function inPeriod(signedOn: string | null, from: string | null, to: string | nul
   return true;
 }
 
-// Public-institution / nonprofit markers in a company label — a board seat here is
-// STEWARDSHIP (oversight), not ownership: the money is the body's own public activity,
-// it does NOT flow to the MP. Deterministic keyword test (folded, lowercased).
-const PUBLIC_MARKERS = [
-  "nemocnice", "univerzita", "vysoká škola", "vodárna", "vodárenská", "kraj", "krajsk",
-  "městsk", "město", "obec", "nadace", "nadační", "o.p.s", "z.ú", "z.s", "z. ú", "z. s",
-  "příspěvková", "muzeum", "museum", "galerie", "divadlo", "knihovna", "akademie",
-  "komora", "svaz", "spolek", "fakultní", "služba čr", "dopravní podnik", "technické služby",
-  "správa", "ústav", "fond", "sportovní", "rekreační", "lidských zdrojů", "centrum",
-];
-const OWNER_ROLES = ["jednatel", "společník", "spolecnik", "akcionář", "akcionar", "majitel", "vlastník"];
-const BOARD_MGMT_ROLES = ["představenstv", "predstavenstv"]; // board of directors (management)
-function classifyTie(role: string, company: string): "owner-operator" | "manager" | "steward" {
-  const r = foldLowerLite(role);
-  const c = foldLowerLite(company);
-  const isPublic = PUBLIC_MARKERS.some((m) => c.includes(foldLowerLite(m)));
-  if (!isPublic && OWNER_ROLES.some((k) => r.includes(k))) return "owner-operator";
-  if (!isPublic && BOARD_MGMT_ROLES.some((k) => r.includes(k))) return "manager";
-  return "steward";
-}
-function foldLowerLite(s: string): string {
-  return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
-}
-
-// Batch-005 review order (mirrors features/money/reviewTypes.ts reviewTier/reviewRank —
-// MUST agree exactly): 0 = registry-confirmed owner-operator, 1 = registry-confirmed
-// manager, 2 = registry-confirmed steward, 3 = everything else unconfirmed/conflicting.
-function reviewTier(tieClass: "owner-operator" | "manager" | "steward", corroboration: string | null): 0 | 1 | 2 | 3 {
-  if (corroboration !== "registry-confirmed") return 3;
-  if (tieClass === "owner-operator") return 0;
-  if (tieClass === "manager") return 1;
-  return 2;
-}
-const REVIEW_RANK_MONEY_CAP = 1_000_000_000_000; // 1e12 — headroom above any reachable CZK figure
-function reviewRank(tier: 0 | 1 | 2 | 3, contractCzk: number, subsidiesCzk: number): number {
-  const money = Math.min(Math.max(contractCzk + subsidiesCzk, 0), REVIEW_RANK_MONEY_CAP - 1);
-  return tier * REVIEW_RANK_MONEY_CAP + (REVIEW_RANK_MONEY_CAP - money);
+/** Hodnota z grafu na kontrolovanou doménu — neznámý řetězec je `null` (týž
+ *  postoj jako `asUnion` v moneyLoaderu: graf není typový systém). */
+function asCorroboration(v: unknown): Corroboration | null {
+  return typeof v === "string" && (CORROBORATIONS as readonly string[]).includes(v)
+    ? (v as Corroboration)
+    : null;
 }
 
 interface ContractAgg {
@@ -140,12 +125,14 @@ async function main() {
     temporalAlignedCount: number;
     nearThresholdCount: number;
     triangle: boolean;
-    tieClass: "owner-operator" | "manager" | "steward";
-    corroboration: string | null;
+    tieClass: TieClass;
+    corroboration: Corroboration | null;
     signalScore: number;
-    // Batch-005: review-ORDER axis, distinct from signalScore — mirrors
-    // reviewTier/reviewRank in features/money/reviewTypes.ts EXACTLY (same duplication
-    // pattern as classifyTie/reviewSignal above — the two implementations must agree).
+    // Batch-005: review-ORDER axis, distinct from signalScore. Od 2026-08-13 se
+    // reviewTier/reviewRank IMPORTUJÍ z features/money/reviewTypes.ts — dokud tu
+    // stála kopie, byla shoda jen komentářem („MUST agree exactly"), který nic
+    // nevynucuje. signalScore níž zůstává vlastní: má jiné vstupy (temporální
+    // zarovnání) než sdílený `reviewSignal`, a to je rozhodnutí, ne shoda náhodou.
     reviewTier: 0 | 1 | 2 | 3;
     reviewRank: number;
     stage: "pending";
@@ -177,9 +164,9 @@ async function main() {
     const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
     const triangle = agg.czk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
     const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-    const corroboration = (e.props?.corroboration as string | undefined) ?? null;
+    const corroboration = asCorroboration(e.props?.corroboration);
     const tieClass = classifyTie(String(e.props?.role ?? ""), comp.label);
-    const tier = reviewTier(tieClass, corroboration);
+    const tier = sharedReviewTier({ tieClass, corroboration });
 
     const flags: string[] = [];
     if (!/IČO \d/.test(source) && !/ico \d/i.test(source)) flags.push("source-missing-ico");
@@ -215,7 +202,12 @@ async function main() {
       corroboration,
       signalScore: 0,
       reviewTier: tier,
-      reviewRank: reviewRank(tier, agg.czk, subsidiesCzk),
+      reviewRank: sharedReviewRank({
+        tieClass,
+        corroboration,
+        contractCzk: agg.czk,
+        subsidiesCzk,
+      }),
       stage: "pending",
       batch: null,
       flags,

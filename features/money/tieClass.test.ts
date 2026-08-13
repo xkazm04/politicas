@@ -7,8 +7,10 @@
 // guess. `resolveTieClass` is the one place that decides; these tests pin it, including
 // the real divergences measured on the store (2026-07-29).
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { classifyTie, resolveReviewOrder, resolveTieClass, reviewRank, reviewTier } from "./reviewTypes";
+import { classifyTie, resolveReviewOrder, resolveTieClass, reviewRank, reviewTier, PUBLIC_MARKERS } from "./reviewTypes";
+import { tieClassOriginInfo } from "./moneyTypes";
 
 describe("resolveTieClass — stored beats the heuristic", () => {
   it("reads a stored class and reports it as stored", () => {
@@ -61,6 +63,121 @@ describe("resolveTieClass — stored beats the heuristic", () => {
   it("the SVJ case loses the owner-operator reading entirely", () => {
     const r = resolveTieClass("steward", "pověřený vlastník", "Společenství vlastníků Vlastislavova 605/20, Praha 4");
     expect(r.tieClass).not.toBe("owner-operator");
+  });
+});
+
+/*
+ * CO SMÍ „ZAPSANÁ TŘÍDA" ŘÍCT O SVÉM PŮVODU.
+ *
+ * `tieClassOriginInfo("stored")` do 2026-08-13 tvrdilo, že třídu „zapsal
+ * analytický průchod NEBO LIDSKÁ KONTROLA, není to automatický odhad" — a
+ * protože zapsanou třídu nese 211 z 211 živých vazeb, byla ta věta pod každou
+ * z nich. Obě poloviny jsou nepravdivé a obě se dají vyvrátit ze stromu:
+ *
+ *  1. `ReviewRepository.setTieReviewState` — JEDINÁ zapisovací cesta brány
+ *     /penize/kontrola — sestavuje `nextProps` z `review_state`,
+ *     `last_decision`, `last_reviewer`, `last_reviewed_at` a `review_note`.
+ *     `tie_class` mezi nimi není, takže lidská kontrola tohle pole zapsat
+ *     NEMŮŽE. Test to čte přímo ze zdroje repozitáře, ne z paměti.
+ *  2. Průchod, který drtivou většinu tříd zapsal
+ *     (`scripts/case-loops/money/reconcile-ares-vr.ts`), je počítá `classifyTie` —
+ *     tedy TOUTÉŽ funkcí, kterou plocha při čtení označuje za odhad. Od
+ *     2026-08-13 ji navíc importuje odsud, takže to je vidět i staticky.
+ */
+describe("tieClassOriginInfo — zapsaná třída netvrdí lidskou kontrolu ani „není to odhad“", () => {
+  const stored = tieClassOriginInfo("stored");
+  const derived = tieClassOriginInfo("derived");
+
+  it("neslibuje lidskou kontrolu tam, kde do pole nikdo lidský nepíše", () => {
+    // KAŽDÝ výskyt „lidská kontrola" ve větě musí být POPŘENÍM, ne autorstvím.
+    // (První verze tohohle testu zakazovala tvar „zapsal ji … lidská kontrola"
+    // a shodila i správnou větu „zapsal ji dávkový průchod, NE lidská kontrola" —
+    // regex neuměl rozlišit autora od popření. Pravidlo se proto píše takhle.)
+    const mentions = [...stored.noteCs.matchAll(/(.{0,8})lidská kontrola/gi)];
+    expect(mentions.length).toBeGreaterThan(0);
+    for (const m of mentions) expect(m[1]).toMatch(/\bne\s$/);
+
+    const mentionsEn = [...stored.noteEn.matchAll(/(.{0,10})human review/gi)];
+    expect(mentionsEn.length).toBeGreaterThan(0);
+    for (const m of mentionsEn) expect(m[1]).toMatch(/\bnot by\s$/);
+
+    // A brána se pojmenuje i pozitivně, ať čtenář ví, kam si má dojít.
+    expect(stored.noteCs).toMatch(/\/penize\/kontrola do tohoto pole nezapisuje/);
+    expect(stored.noteEn).toMatch(/never writes this field/);
+  });
+
+  it("netvrdí, že zapsaná třída není automatický odhad", () => {
+    expect(stored.noteCs).not.toMatch(/není to automatický odhad/i);
+    expect(stored.noteEn).not.toMatch(/not guessed at read time/i);
+    // Naopak přizná, že většinu zapsaných tříd spočítal týž odhad.
+    expect(stored.noteCs).toMatch(/classifyTie/);
+    expect(stored.noteEn).toMatch(/classifyTie/);
+  });
+
+  it("se nepřeklopí do opačné nepravdy — analytikem dohledaná třída to smí říct", () => {
+    // 15 tříd korpusu pochází z batch-001 (ruční rejstříkové dohledání), takže
+    // věta NESMÍ tvrdit, že KAŽDÁ zapsaná třída je odhad.
+    expect(stored.noteCs).toMatch(/většinu/i);
+    expect(stored.noteCs).toMatch(/analytik/i);
+    expect(stored.noteEn).toMatch(/most stored classes/i);
+    expect(stored.noteEn).toMatch(/analyst/i);
+    // A zároveň se nevymýšlí pole, které graf nemá: která z těch cest to u
+    // KONKRÉTNÍ vazby byla, se přiznaně neví.
+    expect(stored.noteCs).toMatch(/graf nezaznamenává/i);
+    expect(stored.noteEn).toMatch(/the graph does not record/i);
+  });
+
+  it("přednost zapsané hodnoty zůstane odůvodněná (jinak by čtenář nevěděl, proč vyhrává)", () => {
+    expect(stored.noteCs).toMatch(/přednost/i);
+    expect(stored.noteEn).toMatch(/precedence/i);
+    // Odvozená větev se nemění — pořád je to vodítko, ne nález.
+    expect(derived.noteCs).toMatch(/vodítko, ne jako zjištěný fakt/);
+    expect(derived.noteEn).toMatch(/a lead, not a finding/);
+  });
+
+  it("brána do tie_class opravdu nepíše (čteno ze zdroje, ne z paměti)", () => {
+    const src = readFileSync("lib/db/pglite/repositories/review.ts", "utf8");
+    // Ta jediná zapisovací cesta staví nextProps — a tie_class v souboru není.
+    expect(src).toMatch(/const nextProps: Record<string, unknown> = \{/);
+    expect(src).not.toMatch(/tie_class/);
+  });
+});
+
+/*
+ * SLOVNÍK HEURISTIKY MÁ JEDNU DEFINICI (2026-08-13).
+ *
+ * `PUBLIC_MARKERS` žil ve ČTYŘECH kopiích — tady a ve třech skriptech
+ * case-loops/money, z nichž dva `tie_class` do grafu ZAPISUJÍ. Kopie se
+ * rozešly: tahle nesla `vodovody a kanalizace`, ty skriptové ne. Ověřuje se
+ * tedy staticky, že skripty klasifikátor importují (kopie by test shodil).
+ */
+describe("classifyTie — jedna definice pro plochu i pro zapisující průchody", () => {
+  it.each([
+    "scripts/case-loops/money/reconcile-ares-vr.ts",
+    "scripts/case-loops/money/prak-repoint.ts",
+    "scripts/case-loops/money/triage.ts",
+  ])("%s importuje classifyTie místo vlastní kopie", (path) => {
+    const src = readFileSync(path, "utf8");
+    expect(src).toMatch(/import \{[^}]*classifyTie[^}]*\} from "@\/features\/money\/reviewTypes"/);
+    // Žádná lokální definice klasifikátoru ani jeho slovníku nesmí zůstat.
+    expect(src).not.toMatch(/function classifyTie/);
+    expect(src).not.toMatch(/const PUBLIC_MARKERS/);
+    expect(src).not.toMatch(/function foldLowerLite/);
+  });
+
+  it("`krajsk` se nepřidává — `kraj` je její předpona, takže by nezměnila ani jednu odpověď", () => {
+    expect(PUBLIC_MARKERS).toContain("kraj");
+    expect(PUBLIC_MARKERS).not.toContain("krajsk");
+    // Důkaz nadbytečnosti: každý řetězec obsahující „krajsk“ obsahuje i „kraj“.
+    expect(classifyTie("předseda představenstva", "Krajská nemocnice Liberec, a.s.")).toBe("steward");
+  });
+
+  it("`z. ú` / `z. s` se přidávají — je to druhý pravopis formy, kterou seznam už nese", () => {
+    // Mezerovaný tvar rejstřík píše taky; bez něj ho heuristika neviděla.
+    expect(classifyTie("člen správní rady", "Muzeum paměti XX. století, z. ú.")).toBe("steward");
+    expect(classifyTie("předseda", "Sportovci Praha, z. s.")).toBe("steward");
+    // Nemezerovaný tvar zůstává, jak byl.
+    expect(classifyTie("člen správní rady", "Muzeum paměti XX. století, z.ú.")).toBe("steward");
   });
 });
 

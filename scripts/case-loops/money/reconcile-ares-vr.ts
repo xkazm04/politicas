@@ -31,6 +31,18 @@
  */
 import { getStore } from "@/lib/db/store";
 import { AresClient } from "@/lib/analysis/money-feed";
+// JEDNA definice heuristiky (2026-08-13). Tenhle skript je HLAVNÍ ZAPISOVATEL
+// `tie_class` — batch-002 anotoval 245 z 211 živých vazeb — a nesl si vlastní
+// kopii `classifyTie`, která se rozešla s tou, kterou plocha čte: chyběla jí
+// značka `vodovody a kanalizace`, takže „Vodovody a kanalizace Vsetín, a.s."
+// zapsal jako `manager`, zatímco /penize ho dnes odhaduje jako `steward`.
+// Rozpor pak plocha četla jako investigativní opravu, ne jako dvě vintage
+// téhož odhadu. Klasifikátor se proto IMPORTUJE — zapsané hodnoty se tím
+// nepřepisují (o přeřazení rozhoduje člověk v /penize/kontrola), ale příští
+// běh zapíše to, co plocha čte.
+// `reviewTypes.ts` je čistý modul (jediný běhový import je `asciiFold`), takže
+// z tsx skriptu neprosakuje žádná server-only hranice.
+import { classifyTie } from "@/features/money/reviewTypes";
 
 const VR_BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr";
 const THROTTLE_MS = 150; // ~400 req/min, well under ARES's ~500 req/min budget
@@ -207,27 +219,6 @@ async function main() {
       amount: num(e.weight) || num(ct?.props?.amount),
     });
     signedByCompany.set(e.src, arr);
-  }
-
-  const PUBLIC_MARKERS = [
-    "nemocnice", "univerzita", "vysoká škola", "vodárna", "vodárenská", "kraj", "krajsk",
-    "městsk", "město", "obec", "nadace", "nadační", "o.p.s", "z.ú", "z.s", "z. ú", "z. s",
-    "příspěvková", "muzeum", "museum", "galerie", "divadlo", "knihovna", "akademie",
-    "komora", "svaz", "spolek", "fakultní", "služba čr", "dopravní podnik", "technické služby",
-    "správa", "ústav", "fond", "sportovní", "rekreační", "lidských zdrojů", "centrum",
-  ];
-  const OWNER_ROLES = ["jednatel", "společník", "spolecnik", "akcionář", "akcionar", "majitel", "vlastník"];
-  const BOARD_MGMT_ROLES = ["představenstv", "predstavenstv"];
-  function foldLowerLite(s: string): string {
-    return s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
-  }
-  function classifyTie(role: string, company: string): "owner-operator" | "manager" | "steward" {
-    const r = foldLowerLite(role);
-    const c = foldLowerLite(company);
-    const isPublic = PUBLIC_MARKERS.some((m) => c.includes(foldLowerLite(m)));
-    if (!isPublic && OWNER_ROLES.some((k) => r.includes(k))) return "owner-operator";
-    if (!isPublic && BOARD_MGMT_ROLES.some((k) => r.includes(k))) return "manager";
-    return "steward";
   }
 
   const ares = new AresClient();
