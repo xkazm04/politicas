@@ -6,7 +6,17 @@
 import { randomUUID } from "node:crypto";
 import type { ReviewRepository } from "../../store";
 import type { ReviewAuditRow } from "../../types";
-import { isoTs, json, num, str, strOrNull, warnIfTruncated, type Pglite, type PgTransaction } from "../internals";
+import {
+  isoTs,
+  json,
+  num,
+  numOrNull,
+  str,
+  strOrNull,
+  warnIfTruncated,
+  type Pglite,
+  type PgTransaction,
+} from "../internals";
 import { GENESIS_HASH, computeAuditRowHash } from "../ledger";
 
 const LINKED_TO = "linked_to";
@@ -22,6 +32,14 @@ function mapAuditRow(r: Record<string, unknown>): ReviewAuditRow {
     note: strOrNull(r.note),
     decidedAt: isoTs(r.decided_at) ?? "",
     priorState: strOrNull(r.prior_state),
+    // The chain columns were SELECTed (`select *`) and dropped here since the
+    // chain was written — so the one public surface of these rows (/dukazy)
+    // could not publish a single verifiable field. Passed through as-is:
+    // `null` for rows written before the chain existed, never a fabricated
+    // position. Nothing is recomputed and no verification runs on this path.
+    chainPos: numOrNull(r.chain_pos),
+    prevHash: strOrNull(r.prev_hash),
+    rowHash: strOrNull(r.row_hash),
   };
 }
 

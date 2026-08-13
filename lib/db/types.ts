@@ -219,6 +219,22 @@ export interface ReviewAuditRow {
   decidedAt: string;
   /** `review_state` the edge carried immediately before this decision (null if unset). */
   priorState: string | null;
+  /**
+   * The row's place in the tamper-evident append-only chain, and the two hashes
+   * that bind it there (`lib/db/pglite/ledger.ts`: `verifyAuditChain` walks
+   * chainPos ascending, checking prevHash linkage and recomputing rowHash).
+   *
+   * OPTIONAL BY DESIGN (2026-08-13): the columns exist since the chain was
+   * added and the SELECT already returned them, but rows written before it
+   * carry NULL in all three — a required field would force every reader to
+   * invent a position for them. A surface that publishes these must therefore
+   * be able to say „this row is not chained" rather than print a zero.
+   * Additive: every existing consumer (/admin, /zdroj, /denik, the review
+   * console) keeps compiling and rendering unchanged.
+   */
+  chainPos?: number | null;
+  prevHash?: string | null;
+  rowHash?: string | null;
 }
 
 /** The six universal criteria, scored 1–5, plus their mean. */
