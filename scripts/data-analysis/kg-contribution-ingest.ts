@@ -41,6 +41,7 @@ import {
   type ContributionInputs,
 } from "@/lib/analysis/contribution";
 import { isoDay } from "@/lib/analysis/money-feed";
+import { nextPass } from "@/lib/analysis/kg";
 import { emptyCounts, normalizeActivity, type ActivityCounts } from "@/lib/ingest/sources/psp-activity";
 import { getStore } from "@/lib/db/store";
 import type { KgNodeRow } from "@/lib/db/types";
@@ -145,11 +146,14 @@ async function main() {
   }
 
   const personNodeById = new Map(nodes.filter((n) => n.kind === "person").map((n) => [n.id, n]));
-  // NOT `Math.max(0, ...nodes.map(...))`: the spread pushes one argument per node onto the
-  // stack, and the live graph has ~153 700 of them — the script died with
-  // "Maximum call stack size exceeded" before it read a single score (found 2026-08-04
-  // while verifying the write guard below, i.e. this writer could not run at all).
-  const pass = Number(arg("pass")) || nodes.reduce((m, n) => Math.max(m, n.firstSeenPass), 0) + 1;
+  // `nextPass`, ne `Math.max(0, ...nodes.map(...))`: spread klade jeden argument na
+  // zásobník za každý řádek a živý graf jich má ~153 700 — skript umřel na
+  // "Maximum call stack size exceeded" dřív, než přečetl jediné skóre (nalezeno
+  // 2026-08-04 při ověřování zápisové záruky níž, tj. tenhle writer nešel spustit).
+  // Oprava byla nejdřív inline zrovna tady; od 2026-08-13 je to jedna sdílená čistá
+  // funkce, kterou volá všech sedm zapisovatelů — dvě kopie téhož pravidla jsou
+  // přesně to, jak se jedna z nich časem rozejde s druhou.
+  const pass = Number(arg("pass")) || nextPass(nodes);
   const computedAt = new Date().toISOString();
 
   const currentPersonIds = [...new Set(mandates.map((m) => m.personPspId))];
