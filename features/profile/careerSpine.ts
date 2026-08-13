@@ -155,6 +155,56 @@ export const termNumberOf = (termCode: string): number | null => {
   return m ? Number(m[1]) : null;
 };
 
+/**
+ * Roky do datového sloupce stuhy — JEDNO OKNO NA ŘÁDEK, ne dvě měření spojená
+ * pomlčkou.
+ *
+ * Do 2026-08-13 to bylo `mandateFrom ?? chamberFrom` – `mandateTo ?? chamberTo`
+ * uvnitř komponenty, takže se obě meze braly nezávisle a mlčky se míchaly:
+ *   • náhradník, který nastoupil v půlce období, dostal „2019–2021", kde 2019
+ *     je jeho a 2021 sněmovny — a nic to nepojmenovalo;
+ *   • konec potlačený jako nečitelný (`dateUnreadable`) si tiše půjčil rok
+ *     sněmovny, tedy datum, které se právě odmítlo vykreslit, nahradila cizí
+ *     hodnota.
+ *
+ * Pravidlo: osobní okno, dokud registr nese jeho ZAČÁTEK; jinak okno SNĚMOVNY,
+ * a to řádek pojmenuje. Chybějící konec se nedoplňuje odnikud — dostane vlastní
+ * větu („od {rok}, konec neuveden").
+ *
+ * Vrací TVAR, ne větu (idiom `verdictHeadlineKey` z /overeni): kterou větu na
+ * který tvar pověsit, ví katalog; co je z čeho odvozeno, ví tahle čistá funkce
+ * a drží to test.
+ */
+export type CareerYears =
+  /** Registr nenese ani osobní, ani sněmovní začátek — nic se netvrdí. */
+  | { kind: "unknown" }
+  /** OSOBNÍ okno, obě meze z něj. */
+  | { kind: "mandateRange"; from: string; to: string }
+  /** OSOBNÍ okno, mandát běží (běžící období + otevřený konec). */
+  | { kind: "mandateSince"; from: string }
+  /** OSOBNÍ okno, konec registr neuvádí (nebo je nečitelný) — nedoplňuje se. */
+  | { kind: "mandateFromOnly"; from: string }
+  /** SNĚMOVNÍ okno, obě meze z něj — a řádek to řekne. */
+  | { kind: "chamberRange"; from: string; to: string }
+  /** SNĚMOVNÍ okno, konec neuveden (běžící sněmovna) — a řádek to řekne. */
+  | { kind: "chamberSince"; from: string };
+
+const year = (day: string): string => day.slice(0, 4);
+
+export function careerYears(term: CareerTerm): CareerYears {
+  if (term.mandateFrom !== null) {
+    const from = year(term.mandateFrom);
+    if (term.openEnded) return { kind: "mandateSince", from };
+    if (term.mandateTo !== null) return { kind: "mandateRange", from, to: year(term.mandateTo) };
+    return { kind: "mandateFromOnly", from };
+  }
+  if (term.chamberFrom === null) return { kind: "unknown" };
+  const from = year(term.chamberFrom);
+  return term.chamberTo !== null
+    ? { kind: "chamberRange", from, to: year(term.chamberTo) }
+    : { kind: "chamberSince", from };
+}
+
 /** Datum smí být vykresleno jen v <PSP_ERA_FROM, asOf>; jinak null (a caller
  *  přizná `dateUnreadable`). Lexikografické porovnání jako plausible-date.ts. */
 const plausibleDay = (iso: string | null, asOf: string): string | null => {

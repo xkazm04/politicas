@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { deriveCareerSpine, PSP_ERA_FROM, type CareerSpineOptions } from "./careerSpine";
+import {
+  careerYears,
+  deriveCareerSpine,
+  PSP_ERA_FROM,
+  type CareerSpineOptions,
+  type CareerTerm,
+} from "./careerSpine";
 
 // Fixtury podle reálného tvaru registru (poslanci.zip, ověřeno 2026-07-30):
 // sněmovní organy PSP8–PSP10 s okny, mandáty bez dat, membership okna s časem.
@@ -292,5 +298,92 @@ describe("deriveCareerSpine — běžící období není totéž co stále slou�
   it("minulé období nikdy neslouží", () => {
     const spine = deriveCareerSpine(base());
     expect(spine.terms.filter((t) => !t.current).every((t) => t.serving === false)).toBe(true);
+  });
+});
+
+describe("careerYears — sloupec roků nemíchá dvě okna", () => {
+  const term = (over: Partial<CareerTerm> = {}): CareerTerm => ({
+    termCode: "PSP8",
+    termNumber: 8,
+    current: false,
+    serving: false,
+    chamberFrom: "2017-10-21",
+    chamberTo: "2021-10-20",
+    mandateFrom: "2017-10-21",
+    mandateTo: "2021-10-20",
+    openEnded: false,
+    stintCount: 1,
+    windowUnknown: false,
+    dateUnreadable: false,
+    region: null,
+    partyList: null,
+    coverage: "none",
+    ...over,
+  });
+
+  it("náhradník dostane VLASTNÍ začátek a přiznaný chybějící konec, ne konec sněmovny", () => {
+    // Proti staré podobě ČERVENÝ. `mandateTo ?? chamberTo` vyrobilo „2019–2021",
+    // kde 2019 je poslancovo a 2021 sněmovny — dvě různá měření spojená pomlčkou,
+    // aniž by se čtenář měl kde dozvědět, že jde o dvě.
+    expect(careerYears(term({ mandateFrom: "2019-06-01", mandateTo: null }))).toEqual({
+      kind: "mandateFromOnly",
+      from: "2019",
+    });
+  });
+
+  it("potlačený nečitelný konec se nenahradí rokem sněmovny", () => {
+    // `dateUnreadable` znamená, že se datum vykreslit ODMÍTLO. Půjčit si na jeho
+    // místo cizí hodnotu je horší než ho nevykreslit vůbec.
+    expect(
+      careerYears(term({ mandateTo: null, dateUnreadable: true })),
+    ).toEqual({ kind: "mandateFromOnly", from: "2017" });
+  });
+
+  it("bez osobního okna se kreslí okno SNĚMOVNY, a řádek to pojmenuje", () => {
+    expect(
+      careerYears(term({ mandateFrom: null, mandateTo: null, windowUnknown: true })),
+    ).toEqual({ kind: "chamberRange", from: "2017", to: "2021" });
+    expect(
+      careerYears(term({ mandateFrom: null, mandateTo: null, chamberTo: null, windowUnknown: true })),
+    ).toEqual({ kind: "chamberSince", from: "2017" });
+  });
+
+  it("běžící mandát je „od…“, uzavřený je rozsah, nic z toho není okno sněmovny", () => {
+    expect(
+      careerYears(term({ current: true, mandateTo: null, openEnded: true, chamberTo: null })),
+    ).toEqual({ kind: "mandateSince", from: "2017" });
+    expect(careerYears(term())).toEqual({ kind: "mandateRange", from: "2017", to: "2021" });
+  });
+
+  it("bez jediného čitelného začátku se netvrdí nic", () => {
+    expect(
+      careerYears(term({ mandateFrom: null, mandateTo: null, chamberFrom: null, chamberTo: null })),
+    ).toEqual({ kind: "unknown" });
+  });
+
+  it("INVARIANT: obě meze pocházejí vždy z JEDNOHO okna", () => {
+    // Tohle je celé pravidlo v jedné větě — a je to ta jediná vlastnost, kterou
+    // stará podoba porušovala. Roky se porovnávají proti oběma oknům termu:
+    // dvojice musí sedět celá na jedno okno, nikdy křížem.
+    const cases: CareerTerm[] = [
+      term(),
+      term({ mandateFrom: "2019-06-01", mandateTo: null }),
+      term({ mandateTo: null, dateUnreadable: true }),
+      term({ mandateFrom: null, mandateTo: null, windowUnknown: true }),
+      term({ mandateFrom: null, mandateTo: null, chamberTo: null, windowUnknown: true }),
+      term({ current: true, mandateTo: null, openEnded: true, chamberTo: null }),
+      term({ mandateFrom: "2019-06-01", mandateTo: "2020-01-31", chamberFrom: "2017-10-21" }),
+    ];
+    for (const c of cases) {
+      const y = careerYears(c);
+      if (!("to" in y)) continue;
+      const mandate = [c.mandateFrom?.slice(0, 4) ?? null, c.mandateTo?.slice(0, 4) ?? null];
+      const chamber = [c.chamberFrom?.slice(0, 4) ?? null, c.chamberTo?.slice(0, 4) ?? null];
+      const pair = [y.from, y.to];
+      const fromOneWindow =
+        (y.kind === "mandateRange" && pair[0] === mandate[0] && pair[1] === mandate[1]) ||
+        (y.kind === "chamberRange" && pair[0] === chamber[0] && pair[1] === chamber[1]);
+      expect(fromOneWindow, `${y.kind} ${pair.join("–")} mísí dvě okna`).toBe(true);
+    }
   });
 });

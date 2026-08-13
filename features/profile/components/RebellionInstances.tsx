@@ -1,11 +1,18 @@
 /*
- * Rebelie po jménech — instance pod mírou.
+ * Rebelie po jménech — ŽIVÁ derivace jmenovitých hlasování, ve kterých poslanec
+ * hlasoval proti linii vlastního klubu: datum, jak hlasoval on, jak stál klub,
+ * o čem se hlasovalo — a dvě adresy téhož hlasování (deník /hlasovani, když je
+ * v jeho okně, a veřejná stránka psp.cz vždy).
  *
- * Oddíl tiskl jen agregát („18,4 % · 47 z 255"), tedy jediné číslo na spisu,
- * které si čtenář nemohl otevřít. Tady jsou jmenovitá hlasování, ve kterých
- * poslanec hlasoval proti linii vlastního klubu: datum, jak hlasoval on, jak
- * stál klub, o čem se hlasovalo — a dvě adresy téhož hlasování (deník
- * /hlasovani, když je v jeho okně, a veřejná stránka psp.cz vždy).
+ * NENÍ TO ROZPAD MÍRY NAD TÍMHLE ODDÍLEM. Do 2026-08-13 to tady stálo jako
+ * „instance pod mírou" a stránka ta dvě čísla tiskla vedle sebe, jako by jedno
+ * bylo součet druhého. Míru zapsal dávkový průchod grafu (hrana
+ * `rebels_against`) jako snímek k jednomu dni; tenhle výpis je dnešní derivace
+ * hlasovacího záznamu, s jiným prahem (žádný — míra vzniká až od
+ * MIN_ELIGIBLE_VOTES), jiným jmenovatelem a jiným klíčováním (míra podle OSOBY,
+ * řádky podle klubu KAŽDÉHO hlasu). Že jsou to dvě různá měření, říká stránka
+ * vlastní větou (`profile.rebellionsAggregateNote`) — tenhle soubor si druhý
+ * výklad téhož rozporu nepořizuje.
  *
  * PRAVIDLA
  *  • Pravidlo rebelie se tu NEPOČÍTÁ. Řádky vydává táž derivace, ze které žije

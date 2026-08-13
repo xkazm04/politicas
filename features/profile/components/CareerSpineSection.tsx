@@ -19,7 +19,7 @@
 import type { Formatters } from "@/lib/format";
 import { profileIntl, type ProfileIntl } from "../serverIntl";
 import SourceNote from "@/features/shared/components/SourceNote";
-import type { CareerSpine, CareerTerm } from "../careerSpine";
+import { careerYears, type CareerSpine, type CareerTerm } from "../careerSpine";
 
 type T = ProfileIntl["t"];
 
@@ -28,30 +28,29 @@ const termTitle = (t: T, term: CareerTerm): string =>
   term.termNumber !== null ? t("careerTermTitle", { n: term.termNumber }) : term.termCode;
 
 /**
- * Roky do datového sloupce — OBĚ MEZE Z JEDNOHO ZDROJE.
- *
- * Do 2026-08-13 tu stálo `mandateFrom ?? chamberFrom` – `mandateTo ?? chamberTo`,
- * takže poslanec nastoupivší v půlce období (náhradník) dostal „2015–2017", kde
- * 2015 je jeho a 2017 sněmovny, a nic to neříkalo. A potlačený nečitelný konec
- * (`dateUnreadable`) si tiše půjčil rok sněmovny — tedy datum, které se právě
- * odmítlo vykreslit, nahradila cizí hodnota.
- *
- * Pravidlo: osobní okno, dokud ho registr nese; jinak okno SNĚMOVNY, a to řádek
- * pojmenuje. Chybějící konec osobního okna se nedoplňuje odnikud.
+ * Roky do datového sloupce. Které okno se kreslí a co z něj, ROZHODUJE ČISTÉ
+ * PRAVIDLO `careerYears()` (../careerSpine.ts) — tady se jen na jeho tvar věší
+ * věta z katalogu. Do 2026-08-13 to pravidlo bylo napsané uvnitř téhle
+ * komponenty jako `mandateFrom ?? chamberFrom` – `mandateTo ?? chamberTo`, tedy
+ * dvě nezávislé volby, které mlčky mísily osobní okno se sněmovním; v téhle
+ * repozitáři nemá jsdom co spustit, takže se to nedalo pojistit ničím.
  */
 const yearsOf = (t: T, term: CareerTerm): string => {
-  if (term.mandateFrom !== null) {
-    const from = term.mandateFrom.slice(0, 4);
-    if (term.openEnded) return t("careerYearsSince", { year: from });
-    if (term.mandateTo !== null) return `${from}–${term.mandateTo.slice(0, 4)}`;
-    return t("careerYearsFromOnly", { year: from });
+  const y = careerYears(term);
+  switch (y.kind) {
+    case "mandateSince":
+      return t("careerYearsSince", { year: y.from });
+    case "mandateRange":
+      return `${y.from}–${y.to}`;
+    case "mandateFromOnly":
+      return t("careerYearsFromOnly", { year: y.from });
+    case "chamberRange":
+      return t("careerYearsChamber", { from: y.from, to: y.to });
+    case "chamberSince":
+      return t("careerYearsChamberSince", { year: y.from });
+    case "unknown":
+      return "—";
   }
-  const chamberFrom = term.chamberFrom?.slice(0, 4) ?? null;
-  const chamberTo = term.chamberTo?.slice(0, 4) ?? null;
-  if (chamberFrom === null) return "—";
-  return chamberTo === null
-    ? t("careerYearsChamberSince", { year: chamberFrom })
-    : t("careerYearsChamber", { from: chamberFrom, to: chamberTo });
 };
 
 function TermRow({ term, t, f }: { term: CareerTerm; t: T; f: Formatters }) {

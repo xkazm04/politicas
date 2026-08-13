@@ -181,6 +181,54 @@ describe("profile message catalog", () => {
     expect(en.noRebellions).toMatch(/unmeasured/i);
   });
 
+  it("the club-deviation section says the two figures are two measurements", () => {
+    // The stored `rebels_against` aggregate and the live `RebellionInstances` derivation
+    // sat next to each other reading as one fact, and they diverge STRUCTURALLY: the
+    // aggregate is a batch snapshot (a new roll call grows the list and never touches the
+    // rate), it starts only at MIN_ELIGIBLE_VOTES while the chronicle has no floor at all,
+    // its denominator drops ballots whose mandate does not resolve to both a person and a
+    // club, and it is keyed by PERSON, so a club-switcher's whole record folds under his
+    // first-seen club. The page says so — in the `committeeCountNote` idiom, which is the
+    // sentence this page already owns for exactly this shape of disagreement.
+    for (const ns of [cs, en]) {
+      // The floor is INTERPOLATED from the constant, like `noRebellions`/`noAllies` — a
+      // typed „50" is a claim that stops tracking lib/analysis/kg.ts the day it moves.
+      expect(placeholders(ns.rebellionsAggregateNote)).toEqual(["minEligible"]);
+    }
+    expect(cs.rebellionsAggregateNote, "the cs note must call them two measurements").toMatch(
+      /dvě\s+různá\s+měření/i,
+    );
+    expect(en.rebellionsAggregateNote, "the en note must call them two measurements").toMatch(
+      /two\s+different\s+measurements/i,
+    );
+  });
+
+  it("the aggregate's citation names the pass it has, and never one it does not", () => {
+    // Four states of `summarizeRebellionProvenance`, four sentences. The one that matters
+    // is `Mixed`: rows that disagree DO carry a pass, so printing the „the edge names no
+    // pass" sentence over them is a false statement about the data — „nothing is recorded"
+    // and „we could not agree" are two findings (the `indexPassMixed` rule, applied to the
+    // edge instead of the node).
+    for (const ns of [cs, en]) {
+      expect(placeholders(ns.rebellionsAggregateSource).sort()).toEqual(["date", "pass", "ref"]);
+      expect(placeholders(ns.rebellionsAggregateSourceUndated).sort()).toEqual(["pass", "ref"]);
+      expect(placeholders(ns.rebellionsAggregateSourceMixed)).toEqual(["count"]);
+      // No pass, no ref, no day — so no placeholder either; a bare zero here would be a
+      // fabricated pass number.
+      expect(placeholders(ns.rebellionsAggregateSourceUnknown)).toEqual([]);
+      const four = [
+        ns.rebellionsAggregateSource,
+        ns.rebellionsAggregateSourceUndated,
+        ns.rebellionsAggregateSourceMixed,
+        ns.rebellionsAggregateSourceUnknown,
+      ];
+      expect(new Set(four).size, "four states must not collapse into fewer sentences").toBe(4);
+      // Each of the four cites the DATASET, which is the half the old aside („graf
+      // rebels-against · odchylky od klubu") already had and the half it was missing.
+      for (const v of four) expect(v).toMatch(/rebels-against/);
+    }
+  });
+
   it("a store outage and a non-existent MP get different metadata", () => {
     // `generateMetadata` used to answer „spis nenalezen" for BOTH — so an unreadable
     // graph published a claim about a person to crawlers and share cards. The page

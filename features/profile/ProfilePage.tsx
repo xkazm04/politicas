@@ -31,6 +31,7 @@
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import type { ProfileData } from "./getProfileData";
+import { summarizeRebellionProvenance } from "./rebellionProvenance";
 import { profileIntl } from "./serverIntl";
 import { ComponentBar, HeaderReveal } from "@/features/profile/components/MotionIslands";
 import AnimatedScore from "@/features/shared/components/AnimatedScore";
@@ -111,19 +112,14 @@ export default async function ProfilePage({
    * PŮVOD AGREGÁTU ODCHYLEK. Hrana `rebels_against` nese vlastní `provenance`
    * {pass, ref, computedAt} a spis ji dosud nikde netiskl — jediná citace toho
    * oddílu jmenovala datovou sadu bez průchodu a bez data, zatímco jmenovité
-   * rebelie pod ní nesou plnou datovanou citaci. Tiskne se JEN tehdy, když se
-   * všechny řádky shodnou na jednom původu: dva ročníky pod jednou větou by
-   * byly horší než přiznané „průchod hrana neuvádí" (týž zápis jako
-   * `indexPassMixed` u skóre).
+   * rebelie pod ní nesou plnou datovanou citaci.
+   *
+   * Pravidlo je ČISTÉ a testované (./rebellionProvenance.ts) se třemi stavy a
+   * třemi větami: jeden zápis (datovaný / bez data) · rozejité řádky · žádný
+   * zápis. Neshoda se nesmí tisknout jako mezera — týž zápis jako
+   * `indexPassMixed` u skóre.
    */
-  const aggregateProvenance = ((): { pass: number | null; ref: string | null; computedAt: string | null } | null => {
-    const [head, ...tail] = rebellions;
-    if (head === undefined) return null;
-    const uniform = tail.every(
-      (r) => r.pass === head.pass && r.ref === head.ref && r.computedAt === head.computedAt,
-    );
-    return uniform ? { pass: head.pass, ref: head.ref, computedAt: head.computedAt } : null;
-  })();
+  const aggregateProvenance = summarizeRebellionProvenance(rebellions);
 
   const dossier: DossierContent = {
     publicRole: person.effortPublicRole,
@@ -574,7 +570,7 @@ export default async function ProfilePage({
                 {t("rebellionsAggregateNote", { minEligible: f.int(MIN_ELIGIBLE_VOTES) })}
               </p>
               <SourceNote className="mt-3 !text-[10px]">
-                {aggregateProvenance !== null && aggregateProvenance.pass !== null && aggregateProvenance.ref !== null
+                {aggregateProvenance.state === "uniform"
                   ? aggregateProvenance.computedAt !== null
                     ? t("rebellionsAggregateSource", {
                         pass: f.int(aggregateProvenance.pass),
@@ -585,7 +581,11 @@ export default async function ProfilePage({
                         pass: f.int(aggregateProvenance.pass),
                         ref: aggregateProvenance.ref,
                       })
-                  : t("rebellionsAggregateSourceUnknown")}
+                  : aggregateProvenance.state === "mixed"
+                    ? t("rebellionsAggregateSourceMixed", {
+                        count: f.int(aggregateProvenance.distinctCount),
+                      })
+                    : t("rebellionsAggregateSourceUnknown")}
               </SourceNote>
             </>
           )}
