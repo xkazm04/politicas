@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 
 /*
  * ROBOTS — the crawler-facing half of "internal" .
@@ -29,7 +30,28 @@ import type { MetadataRoute } from "next";
  */
 export const DISALLOWED_PATHS = ["/penize/kontrola", "/rentgen", "/admin"] as const;
 
-export default function robots(): MetadataRoute.Robots {
+/*
+ * SITEMAPA (2026-08-13). Tenhle soubor a `app/sitemap.ts` vznikly jako dvojice —
+ * sitemapa si odsud importuje `DISALLOWED_PATHS`, aby jedno místo rozhodovalo,
+ * co je veřejné — jenže robots.txt adresu sitemapy NEVYPISOVAL. Robots.txt je
+ * standardní místo, kde ji crawler hledá bez toho, aby se ji musel dohadovat;
+ * bez řádku `Sitemap:` čekala celá evidenční polovina platformy na náhodný
+ * proklik přesně tak, jak to popisuje hlavička sitemapy.
+ *
+ * ZÁKLAD ADRESY se čte z hlaviček requestu — týž precedens jako `app/sitemap.ts`
+ * a všechny čtyři feedy: v dev čestně localhost, v nasazení skutečný host,
+ * NIKDY vymyšlená doména. Řádek `Sitemap:` přitom musí být ABSOLUTNÍ URL; bez
+ * hostitele se proto nevypíše vůbec, místo aby se doména uhodla. Čtení hlaviček
+ * dělá z robots.txt dynamickou routu — stejně jako u sitemapy, a ze stejného
+ * důvodu.
+ */
+export const dynamic = "force-dynamic";
+
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const h = await headers();
+  const host = h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? "http";
+
   return {
     rules: [
       {
@@ -38,5 +60,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [...DISALLOWED_PATHS],
       },
     ],
+    ...(host ? { sitemap: `${proto}://${host}/sitemap.xml` } : {}),
   };
 }

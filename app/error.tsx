@@ -11,6 +11,15 @@
  * (lib/db/loaderGuard.ts). Bez NEXT_PUBLIC_SENTRY_DSN se Sentry vůbec
  * neinicializuje a captureException je tichý no-op.
  *
+ * A PRÁVĚ PROTO tahle plocha do 2026-08-13 lhala. `errors.route.body` končilo
+ * větou „Hlášení jsme odeslali." (en „A report has been sent.") — tvrzení,
+ * které v tomhle repozitáři neplatí NIKDY: DSN tu není nastavené, takže se
+ * neodeslalo nic. Hlavička nad tímhle odstavcem to popisovala správně už
+ * tehdy; uživateli se to neřeklo. Věta je pryč a na její místo nastoupil
+ * `digestNote`: identifikátor pádu je to JEDINÉ, co čtenář opravdu má, a
+ * platí to stejně s DSN i bez něj. Podmiňovat copy na env by znamenalo mít dvě
+ * verze pravdy a testovat tu, která zrovna neběží.
+ *
  * Poctivost: tahle plocha NIC netvrdí o datech. Chyba vykreslování není totéž
  * co „záznam neexistuje" (404) ani „zdroj je dočasně nedostupný"
  * (features/shared/components/DataUnavailable.tsx) — a nesmí se za ně vydávat.
@@ -49,11 +58,18 @@ export default function RouteError({
         <div className="mt-4 max-w-md">
           <SectionRule />
         </div>
-        <p className="mt-6 text-base leading-relaxed text-steel">{t("route.body")}</p>
+        {/* `steel-aa` (4,90:1), ne `steel` (4,11:1): tenhle odstavec je drobný
+            text pod prahem 18,66 px, takže na něj WCAG AA klade 4,5:1. */}
+        <p className="mt-6 text-base leading-relaxed text-steel-aa">{t("route.body")}</p>
         {error.digest ? (
-          <p className="mt-4 font-mono text-[11px] uppercase tracking-widest text-steel">
-            {t("route.digestLabel")} <span className="text-ink">{error.digest}</span>
-          </p>
+          <>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
+              {t("route.digestLabel")} <span className="text-ink">{error.digest}</span>
+            </p>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-steel-aa">
+              {t("route.digestNote")}
+            </p>
+          </>
         ) : null}
         <div className="mt-8 flex flex-wrap gap-3">
           <button
