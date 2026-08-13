@@ -1,6 +1,6 @@
 ---
 name: kg-has-no-source-urls
-description: kg_node/kg_edge store provenance but no external URLs — official-source links are rebuilt from stable ids in lib/kg/sourceLinks.ts.
+description: provenance ≠ citation — links are rebuilt from stable ids in lib/kg/sourceLinks.ts, EXCEPT contract and notice nodes, which store their own canonical URL in props (sourceUrl / postingId).
 metadata: 
   node_type: memory
   type: project

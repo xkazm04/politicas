@@ -801,6 +801,36 @@ Route map (politicas.md roadmap execution, sample data):
   pins the wiring by source-grep with the jsdom gap stated in its header, and
   **51 source mutations were run against it, 51 caught**; two assertions passed
   their own falsification, were therefore too loose, and were tightened.
+  **The record says how many votes were needed (2026-08-13).** `vote_event` has
+  carried `quorum` and `present` since the first migration — ingested
+  (`lib/ingest/sources/psp.ts:331-332`), stored, mapped, quality-scored — and the
+  ONE projection into the product, `toEventIn()` in `ledgerRead.ts`, dropped
+  both, in a doc comment that calls itself *„the only place in the application
+  where `vote_event` columns are read"*. Measured over `hl-2021ps.zip` (9 016
+  roll calls): **0 nulls in either column**, `quorum === floor(present/2)+1` for
+  8 984 — and the **32 exceptions carry quorum 101 (31×) and 120 (1×)**, i.e.
+  absolute- and constitutional-majority votes, **which no other stored column can
+  reconstruct**. `features/votetrack/record/threshold.ts` is the pure rule and
+  holds five: source columns pass through LITERALLY including `null`; the
+  threshold is **never derived from `present`** (a `quorum ?? simpleMajority`
+  fallback would make „the threshold is not a simple majority" a definitional
+  impossibility — falsified directly by test); the margin rests on the published
+  „pro" and the published threshold, i.e. two columns of the SAME row, so our
+  406 000-ballot recount never enters it (that comparison is `reconcile.ts`'s
+  job); `differs` has THREE states, because „not assessed" is not „does not
+  differ"; and a differing threshold is **a fact, not a legal category** — the
+  page prints what the simple majority would have been and names no statute.
+  The finding carries its population (`coverage.withoutQuorum` /
+  `.thresholdComparable` / `.thresholdDiffers`, counted over `valid`, not over
+  the 48-row window — the exceptions are ~0,35 % of the corpus, so a reader would
+  otherwise never meet one). `present` is the chamber's figure for that roll
+  call and the copy forecloses reading it as an MP's attendance. Wire ruling:
+  `LedgerVote.threshold` ships (5 040 B raw / ~136 B gz over the window, all of
+  it drawn) and `voteIndex` is untouched — the kompas needs no threshold;
+  `chronicleCap.test.ts` carries the explicit written ruling that both new
+  locations ride INSIDE `ledger`/`coverage`, so the pinned whole-type list is
+  unchanged, with fixtures given an ALTERNATING threshold so the assertion has
+  something to fail on.
 - `/penize` — **FollowTheMoney** (features/money): the Rentgen money-graph's
   production home, translated to Konstrukt — entity-trail graph (hover lights
   edges), kniha vazeb grouped by MP with verified/pending-review states, and
@@ -1234,6 +1264,48 @@ Route map (politicas.md roadmap execution, sample data):
   satisfy nor break a test. **Write semantics in `review.ts` / `reviewActions.ts`
   are untouched**, and the ~95 hardcoded Czech literals in that file remain a
   DEFERRED direction, deliberately sequenced after this fix.
+  **Every CZK total said which tax base it was (2026-08-13).** The contract
+  register publishes a contract's value on TWO bases — `hodnotaBezDph` and
+  `hodnotaVcetneDph` — and `lib/ingest/sources/smlouvy-dump.ts:31-34` says so in
+  its own header: *„They are NOT summable with each other, and a CZK total that
+  mixes them is wrong."* The harvest collapses them into one `amount` but
+  RECORDS which it used, on the contract node and on **every `supplies` edge**
+  (`props.amountBasis`). `grep -rn "amountBasis" features/ app/ messages/`
+  returned **zero**: the ledger's reach column, the case-file tiles, the company
+  headline and the spis's money section all silently mixed **82 918 bezDph ·
+  36 580 vcetneDph · 2 959 ciziMena** (`graph-log.md:950-951`) — the deepest
+  brand-rule violation in the tree, since it is not a missing citation but an
+  arithmetic the source itself calls invalid. `features/money/amountBasis.ts` is
+  the pure projection (counts ROWS, never CZK; returns message keys, the
+  `verdict.ts` pattern) and `components/BasisDisclosure.tsx` the ONE sentence
+  four surfaces share. **Disclosure, never repair** — no VAT rate is stored, so
+  converting would invent money (the `plausible-date.ts` precedent); **not one
+  CZK moved**, pinned by a test that re-implements the pre-change fold and
+  asserts `czk`/`count`/`amounts` identical with `Object.is` plus a float-ORDER
+  guard. **Zero new store reads**, proven not asserted: `moneyLoader.ts`'s 14
+  `store.*` call sites are byte-identical to `3119ef0` and both edge readers run
+  `select *`, so the basis was already in hand and the fold discarded it.
+  `none` („the register published no value") and `unrecorded` („the edge predates
+  the field") stay two claims in the DATA and merge only inside one sentence; an
+  unrecognised token becomes `unrecorded`, never a VAT side. The composition
+  rides `MoneyTieDetail` + `MoneyStats` and deliberately NOT `MoneyTie` — that
+  would need a `TIE_WIRE` classification and ship bytes to 211 ledger rows that
+  draw nothing (so the ledger discloses once above the table, over
+  `reachableMoney`'s own de-duplicated population).
+  **And „100 %" stopped posing as a registry figure.** The ownership block
+  typeset a stake that no registry published: `dataor-ownership-chains.ts:177`
+  derives it as `/jedin[ýá]/i.test(role)` — **a regex on one Czech word in a
+  free-text role label** — while the real `stakePct` in `lib/ingest/sources/
+  dataor.ts` is dead (both construction sites write `null`). It carries **33 of
+  33** `owns_stake` edges, so the whole block rested on that word.
+  `classifyShare()` splits `sole-owner-role` from `published` (a value the regex
+  could not have produced) from `null`: the derived case renders a sole-owner
+  STATEMENT with the role wording beside it as evidence, a published percentage
+  is NOT downgraded, and an absent share stays absent — never „0 %". The
+  genuinely measured `owner_stake_pct` on `linked_to` (ARES VR,
+  `reconcile-ares-vr.ts:156`) is untouched. Recorded follow-up: the writer script
+  should import `SOLE_OWNER_ROLE_RE` (the `classifyTie` precedent) so reader and
+  writer cannot drift.
 - `/zebricek` — **CivicScore** (features/civicscore): leaderboard — score
   histogram + chamber summary, party filter + name search, mini
   weighted-breakdown bars per row, and Souboj (pick two via "vs" → mirrored
@@ -1832,6 +1904,35 @@ Route map (politicas.md roadmap execution, sample data):
   `totalLaws` (293, every law node — a different population) reconciled it.
   `data.pass ?? "?"` paths render the no-pass sentence pattern; dead
   `lawwatch.back` deleted.
+  **A committee step nobody labelled stopped rendering as „navrženo"
+  (2026-08-13).** The defect sat on BOTH sides. In the parser,
+  `STATUS_BY_TYP[…] ?? "navrzeno"` turned an unknown or NULL `hist_vybory.typ`
+  into the weakest REAL status — and the code space is provably open, the dump
+  carrying a `typ = 4` no constant covers — against the house doctrine
+  (`packages/czech-civic-data/src/normalize.ts`: an unknown code maps to an
+  explicit „unknown", never to a guess). In the READER,
+  `getLawData.ts` did `asStr(p.status) ?? "navrzeno"`, so an `assigned_to` edge
+  written by an older pass with no `status` still rendered the claim; fixing only
+  the parser would have left that half running over the corpus already in the
+  graph. `unknown` is now a fourth FULL token — in `COMMITTEE_STATUS_KEYS` with
+  a sentence in both catalogs, so the reader gets „krok zdroj neoznačil" rather
+  than a bare token, while a token OUTSIDE that set still renders verbatim (the
+  `tieFlags.ts` doctrine). Same pass, same parser: the committee date stopped
+  being decided by dump ROW ORDER (`rank >= prev.rank` let the LAST row at the
+  strongest status win — 180 tied pairs, 175 resolving to different dates, **1
+  live in PSP10: tisk 43204 → organ 1772, 2026-02-03 vs 2026-02-12**, and that
+  is the date /denik prints), and **a weaker step's date is no longer lent to a
+  stronger status** — an undated strongest status now yields no date, because
+  „přikázáno · <the day it was merely proposed>" is a false sentence the
+  consumer renders side by side. And `parseBillFates` stopped minting a Sbírka
+  citation from anything regex-shaped: `zaver_publik = "28.08.0202"` would have
+  published `sb: "88/0202"`. It now goes through the ONE boundary
+  (`lib/analysis/plausible-date.ts`, imported, never forked) bounded ABOVE by
+  the dump's own `retrievedOn` rather than „now" (the `SUPPLIERS_RETRIEVED_ON`
+  precedent), refuses calendar-invalid dates a lexicographic range check would
+  pass (`32.13.2025`), keeps the row and its `stav`, and COUNTS the refusals
+  into `BillFate.refusedPublications` — a silent refusal is the same defect as
+  a silent guess.
 - `/denik` — **Deník republiky** (features/denik): the chronological daily
   record of the state — signed contracts of firms MPs own/run, committee
   assignments, Sbírka publication, registry role starts/ends, human-gate
@@ -2285,6 +2386,53 @@ Route map (politicas.md roadmap execution, sample data):
   through GraphStage's single label engine. Node click opens provenance and
   registry deep-links from stable ids (`lib/kg/sourceLinks.ts`). Sizing
   ground truth: `docs/data-analysis/graph-explorer-scale.md`.
+  **The citation points at itself, and an outage stops reading as an empty
+  graph (2026-08-13).** `sourceLinks.ts` builds what the product prints as a
+  CITATION beside claims about named people and firms — and it becomes the
+  permalink card's schema.org `isBasedOn`. Four defects fell, three of them the
+  `detail`/`search` merge the module's own header forbids. **Contract nodes
+  STORE their canonical registry URL** (`props.sourceUrl`, the dump's own
+  `<odkaz>`, written by `persist-contract-harvest.ts:145`) and the builder threw
+  it away, so ~153 k contracts cited a query about their SUPPLIER instead of
+  themselves; the address is now read from the stored field, never
+  reconstructed (`/smlouva/<n>` is `idVerze`, the node is keyed on `idSmlouvy`
+  — `memory/registr-smluv-token-free-access.md`), and a stored value that is
+  not an absolute http(s) URL is refused rather than rendered. ARES `?ico=` and
+  `or.justice.cz/rejstrik-$firma?ico=` are demoted from `detail` to `search`
+  (**the URLs are unchanged — with no network the honest fix is to correct the
+  CLAIM, not invent a path**), and a `hlidacstatu.cz` address stopped being
+  labelled „Registr smluv": new Rule 3 in the header says `registry` must name
+  the host actually linked, because that field is typeset literally.
+  `citableId` stopped fabricating public numbers — a bill with no `props.cislo`
+  printed `sn. tisk 43111`, the internal node-id suffix `app/zakony/[cislo]/
+  page.tsx:8-10` explicitly forbids, and an organ printed `psp id <n>`
+  indistinguishable from a person's. **A refuted premise died with them**: the
+  code comment AND `memory/kg-has-no-source-urls.md` both said ingest does not
+  carry the notice URL onto the node; it does, on **20/20** notice nodes as
+  `props.postingId`, so vývěsky now cite themselves. Recorded, not fixed:
+  `TERM_NUMBER = 10` is hardcoded into the tisk address while bill nodes carry
+  no term field, so after the next term's ingest those citations return a LIVE
+  psp.cz page about a DIFFERENT bill — not a 404; the fix is a `term` prop at
+  ingest.
+  Beside it, `graphLoader.ts` had **zero** `reportLoaderFailure` calls across
+  its degradation paths while `eslint.config.mjs` excluded `features/graph/**`
+  from `custom/no-silent-null-catch` — the rule written to catch exactly that —
+  „until the in-flight round-4 rework lands", which it never did. The ADR
+  counted four sites; there are **nine** (four early `return null` paths logged
+  nothing at all). Worse than the missing log line: `graphIndex()` did
+  `indexPromise ??= buildIndex()`, so a **null was memoised for the whole
+  process lifetime** — one unlucky boot served an empty `/graf` until restart,
+  and an empty canvas reads as a REAL empty graph, on the surface whose subject
+  is what the record contains. `memoNonNull()` memoises success only (the
+  `open()` / moneyLoader doctrine: neither an empty read nor a failure is
+  cached), the exclusion is deleted with no suppressions, and
+  `lib/testing/loaders.test.ts` — which PINNED the gap as the contract —
+  asserts the new one instead. **A genuinely missing node still leaves no
+  trace, deliberately**: filing a vanished node as an outage is how people stop
+  noticing outages. `import "server-only"` joined it in the same pass, retiring
+  the header's false „`server-only` v projektu není" (it is in `package.json`
+  and `features/admin/getTripwireData.ts` imports it) — the boundary now fails
+  at build time, not at runtime.
 - `/overeni` — **Ověření citace / Civic Claim Gate** (features/overeni): paste a
   politicas address (receipt `/zdroj/…`, graph citation `/graf/p/…`, velín
   exhibit, claim-ref or a copied `data-claim-*` element) and the gate re-derives
@@ -2510,6 +2658,54 @@ Route map (politicas.md roadmap execution, sample data):
   requested now. Honest carry-over: for `cesta`/`trasa` the sources still fall back to
   all four registries — narrowing by node kind needs `PermalinkPage.tsx` to adopt the
   same rule, and shipping half of it would have put two rules on one citation.
+
+- **The graph writers stopped being able to erase each other (2026-08-13).**
+  Not a route, but it protects every one of them. `upsertKgNodes` does
+  `props = excluded.props` — a WHOLESALE REPLACE — and four writers adopted an
+  explicit read-merge because of it, while `memory/kg-upsert-replaces-props.md`
+  named `kg-legislation-ingest.ts` and **not `kg-compute.ts`**, the area's own
+  declared entry point, which built each node's props from scratch. So
+  `npm run da:kg-compute --commit` erased the whole effort layer from all 207
+  MPs (`contribution_score`, `participation_rate`, `absence_rate`,
+  `speech_turns`, `interpellations`, `bills_authored`, `absentee_manager_lead`,
+  `contribution_psp9`, `effort_tenure_class` — every one of them read by a live
+  loader), and with `--reset` it called `clearKg()`, deleting ~154 k nodes /
+  ~178 k edges and rebuilding ~1 k, taking /penize, /zakony, /denik and /graf
+  dark. **And the vault instructed exactly that**: `docs/data-analysis/
+  frontier.md` F5, status `open`, prescribed `--commit --reset` as routine
+  maintenance, with a second copy of the same instruction in
+  `.claude/skills/knowledge-graph/SKILL.md`. Both corrected.
+  `mergeComputedNodeProps` (pure, in `lib/analysis/kg.ts`) matches the four
+  siblings' idiom rather than inventing a fifth, and carries `firstSeenPass`
+  through from the stored node — a `--pass=50` re-run used to re-stamp all ~250
+  creation stamps. `provenance` IS re-stamped, deliberately: it dates the
+  numbers in `props`, and freezing it at pass 1 beside a fresh `rebellion_rate`
+  would be a false vintage. `guardKgReset` compares what the store **actually
+  holds** against what the run **actually emits** — never a hardcoded list, so
+  a kind or relation added by a future pass is protected the day it lands — and
+  it names the casualties (including rows of a rebuilt kind the run will not
+  re-emit: a departed MP, an emptied committee), refuses, and prints the verdict
+  on every dry run; `--supersede` is the deliberate override
+  (`kg-contribution-ingest`'s precedent). Same family: `kg-promote.ts` had
+  guarded EDGES since 2026-07-24 and left NODES open, so a verdict declaring
+  `psp:person:6790` passed the shared `KG_NODE_KINDS` enum and would have
+  replaced that MP's whole enrichment layer with one `{rationale}` string;
+  `CASE_OWNED_NODE_KINDS` is derived as **the enum minus `bloc`/`theme`** (the
+  only kinds this path has ever legitimately written), so a kind added to the
+  enum is refused by default, and a refused node never joins `kgResident` so no
+  edge can come to rest on it. Also: `Math.max(0, ...nodes.map(…))` — the spread
+  that throws `RangeError` on ~154 k arguments, fixed once in 2026-08 and left
+  live in **six** siblings, each therefore working ONLY when the operator passed
+  `--pass=N` and dying on the bare invocation its own header documents — is now
+  the single `nextPass()` reduce, read by all **seven** writers. And
+  `lib/civic/stateGraph.ts` stopped minting `/poslanec/<slug>` over the sample's
+  invented ids (`novakova-p`), which `notFound()`s — precisely when the sample
+  is drawn, i.e. when the store is down; its other nodes already pointed at
+  module indexes and the person now points at `/zebricek`. `stateGraph.test.ts`
+  had **zero** href assertions while `stateSlice.test.ts` pins them, so
+  CLAUDE.md's claim that both builders are held to the same invariants was
+  false; two tests close it (every sample href is a module index; none carries a
+  node id).
 
 All five politicas.md modules now have surfaces. **Update 2026-07-24 — four
 surfaces are wired to the real knowledge graph** (`kg_node`/`kg_edge`, embedded
