@@ -123,7 +123,13 @@ export function buildStateGraph(): StateGraph {
       kind: "person",
       mpId: mp.id,
       band: "spine",
-      href: `/poslanec/${mp.id}`,
+      // ÚMYSLNĚ plocha modulu, ne `/poslanec/<id>`: `MPS` nese vymyšlené slugy
+      // („novakova-p"), takže spis by končil na notFound() — a to zrovna ve
+      // chvíli, kdy je graf vzorkový, tedy když store neodpovídá. Ostatní uzly
+      // tady míří na indexy (`/penize`, `/hlasovani`, `/zakony`) ze stejného
+      // důvodu; index spisů JE žebříček. Vzorek nesmí razit adresu entity —
+      // táž zásada, jakou features/dashboard/entityLinks.ts vynucuje tvarem.
+      href: "/zebricek",
       x: 13,
       // Spodní mez je 91, ne 94: pod uzlem visí ještě podtitul a stranický
       // čip, které by se u posledního řádku ořízly o spodní hranu viewBoxu.

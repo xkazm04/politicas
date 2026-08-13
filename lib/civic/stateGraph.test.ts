@@ -134,3 +134,41 @@ describe("neighbourhood a degreeOf", () => {
     expect(degreeOf(personId("hruska-k"), graph.edges)).toBe(5);
   });
 });
+
+describe("vzorek nerazí adresu entity", () => {
+  // Protějšek k features/dashboard/stateSlice.test.ts („odkazy vedou na reálné
+  // cíle"). Ten pin drží REÁLNÝ výřez; tady se drží ta opačná — a stejně
+  // důležitá — půlka: vzorkový graf nesmí nabídnout adresu konkrétní entity,
+  // protože jeho ids jsou vymyšlená. Vzorek se kreslí právě tehdy, když je
+  // store nedostupný, takže mrtvý odkaz by dopadl na čtenáře v tu nejhorší
+  // chvíli. StateGraphCanvas navíc `href` vykresluje BEZ `rule` brány (na
+  // rozdíl od deníku a sledování hned vedle), takže tenhle test je jediné
+  // místo, kde se to dá uhlídat.
+  const MODULE_INDEXES = new Set([
+    "/zebricek",
+    "/penize",
+    "/hlasovani",
+    "/zakony",
+  ]);
+
+  it("každý odkaz míří na plochu modulu, žádný na konkrétní entitu", () => {
+    const graph = buildStateGraph();
+    const hrefs = graph.nodes.map((n) => n.href).filter((h): h is string => Boolean(h));
+    expect(hrefs.length).toBeGreaterThan(0);
+    for (const href of hrefs) {
+      expect(MODULE_INDEXES.has(href)).toBe(true);
+    }
+  });
+
+  it("žádný odkaz nenese id vzorkového uzlu — /poslanec/<slug> by skončil na notFound()", () => {
+    const graph = buildStateGraph();
+    for (const n of graph.nodes) {
+      if (!n.href) continue;
+      // Segment navíc za plochou modulu = adresa entity.
+      expect(n.href.split("/").filter(Boolean)).toHaveLength(1);
+      if (n.kind === "person" && "mpId" in n && n.mpId) {
+        expect(n.href).not.toContain(n.mpId);
+      }
+    }
+  });
+});
