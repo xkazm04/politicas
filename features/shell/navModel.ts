@@ -37,11 +37,32 @@ export interface NavChild {
 }
 
 export interface NavEntry {
-  /** `overview`, klíč modulu z MODULES, nebo klíč řádku mimo moduly (schranka, zaznam). */
+  /** `overview`, klíč modulu, nebo klíč řádku mimo moduly (schranka, zaznam). */
   key: string;
   href: string;
-  /** Pro velín a řádky mimo katalog modulů; moduly nesou jméno značky z MODULES. */
+  /** Pro velín a řádky mimo katalog modulů; moduly nesou `brandName`. */
   labelKey?: string;
+  /**
+   * Jméno modulu jako ZNAČKA. Není to klíč do katalogu a schválně:
+   * „CivicScore" se nepřekládá, takže by v `messages/{cs,en}.json` stálo
+   * dvakrát totéž a první překladatel by jedno z nich lokalizoval.
+   *
+   * Do 2026-08-13 se tahle pětice jmen tahala z `MODULES` v `lib/civic/data.ts`
+   * — jediným výrazem v `sidebarParts.tsx`, který ale importoval CELÝ ukázkový
+   * katalog do chunku sdíleného každou routou aplikace: vymyšlení čeští lidé
+   * („Petra Nováková", „Karel Hruška"), vymyšlené firmy s vymyšlenými IČO
+   * („Silnice MSK a.s." / 258 41 991) a „2,1 mld Kč" cestovaly ke KAŽDÉMU
+   * čtenáři na 42 ze 42 rout, včetně těch, které lištu vůbec nekreslí (/graf,
+   * /admin, /rentgen) a obou právních dokumentů. V aplikaci, jejíž věcí je
+   * rozeznat doložené od vymyšleného, to byl 14 615B mock v parse cestě
+   * každého návštěvníka.
+   *
+   * Model navigace UŽ seznam modulů vlastní (klíč, adresu, podstránky), takže
+   * jméno patří sem — třetí soubor by byl třetí deklarace identity modulu.
+   * Řádky mimo katalog modulů (velín, schránka, záznam) `brandName` nemají;
+   * ty mluví z katalogu přes `labelKey`.
+   */
+  brandName?: string;
   /** Podtitulek řádku pro řádky s labelKey mimo moduly (moduly ho berou z katalogu obsahu). */
   tagKey?: string;
   children: NavChild[];
@@ -79,6 +100,7 @@ export const NAV: NavEntry[] = [
   {
     key: "civic-score",
     href: "/zebricek",
+    brandName: "CivicScore",
     children: [
       { href: "/kraj", labelKey: "nav.children.kraj" },
       // Metodika indexu (2026-08-04) — vzorec vykreslený z lib/analysis/contribution.ts.
@@ -89,11 +111,13 @@ export const NAV: NavEntry[] = [
   {
     key: "vote-track",
     href: "/hlasovani",
+    brandName: "VoteTrack",
     children: [{ href: "/kompas", labelKey: "nav.children.kompas" }],
   },
   {
     key: "follow-the-money",
     href: "/penize",
+    brandName: "FollowTheMoney",
     children: [
       { href: "/penize/kauzy", labelKey: "nav.children.kauzy" },
       // /penize/kontrola se z veřejné navigace VĚDOMĚ nevypisuje (právní
@@ -103,10 +127,11 @@ export const NAV: NavEntry[] = [
       { href: "/penize/strety", labelKey: "nav.children.strety" },
     ],
   },
-  { key: "budget-mirror", href: "/rozpocty", children: [] },
+  { key: "budget-mirror", href: "/rozpocty", brandName: "BudgetMirror", children: [] },
   {
     key: "law-watch",
     href: "/zakony",
+    brandName: "LawWatch",
     children: [
       { href: "/zakony/kolize", labelKey: "nav.children.kolize" },
       { href: "/zakony/predpis", labelKey: "nav.children.predpis" },

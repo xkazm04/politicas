@@ -16,12 +16,17 @@
  * chromu nečte. To by neuhlídal ani jeden test nad překlady samotnými.
  */
 
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
+import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import csCatalog from "@/messages/cs.json";
 import enCatalog from "@/messages/en.json";
+// Ukázkový katalog se sem importuje SCHVÁLNĚ a jen sem: test je jediné místo,
+// které smí obě strany porovnat, protože se nikam neodesílá. Kdyby ho zase
+// začal importovat chrom, spadne test níž.
+import { MODULES } from "@/lib/civic/data";
 import { NAV } from "./navModel";
 
 const read = (rel: string) => readFileSync(fileURLToPath(new URL(rel, import.meta.url)), "utf8");
@@ -90,5 +95,76 @@ describe("rail nevypisuje vymyšlené číslo", () => {
       expect(read(file), file).toContain("<SchrankaBadge />");
     }
     expect(NAV.some((e) => e.key === "schranka")).toBe(true);
+  });
+});
+
+/*
+ * A NEVOZÍ ANI VYMYŠLENÉ LIDI (2026-08-13).
+ *
+ * Vypsané metriky padly výš; ODESÍLANÁ polovina téhož problému přežila o dva
+ * dny déle. `sidebarParts.tsx` importovalo `MODULES` z `lib/civic/data.ts`
+ * kvůli jedinému výrazu — jménu modulu — a tím vtahovalo celý ukázkový katalog
+ * do chunku sdíleného každou routou: měřeno na buildu 2026-08-13 chunk
+ * `975-*.js`, 14 615 B, referencovaný 42 ze 42 manifestů stránek, včetně
+ * /graf, /admin a /rentgen (lištu nekreslí vůbec) a obou právních dokumentů.
+ * Uvnitř vymyšlení čeští lidé, vymyšlené firmy s vymyšlenými IČO a „2,1 mld Kč".
+ *
+ * Test hlídá OBĚ strany té opravy: že chrom ukázkový katalog nečte, a že se tím
+ * nezměnil ani jeden vykreslený popisek.
+ */
+describe("chrom nevozí ukázkový katalog", () => {
+  const shellDir = dirname(fileURLToPath(import.meta.url));
+  const shellSources = readdirSync(shellDir).filter(
+    (f) => (f.endsWith(".ts") || f.endsWith(".tsx")) && !f.endsWith(".test.ts"),
+  );
+
+  it("skenuje neprázdnou množinu souborů — jinak by test nic netvrdil", () => {
+    // Bez tohohle by přejmenování složky test umlčelo a nikdo by si nevšiml.
+    expect(shellSources.length).toBeGreaterThan(5);
+    expect(shellSources).toContain("sidebarParts.tsx");
+  });
+
+  it("žádný soubor chromu neimportuje lib/civic", () => {
+    for (const file of shellSources) {
+      // Komentáře se strhávají: hlavička sidebarParts.tsx o tom importu PÍŠE,
+      // a psát o chybě není totéž co ji mít.
+      expect(codeOf(`./${file}`), file).not.toContain("lib/civic");
+    }
+  });
+
+  it("každý řádek railu má odkud vzít jméno — buď klíč, nebo značku", () => {
+    // `entry.brandName ?? entry.key` je poslední záchrana; kdyby ji řádek
+    // potřeboval, vypsal by se v liště strojový klíč („law-watch").
+    for (const entry of NAV) {
+      expect(
+        Boolean(entry.labelKey) || Boolean(entry.brandName),
+        `řádek ${entry.key} nemá ani labelKey, ani brandName`,
+      ).toBe(true);
+    }
+  });
+
+  it("jména modulů se nezměnila ani o bajt", () => {
+    // Jediné dovolené čtení `MODULES` v celém chromu — a je tady, ne v běhu.
+    const moduleEntries = NAV.filter((e) => e.brandName);
+    expect(moduleEntries.length, "žádný modul nenese značku").toBe(5);
+    for (const entry of moduleEntries) {
+      const sample = MODULES.find((m) => m.key === entry.key);
+      expect(sample, `MODULES nezná modul ${entry.key}`).toBeDefined();
+      expect(entry.brandName, `jméno modulu ${entry.key} se rozešlo`).toBe(sample?.name);
+    }
+  });
+
+  it("značka se NEPŘEKLÁDÁ — v katalozích jméno modulu není", () => {
+    // Kdyby brandName někdo přesunul do messages/*.json, první překladatel by
+    // z „CivicScore" udělal „Občanské skóre" v jednom jazyce a ne v druhém.
+    for (const [locale, catalog] of [
+      ["cs", csModules],
+      ["en", enModules],
+    ] as const) {
+      for (const entry of NAV) {
+        if (!entry.brandName) continue;
+        expect(catalog[entry.key]?.name, `${locale}.content.modules.${entry.key}.name`).toBeUndefined();
+      }
+    }
   });
 });

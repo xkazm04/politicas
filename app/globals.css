@@ -41,9 +41,17 @@
   --color-signal-deep: #b82b21; /* 5,31:1 vůči paper — rudá tam, kde platí 4,5:1 */
 }
 
+/* Dva hlasy, ne tři. `--font-serif: var(--font-fraunces), Georgia, serif`
+ * stálo do 2026-08-13 tady a bylo JEDINÝM výskytem serifu v celém repozitáři:
+ * grep na `font-serif` i `--font-fraunces` nenašel ani jednoho konzumenta
+ * kromě téhle deklarace. Zaplacené to přitom bylo na každé routě — dva
+ * předinačítané řezy Fraunces, 126 928 B, 47 % předinačítaného písmového
+ * rozpočtu aplikace, za nula vykreslených glyfů. Font i token jsou pryč
+ * (app/layout.tsx nese proč). Utilita `.font-serif` z Tailwindu tím nemizí,
+ * jen spadne na jeho výchozí systémový serif — což je poctivější než token
+ * ukazující na písmo, které se nenačítá. */
 @theme inline {
   --font-sans: var(--font-archivo), system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, serif;
   --font-mono: var(--font-plex), ui-monospace, monospace;
 }
 

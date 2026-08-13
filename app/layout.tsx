@@ -1,24 +1,30 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Archivo, Fraunces, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import AppShell from "@/features/shell/AppShell";
 import "./globals.css";
 
-// Three voices, one platform:
-//  Fraunces  — editorial display serif (Broadsheet)
+// Two voices, one platform:
 //  Archivo   — variable grotesque up to Black (Konstrukt posters, UI)
 //  Plex Mono — source citations, audit logs (Rentgen, source chips everywhere)
+//
+// A THIRD was loaded here until 2026-08-13 and rendered by nothing. Fraunces
+// („editorial display serif (Broadsheet)") arrived with the art-direction round
+// that Konstrukt won; the surface it was meant for was never built, and a
+// repo-wide grep for `font-serif` / `--font-fraunces` found exactly ONE hit —
+// the token declaration in app/globals.css. Measured on the 2026-08-13 build:
+// two `rel=preload`ed subsets, 67 388 B + 59 540 B = 126 928 B, i.e. 47 % of
+// this app's 270 316 B preloaded font payload, on EVERY route, for zero
+// rendered glyphs (plus a 19 748 B fallback-adjust file that was not
+// preloaded). docs/DESIGN.md §2 called it „reserved"; a reserve that ships is
+// not a reserve, so both the font and the token are gone. If an editorial
+// sub-surface ever wants a serif, it costs one `next/font` call to bring back —
+// and then it will be paid for by a page that draws it.
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin", "latin-ext"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin", "latin-ext"],
-  axes: ["opsz"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -80,7 +86,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${archivo.variable} ${fraunces.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>

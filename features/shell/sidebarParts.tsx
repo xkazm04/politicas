@@ -9,7 +9,6 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import { MODULES } from "@/lib/civic/data";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { NavChild, NavEntry, NavSection } from "./navModel";
 
@@ -22,9 +21,27 @@ export interface SidebarProps {
 }
 
 /**
- * Jméno modulu je značka (data), doprovodné popisky jdou z katalogu.
- * Řádky mimo katalog modulů (schranka, zaznam — moonshot 7A) nesou od
- * bilingvního launche vlastní klíče v `nav.entries.*` (labelKey/tagKey).
+ * Jméno modulu je ZNAČKA (nepřekládá se, jde z `navModel.brandName`),
+ * doprovodné popisky jdou z katalogu. Řádky mimo katalog modulů (schranka,
+ * zaznam — moonshot 7A) nesou od bilingvního launche vlastní klíče
+ * v `nav.entries.*` (labelKey/tagKey).
+ *
+ * ── ŽÁDNÝ UKÁZKOVÝ KATALOG (2026-08-13) ────────────────────────────────────
+ * Tenhle soubor sahal na `MODULES` z `lib/civic/data.ts` — jediným výrazem,
+ * `MODULES.find((m) => m.key === entry.key)?.name` — a tím tahal CELÝ ukázkový
+ * katalog do chunku, který si webpack sdílí mezi routami. Změřeno na buildu
+ * 2026-08-13: chunk `975-*.js`, 14 615 B, referencovaný 42 ze 42 manifestů
+ * stránek — tedy i /graf, /admin a /rentgen, které lištu vůbec nekreslí, i
+ * oběma právními dokumenty. Uvnitř: vymyšlení čeští lidé („Petra Nováková",
+ * „Karel Hruška"), vymyšlené firmy s vymyšlenými IČO („Silnice MSK a.s." /
+ * 258 41 991, „Agrofond s.r.o." / 470 12 336) a „2,1 mld Kč" — v aplikaci,
+ * která staví na rozdílu mezi doloženým a vymyšleným. Vykreslovaná polovina
+ * (metriky) padla 2026-08-11 (viz níž), odesílaná až teď. Tím se doplácejí
+ * i obě dělení kódu (/penize, /dashboard), jejichž vlastní hlavičky si tenhle
+ * chunk zapsaly jako přiznanou mez, kterou žádná změna v modulu neodstraní.
+ *
+ * Jméno modulu teď deklaruje `features/shell/navModel.ts` — model, který
+ * seznam modulů beztak vlastní. Vykreslené popisky se nezměnily ani o bajt.
  *
  * ── ŽÁDNÁ METRIKA (2026-08-11) ─────────────────────────────────────────────
  * `metric()` sem tahalo `content.modules.<key>.metricValue` — „2,1 mld Kč",
@@ -42,8 +59,7 @@ export function useNavLabels() {
   const tc = useTranslations("content");
 
   return {
-    name: (entry: NavEntry) =>
-      entry.labelKey ? t(entry.labelKey) : (MODULES.find((m) => m.key === entry.key)?.name ?? entry.key),
+    name: (entry: NavEntry) => (entry.labelKey ? t(entry.labelKey) : (entry.brandName ?? entry.key)),
     tag: (entry: NavEntry) =>
       entry.tagKey ? t(entry.tagKey) : entry.key === "overview" ? t("nav.overviewHint") : tc(`modules.${entry.key}.tag`),
     label: (key: string) => t(key),

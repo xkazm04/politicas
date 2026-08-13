@@ -59,8 +59,17 @@ errors on it. Declared exceptions (scoped in `eslint.config.mjs`):
   uppercase tracking-tight`; poster headlines up to `text-7xl`.
 - `font-mono` — **IBM Plex Mono**. All meta: eyebrows, „obr. N" captions,
   source citations, nav indexes, tabular numbers (`tabular-nums`).
-- `font-serif` — **Fraunces**. Reserved; not used by Konstrukt (kept wired for
-  editorial sub-surfaces if a module needs one).
+- **Two voices, no third.** `font-serif` used to be listed here as **Fraunces**,
+  „reserved; not used by Konstrukt (kept wired for editorial sub-surfaces if a
+  module needs one)". It was removed on 2026-08-13, because a reserve that ships
+  is not a reserve: a repo-wide grep for `font-serif` / `--font-fraunces` found
+  exactly ONE hit — the `--font-serif` declaration in `app/globals.css` itself —
+  while the build preloaded two Fraunces subsets on **every route**: 67 388 B +
+  59 540 B = **126 928 B, 47 % of the app's 270 316 B preloaded font payload**,
+  for zero rendered glyphs. The `.font-serif` Tailwind utility still exists and
+  now falls back to Tailwind's default system serif; nothing uses it. An
+  editorial sub-surface that genuinely wants a serif brings it back with one
+  `next/font` call — paid for by the page that draws it.
 - Czech numerals: decimal comma via `czech()` / `czechInt()` from
   `lib/format.ts` — components never call `.toFixed()` for display. Dense money
   („23,7 mld. Kč") is `formatCompactCzk()`, which moved here from
