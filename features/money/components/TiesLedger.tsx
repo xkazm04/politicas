@@ -40,6 +40,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { tieReachClaim } from "../moneyClaims";
 import { tieReach } from "../reachableMoney";
 import TieClassExplainer from "./TieClassExplainer";
+import { BasisNote } from "./BasisDisclosure";
 
 /* The labelled sample ledger is a FALLBACK — it renders only when the money layer is
    unavailable. Importing it (and with it the 27 KB `lib/civic/data.ts`) at module scope
@@ -461,6 +462,15 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
           arithmetic, over which population, and that the class decides how to read it. */}
       <div className="mt-3">
         <SourceNote>{t("real.ledger.reachNote")}</SourceNote>
+        {/* SLOŽENÍ DAŇOVÝCH ZÁKLADEN, jednou nad celou tabulkou. Sloupec „dosah"
+            nese u každého řádku součet, který obě nesčitatelné základny registru
+            míchá; přiznání sedí TADY, ne u řádku, protože `MoneyTie` po drátě
+            složení nenese (viz `moneyTypes.ts::MoneyTieDetail.contractBasis` —
+            pole na `MoneyTie` by musel zatřídit `TIE_WIRE` a poslat 211 řádkům,
+            které ho nekreslí). Populace je stejná, o jaké tabulka tvrdí: firmy
+            s aspoň jednou vazbou, každá jednou. Spis firmy i spis poslance
+            přiznávají složení SVÉHO vlastního součtu na svých plochách. */}
+        <BasisNote basis={data.stats.contractBasis} className="mt-1" withRule />
       </div>
 
       {/* ── pagination ──────────────────────────────────────── */}

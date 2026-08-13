@@ -26,6 +26,7 @@ import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { buildRegistryLinks } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
+import { BasisNote, BasisTag } from "./components/BasisDisclosure";
 import OwnershipBlock from "./components/OwnershipBlock";
 import TieClassExplainer from "./components/TieClassExplainer";
 import FollowButton from "@/features/schranka/FollowButton";
@@ -195,6 +196,13 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
               {t("companyFile.reachSource")}
               {reachIsFloor ? t("companyFile.reachReadCapped") : ""}
             </SourceNote>
+            {/* SLOŽENÍ DAŇOVÝCH ZÁKLADEN pod tím číslem. Registr publikuje hodnotu
+                smlouvy bez DPH i včetně DPH a jako sčitatelné je neuvádí; sklizeň
+                obojí složí do jednoho pole, ale zapíše kterou. Sazbu DPH graf
+                nenese, takže se nic nepřepočítává — složení se přizná. Populace je
+                VŠECH `contractCount` smluv firmy, tedy přesně ta, ze které je
+                součet nad tím. */}
+            <BasisNote basis={data.contractBasis} withRule />
           </div>
           <div className="bg-paper p-6">
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
@@ -266,6 +274,9 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
                   <span className="shrink-0 font-mono text-xs font-bold tabular-nums">
                     {c.amountCzk != null ? compactCzk(c.amountCzk, locale) : "—"}
                   </span>
+                  {/* Základna U ŘÁDKU: bez ní nejde poznat, že sousední dvě částky
+                      jsou vykázané v různých základnách a nesčítají se. */}
+                  <BasisTag basis={c.amountBasis} className="w-20 shrink-0 text-right" />
                   <span className="w-24 shrink-0 text-right font-mono text-[10px] uppercase tracking-wider text-steel">
                     {c.signedOn ?? t("companyFile.noUsableDate")}
                   </span>

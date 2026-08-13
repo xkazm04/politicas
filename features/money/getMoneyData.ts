@@ -29,6 +29,7 @@ import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
 import { bucketReachCzk, reachableMoney, tieReach, type ReachableTie } from "./reachableMoney";
+import { basisComposition, emptyBasisCounts, mergeBasisCounts } from "./amountBasis";
 import {
   GRAPH_COMPANY_CAP,
   type MoneyData,
@@ -95,6 +96,19 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       });
     }
     const money = reachableMoney(reachable);
+
+    // SLOŽENÍ DAŇOVÝCH ZÁKLADEN za korunové součty téhle plochy. Populace je
+    // `distinctCompanies` — firmy, které nesou aspoň jednu vazbu — a KAŽDÁ JEN
+    // JEDNOU, tatáž de-duplikace, jakou dělá `reachableMoney` (14 firem je
+    // vázaných na víc poslanců; počítat je po vazbách by složení nafouklo).
+    // `contractsByCompany` schválně neprocházíme celé: nese i firmy bez vazby
+    // (viz jeho vlastní hlavička), o kterých kniha vazeb netvrdí nic.
+    let contractBasisCounts = emptyBasisCounts();
+    for (const companyId of distinctCompanies) {
+      const c = contractsByCompany.get(companyId);
+      if (c?.basis) contractBasisCounts = mergeBasisCounts(contractBasisCounts, c.basis);
+    }
+    const contractBasis = basisComposition(contractBasisCounts);
 
     const mps: MoneyMp[] = [];
     for (const [personId, ties] of tiesByPerson) {
@@ -196,6 +210,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         contractCzkAttributable: money.attributable.contractCzk,
         contractCzkSteward: money.steward.contractCzk,
         contractCoverage: money.coverage,
+        contractBasis,
         totalTies: linked.length,
         verifiedTies,
         pendingTies,

@@ -32,6 +32,7 @@ vi.mock("@/lib/db/store", () => ({
 vi.mock("@/lib/db/readiness", () => ({ storeReady: async () => true }));
 
 const { loadMpMoneySlice, loadCompanyMoneySlice, resetSuppliesMemo } = await import("./moneyLoader");
+const { basisComposition } = await import("./amountBasis");
 
 const PERSON = "psp:person:100";
 const ALFA = "company:ico:00000111";
@@ -63,12 +64,14 @@ const tieEdge = (companyId: string) => ({
   provenance: { pass: 10 },
 });
 
-const suppliesEdge = (companyId: string, contract: string, amount: number) => ({
+const suppliesEdge = (companyId: string, contract: string, amount: number, amountBasis?: string) => ({
   src: companyId,
   rel: "supplies",
   dst: contract,
   weight: amount,
-  props: {},
+  // `amountBasis` chybí schválně, když se nepředá: starší průchody než re-ingest
+  // batch-012 pole nezapisovaly a čtení to musí přiznat jako `unrecorded`.
+  props: amountBasis === undefined ? {} : { amountBasis },
   provenance: { pass: 12 },
 });
 
@@ -80,13 +83,15 @@ const contractNode = (id: string, signedOn: string) => ({
   provenance: { pass: 12 },
 });
 
-/** Kolik smluv která firma nese. `[]` = firma bez jediné smlouvy (prázdný odečet). */
-const CONTRACTS: Record<string, Array<[string, number]>> = {
+/** Kolik smluv která firma nese a v jaké daňové základně. `[]` = firma bez
+ *  jediné smlouvy (prázdný odečet). ALFA je schválně MÍCHANÁ — registr obě
+ *  základny publikuje vedle sebe a jako sčitatelné je neuvádí. */
+const CONTRACTS: Record<string, Array<[string, number, string?]>> = {
   [ALFA]: [
-    ["contract:a1", 1_000],
-    ["contract:a2", 2_000],
+    ["contract:a1", 1_000, "bezDph"],
+    ["contract:a2", 2_000, "vcetneDph"],
   ],
-  [BETA]: [["contract:b1", 5_000]],
+  [BETA]: [["contract:b1", 5_000]], // hrana bez zapsané základny
   [GAMA]: [],
 };
 
@@ -119,7 +124,7 @@ function installStore() {
       if (failing.has(opts.id)) throw new Error(`simulated read failure for ${opts.id}`);
       const rows = CONTRACTS[opts.id] ?? [];
       return {
-        edges: rows.map(([c, amount]) => suppliesEdge(opts.id, c, amount)),
+        edges: rows.map(([c, amount, basis]) => suppliesEdge(opts.id, c, amount, basis)),
         nodes: rows.map(([c]) => contractNode(c, "2026-01-01")),
       };
     } finally {
@@ -155,8 +160,53 @@ describe("loadMpMoneySlice — per-company reads", () => {
     const slice = (await loadMpMoneySlice(100))!;
     expect([...slice.contractsByCompany.keys()]).toEqual([ALFA, BETA, GAMA]);
     expect([...slice.linesByCompany.keys()]).toEqual([ALFA, BETA, GAMA]);
-    expect(slice.contractsByCompany.get(ALFA)).toEqual({ count: 2, czk: 3_000, amounts: [1_000, 2_000] });
+    // Součty se zavedením daňové základny NEHNULY — přibyly jen počty řádků.
+    expect(slice.contractsByCompany.get(ALFA)).toMatchObject({
+      count: 2,
+      czk: 3_000,
+      amounts: [1_000, 2_000],
+    });
     expect(slice.linesByCompany.get(ALFA)!.map((l) => l.id)).toEqual(["contract:a2", "contract:a1"]);
+  });
+});
+
+describe("daňová základna se čte z hrany a dojde až k řádku", () => {
+  it("agregát firmy nese složení základen, a součet se tím nezmění", async () => {
+    const slice = (await loadMpMoneySlice(100))!;
+    const alfa = slice.contractsByCompany.get(ALFA)!;
+    // Míchaný součet: registr obě základny publikuje a jako sčitatelné je neuvádí.
+    expect(basisComposition(alfa.basis!)).toMatchObject({
+      bezDph: 1,
+      vcetneDph: 1,
+      counted: 2,
+      mixed: true,
+      sole: null,
+    });
+    // A ani jedna koruna se přitom nepřesunula.
+    expect(alfa.czk).toBe(3_000);
+
+    // Hrana bez zapsané základny je `unrecorded` — NIKDY se nepřipočte k některé
+    // ze stran a `mixed` z ní nevznikne.
+    const beta = basisComposition(slice.contractsByCompany.get(BETA)!.basis!);
+    expect(beta).toMatchObject({ unrecorded: 1, bezDph: 0, vcetneDph: 0, mixed: false });
+    expect(beta.outsideVatSplit).toBe(1);
+  });
+
+  it("každý vypsaný smluvní řádek si nese svou základnu", async () => {
+    const slice = (await loadMpMoneySlice(100))!;
+    // Řádky jdou podle částky sestupně, takže a2 (vcetneDph) je první.
+    expect(slice.linesByCompany.get(ALFA)!.map((l) => [l.id, l.amountBasis])).toEqual([
+      ["contract:a2", "vcetneDph"],
+      ["contract:a1", "bezDph"],
+    ]);
+    expect(slice.linesByCompany.get(BETA)!.map((l) => l.amountBasis)).toEqual(["unrecorded"]);
+  });
+
+  it("firemní řez čte základnu z TÉŽE hrany jako řez poslance", async () => {
+    // Dvě plochy nad jednou vrstvou nesmí o jedné smlouvě říct dvě různé věci.
+    const company = (await loadCompanyMoneySlice(ALFA))!;
+    expect(basisComposition(company.contracts.basis!)).toMatchObject({ bezDph: 1, vcetneDph: 1, mixed: true });
+    expect(company.lines.map((l) => l.amountBasis)).toEqual(["vcetneDph", "bezDph"]);
   });
 });
 

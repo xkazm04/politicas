@@ -14,6 +14,7 @@ import {
   pendingExclusionNoteCs,
   rejectedExclusionNoteCs,
 } from "./packet";
+import { emptyBasisComposition } from "./amountBasis";
 
 /* ── fixtures ────────────────────────────────────────────────────────────── */
 
@@ -26,6 +27,7 @@ function mkTie(over: Partial<MoneyTieDetail> = {}): MoneyTieDetail {
     ico: String(10000000 + seq),
     company: `Firma ${seq} s.r.o.`,
     role: "jednatel",
+    contractBasis: emptyBasisComposition(),
     reviewState: "verified" as ReviewState,
     source: "hlidac:osoby/test-osoba · 2016-01-01–ongoing",
     contractCount: 2,
@@ -152,8 +154,8 @@ describe("compileEvidencePacket — deterministic ordering", () => {
       roleValidTo: "2020-06-30",
       lastReviewedAt: "2020-06-30T09:00:00Z",
       contracts: [
-        { id: "k2", label: "Smlouva B", amountCzk: 500_000, signedOn: "2018-03-01" },
-        { id: "k1", label: "Smlouva A", amountCzk: 200_000, signedOn: "2017-01-15" },
+        { id: "k2", label: "Smlouva B", amountCzk: 500_000, signedOn: "2018-03-01", amountBasis: "bezDph" },
+        { id: "k1", label: "Smlouva A", amountCzk: 200_000, signedOn: "2017-01-15", amountBasis: "bezDph" },
       ],
     });
     const p = compileEvidencePacket(mkDetail([tie]), AT);
@@ -169,8 +171,8 @@ describe("compileEvidencePacket — deterministic ordering", () => {
   it("undated contracts are counted, never silently dropped from the record", () => {
     const tie = mkTie({
       contracts: [
-        { id: "k1", label: "S datem", amountCzk: 100, signedOn: "2019-01-01" },
-        { id: "k2", label: "Bez data", amountCzk: 100, signedOn: null },
+        { id: "k1", label: "S datem", amountCzk: 100, signedOn: "2019-01-01", amountBasis: "bezDph" },
+        { id: "k2", label: "Bez data", amountCzk: 100, signedOn: null, amountBasis: "bezDph" },
       ],
     });
     const p = compileEvidencePacket(mkDetail([tie]), AT);

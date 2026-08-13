@@ -25,6 +25,17 @@ import { toProvenance } from "@/features/shared/provenance/receipt";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+// Daňová základna smluvní částky. NULOVÉ NOVÉ ČTENÍ: obě čtení hran níž dělají
+// `select * from kg_edge`, takže `props.amountBasis` je u ruky už dnes — fold ho
+// jen zahazoval. Nic se tu nepřepočítává, počítají se ŘÁDKY podle základny.
+import {
+  basisComposition,
+  countBasis,
+  emptyBasisCounts,
+  readAmountBasis,
+  type BasisComposition,
+  type BasisCounts,
+} from "./amountBasis";
 // ONE staleness bound over the graph's money layer, not a second one: /dashboard already
 // declares how long a memoized money read may live (and prints it), and this memo caches
 // the same layer for the same reason.
@@ -65,6 +76,14 @@ export interface CompanyContracts {
   count: number;
   czk: number;
   amounts: number[]; // for near-threshold detection
+  /**
+   * Kolik smluv v `czk` stojí na které daňové základně. VOLITELNÉ, protože dva
+   * volající drží literál `{count:0, czk:0, amounts:[]}` jako náhradu za firmu,
+   * kterou čtení nevrátilo — a tam je prázdné složení právě správná odpověď
+   * (`basisComposition(emptyBasisCounts())`, tedy `counted: 0`, ne nula na
+   * některé straně). Kdekoli se skutečně četlo, pole je vyplněné.
+   */
+  basis?: BasisCounts;
 }
 
 /**
@@ -81,7 +100,7 @@ export function mapLinkedToTie(args: {
   contracts: CompanyContracts;
   /** the tied person node — only `absentee_manager_lead` is read (signal input). */
   person: KgNodeRow | undefined;
-}): MoneyTie {
+}): MoneyTie & { contractBasis: BasisComposition } {
   const { edge: e, company: comp, contracts, person } = args;
   const cp = comp.props ?? {};
   const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
@@ -111,6 +130,9 @@ export function mapLinkedToTie(args: {
   });
 
   return {
+    // Složení daňových základen ZA `contractCzk` — přes všechny smlouvy firmy,
+    // odvozené z počtů, které fold už spočítal. Nic se nepřepočítává.
+    contractBasis: basisComposition(contracts.basis ?? emptyBasisCounts()),
     companyId: comp.id,
     // The tie's PERMANENT citable address. Built from the edge's OWN endpoints (never
     // from a reconstructed `psp:person:<pspId>` string) with the shared `edgeClaimRef`
@@ -284,11 +306,14 @@ let suppliesFoldAt = 0;
 function foldSupplies(edges: readonly KgEdgeRow[]): Map<string, CompanyContracts> {
   const byCompany = new Map<string, CompanyContracts>();
   for (const e of edges) {
-    const cur = byCompany.get(e.src) ?? { count: 0, czk: 0, amounts: [] };
+    const cur = byCompany.get(e.src) ?? { count: 0, czk: 0, amounts: [], basis: emptyBasisCounts() };
     const amount = num(e.weight);
     cur.count += 1;
     cur.czk += amount;
     if (amount > 0) cur.amounts.push(amount);
+    // ŘÁDKY, NE KORUNY. Sčítá se počet smluv na dané základně; `czk` výš se tímhle
+    // nedotkne ani o haléř (hlídá `amountBasis.test.ts`).
+    countBasis(cur.basis ?? (cur.basis = emptyBasisCounts()), readAmountBasis(e.props));
     byCompany.set(e.src, cur);
   }
   return byCompany;
@@ -405,20 +430,25 @@ async function readCompanySupplies(store: Store, companyId: string): Promise<Com
   const truncated = supplied.edges.length >= KG_READ_CAP;
   const edges = supplied.edges.filter((e) => e.src === companyId).sort(byListOrder);
   const nodeById = new Map(supplied.nodes.map((n) => [n.id, n]));
-  const contracts: CompanyContracts = { count: 0, czk: 0, amounts: [] };
+  const contracts: CompanyContracts = { count: 0, czk: 0, amounts: [], basis: emptyBasisCounts() };
   const lines: ContractLine[] = [];
   for (const e of edges) {
     const ct = nodeById.get(e.dst);
     const amount = num(e.weight);
+    // Základna se čte z HRANY, ne z uzlu smlouvy: sklizeň ji zapisuje na obě
+    // strany, ale hrana je to, co nese `weight`, tedy tu částku, která se sčítá.
+    const amountBasis = readAmountBasis(e.props);
     contracts.count += 1;
     contracts.czk += amount;
     if (amount > 0) contracts.amounts.push(amount);
+    countBasis(contracts.basis!, amountBasis);
     if (lines.length < CONTRACT_LINES_PER_COMPANY) {
       lines.push({
         id: e.dst,
         label: ct?.label ?? e.dst,
         amountCzk: amount > 0 ? amount : null,
         signedOn: (ct?.props?.signedOn as string | null | undefined) ?? null,
+        amountBasis,
       });
     }
   }

@@ -31,6 +31,10 @@ export type Corroboration = (typeof CORROBORATIONS)[number];
 export type { TieClass, TieClassOrigin } from "./reviewTypes";
 import type { ReviewOrderOrigin, TieClass, TieClassOrigin } from "./reviewTypes";
 import type { ReachableMoney } from "./reachableMoney";
+// Daňová základna smluvní částky — registr publikuje hodnotu bez DPH i včetně DPH
+// a jako sčitatelné je neuvádí (viz amountBasis.ts). Typy jsou tam, aby je uměl
+// importovat loader i klientská sazba; tady se jen připínají k řádkům a součtům.
+import type { AmountBasis, BasisComposition } from "./amountBasis";
 // The receipt's provenance shape (pass / method / ref / computedAt), reused rather than
 // re-declared: /zdroj already reads exactly these four fields off a graph row, and a tie's
 // analyst note must be datable by the same rule the provenance capsule uses.
@@ -142,6 +146,18 @@ export interface ContractLine {
    * souborů mimo tuhle sadu a je vedená jako navazující krok.
    */
   dateWithheldOn?: string;
+  /**
+   * V JAKÉ DAŇOVÉ ZÁKLADNĚ je `amountCzk` vykázaná — `bezDph`, `vcetneDph`,
+   * `ciziMena`, `none` (registr hodnotu nezveřejnil) nebo `unrecorded` (hrana
+   * základnu nenese). Čte se doslova z `supplies.props.amountBasis`, který
+   * sklizeň zapisuje od re-ingestu batch-012.
+   *
+   * POVINNÉ pole schválně: hodnota se nikdy nedopočítává ani nehádá, takže
+   * jediné místo, kde vzniká, je čtení hrany — a nová konstrukce řádku musí na
+   * základnu odpovědět, ne ji mlčky vynechat. Sazbu se NIKDY nepřepočítává;
+   * plocha složení jen vypisuje.
+   */
+  amountBasis: AmountBasis;
 }
 
 /**
@@ -162,6 +178,17 @@ export interface MoneyTieDetail extends MoneyTie {
   contracts: ContractLine[];
   /** contracts beyond the ones shown in `contracts` (same company). */
   contractsMoreCount: number;
+  /**
+   * SLOŽENÍ DAŇOVÝCH ZÁKLADEN za `contractCzk` — přes VŠECHNY smlouvy firmy,
+   * ne jen přes vypsané řádky. Kdyby se počítalo z `contracts` (top 8), tvrdilo
+   * by složení pěti řádků o součtu přes čtyři sta.
+   *
+   * ZÁMĚRNĚ NA `MoneyTieDetail`, NE NA `MoneyTie`: pole na `MoneyTie` by musel
+   * zatřídit `publicWire.ts::TIE_WIRE` a poslat ho po drátě 211 řádkům knihy
+   * vazeb, která ho nekreslí. Kniha přiznává složení jednou větou nad tabulkou
+   * z `MoneyStats.contractBasis` — nad populací, kterou opravdu publikuje.
+   */
+  contractBasis: BasisComposition;
 }
 
 /** One MP↔company tie seen FROM THE COMPANY — the shared `MoneyTie` plus who the MP is.
@@ -384,6 +411,15 @@ export interface MoneyStats {
   ownerOperatorMpsStoredClass: number;
   /** `money.coverage` — a named view, read by /dashboard. */
   contractCoverage: ContractCoverage;
+  /**
+   * SLOŽENÍ DAŇOVÝCH ZÁKLADEN za korunové součty téhle plochy — přes smlouvy
+   * firem, které nesou aspoň jednu vazbu `linked_to` (tedy přes populaci, o níž
+   * kniha vazeb vůbec něco tvrdí), každá firma jednou.
+   *
+   * Odvozené, nikdy literál: kniha vazeb ho tiskne jednou větou nad tabulkou,
+   * protože sloupec „dosah" nese číslo, které dvě nesčitatelné základny míchá.
+   */
+  contractBasis: BasisComposition;
 }
 
 export interface ContractCoverage {

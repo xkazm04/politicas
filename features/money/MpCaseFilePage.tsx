@@ -23,6 +23,7 @@ import { mpBucketClaim } from "./moneyClaims";
 import { buildRegistryLinks, type ReviewState } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
+import { BasisNote, BasisTag } from "./components/BasisDisclosure";
 import type { ContractCoverage } from "./moneyTypes";
 import { isAttributable, tieReach, type MoneyBucket } from "./reachableMoney";
 import {
@@ -505,6 +506,10 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
                 <span className="truncate text-steel">{c.label}</span>
                 <span className="shrink-0 font-mono text-xs font-bold tabular-nums">
                   {c.amountCzk != null ? compactCzk(c.amountCzk, locale) : "—"}
+                  {/* Základna U ŘÁDKU — dvě sousední částky mohou být vykázané
+                      v různých základnách a nesčítají se; bez téhle značky to
+                      z ničeho nepoznáte. */}
+                  <BasisTag basis={c.amountBasis} className="ml-2 font-normal" />
                   {/* JEDINÁ cesta datu na plochu (`displaySignedOn`) — do
                       2026-08-13 tu stálo `{c.signedOn}` doslova, takže spis
                       poslance vysázel „0002-01-01" u téže smlouvy, u které
@@ -527,6 +532,11 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
               {t("caseFile.moreContracts", { count: tie.contractsMoreCount })}
             </p>
           )}
+          {/* Složení daňových základen ZA `contractCzk` téhle vazby — přes VŠECHNY
+              smlouvy firmy, ne přes vypsaných osm řádků (proto `tie.contractBasis`
+              z loaderu, ne fold nad `tie.contracts`: složení osmi řádků by tvrdilo
+              o součtu přes čtyři sta). */}
+          <BasisNote basis={tie.contractBasis} />
           <ImplausibleDateNote contracts={tie.contracts} />
         </div>
       )}

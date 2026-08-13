@@ -16,6 +16,7 @@ import { describe, expect, it } from "vitest";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import { PLAUSIBLE_FROM } from "@/lib/analysis/plausible-date";
 import { gateContractDates } from "./moneyLoader";
+import { foldBasis } from "./amountBasis";
 import { compileEvidencePacket } from "./packet";
 import { displaySignedOn } from "./moneyTypes";
 import type { ContractLine, MoneyMpDetail, MoneyTieDetail } from "./moneyTypes";
@@ -24,7 +25,15 @@ import type { ReviewState } from "./reviewTypes";
 const TODAY = "2026-08-13";
 
 function line(over: Partial<ContractLine> = {}): ContractLine {
-  return { id: "contract:1", label: "Smlouva", amountCzk: 1_000_000, signedOn: "2019-05-06", ...over };
+  return {
+    id: "contract:1",
+    label: "Smlouva",
+    amountCzk: 1_000_000,
+    signedOn: "2019-05-06",
+    // Daňová základna řádku — tady jen výplň, testuje se v `amountBasis.test.ts`.
+    amountBasis: "bezDph",
+    ...over,
+  };
 }
 
 const shown = (l: ContractLine) => displaySignedOn(gateContractDates([l], TODAY)[0]);
@@ -121,6 +130,7 @@ function mkTie(contracts: ContractLine[]): MoneyTieDetail {
     role: "jednatel",
     reviewState: "verified" as ReviewState,
     source: "hlidac:osoby/test-osoba · 2016-01-01–ongoing",
+    contractBasis: foldBasis(contracts.map((c) => c.amountBasis)),
     contractCount: contracts.length,
     contractCzk: 1_000_000,
     subsidiesCount: 0,

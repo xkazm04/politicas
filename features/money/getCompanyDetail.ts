@@ -41,6 +41,7 @@ import {
   type CompanyFileData,
   type CompanyRegistryFileData,
 } from "./ownership";
+import { basisComposition, emptyBasisCounts } from "./amountBasis";
 import type { CompanyTie, ContractLine } from "./moneyTypes";
 
 /** Contract lines rendered on the company page. The MP case file shows 8 of a firm's
@@ -164,6 +165,9 @@ export async function getCompanyCaseFile(
       ties,
       contracts: shown,
       contractsMoreCount: Math.max(0, contracts.count - COMPANY_CONTRACT_LINES_SHOWN),
+      // Složení daňových základen za VŠECHNY smlouvy firmy — tedy za tu populaci,
+      // ze které je korunový součet nad hlavičkou, ne za vypsaných 40 řádků.
+      contractBasis: basisComposition(contracts.basis ?? emptyBasisCounts()),
       implausibleDateCount,
       asOf: todayIso,
       // THE shared definition. One company, so it collapses to a single row and exactly

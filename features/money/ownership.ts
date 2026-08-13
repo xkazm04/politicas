@@ -45,6 +45,7 @@
 
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import { icoFromCompanyNodeId } from "./companyId";
+import type { BasisComposition } from "./amountBasis";
 import type { MoneyCompanyDetail } from "./moneyTypes";
 
 /** Relace, kterou tenhle modul čte. Jedno místo, kde její jméno stojí. */
@@ -136,6 +137,16 @@ export interface OwnershipStructure {
 export interface CompanyCaseFileData extends MoneyCompanyDetail {
   /** null = graf o okolí téhle firmy nic nevede a blok se nevykreslí vůbec. */
   ownership: OwnershipStructure | null;
+  /**
+   * SLOŽENÍ DAŇOVÝCH ZÁKLADEN za korunový součet téhle firmy — přes VŠECHNY
+   * její smlouvy, ne jen přes vypsaných 40 řádků: součet nad hlavičkou je přes
+   * všechny, takže složení o něm musí být taky.
+   *
+   * Bydlí TADY a ne v `moneyTypes.ts` ze stejného důvodu jako `ownership`:
+   * pole je produktem loaderu téhle plochy a klientská stránka ho musí umět
+   * importovat, aniž by sáhla na `server-only` modul.
+   */
+  contractBasis: BasisComposition;
 }
 
 /**

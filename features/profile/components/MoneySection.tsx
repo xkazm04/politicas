@@ -37,6 +37,7 @@ import { profileIntl } from "../serverIntl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { temporalBadge, tieClassInfo } from "@/features/money/moneyTypes";
+import { BASIS_TAG_KEYS, basisSentences } from "@/features/money/amountBasis";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
@@ -208,6 +209,12 @@ export default async function MoneySection({
 
 async function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
   const { t, f } = await profileIntl();
+  /* Daňová základna se sází NA SERVERU, jako celý zbytek spisu: klientská
+     `BasisDisclosure` by kvůli jedné větě otevřela klientskou hranici na ploše,
+     kterou commit „spis ships what renders" schválně celou přesunul na server.
+     Kopie věty tím nevzniká — klíče i pořadí vydává TÝŽ čistý modul
+     (`amountBasis.ts::basisSentences`), který čte i klientská sazba. */
+  const tb = await profileIntl("money.basis");
   const info = tieClassInfo(tie.tieClass);
   const temporal = temporalBadge(tie);
 
@@ -296,6 +303,13 @@ async function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
                     <span className="shrink-0 font-mono text-[12px] font-bold tabular-nums">
                       {c.amountCzk != null ? f.czk(c.amountCzk) : t("moneyAmountMissing")}
                     </span>
+                    {/* Základna U ŘÁDKU — registr publikuje hodnotu bez DPH i
+                        včetně DPH a jako sčitatelné je neuvádí; dvě částky pod
+                        sebou tedy nemusí být srovnatelné. */}
+                    <span className="shrink-0 whitespace-nowrap font-mono text-[10px] uppercase tracking-wider text-steel">
+                      <span className="sr-only">{tb.t("tagLabel")}: </span>
+                      {tb.t(BASIS_TAG_KEYS[c.amountBasis])}
+                    </span>
                     <span className="w-32 shrink-0 text-right font-mono text-[11px] uppercase tracking-wider text-steel">
                       {c.signedOn ? (
                         f.date(c.signedOn)
@@ -318,6 +332,26 @@ async function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
               </p>
             )}
             <SourceNote className="mt-3 !text-[10px]">{t("moneyContractsSource")}</SourceNote>
+            {/* Složení daňových základen za `contractCzk` téhle vazby — přes VŠECHNY
+                smlouvy firmy, přebrané hotové z peněžní vrstvy. Spis nic nepočítá,
+                a přepočítávat základny nesmí nikdo: sazba DPH v grafu není. */}
+            {tie.contractBasis && basisSentences(tie.contractBasis).length > 0 && (
+              <SourceNote className="mt-2 !text-[10px]">
+                {basisSentences(tie.contractBasis).map((s, i) => (
+                  <span key={s.key}>
+                    {i > 0 ? " " : ""}
+                    {s.key === "mixed"
+                      ? tb.t(s.key, {
+                          bez: s.bez,
+                          bezFmt: f.int(s.bez),
+                          vcetne: s.vcetne,
+                          vcetneFmt: f.int(s.vcetne),
+                        })
+                      : tb.t(s.key, { count: s.count, countFmt: f.int(s.count) })}
+                  </span>
+                ))}
+              </SourceNote>
+            )}
           </>
         )}
 

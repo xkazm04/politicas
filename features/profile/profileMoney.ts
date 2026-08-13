@@ -32,6 +32,11 @@
 import { mpBucketClaim, type MoneyFigure } from "@/features/money/moneyClaims";
 import { isAttributable, type ReachableMoney } from "@/features/money/reachableMoney";
 import { canonicalIco } from "@/features/money/companyId";
+import {
+  emptyBasisComposition,
+  type AmountBasis,
+  type BasisComposition,
+} from "@/features/money/amountBasis";
 import type { Corroboration, MoneyMpDetail, ReviewState, TieClass } from "@/features/money/moneyTypes";
 import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 
@@ -49,6 +54,9 @@ export interface ProfileContractLine {
   /** Řádek nese `signedOn`, které korpus neunese; datum se potlačí a řádek to
    *  řekne, místo aby zmizel. */
   dateUnusable: boolean;
+  /** V jaké daňové základně je `amountCzk` vykázaná — doslova z hrany
+   *  (`features/money/amountBasis.ts`). Nepřepočítává se, jen se říká. */
+  amountBasis: AmountBasis;
 }
 
 /**
@@ -86,6 +94,15 @@ export interface ProfileMoneyTie {
   /** Největší smlouvy vazby; zbytek je spočítaný, ne zahozený. */
   topContracts: ProfileContractLine[];
   contractsMoreCount: number;
+  /**
+   * Složení daňových základen za `contractCzk` — přes VŠECHNY smlouvy firmy,
+   * ne přes vypsaných pět řádků. Přebírá se hotové z `MoneyTieDetail
+   * .contractBasis`; spis nic nepočítá (a nepřepočítává už vůbec).
+   *
+   * `null` u steward vazby ze stejného důvodu jako `contractCzk`: spis ty
+   * peníze vědomě nesčítá, takže o jejich složení nic netvrdí.
+   */
+  contractBasis: BasisComposition | null;
 }
 
 /** Celý náklad oddílu Peníze. Prázdné `ties` je odpověď, ne mezera. */
@@ -152,7 +169,14 @@ export function toProfileMoney(detail: MoneyMpDetail, asOf: string): ProfileMone
           const signedOn = plausibleIsoDateOrNull(c.signedOn, asOf);
           const dateUnusable = typeof c.signedOn === "string" && c.signedOn !== "" && signedOn === null;
           if (dateUnusable) unusableDates += 1;
-          return { id: c.id, title: c.label, amountCzk: c.amountCzk, signedOn, dateUnusable };
+          return {
+            id: c.id,
+            title: c.label,
+            amountCzk: c.amountCzk,
+            signedOn,
+            dateUnusable,
+            amountBasis: c.amountBasis,
+          };
         })
       : [];
     const ico = canonicalIco(t.ico);
@@ -174,6 +198,9 @@ export function toProfileMoney(detail: MoneyMpDetail, asOf: string): ProfileMone
       contractCzk: attributable ? t.contractCzk : null,
       topContracts: lines,
       contractsMoreCount: attributable ? Math.max(0, t.contractCount - lines.length) : 0,
+      // Steward vazba nemá na spisu korunový součet, takže o jeho složení
+      // netvrdí nic — null, ne prázdné složení (to by četlo jako „nula smluv").
+      contractBasis: attributable ? (t.contractBasis ?? emptyBasisComposition()) : null,
     };
   });
 
