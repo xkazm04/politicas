@@ -105,36 +105,45 @@ export default function RealRebellions({
         <ul className="mt-3 list-none border-t-2 border-ink" aria-label={t("record.topRebelsListAria")}>
           {data.topRebels.map((r) => (
             <li key={r.personPspId}>
-            <Link
-              href={`/poslanec/${r.personPspId}`}
-              className="group grid grid-cols-[10.5rem_1fr_5.5rem] items-center gap-3 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong motion-reduce:transition-none"
-            >
-              <span className="min-w-0">
-                <span className="block truncate text-sm font-black uppercase tracking-tight">{r.name}</span>
-                <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
-                  <span
-                    className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
-                    style={{ background: clubStyle(r.club).color }}
-                  />
-                  {clubStyle(r.club).short} · {t("record.eligibleShort", { rebel: f.int(r.rebelVotes), eligible: f.int(r.eligibleVotes) })}
+              <Link
+                href={`/poslanec/${r.personPspId}`}
+                className="group grid grid-cols-[10.5rem_1fr_5.5rem] items-center gap-3 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong motion-reduce:transition-none"
+              >
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-black uppercase tracking-tight">{r.name}</span>
+                  <span className="mt-0.5 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
+                    <span
+                      aria-hidden
+                      className="inline-block h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ background: clubStyle(r.club).color }}
+                    />
+                    {/* Klub se sází ve své DISPLEJOVÉ formě („TOP 09") a čte se
+                        tak, jak je vidět: `clubStyle` je jediný zdroj té formy
+                        a záznam hlasování žádný delší název klubu nenese, takže
+                        `sr-only` kopie by odečítačce nabídla jen holou rejstříkovou
+                        zkratku („TOP09") — horší čtení téhož faktu, ne doplněk. */}
+                    {clubStyle(r.club).short} ·{" "}
+                    {t("record.eligibleShort", { rebel: f.int(r.rebelVotes), eligible: f.int(r.eligibleVotes) })}
+                  </span>
                 </span>
-              </span>
-              <span className="h-4 w-full bg-hairline">
-                <span
-                  className="block h-full bg-ink"
-                  style={{ width: `${maxRate > 0 ? (r.rate / maxRate) * 100 : 0}%` }}
-                />
-              </span>
-              <span className="text-right text-lg font-black tabular-nums">
-                {/* Holé „41,6 %" nemá bez sloupce podmět — jmenovku nese sr-only text. */}
-                <span className="sr-only">{t("record.rateAria")} </span>
-                {f.dec(Math.round(r.rate * 1000) / 10)} %
-                <ArrowUpRight
-                  className="ml-1 inline h-3.5 w-3.5 align-baseline text-steel-aa transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none"
-                  aria-hidden
-                />
-              </span>
-            </Link>
+                {/* Pruh je JEN obrázek téhož čísla, které stojí vpravo — dvakrát
+                    přečtený by byl dvakrát tentýž údaj. */}
+                <span aria-hidden className="h-4 w-full bg-hairline">
+                  <span
+                    className="block h-full bg-ink"
+                    style={{ width: `${maxRate > 0 ? (r.rate / maxRate) * 100 : 0}%` }}
+                  />
+                </span>
+                <span className="text-right text-lg font-black tabular-nums">
+                  {/* Holé „41,6 %" nemá bez sloupce podmět — jmenovku nese sr-only text. */}
+                  <span className="sr-only">{t("record.rateAria")} </span>
+                  {f.dec(Math.round(r.rate * 1000) / 10)} %
+                  <ArrowUpRight
+                    className="ml-1 inline h-3.5 w-3.5 align-baseline text-steel-aa transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none"
+                    aria-hidden
+                  />
+                </span>
+              </Link>
             </li>
           ))}
           {data.topRebels.length === 0 && (

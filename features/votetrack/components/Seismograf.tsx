@@ -247,14 +247,19 @@ export default function Seismograf({
         </div>
       </motion.div>
 
+      {/* Klávesová obsluha se VYPISUJE — vzor `dashboard.graph.keyboardHint`:
+          jeden tabstop plus šipky po ose dnů není natolik samozřejmý vzorec,
+          aby se dal uhodnout, a nástroj, o kterém se čtenář nedozví, pro něj
+          neexistuje. Není to citace, takže to není `SourceNote`: značkové
+          pravidlo drží citace u ČÍSEL a tenhle řádek žádné nenese. */}
+      <p className="mt-3 border-t border-hairline pt-2 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
+        {t("record.seismoKeyboard")}
+      </p>
+
       {/* Obě stupnice mají dno a strop — a obrázek to sám o sobě neřekne.
           Hodnoty se interpolují z konstant výš, aby se změnou zisku změnila
           i věta (vzor PUBLISHED_WEIGHTS_LABEL). */}
-      {/* Jeden tabstop plus šipky po ose se z obrázku nedá uhodnout — vzor
-          `dashboard.graph.keyboardHint`: pravidlo se TISKNE na ploše. */}
-      <SourceNote className="mt-3">{t("record.seismoKeyboard")}</SourceNote>
-
-      <SourceNote className="mt-1">
+      <SourceNote className="mt-3">
         {t("record.seismoScale", {
           deviationScale: f.int(DEVIATION_FLOOR_PCT),
           rebelsScale: f.int(REBELS_FULL_SCALE),

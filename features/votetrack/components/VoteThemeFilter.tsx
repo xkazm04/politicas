@@ -96,10 +96,16 @@ export default function VoteThemeFilter({ data }: { data: VoteThemeData }) {
             </a>
           </li>
         ))}
-        {listed.length === 0 && (
-          <li className="border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">{t("themeListEmpty")}</li>
-        )}
       </ul>
+      {/* Prázdný výsledek se OHLÁSÍ a stojí VEN ze seznamu, který popírá —
+          přesný tvar z LeaderboardTable. Uvnitř `<ul>` by to byla položka
+          seznamu tvrdící, že seznam žádnou položku nemá, a odečítačka by
+          napočítala jednu. */}
+      {listed.length === 0 && (
+        <div role="status" className="mt-6 border-2 border-dashed border-hairline p-6 text-sm text-steel-aa">
+          {t("themeListEmpty")}
+        </div>
+      )}
 
       <div className="mt-3" role="status" aria-live="polite">
         <SourceNote>{t("themeListCount", { shown: f.int(listed.length), matched: f.int(shown.length), cap: f.int(LIST_CAP) })}</SourceNote>

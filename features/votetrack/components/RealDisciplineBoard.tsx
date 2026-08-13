@@ -42,6 +42,10 @@ export default function RealDisciplineBoard({
   onSelectVote: (votePspId: number) => void;
 }) {
   const t = useTranslations("votetrack");
+  // Linie klubu je „pro"/„proti" — TÁŽ dvojice slov, jakou vedle vypisuje deník
+  // i kronika rebelií (common.voteChoice.*). Vlastní kopie by ve dvou sekcích
+  // jedné stránky pojmenovala jednu věc dvakrát.
+  const tcom = useTranslations("common");
   const f = useFormat();
   const reduceMotion = useReducedMotion();
   const ranked: ClubAggregate[] = [...data.clubs].sort(
@@ -154,6 +158,14 @@ export default function RealDisciplineBoard({
                   const style = clubStyle(c.club);
                   return (
                     <tr key={c.club} className="border-b border-hairline">
+                      {/* Klub je HLAVIČKA ŘÁDKU, ne buňka: bez `scope="row"`
+                          přečte odečítačka v každé buňce jen datum sloupce a
+                          holé číslo, o klubu ani slovo. Tečka je dekorace
+                          (barva je tady jediný její obsah a ten nese text
+                          vedle); jméno klubu se čte tak, jak je vidět —
+                          `clubStyle` sází displejovou formu („TOP 09"), a
+                          `sr-only` kopie by nabídla jen rejstříkovou zkratku
+                          („TOP09"), tedy horší čtení téhož. */}
                       <th scope="row" className="py-2.5 pr-3 text-left font-normal">
                         <span className="flex items-center gap-1.5 text-sm font-black uppercase">
                           <span
@@ -161,10 +173,7 @@ export default function RealDisciplineBoard({
                             className="inline-block h-2 w-2 shrink-0 rounded-full"
                             style={{ background: style.color }}
                           />
-                          <span aria-hidden>{style.short}</span>
-                          {/* Zkratka vidět, celý název klubu slyšet — vzor
-                              LeaderboardTable („TOP09", ne „TOP"). */}
-                          <span className="sr-only">{c.club}</span>
+                          {style.short}
                         </span>
                       </th>
                       {matrixVotes.map((v) => {
