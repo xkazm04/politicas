@@ -68,6 +68,7 @@ if (principles.length === 0) {
 const known = new Map(principles.map((p) => [p.id, p]));
 const rules = registry.rules ?? [];
 const declined = registry.declined ?? [];
+const satisfied = registry.satisfied ?? [];
 
 // ------------------------------------------------------------------ failures
 const failures = [];
@@ -87,6 +88,32 @@ for (const r of rules) {
   }
   if (!adopted.has(r.principle)) adopted.set(r.principle, []);
   adopted.get(r.principle).push(r.id);
+}
+
+// `satisfied` — the principle applies and this repo already meets it. It is the
+// state the first two adoption attempts here should have started in: both gates
+// were written from the principle before the code was read, and both measured 0
+// true positives. A claim of "already fine" is only worth anything if the next
+// session can re-run the measurement, so an entry MUST carry the mechanism, the
+// evidence, and a command that reproduces it. Without those it is a hunch wearing
+// a state name.
+const satisfiedIds = new Set();
+for (const s of satisfied) {
+  if (!s.id) { failures.push('a `satisfied` entry has no id'); continue; }
+  if (!known.has(s.id)) {
+    failures.push(`satisfied principle "${s.id}" is not in the library index — stale entry, or a rename upstream`);
+    continue;
+  }
+  if (!s.mechanism || s.mechanism.trim().length < 40) {
+    failures.push(`satisfied principle "${s.id}" does not name HOW it is satisfied — a regression would be unrecognisable`);
+  }
+  if (!s.verifiedBy) {
+    failures.push(
+      `satisfied principle "${s.id}" has no \`verifiedBy\` command. "Already fine" that cannot be re-measured ` +
+      `is indistinguishable from "nobody looked".`,
+    );
+  }
+  satisfiedIds.add(s.id);
 }
 
 const declinedIds = new Set();
@@ -136,12 +163,22 @@ if (existsSync(PROV)) {
 }
 
 // ------------------------------------------------------------------- report
-const unreviewed = principles.filter((p) => !adopted.has(p.id) && !declinedIds.has(p.id));
+for (const id of satisfiedIds) {
+  if (adopted.has(id)) failures.push(`principle "${id}" is both adopted and satisfied — if a gate holds it, it is adopted`);
+  if (declinedIds.has(id)) failures.push(`principle "${id}" is both satisfied and declined — it cannot both apply and not apply`);
+}
+
+const unreviewed = principles.filter(
+  (p) => !adopted.has(p.id) && !declinedIds.has(p.id) && !satisfiedIds.has(p.id),
+);
 
 console.log(
-  `library adherence: ${adopted.size} adopted · ${declinedIds.size} declined · ` +
+  `library adherence: ${adopted.size} adopted · ${satisfiedIds.size} satisfied · ${declinedIds.size} declined · ` +
   `${unreviewed.length} unreviewed  ${dim(`(of ${principles.length} written principles @ ${index.source.repo} ${index.source.commit})`)}`,
 );
+if (satisfiedIds.size && adopted.size === 0) {
+  console.log(dim('  no adopted rules — the census is not run. Reviewed principles were met by mechanisms already here.'));
+}
 if (provNote) console.log(dim(`  ${provNote}`));
 
 if (unreviewed.length) {

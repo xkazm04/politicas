@@ -32,5 +32,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "scripts/db-bench"]
+  "exclude": ["node_modules", "scripts/db-bench", "scripts/census/__fixtures__"]
 }

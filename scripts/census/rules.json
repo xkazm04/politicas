@@ -1,32 +1,22 @@
 {
-  "$comment": "This repo's adherence record against the shared knowledge library. `rules` are principles this repo has ADOPTED — each one enforced by a counted, ratcheting gate that fails `npm run check` when it rises. `declined` are principles reviewed and rejected FOR THIS REPO, each with a reason a later session can re-judge. Anything in library-index.json that appears in neither is UNREVIEWED, which check-library-adherence.mjs reports and never fails on. Every rule must cite a `principle` id that exists in the index; a gate with no grounding in the library is a gate nobody agreed to.",
-  "rules": [
+  "$comment": "This repo's adherence record against the shared knowledge library. FOUR states, not two. `rules` = ADOPTED (a local gate enforces it, baseline measured here). `satisfied` = the principle applies and this repo already meets it, by a named mechanism, with a command that reproduces the measurement. `declined` = reviewed and rejected for this repo, with a reason. Anything in library-index.json in none of these is UNREVIEWED — reported, never failed on. The `satisfied` state exists because the first two adoptions attempted here BOTH measured 0 true positives: writing a gate from a principle without reading the code first produces ~0% precision, and the honest output was 'already fine, by a better mechanism' rather than a new rule.",
+  "rules": [],
+  "satisfied": [
     {
-      "id": "raw-web-storage",
-      "principle": "client-state-persistence",
-      "verdict": "physics-with-local-improvement",
-      "verdictNote": "PHYSICS: the library's clause — client state surviving a reload belongs behind one accessor, never bare storage calls scattered through components — landed here unchanged, and this repo had independently reached it (`useSchranka.ts:4` calls itself 'the only place that reads/writes localStorage', and handles the SSR case where the API does not exist). THIS REPO IS AHEAD ON THE SECOND HALF, and the library should adopt it: `followCodec.ts:25-26` puts the SCHEMA VERSION IN THE KEY (`politicas:schranka:v1`) so that a shape change becomes a new key and old data is simply never found. The library's principle only warns that a stored shape can drift from the code that reads it — crashing exactly the users who hold the old shape, and never the developer whose storage is already current. Version-in-the-key makes that class UNREPRESENTABLE with no migration code at all. That is a type-over-gate answer arrived at independently, and it is stronger than the advice it fulfils. This gate therefore enforces THIS REPO'S better pattern, not the library's generic one.",
-      "title": "Raw localStorage/sessionStorage access outside a typed persistence accessor",
-      "roots": ["app", "components", "features", "lib"],
-      "extensions": [".ts", ".tsx"],
-      "signal": {
-        "pattern": "\\b(localStorage|sessionStorage)\\b",
-        "flags": "g",
-        "ignoreCommentLines": true,
-        "description": "A direct web-storage call OUTSIDE this repo's designated accessors. Measured 2026-08-14: 20 raw text occurrences, of which 13 are comment-only (the engine skips those — grep says 20, the engine says 7, and both are right about different questions). Of the 7 code sites, 2 are the accessor itself and are excluded below, leaving 5 across 2 files. Both remaining sites define their OWN storage key inside a component — `politicas.graph.variant` (GraphPage.tsx:40) and BALLOT_KEY (ReferendumPage.tsx) — and neither carries a schema version, so neither gets the protection `followCodec.ts` was written to provide. That is the precise drift this gate exists to stop: not 'someone used localStorage', but 'a second, unversioned key appeared outside the module that owns persistence'. PRECISION IS 100% BY CONSTRUCTION once the accessors are excluded — every surviving match is a component reaching past them. If a new accessor is added, exclude it here with a reason rather than raising the baseline."
-      },
-      "exclude": [
-        {
-          "path": "features/schranka/useSchranka.ts",
-          "reason": "The designated accessor. Its own header says it is the only place that reads or writes localStorage, and it handles the SSR case where the API is absent — this is the destination the rule routes callers toward, not a violation."
-        },
-        {
-          "path": "features/schranka/followCodec.ts",
-          "reason": "Owns SCHRANKA_STORAGE_KEY and the version-in-the-key strategy this rule enforces. Excluding the module that defines the correct pattern is the same reasoning that exempts a token's own definition."
-        }
-      ],
-      "baseline": { "files": 2, "matches": 5 },
-      "floor": 600
+      "id": "client-state-persistence",
+      "mechanism": "Three correct patterns, none of which is the library's. (1) features/schranka/followCodec.ts:25 puts the SCHEMA VERSION IN THE KEY (politicas:schranka:v1), so a shape change becomes a new key and stale data is never found — no migration code can be wrong because none exists. (2) features/graph/GraphPage.tsx:41,55 validates on read: an isVariant() type guard checks the stored string against the current VARIANTS list and falls back to 'mapa'. (3) features/landing/referendum/ReferendumPage.tsx:95 tests EXISTENCE only and never parses the value, so there is no shape to drift; it is try/caught for private mode and degrades open.",
+      "evidence": "Measured 2026-08-14: exactly 3 getItem sites repo-wide, and ZERO sites that JSON.parse storage outside the accessor. A gate written against this principle before reading the code matched all 5 code occurrences and scored 0 true positives — it would have had someone add version keys to two files that do not need them, and possibly break the existence-only check.",
+      "verifiedBy": "grep -rEn \"getItem\\(\" --include=*.ts --include=*.tsx app components features lib",
+      "verifiedOn": "2026-08-14",
+      "upstream": "Version-in-the-key has been sent back to the library: the principle currently only WARNS that a stored shape can drift from the code reading it, which crashes exactly the users holding old data and never the developer whose storage is already current."
+    },
+    {
+      "id": "swallowed-error-telemetry",
+      "mechanism": "This is a RESULT-RETURNING codebase, and that is a different — arguably stronger — answer than the library's. The library's clause is 'every caught error must reach a reporting door' (Sentry, toast, log), which is calibrated to a codebase where an error is a side effect. Here an error becomes part of the RETURN TYPE: features/money/reviewActions.ts:126 returns {status:'error', message}, lib/analysis/verdict.ts:305 returns {ok:false, errors:[...]}, lib/ingest/sources/kiosek.ts:203 stores lastErr and rethrows after the retry loop. A caller cannot ignore a Result the way it can ignore an unreported side effect, and a type checker enforces it where a lint rule only counts.",
+      "evidence": "Measured 2026-08-14: 106 catch clauses in product roots, of which 5 have no console/log/report/throw inside the catch body. All 5 were opened and read; all 5 return or rethrow the error. Second gate attempted here, second 0/3 precision result on the sampled sites.",
+      "verifiedBy": "grep -rEn \"catch\\s*\\(\" --include=*.ts --include=*.tsx app components features lib | grep -v '.test.' | wc -l",
+      "verifiedOn": "2026-08-14",
+      "caveat": "SATISFIED IS A SNAPSHOT, NOT A GUARANTEE. Nothing here gates a regression — this repo's own custom/no-silent-catch and custom/no-silent-null-catch cover the empty-catch and null-return shapes at \"error\", but neither sees a Result-returning catch that drops the error on the floor. Re-run verifiedBy before trusting this entry."
     }
   ],
   "declined": [
