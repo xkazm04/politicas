@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:rules": "node packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs",
-    "check": "npm run typecheck && npm run lint && npm run test && npm run test:rules",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run test:rules && npm run census:test && npm run census && npm run library:check",
     "smoke": "tsx scripts/smoke.ts",
     "prepare": "lefthook install",
     "sentinel": "tsx scripts/sentinel/run.ts",
@@ -29,7 +29,11 @@
     "da:kg-datahub-sync": "tsx scripts/data-analysis/kg-datahub-sync.ts",
     "hybrid:semop": "tsx scripts/hybrid-bench/run.ts",
     "hybrid:semagg": "tsx scripts/hybrid-bench/agg.ts",
-    "hybrid:materialize": "tsx scripts/hybrid-bench/materialize-tags.ts"
+    "hybrid:materialize": "tsx scripts/hybrid-bench/materialize-tags.ts",
+    "census": "node scripts/census/run-census.mjs --check",
+    "census:update": "node scripts/census/run-census.mjs --update",
+    "census:test": "node scripts/census/self-test.mjs",
+    "library:check": "node scripts/census/check-library-adherence.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.4.6",

@@ -1,0 +1,330 @@
+{
+  "$comment": "VENDORED CATALOGUE of the knowledge library, not the library itself. Ids and titles only — the principle text stays in the library home. This exists so a session in this repo can enumerate what the library covers WITHOUT a network call, a sibling checkout, or a running app. Regenerate to pick up new principles; the adherence checker reports how stale it is.",
+  "source": {
+    "repo": "personas",
+    "commit": "f9e3a33fd",
+    "spine": "docs/concepts/situation-spine.json"
+  },
+  "generatedAt": "2026-08-14",
+  "counts": {
+    "leaves": 247,
+    "written": 45
+  },
+  "principles": [
+    {
+      "id": "typed-error-contract",
+      "title": "Typed error contract",
+      "domain": "backend-runtime/contract-and-validation",
+      "recurrence": 2562,
+      "written": true
+    },
+    {
+      "id": "design-token-usage",
+      "title": "Design token usage",
+      "domain": "ui-system/design-tokens-theming",
+      "recurrence": 2104,
+      "written": true
+    },
+    {
+      "id": "ipc-command-authorization",
+      "title": "IPC command authorization",
+      "domain": "backend-runtime/command-authorization",
+      "recurrence": 1897,
+      "written": true
+    },
+    {
+      "id": "swallowed-error-telemetry",
+      "title": "Swallowed error telemetry",
+      "domain": "client-runtime/client-errors",
+      "recurrence": 1875,
+      "written": true
+    },
+    {
+      "id": "new-ipc-command",
+      "title": "New IPC command",
+      "domain": "backend-runtime/command-definition",
+      "recurrence": 1790,
+      "written": true
+    },
+    {
+      "id": "command-naming-placement",
+      "title": "Command naming and placement",
+      "domain": "backend-runtime/command-definition",
+      "recurrence": 1650,
+      "written": true
+    },
+    {
+      "id": "i18n-string-authoring",
+      "title": "i18n string authoring",
+      "domain": "ui-system/copy-and-vocabulary",
+      "recurrence": 1454,
+      "written": true
+    },
+    {
+      "id": "button",
+      "title": "Button",
+      "domain": "ui-system/controls-and-forms",
+      "recurrence": 1119,
+      "written": true
+    },
+    {
+      "id": "timestamp-storage",
+      "title": "Timestamp storage",
+      "domain": "data-persistence/data-modeling",
+      "recurrence": 793,
+      "written": true
+    },
+    {
+      "id": "toasts",
+      "title": "Toasts",
+      "domain": "ui-system/chrome-and-feedback",
+      "recurrence": 752,
+      "written": true
+    },
+    {
+      "id": "feature-flagged-compilation",
+      "title": "Feature-flagged compilation",
+      "domain": "platform-delivery/build-profiles",
+      "recurrence": 670,
+      "written": true
+    },
+    {
+      "id": "live-ui-test-automation",
+      "title": "Live UI test automation",
+      "domain": "platform-delivery/testing-and-workflow",
+      "recurrence": 588,
+      "written": true
+    },
+    {
+      "id": "schema-change",
+      "title": "Schema change",
+      "domain": "data-persistence/schema-design",
+      "recurrence": 546,
+      "written": true
+    },
+    {
+      "id": "inline-busy-state",
+      "title": "Inline busy state",
+      "domain": "ui-system/empty-and-loading",
+      "recurrence": 521,
+      "written": true
+    },
+    {
+      "id": "rust-unit-test-harness",
+      "title": "Rust unit test harness",
+      "domain": "platform-delivery/testing-and-workflow",
+      "recurrence": 514,
+      "written": true
+    },
+    {
+      "id": "persisted-model-struct",
+      "title": "Persisted model struct",
+      "domain": "data-persistence/data-modeling",
+      "recurrence": 469,
+      "written": true
+    },
+    {
+      "id": "bridge-type-contract",
+      "title": "Bridge type contract",
+      "domain": "backend-runtime/contract-and-validation",
+      "recurrence": 456,
+      "written": true
+    },
+    {
+      "id": "client-state-persistence",
+      "title": "Client state persistence",
+      "domain": "client-runtime/state-management",
+      "recurrence": 450,
+      "written": true
+    },
+    {
+      "id": "index-design",
+      "title": "Index design",
+      "domain": "data-persistence/query-performance",
+      "recurrence": 444,
+      "written": true
+    },
+    {
+      "id": "backend-to-frontend-events",
+      "title": "Backend-to-frontend events",
+      "domain": "backend-runtime/eventing",
+      "recurrence": 365,
+      "written": true
+    },
+    {
+      "id": "form-field-and-validation",
+      "title": "Form field and validation",
+      "domain": "ui-system/controls-and-forms",
+      "recurrence": 296,
+      "written": true
+    },
+    {
+      "id": "paginated-list-query",
+      "title": "Paginated list query",
+      "domain": "data-persistence/query-performance",
+      "recurrence": 252,
+      "written": true
+    },
+    {
+      "id": "modal-dialog",
+      "title": "Modal dialog",
+      "domain": "ui-system/overlays",
+      "recurrence": 243,
+      "written": true
+    },
+    {
+      "id": "status-and-severity-badges",
+      "title": "Status token vocabulary, from column to badge",
+      "domain": "ui-system/copy-and-vocabulary",
+      "recurrence": 238,
+      "written": true
+    },
+    {
+      "id": "id-generation",
+      "title": "ID generation",
+      "domain": "data-persistence/data-modeling",
+      "recurrence": 220,
+      "written": true
+    },
+    {
+      "id": "motion-and-reduced-motion",
+      "title": "Motion and reduced motion",
+      "domain": "ui-system/motion-and-accessibility",
+      "recurrence": 215,
+      "written": true
+    },
+    {
+      "id": "delete-semantics",
+      "title": "Entity deletion: cascade, blast radius, confirm",
+      "domain": "data-persistence/data-modeling",
+      "recurrence": 202,
+      "written": true
+    },
+    {
+      "id": "query-latency-instrumentation",
+      "title": "Query latency instrumentation",
+      "domain": "data-persistence/query-performance",
+      "recurrence": 200,
+      "written": true
+    },
+    {
+      "id": "polling-loop",
+      "title": "Polled read: client cadence, server cache",
+      "domain": "client-runtime/data-fetching",
+      "recurrence": 176,
+      "written": true
+    },
+    {
+      "id": "row-to-struct-mapping",
+      "title": "Row to struct mapping",
+      "domain": "data-persistence/repository-access",
+      "recurrence": 170,
+      "written": true
+    },
+    {
+      "id": "boot-migration-step",
+      "title": "Boot migration step",
+      "domain": "data-persistence/migrations",
+      "recurrence": 168,
+      "written": true
+    },
+    {
+      "id": "filesystem-boundary",
+      "title": "Caller-supplied filesystem paths",
+      "domain": "integrations-security/external-and-host-surfaces",
+      "recurrence": 157,
+      "written": true
+    },
+    {
+      "id": "tier-and-capability-gating",
+      "title": "Tier and capability gating",
+      "domain": "backend-runtime/command-authorization",
+      "recurrence": 154,
+      "written": true
+    },
+    {
+      "id": "lazy-route-chunk",
+      "title": "Lazy route chunk",
+      "domain": "ui-system/empty-and-loading",
+      "recurrence": 147,
+      "written": true
+    },
+    {
+      "id": "long-running-job-progress",
+      "title": "Long-running job progress",
+      "domain": "backend-runtime/job-coordination",
+      "recurrence": 140,
+      "written": true
+    },
+    {
+      "id": "empty-and-demo-states",
+      "title": "Empty and demo states",
+      "domain": "ui-system/empty-and-loading",
+      "recurrence": 127,
+      "written": true
+    },
+    {
+      "id": "dropdown-and-select",
+      "title": "Dropdown and select",
+      "domain": "ui-system/controls-and-forms",
+      "recurrence": 110,
+      "written": true
+    },
+    {
+      "id": "cold-load-choreography",
+      "title": "Cold-load choreography",
+      "domain": "ui-system/empty-and-loading",
+      "recurrence": 110,
+      "written": true
+    },
+    {
+      "id": "transaction-boundary",
+      "title": "Transaction boundary",
+      "domain": "data-persistence/repository-access",
+      "recurrence": 106,
+      "written": true
+    },
+    {
+      "id": "json-blob-column",
+      "title": "JSON blob column",
+      "domain": "data-persistence/data-modeling",
+      "recurrence": 101,
+      "written": true
+    },
+    {
+      "id": "data-table",
+      "title": "Data table",
+      "domain": "product-surfaces/lists-and-tables",
+      "recurrence": 95,
+      "written": true
+    },
+    {
+      "id": "human-review-queue",
+      "title": "Human review gate",
+      "domain": "ai-agents/human-review",
+      "recurrence": 72,
+      "written": true
+    },
+    {
+      "id": "focus-management",
+      "title": "Focus management",
+      "domain": "ui-system/motion-and-accessibility",
+      "recurrence": 65,
+      "written": true
+    },
+    {
+      "id": "cancelling-in-flight-work",
+      "title": "Cancelling in-flight work",
+      "domain": "backend-runtime/background-work",
+      "recurrence": 46,
+      "written": true
+    },
+    {
+      "id": "stale-response-guard",
+      "title": "Stale response guard",
+      "domain": "client-runtime/data-fetching",
+      "recurrence": 34,
+      "written": true
+    }
+  ]
+}

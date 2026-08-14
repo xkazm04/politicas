@@ -1,0 +1,43 @@
+{
+  "source": {
+    "repo": "personas",
+    "commit": "f9e3a33fd",
+    "path": "scripts/census"
+  },
+  "portedAt": "2026-08-14",
+  "files": {
+    "lib/engine.mjs": {
+      "sourceSha": "c4980eea6bfee8e5",
+      "portedSha": "b0001b224ffb7c49"
+    },
+    "run-census.mjs": {
+      "sourceSha": "4c129412ac35fe95",
+      "portedSha": "d6904f81f318d944"
+    },
+    "self-test.mjs": {
+      "sourceSha": "9d1f812b66a96274",
+      "portedSha": "7fa8632bcd9fc4cc"
+    },
+    "__fixtures__/rules.fixture.json": {
+      "sourceSha": "afe9139264801508",
+      "portedSha": "afe9139264801508"
+    },
+    "__fixtures__/tree/clean.tsx": {
+      "sourceSha": "2889355857a8b851",
+      "portedSha": "2889355857a8b851"
+    },
+    "__fixtures__/tree/hits.tsx": {
+      "sourceSha": "062550acd74504ff",
+      "portedSha": "062550acd74504ff"
+    },
+    "__fixtures__/tree/nested/deep.tsx": {
+      "sourceSha": "f2a2e3904e823d73",
+      "portedSha": "f2a2e3904e823d73"
+    },
+    "__fixtures__/tree/excluded/Primitive.tsx": {
+      "sourceSha": "786bed9f275e0599",
+      "portedSha": "786bed9f275e0599"
+    }
+  },
+  "note": "portedSha = hash of the local copy as written at port time; a mismatch means the copy was edited here. sourceSha = the upstream file at the recorded commit, for comparing when that repo is reachable. Divergence is not automatically wrong — but it must be visible. Hashes are over LF-normalised content, so a CRLF checkout does not read as drift."
+}

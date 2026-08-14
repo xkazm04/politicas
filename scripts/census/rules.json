@@ -1,0 +1,62 @@
+{
+  "$comment": "This repo's adherence record against the shared knowledge library. `rules` are principles this repo has ADOPTED — each one enforced by a counted, ratcheting gate that fails `npm run check` when it rises. `declined` are principles reviewed and rejected FOR THIS REPO, each with a reason a later session can re-judge. Anything in library-index.json that appears in neither is UNREVIEWED, which check-library-adherence.mjs reports and never fails on. Every rule must cite a `principle` id that exists in the index; a gate with no grounding in the library is a gate nobody agreed to.",
+  "rules": [
+    {
+      "id": "raw-web-storage",
+      "principle": "client-state-persistence",
+      "verdict": "physics-with-local-improvement",
+      "verdictNote": "PHYSICS: the library's clause — client state surviving a reload belongs behind one accessor, never bare storage calls scattered through components — landed here unchanged, and this repo had independently reached it (`useSchranka.ts:4` calls itself 'the only place that reads/writes localStorage', and handles the SSR case where the API does not exist). THIS REPO IS AHEAD ON THE SECOND HALF, and the library should adopt it: `followCodec.ts:25-26` puts the SCHEMA VERSION IN THE KEY (`politicas:schranka:v1`) so that a shape change becomes a new key and old data is simply never found. The library's principle only warns that a stored shape can drift from the code that reads it — crashing exactly the users who hold the old shape, and never the developer whose storage is already current. Version-in-the-key makes that class UNREPRESENTABLE with no migration code at all. That is a type-over-gate answer arrived at independently, and it is stronger than the advice it fulfils. This gate therefore enforces THIS REPO'S better pattern, not the library's generic one.",
+      "title": "Raw localStorage/sessionStorage access outside a typed persistence accessor",
+      "roots": ["app", "components", "features", "lib"],
+      "extensions": [".ts", ".tsx"],
+      "signal": {
+        "pattern": "\\b(localStorage|sessionStorage)\\b",
+        "flags": "g",
+        "ignoreCommentLines": true,
+        "description": "A direct web-storage call OUTSIDE this repo's designated accessors. Measured 2026-08-14: 20 raw text occurrences, of which 13 are comment-only (the engine skips those — grep says 20, the engine says 7, and both are right about different questions). Of the 7 code sites, 2 are the accessor itself and are excluded below, leaving 5 across 2 files. Both remaining sites define their OWN storage key inside a component — `politicas.graph.variant` (GraphPage.tsx:40) and BALLOT_KEY (ReferendumPage.tsx) — and neither carries a schema version, so neither gets the protection `followCodec.ts` was written to provide. That is the precise drift this gate exists to stop: not 'someone used localStorage', but 'a second, unversioned key appeared outside the module that owns persistence'. PRECISION IS 100% BY CONSTRUCTION once the accessors are excluded — every surviving match is a component reaching past them. If a new accessor is added, exclude it here with a reason rather than raising the baseline."
+      },
+      "exclude": [
+        {
+          "path": "features/schranka/useSchranka.ts",
+          "reason": "The designated accessor. Its own header says it is the only place that reads or writes localStorage, and it handles the SSR case where the API is absent — this is the destination the rule routes callers toward, not a violation."
+        },
+        {
+          "path": "features/schranka/followCodec.ts",
+          "reason": "Owns SCHRANKA_STORAGE_KEY and the version-in-the-key strategy this rule enforces. Excluding the module that defines the correct pattern is the same reasoning that exempts a token's own definition."
+        }
+      ],
+      "baseline": { "files": 2, "matches": 5 },
+      "floor": 600
+    }
+  ],
+  "declined": [
+    {
+      "id": "ipc-command-authorization",
+      "reason": "No Tauri IPC surface exists here — verified zero .rs files and no src-tauri directory. There is no command boundary to authorize."
+    },
+    {
+      "id": "new-ipc-command",
+      "reason": "Describes adding a #[tauri::command] and regenerating ts-rs bindings. This repo has no Rust and no IPC layer; its equivalent boundary is Next.js route handlers, which is a different situation the library has not yet written."
+    },
+    {
+      "id": "command-naming-placement",
+      "reason": "Concerns the flat global namespace of Tauri command wire keys. Next.js routes are namespaced by the filesystem, so the situation this principle exists to solve cannot arise here."
+    },
+    {
+      "id": "bridge-type-contract",
+      "reason": "Specific to ts-rs generating TypeScript from Rust structs. There is no generated cross-language type boundary in this repo; types are authored once in TypeScript."
+    },
+    {
+      "id": "rust-unit-test-harness",
+      "reason": "No Rust to test. This repo's equivalent lane is Vitest plus its own eslint-plugin rule tests, both already wired into npm run check."
+    },
+    {
+      "id": "feature-flagged-compilation",
+      "reason": "Concerns cargo feature unification and per-feature compilation. There is no cargo build here; the analogous axis would be Next.js build-time env, which the library has not written as a principle."
+    },
+    {
+      "id": "row-to-struct-mapping",
+      "reason": "Describes rusqlite row-to-Rust-struct mapping by column index and name. No rusqlite, no Rust structs. The general clause about positional mapping being fragile may still apply if this repo adds a SQL layer, so re-open this if scripts/gen-migration.ts grows into one."
+    }
+  ]
+}

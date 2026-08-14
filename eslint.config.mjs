@@ -32,6 +32,13 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     ".justice-samples/**",
     ".claude/worktrees/**",
+    // Census fixtures are a corpus of DELIBERATE violations — the self-test
+    // hand-counts hits in them, so their defects are the point and must not be
+    // "fixed". `hits.tsx` renders an undefined `ThemedSelect` on purpose; linting
+    // it produced this repo's only lint error the moment the runner was ported.
+    // Same category as the vendored tooling above: bytes we do not author as
+    // product code. Exempts no source under app/, components/, features/ or lib/.
+    "scripts/census/__fixtures__/**",
     // `.claude/skills/**` and `.claude/agents/**` are vendored agent tooling —
     // impeccable v4.0.3 ships ~90 `.mjs` files that are its code, not ours. They
     // are the same case as `.justice-samples/**`: third-party bytes we do not
