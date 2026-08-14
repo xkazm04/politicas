@@ -139,12 +139,20 @@ export function formatCompactCzk(n: number, locale: string): string {
   const dec = (x: number) => (cs ? x.toFixed(1).replace(".", ",") : x.toFixed(1));
   if (abs >= 1e9) return cs ? `${dec(n / 1e9)} mld. Kč` : `${dec(n / 1e9)} bn CZK`;
   if (abs >= 1e6) return cs ? `${dec(n / 1e6)} mil. Kč` : `${dec(n / 1e6)} M CZK`;
+  // Uses this file's own `groupedInt`, not `toLocaleString`. These four calls were
+  // the only survivors of `toLocaleString` in a module whose entire design is
+  // determinism — and they reintroduced precisely the hazard `groupDigits` above
+  // is documented to avoid: `toLocaleString("cs-CZ")` emits the Czech thousands
+  // separator as U+00A0 on some ICU versions and U+202F on others, so server and
+  // client could render the same number as different bytes and break hydration.
+  // Separators here now match `czechInt` (U+00A0, ČSN 01 6910) and `englishInt`
+  // (","), so every grouped integer in the module agrees byte-for-byte.
   if (abs >= 1e3) {
     const k = Math.round(n / 1e3);
-    return cs ? `${k.toLocaleString("cs-CZ")} tis. Kč` : `${k.toLocaleString("en-US")}k CZK`;
+    return cs ? `${groupedInt(k, " ")} tis. Kč` : `${groupedInt(k, ",")}k CZK`;
   }
   const r = Math.round(n);
-  return cs ? `${r.toLocaleString("cs-CZ")} Kč` : `CZK ${r.toLocaleString("en-US")}`;
+  return cs ? `${groupedInt(r, " ")} Kč` : `CZK ${groupedInt(r, ",")}`;
 }
 
 /** Which plain formatter sets the visible text of a citable figure. `czkCompact`
