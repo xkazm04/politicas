@@ -37,7 +37,7 @@ export default function DisciplineBoard() {
               <span className={`font-mono text-lg font-bold ${i === 0 ? "text-signal" : "text-steel"}`}>{i + 1}</span>
               <span className="flex items-center gap-1.5 text-sm font-black uppercase tracking-tight">
                 <span className="inline-block h-2 w-2 rounded-full" style={{ background: d.color }} />
-                {d.name.split(" ")[0]}
+                {d.name}
                 <span className="font-mono text-[10px] font-normal text-steel">{d.seats}</span>
               </span>
               <span className="h-4 w-full bg-hairline">
@@ -82,7 +82,7 @@ export default function DisciplineBoard() {
                   <td className="py-2.5 pr-3 text-left">
                     <span className="flex items-center gap-1.5 text-sm font-black uppercase">
                       <span className="inline-block h-2 w-2 rounded-full" style={{ background: d.color }} />
-                      {d.name.split(" ")[0]}
+                      {d.name}
                     </span>
                   </td>
                   {ROLL_CALLS.map((rc, rcIdx) => {

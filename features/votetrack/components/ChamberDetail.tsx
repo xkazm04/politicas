@@ -102,7 +102,7 @@ export default function ChamberDetail({ rc }: { rc: RollCall }) {
               <div key={p.code} className="grid grid-cols-[6.5rem_1fr_6.5rem] items-center gap-3">
                 <span className="flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-wider">
                   <span className="inline-block h-2 w-2 rounded-full" style={{ background: p.color }} />
-                  {p.name.split(" ")[0]}
+                  {p.name}
                 </span>
                 <div className="flex h-4 w-full overflow-hidden bg-hairline">
                   {pv.pro > 0 && <span className="h-full bg-cobalt" style={{ width: `${(pv.pro / p.seats) * 100}%` }} />}
