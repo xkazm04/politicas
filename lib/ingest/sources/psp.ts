@@ -72,11 +72,8 @@ function rawOf(names: readonly string[], row: UnlRow): Record<string, unknown> {
 
 const OSOBY_COLS = ["id_osoba", "pred", "prijmeni", "jmeno", "za", "narozeni", "pohlavi", "zmena", "umrti"] as const;
 const ORGANY_COLS = ["id_organ", "organ_id_organ", "id_typ_organu", "zkratka", "nazev_organu_cz", "nazev_organu_en", "od_organ", "do_organ", "priorita", "cl_organ_base"] as const;
-const TYP_ORGANU_COLS = ["id_typ_organu", "typ_id_typ_organu", "nazev_typ_org_cz", "nazev_typ_org_en", "typ_org_obecny", "priorita"] as const;
 const POSLANEC_COLS = ["id_poslanec", "id_osoba", "id_kraj", "id_kandidatka", "id_obdobi", "web", "ulice", "obec", "psc", "email", "telefon", "fax", "psp_telefon", "facebook", "foto"] as const;
 const ZARAZENI_COLS = ["id_osoba", "id_of", "cl_funkce", "od_o", "do_o", "od_f", "do_f"] as const;
-const FUNKCE_COLS = ["id_funkce", "id_organ", "id_typ_funkce", "nazev_funkce_cz", "priorita"] as const;
-const TYP_FUNKCE_COLS = ["id_typ_funkce", "id_typ_org", "typ_funkce_cz", "typ_funkce_en", "priorita", "typ_funkce_obecny"] as const;
 const HLASOVANI_COLS = ["id_hlasovani", "id_organ", "schuze", "cislo", "bod", "datum", "cas", "pro", "proti", "zdrzel", "nehlasoval", "prihlaseno", "kvorum", "druh_hlasovani", "vysledek", "nazev_dlouhy", "nazev_kratky"] as const;
 const OMLUVY_COLS = ["id_organ", "id_poslanec", "den", "od", "do"] as const;
 
@@ -408,5 +405,3 @@ export const PSP_SOURCE_DOCS = {
   refresh: "full snapshot, republished daily; no diff feed",
   index: PSP_OPENDATA_INDEX,
 } as const;
-
-export { TYP_ORGANU_COLS, FUNKCE_COLS, TYP_FUNKCE_COLS };
