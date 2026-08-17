@@ -35,10 +35,6 @@ async function main() {
     miki ? JSON.stringify({ src: miki.src, corroboration: (miki.props as Props)?.corroboration }) : "EDGE NOT FOUND",
   );
 
-  // OSVC purge: the purged ico must be gone.
-  const purgedRefs = linked.filter((e) => /ico:(?:$|)/.test(e.dst) === false);
-  void purgedRefs;
-
   for (const rel of ["owns_stake", "cites", "concerns", "supplies"] as const) {
     const edges = await store.listKgEdges({ rel, limit: 200_000 });
     console.log(`${rel} edges: ${edges.length}`);
