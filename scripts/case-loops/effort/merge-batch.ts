@@ -20,7 +20,7 @@ function main() {
   const seen = new Set<string>();
   const notInArmy: string[] = [];
   for (const g of groups) {
-    const path = `${OUT}/payloads/batch-00${batch}-group-${g}.json`;
+    const path = `${OUT}/payloads/batch-${String(batch).padStart(3, "0")}-group-${g}.json`;
     const d = JSON.parse(readFileSync(path, "utf8")) as { proposals: Proposal[] };
     for (const p of d.proposals) {
       if (!armyIds.has(p.id)) notInArmy.push(`${p.id} (${p.name}, group ${g})`);
@@ -46,7 +46,8 @@ function main() {
     note: `Merged from ${groups.length} grouped Sonnet agents (${groups.join(",")}), cross-checked against triage.json's ${armyIds.size}-MP army list. All props effort_*-namespaced, no contribution_* touched, review_state pending_review.`,
     proposals: all,
   };
-  writeFileSync(`${OUT}/payloads/batch-00${batch}-props.json`, JSON.stringify(merged, null, 2));
-  console.log(`Merged ${all.length} proposals from groups [${groups.join(",")}] → batch-00${batch}-props.json`);
+  const pad = String(batch).padStart(3, "0");
+  writeFileSync(`${OUT}/payloads/batch-${pad}-props.json`, JSON.stringify(merged, null, 2));
+  console.log(`Merged ${all.length} proposals from groups [${groups.join(",")}] → batch-${pad}-props.json`);
 }
 main();

@@ -34,7 +34,7 @@ function main() {
     units: Unit[];
     [k: string]: unknown;
   };
-  const payload = JSON.parse(readFileSync(`${OUT}/payloads/batch-00${batch}-props.json`, "utf8")) as {
+  const payload = JSON.parse(readFileSync(`${OUT}/payloads/batch-${String(batch).padStart(3, "0")}-props.json`, "utf8")) as {
     proposals: { id: string; name: string; signal?: number }[];
   };
 
