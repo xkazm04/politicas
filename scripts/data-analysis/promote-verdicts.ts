@@ -69,7 +69,6 @@ async function main() {
   // Validate any verdicts present and check their cited ids against the slice
   // row files. Verdicts do not author scores — they gate + annotate.
   let verdictCount = 0;
-  const rejected: { file: string; entityId: string }[] = [];
   if (existsSync(verdictsDir)) {
     for (const file of readdirSync(verdictsDir).filter((f) => f.endsWith(".json") || f.endsWith(".txt"))) {
       const text = readFileSync(join(verdictsDir, file), "utf8");
@@ -98,10 +97,11 @@ async function main() {
       }
     }
   }
-  console.log(`\nverdicts validated: ${verdictCount}${rejected.length ? ` · ${rejected.length} rejected ids` : ""}`);
+  console.log(`\nverdicts validated: ${verdictCount}`);
 
   if (!commit) {
     console.log("\nDRY-RUN — pass --commit to write slice_quality.");
+    await store.close();
     return;
   }
   for (const r of rows) await store.upsertSliceQuality(r);
