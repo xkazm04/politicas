@@ -43,12 +43,14 @@ async function fetchRetry(url: string, init: RequestInit = {}, maxRetries = 4): 
     try {
       const res = await fetch(url, { ...init, signal: AbortSignal.timeout(180_000) });
       if ((res.status === 429 || res.status === 503) && attempt < maxRetries) {
+        console.warn(`[dataor] ${url} → HTTP ${res.status}, retry ${attempt + 1}/${maxRetries} after backoff`);
         await backoff(attempt);
         continue;
       }
       return res;
     } catch (e) {
       if (attempt >= maxRetries) throw e;
+      console.warn(`[dataor] ${url} → ${e instanceof Error ? e.message : String(e)}, retry ${attempt + 1}/${maxRetries} after backoff`);
       await backoff(attempt);
     }
   }
