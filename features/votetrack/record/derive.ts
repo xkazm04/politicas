@@ -319,7 +319,8 @@ export function deriveVoteRecord(
       list.push({ personPspId: person, name: acc.name, club, choice: bucket, line });
     }
   }
-  for (const list of rebelsByVote.values()) list.sort((a, b) => a.name.localeCompare(b.name, "cs"));
+  for (const list of rebelsByVote.values())
+    list.sort((a, b) => a.name.localeCompare(b.name, "cs") || a.personPspId - b.personPspId);
 
   /* ledger window */
   const ledger: LedgerVote[] = valid.slice(0, ledgerWindow).map((e) => ({
@@ -485,7 +486,13 @@ export function deriveVoteRecord(
       eligibleVotes: a.eligibleVotes,
       rate: round3(a.rebelVotes / a.eligibleVotes),
     }))
-    .sort((a, b) => b.rate - a.rate || b.rebelVotes - a.rebelVotes || a.name.localeCompare(b.name, "cs"))
+    .sort(
+      (a, b) =>
+        b.rate - a.rate ||
+        b.rebelVotes - a.rebelVotes ||
+        a.name.localeCompare(b.name, "cs") ||
+        a.personPspId - b.personPspId,
+    )
     .slice(0, topRebelsCap);
 
   const validDates = valid.map((e) => e.votedOn).filter((d): d is string => d !== null);

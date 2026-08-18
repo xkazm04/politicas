@@ -42,7 +42,7 @@ export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | n
     // A case file sorted by raw money buries an active, registry-confirmed
     // owner-operator tie under ended steward seats worth 40x more but worth
     // nothing as evidence (UX audit 2026-07-27, #4).
-    ties.sort((a, b) => a.reviewRank - b.reviewRank);
+    ties.sort((a, b) => a.reviewRank - b.reviewRank || a.companyId.localeCompare(b.companyId));
 
     return {
       pspId,

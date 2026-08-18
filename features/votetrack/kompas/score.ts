@@ -114,7 +114,8 @@ export function scoreAlignment(
       Number(b.rankable) - Number(a.rankable) ||
       (b.rate ?? -1) - (a.rate ?? -1) ||
       b.comparable - a.comparable ||
-      a.name.localeCompare(b.name, "cs"),
+      a.name.localeCompare(b.name, "cs") ||
+      a.personPspId - b.personPspId,
   );
 
   /* Clubs */

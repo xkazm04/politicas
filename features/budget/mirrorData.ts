@@ -211,7 +211,7 @@ export function searchMunicipalities(all: readonly Municipality[], query: string
     scored.push({ m, score });
   }
   return scored
-    .sort((a, b) => a.score - b.score)
+    .sort((a, b) => a.score - b.score || a.m.ic.localeCompare(b.m.ic))
     .slice(0, limit)
     .map((s) => s.m);
 }

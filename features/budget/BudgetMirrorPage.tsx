@@ -195,7 +195,9 @@ export default function BudgetMirrorPage({
       .map((m) => ({ m, latest: latestMetrics(series.get(m.ic)) }))
       .filter((r): r is { m: Municipality; latest: NonNullable<ReturnType<typeof latestMetrics>> } => r.latest !== null);
     return rows.sort(
-      (a, b) => (a.latest.debtPerCapita ?? Number.POSITIVE_INFINITY) - (b.latest.debtPerCapita ?? Number.POSITIVE_INFINITY),
+      (a, b) =>
+        (a.latest.debtPerCapita ?? Number.POSITIVE_INFINITY) - (b.latest.debtPerCapita ?? Number.POSITIVE_INFINITY) ||
+        a.m.ic.localeCompare(b.m.ic),
     );
   }, [town, group, series]);
 

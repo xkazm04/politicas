@@ -164,7 +164,7 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
       }
       const where = clauses.length ? `where ${clauses.join(" and ")}` : "";
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select * from review_audit ${where} order by decided_at desc limit ${lim}`,
+        `select * from review_audit ${where} order by decided_at desc, id desc limit ${lim}`,
         params,
       );
       // /dukazy renders `audit.length` AS A COUNT of gate decisions and /admin

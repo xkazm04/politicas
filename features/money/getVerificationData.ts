@@ -144,7 +144,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
     // owner-operators → managers → confirmed stewards → unconfirmed, money desc within
     // tier) — this is what drives a real review session, not the raw story-worthiness
     // signalScore (still computed per-tie above and shown on the card for context).
-    ties.sort((a, b) => a.reviewRank - b.reviewRank);
+    ties.sort((a, b) => a.reviewRank - b.reviewRank || a.id.localeCompare(b.id));
 
     const tierCounts: [number, number, number, number] = [0, 0, 0, 0];
     for (const t of ties) tierCounts[t.reviewTier] += 1;

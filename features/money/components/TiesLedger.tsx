@@ -156,13 +156,17 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
   const sorted = useMemo(() => {
     const copy = [...filtered];
     copy.sort((a, b) => {
-      if (sortKey === "mp") return sortDir * a.mp.name.localeCompare(b.mp.name, "cs");
-      if (sortKey === "company") return sortDir * a.tie.company.localeCompare(b.tie.company, "cs");
-      if (sortKey === "evidence") return sortDir * (a.tie.reviewRank - b.tie.reviewRank);
+      // Stable identity tiebreak (the row key `${pspId}-${companyId}`) so equal primary
+      // keys keep a total, reproducible order across pages and re-renders. Independent of
+      // sortDir on purpose — identity ordering does not flip with the column direction.
+      const idTiebreak = a.mp.pspId - b.mp.pspId || a.tie.companyId.localeCompare(b.tie.companyId);
+      if (sortKey === "mp") return sortDir * a.mp.name.localeCompare(b.mp.name, "cs") || idTiebreak;
+      if (sortKey === "company") return sortDir * a.tie.company.localeCompare(b.tie.company, "cs") || idTiebreak;
+      if (sortKey === "evidence") return sortDir * (a.tie.reviewRank - b.tie.reviewRank) || idTiebreak;
       // Sort key and cell come from the SAME shared definition (`tieReach`) — the column
       // used to re-add `contractCzk + subsidiesCzk` here and again at the cell, which was
       // a fourth answer to "kolik peněz je v dosahu" living inside the ledger.
-      return sortDir * (tieReach(reachInput(a.tie)).czk - tieReach(reachInput(b.tie)).czk);
+      return sortDir * (tieReach(reachInput(a.tie)).czk - tieReach(reachInput(b.tie)).czk) || idTiebreak;
     });
     return copy;
   }, [filtered, sortKey, sortDir]);

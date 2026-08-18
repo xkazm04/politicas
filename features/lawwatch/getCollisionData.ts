@@ -510,7 +510,7 @@ async function readCollisionData(): Promise<{ data: CollisionData | null; resolv
     clusters.sort((a, b) => {
       if (a.classification !== b.classification) return a.classification === "confirmed-collision" ? -1 : 1;
       if (b.bills.length !== a.bills.length) return b.bills.length - a.bills.length;
-      return a.lawRef.localeCompare(b.lawRef);
+      return a.lawRef.localeCompare(b.lawRef) || a.key.localeCompare(b.key);
     });
 
     const confirmedPairCount = rawAll.filter((p) => p.classification === "confirmed-collision").length;

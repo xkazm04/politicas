@@ -128,6 +128,6 @@ async function readLeadDossiers(): Promise<LeadDossiers> {
     }
   }
   // signal-descending — the more story-worthy lead first, same axis the dossier itself reports.
-  dossiers.sort((a, b) => b.signalScore - a.signalScore);
+  dossiers.sort((a, b) => b.signalScore - a.signalScore || a.leadId.localeCompare(b.leadId));
   return { dossiers, directoryUnreadable: false, unreadableFiles };
 }

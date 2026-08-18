@@ -129,7 +129,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       // Strongest evidence first within a case file (reviewRank — tier
       // ascending, reachable CZK descending only within a tier). Was sorted
       // by raw money, contradicting this very comment (UX audit 2026-07-27, #4).
-      ties.sort((a, b) => a.reviewRank - b.reviewRank);
+      ties.sort((a, b) => a.reviewRank - b.reviewRank || a.companyId.localeCompare(b.companyId));
       // The two class-MIXING totals this used to carry (`totalContractCzk` /
       // `totalSubsidiesCzk`) were the ranking key, so the "strongest case file" — the one
       // the front page draws as a graph — was most often the MP who sits on the

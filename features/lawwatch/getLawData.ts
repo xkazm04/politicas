@@ -424,7 +424,8 @@ async function loadLawData(): Promise<LawData | null> {
       arr.push({ pspId, name: nameById.get(pspId) ?? `#${pspId}`, scopes });
       rapporteursByBill.set(e.dst, arr);
     }
-    for (const arr of rapporteursByBill.values()) arr.sort((a, b) => a.name.localeCompare(b.name, "cs"));
+    for (const arr of rapporteursByBill.values())
+      arr.sort((a, b) => a.name.localeCompare(b.name, "cs") || a.pspId - b.pspId);
 
     // bill → floor speakers (weight = substantive turns) and amendment authors (pass 35).
     const speakersByBill = new Map<string, { pspId: number; name: string; turns: number }[]>();
@@ -435,7 +436,8 @@ async function loadLawData(): Promise<LawData | null> {
       arr.push({ pspId, name: nameById.get(pspId) ?? `#${pspId}`, turns: e.weight });
       speakersByBill.set(e.dst, arr);
     }
-    for (const arr of speakersByBill.values()) arr.sort((a, b) => b.turns - a.turns || a.name.localeCompare(b.name, "cs"));
+    for (const arr of speakersByBill.values())
+      arr.sort((a, b) => b.turns - a.turns || a.name.localeCompare(b.name, "cs") || a.pspId - b.pspId);
     const amendmentAuthorsByBill = new Map<string, { pspId: number; name: string; count: number }[]>();
     for (const e of amendmentEdges) {
       const pspId = Number(/^psp:person:(\d+)$/.exec(e.src)?.[1] ?? NaN);
@@ -444,7 +446,8 @@ async function loadLawData(): Promise<LawData | null> {
       arr.push({ pspId, name: nameById.get(pspId) ?? `#${pspId}`, count: e.weight });
       amendmentAuthorsByBill.set(e.dst, arr);
     }
-    for (const arr of amendmentAuthorsByBill.values()) arr.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "cs"));
+    for (const arr of amendmentAuthorsByBill.values())
+      arr.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "cs") || a.pspId - b.pspId);
 
     const paragraphDiffs = loadParagraphDiffs();
     const summaries = loadBillSummaries();
