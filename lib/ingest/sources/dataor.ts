@@ -30,12 +30,13 @@
 
 import { gunzipSync } from "node:zlib";
 import { asciiFold } from "@/lib/ingest/normalize";
+import { backoffDelayMs } from "./backoff";
 
 const CKAN_BASE = "https://dataor.justice.cz/api/3/action";
 const CACHE_DIR = ".dataor-cache"; // gitignored — raw bulk files, same convention as .justice-samples/
 
 async function fetchRetry(url: string, init: RequestInit = {}, maxRetries = 4): Promise<Response> {
-  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, Math.min(15_000, 500 * 2 ** attempt)));
+  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, backoffDelayMs(attempt, 500, 15_000)));
   // 180s, not 60s — the largest court×form combos (sro-full-praha, the biggest s.r.o.
   // catalog) can run well past a minute to fully transfer even as a 40MB+ gzip; a real
   // batch-006 run OOM'd retries on this before the timeout was widened.

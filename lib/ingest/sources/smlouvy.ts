@@ -46,6 +46,8 @@
 // column offset would silently invent a bogus contract value, which is the one thing
 // the brand rule forbids outright.
 
+import { backoffDelayMs } from "./backoff";
+
 const DEFAULT_BASE_URL = "https://smlouvy.gov.cz";
 const USER_AGENT = "politicas-money-loop/1 (+https://github.com/xkazm04/politicas)";
 
@@ -322,7 +324,7 @@ async function fetchWithTimeoutRetry(
   init: RequestInit = {},
   maxRetries = 3,
 ): Promise<Response> {
-  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, Math.min(8_000, 400 * 2 ** attempt)));
+  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, backoffDelayMs(attempt, 400, 8_000)));
   for (let attempt = 0; ; attempt++) {
     try {
       const res = await fetchImpl(url, { ...init, signal: AbortSignal.timeout(30_000) });

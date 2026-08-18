@@ -32,6 +32,8 @@
 // 5 years = 660 calls, ~30 s at concurrency 8, zero failures). Coverage of a partial
 // batch is DISCLOSED on-page, never passed off as completeness.
 
+import { backoffDelayMs } from "./backoff";
+
 const DEFAULT_BASE_URL = "https://monitor.statnipokladna.gov.cz/api";
 const USER_AGENT = "politicas-budget-mirror/1 (+https://github.com/xkazm04/politicas)";
 
@@ -209,7 +211,7 @@ async function fetchJsonWithRetry(
   url: string,
   maxRetries = 2,
 ): Promise<unknown> {
-  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, Math.min(4_000, 500 * 2 ** attempt)));
+  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, backoffDelayMs(attempt, 500, 4_000)));
   for (let attempt = 0; ; attempt++) {
     try {
       const res = await fetchImpl(url, {
