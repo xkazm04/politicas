@@ -113,7 +113,6 @@ export default function ProvenanceCapsule({
         <motion.div
           ref={panelRef}
           role="dialog"
-          aria-modal="true"
           aria-labelledby={titleId}
           tabIndex={-1}
           onKeyDown={onPanelKeyDown}

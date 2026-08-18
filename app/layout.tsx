@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { MotionConfig } from "framer-motion";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import AppShell from "@/features/shell/AppShell";
@@ -90,9 +91,15 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          {/* Levá lišta je součástí layoutu — vyjmuté plochy si AppShell
-              rozhodne sám podle route (landing, admin, archiv Rentgen). */}
-          <AppShell>{children}</AppShell>
+          {/* `reducedMotion="user"` honours prefers-reduced-motion app-wide:
+              framer-motion nezohledňuje systémovou preferenci bez tohoto obalu,
+              takže hlavičky a dlaždice by se při „reduce" stále nasouvaly. Pro
+              výchozí uživatele je to no-op. */}
+          <MotionConfig reducedMotion="user">
+            {/* Levá lišta je součástí layoutu — vyjmuté plochy si AppShell
+                rozhodne sám podle route (landing, admin, archiv Rentgen). */}
+            <AppShell>{children}</AppShell>
+          </MotionConfig>
         </NextIntlClientProvider>
         {/* Plausible — cookieless analytika, env-gated: bez
             NEXT_PUBLIC_PLAUSIBLE_DOMAIN se skript vůbec nevykreslí (týž
