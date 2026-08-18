@@ -127,7 +127,24 @@ export function makeChangesRepo(pg: Pglite): ChangeEventRepository {
         lim,
         clauses.length ? `${opts?.entityKey ?? "*"}/${opts?.eventType ?? "*"}` : undefined,
       );
-      return rows.map(mapRow);
+      // Per-row resilience: one codec-invalid row is a data defect worth
+      // surfacing, but it must NOT take the whole seismograph feed down (see
+      // mapRow, and the repo's isoDate principle — one bad value must not erase
+      // real facts). Skip the bad row and leave a trace at this layer's door
+      // (console.warn, same as warnIfTruncated), never silently swallow.
+      const out: ChangeEvent[] = [];
+      for (const r of rows) {
+        try {
+          out.push(mapRow(r));
+        } catch (err) {
+          console.warn(
+            `[db] listChangeEvents skipped a codec-invalid change_event row — ` +
+              `the feed renders every good row; investigate this defect`,
+            err,
+          );
+        }
+      }
+      return out;
     },
 
     async countChangeEvents() {
