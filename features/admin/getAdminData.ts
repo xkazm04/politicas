@@ -544,7 +544,8 @@ async function loadReviewHub(): Promise<ReviewHubData> {
           kontrolaHref: "/penize/kontrola",
         };
       }
-    } catch {
+    } catch (err) {
+      reportLoaderFailure("getAdminData.loadReviewHub.ties", err);
       ties = null;
     }
 
@@ -578,7 +579,8 @@ async function loadReviewHub(): Promise<ReviewHubData> {
         items.sort((a, b) => (SEVERITY_RANK[a.severity] ?? 3) - (SEVERITY_RANK[b.severity] ?? 3));
         forensic = { total: items.length, bySeverity, items, zakonyHref: "/zakony" };
       }
-    } catch {
+    } catch (err) {
+      reportLoaderFailure("getAdminData.loadReviewHub.forensic", err);
       forensic = null;
     }
 
@@ -600,12 +602,14 @@ async function loadReviewHub(): Promise<ReviewHubData> {
           lastDecidedAt: rows[0]?.decidedAt ?? null,
         };
       }
-    } catch {
+    } catch (err) {
+      reportLoaderFailure("getAdminData.loadReviewHub.audit", err);
       audit = null;
     }
 
     return { ties, forensic, leads, audit };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadReviewHub", err);
     return empty;
   }
 }
@@ -638,12 +642,14 @@ async function loadSystemState(vaultHeads: VaultHeads, loopsStatus: LoopsStatusF
       const byKind: Record<string, number> = {};
       for (const c of counts) byKind[c.kind] = c.count;
       nodesByKind = byKind;
-    } catch {
+    } catch (err) {
+      reportLoaderFailure("getAdminData.loadSystemState.nodesByKind", err);
       nodesByKind = {};
     }
     const graph: GraphTotals = { nodes, edges, edgesByRel, nodesByKind };
     return { ...base, graph };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadSystemState", err);
     return base;
   }
 }
