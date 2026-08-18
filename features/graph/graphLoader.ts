@@ -50,7 +50,7 @@ import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { formattersFor } from "@/lib/format";
-import { isLocale, defaultLocale } from "@/lib/i18n/config";
+import { isLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { forceLayout, hashId } from "@/lib/kg/layout";
 import { citableId, sourceLinksFor, type KgNodeKind } from "@/lib/kg/sourceLinks";
 import { isKgNodeKind } from "./kindStyle";
@@ -760,10 +760,21 @@ const FACT_KEYS: Partial<Record<KgNodeKind, string[]>> = {
  *  Vlastní překlad by zakryl, které pole grafu se vlastně ukazuje. */
 const humanKey = (k: string) => k.replace(/_/g, " ");
 
-function formatFact(key: string, value: unknown, locale: string): string | null {
+/** Popisky boolean faktů podle jazyka. Detail uzlu už threaduje `locale` do
+ *  číselného/měnového formátu (formattersFor); boolean se do 2026-08-18 vracel
+ *  natvrdo česky (`ano`/`ne`) i v anglickém NodeInspectoru. Obsahový hash se
+ *  počítá vždy při HASH_LOCALE='cs', takže lokalizace zobrazení neposune
+ *  permalink. */
+const BOOL_LABEL: Record<Locale, { yes: string; no: string }> = {
+  cs: { yes: "ano", no: "ne" },
+  en: { yes: "yes", no: "no" },
+};
+
+export function formatFact(key: string, value: unknown, locale: string): string | null {
   if (value === null || value === undefined || value === "") return null;
-  const f = formattersFor(isLocale(locale) ? locale : defaultLocale);
-  if (typeof value === "boolean") return value ? "ano" : "ne";
+  const loc = isLocale(locale) ? locale : defaultLocale;
+  const f = formattersFor(loc);
+  if (typeof value === "boolean") return BOOL_LABEL[loc][value ? "yes" : "no"];
   if (typeof value === "number") {
     if (key.endsWith("_czk") || key === "amount") return f.czk(value);
     if (Number.isInteger(value)) return f.int(value);
