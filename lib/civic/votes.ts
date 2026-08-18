@@ -40,6 +40,15 @@ export interface PartyDisciplineRow {
 
 /** Disciplína všech stran přes ROLL_CALLS, seřazeno sestupně (strany bez
  * jediného měřitelného hlasování — `avg === null` — na konec). */
+/**
+ * Řazení řádků disciplíny: průměr SESTUPNĚ (strany bez měřitelného hlasování,
+ * `avg === null`, jdou na konec), pak stabilní rozstřel podle mandátů a kódu.
+ * Bez rozstřelu se rovnost průměru rozhodovala jen pořadím `PARTIES` + stabilním
+ * V8 sortem — reorder zdroje by tiché strany prohodil (identity-survives-reuse).
+ */
+export const comparePartyDiscipline = (a: PartyDisciplineRow, b: PartyDisciplineRow): number =>
+  (b.avg ?? -1) - (a.avg ?? -1) || b.seats - a.seats || a.code.localeCompare(b.code, "cs");
+
 export const disciplineByParty = (rollCalls: RollCall[] = ROLL_CALLS): PartyDisciplineRow[] =>
   PARTIES.map((p) => {
     const perRc = rollCalls.map((rc) => {
@@ -49,7 +58,7 @@ export const disciplineByParty = (rollCalls: RollCall[] = ROLL_CALLS): PartyDisc
     const measured = perRc.filter((v): v is number => v !== null);
     const avg = measured.length > 0 ? Math.round((measured.reduce((s, v) => s + v, 0) / measured.length) * 10) / 10 : null;
     return { code: p.code, name: p.name, color: p.color, seats: p.seats, avg, perRc };
-  }).sort((a, b) => (b.avg ?? -1) - (a.avg ?? -1));
+  }).sort(comparePartyDiscipline);
 
 /** Rozdělení sněmovny v hlasování — pro/proti/zdržel/omluven přes všechny strany. */
 export const chamberSplit = (rc: RollCall) =>
