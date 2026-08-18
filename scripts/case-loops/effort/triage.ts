@@ -23,6 +23,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
+import { byScoreThenId } from "../shared/ordering";
 
 const TERM = "PSP10";
 const OUT = "docs/data-analysis/case-effort";
@@ -348,7 +349,7 @@ async function main() {
   // ── army selection from the POOL: extremes + absentee (phantom-filtered) +
   //    quiet-workhorse (fixed slots, BOTH flavours) + contested-rebellion overlap +
   //    component-divergence (mid-band, one-sided composition) ──────────────────
-  const byScorePool = [...pool].sort((a, b) => b.score - a.score);
+  const byScorePool = [...pool].sort(byScoreThenId((r) => r.score, (r) => r.pspId));
   const topN = byScorePool.slice(0, 6);
   // batch-003 tenure-normalization (Q-effort-5 steering): exclude replacement MPs from the
   // "bottom" lens too — a short-tenure MP's low ABSOLUTE score is a tenure artifact, not a
@@ -408,7 +409,7 @@ async function main() {
   // enrich stage to confirm the executive-office story, per the batch-001 pattern).
   neverCastNew.forEach((r) => add(r, "phantom-mandate"));
   // fill remaining slots up to ARMY_SIZE with next-highest triage-score MPs from the pool
-  const byTriagePool = [...pool].sort((a, b) => b.triageScore - a.triageScore);
+  const byTriagePool = [...pool].sort(byScoreThenId((r) => r.triageScore, (r) => r.pspId));
   for (const r of byTriagePool) {
     if (pick.size >= ARMY_SIZE) break;
     add(r, "high-triage");
@@ -428,7 +429,7 @@ async function main() {
     population: rows.length,
     batch: BATCH,
     units: rows
-      .sort((a, b) => b.score - a.score)
+      .sort(byScoreThenId((r) => r.score, (r) => r.pspId))
       .map((r, i) => {
         const prior = priorUnitsById.get(r.pspId);
         const inArmy = pick.has(r.pspId);

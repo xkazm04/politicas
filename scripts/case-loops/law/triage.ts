@@ -21,6 +21,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 
 import { getStore } from "@/lib/db/store";
+import { byScoreThenId } from "../shared/ordering";
 import type { KgNodeRow } from "@/lib/db/types";
 
 const arg = (name: string, fb = ""): string => {
@@ -173,7 +174,7 @@ async function main() {
     };
   });
 
-  rows.sort((a, b) => b.triageScore - a.triageScore);
+  rows.sort(byScoreThenId((r) => r.triageScore, (r) => r.billNodeId));
   // The batch head processes PENDING bills only — an already-gated bill (tisk 58) is batch-0 reference.
   const pending = rows.filter((r) => !r.forensicState);
 

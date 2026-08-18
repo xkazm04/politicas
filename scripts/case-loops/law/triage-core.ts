@@ -18,6 +18,7 @@
  * validation (the kernel's "validate discriminative power before trusting a signal").
  */
 import type { KgNodeRow } from "@/lib/db/types";
+import { byScoreThenId } from "../shared/ordering";
 import type { Store } from "@/lib/db/store";
 
 import { isMunicipalOrSoe, sectorOf, type Sector } from "./company-sectors";
@@ -248,7 +249,7 @@ export async function computeTriage(store: Store, priorByBill: Map<string, Prior
     };
   });
 
-  rows.sort((a, b) => b.triageScoreV2 - a.triageScoreV2);
+  rows.sort(byScoreThenId((r) => r.triageScoreV2, (r) => r.billNodeId));
 
   const collisionGroups: CollisionGroup[] = [...billsByLaw.entries()]
     .map(([urn, cislos]) => ({

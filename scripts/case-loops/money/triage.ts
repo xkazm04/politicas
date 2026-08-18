@@ -10,6 +10,7 @@
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/triage.ts
  */
 import { getStore } from "@/lib/db/store";
+import { byScoreThenId } from "../shared/ordering";
 // JEDNA definice heuristiky i pořadí kontroly (2026-08-13). Tenhle skript nesl
 // vlastní kopii `PUBLIC_MARKERS`/`OWNER_ROLES`/`BOARD_MGMT_ROLES`/`classifyTie`
 // a vlastní `reviewTier`/`reviewRank` s komentářem „MUST agree exactly" — což
@@ -238,7 +239,7 @@ async function main() {
       (u.absenteeManagerLead ? 6 : 0); // cross-case (Case ②) — not class-scaled
     u.signalScore = Math.round(u.signalScore * 100) / 100;
   }
-  units.sort((a, b) => b.signalScore - a.signalScore);
+  units.sort(byScoreThenId((u) => u.signalScore, (u) => u.id));
 
   const totalContractCzk = units.reduce((s, u) => s + u.contractCzk, 0);
   const summary = {
@@ -303,7 +304,7 @@ async function main() {
     count: realUnits.length,
     ties: realUnits
       .slice()
-      .sort((a, b) => a.reviewRank - b.reviewRank)
+      .sort((a, b) => a.reviewRank - b.reviewRank || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
       .map((u) => ({ src: u.src, dst: u.dst, reviewTier: u.reviewTier, reviewRank: u.reviewRank })),
   };
   await fs.writeFile(`${dir}/payloads/batch-005-review-rank.json`, JSON.stringify(reviewRankPayload, null, 2));
@@ -323,7 +324,7 @@ async function main() {
   }
   const TIER_LABEL = ["confirmed owner-op", "confirmed manager", "confirmed steward", "unconfirmed"];
   console.log("\n=== TOP 20 BY REVIEW ORDER (batch-005, real ties only) ===");
-  for (const u of realUnits.slice().sort((a, b) => a.reviewRank - b.reviewRank).slice(0, 20)) {
+  for (const u of realUnits.slice().sort((a, b) => a.reviewRank - b.reviewRank || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)).slice(0, 20)) {
     console.log(
       `tier${u.reviewTier} ${TIER_LABEL[u.reviewTier].padEnd(18)} ${u.personName} → ${u.company} [${u.role}] · ` +
         `${fmt(u.contractCzk + u.subsidiesCzk)} CZK reachable`,
