@@ -25,7 +25,10 @@ export async function GET(request: Request): Promise<Response> {
   const built = await getSchrankaDeltas(keys, feedSince(url.searchParams.get("od")));
   if (!built) {
     // Čestný stav „nečitelné, ne prázdné" — precedens /denik/feed.xml.
-    return new Response("store unavailable", { status: 503 });
+    return new Response("store unavailable", {
+      status: 503,
+      headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" },
+    });
   }
 
   const baseUrl = await requestOrigin();

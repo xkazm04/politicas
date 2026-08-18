@@ -19,7 +19,7 @@ export async function GET(request: Request): Promise<Response> {
   if (!built) {
     return new Response(JSON.stringify({ error: "store unavailable" }), {
       status: 503,
-      headers: { "content-type": "application/json; charset=utf-8" },
+      headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
     });
   }
 
