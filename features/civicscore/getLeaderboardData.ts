@@ -185,6 +185,18 @@ export interface DuelFacts {
 }
 
 /** One ranked MP as rendered by the leaderboard + profile. */
+/**
+ * Display order for the leaderboard: score DESC, then Czech collation of the
+ * name, then a stable pspId. The pspId tail makes it a TOTAL order — two MPs on
+ * an identical score AND identical name would otherwise resolve by input
+ * position. Rank itself is competition-ranked and decoupled from position (ties
+ * share a rank), so this only pins ROW order; it never moves a rank.
+ */
+export const compareLeaderboardRow = (
+  a: { score: number; name: string; pspId: number },
+  b: { score: number; name: string; pspId: number },
+): number => b.score - a.score || a.name.localeCompare(b.name, "cs") || a.pspId - b.pspId;
+
 export interface LeaderboardEntry {
   pspId: number;
   rank: number;
@@ -579,7 +591,7 @@ async function readChamber(): Promise<BuiltChamber | null> {
 
     // Display order is score desc, then Czech collation of the name — deterministic, and
     // it carries NO meaning inside a tie (the surface says so).
-    rows.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, "cs"));
+    rows.sort(compareLeaderboardRow);
 
     // COMPETITION RANKING (1, 2, 2, 4). A rank is one more than the number of MPs who
     // actually score HIGHER, so tied MPs share it and nothing is decided by where a name
