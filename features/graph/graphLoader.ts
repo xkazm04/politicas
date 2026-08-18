@@ -57,6 +57,7 @@ import { isKgNodeKind } from "./kindStyle";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import {
   buildAdjacency,
+  EXCLUDED_RELS,
   findEvidencePaths,
   HUB_DEGREE,
   MAX_COST,
@@ -306,7 +307,7 @@ async function buildMapData(): Promise<MapData | null> {
     }
 
     const allEdges = await store.listKgEdges({ limit: KG_READ_CAP });
-    const evidence = allEdges.filter((e) => e.rel !== "co_votes_with");
+    const evidence = allEdges.filter((e) => !EXCLUDED_RELS.includes(e.rel));
 
     const eDeg = new Map<string, number>();
     for (const e of evidence) {

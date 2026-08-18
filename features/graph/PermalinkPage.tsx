@@ -31,9 +31,9 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { glyphPath, KIND_STYLE } from "./kindStyle";
 import {
-  GRAPH_SOURCE_LINKS,
   HASH_ALGORITHM,
   permalinkPath,
+  permalinkSources,
   type PermalinkSourceLink,
   type PermalinkView,
 } from "./permalink";
@@ -372,10 +372,7 @@ function CitationRail({ view }: { view: PermalinkView }) {
   const t = useTranslations("graph");
   const f = useFormat();
   const path = permalinkPath(view.ref);
-  const sources: PermalinkSourceLink[] =
-    view.kind === "uzel" && view.detail.links.length > 0
-      ? view.detail.links.map((l) => ({ label: l.registry, href: l.url }))
-      : GRAPH_SOURCE_LINKS;
+  const sources: PermalinkSourceLink[] = permalinkSources(view).links;
 
   const makeUrl = () => new URL(path, window.location.origin).toString();
   const makeCitation = () =>

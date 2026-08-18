@@ -107,6 +107,7 @@ export default function NodeSearch({
           role="combobox"
           aria-expanded={hits.length > 0}
           aria-controls="graph-search-results"
+          aria-activedescendant={hits[active] ? `graph-search-opt-${hits[active].id}` : undefined}
           className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-steel"
         />
         {q && (
@@ -139,7 +140,7 @@ export default function NodeSearch({
             const style = KIND_STYLE[hit.kind];
             const already = disabledIds?.has(hit.id) ?? false;
             return (
-              <li key={hit.id} role="option" aria-selected={i === active}>
+              <li key={hit.id} id={`graph-search-opt-${hit.id}`} role="option" aria-selected={i === active}>
                 <button
                   type="button"
                   onMouseEnter={() => setActive(i)}
