@@ -10,8 +10,23 @@ const nextConfig: NextConfig = {
   // Container deploy (docs/deploy/container.md): emit .next/standalone with a
   // self-contained server.js + traced node_modules, so the runtime image copies
   // three paths (standalone, .next/static, public) instead of the whole tree.
-  // Harmless for `next dev` and for plain `next start` from the repo root —
-  // it only adds an extra build artifact.
+  //
+  // This changes how the built app is STARTED, and `next start` is no longer
+  // the way. Next says so itself at boot: `"next start" does not work with
+  // "output: standalone" configuration. Use "node .next/standalone/server.js"
+  // instead.` It happens to serve anyway today, which is exactly why the
+  // warning is easy to miss — do not rely on it. Verified 2026-08-22 on this
+  // build: `HOSTNAME=0.0.0.0 PORT=… node .next/standalone/server.js` serves the
+  // app (the standalone server binds the machine HOSTNAME, not localhost, so
+  // without that variable a local curl gets nothing; the Dockerfile already
+  // sets it). `next dev` is unaffected — standalone only shapes build output.
+  //
+  // Nor is a bare `node .next/standalone/server.js` a complete local server:
+  // the standalone tree carries no `.next/static`, so it renders HTML and
+  // 404s every asset (measured — a chunk URL taken from the served /metodika
+  // came back 404). The image works because the Dockerfile copies `.next/static`
+  // and `public` INTO the standalone root (Dockerfile:56-58). To serve a build
+  // locally the way production does, do the same two copies first.
   output: "standalone",
   // The parent kiro folder has its own lockfile; pin the root so Turbopack
   // doesn't infer the wrong workspace. This stays correct for a standalone

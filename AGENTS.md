@@ -20,7 +20,9 @@ npm run typecheck    # tsc --noEmit
 npm run lint         # eslint (incl. the custom rules in eslint-rules/)
 npm run test         # vitest run
 npm run build        # next build
-npm start            # next start (serves a prior build)
+npm start            # next start — NOT the supported path: next.config.ts sets
+                     #   output: "standalone". See that option's comment (and
+                     #   docs/deploy/container.md §5b) for the correct recipe.
 ```
 
 `package.json` also declares `da:*` (data-analysis / knowledge-graph pipeline)

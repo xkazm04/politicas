@@ -122,6 +122,25 @@ rm -rf .pglite-seed pglite-seed.tar.gz
 Re-seeding after a fresh ingest = repeat this section. The app keeps serving
 the old store until the `fly machine restart`.
 
+## 5b. Serving a build locally the way the image does
+
+`npm start` (`next start`) is **not** the supported path once
+`output: "standalone"` is set — Next prints that at boot. A bare
+`node .next/standalone/server.js` is not enough either: the standalone tree has
+no `.next/static`, so it renders HTML and 404s every asset (measured
+2026-08-22). Reproduce the image's own layout (Dockerfile:56-58):
+
+```bash
+npm run build
+cp -r .next/static .next/standalone/.next/static
+cp -r public       .next/standalone/public
+HOSTNAME=0.0.0.0 PORT=3000 PGLITE_PATH=./.pglite node .next/standalone/server.js
+```
+
+`HOSTNAME` matters: the standalone server binds the machine hostname, so
+without it a local `curl http://localhost:3000` reaches nothing. The image sets
+it already (Dockerfile:44).
+
 ## 6. Deploy updates (code only)
 
 ```sh
