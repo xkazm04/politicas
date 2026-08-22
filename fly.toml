@@ -1,0 +1,66 @@
+# politicas — Fly.io config (route (a): container + persistent volume).
+# Runbook: docs/deploy/container.md. Railway equivalent lives there as notes.
+#
+# HARD CONSTRAINT — SINGLE INSTANCE. PGlite is single-connection per data dir
+# (lib/db/config.ts): a second machine mounting the same store corrupts or
+# blocks. Never scale count above 1; deploys are momentary-downtime
+# (strategy = immediate on one machine), not zero-downtime rolling.
+
+app = "politicas"          # set to the real app name at `fly launch --no-deploy`
+primary_region = "fra"      # Frankfurt — closest region to CZ visitors
+
+[build]
+  dockerfile = "Dockerfile"
+
+# NEXT_PUBLIC_* are build-time inlined (see Dockerfile ARGs). Set the real DSN
+# here (it is public by design) or pass --build-arg at deploy time.
+[build.args]
+  NEXT_PUBLIC_APP_ENV = "production"
+  # NEXT_PUBLIC_SENTRY_DSN = "…"
+
+[env]
+  PGLITE_PATH = "/data/pglite"
+  PORT = "3000"
+
+# One volume, one machine. Create with:
+#   fly volumes create pglite_data --region fra --size 5
+[[mounts]]
+  source = "pglite_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  # The store must stay warm: a cold start re-opens a 1.6 GB PGlite dir and
+  # first-paint would eat that cost. Never let the machine stop.
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+  # Health check against a real, store-backed route. NOTE: /zebricek returns
+  # 200 even when the store is missing (it renders a labelled no-data notice),
+  # so a green check means "process up + route renders", NOT "real data" —
+  # the real-data smoke test is manual (runbook §7: 207 rows, no notice).
+  # Generous grace period: first open of the on-volume store is slow.
+  [[http_service.checks]]
+    method = "GET"
+    path = "/zebricek"
+    interval = "30s"
+    timeout = "10s"
+    grace_period = "90s"
+
+[deploy]
+  # One machine + one volume ⇒ rolling is impossible; immediate replaces the
+  # machine in place (seconds of downtime per deploy — accepted trade-off).
+  strategy = "immediate"
+
+[[vm]]
+  # PGlite runs Postgres-in-WASM inside the Node process; the working set for
+  # the 1.6 GB store needs headroom. 2 GB is the floor — scale up, never out.
+  size = "shared-cpu-2x"
+  memory = "2gb"

@@ -1,6 +1,10 @@
 # Deploying politicas to Vercel
 
-> **STATUS: NOT DEPLOYABLE TO VERCEL AS-IS.** The data layer is incompatible
+> **STATUS: NOT DEPLOYABLE TO VERCEL AS-IS — and route (a) has been chosen.**
+> The deploy route is the container + persistent volume described in
+> [`container.md`](./container.md) (Dockerfile + `fly.toml` at the repo root);
+> this document remains as the analysis of record for WHY Vercel is off the
+> table and what route (b) would take. The data layer is incompatible
 > with Vercel's runtime — see the blocker below. Everything after it (env vars,
 > Node pinning, `vercel.json`) is *correct but conditional*: it describes how the
 > build would be configured **once the data layer is resolved**, not a green
@@ -137,9 +141,10 @@ environment and **redeploy**.
 
 ### b) Node version drift
 CI ([`.github/workflows/ci.yml`](../../.github/workflows/ci.yml)) builds on
-**Node 22**. `package.json` declares no `engines` field, so Vercel uses its
-own default Node version, which can drift from CI over time. Pin
-**Project → Settings → Node.js Version → 22.x** so the Vercel build matches CI
+**Node 24** (Node 24 = npm 11, matching `package-lock.json`). `package.json`
+declares no `engines` field, so Vercel uses its own default Node version,
+which can drift from CI over time. Pin
+**Project → Settings → Node.js Version → 24.x** so the Vercel build matches CI
 and local. (Alternatively add an `engines.node` field to `package.json`.)
 
 ### c) `turbopack.root` in `next.config.ts` — reviewed, left unchanged

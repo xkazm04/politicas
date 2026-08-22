@@ -1,0 +1,24 @@
+# Keep the image build context small and the store OUT of the image.
+# The .pglite store lives on the host / persistent volume (PGLITE_PATH),
+# never inside the container image — see docs/deploy/container.md.
+
+.git
+node_modules
+.next
+
+# PGlite stores, backups, copies, scratch — 1.6 GB each; NEVER in the image.
+.pglite*
+.data*
+
+# Local env files — secrets stay out of images.
+.env*
+
+# Heavy offline-analysis payloads and docs — not needed at runtime.
+docs
+
+# Local tooling noise
+*.log
+.vscode
+.idea
+coverage
+.i18n-work

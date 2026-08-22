@@ -7,6 +7,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  // Container deploy (docs/deploy/container.md): emit .next/standalone with a
+  // self-contained server.js + traced node_modules, so the runtime image copies
+  // three paths (standalone, .next/static, public) instead of the whole tree.
+  // Harmless for `next dev` and for plain `next start` from the repo root —
+  // it only adds an extra build artifact.
+  output: "standalone",
   // The parent kiro folder has its own lockfile; pin the root so Turbopack
   // doesn't infer the wrong workspace. This stays correct for a standalone
   // Vercel deploy too — __dirname is the repo root there — so it needs no
