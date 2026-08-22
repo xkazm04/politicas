@@ -24,7 +24,7 @@ import { existsSync, readdirSync, writeFileSync } from "node:fs";
 
 import { getStore } from "@/lib/db/store";
 
-import { CACHE_DIR, amendsParagraph, operativeSlice, partitionParagraphsByStatute, readCachedBillText } from "./collision-core";
+import { CACHE_DIR, amendsParagraph, operativeSlice, partitionParagraphsByStatute, readCachedBillText } from "../collision-core";
 
 // batch-017 audit M12: the partitionFallback regeneration MUST NOT ship under the batch-016
 // filename — overwriting a committed artifact in place is an undisclosed rewrite of history.

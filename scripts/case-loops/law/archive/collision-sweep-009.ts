@@ -25,7 +25,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { amendsParagraph, operativeSlice, partitionParagraphsByStatute, readCachedBillText, targetedOdstavce } from "./collision-core";
+import { amendsParagraph, operativeSlice, partitionParagraphsByStatute, readCachedBillText, targetedOdstavce } from "../collision-core";
 
 const PAYLOADS = "docs/data-analysis/case-law/payloads";
 const WRITE = process.argv.includes("--write");

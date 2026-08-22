@@ -65,3 +65,7 @@ docs/data-analysis/case-money/contracts-harvest.jsonl
 
 # Claude Code git worktrees (nested checkouts, never repo content)
 .claude/worktrees/
+
+# raw source harvests (Registr smluv dumps etc.) — re-derivable, never documentation.
+# Moved out of docs/ on 2026-08-22: a 100 MB jsonl does not belong where humans read.
+/data/raw/

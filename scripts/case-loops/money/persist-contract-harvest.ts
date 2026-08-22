@@ -39,7 +39,7 @@ import { getStore } from "@/lib/db/store";
 import { directionFor, type DumpRecord } from "@/lib/ingest/sources/smlouvy-dump";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
-const JSONL = "docs/data-analysis/case-money/contracts-harvest.jsonl";
+const JSONL = "data/raw/registr-smluv/contracts-harvest.jsonl";
 const REPORT = "docs/data-analysis/case-money/qmoney-contract-reingest-b12.json";
 
 const flag = (n: string) => process.argv.includes(`--${n}`);

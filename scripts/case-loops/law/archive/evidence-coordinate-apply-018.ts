@@ -21,7 +21,7 @@ import { lawJargonIssues } from "@/lib/analysis/law-verdict";
 import { czechCopyOrNull } from "@/lib/analysis/language-gate";
 import { getStore } from "@/lib/db/store";
 
-import { readCachedBillText } from "./collision-core";
+import { readCachedBillText } from "../collision-core";
 
 const IN = "docs/data-analysis/case-law/payloads/batch-018-evidence-sweep.json";
 const COMMIT = process.argv.includes("--commit");

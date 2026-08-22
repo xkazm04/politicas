@@ -71,3 +71,13 @@ Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two meth
 - **Voided (zmatečné) votes** (16 in PSP10) are excluded from every discipline metric.
 - **Blocs are *named* by the LLM but *defined* by the computation** — the co-voting
   matrix is ground truth; the gate rejects a bloc member who isn't a real person id.
+
+## jsonb prop keys — the registry (2026-08-22)
+
+`kg_node.props` / `kg_edge.props` are schemaless, and the case loops have used that
+freedom for 16+ batches. **`lib/kg/prop-registry.json` is now the jsonb schema**: every
+key per node kind / edge rel, seeded from the live store on 2026-08-22 (183 node keys,
+73 edge keys). `scripts/case-loops/persist-batch.ts` refuses an unregistered key;
+`npm run da:props-check` diffs the live store against the registry. **Adding a key =
+registry entry + a line in this file describing it**, same change. Writer conventions
+`<ns>_provenance` / `<ns>_citations` are always allowed.

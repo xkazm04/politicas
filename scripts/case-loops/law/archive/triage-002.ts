@@ -22,7 +22,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 import { getStore } from "@/lib/db/store";
 import type { KgNodeRow } from "@/lib/db/types";
-import { isMunicipalOrSoe, sectorOf, type Sector } from "./company-sectors";
+import { isMunicipalOrSoe, sectorOf, type Sector } from "../company-sectors";
 
 const arg = (name: string, fb = ""): string => {
   const h = process.argv.find((a) => a.startsWith(`--${name}=`));

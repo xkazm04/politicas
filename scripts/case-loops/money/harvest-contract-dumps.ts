@@ -29,8 +29,8 @@ import { parseDump, parseDumpIndex, type DumpIndexEntry } from "@/lib/ingest/sou
 
 const INDEX_URL = "https://data.smlouvy.gov.cz/";
 const WORK_DIR = ".smlouvy-dump-cache";
-const OUT_JSONL = "docs/data-analysis/case-money/contracts-harvest.jsonl";
-const STATE = "docs/data-analysis/case-money/contracts-harvest-state.json";
+const OUT_JSONL = "data/raw/registr-smluv/contracts-harvest.jsonl";
+const STATE = "data/raw/registr-smluv/contracts-harvest-state.json";
 
 const arg = (n: string) => process.argv.find((a) => a.startsWith(`--${n}=`))?.split("=")[1];
 const flag = (n: string) => process.argv.includes(`--${n}`);

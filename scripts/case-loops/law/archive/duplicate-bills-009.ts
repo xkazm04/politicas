@@ -30,7 +30,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { operativeSlice, readCachedBillText } from "./collision-core";
+import { operativeSlice, readCachedBillText } from "../collision-core";
 
 const PAYLOADS = "docs/data-analysis/case-law/payloads";
 const WRITE = process.argv.includes("--write");

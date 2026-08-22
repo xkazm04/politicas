@@ -4352,5 +4352,29 @@
         "tenure_days": 33
       }
     }
-  ]
+  ],
+  "openItems": [
+    {
+      "id": "E-1",
+      "title": "9 internal stale-score citations (effort_psp9_trend_note ×7, effort_analyst_note ×2); needs PSP9 before/after pair",
+      "since": "b010",
+      "status": "open"
+    },
+    {
+      "id": "E-2",
+      "title": "Q-effort-17 aggregation gap: a per-unit anomaly repeated across N dossiers must surface as a signal",
+      "since": "b010",
+      "status": "open"
+    },
+    {
+      "id": "E-3",
+      "title": "Q-money-13 residue: 7 stale IČO mentions held here",
+      "since": "b011",
+      "status": "open"
+    }
+  ],
+  "state": {
+    "file": "STATE.md",
+    "note": "short current-state page regenerated per batch; read it first, ledger.md is history"
+  }
 }

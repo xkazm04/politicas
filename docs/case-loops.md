@@ -49,9 +49,13 @@ exist, but the loops decide what is worth building from what the data shows.
 resume → triage → dispatch army → gate + persist → reflect → build-review → loop
 ```
 
-1. **Resume.** Read the case ledger (`docs/data-analysis/case-<x>/ledger.md` +
-   machine state `ledger.json`: unit id → {stage, batch, signal, flags}). The
-   ledger IS the resumable state — no prior-session context needed.
+1. **Resume.** Read **`docs/data-analysis/case-<x>/STATE.md`** — the short current-state
+   page (headline figures, rules now in code, open items, durable tools, next pass
+   number), regenerated at the end of every batch. `ledger.md` is the append-only batch
+   LOG and is read for history, not to resume; `ledger.json` is machine state (units +
+   `openItems`, mirrored in STATE). *Until 2026-08-22 the ledger was the resume point and
+   had grown to 1 100+ lines — ~80 KB of prose per session before it could act.* A batch
+   is not finished until STATE.md says what it changed.
 2. **Triage (deterministic, no LLM).** Recompute per-unit **signal scores** and
    rank the queue. The army processes systematically but in VALUE ORDER — stop
    after any batch and the best-covered head is always the highest-value units.
@@ -103,9 +107,17 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
    caps ~20 parallel subagents TOTAL — in fleet mode budget ≤6–8 concurrent per
    case or stage waves.
 4. **Gate + persist.** Every wire proposal passes schema + entity-id membership
-   validation (the `kg-verdict.ts` pattern; case gates listed in each skill).
+   validation (the `kg-verdict.ts` pattern; case gates listed in each skill) **and the
+   prop-key gate**: `persist-batch.ts` refuses any jsonb key not listed in
+   `lib/kg/prop-registry.json` for that kind/rel (the jsonb schema; `--allow-new-keys`
+   for a deliberate addition, registered + described in `graph-schema.md` in the same
+   change; `npm run da:props-check` diffs the live store against it).
    Vault batch note written FIRST, graph second (exclusive `.pglite` window),
-   ledger update last — atomic per batch.
+   ledger update last, **STATE.md regenerated** — atomic per batch. **Backups are
+   `npm run db:backup`** (CHECKPOINT → copy → prune to 2), never a bare `cp -r`: every
+   write is a committed payload, so two checkpointed copies + replay recover any state —
+   14 hand copies held 22 GB, 41 % of it un-checkpointed WAL, before the 2026-08-22
+   review pruned them.
 5. **Reflect (every batch).** Cross-unit patterns → `[[patterns]]`;
    disagreements with prior batches → `[[contradictions]]`; cited entries →
    `[[feature-opportunities]]`; emergent questions → the case section of
@@ -268,7 +280,11 @@ or a gitignored dir, never the repo root.
 
 Everything else — the case vault folder (`docs/data-analysis/case-<x>/`), the
 case's feature/app boundary, case-owned `lib/` modules, new scripts under
-`scripts/case-loops/<case>/` — is the agent's to write. Each fleet run ends
+`scripts/case-loops/<case>/` — is the agent's to write. **Script hygiene** (2026-08-22):
+the top level of `scripts/case-loops/<case>/` holds DURABLE tools only (no batch suffix
+in the name, listed in that dir's `README.md`); one-shot probes are born in `archive/`
+and promoted by rename when a later batch reuses them. Raw source harvests live in
+`data/raw/` (gitignored), never in `docs/`. Each fleet run ends
 with **`docs/data-analysis/case-<x>/handoff.md`**: graph payloads (validated,
 with the gate command to re-verify), shared-file additions (exact text to
 append), proposed enum/schema changes, commit plan (files + suggested message),

@@ -36,8 +36,8 @@ import { writeFileSync } from "node:fs";
 
 import { getStore } from "@/lib/db/store";
 
-import { isMunicipalOrSoe, sectorOf, type Sector } from "./company-sectors";
-import { lawDomains } from "./triage-core";
+import { isMunicipalOrSoe, sectorOf, type Sector } from "../company-sectors";
+import { lawDomains } from "../triage-core";
 
 const OUT = "docs/data-analysis/case-law/payloads/batch-010-sector-adjacency.json";
 const WRITE = process.argv.includes("--write");

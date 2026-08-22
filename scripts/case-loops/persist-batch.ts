@@ -16,6 +16,7 @@
 
 import { readFileSync } from "node:fs";
 import { getStore } from "../../lib/db/store";
+import { unregisteredKeys } from "../../lib/kg/propRegistry";
 
 const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.split("=").slice(1).join("=");
 const flag = (k: string) => process.argv.includes(`--${k}`);
@@ -51,6 +52,41 @@ interface EdgePayload {
 }
 interface NodePayload {
   proposals?: { id: string; props: Record<string, unknown>; citations?: unknown[] }[];
+}
+
+
+/** The writer's own conventions: never "new", whatever the namespace. */
+const WRITER_OWN = /(_provenance|_citations)$/;
+
+/**
+ * Refuse keys the registry does not list — the one gate between "a batch wrote a key" and
+ * "a surface reads it". Collected across the whole payload and reported once, so a
+ * payload with three unknown keys fails with all three named, not one per run.
+ */
+function gatePropKeys(
+  entries: Array<{ label: string; scope: { kind: string } | { rel: string }; props: Record<string, unknown> }>,
+): void {
+  const unknown = new Map<string, number>();
+  for (const e of entries) {
+    for (const k of unregisteredKeys(e.scope, e.props)) {
+      if (WRITER_OWN.test(k)) continue;
+      const tag = `${"kind" in e.scope ? `node:${e.scope.kind}` : `edge:${e.scope.rel}`}.${k}`;
+      unknown.set(tag, (unknown.get(tag) ?? 0) + 1);
+    }
+  }
+  if (unknown.size === 0) return;
+  const lines = [...unknown].map(([k, n]) => `  ${k}  (${n} rows)`).join("\n");
+  if (flag("allow-new-keys")) {
+    console.warn(
+      `prop-key gate: ${unknown.size} key(s) NOT in lib/kg/prop-registry.json — allowed by --allow-new-keys; ` +
+        `ADD THEM to the registry + graph-schema.md in this change:\n${lines}`,
+    );
+    return;
+  }
+  throw new Error(
+    `prop-key gate: ${unknown.size} key(s) NOT in lib/kg/prop-registry.json — refusing to write:\n${lines}\n` +
+      `register them (and describe them in docs/data-analysis/graph-schema.md), or pass --allow-new-keys for a deliberate addition.`,
+  );
 }
 
 async function main() {
@@ -92,6 +128,7 @@ async function main() {
         },
       };
     });
+    gatePropKeys(raw.edges.map((p) => ({ label: `${p.src} ${p.rel} ${p.dst}`, scope: { rel: p.rel }, props: p.propsMerge })));
     if (flag("commit")) written += await store.upsertKgEdges(merged);
     console.log(`${flag("commit") ? "COMMITTED" : "DRY-RUN"}: ${merged.length} ${raw.edges[0].rel} edges props-merged (ns=${ns}, track=${provenance.track}, pass ${pass})`);
   }
@@ -109,6 +146,7 @@ async function main() {
         props: { ...n.props, ...p.props, ...citationsProp(ns, p), [`${ns}_provenance`]: provenance },
       };
     });
+    gatePropKeys(raw.proposals.map((p) => ({ label: p.id, scope: { kind: byId.get(p.id)!.kind }, props: p.props })));
     if (flag("commit")) written += await store.upsertKgNodes(merged);
     console.log(`${flag("commit") ? "COMMITTED" : "DRY-RUN"}: ${merged.length} nodes props-merged (ns=${ns}, track=${provenance.track}, pass ${pass})`);
   }

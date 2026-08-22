@@ -24,7 +24,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 import { getStore } from "@/lib/db/store";
 
-import { computeTriage, type PriorRow, type TriageRow } from "./triage-core";
+import { computeTriage, type PriorRow, type TriageRow } from "../triage-core";
 
 const LEDGER = "docs/data-analysis/case-law/ledger.json";
 const WRITE = process.argv.includes("--write");

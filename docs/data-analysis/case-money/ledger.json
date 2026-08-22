@@ -3821,5 +3821,53 @@
         "no-money-reachable"
       ]
     }
-  ]
+  ],
+  "openItems": [
+    {
+      "id": "M-1",
+      "title": "Widen owns_stake (33 edges / 214 companies); coverage audit of dataor-ownership-chains.ts first",
+      "since": "b016",
+      "status": "open"
+    },
+    {
+      "id": "M-2",
+      "title": "Pražská energetika 10,95 mld. — largest figure resting on nothing; city-owned via a holding the graph lacks",
+      "since": "b015",
+      "status": "open"
+    },
+    {
+      "id": "M-3",
+      "title": "Review-queue lane for ownership-not-published (46 companies, 98 % of headline)",
+      "since": "b015",
+      "status": "open"
+    },
+    {
+      "id": "M-4",
+      "title": "npm run build logs 40 degraded loader reads — not a product defect (measured b016); skip, don't fail",
+      "since": "b016",
+      "status": "open"
+    },
+    {
+      "id": "M-5",
+      "title": "UNMEASURED since b010: steward-class sweep, ČSOB, České dráhy; SZIF channel absent",
+      "since": "b010",
+      "status": "open"
+    },
+    {
+      "id": "M-6",
+      "title": "Q-money-13 residue: 21 stale IČO mentions with law (14) / effort (7)",
+      "since": "b011",
+      "status": "open"
+    },
+    {
+      "id": "M-7",
+      "title": "Cause of the b015 .pglite corruption UNKNOWN (build hypothesis refuted b016)",
+      "since": "b015",
+      "status": "open"
+    }
+  ],
+  "state": {
+    "file": "STATE.md",
+    "note": "short current-state page regenerated per batch; read it first, ledger.md is history"
+  }
 }
