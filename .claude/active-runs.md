@@ -8,6 +8,33 @@ One entry per live session in this checkout. Move to "Recently completed" at wra
 
 ## Recently completed
 
+- **docs restructure + dependency sweep + store restore** — COMPLETE + PUSHED
+  2026-08-22. CLAUDE.md split into `docs/routes/*.md` (221 643 → 13 456 chars);
+  every dependabot PR resolved (13 of them — next 16.3.1 / react 19.2.8,
+  framer-motion 13.1, @types/node ^24 not ^26, lucide/next-intl/unpdf/vitest;
+  PGlite 0.5 REFUSED, it is Postgres 18 and cannot open our PG17 store);
+  `npm audit` 7 high → 0.
+  **The `.pglite` store was damaged and has been RESTORED from
+  `.pglite-backup-20260806-pass55`.** Cause was the documented one
+  (`memory/robocopy-of-a-live-pglite-store-can-corrupt.md`): four orphaned
+  `next start`/`next dev` servers from 2026-08-13 had held it for nine days;
+  they are stopped. Nothing was lost — graph-log's last pass IS 55 (2026-08-06),
+  `review_audit` = 0 rows and `change_event` = 0, so no human-gate decision and
+  no non-derived write post-dates the backup. Verified after restore: sentinel
+  9/11 PASS + 1 unevaluable (empty audit chain) + 1 violation (freshness — the
+  corpus is ~29 days old, an ingest matter, not a restore matter); node census
+  and every edge count match the documented figures (207 / 141 / 293 / 214 /
+  152 788; 211 linked_to all `pending_review`; contribution pass 42 uniform);
+  /poslanec/6881 and /zebricek render real data.
+  Also reclaimed ~24 GB: deleted `.pglite-{broken-2026-07-31,corrupt-20260804,
+  damaged-20260822}` (all three verified unopenable) and the two stale
+  `.pglite-copy-law-*` working copies. **Nine pass-ladder backups remain
+  (~14 GB) — left for a human to prune.**
+  Known, NOT fixed: `next build` runs 11 workers against one PGlite dir, which
+  is single-connection, so `generateStaticParams` gets nothing and
+  `/poslanec/[id]` builds as `ƒ` rather than `●`. It serves correctly; a build
+  that DID prerender it would 500 on a dark store.
+
 - **golden-path coverage fix-set (Phase-D writer)** — COMPLETE + PUSHED
   2026-08-18. 5 commits `26d695a` (sort-missing-id-tiebreaker ×13),
   `4105424` (catch-reaches-no-door: getAdminData ×6), `c210d19`
