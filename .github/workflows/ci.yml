@@ -21,7 +21,10 @@ jobs:
 
       # Node 24 = npm 11, stejná major verze jako generuje package-lock.json
       # lokálně. Na Node 22 (npm 10) se strom volitelných peer závislostí
-      # (@swc/helpers, @emnapi/runtime) rozpadá jinak a `npm ci` hlásí drift.
+      # (@swc/helpers, @emnapi/runtime, @emnapi/core) rozpadá jinak a `npm ci`
+      # hlásí drift. Ze stejného důvodu jsou @emnapi/runtime i @emnapi/core
+      # deklarované explicitně v devDependencies: lockfile psaný na Windows
+      # jinak vynechá optional peer, který linuxový runner potřebuje.
       - uses: actions/setup-node@v7
         with:
           node-version: 24
