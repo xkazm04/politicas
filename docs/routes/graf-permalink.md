@@ -1,5 +1,40 @@
 # /graf/p/[ref] — citation permalink card
 
+## Current contract
+
+**Route** — `/graf/p/[ref]`: a citation card for a graph view, plus its OG
+image — **the least correctable artifact the product emits**, cached by every
+social platform and screenshotted into articles.
+
+**The contract, from `PermalinkPage.tsx`'s own header:** staleness is posted
+ABOVE the content, and each edge's `pending_review` survives into EVERY
+citation format — the typesetting, the JSON-LD **and the OG image**.
+`permalinkCardModel` (pure, tested) decides what the card may say; a stale view
+never gets the confirming colour, and both fingerprints are shown.
+
+**Three states that must not be slid together** (`getPermalinkData.ts`):
+`invalid` · `gone` · `unavailable`. Our outage must never read as the death of a
+documented view, and no fallback may claim the address carries a view and a
+fingerprint when it carries nothing.
+
+**Sources** — `permalinkSources()` is ONE rule read by both the card and
+`isBasedOn`: a node's own registry links win over the platform's four blanket
+sources. The evidence bundle carries the search bound the page prints under the
+line about a generated path otherwise being an accusation
+(`path_max_cost_steps`, `path_hub_degree_threshold`, `paths_found`,
+`path_search_capped`) plus the localized ordering rule; `url`/`identifier` are
+ABSOLUTE from request headers, omitted with no host, never a guessed domain.
+
+**Font gotcha** — the OG font subset must be requested over the **uppercased**
+text when the card sets `textTransform: uppercase`, or a title draws one capital
+and drops the rest mid-word to the fallback face.
+
+**Honest carry-over** — for `cesta`/`trasa` the sources still fall back to all
+four registries; narrowing by node kind needs `PermalinkPage.tsx` to adopt the
+same rule, and shipping half of it would put two rules on one citation.
+
+## Dated record
+
 **`/graf/p/[ref]` — the citation card tells its age (2026-08-13).**
 `features/graph/PermalinkPage.tsx` states the contract in its own header — staleness
 is posted ABOVE the content, and each edge's `pending_review` survives into **KAŽDÝ**

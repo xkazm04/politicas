@@ -1,5 +1,42 @@
 # /graf — Graph playground
 
+## Current contract
+
+**Route** — `/graf`, the full knowledge graph on a full-viewport `<canvas>`. The
+page opts out of the app shell (`isBareRoute`) to own the whole window width;
+chrome floats over the stage and the breadcrumb links back. Round 4 is in
+progress with two variants — **A · Mapa × Trasy** (the whole-graph landscape
+with trails as LENSES) vs **C · Trasy** (the same four computed answers as
+standalone ledger-column typesetting). Ohnisko was rejected in round 3.
+
+**Reads** — `graphLoader.ts` is `server-only`, and `graphIndex()` memoizes
+**success only** (`memoNonNull()`): a memoized `null` served an empty `/graf`
+for the whole process lifetime, and an empty canvas reads as a REAL empty graph
+on the surface whose subject is what the record contains. Every degradation path
+calls `reportLoaderFailure()` — `features/graph/**` is no longer exempt from
+`custom/no-silent-null-catch`, and there are no suppressions. A genuinely
+missing node still leaves no trace, deliberately: filing a vanished node as an
+outage is how people stop noticing outages.
+
+**Citations** — `lib/kg/sourceLinks.ts` builds what the product prints as a
+CITATION beside claims about named people and firms, and it becomes the
+permalink card's `isBasedOn`. Three rules from its header: a `detail` tier means
+the address IS the record, never a search over it; a stored canonical URL is
+READ, never reconstructed (and refused unless it is an absolute http(s) URL);
+and `registry` must NAME the host actually linked, because that field is typeset
+literally. `citableId` never fabricates a public number — an internal node-id
+suffix is not a tisk number.
+
+**Text** — all of it goes through GraphStage's single label engine. Sizing
+ground truth: `docs/data-analysis/graph-explorer-scale.md`.
+
+**Recorded, not fixed** — `TERM_NUMBER = 10` is hardcoded into the tisk address
+while bill nodes carry no term field, so after the next term's ingest those
+citations resolve to a LIVE psp.cz page about a DIFFERENT bill (not a 404). The
+fix is a `term` prop at ingest.
+
+## Dated record
+
 `/graf` — **Graph playground** (features/graph): the full knowledge graph on
 a full-viewport `<canvas>`; the page opts out of the app shell
 (`isBareRoute`) to own the whole window width — chrome floats over the

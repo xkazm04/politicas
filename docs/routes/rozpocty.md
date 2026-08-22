@@ -1,5 +1,31 @@
 # /rozpocty — BudgetMirror
 
+## Current contract
+
+**Routes** — `/rozpocty` (BudgetMirror: 132 towns with wired budget series,
+town-vs-peer-group mirror, debt-per-capita trends) and `/rozpocty/[ico]`
+(permanent town address, ~360 prerendered pages).
+
+**Reads** — the budget series come from the checked-in generated modules
+`features/budget/data/*.generated.ts` (FIN 2-12 M consolidated figures), **not
+from a store read**; the supplier trail rides the money graph.
+`municipalRoutes.ts` is ONE list feeding both `generateStaticParams` and
+`app/sitemap.ts` — a municipality is a public register, not a person, so the
+sitemap exclusion that applies to people does not apply here (argued in place).
+
+**Standing rules.** The headline figure is Σ contract VALUE over a year span,
+**not payments**, and the card says so with the /penize qualifier and the span.
+Columns are named for what they measure (documented DIRECTION, never "payment").
+Stewardship feeds only executive roles, stated on the page. The impossible-date
+boundary is `lib/analysis/plausible-date.ts` — imported, never forked — applied
+at the DECODE boundary the page actually reads, with the upper bound
+`SUPPLIERS_RETRIEVED_ON` (the day the register was read) rather than "today";
+both bounds are withheld together, the row and its money stay, the count is
+typeset. A DATA fault must not take the supplier section down; a structural
+codec error still fails loud.
+
+## Dated record
+
 `/rozpocty` — **BudgetMirror** (features/budget): **REAL since the
 2026-07-30 MONITOR moonshot** — 132 towns with wired budget series (FIN
 2-12 M consolidated figures) + the live supplier trail over the money

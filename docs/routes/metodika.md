@@ -1,5 +1,26 @@
 # /metodika — Metodika
 
+## Current contract
+
+**Route** — `/metodika` (`features/civicscore/MetodikaPage.tsx`, thin route
+`app/metodika/page.tsx`): what the contribution formula IS, on the platform that
+calls itself methodology-transparent and invites citizens to re-weigh the index.
+
+**The rule of this page: every figure on it comes from an import, never a
+literal.** The six weights and their per-component psp.cz citations from
+`componentDefs.ts` (i.e. from `CONTRIBUTION_WEIGHTS`), the 100-point total as a
+computed sum, the three saturation caps, the counted organ types and leadership
+functions, and `CONTRIBUTION_FORMULA_REF` itself. **Changing a weight reflows
+the page.** Section 04 prints what the DATA claims about itself — the wave-1
+provenance aggregate off the same `react.cache()`d read `/zebricek` performs.
+
+**Standing rules.** No store degrades the formula to a note: the formula is
+code, not data. No invented history — the graph carries only the current
+`{pass, ref}`, so only that is printed. Linked from `/zebricek`, `/poslanec`,
+`/kraj` and `navModel`.
+
+## Dated record
+
 `/metodika` — **Metodika** (features/civicscore/MetodikaPage.tsx, thin route
 `app/metodika/page.tsx`). Added 2026-08-04. The platform positions itself as
 methodology-transparent, `/zebricek` cites „průchod grafu č. 42" and

@@ -1,5 +1,35 @@
 # /atlas — Atlas kvality otevřených dat
 
+## Current contract
+
+**Routes** — `/atlas` (per-source data-quality scorecard: coverage · freshness ·
+integrity · completeness, each 0–100, each printing the rule that produced it)
+and its machine twin `app/atlas/atlas.json`. The landing's source panel reads
+the same report through `features/landing/sourceStates.ts`.
+
+**Purity contract** — `now` is an INPUT, never `Date.now()` inside the pure
+layer, and byte-identical output under input reordering is asserted by test.
+
+**Unrated is structurally never zero** — the discriminated union carries no
+`score` field on the unrated arm, and that discipline is enforced in the
+derivation, in the sort (`sortScore` returns `null`, unrated always last) and in
+the landing projection. An **unscored** source likewise carries NO number:
+four `nehodnoceno` scores would assert "this source has no rows in the store",
+which is false. The reason is stated as a limit of OUR pipeline — `kg_node` /
+`kg_edge` have no `source` column and no `ingest_run_id`, so no join key runs to
+`ingest_run` — and it says explicitly that the data IS in the store. Scoring
+`kg_*` coverage is deliberately out of scope: it would break the integrity
+rule's printed claim that the sealed tables and the scored tables are the same
+set. **Name the gap, do not close it by loosening a printed rule.**
+
+**The printed rule cannot drift from the score.** The rule exists twice by
+design — `ATLAS_RULES` publishes, the catalog renders — and the test asserts the
+Czech string **after ICU substitution is byte-identical to `ATLAS_RULES`** while
+the English must not equal it and must pass `looksEnglish`. `ATLAS_RULE_PARAMS`
+is the one declaration of the thresholds and parameterises both catalogs.
+
+## Dated record
+
 `/atlas` — **Atlas kvality otevřených dat** (features/atlas, thin route
 `app/atlas/page.tsx`, machine twin `app/atlas/atlas.json`). Per-source
 data-quality scorecard: coverage / freshness / integrity / completeness, each

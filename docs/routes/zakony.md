@@ -1,5 +1,45 @@
 # /zakony — LawWatch
 
+## Current contract
+
+**Routes** — `/zakony` (LawWatch index: statute tiles, forensic register,
+dependencies) · `/zakony/[cislo]` (bill dossier) · `/zakony/predpis/[ref]` ·
+`/zakony/kolize` (close-read pairs, with public RSS/JSON feeds).
+
+**Reads** — `getLawData.ts` reads at `KG_READ_CAP` in one `Promise.all`,
+`cache()`d and memoized on the imported `MONEY_MEMO_TTL_MS` (the readiness gate
+stays deliberately OUTSIDE the memo); `getCollisionData` the same, refusing
+store-less and title-less reads. Disk payloads (`bill-summaries-cz.json`,
+`batch-017-sector-attribution-para.json`) are read the same way: missing or
+malformed → an empty index, **never a page failure**.
+
+**Owned rules** — `sectorAttribution.ts` (projection + the exact-and-unique
+label→IČO resolver: ambiguous, unknown and non-canonical all refuse) ·
+`forensicIndex.ts` (census closure + severity distribution) · `lawClaims.ts`
+(the census-closure and statute-coverage claims) · `billRef.ts` / `statuteRef.ts`
+(the two id codecs) · `publicWire.ts` (`LAW_WIRE` / `BILL_WIRE` under
+`satisfies Record<keyof …>`; `/zakony/[cislo]` keeps the FULL shape).
+
+**Standing rules.** The graph carries no paragraph diffs and no bill-stage
+pipeline, so neither is drawn — fabricating them would violate the brand rule.
+A WITHHELD forensic verdict is disclosed as withheld; "zadrženo" is not "chybí".
+Adjudicated prose passes the Czech-language + pipeline-jargon gate or the row is
+DROPPED, never rendered incomplete. The gate sentence is DERIVED from the stored
+token through `features/overeni/gateVocabulary.ts` — the corpus is QUEUED at the
+gate, not bypassing it. **No pass number is typed**: no `census_provenance` prop
+exists, so the census has no honest pass value and the copy says it is
+unrecorded (restoring one is an INGEST change). CZK formats through
+`lib/format.ts` — the local `czkCompact` fork is deleted and must not return.
+`sponsorContractCzk` is never claimed: its attribution rule is looser than
+/penize's.
+
+**Live state** — 141 bills → 101 laws via 150 `amends` edges; 141/141 forensic
+verdicts, all `pending_review`, ONE ref across 14 distinct passes (so
+`uniformPass` is null); 29 sector-attribution flags on 8 bills; 272 close-read
+pairs, 27 incidental.
+
+## Dated record
+
 `/zakony` — **LawWatch** (features/lawwatch): **wired 2026-07-24 to the real
 graph** (`getLawData.ts`) — **141 bills → 101 laws via 150 `amends` edges**,
 grouped by most-amended statute, with sponsors (→ `/poslanec/<pspId>`),

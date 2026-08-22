@@ -1,5 +1,53 @@
 # /overeni — Ověření citace
 
+## Current contract
+
+**Routes** — `/overeni` (the Civic Claim Gate: paste a politicas address and it
+re-derives the claim against today's record) and `/zdroj/[ref]` (the receipt a
+claim's address resolves to). `/graf/p/[ref]` is the third citation surface
+(→ [graf-permalink.md](graf-permalink.md)).
+
+**The gate derives nothing.** It detects the family and forwards each to the
+loader that OWNS the number — `getMoneyMpDetail()`, `getCompanyDetail()`,
+`getLeaderboardData()`, `getLawData()` — which mints the claim with the SAME
+module the issuing surface used. Order is registry-then-live
+(`lib/claims/registry.ts` is a finite pure module; `liveFigures.ts` is the
+server-only half), so a store is touched only for a ref the registry does not
+know.
+
+**Three verdicts and no fourth** — `verified` · `moved` · `unknown`
+(`verdict.ts`). Beyond the value, the verdict compares the **derivation**:
+equal value + different basis is `moved`, not `verified`, because a match
+between two formulas is a coincidence. A missing basis on either side is not
+compared — it claims nothing.
+
+**Existence and endorsement are two sentences.** `review_state` is terminal per
+edge, so a rejected tie stays in the graph; `verdictGate()` / `verdictTone()`
+put the human gate at headline weight ("Záznam v grafu je — lidská kontrola ho
+zamítla."), a non-confirmed gate loses the confirming cobalt, and a gate-verified
+edge keeps its unqualified „Ověřeno". `gateVocabulary.ts` is the ONE
+claim-status vocabulary (`pending` ≡ `pending_review`); an unmapped token
+renders VERBATIM and labelled, never hidden and never guessed.
+
+**Owned rules** — `verdict.ts` · `gateVocabulary.ts` · `liveFigures.ts` (the
+metric router) · `refDetect` (it unwraps OUR own `?ref=` at DEPTH 1 — a cycle,
+not a citation — and answers `politicas-neni-citace` for our pages that issue no
+address) · `caseFileLink.ts` (links only from the SHAPE of a stored id, never a
+guess) · `getGuideExample.ts` (a REAL edge read at request time; an example
+hardcoded in source is a claim about the graph that nothing holds).
+
+**Standing rules.** Pure modules stay pure and return **message KEYS**, with the
+list of keys each can emit exported and pinned. Schema.org ClaimReview is
+emitted **only past the human gate** — pending/rejected/ungated/node receipts
+emit NOTHING, no softer substitute — with a numeric rating and an absolute URL
+from request headers or the field omitted. A store that is down answers
+`unavailable`, never „the registry does not know this figure"; an address
+today's graph no longer carries answers `zaznam-nenalezen`, not `mimo-rejstrik`.
+A metric added without a routing branch FAILS `liveFiguresRoundTrip.test.ts`
+instead of silently degrading.
+
+## Dated record
+
 `/overeni` — **Ověření citace / Civic Claim Gate** (features/overeni): paste a
 politicas address (receipt `/zdroj/…`, graph citation `/graf/p/…`, velín
 exhibit, claim-ref or a copied `data-claim-*` element) and the gate re-derives

@@ -1,5 +1,54 @@
 # /schranka — Občanská schránka
 
+## Current contract
+
+**Routes** — `/schranka` (a follow list with **no account**),
+`/schranka/novinky.json` (`force-dynamic`), `/schranka/feed.xml`,
+`/schranka/feed.json`.
+
+**The whole state is one localStorage record** — `politicas:schranka:v1`,
+owned by `followCodec.ts`, keyed by the SAME public entity keys `/denik`
+addresses with `?entita=`. Deltas derive server-side through ONE module
+(`getSchrankaDeltas.ts`) over the memoized deník + dukazy loaders, so a feed can
+never report different news than the page. **Nothing is stored server-side and
+no identity is sent** — only the key list and a day threshold.
+
+**Two visit rules, deliberately different.** The PAGE is lenient: entries are
+dated by DAY, so the threshold is the day of the last visit and that day counts
+whole (rather show a row twice than withhold it). The BADGE cannot be — under
+that rule it would never go dark until midnight — so it subtracts a **seen
+watermark** (`visitWindow.ts`). The page states both rules. The visit is stamped
+through a one-shot guard BEFORE `setState` (stamping inside the updater
+collapses the window under StrictMode), and the day enters every derivation
+through `useToday()` — a subscription, never a render-time `new Date()`.
+
+**Owned rules** — `followCodec.ts` (keys, `isEntityKey`, `entityDenikHref`) ·
+`visitWindow.ts` · `kindVocabulary.ts` (three forms per kind; an unmapped kind
+renders VERBATIM and labelled) · `telemetryScrub.ts` · `getRecomputeFact.ts`.
+`KINDS` derives from the TYPED `KIND_NOUN_KEYS`, cross-checked round-trip
+against `KIND_ORDER` — two truth sources holding each other, because a
+hand-typed set silently slandered the platform's own rows as discarded.
+
+**Privacy contract.** The GET URL is deliberately KEPT — owning a shareable,
+bookmarkable address IS the subscription — so `telemetryScrub.ts` scrubs **by
+PARAMETER, not by path** (the address appears as an absolute URL, a relative
+path and a bare query string; a path rule misses one), across
+`contexts.trace.data`, `request.url`/`query_string`, `spans[].data` and
+`breadcrumbs[].data`, from both `beforeSend` and `beforeSendTransaction`. A
+foreign `e=` is left alone. The copy states the one thing scrubbing does not
+change: **the server still sees the request IP.** Honest limit — no DSN exists
+in this repo, so verification is at the event level, not at a request observed
+in Sentry.
+
+**Standing rules.** An affordance is withdrawn rather than left promising a
+delivery nobody can make (`obec:` follows still parse and say exactly why
+nothing arrives). A malformed wire row is dropped, COUNTED and disclosed. The
+`recompute` row states that the SIZE of the move is unknown — `computedAt` is
+one shared instant per pass and the graph keeps no prior-value snapshots — and
+is emitted only when the chamber is UNIFORM.
+
+## Dated record
+
 `/schranka` — **Občanská schránka** (features/schranka): a follow list with no
 account — the whole state is one localStorage record (`politicas:schranka:v1`,
 `followCodec.ts`) keyed by the SAME public entity keys `/denik` addresses with

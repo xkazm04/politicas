@@ -1,5 +1,45 @@
 # /denik — Deník republiky
 
+## Current contract
+
+**Routes** — `/denik` (the chronological daily record of the state),
+`/denik/feed.xml`, `/denik/feed.json`, and `/dukazy` (the gate bulletin) with
+its own two feeds. `?entita=<klíč>` IS the subscription — the same public keys
+`/schranka` follows (`poslanec:<pspId>` · `tisk:<č>` · `firma:<ičo>`).
+
+**Reads** — `getDenikData.ts` re-uses `getMoneyData()` / `getLawData()` and the
+SHARED gate read `features/dukazy/readReviewAudit.ts` — `cache()` for request
+identity **plus in-flight promise sharing** (the half that dedupes /schranka's
+`Promise.all`), with **nothing memoized across requests**: a reviewer's decision
+must never lag a batch window. Batch layers memoize on `MONEY_MEMO_TTL_MS`.
+Every layer degrades independently and `coverage` says which groups the page can
+carry.
+
+**Owned rules** — `deriveDenik.ts` owns the entity keys (`mpEntityKey` /
+`companyEntityKey` / `billEntityKey` / `dayAnchor`) and the
+`evidenceAnchor`/`evidenceHref` codec; `pragueDay.ts` owns the day;
+`limitNotes.ts` owns the disclosure sentences (shared with /schranka);
+`kindLabels.ts` names one row (deliberately NOT /schranka's `KIND_NOUNS`, which
+inflects for a count); `feedCodecs.ts` is the ONE RSS/JSON serializer, with
+`/schranka` as a second channel rather than a second codec; `feedNotes.ts` folds
+coverage and reached limits into the channel description.
+
+**Standing rules — this page counts what it throws away.** Every cap, every
+dropped row, every unreadable layer is counted and rendered: a truncated read,
+a malformed IČO, a merged duplicate, a kind this build cannot speak, an
+impossible date. „Nothing is suppressed" is a DERIVED conclusion, spoken only
+when the cap did not bind, the queue is empty and all three layers were read —
+never a literal. A silent `catch` must travel its outcome to the reader, naming
+the fidelity LOST rather than implying absent data. Rows cite through the shared
+`buildRegistryLinks` / `sourceLinksFor` builders, never a hand-written address;
+a company with no canonical IČO gets NO link. Change rows say **„v evidenci"** —
+a snapshot diff knows the row left the dump, not why. Feed items carry RFC 3339
+stamps at Prague midnight with that day's own offset; an undatable day emits no
+stamp rather than a guess. A junk `?entita=` answers 400 BEFORE any store read;
+a valid key matching nothing keeps its honest 200.
+
+## Dated record
+
 `/denik` — **Deník republiky** (features/denik): the chronological daily
 record of the state — signed contracts of firms MPs own/run, committee
 assignments, Sbírka publication, registry role starts/ends, human-gate

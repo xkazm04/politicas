@@ -1,5 +1,40 @@
 # / — landing
 
+## Current contract
+
+**Route** — `/` (features/landing), the Konstrukt front door: hero ranking,
+hemicycle, live specimen, source-quality panel, module grid, deník and
+referendum teasers.
+
+**Reads** — every figure comes from a loader that already owns it, never from
+the mock: the ranking / hemicycle / specimen ride `getLeaderboardListData()`
+(the /zebricek loader, trimmed to what the page draws), the „Surový materiál"
+panel rides `getAtlasReport()` through the pure projection `sourceStates.ts`,
+and the deník rubric is a SERVER slot (`DenikSlot` → `getDenikData()` +
+`deriveDenikEntries`) rendered inside `<Suspense>` **outside** the page's
+`Promise.all`, so the shell ships immediately and the rubric streams. The
+Prague day crosses from the server as a prop (`pragueDay`) — the browser's UTC
+day is exactly the bug `pragueDay.ts` exists to kill.
+
+**Standing rules.** A `null` loader renders an honest degraded state, never the
+mock. Each layer degrades independently. Nothing on this page recomputes: the
+source panel's coverage IS the atlas dimension score, unrated is `null` plus a
+word and never 0, and the order is the atlas's own. The composite score claim is
+minted through the ONE `scoreClaim.ts` stamp and is WITHHELD under a reader's
+custom lens **with the withholding stated**. Every moving component gates on
+`useReducedMotion`, and `motion.test.ts` derives its scan from the landing's own
+imports so a shared moving component cannot escape at the folder boundary.
+recharts is not on the critical parse path (`ScoreBreakdown` via `next/dynamic`,
+no `ssr: false`). Copy claims only what the loaders measure — no „každá koruna",
+no literal 207, no cadence the register does not publish.
+
+**Rejected, do not rebuild** — the 2026-07-29 `/impeccable` experiment's four
+alternative landing worlds (bolder · distill · ledger/registry · typeset). The
+comparison and the reasoning are in `docs/design/impeccable-pass-02.md`; what
+survived is the accessibility work, which is merged and staying.
+
+## Dated record
+
 `/` — landing (features/landing). Konstrukt. **REAL since `0e8410c`** — the
 hero ranking, hemicycle and specimen ride `getLeaderboardListData()` (the
 same loader as /zebricek, trimmed to what the page draws); `null` renders an

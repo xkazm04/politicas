@@ -1,5 +1,50 @@
 # /hlasovani — VoteTrack
 
+## Current contract
+
+**Routes** — `/hlasovani` (VoteTrack: the chronological ledger as master, the
+sticky chamber detail with hemicycle + party breakdown, the club-discipline
+board with line matrix and rebellion chronicle, the seismograf) and `/kompas`
+(the agreement compass over ~20 selected roll calls).
+
+**Reads — one pass for both surfaces, and for the spis.**
+`features/votetrack/ledgerRead.ts` (`readLedger()` / `toEventIn`) is the ONE
+row→input projection; `getFullVoteRecord()` memoizes the derivation with the
+chronicle UNCAPPED on the imported `MONEY_MEMO_TTL_MS`, `/hlasovani` slices its
+24-row window off it, and `/poslanec` indexes the same object. The 406 000-ballot
+read costs ~16 s cold, so the page streams shells while it runs. `chronicleCap`
+is a pure prefix cut and `chronicleCap.test.ts` pins that — including that the
+pinned field list is the WHOLE `VoteRecordData` type, so a new field cannot join
+without someone ruling on the cut. The kompas reads no ballots to select: it
+takes `VoteRecordData.voteIndex` and then the scoped
+`listVoteBallots({voteIds})` (`vote_ballot_vote_idx`: 4 000 rows / 29 ms against
+406 000 / ~7,5 s).
+
+**Owned rules** — `record/reconcile.ts` (our recount vs the Chamber's published
+tallies; `away` is deliberately uncompared, a discrepancy is a FINDING and is
+never repaired) · `record/threshold.ts` (the published `quorum`/`present`
+columns, never a `quorum ?? simpleMajority` fallback) · `sortValidNewestFirst()`
+(the ledger window, so an anchor either lands or says it cannot) ·
+`kompas/select.ts` (`MIN_TAG_CONFIDENCE`, printed as a live value) ·
+`silverLayer.ts` (the third state) · `clubStyle.ts` over `CLUB_DISPLAY`.
+
+**A never-computed layer is not an outage.** `vote_tag` is currently **0 rows** —
+OUR derived theme layer was never computed. `silverLayer.ts` types that as its
+own state (`null` = outage · `never-computed` · `ready`), and the middle state
+may only arise AFTER a successful `getStore()`. Both surfaces render it as what
+it is, with no promised date and no pipeline jargon. Populating the tags is an
+un-owned batch job.
+
+**Standing rules.** Every instrument prints its scale (both seismograf axes
+clamp, and both clamps are stated). Every list prints the POPULATION it was
+sliced from, counted BEFORE the slice. A dash in the line matrix is a CLAIM —
+"the club had no line" — not an empty cell. The ledger, chronicle and rebel
+board are `<ul>`/`<li>` and **deliberately not tables**; the refusal and its
+reasoning are pinned in `a11y.test.ts`. One tab stop per instrument, arrows
+walking the axis through the IMPORTED `graphTraversal.ts`.
+
+## Dated record
+
 `/hlasovani` — **VoteTrack** (features/votetrack): fusion of all three
 prototype variants — Deník (chronological ledger as master), Sál (sticky
 chamber detail: hemicycle + party breakdown it drives), Linie (club

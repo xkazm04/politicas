@@ -1,5 +1,47 @@
 # App shell — failure surfaces & per-route payload
 
+## Current contract
+
+**Scope** — the chrome and the failure surfaces every route inherits:
+`features/shell/` (left nav rail + mobile nav; `navModel.ts` declares the
+modules, each page's section anchors and `UNLISTED_ROUTES`; `isBareRoute()` opts
+out the landing, `/admin` and `/rentgen`), `app/layout.tsx`,
+`app/not-found.tsx`, the two error boundaries, `app/robots.ts` and
+`app/sitemap.ts`.
+
+**Standing rules.**
+
+- **Pages must NOT draw their own logo** — the rail owns it.
+- `navModel` is the single declaration: it feeds the rail, the section anchors,
+  `publicRoutes.ts` and through it the sitemap, and the known-segment set
+  `/overeni` matches against. A page in the rail is a page in the sitemap.
+  Module identity (`brandName`) lives here too — deliberately not in the message
+  catalogs, because "CivicScore" does not translate.
+- **404 is not an outage.** `not-found.tsx` distinguishes a record that does not
+  exist from a source that could not be read, and its doors are keyed by WHAT
+  the reader was looking for (MP to /zebricek, law to /zakony, firm to /penize,
+  town to /rozpocty, citation to /overeni), never a bare "back home". It is a
+  SERVER component with zero client JS, and it **prints no status numeral**:
+  Next returns 404 only for non-streamed responses.
+- **Never claim a report was sent.** Sentry is env-gated to a silent no-op
+  without `NEXT_PUBLIC_SENTRY_DSN` and this repo has none; the boundaries show
+  the digest and a sentence that is true with or without a DSN.
+- Root `lang="cs"` stays — it is the document's DEFAULT language and the locale
+  is unknowable in `global-error`. What must hold is that **every English
+  fragment carries `lang="en"`**, including halves inside bilingual lines.
+- Base URLs come from request headers (sitemap, the robots `Sitemap:` line, the
+  four feeds): honest localhost in dev, the field omitted with no host, **never
+  a guessed domain**.
+- **The chrome must not drag the mock catalog.** `sidebarParts.tsx` loads on
+  every route; importing `MODULES` from `lib/civic/data.ts` for one lookup
+  shipped invented people and firms into an anti-disinformation product's every
+  page. Honest limit: 8 of 23 routes are clean — 15 still carry that chunk
+  through their OWN importers.
+- A font that is preloaded must be rendered by something. `font-serif` falls
+  back to the system serif, and `docs/DESIGN.md` section 2 says so.
+
+## Dated record
+
 **App shell — the failure surfaces and what every route ships (2026-08-13).**
 Three surfaces a reader meets only when something has gone wrong, all careless in a
 product careful everywhere else. **There was no 404 page at all**: the repo had no

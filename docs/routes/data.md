@@ -1,5 +1,42 @@
 # /data — Datové verze
 
+## Current contract
+
+**Routes** — `/data` (Datové verze: the release train of the data layer —
+version, cut date, cardinality gates, integrity, snapshot, changelog) plus
+`/data/manifest.json` and `/data/snapshot.json`. It is also **the app's feed
+address book**: `feedIndex.ts` is the pure list of the four feed families
+(`/denik`, `/dukazy`, `/zakony/kolize`, `/schranka`) and, separately, the three
+machine endpoints that are NOT feeds — so the page cannot claim a format that
+does not hold. Counts are computed from the list, never written as digits, and
+`feedIndex.test.ts` checks every address against the real `app/` tree.
+
+**`app/sitemap.ts` and `app/robots.ts` are two halves of one decision.** The
+sitemap's route list is DERIVED from `navModel`'s own declarations
+(`NAV` + `UNLISTED_ROUTES`) via `features/shell/publicRoutes.ts`, minus the
+paths `robots.ts` disallows (`DISALLOWED_PATHS`, imported and never retyped —
+a sitemap advertising a Disallow-ed path is two files contradicting each other),
+minus dynamic segments. Base URL comes from request headers: honest localhost in
+dev, **never an invented domain**.
+
+**The snapshot says what is NOT in it.** `SNAPSHOT_NODE_CAP` takes an
+`order by id limit` window — **an alphabetical prefix, not a sample** — so
+`limits` carries `nodeKinds`/`edgeRels` (in-cut vs in-store) measured on the
+very rows that ship, and the page prints the prefix rule plus the named absent
+kinds and relations. Raising the cap was ruled OUT: a bigger silent prefix is
+still a silent prefix. `loader.test.ts` compares the page's `limits` against the
+**parsed serialized payload**, so the page and `/data/snapshot.json` cannot
+disagree.
+
+**Cardinality floors are a real gate.** `CARDINALITY_FLOORS` must be raised
+alongside a major ingest — a floor two orders of magnitude below the corpus
+certifies a catastrophe as `latest`. Each floor records the corpus and ingest
+that set it. Only the floor whose corpus grew may move: `storeReady()` reads the
+same table for every public loader, so an over-aggressive floor takes the whole
+product to its fallback.
+
+## Dated record
+
 `/data` — **Datové verze** (features/data-releases): the release train of the
 data layer (version, cut date, cardinality gates, integrity, snapshot,
 changelog). **It is also the app's feed address book since 2026-08-04** — four
