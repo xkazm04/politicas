@@ -109,9 +109,41 @@ export interface PublicMandateInput {
   shareholders: Shareholder[];
   /** Whether a VR record was actually retrieved. Absence of data is not evidence. */
   vrRetrieved: boolean;
+  /**
+   * How many CURRENT owner entries the VR record carried, natural persons INCLUDED
+   * (`ownershipRecord().entriesCurrent`). Zero means the register names nobody today,
+   * which is not the same as naming only private owners — see `ownership-not-published`.
+   *
+   * Optional: a caller that does not supply it keeps the pre-batch-015 behaviour rather
+   * than having its verdicts silently change underneath it.
+   */
+  ownersRecorded?: number;
 }
 
-export type PublicMandateKind = "public-body" | "publicly-owned" | "private" | "unknown";
+export type PublicMandateKind =
+  | "public-body"
+  | "publicly-owned"
+  | "private"
+  /**
+   * VR was read and named NO current owner at all — so nothing is known about who owns
+   * this company (money batch 015).
+   *
+   * This used to answer `private`, and that was the module's own doctrine violated in the
+   * one place it was not looking. "Absence of data is not evidence" was enforced for a VR
+   * record that could not be fetched, but not for a VR record that came back carrying no
+   * current owner — which for an `akciová společnost` is the NORMAL case, because VR lists
+   * shareholders only in special circumstances. Measured over the 57 attributable tied
+   * companies: **49 of 52 `private` verdicts (18,05 mld. CZK, 98 % of the attributable
+   * money) rested on that silence**, including Pražská energetika a.s., whose VR record
+   * names no shareholder whatsoever while the company is city-owned through a holding.
+   *
+   * It is deliberately still `attributable: true`. Silence is not evidence of PUBLIC
+   * ownership either, and quietly withdrawing 18 mld. from the surface on an absence
+   * would be the same error pointed the other way. It marks the figure as unverified so
+   * the surface can say so and the review queue can rank it.
+   */
+  | "ownership-not-published"
+  | "unknown";
 
 export interface PublicMandateVerdict {
   kind: PublicMandateKind;
@@ -191,6 +223,21 @@ export function classifyPublicMandate(input: PublicMandateInput): PublicMandateV
       attributable: true,
     };
   }
+
+  // The distinction this module was missing: "VR names owners, none of them public" is
+  // evidence of private ownership; "VR names no current owner at all" is no evidence of
+  // anything. `ownersRecorded` is undefined for callers that have not been updated —
+  // those keep the old behaviour rather than being silently reclassified.
+  if (input.ownersRecorded !== undefined && input.ownersRecorded === 0) {
+    return {
+      kind: "ownership-not-published",
+      reason: `Právní forma ${input.legalForm} je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.`,
+      publicOwners: [],
+      unknownCodes: [...new Set(unknownCodes)],
+      attributable: true,
+    };
+  }
+
   return {
     kind: "private",
     reason: `Soukromoprávní subjekt (právní forma ${input.legalForm}) bez veřejného vlastníka mezi současnými společníky/akcionáři.`,
@@ -201,11 +248,31 @@ export function classifyPublicMandate(input: PublicMandateInput): PublicMandateV
 }
 
 /** Pull shareholders out of an ARES VR payload. Reads `akcionari` AND `spolecnici` —
- *  batch 002's P35 lesson: several VR arrays are load-bearing, not just one. */
+ *  batch 002's P35 lesson: several VR arrays are load-bearing, not just one.
+ *
+ *  Legal persons only: the question is PUBLIC ownership, and a natural person can never
+ *  be a public owner. Use `ownershipRecord` when you need to know whether VR recorded any
+ *  owner at all — that is a different question, and conflating the two is what money
+ *  batch 015 found costing 18 mld. CZK of unearned confidence. */
 export function shareholdersFromVr(vr: unknown, asOf: string): Shareholder[] {
+  return ownershipRecord(vr, asOf).legalPersons;
+}
+
+/** What the VR record SAYS about ownership — including the natural persons that
+ *  `shareholdersFromVr` deliberately drops. */
+export interface OwnershipRecord {
+  /** Legal-person owners, current and historical. */
+  legalPersons: Shareholder[];
+  /** How many owner entries VR carried at all (legal + natural, current + historical). */
+  entriesTotal: number;
+  /** How many of those are CURRENT (no `datumVymazu`, or one still in the future). */
+  entriesCurrent: number;
+}
+
+export function ownershipRecord(vr: unknown, asOf: string): OwnershipRecord {
   const record = (vr as { zaznamy?: unknown[] } | null)?.zaznamy?.[0] as Record<string, unknown> | undefined;
-  if (!record) return [];
-  const out: Shareholder[] = [];
+  const out: OwnershipRecord = { legalPersons: [], entriesTotal: 0, entriesCurrent: 0 };
+  if (!record) return out;
   for (const key of ["akcionari", "spolecnici"]) {
     const groups = record[key];
     if (!Array.isArray(groups)) continue;
@@ -214,13 +281,18 @@ export function shareholdersFromVr(vr: unknown, asOf: string): Shareholder[] {
       if (!Array.isArray(members)) continue;
       for (const m of members as Record<string, unknown>[]) {
         const po = m.pravnickaOsoba as Record<string, unknown> | undefined;
-        if (!po) continue; // natural persons are out of scope — this asks about PUBLIC ownership
+        const fo = m.fyzickaOsoba as Record<string, unknown> | undefined;
+        if (!po && !fo) continue;
         const vymaz = typeof m.datumVymazu === "string" ? m.datumVymazu : null;
-        out.push({
+        const current = !vymaz || vymaz > asOf;
+        out.entriesTotal += 1;
+        if (current) out.entriesCurrent += 1;
+        if (!po) continue; // a natural person is counted, never returned as a shareholder
+        out.legalPersons.push({
           ico: typeof po.ico === "string" ? po.ico : null,
           name: typeof po.obchodniJmeno === "string" ? po.obchodniJmeno : "(bez názvu)",
           legalForm: typeof po.pravniForma === "string" ? po.pravniForma : null,
-          current: !vymaz || vymaz > asOf,
+          current,
         });
       }
     }

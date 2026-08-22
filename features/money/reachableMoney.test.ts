@@ -220,3 +220,53 @@ describe("tieReach — the ledger's per-row column", () => {
     expect(tieReach(t).czk).toBe(bucketReachCzk(reachableMoney([t]).attributable));
   });
 });
+
+describe("money batch 015 — the COMPANY axis (public mandate)", () => {
+  const tie = (over: Partial<ReachableTie>): ReachableTie => ({
+    companyId: "company:ico:46347534",
+    tieClass: "manager",
+    contractCount: 1875,
+    contractCzk: 11_824_659_567,
+    subsidiesCzk: 0,
+    donatedToPartyCzk: null,
+    ...over,
+  });
+
+  it("THE TEPLÁRNY BRNO CASE: a municipally owned company is not the MP's money", () => {
+    // Hladík really was předseda představenstva, so the ROLE class `manager` is right.
+    // The company is 100 % Statutární město Brno, so the MONEY is the city's. One axis
+    // could not express that, and 11,82 mld. CZK sat in the attributable headline.
+    const m = reachableMoney([tie({ publicMandateAttributable: false })]);
+    expect(m.attributable.contractCzk).toBe(0);
+    expect(m.steward.contractCzk).toBe(11_824_659_567);
+    // Not dropped — the steward bucket already means "the institution's own activity".
+    expect(m.totalCzk).toBe(11_824_659_567);
+  });
+
+  it("leaves the tie class in charge when the sweep has not reached the company", () => {
+    expect(reachableMoney([tie({})]).attributable.contractCzk).toBe(11_824_659_567);
+    expect(reachableMoney([tie({ publicMandateAttributable: null })]).attributable.contractCzk).toBe(
+      11_824_659_567,
+    );
+  });
+
+  it("does NOT let an unpublished ownership record remove attribution", () => {
+    // 47 of 57 companies (18,04 mld.) have no owner named in VR at all. Silence is not
+    // evidence of public ownership any more than of private — withdrawing the money on
+    // an absence would be the same error pointed the other way.
+    const m = reachableMoney([tie({ publicMandateAttributable: true })]);
+    expect(m.attributable.contractCzk).toBe(11_824_659_567);
+  });
+
+  it("the mandate axis can only ever REMOVE attribution, never grant it", () => {
+    // A steward tie stays steward even where the register calls the company private.
+    const m = reachableMoney([tie({ tieClass: "steward", publicMandateAttributable: true })]);
+    expect(m.attributable.contractCzk).toBe(0);
+    expect(m.steward.contractCzk).toBe(11_824_659_567);
+  });
+
+  it("tieReach colours and captions the row by the same two-axis answer", () => {
+    expect(tieReach(tie({ publicMandateAttributable: false })).attributable).toBe(false);
+    expect(tieReach(tie({})).attributable).toBe(true);
+  });
+});

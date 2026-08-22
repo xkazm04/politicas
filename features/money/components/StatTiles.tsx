@@ -21,12 +21,15 @@ export interface StatTileItem {
   /** druhá, kvalifikující věta (dnes jen vysvětlení dolní meze) */
   note?: string | null;
   /**
-   * Co do čísla NEPATŘÍ — smlouvy, které rejstřík připsal někomu jinému
-   * (money batch 014). Vlastní pole, ne `note`: `note` číslo kvalifikuje
-   * („je to dolní mez"), tohle uvádí odečtenou částku, a splynout smějí
-   * nanejvýš vizuálně, ne v datech.
+   * VÝHRADY k číslu — každá jiný druh nejistoty, proto seznam, ne jedna věta
+   * (money batch 015; batch 014 tu měl jediné pole `excluded` a při třetí
+   * výhradě by se buď slily, nebo by jedna z nich tiše zmizela).
+   *
+   * Dnes tři, každá jiným směrem: co je MIMO součet (smlouvy připsané jinému),
+   * co je UVNITŘ a nadhodnocené (víc příjemců, nezveřejněné podíly), a o co se
+   * číslo NEOPÍRÁ (rejstřík neuvádí vlastníka). Pořadí je pořadí vykreslení.
    */
-  excluded?: string | null;
+  caveats?: readonly string[];
 }
 
 export default function StatTiles({ items }: { items: readonly StatTileItem[] }) {
@@ -45,8 +48,14 @@ export default function StatTiles({ items }: { items: readonly StatTileItem[] })
           <p className="mt-3 text-4xl font-black tabular-nums tracking-tight">{s.value}</p>
           <p className="mt-2 text-sm text-steel">{s.sub}</p>
           {s.note ? <p className="mt-2 border-l-2 border-ochre pl-2 text-sm text-steel">{s.note}</p> : null}
-          {s.excluded ? (
-            <p className="mt-2 border-l-2 border-steel pl-2 text-sm text-steel">{s.excluded}</p>
+          {s.caveats?.length ? (
+            <ul className="mt-2 space-y-1 border-l-2 border-steel pl-2">
+              {s.caveats.map((c) => (
+                <li key={c} className="text-sm text-steel">
+                  {c}
+                </li>
+              ))}
+            </ul>
           ) : null}
           <SourceNote className="mt-3 !text-[10px]">
             {tcom("sourcePrefix")} {s.source}

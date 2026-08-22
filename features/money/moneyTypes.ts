@@ -25,6 +25,25 @@ import type { ReviewState } from "./reviewTypes";
 export const CORROBORATIONS = ["registry-confirmed", "registry-unconfirmed", "conflicting"] as const;
 export type Corroboration = (typeof CORROBORATIONS)[number];
 
+/** Verdikt o VLASTNICTVÍ firmy (lib/analysis/public-body.ts, money batch 015 pass 58) —
+ *  druhá osa přičitatelnosti vedle `TieClass`. Deklarováno tady, aby ho uměl zúžit
+ *  loader i klientská sazba; sémantika žije v tom modulu. */
+export const PUBLIC_MANDATE_KINDS = [
+  "public-body",
+  "publicly-owned",
+  "private",
+  "ownership-not-published",
+  "unknown",
+] as const;
+export type PublicMandateKind = (typeof PUBLIC_MANDATE_KINDS)[number];
+
+/** Veřejný vlastník tak, jak ho zapsal rejstříkový průchod. */
+export interface PublicMandateOwner {
+  ico: string | null;
+  name: string;
+  legalForm: string | null;
+}
+
 // Re-exported from reviewTypes.ts (the /penize/kontrola console's pure classifier) so
 // the main ledger and per-MP case file can render the SAME tie-class taxonomy without
 // duplicating the definition. Plain module, no server imports — safe to share.
@@ -81,6 +100,19 @@ export interface MoneyTie {
   /** owner-operator / manager / steward — see `tieClassInfo` for the rendered P29 rule.
    *  Resolved by `resolveTieClass`: a class stored on the edge beats the heuristic. */
   tieClass: TieClass;
+  /**
+   * DRUHÁ OSA: o firmě, ne o roli (money batch 015). `tieClass` říká, co poslanec ve
+   * firmě dělá; tohle říká, ČÍ ty peníze jsou. Teplárny Brno a.s. jsou ze 100 %
+   * města Brna — role „předseda představenstva" je správně a přesto tam poslancovy
+   * peníze nejsou. `null` = průchod tuhle firmu ještě neprošel.
+   */
+  publicMandate: PublicMandateKind | null;
+  /** `false` = peníze firmy NELZE přičítat politikovi (řídí `tieIsAttributable`). */
+  publicMandateAttributable: boolean | null;
+  /** Rejstříkové zdůvodnění verdiktu, česky, bezpečné k vykreslení. */
+  publicMandateReason: string | null;
+  /** Veřejní vlastníci, kteří verdikt způsobili — důkaz vedle tvrzení. */
+  publicMandateOwners: PublicMandateOwner[];
   /** Whether `tieClass` was READ off the edge or GUESSED — the two may not be rendered
    *  in the same voice (`tieClassOriginInfo`). */
   tieClassOrigin: TieClassOrigin;
@@ -414,6 +446,17 @@ export interface MoneyStats {
    * odečíst nelze to, co registr nerozdělil.
    */
   contractsSharedRecipients: { count: number; czk: number };
+  /**
+   * Kolik z `contractCzkAttributable` stojí na firmách, u kterých veřejný rejstřík
+   * NEUVÁDÍ vlastníka (money batch 015). Verdikt neubírá ani korunu — mlčení není
+   * důkaz veřejného vlastnictví o nic víc než soukromého — ale je to nejsilnější
+   * výhrada k tomu číslu, protože po přeřazení Tepláren Brno a dvou olomouckých
+   * firem k stewardům na ní stojí 98 % zbytku.
+   *
+   * POPULACE: firmy, které jsou po OBOU osách přičitatelné — tedy přesně ty, které
+   * headline sčítá.
+   */
+  ownershipUnverified: { companies: number; czk: number };
   /** Every `linked_to` edge the layer READ — including ones dropped for an unresolved
    *  endpoint. It is therefore NOT the population of the three counts below, and the
    *  review banner must not mix them (see `reviewSummary.ts`). */

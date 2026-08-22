@@ -10,7 +10,7 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { loadMpMoneySlice, mapLinkedToTie } from "./moneyLoader";
-import { reachableMoney } from "./reachableMoney";
+import { reachableMoney, toReachableTie } from "./reachableMoney";
 import type { MoneyMpDetail, MoneyTieDetail } from "./moneyTypes";
 
 export const MP_CONTRACT_LINES_SHOWN = 8;
@@ -55,14 +55,7 @@ export async function getMoneyMpDetail(pspId: number): Promise<MoneyMpDetail | n
       // out of. The three raw `ties.reduce(...)` totals that used to sit here summed a
       // hospital's own contracting into the same headline number as a firm the MP owns.
       money: reachableMoney(
-        ties.map((t) => ({
-          companyId: t.companyId,
-          tieClass: t.tieClass,
-          contractCount: t.contractCount,
-          contractCzk: t.contractCzk,
-          subsidiesCzk: t.subsidiesCzk,
-          donatedToPartyCzk: t.donatedToPartyCzk,
-        })),
+        ties.map((t) => toReachableTie(t)),
         // This is a SLICE (median 3 tied companies), not the ~196-company corpus the
         // per-company cap heuristic was calibrated on — three small firms with the same
         // contract count would have made it print „nejméně" plus a cap that does not

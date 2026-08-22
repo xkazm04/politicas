@@ -991,3 +991,84 @@ worse finding, with a name attached.
 4. Re-harvest cadence (`--refresh=<month>`) wired to the Pumper watch; SZIF subsidy channel
    still absent from the corpus entirely; Q-money-13's 21 residue items still with law (14)
    and effort (7).
+
+### Batch 015 — whose money is it? The second axis of attribution (2026-08-22)
+
+Batch 014 left Teplárny Brno a.s. as the largest attributable figure on the surface —
+**11,82 mld. CZK**, a company 100 % owned by Statutární město Brno, chaired by Petr
+Hladík. This batch asks the question that number begs and finds the platform had no way
+to ask it.
+
+- **The tool existed and had never been pointed here.** `lib/analysis/public-body.ts` was
+  built in batch 010 for exactly this and then run over **four ownership parents**. The 57
+  companies whose money the platform attributes to named politicians were never swept.
+- **Two axes.** `tie_class` = the ROLE (what the person does); `public_mandate` = the
+  COMPANY (whose money it is). Hladík really was chairman — the role class is right, the
+  conclusion drawn from it was not. So the sweep writes a SEPARATE additive annotation on
+  the company node and touches neither `tie_class` nor `review_state`; `tieIsAttributable`
+  is the new rule and the mandate axis may only ever REMOVE attribution.
+- **3 publicly-owned companies, 12 753 808 645 CZK**: Teplárny Brno (Brno), Výstaviště
+  Flora Olomouc and Lesy města Olomouce (Olomouc). Not deleted — moved to the STEWARD
+  bucket, which already means "the institution's own activity". `totalCzk` unchanged.
+  **Headline 31 122 348 145 → 18 368 539 501 CZK.**
+- **THE BIGGER FINDING — 98 % of what remains is not evidence.** The classifier's `private`
+  branch was reached whenever VR named no current legal-person shareholder, which for an
+  `a.s.` is the NORMAL case: **49 of 52 `private` verdicts (18,05 mld. CZK) rested on
+  silence**, Pražská energetika (10,95 mld., city-owned through a holding, VR names nobody)
+  at the top. The module's own doctrine — absence of data is not evidence — was enforced on
+  the un-fetchable path and not on the empty-record path. New verdict
+  `ownership-not-published`, still attributable (silence is not evidence of public
+  ownership either), and `ownershipRecord()` now counts natural persons so "no public
+  owner" stays distinguishable from "no owner recorded" — without which AGROFERT, whose
+  only current akcionář is a natural person, would have been filed unverified.
+- **Surface:** the reach tile carries three caveats, each a different direction — what is
+  OUTSIDE the total, what is INSIDE and over-counted, and what the number does NOT rest on.
+  And `/penize/firma/<ico>` stops printing „všechny zdejší vazby jsou dozorčí funkce" over
+  a company moved by OWNERSHIP: the registry's own reason and the named public owner render
+  instead, because a sentence its neighbouring row falsifies is not allowed here.
+- **`toReachableTie()`**: `ReachableTie` had four hand-copied construction sites; the new
+  axis reached one of them, and the headline silently did not move until that was found.
+- Write: **pass 58** (56 company nodes, `public_mandate*` + ARES/VR citations).
+  **No `review_state` touched — 211 ties remain `pending_review`.**
+- **OPEN INCIDENT (batch not closed):** after pass 58 was written and read back
+  successfully, `./.pglite` began aborting at open. PGlite is healthy (the pass-58 backup
+  reads fine), tests are isolated (`mkdtemp`), memory is fine — and `mv .pglite` fails with
+  Permission denied, which per [[held-store-mimics-corruption]] IS the holder check and may
+  not be worked around. The holder is an ORPHAN: three processes running
+  `scripts/tmp-inventory.ts` since 13:01, a temp script that no longer exists in the tree.
+  Suspected trigger: `npm run build` prerendering from several workers against the
+  single-connection store. Recovery is lossless (restore the pass-58 backup, replay the
+  committed payload) but needs the orphan stopped — a destructive action on a process this
+  session did not start, so it is the user's call.
+
+## Metrics block — batch 015
+
+| metric | batch 015 |
+|---|---|
+| headline before → after | **31 122 348 145 → 18 368 539 501 CZK** (−12,75 mld.) |
+| companies swept | 57 attributable tied (previously 4 ownership parents, ever) |
+| publicly-owned found | **3** · 12 753 808 645 CZK moved to steward |
+| `private` verdicts that were actually silence | **49 of 52** · 18 045 063 297 CZK |
+| classifier defect fixed | `ownership-not-published` + natural-person counting |
+| projections unified | 4 hand-copied → `toReachableTie()` |
+| graph writes | pass 58 (56 company nodes) |
+| `review_state` changes | **0** |
+| gate | `npm run check` green — **2 968 tests** (+9) · build compiles |
+| live-store verification | **BLOCKED** — see the open incident |
+
+## Steering (next batch — batch 016)
+
+1. **Close the incident first**: stop the orphan, restore `.pglite-backup-20260822-pass58`,
+   replay `payloads/batch-015-public-mandate.json` at pass 58, verify through
+   `verify-b15.ts`. Then ask whether `npm run build` against the live store is safe at all —
+   if prerender workers can corrupt it, the build needs its own copy, and that is a
+   platform-level rule, not a money-case one.
+2. **Pražská energetika (10,95 mld.) is now the largest single unverified figure.** VR names
+   no owner; the ownership is one level up (a holding). A depth-2 check via the graph's own
+   `owns_stake` layer, or an OR úplný výpis, would settle it — and the same method covers
+   Plzeňská teplárenská, VaK Vsetín and VaK Vyškov, all municipal-utility-shaped.
+3. **`ownership-not-published` needs a review-queue lane.** 47 companies is a workable
+   human queue, and it is where the remaining 98 % of the headline lives.
+4. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (batch 010); SZIF subsidy channel
+   still absent from the corpus; Q-money-13's 21 residue items still with law (14) /
+   effort (7).

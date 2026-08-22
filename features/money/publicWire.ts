@@ -43,6 +43,15 @@ export const TIE_WIRE = {
   reviewState: "public",
   tieClass: "public",
   tieClassOrigin: "public", // a guessed class may not read like a recorded one
+  /** DRUHÁ OSA přičitatelnosti (money batch 015). `tieIsAttributable` ji čte, takže
+   *  řídí BARVU i POPISEK buňky dosahu úplně stejně jako `tieClass` — a kniha, která
+   *  Teplárny Brno přeřadí ke stewardům, musí umět říct PROČ. Zdůvodnění i jmenovaný
+   *  veřejný vlastník jdou ven s ní: tvrzení bez důkazu vedle sebe je přesně to, co
+   *  značka zakazuje. */
+  publicMandate: "public",
+  publicMandateAttributable: "public",
+  publicMandateReason: "public",
+  publicMandateOwners: "public",
   // `tieReach()` inputs — the row's „dosah" cell AND its sort key. Do 2026-08-12
   // sem patřily i `contractCount` a `donatedToPartyCzk` pod TOUTO větou, a ta o obou
   // LHALA: `reachableMoney.ts` je nečte ani v jedné ze dvou funkcí, které dosah
@@ -165,6 +174,10 @@ export function toPublicTie(tie: MoneyTie): PublicMoneyTie {
     reviewState: tie.reviewState,
     tieClass: tie.tieClass,
     tieClassOrigin: tie.tieClassOrigin,
+    publicMandate: tie.publicMandate,
+    publicMandateAttributable: tie.publicMandateAttributable,
+    publicMandateReason: tie.publicMandateReason,
+    publicMandateOwners: tie.publicMandateOwners,
     contractCount: tie.contractCount,
     contractCzk: tie.contractCzk,
     subsidiesCzk: tie.subsidiesCzk,

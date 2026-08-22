@@ -105,9 +105,9 @@ const BASE_COUNTERS = {
 const FIXTURE = {
   // +1 company +1 contract vs pass-35: the batch-013 untied ownership parent and its
   // own large contract, seeded to pin that untied money never reaches an attribution total.
-  knownKindNodes: 21, // 4 person + 4 company + 4 contract + 4 bill + 2 law + 2 organ + 1 party
+  knownKindNodes: 23, // 4 person + 4 company + 4 contract + 4 bill + 2 law + 2 organ + 1 party
   unknownKindNodes: 1, // a node kind the canvas must refuse to draw
-  edges: 25, // incl. pass-34 rapporteur, pass-35 spoke_on/proposes_amendment, batch-014 co-signatory
+  edges: 27, // incl. pass-34 rapporteur, pass-35 spoke_on/proposes_amendment, batch-014 co-signatory
   coVotesEdges: 3, // a 96%-dense matrix — must never reach the canvas payload
 } as const;
 
@@ -195,6 +195,11 @@ async function seedFixture(): Promise<void> {
       ($12, 'company', 'Alfa s.r.o.',            $4::jsonb, 30, '{}'::jsonb),
       ($13, 'company', 'Krajská nemocnice a.s.', $5::jsonb, 30, '{}'::jsonb),
       ($14, 'company', 'Gama s.r.o.',            $6::jsonb, 30, '{}'::jsonb),
+      -- money batch 015: attributable BY ROLE (an MP chairs its board) but 100 % owned
+      -- by a city, so the money is the city's. Deliberately outsized so a leak is obvious.
+      ('kg:company:ico:555', 'company', 'Teplarna mesta X, a.s.',
+        '{"ico":"555","public_mandate":"publicly-owned","public_mandate_attributable":false,"public_mandate_reason":"Ve verejnem vlastnictvi - akcionarem je Mesto X.","public_mandate_owners":[{"ico":"999","name":"Mesto X","legalForm":"801"}]}'::jsonb, 30, '{}'::jsonb),
+      ('kg:contract:11', 'contract', 'Dodavka tepla', '{"amount": 700000000, "signedOn": "2024-02-01"}'::jsonb, 30, '{}'::jsonb),
       ('kg:company:ico:444', 'company', 'Ministerstvo čehosi', '{"ico":"444"}'::jsonb, 30, '{}'::jsonb),
       ('kg:contract:9', 'contract', 'Obří státní zakázka', '{"amount": 900000000, "signedOn": "2024-06-01"}'::jsonb, 30, '{}'::jsonb),
       -- money batch 014: Alfa is a party to this one, but the register flags somebody
@@ -313,6 +318,9 @@ async function seedFixture(): Promise<void> {
       ('psp:person:100', 'linked_to', $1, null, $4::jsonb, $7::jsonb),
       ('psp:person:200', 'linked_to', $2, null, $5::jsonb, $7::jsonb),
       ('psp:person:200', 'linked_to', $3, null, $6::jsonb, $7::jsonb),
+      ('psp:person:200', 'linked_to', 'kg:company:ico:555', null,
+        '{"role":"predseda predstavenstva","tie_class":"manager","review_state":"pending_review"}'::jsonb, $7::jsonb),
+      ('kg:company:ico:555', 'supplies', 'kg:contract:11', 700000000, '{}'::jsonb, '{}'::jsonb),
       -- unresolved company endpoint: every reader must DROP it, never guess
       ('psp:person:300', 'linked_to', $8, null, $9::jsonb, $7::jsonb),
       ($10, 'amends', 'law:sb:586-1992', null, '{}'::jsonb, '{}'::jsonb),
@@ -618,12 +626,12 @@ describe("getMoneyData (the /penize ledger)", () => {
     // What the human gate has decided is COUNTED, not asserted. The fixture holds one of
     // each state, so the page's banner is in its `mixed` phase here — the case the two
     // hard-coded "everything is pending" sentences got wrong.
-    expect([data.stats.verifiedTies, data.stats.pendingTies, data.stats.rejectedTies]).toEqual([1, 1, 1]);
+    expect([data.stats.verifiedTies, data.stats.pendingTies, data.stats.rejectedTies]).toEqual([1, 2, 1]);
     expect(reviewSummary({
       verified: data.stats.verifiedTies,
       pending: data.stats.pendingTies,
       rejected: data.stats.rejectedTies,
-    })).toMatchObject({ phase: "mixed", decided: 2, total: 3 });
+    })).toMatchObject({ phase: "mixed", decided: 2, total: 4 });
 
     expect(data.pass).toBe(42);
     expect(data.source).toBe("registr smluv ⋈ ares ⋈ hlídač státu");
@@ -692,19 +700,44 @@ describe("getMoneyData (the /penize ledger)", () => {
 
   it("counts reachable CZK once per company and drops edges with an unresolved company", async () => {
     const data = (await withReadinessOff(getMoneyData))!;
-    expect(data.stats.companiesLinked).toBe(3); // the ghost company is not counted
-    expect(data.stats.money.totalCzk).toBe(6_900_000);
-    expect(data.stats.money.companies).toBe(3);
+    expect(data.stats.companiesLinked).toBe(4); // the ghost company is not counted
+    // 6,9M soukromého dodavatele + 700M městské teplárny. Obojí je „dosažitelné",
+    // ale jen to první je přičitatelné — viz test hned za tímhle.
+    expect(data.stats.money.totalCzk).toBe(706_900_000);
+    expect(data.stats.money.companies).toBe(4);
     expect(data.stats.verifiedTies).toBe(1);
-    expect(data.stats.pendingTies).toBe(1); // the rejected tie counts as neither
+    expect(data.stats.pendingTies).toBe(2); // the rejected tie counts as neither
 
     // KNOWN GAP, pinned deliberately (reported, not fixed): `totalTies` is the RAW
     // linked_to row count, so it still includes the edge whose company node is missing
     // — 4 here, while only 3 rows are visible in the ledger. The loader fixed exactly
     // this reconcilability defect on the PERSON side (see its own comment) but left it
     // on the company side, so the aggregate tile can never be reconciled with the rows.
-    expect(data.stats.totalTies).toBe(4);
-    expect(data.mps.reduce((s, m) => s + m.ties.length, 0)).toBe(3);
+    expect(data.stats.totalTies).toBe(5);
+    expect(data.mps.reduce((s, m) => s + m.ties.length, 0)).toBe(4);
+  });
+
+  it("REGRESSION (batch 015): a publicly owned company is not the MP's money, whatever the role", async () => {
+    // The fixture's Teplárna is `manager` by ROLE — an MP chairs its board, exactly like
+    // Petr Hladík at Teplárny Brno a.s. — and 100 % owned by a city. One axis called that
+    // 11,82 mld. CZK of "money reaching a politician's firm", the largest figure on the
+    // surface. 700M here, chosen to dwarf the 6,9M private supplier so a leak is obvious.
+    const data = (await withReadinessOff(getMoneyData))!;
+    expect(data.stats.contractCzkAttributable).toBe(6_900_000);
+    // ALFA (soukromy dodavatel) + GAMA (nula smluv) — teplarna mezi nimi NENI.
+    expect(data.stats.money.attributable.companies).toBe(2);
+    // NOT deleted — it moves to the steward bucket, which already means exactly this.
+    expect(data.stats.contractCzkSteward).toBe(700_000_000);
+    expect(data.stats.money.totalCzk).toBe(706_900_000);
+
+    // And the surface can say WHY: the registry reason and the named owner travel with it,
+    // because the role-based steward sentence would be false for this company.
+    const tie = data.mps.flatMap((m) => m.ties).find((t) => t.ico === "555")!;
+    expect(tie.tieClass).toBe("manager");
+    expect(tie.publicMandate).toBe("publicly-owned");
+    expect(tie.publicMandateAttributable).toBe(false);
+    expect(tie.publicMandateOwners.map((o) => o.name)).toEqual(["Mesto X"]);
+    expect(tie.publicMandateReason).toContain("verejnem vlastnictvi");
   });
 
   it("returns null and leaves a trace when the graph is below the readiness floor", async () => {
@@ -757,7 +790,9 @@ describe("getVerificationQueue (the /penize/kontrola review console)", () => {
     expect(queue).not.toBeNull();
 
     // verified AND rejected are terminal (D7); the ghost-company edge is dropped.
-    expect(queue.ties.map((t) => t.id)).toEqual(["tie:100:111"]);
+    // Batch 015: teplarna mesta je take pending, a v poradi je az za nim (tier 3 —
+    // korroborace na ni jeste nebezela), takze razeni podle reviewRank drzi.
+    expect(queue.ties.map((t) => t.id)).toEqual(["tie:100:111", "tie:200:555"]);
     const t = queue.ties[0];
     expect(t.reviewState).toBe("pending_review");
     expect(t.src).toBe("psp:person:100");
@@ -778,10 +813,12 @@ describe("getVerificationQueue (the /penize/kontrola review console)", () => {
       queue.ties.map((x) => x.id),
     );
 
-    expect(queue.stats.pending).toBe(1);
+    expect(queue.stats.pending).toBe(2);
     expect(queue.stats.ownerOperator).toBe(1);
+    // Teplarna je v konzoli porad `manager` — trida VAZBY se batchem 015 nemeni,
+    // meni se jen to, ci ty penize jsou (druha osa, na uzlu firmy).
     expect(queue.stats.steward).toBe(0);
-    expect(queue.stats.tierCounts).toEqual([1, 0, 0, 0]);
+    expect(queue.stats.tierCounts).toEqual([1, 0, 0, 1]);
     expect(queue.stats.tierCounts.reduce((s, n) => s + n, 0)).toBe(queue.stats.pending);
     expect(queue.pass).toBe(42);
   });
@@ -1245,7 +1282,9 @@ describe("getProfileData against a seeded graph", () => {
     expect(steward.reviewState).toBe("verified");
     expect(p.money.ties.find((t) => t.company === "Gama s.r.o.")!.reviewState).toBe("rejected");
     // Attributable classes sort ahead of stewards: the file's own claim comes first.
-    expect(p.money.ties.map((t) => t.tieClass)).toEqual(["owner-operator", "steward"]);
+    // Teplarna je `manager` podle ROLE, ale vlastnictvim mesta patri k stewardum —
+    // razeni jde podle tridy vazby, proto stoji mezi nimi (money batch 015).
+    expect(p.money.ties.map((t) => t.tieClass)).toEqual(["owner-operator", "manager", "steward"]);
   });
 
   it("drops a money tie whose company node does not exist rather than guessing", async () => {
@@ -1539,17 +1578,17 @@ describe("getAdminData", () => {
     const data = await getAdminData();
     const ties = data.reviewHub.ties!;
     expect(ties).not.toBeNull();
-    // 4 linked_to rows, one with an unresolved company → dropped, never guessed at.
+    // 5 linked_to rows, one with an unresolved company → dropped, never guessed at.
     // (This dashboard exists to MONITOR the console; a different drop rule would let
     // the two silently diverge.)
-    expect(ties.total).toBe(3);
+    expect(ties.total).toBe(4);
     expect(ties.verified).toBe(1);
-    expect(ties.pending).toBe(1);
+    expect(ties.pending).toBe(2);
     expect(ties.rejected).toBe(1);
     expect(ties.verified + ties.pending + ties.rejected).toBe(ties.total);
     // tier0 = registry-confirmed owner-operator, tier2 = registry-confirmed steward,
     // tier3 = corroboration not yet run.
-    expect(ties.tiers).toEqual({ tier0: 1, tier1: 0, tier2: 1, tier3: 1 });
+    expect(ties.tiers).toEqual({ tier0: 1, tier1: 0, tier2: 1, tier3: 2 });
     expect(ties.kontrolaHref).toBe("/penize/kontrola");
 
     // Cross-loader consistency: the console's pending count is this dashboard's.
@@ -1593,7 +1632,7 @@ describe("getAdminData", () => {
     expect(Object.values(g.nodesByKind).reduce((s, n) => s + n, 0)).toBe(g.nodes);
     expect(Object.values(g.edgesByRel).reduce((s, n) => s + n, 0)).toBe(g.edges);
     expect(g.nodesByKind.mimozemstan).toBe(1);
-    expect(g.edgesByRel.linked_to).toBe(4);
+    expect(g.edgesByRel.linked_to).toBe(5);
     // Until 2026-08-12 this asserted a hardcoded `loopsPaused === true` while
     // docs/case-loops.md had said RUNNING since 2026-07-25 — the test pinned the
     // lie. The state is now DERIVED from that document's STATUS line, so this

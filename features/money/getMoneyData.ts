@@ -28,7 +28,15 @@
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { excludedOf, loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId, sharedOf } from "./moneyLoader";
-import { bucketReachCzk, isAttributable, reachableMoney, tieReach, type ReachableTie } from "./reachableMoney";
+import {
+  bucketReachCzk,
+  isAttributable,
+  reachableMoney,
+  tieIsAttributable,
+  tieReach,
+  toReachableTie,
+  type ReachableTie,
+} from "./reachableMoney";
 import { basisComposition, emptyBasisCounts, mergeBasisCounts } from "./amountBasis";
 import {
   GRAPH_COMPANY_CAP,
@@ -56,6 +64,8 @@ export async function getMoneyData(): Promise<MoneyData | null> {
      *  (reachableMoney.ts) — per-company de-duplication and the steward/attributable
      *  split are not this surface's private choices. */
     const reachable: ReachableTie[] = [];
+    /** company id → rejstříkový verdikt o vlastnictví (money batch 015, pass 58). */
+    const mandateByCompany = new Map<string, string>();
     /** Kolik hran `linked_to` vypadlo na nedohledatelnem konci. HLASI SE JEDNOU
      *  VETOU ZA CELE CTENI, ne radek po radku: tenhle warn stal UVNITR smycky
      *  pres ~211 hran a v nejhorsim pripade umel vytisknout 211 radku do logu —
@@ -92,14 +102,8 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       arr.push(tie);
       tiesByPerson.set(e.src, arr);
       distinctCompanies.add(comp.id);
-      reachable.push({
-        companyId: comp.id,
-        tieClass: tie.tieClass,
-        contractCount: tie.contractCount,
-        contractCzk: tie.contractCzk,
-        subsidiesCzk: tie.subsidiesCzk,
-        donatedToPartyCzk: tie.donatedToPartyCzk,
-      });
+      reachable.push(toReachableTie(tie, comp.id));
+      if (tie.publicMandate) mandateByCompany.set(comp.id, tie.publicMandate);
     }
     if (unresolvedPersonTotal > 0) {
       console.warn(
@@ -127,6 +131,11 @@ export async function getMoneyData(): Promise<MoneyData | null> {
     // se pojmenuje, ne odečte: rejstřík neuvádí, jak se dělí.
     let sharedCount = 0;
     let sharedCzk = 0;
+    // A TŘETÍ výhrada, ta nejsilnější: u kolika firem v součtu rejstřík vůbec neuvádí,
+    // kdo je vlastní. Verdikt `ownership-not-published` neubírá ani korunu — mlčení není
+    // důkaz veřejného vlastnictví — ale říká, že se to číslo o vlastnictví NEOPÍRÁ.
+    let ownershipUnverifiedCompanies = 0;
+    let ownershipUnverifiedCzk = 0;
     // POPULACE OBOU VÝHRAD JE `attributableCompanies`, ne všechny vázané firmy.
     // Obě věty stojí pod dlaždicí, která tiskne ATRIBUOVATELNÝ součet — kdyby se
     // počítaly přes celou knihu vazeb, uvedly by vedle 31,12 mld. Kč čísla za 29,09
@@ -145,6 +154,18 @@ export async function getMoneyData(): Promise<MoneyData | null> {
       const sh = sharedOf(c ?? {});
       sharedCount += sh.count;
       sharedCzk += sh.czk;
+    }
+    // Populace: firmy, které po OBOU osách zůstaly přičitatelné (tedy ty, které
+    // headline skutečně sčítá) — ne všechny vázané.
+    const seenMandate = new Set<string>();
+    for (const t of reachable) {
+      if (!tieIsAttributable(t) || seenMandate.has(t.companyId)) continue;
+      seenMandate.add(t.companyId);
+      const mandate = mandateByCompany.get(t.companyId);
+      if (mandate === "ownership-not-published" || mandate === "unknown") {
+        ownershipUnverifiedCompanies += 1;
+        ownershipUnverifiedCzk += t.contractCzk;
+      }
     }
     const contractBasis = basisComposition(contractBasisCounts);
 
@@ -249,6 +270,7 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         contractCzkSteward: money.steward.contractCzk,
         contractsExcludedNonReaching: { count: excludedCount, czk: excludedCzk },
         contractsSharedRecipients: { count: sharedCount, czk: sharedCzk },
+        ownershipUnverified: { companies: ownershipUnverifiedCompanies, czk: ownershipUnverifiedCzk },
         contractCoverage: money.coverage,
         contractBasis,
         totalTies: linked.length,

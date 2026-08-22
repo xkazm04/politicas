@@ -94,6 +94,13 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
   // Gate states of the ties the figure rests on — an aggregate is confirmed only when
   // all of them are (moneyClaims.ts rule 4), and all 211 in the graph are pending today.
   const tieStates = data.ties.map((x) => x.reviewState);
+  // Rozhodlo o zařazení VLASTNICTVÍ firmy (a ne třída vazby)? Pak větu o roli nesázej —
+  // viz komentář u ní níž. Bere se první vazba, která verdikt nese: je to údaj o FIRMĚ,
+  // takže je na všech jejích vazbách týž.
+  const mandateDecided =
+    !attributable
+      ? (data.ties.find((x) => x.publicMandateAttributable === false && x.publicMandateReason) ?? null)
+      : null;
   const mpCount = new Set(data.ties.map((x) => x.pspId)).size;
   // „Nejméně" tu může znít z JEDINÉHO důvodu: čtení smluv narazilo na vlastní strop.
   // Korpusovou heuristiku (`perCompanyCap`) `reachableMoney` nad jednou firmou vůbec
@@ -188,10 +195,33 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
                 : ""}
             </p>
             {/* The P29 rule AT the number: a steward institution's billions must never be
-                read like a firm an MP owns. */}
-            <p className="mt-2 text-sm leading-relaxed text-steel">
-              {attributable ? t("companyFile.attributableRule") : t("companyFile.stewardRule")}
-            </p>
+                read like a firm an MP owns.
+
+                DVĚ OSY, DVĚ VĚTY (money batch 015). `stewardRule` tvrdí, že „všechny
+                zdejší vazby jsou dozorčí nebo správní funkce" — a u Tepláren Brno a.s.
+                je to NEPRAVDA: vazba je `předseda představenstva` a ke stewardům firmu
+                přeřadilo VLASTNICTVÍ (100 % Statutární město Brno), ne role. Věta, kterou
+                vedlejší řádek vyvrací, je přesně to, co si tahle plocha nesmí dovolit,
+                takže když rozhodlo vlastnictví, mluví rejstřík: jeho vlastní zdůvodnění
+                a jmenovaný veřejný vlastník jako důkaz vedle tvrzení. */}
+            {mandateDecided ? (
+              <>
+                <p className="mt-2 text-sm leading-relaxed text-steel">{mandateDecided.publicMandateReason}</p>
+                {mandateDecided.publicMandateOwners.length > 0 ? (
+                  <SourceNote className="mt-1 !text-[10px]">
+                    {t("companyFile.publicOwnerSource", {
+                      owners: mandateDecided.publicMandateOwners
+                        .map((o) => (o.ico ? `${o.name} (IČO ${o.ico})` : o.name))
+                        .join(", "),
+                    })}
+                  </SourceNote>
+                ) : null}
+              </>
+            ) : (
+              <p className="mt-2 text-sm leading-relaxed text-steel">
+                {attributable ? t("companyFile.attributableRule") : t("companyFile.stewardRule")}
+              </p>
+            )}
             <SourceNote className="mt-3 !text-[10px]">
               {t("companyFile.reachSource")}
               {reachIsFloor ? t("companyFile.reachReadCapped") : ""}

@@ -32,6 +32,13 @@ import type { ContractCoverage, TieClass } from "./moneyTypes";
 export interface ReachableTie {
   companyId: string;
   tieClass: TieClass;
+  /**
+   * The COMPANY axis of attribution (money batch 015): `false` when the register says
+   * this company is publicly owned, so its turnover is a public body's own activity
+   * whatever the MP's role in it is. `undefined` = the mandate sweep has not reached this
+   * company; the tie class then decides alone, exactly as before.
+   */
+  publicMandateAttributable?: boolean | null;
   contractCount: number;
   contractCzk: number;
   subsidiesCzk: number;
@@ -102,6 +109,62 @@ export function moneyReachesCompany(props: Record<string, unknown> | null | unde
  */
 export function isAttributable(tieClass: TieClass | string): boolean {
   return tieClass !== "steward";
+}
+
+/**
+ * THE ATTRIBUTION RULE, both axes (money batch 015).
+ *
+ *   tie class      — the ROLE:    what the person does in the company.
+ *   public mandate — the COMPANY: whose money it is.
+ *
+ * A single axis got this wrong in the expensive direction. Petr Hladík really was
+ * `předseda představenstva` of Teplárny Brno a.s., so the role class `manager` is correct
+ * — and `classifyTie` cannot see that the company is 100 % owned by Statutární město Brno,
+ * because it reads a company NAME carrying no public marker. The result was **11,82 mld.
+ * CZK of a municipal utility's turnover** rendered as money reaching a politician's firm,
+ * the largest figure on the surface. The same held for Výstaviště Flora Olomouc and Lesy
+ * města Olomouce (Statutární město Olomouc) — 12,75 mld. CZK across the three.
+ *
+ * Publicly-owned money is not dropped: it moves to the STEWARD bucket, which already
+ * means "the institution's own public activity, never the MP's enrichment". That is what
+ * it is, and the surface already knows how to say so.
+ *
+ * The mandate axis may only ever REMOVE attribution. A company the sweep has not reached
+ * (`undefined`) is decided by the tie class alone, and a company whose ownership the
+ * register does not publish stays attributable — silence is not evidence of public
+ * ownership any more than it is of private ownership.
+ */
+export function tieIsAttributable(tie: Pick<ReachableTie, "tieClass" | "publicMandateAttributable">): boolean {
+  if (tie.publicMandateAttributable === false) return false;
+  return isAttributable(tie.tieClass);
+}
+
+/**
+ * A tie → the shape `reachableMoney` reads. ONE projection, because there were four,
+ * hand-copied, and money batch 015 added a field to the rule that three of them silently
+ * did not carry — the corpus headline kept attributing 12,75 mld. CZK of municipally
+ * owned money for exactly as long as it took to notice. A field added to `ReachableTie`
+ * must reach every caller by construction, not by whoever remembers.
+ *
+ * `companyId` is overridable because one caller keys on the edge's `dst` rather than a
+ * `companyId` field; everything else is read straight off the tie.
+ */
+export function toReachableTie(
+  tie: Pick<
+    ReachableTie,
+    "tieClass" | "contractCount" | "contractCzk" | "subsidiesCzk" | "donatedToPartyCzk"
+  > & { companyId?: string; publicMandateAttributable?: boolean | null },
+  companyId?: string,
+): ReachableTie {
+  return {
+    companyId: companyId ?? tie.companyId ?? "",
+    tieClass: tie.tieClass,
+    contractCount: tie.contractCount,
+    contractCzk: tie.contractCzk,
+    subsidiesCzk: tie.subsidiesCzk,
+    donatedToPartyCzk: tie.donatedToPartyCzk,
+    publicMandateAttributable: tie.publicMandateAttributable ?? null,
+  };
 }
 
 /**
@@ -184,7 +247,7 @@ export function reachableMoney(
   // ALL of that company's ties rather than from whichever arrived first.
   const byCompany = new Map<string, { tie: ReachableTie; attributable: boolean }>();
   for (const t of ties) {
-    const attributable = isAttributable(t.tieClass);
+    const attributable = tieIsAttributable(t);
     const prev = byCompany.get(t.companyId);
     if (!prev) byCompany.set(t.companyId, { tie: t, attributable });
     else if (attributable) prev.attributable = true;
@@ -223,6 +286,6 @@ export function reachableMoney(
  */
 export function tieReach(tie: ReachableTie): { czk: number; attributable: boolean } {
   const money = reachableMoney([tie]);
-  const attributable = isAttributable(tie.tieClass);
+  const attributable = tieIsAttributable(tie);
   return { czk: bucketReachCzk(attributable ? money.attributable : money.steward), attributable };
 }

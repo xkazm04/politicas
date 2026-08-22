@@ -574,3 +574,42 @@ as badly as counting it whole overstates, so it stays in the total, carries
 whole tie book and would have printed 29,09 mld. and 19,88 mld. beside a 31,12 mld.
 headline. A caveat in a different population from the figure it qualifies is worse than
 none.
+
+
+## 2026-08-22 · money batch 015 — `tie_class` answers the wrong question on its own
+
+The reach headline fell **31 122 348 145 → 18 368 539 501 CZK**. The 12,75 mld. did not
+disappear: it moved to the **steward** bucket, where it belonged all along.
+
+`tie_class` describes the ROLE — what the MP does in the company. It cannot describe the
+COMPANY, and after batch 014 the largest attributable figure on the surface was **Teplárny
+Brno a.s., 11,82 mld. CZK**: 100 % owned by Statutární město Brno, chaired by Petr Hladík.
+Both readings behind that were correct — `classifyTie` sees a name with no public marker
+and a role text saying `předseda představenstva` — and the conclusion was still false.
+
+So attribution now has two axes, and `tieIsAttributable` is the rule. `public_mandate` is a
+SEPARATE, additive annotation on the company node (pass 58, ARES + veřejný rejstřík, every
+verdict carrying its source URLs and access date); `tie_class` is untouched, because the
+role class is not what was wrong. **The mandate axis may only ever remove attribution** — a
+company the sweep has not reached is decided by the tie class alone, exactly as before.
+Three companies were publicly owned: Teplárny Brno, Výstaviště Flora Olomouc and Lesy města
+Olomouce.
+
+**The tile's caveats are now three, and they point three different ways**: what is OUTSIDE
+the total (contracts the register hands to another party — batch 014), what is INSIDE and
+over-counted (several named recipients, no stated split), and what the number does NOT rest
+on. That last one is the batch's real finding: **47 of the remaining companies — 18,04 mld.,
+98 % of the headline — have no owner named in the register at all.** For an akciová
+společnost VR lists shareholders only in special circumstances, so `private` had been a
+verdict made of silence in 49 of 52 cases (`ownership-not-published` now says so, and stays
+attributable — silence is not evidence of public ownership any more than of private).
+
+**A moved number has to explain itself, and the explanation next to it has to still be
+true.** `/penize/firma/<ico>`'s steward sentence asserts that all ties there are supervisory
+roles; for Teplárny Brno that became false the moment ownership moved it. When the mandate
+is what decided, the page renders the registry's own reason with the named public owner
+beneath it, instead of a sentence its own neighbouring row falsifies.
+
+`ReachableTie` had four hand-copied construction sites. The new axis reached one of them,
+and the corpus headline silently did not move until that was traced — `toReachableTie()` is
+now the only way to build one.

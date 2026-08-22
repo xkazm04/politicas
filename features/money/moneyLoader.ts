@@ -16,7 +16,14 @@ import { getStore, type Store } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import { asUnion } from "@/lib/db/narrow";
 import { byListOrder } from "@/lib/db/kgOrder";
-import { CORROBORATIONS, type ContractLine, type MoneyTie, type ReviewState } from "./moneyTypes";
+import {
+  CORROBORATIONS,
+  PUBLIC_MANDATE_KINDS,
+  type ContractLine,
+  type MoneyTie,
+  type PublicMandateOwner,
+  type ReviewState,
+} from "./moneyTypes";
 // JEDNA hranice možného data v celé aplikaci (modul si to říká ve své hlavičce).
 import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 // One reader of `provenance`-shaped props across the platform (features/shared/provenance):
@@ -58,6 +65,21 @@ export function num(v: unknown): number {
     console.warn(`[moneyLoader] num() could not parse numeric string: ${JSON.stringify(v)}`);
   }
   return 0;
+}
+
+/** Řetězec z grafu, nebo `null` — graf není typový systém. */
+function str(v: unknown): string | null {
+  return typeof v === "string" && v.length > 0 ? v : null;
+}
+
+/** `public_mandate_owners` z uzlu firmy — jen tvarově platné položky, nic dopočítaného. */
+function publicOwnersOf(v: unknown): PublicMandateOwner[] {
+  if (!Array.isArray(v)) return [];
+  return v
+    .map((o) => (o && typeof o === "object" ? (o as Record<string, unknown>) : null))
+    .filter((o): o is Record<string, unknown> => o !== null)
+    .map((o) => ({ ico: str(o.ico), name: str(o.name) ?? "", legalForm: str(o.legalForm) }))
+    .filter((o) => o.name.length > 0);
 }
 
 export function pspIdFromNodeId(id: string): number | null {
@@ -186,6 +208,14 @@ export function mapLinkedToTie(args: {
     tieClass,
     tieClassOrigin: cls.origin,
     tieClassHeuristic: cls.heuristic,
+    // DRUHÁ OSA přičitatelnosti — o FIRMĚ, ne o roli (money batch 015, pass 58).
+    // Čte se z uzlu firmy, kam ji zapsal rejstříkový průchod; chybí-li, rozhoduje
+    // třída vazby sama, přesně jako dřív.
+    publicMandate: asUnion(cp.public_mandate, PUBLIC_MANDATE_KINDS, null),
+    publicMandateAttributable:
+      typeof cp.public_mandate_attributable === "boolean" ? cp.public_mandate_attributable : null,
+    publicMandateReason: str(cp.public_mandate_reason),
+    publicMandateOwners: publicOwnersOf(cp.public_mandate_owners),
     triangle,
     nearThresholdCount: near,
     deMinimis: isDeMinimis(contractCzk, subsidiesCzk),

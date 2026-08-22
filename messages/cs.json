@@ -1415,6 +1415,7 @@
         "reachableSubCapped": "dolní odhad — původní sběr stáhl u každé firmy nejvýše {cap} smluv ({companies} firem na tomto stropu), skutečná částka je vyšší · u stewardů jde o peníze instituce, ne poslance",
         "reachableSourceCapped": "registr smluv · Σ dohledaných smluv (vzorek se stropem {cap}/firma)",
         "reachableShared": "uvnitř součtu: {count} smluv za {value} má v registru označeno víc příjemců najednou — částka se každému z nich počítá celá, protože registr podíly neuvádí",
+        "reachableOwnershipUnverified": "neopírá se o vlastnictví: u {companies} firem za {value} veřejný rejstřík neuvádí žádného současného vlastníka — u akciové společnosti je to běžné a o vlastnictví to neříká nic",
         "reachableExcluded": "mimo součet: {count} smluv za {value}, u kterých registr smluv označuje jako příjemce jinou stranu (nebo je firma plátcem) — k firmě ty peníze nedošly",
         "reachableSubSplit": "smlouvy firem, které poslanci vlastní nebo řídí · dalších {steward} připadá na instituce, kde poslanec jen zasedá v orgánu — to nejsou jeho peníze"
       },
@@ -1634,6 +1635,7 @@
       "dailyRecord": "deník této firmy",
       "multiMpNote": "K téhle jediné firmě vede vazba {count} poslanců. Je to údaj z rejstříku, ne tvrzení o kterémkoli z nich — každá vazba níž nese vlastní třídu, vlastní stav kontroly a vlastní zdroj.",
       "reachLabel": "veřejné peníze dosažitelné přes tuhle firmu",
+      "publicOwnerSource": "zdroj: ARES + veřejný rejstřík — veřejný vlastník: {owners}",
       "attributableRule": "Aspoň jeden poslanec tuhle firmu vlastní nebo řídí — pravidlo přiřazení proto dovoluje číst tyhle peníze jako peníze, které tečou do firmy politika.",
       "stewardRule": "Nejsou to peníze poslance: všechny zdejší vazby jsou dozorčí nebo správní funkce ve veřejné či neziskové instituci. Číslo je vlastní veřejnou činností té instituce.",
       "reachSource": "zdroj: registr smluv · Σ kg_edge supplies.weight + subsidies_total_czk",

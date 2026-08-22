@@ -33,6 +33,10 @@ const tie = (over: Partial<MoneyTie> = {}): MoneyTie => ({
   tieClass: "manager",
   tieClassOrigin: "stored",
   tieClassHeuristic: "owner-operator",
+  publicMandate: null,
+  publicMandateAttributable: null,
+  publicMandateReason: null,
+  publicMandateOwners: [],
   triangle: false,
   nearThresholdCount: 0,
   deMinimis: false,
@@ -71,6 +75,14 @@ describe("toPublicTie", () => {
         "temporalStatus",
         "tieClass",
         "tieClassOrigin",
+        // Money batch 015: druhá osa přičitatelnosti. Řídí barvu i popisek buňky
+        // dosahu (`tieIsAttributable`), takže musí jít na plochu — a se zdůvodněním
+        // a jmenovaným vlastníkem, protože přeřazení Tepláren Brno ke stewardům je
+        // tvrzení, které si čtenář musí umět ověřit.
+        "publicMandate",
+        "publicMandateAttributable",
+        "publicMandateReason",
+        "publicMandateOwners",
       ].sort(),
     );
   });

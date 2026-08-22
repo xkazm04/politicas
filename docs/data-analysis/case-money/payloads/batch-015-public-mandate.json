@@ -1,0 +1,1254 @@
+{
+  "proposals": [
+    {
+      "id": "company:ico:46347534",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Statutární město Brno. Přestože právní forma (121) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "public_mandate_owners": [
+          {
+            "ico": "44992785",
+            "name": "Statutární město Brno",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46347534",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Statutární město Brno",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46347534",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:60193913",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60193913",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60193913",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:45534306",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/45534306",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45534306",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:49790480",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49790480",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49790480",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25848526",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Statutární město Olomouc. Přestože právní forma (121) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "public_mandate_owners": [
+          {
+            "ico": "00299308",
+            "name": "Statutární město Olomouc",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25848526",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Statutární město Olomouc",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25848526",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:47674652",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/47674652",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47674652",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27720152",
+      "props": {
+        "public_mandate": "private",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27720152",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: IF Holding a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27720152",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:61681679",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61681679",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61681679",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:28633032",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Statutární město Olomouc. Přestože právní forma (121) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "public_mandate_owners": [
+          {
+            "ico": "00299308",
+            "name": "Statutární město Olomouc",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28633032",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Statutární město Olomouc",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28633032",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:49454587",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49454587",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49454587",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25187937",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25187937",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25187937",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27068897",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27068897",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27068897",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:45147787",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/45147787",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45147787",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:18251129",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/18251129",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/18251129",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:04934482",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/04934482",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04934482",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:29442044",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29442044",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29442044",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25172263",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25172263",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25172263",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26185610",
+      "props": {
+        "public_mandate": "private",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26185610",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26185610",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25124188",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25124188",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25124188",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:02751232",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/02751232",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02751232",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:14612411",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/14612411",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/14612411",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:46506306",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46506306",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46506306",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26124459",
+      "props": {
+        "public_mandate": "unknown",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 121 je soukromoprávní, ale u některého ze současných společníků není právní forma v ověřené tabulce — vyžaduje ruční posouzení.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26124459",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: SynBiol, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26124459",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26141761",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26141761",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26141761",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26039907",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 205 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "205"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 205",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26039907",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26039907",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:48207918",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/48207918",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/48207918",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26350416",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26350416",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26350416",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27840531",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27840531",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27840531",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:46978593",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46978593",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46978593",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25332589",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25332589",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25332589",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27771245",
+      "props": {
+        "public_mandate": "private",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27771245",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: AGROFERT, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27771245",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:03709698",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/03709698",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/03709698",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:01686682",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/01686682",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/01686682",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:01801261",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/01801261",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/01801261",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:02867681",
+      "props": {
+        "public_mandate": "private",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/02867681",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: B.S. - KINGS s.r.o.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02867681",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:03265889",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/03265889",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/03265889",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:03921727",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/03921727",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/03921727",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:06386237",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/06386237",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/06386237",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:09187944",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/09187944",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/09187944",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:19840659",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/19840659",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/19840659",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25643461",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25643461",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25643461",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25713817",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25713817",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25713817",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26014343",
+      "props": {
+        "public_mandate": "private",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "121"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26014343",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26014343",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26109859",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26109859",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26109859",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26123550",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26123550",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26123550",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26254590",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26254590",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26254590",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26387816",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26387816",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26387816",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27145433",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27145433",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27145433",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27720004",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27720004",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27720004",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:28323297",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28323297",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28323297",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:28406354",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28406354",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28406354",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:29054117",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29054117",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29054117",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:49437674",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49437674",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49437674",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:49825950",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49825950",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49825950",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:61463647",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 205 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "205"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 205",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61463647",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61463647",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:64258998",
+      "props": {
+        "public_mandate": "ownership-not-published",
+        "public_mandate_attributable": true,
+        "public_mandate_reason": "Právní forma 112 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "public_mandate_owners": [],
+        "public_mandate_legal_form": "112"
+      },
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/64258998",
+          "accessedAt": "2026-08-22"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/64258998",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    }
+  ]
+}

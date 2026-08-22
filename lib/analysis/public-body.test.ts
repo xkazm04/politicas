@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  ownershipRecord,
   classifyPublicMandate,
   isPublicLegalForm,
   shareholdersFromVr,
@@ -156,5 +157,80 @@ describe("shareholdersFromVr", () => {
     expect(shareholdersFromVr(null, "2026-07-27")).toEqual([]);
     expect(shareholdersFromVr({}, "2026-07-27")).toEqual([]);
     expect(shareholdersFromVr({ zaznamy: [{}] }, "2026-07-27")).toEqual([]);
+  });
+});
+
+describe("money batch 015 — silence is not evidence of private ownership", () => {
+  const base = { ico: "60193913", name: "Pražská energetika, a.s.", legalForm: "121", shareholders: [], vrRetrieved: true };
+
+  it("THE PRE CASE: a VR record naming NO current owner is not evidence of private ownership", () => {
+    // Measured over the 57 attributable tied companies: 49 of 52 `private` verdicts
+    // (18,05 mld. CZK — 98 % of the attributable money) rested on this silence. For an
+    // akciová společnost, VR lists shareholders only in special circumstances, so the
+    // absence says nothing at all — and Pražská energetika, whose VR names nobody, is
+    // city-owned through a holding.
+    const v = classifyPublicMandate({ ...base, ownersRecorded: 0 });
+    expect(v.kind).toBe("ownership-not-published");
+    // Still attributable: silence is not evidence of PUBLIC ownership either, and
+    // withdrawing 18 mld. on an absence would be the same error pointed the other way.
+    expect(v.attributable).toBe(true);
+  });
+
+  it("keeps `private` when the register DOES name a current owner and none is public", () => {
+    const v = classifyPublicMandate({
+      ...base,
+      shareholders: [{ ico: "123", name: "Soukromá a.s.", legalForm: "121", current: true }],
+      ownersRecorded: 1,
+    });
+    expect(v.kind).toBe("private");
+    expect(v.attributable).toBe(true);
+  });
+
+  it("counts a CURRENT NATURAL person as a named owner — AGROFERT stays private", () => {
+    // AGROFERT a.s.'s only current akcionář in VR is a natural person, which
+    // `shareholdersFromVr` drops by design. If the count dropped it too, the largest
+    // genuinely private company in the corpus would be filed as unverified.
+    const v = classifyPublicMandate({ ...base, ico: "26185610", name: "AGROFERT, a.s.", ownersRecorded: 1 });
+    expect(v.kind).toBe("private");
+  });
+
+  it("a caller that does not supply the count keeps the pre-batch-015 answer", () => {
+    expect(classifyPublicMandate(base).kind).toBe("private");
+  });
+
+  it("a public owner still wins over the silence rule", () => {
+    const v = classifyPublicMandate({
+      ...base,
+      shareholders: [{ ico: "44992785", name: "Statutární město Brno", legalForm: "801", current: true }],
+      ownersRecorded: 1,
+    });
+    expect(v.kind).toBe("publicly-owned");
+    expect(v.attributable).toBe(false);
+  });
+});
+
+describe("ownershipRecord", () => {
+  const vr = (members: unknown[]) => ({ zaznamy: [{ akcionari: [{ clenoveOrganu: members }] }] });
+
+  it("counts natural persons that `shareholdersFromVr` drops", () => {
+    const rec = ownershipRecord(vr([{ fyzickaOsoba: { jmeno: "X" } }]), "2026-08-22");
+    expect(rec.legalPersons).toEqual([]);
+    expect(rec.entriesTotal).toBe(1);
+    expect(rec.entriesCurrent).toBe(1);
+  });
+
+  it("does not count an owner whose entry was deleted in the past", () => {
+    const rec = ownershipRecord(
+      vr([{ pravnickaOsoba: { ico: "1", obchodniJmeno: "Y", pravniForma: "121" }, datumVymazu: "2018-10-31" }]),
+      "2026-08-22",
+    );
+    expect(rec.entriesTotal).toBe(1);
+    expect(rec.entriesCurrent).toBe(0);
+    expect(rec.legalPersons[0].current).toBe(false);
+  });
+
+  it("stays byte-compatible with shareholdersFromVr for legal persons", () => {
+    const payload = vr([{ pravnickaOsoba: { ico: "1", obchodniJmeno: "Y", pravniForma: "801" } }]);
+    expect(shareholdersFromVr(payload, "2026-08-22")).toEqual(ownershipRecord(payload, "2026-08-22").legalPersons);
   });
 });

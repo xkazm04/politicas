@@ -24,7 +24,7 @@ import type { ReviewAuditRow } from "@/lib/db/types";
 // rather than growing a second assembler that could disagree with /zdroj.
 import { gateFromEdge } from "@/features/shared/provenance/receipt";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
-import { reachableMoney } from "./reachableMoney";
+import { reachableMoney, toReachableTie } from "./reachableMoney";
 import { hasStaleOngoingFlag } from "./tieFlags";
 import {
   buildRegistryLinks,
@@ -161,14 +161,7 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
       // a hospital's own contracting sat in the same figure as a firm an MP owns:
       // 579 140 308 806 Kč claimed vs 526 385 963 683 Kč of distinct reachable money.
       reachable: reachableMoney(
-        ties.map((t) => ({
-          companyId: t.dst,
-          tieClass: t.tieClass,
-          contractCount: t.contractCount,
-          contractCzk: t.contractCzk,
-          subsidiesCzk: t.subsidiesCzk,
-          donatedToPartyCzk: t.donatedToPartyCzk,
-        })),
+        ties.map((t) => toReachableTie(t, t.dst)),
       ),
       tierCounts,
       classOrigin: {

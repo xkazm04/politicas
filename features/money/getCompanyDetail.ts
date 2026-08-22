@@ -33,7 +33,7 @@ import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 import { loadCompanyMoneySlice, mapLinkedToTie, num, pspIdFromNodeId } from "./moneyLoader";
-import { reachableMoney } from "./reachableMoney";
+import { reachableMoney, toReachableTie } from "./reachableMoney";
 import { canonicalIco, companyNodeId } from "./companyId";
 import {
   projectOwnership,
@@ -183,14 +183,7 @@ export async function getCompanyCaseFile(
       // one bucket carries it — WHICH one is the attribution rule's verdict for this
       // firm, and the page states that instead of printing a merged total.
       money: reachableMoney(
-        ties.map((t) => ({
-          companyId: t.companyId,
-          tieClass: t.tieClass,
-          contractCount: t.contractCount,
-          contractCzk: t.contractCzk,
-          subsidiesCzk: t.subsidiesCzk,
-          donatedToPartyCzk: t.donatedToPartyCzk,
-        })),
+        ties.map((t) => toReachableTie(t)),
         // CO O SVÉM VLASTNÍM ČTENÍ VÍME, a nic víc. Bez `readScope` spouštěl tenhle
         // volající KORPUSOVOU heuristiku (`contractCoverage`) nad populací jedné firmy —
         // přesně to, před čím její vlastní hlavička varuje: `[3,3,3]` u tří malých firem

@@ -1415,6 +1415,7 @@
         "reachableSubCapped": "lower bound — the original pull fetched at most {cap} contracts per company ({companies} companies sit at that ceiling), so the real figure is higher · for stewards this is the institution's money, not the MP's",
         "reachableSourceCapped": "registr smluv · Σ of contracts found (sample capped at {cap}/company)",
         "reachableShared": "inside the total: {count} contracts worth {value} name several recipients at once — the full amount counts for each, because the register states no split",
+        "reachableOwnershipUnverified": "not grounded in ownership: for {companies} firms worth {value} the public register names no current owner — normal for a joint-stock company, and evidence of nothing",
         "reachableExcluded": "outside the total: {count} contracts worth {value} where the register names a different party as recipient (or the firm is the payer) — that money did not reach the firm",
         "reachableSubSplit": "contracts of firms MPs own or run · a further {steward} belongs to institutions where an MP merely sits on a board — that is not their money"
       },
@@ -1634,6 +1635,7 @@
       "dailyRecord": "this company's daily record",
       "multiMpNote": "{count} MPs are tied to this single company. That is a fact about the registry record, not a claim about any of them — each tie below carries its own class, its own review state and its own source.",
       "reachLabel": "public money reachable through this company",
+      "publicOwnerSource": "source: ARES + public register — public owner: {owners}",
       "attributableRule": "At least one MP owns or runs this company, so the attribution rule permits reading this money as reaching a politician's own firm.",
       "stewardRule": "NOT an MP's money: every tie here is a supervisory or board seat in a public or nonprofit body. The figure is that body's OWN public activity.",
       "reachSource": "source: registr smluv · Σ kg_edge supplies.weight + subsidies_total_czk",
