@@ -120,6 +120,17 @@ export default function FollowTheMoneyPage({
           sub: t("real.stats.reachableSubSplit", {
             steward: compactCzk(data.stats.money.steward.contractCzk, locale),
           }),
+          // Co do součtu NEPATŘÍ, řečeno vedle něj. Rejstřík u těchhle smluv označuje
+          // jako příjemce někoho jiného (nebo je firma plátce), takže peníze k firmě
+          // nedošly — do batch 014 se počítaly celé, a šlo o 27 % téhle dlaždice.
+          // Vykreslí se jen když je co vyloučit: nula by byla šum, ne přiznání.
+          excluded:
+            data.stats.contractsExcludedNonReaching.count > 0
+              ? t("real.stats.reachableExcluded", {
+                  count: data.stats.contractsExcludedNonReaching.count,
+                  value: compactCzk(data.stats.contractsExcludedNonReaching.czk, locale),
+                })
+              : null,
           // The "nejméně" prefix rendered while the string that EXPLAINS why it is a
           // floor sat unused in both catalogs — the reader saw a hedge with no reason.
           // (Measured on the live store the corpus is NOT capped, isFloor === false, so
@@ -129,7 +140,15 @@ export default function FollowTheMoneyPage({
                 cap: data.stats.money.coverage.perCompanyCap ?? 0,
                 companies: data.stats.money.coverage.companiesAtCap,
               })
-            : null,
+            : // Známé nadhodnocení UVNITŘ součtu: smlouvy s víc označenými příjemci
+              // se každému z nich počítají celé, protože registr podíly neuvádí.
+              // Odečíst nelze to, co nikdo nerozdělil — přiznat ano.
+              data.stats.contractsSharedRecipients.count > 0
+              ? t("real.stats.reachableShared", {
+                  count: data.stats.contractsSharedRecipients.count,
+                  value: compactCzk(data.stats.contractsSharedRecipients.czk, locale),
+                })
+              : null,
           source: data.stats.money.coverage.isFloor
             ? t("real.stats.reachableSourceCapped", { cap: data.stats.money.coverage.perCompanyCap ?? 0 })
             : t("real.stats.reachableSource"),

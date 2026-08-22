@@ -63,6 +63,33 @@ export interface ReachableMoney {
 }
 
 /**
+ * Directions in which the register itself says the money did NOT reach this company.
+ *
+ * THE DEFECT THIS CLOSES (money batch 014). `supplies` used to mean "this company is a
+ * party to this contract", and every koruna of every such contract was read as money
+ * reaching the company. On a multi-party record that is false, and it was false at scale:
+ * 11 771 399 678 CZK — 27.4 % of the attributable figure `/penize` rendered — sat on
+ * contracts where the register explicitly names a DIFFERENT party as příjemce. 11.75 bn
+ * of it was one company, Teplárny Brno a.s., appearing beside HOCHTIEF CZ a.s. on the
+ * Brno multifunctional hall (4 444 444 444 CZK) and beside IMOS Brno / STRABAG /
+ * Dopravní stavby Brno on four tram-Plotní agreements. Every one of those korun was being
+ * attributed to the MP who chaired it.
+ *
+ * The edge is NOT dropped — Teplárny Brno really is a party to that contract, and a
+ * platform whose brand rule is provenance may not delete a true relation to fix a false
+ * number. What changes is that the value stops counting as reach, and the surface says so.
+ *
+ * `unknown` deliberately still counts: roughly half the register's records flag nobody at
+ * all, and treating silence as a negative would be the mirror of the error being fixed.
+ */
+const NON_REACHING_DIRECTIONS: ReadonlySet<string> = new Set(["non-recipient", "payer"]);
+
+/** Does this `supplies` edge's contract value reach the supplying company? */
+export function moneyReachesCompany(props: Record<string, unknown> | null | undefined): boolean {
+  return !NON_REACHING_DIRECTIONS.has(String(props?.direction ?? ""));
+}
+
+/**
  * Rule 2 as a PREDICATE — the one place that decides whether a tie's money may be read
  * as reaching the politician. It was re-implemented three times (here,
  * `features/dashboard/stateSlice.ts`, `features/denik/getDenikData.ts`); three copies of

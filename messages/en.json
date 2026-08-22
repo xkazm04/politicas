@@ -1414,6 +1414,8 @@
         "reachableAtLeast": "at least {value}",
         "reachableSubCapped": "lower bound — the original pull fetched at most {cap} contracts per company ({companies} companies sit at that ceiling), so the real figure is higher · for stewards this is the institution's money, not the MP's",
         "reachableSourceCapped": "registr smluv · Σ of contracts found (sample capped at {cap}/company)",
+        "reachableShared": "inside the total: {count} contracts worth {value} name several recipients at once — the full amount counts for each, because the register states no split",
+        "reachableExcluded": "outside the total: {count} contracts worth {value} where the register names a different party as recipient (or the firm is the payer) — that money did not reach the firm",
         "reachableSubSplit": "contracts of firms MPs own or run · a further {steward} belongs to institutions where an MP merely sits on a board — that is not their money"
       },
       "graph": {

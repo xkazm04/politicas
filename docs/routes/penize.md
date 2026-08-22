@@ -526,3 +526,51 @@ genuinely measured `owner_stake_pct` on `linked_to` (ARES VR,
 `reconcile-ares-vr.ts:156`) is untouched. Recorded follow-up: the writer script
 should import `SOLE_OWNER_ROLE_RE` (the `classifyTie` precedent) so reader and
 writer cannot drift.
+
+
+## 2026-08-22 · money batch 014 — `supplies` stopped meaning „tyhle peníze došly firmě"
+
+`/penize`'s headline fell **42 893 747 930 → 31 122 348 145 CZK (−27,44 %)**, and the
+27 % was not a data loss: it was money the register itself attributes to someone else.
+
+A `supplies` edge modelled „this company is a party to this contract", and the reach
+arithmetic read every koruna of every such contract as money reaching that company. On a
+multi-party record that is false — and on `contract:21554117` (4 444 444 444 CZK, brněnská
+multifunkční hala) the register flags **HOCHTIEF CZ a.s. as `prijemce`** and Statutární
+město Brno as `platce`, while **Teplárny Brno, a.s.** is a party carrying no flag at all.
+The full 4,44 mld. was nevertheless attributed to it, and through it to the MP who chaired
+its board. Four tram-Plotní agreements (1,45–1,47 mld. each) ran the same way against IMOS
+Brno / STRABAG / Dopravní stavby Brno. **99,9 % of the 11 771 399 785 CZK removed sat on
+that one company**; four other MPs carried 0,3–10,7 M each.
+
+The cause was an `unknown` doing two jobs. `directionFor`'s „only the other side is
+flagged" shortcut was guarded on `sides.length === 2`, so on a five-sided record it
+declined to answer — and `unknown` was then carrying both *the register said nothing* and
+*the register spoke and did not name us*. The second is a stated negative;
+`directionFromParties` now returns **`non-recipient`** for it (batch-014 pass 56 backfilled
+9 746 edges corpus-wide, incl. 3 495 `payer`), and silence still stays `unknown`, because
+reading no-flag as not-the-recipient would strip real suppliers of real money — the exact
+mirror of the bug.
+
+**One predicate, three call sites.** `moneyReachesCompany` lives in `reachableMoney.ts`
+(the module that already owns the definition of reach) and is imported by both
+`moneyLoader` fold sites — the corpus fold and the per-company read. `features/graph/
+graphLoader.ts` had the identical defect independently, summing every `supplies` weight
+itself; batch 013 had audited that function for a *neighbouring* leak and found it clean.
+The outsized integration fixture found it, re-reading the file would not have.
+
+**Nothing is deleted.** Teplárny Brno really is a party to that contract, and a surface
+built on provenance may not drop a true relation to fix a false number: the edge stays,
+the value moves to `CompanyContracts.excluded`, and the tile prints what it left out
+(`reachableExcluded`). A figure that moves 27 % with no explanation is indistinguishable
+from a data loss.
+
+**A second silence was refused in the same change.** `co-recipient` money (117 attributable
+edges / 1 331 071 128 CZK) genuinely does reach the company, but the full value is credited
+to every flagged recipient and the register states no split. Excluding it would understate
+as badly as counting it whole overstates, so it stays in the total, carries
+`recipients_shared` (pass 57), and the tile names it. Both caveats are scoped to the
+**attributable** population, not to all tied companies — a first cut computed them over the
+whole tie book and would have printed 29,09 mld. and 19,88 mld. beside a 31,12 mld.
+headline. A caveat in a different population from the figure it qualifies is worse than
+none.

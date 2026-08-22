@@ -1,0 +1,3557 @@
+{
+  "generatedFor": "money batch 014",
+  "method": "deterministic census of supplies-edge `direction` in three nested frames",
+  "corpus": {
+    "companies": 214,
+    "contracts": 152788,
+    "suppliesEdges": 153731,
+    "linkedToEdges": 211,
+    "danglingSuppliesEdges": 0,
+    "tiedCompanies": 195,
+    "attributableCompanies": 57
+  },
+  "frames": {
+    "whole": {
+      "edges": 153731,
+      "czk": 7187156531293.69,
+      "byDirection": {
+        "recipient": {
+          "edges": 25789,
+          "czk": 488295596205.47076
+        },
+        "payer": {
+          "edges": 0,
+          "czk": 0
+        },
+        "unknown": {
+          "edges": 127942,
+          "czk": 6698860935088.226
+        }
+      },
+      "unknownCzkShare": 93.21
+    },
+    "tied": {
+      "edges": 97887,
+      "czk": 505670400457.6603,
+      "byDirection": {
+        "recipient": {
+          "edges": 20455,
+          "czk": 267130574782.84998
+        },
+        "payer": {
+          "edges": 0,
+          "czk": 0
+        },
+        "unknown": {
+          "edges": 77432,
+          "czk": 238539825674.80716
+        }
+      },
+      "unknownCzkShare": 47.17
+    },
+    "attributable": {
+      "edges": 9252,
+      "czk": 42893747930.40002,
+      "byDirection": {
+        "recipient": {
+          "edges": 3631,
+          "czk": 14500441161.580006
+        },
+        "payer": {
+          "edges": 0,
+          "czk": 0
+        },
+        "unknown": {
+          "edges": 5621,
+          "czk": 28393306768.81997
+        }
+      },
+      "unknownCzkShare": 66.19
+    }
+  },
+  "topUnknownCompanies": [
+    {
+      "id": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "unknownEdges": 1267,
+      "unknownCzk": 19322418390.42999,
+      "knownCzk": 4248175517.600002
+    },
+    {
+      "id": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "unknownEdges": 934,
+      "unknownCzk": 4416378374.529999,
+      "knownCzk": 6532248930.949998
+    },
+    {
+      "id": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "unknownEdges": 1080,
+      "unknownCzk": 2258409243.8999996,
+      "knownCzk": 3012931888.9
+    },
+    {
+      "id": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "unknownEdges": 486,
+      "unknownCzk": 857846473.5499998,
+      "knownCzk": 95123574.81
+    },
+    {
+      "id": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "unknownEdges": 511,
+      "unknownCzk": 777981937.1100003,
+      "knownCzk": 28297602.07
+    },
+    {
+      "id": "company:ico:27720152",
+      "company": "IF FACILITY a.s.",
+      "ico": "27720152",
+      "unknownEdges": 382,
+      "unknownCzk": 215252159.94000012,
+      "knownCzk": 106370643.28000002
+    },
+    {
+      "id": "company:ico:47674652",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "unknownEdges": 177,
+      "unknownCzk": 158505052.27999997,
+      "knownCzk": 196616522.39
+    },
+    {
+      "id": "company:ico:61681679",
+      "company": "GEMA MB s.r.o.",
+      "ico": "61681679",
+      "unknownEdges": 154,
+      "unknownCzk": 124793582.14999999,
+      "knownCzk": 35268500.06999999
+    },
+    {
+      "id": "company:ico:28633032",
+      "company": "Lesy města Olomouce, a.s.",
+      "ico": "28633032",
+      "unknownEdges": 104,
+      "unknownCzk": 97919938.11000001,
+      "knownCzk": 36135649
+    },
+    {
+      "id": "company:ico:27068897",
+      "company": "TAXONIA CZ, s.r.o.",
+      "ico": "27068897",
+      "unknownEdges": 6,
+      "unknownCzk": 50648836,
+      "knownCzk": 1825486.2
+    },
+    {
+      "id": "company:ico:45147787",
+      "company": "SPOLANA s.r.o.",
+      "ico": "45147787",
+      "unknownEdges": 49,
+      "unknownCzk": 28482725.8,
+      "knownCzk": 20973984
+    },
+    {
+      "id": "company:ico:25187937",
+      "company": "RERA a.s.",
+      "ico": "25187937",
+      "unknownEdges": 53,
+      "unknownCzk": 18974902,
+      "knownCzk": 49359512.43
+    },
+    {
+      "id": "company:ico:49454587",
+      "company": "Vodovody a kanalizace Vyškov,a.s.",
+      "ico": "49454587",
+      "unknownEdges": 120,
+      "unknownCzk": 13897101.720000003,
+      "knownCzk": 110611213.84
+    },
+    {
+      "id": "company:ico:18251129",
+      "company": "TAZATA, spol. s r.o.",
+      "ico": "18251129",
+      "unknownEdges": 7,
+      "unknownCzk": 11881851.61,
+      "knownCzk": 6379551.98
+    },
+    {
+      "id": "company:ico:04934482",
+      "company": "Truhlářství Za farou s.r.o.",
+      "ico": "04934482",
+      "unknownEdges": 16,
+      "unknownCzk": 8638509.58,
+      "knownCzk": 766849.06
+    },
+    {
+      "id": "company:ico:26185610",
+      "company": "AGROFERT, a.s.",
+      "ico": "26185610",
+      "unknownEdges": 43,
+      "unknownCzk": 8118792,
+      "knownCzk": 592440
+    },
+    {
+      "id": "company:ico:25124188",
+      "company": "MIKI TRAVEL PRAGUE, spol. s r.o.",
+      "ico": "25124188",
+      "unknownEdges": 8,
+      "unknownCzk": 5000000,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:29442044",
+      "company": "Teleky Medicus s.r.o.",
+      "ico": "29442044",
+      "unknownEdges": 6,
+      "unknownCzk": 4909800,
+      "knownCzk": 4327718.4
+    },
+    {
+      "id": "company:ico:14612411",
+      "company": "CS CABOT, spol. s r.o.",
+      "ico": "14612411",
+      "unknownEdges": 49,
+      "unknownCzk": 4489329.67,
+      "knownCzk": 204306.79
+    },
+    {
+      "id": "company:ico:25172263",
+      "company": "SOMPO, a.s.",
+      "ico": "25172263",
+      "unknownEdges": 93,
+      "unknownCzk": 2632463.7399999998,
+      "knownCzk": 6541794.01
+    },
+    {
+      "id": "company:ico:46506306",
+      "company": "Společnost Horní Labe a.s.",
+      "ico": "46506306",
+      "unknownEdges": 18,
+      "unknownCzk": 2202665.8,
+      "knownCzk": 355250
+    },
+    {
+      "id": "company:ico:48207918",
+      "company": "AGROPROFIT, spol. s r.o.",
+      "ico": "48207918",
+      "unknownEdges": 17,
+      "unknownCzk": 1178115,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:26124459",
+      "company": "IMOBA, a.s.",
+      "ico": "26124459",
+      "unknownEdges": 8,
+      "unknownCzk": 1013420,
+      "knownCzk": 777680
+    },
+    {
+      "id": "company:ico:26039907",
+      "company": "PEVAK Pelhřimov, družstvo",
+      "ico": "26039907",
+      "unknownEdges": 12,
+      "unknownCzk": 644137.9,
+      "knownCzk": 590750
+    },
+    {
+      "id": "company:ico:02751232",
+      "company": "YOU STORY UP! s.r.o.",
+      "ico": "02751232",
+      "unknownEdges": 2,
+      "unknownCzk": 404242,
+      "knownCzk": 4236995.8
+    },
+    {
+      "id": "company:ico:26141761",
+      "company": "GEKO SPORT s.r.o.",
+      "ico": "26141761",
+      "unknownEdges": 1,
+      "unknownCzk": 179800,
+      "knownCzk": 1350000
+    },
+    {
+      "id": "company:ico:27840531",
+      "company": "OCCAM PR s.r.o.",
+      "ico": "27840531",
+      "unknownEdges": 2,
+      "unknownCzk": 177870,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:46978593",
+      "company": "Poliklinika Břeclav, s. r. o.",
+      "ico": "46978593",
+      "unknownEdges": 5,
+      "unknownCzk": 148000,
+      "knownCzk": 8000
+    },
+    {
+      "id": "company:ico:25332589",
+      "company": "B.S. - KINGS s.r.o.",
+      "ico": "25332589",
+      "unknownEdges": 2,
+      "unknownCzk": 116160,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:27771245",
+      "company": "PROFROST a.s.",
+      "ico": "27771245",
+      "unknownEdges": 4,
+      "unknownCzk": 62300,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:03709698",
+      "company": "Delices de papa s.r.o.",
+      "ico": "03709698",
+      "unknownEdges": 1,
+      "unknownCzk": 594,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:03265889",
+      "company": "ELEMENTA Agency s.r.o.",
+      "ico": "03265889",
+      "unknownEdges": 3,
+      "unknownCzk": 0,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:25713817",
+      "company": "SPARING MB s.r.o.",
+      "ico": "25713817",
+      "unknownEdges": 1,
+      "unknownCzk": 0,
+      "knownCzk": 0
+    },
+    {
+      "id": "company:ico:26350416",
+      "company": "STYLE PD, s.r.o.",
+      "ico": "26350416",
+      "unknownEdges": 0,
+      "unknownCzk": 0,
+      "knownCzk": 370800
+    },
+    {
+      "id": "company:ico:27145433",
+      "company": "U Machtů s.r.o.",
+      "ico": "27145433",
+      "unknownEdges": 0,
+      "unknownCzk": 0,
+      "knownCzk": 0
+    }
+  ],
+  "topUnknownContracts": [
+    {
+      "contractId": "contract:21554117",
+      "idSmlouvy": "21554117",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 4444444444.44,
+      "signedOn": "2023-01-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:15568007",
+      "idSmlouvy": "15568007",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1465537512.39,
+      "signedOn": "2021-05-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:21244057",
+      "idSmlouvy": "21244057",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1459378351.77,
+      "signedOn": "2022-12-14",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:12189984",
+      "idSmlouvy": "12189984",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1449051041.68,
+      "signedOn": "2020-06-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:5167547",
+      "idSmlouvy": "5167547",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1448911529.97,
+      "signedOn": "2018-05-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:9303598",
+      "idSmlouvy": "9303598",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1447039257.15,
+      "signedOn": "2019-08-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:33835169",
+      "idSmlouvy": "33835169",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 650000000,
+      "signedOn": "2025-12-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:21267909",
+      "idSmlouvy": "21267909",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 466000000,
+      "signedOn": "2022-12-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:18984783",
+      "idSmlouvy": "18984783",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 418618470,
+      "signedOn": "2022-05-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:35464105",
+      "idSmlouvy": "35464105",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 384592600.51,
+      "signedOn": "2026-04-26",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:6044063",
+      "idSmlouvy": "6044063",
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 382535000,
+      "signedOn": "2018-08-23",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:22358589",
+      "idSmlouvy": "22358589",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 327455000,
+      "signedOn": "2023-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:25291259",
+      "idSmlouvy": "25291259",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 308979000,
+      "signedOn": "2023-12-28",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:12685742",
+      "idSmlouvy": "12685742",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 303839941,
+      "signedOn": "2020-08-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:23293407",
+      "idSmlouvy": "23293407",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 250000000,
+      "signedOn": "2023-06-27",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:33217289",
+      "idSmlouvy": "33217289",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 243998114.96,
+      "signedOn": "2025-10-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:21269021",
+      "idSmlouvy": "21269021",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 243350000,
+      "signedOn": "2022-12-20",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:33655433",
+      "idSmlouvy": "33655433",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 233563980,
+      "signedOn": "2025-12-03",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:29525320",
+      "idSmlouvy": "29525320",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 231938761.56,
+      "signedOn": "2024-12-20",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:2952126",
+      "idSmlouvy": "2952126",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 227800000,
+      "signedOn": "2017-09-18",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:3618064",
+      "idSmlouvy": "3618064",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 219276731.19,
+      "signedOn": "2017-11-27",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:27730168",
+      "idSmlouvy": "27730168",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 175000000,
+      "signedOn": "2011-09-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:22633537",
+      "idSmlouvy": "22633537",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 156000000,
+      "signedOn": "2023-04-28",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:36507270",
+      "idSmlouvy": "36507270",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 154487025,
+      "signedOn": "2026-07-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:36145362",
+      "idSmlouvy": "36145362",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 153433500,
+      "signedOn": "2026-06-22",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:35718969",
+      "idSmlouvy": "35718969",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 153431120,
+      "signedOn": "2026-05-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:35361625",
+      "idSmlouvy": "35361625",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 153404175,
+      "signedOn": "2026-04-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:34959957",
+      "idSmlouvy": "34959957",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 152428302.22,
+      "signedOn": "2026-03-18",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:19919475",
+      "idSmlouvy": "19919475",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 152426725,
+      "signedOn": "2022-08-18",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:34207189",
+      "idSmlouvy": "34207189",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 151416088.89,
+      "signedOn": "2026-01-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:33904857",
+      "idSmlouvy": "33904857",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 151409587.5,
+      "signedOn": "2025-12-18",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16523511",
+      "idSmlouvy": "16523511",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 151268877,
+      "signedOn": "2021-09-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:33464705",
+      "idSmlouvy": "33464705",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 151000000,
+      "signedOn": "2025-11-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:34609345",
+      "idSmlouvy": "34609345",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 151000000,
+      "signedOn": "2026-02-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:33054797",
+      "idSmlouvy": "33054797",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 150440000,
+      "signedOn": "2025-10-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:23293259",
+      "idSmlouvy": "23293259",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 150000000,
+      "signedOn": "2023-06-27",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:21526361",
+      "idSmlouvy": "21526361",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 147746800,
+      "signedOn": "2022-12-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:22277597",
+      "idSmlouvy": "22277597",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 140000000,
+      "signedOn": "2023-03-20",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:24491455",
+      "idSmlouvy": "24491455",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 130883600,
+      "signedOn": "2023-09-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:23353755",
+      "idSmlouvy": "23353755",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 130000000,
+      "signedOn": "2023-06-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:1959690",
+      "idSmlouvy": "1959690",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 126645120,
+      "signedOn": "2017-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:33767301",
+      "idSmlouvy": "33767301",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 126403954.99,
+      "signedOn": "2025-12-09",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:12245372",
+      "idSmlouvy": "12245372",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 126280512,
+      "signedOn": "2020-05-27",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:22332957",
+      "idSmlouvy": "22332957",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 124490208,
+      "signedOn": "2023-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:6949591",
+      "idSmlouvy": "6949591",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 118520130,
+      "signedOn": "2018-11-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:10341368",
+      "idSmlouvy": "10341368",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 111942000,
+      "signedOn": "2019-12-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:1960754",
+      "idSmlouvy": "1960754",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 103392000,
+      "signedOn": "2017-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:451225",
+      "idSmlouvy": "451225",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 101000000,
+      "signedOn": "2016-10-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:10058168",
+      "idSmlouvy": "10058168",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 100000000,
+      "signedOn": "2019-11-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:17689843",
+      "idSmlouvy": "17689843",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 97420000,
+      "signedOn": "2022-01-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:24610231",
+      "idSmlouvy": "24610231",
+      "companyId": "company:ico:27720152",
+      "company": "IF FACILITY a.s.",
+      "ico": "27720152",
+      "amount": 96800000,
+      "signedOn": "2023-10-24",
+      "subject": null,
+      "tieClasses": [
+        "owner-operator"
+      ],
+      "persons": [
+        "Radim Fiala"
+      ]
+    },
+    {
+      "contractId": "contract:13801477",
+      "idSmlouvy": "13801477",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 93635193.61,
+      "signedOn": "2020-12-08",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:3825112",
+      "idSmlouvy": "3825112",
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 92750000,
+      "signedOn": "2017-11-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:29813716",
+      "idSmlouvy": "29813716",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 91092800,
+      "signedOn": "2024-12-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:22340677",
+      "idSmlouvy": "22340677",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 90744200,
+      "signedOn": "2023-02-10",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16850123",
+      "idSmlouvy": "16850123",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 89653800,
+      "signedOn": "2021-10-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:22350665",
+      "idSmlouvy": "22350665",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 86275584,
+      "signedOn": "2023-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:13717077",
+      "idSmlouvy": "13717077",
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 81650974,
+      "signedOn": "2020-12-01",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:25475243",
+      "idSmlouvy": "25475243",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 77692127.13,
+      "signedOn": "2024-01-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:3502820",
+      "idSmlouvy": "3502820",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 74716000,
+      "signedOn": "2017-11-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:17593607",
+      "idSmlouvy": "17593607",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 74580000,
+      "signedOn": "2022-01-03",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:26997200",
+      "idSmlouvy": "26997200",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 73999300,
+      "signedOn": "2024-05-22",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:17623867",
+      "idSmlouvy": "17623867",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 73800000,
+      "signedOn": "2022-01-05",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16971951",
+      "idSmlouvy": "16971951",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 63600000,
+      "signedOn": "2021-11-04",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:22339301",
+      "idSmlouvy": "22339301",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 61803200,
+      "signedOn": "2023-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:25724215",
+      "idSmlouvy": "25724215",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 60000000,
+      "signedOn": "2024-02-05",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:35498297",
+      "idSmlouvy": "35498297",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 57680000,
+      "signedOn": "2026-04-28",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:787477",
+      "idSmlouvy": "787477",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 57438936,
+      "signedOn": "2016-11-22",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:16541571",
+      "idSmlouvy": "16541571",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 57064475.5,
+      "signedOn": "2021-09-14",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:32147525",
+      "idSmlouvy": "32147525",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 56644021.46,
+      "signedOn": "2025-07-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:883033",
+      "idSmlouvy": "883033",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 56311200,
+      "signedOn": "2016-12-06",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:15564107",
+      "idSmlouvy": "15564107",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 55569602.11,
+      "signedOn": "2021-05-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:12854632",
+      "idSmlouvy": "12854632",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 52860000,
+      "signedOn": "2020-09-08",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:20609145",
+      "idSmlouvy": "20609145",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 52540529.11,
+      "signedOn": "2022-10-12",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:9961812",
+      "idSmlouvy": "9961812",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 51238500,
+      "signedOn": "2019-11-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18229987",
+      "idSmlouvy": "18229987",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 51204000,
+      "signedOn": "2022-03-08",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:26656831",
+      "idSmlouvy": "26656831",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 50955800,
+      "signedOn": "2024-04-24",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:17461867",
+      "idSmlouvy": "17461867",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 50670000,
+      "signedOn": "2021-12-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18261467",
+      "idSmlouvy": "18261467",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 50620000,
+      "signedOn": "2022-03-10",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:30218228",
+      "idSmlouvy": "30218228",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 49489016.85,
+      "signedOn": "2025-02-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:20174737",
+      "idSmlouvy": "20174737",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 49020000,
+      "signedOn": "2022-09-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:17892999",
+      "idSmlouvy": "17892999",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 48648000,
+      "signedOn": "2022-02-01",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:29509728",
+      "idSmlouvy": "29509728",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 47893140,
+      "signedOn": "2024-12-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:2505926",
+      "idSmlouvy": "2505926",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 46970383.1,
+      "signedOn": "2014-10-01",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:17267643",
+      "idSmlouvy": "17267643",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 44520000,
+      "signedOn": "2021-12-02",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:29151748",
+      "idSmlouvy": "29151748",
+      "companyId": "company:ico:47674652",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 44416000,
+      "signedOn": "2024-11-25",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Robert Stržínek"
+      ]
+    },
+    {
+      "contractId": "contract:9203351",
+      "idSmlouvy": "9203351",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 43799640.5,
+      "signedOn": "2019-08-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:25257291",
+      "idSmlouvy": "25257291",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 42472893,
+      "signedOn": "2023-12-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:21308433",
+      "idSmlouvy": "21308433",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 42390700,
+      "signedOn": "2022-12-20",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:6484087",
+      "idSmlouvy": "6484087",
+      "companyId": "company:ico:47674652",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 42136000,
+      "signedOn": "2018-10-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Robert Stržínek"
+      ]
+    },
+    {
+      "contractId": "contract:17316119",
+      "idSmlouvy": "17316119",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 41943000,
+      "signedOn": "2021-12-07",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16110071",
+      "idSmlouvy": "16110071",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 41382012,
+      "signedOn": "2021-07-27",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:8683903",
+      "idSmlouvy": "8683903",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 41237896,
+      "signedOn": "2019-05-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:5917731",
+      "idSmlouvy": "5917731",
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 41134000,
+      "signedOn": "2018-07-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:5526859",
+      "idSmlouvy": "5526859",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 40861332,
+      "signedOn": "2018-06-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:12368240",
+      "idSmlouvy": "12368240",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 40585120,
+      "signedOn": "2020-05-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:15223311",
+      "idSmlouvy": "15223311",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 39280400,
+      "signedOn": "2021-04-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:10107284",
+      "idSmlouvy": "10107284",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 38958800,
+      "signedOn": "2019-11-22",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:1973426",
+      "idSmlouvy": "1973426",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 38958800,
+      "signedOn": "2017-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:17356275",
+      "idSmlouvy": "17356275",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 38190000,
+      "signedOn": "2021-12-09",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:17374543",
+      "idSmlouvy": "17374543",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 38077500,
+      "signedOn": "2021-12-10",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18275003",
+      "idSmlouvy": "18275003",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 37845000,
+      "signedOn": "2022-03-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18125975",
+      "idSmlouvy": "18125975",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 37350000,
+      "signedOn": "2022-02-24",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18130467",
+      "idSmlouvy": "18130467",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 37200000,
+      "signedOn": "2022-02-25",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:10396268",
+      "idSmlouvy": "10396268",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 36702020,
+      "signedOn": "2019-12-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:17660987",
+      "idSmlouvy": "17660987",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 36690000,
+      "signedOn": "2022-01-07",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:17685687",
+      "idSmlouvy": "17685687",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 36540000,
+      "signedOn": "2022-01-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18065023",
+      "idSmlouvy": "18065023",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 36480000,
+      "signedOn": "2022-02-18",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18075387",
+      "idSmlouvy": "18075387",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 36465000,
+      "signedOn": "2022-02-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:17945095",
+      "idSmlouvy": "17945095",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 36417000,
+      "signedOn": "2022-02-07",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18202299",
+      "idSmlouvy": "18202299",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 36078000,
+      "signedOn": "2022-03-04",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18881843",
+      "idSmlouvy": "18881843",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 35961414,
+      "signedOn": "2022-04-28",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:16728587",
+      "idSmlouvy": "16728587",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 35814000,
+      "signedOn": "2021-10-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:6055715",
+      "idSmlouvy": "6055715",
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 35526000,
+      "signedOn": "2018-06-26",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:19378327",
+      "idSmlouvy": "19378327",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 35424205,
+      "signedOn": "2022-06-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:15748755",
+      "idSmlouvy": "15748755",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 35063513,
+      "signedOn": "2021-06-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:17523147",
+      "idSmlouvy": "17523147",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 34385880,
+      "signedOn": "2021-12-20",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:34879333",
+      "idSmlouvy": "34879333",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 34286000,
+      "signedOn": "2026-03-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:13971511",
+      "idSmlouvy": "13971511",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 34046000,
+      "signedOn": "2020-12-22",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:13115212",
+      "idSmlouvy": "13115212",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 33988100,
+      "signedOn": "2020-07-08",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:9279891",
+      "idSmlouvy": "9279891",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 33482316,
+      "signedOn": "2019-08-12",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:5920683",
+      "idSmlouvy": "5920683",
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 33000000,
+      "signedOn": "2018-07-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:22667565",
+      "idSmlouvy": "22667565",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 31533556,
+      "signedOn": "2023-04-27",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:29151424",
+      "idSmlouvy": "29151424",
+      "companyId": "company:ico:47674652",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 31086000,
+      "signedOn": "2024-11-25",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Robert Stržínek"
+      ]
+    },
+    {
+      "contractId": "contract:6141999",
+      "idSmlouvy": "6141999",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 31027914,
+      "signedOn": "2018-08-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:17892067",
+      "idSmlouvy": "17892067",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 30853718,
+      "signedOn": "2022-02-01",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:7212887",
+      "idSmlouvy": "7212887",
+      "companyId": "company:ico:25848526",
+      "company": "Výstaviště Flora Olomouc, a.s.",
+      "ico": "25848526",
+      "amount": 30294000,
+      "signedOn": "2018-12-28",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:246705",
+      "idSmlouvy": "246705",
+      "companyId": "company:ico:28633032",
+      "company": "Lesy města Olomouce, a.s.",
+      "ico": "28633032",
+      "amount": 30250000,
+      "signedOn": "2015-12-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:16821815",
+      "idSmlouvy": "16821815",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 29394000,
+      "signedOn": "2021-10-20",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:10787036",
+      "idSmlouvy": "10787036",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 29275300,
+      "signedOn": "2020-01-01",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:17459275",
+      "idSmlouvy": "17459275",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 27846500,
+      "signedOn": "2021-12-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:30046996",
+      "idSmlouvy": "30046996",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 27237645.24,
+      "signedOn": "2025-01-24",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:390929",
+      "idSmlouvy": "390929",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 27230400,
+      "signedOn": "2016-10-04",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:8994999",
+      "idSmlouvy": "8994999",
+      "companyId": "company:ico:49790480",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 26197605,
+      "signedOn": "2019-06-28",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:6985415",
+      "idSmlouvy": "6985415",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25910000,
+      "signedOn": "2018-12-05",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:9759050",
+      "idSmlouvy": "9759050",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25760000,
+      "signedOn": "2019-10-21",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:27665436",
+      "idSmlouvy": "27665436",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25736111,
+      "signedOn": "2024-07-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:8877675",
+      "idSmlouvy": "8877675",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25720000,
+      "signedOn": "2019-07-08",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16950115",
+      "idSmlouvy": "16950115",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25590000,
+      "signedOn": "2021-11-03",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16963831",
+      "idSmlouvy": "16963831",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25487000,
+      "signedOn": "2021-11-04",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16605955",
+      "idSmlouvy": "16605955",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25485000,
+      "signedOn": "2021-09-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:16776895",
+      "idSmlouvy": "16776895",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25395000,
+      "signedOn": "2021-10-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:29523408",
+      "idSmlouvy": "29523408",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25365000,
+      "signedOn": "2024-12-13",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:4211796",
+      "idSmlouvy": "4211796",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25300000,
+      "signedOn": "2018-01-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:4226092",
+      "idSmlouvy": "4226092",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25300000,
+      "signedOn": "2018-01-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:17009223",
+      "idSmlouvy": "17009223",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 25220000,
+      "signedOn": "2021-11-09",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18288523",
+      "idSmlouvy": "18288523",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 24960000,
+      "signedOn": "2022-03-14",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:20034823",
+      "idSmlouvy": "20034823",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 24466000,
+      "signedOn": "2022-09-01",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18580863",
+      "idSmlouvy": "18580863",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 24420000,
+      "signedOn": "2022-04-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18035283",
+      "idSmlouvy": "18035283",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 24370000,
+      "signedOn": "2022-02-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18039743",
+      "idSmlouvy": "18039743",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 24325000,
+      "signedOn": "2022-02-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:13290704",
+      "idSmlouvy": "13290704",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 24100300,
+      "signedOn": "2020-10-22",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:18341723",
+      "idSmlouvy": "18341723",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 23824803,
+      "signedOn": "2022-03-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:22350469",
+      "idSmlouvy": "22350469",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 23500608,
+      "signedOn": "2023-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:28079696",
+      "idSmlouvy": "28079696",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 22733837.52,
+      "signedOn": "2024-08-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18341727",
+      "idSmlouvy": "18341727",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 22031690,
+      "signedOn": "2022-03-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:21415901",
+      "idSmlouvy": "21415901",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 22000000,
+      "signedOn": "2022-11-08",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:6244727",
+      "idSmlouvy": "6244727",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 21391574.96,
+      "signedOn": "2018-09-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:2937050",
+      "idSmlouvy": "2937050",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 21310219,
+      "signedOn": "2017-08-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:5632171",
+      "idSmlouvy": "5632171",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 20596100,
+      "signedOn": "2018-06-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:17412419",
+      "idSmlouvy": "17412419",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 20272000,
+      "signedOn": "2021-12-14",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:10592372",
+      "idSmlouvy": "10592372",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 19662500,
+      "signedOn": "2019-12-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:17092991",
+      "idSmlouvy": "17092991",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 18926250,
+      "signedOn": "2021-11-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:27604732",
+      "idSmlouvy": "27604732",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 18799636,
+      "signedOn": "2024-07-16",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:23964543",
+      "idSmlouvy": "23964543",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 18075993.99,
+      "signedOn": "2023-09-06",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:24273851",
+      "idSmlouvy": "24273851",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 18075993.99,
+      "signedOn": "2023-10-05",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:33229061",
+      "idSmlouvy": "33229061",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 17797295,
+      "signedOn": "2025-10-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:27864896",
+      "idSmlouvy": "27864896",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 17500000,
+      "signedOn": "2024-07-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:10443676",
+      "idSmlouvy": "10443676",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 17327122,
+      "signedOn": "2019-12-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:319981",
+      "idSmlouvy": "319981",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 17111228,
+      "signedOn": "2016-08-18",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:17172587",
+      "idSmlouvy": "17172587",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 16575000,
+      "signedOn": "2021-11-24",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:7281755",
+      "idSmlouvy": "7281755",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 16439929,
+      "signedOn": "2009-12-10",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:7474743",
+      "idSmlouvy": "7474743",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 16439929,
+      "signedOn": "2019-01-24",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:10445796",
+      "idSmlouvy": "10445796",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 15635760,
+      "signedOn": "2019-12-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:32432885",
+      "idSmlouvy": "32432885",
+      "companyId": "company:ico:28633032",
+      "company": "Lesy města Olomouce, a.s.",
+      "ico": "28633032",
+      "amount": 15441712.3,
+      "signedOn": "2025-08-28",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:24263619",
+      "idSmlouvy": "24263619",
+      "companyId": "company:ico:27720152",
+      "company": "IF FACILITY a.s.",
+      "ico": "27720152",
+      "amount": 15000000,
+      "signedOn": "2023-10-04",
+      "subject": null,
+      "tieClasses": [
+        "owner-operator"
+      ],
+      "persons": [
+        "Radim Fiala"
+      ]
+    },
+    {
+      "contractId": "contract:25321163",
+      "idSmlouvy": "25321163",
+      "companyId": "company:ico:28633032",
+      "company": "Lesy města Olomouce, a.s.",
+      "ico": "28633032",
+      "amount": 15000000,
+      "signedOn": "2023-12-27",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:6768687",
+      "idSmlouvy": "6768687",
+      "companyId": "company:ico:61681679",
+      "company": "GEMA MB s.r.o.",
+      "ico": "61681679",
+      "amount": 14477283,
+      "signedOn": "2018-10-31",
+      "subject": null,
+      "tieClasses": [
+        "owner-operator"
+      ],
+      "persons": [
+        "František Petrtýl"
+      ]
+    },
+    {
+      "contractId": "contract:935865",
+      "idSmlouvy": "935865",
+      "companyId": "company:ico:60193913",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 14010000,
+      "signedOn": "2016-12-13",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Marek Ženíšek"
+      ]
+    },
+    {
+      "contractId": "contract:17129811",
+      "idSmlouvy": "17129811",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13986500,
+      "signedOn": "2021-11-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:5925595",
+      "idSmlouvy": "5925595",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13985090,
+      "signedOn": "2018-08-10",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:18466547",
+      "idSmlouvy": "18466547",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 13950000,
+      "signedOn": "2022-03-30",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:13379864",
+      "idSmlouvy": "13379864",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13460000,
+      "signedOn": "2020-11-03",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:11043628",
+      "idSmlouvy": "11043628",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13428000,
+      "signedOn": "2020-03-03",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:13440700",
+      "idSmlouvy": "13440700",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13312500,
+      "signedOn": "2020-11-09",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:13441948",
+      "idSmlouvy": "13441948",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13277500,
+      "signedOn": "2020-11-09",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:6515791",
+      "idSmlouvy": "6515791",
+      "companyId": "company:ico:47674652",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 13262000,
+      "signedOn": "2018-10-15",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Robert Stržínek"
+      ]
+    },
+    {
+      "contractId": "contract:12463948",
+      "idSmlouvy": "12463948",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13177500,
+      "signedOn": "2020-07-24",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:12499640",
+      "idSmlouvy": "12499640",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13175000,
+      "signedOn": "2020-07-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:12500732",
+      "idSmlouvy": "12500732",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13175000,
+      "signedOn": "2020-07-29",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:13573577",
+      "idSmlouvy": "13573577",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13175000,
+      "signedOn": "2020-11-20",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:12463384",
+      "idSmlouvy": "12463384",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13170000,
+      "signedOn": "2020-07-24",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:12601964",
+      "idSmlouvy": "12601964",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13145000,
+      "signedOn": "2020-08-11",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:13628897",
+      "idSmlouvy": "13628897",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13125000,
+      "signedOn": "2020-11-25",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:20681165",
+      "idSmlouvy": "20681165",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13121800,
+      "signedOn": "2022-10-14",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:15606139",
+      "idSmlouvy": "15606139",
+      "companyId": "company:ico:45534306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 13116238,
+      "signedOn": "2021-05-31",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Karel Haas"
+      ]
+    },
+    {
+      "contractId": "contract:22618457",
+      "idSmlouvy": "22618457",
+      "companyId": "company:ico:28633032",
+      "company": "Lesy města Olomouce, a.s.",
+      "ico": "28633032",
+      "amount": 13000000,
+      "signedOn": "2023-04-17",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Miroslav Žbánek"
+      ]
+    },
+    {
+      "contractId": "contract:2437806",
+      "idSmlouvy": "2437806",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 12987500,
+      "signedOn": "2017-07-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:14339683",
+      "idSmlouvy": "14339683",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 12975000,
+      "signedOn": "2021-02-02",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    },
+    {
+      "contractId": "contract:2437402",
+      "idSmlouvy": "2437402",
+      "companyId": "company:ico:46347534",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 12975000,
+      "signedOn": "2017-07-19",
+      "subject": null,
+      "tieClasses": [
+        "manager"
+      ],
+      "persons": [
+        "Petr Hladík"
+      ]
+    }
+  ],
+  "unknownContractCount": 5621
+}

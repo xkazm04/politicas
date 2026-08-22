@@ -55,6 +55,7 @@ import { forceLayout, hashId } from "@/lib/kg/layout";
 import { citableId, sourceLinksFor, type KgNodeKind } from "@/lib/kg/sourceLinks";
 import { isKgNodeKind } from "./kindStyle";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+import { moneyReachesCompany } from "@/features/money/reachableMoney";
 import {
   buildAdjacency,
   EXCLUDED_RELS,
@@ -432,8 +433,19 @@ async function buildTrails(): Promise<Trail[] | null> {
     const num = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? v : 0);
 
     // Peníze firmy = smlouvy (váhy supplies) + dotace (prop uzlu).
+    //
+    // TÝŽ predikát jako v peněžní vrstvě (`moneyReachesCompany`), importovaný, ne
+    // znovuodvozený: tahle stopa sčítala váhy VŠECH hran `supplies`, tedy i smluv,
+    // u kterých registr jmenuje jako příjemce jinou stranu. Batch 013 tuhle funkci
+    // prověřoval na jiný únik (nevázané vlastnické matky) a našel ji čistou — ten
+    // druhý únik tu ale celou dobu byl a v testovací fixtuře dělal z 8,9 mil. Kč
+    // 808,9 mil. Kč. Dvě plochy nad jednou vrstvou nesmí o jedné firmě říct dvě
+    // různá čísla, a jediná pojistka proti tomu je jedna kopie pravidla.
     const contractCzk = new Map<string, number>();
-    for (const e of supplies) contractCzk.set(e.src, (contractCzk.get(e.src) ?? 0) + num(e.weight));
+    for (const e of supplies) {
+      if (!moneyReachesCompany(e.props)) continue;
+      contractCzk.set(e.src, (contractCzk.get(e.src) ?? 0) + num(e.weight));
+    }
     const companyMoney = new Map<string, number>();
     const donated = new Map<string, number>();
     for (const c of companies) {

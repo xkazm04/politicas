@@ -906,3 +906,88 @@ already caused**.
 3. The SZIF subsidy channel remains the largest blind spot — not in this corpus at all.
 4. Steward-class sweep, Teplárny Brno, ČSOB, České dráhy still UNMEASURED (batch 010);
    Q-money-13's 21 residue items still with law (14) / effort (7).
+
+### Batch 014 — the co-signatory: 11,77 mld. Kč připsaných špatnému člověku (2026-08-22)
+
+Batch 013's steering asked for a targeted pass on the highest-value `direction: unknown`
+edges. Measuring **why** that would be worth doing turned it into a different and much
+worse finding, with a name attached.
+
+- **The triage.** A deterministic census of `direction` in three nested frames reproduced
+  the rendered headline to the koruna (42 893 747 930 CZK over 9 252 attributable edges) —
+  and found **66,19 % of it** standing on edges whose direction nobody had established,
+  68 % of that on ONE company.
+- **THE FINDING: `unknown` was hiding a stated negative.** On `contract:21554117`
+  (4 444 444 444 CZK, Brno multifunctional hall) the register flags the city as `platce`
+  and **HOCHTIEF CZ a.s. as `prijemce`**; Teplárny Brno is a party with no flag at all.
+  The graph nevertheless carried a `supplies` edge for the full amount and the ledger
+  attributed it to **Petr Hladík**, who chaired the board. Four tram-Plotní agreements
+  (1,45–1,47 mld. each) run the same way against IMOS Brno / STRABAG / Dopravní stavby
+  Brno. `directionFor` said `unknown` only because its two-party shortcut was guarded on
+  `sides.length === 2` — so **one token was carrying two epistemic states**: *the register
+  said nothing* and *the register spoke and did not name us*.
+- **Priced:** non-recipient **43 edges / 11 760 018 633 CZK (27,42 %)**, inferred-payer
+  85 / 11 381 045, co-recipient 117 / 1 331 071 110. **99,9 % of the non-recipient CZK is
+  Teplárny Brno**; four other MPs carry 0,3–10,7 M each.
+- **Fixed in three places, one rule:** a fourth verdict `non-recipient` in
+  `directionFromParties` (so the next re-ingest agrees), the single predicate
+  `moneyReachesCompany` in `reachableMoney.ts` imported by both `moneyLoader` fold sites,
+  and `features/graph/graphLoader.ts` — which had the identical defect independently and
+  had been audited clean for a *neighbouring* leak in batch 013. Edges are NOT deleted:
+  Teplárny Brno really is a party to that contract.
+- **The surface:** headline **42 893 747 930 → 31 122 348 145 CZK (−27,44 %)**, and the
+  tile now states what it left out. A number that moves 27 % with no explanation is
+  indistinguishable from a data loss.
+- **A second silence refused.** `co-recipient` money genuinely reaches the company but is
+  credited in full to every flagged recipient, with no split stated anywhere. It stays in
+  the total, carries `recipients_shared` (pass 57), and the tile names it — correcting one
+  unstated over-count while shipping another would have been the same mistake.
+- **Scoping error caught in verification**, not in review: both caveats were first computed
+  over ALL tied companies (29,09 mld. / 19,88 mld.) while sitting under an
+  attributable-only headline. A caveat in a different population than the figure it
+  qualifies is worse than none.
+- Writes: **pass 56** (9 746 edges: 6 251 `non-recipient` + 3 495 `payer`, with
+  `direction_basis` / `direction_recipients`) and **pass 57** (1 058 `recipients_shared`),
+  corpus-wide so `/graf` and the budget trail read the same fact. Both idempotent — the
+  re-run after 56 proposed 0 of those 9 746 again, which is how 57 was verified before it
+  was made. **No `review_state` touched — 211 ties remain `pending_review`.**
+
+## Metrics block — batch 014
+
+| metric | batch 014 |
+|---|---|
+| headline before → after | **42 893 747 930 → 31 122 348 145 CZK** (−27,44 %) |
+| CZK removed from attribution | **11 771 399 785** |
+| concentration of that | **99,9 % one company** (Teplárny Brno → Petr Hladík) |
+| MPs affected | 5 (Hladík, Haas, Žbánek, Ženíšek, Stržínek) |
+| attributable edges reclassified | 128 (43 non-recipient + 85 inferred-payer) |
+| co-recipient kept + disclosed | 117 edges / 1 331 071 110 CZK |
+| consumers found with the same defect | **2** (`moneyLoader` ×2 fold sites, `graphLoader`) |
+| graph writes | pass 56 (9 746 edges) · pass 57 (1 058 edges) |
+| `review_state` changes | **0** |
+| gate | `npm run check` green — **2 954 tests** (+9), 0 lint errors |
+
+## Steering (next batch — batch 015)
+
+1. **Teplárny Brno's tie class is now the question.** It is 100 % owned by Statutární
+   město Brno and Hladík chaired its board — which is the case's own definition of
+   `steward`, yet it is stored `manager` and carries the largest attributable figure left
+   (11,82 mld. Kč). Registry evidence + the human gate, never a loop-side flip. The same
+   question stands for Pražská energetika, Plzeňská teplárenská, Výstaviště Flora Olomouc
+   and Lesy města Olomouce — all municipal, all attributable today.
+2. **Harness, not product — and it briefly looked like the opposite.** Mid-batch,
+   verification against the live store started taking >10 min and I wrote a steering item
+   claiming `getMoneyData()` was pathologically slow. It is not: it runs in seconds. A
+   case-loop script that opens PGlite and never calls `process.exit` **keeps the event
+   loop open forever**, so it prints its answer and hangs; every timed-out run then left
+   an orphaned node process holding the data directory, five of them piled up, and each
+   new read got slower. `process.exit(0)` in the `.then()` (never beside a bare `main()`
+   — that exits before the promise resolves and prints nothing) is the fix, and it belongs
+   in every case-loop script that opens the store. The false claim is recorded because a
+   ghost performance defect in this ledger would have cost the next batch a day.
+3. The `silent` class (345 attributable edges / 3,47 mld. CZK, nobody flagged) is what
+   batch 013's steering actually asked for, and it is now the honest remainder — a
+   detail-page pass on the highest-value ones would convert assumption into record.
+4. Re-harvest cadence (`--refresh=<month>`) wired to the Pumper watch; SZIF subsidy channel
+   still absent from the corpus entirely; Q-money-13's 21 residue items still with law (14)
+   and effort (7).

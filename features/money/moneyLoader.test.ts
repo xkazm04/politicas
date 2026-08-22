@@ -31,13 +31,17 @@ vi.mock("@/lib/db/store", () => ({
 }));
 vi.mock("@/lib/db/readiness", () => ({ storeReady: async () => true }));
 
-const { loadMpMoneySlice, loadCompanyMoneySlice, resetSuppliesMemo } = await import("./moneyLoader");
+const { loadMpMoneySlice, loadCompanyMoneySlice, resetSuppliesMemo, excludedOf } = await import("./moneyLoader");
 const { basisComposition } = await import("./amountBasis");
 
 const PERSON = "psp:person:100";
 const ALFA = "company:ico:00000111";
 const BETA = "company:ico:00000222";
 const GAMA = "company:ico:00000333";
+/** Money batch 014: a company whose biggest "contract" the register attributes to
+ *  somebody else. Deliberately outsized (batch 013's fixture doctrine) so a leak into
+ *  any sum is unmissable rather than a rounding argument. */
+const DELTA = "company:ico:00000444";
 
 const companyNode = (id: string) => ({
   id,
@@ -64,14 +68,23 @@ const tieEdge = (companyId: string) => ({
   provenance: { pass: 10 },
 });
 
-const suppliesEdge = (companyId: string, contract: string, amount: number, amountBasis?: string) => ({
+const suppliesEdge = (
+  companyId: string,
+  contract: string,
+  amount: number,
+  amountBasis?: string,
+  direction?: string,
+) => ({
   src: companyId,
   rel: "supplies",
   dst: contract,
   weight: amount,
   // `amountBasis` chybí schválně, když se nepředá: starší průchody než re-ingest
   // batch-012 pole nezapisovaly a čtení to musí přiznat jako `unrecorded`.
-  props: amountBasis === undefined ? {} : { amountBasis },
+  props: {
+    ...(amountBasis === undefined ? {} : { amountBasis }),
+    ...(direction === undefined ? {} : { direction }),
+  },
   provenance: { pass: 12 },
 });
 
@@ -86,13 +99,19 @@ const contractNode = (id: string, signedOn: string) => ({
 /** Kolik smluv která firma nese a v jaké daňové základně. `[]` = firma bez
  *  jediné smlouvy (prázdný odečet). ALFA je schválně MÍCHANÁ — registr obě
  *  základny publikuje vedle sebe a jako sčitatelné je neuvádí. */
-const CONTRACTS: Record<string, Array<[string, number, string?]>> = {
+const CONTRACTS: Record<string, Array<[string, number, string?, string?]>> = {
   [ALFA]: [
     ["contract:a1", 1_000, "bezDph"],
     ["contract:a2", 2_000, "vcetneDph"],
   ],
   [BETA]: [["contract:b1", 5_000]], // hrana bez zapsané základny
   [GAMA]: [],
+  // Jedna skutečná dodávka a dvě smlouvy, u kterých registr příjemce jmenuje jinak.
+  [DELTA]: [
+    ["contract:d1", 7_000, "bezDph"],
+    ["contract:d2", 900_000_000, "bezDph", "non-recipient"],
+    ["contract:d3", 50_000_000, "bezDph", "payer"],
+  ],
 };
 
 /** Kolik `supplies` čtení proběhlo na kterou firmu, a jaký byl největší souběh. */
@@ -124,7 +143,9 @@ function installStore() {
       if (failing.has(opts.id)) throw new Error(`simulated read failure for ${opts.id}`);
       const rows = CONTRACTS[opts.id] ?? [];
       return {
-        edges: rows.map(([c, amount, basis]) => suppliesEdge(opts.id, c, amount, basis)),
+        edges: rows.map(([c, amount, basis, direction]) =>
+          suppliesEdge(opts.id, c, amount, basis, direction),
+        ),
         nodes: rows.map(([c]) => contractNode(c, "2026-01-01")),
       };
     } finally {
@@ -263,5 +284,36 @@ describe("the per-company supplies memo", () => {
     const windows = [...src.matchAll(/Date\.now\(\)\s*-\s*\w+(?:\.at)?\s*[<>]=?\s*(\w+)/g)].map((m) => m[1]);
     expect(windows.length).toBeGreaterThanOrEqual(3);
     expect(new Set(windows)).toEqual(new Set(["MONEY_MEMO_TTL_MS"]));
+  });
+});
+
+describe("money batch 014 — smlouvy, které rejstřík připsal někomu jinému", () => {
+  it("nepočítá do dosahu firmy smlouvu, u které je jako příjemce označen někdo jiný", async () => {
+    const company = (await loadCompanyMoneySlice(DELTA))!;
+    // 7 000 Kč je jediná skutečná dodávka. 900 mil. (spolupodepsaný účastník) ani
+    // 50 mil. (firma je plátce) k firmě nedošly — a kdyby prosákly, je to vidět na
+    // první pohled, o to je fixture takhle nepoměrná.
+    expect(company.contracts.czk).toBe(7_000);
+    expect(company.contracts.count).toBe(1);
+    expect(company.contracts.amounts).toEqual([7_000]);
+  });
+
+  it("vyloučené smlouvy se nezahodí — plocha musí umět říct, o co jde", async () => {
+    const company = (await loadCompanyMoneySlice(DELTA))!;
+    expect(excludedOf(company.contracts)).toEqual({ count: 2, czk: 950_000_000 });
+  });
+
+  it("`unknown` se za popření NEPOVAŽUJE — půlka rejstříku neoznačuje nikoho", async () => {
+    // Zrcadlo opravované chyby: kdyby mlčení znamenalo „není příjemce", přišli by
+    // skuteční dodavatelé o skutečné peníze. ALFA nemá `direction` vůbec.
+    const alfa = (await loadCompanyMoneySlice(ALFA))!;
+    expect(alfa.contracts.czk).toBe(3_000);
+    expect(excludedOf(alfa.contracts)).toEqual({ count: 0, czk: 0 });
+  });
+
+  it("řádky smluv nevypisují to, co se do součtu nezapočítalo", async () => {
+    // Jinak by čtenář viděl v seznamu 900milionovou položku pod součtem 7 000 Kč.
+    const company = (await loadCompanyMoneySlice(DELTA))!;
+    expect(company.lines.map((l) => l.id)).toEqual(["contract:d1"]);
   });
 });

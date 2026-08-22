@@ -20,6 +20,15 @@ const SUPERSEDED = `<zaznam><identifikator><idSmlouvy>999</idSmlouvy><idVerze>10
 
 const FOREIGN = `<zaznam><identifikator><idSmlouvy>555</idSmlouvy><idVerze>556</idVerze></identifikator><smlouva><subjekt><nazev>Y</nazev><ico>00020338</ico></subjekt><smluvniStrana><nazev>Z</nazev><ico>26185610</ico></smluvniStrana><predmet>zahraniční</predmet><ciziMena><mena>EUR</mena><hodnota>12345.5</hodnota></ciziMena></smlouva><platnyZaznam>1</platnyZaznam></zaznam>`;
 
+/** The record that cost money batch 014 eleven billion korun. Verbatim shape from
+ *  dump_2023_01.xml (idSmlouvy 21554117, "Multifunkční hala v Brně"): the city publishes
+ *  and is the plátce, HOCHTIEF is the flagged příjemce, and three municipal companies —
+ *  Teplárny Brno among them — are parties with no flag at all. */
+const MULTIPARTY_COSIGNATORY = `<zaznam><identifikator><idSmlouvy>21554117</idSmlouvy><idVerze>23130717</idVerze></identifikator><smlouva><subjekt><nazev>Statutární město Brno</nazev><ico>44992785</ico><platce>1</platce></subjekt><smluvniStrana><nazev>HOCHTIEF CZ a.s.</nazev><ico>46678468</ico><prijemce>1</prijemce></smluvniStrana><smluvniStrana><nazev>Brněnské komunikace a.s.</nazev><ico>60733098</ico></smluvniStrana><smluvniStrana><nazev>Teplárny Brno, a.s.</nazev><ico>46347534</ico></smluvniStrana><predmet>Smlouva o zhotovení stavby Multifunkční sportovní a kulturní haly v Brně</predmet><datumUzavreni>2023-01-16</datumUzavreni><hodnotaBezDph>4444444444.44</hodnotaBezDph></smlouva><platnyZaznam>1</platnyZaznam></zaznam>`;
+
+/** Three sides, nobody flagged. Silence must stay silence. */
+const MULTIPARTY_SILENT = `<zaznam><identifikator><idSmlouvy>777</idSmlouvy><idVerze>778</idVerze></identifikator><smlouva><subjekt><nazev>A</nazev><ico>11111111</ico></subjekt><smluvniStrana><nazev>B</nazev><ico>22222222</ico></smluvniStrana><smluvniStrana><nazev>C</nazev><ico>33333333</ico></smluvniStrana><predmet>bez příznaků</predmet></smlouva><platnyZaznam>1</platnyZaznam></zaznam>`;
+
 describe("parseDumpRecord", () => {
   it("parses the real Mořidla record, keying on idSmlouvy not idVerze", () => {
     const r = parseDumpRecord(MORIDLA)!;
@@ -89,6 +98,33 @@ describe("directionFor", () => {
   it("returns unknown for an IČO that is not a party at all", () => {
     expect(directionFor("99999999", parseDumpRecord(MORIDLA)!)).toBe("unknown");
   });
+
+  // ── money batch 014: the co-signatory defect ──────────────────────────────
+  it("says non-recipient when the register names a recipient and it is somebody else", () => {
+    // Until batch 014 this answered `unknown`, and the graph read all 4 444 444 444 CZK
+    // as money reaching Teplárny Brno — a company that merely co-signed.
+    expect(directionFor("46347534", parseDumpRecord(MULTIPARTY_COSIGNATORY)!)).toBe(
+      "non-recipient",
+    );
+    expect(directionFor("60733098", parseDumpRecord(MULTIPARTY_COSIGNATORY)!)).toBe(
+      "non-recipient",
+    );
+  });
+
+  it("still reads the flagged recipient of that same record as the recipient", () => {
+    expect(directionFor("46678468", parseDumpRecord(MULTIPARTY_COSIGNATORY)!)).toBe("recipient");
+  });
+
+  it("keeps the flagged payer of that same record as the payer", () => {
+    expect(directionFor("44992785", parseDumpRecord(MULTIPARTY_COSIGNATORY)!)).toBe("payer");
+  });
+
+  it("does NOT turn silence into a negative on a multi-party record", () => {
+    // The mirror of the bug being fixed: half the register flags nobody, and reading
+    // "no flag" as "not the recipient" would strip real suppliers of real money.
+    expect(directionFor("22222222", parseDumpRecord(MULTIPARTY_SILENT)!)).toBe("unknown");
+  });
+
 });
 
 describe("parseDump", () => {

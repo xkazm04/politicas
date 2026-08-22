@@ -105,9 +105,9 @@ const BASE_COUNTERS = {
 const FIXTURE = {
   // +1 company +1 contract vs pass-35: the batch-013 untied ownership parent and its
   // own large contract, seeded to pin that untied money never reaches an attribution total.
-  knownKindNodes: 20, // 4 person + 4 company + 3 contract + 4 bill + 2 law + 2 organ + 1 party
+  knownKindNodes: 21, // 4 person + 4 company + 4 contract + 4 bill + 2 law + 2 organ + 1 party
   unknownKindNodes: 1, // a node kind the canvas must refuse to draw
-  edges: 24, // incl. the pass-34 rapporteur edge + pass-35 spoke_on/proposes_amendment
+  edges: 25, // incl. pass-34 rapporteur, pass-35 spoke_on/proposes_amendment, batch-014 co-signatory
   coVotesEdges: 3, // a 96%-dense matrix — must never reach the canvas payload
 } as const;
 
@@ -197,6 +197,10 @@ async function seedFixture(): Promise<void> {
       ($14, 'company', 'Gama s.r.o.',            $6::jsonb, 30, '{}'::jsonb),
       ('kg:company:ico:444', 'company', 'Ministerstvo čehosi', '{"ico":"444"}'::jsonb, 30, '{}'::jsonb),
       ('kg:contract:9', 'contract', 'Obří státní zakázka', '{"amount": 900000000, "signedOn": "2024-06-01"}'::jsonb, 30, '{}'::jsonb),
+      -- money batch 014: Alfa is a party to this one, but the register flags somebody
+      -- else as the recipient. Deliberately outsized so any leak into a total shows.
+      ('kg:contract:10', 'contract', 'Vícestranná dohoda o spolupráci',
+        '{"amount": 800000000, "signedOn": "2023-01-16"}'::jsonb, 30, '{}'::jsonb),
       ('kg:contract:1', 'contract', 'Dodávka IT', $7::jsonb, 30, '{}'::jsonb),
       ('kg:contract:2', 'contract', 'Úklid',      $8::jsonb, 30, '{}'::jsonb),
       ($15, 'bill', 'Novela zákona o daních z příjmů', $16::jsonb, 30, '{}'::jsonb),
@@ -300,6 +304,9 @@ async function seedFixture(): Promise<void> {
      values
       ($1, 'supplies', 'kg:contract:1', 5000000, '{}'::jsonb, '{}'::jsonb),
       ($1, 'supplies', 'kg:contract:2', 1900000, '{}'::jsonb, '{}'::jsonb),
+      -- the edge STAYS (Alfa really did sign it); only its value stops counting
+      ($1, 'supplies', 'kg:contract:10', 800000000,
+        '{"direction":"non-recipient","direction_recipients":["Stavby a.s."]}'::jsonb, '{}'::jsonb),
       -- an untied ownership parent's own contracting: reachable via supplies, but no MP
       -- is tied to it, so it must never enter an attribution total.
       ('kg:company:ico:444', 'supplies', 'kg:contract:9', 900000000, '{}'::jsonb, '{}'::jsonb),
@@ -504,6 +511,25 @@ describe("loadMoneyLayer (the shared /penize read)", () => {
     expect(data.stats.contractCzkSteward).toBeLessThan(untiedCzk);
     // And it must not appear as a company in the ledger at all.
     expect(data.mps.flatMap((m) => m.ties).some((t) => t.companyId === UNTIED_PARENT)).toBe(false);
+  });
+
+  it("REGRESSION (batch 014): a contract the register attributes to SOMEONE ELSE is not reach", async () => {
+    // The defect this pins cost 11 771 399 678 CZK — 27.4 % of the rendered attributable
+    // figure — and 11.75 bn of it hung on one company and one named MP: `supplies` was
+    // read as "this money reached this firm" on multi-party records where the register
+    // names a different party as příjemce. The fixture's co-signed contract is 800M, far
+    // larger than every real figure here, so a leak cannot hide in a rounding argument.
+    const layer = (await withReadinessOff(loadMoneyLayer))!;
+    const alfa = layer.contractsByCompany.get(ALFA)!;
+    expect(alfa.czk).toBe(6_900_000); // 5M + 1.9M, NOT 806.9M
+    expect(alfa.count).toBe(2);
+    // Not deleted — recorded, so the surface can say what it left out.
+    expect(alfa.excluded).toEqual({ count: 1, czk: 800_000_000 });
+
+    const data = (await withReadinessOff(getMoneyData))!;
+    expect(data.stats.contractCzkAttributable).toBeLessThan(800_000_000);
+    expect(data.stats.money.totalCzk).toBeLessThan(800_000_000);
+    expect(data.stats.contractsExcludedNonReaching).toEqual({ count: 1, czk: 800_000_000 });
   });
 
   it("num() parses a numeric string instead of counting it as zero", () => {

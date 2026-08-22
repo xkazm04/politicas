@@ -1,0 +1,1538 @@
+{
+  "generatedFor": "money batch 014",
+  "method": "deterministic partition of supplies edges by the ingested party flags on the contract node (`props.parties`)",
+  "caveat": "the publisher's own platce/prijemce flags were not retained at ingest; every state here is decided from `parties` alone",
+  "contractsWithoutPartyList": 86,
+  "frames": {
+    "attributable": {
+      "totalCzk": 42893747930.4,
+      "byState": {
+        "flagged-recipient": {
+          "edges": 3369,
+          "czk": 11556203655.660004,
+          "czkShare": 26.94
+        },
+        "flagged-payer": {
+          "edges": 0,
+          "czk": 0,
+          "czkShare": 0
+        },
+        "co-recipient": {
+          "edges": 117,
+          "czk": 1331071109.7199998,
+          "czkShare": 3.1
+        },
+        "non-recipient": {
+          "edges": 43,
+          "czk": 11760018632.829996,
+          "czkShare": 27.42
+        },
+        "silent": {
+          "edges": 345,
+          "czk": 3470592447.4400005,
+          "czkShare": 8.09
+        },
+        "sole-party": {
+          "edges": 5293,
+          "czk": 14764481039.37,
+          "czkShare": 34.42
+        },
+        "inferred-payer": {
+          "edges": 85,
+          "czk": 11381045.379999999,
+          "czkShare": 0.03
+        }
+      }
+    },
+    "tied": {
+      "totalCzk": 505670400457.6605,
+      "byState": {
+        "flagged-recipient": {
+          "edges": 18185,
+          "czk": 237175872337.1803
+        },
+        "flagged-payer": {
+          "edges": 0,
+          "czk": 0
+        },
+        "co-recipient": {
+          "edges": 650,
+          "czk": 19877275757.13001
+        },
+        "non-recipient": {
+          "edges": 309,
+          "czk": 28254568943.71
+        },
+        "silent": {
+          "edges": 5085,
+          "czk": 63198606088.299995
+        },
+        "sole-party": {
+          "edges": 72905,
+          "czk": 156332736887.69022
+        },
+        "inferred-payer": {
+          "edges": 753,
+          "czk": 831340443.65
+        }
+      }
+    }
+  },
+  "nonRecipientCount": 43,
+  "coRecipientCount": 117,
+  "topNonRecipient": [
+    {
+      "contractId": "contract:21554117",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 4444444444.44,
+      "signedOn": "2023-01-16",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/23138253"
+    },
+    {
+      "contractId": "contract:15568007",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1465537512.39,
+      "signedOn": "2021-05-31",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "STRABAG a.s.",
+        "Dopravní stavby Brno, s.r.o."
+      ],
+      "partyCount": 6,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/17088603"
+    },
+    {
+      "contractId": "contract:21244057",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1459378351.77,
+      "signedOn": "2022-12-14",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "STRABAG a.s.",
+        "Dopravní stavby Brno, s.r.o."
+      ],
+      "partyCount": 6,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/23712357"
+    },
+    {
+      "contractId": "contract:12189984",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1449051041.68,
+      "signedOn": "2020-06-17",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Dopravní stavby Brno, s.r.o.",
+        "STRABAG a.s."
+      ],
+      "partyCount": 6,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/13400484"
+    },
+    {
+      "contractId": "contract:9303598",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1447039257.15,
+      "signedOn": "2019-08-29",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "STRABAG a.s.",
+        "Dopravní stavby Brno, s.r.o."
+      ],
+      "partyCount": 6,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/10119542"
+    },
+    {
+      "contractId": "contract:35464105",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 384592600.51,
+      "signedOn": "2026-04-26",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/37895041"
+    },
+    {
+      "contractId": "contract:33217289",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 243998114.96,
+      "signedOn": "2025-10-29",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a. s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/35419437"
+    },
+    {
+      "contractId": "contract:3618064",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 219276731.19,
+      "signedOn": "2017-11-27",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Dopravní podnik města Brna,a.s."
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/3902856"
+    },
+    {
+      "contractId": "contract:19919475",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 152426725,
+      "signedOn": "2022-08-18",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "INVIN s.r.o.",
+        "INFRAM a.s.",
+        "RUBY Project Management s.r.o.",
+        "Contract Management, a.s."
+      ],
+      "partyCount": 7,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/21433043"
+    },
+    {
+      "contractId": "contract:33767301",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 126403954.99,
+      "signedOn": "2025-12-09",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/36286905"
+    },
+    {
+      "contractId": "contract:25475243",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 77692127.13,
+      "signedOn": "2024-01-16",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/27372363"
+    },
+    {
+      "contractId": "contract:32147525",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 56644021.46,
+      "signedOn": "2025-07-31",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a. s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/34297521"
+    },
+    {
+      "contractId": "contract:15564107",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 55569602.11,
+      "signedOn": "2021-05-17",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "AP INVESTING, s.r.o.",
+        "Brněnské komunikace a.s."
+      ],
+      "partyCount": 5,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/16755967"
+    },
+    {
+      "contractId": "contract:30218228",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 49489016.85,
+      "signedOn": "2025-02-19",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a. s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/32273360"
+    },
+    {
+      "contractId": "contract:9203351",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 43799640.5,
+      "signedOn": "2019-08-19",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "AP INVESTING, s.r.o.",
+        "Brněnské komunikace a.s."
+      ],
+      "partyCount": 5,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/9912083"
+    },
+    {
+      "contractId": "contract:28079696",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 22733837.52,
+      "signedOn": "2024-08-30",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/30035320"
+    },
+    {
+      "contractId": "contract:23964543",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 18075993.99,
+      "signedOn": "2023-09-06",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/25755799"
+    },
+    {
+      "contractId": "contract:24273851",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 18075993.99,
+      "signedOn": "2023-10-05",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "ARENA BRNO, a.s."
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/25991875"
+    },
+    {
+      "contractId": "contract:29221020",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 5339305,
+      "signedOn": "2024-11-30",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Generali Česká pojišťovna a.s."
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/31225948"
+    },
+    {
+      "contractId": "contract:24803811",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 5330237,
+      "signedOn": "2023-11-20",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Generali Česká pojišťovna a.s."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/26549203"
+    },
+    {
+      "contractId": "contract:8115347",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 5143142.22,
+      "signedOn": "2019-03-28",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/9303419"
+    },
+    {
+      "contractId": "contract:19618471",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1336130.4,
+      "signedOn": "2022-06-27",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Učebnice Vaníček s.r.o."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/21086987"
+    },
+    {
+      "contractId": "contract:24668047",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 1320000,
+      "signedOn": "2023-11-06",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Ernst & Young, s.r.o."
+      ],
+      "partyCount": 9,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/26405727"
+    },
+    {
+      "contractId": "contract:15751655",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1266664.3,
+      "signedOn": "2021-06-11",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "BMS creative s.r.o."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/16955503"
+    },
+    {
+      "contractId": "contract:27686604",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1180446.96,
+      "signedOn": "2024-07-17",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "BMS creative s.r.o."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/29595740"
+    },
+    {
+      "contractId": "contract:23424415",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 1064532,
+      "signedOn": "2023-07-12",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Učebnice Vaníček s.r.o."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/25099075"
+    },
+    {
+      "contractId": "contract:31674601",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 889458.9,
+      "signedOn": "2025-06-23",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "CZECH IMAGE GROUP s.r.o."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/33798769"
+    },
+    {
+      "contractId": "contract:36388072",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 825011.88,
+      "signedOn": "2026-07-10",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "SMERO, spol. s r.o."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/38721392"
+    },
+    {
+      "contractId": "contract:14630371",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 602170,
+      "signedOn": "2020-12-07",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "ADELARDIS a.s."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/15713475"
+    },
+    {
+      "contractId": "contract:27623980",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 549262.12,
+      "signedOn": "2024-07-15",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Správa železnic, státní organizace",
+        "Správa železniční dopravní cesty, státní organizace"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/29529700"
+    },
+    {
+      "contractId": "contract:7483995",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 549262.12,
+      "signedOn": "2019-01-22",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Správa železniční dopravní cesty, státní organizace"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/8080231"
+    },
+    {
+      "contractId": "contract:6480831",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 236437.5,
+      "signedOn": "2018-10-16",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Ředitelství silnic Zlínského kraje,příspěvková organizace příspěvková organizace"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Robert Stržínek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/6996755"
+    },
+    {
+      "contractId": "contract:8947419",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 115600,
+      "signedOn": "2019-07-16",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Ředitelství silnic Zlínského kraje,příspěvková organizace příspěvková organizace"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Robert Stržínek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/9640327"
+    },
+    {
+      "contractId": "contract:7705335",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 38254.8,
+      "signedOn": "2019-01-22",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Správa železniční dopravní cesty, státní organizace"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/8318355"
+    },
+    {
+      "contractId": "contract:27586304",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 3750,
+      "signedOn": "2024-07-15",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Ředitelství silnic Zlínského kraje,příspěvková organizace"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Robert Stržínek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/29490316"
+    },
+    {
+      "contractId": "contract:26235991",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 0,
+      "signedOn": "2024-03-19",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/28092835"
+    },
+    {
+      "contractId": "contract:29157696",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 0,
+      "signedOn": "2024-11-26",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/31159804"
+    },
+    {
+      "contractId": "contract:30094776",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 0,
+      "signedOn": "2025-02-14",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Správa železnic, státní organizace"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/32828728"
+    },
+    {
+      "contractId": "contract:32053841",
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "amount": 0,
+      "signedOn": "2025-07-14",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Severoslovenské vodárne a kanalizácie a. s."
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Robert Stržínek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/34195277"
+    },
+    {
+      "contractId": "contract:33769185",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 0,
+      "signedOn": "2025-12-09",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "HOCHTIEF CZ a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/36276341"
+    },
+    {
+      "contractId": "contract:34643025",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 0,
+      "signedOn": "2026-02-17",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Státní fond podpory investic"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/36904417"
+    },
+    {
+      "contractId": "contract:4787640",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 0,
+      "signedOn": "2017-12-29",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Česká pojišťovna a.s.",
+        "UNIQA pojišťovna, a.s.",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group"
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/5163048"
+    },
+    {
+      "contractId": "contract:7478039",
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "amount": 0,
+      "signedOn": "2019-01-22",
+      "state": "non-recipient",
+      "flaggedRecipients": [
+        "Správa železnic, státní organizace"
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/32826084"
+    }
+  ],
+  "topCoRecipient": [
+    {
+      "contractId": "contract:21879021",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 663779071.45,
+      "signedOn": "2023-02-15",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/23477805"
+    },
+    {
+      "contractId": "contract:5279175",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 185091673.77,
+      "signedOn": "2018-05-15",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Statutární město Brno",
+        "Dopravní podnik města Brna, a.s."
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/5684555"
+    },
+    {
+      "contractId": "contract:9322650",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 181726942.87,
+      "signedOn": "2019-08-29",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Dopravní stavby Brno, s.r.o.",
+        "STRABAG a.s.",
+        "Dopravní podnik města Brna, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 6,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/10039330"
+    },
+    {
+      "contractId": "contract:21338261",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 86716392,
+      "signedOn": "2022-11-24",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Český hydrometeorologický ústav",
+        "Výzkumný ústav vodohospodářský T. G. Masaryka veřejná výzkumná instituce",
+        "Česká geologická služba",
+        "Výzkumný ústav Silva Taroucy pro krajinu a okrasné zahradnictví, v. v. i.",
+        "Správa Národního parku Šumava",
+        "Správa jeskyní České republiky",
+        "Státní fond životního prostředí České republiky"
+      ],
+      "partyCount": 8,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/22900581"
+    },
+    {
+      "contractId": "contract:34124417",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 42777101.06,
+      "signedOn": "2025-12-17",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/36362357"
+    },
+    {
+      "contractId": "contract:25542427",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 20134888.54,
+      "signedOn": "2024-01-15",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/27350207"
+    },
+    {
+      "contractId": "contract:33660945",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 17432496.98,
+      "signedOn": "2025-11-26",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/35876317"
+    },
+    {
+      "contractId": "contract:27419092",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 16502698,
+      "signedOn": "2024-06-26",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "ČEPS, a.s.,",
+        "Siemens, s.r.o.,"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/29314216"
+    },
+    {
+      "contractId": "contract:20405793",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 16395680,
+      "signedOn": "2022-09-29",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Allianz pojišťovna, a.s."
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/21916889"
+    },
+    {
+      "contractId": "contract:2552298",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 15377862,
+      "signedOn": "2015-10-29",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/2747606"
+    },
+    {
+      "contractId": "contract:3000034",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 15332737,
+      "signedOn": "2015-03-31",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/3232046"
+    },
+    {
+      "contractId": "contract:2549214",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 15220543,
+      "signedOn": "2014-01-30",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/3232050"
+    },
+    {
+      "contractId": "contract:2497194",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 15205960,
+      "signedOn": "2012-08-28",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/2689102"
+    },
+    {
+      "contractId": "contract:2526470",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 15170203,
+      "signedOn": "2013-04-24",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/2720126"
+    },
+    {
+      "contractId": "contract:16107631",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 13936665.6,
+      "signedOn": "2021-07-29",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "ČKD Blansko Engineering, a.s.",
+        "SIGMA Výzkumný a vývojový ústav,",
+        "Provyko s.r.o."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/17332951"
+    },
+    {
+      "contractId": "contract:2552306",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 13673535,
+      "signedOn": "2016-04-26",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/2747614"
+    },
+    {
+      "contractId": "contract:27894648",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 12250671.09,
+      "signedOn": "2024-08-14",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/29815848"
+    },
+    {
+      "contractId": "contract:30113760",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 11826492.86,
+      "signedOn": "2025-02-12",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/32162464"
+    },
+    {
+      "contractId": "contract:5353479",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 10986117,
+      "signedOn": "2018-04-23",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s.",
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group"
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/5763299"
+    },
+    {
+      "contractId": "contract:2544278",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 10512213,
+      "signedOn": "2017-07-10",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Kooperativa pojišťovna, a.s., Vienna Insurance Group",
+        "Česká podnikatelská pojišťovna, a.s., Vienna Insurance Group",
+        "Česká pojišťovna a.s."
+      ],
+      "partyCount": 4,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/2738842"
+    },
+    {
+      "contractId": "contract:32593665",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 8036138.78,
+      "signedOn": "2025-09-02",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/34761325"
+    },
+    {
+      "contractId": "contract:27522732",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 7888681.9,
+      "signedOn": "2024-06-19",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/29422604"
+    },
+    {
+      "contractId": "contract:28375880",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 7413169.33,
+      "signedOn": "2024-09-24",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/30320768"
+    },
+    {
+      "contractId": "contract:33623373",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 5971718.31,
+      "signedOn": "2025-11-24",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/35836937"
+    },
+    {
+      "contractId": "contract:33739289",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 5567465,
+      "signedOn": "2025-12-08",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Generali Česká pojišťovna a.s.",
+        "Allianz pojišťovna,  a.s."
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/35958333"
+    },
+    {
+      "contractId": "contract:4920196",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 5411828.3,
+      "signedOn": "2018-03-05",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "AP INVESTING, s.r.o.",
+        "Brněnské komunikace a.s.",
+        "Dopravní podnik města Brna, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 5,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/5304948"
+    },
+    {
+      "contractId": "contract:9208419",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 5411828.3,
+      "signedOn": "2019-08-19",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "AP INVESTING, s.r.o.",
+        "Statutární město Brno",
+        "Dopravní podnik města Brna, a.s.",
+        "Brněnské komunikace a.s."
+      ],
+      "partyCount": 5,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/9917419"
+    },
+    {
+      "contractId": "contract:20720493",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 5266047,
+      "signedOn": "2022-11-06",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Generali Česká pojišťovna a.s."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/22280537"
+    },
+    {
+      "contractId": "contract:17017119",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 5071147,
+      "signedOn": "2021-11-08",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Generali Česká pojišťovna a.s."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/18318975"
+    },
+    {
+      "contractId": "contract:13466336",
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "amount": 4619258,
+      "signedOn": "2020-11-10",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "Generali Česká pojišťovna a.s."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Karel Haas"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/14437556"
+    },
+    {
+      "contractId": "contract:27045500",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 3777774.89,
+      "signedOn": "2024-05-27",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/28926164"
+    },
+    {
+      "contractId": "contract:24515015",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 3524259.31,
+      "signedOn": "2023-10-19",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/26245427"
+    },
+    {
+      "contractId": "contract:31981949",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 3415071.98,
+      "signedOn": "2025-07-01",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/34120033"
+    },
+    {
+      "contractId": "contract:25863583",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 3390479.57,
+      "signedOn": "2024-02-15",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/27689787"
+    },
+    {
+      "contractId": "contract:33610677",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 3135817.77,
+      "signedOn": "2025-11-24",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/35823773"
+    },
+    {
+      "contractId": "contract:30182072",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 3124303.53,
+      "signedOn": "2025-02-20",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/32234652"
+    },
+    {
+      "contractId": "contract:28293284",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 3074113.67,
+      "signedOn": "2024-08-27",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/30234120"
+    },
+    {
+      "contractId": "contract:9421666",
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "amount": 2603652.59,
+      "signedOn": "2019-08-19",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "GORDIC spol. s r.o."
+      ],
+      "partyCount": 2,
+      "persons": [
+        "Marek Ženíšek"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/10144022"
+    },
+    {
+      "contractId": "contract:27882044",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 2350183.93,
+      "signedOn": "2024-08-14",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/29802560"
+    },
+    {
+      "contractId": "contract:31560444",
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "amount": 2324553.11,
+      "signedOn": "2025-05-29",
+      "state": "co-recipient",
+      "flaggedRecipients": [
+        "IMOS Brno, a.s.",
+        "Statutární město Brno"
+      ],
+      "partyCount": 3,
+      "persons": [
+        "Petr Hladík"
+      ],
+      "sourceUrl": "https://smlouvy.gov.cz/smlouva/33679164"
+    }
+  ],
+  "perCompany": [
+    {
+      "company": "Teplárny Brno, a.s.",
+      "ico": "46347534",
+      "nonRecipientEdges": 28,
+      "nonRecipientCzk": 11745934354.289995,
+      "coRecipientCzk": 1068900085.6899999,
+      "totalCzk": 23570593908.02999
+    },
+    {
+      "company": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "ico": "45534306",
+      "nonRecipientEdges": 3,
+      "nonRecipientCzk": 10669542,
+      "coRecipientCzk": 154517623,
+      "totalCzk": 5271341132.799999
+    },
+    {
+      "company": "Plzeňská teplárenská, a.s.",
+      "ico": "49790480",
+      "nonRecipientEdges": 7,
+      "nonRecipientCzk": 1738949.0400000003,
+      "coRecipientCzk": 0,
+      "totalCzk": 952970048.36
+    },
+    {
+      "company": "Pražská energetika, a.s.",
+      "ico": "60193913",
+      "nonRecipientEdges": 1,
+      "nonRecipientCzk": 1320000,
+      "coRecipientCzk": 107554401.03,
+      "totalCzk": 10948627305.480005
+    },
+    {
+      "company": "Vodovody a kanalizace Vsetín, a.s.",
+      "ico": "47674652",
+      "nonRecipientEdges": 4,
+      "nonRecipientCzk": 355787.5,
+      "coRecipientCzk": 10000,
+      "totalCzk": 355121574.6700001
+    },
+    {
+      "company": "RERA a.s.",
+      "ico": "25187937",
+      "nonRecipientEdges": 0,
+      "nonRecipientCzk": 0,
+      "coRecipientCzk": 89000,
+      "totalCzk": 68334414.43
+    }
+  ]
+}

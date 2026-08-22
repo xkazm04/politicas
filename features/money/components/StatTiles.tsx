@@ -20,6 +20,13 @@ export interface StatTileItem {
   source: string;
   /** druhá, kvalifikující věta (dnes jen vysvětlení dolní meze) */
   note?: string | null;
+  /**
+   * Co do čísla NEPATŘÍ — smlouvy, které rejstřík připsal někomu jinému
+   * (money batch 014). Vlastní pole, ne `note`: `note` číslo kvalifikuje
+   * („je to dolní mez"), tohle uvádí odečtenou částku, a splynout smějí
+   * nanejvýš vizuálně, ne v datech.
+   */
+  excluded?: string | null;
 }
 
 export default function StatTiles({ items }: { items: readonly StatTileItem[] }) {
@@ -38,6 +45,9 @@ export default function StatTiles({ items }: { items: readonly StatTileItem[] })
           <p className="mt-3 text-4xl font-black tabular-nums tracking-tight">{s.value}</p>
           <p className="mt-2 text-sm text-steel">{s.sub}</p>
           {s.note ? <p className="mt-2 border-l-2 border-ochre pl-2 text-sm text-steel">{s.note}</p> : null}
+          {s.excluded ? (
+            <p className="mt-2 border-l-2 border-steel pl-2 text-sm text-steel">{s.excluded}</p>
+          ) : null}
           <SourceNote className="mt-3 !text-[10px]">
             {tcom("sourcePrefix")} {s.source}
           </SourceNote>

@@ -96,3 +96,20 @@ noticing outages. `import "server-only"` joined it in the same pass, retiring
 the header's false „`server-only` v projektu není" (it is in `package.json`
 and `features/admin/getTripwireData.ts` imports it) — the boundary now fails
 at build time, not at runtime.
+
+
+## 2026-08-22 · money batch 014 — the money trail was summing contracts the register gave to someone else
+
+`getTrails`' „Peníze kolem poslanců" built `companyMoney` by adding up **every** `supplies`
+weight, so a company that merely co-signed a multi-party contract carried its full value
+into the trail — the same defect money batch 014 found in `/penize`, reached independently
+here. In the test fixture it turned 8 900 000 CZK into 808 900 000.
+
+The fix is the import, not a second rule: `moneyReachesCompany` from
+`features/money/reachableMoney.ts` (a plain module, no server boundary crossed) now gates
+the sum, so `/graf` and `/penize` cannot print two different numbers for one company.
+
+Worth recording that batch 013 audited this exact function — for the *untied ownership
+parent* leak — and correctly cleared it. Auditing a function for one leak says nothing
+about another; what caught this one was an integration fixture carrying a deliberately
+outsized co-signed contract, not a second reading of the file.

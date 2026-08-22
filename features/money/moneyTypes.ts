@@ -391,6 +391,29 @@ export interface MoneyStats {
   contractCzkAttributable: number;
   /** `money.steward.contractCzk` — same. NEVER read as MP enrichment. */
   contractCzkSteward: number;
+  /**
+   * POPULACE: atribuovatelné firmy (owner-operator + manager) — táž jako u
+   * `contractCzkAttributable`, které tahle věta kvalifikuje.
+   *
+   * Co je z `money` VYNECHÁNO, protože to rejstřík sám nepřipsal této firmě —
+   * jiná smluvní strana je označena jako příjemce, nebo je firma plátce
+   * (money batch 014, `moneyReachesCompany`).
+   *
+   * Plocha to uvádí: součet, který se opravou zmenšil o 11,77 mld. Kč, musí
+   * pojmenovat, co z něj vypadlo. Bez toho je poctivější číslo od tiché ztráty
+   * dat k nerozeznání — a přesně tenhle rozdíl je jádrem značky.
+   */
+  contractsExcludedNonReaching: { count: number; czk: number };
+  /**
+   * POPULACE: atribuovatelné firmy (owner-operator + manager) — táž jako u
+   * `contractCzkAttributable`, které tahle věta kvalifikuje.
+   *
+   * Co v `money` ZŮSTÁVÁ, ale celou částkou u víc firem najednou: rejstřík
+   * označuje jako příjemce několik stran a nikde neuvádí podíly. Známé
+   * nadhodnocení uvnitř opraveného čísla — plocha ho přiznává, protože
+   * odečíst nelze to, co registr nerozdělil.
+   */
+  contractsSharedRecipients: { count: number; czk: number };
   /** Every `linked_to` edge the layer READ — including ones dropped for an unresolved
    *  endpoint. It is therefore NOT the population of the three counts below, and the
    *  review banner must not mix them (see `reviewSummary.ts`). */

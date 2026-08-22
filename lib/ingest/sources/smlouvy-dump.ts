@@ -159,28 +159,56 @@ export function parseDumpRecord(zaznam: string): DumpRecord | null {
   };
 }
 
+/** Which side of a contract one IČO is on. */
+export type PartyDirection = "recipient" | "payer" | "non-recipient" | "unknown";
+
 /**
- * Which side of the contract a given IČO is on.
+ * Which side of the contract a given IČO is on, from a list of parties.
  *
  * `recipient` = the register explicitly flags this party as příjemce (or flags the OTHER
  * side as plátce, which entails it for a two-party contract). `payer` is the mirror.
- * Everything else is `unknown` — the flags are optional and roughly half of records omit
- * them, so guessing from "the publisher is a public body" would be exactly the inference
- * batch 011 caught running the wrong way.
+ *
+ * `non-recipient` (money batch 014) = the register named a recipient and it is SOMEBODY
+ * ELSE, while this party carries no flag at all. Until batch 014 that answered `unknown`,
+ * because the "only the other side is flagged" shortcut was guarded on exactly two sides
+ * — so on a four-party record it declined to answer. But `unknown` was then carrying two
+ * different epistemic states: *the register said nothing* and *the register spoke, and it
+ * did not name us*. The second is a negative fact the register ASSERTS, and it is the
+ * whole difference between a supplier and a co-signatory to a cooperation agreement.
+ *
+ * It cost 11 771 399 678 CZK — 27.44 % of the attributable headline `/penize` renders —
+ * of which 11.75 bn sat on one company, Teplárny Brno a.s., which appears on the Brno
+ * multifunctional-hall contract (4 444 444 444 CZK) alongside HOCHTIEF CZ a.s. flagged
+ * `prijemce`, and on four tram-Plotní agreements where IMOS Brno, STRABAG and Dopravní
+ * stavby Brno are the flagged recipients. The graph read every koruna of it as money
+ * reaching a company an MP chaired.
+ *
+ * `unknown` remains for records where NO party carries a flag — roughly half of them —
+ * because guessing from "the publisher is a public body" is exactly the inference batch
+ * 011 caught running the wrong way.
  */
-export function directionFor(ico: string, rec: DumpRecord): "recipient" | "payer" | "unknown" {
-  const sides = [rec.subjekt, ...rec.smluvniStrany].filter((p): p is DumpParty => p !== null);
+export function directionFromParties(ico: string, sides: readonly DumpParty[]): PartyDirection {
   const mine = sides.filter((p) => p.ico === ico);
   if (mine.length === 0) return "unknown";
   if (mine.some((p) => p.prijemce)) return "recipient";
   if (mine.some((p) => p.platce)) return "payer";
-  // Two-party contract where only the OTHER side is flagged.
   const others = sides.filter((p) => p.ico !== ico);
+  // Two-party contract where only the OTHER side is flagged.
   if (sides.length === 2 && others.length === 1) {
     if (others[0].platce) return "recipient";
     if (others[0].prijemce) return "payer";
   }
+  // The register named a recipient, and we are not it.
+  if (others.some((p) => p.prijemce)) return "non-recipient";
   return "unknown";
+}
+
+/** `directionFromParties` over a whole dump record — publisher plus contracting sides. */
+export function directionFor(ico: string, rec: DumpRecord): PartyDirection {
+  return directionFromParties(
+    ico,
+    [rec.subjekt, ...rec.smluvniStrany].filter((p): p is DumpParty => p !== null),
+  );
 }
 
 /** Split a dump body into `<zaznam>` blocks. Exposed so a streaming harvester can feed

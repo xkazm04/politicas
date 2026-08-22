@@ -24,6 +24,7 @@ import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 import { toProvenance } from "@/features/shared/provenance/receipt";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
+import { moneyReachesCompany } from "./reachableMoney";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 // Daňová základna smluvní částky. NULOVÉ NOVÉ ČTENÍ: obě čtení hran níž dělají
 // `select * from kg_edge`, takže `props.amountBasis` je u ruky už dnes — fold ho
@@ -76,6 +77,28 @@ export interface CompanyContracts {
   count: number;
   czk: number;
   amounts: number[]; // for near-threshold detection
+  /**
+   * Smlouvy, u kterých REJSTŘÍK sám říká, že peníze k této firmě nedošly — a proto
+   * nejsou v `czk` ani v `count` (money batch 014).
+   *
+   * Dva stavy, oba čtené z příznaků smluvních stran, ne odhadnuté:
+   *  • `non-recipient` — jiná strana je označena jako příjemce, tahle ne. Firma je
+   *    spolupodepsaný účastník, ne dodavatel.
+   *  • `payer` — protistrana je příjemce, tahle firma platí. Peníze odcházejí.
+   *
+   * VOLITELNÉ ze stejného důvodu jako `basis`: pět volajících drží literál
+   * `{count:0, czk:0, amounts:[]}` jako náhradu za firmu, kterou čtení nevrátilo.
+   * Čte se přes `excludedOf`, nikdy přímo.
+   */
+  excluded?: { count: number; czk: number };
+  /**
+   * Smlouvy, které k firmě DOŠLY, ale rejstřík u nich označuje jako příjemce víc
+   * firem najednou a nikde neuvádí, jak se částka dělí. Jsou v `czk` a v `count`
+   * celé — protože vyloučit je by podhodnotilo stejně, jako je počítat celé
+   * nadhodnocuje — a plocha to o nich řekne. Mlčení bylo původní vada;
+   * druhé mlčení není oprava. Čte se přes `sharedOf`.
+   */
+  sharedRecipients?: { count: number; czk: number };
   /**
    * Kolik smluv v `czk` stojí na které daňové základně. VOLITELNÉ, protože dva
    * volající drží literál `{count:0, czk:0, amounts:[]}` jako náhradu za firmu,
@@ -303,14 +326,47 @@ export function loadClubs(store: Store): Promise<ClubRead> {
 let suppliesFold: Promise<Map<string, CompanyContracts>> | null = null;
 let suppliesFoldAt = 0;
 
+/** `CompanyContracts.excluded` for the callers that hold a bare literal. */
+export function excludedOf(c: Pick<CompanyContracts, "excluded">): { count: number; czk: number } {
+  return c.excluded ?? { count: 0, czk: 0 };
+}
+
+/** `CompanyContracts.sharedRecipients` — same reason as `excludedOf`. */
+export function sharedOf(c: Pick<CompanyContracts, "sharedRecipients">): { count: number; czk: number } {
+  return c.sharedRecipients ?? { count: 0, czk: 0 };
+}
+
+/** Je tahle hrana smlouva s VÍC označenými příjemci? (prop zapsaný batchem 014) */
+function isShared(props: Record<string, unknown> | null | undefined): boolean {
+  return props?.recipients_shared === true;
+}
+
 function foldSupplies(edges: readonly KgEdgeRow[]): Map<string, CompanyContracts> {
   const byCompany = new Map<string, CompanyContracts>();
   for (const e of edges) {
-    const cur = byCompany.get(e.src) ?? { count: 0, czk: 0, amounts: [], basis: emptyBasisCounts() };
+    const cur = byCompany.get(e.src) ?? {
+      count: 0,
+      czk: 0,
+      amounts: [],
+      basis: emptyBasisCounts(),
+      excluded: { count: 0, czk: 0 },
+    };
     const amount = num(e.weight);
+    if (!moneyReachesCompany(e.props)) {
+      const ex = (cur.excluded ??= { count: 0, czk: 0 });
+      ex.count += 1;
+      ex.czk += amount;
+      byCompany.set(e.src, cur);
+      continue;
+    }
     cur.count += 1;
     cur.czk += amount;
     if (amount > 0) cur.amounts.push(amount);
+    if (isShared(e.props)) {
+      const sh = (cur.sharedRecipients ??= { count: 0, czk: 0 });
+      sh.count += 1;
+      sh.czk += amount;
+    }
     // ŘÁDKY, NE KORUNY. Sčítá se počet smluv na dané základně; `czk` výš se tímhle
     // nedotkne ani o haléř (hlídá `amountBasis.test.ts`).
     countBasis(cur.basis ?? (cur.basis = emptyBasisCounts()), readAmountBasis(e.props));
@@ -430,17 +486,37 @@ async function readCompanySupplies(store: Store, companyId: string): Promise<Com
   const truncated = supplied.edges.length >= KG_READ_CAP;
   const edges = supplied.edges.filter((e) => e.src === companyId).sort(byListOrder);
   const nodeById = new Map(supplied.nodes.map((n) => [n.id, n]));
-  const contracts: CompanyContracts = { count: 0, czk: 0, amounts: [], basis: emptyBasisCounts() };
+  const contracts: CompanyContracts = {
+    count: 0,
+    czk: 0,
+    amounts: [],
+    basis: emptyBasisCounts(),
+    excluded: { count: 0, czk: 0 },
+  };
   const lines: ContractLine[] = [];
   for (const e of edges) {
     const ct = nodeById.get(e.dst);
     const amount = num(e.weight);
+    // TÁŽ podmínka jako ve `foldSupplies` — importovaný predikát, ne druhá kopie
+    // pravidla. Dvě kopie by se rozešly přesně tam, kde na tom záleží: firemní
+    // řez a přehled by tiskly dvě různá čísla pro tutéž firmu.
+    if (!moneyReachesCompany(e.props)) {
+      const ex = (contracts.excluded ??= { count: 0, czk: 0 });
+      ex.count += 1;
+      ex.czk += amount;
+      continue;
+    }
     // Základna se čte z HRANY, ne z uzlu smlouvy: sklizeň ji zapisuje na obě
     // strany, ale hrana je to, co nese `weight`, tedy tu částku, která se sčítá.
     const amountBasis = readAmountBasis(e.props);
     contracts.count += 1;
     contracts.czk += amount;
     if (amount > 0) contracts.amounts.push(amount);
+    if (isShared(e.props)) {
+      const sh = (contracts.sharedRecipients ??= { count: 0, czk: 0 });
+      sh.count += 1;
+      sh.czk += amount;
+    }
     countBasis(contracts.basis!, amountBasis);
     if (lines.length < CONTRACT_LINES_PER_COMPANY) {
       lines.push({

@@ -27,8 +27,8 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
-import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "./moneyLoader";
-import { bucketReachCzk, reachableMoney, tieReach, type ReachableTie } from "./reachableMoney";
+import { excludedOf, loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId, sharedOf } from "./moneyLoader";
+import { bucketReachCzk, isAttributable, reachableMoney, tieReach, type ReachableTie } from "./reachableMoney";
 import { basisComposition, emptyBasisCounts, mergeBasisCounts } from "./amountBasis";
 import {
   GRAPH_COMPANY_CAP,
@@ -115,9 +115,36 @@ export async function getMoneyData(): Promise<MoneyData | null> {
     // `contractsByCompany` schválně neprocházíme celé: nese i firmy bez vazby
     // (viz jeho vlastní hlavička), o kterých kniha vazeb netvrdí nic.
     let contractBasisCounts = emptyBasisCounts();
+    // Co rejstřík sám vyloučil z dosahu (money batch 014): smlouvy, u kterých jako
+    // příjemce označil někoho jiného, nebo kde je tahle firma plátce. Nejsou v žádném
+    // součtu výš — a právě proto se počítají zvlášť: číslo, které se o 11,77 mld. Kč
+    // změnilo, musí umět říct, o co přišlo, jinak je oprava k nerozeznání od chyby.
+    // TÁŽ populace a TÁŽ de-duplikace jako u složení základen.
+    let excludedCount = 0;
+    let excludedCzk = 0;
+    // A NAOPAK: smlouvy, které v součtu ZŮSTÁVAJÍ, ale celou částkou u víc firem
+    // najednou. Známé nadhodnocení uvnitř čísla, které se právě opravilo — a proto
+    // se pojmenuje, ne odečte: rejstřík neuvádí, jak se dělí.
+    let sharedCount = 0;
+    let sharedCzk = 0;
+    // POPULACE OBOU VÝHRAD JE `attributableCompanies`, ne všechny vázané firmy.
+    // Obě věty stojí pod dlaždicí, která tiskne ATRIBUOVATELNÝ součet — kdyby se
+    // počítaly přes celou knihu vazeb, uvedly by vedle 31,12 mld. Kč čísla za 29,09
+    // mld. a 19,88 mld., protože stewardské instituce mají spolupodpisů nejvíc.
+    // Výhrada v jiné populaci než údaj, který kvalifikuje, je horší než žádná.
+    const attributableCompanies = new Set(
+      reachable.filter((t) => isAttributable(t.tieClass)).map((t) => t.companyId),
+    );
     for (const companyId of distinctCompanies) {
       const c = contractsByCompany.get(companyId);
       if (c?.basis) contractBasisCounts = mergeBasisCounts(contractBasisCounts, c.basis);
+      if (!attributableCompanies.has(companyId)) continue;
+      const ex = excludedOf(c ?? {});
+      excludedCount += ex.count;
+      excludedCzk += ex.czk;
+      const sh = sharedOf(c ?? {});
+      sharedCount += sh.count;
+      sharedCzk += sh.czk;
     }
     const contractBasis = basisComposition(contractBasisCounts);
 
@@ -220,6 +247,8 @@ export async function getMoneyData(): Promise<MoneyData | null> {
         // definition — never recompute either of them anywhere.
         contractCzkAttributable: money.attributable.contractCzk,
         contractCzkSteward: money.steward.contractCzk,
+        contractsExcludedNonReaching: { count: excludedCount, czk: excludedCzk },
+        contractsSharedRecipients: { count: sharedCount, czk: sharedCzk },
         contractCoverage: money.coverage,
         contractBasis,
         totalTies: linked.length,
