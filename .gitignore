@@ -62,3 +62,6 @@ app-cost.json
 
 .smlouvy-dump-cache/
 docs/data-analysis/case-money/contracts-harvest.jsonl
+
+# Claude Code git worktrees (nested checkouts, never repo content)
+.claude/worktrees/
