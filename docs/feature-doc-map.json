@@ -14,12 +14,11 @@
       "doc": "CLAUDE.md",
       "sourceGlobs": [
         "app/**",
-        "features/**",
-        "lib/**",
         "eslint-rules/**",
         "package.json",
         "context-map.json"
-      ]
+      ],
+      "_note": "Route DETAIL lives in docs/routes/<route>.md (one file per surface, append-only). CLAUDE.md carries only the route TABLE, the conventions and the gates - it is loaded into every session, so a per-surface finding belongs in the route file, not here."
     },
     {
       "doc": "AGENTS.md",
@@ -173,6 +172,124 @@
         "lib/analysis/**",
         "features/votetrack/**",
         "app/hlasovani/page.tsx"
+      ]
+    },
+    {
+      "doc": "docs/routes/landing.md",
+      "sourceGlobs": [
+        "features/landing/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/dashboard.md",
+      "sourceGlobs": [
+        "features/dashboard/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/poslanec.md",
+      "sourceGlobs": [
+        "features/profile/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/zebricek.md",
+      "sourceGlobs": [
+        "features/civicscore/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/metodika.md",
+      "sourceGlobs": [
+        "features/civicscore/MetodikaPage.tsx",
+        "lib/analysis/contribution.ts"
+      ]
+    },
+    {
+      "doc": "docs/routes/hlasovani.md",
+      "sourceGlobs": [
+        "features/votetrack/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/penize.md",
+      "sourceGlobs": [
+        "features/money/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/rozpocty.md",
+      "sourceGlobs": [
+        "features/budget/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/zakony.md",
+      "sourceGlobs": [
+        "features/lawwatch/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/denik.md",
+      "sourceGlobs": [
+        "features/denik/**",
+        "features/dukazy/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/schranka.md",
+      "sourceGlobs": [
+        "features/schranka/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/overeni.md",
+      "sourceGlobs": [
+        "features/overeni/**",
+        "features/shared/provenance/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/data.md",
+      "sourceGlobs": [
+        "features/data-releases/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/atlas.md",
+      "sourceGlobs": [
+        "features/atlas/**"
+      ]
+    },
+    {
+      "doc": "docs/routes/graf.md",
+      "sourceGlobs": [
+        "features/graph/**",
+        "lib/kg/sourceLinks.ts"
+      ]
+    },
+    {
+      "doc": "docs/routes/graf-permalink.md",
+      "sourceGlobs": [
+        "features/graph/PermalinkPage.tsx",
+        "features/graph/permalinkCardModel.ts"
+      ]
+    },
+    {
+      "doc": "docs/routes/app-shell.md",
+      "sourceGlobs": [
+        "features/shell/**",
+        "app/layout.tsx",
+        "app/not-found.tsx",
+        "app/robots.ts",
+        "app/sitemap.ts"
+      ]
+    },
+    {
+      "doc": "docs/routes/graph-writers.md",
+      "sourceGlobs": [
+        "scripts/data-analysis/kg-*.ts",
+        "lib/analysis/kg.ts"
       ]
     }
   ]

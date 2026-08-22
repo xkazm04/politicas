@@ -45,8 +45,12 @@ only in `app/globals.css` tokens, and **every rendered number cites its source**
 
 ## Deeper sources
 
-- **`CLAUDE.md`** — conventions, the live route map, quality gates, definition
+- **`CLAUDE.md`** — conventions, the route table, quality gates, definition
   of done, known gotchas. Read this before touching code.
+- **`docs/routes/<route>.md`** — one file per surface: the full dated record of
+  what that route derives, what it refuses to derive, and why. Read the file for
+  the route you are about to touch, and append new findings there rather than to
+  CLAUDE.md.
 - **`docs/DESIGN.md`** — the design-system source of truth (Konstrukt). Read
   before any UI work.
 - **`context-map.json`** (repo root) — every file mapped to a context and
