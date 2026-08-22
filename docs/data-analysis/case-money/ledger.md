@@ -1030,16 +1030,19 @@ to ask it.
   axis reached one of them, and the headline silently did not move until that was found.
 - Write: **pass 58** (56 company nodes, `public_mandate*` + ARES/VR citations).
   **No `review_state` touched — 211 ties remain `pending_review`.**
-- **OPEN INCIDENT (batch not closed):** after pass 58 was written and read back
+- **INCIDENT (CLOSED, no data lost):** after pass 58 was written and read back
   successfully, `./.pglite` began aborting at open. PGlite is healthy (the pass-58 backup
   reads fine), tests are isolated (`mkdtemp`), memory is fine — and `mv .pglite` fails with
   Permission denied, which per [[held-store-mimics-corruption]] IS the holder check and may
   not be worked around. The holder is an ORPHAN: three processes running
   `scripts/tmp-inventory.ts` since 13:01, a temp script that no longer exists in the tree.
   Suspected trigger: `npm run build` prerendering from several workers against the
-  single-connection store. Recovery is lossless (restore the pass-58 backup, replay the
-  committed payload) but needs the orphan stopped — a destructive action on a process this
-  session did not start, so it is the user's call.
+  single-connection store. Resolved with the user's go-ahead: the orphan was stopped and
+  the store STILL aborted — which is what finally separated "held" from "damaged", both
+  being true at once. Damaged dir preserved at `.pglite-damaged-20260822`, pass-58 backup
+  restored, pass 58 replayed from its committed payload. Verified: passes 56/57 intact,
+  pass 58 back on 56 companies, every rendered figure identical to the pre-incident run.
+  **Zero analytical work lost.**
 
 ## Metrics block — batch 015
 
@@ -1054,15 +1057,15 @@ to ask it.
 | graph writes | pass 58 (56 company nodes) |
 | `review_state` changes | **0** |
 | gate | `npm run check` green — **2 968 tests** (+9) · build compiles |
-| live-store verification | **BLOCKED** — see the open incident |
+| live-store verification | **passed** via `getMoneyData()` — after a store restore (incident closed, no data lost) |
 
 ## Steering (next batch — batch 016)
 
-1. **Close the incident first**: stop the orphan, restore `.pglite-backup-20260822-pass58`,
-   replay `payloads/batch-015-public-mandate.json` at pass 58, verify through
-   `verify-b15.ts`. Then ask whether `npm run build` against the live store is safe at all —
-   if prerender workers can corrupt it, the build needs its own copy, and that is a
-   platform-level rule, not a money-case one.
+1. **Is `npm run build` against the live store safe at all?** The incident's suspected
+   trigger is prerender workers opening the single-connection store concurrently. If that
+   reproduces, the build needs its own copy (`PGLITE_PATH`) and that is a PLATFORM-level
+   rule, not a money-case one. Reproduce deliberately on a copy before writing the rule —
+   the suspicion is not yet evidence. `.pglite-damaged-20260822` is preserved for autopsy.
 2. **Pražská energetika (10,95 mld.) is now the largest single unverified figure.** VR names
    no owner; the ownership is one level up (a holding). A depth-2 check via the graph's own
    `owns_stake` layer, or an OR úplný výpis, would settle it — and the same method covers

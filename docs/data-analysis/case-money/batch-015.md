@@ -96,11 +96,11 @@ is now the only way to build one.
 
 `npm run check` green — **2 968 tests** (+9), 0 lint errors; production build compiles.
 
-**Live-store verification is BLOCKED and the batch is not closed until it passes** — see
-§7. Pass 58 wrote and was read back successfully at 19:31 (three publicly-owned companies
-confirmed through `getMoneyData()` itself); the store became unopenable afterwards.
+Live-store verification passed through `getMoneyData()` itself: headline **18 368 539 501
+CZK**, the three publicly-owned companies carrying `attributable=false` with their named
+owners. It took a store restore to get there — see §7, now CLOSED.
 
-## 7. OPEN INCIDENT — the live store will not open
+## 7. Incident (CLOSED) — the live store stopped opening
 
 After pass 58 was written and verified, `./.pglite` began aborting at open
 (`RuntimeError: Aborted()` at PGlite's `callMain` — the WASM postgres failing to START, not
@@ -121,11 +121,16 @@ a query failing). Established, in order:
 The suspected trigger is `npm run build`, which prerenders routes from several workers that
 each open the single-connection store while the orphan held a handle.
 
-**Recovery is cheap and lossless when unblocked**: restore `.pglite-backup-20260822-pass58`
-and replay `payloads/batch-015-public-mandate.json` at pass 58 — every write this case makes
-is a committed, gated payload precisely so this is a five-minute operation
-([[live-store-can-be-restored-under-you]]). It needs the orphan stopped first, which is a
-destructive action on a process this session did not start, so it is the user's call.
+**Resolved, losslessly.** With the user's go-ahead the orphan was stopped — and the store
+STILL aborted, which is what finally separated "held" from "damaged": the holder check had
+been telling the truth about a handle while the data was independently broken. The damaged
+dir is preserved at `.pglite-damaged-20260822` (not deleted), `.pglite-backup-20260822-pass58`
+was restored, and pass 58 was replayed from its committed payload. Verified after:
+passes 56/57 intact (6 251 non-recipient · 3 495 payer · 1 058 shared), pass 58 back on 56
+companies, and every rendered figure identical to the pre-incident run.
+
+Total data loss: **none** — because every write this case makes is a committed, gated
+payload precisely so a restore is a replay ([[live-store-can-be-restored-under-you]]).
 
 ## 8. Lessons
 
@@ -145,3 +150,12 @@ destructive action on a process this session did not start, so it is the user's 
 5. **A number that moves must say why, and the sentence next to it must still be true.**
    Moving 12,75 mld. into the steward bucket made an existing, correct-until-today
    explanatory sentence into a false one.
+6. **"Held" and "damaged" are not exclusive, and the holder check cannot tell them apart.**
+   [[held-store-mimics-corruption]] is right that a Permission-denied rename is the holder
+   check firing and must not be worked around — but here BOTH were true at once: an orphan
+   held a handle AND the data was broken. Stopping the holder is what made the question
+   answerable, not what answered it. The protocol should be: find the holder, resolve it,
+   THEN re-test at rest — never infer "therefore not corrupt" from the presence of a holder.
+7. **The recovery cost nothing because of a discipline paid for earlier.** Restoring a
+   1,5 GB store lost zero analytical work, because passes are committed payloads replayed
+   by one script. That is the whole return on the "vault first, graph second" rule.
