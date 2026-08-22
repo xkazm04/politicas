@@ -118,8 +118,13 @@ a query failing). Established, in order:
   13:01 (~7 h). **That file does not exist in the tree** — it was a temp script, deleted,
   whose process was never stopped. It is not another session's live work.
 
-The suspected trigger is `npm run build`, which prerenders routes from several workers that
-each open the single-connection store while the orphan held a handle.
+~~The suspected trigger is `npm run build`, which prerenders routes from several workers
+that each open the single-connection store while the orphan held a handle.~~
+**REFUTED by batch 016** (2026-08-22, same day): tested deliberately on a copy, the build
+completes and leaves the store undamaged, and two concurrent openers both succeed.
+Concurrent LARGE reads do fail — loudly, with `invalid memory alloc request size` — and
+still leave no damage. **What broke the store is unknown**, and this record no longer names
+a cause it cannot support.
 
 **Resolved, losslessly.** With the user's go-ahead the orphan was stopped — and the store
 STILL aborted, which is what finally separated "held" from "damaged": the holder check had

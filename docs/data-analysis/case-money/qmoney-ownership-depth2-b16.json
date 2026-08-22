@@ -1,0 +1,89 @@
+{
+  "generatedFor": "money batch 016",
+  "generatedAt": "2026-08-22",
+  "method": "graph owns_stake parent (dataor bulk OR export) + ARES legal form of that parent; depth 2 only",
+  "caveat": "only ever REMOVES attribution; a private or absent parent changes nothing",
+  "candidates": 48,
+  "withParentInGraph": 5,
+  "resolvedPublic": 1,
+  "rows": [
+    {
+      "companyId": "company:ico:26124459",
+      "ico": "26124459",
+      "name": "IMOBA, a.s.",
+      "parentId": "company:ico:25130072",
+      "parentIco": "25130072",
+      "parentName": "AGROFERT HOLDING, a.s.",
+      "parentLegalForm": null,
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma AGROFERT HOLDING, a.s.: právní forma (nezjištěna)",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25130072",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "ico": "26124459",
+      "name": "IMOBA, a.s.",
+      "parentId": "company:ico:26014343",
+      "parentIco": "26014343",
+      "parentName": "SynBiol, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "ico": "26124459",
+      "name": "IMOBA, a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:45534306",
+      "ico": "45534306",
+      "name": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "parentId": "company:ico:00001350",
+      "parentIco": "00001350",
+      "parentName": "Československá obchodní banka, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Československá obchodní banka, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00001350",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49790480",
+      "ico": "49790480",
+      "name": "Plzeňská teplárenská, a.s.",
+      "parentId": "company:ico:00075370",
+      "parentIco": "00075370",
+      "parentName": "Město Plzeň",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Plzeň: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00075370",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    }
+  ]
+}

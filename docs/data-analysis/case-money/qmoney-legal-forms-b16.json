@@ -1,0 +1,336 @@
+{
+  "generatedFor": "money batch 016",
+  "generatedAt": "2026-08-22",
+  "method": "every code in PUBLIC_LEGAL_FORMS + PRIVATE_LEGAL_FORMS compared against the CURRENTLY valid ARES PravniForma číselník label",
+  "caveat": "a label match does NOT confirm the public/private classification — that is a judgment about Czech public law and is listed separately for a human ruling",
+  "ciselnikCodes": 151,
+  "checked": 36,
+  "drift": 0,
+  "acknowledgedHistorical": 6,
+  "rows": [
+    {
+      "code": "100",
+      "table": "private",
+      "ourLabel": "Podnikající fyzická osoba tuzemská",
+      "aresLabel": "Podnikající fyzická osoba tuzemská",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "101",
+      "table": "private",
+      "ourLabel": "Fyzická osoba podnikající dle živnostenského zákona",
+      "aresLabel": "Fyzická osoba podnikající dle živnostenského zákona",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "112",
+      "table": "private",
+      "ourLabel": "Společnost s ručením omezeným",
+      "aresLabel": "Společnost s ručením omezeným",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "113",
+      "table": "private",
+      "ourLabel": "Společnost komanditní",
+      "aresLabel": "Společnost komanditní",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "121",
+      "table": "private",
+      "ourLabel": "Akciová společnost",
+      "aresLabel": "Akciová společnost",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "205",
+      "table": "private",
+      "ourLabel": "Družstvo",
+      "aresLabel": "Družstvo",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "301",
+      "table": "public",
+      "ourLabel": "Státní podnik",
+      "aresLabel": "Státní podnik",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "325",
+      "table": "public",
+      "ourLabel": "Organizační složka státu",
+      "aresLabel": "Organizační složka státu",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "331",
+      "table": "public",
+      "ourLabel": "Příspěvková organizace",
+      "aresLabel": "Příspěvková organizace",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "332",
+      "table": "public",
+      "ourLabel": "Státní příspěvková organizace",
+      "aresLabel": "Státní příspěvková organizace",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "333",
+      "table": "public",
+      "ourLabel": "Státní příspěvková organizace ostatní",
+      "aresLabel": "Státní příspěvková organizace ostatní",
+      "aresValidTo": "2016-12-31",
+      "status": "expired",
+      "acknowledged": true
+    },
+    {
+      "code": "352",
+      "table": "public",
+      "ourLabel": "Státní organizace Správa železnic",
+      "aresLabel": "Státní organizace Správa železnic",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "361",
+      "table": "public",
+      "ourLabel": "Veřejnoprávní instituce (ČT,ČRo,ČTK)",
+      "aresLabel": "Veřejnoprávní instituce (ČT,ČRo,ČTK)",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "362",
+      "table": "public",
+      "ourLabel": "Česká tisková kancelář",
+      "aresLabel": "Česká tisková kancelář",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "382",
+      "table": "public",
+      "ourLabel": "Státní fond ze zákona nezapisující se do obchodního rejstříku",
+      "aresLabel": "Státní fond ze zákona nezapisující se do obchodního rejstříku",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "391",
+      "table": "public",
+      "ourLabel": "Zdravotní pojišťovna",
+      "aresLabel": "Zdravotní pojišťovna",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "392",
+      "table": "public",
+      "ourLabel": "Všeobecná zdravotní pojišťovna",
+      "aresLabel": "Všeobecná zdravotní pojišťovna",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "421",
+      "table": "private",
+      "ourLabel": "Odštěpný závod zahraniční právnické osoby",
+      "aresLabel": "Odštěpný závod zahraniční právnické osoby",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "525",
+      "table": "public",
+      "ourLabel": "Vnitřní organizační jednotka organizační složky státu",
+      "aresLabel": "Vnitřní organizační jednotka organizační složky státu",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "601",
+      "table": "public",
+      "ourLabel": "Vysoká škola (veřejná, státní)",
+      "aresLabel": "Vysoká škola (veřejná, státní)",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "701",
+      "table": "private",
+      "ourLabel": "Sdružení (svaz, spolek, společnost, klub aj.)",
+      "aresLabel": "Sdružení (svaz, spolek, společnost, klub aj.)",
+      "aresValidTo": "2013-12-31",
+      "status": "expired",
+      "acknowledged": true
+    },
+    {
+      "code": "705",
+      "table": "private",
+      "ourLabel": "Podnik nebo hospodářské zařízení sdružení",
+      "aresLabel": "Podnik nebo hospodářské zařízení sdružení",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "706",
+      "table": "private",
+      "ourLabel": "Spolek",
+      "aresLabel": "Spolek",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "716",
+      "table": "private",
+      "ourLabel": "Odborová organizace",
+      "aresLabel": null,
+      "aresValidTo": null,
+      "status": "not-in-ciselnik",
+      "acknowledged": true
+    },
+    {
+      "code": "721",
+      "table": "private",
+      "ourLabel": "Církve a náboženské společnosti",
+      "aresLabel": "Církve a náboženské společnosti",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "731",
+      "table": "private",
+      "ourLabel": "Organizační jednotka sdružení",
+      "aresLabel": "Organizační jednotka sdružení",
+      "aresValidTo": "2017-12-31",
+      "status": "expired",
+      "acknowledged": true
+    },
+    {
+      "code": "736",
+      "table": "private",
+      "ourLabel": "Pobočný spolek",
+      "aresLabel": "Pobočný spolek",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "751",
+      "table": "private",
+      "ourLabel": "Zájmové sdružení právnických osob",
+      "aresLabel": "Zájmové sdružení právnických osob",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "761",
+      "table": "private",
+      "ourLabel": "Honební společenstvo",
+      "aresLabel": "Honební společenstvo",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "771",
+      "table": "public",
+      "ourLabel": "Dobrovolný svazek obcí",
+      "aresLabel": "Dobrovolný svazek obcí",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "773",
+      "table": "private",
+      "ourLabel": "Nadační fond",
+      "aresLabel": null,
+      "aresValidTo": null,
+      "status": "not-in-ciselnik",
+      "acknowledged": true
+    },
+    {
+      "code": "801",
+      "table": "public",
+      "ourLabel": "Obec nebo městská část hlavního města Prahy",
+      "aresLabel": "Obec nebo městská část hlavního města Prahy",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "804",
+      "table": "public",
+      "ourLabel": "Kraj a hl.m.Praha",
+      "aresLabel": "Kraj a hl.m.Praha",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "805",
+      "table": "public",
+      "ourLabel": "Regionální rada regionu soudržnosti",
+      "aresLabel": "Regionální rada regionu soudržnosti",
+      "aresValidTo": "2021-12-31",
+      "status": "expired",
+      "acknowledged": true
+    },
+    {
+      "code": "811",
+      "table": "public",
+      "ourLabel": "Městská část, městský obvod",
+      "aresLabel": "Městská část, městský obvod",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    },
+    {
+      "code": "941",
+      "table": "public",
+      "ourLabel": "Evropské seskupení pro územní spolupráci",
+      "aresLabel": "Evropské seskupení pro územní spolupráci",
+      "aresValidTo": "9999-09-09",
+      "status": "match",
+      "acknowledged": true
+    }
+  ]
+}

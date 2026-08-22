@@ -1075,3 +1075,72 @@ to ask it.
 4. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (batch 010); SZIF subsidy channel
    still absent from the corpus; Q-money-13's 21 residue items still with law (14) /
    effort (7).
+
+### Batch 016 — auditing the guard, and two refuted hypotheses (2026-08-22)
+
+- **REFUTED: the build did not corrupt the store.** Batch 015's steering named
+  `npm run build` as the suspected corrupter. Tested on a copy: the build completes and
+  leaves the store **undamaged**; two concurrent openers both succeed; four concurrent
+  LARGE reads (153 731 edges) all fail loudly (`invalid memory alloc request size`,
+  `unexpected end of data`) and STILL leave no damage. So concurrent PGlite connections
+  produce torn reads, not corruption. **What broke the live store in batch 015 is
+  unknown**, and both records now say so instead of naming a cause they cannot support.
+  The proposed platform rule ("the build needs its own copy") is not justified by
+  corruption. The build's 40 degraded loader reads are also NOT a product problem —
+  measured: every affected route is dynamic, and the only static route in the app is
+  `/opengraph-image`. It is log noise that spends the honest-degradation trace on a
+  non-event 40× per build.
+- **THE GUARD WAS WRONG: 23 of 37 legal-form entries disagreed with ARES's číselník.**
+  `PRIVATE_LEGAL_FORMS` is an ASSERTION that a code is *known not to be a public body*, and
+  **`771` was labelled „Nadace" and filed PRIVATE while ARES says 771 is „Dobrovolný svazek
+  obcí"** — a public-law association of municipalities, and the classic owner of a regional
+  VaK company. Also reclassified `301` (Státní podnik — label right, classification wrong;
+  Lesy ČR and Povodí Labe verified) and `941` (actually „Evropské seskupení pro územní
+  spolupráci"). `741` is „Stavovská organizace - profesní komora", genuinely arguable, so it
+  now sits in NEITHER table and answers `unknown` for a human. `391`/`392` were swapped
+  (both public — no verdict ever changed).
+  **It does not bite today, measured**: across all 214 company nodes only forms 112/121/205
+  occur and the only recorded public-owner form is 801. No published figure was wrong; the
+  GUARD was. `legal-form-audit-b16.ts` is now a drift guard whose fire rate was validated
+  23 → 7 → 0, every survivor hand-read, with documented historical entries ACKNOWLEDGED
+  rather than re-reported.
+- **Depth-2 ownership, first join of two layers the platform already had.** For the 48
+  companies whose own record names no owner, the graph's `owns_stake` layer (dataor, batch
+  006) was consulted for the first time. **Plzeňská teplárenská a.s. ← Město Plzeň (forma
+  801)** → publicly owned, **951 231 100 CZK leaves attribution** (its VR shows the city
+  with `datumVymazu 2018-10-31`, so the register alone said "no current owner"). Yield 1 of
+  48 — because the layer is **33 edges for 214 companies**, which is the finding. Depth
+  capped at 2 deliberately: a chain walked far enough reaches the state from anywhere.
+- **Headline 18 368 539 501 → 17 417 308 400 CZK**, `totalCzk` unchanged. Write: **pass 59**
+  (1 company node). **No `review_state` touched — 211 ties remain `pending_review`.**
+
+## Metrics block — batch 016
+
+| metric | batch 016 |
+|---|---|
+| headline before → after | **18 368 539 501 → 17 417 308 400 CZK** (−951 mil.) |
+| hypotheses refuted | **2** (build corrupts the store; build ships mock to production) |
+| legal-form entries wrong | **23 of 37** — 3 reclassified, 1 removed to `unknown`, rest relabelled |
+| does the table defect bite today | **no**, measured across 214 company nodes |
+| depth-2 resolved | 1 of 48 · `owns_stake` layer is 33 edges for 214 companies |
+| new guard | `legal-form-audit-b16.ts`, fire rate validated 23 → 7 → 0 |
+| graph writes | pass 59 (1 company node) |
+| `review_state` changes | **0** |
+| gate | `npm run check` green — **2 975 tests** (+7), 0 lint errors |
+
+## Steering (next batch — batch 017)
+
+1. **Widen the `owns_stake` layer — now the highest-value ingest work in the case.** 33
+   edges for 214 companies is why depth-2 resolved 1 of 48. The dataor bulk OR export is
+   already ingestable (`dataor-ownership-chains.ts`); the question is why it produced so
+   few edges, and that is a coverage audit before it is an ingest.
+2. **Pražská energetika (10,95 mld.) remains the single largest unverified figure** and
+   depth-2 did not reach it — no `owns_stake` parent in the graph. It is city-owned through
+   Pražská energetika Holding; item 1 is the route to it.
+3. **`ownership-not-published` needs a review-queue lane** — 46 companies, 17,09 mld., a
+   workable human queue and where the remaining 98 % of the headline lives.
+4. **Consider `PGLITE_PATH` for `npm run build` anyway** — not for corruption (refuted) but
+   because 40 degraded loader reads per build train everyone to ignore `reportLoaderFailure`.
+   A cheap alternative: have the build skip loaders explicitly rather than fail them.
+5. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (batch 010); SZIF subsidy channel
+   still absent; Q-money-13's 21 residue items still with law (14) / effort (7).

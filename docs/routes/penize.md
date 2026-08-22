@@ -613,3 +613,34 @@ beneath it, instead of a sentence its own neighbouring row falsifies.
 `ReachableTie` had four hand-copied construction sites. The new axis reached one of them,
 and the corpus headline silently did not move until that was traced — `toReachableTie()` is
 now the only way to build one.
+
+
+## 2026-08-22 · money batch 016 — the guard behind both axes disagreed with the registry
+
+Headline **18 368 539 501 → 17 417 308 400 CZK**: Plzeňská teplárenská, a.s. joined the
+publicly-owned set. Its own VR record shows Město Plzeň with `datumVymazu 2018-10-31` — so
+the register alone answered „no current owner" — while the graph's `owns_stake` layer says
+the city still holds it. That layer and the mandate sweep had sat side by side for ten
+batches without being asked the same question; joining them is what resolved it. Depth is
+capped at **one hop**, deliberately: a chain walked far enough reaches the state from
+anywhere, and the parent is named on the surface so the claim stays checkable.
+
+Yield was **1 of 48**, and that measures the layer rather than the method: the graph holds
+**33 `owns_stake` edges for 214 companies**. Widening it is the route to Pražská energetika
+(10,95 mld.), still the largest figure resting on nothing.
+
+**The bigger find is behind both axes.** `lib/analysis/public-body.ts` asks the legal form
+first, and `PRIVATE_LEGAL_FORMS` is not a fallback — it asserts that a code is *known not to
+be a public body*. Audited whole against the ARES `PravniForma` číselník: **23 of 37 entries
+were wrong**. The one that mattered: **`771` was labelled „Nadace" and filed PRIVATE, while
+ARES says 771 is „Dobrovolný svazek obcí"** — a public-law association of municipalities, and
+the classic owner of a regional *vodovody a kanalizace* company. `301` (Státní podnik) was
+correctly labelled and wrongly classified; `941` was actually „Evropské seskupení pro územní
+spolupráci"; `741` turned out to be a profesní komora, is genuinely arguable, and now sits in
+**neither** table so it answers `unknown` for a human to rule on.
+
+**None of it changed a published number**, measured: across all 214 company nodes only forms
+112/121/205 occur, and the only recorded public-owner form is 801. The figures were right;
+the guard protecting them was not, and it would have failed the first time a svazek obcí or a
+státní podnik appeared. The audit is now a drift guard, its fire rate validated 23 → 7 → 0
+with every survivor hand-read.

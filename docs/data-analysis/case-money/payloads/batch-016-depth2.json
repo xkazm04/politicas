@@ -1,0 +1,27 @@
+{
+  "proposals": [
+    {
+      "id": "company:ico:49790480",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Město Plzeň (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00075370",
+            "name": "Město Plzeň",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Město Plzeň: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00075370",
+          "accessedAt": "2026-08-22"
+        }
+      ]
+    }
+  ]
+}

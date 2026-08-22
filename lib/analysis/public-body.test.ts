@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
   ownershipRecord,
+  PRIVATE_LEGAL_FORMS,
+  PUBLIC_LEGAL_FORMS,
   classifyPublicMandate,
   isPublicLegalForm,
   shareholdersFromVr,
@@ -232,5 +234,49 @@ describe("ownershipRecord", () => {
   it("stays byte-compatible with shareholdersFromVr for legal persons", () => {
     const payload = vr([{ pravnickaOsoba: { ico: "1", obchodniJmeno: "Y", pravniForma: "801" } }]);
     expect(shareholdersFromVr(payload, "2026-08-22")).toEqual(ownershipRecord(payload, "2026-08-22").legalPersons);
+  });
+});
+
+describe("money batch 016 — the legal-form tables are an assertion, not a guess", () => {
+  it("no code sits in both tables", () => {
+    const both = Object.keys(PUBLIC_LEGAL_FORMS).filter((c) => c in PRIVATE_LEGAL_FORMS);
+    expect(both).toEqual([]);
+  });
+
+  it("every entry carries a label and a provenance note", () => {
+    for (const [code, info] of [...Object.entries(PUBLIC_LEGAL_FORMS), ...Object.entries(PRIVATE_LEGAL_FORMS)]) {
+      expect(info.label, `${code} label`).toBeTruthy();
+      expect(info.verifiedVia, `${code} verifiedVia`).toBeTruthy();
+    }
+  });
+
+  it("THE 771 DEFECT: a dobrovolný svazek obcí is a public body", () => {
+    // The table said 771 was "Nadace" and filed it PRIVATE — i.e. it ASSERTED that a
+    // public-law association of municipalities is not a public body. A svazek obcí is the
+    // classic owner of a regional VaK water company, which this corpus is full of.
+    expect(isPublicLegalForm("771")).toBe(true);
+    expect(PUBLIC_LEGAL_FORMS["771"].label).toBe("Dobrovolný svazek obcí");
+  });
+
+  it("a státní podnik is a public body (301)", () => {
+    // Lesy ČR s.p. and Povodí Labe s.p. contract heavily; their money is the state's.
+    expect(isPublicLegalForm("301")).toBe(true);
+  });
+
+  it("an Evropské seskupení pro územní spolupráci is a public body (941)", () => {
+    expect(isPublicLegalForm("941")).toBe(true);
+  });
+
+  it("741 (profesní komora) is in NEITHER table, so it reaches a human", () => {
+    // Genuinely arguable — delegated public authority, funded by members' dues. This
+    // table may not assert either way, and `unknown` is the honest answer.
+    expect("741" in PUBLIC_LEGAL_FORMS).toBe(false);
+    expect("741" in PRIVATE_LEGAL_FORMS).toBe(false);
+    expect(isPublicLegalForm("741")).toBeNull();
+  });
+
+  it("the ordinary business forms the corpus actually contains stay private", () => {
+    // Measured on the live store: every company node carries 112, 121 or 205.
+    for (const code of ["112", "121", "205"]) expect(isPublicLegalForm(code)).toBe(false);
   });
 });

@@ -36,51 +36,56 @@ export interface LegalFormInfo {
  * hence the loud `unknown` path rather than a closed-world assumption.
  */
 export const PUBLIC_LEGAL_FORMS: Record<string, LegalFormInfo> = {
+  "301": { label: "Státní podnik", verifiedVia: "číselník 2026-08-22; 42196451 Lesy České republiky, s.p.; 70890005 Povodí Labe, státní podnik — RECLASSIFIED batch 016" },
   "325": { label: "Organizační složka státu", verifiedVia: "00006947 Ministerstvo financí; 75112779 Ústav pro studium totalitních režimů" },
-  "331": { label: "Příspěvková organizace (územní)", verifiedVia: "ARES PravniForma číselník" },
+  "331": { label: "Příspěvková organizace", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22)" },
   "332": { label: "Státní příspěvková organizace", verifiedVia: "ARES PravniForma číselník" },
-  "333": { label: "Státní příspěvková organizace ostatní", verifiedVia: "ARES PravniForma číselník" },
-  "352": { label: "Státní fond", verifiedVia: "ARES PravniForma číselník" },
-  "361": { label: "Veřejnoprávní instituce", verifiedVia: "00027383 ČESKÁ TELEVIZE" },
+  "333": { label: "Státní příspěvková organizace ostatní", verifiedVia: "ARES PravniForma číselník — EXPIRED 2016-12-31, kept for historical records" },
+  "352": { label: "Státní organizace Správa železnic", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22 — was 'Státní fond', which is 382)" },
+  "361": { label: "Veřejnoprávní instituce (ČT,ČRo,ČTK)", verifiedVia: "00027383 ČESKÁ TELEVIZE" },
   "362": { label: "Česká tisková kancelář", verifiedVia: "ARES PravniForma číselník" },
-  "382": { label: "Státní fond nezapisovaný do OR", verifiedVia: "ARES PravniForma číselník" },
-  "391": { label: "Všeobecná zdravotní pojišťovna", verifiedVia: "41197518 VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČR" },
-  "392": { label: "Zdravotní pojišťovna", verifiedVia: "ARES PravniForma číselník" },
+  "382": { label: "Státní fond ze zákona nezapisující se do obchodního rejstříku", verifiedVia: "ARES PravniForma číselník" },
+  "391": { label: "Zdravotní pojišťovna", verifiedVia: "ARES PravniForma číselník (391/392 were SWAPPED before 2026-08-22; both public, so no verdict changed)" },
+  "392": { label: "Všeobecná zdravotní pojišťovna", verifiedVia: "41197518 VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČR" },
   "525": { label: "Vnitřní organizační jednotka organizační složky státu", verifiedVia: "ARES PravniForma číselník" },
-  "601": { label: "Vysoká škola (veřejná)", verifiedVia: "00216208 Univerzita Karlova" },
-  "801": { label: "Obec / město", verifiedVia: "00254843 Město Ostrov; 00274046 Statutární město Pardubice; 00075370 Statutární město Plzeň" },
-  "804": { label: "Kraj", verifiedVia: "70889546 Královéhradecký kraj; 00064581 HLAVNÍ MĚSTO PRAHA" },
-  "805": { label: "Regionální rada regionu soudržnosti", verifiedVia: "ARES PravniForma číselník" },
+  "601": { label: "Vysoká škola (veřejná, státní)", verifiedVia: "00216208 Univerzita Karlova" },
+  "771": { label: "Dobrovolný svazek obcí", verifiedVia: "ARES PravniForma číselník 2026-08-22 — RECLASSIFIED batch 016: this table said 771 was 'Nadace' and filed it PRIVATE" },
+  "801": { label: "Obec nebo městská část hlavního města Prahy", verifiedVia: "00254843 Město Ostrov; 00274046 Statutární město Pardubice; 00075370 Statutární město Plzeň" },
+  "804": { label: "Kraj a hl.m.Praha", verifiedVia: "70889546 Královéhradecký kraj; 00064581 HLAVNÍ MĚSTO PRAHA" },
+  "805": { label: "Regionální rada regionu soudržnosti", verifiedVia: "ARES PravniForma číselník — EXPIRED 2021-12-31, kept for historical records" },
   "811": { label: "Městská část, městský obvod", verifiedVia: "ARES PravniForma číselník" },
+  "941": { label: "Evropské seskupení pro územní spolupráci", verifiedVia: "ARES PravniForma číselník 2026-08-22 — RECLASSIFIED batch 016: this table said 941 was 'Společenství vlastníků jednotek' and filed it PRIVATE" },
 };
 
 /**
  * Ordinary business forms — known NOT to be public bodies in their own right. Listing
  * these explicitly (rather than treating "not in PUBLIC_LEGAL_FORMS" as private) is what
  * makes the `unknown` verdict possible.
+ *
+ * DELIBERATELY ABSENT (money batch 016), so they answer `unknown` and reach a human:
+ *   741 "Stavovská organizace - profesní komora" — a professional chamber exercises
+ *       delegated public authority but lives on members' dues. Genuinely arguable, and
+ *       this table may not assert either way. (It previously sat here labelled
+ *       "Obecně prospěšná společnost", which is not what 741 is.)
  */
-export const PRIVATE_LEGAL_FORMS: Record<string, string> = {
-  "100": "Podnikající fyzická osoba tuzemská",
-  "101": "Zemědělský podnikatel — fyzická osoba",
-  "112": "Společnost s ručením omezeným",
-  "113": "Společnost komanditní",
-  "121": "Akciová společnost",
-  "205": "Družstvo",
-  "301": "Státní podnik",
-  "421": "Odštěpný závod zahraniční právnické osoby",
-  "701": "Spolek",
-  "705": "Podnikatelské seskupení",
-  "706": "Pobočný spolek",
-  "716": "Odborová organizace",
-  "721": "Církevní organizace",
-  "731": "Organizační jednotka sdružení",
-  "736": "Dobrovolný svazek obcí",
-  "741": "Obecně prospěšná společnost",
-  "751": "Zájmové sdružení právnických osob",
-  "761": "Honební společenstvo",
-  "771": "Nadace",
-  "773": "Nadační fond",
-  "941": "Společenství vlastníků jednotek",
+export const PRIVATE_LEGAL_FORMS: Record<string, LegalFormInfo> = {
+  "100": { label: "Podnikající fyzická osoba tuzemská", verifiedVia: "ARES PravniForma číselník" },
+  "101": { label: "Fyzická osoba podnikající dle živnostenského zákona", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22)" },
+  "112": { label: "Společnost s ručením omezeným", verifiedVia: "ARES PravniForma číselník" },
+  "113": { label: "Společnost komanditní", verifiedVia: "ARES PravniForma číselník" },
+  "121": { label: "Akciová společnost", verifiedVia: "ARES PravniForma číselník" },
+  "205": { label: "Družstvo", verifiedVia: "ARES PravniForma číselník" },
+  "421": { label: "Odštěpný závod zahraniční právnické osoby", verifiedVia: "ARES PravniForma číselník" },
+  "701": { label: "Sdružení (svaz, spolek, společnost, klub aj.)", verifiedVia: "ARES PravniForma číselník — EXPIRED 2013-12-31, superseded by 706" },
+  "705": { label: "Podnik nebo hospodářské zařízení sdružení", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22)" },
+  "706": { label: "Spolek", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22 — was 'Pobočný spolek', which is 736)" },
+  "716": { label: "Odborová organizace", verifiedVia: "NOT in the current ARES číselník (checked 2026-08-22) — retained for historical records, unverifiable" },
+  "721": { label: "Církve a náboženské společnosti", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22)" },
+  "731": { label: "Organizační jednotka sdružení", verifiedVia: "ARES PravniForma číselník — EXPIRED 2017-12-31" },
+  "736": { label: "Pobočný spolek", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22 — was 'Dobrovolný svazek obcí', which is 771 and is PUBLIC)" },
+  "751": { label: "Zájmové sdružení právnických osob", verifiedVia: "ARES PravniForma číselník" },
+  "761": { label: "Honební společenstvo", verifiedVia: "ARES PravniForma číselník" },
+  "773": { label: "Nadační fond", verifiedVia: "NOT in the current ARES číselník (checked 2026-08-22) — retained for historical records, unverifiable" },
 };
 
 /** true = public body, false = ordinary business form, null = code not in either table. */
