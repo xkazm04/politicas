@@ -14,6 +14,18 @@ updates:
     commit-message:
       prefix: "chore(deps)"
       prefix-development: "chore(deps-dev)"
+    ignore:
+      # @electric-sql/pglite 0.5.x ships Postgres 18.3; the store on disk is
+      # PG_VERSION 17 and PGlite has no pg_upgrade. Measured 2026-08-22 with
+      # 0.5.4 against a copy of the real store: "PGlite failed to initialize
+      # properly"; the same build creates a fresh dir at PG_VERSION 18. So this
+      # is a data migration (dump + re-ingest, and the deployed volume too —
+      # docs/deploy/container.md), not a dependency bump. Lift this ignore in
+      # the same change that performs the migration; patch/minor inside 0.4.x
+      # still comes through.
+      - dependency-name: "@electric-sql/pglite"
+        update-types: ["version-update:semver-minor", "version-update:semver-major"]
+
     groups:
       # Jádro frameworku upgradovat jako celek — next/react se verzují spolu.
       next-react:

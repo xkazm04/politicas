@@ -22,7 +22,16 @@
    An image rebuild never touches data; a volume snapshot never touches code.
 3. **The store must stay warm.** `auto_stop_machines = "off"` +
    `min_machines_running = 1`. A cold start re-opens a 1.6 GB store.
-4. **`NEXT_PUBLIC_*` are build-time.** They go in as Docker **build args**
+4. **The volume is pinned to a Postgres major.** The store on disk is
+   `PG_VERSION 17`, written by `@electric-sql/pglite` 0.4.x. PGlite 0.5.x
+   ships **Postgres 18.3** and has no `pg_upgrade`: measured 2026-08-22, 0.5.4
+   refuses a copy of the real store ("PGlite failed to initialize properly")
+   and creates fresh directories at `PG_VERSION 18`. So **bumping PGlite past
+   0.4.x strands this volume** — it is a data migration (dump + re-ingest into
+   a fresh store, then reseed the volume per §5), not a dependency bump.
+   `.github/dependabot.yml` ignores minor/major on that package for this
+   reason; lift the ignore in the same change that performs the migration.
+5. **`NEXT_PUBLIC_*` are build-time.** They go in as Docker **build args**
    (`fly.toml [build.args]`), not runtime secrets. Changing the DSN or app-env
    requires a rebuild+redeploy — same contract as Vercel.
 
