@@ -21,6 +21,7 @@ import {
   PUBLIC_MANDATE_KINDS,
   type ContractLine,
   type MoneyTie,
+  type OwnershipDisclosed,
   type PublicMandateOwner,
   type ReviewState,
 } from "./moneyTypes";
@@ -80,6 +81,27 @@ function publicOwnersOf(v: unknown): PublicMandateOwner[] {
     .filter((o): o is Record<string, unknown> => o !== null)
     .map((o) => ({ ico: str(o.ico), name: str(o.name) ?? "", legalForm: str(o.legalForm) }))
     .filter((o) => o.name.length > 0);
+}
+
+/** `ownership_disclosed` z uzlu firmy — jen tvarově platný záznam, jinak `null`. */
+function ownershipDisclosedOf(v: unknown): OwnershipDisclosed | null {
+  if (!v || typeof v !== "object") return null;
+  const o = v as Record<string, unknown>;
+  const sourceUrl = str(o.sourceUrl);
+  const accessedAt = str(o.accessedAt);
+  if (!sourceUrl || !accessedAt || !Array.isArray(o.owners)) return null;
+  return {
+    asOf: str(o.asOf),
+    sourceKind: str(o.sourceKind) ?? "company-disclosure",
+    sourceUrl,
+    accessedAt,
+    owners: (o.owners as unknown[])
+      .map((x) => (x && typeof x === "object" ? (x as Record<string, unknown>) : null))
+      .filter((x): x is Record<string, unknown> => x !== null)
+      .map((x) => ({ name: str(x.name) ?? "", pct: typeof x.pct === "number" ? x.pct : null }))
+      .filter((x) => x.name.length > 0),
+    noteCs: str(o.noteCs),
+  };
 }
 
 export function pspIdFromNodeId(id: string): number | null {
@@ -217,6 +239,7 @@ export function mapLinkedToTie(args: {
     publicMandateReason: str(cp.public_mandate_reason),
     publicMandateOwners: publicOwnersOf(cp.public_mandate_owners),
     publicMandateLegalForm: str(cp.public_mandate_legal_form),
+    ownershipDisclosed: ownershipDisclosedOf(cp.ownership_disclosed),
     triangle,
     nearThresholdCount: near,
     deMinimis: isDeMinimis(contractCzk, subsidiesCzk),

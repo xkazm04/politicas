@@ -53,6 +53,7 @@ export const TIE_WIRE = {
   publicMandateReason: "public",
   publicMandateOwners: "public",
   publicMandateLegalForm: "public", // the role×register contradiction flag reads it
+  ownershipDisclosed: "public", // the „doloženo firmou" line on the card
   // `tieReach()` inputs — the row's „dosah" cell AND its sort key. Do 2026-08-12
   // sem patřily i `contractCount` a `donatedToPartyCzk` pod TOUTO větou, a ta o obou
   // LHALA: `reachableMoney.ts` je nečte ani v jedné ze dvou funkcí, které dosah
@@ -180,6 +181,7 @@ export function toPublicTie(tie: MoneyTie): PublicMoneyTie {
     publicMandateReason: tie.publicMandateReason,
     publicMandateOwners: tie.publicMandateOwners,
     publicMandateLegalForm: tie.publicMandateLegalForm,
+    ownershipDisclosed: tie.ownershipDisclosed,
     contractCount: tie.contractCount,
     contractCzk: tie.contractCzk,
     subsidiesCzk: tie.subsidiesCzk,

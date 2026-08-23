@@ -50,6 +50,7 @@ function mkTie(over: Partial<MoneyTieDetail> = {}): MoneyTieDetail {
     publicMandateReason: null,
     publicMandateOwners: [],
     publicMandateLegalForm: null,
+    ownershipDisclosed: null,
     triangle: false,
     nearThresholdCount: 0,
     deMinimis: false,

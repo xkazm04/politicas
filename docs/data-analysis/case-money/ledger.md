@@ -1318,3 +1318,39 @@ to ask it.
    IMOBA …) and 745/999; a human ruling per company, small list.
 4. Prague s.r.o. history (low); steward-class contract sweep, ČSOB, ČD still UNMEASURED;
    SZIF absent; Q-money-13 residue 21.
+
+### Batch 020 — setting the table for the human gate (2026-08-23)
+
+- **„rozpor role × rejstřík" lane** in `/penize/kontrola` — the 18 contradictions as one
+  filter, same predicate as the card badge (`roleRegisterContradiction()`), so the first
+  human-gate sitting opens on exactly those ties. Reviewer setup is documented
+  (`REVIEWER_TOKEN` + `REVIEWER_NAME`).
+- **Document-source evidence for the two companies that are 16,2 of 16,8 mld. unverified**:
+  Pražská energetika's own „Struktura akcionářů k 31. 12. 2025" chart (PRE Holding 58,05 %,
+  EnBW CEE Holding 41,40 %, ostatní 0,55 %) and ČSOB Pojišťovna's „Kdo jsme" (hlavní
+  akcionář KBC Verzekeringen NV, no %). Persisted as **`ownership_disclosed`** + citations
+  (**pass 66**), a layer ON TOP of the register verdict — which stays `ownership-not-
+  published` — and NEVER an `owns_stake` edge. Console prints „doloženo firmou … zdroj".
+  Both are `manager` ties with private owners: the disclosure confirms the conservative
+  reading, money stays attributable.
+- Headline unchanged; **no `review_state` touched — 211 pending.**
+
+## Metrics block — batch 020
+
+| metric | batch 020 |
+|---|---|
+| console lanes | 6 (all · 3 classes · vlastník neuveden · **rozpor role × rejstřík**) |
+| document-source disclosures | 2 companies (16,2 of 16,8 mld. unverified) — cited, image-read, layered |
+| graph writes | pass 66 (2 nodes) |
+| `review_state` changes | **0** |
+| gate | `npm run check` green |
+
+## Steering (next batch — batch 021)
+
+1. **Hold the human-gate session** (the user's): lane „rozpor" (18) then „vlastník neuveden".
+   The loop's next analytical work waits on what that session decides — a re-classed
+   `tie_class` changes the attributable population.
+2. Remaining unpublished attributable: 7 companies / 0,56 mld. — document sources if cheap
+   (VaK Vsetín/Vyškov are svazek-obcí-shaped: their výroční zprávy name the towns).
+3. `unknown` 15 / 48,8 mld. — human ruling; Prague s.r.o. history (low); UNMEASURED b010
+   items; SZIF; Q-money-13 residue.

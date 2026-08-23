@@ -45,3 +45,4 @@ Same for Výstaviště Flora Olomouc and Lesy města Olomouce; 12,75 mld. across
   by definition. Company axis is 194/195 verdicted after b019.
 
 Related: [[supplies-is-not-attribution]], [[or-shareholder-entry-semantics]].
+- **`ownership_disclosed`** (b020): what the company ITSELF publishes (chart / "pro akcionare" page), cited with URL + accessedAt, layered ON TOP of `public_mandate` -- the register verdict stays `ownership-not-published`; never an `owns_stake` edge. PRE: PRE Holding 58,05 % / EnBW 41,40 % (k 31. 12. 2025); CSOB Pojistovna: KBC Verzekeringen NV.

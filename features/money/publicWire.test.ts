@@ -38,6 +38,7 @@ const tie = (over: Partial<MoneyTie> = {}): MoneyTie => ({
   publicMandateReason: null,
   publicMandateOwners: [],
   publicMandateLegalForm: null,
+  ownershipDisclosed: null,
   triangle: false,
   nearThresholdCount: 0,
   deMinimis: false,
@@ -85,6 +86,7 @@ describe("toPublicTie", () => {
         "publicMandateReason",
         "publicMandateOwners",
         "publicMandateLegalForm",
+        "ownershipDisclosed",
       ].sort(),
     );
   });

@@ -697,3 +697,15 @@ Fatra, Kostelecké uzeniny, Nemocnice AGEL …): the attribution rule only remov
 moved, but the class may be wrong and the human gate must see the register say so.
 Nonprofit private-law forms (o.p.s., nadace, ústav) are steward by definition and do not
 flag. Company-axis coverage is now 194 of 195 tied companies (pass 65); headline unchanged.
+
+
+## 2026-08-23 · money batch 020 — a „rozpor" lane and the first document-source layer
+
+`/penize/kontrola` gains a sixth lane, **„rozpor role × rejstřík"** (the 18 steward-at-a-
+private-business ties), driven by the same predicate as the card badge. And the two
+companies that carry 16,2 of the 16,8 mld. CZK the register cannot verify now show what the
+companies themselves publish: Pražská energetika's shareholder chart k 31. 12. 2025 (PRE
+Holding 58,05 %, EnBW CEE Holding 41,40 %) and ČSOB Pojišťovna's named hlavní akcionář (KBC
+Verzekeringen NV). These land as **`ownership_disclosed`** — a cited layer ON TOP of the
+register verdict, which stays „vlastník v rejstříku neuveden" because that is true of the
+register — and never as an `owns_stake` edge. The card prints „doloženo firmou … zdroj".

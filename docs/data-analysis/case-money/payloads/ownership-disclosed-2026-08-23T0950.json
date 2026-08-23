@@ -1,0 +1,50 @@
+{
+  "proposals": [
+    {
+      "id": "company:ico:60193913",
+      "props": {
+        "ownership_disclosed": {
+          "asOf": "2025-12-31",
+          "sourceKind": "company-disclosure",
+          "sourceUrl": "https://www.pre.cz/cs/profil-spolecnosti/o-nas/pro-akcionare/",
+          "accessedAt": "2026-08-23",
+          "owners": [
+            { "name": "Pražská energetika Holding a.s.", "pct": 58.05 },
+            { "name": "EnBW Central and Eastern Europe Holding GmbH", "pct": 41.4 },
+            { "name": "ostatní osoby", "pct": 0.55 }
+          ],
+          "noteCs": "Struktura akcionářů k 31. 12. 2025 podle vlastní publikace společnosti (graf na stránce „Pro akcionáře“). Rejstřík akcionáře neuvádí (více akcionářů — zapisuje se jen jediný). Vlastnictví holdingu samého (hl. m. Praha / EnBW) tímto doloženo NENÍ."
+        }
+      },
+      "citations": [
+        {
+          "claim": "Pražská energetika Holding a.s. 58,05 %; EnBW Central and Eastern Europe Holding GmbH 41,40 %; ostatní osoby 0,55 % (k 31. 12. 2025)",
+          "url": "https://www.pre.cz/cs/profil-spolecnosti/o-nas/pro-akcionare/Contents/16/graf.png",
+          "accessedAt": "2026-08-23",
+          "sourceKind": "company-disclosure"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:45534306",
+      "props": {
+        "ownership_disclosed": {
+          "asOf": null,
+          "sourceKind": "company-disclosure",
+          "sourceUrl": "https://www.csobpoj.cz/o-spolecnosti/kdo-jsme",
+          "accessedAt": "2026-08-23",
+          "owners": [{ "name": "KBC Verzekeringen NV (hlavní akcionář, skupina KBC)", "pct": null }],
+          "noteCs": "Společnost na stránce „Kdo jsme“ uvádí jako hlavního akcionáře belgickou pojišťovnu KBC Verzekeringen NV ze skupiny KBC; podíl ani další akcionáře neuvádí. Rejstřík akcionáře neuvádí."
+        }
+      },
+      "citations": [
+        {
+          "claim": "„hlavního akcionáře, jímž je belgická pojišťovna KBC Verzekeringen NV z nadnárodní skupiny KBC“",
+          "url": "https://www.csobpoj.cz/o-spolecnosti/kdo-jsme",
+          "accessedAt": "2026-08-23",
+          "sourceKind": "company-disclosure"
+        }
+      ]
+    }
+  ]
+}

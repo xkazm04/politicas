@@ -5,8 +5,8 @@
 > ~80 KB of prose before it could act (2026-08-22 architecture review). Open items live
 > in `ledger.json → openItems` and are mirrored here by hand until a generator exists.
 
-**As of:** batch 019 · 2026-08-23 · last graph write **pass 65** · backups
-`.pglite-backup-2026-08-23-pass62-pre`, `…-pass65-pre` (checkpointed, via `npm run db:backup`).
+**As of:** batch 020 · 2026-08-23 · last graph write **pass 66** · backups
+`.pglite-backup-2026-08-23-pass65-pre`, `…-pass66-pre` (checkpointed, via `npm run db:backup`).
 
 ## The numbers the surface renders
 
@@ -46,10 +46,14 @@ Headline history: 42,89 bn (pre-014) → 31,12 (b014) → 18,37 (b015) → 17,42
 
 ## Open items (priority order)
 
-0. **First real human-gate session: the 18 role×register contradictions** — each a
-   `steward` class at a private business; confirm or re-class in `/penize/kontrola`
-   (write path exists, `REVIEWER_TOKEN` gates it). The console now shows both axes.
-1. **Citations for the 9 `ownership-not-published`** (lane „vlastník neuveden" exists) (PRE, ČSOB Pojišťovna, VaK
+0. **First real human-gate session: the 18 role×register contradictions** — `/penize/kontrola`
+   lane **„rozpor role × rejstřík"** (b020) opens on exactly them; confirm or re-class
+   (`REVIEWER_TOKEN` + `REVIEWER_NAME`, see `.env.example`). **The loop's next analytical
+   step waits on this** — a re-classed `tie_class` changes the attributable population.
+1. **Citations for the `ownership-not-published`**: done for PRE (chart k 31. 12. 2025: PRE
+   Holding 58,05 % / EnBW 41,40 %) and ČSOB Pojišťovna (KBC Verzekeringen NV) as
+   `ownership_disclosed` (pass 66, cited, layered, never an edge). Remaining 7 attributable
+   hold 0,56 mld. — cheap if their výroční zprávy name the owners (PRE, ČSOB Pojišťovna, VaK
    Vsetín, VaK Vyškov, RERA, SOMPO, Horní Labe, PEVAK, Družstvo Nárožní dům — 16,77 mld.):
    all multi-shareholder a.s./družstva the OR cannot resolve (sole-akcionář rule); each
    needs a document-source citation (Praha's majetkové účasti for PRE). **PRE is CLOSED
@@ -72,4 +76,4 @@ Headline history: 42,89 bn (pre-014) → 31,12 (b014) → 18,37 (b015) → 17,42
 `validate-payloads.ts` ·
 `harvest-contract-dumps.ts` + `persist-contract-harvest.ts` (raw data in `data/raw/`).
 Write paths: `scripts/case-loops/persist-batch.ts --pass=<n>` (props-merge) and
-`scripts/case-loops/apply-batch.ts --which=ownership-sweep|ownership-vr` (inserts). Next pass: **66**.
+`scripts/case-loops/apply-batch.ts --which=ownership-sweep|ownership-vr` (inserts). Next pass: **67**.

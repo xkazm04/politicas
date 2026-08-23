@@ -82,6 +82,21 @@ export function roleRegisterContradiction(tie: {
   );
 }
 
+/**
+ * Vlastnictví, jak ho zveřejňuje FIRMA SAMA (výroční zpráva, stránka „pro akcionáře") —
+ * vrstva NAD rejstříkovým verdiktem, ne místo něj (batch 020). Rejstřík u a.s. s více
+ * akcionáři neuvádí nikoho; tohle je doklad mimo rejstřík, citovaný, s datem přístupu.
+ * Nikdy z něj nevzniká hrana `owns_stake` — dokument je obohacení, ne fakt grafu.
+ */
+export interface OwnershipDisclosed {
+  asOf: string | null;
+  sourceKind: string;
+  sourceUrl: string;
+  accessedAt: string;
+  owners: { name: string; pct: number | null }[];
+  noteCs: string | null;
+}
+
 /** Veřejný vlastník tak, jak ho zapsal rejstříkový průchod. */
 export interface PublicMandateOwner {
   ico: string | null;
@@ -161,6 +176,8 @@ export interface MoneyTie {
   /** Právní forma firmy (kód ARES), jak ji zapsal rejstříkový průchod — `null` = neprověřeno.
    *  Čte ji rozpor rolí × rejstřík: „steward" u o.p.s./nadace/z.ú. není rozpor, u a.s./s.r.o. je. */
   publicMandateLegalForm: string | null;
+  /** Doklad mimo rejstřík (firma sama), je-li: viz `OwnershipDisclosed`. `null` = nedoloženo. */
+  ownershipDisclosed: OwnershipDisclosed | null;
   /** Whether `tieClass` was READ off the edge or GUESSED — the two may not be rendered
    *  in the same voice (`tieClassOriginInfo`). */
   tieClassOrigin: TieClassOrigin;

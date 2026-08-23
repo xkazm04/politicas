@@ -210,8 +210,11 @@ interface WriteStatus {
  *  u kterých rejstřík nejmenuje vlastníka a které proto čekají na DOKLAD (výroční zpráva,
  *  majetkové účasti města). Druhá osa přičitatelnosti má vlastní vstup do fronty, protože
  *  devět firem nese 16,8 mld. Kč z 17,4 mld. přičitatelného součtu. */
-type ClassFilter = TieClass | "all" | "unpublished";
+type ClassFilter = TieClass | "all" | "unpublished" | "contradiction";
 const isUnpublished = (t: { publicMandate: string | null }) => t.publicMandate === "ownership-not-published";
+/** Dráha „rozpor" (batch 020): třída steward u soukromé OBCHODNÍ firmy — 18 vazeb, první
+ *  sezení lidské brány. Táž predikce jako odznak na kartě, jeden import, ne druhá kopie. */
+const isContradiction = roleRegisterContradiction;
 
 export default function VerificationConsole({
   data,
@@ -254,11 +257,14 @@ export default function VerificationConsole({
           ? data.ties
           : filter === "unpublished"
             ? data.ties.filter(isUnpublished)
-            : data.ties.filter((t) => t.tieClass === filter)
+            : filter === "contradiction"
+              ? data.ties.filter(isContradiction)
+              : data.ties.filter((t) => t.tieClass === filter)
         : [],
     [data, filter],
   );
   const unpublishedCount = useMemo(() => (data ? data.ties.filter(isUnpublished).length : 0), [data]);
+  const contradictionCount = useMemo(() => (data ? data.ties.filter(isContradiction).length : 0), [data]);
   const shownIds = useMemo(() => shown.map((t) => t.id), [shown]);
   const rovingId = queueRovingId(focusedId, shownIds);
 
@@ -512,7 +518,7 @@ export default function VerificationConsole({
             {/* Výběr filtru nesl JEN barvu — pro odečítačku čtyři nerozlišitelná
                 tlačítka. Skupina má jméno, každé tlačítko svůj stav. */}
             <div role="group" aria-label="filtr fronty podle třídy vazby" className="flex flex-wrap gap-2">
-              {(["all", "owner-operator", "manager", "steward", "unpublished"] as ClassFilter[]).map((c) => (
+              {(["all", "owner-operator", "manager", "steward", "unpublished", "contradiction"] as ClassFilter[]).map((c) => (
                 <button
                   key={c}
                   type="button"
@@ -522,10 +528,12 @@ export default function VerificationConsole({
                     filter === c ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
                   }`}
                 >
-                  {c === "all" ? "vše" : c === "unpublished" ? "vlastník neuveden" : CLASS_LABEL[c]}
+                  {c === "all" ? "vše" : c === "unpublished" ? "vlastník neuveden" : c === "contradiction" ? "rozpor role × rejstřík" : CLASS_LABEL[c]}
                   <span className="ml-1.5 font-normal">
                     {c === "all"
                       ? f.int(data.stats.pending)
+                      : c === "contradiction"
+                        ? f.int(contradictionCount)
                       : c === "unpublished"
                         ? f.int(unpublishedCount)
                         : f.int(c === "owner-operator" ? data.stats.ownerOperator : c === "manager" ? data.stats.manager : data.stats.steward)}
@@ -906,9 +914,21 @@ function ReviewCard({
               vlastník: {tie.publicMandateOwners.map((o) => o.name).join(", ")}
             </span>
           )}
-          {tie.publicMandate === "ownership-not-published" && (
+          {tie.publicMandate === "ownership-not-published" && !tie.ownershipDisclosed && (
             <span className="max-w-[16rem] text-right font-mono text-[10px] leading-relaxed uppercase tracking-widest text-steel">
               k doložení mimo rejstřík (výroční zpráva, majetkové účasti)
+            </span>
+          )}
+          {/* DOLOŽENO MIMO REJSTŘÍK (batch 020): firma sama zveřejňuje vlastníky. Vrstva nad
+              rejstříkovým verdiktem — ten zůstává „neuveden", protože to o rejstříku platí —
+              s citací, datem a přístupem. Nikdy se z toho nedělá hrana grafu. */}
+          {tie.ownershipDisclosed && (
+            <span className="max-w-[18rem] text-right font-mono text-[10px] leading-relaxed uppercase tracking-widest text-steel">
+              doloženo firmou{tie.ownershipDisclosed.asOf ? ` k ${tie.ownershipDisclosed.asOf}` : ""}:{" "}
+              {tie.ownershipDisclosed.owners.map((o) => (o.pct != null ? `${o.name} ${f.dec(o.pct)} %` : o.name)).join(" · ")}{" "}
+              <a href={tie.ownershipDisclosed.sourceUrl} target="_blank" rel="noreferrer" className="underline decoration-hairline hover:text-ink">
+                zdroj
+              </a>
             </span>
           )}
           {/* ROZPOR OS (batch 019): třída vazby říká „steward" (veřejná/nezisková instituce
