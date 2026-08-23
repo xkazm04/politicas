@@ -28,7 +28,10 @@
 // several GB, unmeasured, flagged as future work in the assessment) — file fetches are
 // targeted, one court×form×year at a time, cached to disk so a batch never re-fetches.
 
-import { gunzipSync } from "node:zlib";
+import { createGunzip, gunzipSync } from "node:zlib";
+import { createReadStream, createWriteStream } from "node:fs";
+import { pipeline } from "node:stream/promises";
+import { Readable } from "node:stream";
 import { asciiFold } from "@/lib/ingest/normalize";
 import { backoffDelayMs } from "./backoff";
 
@@ -137,32 +140,49 @@ KRAJ_CODE_TO_COURT_SLUG[41] = "plzen"; // Karlovarský → Krajský soud v Plzni
  *  observed among Case ① money's open ties + the catalog's own published slug list
  *  (assessment §"Naming") — NOT a claimed-complete codelist. An unmapped code returns
  *  null and the caller must fall back to name-suffix heuristics or skip with a flag. */
-// Known ARES pravniForma codes with NO verified dataor slug of their own — "111"
-// (veřejná obchodní společnost), "117" (komanditní společnost) and "205" (družstvo)
-// were previously defaulted to "sro" here, but that is a confident WRONG answer,
-// not an honest unresolved one: dataor's own {form}-{variant}-{court}-{year}
-// naming convention implies these three distinct legal forms have their own
-// slugs, and querying the s.r.o. dataset for them can only ever return "not
-// found" — indistinguishable from a legitimately-absent record. Deliberately
-// left OUT of PRAVNI_FORMA_TO_SLUG below so resolveCourtAndForm falls through to
-// the name-heuristic path (or an honest "unresolved" outcome) instead of a wrong
-// dataset guess, until the real dataor slugs are verified against the live
-// catalog (packageList()/packageShow()).
-const KNOWN_BUT_UNVERIFIED_FORM_CODES = new Set(["111", "117", "205"]);
-
+// ARES `pravniForma` code → dataor legal-form slug. BOTH SIDES VERIFIED 2026-08-22 (money
+// batch 017): the code labels against ARES's own `PravniForma` číselník, the slugs against
+// dataor's CKAN `package_show` titles. The table this replaces was wrong in 9 of 11 rows —
+// it had been written from a code list that is NOT ARES's: "117" was mapped as komanditní
+// (ARES: Nadace), "325" as státní podnik (ARES: Organizační složka státu — not in the OR at
+// all), "801" as příspěvková organizace (ARES: Obec), and `nevlad_org` — which dataor
+// defines as "Mezinárodní nevládní organizace" — carried every spolek and nadace. Every one
+// of those guesses could only ever answer "IČO not present in <wrong file>", which reads
+// exactly like an honest negative. A state enterprise, a foundation or an association in the
+// money graph was therefore unreachable by construction, and batch 006's own flagship lead
+// — AGROFERT's post-2017 transfer into svěřenské fondy — was flagged "may use a mechanism
+// this extractor doesn't recognize" when in fact dataor publishes trust funds under `sf`.
+//
+// Codes present in ARES but deliberately ABSENT here (slug unverified or ambiguous — an
+// honest "unresolved" beats a confident wrong file): 118-ish nadační fond (dataor `nadf`,
+// ARES code not confirmed), 332 státní příspěvková (probably `prisp`, unconfirmed),
+// 741 profesní komora (no OR slug found), 751 zájmové sdružení PO (TWO dataor slugs,
+// `zaj_sdr_po` "zapsané v OR" vs `zajzdrpo`), 906 zahraniční spolek.
 export const PRAVNI_FORMA_TO_SLUG: Record<string, string> = {
-  "112": "sro", // společnost s ručením omezeným
-  "121": "as", // akciová společnost
-  "421": "nevlad_org", // spolek
-  "422": "z_pobocny_spolek", // pobočný spolek
-  "451": "nevlad_org", // nadace
-  "452": "nevlad_org", // nadační fond
-  "453": "ops", // ústav — best-effort, not independently verified
-  "461": "ops", // obecně prospěšná společnost
-  "471": "zaj_sdr_po", // zájmové sdružení právnických osob
-  "801": "po_zzz", // příspěvková organizace — best-effort
-  "325": "zvlastni_org", // státní podnik — best-effort, not independently verified
+  "111": "vos", // Veřejná obchodní společnost
+  "112": "sro", // Společnost s ručením omezeným
+  "113": "ks", // Společnost komanditní
+  "117": "nad", // Nadace
+  "121": "as", // Akciová společnost
+  "141": "ops", // Obecně prospěšná společnost
+  "145": "svj", // Společenství vlastníků jednotek
+  "161": "ustav", // Ústav
+  "205": "dr", // Družstvo
+  "301": "sp", // Státní podnik
+  "302": "np", // Národní podnik
+  "331": "prisp", // Příspěvková organizace
+  "421": "oz", // Odštěpný závod zahraniční právnické osoby
+  "706": "spolek", // Spolek
+  "736": "pobspolek", // Pobočný spolek
+  "745": "komora_ha", // Komora (hospodářská, agrární)
+  "801": "obec", // Obec nebo městská část hl. m. Prahy
+  "936": "z_pobocny_spolek", // Zahraniční pobočný spolek
+  "961": "sf", // Svěřenský fond
 };
+
+/** Codes ARES issues that this table knowingly leaves unmapped — kept so a caller can tell
+ *  "unmapped by decision" from "unmapped by omission" (see the note above). */
+export const KNOWN_BUT_UNVERIFIED_FORM_CODES = new Set(["332", "741", "751", "906"]);
 
 /** Name-suffix fallback when `pravniForma` is unmapped or unavailable — same discipline
  *  as `reconcile-ares-vr.ts`'s classifyTie: cheap, deterministic, logged as a fallback
@@ -171,11 +191,15 @@ export function legalFormSlugFromName(name: string): string | null {
   const n = asciiFold(name);
   if (/\bspolecnost s rucenim omezenym\b|\bspol\. s r\.?o\.?\b|\bs\.r\.o\.?\b/.test(n)) return "sro";
   if (/\bakciova spolecnost\b|\ba\.s\.?\b/.test(n)) return "as";
-  if (/\bz\.s\.?\b|\bspolek\b|\bobcanske sdruzeni\b/.test(n)) return "nevlad_org";
+  if (/\bnadacni fond\b/.test(n)) return "nadf"; // before "nadace" — the longer phrase first
+  if (/\bnadace\b/.test(n)) return "nad";
+  if (/\bz\.s\.?\b|\bspolek\b|\bobcanske sdruzeni\b/.test(n)) return "spolek";
   if (/\bo\.p\.s\.?\b|\bobecne prospesna spolecnost\b/.test(n)) return "ops";
-  if (/\bnadacni fond\b|\bnadace\b/.test(n)) return "nevlad_org";
-  if (/\bprispevkova organizace\b/.test(n)) return "po_zzz";
-  if (/\bstatni podnik\b/.test(n)) return "zvlastni_org";
+  if (/\bprispevkova organizace\b/.test(n)) return "prisp";
+  if (/\bstatni podnik\b|\bs\.p\.?\b/.test(n)) return "sp";
+  if (/\bdruzstvo\b/.test(n)) return "dr";
+  if (/\bz\.u\.?\b|\bustav\b/.test(n)) return "ustav";
+  if (/\bsverensky fond\b/.test(n)) return "sf";
   return null;
 }
 
@@ -468,7 +492,12 @@ function readCsvRow(text: string, pos: number): { fields: string[]; next: number
           end = text.indexOf('"', pos);
         }
         const tail = text.slice(pos, end === -1 ? n : end);
-        value = segments ? segments.join('"') + tail : tail;
+        // Each `""` contributes ONE literal quote — between every segment AND before the
+        // tail. `segments.join('"') + tail` (the original) put a quote only between
+        // segments, so a field with a single escaped quote lost it entirely and a field
+        // with two lost the second. Found by the streaming finder's chunk-boundary tests
+        // (money batch 017); never covered before, and `udaje` carries quoted names.
+        value = segments ? segments.join('"') + '"' + tail : tail;
         pos = end === -1 ? n : end + 1;
       }
     } else {
@@ -609,20 +638,202 @@ export function findRecordByIco(records: DataorRawRecord[], ico: string): Dataor
   return records.find((r) => (r.ico.replace(/^0+/, "") || "0") === target) ?? null;
 }
 
+/* ── STREAMING PATH (money batch 017) ─────────────────────────────────────────────────────
+ *
+ * WHY. Everything above reads a whole dataset into ONE JS string. V8 caps a string at
+ * ~512 MiB, so any dataset past that fails with `Invalid string length` — thrown from
+ * `fs.readFile`, then again from the CKAN refetch — and the caller sees a "fetch failed",
+ * indistinguishable from a network blip. Measured 2026-08-23 against the live catalog:
+ * `sro-full-praha-2026.csv` is **2 452 MB** and `sro-full-brno-2026.csv` **812 MB** — the
+ * two s.r.o. registers where owner-operator ownership chains live were unreadable by
+ * construction, and nothing ever said so. (`as-full-praha` at 289 MB fits, which is why
+ * the a.s. side always worked.)
+ *
+ * Three pieces, each usable alone:
+ *   ensureDatasetCached(id)          download → gunzip → disk as a stream; never holds the
+ *                                    file in memory. Idempotent.
+ *   findRecordsByIcosInFile(path,…)  ONE pass over the file, a rolling buffer, every target
+ *                                    IČO at once. Rows are only accepted when provably
+ *                                    complete (a terminator was consumed before buffer end,
+ *                                    or EOF) — a quoted `udaje` field can contain newlines,
+ *                                    so "buffer ends in \n" is not completeness.
+ *   fetchAndFindRecords(id, icos)    the two above, high-level.
+ * `fetchAndFindRecord` (singular) now goes through them too, so every existing caller
+ * reads the big files without changing a line.
+ */
+
+/**
+ * Resumable, stall-watched download to `dest` — the piece `fetchRetry` cannot be.
+ *
+ * `fetchRetry` binds its 180 s `AbortSignal.timeout` to the WHOLE fetch, body included, so
+ * at dataor's ~3,5 MB/s nothing over ~600 MB can ever finish, and each retry restarts from
+ * byte 0 (measured 2026-08-23: `sro-full-praha-2026.csv.gz` died at 647 MB decompressed,
+ * every time). This one has NO overall deadline — only a stall watchdog (no bytes for
+ * `stallMs`) — and resumes from the `.part` file's size with an HTTP `Range` request. A
+ * server that answers 200 instead of 206 simply restarts the file; a 416 means the part is
+ * already complete.
+ */
+export async function downloadResumable(
+  url: string,
+  dest: string,
+  opts: { attempts?: number; stallMs?: number } = {},
+): Promise<void> {
+  const fs = await import("node:fs/promises");
+  const attempts = opts.attempts ?? 8;
+  const stallMs = opts.stallMs ?? 120_000;
+  const part = `${dest}.part`;
+  let lastErr: unknown = null;
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    const have = await fs.stat(part).then((st) => st.size, () => 0);
+    const ac = new AbortController();
+    let timer: NodeJS.Timeout | null = null;
+    const arm = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => ac.abort(new Error(`no bytes for ${stallMs / 1000}s`)), stallMs);
+    };
+    try {
+      arm();
+      const res = await fetch(url, { headers: have > 0 ? { Range: `bytes=${have}-` } : {}, signal: ac.signal });
+      if (res.status === 416) break; // already complete
+      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
+      const append = res.status === 206 && have > 0;
+      if (!append && have > 0) await fs.rm(part, { force: true }); // server ignored Range: restart
+      const out = createWriteStream(part, { flags: append ? "a" : "w" });
+      const body = Readable.fromWeb(res.body as unknown as import("node:stream/web").ReadableStream);
+      body.on("data", arm);
+      await pipeline(body, out);
+      if (timer) clearTimeout(timer);
+      await fs.rename(part, dest);
+      return;
+    } catch (err) {
+      lastErr = err;
+      if (timer) clearTimeout(timer);
+      console.warn(`[dataor] download ${url} attempt ${attempt + 1}/${attempts} failed (${(err as Error).message}) — resuming`);
+      await new Promise((r) => setTimeout(r, backoffDelayMs(attempt, 1_000, 20_000)));
+    }
+  }
+  if (await fs.stat(part).then(() => false, () => true)) return; // renamed by a 416 path
+  throw new Error(`dataor download failed after ${attempts} attempts: ${(lastErr as Error)?.message ?? "unknown"}`);
+}
+
+/** Download one dataset into the cache as `<id>.csv`, streaming (gz kept on disk and
+ *  decompressed as a stream — the file never passes through memory). Idempotent; a
+ *  partial download must never be mistaken for a cached one, so the decompressed file is
+ *  written as `.part` and renamed last. Returns the cache path, or null when the dataset
+ *  does not exist on CKAN. */
+export async function ensureDatasetCached(id: string): Promise<string | null> {
+  const fs = await import("node:fs/promises");
+  const cachePath = `${CACHE_DIR}/${id}.csv`;
+  // A missing file is the expected "not cached yet" answer, not a failure to trace.
+  const existing = await fs.stat(cachePath).then((st) => st.size, () => 0);
+  if (existing > 0) return cachePath;
+  const pkg = await packageShow(id);
+  if (!pkg) return null;
+  const gz = pkg.resources.find((r) => /\.csv\.gz$/i.test(r.url));
+  const plain = pkg.resources.find((r) => /\.csv$/i.test(r.url) && !/\.gz$/i.test(r.url));
+  const resource = gz ?? plain;
+  if (!resource) return null;
+  await fs.mkdir(CACHE_DIR, { recursive: true });
+  if (gz) {
+    const gzPath = `${CACHE_DIR}/${id}.csv.gz`;
+    await downloadResumable(resource.url, gzPath);
+    const tmp = `${cachePath}.part`;
+    await pipeline(createReadStream(gzPath), createGunzip(), createWriteStream(tmp));
+    await fs.rename(tmp, cachePath);
+    await fs.rm(gzPath, { force: true }); // the .csv is the cache; the .gz was transport
+  } else {
+    await downloadResumable(resource.url, cachePath);
+  }
+  return cachePath;
+}
+
+const normIco = (ico: string) => ico.replace(/^0+/, "") || "0";
+
+/** One streaming pass; returns the records found, keyed by the caller's own IČO strings. */
+export async function findRecordsByIcosInFile(
+  path: string,
+  icos: Iterable<string>,
+  opts: { highWaterMark?: number } = {},
+): Promise<Map<string, DataorRawRecord>> {
+  const wanted = new Map<string, string>(); // normalized → as given
+  for (const i of icos) wanted.set(normIco(i), i);
+  const found = new Map<string, DataorRawRecord>();
+  if (wanted.size === 0) return found;
+
+  const stream = createReadStream(path, { encoding: "utf8", highWaterMark: opts.highWaterMark ?? 8 * 1024 * 1024 });
+  let buf = "";
+  let header: DataorHeader | null = null;
+  let done = false;
+
+  const drain = (eof: boolean) => {
+    let pos = 0;
+    if (!header) {
+      const h = readHeader(buf);
+      // The header row must be complete before anything is read from it.
+      if (!h || (h.bodyStart >= buf.length && !eof)) return;
+      header = h;
+      pos = h.bodyStart;
+    }
+    const n = buf.length;
+    while (pos < n) {
+      const { fields, next } = readCsvRow(buf, pos);
+      if (next === pos) break;
+      // Only a row whose terminator lies strictly inside the buffer is provably complete;
+      // a row that ran to the buffer end may be cut mid-quoted-field.
+      if (next >= n && !eof) break;
+      const raw = (fields[header.idxIco] ?? "").trim();
+      const key = normIco(raw);
+      if (wanted.has(key) && !found.has(wanted.get(key)!)) {
+        const rec = rowToRecord(fields, header);
+        if (rec) found.set(wanted.get(key)!, rec);
+        if (found.size === wanted.size) {
+          done = true;
+          break;
+        }
+      }
+      pos = next;
+    }
+    buf = pos > 0 ? buf.slice(pos) : buf;
+  };
+
+  for await (const chunk of stream) {
+    buf += chunk as string;
+    drain(false);
+    if (done) {
+      stream.destroy();
+      break;
+    }
+  }
+  if (!done) drain(true);
+  return found;
+}
+
+/** High-level: make sure the dataset is on disk, then one pass for every IČO asked. */
+export async function fetchAndFindRecords(
+  id: string,
+  icos: Iterable<string>,
+): Promise<{ datasetExists: boolean; records: Map<string, DataorRawRecord> }> {
+  const path = await ensureDatasetCached(id);
+  if (!path) return { datasetExists: false, records: new Map() };
+  return { datasetExists: true, records: await findRecordsByIcosInFile(path, icos) };
+}
+
 /** High-level entry point for a corroboration lookup: fetch (cached) one court×legalForm×
  *  year dataset and pull one IČO's record + parsed officer/shareholder list in one call,
- *  never materializing the whole file's records. Returns null if the dataset doesn't exist
- *  or the IČO isn't in it (caller decides which — `datasetExists` on the result). */
+ *  never materializing the whole file. Since money batch 017 this is the STREAMING path
+ *  (see above), so a 2,4 GB register reads the same as a 20 MB one. Returns null-shaped
+ *  results if the dataset doesn't exist or the IČO isn't in it (`datasetExists` tells which). */
 export interface DataorLookupResult {
   datasetExists: boolean;
   record: DataorRawRecord | null;
   officers: DataorOfficer[];
   spisovaZnacka: string | null;
 }
+
 export async function fetchAndFindRecord(id: string, ico: string): Promise<DataorLookupResult> {
-  const text = await fetchDatasetCsv(id);
-  if (text === null) return { datasetExists: false, record: null, officers: [], spisovaZnacka: null };
-  const record = findRecordByIcoInCsvText(text, ico);
+  const { datasetExists, records } = await fetchAndFindRecords(id, [ico]);
+  if (!datasetExists) return { datasetExists: false, record: null, officers: [], spisovaZnacka: null };
+  const record = records.get(ico) ?? null;
   if (!record) return { datasetExists: true, record: null, officers: [], spisovaZnacka: null };
   const udaje = parseUdaje(record.udajeRaw);
   return {

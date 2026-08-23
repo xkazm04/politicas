@@ -644,3 +644,24 @@ spolupráci"; `741` turned out to be a profesní komora, is genuinely arguable, 
 the guard protecting them was not, and it would have failed the first time a svazek obcí or a
 státní podnik appeared. The audit is now a drift guard, its fire rate validated 23 → 7 → 0
 with every survivor hand-read.
+
+
+## 2026-08-23 · money batch 017 — the ownership layer doubled, and the steward bucket is now corroborated
+
+`owns_stake` went **33 → 62 edges** (pass 60) once the dataor sweep ran at full population
+instead of batch 006's 12-fetch slice. The headline did not move (17 417 308 400 CZK): every
+tied company the register turned out to be owned by a kraj, město, ministry, VZP or ČD was
+already steward *by role*. What changed is that **29 companies / 289 mld. CZK of steward
+money now carry a registry-recorded public owner** (pass 61) — `/penize/firma/<ico>` prints
+„vlastník: Zlínský kraj" from the register rather than leaving the steward sentence to rest
+on the role text alone. That is the non-partisan-symmetry output: the same ownership
+tracing that finds a politician's firm confirms, from the same source, that a hospital's
+contracting is the kraj's.
+
+What the batch mostly did was fix the adapter under the sweep: an ARES-code → dataor-slug
+table wrong in 9 of 11 rows (every wrong row a plausible „IČO not present"), a whole-file
+string read that could never open the 2,4 GB Prague s.r.o. register, an escaped-quote
+parser bug, and a cache-filename disagreement that re-downloaded 68 MB per company. The
+38 s.r.o. companies behind the three biggest files are recorded as *not attempted — server
+serving ≤ ~70 MB per connection today*, with the resumable downloader in place for the
+retry. Full record: `docs/data-analysis/case-money/batch-017.md`.

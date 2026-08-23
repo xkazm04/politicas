@@ -3825,13 +3825,13 @@
   "openItems": [
     {
       "id": "M-1",
-      "title": "Widen owns_stake (33 edges / 214 companies); coverage audit of dataor-ownership-chains.ts first",
-      "since": "b016",
+      "title": "Retry the three s.r.o. registers (38 companies: Praha 19 / Brno 13 / Ostrava 6) — ownership-sweep.ts --fetch-budget=3 on a day dataor serves > 70 MB per connection; sizes 216/71/47 MB gz, no Range; try .xml.gz / off-hours if it still caps",
+      "since": "b017",
       "status": "open"
     },
     {
       "id": "M-2",
-      "title": "Pražská energetika 10,95 mld. — largest figure resting on nothing; city-owned via a holding the graph lacks",
+      "title": "Pražská energetika 10,95 mld. — no parent in the graph; reach it FROM the holding record (Pražská energetika Holding a.s., in cached as-full-praha)",
       "since": "b015",
       "status": "open"
     },

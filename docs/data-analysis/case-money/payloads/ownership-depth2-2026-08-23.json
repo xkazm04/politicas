@@ -1,0 +1,602 @@
+{
+  "proposals": [
+    {
+      "id": "company:ico:02795281",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je HLAVNÍ MĚSTO PRAHA (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00064581",
+            "name": "HLAVNÍ MĚSTO PRAHA",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma HLAVNÍ MĚSTO PRAHA: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00064581",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:09133267",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Statutární město Brno (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "44992785",
+            "name": "Statutární město Brno",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Brno: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/44992785",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25205625",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Město Plzeň (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00075370",
+            "name": "Město Plzeň",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Město Plzeň: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00075370",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25220683",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Město Plzeň (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00075370",
+            "name": "Město Plzeň",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Město Plzeň: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00075370",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25488627",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Ústecký kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70892156",
+            "name": "Ústecký kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Ústecký kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70892156",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25508881",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Statutární město Brno (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "44992785",
+            "name": "Statutární město Brno",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Brno: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/44992785",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:25997556",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Královéhradecký kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70889546",
+            "name": "Královéhradecký kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Královéhradecký kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70889546",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26000237",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Královéhradecký kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70889546",
+            "name": "Královéhradecký kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Královéhradecký kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70889546",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26402068",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Karlovarský kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70891168",
+            "name": "Karlovarský kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Karlovarský kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891168",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:26871068",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Zlínský kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70891320",
+            "name": "Zlínský kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Zlínský kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891320",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27116913",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY (právní forma 391). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "41197518",
+            "name": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+            "legalForm": "391"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY: právní forma 391",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/41197518",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27251918",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je HLAVNÍ MĚSTO PRAHA (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00064581",
+            "name": "HLAVNÍ MĚSTO PRAHA",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma HLAVNÍ MĚSTO PRAHA: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00064581",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27256456",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Středočeský kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70891095",
+            "name": "Středočeský kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Středočeský kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891095",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27256537",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Středočeský kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70891095",
+            "name": "Středočeský kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Středočeský kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891095",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27341313",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Statutární město Chomutov (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00261891",
+            "name": "Statutární město Chomutov",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Chomutov: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00261891",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27660532",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Zlínský kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70891320",
+            "name": "Zlínský kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Zlínský kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891320",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27660915",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Zlínský kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70891320",
+            "name": "Zlínský kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Zlínský kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891320",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:27661989",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Zlínský kraj (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "70891320",
+            "name": "Zlínský kraj",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Zlínský kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891320",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:48154938",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Statutární město Pardubice (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00274046",
+            "name": "Statutární město Pardubice",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Pardubice: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00274046",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:49790498",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Město Ostrov (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00254843",
+            "name": "Město Ostrov",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Město Ostrov: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00254843",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:60193468",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Ministerstvo financí (právní forma 325). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00006947",
+            "name": "Ministerstvo financí",
+            "legalForm": "325"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Ministerstvo financí: právní forma 325",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00006947",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:60194120",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je HLAVNÍ MĚSTO PRAHA (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00064581",
+            "name": "HLAVNÍ MĚSTO PRAHA",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma HLAVNÍ MĚSTO PRAHA: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00064581",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:60713470",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Statutární město Brno (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "44992785",
+            "name": "Statutární město Brno",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Brno: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/44992785",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:62240935",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Město Děčín, (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00261238",
+            "name": "Město Děčín,",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Město Děčín,: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00261238",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:63080249",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je HLAVNÍ MĚSTO PRAHA (právní forma 804). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00064581",
+            "name": "HLAVNÍ MĚSTO PRAHA",
+            "legalForm": "804"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma HLAVNÍ MĚSTO PRAHA: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00064581",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "id": "company:ico:63217066",
+      "props": {
+        "public_mandate": "publicly-owned",
+        "public_mandate_attributable": false,
+        "public_mandate_reason": "Ve veřejném vlastnictví přes mateřskou společnost — vlastníkem je Statutární město Pardubice (právní forma 801). Vlastní rejstříkový záznam této firmy žádného společníka neuvádí; vlastnictví je doloženo o úroveň výš z rejstříku vlastnictví (owns_stake).",
+        "public_mandate_owners": [
+          {
+            "ico": "00274046",
+            "name": "Statutární město Pardubice",
+            "legalForm": "801"
+          }
+        ],
+        "public_mandate_depth": 2
+      },
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Pardubice: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00274046",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    }
+  ]
+}

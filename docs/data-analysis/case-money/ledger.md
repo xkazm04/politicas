@@ -1144,3 +1144,73 @@ to ask it.
    A cheap alternative: have the build skip loaders explicitly rather than fail them.
 5. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (batch 010); SZIF subsidy channel
    still absent; Q-money-13's 21 residue items still with law (14) / effort (7).
+
+### Batch 017 — widening the ownership layer, and what stood in the way (2026-08-22/23)
+
+- **Why 33 edges: a bounded first slice nobody lifted.** Batch 006 capped new dataset
+  fetches at 12, priority classes only — **153 of 195 tied companies never attempted** —
+  and no batch widened it for ten batches. `ownership-sweep.ts` (durable) replaces it:
+  all tied companies + known parents, `--plan` / `--fetch-budget`, 8-padded IČOs by
+  construction, payload in apply-batch's reviewed shape.
+- **Four adapter defects, three silent.** (a) The ARES-code → dataor-slug table was built
+  from the wrong code list — **9 of 11 rows wrong** (117 read as komanditní = Nadace; 325
+  as státní podnik = OSS; 801 as příspěvková = Obec; `nevlad_org` = *international NGO*
+  carrying every spolek). Every wrong row answered „IČO not present", a plausible
+  negative. Rebuilt from ARES číselník × CKAN titles, 19 verified pairs incl. **`961→sf`
+  svěřenský fond** (the AGROFERT post-2017 structure batch 006 thought unreachable);
+  re-planning moved 18 companies from unresolved into real files. (b) Whole-file JS
+  strings: **sro-full-praha 2 452 MB, sro-full-brno 812 MB** — past V8's 512 MB cap, the
+  two s.r.o. registers were unreadable by construction (`Invalid string length`, logged
+  as a fetch failure). Streaming path added (`ensureDatasetCached`,
+  `findRecordsByIcosInFile`, `fetchAndFindRecord` routed through it). (c) `readCsvRow`
+  dropped `""`-escaped quotes — pre-existing, found by the streaming finder's
+  chunk-boundary tests. (d) Sweep and adapter disagreed on the cache filename
+  (`.csv.gz` vs `.csv`) → 27 minutes of silent per-company re-download; `.part` + rename
+  everywhere now.
+- **The server, today:** every transport delivers ~55–72 MB then resets/stalls at ~90 s,
+  no `Range`, http→302. **38 s.r.o. companies (Praha 19 / Brno 13 / Ostrava 6) recorded
+  `not attempted — server too slow this run`**; `downloadResumable` (stall watchdog, no
+  deadline) is in place for the retry. An open item with a plan, not a gap.
+- **Found over 43 cached datasets / 156 companies: 148 chain rows (104 stakes, 44 board
+  seats excluded), 19 new parents, 105 honest negatives.** **Pass 60**: 19 nodes, **62
+  `owns_stake` edges (29 new + 33 re-merged)** — the layer **33 → 62**.
+- **26 tied steward companies now carry a registry-recorded public owner** (Zlínský kraj
+  ×4, Brno ×4, Praha ×3, four kraje, Ministerstvo financí, VZP, ČD, four svazky obcí):
+  batch 015 had swept only attributable companies, so these never got a company-axis
+  verdict. `ownership-depth2.ts` extended to never-swept companies → **pass 61: 26
+  `publicly-owned` verdicts**. No koruna moved (all steward by role); `publicly-owned`
+  4 → **29 companies / 289 384 080 794 CZK** of steward money now registry-corroborated.
+  The original `ownership-not-published` → public-parent question resolved 0/47; Pražská
+  energetika still has no parent in the graph.
+- **A committed payload is history:** `ownership-depth2.ts` overwrote the pass-59 payload
+  with an empty rerun — restored from git; tools now write dated files.
+- **No `review_state` touched — 211 ties remain `pending_review`.**
+
+## Metrics block — batch 017
+
+| metric | batch 017 |
+|---|---|
+| `owns_stake` edges | **33 → 62** (+29 new, 33 re-merged) · 19 new parent nodes |
+| companies swept | 156 of 213 targets (43 datasets cached: 12 → 52) |
+| honest negatives (no corporate shareholder) | 105 |
+| not attempted | 57 (38 server-unreachable s.r.o. · 15 not in OR · 3 ARES-absent · 1 unresolved) |
+| adapter defects fixed | **4** (slug table 9/11 wrong · 512 MB string cap · `""` escape · cache-name split) |
+| `publicly-owned` verdicts | 4 → **29 companies · 289 384 080 794 CZK** (pass 61, +26) |
+| headline | **unchanged 17 417 308 400 CZK** (all 26 were steward by role) |
+| graph writes | pass 60 (apply-batch) · pass 61 (persist-batch) |
+| `review_state` changes | **0** |
+| gate | `npm run check` green — **2 998 tests** (+23) · props-check clean · 0 unpadded IČOs |
+
+## Steering (next batch — batch 018)
+
+1. **Retry the three s.r.o. registers** (38 companies — where owner-operator chains live)
+   with `ownership-sweep.ts --fetch-budget=3` on a better day; the sizes are on record
+   (216 / 71 / 47 MB gz). If the server still caps at ~70 MB, the `.xml.gz` variant and
+   an off-hours window are the next two things to try.
+2. **Pražská energetika** — still no parent in the graph; it is in `as-full-praha` (cached)
+   and its VR names nobody, so the holding must be reached from the holding's side
+   (Pražská energetika Holding a.s. is itself in `as-full-praha`). A depth-2 FROM the
+   parent's record is the route.
+3. `ownership-not-published` review-queue lane (46 companies, 17,09 mld.).
+4. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (b010); SZIF channel absent;
+   Q-money-13 residue 21 items with law (14) / effort (7).

@@ -27,8 +27,13 @@ import { KG_READ_CAP } from "@/lib/db/readCap";
 import { isPublicLegalForm } from "@/lib/analysis/public-body";
 
 const BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest";
-const OUT = "docs/data-analysis/case-money/qmoney-ownership-depth2-b16.json";
-const PAYLOAD = "docs/data-analysis/case-money/payloads/batch-016-depth2.json";
+// DATED outputs, never a fixed batch filename: the first version of this tool wrote to
+// `batch-016-depth2.json` on every run and, re-run in batch 017, silently overwrote the
+// COMMITTED pass-59 payload with an empty one — which would have made a restore-and-replay
+// of pass 59 replay nothing. A committed payload is history; a tool writes a new file.
+const STAMP = new Date().toISOString().slice(0, 10);
+const OUT = `docs/data-analysis/case-money/qmoney-ownership-depth2-${STAMP}.json`;
+const PAYLOAD = `docs/data-analysis/case-money/payloads/ownership-depth2-${STAMP}.json`;
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 const str = (v: unknown): string | null => (typeof v === "string" && v.length > 0 ? v : null);
 
@@ -56,10 +61,19 @@ async function main() {
 
   const byId = new Map(companies.map((c) => [c.id, c]));
 
-  // Only the companies whose own record answered nothing. A company with a settled verdict
-  // is not revisited: this pass adds evidence where there was none, it does not re-litigate.
+  // Companies whose own record answered nothing — AND (batch 017) companies that were never
+  // swept at all but now have a parent in the graph. Batch 015 swept only the 57
+  // ATTRIBUTABLE companies; the 138 steward-by-role companies never got a verdict because no
+  // money depended on it. The widened `owns_stake` layer then showed 24 of them owned by a
+  // kraj, město, ministry, VZP or ČD — which is the COMPANY-axis corroboration of exactly the
+  // steward classification their role implied, from an independent source. Writing it costs
+  // nothing in money and puts „vlastník: Zlínský kraj" on the company file. A company with a
+  // SETTLED verdict is still not revisited: this pass adds evidence, it does not re-litigate.
   const targets = companies.filter(
-    (c) => c.props?.public_mandate === "ownership-not-published" || c.props?.public_mandate === "unknown",
+    (c) =>
+      c.props?.public_mandate === "ownership-not-published" ||
+      c.props?.public_mandate === "unknown" ||
+      c.props?.public_mandate == null,
   );
   console.log(`companies with no owner in their own record: ${targets.length}`);
   console.log(`owns_stake edges in the graph: ${owns.length}\n`);

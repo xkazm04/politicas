@@ -1,0 +1,257 @@
+{
+  "generatedFor": "money batch 017",
+  "generatedAt": "2026-08-23",
+  "targets": 213,
+  "resolvedToDataset": 194,
+  "unresolved": 19,
+  "unresolvedReasons": [
+    [
+      "ARES subject not found",
+      3
+    ],
+    [
+      "not ISVR-registered (no VR sub-record) — dataor cannot help (obce, kraje, OSS, special-law bodies)",
+      15
+    ],
+    [
+      "court/legalForm unresolved (source=spisova-znacka)",
+      1
+    ]
+  ],
+  "datasets": [
+    {
+      "id": "sro-full-praha-2026",
+      "companies": 19,
+      "cached": false
+    },
+    {
+      "id": "sro-full-brno-2026",
+      "companies": 13,
+      "cached": false
+    },
+    {
+      "id": "sro-full-ostrava-2026",
+      "companies": 6,
+      "cached": false
+    },
+    {
+      "id": "as-full-praha-2026",
+      "companies": 21,
+      "cached": true
+    },
+    {
+      "id": "as-full-brno-2026",
+      "companies": 15,
+      "cached": true
+    },
+    {
+      "id": "as-full-hradec_kralove-2026",
+      "companies": 9,
+      "cached": true
+    },
+    {
+      "id": "as-full-ostrava-2026",
+      "companies": 9,
+      "cached": true
+    },
+    {
+      "id": "ops-full-plzen-2026",
+      "companies": 8,
+      "cached": true
+    },
+    {
+      "id": "as-full-plzen-2026",
+      "companies": 8,
+      "cached": true
+    },
+    {
+      "id": "sro-full-plzen-2026",
+      "companies": 7,
+      "cached": true
+    },
+    {
+      "id": "spolek-full-praha-2026",
+      "companies": 6,
+      "cached": true
+    },
+    {
+      "id": "as-full-ceske_budejovice-2026",
+      "companies": 6,
+      "cached": true
+    },
+    {
+      "id": "ops-full-praha-2026",
+      "companies": 5,
+      "cached": true
+    },
+    {
+      "id": "sro-full-hradec_kralove-2026",
+      "companies": 5,
+      "cached": true
+    },
+    {
+      "id": "as-full-usti_nad_labem-2026",
+      "companies": 5,
+      "cached": true
+    },
+    {
+      "id": "nad-full-praha-2026",
+      "companies": 4,
+      "cached": true
+    },
+    {
+      "id": "sro-full-ceske_budejovice-2026",
+      "companies": 4,
+      "cached": true
+    },
+    {
+      "id": "nadf-full-praha-2026",
+      "companies": 4,
+      "cached": true
+    },
+    {
+      "id": "svj-full-praha-2026",
+      "companies": 3,
+      "cached": true
+    },
+    {
+      "id": "ops-full-hradec_kralove-2026",
+      "companies": 3,
+      "cached": true
+    },
+    {
+      "id": "spolek-full-plzen-2026",
+      "companies": 3,
+      "cached": true
+    },
+    {
+      "id": "ops-full-brno-2026",
+      "companies": 2,
+      "cached": true
+    },
+    {
+      "id": "prisp-full-usti_nad_labem-2026",
+      "companies": 2,
+      "cached": true
+    },
+    {
+      "id": "nad-full-plzen-2026",
+      "companies": 2,
+      "cached": true
+    },
+    {
+      "id": "prisp-full-hradec_kralove-2026",
+      "companies": 2,
+      "cached": true
+    },
+    {
+      "id": "sro-full-usti_nad_labem-2026",
+      "companies": 2,
+      "cached": true
+    },
+    {
+      "id": "spolek-full-brno-2026",
+      "companies": 2,
+      "cached": true
+    },
+    {
+      "id": "sp-full-praha-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "ustav-full-praha-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "sp-full-usti_nad_labem-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "ustav-full-brno-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "dr-full-praha-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "sp-full-brno-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "nadf-full-ceske_budejovice-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "spolek-full-usti_nad_labem-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "komora_ha-full-plzen-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "ustav-full-plzen-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "pobspolek-full-praha-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "spolek-full-ostrava-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "dr-full-ceske_budejovice-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "spolek-full-ceske_budejovice-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "svj-full-ceske_budejovice-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "spolek-full-hradec_kralove-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "prisp-full-brno-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "nadf-full-plzen-2026",
+      "companies": 1,
+      "cached": true
+    },
+    {
+      "id": "ops-full-ostrava-2026",
+      "companies": 1,
+      "cached": true
+    }
+  ],
+  "cachedDatasets": 43,
+  "uncachedDatasets": 3,
+  "companiesReachableFromCache": 156,
+  "companiesNeedingFetch": 38
+}

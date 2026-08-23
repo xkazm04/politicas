@@ -81,3 +81,7 @@ key per node kind / edge rel, seeded from the live store on 2026-08-22 (183 node
 `npm run da:props-check` diffs the live store against the registry. **Adding a key =
 registry entry + a line in this file describing it**, same change. Writer conventions
 `<ns>_provenance` / `<ns>_citations` are always allowed.
+
+- `owns_stake.apply_batch_017_ownership-chains_note` — apply-batch's per-run merge note on the 33 batch-006 edges that the
+  batch-017 full-population sweep re-merged (pass 60); same convention as
+  `apply_batch_007_prak-repoint_note` on company nodes.

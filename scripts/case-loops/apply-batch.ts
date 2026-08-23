@@ -544,6 +544,10 @@ export async function applyBatch(store: ApplyStore, batch: NormalizedBatch, opts
 const PAYLOADS: Record<string, { path: string; adapter: (raw: unknown) => NormalizedBatch }> = {
   "prak-repoint": { path: "docs/data-analysis/case-money/payloads/batch-006-prak-repoint.json", adapter: (raw) => adaptPrakRepoint(raw as Parameters<typeof adaptPrakRepoint>[0]) },
   "ownership-chains": { path: "docs/data-analysis/case-money/payloads/batch-006-ownership-chains.json", adapter: (raw) => adaptOwnershipChains(raw as Parameters<typeof adaptOwnershipChains>[0]) },
+  // Money batch 017: the same dataor extraction swept at full population (ownership-sweep.ts).
+  // Same adapter on purpose — the multi-period merge + board-seat exclusion are the reviewed
+  // rules, and a second writer would be a second chance to get them wrong.
+  "ownership-sweep": { path: "docs/data-analysis/case-money/payloads/batch-017-ownership-sweep.json", adapter: (raw) => adaptOwnershipChains(raw as Parameters<typeof adaptOwnershipChains>[0]) },
   kiosek: { path: "docs/data-analysis/case-sources/kiosek-payload.json", adapter: (raw) => adaptKiosek(raw as Parameters<typeof adaptKiosek>[0]) },
 };
 
@@ -558,6 +562,9 @@ const PAYLOADS: Record<string, { path: string; adapter: (raw: unknown) => Normal
 const EXPECTED_COUNTS: Record<string, { nodes: number; edges: number; excludedEdges: number }> = {
   "prak-repoint": { nodes: 1, edges: 2, excludedEdges: 0 },
   "ownership-chains": { nodes: 19, edges: 33, excludedEdges: 8 },
+  // batch 017 dry-run 2026-08-23: 148 rows → 104 stakes → 62 merged edges (29 new + 33
+  // re-merged onto batch-006's), 44 board seats excluded, 19 new parent nodes.
+  "ownership-sweep": { nodes: 19, edges: 62, excludedEdges: 44 },
   kiosek: { nodes: 20, edges: 36, excludedEdges: 80 },
 };
 

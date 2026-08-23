@@ -1,9 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import {
   extractOfficersAndShareholders,
   extractSpisovaZnacka,
   findRecordByIco,
+  findRecordsByIcosInFile,
   legalFormSlugFromName,
+  PRAVNI_FORMA_TO_SLUG,
   parseDataorCsv,
   parseUdaje,
   resolveCourtAndForm,
@@ -210,8 +212,8 @@ describe("legalFormSlugFromName", () => {
   it("recognizes s.r.o. and a.s. suffixes", () => {
     expect(legalFormSlugFromName("MIKI TRAVEL PRAGUE, spol. s r.o.")).toBe("sro");
     expect(legalFormSlugFromName("Pojišťovna VZP, a.s.")).toBe("as");
-    expect(legalFormSlugFromName("HC Plzeň z.s.")).toBe("nevlad_org");
-    expect(legalFormSlugFromName("Nadační fond Českého rozhlasu")).toBe("nevlad_org");
+    expect(legalFormSlugFromName("HC Plzeň z.s.")).toBe("spolek");
+    expect(legalFormSlugFromName("Nadační fond Českého rozhlasu")).toBe("nadf");
     expect(legalFormSlugFromName("Something Unrecognizable Ltd")).toBeNull();
   });
 });
@@ -235,12 +237,84 @@ describe("resolveCourtAndForm", () => {
   it("falls back to a name-heuristic legal form with no court when neither registry field is available", () => {
     const guess = resolveCourtAndForm({ obchodniJmeno: "Foo z.s." });
     expect(guess.source).toBe("name-heuristic");
-    expect(guess.legalFormSlug).toBe("nevlad_org");
+    expect(guess.legalFormSlug).toBe("spolek");
     expect(guess.courtSlug).toBeNull();
   });
 
   it("returns fully unresolved rather than guessing when nothing is available", () => {
     const guess = resolveCourtAndForm({});
     expect(guess).toEqual({ courtSlug: null, legalFormSlug: null, source: "unresolved" });
+  });
+});
+
+describe("PRAVNI_FORMA_TO_SLUG — both sides verified against their own source (money batch 017)", () => {
+  // ARES code labels from the PravniForma číselník; dataor slugs from CKAN package_show
+  // titles. The table this pins REPLACED one that was wrong in 9 of 11 rows, and every
+  // wrong row could only ever answer "IČO not present" — indistinguishable from an honest
+  // negative. These are the pairs that matter most to the money graph.
+  it.each([
+    ["301", "sp", "Státní podnik — was mapped from 325 (an organizační složka státu) to zvlastni_org"],
+    ["117", "nad", "Nadace — the old table read 117 as komanditní"],
+    ["205", "dr", "Družstvo — used to default to sro"],
+    ["111", "vos", "Veřejná obchodní společnost"],
+    ["113", "ks", "Společnost komanditní"],
+    ["706", "spolek", "Spolek — nevlad_org is 'Mezinárodní nevládní organizace'"],
+    ["331", "prisp", "Příspěvková organizace — was mapped from 801 (Obec) to po_zzz"],
+    ["961", "sf", "Svěřenský fond — the AGROFERT post-2017 structure batch 006 thought unreachable"],
+    ["801", "obec", "Obec"],
+  ])("%s → %s (%s)", (code, slug) => {
+    expect(PRAVNI_FORMA_TO_SLUG[code]).toBe(slug);
+  });
+
+  it("leaves 325 (organizační složka státu) unmapped — it is not in the OR at all", () => {
+    expect(PRAVNI_FORMA_TO_SLUG["325"]).toBeUndefined();
+  });
+
+  it("does not map any ARES code to dataor's `nevlad_org` (international NGOs) or `zvlastni_org`", () => {
+    expect(Object.values(PRAVNI_FORMA_TO_SLUG)).not.toContain("nevlad_org");
+    expect(Object.values(PRAVNI_FORMA_TO_SLUG)).not.toContain("zvlastni_org");
+  });
+
+  it("resolves a státní podnik to the `sp` file, not to an honest-looking miss", () => {
+    const guess = resolveCourtAndForm({ pravniForma: "301", obchodniJmeno: "Lesy České republiky, s.p.", sidlo: { kodKraje: 64 } });
+    expect(guess.legalFormSlug).toBe("sp");
+  });
+});
+
+describe("findRecordsByIcosInFile — the streaming finder (money batch 017)", () => {
+  // Three rows; the middle one's `udaje` holds a QUOTED NEWLINE and an escaped quote — the
+  // exact shapes that make "buffer ends in a newline" a false signal of row completeness.
+  const csv =
+    "ico,nazev,udaje,vymazDatum,zapisDatum\n" +
+    '"00000001","Alfa","[{udajTyp={kod=SPIS_ZN};hodnotaText=C 1/MSPH}]",,"2001-01-01"\n' +
+    '"00000002","Beta","[{udajTyp={kod=SPIS_ZN};hodnotaText=C 2\nsecond line ""quoted""}]",,"2002-02-02"\n' +
+    '"00000003","Gama","[{udajTyp={kod=SPIS_ZN};hodnotaText=C 3/KSBR}]","2020-01-01","2003-03-03"\n';
+  let path = "";
+  beforeAll(async () => {
+    const { mkdtemp, writeFile } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(tmpdir(), "dataor-stream-"));
+    path = join(dir, "x.csv");
+    await writeFile(path, csv, "utf8");
+  });
+
+  it("finds every asked IČO in one pass, keyed by the caller's own strings", async () => {
+    const found = await findRecordsByIcosInFile(path, ["00000001", "00000003"]);
+    expect([...found.keys()].sort()).toEqual(["00000001", "00000003"]);
+    expect(found.get("00000003")!.vymazDatum).toBe("2020-01-01");
+  });
+
+  it.each([1, 3, 7, 16, 64])("survives chunk boundaries everywhere (highWaterMark %i) — including inside a quoted newline", async (hwm) => {
+    const found = await findRecordsByIcosInFile(path, ["2", "00000003"], { highWaterMark: hwm });
+    expect(found.get("2")!.nazev).toBe("Beta");
+    // The quoted newline and the doubled quote came through as DATA, not as a row break.
+    expect(found.get("2")!.udajeRaw).toContain('C 2\nsecond line "quoted"');
+    expect(found.get("00000003")!.nazev).toBe("Gama");
+  });
+
+  it("returns an empty map for an IČO that is not there — no partial-row guesses", async () => {
+    const found = await findRecordsByIcosInFile(path, ["99999999"], { highWaterMark: 5 });
+    expect(found.size).toBe(0);
   });
 });
