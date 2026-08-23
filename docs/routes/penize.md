@@ -682,3 +682,18 @@ multi-shareholder a.s. the OR cannot resolve by rule (it records only a sole akc
 the surface keeps saying so honestly and the route is a document source in the review lane.
 A stronger verdict is never overwritten by a weaker source: Plzeňská teplárenská stays
 `publicly-owned` (proved from Plzeň's record) although its own record names nobody.
+
+
+## 2026-08-23 · money batch 019 — `/penize/kontrola` shows the company axis
+
+The review console rendered the tie class, the ARES-VR temporal badge and the review tier —
+and nothing about the COMPANY. A reviewer deciding Teplárny Brno could not see that the firm
+is 100 % the city's. Each card now carries „firma: …" from `publicMandateInfo()` (the one
+Czech reading, shared with the ledger), the named public owner where the register has one,
+„k doložení mimo rejstřík" where it names nobody, and a new sticky-filter lane **„vlastník
+neuveden"** for exactly those ties. A new flag, `roleRegisterContradiction()`, marks a
+`steward` class at a private BUSINESS (18 ties — dozorčí rada seats at Lovochemie, PRECHEZA,
+Fatra, Kostelecké uzeniny, Nemocnice AGEL …): the attribution rule only removes, so no money
+moved, but the class may be wrong and the human gate must see the register say so.
+Nonprofit private-law forms (o.p.s., nadace, ústav) are steward by definition and do not
+flag. Company-axis coverage is now 194 of 195 tied companies (pass 65); headline unchanged.

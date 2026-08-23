@@ -62,14 +62,28 @@ export const PUBLIC_LEGAL_FORMS: Record<string, LegalFormInfo> = {
  * these explicitly (rather than treating "not in PUBLIC_LEGAL_FORMS" as private) is what
  * makes the `unknown` verdict possible.
  *
- * DELIBERATELY ABSENT (money batch 016), so they answer `unknown` and reach a human:
+ * DELIBERATELY ABSENT (money batches 016/019), so they answer `unknown` and reach a human:
  *   741 "Stavovská organizace - profesní komora" — a professional chamber exercises
  *       delegated public authority but lives on members' dues. Genuinely arguable, and
  *       this table may not assert either way. (It previously sat here labelled
  *       "Obecně prospěšná společnost", which is not what 741 is.)
+ *   745 "Komora (s výjimkou profesních komor)" — Hospodářská/Agrární komora: established
+ *       by statute (301/1992 Sb.), member-funded. Same argument as 741.
+ *   999 "Ostatní" — says nothing; must not be asserted either way.
  */
 export const PRIVATE_LEGAL_FORMS: Record<string, LegalFormInfo> = {
   "100": { label: "Podnikající fyzická osoba tuzemská", verifiedVia: "ARES PravniForma číselník" },
+  // Batch 019: the steward-class sweep hit these as UNKNOWN — the batch-016 rebuild had
+  // removed the mislabelled 771 „Nadace" row and never added the real codes. All private-law
+  // forms per the číselník 2026-08-23; a foundation or an institute a kraj FOUNDED is still
+  // reached through its owners/founders, not its own form.
+  "117": { label: "Nadace", verifiedVia: "ARES PravniForma číselník 2026-08-23" },
+  "118": { label: "Nadační fond", verifiedVia: "ARES PravniForma číselník 2026-08-23" },
+  "141": { label: "Obecně prospěšná společnost", verifiedVia: "ARES PravniForma číselník 2026-08-23" },
+  "145": { label: "Společenství vlastníků jednotek", verifiedVia: "ARES PravniForma číselník 2026-08-23" },
+  "161": { label: "Ústav", verifiedVia: "ARES PravniForma číselník 2026-08-23" },
+  "722": { label: "Evidované církevní právnické osoby", verifiedVia: "ARES PravniForma číselník 2026-08-23" },
+  "733": { label: "Organizační jednotka odborové organizace a organizace zaměstnavatelů", verifiedVia: "ARES PravniForma číselník 2026-08-23" },
   "101": { label: "Fyzická osoba podnikající dle živnostenského zákona", verifiedVia: "ARES PravniForma číselník (label corrected 2026-08-22)" },
   "112": { label: "Společnost s ručením omezeným", verifiedVia: "ARES PravniForma číselník" },
   "113": { label: "Společnost komanditní", verifiedVia: "ARES PravniForma číselník" },

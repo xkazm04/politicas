@@ -89,6 +89,10 @@ async function main() {
   const fs = await import("node:fs/promises");
   const today = new Date().toISOString().slice(0, 10);
 
+  const scope = (process.argv.find((a) => a.startsWith("--scope="))?.split("=")[1] ?? "attributable") as
+    | "attributable"
+    | "all"
+    | "unverdicted";
   const store = await getStore();
   if (!store) throw new Error("no store");
   const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
@@ -123,7 +127,12 @@ async function main() {
     const comp = companyById.get(e.dst);
     if (!comp) continue;
     const cls = resolveTieClass(e.props?.tie_class, String(e.props?.role ?? ""), comp.label);
-    if (!isAttributable(cls.tieClass)) continue; // stewards are already excluded
+    // Default scope = attributable companies (the money depends on them). `--scope=all`
+    // (batch 019) also sweeps steward-by-role companies: no koruna moves, but the company
+    // axis then CORROBORATES the role axis from the register — or contradicts it, which is
+    // the case worth seeing. `--scope=unverdicted` = only companies with no verdict yet.
+    if (scope === "attributable" && !isAttributable(cls.tieClass)) continue;
+    if (scope === "unverdicted" && comp.props?.public_mandate != null) continue;
     const ico = str(comp.props?.ico) ?? comp.id.split(":").pop() ?? "";
     const t = targets.get(comp.id) ?? {
       companyId: comp.id,

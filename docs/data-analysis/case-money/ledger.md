@@ -1270,3 +1270,51 @@ to ask it.
    (cheap: ARES only).
 4. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (b010); SZIF channel absent;
    Q-money-13 residue 21 items with law (14) / effort (7).
+
+### Batch 019 — the company axis finishes, and the console learns to show it (2026-08-23)
+
+- **Steward class swept** (`--scope=unverdicted`, 90 companies). First run hit 9 legal-form
+  codes the b016 tables lacked (117 Nadace, 118, 141, 145, 161, 722, 733, 745, 999) — the
+  b016 rebuild had removed the mislabelled 771 „Nadace" row and never added the real codes.
+  Seven added as private-law; **745 Hospodářská/Agrární komora and 999 Ostatní stay
+  unmapped**. Re-audit 0 drift. **Pass 65: 89 nodes** — public-body 8 / 54,3 mld.,
+  publicly-owned 8, private 33, unpublished 31 / 25,7 mld., unknown 9 / 48,8 mld. Across
+  all tied companies the axis is **194/195 verdicted**. Headline unchanged.
+- **New signal class: steward by role × private BUSINESS by register.** 36 raw, **18 after
+  reading the survivors** (o.p.s./nadace/ústav are steward by definition):
+  `dozorčí rada` at Lovochemie, PRECHEZA, Fatra, Kostelecké uzeniny (AGROFERT group),
+  Nemocnice AGEL Valašské Meziříčí, Rybářství Třeboň, Wellness sv. Markéta, NEXNET, MAE
+  invest; a jednatel of Nemocnice Valtice s.r.o. No money moved (the rule only removes); no
+  `tie_class` flipped — the console FLAGS it for the human (`roleRegisterContradiction()`).
+- **`/penize/kontrola` shows the company axis**: „firma: …" badge from `publicMandateInfo()`
+  (one Czech reading, shared), named public owner, „k doložení mimo rejstřík" for unpublished,
+  the contradiction flag — and a new sticky-filter lane **„vlastník neuveden"** for the
+  `ownership-not-published` ties. `publicMandateLegalForm` added to the tie + wire.
+- **No `review_state` touched — 211 pending.**
+
+## Metrics block — batch 019
+
+| metric | batch 019 |
+|---|---|
+| company-axis coverage | **194 / 195 tied companies** (was 105) |
+| steward companies verdicted | 90 (8 public-body · 8 publicly-owned · 33 private · 31 unpublished · 9 unknown) |
+| legal-form codes added | 7 private-law; 745 + 999 deliberately unmapped |
+| role × register contradictions | 36 raw → **18 business-form** (flagged on the card) |
+| console | company-axis badge + owner + „vlastník neuveden" lane |
+| headline | **unchanged 17 417 308 400 CZK** |
+| graph writes | pass 65 |
+| `review_state` changes | **0** |
+| gate | `npm run check` green — **3 010 tests** (+6) |
+
+## Steering (next batch — batch 020)
+
+1. **The 18 contradictions are the first human-gate session worth holding**: each is a
+   stored or derived `steward` at a private business; a reviewer can confirm the class or
+   re-class it in the console (the write path exists, `REVIEWER_TOKEN` gates it). This is
+   the Integrity pillar's first real use.
+2. **9 attributable `ownership-not-published`** (PRE, ČSOB Poj., VaK ×2, RERA, SOMPO, Horní
+   Labe, PEVAK, Nárožní dům) — document-source citations; the lane now exists to hold them.
+3. `unknown` 15 companies / 48,8 mld. — foreign owners without a legal form (CS CABOT,
+   IMOBA …) and 745/999; a human ruling per company, small list.
+4. Prague s.r.o. history (low); steward-class contract sweep, ČSOB, ČD still UNMEASURED;
+   SZIF absent; Q-money-13 residue 21.

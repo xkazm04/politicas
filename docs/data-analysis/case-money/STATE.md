@@ -5,8 +5,8 @@
 > ~80 KB of prose before it could act (2026-08-22 architecture review). Open items live
 > in `ledger.json → openItems` and are mirrored here by hand until a generator exists.
 
-**As of:** batch 018 · 2026-08-23 · last graph write **pass 64** · backups
-`.pglite-backup-2026-08-23-pass61-pre`, `…-pass62-pre` (checkpointed, via `npm run db:backup`).
+**As of:** batch 019 · 2026-08-23 · last graph write **pass 65** · backups
+`.pglite-backup-2026-08-23-pass62-pre`, `…-pass65-pre` (checkpointed, via `npm run db:backup`).
 
 ## The numbers the surface renders
 
@@ -19,7 +19,9 @@
 | kept but shared — several named recipients, no split | 1 331 071 128 CZK / 117 | b014 |
 | **ownership-not-published** (attributable, unverified) | **9 companies · 16 768 454 356 CZK** — PRE + ČSOB Pojišťovna = 16,2 mld. of it; the other 37 were private (owners recorded) once `spolecnik[]` was read | b018 |
 | private (evidenced) | 37 companies · 637 464 307 CZK | b018 |
-| publicly-owned (company axis) | **53 companies · 324 845 206 394 CZK** — 4 moved to steward (b015–016), 49 steward-by-role corroborated by the register (b017–018) | b015–018 |
+| company-axis coverage | **194 / 195 tied companies verdicted** — publicly-owned 61 · public-body 8 · private 70 · unpublished 40 · unknown 15 | b019 |
+| publicly-owned (company axis) | **61 companies · 325 522 781 381 CZK** — 4 moved to steward (b015–016), the rest steward-by-role corroborated by the register | b015–019 |
+| role × register contradictions | **18 ties** (steward class at a private BUSINESS — Lovochemie, PRECHEZA, Fatra, Kostelecké uzeniny, Nemocnice AGEL VM, Nemocnice Valtice, Rybářství Třeboň …) flagged in the console, none re-classed by the loop | b019 |
 | `owns_stake` layer | **113 edges** (33 → 62 dataor → 113 + ARES VR) · 84 current stakes · 350 company nodes | b017–018 |
 | ties · review state | **211 · all `pending_review`** — the human gate has never been exercised | — |
 
@@ -44,14 +46,16 @@ Headline history: 42,89 bn (pre-014) → 31,12 (b014) → 18,37 (b015) → 17,42
 
 ## Open items (priority order)
 
-1. **Review-queue lane for the 9 `ownership-not-published`** (PRE, ČSOB Pojišťovna, VaK
+0. **First real human-gate session: the 18 role×register contradictions** — each a
+   `steward` class at a private business; confirm or re-class in `/penize/kontrola`
+   (write path exists, `REVIEWER_TOKEN` gates it). The console now shows both axes.
+1. **Citations for the 9 `ownership-not-published`** (lane „vlastník neuveden" exists) (PRE, ČSOB Pojišťovna, VaK
    Vsetín, VaK Vyškov, RERA, SOMPO, Horní Labe, PEVAK, Družstvo Nárožní dům — 16,77 mld.):
    all multi-shareholder a.s./družstva the OR cannot resolve (sole-akcionář rule); each
    needs a document-source citation (Praha's majetkové účasti for PRE). **PRE is CLOSED
    as unanswerable from the register** (b018) — not a graph gap, a source gap.
-2. **90 steward-by-role companies still without a company-axis verdict** — run
-   `public-mandate-sweep` over the steward class (ARES only, cheap) to finish the
-   corroboration.
+2. `unknown` 15 companies / 48,8 mld. — foreign owners without a legal form (CS CABOT,
+   IMOBA …) and forms 745/999; a human ruling per company.
 3. Prague s.r.o. register — history only now (current owners covered by VR); retry
    `ownership-sweep.ts --fetch-budget=1` on a day dataor serves > 75 MB per connection.
 4. `npm run build` logs 40 degraded loader reads — NOT a product defect (all routes dynamic,
@@ -68,4 +72,4 @@ Headline history: 42,89 bn (pre-014) → 31,12 (b014) → 18,37 (b015) → 17,42
 `validate-payloads.ts` ·
 `harvest-contract-dumps.ts` + `persist-contract-harvest.ts` (raw data in `data/raw/`).
 Write paths: `scripts/case-loops/persist-batch.ts --pass=<n>` (props-merge) and
-`scripts/case-loops/apply-batch.ts --which=ownership-sweep|ownership-vr` (inserts). Next pass: **65**.
+`scripts/case-loops/apply-batch.ts --which=ownership-sweep|ownership-vr` (inserts). Next pass: **66**.

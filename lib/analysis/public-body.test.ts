@@ -267,6 +267,15 @@ describe("money batch 016 — the legal-form tables are an assertion, not a gues
     expect(isPublicLegalForm("941")).toBe(true);
   });
 
+  it("the private-law forms the steward sweep hit as unknown are now private (batch 019)", () => {
+    for (const code of ["117", "118", "141", "145", "161", "722", "733"]) expect(isPublicLegalForm(code), code).toBe(false);
+  });
+
+  it("745 (hospodářská/agrární komora) and 999 (ostatní) stay unmapped — arguable / says nothing", () => {
+    expect(isPublicLegalForm("745")).toBeNull();
+    expect(isPublicLegalForm("999")).toBeNull();
+  });
+
   it("741 (profesní komora) is in NEITHER table, so it reaches a human", () => {
     // Genuinely arguable — delegated public authority, funded by members' dues. This
     // table may not assert either way, and `unknown` is the honest answer.

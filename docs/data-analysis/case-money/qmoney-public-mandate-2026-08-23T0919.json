@@ -1,0 +1,3559 @@
+{
+  "generatedFor": "money batch 015",
+  "generatedAt": "2026-08-23",
+  "method": "lib/analysis/public-body.ts::classifyPublicMandate over every ATTRIBUTABLE tied company; ownership from ARES VR, legal form from ARES basic",
+  "caveat": "the verdict is about the COMPANY (whose money it is), not about the ROLE (tie_class). Nothing here rewrites tie_class and nothing touches review_state.",
+  "population": {
+    "attributableTiedCompanies": 90,
+    "classified": 89,
+    "noVerdict": 1
+  },
+  "verdicts": {
+    "public-body": {
+      "companies": 8,
+      "czk": 54346328916.06998
+    },
+    "publicly-owned": {
+      "companies": 8,
+      "czk": 677574987.41
+    },
+    "private": {
+      "companies": 17,
+      "czk": 2501019124.73
+    },
+    "ownership-not-published": {
+      "companies": 26,
+      "czk": 25733812256.03999
+    },
+    "unknown": {
+      "companies": 30,
+      "czk": 51063241272.54006
+    }
+  },
+  "notAttributableCzk": 58290386229.819984,
+  "unknownLegalFormCodes": [
+    "999",
+    "117",
+    "141",
+    "722",
+    "745",
+    "118",
+    "161",
+    "733",
+    "145"
+  ],
+  "rows": [
+    {
+      "companyId": "company:ico:60193531",
+      "ico": "60193531",
+      "name": "ČEPRO, a.s.",
+      "contractCzk": 43646652280.33006,
+      "contractCount": 7279,
+      "subsidiesCzk": 728822394.1999999,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Věra Kovářová"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 121 je soukromoprávní, ale u některého ze současných společníků není právní forma v ověřené tabulce — vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "999"
+        ],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60193531",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Česká republika - Ministerstvo financí ČR",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60193531",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:61989592",
+      "ico": "61989592",
+      "name": "Univerzita Palackého v Olomouci",
+      "contractCzk": 28333311001.659996,
+      "contractCount": 2672,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Andrea Hoffmannová"
+      ],
+      "legalForm": "601",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 601 (Vysoká škola (veřejná, státní)). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 601",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61989592",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík (VR) — záznam nenačten",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61989592",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:45146802",
+      "ico": "45146802",
+      "name": "Energie - stavební a báňská a.s.",
+      "contractCzk": 20788391132.199993,
+      "contractCount": 509,
+      "subsidiesCzk": 9133120.8,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Petr Bendl"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/45146802",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45146802",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:00027383",
+      "ico": "00027383",
+      "name": "ČESKÁ TELEVIZE",
+      "contractCzk": 19557257773.949993,
+      "contractCount": 971,
+      "subsidiesCzk": 6168305,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Aleš Juchelka"
+      ],
+      "legalForm": "361",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 361 (Veřejnoprávní instituce (ČT,ČRo,ČTK)). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 361",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00027383",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík (VR) — záznam nenačten",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00027383",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:45245053",
+      "ico": "45245053",
+      "name": "ČESKÝ ROZHLAS",
+      "contractCzk": 3990123679.519999,
+      "contractCount": 635,
+      "subsidiesCzk": 9986029,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Kolovratník",
+        "Aleš Juchelka"
+      ],
+      "legalForm": "361",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 361 (Veřejnoprávní instituce (ČT,ČRo,ČTK)). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 361",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/45245053",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík (VR) — záznam nenačten",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/45245053",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:46678735",
+      "ico": "46678735",
+      "name": "Robert Bosch, spol. s r.o.",
+      "contractCzk": 3126828631.9500003,
+      "contractCount": 110,
+      "subsidiesCzk": 545987782.25,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bauer"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 112 je soukromoprávní, ale u některého ze současných společníků není právní forma v ověřené tabulce — vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46678735",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Robert Bosch Investment Nederland B.V.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46678735",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:41197518",
+      "ico": "41197518",
+      "name": "VŠEOBECNÁ ZDRAVOTNÍ POJIŠŤOVNA ČESKÉ REPUBLIKY",
+      "contractCzk": 1816123746.2100003,
+      "contractCount": 840,
+      "subsidiesCzk": 1822212,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Boris Šťastný",
+        "Ivan Adamec"
+      ],
+      "legalForm": "391",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 391 (Zdravotní pojišťovna). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 391",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/41197518",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík (VR) — záznam nenačten",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/41197518",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:61057606",
+      "ico": "61057606",
+      "name": "Komwag, podnik čistoty a údržby města, a.s.",
+      "contractCzk": 1765842641.7999997,
+      "contractCount": 965,
+      "subsidiesCzk": 26959577,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jana Černochová"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61057606",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61057606",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:64053466",
+      "ico": "64053466",
+      "name": "Dopravní podnik měst Chomutova a Jirkova a.s.",
+      "contractCzk": 1451879957.3200002,
+      "contractCount": 93,
+      "subsidiesCzk": 47342464,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Richter"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/64053466",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/64053466",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:60108916",
+      "ico": "60108916",
+      "name": "Synthesia, a.s.",
+      "contractCzk": 1011291747.2199999,
+      "contractCount": 154,
+      "subsidiesCzk": 194328515.98,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 121 je soukromoprávní, ale u některého ze současných společníků není právní forma v ověřené tabulce — vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60108916",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: KAPRAIN CHEMICAL LIMITED",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60108916",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49370499",
+      "ico": "49370499",
+      "name": "Museum Kampa - Nadace Jana a Medy Mládkových",
+      "contractCzk": 1007243381.5,
+      "contractCount": 242,
+      "subsidiesCzk": 4493627,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jiří Pospíšil"
+      ],
+      "legalForm": "117",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 117 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "117"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 117",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49370499",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49370499",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:17047234",
+      "ico": "17047234",
+      "name": "RAILREKLAM, spol. s r.o.",
+      "contractCzk": 991375977.69,
+      "contractCount": 306,
+      "subsidiesCzk": 9286920,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Roman Zarzycký"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 112) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/17047234",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Expiria, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/17047234",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49786709",
+      "ico": "49786709",
+      "name": "Vodárenská a kanalizační a.s.",
+      "contractCzk": 636208537.04,
+      "contractCount": 121,
+      "subsidiesCzk": 48343746,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49786709",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49786709",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27534804",
+      "ico": "27534804",
+      "name": "SKP-CENTRUM, o.p.s.",
+      "contractCzk": 626082015.83,
+      "contractCount": 602,
+      "subsidiesCzk": 6965591.58,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Kolovratník"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27534804",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 7 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27534804",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:70100969",
+      "ico": "70100969",
+      "name": "Charita Česká republika",
+      "contractCzk": 508201093.97,
+      "contractCount": 143,
+      "subsidiesCzk": 13790724,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Vítězslav Schrek"
+      ],
+      "legalForm": "722",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 722 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "722"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 722",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70100969",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík (VR) — záznam nenačten",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70100969",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:60800691",
+      "ico": "60800691",
+      "name": "Vojenská nemocnice Olomouc",
+      "contractCzk": 494900608.2800002,
+      "contractCount": 312,
+      "subsidiesCzk": 184232657.6,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Milan Brázdil"
+      ],
+      "legalForm": "332",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 332 (Státní příspěvková organizace). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 332",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60800691",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík (VR) — záznam nenačten",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60800691",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25224662",
+      "ico": "25224662",
+      "name": "Plzeňská filharmonie, obecně prospěšná společnost",
+      "contractCzk": 444988609.1,
+      "contractCount": 138,
+      "subsidiesCzk": 36121000,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Baxa"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25224662",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Město Plzeň",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25224662",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49100262",
+      "ico": "49100262",
+      "name": "Lovochemie, a.s.",
+      "contractCzk": 417791267.83,
+      "contractCount": 100,
+      "subsidiesCzk": 96456968.57,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Andrej Babiš",
+        "Richard Brabec"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49100262",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: AGF Nitrogen, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49100262",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49451871",
+      "ico": "49451871",
+      "name": "Vodovody a kanalizace Kroměříž, a.s.",
+      "contractCzk": 390919521.1600002,
+      "contractCount": 871,
+      "subsidiesCzk": 602241027.73,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Radek Vondráček"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49451871",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49451871",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26396645",
+      "ico": "26396645",
+      "name": "Techmania Science Center o.p.s.",
+      "contractCzk": 353220865.64,
+      "contractCount": 75,
+      "subsidiesCzk": 41816186.019999996,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Baxa"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Plzeňský kraj. Přestože právní forma (141) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "70890366",
+            "name": "Plzeňský kraj",
+            "legalForm": "804",
+            "current": true,
+            "validFrom": "2024-07-16",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26396645",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — právnické osoby: ŠKODA INVESTMENT a.s., Plzeňský kraj",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26396645",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:08599254",
+      "ico": "08599254",
+      "name": "CEVYKO a.s.",
+      "contractCzk": 265087552,
+      "contractCount": 34,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Bohuslav Niemiec"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/08599254",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08599254",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:46900411",
+      "ico": "46900411",
+      "name": "Kostelecké uzeniny a.s.",
+      "contractCzk": 254454303.76,
+      "contractCount": 70,
+      "subsidiesCzk": 66145048.36,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46900411",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: AGROFERT, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/46900411",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25586521",
+      "ico": "25586521",
+      "name": "AGRO 2000 s.r.o.",
+      "contractCzk": 253958309.74999997,
+      "contractCount": 339,
+      "subsidiesCzk": 10196282.98,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Marian Jurečka"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 112) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25586521",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25586521",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49789228",
+      "ico": "49789228",
+      "name": "Vodárny a kanalizace Karlovy Vary, a.s.",
+      "contractCzk": 221221238.94,
+      "contractCount": 214,
+      "subsidiesCzk": 389597.8,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bureš"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/49789228",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/49789228",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27257258",
+      "ico": "27257258",
+      "name": "Výzkumný Ústav Železniční, a.s.",
+      "contractCzk": 196715303.91,
+      "contractCount": 381,
+      "subsidiesCzk": 342215895.28,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Roman Zarzycký"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27257258",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: České dráhy, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27257258",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28274466",
+      "ico": "28274466",
+      "name": "DS Stříbrné Terasy o.p.s.",
+      "contractCzk": 179573450,
+      "contractCount": 75,
+      "subsidiesCzk": 195386025.54,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Vítězslav Schrek"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28274466",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: CORBADA a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28274466",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25245091",
+      "ico": "25245091",
+      "name": "Regionální rozvojová agentura Plzeňského kraje, obecně prospěšná společnost",
+      "contractCzk": 169569189.10999998,
+      "contractCount": 351,
+      "subsidiesCzk": 9968159.629999999,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jiří Pospíšil",
+        "Martin Baxa",
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je ÚTVAR KONCEPCE A ROZVOJE MĚSTA PLZNĚ, příspěvková organizace, Západočeská univerzita v Plzni. Přestože právní forma (141) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "00227277",
+            "name": "ÚTVAR KONCEPCE A ROZVOJE MĚSTA PLZNĚ, příspěvková organizace",
+            "legalForm": "331",
+            "current": true,
+            "validFrom": "2010-06-24",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "49777513",
+            "name": "Západočeská univerzita v Plzni",
+            "legalForm": "601",
+            "current": true,
+            "validFrom": "2010-06-24",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "141",
+          "745"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25245091",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 5 současných zápisů společníků/akcionářů — právnické osoby: BIC Plzeň, společnost s ručením omezeným, Krajská hospodářská komora v Plzeňském kraji, Sdružení měst a obcí Plzeňského kraje, ÚTVAR KONCEPCE A ROZVOJE MĚSTA PLZNĚ, příspěvková organizace, Západočeská univerzita v Plzni",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/25245091",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29123747",
+      "ico": "29123747",
+      "name": "DOMOVINKA - sociální služby, o.p.s.",
+      "contractCzk": 166253392.31,
+      "contractCount": 130,
+      "subsidiesCzk": 6525165.930000001,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Ivana Mádlová"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29123747",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123747",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26997355",
+      "ico": "26997355",
+      "name": "Baculus, o.p.s.",
+      "contractCzk": 153532176,
+      "contractCount": 84,
+      "subsidiesCzk": 83838807.33000001,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26997355",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26997355",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26872307",
+      "ico": "26872307",
+      "name": "PRECHEZA a.s.",
+      "contractCzk": 143289936.61,
+      "contractCount": 52,
+      "subsidiesCzk": 96270879.37,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26872307",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: AGROFERT, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26872307",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:75112779",
+      "ico": "75112779",
+      "name": "Ústav pro studium totalitních režimů",
+      "contractCzk": 136038631.95,
+      "contractCount": 86,
+      "subsidiesCzk": 222481344.84999996,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Žáček"
+      ],
+      "legalForm": "325",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 325 (Organizační složka státu). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 325",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/75112779",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík (VR) — záznam nenačten",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/75112779",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:47781131",
+      "ico": "47781131",
+      "name": "SKLÁDKA VRBIČKA s.r.o.",
+      "contractCzk": 121046136.66,
+      "contractCount": 37,
+      "subsidiesCzk": 18510018,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Miroslav Samaš"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Městys Měcholupy, Město Rakovník, Město Podbořany, Obec Lubenec, Město Vroutek, Obec Petrohrad, Město Žatec, Obec Hřivice, Město Chyše, Město Žlutice, Obec Blatno, Město Mašťov. Přestože právní forma (112) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "00265233",
+            "name": "Městys Měcholupy",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2018-05-30",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00244309",
+            "name": "Město Rakovník",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2015-08-06",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00265365",
+            "name": "Město Podbořany",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2015-04-01",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00265217",
+            "name": "Obec Lubenec",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2016-11-15",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00265705",
+            "name": "Město Vroutek",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2016-11-15",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00480975",
+            "name": "Obec Petrohrad",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2016-11-15",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00265781",
+            "name": "Město Žatec",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2016-11-15",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00264971",
+            "name": "Obec Hřivice",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2016-11-15",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00254614",
+            "name": "Město Chyše",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2022-05-20",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00255181",
+            "name": "Město Žlutice",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2020-01-25",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00264768",
+            "name": "Obec Blatno",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2020-06-10",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "00262021",
+            "name": "Město Mašťov",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2022-05-20",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "999"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/47781131",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 36 současných zápisů společníků/akcionářů — právnické osoby: Městys Měcholupy, Město Rakovník, Město Podbořany, Obec Lubenec, Město Vroutek, Obec Petrohrad, Město Žatec, Obec Hřivice, Obec Podbořanský Rohozec,, Obec Vilémov,, Obec Radonice,, Obec Veliká Ves,, Obec Lipno,, Obec Deštnice,, Město Blšany,, Obec Očihov,, Obec Liběšice,, Obec Tuchořice,, Město Kryry,, Město Chyše, Město Žlutice, Obec Blatno, Městys Nepomyšl,, Obec Krásný Dvůr,, Obec Čichalov,, Obec Štědrá,, Obec Věrušičky,, Obec Vrbice,, Obec Valeč,, Obec Pšov,, Obec Domoušice,, Obec Račetice,, Obec Pětipsy,, Obec Tis u Blatna,, Obec Pnětluky,, Město Mašťov",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47781131",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27465021",
+      "ico": "27465021",
+      "name": "Fatra, a.s.",
+      "contractCzk": 103495650,
+      "contractCount": 71,
+      "subsidiesCzk": 67236585.63,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27465021",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: AGROFERT, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27465021",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28338766",
+      "ico": "28338766",
+      "name": "Národní Centrum Tkání a Buněk a.s.",
+      "contractCzk": 69444508.42000008,
+      "contractCount": 438,
+      "subsidiesCzk": 428867322.73,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Marek Ženíšek",
+        "Milan Brázdil"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28338766",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28338766",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26822105",
+      "ico": "26822105",
+      "name": "Nemocnice AGEL Valašské Meziříčí a.s.",
+      "contractCzk": 65604507,
+      "contractCount": 87,
+      "subsidiesCzk": 99015793.69,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Robert Stržínek"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26822105",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: AGEL a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26822105",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:00417904",
+      "ico": "00417904",
+      "name": "Nadace Charty 77",
+      "contractCzk": 63371792.239999995,
+      "contractCount": 193,
+      "subsidiesCzk": 42688265.169999994,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jiří Pospíšil"
+      ],
+      "legalForm": "117",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 117 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "117"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 117",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00417904",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Nadace Charty 77 - Stockholm",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00417904",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:63113074",
+      "ico": "63113074",
+      "name": "Svaz měst a obcí České republiky",
+      "contractCzk": 52313925.09,
+      "contractCount": 80,
+      "subsidiesCzk": 120751501.91,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Petr Bendl",
+        "Miroslav Žbánek"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/63113074",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63113074",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:24188581",
+      "ico": "24188581",
+      "name": "Nadace AGROFERT",
+      "contractCzk": 41615246.16,
+      "contractCount": 184,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Andrej Babiš"
+      ],
+      "legalForm": "117",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 117 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "117"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 117",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/24188581",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: AGROFERT, a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24188581",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:03849988",
+      "ico": "03849988",
+      "name": "Nadační fond regionální fotbalové Akademie Plzeňského kraje",
+      "contractCzk": 36646000,
+      "contractCount": 40,
+      "subsidiesCzk": 5000000,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Roman Zarzycký"
+      ],
+      "legalForm": "118",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 118 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "118"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 118",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/03849988",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: PLZEŇSKÝ KRAJSKÝ FOTBALOVÝ SVAZ",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/03849988",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:63488329",
+      "ico": "63488329",
+      "name": "Nemocnice Valtice s.r.o.",
+      "contractCzk": 34606311,
+      "contractCount": 62,
+      "subsidiesCzk": 49167175.080000006,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Miloslav Janulík"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 112) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/63488329",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Lanea, s.r.o.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/63488329",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:06646042",
+      "ico": "06646042",
+      "name": "Akademie individuálních sportů Plzeňského kraje, z. s.",
+      "contractCzk": 32867500,
+      "contractCount": 13,
+      "subsidiesCzk": 26700000,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/06646042",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/06646042",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:08160902",
+      "ico": "08160902",
+      "name": "Centrum lidských zdrojů Plzeňského kraje, z.ú.",
+      "contractCzk": 32574010,
+      "contractCount": 21,
+      "subsidiesCzk": 37415947.41,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "161",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Plzeňský kraj. Přestože právní forma (161) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "70890366",
+            "name": "Plzeňský kraj",
+            "legalForm": "804",
+            "current": true,
+            "validFrom": "2019-05-13",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "161",
+          "745"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 161",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/08160902",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — právnické osoby: Krajská hospodářská komora v Plzeňském kraji, Plzeňský kraj",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/08160902",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:15045838",
+      "ico": "15045838",
+      "name": "Sdružení Český ráj, z.s.",
+      "contractCzk": 27393155,
+      "contractCount": 85,
+      "subsidiesCzk": 6122875.03,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jiří Bouška"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/15045838",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/15045838",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:47122099",
+      "ico": "47122099",
+      "name": "Pražská vysoká škola psychosociálních studií, s.r.o.",
+      "contractCzk": 20857960.4,
+      "contractCount": 47,
+      "subsidiesCzk": 9066740.24,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Lucie Šafránková"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 112) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/47122099",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 4 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47122099",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:48161063",
+      "ico": "48161063",
+      "name": "Gymnázium, Pardubice, Mozartova 449",
+      "contractCzk": 17804077.5,
+      "contractCount": 20,
+      "subsidiesCzk": 11056503.95,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Marek Výborný"
+      ],
+      "legalForm": "331",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 331 (Příspěvková organizace). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 331",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/48161063",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/48161063",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26187639",
+      "ico": "26187639",
+      "name": "Vzdělávací centrum pro veřejnou správu ČR, o.p.s.",
+      "contractCzk": 17180775.73,
+      "contractCount": 151,
+      "subsidiesCzk": 34098799.5,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Petr Bendl"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26187639",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 3 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26187639",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:07739044",
+      "ico": "07739044",
+      "name": "Krajská hospodářská komora v Plzeňském kraji",
+      "contractCzk": 15250537,
+      "contractCount": 17,
+      "subsidiesCzk": 20903865,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "745",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 745 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "745"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 745",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/07739044",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/07739044",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:60826851",
+      "ico": "60826851",
+      "name": "Rybářství Třeboň a.s.",
+      "contractCzk": 15194547.58,
+      "contractCount": 61,
+      "subsidiesCzk": 100506447.01,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Karel Tureček"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60826851",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Rybářství Třeboň Hld. a.s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60826851",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29211808",
+      "ico": "29211808",
+      "name": "Léčebné lázně Jáchymov a. s.",
+      "contractCzk": 11986286.7,
+      "contractCount": 66,
+      "subsidiesCzk": 10002351.9,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bureš"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 121 je soukromoprávní, ale u některého ze současných společníků není právní forma v ověřené tabulce — vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29211808",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Al Fardan Investments Limited",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29211808",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:47997826",
+      "ico": "47997826",
+      "name": "Tenisový klub DEZA Valašské Meziříčí, z.s.",
+      "contractCzk": 8715039,
+      "contractCount": 35,
+      "subsidiesCzk": 21465212,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Robert Stržínek"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/47997826",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47997826",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:22827668",
+      "ico": "22827668",
+      "name": "Hi-Tech inovační klastr z. s.    (anglická verze: Hi-Tech innovation cluster)",
+      "contractCzk": 5839975.07,
+      "contractCount": 13,
+      "subsidiesCzk": 22986882,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Kolovratník"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/22827668",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22827668",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:14704234",
+      "ico": "14704234",
+      "name": "Tenisový klub Vodní stavby Plzeň, z.s.",
+      "contractCzk": 5638842,
+      "contractCount": 36,
+      "subsidiesCzk": 1248998,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/14704234",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/14704234",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:01398717",
+      "ico": "01398717",
+      "name": "MAS Nad Prahou o.p.s.",
+      "contractCzk": 3968570,
+      "contractCount": 11,
+      "subsidiesCzk": 80389715.94,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Kupka"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/01398717",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 3 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/01398717",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:60914351",
+      "ico": "60914351",
+      "name": "AGROCENTRUM JIZERAN a.s.",
+      "contractCzk": 3040369,
+      "contractCount": 36,
+      "subsidiesCzk": 32954024.78,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "David Pražák"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60914351",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60914351",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:69972061",
+      "ico": "69972061",
+      "name": "Sdružení měst a obcí Plzeňského kraje",
+      "contractCzk": 2782098,
+      "contractCount": 10,
+      "subsidiesCzk": 18562423.779999997,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Baxa"
+      ],
+      "legalForm": "751",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 751 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 751",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/69972061",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/69972061",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26602351",
+      "ico": "26602351",
+      "name": "HC Plzeň z.s.",
+      "contractCzk": 2778000,
+      "contractCount": 22,
+      "subsidiesCzk": 3613696,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Roman Zarzycký"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26602351",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26602351",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26232987",
+      "ico": "26232987",
+      "name": "NEXNET, a.s.",
+      "contractCzk": 2763049.2,
+      "contractCount": 21,
+      "subsidiesCzk": 14310710.2,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Radek Vondráček"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26232987",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26232987",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26982170",
+      "ico": "26982170",
+      "name": "Via rustica z.s.",
+      "contractCzk": 2008259,
+      "contractCount": 12,
+      "subsidiesCzk": 57249472.86,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Lukáš Vlček"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26982170",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26982170",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:24766216",
+      "ico": "24766216",
+      "name": "MATURUS, o.p.s.",
+      "contractCzk": 1061436.5,
+      "contractCount": 8,
+      "subsidiesCzk": 2372528.14,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Lenka Martínková Španihelová"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141",
+          "117"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/24766216",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Nadace Jedličkova ústavu",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24766216",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26637863",
+      "ico": "26637863",
+      "name": "AlternativaPro, z.s.",
+      "contractCzk": 960000,
+      "contractCount": 10,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Vítězslav Schrek"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26637863",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26637863",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29186315",
+      "ico": "29186315",
+      "name": "MAE invest a.s.",
+      "contractCzk": 912000,
+      "contractCount": 1,
+      "subsidiesCzk": 493000,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Radek Vondráček"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29186315",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29186315",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:00084018",
+      "ico": "00084018",
+      "name": "Hvězdárna a planetárium v Hradci Králové",
+      "contractCzk": 769397,
+      "contractCount": 9,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jana Patková"
+      ],
+      "legalForm": "331",
+      "verdict": {
+        "kind": "public-body",
+        "reason": "Veřejnoprávní subjekt — právní forma 331 (Příspěvková organizace). Prostředky jsou vlastní činností tohoto subjektu, nelze je přičítat politikovi.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 331",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00084018",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/00084018",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27082857",
+      "ico": "27082857",
+      "name": "Nadační fond manželů Livie a Václava Klausových",
+      "contractCzk": 562400,
+      "contractCount": 1,
+      "subsidiesCzk": 72598.79,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Boris Šťastný"
+      ],
+      "legalForm": "118",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 118 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "118"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 118",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27082857",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27082857",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:06919511",
+      "ico": "06919511",
+      "name": "SUTNAR - NADACE RADOSLAVA A ELAINE SUTNAROVÝCH",
+      "contractCzk": 524000,
+      "contractCount": 7,
+      "subsidiesCzk": 190000,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Martin Baxa"
+      ],
+      "legalForm": "117",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Západočeská univerzita v Plzni. Přestože právní forma (117) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "49777513",
+            "name": "Západočeská univerzita v Plzni",
+            "legalForm": "601",
+            "current": true,
+            "validFrom": "2018-03-07",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "117"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 117",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/06919511",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — právnické osoby: Západočeská univerzita v Plzni",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/06919511",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27149994",
+      "ico": "27149994",
+      "name": "Nadace Věry a Vladimíra Janouškových",
+      "contractCzk": 510000,
+      "contractCount": 5,
+      "subsidiesCzk": 885000,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jiří Pospíšil",
+        "Martin Baxa"
+      ],
+      "legalForm": "117",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 117 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "117"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 117",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27149994",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27149994",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:47795808",
+      "ico": "47795808",
+      "name": "Sportovní klub policie Kadaň, z.s.",
+      "contractCzk": 480005,
+      "contractCount": 5,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Richter"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/47795808",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47795808",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26025027",
+      "ico": "26025027",
+      "name": "Nadační fond Nemocnice Dačice",
+      "contractCzk": 433586,
+      "contractCount": 8,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bartošek"
+      ],
+      "legalForm": "118",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Město Jemnice, Obec Báňovice, Obec Dešná, Město Dačice, Městys Staré Město pod Landštejnem, Město Slavonice, Obec Český Rudolec, Městys Vratěnín. Přestože právní forma (118) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "289531",
+            "name": "Město Jemnice",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2015-08-06",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "512915",
+            "name": "Obec Báňovice",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2016-11-27",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "246492",
+            "name": "Obec Dešná",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2017-11-30",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "246476",
+            "name": "Město Dačice",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2015-09-11",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "247499",
+            "name": "Městys Staré Město pod Landštejnem",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2018-02-01",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "247456",
+            "name": "Město Slavonice",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2017-09-03",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "246441",
+            "name": "Obec Český Rudolec",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2022-09-17",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "637122",
+            "name": "Městys Vratěnín",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2021-04-06",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "118"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 118",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26025027",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 28 současných zápisů společníků/akcionářů — právnické osoby: Město Jemnice, obec Krahulčí, obec Dobrohošť, obec Staré Hobzí, Obec Báňovice, Obec Dešná, Město Dačice, obec Vysočany, obec Budeč, obec Červený Hrádek, obec  Horní Němčice, obec Kostelní Vydří, obec Cizkrajov, obec Peč, obec Třebětice, obec Korolupy, obec Lubnice, obec Mrákotín, obec Budíškovice, obec Olší, obec Uherčice, obec Hříšice, obec Volfířov, Městys Staré Město pod Landštejnem, Město Slavonice, Obec Český Rudolec, Městys Vratěnín, obec Horní Slatina",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26025027",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27693058",
+      "ico": "27693058",
+      "name": "Prostějov venkov o.p.s.",
+      "contractCzk": 413860,
+      "contractCount": 6,
+      "subsidiesCzk": 29032658.64,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Ladislav Okleštěk"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27693058",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 37 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27693058",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:47654465",
+      "ico": "47654465",
+      "name": "Obecně prospěšná společnost pro památkovou ochranu Hradiska u Olomouce a za další rozvoj kulturního, uměleckého a duchovního života a humanitní zdravotní péče na něm.",
+      "contractCzk": 207200,
+      "contractCount": 2,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Miroslav Žbánek"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Statutární město Olomouc, Univerzita Palackého v Olomouci, Olomoucký kraj, Národní památkový ústav, Vojenská nemocnice Olomouc. Přestože právní forma (141) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "00299308",
+            "name": "Statutární město Olomouc",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2014-08-23",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "61989592",
+            "name": "Univerzita Palackého v Olomouci",
+            "legalForm": "601",
+            "current": true,
+            "validFrom": "2013-09-25",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "60609460",
+            "name": "Olomoucký kraj",
+            "legalForm": "804",
+            "current": true,
+            "validFrom": "2019-05-07",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "75032333",
+            "name": "Národní památkový ústav",
+            "legalForm": "332",
+            "current": true,
+            "validFrom": "2019-05-07",
+            "validTo": null,
+            "sharePct": null
+          },
+          {
+            "ico": "60800691",
+            "name": "Vojenská nemocnice Olomouc",
+            "legalForm": "332",
+            "current": true,
+            "validFrom": "2017-12-17",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "141",
+          "733"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/47654465",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 6 současných zápisů společníků/akcionářů — právnické osoby: Statutární město Olomouc, Univerzita Palackého v Olomouci, FARMAK, a.s., Olomoucký kraj, Národní památkový ústav, Vojenská nemocnice Olomouc",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/47654465",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29123348",
+      "ico": "29123348",
+      "name": "Akademie HK PK, o.p.s.",
+      "contractCzk": 25000,
+      "contractCount": 1,
+      "subsidiesCzk": 47601384.83,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141",
+          "745"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29123348",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Krajská hospodářská komora v Plzeňském kraji",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29123348",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:24227901",
+      "ico": "24227901",
+      "name": "Společenství vlastníků Vlastislavova 605/20, Praha 4",
+      "contractCzk": 2590,
+      "contractCount": 1,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Marek Benda"
+      ],
+      "legalForm": "145",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 145 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "145"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 145",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/24227901",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/24227901",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:02086778",
+      "ico": "02086778",
+      "name": "Fórum Karla Schwarzenberga, o.p.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Helena Langšádlová",
+        "Marek Ženíšek"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/02086778",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02086778",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:02312701",
+      "ico": "02312701",
+      "name": "Vodní cesty na Labi, o.p.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Vít Rakušan"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "publicly-owned",
+        "reason": "Ve veřejném vlastnictví — společníkem/akcionářem je Město Nymburk. Přestože právní forma (141) je soukromoprávní, prostředky jsou činností veřejného vlastníka; nelze je přičítat politikovi bez dalšího ověření.",
+        "publicOwners": [
+          {
+            "ico": "239500",
+            "name": "Město Nymburk",
+            "legalForm": "801",
+            "current": true,
+            "validFrom": "2013-11-12",
+            "validTo": null,
+            "sharePct": null
+          }
+        ],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/02312701",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — právnické osoby: APL - Asociace lodního průmyslu, z. s., Město Nymburk",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02312701",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:02504421",
+      "ico": "02504421",
+      "name": "Česká asociace věřitelů, z.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 4993800,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bureš"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/02504421",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/02504421",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:09925856",
+      "ico": "09925856",
+      "name": "Nadační fond - NOVÉ LÉČEBNÉ POSTUPY CHIRURGIE RUKY",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jiří Bouška"
+      ],
+      "legalForm": "118",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 118 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "118"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 118",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/09925856",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Klinika Dr. Pírka s.r.o.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/09925856",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:22745696",
+      "ico": "22745696",
+      "name": "TOPAZ, z.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Marek Ženíšek"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/22745696",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22745696",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:22874381",
+      "ico": "22874381",
+      "name": "Změna pro Kolín z.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Vít Rakušan"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/22874381",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/22874381",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26419050",
+      "ico": "26419050",
+      "name": "Společenství vlastníků jednotek v domě čp. 2122, Na Folimance 13, Praha 2 - Vinohrady",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jana Černochová"
+      ],
+      "legalForm": "145",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 145 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "145"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 145",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26419050",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26419050",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26745615",
+      "ico": "26745615",
+      "name": "Společenství vlastníků jednotek domu čp. 904,905,906, ulice Rimavské Soboty, Kolín II, 280 02",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 8159334.48,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Vít Rakušan"
+      ],
+      "legalForm": "145",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 145 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "145"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 145",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26745615",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/26745615",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27043843",
+      "ico": "27043843",
+      "name": "PRO VYSOČINU, občanské sdružení",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Lukáš Vlček"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/27043843",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/27043843",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28094573",
+      "ico": "28094573",
+      "name": "Wellness sv. Markéta a.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bauer"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 121) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28094573",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Resort sv. Markéty Prachatice, a.s. v likvidaci",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28094573",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28095405",
+      "ico": "28095405",
+      "name": "Společenství vlastníků jednotek, Nádražní čp. 767 Pacov",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Lukáš Vlček"
+      ],
+      "legalForm": "145",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 145 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "145"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 145",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28095405",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/28095405",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29118336",
+      "ico": "29118336",
+      "name": "Chronos Vejprnice o.p.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 132000,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Pavel Karpíšek"
+      ],
+      "legalForm": "141",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 141 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "141"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 141",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29118336",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 2 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29118336",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29156271",
+      "ico": "29156271",
+      "name": "Chráněná dílna Ostrov, s.r.o.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 567285,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bureš"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 112) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29156271",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/29156271",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:60196459",
+      "ico": "60196459",
+      "name": "ASPEN SPORT a.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Boris Šťastný"
+      ],
+      "legalForm": "121",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 121 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60196459",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/60196459",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:61065480",
+      "ico": "61065480",
+      "name": "TAMPA s.r.o.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Bauer"
+      ],
+      "legalForm": "112",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 112) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61065480",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 3 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/61065480",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:61858111",
+      "ico": "61858111",
+      "name": "PRaK, a.s. v likvidaci",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "manager",
+        "steward"
+      ],
+      "mps": [
+        "Petr Bendl",
+        "Richard Brabec"
+      ],
+      "legalForm": null,
+      "verdict": null,
+      "aresError": "ARES basic record not found (NENALEZENO)",
+      "citations": [
+        {
+          "claim": "ARES ekonomické subjekty — záznam nenalezen",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61858111",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:70282960",
+      "ico": "70282960",
+      "name": "Evropský informační projekt, z. ú.",
+      "contractCzk": 0,
+      "contractCount": 7,
+      "subsidiesCzk": 1444520,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Petr Fiala"
+      ],
+      "legalForm": "161",
+      "verdict": {
+        "kind": "unknown",
+        "reason": "Právní forma 161 není v ověřené tabulce — subjekt nelze automaticky zařadit. Vyžaduje ruční posouzení.",
+        "publicOwners": [],
+        "unknownCodes": [
+          "161"
+        ],
+        "attributable": false
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 161",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70282960",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70282960",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:70885117",
+      "ico": "70885117",
+      "name": "Česká lékařská komora - o.s., z.s.",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Boris Šťastný"
+      ],
+      "legalForm": "706",
+      "verdict": {
+        "kind": "ownership-not-published",
+        "reason": "Právní forma 706 je soukromoprávní, ale veřejný rejstřík neuvádí k dnešnímu dni žádného společníka ani akcionáře — u akciové společnosti je to běžné a o vlastnictví to neříká nic. Vlastnictví není ověřeno; údaj o penězích se tím nemění, jen se neopírá o rejstříkový důkaz.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70885117",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 0 současných zápisů společníků/akcionářů — žádná z nich právnická osoba",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/70885117",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:72046422",
+      "ico": "72046422",
+      "name": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
+      "contractCzk": 0,
+      "contractCount": 0,
+      "subsidiesCzk": 0,
+      "tieClasses": [
+        "steward"
+      ],
+      "mps": [
+        "Jan Jakob"
+      ],
+      "legalForm": "736",
+      "verdict": {
+        "kind": "private",
+        "reason": "Soukromoprávní subjekt (právní forma 736) bez veřejného vlastníka mezi současnými společníky/akcionáři.",
+        "publicOwners": [],
+        "unknownCodes": [],
+        "attributable": true
+      },
+      "aresError": null,
+      "citations": [
+        {
+          "claim": "právní forma 736",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/72046422",
+          "accessedAt": "2026-08-23"
+        },
+        {
+          "claim": "veřejný rejstřík: 1 současných zápisů společníků/akcionářů — právnické osoby: Český zahrádkářský svaz, z. s.",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/72046422",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    }
+  ]
+}

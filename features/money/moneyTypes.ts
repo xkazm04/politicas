@@ -37,6 +37,51 @@ export const PUBLIC_MANDATE_KINDS = [
 ] as const;
 export type PublicMandateKind = (typeof PUBLIC_MANDATE_KINDS)[number];
 
+/**
+ * Jak se druhá osa přičitatelnosti ČTE (batch 019). Jedna tabulka pro konzoli i knihu
+ * vazeb — stejně jako `tieClassInfo`, aby dvě plochy nepojmenovaly jeden verdikt dvakrát
+ * jinak. `tone` je totéž schéma jako u časového odznaku: `signal` = něco, co recenzent musí
+ * vidět, `muted` = ověřeno a klidné, `neutral` = rejstřík mlčí.
+ */
+export function publicMandateInfo(kind: PublicMandateKind | null): { labelCs: string; tone: "signal" | "muted" | "neutral" } {
+  switch (kind) {
+    case "public-body":
+      return { labelCs: "veřejnoprávní subjekt", tone: "muted" };
+    case "publicly-owned":
+      return { labelCs: "ve veřejném vlastnictví", tone: "muted" };
+    case "private":
+      return { labelCs: "soukromý vlastník (rejstřík)", tone: "neutral" };
+    case "ownership-not-published":
+      return { labelCs: "vlastník v rejstříku neuveden", tone: "signal" };
+    case "unknown":
+      return { labelCs: "vlastnictví neposouzeno", tone: "signal" };
+    default:
+      return { labelCs: "vlastnictví neprověřeno", tone: "neutral" };
+  }
+}
+
+/**
+ * Soukromoprávní NEZISKOVÉ formy (kódy ARES) — u nich je třída „steward" (dozorčí/správní
+ * funkce v neziskové instituci) v souladu s verdiktem „soukromý vlastník"; rozpor vzniká jen u
+ * obchodních forem (a.s., s.r.o., družstvo …). Batch 019: z 36 vazeb „steward × soukromý"
+ * bylo 2/3 o.p.s., nadací a ústavů — tedy žádný rozpor, jen šum.
+ */
+export const NONPROFIT_PRIVATE_FORMS: ReadonlySet<string> = new Set(["117", "118", "141", "161", "706", "722", "733", "736", "751", "761"]);
+
+/** Je vazba „steward podle role, ale soukromá OBCHODNÍ firma podle rejstříku"? */
+export function roleRegisterContradiction(tie: {
+  tieClass: string;
+  publicMandate: PublicMandateKind | null;
+  publicMandateLegalForm: string | null;
+}): boolean {
+  return (
+    tie.tieClass === "steward" &&
+    tie.publicMandate === "private" &&
+    tie.publicMandateLegalForm != null &&
+    !NONPROFIT_PRIVATE_FORMS.has(tie.publicMandateLegalForm)
+  );
+}
+
 /** Veřejný vlastník tak, jak ho zapsal rejstříkový průchod. */
 export interface PublicMandateOwner {
   ico: string | null;
@@ -113,6 +158,9 @@ export interface MoneyTie {
   publicMandateReason: string | null;
   /** Veřejní vlastníci, kteří verdikt způsobili — důkaz vedle tvrzení. */
   publicMandateOwners: PublicMandateOwner[];
+  /** Právní forma firmy (kód ARES), jak ji zapsal rejstříkový průchod — `null` = neprověřeno.
+   *  Čte ji rozpor rolí × rejstřík: „steward" u o.p.s./nadace/z.ú. není rozpor, u a.s./s.r.o. je. */
+  publicMandateLegalForm: string | null;
   /** Whether `tieClass` was READ off the edge or GUESSED — the two may not be rendered
    *  in the same voice (`tieClassOriginInfo`). */
   tieClassOrigin: TieClassOrigin;

@@ -216,6 +216,7 @@ export function mapLinkedToTie(args: {
       typeof cp.public_mandate_attributable === "boolean" ? cp.public_mandate_attributable : null,
     publicMandateReason: str(cp.public_mandate_reason),
     publicMandateOwners: publicOwnersOf(cp.public_mandate_owners),
+    publicMandateLegalForm: str(cp.public_mandate_legal_form),
     triangle,
     nearThresholdCount: near,
     deMinimis: isDeMinimis(contractCzk, subsidiesCzk),

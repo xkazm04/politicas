@@ -150,6 +150,7 @@ function mkTie(contracts: ContractLine[]): MoneyTieDetail {
     publicMandateAttributable: null,
     publicMandateReason: null,
     publicMandateOwners: [],
+    publicMandateLegalForm: null,
     triangle: false,
     nearThresholdCount: 0,
     deMinimis: false,

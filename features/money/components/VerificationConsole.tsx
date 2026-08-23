@@ -74,7 +74,7 @@ import { useFormat } from "@/lib/i18n/useFormat";
 // kterou u té vazby publikuje /penize.
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { canonicalIco } from "../companyId";
-import { compactCzk, temporalBadge, tieClassOriginInfo } from "../moneyTypes";
+import { compactCzk, publicMandateInfo, roleRegisterContradiction, temporalBadge, tieClassOriginInfo } from "../moneyTypes";
 import { hasStaleOngoingFlag, tieFlagInfos } from "../tieFlags";
 import { submitReviewDecision } from "../reviewActions";
 import AnalystNote from "./AnalystNote";
@@ -206,7 +206,12 @@ interface WriteStatus {
   message?: string;
 }
 
-type ClassFilter = TieClass | "all";
+/** Filtr fronty: třída vazby, NEBO (batch 019) dráha „vlastník neuveden" — vazby na firmy,
+ *  u kterých rejstřík nejmenuje vlastníka a které proto čekají na DOKLAD (výroční zpráva,
+ *  majetkové účasti města). Druhá osa přičitatelnosti má vlastní vstup do fronty, protože
+ *  devět firem nese 16,8 mld. Kč z 17,4 mld. přičitatelného součtu. */
+type ClassFilter = TieClass | "all" | "unpublished";
+const isUnpublished = (t: { publicMandate: string | null }) => t.publicMandate === "ownership-not-published";
 
 export default function VerificationConsole({
   data,
@@ -243,9 +248,17 @@ export default function VerificationConsole({
   // data.ties already arrives sorted by reviewRank ASC (batch-005 review order) — the
   // filter narrows the CLASS but never re-sorts, so tier blocks stay contiguous.
   const shown = useMemo(
-    () => (data ? (filter === "all" ? data.ties : data.ties.filter((t) => t.tieClass === filter)) : []),
+    () =>
+      data
+        ? filter === "all"
+          ? data.ties
+          : filter === "unpublished"
+            ? data.ties.filter(isUnpublished)
+            : data.ties.filter((t) => t.tieClass === filter)
+        : [],
     [data, filter],
   );
+  const unpublishedCount = useMemo(() => (data ? data.ties.filter(isUnpublished).length : 0), [data]);
   const shownIds = useMemo(() => shown.map((t) => t.id), [shown]);
   const rovingId = queueRovingId(focusedId, shownIds);
 
@@ -499,7 +512,7 @@ export default function VerificationConsole({
             {/* Výběr filtru nesl JEN barvu — pro odečítačku čtyři nerozlišitelná
                 tlačítka. Skupina má jméno, každé tlačítko svůj stav. */}
             <div role="group" aria-label="filtr fronty podle třídy vazby" className="flex flex-wrap gap-2">
-              {(["all", "owner-operator", "manager", "steward"] as ClassFilter[]).map((c) => (
+              {(["all", "owner-operator", "manager", "steward", "unpublished"] as ClassFilter[]).map((c) => (
                 <button
                   key={c}
                   type="button"
@@ -509,11 +522,13 @@ export default function VerificationConsole({
                     filter === c ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
                   }`}
                 >
-                  {c === "all" ? "vše" : CLASS_LABEL[c]}
+                  {c === "all" ? "vše" : c === "unpublished" ? "vlastník neuveden" : CLASS_LABEL[c]}
                   <span className="ml-1.5 font-normal">
                     {c === "all"
                       ? f.int(data.stats.pending)
-                      : f.int(c === "owner-operator" ? data.stats.ownerOperator : c === "manager" ? data.stats.manager : data.stats.steward)}
+                      : c === "unpublished"
+                        ? f.int(unpublishedCount)
+                        : f.int(c === "owner-operator" ? data.stats.ownerOperator : c === "manager" ? data.stats.manager : data.stats.steward)}
                   </span>
                 </button>
               ))}
@@ -875,6 +890,35 @@ function ReviewCard({
           {tie.tieClassOrigin === "stored" && tie.tieClassHeuristic !== tie.tieClass && (
             <span className="max-w-[16rem] text-right font-mono text-[10px] leading-relaxed uppercase tracking-widest text-steel">
               heuristika by uvedla: {CLASS_LABEL[tie.tieClassHeuristic]} — přednost má zapsaná třída
+            </span>
+          )}
+          {/* DRUHÁ OSA — o firmě, ne o roli (batch 015/019). Konzole dosud ukazovala jen
+              třídu vazby; recenzent rozhodující o Teplárnách Brno neviděl, že firma je ze
+              100 % města. Když rejstřík vlastníka nejmenuje, karta to řekne a pojmenuje,
+              co chybí: doklad mimo rejstřík. */}
+          <span
+            className={`border-2 px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider ${BADGE_TONE_CLS[publicMandateInfo(tie.publicMandate).tone]}`}
+          >
+            firma: {publicMandateInfo(tie.publicMandate).labelCs}
+          </span>
+          {tie.publicMandate === "publicly-owned" && tie.publicMandateOwners.length > 0 && (
+            <span className="max-w-[16rem] text-right font-mono text-[10px] leading-relaxed uppercase tracking-widest text-steel">
+              vlastník: {tie.publicMandateOwners.map((o) => o.name).join(", ")}
+            </span>
+          )}
+          {tie.publicMandate === "ownership-not-published" && (
+            <span className="max-w-[16rem] text-right font-mono text-[10px] leading-relaxed uppercase tracking-widest text-steel">
+              k doložení mimo rejstřík (výroční zpráva, majetkové účasti)
+            </span>
+          )}
+          {/* ROZPOR OS (batch 019): třída vazby říká „steward" (veřejná/nezisková instituce
+              podle NÁZVU firmy), rejstřík říká soukromý vlastník. Pravidlo přičitatelnosti
+              umí jen ubírat, nikdy přidávat — peníze tedy zůstávají mimo součet — ale
+              recenzent musí vidět, že třída může být špatně. Jen u OBCHODNÍCH forem —
+              o.p.s., nadace či ústav jsou „steward" právem (`roleRegisterContradiction`). */}
+          {roleRegisterContradiction(tie) && (
+            <span className="max-w-[16rem] border-2 border-signal px-1.5 py-0.5 text-right font-mono text-[10px] font-bold leading-relaxed uppercase tracking-widest text-ink">
+              rozpor: steward podle role, soukromý vlastník podle rejstříku — ověřit třídu
             </span>
           )}
           <span className="border border-hairline px-1.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-steel">

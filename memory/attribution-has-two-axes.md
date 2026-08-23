@@ -35,7 +35,13 @@ Same for Výstaviště Flora Olomouc and Lesy města Olomouce; 12,75 mld. across
   `ownershipRecord()` counts natural persons so "no PUBLIC owner among recorded owners"
   stays distinguishable from "no owner recorded" (AGROFERT's only current akcionář is a
   natural person).
-- Largest open question: **Pražská energetika, 10,95 mld.**, city-owned through a holding
-  that VR does not name — a depth-2 ownership check is not yet implemented.
+- **Pražská energetika is CLOSED as unanswerable from the OR** (b018): a multi-shareholder
+  a.s. has no corporate akcionář in the register (sole-akcionář rule); needs a document
+  source as a cited lead. `ownership-not-published` = 9 attributable companies (PRE + ČSOB
+  Pojišťovna = 16,2 of 16,8 mld.).
+- **`roleRegisterContradiction()`** (b019): a `steward` class at a private BUSINESS form is
+  a flag for the human gate (18 ties — AGROFERT-group dozorčí rady, AGEL hospital …), never
+  a loop-side re-class; nonprofit private-law forms (`NONPROFIT_PRIVATE_FORMS`) are steward
+  by definition. Company axis is 194/195 verdicted after b019.
 
 Related: [[supplies-is-not-attribution]], [[or-shareholder-entry-semantics]].

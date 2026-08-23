@@ -3824,6 +3824,12 @@
   ],
   "openItems": [
     {
+      "id": "M-9",
+      "title": "First human-gate session: 18 role x register contradictions (steward class at a private business) - confirm or re-class in /penize/kontrola",
+      "since": "b019",
+      "status": "open"
+    },
+    {
       "id": "M-1",
       "title": "Prague s.r.o. register (history only — current owners now covered by ARES VR, b018); retry ownership-sweep --fetch-budget=1 on a day dataor serves > 75 MB/connection",
       "since": "b017",
@@ -3867,8 +3873,14 @@
     },
     {
       "id": "M-8",
-      "title": "public-mandate-sweep over the 90 steward-by-role companies still without a company-axis verdict (ARES only, cheap)",
+      "title": "public-mandate-sweep over the 90 steward-by-role companies still without a company-axis verdict (ARES only, cheap) - DONE b019 (pass 65, 194/195 verdicted)",
       "since": "b018",
+      "status": "done"
+    },
+    {
+      "id": "M-10",
+      "title": "15 unknown company-axis verdicts (foreign owners without legal form; forms 745/999) - human ruling per company",
+      "since": "b019",
       "status": "open"
     }
   ],
