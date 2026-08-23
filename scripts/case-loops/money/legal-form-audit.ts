@@ -30,7 +30,9 @@
  */
 import { PRIVATE_LEGAL_FORMS, PUBLIC_LEGAL_FORMS } from "@/lib/analysis/public-body";
 
-const OUT = "docs/data-analysis/case-money/qmoney-legal-forms-b16.json";
+// Stamped to the minute — the b016 evidence file was rewritten by a batch-019 rerun before
+// this changed. A committed evidence file is history; a guard run writes a new one.
+const OUT = `docs/data-analysis/case-money/qmoney-legal-forms-${new Date().toISOString().slice(0, 16).replace(/:/g, "")}.json`;
 const CISELNIK = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ciselniky-nazevniky/vyhledat";
 
 interface CiselnikEntry {
