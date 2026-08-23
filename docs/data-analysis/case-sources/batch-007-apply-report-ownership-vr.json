@@ -1,0 +1,2031 @@
+{
+  "key": "ownership-chains",
+  "mode": "commit",
+  "pass": 62,
+  "nodes": {
+    "total": 117,
+    "byKind": {
+      "company": {
+        "inserted": 117,
+        "merged": 0
+      }
+    }
+  },
+  "edges": {
+    "total": 91,
+    "byRel": {
+      "owns_stake": {
+        "inserted": 51,
+        "merged": 40
+      }
+    }
+  },
+  "excludedEdges": [
+    {
+      "src": "company:ico:00006947",
+      "rel": "owns_stake",
+      "dst": "company:ico:60193468",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00006947",
+      "rel": "owns_stake",
+      "dst": "company:ico:60193468",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889953",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:07739044",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:45354774",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:07739044",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:69972061",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:48365556",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:48365556",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:48365556",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:45354774",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00227277",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:49777513",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00227277",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:49777513",
+      "rel": "owns_stake",
+      "dst": "company:ico:25245091",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26040166",
+      "rel": "owns_stake",
+      "dst": "company:ico:28094573",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26040166",
+      "rel": "owns_stake",
+      "dst": "company:ico:28094573",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25332589",
+      "rel": "owns_stake",
+      "dst": "company:ico:02867681",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25332589",
+      "rel": "owns_stake",
+      "dst": "company:ico:27720152",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70889546",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25997556",
+      "rel": "owns_stake",
+      "dst": "company:ico:26000237",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:42194920",
+      "rel": "owns_stake",
+      "dst": "company:ico:62063588",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:42194920",
+      "rel": "owns_stake",
+      "dst": "company:ico:62063588",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:46347828",
+      "rel": "owns_stake",
+      "dst": "company:ico:29211808",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00254843",
+      "rel": "owns_stake",
+      "dst": "company:ico:49790498",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70889988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00064581",
+      "rel": "owns_stake",
+      "dst": "company:ico:27251918",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00261238",
+      "rel": "owns_stake",
+      "dst": "company:ico:62240935",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:17571073",
+      "rel": "owns_stake",
+      "dst": "company:ico:01801261",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00011835",
+      "rel": "owns_stake",
+      "dst": "company:ico:14612411",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:24730017",
+      "rel": "owns_stake",
+      "dst": "company:ico:14612411",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:24730017",
+      "rel": "owns_stake",
+      "dst": "company:ico:14612411",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:24188581",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60108916",
+      "rel": "owns_stake",
+      "dst": "company:ico:26014343",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60108916",
+      "rel": "owns_stake",
+      "dst": "company:ico:26014343",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25130072",
+      "rel": "owns_stake",
+      "dst": "company:ico:26124459",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:26124459",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25130072",
+      "rel": "owns_stake",
+      "dst": "company:ico:26185610",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60197773",
+      "rel": "owns_stake",
+      "dst": "company:ico:26185610",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:26872307",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:26872307",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:26872307",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60108916",
+      "rel": "owns_stake",
+      "dst": "company:ico:27465021",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60108916",
+      "rel": "owns_stake",
+      "dst": "company:ico:27465021",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60108916",
+      "rel": "owns_stake",
+      "dst": "company:ico:27465021",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:27465021",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:27465021",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:27465021",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:46900411",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:46900411",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:01722409",
+      "rel": "owns_stake",
+      "dst": "company:ico:48207918",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:49100262",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:49100262",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:63078121",
+      "rel": "owns_stake",
+      "dst": "company:ico:49100262",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:63078121",
+      "rel": "owns_stake",
+      "dst": "company:ico:49100262",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00011835",
+      "rel": "owns_stake",
+      "dst": "company:ico:49100262",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:49100262",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00011835",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:60108916",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:63218828",
+      "rel": "owns_stake",
+      "dst": "company:ico:64258998",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00075370",
+      "rel": "owns_stake",
+      "dst": "company:ico:25220683",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00075370",
+      "rel": "owns_stake",
+      "dst": "company:ico:49790480",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00064581",
+      "rel": "owns_stake",
+      "dst": "company:ico:63080249",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00064581",
+      "rel": "owns_stake",
+      "dst": "company:ico:63080249",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00020478",
+      "rel": "owns_stake",
+      "dst": "company:ico:70890013",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246476",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00247456",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00289531",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00289531",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00286168",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00512788",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00247481",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00512915",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246492",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246476",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246441",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00637149",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246379",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00476714",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00666416",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00477303",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246409",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00477320",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00666548",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00600423",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00636835",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00286265",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246387",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00512915",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:42634601",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00293709",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246794",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00247499",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00247715",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246492",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00637122",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00247499",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00247456",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00246441",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00637122",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00637122",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00247499",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00666424",
+      "rel": "owns_stake",
+      "dst": "company:ico:26025027",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:27597075",
+      "rel": "owns_stake",
+      "dst": "company:ico:45147787",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:28357019",
+      "rel": "owns_stake",
+      "dst": "company:ico:63488329",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:46978593",
+      "rel": "owns_stake",
+      "dst": "company:ico:63488329",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:46979557",
+      "rel": "owns_stake",
+      "dst": "company:ico:63488329",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:46978593",
+      "rel": "owns_stake",
+      "dst": "company:ico:63488329",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:46979557",
+      "rel": "owns_stake",
+      "dst": "company:ico:63488329",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00276944",
+      "rel": "owns_stake",
+      "dst": "company:ico:25918206",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60913819",
+      "rel": "owns_stake",
+      "dst": "company:ico:48154938",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00274046",
+      "rel": "owns_stake",
+      "dst": "company:ico:48154938",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00274046",
+      "rel": "owns_stake",
+      "dst": "company:ico:63217066",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:41692918",
+      "rel": "owns_stake",
+      "dst": "company:ico:60193531",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70891508",
+      "rel": "owns_stake",
+      "dst": "company:ico:46744991",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:49777513",
+      "rel": "owns_stake",
+      "dst": "company:ico:06919511",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00075370",
+      "rel": "owns_stake",
+      "dst": "company:ico:25234994",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:49777513",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26163632",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26163632",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26502399",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26502399",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26502399",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26502399",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70890366",
+      "rel": "owns_stake",
+      "dst": "company:ico:26396645",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26653397",
+      "rel": "owns_stake",
+      "dst": "company:ico:02312701",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00239500",
+      "rel": "owns_stake",
+      "dst": "company:ico:02312701",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26653397",
+      "rel": "owns_stake",
+      "dst": "company:ico:02312701",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26653397",
+      "rel": "owns_stake",
+      "dst": "company:ico:02312701",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:61924032",
+      "rel": "owns_stake",
+      "dst": "company:ico:68404999",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00068811",
+      "rel": "owns_stake",
+      "dst": "company:ico:68404999",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:61924032",
+      "rel": "owns_stake",
+      "dst": "company:ico:68404999",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:07739044",
+      "rel": "owns_stake",
+      "dst": "company:ico:08160902",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70890366",
+      "rel": "owns_stake",
+      "dst": "company:ico:08160902",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:07739044",
+      "rel": "owns_stake",
+      "dst": "company:ico:08160902",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:48365556",
+      "rel": "owns_stake",
+      "dst": "company:ico:29123348",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:07739044",
+      "rel": "owns_stake",
+      "dst": "company:ico:29123348",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265233",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00244309",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265365",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265217",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265705",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00480975",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265781",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264971",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265365",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556408",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262200",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262021",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262111",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262188",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265217",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00483109",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00244309",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265233",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556289",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264784",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556378",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255181",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00483095",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265624",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265080",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264768",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265365",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556408",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262200",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262021",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262111",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262188",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265217",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00483109",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00244309",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265233",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556289",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264784",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264784",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556378",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255181",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00483095",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265624",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265080",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265080",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264768",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00254614",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255181",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264768",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265071",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00480975",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00254614",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00480304",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265705",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265284",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255041",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255131",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00573302",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255114",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00573116",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265446",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00254941",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265781",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264903",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00673161",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262081",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556394",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264971",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265705",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265284",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265705",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265284",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265071",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00480975",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00254614",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00480304",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255041",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255131",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00573302",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00255114",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00254941",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265781",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264903",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00673161",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262081",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00573116",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00265446",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00556394",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00264971",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00262021",
+      "rel": "owns_stake",
+      "dst": "company:ico:47781131",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:61974749",
+      "rel": "owns_stake",
+      "dst": "company:ico:26822105",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:48401129",
+      "rel": "owns_stake",
+      "dst": "company:ico:26822105",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:26822105",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:26822105",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:26822105",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:26822105",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:29450357",
+      "rel": "owns_stake",
+      "dst": "company:ico:47674652",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00001350",
+      "rel": "owns_stake",
+      "dst": "company:ico:45534306",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70891320",
+      "rel": "owns_stake",
+      "dst": "company:ico:26871068",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70891320",
+      "rel": "owns_stake",
+      "dst": "company:ico:27660532",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70891320",
+      "rel": "owns_stake",
+      "dst": "company:ico:27660915",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70891320",
+      "rel": "owns_stake",
+      "dst": "company:ico:27661989",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:44992785",
+      "rel": "owns_stake",
+      "dst": "company:ico:25508881",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26955385",
+      "rel": "owns_stake",
+      "dst": "company:ico:46347534",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:44992785",
+      "rel": "owns_stake",
+      "dst": "company:ico:46347534",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:44992785",
+      "rel": "owns_stake",
+      "dst": "company:ico:60713470",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:47540265",
+      "rel": "owns_stake",
+      "dst": "company:ico:09925856",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25691872",
+      "rel": "owns_stake",
+      "dst": "company:ico:24766216",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:25691872",
+      "rel": "owns_stake",
+      "dst": "company:ico:24766216",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00286010",
+      "rel": "owns_stake",
+      "dst": "company:ico:25513290",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00286010",
+      "rel": "owns_stake",
+      "dst": "company:ico:25513290",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00286010",
+      "rel": "owns_stake",
+      "dst": "company:ico:25513290",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:27365743",
+      "rel": "owns_stake",
+      "dst": "company:ico:28274466",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:27365743",
+      "rel": "owns_stake",
+      "dst": "company:ico:28274466",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70890749",
+      "rel": "owns_stake",
+      "dst": "company:ico:71184465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00260177",
+      "rel": "owns_stake",
+      "dst": "company:ico:26318903",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70935394",
+      "rel": "owns_stake",
+      "dst": "company:ico:03849988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70935394",
+      "rel": "owns_stake",
+      "dst": "company:ico:03849988",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70994226",
+      "rel": "owns_stake",
+      "dst": "company:ico:17047234",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00299308",
+      "rel": "owns_stake",
+      "dst": "company:ico:25848526",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60800691",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00096768",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00299308",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00299308",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:61989592",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:61989592",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:14450569",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:45192961",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:45192961",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60609460",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:75032333",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60800691",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:60800691",
+      "rel": "owns_stake",
+      "dst": "company:ico:47654465",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:26185610",
+      "rel": "owns_stake",
+      "dst": "company:ico:00011835",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70889546",
+      "rel": "owns_stake",
+      "dst": "company:ico:25997556",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:70889546",
+      "rel": "owns_stake",
+      "dst": "company:ico:25997556",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:28106776",
+      "rel": "owns_stake",
+      "dst": "company:ico:46678191",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    },
+    {
+      "src": "company:ico:00534111",
+      "rel": "owns_stake",
+      "dst": "company:ico:48401129",
+      "reason": "props.share is not a number (role=\"akcionář (podíl neuveden)\") — a board/officer seat, not a dated shareholding; owns_stake's contract per kg-verdict.ts is a stake"
+    }
+  ],
+  "proposedDeletions": [],
+  "rejections": []
+}

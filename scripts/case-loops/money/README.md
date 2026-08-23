@@ -23,7 +23,8 @@ Resume state for the case: `docs/data-analysis/case-money/STATE.md`.
 | `triage.ts` | deterministic tie ranking → `ledger.json` / `triage-dump.json` (PGlite copy) |
 | `reconcile-ares-vr.ts` · `reverify-open-vs-live-ares-vr.ts` | ARES VR period reconciliation of all ties (b002) |
 | `public-mandate-sweep.ts` | ownership-based `public_mandate` verdict per attributable company (b015) |
-| `ownership-sweep.ts` | the `owns_stake` layer at full population: `--plan`, then `--fetch-budget=N` (b017) |
+| `ownership-sweep.ts` | the `owns_stake` layer from dataor bulk: `--plan`, then `--fetch-budget=N [--fallback-actual]` (b017–018) |
+| `ownership-from-vr.ts` | the `owns_stake` layer from ARES VR per IČO — every s.r.o. společník with share % (b018) |
 | `ownership-depth2.ts` | company-axis verdict one hop up via `owns_stake`, dated outputs (b016–017) |
 | `legal-form-audit.ts` | drift guard: legal-form tables vs the ARES číselník (b016) |
 | `verify-surface.ts` | what `/penize` renders, through `getMoneyData()` itself |

@@ -1,0 +1,1079 @@
+{
+  "generatedFor": "money batch 016",
+  "generatedAt": "2026-08-23",
+  "method": "graph owns_stake parent (dataor bulk OR export) + ARES legal form of that parent; depth 2 only",
+  "caveat": "only ever REMOVES attribution; a private or absent parent changes nothing",
+  "candidates": 283,
+  "withParentInGraph": 63,
+  "resolvedPublic": 24,
+  "rows": [
+    {
+      "companyId": "company:ico:00011835",
+      "ico": "00011835",
+      "name": "DEZA, a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:00829838",
+      "ico": "00829838",
+      "name": "Nemocnice Jablonec nad Nisou, p.o.",
+      "parentId": "company:ico:00262340",
+      "parentIco": "00262340",
+      "parentName": "Statutární město Jablonec nad Nisou",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Jablonec nad Nisou: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00262340",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:03849988",
+      "ico": "03849988",
+      "name": "Nadační fond regionální fotbalové Akademie Plzeňského kraje",
+      "parentId": "company:ico:70935394",
+      "parentIco": "70935394",
+      "parentName": "PLZEŇSKÝ KRAJSKÝ FOTBALOVÝ SVAZ",
+      "parentLegalForm": "736",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma PLZEŇSKÝ KRAJSKÝ FOTBALOVÝ SVAZ: právní forma 736",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70935394",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:08694508",
+      "ico": "08694508",
+      "name": "Muzeum paměti XX. století, z.ú.",
+      "parentId": "company:ico:00064581",
+      "parentIco": "00064581",
+      "parentName": "HLAVNÍ MĚSTO PRAHA",
+      "parentLegalForm": "804",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma HLAVNÍ MĚSTO PRAHA: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00064581",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:09925856",
+      "ico": "09925856",
+      "name": "Nadační fond - NOVÉ LÉČEBNÉ POSTUPY CHIRURGIE RUKY",
+      "parentId": "company:ico:47540265",
+      "parentIco": "47540265",
+      "parentName": "Klinika Dr. Pírka s.r.o.",
+      "parentLegalForm": "112",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Klinika Dr. Pírka s.r.o.: právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/47540265",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:17047234",
+      "ico": "17047234",
+      "name": "RAILREKLAM, spol. s r.o.",
+      "parentId": "company:ico:25050826",
+      "parentIco": "25050826",
+      "parentName": "TARDUS s.r.o.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma TARDUS s.r.o.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25050826",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:17047234",
+      "ico": "17047234",
+      "name": "RAILREKLAM, spol. s r.o.",
+      "parentId": "company:ico:70994226",
+      "parentIco": "70994226",
+      "parentName": "České dráhy, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma České dráhy, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70994226",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:24188581",
+      "ico": "24188581",
+      "name": "Nadace AGROFERT",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:24766216",
+      "ico": "24766216",
+      "name": "MATURUS, o.p.s.",
+      "parentId": "company:ico:25691872",
+      "parentIco": "25691872",
+      "parentName": "Nadace Jedličkova ústavu",
+      "parentLegalForm": "117",
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Nadace Jedličkova ústavu: právní forma 117",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25691872",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25234994",
+      "ico": "25234994",
+      "name": "Galerie města Plzně, o.p.s.",
+      "parentId": "company:ico:00075370",
+      "parentIco": "00075370",
+      "parentName": "Město Plzeň",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Plzeň: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00075370",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25321692",
+      "ico": "25321692",
+      "name": "Lesy města Prostějova, s.r.o.",
+      "parentId": "company:ico:00288659",
+      "parentIco": "00288659",
+      "parentName": "Statutární město Prostějov",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Prostějov: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00288659",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25513290",
+      "ico": "25513290",
+      "name": "Prádelna a čistírna Jihlava, s.r.o.",
+      "parentId": "company:ico:00286010",
+      "parentIco": "00286010",
+      "parentName": "Statutární město Jihlava",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Jihlava: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00286010",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25918206",
+      "ico": "25918206",
+      "name": "Smetanova Litomyšl, o.p.s.",
+      "parentId": "company:ico:00276944",
+      "parentIco": "00276944",
+      "parentName": "Město Litomyšl",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Litomyšl: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00276944",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25968084",
+      "ico": "25968084",
+      "name": "Technické služby Trutnov s.r.o.",
+      "parentId": "company:ico:00278360",
+      "parentIco": "00278360",
+      "parentName": "Město Trutnov",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Trutnov: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00278360",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:25968700",
+      "ico": "25968700",
+      "name": "Lesy a parky Trutnov s.r.o.",
+      "parentId": "company:ico:00278360",
+      "parentIco": "00278360",
+      "parentName": "Město Trutnov",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Trutnov: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00278360",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "ico": "26124459",
+      "name": "IMOBA, a.s.",
+      "parentId": "company:ico:25130072",
+      "parentIco": "25130072",
+      "parentName": "AGROFERT HOLDING, a.s.",
+      "parentLegalForm": null,
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma AGROFERT HOLDING, a.s.: právní forma (nezjištěna)",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/25130072",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "ico": "26124459",
+      "name": "IMOBA, a.s.",
+      "parentId": "company:ico:26014343",
+      "parentIco": "26014343",
+      "parentName": "SynBiol, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:26124459",
+      "ico": "26124459",
+      "name": "IMOBA, a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:26318903",
+      "ico": "26318903",
+      "name": "Správa majetku města Stříbra, s.r.o.",
+      "parentId": "company:ico:00260177",
+      "parentIco": "00260177",
+      "parentName": "Město Stříbro",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Stříbro: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00260177",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26419068",
+      "ico": "26419068",
+      "name": "Nadační fond Českého rozhlasu",
+      "parentId": "company:ico:45245053",
+      "parentIco": "45245053",
+      "parentName": "ČESKÝ ROZHLAS",
+      "parentLegalForm": "361",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma ČESKÝ ROZHLAS: právní forma 361",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/45245053",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26822105",
+      "ico": "26822105",
+      "name": "Nemocnice AGEL Valašské Meziříčí a.s.",
+      "parentId": "company:ico:00534111",
+      "parentIco": "00534111",
+      "parentName": "AGEL  a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma AGEL  a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00534111",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26822105",
+      "ico": "26822105",
+      "name": "Nemocnice AGEL Valašské Meziříčí a.s.",
+      "parentId": "company:ico:48401129",
+      "parentIco": "48401129",
+      "parentName": "Nemocnice Podlesí a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Nemocnice Podlesí a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/48401129",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26822105",
+      "ico": "26822105",
+      "name": "Nemocnice AGEL Valašské Meziříčí a.s.",
+      "parentId": "company:ico:61974749",
+      "parentIco": "61974749",
+      "parentName": "EUROMEDNET a.s.",
+      "parentLegalForm": null,
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma EUROMEDNET a.s.: právní forma (nezjištěna)",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61974749",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:26872307",
+      "ico": "26872307",
+      "name": "PRECHEZA a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:27257258",
+      "ico": "27257258",
+      "name": "Výzkumný Ústav Železniční, a.s.",
+      "parentId": "company:ico:70994226",
+      "parentIco": "70994226",
+      "parentName": "České dráhy, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma České dráhy, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70994226",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27267351",
+      "ico": "27267351",
+      "name": "KORID LK, spol. s r.o.",
+      "parentId": "company:ico:70891508",
+      "parentIco": "70891508",
+      "parentName": "Liberecký kraj",
+      "parentLegalForm": "804",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Liberecký kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891508",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27465021",
+      "ico": "27465021",
+      "name": "Fatra, a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:27465021",
+      "ico": "27465021",
+      "name": "Fatra, a.s.",
+      "parentId": "company:ico:60108916",
+      "parentIco": "60108916",
+      "parentName": "Synthesia, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Synthesia, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/60108916",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27467759",
+      "ico": "27467759",
+      "name": "Horská služba ČR, o.p.s.",
+      "parentId": "company:ico:66002222",
+      "parentIco": "66002222",
+      "parentName": "Česká republika - ministerstvo pro místní rozvoj",
+      "parentLegalForm": "325",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Česká republika - ministerstvo pro místní rozvoj: právní forma 325",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/66002222",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:27485013",
+      "ico": "27485013",
+      "name": "Sportovní areály města Chrudim, s.r.o.",
+      "parentId": "company:ico:00270211",
+      "parentIco": "00270211",
+      "parentName": "Město Chrudim",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Chrudim: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00270211",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28046153",
+      "ico": "28046153",
+      "name": "Čistá Plzeň, s.r.o.",
+      "parentId": "company:ico:00075370",
+      "parentIco": "00075370",
+      "parentName": "Město Plzeň",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Plzeň: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00075370",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28046153",
+      "ico": "28046153",
+      "name": "Čistá Plzeň, s.r.o.",
+      "parentId": "company:ico:49790480",
+      "parentIco": "49790480",
+      "parentName": "Plzeňská teplárenská, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:28094573",
+      "ico": "28094573",
+      "name": "Wellness sv. Markéta a.s.",
+      "parentId": "company:ico:26040166",
+      "parentIco": "26040166",
+      "parentName": "Léčebné centrum sv. Markéty,a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Léčebné centrum sv. Markéty,a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26040166",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28168151",
+      "ico": "28168151",
+      "name": "Městská společnost sportovní a rekreační areály, s.r.o.",
+      "parentId": "company:ico:00238295",
+      "parentIco": "00238295",
+      "parentName": "Statutární město Mladá Boleslav",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Statutární město Mladá Boleslav: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00238295",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28274466",
+      "ico": "28274466",
+      "name": "DS Stříbrné Terasy o.p.s.",
+      "parentId": "company:ico:26100347",
+      "parentIco": "26100347",
+      "parentName": "CORBADA a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma CORBADA a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/26100347",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:28593987",
+      "ico": "28593987",
+      "name": "Vsetínská sportovní, s.r.o.",
+      "parentId": "company:ico:00304450",
+      "parentIco": "00304450",
+      "parentName": "Město Vsetín",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Vsetín: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00304450",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29123348",
+      "ico": "29123348",
+      "name": "Akademie HK PK, o.p.s.",
+      "parentId": "company:ico:07739044",
+      "parentIco": "07739044",
+      "parentName": "Krajská hospodářská komora v Plzeňském kraji",
+      "parentLegalForm": "745",
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Krajská hospodářská komora v Plzeňském kraji: právní forma 745",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/07739044",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:29211808",
+      "ico": "29211808",
+      "name": "Léčebné lázně Jáchymov a. s.",
+      "parentId": "company:ico:46347828",
+      "parentIco": "46347828",
+      "parentName": "Lázně Luhačovice, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Lázně Luhačovice, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46347828",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:45332657",
+      "ico": "45332657",
+      "name": "Nadace 700 let města Plzně",
+      "parentId": "company:ico:00075370",
+      "parentIco": "00075370",
+      "parentName": "Město Plzeň",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Plzeň: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00075370",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:45534306",
+      "ico": "45534306",
+      "name": "ČSOB Pojišťovna, a. s., člen holdingu ČSOB",
+      "parentId": "company:ico:00001350",
+      "parentIco": "00001350",
+      "parentName": "Československá obchodní banka, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Československá obchodní banka, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00001350",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:46678191",
+      "ico": "46678191",
+      "name": "Rybářství Třeboň Hld. a.s.",
+      "parentId": "company:ico:28106776",
+      "parentIco": "28106776",
+      "parentName": "Třeboňská investiční a.s.",
+      "parentLegalForm": null,
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Třeboňská investiční a.s.: právní forma (nezjištěna)",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28106776",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:46744991",
+      "ico": "46744991",
+      "name": "Zdravotnická záchranná služba Libereckého kraje, příspěvková organizace",
+      "parentId": "company:ico:70891508",
+      "parentIco": "70891508",
+      "parentName": "Liberecký kraj",
+      "parentLegalForm": "804",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Liberecký kraj: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70891508",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:46900411",
+      "ico": "46900411",
+      "name": "Kostelecké uzeniny a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:47674652",
+      "ico": "47674652",
+      "name": "Vodovody a kanalizace Vsetín, a.s.",
+      "parentId": "company:ico:29450357",
+      "parentIco": "29450357",
+      "parentName": "Valašská vodohospodářská a.s.",
+      "parentLegalForm": null,
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Valašská vodohospodářská a.s.: právní forma (nezjištěna)",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29450357",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:48401129",
+      "ico": "48401129",
+      "name": "Nemocnice Podlesí a.s.",
+      "parentId": "company:ico:00534111",
+      "parentIco": "00534111",
+      "parentName": "AGEL  a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma AGEL  a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00534111",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49100262",
+      "ico": "49100262",
+      "name": "Lovochemie, a.s.",
+      "parentId": "company:ico:00011835",
+      "parentIco": "00011835",
+      "parentName": "DEZA, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma DEZA, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00011835",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49100262",
+      "ico": "49100262",
+      "name": "Lovochemie, a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:49100262",
+      "ico": "49100262",
+      "name": "Lovochemie, a.s.",
+      "parentId": "company:ico:29731283",
+      "parentIco": "29731283",
+      "parentName": "AGF Nitrogen, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma AGF Nitrogen, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/29731283",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:49100262",
+      "ico": "49100262",
+      "name": "Lovochemie, a.s.",
+      "parentId": "company:ico:63078121",
+      "parentIco": "63078121",
+      "parentName": "AGROBOHEMIE, a.s.",
+      "parentLegalForm": null,
+      "parentIsPublic": null,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma AGROBOHEMIE, a.s.: právní forma (nezjištěna)",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/63078121",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:60108916",
+      "ico": "60108916",
+      "name": "Synthesia, a.s.",
+      "parentId": "company:ico:00011835",
+      "parentIco": "00011835",
+      "parentName": "DEZA, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma DEZA, a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00011835",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:60108916",
+      "ico": "60108916",
+      "name": "Synthesia, a.s.",
+      "parentId": "company:ico:26185610",
+      "parentIco": "26185610",
+      "parentName": "AGROFERT, a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:60826851",
+      "ico": "60826851",
+      "name": "Rybářství Třeboň a.s.",
+      "parentId": "company:ico:46678191",
+      "parentIco": "46678191",
+      "parentName": "Rybářství Třeboň Hld. a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Rybářství Třeboň Hld. a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46678191",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:62063588",
+      "ico": "62063588",
+      "name": "TRANSPORT Trutnov s.r.o.",
+      "parentId": "company:ico:00278360",
+      "parentIco": "00278360",
+      "parentName": "Město Trutnov",
+      "parentLegalForm": "801",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Město Trutnov: právní forma 801",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00278360",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:62063588",
+      "ico": "62063588",
+      "name": "TRANSPORT Trutnov s.r.o.",
+      "parentId": "company:ico:42194920",
+      "parentIco": "42194920",
+      "parentName": "Marius Pedersen a.s.",
+      "parentLegalForm": "121",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Marius Pedersen a.s.: právní forma 121",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/42194920",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:63488329",
+      "ico": "63488329",
+      "name": "Nemocnice Valtice s.r.o.",
+      "parentId": "company:ico:28357019",
+      "parentIco": "28357019",
+      "parentName": "Lanea, s.r.o.",
+      "parentLegalForm": "112",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Lanea, s.r.o.: právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/28357019",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:63488329",
+      "ico": "63488329",
+      "name": "Nemocnice Valtice s.r.o.",
+      "parentId": "company:ico:46978593",
+      "parentIco": "46978593",
+      "parentName": "Poliklinika Břeclav, s. r. o.",
+      "parentLegalForm": "112",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": []
+    },
+    {
+      "companyId": "company:ico:63488329",
+      "ico": "63488329",
+      "name": "Nemocnice Valtice s.r.o.",
+      "parentId": "company:ico:46979557",
+      "parentIco": "46979557",
+      "parentName": "Dům zdraví Mikulov, s.r.o.",
+      "parentLegalForm": "112",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Dům zdraví Mikulov, s.r.o.: právní forma 112",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/46979557",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:68404999",
+      "ico": "68404999",
+      "name": "Nadační fond Gymnázia Kutná Hora",
+      "parentId": "company:ico:61924032",
+      "parentIco": "61924032",
+      "parentName": "Gymnázium Jiřího Ortena Kutná Hora, Jaselská 932",
+      "parentLegalForm": "331",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Gymnázium Jiřího Ortena Kutná Hora, Jaselská 932: právní forma 331",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/61924032",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:70889953",
+      "ico": "70889953",
+      "name": "Povodí Vltavy, státní podnik",
+      "parentId": "company:ico:00020478",
+      "parentIco": "00020478",
+      "parentName": "Ministerstvo zemědělství ČR",
+      "parentLegalForm": "325",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Ministerstvo zemědělství ČR: právní forma 325",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00020478",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:70889988",
+      "ico": "70889988",
+      "name": "Povodí Ohře, státní podnik",
+      "parentId": "company:ico:00020478",
+      "parentIco": "00020478",
+      "parentName": "Ministerstvo zemědělství ČR",
+      "parentLegalForm": "325",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Ministerstvo zemědělství ČR: právní forma 325",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00020478",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:70890013",
+      "ico": "70890013",
+      "name": "Povodí Moravy, s.p.",
+      "parentId": "company:ico:00020478",
+      "parentIco": "00020478",
+      "parentName": "Ministerstvo zemědělství ČR",
+      "parentLegalForm": "325",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Ministerstvo zemědělství ČR: právní forma 325",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00020478",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:71184465",
+      "ico": "71184465",
+      "name": "Domov pro seniory Velké Meziříčí, příspěvková organizace",
+      "parentId": "company:ico:70890749",
+      "parentIco": "70890749",
+      "parentName": "Kraj Vysočina",
+      "parentLegalForm": "804",
+      "parentIsPublic": true,
+      "resolved": true,
+      "citations": [
+        {
+          "claim": "mateřská firma Kraj Vysočina: právní forma 804",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/70890749",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    },
+    {
+      "companyId": "company:ico:72046422",
+      "ico": "72046422",
+      "name": "Zákládní organizace Českého zahrádkářského svazu Roztoky Třebízského",
+      "parentId": "company:ico:00443182",
+      "parentIco": "00443182",
+      "parentName": "Český zahrádkářský svaz, z. s.",
+      "parentLegalForm": "706",
+      "parentIsPublic": false,
+      "resolved": false,
+      "citations": [
+        {
+          "claim": "mateřská firma Český zahrádkářský svaz, z. s.: právní forma 706",
+          "url": "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty/00443182",
+          "accessedAt": "2026-08-23"
+        }
+      ]
+    }
+  ]
+}

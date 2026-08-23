@@ -1214,3 +1214,59 @@ to ask it.
 3. `ownership-not-published` review-queue lane (46 companies, 17,09 mld.).
 4. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (b010); SZIF channel absent;
    Q-money-13 residue 21 items with law (14) / effort (7).
+
+### Batch 018 — the open items, overcome by changing the source (2026-08-23)
+
+- **Two of three registers fetched** (server at 3,2 MB/s in the morning): Brno 812 MB and
+  Ostrava 521 MB decompressed, scanned by the streaming finder — first proof past V8's
+  string cap on real files. Prague (`full` 216 MB, `actual` 121 MB via the new
+  `--fallback-actual`) terminated all 8 attempts each: the cap is ~70–75 MB per connection
+  today, byte-based. **So the source changed**: for an s.r.o. ARES VR lists every
+  společník with share % and dates per IČO; `ownership-from-vr.ts` (durable,
+  `--which=ownership-vr`) read 226 companies → **461 dated rows, 117 new parents; pass 62:
+  91 edges (51 new + 40 merged)** — `owns_stake` **62 → 113, 84 current stakes**.
+- **Reader defect found on the way:** `ownershipRecord()` read `akcionari[].clenoveOrganu`
+  but never `spolecnici[].spolecnik[]` — the classifier had NEVER seen an s.r.o. owner
+  (SPOLANA: ORLEN Unipetrol RPA 100 % since 2021, filed "unpublished"). Fixed + `sharePct`
+  / dates on `Shareholder`. Corrected sweep: **`ownership-not-published` 47 → 10, private
+  5 → 37**; a guard keeps a live depth-2 `publicly-owned` from being downgraded by the own
+  record (Plzeňská teplárenská). **Pass 63: 55 nodes.**
+- **Depth 2 over the wider layer: +24 `publicly-owned`** (municipal s.r.o., Povodí
+  Vltavy/Ohře/Moravy ← MZe, Liberecký kraj services, NF Českého rozhlasu ← ČRo). **Pass
+  64.** `publicly-owned` 29 → **53 companies / 324 845 206 394 CZK** registry-corroborated.
+- **Pražská energetika CLOSED as structurally unanswerable from the OR**: neither PRE nor
+  PRE Holding carries a corporate akcionář (multi-shareholder a.s.; the OR records only a
+  sole one). Route = document source (Praha's majetkové účasti) as a cited lead.
+  `ownership-not-published` now **9 companies / 16,77 mld.**, of which PRE + ČSOB
+  Pojišťovna 16,2 mld.
+- Two filename traps (fixed batch name; same-day "dated" rerun) overwrote committed
+  payloads → restored from git; tools stamp to the minute.
+- **Headline unchanged 17 417 308 400 CZK. No `review_state` touched — 211 pending.**
+
+## Metrics block — batch 018
+
+| metric | batch 018 |
+|---|---|
+| `owns_stake` edges | **62 → 113** (+51 VR, 40 merged) · 84 current stakes · +117 parent nodes |
+| registers fetched | Brno 812 MB, Ostrava 521 MB (streaming) · Prague blocked (~70 MB cap) → replaced by per-IČO VR |
+| `ownership-not-published` | **46 → 9 companies** (17,09 → 16,77 mld.; PRE + ČSOB Poj. = 16,2) |
+| `private` (evidenced) | 5 → 37 |
+| `publicly-owned` | 29 → **53 companies · 324,8 mld. CZK** |
+| reader defects fixed | 1 (`spolecnik[]` never read) + downgrade guard |
+| graph writes | pass 62 (apply-batch) · 63 · 64 (persist-batch) |
+| `review_state` changes | **0** |
+| gate | `npm run check` green — **3 002 tests** · props-check clean · 0 unpadded IČOs |
+
+## Steering (next batch — batch 019)
+
+1. **The 9 `ownership-not-published` are now a hand-sized list** (PRE, ČSOB Pojišťovna, VaK
+   Vsetín, VaK Vyškov, RERA, SOMPO, Společnost Horní Labe, PEVAK, Družstvo Nárožní dům):
+   each is a multi-shareholder a.s./družstvo the OR cannot resolve — the review-queue lane
+   (open item 3) should open WITH these nine and a document-source citation each.
+2. **Prague s.r.o. register** stays a retry item only for HISTORY (dated periods); current
+   owners are now covered by VR. Low priority.
+3. **90 steward companies still without a company-axis verdict** — all steward by role;
+   running `public-mandate-sweep` over the steward class would finish the corroboration
+   (cheap: ARES only).
+4. Steward-class sweep, ČSOB, České dráhy still UNMEASURED (b010); SZIF channel absent;
+   Q-money-13 residue 21 items with law (14) / effort (7).

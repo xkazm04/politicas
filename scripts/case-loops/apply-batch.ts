@@ -548,6 +548,9 @@ const PAYLOADS: Record<string, { path: string; adapter: (raw: unknown) => Normal
   // Same adapter on purpose — the multi-period merge + board-seat exclusion are the reviewed
   // rules, and a second writer would be a second chance to get them wrong.
   "ownership-sweep": { path: "docs/data-analysis/case-money/payloads/batch-017-ownership-sweep.json", adapter: (raw) => adaptOwnershipChains(raw as Parameters<typeof adaptOwnershipChains>[0]) },
+  // Money batch 018: owns_stake read per IČO from ARES VR (ownership-from-vr.ts) — the
+  // per-IČO complement to the bulk sweep, same adapter, periods merge across both.
+  "ownership-vr": { path: "docs/data-analysis/case-money/payloads/batch-018-ownership-vr.json", adapter: (raw) => adaptOwnershipChains(raw as Parameters<typeof adaptOwnershipChains>[0]) },
   kiosek: { path: "docs/data-analysis/case-sources/kiosek-payload.json", adapter: (raw) => adaptKiosek(raw as Parameters<typeof adaptKiosek>[0]) },
 };
 
@@ -565,6 +568,9 @@ const EXPECTED_COUNTS: Record<string, { nodes: number; edges: number; excludedEd
   // batch 017 dry-run 2026-08-23: 148 rows → 104 stakes → 62 merged edges (29 new + 33
   // re-merged onto batch-006's), 44 board seats excluded, 19 new parent nodes.
   "ownership-sweep": { nodes: 19, edges: 62, excludedEdges: 44 },
+  // batch 018 dry-run 2026-08-23: 461 VR rows → 91 merged edges (51 new + 40 onto the
+  // dataor layer), 334 share-less rows excluded (historical/multi-owner akcionáři), 117 parents.
+  "ownership-vr": { nodes: 117, edges: 91, excludedEdges: 334 },
   kiosek: { nodes: 20, edges: 36, excludedEdges: 80 },
 };
 

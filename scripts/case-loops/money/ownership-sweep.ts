@@ -23,6 +23,11 @@
  *                          every later run). Default 0 = cached datasets only.
  *   --skip-datasets=a,b    never fetch these (recorded as not attempted with the reason) —
  *                          for a file the server is serving too slowly to finish this run.
+ *   --fallback-actual      when a `full` dataset cannot be fetched, try the `actual`
+ *                          variant (current state only, no history — sro-actual-praha is
+ *                          121 MB gz where full is 216 MB, and the server caps ~70 MB/~90 s
+ *                          per connection on a bad day). Hits are marked with the variant
+ *                          they came from; a current-state owner is still a current owner.
  *
  * THREE RULES CARRIED FROM THE BATCHES THAT PAID FOR THEM:
  *   • IČOs are ZERO-PADDED to 8 everywhere (memory/ico-node-id-canonical-form: batch 006
@@ -76,6 +81,7 @@ async function main() {
   const budget = Number(arg("fetch-budget") ?? 0);
   const depth = Number(arg("depth") ?? 2);
   const skip = new Set((arg("skip-datasets") ?? "").split(",").map((x) => x.trim()).filter(Boolean));
+  const fallbackActual = flag("fallback-actual");
   const today = new Date().toISOString().slice(0, 10);
 
   const store = await getStore();
@@ -128,10 +134,17 @@ async function main() {
     n++;
     type Subject = AresSubjectForCourtForm & { obchodniJmeno?: string; pravniForma?: string };
     let subject: Subject | null = null;
-    try {
-      subject = (await ares.subject(t.ico)) as Subject;
-    } catch {
-      resolved.push({ target: t, datasetId: null, reason: "ARES subject not found" });
+    // One retry: "ARES subject not found" rose 3 → 8 between two runs of this sweep with
+    // the same targets, so a transient ARES error was being filed as a permanent absence.
+    for (let attempt = 0; attempt < 2 && !subject; attempt++) {
+      try {
+        subject = (await ares.subject(t.ico)) as Subject;
+      } catch {
+        if (attempt === 0) await sleep(1500);
+      }
+    }
+    if (!subject) {
+      resolved.push({ target: t, datasetId: null, reason: "ARES subject not found (after 1 retry)" });
       await sleep(80);
       continue;
     }
@@ -220,12 +233,26 @@ async function main() {
     // s.r.o. registers are 2,4 GB and 812 MB, and the per-company whole-file read this
     // replaced could not open either of them at all (V8 string cap).
     let batch;
+    let usedId = d.id;
     try {
       batch = await fetchAndFindRecords(d.id, rows.map((r) => r.target.ico));
     } catch (err) {
-      for (const r of rows) notAttempted.push({ ico: r.target.ico, company: r.target.label, reason: `fetch failed: ${(err as Error).message.slice(0, 80)}` });
-      if (!isCached) console.log("FAILED");
-      continue;
+      const actualId = d.id.replace("-full-", "-actual-");
+      if (fallbackActual && actualId !== d.id) {
+        process.stdout.write(`full failed (${(err as Error).message.slice(0, 50)}) → trying ${actualId} … `);
+        try {
+          batch = await fetchAndFindRecords(actualId, rows.map((r) => r.target.ico));
+          usedId = actualId;
+        } catch (err2) {
+          for (const r of rows) notAttempted.push({ ico: r.target.ico, company: r.target.label, reason: `fetch failed (full and actual): ${(err2 as Error).message.slice(0, 60)}` });
+          console.log("FAILED");
+          continue;
+        }
+      } else {
+        for (const r of rows) notAttempted.push({ ico: r.target.ico, company: r.target.label, reason: `fetch failed: ${(err as Error).message.slice(0, 80)}` });
+        if (!isCached) console.log("FAILED");
+        continue;
+      }
     }
     if (!isCached) {
       fetchedNow.add(d.id);
@@ -238,12 +265,12 @@ async function main() {
     for (const r of rows) {
       const record = batch.records.get(r.target.ico);
       if (!record) {
-        notAttempted.push({ ico: r.target.ico, company: r.target.label, reason: `IČO not present in ${d.id}` });
+        notAttempted.push({ ico: r.target.ico, company: r.target.label, reason: `IČO not present in ${usedId}` });
         continue;
       }
       const chain = extractOfficersAndShareholders(parseUdaje(record.udajeRaw)).filter((o: DataorOfficer) => o.companyIco != null);
       if (chain.length === 0) {
-        noChainFound.push({ ico: r.target.ico, company: r.target.label, datasetId: d.id });
+        noChainFound.push({ ico: r.target.ico, company: r.target.label, datasetId: usedId });
         continue;
       }
       for (const c of chain) {
@@ -257,7 +284,7 @@ async function main() {
           // "jediný akcionář/společník" = sole owner. Anything else is an unknown share,
           // which the adapter routes to excludedEdges unless `stakePct` was recorded.
           share: c.stakePct ?? (c.role && /jedin[ýá]/i.test(c.role) ? 100 : null),
-          datasetId: d.id,
+          datasetId: usedId,
         });
       }
     }

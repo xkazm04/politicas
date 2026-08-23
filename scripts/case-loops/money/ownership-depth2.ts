@@ -31,7 +31,9 @@ const BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest";
 // `batch-016-depth2.json` on every run and, re-run in batch 017, silently overwrote the
 // COMMITTED pass-59 payload with an empty one — which would have made a restore-and-replay
 // of pass 59 replay nothing. A committed payload is history; a tool writes a new file.
-const STAMP = new Date().toISOString().slice(0, 10);
+// To the MINUTE, not the day: a same-day rerun of this tool overwrote the committed pass-61
+// payload within hours of the "dated files" fix (batch 018). Two runs must never share a name.
+const STAMP = new Date().toISOString().slice(0, 16).replace(/:/g, "");
 const OUT = `docs/data-analysis/case-money/qmoney-ownership-depth2-${STAMP}.json`;
 const PAYLOAD = `docs/data-analysis/case-money/payloads/ownership-depth2-${STAMP}.json`;
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));

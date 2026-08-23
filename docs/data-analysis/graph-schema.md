@@ -85,3 +85,4 @@ registry entry + a line in this file describing it**, same change. Writer conven
 - `owns_stake.apply_batch_017_ownership-chains_note` — apply-batch's per-run merge note on the 33 batch-006 edges that the
   batch-017 full-population sweep re-merged (pass 60); same convention as
   `apply_batch_007_prak-repoint_note` on company nodes.
+- `owns_stake.apply_batch_018_ownership-chains_note` — apply-batch merge note on the 40 edges the batch-018 ARES-VR ownership pass re-merged onto the dataor layer (pass 62).

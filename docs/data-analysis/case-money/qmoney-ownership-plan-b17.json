@@ -1,17 +1,17 @@
 {
   "generatedFor": "money batch 017",
   "generatedAt": "2026-08-23",
-  "targets": 213,
-  "resolvedToDataset": 194,
-  "unresolved": 19,
+  "targets": 226,
+  "resolvedToDataset": 196,
+  "unresolved": 30,
   "unresolvedReasons": [
     [
-      "ARES subject not found",
-      3
+      "ARES subject not found (after 1 retry)",
+      8
     ],
     [
       "not ISVR-registered (no VR sub-record) — dataor cannot help (obce, kraje, OSS, special-law bodies)",
-      15
+      21
     ],
     [
       "court/legalForm unresolved (source=spisova-znacka)",
@@ -25,18 +25,8 @@
       "cached": false
     },
     {
-      "id": "sro-full-brno-2026",
-      "companies": 13,
-      "cached": false
-    },
-    {
-      "id": "sro-full-ostrava-2026",
-      "companies": 6,
-      "cached": false
-    },
-    {
       "id": "as-full-praha-2026",
-      "companies": 21,
+      "companies": 22,
       "cached": true
     },
     {
@@ -45,12 +35,17 @@
       "cached": true
     },
     {
-      "id": "as-full-hradec_kralove-2026",
-      "companies": 9,
+      "id": "sro-full-brno-2026",
+      "companies": 13,
       "cached": true
     },
     {
       "id": "as-full-ostrava-2026",
+      "companies": 10,
+      "cached": true
+    },
+    {
+      "id": "as-full-hradec_kralove-2026",
       "companies": 9,
       "cached": true
     },
@@ -76,6 +71,11 @@
     },
     {
       "id": "as-full-ceske_budejovice-2026",
+      "companies": 6,
+      "cached": true
+    },
+    {
+      "id": "sro-full-ostrava-2026",
       "companies": 6,
       "cached": true
     },
@@ -250,8 +250,8 @@
       "cached": true
     }
   ],
-  "cachedDatasets": 43,
-  "uncachedDatasets": 3,
-  "companiesReachableFromCache": 156,
-  "companiesNeedingFetch": 38
+  "cachedDatasets": 45,
+  "uncachedDatasets": 1,
+  "companiesReachableFromCache": 177,
+  "companiesNeedingFetch": 19
 }

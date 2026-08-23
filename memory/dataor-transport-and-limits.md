@@ -31,8 +31,18 @@ organizace*, never spolek; `325` (OSS) is not in the OR at all.
 
 **Cache hygiene:** the adapter reads ONLY `<id>.csv`; anything else in `.dataor-cache/` is
 junk (the `.csv.gz` leftovers were truncated). Every write goes through `.part` + rename.
-A tool that emits payloads writes DATED files — a committed payload is never overwritten
-(`ownership-depth2.ts` once blanked pass 59's).
+A tool that emits payloads writes files stamped TO THE MINUTE — a committed payload is
+never overwritten (`ownership-depth2.ts` blanked pass 59's with a fixed name, then pass
+61's with a same-DAY date; `public-mandate-sweep` overwrote pass 58's).
+
+**The better source for s.r.o. ownership is ARES VR, per IČO (batch 018):**
+`spolecnici[].spolecnik[]` (each wrapping `osoba` + `podil[].velikostPodilu` = share %,
+dated) lists EVERY společník of an s.r.o.; `akcionari[].clenoveOrganu[]` lists only a SOLE
+akcionář of an a.s. (register rule — a multi-shareholder a.s. like Pražská energetika has
+no corporate owner in the OR at all). `ownershipRecord()` reads both shapes since b018;
+`ownership-from-vr.ts` mints `owns_stake` from it (`--which=ownership-vr`). Use bulk
+dataor for history and seats; VR for current owners when bulk is capped. A weaker
+own-record verdict must never overwrite a depth-2 `publicly-owned`.
 
 **How to run the sweep:** `ownership-sweep.ts --plan` first (groups 213 targets by dataset,
 says what is cached), then `--fetch-budget=N [--skip-datasets=…]`; apply via

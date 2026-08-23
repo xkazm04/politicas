@@ -665,3 +665,20 @@ parser bug, and a cache-filename disagreement that re-downloaded 68 MB per compa
 38 s.r.o. companies behind the three biggest files are recorded as *not attempted — server
 serving ≤ ~70 MB per connection today*, with the resumable downloader in place for the
 retry. Full record: `docs/data-analysis/case-money/batch-017.md`.
+
+
+## 2026-08-23 · money batch 018 — the ownership layer from the register itself
+
+`owns_stake` **62 → 113 edges** (pass 62) and `publicly-owned` **29 → 53 companies / 325 mld.
+CZK** (passes 63–64); headline unchanged at 17 417 308 400 CZK. The source changed rather
+than the server: for an s.r.o. **ARES VR lists every společník with the share in percent and
+dated periods, per IČO** — the bulk register the server would not serve was never the best
+source for "who owns this s.r.o.". The reader that should have seen those owners since batch
+015 read only the akcionáři shape (`clenoveOrganu`), never `spolecnik[]`: 37 companies filed
+„vlastnictví nezveřejněno" were simply private with recorded owners — SPOLANA s.r.o. has
+ORLEN Unipetrol RPA at 100 % since 2021. **`ownership-not-published` is now 9 companies**,
+and 16,2 of its 16,77 mld. is two of them: Pražská energetika and ČSOB Pojišťovna — both
+multi-shareholder a.s. the OR cannot resolve by rule (it records only a sole akcionář), so
+the surface keeps saying so honestly and the route is a document source in the review lane.
+A stronger verdict is never overwritten by a weaker source: Plzeňská teplárenská stays
+`publicly-owned` (proved from Plzeň's record) although its own record names nobody.

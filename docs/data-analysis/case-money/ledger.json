@@ -3825,20 +3825,20 @@
   "openItems": [
     {
       "id": "M-1",
-      "title": "Retry the three s.r.o. registers (38 companies: Praha 19 / Brno 13 / Ostrava 6) — ownership-sweep.ts --fetch-budget=3 on a day dataor serves > 70 MB per connection; sizes 216/71/47 MB gz, no Range; try .xml.gz / off-hours if it still caps",
+      "title": "Prague s.r.o. register (history only — current owners now covered by ARES VR, b018); retry ownership-sweep --fetch-budget=1 on a day dataor serves > 75 MB/connection",
       "since": "b017",
       "status": "open"
     },
     {
       "id": "M-2",
-      "title": "Pražská energetika 10,95 mld. — no parent in the graph; reach it FROM the holding record (Pražská energetika Holding a.s., in cached as-full-praha)",
+      "title": "Pražská energetika 10,95 mld. — CLOSED as unanswerable from the OR (multi-shareholder a.s., sole-akcionář rule); needs a document source (Praha majetkové účasti) as a cited lead in the review lane",
       "since": "b015",
-      "status": "open"
+      "status": "closed-structural"
     },
     {
       "id": "M-3",
-      "title": "Review-queue lane for ownership-not-published (46 companies, 98 % of headline)",
-      "since": "b015",
+      "title": "Review-queue lane for the 9 ownership-not-published companies (PRE, ČSOB Poj., VaK Vsetín/Vyškov, RERA, SOMPO, Horní Labe, PEVAK, Nárožní dům) — 16,77 mld., each needing a document-source citation",
+      "since": "b018",
       "status": "open"
     },
     {
@@ -3863,6 +3863,12 @@
       "id": "M-7",
       "title": "Cause of the b015 .pglite corruption UNKNOWN (build hypothesis refuted b016)",
       "since": "b015",
+      "status": "open"
+    },
+    {
+      "id": "M-8",
+      "title": "public-mandate-sweep over the 90 steward-by-role companies still without a company-axis verdict (ARES only, cheap)",
+      "since": "b018",
       "status": "open"
     }
   ],

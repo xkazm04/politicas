@@ -104,6 +104,12 @@ export interface Shareholder {
   legalForm: string | null;
   /** false once `datumVymazu` has passed — historical holders must not decide the verdict. */
   current: boolean;
+  /** The entry's own dates (VR `datumZapisu` / `datumVymazu`), for a dated `owns_stake`. */
+  validFrom?: string | null;
+  validTo?: string | null;
+  /** Share in percent when VR states it (s.r.o. `podil[].velikostPodilu`, PROCENTA or
+   *  "50%"-style TEXT); null when VR does not — an a.s. akcionář carries none. */
+  sharePct?: number | null;
 }
 
 export interface PublicMandateInput {
@@ -282,13 +288,23 @@ export function ownershipRecord(vr: unknown, asOf: string): OwnershipRecord {
     const groups = record[key];
     if (!Array.isArray(groups)) continue;
     for (const group of groups as Record<string, unknown>[]) {
-      const members = group.clenoveOrganu;
-      if (!Array.isArray(members)) continue;
-      for (const m of members as Record<string, unknown>[]) {
-        const po = m.pravnickaOsoba as Record<string, unknown> | undefined;
-        const fo = m.fyzickaOsoba as Record<string, unknown> | undefined;
+      // TWO member shapes, verified against live records 2026-08-23 (money batch 018):
+      //   akcionari[].clenoveOrganu[]  — the member object IS the person record
+      //   spolecnici[].spolecnik[]     — the member wraps `osoba` + `podil[]` (share %)
+      // Until batch 018 only `clenoveOrganu` was read, so the classifier NEVER saw an
+      // s.r.o. společník — SPOLANA (ORLEN Unipetrol RPA, 100 %) was filed
+      // "ownership-not-published", and so was every other s.r.o. with a current owner.
+      const members = [
+        ...(Array.isArray(group.clenoveOrganu) ? (group.clenoveOrganu as Record<string, unknown>[]) : []),
+        ...(Array.isArray(group.spolecnik) ? (group.spolecnik as Record<string, unknown>[]) : []),
+      ];
+      for (const m of members) {
+        const person = (m.osoba && typeof m.osoba === "object" ? (m.osoba as Record<string, unknown>) : m);
+        const po = person.pravnickaOsoba as Record<string, unknown> | undefined;
+        const fo = person.fyzickaOsoba as Record<string, unknown> | undefined;
         if (!po && !fo) continue;
-        const vymaz = typeof m.datumVymazu === "string" ? m.datumVymazu : null;
+        const vymaz = typeof m.datumVymazu === "string" ? m.datumVymazu : typeof person.datumVymazu === "string" ? person.datumVymazu : null;
+        const zapis = typeof m.datumZapisu === "string" ? m.datumZapisu : typeof person.datumZapisu === "string" ? person.datumZapisu : null;
         const current = !vymaz || vymaz > asOf;
         out.entriesTotal += 1;
         if (current) out.entriesCurrent += 1;
@@ -298,9 +314,28 @@ export function ownershipRecord(vr: unknown, asOf: string): OwnershipRecord {
           name: typeof po.obchodniJmeno === "string" ? po.obchodniJmeno : "(bez názvu)",
           legalForm: typeof po.pravniForma === "string" ? po.pravniForma : null,
           current,
+          validFrom: zapis,
+          validTo: vymaz,
+          sharePct: sharePctOf(m.podil),
         });
       }
     }
   }
   return out;
+}
+
+/** The CURRENT share from an s.r.o. `podil[]` list: the entry without `datumVymazu`, else
+ *  the latest. `velikostPodilu` comes as PROCENTA ("50") or TEXT ("50%", "1/2" …) — only a
+ *  plain percentage is read; anything else is honestly null, never guessed. */
+function sharePctOf(podil: unknown): number | null {
+  if (!Array.isArray(podil) || podil.length === 0) return null;
+  const rows = podil as Record<string, unknown>[];
+  const pick = rows.find((r) => typeof r.datumVymazu !== "string") ?? rows[rows.length - 1];
+  const v = pick.velikostPodilu as Record<string, unknown> | undefined;
+  const raw = typeof v?.hodnota === "string" ? v.hodnota.trim() : null;
+  if (!raw) return null;
+  const m = raw.replace(",", ".").match(/^(\d+(?:\.\d+)?)\s*%?$/);
+  if (!m) return null;
+  const n = Number(m[1]);
+  return Number.isFinite(n) && n > 0 && n <= 100 ? n : null;
 }

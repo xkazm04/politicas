@@ -280,3 +280,66 @@ describe("money batch 016 — the legal-form tables are an assertion, not a gues
     for (const code of ["112", "121", "205"]) expect(isPublicLegalForm(code)).toBe(false);
   });
 });
+
+describe("ownershipRecord — the s.r.o. `spolecnik[]` shape (money batch 018)", () => {
+  // Verbatim structure from ARES VR (GEMA MB s.r.o. / SPOLANA s.r.o., 2026-08-23):
+  // společníci live under `spolecnici[].spolecnik[]`, each wrapping `osoba` + `podil[]`.
+  // Until batch 018 only `clenoveOrganu` (the akcionáři shape) was read, so the
+  // classifier never saw ANY s.r.o. owner.
+  const vr = {
+    zaznamy: [
+      {
+        spolecnici: [
+          {
+            nazevOrganu: "Společníci",
+            spolecnik: [
+              {
+                datumZapisu: "2021-02-02",
+                podil: [{ datumZapisu: "2021-02-02", velikostPodilu: { typObnos: "PROCENTA", hodnota: "100" } }],
+                osoba: { typAngazma: "SPOLECNIK_OSOBA", pravnickaOsoba: { ico: "27597075", obchodniJmeno: "ORLEN Unipetrol RPA s.r.o.", pravniForma: "112" } },
+              },
+              {
+                datumZapisu: "2018-12-01",
+                datumVymazu: "2021-02-02",
+                podil: [{ datumZapisu: "2018-12-01", datumVymazu: "2021-02-02", velikostPodilu: { typObnos: "TEXT", hodnota: "50%" } }],
+                osoba: { typAngazma: "SPOLECNIK_OSOBA", pravnickaOsoba: { ico: "27597075", obchodniJmeno: "UNIPETROL RPA, s.r.o.", pravniForma: "112" } },
+              },
+              {
+                datumZapisu: "2016-04-06",
+                osoba: { typAngazma: "SPOLECNIK_OSOBA", fyzickaOsoba: { jmeno: "JOSEF", prijmeni: "DUFEK" } },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+
+  it("THE SPOLANA CASE: a current corporate společník is seen, with its share and dates", () => {
+    const rec = ownershipRecord(vr, "2026-08-23");
+    const current = rec.legalPersons.filter((s) => s.current);
+    expect(current).toHaveLength(1);
+    expect(current[0]).toMatchObject({ ico: "27597075", name: "ORLEN Unipetrol RPA s.r.o.", legalForm: "112", sharePct: 100, validFrom: "2021-02-02", validTo: null });
+  });
+
+  it("counts the natural-person společník so 'no owner recorded' stays distinguishable", () => {
+    const rec = ownershipRecord(vr, "2026-08-23");
+    expect(rec.entriesTotal).toBe(3);
+    expect(rec.entriesCurrent).toBe(2); // ORLEN + the natural person
+  });
+
+  it("reads a '50%' TEXT share as 50 and leaves anything non-numeric null", () => {
+    const rec = ownershipRecord(vr, "2026-08-23");
+    const old = rec.legalPersons.find((s) => s.name === "UNIPETROL RPA, s.r.o.")!;
+    expect(old.sharePct).toBe(50);
+    expect(old.current).toBe(false);
+    const weird = ownershipRecord({ zaznamy: [{ spolecnici: [{ spolecnik: [{ datumZapisu: "2020-01-01", podil: [{ velikostPodilu: { typObnos: "TEXT", hodnota: "1/3" } }], osoba: { pravnickaOsoba: { ico: "1", obchodniJmeno: "X", pravniForma: "112" } } }] }] }] }, "2026-08-23");
+    expect(weird.legalPersons[0].sharePct).toBeNull();
+  });
+
+  it("classifyPublicMandate now sees the s.r.o. owner: SPOLANA is private, not unpublished", () => {
+    const rec = ownershipRecord(vr, "2026-08-23");
+    const v = classifyPublicMandate({ ico: "45147787", name: "SPOLANA s.r.o.", legalForm: "112", shareholders: rec.legalPersons, vrRetrieved: true, ownersRecorded: rec.entriesCurrent });
+    expect(v.kind).toBe("private");
+  });
+});

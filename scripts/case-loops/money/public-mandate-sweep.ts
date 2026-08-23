@@ -45,8 +45,14 @@ import {
 } from "@/lib/analysis/public-body";
 
 const BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest";
-const OUT = "docs/data-analysis/case-money/qmoney-public-mandate-b15.json";
-const PAYLOAD = "docs/data-analysis/case-money/payloads/batch-015-public-mandate.json";
+// DATED outputs (batch 018): the first version wrote to `batch-015-*` on every run and the
+// batch-018 resweep overwrote the COMMITTED pass-58 payload. A committed payload is
+// history; a tool writes a new file.
+// To the MINUTE, not the day: a same-day rerun of this tool overwrote the committed pass-61
+// payload within hours of the "dated files" fix (batch 018). Two runs must never share a name.
+const STAMP = new Date().toISOString().slice(0, 16).replace(/:/g, "");
+const OUT = `docs/data-analysis/case-money/qmoney-public-mandate-${STAMP}.json`;
+const PAYLOAD = `docs/data-analysis/case-money/payloads/public-mandate-${STAMP}.json`;
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 const num = (v: unknown): number => (typeof v === "number" && Number.isFinite(v) ? v : 0);
 const str = (v: unknown): string | null => (typeof v === "string" && v.length > 0 ? v : null);
@@ -246,8 +252,18 @@ async function main() {
   await fs.writeFile(OUT, JSON.stringify(report, null, 2) + "\n", "utf8");
 
   // ── payload: `public_mandate` on the COMPANY node ────────────────────────────────────
+  // NEVER RE-LITIGATE A STRONGER VERDICT (batch 018). `ownership-depth2.ts` can prove public
+  // ownership from a PARENT's record (Plzeňská teplárenská ← Město Plzeň, pass 59) where
+  // the company's OWN record names nobody — this sweep, reading only the own record, would
+  // then file it `ownership-not-published` and overwrite the proof with an absence. A live
+  // `publicly-owned` stays unless this sweep ALSO finds public ownership.
+  const keepsStronger = (r: Row) =>
+    companyById.get(r.companyId)?.props?.public_mandate === "publicly-owned" && r.verdict?.kind !== "publicly-owned";
+  const skippedStronger = rows.filter(keepsStronger);
+  if (skippedStronger.length) console.log(`
+kept live publicly-owned (not overwritten by a weaker own-record verdict): ${skippedStronger.map((r) => r.name).join(", ")}`);
   const proposals = rows
-    .filter((r) => r.verdict)
+    .filter((r) => r.verdict && !keepsStronger(r))
     .map((r) => ({
       id: r.companyId,
       props: {
