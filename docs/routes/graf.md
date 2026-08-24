@@ -113,3 +113,45 @@ Worth recording that batch 013 audited this exact function — for the *untied o
 parent* leak — and correctly cleared it. Auditing a function for one leak says nothing
 about another; what caught this one was an integration fixture carrying a deliberately
 outsized co-signed contract, not a second reading of the file.
+
+
+## 2026-08-24 · registry conformance wave 2 — the viewport stopped deleting the subject
+
+Four fixes on the plátno, all from the same audit against `ai-registry`'s
+`canvas-graph` subject, and three of them are the same shape of defect: the
+surface whose subject IS the relationships was quietly refusing to draw them.
+
+**Hrany se ořezávaly podle KONCŮ.** `GraphStage.tsx` skipped an edge when both
+endpoints fell outside the view rectangle — the registry's named anti-pattern,
+because that deletes exactly the long cross-graph links a reader zooms in to
+follow. The correct test is segment-versus-rect; it can only ever draw MORE
+edges, never fewer. Liang–Barsky lives in `features/graph/viewCull.ts` (pure
+module, 13 fixture tests); restoring the endpoint semantics turns 4 of them red.
+
+**Kolo myši neušlo stránce.** React attaches `wheel` to the app root as a
+PASSIVE listener, so `preventDefault()` inside the synthetic `onWheel` was
+inert and zoom co-fired with page scroll wherever an ancestor scrolls. Moved to
+a native listener on the wrap with `{ passive: false }`.
+
+**Převod svět↔obrazovka byl napsaný pětkrát** — `draw()`'s `screen()`,
+`hitTest()`'s inverse, `zoomAt`, the fit math, and a fifth silent copy in the
+edge-label midpoint. Self-consistent only because it was one file; the failure
+mode is the first wrinkle landing in one of them. Extracted to
+`features/graph/viewTransform.ts` (`toWorld`/`toScreen`/`clampK`/`zoomAtPoint`/
+`centerOn`/`fitRect`), and every site now derives from it. One deliberate
+behaviour change: `fitRect` clamps `k` through `clampK`, which the old
+`fitView` did not — the clamp belongs in the authority.
+
+**Orientované hrany dostaly hrot.** `src`/`dst` and `rel` were carried and
+direction was conveyed only by hover highlighting. `features/graph/arrowhead.ts`
+computes the triangle at the DESTINATION node's border from the already-central
+`positions` + `radiusOf` (no second copy of node geometry), each bucket
+accumulates into one `Path2D` and fills once — the batching doctrine in this
+file's header is intact — and below `k = 0.55` arrowheads are not collected at
+all, per the zoom-aware-detail rule.
+
+The search palette's degree figure now carries a `citation-ok:` reason rather
+than a lint warning: a node's degree describes the graph currently on screen,
+not a claim a reader could go and check, and the provenance of the graph is on
+the surface above it.
+
