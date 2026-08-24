@@ -18,6 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # Doc-sync's same-change half reads the PR's own diff against its
+          # merge-base, so it needs history — a shallow clone has no merge-base
+          # to compare against and the step would report an obligation nobody
+          # incurred.
+          fetch-depth: 0
 
       # Node 24 = npm 11, stejná major verze jako generuje package-lock.json
       # lokálně. Na Node 22 (npm 10) se strom volitelných peer závislostí
@@ -56,6 +62,25 @@ jobs:
 
       - name: Library adherence report
         run: npm run library:check
+
+      # docs/feature-doc-map.json je od 2026-08-24 VYNUCOVANÁ, ne konvence.
+      # Self-test běží PŘED checkerem: zelený checker, jehož self-test spadl, je
+      # zelený z neznámého důvodu (quality-gates/gate-liveness).
+      - name: Doc-sync self-test (32 assertions, seeded violations)
+        run: npm run docs:sync:test
+
+      # Strukturální půlka nad celým stromem: mrtvé globy, neexistující docs,
+      # zastaralé exempce, hlavička přepočítaná proti context-map.json.
+      - name: Doc-sync (structural)
+        run: npm run docs:sync
+
+      # Same-change půlka nad commity tohoto PR; `...` = od merge-base. Na push
+      # do master se nespouští: lokální commit-msg rung ji vynutil u autora, a
+      # přehrávat ji retroaktivně nad historií starší než brána by hlásilo dluh,
+      # který tenhle commit nezpůsobil.
+      - name: Doc-sync (same change, over this PR)
+        if: github.event_name == 'pull_request'
+        run: npm run docs:sync -- --range origin/${{ github.base_ref }}...HEAD
 
       # lib/db/migrations/0001_civic_graph.sql je snapshot CORE_DDL
       # (lib/db/pglite/ddl.ts) — nesmí se rozejít.
