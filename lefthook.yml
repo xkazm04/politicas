@@ -23,6 +23,32 @@ pre-commit:
       # chyby; varování jsou nyní vidět.
       run: npx eslint --no-warn-ignored {staged_files}
 
+commit-msg:
+  jobs:
+    # `docs/feature-doc-map.json` byla od svého vzniku POUZE konvence — CLAUDE.md
+    # ji cituje v definici hotového, `.ai/manifest.yaml` ji publikuje jako
+    # schopnost, a nečetl ji žádný kód. Tenhle rung je ta chybějící polovina.
+    #
+    # PROČ commit-msg a ne pre-commit: je to jediný hook, který vidí ZÁROVEŇ
+    # staged diff i zprávu commitu, a obojí je potřeba — obligaci určuje diff,
+    # odpuštění (`Doc-sync: <důvod>`) žije ve zprávě. Zdrojem změny je výhradně
+    # `git diff --cached`, nikdy přepis relace: v sesterském projektu běžela
+    # patnáct měsíců doc-sync brána čtoucí transcript a viděla 0 z 2 367
+    # skutečných editů, protože její hranice turnu matchovala tvar výsledku
+    # nástroje. Diff navíc jako jediný zná přejmenování z obou stran a mazání.
+    #
+    # BLOKUJE. Únikovka je trailer s důvodem (>= 12 znaků), buď plošný
+    # `Doc-sync: interní refactor, žádná viditelná plocha se nehnula`, nebo
+    # cílený `Doc-sync(docs/routes/graf.md): ...`. Checker odpuštění POČÍTÁ a
+    # tiskne — nezaznamenané odpuštění nejde spočítat ani rozporovat, a přesně
+    # to výše zmíněné bráně znemožnilo zjistit, že nefunguje.
+    #
+    # Běží i strukturální půlka (mrtvé globy, neexistující docs, přepočítaná
+    # hlavička proti context-map.json), takže rot v mapě spadne tady, ne až v
+    # CI. Celé ~0,6 s nad 2 057 soubory. Obcházet lze `git commit --no-verify`.
+    - name: doc-sync
+      run: node scripts/docs/check-doc-sync.mjs --staged --message-file {1}
+
 pre-push:
   jobs:
     - name: typecheck
