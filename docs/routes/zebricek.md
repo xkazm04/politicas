@@ -438,3 +438,44 @@ unreadable ones. (4) The referendum copy affordance was
 context the reader pressed it and nothing happened, not even a sentence; it now
 rides the shared `CopyLinkButton`, which names the failure into a live region
 and is bilingual where the old literals were not.
+
+
+## 2026-08-24 · registry conformance wave 2 — rows memoised, citations legible, no skeleton
+
+Three changes, and one deliberate non-change worth recording because it looks
+like an omission.
+
+**Řádky se memoizují na identitě.** All 207 rows re-rendered on every search
+keystroke. They are keyed by `pspId` — identity, not index — so memoisation is
+safe, and the row is now a `React.memo` `LeaderboardRow`. Prop identity was
+checked site by site rather than assumed: `entry` survives `.filter()` by
+reference (a subset of references, not clones), the shared props are stable, the
+rest are primitives, and the duel toggle is passed through instead of being
+re-wrapped in a fresh per-row closure — the usual way a `memo` is defeated
+silently. `t`/`tcom`/`locale`/`f` come from the row's own hooks, matching this
+file's existing `StandoutStat` convention.
+
+**No measurement is claimed for it, on purpose.** This repo has no jsdom or
+render-testing harness — its vitest suites are Node-environment pure-logic only
+— so there is no honest way to state a render count or a millisecond figure
+here. The file says that instead of a number. Everything else in this codebase
+that claims a performance win carries its measurement; this one carries its
+absence, which is the same rule applied honestly.
+
+**Tři `!text-[10px]` zmizely.** The table's three `<SourceNote className="!text-[10px]">`
+overrides went with the other 69 (776f01a). docs/DESIGN.md §3 has forbidden that
+override since 2026-07-29 — `SourceNote` measures its children and typesets
+label-vs-sentence, both at `text-xs` in `steel-aa`, because the /impeccable audit
+found the primitive carrying the brand rule set below the readability floor.
+Since 2026-08-24 a lint rule (`custom/no-source-note-size-override`) refuses it,
+so the sweep cannot silently reverse.
+
+**Žádný `loading.tsx`, a to je odpověď, ne opomenutí.** /zebricek was ranked
+first for a route-level Suspense boundary this wave, on the belief that it is
+the heaviest read. It is not: `buildLeaderboard()` measures 424–519 ms and rides
+a cross-request chamber memo, and no cold figure anywhere in the loader or this
+record suggests otherwise. The boundaries went to the four surfaces that DO pay
+a multi-second read (/dashboard, /denik, /penize, /penize/strety — all on the
+~12 s money layer, /penize/strety on the 15 800 ms collision pass). A skeleton
+on a half-second route is a lie about latency, and this app does not tell those.
+
