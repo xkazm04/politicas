@@ -45,6 +45,18 @@ jobs:
       - name: Custom lint-rule tests (RuleTester)
         run: npm run test:rules
 
+      # These two ran ONLY on the author's machine until 2026-08-24, which made
+      # them a courtesy rather than a gate: every local rung can be bypassed
+      # with a flag or simply never installed on a fresh clone, so the merge
+      # rung is the only one that refuses. CI must therefore be a SUPERSET of
+      # `npm run check` — and `lib/testing/gateLadder.test.ts` now derives that
+      # containment from package.json instead of trusting this comment.
+      - name: Census self-test (the gate's own liveness)
+        run: npm run census:test
+
+      - name: Library adherence report
+        run: npm run library:check
+
       # lib/db/migrations/0001_civic_graph.sql je snapshot CORE_DDL
       # (lib/db/pglite/ddl.ts) — nesmí se rozejít.
       - name: Schema snapshot drift
