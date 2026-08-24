@@ -34,6 +34,7 @@ import { edgeKey } from "../forensicView";
 import { KIND_FILL_TOKEN, KIND_STYLE, traceGlyph, type GlyphShape } from "../kindStyle";
 import { readStagePalette } from "../stagePalette";
 import { pointInRect, segmentCrossesRect, type ViewRect } from "../viewCull";
+import { centerOn, fitRect, toScreen, toWorld, zoomAtPoint, type View } from "../viewTransform";
 import type { GraphEdge, GraphNode } from "../graphTypes";
 
 export interface StageCaption {
@@ -56,14 +57,8 @@ export interface StageLens {
 // filtr mluví týmž jazykem) — jeviště ji re-exportuje pro stávající volající.
 export { edgeKey };
 
-interface View {
-  x: number;
-  y: number;
-  k: number;
-}
-
-const MIN_K = 0.1;
-const MAX_K = 9;
+// `View` a veškerý převod svět↔obrazovka žijí v ../viewTransform.ts (jedna
+// autorita — viz hlavička toho modulu); jeviště z ní jen odvozuje.
 
 /** Kolizní box popisku: [x0, y0, x1, y1] v obrazových souřadnicích. */
 type Box = [number, number, number, number];
@@ -315,7 +310,12 @@ export default function GraphStage({
     const font = (px: number, weight = 600) => `${weight} ${px}px ${fontRef.current}, ui-monospace, monospace`;
 
     const placed: Box[] = [];
-    const screen = (p: Point) => ({ sx: p.x * k + view.x, sy: p.y * k + view.y });
+    // Jediná konverze svět→obrazovka jeviště (../viewTransform.ts); `sx/sy`
+    // je jen místní přejmenování, aby zbytek `draw()` nemusel měnit tvar.
+    const screen = (p: Point) => {
+      const s = toScreen(view, p);
+      return { sx: s.x, sy: s.y };
+    };
 
     const paintLabel = (
       sx: number,
@@ -387,8 +387,9 @@ export default function GraphStage({
       const a = positions.get(e.src);
       const b = positions.get(e.dst);
       if (!a || !b) return;
-      const mx = ((a.x + b.x) / 2) * k + view.x;
-      const my = ((a.y + b.y) / 2) * k + view.y;
+      // Střed hrany ve světě → obrazovka přes tutéž autoritu jako `screen()`
+      // výše — dřív šlo o pátou tichou kopii téhož výpočtu uvnitř draw().
+      const { sx: mx, sy: my } = screen({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
       if (mx < 0 || my < 0 || mx > size.w || my > size.h) return;
       ctx.font = font(11, 600);
       const w = ctx.measureText(text).width;
@@ -467,12 +468,11 @@ export default function GraphStage({
 
   const fitView = useCallback(() => {
     if (size.w === 0) return;
-    const k = Math.min(size.w / world.width, size.h / world.height, 1.5);
-    viewRef.current = {
-      k,
-      x: (size.w - world.width * k) / 2,
-      y: (size.h - world.height * k) / 2,
-    };
+    viewRef.current = fitRect(
+      { x0: 0, y0: 0, x1: world.width, y1: world.height },
+      { w: size.w, h: size.h },
+      { maxK: 1.5 },
+    );
     schedule();
   }, [size, world.width, world.height, schedule]);
 
@@ -490,15 +490,7 @@ export default function GraphStage({
   // Najetí na obdélník světa (výřez trasy) — s rezervou na plovoucí panely.
   useEffect(() => {
     if (!fitBounds || size.w === 0) return;
-    const pad = 90;
-    const w = Math.max(fitBounds.x1 - fitBounds.x0, 60);
-    const h = Math.max(fitBounds.y1 - fitBounds.y0, 60);
-    const k = Math.max(MIN_K, Math.min((size.w - pad * 2) / w, (size.h - pad * 2) / h, 1.4));
-    viewRef.current = {
-      k,
-      x: size.w / 2 - (fitBounds.x0 + w / 2) * k,
-      y: size.h / 2 - (fitBounds.y0 + h / 2) * k,
-    };
+    viewRef.current = fitRect(fitBounds, { w: size.w, h: size.h }, { padding: 90, maxK: 1.4, minExtent: 60 });
     schedule();
   }, [fitBounds, size, schedule]);
 
@@ -506,10 +498,8 @@ export default function GraphStage({
     if (!focusId || size.w === 0) return;
     const p = positions.get(focusId);
     if (!p) return;
-    const view = viewRef.current;
-    if (view.k < 0.85) view.k = 0.85; // najetí bez čitelného přiblížení je k ničemu
-    view.x = size.w / 2 - p.x * view.k;
-    view.y = size.h / 2 - p.y * view.k;
+    const k = Math.max(0.85, viewRef.current.k); // najetí bez čitelného přiblížení je k ničemu
+    viewRef.current = centerOn(k, p, { w: size.w, h: size.h });
     schedule();
   }, [focusId, positions, size, schedule]);
 
@@ -534,14 +524,13 @@ export default function GraphStage({
       if (!canvas) return null;
       const rect = canvas.getBoundingClientRect();
       const view = viewRef.current;
-      const wx = (clientX - rect.left - view.x) / view.k;
-      const wy = (clientY - rect.top - view.y) / view.k;
+      const w = toWorld(view, { x: clientX - rect.left, y: clientY - rect.top });
       let best: string | null = null;
       let bestD = Infinity;
       for (const n of nodes) {
         const p = positions.get(n.id);
         if (!p) continue;
-        const d = (p.x - wx) ** 2 + (p.y - wy) ** 2;
+        const d = (p.x - w.x) ** 2 + (p.y - w.y) ** 2;
         const reach = (radiusOf(n) + 7 / view.k) ** 2;
         if (d < reach && d < bestD) {
           bestD = d;
@@ -555,11 +544,7 @@ export default function GraphStage({
 
   const zoomAt = useCallback(
     (cx: number, cy: number, factor: number) => {
-      const view = viewRef.current;
-      const k = Math.max(MIN_K, Math.min(MAX_K, view.k * factor));
-      view.x = cx - ((cx - view.x) / view.k) * k;
-      view.y = cy - ((cy - view.y) / view.k) * k;
-      view.k = k;
+      viewRef.current = zoomAtPoint(viewRef.current, { x: cx, y: cy }, factor);
       schedule();
     },
     [schedule],
