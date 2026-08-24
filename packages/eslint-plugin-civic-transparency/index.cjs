@@ -1,13 +1,14 @@
 /**
  * eslint-plugin-civic-transparency — the politicas lint doctrine as a plugin.
  *
- * Nine flat-config rules that make editorial guarantees machine-enforced:
+ * Ten flat-config rules that make editorial guarantees machine-enforced:
  * no swallowed errors, no silent loader degradation, a hard server/client
  * boundary, keyboard operability, WCAG 2.3.3 motion safety, design-token
- * color discipline, the two provenance doctrine rules (every rendered number
- * carries its source; formatting happens once, in one chokepoint), and the
- * legibility half of the same doctrine — a citation that cannot be read has
- * not been made, so no call site overrides the citation primitive's size.
+ * color discipline, catalog discipline for display copy, the two provenance
+ * doctrine rules (every rendered number carries its source; formatting happens
+ * once, in one chokepoint), and the legibility half of the same doctrine — a
+ * citation that cannot be read has not been made, so no call site overrides
+ * the citation primitive's size.
  *
  * Consumption (flat config):
  *
@@ -42,6 +43,7 @@ const plugin = {
     "require-source-citation": require("./rules/require-source-citation.cjs"),
     "no-raw-number-display": require("./rules/no-raw-number-display.cjs"),
     "no-source-note-size-override": require("./rules/no-source-note-size-override.cjs"),
+    "no-hardcoded-display-string": require("./rules/no-hardcoded-display-string.cjs"),
   },
   configs: {},
 };
@@ -51,10 +53,12 @@ const plugin = {
 // `civic-transparency`.
 //
 // `recommended` — the generic discipline, adoptable by any TS/React repo:
-//   the five portable rules at `error`, plus the two rules whose fix paths
+//   the five portable rules at `error`, plus the three rules whose fix paths
 //   name project-specific conventions at `warn` (no-hardcoded-colors expects
 //   a design-token layer; no-silent-null-catch expects a reportLoaderFailure
-//   helper — see their docs for how to map those onto your project).
+//   helper; no-hardcoded-display-string expects a message catalog and needs
+//   its exemption zones declared per project — see their docs for how to map
+//   those onto your project).
 //
 // `strict` — everything at `error`, including the provenance doctrine rules
 //   (require-source-citation, no-raw-number-display) and the citation-
@@ -76,6 +80,7 @@ plugin.configs.recommended = [
       "civic-transparency/enforce-reduced-motion-fallback": "error",
       "civic-transparency/no-hardcoded-colors": "warn",
       "civic-transparency/no-silent-null-catch": "warn",
+      "civic-transparency/no-hardcoded-display-string": "warn",
     },
   },
 ];
@@ -92,6 +97,7 @@ plugin.configs.strict = [
       "civic-transparency/enforce-reduced-motion-fallback": "error",
       "civic-transparency/no-hardcoded-colors": "error",
       "civic-transparency/no-silent-null-catch": "error",
+      "civic-transparency/no-hardcoded-display-string": "error",
       "civic-transparency/require-source-citation": "error",
       "civic-transparency/no-raw-number-display": "error",
       "civic-transparency/no-source-note-size-override": "error",

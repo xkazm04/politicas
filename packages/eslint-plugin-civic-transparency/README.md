@@ -1,7 +1,7 @@
 # eslint-plugin-civic-transparency
 
 The [politicas](../../README.md) lint doctrine, packaged as a flat-config ESLint
-plugin. Nine rules that turn editorial guarantees into build gates: no silent
+plugin. Ten rules that turn editorial guarantees into build gates: no silent
 failures, a hard server/client boundary, keyboard operability, motion safety,
 design-token color discipline — and the flagship trio that makes **number
 provenance machine-enforced**: an uncited rendered figure fails lint, and so
@@ -27,6 +27,7 @@ implementations; ESLint ≥ 9 (flat config) as a peer.
 | [`role-button-requires-keydown`](docs/rules/role-button-requires-keydown.md) | keyboard operability (WCAG 2.1.1) | error | error |
 | [`enforce-reduced-motion-fallback`](docs/rules/enforce-reduced-motion-fallback.md) | looping motion is gated (WCAG 2.3.3) | error | error |
 | [`no-hardcoded-colors`](docs/rules/no-hardcoded-colors.md) | design-token color discipline | warn | error |
+| [`no-hardcoded-display-string`](docs/rules/no-hardcoded-display-string.md) | display copy goes through the message catalog | warn | error |
 | [`require-source-citation`](docs/rules/require-source-citation.md) | **doctrine**: rendered figures carry provenance | — | error |
 | [`no-raw-number-display`](docs/rules/no-raw-number-display.md) | **doctrine**: formatting only via the chokepoint | — | error |
 | [`no-source-note-size-override`](docs/rules/no-source-note-size-override.md) | **doctrine**: a citation that cannot be read has not been made | — | error |
@@ -59,9 +60,10 @@ export default [
 ```
 
 - **`recommended`** — the portable discipline for any TS/React repo. The five
-  generic rules at `error`; `no-hardcoded-colors` and `no-silent-null-catch` at
-  `warn` because their fix paths name project conventions (a token layer, a
-  `reportLoaderFailure` helper) you need to map first.
+  generic rules at `error`; `no-hardcoded-colors`, `no-silent-null-catch` and
+  `no-hardcoded-display-string` at `warn` because their fix paths name project
+  conventions (a token layer, a `reportLoaderFailure` helper, a message
+  catalog plus your own exemption zones) you need to map first.
 - **`strict`** — everything at `error`, including the provenance doctrine.
   Only adopt the doctrine rules if you have a formatting chokepoint and
   provenance components (see their docs); `no-source-note-size-override` names
@@ -95,12 +97,17 @@ The pack's severity policy, learned the useful way:
    inventory, ship at `warn`, burn a module down, then move that glob to
    `error`. Never flip a scope to `error` while it still warns.
 3. **Escape hatches carry reasons** — `// citation-ok: <reason>`,
-   `// raw-format-ok: <reason>`, `// reduced-motion-ok: <reason>`. All grep-able;
-   a bare disable is not an audit trail.
+   `// raw-format-ok: <reason>`, `// reduced-motion-ok: <reason>`,
+   `// i18n-ok: <reason>`. All grep-able; a bare disable is not an audit trail.
+4. **Read the population before you write the pattern.** `no-hardcoded-display-string`'s
+   doc carries the worked example: a threshold picked from principle scored 86
+   false positives, the measured one scores zero, and the constant-table half of
+   the same standard was refused here because it had no live population and a
+   demonstrably polluted anchor.
 
 ## Testing
 
-RuleTester suites for all nine rules, plain node, no runner dependency:
+RuleTester suites for all ten rules, plain node, no runner dependency:
 
 ```
 node packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs

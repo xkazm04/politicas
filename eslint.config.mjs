@@ -148,6 +148,72 @@ const eslintConfig = defineConfig([
       "custom/no-raw-number-display": "error",
     },
   },
+  // ── Catalog discipline for display copy (2026-08-24) ──────────────────────
+  // `custom/no-hardcoded-display-string` at `error` on the reader-facing tree.
+  // The catalog half of this repo is excellent — 2854/2854 cs/en keys, 0 missing
+  // / 0 extra, enforced by 14+ colocated messages.test.ts suites — and until now
+  // NOTHING stopped the next author typing Czech straight into markup and never
+  // opening messages/cs.json. Extraction was held culturally, which is exactly
+  // what cannot hold a line.
+  //
+  // Measured before the severity was chosen, with the shipped matcher over
+  // app/**, features/** and components/**: 226 hits in THIRTEEN files, and every
+  // one of those files is a declared zone below. Outside them the count is ZERO,
+  // which is why this ships blocking rather than advisory — `npm run lint` sets
+  // no --max-warnings, so `warn` would enforce nothing by construction, and an
+  // empty inventory is precisely the moment to promote.
+  //
+  // Scoped to the reader-facing tree only. lib/**, scripts/** and packages/**
+  // are not rendered to anyone and are deliberately out of scope, not exempt.
+  {
+    files: ["app/**/*.{ts,tsx}", "features/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+    rules: {
+      "custom/no-hardcoded-display-string": "error",
+    },
+  },
+  // The zones, each with what it does NOT exempt. Two of them are whole areas
+  // sharing one audience; the other four are named FILES, deliberately — a
+  // directory exemption would be inherited by the next file created beside
+  // them, and these decisions belong to these surfaces, not to their folders.
+  {
+    // The internal operator console: one shared token, one operator, no user
+    // accounts (app/admin/AdminGate.tsx). Its audience is the person running
+    // the ingest pipeline, and it is Czech-only by construction — translating
+    // a tripwire label serves nobody. Exempts nothing on any public route.
+    files: ["app/admin/**/*.{ts,tsx}", "features/admin/**/*.{ts,tsx}"],
+    rules: { "custom/no-hardcoded-display-string": "off" },
+  },
+  {
+    // /penize/kontrola — the human review gate. Same audience as the admin
+    // console (it is unlocked by REVIEWER_TOKEN, not by being a reader) and
+    // Czech-first by its own header. Named as a file: the next component under
+    // features/money/components/ is a reader surface and inherits nothing.
+    files: ["features/money/components/VerificationConsole.tsx"],
+    rules: { "custom/no-hardcoded-display-string": "off" },
+  },
+  {
+    // The global error boundary renders OUTSIDE the providers — it cannot reach
+    // next-intl at all, which is why its copy is hardcoded AND bilingual on
+    // purpose (read the file's header). An architectural boundary, not a gap.
+    files: ["app/global-error.tsx"],
+    rules: { "custom/no-hardcoded-display-string": "off" },
+  },
+  {
+    // Two surfaces holding a WRITTEN, dated counter-position: Czech copy inline,
+    // catalog off-boundary for this surface (precedent /kompas, /denik,
+    // WeightPanel). DependencyRadar's header records the incident that settled
+    // it — an in-flight edit converted it to useTranslations against keys that
+    // were never added to either catalog and rendered the whole section as
+    // MISSING_MESSAGE in both locales (batch-015-audit.md N8). Exempting them
+    // by FILE keeps the decision attached to the files that argued for it; a
+    // new file under features/landing/referendum/ or features/lawwatch/
+    // components/ is covered.
+    files: [
+      "features/landing/referendum/ReferendumPage.tsx",
+      "features/lawwatch/components/DependencyRadar.tsx",
+    ],
+    rules: { "custom/no-hardcoded-display-string": "off" },
+  },
   // features/labs is the archived fixed-art-direction zone (same rationale as
   // its no-hardcoded-colors exemption below) — not reader-facing product.
   {
@@ -155,6 +221,9 @@ const eslintConfig = defineConfig([
     rules: {
       "custom/require-source-citation": "off",
       "custom/no-raw-number-display": "off",
+      // Same reason for display copy: an archived art direction is not product
+      // anyone reads, so its Czech literals are not a catalog gap.
+      "custom/no-hardcoded-display-string": "off",
     },
   },
   // Declared token-mirror + fixed-art-direction + data-color zones (see
