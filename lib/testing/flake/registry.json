@@ -1,0 +1,33 @@
+{
+  "$schema": "./registry.schema.md",
+  "$comment": [
+    "THE QUARANTINE REGISTER. One entry per quarantined test file. It is EMPTY, and",
+    "that is the honest state: as of 2026-08-24 this repo has no test it has decided",
+    "to stop blocking on. The one measured instability in its history — PGlite files",
+    "timing out in beforeAll(open()) at default vitest parallelism, 2026-08-04 — was",
+    "answered structurally (60 s hook timeout, then a worker cap, then on 2026-08-24 a",
+    "lane split plus a build-once fixture template that removes the 4 s initdb from",
+    "the per-file path altogether). Nothing was quarantined and nothing should have",
+    "been: a contention symptom is a harness defect, and quarantining it would have",
+    "hidden the measurement that fixed it.",
+    "",
+    "An entry here REMOVES its file from the blocking lanes and runs it in the",
+    "non-blocking `npm run test:quarantine` lane instead. Entry rules are enforced by",
+    "lib/testing/flake/registry.ts and gated by registry.test.ts on every unit run:",
+    "an entry needs a named owner (a person, never a team), an entry date, an EXPIRY,",
+    "a suspected cause, a form, and a link to the failure evidence. On expiry the gate",
+    "goes red — that is what makes quarantine debt rather than amnesty.",
+    "",
+    "GRANULARITY, stated rather than hidden: quarantine here is per FILE, because that",
+    "is the unit vitest can exclude from a config without editing the test source. The",
+    "`test` field records which test actually flaked so the register stays diagnostic;",
+    "it does not narrow what is excluded. Quarantining a file to silence one test is",
+    "therefore over-broad, and the ceiling of 5 exists partly to keep that expensive.",
+    "",
+    "An agent must never add an entry here to make a build green (test-harness/",
+    "flake-lifecycle). Entries are a human author's decision."
+  ],
+  "ceiling": 5,
+  "maxQuarantineDays": 60,
+  "entries": []
+}
