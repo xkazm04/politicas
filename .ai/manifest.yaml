@@ -1,7 +1,13 @@
 # .ai/manifest.yaml — the agent-facing contract for this repo.
 # Capabilities are tool-NEUTRAL (a name -> the command that fulfils it), heavy subsystems are
 # referenced by path, and unknown fields MUST be ignored — so this survives tool churn and
-# schema growth. Shape reference: ../personas/.ai/manifest.yaml (docs/AI_MANIFEST_SPEC.md).
+# schema growth.
+#
+# SPECIFICATION: docs/AI_MANIFEST_SPEC.md — in THIS repository, resolving from the repo root
+# in a fresh clone with no network. It used to cite that path plus an absolute path into a
+# sibling checkout, and NEITHER resolved (the sibling does not carry the document either), so
+# the contract's definition lived nowhere. The spec now travels with the artifact; it is the
+# source of truth for these field names, not a copy of one, so there is nothing to drift.
 schema: ai-manifest
 schemaVersion: 0.1.0
 generatedAt: "2026-08-24"
