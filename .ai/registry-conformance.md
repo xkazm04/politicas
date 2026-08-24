@@ -13,7 +13,7 @@ rate limiting, p2p, voice) are not padded in as n/a rows.
 Every technique file was read before its row was written. A `deviation` is a
 finding, not a shame.
 
-**107 technique rows: 69 followed · 18 partial · 3 deviation · 17 n/a.** Wave 2 (2026-08-24) moved 21 rows to `followed` — 12 of the 15 deviations and 9 of the 27 partials — and moved one deviation to `partial`. The three deviations left are named in the backlog with the reason each is still there, and two of the three are not engineering calls.
+**107 technique rows: 73 followed · 16 partial · 0 deviation · 1 deferred · 17 n/a.** Wave 2 (2026-08-24) moved 21 rows to `followed` — 12 of the 15 deviations and 9 of the 27 partials. Wave 2b, the same day, took the last three deviations: two to `followed` (quiet-window maintenance, pre-migration snapshots) and one to `deferred` — retention is an operator decision dated 2026-08-24 (keep expired data until the production dynamic resolves), and the half of that row which is pure engineering, the per-table accounting report, shipped. Two partials went with them (`journal-and-durability-modes`, `dead-code-detection`). A `deferred` row is neither a deviation nor a compliance: it is a decision with a date and a revisit point.
 
 | subject | technique | status | evidence |
 |---|---|---|---|
@@ -21,9 +21,9 @@ finding, not a shame.
 | embedded-db | connection-pooling | n/a | `lib/db/pglite/internals.ts:41-57` — PGlite is single-connection by construction; one memoized handle, no pool to size |
 | embedded-db | db-self-instrumentation | followed | `lib/db/pglite/instrument.ts` wraps `query`/`exec`/`transaction` on the one memoised connection (cf6bef8) — no call site changed. Keyed `<table>/<read\|write\|ddl\|tx\|other>`, with the table vocabulary PARSED OUT OF `CORE_DDL` at load so `ddl.ts` stays the sole authority and statement text is never a key. One 512-record ring in parallel typed arrays (~14 KB, allocated once); p50/p95 by nearest-rank at READ time over observed samples, never interpolated and never maintained on the write path. Rows touched recorded (`affectedRows` fallback for writes; `-1` = unobservable, excluded rather than counted as 0). Thresholds calibrated against this store's own recorded figures — read 60 ms sits above the worst healthy sample (41,7 ms) and below the cheapest recorded pathology (101,7 ms) — and the report labels the two borrowed lines as borrowed. Warn channel rate-limits 3/key/60 s and COUNTS suppression, emitting one summary with the suppressed count and worst suppressed duration. Measured off-budget: disabled is object identity, enabled costs +1,17/+1,16/+1,29 µs per op over 20 000 A/B calls — 0,2 % of the fastest healthy query here. Lock-wait is declined with the reason stated in-file (one connection, so a pool counter would read zero forever and look like evidence); issue DEPTH is recorded instead and never reported as a duration |
 | embedded-db | extension-lifecycle | n/a | no `create extension` anywhere; `scripts/gen-migration.ts:27` records that PGlite ships no `unaccent`, so diacritics are folded at ingest instead |
-| embedded-db | journal-and-durability-modes | partial | backup treats the store as a file-set and checkpoints first (`scripts/db/backup.ts:74-102`), but no sync-level is asserted at boot and no crash-consistency test exists |
-| embedded-db | quiet-window-maintenance | deviation | CHECKPOINT runs only inside a manual `npm run db:backup`; no activity gate, and WAL growth between backups is unmanaged (acknowledged at `scripts/db/backup.ts:17-22`) |
-| embedded-db | storage-accounting-and-pruning | deviation | `kg_node_history`, `kg_edge_history`, `change_event`, `review_audit`, `lens_submission` (`lib/db/pglite/ddl.ts:307-380`) are append-only with no retention policy and no per-table accounting report |
+| embedded-db | journal-and-durability-modes | followed | `lib/db/pglite/durability.ts` (e558500) reads the four settings on EVERY connection — engines fall back silently on sandboxed paths — and derives the promise from the reading rather than from a comment: `wal_level=replica`, `full_page_writes=on`, `synchronous_commit=on`, `fsync=off` with source `command line` (PGlite sets it; no `set fsync = on` exists from SQL, no config file this repo owns). So the honest sentence is "survives a process crash, NOT a power cut", and the file says why that is defensible here rather than leaving it an unread default — 13 of the 18 tables are source mirrors or recomputable derivations, and the other five are what `db:backup` copies. TESTED, NOT CITED: `lib/testing/crash-writer.mjs` commits in a child process and exits without `close()` (no shutdown checkpoint, `postmaster.pid` left behind); the parent reopens and recovery has the row. The stated limit is in the test: this is the process-crash half only. From the failure side, a copy taken WITHOUT `pg_wal` — the classic silent data-loss backup — is asserted to be rejected at verification. Matching is silent; a mismatch names what the store promises instead |
+| embedded-db | quiet-window-maintenance | followed | `lib/db/pglite/maintenance.ts` (c1e6acf). The timer was already there and was not ours: PGlite runs Postgres with NO background processes, so `checkpoint_timeout` (300 s, measured) can never fire and what remains is `max_wal_size` (1 024 MB) taken inline on whichever write crosses it — the exact failure the technique names, and the 544 MB of `pg_wal` on the 2 045 MB copy is what it looked like. Two-condition gate: the activity gauge (operations in flight, counted at the wrapper, wrapped INSIDE the instrument so it counts exactly what the rings measure) must read zero AND ≥ 300 s must have elapsed. The escalation ladder is keyed to harm a checkpoint ACTUALLY RESETS — unckeckpointed WAL bytes via `pg_wal_lsn_diff` (151 240 B after a write, 208 B after CHECKPOINT), never the size of `pg_wal`, which a checkpoint recycles in place; 64 MB overrides the interval, 512 MB overrides the gauge and says so on the warn channel. Deferral is an outcome: ran / deferred-busy / failed all land in a bounded ledger. No chunking, and the reason is stated rather than skipped (CHECKPOINT is one statement; the gauge is re-read immediately before it, never across it); no timer, by the same doctrine as `instrument.ts`; measured pass cost 6,4–42,1 ms on the 2 GB store |
+| embedded-db | storage-accounting-and-pruning | deferred | **The accounting half shipped; the pruning half is deferred (operator 2026-08-24: keep expired data until the production dynamic resolves; revisit retention after).** `lib/db/pglite/accounting.ts` + `npm run db:accounting` (c1e6acf) report per table an exact `count(*)`, pages allocated decomposed into heap/index/TOAST, and share of the total — measured on the pass73-pre copy: `vote_ballot` 489,2 MB (33,1 %), `kg_node` 392,8 MB, `kg_edge` 327,6 MB, the two history tables 202,6 MB together, plus 544 MB of `pg_wal` that `pg_database_size` does not count. Reclaimable space is NOT reported and is named as unobservable instead: PGlite runs no stats collector, `pg_stat_user_tables` reads all-zero even after a measured 1 111-row delete, and a zero there would read as evidence. RETENTION IS DECLARED PER TABLE and the declaration is enforced — a new table in `CORE_DDL` with no policy turns the test red naming itself. The audit said five accumulating tables; there are six (`ingest_run` was missed for being small, and "small today" is not a policy). No pruner exists and this wave added none |
 | data-access | layering-rules | followed | no `.query(`/`pg.exec`/`PGlite` call site outside `lib/db/`; `lib/db/pglite-store.ts:15-17` throws if imported client-side |
 | data-access | query-construction | followed | `lib/db/pglite/internals.ts:150-163` generates placeholders and binds values; every write in `repositories/kg.ts` is parameterized |
 | data-access | row-mapping | followed | `lib/db/pglite/mappers.ts:18-22,61-82` one COLS+map pair per table; `mappers.ts:125-138` warns-once-and-coerces an unrecognized `membership.kind` instead of passing it through |
@@ -33,10 +33,10 @@ finding, not a shame.
 | data-access | cross-driver-invariant-parity | n/a | `lib/db/config.ts:14` — one driver (`"pglite"`); `lib/civic/` is a labelled fallback corpus, not a second `Store` implementation |
 | migrations | schema-drift-detection | followed | `scripts/gen-migration.ts` + `npm run db:snapshot -- --check` is a CI step; `lib/db/pglite/ddl.ts:1-4` makes `CORE_DDL` the sole authority, so the two-authority problem cannot arise |
 | migrations | error-propagation | followed | `lib/db/pglite/internals.ts:41-57` propagates the rejection and clears the memo; `open-retry.test.ts:22-34` is the regression test for it |
-| migrations | idempotent-steps | partial | `ddl.ts` guards everything with `if not exists`, but there is no run-once ledger — the whole `CORE_DDL` reapplies at every boot (`internals.ts:48`), so every guard is load-bearing forever |
+| migrations | idempotent-steps | partial | `ddl.ts` guards everything with `if not exists` and the whole `CORE_DDL` still reapplies at every boot, so every guard is load-bearing forever. What changed (0834c75's parent, the premigration slice) is that the replay is no longer UNOBSERVED: `lib/db/pglite/pending.ts` derives what the replay WOULD do from the catalog, so "this boot re-asserts" and "this boot changes something" are now distinguishable, and the second is disclosed. Measured on the 2 GB copy: detection + full replay = 42 ms. Held at `partial` deliberately — a run-once ledger is still absent, and a signal that says what work is pending is not the same artifact as a record of what has been applied |
 | migrations | transactional-ddl | partial | the whole multi-statement `CORE_DDL` goes in one `pg.exec` (`internals.ts:48`), which is probably atomic, but no per-step boundary and no crash-mid-DDL test proves it |
 | migrations | data-migrations | partial | `ddl.ts:296-305` fuses shape change and backfill into one `alter table … add column … default now()` — deliberate and documented at this volume, but no batched/watermarked path exists |
-| migrations | pre-migration-snapshots | deviation | `scripts/db/backup.ts` is on-demand only; nothing snapshots before DDL is applied, and nothing knows DDL is pending (see idempotent-steps) |
+| migrations | pre-migration-snapshots | followed | `lib/db/pglite/premigration.ts` + `npm run db:migrate` / `npm run db:restore`. The technique says a ledger-less replay design has no is-work-pending signal and must snapshot on every boot; that holds for opaque steps and is false here — every step is a guarded CREATE or ADD COLUMN, so the work IS the difference between the declarations and the catalog (`pending.ts`, three reads). That buys the refinement without adding a ledger table to a 2 GB store: pending ⇒ snapshot, nothing pending ⇒ ZERO snapshots and the output says that is the design, not a skipped backup; a fresh store takes none either. Then: CHECKPOINT, copy the whole file set through the one `storeCopy.ts` door (the same one `backup.ts` now uses), REOPEN AND READ the copy, write a manifest naming the schema fingerprint it preserves and the exact objects that were pending, rotate by migration boundary with the manifest going with the copy, apply, re-check. Disk headroom is checked first. MEASURED AND IT CHANGED THE DESIGN: "it opened" is not verification here — given a directory it cannot read, PGlite INITIALIZES A NEW STORE (deleting `global/pg_control`, and deleting `base/`, each produced a clean connection with ZERO tables), so `verifyStoreCopy` requires tables back. The restore path is a first-class artifact and is EXERCISED (`premigration.test.ts`: damage → restore → the row written before the snapshot is there), refuses without `--yes`, and moves the damaged store aside rather than deleting it. Boot still applies DDL — and now discloses it loudly, names the objects, carries the fact in `lastUnsnapshottedApply()`, and refuses outright if `CORE_DDL` ever grows a destructive statement |
 | quality-gates | gate-liveness | followed | `scripts/census/run-census.mjs:36-56` gives "looked at nothing" its own fatal exit, distinct from "found nothing"; `scripts/census/self-test.mjs` seeds every failure mode through the real runner (23/23) |
 | quality-gates | ratchet-design | followed | census baselines are committed in `scripts/census/rules.json` and fail on rise **and** on unexplained drop; `custom/no-raw-number-display` graduated to plain `error` at a measured zero this session, per the technique's endgame |
 | quality-gates | false-positive-economics | followed | `scripts/census/rules.json:$comment` records two gates that measured 0 true positives and were converted to `satisfied` rather than shipped; `eslint.config.mjs` ladders the provenance pair by measured zone |
@@ -53,7 +53,7 @@ finding, not a shame.
 | codebase-scanning | llm-assisted-scanning | partial | `docs/architect/` and `docs/harness/` are LLM scans with quoted evidence, and `memory/impeccable-detector-triage.md:35-40` fixes the triage rule ("reject a rule only after checking every instance it flagged") — but nothing verifies a quoted span still exists at the cited line |
 | codebase-scanning | verify-after-generate | followed | both generated artifacts are now checked against reality: the SQL snapshot against `CORE_DDL` in CI, and `context-map.json` by `lib/testing/contextMapRefs.test.ts` (71db1f3) — 785 path refs walked, 0 dangling. One-way by design: naming a file that is gone is never normal, a file the generator has not yet seen is. It asserts its own denominator (≥700) first, so an emptied walk cannot pass as "0 dangling" |
 | codebase-scanning | finding-lifecycle | partial | findings live as dated prose in `docs/architect/`, `docs/harness/` and the route records; no dedup key and no close-verification, so a fixed finding stays in the record |
-| codebase-scanning | dead-code-detection | partial | the map-side half is closed: the four refs to genuinely deleted files are gone and `contextMapRefs.test.ts` fails on any new one (71db1f3). Still open: `scripts/case-loops/**/archive/` is quarantine-not-delete (the right posture) and nothing yet proves an archived script is unreferenced from the other direction |
+| codebase-scanning | dead-code-detection | followed | both directions are now gated. Map side: `contextMapRefs.test.ts` fails on any ref to a file that is gone (71db1f3). Quarantine side: `lib/testing/archivedScripts.test.ts` (0834c75) proves nothing live reaches into `scripts/**/archive/` — 96 archived files against 300 live sources plus the wiring files (`package.json`, the CI workflow, `lefthook.yml`), 0 references. The scoping is a decision stated in the file: prose is NOT a reference (docs citing what batch 008 ran are the evidence trail), and `context-map.json` is not either (naming files that exist is the map's job). Both denominators are asserted before the finding, and the red state was watched — a scratch live file importing `./archive/pass42-drift` turns it red naming both paths |
 | codebase-scanning | incremental-scanning | n/a | census and lint run at full repo scope every time; no since-last-scan mechanism exists and the tree is small enough not to need one |
 | codebase-scanning | ingestion-budget | n/a | every scanning target is this repo's own tree, read from disk |
 | docs-sync | dated-corrections | followed | every memo and config comment carries its date and measurement; `memory/robocopy-of-a-live-pglite-store-can-corrupt.md:18-38` carries two dated addenda that correct the original reading rather than overwriting it |
@@ -265,10 +265,73 @@ larger than anything on it:
   424–519 ms behind a cross-request memo, and a skeleton on a half-second route
   is a lie about latency.
 
+## Drained 2026-08-24 (wave 2b)
+
+The three deviations wave 2 left, plus the two partials that came with them.
+Same rule as above: a drained item states its residue, or it is not drained.
+
+- ~~2. **No run-once migration ledger and no pre-DDL snapshot**~~ — the
+  pre-snapshot half is **followed**; the ledger half is not, and stays named.
+  The wave-2 verdict ("architectural, over a 2 GB live store") was right about
+  the ledger and wrong about the snapshot: the technique's own refinement —
+  snapshot only when work is actually pending — turned out to be reachable
+  WITHOUT a ledger, because every step this DDL performs is a guarded CREATE or
+  ADD COLUMN, so the pending work is the difference between the declarations and
+  the catalog. Three reads, no writes, 42 ms including the full replay on the
+  2 GB copy. Nothing persisted was touched: the whole slice is schema-side
+  tooling plus a rehearsal on a seeded copy. Residue: `CORE_DDL` still reapplies
+  at every boot (`idempotent-steps` stays `partial`), and boot still applies
+  additive work without a snapshot — it now says so, names the objects, and
+  carries the fact for a later failure report, which is the technique's
+  "proceed, but loudly", not its "refuse".
+- ~~3. **No retention policy on five append-only tables, and no accounting**~~ —
+  **split, as wave 2 said it should be, and both halves resolved rather than
+  deferred wholesale.** The accounting report is pure engineering and shipped
+  (`npm run db:accounting`); retention is `deferred` on the operator's dated
+  decision. The measurement is what makes the deferral informed rather than
+  passive: the accumulating tables are 13,6 % of the store and the corpus is
+  81,7 %, so pruning history would not have been the fix for 2 GB anyway. There
+  were six accumulating tables, not five. Residue: no pruner exists, by
+  decision; when retention is revisited, the per-table declarations in
+  `accounting.ts` are where its policy should be read from.
+- ~~4. **CHECKPOINT runs only inside a manual `npm run db:backup`**~~ —
+  **followed.** The hazard wave 2 named (maintenance writing to a store a
+  concurrent session may hold) dissolved once the pass was put INSIDE the one
+  process that holds the connection and gated on that process's own in-flight
+  count: there is no second holder to race. Residue: the gauge sees demand for
+  the DATABASE, so CPU-bound foreground work between two queries reads as idle —
+  stated in the file, and bounded by a pass measured at 6,4–42,1 ms.
+- ~~10. **Nothing proves an archived script is unreferenced**~~ — **followed.**
+  96 archived files, 300 live sources plus the wiring files, 0 references, both
+  denominators asserted, red state watched. Residue: the check is a source scan
+  and is described as a ratchet against accident, not a control against intent —
+  a dynamic import or a computed path is not visible to it.
+- ~~(not previously ranked) **No durability contract asserted at boot, no
+  crash-consistency test**~~ — **followed** (`journal-and-durability-modes`).
+  The finding worth carrying out of it: `fsync` is OFF on this substrate and
+  PGlite sets it itself on the postgres command line, so the app cannot choose
+  otherwise from SQL. The contract is now read on every connection and the
+  process-crash claim is tested by killing one. Residue: the power-cut case is
+  not survivable and is now written down as such rather than being an unread
+  default.
+
+Two facts found while doing the above, recorded because they change how other
+things in this repo should be read:
+
+- **"It opened" is not a verified backup on PGlite.** Given a directory it
+  cannot read as a store, it does not fail — it initializes a new one there.
+  Measured both ways (`global/pg_control` removed; `base/` removed): a clean
+  connection with zero tables. Any future copy check must require tables back.
+- **A failed PGlite open still holds the directory on Windows**, so the rename
+  that moves a damaged store aside returns EPERM. That is why the restore door
+  is a separate process, and why a rename failure is now a refusal that changes
+  nothing rather than a copy over a held store.
+
 ## Deviations backlog
 
 Ranked by value. Everything above has been struck; what follows is what this
-wave did not close, each with the reason it is still here.
+wave did not close, each with the reason it is still here. Items 2, 3, 4 and 10
+were struck by wave 2b — 3 as a deferral with its engineering half shipped.
 
 1. **`npm run census` cannot exit 0 and is therefore wired to nothing.**
    `scripts/census/rules.json` deliberately holds zero adopted rules (2
@@ -280,31 +343,24 @@ wave did not close, each with the reason it is still here.
    broken instrument. Since `9eeefd9` the manifest names the defect beside the
    capability rather than shipping a command that silently always fails.
    *(quality-gates/gate-liveness)*
-2. **No run-once migration ledger and no pre-DDL snapshot.** `CORE_DDL`
-   reapplies at every boot behind `if not exists` guards, so every guard is
-   load-bearing forever and nothing knows when work is pending to snapshot
-   before. **out-of-budget: architectural, not a patch** — it is a change to
-   how the store boots, over a 2 GB live store, and it deserves its own pass
-   with a rebuild rehearsal rather than a slice at the end of a wave.
-   *(migrations/idempotent-steps, pre-migration-snapshots)*
-3. **No retention policy on five append-only tables** (`kg_node_history`,
-   `kg_edge_history`, `change_event`, `review_audit`, `lens_submission`) and no
-   per-table storage accounting. **Split, and both halves stay open for
-   different reasons.** Retention is `blocked: a product decision with no
-   evident intent` — how long a civic-accountability record keeps its own audit
-   trail is not an engineering call, and this repo's whole subject is that
-   records are not quietly rewritten. The accounting REPORT half is pure
-   engineering and merely `out-of-budget` this wave; note that
-   `db-self-instrumentation` (now landed) supplies the other half of the join
-   the technique wants — the rings say which table is slow, and an accounting
-   report would say which is big.
+2. ~~**No run-once migration ledger and no pre-DDL snapshot.**~~ — the snapshot
+   half is drained (see wave 2b above). What remains open, and stays here: there
+   is still **no run-once ledger**, so `CORE_DDL` reapplies at every boot and
+   every `if not exists` guard is load-bearing forever. **out-of-budget:
+   architectural, not a patch** — it changes how the store boots, over a 2 GB
+   live store, and it deserves its own pass. It is also less urgent than it was:
+   the replay is now cheap (42 ms measured) and, more to the point, observed.
+   *(migrations/idempotent-steps)*
+3. ~~**No retention policy on five append-only tables and no per-table
+   accounting.**~~ — accounting shipped; retention is **`deferred` (operator
+   2026-08-24: keep expired data until the production dynamic resolves; revisit
+   retention after)**. Not blocked and not done: decided, with a date and a
+   revisit point. The engineering owed to that decision — a report that names
+   which table the disk is, and a per-table policy declaration that a new table
+   cannot silently skip — is landed.
    *(embedded-db/storage-accounting-and-pruning)*
-4. **CHECKPOINT runs only inside a manual `npm run db:backup`.** No activity
-   gate, and WAL growth between backups is unmanaged.
-   **out-of-budget**, and adjacent to a hazard: maintenance writes to the live
-   single-writer store while a concurrent session may hold it, which this
-   repo's own memo about copying a live PGlite store exists to warn about.
-   *(embedded-db/quiet-window-maintenance)*
+4. ~~**CHECKPOINT runs only inside a manual `npm run db:backup`.**~~ — drained
+   (see wave 2b). *(embedded-db/quiet-window-maintenance)*
 5. **No structured error taxonomy or user-facing message registry.** Three
    hand-authored failure surfaces, no category threading through
    `reportLoaderFailure`. **out-of-budget**, and genuinely low urgency: both
@@ -346,8 +402,15 @@ wave did not close, each with the reason it is still here.
     `package.json`, and hand-rolling a subset parser would make the checker's
     own conformance claim narrower than the spec it enforces.
     *(repo-manifest-standard/generated-from-provenance)*
-10. **Nothing proves an archived script is unreferenced.**
-    `scripts/case-loops/**/archive/` is quarantine-not-delete, which is the
-    right posture; the map-side half of this class is now gated, but the
-    reverse direction is not.
-    *(codebase-scanning/dead-code-detection)*
+10. ~~**Nothing proves an archived script is unreferenced.**~~ — drained (see
+    wave 2b). *(codebase-scanning/dead-code-detection)*
+
+### Per-subject tallies after wave 2b
+
+`deviations` counts rows still at status `deviation`; `deferred` counts rows
+parked on a dated decision. Every other subject in this file is 0/0.
+
+- embedded-db: deviations=0, deferred=1
+- data-access / migrations / quality-gates / codebase-scanning / docs-sync /
+  repo-manifest-standard / public-claim-provenance / client-state / i18n /
+  error-handling / test-harness / table / canvas-graph: deviations=0, deferred=0
