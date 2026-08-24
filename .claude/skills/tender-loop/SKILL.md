@@ -163,6 +163,15 @@ Kernel gates plus:
   classes are defined by LAW, not data (`monopoly.ts`: DSOs in, PRAGOPROJEKT deliberately
   out — framework concentration is a real shape).
 
+- **b007 (deep-read):** the deep-read is where tool defects surface — counting bids_on
+  edges undercounts bidders (the anonymised class carries no edges; report the register's
+  own bid_count), and every date field needs a fallback chain (endedOn → startedOn →
+  decided_on) before a cadence means anything. NAME ≠ OWNERSHIP: „Havířovský sociální
+  podnik" is privately owned (ARES hop) — never characterise a counterparty from its name;
+  hop the register first. Flag species separate on size: below-threshold conveyors fire
+  marginal disclosed flags; large ZPŘ lots fire the cover-bid shapes. Both can live in one
+  authority, and the case file must keep them apart.
+
 ## History
 
 - 2026-08-23: skill created from the user's doctrine notes; first campaign

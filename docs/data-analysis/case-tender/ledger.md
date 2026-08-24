@@ -69,3 +69,15 @@ fires. `monopoly.ts`: statutory-network class (ČEZ Distribuce, EG.D, PREdistrib
 GasNet) skips trailing flags and leaves winner listings, disclosed; PRAGOPROJEKT stays
 out deliberately. New shape: VLAMAG Czech, 121 wins / 59 % flagged / 17 M — micro-lots.
 
+### Batch 007 — Havířov, read by hand (2026-08-24)
+
+Deep-read batch, no writes. New durable tool `deep-read.ts` (case file per authority or
+winner). Havířov: 1 553 lots / 2,21 mld. / 33 % flagged, cadence 20–70 lots EVERY month
+since 2023-10, 89 % below-threshold výzvy (733 uzavřená — the city picks the invitees).
+Conveyor specialists at 100 % dependence: VLAMAG 121/121 wins (avg 142 k), Petr Kuš 70/70
+(avg 81 k). ARES hop corrected a name-assumption: „Havířovský sociální podnik" is PRIVATE
+(100 % HMF Group since 2024-02) — names are not facts, ownership hops are. Two flag
+species: marginal conveyor flags vs large-ZPŘ cover-bid shapes (7,4 M lot, 0,8 % spread).
+Tool defects fixed: bids_on edges undercount bidders (anonymised class has no edges — use
+register bid_count); cadence needs endedOn→startedOn→decided_on fallback.
+

@@ -2,7 +2,7 @@
 
 > **Regenerated every batch. Read THIS first, `ledger.md` only for history.**
 
-**As of:** batch 006 · 2026-08-24 · last graph write **pass 72**.
+**As of:** batch 007 · 2026-08-24 · last graph write **pass 72** (b007 deep-read wrote evidence only).
 
 ## The doctrine (user-set, 2026-08-23)
 
@@ -26,14 +26,19 @@ composed from volume, connection to the MP graph a bonus and never a filter.
 
 ## Open items
 
-1. b007: **Havířov deep-read** — 1 553 lots / 2,2 mld. / 30 % flagged, Petr Kuš
-   70/70 wins, Hornosušská stavební 19/19; read actual lots by hand, compose the
-   city picture. Also look at VLAMAG Czech (121 wins / 59 % flagged / 17 M —
-   the high-volume micro-lot shape).
-2. Product surface for the needle picture — shapes exist now (see
-   pictures-cpv45-*.json).
+1. b008: **does the needle-city profile generalise?** Same `deep-read.ts` case
+   file over the next high-flag-share authorities (Bytová správa MV → OTISTAV;
+   Psychiatrická nemocnice Bohnice; an archive) — is „conveyor + specialists +
+   below-threshold výzvy" Havířov's shape or the genus?
+2. Product surface for the needle picture — first two rendering species named
+   in b007: conveyor pictures and cover-bid shapes.
 3. Later: second CPV campaign (72 — IT services) once the CPV 45 loop's flag
    set stabilises.
+
+Havířov case file (b007): 33 % flagged, 20–70 lots/month since 2023-10, 89 %
+below-threshold výzvy; specialists at 100 % dependence (VLAMAG 121/121 avg
+142 k, Petr Kuš 70/70 avg 81 k); „Havířovský sociální podnik" is PRIVATE (HMF
+Group, ARES) — evidence `deep-read-authority-00297488-2026-08-24-1236.json`.
 
 ## Durable tools
 
@@ -42,5 +47,6 @@ pre-filter → NDJSON; ijson) · `loadMonth.ts` (the one reader) · `measure.ts`
 · `persist-month.ts` (pass-stamped writer, snapshot dedupe; re-ingest wipes flags BY
 DESIGN — reflag after) · `compute-flags.ts` (6 flags incl. trailing-window; thresholds
 from the corpus, hand-read samples) · `monopoly.ts` (legal-basis exclusion class) ·
-`compose-pictures.ts` (authority/winner shapes, small-n floors, monopoly disclosure).
+`compose-pictures.ts` (authority/winner shapes, small-n floors, monopoly disclosure) ·
+`deep-read.ts` (case file per authority/winner — register bid_count, date fallback chain).
 Raw months in `data/raw/isvz/` (gitignored). Next pass: **73**.
