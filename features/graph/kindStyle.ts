@@ -33,6 +33,9 @@ export const KIND_STYLE: Record<KgNodeKind, KindStyle> = {
   bill: { shape: "triangle", fill: INK, radius: 7 },
   law: { shape: "pentagon", fill: OCHRE, radius: 7 },
   notice: { shape: "square", fill: STEEL, radius: 5 },
+  // Case ④: zadávací řízení (lot) — tvarem u smlouvy (diamant), barvou u oceli:
+  // řízení je proces, smlouva je výsledek; signální barvu nese jen výsledek.
+  tender: { shape: "diamond", fill: STEEL, radius: 5.5 },
 };
 
 /**
@@ -53,6 +56,7 @@ export const KIND_FILL_TOKEN: Record<KgNodeKind, KindFillToken> = {
   bill: "ink",
   law: "ochre",
   notice: "steel",
+  tender: "steel",
 };
 
 /** Tailwind fill-* třída slotu — pro SVG v DOMu (legenda), kde token
@@ -80,10 +84,11 @@ export const KIND_ORDER: readonly KgNodeKind[] = [
   "bill",
   "law",
   "notice",
+  "tender",
 ];
 
 /** Druhy, které nese velký objem a v mapě dominují — nabízí se skrýt. */
-export const BULK_KINDS: readonly KgNodeKind[] = ["contract"];
+export const BULK_KINDS: readonly KgNodeKind[] = ["contract", "tender"];
 
 export function isKgNodeKind(v: string): v is KgNodeKind {
   return (KIND_ORDER as readonly string[]).includes(v);

@@ -62,7 +62,8 @@ export type KgNodeKind =
   | "contract"
   | "bill"
   | "law"
-  | "notice";
+  | "notice"
+  | "tender";
 
 export interface SourceSubject {
   kind: KgNodeKind;
@@ -180,6 +181,9 @@ export function citableId(subject: SourceSubject): string | null {
       return str(props?.ref) ?? idSuffix(id);
     case "notice":
       return str(props?.spisovaZnacka) ?? str(props?.postingId);
+    case "tender":
+      // Identifikátor NIPEZ je citovatelný sám o sobě (RVZ…/00N).
+      return idSuffix(id);
     case "bloc":
     case "theme":
       // Odvozené uzly — vznikly výpočtem nad grafem, žádný registr je nevede.
@@ -312,6 +316,16 @@ export function sourceLinksFor(subject: SourceSubject): SourceLink[] {
     case "party":
     case "organ":
       return [];
+
+    // Zadávací řízení (Case ④): per-lot veřejná URL zatím není OVĚŘENÁ (NEN detail má
+    // vlastní tvar adresy; neověřený odkaz je horší než žádný — pravidlo 1). Zdrojem je
+    // profil zadavatele, který ingest na uzel přenáší; jinak měsíční Open Data ISVZ.
+    case "tender": {
+      const profile = str(subject.props?.source);
+      return profile && /^https?:\/\//.test(profile)
+        ? [{ registry: "ISVZ Open Data (RVZ)", url: profile, tier: "detail" }]
+        : [{ registry: "ISVZ Open Data (RVZ)", url: "https://isvz.nipez.cz/opendata", tier: "search" }];
+    }
 
     // Úřední deska. OPRAVENÝ PŘEDPOKLAD (2026-08-13): tenhle komentář — a
     // memory/kg-has-no-source-urls.md — do dneška tvrdily, že ingest URL vývěsky

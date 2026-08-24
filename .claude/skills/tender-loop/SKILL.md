@@ -129,6 +129,11 @@ Kernel gates plus:
   authority-level statistic, not a per-lot flag. 8-digit FOREIGN identifiers pass the IČO
   shape test (Slovak 53852869) — the company join gates on COUNTRY, never digits.
   Oligopoly visible in one month: EUROVIA 46 wins/12 authorities, STRABAG 36+23.
+- **b002 (pass 67):** participant identity has a THIRD state — 3 736/9 049 entries carry
+  no IČO and no country (register anonymises losing bidders) → `unidentified` class,
+  disclosed on the tender node, never coerced. Island mechanism CONFIRMED: 18 MP-tied
+  companies appeared in month one with zero join logic, on the AUTHORITY side (Teplárny
+  Brno procures 27 lots/month) — the steward institutions are the buyers.
 
 ## History
 

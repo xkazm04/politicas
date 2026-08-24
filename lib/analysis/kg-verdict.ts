@@ -19,7 +19,9 @@
 // batch-007 (case loops apply-insert path): "notice" added per case-sources' kiosek
 // handoff (docs/data-analysis/case-sources/handoff.md) — a kiosek.justice.cz úřední-deska
 // posting node.
-export const KG_NODE_KINDS = ["person", "party", "organ", "bloc", "theme", "company", "contract", "bill", "law", "notice"] as const;
+// "tender" added by Case ④ (tender loop, batch 002): one node per tender LOT from the
+// ISVZ/RVZ open data — the procurement-procedure layer the contract layer cannot carry.
+export const KG_NODE_KINDS = ["person", "party", "organ", "bloc", "theme", "company", "contract", "bill", "law", "notice", "tender"] as const;
 export type KgNodeKind = (typeof KG_NODE_KINDS)[number];
 
 export const KG_EDGE_RELS = [
@@ -34,6 +36,13 @@ export const KG_EDGE_RELS = [
   "sponsors",
   "amends",
   "assigned_to",
+  // Case ④ (tender loop, batch 002): the procurement-procedure layer.
+  //   procures: company(authority) -> tender · bids_on: company -> tender {evaluated,
+  //   value_czk} · wins: company -> tender {price_czk}. Authorities and bidders are
+  //   ordinary company:ico:* nodes — shared identity IS the island-connection mechanism.
+  "procures",
+  "bids_on",
+  "wins",
   // batch-007 additions:
   // "owns_stake" (company -> company, dated shareholder stake) per case-money's
   // batch-006 ownership-chains payload (docs/data-analysis/case-money/payloads/

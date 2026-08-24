@@ -16,3 +16,13 @@ level statistic, not a per-lot flag). Single-bid 3,5 % (JŘBU 18 %, přímé zad
 EUROVIA 46 wins / 12 authorities in ONE month. Foreign 8-digit identifiers pass the IČO
 shape test → the b002 writer gates the company join on country. Evidence:
 `measure-cpv45-2026-08-24-1054.json`.
+
+### Batch 002 — the layer exists, and the islands touched land immediately (2026-08-24)
+
+Pass 67: `tender` kind + `procures`/`bids_on`/`wins` rels; persist-month.ts (deterministic,
+prop-key-gated, replayable). June 2026 CPV 45: 3 625 tenders, 3 377 new companies (namespace
+350 → 3 727), 10 698 edges, 17 700 rows. Identity grew a THIRD state: 3 736 participant
+entries have no IČO and no country — the register anonymises losing bidders; disclosed as
+`unidentified_participants`, never guessed. **18 MP-tied companies appeared in the tender
+layer with zero join logic — on the AUTHORITY side** (Teplárny Brno procures 27 lots/month).
+props-check clean. Gate green (3 016 tests).

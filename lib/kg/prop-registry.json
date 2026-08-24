@@ -207,6 +207,34 @@
    "opposed_fraction",
    "rationale",
    "votes_scored"
+  ],
+  "tender": [
+   "authority_ico",
+   "bid_count",
+   "cpv",
+   "cpv_division",
+   "deadline_days",
+   "ended_on",
+   "estimated_czk_no_vat",
+   "eu_funded",
+   "evaluated_bid_count",
+   "foreign_participants",
+   "foreign_winners",
+   "highest_bid_czk",
+   "ingest_provenance",
+   "kind",
+   "lowest_bid_czk",
+   "name",
+   "objections_count",
+   "procedure_type",
+   "regime",
+   "result_kind",
+   "source",
+   "started_on",
+   "tool",
+   "tool_id",
+   "unidentified_participants",
+   "vz_nipez_id"
   ]
  },
  "edges": {
@@ -313,6 +341,21 @@
   "rapporteur": [
    "organ_ids",
    "scopes"
+  ],
+  "procures": [
+   "ingest_provenance"
+  ],
+  "bids_on": [
+   "evaluated",
+   "ingest_provenance",
+   "role",
+   "value_czk"
+  ],
+  "wins": [
+   "decided_on",
+   "ingest_provenance",
+   "price_czk",
+   "sole_bidder_self_declared"
   ]
  }
 }
