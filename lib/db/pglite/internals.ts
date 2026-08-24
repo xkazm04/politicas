@@ -52,6 +52,10 @@ export type GlobalWithPglite = typeof globalThis & { [PGLITE_KEY]?: Promise<Pgli
  * operations the instrument measures, while the CHECKPOINT the scheduler issues
  * goes to the raw connection and never appears in the query rings as a phantom
  * key. Both wrappers are identity when switched off.
+ *
+ * BOOT APPLIES SCHEMA WORK WITHOUT A SNAPSHOT, AND SAYS SO. `disclosePendingDdl`
+ * below runs three catalog reads before the DDL, so the one boot that changes
+ * the schema is never indistinguishable from the thousand that re-assert it.
  */
 export async function open(): Promise<Pglite> {
   const g = globalThis as GlobalWithPglite;
@@ -61,6 +65,7 @@ export async function open(): Promise<Pglite> {
       const raw = new PGlite(pglitePath()) as unknown as Pglite;
       const pg = instrumentPglite(withQuietWindowMaintenance(raw));
       await pg.waitReady;
+      await disclosePendingDdl(pg);
       await pg.exec(CORE_DDL);
       return pg;
     })();
@@ -70,6 +75,68 @@ export async function open(): Promise<Pglite> {
     });
   }
   return g[PGLITE_KEY]!;
+}
+
+/**
+ * What the last boot of this process did to the schema, and whether anything
+ * protected it. Null until a boot has looked.
+ *
+ * It is exported because "the migration failed AND there was no snapshot" must
+ * never be discovered as a surprise: a later failure report can read this and
+ * say so. It is the carried half of the loud-proceed policy.
+ */
+export interface UnsnapshottedApply {
+  at: string;
+  dataDir: string;
+  pending: string;
+}
+let unsnapshottedApply: UnsnapshottedApply | null = null;
+export const lastUnsnapshottedApply = (): UnsnapshottedApply | null => unsnapshottedApply;
+
+/**
+ * Say what this boot is about to change, before it changes it.
+ *
+ * THE POLICY, from the technique, keyed on what is known about the pending work:
+ *   • nothing pending, or a fresh store ⇒ silent. A boot that re-asserts the
+ *     schema is not an event, and a store being created has nothing to lose.
+ *   • additive work pending ⇒ PROCEED, LOUDLY. Blocking every boot on the
+ *     absence of a backup would convert a hypothetical risk into a certain
+ *     outage; the skipped snapshot is named here and carried in
+ *     `lastUnsnapshottedApply()` for any later failure report.
+ *   • DESTRUCTIVE work pending ⇒ REFUSE. Running a one-way door with the safety
+ *     net cut is the one case where the outage is the cheaper outcome.
+ *
+ * Failing to answer the question is not a reason to skip the DDL: an unreadable
+ * catalog is reported and the boot continues, because `open()`'s contract is to
+ * either produce a working store or reject, and "I could not check" is neither.
+ */
+export async function disclosePendingDdl(pg: Pglite, ddl: string = CORE_DDL): Promise<void> {
+  const { describePending, destructiveStatements, pendingSchemaObjects } = await import("./pending");
+  let pending;
+  try {
+    pending = await pendingSchemaObjects(pg, ddl);
+  } catch (err) {
+    console.warn(`[db] could not determine whether schema work is pending before applying CORE_DDL: ${String(err)}`);
+    return;
+  }
+  if (pending.count === 0 || pending.storeState === "fresh") return;
+
+  const destructive = destructiveStatements(ddl);
+  if (destructive.length > 0) {
+    throw new Error(
+      `[db] REFUSING to apply CORE_DDL: ${describePending(pending)}, and the DDL contains ${destructive.length} ` +
+        `destructive statement(s) — ${destructive[0]}. A destructive migration must not run without a snapshot. ` +
+        `Run \`npm run db:migrate\`, which snapshots and verifies first.`,
+    );
+  }
+
+  unsnapshottedApply = { at: new Date().toISOString(), dataDir: pglitePath(), pending: describePending(pending) };
+  console.warn(
+    `[db] applying schema work at boot WITHOUT a pre-migration snapshot: ${describePending(pending)}. ` +
+      `Every step is additive (create/add column, guarded by if-not-exists), which is why this proceeds instead ` +
+      `of refusing — but the copy that would let you go back was not taken. \`npm run db:migrate\` takes a ` +
+      `verified snapshot first and applies the same DDL.`,
+  );
 }
 
 /* ── row coercion helpers ────────────────────────────────────────────────── */

@@ -36,7 +36,16 @@ npm run db:accounting # per-table rows/bytes/share + the declared retention of
                       #   each table. PGlite is single-connection: while the dev
                       #   server holds .pglite this refuses to open it — point
                       #   PGLITE_PATH at a copy instead.
+npm run db:migrate    # apply CORE_DDL the safe way: detect what is actually
+                      #   pending, take a VERIFIED snapshot first if anything is,
+                      #   then apply. `-- --dry-run` reports and changes nothing.
+npm run db:restore    # put a pre-migration snapshot back (--from=… --yes).
+                      #   Moves the damaged store aside; never deletes a store.
 ```
+
+**Changing `CORE_DDL`?** Booting the app applies it with no snapshot — it says so
+loudly, but the copy that would let you go back was not taken. Run
+`npm run db:migrate` instead; it is the same DDL with the door held open.
 
 ## Architecture in one paragraph
 

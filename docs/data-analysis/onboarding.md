@@ -132,6 +132,12 @@ declared for it. Run it the way every analysis pass runs — against a COPY:
 PGLITE_PATH=./.pglite-backup-2026-08-24-pass73-pre npm run db:accounting
 ```
 
+Changing the schema: `npm run db:migrate` applies `CORE_DDL` after taking a
+verified pre-migration snapshot of whatever the store already holds (and takes
+none when nothing is pending, which on a healthy store is every time). Booting
+the app applies the same DDL with no snapshot — it warns, but the copy is not
+there. `npm run db:restore -- --from=… --yes` is the way back.
+
 Measured that way on 2026-08-24: `vote_ballot` 489 MB (33 %), `kg_node` 393 MB,
 `kg_edge` 328 MB, the two append-only history tables 202 MB together (13,6 %).
 The scan costs ~1 s. Dead-tuple/bloat figures are **not available** on this

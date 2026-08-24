@@ -301,6 +301,41 @@ wanted-but-deferred consideration and every failure lands in a bounded ledger
 (`maintenanceReport()`), because a log that records only successes cannot tell a
 healthy store from a scheduler that has been deferring for a month.
 
+### The schema door
+
+`open()` replays the whole `CORE_DDL` at every boot behind `if not exists`
+guards. That is a ledger-less design, and its cost is that a boot which CHANGES
+the schema looked exactly like the thousand boots that only re-assert it — so
+nothing could ever have snapshotted before a change.
+
+- **R18 — a guarded-replay schema has an is-work-pending signal after all: the
+  catalog.** Every step `CORE_DDL` performs is a guarded CREATE or ADD COLUMN, so
+  the work it would do is exactly the difference between what it declares and
+  what `pg_tables` / `pg_indexes` / `information_schema.columns` already carry.
+  `lib/db/pglite/pending.ts` computes that difference in three reads (measured on
+  the 2 GB copy: detect + full DDL replay = **42 ms**), which buys the refinement
+  a ledger-less design is normally told it cannot have — snapshot when work is
+  pending, take zero snapshots when it is not, instead of copying 2 GB on every
+  boot. It is one-way by design (declared → present); the other direction is
+  `npm run db:snapshot -- --check`. _(premigration, 2026-08-24)_
+- **R19 — "it opened" is not a verified backup on this engine.** Given a
+  directory it cannot read as a store, PGlite does not fail — it INITIALIZES A
+  NEW ONE. Measured: deleting `global/pg_control` from a 19 MB provisioned copy,
+  and deleting `base/` outright, both produced a connection that opened cleanly
+  and answered queries with **zero tables**. A verifier that only asks "did it
+  open" therefore certifies a gutted copy as recoverable. `verifyStoreCopy()`
+  requires the reopened copy to come back carrying tables. _(premigration,
+  2026-08-24)_
+
+The ceremony lives in `npm run db:migrate` (detect → snapshot → verify by
+reopening → apply → re-check) and `npm run db:restore` (verify the copy, move the
+damaged store aside — never delete it — put the file set back, verify again). The
+restore path is exercised in `lib/db/pglite/premigration.test.ts` rather than
+first attempted in an incident. One Windows-specific fact found while doing that:
+a PGlite open that FAILS still holds the directory in that process, so the rename
+that moves a damaged store aside comes back `EPERM` — which is why restore is a
+separate process and not a recovery branch inside the app.
+
 ## Roadmap — experiments to add
 
 1. **OLAP** over 406k ballots — PGlite vs DuckDB vs SQLite _(✓ done — case #1)_.

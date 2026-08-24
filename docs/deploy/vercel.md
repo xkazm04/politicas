@@ -131,6 +131,16 @@ Notes:
 - `ADMIN_TOKEN` / `REVIEWER_TOKEN` are server-only (never `NEXT_PUBLIC_`),
   compared in constant time by the shared gate `lib/security/token.ts`. Use
   different values for the two — they guard different privileges.
+- **A boot that changes the schema now says so in the logs.** `open()` compares
+  `CORE_DDL`'s declarations against the catalog before applying them; if anything
+  is genuinely pending on an existing store it logs `applying schema work at boot
+  WITHOUT a pre-migration snapshot` and names the objects. It proceeds, because
+  every step is additive and refusing to boot over a missing backup turns a
+  hypothetical risk into a certain outage — but that line is the record, and
+  `lastUnsnapshottedApply()` carries it for any later failure report. Deliberate
+  schema changes should go through `npm run db:migrate`, which snapshots and
+  verifies first. If `CORE_DDL` ever contains a destructive statement, the boot
+  refuses instead.
 
 ## 3. What can go wrong (top 3)
 

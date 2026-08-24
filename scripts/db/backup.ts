@@ -32,33 +32,18 @@
  *   npm run db:backup -- --prune-only       # no new copy, just enforce the cap
  *   npm run db:backup -- --dry-run
  */
-import { cp, readdir, rm, stat } from "node:fs/promises";
+import { stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { pglitePath } from "@/lib/db/config";
+// The copy rules (filter the holder marker, treat the store as a file set,
+// rotate whole copies by our own prefix) live in ONE module, shared with the
+// pre-migration snapshot — two copies of that doctrine is how they start
+// disagreeing about which files a store is.
+import { copyStoreDir, dirSize, mbOf as mb, rotateByPrefix } from "@/lib/db/pglite/storeCopy";
 
 const PREFIX = ".pglite-backup-";
 const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.split("=").slice(1).join("=");
 const flag = (k: string) => process.argv.includes(`--${k}`);
-
-async function dirSize(path: string): Promise<number> {
-  let total = 0;
-  for (const entry of await readdir(path, { withFileTypes: true })) {
-    const p = join(path, entry.name);
-    total += entry.isDirectory() ? await dirSize(p) : (await stat(p)).size;
-  }
-  return total;
-}
-const mb = (n: number) => `${Math.round(n / 1_048_576).toLocaleString("cs-CZ")} MB`;
-
-async function listBackups(root: string): Promise<{ name: string; path: string; mtimeMs: number }[]> {
-  const out = [];
-  for (const e of await readdir(root, { withFileTypes: true })) {
-    if (!e.isDirectory() || !e.name.startsWith(PREFIX)) continue;
-    const path = join(root, e.name);
-    out.push({ name: e.name, path, mtimeMs: (await stat(path)).mtimeMs });
-  }
-  return out.sort((a, b) => a.mtimeMs - b.mtimeMs);
-}
 
 async function main() {
   const keep = Number(arg("keep") ?? 2);
@@ -95,30 +80,15 @@ async function main() {
     }
     console.log(`${dryRun ? "[dry-run] would copy" : "copying"} ${live} -> ${dest}`);
     if (!dryRun) {
-      await cp(live, dest, {
-        recursive: true,
-        filter: (src) => !src.endsWith("postmaster.pid"),
-      });
+      await copyStoreDir(live, dest);
       console.log(`copied: ${mb(await dirSize(dest))}`);
     }
   }
 
   // 3. Prune to the last `keep`, oldest first. Only dirs carrying OUR prefix — a damaged
   //    dir someone parked for autopsy, a case copy, `.pglite-absent`, are not ours.
-  const backups = await listBackups(root);
-  const excess = backups.slice(0, Math.max(0, backups.length - keep));
-  if (excess.length === 0) {
-    console.log(`backups: ${backups.length}, cap ${keep} — nothing to prune`);
-  } else {
-    console.log(`backups: ${backups.length}, cap ${keep} — pruning ${excess.length}:`);
-    for (const b of excess) {
-      const size = await dirSize(b.path);
-      console.log(`  ${dryRun ? "[dry-run] would remove" : "removing"} ${b.name} (${mb(size)})`);
-      if (!dryRun) await rm(b.path, { recursive: true, force: true });
-    }
-  }
-  const left = await listBackups(root);
-  console.log(`kept: ${left.map((b) => b.name).join(", ") || "(none)"}`);
+  const { kept } = await rotateByPrefix(root, PREFIX, keep, { dryRun });
+  console.log(`kept: ${kept.join(", ") || "(none)"}`);
 }
 
 main().then(

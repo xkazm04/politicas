@@ -88,6 +88,7 @@ npm run dev          # dev server (Next.js App Router)
 npm run check        # THE gate: typecheck + lint + test — run before calling work done
 npm run build        # production build
 npm run db:accounting # what the embedded store is made of, per table
+npm run db:migrate    # apply a schema change with a verified snapshot first
 ```
 
 ## Status

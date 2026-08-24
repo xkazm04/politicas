@@ -116,6 +116,16 @@ longer manual: `lib/db/pglite/maintenance.ts` takes the pass when no operation
 is in flight, because the alternative is not "no checkpoint" but the engine's
 inline `max_wal_size` one, landing in the middle of somebody's write.
 
+**Schema changes go through `npm run db:migrate`**, not through booting the app.
+`open()` replays `CORE_DDL` at every boot, so a boot that would CHANGE the schema
+is otherwise indistinguishable from the thousand that re-assert it — it now
+compares the DDL's declarations against the catalog and says, loudly, that it is
+applying schema work with no snapshot (and refuses outright if the DDL ever grows
+a destructive statement). `db:migrate` does the same apply with the door held
+open: detect → snapshot → verify by reopening the copy → apply → re-check.
+`npm run db:restore -- --from=… --yes` is the way back, and it moves the damaged
+store aside rather than deleting it.
+
 `npm run check` and CI are NOT the same set, and neither is a superset: `check`
 adds `census:test` + `library:check`; CI adds the schema-snapshot drift check and
 `build`. `npm run census` (the golden-path ratchet) is in neither — its rule
