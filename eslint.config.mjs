@@ -110,11 +110,35 @@ const eslintConfig = defineConfig([
   // warn-level rule with an empty inventory protects nothing here — `npm run
   // lint` sets no --max-warnings — so an empty inventory is the moment to
   // promote, or the burn-down silently reverses.
+  //
+  // THIRD DOCTRINE RULE, 2026-08-24: `no-source-note-size-override` joins them
+  // at `error` on arrival, for the same reason and by the same evidence.
+  // DESIGN.md §3 has forbidden `className="!text-[10px]"` on a <SourceNote> in
+  // plain words since 2026-07-29 ("Two such overrides existed on the landing and
+  // were removed. Do not add another."). On 2026-08-24 there were 72, across 29
+  // files — 66 at 10 px, 6 at 11 px — removed in 776f01a. A cultural rule that
+  // failed 72 times is not a rule.
+  // Measured AFTER that sweep, repo-wide (`eslint --format json` over features
+  // app lib scripts packages): 0 hits for the shape this rule matches, against a
+  // live population of 404 <SourceNote> call sites in 107 files. Precision is
+  // therefore stated on the negative side and on the fixture side: 8 live colour
+  // overrides (`!text-ochre` ×6, `!text-cobalt`, `!${tone.text}`) and every
+  // spacing/case/tracking override stay silent, because the matcher requires
+  // positive evidence that a `text-*` token sets FONT-SIZE. Ships at `error`
+  // rather than `warn` for the reason written twice above: no `--max-warnings`
+  // exists here, so warn enforces nothing by construction.
+  // ONE KNOWN LIVE VIOLATION IS OUT OF THE MATCHER'S REACH and is recorded
+  // rather than exempted: features/money/components/BasisDisclosure.tsx:61
+  // launders `!text-[10px]` through a prop default and passes it as
+  // `className={className}`. Widening the matcher to resolve single-definition
+  // static initialisers is the intended next step — after that default is
+  // fixed, not before, so the rule is not red on arrival.
   {
     files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
     rules: {
       "custom/require-source-citation": "error",
       "custom/no-raw-number-display": "error",
+      "custom/no-source-note-size-override": "error",
     },
   },
   {

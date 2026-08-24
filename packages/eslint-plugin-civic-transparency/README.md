@@ -1,10 +1,11 @@
 # eslint-plugin-civic-transparency
 
 The [politicas](../../README.md) lint doctrine, packaged as a flat-config ESLint
-plugin. Eight rules that turn editorial guarantees into build gates: no silent
+plugin. Nine rules that turn editorial guarantees into build gates: no silent
 failures, a hard server/client boundary, keyboard operability, motion safety,
-design-token color discipline — and the flagship pair that makes **number
-provenance machine-enforced**: an uncited rendered figure fails lint.
+design-token color discipline — and the flagship trio that makes **number
+provenance machine-enforced**: an uncited rendered figure fails lint, and so
+does a call site that shrinks the citation below the readability floor.
 
 Battle-tested as the politicas repo's own lint layer (this repo is the first
 consumer, via `eslint.config.mjs` at the root). Dependency-free rule
@@ -28,6 +29,7 @@ implementations; ESLint ≥ 9 (flat config) as a peer.
 | [`no-hardcoded-colors`](docs/rules/no-hardcoded-colors.md) | design-token color discipline | warn | error |
 | [`require-source-citation`](docs/rules/require-source-citation.md) | **doctrine**: rendered figures carry provenance | — | error |
 | [`no-raw-number-display`](docs/rules/no-raw-number-display.md) | **doctrine**: formatting only via the chokepoint | — | error |
+| [`no-source-note-size-override`](docs/rules/no-source-note-size-override.md) | **doctrine**: a citation that cannot be read has not been made | — | error |
 
 Each rule doc covers **when it fires**, **escape hatches**, and **why it
 exists** — read the doc before adopting a rule; several are convention-driven
@@ -61,8 +63,10 @@ export default [
   `warn` because their fix paths name project conventions (a token layer, a
   `reportLoaderFailure` helper) you need to map first.
 - **`strict`** — everything at `error`, including the provenance doctrine.
-  Only adopt the doctrine pair if you have a formatting chokepoint and
-  provenance components (see their docs).
+  Only adopt the doctrine rules if you have a formatting chokepoint and
+  provenance components (see their docs); `no-source-note-size-override` names
+  one component by literal element name, so in a repo without that primitive it
+  can only ever be dead.
 
 Or register the plugin under your own prefix and choose severities per scope —
 what politicas itself does (prefix `custom`, historical):
@@ -96,7 +100,7 @@ The pack's severity policy, learned the useful way:
 
 ## Testing
 
-RuleTester suites for all eight rules, plain node, no runner dependency:
+RuleTester suites for all nine rules, plain node, no runner dependency:
 
 ```
 node packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs

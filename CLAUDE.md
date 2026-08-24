@@ -115,14 +115,15 @@ satisfied, 7 declined), and the ported runner treats an empty registry as a
 structural failure, so the command cannot exit 0 today. `npm run library:check`
 is the live half of that mechanism and IS gated.
 
-Custom ESLint rules — **eight**, and their canonical source is the in-repo
+Custom ESLint rules — **nine**, and their canonical source is the in-repo
 package `packages/eslint-plugin-civic-transparency/` (`eslint-rules/*.cjs` are
 one-line compat shims; `npm run test:rules` asserts the shims and the package
 stay one implementation). `eslint.config.mjs` registers them under the
 historical `custom` prefix rather than spreading the package's `recommended`
 preset, so the repo's rule IDs, severities and path scopes stay exactly as
 written there — the presets exist for external adopters. Six are error-level
-everywhere; the provenance pair is scoped and laddered (see the config):
+everywhere; the three doctrine rules are scoped to reader-facing surfaces (see
+the config):
 - `custom/no-hardcoded-colors` — token discipline (politicas-specific)
 - `custom/no-silent-catch` — empty catch blocks swallow errors
 - `custom/role-button-requires-keydown` — a11y for click-role elements
@@ -138,6 +139,11 @@ everywhere; the provenance pair is scoped and laddered (see the config):
   provenance element. `error` under `app/**`; still `warn` under `features/**`
   while 11 measured violations burn down (2026-08-24), in three files named in
   `eslint.config.mjs`
+- `custom/no-source-note-size-override` — no font-size utility in a
+  `<SourceNote>` className; the citation primitive sets its own size by
+  measuring its children (`docs/DESIGN.md` §3). `error` under `app/**` AND
+  `features/**` since 2026-08-24, at a measured 0 after 72 overrides across
+  29 files were removed in 776f01a
 
 CI: `.github/workflows/ci.yml` — live on `xkazm04/politicas` (the repo split
 happened). Runs typecheck → lint → test → test:rules → schema-snapshot drift →
@@ -169,7 +175,7 @@ is not green.
       `reportLoaderFailure()` (`lib/db/loaderGuard.ts`), and the surface shows
       a labelled mock or an honest empty state (`DataUnavailable`) — never
       plausible fiction presented as real.
-- [ ] The eight custom ESLint rules pass **unsuppressed** — and that includes
+- [ ] The nine custom ESLint rules pass **unsuppressed** — and that includes
       the warn-level `custom/require-source-citation` under `features/**`: its
       count may go down, never up. Fix the code; do not disable a rule, add an
       `eslint-disable`, or widen an exemption zone in `eslint.config.mjs`.

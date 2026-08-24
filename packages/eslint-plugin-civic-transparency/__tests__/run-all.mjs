@@ -35,11 +35,12 @@ const EXPECTED_RULES = [
   "no-server-import-in-client",
   "no-silent-catch",
   "no-silent-null-catch",
+  "no-source-note-size-override",
   "require-source-citation",
   "role-button-requires-keydown",
 ];
 
-assert.deepEqual(Object.keys(plugin.rules).sort(), EXPECTED_RULES, "plugin.rules exports all 8 rules");
+assert.deepEqual(Object.keys(plugin.rules).sort(), EXPECTED_RULES, "plugin.rules exports all 9 rules");
 for (const [name, rule] of Object.entries(plugin.rules)) {
   assert.equal(typeof rule.create, "function", `${name} has a create()`);
   assert.ok(rule.meta && rule.meta.docs && rule.meta.docs.description, `${name} has meta.docs.description`);
@@ -57,9 +58,9 @@ for (const presetName of ["recommended", "strict"]) {
     }
   }
 }
-// strict covers every rule; recommended covers everything except the doctrine pair.
+// strict covers every rule; recommended covers everything except the doctrine rules.
 const strictRules = Object.keys(plugin.configs.strict[0].rules).map((r) => r.split("/")[1]).sort();
-assert.deepEqual(strictRules, EXPECTED_RULES, "strict preset enables all 8 rules");
+assert.deepEqual(strictRules, EXPECTED_RULES, "strict preset enables all 9 rules");
 
 // ── 3. Shim equivalence: the eslint-rules/ compat shims re-export these ──────
 // (skipped gracefully if the shims are absent, e.g. when the package is

@@ -1,11 +1,13 @@
 /**
  * eslint-plugin-civic-transparency — the politicas lint doctrine as a plugin.
  *
- * Eight flat-config rules that make editorial guarantees machine-enforced:
+ * Nine flat-config rules that make editorial guarantees machine-enforced:
  * no swallowed errors, no silent loader degradation, a hard server/client
  * boundary, keyboard operability, WCAG 2.3.3 motion safety, design-token
- * color discipline, and the two provenance doctrine rules (every rendered
- * number carries its source; formatting happens once, in one chokepoint).
+ * color discipline, the two provenance doctrine rules (every rendered number
+ * carries its source; formatting happens once, in one chokepoint), and the
+ * legibility half of the same doctrine — a citation that cannot be read has
+ * not been made, so no call site overrides the citation primitive's size.
  *
  * Consumption (flat config):
  *
@@ -39,6 +41,7 @@ const plugin = {
     "no-hardcoded-colors": require("./rules/no-hardcoded-colors.cjs"),
     "require-source-citation": require("./rules/require-source-citation.cjs"),
     "no-raw-number-display": require("./rules/no-raw-number-display.cjs"),
+    "no-source-note-size-override": require("./rules/no-source-note-size-override.cjs"),
   },
   configs: {},
 };
@@ -54,10 +57,13 @@ const plugin = {
 //   helper — see their docs for how to map those onto your project).
 //
 // `strict` — everything at `error`, including the provenance doctrine rules
-//   (require-source-citation, no-raw-number-display). Only adopt these two if
-//   your project has a formatting chokepoint shaped like lib/format.ts and
-//   provenance components shaped like SourceNote — they are the politicas
-//   doctrine made portable, not a generic best practice.
+//   (require-source-citation, no-raw-number-display) and the citation-
+//   legibility rule (no-source-note-size-override). Only adopt these three if
+//   your project has a formatting chokepoint shaped like lib/format.ts and a
+//   citation primitive named SourceNote — they are the politicas doctrine
+//   made portable, not a generic best practice. The size rule in particular
+//   hard-codes that element NAME, which is the whole reason it stays out of
+//   `recommended`: in a repo without that primitive it can only ever be dead.
 plugin.configs.recommended = [
   {
     name: "civic-transparency/recommended",
@@ -88,6 +94,7 @@ plugin.configs.strict = [
       "civic-transparency/no-silent-null-catch": "error",
       "civic-transparency/require-source-citation": "error",
       "civic-transparency/no-raw-number-display": "error",
+      "civic-transparency/no-source-note-size-override": "error",
     },
   },
 ];
