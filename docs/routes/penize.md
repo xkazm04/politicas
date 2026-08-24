@@ -709,3 +709,21 @@ Holding 58,05 %, EnBW CEE Holding 41,40 %) and ČSOB Pojišťovna's named hlavn�
 Verzekeringen NV). These land as **`ownership_disclosed`** — a cited layer ON TOP of the
 register verdict, which stays „vlastník v rejstříku neuveden" because that is true of the
 register — and never as an `owns_stake` edge. The card prints „doloženo firmou … zdroj".
+
+**Prázdná kniha jmenuje, co ji vyprázdnilo (2026-08-24).** „Žádná vazba
+neodpovídá filtru" je pravda, která čtenáři nepomůže: kniha nese čtyři filtry
+(třída vazby, korroborace, časový stav, klub) plus hledání, chipy se balí do
+několika řad, a kdo přišel z odkazu nebo se na stránku vrátil, nepozná, který
+z nich seznam vysypal. Prázdný stav proto vypisuje AKTIVNÍ predikáty — týmiž
+popisky, jaké nesou chipy (`tieClassInfo` pro třídu, klíče `filterCorr*` /
+`filterStatus*` pro zbylé dva, jméno klubu, dotaz pro hledání), aby text
+a ovládání mluvily jedním jazykem. Původní věta zůstává jako záloha pro nula
+aktivních predikátů: prázdná tabulka bez filtru je JINÝ fakt a nesmí tvrdit,
+že se filtruje.
+
+**Sloupce se řadí nahlas (2026-08-24).** Řaditelné hlavičky knihy jsou jediné
+interaktivní řazení v aplikaci a `aria-sort` do té doby nebylo v repozitáři ani
+jednou — 211 řádků měnilo pořadí a asistivní technologii se to neřeklo, celé
+oznámení byla šipka. Aktivní sloupec teď nese `ascending`/`descending` odvozené
+z `sortDir` (1 = vzestupně, komparátory jím násobí rozdíl), ostatní řaditelné
+sloupce `none` — ne prázdno, aby čtečka věděla, že řadit JDE.

@@ -1460,6 +1460,8 @@
         "colStatus": "stav",
         "evidenceRule": "výchozí pořadí je podle síly důkazu, ne podle částky: korroborace v obchodním rejstříku rozhoduje o důvěře dřív, než peníze rozhodnou o velikosti — vazba potvrzená rejstříkem stojí výš než větší, ale nepotvrzená částka. Teprve uvnitř téže úrovně řadí dosažitelné peníze sestupně. Sloupec ukazuje třídu vazby, řadí se ale podle téhle síly (reviewTypes.ts).",
         "emptyFilters": "žádná vazba neodpovídá filtru",
+        "emptyFiltersNamed": "žádná vazba neodpovídá aktivnímu výběru: {predicates}",
+        "activeSearch": "hledání „{query}“",
         "prevPage": "předchozí",
         "nextPage": "další",
         "noTiesNote": "poslanci bez dohledané vazby na firmu — kontrola běží při každé denní ingesci",

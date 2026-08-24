@@ -63,6 +63,11 @@ const CLASS_TONE_CLS: Record<string, string> = {
 
 const PAGE_SIZE = 25;
 
+/** Hodnota filtru -> přípona jeho katalogového klíče (`unconfirmed` ->
+ *  `filterCorrUnconfirmed`). Jen tvarová pomůcka: seznam hodnot je uzavřený
+ *  a klíče existují, takže se tu nic nedomýšlí. */
+const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+
 export default function TiesLedger({
   data,
   review,
@@ -170,6 +175,21 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
     });
     return copy;
   }, [filtered, sortKey, sortDir]);
+
+  /* PRÁZDNO MÁ ŘÍCT, CO PRÁVĚ FILTRUJE. „Žádná vazba neodpovídá filtru" je
+     pravda, která čtenáři nepomůže: filtry jsou čtyři plus hledání, chipy se
+     zabalí do několika řad a ten, kdo přišel z odkazu nebo se vrátil na
+     stránku, netuší, který z nich seznam vyprázdnil. Predikáty se proto
+     jmenují — týmiž popisky, jaké nesou chipy, aby text a ovládání mluvily
+     jedním jazykem (dvě jména pro jeden filtr jsou horší než žádné). */
+  const activePredicates: string[] = [];
+  if (search.trim() !== "") activePredicates.push(t("real.ledger.activeSearch", { query: search.trim() }));
+  if (classFilter !== "all") {
+    activePredicates.push(en ? tieClassInfo(classFilter).labelEn : tieClassInfo(classFilter).labelCs);
+  }
+  if (corrFilter !== "all") activePredicates.push(t(`real.ledger.filterCorr${capitalize(corrFilter)}`));
+  if (temporalFilter !== "all") activePredicates.push(t(`real.ledger.filterStatus${capitalize(temporalFilter)}`));
+  if (clubFilter !== "all") activePredicates.push(clubFilter);
 
   const pageCount = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
   const clampedPage = Math.min(page, pageCount - 1);
@@ -454,7 +474,9 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
             {shown.length === 0 && (
               <tr>
                 <td colSpan={5} className="px-3 py-8 text-center italic text-steel">
-                  {t("real.ledger.emptyFilters")}
+                  {activePredicates.length > 0
+                    ? t("real.ledger.emptyFiltersNamed", { predicates: activePredicates.join(" · ") })
+                    : t("real.ledger.emptyFilters")}
                 </td>
               </tr>
             )}

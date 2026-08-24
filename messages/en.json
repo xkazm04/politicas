@@ -1460,6 +1460,8 @@
         "colStatus": "status",
         "evidenceRule": "the default order is by evidence strength, not by amount: corroboration in the commercial register gates trust before money gates size — a registry-confirmed tie ranks above a larger unconfirmed sum. Only within one level does reachable money sort descending. The column shows the tie class, but the order follows that strength (reviewTypes.ts).",
         "emptyFilters": "no ties match these filters",
+        "emptyFiltersNamed": "no tie matches the active selection: {predicates}",
+        "activeSearch": "search “{query}”",
         "prevPage": "prev",
         "nextPage": "next",
         "noTiesNote": "MPs with no traced company tie — review runs on every daily ingest",
