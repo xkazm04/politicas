@@ -29,6 +29,17 @@ capabilities:
   gate: { command: "npm run check", verified: false }
   smoke: { command: "npm run smoke", verified: false }
   lint-rule-tests: { command: "npm run test:rules", verified: false }
+  # KNOWN BROKEN UPSTREAM, and named here rather than quietly dropped (2026-08-24).
+  # `npm run census` cannot exit 0 in this repo today. scripts/census/rules.json holds
+  # zero ADOPTED rules on purpose — 2 satisfied, 7 declined, 36 unreviewed, a reviewed
+  # and honest state — but the ported runner treats an empty registry as a structural
+  # failure rather than as a pass. The runner is a VERBATIM port of personas' and must
+  # not be forked here (forking it is how two copies of one instrument start disagreeing),
+  # so the fix belongs upstream: an empty-but-reviewed registry is a pass, not a broken
+  # instrument. Until that lands, this capability names a command that always fails —
+  # which is a lie a reader deserves to be warned about, per docs/AI_MANIFEST_SPEC.md.
+  # `npm run census:test` (the runner's own self-test, 23/23) IS green and runs in the
+  # gate; it is the liveness evidence this capability cannot currently give.
   catalog-census: { command: "npm run census", verified: false }
   db-backup: { command: "npm run db:backup", verified: false }
 
