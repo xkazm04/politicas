@@ -30,6 +30,7 @@ import { useTranslations } from "next-intl";
 import { Expand, Scan, Shrink, ZoomIn, ZoomOut } from "lucide-react";
 import { useForensicMode } from "@/features/shared/forensic/ForensicProvider";
 import type { Point } from "@/lib/kg/layout";
+import { arrowheadAt } from "../arrowhead";
 import { edgeKey } from "../forensicView";
 import { KIND_FILL_TOKEN, KIND_STYLE, traceGlyph, type GlyphShape } from "../kindStyle";
 import { readStagePalette } from "../stagePalette";
@@ -64,6 +65,15 @@ export { edgeKey };
 type Box = [number, number, number, number];
 const collides = (a: Box, boxes: Box[]) =>
   boxes.some((b) => a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1]);
+
+// Hrot šipky: velikost KONSTANTNÍ na obrazovce (proto se dělí `k`, stejně
+// jako šířka čar o pár řádků níž). Pod ARROW_MIN_K hroty mizí dřív než
+// hrany samy — nahoušená spleť malých trojúhelníků nikomu nepomůže dřív,
+// než se dá rozeznat i jeden (ai-registry canvas-graph/edge-management,
+// „Zoom-aware detail": far out, edges thin, lose arrowheads and labels).
+const ARROW_LEN = 8;
+const ARROW_HALF_WIDTH = 3.2;
+const ARROW_MIN_K = 0.55;
 
 export default function GraphStage({
   nodes,
@@ -175,10 +185,34 @@ export default function GraphStage({
     };
     const dimming = focus !== null || lens != null;
 
+    // Uzel podle id — JEDINÝ dodatečný index tohoto průchodu, potřebný jen
+    // pro poloměr cílového uzlu pod hrotem šipky (sdílená geometrie uzlu,
+    // ne druhá kopie „kde uzel končí" — ai-registry canvas-graph/
+    // edge-management). O(n), stejného řádu jako `incident`/`buckets` níž.
+    const nodeById = new Map(nodes.map((n) => [n.id, n] as const));
+
+    // Hroty šipek se SBÍRAJÍ do jedné dávky (Path2D) na kbelík a vykreslí
+    // jedním fill() — ne stavem měněným na každé hraně (render-budget).
+    // Pod ARROW_MIN_K se nesbírají vůbec (zoom-aware detail).
+    const addArrow = (path: Path2D, a: Point, b: Point, dstId: string): boolean => {
+      if (k < ARROW_MIN_K) return false;
+      const dstNode = nodeById.get(dstId);
+      if (!dstNode) return false;
+      const head = arrowheadAt(a, b, radiusOf(dstNode), ARROW_LEN / k, ARROW_HALF_WIDTH / k);
+      if (!head) return false;
+      path.moveTo(head.tip.x, head.tip.y);
+      path.lineTo(head.left.x, head.left.y);
+      path.lineTo(head.right.x, head.right.y);
+      path.closePath();
+      return true;
+    };
+
     // ── Hrany: jedna cesta plné, jedna čárkované; minK gate; culling. ──
     const bulk = (dashed: boolean) => {
       ctx.beginPath();
+      const arrows = new Path2D();
       let drew = false;
+      let arrowed = false;
       for (const e of edges) {
         if (e.pending !== dashed) continue;
         if (e.minK !== undefined && k < e.minK) continue;
@@ -193,6 +227,7 @@ export default function GraphStage({
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         drew = true;
+        if (addArrow(arrows, a, b, e.dst)) arrowed = true;
       }
       if (!drew) return;
       ctx.setLineDash(dashed ? [5, 5] : []);
@@ -200,6 +235,10 @@ export default function GraphStage({
       ctx.globalAlpha = lens ? 0.1 : focus ? 0.22 : 0.6;
       ctx.lineWidth = 1.3 / k;
       ctx.stroke();
+      if (arrowed) {
+        ctx.fillStyle = pal.steel;
+        ctx.fill(arrows);
+      }
     };
     bulk(false);
     bulk(true);
@@ -211,6 +250,8 @@ export default function GraphStage({
       ctx.strokeStyle = pal.ink;
       ctx.lineWidth = 1.9 / k;
       ctx.globalAlpha = 0.85;
+      const arrows = new Path2D();
+      let arrowed = false;
       for (const e of edges) {
         if (!lens.edges.has(edgeKey(e))) continue;
         if (focus && (e.src === focus || e.dst === focus)) continue;
@@ -222,14 +263,21 @@ export default function GraphStage({
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         ctx.stroke();
+        if (addArrow(arrows, a, b, e.dst)) arrowed = true;
       }
       ctx.setLineDash([]);
+      if (arrowed) {
+        ctx.fillStyle = pal.ink;
+        ctx.fill(arrows);
+      }
       ctx.globalAlpha = 1;
     }
 
     if (focus) {
       ctx.strokeStyle = pal.signal;
       ctx.lineWidth = 2 / k;
+      const arrows = new Path2D();
+      let arrowed = false;
       for (const e of focusEdges) {
         const a = positions.get(e.src);
         const b = positions.get(e.dst);
@@ -239,8 +287,13 @@ export default function GraphStage({
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         ctx.stroke();
+        if (addArrow(arrows, a, b, e.dst)) arrowed = true;
       }
       ctx.setLineDash([]);
+      if (arrowed) {
+        ctx.fillStyle = pal.signal;
+        ctx.fill(arrows);
+      }
     }
 
     // ── Uzly po kbelících (tvar × barva × poloměr). ──
