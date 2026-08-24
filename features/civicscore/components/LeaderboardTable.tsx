@@ -501,12 +501,12 @@ export default function LeaderboardTable({
         {custom ? (
           <SourceNote>{t("lensTableNote")}</SourceNote>
         ) : (
-          <SourceNote className="!text-[10px]">{t("realNote", { count: f.int(entries.length) })}</SourceNote>
+          <SourceNote>{t("realNote", { count: f.int(entries.length) })}</SourceNote>
         )}
       </div>
       {correctionCount > 0 && (
         <div className="mt-2">
-          <SourceNote className="!text-[10px]">
+          <SourceNote>
             {t("correctionNote", { count: f.int(correctionCount), total: f.int(entries.length) })}
           </SourceNote>
         </div>
@@ -514,7 +514,7 @@ export default function LeaderboardTable({
       {/* Co „=" znamená a co zbylý pořádek uvnitř shody NEznamená — bez toho by
           abecední řazení vypadalo jako výsledek. */}
       <div className="mt-2">
-        <SourceNote className="!text-[10px]">
+        <SourceNote>
           {t("tieNote", { shared: f.int(tieStats.shared), total: f.int(tieStats.total), groups: f.int(tieStats.groups) })}
         </SourceNote>
       </div>

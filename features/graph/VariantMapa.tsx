@@ -375,7 +375,7 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
                         <span className="mt-1 block text-[13px] leading-snug text-steel">
                           {tt(`trails.${trail.key}.lead`)}
                         </span>
-                        <SourceNote className="mt-1 !text-[10px]">{tt(`trails.${trail.key}.source`)}</SourceNote>
+                        <SourceNote className="mt-1">{tt(`trails.${trail.key}.source`)}</SourceNote>
                       </>
                     )}
                   </button>

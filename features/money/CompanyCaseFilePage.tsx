@@ -208,7 +208,7 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
               <>
                 <p className="mt-2 text-sm leading-relaxed text-steel">{mandateDecided.publicMandateReason}</p>
                 {mandateDecided.publicMandateOwners.length > 0 ? (
-                  <SourceNote className="mt-1 !text-[10px]">
+                  <SourceNote className="mt-1">
                     {t("companyFile.publicOwnerSource", {
                       owners: mandateDecided.publicMandateOwners
                         .map((o) => (o.ico ? `${o.name} (IČO ${o.ico})` : o.name))
@@ -222,7 +222,7 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
                 {attributable ? t("companyFile.attributableRule") : t("companyFile.stewardRule")}
               </p>
             )}
-            <SourceNote className="mt-3 !text-[10px]">
+            <SourceNote className="mt-3">
               {t("companyFile.reachSource")}
               {reachIsFloor ? t("companyFile.reachReadCapped") : ""}
             </SourceNote>
@@ -244,7 +244,7 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
               {t("shared.titlesCount", { count: data.subsidiesCount })}
             </p>
-            <SourceNote className="mt-3 !text-[10px]">{t("companyFile.subsidiesSource")}</SourceNote>
+            <SourceNote className="mt-3">{t("companyFile.subsidiesSource")}</SourceNote>
           </div>
           <div className="bg-paper p-6">
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
@@ -258,7 +258,7 @@ export default function CompanyCaseFilePage({ data }: { data: CompanyFileData | 
             <p className="mt-2 font-mono text-[11px] uppercase tracking-wider text-steel">
               {data.donationRecipientParty ?? t("companyFile.noDonation")}
             </p>
-            <SourceNote className="mt-3 !text-[10px]">{t("companyFile.donationSource")}</SourceNote>
+            <SourceNote className="mt-3">{t("companyFile.donationSource")}</SourceNote>
           </div>
         </div>
 
@@ -396,7 +396,7 @@ function RegistryLinks({ ico }: { ico: string }) {
           </a>
         ))}
       </div>
-      <SourceNote className="mt-3 !text-[10px]">{t("companyFile.deepLinksNote")}</SourceNote>
+      <SourceNote className="mt-3">{t("companyFile.deepLinksNote")}</SourceNote>
     </div>
   );
 }
@@ -441,7 +441,7 @@ function RegistryOnlyFile({ data }: { data: CompanyRegistryFileData }) {
           <p className="mt-2 text-sm leading-relaxed text-steel">
             {t("companyFile.registryOnlyNotEmpty")}
           </p>
-          <SourceNote className="mt-3 !text-[10px]">
+          <SourceNote className="mt-3">
             {t("companyFile.registryOnlySource")}
           </SourceNote>
         </div>

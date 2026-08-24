@@ -258,7 +258,7 @@ export default function ForensicIndexSection({
               {t("forensicIndex.shown", { shownFmt: f.int(rows.length), totalFmt: f.int(fi.verdictCount) })}
             </SourceNote>
             {fi.unlinkableCount > 0 && (
-              <SourceNote className="!text-[10px]">
+              <SourceNote>
                 {t("forensicIndex.unlinkable", {
                   count: fi.unlinkableCount,
                   countFmt: f.int(fi.unlinkableCount),

@@ -54,7 +54,7 @@ export default async function LowScoreReasonBadge({ reason }: { reason: string |
           {tv(copy.badgeKey)}
         </p>
         <p className="mt-1.5 text-sm leading-relaxed text-ink">{tv(copy.detailKey)}</p>
-        <SourceNote className="mt-2 !text-[10px]">{t("lowScoreSource")}</SourceNote>
+        <SourceNote className="mt-2">{t("lowScoreSource")}</SourceNote>
       </div>
     </div>
   );

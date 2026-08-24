@@ -72,7 +72,7 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
       {/* „CO TO MĚNÍ" — jedna čitelná věta dřív než cokoli jiného. Odvozeno deterministicky
           z textu tisku (nadpisy ČÁSTí / návětí / zrušovací klauzule), nikdy vymyšleno. */}
       <div className="mt-5 border-l-4 border-signal bg-paper-strong px-4 py-3">
-        <SourceNote tone="signal" className="!text-[11px]">
+        <SourceNote tone="signal">
           {t("detail.whatItChanges")}
         </SourceNote>
         {bill.summary ? (
@@ -115,7 +115,7 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
               {t("detail.statePrefix")} <span className="font-black text-ink">{bill.stav}</span>
             </span>
           )}
-          <SourceNote className="!text-[10px]">{t("detail.stateSource")}</SourceNote>
+          <SourceNote>{t("detail.stateSource")}</SourceNote>
         </div>
       )}
 
@@ -395,7 +395,7 @@ function ConflictBlock({ bill }: { bill: LawBillView }) {
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   return (
     <div className="mt-6 border-l-4 border-signal bg-paper-strong p-4">
-      <SourceNote tone="signal" className="!text-[10px]">
+      <SourceNote tone="signal">
         {t("detail.conflictSource")}
       </SourceNote>
       <p className="mt-2 text-[15px] font-medium leading-relaxed">
@@ -409,7 +409,7 @@ function ConflictBlock({ bill }: { bill: LawBillView }) {
       <p className="mt-2 text-[13px] leading-relaxed text-steel">{t("detail.conflictAttribution")}</p>
       {bill.sponsors.length > 0 && (
         <div className="mt-3">
-          <SourceNote className="!text-[10px]">{t("detail.conflictMoneyFiles")}</SourceNote>
+          <SourceNote>{t("detail.conflictMoneyFiles")}</SourceNote>
           <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1.5">
             {bill.sponsors.map((s) => (
               <Link
@@ -548,13 +548,13 @@ function ForensicBlock({
           )}
           {forensic.statedReasoning && (
             <div className="mt-3">
-              <SourceNote className="!text-[11px]">{t("forensic.declaredReason")}</SourceNote>
+              <SourceNote>{t("forensic.declaredReason")}</SourceNote>
               <p className="mt-1.5 text-sm leading-relaxed text-steel">{forensic.statedReasoning}</p>
             </div>
           )}
           {forensic.conflictAssessment && (
             <div className="mt-4">
-              <SourceNote className="!text-[11px]">{t("forensic.conflictAssessment")}</SourceNote>
+              <SourceNote>{t("forensic.conflictAssessment")}</SourceNote>
               <p className="mt-1.5 text-sm leading-relaxed">{forensic.conflictAssessment}</p>
             </div>
           )}
@@ -563,13 +563,13 @@ function ForensicBlock({
             <>
               {forensic.researchedContext && (
                 <div className="mt-4">
-                  <SourceNote className="!text-[11px]">{t("forensic.independentContext")}</SourceNote>
+                  <SourceNote>{t("forensic.independentContext")}</SourceNote>
                   <p className="mt-1.5 text-sm leading-relaxed text-steel">{forensic.researchedContext}</p>
                 </div>
               )}
               {effects.length > 0 && (
                 <div className="mt-4">
-                  <SourceNote className="!text-[11px]">{t("forensic.undeclaredEffects")}</SourceNote>
+                  <SourceNote>{t("forensic.undeclaredEffects")}</SourceNote>
                   <ul className="mt-2 space-y-3">
                     {effects.map((u, i) => (
                       <li key={i} className="border-l-4 border-signal pl-3">
@@ -672,7 +672,7 @@ function CitationList({ citations }: { citations: NonNullable<LawBillView["foren
   const t = useTranslations("lawwatch");
   return (
     <section className="border-t border-hairline pt-4">
-      <SourceNote className="!text-[11px]">{t("forensic.referencesHeading", { count: citations.length })}</SourceNote>
+      <SourceNote>{t("forensic.referencesHeading", { count: citations.length })}</SourceNote>
       <ol className="mt-2 space-y-2.5">
         {citations.map((c, i) => {
           const ref = citationRef(c.kind, c.source);
@@ -859,13 +859,13 @@ function ParagraphDiffBlock({ diffs }: { diffs: LawBillView["paragraphDiffs"] })
                 <div className="mt-2 grid gap-2 sm:grid-cols-2">
                   {h.before && (
                     <div className="border-l-4 border-hairline bg-paper-strong p-3">
-                      <SourceNote className="!text-[10px]">{f.date(d.from.date)}</SourceNote>
+                      <SourceNote>{f.date(d.from.date)}</SourceNote>
                       <p className="mt-1.5 text-[13px] leading-relaxed text-steel">{h.before}</p>
                     </div>
                   )}
                   {h.after && (
                     <div className="border-l-4 border-signal p-3">
-                      <SourceNote tone="signal" className="!text-[10px]">{f.date(d.to.date)}</SourceNote>
+                      <SourceNote tone="signal">{f.date(d.to.date)}</SourceNote>
                       <p className="mt-1.5 text-[13px] font-medium leading-relaxed">{h.after}</p>
                     </div>
                   )}

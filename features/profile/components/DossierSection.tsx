@@ -215,7 +215,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
                 })}
               </p>
             )}
-            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierVerdictsSource")}</SourceNote>
+            <SourceNote className="mt-2.5">{t("dossierVerdictsSource")}</SourceNote>
           </div>
         )}
 
@@ -311,7 +311,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
                 ))}
               </ul>
             )}
-            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierBillTrackSource")}</SourceNote>
+            <SourceNote className="mt-2.5">{t("dossierBillTrackSource")}</SourceNote>
           </div>
         )}
 
@@ -343,7 +343,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
                 })}
               </p>
             )}
-            <SourceNote className="mt-2 !text-[10px]">{t("dossierAmendmentsSource")}</SourceNote>
+            <SourceNote className="mt-2">{t("dossierAmendmentsSource")}</SourceNote>
           </div>
         )}
 
@@ -383,7 +383,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
             {/* Coverage stated, never implied: spoke_on exists only for the bills the
                 graph carries, so the breakdown is a SUBSET of the floor record. */}
             <p className="mt-2 max-w-3xl text-[13px] leading-relaxed text-steel">{t("dossierSpeechCoverage")}</p>
-            <SourceNote className="mt-2 !text-[10px]">{t("dossierSpeechSource")}</SourceNote>
+            <SourceNote className="mt-2">{t("dossierSpeechSource")}</SourceNote>
           </div>
         )}
 
@@ -457,7 +457,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
                 </li>
               ))}
             </ul>
-            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierRapporteurSource")}</SourceNote>
+            <SourceNote className="mt-2.5">{t("dossierRapporteurSource")}</SourceNote>
           </div>
         )}
 
@@ -465,7 +465,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
           <div>
             <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">{t("dossierNotes")}</p>
             <ExpandableText className="mt-2 max-w-3xl text-[15px] leading-relaxed text-steel" text={notes} />
-            <SourceNote className="mt-2.5 !text-[10px]">{t("dossierNotesSource")}</SourceNote>
+            <SourceNote className="mt-2.5">{t("dossierNotesSource")}</SourceNote>
           </div>
         )}
 
@@ -477,7 +477,7 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
                 {t("dossierDataFlag")}
               </p>
               <p className="mt-1.5 text-sm leading-relaxed text-ink">{dataFlag}</p>
-              <SourceNote className="mt-2 !text-[10px]">{t("dossierDataFlagSource")}</SourceNote>
+              <SourceNote className="mt-2">{t("dossierDataFlagSource")}</SourceNote>
             </div>
           </div>
         )}
@@ -610,7 +610,7 @@ function Counter({
           <span className="font-mono text-[12px] font-bold uppercase tracking-wider text-ochre">{missing}</span>
         )}
       </p>
-      <SourceNote className="mt-2 !text-[10px]">{source}</SourceNote>
+      <SourceNote className="mt-2">{source}</SourceNote>
     </div>
   );
 }

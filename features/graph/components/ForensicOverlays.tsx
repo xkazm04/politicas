@@ -119,7 +119,7 @@ export function ForensicHoverCard({
           </p>
         )}
         <p className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-steel-aa">{t("open")}</p>
-        <SourceNote className="mt-1 !text-[10px]">{t("source")}</SourceNote>
+        <SourceNote className="mt-1">{t("source")}</SourceNote>
       </div>
     </div>
   );

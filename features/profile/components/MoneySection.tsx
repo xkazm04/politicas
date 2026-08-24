@@ -93,7 +93,7 @@ export default async function MoneySection({
         <div className="mt-8 border-2 border-dashed border-hairline p-8">
           <p className="text-lg font-black uppercase tracking-tight">{t("moneyEmptyTitle")}</p>
           <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-steel">{t("moneyEmptyBody")}</p>
-          <SourceNote className="mt-4 !text-[10px]">{t("moneySourceEmpty")}</SourceNote>
+          <SourceNote className="mt-4">{t("moneySourceEmpty")}</SourceNote>
         </div>
       ) : (
         <>
@@ -104,7 +104,7 @@ export default async function MoneySection({
                 {t("moneyTieCount")}
               </p>
               <p className="mt-2 text-4xl font-black tabular-nums">{f.int(money.ties.length)}</p>
-              <SourceNote className="mt-2 !text-[10px]">{t("moneyTieCountSource")}</SourceNote>
+              <SourceNote className="mt-2">{t("moneyTieCountSource")}</SourceNote>
             </div>
             <div className="bg-paper p-6 sm:col-span-2">
               <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
@@ -148,7 +148,7 @@ export default async function MoneySection({
                   </p>
                 </>
               )}
-              <SourceNote className="mt-2 !text-[10px]">{t("moneyAttributableSource")}</SourceNote>
+              <SourceNote className="mt-2">{t("moneyAttributableSource")}</SourceNote>
             </div>
           </div>
 
@@ -189,7 +189,7 @@ export default async function MoneySection({
           )}
 
           <p className="mt-8 max-w-3xl text-sm italic leading-relaxed text-steel">{t("moneyDisclaimer")}</p>
-          <SourceNote className="mt-3 !text-[10px]">
+          <SourceNote className="mt-3">
             {t("moneySource")}
             {money.pass != null ? ` · ${t("moneyPass", { pass: f.int(money.pass) })}` : ""}
           </SourceNote>
@@ -331,12 +331,12 @@ async function TieRow({ tie, en }: { tie: ProfileMoneyTie; en: boolean }) {
                 })}
               </p>
             )}
-            <SourceNote className="mt-3 !text-[10px]">{t("moneyContractsSource")}</SourceNote>
+            <SourceNote className="mt-3">{t("moneyContractsSource")}</SourceNote>
             {/* Složení daňových základen za `contractCzk` téhle vazby — přes VŠECHNY
                 smlouvy firmy, přebrané hotové z peněžní vrstvy. Spis nic nepočítá,
                 a přepočítávat základny nesmí nikdo: sazba DPH v grafu není. */}
             {tie.contractBasis && basisSentences(tie.contractBasis).length > 0 && (
-              <SourceNote className="mt-2 !text-[10px]">
+              <SourceNote className="mt-2">
                 {basisSentences(tie.contractBasis).map((s, i) => (
                   <span key={s.key}>
                     {i > 0 ? " " : ""}

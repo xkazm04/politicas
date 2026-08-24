@@ -115,7 +115,7 @@ export default async function RebellionInstances({ record }: { record: ProfileRe
           })}
         </p>
       )}
-      <SourceNote className="mt-3 !text-[10px]">
+      <SourceNote className="mt-3">
         {t("rebelInstancesSource", {
           votes: f.int(record.coverage.votes),
           from: record.coverage.from ? f.date(record.coverage.from) : "—",

@@ -188,7 +188,7 @@ export default function StatuteDossierPage({ dossier }: { dossier: StatuteDossie
             <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(8rem,2fr)_9fr]">
               {/* § rejstřík — sloupec kritického vydání */}
               <nav aria-label={t("statute.paragraphNavAria")} className="lg:sticky lg:top-8 lg:self-start">
-                <SourceNote className="!text-[10px]">{t("statute.paragraphNavLabel")}</SourceNote>
+                <SourceNote>{t("statute.paragraphNavLabel")}</SourceNote>
                 <ul className="mt-2 border-t-2 border-ink">
                   {dossier.paragraphs.map((p) => (
                     <li key={p.key} className="border-b border-hairline">
@@ -360,7 +360,7 @@ function ParagraphArticle({
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
               {ch.before && (
                 <div className="border-l-4 border-hairline bg-paper-strong p-3">
-                  <SourceNote className="!text-[10px]">
+                  <SourceNote>
                     {t("statute.wording", { date: f.date(ch.windowFrom) })}
                   </SourceNote>
                   <p className="mt-1.5 text-[13px] leading-relaxed text-steel">{ch.before}</p>
@@ -368,7 +368,7 @@ function ParagraphArticle({
               )}
               {ch.after && (
                 <div className="border-l-4 border-signal p-3">
-                  <SourceNote tone="signal" className="!text-[10px]">
+                  <SourceNote tone="signal">
                     {t("statute.wording", { date: f.date(ch.windowTo) })}
                   </SourceNote>
                   <p className="mt-1.5 text-[13px] font-medium leading-relaxed">{ch.after}</p>

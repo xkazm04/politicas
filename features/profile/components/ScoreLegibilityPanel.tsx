@@ -150,8 +150,8 @@ export default async function ScoreLegibilityPanel({
       </div>
 
       <div className="border-t border-hairline px-5 py-4">
-        <SourceNote className="!text-[10px]">{t("legibilityDerived")}</SourceNote>
-        <SourceNote className="mt-1.5 !text-[10px]">{t("legibilitySource")}</SourceNote>
+        <SourceNote>{t("legibilityDerived")}</SourceNote>
+        <SourceNote className="mt-1.5">{t("legibilitySource")}</SourceNote>
         {/* Panel převypráví vzorec v reálných jednotkách; /metodika ten vzorec
             ukazuje celý (váhy, stropy, započítané orgány — vykreslené z
             lib/analysis/contribution.ts). Ze všech míst na spisu ho potřebuje

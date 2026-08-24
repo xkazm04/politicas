@@ -157,7 +157,7 @@ function RadarRow({ entry, dateLabel }: { entry: RadarEntry; dateLabel: string |
           </div>
           <CitationBlock entry={entry} dateLabel={dateLabel} />
           <div className="mt-1">
-            <SourceNote className="!text-[10px]">{entry.sourceCs}</SourceNote>
+            <SourceNote>{entry.sourceCs}</SourceNote>
           </div>
         </div>
       </div>

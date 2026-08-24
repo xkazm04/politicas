@@ -51,7 +51,7 @@ export default async function OmluvyTable({ record }: { record: ProfileAbsenceRe
         <p className="mt-2 max-w-3xl border-l-4 border-hairline pl-4 text-[13px] leading-relaxed text-steel">
           {t("dossierAbsenceRowsNone")}
         </p>
-        <SourceNote className="mt-2 !text-[10px]">{t("dossierAbsenceRowsSourceEmpty")}</SourceNote>
+        <SourceNote className="mt-2">{t("dossierAbsenceRowsSourceEmpty")}</SourceNote>
       </div>
     );
   }
@@ -126,7 +126,7 @@ export default async function OmluvyTable({ record }: { record: ProfileAbsenceRe
       <p className="mt-1.5 max-w-3xl text-[13px] leading-relaxed text-steel">{t("dossierAbsenceRowsRate")}</p>
       <p className="mt-1.5 max-w-3xl text-[13px] leading-relaxed text-steel">{t("dossierAbsenceRowsNotBallot")}</p>
 
-      <SourceNote className="mt-2.5 !text-[10px]">
+      <SourceNote className="mt-2.5">
         {t("dossierAbsenceRowsSource", {
           filings: f.int(record.filings),
           days: f.int(record.totalDays),

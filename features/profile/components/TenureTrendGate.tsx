@@ -57,7 +57,7 @@ export default async function TenureTrendGate({
         {t("trendNoteHeading")}
       </p>
       <ExpandableText className="mt-2 text-[15px] leading-relaxed text-steel" text={psp9TrendNote} />
-      <SourceNote className="mt-2 !text-[10px]">
+      <SourceNote className="mt-2">
         {recordedAt ? t("trendNoteSourceDated", { date: f.date(recordedAt) }) : t("trendNoteSource")}
       </SourceNote>
     </div>
@@ -74,7 +74,7 @@ export default async function TenureTrendGate({
             ? t("trendTenureUnknown", { term: trend.priorTerm })
             : t("trendTooEarly", { term: trend.priorTerm })}
         </p>
-        <SourceNote className="mt-2 !text-[10px]">
+        <SourceNote className="mt-2">
           {t("trendGateSource", { days: f.int(TREND_MIN_TENURE_DAYS) })}
         </SourceNote>
         {note}

@@ -149,7 +149,7 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
                   {tt(`trails.${trail.key}.lead`)}
                 </span>
                 <span className="mt-1.5 flex items-baseline justify-between gap-2">
-                  <SourceNote className="min-w-0 truncate !text-[10px]">
+                  <SourceNote className="min-w-0 truncate">
                     {tt(`trails.${trail.key}.source`)}
                   </SourceNote>
                   <span className="shrink-0 font-mono text-[11px] tabular-nums text-cobalt">

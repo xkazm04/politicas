@@ -166,7 +166,7 @@ export default async function CareerSpineSection({ career, asOf }: { career: Car
           </div>
         ))}
       </div>
-      <SourceNote className="mt-2 !text-[10px]">{t("careerSource", { date: f.date(asOf) })}</SourceNote>
+      <SourceNote className="mt-2">{t("careerSource", { date: f.date(asOf) })}</SourceNote>
     </section>
   );
 }

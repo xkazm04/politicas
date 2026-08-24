@@ -253,7 +253,7 @@ function MoneyTile({
           `reachableMoney` vůbec nespouští — tady může být dolní odhad jedině proto, že
           ČTENÍ narazilo na vlastní strop, a to je jiná věta a žádné číslo stropu.
           Vytisknout „nejvýše 0 smluv“ by byl výmysl. */}
-      <SourceNote className="mt-3 !text-[10px]">
+      <SourceNote className="mt-3">
         {t("caseFile.tileSource")}
         {!coverage.isFloor
           ? ""

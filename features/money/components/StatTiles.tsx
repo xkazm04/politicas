@@ -57,7 +57,7 @@ export default function StatTiles({ items }: { items: readonly StatTileItem[] })
               ))}
             </ul>
           ) : null}
-          <SourceNote className="mt-3 !text-[10px]">
+          <SourceNote className="mt-3">
             {tcom("sourcePrefix")} {s.source}
           </SourceNote>
         </motion.div>

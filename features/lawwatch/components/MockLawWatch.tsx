@@ -116,13 +116,13 @@ export default function MockLawWatch() {
 
             <div className="mt-6 space-y-4">
               <div className="border-l-4 border-hairline bg-paper-strong p-4">
-                <SourceNote className="!text-[10px]">{t("beforeLabel")}</SourceNote>
+                <SourceNote>{t("beforeLabel")}</SourceNote>
                 <p className="mt-2 text-[15px] leading-relaxed text-steel">
                   {tc(`lawChanges.${change.id}.before`)}
                 </p>
               </div>
               <div className="border-l-4 border-signal p-4">
-                <SourceNote tone="signal" className="!text-[10px]">
+                <SourceNote tone="signal">
                   {t("afterLabel", { date: f.date(change.effectiveFrom) })}
                 </SourceNote>
                 <p className="mt-2 text-[15px] font-medium leading-relaxed">

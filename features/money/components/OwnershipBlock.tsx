@@ -270,7 +270,7 @@ function AnnotationCapsule({ annotation: a }: { annotation: OwnershipAnnotation 
         </div>
       )}
 
-      <SourceNote className="mt-2 !text-[10px]">
+      <SourceNote className="mt-2">
         {a.recordedAt && a.pass != null
           ? t("annotationSourceDated", { date: f.date(a.recordedAt), pass: a.pass })
           : t("annotationSource")}

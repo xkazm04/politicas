@@ -197,7 +197,7 @@ export default function BillBrowser({ data }: { data: LawWatchWire }) {
         </SourceNote>
         {/* Chybějící průchod se řekne větou, ne otazníkem — „průchod grafu ?" je
             citace, která tvrdí, že nějaký průchod známe. (Vzor: forensicIndex.sourceNoPass.) */}
-        <SourceNote className="!text-[10px]">
+        <SourceNote>
           {data.pass !== null ? t("graphPassSource", { pass: data.pass }) : t("graphPassSourceNoPass")}
         </SourceNote>
       </div>

@@ -324,13 +324,13 @@ export default function HeadToHead({
             })}
           </div>
           <div className="mt-3">
-            <SourceNote className="!text-[10px]">
+            <SourceNote>
               {t("factsSource", { sources: factSources })}
             </SourceNote>
           </div>
           {/* Peníze se v souboji NEPOROVNÁVAJÍ — a mlčení by bylo horší než věta. */}
           <div className="mt-1.5">
-            <SourceNote className="!text-[10px]">{t("factsNoMoney")}</SourceNote>
+            <SourceNote>{t("factsNoMoney")}</SourceNote>
           </div>
         </div>
 

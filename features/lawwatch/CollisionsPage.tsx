@@ -337,7 +337,7 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
         <div className="mb-3 grid gap-2 sm:grid-cols-2">
           {pair.evidence.billAExcerpt && (
             <div className="border-l-4 border-hairline bg-paper p-3">
-              <SourceNote className="!text-[10px]">
+              <SourceNote>
                 {t("collisions.excerptLabel", { cislo: pair.billA })}
               </SourceNote>
               <p className="mt-1.5 text-[12px] leading-relaxed text-steel">{pair.evidence.billAExcerpt}</p>
@@ -345,7 +345,7 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
           )}
           {pair.evidence.billBExcerpt && (
             <div className="border-l-4 border-hairline bg-paper p-3">
-              <SourceNote className="!text-[10px]">
+              <SourceNote>
                 {t("collisions.excerptLabel", { cislo: pair.billB })}
               </SourceNote>
               <p className="mt-1.5 text-[12px] leading-relaxed text-steel">{pair.evidence.billBExcerpt}</p>
@@ -366,7 +366,7 @@ function PairCard({ pair }: { pair: CollisionPairView }) {
               ? t("collisions.fullReasoningWithQuotes")
               : t("collisions.fullReasoning")}
         </button>
-        <SourceNote className="!text-[10px]">
+        <SourceNote>
           {t("collisions.pairSource", { batch: pair.sourceBatch, method: pair.sourceMethod })}
         </SourceNote>
       </div>

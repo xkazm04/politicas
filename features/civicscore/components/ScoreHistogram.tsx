@@ -99,7 +99,7 @@ export default function ScoreHistogram({
           {/* Počet se ČTE ze souhrnu, který tenhle komponent už dostává — do
               2026-08-12 tu stálo „ze všech 207 poslanců" jako literál, zatímco
               `summary.count` ležel v propu nepoužitý. */}
-          <SourceNote className="!text-[10px]">{t("histogramFootnote", { count: f.int(summary.count) })}</SourceNote>
+          <SourceNote>{t("histogramFootnote", { count: f.int(summary.count) })}</SourceNote>
         </div>
       </div>
     </div>

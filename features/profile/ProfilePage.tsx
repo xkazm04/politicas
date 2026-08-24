@@ -319,7 +319,7 @@ export default async function ProfilePage({
                   psaly „10. volební období" jako literál nad loaderem, který čte
                   PSP10 — týž rozchod, který /zebricek i /penize už jednou opravovaly.
                   Když kód období nemá tvar PSP<n>, věta se prostě netvrdí. */}
-              <SourceNote className="mt-1 !text-[10px]">
+              <SourceNote className="mt-1">
                 {data.termNumber != null ? t("periodNote", { term: f.int(data.termNumber) }) : t("periodNoteUnknown")}
                 {data.provenancePass != null ? ` · ${t("indexPass", { pass: f.int(data.provenancePass) })}` : ""}
                 {data.provenance.state === "mixed"
@@ -373,7 +373,7 @@ export default async function ProfilePage({
                   decided: f.int(moneyReview.decided),
                 })}
               </p>
-              <SourceNote className="mt-1.5 !text-[10px]">{t("absenteeFlagSource")}</SourceNote>
+              <SourceNote className="mt-1.5">{t("absenteeFlagSource")}</SourceNote>
             </div>
           )}
 
@@ -438,7 +438,7 @@ export default async function ProfilePage({
                     color={fill.color}
                     opacity={fill.opacity}
                   />
-                  <SourceNote className="mt-3 !text-[10px]">
+                  <SourceNote className="mt-3">
                     {tcom("sourcePrefix")} {c.source}
                   </SourceNote>
                 </div>
@@ -512,7 +512,7 @@ export default async function ProfilePage({
                   })}
                 </p>
               )}
-              <SourceNote className="mt-3 !text-[10px]">
+              <SourceNote className="mt-3">
                 {t("agreementLabel")} · psp.cz · co_votes_with
               </SourceNote>
             </>
@@ -569,7 +569,7 @@ export default async function ProfilePage({
               <p className="mt-6 max-w-3xl border-l-4 border-hairline pl-4 text-[13px] leading-relaxed text-steel">
                 {t("rebellionsAggregateNote", { minEligible: f.int(MIN_ELIGIBLE_VOTES) })}
               </p>
-              <SourceNote className="mt-3 !text-[10px]">
+              <SourceNote className="mt-3">
                 {aggregateProvenance.state === "uniform"
                   ? aggregateProvenance.computedAt !== null
                     ? t("rebellionsAggregateSource", {
@@ -639,7 +639,7 @@ export default async function ProfilePage({
               </div>
               {/* The current/past split is evaluated against a date and this page is
                   statically generated, so the page states the date it is asserting. */}
-              <SourceNote className="mt-3 !text-[10px]">
+              <SourceNote className="mt-3">
                 {t("seatsAsOf", { date: f.date(data.seatsAsOf) })}
               </SourceNote>
             </>

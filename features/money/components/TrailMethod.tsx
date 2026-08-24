@@ -70,7 +70,7 @@ export default function TrailMethod({ pass }: { pass?: number | null }) {
               <p className="mt-3 text-lg font-black uppercase leading-tight tracking-tight">{s.title}</p>
               <p className="mt-2 text-sm leading-relaxed text-steel">{s.body}</p>
             </div>
-            <SourceNote className="mt-3 !text-[10px]">{s.cadence}</SourceNote>
+            <SourceNote className="mt-3">{s.cadence}</SourceNote>
           </div>
         ))}
       </div>

@@ -241,7 +241,7 @@ export default function FollowTheMoneyPage({
                         total: f.int(review.total),
                       })}
               </p>
-              <SourceNote className="mt-2 !text-[10px]">
+              <SourceNote className="mt-2">
                 {tcom("sourcePrefix")} {t("real.review.source")}
               </SourceNote>
             </div>

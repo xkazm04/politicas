@@ -49,7 +49,7 @@ export default async function TenureNote({
       <p className="text-sm leading-relaxed text-steel">
         {tv(copy.detailKey, { start: f.date(copy.start), end: copy.end ? f.date(copy.end) : "" })}
       </p>
-      <SourceNote className="mt-1 !text-[10px]">
+      <SourceNote className="mt-1">
         {termNumber != null ? t("tenureSource", { term: f.int(termNumber) }) : t("tenureSourceUnknownTerm")}
       </SourceNote>
     </div>
