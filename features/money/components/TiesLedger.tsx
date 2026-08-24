@@ -583,8 +583,14 @@ function Th({
   dir: 1 | -1;
   align?: "left" | "right";
 }) {
+  // Řazení se musí OHLÁSIT: šipka je jen ukazovátko pro oči. `dir === 1` je
+  // vzestupně (komparátory násobí rozdíl `sortDir`), neaktivní sloupec nese
+  // `none` — ne prázdno, aby čtečka věděla, že sloupec řadit JDE.
   return (
-    <th className={`px-3 py-2 ${align === "right" ? "text-right" : "text-left"}`}>
+    <th
+      aria-sort={active ? (dir === 1 ? "ascending" : "descending") : "none"}
+      className={`px-3 py-2 ${align === "right" ? "text-right" : "text-left"}`}
+    >
       <button
         type="button"
         onClick={onClick}
