@@ -541,6 +541,8 @@
     "headerNoteUnavailable": "živá data nedostupná — níže je ilustrativní ukázka; o obsahu grafu tahle stránka teď netvrdí nic",
     "headerNoteFormulaMismatch": "žebříček spočítala jiná verze metodiky, než jakou nese kód — v datech {stored}, v kódu {declared}",
     "title": "Velín republiky",
+    "loadingTitle": "načítám velín",
+    "loadingBody": "Skládáme žebříček, peněžní vrstvu a legislativu do jednoho přehledu. Čtení celé peněžní vrstvy trvá řádově sekundy; platí ho jen první požadavek po vypršení memoizace, ostatní dostanou hotový výsledek.",
     "lead": "Co znalostní graf nese dnes — agregáty sněmovny, datovaná fakta o entitách vykresleného výřezu a pořadí podle kontribučního indexu. Graf nevede changelog, takže tu nenajdete „co se změnilo od minulé návštěvy“, ale fakta s datem. Každé číslo cituje svůj zdroj.",
     "rankingSectionTitle": "Žebříček",
     "allMpsLink": "všech {count} poslanců",
@@ -1470,6 +1472,8 @@
     },
     "eyebrow": "followthemoney · síť peněz · sytí pilíř integrita × 0.3",
     "title": "Stopa peněz",
+    "loadingTitle": "načítám ledger",
+    "loadingBody": "Čteme celou peněžní vrstvu grafu — veřejné zakázky, dotace a dary dohledané přes firmy k politikům. Čtení trvá řádově sekundy; platí ho jen první požadavek po vypršení memoizace, ostatní dostanou hotový výsledek.",
     "intro": "Veřejné zakázky, dotace a dary dohledané přes firmy až k politikům, kteří jsou s nimi spojeni. Tady CivicScore ukazuje důkazy za nízkou integritou — jako datovaná fakta, nikdy jako obvinění.",
     "stats": {
       "contracted": {
@@ -1783,6 +1787,7 @@
       "leadDossiers": "ručně dořešené spisy (/penize/kauzy)",
       "eyebrow": "deterministický výpočet nad grafem · každý kandidát vyžaduje lidské ověření",
       "title": "Střety u hlasování",
+      "loadingBody": "Nejdřív čteme peněžní vrstvu grafu (řádově sekundy, stejná vrstva jako /penize); hlasovací a legislativní vrstvu jen tehdy, když aspoň jedna vazba projde vstupní branou joinu — dokud brána zůstává prázdná, tahle druhá vrstva se vůbec nečte.",
       "intro": "Kde se ověřená role ve firmě a sněmovní hlasování potkávají v čase. Každý řádek níž je vypočtený kandidát: poslanec hlasoval (ano/ne) o tisku novelizujícím zákon, který upravuje kanál veřejných peněz firmy, kde podle obchodního rejstříku v den hlasování zastával roli. Časový překryv je fakt; jestli se hlasování věcně týkalo zájmu té firmy, se tady NEPOČÍTÁ — to musí posoudit člověk.",
       "unavailable": "Datová vrstva je v tomto prostředí nedostupná — stránka nemůže říct, jestli nějací kandidáti existují, a odmítá hádat.",
       "unavailableNote": "Kandidáti se odvozují z živého záznamu při každém požadavku; nic se neukládá jako obvinění.",
@@ -2745,6 +2750,8 @@
     },
     "kicker": "denní záznam republiky",
     "title": "Deník republiky",
+    "loadingTitle": "načítám deník",
+    "loadingBody": "Skládáme peněžní a legislativní vrstvu, lidskou bránu a proud zaznamenaných změn do jednoho záznamu. Čtení obou dávkových vrstev trvá řádově sekundy; platí ho jen první požadavek po vypršení memoizace, ostatní dostanou hotový výsledek.",
     "lead": "Co den, to zápis: podepsané smlouvy firem s vazbou na poslance, přikázání sněmovních tisků výborům, vyhlášení ve Sbírce, zápisy a výmazy rejstříkových rolí a rozhodnutí lidské brány. Každý řádek má datum, zdroj a den má trvalou adresu.",
     "rule": {
       "kicker": "pravidlo deníku",
