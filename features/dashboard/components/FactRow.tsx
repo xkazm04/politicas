@@ -74,6 +74,11 @@ function FactRow({
         {tf(`fact.${fact.kind}`, { subject: fact.subject, detail: fact.detail ?? "" })}
         {fact.czk !== undefined && (
           <span className="ml-2 whitespace-nowrap font-mono text-[13px] font-bold tabular-nums">
+            {/* citation-ok: zdroj se sází INLINE hned za částkou — `[{fact.source}]`
+                o pár řádků níž je citace téhle částky, jen jako holý řetězec
+                v hranatých závorkách místo <SourceNote>. Řádek je jeden fakt na
+                jednom řádku; samostatný citační blok pod každým z nich by ten
+                tvar rozbil. */}
             {compactCzk(fact.czk, locale)}
           </span>
         )}

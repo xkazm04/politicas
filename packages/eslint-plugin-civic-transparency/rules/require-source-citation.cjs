@@ -30,6 +30,18 @@
  * Any of these anywhere in the same file:
  *   - a provenance element: <SourceNote>, <SourceRef>, <DataUnavailable>,
  *     <LiveDataNotice>, <CitableNumber>, <ProvenanceCapsule>
+ *   - `<PosterFrame citation={…}>` — the print lane's provenance renderer.
+ *     Added 2026-08-24 while graduating this rule to `error`. The poster
+ *     subsystem is a DECLARED second provenance surface, not an ad-hoc
+ *     override: features/shared/poster/citation.ts builds the citation object
+ *     (source, retrieval date, live URL, methodology, provenance pass, and
+ *     the stored-vs-declared formula mismatch) and PosterFrame renders those
+ *     lines on the sheet. A sheet that carries one is cited; the rule simply
+ *     could not see it across the file boundary, and nine `citation-ok`
+ *     annotations on one file would have recorded that blindness as nine
+ *     exceptions. The `citation` attribute is REQUIRED for the satisfaction —
+ *     same precision-over-recall doctrine as the triggers: the element name
+ *     alone is not evidence, the prop is.
  *   - a `data-undisclosed` JSX attribute — the explicit "bez zdroje" marker.
  *     Convention (documented here, not yet machine-enforced on old code): an
  *     element carrying `data-undisclosed` must render a visible "bez zdroje"
@@ -64,6 +76,17 @@ const SATISFIER_ELEMENTS = new Set([
   "CitableNumber",
   "ProvenanceCapsule",
 ]);
+
+/** The one satisfier that needs positive evidence beyond its element name:
+ *  the print lane's frame only proves provenance when it is actually handed a
+ *  citation object to render. */
+const CITATION_PROP_SATISFIER = "PosterFrame";
+
+function hasCitationProp(openingElement) {
+  return openingElement.attributes.some(
+    (a) => a.type === "JSXAttribute" && a.name.type === "JSXIdentifier" && a.name.name === "citation",
+  );
+}
 
 /** True when `node` is rendered as JSX CHILD content — i.e. its nearest
  * JSXExpressionContainer ancestor sits directly inside an element/fragment,
@@ -125,13 +148,17 @@ module.exports = {
     let fileSatisfied = false;
     const candidates = [];
 
+    // The annotation counts when it ENDS on the flagged line or the line above,
+    // not when it STARTS there. Matching on the start line silently rejected
+    // every multi-line reason — which pushed authors toward one-line reasons
+    // that say nothing, on the one construct whose entire value is the reason.
     function hasInlineOptOut(node) {
       const comments = sourceCode.getAllComments();
       const line = node.loc.start.line;
       return comments.some(
         (c) =>
           /citation-ok/.test(c.value) &&
-          c.loc.start.line >= line - 1 &&
+          c.loc.end.line >= line - 1 &&
           c.loc.start.line <= node.loc.end.line,
       );
     }
@@ -178,6 +205,8 @@ module.exports = {
       JSXOpeningElement(node) {
         const name = jsxElementName(node);
         if (name && SATISFIER_ELEMENTS.has(name)) fileSatisfied = true;
+        // <PosterFrame citation={…}> — the prop is the evidence, not the name.
+        if (name === CITATION_PROP_SATISFIER && hasCitationProp(node)) fileSatisfied = true;
         if (name === "AnimatedScore" && !hasInlineOptOut(node)) {
           candidates.push({ node, kind: "element", name });
         }

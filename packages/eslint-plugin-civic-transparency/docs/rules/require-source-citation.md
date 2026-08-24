@@ -36,6 +36,10 @@ Any of these anywhere in the same file:
 
 - A provenance element: `<SourceNote>`, `<SourceRef>`, `<DataUnavailable>`,
   `<LiveDataNotice>`, `<CitableNumber>`, `<ProvenanceCapsule>`.
+- `<PosterFrame citation={…}>` — the print lane's provenance renderer. The
+  `citation` prop is **required** for the satisfaction: the element name alone
+  is not evidence, the prop is. Same precision-over-recall doctrine as the
+  triggers.
 - A `data-undisclosed` JSX attribute — the explicit "no source" marker.
   **Convention**: an element carrying `data-undisclosed` must render a visible
   „bez zdroje" badge, so the disclosure reaches the reader, not just the linter.
@@ -46,9 +50,15 @@ subtree walk would flag exactly those.
 
 ## Escape hatches
 
-`// citation-ok: <reason>` on the flagged line or the line above — for when the
-citation genuinely exists but lives outside the file (e.g. the parent component
-renders the caption). Grep-able audit trail; a bare disable comment is not.
+`// citation-ok: <reason>` ENDING on the flagged line or the line above — for
+when the citation genuinely exists but lives outside the file (e.g. the parent
+component renders the caption). Grep-able audit trail; a bare disable comment is
+not.
+
+The match is on where the comment **ends**, not where it starts, so a reason may
+span several lines. Matching the start line rejected every multi-line reason,
+which pushed authors toward one-line reasons that say nothing — on the one
+construct whose entire value is the reason.
 
 ## Adoption mapping
 

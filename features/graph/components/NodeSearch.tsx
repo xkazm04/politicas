@@ -155,6 +155,12 @@ export default function NodeSearch({
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium">{hit.label}</span>
                     <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
+                      {/* citation-ok: stupeň uzlu je vlastnost PRÁVĚ VYKRESLENÉHO
+                          grafu — kolik hran načtený výřez u toho uzlu drží — ne
+                          tvrzení o světě, které by šlo ocitovat samostatně.
+                          Provenienci grafu nese plocha nad tímhle polem
+                          (/graf: LiveDataNotice + forenzní štítky hran), a
+                          našeptávač je její dítě, ne samostatná publikace. */}
                       {t(`kinds.${hit.kind}`)} · {t("search.degree", { n: f.int(hit.degree) })}
                       {already ? ` · ${t("search.alreadyOnBoard")}` : ""}
                     </span>

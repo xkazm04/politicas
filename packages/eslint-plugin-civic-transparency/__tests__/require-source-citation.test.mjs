@@ -36,6 +36,31 @@ tester.run("require-source-citation", rule, {
          }`,
     },
     {
+      name: "a MULTI-LINE citation-ok reason counts (it ends on the line above)",
+      code:
+        FORMAT_IMPORT +
+        `export function Row({ n }) {
+           const f = useFormat();
+           return (<span>
+             {/* citation-ok: the source renders inline as a plain string
+                 immediately after this figure, on the same row */}
+             {f.int(n)}
+           </span>);
+         }`,
+    },
+    {
+      name: "PosterFrame HANDED a citation is the print lane's provenance renderer",
+      code:
+        FORMAT_IMPORT +
+        `import PosterFrame from "@/features/shared/poster/PosterFrame";
+         import { buildPosterCitation } from "@/features/shared/poster/citation";
+         export function Sheet({ data }) {
+           const f = useFormat();
+           const citation = buildPosterCitation(data);
+           return (<PosterFrame citation={citation}><b>{f.dec(data.avg)}</b></PosterFrame>);
+         }`,
+    },
+    {
       name: "figure with DataUnavailable disclosure in the same file",
       code:
         FORMAT_IMPORT +
@@ -133,6 +158,17 @@ tester.run("require-source-citation", rule, {
       name: "AnimatedScore without any provenance marker",
       code: `import AnimatedScore from "@/features/shared/components/AnimatedScore";
              export function X({ n }) { return <AnimatedScore value={n} />; }`,
+      errors: [{ messageId: "uncitedFigure" }],
+    },
+    {
+      name: "PosterFrame WITHOUT a citation prop satisfies nothing — the prop is the evidence",
+      code:
+        FORMAT_IMPORT +
+        `import PosterFrame from "@/features/shared/poster/PosterFrame";
+         export function Sheet({ data }) {
+           const f = useFormat();
+           return (<PosterFrame><b>{f.dec(data.avg)}</b></PosterFrame>);
+         }`,
       errors: [{ messageId: "uncitedFigure" }],
     },
     {

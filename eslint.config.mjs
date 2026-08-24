@@ -89,15 +89,31 @@ const eslintConfig = defineConfig([
   // has no --max-warnings and the pre-commit hook runs `eslint --quiet`, which
   // drops warnings entirely), so the measured-clean rule is promoted to `error`
   // here — the burn-down is locked in and cannot regress.
-  // `require-source-citation` stays at `warn` under features/**: 11 remain, in
-  // features/dashboard/components/FactRow.tsx, features/graph/components/
-  // NodeSearch.tsx and features/shared/poster/demo/LeaderboardPoster.tsx (9).
-  // Zones shrink, they do not widen — the exit is fixing those three files, not
-  // an exemption for them.
+  // SECOND RATCHET CLOSED 2026-08-24. The note above named the exit — "fixing
+  // those three files, not an exemption for them" — and that is what happened,
+  // so `require-source-citation` joins `no-raw-number-display` at `error`:
+  //   * LeaderboardPoster.tsx (9 of the 11) was never uncited. It builds a real
+  //     citation with buildPosterCitation() and hands it to <PosterFrame>, which
+  //     renders source, retrieval date, live URL and methodology on the sheet.
+  //     The rule is FILE-scoped and could not see across that boundary. Fixed in
+  //     the rule, not in the config: `<PosterFrame citation={…}>` now satisfies
+  //     it, and the `citation` prop is required for the satisfaction — nine
+  //     `citation-ok` annotations would have recorded the rule's blindness as
+  //     nine exceptions and taught the next author that the poster lane is
+  //     exempt.
+  //   * FactRow.tsx and NodeSearch.tsx carry a `citation-ok:` reason each,
+  //     which is what that construct is for: the fact row prints its source
+  //     inline next to the amount, and a node's degree describes the rendered
+  //     graph rather than making a claim the reader could go and check.
+  // Re-measured repo-wide after those three: `eslint features app lib scripts
+  // packages` = 0 errors, 2 warnings, and NEITHER is a provenance rule. A
+  // warn-level rule with an empty inventory protects nothing here — `npm run
+  // lint` sets no --max-warnings — so an empty inventory is the moment to
+  // promote, or the burn-down silently reverses.
   {
     files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
     rules: {
-      "custom/require-source-citation": "warn",
+      "custom/require-source-citation": "error",
       "custom/no-raw-number-display": "error",
     },
   },
