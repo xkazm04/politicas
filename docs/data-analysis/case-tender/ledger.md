@@ -36,3 +36,12 @@ was STILL 650 MB → **NDJSON** (loadMonth.ts). `/graf` map after ingest burned 
 never finished (quadratic core at 16 k companies) → procurement-only companies leave the
 force core AND the layer is **disclosed, not drawn** (`omitted.tendersTotal` 48 647); map
 now 10,5 s / 2 825 nodes. Gate green (3 016).
+
+### Batch 004 — first flags, and the hand-read that rewrote two of them (2026-08-24)
+
+Pass 69: **3 876 flagged lots (8,0 %)** — single_bid 1 266 (2,6 %) · tight_spread 1 057
+(2,2 %, < p10 4,91 %) · short_deadline 1 473 (3,0 %, per-class p5, competitive only) ·
+exceptional_procedure 263 (0,5 %, JŘBU only). The hand-read BEFORE persist rewrote two
+flags: přímé zadání malého rozsahu is a routine lawful instrument (2 734 hits → authority-
+level statistic, not a per-lot flag), and p10 deadlines fired at the boundary („30 vs 31").
+Every flagged node carries flag_inputs + flag_thresholds. props-check clean.

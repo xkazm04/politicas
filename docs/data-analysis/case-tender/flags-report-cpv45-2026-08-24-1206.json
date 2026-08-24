@@ -1,0 +1,40 @@
+{
+  "generatedFor": "tender loop — flag computation",
+  "generatedAt": "2026-08-24-1206",
+  "scope": {
+    "cpv": "45",
+    "tenders": 48647
+  },
+  "thresholds": {
+    "SPREAD_P10": 0.04911982625608362,
+    "DEADLINE_P5": {
+      "Zjednodušené podlimitní řízení": 16,
+      "Otevřená výzva při zadávání veřejných zakázek malého rozsahu": 8,
+      "Otevřené řízení": 29,
+      "Užší řízení": 22,
+      "Jednací řízení s uveřejněním": 25,
+      "Zadávání VZ v dynamickém nákupním systému": 8,
+      "Postup s obnovením soutěže": 6
+    },
+    "MIN_CLASS": 100
+  },
+  "fireRates": {
+    "tight_spread": {
+      "n": 1057,
+      "share": 0.0217
+    },
+    "single_bid": {
+      "n": 1266,
+      "share": 0.026
+    },
+    "short_deadline": {
+      "n": 1473,
+      "share": 0.0303
+    },
+    "exceptional_procedure": {
+      "n": 263,
+      "share": 0.0054
+    }
+  },
+  "flaggedLots": 3876
+}

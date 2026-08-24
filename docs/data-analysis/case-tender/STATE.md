@@ -2,7 +2,7 @@
 
 > **Regenerated every batch. Read THIS first, `ledger.md` only for history.**
 
-**As of:** batch 003 · 2026-08-24 · last graph write **pass 68**.
+**As of:** batch 004 · 2026-08-24 · last graph write **pass 69**.
 
 ## The doctrine (user-set, 2026-08-23)
 
@@ -18,23 +18,24 @@ composed from volume, connection to the MP graph a bonus and never a filter.
 |---|---|
 | source | ISVZ/RVZ monthly JSON zips (verified: VZ-06-2026 = 16 662 VZ / 20 023 lots) |
 | record-level coverage | 2024-12 → 2026-07 (earlier 404 / aggregate-only) |
-| corpus persisted | **Jan–Jul 2026 · CPV 45 · 48 647 lots** (passes 67–68; 165 716 edges; monthly snapshots deduped, last wins) |
+| corpus persisted | **Jan–Jul 2026 · CPV 45 · 48 647 lots** (passes 67–68; 165 716 edges) |
+| flags (pass 69) | **3 876 lots (8,0 %)**: single_bid 1 266 · tight_spread 1 057 · short_deadline 1 473 · JŘBU 263 — thresholds from the corpus itself, samples hand-read |
 | graph_touch | **18 MP-tied companies in the tender layer, mostly as AUTHORITIES** (Teplárny Brno: 27 lots/month) |
 | calibration | single-bid 3,5 % (real outlier) · deadline p10 11 d (per-procedure!) · spread p10 4,9 % · estimate fill 14 % → authority statistic |
 
 ## Open items
 
-1. b004: FIRST FLAGS over the 7-month corpus per the b001 calibration
-   (single_bid, tight_spread, short_deadline per-procedure p10) — hand-read
-   survivors before persisting.
-2. b005: 2025 + 2024-12 ingest (12 more zips) → trailing-window flags
-   (repeat_winner, supplier_lock).
-3. Product question parked deliberately: the mass map DISCLOSES the layer
-   (`omitted.tendersTotal`); a dedicated procurement surface comes after flags.
+1. b005: COMPOSE the pictures — per-authority (needle counts, flag mix, flagged
+   CZK, direct-award volume share) and per-winner (wins under flags, distinct
+   authorities); graph_touch to the MP layer.
+2. b006: 2025 + 2024-12 ingest → trailing-window flags (repeat_winner,
+   supplier_lock over ≥12 months).
+3. Product surface for the needle picture — after b005 shows its shape.
 
 ## Durable tools
 
 `lib/ingest/sources/isvz.ts` (lot parse, tests) · `filter-month.py` (streaming CPV
 pre-filter → NDJSON; ijson) · `loadMonth.ts` (the one reader) · `measure.ts` (calibration)
-· `persist-month.ts` (pass-stamped writer, snapshot dedupe). Raw months in `data/raw/isvz/`
-(gitignored). Next pass: **69**.
+· `persist-month.ts` (pass-stamped writer, snapshot dedupe) · `compute-flags.ts`
+(thresholds from the corpus, samples printed for hand-reading). Raw months in
+`data/raw/isvz/` (gitignored). Next pass: **70**.

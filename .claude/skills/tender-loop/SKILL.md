@@ -74,9 +74,9 @@ only as „signál k prověření":
 | flag | fires when | field basis |
 |---|---|---|
 | `single_bid` | competitive procedure, exactly 1 bid | podane_nabidky…pocet |
-| `no_open_procedure` | JŘBU / uzavřená výzva outside statutory exceptions | druh_zadavaciho_postupu |
-| `short_deadline` | submission window below the scoped-market 10th percentile | historie_lhut |
-| `tight_spread` | ≥2 evaluated bids and (max−min)/min below threshold | hodnoty_podanych_nabidek |
+| `exceptional_procedure` | JŘBU only (b004: přímé zadání is routine → authority statistic) | druh_zadavaciho_postupu |
+| `short_deadline` | window < per-competitive-class p5 (b004: p10 fires at the boundary) | historie_lhut + start |
+| `tight_spread` | ≥2 evaluated bids and (max−min)/min < corpus p10 | hodnoty_podanych_nabidek |
 | `repeat_winner` | same authority×winner ≥N wins in trailing 24 m | wins edges |
 | `supplier_lock` | authority×CPV HHI above threshold in trailing 24 m | wins edges |
 | `estimate_gap` | won price vs estimated value out of band (either way) | predpokladana_hodnota / price |
@@ -139,6 +139,13 @@ Kernel gates plus:
   (61 017 → 48 647). Size walls end with NDJSON, not bigger buffers. A new BULK kind
   arrives WITH its drawing policy: the mass map discloses the layer (`omitted`), does not
   draw it (first post-ingest map request: > 900 s CPU, never finished; now 10,5 s).
+- **b004 (pass 69):** hand-reading rewrote two flags before persist — přímé zadání malého
+  rozsahu is routine and lawful (2 734 per-lot hits were noise; its signal form is VOLUME
+  PER AUTHORITY), and p10 deadline thresholds fire at the boundary of a discrete
+  distribution (→ p5, competitive classes only). Final rates: single_bid 2,6 %,
+  tight_spread 2,2 %, short_deadline 3,0 %, JŘBU 0,5 % — 8,0 % of lots carry ≥1 flag.
+  tight_spread samples are textbook cover-bidding shapes. Flags carry their inputs AND
+  thresholds on the node; a threshold change recomputes everything (no mixed vintages).
 
 ## History
 
