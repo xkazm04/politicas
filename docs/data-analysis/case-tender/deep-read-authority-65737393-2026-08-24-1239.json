@@ -1,0 +1,307 @@
+{
+  "generatedFor": "tender loop — deep-read case file (authority)",
+  "generatedAt": "2026-08-24-1239",
+  "subject": {
+    "ico": "65737393",
+    "name": "Bytová správa Ministerstva vnitra, s.p.o.",
+    "mode": "authority"
+  },
+  "scope": {
+    "cpv": "45",
+    "lots": 42,
+    "czkFloor": 120218320.24,
+    "flaggedLots": 7,
+    "source": "ISVZ RVZ open data, record-level 2024-12 → 2026-07"
+  },
+  "cadenceByMonth": {
+    "2017-12": 1,
+    "2018-03": 1,
+    "2018-06": 1,
+    "2018-12": 1,
+    "2019-03": 1,
+    "2019-11": 1,
+    "2020-07": 1,
+    "2020-08": 1,
+    "2020-09": 1,
+    "2020-10": 1,
+    "2021-06": 1,
+    "2021-11": 1,
+    "2022-03": 1,
+    "2022-05": 1,
+    "2022-07": 1,
+    "2022-12": 1,
+    "2023-05": 1,
+    "2023-12": 1,
+    "2024-01": 1,
+    "2024-07": 1,
+    "2024-09": 1,
+    "2024-11": 2,
+    "2025-02": 2,
+    "2025-04": 1,
+    "2025-06": 3,
+    "2025-07": 2,
+    "2025-10": 1,
+    "2025-12": 1,
+    "2026-01": 1,
+    "2026-04": 1,
+    "2026-05": 1,
+    "2026-07": 1,
+    "bez data": 5
+  },
+  "procedureMix": {
+    "Otevřená výzva při zadávání veřejných zakázek malého rozsahu": 21,
+    "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu": 13,
+    "Otevřené řízení": 8
+  },
+  "flagMix": {
+    "tight_spread": 5,
+    "short_deadline": 2
+  },
+  "counterparties": [
+    {
+      "id": "company:ico:24832898",
+      "name": "OTISTAV s.r.o.",
+      "lots": 23,
+      "czkFloor": 44745549.36
+    },
+    {
+      "id": "company:ico:27413063",
+      "name": "BROS BAU s.r.o.",
+      "lots": 2,
+      "czkFloor": 4221364
+    },
+    {
+      "id": "company:ico:02174260",
+      "name": "RP future s.r.o.",
+      "lots": 1,
+      "czkFloor": 2993736.07
+    },
+    {
+      "id": "company:ico:03875199",
+      "name": "BBP Stavby s.r.o.",
+      "lots": 1,
+      "czkFloor": 44947422.34
+    },
+    {
+      "id": "company:ico:24198820",
+      "name": "Revitherm s.r.o.",
+      "lots": 1,
+      "czkFloor": 2930484.45
+    },
+    {
+      "id": "company:ico:03813622",
+      "name": "MC Invest Czech s.r.o.",
+      "lots": 1,
+      "czkFloor": 539496.5
+    },
+    {
+      "id": "company:ico:25319540",
+      "name": "MESSA Invest, s.r.o.",
+      "lots": 1,
+      "czkFloor": 1125056.27
+    },
+    {
+      "id": "company:ico:17754593",
+      "name": "Kapoturo s.r.o.",
+      "lots": 1,
+      "czkFloor": 1168250.85
+    },
+    {
+      "id": "company:ico:28179871",
+      "name": "Nostica a.s.",
+      "lots": 1,
+      "czkFloor": 11692516.43
+    },
+    {
+      "id": "company:ico:47116234",
+      "name": "TERMONTA PRAHA a.s.",
+      "lots": 1,
+      "czkFloor": 1076701
+    },
+    {
+      "id": "company:ico:28510011",
+      "name": "KOMTERM services, s.r.o.",
+      "lots": 1,
+      "czkFloor": 1133260
+    },
+    {
+      "id": "company:ico:10147675",
+      "name": "Roman Behota",
+      "lots": 1,
+      "czkFloor": 862628.24
+    },
+    {
+      "id": "company:ico:27162788",
+      "name": "ABAK - Q s.r.o.",
+      "lots": 1,
+      "czkFloor": 554055
+    },
+    {
+      "id": "company:ico:27866327",
+      "name": "ALFA stav PV s.r.o.",
+      "lots": 1,
+      "czkFloor": 560577.73
+    }
+  ],
+  "flaggedLots": [
+    {
+      "id": "tender:RVZ2400037854/001",
+      "label": "Ubytovna Petřiny - oprava pěti jednotek",
+      "month": "2018-12",
+      "procedure": "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 683849.83,
+      "bidCount": 6,
+      "winners": [
+        "OTISTAV s.r.o."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 683849.83,
+          "spread": 0.0209,
+          "highest": 698139.11,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400085274/001",
+      "label": "Ubytovna Veleslavín - zateplení pláště objektu",
+      "month": "2021-06",
+      "procedure": "Otevřené řízení",
+      "czk": 44947422.34,
+      "bidCount": 17,
+      "winners": [
+        "BBP Stavby s.r.o."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 28
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400093437/001",
+      "label": "Kupa - oprava stoupačky a na ní napojených prostor.",
+      "month": "2021-11",
+      "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 2930484.45,
+      "bidCount": 6,
+      "winners": [
+        "Revitherm s.r.o."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 2930484.45,
+          "spread": 0.0066,
+          "highest": 2949910.65,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400133586/001",
+      "label": "Jarov – oprava stoupačky č. 9 a na ní navázaných prostorů",
+      "month": "2023-12",
+      "procedure": "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 2477777,
+      "bidCount": 6,
+      "winners": [
+        "OTISTAV s.r.o."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 2477777,
+          "spread": 0.0387,
+          "highest": 2573610.58,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500008180/001",
+      "label": "Kupa – oprava stávajících dvou stoupaček.",
+      "month": "2025-02",
+      "procedure": "Otevřené řízení",
+      "czk": 11692516.43,
+      "bidCount": 5,
+      "winners": [
+        "Nostica a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 11692516.43,
+          "spread": 0.0073,
+          "highest": 11777777.77,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500096682/001",
+      "label": "Bělohorská – oprava plynové kotelny.",
+      "month": "2025-06",
+      "procedure": "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 1133260,
+      "bidCount": 5,
+      "winners": [
+        "KOMTERM services, s.r.o."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 1133260,
+          "spread": 0.0397,
+          "highest": 1178280,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600079607/001",
+      "label": "Oprava tří bytových jednotek",
+      "month": "2026-04",
+      "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 560577.73,
+      "bidCount": 11,
+      "winners": [
+        "ALFA stav PV s.r.o."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu",
+          "threshold_p5": 8,
+          "deadline_days": 7
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    }
+  ]
+}

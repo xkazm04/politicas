@@ -1,0 +1,365 @@
+{
+  "generatedFor": "tender loop — deep-read case file (authority)",
+  "generatedAt": "2026-08-24-1240",
+  "subject": {
+    "ico": "00064220",
+    "name": "Psychiatrická nemocnice Bohnice",
+    "mode": "authority"
+  },
+  "scope": {
+    "cpv": "45",
+    "lots": 34,
+    "czkFloor": 156300602.29,
+    "flaggedLots": 12,
+    "source": "ISVZ RVZ open data, record-level 2024-12 → 2026-07"
+  },
+  "cadenceByMonth": {
+    "bez data": 34
+  },
+  "procedureMix": {
+    "Otevřené řízení": 17,
+    "Zjednodušené podlimitní řízení": 10,
+    "Otevřená výzva při zadávání veřejných zakázek malého rozsahu": 7
+  },
+  "flagMix": {
+    "short_deadline": 6,
+    "single_bid": 6
+  },
+  "counterparties": [
+    {
+      "id": "company:ico:26848007",
+      "name": "ZÁVODNÝ Elektro s.r.o.",
+      "lots": 2,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:24133639",
+      "name": "WATEX, s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:64574504",
+      "name": "StavMo s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:25021915",
+      "name": "Metrostav CZ s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:08025363",
+      "name": "Jistech s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:21904952",
+      "name": "PUKLINA s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:45357811",
+      "name": "Koncept FAST s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:24204242",
+      "name": "Sodoma Perfecta s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:04602323",
+      "name": "Brantec Systems s. r. o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:26024705",
+      "name": "Raamar, s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:26347741",
+      "name": "BOLID M s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:62958356",
+      "name": "ELZED Praha ,s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:45799431",
+      "name": "Konstruktis Praha, spol. s r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:01972197",
+      "name": "EMH stavební CZ s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:28808495",
+      "name": "D-energy s.r.o.",
+      "lots": 1,
+      "czkFloor": 0
+    }
+  ],
+  "flaggedLots": [
+    {
+      "id": "tender:RVZ2500069085/001",
+      "label": "Nátěry výplní dveří a zárubní na Pavilon 7, 9 a 27 v areálu Psychiatrické nemocnice Bohnice\n",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": 3097000,
+      "bidCount": 13,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 28
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-08-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500082864/001",
+      "label": "Lakýrnické práce ve vybraných objektech v areálu Psychiatrické nemocnice Bohnice",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": null,
+      "bidCount": 3,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 26
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-06-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500083241/001",
+      "label": "Provizorní zastřešení a zajištění objektu stodoly v areálu PNB",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": 9118469.76,
+      "bidCount": 8,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 27
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-06-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500085121/001",
+      "label": "Výměna oken a dveří v bytových domech v areálu PNB",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": 5797797,
+      "bidCount": 21,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 27
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500085310/001",
+      "label": "Oprava střešního pláště Pavilon 5",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": 7489858.96,
+      "bidCount": 12,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 28
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500118452/001",
+      "label": "Výměna vysokonapěťové části TS2564 a související stavební a technické opravy objektu",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": 2713482.57,
+      "bidCount": 6,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 23
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-10-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500166408/001",
+      "label": "Vybudování úpravny studené vody v areálu PNB",
+      "month": "bez data",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [
+        "WATEX, s.r.o."
+      ],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Zjednodušené podlimitní řízení"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-03-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500170676/001",
+      "label": "Zpevněná plocha pro objekt skladu v areálu PNB",
+      "month": "bez data",
+      "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-02-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500182977/001",
+      "label": "Vodoměry a indikátory",
+      "month": "bez data",
+      "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [
+        "Koncept FAST s.r.o."
+      ],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-02-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500194213/001",
+      "label": "Vratový systém - budova čp.25",
+      "month": "bez data",
+      "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [
+        "Brantec Systems s. r. o."
+      ],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-02-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500207234/001",
+      "label": "Lakýrnické práce ve vybraných objektech v areálu Psychiatrické nemocnice Bohnice",
+      "month": "bez data",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Zjednodušené podlimitní řízení"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-02-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500228648/001",
+      "label": "„MODERNIZACE PAVILONU Č. 34 V AREÁLU PSYCHIATRICKÉ NEMOCNICE BOHNICE METODOU DESIGN & BUILD“",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [
+        "EMH stavební CZ s.r.o.",
+        "D-energy s.r.o."
+      ],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Otevřené řízení"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    }
+  ]
+}

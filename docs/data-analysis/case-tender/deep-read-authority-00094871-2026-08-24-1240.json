@@ -1,0 +1,513 @@
+{
+  "generatedFor": "tender loop — deep-read case file (authority)",
+  "generatedAt": "2026-08-24-1240",
+  "subject": {
+    "ico": "00094871",
+    "name": "Moravská galerie v Brně",
+    "mode": "authority"
+  },
+  "scope": {
+    "cpv": "45",
+    "lots": 43,
+    "czkFloor": 316694633.99,
+    "flaggedLots": 14,
+    "source": "ISVZ RVZ open data, record-level 2024-12 → 2026-07"
+  },
+  "cadenceByMonth": {
+    "2017-07": 1,
+    "2017-08": 1,
+    "2018-03": 1,
+    "2018-04": 3,
+    "2018-05": 1,
+    "2018-06": 1,
+    "2018-08": 1,
+    "2018-09": 1,
+    "2018-10": 2,
+    "2019-02": 1,
+    "2019-06": 2,
+    "2019-09": 1,
+    "2019-10": 5,
+    "2020-03": 1,
+    "2020-06": 1,
+    "2020-09": 1,
+    "2021-01": 1,
+    "2021-09": 1,
+    "2022-03": 1,
+    "2023-03": 1,
+    "2023-06": 1,
+    "2023-12": 1,
+    "2024-02": 1,
+    "bez data": 12
+  },
+  "procedureMix": {
+    "Postup s obnovením soutěže": 17,
+    "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu": 9,
+    "Otevřená výzva při zadávání veřejných zakázek malého rozsahu": 7,
+    "Otevřené řízení": 4,
+    "Zadávací postup na základě výjimky v ostatních případech": 4,
+    "Přímé zadání při zadávání veřejných zakázek malého rozsahu": 1,
+    "Užší řízení": 1
+  },
+  "flagMix": {
+    "tight_spread": 10,
+    "short_deadline": 9,
+    "single_bid": 1
+  },
+  "counterparties": [
+    {
+      "id": "company:ico:76111628",
+      "name": "Adam Máchal",
+      "lots": 11,
+      "czkFloor": 1001862
+    },
+    {
+      "id": "company:ico:75323699",
+      "name": "Marcela Jirotová",
+      "lots": 10,
+      "czkFloor": 692950
+    },
+    {
+      "id": "company:ico:48858846",
+      "name": "Miloš Měřinský",
+      "lots": 7,
+      "czkFloor": 22336
+    },
+    {
+      "id": "company:ico:05298733",
+      "name": "Kateřina Jasparová",
+      "lots": 3,
+      "czkFloor": 25712
+    },
+    {
+      "id": "company:ico:05262933",
+      "name": "IM Development s.r.o.",
+      "lots": 2,
+      "czkFloor": 96714048.42
+    },
+    {
+      "id": "company:ico:62110071",
+      "name": "Miroslav Procházka",
+      "lots": 1,
+      "czkFloor": 1492
+    },
+    {
+      "id": "company:ico:60735678",
+      "name": "Synerga a.s.",
+      "lots": 1,
+      "czkFloor": 1760972.61
+    },
+    {
+      "id": "company:ico:28268482",
+      "name": "TOMEGA, s.r.o.",
+      "lots": 1,
+      "czkFloor": 196236
+    },
+    {
+      "id": "company:ico:68039913",
+      "name": "Miroslav Fečkanin",
+      "lots": 1,
+      "czkFloor": 28000
+    },
+    {
+      "id": "company:ico:71531459",
+      "name": "Andrea Malinovská",
+      "lots": 1,
+      "czkFloor": 750000
+    },
+    {
+      "id": "company:ico:04105583",
+      "name": "Juvytech",
+      "lots": 1,
+      "czkFloor": 602900
+    },
+    {
+      "id": "company:ico:04808568",
+      "name": "SEDMA International s.r.o.",
+      "lots": 1,
+      "czkFloor": 160600
+    },
+    {
+      "id": "company:ico:46962263",
+      "name": "ŽALUZIE FOK,spol.s r.o.",
+      "lots": 1,
+      "czkFloor": 41530
+    },
+    {
+      "id": "company:ico:29388082",
+      "name": "AQ audio studio s.r.o.",
+      "lots": 1,
+      "czkFloor": 711512
+    },
+    {
+      "id": "company:ico:47537205",
+      "name": "IDPS s.r.o.",
+      "lots": 1,
+      "czkFloor": 152855128.96
+    },
+    {
+      "id": "company:ico:44961367",
+      "name": "Tocháček spol. s r.o.",
+      "lots": 1,
+      "czkFloor": 58605000
+    },
+    {
+      "id": "company:ico:29358191",
+      "name": "ID Art s.r.o.",
+      "lots": 1,
+      "czkFloor": 1827300
+    }
+  ],
+  "flaggedLots": [
+    {
+      "id": "tender:RVZ2400186672/001",
+      "label": "Repase, výmalba, výroba a dodání výstavních prvků pro výstavu Computer.art",
+      "month": "2018-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 160720,
+      "bidCount": 4,
+      "winners": [
+        "Adam Máchal"
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 160720,
+          "spread": 0.0142,
+          "highest": 163000,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400186723/001",
+      "label": "Výmalba sálů a výroba mobiliáře BB2018",
+      "month": "2018-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 174020,
+      "bidCount": 4,
+      "winners": [
+        "Adam Máchal"
+      ],
+      "flags": [
+        "tight_spread",
+        "short_deadline"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 174020,
+          "spread": 0.0197,
+          "highest": 177450,
+          "threshold_p10": 0.0492
+        },
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 2
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400186698/001",
+      "label": "Výmalba výstavních prostor - Brtnice",
+      "month": "2018-05",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 9930,
+      "bidCount": 4,
+      "winners": [
+        "Miloš Měřinský"
+      ],
+      "flags": [
+        "tight_spread",
+        "short_deadline"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 9930,
+          "spread": 0.0272,
+          "highest": 10200,
+          "threshold_p10": 0.0492
+        },
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 1
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400186730/001",
+      "label": "Repase a výmalba PP, herna",
+      "month": "2018-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 34824,
+      "bidCount": 2,
+      "winners": [
+        "Marcela Jirotová"
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 2
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400186857/001",
+      "label": "Výroba výstavních prvků pro výstavu Inez Tuschnerová ",
+      "month": "2018-08",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 114750,
+      "bidCount": 4,
+      "winners": [
+        "Adam Máchal"
+      ],
+      "flags": [
+        "tight_spread",
+        "short_deadline"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 114750,
+          "spread": 0.0275,
+          "highest": 117900,
+          "threshold_p10": 0.0492
+        },
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 2
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400150837/001",
+      "label": "Výroba a dodání výstavních prvků pro výstavu Josef Šíma, Cesta k vysoké hře",
+      "month": "2018-10",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 270450,
+      "bidCount": 4,
+      "winners": [
+        "Marcela Jirotová"
+      ],
+      "flags": [
+        "tight_spread",
+        "short_deadline"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 270450,
+          "spread": 0.015,
+          "highest": 274500,
+          "threshold_p10": 0.0492
+        },
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 1
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400153295/001",
+      "label": "Vytvoření protipožárního podbití s hlazenou akrylátovou omítkou a fasádním nátěrem",
+      "month": "2019-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 27300,
+      "bidCount": 4,
+      "winners": [
+        "Adam Máchal"
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400154446/001",
+      "label": "Výstavnické a stavební práce pro výstavu Cena Jindřicha Chalupeckého 2019",
+      "month": "2019-09",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 241970,
+      "bidCount": 4,
+      "winners": [
+        "Marcela Jirotová"
+      ],
+      "flags": [
+        "tight_spread",
+        "short_deadline"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 241970,
+          "spread": 0.0261,
+          "highest": 248280,
+          "threshold_p10": 0.0492
+        },
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400054483/001",
+      "label": "Místodržitelský palác - rekonstrukce 7 výstavních sálů a přilehlé chodby 2. NP– I. Část  Výmalba výstavních prostor a chodby. Nátěry zárubní a obložení ve výstavních sálech. Montáž SDK příček.",
+      "month": "2019-10",
+      "procedure": "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 325000,
+      "bidCount": 6,
+      "winners": [
+        "Adam Máchal"
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 325000,
+          "spread": 0.0215,
+          "highest": 332000,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400054486/001",
+      "label": "Místodržitelský palác - rekonstrukce 7 výstavních sálů a přilehlé chodby 2. NP– II.Část  Realizace nové podlahy dle PD. Vybourání stávající podlahy a provedení nové podlahy včetně odvozu sutě a zajištění interiéru a nádvoří proti prachu a nečistotám.",
+      "month": "2019-10",
+      "procedure": "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 602900,
+      "bidCount": 6,
+      "winners": [
+        "Juvytech"
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 602900,
+          "spread": 0.0226,
+          "highest": 616500,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400054671/001",
+      "label": "Místodržitelský palác - rekonstrukce 7 výstavních sálů a přilehlé chodby 2. NP– V. Část  Truhlářské a zámečnické práce dle architektonického návrhu.",
+      "month": "2019-10",
+      "procedure": "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 190256,
+      "bidCount": 4,
+      "winners": [
+        "Adam Máchal"
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 190256,
+          "spread": 0.0144,
+          "highest": 193000,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400157836/001",
+      "label": "Výstavnické práce-Rajlich 100",
+      "month": "2020-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 108200,
+      "bidCount": 5,
+      "winners": [
+        "Marcela Jirotová"
+      ],
+      "flags": [
+        "tight_spread",
+        "short_deadline"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 108200,
+          "spread": 0.0351,
+          "highest": 112000,
+          "threshold_p10": 0.0492
+        },
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400159003/001",
+      "label": "Výmalba výstavních prostor a úpravy výstavních panelů",
+      "month": "2020-09",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 21910,
+      "bidCount": 7,
+      "winners": [
+        "Kateřina Jasparová"
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 4
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400172695/001",
+      "label": "Výstavnické práce-realizace výstavní architektury rtnice",
+      "month": "bez data",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 11660,
+      "bidCount": 1,
+      "winners": [],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Postup s obnovením soutěže"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    }
+  ]
+}

@@ -81,3 +81,14 @@ species: marginal conveyor flags vs large-ZPŘ cover-bid shapes (7,4 M lot, 0,8 
 Tool defects fixed: bids_on edges undercount bidders (anonymised class has no edges — use
 register bid_count); cadence needs endedOn→startedOn→decided_on fallback.
 
+### Batch 008 — the needle-city profile does NOT generalise, and that is the finding (2026-08-24)
+
+Five deep-reads (Bytová správa MV, Bohnice, SOA Třeboň, TSK Praha, Moravská galerie): one
+flag-share number covers FIVE authority species — conveyor city (Havířov), house-supplier
+lock (OTISTAV 23/42), framework oligopoly (TSK: 103× obnovení soutěže, giants, 16,6 mld =
+estimate CEILINGS not cash), rotating micro-pool (galerie: same 4–6 bidders every lot,
+spreads 1,4–3,5 %, wins alternating among three individuals), data-poor/small-n (Bohnice:
+no prices, no dates). Product decision: SPECIES BEFORE RANK — flag share compares only
+within species; czkFloor carries a per-species label. Next deterministic marker: bidder-
+pool statistic (distinct-bidder ratio, repeat-pool share) for the rotation species.
+

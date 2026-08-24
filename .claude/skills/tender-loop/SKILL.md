@@ -172,6 +172,15 @@ Kernel gates plus:
   marginal disclosed flags; large ZPŘ lots fire the cover-bid shapes. Both can live in one
   authority, and the case file must keep them apart.
 
+- **b008 (deep-reads × 5):** authority pictures come in SPECIES (conveyor city, house-
+  supplier lock, framework oligopoly, rotating micro-pool, data-poor/small-n) and a flag
+  share only compares WITHIN a species — ranking across species compares a 22-lot archive
+  against a 1 553-lot conveyor. czkFloor means „estimate ceiling" for framework
+  authorities and „near awarded cash" for conveyors — one column, two meanings, label it.
+  Cadence over mixed coverage eras reads as decline when it is an archive boundary — read
+  per era. The rotation species (same handful of bidders, alternating winners, tight
+  spreads) has no deterministic marker yet — bidder-pool statistic is the candidate.
+
 ## History
 
 - 2026-08-23: skill created from the user's doctrine notes; first campaign

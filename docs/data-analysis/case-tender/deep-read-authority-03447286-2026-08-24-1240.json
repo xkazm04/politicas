@@ -1,0 +1,2094 @@
+{
+  "generatedFor": "tender loop — deep-read case file (authority)",
+  "generatedAt": "2026-08-24-1240",
+  "subject": {
+    "ico": "03447286",
+    "name": "Technická správa komunikací hl. m. Prahy, a.s.",
+    "mode": "authority"
+  },
+  "scope": {
+    "cpv": "45",
+    "lots": 339,
+    "czkFloor": 16639951328.609999,
+    "flaggedLots": 86,
+    "source": "ISVZ RVZ open data, record-level 2024-12 → 2026-07"
+  },
+  "cadenceByMonth": {
+    "2019-01": 4,
+    "2019-02": 1,
+    "2019-04": 1,
+    "2019-05": 3,
+    "2019-07": 3,
+    "2019-08": 7,
+    "2019-09": 13,
+    "2019-10": 5,
+    "2019-11": 1,
+    "2019-12": 3,
+    "2020-01": 4,
+    "2020-02": 3,
+    "2020-04": 8,
+    "2020-05": 4,
+    "2020-06": 4,
+    "2020-07": 6,
+    "2020-08": 5,
+    "2020-09": 4,
+    "2020-10": 3,
+    "2020-11": 2,
+    "2020-12": 1,
+    "2021-01": 5,
+    "2021-02": 4,
+    "2021-03": 2,
+    "2021-04": 2,
+    "2021-05": 3,
+    "2021-07": 4,
+    "2021-08": 3,
+    "2021-09": 2,
+    "2021-11": 1,
+    "2021-12": 1,
+    "2022-01": 1,
+    "2022-02": 2,
+    "2022-03": 3,
+    "2022-04": 2,
+    "2024-07": 3,
+    "2024-09": 1,
+    "2024-10": 1,
+    "2024-11": 1,
+    "2025-03": 2,
+    "2025-04": 1,
+    "2025-05": 2,
+    "2025-06": 3,
+    "2025-07": 2,
+    "2025-08": 1,
+    "2025-09": 1,
+    "2025-10": 1,
+    "2025-12": 3,
+    "2026-01": 6,
+    "2026-02": 10,
+    "2026-03": 8,
+    "2026-04": 17,
+    "2026-05": 13,
+    "2026-06": 27,
+    "2026-07": 12,
+    "bez data": 104
+  },
+  "procedureMix": {
+    "Postup s obnovením soutěže": 103,
+    "Užší řízení": 72,
+    "Otevřené řízení": 65,
+    "Zjednodušené podlimitní řízení": 44,
+    "neuvedeno": 16,
+    "Otevřená výzva při zadávání veřejných zakázek malého rozsahu": 12,
+    "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu": 11,
+    "Jednací řízení bez uveřejnění": 11,
+    "Jednací řízení s uveřejněním": 5
+  },
+  "flagMix": {
+    "short_deadline": 49,
+    "tight_spread": 18,
+    "exceptional_procedure": 11,
+    "repeat_winner": 9,
+    "single_bid": 1
+  },
+  "counterparties": [
+    {
+      "id": "company:ico:26508583",
+      "name": "DAP. a.s.",
+      "lots": 30,
+      "czkFloor": 5445489870
+    },
+    {
+      "id": "company:ico:45359041",
+      "name": "STRABAG SIS a.s.",
+      "lots": 26,
+      "czkFloor": 4500899950
+    },
+    {
+      "id": "company:ico:43005560",
+      "name": "PORR a.s.",
+      "lots": 24,
+      "czkFloor": 6099640415.31
+    },
+    {
+      "id": "company:ico:45274924",
+      "name": "EUROVIA CZ a.s.",
+      "lots": 23,
+      "czkFloor": 6596568923.33
+    },
+    {
+      "id": "company:ico:60838744",
+      "name": "STRABAG a.s.",
+      "lots": 19,
+      "czkFloor": 1661333006.0500002
+    },
+    {
+      "id": "company:ico:26271303",
+      "name": "Skanska a.s.",
+      "lots": 13,
+      "czkFloor": 1081938269.88
+    },
+    {
+      "id": "company:ico:47114444",
+      "name": "INPROS PRAHA a.s.",
+      "lots": 13,
+      "czkFloor": 223868432.95
+    },
+    {
+      "id": "company:ico:28498771",
+      "name": "BM Construction, spol. s r.o.",
+      "lots": 10,
+      "czkFloor": 416053742.15999997
+    },
+    {
+      "id": "company:ico:48033251",
+      "name": "Stavební firma HOBST a.s.",
+      "lots": 9,
+      "czkFloor": 383961387.3000001
+    },
+    {
+      "id": "company:ico:25317628",
+      "name": "FIRESTA-Fišer, rekonstrukce, stavby a.s.",
+      "lots": 8,
+      "czkFloor": 709874236.46
+    },
+    {
+      "id": "company:ico:26212005",
+      "name": "CH vodní stavby a.s.",
+      "lots": 7,
+      "czkFloor": 304070322.95
+    },
+    {
+      "id": "company:ico:42196868",
+      "name": "M - SILNICE a.s.",
+      "lots": 6,
+      "czkFloor": 88255611.35
+    },
+    {
+      "id": "company:ico:62242105",
+      "name": "SILNICE GROUP a.s.",
+      "lots": 5,
+      "czkFloor": 198250793.71
+    },
+    {
+      "id": "company:ico:48035599",
+      "name": "SWIETELSKY stavební s.r.o.",
+      "lots": 5,
+      "czkFloor": 107248870.67999999
+    },
+    {
+      "id": "company:ico:02533898",
+      "name": "František Juhász",
+      "lots": 5,
+      "czkFloor": 0
+    },
+    {
+      "id": "company:ico:27195147",
+      "name": "Stavby mostů a.s.",
+      "lots": 3,
+      "czkFloor": 295895162
+    },
+    {
+      "id": "company:ico:27900096",
+      "name": "POZEMNÍ KOMUNIKACE BOHEMIA, a.s.",
+      "lots": 3,
+      "czkFloor": 96441788.45
+    },
+    {
+      "id": "company:ico:09884572",
+      "name": "Metrostav TBR a.s.",
+      "lots": 3,
+      "czkFloor": 2207299286.71
+    },
+    {
+      "id": "company:ico:43792553",
+      "name": "B E S s.r.o.",
+      "lots": 3,
+      "czkFloor": 4517381823
+    },
+    {
+      "id": "company:ico:64831213",
+      "name": "AVE Services s.r.o.",
+      "lots": 3,
+      "czkFloor": 200392154.5
+    }
+  ],
+  "flaggedLots": [
+    {
+      "id": "tender:RVZ2400036269/001",
+      "label": "Cyklo Rokytka - vodní prostup, Praha 8 a 9, č. akce 2950110 - II",
+      "month": "2019-01",
+      "procedure": "Užší řízení",
+      "czk": 42452785.06,
+      "bidCount": 7,
+      "winners": [
+        "STRABAG a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 42452785.06,
+          "spread": 0.0022,
+          "highest": 42548055.94,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400036742/001",
+      "label": "BBP Ortenovo náměstí a okolí, Praha 7, č. akce 60281",
+      "month": "2019-02",
+      "procedure": "Užší řízení",
+      "czk": 13697076.18,
+      "bidCount": 11,
+      "winners": [
+        "CH vodní stavby a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 13697076.18,
+          "spread": 0.0459,
+          "highest": 14326109.05,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400046349/001",
+      "label": "P+R Běchovice - střed, Praha 21, č.akce 2930044",
+      "month": "2019-08",
+      "procedure": "Užší řízení",
+      "czk": 8995900,
+      "bidCount": 16,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 8995900,
+          "spread": 0.0447,
+          "highest": 9398086.86,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400048243/001",
+      "label": "Evropská (Horoměřická – Gymnasijní) Praha 6, č. akce 738",
+      "month": "2019-08",
+      "procedure": "Užší řízení",
+      "czk": 30829500.59,
+      "bidCount": 35,
+      "winners": [
+        "POZEMNÍ KOMUNIKACE BOHEMIA, a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 30829500.59,
+          "spread": 0.0335,
+          "highest": 31862100,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400048824/001",
+      "label": "Ohradní, Praha 4, č. akce 913",
+      "month": "2019-08",
+      "procedure": "Užší řízení",
+      "czk": 39697936.8,
+      "bidCount": 10,
+      "winners": [
+        "Skanska a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 39697936.8,
+          "spread": 0.0378,
+          "highest": 41199614.38,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400048212/001",
+      "label": "Klausova, Praha 5, č. akce 1011",
+      "month": "2019-09",
+      "procedure": "Užší řízení",
+      "czk": 24399600,
+      "bidCount": 32,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 24399600,
+          "spread": 0.0423,
+          "highest": 25430863.18,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400050022/001",
+      "label": "Na Staré, Praha 5, č. akce 9666049",
+      "month": "2019-09",
+      "procedure": "Užší řízení",
+      "czk": 36885223.38,
+      "bidCount": 27,
+      "winners": [
+        "ČNES dopravní stavby, a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 36885223.38,
+          "spread": 0.0411,
+          "highest": 38400339.64,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400046380/001",
+      "label": "Označování a odstraňování havarijních závad ve sjízdnosti a schůdnosti pozemních komunikací na území hl. m. Prahy",
+      "month": "2019-10",
+      "procedure": "Užší řízení",
+      "czk": 14292680,
+      "bidCount": 7,
+      "winners": [
+        "Pražské služby, a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 14292680,
+          "spread": 0.0231,
+          "highest": 14622760,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400056583/001",
+      "label": "BBP Letná a okolí, Praha 7, č.akce 60282",
+      "month": "2019-12",
+      "procedure": "Užší řízení",
+      "czk": 8288445.09,
+      "bidCount": 7,
+      "winners": [
+        "CH vodní stavby a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 8288445.09,
+          "spread": 0.0168,
+          "highest": 8427473.43,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400060086/001",
+      "label": "Nádražní, Praha 5, č. akce 328",
+      "month": "2020-04",
+      "procedure": "Užší řízení",
+      "czk": 26955998.69,
+      "bidCount": 10,
+      "winners": [
+        "Skanska a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 26955998.69,
+          "spread": 0.0424,
+          "highest": 28100139.66,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400064038/001",
+      "label": "Prosecká (U Pekařky – Na Rozhraní) Praha 8, č. akce 999049",
+      "month": "2020-06",
+      "procedure": "Užší řízení",
+      "czk": 123131757.48,
+      "bidCount": 13,
+      "winners": [
+        "EUROVIA CZ a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 123131757.48,
+          "spread": 0.0269,
+          "highest": 126448600,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400067819/001",
+      "label": "Opatření pro SOKP 511 a I/12, Praha 21, č. akce 1000097/2",
+      "month": "2020-07",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 7443749.32,
+      "bidCount": 8,
+      "winners": [
+        "M - SILNICE a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400069850/001",
+      "label": "X 526 – Ve Žlíbku – Počernická, oprava mostu,  č. akce 1040, Praha 20",
+      "month": "2020-08",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 25525027.33,
+      "bidCount": 4,
+      "winners": [
+        "Metrostav a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 25525027.33,
+          "spread": 0.0241,
+          "highest": 26140753.93,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400071745/001",
+      "label": "Plzeňská, rek. komunikace, P 5, č. akce 1000128",
+      "month": "2020-09",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 39399819.33,
+      "bidCount": 12,
+      "winners": [
+        "Skanska a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400072420/001",
+      "label": "Most v Horoměřické ul. S071, Praha 6, č. akce 999615 - II",
+      "month": "2020-10",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 41396856.92,
+      "bidCount": 4,
+      "winners": [
+        "FIRESTA-Fišer, rekonstrukce, stavby a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 41396856.92,
+          "spread": 0.0491,
+          "highest": 43428106.51,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400077177/001",
+      "label": "MOST, X 696..1,2 , CHILSKÁ, Chodov - Šeberov..1,2, P 11 - oprava říms včetně příslušenství a izolace",
+      "month": "2021-01",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 15472489.32,
+      "bidCount": 9,
+      "winners": [
+        "Stavební firma HOBST a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 15472489.32,
+          "spread": 0.0454,
+          "highest": 16175353.11,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400077245/001",
+      "label": "Na Hutích, rek. komunikace, P 6, č. akce 1000146",
+      "month": "2021-04",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 15618594.39,
+      "bidCount": 12,
+      "winners": [
+        "POZEMNÍ KOMUNIKACE BOHEMIA, a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400081744/001",
+      "label": "U Parkánu – ZŠ, Praha 8, č. akce 2970302",
+      "month": "2021-04",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 8374064.56,
+      "bidCount": 13,
+      "winners": [
+        "INPROS PRAHA a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400083377/001",
+      "label": "Most v ul. Národní, X651, P1, č. akce 500016",
+      "month": "2021-05",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 24510143.41,
+      "bidCount": 4,
+      "winners": [
+        "Skanska a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400085989/001",
+      "label": "Most, V Jezírkách X585 + Opatovská X583 - demolice, Praha 11,                       č. akce 1000084",
+      "month": "2021-07",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 6989487.31,
+      "bidCount": 12,
+      "winners": [
+        "Cirmon s.r.o."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400086358/001",
+      "label": "K Žižkovu, zast. Nádraží Libeň, Praha 9, č. akce 2960058 - PID",
+      "month": "2021-07",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 10219900.02,
+      "bidCount": 4,
+      "winners": [
+        "M - SILNICE a.s."
+      ],
+      "flags": [
+        "tight_spread",
+        "short_deadline"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 10219900.02,
+          "spread": 0.048,
+          "highest": 10710820.98,
+          "threshold_p10": 0.0492
+        },
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400086708/001",
+      "label": "Na Hlavní, zast. Březiněves, Praha 8, č. akce 2960122 - PID",
+      "month": "2021-07",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 13466850.98,
+      "bidCount": 5,
+      "winners": [
+        "INPROS PRAHA a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400097956/001",
+      "label": "Cyklo Klárov podjezd Mánesova mostu, P1, č. akce 2950095 - II",
+      "month": "2022-03",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": 34898999.38,
+      "bidCount": 5,
+      "winners": [
+        "CH vodní stavby a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 34898999.38,
+          "spread": 0.0315,
+          "highest": 35997996.38,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400148219/001",
+      "label": "Barrandovský most – podepření křídla mostu",
+      "month": "2024-07",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": 11228317,
+      "bidCount": 2,
+      "winners": [
+        "ROCKNET s.r.o."
+      ],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500005044/001",
+      "label": "Barrandovský most – celková rekonstrukce, Praha 4 a 5, číslo akce 999174  - vyrovnávací vrstva z UHPFRC - II.",
+      "month": "2024-11",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": 49664741.12,
+      "bidCount": 2,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500109189/001",
+      "label": "Oprava autobusových zastávek 2025 – technologií Artbeton",
+      "month": "2025-07",
+      "procedure": "Otevřená výzva při zadávání veřejných zakázek malého rozsahu",
+      "czk": 7596050.07,
+      "bidCount": 12,
+      "winners": [
+        "SATO spol. s r. o."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 7596050.07,
+          "spread": 0.0488,
+          "highest": 7966479,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500214055/001",
+      "label": "Realizace oprav, údržby a nových stanovení DBZ na území ve správě TSK a.s.",
+      "month": "2025-10",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": null,
+      "bidCount": 8,
+      "winners": [
+        "Lockmont, s.r.o.",
+        "FAQ s.r.o.",
+        "PREMIO INVEST s.r.o."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600028734/001",
+      "label": "Celoplošné opravy komunikace K Ládví, P8",
+      "month": "2026-01",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "EUROVIA CZ a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600034977/001",
+      "label": "Celoplošné opravy komunikace Korandova, P4",
+      "month": "2026-01",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "EUROVIA CZ a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600051649/001",
+      "label": "Seřezání a čištění krajnic na území hlavního města Prahy",
+      "month": "2026-02",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600065441/001",
+      "label": "Most S030 Libocká, Libocká P6 – stavební údržba",
+      "month": "2026-02",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 26193661.35,
+      "bidCount": 14,
+      "winners": [
+        "Metrostav TBR a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600065692/001",
+      "label": "Běžná údržba převážně dlážděných komunikací na území spadající pod správu TSK a.s. na pravém břehu Vltavy",
+      "month": "2026-02",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600065699/001",
+      "label": "Opravy komunikací na území MČ Praha 8",
+      "month": "2026-02",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600067628/001",
+      "label": "Běžná údržba převážně dlážděných komunikací na území spadající pod správu TSK a.s. na levém břehu Vltavy – II.",
+      "month": "2026-03",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600072786/001",
+      "label": "Celoplošné opravy komunikace Lipové náměstí, P15",
+      "month": "2026-03",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600073768/001",
+      "label": "Oprava chodníků v ulici Ruská, P10",
+      "month": "2026-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600076547/001",
+      "label": "Trabantská – K Nádraží – K Cihelně – K Radonicům – Vinořská, Praha – Satalice, č. akce 2970496",
+      "month": "2026-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600076556/001",
+      "label": "Na Slovance – Na Dílcích, č. akce 2970430",
+      "month": "2026-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "EUROVIA CZ a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600076940/001",
+      "label": "Opravy komunikací SFDI, Mezibranská a Wilsonova, Praha 1",
+      "month": "2026-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600076954/001",
+      "label": "Opravy komunikací SFDI, Legerova a Sokolská, Praha 2",
+      "month": "2026-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600079967/001",
+      "label": "Celoplošné opravy pěších komunikací na území MČ Praha 4",
+      "month": "2026-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600079974/001",
+      "label": "Opravy v komunikačním prostoru ve správě TSK na území MČ Praha 1",
+      "month": "2026-04",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600083084/001",
+      "label": "PHS H537, Ocelkova, Ocelkova 537, P14 – stavební údržba",
+      "month": "2026-05",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 3459597.6,
+      "bidCount": 14,
+      "winners": [
+        "Stavební firma HOBST a.s."
+      ],
+      "flags": [
+        "tight_spread"
+      ],
+      "inputs": {
+        "tight_spread": {
+          "lowest": 3459597.6,
+          "spread": 0.0487,
+          "highest": 3627958.04,
+          "threshold_p10": 0.0492
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600085824/001",
+      "label": "SP3_OPD12 – P+R Holešovice, P+R Skalka I., P+R Zličín I., P+R Zličín II.",
+      "month": "2026-05",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 156861.8,
+      "bidCount": 3,
+      "winners": [
+        "AVE Services s.r.o."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600086795/001",
+      "label": "Fontána F011, Alšovo nábřeží, kašna Mánesův most – POS, P1 - stavební údržba",
+      "month": "2026-05",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 8483257.53,
+      "bidCount": 14,
+      "winners": [
+        "BM Construction, spol. s r.o."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600087153/001",
+      "label": "Opravy dlážděných chodníků na území hl. m. Prahy spadající pod správu TSK a.s. na levém břehu Vltavy",
+      "month": "2026-05",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 4
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600087166/001",
+      "label": "Opravy dlážděných chodníků na území hl. m. Prahy spadající pod správu TSK a.s. na pravém břehu Vltavy",
+      "month": "2026-05",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 4
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600088097/001",
+      "label": "CYKLO Cholupice – Dolní Břežany, II. etapa, č. akce 2950225",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600096503/001",
+      "label": "BESIP – Vaňkova – Čertouská, P14, č. akce 2970462",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600097768/001",
+      "label": "Most S034, Statenická, P6 – č. akce 2000",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 11857196.05,
+      "bidCount": 14,
+      "winners": [
+        "BM Construction, spol. s r.o."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600098333/001",
+      "label": "BESIP – Květnového vítězství – Valentova (BCŠ), č. akce 2970479",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600098349/001",
+      "label": "Opravy v komunikačním prostoru na území MČ P8",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600098353/001",
+      "label": "Opravy v komunikačním prostoru na území MČ P 9,14,18,19,20,21",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600099635/001",
+      "label": "Opravy mrazových trhlin a pracovních spár na komunikacích SFDI",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600099640/001",
+      "label": "Opravy v komunikačním prostoru ve správě TSK na území MČ Praha 5",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600099645/001",
+      "label": "Opravy komunikací na území Malé Strany, MČ Praha 1",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600101042/001",
+      "label": "Chodníkový program, Mariánské hradby, P1, č. akce 900000/51",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "EUROVIA CZ a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600101611/001",
+      "label": "Opravy zastávek BUS s povrchem převážně dlážděným",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600101617/001",
+      "label": "Opravy dlážděných částí komunikací na pravém břehu Vltavy",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600103619/001",
+      "label": "Do Horoměřic – NN2158, kruh. objezd, P6, č. akce 1000068",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:26508583",
+          "decided_on": "2026-06-25",
+          "threshold_p95": 20,
+          "prior_wins_365d": 20
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600104016/001",
+      "label": "Mosty v ul. Wilsonova X672, č. akce 1000095 a Legerova X673, č. akce 1000092, P1",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": 22150887.66,
+      "bidCount": 14,
+      "winners": [
+        "Stavební firma HOBST a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600104102/001",
+      "label": "Na Zástřelu, č. akce 1045",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:26508583",
+          "decided_on": "2026-06-29",
+          "threshold_p95": 20,
+          "prior_wins_365d": 21
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600104748/001",
+      "label": "Hvězdova, rozš. chodníku, P4, č. akce 999328",
+      "month": "2026-06",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "PORR a.s."
+      ],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600103763/001",
+      "label": "Opravy v komunikačním prostoru ve správě TSK na území MČ Praha 3",
+      "month": "2026-07",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:26508583",
+          "decided_on": "2026-07-02",
+          "threshold_p95": 20,
+          "prior_wins_365d": 22
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600105196/001",
+      "label": "BESIP– Křejpského, P11, č. akce 2970413",
+      "month": "2026-07",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:45359041",
+          "decided_on": "2026-07-10",
+          "threshold_p95": 20,
+          "prior_wins_365d": 20
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600106619/001",
+      "label": "BESIP – Za Žižkovskou vozovnou – Na Balkáně, P3, č. akce 2970484",
+      "month": "2026-07",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "short_deadline",
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:26508583",
+          "decided_on": "2026-07-10",
+          "threshold_p95": 20,
+          "prior_wins_365d": 23
+        },
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600106628/001",
+      "label": "Do Svépravic, Na Svěcence, č. akce 13574/1",
+      "month": "2026-07",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:45359041",
+          "decided_on": "2026-07-13",
+          "threshold_p95": 20,
+          "prior_wins_365d": 21
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600107495/001",
+      "label": "Chodníkový program, Pod Strání a okolí, P10, č. akce 900000/49",
+      "month": "2026-07",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:26508583",
+          "decided_on": "2026-07-10",
+          "threshold_p95": 20,
+          "prior_wins_365d": 24
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600107496/001",
+      "label": "Chodníkový program, U Zvonařky, P2, č. akce 900000/59; Chodníkový program, Šafaříkova, P2, č. akce 900000/58",
+      "month": "2026-07",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "DAP. a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:26508583",
+          "decided_on": "2026-07-10",
+          "threshold_p95": 20,
+          "prior_wins_365d": 25
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600107851/001",
+      "label": "ZePu, Tylovo náměstí, P2, č. akce 400029",
+      "month": "2026-07",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": 11,
+      "winners": [
+        "STRABAG SIS a.s."
+      ],
+      "flags": [
+        "repeat_winner"
+      ],
+      "inputs": {
+        "repeat_winner": {
+          "winner": "company:ico:45359041",
+          "decided_on": "2026-07-13",
+          "threshold_p95": 20,
+          "prior_wins_365d": 22
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400077745/001",
+      "label": "Most, V Jezírkách X585 + Opatovská X583 - demolice, Praha 11, č. akce 1000084",
+      "month": "bez data",
+      "procedure": "Zjednodušené podlimitní řízení",
+      "czk": null,
+      "bidCount": 0,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Zjednodušené podlimitní řízení",
+          "threshold_p5": 16,
+          "deadline_days": 15
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400144358/001",
+      "label": "Peroutkova, rek. komunikace, P5 č.a. 999033 – zajištění přeložky zařízení distribuční soustavy.",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": 8157853,
+      "bidCount": 1,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400147437/001",
+      "label": "Dukelských hrdinů, U Výstaviště - přeložka sítě el. komunikací ",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": 7295082,
+      "bidCount": 1,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2400148380/001",
+      "label": "Barrandovský most – celková rekonstrukce, Praha 4 a 5, číslo akce 999174  - vyrovnávací vrstva z UHPFRC",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": null,
+      "bidCount": 0,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500059131/001",
+      "label": "Most v ul. Türkova, P540, P11, č. akce 1000070",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [],
+      "flags": [
+        "single_bid"
+      ],
+      "inputs": {
+        "single_bid": {
+          "bid_count": 1,
+          "procedure": "Otevřené řízení"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500067840/001",
+      "label": "Peroutkova, rek. komunikace, P5 č.a. 999033 – zajištění přeložky zařízení distribuční soustavy",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": null,
+      "bidCount": 2,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-06-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500071843/001",
+      "label": "Dukelských hrdinů, U Výstaviště - přeložka podzemní sítě el. komunikací",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": null,
+      "bidCount": 3,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-06-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500077474/001",
+      "label": "Barrandovský most – celková rekonstrukce, Praha 4 a 5, číslo akce 999174 – vyrovnávací vrstva z UHPFRC – II.",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": null,
+      "bidCount": 2,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-06-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500079115/001",
+      "label": "Barrandovský most – podepření křídla mostu",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": null,
+      "bidCount": 3,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-06-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2500228126/001",
+      "label": "Rámcová smlouva o realizaci překládek vedení a zařízení veřejné komunikační sítě ve vlastnictví společnosti CETIN a.s.",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": null,
+      "bidCount": 1,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-04-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2500228133/001",
+      "label": "Rámcová smlouva o realizaci překládek vedení a zařízení veřejné komunikační sítě ve vlastnictví společnosti CETIN a.s.",
+      "month": "bez data",
+      "procedure": "Jednací řízení bez uveřejnění",
+      "czk": null,
+      "bidCount": 3,
+      "winners": [],
+      "flags": [
+        "exceptional_procedure"
+      ],
+      "inputs": {
+        "exceptional_procedure": {
+          "procedure": "Jednací řízení bez uveřejnění"
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-12-2025.zip"
+    },
+    {
+      "id": "tender:RVZ2600099117/001",
+      "label": "Albertov – Ke Karlovu, schodiště, P2, č. akce 1104 II",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": null,
+      "bidCount": null,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 28
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600099121/001",
+      "label": "Albertov – Ke Karlovu, schodiště, P2, č. akce 1104 II",
+      "month": "bez data",
+      "procedure": "Otevřené řízení",
+      "czk": null,
+      "bidCount": null,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Otevřené řízení",
+          "threshold_p5": 29,
+          "deadline_days": 28
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600106761/001",
+      "label": "PD6_OPD12_P+R Nové Butovice, Garáže Muzeum",
+      "month": "bez data",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": null,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 3
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600109415/001",
+      "label": "SP4_OPD12 – Parkoviště Hradební, P+R Ládví, P+R Roztyly, Parkoviště Lovosická III",
+      "month": "bez data",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": null,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    },
+    {
+      "id": "tender:RVZ2600113773/001",
+      "label": "Most X709, U Trati (34 592), Lávka Strašnice, P10 – Stavební údržba",
+      "month": "bez data",
+      "procedure": "Postup s obnovením soutěže",
+      "czk": null,
+      "bidCount": null,
+      "winners": [],
+      "flags": [
+        "short_deadline"
+      ],
+      "inputs": {
+        "short_deadline": {
+          "procedure": "Postup s obnovením soutěže",
+          "threshold_p5": 6,
+          "deadline_days": 5
+        }
+      },
+      "source": "https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-07-2026.zip"
+    }
+  ]
+}
