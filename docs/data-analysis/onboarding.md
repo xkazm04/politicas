@@ -117,6 +117,26 @@ Two pglite caveats handled explicitly:
 - **No `unaccent` extension.** Czech diacritics are folded to ASCII at ingest
   into `*_norm` columns (`lib/ingest/normalize.ts`) that carry their own btree
   index — never folded at query time.
+- **No background processes.** PGlite runs Postgres without a checkpointer, so
+  `checkpoint_timeout` (300 s) never fires and WAL is checkpointed only inline,
+  when a write crosses `max_wal_size` (1 024 MB). That is why `pg_wal` was 27 %
+  of the 2 045 MB store measured 2026-08-24, and why
+  `lib/db/pglite/maintenance.ts` now takes the pass when the connection is idle
+  instead (docs/db-architecture-guide.md, R17).
+
+Where the bytes are: `npm run db:accounting` reports per table an exact
+`count(*)`, pages allocated, share of the total, and the retention policy
+declared for it. Run it the way every analysis pass runs — against a COPY:
+
+```bash
+PGLITE_PATH=./.pglite-backup-2026-08-24-pass73-pre npm run db:accounting
+```
+
+Measured that way on 2026-08-24: `vote_ballot` 489 MB (33 %), `kg_node` 393 MB,
+`kg_edge` 328 MB, the two append-only history tables 202 MB together (13,6 %).
+The scan costs ~1 s. Dead-tuple/bloat figures are **not available** on this
+substrate (no stats collector), and the report says so rather than printing a
+zero.
 
 ### One real bug found and fixed (durability)
 

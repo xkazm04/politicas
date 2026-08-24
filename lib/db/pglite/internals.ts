@@ -6,6 +6,7 @@ import { pglitePath } from "../config";
 import type { ListOptions } from "../store";
 import { CORE_DDL } from "./ddl";
 import { instrumentPglite } from "./instrument";
+import { withQuietWindowMaintenance } from "./maintenance";
 
 export interface PgResult<T> {
   rows: T[];
@@ -45,13 +46,20 @@ export type GlobalWithPglite = typeof globalThis & { [PGLITE_KEY]?: Promise<Pgli
  * every operation without a single call site changing. The wrap happens BEFORE
  * `exec(CORE_DDL)` so cold-start schema application is measured too, and it is
  * identity (the same object, no wrapper at all) when metrics are switched off.
+ *
+ * The same chokepoint carries the maintenance scheduler (./maintenance.ts),
+ * wrapped INSIDE the instrument: the activity gauge then counts exactly the
+ * operations the instrument measures, while the CHECKPOINT the scheduler issues
+ * goes to the raw connection and never appears in the query rings as a phantom
+ * key. Both wrappers are identity when switched off.
  */
 export async function open(): Promise<Pglite> {
   const g = globalThis as GlobalWithPglite;
   if (!g[PGLITE_KEY]) {
     const opening = (async () => {
       const { PGlite } = await import("@electric-sql/pglite");
-      const pg = instrumentPglite(new PGlite(pglitePath()) as unknown as Pglite);
+      const raw = new PGlite(pglitePath()) as unknown as Pglite;
+      const pg = instrumentPglite(withQuietWindowMaintenance(raw));
       await pg.waitReady;
       await pg.exec(CORE_DDL);
       return pg;

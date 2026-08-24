@@ -233,6 +233,74 @@ Add a dedicated **vector** store only past ~1M vectors or high re-embed churn (R
 **lost every workload** to the recursive-CTE row/columnar stores (R12–R15). Reconsider only
 for a millions-edge *sparse* graph with deep path queries.
 
+## Store housekeeping — what the 2 GB is, and who checkpoints it (2026-08-24)
+
+Two facts the guide could not answer until this date: **which table the store is**,
+and **when the write-ahead log gets checkpointed**. Both are now measured, and both
+have a door in the repo.
+
+### Where the bytes are
+
+`npm run db:accounting` (`lib/db/pglite/accounting.ts`) reports per table: an exact
+`count(*)`, pages allocated (`pg_total_relation_size` — heap + indexes + TOAST), and
+share of the total. Measured on the `pass73-pre` copy, 2 045 MB on disk:
+
+| table | rows | total MB | share |
+|---|---:|---:|---:|
+| `vote_ballot` | 2 209 200 | 489,2 | 33,1 % |
+| `kg_node` | 232 655 | 392,8 | 26,5 % |
+| `kg_edge` | 371 137 | 327,6 | 22,1 % |
+| `kg_edge_history` | 187 249 | 101,3 | 6,8 % |
+| `kg_node_history` | 65 676 | 101,3 | 6,8 % |
+| everything else (13 tables) | — | 67,5 | 4,7 % |
+
+Plus **544 MB of `pg_wal` (27 % of the directory)**, which `pg_database_size` does
+not count — the two figures disagree by construction and the report says so.
+
+- **R16 — the growth is the corpus, not the history.** The two append-only history
+  tables are 13,6 % of the store; the three corpus/derivation tables are 81,7 %. A
+  retention policy on the history tables would therefore not be the fix for a 2 GB
+  store — which is worth knowing *before* anyone proposes deleting an audit trail to
+  save disk. Retention here is deliberately unbounded (declared per table in
+  `accounting.ts`, operator decision 2026-08-24), and this measurement is what makes
+  that a decision rather than a drift. _(accounting, 2026-08-24)_
+- Reclaimable space (dead tuples / bloat) is **not measurable on this substrate**:
+  PGlite runs no stats collector, so `pg_stat_user_tables` reads all-zero even after a
+  measured 1 111-row delete, and `pg_class.reltuples` is −1 until an explicit ANALYZE.
+  The report names the gap instead of printing a zero that would read as evidence.
+- Cost of the report: **~1 s** on this store (the 18 `count(*)`s, dominated by the
+  2,2 M-row ballot scan). It trips the instrument's own 60 ms read line, which is the
+  scan being honest about itself, not a defect.
+
+### Who checkpoints, and when
+
+PGlite runs Postgres with **no background processes**, so there is no checkpointer to
+honour `checkpoint_timeout` (300 s on this store — a setting nothing here can act on).
+What is left is the `max_wal_size` trigger (1 024 MB), taken **inline on whichever
+write crosses it**: maintenance scheduled by a counter that knows nothing about
+interactions, with the stall charged to whatever the user was touching. The 625 MB of
+`pg_wal` found in the 2026-08-22 backup review, and the 544 MB above, are what that
+looks like from outside.
+
+`lib/db/pglite/maintenance.ts` puts the pass under a two-condition gate instead — the
+activity gauge (operations in flight on the one connection) must read zero **and** at
+least 300 s must have passed — with an escalation ladder keyed to the harm a
+checkpoint actually resets:
+
+- **R17 — key WAL pressure to unckeckpointed bytes, never to the size of `pg_wal`.**
+  A checkpoint recycles segments in place and never returns them to the OS, so the
+  directory does not shrink; a ladder keyed to directory bytes latches open forever.
+  `pg_wal_lsn_diff(pg_current_wal_lsn(), redo_lsn)` is the figure a checkpoint does
+  reset — measured 151 240 B after a small write, 208 B after `CHECKPOINT`. The rungs
+  are 64 MB (pressure, overrides the interval) and 512 MB (forced, overrides the gauge
+  and says so on the warn channel), against the engine's own 1 024 MB inline trigger.
+  _(maintenance, 2026-08-24)_
+
+A pass costs **6,4–42,1 ms** measured on the 2 GB store. Every pass, every
+wanted-but-deferred consideration and every failure lands in a bounded ledger
+(`maintenanceReport()`), because a log that records only successes cannot tell a
+healthy store from a scheduler that has been deferring for a month.
+
 ## Roadmap — experiments to add
 
 1. **OLAP** over 406k ballots — PGlite vs DuckDB vs SQLite _(✓ done — case #1)_.

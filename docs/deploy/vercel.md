@@ -115,6 +115,7 @@ VALUE belongs to the deployment target.
 | `ADMIN_TOKEN` | set before the first deploy | set | optional | **Yes** | Unlocks `/admin`. Unset → the console is CLOSED and says so; no admin data is loaded. |
 | `REVIEWER_TOKEN` | optional | optional | optional | **Yes** | Unlocks the `/penize/kontrola` write path. Unset → console stays read-only ("not-configured"). |
 | `REVIEWER_NAME` | optional | optional | optional | No (display only) | Reviewer stamped on every `review_audit` row. |
+| `POLITICAS_DB_MAINTENANCE` | optional | optional | optional | No | **Defaults ON**; set to `off`/`0`/`false` to disable quiet-window CHECKPOINTs (`lib/db/pglite/maintenance.ts`). Disabled is object identity, like the metrics wrapper. The pass runs only when no operation is in flight and ≥ 300 s have passed (or ≥ 64 MB of WAL is unckeckpointed), and costs 6,4–42,1 ms measured on the 2 GB store. Turning it off does not stop checkpoints — it hands them back to the engine's inline `max_wal_size` trigger, which fires in the middle of somebody's write. |
 | `POLITICAS_DB_METRICS` | optional | optional | optional | No | **Defaults ON**; set to `off`/`0`/`false` to disable the PGlite self-instrumentation (`lib/db/pglite/instrument.ts`). Disabled is object identity — no wrapper enters the graph at all, not a fast path through one. Enabled costs a measured +1,2 µs per operation (20 000-call A/B), which is 0,2 % of the fastest healthy query on this substrate, so there is no deployment reason to set it. |
 
 Notes:

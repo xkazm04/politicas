@@ -107,6 +107,15 @@ npm run test         # vitest (lib/**, features/**, scripts/**, packages/*/src/*
 npm run build        # production build
 ```
 
+Store housekeeping, none of it in the gate (they touch the data dir, not the
+code): `npm run db:backup` (CHECKPOINT + copy, pruned to the last N),
+`npm run db:accounting` (per-table rows/bytes/share + each table's declared
+retention). PGlite is single-connection, so both refuse a store something else
+is holding — point `PGLITE_PATH` at a copy instead. Checkpointing itself is no
+longer manual: `lib/db/pglite/maintenance.ts` takes the pass when no operation
+is in flight, because the alternative is not "no checkpoint" but the engine's
+inline `max_wal_size` one, landing in the middle of somebody's write.
+
 `npm run check` and CI are NOT the same set, and neither is a superset: `check`
 adds `census:test` + `library:check`; CI adds the schema-snapshot drift check and
 `build`. `npm run census` (the golden-path ratchet) is in neither — its rule

@@ -48,6 +48,8 @@ export const PGLITE_LANE_FILES = [
   "features/dukazy/chainRow.test.ts",
   "lib/analysis/kg-money-reingest.test.ts",
   "lib/db/kgOrder.test.ts",
+  "lib/db/pglite/accounting.test.ts",
+  "lib/db/pglite/maintenance-store.test.ts",
   "lib/db/pglite/open-retry.test.ts",
   "lib/db/pglite/repositories/changes.test.ts",
   "lib/db/pglite/repositories/graph.test.ts",

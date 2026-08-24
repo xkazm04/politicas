@@ -30,6 +30,14 @@ npm start            # next start — NOT the supported path: next.config.ts set
 and `hybrid:*` (benchmark) scripts run via `tsx` — these drive the offline
 ingest and analysis loops, not the app.
 
+```bash
+npm run db:backup     # CHECKPOINT + copy the store, pruned to the last N
+npm run db:accounting # per-table rows/bytes/share + the declared retention of
+                      #   each table. PGlite is single-connection: while the dev
+                      #   server holds .pglite this refuses to open it — point
+                      #   PGLITE_PATH at a copy instead.
+```
+
 ## Architecture in one paragraph
 
 `app/` holds thin routes only — a `page.tsx` mounts one feature component and

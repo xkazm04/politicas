@@ -87,6 +87,7 @@ HLIDAC_API_TOKEN=… npx tsx scripts/data-analysis/kg-money-ingest.ts   --chambe
 npm run dev          # dev server (Next.js App Router)
 npm run check        # THE gate: typecheck + lint + test — run before calling work done
 npm run build        # production build
+npm run db:accounting # what the embedded store is made of, per table
 ```
 
 ## Status
