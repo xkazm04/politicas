@@ -47,6 +47,12 @@ npm run db:restore    # put a pre-migration snapshot back (--from=… --yes).
 loudly, but the copy that would let you go back was not taken. Run
 `npm run db:migrate` instead; it is the same DDL with the door held open.
 
+**What a crash costs:** this store survives a process crash, not a power cut
+(`fsync` is off, set by PGlite itself — the contract and its reasons are in
+`lib/db/pglite/durability.ts`, asserted on every boot). Never copy the store's
+main files without `pg_wal`: between checkpoints the recent commits are only
+there. Every copy path in the repo goes through `lib/db/pglite/storeCopy.ts`.
+
 ## Architecture in one paragraph
 
 `app/` holds thin routes only — a `page.tsx` mounts one feature component and

@@ -49,6 +49,7 @@ export const PGLITE_LANE_FILES = [
   "lib/analysis/kg-money-reingest.test.ts",
   "lib/db/kgOrder.test.ts",
   "lib/db/pglite/accounting.test.ts",
+  "lib/db/pglite/durability.test.ts",
   "lib/db/pglite/maintenance-store.test.ts",
   "lib/db/pglite/open-retry.test.ts",
   "lib/db/pglite/premigration.test.ts",

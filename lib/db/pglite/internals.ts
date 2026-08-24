@@ -5,6 +5,7 @@
 import { pglitePath } from "../config";
 import type { ListOptions } from "../store";
 import { CORE_DDL } from "./ddl";
+import { assertDurabilityContract } from "./durability";
 import { instrumentPglite } from "./instrument";
 import { withQuietWindowMaintenance } from "./maintenance";
 
@@ -67,6 +68,11 @@ export async function open(): Promise<Pglite> {
       await pg.waitReady;
       await disclosePendingDdl(pg);
       await pg.exec(CORE_DDL);
+      await assertDurabilityContract(pg).catch((err: unknown) => {
+        // The contract could not be READ. That is worth a line (it is already
+        // one, inside), and it is not a reason to withhold a working store.
+        console.warn(`[db] durability contract unverified this boot: ${String(err)}`);
+      });
       return pg;
     })();
     g[PGLITE_KEY] = opening;

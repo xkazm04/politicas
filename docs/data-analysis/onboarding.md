@@ -144,6 +144,17 @@ The scan costs ~1 s. Dead-tuple/bloat figures are **not available** on this
 substrate (no stats collector), and the report says so rather than printing a
 zero.
 
+### The durability contract (what a crash costs)
+
+Read from `pg_settings` 2026-08-24 and asserted on every boot by
+`lib/db/pglite/durability.ts`: `wal_level=replica`, `full_page_writes=on`,
+`synchronous_commit=on`, **`fsync=off`** (PGlite sets it on the postgres command
+line — it is not reachable from SQL). The store therefore survives a **process
+crash** and not a **power cut**, which is acceptable precisely because the corpus
+is re-derivable from `data/raw/` by an ingest pass. The claim is tested, not
+cited: a child process commits and dies without closing, and the reopened store
+must still carry the row.
+
 ### One real bug found and fixed (durability)
 
 PGlite (WASM) returned **inconsistent query results and silently dropped writes**

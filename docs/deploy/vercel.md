@@ -131,6 +131,12 @@ Notes:
 - `ADMIN_TOKEN` / `REVIEWER_TOKEN` are server-only (never `NEXT_PUBLIC_`),
   compared in constant time by the shared gate `lib/security/token.ts`. Use
   different values for the two — they guard different privileges.
+- **A boot also re-reads the durability contract.** `wal_level`,
+  `full_page_writes`, `synchronous_commit` and `fsync` are queried on every
+  connection (engines fall back silently on sandboxed or network paths). Matching
+  the recorded contract is silent; a mismatch logs what the store promises
+  instead. As recorded, this store survives a process crash and NOT a power cut —
+  `fsync` is off, and PGlite sets that itself on the postgres command line.
 - **A boot that changes the schema now says so in the logs.** `open()` compares
   `CORE_DDL`'s declarations against the catalog before applying them; if anything
   is genuinely pending on an existing store it logs `applying schema work at boot

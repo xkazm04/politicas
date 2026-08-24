@@ -301,6 +301,28 @@ wanted-but-deferred consideration and every failure lands in a bounded ledger
 (`maintenanceReport()`), because a log that records only successes cannot tell a
 healthy store from a scheduler that has been deferring for a month.
 
+### What a crash costs
+
+- **R20 — this store survives a process crash, not a power cut, and that is a
+  decision.** Read from `pg_settings` 2026-08-24: `wal_level=replica`,
+  `full_page_writes=on`, `synchronous_commit=on` — and **`fsync=off`, source
+  `command line`**, i.e. set by PGlite itself, with no `set fsync = on` reachable
+  from SQL and no config file this repo owns. So commits are journaled and an
+  unclean exit recovers, but nothing is ever forced to the platter. That is
+  defensible here for a reason worth stating rather than assuming: 13 of the 18
+  tables are mirrors of published dumps or recomputable derivations (see the
+  accounting table above), and the five that are not are what `npm run db:backup`
+  copies. `lib/db/pglite/durability.ts` asserts the four settings on every boot —
+  engines silently fall back on sandboxed or network paths — and a mismatch
+  prints what the store promises **instead**. _(durability, 2026-08-24)_
+
+The claim is tested, not cited: `durability.test.ts` has a child process commit a
+row and exit without closing the connection, then reopens the directory and finds
+the row after recovery — and, from the failure side, copies the store WITHOUT
+`pg_wal` and asserts the copy is rejected rather than silently accepted. That
+second one is the classic data-loss backup: between checkpoints, committed data
+lives only in the journal.
+
 ### The schema door
 
 `open()` replays the whole `CORE_DDL` at every boot behind `if not exists`
