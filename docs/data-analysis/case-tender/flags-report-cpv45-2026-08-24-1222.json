@@ -1,0 +1,64 @@
+{
+  "generatedFor": "tender loop — flag computation",
+  "generatedAt": "2026-08-24-1222",
+  "scope": {
+    "cpv": "45",
+    "tenders": 61421
+  },
+  "thresholds": {
+    "SPREAD_P10": 0.04923802720480995,
+    "DEADLINE_P5": {
+      "Zjednodušené podlimitní řízení": 16,
+      "Otevřená výzva při zadávání veřejných zakázek malého rozsahu": 8,
+      "Otevřené řízení": 29,
+      "Užší řízení": 21,
+      "Jednací řízení s uveřejněním": 24,
+      "Zadávání VZ v dynamickém nákupním systému": 8,
+      "Postup s obnovením soutěže": 6
+    },
+    "MIN_CLASS": 100,
+    "REPEAT_N": 20,
+    "LOCK_SHARE": 0.12536443148688048,
+    "WINDOW_DAYS": 365,
+    "MIN_AUTH_WINS": 10,
+    "COVERAGE_START": "2024-12-01"
+  },
+  "trailingWindow": {
+    "evaluableWins": 2187,
+    "undatedWinsExcluded": 8236,
+    "monopolySkipped": 0,
+    "monopolyClass": {
+      "24729035": "ČEZ Distribuce, a. s.",
+      "25376516": "PREdistribuce, a. s.",
+      "27295567": "GasNet, s.r.o.",
+      "28085400": "EG.D, a.s."
+    }
+  },
+  "fireRates": {
+    "tight_spread": {
+      "n": 1059,
+      "share": 0.0172
+    },
+    "single_bid": {
+      "n": 1490,
+      "share": 0.0243
+    },
+    "short_deadline": {
+      "n": 1557,
+      "share": 0.0253
+    },
+    "exceptional_procedure": {
+      "n": 397,
+      "share": 0.0065
+    },
+    "repeat_winner": {
+      "n": 111,
+      "share": 0.0018
+    },
+    "supplier_lock": {
+      "n": 141,
+      "share": 0.0023
+    }
+  },
+  "flaggedLots": 4471
+}

@@ -11,6 +11,7 @@
 import { writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+import { MONOPOLY_COUNTERPARTIES, isMonopolyCounterparty } from "./monopoly";
 
 const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.split("=").slice(1).join("=");
 const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) ? v : null);
@@ -137,7 +138,12 @@ async function main() {
 
   // ── shape listings (floors applied, disclosed) ────────────────────────────────────────
   const aPics = [...authorities.values()].filter((a) => a.lots >= MIN_LOTS);
-  const wPics = [...winners.values()].filter((w) => w.wins >= MIN_WINS);
+  // Monopoly counterparties (statutory single-source — monopoly.ts) leave the SIGNAL
+  // listings and go to their own disclosed section: their flagged wins are the nature of
+  // the counterparty, not a market shape. Excluded, never silently dropped.
+  const wAll = [...winners.values()].filter((w) => w.wins >= MIN_WINS);
+  const wPics = wAll.filter((w) => !isMonopolyCounterparty(w.id));
+  const wMonopoly = wAll.filter((w) => isMonopolyCounterparty(w.id));
 
   const byFlagShare = [...aPics].filter((a) => a.flagged > 0).sort((a, b) => b.flagged / b.lots - a.flagged / a.lots).slice(0, 25);
   const bySingle = [...aPics].filter((a) => a.bidCountLots >= MIN_LOTS).sort((a, b) => b.singleBidLots / b.bidCountLots - a.singleBidLots / a.bidCountLots).slice(0, 25);
@@ -161,6 +167,7 @@ async function main() {
     authoritiesByLock: byLock.map((a) => ({ ...a, lockShare: +(a.topWinnerWins / a.winsTotal).toFixed(3) })),
     winnersByFlagShare: wByFlag.map((w) => ({ ...w, authorities: w.authorities.size, flagShare: +(w.winsFlagged / w.wins).toFixed(3) })),
     winnersByDependence: wByDependence.map((w) => ({ id: w.id, name: w.name, wins: w.wins, topAuthority: w.topAuthority, topAuthorityWins: w.topAuthorityWins, dependence: +(w.topAuthorityWins / w.wins).toFixed(3), mpTied: w.mpTied })),
+    monopolyCounterpartiesExcluded: wMonopoly.map((w) => ({ id: w.id, name: w.name, wins: w.wins, winsFlagged: w.winsFlagged, czk: w.czk, basis: MONOPOLY_COUNTERPARTIES[w.id.slice("company:ico:".length)]?.basis ?? null })),
   };
   const out = `docs/data-analysis/case-tender/pictures-cpv${cpv}-${stamp}.json`;
   writeFileSync(out, JSON.stringify(evid, null, 2) + "\n", "utf8");
@@ -175,6 +182,11 @@ async function main() {
   for (const a of byLock.slice(0, 10)) console.log(`  ${(100 * a.topWinnerWins / a.winsTotal).toFixed(0).padStart(3)} %  ${String(a.winsTotal).padStart(4)} wins  ${a.name.slice(0, 40)} -> ${a.topWinner?.slice(0, 32)}`);
   console.log(`\nWINNERS by flagged-win share (≥${MIN_WINS} wins):`);
   for (const w of wByFlag.slice(0, 10)) console.log(`  ${(100 * w.winsFlagged / w.wins).toFixed(0).padStart(3)} %  ${String(w.wins).padStart(4)} wins  ${czkM(w.czk).padStart(9)}  ${w.name.slice(0, 46)}${w.mpTied ? "  [MP-tied]" : ""}`);
+  if (wMonopoly.length) {
+    console.log(`
+MONOPOLY COUNTERPARTIES (excluded from signal listings, disclosed):`);
+    for (const w of wMonopoly) console.log(`   ${String(w.wins).padStart(4)} wins (${w.winsFlagged} flagged)  ${w.name}`);
+  }
   console.log(`\nWINNERS by one-authority dependence:`);
   for (const w of wByDependence.slice(0, 10)) console.log(`  ${(100 * w.topAuthorityWins / w.wins).toFixed(0).padStart(3)} %  ${String(w.wins).padStart(4)} wins  ${w.name.slice(0, 40)} <- ${w.topAuthority?.slice(0, 34)}`);
   console.log(`\n-> ${out}`);

@@ -153,6 +153,16 @@ Kernel gates plus:
   grid connection work is single-source BY LAW). Winner listings must name and exclude
   that class, disclosed, before anything renders publicly.
 
+- **b006 (passes 70–72):** re-ingest WIPES loop-computed flags by design — corpus change
+  means ingest-then-reflag, and the writer header says so. Threshold robustness check
+  passed (26 % more corpus, spread p10 moved 0,01 pp). Percentile thresholds FAIL for
+  tail-shaped signals: lock-share p90 = 0,125 flagged „3 wins of 23" — a lock flag needs a
+  legibility bar calibrated AGAINST the distribution (0,5 > p99, disclosed), not a
+  quantile of it. Trailing windows evaluate only where the FULL window sits inside
+  coverage (`decided_on − 365 d ≥ 2024-12-01`; dated wins only, disclosed). Exclusion
+  classes are defined by LAW, not data (`monopoly.ts`: DSOs in, PRAGOPROJEKT deliberately
+  out — framework concentration is a real shape).
+
 ## History
 
 - 2026-08-23: skill created from the user's doctrine notes; first campaign

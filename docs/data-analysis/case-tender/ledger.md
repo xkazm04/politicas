@@ -55,3 +55,17 @@ wins · Jesenice → DROPS GROUP 50 % of 48 · TSMO (MP graph) → R-STAV 44 % o
 1 511 lots / 2,18 mld. / 31 % flagged** — the needle-city profile the doctrine predicted.
 Calibration catch: ČEZ Distribuce/EG.D top flagged-win share because grid connection work
 is MONOPOLY-counterparty by law → a named legitimate class before anything renders.
+
+### Batch 006 — twenty months, and the percentile that lied about locks (2026-08-24)
+
+Passes 70–72. Backfill 2024-12…2025-12 persisted WITH the 2026 months in one chronological
+run (snapshot dedupe correct across the span): 111 616 rows → **61 421 lots**. Re-ingest
+wipes flags by design; pass 71 re-flagged the full corpus and the b004 thresholds held
+(spread p10 4,91→4,92 %, deadline p5 identical). Pass 72 added trailing-window flags over
+2 187 evaluable dated wins: `repeat_winner` (p95 = 20 prior wins/365 d, 111 fires — „41.
+oprava volného bytu témuž IČO") and `supplier_lock`, whose p90 calibration FAILED the
+hand-read (flagged 3-of-23 as a lock) → majority bar 0,5 (> corpus p99, disclosed), 2 true
+fires. `monopoly.ts`: statutory-network class (ČEZ Distribuce, EG.D, PREdistribuce,
+GasNet) skips trailing flags and leaves winner listings, disclosed; PRAGOPROJEKT stays
+out deliberately. New shape: VLAMAG Czech, 121 wins / 59 % flagged / 17 M — micro-lots.
+

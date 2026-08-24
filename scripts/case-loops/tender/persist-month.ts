@@ -1,5 +1,10 @@
 /* Tender loop — persist scoped ISVZ months into the live graph (durable writer).
  *
+ * RE-INGEST WIPES LOOP-COMPUTED PROPS BY DESIGN: a tender node's props are replaced
+ * wholesale, so flags from an earlier pass DISAPPEAR on re-ingest — and that is correct,
+ * because the skill's gate (e) forbids mixed-vintage flags: any corpus change re-runs
+ * `compute-flags.ts` over the WHOLE scoped corpus in the next pass. Ingest, then reflag.
+ *
  * Deterministic ingest in the smlouvy-dump re-ingest discipline (money batch 012):
  * replayable from the cached zips, pass-stamped provenance, idempotent (same input →
  * same rows; tender props are loop-owned, no human-gated field lives here, so a
