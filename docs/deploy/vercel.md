@@ -115,6 +115,7 @@ VALUE belongs to the deployment target.
 | `ADMIN_TOKEN` | set before the first deploy | set | optional | **Yes** | Unlocks `/admin`. Unset → the console is CLOSED and says so; no admin data is loaded. |
 | `REVIEWER_TOKEN` | optional | optional | optional | **Yes** | Unlocks the `/penize/kontrola` write path. Unset → console stays read-only ("not-configured"). |
 | `REVIEWER_NAME` | optional | optional | optional | No (display only) | Reviewer stamped on every `review_audit` row. |
+| `POLITICAS_DB_METRICS` | optional | optional | optional | No | **Defaults ON**; set to `off`/`0`/`false` to disable the PGlite self-instrumentation (`lib/db/pglite/instrument.ts`). Disabled is object identity — no wrapper enters the graph at all, not a fast path through one. Enabled costs a measured +1,2 µs per operation (20 000-call A/B), which is 0,2 % of the fastest healthy query on this substrate, so there is no deployment reason to set it. |
 
 Notes:
 - `NEXT_PUBLIC_*` are **build-time inlined**. After changing one, you must
