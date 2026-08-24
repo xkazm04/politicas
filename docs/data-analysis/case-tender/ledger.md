@@ -26,3 +26,13 @@ entries have no IČO and no country — the register anonymises losing bidders; 
 `unidentified_participants`, never guessed. **18 MP-tied companies appeared in the tender
 layer with zero join logic — on the AUTHORITY side** (Teplárny Brno procures 27 lots/month).
 props-check clean. Gate green (3 016 tests).
+
+### Batch 003 — seven months, three size walls, and a map that must not draw (2026-08-24)
+
+Pass 68: Jan–Jul 2026 CPV 45 = **48 647 lots** (61 017 scoped rows deduped — monthly files
+re-publish snapshots; last month wins), +12 467 companies, **165 716 edges**, 226 830 rows.
+April decompresses to 4,95 GB → streaming ijson pre-filter → whose single-document output
+was STILL 650 MB → **NDJSON** (loadMonth.ts). `/graf` map after ingest burned >900 s CPU and
+never finished (quadratic core at 16 k companies) → procurement-only companies leave the
+force core AND the layer is **disclosed, not drawn** (`omitted.tendersTotal` 48 647); map
+now 10,5 s / 2 825 nodes. Gate green (3 016).

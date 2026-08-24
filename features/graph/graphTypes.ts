@@ -81,6 +81,10 @@ export interface MapData {
     contractsShown: number;
     contractsTotal: number;
     perSupplierCap: number;
+    /** Case ④: zakázková vrstva se na mapě masy nekreslí (payload by nesl ~60 tisíc
+     *  uzlů); mapa ji PŘIZNÁVÁ. Uzly zůstávají dohledatelné hledáním a detailem. */
+    tendersTotal: number;
+    procurementCompaniesTotal: number;
   };
 }
 

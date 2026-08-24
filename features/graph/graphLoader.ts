@@ -316,17 +316,41 @@ async function buildMapData(): Promise<MapData | null> {
       eDeg.set(e.dst, (eDeg.get(e.dst) ?? 0) + 1);
     }
 
-    const core = idx.entries.filter((e) => e.kind !== "contract");
+    // JÁDRO silového rozvržení. Case ④ (pass 68) zvedl počet firem z ~3,7 na ~16 tisíc —
+    // a silové rozvržení je kvadratické: PRVNÍ dotaz na mapu po ingestu spálil > 900 s CPU
+    // a nedoběhl (změřeno 2026-08-24, ne odhadnuto). Firmy, které existují JEN v
+    // zakázkové vrstvě (žádná hrana mimo procures/bids_on/wins), proto do jádra nejdou:
+    // dostanou deterministický rozptyl hashem a hromadné druhy se kotví i na ně.
+    const PROCUREMENT_RELS = new Set(["procures", "bids_on", "wins"]);
+    const nonProcurementTouch = new Set<string>();
+    for (const e of allEdges) {
+      if (PROCUREMENT_RELS.has(e.rel)) continue;
+      nonProcurementTouch.add(e.src);
+      nonProcurementTouch.add(e.dst);
+    }
+    const isBulkKind = (k: string) => k === "contract" || k === "tender";
+    const procurementOnlyCompany = (e: IndexEntry) => e.kind === "company" && !nonProcurementTouch.has(e.id);
+    const core = idx.entries.filter((e) => !isBulkKind(e.kind) && !procurementOnlyCompany(e));
     const coreIds = new Set(core.map((e) => e.id));
     const corePos = forceLayout(
       core,
       evidence.filter((e) => coreIds.has(e.src) && coreIds.has(e.dst)),
       { ...MAP_WORLD, iterations: 130, seed: "mapa" },
     );
+    // Zakázková vrstva (Case ④) se na mapě masy NEKRESLÍ — 48 647 řízení + 12 467 firem
+    // jen z této vrstvy by byl payload o ~60 tisících uzlech (b013 řešila přesně tuhle
+    // třídu problému u smluv). Mapa vrstvu PŘIZNÁVÁ v `omitted`; zakázky dostanou
+    // vlastní plochu, až ji případ postaví. Uzel řízení zůstává dohledatelný přes
+    // hledání a detail (index ho nese) — jen se nesází do hromadného plátna.
 
-    // supplies je firma → smlouva; kotva smlouvy = její dodavatel.
+    // supplies je firma → smlouva; kotva smlouvy = její dodavatel. Case ④ přidal druhý
+    // BULK druh: zadávací řízení (tender), kotvené na ZADAVATELE (procures je
+    // zadavatel → tender). Obě hromadné vrstvy se kreslí jen jako omezený prstenec.
     const supplierOf = new Map<string, string>();
-    for (const e of evidence) if (e.rel === "supplies") supplierOf.set(e.dst, e.src);
+    for (const e of evidence) {
+      if (e.rel === "supplies") supplierOf.set(e.dst, e.src);
+      else if (e.rel === "procures") supplierOf.set(e.dst, e.src);
+    }
 
     // Batch-012 zvětšila korpus smluv z 2 287 na 152 788. Vykreslit je všechny znamená
     // poslat do prohlížeče přes 150 tisíc uzlů — plátno tím ztratí smysl i výkon.
@@ -344,7 +368,11 @@ async function buildMapData(): Promise<MapData | null> {
       shownContracts.add(entry.id);
     }
 
-    const visible = idx.entries.filter((e) => e.kind !== "contract" || shownContracts.has(e.id));
+    const tenderTotal = idx.entries.filter((e) => e.kind === "tender").length;
+    const procurementCompanyTotal = idx.entries.filter((e) => procurementOnlyCompany(e)).length;
+    const visible = idx.entries.filter(
+      (e) => e.kind !== "tender" && !procurementOnlyCompany(e) && (e.kind !== "contract" || shownContracts.has(e.id)),
+    );
     const nodes = visible.map((entry) => {
       const degree = eDeg.get(entry.id) ?? 0;
       if (entry.kind !== "contract") {
@@ -379,6 +407,8 @@ async function buildMapData(): Promise<MapData | null> {
         contractsShown: shownContracts.size,
         contractsTotal: contractEntries.length,
         perSupplierCap: MAP_CONTRACTS_PER_SUPPLIER,
+        tendersTotal: tenderTotal,
+        procurementCompaniesTotal: procurementCompanyTotal,
       },
     };
   } catch (err) {

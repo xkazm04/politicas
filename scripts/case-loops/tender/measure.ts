@@ -10,6 +10,7 @@
  */
 import { readdirSync, writeFileSync } from "node:fs";
 import { parseIsvzMonth, type IsvzLot } from "@/lib/ingest/sources/isvz";
+import { loadMonthJson } from "./loadMonth";
 
 const RAW = "data/raw/isvz";
 const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.split("=").slice(1).join("=");
@@ -25,22 +26,10 @@ async function main() {
   const zipNames = readdirSync(RAW).filter((f) => /^VZ-\d{2}-\d{4}\.zip$/.test(f) && (!wanted || wanted.includes(f.replace(".zip", ""))));
   if (!zipNames.length) throw new Error(`no cached months in ${RAW}`);
 
-  // adm-zip is not a dependency; the python fallback below is the real path.
-  const AdmZip = null as { new (p: string): { getEntries(): { getData(): Buffer }[] } } | null;
   const lots: IsvzLot[] = [];
   const perMonth: Record<string, { lots: number; scoped: number; dropped: number }> = {};
   for (const zn of zipNames.sort()) {
-    let json: unknown;
-    if (AdmZip) {
-      const z = new AdmZip(`${RAW}/${zn}`);
-      json = JSON.parse(z.getEntries()[0].getData().toString("utf8"));
-    } else {
-      // no adm-zip in deps — shell out once per file (zips hold a single JSON entry)
-      const { execFileSync } = await import("node:child_process");
-      json = JSON.parse(
-        execFileSync("python", ["-c", `import zipfile,sys;z=zipfile.ZipFile(sys.argv[1]);sys.stdout.buffer.write(z.read(z.namelist()[0]))`, `${RAW}/${zn}`], { maxBuffer: 1 << 30 }).toString("utf8"),
-      );
-    }
+    const json = await loadMonthJson(zn.replace(".zip", ""), cpv);
     const m = parseIsvzMonth(json);
     const scoped = m.lots.filter((l) => l.cpvDivision === cpv);
     lots.push(...scoped);

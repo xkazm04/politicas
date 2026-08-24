@@ -134,6 +134,11 @@ Kernel gates plus:
   disclosed on the tender node, never coerced. Island mechanism CONFIRMED: 18 MP-tied
   companies appeared in month one with zero join logic, on the AUTHORITY side (Teplárny
   Brno procures 27 lots/month) — the steward institutions are the buyers.
+- **b003 (pass 68):** monthly files RE-PUBLISH snapshots of older procedures (January:
+  71 k records; April: 240 k, 4,95 GB decompressed) — dedupe by lot id, last month wins
+  (61 017 → 48 647). Size walls end with NDJSON, not bigger buffers. A new BULK kind
+  arrives WITH its drawing policy: the mass map discloses the layer (`omitted`), does not
+  draw it (first post-ingest map request: > 900 s CPU, never finished; now 10,5 s).
 
 ## History
 

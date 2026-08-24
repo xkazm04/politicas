@@ -13,14 +13,13 @@
  *
  *   npx tsx scripts/case-loops/tender/persist-month.ts --months=VZ-06-2026 --cpv=45 --pass=67 [--commit]
  */
-import { execFileSync } from "node:child_process";
 import { getStore } from "@/lib/db/store";
+import { loadMonthJson } from "./loadMonth";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { parseIsvzMonth, type IsvzLot, type IsvzSubject } from "@/lib/ingest/sources/isvz";
 import { unregisteredKeys } from "@/lib/kg/propRegistry";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
-const RAW = "data/raw/isvz";
 const arg = (k: string) => process.argv.find((a) => a.startsWith(`--${k}=`))?.split("=").slice(1).join("=");
 const flag = (k: string) => process.argv.includes(`--${k}`);
 
@@ -51,13 +50,20 @@ async function main() {
   const lots: IsvzLot[] = [];
   const monthOf = new Map<string, string>();
   for (const m of months) {
-    const json = JSON.parse(
-      execFileSync("python", ["-c", "import zipfile,sys;z=zipfile.ZipFile(sys.argv[1]);sys.stdout.buffer.write(z.read(z.namelist()[0]))", `${RAW}/${m}.zip`], { maxBuffer: 1 << 30 }).toString("utf8"),
-    );
+    const json = await loadMonthJson(m, cpv);
     const parsed = parseIsvzMonth(json);
     for (const l of parsed.lots) if (l.cpvDivision === cpv) { lots.push(l); monthOf.set(l.lotId, m); }
     console.log(`${m}: ${parsed.lots.length} lots, ${lots.length} in scope so far (dropped ${parsed.droppedLots})`);
   }
+
+  // MONTHS OVERLAP (measured b003: January carries 71 377 records, April 240 598 — the
+  // files re-publish UPDATED snapshots of older procedures). Months are processed in the
+  // caller's order; the LAST occurrence of a lot wins, so pass months chronologically and
+  // the newest snapshot is what persists. Dropped duplicates are counted, never silent.
+  const byLot = new Map<string, IsvzLot>();
+  for (const l of lots) byLot.set(l.lotId, l);
+  const dedupedLots = [...byLot.values()];
+  if (dedupedLots.length !== lots.length) console.log(`cross-month snapshots deduped: ${lots.length} -> ${dedupedLots.length} lots (latest month wins)`);
 
   // ── current graph state ───────────────────────────────────────────────────────────────
   const store = await getStore();
@@ -87,7 +93,7 @@ async function main() {
     } as KgNodeRow);
   };
 
-  for (const l of lots) {
+  for (const l of dedupedLots) {
     const m = monthOf.get(l.lotId)!;
     const foreignP = l.participants.filter((p) => classify(p) === "foreign");
     const foreignW = l.winners.filter((w) => classify(w) === "foreign");
@@ -151,10 +157,16 @@ async function main() {
     }
   }
 
+  // Edge dedupe by (src,rel,dst) — a re-published snapshot can repeat a pair; last wins.
+  const edgeByKey = new Map<string, KgEdgeRow>();
+  for (const e of edges) edgeByKey.set(`${e.src}|${e.rel}|${e.dst}`, e);
+  const dedupedEdges = [...edgeByKey.values()];
+  if (dedupedEdges.length !== edges.length) console.log(`edges deduped: ${edges.length} -> ${dedupedEdges.length}`);
+
   // ── prop-key gate (the same rule persist-batch enforces) ─────────────────────────────
   const unknown = new Map<string, number>();
   for (const n of tenderNodes) for (const k of unregisteredKeys({ kind: "tender" }, n.props as Record<string, unknown>)) unknown.set(`node:tender.${k}`, (unknown.get(`node:tender.${k}`) ?? 0) + 1);
-  for (const e of edges) for (const k of unregisteredKeys({ rel: e.rel }, e.props as Record<string, unknown>)) unknown.set(`edge:${e.rel}.${k}`, (unknown.get(`edge:${e.rel}.${k}`) ?? 0) + 1);
+  for (const e of dedupedEdges) for (const k of unregisteredKeys({ rel: e.rel }, e.props as Record<string, unknown>)) unknown.set(`edge:${e.rel}.${k}`, (unknown.get(`edge:${e.rel}.${k}`) ?? 0) + 1);
   if (unknown.size) {
     throw new Error(`prop-key gate: unregistered keys — refusing:\n${[...unknown].map(([k, n]) => `  ${k} (${n})`).join("\n")}`);
   }
@@ -170,7 +182,7 @@ async function main() {
   let written = 0;
   written += await store.upsertKgNodes([...companyNodes.values()]);
   written += await store.upsertKgNodes(tenderNodes);
-  written += await store.upsertKgEdges(edges);
+  written += await store.upsertKgEdges(dedupedEdges);
   console.log(`COMMITTED pass ${pass}: ${written} rows.`);
   await store.close();
 }
