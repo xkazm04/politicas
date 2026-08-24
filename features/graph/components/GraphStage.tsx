@@ -33,6 +33,7 @@ import type { Point } from "@/lib/kg/layout";
 import { edgeKey } from "../forensicView";
 import { KIND_FILL_TOKEN, KIND_STYLE, traceGlyph, type GlyphShape } from "../kindStyle";
 import { readStagePalette } from "../stagePalette";
+import { pointInRect, segmentCrossesRect, type ViewRect } from "../viewCull";
 import type { GraphEdge, GraphNode } from "../graphTypes";
 
 export interface StageCaption {
@@ -150,11 +151,13 @@ export default function GraphStage({
     ctx.scale(k, k);
 
     // Výřez světa viditelný na obrazovce (s rezervou na popisky).
-    const bx0 = -view.x / k - 120;
-    const by0 = -view.y / k - 60;
-    const bx1 = (size.w - view.x) / k + 120;
-    const by1 = (size.h - view.y) / k + 60;
-    const inView = (p: Point) => p.x >= bx0 && p.x <= bx1 && p.y >= by0 && p.y <= by1;
+    const rect: ViewRect = {
+      x0: -view.x / k - 120,
+      y0: -view.y / k - 60,
+      x1: (size.w - view.x) / k + 120,
+      y1: (size.h - view.y) / k + 60,
+    };
+    const inView = (p: Point) => pointInRect(p, rect);
 
     const focus = hover ?? selectedId;
     const incident = new Set<string>();
@@ -189,7 +192,9 @@ export default function GraphStage({
         const a = positions.get(e.src);
         const b = positions.get(e.dst);
         if (!a || !b) continue;
-        if (!inView(a) && !inView(b)) continue;
+        // Ořez podle GEOMETRIE, ne podle konců: dlouhý spoj přes celý graf
+        // má oba konce venku a přesto vede přes výřez (viewCull.ts).
+        if (!segmentCrossesRect(a, b, rect)) continue;
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         drew = true;
@@ -560,6 +565,24 @@ export default function GraphStage({
     [schedule],
   );
 
+  // Kolo myši musí zrušit posun stránky. React sází `wheel` jako PASIVNÍ
+  // posluchač na kořen aplikace, takže `preventDefault()` uvnitř `onWheel`
+  // je bez účinku (prohlížeč ho jen ohlásí do konzole) — přiblížení plátna
+  // a scroll stránky pak vystřelí spolu, kdykoli je nad jevištěm rolovatelný
+  // předek: graf se přiblíží A stránka ujede. Vlastní posluchač
+  // s `{ passive: false }` je jediné místo, kde jde výchozí chování zrušit.
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const rect = wrap.getBoundingClientRect();
+      zoomAt(e.clientX - rect.left, e.clientY - rect.top, Math.exp(-e.deltaY * 0.0016));
+    };
+    wrap.addEventListener("wheel", onWheel, { passive: false });
+    return () => wrap.removeEventListener("wheel", onWheel);
+  }, [zoomAt]);
+
   const toggleFullscreen = useCallback(() => {
     try {
       if (document.fullscreenElement) void document.exitFullscreen();
@@ -618,10 +641,7 @@ export default function GraphStage({
             schedule();
           }
         }}
-        onWheel={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          zoomAt(e.clientX - rect.left, e.clientY - rect.top, Math.exp(-e.deltaY * 0.0016));
-        }}
+        /* `wheel` visí nativně na obalu s { passive: false } — viz efekt výše. */
       />
 
       {/* Ovládání pohledu — pluje nad plátnem vpravo dole. */}
