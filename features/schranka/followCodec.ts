@@ -22,8 +22,49 @@
 
 import { canonicalIco } from "@/features/money/companyId";
 
-/** Klíč localStorage. Verze je v klíči — změna tvaru = nový klíč, žádná migrace. */
+/**
+ * Klíč localStorage — ADRESA schránky. Přípona `:v1` je součástí adresy, ne
+ * verze tvaru, a UŽ SE NIKDY NEZVEDÁ.
+ *
+ * Původně to bylo obráceně: verze žila v klíči a „změna tvaru = nový klíč,
+ * žádná migrace". To je pravda, ale kupuje se to špatnou měnou — při první
+ * změně tvaru zůstane starý seznam ležet pod starým klíčem, kam se už nikdo
+ * nepodívá. Čtenář neuvidí „migrace se nekonala", uvidí, že mu ZMIZELO
+ * sledování, které si sám postavil (seznam sledovaných je autorský obsah,
+ * ne cache), a v úložišti se hromadí smetí, které nikdo neuklidí.
+ *
+ * Adresa a tvar se proto vyvíjejí ODDĚLENĚ: klíč je adresa (stabilní), verze
+ * je v PAYLOADU (SCHRANKA_SCHEMA_VERSION níž). Hedge se sází teď, dokud je
+ * tvar pořád v1 a v terénu neexistuje nic jiného — později by to znamenalo
+ * hádat, co je uložené.
+ */
 export const SCHRANKA_STORAGE_KEY = "politicas:schranka:v1";
+
+/**
+ * Verze TVARU uloženého payloadu. Zapisuje se dovnitř dat (`v`), čte se při
+ * rehydrataci a směruje payload migračním řetězcem níž.
+ *
+ * Payload BEZ `v` je tvar 1 — přesně to, co zapisovaly verze aplikace před
+ * touhle změnou. Nejde o vadu, kterou je třeba zahodit; je to nejstarší tvar
+ * v terénu a chová se jako v1, protože jím je.
+ */
+export const SCHRANKA_SCHEMA_VERSION = 1;
+
+/**
+ * Migrace tvaru N → N+1, indexované OD verze. Dnes prázdné, protože existuje
+ * jediný tvar — a přesto tu ta prázdná tabulka stojí, kvůli pravidlu, které
+ * jinak nemá kam být napsané:
+ *
+ *   Změna tvaru PŘIDÁ krok a zvedne SCHRANKA_SCHEMA_VERSION.
+ *   NEZVEDNE SCHRANKA_STORAGE_KEY.
+ *
+ * Jednou vydaný krok je ZMRAZENÝ: popisuje tvar, který je v tu chvíli
+ * v prohlížečích čtenářů, a jeho úprava rozbije právě ty instalace, které
+ * ten tvar drží. Nová změna připisuje nový krok, nikdy nepřepisuje starý.
+ * Krok musí být TOTÁLNÍ nad svým vstupem — včetně payloadů, které zapsalo
+ * chybné vydání té verze.
+ */
+const MIGRATIONS: Record<number, (o: Record<string, unknown>) => Record<string, unknown>> = {};
 
 /** Strop sledovaných entit — pojistka proti nekonečnému růstu URL dotazu
  *  na novinky (klíče se posílají jako query parametry). */
@@ -123,23 +164,52 @@ function parseFollow(v: unknown): Follow | null {
   };
 }
 
+/** Výsledek rehydratace. `fromFuture` je jediná informace, kterou stav sám
+ *  nést nemůže: payload zapsala NOVĚJŠÍ verze aplikace, než která ho teď čte
+ *  (rollback, druhá záložka po nasazení, synchronizovaný profil). Běžíme na
+ *  výchozím stavu, ale volající ho SMÍ jen číst — přepsat ho by zahodilo data,
+ *  která novější verze potřebuje. */
+export interface SchrankaRead {
+  state: SchrankaState;
+  fromFuture: boolean;
+}
+
 /**
- * Tolerantní parse: cokoli nevalidního (rozbitý JSON, cizí tvar, vadná
- * položka, duplicitní klíč) se ZAHODÍ, zbytek se zachová. Nikdy nevyhazuje —
- * rozbitá schránka degraduje na prázdnou, ne na chybu plochy.
+ * Rehydratace jako NEDŮVĚRYHODNÉ čtení. Payload psala jiná verze kódu, mohl ho
+ * přerušit zápis, mohl ho někdo ručně upravit. Postup: rozparsovat, přečíst
+ * verzi tvaru, projít migračním řetězcem, teprve pak validovat pole po poli.
+ *
+ * Selhání padá k výchozímu stavu, NIKDY k výjimce: rozbitý payload, který by
+ * shodil plochu, mění datový problém v neopravitelný — payload přežije i ten
+ * restart, kterým se to čtenář pokusí spravit.
  */
-export function parseSchrankaState(raw: string | null): SchrankaState {
-  if (raw === null || raw === "") return EMPTY_SCHRANKA;
+export function readSchranka(raw: string | null): SchrankaRead {
+  const empty: SchrankaRead = { state: EMPTY_SCHRANKA, fromFuture: false };
+  if (raw === null || raw === "") return empty;
   let data: unknown;
   try {
     data = JSON.parse(raw);
   } catch {
     // Vadný JSON = vadný lokální stav, ne chyba systému: kodek je právě to
     // místo, které smí rozbitý vstup potichu srovnat na prázdno (viz hlavička).
-    return EMPTY_SCHRANKA;
+    return empty;
   }
-  if (typeof data !== "object" || data === null) return EMPTY_SCHRANKA;
-  const o = data as Record<string, unknown>;
+  if (typeof data !== "object" || data === null) return empty;
+  let o = data as Record<string, unknown>;
+
+  // Verze skew jde OBĚMA směry. Payload z budoucnosti se nepřepisuje ani
+  // „nemigruje dolů" — to by zahodilo data, o kterých tenhle kód neví.
+  const version = typeof o.v === "number" && Number.isInteger(o.v) && o.v > 0 ? o.v : 1;
+  if (version > SCHRANKA_SCHEMA_VERSION) {
+    return { state: EMPTY_SCHRANKA, fromFuture: true };
+  }
+  for (let from = version; from < SCHRANKA_SCHEMA_VERSION; from++) {
+    const step = MIGRATIONS[from];
+    // Chybějící krok je vada tabulky, ne vlastnost dat — padáme k výchozímu
+    // stavu, protože pouštět dál tvar, kterému nikdo nerozumí, je horší.
+    if (!step) return empty;
+    o = step(o);
+  }
 
   const follows: Follow[] = [];
   const seen = new Set<string>();
@@ -153,10 +223,24 @@ export function parseSchrankaState(raw: string | null): SchrankaState {
     }
   }
   return {
-    follows,
-    lastVisit: isIsoInstant(o.lastVisit) ? o.lastVisit : null,
-    seen: parseSeen(o.seen),
+    state: {
+      follows,
+      lastVisit: isIsoInstant(o.lastVisit) ? o.lastVisit : null,
+      seen: parseSeen(o.seen),
+    },
+    fromFuture: false,
   };
+}
+
+/**
+ * Tolerantní parse: cokoli nevalidního (rozbitý JSON, cizí tvar, vadná
+ * položka, duplicitní klíč) se ZAHODÍ, zbytek se zachová. Nikdy nevyhazuje —
+ * rozbitá schránka degraduje na prázdnou, ne na chybu plochy.
+ *
+ * Tenká vrstva nad `readSchranka` pro volající, které skew verzí nezajímá.
+ */
+export function parseSchrankaState(raw: string | null): SchrankaState {
+  return readSchranka(raw).state;
 }
 
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -179,13 +263,19 @@ export function withSeen(state: SchrankaState, seen: SeenWatermark): SchrankaSta
 }
 
 /** Přísná serializace: jen validní položky, klíče vzestupně (deterministicky —
- *  dvě serializace téhož stavu jsou byte-identické). */
+ *  dvě serializace téhož stavu jsou byte-identické). Verze tvaru jde první,
+ *  aby ji uměl přečíst i ten, kdo payload jen očima prohlédne. */
 export function serializeSchrankaState(state: SchrankaState): string {
   const follows = state.follows
     .filter((f) => isEntityKey(f.key))
     .slice(0, MAX_FOLLOWS)
     .sort((a, b) => a.key.localeCompare(b.key));
-  return JSON.stringify({ follows, lastVisit: state.lastVisit, seen: state.seen });
+  return JSON.stringify({
+    v: SCHRANKA_SCHEMA_VERSION,
+    follows,
+    lastVisit: state.lastVisit,
+    seen: state.seen,
+  });
 }
 
 /**

@@ -7,6 +7,9 @@ import {
   isEntityKey,
   MAX_FOLLOWS,
   parseSchrankaState,
+  readSchranka,
+  SCHRANKA_SCHEMA_VERSION,
+  SCHRANKA_STORAGE_KEY,
   serializeSchrankaState,
   withFollow,
   withoutFollow,
@@ -191,5 +194,64 @@ describe("followableFromRoute", () => {
     expect(followableFromRoute("/zakony/predpis", null)).toBeNull();
     expect(followableFromRoute("/poslanec/123/cokoli", null)).toBeNull();
     expect(followableFromRoute("/", null)).toBeNull();
+  });
+});
+
+describe("verze tvaru je v PAYLOADU, ne v klíči", () => {
+  it("klíč je adresa a nenese verzi tvaru — nikdy se nezvedá", () => {
+    // Kdyby verze zůstala v klíči, každá změna tvaru by osiřela seznam
+    // čtenáře pod starou adresou. Tenhle test je ta dohoda zapsaná.
+    expect(SCHRANKA_STORAGE_KEY).toBe("politicas:schranka:v1");
+  });
+
+  it("serializace zapisuje `v` a je pořád deterministická", () => {
+    const state = withFollow(EMPTY_SCHRANKA, "poslanec:123", "A", NOW);
+    const raw = serializeSchrankaState(state);
+    expect(JSON.parse(raw).v).toBe(SCHRANKA_SCHEMA_VERSION);
+    expect(serializeSchrankaState(state)).toBe(raw);
+  });
+
+  it("payload BEZ `v` je tvar 1 — to psaly verze před hedgem, ne vada", () => {
+    const legacy = JSON.stringify({
+      follows: [{ key: "poslanec:123", label: "A", followedAt: NOW }],
+      lastVisit: NOW,
+      seen: null,
+    });
+    const read = readSchranka(legacy);
+    expect(read.fromFuture).toBe(false);
+    expect(read.state.follows.map((f) => f.key)).toEqual(["poslanec:123"]);
+    expect(read.state.lastVisit).toBe(NOW);
+  });
+
+  it("payload z BUDOUCNOSTI se hlásí a nepřepisuje se", () => {
+    const future = JSON.stringify({
+      v: SCHRANKA_SCHEMA_VERSION + 1,
+      follows: [{ key: "poslanec:123", label: "A", followedAt: NOW }],
+      tvarKteryNeznam: 42,
+    });
+    const read = readSchranka(future);
+    expect(read.fromFuture).toBe(true);
+    // Běžíme na výchozím stavu — ale volající se z `fromFuture` dozví, že
+    // ten stav NENÍ pravda o uložených datech, jen o tom, co umíme přečíst.
+    expect(read.state).toEqual(EMPTY_SCHRANKA);
+  });
+
+  it("nesmyslné `v` (0, záporné, text) se čte jako tvar 1, ne jako budoucnost", () => {
+    for (const v of [0, -3, "2", null, 1.5]) {
+      const raw = JSON.stringify({ v, follows: [{ key: "tisk:7", label: "T", followedAt: NOW }] });
+      const read = readSchranka(raw);
+      expect(read.fromFuture).toBe(false);
+      expect(read.state.follows.map((f) => f.key)).toEqual(["tisk:7"]);
+    }
+  });
+
+  it("kolo tam a zpět přes verzovaný payload zachová stav", () => {
+    const state = withSeen(
+      withFollow(withFollow(EMPTY_SCHRANKA, "tisk:141", "T", NOW), "poslanec:123", "A", NOW),
+      { day: "2026-08-04", count: 7 },
+    );
+    const round = parseSchrankaState(serializeSchrankaState(state));
+    expect(round.follows.map((f) => f.key)).toEqual(["poslanec:123", "tisk:141"]);
+    expect(round.seen).toEqual({ day: "2026-08-04", count: 7 });
   });
 });

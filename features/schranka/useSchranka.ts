@@ -15,7 +15,8 @@
 import { useCallback, useSyncExternalStore } from "react";
 import {
   EMPTY_SCHRANKA,
-  parseSchrankaState,
+  readSchranka,
+  SCHRANKA_SCHEMA_VERSION,
   SCHRANKA_STORAGE_KEY,
   serializeSchrankaState,
   withFollow,
@@ -38,6 +39,19 @@ function readRaw(): string | null {
 }
 
 function writeState(state: SchrankaState): void {
+  // Payload z BUDOUCNOSTI se nepřepisuje. Nastane při rollbacku vydání, ve
+  // druhé záložce po nasazení nebo na synchronizovaném profilu: novější verze
+  // aplikace zapsala tvar, kterému tenhle kód nerozumí. Běžíme na výchozím
+  // stavu (schránka se tváří prázdná), ale ULOŽIT ho znamená zahodit seznam,
+  // který si čtenář postavil a který novější verze umí přečíst. Držíme se
+  // zpátky a řekneme to nahlas — ticho by z toho udělalo ztrátu dat.
+  if (fromFuture) {
+    console.warn(
+      "[schranka] uložený tvar je novější než tenhle kód (v>%d) — sledování se pro jistotu NEUKLÁDÁ, aby se novější data nepřepsala",
+      SCHRANKA_SCHEMA_VERSION,
+    );
+    return;
+  }
   try {
     window.localStorage.setItem(SCHRANKA_STORAGE_KEY, serializeSchrankaState(state));
   } catch (err) {
@@ -52,12 +66,17 @@ function writeState(state: SchrankaState): void {
 // mezi událostmi, jinak se render zacyklí. Klíčem je surový řetězec.
 let cachedRaw: string | null | undefined;
 let cachedState: SchrankaState = EMPTY_SCHRANKA;
+/** Drží poslední odpověď kodeku na otázku „psala tenhle payload novější verze?"
+ *  — jediná informace, kterou samotný `SchrankaState` nést nemůže. */
+let fromFuture = false;
 
 function getSnapshot(): SchrankaState {
   const raw = readRaw();
   if (raw !== cachedRaw) {
     cachedRaw = raw;
-    cachedState = parseSchrankaState(raw);
+    const read = readSchranka(raw);
+    cachedState = read.state;
+    fromFuture = read.fromFuture;
   }
   return cachedState;
 }

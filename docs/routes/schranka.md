@@ -163,3 +163,21 @@ day-book the schránka doesn't build). The feed channel description names
 both caps (`SCHRANKA_FEED_ITEMS` 100 / `DELTA_ENTRIES_CAP` 25,
 interpolated). `recomputeFactFromProps` collapsed onto
 `prov.computedAt` — one aggregator, fails closed, pinned.
+
+**The schema version moves into the payload (2026-08-24).** The record's ADDRESS
+stays `politicas:schranka:v1` — permanently; the `:v1` suffix is now part of the
+address and never rises again. The SHAPE version is written inside the payload as
+`v`, and `readSchranka()` routes a load through an (today empty) migration table
+before validating. The change is a hedge taken while v1 is still the only shape in
+the field, and it reverses one specific consequence of version-in-the-key that the
+original argument did not price: a follow list is user-authored content, not a
+cache, so bumping the key on the next shape change would leave the reader's own
+list under an address nobody looks at again — experienced as the list vanishing,
+not as "no migration was needed". A payload with no `v` IS shape 1 (that is what
+every earlier release wrote) and loads unchanged. Version skew is handled in BOTH
+directions: a payload written by a NEWER release is detected and deliberately not
+overwritten — `useSchranka` refuses the write and says so in the console, because
+running on defaults is recoverable and clobbering a newer payload is not. The
+repo's reviewed counter-position on version-in-the-key
+(`scripts/census/rules.json`, `satisfied: client-state-persistence`) still stands
+for its other two cases, which carry no shape at all.
