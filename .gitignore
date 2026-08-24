@@ -69,3 +69,21 @@ docs/data-analysis/case-money/contracts-harvest.jsonl
 # raw source harvests (Registr smluv dumps etc.) — re-derivable, never documentation.
 # Moved out of docs/ on 2026-08-22: a 100 MB jsonl does not belong where humans read.
 /data/raw/
+
+# BEGIN ai-registry linked skills (managed by ai-registry/scripts/link-registry.mjs)
+# Links are machine state; the declarations live in .ai/manifest.yaml (`skills:` and `knowledge.domains`).
+/.claude/skills/architect
+/.claude/skills/conform
+/.claude/skills/consult
+/.claude/skills/explorer
+/.claude/skills/i18n-translate
+/.claude/skills/npm-updates
+/.claude/skills/perfect
+/.claude/skills/research
+/.claude/skills/ship-loop
+/.claude/skills/uat
+/.claude/rules/ai-registry-access.md
+/.claude/rules/ai-registry-software-engineering.md
+/.claude/rules/ai-registry-civic-intelligence.md
+/.claude/rules/ai-registry-llm-observability.md
+# END ai-registry linked skills
