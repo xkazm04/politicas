@@ -1,5 +1,56 @@
 {
-  "_comment": "Source -> docs coupling map for Politicas. When a turn edits source matching an entry's sourceGlobs with user- or contributor-visible effect (new/removed route, changed module architecture, new command, design-token or lint-rule change, sample-data-layer status), update the coupled doc in the SAME change. Internal-only edits (refactors, bugfixes with no behavior shift) need no doc update. A single source glob may couple to several docs. Globs are scoped to the contexts in context-map.json (25 contexts / 9 groups). Deliberately NOT listed here: dated, append-only or point-in-time artifacts that must never be retro-edited to match new code - docs/harness/** (the 2026-07-26 combined scan snapshot), docs/architect/decisions|scans/** (ADRs and scan records), docs/data-analysis/case-*/** batch notes and the vault ledgers (coverage-ledger, graph-log, frontier, patterns, contradictions), and the docs/data-analysis/justice-sources-* / cluster-* / phase* research notes. Those are history, not documentation of current source.",
+  "_comment": "Source -> docs coupling map for Politicas. When a turn edits source matching an entry's sourceGlobs with user- or contributor-visible effect (new/removed route, changed module architecture, new command, design-token or lint-rule change, sample-data-layer status), update the coupled doc in the SAME change. Internal-only edits (refactors, bugfixes with no behavior shift) need no doc update - record them with a `Doc-sync: <why>` commit trailer rather than in silence. A single source glob may couple to several docs. Globs are scoped to the contexts in context-map.json (48 contexts / 10 groups). Deliberately NOT listed here: dated, append-only or point-in-time artifacts that must never be retro-edited to match new code - docs/harness/** (the 2026-07-26 combined scan snapshot), docs/architect/decisions|scans/** (ADRs and scan records), docs/data-analysis/case-*/** batch notes and the vault ledgers (coverage-ledger, graph-log, frontier, patterns, contradictions), and the docs/data-analysis/justice-sources-* / cluster-* / phase* research notes. Those are history, not documentation of current source. THIS FILE IS ENFORCED: `node scripts/docs/check-doc-sync.mjs` reads it, re-derives the context/group counts above from context-map.json, and refuses a change that touches coupled source without touching the coupled doc.",
+  "_enforcedBy": "scripts/docs/check-doc-sync.mjs (structural, always) + `npm run docs:sync` / the lefthook commit-msg rung (same-change, over the git diff)",
+  "unmappedByDesign": [
+    {
+      "glob": "docs/harness/**",
+      "reason": "the 2026-07-26 combined scan and the 2026-07-30 moonshot batches - dated snapshots of what the tree looked like then; retro-editing them would destroy the record"
+    },
+    {
+      "glob": "docs/architect/decisions/**",
+      "reason": "ADRs are decisions taken on a date against a state of the code; superseding one means writing a new ADR, never amending the old"
+    },
+    {
+      "glob": "docs/architect/scans/**",
+      "reason": "point-in-time scan records; the finding is only meaningful against the tree it was measured over"
+    },
+    {
+      "glob": "docs/data-analysis/case-*/**",
+      "reason": "append-only batch notes, handoffs and ledgers from the offline case loops - each entry is a dated measurement, not a description of current source"
+    },
+    {
+      "glob": "docs/data-analysis/coverage-ledger.md",
+      "reason": "append-only vault ledger; rows are dated coverage claims that must not be rewritten"
+    },
+    {
+      "glob": "docs/data-analysis/graph-log.md",
+      "reason": "append-only vault ledger of graph writes; it is history of runs, not documentation of the writers"
+    },
+    {
+      "glob": "docs/data-analysis/frontier.md",
+      "reason": "append-only vault ledger of open research frontiers as they were seen on each date"
+    },
+    {
+      "glob": "docs/data-analysis/patterns.md",
+      "reason": "append-only vault ledger of observed patterns; entries carry their measurement date"
+    },
+    {
+      "glob": "docs/data-analysis/contradictions.md",
+      "reason": "append-only vault ledger of contradictions found; retro-editing one erases the disagreement it records"
+    },
+    {
+      "glob": "docs/data-analysis/justice-sources-*.md",
+      "reason": "dated research notes on external justice-data sources as they behaved when probed"
+    },
+    {
+      "glob": "docs/data-analysis/cluster-*.md",
+      "reason": "dated analytical notes on vote clusters; each is a reading of one snapshot of the data"
+    },
+    {
+      "glob": "docs/data-analysis/phase*.md",
+      "reason": "dated phase notes from the data-analysis programme; they record what was tried, not what is"
+    }
+  ],
   "entries": [
     {
       "doc": "README.md",
@@ -270,9 +321,10 @@
     },
     {
       "doc": "docs/routes/graf-permalink.md",
+      "_note": "`features/graph/permalinkCardModel.ts` stood here until 2026-08-24 and has never existed in this repo's history - `permalinkCardModel` is a function exported from features/graph/permalink.ts:403, and the map had named the symbol as if it were a file. A glob that matches nothing can never owe this doc an update, so the coupling was declared and dead.",
       "sourceGlobs": [
         "features/graph/PermalinkPage.tsx",
-        "features/graph/permalinkCardModel.ts"
+        "features/graph/permalink.ts"
       ]
     },
     {
