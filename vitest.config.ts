@@ -1,55 +1,57 @@
-import { fileURLToPath } from "node:url";
+/**
+ * THE FALLBACK CONFIG — what a bare `npx vitest run` gets. NOT the partition.
+ *
+ * The partition lives in `vitest.unit.config.ts` and `vitest.pglite.config.ts`, and
+ * `npm run test` runs both. This file exists because
+ * test-harness/suite-partitioning names "the implicit default suite — whatever the
+ * runner discovers when no config narrows it" as a degenerate partition: if a bare
+ * `npx vitest run` in this repo silently became a third, differently-budgeted
+ * machine, every misfiled test would land there. So the default is pinned to the
+ * SAFE union — every file, the conservative store-lane budget, the tamed worker
+ * cap — which is byte-for-byte the behaviour this repo had before 2026-08-24 and
+ * exactly what memory/vitest-pglite-needs-tamed-workers.md promises a reader who
+ * types `npx vitest run`.
+ *
+ * It is slower than the lanes by design (276,7 s vs 73,0 s measured 2026-08-24) and
+ * it is not what CI runs. Its include list is the same `ALL_TEST_GLOBS` the unit
+ * lane starts from, so the fallback cannot drift narrower than the partition.
+ *
+ * ── history, kept because it is still load-bearing ────────────────────────────
+ *
+ * `features/**` joined the suite 2026-07-28: the Velín graph slice is a PURE
+ * builder that lives beside the feature that owns it, and an invariant test that
+ * never runs is not an invariant. `packages/<pkg>/src/**` joined 2026-07-30 (moonshot
+ * 6A) when the czech-civic-data UNL/cp1250/zip/fold suite moved into the package;
+ * including it keeps a whole-repo run whole (the package also runs standalone via
+ * its own vitest.config.ts).
+ *
+ * The 60 s timeouts: raised from 30 s on 2026-08-05 after the sentinel fixture-store
+ * tests were observed at ~33 s under full-suite parallel load in pre-push runs.
+ * The `maxWorkers: 3` cap: measured 2026-08-04 across three worktrees and the main
+ * tree — 4–5 PGlite-backed files intermittently fail in `beforeAll(open())` at
+ * default parallelism and pass every time at 3. Both stay here, together, because
+ * this config runs the store files and the pure files in one pool and therefore
+ * must budget for the worst case in it.
+ */
+
 import { defineConfig } from "vitest/config";
 
-// The unit suite runs over lib/**/*.test.ts (domain data + the data layer) and
-// scripts/**/*.test.ts (pure-function regression tests for data-analysis/case-loop
-// scripts, e.g. kg-promote.test.ts — batch 004, D-gap-1). The `@/` alias mirrors
-// tsconfig `paths` so a test can import a module the same way the app does; without
-// it, only relative imports resolve under vitest.
+import { quarantinedFiles } from "./lib/testing/flake/registry";
+import { ALL_TEST_GLOBS, DEFAULT_EXCLUDES } from "./lib/testing/lanes";
+import { sharedResolve } from "./vitest.shared";
+
 export default defineConfig({
-  resolve: {
-    alias: {
-      // `server-only` throws outside a React Server environment; tests that
-      // import feature loaders get an empty stub instead.
-      "server-only": fileURLToPath(new URL("./lib/testing/server-only-stub.ts", import.meta.url)),
-      "@": fileURLToPath(new URL(".", import.meta.url)),
-    },
-  },
+  resolve: sharedResolve,
   test: {
-    // `features/**/*.test.ts` joined the suite 2026-07-28: the Velín graph slice
-    // is a PURE builder that lives beside the feature that owns it (it consumes
-    // the money/law projections, so lib/ is the wrong home) — and an invariant
-    // test that never runs is not an invariant.
-    // `packages/*/src/**/*.test.ts` joined 2026-07-30 (moonshot 6A): the
-    // czech-civic-data extraction moved the UNL/cp1250/zip/fold suite into the
-    // package; including it here keeps `npm test` covering the whole repo (the
-    // package also runs standalone via its own vitest.config.ts).
-    include: [
-      "lib/**/*.test.ts",
-      "features/**/*.test.ts",
-      "scripts/**/*.test.ts",
-      "packages/*/src/**/*.test.ts",
-    ],
-    // Five test files boot a real PGlite (WASM Postgres) in parallel workers;
-    // the boots contend and any first-in-file test can blow the 5s default.
-    // (Raised 30s -> 60s 2026-08-05: the sentinel fixture-store tests were
-    // observed at ~33s under full-suite parallel load in pre-push runs.)
+    name: "all",
+    include: [...ALL_TEST_GLOBS],
+    exclude: [...DEFAULT_EXCLUDES, ...quarantinedFiles()],
+    // The template helps here too — the store files in this union get the same
+    // build-once fixture the pglite lane gets.
+    globalSetup: ["./lib/testing/pglite-template.ts"],
     testTimeout: 60_000,
-    // Same contention hits the beforeAll hooks that `await open()` a PGlite —
-    // the default 10s hookTimeout flakes under full-suite parallel load
-    // (observed in pre-push runs: review/weights/kg-money-reingest suites).
     hookTimeout: 60_000,
-    // The raised timeouts are only half the tamed-worker gate; the other half is
-    // the WORKER CAP, and until 2026-08-24 it lived only in memory/ and in builder
-    // briefs (`npx vitest run --hookTimeout=60000 --maxWorkers=3`) — so `npm run
-    // test`, pre-push and CI all still ran the PGlite files at default parallelism,
-    // which is the configuration the memo measured as flaky. Discipline that is not
-    // written as code does not happen: it belongs here.
-    // Measured 2026-08-04 (three worktrees + main tree): 4–5 PGlite-backed files
-    // (lib/db/pglite/repositories/{changes,review,weights}, scripts/case-loops/
-    // apply-batch, lib/analysis/kg-money-reingest) intermittently fail in
-    // beforeAll(open()) at default workers and pass every time at 3.
-    // See memory/vitest-pglite-needs-tamed-workers.md.
     maxWorkers: 3,
+    reporters: ["default", ["./lib/testing/flake/history-reporter.ts", { lane: "all" }]],
   },
 });
