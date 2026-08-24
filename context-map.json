@@ -407,7 +407,6 @@
       "file_paths": [
         "lib/civic/data.ts",
         "lib/civic/data.test.ts",
-        "lib/civic/dataSources.test.ts",
         "lib/civic/leaderboard.ts",
         "lib/civic/stateGraph.ts",
         "lib/civic/stateGraph.test.ts",
@@ -1655,7 +1654,6 @@
         "features/landing/components/SiteHeader.tsx",
         "features/landing/components/Standings.tsx",
         "features/landing/components/SystemModules.tsx",
-        "features/landing/components/TrendChart.tsx",
         "features/landing/referendum/actions.ts",
         "features/landing/referendum/aggregate.ts",
         "features/landing/referendum/aggregate.test.ts",
@@ -2770,7 +2768,6 @@
         "features/votetrack/kompas/ResultsBoard.tsx",
         "features/votetrack/kompas/codec.ts",
         "features/votetrack/kompas/codec.test.ts",
-        "features/votetrack/kompas/copy.ts",
         "features/votetrack/kompas/score.ts",
         "features/votetrack/kompas/score.test.ts",
         "features/votetrack/kompas/select.ts",
@@ -2840,7 +2837,6 @@
         "features/votetrack/components/VoteThemeFilter.tsx",
         "features/votetrack/record/anchor.ts",
         "features/votetrack/record/clubStyle.ts",
-        "features/votetrack/record/copy.ts",
         "features/votetrack/record/derive.ts",
         "features/votetrack/record/derive.test.ts",
         "features/votetrack/record/types.ts"
