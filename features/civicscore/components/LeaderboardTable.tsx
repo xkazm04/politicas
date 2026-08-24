@@ -20,7 +20,7 @@
  * has room for it (DESIGN.md §5).
  */
 
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
@@ -91,6 +91,209 @@ function StandoutStat({
   );
 }
 
+interface LeaderboardRowProps {
+  entry: LeaderboardListEntry;
+  components: LeaderboardData["components"];
+  medians: Record<string, number>;
+  provenance: ContributionProvenance;
+  custom: boolean;
+  compact: boolean;
+  animateRank: boolean;
+  dossierPartial: boolean;
+  inDuel: boolean;
+  onToggleDuel: (pspId: number) => void;
+}
+
+/**
+ * Jeden řádek žebříčku — MEMOIZOVANÝ na identitu (`entry.pspId` jako `key`
+ * v `.map()` níž). Bezpečné, protože `entries`/`rows` drží PO CELOU DOBU
+ * hledání TYTÉŽ OBJEKTY (`.filter()` vrací podmnožinu referencí, ne kopie) —
+ * key-by-identity z table/performance (ai-registry) platí přesně tady.
+ *
+ * MĚŘENÍ (2026-08-24, registry-conformance.md backlog #23): audit zjistil,
+ * že všech 207 řádků re-renderovalo na každý úhoz do hledání a že se to
+ * (na rozdíl od zbytku repa) nikde neměřilo. Poctivý stav i teď: tenhle
+ * repo běží vitest v uzlovém prostředí bez jsdom/testing-library (kořenový
+ * vitest.config.ts), a přidat je je mimo dovolenou množinu souborů tohoto
+ * zásahu (package.json, vitest.config.ts) — nejde tu proto předložit
+ * změřený počet re-renderů ani čas, bylo by to vymyšlené číslo. Co jde
+ * ověřit staticky, viz props níž: buď primitiva (custom/compact/
+ * animateRank/dossierPartial/inDuel), nebo objekty stabilní přes celý
+ * životní cyklus hledání (entry, components, medians, provenance — žádný
+ * nevzniká uvnitř `.map()`), a `onToggleDuel` je funkce zvenčí, ne uzávěr
+ * vytvořený na řádek. `React.memo`'s výchozí mělké porovnání tedy skutečně
+ * něco chrání, ne jen dekoruje kód beze změny chování.
+ */
+const LeaderboardRow = memo(function LeaderboardRow({
+  entry: r,
+  components,
+  medians,
+  provenance,
+  custom,
+  compact,
+  animateRank,
+  dossierPartial,
+  inDuel,
+  onToggleDuel,
+}: LeaderboardRowProps) {
+  const t = useTranslations("civicscore");
+  const tcom = useTranslations("common");
+  const locale = useLocale();
+  const f = useFormat();
+  return (
+    <motion.div
+      role="row"
+      layout={animateRank ? "position" : false}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className={`grid grid-cols-[3.25rem_1fr_auto_auto_auto] items-center gap-3 border-b border-hairline px-2 py-2.5 transition-colors hover:bg-paper-strong max-sm:grid-cols-[2.5rem_1fr_auto_auto] ${
+        inDuel ? "bg-paper-strong" : ""
+      }`}
+    >
+      {/* Pořadí je SDÍLENÉ při shodě skóre (getLeaderboardData: competition
+          ranking). „=" před číslem říká, že o toto místo se dělí víc poslanců —
+          dřív se o červené top-3 rozhodovalo abecedou. */}
+      <span
+        role="cell"
+        className={`font-mono text-lg font-bold ${r.rank <= 3 ? (custom ? "text-cobalt" : "text-signal") : "text-steel"}`}
+        title={r.tiedCount > 1 ? t("tieRowTitle", { count: f.int(r.tiedCount) }) : undefined}
+      >
+        {r.tiedCount > 1 && (
+          <span aria-hidden className="mr-0.5 text-[0.8em]">
+            =
+          </span>
+        )}
+        {f.int(r.rank)}
+        {r.tiedCount > 1 && <span className="sr-only"> — {t("tieRowTitle", { count: f.int(r.tiedCount) })}</span>}
+      </span>
+      <span role="cell" className="min-w-0">
+        <Link
+          href={`/poslanec/${r.pspId}`}
+          className="group inline-flex items-center gap-1.5 text-[15px] font-black uppercase tracking-tight hover:text-signal"
+        >
+          <span className="truncate">{r.name}</span>
+          {dossierPartial && r.effortHasDossier && (
+            <FileText
+              className="h-3 w-3 shrink-0 text-cobalt"
+              aria-hidden
+            />
+          )}
+          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-signal" />
+        </Link>
+        {/* Korektiv stojí VEDLE čísla, které opravuje — a je vidět i v
+            kompaktním režimu, protože skrýt ho znamená nechat pořadí
+            tvrdit něco, co data samy opravují. */}
+        {r.effortLowScoreReason && (
+          <span className="ml-1.5 inline-flex align-middle">
+            <LowScoreReasonChip
+              reason={r.effortLowScoreReason}
+              recordedAt={r.effortRecordedAt}
+              dateLabel={r.effortRecordedAt ? f.date(r.effortRecordedAt) : null}
+            />
+          </span>
+        )}
+        {/* KOMPAKTNÍ REŽIM SKRÝVÁ, NEMAŽE (2026-08-12). Do teď stálo
+            kolem tohohle bloku `{!compact && …}`, takže klub, kraj
+            i oba verdikty z DOM úplně zmizely: hledání na stránce
+            (Ctrl+F) je nenašlo a odečítačka o nich nevěděla — hustší
+            výpis se platil ztrátou obsahu. Nově je to VIZUÁLNÍ
+            zkrácení (precedens ExpandableText na spisu): `sr-only`
+            text zůstává vykreslený (klip, ne `display:none`), takže
+            ho najde i hledání v prohlížeči, jen nezabírá řádek. */}
+        <span
+          className={`flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel ${
+            compact ? "sr-only" : ""
+          }`}
+        >
+          <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} aria-hidden />
+          {/* Zkratka z rejstříku vidět, celý název slyšet — „TOP09", ne „TOP". */}
+          <span aria-hidden title={r.clubName}>{r.clubAbbrev}</span>
+          <span className="sr-only">{r.clubName}</span>
+          {r.region ? ` · ${r.region}` : ""}
+          {/* Verdikt je DATOVANÉ tvrzení s vlastním číslem — týž standard,
+              jaký vedle drží LowScoreReasonChip. */}
+          {r.effortWorkhorse && (
+            <WorkhorseBadge
+              flavour={r.effortWorkhorseFlavour}
+              speechTurns={r.duelFacts.speechTurns}
+              recordedAt={r.effortRecordedAt}
+              compact
+            />
+          )}
+          <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
+        </span>
+      </span>
+      {!compact && (
+        <span role="cell" className="max-sm:hidden">
+          <StandoutStat entry={r} components={components} medians={medians} />
+        </span>
+      )}
+      {/* Kobaltové skóre = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen). */}
+      {/* A právě proto se ČTENÁŘOVO číslo NERAZÍ jako citace: pod čočkou
+          je to jeho vlastní vážení, které v grafu nikde nestojí. Citovat
+          se dá jen zveřejněný index — ten nese svůj pass i ref formule. */}
+      <span role="cell" className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>
+        {custom ? (
+          f.dec(r.score)
+        ) : (
+          <CitableNumber
+            value={r.score}
+            claim={contributionScoreClaim(r.pspId, r.score, provenance).claim}
+            locale={locale as Locale}
+          />
+        )}
+      </span>
+      <span role="cell" className="flex items-center gap-1.5">
+      {/* Sledovat rovnou z řádku. V husté tabulce jen ikona — význam
+          nese přístupná jmenovka, která JMENUJE poslance (dvě stě
+          tlačítek „sledovat" bez podmětu vedle sebe nerozliší nikdo). */}
+      <FollowButton
+        entityKey={`poslanec:${r.pspId}`}
+        label={r.name}
+        subject={tcom("followSubjectMp", { name: r.name })}
+        words={{ follow: tcom("followWord"), following: tcom("followingWord") }}
+        compact
+        iconOnly
+      />
+      {/* Dvě stě sedm tlačítek „vs" vedle sebe: bez podmětu je
+          odečítačka nerozliší o nic líp než dvě stě tlačítek
+          „sledovat" o buňku vedle (týž precedens, týž lék).
+          Vidět zůstává „vs", slyšet je jméno. */}
+      <button
+        type="button"
+        onClick={() => onToggleDuel(r.pspId)}
+        title={inDuel ? t("toggleDuelRemove") : t("toggleDuelAdd")}
+        aria-label={
+          inDuel ? t("toggleDuelRemoveNamed", { name: r.name }) : t("toggleDuelAddNamed", { name: r.name })
+        }
+        aria-pressed={inDuel}
+        className={`inline-flex items-center gap-1 border-2 px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors ${
+          inDuel ? "border-signal bg-signal text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
+        }`}
+      >
+        <Swords className="h-3 w-3" aria-hidden /> {t("vsButton")}
+      </button>
+      {/* Sekce se soubojem sedí NAD žebříčkem, takže klik na „vs"
+          u sto padesátého řádku mění panel o čtyři obrazovky výš.
+          Vybraný řádek proto nabídne cestu k němu — ODKAZ, ne skok:
+          vynucené rolování při každém kliknutí by odneslo čtenáře
+          pryč z místa, kde právě vybírá. Hlásí se jinde a jednou
+          (DuelStatus); tohle je jen viditelná afordance. */}
+      {inDuel && (
+        <a
+          href="#souboj"
+          aria-label={t("duelGoTo")}
+          title={t("duelGoTo")}
+          className="inline-flex items-center border-2 border-hairline px-1.5 py-1 text-cobalt transition-colors hover:border-cobalt"
+        >
+          <ArrowUp className="h-3 w-3" aria-hidden />
+        </a>
+      )}
+      </span>
+    </motion.div>
+  );
+});
+LeaderboardRow.displayName = "LeaderboardRow";
+
 export default function LeaderboardTable({
   entries,
   clubs,
@@ -117,11 +320,9 @@ export default function LeaderboardTable({
   custom?: boolean;
 }) {
   const t = useTranslations("civicscore");
-  const tcom = useTranslations("common");
   /** Uzavřený verdiktní slovník (`verdicts`) — od 2026-08-12 v katalogu; filtr
    *  tichých pracantů tiskl jeho české literály i anglickému čtenáři. */
   const tv = useTranslations("verdicts");
-  const locale = useLocale();
   const f = useFormat();
   const reduceMotion = useReducedMotion();
   // Živé přeřazení pod čočkou: layout animace jen v režimu čočky (oficiální
@@ -323,161 +524,21 @@ export default function LeaderboardTable({
           </span>
           <span role="columnheader">{t("colActions")}</span>
         </div>
-        {rows.map((r) => {
-          const inDuel = duel.includes(r.pspId);
-          return (
-            <motion.div
-              key={r.pspId}
-              role="row"
-              layout={animateRank ? "position" : false}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className={`grid grid-cols-[3.25rem_1fr_auto_auto_auto] items-center gap-3 border-b border-hairline px-2 py-2.5 transition-colors hover:bg-paper-strong max-sm:grid-cols-[2.5rem_1fr_auto_auto] ${
-                inDuel ? "bg-paper-strong" : ""
-              }`}
-            >
-              {/* Pořadí je SDÍLENÉ při shodě skóre (getLeaderboardData: competition
-                  ranking). „=" před číslem říká, že o toto místo se dělí víc poslanců —
-                  dřív se o červené top-3 rozhodovalo abecedou. */}
-              <span
-                role="cell"
-                className={`font-mono text-lg font-bold ${r.rank <= 3 ? (custom ? "text-cobalt" : "text-signal") : "text-steel"}`}
-                title={r.tiedCount > 1 ? t("tieRowTitle", { count: f.int(r.tiedCount) }) : undefined}
-              >
-                {r.tiedCount > 1 && (
-                  <span aria-hidden className="mr-0.5 text-[0.8em]">
-                    =
-                  </span>
-                )}
-                {f.int(r.rank)}
-                {r.tiedCount > 1 && <span className="sr-only"> — {t("tieRowTitle", { count: f.int(r.tiedCount) })}</span>}
-              </span>
-              <span role="cell" className="min-w-0">
-                <Link
-                  href={`/poslanec/${r.pspId}`}
-                  className="group inline-flex items-center gap-1.5 text-[15px] font-black uppercase tracking-tight hover:text-signal"
-                >
-                  <span className="truncate">{r.name}</span>
-                  {dossierPartial && r.effortHasDossier && (
-                    <FileText
-                      className="h-3 w-3 shrink-0 text-cobalt"
-                      aria-hidden
-                    />
-                  )}
-                  <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-signal" />
-                </Link>
-                {/* Korektiv stojí VEDLE čísla, které opravuje — a je vidět i v
-                    kompaktním režimu, protože skrýt ho znamená nechat pořadí
-                    tvrdit něco, co data samy opravují. */}
-                {r.effortLowScoreReason && (
-                  <span className="ml-1.5 inline-flex align-middle">
-                    <LowScoreReasonChip
-                      reason={r.effortLowScoreReason}
-                      recordedAt={r.effortRecordedAt}
-                      dateLabel={r.effortRecordedAt ? f.date(r.effortRecordedAt) : null}
-                    />
-                  </span>
-                )}
-                {/* KOMPAKTNÍ REŽIM SKRÝVÁ, NEMAŽE (2026-08-12). Do teď stálo
-                    kolem tohohle bloku `{!compact && …}`, takže klub, kraj
-                    i oba verdikty z DOM úplně zmizely: hledání na stránce
-                    (Ctrl+F) je nenašlo a odečítačka o nich nevěděla — hustší
-                    výpis se platil ztrátou obsahu. Nově je to VIZUÁLNÍ
-                    zkrácení (precedens ExpandableText na spisu): `sr-only`
-                    text zůstává vykreslený (klip, ne `display:none`), takže
-                    ho najde i hledání v prohlížeči, jen nezabírá řádek. */}
-                <span
-                  className={`flex flex-wrap items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-steel ${
-                    compact ? "sr-only" : ""
-                  }`}
-                >
-                  <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: r.clubColor }} aria-hidden />
-                  {/* Zkratka z rejstříku vidět, celý název slyšet — „TOP09", ne „TOP". */}
-                  <span aria-hidden title={r.clubName}>{r.clubAbbrev}</span>
-                  <span className="sr-only">{r.clubName}</span>
-                  {r.region ? ` · ${r.region}` : ""}
-                  {/* Verdikt je DATOVANÉ tvrzení s vlastním číslem — týž standard,
-                      jaký vedle drží LowScoreReasonChip. */}
-                  {r.effortWorkhorse && (
-                    <WorkhorseBadge
-                      flavour={r.effortWorkhorseFlavour}
-                      speechTurns={r.duelFacts.speechTurns}
-                      recordedAt={r.effortRecordedAt}
-                      compact
-                    />
-                  )}
-                  <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
-                </span>
-              </span>
-              {!compact && (
-                <span role="cell" className="max-sm:hidden">
-                  <StandoutStat entry={r} components={components} medians={medians} />
-                </span>
-              )}
-              {/* Kobaltové skóre = vaše číslo, ne zveřejněné (konvence z landing LiveSpecimen). */}
-              {/* A právě proto se ČTENÁŘOVO číslo NERAZÍ jako citace: pod čočkou
-                  je to jeho vlastní vážení, které v grafu nikde nestojí. Citovat
-                  se dá jen zveřejněný index — ten nese svůj pass i ref formule. */}
-              <span role="cell" className={`w-12 text-right text-lg font-black tabular-nums ${custom ? "text-cobalt" : ""}`}>
-                {custom ? (
-                  f.dec(r.score)
-                ) : (
-                  <CitableNumber
-                    value={r.score}
-                    claim={contributionScoreClaim(r.pspId, r.score, provenance).claim}
-                    locale={locale as Locale}
-                  />
-                )}
-              </span>
-              <span role="cell" className="flex items-center gap-1.5">
-              {/* Sledovat rovnou z řádku. V husté tabulce jen ikona — význam
-                  nese přístupná jmenovka, která JMENUJE poslance (dvě stě
-                  tlačítek „sledovat" bez podmětu vedle sebe nerozliší nikdo). */}
-              <FollowButton
-                entityKey={`poslanec:${r.pspId}`}
-                label={r.name}
-                subject={tcom("followSubjectMp", { name: r.name })}
-                words={{ follow: tcom("followWord"), following: tcom("followingWord") }}
-                compact
-                iconOnly
-              />
-              {/* Dvě stě sedm tlačítek „vs" vedle sebe: bez podmětu je
-                  odečítačka nerozliší o nic líp než dvě stě tlačítek
-                  „sledovat" o buňku vedle (týž precedens, týž lék).
-                  Vidět zůstává „vs", slyšet je jméno. */}
-              <button
-                type="button"
-                onClick={() => onToggleDuel(r.pspId)}
-                title={inDuel ? t("toggleDuelRemove") : t("toggleDuelAdd")}
-                aria-label={
-                  inDuel ? t("toggleDuelRemoveNamed", { name: r.name }) : t("toggleDuelAddNamed", { name: r.name })
-                }
-                aria-pressed={inDuel}
-                className={`inline-flex items-center gap-1 border-2 px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider transition-colors ${
-                  inDuel ? "border-signal bg-signal text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
-                }`}
-              >
-                <Swords className="h-3 w-3" aria-hidden /> {t("vsButton")}
-              </button>
-              {/* Sekce se soubojem sedí NAD žebříčkem, takže klik na „vs"
-                  u sto padesátého řádku mění panel o čtyři obrazovky výš.
-                  Vybraný řádek proto nabídne cestu k němu — ODKAZ, ne skok:
-                  vynucené rolování při každém kliknutí by odneslo čtenáře
-                  pryč z místa, kde právě vybírá. Hlásí se jinde a jednou
-                  (DuelStatus); tohle je jen viditelná afordance. */}
-              {inDuel && (
-                <a
-                  href="#souboj"
-                  aria-label={t("duelGoTo")}
-                  title={t("duelGoTo")}
-                  className="inline-flex items-center border-2 border-hairline px-1.5 py-1 text-cobalt transition-colors hover:border-cobalt"
-                >
-                  <ArrowUp className="h-3 w-3" aria-hidden />
-                </a>
-              )}
-              </span>
-            </motion.div>
-          );
-        })}
+        {rows.map((r) => (
+          <LeaderboardRow
+            key={r.pspId}
+            entry={r}
+            components={components}
+            medians={medians}
+            provenance={provenance}
+            custom={custom}
+            compact={compact}
+            animateRank={animateRank}
+            dossierPartial={dossierPartial}
+            inDuel={duel.includes(r.pspId)}
+            onToggleDuel={onToggleDuel}
+          />
+        ))}
       </div>
       {/* Prázdný výsledek se OHLÁSÍ. Dřív mlčel: kdo filtruje po hmatu nebo
           poslechu, dostal po napsání jména jen ticho a neměl jak poznat, jestli
