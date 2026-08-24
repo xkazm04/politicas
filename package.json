@@ -26,6 +26,7 @@
     "da:validate-kg-verdict": "tsx scripts/data-analysis/validate-kg-verdict.ts",
     "da:kg-promote": "tsx scripts/data-analysis/kg-promote.ts",
     "da:kg-metrics": "tsx scripts/data-analysis/kg-metrics.ts",
+    "da:tender-increment": "tsx scripts/case-loops/tender/increment.ts",
     "da:props-check": "tsx scripts/data-analysis/kg-props-check.ts",
     "da:kg-routing": "tsx scripts/data-analysis/kg-committee-routing.ts",
     "da:kg-datahub-sync": "tsx scripts/data-analysis/kg-datahub-sync.ts",

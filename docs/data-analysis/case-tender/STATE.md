@@ -2,7 +2,7 @@
 
 > **Regenerated every batch. Read THIS first, `ledger.md` only for history.**
 
-**As of:** batch 010 · 2026-08-24 · last graph write **pass 73** (winner circles on 133 authority nodes). Ten-batch arc complete — reflection in batch-010.md + SKILL.md.
+**As of:** batch 011 · 2026-08-24 · last graph write **pass 73**. Steady state armed: `npm run da:tender-increment` (b011); VZ-08-2026 expected ~2026-09-01…05 → passes 74–76.
 
 ## The doctrine (user-set, 2026-08-23)
 
@@ -26,9 +26,10 @@ composed from volume, connection to the MP graph a bonus and never a filter.
 
 ## Open items
 
-1. Monthly increment (steady state): new RVZ month → `filter-month.py` →
-   `persist-month.ts` (ALL months chronologically) → full reflag
-   (`compute-flags.ts`) → recompose + recircle. Every tool exists.
+1. Monthly increment (steady state): `npm run da:tender-increment` — probes,
+   downloads, filters, prints the persist/reflag/recircle chain (hand-read gate
+   stays manual). VZ-08-2026 expected ~2026-09-01…05; then passes 74–76.
+   Receipt guard: increment compares data/raw/isvz/ against persisted.json.
 2. Needle product surface: species-typed authority pictures (b008 rule),
    circle shapes with sequences, cover-bid lots, monopoly disclosure pattern.
 3. Campaign 2: CPV 72 (IT services) — the user's original scope question; the

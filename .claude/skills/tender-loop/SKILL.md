@@ -196,6 +196,14 @@ Kernel gates plus:
   (`tender_winner_circle` on company nodes, ns=circle) — company-node props now carry two
   cases' layers side by side; the prop registry is the collision guard.
 
+- **b011 (increment):** RVZ month files are write-once (Last-Modified proof) — the
+  increment is "fetch the newest month only", and the chronological ALL-months replay is
+  the only correct read (a month file alone can carry zero wins; its winners live in
+  later snapshots). An orchestrator must END WHERE THE READING BEGINS: it may download,
+  filter, and print the persist/reflag chain, never run the signal persists itself. A
+  downloaded month is not an ingested month — persist writes a machine receipt
+  (persisted.json) and the orchestrator reports disk-vs-store drift loudly.
+
 ## After ten batches (2026-08-24) — what this loop can and cannot extract
 
 **Can (proven):** lot graphs with register facts verbatim; six deterministic lot flags

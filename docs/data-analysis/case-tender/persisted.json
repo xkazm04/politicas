@@ -1,0 +1,30 @@
+{
+  "months": [
+    "VZ-12-2024",
+    "VZ-01-2025",
+    "VZ-02-2025",
+    "VZ-03-2025",
+    "VZ-04-2025",
+    "VZ-05-2025",
+    "VZ-06-2025",
+    "VZ-07-2025",
+    "VZ-08-2025",
+    "VZ-09-2025",
+    "VZ-10-2025",
+    "VZ-11-2025",
+    "VZ-12-2025",
+    "VZ-01-2026",
+    "VZ-02-2026",
+    "VZ-03-2026",
+    "VZ-04-2026",
+    "VZ-05-2026",
+    "VZ-06-2026",
+    "VZ-07-2026"
+  ],
+  "cpv": "45",
+  "pass": 70,
+  "lots": 61421,
+  "edges": 193012,
+  "committedAt": "2026-08-24T12:13:00.000Z",
+  "note": "backfilled receipt for pass 70 (b006) \u2014 receipts are written automatically from this pass on"
+}

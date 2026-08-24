@@ -18,6 +18,7 @@
  *
  *   npx tsx scripts/case-loops/tender/persist-month.ts --months=VZ-06-2026 --cpv=45 --pass=67 [--commit]
  */
+import { writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 import { loadMonthJson } from "./loadMonth";
 import { KG_READ_CAP } from "@/lib/db/readCap";
@@ -189,6 +190,13 @@ async function main() {
   written += await store.upsertKgNodes(tenderNodes);
   written += await store.upsertKgEdges(dedupedEdges);
   console.log(`COMMITTED pass ${pass}: ${written} rows.`);
+  // machine-readable persist receipt — increment.ts compares it against data/raw/isvz/
+  // so a downloaded-but-never-persisted month cannot silently report as "current"
+  writeFileSync(
+    "docs/data-analysis/case-tender/persisted.json",
+    JSON.stringify({ months, cpv, pass, lots: dedupedLots.length, edges: dedupedEdges.length, committedAt: new Date().toISOString() }, null, 2) + "\n",
+    "utf8",
+  );
   await store.close();
 }
 

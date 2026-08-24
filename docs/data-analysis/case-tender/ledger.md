@@ -115,3 +115,15 @@ extractable (6 lot flags, pictures, species, circles, case files, 18 MP touches)
 (bidder pools, per-lot overpricing, cross-boundary cadence), and the seven method rules
 the batches earned.
 
+### Batch 011 — the monthly increment becomes one command that refuses to finish the job (2026-08-24)
+
+Steady-state tooling, no writes. Server probe: RVZ month files are WRITTEN ONCE
+(Last-Modified evidence; VZ-12-2024 alone carries ZERO wins — winners arrive in later
+files, so the chronological all-months replay is the only correct read). `increment.ts`
+(npm run da:tender-increment): probe → stream-download → filter → print the exact
+persist/reflag/recircle chain — and deliberately NOT run it (the hand-read gate stays
+between compute and commit). `persist-month.ts --commit` now writes a persist receipt
+(persisted.json) and increment compares disk vs store ("STORE IS BEHIND DISK" instead of
+a false "current"). Windows gotcha: fetch keep-alives + process.exit() trip a libuv
+assertion — drain naturally, set exitCode. VZ-08-2026 expected ~2026-09-01…05 → pass 74.
+
