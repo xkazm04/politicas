@@ -1,0 +1,80 @@
+# .ai/manifest.yaml — the agent-facing contract for this repo.
+# Capabilities are tool-NEUTRAL (a name -> the command that fulfils it), heavy subsystems are
+# referenced by path, and unknown fields MUST be ignored — so this survives tool churn and
+# schema growth. Shape reference: ../personas/.ai/manifest.yaml (docs/AI_MANIFEST_SPEC.md).
+schema: ai-manifest
+schemaVersion: 0.1.0
+generatedAt: "2026-08-24"
+generatedFrom: [package.json, CLAUDE.md, AGENTS.md]
+
+repo:
+  name: politicas
+  purpose: "Czech-first public-accountability platform: five civic modules over one shared entity graph, every rendered number citing its source"
+  languages: [typescript]
+  archetype: product
+
+# Capabilities, not tools. Every command below is a real `scripts` entry in package.json.
+# `verified` is a claim a doctor flips to true once it has actually run the command.
+capabilities:
+  build: { command: "npm run build", verified: false }
+  test: { command: "npm run test", verified: false }
+  lint: { command: "npm run lint", verified: false }
+  typecheck: { command: "npm run typecheck", verified: false }
+  gate: { command: "npm run check", verified: false }
+  smoke: { command: "npm run smoke", verified: false }
+  lint-rule-tests: { command: "npm run test:rules", verified: false }
+  catalog-census: { command: "npm run census", verified: false }
+  db-backup: { command: "npm run db:backup", verified: false }
+
+# Pointers — these subsystems can change format underneath without breaking this contract.
+paths:
+  contextMap: context-map.json
+  memory: memory/
+  memoryIndex: MEMORY.md
+  design: docs/DESIGN.md
+  routeRecords: docs/routes/
+  docMap: docs/feature-doc-map.json
+  lintRules: packages/eslint-plugin-civic-transparency/
+
+context:
+  rule: "every route has a dated detail record in docs/routes/<route>.md; read it before touching that surface"
+
+boundaries:
+  neverTouch: [.pglite/, .next/, data/raw/]
+  brandRule: "every rendered number cites its source (SourceNote); a loader that returns null calls reportLoaderFailure()"
+
+# The control model (shift-left): where each capability is PRIMARILY enforced.
+controls:
+  prePush: [typecheck, test]
+  ciHardPass: [typecheck, lint, test, schema-snapshot-drift, build]
+
+# The organization's AI registry — knowledge bundles this repo consumes and the skill
+# marketplace it installs from. Unknown fields MUST be ignored by a reader.
+# registered from the secondary machine (mkdol) 2026-08-24
+registry:
+  remote: github:xkazm04/ai-registry
+  local: ../ai-registry
+  machine: secondary
+  contributor: mkdol-dev-box
+
+# software-engineering: Next/React/TS product surface + gates. civic-intelligence: the whole
+# domain (parliamentary data, public money, civic graph, accountability method).
+# llm-observability: scripts/hybrid-bench meters per-call model x effort cost/tokens.
+knowledge:
+  domains: [software-engineering, civic-intelligence, llm-observability]
+
+# Shared skills this project uses, from the registry's skills/ lane. The LINK is machine
+# state (gitignored, made by ai-registry/scripts/link-skills.mjs); THIS list is the
+# reviewable declaration. A skill not listed here is project-owned and lives in
+# .claude/skills/ as a real directory.
+skills:
+  - architect
+  - conform
+  - consult
+  - explorer
+  - i18n-translate
+  - npm-updates
+  - perfect
+  - research
+  - ship-loop
+  - uat
