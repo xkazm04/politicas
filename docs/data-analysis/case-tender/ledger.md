@@ -45,3 +45,13 @@ exceptional_procedure 263 (0,5 %, JŘBU only). The hand-read BEFORE persist rewr
 flags: přímé zadání malého rozsahu is a routine lawful instrument (2 734 hits → authority-
 level statistic, not a per-lot flag), and p10 deadlines fired at the boundary („30 vs 31").
 Every flagged node carries flag_inputs + flag_thresholds. props-check clean.
+
+### Batch 005 — the first pictures, and they have shapes in them (2026-08-24)
+
+Composition batch (no writes): `compose-pictures.ts` aggregates per authority (≥20 lots)
+and per winner (≥10 wins). Shapes on first look: Bytová správa MV → OTISTAV 61 % of 36
+wins · Jesenice → DROPS GROUP 50 % of 48 · TSMO (MP graph) → R-STAV 44 % of 41 · several
+100 %-dependent suppliers (Petr Kuš, an individual: 70/70 wins at Havířov) · **Havířov:
+1 511 lots / 2,18 mld. / 31 % flagged** — the needle-city profile the doctrine predicted.
+Calibration catch: ČEZ Distribuce/EG.D top flagged-win share because grid connection work
+is MONOPOLY-counterparty by law → a named legitimate class before anything renders.

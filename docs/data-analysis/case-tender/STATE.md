@@ -2,7 +2,7 @@
 
 > **Regenerated every batch. Read THIS first, `ledger.md` only for history.**
 
-**As of:** batch 004 · 2026-08-24 · last graph write **pass 69**.
+**As of:** batch 005 · 2026-08-24 · last graph write **pass 69** (b005 composed, wrote evidence only).
 
 ## The doctrine (user-set, 2026-08-23)
 
@@ -25,17 +25,19 @@ composed from volume, connection to the MP graph a bonus and never a filter.
 
 ## Open items
 
-1. b005: COMPOSE the pictures — per-authority (needle counts, flag mix, flagged
-   CZK, direct-award volume share) and per-winner (wins under flags, distinct
-   authorities); graph_touch to the MP layer.
-2. b006: 2025 + 2024-12 ingest → trailing-window flags (repeat_winner,
-   supplier_lock over ≥12 months).
-3. Product surface for the needle picture — after b005 shows its shape.
+1. b006: 2025 + 2024-12 ingest → trailing-window flags (repeat_winner,
+   supplier_lock over ≥12 months) + the MONOPOLY-COUNTERPARTY class (ČEZ
+   Distribuce/EG.D top flagged-win share legitimately — grid work is
+   single-source by law; name it, exclude from signal listings, disclose).
+2. Havířov (1 511 lots / 31 % flagged / two 100 %-dependent suppliers) — first
+   deep-read candidate batch.
+3. Product surface for the needle picture — shapes exist now (see
+   pictures-cpv45-*.json).
 
 ## Durable tools
 
 `lib/ingest/sources/isvz.ts` (lot parse, tests) · `filter-month.py` (streaming CPV
 pre-filter → NDJSON; ijson) · `loadMonth.ts` (the one reader) · `measure.ts` (calibration)
 · `persist-month.ts` (pass-stamped writer, snapshot dedupe) · `compute-flags.ts`
-(thresholds from the corpus, samples printed for hand-reading). Raw months in
-`data/raw/isvz/` (gitignored). Next pass: **70**.
+(thresholds from the corpus, hand-read samples) · `compose-pictures.ts` (authority/winner
+shapes, small-n floors). Raw months in `data/raw/isvz/` (gitignored). Next pass: **70**.

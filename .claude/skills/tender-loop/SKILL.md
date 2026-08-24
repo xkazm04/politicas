@@ -146,6 +146,12 @@ Kernel gates plus:
   tight_spread 2,2 %, short_deadline 3,0 %, JŘBU 0,5 % — 8,0 % of lots carry ≥1 flag.
   tight_spread samples are textbook cover-bidding shapes. Flags carry their inputs AND
   thresholds on the node; a threshold change recomputes everything (no mixed vintages).
+- **b005 (composition):** the pictures work — supplier-lock and one-authority-dependence
+  shapes appear at small-n floors (≥20 lots / ≥10 wins), and Havířov (1 511 lots, 31 %
+  flagged, two 100 %-dependent suppliers) is the first needle-city profile. CAVEAT CLASS
+  DISCOVERED: monopoly counterparties (ČEZ Distribuce 81 %, EG.D 93 % flagged-win share —
+  grid connection work is single-source BY LAW). Winner listings must name and exclude
+  that class, disclosed, before anything renders publicly.
 
 ## History
 
