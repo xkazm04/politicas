@@ -1,15 +1,13 @@
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "../pglite-fixture";
 
 // Live-Graph Sentinel (batch-7 item 7E) — every invariant proven BOTH ways
 // against fixture stores: a clean seeded store passes, then each targeted
 // corruption makes exactly its invariant fire. Same isolation discipline as
 // leaderboard-loader.test.ts: isolated PGLITE_PATH tmpdir set BEFORE any
 // import that reaches open() (which memoises on globalThis).
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-sentinel-test-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-sentinel-test-");
 
 const { open } = await import("../../db/pglite/internals");
 const { GENESIS_HASH, computeAuditRowHash } = await import("../../db/pglite/ledger");

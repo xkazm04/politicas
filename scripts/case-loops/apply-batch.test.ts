@@ -3,13 +3,11 @@
 // shared `applyBatch()` core directly against a store repo, independent of the
 // CLI/env-var plumbing, per the kg-money-reingest.test.ts / review.test.ts
 // pattern (open() + makeKgRepo(), manual rmSync teardown).
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, beforeEach, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "@/lib/testing/pglite-fixture";
 
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-apply-batch-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-apply-batch-");
 
 const { open } = await import("../../lib/db/pglite/internals");
 const { makeKgRepo } = await import("../../lib/db/pglite/repositories/kg");

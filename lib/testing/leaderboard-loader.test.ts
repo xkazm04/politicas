@@ -1,7 +1,6 @@
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "./pglite-fixture";
 
 // First direct test of a get*Data.ts loader (architect 2026-07-26,
 // docs/architect/decisions/2026-07-26-loader-test-coverage.md). Lib-hosted
@@ -12,8 +11,7 @@ import { afterAll, describe, expect, it } from "vitest";
 // Isolated PGlite data dir — NEVER point at ./.pglite (the live directory).
 // Set BEFORE importing anything that calls open(): pglitePath() reads
 // process.env.PGLITE_PATH lazily but open() memoises on globalThis.
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-leaderboard-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-leaderboard-");
 // This test seeds 3 persons on purpose — bypass the cardinality-floor gate
 // (lib/db/readiness.ts), which is exercised by its own test.
 process.env.KG_READINESS_OFF = "1";

@@ -1,14 +1,12 @@
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "../../../testing/pglite-fixture";
 
 // Isolated PGlite data dir — NEVER point this (or any test) at ./.pglite or
 // ./.pglite-copy-money, the live/working directories. Set BEFORE importing
 // anything that calls open(), since pglitePath() reads process.env.PGLITE_PATH
 // lazily but open() memoises its connection on globalThis for the process.
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-review-repo-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-review-repo-");
 // getVerificationQueue() reads the shared money layer, which enforces the cardinality
 // floors (207 persons / 196 companies / 2 287 contracts on the real graph). This file
 // seeds a handful of rows on purpose, so the gate is bypassed here exactly as

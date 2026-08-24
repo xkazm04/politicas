@@ -1,14 +1,12 @@
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "../testing/pglite-fixture";
 
 // Cardinality-floor gate (architect 2026-07-26,
 // docs/architect/decisions/2026-07-26-ingest-readiness-guard.md): a store
 // below its floors must read as NOT ready so public loaders fall back instead
 // of rendering a half-ingested graph as truth.
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-readiness-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-readiness-");
 delete process.env.KG_READINESS_OFF;
 
 const { open } = await import("./pglite/internals");

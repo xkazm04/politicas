@@ -10,13 +10,11 @@
 // (moneyGraphToKgRows in the ingest script does exactly this, see its
 // `existingLinkedToProps` param), so this proves the fix end-to-end against the store.
 
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "../testing/pglite-fixture";
 
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-kg-money-reingest-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-kg-money-reingest-");
 
 const { open } = await import("../db/pglite/internals");
 const { makeKgRepo } = await import("../db/pglite/repositories/kg");

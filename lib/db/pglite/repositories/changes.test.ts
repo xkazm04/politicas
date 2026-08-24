@@ -3,15 +3,13 @@
 // nepočítá dvakrát, opakované odvození je idempotentní, filtr entity čte
 // GIN-indexované klíče.
 
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "../../../testing/pglite-fixture";
 
 // Izolovaný PGlite adresář — NIKDY ./.pglite (živá data). Nastavit PŘED importem
 // čehokoli, co volá open() (pglitePath čte env líně, ale spojení se memoizuje).
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-changes-repo-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-changes-repo-");
 
 const { open } = await import("../internals");
 const { makeChangesRepo } = await import("./changes");

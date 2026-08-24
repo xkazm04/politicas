@@ -1,12 +1,10 @@
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, describe, expect, it } from "vitest";
 import { byListOrder } from "./kgOrder";
 import type { KgEdgeRow, KgNodeRow } from "./types";
+import { pgliteFixtureDir } from "../testing/pglite-fixture";
 
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-kgorder-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-kgorder-");
 
 const { getStore } = await import("./store");
 

@@ -39,18 +39,16 @@
 // /penize/kontrola's queue are computed from the SAME rows, so a divergence between the
 // operator dashboard and the console it monitors fails a test rather than shipping.
 
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
 import { scoreLanguage } from "@/lib/analysis/language-gate";
+import { pgliteFixtureDir } from "./pglite-fixture";
 
 // Isolated PGlite data dir — NEVER point at ./.pglite (the live directory).
 // Set BEFORE importing anything that calls open(): pglitePath() reads
 // process.env.PGLITE_PATH lazily but open() memoises on globalThis.
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-loaders-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-loaders-");
 
 const { open } = await import("../db/pglite/internals");
 const { loadMoneyLayer, loadMpMoneySlice, num, pspIdFromNodeId } = await import("../../features/money/moneyLoader");

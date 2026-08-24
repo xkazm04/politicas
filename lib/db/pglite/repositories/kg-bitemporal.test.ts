@@ -3,14 +3,12 @@
 // asOf(now) ≡ current-read equivalence. Uses an isolated PGlite data dir —
 // NEVER the live ./.pglite (same discipline as ledger.test.ts).
 
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, describe, expect, it } from "vitest";
 import type { KgEdgeRow, KgNodeRow } from "../../types";
+import { pgliteFixtureDir } from "../../../testing/pglite-fixture";
 
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-kg-bitemporal-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-kg-bitemporal-");
 
 const { open, PGLITE_KEY } = await import("../internals");
 type GlobalWithPglite = typeof globalThis & { [PGLITE_KEY]?: unknown };

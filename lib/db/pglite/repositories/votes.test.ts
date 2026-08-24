@@ -1,12 +1,10 @@
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "../../../testing/pglite-fixture";
 
 // Isolated PGlite data dir — NEVER the live ./.pglite. Set BEFORE any import that
 // calls open() (same discipline as ledger.test.ts / review.test.ts).
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-votes-repo-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-votes-repo-");
 
 const { open, PGLITE_KEY } = await import("../internals");
 type GlobalWithPglite = typeof globalThis & { [PGLITE_KEY]?: unknown };

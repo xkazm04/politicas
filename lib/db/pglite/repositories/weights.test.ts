@@ -2,15 +2,13 @@
 // (neplatné se ODMÍTÁ, ne opravuje), ukládá se kanonický tvar, tabulka nenese
 // žádnou identitu a čtení agregátu drží k-anonymitní práh end-to-end.
 
-import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { rmSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { pgliteFixtureDir } from "../../../testing/pglite-fixture";
 
 // Izolovaný PGlite adresář — NIKDY ./.pglite (živá data). Nastavit PŘED importem
 // čehokoli, co volá open() (vzor: changes.test.ts).
-const dataDir = mkdtempSync(join(tmpdir(), "politicas-weights-repo-"));
-process.env.PGLITE_PATH = dataDir;
+const dataDir = pgliteFixtureDir("politicas-weights-repo-");
 
 const { open } = await import("../internals");
 const { makeWeightsRepo } = await import("./weights");
