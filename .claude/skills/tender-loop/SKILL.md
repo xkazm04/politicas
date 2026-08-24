@@ -181,6 +181,15 @@ Kernel gates plus:
   per era. The rotation species (same handful of bidders, alternating winners, tight
   spreads) has no deterministic marker yet — bidder-pool statistic is the candidate.
 
+- **b009 (negative result, kept):** before designing a statistic, compute its
+  DENOMINATOR'S visibility for the target population first — the bidder-pool marker died
+  because losing bidders are anonymised for ~95 % of authorities (b002's own numbers
+  predicted this). Ratio markers confound volume with closure at scale (ŘSD: 1 002
+  distinct bidders "topping" the closed-pool list). A failed statistic stays in the repo
+  with its verdict in the header + committed evidence, so no future session re-invents
+  it. And when a batch doc states a pattern, mark inference vs register fact — b008's
+  „same 4–6 bidders" was an inference and got a written correction.
+
 ## History
 
 - 2026-08-23: skill created from the user's doctrine notes; first campaign

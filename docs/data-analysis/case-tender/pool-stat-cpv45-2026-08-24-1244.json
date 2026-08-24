@@ -1,0 +1,435 @@
+{
+  "generatedFor": "tender loop — bidder-pool statistic per authority",
+  "generatedAt": "2026-08-24-1244",
+  "scope": {
+    "cpv": "45",
+    "authoritiesMeasured": 186,
+    "readable": 10,
+    "unreadableLowIdentifiedShare": 176,
+    "MIN_LOTS": 20,
+    "MIN_IDENTIFIED": 50,
+    "MIN_IDENTIFIED_SHARE": 0.5
+  },
+  "authorities": [
+    {
+      "ico": "14088924",
+      "name": "E.ON Drive Infrastructure CZ s.r.o.",
+      "lots": 107,
+      "entriesIdentified": 445,
+      "distinctBidders": 15,
+      "avgAppearances": 29.67,
+      "top5Share": 0.67,
+      "identifiedShare": 1,
+      "topBidders": [
+        {
+          "id": "company:ico:47544929",
+          "name": "Elmoz Czech, s.r.o.",
+          "entries": 106
+        },
+        {
+          "id": "company:ico:01594532",
+          "name": "ISOFEN POWER s.r.o.",
+          "entries": 77
+        },
+        {
+          "id": "company:ico:25741101",
+          "name": "ELEKTROMONTÁŽE s.r.o.",
+          "entries": 50
+        },
+        {
+          "id": "company:ico:46678468",
+          "name": "HOCHTIEF CZ a. s.",
+          "entries": 33
+        },
+        {
+          "id": "company:ico:07126590",
+          "name": "ELMONTA s.r.o.",
+          "entries": 32
+        },
+        {
+          "id": "company:ico:21510342",
+          "name": "NewCharge s.r.o.",
+          "entries": 31
+        }
+      ]
+    },
+    {
+      "ico": "65993390",
+      "name": "Ředitelství silnic a dálnic s. p.",
+      "lots": 6597,
+      "entriesIdentified": 21454,
+      "distinctBidders": 1002,
+      "avgAppearances": 21.41,
+      "top5Share": 0.27,
+      "identifiedShare": 0.808,
+      "topBidders": [
+        {
+          "id": "company:ico:45274924",
+          "name": "EUROVIA CZ a.s.",
+          "entries": 1717
+        },
+        {
+          "id": "company:ico:60838744",
+          "name": "STRABAG a.s.",
+          "entries": 1371
+        },
+        {
+          "id": "company:ico:43005560",
+          "name": "PORR a.s.",
+          "entries": 1093
+        },
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "entries": 897
+        },
+        {
+          "id": "company:ico:26271303",
+          "name": "Skanska a.s.",
+          "entries": 725
+        },
+        {
+          "id": "company:ico:42196868",
+          "name": "M - SILNICE a.s.",
+          "entries": 695
+        }
+      ]
+    },
+    {
+      "ico": "25826603",
+      "name": "Technické služby města Olomouce, a.s.",
+      "lots": 51,
+      "entriesIdentified": 157,
+      "distinctBidders": 36,
+      "avgAppearances": 4.36,
+      "top5Share": 0.599,
+      "identifiedShare": 0.744,
+      "topBidders": [
+        {
+          "id": "company:ico:24142409",
+          "name": "R - STAV OLOMOUC s.r.o.",
+          "entries": 33
+        },
+        {
+          "id": "company:ico:66910439",
+          "name": "Pavel Navrátil",
+          "entries": 24
+        },
+        {
+          "id": "company:ico:47152532",
+          "name": "PRESBETON Nova, s.r.o.",
+          "entries": 16
+        },
+        {
+          "id": "company:ico:08202885",
+          "name": "BOPROSTA s.r.o.",
+          "entries": 11
+        },
+        {
+          "id": "company:ico:26875080",
+          "name": "JR stavby CZ, s.r.o.",
+          "entries": 10
+        },
+        {
+          "id": "company:ico:28654501",
+          "name": "Brodacký Antonín s.r.o.",
+          "entries": 10
+        }
+      ]
+    },
+    {
+      "ico": "60194120",
+      "name": "Pražské služby, a.s.",
+      "lots": 40,
+      "entriesIdentified": 97,
+      "distinctBidders": 29,
+      "avgAppearances": 3.34,
+      "top5Share": 0.701,
+      "identifiedShare": 0.606,
+      "topBidders": [
+        {
+          "id": "company:ico:26417626",
+          "name": "Prastar s.r.o.",
+          "entries": 31
+        },
+        {
+          "id": "company:ico:03939154",
+          "name": "Salamánek Stavby s.r.o.",
+          "entries": 13
+        },
+        {
+          "id": "company:ico:45799431",
+          "name": "Konstruktis Praha, spol. s r.o.",
+          "entries": 12
+        },
+        {
+          "id": "company:ico:06698174",
+          "name": "Tvrdý stavební, s.r.o.",
+          "entries": 7
+        },
+        {
+          "id": "company:ico:09911545",
+          "name": "Stavby 3S s.r.o.",
+          "entries": 5
+        },
+        {
+          "id": "company:ico:08757127",
+          "name": "PKbau s.r.o.",
+          "entries": 3
+        }
+      ]
+    },
+    {
+      "ico": "00244732",
+      "name": "Statutární město České Budějovice",
+      "lots": 164,
+      "entriesIdentified": 394,
+      "distinctBidders": 136,
+      "avgAppearances": 2.9,
+      "top5Share": 0.249,
+      "identifiedShare": 0.529,
+      "topBidders": [
+        {
+          "id": "company:ico:45274924",
+          "name": "EUROVIA CZ a.s.",
+          "entries": 26
+        },
+        {
+          "id": "company:ico:45359041",
+          "name": "STRABAG SIS a.s.",
+          "entries": 23
+        },
+        {
+          "id": "company:ico:26105594",
+          "name": "K - BUILDING CB, a.s.",
+          "entries": 17
+        },
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "entries": 17
+        },
+        {
+          "id": "company:ico:14499924",
+          "name": "VHS - Vodohospodářské stavby, spol. s r. o.",
+          "entries": 15
+        },
+        {
+          "id": "company:ico:28084764",
+          "name": "JEZZ s.r.o.",
+          "entries": 15
+        }
+      ]
+    },
+    {
+      "ico": "49562827",
+      "name": "Sociální služby Vsetín, příspěvková organizace",
+      "lots": 20,
+      "entriesIdentified": 57,
+      "distinctBidders": 22,
+      "avgAppearances": 2.59,
+      "top5Share": 0.404,
+      "identifiedShare": 0.559,
+      "topBidders": [
+        {
+          "id": "company:ico:73129381",
+          "name": "Martin Zátopek",
+          "entries": 8
+        },
+        {
+          "id": "company:ico:08119694",
+          "name": "JASANEK s.r.o.",
+          "entries": 4
+        },
+        {
+          "id": "company:ico:24206717",
+          "name": "BSTS Fire & Secunty s.r.o.",
+          "entries": 4
+        },
+        {
+          "id": "company:ico:73035751",
+          "name": "Václav Kuběj",
+          "entries": 4
+        },
+        {
+          "id": "company:ico:08017506",
+          "name": "JM MALÍŘSTAV s.r.o.",
+          "entries": 3
+        },
+        {
+          "id": "company:ico:25360116",
+          "name": "ALSYMON, s.r.o.",
+          "entries": 3
+        }
+      ]
+    },
+    {
+      "ico": "00098892",
+      "name": "Fakultní nemocnice Olomouc",
+      "lots": 96,
+      "entriesIdentified": 229,
+      "distinctBidders": 99,
+      "avgAppearances": 2.31,
+      "top5Share": 0.301,
+      "identifiedShare": 0.577,
+      "topBidders": [
+        {
+          "id": "company:ico:25896873",
+          "name": "PTÁČEK - pozemní stavby s.r.o.",
+          "entries": 17
+        },
+        {
+          "id": "company:ico:25844610",
+          "name": "Stavitelství Pospíšil s.r.o.",
+          "entries": 15
+        },
+        {
+          "id": "company:ico:09955569",
+          "name": "BDC Development s. r. o.",
+          "entries": 13
+        },
+        {
+          "id": "company:ico:26235978",
+          "name": "AL LOGIC, s.r.o.",
+          "entries": 13
+        },
+        {
+          "id": "company:ico:46342796",
+          "name": "OHLA ŽS, a.s.",
+          "entries": 11
+        },
+        {
+          "id": "company:ico:25527380",
+          "name": "POZEMSTAV Prostějov,a.s.",
+          "entries": 10
+        }
+      ]
+    },
+    {
+      "ico": "00261904",
+      "name": "Město Jirkov",
+      "lots": 61,
+      "entriesIdentified": 175,
+      "distinctBidders": 87,
+      "avgAppearances": 2.01,
+      "top5Share": 0.211,
+      "identifiedShare": 0.576,
+      "topBidders": [
+        {
+          "id": "company:ico:17708095",
+          "name": "Solution Construction s.r.o.",
+          "entries": 9
+        },
+        {
+          "id": "company:ico:27328121",
+          "name": "JK stav - realizace staveb s.r.o.",
+          "entries": 9
+        },
+        {
+          "id": "company:ico:49900854",
+          "name": "Intermont, Opatrný, s.r.o.",
+          "entries": 7
+        },
+        {
+          "id": "company:ico:25021915",
+          "name": "Metrostav CZ s.r.o.",
+          "entries": 6
+        },
+        {
+          "id": "company:ico:25319540",
+          "name": "MESSA Invest, s.r.o.",
+          "entries": 6
+        },
+        {
+          "id": "company:ico:21972320",
+          "name": "Kantora s.r.o.",
+          "entries": 5
+        }
+      ]
+    },
+    {
+      "ico": "00250627",
+      "name": "Město Prachatice",
+      "lots": 51,
+      "entriesIdentified": 135,
+      "distinctBidders": 75,
+      "avgAppearances": 1.8,
+      "top5Share": 0.222,
+      "identifiedShare": 0.608,
+      "topBidders": [
+        {
+          "id": "company:ico:41879236",
+          "name": "JINDŘICH PARUS, voda-plyn-topení spol. s r.o.",
+          "entries": 8
+        },
+        {
+          "id": "company:ico:17229685",
+          "name": "Agroma Pt s.r.o.",
+          "entries": 7
+        },
+        {
+          "id": "company:ico:45359041",
+          "name": "STRABAG SIS a.s.",
+          "entries": 6
+        },
+        {
+          "id": "company:ico:26058855",
+          "name": "Sid.pt spol. s r.o.",
+          "entries": 5
+        },
+        {
+          "id": "company:ico:14493098",
+          "name": "Richard Fiala",
+          "entries": 4
+        },
+        {
+          "id": "company:ico:25018094",
+          "name": "SaM silnice a mosty a.s.",
+          "entries": 4
+        }
+      ]
+    },
+    {
+      "ico": "00241318",
+      "name": "OBEC JESENICE",
+      "lots": 39,
+      "entriesIdentified": 149,
+      "distinctBidders": 91,
+      "avgAppearances": 1.64,
+      "top5Share": 0.235,
+      "identifiedShare": 0.556,
+      "topBidders": [
+        {
+          "id": "company:ico:46974687",
+          "name": "Ekostavby Brno, a.s.",
+          "entries": 11
+        },
+        {
+          "id": "company:ico:26451255",
+          "name": "PSS Bohemia s.r.o.",
+          "entries": 9
+        },
+        {
+          "id": "company:ico:24204811",
+          "name": "BULDIX s.r.o.",
+          "entries": 7
+        },
+        {
+          "id": "company:ico:08757127",
+          "name": "PKbau s.r.o.",
+          "entries": 4
+        },
+        {
+          "id": "company:ico:45792348",
+          "name": "J.L.T. - stavební společnost, spol. s r.o.",
+          "entries": 4
+        },
+        {
+          "id": "company:ico:05774063",
+          "name": "JPR Realizace s.r.o.",
+          "entries": 3
+        }
+      ]
+    }
+  ]
+}

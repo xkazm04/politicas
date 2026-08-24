@@ -2,7 +2,7 @@
 
 > **Regenerated every batch. Read THIS first, `ledger.md` only for history.**
 
-**As of:** batch 008 · 2026-08-24 · last graph write **pass 72** (b007–b008 deep-reads wrote evidence only).
+**As of:** batch 009 · 2026-08-24 · last graph write **pass 72** (b007–b009 wrote evidence only; b009 is a kept negative result).
 
 ## The doctrine (user-set, 2026-08-23)
 
@@ -26,11 +26,12 @@ composed from volume, connection to the MP graph a bonus and never a filter.
 
 ## Open items
 
-1. b009: **bidder-pool statistic** (distinct-bidder ratio + repeat-pool share
-   per authority, small-n floors) — the rotation species' deterministic marker
-   (Moravská galerie: same 4–6 bidders every lot, alternating winners). Hand-
-   read the distribution top; persist as the first AUTHORITY-level signal layer
-   only if it survives.
+1. b010: **winner-circle statistic** over each authority's dated win sequence
+   (wins are identified; 74 % dated): distinct winners, top-3 share,
+   alternation runs — the rotation species' marker rebuilt on visible data
+   (bidder pools are anonymised for ~95 % of authorities — b009 negative
+   result, do NOT retry pool-based markers on RVZ data). Plus the ten-batch
+   skill reflection.
 2. Product surface: **species before rank** (b008) — authority pictures render
    their species (procedure mix, cadence, dependence) first; flag share compares
    only within species; czkFloor labelled per species (estimate ceiling vs near

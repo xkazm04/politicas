@@ -92,3 +92,14 @@ no prices, no dates). Product decision: SPECIES BEFORE RANK — flag share compa
 within species; czkFloor carries a per-species label. Next deterministic marker: bidder-
 pool statistic (distinct-bidder ratio, repeat-pool share) for the rotation species.
 
+### Batch 009 — the pool statistic fails its hand-read; b008 corrected (2026-08-24)
+
+NEGATIVE-RESULT batch, no writes; payload deleted before persist. `pool-stat.ts` (bidder-
+pool concentration per authority) failed twice: 176/186 authorities are below the
+`identified_share ≥ 0,5` readability gate (the register anonymises losing bidders — the
+pool is invisible exactly where the rotation species lives, Havířov and Moravská galerie
+included), and avg_appearances confounds volume with closure (ŘSD "tops" closed pools with
+1 002 distinct bidders). b008 correction: „same 4–6 bidders" at the galerie was an
+INFERENCE — the register shows anonymous bid counts + alternating named winners, nothing
+more. Tool kept with the verdict in its header; next marker builds on winner sequences.
+
