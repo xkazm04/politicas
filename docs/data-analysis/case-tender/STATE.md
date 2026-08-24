@@ -2,7 +2,17 @@
 
 > **Regenerated every batch. Read THIS first, `ledger.md` only for history.**
 
-**As of:** batch 011 · 2026-08-24 · last graph write **pass 73**. Steady state armed: `npm run da:tender-increment` (b011); VZ-08-2026 expected ~2026-09-01…05 → passes 74–76.
+**As of:** batch 012 · 2026-08-24 · last graph write **pass 74** (electoral arenas on 5 240 authority nodes). SYNTHESIS TRACK OPEN.
+
+## User decisions (2026-08-24, binding)
+
+- **R1/R2**: new module **„Radar zakázek"** approved; the priority gap is SYNTHESIS —
+  reconciling persisted signals into findings (nálezy).
+- **R3**: UX north star = **lookup-first** („Kde volíte?" → local radar + findings);
+  the connected use case is „whom to distrust at regional/state elections". Board =
+  context, not entry.
+- **R4**: NO new data campaigns (CPV 72 postponed) until post-processing shows clear
+  benefits; then full power to UI/UX design + prototype.
 
 ## The doctrine (user-set, 2026-08-23)
 
@@ -26,14 +36,16 @@ composed from volume, connection to the MP graph a bonus and never a filter.
 
 ## Open items
 
-1. Monthly increment (steady state): `npm run da:tender-increment` — probes,
-   downloads, filters, prints the persist/reflag/recircle chain (hand-read gate
-   stays manual). VZ-08-2026 expected ~2026-09-01…05; then passes 74–76.
+1. b013 (synthesis): resolve the „nejasne" arena class via ownership/legal
+   form (ARES; money-case `public-body.ts` machinery) — 1 575 authorities,
+   13 898 lots, 134,8 mld. CZK floor incl. ŘSD/Správa železnic/TSK Praha.
+   Then `compose-findings.ts` on rules N1–N4 (batch-012.md §3), hand-read,
+   decide finding representation (node kind vs props) BEFORE persisting.
+2. Monthly increment (steady state): `npm run da:tender-increment`; VZ-08-2026
+   expected ~2026-09-01…05 → then re-run reflag chain as passes allow.
    Receipt guard: increment compares data/raw/isvz/ against persisted.json.
-2. Needle product surface: species-typed authority pictures (b008 rule),
-   circle shapes with sequences, cover-bid lots, monopoly disclosure pattern.
-3. Campaign 2: CPV 72 (IT services) — the user's original scope question; the
-   flag set is now stable enough (b006 robustness check).
+3. UI (after synthesis stabilises, per R4): „Radar zakázek" module — proposal
+   artifact 2026-08-24 (lookup-first per R3; species board as context).
 
 Havířov case file (b007): 33 % flagged, 20–70 lots/month since 2023-10, 89 %
 below-threshold výzvy; specialists at 100 % dependence (VLAMAG 121/121 avg

@@ -301,6 +301,18 @@ Flags are signals and never accusations; corruption vs incompetence is never
 asserted (both are „neefektivita"); person-level claims stay in Case ①'s
 human-gated lane. Skill: `.claude/skills/tender-loop/SKILL.md`.
 
+**Synthesis track (added 2026-08-24, user decisions R1–R4).** Above the signal
+layer sits the FINDING (nález): arena × term window × persisted shape ×
+evidence bundle. The arena — which ballot holds the buyer accountable
+(komunalni / krajske / statni / nejasne) — is mapped deterministically from
+RVZ's `kategorie_zadavatele` by `scripts/case-loops/tender/arena.ts` (pass 74;
+„nejasne" = categories that legally hide the principal, resolved only by an
+ownership hop, never guessed). Findings compose by deterministic rules, pass
+the same hand-read gate as flags, and render as „otázky pro zastupitele" —
+questions to the accountable body, never accusations. UX north star is
+lookup-first („Kde volíte?"); no new data campaigns until synthesis shows its
+value (R4).
+
 ## Provenance — the track field
 
 Investigative passes continue the shared numeric sequence (trio used 10–12) but

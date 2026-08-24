@@ -204,6 +204,16 @@ Kernel gates plus:
   downloaded month is not an ingested month — persist writes a machine receipt
   (persisted.json) and the orchestrator reports disk-vs-store drift loudly.
 
+- **b012 (synthesis track opens, pass 74):** the voter bridge was ALREADY IN THE DATA —
+  `kategorie_zadavatele` maps 93 % of authorities onto their accountable ballot
+  (komunalni/krajske/statni) with zero new downloads. Arena baselines turn every authority
+  picture into a citable contrast (Havířov = 9× the komunalni baseline of 3,7 %). The
+  synthesis unit is the FINDING: arena × term window × persisted shape × evidence bundle,
+  deterministic rules, hand-read gate, „otázky pro zastupitele" language — never an
+  accusation, person names only via the gated /penize lane. Categories that legally hide
+  the principal (Jiná PO, Jiný zadavatel) stay „nejasne" until an ownership hop — 134,8
+  mld. CZK floor waits there, which is the argument for doing the hop next.
+
 ## After ten batches (2026-08-24) — what this loop can and cannot extract
 
 **Can (proven):** lot graphs with register facts verbatim; six deterministic lot flags

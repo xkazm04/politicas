@@ -1,0 +1,141 @@
+{
+  "generatedFor": "tender loop — electoral arena mapping",
+  "generatedAt": "2026-08-24-2024",
+  "scope": {
+    "cpv": "45",
+    "authoritiesInCorpus": 5641,
+    "withCategory": 5240,
+    "withoutCategory": 401
+  },
+  "arenaCensus": {
+    "krajske": {
+      "authorities": 2006,
+      "lots": 18768,
+      "flagged": 1436,
+      "czk": 117215487029.13014,
+      "flaggedShare": 0.077
+    },
+    "komunalni": {
+      "authorities": 1521,
+      "lots": 7506,
+      "flagged": 278,
+      "czk": 48634646808.00003,
+      "flaggedShare": 0.037
+    },
+    "statni": {
+      "authorities": 539,
+      "lots": 21211,
+      "flagged": 1285,
+      "czk": 90831275421.25989,
+      "flaggedShare": 0.061
+    },
+    "nejasne": {
+      "authorities": 1575,
+      "lots": 13898,
+      "flagged": 1391,
+      "czk": 134770853491.56694,
+      "flaggedShare": 0.1
+    }
+  },
+  "mapping": {
+    "Obec": "komunalni",
+    "Příspěvková organizace obce": "komunalni",
+    "Kraj": "krajske",
+    "Příspěvková organizace kraje": "krajske",
+    "Česká republika": "statni",
+    "Státní příspěvková organizace": "statni",
+    "Česká národní banka": "statni"
+  },
+  "biggestUnresolved": [
+    {
+      "ico": "65993390",
+      "name": "Ředitelství silnic a dálnic s. p.",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 6845
+    },
+    {
+      "ico": "03447286",
+      "name": "Technická správa komunikací hl. m. Prahy, a.s.",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 339
+    },
+    {
+      "ico": "43383513",
+      "name": "Svaz vodovodů a kanalizací Žďársko",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 273
+    },
+    {
+      "ico": "70994234",
+      "name": "Správa železnic, státní organizace",
+      "category": "Jiný zadavatel dle § 4 odst. 2 zákona č. 134/2016 Sb.",
+      "lots": 232
+    },
+    {
+      "ico": "42196451",
+      "name": "Lesy České republiky, s.p.",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 229
+    },
+    {
+      "ico": "60457856",
+      "name": "Středisko společných činností AV ČR, v. v. i.",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 153
+    },
+    {
+      "ico": "24729035",
+      "name": "ČEZ Distribuce, a. s.",
+      "category": "Jiný zadavatel dle § 4 odst. 2 zákona č. 134/2016 Sb.",
+      "lots": 117
+    },
+    {
+      "ico": "45274649",
+      "name": "ČEZ, a. s.",
+      "category": "Jiný zadavatel dle § 4 odst. 2 zákona č. 134/2016 Sb.",
+      "lots": 113
+    },
+    {
+      "ico": "70890013",
+      "name": "Povodí Moravy, s.p.",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 113
+    },
+    {
+      "ico": "14088924",
+      "name": "E.ON Drive Infrastructure CZ s.r.o.",
+      "category": "Jiný zadavatel dle § 4 odst. 2 zákona č. 134/2016 Sb.",
+      "lots": 107
+    },
+    {
+      "ico": "27661989",
+      "name": "Krajská nemocnice T. Bati, a. s.",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 85
+    },
+    {
+      "ico": "45193410",
+      "name": "Veolia Energie ČR, a.s.",
+      "category": "Jiný zadavatel dle § 4 odst. 2 zákona č. 134/2016 Sb.",
+      "lots": 81
+    },
+    {
+      "ico": "70890005",
+      "name": "Povodí Labe, státní podnik",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 80
+    },
+    {
+      "ico": "49454587",
+      "name": "Vodovody a kanalizace Vyškov,a.s.",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 72
+    },
+    {
+      "ico": "00002739",
+      "name": "DIAMO, státní podnik",
+      "category": "Jiná právnická osoba (dle § 4 odst. 1 písm. e) zákona č. 134/2016 Sb.)",
+      "lots": 72
+    }
+  ]
+}

@@ -127,3 +127,15 @@ between compute and commit). `persist-month.ts --commit` now writes a persist re
 a false "current"). Windows gotcha: fetch keep-alives + process.exit() trip a libuv
 assertion — drain naturally, set exitCode. VZ-08-2026 expected ~2026-09-01…05 → pass 74.
 
+### Batch 012 — the electoral arena: signals meet the ballot (2026-08-24)
+
+Pass 74, first SYNTHESIS-track batch (user decisions R1–R4 recorded in STATE + batch doc).
+`arena.ts` recovers `kategorie_zadavatele` from local NDJSON (never persisted before) and
+maps 5 240/5 641 authorities onto the ballot that holds them accountable: statni 539/21 k
+lots, krajske 2 006/18,8 k, komunalni 1 521/7,5 k, nejasne 1 575/13,9 k (state enterprises
++ city companies — ownership hop, never a guess; 134,8 mld. CZK floor sits there). Census
+findings: komunalni baseline is the LOWEST (3,7 %) — Havířov is 9× its arena, a citable
+contrast; nejasne is the highest (10 %). Synthesis doctrine written: finding = arena ×
+term window × shape × evidence bundle; rules N1–N4 drafted for b013's composer; corpus
+sits entirely inside the current municipal + regional terms (election-clean windows).
+
