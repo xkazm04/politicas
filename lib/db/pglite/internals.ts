@@ -5,6 +5,7 @@
 import { pglitePath } from "../config";
 import type { ListOptions } from "../store";
 import { CORE_DDL } from "./ddl";
+import { instrumentPglite } from "./instrument";
 
 export interface PgResult<T> {
   rows: T[];
@@ -37,13 +38,20 @@ export type GlobalWithPglite = typeof globalThis & { [PGLITE_KEY]?: Promise<Pgli
  * it would receive the same cached rejection forever, degrading the whole
  * process to the mock fallback until restart on one transient cold-start
  * failure (locked data dir, WASM load error).
+ *
+ * THE ONE CHOKEPOINT: every repository reaches the engine through the instance
+ * returned here, so this is where `instrumentPglite` (./instrument.ts) wraps
+ * `query`/`exec`/`transaction` — the only place a per-table timing ring can see
+ * every operation without a single call site changing. The wrap happens BEFORE
+ * `exec(CORE_DDL)` so cold-start schema application is measured too, and it is
+ * identity (the same object, no wrapper at all) when metrics are switched off.
  */
 export async function open(): Promise<Pglite> {
   const g = globalThis as GlobalWithPglite;
   if (!g[PGLITE_KEY]) {
     const opening = (async () => {
       const { PGlite } = await import("@electric-sql/pglite");
-      const pg = new PGlite(pglitePath()) as unknown as Pglite;
+      const pg = instrumentPglite(new PGlite(pglitePath()) as unknown as Pglite);
       await pg.waitReady;
       await pg.exec(CORE_DDL);
       return pg;
