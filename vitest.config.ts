@@ -39,5 +39,17 @@ export default defineConfig({
     // the default 10s hookTimeout flakes under full-suite parallel load
     // (observed in pre-push runs: review/weights/kg-money-reingest suites).
     hookTimeout: 60_000,
+    // The raised timeouts are only half the tamed-worker gate; the other half is
+    // the WORKER CAP, and until 2026-08-24 it lived only in memory/ and in builder
+    // briefs (`npx vitest run --hookTimeout=60000 --maxWorkers=3`) — so `npm run
+    // test`, pre-push and CI all still ran the PGlite files at default parallelism,
+    // which is the configuration the memo measured as flaky. Discipline that is not
+    // written as code does not happen: it belongs here.
+    // Measured 2026-08-04 (three worktrees + main tree): 4–5 PGlite-backed files
+    // (lib/db/pglite/repositories/{changes,review,weights}, scripts/case-loops/
+    // apply-batch, lib/analysis/kg-money-reingest) intermittently fail in
+    // beforeAll(open()) at default workers and pass every time at 3.
+    // See memory/vitest-pglite-needs-tamed-workers.md.
+    maxWorkers: 3,
   },
 });

@@ -15,7 +15,8 @@ VoteTrack, FollowTheMoney, BudgetMirror, LawWatch) over one shared entity graph
 
 ```bash
 npm run dev          # dev server (next dev, Turbopack)
-npm run check        # THE gate: typecheck && lint && test — run before calling work done
+npm run check        # THE gate: typecheck && lint && test && test:rules && census:test
+                     #   && library:check — run before calling work done
 npm run typecheck    # tsc --noEmit
 npm run lint         # eslint (incl. the custom rules in eslint-rules/)
 npm run test         # vitest run

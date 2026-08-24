@@ -30,5 +30,7 @@ social benefit) — only enumerated forms are decidable.
 
 **How to apply:** any script that rewrites reader-facing prose asserts invariants 1–2 in code
 before emitting; any audit of generated analysis runs 3–4 before accepting. See
-`scripts/case-loops/law/sweep-old27-015.ts` for the reference implementation. Related:
+`scripts/case-loops/law/archive/sweep-old27-015.ts` for the reference implementation
+(the batch-015 sweep was retired to `archive/` once its pass shipped; the invariants are
+the durable part, not the script's location). Related:
 [[corpus-role-snapshots-go-stale]], [[reader-facing-loaders-need-the-language-gate]].

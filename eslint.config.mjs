@@ -78,15 +78,27 @@ const eslintConfig = defineConfig([
   },
   // Doctrine pack scoping (batch-2, item 2D — see eslint-rules/README.md):
   // provenance rules apply to reader-facing surfaces only; `lib/` is the
-  // formatting chokepoint and legitimately calls toFixed. Both ship at `warn`
-  // while the existing-violation inventory burns down; `app/**` measured clean
+  // formatting chokepoint and legitimately calls toFixed. Both shipped at `warn`
+  // while the existing-violation inventory burned down; `app/**` measured clean
   // for BOTH rules (2026-07-30 inventory: 29 warnings, all under features/**),
-  // so app routes are already at `error`.
+  // so app routes went to `error` immediately.
+  //
+  // RATCHET ADVANCED 2026-08-24. Re-measured repo-wide (`eslint --format json`):
+  // 29 -> 11 warnings, and `no-raw-number-display` is now at ZERO everywhere.
+  // A warning-only rule with an empty inventory protects nothing (`npm run lint`
+  // has no --max-warnings and the pre-commit hook runs `eslint --quiet`, which
+  // drops warnings entirely), so the measured-clean rule is promoted to `error`
+  // here — the burn-down is locked in and cannot regress.
+  // `require-source-citation` stays at `warn` under features/**: 11 remain, in
+  // features/dashboard/components/FactRow.tsx, features/graph/components/
+  // NodeSearch.tsx and features/shared/poster/demo/LeaderboardPoster.tsx (9).
+  // Zones shrink, they do not widen — the exit is fixing those three files, not
+  // an exemption for them.
   {
     files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
     rules: {
       "custom/require-source-citation": "warn",
-      "custom/no-raw-number-display": "warn",
+      "custom/no-raw-number-display": "error",
     },
   },
   {

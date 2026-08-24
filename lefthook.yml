@@ -13,7 +13,15 @@ pre-commit:
   jobs:
     - name: eslint-staged
       glob: "*.{ts,tsx,mjs,cjs}"
-      run: npx eslint --quiet --no-warn-ignored {staged_files}
+      # `--quiet` ODSTRANĚNO 2026-08-24. Byl to POUZE přepínač ZOBRAZENÍ, ne
+      # vynucení: bez `--max-warnings` eslint končí kódem 0 při jakémkoli počtu
+      # varování. Ověřeno injekcí chyby na features/dashboard/components/
+      # FactRow.tsx (jedno varování custom/require-source-citation): exit 0
+      # s `--quiet` i bez něj. `--quiet` tedy nic neblokoval navíc — jen skryl
+      # varovací pravidla (custom/require-source-citation pod features/**)
+      # přesně na tom místě, kde se na ně autor dívá. Commit stále blokují jen
+      # chyby; varování jsou nyní vidět.
+      run: npx eslint --no-warn-ignored {staged_files}
 
 pre-push:
   jobs:

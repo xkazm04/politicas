@@ -7,7 +7,7 @@
  * PREPARE by default (writes the patch payload + verifies every rewritten string passes BOTH
  * render gates); --commit merge-writes the patched fields onto the live bill nodes (pass 49).
  *
- *   npx tsx scripts/case-loops/law/sweep-old27-015.ts [--commit] [--pass=N] [--ref=<provenance ref>]
+ *   npx tsx scripts/case-loops/law/archive/sweep-old27-015.ts [--commit] [--pass=N] [--ref=<provenance ref>]
  *     [--in=<jargon extract payload>] [--out=<sweep payload>]
  *   (defaults are the batch-015 paths/ref; later batches MUST pass their own --pass/--ref —
  *    the batch-016 audit caught a pass-50 run that would have stamped the 015 ref.)

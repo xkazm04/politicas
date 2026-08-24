@@ -99,15 +99,30 @@ Conventions:
 
 ```bash
 npm run dev          # dev server (Turbopack)
-npm run check        # THE gate: typecheck + lint + test — run before calling work done
+npm run check        # THE gate: typecheck + lint + test + test:rules + census:test
+                     #   + library:check — run before calling work done
 npm run typecheck    # tsc --noEmit
-npm run lint         # eslint incl. 4 custom rules
-npm run test         # vitest (lib/**/*.test.ts)
+npm run lint         # eslint incl. the 8 custom rules (see below)
+npm run test         # vitest (lib/**, features/**, scripts/**, packages/*/src/**)
 npm run build        # production build
 ```
 
-Custom ESLint rules (`eslint-rules/`, ported/adapted from personas, all at
-error level — keep it that way while the codebase is young):
+`npm run check` and CI are NOT the same set, and neither is a superset: `check`
+adds `census:test` + `library:check`; CI adds the schema-snapshot drift check and
+`build`. `npm run census` (the golden-path ratchet) is in neither — its rule
+registry is deliberately empty (`scripts/census/rules.json`: 0 adopted, 2
+satisfied, 7 declined), and the ported runner treats an empty registry as a
+structural failure, so the command cannot exit 0 today. `npm run library:check`
+is the live half of that mechanism and IS gated.
+
+Custom ESLint rules — **eight**, and their canonical source is the in-repo
+package `packages/eslint-plugin-civic-transparency/` (`eslint-rules/*.cjs` are
+one-line compat shims; `npm run test:rules` asserts the shims and the package
+stay one implementation). `eslint.config.mjs` registers them under the
+historical `custom` prefix rather than spreading the package's `recommended`
+preset, so the repo's rule IDs, severities and path scopes stay exactly as
+written there — the presets exist for external adopters. Six are error-level
+everywhere; the provenance pair is scoped and laddered (see the config):
 - `custom/no-hardcoded-colors` — token discipline (politicas-specific)
 - `custom/no-silent-catch` — empty catch blocks swallow errors
 - `custom/role-button-requires-keydown` — a11y for click-role elements
@@ -116,12 +131,23 @@ error level — keep it that way while the codebase is young):
 - `custom/no-silent-null-catch` — scoped to `features/**/get*.ts` +
   `features/**/*Loader.ts`: a `catch { return null }` must call
   `reportLoaderFailure()` so a degradation to fallback leaves a trace
+- `custom/no-raw-number-display` — reader-facing numbers go through
+  `lib/format.ts`. `error` under `app/**` AND `features/**` since 2026-08-24
+  (measured 0 violations repo-wide; the ratchet graduated)
+- `custom/require-source-citation` — every rendered figure's file carries a
+  provenance element. `error` under `app/**`; still `warn` under `features/**`
+  while 11 measured violations burn down (2026-08-24), in three files named in
+  `eslint.config.mjs`
 
 CI: `.github/workflows/ci.yml` — live on `xkazm04/politicas` (the repo split
-happened). Runs typecheck → lint → test → schema-snapshot drift → build, plus a
-non-blocking `npm audit --audit-level=high`. `npm run check` is the local
-equivalent. `lefthook.yml` is installed via the `prepare` script: pre-commit
-lints staged files, pre-push runs typecheck + test.
+happened). Runs typecheck → lint → test → test:rules → schema-snapshot drift →
+build, plus a non-blocking `npm audit --audit-level=high`. `lefthook.yml` is
+installed via the `prepare` script: pre-commit lints staged files, pre-push runs
+typecheck + test. The commit rung blocks on **errors only** — `npm run lint` sets
+no `--max-warnings`, so a warn-level rule can never refuse a commit; it is there
+to be *read*. (`--quiet` was removed from the hook on 2026-08-24: fault-injected
+on a file with one `require-source-citation` warning, exit was 0 either way, so
+the flag suppressed the display without adding any enforcement.)
 
 **CI pins `node-version: 24` deliberately.** The lockfile is written by npm 11
 (node 24); npm 10 (node 22) places optional peer deps differently, so a node-22
@@ -133,7 +159,8 @@ runner fails `npm ci` with a permanent phantom "lock file out of sync" for
 Work is done when every line below holds. No partial credit — "green except…"
 is not green.
 
-- [ ] `npm run check` passes (typecheck → lint → test). Run it, don't assume it.
+- [ ] `npm run check` passes (typecheck → lint → test → test:rules → census:test
+      → library:check). Run it, don't assume it.
 - [ ] **Every rendered number cites its source** (`SourceNote`). Derived or
       ungated values are labelled as such (`pending_review`); nothing renders
       a figure the data doesn't actually carry. This is the brand rule — a
@@ -142,8 +169,9 @@ is not green.
       `reportLoaderFailure()` (`lib/db/loaderGuard.ts`), and the surface shows
       a labelled mock or an honest empty state (`DataUnavailable`) — never
       plausible fiction presented as real.
-- [ ] The six custom ESLint rules pass **unsuppressed**. They are error-level
-      by design — fix the code; do not disable a rule, add an
+- [ ] The eight custom ESLint rules pass **unsuppressed** — and that includes
+      the warn-level `custom/require-source-citation` under `features/**`: its
+      count may go down, never up. Fix the code; do not disable a rule, add an
       `eslint-disable`, or widen an exemption zone in `eslint.config.mjs`.
 - [ ] Colors come from `app/globals.css` tokens; Czech display numbers go
       through `lib/format.ts`; new reusable widgets went into
