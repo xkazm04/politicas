@@ -58,7 +58,13 @@ export function BasisTag({ basis, className = "" }: { basis: AmountBasis; classN
  */
 export function BasisNote({
   basis,
-  className = "mt-2 !text-[10px]",
+  // Výchozí třídy nesou JEN odsazení. Do 2026-08-24 tu bylo `mt-2 !text-[10px]`
+  // — týž override, který docs/DESIGN.md §3 zakazuje a který se v 776f01a mazal
+  // na 72 místech, jen propašovaný přes výchozí hodnotu propu, takže ho žádné
+  // volání nebylo vidět a `custom/no-source-note-size-override` na něj nedosáhne
+  // (pravidlo čte className NA prvku, ne přes tři soubory). Velikost si SourceNote
+  // určuje sám měřením; kdyby to měření někdy lhalo, je od toho `as=`.
+  className = "mt-2",
   withRule = false,
 }: {
   basis: BasisComposition;
