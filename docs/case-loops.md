@@ -290,6 +290,17 @@ with the gate command to re-verify), shared-file additions (exact text to
 append), proposed enum/schema changes, commit plan (files + suggested message),
 and the lessons-learned block the orchestrator aggregates cross-case.
 
+## Case ④ — tender loop (added 2026-08-23)
+
+The needle loop inverts the trio's person-first direction: unit = one TENDER LOT
+from the ISVZ/RVZ open data, flags are deterministic register facts (single bid,
+short window, repeat winner …), and the picture composes from volume — authority
+and supplier groupings around inefficiency, with the MP graph reached only where
+shared `company:ico:*` nodes happen to touch. Track field: `track: "tender"`.
+Flags are signals and never accusations; corruption vs incompetence is never
+asserted (both are „neefektivita"); person-level claims stay in Case ①'s
+human-gated lane. Skill: `.claude/skills/tender-loop/SKILL.md`.
+
 ## Provenance — the track field
 
 Investigative passes continue the shared numeric sequence (trio used 10–12) but

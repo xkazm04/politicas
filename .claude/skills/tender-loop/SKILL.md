@@ -1,0 +1,136 @@
+---
+name: tender-loop
+description: Run the tender-by-tender needle loop over Czech public procurement (ISVZ/RVZ open data) — ingest tenders as their own small graphs, compute deterministic red flags per tender, accumulate authority and supplier pictures from thousands of small inefficiencies, and connect them to the MP graph only where the data reaches it. Use when the user says "run the tender loop", "loop the tenders", "flag tenders", "process procurement", or wants Case ④ to advance.
+---
+
+# Tender loop — Case ④ needle-picture analyst-builder
+
+Extends the shared kernel — **read `docs/case-loops.md` first**, then
+`docs/data-analysis/case-tender/STATE.md` (the resume point). Vault home:
+`docs/data-analysis/case-tender/`.
+
+## The doctrine shift this case exists for (2026-08-23, user-set)
+
+The money loop hunts registered person→company ties — **big fish, most of them
+already public knowledge by the time a register records them**. The state does
+not primarily lose money there. It loses by **a death of thousands of needles**:
+individually small tenders with one bidder, a two-week window, the same winner
+for the ninth time — each defensible alone, devastating in volume, and invisible
+to person-first analysis precisely BECAUSE no politician appears in them.
+
+So this loop inverts the direction:
+
+```
+money loop  (Case ①):  person  → company → contracts     (registered ties)
+tender loop (Case ④):  tender  → flags   → groupings     (behavioural patterns)
+                                  ↘ authority picture ↙
+```
+
+Every tender is ingested as **its own small graph** (tender ⋈ authority ⋈
+bidders ⋈ winner). It may connect to the existing MP graph through shared
+`company:ico:*` nodes — or not. **Connection is a bonus, never a filter.** The
+picture composes from volume: group flagged tenders by authority and by winner,
+and inefficiency clusters name themselves. Whether a cluster is corruption or
+incompetence is NOT the loop's call — both waste public money, both are
+findings, and the surface says "signál", never "vina".
+
+## Population & unit
+
+**Unit = one tender lot** (`část veřejné zakázky` — bids and winners are per
+lot). Source: **ISVZ / Registr veřejných zakázek open data** — monthly JSON,
+`https://isvz.nipez.cz/sites/default/files/content/opendata-rvz/VZ-MM-YYYY.zip`
+(~10–75 MB/month, refreshed the 5th; aggregates Věstník + NEN + Tender arena +
+TENDERMARKET). Verified 2026-08-23 on VZ-06-2026: 16 662 tenders / 20 023 lots,
+81 % with bid counts, 79 % with full participant lists (7 433 distinct bidder
+IČOs in one month), 10 % single-bid. Coverage: record-level from **2024-12**
+(earlier months 404; pre-2024-02 is aggregate-only — a longer series needs TED,
+out of scope for now). Raw zips cached in `data/raw/isvz/` (gitignored).
+
+**Area scope (first campaign): CPV division 45 — stavební práce.** Largest
+division (~3 600 lots/month), the user's named suspect, high needle density.
+One area at a time so flag calibration reads one market, not an average of all.
+
+## Graph model (additive; enums in kg-verdict.ts, keys in prop-registry.json)
+
+- node `tender:<lot NIPEZ id>` — props: `vz_nipez_id, name, cpv, cpv_division,
+  procedure_type, regime, estimated_czk, bid_count, evaluated_bid_count,
+  deadline_days, started_on, ended_on, lowest_bid_czk, highest_bid_czk,
+  objections_count, eu_funded, nuts, tool (NEN/VVZ/…), flags[], flag_*` fields.
+- edge `procures` company(authority IČO) → tender.
+- edge `bids_on` company(bidder IČO) → tender — props `{evaluated, value_czk}`.
+- edge `wins`  company(winner IČO) → tender — props `{price_czk}`.
+- Authorities and bidders are ORDINARY `company:ico:<8-digit>` nodes — the same
+  namespace as the money graph. That is the whole island-connection mechanism:
+  no join logic, just shared identity. IČOs zero-padded to 8, ALWAYS
+  (memory/ico-node-id-canonical-form).
+
+## Red flags (deterministic; each one a register fact, not a judgment)
+
+Grounded in the Fazekas/GTI corruption-risk method (single bidding in
+competitive markets + composite red flags) and zIndex practice. Each flag is
+computed by code from ISVZ fields, carries its inputs on the node, and renders
+only as „signál k prověření":
+
+| flag | fires when | field basis |
+|---|---|---|
+| `single_bid` | competitive procedure, exactly 1 bid | podane_nabidky…pocet |
+| `no_open_procedure` | JŘBU / uzavřená výzva outside statutory exceptions | druh_zadavaciho_postupu |
+| `short_deadline` | submission window below the scoped-market 10th percentile | historie_lhut |
+| `tight_spread` | ≥2 evaluated bids and (max−min)/min below threshold | hodnoty_podanych_nabidek |
+| `repeat_winner` | same authority×winner ≥N wins in trailing 24 m | wins edges |
+| `supplier_lock` | authority×CPV HHI above threshold in trailing 24 m | wins edges |
+| `estimate_gap` | won price vs estimated value out of band (either way) | predpokladana_hodnota / price |
+| `objections` | námitky filed in the procedure | namitky |
+
+Thresholds are CALIBRATED PER AREA from the data's own distribution (percentiles
+measured on the scoped corpus, recorded in the batch note) — never imported as
+literals from another country's paper. **Every flag's fire rate is validated by
+hand-reading a sample of survivors before it is persisted** (the kernel's guard
+rule: a guard whose failures nobody has read is not evidence).
+
+## Stages per batch
+
+1. **ingest** — next month(s) of the scoped area: adapter parse → lot rows →
+   validate (IČO forms, dates, amounts; drops logged, never silent).
+2. **flag** — recompute deterministic flags over the WHOLE accumulated scoped
+   corpus (not just the new month — trailing-window flags shift as data grows).
+3. **compose** — group by authority and by winner: needle counts, flagged CZK,
+   flag mixes. Islands that touch the existing graph (shared IČO with a tied
+   company, a publicly-owned authority, an MP-linked supplier) are noted as
+   `graph_touch` — a bonus signal, never a requirement.
+4. **persist** — payloads through the insert writer with a pass number; vault
+   note FIRST, graph second, STATE.md last (kernel order).
+5. **reflect** — THE POINT OF THE FIRST TEN BATCHES: what could we actually
+   extract? which flags fired honestly, which are noise, what does the picture
+   show that a single tender cannot? Update THIS SKILL FILE's "calibration log"
+   and the flag table when reality disagrees with the design.
+
+## Case gates
+
+Kernel gates plus:
+- (a) a flag never renders as an accusation — Czech copy says „signál",
+  „koncentrace", „jediná nabídka", states the inputs, and cites ISVZ;
+- (b) corruption vs incompetence is never asserted — both are „neefektivita";
+- (c) a tender with incomplete fields gets NO flag it cannot support (absence
+  of bid count ≠ single bid) — fill-rate disclosed per batch;
+- (d) person-level claims stay in the money loop's human-gated lane; this loop
+  may at most note `graph_touch` (deterministic shared-IČO contact);
+- (e) thresholds live in code with their calibration evidence, and a threshold
+  change re-runs the whole scoped corpus (no mixed-vintage flags).
+
+## Calibration log (living — append per batch)
+
+- **b001 (VZ-06-2026, CPV 45, 3 625 lots):** single-bid 3,5 % overall (median 6 bids —
+  competitive market, the flag is a real outlier); by procedure: JŘBU 18 %, přímé zadání
+  17 %, uzavřená výzva 8,8 %, open 1,5–1,7 %. Deadline basis corrected to PROCEDURE START →
+  lhůta END (the lhůta start is filled ~13 %; end−start would cover 1 % of lots) — fill
+  72 %, p10 ≈ 11 days, and the percentile must be per procedure class. Spread p10 ≈ 4,9 %
+  (351 lots/month computable). Estimate fill 14 % → `estimate_gap` demoted to an
+  authority-level statistic, not a per-lot flag. 8-digit FOREIGN identifiers pass the IČO
+  shape test (Slovak 53852869) — the company join gates on COUNTRY, never digits.
+  Oligopoly visible in one month: EUROVIA 46 wins/12 authorities, STRABAG 36+23.
+
+## History
+
+- 2026-08-23: skill created from the user's doctrine notes; first campaign
+  scoped to CPV 45, record-level ISVZ data 2024-12 → present.

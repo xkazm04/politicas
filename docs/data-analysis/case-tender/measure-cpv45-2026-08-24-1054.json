@@ -1,0 +1,384 @@
+{
+  "generatedFor": "tender loop — calibration measurement",
+  "generatedAt": "2026-08-24T10:54",
+  "scope": {
+    "cpvDivision": "45",
+    "months": [
+      "VZ-06-2026"
+    ]
+  },
+  "perMonth": {
+    "VZ-06-2026": {
+      "lots": 20023,
+      "scoped": 3625,
+      "dropped": 0
+    }
+  },
+  "lots": 3625,
+  "fillRates": {
+    "authorityIco": "3609 (100 %)",
+    "procedureType": "3567 (98 %)",
+    "bidCount": "3185 (88 %)",
+    "participants": "3187",
+    "winners": "1715",
+    "deadlineDays": "2596 (72 %)",
+    "estimatedCzk": "510 (14 %)",
+    "spreadComputable": 351,
+    "resultKind": "3229 (89 %)"
+  },
+  "distributions": {
+    "bidCount": {
+      "n": 3185,
+      "single": 111,
+      "singleShare": 0.035,
+      "p50": 6,
+      "p90": 20
+    },
+    "deadlineDays": {
+      "n": 2596,
+      "p5": 8,
+      "p10": 11,
+      "p25": 16,
+      "p50": 29
+    },
+    "spreadRatio": {
+      "n": 351,
+      "p5": 0.024268499999453817,
+      "p10": 0.04911982625608362,
+      "p25": 0.12635083628536836,
+      "p50": 0.26659864764955443
+    },
+    "lowestBidVsEstimate": {
+      "n": 292,
+      "p10": 0.6920610304374093,
+      "p50": 0.8917594560916101,
+      "p90": 1.0450421315510519
+    }
+  },
+  "singleBidByProcedure": {
+    "Zjednodušené podlimitní řízení": {
+      "lots": 1182,
+      "single": 20,
+      "share": 0.017
+    },
+    "Otevřené řízení": {
+      "lots": 680,
+      "single": 10,
+      "share": 0.015
+    },
+    "Otevřená výzva při zadávání veřejných zakázek malého rozsahu": {
+      "lots": 541,
+      "single": 24,
+      "share": 0.044
+    },
+    "Uzavřená výzva při zadávání veřejných zakázek malého rozsahu": {
+      "lots": 294,
+      "single": 26,
+      "share": 0.088
+    },
+    "Jednací řízení s uveřejněním": {
+      "lots": 168,
+      "single": 1,
+      "share": 0.006
+    },
+    "Užší řízení": {
+      "lots": 88,
+      "single": 1,
+      "share": 0.011
+    },
+    "Zadávání VZ v dynamickém nákupním systému": {
+      "lots": 85,
+      "single": 10,
+      "share": 0.118
+    },
+    "Přímé zadání při zadávání veřejných zakázek malého rozsahu": {
+      "lots": 72,
+      "single": 12,
+      "share": 0.167
+    },
+    "Postup s obnovením soutěže": {
+      "lots": 44,
+      "single": 1,
+      "share": 0.023
+    },
+    "Jednací řízení bez uveřejnění": {
+      "lots": 22,
+      "single": 4,
+      "share": 0.182
+    },
+    "Zadávací postup na základě výjimky v ostatních případech": {
+      "lots": 5,
+      "single": 1,
+      "share": 0.2
+    },
+    "Postup bez obnovení soutěže": {
+      "lots": 4,
+      "single": 1,
+      "share": 0.25
+    }
+  },
+  "topAuthorities": [
+    {
+      "ico": "65993390",
+      "name": "Ředitelství silnic a dálnic s. p.",
+      "lots": 366,
+      "singleBid": 14,
+      "czk": 472506853.68
+    },
+    {
+      "ico": "60162694",
+      "name": "Ministerstvo obrany",
+      "lots": 98,
+      "singleBid": 0,
+      "czk": 1225610121.3499997
+    },
+    {
+      "ico": "24729035",
+      "name": "ČEZ Distribuce, a. s.",
+      "lots": 78,
+      "singleBid": 0,
+      "czk": 334074754
+    },
+    {
+      "ico": "45274649",
+      "name": "ČEZ, a. s.",
+      "lots": 66,
+      "singleBid": 1,
+      "czk": 2192465269
+    },
+    {
+      "ico": "00297488",
+      "name": "statutární město Havířov",
+      "lots": 53,
+      "singleBid": 0,
+      "czk": 48263523.51
+    },
+    {
+      "ico": "70891508",
+      "name": "Liberecký kraj",
+      "lots": 37,
+      "singleBid": 0,
+      "czk": 14289000.11
+    },
+    {
+      "ico": "00274046",
+      "name": "Městský obvod Pardubice I",
+      "lots": 34,
+      "singleBid": 0,
+      "czk": 207796100.59
+    },
+    {
+      "ico": "00845451",
+      "name": "Statutární město Ostrava - městský obvod Hrabová",
+      "lots": 33,
+      "singleBid": 4,
+      "czk": 53914410.03
+    },
+    {
+      "ico": "00063517",
+      "name": "Městská část Praha 3",
+      "lots": 33,
+      "singleBid": 0,
+      "czk": 13928289.03
+    },
+    {
+      "ico": "60609460",
+      "name": "Olomoucký kraj",
+      "lots": 33,
+      "singleBid": 3,
+      "czk": 127381880
+    },
+    {
+      "ico": "00075370",
+      "name": "Statutární město Plzeň, zastoupené Obytnou zónou Sylván a.s.",
+      "lots": 32,
+      "singleBid": 2,
+      "czk": 12377710.75
+    },
+    {
+      "ico": "27309941",
+      "name": "ČEZ Teplárenská, a.s.",
+      "lots": 27,
+      "singleBid": 1,
+      "czk": 49375535.6
+    },
+    {
+      "ico": "46347534",
+      "name": "Teplárny Brno, a.s.",
+      "lots": 27,
+      "singleBid": 0,
+      "czk": 233998479.89
+    },
+    {
+      "ico": "00064581",
+      "name": "HLAVNÍ MĚSTO PRAHA",
+      "lots": 26,
+      "singleBid": 3,
+      "czk": 100743000
+    },
+    {
+      "ico": "70890692",
+      "name": "Moravskoslezský kraj",
+      "lots": 26,
+      "singleBid": 0,
+      "czk": 750844185.3499999
+    },
+    {
+      "ico": "60826835",
+      "name": "Teplárna České Budějovice, a.s.",
+      "lots": 25,
+      "singleBid": 0,
+      "czk": 162903133
+    },
+    {
+      "ico": "72496991",
+      "name": "Úřad práce České republiky",
+      "lots": 25,
+      "singleBid": 1,
+      "czk": 6013725.83
+    },
+    {
+      "ico": "70960399",
+      "name": "Správa silnic Olomouckého kraje, příspěvková organizace",
+      "lots": 24,
+      "singleBid": 0,
+      "czk": 22896018.17
+    },
+    {
+      "ico": "75032333",
+      "name": "Národní památkový ústav",
+      "lots": 24,
+      "singleBid": 0,
+      "czk": 92379320.11
+    },
+    {
+      "ico": "44992785",
+      "name": "Statutární město Brno",
+      "lots": 23,
+      "singleBid": 0,
+      "czk": 15034608.42
+    }
+  ],
+  "topWinners": [
+    {
+      "key": "45274924",
+      "name": "EUROVIA CZ a.s.",
+      "wins": 46,
+      "distinctAuthorities": 12
+    },
+    {
+      "key": "60838744",
+      "name": "STRABAG a.s.",
+      "wins": 36,
+      "distinctAuthorities": 12
+    },
+    {
+      "key": "45359041",
+      "name": "STRABAG SIS a.s.",
+      "wins": 23,
+      "distinctAuthorities": 7
+    },
+    {
+      "key": "48035599",
+      "name": "SWIETELSKY stavební s.r.o.",
+      "wins": 21,
+      "distinctAuthorities": 12
+    },
+    {
+      "key": "25021915",
+      "name": "Metrostav CZ s.r.o.",
+      "wins": 18,
+      "distinctAuthorities": 13
+    },
+    {
+      "key": "42196868",
+      "name": "M - SILNICE a.s.",
+      "wins": 18,
+      "distinctAuthorities": 6
+    },
+    {
+      "key": "43005560",
+      "name": "PORR a.s.",
+      "wins": 17,
+      "distinctAuthorities": 8
+    },
+    {
+      "key": "17331099",
+      "name": "MI Roads a.s.",
+      "wins": 15,
+      "distinctAuthorities": 3
+    },
+    {
+      "key": "27720161",
+      "name": "HYDRO & KOV s.r.o.",
+      "wins": 14,
+      "distinctAuthorities": 11
+    },
+    {
+      "key": "46678468",
+      "name": "HOCHTIEF CZ a. s.",
+      "wins": 14,
+      "distinctAuthorities": 7
+    },
+    {
+      "key": "26271303",
+      "name": "Skanska a.s.",
+      "wins": 13,
+      "distinctAuthorities": 4
+    },
+    {
+      "key": "26177005",
+      "name": "COLAS CZ, a.s.",
+      "wins": 11,
+      "distinctAuthorities": 7
+    },
+    {
+      "key": "27765857",
+      "name": "FICHNA - HUDECZEK a.s.",
+      "wins": 11,
+      "distinctAuthorities": 8
+    },
+    {
+      "key": "25006754",
+      "name": "MARTIA a.s.",
+      "wins": 10,
+      "distinctAuthorities": 3
+    },
+    {
+      "key": "62360213",
+      "name": "KARETA s.r.o.",
+      "wins": 9,
+      "distinctAuthorities": 6
+    },
+    {
+      "key": "60734078",
+      "name": "UCHYTIL s.r.o.",
+      "wins": 9,
+      "distinctAuthorities": 3
+    },
+    {
+      "key": "27752771",
+      "name": "SPORT Construction a.s.",
+      "wins": 9,
+      "distinctAuthorities": 9
+    },
+    {
+      "key": "25344447",
+      "name": "AQUASYS spol. s r.o.",
+      "wins": 9,
+      "distinctAuthorities": 9
+    },
+    {
+      "key": "49196375",
+      "name": "GIS - GEOINDUSTRY, s.r.o.",
+      "wins": 9,
+      "distinctAuthorities": 1
+    },
+    {
+      "key": "22547550",
+      "name": "MATSON.CZ s.r.o.",
+      "wins": 9,
+      "distinctAuthorities": 1
+    }
+  ]
+}
