@@ -1,0 +1,3345 @@
+{
+  "generatedFor": "tender loop — winner-circle statistic per authority",
+  "generatedAt": "2026-08-24-1249",
+  "scope": {
+    "cpv": "45",
+    "authoritiesMeasured": 133,
+    "undatedWinsExcluded": 8236,
+    "MIN_DATED_WINS": 20,
+    "datedWinsOnly": true,
+    "monopolyCounterpartiesSkipped": true
+  },
+  "circle3ShareDistribution": {
+    "p50": 0.287,
+    "p75": 0.375,
+    "p90": 0.525,
+    "p95": 0.636
+  },
+  "authorities": [
+    {
+      "ico": "46347534",
+      "name": "Teplárny Brno, a.s.",
+      "datedWins": 22,
+      "distinct": 7,
+      "circle3": [
+        {
+          "id": "company:ico:07149344",
+          "name": "DOMA-invest spol. s r.o.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:60734078",
+          "name": "UCHYTIL s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:27723364",
+          "name": "BMS SERVIS s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.773,
+      "switchRate": 0.188
+    },
+    {
+      "ico": "00098604",
+      "name": "Národní muzeum v přírodě",
+      "datedWins": 27,
+      "distinct": 10,
+      "circle3": [
+        {
+          "id": "company:ico:27816788",
+          "name": "JURÁŇ s.r.o.",
+          "wins": 13
+        },
+        {
+          "id": "company:ico:46577238",
+          "name": "COMMODUM, spol. s r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:26863057",
+          "name": "REPONT s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.704,
+      "switchRate": 0.5
+    },
+    {
+      "ico": "65737393",
+      "name": "Bytová správa Ministerstva vnitra, s.p.o.",
+      "datedWins": 37,
+      "distinct": 14,
+      "circle3": [
+        {
+          "id": "company:ico:24832898",
+          "name": "OTISTAV s.r.o.",
+          "wins": 23
+        },
+        {
+          "id": "company:ico:27413063",
+          "name": "BROS BAU s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:02174260",
+          "name": "RP future s.r.o.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.703,
+      "switchRate": 0.24
+    },
+    {
+      "ico": "00640841",
+      "name": "Centrum sociálních služeb Tloskov",
+      "datedWins": 23,
+      "distinct": 10,
+      "circle3": [
+        {
+          "id": "company:ico:26211726",
+          "name": "HOSS a.s.",
+          "wins": 12
+        },
+        {
+          "id": "company:ico:25855247",
+          "name": "BERNDORF BÄDERBAU s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:43871143",
+          "name": "JOHNSON CONTROLS INTERNATIONAL, spol. s r.o.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.696,
+      "switchRate": 0.467
+    },
+    {
+      "ico": "00243825",
+      "name": "Město Jesenice",
+      "datedWins": 48,
+      "distinct": 18,
+      "circle3": [
+        {
+          "id": "company:ico:27641066",
+          "name": "DROPS GROUP a.s.",
+          "wins": 24
+        },
+        {
+          "id": "company:ico:47534630",
+          "name": "Froněk, spol. s r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:25085221",
+          "name": "AVE Kladno s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.667,
+      "switchRate": 0.419
+    },
+    {
+      "ico": "00177288",
+      "name": "Památník Terezín",
+      "datedWins": 23,
+      "distinct": 8,
+      "circle3": [
+        {
+          "id": "company:ico:28703995",
+          "name": "LT-BAU s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:27922430",
+          "name": "PROFISTAV Czech s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:21885401",
+          "name": "Stavby Žitenice s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.652,
+      "switchRate": 0.571
+    },
+    {
+      "ico": "00094871",
+      "name": "Moravská galerie v Brně",
+      "datedWins": 44,
+      "distinct": 16,
+      "circle3": [
+        {
+          "id": "company:ico:76111628",
+          "name": "Adam Máchal",
+          "wins": 11
+        },
+        {
+          "id": "company:ico:75323699",
+          "name": "Marcela Jirotová",
+          "wins": 10
+        },
+        {
+          "id": "company:ico:48858846",
+          "name": "Miloš Měřinský",
+          "wins": 7
+        }
+      ],
+      "circle3Share": 0.636,
+      "switchRate": 0.889
+    },
+    {
+      "ico": "00272591",
+      "name": "MĚSTO ČESKÁ SKALICE",
+      "datedWins": 22,
+      "distinct": 11,
+      "circle3": [
+        {
+          "id": "company:ico:28800125",
+          "name": "ŠPELDA s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:25968807",
+          "name": "MATEX HK s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:27472922",
+          "name": "STAVIBET s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.591,
+      "switchRate": 0.583
+    },
+    {
+      "ico": "00286745",
+      "name": "Město Telč",
+      "datedWins": 26,
+      "distinct": 13,
+      "circle3": [
+        {
+          "id": "company:ico:25172654",
+          "name": "SATES ČECHY s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:26227525",
+          "name": "STARKON a.s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:47910305",
+          "name": "VHS Bohemia a.s.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.577,
+      "switchRate": 0.571
+    },
+    {
+      "ico": "00252069",
+      "name": "Město Bechyně",
+      "datedWins": 59,
+      "distinct": 18,
+      "circle3": [
+        {
+          "id": "company:ico:10323074",
+          "name": "Stanislav Návrat",
+          "wins": 24
+        },
+        {
+          "id": "company:ico:08632341",
+          "name": "Ladislav Pikl",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:25172417",
+          "name": "SNN Bechyně a.s.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.559,
+      "switchRate": 0.313
+    },
+    {
+      "ico": "70932581",
+      "name": "Správa a údržba silnic Jihomoravského kraje, příspěvková organizace kraje",
+      "datedWins": 20,
+      "distinct": 9,
+      "circle3": [
+        {
+          "id": "company:ico:25570501",
+          "name": "MALDREV s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:46968342",
+          "name": "SARES, spol. s r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:29366186",
+          "name": "Inženýrské stavby Jebáček s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.55,
+      "switchRate": 0.4
+    },
+    {
+      "ico": "70885184",
+      "name": "Hasičský záchranný sbor kraje Vysočina",
+      "datedWins": 24,
+      "distinct": 14,
+      "circle3": [
+        {
+          "id": "company:ico:07936567",
+          "name": "GriToN CZ s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:60838531",
+          "name": "I.Kamenická stavební a obchodní firma s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:27967638",
+          "name": "VYSSPA Sports Technology s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.542,
+      "switchRate": 0.5
+    },
+    {
+      "ico": "49366076",
+      "name": "Správa Pražského hradu",
+      "datedWins": 153,
+      "distinct": 30,
+      "circle3": [
+        {
+          "id": "company:ico:28402499",
+          "name": "Kamenosochařství a restaurátorství Pánek, s.r.o.",
+          "wins": 40
+        },
+        {
+          "id": "company:ico:47053135",
+          "name": "MERCATOR, s.r.o",
+          "wins": 22
+        },
+        {
+          "id": "company:ico:63669480",
+          "name": "SP spol. s r.o.",
+          "wins": 20
+        }
+      ],
+      "circle3Share": 0.536,
+      "switchRate": 0.519
+    },
+    {
+      "ico": "60711086",
+      "name": "Technické služby Zlín, s.r.o.",
+      "datedWins": 40,
+      "distinct": 18,
+      "circle3": [
+        {
+          "id": "company:ico:71572945",
+          "name": "Anton Taraba",
+          "wins": 12
+        },
+        {
+          "id": "company:ico:09025961",
+          "name": "SHARK stav s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:72420286",
+          "name": "Josef Martišek",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.525,
+      "switchRate": 0.75
+    },
+    {
+      "ico": "70891508",
+      "name": "Liberecký kraj",
+      "datedWins": 21,
+      "distinct": 11,
+      "circle3": [
+        {
+          "id": "company:ico:25018094",
+          "name": "SaM silnice a mosty a.s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:26177005",
+          "name": "COLAS CZ, a.s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:60838744",
+          "name": "STRABAG a.s.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.524,
+      "switchRate": 0.5
+    },
+    {
+      "ico": "00023728",
+      "name": "Revmatologický ústav",
+      "datedWins": 21,
+      "distinct": 12,
+      "circle3": [
+        {
+          "id": "company:ico:28823001",
+          "name": "SL HOLDING CZ s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:76411192",
+          "name": "Dušan Kavúr",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:47122439",
+          "name": "ROYAL DIAMOND - stavební společnost s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.524,
+      "switchRate": 0.2
+    },
+    {
+      "ico": "64422402",
+      "name": "Vyšší policejní škola a Střední policejní škola Ministerstva vnitra v Holešově",
+      "datedWins": 25,
+      "distinct": 12,
+      "circle3": [
+        {
+          "id": "company:ico:25321030",
+          "name": "Stav consult, s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:02117436",
+          "name": "OSBAU s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:47428791",
+          "name": "Josef Kaňa",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.52,
+      "switchRate": 0.583
+    },
+    {
+      "ico": "75151511",
+      "name": "Krajské ředitelství policie Jihočeského kraje",
+      "datedWins": 123,
+      "distinct": 43,
+      "circle3": [
+        {
+          "id": "company:ico:28142551",
+          "name": "DV stav s.r.o.",
+          "wins": 34
+        },
+        {
+          "id": "company:ico:41879236",
+          "name": "JINDŘICH PARUS, voda-plyn-topení spol. s r.o.",
+          "wins": 20
+        },
+        {
+          "id": "company:ico:60823020",
+          "name": "Roman Kučera",
+          "wins": 9
+        }
+      ],
+      "circle3Share": 0.512,
+      "switchRate": 0.452
+    },
+    {
+      "ico": "04958268",
+      "name": "Správa nemovitostí Praha 2, a.s.",
+      "datedWins": 28,
+      "distinct": 16,
+      "circle3": [
+        {
+          "id": "company:ico:60198770",
+          "name": "AG-REAL s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:28447352",
+          "name": "Formet, s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:48036315",
+          "name": "DEREZA, společnost s ručením omezeným",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.5,
+      "switchRate": 0.615
+    },
+    {
+      "ico": "27661989",
+      "name": "Krajská nemocnice T. Bati, a. s.",
+      "datedWins": 57,
+      "distinct": 20,
+      "circle3": [
+        {
+          "id": "company:ico:25504487",
+          "name": "RAPOS, spol. s r.o.",
+          "wins": 12
+        },
+        {
+          "id": "company:ico:25301144",
+          "name": "Navláčil stavební firma, s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:60709677",
+          "name": "MNO spol. s r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.474,
+      "switchRate": 0.615
+    },
+    {
+      "ico": "45769851",
+      "name": "Ministerstvo zahraničních věcí",
+      "datedWins": 157,
+      "distinct": 32,
+      "circle3": [
+        {
+          "id": "company:ico:25307126",
+          "name": "MAXPROGRES, s.r.o.",
+          "wins": 25
+        },
+        {
+          "id": "company:ico:43420117",
+          "name": "SKS s.r.o.",
+          "wins": 25
+        },
+        {
+          "id": "company:ico:28494652",
+          "name": "Comproject s.r.o.",
+          "wins": 23
+        }
+      ],
+      "circle3Share": 0.465,
+      "switchRate": 0.722
+    },
+    {
+      "ico": "70884099",
+      "name": "Hasičský záchranný sbor Jihomoravského kraje",
+      "datedWins": 112,
+      "distinct": 43,
+      "circle3": [
+        {
+          "id": "company:ico:49971379",
+          "name": "MSO servis spol. s r.o.",
+          "wins": 32
+        },
+        {
+          "id": "company:ico:27744892",
+          "name": "PAHAMONT s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:02026198",
+          "name": "VIVEBA, s.r.o.",
+          "wins": 7
+        }
+      ],
+      "circle3Share": 0.429,
+      "switchRate": 0.404
+    },
+    {
+      "ico": "00583171",
+      "name": "Správa Národního parku Šumava",
+      "datedWins": 299,
+      "distinct": 59,
+      "circle3": [
+        {
+          "id": "company:ico:28130677",
+          "name": "Forestinvest s.r.o.",
+          "wins": 56
+        },
+        {
+          "id": "company:ico:03884546",
+          "name": "Vladimír Babor",
+          "wins": 40
+        },
+        {
+          "id": "company:ico:28149131",
+          "name": "ŠTOLKA - STAVKO s.r.o.",
+          "wins": 26
+        }
+      ],
+      "circle3Share": 0.408,
+      "switchRate": 0.455
+    },
+    {
+      "ico": "00023221",
+      "name": "Národní knihovna České republiky",
+      "datedWins": 20,
+      "distinct": 14,
+      "circle3": [
+        {
+          "id": "company:ico:27263827",
+          "name": "Gardenline s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:74737511",
+          "name": "Václav Mataj",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:61974731",
+          "name": "Trade FIDES, a.s.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.4,
+      "switchRate": 0.857
+    },
+    {
+      "ico": "47700521",
+      "name": "Vodohospodářské sdružení obcí západních Čech",
+      "datedWins": 40,
+      "distinct": 19,
+      "circle3": [
+        {
+          "id": "company:ico:49789228",
+          "name": "Vodárny a kanalizace Karlovy Vary, a.s.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:27203964",
+          "name": "PVKP stavební, s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:27995771",
+          "name": "VIDEST s.r.o.",
+          "wins": 5
+        }
+      ],
+      "circle3Share": 0.4,
+      "switchRate": 0.533
+    },
+    {
+      "ico": "00237108",
+      "name": "Město Neratovice",
+      "datedWins": 20,
+      "distinct": 15,
+      "circle3": [
+        {
+          "id": "company:ico:27263827",
+          "name": "Gardenline s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:28601505",
+          "name": "SEADON s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:26763982",
+          "name": "OK Stavby s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.4,
+      "switchRate": 0.571
+    },
+    {
+      "ico": "72052147",
+      "name": "Krajské ředitelství policie kraje Vysočina",
+      "datedWins": 66,
+      "distinct": 27,
+      "circle3": [
+        {
+          "id": "company:ico:26922207",
+          "name": "3 Tech., s.r.o.",
+          "wins": 13
+        },
+        {
+          "id": "company:ico:04508343",
+          "name": "MK PROJEKTStav s.r.o.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:27710416",
+          "name": "ESTING s.r.o.",
+          "wins": 5
+        }
+      ],
+      "circle3Share": 0.394,
+      "switchRate": 0.4
+    },
+    {
+      "ico": "60457856",
+      "name": "Středisko společných činností AV ČR, v. v. i.",
+      "datedWins": 107,
+      "distinct": 34,
+      "circle3": [
+        {
+          "id": "company:ico:24832898",
+          "name": "OTISTAV s.r.o.",
+          "wins": 20
+        },
+        {
+          "id": "company:ico:26733021",
+          "name": "CELTES s.r.o.",
+          "wins": 15
+        },
+        {
+          "id": "company:ico:24284157",
+          "name": "JELÍNEK - stavby, sanace s.r.o.",
+          "wins": 7
+        }
+      ],
+      "circle3Share": 0.393,
+      "switchRate": 0.537
+    },
+    {
+      "ico": "00088455",
+      "name": "Správa Krkonošského národního parku",
+      "datedWins": 253,
+      "distinct": 53,
+      "circle3": [
+        {
+          "id": "company:ico:76111431",
+          "name": "Martin Holubec",
+          "wins": 44
+        },
+        {
+          "id": "company:ico:28789202",
+          "name": "VH-stavební práce, s. r. o.",
+          "wins": 29
+        },
+        {
+          "id": "company:ico:02319438",
+          "name": "APCO technex, s.r.o.",
+          "wins": 26
+        }
+      ],
+      "circle3Share": 0.391,
+      "switchRate": 0.357
+    },
+    {
+      "ico": "75151502",
+      "name": "Krajské ředitelství policie Moravskoslezského kraje",
+      "datedWins": 240,
+      "distinct": 79,
+      "circle3": [
+        {
+          "id": "company:ico:02166283",
+          "name": "SG STAVBY, s.r.o.",
+          "wins": 71
+        },
+        {
+          "id": "company:ico:27857301",
+          "name": "EFRIG s.r.o.",
+          "wins": 11
+        },
+        {
+          "id": "company:ico:27797554",
+          "name": "SUBSTAV Invest s.r.o.",
+          "wins": 11
+        }
+      ],
+      "circle3Share": 0.388,
+      "switchRate": 0.293
+    },
+    {
+      "ico": "72554495",
+      "name": "Generální inspekce bezpečnostních sborů",
+      "datedWins": 26,
+      "distinct": 19,
+      "circle3": [
+        {
+          "id": "company:ico:08597103",
+          "name": "Setostav s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:24219169",
+          "name": "AMIKA FIRST s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:27746631",
+          "name": "TIPA Telekom plus a.s.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.385,
+      "switchRate": 0.444
+    },
+    {
+      "ico": "48513687",
+      "name": "Ústavní soud",
+      "datedWins": 21,
+      "distinct": 14,
+      "circle3": [
+        {
+          "id": "company:ico:25337009",
+          "name": "WELLCO Brno s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:03902447",
+          "name": "UNISTAV CONSTRUCTION a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:48529303",
+          "name": "Moravská stavební unie - MSU s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.381,
+      "switchRate": 0.286
+    },
+    {
+      "ico": "00095711",
+      "name": "Správa silnic Moravskoslezského kraje, příspěvková organizace",
+      "datedWins": 50,
+      "distinct": 20,
+      "circle3": [
+        {
+          "id": "company:ico:60838744",
+          "name": "STRABAG a.s.",
+          "wins": 12
+        },
+        {
+          "id": "company:ico:45274924",
+          "name": "EUROVIA CZ a.s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:43005560",
+          "name": "PORR a.s.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.38,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "70883378",
+      "name": "Hasičský záchranný sbor Plzeňského kraje",
+      "datedWins": 40,
+      "distinct": 23,
+      "circle3": [
+        {
+          "id": "company:ico:45356815",
+          "name": "S T A V E B N Í M O N T Á Ž E spol. s r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:25202162",
+          "name": "ZETES KT, spol. s r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:61171077",
+          "name": "COMFORT SDRUŽENÍ a. s.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.375,
+      "switchRate": 0.571
+    },
+    {
+      "ico": "00272868",
+      "name": "MĚSTO NÁCHOD",
+      "datedWins": 38,
+      "distinct": 17,
+      "circle3": [
+        {
+          "id": "company:ico:25275062",
+          "name": "Průmstav Náchod s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:28811470",
+          "name": "Alprim CZ s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:09063463",
+          "name": "SORMIG stavební společnost s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.368,
+      "switchRate": 0.769
+    },
+    {
+      "ico": "00253901",
+      "name": "Město Aš",
+      "datedWins": 22,
+      "distinct": 16,
+      "circle3": [
+        {
+          "id": "company:ico:29156033",
+          "name": "RMC STAVBY s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:45358800",
+          "name": "STAMOZA, společnost s ručením omezeným",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:26356503",
+          "name": "Stavební společnost VARO, s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.364,
+      "switchRate": 0.714
+    },
+    {
+      "ico": "70885371",
+      "name": "Hasičský záchranný sbor Středočeského kraje",
+      "datedWins": 71,
+      "distinct": 44,
+      "circle3": [
+        {
+          "id": "company:ico:27795152",
+          "name": "SPEDOS Vrata a.s.",
+          "wins": 14
+        },
+        {
+          "id": "company:ico:46352899",
+          "name": "KROS  spol. s r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:27481107",
+          "name": "DOMISTAV CZ a.s.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.352,
+      "switchRate": 0.458
+    },
+    {
+      "ico": "70885940",
+      "name": "Hasičský záchranný sbor Olomouckého kraje",
+      "datedWins": 20,
+      "distinct": 16,
+      "circle3": [
+        {
+          "id": "company:ico:45196001",
+          "name": "STAVPUR spol. s r. o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:25385127",
+          "name": "První KEY - STAV, a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:06254675",
+          "name": "CIFRA bednění s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.35,
+      "switchRate": 0.833
+    },
+    {
+      "ico": "00100595",
+      "name": "Slezské zemské muzeum",
+      "datedWins": 46,
+      "distinct": 22,
+      "circle3": [
+        {
+          "id": "company:ico:27765857",
+          "name": "FICHNA - HUDECZEK a.s.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:25871838",
+          "name": "REBYD MV s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:64610225",
+          "name": "OSTRAVSKÉ STAVBY a.s.",
+          "wins": 5
+        }
+      ],
+      "circle3Share": 0.348,
+      "switchRate": 0.467
+    },
+    {
+      "ico": "67981801",
+      "name": "Ředitelství vodních cest ČR",
+      "datedWins": 72,
+      "distinct": 29,
+      "circle3": [
+        {
+          "id": "company:ico:45538093",
+          "name": "Labská, strojní a stavební společnost s.r.o.",
+          "wins": 12
+        },
+        {
+          "id": "company:ico:41192168",
+          "name": "SG Geotechnika a.s.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:02870819",
+          "name": "SONDEO s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.347,
+      "switchRate": 0.5
+    },
+    {
+      "ico": "00243132",
+      "name": "Město Příbram",
+      "datedWins": 216,
+      "distinct": 54,
+      "circle3": [
+        {
+          "id": "company:ico:62957678",
+          "name": "INVESSALES, spol. s r. o.",
+          "wins": 39
+        },
+        {
+          "id": "company:ico:60838744",
+          "name": "STRABAG a.s.",
+          "wins": 19
+        },
+        {
+          "id": "company:ico:02330407",
+          "name": "SVSCL Stav s.r.o.",
+          "wins": 16
+        }
+      ],
+      "circle3Share": 0.343,
+      "switchRate": 0.521
+    },
+    {
+      "ico": "00272728",
+      "name": "Město Jaroměř",
+      "datedWins": 35,
+      "distinct": 23,
+      "circle3": [
+        {
+          "id": "company:ico:63217031",
+          "name": "Ingplan s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:27263827",
+          "name": "Gardenline s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:10723889",
+          "name": "KS Sankro, s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.343,
+      "switchRate": 0.727
+    },
+    {
+      "ico": "43383513",
+      "name": "Svaz vodovodů a kanalizací Žďársko",
+      "datedWins": 186,
+      "distinct": 44,
+      "circle3": [
+        {
+          "id": "company:ico:26230470",
+          "name": "SPH stavby s.r.o.",
+          "wins": 29
+        },
+        {
+          "id": "company:ico:25344447",
+          "name": "AQUASYS spol. s r.o.",
+          "wins": 17
+        },
+        {
+          "id": "company:ico:63492164",
+          "name": "CONTENT, s.r.o.",
+          "wins": 16
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.574
+    },
+    {
+      "ico": "00092096",
+      "name": "Sociální služby Uherské Hradiště, příspěvková organizace",
+      "datedWins": 21,
+      "distinct": 15,
+      "circle3": [
+        {
+          "id": "company:ico:46970592",
+          "name": "VODO - TOPO HORECKÝ s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:26235366",
+          "name": "GRETES s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:00207608",
+          "name": "PaPP, spol. s r. o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00094862",
+      "name": "Moravské zemské muzeum",
+      "datedWins": 21,
+      "distinct": 16,
+      "circle3": [
+        {
+          "id": "company:ico:48529303",
+          "name": "Moravská stavební unie - MSU s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:25835661",
+          "name": "H  & B delta, s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:26235366",
+          "name": "GRETES s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00301311",
+      "name": "Město Hranice",
+      "datedWins": 24,
+      "distinct": 19,
+      "circle3": [
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:27844935",
+          "name": "DEMSTAV group, s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:29140251",
+          "name": "SAS 4 FINISH s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.429
+    },
+    {
+      "ico": "00101435",
+      "name": "Technické muzeum v Brně",
+      "datedWins": 24,
+      "distinct": 19,
+      "circle3": [
+        {
+          "id": "company:ico:26240980",
+          "name": "SASTA CZ,a.s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:44961367",
+          "name": "Tocháček spol. s r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:28904346",
+          "name": "PROMOSTAV a.s.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.857
+    },
+    {
+      "ico": "70979201",
+      "name": "Státní oblastní archiv v Hradci Králové",
+      "datedWins": 21,
+      "distinct": 17,
+      "circle3": [
+        {
+          "id": "company:ico:11022931",
+          "name": "Zdeněk Svoboda",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:28935934",
+          "name": "RP výtahy s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:04382170",
+          "name": "UNTES, s.r.o.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00025593",
+      "name": "Český statistický úřad",
+      "datedWins": 24,
+      "distinct": 19,
+      "circle3": [
+        {
+          "id": "company:ico:64948251",
+          "name": "ALTRON, a.s.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:45477515",
+          "name": "Stavební firma AVUS, spol. s r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:45269173",
+          "name": "Jiří Zelenka",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.286
+    },
+    {
+      "ico": "00215678",
+      "name": "Krajský soud v Praze",
+      "datedWins": 21,
+      "distinct": 15,
+      "circle3": [
+        {
+          "id": "company:ico:11066113",
+          "name": "Bedřich Sigmund",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:27866327",
+          "name": "ALFA stav PV s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:24293211",
+          "name": "FutuReal s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.333,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "48136069",
+      "name": "Státní úřad pro jadernou bezpečnost",
+      "datedWins": 25,
+      "distinct": 18,
+      "circle3": [
+        {
+          "id": "company:ico:27460444",
+          "name": "ZOGENA s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:25319540",
+          "name": "MESSA Invest, s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:06021042",
+          "name": "Intheco s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.32,
+      "switchRate": 0.714
+    },
+    {
+      "ico": "75151545",
+      "name": "Krajské ředitelství policie Královéhradeckého kraje",
+      "datedWins": 69,
+      "distinct": 38,
+      "circle3": [
+        {
+          "id": "company:ico:25076337",
+          "name": "ATOLL EUROPE, spol. s r.o.",
+          "wins": 11
+        },
+        {
+          "id": "company:ico:09979417",
+          "name": "David Antoš",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:47452161",
+          "name": "ELMON spol. s r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.319,
+      "switchRate": 0.286
+    },
+    {
+      "ico": "70883611",
+      "name": "Hasičský záchranný sbor Karlovarského kraje",
+      "datedWins": 63,
+      "distinct": 34,
+      "circle3": [
+        {
+          "id": "company:ico:29111021",
+          "name": "STABIA s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:26380480",
+          "name": "ALARMY DVOŘÁK s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:73381365",
+          "name": "Petr Gašek",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.317,
+      "switchRate": 0.526
+    },
+    {
+      "ico": "70934860",
+      "name": "Ředitelství silnic Zlínského kraje, příspěvková organizace",
+      "datedWins": 149,
+      "distinct": 29,
+      "circle3": [
+        {
+          "id": "company:ico:60838744",
+          "name": "STRABAG a.s.",
+          "wins": 18
+        },
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "wins": 18
+        },
+        {
+          "id": "company:ico:43005560",
+          "name": "PORR a.s.",
+          "wins": 11
+        }
+      ],
+      "circle3Share": 0.315,
+      "switchRate": 0.696
+    },
+    {
+      "ico": "00246875",
+      "name": "Město Jindřichův Hradec",
+      "datedWins": 172,
+      "distinct": 69,
+      "circle3": [
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "wins": 32
+        },
+        {
+          "id": "company:ico:26105128",
+          "name": "Jindřichohradecká stavební s.r.o.",
+          "wins": 13
+        },
+        {
+          "id": "company:ico:63908701",
+          "name": "KOSTKA JH s.r.o.",
+          "wins": 9
+        }
+      ],
+      "circle3Share": 0.314,
+      "switchRate": 0.604
+    },
+    {
+      "ico": "03447286",
+      "name": "Technická správa komunikací hl. m. Prahy, a.s.",
+      "datedWins": 257,
+      "distinct": 51,
+      "circle3": [
+        {
+          "id": "company:ico:26508583",
+          "name": "DAP. a.s.",
+          "wins": 30
+        },
+        {
+          "id": "company:ico:45359041",
+          "name": "STRABAG SIS a.s.",
+          "wins": 26
+        },
+        {
+          "id": "company:ico:43005560",
+          "name": "PORR a.s.",
+          "wins": 24
+        }
+      ],
+      "circle3Share": 0.311,
+      "switchRate": 0.532
+    },
+    {
+      "ico": "62933591",
+      "name": "Agentura ochrany přírody a krajiny České republiky",
+      "datedWins": 119,
+      "distinct": 68,
+      "circle3": [
+        {
+          "id": "company:ico:49812700",
+          "name": "KELCOM Havlíčkův Brod spol. s r.o.",
+          "wins": 24
+        },
+        {
+          "id": "company:ico:08790884",
+          "name": "JK tree house s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:27720161",
+          "name": "HYDRO & KOV s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.311,
+      "switchRate": 0.139
+    },
+    {
+      "ico": "00297585",
+      "name": "Obec Petrovice u Karviné",
+      "datedWins": 26,
+      "distinct": 18,
+      "circle3": [
+        {
+          "id": "company:ico:02189330",
+          "name": "BLS dopravní stavby s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:29244935",
+          "name": "PROFIZA s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:46577238",
+          "name": "COMMODUM, spol. s r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.308,
+      "switchRate": 0.571
+    },
+    {
+      "ico": "70882525",
+      "name": "Hasičský záchranný sbor Královéhradeckého kraje",
+      "datedWins": 23,
+      "distinct": 18,
+      "circle3": [
+        {
+          "id": "company:ico:25957481",
+          "name": "STYLBAU, s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:25968084",
+          "name": "Technické služby Trutnov s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:05406595",
+          "name": "PF Stavitelství, s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.304,
+      "switchRate": 0.833
+    },
+    {
+      "ico": "00090450",
+      "name": "Krajská správa a údržba silnic Vysočiny, příspěvková organizace",
+      "datedWins": 63,
+      "distinct": 16,
+      "circle3": [
+        {
+          "id": "company:ico:26177005",
+          "name": "COLAS CZ, a.s.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:41601645",
+          "name": "Inženýrské stavby Brno, spol. s r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:26271303",
+          "name": "Skanska a.s.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.302,
+      "switchRate": 0.278
+    },
+    {
+      "ico": "70979090",
+      "name": "Státní oblastní archiv v Plzni",
+      "datedWins": 20,
+      "distinct": 17,
+      "circle3": [
+        {
+          "id": "company:ico:27971708",
+          "name": "KLEMPEX Vacek s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:64392481",
+          "name": "Tomáš Voborník",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:29111021",
+          "name": "STABIA s.r.o.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.3,
+      "switchRate": 0.8
+    },
+    {
+      "ico": "67779999",
+      "name": "Zařízení služeb pro Ministerstvo vnitra",
+      "datedWins": 118,
+      "distinct": 69,
+      "circle3": [
+        {
+          "id": "company:ico:25959506",
+          "name": "STINTER CZ s.r.o.",
+          "wins": 17
+        },
+        {
+          "id": "company:ico:25740253",
+          "name": "TEMO-TELEKOMUNIKACE a.s.",
+          "wins": 15
+        },
+        {
+          "id": "company:ico:29093392",
+          "name": "P.P.BUILDING KV s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.297,
+      "switchRate": 0.529
+    },
+    {
+      "ico": "44992785",
+      "name": "Statutární město Brno",
+      "datedWins": 346,
+      "distinct": 116,
+      "circle3": [
+        {
+          "id": "company:ico:24216909",
+          "name": "Abixeor s.r.o.",
+          "wins": 58
+        },
+        {
+          "id": "company:ico:10709703",
+          "name": "Mlénský stavební, s.r.o.",
+          "wins": 29
+        },
+        {
+          "id": "company:ico:26302136",
+          "name": "VIVAS CZ s.r.o.",
+          "wins": 14
+        }
+      ],
+      "circle3Share": 0.292,
+      "switchRate": 0.55
+    },
+    {
+      "ico": "00297852",
+      "name": "Město Frenštát pod Radhoštěm",
+      "datedWins": 24,
+      "distinct": 19,
+      "circle3": [
+        {
+          "id": "company:ico:46577238",
+          "name": "COMMODUM, spol. s r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:43005560",
+          "name": "PORR a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:03829707",
+          "name": "SEMITA - DS s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.292,
+      "switchRate": 0.833
+    },
+    {
+      "ico": "45274649",
+      "name": "ČEZ, a. s.",
+      "datedWins": 69,
+      "distinct": 43,
+      "circle3": [
+        {
+          "id": "company:ico:25006754",
+          "name": "MARTIA a.s.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:25021915",
+          "name": "Metrostav CZ s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:46678468",
+          "name": "HOCHTIEF CZ a. s.",
+          "wins": 5
+        }
+      ],
+      "circle3Share": 0.29,
+      "switchRate": 0.474
+    },
+    {
+      "ico": "00297488",
+      "name": "statutární město Havířov",
+      "datedWins": 1060,
+      "distinct": 137,
+      "circle3": [
+        {
+          "id": "company:ico:27805425",
+          "name": "VLAMAG Czech s.r.o.",
+          "wins": 121
+        },
+        {
+          "id": "company:ico:03957322",
+          "name": "Havířovský sociální podnik, s.r.o.",
+          "wins": 102
+        },
+        {
+          "id": "company:ico:05321719",
+          "name": "Ristorispetto s.r.o.",
+          "wins": 81
+        }
+      ],
+      "circle3Share": 0.287,
+      "switchRate": 0.383
+    },
+    {
+      "ico": "75151472",
+      "name": "Krajské ředitelství policie hlavního města Prahy",
+      "datedWins": 94,
+      "distinct": 48,
+      "circle3": [
+        {
+          "id": "company:ico:25674552",
+          "name": "AMT Zbraslavská stavební s.r.o.",
+          "wins": 15
+        },
+        {
+          "id": "company:ico:14931567",
+          "name": "Václav Bazal",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:24196029",
+          "name": "APZB trading s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.287,
+      "switchRate": 0.654
+    },
+    {
+      "ico": "60800691",
+      "name": "Vojenská nemocnice Olomouc",
+      "datedWins": 29,
+      "distinct": 22,
+      "circle3": [
+        {
+          "id": "company:ico:28597460",
+          "name": "Hroší stavby Morava a.s.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:05933200",
+          "name": "Klimaland s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:86669460",
+          "name": "Josef Gaja",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.276,
+      "switchRate": 0.857
+    },
+    {
+      "ico": "05800226",
+      "name": "Národní úřad pro kybernetickou a informační bezpečnost",
+      "datedWins": 22,
+      "distinct": 18,
+      "circle3": [
+        {
+          "id": "company:ico:28265971",
+          "name": "QDS Group a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:26242451",
+          "name": "Brixton-stavitelství,s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:75592801",
+          "name": "Ing. Přemysl Hort",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.273,
+      "switchRate": 1
+    },
+    {
+      "ico": "06342477",
+      "name": "Správa Národního parku České Švýcarsko",
+      "datedWins": 33,
+      "distinct": 25,
+      "circle3": [
+        {
+          "id": "company:ico:06659969",
+          "name": "HANTYCH s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:25042751",
+          "name": "SaM silnice a mosty Děčín a.s.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:27274535",
+          "name": "STRIX Chomutov, a.s.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.273,
+      "switchRate": 0.625
+    },
+    {
+      "ico": "72052767",
+      "name": "Krajské ředitelství policie Zlínského kraje",
+      "datedWins": 26,
+      "distinct": 20,
+      "circle3": [
+        {
+          "id": "company:ico:47674237",
+          "name": "PRUKON s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:46994955",
+          "name": "INSTOP, spol. s r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:27675912",
+          "name": "VESTAV group s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.269,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "65993390",
+      "name": "Ředitelství silnic a dálnic s. p.",
+      "datedWins": 49,
+      "distinct": 31,
+      "circle3": [
+        {
+          "id": "company:ico:17331099",
+          "name": "MI Roads a.s.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:43005560",
+          "name": "PORR a.s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:45359041",
+          "name": "STRABAG SIS a.s.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.265,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00845451",
+      "name": "Statutární město Ostrava",
+      "datedWins": 76,
+      "distinct": 39,
+      "circle3": [
+        {
+          "id": "company:ico:27833551",
+          "name": "MIJO-STAV stavby s.r.o.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:02632195",
+          "name": "KP REVITAL s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:29387850",
+          "name": "VODAŘ s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.263,
+      "switchRate": 0.632
+    },
+    {
+      "ico": "00297577",
+      "name": "Město Orlová",
+      "datedWins": 61,
+      "distinct": 36,
+      "circle3": [
+        {
+          "id": "company:ico:47676175",
+          "name": "AWT Rekultivace a.s.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:00560383",
+          "name": "KVAZAR akciová společnost",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:25855581",
+          "name": "JANKOSTAV s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.262,
+      "switchRate": 0.6
+    },
+    {
+      "ico": "00277444",
+      "name": "Město Svitavy",
+      "datedWins": 23,
+      "distinct": 20,
+      "circle3": [
+        {
+          "id": "company:ico:26006111",
+          "name": "HIKELE stavební firma s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:25260766",
+          "name": "EVT Stavby s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:03199339",
+          "name": "AVJ-STAVBY s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.261,
+      "switchRate": 0.4
+    },
+    {
+      "ico": "00283924",
+      "name": "Statutární město Zlín",
+      "datedWins": 281,
+      "distinct": 99,
+      "circle3": [
+        {
+          "id": "company:ico:25860852",
+          "name": "JASY Vsetín s.r.o.",
+          "wins": 36
+        },
+        {
+          "id": "company:ico:27716104",
+          "name": "KERAMO D - Dohorák s.r.o.",
+          "wins": 22
+        },
+        {
+          "id": "company:ico:42340802",
+          "name": "KKS, spol. s r.o.",
+          "wins": 15
+        }
+      ],
+      "circle3Share": 0.26,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00281964",
+      "name": "Město Kuřim",
+      "datedWins": 27,
+      "distinct": 22,
+      "circle3": [
+        {
+          "id": "company:ico:25597710",
+          "name": "PSK Group, spol. s r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:45274924",
+          "name": "EUROVIA CZ a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:27713130",
+          "name": "PROSTAVBY, a.s.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.259,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "70887306",
+      "name": "Hasičský záchranný sbor Zlínského kraje",
+      "datedWins": 31,
+      "distinct": 25,
+      "circle3": [
+        {
+          "id": "company:ico:25527967",
+          "name": "TIES, s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:25301144",
+          "name": "Navláčil stavební firma, s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:25385127",
+          "name": "První KEY - STAV, a.s.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.258,
+      "switchRate": 0.714
+    },
+    {
+      "ico": "72051612",
+      "name": "Krajské ředitelství policie Karlovarského kraje",
+      "datedWins": 122,
+      "distinct": 65,
+      "circle3": [
+        {
+          "id": "company:ico:26339731",
+          "name": "ELESTA Loket s.r.o.",
+          "wins": 15
+        },
+        {
+          "id": "company:ico:14891115",
+          "name": "IZOWEN, a.s.",
+          "wins": 10
+        },
+        {
+          "id": "company:ico:03657116",
+          "name": "R.O Stavební s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.254,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "75151529",
+      "name": "Krajské ředitelství policie Plzeňského kraje",
+      "datedWins": 75,
+      "distinct": 52,
+      "circle3": [
+        {
+          "id": "company:ico:64358844",
+          "name": "SILBA-Elstav s.r.o.",
+          "wins": 11
+        },
+        {
+          "id": "company:ico:03884376",
+          "name": "STAVOSAN PLZEŇ s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:08668175",
+          "name": "HOME WEST CZ s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.253,
+      "switchRate": 0.611
+    },
+    {
+      "ico": "00164801",
+      "name": "Česká republika - Ministerstvo životního prostředí",
+      "datedWins": 24,
+      "distinct": 17,
+      "circle3": [
+        {
+          "id": "company:ico:00007536",
+          "name": "Palivový kombinát Ústí, státní podnik",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:25916581",
+          "name": "GEMEC - UNION a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:60321431",
+          "name": "GSP s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.25,
+      "switchRate": 1
+    },
+    {
+      "ico": "00240079",
+      "name": "Město Brandýs nad Labem-Stará Boleslav",
+      "datedWins": 52,
+      "distinct": 33,
+      "circle3": [
+        {
+          "id": "company:ico:24665312",
+          "name": "STAVBY DLOUHÝ s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:47052945",
+          "name": "STAVOKOMPLET spol.s r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:11981148",
+          "name": "Tost s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.25,
+      "switchRate": 0.75
+    },
+    {
+      "ico": "27660915",
+      "name": "Uherskohradišťská nemocnice a.s.",
+      "datedWins": 28,
+      "distinct": 21,
+      "circle3": [
+        {
+          "id": "company:ico:25345168",
+          "name": "LISONĚK, s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:00207608",
+          "name": "PaPP, spol. s r. o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:47906898",
+          "name": "MANAG, a.s.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.25,
+      "switchRate": 0.833
+    },
+    {
+      "ico": "48135453",
+      "name": "Vyšší policejní škola a Střední policejní škola Ministerstva vnitra v Praze",
+      "datedWins": 36,
+      "distinct": 25,
+      "circle3": [
+        {
+          "id": "company:ico:18325297",
+          "name": "Pavel Míka - FALIKO",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:27413063",
+          "name": "BROS BAU s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:44227744",
+          "name": "PUR-IZOLACE s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.25,
+      "switchRate": 0.75
+    },
+    {
+      "ico": "00232904",
+      "name": "Město Týnec nad Sázavou",
+      "datedWins": 25,
+      "distinct": 21,
+      "circle3": [
+        {
+          "id": "company:ico:27078141",
+          "name": "Fastav Bau, s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:43792553",
+          "name": "B E S s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:25260766",
+          "name": "EVT Stavby s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.24,
+      "switchRate": 0.8
+    },
+    {
+      "ico": "00215660",
+      "name": "Městský soud v Praze",
+      "datedWins": 104,
+      "distinct": 52,
+      "circle3": [
+        {
+          "id": "company:ico:47114894",
+          "name": "DAPE v.o.s.",
+          "wins": 10
+        },
+        {
+          "id": "company:ico:27143619",
+          "name": "FRAMAL s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:29281113",
+          "name": "ASETA SERVICES s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.24,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00006572",
+      "name": "Česká republika - Kancelář Poslanecké sněmovny",
+      "datedWins": 25,
+      "distinct": 19,
+      "circle3": [
+        {
+          "id": "company:ico:88145719",
+          "name": "Oliver Braun",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:24749044",
+          "name": "LAMA PB s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:27477673",
+          "name": "DM Color, s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.24,
+      "switchRate": 0.6
+    },
+    {
+      "ico": "47114975",
+      "name": "Vojenská zdravotní pojišťovna České republiky",
+      "datedWins": 25,
+      "distinct": 22,
+      "circle3": [
+        {
+          "id": "company:ico:25904116",
+          "name": "LANEX Olomouc s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:28287967",
+          "name": "PROFITEAM topení - voda - plyn s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:24248011",
+          "name": "Karlova Firma s.r.o. ",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.24,
+      "switchRate": 1
+    },
+    {
+      "ico": "70886300",
+      "name": "Hasičský záchranný sbor Ústeckého kraje",
+      "datedWins": 46,
+      "distinct": 32,
+      "circle3": [
+        {
+          "id": "company:ico:25493507",
+          "name": "Mostecká montážní a.s.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:00671533",
+          "name": "INSKY spol. s r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:06833896",
+          "name": "Stavební MST s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.239,
+      "switchRate": 0.6
+    },
+    {
+      "ico": "00023337",
+      "name": "Národní divadlo",
+      "datedWins": 55,
+      "distinct": 33,
+      "circle3": [
+        {
+          "id": "company:ico:60198770",
+          "name": "AG-REAL s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:28478380",
+          "name": "ISPD s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:72158891",
+          "name": "Libor Svárovský",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.236,
+      "switchRate": 0.583
+    },
+    {
+      "ico": "00266418",
+      "name": "Město Krupka",
+      "datedWins": 31,
+      "distinct": 25,
+      "circle3": [
+        {
+          "id": "company:ico:40233308",
+          "name": "Vodohospodářské stavby, společnost s ručením omezeným",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:27342093",
+          "name": "NEPRO stavební a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.226,
+      "switchRate": 0.333
+    },
+    {
+      "ico": "00302724",
+      "name": "Město Jeseník",
+      "datedWins": 53,
+      "distinct": 30,
+      "circle3": [
+        {
+          "id": "company:ico:64610063",
+          "name": "Technické služby Jeseník a. s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:62360213",
+          "name": "KARETA s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.226,
+      "switchRate": 0.636
+    },
+    {
+      "ico": "24729035",
+      "name": "ČEZ Distribuce, a. s.",
+      "datedWins": 93,
+      "distinct": 32,
+      "circle3": [
+        {
+          "id": "company:ico:64610080",
+          "name": "MSEM, a.s.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:47544929",
+          "name": "Elmoz Czech, s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:25430645",
+          "name": "R-built s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.226,
+      "switchRate": 0.8
+    },
+    {
+      "ico": "00000175",
+      "name": "Diplomatický servis",
+      "datedWins": 70,
+      "distinct": 47,
+      "circle3": [
+        {
+          "id": "company:ico:06535160",
+          "name": "GREEN SPACE s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:63669480",
+          "name": "SP spol. s r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:25021915",
+          "name": "Metrostav CZ s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.214,
+      "switchRate": 0.5
+    },
+    {
+      "ico": "70882835",
+      "name": "Hasičský záchranný sbor Jihočeského kraje",
+      "datedWins": 52,
+      "distinct": 33,
+      "circle3": [
+        {
+          "id": "company:ico:48203351",
+          "name": "REMONST stavební spol. s r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:28078756",
+          "name": "ŠAFINVEST, s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:28136250",
+          "name": "CATMAN s.r.o. ",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.212,
+      "switchRate": 0.6
+    },
+    {
+      "ico": "72051795",
+      "name": "Krajské ředitelství policie Olomouckého kraje",
+      "datedWins": 71,
+      "distinct": 47,
+      "circle3": [
+        {
+          "id": "company:ico:25877488",
+          "name": "Stavona Olomouc s.r.o.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:28577132",
+          "name": "Experior s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:26856841",
+          "name": "HEINZ - ELEKTRO s. r. o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.211,
+      "switchRate": 0.643
+    },
+    {
+      "ico": "00020699",
+      "name": "Český hydrometeorologický ústav",
+      "datedWins": 135,
+      "distinct": 63,
+      "circle3": [
+        {
+          "id": "company:ico:48202703",
+          "name": "Vodní stavitelství, s.r.o.",
+          "wins": 13
+        },
+        {
+          "id": "company:ico:64616371",
+          "name": "CRISTAL SERVIS s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:18163017",
+          "name": "Ing. Zdeněk Vacek",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.207,
+      "switchRate": 0.519
+    },
+    {
+      "ico": "00241237",
+      "name": "Město Hostivice",
+      "datedWins": 29,
+      "distinct": 26,
+      "circle3": [
+        {
+          "id": "company:ico:48035599",
+          "name": "SWIETELSKY stavební s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:48038792",
+          "name": "EMV s.r.o.",
+          "wins": 1
+        },
+        {
+          "id": "company:ico:25560191",
+          "name": "SPORTOVNÍ PODLAHY ZLÍN, s.r.o.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.207,
+      "switchRate": 0.4
+    },
+    {
+      "ico": "75151499",
+      "name": "Krajské ředitelství policie Jihomoravského kraje",
+      "datedWins": 74,
+      "distinct": 46,
+      "circle3": [
+        {
+          "id": "company:ico:13692861",
+          "name": "Thermona, spol. s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:46964541",
+          "name": "VAŠSTAV, s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:09036547",
+          "name": "DEST Morava s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.203,
+      "switchRate": 0.143
+    },
+    {
+      "ico": "00023272",
+      "name": "Národní muzeum",
+      "datedWins": 99,
+      "distinct": 55,
+      "circle3": [
+        {
+          "id": "company:ico:61677876",
+          "name": "SIMBA, spol. s r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:25717154",
+          "name": "N-mont, spol. s r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:27359875",
+          "name": "SCHEL s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.202,
+      "switchRate": 0.842
+    },
+    {
+      "ico": "72050501",
+      "name": "Krajské ředitelství policie Libereckého kraje",
+      "datedWins": 61,
+      "distinct": 39,
+      "circle3": [
+        {
+          "id": "company:ico:25023101",
+          "name": "Baukomplet s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:60250437",
+          "name": "Hammer Ivan",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:06833896",
+          "name": "Stavební MST s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.197,
+      "switchRate": 0.364
+    },
+    {
+      "ico": "00234877",
+      "name": "Město Slaný",
+      "datedWins": 146,
+      "distinct": 83,
+      "circle3": [
+        {
+          "id": "company:ico:24832898",
+          "name": "OTISTAV s.r.o.",
+          "wins": 13
+        },
+        {
+          "id": "company:ico:05071500",
+          "name": "Stavby Komeda s.r.o.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:27872947",
+          "name": "DAVA - CZ s.r.o.",
+          "wins": 7
+        }
+      ],
+      "circle3Share": 0.192,
+      "switchRate": 0.704
+    },
+    {
+      "ico": "75151898",
+      "name": "OLYMP CENTRUM SPORTU MINISTERSTVA VNITRA",
+      "datedWins": 32,
+      "distinct": 29,
+      "circle3": [
+        {
+          "id": "company:ico:29044430",
+          "name": "LITAVERON a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:12586447",
+          "name": "Petr Kohout",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:27712923",
+          "name": "TESGRUP s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.188,
+      "switchRate": 0.4
+    },
+    {
+      "ico": "71214011",
+      "name": "Generální ředitelství cel",
+      "datedWins": 70,
+      "distinct": 52,
+      "circle3": [
+        {
+          "id": "company:ico:25307126",
+          "name": "MAXPROGRES, s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:01676342",
+          "name": "SPIE STS spol. s r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:46900918",
+          "name": "Pozemní stavitelství Zlín a.s.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.186,
+      "switchRate": 0.5
+    },
+    {
+      "ico": "75032333",
+      "name": "Národní památkový ústav",
+      "datedWins": 509,
+      "distinct": 229,
+      "circle3": [
+        {
+          "id": "company:ico:45537453",
+          "name": "LOUČKA Pardubice s.r.o.",
+          "wins": 57
+        },
+        {
+          "id": "company:ico:25835661",
+          "name": "H  & B delta, s.r.o.",
+          "wins": 18
+        },
+        {
+          "id": "company:ico:26347741",
+          "name": "BOLID M s.r.o.",
+          "wins": 18
+        }
+      ],
+      "circle3Share": 0.183,
+      "switchRate": 0.565
+    },
+    {
+      "ico": "70891320",
+      "name": "Zlínský kraj",
+      "datedWins": 77,
+      "distinct": 52,
+      "circle3": [
+        {
+          "id": "company:ico:25908898",
+          "name": "FMIB, s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:03042162",
+          "name": "KOPČA LESY s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:49975358",
+          "name": "KAVYL, spol. s r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.182,
+      "switchRate": 0.385
+    },
+    {
+      "ico": "00301825",
+      "name": "Statutární město Přerov",
+      "datedWins": 154,
+      "distinct": 74,
+      "circle3": [
+        {
+          "id": "company:ico:27769585",
+          "name": "PSS Přerovská stavební a.s.",
+          "wins": 11
+        },
+        {
+          "id": "company:ico:29195446",
+          "name": "GALVA TRANS, s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:47155558",
+          "name": "SISKO spol. s r. o.",
+          "wins": 8
+        }
+      ],
+      "circle3Share": 0.182,
+      "switchRate": 0.556
+    },
+    {
+      "ico": "00025798",
+      "name": "Česká geologická služba",
+      "datedWins": 22,
+      "distinct": 21,
+      "circle3": [
+        {
+          "id": "company:ico:04291409",
+          "name": "FreshSmart Service s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:26184087",
+          "name": "KLEMPÍK - Stav, s.r.o.",
+          "wins": 1
+        },
+        {
+          "id": "company:ico:45274428",
+          "name": "VODNÍ ZDROJE, a.s.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.182,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00261408",
+      "name": "Město Jílové",
+      "datedWins": 57,
+      "distinct": 39,
+      "circle3": [
+        {
+          "id": "company:ico:25042751",
+          "name": "SaM silnice a mosty Děčín a.s.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:27274691",
+          "name": "AFC Servis DC a.s.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:25487230",
+          "name": "DOKOM FINAL s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.175,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "00274046",
+      "name": "Statutární město Pardubice",
+      "datedWins": 473,
+      "distinct": 167,
+      "circle3": [
+        {
+          "id": "company:ico:27523934",
+          "name": "MIROS Pardubice a.s.",
+          "wins": 43
+        },
+        {
+          "id": "company:ico:62028405",
+          "name": "RONING spol. s r.o.",
+          "wins": 20
+        },
+        {
+          "id": "company:ico:04806859",
+          "name": "TIMRA s.r.o.",
+          "wins": 19
+        }
+      ],
+      "circle3Share": 0.173,
+      "switchRate": 0.469
+    },
+    {
+      "ico": "75151481",
+      "name": "Krajské ředitelství policie Středočeského kraje",
+      "datedWins": 64,
+      "distinct": 49,
+      "circle3": [
+        {
+          "id": "company:ico:41432037",
+          "name": "Realitní a stavební společnost s.r.o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:04259106",
+          "name": "David Sixta stavební s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:02093260",
+          "name": "SHAFT STAVBY PRAHA s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.172,
+      "switchRate": 0.8
+    },
+    {
+      "ico": "70884561",
+      "name": "Hasičský záchranný sbor Moravskoslezského kraje",
+      "datedWins": 93,
+      "distinct": 50,
+      "circle3": [
+        {
+          "id": "company:ico:64610225",
+          "name": "OSTRAVSKÉ STAVBY a.s.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:25914057",
+          "name": "DIK stavby  s. r. o.",
+          "wins": 5
+        },
+        {
+          "id": "company:ico:04369700",
+          "name": "PLOTY KINCL s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.172,
+      "switchRate": 0.8
+    },
+    {
+      "ico": "70885869",
+      "name": "Hasičský záchranný sbor Pardubického kraje",
+      "datedWins": 44,
+      "distinct": 38,
+      "circle3": [
+        {
+          "id": "company:ico:28825870",
+          "name": "Dvořák - Karlík s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:46993223",
+          "name": "CERGOMONT s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:29266246",
+          "name": "TENSIO TECHNOLOGY s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.159,
+      "switchRate": 0.333
+    },
+    {
+      "ico": "61383082",
+      "name": "Ústřední vojenská nemocnice - Vojenská fakultní nemocnice Praha",
+      "datedWins": 58,
+      "distinct": 43,
+      "circle3": [
+        {
+          "id": "company:ico:26354870",
+          "name": "RYTA s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:60838744",
+          "name": "STRABAG a.s.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:62601954",
+          "name": "Štěpán Ondráček",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.155,
+      "switchRate": 1
+    },
+    {
+      "ico": "60498021",
+      "name": "Správa uprchlických zařízení Ministerstva vnitra",
+      "datedWins": 112,
+      "distinct": 73,
+      "circle3": [
+        {
+          "id": "company:ico:28263511",
+          "name": "VH MONT - STAV s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:07452209",
+          "name": "Jakub Topolčan",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:18325297",
+          "name": "Pavel Míka - FALIKO",
+          "wins": 5
+        }
+      ],
+      "circle3Share": 0.152,
+      "switchRate": 0.688
+    },
+    {
+      "ico": "41693205",
+      "name": "Česká inspekce životního prostředí",
+      "datedWins": 20,
+      "distinct": 20,
+      "circle3": [
+        {
+          "id": "company:ico:25996851",
+          "name": "VATACK s.r.o.",
+          "wins": 1
+        },
+        {
+          "id": "company:ico:00175439",
+          "name": "G4S Secure Solutions (CZ), a.s.",
+          "wins": 1
+        },
+        {
+          "id": "company:ico:01676342",
+          "name": "SPIE STS spol. s r.o.",
+          "wins": 1
+        }
+      ],
+      "circle3Share": 0.15,
+      "switchRate": 1
+    },
+    {
+      "ico": "75151537",
+      "name": "Krajské ředitelství policie Ústeckého kraje",
+      "datedWins": 129,
+      "distinct": 86,
+      "circle3": [
+        {
+          "id": "company:ico:27347311",
+          "name": "NATURTEP spol. s r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:25499963",
+          "name": "PMB mont s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:24198820",
+          "name": "Revitherm s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.147,
+      "switchRate": 0.444
+    },
+    {
+      "ico": "00006947",
+      "name": "Ministerstvo financí",
+      "datedWins": 145,
+      "distinct": 79,
+      "circle3": [
+        {
+          "id": "company:ico:05758734",
+          "name": "Silnice Topolany a.s.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:28185561",
+          "name": "Rilancio s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:25959506",
+          "name": "STINTER CZ s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.145,
+      "switchRate": 0.5
+    },
+    {
+      "ico": "00023001",
+      "name": "Institut klinické a experimentální medicíny",
+      "datedWins": 84,
+      "distinct": 55,
+      "circle3": [
+        {
+          "id": "company:ico:27535177",
+          "name": "BOMI interier s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:00484016",
+          "name": "J. Seidl a spol. s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:27477673",
+          "name": "DM Color, s.r.o.",
+          "wins": 3
+        }
+      ],
+      "circle3Share": 0.143,
+      "switchRate": 0.818
+    },
+    {
+      "ico": "00006963",
+      "name": "Česká správa sociálního zabezpečení",
+      "datedWins": 49,
+      "distinct": 43,
+      "circle3": [
+        {
+          "id": "company:ico:48109339",
+          "name": "RE IN s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:27110648",
+          "name": "ŠNAJDR stavby Mělník, s.r.o.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:26465825",
+          "name": "HP Stavdesign s.r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.143,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "72050250",
+      "name": "Krajské ředitelství policie Pardubického kraje",
+      "datedWins": 87,
+      "distinct": 53,
+      "circle3": [
+        {
+          "id": "company:ico:25934970",
+          "name": "DALU, s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:15030938",
+          "name": "ELEKTRO - SYCHRA, spol. s r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:64792897",
+          "name": "OSP UO s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.138,
+      "switchRate": 0.727
+    },
+    {
+      "ico": "70890692",
+      "name": "Moravskoslezský kraj",
+      "datedWins": 254,
+      "distinct": 128,
+      "circle3": [
+        {
+          "id": "company:ico:60838744",
+          "name": "STRABAG a.s.",
+          "wins": 14
+        },
+        {
+          "id": "company:ico:25873261",
+          "name": "INTOZA s.r.o.",
+          "wins": 10
+        },
+        {
+          "id": "company:ico:28618891",
+          "name": "IPS Třinec, a.s.",
+          "wins": 10
+        }
+      ],
+      "circle3Share": 0.134,
+      "switchRate": 0.606
+    },
+    {
+      "ico": "48133990",
+      "name": "Správa státních hmotných rezerv",
+      "datedWins": 149,
+      "distinct": 107,
+      "circle3": [
+        {
+          "id": "company:ico:42869285",
+          "name": "FUS a HARAZIM s. r. o.",
+          "wins": 10
+        },
+        {
+          "id": "company:ico:27653579",
+          "name": "Trigema Building a.s.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:64358844",
+          "name": "SILBA-Elstav s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.134,
+      "switchRate": 0.526
+    },
+    {
+      "ico": "00000582",
+      "name": "Vojenská lázeňská a rekreační zařízení, příspěvková organizace",
+      "datedWins": 288,
+      "distinct": 162,
+      "circle3": [
+        {
+          "id": "company:ico:09057889",
+          "name": "METROLINE a.s.",
+          "wins": 19
+        },
+        {
+          "id": "company:ico:18629512",
+          "name": "Renova Praha, spol. s r. o.",
+          "wins": 10
+        },
+        {
+          "id": "company:ico:48531235",
+          "name": "INEX Moravské Budějovice, s.r.o.",
+          "wins": 9
+        }
+      ],
+      "circle3Share": 0.132,
+      "switchRate": 0.541
+    },
+    {
+      "ico": "00023299",
+      "name": "Národní technické muzeum",
+      "datedWins": 54,
+      "distinct": 42,
+      "circle3": [
+        {
+          "id": "company:ico:27634329",
+          "name": "Design By Hy, s.r.o.",
+          "wins": 3
+        },
+        {
+          "id": "company:ico:62743881",
+          "name": "Chládek & Tintěra, a.s.",
+          "wins": 2
+        },
+        {
+          "id": "company:ico:26421259",
+          "name": "Decorum spol. s r.o.",
+          "wins": 2
+        }
+      ],
+      "circle3Share": 0.13,
+      "switchRate": 0.667
+    },
+    {
+      "ico": "60460580",
+      "name": "Armádní Servisní, příspěvková organizace",
+      "datedWins": 463,
+      "distinct": 185,
+      "circle3": [
+        {
+          "id": "company:ico:64511855",
+          "name": "REWIN BRNO, s.r.o.",
+          "wins": 20
+        },
+        {
+          "id": "company:ico:60734078",
+          "name": "UCHYTIL s.r.o.",
+          "wins": 18
+        },
+        {
+          "id": "company:ico:46993223",
+          "name": "CERGOMONT s.r.o.",
+          "wins": 17
+        }
+      ],
+      "circle3Share": 0.119,
+      "switchRate": 0.611
+    },
+    {
+      "ico": "00262340",
+      "name": "Statutární město Jablonec nad Nisou",
+      "datedWins": 161,
+      "distinct": 95,
+      "circle3": [
+        {
+          "id": "company:ico:49904884",
+          "name": "1.JHS s.r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:41327837",
+          "name": "ŠEBESTA VHS s.r.o.",
+          "wins": 6
+        },
+        {
+          "id": "company:ico:27265480",
+          "name": "SIZ s.r.o.",
+          "wins": 6
+        }
+      ],
+      "circle3Share": 0.118,
+      "switchRate": 0.611
+    },
+    {
+      "ico": "72496991",
+      "name": "Úřad práce České republiky",
+      "datedWins": 477,
+      "distinct": 221,
+      "circle3": [
+        {
+          "id": "company:ico:49977202",
+          "name": "VV TOP s.r.o.",
+          "wins": 19
+        },
+        {
+          "id": "company:ico:26224216",
+          "name": "JMK elektro, s.r.o.",
+          "wins": 18
+        },
+        {
+          "id": "company:ico:11066113",
+          "name": "Bedřich Sigmund",
+          "wins": 15
+        }
+      ],
+      "circle3Share": 0.109,
+      "switchRate": 0.569
+    },
+    {
+      "ico": "72080043",
+      "name": "Generální finanční ředitelství",
+      "datedWins": 184,
+      "distinct": 126,
+      "circle3": [
+        {
+          "id": "company:ico:24832898",
+          "name": "OTISTAV s.r.o.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:62240188",
+          "name": "TEP Jablonec, spol. s r.o.",
+          "wins": 7
+        },
+        {
+          "id": "company:ico:14500221",
+          "name": "Montservis spol. s r. o.",
+          "wins": 5
+        }
+      ],
+      "circle3Share": 0.109,
+      "switchRate": 0.632
+    },
+    {
+      "ico": "00007064",
+      "name": "Ministerstvo vnitra",
+      "datedWins": 290,
+      "distinct": 184,
+      "circle3": [
+        {
+          "id": "company:ico:29074509",
+          "name": "ALMDATA s.r.o.",
+          "wins": 11
+        },
+        {
+          "id": "company:ico:64358844",
+          "name": "SILBA-Elstav s.r.o.",
+          "wins": 9
+        },
+        {
+          "id": "company:ico:47122439",
+          "name": "ROYAL DIAMOND - stavební společnost s.r.o.",
+          "wins": 7
+        }
+      ],
+      "circle3Share": 0.093,
+      "switchRate": 0.615
+    },
+    {
+      "ico": "60162694",
+      "name": "Ministerstvo obrany",
+      "datedWins": 4172,
+      "distinct": 873,
+      "circle3": [
+        {
+          "id": "company:ico:49977202",
+          "name": "VV TOP s.r.o.",
+          "wins": 169
+        },
+        {
+          "id": "company:ico:26821834",
+          "name": "MEKOS GROUP a.s.",
+          "wins": 94
+        },
+        {
+          "id": "company:ico:27866327",
+          "name": "ALFA stav PV s.r.o.",
+          "wins": 73
+        }
+      ],
+      "circle3Share": 0.081,
+      "switchRate": 0.6
+    },
+    {
+      "ico": "69797111",
+      "name": "Úřad pro zastupování státu ve věcech majetkových",
+      "datedWins": 199,
+      "distinct": 154,
+      "circle3": [
+        {
+          "id": "company:ico:49977202",
+          "name": "VV TOP s.r.o.",
+          "wins": 8
+        },
+        {
+          "id": "company:ico:02166283",
+          "name": "SG STAVBY, s.r.o.",
+          "wins": 4
+        },
+        {
+          "id": "company:ico:25231634",
+          "name": "EKA - KOMPLET s.r.o.",
+          "wins": 4
+        }
+      ],
+      "circle3Share": 0.08,
+      "switchRate": 0.6
+    },
+    {
+      "ico": "00212423",
+      "name": "Vězeňská služba České republiky",
+      "datedWins": 636,
+      "distinct": 358,
+      "circle3": [
+        {
+          "id": "company:ico:01490311",
+          "name": "Odolovská stavební s.r.o.",
+          "wins": 15
+        },
+        {
+          "id": "company:ico:28038231",
+          "name": "DIDSTAV družstvo",
+          "wins": 13
+        },
+        {
+          "id": "company:ico:04073592",
+          "name": "Tova Stavby   s.r.o.    ",
+          "wins": 11
+        }
+      ],
+      "circle3Share": 0.061,
+      "switchRate": 0.447
+    }
+  ]
+}

@@ -88,3 +88,12 @@ registry entry + a line in this file describing it**, same change. Writer conven
 - `owns_stake.apply_batch_018_ownership-chains_note` — apply-batch merge note on the 40 edges the batch-018 ARES-VR ownership pass re-merged onto the dataor layer (pass 62).
 - `company.ownership_disclosed` (+ `_provenance`, `_citations`) - money batch 020: ownership as the COMPANY ITSELF publishes it (vyrocni zprava, "pro akcionare" page): {asOf, sourceKind: "company-disclosure", sourceUrl, accessedAt, owners:[{name, pct}], noteCs}. Layered ON TOP of `public_mandate` - the register verdict stays what the register says (ownership-not-published); this is the cited document source the review lane asked for. Never an owns_stake edge (a document claim is enrichment, not a graph fact).
 - Case 4 tender layer (batch 002): node `tender:<lot NIPEZ id>` (one per tender LOT, ISVZ/RVZ open data; props per prop-registry `nodes.tender` - register facts verbatim, flags computed downstream); edges `procures` (authority company -> tender), `bids_on` (company -> tender, {evaluated, value_czk}), `wins` (company -> tender, {price_czk, decided_on}). Foreign suppliers (country != CZE) never become company nodes - counted on the tender node as foreign_participants/foreign_winners. Source: isvz.nipez.cz monthly JSON (data/raw/isvz), ingested deterministically by scripts/case-loops/tender/persist-month.ts with pass provenance; replayable from the cached zips.
+- Case 4 authority-level layer (b010, pass 73): `tender_winner_circle` on the AUTHORITY's
+  company node (+ `circle_provenance` written by persist-batch, ns=circle) — the winner-
+  circle statistic over the authority's dated win sequence: `dated_wins`,
+  `distinct_winners`, `circle3_share`, `switch_rate`, `circle3[]` (top-3 winners with win
+  counts), `dated_wins_only: true`. Computed by scripts/case-loops/tender/winner-circle.ts
+  (>= 20 dated wins; monopoly counterparties skipped per monopoly.ts); high circle3_share
+  with HIGH switch_rate reads as rotation, with LOW switch_rate as lock — the surface
+  states the numbers, never intent. Recomputed whole-corpus like flags (no mixed
+  vintages).

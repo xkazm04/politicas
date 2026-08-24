@@ -190,6 +190,25 @@ Kernel gates plus:
   it. And when a batch doc states a pattern, mark inference vs register fact — b008's
   „same 4–6 bidders" was an inference and got a written correction.
 
+- **b010 (pass 73):** the rotation/lock marker lives in the WINNER sequence: circle3_share
+  × switch_rate (high/high = rotation, high/low = lock) — computed only where >= 20 dated
+  wins exist, monopoly class skipped. First AUTHORITY-level persisted layer
+  (`tender_winner_circle` on company nodes, ns=circle) — company-node props now carry two
+  cases' layers side by side; the prop registry is the collision guard.
+
+## After ten batches (2026-08-24) — what this loop can and cannot extract
+
+**Can (proven):** lot graphs with register facts verbatim; six deterministic lot flags
+with corpus thresholds + per-node inputs; authority/winner pictures at small-n floors;
+a five-species authority taxonomy (conveyor city / house-supplier lock / framework
+oligopoly / rotating micro-pool / data-poor); authority-level statistics (winner circle);
+deep-read case files with ARES ownership hops; MP-graph touches with zero join logic.
+**Cannot (proven negatives — do not retry):** bidder-pool composition (losing bidders
+anonymised, ~95 % of authorities unreadable); per-lot overpricing (estimate fill 14 %);
+cadence across the 2024-12 coverage boundary. **The seven method rules** are in the
+calibration entries above; the three that prevent the worst repeats: hand-read before
+persist, denominator visibility before metric design, species before rank.
+
 ## History
 
 - 2026-08-23: skill created from the user's doctrine notes; first campaign

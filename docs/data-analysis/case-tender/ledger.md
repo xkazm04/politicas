@@ -103,3 +103,15 @@ included), and avg_appearances confounds volume with closure (ŘSD "tops" closed
 INFERENCE — the register shows anonymous bid counts + alternating named winners, nothing
 more. Tool kept with the verdict in its header; next marker builds on winner sequences.
 
+### Batch 010 — the winner circle works, and the ten-batch reflection (2026-08-24)
+
+Pass 73: `tender_winner_circle` on 133 authority company nodes (>= 20 dated wins, monopoly
+class skipped, dated_wins_only disclosed). circle3_share × switch_rate separates the
+species b008 could only narrate: galerie 64 %/89 % (rotation), Bytová správa MV 70 %/24 %
+(lock), Teplárny Brno 77 %/19 % (MP-tied duopoly). Distribution p50 0,29 · p95 0,64.
+Prop-registry + graph-schema updated (tender_winner_circle, circle_provenance).
+Ten-batch reflection written into batch-010.md and SKILL.md: what RVZ data proves
+extractable (6 lot flags, pictures, species, circles, case files, 18 MP touches) vs NOT
+(bidder pools, per-lot overpricing, cross-boundary cadence), and the seven method rules
+the batches earned.
+

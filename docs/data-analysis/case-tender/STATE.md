@@ -2,7 +2,7 @@
 
 > **Regenerated every batch. Read THIS first, `ledger.md` only for history.**
 
-**As of:** batch 009 · 2026-08-24 · last graph write **pass 72** (b007–b009 wrote evidence only; b009 is a kept negative result).
+**As of:** batch 010 · 2026-08-24 · last graph write **pass 73** (winner circles on 133 authority nodes). Ten-batch arc complete — reflection in batch-010.md + SKILL.md.
 
 ## The doctrine (user-set, 2026-08-23)
 
@@ -26,18 +26,13 @@ composed from volume, connection to the MP graph a bonus and never a filter.
 
 ## Open items
 
-1. b010: **winner-circle statistic** over each authority's dated win sequence
-   (wins are identified; 74 % dated): distinct winners, top-3 share,
-   alternation runs — the rotation species' marker rebuilt on visible data
-   (bidder pools are anonymised for ~95 % of authorities — b009 negative
-   result, do NOT retry pool-based markers on RVZ data). Plus the ten-batch
-   skill reflection.
-2. Product surface: **species before rank** (b008) — authority pictures render
-   their species (procedure mix, cadence, dependence) first; flag share compares
-   only within species; czkFloor labelled per species (estimate ceiling vs near
-   awarded cash).
-3. Later: second CPV campaign (72 — IT services) once the CPV 45 loop's flag
-   set stabilises.
+1. Monthly increment (steady state): new RVZ month → `filter-month.py` →
+   `persist-month.ts` (ALL months chronologically) → full reflag
+   (`compute-flags.ts`) → recompose + recircle. Every tool exists.
+2. Needle product surface: species-typed authority pictures (b008 rule),
+   circle shapes with sequences, cover-bid lots, monopoly disclosure pattern.
+3. Campaign 2: CPV 72 (IT services) — the user's original scope question; the
+   flag set is now stable enough (b006 robustness check).
 
 Havířov case file (b007): 33 % flagged, 20–70 lots/month since 2023-10, 89 %
 below-threshold výzvy; specialists at 100 % dependence (VLAMAG 121/121 avg
