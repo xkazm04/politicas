@@ -47,6 +47,7 @@ the route you are about to touch**; do not work from this table alone.
 | `/penize` | `features/money` | FollowTheMoney: tie ledger, money graph, review console, MP/company case files, kauzy, střety | [penize.md](docs/routes/penize.md) |
 | `/rozpocty` | `features/budget` | BudgetMirror: 132 towns, MONITOR series, peer mirror, supplier trail | [rozpocty.md](docs/routes/rozpocty.md) |
 | `/zakony` | `features/lawwatch` | LawWatch: 141 bills → 101 laws, forensic register, sector attribution, kolize | [zakony.md](docs/routes/zakony.md) |
+| `/volby` | `features/volby` | Volby: zrcadlo - the flagship voter surface: "Kde volite?" lookup, ballot-keyed subjects (obec/kraj as zadavatel, elected party lists), a severity ledger of findings composed at read time, a dated-outcome timeline; no composite score | [volby.md](docs/routes/volby.md) |
 | `/denik` | `features/denik` | Deník republiky — the chronological dated record + RSS/JSON feeds | [denik.md](docs/routes/denik.md) |
 | `/schranka` | `features/schranka` | Follow list with no account: localStorage keys, server-derived deltas, feeds | [schranka.md](docs/routes/schranka.md) |
 | `/overeni`, `/zdroj` | `features/overeni` | Civic Claim Gate — re-derives a pasted citation against today's record | [overeni.md](docs/routes/overeni.md) |
@@ -244,7 +245,7 @@ not derivable in ten seconds from `docs/` — no filler, no restating the docs.
 <!-- personas:context-map:start -->
 ## Project Context Map
 
-This project is organized into **48 contexts** across **10 groups**. The full machine-readable map lives in `context-map.json` at the project root — read it at task start to scope your edits to the relevant context's files.
+This project is organized into **49 contexts** across **10 groups**. The full machine-readable map lives in `context-map.json` at the project root — read it at task start to scope your edits to the relevant context's files.
 
 Taxonomy: each context has a `category` (ui · api · lib · data · test · config); each group has a `domain` (feature · infrastructure · shared · integration · data).
 

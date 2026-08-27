@@ -100,3 +100,10 @@ is not loaded — and `docs/DESIGN.md` §2's „reserved" claim is corrected in 
 change (a reserve that ships is not a reserve). No appearance or a11y change: all five
 brands render byte-identically in cs and en, and `sidebarParts.test.ts` +
 `a11y.test.ts` pass with **no assertion edited**.
+
+**2026-08-27 — NAV module `volby` (spark election-replay).** `/volby` is a
+sixth top-level module (brandName „Volby"); `/kraj` and `/kompas` are listed
+under it a second time while their original parents keep `entryFor`
+precedence, and `/volby/snemovna` is a child because the sitemap reads NAV.
+`sidebarParts.test.ts` pins six modules and asserts `volby` is deliberately
+absent from `lib/civic` MODULES — the surface has no sample-data fallback.

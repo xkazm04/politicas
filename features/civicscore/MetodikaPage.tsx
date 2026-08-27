@@ -39,6 +39,7 @@ import {
   SPEECH_SATURATION,
 } from "@/lib/analysis/contribution";
 import { COMPONENT_DEFS } from "./componentDefs";
+import MetodikaVolbySection from "./MetodikaVolbySection";
 import { storedRefLabel, type ContributionProvenance } from "./provenance";
 
 /** Součet zveřejněných vah — POČÍTANÝ, ne napsaný. Kdyby se rozešel se stem,
@@ -237,6 +238,9 @@ export default function MetodikaPage({ provenance }: { provenance: ContributionP
             </div>
           )}
         </section>
+
+        {/* ── 05 Nálezy pro /volby — prahy importované z lib/analysis/volby/rules.ts ── */}
+        <MetodikaVolbySection index={5} />
 
         {/* Jednořádkový korektiv: stránka, která tvrdí metodickou průhlednost,
             musí unést i „našel jsem chybu" — env-gated (bez kontaktu se

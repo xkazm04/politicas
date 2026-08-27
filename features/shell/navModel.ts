@@ -128,6 +128,25 @@ export const NAV: NavEntry[] = [
     ],
   },
   { key: "budget-mirror", href: "/rozpocty", brandName: "BudgetMirror", children: [] },
+  // Volby: zrcadlo (/spark election-replay, 2026-08-27) — vlajková plocha voliče:
+  // „kde volíte" → obec / kraj / sněmovna jako subjekty s ledgerem nálezů. Značka
+  // „Volby" se nepřekládá jako ostatní moduly; tag jde z katalogu (nav.entries),
+  // protože modul NENÍ v ukázkovém katalogu lib/civic (žádný mock — plocha stojí
+  // jen nad reálným grafem, DataUnavailable místo ilustrace). /kraj a /kompas
+  // zůstávají vypsané i u svých původních rodičů (entryFor bere první shodu).
+  {
+    key: "volby",
+    href: "/volby",
+    brandName: "Volby",
+    tagKey: "nav.entries.volby.tag",
+    children: [
+      { href: "/kraj", labelKey: "nav.children.kraj" },
+      { href: "/kompas", labelKey: "nav.children.kompas" },
+      // Index kandidátek — statická podstránka; bez vypsání by ji sitemapa
+      // (publicRoutes.ts čte NAV) neznala.
+      { href: "/volby/snemovna", labelKey: "nav.children.snemovna" },
+    ],
+  },
   {
     key: "law-watch",
     href: "/zakony",
@@ -227,6 +246,15 @@ export const PAGE_SECTIONS: Record<string, NavSection[]> = {
     // kdy se vykresluje vždy, ta výjimka zanikla.
     { id: "posudky", labelKey: "lawwatch.forensicIndex.title" },
     { id: "zavislosti", labelKey: "lawwatch.dependencies.title" },
+  ],
+  // Volby: zrcadlo — pět kotev domovské plochy. Podstránky (obec, kraj,
+  // kandidátka) si je NEDĚDÍ (kontrakt sectionsFor): mají jiný obsah.
+  "/volby": [
+    { id: "kde-volite", labelKey: "volby.lookup.title" },
+    { id: "areny", labelKey: "volby.census.title" },
+    { id: "nalezy", labelKey: "volby.latest.title" },
+    { id: "kandidatky", labelKey: "volby.lists.title" },
+    { id: "pravidla", labelKey: "volby.rules.title" },
   ],
   "/poslanec": [
     { id: "slozky", labelKey: "profile.componentsHeading" },

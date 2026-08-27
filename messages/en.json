@@ -65,7 +65,19 @@
     "lawStatuteTitle": "Act No. {ref} Sb. — statute memory — Politicas",
     "lawStatuteDescription": "The critical edition of Act No. {ref} Sb.: who changed it, with a verbatim section trail from e-Sbírka.",
     "kompasTitle": "Election compass, inverted — Politicas",
-    "kompasDescription": "A reversed election calculator: take positions on real roll-call votes of the Chamber and compute — deterministically, from the stored PSP10 roll-call ballots — which MPs and groups voted like you. The result lives in the link, no account needed."
+    "kompasDescription": "A reversed election calculator: take positions on real roll-call votes of the Chamber and compute — deterministically, from the stored PSP10 roll-call ballots — which MPs and groups voted like you. The result lives in the link, no account needed.",
+    "volbyTitle": "Elections: the mirror — where you vote · Politicas",
+    "volbyDescription": "Say where you vote and get the municipality, the region and the parliamentary lists with findings under published rules — tenders, laws, conflicts — each with a date and a source. No composite index.",
+    "volbyObecTitle": "{obec} — elections: the mirror · Politicas",
+    "volbyObecDescription": "The municipality {obec} as a CPV 45 contracting authority, its region and the lists with MPs from the region — findings under the rules, dated and sourced.",
+    "volbyKrajTitle": "{kraj} — elections: the mirror · Politicas",
+    "volbyKrajDescription": "The {kraj} region as a CPV 45 contracting authority and its MPs by list — findings under the rules, dated and sourced.",
+    "volbyListTitle": "{list} — list · Politicas",
+    "volbyListDescription": "The {list} list in PSP10: its MPs' findings, timeline and line in contested votes — dated and sourced.",
+    "volbySnemovnaTitle": "The whole chamber — lists · Politicas",
+    "volbySnemovnaDescription": "All lists elected to PSP10 with the ledger of their MPs' findings.",
+    "volbyNotFound": "Subject not found · Politicas",
+    "volbyUnavailableTitle": "Elections: the mirror — data temporarily unavailable · Politicas"
   },
   "common": {
     "languageSwitch": "Switch language",
@@ -122,7 +134,8 @@
       "metodika": "index methodology",
       "kompas": "the voting compass, inside out",
       "strety": "conflicts — collision candidates",
-      "predpis": "statute case files"
+      "predpis": "statute case files",
+      "snemovna": "the whole chamber — lists"
     },
     "entries": {
       "schranka": {
@@ -132,6 +145,10 @@
       "zaznam": {
         "label": "The Record",
         "tag": "journal · evidence · data"
+      },
+      "volby": {
+        "label": "Elections",
+        "tag": "municipality · region · chamber"
       }
     }
   },
@@ -530,6 +547,15 @@
         "attendance": "attendance",
         "leadership": "leadership"
       }
+    },
+    "volby": {
+      "regionLabel": "Elections: the mirror",
+      "title": "Where you vote",
+      "lead": "Pick a municipality, a region or the whole chamber and get the subjects accountable to you — with findings under published rules, dated and sourced, no composite index.",
+      "obec": "My municipality",
+      "kraj": "My region",
+      "chamber": "The whole chamber",
+      "cta": "Open the election mirror"
     }
   },
   "dashboard": {
@@ -2596,7 +2622,35 @@
     "weightsHeading": "Six components and their weights",
     "weightsLead": "Every component is normalised to 0-1 and multiplied by its published weight. The score is their sum, rounded to one decimal - nothing else enters it. Each component names the dataset it is computed from.",
     "weightsSource": "weights total: {total} points · lib/analysis/contribution.ts",
-    "weightsTotal": "total"
+    "weightsTotal": "total",
+    "volbyHeading": "Findings for elections",
+    "volbySource": "lib/analysis/volby/rules.ts · rule-set ref {ref} · every threshold is an import, never a copied number",
+    "volbyLead": "The /volby page gives no score. It keeps a ledger of findings: counts by valence (negative, positive, unrated) and severity (low, medium, high), measured against the arena baseline or the chamber median. Rules are arithmetic over register facts; law verdicts stay “pending review”, money ties are counted but never rated.",
+    "volbyWindowsLead": "A list answers for the term in which it governs. A municipality’s or region’s ledger takes only lots decided inside the running term; undated lots are counted separately and never guessed.",
+    "volbyWindowOpen": "to date",
+    "volbyWindowsSource": "lib/analysis/volby/terms.ts · election dates per volby.cz",
+    "volbyRule_tender_konvejer_title": "Tender conveyor",
+    "volbyRule_tender_konvejer_rule": "A municipality or region as contracting authority: flagged-lot share at least {n1Medium}× the arena baseline (medium), from {n1High}× high, and at least one supplier taking at least {n1Dependence} of all its wins at this authority.",
+    "volbyRule_tender_dvorni_dodavatel_title": "House supplier",
+    "volbyRule_tender_dvorni_dodavatel_rule": "The three most frequent winners hold at least {circleMin} of dated wins and alternate in at most {switchMax} of cases; at least {minWins} dated wins. From {circleHigh} share, high severity.",
+    "volbyRule_tender_rotace_title": "Rotation",
+    "volbyRule_tender_rotace_rule": "The three most frequent winners hold at least {circleMin} of dated wins and alternate in at least {switchMin} of cases; at least {minWins} dated wins. From {circleHigh} share, high severity.",
+    "volbyRule_tender_kratke_lhuty_title": "Short deadlines as practice",
+    "volbyRule_tender_kratke_lhuty_rule": "Share of short-deadline lots at least {n4Multiple}× the arena baseline, over at least {n4MinLots} lots.",
+    "volbyRule_tender_cisty_radar_title": "Clean radar",
+    "volbyRule_tender_cisty_radar_rule": "Positive finding: at least {p1MinLots} lots inside the term and a flagged share at most {p1Max}× the arena baseline.",
+    "volbyRule_law_posudek_title": "Law verdict",
+    "volbyRule_law_posudek_rule": "The MP sponsors a bill with a forensic verdict of medium or high severity. A low-severity verdict is not a finding. State: pending review; severity is the verdict’s.",
+    "volbyRule_law_sponsor_conflict_title": "Sponsor–money conflict",
+    "volbyRule_law_sponsor_conflict_rule": "The bill carries the Case ① conflict flag (sponsors’ companies holding contracts). Medium; from CZK {conflictCzk} m of contracts, high. State: pending review.",
+    "volbyRule_law_became_law_clean_title": "Became law without conflict",
+    "volbyRule_law_became_law_clean_rule": "Positive finding: a sponsored bill was published in the Collection and carries no conflict flag. Dated by publication.",
+    "volbyRule_effort_workhorse_title": "Workhorse",
+    "volbyRule_effort_workhorse_rule": "Positive finding: the MP carries the Case ② workhorse badge (deterministic contribution triage).",
+    "volbyRule_effort_rapporteur_title": "Rapporteur workhorse",
+    "volbyRule_effort_rapporteur_rule": "Positive finding: rapporteur of at least {rapporteurMin} bills.",
+    "volbyRule_money_ties_unrated_title": "Ties pending review",
+    "volbyRule_money_ties_unrated_rule": "Count of MP ↔ company ties that have not passed the human gate. Valence “unrated”: shown, never added to the finding total."
   },
   "overeni": {
     "meta": {
@@ -3535,5 +3589,218 @@
     "emailBody": "Claim: {ref}\nPage: {url}\nDate: {date}\n\nWhat you believe is wrong (and against which source):\n",
     "correctionsPrefix": "Found an error in the methodology?",
     "correctionsLink": "write to us — the mail carries the page address and date"
+  },
+  "volby": {
+    "breadcrumb": "/ elections",
+    "title": "Elections: the mirror",
+    "lead": "Say where you vote and get the subjects accountable to you for their decisions — the municipality and the region as contracting authorities, the parliamentary lists as carriers of their MPs' findings. No composite index: only counts of findings under a published rule, each with a date and a source.",
+    "lookup": {
+      "title": "Where do you vote?",
+      "lead": "Pick a municipality or a region — or open the whole chamber. Every choice leads to a permanent, shareable address.",
+      "obecLabel": "Search municipality",
+      "obecPlaceholder": "Municipality name…",
+      "obecResults": "Municipalities found",
+      "obecEmpty": "No municipality matches the search",
+      "obecHint": "municipal elections — the municipality as contracting authority",
+      "districtAbbr": "dist. {county}",
+      "krajLabel": "Search region",
+      "krajPlaceholder": "Region name…",
+      "krajResults": "Regions found",
+      "krajEmpty": "No region matches the search",
+      "krajHint": "regional elections — the region as contracting authority",
+      "chamber": "The whole chamber",
+      "chamberHint": "parliamentary elections — lists and their MPs"
+    },
+    "census": {
+      "title": "Who answers to you",
+      "lead": "Four arenas of construction-contract authorities (CPV 45) by the election that can replace them. Nobody votes the “unclear” arena locally — contributory organisations and city companies remain a national count.",
+      "arena": {
+        "komunalni": "municipal arena",
+        "krajske": "regional arena",
+        "statni": "state arena",
+        "nejasne": "unclear arena"
+      },
+      "authorities": "authorities",
+      "sub": "{lots} lots · flagged {flagged} · from {czk}",
+      "source": "ISVZ/RVZ via the tender graph (tender nodes, pass {pass}); flagged = a lot with at least one flag"
+    },
+    "latest": {
+      "title": "Findings",
+      "lead": "The twenty most recently dated findings across arenas. A finding is a question for the council, the board or the ministry — not a verdict; the rule and the evidence sit on every row.",
+      "empty": "No dated finding yet.",
+      "open": "open subject {label}",
+      "source": "findings composed at read time by the {ref} rules over the graph; date = the later documented fact, else the decision date"
+    },
+    "lists": {
+      "title": "Parliamentary lists",
+      "lead": "The list an MP was elected on carries their findings — never the club they sit in today. The difference between list and club is visible in the last column.",
+      "colList": "list",
+      "colSeats": "seats",
+      "colNegative": "questions",
+      "colPositive": "positive",
+      "colUnrated": "unassessed",
+      "colClubs": "sits today in",
+      "open": "open list {label}",
+      "source": "psp.cz — PSP10 mandates (list = partyListPspId), clubs per clubByMandate; MP findings summed onto the list",
+      "empty": "The lists could not be composed — PSP10 mandates are not readable in the graph."
+    },
+    "rules": {
+      "title": "Rules",
+      "lead": "Every finding comes from a deterministic rule over documented facts; the thresholds are published and the methodology imports them from the same file the rules read.",
+      "link": "Findings methodology"
+    },
+    "kind": {
+      "tender_konvejer": "Contract conveyor",
+      "tender_dvorni_dodavatel": "House supplier",
+      "tender_rotace": "Supplier rotation",
+      "tender_kratke_lhuty": "Short deadlines as practice",
+      "tender_cisty_radar": "Clean radar",
+      "law_posudek": "Forensic opinion",
+      "law_sponsor_conflict": "Sponsor's money conflict",
+      "law_became_law_clean": "Became law without a conflict",
+      "effort_workhorse": "Workhorse",
+      "effort_rapporteur": "Rapporteur workhorse",
+      "money_ties_unrated": "Ties without assessment"
+    },
+    "severity": {
+      "low": "low",
+      "medium": "medium",
+      "high": "high"
+    },
+    "valence": {
+      "negative": "question",
+      "positive": "positive",
+      "unrated": "unassessed"
+    },
+    "review": {
+      "pending_review": "awaiting human review",
+      "deterministic": "rule over the register",
+      "verified": "verified"
+    },
+    "later": {
+      "fate_sb": "published in the Collection of Laws",
+      "forensic_verdict": "forensic opinion recorded",
+      "collision_detected": "collision detected",
+      "flags_computed": "flags computed"
+    },
+    "figure": {
+      "lots": "lots in the term",
+      "undated": "undated",
+      "termFiltered": "outside the term",
+      "flagged": "flagged",
+      "share": "share",
+      "baseline": "arena baseline",
+      "multiple": "multiple of baseline",
+      "dependence": "supplier dependence",
+      "dependentWinners": "dependent suppliers",
+      "circle3Share": "share of the top three winners",
+      "switchRate": "switch rate",
+      "datedWins": "dated wins",
+      "shortDeadline": "short deadlines",
+      "sponsor_contract_czk": "contracts of the sponsor's companies",
+      "sponsor_money_companies": "sponsor's companies",
+      "rapporteurLoad": "rapporteur load",
+      "min": "threshold",
+      "ties": "ties"
+    },
+    "finding": {
+      "multiple": "{multiple}× the arena baseline",
+      "decidedOn": "decided {date}",
+      "laterOn": "later fact {date}",
+      "undated": "no decision date",
+      "rule": "rule {ref}",
+      "ruleLink": "methodology of rule {ref}",
+      "evidence": "evidence",
+      "evidenceSource": "evidence = graph nodes and edges; every link opens a provenance receipt at /zdroj",
+      "figuresSource": "rule inputs exactly as the rule evaluated them (rounded to four places)"
+    },
+    "ballot": {
+      "komunalni": "municipal elections",
+      "krajske": "regional elections",
+      "snemovni": "parliamentary elections"
+    },
+    "card": {
+      "window": "term: {label}",
+      "ledgerNegative": "findings — questions",
+      "ledgerPositive": "findings — positive",
+      "ledgerUnrated": "unassessed",
+      "ledgerSub": "high {high} · medium {medium} · low {low}",
+      "ledgerSource": "counts of findings by rule and severity; no composite index is computed",
+      "baseline": "arena baseline: {share} of lots flagged ({label})",
+      "baselineNone": "no arena baseline — the rules were evaluated without a comparison",
+      "zeroTender": "No finding under rules N1–N4 and P1 in CPV 45 for the term {window}.",
+      "zeroMp": "No finding under rules L1–L3 and P2–P3 for the term {window}.",
+      "noPersons": "The card carries only the contracting authority — only the human-gated money module names people."
+    },
+    "sections": {
+      "findings": "Findings",
+      "timeline": "What we know today",
+      "timelineLead": "The decision and the later documented fact we hold about it today — dated by the day it entered the graph.",
+      "timelineEmpty": "No finding has a later dated fact yet.",
+      "timelineSource": "timeline = findings with a later dated fact, sorted descending",
+      "contested": "Contested votes",
+      "contestedLead": "The twelve closest valid PSP10 votes and this list's line in them. A record of positions, not a finding — the direction of a vote has no derivable value.",
+      "contestedEmpty": "Contested votes could not be composed — the vote record is not readable.",
+      "contestedSource": "psp.cz — PSP10 votes; contestedness = 1 − |yes − no| / (yes + no); line = majority of the list's MPs' ballots",
+      "members": "MPs of the list",
+      "membersSource": "psp.cz — PSP10 mandates and clubs; finding count under the volby-rules"
+    },
+    "obec": {
+      "komunalniTitle": "The municipality as contracting authority",
+      "noAuthority": "The municipality does not appear under its own IČO in the CPV 45 tender graph — it was not an authority there, or it procures through organisations that are not linked.",
+      "unlinkedTitle": "Not linked",
+      "unlinkedBody": "{count} authorities with an unclear arena (contributory organisations, city companies) have no link to any municipality in the graph. This is a national count: these bodies are NOT localised to this municipality.",
+      "unlinkedSource": "tender graph — company.electoral_arena = nejasne; municipality ↔ authority linked only by IČO equality",
+      "krajTitle": "The region as contracting authority",
+      "krajOpen": "open the region card",
+      "listsTitle": "Lists with MPs from this region",
+      "meta": "{county} · {kraj}",
+      "population": "{population} inhabitants",
+      "populationSource": "municipality registry (ČSÚ / MONITOR) — features/budget"
+    },
+    "kraj": {
+      "krajskeTitle": "The region as contracting authority",
+      "noAuthority": "The region does not appear under its own IČO in the CPV 45 tender graph.",
+      "mpsTitle": "MPs of the region",
+      "mpsLead": "MPs elected in this region, by list. The list carries their findings; the club is today's seating.",
+      "colName": "MP",
+      "colList": "list",
+      "colClub": "club today",
+      "mpsSource": "psp.cz — PSP10 mandates (region = the mandate's electoral region)",
+      "listsTitle": "Lists with MPs from this region",
+      "pinLists": "the region's MPs on the list"
+    },
+    "list": {
+      "seats": "{seats} seats",
+      "clubsToday": "sits today in",
+      "clubNone": "no club",
+      "colName": "MP",
+      "colRegion": "region",
+      "colClub": "club today",
+      "colFindings": "findings",
+      "pinnedTitle": "MPs of the {kraj} region",
+      "pinnedLead": "You came from the region card — these MPs of the list were elected there.",
+      "colVote": "vote",
+      "colDate": "date",
+      "colLine": "line",
+      "colYes": "yes",
+      "colNo": "no",
+      "colContested": "contestedness",
+      "lineYes": "yes",
+      "lineNo": "no",
+      "lineSplit": "split",
+      "voteLink": "vote {id} on psp.cz",
+      "memberFindingsNone": "no finding"
+    },
+    "provenance": "composed {computedAt} · rules {ref} · pass {pass} · sources: {sources}",
+    "provenanceNoPass": "composed {computedAt} · rules {ref} · sources: {sources}",
+    "unavailableWhat": "the election mirror",
+    "unavailableBack": "back to Elections",
+    "unavailableBackHome": "back to the control room",
+    "snemovna": {
+      "title": "The whole chamber",
+      "lead": "All lists elected to PSP10 with the ledger of their MPs' findings. Open a list for its MPs, timeline and contested votes.",
+      "backToVolby": "back to Elections"
+    }
   }
 }

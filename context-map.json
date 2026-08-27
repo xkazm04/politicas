@@ -2924,6 +2924,104 @@
         "next-intl",
         "TypeScript"
       ]
+    },
+    {
+      "api_surface": "GET /volby, /volby/obec/[ico], /volby/kraj/[slug], /volby/snemovna, /volby/snemovna/[slug]",
+      "business_feature": "Volby: zrcadlo",
+      "category": "ui",
+      "cross_refs": [
+        "civicscore-leaderboard",
+        "kg-analysis",
+        "lawwatch",
+        "budget-mirror",
+        "shared-primitives"
+      ],
+      "db_tables": [
+        "kg_node",
+        "kg_edge",
+        "mandate",
+        "membership",
+        "organ",
+        "vote_event",
+        "vote_ballot"
+      ],
+      "description": "Volby: zrcadlo (/volby) — the flagship voter surface. A reader says where they vote (obec picker over 6 254 obci, a kraj, or the chamber) and gets the accountable subjects of each ballot: the obec/kraj as zadavatel for komunalni/krajske (tender findings N1-N4/P1), the elected party lists for snemovni (law posudky, sponsor-money conflicts, effort badges, unrated money ties rolled up over current mandate holders). Findings are composed at read time by lib/analysis/volby/rules.ts from persisted signals (one memoised tender fold in tenderLayer.ts), rendered as a severity ledger (never a composite score) plus a dated-outcome timeline; /metodika section 05 imports every threshold.",
+      "entry_points": [
+        "features/volby/VolbyPage.tsx",
+        "features/volby/volbyLoader.ts",
+        "lib/analysis/volby/rules.ts"
+      ],
+      "file_paths": [
+        "features/volby/getKrajData.ts",
+        "features/volby/getListData.ts",
+        "features/volby/getObecData.ts",
+        "features/volby/getVolbyHomeData.ts",
+        "features/volby/KrajPage.tsx",
+        "features/volby/labels.ts",
+        "features/volby/ListPage.tsx",
+        "features/volby/loaders.test.ts",
+        "features/volby/messages.test.ts",
+        "features/volby/ObecPage.tsx",
+        "features/volby/README.md",
+        "features/volby/SnemovnaPage.tsx",
+        "features/volby/tenderLayer.test.ts",
+        "features/volby/tenderLayer.ts",
+        "features/volby/volbyIntl.ts",
+        "features/volby/volbyLoader.ts",
+        "features/volby/VolbyPage.tsx",
+        "features/volby/components/ContestedMatrix.tsx",
+        "features/volby/components/FindingRow.tsx",
+        "features/volby/components/LedgerTiles.tsx",
+        "features/volby/components/ListsLedger.tsx",
+        "features/volby/components/OutcomeTimeline.tsx",
+        "features/volby/components/ProvenanceLine.tsx",
+        "features/volby/components/SubjectCard.tsx",
+        "features/volby/components/VolbyFrame.tsx",
+        "features/volby/components/VolbyLookup.tsx",
+        "app/volby/page.tsx",
+        "app/volby/obec/[ico]/page.tsx",
+        "app/volby/kraj/[slug]/page.tsx",
+        "app/volby/snemovna/page.tsx",
+        "app/volby/snemovna/[slug]/page.tsx",
+        "lib/analysis/volby/contested.test.ts",
+        "lib/analysis/volby/contested.ts",
+        "lib/analysis/volby/kraje.test.ts",
+        "lib/analysis/volby/kraje.ts",
+        "lib/analysis/volby/rules.test.ts",
+        "lib/analysis/volby/rules.ts",
+        "lib/analysis/volby/terms.test.ts",
+        "lib/analysis/volby/terms.ts",
+        "lib/analysis/volby/types.ts",
+        "features/civicscore/MetodikaVolbySection.tsx",
+        "features/landing/components/VolbySection.tsx"
+      ],
+      "group": "Voting & Legislation",
+      "group_id": "ef74e660-f57f-4958-bc4d-63585466b65b",
+      "id": "volby-election-mirror-2026-08-27",
+      "keywords": [
+        "volby",
+        "elections",
+        "nalezy",
+        "findings",
+        "ledger",
+        "arena",
+        "obec",
+        "kraj",
+        "kandidatka",
+        "party list",
+        "tender",
+        "posudek"
+      ],
+      "last_written_at": "2026-08-05T08:15:52.330568+00:00",
+      "name": "volby-election-mirror",
+      "pinned": false,
+      "tech_stack": [
+        "Next.js 15",
+        "React 19",
+        "TypeScript",
+        "Tailwind v4",
+        "recharts 3"
+      ]
     }
   ],
   "generated_at": "2026-08-05T08:23:24.396040500+00:00",
@@ -2945,7 +3043,7 @@
     },
     {
       "color": "violet",
-      "context_count": 4,
+      "context_count": 5,
       "domain": "feature",
       "id": "ef74e660-f57f-4958-bc4d-63585466b65b",
       "name": "Voting & Legislation"
@@ -3010,8 +3108,8 @@
     "git_commit_count": 305
   },
   "stats": {
-    "contexts": 48,
-    "files": 801,
+    "contexts": 49,
+    "files": 843,
     "groups": 10,
     "use_cases": 0
   },

@@ -1,5 +1,5 @@
 {
-  "_comment": "Source -> docs coupling map for Politicas. When a turn edits source matching an entry's sourceGlobs with user- or contributor-visible effect (new/removed route, changed module architecture, new command, design-token or lint-rule change, sample-data-layer status), update the coupled doc in the SAME change. Internal-only edits (refactors, bugfixes with no behavior shift) need no doc update - record them with a `Doc-sync: <why>` commit trailer rather than in silence. A single source glob may couple to several docs. Globs are scoped to the contexts in context-map.json (48 contexts / 10 groups). Deliberately NOT listed here: dated, append-only or point-in-time artifacts that must never be retro-edited to match new code - docs/harness/** (the 2026-07-26 combined scan snapshot), docs/architect/decisions|scans/** (ADRs and scan records), docs/data-analysis/case-*/** batch notes and the vault ledgers (coverage-ledger, graph-log, frontier, patterns, contradictions), and the docs/data-analysis/justice-sources-* / cluster-* / phase* research notes. Those are history, not documentation of current source. THIS FILE IS ENFORCED: `node scripts/docs/check-doc-sync.mjs` reads it, re-derives the context/group counts above from context-map.json, and refuses a change that touches coupled source without touching the coupled doc.",
+  "_comment": "Source -> docs coupling map for Politicas. When a turn edits source matching an entry's sourceGlobs with user- or contributor-visible effect (new/removed route, changed module architecture, new command, design-token or lint-rule change, sample-data-layer status), update the coupled doc in the SAME change. Internal-only edits (refactors, bugfixes with no behavior shift) need no doc update - record them with a `Doc-sync: <why>` commit trailer rather than in silence. A single source glob may couple to several docs. Globs are scoped to the contexts in context-map.json (49 contexts / 10 groups). Deliberately NOT listed here: dated, append-only or point-in-time artifacts that must never be retro-edited to match new code - docs/harness/** (the 2026-07-26 combined scan snapshot), docs/architect/decisions|scans/** (ADRs and scan records), docs/data-analysis/case-*/** batch notes and the vault ledgers (coverage-ledger, graph-log, frontier, patterns, contradictions), and the docs/data-analysis/justice-sources-* / cluster-* / phase* research notes. Those are history, not documentation of current source. THIS FILE IS ENFORCED: `node scripts/docs/check-doc-sync.mjs` reads it, re-derives the context/group counts above from context-map.json, and refuses a change that touches coupled source without touching the coupled doc.",
   "_enforcedBy": "scripts/docs/check-doc-sync.mjs (structural, always) + `npm run docs:sync` / the lefthook commit-msg rung (same-change, over the git diff)",
   "unmappedByDesign": [
     {
@@ -277,6 +277,8 @@
     {
       "doc": "docs/routes/volby.md",
       "sourceGlobs": [
+        "features/volby/**",
+        "app/volby/**",
         "lib/analysis/volby/**"
       ]
     },

@@ -41,6 +41,7 @@ import HeroStory from "./components/HeroStory";
 import LiveSpecimen from "./components/LiveSpecimen";
 import Standings from "./components/Standings";
 import ReferendumTeaser from "./components/ReferendumTeaser";
+import VolbySection from "./components/VolbySection";
 import SystemModules from "./components/SystemModules";
 import DataSources from "./components/DataSources";
 import Methodology from "./components/Methodology";
@@ -217,6 +218,9 @@ export default function LandingPage({
 
       {/* ── Dnešní zápis — rubrika Deníku republiky (moonshot 3A), streamovaná ── */}
       {denikSlot}
+
+      {/* ── Volby: zrcadlo — vstup „Kde volíte?" (spark election-replay) ── */}
+      <VolbySection />
 
       {/* ── Referendum o metodice — tři redakční čočky (moonshot 7B) ── */}
       <ReferendumTeaser count={data?.count ?? null} />

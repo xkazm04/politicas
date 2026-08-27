@@ -75,3 +75,26 @@ Known: the baseline `source` refs (`claim:volby-census:…`) are labels, not yet
 resolvable at `/zdroj`; no sponsorship date exists on any bill prop, so law
 findings carry `decidedOn: null`. Registry Czech (organ names, obec names, vote
 titles) is the only prose these loaders emit, so no language gate applies.
+
+**2026-08-27 — UI + routes (WP3).** Five thin routes; RSC everywhere except the
+lookup (`features/volby/components/VolbyLookup.tsx`, two `Combobox`es over the
+6 254-obec registry and the 14-row crosswalk). `generateMetadata` distinguishes
+outage (`robots: {index:false}`) from a real 404; `?kraj=` is validated against
+the crosswalk and silently dropped otherwise. NAV module `volby` lists `/kraj`
+and `/kompas` as children a second time (their original parents keep
+`entryFor` precedence); `/volby/snemovna` had to be a NAV child too — the
+sitemap reads NAV. `features/shell/sidebarParts.test.ts` now pins six modules
+and asserts `volby` is deliberately ABSENT from `lib/civic` MODULES: this
+surface has no sample-data fallback, only `DataUnavailable`.
+`features/volby/messages.test.ts` pins, besides parity and the language gate, a
+no-accusation regex over every Czech string, the sentence that nejasné bodies
+are NOT localised, and that „skóre" appears only in negation.
+`/metodika` §05 (`features/civicscore/MetodikaVolbySection.tsx`) prints every
+threshold as an import and gives each rule the anchor `#volby-<ref>` a finding
+row links to; the catalog is flat (`metodika.volbyRule_<kind>_title/_rule`)
+because the metodika parity test walks flat strings.
+Known v1 limits: a `list:<pspId>` finding on the home feed links to the list
+index (no slug on `Finding`); the zero-finding sentence names the term window,
+not a lot count (an empty `SubjectCard` carries none); `ProvenanceCapsule`
+receipts are not minted — `u.`/`h.` refs link to `/zdroj`, other refs render
+as text. `custom/require-source-citation` warnings: 0 before, 0 after.

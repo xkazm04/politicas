@@ -65,7 +65,19 @@
     "lawStatuteTitle": "Zákon č. {ref} Sb. — paměť zákona — Politicas",
     "lawStatuteDescription": "Kritické vydání zákona č. {ref} Sb.: kdo ho měnil a doslovná §-stopa z e-Sbírky.",
     "kompasTitle": "Volební kompas naruby — Politicas",
-    "kompasDescription": "Obrácená volební kalkulačka: zaujměte postoj ke skutečným hlasováním sněmovny a spočítejte si — deterministicky, z uložených jmenovitých hlasů PSP10 — kteří poslanci a kluby hlasovali jako vy. Výsledek je v odkazu, žádný účet."
+    "kompasDescription": "Obrácená volební kalkulačka: zaujměte postoj ke skutečným hlasováním sněmovny a spočítejte si — deterministicky, z uložených jmenovitých hlasů PSP10 — kteří poslanci a kluby hlasovali jako vy. Výsledek je v odkazu, žádný účet.",
+    "volbyTitle": "Volby: zrcadlo — kde volíte · Politicas",
+    "volbyDescription": "Řekněte, kde volíte, a dostanete obec, kraj a sněmovní kandidátky s nálezy podle zveřejněných pravidel — zakázky, zákony, střety — každý s datem a zdrojem. Bez souhrnného indexu.",
+    "volbyObecTitle": "{obec} — volby: zrcadlo · Politicas",
+    "volbyObecDescription": "Obec {obec} jako zadavatel zakázek CPV 45, její kraj a kandidátky s poslanci z kraje — nálezy podle pravidel, s datem a zdrojem.",
+    "volbyKrajTitle": "{kraj} — volby: zrcadlo · Politicas",
+    "volbyKrajDescription": "Kraj {kraj} jako zadavatel zakázek CPV 45 a jeho poslanci podle kandidátky — nálezy podle pravidel, s datem a zdrojem.",
+    "volbyListTitle": "{list} — kandidátka · Politicas",
+    "volbyListDescription": "Kandidátka {list} v PSP10: nálezy jejích poslanců, časová osa a linie ve sporných hlasováních — s datem a zdrojem.",
+    "volbySnemovnaTitle": "Celá sněmovna — kandidátky · Politicas",
+    "volbySnemovnaDescription": "Všechny kandidátky zvolené do PSP10 s ledgerem nálezů svých poslanců.",
+    "volbyNotFound": "Subjekt nenalezen · Politicas",
+    "volbyUnavailableTitle": "Volby: zrcadlo — data dočasně nedostupná · Politicas"
   },
   "common": {
     "languageSwitch": "Přepnout jazyk",
@@ -122,7 +134,8 @@
       "metodika": "metodika indexu",
       "kompas": "volební kompas naruby",
       "strety": "střety — kandidáti kolizí",
-      "predpis": "spisy předpisů"
+      "predpis": "spisy předpisů",
+      "snemovna": "celá sněmovna — kandidátky"
     },
     "entries": {
       "schranka": {
@@ -132,6 +145,10 @@
       "zaznam": {
         "label": "Záznam",
         "tag": "deník · důkazy · data"
+      },
+      "volby": {
+        "label": "Volby",
+        "tag": "obec · kraj · sněmovna"
       }
     }
   },
@@ -530,6 +547,15 @@
         "attendance": "docházka",
         "leadership": "vedení"
       }
+    },
+    "volby": {
+      "regionLabel": "Volby: zrcadlo",
+      "title": "Kde volíte",
+      "lead": "Vyberte obec, kraj nebo celou sněmovnu a dostanete subjekty, které se vám zodpovídají — s nálezy podle zveřejněných pravidel, s datem a zdrojem, bez souhrnného indexu.",
+      "obec": "Moje obec",
+      "kraj": "Můj kraj",
+      "chamber": "Celá sněmovna",
+      "cta": "Otevřít zrcadlo voleb"
     }
   },
   "dashboard": {
@@ -2596,7 +2622,35 @@
     "weightsHeading": "Šest složek a jejich váhy",
     "weightsLead": "Každá složka se normalizuje na 0–1 a vynásobí svou zveřejněnou vahou. Skóre je jejich součet, zaokrouhlený na desetinu — nic dalšího do něj nevstupuje. Ke každé složce patří dataset, ze kterého je spočítaná.",
     "weightsSource": "součet vah: {total} bodů · lib/analysis/contribution.ts",
-    "weightsTotal": "součet"
+    "weightsTotal": "součet",
+    "volbyHeading": "Nálezy pro volby",
+    "volbySource": "lib/analysis/volby/rules.ts · otisk pravidel {ref} · každý práh je import, ne opsané číslo",
+    "volbyLead": "Stránka /volby nedává skóre. Vede ledger nálezů: počet podle valence (negativní, pozitivní, neposouzeno) a závažnosti (nízká, střední, vysoká), měřený proti základu arény nebo mediánu sněmovny. Pravidla jsou aritmetika nad fakty z registrů; posudky zákonů zůstávají „čeká na posouzení“, vazby na peníze se počítají, ale nikdy nehodnotí.",
+    "volbyWindowsLead": "Kandidátka odpovídá za období, ve kterém vládne. Do ledgeru obce a kraje vstupují jen zakázky rozhodnuté uvnitř běžícího období; zakázky bez data se počítají zvlášť a nikdy se nedomýšlejí.",
+    "volbyWindowOpen": "dosud",
+    "volbyWindowsSource": "lib/analysis/volby/terms.ts · termíny voleb podle volby.cz",
+    "volbyRule_tender_konvejer_title": "Dopravník zakázek",
+    "volbyRule_tender_konvejer_rule": "Obec nebo kraj jako zadavatel: podíl označených zakázek nejméně {n1Medium}× nad základem arény (střední), od {n1High}× vysoká, a aspoň jeden dodavatel, který u tohoto zadavatele bere nejméně {n1Dependence} všech svých výher.",
+    "volbyRule_tender_dvorni_dodavatel_title": "Dvorní dodavatel",
+    "volbyRule_tender_dvorni_dodavatel_rule": "Tři nejčastější vítězové drží nejméně {circleMin} datovaných výher a střídají se nejvýše v {switchMax} případů; nejméně {minWins} datovaných výher. Od {circleHigh} podílu vysoká závažnost.",
+    "volbyRule_tender_rotace_title": "Rotace",
+    "volbyRule_tender_rotace_rule": "Tři nejčastější vítězové drží nejméně {circleMin} datovaných výher a střídají se nejméně v {switchMin} případů; nejméně {minWins} datovaných výher. Od {circleHigh} podílu vysoká závažnost.",
+    "volbyRule_tender_kratke_lhuty_title": "Krátké lhůty jako praxe",
+    "volbyRule_tender_kratke_lhuty_rule": "Podíl zakázek s krátkou lhůtou nejméně {n4Multiple}× nad základem arény, při nejméně {n4MinLots} zakázkách.",
+    "volbyRule_tender_cisty_radar_title": "Čistý radar",
+    "volbyRule_tender_cisty_radar_rule": "Pozitivní nález: nejméně {p1MinLots} zakázek ve volebním období a podíl označených zakázek nejvýše {p1Max}× základu arény.",
+    "volbyRule_law_posudek_title": "Posudek zákona",
+    "volbyRule_law_posudek_rule": "Poslanec je předkladatelem tisku s forenzním posudkem střední nebo vysoké závažnosti. Posudek nízké závažnosti nálezem není. Stav: čeká na posouzení; závažnost je závažnost posudku.",
+    "volbyRule_law_sponsor_conflict_title": "Střet předkladatele s penězi",
+    "volbyRule_law_sponsor_conflict_rule": "Tisk nese příznak střetu z případu ① (firmy předkladatelů se smlouvami). Střední závažnost; od {conflictCzk} mil. Kč smluv vysoká. Stav: čeká na posouzení.",
+    "volbyRule_law_became_law_clean_title": "Zákon prošel bez střetu",
+    "volbyRule_law_became_law_clean_rule": "Pozitivní nález: předkládaný tisk vyšel ve Sbírce a nenese příznak střetu. Datován dnem vyhlášení.",
+    "volbyRule_effort_workhorse_title": "Tahoun",
+    "volbyRule_effort_workhorse_rule": "Pozitivní nález: poslanec nese odznak tahouna z případu ② (deterministické třídění přispění).",
+    "volbyRule_effort_rapporteur_title": "Zpravodajský tahoun",
+    "volbyRule_effort_rapporteur_rule": "Pozitivní nález: zpravodaj nejméně {rapporteurMin} tisků.",
+    "volbyRule_money_ties_unrated_title": "Vazby bez posouzení",
+    "volbyRule_money_ties_unrated_rule": "Počet vazeb poslanec ↔ firma, které dosud neprošly lidskou branou. Valence „neposouzeno“: zobrazuje se, do součtu nálezů nikdy nevstupuje."
   },
   "overeni": {
     "meta": {
@@ -3535,5 +3589,218 @@
     "emailBody": "Tvrzení: {ref}\nStránka: {url}\nDatum: {date}\n\nCo je podle vás špatně (a proti kterému zdroji):\n",
     "correctionsPrefix": "Našli jste v metodice chybu?",
     "correctionsLink": "napište nám — mail s sebou vezme adresu stránky i datum"
+  },
+  "volby": {
+    "breadcrumb": "/ volby",
+    "title": "Volby: zrcadlo",
+    "lead": "Řekněte, kde volíte, a dostanete subjekty, které se vám zodpovídají za svá rozhodnutí — obec a kraj jako zadavatele zakázek, sněmovní kandidátky jako nositele nálezů svých poslanců. Žádný souhrnný index: jen počty nálezů podle zveřejněného pravidla, každý s datem a zdrojem.",
+    "lookup": {
+      "title": "Kde volíte?",
+      "lead": "Vyberte obec nebo kraj — nebo otevřete celou sněmovnu. Každá volba vede na trvalou adresu, kterou lze sdílet.",
+      "obecLabel": "Hledat obec",
+      "obecPlaceholder": "Název obce…",
+      "obecResults": "Nalezené obce",
+      "obecEmpty": "Žádná obec neodpovídá hledání",
+      "obecHint": "komunální volby — obec jako zadavatel",
+      "districtAbbr": "okr. {county}",
+      "krajLabel": "Hledat kraj",
+      "krajPlaceholder": "Název kraje…",
+      "krajResults": "Nalezené kraje",
+      "krajEmpty": "Žádný kraj neodpovídá hledání",
+      "krajHint": "krajské volby — kraj jako zadavatel",
+      "chamber": "Celá sněmovna",
+      "chamberHint": "sněmovní volby — kandidátky a jejich poslanci"
+    },
+    "census": {
+      "title": "Kdo se vám zodpovídá",
+      "lead": "Čtyři arény zadavatelů stavebních zakázek (CPV 45) podle toho, ve kterých volbách je lze vyměnit. Arénu „nejasné“ nikdo lokálně nevolí — příspěvkové organizace a městské firmy zůstávají celostátním počtem.",
+      "arena": {
+        "komunalni": "komunální aréna",
+        "krajske": "krajská aréna",
+        "statni": "státní aréna",
+        "nejasne": "nejasná aréna"
+      },
+      "authorities": "zadavatelů",
+      "sub": "{lots} zakázek · označeno {flagged} · od {czk}",
+      "source": "ISVZ/RVZ přes graf zakázek (uzly tender, průchod {pass}); označená = zakázka s alespoň jedním příznakem"
+    },
+    "latest": {
+      "title": "Nálezy",
+      "lead": "Dvacet naposledy datovaných nálezů napříč arénami. Nález je otázka pro zastupitele, radu nebo ministerstvo — ne verdikt; pravidlo i doklady jsou u každého řádku.",
+      "empty": "Zatím žádný datovaný nález.",
+      "open": "otevřít subjekt {label}",
+      "source": "nálezy složené při čtení pravidly {ref} nad grafem; datum = pozdější doložený fakt, jinak datum rozhodnutí"
+    },
+    "lists": {
+      "title": "Sněmovní kandidátky",
+      "lead": "Kandidátka, na které byl poslanec zvolen, nese jeho nálezy — nikdy klub, ve kterém dnes sedí. Rozdíl mezi kandidátkou a klubem je vidět v posledním sloupci.",
+      "colList": "kandidátka",
+      "colSeats": "mandátů",
+      "colNegative": "otázky",
+      "colPositive": "pozitivní",
+      "colUnrated": "nezhodnoceno",
+      "colClubs": "dnes sedí v",
+      "open": "otevřít kandidátku {label}",
+      "source": "psp.cz — mandáty PSP10 (kandidátka = partyListPspId), kluby dle clubByMandate; nálezy poslanců sečtené na kandidátku",
+      "empty": "Kandidátky se nepodařilo složit — mandáty PSP10 nejsou v grafu čitelné."
+    },
+    "rules": {
+      "title": "Pravidla",
+      "lead": "Každý nález vzniká deterministickým pravidlem nad doloženými fakty; prahy jsou zveřejněné a metodika je importuje ze stejného souboru, ze kterého je čtou pravidla.",
+      "link": "Metodika nálezů"
+    },
+    "kind": {
+      "tender_konvejer": "Dopravník zakázek",
+      "tender_dvorni_dodavatel": "Dvorní dodavatel",
+      "tender_rotace": "Rotace dodavatelů",
+      "tender_kratke_lhuty": "Krátké lhůty jako praxe",
+      "tender_cisty_radar": "Čistý radar",
+      "law_posudek": "Posudek",
+      "law_sponsor_conflict": "Střet sponzora s penězi",
+      "law_became_law_clean": "Zákon prošel bez střetu",
+      "effort_workhorse": "Tahoun",
+      "effort_rapporteur": "Zpravodajský tahoun",
+      "money_ties_unrated": "Vazby bez posouzení"
+    },
+    "severity": {
+      "low": "nízká",
+      "medium": "střední",
+      "high": "vysoká"
+    },
+    "valence": {
+      "negative": "otázka",
+      "positive": "pozitivní",
+      "unrated": "nezhodnoceno"
+    },
+    "review": {
+      "pending_review": "čeká na lidskou kontrolu",
+      "deterministic": "pravidlo nad registrem",
+      "verified": "ověřeno"
+    },
+    "later": {
+      "fate_sb": "vyhlášeno ve Sbírce",
+      "forensic_verdict": "posudek zapsán",
+      "collision_detected": "kolize zjištěna",
+      "flags_computed": "příznaky spočteny"
+    },
+    "figure": {
+      "lots": "zakázek v období",
+      "undated": "bez data",
+      "termFiltered": "mimo období",
+      "flagged": "označených",
+      "share": "podíl",
+      "baseline": "základ arény",
+      "multiple": "násobek základu",
+      "dependence": "závislost dodavatele",
+      "dependentWinners": "závislých dodavatelů",
+      "circle3Share": "podíl tří nejčastějších vítězů",
+      "switchRate": "míra střídání",
+      "datedWins": "datovaných výher",
+      "shortDeadline": "krátkých lhůt",
+      "sponsor_contract_czk": "zakázky firem sponzora",
+      "sponsor_money_companies": "firem sponzora",
+      "rapporteurLoad": "zpravodajství",
+      "min": "práh",
+      "ties": "vazeb"
+    },
+    "finding": {
+      "multiple": "{multiple}× oproti základu arény",
+      "decidedOn": "rozhodnuto {date}",
+      "laterOn": "pozdější fakt {date}",
+      "undated": "bez data rozhodnutí",
+      "rule": "pravidlo {ref}",
+      "ruleLink": "metodika pravidla {ref}",
+      "evidence": "doklady",
+      "evidenceSource": "doklady = uzly a hrany grafu; každý odkaz vede na účtenku původu /zdroj",
+      "figuresSource": "vstupy pravidla tak, jak je pravidlo vyhodnotilo (zaokrouhlené na čtyři místa)"
+    },
+    "ballot": {
+      "komunalni": "komunální volby",
+      "krajske": "krajské volby",
+      "snemovni": "sněmovní volby"
+    },
+    "card": {
+      "window": "volební období: {label}",
+      "ledgerNegative": "nálezy — otázky",
+      "ledgerPositive": "nálezy — pozitivní",
+      "ledgerUnrated": "nezhodnoceno",
+      "ledgerSub": "vysoká {high} · střední {medium} · nízká {low}",
+      "ledgerSource": "počty nálezů podle pravidla a závažnosti; žádný souhrnný index se nepočítá",
+      "baseline": "základ arény: {share} označených zakázek ({label})",
+      "baselineNone": "bez základu arény — pravidla se vyhodnotila bez srovnání",
+      "zeroTender": "Bez nálezu podle pravidel N1–N4 a P1 v CPV 45 za období {window}.",
+      "zeroMp": "Bez nálezu podle pravidel L1–L3 a P2–P3 za období {window}.",
+      "noPersons": "Karta nese jen zadavatele — jména osob zveřejňuje pouze lidsky brány modul peněz."
+    },
+    "sections": {
+      "findings": "Nálezy",
+      "timeline": "Co víme dnes",
+      "timelineLead": "Rozhodnutí a pozdější doložený fakt, který dnes o něm držíme — datum ke dni, kdy vstoupil do grafu.",
+      "timelineEmpty": "Žádný nález zatím nemá pozdější datovaný fakt.",
+      "timelineSource": "časová osa = nálezy s pozdějším datovaným faktem, seřazené sestupně",
+      "contested": "Sporná hlasování",
+      "contestedLead": "Dvanáct nejtěsnějších platných hlasování PSP10 a linie této kandidátky v nich. Záznam pozic, ne nález — směr hlasování nemá odvoditelnou hodnotu.",
+      "contestedEmpty": "Sporná hlasování se nepodařilo složit — záznam hlasování není čitelný.",
+      "contestedSource": "psp.cz — hlasování PSP10; těsnost = 1 − |pro − proti| / (pro + proti); linie = většina hlasů poslanců kandidátky",
+      "members": "Poslanci kandidátky",
+      "membersSource": "psp.cz — mandáty PSP10 a kluby; počet nálezů podle pravidel volby-rules"
+    },
+    "obec": {
+      "komunalniTitle": "Obec jako zadavatel",
+      "noAuthority": "Obec pod svým IČO v grafu zakázek CPV 45 nefiguruje — zadavatelem tu nebyla, nebo zadává přes organizace, které nejsou propojené.",
+      "unlinkedTitle": "Nepropojeno",
+      "unlinkedBody": "{count} zadavatelů s nejasnou arénou (příspěvkové organizace, městské firmy) nemá v grafu vazbu na žádnou obec. Jde o celostátní počet: tyto subjekty NEJSOU lokalizované k této obci.",
+      "unlinkedSource": "graf zakázek — company.electoral_arena = nejasne; propojení obce a zadavatele jen rovností IČO",
+      "krajTitle": "Kraj jako zadavatel",
+      "krajOpen": "otevřít kartu kraje",
+      "listsTitle": "Kandidátky s poslanci z tohoto kraje",
+      "meta": "{county} · {kraj}",
+      "population": "{population} obyvatel",
+      "populationSource": "rejstřík obcí (ČSÚ / MONITOR) — features/budget"
+    },
+    "kraj": {
+      "krajskeTitle": "Kraj jako zadavatel",
+      "noAuthority": "Kraj pod svým IČO v grafu zakázek CPV 45 nefiguruje.",
+      "mpsTitle": "Poslanci kraje",
+      "mpsLead": "Poslanci zvolení v tomto kraji podle kandidátky. Kandidátka nese jejich nálezy; klub je dnešní zařazení.",
+      "colName": "poslanec",
+      "colList": "kandidátka",
+      "colClub": "klub dnes",
+      "mpsSource": "psp.cz — mandáty PSP10 (kraj = volební kraj mandátu)",
+      "listsTitle": "Kandidátky s poslanci z tohoto kraje",
+      "pinLists": "poslanci kraje na kandidátce"
+    },
+    "list": {
+      "seats": "{seats} mandátů",
+      "clubsToday": "dnes sedí v",
+      "clubNone": "bez klubu",
+      "colName": "poslanec",
+      "colRegion": "kraj",
+      "colClub": "klub dnes",
+      "colFindings": "nálezů",
+      "pinnedTitle": "Poslanci kraje {kraj}",
+      "pinnedLead": "Přišli jste z karty kraje — tito poslanci kandidátky byli zvoleni tam.",
+      "colVote": "hlasování",
+      "colDate": "datum",
+      "colLine": "linie",
+      "colYes": "pro",
+      "colNo": "proti",
+      "colContested": "těsnost",
+      "lineYes": "pro",
+      "lineNo": "proti",
+      "lineSplit": "rozděleno",
+      "voteLink": "hlasování {id} na psp.cz",
+      "memberFindingsNone": "bez nálezu"
+    },
+    "provenance": "složeno {computedAt} · pravidla {ref} · průchod {pass} · zdroje: {sources}",
+    "provenanceNoPass": "složeno {computedAt} · pravidla {ref} · zdroje: {sources}",
+    "unavailableWhat": "zrcadlo voleb",
+    "unavailableBack": "zpět na Volby",
+    "unavailableBackHome": "zpět na velín",
+    "snemovna": {
+      "title": "Celá sněmovna",
+      "lead": "Všechny kandidátky zvolené do PSP10 s ledgerem nálezů svých poslanců. Otevřete kandidátku pro poslance, časovou osu a sporná hlasování.",
+      "backToVolby": "zpět na Volby"
+    }
   }
 }

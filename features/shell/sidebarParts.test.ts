@@ -145,9 +145,18 @@ describe("chrom nevozí ukázkový katalog", () => {
 
   it("jména modulů se nezměnila ani o bajt", () => {
     // Jediné dovolené čtení `MODULES` v celém chromu — a je tady, ne v běhu.
+    // Šest značek: pět modulů ukázkového katalogu + „Volby" (2026-08-27), které
+    // v MODULES záměrně NEJSOU — plocha nemá mock, jen reálný graf, takže by
+    // ukázkový katalog pro ni musel vymýšlet čísla. Jméno je proto pinnuté tady.
+    const SAMPLE_FREE_BRANDS: Record<string, string> = { volby: "Volby" };
     const moduleEntries = NAV.filter((e) => e.brandName);
-    expect(moduleEntries.length, "žádný modul nenese značku").toBe(5);
+    expect(moduleEntries.length, "žádný modul nenese značku").toBe(5 + Object.keys(SAMPLE_FREE_BRANDS).length);
     for (const entry of moduleEntries) {
+      if (entry.key in SAMPLE_FREE_BRANDS) {
+        expect(MODULES.find((m) => m.key === entry.key), `${entry.key} nesmí mít mock v MODULES`).toBeUndefined();
+        expect(entry.brandName).toBe(SAMPLE_FREE_BRANDS[entry.key]);
+        continue;
+      }
       const sample = MODULES.find((m) => m.key === entry.key);
       expect(sample, `MODULES nezná modul ${entry.key}`).toBeDefined();
       expect(entry.brandName, `jméno modulu ${entry.key} se rozešlo`).toBe(sample?.name);

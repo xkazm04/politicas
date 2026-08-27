@@ -113,3 +113,9 @@ follow-the-money module description aligned too), and `methodBody`'s
 with a claim the repo can carry, both pinned. The 10 dead
 `content.modules.*.feeds` strings (four-pillar-era claims) are deleted
 from both catalogs along with the dead `MODULES[].feeds` field itself.
+
+**2026-08-27 — `VolbySection` (spark election-replay).** A new section between
+`#k-zebricek` and `ReferendumTeaser`: three entry links into `/volby` („Kde
+volíte?") and one sentence, no numbers — so no citation is owed. The hero
+stays the CivicScore index; repositioning the hero was rejected in the spark's
+wave 3 as a separate landing redesign.

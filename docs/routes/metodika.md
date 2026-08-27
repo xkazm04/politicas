@@ -51,3 +51,10 @@ referendum OG image) **and in both message catalogs** — on the very page that
 invites a reader to change those weights. `messages.test.ts` now fails if
 either catalog hardcodes it again, and `lens.test.ts` pins the label to the
 formula.
+
+**2026-08-27 — §05 „Nálezy pro volby" (spark election-replay).**
+`features/civicscore/MetodikaVolbySection.tsx` prints every threshold of
+`lib/analysis/volby/rules.ts` as an import (N1–N4, P1–P3, L1–L3, U1) with the
+anchor `#volby-<ref>` that a finding row on `/volby` links to, and the term
+windows from `terms.ts`. Catalog keys are flat (`metodika.volbyRule_<kind>_*`)
+because this page's parity test walks flat strings.

@@ -69,6 +69,7 @@ HLIDAC_API_TOKEN=… npx tsx scripts/data-analysis/kg-money-ingest.ts   --chambe
 | `/penize` | FollowTheMoney | Entity-trail graph, kniha vazeb (verified/pending), IČO-join methodology |
 | `/rozpocty` | BudgetMirror | Town vs peer-median metrics, debt trends, sortable peer table |
 | `/zakony` | LawWatch | Paragraph diffs linked to the roll-call that voted them; bill pipeline |
+| `/volby` | Volby: zrcadlo | "Kde volíte?" lookup → the accountable subjects of each ballot with a severity ledger of findings and a dated-outcome timeline; never a composite score |
 | `/rentgen` | archived | Living reference for the runner-up art direction (noindex) |
 
 ## Architecture

@@ -23,6 +23,7 @@ ingestion yet.
 | `/penize` | FollowTheMoney | entity-trail graph (ported from archived Rentgen), kniha vazeb with verified/pending states, IČO-join methodology |
 | `/rozpocty` | BudgetMirror | town vs computed peer median, debt trends, peer table; stewardship = executive roles only |
 | `/zakony` | LawWatch | paragraph diffs → linked roll-call votes (closes vote→impact loop), bill pipeline incl. rejected state |
+| `/volby` | Volby: zrcadlo | lookup-first election mirror (2026-08-27): obec/kraj as zadavatel + elected party lists, findings composed at read time from tender/law/effort signals, ledger + timeline; v2: ownership hop for nejasné bodies, list permalinks on the feed, receipts for baselines |
 | `/rentgen` | archived art direction | living reference for investigative sub-surfaces; hexes allowed there |
 
 ### Decisions taken (do not relitigate casually)
