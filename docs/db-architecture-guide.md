@@ -172,6 +172,32 @@ _Derived from the measured cases as they land. Each rule cites the case that bac
   **DuckDB for the analytical layer** (agreement matrices, club discipline, per-theme
   tallies — the `kg-compute` workload *is* A3). Both read the same canonical
   ballots (Parquet export; ~80 ms load), so numbers stay reconciled. _(case #1)_
+
+  > **STATUS: MEASURED, NOT LANDED (as of 2026-08-27).** `kg-compute` still runs on
+  > the incumbent — `scripts/data-analysis/kg-compute.ts` opens the PGlite store via
+  > `getStore()` and nothing in the tree imports a columnar engine. DuckDB lives only
+  > in the benchmark sandbox (`scripts/db-bench/package.json`), deliberately outside
+  > the product dependency tree.
+  >
+  > **Why the deferral is defensible, for now.** R3's win is real (43×, 5.6 s → 131 ms)
+  > but it is a win on an *offline* path: `kg-compute` is a CLI script (`npm run
+  > da:kg-compute`), not a request handler, so nobody is waiting on the 5.6 s. R4's
+  > "don't add an engine" reasoning therefore still applies here even though the row
+  > count clears its threshold — the missing condition is **who waits**, not how many
+  > rows there are.
+  >
+  > **What would flip it.** Any of: the agreement matrix moves behind a route or a
+  > user-visible refresh; the ballot table grows enough that the offline pass stops
+  > fitting its window; or the analytical pass starts contending with a running dev
+  > server (note that case #1 already had to `cp -r .pglite .pglite-bench` to measure
+  > the incumbent at all — that copy is the contention cost showing up as an operating
+  > instruction).
+  >
+  > **Why this note exists.** A rule written in a doc and a rule present in the import
+  > graph are different states, and only the second one runs. Nothing in CI can tell
+  > them apart, because a guide that recommends an engine and a script that does not
+  > use it are each individually valid. Recording the gap is what keeps "we decided
+  > this" from being mistaken for "we did this."
 - **R4 — Single DB is fine below the analytics wall.** With only simple group-bys or
   **< ~100k rows**, PGlite alone (~100 ms) is acceptable — don't add an engine. The
   hybrid earns its keep once analytical joins over 100k+ rows are frequent or need to
@@ -218,6 +244,10 @@ _Derived from the measured cases as they land. Each rule cites the case that bac
   bill-citation networks, the money graph at scale). _(case #4)_
 
 ### Recommended Politicas architecture (from the measured cases)
+
+**This is the target, not the current state.** Politicas runs one engine today; the
+DuckDB half below is measured and deliberately not landed — see the STATUS note under
+R3 for why, and for what would flip it.
 
 A **2-engine hybrid**, split by workload shape — *not* a separate vector or graph
 store at current scale:
