@@ -8,6 +8,12 @@ One entry per live session in this checkout. Move to "Recently completed" at wra
 
 ## Recently completed
 
+- **/spark election-replay** — COMPLETE 2026-08-27 (Fable 5). `/volby` shipped in 4
+  commits on master: `d644d73` (shared Combobox), `6b9eb9c` (lib/analysis/volby rules),
+  `a1fe4c1` (loaders, memoised tender fold), `87d1964` (routes/UI/docs). `npm run check` +
+  `npm run build` green; vitest 3 237. Design + retro: `docs/spark/ideas/election-replay.md`.
+  Not live-verified in a browser — next: `/volby/obec/00297488` (Havířov), `/volby/snemovna/spolu`.
+
 - **docs restructure + dependency sweep + store restore** — COMPLETE + PUSHED
   2026-08-22. CLAUDE.md split into `docs/routes/*.md` (221 643 → 13 456 chars);
   every dependabot PR resolved (13 of them — next 16.3.1 / react 19.2.8,
