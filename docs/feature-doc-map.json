@@ -275,6 +275,12 @@
       ]
     },
     {
+      "doc": "docs/routes/volby.md",
+      "sourceGlobs": [
+        "lib/analysis/volby/**"
+      ]
+    },
+    {
       "doc": "docs/routes/zakony.md",
       "sourceGlobs": [
         "features/lawwatch/**"
