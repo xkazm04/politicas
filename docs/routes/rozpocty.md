@@ -82,3 +82,17 @@ town pages joined the sitemap through `features/budget/municipalRoutes.ts`
 — ONE list for `generateStaticParams` AND `app/sitemap.ts` (a municipality
 is a public register, not a person, and the register is a static module:
 both sitemap-exclusion reasons lapse — the exception is argued in place).
+
+**The combobox is a catalog primitive (2026-08-27, spark election-replay WP3a).**
+`TownPicker` no longer hand-rolls the ARIA combobox: input, listbox,
+`aria-activedescendant`, keyboard (arrows / Home / End / Enter / Escape / Tab)
+and the kraj group headers now come from
+`features/shared/components/Combobox.tsx`, whose keyboard model is a pure
+reducer (`comboboxKeys.ts`, tested in `Combobox.test.ts`). Ranking stays here
+in `searchMunicipalities` — the primitive only debounces (0 ms for this
+surface, unchanged) and limits (40, unchanged); grouping by `krajName`, the
+option ids and the covered/uncovered tag are the same as before. One
+deliberate small delta: a quick-pick chip no longer clears a query typed in
+the search field (the list still closes via blur). `KrajPickerPage` and
+`/graf` `NodeSearch` are the two remaining hand-rolled copies, left for a
+later package.
