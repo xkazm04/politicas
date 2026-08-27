@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { contestedness, listLine, topContested } from "./contested";
+import { MIN_POSITIONAL_BALLOTS, contestedness, listLine, topContested } from "./contested";
 
 describe("contestedness", () => {
   it("is 1 at a dead heat, 0 when unanimous, 0 when empty", () => {
@@ -41,5 +41,14 @@ describe("topContested", () => {
   it("breaks ties by newer date then lower id, deterministically", () => {
     const rows = topContested([ev(9, 50, 50, "2026-01-01"), ev(5, 50, 50, "2026-02-01"), ev(7, 50, 50, "2026-02-01")], 5);
     expect(rows.map((r) => r.votePspId)).toEqual([5, 7, 9]);
+  });
+});
+
+describe("turnout floor", () => {
+  it("a 1:1 roll call never ranks; MIN_POSITIONAL_BALLOTS is the floor", () => {
+    const ev = (id: number, yes: number, no: number) => ({ votePspId: id, title: `h${id}`, votedOn: "2026-01-01", yes, no, voided: false });
+    const rows = topContested([ev(1, 1, 1), ev(2, 60, 40), ev(3, 50, 49)], 5);
+    expect(rows.map((r) => r.votePspId)).toEqual([2]);
+    expect(MIN_POSITIONAL_BALLOTS).toBe(100);
   });
 });

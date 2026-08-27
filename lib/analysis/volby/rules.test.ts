@@ -18,6 +18,7 @@ import {
   RULE_REF,
   composeAuthorityFindings,
   composeMpFindings,
+  dedupeByObject,
   dedupeCurrentHolders,
   listSlug,
   nodeRef,
@@ -383,10 +384,10 @@ describe("outcomeTimeline", () => {
     const fs = composeMpFindings(
       mp({
         sponsoredBills: [
-          bill({ tisk: "1", forensicSeverity: "low", forensicRecordedAt: "2026-01-01" }),
+          bill({ tisk: "1", forensicSeverity: "medium", forensicRecordedAt: "2026-01-01" }),
           bill({ tisk: "2", fateSb: "1/2026", fatePublishedOn: "2026-03-01" }),
-          bill({ tisk: "3", forensicSeverity: "low", forensicRecordedAt: "2026-03-01" }),
-          bill({ tisk: "4", forensicSeverity: "low" }), // undated verdict → not on the timeline
+          bill({ tisk: "3", forensicSeverity: "medium", forensicRecordedAt: "2026-03-01" }),
+          bill({ tisk: "4", forensicSeverity: "medium" }), // undated verdict → not on the timeline
         ],
         moneyTieCount: 1,
       }),
@@ -428,5 +429,22 @@ describe("dedupeCurrentHolders", () => {
     expect(out.map((r) => r.pspId).sort()).toEqual([1, 2, 3]);
     expect(out.find((r) => r.pspId === 1)?.mandateId).toBe(107);
     expect(dedupeCurrentHolders([])).toEqual([]);
+  });
+});
+
+describe("posudek floor + list dedupe (2026-08-27 recalibration)", () => {
+  it("a low posudek is not a finding; medium and high are", () => {
+    const low = composeMpFindings(mp({ sponsoredBills: [bill({ forensicSeverity: "low" })] }));
+    expect(low.filter((f) => f.kind === "law_posudek")).toHaveLength(0);
+    const med = composeMpFindings(mp({ sponsoredBills: [bill({ forensicSeverity: "medium" })] }));
+    expect(med.filter((f) => f.kind === "law_posudek")).toHaveLength(1);
+  });
+  it("dedupeByObject keeps one finding per (kind, object) and every objectless finding", () => {
+    const a = composeMpFindings(mp({ pspId: 1, sponsoredBills: [bill({ forensicSeverity: "high" })], effortWorkhorse: true }));
+    const b = composeMpFindings(mp({ pspId: 2, sponsoredBills: [bill({ forensicSeverity: "high" })], effortWorkhorse: true }));
+    const merged = dedupeByObject([...a, ...b]);
+    expect(merged.filter((f) => f.kind === "law_posudek")).toHaveLength(1);
+    expect(merged.filter((f) => f.kind === "effort_workhorse")).toHaveLength(2);
+    expect(merged[0].subjectId).toBe("person:1");
   });
 });

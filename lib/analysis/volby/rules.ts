@@ -44,6 +44,16 @@ export const N4_MIN_LOTS = 10;
 /* ── P1 tender_cisty_radar ──────────────────────────────────────────────────── */
 export const P1_MIN_LOTS = 20;
 export const P1_MAX_MULTIPLE = 0.5;
+/* ── law_posudek ────────────────────────────────────────────────────────────── */
+/**
+ * A posudek is a finding only from this severity up. Every one of the 141 PSP10 bills
+ * carries a posudek (the census is closed), so a `low` verdict is the posudek saying
+ * „nothing unstated here" — emitting it as a negative would make the ledger count
+ * legislative activity itself. Measured 2026-08-27 before this floor: SPOLU carried
+ * 346 negatives over 52 seats, all of them posudky.
+ */
+export const POSUDEK_MIN_SEVERITY: Severity = "medium";
+const SEVERITY_RANK: Record<Severity, number> = { low: 0, medium: 1, high: 2 };
 /* ── law_sponsor_conflict ───────────────────────────────────────────────────── */
 export const CONFLICT_HIGH_CZK = 100_000_000;
 /* ── effort_rapporteur ──────────────────────────────────────────────────────── */
@@ -328,7 +338,10 @@ export function composeMpFindings(input: MpInput): Finding[] {
   for (const bill of input.sponsoredBills) {
     const oid = billId(bill.tisk);
     const billRef = { label: `sněmovní tisk ${bill.tisk}`, ref: nodeRef(oid) };
-    if (bill.forensicSeverity !== null) {
+    if (
+      bill.forensicSeverity !== null &&
+      SEVERITY_RANK[bill.forensicSeverity] >= SEVERITY_RANK[POSUDEK_MIN_SEVERITY]
+    ) {
       const f = mk("law_posudek", "negative", bill.forensicSeverity, oid);
       f.reviewState = "pending_review";
       f.decidedOn = bill.sponsoredOn;
@@ -396,6 +409,28 @@ export function rollupLedger(findings: readonly Finding[], baseline: SeverityLed
     if (f.valence !== "unrated") total++;
   }
   return { counts, total, baseline };
+}
+
+/**
+ * One finding per (kind, object) — the LIST-level view. A bill co-signed by twelve
+ * members of one list is one bill on that list's ledger, not twelve; findings without
+ * an object (effort badges, tie counts) are per person and all kept. First occurrence
+ * wins, so callers pass findings in a stable member order.
+ */
+export function dedupeByObject(findings: readonly Finding[]): Finding[] {
+  const seen = new Set<string>();
+  const out: Finding[] = [];
+  for (const f of findings) {
+    if (f.objectId === null) {
+      out.push(f);
+      continue;
+    }
+    const k = `${f.kind}:${f.objectId}`;
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(f);
+  }
+  return out;
 }
 
 /** Findings with a later dated fact, newest later fact first; ties by id (stable). */

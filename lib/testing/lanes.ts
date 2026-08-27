@@ -46,6 +46,7 @@ export const ALL_TEST_GLOBS = [
  */
 export const PGLITE_LANE_FILES = [
   "features/dukazy/chainRow.test.ts",
+  "features/volby/loaders.test.ts",
   "lib/analysis/kg-money-reingest.test.ts",
   "lib/db/kgOrder.test.ts",
   "lib/db/pglite/accounting.test.ts",

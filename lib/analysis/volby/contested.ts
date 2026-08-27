@@ -50,9 +50,16 @@ export interface ContestableEvent {
  * The `n` most contested non-voided events, contestedness desc; ties broken by
  * `votedOn` desc then `votePspId` asc so the record is stable across reads.
  */
+/**
+ * Positional ballots (yes + no) a roll call needs before it can rank as contested. A
+ * 1:1 procedural vote is a dead heat by arithmetic and nothing by substance — measured
+ * 2026-08-27, one such vote (2026-07-02) topped the term without this floor.
+ */
+export const MIN_POSITIONAL_BALLOTS = 100;
+
 export function topContested(events: readonly ContestableEvent[], n: number): Omit<RecordRow, "line">[] {
   return events
-    .filter((e) => !e.voided)
+    .filter((e) => !e.voided && e.yes + e.no >= MIN_POSITIONAL_BALLOTS)
     .map((e) => ({
       votePspId: e.votePspId,
       title: e.title,
