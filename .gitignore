@@ -82,6 +82,9 @@ docs/data-analysis/case-money/contracts-harvest.jsonl
 /.claude/skills/research
 /.claude/skills/ship-loop
 /.claude/skills/uat
+/.claude/skills/friend
+/.claude/skills/scan-sweep
+/.claude/skills/spark
 /.claude/rules/ai-registry-access.md
 /.claude/rules/ai-registry-software-engineering.md
 /.claude/rules/ai-registry-civic-intelligence.md
