@@ -341,6 +341,21 @@ const ANTIPATTERNS = [
       'Text does not meet WCAG AA contrast requirements (4.5:1 for body, 3:1 for large text). Increase the contrast between text and background.',
   },
   {
+    id: 'contrast-coverage',
+    category: 'quality',
+    name: 'Contrast check coverage',
+    // Advisory: this is not a defect in the page, it is the denominator for
+    // `low-contrast`. A contrast report that says "0 findings" is worth nothing
+    // unless the reader can tell how many elements were actually measured — a
+    // scan where every selector went stale produces the same empty findings
+    // list as a scan where everything passed. Riding the findings array as an
+    // advisory item is what puts the population in the same object as the
+    // numerator, so no consumer can read one without the other.
+    advisory: true,
+    description:
+      'Reports how many contrast candidates were measured and how many could not be, with the reason. Not a page defect: it is the population the low-contrast count was measured over.',
+  },
+  {
     id: 'layout-transition',
     category: 'quality',
     name: 'Layout property animation',

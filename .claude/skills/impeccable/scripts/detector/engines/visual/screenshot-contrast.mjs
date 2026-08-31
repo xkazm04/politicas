@@ -105,9 +105,17 @@ async function compareScreenshotContrast(page, beforeBase64, afterBase64, candid
   }, { beforeBase64, afterBase64, candidate });
 }
 
+// Returns the same three-state shape the browser-side analyzer already speaks
+// (`analyzeVisualContrastCandidate` in detect-antipatterns-browser.js):
+// `pass` and `fail` mean the contrast was measured, `unresolved` means it could
+// not be, and `unresolved` always carries a reason. This used to return a
+// finding or `null`, which spelled four could-not-measure branches and one
+// clean measurement the same way — so a run where every selector went stale
+// after a refactor produced exactly the output of a run where everything
+// passed. The caller needs the difference to report a denominator.
 async function captureVisualContrastCandidate(page, candidate, viewport) {
   const clip = sanitizeScreenshotClip(candidate.clip, viewport);
-  if (!clip) return null;
+  if (!clip) return { status: 'unresolved', reason: 'no usable clip rect' };
 
   const beforeBase64 = await page.screenshot({
     encoding: 'base64',
@@ -147,7 +155,7 @@ async function captureVisualContrastCandidate(page, candidate, viewport) {
     token,
     backgroundClipText: candidate.backgroundClipText,
   });
-  if (!applied) return null;
+  if (!applied) return { status: 'unresolved', reason: 'stale or invalid selector' };
 
   let afterBase64;
   try {
@@ -171,14 +179,26 @@ async function captureVisualContrastCandidate(page, candidate, viewport) {
   }
 
   const metrics = await compareScreenshotContrast(page, beforeBase64, afterBase64, candidate);
-  if (!metrics || !Number.isFinite(metrics.p10Ratio) || metrics.glyphPixels < 8) return null;
+  if (!metrics) return { status: 'unresolved', reason: 'screenshot compare failed' };
+  if (!Number.isFinite(metrics.p10Ratio) || metrics.glyphPixels < 8) {
+    // Hiding the text changed too few pixels to sample. Not a pass: we never
+    // found the glyphs, so nothing was measured.
+    return { status: 'unresolved', reason: 'too few glyph pixels to sample' };
+  }
   const measuredRatio = metrics.p10Ratio;
-  if (measuredRatio >= candidate.threshold) return null;
+  if (measuredRatio >= candidate.threshold) {
+    return { status: 'pass', measuredRatio, medianRatio: metrics.medianRatio };
+  }
   const textLabel = candidate.text ? ` "${candidate.text}"` : '';
   const reasonLabel = (candidate.reasons || []).slice(0, 3).join(', ') || 'visual background';
   return {
-    id: 'low-contrast',
-    snippet: `pixel contrast ${measuredRatio.toFixed(1)}:1 median ${metrics.medianRatio.toFixed(1)}:1 (need ${candidate.threshold}:1) on ${reasonLabel}${textLabel}`,
+    status: 'fail',
+    measuredRatio,
+    medianRatio: metrics.medianRatio,
+    finding: {
+      id: 'low-contrast',
+      snippet: `pixel contrast ${measuredRatio.toFixed(1)}:1 median ${metrics.medianRatio.toFixed(1)}:1 (need ${candidate.threshold}:1) on ${reasonLabel}${textLabel}`,
+    },
   };
 }
 

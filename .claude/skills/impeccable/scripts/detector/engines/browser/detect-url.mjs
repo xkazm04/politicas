@@ -85,6 +85,33 @@ function serializeDesignSystemForBrowser(designSystem) {
   };
 }
 
+// The contrast check has two arms: the browser-side analyzer, then a pixel diff
+// for whatever it could not resolve. Both arms can end in "could not measure" —
+// a stale selector, an unreadable background, too few glyph pixels — and both
+// used to end there silently, which made an unmeasurable page indistinguishable
+// from a clean one. This builds the denominator that goes back with the
+// findings, as an advisory item so it rides the same array without becoming a
+// failure. It prints even when nothing was unresolved: a zero that only appears
+// when it is non-zero teaches readers that silence means "fine".
+function buildContrastCoverageNote(checked, unresolvedReasons) {
+  const unresolved = unresolvedReasons.length;
+  const total = checked + unresolved;
+  if (total === 0) return null;
+  const byReason = new Map();
+  for (const reason of unresolvedReasons) {
+    byReason.set(reason, (byReason.get(reason) || 0) + 1);
+  }
+  const breakdown = [...byReason.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([reason, count]) => `${count} ${reason}`)
+    .join(', ');
+  return {
+    id: 'contrast-coverage',
+    snippet: `contrast measured on ${checked} of ${total} candidate${total === 1 ? '' : 's'}, `
+      + `${unresolved} unresolved${breakdown ? ` (${breakdown})` : ''}`,
+  };
+}
+
 async function runVisualContrastFallback(page, serializedGroups, options, profile, target) {
   if (options?.visualContrast === false) return [];
   const maxCandidates = Number.isFinite(options?.visualContrastMaxCandidates)
@@ -138,11 +165,25 @@ async function runVisualContrastFallback(page, serializedGroups, options, profil
       .map(result => result.selector)
       .filter(Boolean)
   );
+  // Coverage accounting starts here and spans both arms. The browser arm
+  // already reports `unresolved` with a reason; that reason was being dropped.
+  let checkedCount = browserResolvedSelectors.size;
+  const unresolvedReasons = [];
   const filtered = candidates.filter(candidate =>
     !existingLowContrastSelectors.has(candidate.selector) &&
     !browserResolvedSelectors.has(candidate.selector)
   );
-  if (options?.visualContrastPixel === false) return findings;
+  if (options?.visualContrastPixel === false) {
+    // The pixel arm is switched off, so every candidate the browser arm could
+    // not resolve is unmeasured. That is a stated choice, not a defect — but it
+    // is still a hole in the denominator and it says so.
+    for (const candidate of filtered) {
+      unresolvedReasons.push(candidate.reason || 'pixel diff disabled');
+    }
+    const coverage = buildContrastCoverageNote(checkedCount, unresolvedReasons);
+    if (coverage) findings.push(coverage);
+    return findings;
+  }
   for (const candidate of filtered) {
     const result = await profileFindingsAsync(profile, {
       engine: 'browser',
@@ -150,11 +191,18 @@ async function runVisualContrastFallback(page, serializedGroups, options, profil
       ruleId: 'pixel-diff',
       target,
     }, async () => {
-      const finding = await captureVisualContrastCandidate(page, candidate, viewport);
-      return finding ? [finding] : [];
+      const outcome = await captureVisualContrastCandidate(page, candidate, viewport);
+      if (!outcome || outcome.status === 'unresolved') {
+        unresolvedReasons.push(outcome?.reason || 'pixel diff returned nothing');
+        return [];
+      }
+      checkedCount += 1;
+      return outcome.finding ? [outcome.finding] : [];
     });
     findings.push(...result);
   }
+  const coverage = buildContrastCoverageNote(checkedCount, unresolvedReasons);
+  if (coverage) findings.push(coverage);
   return findings;
 }
 
