@@ -398,6 +398,9 @@ export function stalenessOf(ageDays: number, cadenceDays: number): Staleness {
 
 /** Skóre čerstvosti: 100 při stáří ≤ kadence, lineárně k 0 při 3× kadence. */
 export function freshnessScore(ageDays: number, cadenceDays: number): number {
+  if (!(cadenceDays > 0)) {
+    throw new RangeError(`freshnessScore: cadenceDays must be positive, got ${cadenceDays}`);
+  }
   const zeroAt = cadenceDays * ZERO_CADENCE_MULTIPLIER;
   const span = zeroAt - cadenceDays; // 2× kadence
   return Math.round(100 * clamp01((zeroAt - ageDays) / span));
@@ -417,7 +420,7 @@ function deriveCoverage(rowsTotal: number, rowsWithRun: number): AtlasScore {
   };
 }
 
-function deriveFreshness(
+export function deriveFreshness(
   nowIso: string,
   lastOkFinishedAt: string | null,
   cadenceDays: number | null,
@@ -443,6 +446,19 @@ function deriveFreshness(
       score: {
         status: "nehodnoceno",
         reason: `kadence zdroje není deklarována — stáří ${ageRounded} dne/dní bez měřítka není skóre`,
+      },
+      ageDays: ageRounded,
+      staleness: null,
+    };
+  }
+  if (!(cadenceDays > 0)) {
+    // Kadence 0 dělí nulou: `freshnessScore` by vrátilo NaN a karta by ho
+    // publikovala jako „hodnoceno" — JSON z NaN udělá null a stránka z null
+    // cokoli. Nekladná kadence není měřítko, takže dimenze je nehodnocená.
+    return {
+      score: {
+        status: "nehodnoceno",
+        reason: `deklarovaná kadence ${cadenceDays} dne/dní není měřítko — stáří ${ageRounded} dne/dní se nemá k čemu vztáhnout`,
       },
       ageDays: ageRounded,
       staleness: null,

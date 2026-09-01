@@ -6,6 +6,7 @@ import {
   ATLAS_DIMENSIONS,
   ATLAS_RULES,
   deriveAtlas,
+  deriveFreshness,
   freshnessScore,
   INGESTED_SOURCES,
   SOURCE_CADENCE_DAYS,
@@ -390,5 +391,24 @@ describe("kadence se deklaruje jen tam, kde ji jde změřit", () => {
     for (const s of unscoredSources()) {
       expect(SOURCE_CADENCE_DAYS[s.source], s.source).toBeUndefined();
     }
+  });
+});
+
+/* ── Kadence, která není měřítko (2026-09-01) ───────────────────────────────── */
+
+describe("čerstvost — nekladná kadence je nehodnoceno, ne NaN", () => {
+  it("freshnessScore odmítne kadenci 0 místo tichého NaN", () => {
+    // Před opravou: 0 × 3 − 0 = 0 ve jmenovateli → NaN → „hodnoceno" s NaN,
+    // které JSON.stringify přepíše na null.
+    expect(() => freshnessScore(5, 0)).toThrow(RangeError);
+    expect(() => freshnessScore(5, -7)).toThrow(RangeError);
+  });
+
+  it("deriveFreshness vrátí nehodnoceno s důvodem, stáří zůstane spočítané", () => {
+    const r = deriveFreshness("2026-09-01T00:00:00Z", "2026-08-30T00:00:00Z", 0);
+    expect(r.score.status).toBe("nehodnoceno");
+    if (r.score.status === "nehodnoceno") expect(r.score.reason).toContain("není měřítko");
+    expect(r.ageDays).toBe(2);
+    expect(r.staleness).toBeNull();
   });
 });
