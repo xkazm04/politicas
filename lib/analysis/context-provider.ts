@@ -142,12 +142,21 @@ export class LiteContextProvider implements ContextProvider {
     return datasetUrn(name, this.env);
   }
 
+  /**
+   * One GMS read, or `null` when there is nothing to read: a non-2xx status, or
+   * a 2xx with an EMPTY body — which this GMS build sends for scroll pages past
+   * ~10 (see `siblingSlices`). `res.json()` on that body throws a SyntaxError,
+   * and until 2026-09-01 that rejection escaped `getSliceContext` whole, so the
+   * paging loop's "empty page ends the scroll" rule never got to run.
+   */
   private async gms(path: string): Promise<Record<string, unknown> | null> {
     const res = await this.doFetch(`${this.gmsUrl}${path}`, {
       headers: this.token ? { Authorization: `Bearer ${this.token}` } : {},
     });
     if (!res.ok) return null;
-    return (await res.json()) as Record<string, unknown>;
+    const text = await res.text();
+    if (text.trim().length === 0) return null;
+    return JSON.parse(text) as Record<string, unknown>;
   }
 
   private async entity(urn: string, aspects: string[]): Promise<AspectBag | null> {
