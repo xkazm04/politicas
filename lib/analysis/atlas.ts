@@ -188,6 +188,19 @@ export interface AtlasIngestedSource {
  *  · `volby-ps2025-candidates` — modul nemá v celém stromě JINÉHO importéra než
  *    vlastní test. Uvádí se právě proto, že se NENASYPÁVÁ: tvrdit o něm opak by
  *    byla nepravda na stránce, jejímž předmětem je nepravdy netvrdit.
+ *
+ * „OVĚŘENÝ NAD STROMEM" DRŽELO JEN DO DALŠÍHO ADAPTÉRU (2026-09-01). Ruční seznam
+ * se stromem nikdo nesrovnával — test ho porovnával sám se sebou — a dva adaptéry,
+ * které do lib/ingest/sources přibyly po 13. srpnu, tu chyběly: `isvz.ts` (Registr
+ * veřejných zakázek, celá vrstva tendrů na /volby) a `smlouvy-dump.ts` (bulk dumpy
+ * registru smluv za sčítáním zakázek). Stránka o VŠECH zdrojích jmenovala 12 ze
+ * 14. Od té doby atlas.test.ts čte adresář adaptérů a padne na dalším modulu bez
+ * řádku; pomocné moduly (backoff, kiosek-pdf) jsou v testu vyjmenované s důvodem.
+ *  · `isvz-nipez-cz` — persist-month.ts razí `tender` uzly a `procures`/`wins`
+ *    hrany; krajina `graph` ze stejného důvodu jako smlouvy a dataor,
+ *  · `smlouvy-gov-cz-dump` — harvest-contract-dumps.ts + persist-contract-harvest.ts
+ *    plní `contract` uzly a `supplies` hrany; týž vydavatel jako `smlouvy-gov-cz`,
+ *    jiná cesta (bulk XML místo HTML vyhledávání), proto vlastní řádek.
  */
 export const INGESTED_SOURCES: readonly AtlasIngestedSource[] = [
   { source: "psp-poslanci", adapter: "lib/ingest/sources/psp.ts", landing: "entity" },
@@ -200,6 +213,8 @@ export const INGESTED_SOURCES: readonly AtlasIngestedSource[] = [
   { source: "kiosek-uredni-deska", adapter: "lib/ingest/sources/kiosek.ts", landing: "graph" },
   { source: "smlouvy-gov-cz", adapter: "lib/ingest/sources/smlouvy.ts", landing: "graph" },
   { source: "dataor-justice-cz", adapter: "lib/ingest/sources/dataor.ts", landing: "graph" },
+  { source: "isvz-nipez-cz", adapter: "lib/ingest/sources/isvz.ts", landing: "graph" },
+  { source: "smlouvy-gov-cz-dump", adapter: "lib/ingest/sources/smlouvy-dump.ts", landing: "graph" },
   {
     source: "monitor-statni-pokladna",
     adapter: "lib/ingest/sources/monitor.ts",
