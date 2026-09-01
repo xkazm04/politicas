@@ -5,6 +5,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 
 ## Pending
 
+- **[2026-09-01] Moonshot deck — 47 L/XL cards in 9 corroborated themes, all pending a human decision** — type: portfolio, risk: n/a, effort: l–xl, payoff: see per-card scores, reach: 10 groups / 49 contexts
+  Record: [[moonshot-2026-09-01]] (decision table + full §4.10 bodies) · Lens: ad-hoc `moonshot-architect` via scan-sweep · Status: proposed (nothing built; top 29 bodies also in the memory outbox)
+  Strongest spines by corroboration: as-of re-derivation from the bitemporal store (5 scouts), a claim address on every figure (5), one audited review door for every claim kind (5), the municipality as one graph subject (4).
 - **[2026-07-26] Enforce the server-only loader boundary mechanically** — type: convention-gap, risk: 1, effort: s, payoff: 3, reach: 7 loader headers / 4 type-leaking loaders / 0 lint rules
   ADR: [[decisions/2026-07-26-server-only-boundary-enforcement]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: in-progress (commits 431d147, 4e1f112 shipped; type extraction blocked: working-tree-conflict — client pages dirty from a concurrent session)
 - **[2026-07-26] Bring the loader chain under test** — type: weak-pattern, risk: 1, effort: m, payoff: 4, reach: 7 loaders / 2540 lines / 0 direct tests
