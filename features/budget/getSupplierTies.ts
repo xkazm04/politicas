@@ -13,7 +13,7 @@
 import "server-only";
 import { cache } from "react";
 import { loadMoneyLayer, pspIdFromNodeId } from "@/features/money/moneyLoader";
-import { getSupplierTable, icoFromCompanyId } from "./supplierTrail";
+import { getSupplierTable, icoFromCompanyId, normalizeIco } from "./supplierTrail";
 
 export interface SupplierTie {
   pspId: number;
@@ -46,7 +46,12 @@ export const getSupplierTies = cache(async function getSupplierTies(): Promise<S
   for (const e of layer.linked) {
     const company = layer.companyById.get(e.dst);
     if (!company) continue;
-    const ico = icoFromCompanyId(company.id) ?? (typeof company.props?.ico === "string" ? company.props.ico : null);
+    // Klíč dávky je 8místné IČO (packSupplierRows to vynucuje). Uzel s
+    // nekanonickým id má IČO jen v props, a tam může přijít bez vodících nul —
+    // nenormalizované by v `supplierIcos.has` tiše selhalo jako „bez vazby"
+    // (memory/ico-node-id-canonical-form: každý IČO join přes nepadded id je
+    // falešně negativní). Týž normalizér, jakým dávku staví generátor.
+    const ico = icoFromCompanyId(company.id) ?? normalizeIco(company.props?.ico);
     if (ico === null || !supplierIcos.has(ico)) continue;
 
     // Týž převod stavu jako mapLinkedToTie: absence = pending, nikdy verified.
