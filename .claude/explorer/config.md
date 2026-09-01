@@ -149,3 +149,7 @@ code review alone.
 
 `/friend` is not installed in this repo; offer `/architect resume` (drain `docs/architect/backlog.md`)
 as the escalation instead.
+
+## Skill improvement log
+
+- 2026-09-01 - First run; vault bootstrapped at `docs/explorer/`. Two repo facts every run pays for: (1) the commit-msg **doc-sync hook** makes any `features/**` or `app/**` change owe README.md, AGENTS.md, docs/ROADMAP.md plus the coupled route doc(s); satisfy the route doc with a dated entry and dismiss the rest with scoped `Doc-sync(<doc>): <reason of 12+ chars>` trailers, one per doc, or the commit is refused. (2) **Port 3000 is not necessarily politicas** - another project's dev server answered there (its `<title>` said so). Verify the title before using a port as the smoke server; with no politicas server, say "not visually verified" and probe data with a throwaway vitest file in the repo's own lane (tsx `-e` with `@/` aliases printed nothing). Reading `.pglite` from a script is safe only while no politicas process holds it.
