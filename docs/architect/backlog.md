@@ -18,6 +18,10 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-07-26] Ingest readiness guard + cardinality-floor test** — type: structural-bug-class, risk: 2, effort: m, payoff: 4, reach: 7 loaders / 0 ingest_run consumers / 0 cardinality tests
   ADR: [[decisions/2026-07-26-ingest-readiness-guard]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: in-progress (25a7b65 gate + floors + test shipped; /admin ingest-status surfacing remains)
 
+- **[2026-09-01] Empty slices are scored, not withheld — `scoreSlice` gives a 0-row slice 1/5 on four criteria** — type: convention-gap (law: missing-is-not-zero), risk: 2, effort: m, payoff: 3, reach: every source×term×entity `slice-stats.ts` emits with 0 rows
+  Found by: scan-sweep (analysis-quality, registry-conformance lens) · Site: `lib/analysis/quality.ts` `scoreSlice` (`fracScore(0) = 1`), emitted unconditionally by `scripts/data-analysis/slice-stats.ts` · Status: proposed (gate: contract — `SliceQualityRow.scores` would need a not-measured state, and `slice_quality` + DataHub consumers read the six numbers)
+  Notes: the outbox finding cap was full when found, so this line is the record.
+
 ## Shipped
 
 - **[2026-07-26] One mapper for the money tie** — shipped same day (commit 8dddf90, live-verified)
