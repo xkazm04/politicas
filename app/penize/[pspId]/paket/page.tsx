@@ -23,8 +23,10 @@ export default async function EvidencePacketRoute({
   params: Promise<{ pspId: string }>;
 }) {
   const { pspId: pspIdRaw } = await params;
+  // Jen číslice — týž tvar adresy jako /penize/[pspId] a /poslanec/[id];
+  // `Number("1e3")` by paket vydal pod druhou adresou.
+  if (!/^\d+$/.test(pspIdRaw)) notFound();
   const pspId = Number(pspIdRaw);
-  if (!Number.isInteger(pspId)) notFound();
 
   const data = await getEvidencePacket(pspId);
   return <EvidencePacketPage data={data} />;
