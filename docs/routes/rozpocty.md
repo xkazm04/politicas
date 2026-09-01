@@ -4,7 +4,7 @@
 
 **Routes** — `/rozpocty` (BudgetMirror: 132 towns with wired budget series,
 town-vs-peer-group mirror, debt-per-capita trends) and `/rozpocty/[ico]`
-(permanent town address, ~360 prerendered pages).
+(permanent town address; ~360 towns declared in `generateStaticParams`, none prerendered today — see 2026-09-01).
 
 **Reads** — the budget series come from the checked-in generated modules
 `features/budget/data/*.generated.ts` (FIN 2-12 M consolidated figures), **not
@@ -77,7 +77,7 @@ repaired three ways (missing `#penize` anchor, §01 label drift, no
 pattern; nine mock-era keys asserting „smyšlená čísla, MONITOR nenapojen"
 are deleted from both catalogs and `budget.sourceLine` interpolates the
 generated retrieved-date constants instead of a hand-typed literal
-(`features/budget/messages.test.ts` forbids the tokens). ~360 prerendered
+(`features/budget/messages.test.ts` forbids the tokens). ~360 declared
 town pages joined the sitemap through `features/budget/municipalRoutes.ts`
 — ONE list for `generateStaticParams` AND `app/sitemap.ts` (a municipality
 is a public register, not a person, and the register is a static module:
@@ -96,3 +96,16 @@ deliberate small delta: a quick-pick chip no longer clears a query typed in
 the search field (the list still closes via blur). `KrajPickerPage` and
 `/graf` `NodeSearch` are the two remaining hand-rolled copies, left for a
 later package.
+
+**Nothing is prerendered, and three places said it was (2026-09-01, explorer sweep).**
+`.next/prerender-manifest.json` from the 2026-08-27 build lists 0 `/rozpocty` paths:
+the locale cookie read in `lib/i18n/request.ts` renders every route dynamically
+(`memory/revalidate-is-inert-every-route-is-dynamic.md`), so `generateStaticParams` on
+`/rozpocty/[ico]` is a declared ceiling, not a description of the build. The page
+comment, the `municipalRoutes.ts` header and this file all claimed „~360 prerendered
+pages"; the sitemap argument leaned on it („Next z něj tytéž stránky už
+předgeneruje"). The argument still stands on its other leg — a municipality is a
+public register baked into the build, no store read, no person — and the three
+claims now say what runs. Noted for the day the app goes static: `getSupplierTies`
+(the live human-review state) must not be frozen into static output; its header
+already says so, and the page comment now points there.
