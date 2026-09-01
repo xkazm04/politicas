@@ -403,12 +403,13 @@ export default function BudgetMirrorPage({
         <section id="skupina" className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={3}
+            id="skupina-nadpis"
             title={t("section3Title")}
             aside={<SourceNote>{t("section3AsideLive", { band: bandLabel, scope: scopeLabel })}</SourceNote>}
           />
           {tableRows.length > 0 ? (
             <div className="mt-8 overflow-x-auto">
-              <table className="w-full min-w-[40rem] text-left">
+              <table aria-labelledby="skupina-nadpis" className="w-full min-w-[40rem] text-left">
                 <thead>
                   <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel-aa">
                     <th className="py-3 pr-4 font-bold">{t("colTown")}</th>

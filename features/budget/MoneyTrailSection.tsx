@@ -152,7 +152,7 @@ export default function MoneyTrailSection({
 
   return (
     <section id="penize" className="mt-14 border-t-4 border-ink pt-10">
-      <SectionHeading index={4} title={t("trailTitle")} aside={<SourceNote>{sourceLine}</SourceNote>} />
+      <SectionHeading index={4} id="penize-nadpis" title={t("trailTitle")} aside={<SourceNote>{sourceLine}</SourceNote>} />
 
       {/* Zveřejněné pravidlo spojení — tiskne se, netvrdí. */}
       <div className="mt-6 max-w-3xl border-2 border-ink bg-paper-strong px-5 py-4">
@@ -265,7 +265,7 @@ export default function MoneyTrailSection({
 
           {/* Protistrany. */}
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[46rem] text-left">
+            <table aria-labelledby="penize-nadpis" className="w-full min-w-[46rem] text-left">
               <thead>
                 <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel-aa">
                   <th className="py-3 pr-4 font-bold">{t("thSupplier")}</th>
