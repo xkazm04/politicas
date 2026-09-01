@@ -109,3 +109,11 @@ public register baked into the build, no store read, no person — and the three
 claims now say what runs. Noted for the day the app goes static: `getSupplierTies`
 (the live human-review state) must not be frozen into static output; its header
 already says so, and the page comment now points there.
+
+**The picker ranks by population again (2026-09-01, explorer sweep).** `searchMunicipalities`
+promised „uvnitř stupně podle počtu obyvatel sestupně" and delivered it by relying on the
+registry's input order plus a stable sort. Commit 26d695a (the repo-wide total-order
+tiebreak, correct in intent) appended `ic` straight after the score, so within a tier the
+order became IČO order: „pra" returned Pravonín (572) ahead of Prachatice (11 119). The
+comparator now states population desc explicitly, then IČO; a test feeds the registry
+reversed so the order can never again be an assumption about the input.
