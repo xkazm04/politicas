@@ -130,3 +130,13 @@ how many rows were lifted beyond the largest and that no folded counterparty has
 on record. Without the live tie layer nothing is lifted and the old sentence stays,
 beside `tiesUnavailable`. Not visually verified in this session — no politicas dev
 server was available; the split is a pure function under test.
+
+**§04's headline count is named for what it measures (2026-09-01, explorer sweep 2).**
+`contractCount` sums the per-counterparty rows, so a contract with two graph companies (or
+two municipal parties) counts once per row; the batch carries no contract ids, so a unique
+count cannot be derived from it. Measured: 11 741 row-counts against 11 582 municipal
+contracts (+1,4 %). The card now says „smluvních vztahů (smlouva × protistrana)" in both
+catalogs, pinned by `messages.test.ts`; the per-row column stays „smluv", which per row is
+true. Also this pass: §03 and §04 tables carry `aria-labelledby` to their section heading
+(`SectionHeading` gained an optional `id`), and the graph-link button keeps its label while
+pending with `aria-busy` instead of swapping to „…".

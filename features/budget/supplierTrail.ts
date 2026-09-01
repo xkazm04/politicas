@@ -72,6 +72,11 @@ export interface TownSupplierSummary {
    *  je váha hrany `supplies`, tedy hodnota smlouvy podle registru). */
   totalCzk: number;
   paidCzk: number;
+  /** Σ počtů přes řádky = SMLUVNÍ VZTAHY (smlouva × protistrana), ne smlouvy:
+   *  smlouva se dvěma firmami grafu je ve dvou řádcích a počítá se dvakrát.
+   *  Dávka nenese id smluv, takže unikátní počet se z ní neodvodí — plocha proto
+   *  říká „smluvních vztahů" (změřeno 2026-09-01: 11 741 vztahů proti 11 582
+   *  smlouvám obcí v celé dávce, +1,4 %). */
   contractCount: number;
   paidContractCount: number;
   supplierCount: number;

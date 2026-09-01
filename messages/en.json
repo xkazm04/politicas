@@ -1956,7 +1956,7 @@
     "notInRecordTitle": "municipality not in the graph's contracts record",
     "notInRecordBody": "{town} does not appear among the parties of the money graph's {municipal} municipal contracts. That does not mean the municipality has no contracts — the graph so far carries only its own companies' contracts ({towns} municipalities do appear). The complete picture is in the Contracts Register; it will flow in here as the graph grows. Nothing is extrapolated or estimated.",
     "cardContracts": "contracts with graph companies",
-    "cardContractsMeta": "{contracts} contracts · {suppliers} counterparties",
+    "cardContractsMeta": "{contracts} contract relationships (contract × counterparty) · {suppliers} counterparties",
     "cardContractsYears": "contracts signed {firstYear}–{lastYear}",
     "cardContractsYear": "contracts signed in {year}",
     "cardContractsYearsUnknown": "the record does not state the signing years of these contracts",
