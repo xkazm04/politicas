@@ -66,6 +66,7 @@ function GraphLinkButton({ companyId, companyName }: { companyId: string; compan
     <button
       type="button"
       disabled={pending}
+      aria-busy={pending}
       aria-label={t("graphLinkAria", { company: companyName })}
       onClick={() =>
         startTransition(async () => {
@@ -76,7 +77,9 @@ function GraphLinkButton({ companyId, companyName }: { companyId: string; compan
       }
       className="border border-hairline px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-steel-aa transition-colors hover:border-ink hover:text-ink disabled:opacity-50"
     >
-      {pending ? "…" : t("viewInGraph")}
+      {/* Popisek zůstává i během čekání — čtečka by z „…" nepoznala, na co
+          čeká; stav nese aria-busy + disabled, ne vyměněný text. */}
+      {t("viewInGraph")}
     </button>
   );
 }
