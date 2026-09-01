@@ -8,8 +8,6 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-01] Moonshot deck — 47 L/XL cards in 9 corroborated themes, all pending a human decision** — type: portfolio, risk: n/a, effort: l–xl, payoff: see per-card scores, reach: 10 groups / 49 contexts
   Record: [[moonshot-2026-09-01]] (decision table + full §4.10 bodies) · Lens: ad-hoc `moonshot-architect` via scan-sweep · Status: proposed (nothing built; top 29 bodies also in the memory outbox)
   Strongest spines by corroboration: as-of re-derivation from the bitemporal store (5 scouts), a claim address on every figure (5), one audited review door for every claim kind (5), the municipality as one graph subject (4).
-- **[2026-07-26] Enforce the server-only loader boundary mechanically** — type: convention-gap, risk: 1, effort: s, payoff: 3, reach: 7 loader headers / 4 type-leaking loaders / 0 lint rules
-  ADR: [[decisions/2026-07-26-server-only-boundary-enforcement]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: in-progress (commits 431d147, 4e1f112 shipped; type extraction blocked: working-tree-conflict — client pages dirty from a concurrent session)
 - **[2026-07-26] Bring the loader chain under test** — type: weak-pattern, risk: 1, effort: m, payoff: 4, reach: 7 loaders / 2540 lines / 0 direct tests
   ADR: [[decisions/2026-07-26-loader-test-coverage]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: in-progress (6753f8b constant mirror eliminated, 366e866 leaderboard loader test; law/money/vote loader tests + getStore reset test remain)
 - **[2026-07-26] One fallback-state contract (labelled mock / honest empty / DataUnavailable)** — type: weak-pattern, risk: 3, effort: l, payoff: 5, reach: 16 pages / 5 idioms / 6 mock-welded components
@@ -23,6 +21,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
   Notes: the outbox finding cap was full when found, so this line is the record.
 
 ## Shipped
+
+- **[2026-07-26] Enforce the server-only loader boundary mechanically** — code complete 2026-09-01 via `/architect resume`, browser smoke pending (commits 431d147, 4e1f112, 45d8fea, 09004fa, 751b100, b22d1a9, 0b217ff)
+  ADR: [[decisions/2026-07-26-server-only-boundary-enforcement]] · 9 loaders' prop types moved to sibling `*Types.ts` (29 client import sites), `getPermalinkData` guarded, and the rule now runs with `typeImports: "forbid"` — a `"use client"` file imports nothing from a loader, not even a type. Not browser-verified (no JSX touched).
 
 - **[2026-07-26] One mapper for the money tie** — shipped same day (commit 8dddf90, live-verified)
   ADR: [[decisions/2026-07-26-money-tie-mapper-dedup]] · `mapLinkedToTie()` owns the projection; ReviewTie deliberately left as a separate projection (rationale in the ADR).

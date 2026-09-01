@@ -21,9 +21,12 @@ graduate into lint rules, docs sections, or test guards.
 
 ## Canonical loader shape: `getVoteThemes.ts` + sibling `themeTypes.ts`
 - Identified: 2026-07-26
-- Reach: 1 exemplar pair (5 features use sibling `*Types.ts`; 4 don't)
+- Reach: every loader whose types a `"use client"` file reads — 9 loaders gained a sibling `*Types.ts` on 2026-09-01 (was: 5 features had one, 4 didn't)
 - Why it works: 47 lines, zero casts, `Promise<X | null>`, types in a plain module both sides import — satisfies every rule the codebase states for itself (`themeTypes.ts:1-4`).
-- Codification status: noted
+- Codification status: lint-rule-added — `custom/no-server-import-in-client` with `typeImports: "forbid"` (a client module cannot import even a type from a `get*`/`*Loader` file, so the sibling module is the only home)
+- Codified: 2026-09-01
+- Codification ADR: [[decisions/2026-07-26-server-only-boundary-enforcement]] (rollout step 5, commit 0b217ff)
+- Lint rule: `packages/eslint-plugin-civic-transparency/rules/no-server-import-in-client.cjs`
 - Examples: `features/votetrack/getVoteThemes.ts`, `features/votetrack/themeTypes.ts`
 
 ## Real-PGlite temp-dir test harness
