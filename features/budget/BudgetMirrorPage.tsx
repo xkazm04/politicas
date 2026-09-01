@@ -152,10 +152,14 @@ export default function BudgetMirrorPage({
 
   const townSeries = series.get(town.ic);
   const latest = latestMetrics(townSeries);
+  /** Rok, který MetricDuo tiskne nad OBĚMA pruhy, je poslední rok obce — medián
+   *  i stropy pruhů se proto počítají nad týmž indexem, ne nad posledním rokem
+   *  dávky (do 2026-09-01 se kryly jen proto, že 132/132 obcí vykázalo 2025). */
+  const yearIndex = latest ? SNAPSHOT_YEARS.indexOf(latest.year) : SNAPSHOT_YEARS.length - 1;
   const group = useMemo(() => peerGroupFor(town, registry, covered), [town, registry, covered]);
   const medians = useMemo(
-    () => peerMedians(group.peers, series, SNAPSHOT_YEARS.length),
-    [group, series],
+    () => peerMedians(group.peers, series, SNAPSHOT_YEARS.length, yearIndex),
+    [group, series, yearIndex],
   );
 
   /** Stropy pruhů z vybrané skupiny + obce (×1,1) — ne z celé ČR: celostátní
@@ -166,9 +170,8 @@ export default function BudgetMirrorPage({
       let max = 0;
       for (const s of pool) {
         if (!s) continue;
-        const arr = pick(s);
-        const v = arr[arr.length - 1];
-        if (v !== null && Math.abs(v) > max) max = Math.abs(v);
+        const v = pick(s)[yearIndex];
+        if (v !== null && v !== undefined && Math.abs(v) > max) max = Math.abs(v);
       }
       return max > 0 ? max * 1.1 : 1;
     };
@@ -177,7 +180,7 @@ export default function BudgetMirrorPage({
       capex: maxOf((s) => s.capexRatio),
       saldo: maxOf((s) => s.saldoPerCapita),
     };
-  }, [group, series, townSeries]);
+  }, [group, series, townSeries, yearIndex]);
 
   const trendData = useMemo(
     () =>

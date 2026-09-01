@@ -140,3 +140,11 @@ catalogs, pinned by `messages.test.ts`; the per-row column stays „smluv", whic
 true. Also this pass: §03 and §04 tables carry `aria-labelledby` to their section heading
 (`SectionHeading` gained an optional `id`), and the graph-link button keeps its label while
 pending with `aria-busy` instead of swapping to „…".
+
+**The peer median is taken at the town's own year (2026-09-01, explorer sweep 2).** `MetricDuo`
+prints one year over both bars — the town's last reported year — while `peerMedians` always
+took the batch's last year. They coincided only because 132/132 towns report 2025. The page
+now passes the town's year index; a town whose last statement is 2024 is measured against the
+2024 median (and the 2024 bar ceilings), with `sampleSize` saying how many peers reported that
+year. No number moves on the checked-in batch; `peerGroups.test.ts` pins both the contract and
+the fact that today the two indices are equal.

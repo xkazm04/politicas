@@ -145,7 +145,7 @@ describe("co soubor tvrdí, drží test (2026-09-01)", () => {
     expect(g.peers.map((p) => p.ic)).toEqual(["00000001", "00000002", "00000003"]);
   });
 
-  it("medián stojí nad posledním rokem dávky — vrstevník, který ho nevykázal, nevstupuje, ať vykázal cokoli dřív", () => {
+  it("bez indexu stojí medián nad posledním rokem dávky — vrstevník, který ho nevykázal, nevstupuje, ať vykázal cokoli dřív", () => {
     const series = new Map<string, TownBudgetSeries>([
       ["00000001", { ic: "00000001", years: [2024, 2025], debtPerCapita: [100, 300], capexRatio: [10, 20], saldoPerCapita: [1, 3] }],
       ["00000002", { ic: "00000002", years: [2024, 2025], debtPerCapita: [900, null], capexRatio: [90, null], saldoPerCapita: [9, null] }],
@@ -178,17 +178,30 @@ describe("co soubor tvrdí, drží test (2026-09-01)", () => {
     // buď se počet vysází per metrika, nebo se sampleSize rozpadne na tři.
     expect(offenders).toEqual([]);
   });
-  it("ve skutečné dávce vykázala každá obec v záznamu poslední rok — rok v popisku MetricDuo tak platí i pro medián", () => {
+  it("s indexem roku obce se medián počítá nad TÍM rokem — popisek „(rok)“ nad oběma pruhy platí z konstrukce", () => {
+    const series = new Map<string, TownBudgetSeries>([
+      ["00000001", { ic: "00000001", years: [2024, 2025], debtPerCapita: [100, 300], capexRatio: [10, 20], saldoPerCapita: [1, 3] }],
+      ["00000002", { ic: "00000002", years: [2024, 2025], debtPerCapita: [900, null], capexRatio: [90, null], saldoPerCapita: [9, null] }],
+    ]);
+    const peers = [town("00000001", 12_000, 1), town("00000002", 12_000, 1)];
+    // Obec, jejíž poslední výkaz je 2024 (index 0): medián z OBOU vrstevníků za 2024.
+    const at2024 = peerMedians(peers, series, 2, 0);
+    expect(at2024.debtPerCapita).toBe(500);
+    expect(at2024.sampleSize).toBe(2);
+    // Trend po letech na indexu nezávisí.
+    expect(at2024.debtTrend).toEqual([500, 300]);
+  });
+
+  it("ve skutečné dávce dnes každá obec vykázala poslední rok — index roku obce = poslední index (informativní pin)", () => {
     const lastYear = SNAPSHOT_YEARS[SNAPSHOT_YEARS.length - 1];
     const series = getBudgetSeries();
-    const offenders: string[] = [];
+    let earlier = 0;
     for (const m of getRegistry()) {
       const latest = latestMetrics(series.get(m.ic));
-      if (latest && latest.year !== lastYear) offenders.push(`${m.name}:${latest.year}`);
+      if (latest && latest.year !== lastYear) earlier++;
     }
-    // Když tohle spadne, není chyba v datech: je v popisku. MetricDuo tiskne rok
-    // obce nad oběma pruhy a medián je nad posledním rokem dávky — buď se medián
-    // začne počítat nad rokem obce, nebo popisek dostane dva roky.
-    expect(offenders).toEqual([]);
+    // Když tohle spadne, NENÍ to chyba: plocha už medián počítá nad rokem obce.
+    // Test jen říká, od které dávky se ta cesta poprvé skutečně použila.
+    expect(earlier).toBe(0);
   });
 });

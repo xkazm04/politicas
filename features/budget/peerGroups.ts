@@ -100,30 +100,32 @@ export interface PeerMedians {
 }
 
 /**
- * Mediány vrstevnické skupiny nad POSLEDNÍM ROKEM ŘAD (index yearCount − 1)
- * + trend dluhu po letech. Vrstevník bez vykázané hodnoty do daného mediánu
- * nevstupuje (null ≠ 0) — i kdyby dřívější rok vykázal.
+ * Mediány vrstevnické skupiny nad ROKEM `atIndex` (index do řad; výchozí
+ * poslední rok dávky) + trend dluhu po letech. Vrstevník bez vykázané hodnoty
+ * v tom roce do mediánu nevstupuje (null ≠ 0) — i kdyby jiný rok vykázal.
  *
  * ROK, KTERÝ PLOCHA TISKNE. MetricDuo popisuje obě hodnoty (obec i medián)
  * rokem `latestMetrics(town).year`, tedy posledním rokem, který vykázala OBEC.
- * Tenhle medián je ale vždy nad posledním rokem dávky. Obě věty se kryjí jen
- * tehdy, když každá obec v záznamu vykázala poslední rok dávky — dnes ano
- * (132/132 za 2025) a peerGroups.test.ts to připíchává ke skutečné dávce, aby
- * první dávka, která to poruší, shodila test místo popisku.
+ * Do 2026-09-01 se medián počítal vždy nad posledním rokem DÁVKY a popisek
+ * platil jen proto, že každá obec v záznamu ten rok vykázala (132/132 za 2025).
+ * Teď plocha předá index roku obce, takže „(2024)" nad oběma pruhy je pravda
+ * z konstrukce: obec s posledním výkazem 2024 se měří proti mediánu 2024, ne
+ * proti roku, který sama nevykázala. `sampleSize` říká, kolik vrstevníků ten
+ * rok vykázalo — u staršího roku bývá menší, a tiskne se, nikdy nedomýšlí.
  */
 export function peerMedians(
   peers: readonly Municipality[],
   series: ReadonlyMap<string, TownBudgetSeries>,
   yearCount: number,
+  atIndex: number = yearCount - 1,
 ): PeerMedians {
   const latestOf = (pick: (s: TownBudgetSeries) => (number | null)[]): number[] => {
     const vals: number[] = [];
     for (const p of peers) {
       const s = series.get(p.ic);
       if (!s) continue;
-      const arr = pick(s);
-      const v = arr[arr.length - 1];
-      if (v !== null) vals.push(v);
+      const v = pick(s)[atIndex];
+      if (v !== null && v !== undefined) vals.push(v);
     }
     return vals;
   };
