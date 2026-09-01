@@ -148,3 +148,10 @@ now passes the town's year index; a town whose last statement is 2024 is measure
 2024 median (and the 2024 bar ceilings), with `sampleSize` saying how many peers reported that
 year. No number moves on the checked-in batch; `peerGroups.test.ts` pins both the contract and
 the fact that today the two indices are equal.
+
+**The tab title follows the picked town (2026-09-01, explorer sweep 2).** `select()` changes the
+address with `history.replaceState` and no server round-trip, so `<title>` stayed on the town
+from the URL (Brno in the tab, Ostrava on the page). The handler now sets `document.title` from
+the same catalog key `generateMetadata` uses on `/rozpocty/[ico]` (`meta.budgetIcoTitle`), so
+both paths say the same sentence; the description meta is left as is (it is not what a reader
+sees). NOT verified in a browser — no politicas dev server was available.

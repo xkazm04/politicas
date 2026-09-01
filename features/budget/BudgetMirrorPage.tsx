@@ -128,6 +128,7 @@ export default function BudgetMirrorPage({
   supplierTies?: SupplierTiesResult | null;
 }) {
   const t = useTranslations("budget");
+  const tMeta = useTranslations("meta");
   const reduceMotion = useReducedMotion();
   const f = useFormat();
 
@@ -147,6 +148,12 @@ export default function BudgetMirrorPage({
     // Trvalá adresa bez server round-tripu — data jsou celá na klientu.
     if (typeof window !== "undefined") {
       window.history.replaceState(null, "", `/rozpocty/${ic}`);
+      // Bez round-tripu se nepřepíše ani titulek: do 2026-09-01 zůstal na
+      // obci z adresy (Brno v záložce, Ostrava na ploše). Titulek se sází
+      // z téhož katalogového klíče, který používá generateMetadata na
+      // /rozpocty/[ico], aby obě cesty říkaly totéž. Neověřeno v prohlížeči.
+      const picked = getMunicipality(ic);
+      if (picked) document.title = tMeta("budgetIcoTitle", { town: picked.name });
     }
   };
 
