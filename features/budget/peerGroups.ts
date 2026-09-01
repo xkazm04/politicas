@@ -13,7 +13,11 @@
 
 import type { Municipality, TownBudgetSeries } from "./mirrorData";
 
-/** Populační pásma (dolní mez včetně, horní mez vyjma; poslední bez stropu). */
+/** Populační pásma (dolní mez včetně, horní mez vyjma; poslední bez stropu).
+ *  `label` je česká podoba pravidla pro čtenáře KÓDU a pro testy; plocha sází
+ *  katalogový klíč `budget.band{i}` (messages/cs.json, en.json), aby copy šlo
+ *  přes next-intl jako všechno ostatní. Dvě deklarace jedné věty — paritu drží
+ *  peerGroups.test.ts, jinak by se rozešly potichu. */
 export const POPULATION_BANDS: readonly { min: number; max: number | null; label: string }[] = [
   { min: 0, max: 200, label: "do 199 obyvatel" },
   { min: 200, max: 500, label: "200–499 obyvatel" },
@@ -40,7 +44,10 @@ export function bandIndexFor(population: number): number {
 }
 
 export interface PeerGroup {
-  /** Vrstevníci v záznamu (bez obce samotné), seřazení podle dluhu vzestupně. */
+  /** Vrstevníci v záznamu (bez obce samotné) v POŘADÍ REJSTŘÍKU (počet obyvatel
+   *  sestupně, stabilní filtr). Tenhle modul neřadí podle žádné metriky — §03
+   *  na ploše si řadí podle dluhu sama (BudgetMirrorPage.tableRows), a do
+   *  2026-09-01 to tenhle komentář tvrdil za ni. */
   peers: Municipality[];
   bandIndex: number;
   bandLabel: string;
@@ -93,8 +100,16 @@ export interface PeerMedians {
 }
 
 /**
- * Mediány vrstevnické skupiny nad posledním rokem řad + trend dluhu po letech.
- * Vrstevník bez vykázané hodnoty do daného mediánu nevstupuje (null ≠ 0).
+ * Mediány vrstevnické skupiny nad POSLEDNÍM ROKEM ŘAD (index yearCount − 1)
+ * + trend dluhu po letech. Vrstevník bez vykázané hodnoty do daného mediánu
+ * nevstupuje (null ≠ 0) — i kdyby dřívější rok vykázal.
+ *
+ * ROK, KTERÝ PLOCHA TISKNE. MetricDuo popisuje obě hodnoty (obec i medián)
+ * rokem `latestMetrics(town).year`, tedy posledním rokem, který vykázala OBEC.
+ * Tenhle medián je ale vždy nad posledním rokem dávky. Obě věty se kryjí jen
+ * tehdy, když každá obec v záznamu vykázala poslední rok dávky — dnes ano
+ * (132/132 za 2025) a peerGroups.test.ts to připíchává ke skutečné dávce, aby
+ * první dávka, která to poruší, shodila test místo popisku.
  */
 export function peerMedians(
   peers: readonly Municipality[],

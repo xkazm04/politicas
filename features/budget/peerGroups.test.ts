@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import type { Municipality, TownBudgetSeries } from "./mirrorData";
+import csCatalog from "@/messages/cs.json";
+import enCatalog from "@/messages/en.json";
+import { getBudgetSeries, getRegistry, latestMetrics, type Municipality, type TownBudgetSeries } from "./mirrorData";
+import { SNAPSHOT_YEARS } from "./data/budgetSnapshots.generated";
 import {
   bandIndexFor,
   median,
@@ -120,5 +123,49 @@ describe("peerMedians", () => {
     const m = peerMedians([town("99999999", 12_000, 1)], map, 3);
     expect(m.debtPerCapita).toBeNull();
     expect(m.sampleSize).toBe(0);
+  });
+});
+
+describe("co soubor tvrdí, drží test (2026-09-01)", () => {
+  it("štítek pásma v kódu = katalogový klíč budget.band{i} v obou jazycích (jedna věta, dvě deklarace)", () => {
+    const cs = csCatalog.budget as Record<string, string>;
+    const en = enCatalog.budget as Record<string, string>;
+    POPULATION_BANDS.forEach((band, i) => {
+      expect(cs[`band${i}`], `cs band${i}`).toBe(band.label);
+      expect(en[`band${i}`], `en band${i}`).toBeTypeOf("string");
+    });
+    // Žádné pásmo navíc v katalogu, které by kód neznal.
+    const catalogBands = Object.keys(cs).filter((k) => /^band\d+$/.test(k));
+    expect(catalogBands).toHaveLength(POPULATION_BANDS.length);
+  });
+
+  it("peerGroupFor neřadí podle metriky — vrací pořadí rejstříku (řazení podle dluhu je věc plochy)", () => {
+    const registry = [town("00000001", 12_000, 1), town("00000002", 11_000, 1), town("00000003", 19_000, 1)];
+    const g = peerGroupFor(town("00000009", 15_000, 1), registry, new Set(registry.map((m) => m.ic)));
+    expect(g.peers.map((p) => p.ic)).toEqual(["00000001", "00000002", "00000003"]);
+  });
+
+  it("medián stojí nad posledním rokem dávky — vrstevník, který ho nevykázal, nevstupuje, ať vykázal cokoli dřív", () => {
+    const series = new Map<string, TownBudgetSeries>([
+      ["00000001", { ic: "00000001", years: [2024, 2025], debtPerCapita: [100, 300], capexRatio: [10, 20], saldoPerCapita: [1, 3] }],
+      ["00000002", { ic: "00000002", years: [2024, 2025], debtPerCapita: [900, null], capexRatio: [90, null], saldoPerCapita: [9, null] }],
+    ]);
+    const m = peerMedians([town("00000001", 12_000, 1), town("00000002", 12_000, 1)], series, 2);
+    expect(m.debtPerCapita).toBe(300);
+    expect(m.sampleSize).toBe(1);
+  });
+
+  it("ve skutečné dávce vykázala každá obec v záznamu poslední rok — rok v popisku MetricDuo tak platí i pro medián", () => {
+    const lastYear = SNAPSHOT_YEARS[SNAPSHOT_YEARS.length - 1];
+    const series = getBudgetSeries();
+    const offenders: string[] = [];
+    for (const m of getRegistry()) {
+      const latest = latestMetrics(series.get(m.ic));
+      if (latest && latest.year !== lastYear) offenders.push(`${m.name}:${latest.year}`);
+    }
+    // Když tohle spadne, není chyba v datech: je v popisku. MetricDuo tiskne rok
+    // obce nad oběma pruhy a medián je nad posledním rokem dávky — buď se medián
+    // začne počítat nad rokem obce, nebo popisek dostane dva roky.
+    expect(offenders).toEqual([]);
   });
 });
