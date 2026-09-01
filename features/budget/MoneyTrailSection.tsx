@@ -32,12 +32,14 @@ import { getRegistry } from "./mirrorData";
 import { MIN_PEERS, peerGroupFor } from "./peerGroups";
 import {
   getSupplierTable,
+  liftTiedRows,
   peerSupplierTotals,
   rowTotalCount,
   rowTotalCzk,
   supplierCoverage,
   supplierPeerStats,
   townSupplierSummary,
+  type SupplierRow,
 } from "./supplierTrail";
 import {
   SUPPLIERS_CONTRACTS_SCANNED,
@@ -104,8 +106,20 @@ export default function MoneyTrailSection({
   const peerIcs = useMemo(() => group.peers.map((p) => p.ic), [group]);
   const peerTotals = useMemo(() => peerSupplierTotals(peerIcs, table), [peerIcs, table]);
 
-  const topRows = useMemo(() => summary?.rows.slice(0, TOP_SUPPLIERS) ?? [], [summary]);
-  const restRows = useMemo(() => summary?.rows.slice(TOP_SUPPLIERS) ?? [], [summary]);
+  /** Výpis = TOP_SUPPLIERS největších + KAŽDÁ protistrana s vazbou na poslance.
+   *  Do 2026-09-01 se vazba hledala jen u vypsaných řádků, takže protistrana
+   *  s vazbou na 13. místě zmizela v souhrnném řádku beze slova — u Brna to
+   *  byly čtyři (viz liftTiedRows). Bez vrstvy vazeb se nezvedá nic a souhrn
+   *  to říká větou tiesUnavailable, ne tvrzením „bez vazeb". */
+  const hasTie = useMemo(
+    () =>
+      ties?.available ? (r: SupplierRow) => (ties.ties[r.supplierIco]?.length ?? 0) > 0 : null,
+    [ties],
+  );
+  const { shown: topRows, folded: restRows, lifted } = useMemo(
+    () => liftTiedRows(summary?.rows ?? [], TOP_SUPPLIERS, hasTie),
+    [summary, hasTie],
+  );
   const restCzk = useMemo(() => restRows.reduce((a, r) => a + rowTotalCzk(r), 0), [restRows]);
   const maxRowCzk = useMemo(
     () => Math.max(1, ...topRows.map(rowTotalCzk)),
@@ -355,7 +369,14 @@ export default function MoneyTrailSection({
           </div>
           {restRows.length > 0 && (
             <p className="mt-3 font-mono text-xs tabular-nums text-steel-aa">
-              {t("restRow", { count: f.int(restRows.length), sum: f.czk(restCzk), top: TOP_SUPPLIERS })}
+              {hasTie === null
+                ? t("restRow", { count: f.int(restRows.length), sum: f.czk(restCzk), top: TOP_SUPPLIERS })
+                : t("restRowTiesLifted", {
+                    count: f.int(restRows.length),
+                    sum: f.czk(restCzk),
+                    top: TOP_SUPPLIERS,
+                    lifted: f.int(lifted),
+                  })}
             </p>
           )}
           <div className="mt-4">

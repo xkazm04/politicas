@@ -1984,6 +1984,7 @@
     "noPeerRecord": "no peer on record",
     "peerTownCount": "({count} municipalities)",
     "restRow": "… plus {count} more counterparties worth {sum} — the listing carries the {top} largest by recorded volume.",
+    "restRowTiesLifted": "… plus {count} more counterparties worth {sum} — the listing carries the {top} largest by recorded volume and every counterparty with a tie to an MP ({lifted} beyond the largest); none of the folded counterparties has an MP tie on record.",
     "trailFootnote": "A counterparty's peer median is computed only from municipalities of the same band that have contracts with the same company on record — a municipality outside the record does not drag the median toward zero. A contract whose payment direction the register does not state is never read as municipal expenditure or income."
   },
   "lawwatch": {

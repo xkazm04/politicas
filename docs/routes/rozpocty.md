@@ -117,3 +117,16 @@ tiebreak, correct in intent) appended `ic` straight after the score, so within a
 order became IČO order: „pra" returned Pravonín (572) ahead of Prachatice (11 119). The
 comparator now states population desc explicitly, then IČO; a test feeds the registry
 reversed so the order can never again be an assumption about the input.
+
+**§04 lists every counterparty with an MP tie, not only the twelve largest (2026-09-01,
+explorer sweep).** The tie lookup ran only over the first `TOP_SUPPLIERS` rows, so a
+tied counterparty ranked 13th or lower vanished into „a dalších N protistran" with no
+word — on the surface whose purpose is that tie. Measured against the store: Brno
+(44992785) has 17 counterparties, 13 tied, four of them (RAILREKLAM, ČSOB Pojišťovna,
+Vzdělávací centrum pro veřejnou správu, Univerzita Palackého) at ranks 13–16, all
+hidden. `liftTiedRows` (`supplierTrail.ts`, tested) now keeps the twelve largest AND every
+tied row, in volume order; the fold sentence (`budget.restRowTiesLifted`, cs + en) states
+how many rows were lifted beyond the largest and that no folded counterparty has a tie
+on record. Without the live tie layer nothing is lifted and the old sentence stays,
+beside `tiesUnavailable`. Not visually verified in this session — no politicas dev
+server was available; the split is a pure function under test.

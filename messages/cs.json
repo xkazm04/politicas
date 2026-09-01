@@ -1984,6 +1984,7 @@
     "noPeerRecord": "bez vrstevníka v záznamu",
     "peerTownCount": "({count} obcí)",
     "restRow": "… a dalších {count} protistran za {sum} — výpis nese {top} největších podle objemu v záznamu.",
+    "restRowTiesLifted": "… a dalších {count} protistran za {sum} — výpis nese {top} největších podle objemu v záznamu a každou protistranu s vazbou na poslance ({lifted} nad rámec těch největších); mezi složenými protistranami žádná vazba na poslance v záznamu není.",
     "trailFootnote": "Vrstevnický medián u protistrany se počítá jen z obcí téhož pásma, které mají s touž firmou smlouvy v záznamu — obec mimo záznam medián nesráží k nule. Smlouva, kde směr platby registr neuvádí, se nikdy nevykládá jako výdaj ani příjem obce."
   },
   "lawwatch": {
