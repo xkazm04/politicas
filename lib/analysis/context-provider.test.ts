@@ -242,3 +242,18 @@ describe("LiteContextProvider — missing slice", () => {
     expect(lite).toBeNull();
   });
 });
+
+describe("the context dates its own point-in-time facts (2026-09-01)", () => {
+  it("prints the analysis-pass day next to the known issues, in both arms", async () => {
+    const direct = await new DirectContextProvider(ALL, ENV).getSliceContext("psp-hlasovani", "PSP10", "vote_event");
+    const lite = await new LiteContextProvider({
+      gms: "http://gms.test",
+      env: ENV,
+      fetchImpl: makeMockFetch({ source: "psp-hlasovani", entity: "vote_event" }),
+    }).getSliceContext("psp-hlasovani", "PSP10", "vote_event");
+    for (const ctx of [direct, lite]) {
+      expect(ctx?.slice.documentation).toContain("analysis pass of 2026-07-23");
+      expect(ctx?.corpus?.documentation).toContain("analysis pass of 2026-07-23");
+    }
+  });
+});
