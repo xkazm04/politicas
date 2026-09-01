@@ -45,7 +45,7 @@ import {
   SUPPLIERS_CONTRACTS_SCANNED,
   SUPPLIERS_MUNICIPAL_CONTRACTS,
 } from "./data/municipalSuppliers.generated";
-import type { SupplierTiesResult } from "./getSupplierTies";
+import type { SupplierTiesResult } from "./supplierTiesTypes";
 
 /** Kolik protistran se vypisuje; zbytek se přizná souhrnným řádkem. */
 const TOP_SUPPLIERS = 12;

@@ -14,23 +14,10 @@ import "server-only";
 import { cache } from "react";
 import { loadMoneyLayer, pspIdFromNodeId } from "@/features/money/moneyLoader";
 import { getSupplierTable, icoFromCompanyId, normalizeIco } from "./supplierTrail";
+import type { SupplierTie, SupplierTiesResult } from "./supplierTiesTypes";
 
-export interface SupplierTie {
-  pspId: number;
-  personName: string;
-  role: string;
-  /** Odmítnuté vazby se vynechávají; vše ostatní bez `verified` je pending. */
-  reviewState: "verified" | "pending_review";
-}
-
-export interface SupplierTiesResult {
-  /** false = sklad nedostupný — „nelze ověřit", NE „žádné vazby". */
-  available: boolean;
-  /** IČO protistrany → vazby na poslance (jen IČO z generované dávky). */
-  ties: Record<string, SupplierTie[]>;
-  /** Pass peněžního grafu, ze kterého vrstva čte (provenience plochy). */
-  pass: number;
-}
+// Re-exported so server-side importers keep reading the shapes from the loader.
+export type { SupplierTie, SupplierTiesResult } from "./supplierTiesTypes";
 
 /** Živé vazby poslanec↔firma pro všechna IČO v generované dávce protistran. */
 export const getSupplierTies = cache(async function getSupplierTies(): Promise<SupplierTiesResult> {

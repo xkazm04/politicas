@@ -41,7 +41,7 @@ import {
 import { REGISTRY_PERIOD_LABEL, REGISTRY_RETRIEVED_ON } from "./data/registryData.generated";
 import TownPicker from "./TownPicker";
 import MoneyTrailSection from "./MoneyTrailSection";
-import type { SupplierTiesResult } from "./getSupplierTies";
+import type { SupplierTiesResult } from "./supplierTiesTypes";
 
 /** Výchozí obec bez zvolené adresy: hlavní město — zrcadlo, které zná každý. */
 const DEFAULT_IC = "00064581";
