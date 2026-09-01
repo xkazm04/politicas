@@ -155,6 +155,29 @@ describe("co soubor tvrdí, drží test (2026-09-01)", () => {
     expect(m.sampleSize).toBe(1);
   });
 
+  it("peerRule tiskne jeden počet pro tři mediány — ve skutečné dávce jsou vzorky capex a salda stejně velké jako vzorek dluhu", () => {
+    const all = getRegistry();
+    const series = getBudgetSeries();
+    const covered = new Set(series.keys());
+    const offenders: string[] = [];
+    for (const m of all) {
+      if (!covered.has(m.ic)) continue;
+      const g = peerGroupFor(m, all, covered);
+      const md = peerMedians(g.peers, series, SNAPSHOT_YEARS.length);
+      let capexN = 0;
+      let saldoN = 0;
+      for (const p of g.peers) {
+        const ps = series.get(p.ic);
+        if (!ps) continue;
+        if (ps.capexRatio[ps.capexRatio.length - 1] !== null) capexN++;
+        if (ps.saldoPerCapita[ps.saldoPerCapita.length - 1] !== null) saldoN++;
+      }
+      if (capexN !== md.sampleSize || saldoN !== md.sampleSize) offenders.push(`${m.name}: dluh ${md.sampleSize} · capex ${capexN} · saldo ${saldoN}`);
+    }
+    // Když tohle spadne, věta „medián z {count} obcí" platí jen pro dluh:
+    // buď se počet vysází per metrika, nebo se sampleSize rozpadne na tři.
+    expect(offenders).toEqual([]);
+  });
   it("ve skutečné dávce vykázala každá obec v záznamu poslední rok — rok v popisku MetricDuo tak platí i pro medián", () => {
     const lastYear = SNAPSHOT_YEARS[SNAPSHOT_YEARS.length - 1];
     const series = getBudgetSeries();
