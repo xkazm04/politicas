@@ -8,6 +8,9 @@ Heatmap of themes and areas scanned, with last-scan date.
 - Last scanned: 2026-07-26
 - Last scan: [[scans/2026-07-26-data-loading-boundary]]
 - Findings (last scans): [8]
+- Resume 2026-09-02: loader-test-coverage shipped ([[scans/2026-09-02-resume-loader-test-coverage]]) — the loader tests already
+  existed (loaders.test.ts); the remainder was mappers parity/coercion, the getStore() lockstep test and one duplicate boot removed.
+  Remaining in-progress: ingest-readiness; proposed: fallback-state-contract.
 - Resume 2026-09-01: server-only-boundary shipped in full ([[scans/2026-09-01-resume-server-only-boundary]]) — the strong pattern
   "canonical loader shape" is now lint-codified. Remaining in-progress: loader-test-coverage, ingest-readiness; proposed: fallback-state-contract.
 - Findings actioned: [7 of 8 — shipped: silent-degradation, props-union-narrowing,

@@ -9,6 +9,11 @@ One entry per live session in this checkout. Move to "Recently completed" at wra
 
 ## Recently completed
 
+- **/architect resume — loader-test-coverage remainder** — COMPLETE 2026-09-02 (Fable 5.1). ADR
+  `docs/architect/decisions/2026-07-26-loader-test-coverage.md` shipped: 1c035c4 (mappers parity +
+  coercion tests; duplicate suite deleted), b9684ae (getStore lockstep test, lane list), 75798b1
+  (context map). `npm run check` green 3 063 + 212.
+
 - **/architect resume — server-only loader boundary** — COMPLETE 2026-09-01 (Fable 5.1). ADR
   `docs/architect/decisions/2026-07-26-server-only-boundary-enforcement.md` shipped: 45d8fea (permalink
   guard), 09004fa / 751b100 / b22d1a9 (9 loaders' prop types → sibling `*Types.ts`, 29 client sites),
