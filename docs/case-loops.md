@@ -389,5 +389,12 @@ resumes exactly.
 - The human gate is inviolable (see Authority).
 - No silent truncation: a skipped unit, a dropped row, a sampled subset is
   logged in the batch note.
+- A harvested dump is complete or it is not a dump: the money harvester
+  (`scripts/case-loops/money/harvest-contract-dumps.ts`) streams each monthly
+  file under a `.partial` name, pins the byte size the registry's index states
+  before the first byte, and only renames to the final name when the received
+  count matches — a month is never marked done over a short file (added
+  2026-09-02; before this, a server that advertised and delivered fewer bytes
+  than the index passed every check).
 - Build phases meet the same bar as any session: `npm run check` green, docs
   synced same-session, tokens/colors discipline, Czech-first copy.

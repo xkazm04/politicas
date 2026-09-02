@@ -115,7 +115,20 @@ async function main() {
     try {
       const res = await fetch(entry.odkaz, { signal: AbortSignal.timeout(900_000) });
       if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
-      await pipeline(Readable.fromWeb(res.body as Parameters<typeof Readable.fromWeb>[0]), createWriteStream(file));
+      // The index states each dump's size; a server that advertises AND delivers a smaller
+      // total satisfies every transport check, so pin the catalog size before the first byte
+      // and stage under a partial name — the final name only ever holds a full-size dump.
+      const declared = Number(res.headers.get("content-length"));
+      if (Number.isFinite(declared) && declared > 0 && declared !== entry.velikostDumpu) {
+        throw new Error(`server advertises ${declared} bytes, index says ${entry.velikostDumpu}`);
+      }
+      const partial = `${file}.partial`;
+      await pipeline(Readable.fromWeb(res.body as Parameters<typeof Readable.fromWeb>[0]), createWriteStream(partial));
+      const received = (await fs.stat(partial)).size;
+      if (received !== entry.velikostDumpu) {
+        throw new Error(`received ${received} of ${entry.velikostDumpu} bytes (partial kept at ${partial})`);
+      }
+      await fs.rename(partial, file);
 
       const xml = await fs.readFile(file, "utf8");
       const { party, publisherOnly, publisherOnlyByIco } = parseDump(xml, icos);
