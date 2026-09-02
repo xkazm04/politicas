@@ -62,7 +62,7 @@ export const PGLITE_LANE_FILES = [
   "lib/db/pglite/repositories/votes.test.ts",
   "lib/db/pglite/repositories/weights.test.ts",
   "lib/db/readiness.test.ts",
-  "lib/testing/leaderboard-loader.test.ts",
+  "lib/db/store-lockstep.test.ts",
   "lib/testing/loaders.test.ts",
   "lib/testing/sentinel/sentinel.test.ts",
   "scripts/case-loops/apply-batch.test.ts",
