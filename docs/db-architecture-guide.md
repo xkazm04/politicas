@@ -4,7 +4,9 @@
 operation and a data scale, which engine (single) or combination (hybrid) to use —
 so Politicas and sibling projects can make the DB-choice from evidence, not folklore.
 Every rule here is backed by an experiment on Politicas's real datasets
-(`scripts/db-bench/`), which are rich enough to exercise every workload class:
+(`scripts/db-bench/`), which are rich enough to exercise every workload class — with
+one labelled exception: the *method* rules under **Engine watch**, which say how to
+read someone else's numbers and are marked as not case-backed:
 
 | Dataset | Rows | Exercises |
 | --- | --- | --- |
@@ -401,6 +403,95 @@ separate process and not a recovery branch inside the app.
 
 Each result appends a *Measured case* + one or more *Decision rules*, growing this
 into a portable "single vs hybrid, and which engine" playbook.
+
+## Engine watch — assessed on documentation, not benchmarked (2026-08-27)
+
+Every rule above cites an experiment. This section deliberately does not, and says
+so in its title: it records engines we **read about and declined to bench**, with
+the reasoning that made benching unnecessary. It exists because "we never looked at
+it" and "we looked and it does not clear our measured bar" are different states, and
+only the second one is a decision.
+
+### LatticeDB — declined for now (embedded property graph, Zig, row-oriented)
+
+An embedded single-file property-graph engine with native HNSW vector search, BM25
+full-text and durable change streams, queried through one Cypher dialect. On the face
+of it, it is aimed at four of our five workload classes at once.
+
+**Why it does not need a bench here.** Its own documentation concedes the class that
+decides for us: a query touching most of the graph will lose to a columnar layout,
+and it calls that a structural property of row orientation rather than a tuning
+problem. That class is the analytical aggregate — case #1's A3 self-join and case
+#4's G2 triangle count — and it is the **only** class in which any measured case here
+recommended adding an engine (R1, R3, R14). The four classes it consolidates are the
+four in which our measured verdict was already *stay in the incumbent* (R6 vectors,
+R10/R11 full-text, R12/R13 traversal). An engine strong exactly where we measured "no
+new engine needed" and structurally weak exactly where we measured "a new engine
+pays" is not a candidate for our workload, whatever its latency table says.
+
+**Its comparison figures do not change that, and it is unusually honest about why.**
+The site's headline table puts LatticeDB against Kùzu, Neo4j, pgvector, Qdrant and
+others; the docs then state, *above* the table rather than in a footnote, that only
+the SQLite row is measured head to head on one machine and the rest are published
+third-party numbers on hardware they do not control — and instruct the reader to
+treat the graph comparison as "worth investigating on your own data", not as a
+result. That is the disclosure most vendor tables omit, and taking it at its word is
+what makes this a documentation assessment rather than a benchmark we skipped.
+
+**Where it would be genuinely strong**, and worth remembering: the hybrid-retrieval
+query, where vector distance, text relevance and traversal all constrain one result
+set. Assembling that on our stack means pgvector plus `tsvector`/GIN plus a recursive
+CTE, combined in application code. That is a real seam cost, and it is the one thing
+here no per-class benchmark measures — see R17.
+
+**Also noted, for R15's boundary:** Kùzu, the engine case #4 benchmarked, was
+acquired by Apple and its repository archived in October 2025; it has had no commits
+since. The live continuation is the community fork **LadybugDB**, which is columnar
+and moving toward a lakehouse shape (Arrow/Parquet/DuckDB interop). If R15's
+conditions ever fire, LadybugDB — not Kùzu — is the engine to re-run case #4 against,
+and its columnar direction means R14 would have to be re-tested rather than assumed.
+
+- **R17 — Price a multi-modal engine in seams removed, not latency won; and read a
+  comparison table row by row for who measured it.** An engine covering several
+  workload classes is a real reduction in assembled machinery, but the classes it
+  consolidates are usually the ones already fast enough at our scale — the decision
+  is made by the class it *omits* from its benchmark suite, which follows from its
+  storage layout. Separately: a benchmark table mixing head-to-head runs with
+  third-party published figures is a set of numbers from different machines in one
+  grid unless it labels each row, and the number that would actually decide a hybrid
+  adoption — the single query spanning three classes — is one nobody publishes.
+  _(method rule; not case-backed — the engine verdict above rests on cases #1, #4)_
+- **R18 — A dataset is not a workload; a workload is claimed by a reader.** Before
+  pricing an engine for a class, enumerate the *readers* of the data that class would
+  serve and classify each as request path, offline job, export, or admin view. A class
+  with no request-path reader is a record we keep, not a workload we have. Case #4 is
+  the strong form of this: we did the work of building a real graph workload before
+  benching a graph engine, which is why its negative result means something. The weak
+  form is the common one — a schema is the most persuasive possible argument for a
+  decision nobody has made. _(method rule, generalised from case #4's construction)_
+
+### Action plan
+
+1. **No bench, no dependency, no change to the product tree.** LatticeDB is not
+   installed, not in `scripts/db-bench/package.json`, and should not be — per the
+   isolation rule, an engine enters the sandbox only when we intend to measure it.
+2. **Return conditions, in priority order.** Re-open this entry if any of:
+   (a) R15's conditions fire — the graph turns large-and-sparse with deep
+   *variable-length path* queries, at which point bench **LadybugDB** and LatticeDB
+   together and re-test R14, since one is columnar and one is not;
+   (b) a hybrid-retrieval path appears — a single user-facing query that must
+   constrain on vector distance *and* text relevance *and* traversal — which is the
+   one shape our current three-part assembly serves worst, and the only case where
+   the seam argument in R17 could outweigh the analytical concession;
+   (c) it ships an analytical/columnar read path, which would remove the structural
+   objection above.
+3. **If (b) arrives, measure the seam, not the engines.** The comparison is our
+   assembled query — pgvector + GIN + recursive CTE, fused in application code —
+   against the single-engine equivalent, on latency *and* on the code that
+   disappears. Per R17 that number does not exist in anyone's published table.
+4. **Nothing here changes R3's standing deferral.** The analytical half of the
+   recommended architecture is still measured-and-not-landed, and that remains the
+   highest-value open item in this guide.
 
 ## How to run
 
