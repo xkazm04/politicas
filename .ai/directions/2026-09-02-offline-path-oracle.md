@@ -5,7 +5,7 @@ raised_by: intake intake-lightrag-0902 (peer comparison)
 source: librarian/sources/2026-09-02-lightrag.md
 stage: evaluation — a twelfth sentinel invariant beside checkDeterminism in lib/testing/sentinel/invariants.ts
 size: 2 files / ~120 lines / S
-status: proposed
+status: accepted
 ---
 
 ## Why the scope implies it

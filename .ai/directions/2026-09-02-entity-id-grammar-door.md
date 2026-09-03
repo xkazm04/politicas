@@ -5,7 +5,7 @@ raised_by: intake intake-lightrag-0902 (peer comparison)
 source: librarian/sources/2026-09-02-lightrag.md
 stage: node/edge write path — above every kg writer, beside the kind/rel enums in lib/analysis/kg-verdict.ts
 size: 3 files / ~180 lines / S-M
-status: proposed
+status: declined
 ---
 
 ## Why the scope implies it

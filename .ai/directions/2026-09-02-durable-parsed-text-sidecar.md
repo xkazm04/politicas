@@ -5,7 +5,7 @@ raised_by: intake intake-lightrag-0902 (peer comparison)
 source: librarian/sources/2026-09-02-lightrag.md
 stage: immediately after parse, before extraction — between lib/ingest/sources/kiosek-pdf.ts and its callers in scripts/case-loops/sources/
 size: 2 files / ~90 lines / S
-status: proposed
+status: accepted
 ---
 
 ## Why the scope implies it
