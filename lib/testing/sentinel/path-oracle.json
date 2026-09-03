@@ -1,0 +1,89 @@
+{
+  "schema": "politicas.path-oracle/1",
+  "doc": "Frozen query -> expected /graf path. A CHANGE DETECTOR, not a correctness oracle: it asserts the answer is the same as it was, never that it is the right answer about Czech politics (that stays editorial). Rows are chosen to cover trailPath.ts's printed clauses, not sampled: hub pricing, the endpoint exemption, tie-break key 2 (pending), multi-hop, and honest emptiness. Every row cites the in-tree document the pair was read from - the same rule the product prints for a reader (CLAUDE.md:190-193). `expect: null` = NOT YET FROZEN: no store on this checkout could freeze it, and an unfrozen row is reported `unevaluable`, never a pass. Freeze with `npm run path-oracle -- --update` on a machine that holds ./.pglite, then READ THE DIFF - that review is the whole quality gate. `volatile` names fields compared only for presence: contract sums move with every dump ingest and a fixture full of them trains everyone to update without reading.",
+  "frozenAt": null,
+  "frozenAgainst": null,
+  "rows": [
+    {
+      "id": "babis-agrofert",
+      "src": "psp:person:6150",
+      "dst": "company:ico:26185610",
+      "clause": "direct documented tie, one hop - the baseline: if this moves, the edge itself moved",
+      "cites": "docs/data-analysis/graph-log.md:861 (pass 39, linked_to props-merge)",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "pending-tie-6881",
+      "src": "psp:person:6881",
+      "dst": "company:ico:46347534",
+      "clause": "tie-break key 2 - this edge is gate=pending_review, so a review flip must move pendingCount and may promote a different winner",
+      "cites": "docs/routes/penize.md:223 (5/5 sampled refs resolve ok with gate=pending_review)",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "prak-346-repointed",
+      "src": "psp:person:346",
+      "dst": "company:ico:61858111",
+      "clause": "the repointed PRaK edge - the old dst (company:ico:49683144) is still live because DELETION_ALLOWLIST is empty by design, so two candidate paths exist and the ranking must pick one",
+      "cites": "docs/data-analysis/case-sources/handoff-batch-007.md:220",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "prak-6184-repointed",
+      "src": "psp:person:6184",
+      "dst": "company:ico:61858111",
+      "clause": "the sibling of the row above; the two share a dst, so a change in one and not the other localises the drift to the person side",
+      "cites": "docs/data-analysis/case-sources/handoff-batch-007.md:221",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "prak-person-to-person",
+      "src": "psp:person:346",
+      "dst": "psp:person:6184",
+      "clause": "two hops through a shared company - the multi-hop case, and the one that goes red if either PRaK edge is retired",
+      "cites": "docs/data-analysis/case-sources/handoff-batch-007.md:208-221",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "fiala-to-party",
+      "src": "psp:person:5459",
+      "dst": "party:ods",
+      "clause": "path TO a hub - a party is the archetypal HUB_DEGREE node, and trailPath.ts:206-208 exempts endpoints from the hub price; this row pins that exemption over real degrees",
+      "cites": "docs/data-analysis/patterns.md:336 (psp:person:5459 = Fiala); party id shape from lib/db/kgOrder.test.ts:23",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "mp-6790-to-party",
+      "src": "psp:person:6790",
+      "dst": "party:ods",
+      "clause": "second path to the same hub - if both this and fiala-to-party move together the cause is the hub's degree crossing 120, not either MP",
+      "cites": "docs/knowledge-graph-loop.md:124 and docs/routes/graph-writers.md:70",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "cross-party-through-hub",
+      "src": "psp:person:6150",
+      "dst": "psp:person:5459",
+      "clause": "path THROUGH a hub, and the likeliest capped:true row (ENUM_CAP=64) - two MPs of different parties connect only via organs/parties, each priced at two steps; the most volatile row in the set and the one worth watching first",
+      "cites": "docs/data-analysis/graph-log.md:861 and docs/data-analysis/patterns.md:336",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    },
+    {
+      "id": "honest-emptiness",
+      "src": "psp:person:6463",
+      "dst": "company:ico:26185610",
+      "clause": "expected honest emptiness - paths: [], cost: null within MAX_COST=6, the state trailPath.test.ts:77 distinguishes from 'no answer'. If this row ever finds a path, a tie was created between an MP and AGROFERT and that is a finding in itself",
+      "cites": "docs/data-analysis/ux-audit-2026-07-27.md:139 (psp:person:6463) and docs/data-analysis/graph-log.md:861",
+      "volatile": ["moneyCzk"],
+      "expect": null
+    }
+  ]
+}
