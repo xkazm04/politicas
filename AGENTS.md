@@ -65,7 +65,10 @@ which calls `getStore()` and `storeReady()`) and passes typed props into a
 `"use client"` feature; every loader converts failure into `null`, and the page
 then falls back to the labelled sample data in `lib/civic/`. Domain computation
 (scores, verdicts, graph shaping) lives in `lib/analysis/` and `lib/kg/` with
-colocated vitest tests; ingest adapters live in `lib/ingest/`. Colors originate
+colocated vitest tests; ingest adapters live in `lib/ingest/`, where the one
+expensive, third-party parse in the tree — PDF text via `unpdf` — is persisted
+in a stamped sidecar beside its source (`lib/ingest/parsedText.ts`) so a
+re-ingest reads it back instead of re-parsing. Colors originate
 only in `app/globals.css` tokens, and **every rendered number cites its source**
 (`SourceNote`) — that is the brand rule, not a style preference.
 
