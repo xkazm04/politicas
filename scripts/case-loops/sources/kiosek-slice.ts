@@ -14,7 +14,12 @@
  * kiosek.ts throttle helper.
  *
  * Run:
- *   npx tsx scripts/case-loops/sources/kiosek-slice.ts
+ *   npx tsx scripts/case-loops/sources/kiosek-slice.ts [--reparse]
+ *
+ * PDF text is read from the durable sidecar beside each PDF when its parser stamp matches
+ * (lib/ingest/parsedText.ts) — a warm re-run invokes `unpdf` zero times, so re-scoring the
+ * corpus against a new statute pattern or a refined IČO rule is regex-over-text. `--reparse`
+ * is the deliberate override, per this repo's --refetch / --supersede convention.
  *
  * Writes docs/data-analysis/case-sources/kiosek-slice-extract.json — the
  * input the Opus verification pass and the join-key validation script both
@@ -35,7 +40,7 @@ import {
   type PostingRow,
   type StatuteCitation,
 } from "@/lib/ingest/sources/kiosek";
-import { extractPdfText } from "@/lib/ingest/sources/kiosek-pdf";
+import { readOrExtractText } from "@/lib/ingest/parsedText";
 
 const SAMPLES_DIR = ".justice-samples";
 const CACHE_DIR = ".kiosek-cache/pdfs";
@@ -87,6 +92,8 @@ function prov(sourceUrl: string) {
 }
 
 async function main() {
+  const reparse = process.argv.includes("--reparse");
+  const textSource = { sidecar: 0, parsed: 0 };
   mkdirSync(CACHE_DIR, { recursive: true });
   mkdirSync("docs/data-analysis/case-sources", { recursive: true });
 
@@ -122,7 +129,8 @@ async function main() {
     const pdfPath = join(SAMPLES_DIR, "pdfs", c.file);
     if (!existsSync(pdfPath)) continue;
     const bytes = new Uint8Array(readFileSync(pdfPath));
-    const text = await extractPdfText(bytes);
+    const { text, source } = await readOrExtractText(pdfPath, bytes, { reparse });
+    textSource[source]++;
     const postingId = posting?.id ?? `unmatched:${c.file}`;
     if (!posting) unmatchedCachedPdfs.push(c.file);
     extractions.push({
@@ -167,8 +175,10 @@ async function main() {
       const res = responses[i];
       const bytes = new Uint8Array(await res.arrayBuffer());
       const safeName = `${posting.institutionCode}-${(posting.spisovaZnacka ?? posting.id).replace(/[^\w.-]+/g, "_")}.pdf`;
-      writeFileSync(join(CACHE_DIR, safeName), bytes);
-      const text = await extractPdfText(bytes);
+      const cachedPdf = join(CACHE_DIR, safeName);
+      writeFileSync(cachedPdf, bytes);
+      const { text, source } = await readOrExtractText(cachedPdf, bytes, { reparse });
+      textSource[source]++;
       extractions.push({
         postingId: posting.id,
         institutionCode: posting.institutionCode,
@@ -215,6 +225,7 @@ async function main() {
 
   writeFileSync(OUT_PATH, JSON.stringify(payload, null, 2));
   console.log(`wrote ${OUT_PATH}`);
+  console.log(`pdf text: ${textSource.sidecar} sidecar hits / ${textSource.parsed} unpdf parses${reparse ? " (--reparse)" : ""}`);
   console.log(
     `totals: ${payload.totals.statuteCitationMentions} statute mentions (${payload.totals.distinctStatuteCitations} distinct), ${payload.totals.icoMentions} IČO mentions (${payload.totals.distinctIcos} distinct)`,
   );
