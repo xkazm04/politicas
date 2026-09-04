@@ -2117,7 +2117,8 @@
       "unlinkable": "{count, plural, one {{countFmt} posudek patří tisku bez veřejného čísla — jeho řádek proto nevede na dosje.} few {{countFmt} posudky patří tiskům bez veřejného čísla — jejich řádky proto nevedou na dosje.} other {{countFmt} posudků patří tiskům bez veřejného čísla — jejich řádky proto nevedou na dosje.}}",
       "orderRule": "Vyhlášené pravidlo řazení: skupiny podle počtu posudků sestupně, při shodě podle názvu závažnosti; tisky uvnitř skupiny podle čísla tisku vzestupně. Řazení „nízká → vysoká“ tu záměrně není — závažnost je hodnocení analýzy, ne stupnice pochybení vydaná úřadem nebo soudem.",
       "withheld": "Jazyková brána zadržela část textu u {count, plural, one {{countFmt} posudku} few {{countFmt} posudků} other {{countFmt} posudků}} (celkem {fieldsFmt} zadržených částí). Text v grafu zůstává — jen se nezobrazuje, dokud není v češtině. Zadrženo neznamená chybí.",
-      "withheldNone": "U žádného posudku jazyková brána nezadržela část textu."
+      "withheldNone": "U žádného posudku jazyková brána nezadržela část textu.",
+      "reviewStateAbsent": "bez uloženého stavu brány"
     },
     "titleLinkNote": "Vazba tisk → zákon je vyčtena z názvu tisku (citace „č. N/RRRR Sb.“), jediného strukturovaného odkazu, který psp.cz o novelizovaném zákoně nese. Formální přikázání výborům (garanční / další, stav a datum) se vykresluje z reálných dat psp.cz. Úplné znění paragrafů drží e-Sbírka zvlášť —",
     "titleLinkNoteDiff": "u {count, plural, one {{countFmt} tisku} other {{countFmt} tisků}} u nejčastěji novelizovaného zákona nese skutečný §-diff mezi dvěma platnými zněními, dopočítaný přímo z veřejného SPARQL rozhraní e-Sbírky (žádný hromadný výpis, žádná smyšlená data); u ostatních tisků se diff zatím nevykresluje.",
@@ -2204,7 +2205,10 @@
       "withheldParts": "{count, plural, one {{countFmt} část textu} few {{countFmt} části textu} other {{countFmt} částí textu}} tohoto posudku zatím není v češtině, a proto se nezobrazuje. Blok je tím neúplný.",
       "referencesHeading": "reference ({count})",
       "gateFootnote": "Odvozený nález gatovaný proti fabrikaci: každá citovaná č. N/RRRR Sb. musí být reálný zákon. Uložen jako <b>pending_review</b> — podnět pro člověka, ne publikovaný verdikt.",
-      "evidenceLabel": "zdroj:"
+      "evidenceLabel": "zdroj:",
+      "reviewStateAbsent": "bez uloženého stavu",
+      "reviewedBy": "rozhodl {kdo}",
+      "reviewedByOn": "rozhodl {kdo} dne {kdy}"
     },
     "diffBlock": {
       "source": "reálný §-diff · č. {law} Sb. · e-Sbírka (SPARQL, ne hromadný výpis)",
@@ -3479,8 +3483,8 @@
       "verified": "ověřeno",
       "rejected": "verdikt zamítnut",
       "withheld": "verdikt zamítnut — netiskneme jej",
-      "by": "{who}",
-      "byOn": "{who}, {when}",
+      "by": "{kdo}",
+      "byOn": "{kdo}, {kdy}",
       "queueTitle": "Fronta revize podle druhu tvrzení",
       "queueKindTie": "majetkové vazby",
       "queueKindBill": "forenzní verdikty tisků",

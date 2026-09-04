@@ -198,7 +198,12 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
   return {
     severity: severity ?? "low",
     confidence: typeof p.forensic_confidence === "number" ? p.forensic_confidence : null,
-    reviewState: state ?? "pending_review",
+    // NOT `?? "pending_review"`. An absent gate state renders as absent — see
+    // LawForensicView.reviewState for why the default was a promise the tree had
+    // no writer to keep.
+    reviewState: state ?? null,
+    reviewedBy: asStr(p.forensic_review_by),
+    reviewedAt: asStr(p.forensic_review_at),
     statedReasoning: cz(p.forensic_stated_reasoning),
     researchedContext: cz(p.forensic_researched_context),
     conflictAssessment: cz(p.forensic_conflict_assessment),

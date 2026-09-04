@@ -2117,7 +2117,8 @@
       "unlinkable": "{count, plural, one {{countFmt} assessment belongs to a print with no public number — its row does not lead to a dossier.} other {{countFmt} assessments belong to prints with no public number — their rows do not lead to a dossier.}}",
       "orderRule": "Declared ordering rule: groups by assessment count descending, ties by severity name; prints within a group by print number ascending. There is deliberately no low-to-high ordering — severity is the analysis's own rating, not a wrongdoing scale issued by any authority or court.",
       "withheld": "The language gate withheld part of the text of {count, plural, one {{countFmt} assessment} other {{countFmt} assessments}} ({fieldsFmt} withheld passages in total). The text stays in the graph — it simply does not ship until it is in Czech. Withheld does not mean missing.",
-      "withheldNone": "No assessment had part of its text withheld by the language gate."
+      "withheldNone": "No assessment had part of its text withheld by the language gate.",
+      "reviewStateAbsent": "no stored gate state"
     },
     "titleLinkNote": "The print → act link is read from the print’s title (the “č. N/RRRR Sb.” citation), the only structured reference psp.cz carries about the amended act. Formal committee referrals (lead / additional, status and date) render from real psp.cz data. The full section wording is held separately by e-Sbírka —",
     "titleLinkNoteDiff": "for {count, plural, one {{countFmt} print} other {{countFmt} prints}} of the most-amended act it carries a real section diff between two in-force wordings, computed directly from e-Sbírka’s public SPARQL endpoint (no bulk export, no fabricated data); for the remaining prints no diff is rendered yet.",
@@ -2204,7 +2205,10 @@
       "withheldParts": "{count, plural, one {{countFmt} part of this review’s text is} other {{countFmt} parts of this review’s text are}} not yet available in Czech and therefore not displayed. The block is incomplete as a result.",
       "referencesHeading": "references ({count})",
       "gateFootnote": "A derived finding gated against fabrication: every cited č. N/RRRR Sb. must be a real act. Stored as <b>pending_review</b> — a lead for a human, not a published verdict.",
-      "evidenceLabel": "source:"
+      "evidenceLabel": "source:",
+      "reviewStateAbsent": "no stored state",
+      "reviewedBy": "decided by {kdo}",
+      "reviewedByOn": "decided by {kdo}, {kdy}"
     },
     "diffBlock": {
       "source": "real section diff · č. {law} Sb. · e-Sbírka (SPARQL, not a bulk export)",
@@ -3479,8 +3483,8 @@
       "verified": "verified",
       "rejected": "verdict rejected",
       "withheld": "verdict rejected — withheld",
-      "by": "{who}",
-      "byOn": "{who}, {when}",
+      "by": "{kdo}",
+      "byOn": "{kdo}, {kdy}",
       "queueTitle": "Review queue by claim kind",
       "queueKindTie": "money ties",
       "queueKindBill": "bill forensic verdicts",

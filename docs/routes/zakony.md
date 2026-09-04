@@ -199,3 +199,43 @@ precedent), refuses calendar-invalid dates a lexicographic range check would
 pass (`32.13.2025`), keeps the row and its `stav`, and COUNTS the refusals
 into `BillFate.refusedPublications` — a silent refusal is the same defect as
 a silent guess.
+
+## 2026-09-04 — the gate state is READ, and an absent one renders as absent (G2, deck #5)
+
+`getLawData.ts:201` used to be `reviewState: state ?? "pending_review"`. That
+default was not a harmless fallback — it was a fabrication with a very specific
+shape: **it promised a queue.** „Pending review" says a human will get to this,
+and until today no writer of `forensic_review_state` existed anywhere in the
+tree (grep found readers in `triage-core.ts` and this loader, and nothing else).
+So `/zakony` printed `pending_review · 141` beside an „ungated" note and meant
+nothing by either.
+
+Two changes, and they are one change:
+
+1. **The default is gone.** `LawForensicView.reviewState` is `string | null`,
+   and a bill with no stored state renders as HAVING NO STATE
+   (`forensic.reviewStateAbsent`). `ForensicReviewStateCount.state` is nullable
+   for the same reason and „no stored gate state" is its OWN bucket in the index
+   line — merging it into `pending_review` was exactly the conflation being
+   removed. It sorts last on a count tie, because it has no token to compare and
+   pretending it has an empty one would hide it among the others.
+
+2. **There is now a writer.** `ReviewRepository.setReviewState({ kind:
+   "bill_verdict", billId })` writes `forensic_review_state` after appending a
+   chained audit row, in one transaction, with the same terminal-reject and
+   reasoned-reversal rules money ties have had since batch 004. The bill detail
+   prints the decider beside the state when one exists.
+
+**What the surface still refuses.** It does not rank severity, it does not
+translate an unknown token, and it does not infer a state from the presence of a
+verdict. A bill that carries `forensic_severity` and no gate state is a machine
+finding nobody has looked at, and that is what it says.
+
+**Measured.** Bill forensic verdicts with a writer: 0 → 1 code path (the one
+door). Fabricated `pending_review` labels on this surface: 141 → 0. The decided
+count is 0 today and the surface says 0 of its real denominator, which is the
+first time that sentence has been true here.
+
+**Carry-over.** `/overeni`'s gate modifier for bill claims and the
+`/penize/kontrola` lane for this kind are out of this wave by design; the
+`/admin` coverage board is the first door.

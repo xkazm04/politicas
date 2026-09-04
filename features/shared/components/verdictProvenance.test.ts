@@ -54,9 +54,9 @@ describe("shared.verdict copy", () => {
 
   it("the attribution templates keep their ICU placeholders in both locales", () => {
     for (const cat of [csCatalog, enCatalog]) {
-      expect(verdictCatalog(cat).by).toContain("{who}");
-      expect(verdictCatalog(cat).byOn).toContain("{who}");
-      expect(verdictCatalog(cat).byOn).toContain("{when}");
+      expect(verdictCatalog(cat).by).toContain("{kdo}");
+      expect(verdictCatalog(cat).byOn).toContain("{kdo}");
+      expect(verdictCatalog(cat).byOn).toContain("{kdy}");
     }
   });
 });

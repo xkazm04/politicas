@@ -48,6 +48,9 @@ function bill(overrides: Partial<LawBillView> = {}): LawBillView {
       severity: "medium",
       confidence: 3,
       reviewState: "pending_review",
+      // A verdict nobody has decided: the state is stored, the decider is not.
+      reviewedBy: null,
+      reviewedAt: null,
       statedReasoning: "Důvodová zpráva uvádí sjednocení sazeb.",
       researchedContext: null,
       conflictAssessment: null,

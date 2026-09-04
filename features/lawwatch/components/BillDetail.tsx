@@ -520,7 +520,21 @@ function ForensicBlock({
             </span>
           )}
           <span>
-            {t("forensic.reviewStateLabel")} <span className="font-black text-ink">{forensic.reviewState}</span>
+            {t("forensic.reviewStateLabel")}{" "}
+            <span className="font-black text-ink">
+              {/* CHYBĚJÍCÍ STAV SE PŘIZNÁVÁ, NEDOPLŇUJE (G2, 2026-09-04). Do dneška
+                  sem getLawData posílalo `state ?? "pending_review"` — slib fronty,
+                  pro kterou v celém stromu neexistoval zapisovatel. */}
+              {forensic.reviewState ?? t("forensic.reviewStateAbsent")}
+            </span>
+            {forensic.reviewedBy && (
+              <span className="text-steel">
+                {" · "}
+                {forensic.reviewedAt
+                  ? t("forensic.reviewedByOn", { kdo: forensic.reviewedBy, kdy: f.date(forensic.reviewedAt) })
+                  : t("forensic.reviewedBy", { kdo: forensic.reviewedBy })}
+              </span>
+            )}
           </span>
         </span>
       </div>
@@ -627,7 +641,7 @@ function ForensicBlock({
           <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-steel">
             <li className="border-l-2 border-ochre pl-3">
               {t.rich("forensic.notClaim1", {
-                state: forensic.reviewState,
+                state: forensic.reviewState ?? t("forensic.reviewStateAbsent"),
                 b: (chunks) => <span className="font-bold text-ink">{chunks}</span>,
               })}
             </li>

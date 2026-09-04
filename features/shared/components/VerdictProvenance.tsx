@@ -75,9 +75,9 @@ export default function VerdictProvenance({
   // would look like a redacted name rather than an absent record.
   const attribution =
     decidedBy && decidedAtLabel
-      ? t("byOn", { who: decidedBy, when: decidedAtLabel })
+      ? t("byOn", { kdo: decidedBy, kdy: decidedAtLabel })
       : decidedBy
-        ? t("by", { who: decidedBy })
+        ? t("by", { kdo: decidedBy })
         : null;
 
   const label = withheld ? t("withheld") : t(rung);

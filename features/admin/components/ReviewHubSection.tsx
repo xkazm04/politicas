@@ -28,11 +28,82 @@ function TierRow({ label, n, of }: { label: string; n: number; of: number }) {
 /** Everything `pending_review` in one place: the 211 MP↔company ties by tier,
  *  the gated forensic bill verdicts, the two web-lead dossiers, and the
  *  human-gate audit trail — the operator's review session cockpit. */
+/** Czech label per claim kind. A kind with no label prints its own token rather
+ *  than a friendly guess — the same rule the severity vocabulary follows. */
+const KIND_LABEL: Record<string, string> = {
+  tie: "vazby MP ↔ firma",
+  bill_verdict: "forenzní verdikty tisků",
+  effort_verdict: "verdikty o poslancích",
+  tripwire: "kandidáti tripwire",
+  lead: "stopy",
+};
+
 export default function ReviewHubSection({ data }: { data: ReviewHubData }) {
-  const { ties, forensic, leads, audit } = data;
+  const { ties, forensic, leads, audit, coverage } = data;
 
   return (
     <div className="grid gap-px border border-ink bg-ink lg:grid-cols-2">
+      {/* ── Pokrytí revizní brány podle druhu tvrzení (G2, 2026-09-04) ──
+          Čtyři panely pod tímhle odpovídají každý na jinou otázku v jiném
+          tvaru. Tenhle řádek klade JEDNU otázku stejně pro každý druh tvrzení,
+          které se dostane ke čtenáři — protože jen v té podobě je zjištění
+          čitelné: tři z těch populací byly ve stovkách s nulou rozhodnutí,
+          a nikde na téhle stránce to nestálo.
+
+          POUZE POČTY, nikdy podíl. „14 % gated" je přesně to číslo, které
+          schová, jak velká ta populace je. */}
+      <div className="flex flex-col gap-4 bg-paper p-6 lg:col-span-2">
+        <h3 className="text-lg font-black uppercase tracking-tight">Revizní brána podle druhu tvrzení</h3>
+        {coverage.length > 0 ? (
+          <>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-left">
+                <thead>
+                  <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel">
+                    <th className="py-2 pr-4 font-normal">druh tvrzení</th>
+                    <th className="py-2 pr-4 text-right font-normal">rozhodnuto</th>
+                    <th className="py-2 pr-4 text-right font-normal">čeká</th>
+                    <th className="py-2 pr-4 text-right font-normal">celkem</th>
+                    <th className="py-2 text-right font-normal">řádků v auditu</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-hairline">
+                  {coverage.map((c) => (
+                    <tr key={c.kind} className="font-mono text-sm tabular-nums">
+                      <td className="py-2 pr-4 font-sans">
+                        {KIND_LABEL[c.kind] ?? c.kind}
+                        {/* DVĚ RŮZNÉ NULY. Fronta, kterou nikdo neodbavil, a fronta,
+                            kterou odbavit NELZE, vypadají v číslech stejně — operátor
+                            nesmí muset hádat, kterou z nich čte. */}
+                        {!c.hasWriter && (
+                          <span className="ml-2 border border-ochre px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest text-ochre">
+                            bez zapisovatele
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-2 pr-4 text-right">{czechInt(c.decided)}</td>
+                      <td className="py-2 pr-4 text-right text-signal">{czechInt(c.pending)}</td>
+                      <td className="py-2 pr-4 text-right">{czechInt(c.total)}</td>
+                      <td className="py-2 text-right text-steel">{czechInt(c.auditRows)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <SourceNote>
+              zdroj: kg_edge linked_to · kg_node bill.forensic_review_state · kg_node
+              person.effort_provenance.verdicts · review_audit.subject_kind. Rozhodnuto = uložený
+              stav „verified“ nebo „rejected“; čeká = všechno ostatní včetně tvrzení bez uloženého
+              stavu. Řádků v auditu smí být víc než rozhodnutí — každé přehodnocení je vlastní řádek.
+            </SourceNote>
+          </>
+        ) : (
+          <p className="text-sm text-steel">
+            Pokrytí revizní brány se nepodařilo přečíst z grafu — stav se nedopočítává.
+          </p>
+        )}
+      </div>
+
       {/* ── Ties (Case ① kniha vazeb) ─────────────────────────────── */}
       <div className="flex flex-col gap-4 bg-paper p-6">
         <div className="flex items-baseline justify-between gap-2">
