@@ -41,7 +41,7 @@ import {
 import { REGISTRY_PERIOD_LABEL, REGISTRY_RETRIEVED_ON } from "./data/registryData.generated";
 import TownPicker from "./TownPicker";
 import MoneyTrailSection from "./MoneyTrailSection";
-import type { SupplierTiesResult } from "./getSupplierTies";
+import type { SupplierTiesResult } from "./supplierTiesTypes";
 
 /** Výchozí obec bez zvolené adresy: hlavní město — zrcadlo, které zná každý. */
 const DEFAULT_IC = "00064581";
@@ -128,6 +128,7 @@ export default function BudgetMirrorPage({
   supplierTies?: SupplierTiesResult | null;
 }) {
   const t = useTranslations("budget");
+  const tMeta = useTranslations("meta");
   const reduceMotion = useReducedMotion();
   const f = useFormat();
 
@@ -147,15 +148,25 @@ export default function BudgetMirrorPage({
     // Trvalá adresa bez server round-tripu — data jsou celá na klientu.
     if (typeof window !== "undefined") {
       window.history.replaceState(null, "", `/rozpocty/${ic}`);
+      // Bez round-tripu se nepřepíše ani titulek: do 2026-09-01 zůstal na
+      // obci z adresy (Brno v záložce, Ostrava na ploše). Titulek se sází
+      // z téhož katalogového klíče, který používá generateMetadata na
+      // /rozpocty/[ico], aby obě cesty říkaly totéž. Neověřeno v prohlížeči.
+      const picked = getMunicipality(ic);
+      if (picked) document.title = tMeta("budgetIcoTitle", { town: picked.name });
     }
   };
 
   const townSeries = series.get(town.ic);
   const latest = latestMetrics(townSeries);
+  /** Rok, který MetricDuo tiskne nad OBĚMA pruhy, je poslední rok obce — medián
+   *  i stropy pruhů se proto počítají nad týmž indexem, ne nad posledním rokem
+   *  dávky (do 2026-09-01 se kryly jen proto, že 132/132 obcí vykázalo 2025). */
+  const yearIndex = latest ? SNAPSHOT_YEARS.indexOf(latest.year) : SNAPSHOT_YEARS.length - 1;
   const group = useMemo(() => peerGroupFor(town, registry, covered), [town, registry, covered]);
   const medians = useMemo(
-    () => peerMedians(group.peers, series, SNAPSHOT_YEARS.length),
-    [group, series],
+    () => peerMedians(group.peers, series, SNAPSHOT_YEARS.length, yearIndex),
+    [group, series, yearIndex],
   );
 
   /** Stropy pruhů z vybrané skupiny + obce (×1,1) — ne z celé ČR: celostátní
@@ -166,9 +177,8 @@ export default function BudgetMirrorPage({
       let max = 0;
       for (const s of pool) {
         if (!s) continue;
-        const arr = pick(s);
-        const v = arr[arr.length - 1];
-        if (v !== null && Math.abs(v) > max) max = Math.abs(v);
+        const v = pick(s)[yearIndex];
+        if (v !== null && v !== undefined && Math.abs(v) > max) max = Math.abs(v);
       }
       return max > 0 ? max * 1.1 : 1;
     };
@@ -177,7 +187,7 @@ export default function BudgetMirrorPage({
       capex: maxOf((s) => s.capexRatio),
       saldo: maxOf((s) => s.saldoPerCapita),
     };
-  }, [group, series, townSeries]);
+  }, [group, series, townSeries, yearIndex]);
 
   const trendData = useMemo(
     () =>
@@ -403,12 +413,13 @@ export default function BudgetMirrorPage({
         <section id="skupina" className="mt-14 border-t-4 border-ink pt-10">
           <SectionHeading
             index={3}
+            id="skupina-nadpis"
             title={t("section3Title")}
             aside={<SourceNote>{t("section3AsideLive", { band: bandLabel, scope: scopeLabel })}</SourceNote>}
           />
           {tableRows.length > 0 ? (
             <div className="mt-8 overflow-x-auto">
-              <table className="w-full min-w-[40rem] text-left">
+              <table aria-labelledby="skupina-nadpis" className="w-full min-w-[40rem] text-left">
                 <thead>
                   <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel-aa">
                     <th className="py-3 pr-4 font-bold">{t("colTown")}</th>

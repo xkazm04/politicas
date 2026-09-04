@@ -33,7 +33,7 @@ import { usePosterMode } from "@/features/shared/poster/usePosterMode";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";
 import { useFormat } from "@/lib/i18n/useFormat";
-import type { LeaderboardListData } from "./getLeaderboardData";
+import type { LeaderboardListData } from "./leaderboardTypes";
 import { krajSlate, listKraje, krajCitationInput, type KrajSlateRow } from "./kraj";
 import { encodeWeights, reweigh, LENS_COMPONENT_ORDER } from "./lens";
 import { formulaMismatchOrNull, storedRefLabel } from "./provenance";

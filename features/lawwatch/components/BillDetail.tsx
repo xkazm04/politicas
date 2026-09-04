@@ -16,7 +16,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import type { LawBillView } from "../getLawData";
+import type { LawBillView } from "../lawTypes";
 import {
   COMMITTEE_ROLE_KEYS,
   COMMITTEE_STATUS_KEYS,

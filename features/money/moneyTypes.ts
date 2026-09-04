@@ -395,6 +395,24 @@ export interface LeadDossier {
   confidence: string;
 }
 
+/** What the surface needs to tell an empty corpus apart from a broken one. */
+export interface LeadDossiers {
+  dossiers: LeadDossier[];
+  /** The payload directory could not be listed at all — the surface is BLIND here, which
+   *  is not the same statement as "there are no kauzy". */
+  directoryUnreadable: boolean;
+  /** Files that exist but could not be read or parsed. A dossier lost to a stray comma
+   *  used to vanish with no log line and no visible difference from never existing. */
+  unreadableFiles: string[];
+}
+
+/** One MP a „sestavit důkazní paket" link on /penize/kauzy can target (see
+ *  getLeadPacketTargets.ts for the drop-don't-guess join that produces these). */
+export interface PacketTarget {
+  pspId: number;
+  name: string;
+}
+
 /** Stabilní kotva jednoho spisu: `#kauza-<leadId>`. Odvozuje se z leadId, které
  *  spis nese SÁM (Q-money-5) — nikdy z pozice v poli, protože pole se řadí podle
  *  signálu a třetí spis by přeadresoval oba stávající. Malá písmena + pomlčky,

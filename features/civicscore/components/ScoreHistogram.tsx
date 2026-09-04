@@ -12,7 +12,7 @@ import { useMemo } from "react";
 import { useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { LeaderboardData } from "../getLeaderboardData";
+import type { LeaderboardData } from "../leaderboardTypes";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, HAIRLINE, INK, OCHRE, PAPER_STRONG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";

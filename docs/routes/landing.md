@@ -119,3 +119,8 @@ from both catalogs along with the dead `MODULES[].feeds` field itself.
 volíte?") and one sentence, no numbers — so no citation is owed. The hero
 stays the CivicScore index; repositioning the hero was rejected in the spark's
 wave 3 as a separate landing redesign.
+
+**Source panel counts moved 12 → 14 declared (2026-09-01).** `DataSources.tsx`
+prints `INGESTED_SOURCES.length`; the atlas register gained the two adapters it
+had missed (`isvz.ts`, `smlouvy-dump.ts`) — see `docs/routes/atlas.md` for the
+finding. No landing code changed.

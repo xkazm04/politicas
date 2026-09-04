@@ -33,7 +33,7 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import WeightPanel from "@/features/civicscore/components/WeightPanel";
 import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
-import type { LeaderboardListData } from "@/features/civicscore/getLeaderboardData";
+import type { LeaderboardListData } from "@/features/civicscore/leaderboardTypes";
 import { encodeWeights, PUBLISHED_WEIGHTS_LABEL, reweigh } from "@/features/civicscore/lens";
 import { storedRefLabel } from "@/features/civicscore/provenance";
 import { useLensWeights } from "@/features/civicscore/useLensWeights";

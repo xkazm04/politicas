@@ -46,11 +46,33 @@ tester.run("no-server-import-in-client", rule, {
       code: `"use client";\nimport x from "@/lib/dbg/tools";`,
     },
     {
+      name: "typeImports: forbid — a type import from a pure *Types.ts sibling is the intended shape",
+      code: `"use client";\nimport type { LeaderboardData } from "./leaderboardTypes";`,
+      options: [{ typeImports: "forbid" }],
+    },
+    {
+      name: "typeImports: forbid — a non-client module may still import loader types",
+      code: `import type { MoneyData } from "./getMoneyData";`,
+      options: [{ typeImports: "forbid" }],
+    },
+    {
       name: "dynamic import of a non-server module",
       code: `"use client";\nasync function f() { await import("./chartTheme"); }`,
     },
   ],
   invalid: [
+    {
+      name: "typeImports: forbid — a type-only import of a loader is reported with its own message",
+      code: `"use client";\nimport type { MoneyData } from "./getMoneyData";`,
+      options: [{ typeImports: "forbid" }],
+      errors: [{ messageId: "typeImportInClient" }],
+    },
+    {
+      name: "typeImports: forbid — an all-type specifier list is reported too",
+      code: `"use client";\nimport { type MoneyData } from "@/features/graph/graphLoader";`,
+      options: [{ typeImports: "forbid" }],
+      errors: [{ messageId: "typeImportInClient" }],
+    },
     {
       name: "value import of a get* loader in a client file",
       code: `"use client";\nimport { getMoneyData } from "./getMoneyData";`,

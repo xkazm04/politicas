@@ -32,18 +32,20 @@ import { getRegistry } from "./mirrorData";
 import { MIN_PEERS, peerGroupFor } from "./peerGroups";
 import {
   getSupplierTable,
+  liftTiedRows,
   peerSupplierTotals,
   rowTotalCount,
   rowTotalCzk,
   supplierCoverage,
   supplierPeerStats,
   townSupplierSummary,
+  type SupplierRow,
 } from "./supplierTrail";
 import {
   SUPPLIERS_CONTRACTS_SCANNED,
   SUPPLIERS_MUNICIPAL_CONTRACTS,
 } from "./data/municipalSuppliers.generated";
-import type { SupplierTiesResult } from "./getSupplierTies";
+import type { SupplierTiesResult } from "./supplierTiesTypes";
 
 /** Kolik protistran se vypisuje; zbytek se přizná souhrnným řádkem. */
 const TOP_SUPPLIERS = 12;
@@ -64,6 +66,7 @@ function GraphLinkButton({ companyId, companyName }: { companyId: string; compan
     <button
       type="button"
       disabled={pending}
+      aria-busy={pending}
       aria-label={t("graphLinkAria", { company: companyName })}
       onClick={() =>
         startTransition(async () => {
@@ -74,7 +77,9 @@ function GraphLinkButton({ companyId, companyName }: { companyId: string; compan
       }
       className="border border-hairline px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-steel-aa transition-colors hover:border-ink hover:text-ink disabled:opacity-50"
     >
-      {pending ? "…" : t("viewInGraph")}
+      {/* Popisek zůstává i během čekání — čtečka by z „…" nepoznala, na co
+          čeká; stav nese aria-busy + disabled, ne vyměněný text. */}
+      {t("viewInGraph")}
     </button>
   );
 }
@@ -104,8 +109,20 @@ export default function MoneyTrailSection({
   const peerIcs = useMemo(() => group.peers.map((p) => p.ic), [group]);
   const peerTotals = useMemo(() => peerSupplierTotals(peerIcs, table), [peerIcs, table]);
 
-  const topRows = useMemo(() => summary?.rows.slice(0, TOP_SUPPLIERS) ?? [], [summary]);
-  const restRows = useMemo(() => summary?.rows.slice(TOP_SUPPLIERS) ?? [], [summary]);
+  /** Výpis = TOP_SUPPLIERS největších + KAŽDÁ protistrana s vazbou na poslance.
+   *  Do 2026-09-01 se vazba hledala jen u vypsaných řádků, takže protistrana
+   *  s vazbou na 13. místě zmizela v souhrnném řádku beze slova — u Brna to
+   *  byly čtyři (viz liftTiedRows). Bez vrstvy vazeb se nezvedá nic a souhrn
+   *  to říká větou tiesUnavailable, ne tvrzením „bez vazeb". */
+  const hasTie = useMemo(
+    () =>
+      ties?.available ? (r: SupplierRow) => (ties.ties[r.supplierIco]?.length ?? 0) > 0 : null,
+    [ties],
+  );
+  const { shown: topRows, folded: restRows, lifted } = useMemo(
+    () => liftTiedRows(summary?.rows ?? [], TOP_SUPPLIERS, hasTie),
+    [summary, hasTie],
+  );
   const restCzk = useMemo(() => restRows.reduce((a, r) => a + rowTotalCzk(r), 0), [restRows]);
   const maxRowCzk = useMemo(
     () => Math.max(1, ...topRows.map(rowTotalCzk)),
@@ -135,7 +152,7 @@ export default function MoneyTrailSection({
 
   return (
     <section id="penize" className="mt-14 border-t-4 border-ink pt-10">
-      <SectionHeading index={4} title={t("trailTitle")} aside={<SourceNote>{sourceLine}</SourceNote>} />
+      <SectionHeading index={4} id="penize-nadpis" title={t("trailTitle")} aside={<SourceNote>{sourceLine}</SourceNote>} />
 
       {/* Zveřejněné pravidlo spojení — tiskne se, netvrdí. */}
       <div className="mt-6 max-w-3xl border-2 border-ink bg-paper-strong px-5 py-4">
@@ -248,7 +265,7 @@ export default function MoneyTrailSection({
 
           {/* Protistrany. */}
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[46rem] text-left">
+            <table aria-labelledby="penize-nadpis" className="w-full min-w-[46rem] text-left">
               <thead>
                 <tr className="border-b-2 border-ink font-mono text-[11px] uppercase tracking-widest text-steel-aa">
                   <th className="py-3 pr-4 font-bold">{t("thSupplier")}</th>
@@ -355,7 +372,14 @@ export default function MoneyTrailSection({
           </div>
           {restRows.length > 0 && (
             <p className="mt-3 font-mono text-xs tabular-nums text-steel-aa">
-              {t("restRow", { count: f.int(restRows.length), sum: f.czk(restCzk), top: TOP_SUPPLIERS })}
+              {hasTie === null
+                ? t("restRow", { count: f.int(restRows.length), sum: f.czk(restCzk), top: TOP_SUPPLIERS })
+                : t("restRowTiesLifted", {
+                    count: f.int(restRows.length),
+                    sum: f.czk(restCzk),
+                    top: TOP_SUPPLIERS,
+                    lifted: f.int(lifted),
+                  })}
             </p>
           )}
           <div className="mt-4">

@@ -148,7 +148,10 @@ the config):
 - `custom/no-silent-catch` — empty catch blocks swallow errors
 - `custom/role-button-requires-keydown` — a11y for click-role elements
 - `custom/enforce-reduced-motion-fallback` — WCAG 2.3.3 for looping motion
-- `custom/no-server-import-in-client` — the server-only loader boundary
+- `custom/no-server-import-in-client` — the server-only loader boundary; since
+  2026-09-01 with `typeImports: "forbid"`, so a `"use client"` file imports nothing
+  from a `get*`/`*Loader` module, not even a type — prop types live in a sibling
+  pure `*Types.ts` (`features/votetrack/themeTypes.ts` is the canonical shape)
 - `custom/no-silent-null-catch` — scoped to `features/**/get*.ts` +
   `features/**/*Loader.ts`: a `catch { return null }` must call
   `reportLoaderFailure()` so a degradation to fallback leaves a trace
