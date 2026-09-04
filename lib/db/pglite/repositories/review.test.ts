@@ -309,6 +309,15 @@ describe("a decision is reversible, and the reversal is itself audited", () => {
       chainPos: Number(r.chain_pos),
       prevHash: String(r.prev_hash),
       rowHash: String(r.row_hash),
+      // G2: which preimage the row was hashed under, plus the claim it decides.
+      // Projected here EXACTLY as the repository's own mapper reads them —
+      // strictly for the domain (null ⇒ v1), so this helper cannot accidentally
+      // verify a chain the production reader would reject, or vice versa.
+      hashDomain: (r.hash_domain === "politicas-audit-v2"
+        ? "politicas-audit-v2"
+        : "politicas-audit-v1") as "politicas-audit-v1" | "politicas-audit-v2",
+      subjectKind: r.subject_kind == null ? null : String(r.subject_kind),
+      subjectId: r.subject_id == null ? null : String(r.subject_id),
     }));
   }
 
