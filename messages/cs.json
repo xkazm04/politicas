@@ -2758,7 +2758,9 @@
       "exhibitFakt": "datovaný fakt z knihy velína",
       "derivation": "základ odvození dnes",
       "citedDerivation": "základ odvození citace",
-      "subject": "předmět tvrzení"
+      "subject": "předmět tvrzení",
+      "publishedThen": "co jsme zveřejnili {day}",
+      "publishedThenSource": "verze záznamu platná k tomu dni z bitemporální historie znalostního grafu (kg_edge_history / kg_node_history); je to čas záznamu, ne čas světa"
     },
     "guide": {
       "title": "Jak citovat, aby to bylo ověřitelné",
@@ -3484,7 +3486,8 @@
         "absentThen": "K {day} jsme záznamy vedli, ale tohle tvrzení mezi nimi nebylo. Níže je proto DNEŠNÍ záznam, ne tehdejší.",
         "beforeEpoch": "Záznam k {day} neexistuje: historii záznamů vedeme až od {epoch} a před tím datem o žádném dni nic netvrdíme. Níže je DNEŠNÍ záznam.",
         "beforeEpochUnknown": "Záznam k {day} neexistuje: k téhle adrese zatím nevedeme žádnou historii záznamů. Níže je DNEŠNÍ záznam.",
-        "refused": "„{raw}“ není datum ve tvaru RRRR-MM-DD. Adresu neopravujeme za vás, takže se k žádnému dni nevracíme — níže je DNEŠNÍ záznam."
+        "refused": "„{raw}“ není datum ve tvaru RRRR-MM-DD. Adresu neopravujeme za vás, takže se k žádnému dni nevracíme — níže je DNEŠNÍ záznam.",
+        "notReplayable": "Tenhle druh adresy zatím k žádnému dni přehrát neumíme: odvozené figury se počítají z dnešního záznamu, ne z historie grafu. K {day} tedy netvrdíme nic — níže je DNEŠNÍ záznam."
       }
     }
   },

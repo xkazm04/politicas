@@ -72,12 +72,18 @@ export const asOfInstant = (day: string): string => `${day}T23:59:59.999Z`;
  * - `beforeEpoch` — den leží před nejstarším záznamovým časem, který store nese.
  * - `absentThen`  — záznamy jsme tehdy vedli, tohle tvrzení mezi nimi nebylo.
  * - `at`          — účtenka JE verze platná k tomu dni.
+ * - `notReplayable` — ptát se šlo, ale TAHLE rodina adres se k dni zatím
+ *                   přehrát neumí (odvozené figury /penize a /zebricek se
+ *                   počítají skrz vlastnické loadery, ne přímo z historie
+ *                   grafu). Není to „k tomu dni nic nebylo" — je to „neumíme
+ *                   to spočítat", a čtenář má právo ten rozdíl vidět.
  */
 export type ReceiptAsOf =
   | { state: "live" }
   | { state: "refused"; raw: string }
   | { state: "beforeEpoch"; day: string; epoch: string | null }
   | { state: "absentThen"; day: string }
+  | { state: "notReplayable"; day: string }
   | { state: "at"; day: string };
 
 export const LIVE_AS_OF: ReceiptAsOf = { state: "live" };

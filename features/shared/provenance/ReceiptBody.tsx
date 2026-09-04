@@ -125,9 +125,11 @@ function AsOfBanner({ asOf, t }: { asOf: ReceiptAsOf; t: T }) {
         ? t("receipt.asOf.absentThen", { day: f.date(asOf.day) })
         : asOf.state === "refused"
           ? t("receipt.asOf.refused", { raw: asOf.raw })
-          : asOf.epoch
-            ? t("receipt.asOf.beforeEpoch", { day: f.date(asOf.day), epoch: f.date(asOf.epoch) })
-            : t("receipt.asOf.beforeEpochUnknown", { day: f.date(asOf.day) });
+          : asOf.state === "notReplayable"
+            ? t("receipt.asOf.notReplayable", { day: f.date(asOf.day) })
+            : asOf.epoch
+              ? t("receipt.asOf.beforeEpoch", { day: f.date(asOf.day), epoch: f.date(asOf.epoch) })
+              : t("receipt.asOf.beforeEpochUnknown", { day: f.date(asOf.day) });
   return (
     <div
       className={`mb-5 border-l-4 pl-3 ${historical ? "border-ochre bg-ochre/15" : "border-steel"} py-2 pr-3`}

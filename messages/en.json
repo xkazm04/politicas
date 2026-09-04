@@ -2758,7 +2758,9 @@
       "exhibitFakt": "dated fact from the control-room ledger",
       "derivation": "derivation today",
       "citedDerivation": "derivation cited",
-      "subject": "subject of the claim"
+      "subject": "subject of the claim",
+      "publishedThen": "what we published on {day}",
+      "publishedThenSource": "the version of the record valid on that day, from the knowledge graph's bitemporal history (kg_edge_history / kg_node_history); record time, not world time"
     },
     "guide": {
       "title": "How to cite so it can be verified",
@@ -3484,7 +3486,8 @@
         "absentThen": "On {day} we were keeping records, but this claim was not among them. What follows is therefore TODAY's record, not that day's.",
         "beforeEpoch": "There is no record for {day}: our record history starts on {epoch}, and before that date we assert nothing about any day. What follows is TODAY's record.",
         "beforeEpochUnknown": "There is no record for {day}: we hold no record history for this address yet. What follows is TODAY's record.",
-        "refused": "“{raw}” is not a date in YYYY-MM-DD form. We do not repair addresses for you, so no day was replayed — what follows is TODAY's record."
+        "refused": "“{raw}” is not a date in YYYY-MM-DD form. We do not repair addresses for you, so no day was replayed — what follows is TODAY's record.",
+        "notReplayable": "We cannot yet replay this kind of address to any day: derived figures are computed from today's record, not from the graph's history. We therefore assert nothing about {day} — what follows is TODAY's record."
       }
     }
   },
