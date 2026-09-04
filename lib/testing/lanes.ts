@@ -66,6 +66,7 @@ export const PGLITE_LANE_FILES = [
   "lib/testing/loaders.test.ts",
   "lib/testing/sentinel/sentinel.test.ts",
   "scripts/case-loops/apply-batch.test.ts",
+  "scripts/data-analysis/kg-writer-provenance.test.ts",
 ] as const;
 
 /**

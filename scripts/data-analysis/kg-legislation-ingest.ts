@@ -22,6 +22,7 @@ import { join } from "node:path";
 import { nextPass } from "@/lib/analysis/kg";
 import { normalizeLegislation, type LawBill } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
+import { guardStampedRows, makeProvenance } from "@/lib/kg/provenance";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
 function arg(name: string, fallback = ""): string {
@@ -113,7 +114,17 @@ async function main() {
   const bills: LawBill[] = normalizeLegislation(tiskyZip, termPspId);
   const pass = Number(arg("pass")) || nextPass(nodes);
   const computedAt = new Date().toISOString();
-  const provenance = { pass, method: "deterministic", ref: "psp-tisky", computedAt };
+  const allowUnstamped = flag("allow-unstamped");
+  // The ref stays "psp-tisky" (what pass 11 stamped, and what the stored rows
+  // carry); the SOURCE is the key the atlas declares for this adapter,
+  // `psp-tisky-law`. They differ on purpose and the difference is now visible
+  // instead of being the reason nobody could join a bill row to a run — see
+  // lib/analysis/atlas.ts, which recorded exactly this mismatch as a finding.
+  const provenance = {
+    method: "deterministic",
+    computedAt,
+    ...makeProvenance({ source: "psp-tisky-law", pass, ref: "psp-tisky", writer: "kg-legislation-ingest" }),
+  };
 
   const byOrigin = new Map<string, number>();
   for (const b of bills) byOrigin.set(b.origin, (byOrigin.get(b.origin) ?? 0) + 1);
@@ -184,7 +195,10 @@ async function main() {
   }
 
   if (commit) {
-    const n = await store.upsertKgNodes([...billNodes, ...lawNodes.values()]);
+    const allNodes = [...billNodes, ...lawNodes.values()];
+    guardStampedRows(allNodes, { allowUnstamped, label: "kg-legislation-ingest nodes" });
+    guardStampedRows(edgeRows, { allowUnstamped, label: "kg-legislation-ingest edges" });
+    const n = await store.upsertKgNodes(allNodes);
     const e = await store.upsertKgEdges(edgeRows);
     console.log(`\nCOMMITTED: ${n} nodes + ${e} edges (pass ${pass}).`);
   } else {

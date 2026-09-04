@@ -24,6 +24,12 @@ import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { getStore } from "@/lib/db/store";
+import {
+  guardStampedRows,
+  isProvenanceSource,
+  makeProvenance,
+  UNKNOWN_SOURCE,
+} from "@/lib/kg/provenance";
 import { KG_NODE_KINDS, parseAndValidateKgVerdict, type KgVerdict } from "@/lib/analysis/kg-verdict";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
@@ -122,8 +128,20 @@ export function toRows(
   v: KgVerdict,
   pass: number,
   computedAt: string,
+  /**
+   * The declared source the promoted verdict rests on. There is no meaningful
+   * default: a verdict is a JUDGEMENT over some registry's rows, and which
+   * registry that was is knowledge the caller has and this function does not.
+   * Inventing one is the single thing the contract forbids, so the fallback is
+   * UNKNOWN_SOURCE — the rows are COUNTED as unattributed, never mislabelled.
+   */
+  source: string = UNKNOWN_SOURCE,
 ): { nodes: KgNodeRow[]; edges: KgEdgeRow[]; droppedRels: string[]; droppedKinds: string[] } {
-  const provenance = { pass, method: "verdict", ref: v.target, computedAt };
+  const provenance = {
+    method: "verdict",
+    computedAt,
+    ...makeProvenance({ source, pass, ref: v.target, writer: "kg-promote" }),
+  };
   const droppedKinds: string[] = [];
   const nodes: KgNodeRow[] = [];
   for (const n of v.nodes) {
@@ -162,7 +180,19 @@ export function toRows(
 async function main() {
   const pass = Number(arg("pass", "0"));
   const commit = process.argv.includes("--commit");
+  const allowUnstamped = process.argv.includes("--allow-unstamped");
   const computedAt = new Date().toISOString();
+  // Named, never guessed. An operator who genuinely cannot say which registry a
+  // batch of verdicts rests on passes --source=unknown, and the rows are counted
+  // as unattributed on /atlas instead of being labelled with a plausible lie.
+  const source = arg("source", UNKNOWN_SOURCE);
+  if (!isProvenanceSource(source)) {
+    console.error(
+      `--source=${source} is not a declared source. Use an INGESTED_SOURCES key ` +
+        `(lib/analysis/atlas.ts), or --source=${UNKNOWN_SOURCE} to have the rows counted as unattributed.`,
+    );
+    process.exit(1);
+  }
   const files = verdictFiles();
   if (files.length === 0) {
     console.error("no verdicts — pass --verdict=<file> or --verdicts=<dir>");
@@ -206,7 +236,7 @@ async function main() {
       continue;
     }
     gated++;
-    const { nodes, edges, droppedRels, droppedKinds } = toRows(parsed.value, pass, computedAt);
+    const { nodes, edges, droppedRels, droppedKinds } = toRows(parsed.value, pass, computedAt, source);
     // A node this verdict declares AND THIS SCRIPT WILL CREATE becomes a valid
     // endpoint for the NEXT file too. A refused one must not: it is never upserted,
     // so an edge resting on it would dangle (the orphan-edges invariant below).
@@ -245,6 +275,8 @@ async function main() {
     await store.close();
     return;
   }
+  guardStampedRows(allNodes, { allowUnstamped, label: "kg-promote nodes" });
+  guardStampedRows(allEdges, { allowUnstamped, label: "kg-promote edges" });
   const wroteNodes = await store.upsertKgNodes(allNodes);
   const wroteEdges = await store.upsertKgEdges(allEdges);
   console.log(

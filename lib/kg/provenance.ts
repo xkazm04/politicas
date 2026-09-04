@@ -152,6 +152,39 @@ export function withProvenance(
   return { ...(existing ?? {}), ...stamp };
 }
 
+/**
+ * The writers' gate: every row about to be written carries a valid stamp.
+ *
+ * Called by each graph writer immediately before the upsert, so an unstamped
+ * row is refused at the ONE place it could still be stopped — the same
+ * enforcement point `persist-batch` already holds for prop keys, applied to
+ * origin instead of content.
+ *
+ * `allowUnstamped` exists for the MIGRATION PASS ONLY (kg-provenance-backfill,
+ * which by definition reads rows that predate the contract). It does not
+ * silence the finding: it reports how many rows went through unstamped, because
+ * a bypass nobody counts is a bypass that becomes permanent.
+ */
+export function guardStampedRows(
+  rows: ReadonlyArray<{ provenance?: unknown }>,
+  opts: { allowUnstamped?: boolean; label: string },
+): { checked: number; unstamped: number } {
+  let unstamped = 0;
+  rows.forEach((row, i) => {
+    const problems = provenanceProblems(row.provenance);
+    if (problems.length === 0) return;
+    unstamped += 1;
+    if (!opts.allowUnstamped) {
+      throw new Error(
+        `${opts.label}: refusing to write row #${i} — ${problems.join("; ")}. ` +
+          `Every graph write carries {source, ingest_run_id, pass, ref, writer} (lib/kg/provenance.ts). ` +
+          `Pass --allow-unstamped ONLY from the migration pass.`,
+      );
+    }
+  });
+  return { checked: rows.length, unstamped };
+}
+
 /** Read a stamp's source off a stored row, without deciding what absence means. */
 export function readProvenanceSource(provenance: unknown): string | null {
   if (provenance === null || typeof provenance !== "object" || Array.isArray(provenance)) return null;
