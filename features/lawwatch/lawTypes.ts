@@ -146,6 +146,42 @@ export interface LawBillView {
    * each a DERIVED, UNGATED lead already carrying a published verdict's disposition. Empty for
    * the 133 prints the payload does not cover — see features/lawwatch/sectorAttribution.ts. */
   sectorAttributionFlags: SectorAttributionFlag[];
+  /**
+   * Jak sněmovna a jednotlivé kluby o tomhle tisku hlasovaly — hrany `decides`
+   * (hlasování → tisk) spojené s ODVOZENÝM záznamem, ne s druhým přepočtem.
+   *
+   * Prázdné pole je poctivý stav, ne chyba: hran `decides` je v grafu tolik,
+   * kolik jich zapsal `kg-vote-bill-ingest.ts`, a hlasování, jehož bod pořadu
+   * nenese tisk, se sem NIKDY nedostane odhadem z názvu (1 602 z 2 075 platných
+   * hlasování PSP10 takových je, z toho 828 procedurálních). Plocha to jmenuje.
+   */
+  rollCalls: BillRollCall[];
+}
+
+/** Jedno jmenovité hlasování o tisku. Čísla jsou z `getFullVoteRecord().voteIndex`,
+ *  tedy z JEDNÉ derivace, kterou kreslí i /hlasovani — nikdy z druhého foldu hlasů. */
+export interface BillRollCall {
+  votePspId: number;
+  title: string;
+  votedOn: string | null;
+  sessionNo: number | null;
+  voteNo: number | null;
+  outcome: string;
+  sourceUrl: string;
+  /**
+   * Které čtení to bylo. `null` U VŠECH: žádný sloupec dumpu čtení neoznačuje a
+   * writer ho neodhaduje z názvu. Pole existuje, aby ho mohl vyplnit pozdější
+   * průchod — do té doby se nevykresluje.
+   */
+  readingStage: string | null;
+  /** Kolik tisků nesl TENTÝŽ bod pořadu. > 1 znamená, že hlasování patří bloku
+   *  (v PSP10 vždy „písemné interpelace"), a plocha to musí říct místo aby
+   *  předstírala, že se hlasovalo o tomhle jednom tisku. */
+  itemPrintCount: number;
+  /** Celosněmovní součet, nebo `null`, když k hlasování nedržíme hlasy. */
+  chamber: { yes: number; no: number; k: number; away: number } | null;
+  /** Linie klubu v TOMHLE hlasování (klub bez linie tu není). */
+  clubLines: Record<string, "yes" | "no">;
 }
 
 export interface TopLawView {

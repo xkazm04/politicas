@@ -29,6 +29,7 @@ import { KG_READ_CAP } from "@/lib/db/readCap";
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
+import { getFullVoteRecord } from "@/features/votetrack/getVoteRecord";
 import { deriveForensicIndex } from "./forensicIndex";
 import { buildCompanyIcoResolver, buildSectorAttributionIndex, type SectorAttributionRaw } from "./sectorAttribution";
 export type { SectorAttributionFlag } from "./sectorAttribution";
@@ -36,6 +37,7 @@ import {
   BILL_ORIGINS,
   type AmendedLawRef,
   type BillDossier,
+  type BillRollCall,
   type CommitteeRoutingView,
   type LawBillView,
   type LawData,
@@ -48,6 +50,7 @@ export type {
   AmendedLawRef,
   BillDossier,
   BillOrigin,
+  BillRollCall,
   CommitteeRoutingView,
   LawBillView,
   LawData,
@@ -266,7 +269,7 @@ async function loadLawData(): Promise<LawData | null> {
     // Eight independent reads that used to run strictly one after another, each awaiting a
     // predecessor it does not use. PGlite is single-connection, so this is not parallelism
     // in the engine — it is one queue instead of eight round-trips of caller latency.
-    const [lawNodes, organNodes, amends, assignedTo, rapporteurEdges, spokeOnEdges, amendmentEdges, persons] =
+    const [lawNodes, organNodes, amends, assignedTo, rapporteurEdges, spokeOnEdges, amendmentEdges, decidesEdges, persons] =
       await Promise.all([
         store.listKgNodes({ kind: "law", limit: KG_READ_CAP }),
         store.listKgNodes({ kind: "organ", limit: KG_READ_CAP }),
@@ -275,9 +278,59 @@ async function loadLawData(): Promise<LawData | null> {
         store.listKgEdges({ rel: "rapporteur", limit: KG_READ_CAP }),
         store.listKgEdges({ rel: "spoke_on", limit: KG_READ_CAP }),
         store.listKgEdges({ rel: "proposes_amendment", limit: KG_READ_CAP }),
+        store.listKgEdges({ rel: "decides", limit: KG_READ_CAP }),
         store.listPersons(),
       ]);
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
+
+    /* ── bill → roll calls (`decides`, 2026-09-04) ─────────────────────────────
+     *
+     * Čísla NEPOČÍTÁME znovu: `getFullVoteRecord()` je táž derivace, kterou kreslí
+     * /hlasovani, a je memoizovaná mezi požadavky, takže tenhle join je čtení
+     * indexu, ne druhý fold 406 000 hlasů. Kdyby se tally počítala tady, měly by
+     * dvě plochy dvě různá čísla o jednom hlasování.
+     *
+     * Když hrany nejsou (writer ještě neběžel), zůstává mapa prázdná a každý tisk
+     * dostane `rollCalls: []` — poctivý prázdný stav, ne dopočítaný.
+     */
+    const rollCallsByBill = new Map<string, BillRollCall[]>();
+    if (decidesEdges.length > 0) {
+      const record = await getFullVoteRecord();
+      const voteById = new Map((record?.voteIndex ?? []).map((v) => [v.pspId, v]));
+      for (const e of decidesEdges) {
+        const votePspId = Number(/^psp:hlasovani:(\d+)$/.exec(e.src)?.[1] ?? NaN);
+        const v = voteById.get(votePspId);
+        // Hrana na hlasování, které v záznamu není (zmatečné, jiné období), se
+        // zahodí — vykreslit ji bez tally by znamenalo tvrdit součet, který nemáme.
+        if (!Number.isFinite(votePspId) || !v) continue;
+        const p = (e.props ?? {}) as Record<string, unknown>;
+        const arr = rollCallsByBill.get(e.dst) ?? [];
+        arr.push({
+          votePspId,
+          title: v.title,
+          votedOn: v.votedOn,
+          sessionNo: v.sessionNo,
+          voteNo: v.voteNo,
+          outcome: v.outcome,
+          sourceUrl: v.sourceUrl,
+          readingStage: typeof p.readingStage === "string" ? p.readingStage : null,
+          itemPrintCount: typeof p.itemPrintCount === "number" ? p.itemPrintCount : 1,
+          chamber: v.total,
+          clubLines: v.clubLines,
+        });
+        rollCallsByBill.set(e.dst, arr);
+      }
+      // Nejnovější první, táž osa jako deník — a determinismus i pro hlasování
+      // téhož dne (sněmovna jich má desítky).
+      for (const arr of rollCallsByBill.values())
+        arr.sort(
+          (a, b) =>
+            (b.votedOn ?? "").localeCompare(a.votedOn ?? "") ||
+            (b.sessionNo ?? 0) - (a.sessionNo ?? 0) ||
+            (b.voteNo ?? 0) - (a.voteNo ?? 0) ||
+            b.votePspId - a.votePspId,
+        );
+    }
 
     // bill → zpravodajové (pass 34): person urn on the src side, scopes in props.
     const rapporteursByBill = new Map<string, { pspId: number; name: string; scopes: string[] }[]>();
@@ -457,6 +510,7 @@ async function loadLawData(): Promise<LawData | null> {
         amendedLawsFull,
         amendsUndercount,
         sectorAttributionFlags: cislo != null ? (sectorAttributionIndex.get(cislo) ?? []) : [],
+        rollCalls: rollCallsByBill.get(n.id) ?? [],
       };
     });
 

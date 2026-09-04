@@ -17,7 +17,8 @@ export type FindingKind =
   | "law_became_law_clean" // MP→list
   | "effort_workhorse"
   | "effort_rapporteur" // P2/P3 positive
-  | "money_ties_unrated"; // count only
+  | "money_ties_unrated" // count only
+  | "law_final_vote"; // RECORD row: the chamber's dated outcome on a sponsored bill
 export type Valence = "negative" | "positive" | "unrated";
 export type Severity = "low" | "medium" | "high";
 export interface Finding {
@@ -29,7 +30,7 @@ export interface Finding {
   objectId: string | null; // e.g. "bill:<tisk>" | winner "company:ico:<8>"
   decidedOn: string | null; // ISO date of the choice (wins.decided_on / bill sponsorship / vote)
   laterOn: string | null; // ISO date of the later dated fact (fate_published_on, forensic_provenance date, flags_provenance date)
-  laterKind: "fate_sb" | "forensic_verdict" | "collision_detected" | "flags_computed" | null;
+  laterKind: "fate_sb" | "forensic_verdict" | "collision_detected" | "flags_computed" | "final_vote" | null;
   reviewState: "verified" | "pending_review" | "deterministic"; // deterministic = rule over register facts
   figures: Record<string, number>; // rule inputs, e.g. { share: 0.33, baseline: 0.037, multiple: 8.9 }
   ruleRef: string; // "volby:N1" … "volby:P3" — /metodika anchor

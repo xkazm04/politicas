@@ -9,6 +9,7 @@
  * store-outage fallback only.
  */
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
@@ -156,6 +157,21 @@ export default function RealVoteLedger({
                   {v.rebels.length > 0 && (
                     <span className="font-bold text-signal-deep">{t("rebelsCount", { n: v.rebels.length })}</span>
                   )}
+                  {/* O čem se hlasovalo — odkaz na dossier tisku (hrany `decides`).
+                      Odkaz jen když tisk byl PRÁVĚ JEDEN: bod pořadu s víc tisky
+                      by jinak poslal čtenáře na jeden z bloku, jako by se hlasovalo
+                      o něm. Blok proto dostane větu, ne odkaz — a hlasování bez
+                      tisku nedostane nic, protože se nehádá z názvu. */}
+                  {v.billCislo !== null ? (
+                    <Link
+                      href={`/zakony/${v.billCislo}`}
+                      className="font-bold text-cobalt underline-offset-2 hover:underline"
+                    >
+                      {t("record.billLink", { cislo: v.billCislo })}
+                    </Link>
+                  ) : v.billCount > 1 ? (
+                    <span className="text-steel-aa">{t("record.billBlock", { countFmt: f.int(v.billCount) })}</span>
+                  ) : null}
                 </span>
                 {/* Sdílená katalogová komponenta, nikdy druhá kopie — a kopíruje
                     přesně tu adresu, kterou slibuje `title` na řádku. */}

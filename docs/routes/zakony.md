@@ -200,6 +200,41 @@ pass (`32.13.2025`), keeps the row and its `stav`, and COUNTS the refusals
 into `BillFate.refusedPublications` — a silent refusal is the same defect as
 a silent guess.
 
+**The bill dossier gained its roll calls (2026-09-04).** `/zakony` promised the
+vote→impact loop at founding and drew 141 bills with **zero** votes: `BillDetail.tsx`
+contained no occurrence of `vote`/`hlasov` at all, and this file said so — „the graph
+carries no bill-stage pipeline, so neither is drawn". The missing piece was one edge.
+`decides` (roll call → print) joins `vote_event(sessionNo, agendaItem)` to
+`bod_schuze(bod, id_tisk)` through the sitting's agenda; `LawBillView.rollCalls` reads
+it, and `RollCallBlock` renders how the chamber and each club stood, roll call by roll
+call, with the psp.cz address on every one.
+
+**Not a second derivation.** The chamber tally and the club lines come from
+`getFullVoteRecord().voteIndex` — the same memoized artifact `/hlasovani` renders. This
+route now imports it. Computing the tallies here instead would have given two surfaces
+two different numbers for one roll call, which is the failure `voteIndex` was extracted
+to prevent in the first place.
+
+**Three refusals ride on the block, all visible to the reader.** A roll call whose
+agenda item carried several prints (`itemPrintCount > 1` — six items in PSP10, every one
+a „písemné interpelace" block) prints a line saying the vote was on the block, and the
+edge stays on all of the block's prints rather than being narrowed to a plausible one.
+`chamber === null` prints „we hold no ballots", never a zero tally — „no ballots" and
+„nobody voted" are different claims. And the reading stage is **not drawn at all**:
+`readingStage` is null on 100 % of edges because no dump column labels it, and inventing
+one would publish a procedural fact the source does not carry.
+
+**Wire ruling.** `rollCalls` is `internal` in `BILL_WIRE` — the index neither filters,
+searches nor renders it, and the field carries a whole-chamber tally plus every club's
+line, i.e. more bytes than the rest of a row put together. It stays on `/zakony/[cislo]`.
+`publicWire.test.ts` holds that adressably, with a non-empty fixture so the assertion has
+something to fail on.
+
+**Population, printed on the surface.** Of 2 075 valid PSP10 roll calls, 473 link to at
+least one print and 1 602 do not (828 of them procedural, carrying `bod = 0`). Measured
+2026-09-04; the writer has not been run against the live store, so until it is, every
+dossier renders this block empty — an honest empty state, not a failure.
+
 ## 2026-09-04 — the gate state is READ, and an absent one renders as absent (G2, deck #5)
 
 `getLawData.ts:201` used to be `reviewState: state ?? "pending_review"`. That
