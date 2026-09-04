@@ -24,7 +24,7 @@
  * velikost uzlu = důkazní stupeň, spoje firma→smlouva až od přiblížení.
  */
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Route } from "lucide-react";
 import { compactCzk } from "@/features/money/moneyTypes";
@@ -38,12 +38,22 @@ import { forensicEdges, hoverCardModel } from "./forensicView";
 import NodeSearch from "./components/NodeSearch";
 import TrailFinder from "./components/TrailFinder";
 import { InspectorDrawer, LegendOverlay, StatChip, TopLeft } from "./components/StageOverlays";
-import { mapAction, pathAction, trailsAction } from "./graphActions";
-import { HUB_DEGREE, MAX_COST } from "./trailPath";
+import { mapAction, neighbourhoodAction, pathAction, trailsAction } from "./graphActions";
+import { HUB_DEGREE, MAX_COST, PATH_RULE_REF } from "./trailPath";
+import { EMPTY_GRAPH_PROVENANCE } from "@/lib/kg/graphProvenance";
 import { useNodeSelection } from "./useNodeSelection";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import type { GraphViewState } from "./permalink";
-import type { GraphEdge, GraphNode, GraphSeed, MapData, PathQueryResult, SearchHit, Trail } from "./graphTypes";
+import type {
+  GraphEdge,
+  GraphNode,
+  GraphSeed,
+  MapData,
+  Neighbourhood,
+  PathQueryResult,
+  SearchHit,
+  Trail,
+} from "./graphTypes";
 
 /** Odpověď pro případ, kdy akce spadne dřív, než loader stihne odpovědět. */
 const PATH_UNAVAILABLE: PathQueryResult = {
@@ -55,12 +65,39 @@ const PATH_UNAVAILABLE: PathQueryResult = {
   capped: false,
   maxCost: MAX_COST,
   hubDegree: HUB_DEGREE,
+  // Nulou se tu netvrdí „žádné zamítnuté hrany nejsou" — tenhle tvar znamená
+  // „hledání vůbec neproběhlo" (status: "unavailable"), a plocha sází výpadek,
+  // ne počty.
+  excludedRejected: 0,
+  ruleRef: PATH_RULE_REF,
+  provenance: EMPTY_GRAPH_PROVENANCE,
 };
 
 /** Interval rozsvěcení kroků cesty (bez reduced-motion). */
 const REVEAL_STEP_MS = 380;
 
-export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
+/**
+ * ROZPOČET UZLŮ PŘEKRYVU — dokreslené okolí nesmí přerůst mapu.
+ *
+ * Zadavatel s tisíci hranami `procures` by z plátna udělal skvrnu a skvrna
+ * neodpovídá na žádnou otázku. Rozpočet je otištěný a co se přes něj nevešlo,
+ * se PŘIZNÁVÁ (StageOverlays), nikdy nemizí mlčky.
+ */
+const OVERLAY_NODE_BUDGET = 400;
+
+/** Kolik kotev se smí dotáhnout automaticky kvůli jedné spočítané cestě. */
+const AUTO_ANCHOR_BUDGET = 6;
+
+const round2 = (v: number) => Math.round(v * 100) / 100;
+
+export default function VariantMapa({
+  seed,
+  okoli = null,
+}: {
+  seed: GraphSeed | null;
+  /** Uzel z `/graf?okoli=<id>` — okolí se dokreslí hned po otevření. */
+  okoli?: string | null;
+}) {
   // Mapa nabízí vstup hledáním a trasami; nabídnuté uzly ze seedu nepotřebuje.
   void seed;
   const t = useTranslations("graph");
@@ -87,6 +124,27 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
   const [pathResult, setPathResult] = useState<PathQueryResult | null | "loading">(null);
   const [pathIdx, setPathIdx] = useState(0);
   const pathReqRef = useRef(0);
+
+  // ── Překryv okolí — vrstva, kterou mapa masy ZÁMĚRNĚ nekreslí ───────────
+  //
+  // 48 647 zakázek a 12 467 zakázkových firem je v indexu i v sousedství cest,
+  // ale ne v `MapData`. Spočítaná cesta přes ně vést MŮŽE — a jeviště pak
+  // rozsvítilo uzel, pro který nemá pozici, a jeho hrany mlčky zahodilo
+  // (`if (!a || !b) continue`). Účetní kniha vypsala všechny kroky, plátno
+  // nakreslilo podmnožinu a nikde nestálo kolik chybí. Tohle je ta chybějící
+  // půlka: okolí se dotáhne na vyžádání a NEDOKRESLENÉ se spočítá.
+  const [overlay, setOverlay] = useState<Neighbourhood[]>([]);
+  const askedRef = useRef<Set<string>>(new Set());
+
+  /** Dotáhni okolí kotvy (jednou za kotvu, i při dvojím StrictMode průchodu). */
+  const expand = useCallback((id: string) => {
+    if (askedRef.current.has(id)) return;
+    askedRef.current.add(id);
+    void neighbourhoodAction(id, null).then((nb) => {
+      if (nb === null || nb.anchor === null) return;
+      setOverlay((prev) => (prev.some((x) => x.anchor?.id === nb.anchor?.id) ? prev : [...prev, nb]));
+    });
+  }, []);
 
   useEffect(() => {
     // setState až v async callbacích; dvojí StrictMode fetch odstíní serverová cache.
@@ -202,6 +260,93 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
     return { nodes, edges, positions: new Map(data.nodes.map((n) => [n.id, { x: n.x, y: n.y }])) };
   }, [data, moneyById, locale, pathEnds]);
 
+  /*
+   * PŘEKRYV: pozice, uzly a hrany dokresleného okolí.
+   *
+   * Kotvou překryvu je uzel, který pozici NA MAPĚ má — okolí se kolem ní
+   * posadí přičtením relativních souřadnic (loader je spočítal na prstenci a
+   * ZAOKROUHLIL na 2 desetinná místa; zaokrouhluje se i součet, aby se server
+   * a klient nerozešly na float driftu). Jedna úroveň schválně: okolí okolí by
+   * záviselo na pořadí a rozpočet uzlů by přestal být rozpočtem.
+   */
+  const overlayLayer = useMemo(() => {
+    const pos = new Map(positions);
+    const extra: GraphNode[] = [];
+    let budgetDropped = 0;
+    for (const nb of overlay) {
+      const anchorId = nb.anchor?.id;
+      const at = anchorId ? pos.get(anchorId) : undefined;
+      if (!at) continue; // kotva sama není na mapě — o úroveň dál se nejde
+      for (const n of nb.nodes) {
+        if (pos.has(n.id)) continue; // uzel mapy si drží svou pozici
+        if (extra.length >= OVERLAY_NODE_BUDGET) {
+          budgetDropped++;
+          continue;
+        }
+        pos.set(n.id, { x: round2(at.x + n.x), y: round2(at.y + n.y) });
+        extra.push({
+          id: n.id,
+          kind: n.kind,
+          label: n.label,
+          degree: n.degree,
+          size: Math.min(18, 4 + Math.sqrt(n.degree) * 1.6),
+        });
+      }
+    }
+    // Hrana se kreslí, jen když MÁ oba konce umístěné — hrana do prázdna je
+    // ta samá tichá lež, jen z druhé strany.
+    const extraEdges: GraphEdge[] = [];
+    const seen = new Set<string>();
+    for (const nb of overlay) {
+      for (const e of nb.edges) {
+        const key = edgeKey(e);
+        if (seen.has(key)) continue;
+        if (!pos.has(e.src) || !pos.has(e.dst)) continue;
+        seen.add(key);
+        extraEdges.push(e);
+      }
+    }
+    return { positions: pos, nodes: extra, edges: extraEdges, budgetDropped };
+  }, [overlay, positions]);
+
+  /*
+   * KOLIK KROKŮ VYŽÁDANÉ ODPOVĚDI PLÁTNO NEUMÍ NAKRESLIT.
+   *
+   * Tohle je to číslo, které do 2026-09-04 neexistovalo: účetní kniha vypsala
+   * tři kroky, jeviště nakreslilo jeden a rozdíl nikde nestál. Počítá se PO
+   * překryvu — dokreslené kroky už chybějící nejsou.
+   */
+  const offMapNodes = useMemo(() => {
+    if (!activePath) return [] as string[];
+    return activePath.nodeIds.filter((id) => !overlayLayer.positions.has(id));
+  }, [activePath, overlayLayer]);
+
+  /*
+   * Dotažení okolí PRO CESTU: uzel mimo mapu dostane pozici z okolí svého
+   * SOUSEDA na cestě, který na mapě je. Kotev se dotahuje jen několik
+   * (AUTO_ANCHOR_BUDGET) — cesta má nejvýš pár kroků a stovky dotazů by z
+   * jednoho kliknutí udělaly bouři.
+   */
+  useEffect(() => {
+    if (!activePath) return;
+    const placed = positions;
+    let asked = 0;
+    for (const [i, id] of activePath.nodeIds.entries()) {
+      if (placed.has(id)) continue;
+      for (const nb of [activePath.nodeIds[i - 1], activePath.nodeIds[i + 1]]) {
+        if (nb && placed.has(nb) && asked < AUTO_ANCHOR_BUDGET) {
+          asked++;
+          expand(nb);
+        }
+      }
+    }
+  }, [activePath, positions, expand]);
+
+  /** Vstup z jiné plochy: `/graf?okoli=<id>` dokreslí okolí hned. */
+  useEffect(() => {
+    if (okoli) expand(okoli);
+  }, [okoli, expand]);
+
   // Hrany vyžádané čočky se ve forenzním filtru drží vždy — vyžádaná
   // odpověď s vynechanými kroky by byla lež (forensicView.ts).
   const lensKeep = useMemo(() => {
@@ -216,6 +361,22 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
     [forensic, edges, lensKeep],
   );
   const stageEdges = forensicFilter && !showPending ? forensicFilter.edges : edges;
+
+  // Mapa + dokreslené okolí jdou na jeviště jako JEDEN seznam: překryv není
+  // druhá geometrie, jen další uzly v témže světě (týž toWorld/toScreen).
+  const stageNodes = useMemo(
+    () => (overlayLayer.nodes.length === 0 ? nodes : [...nodes, ...overlayLayer.nodes]),
+    [nodes, overlayLayer],
+  );
+  const overlayStageEdges = useMemo(
+    () =>
+      forensic && !showPending ? forensicEdges(overlayLayer.edges, lensKeep).edges : overlayLayer.edges,
+    [forensic, showPending, overlayLayer, lensKeep],
+  );
+  const stageAllEdges = useMemo(
+    () => (overlayStageEdges.length === 0 ? stageEdges : [...stageEdges, ...overlayStageEdges]),
+    [stageEdges, overlayStageEdges],
+  );
 
   // Karta najetí čte NEfiltrovaný seznam — říká pravdu o stavu záznamu,
   // ne o tom, co je zrovna vidět.
@@ -267,9 +428,9 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
   return (
     <div className="absolute inset-0">
       <GraphStage
-        nodes={nodes}
-        edges={stageEdges}
-        positions={positions}
+        nodes={stageNodes}
+        edges={stageAllEdges}
+        positions={overlayLayer.positions}
         world={data.world}
         selectedId={selection.selectedId}
         onSelect={selection.select}
@@ -288,6 +449,8 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
           <ForensicStrip
             hiddenPending={forensicFilter.hiddenPending}
             keptPending={forensicFilter.keptPending}
+            hiddenRejected={forensicFilter.hiddenRejected}
+            keptRejected={forensicFilter.keptRejected}
             showPending={showPending}
             onTogglePending={() => setShowPending((v) => !v)}
           />
@@ -389,6 +552,30 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
         )}
       </TopLeft>
 
+      {/*
+        NEDOKRESLENÉ SE PŘIZNÁVÁ. „Vyžádaná odpověď s vynechanými kroky je lež"
+        platila v účetní knize a neplatila na plátně — tohle je ta věta, která
+        chyběla. Rozpočet uzlů překryvu si přiznává svůj vlastní řez zvlášť.
+      */}
+      {(offMapNodes.length > 0 || overlayLayer.budgetDropped > 0) && (
+        <div className="absolute bottom-3 left-3 z-20 max-w-[24rem] border-2 border-signal bg-paper px-3 py-2">
+          {offMapNodes.length > 0 && (
+            <p className="font-mono text-[11px] uppercase tracking-wider text-signal">
+              {tm("offMap", { n: f.int(offMapNodes.length) })}
+            </p>
+          )}
+          {overlayLayer.budgetDropped > 0 && (
+            <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa">
+              {tm("overlayBudget", {
+                n: f.int(overlayLayer.budgetDropped),
+                budget: f.int(OVERLAY_NODE_BUDGET),
+              })}
+            </p>
+          )}
+          <SourceNote className="mt-1 normal-case">{tm("offMapSource")}</SourceNote>
+        </div>
+      )}
+
       <StatChip>
         {activePath
           ? t("counts", { nodes: f.int(activePath.nodeIds.length), edges: f.int(activePath.hops) })
@@ -397,7 +584,11 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
             : tm("stat", { nodes: f.int(nodes.length), edges: f.int(edges.length) })}
       </StatChip>
       <LegendOverlay footnote={activeTrail ? tt("footnote") : tm("footnote")} />
-      <InspectorDrawer selection={selection} />
+      <InspectorDrawer
+        selection={selection}
+        onExpand={expand}
+        expandLabel={tm("expandLabel")}
+      />
 
       {/* Forenzní karta najetí — stavy kontroly bez klikání. */}
       {hoverModel && (

@@ -19,13 +19,14 @@
  * katalog (graph.variants.*), i když jde o lešení — plocha je veřejná.
  */
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
 import ForensicProvider from "@/features/shared/forensic/ForensicProvider";
 import ForensicToggle from "@/features/shared/forensic/ForensicToggle";
 import { useFormat } from "@/lib/i18n/useFormat";
 import Link from "next/link";
+import ProvenanceTable from "./components/ProvenanceTable";
 import VariantMapa from "./VariantMapa";
 import VariantTrasy from "./VariantTrasy";
 import type { GraphSeed } from "./graphTypes";
@@ -66,10 +67,24 @@ function choose(key: VariantKey) {
   for (const l of listeners) l();
 }
 
-export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
+export default function GraphPage({
+  seed,
+  okoli = null,
+}: {
+  seed: GraphSeed | null;
+  /** Uzel, jehož okolí se má rozkreslit hned po otevření (`/graf?okoli=<id>`) —
+   *  vstup z jiné plochy (spis firmy, zakázka); null = běžné otevření. */
+  okoli?: string | null;
+}) {
   const t = useTranslations("graph");
+  const tp = useTranslations("graph.provenance");
+  const tr = useTranslations("graph.rels");
   const f = useFormat();
   const variant = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const [showProvenance, setShowProvenance] = useState(false);
+  // Neznámá relace se vypíše STROJOVÝM tokenem doslova — nikdy se pro ni
+  // nevymýšlí česká věta (týž zvyk jako relLabelKey v účtence).
+  const relLabel = (rel: string) => (tr.has(rel) ? tr(rel) : rel);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -111,9 +126,30 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
               {t("counts", { nodes: f.int(seed.totalNodes), edges: f.int(seed.totalEdges) })}
             </SourceNote>
           )}
+          {/*
+           * PROVENIENCE GRAFU JAKO POPULACE. Hlavička uměla říct, KOLIK grafu
+           * je, ne ČÍM byl napsán — a jedno číslo by o populaci psané po
+           * relacích lhalo, takže se otevírá celá tabulka variant.
+           */}
+          {seed && (
+            <button
+              type="button"
+              onClick={() => setShowProvenance((v) => !v)}
+              aria-expanded={showProvenance}
+              className="hidden shrink-0 border border-ink px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-widest transition-colors hover:bg-paper-strong sm:block"
+            >
+              {tp("title")}
+            </button>
+          )}
           <ForensicToggle />
         </div>
       </header>
+
+      {seed && showProvenance && (
+        <div className="shrink-0 border-b-2 border-ink px-4 py-2">
+          <ProvenanceTable provenance={seed.provenance} relLabel={relLabel} />
+        </div>
+      )}
 
       <div className="relative min-h-0 flex-1">
         {seed === null ? (
@@ -121,7 +157,7 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
             <p className="max-w-xl text-base leading-relaxed text-steel">{t("page.unavailable")}</p>
           </div>
         ) : (
-          <Active seed={seed} />
+          <Active seed={seed} okoli={okoli} />
         )}
       </div>
 

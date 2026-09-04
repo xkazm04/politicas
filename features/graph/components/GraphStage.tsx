@@ -33,7 +33,7 @@ import type { Point } from "@/lib/kg/layout";
 import { arrowheadAt } from "../arrowhead";
 import { edgeKey } from "../forensicView";
 import { KIND_FILL_TOKEN, KIND_STYLE, traceGlyph, type GlyphShape } from "../kindStyle";
-import { readStagePalette } from "../stagePalette";
+import { dashForGate, readStagePalette } from "../stagePalette";
 import { pointInRect, segmentCrossesRect, type ViewRect } from "../viewCull";
 import { centerOn, fitRect, toScreen, toWorld, zoomAtPoint, type View } from "../viewTransform";
 import type { GraphEdge, GraphNode } from "../graphTypes";
@@ -207,14 +207,23 @@ export default function GraphStage({
       return true;
     };
 
-    // ── Hrany: jedna cesta plné, jedna čárkované; minK gate; culling. ──
-    const bulk = (dashed: boolean) => {
+    // ── Hrany: jedna cesta na každý stav brány; minK gate; culling. ──
+    //
+    // TŘI PRŮCHODY, NE DVA (2026-09-04): plné (ověřeno / negated relace),
+    // čárkované (čeká) a tečkované (ZAMÍTNUTO). Zamítnutá hrana se do 2026-09-04
+    // kreslila v prvním průchodu spolu s ověřenými, protože plocha znala jen
+    // boolean `pending` — plátno tedy odmítnuté tvrzení sázelo přesně tak jako
+    // prokázané.
+    const bulk = (bucket: "verified" | "pending_review" | "rejected") => {
       ctx.beginPath();
       const arrows = new Path2D();
       let drew = false;
       let arrowed = false;
       for (const e of edges) {
-        if (e.pending !== dashed) continue;
+        // `gate: null` (negated relace) patří k plným — deterministické
+        // odvození branou neprochází a netvrdí o sobě „ověřeno".
+        const state = e.gate === "pending_review" || e.gate === "rejected" ? e.gate : "verified";
+        if (state !== bucket) continue;
         if (e.minK !== undefined && k < e.minK) continue;
         if (focus && (e.src === focus || e.dst === focus)) continue;
         if (lens && lens.edges.has(edgeKey(e))) continue; // kreslí je vrstva čočky
@@ -230,7 +239,7 @@ export default function GraphStage({
         if (addArrow(arrows, a, b, e.dst)) arrowed = true;
       }
       if (!drew) return;
-      ctx.setLineDash(dashed ? [5, 5] : []);
+      ctx.setLineDash(dashForGate(bucket).map((d) => d / k));
       ctx.strokeStyle = pal.steel;
       ctx.globalAlpha = lens ? 0.1 : focus ? 0.22 : 0.6;
       ctx.lineWidth = 1.3 / k;
@@ -240,8 +249,9 @@ export default function GraphStage({
         ctx.fill(arrows);
       }
     };
-    bulk(false);
-    bulk(true);
+    bulk("verified");
+    bulk("pending_review");
+    bulk("rejected");
     ctx.setLineDash([]);
     ctx.globalAlpha = 1;
 
@@ -258,7 +268,9 @@ export default function GraphStage({
         const a = positions.get(e.src);
         const b = positions.get(e.dst);
         if (!a || !b) continue;
-        ctx.setLineDash(e.pending ? [5, 5] : []);
+        // Vyžádaná čočka se NEfiltruje, takže tu zamítnutý krok být může —
+        // a musí být poznat (tečkovaně), ne přestrojený za ověřený.
+        ctx.setLineDash(dashForGate(e.gate).map((d) => d / k));
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
@@ -282,7 +294,9 @@ export default function GraphStage({
         const a = positions.get(e.src);
         const b = positions.get(e.dst);
         if (!a || !b) continue;
-        ctx.setLineDash(e.pending ? [5, 5] : []);
+        // Vyžádaná čočka se NEfiltruje, takže tu zamítnutý krok být může —
+        // a musí být poznat (tečkovaně), ne přestrojený za ověřený.
+        ctx.setLineDash(dashForGate(e.gate).map((d) => d / k));
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);

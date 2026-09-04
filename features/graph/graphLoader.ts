@@ -52,7 +52,13 @@ import { getStore } from "@/lib/db/store";
 import { formattersFor } from "@/lib/format";
 import { isLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { forceLayout, hashId } from "@/lib/kg/layout";
+import {
+  EMPTY_GRAPH_PROVENANCE,
+  summarizeGraphProvenance,
+  type GraphProvenance,
+} from "@/lib/kg/graphProvenance";
 import { citableId, sourceLinksFor, type KgNodeKind } from "@/lib/kg/sourceLinks";
+import { byListOrder } from "@/lib/db/kgOrder";
 import { isKgNodeKind } from "./kindStyle";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { moneyReachesCompany } from "@/features/money/reachableMoney";
@@ -62,12 +68,19 @@ import {
   findEvidencePaths,
   HUB_DEGREE,
   MAX_COST,
+  PATH_RULE_REF,
   type Adjacency,
   type PathEdge,
 } from "./trailPath";
+import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
+import { gateFieldsOf, gateOf, provenanceOf, type GatedEdgeRow } from "./edgeGate";
+import { pendingFromGate } from "./graphTypes";
 import type {
   GraphEdge,
   GraphNode,
+  MapNodeDto,
+  Neighbourhood,
+  NeighbourRelCount,
   GraphSeed,
   MapData,
   NodeDetail,
@@ -97,6 +110,8 @@ interface GraphIndex {
   census: Array<{ kind: KgNodeKind; count: number }>;
   totalNodes: number;
   totalEdges: number;
+  /** Provenience hran po relacích — spočítaná při TÉMŽE průchodu, co stupně. */
+  provenance: GraphProvenance;
 }
 
 /**
@@ -197,6 +212,10 @@ async function buildIndex(): Promise<GraphIndex | null> {
         .sort((a, b) => b.count - a.count),
       totalNodes: entries.length,
       totalEdges: edges.length,
+      // Průchod přes VŠECHNY hrany už tu jednou proběhl (stupně výš), takže
+      // agregace provenience nestojí ani jedno čtení navíc — a graf konečně
+      // umí říct, čím byl napsán, ne jen kolik ho je.
+      provenance: summarizeGraphProvenance(edges),
     };
   } catch (err) {
     reportLoaderFailure("graphLoader.buildIndex", err);
@@ -226,6 +245,7 @@ export async function getGraphSeed(): Promise<GraphSeed | null> {
       .sort((a, b) => b.degree - a.degree)
       .slice(0, 12)
       .map(toNode),
+    provenance: idx.provenance,
   };
 }
 
@@ -247,19 +267,21 @@ export async function searchGraph(q: string, kinds: KgNodeKind[] | null, limit =
   return hits.slice(0, limit).map((h) => toNode(h.e));
 }
 
-const toEdge = (e: {
-  src: string;
-  dst: string;
-  rel: string;
-  weight: number | null;
-  props: Record<string, unknown>;
-}): GraphEdge => ({
+/**
+ * Řádek hrany → hrana plátna. Stav lidské brány čte `gateFieldsOf`
+ * (features/graph/edgeGate.ts), který obaluje `gateFromEdge` z účtenky —
+ * pravidlo `review_state` má v repozitáři JEDEN výklad a tohle není jeho opis.
+ *
+ * Do 2026-09-04 tady stálo `pending: props.review_state === "pending_review"`:
+ * jeden boolean ze tří stavů, takže ZAMÍTNUTÁ hrana vyšla jako `pending:
+ * false`, tedy k nerozeznání od ověřené.
+ */
+const toEdge = (e: GatedEdgeRow & { weight: number | null }): GraphEdge => ({
   src: e.src,
   dst: e.dst,
   rel: e.rel,
   weight: e.weight,
-  // Vazba osoba–firma je do lidské kontroly tvrzením stroje, ne faktem.
-  pending: e.props?.review_state === "pending_review",
+  ...gateFieldsOf(e),
 });
 
 // ── Mapa masy (rozvržení celého grafu spočítané na serveru) ─────────────────
@@ -490,22 +512,34 @@ async function buildTrails(): Promise<Trail[] | null> {
       companiesOf.set(e.src, [...(companiesOf.get(e.src) ?? []), e.dst]);
       personsOf.set(e.dst, [...(personsOf.get(e.dst) ?? []), e.src]);
     }
-    const pendingLink = new Set(
-      linked.filter((e) => e.props?.review_state === "pending_review").map((e) => e.src + "|" + e.dst),
-    );
-    const linkEdge = (p: string, c: string): GraphEdge => ({
-      src: p,
-      dst: c,
-      rel: "linked_to",
-      weight: null,
-      pending: pendingLink.has(p + "|" + c),
-    });
+    // KURÁTORSKÉ TRASY SE NEFILTRUJÍ — trasa je vyžádaná odpověď a vynechaný
+    // krok by byl lež (týž výklad jako forensicView). Zamítnutý krok se tedy
+    // vykreslí, ale OZNAČENÝ: nese `gate: "rejected"` a jeviště pro něj má
+    // vlastní tah. Do 2026-09-04 nesl `pending: false`, tedy podobu ověřené.
+    const linkGate = new Map(linked.map((e) => [e.src + "|" + e.dst, gateOf(e)] as const));
+    const linkProv = new Map(linked.map((e) => [e.src + "|" + e.dst, provenanceOf(e)] as const));
+    const linkEdge = (p: string, c: string): GraphEdge => {
+      const gate = linkGate.get(p + "|" + c) ?? null;
+      return {
+        src: p,
+        dst: c,
+        rel: "linked_to",
+        weight: null,
+        pending: pendingFromGate(gate),
+        gate,
+        provenance: linkProv.get(p + "|" + c) ?? null,
+      };
+    };
+    // Deterministicky odvozené relace lidskou branou NEPROCHÁZEJÍ: `gate: null`
+    // není „ověřeno", je to „nemá co ověřovat" (GATED_RELS).
     const plainEdge = (src: string, dst: string, rel: string): GraphEdge => ({
       src,
       dst,
       rel,
       weight: null,
       pending: false,
+      gate: null,
+      provenance: null,
     });
 
     const trails: Trail[] = [];
@@ -534,7 +568,7 @@ async function buildTrails(): Promise<Trail[] | null> {
           edges.push(linkEdge(pid, cid));
         }
       }
-      if (nodes.length > 0) trails.push({ key: "penize-poslancu", columns: ["person", "company"], nodes, edges });
+      if (nodes.length > 0) trails.push({ key: "penize-poslancu", columns: ["person", "company"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // 2 · Nejpřepisovanější zákony: zákon ← tisky ← předkladatelé.
@@ -575,7 +609,7 @@ async function buildTrails(): Promise<Trail[] | null> {
         }
       }
       if (nodes.length > 0)
-        trails.push({ key: "nejnovelizovanejsi", columns: ["person", "bill", "law"], nodes, edges });
+        trails.push({ key: "nejnovelizovanejsi", columns: ["person", "bill", "law"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // 3 · Dárci stran: firmy s darem straně + poslanci s vazbou na ně.
@@ -597,7 +631,7 @@ async function buildTrails(): Promise<Trail[] | null> {
           edges.push(linkEdge(pid, cid));
         }
       }
-      if (nodes.length > 0) trails.push({ key: "darci-stran", columns: ["person", "company"], nodes, edges });
+      if (nodes.length > 0) trails.push({ key: "darci-stran", columns: ["person", "company"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // 4 · Výbory a peníze: výbor ← členové s vazbami ← jejich firmy.
@@ -643,13 +677,16 @@ async function buildTrails(): Promise<Trail[] | null> {
         }
       }
       if (nodes.length > 0)
-        trails.push({ key: "vybory-a-penize", columns: ["organ", "person", "company"], nodes, edges });
+        trails.push({ key: "vybory-a-penize", columns: ["organ", "person", "company"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // Pořadí ve sloupci = řádek sazby: podle peněz, pak podle stupně.
     // BEZ TOHOTO se celý sloupec položí na jeden bod (order 0) a z trasy
     // zbydou tři uzly — přesně tak se to jednou rozbilo.
     for (const trail of trails) {
+      // Citovatelná trasa nese provenienci SVÝCH hran, ne celého grafu:
+      // „čím vznikly tyhle kroky" je jiná otázka než „čím vznikl graf".
+      trail.provenance = summarizeGraphProvenance(trail.edges);
       const perColumn = new Map<number, number>();
       for (const n of [...trail.nodes].sort(
         (a, b) => (b.moneyCzk ?? 0) - (a.moneyCzk ?? 0) || b.degree - a.degree,
@@ -696,12 +733,15 @@ async function buildPathAdjacency(): Promise<Adjacency | null> {
     const evidence: PathEdge[] = [];
     for (const e of all) {
       if (!idx.byId.has(e.src) || !idx.byId.has(e.dst)) continue;
+      const gate = gateOf(e);
       evidence.push({
         src: e.src,
         dst: e.dst,
         rel: e.rel,
         weight: e.weight,
-        pending: e.props?.review_state === "pending_review",
+        pending: pendingFromGate(gate),
+        gate,
+        provenance: provenanceOf(e),
       });
     }
     return buildAdjacency(evidence);
@@ -727,6 +767,10 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
     capped: false,
     maxCost: MAX_COST,
     hubDegree: HUB_DEGREE,
+    excludedRejected: 0,
+    ruleRef: PATH_RULE_REF,
+    // Prázdná agregace = „hledání neproběhlo", ne „graf nemá provenienci".
+    provenance: EMPTY_GRAPH_PROVENANCE,
   };
   const idx = await graphIndex();
   const adj = await pathAdjacency();
@@ -758,6 +802,16 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
         to: toNode(to),
         rel: hop.rel,
         pending: hop.pending,
+        gate: hop.gate,
+        provenance: hop.provenance,
+        // Krok cesty je sám o sobě tvrzení — a od 2026-09-04 má vlastní
+        // trvalou adresu, takže si ho čtenář může rozkliknout na účtenku
+        // (/zdroj/<ref>) místo aby musel věřit řádku v tabulce.
+        claimRef: edgeClaimRef(
+          hop.forward ? hop.from : hop.to,
+          hop.rel,
+          hop.forward ? hop.to : hop.from,
+        ),
         moneyCzk:
           hop.rel === "supplies" && typeof hop.weight === "number" && Number.isFinite(hop.weight)
             ? hop.weight
@@ -773,6 +827,8 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
         rel: h.rel,
         weight: h.weight,
         pending: h.pending,
+        gate: h.gate,
+        provenance: h.provenance,
       })),
       ledger: rows,
       pendingCount: p.pendingCount,
@@ -780,7 +836,15 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
       hops: p.hops.length,
     });
   }
-  return { ...base, paths, totalFound: found.totalFound, capped: found.capped };
+  return {
+    ...base,
+    paths,
+    totalFound: found.totalFound,
+    capped: found.capped,
+    excludedRejected: found.excludedRejected,
+    // Provenience hran, po kterých vrácené cesty skutečně vedou.
+    provenance: summarizeGraphProvenance(paths.flatMap((t) => t.edges)),
+  };
 }
 
 // ── Detail uzlu ──────────────────────────────────────────────────────────────
@@ -885,6 +949,139 @@ export async function getNodeDetail(id: string, locale: string): Promise<NodeDet
     };
   } catch (err) {
     reportLoaderFailure("graphLoader.getNodeDetail", err);
+    return null;
+  }
+}
+
+
+// ── Okolí uzlu (na vyžádání, nikdy memoizované) ──────────────────────────────
+
+/**
+ * Kolik hran okolí VYKRESLÍ. Jeviště nesmí přerůst otištěný rozpočet uzlů:
+ * zadavatel s tisíci hranami `procures` by z mapy udělal skvrnu, a skvrna
+ * neodpovídá na žádnou otázku. Strop je zároveň otištěný (`Neighbourhood.limit`)
+ * a jeho populace jde ven s ním.
+ */
+export const NEIGHBOURHOOD_LIMIT = 60;
+
+/**
+ * Kolik hran se PŘEČTE, aby se dala spočítat populace. Vyšší než vykreslovací
+ * strop schválně: `shown/total` bez `total` je jen `shown`.
+ *
+ * NIKDY se nebere výchozí limit `kgNeighbours` (500) — je pod průměrem hran
+ * `supplies` na firmu (~784) a řadí se `weight desc`, takže by mizely nejlevnější
+ * hrany nejrušnějších entit; přesně tak /denik přišel o 4 872 smluv.
+ */
+export const NEIGHBOURHOOD_READ_CAP = 5_000;
+
+/** Poloměr prstence okolí ve světových souřadnicích. */
+const NEIGHBOUR_RING = { min: 60, span: 90 };
+
+/**
+ * Okolí jednoho uzlu — indexované čtení `kgNeighbours`, deterministicky
+ * seřazené a rozvržené na prstenci kolem kotvy.
+ *
+ * NIKDY MEMOIZOVANÉ: mapa, index i sousedství cest jsou artefakty procesu
+ * (spočítat jednou, žít z toho), ale okolí je dotaz NA UZEL — memoizovat ho
+ * znamená držet v paměti tolik prstenců, kolik uzlů čtenář rozklikl.
+ *
+ * POŘADÍ: `kgNeighbours` řadí `weight desc nulls last`, což NENÍ úplné
+ * uspořádání (váhy jsou zaokrouhlené, remízy husté), takže by se řez lišil
+ * mezi buildy. Řez proto vzniká až po přeřazení `byListOrder` — týž zvyk, po
+ * kterém se jednou tiše přeházel spojenecký seznam 202 ze 207 poslanců.
+ */
+export async function getNeighbourhood(
+  id: string,
+  opts: { rels?: string[]; limit?: number } = {},
+): Promise<Neighbourhood | null> {
+  try {
+    const store = await getStore();
+    if (!store) {
+      reportLoaderFailure(
+        "graphLoader.getNeighbourhood",
+        new Error(`datový sklad není dostupný — okolí uzlu ${id.slice(0, 120)} se nepřečetlo`),
+      );
+      return null;
+    }
+    const limit = Math.max(1, Math.min(opts.limit ?? NEIGHBOURHOOD_LIMIT, NEIGHBOURHOOD_LIMIT));
+    const rels = opts.rels && opts.rels.length > 0 ? opts.rels : undefined;
+
+    const [anchorRow] = await store.getKgNodes([id]);
+    // ZÁMĚRNĚ BEZ STOPY: čtení proběhlo a odpovědělo „takový uzel tu není".
+    // To je fakt o grafu, ne degradace plochy (doktrína getNodeDetail).
+    if (!anchorRow || !isKgNodeKind(anchorRow.kind)) {
+      return { anchor: null, nodes: [], edges: [], perRel: [], limit, readTruncated: false };
+    }
+
+    const { edges: rows, nodes: nodeRows } = await store.kgNeighbours({
+      id,
+      rels,
+      limit: NEIGHBOURHOOD_READ_CAP,
+    });
+    // Délka přesně na stropu je k nerozeznání od uříznuté — přiznává se obojí.
+    const readTruncated = rows.length >= NEIGHBOURHOOD_READ_CAP;
+
+    // Populace PŘED řezem: co se nevykreslí, se musí dát spočítat.
+    const total = new Map<string, number>();
+    for (const r of rows) total.set(r.rel, (total.get(r.rel) ?? 0) + 1);
+
+    const ordered = [...rows].sort(byListOrder);
+    const kept = ordered.slice(0, limit);
+
+    const shown = new Map<string, number>();
+    for (const r of kept) shown.set(r.rel, (shown.get(r.rel) ?? 0) + 1);
+
+    const perRel: NeighbourRelCount[] = [...total.entries()]
+      .map(([rel, t]) => ({ rel, shown: shown.get(rel) ?? 0, total: t }))
+      .sort((a, b) => b.total - a.total || (a.rel < b.rel ? -1 : a.rel > b.rel ? 1 : 0));
+
+    const idx = await graphIndex();
+    const anchor: GraphNode = {
+      id: anchorRow.id,
+      kind: anchorRow.kind as KgNodeKind,
+      label: anchorRow.label,
+      degree: idx?.byId.get(anchorRow.id)?.degree ?? rows.length,
+    };
+
+    // Kotva sedí ve středu vlastního světa okolí; překryv si klient posadí nad
+    // mapu sám (VariantMapa), takže tady stačí souřadnice RELATIVNÍ ke kotvě.
+    const byId = new Map(nodeRows.map((n) => [n.id, n]));
+    const neighbourIds: string[] = [];
+    const seen = new Set<string>([id]);
+    for (const e of kept) {
+      const other = e.src === id ? e.dst : e.src;
+      if (seen.has(other)) continue;
+      seen.add(other);
+      neighbourIds.push(other);
+    }
+
+    const nodes: MapNodeDto[] = [];
+    for (const nid of neighbourIds) {
+      const row = byId.get(nid);
+      if (!row || !isKgNodeKind(row.kind)) continue; // neznámý druh se nekreslí
+      // Týž deterministický prstenec, jaký kolem dodavatele drží halo smluv —
+      // a souřadnice ZAOKROUHLENÉ na 2 desetinná místa, jinak se server a
+      // klient rozejdou na float driftu a hydratace praskne.
+      const angle = (hashId(nid) / 0x100000000) * Math.PI * 2;
+      const radius = NEIGHBOUR_RING.min + (hashId(`r${nid}`) / 0x100000000) * NEIGHBOUR_RING.span;
+      nodes.push({
+        id: row.id,
+        kind: row.kind as KgNodeKind,
+        label: row.label,
+        degree: idx?.byId.get(row.id)?.degree ?? 0,
+        x: Math.round(Math.cos(angle) * radius * 100) / 100,
+        y: Math.round(Math.sin(angle) * radius * 100) / 100,
+      });
+    }
+
+    const drawn = new Set<string>([id, ...nodes.map((n) => n.id)]);
+    const edges: GraphEdge[] = kept
+      .filter((e) => drawn.has(e.src) && drawn.has(e.dst))
+      .map((e) => toEdge(e));
+
+    return { anchor, nodes, edges, perRel, limit, readTruncated };
+  } catch (err) {
+    reportLoaderFailure("graphLoader.getNeighbourhood", err);
     return null;
   }
 }

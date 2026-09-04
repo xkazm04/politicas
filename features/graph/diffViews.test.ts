@@ -13,7 +13,11 @@ const e = (src: string, dst: string, over: Partial<GraphEdge> = {}): GraphEdge =
   dst,
   rel: "linked_to",
   weight: 0.87,
+  // Hrana nese TŘI stavy brány (G4). Výchozí je VÝSLOVNĚ "verified", ne
+  // chybějící pole: test o porovnání pohledů nesmí stát na nedopatření.
   pending: false,
+  gate: "verified",
+  provenance: null,
   ...over,
 });
 

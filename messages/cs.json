@@ -2453,7 +2453,11 @@
       "unavailable": "mapu se nepodařilo sestavit — datový sklad není dostupný",
       "footnote": "celý graf najednou: důkazní vrstva jako síť, smlouvy jako tečky kolem dodavatelů · společné hlasování se nekreslí (96 % hustoty párů — viz metodika)",
       "lensLabel": "trasy na mapě",
-      "lensOff": "celá mapa — bez trasy"
+      "lensOff": "celá mapa — bez trasy",
+      "offMap": "{n} kroků mimo mapu, dokresleno na vyžádání",
+      "overlayBudget": "{n} uzlů okolí se nevešlo do rozpočtu plátna ({budget})",
+      "offMapSource": "zakázková vrstva (48 647 zakázek, 12 467 zakázkových firem) se na mapě masy nekreslí — okolí se dotahuje k uzlu, ne k celku",
+      "expandLabel": "dokreslit okolí"
     },
     "trasy": {
       "canvasLabel": "trasy",
@@ -2495,12 +2499,16 @@
       "hover": {
         "verified": "{n} ověřených hran",
         "pending": "{n} čeká na kontrolu",
-        "cols": "relace · ověřeno / čeká",
+        "cols": "relace · ověřeno / čeká / odmítnuto",
         "empty": "uzel bez hran v aktuálním výřezu",
         "more": "+ {n} dalších relací",
-        "open": "klik otevře úplný záznam s prameny"
+        "open": "klik otevře úplný záznam s prameny",
+        "rejected": "{n} odmítnuto kontrolou",
+        "ungated": "{n} bez brány (odvozeno)"
       },
-      "source": "zdroj: review_state znalostního grafu — stav lidské brány kontroly u každé hrany"
+      "source": "zdroj: review_state znalostního grafu — stav lidské brány kontroly u každé hrany",
+      "hiddenRejected": "{n} zamítnutých vazeb se nekreslí — lidská kontrola je odmítla",
+      "lensNoteRejected": "{n} zamítnutých kroků ve vyžádané odpovědi zůstává — tečkovaně, jako odmítnuté"
     },
     "steps": "{count, plural, one {{countFmt} krok} few {{countFmt} kroky} other {{countFmt} kroků}}",
     "allVerified": "vše ověřeno",
@@ -2604,7 +2612,35 @@
       "nowKicker": "dnes — znovuodvozeno",
       "noIssueDate": "adresa datum vydání nenese",
       "diffUnavailable": "otisky se rozešly, takže obsah pohledu se od vydání citace změnil. CO se změnilo, zatím neumíme pojmenovat: tehdejší verzi pohledu nepřehráváme, a mlčení o změnách by se četlo jako „nezměnilo se nic“. Jednotlivé záznamy se dají dohledat přes účtenky původu (/zdroj) a chronologický záznam (/denik)."
-    }
+    },
+    "provenance": {
+      "title": "provenience grafu",
+      "cols": "relace · průchod / pokrytí",
+      "pass": "průchod {n}",
+      "noPass": "bez čísla průchodu",
+      "mixed": "{n} různých průchodů",
+      "absent": "bez provenience",
+      "coverage": "({stamped}/{read})",
+      "more": "+ {n} dalších relací",
+      "empty": "žádná hrana nenese provenienci — není to průchod č. 0, je to prázdný záznam",
+      "halfRecomputed": "{n} relací je rozpolcených samo v sobě ({rels}) — poloviční přepočet",
+      "state": {
+        "uniform": "jeden průchod",
+        "mixed": "průchody po relacích",
+        "absent": "bez razítka"
+      },
+      "source": "zdroj: kg_edge.provenance — {pass, method, ref} zapsané průchodem, který hranu odvodil; graf se přepočítává po relacích, takže různé relace nesou různé průchody"
+    },
+    "okoli": {
+      "title": "okolí uzlu",
+      "shownOfTotal": "{shown} z {total} vazeb",
+      "cap": "strop pohledu: {n} hran",
+      "readTruncated": "i čtení narazilo na svůj strop — „celkem\" je spodní odhad",
+      "empty": "uzel v dnešním grafu žádné vazby nemá",
+      "goneAnchor": "uzel v dnešním grafu není",
+      "source": "zdroj: kg_edge kolem tohoto uzlu (indexované čtení kgNeighbours), {nodes} vykreslených sousedů; řez je deterministický (pořadí src, rel, dst), ne podle váhy"
+    },
+    "rejectedEdges": "{count, plural, one {1 hranu odmítla kontrola} few {{countFmt} hrany odmítla kontrola} other {{countFmt} hran odmítla kontrola}}"
   },
   "metodika": {
     "backToLeaderboard": "zpět na žebříček",

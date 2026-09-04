@@ -31,7 +31,9 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { formatInt } from "@/lib/format";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
-import { getNodeDetail, getPathBetween, getTrails } from "./graphLoader";
+import { getNeighbourhood, getNodeDetail, getPathBetween, getTrails } from "./graphLoader";
+// [G4] Vyloučené relace patří do otisku pravidla, ne jen do komentáře.
+import { EXCLUDED_RELS } from "./trailPath";
 import {
   decodeGraphRef,
   hashViewContent,
@@ -114,6 +116,33 @@ async function resolveView(state: GraphViewState): Promise<Resolved> {
     };
   }
 
+  // [G4] OKOLÍ UZLU — čtvrtý citovatelný pohled, řešený přesně jako trasa:
+  // znovuodvodí se z téhož loaderu, otisk se počítá nad {anchor, edges} (uzly
+  // ani pozice do něj nevstupují — jsou odvozené z hran a z kotvy), a zaniklá
+  // kotva je poctivé „gone", ne prázdný rám.
+  if (state.kind === "okoli") {
+    const neighbourhood = await getNeighbourhood(state.node);
+    if (neighbourhood === null) return { status: "unavailable" };
+    if (neighbourhood.anchor === null) return { status: "gone" };
+    const t = await getTranslations("graph");
+    const kindKey = `kinds.${neighbourhood.anchor.kind}`;
+    const kindLabel = t.has(kindKey)
+      ? t(kindKey)
+      : (KIND_LABELS[neighbourhood.anchor.kind] ?? neighbourhood.anchor.kind);
+    return {
+      status: "ok",
+      content: {
+        kind: "okoli",
+        anchor: neighbourhood.anchor.id,
+        // Hrany v ULOŽENÉ orientaci a v pořadí, ve kterém je loader uřízl —
+        // řez je deterministický (byListOrder), takže otisk je stabilní.
+        edges: neighbourhood.edges.map((e) => `${e.src}|${e.rel}|${e.dst}`),
+      },
+      title: `${kindLabel}: ${neighbourhood.anchor.label}`,
+      core: { kind: "okoli", neighbourhood },
+    };
+  }
+
   const result = await getPathBetween(state.from, state.to);
   if (result.status === "unavailable") return { status: "unavailable" };
   if (result.from === null || result.to === null) return { status: "gone" };
@@ -124,7 +153,30 @@ async function resolveView(state: GraphViewState): Promise<Resolved> {
   const trail = result.paths[state.path] ?? null;
   return {
     status: "ok",
-    content: { kind: "cesta", from: result.from.id, to: result.to.id, path: trail },
+    /*
+     * [G4] OTISK NESE I AUTORA, NE JEN OBSAH (karta #28).
+     *
+     * `hashViewContent` hashuje tenhle objekt. Do 2026-09-04 v něm byly jen
+     * uzly a cesta, kdežto konstanty pravidla (`maxCost`, `hubDegree`) žily
+     * v `core`, TEDY MIMO OTISK. Změň HUB_DEGREE ze 120 na 90 a dvouskoková
+     * cesta, která to přežije, se znovuodvodí bajtově stejně — otisk sedí a
+     * /overeni řekne „ověřeno" o cestě, kterou vyrobilo jiné pravidlo. Přesně
+     * ta „shoda náhodou orazítkovaná jako ověření", kterou technika pojmenovává.
+     *
+     * ZÁMĚRNÝ DŮSLEDEK: každý dosud vydaný `cesta` ref se jednou přečte jako
+     * `moved`. Je to ohlášený posun základu (viz docs/routes/graf-permalink.md),
+     * a alternativa je hashovat lež.
+     */
+    content: {
+      kind: "cesta",
+      from: result.from.id,
+      to: result.to.id,
+      path: trail,
+      ruleRef: result.ruleRef,
+      excludedRels: [...EXCLUDED_RELS],
+      hubDegree: result.hubDegree,
+      maxCost: result.maxCost,
+    },
     title: `${result.from.label} → ${result.to.label}`,
     core: {
       kind: "cesta",
@@ -135,6 +187,8 @@ async function resolveView(state: GraphViewState): Promise<Resolved> {
       capped: result.capped,
       maxCost: result.maxCost,
       hubDegree: result.hubDegree,
+      excludedRejected: result.excludedRejected,
+      ruleRef: result.ruleRef,
     },
   };
 }

@@ -64,6 +64,46 @@ requested now. Honest carry-over: for `cesta`/`trasa` the sources still fall bac
 all four registries — narrowing by node kind needs `PermalinkPage.tsx` to adopt the
 same rule, and shipping half of it would have put two rules on one citation.
 
+**`/graf/p/[ref]` — the bundle stopped certifying refusals, and the fingerprint
+grew an author (2026-09-04, G4 / deck #36 + #28).**
+`edgeClaim` emitted `prop("review_state", pending ? "pending_review" : "verified")`
+— a two-valued sentence about a THREE-valued field. `kg_edge.props.review_state`
+carries `verified | pending_review | rejected`, `rejected` is terminal and the edge
+stays in the graph (`repositories/review.ts`), and the whole graph surface collapsed
+that to one boolean. A tie a human had REFUSED therefore left `pending: false` and
+the least-correctable artifact this product emits printed `review_state: verified`
+over it. Now the stored token goes out literally, and a relation the gate does not
+cover (`GATED_RELS`) prints `ungated` — never "verified", because "nothing to review"
+is not a review. Each `Claim` also carries `claim_ref`, an absolute `claim_url`
+(`/zdroj/<edgeClaimRef>`, omitted with no host — never a guessed domain, the same rule
+as `url`/`identifier`), and its `provenance_ref`/`provenance_pass`/`provenance_method`:
+every hop of a cited path is now itself a citable receipt, which is what the golden
+path means by a checkable path. `permalinkCardModel.review` splits `pendingEdges` from
+`rejectedEdges` and a refused step denies the card its confirming colour, on the same
+reasoning that denied it to a stale one.
+
+**DERIVATION BUMP — every issued `cesta` ref reads as `moved` exactly once.**
+`hashViewContent` hashed `{kind, from, to, path}` while `maxCost`/`hubDegree` sat in
+`core`, OUTSIDE the hash, and the rule constants had no version identity at all. Change
+`HUB_DEGREE` from 120 to 90 and a two-hop path that survives re-derives byte-identical:
+the fingerprint matches, `/overeni` says `verified`, and the citation was authored by a
+different rule — a coincidence stamped as verification. `content` for `cesta` now carries
+`{ruleRef, excludedRels, hubDegree, maxCost}` and `trailPath.ts` exports
+`PATH_RULE_REF = "evidence-path/v1"` + `pathRule()`, test-pinned against the constants so
+changing one without the other fails. This is announced, not silent: it moves the content
+hash of every path citation issued before today, once. The alternative was to keep hashing
+a lie. Bump `PATH_RULE_REF` on any semantic change to the constants or the ordering rule.
+The bundle additionally carries `path_excluded_rejected` — how many hops the search
+refused to walk because a human refused them — so an empty answer can distinguish "we
+found no connection" from "the only connection runs through a refused claim".
+
+Honest carry-over from this pass: `/overeni`'s `grafVerdict` still returns a blanket
+`ungated` for the `graf` family (`verdict.ts` belongs to G1 this wave); the exact
+modifier it should return is in this wave's report. `moved`-by-basis reporting — the
+"same path, different rule" sentence comparing a cited `ruleRef` to today's — is not
+built either, and older refs carry no basis at all, so they must read as "stamps not
+compared", never as a mismatch.
+
 **The address learns when it was issued (2026-09-04, moonshot G1, card #13).**
 A stale citation could be *declared* stale and nothing more, because the address
 itself carried no issue instant: `g.<state>.<hash8>` gave the server two

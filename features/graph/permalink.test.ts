@@ -24,10 +24,12 @@ import {
   permalinkPath,
   permalinkSources,
   toEvidenceJsonLd,
+  worstGateOfView,
   type GraphViewState,
   type PermalinkView,
 } from "./permalink";
-import type { GraphNode, NodeDetail, PathTrailDto } from "./graphTypes";
+import type { GateStatus, GraphNode, NodeDetail, PathTrailDto } from "./graphTypes";
+import { EMPTY_GRAPH_PROVENANCE } from "@/lib/kg/graphProvenance";
 
 const HASH = "0a1b2c3d";
 
@@ -189,9 +191,13 @@ const cestaView = (
   opts: { fresh?: boolean; pendingCount?: number; origin?: string | null } = {},
 ): Extract<PermalinkView, { kind: "cesta" }> => {
   const pending = opts.pendingCount ?? 1;
+  const gate = pending > 0 ? "pending_review" : "verified";
+  const prov = { pass: 68, method: "deterministic", ref: "kg:linked_to/v3" };
   const trail: PathTrailDto = {
     nodeIds: ["p1", "c1"],
-    edges: [{ src: "p1", dst: "c1", rel: "linked_to", weight: null, pending: pending > 0 }],
+    edges: [
+      { src: "p1", dst: "c1", rel: "linked_to", weight: null, pending: pending > 0, gate, provenance: prov },
+    ],
     ledger: [
       {
         step: 1,
@@ -199,6 +205,9 @@ const cestaView = (
         to: node("c1", "company"),
         rel: "linked_to",
         pending: pending > 0,
+        gate,
+        provenance: prov,
+        claimRef: "c.e.p1.linked_to.c1",
         moneyCzk: null,
       },
     ],
@@ -228,6 +237,8 @@ const cestaView = (
     capped: false,
     maxCost: 6,
     hubDegree: 120,
+    excludedRejected: 0,
+    ruleRef: "evidence-path/v1",
   };
 };
 
@@ -253,6 +264,73 @@ const uzelView = (links: NodeDetail["links"]): Extract<PermalinkView, { kind: "u
     links,
     facts: [],
     degree: 4,
+  },
+});
+
+/**
+ * Kurátorská trasa s VÝSLOVNĚ zadaným stavem brány na každé hraně. Trasa se
+ * nefiltruje (vyžádaná odpověď), takže je to jediný pohled, ve kterém se
+ * zamítnutý krok legálně vysází — a musí být poznat.
+ */
+const trasaWithGates = (gates: (GateStatus | null)[]): Extract<PermalinkView, { kind: "trasa" }> => ({
+  ref: "g.t.00000000",
+  state: { kind: "trasa", variant: "trasy", trail: "penize-poslancu" },
+  urlHash: "00000000",
+  currentHash: "11111111",
+  fresh: false,
+  retrievedOn: "2026-07-30",
+  title: "Peníze kolem poslanců",
+  origin: "https://politicas.cz",
+  bundleDescription: BUNDLE_DESC,
+  orderingRule: null,
+  issuedAt: null,
+  diff: null,
+  kind: "trasa",
+  trail: {
+    key: "penize-poslancu",
+    columns: ["person", "company"],
+    nodes: gates.map((_, i) => ({ ...node(`n${i}`), column: 0, order: i })),
+    edges: gates.map((gate, i) => ({
+      src: `n${i}`,
+      dst: `n${i + 1}`,
+      rel: "linked_to",
+      weight: null,
+      pending: gate === "pending_review",
+      gate,
+      provenance: null,
+    })),
+    provenance: EMPTY_GRAPH_PROVENANCE,
+  },
+});
+
+/** Okolí uzlu: dvě vykreslené hrany z devíti, jedna z nich zamítnutá. */
+const okoliView = (): Extract<PermalinkView, { kind: "okoli" }> => ({
+  ref: "g.o.00000000",
+  state: { kind: "okoli", variant: "mapa", node: "co:1" },
+  urlHash: "00000000",
+  currentHash: "00000000",
+  fresh: true,
+  retrievedOn: "2026-09-04",
+  title: "firma: Alfa",
+  origin: "https://politicas.cz",
+  bundleDescription: BUNDLE_DESC,
+  orderingRule: null,
+  issuedAt: null,
+  diff: null,
+  kind: "okoli",
+  neighbourhood: {
+    anchor: node("co:1", "company"),
+    nodes: [{ ...node("co:2", "company"), x: 10, y: 20 }],
+    edges: [
+      { src: "co:1", dst: "co:2", rel: "supplies", weight: null, pending: false, gate: null, provenance: null },
+      { src: "co:1", dst: "co:2", rel: "linked_to", weight: null, pending: false, gate: "rejected", provenance: null },
+    ],
+    perRel: [
+      { rel: "supplies", shown: 1, total: 7 },
+      { rel: "linked_to", shown: 1, total: 2 },
+    ],
+    limit: 60,
+    readTruncated: false,
   },
 });
 
@@ -400,14 +478,24 @@ describe("model karty odkazu", () => {
   it("čerstvý pohled bez čekajících hran potvrzující barvu dostane", () => {
     const card = permalinkCardModel({ status: "ok", view: cestaView({ fresh: true, pendingCount: 0 }) });
     expect(card.stale).toBe(false);
-    expect(card.review).toEqual({ pendingEdges: 0, allVerified: true, confirming: true });
+    expect(card.review).toEqual({
+      pendingEdges: 0,
+      rejectedEdges: 0,
+      allVerified: true,
+      confirming: true,
+    });
     // Čerstvá citace nemá co srovnávat — druhý otisk se nesází.
     expect(card.imprint?.citedHash).toBeNull();
   });
 
   it("čekající hrany potvrzující barvu nedostanou ani u čerstvého pohledu", () => {
     const card = permalinkCardModel({ status: "ok", view: cestaView({ fresh: true, pendingCount: 3 }) });
-    expect(card.review).toEqual({ pendingEdges: 3, allVerified: false, confirming: false });
+    expect(card.review).toEqual({
+      pendingEdges: 3,
+      rejectedEdges: 0,
+      allVerified: false,
+      confirming: false,
+    });
   });
 
   it("cesta, kterou dnešní graf nedokládá, netvrdí o hranách nic", () => {
@@ -450,5 +538,176 @@ describe("model karty odkazu", () => {
       expect(card.stale).toBe(false);
       expect(card.review).toBeNull();
     }
+  });
+});
+
+/*
+ * TŘI STAVY V BALÍČKU DŮKAZŮ (2026-09-04) — tenhle blok před opravou PADAL.
+ *
+ * `edgeClaim` vypisoval `pending ? "pending_review" : "verified"`, tedy
+ * dvouhodnotovou větu o tříhodnotovém poli. Zamítnutá hrana nesla `pending:
+ * false`, takže NEJHŮŘ OPRAVITELNÝ artefakt produktu — strojový balíček, který
+ * si redakce i crawlery archivují — o ní tvrdil `review_state: verified`.
+ */
+describe("balíček důkazů — stav kontroly doslova, nikdy překlopený boolean", () => {
+  /** Rozdělení tokenů `review_state` přes všechna tvrzení balíčku. */
+  const tokens = (view: PermalinkView): Record<string, number> => {
+    const out: Record<string, number> = {};
+    for (const claim of toEvidenceJsonLd(view).hasPart) {
+      for (const p of claim.additionalProperty) {
+        if (p.name === "review_state") out[String(p.value)] = (out[String(p.value)] ?? 0) + 1;
+      }
+    }
+    return out;
+  };
+
+  it("zamítnutý krok kurátorské trasy odchází jako `rejected`, ne jako `verified`", () => {
+    const view = trasaWithGates(["verified", "pending_review", "rejected"]);
+    expect(tokens(view)).toEqual({ verified: 1, pending_review: 1, rejected: 1 });
+  });
+
+  it("negated relace se vypíše jako `ungated` — „nemá co ověřovat\" není „ověřeno\"", () => {
+    expect(tokens(trasaWithGates([null, null]))).toEqual({ ungated: 2 });
+  });
+
+  it("každé tvrzení nese vlastní trvalou adresu a svou provenienci", () => {
+    const claim = toEvidenceJsonLd(cestaView()).hasPart[0];
+    const props = Object.fromEntries(claim.additionalProperty.map((p) => [p.name, p.value]));
+    expect(props.claim_ref).toBe("c.e.p1.linked_to.c1");
+    expect(props.claim_url).toBe("https://politicas.cz/zdroj/c.e.p1.linked_to.c1");
+    expect(props.provenance_ref).toBe("kg:linked_to/v3");
+    expect(props.provenance_pass).toBe(68);
+    expect(props.provenance_method).toBe("deterministic");
+  });
+
+  it("bez zjistitelného hostitele se adresa tvrzení VYNECHÁ, nikdy nehádá", () => {
+    const claim = toEvidenceJsonLd(cestaView({ origin: null })).hasPart[0];
+    const names = claim.additionalProperty.map((p) => p.name);
+    expect(names).toContain("claim_ref");
+    expect(names).not.toContain("claim_url");
+  });
+
+  it("balíček nese počet vyloučených zamítnutých kroků a identitu pravidla", () => {
+    const props = Object.fromEntries(
+      toEvidenceJsonLd({ ...cestaView(), excludedRejected: 4 }).additionalProperty.map((p) => [
+        p.name,
+        p.value,
+      ]),
+    );
+    expect(props.path_excluded_rejected).toBe(4);
+    expect(props.path_rule_ref).toBe("evidence-path/v1");
+  });
+
+  it("karta odkazu počítá zamítnuté kroky zvlášť a potvrzující barvu jim nedá", () => {
+    const card = permalinkCardModel({
+      status: "ok",
+      view: { ...trasaWithGates(["verified", "rejected"]), fresh: true, currentHash: "00000000" },
+    });
+    expect(card.review).toEqual({
+      pendingEdges: 0,
+      rejectedEdges: 1,
+      allVerified: false,
+      confirming: false,
+    });
+  });
+});
+
+/*
+ * [G4] OKOLÍ UZLU — čtvrtý citovatelný druh pohledu.
+ *
+ * Adresa je slib, který se jen PŘIDÁVÁ: starší tvary (`uzel`, `trasa`,
+ * `cesta`) musí projít kodekem beze změny, a nový tvar musí projít TOUŽ
+ * přísností — akce i dekodér jsou veřejné endpointy, ne funkce.
+ */
+describe("okolí uzlu jako citovatelný pohled", () => {
+  const okoli: GraphViewState = { kind: "okoli", variant: "mapa", node: "co:46347534" };
+
+  it("projde kodekem tam i zpět — v OBOU tvarech adresy", () => {
+    // Nový druh pohledu se přidává do prostoru adres, který je append-only:
+    // musí projít starým tvarem  i datovaným  (G1), jinak by okolí
+    // bylo citovatelné jen v jedné polovině adres.
+    expect(decodeGraphRef(encodeGraphRef(okoli, HASH, ""))).toEqual({
+      state: okoli,
+      hash: HASH,
+      issuedAt: null,
+    });
+    expect(decodeGraphRef(encodeGraphRef(okoli, HASH, "20260904"))).toEqual({
+      state: okoli,
+      hash: HASH,
+      issuedAt: "2026-09-04",
+    });
+  });
+
+  it("validace je stejně přísná jako u ostatních druhů", () => {
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "x" })).toEqual(okoli.node ? {
+      kind: "okoli",
+      variant: "mapa",
+      node: "x",
+    } : null);
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "" })).toBeNull();
+    expect(parseViewState({ kind: "okoli", variant: "jina", node: "x" })).toBeNull();
+    expect(parseViewState({ kind: "okoli", node: "x" })).toBeNull();
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "x".repeat(201) })).toBeNull();
+  });
+
+  it("neznámé klíče se nepropouštějí — výstup se skládá jen ze známých polí", () => {
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "x", zlo: 1 })).toEqual({
+      kind: "okoli",
+      variant: "mapa",
+      node: "x",
+    });
+  });
+
+  it("balíček nese strop I jeho populaci — řez bez počtu je tvrzení o ničem", () => {
+    const view = okoliView();
+    const props = Object.fromEntries(
+      toEvidenceJsonLd(view).additionalProperty.map((p) => [p.name, p.value]),
+    );
+    expect(props.neighbourhood_edges_shown).toBe(2);
+    expect(props.neighbourhood_edges_total).toBe(9);
+    expect(props.neighbourhood_limit).toBe(60);
+    expect(props.neighbourhood_read_truncated).toBe("no");
+    // Per relaci taky „N z M", ne jen N.
+    expect(props.neighbourhood_rel_supplies).toBe("1/7");
+    expect(props.neighbourhood_rel_linked_to).toBe("1/2");
+  });
+
+  it("hrany okolí jdou ven jako tvrzení se stavem brány, zamítnuté doslova", () => {
+    const tokens = toEvidenceJsonLd(okoliView())
+      .hasPart.flatMap((c) => c.additionalProperty)
+      .filter((p) => p.name === "review_state")
+      .map((p) => p.value);
+    // `supplies` je negated relace → `ungated`, NIKDY „verified"; `linked_to`
+    // odmítla kontrola → `rejected` doslova. Ani jeden token není „verified",
+    // a to je celý smysl: ověření se tvrdí jen tam, kde ho někdo napsal.
+    expect(tokens.sort()).toEqual(["rejected", "ungated"]);
+  });
+
+  it("karta počítá zamítnutou vazbu okolí zvlášť a potvrzující barvu nedá", () => {
+    const card = permalinkCardModel({ status: "ok", view: okoliView() });
+    expect(card.review).toEqual({
+      pendingEdges: 0,
+      rejectedEdges: 1,
+      allVerified: false,
+      confirming: false,
+    });
+  });
+});
+
+describe("worstGateOfView — modifikátor brány pro /overeni", () => {
+  it("odmítnutí bije čekání a čekání bije ověřeno", () => {
+    expect(worstGateOfView(trasaWithGates(["verified", "pending_review", "rejected"]))).toBe("rejected");
+    expect(worstGateOfView(trasaWithGates(["verified", "pending_review"]))).toBe("pending_review");
+    expect(worstGateOfView(trasaWithGates(["verified", "verified"]))).toBe("verified");
+  });
+
+  it("pohled bez hran hodnocených branou je SKUTEČNĚ ungated, ne ověřený", () => {
+    // null = „na co se ptát není": uzel, nebo pohled ze samých negated relací.
+    expect(worstGateOfView(trasaWithGates([null, null]))).toBeNull();
+    expect(worstGateOfView(uzelView([]))).toBeNull();
+  });
+
+  it("okolí se hodnotí týmž pravidlem jako trasa", () => {
+    expect(worstGateOfView(okoliView())).toBe("rejected");
   });
 });
