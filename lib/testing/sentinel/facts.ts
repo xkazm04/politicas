@@ -22,7 +22,8 @@
  */
 
 import type { AtlasEntityCoverage, AtlasSourceRunStats } from "@/lib/analysis/atlas";
-import { isoTs, num, str, strOrNull, type Pglite } from "@/lib/db/pglite/internals";
+import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-provenance";
+import { isoTs, json, num, str, strOrNull, type Pglite } from "@/lib/db/pglite/internals";
 import type { ChainVerification } from "@/lib/db/pglite/ledger";
 import { makeLedgerRepo, type ReviewAuditCounts } from "@/lib/db/pglite/repositories/ledger";
 import type { IngestRunRow } from "@/lib/db/types";
@@ -67,6 +68,38 @@ export interface OrphanEdgeFacts {
   sample: string[];
 }
 
+/**
+ * One claim kind's population and how much of it a human has decided
+ * (G2, 2026-09-04). Counts only — a rate without its denominator is the exact
+ * shape this project refuses to print, and the finding behind this whole check
+ * is that three populations were in the hundreds with a decided count of zero.
+ */
+export interface ReviewKindFacts {
+  kind: string;
+  total: number;
+  decided: number;
+  pending: number;
+}
+
+/**
+ * Effort verdicts specifically, because they are the ones that name a PERSON.
+ *
+ * `claimedDecided` is every claim whose stored rung says a human decided it —
+ * `verified` or `rejected`. `auditedSubjectIds` is what the tamper-evident chain
+ * actually holds. The invariant is that the first is a subset of the second: a
+ * verdict that CLAIMS a human decision with no audit row behind it is either a
+ * script that promoted its own verdict or a hand-edited node, and both are the
+ * thing the door exists to make impossible.
+ */
+export interface EffortVerdictFacts {
+  total: number;
+  byRung: Record<string, number>;
+  /** `psp:person:<id>#<prop>` for every claim whose rung is verified or rejected. */
+  claimedDecided: string[];
+  /** `subject_id` of every `effort_verdict` row in review_audit. */
+  auditedSubjectIds: string[];
+}
+
 export interface SentinelFacts {
   /** Exactly the input shape of deriveReleaseManifest (ground truth: manifest.ts). */
   releaseStats: ReleaseStats;
@@ -87,6 +120,10 @@ export interface SentinelFacts {
   entityCoverage: AtlasEntityCoverage[];
   /** Every person node's score, provenance and stored formula inputs, ordered by id. */
   persons: PersonScoreFact[];
+  /** Per claim kind: how big the population is and how much of it is decided. */
+  reviewCoverage: ReviewKindFacts[];
+  /** The person-level verdicts, and what the chain holds about them. */
+  effortVerdicts: EffortVerdictFacts;
 }
 
 /** Same cap the /data loader uses (features/data-releases/getDataReleasesData.ts). */
@@ -169,6 +206,81 @@ async function readOrphanEdges(pg: Pglite): Promise<OrphanEdgeFacts> {
     count,
     sample: sampleRows.map((r) => `${str(r.src)} -${str(r.rel)}-> ${str(r.dst)}`),
   };
+}
+
+/**
+ * Effort verdicts as the graph actually holds them, plus what the audit chain
+ * holds about them. Read straight off `kg_node`/`review_audit` rather than
+ * through a loader — the sentinel's job is to disagree with the loaders when
+ * they are wrong.
+ */
+async function readEffortVerdicts(pg: Pglite): Promise<EffortVerdictFacts> {
+  const { rows } = await pg.query<Record<string, unknown>>(
+    `select id, props from kg_node where kind = 'person' order by id`,
+  );
+  const byRung: Record<string, number> = { machine: 0, pending: 0, verified: 0, rejected: 0, unrecorded: 0 };
+  const claimedDecided: string[] = [];
+  let total = 0;
+  for (const r of rows) {
+    const props = json(r.props);
+    for (const field of EFFORT_VERDICT_FIELDS) {
+      if (props[field] === undefined || props[field] === null) continue;
+      total++;
+      const v = readVerdictRung(props, field);
+      if (v === null) {
+        byRung.unrecorded++;
+        continue;
+      }
+      byRung[v.rung]++;
+      if (v.rung === "verified" || v.rung === "rejected") claimedDecided.push(`${str(r.id)}#${field}`);
+    }
+  }
+  const { rows: auditRows } = await pg.query<Record<string, unknown>>(
+    `select distinct subject_id from review_audit
+      where subject_kind = 'effort_verdict' and subject_id is not null`,
+  );
+  return {
+    total,
+    byRung,
+    claimedDecided: claimedDecided.sort(),
+    auditedSubjectIds: auditRows.map((r) => str(r.subject_id)).sort(),
+  };
+}
+
+/**
+ * Per-kind population and decided counts. Ties and bill verdicts are counted
+ * from the props the surfaces read; effort verdicts come from the facts above.
+ *
+ * A kind with NO population is still listed, with zeros: „0 of 0" and a missing
+ * row are different findings, and only one of them is visible.
+ */
+async function readReviewCoverage(pg: Pglite, effort: EffortVerdictFacts): Promise<ReviewKindFacts[]> {
+  const { rows: tieRows } = await pg.query<Record<string, unknown>>(
+    `select count(*)::int as total,
+            count(*) filter (
+              where props->>'review_state' in ('verified','rejected')
+            )::int as decided
+       from kg_edge where rel = 'linked_to'`,
+  );
+  const { rows: billRows } = await pg.query<Record<string, unknown>>(
+    `select count(*)::int as total,
+            count(*) filter (
+              where props->>'forensic_review_state' in ('verified','rejected')
+            )::int as decided
+       from kg_node
+      where kind = 'bill' and (props ? 'forensic_review_state' or props ? 'forensic_severity')`,
+  );
+  const mk = (kind: string, total: number, decided: number): ReviewKindFacts => ({
+    kind,
+    total,
+    decided,
+    pending: total - decided,
+  });
+  return [
+    mk("tie", num(tieRows[0]?.total), num(tieRows[0]?.decided)),
+    mk("bill_verdict", num(billRows[0]?.total), num(billRows[0]?.decided)),
+    mk("effort_verdict", effort.total, effort.claimedDecided.length),
+  ];
 }
 
 async function readRunStats(pg: Pglite): Promise<AtlasSourceRunStats[]> {
@@ -260,5 +372,18 @@ export async function collectSentinelFacts(pg: Pglite): Promise<SentinelFacts> {
   const runStats = await readRunStats(pg);
   const entityCoverage = await readEntityCoverage(pg);
   const persons = await readPersonScores(pg);
-  return { releaseStats, chain, auditCounts, orphanEdges, runStats, entityCoverage, persons };
+  const effortVerdicts = await readEffortVerdicts(pg);
+  const reviewCoverage = await readReviewCoverage(pg, effortVerdicts);
+
+  return {
+    releaseStats,
+    chain,
+    auditCounts,
+    orphanEdges,
+    runStats,
+    entityCoverage,
+    persons,
+    reviewCoverage,
+    effortVerdicts,
+  };
 }

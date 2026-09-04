@@ -26,17 +26,28 @@
 import { Info, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { lowScoreReasonCopy } from "@/lib/analysis/low-score-reason";
+import VerdictProvenance, { type VerdictRungName } from "@/features/shared/components/VerdictProvenance";
 
 export default function LowScoreReasonChip({
   reason,
   recordedAt,
   dateLabel,
+  rung = null,
+  decidedBy = null,
+  decidedAtLabel = null,
 }: {
   reason: string | null;
   /** ISO datum záznamu korektivu (`effort_provenance.computedAt`), nebo null. */
   recordedAt?: string | null;
   /** Už zformátované datum (přes useFormat u volajícího) — čip sám nic neformátuje. */
   dateLabel?: string | null;
+  /** Stupeň žebříčku tvrzení (lib/analysis/verdict-provenance.ts). `null` =
+   *  loop stupeň nezapsal — pak se NEDOPLŇUJE „machine", stupeň se prostě
+   *  netiskne, protože domýšlet původ je totéž co ho vymyslet. */
+  rung?: VerdictRungName | null;
+  decidedBy?: string | null;
+  /** Už zformátované datum rozhodnutí (volající přes useFormat). */
+  decidedAtLabel?: string | null;
 }) {
   const t = useTranslations("civicscore");
   /** Uzavřený verdiktní slovník — text od 2026-08-12 v katalogu (`verdicts`),
@@ -46,21 +57,34 @@ export default function LowScoreReasonChip({
   const copy = lowScoreReasonCopy(reason);
   if (!copy) return null;
 
+  // ZAMÍTNUTÝ KOREKTIV SE ZAMLČUJE, NEVYPRÁZDNÍ SE (G2, 2026-09-04). Kdyby čip
+  // u zamítnutého verdiktu zmizel, čtenář by nízké číslo viděl BEZ korektivu —
+  // tedy jako obvinění z nezájmu, přesně to, kvůli čemu čip vznikl. Místo
+  // tvrzení se proto vykreslí poctivý, VIDITELNÝ prázdný stav.
+  if (rung === "rejected") {
+    return <VerdictProvenance rung="rejected" withheld decidedBy={decidedBy} decidedAtLabel={decidedAtLabel} compact />;
+  }
+
   const positive = copy.tone === "positive";
   const Icon = positive ? ShieldCheck : Info;
   const detail = tv(copy.detailKey);
   const dated = recordedAt && dateLabel ? `${detail} ${t("recordedAt", { date: dateLabel })}` : detail;
 
   return (
-    <span
-      title={dated}
-      className={`inline-flex items-center gap-1 border px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${
-        positive ? "border-cobalt bg-cobalt/5 text-cobalt" : "border-hairline bg-paper-strong text-steel-aa"
-      }`}
-    >
-      <Icon className="h-2.5 w-2.5" aria-hidden />
-      {tv(copy.badgeKey)}
-      <span className="sr-only"> — {dated}</span>
+    <span className="inline-flex items-center gap-1">
+      <span
+        title={dated}
+        className={`inline-flex items-center gap-1 border px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider ${
+          positive ? "border-cobalt bg-cobalt/5 text-cobalt" : "border-hairline bg-paper-strong text-steel-aa"
+        }`}
+      >
+        <Icon className="h-2.5 w-2.5" aria-hidden />
+        {tv(copy.badgeKey)}
+        <span className="sr-only"> — {dated}</span>
+      </span>
+      {rung && (
+        <VerdictProvenance rung={rung} decidedBy={decidedBy} decidedAtLabel={decidedAtLabel} compact />
+      )}
     </span>
   );
 }

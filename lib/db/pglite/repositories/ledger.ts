@@ -13,6 +13,8 @@
 // consumers are untouched. Server-side callers use `getLedgerRepo()`.
 
 import {
+  AUDIT_DOMAIN_V1,
+  AUDIT_DOMAIN_V2,
   EMPTY_MERKLE_ROOT,
   merkleLeafHash,
   merkleRoot,
@@ -20,6 +22,7 @@ import {
   type ChainVerification,
   type ChainedAuditRow,
 } from "../ledger";
+import { REVIEW_SUBJECT_KINDS } from "../../types";
 import { isoTs, num, numOrNull, open, str, strOrNull, type Pglite } from "../internals";
 
 /**
@@ -84,6 +87,16 @@ export interface ReviewAuditCounts {
   total: number;
   /** Rows carrying a `chain_pos` — the population `verifyReviewChain` reads. */
   chained: number;
+  /**
+   * The same total, split by claim kind (G2, 2026-09-04). Legacy rows carry a
+   * NULL `subject_kind` and ARE ties, so they are counted as `tie` here — the
+   * one kind with four months of history must not read as the emptiest.
+   *
+   * A kind with no rows is PRESENT WITH A ZERO rather than absent, because the
+   * point of this number is the denominator: "0 of 141 bill verdicts decided" is
+   * a finding, and a missing key renders as nothing at all.
+   */
+  byKind: Record<string, number>;
 }
 
 export interface LedgerRepository {
@@ -127,6 +140,15 @@ function mapChainedRow(r: Record<string, unknown>): ChainedAuditRow {
     note: strOrNull(r.note),
     decidedAt: isoTs(r.decided_at) ?? "",
     priorState: strOrNull(r.prior_state),
+    // G2 (2026-09-04): the chain now runs over two hash domains in sequence.
+    // `hash_domain` is read STRICTLY — null (every row written before the column
+    // existed) means v1, and only the literal v2 tag means v2. It is never
+    // inferred from the subject columns, because those are derived for legacy
+    // rows and so prove nothing about which preimage was hashed. Getting this
+    // backwards would fail every pre-2026-09-04 row in the store.
+    hashDomain: strOrNull(r.hash_domain) === AUDIT_DOMAIN_V2 ? AUDIT_DOMAIN_V2 : AUDIT_DOMAIN_V1,
+    subjectKind: strOrNull(r.subject_kind),
+    subjectId: strOrNull(r.subject_id),
   };
 }
 
@@ -162,7 +184,14 @@ export function makeLedgerRepo(pg: Pglite): LedgerRepository {
                 count(chain_pos)::int as chained
            from review_audit`,
       );
-      return { total: num(rows[0]?.total), chained: num(rows[0]?.chained) };
+      const { rows: kindRows } = await pg.query<Record<string, unknown>>(
+        `select coalesce(subject_kind, 'tie') as kind, count(*)::int as n
+           from review_audit group by 1`,
+      );
+      const byKind: Record<string, number> = {};
+      for (const k of REVIEW_SUBJECT_KINDS) byKind[k] = 0;
+      for (const r of kindRows) byKind[str(r.kind)] = num(r.n);
+      return { total: num(rows[0]?.total), chained: num(rows[0]?.chained), byKind };
     },
 
     async sealIngestRun(runId) {

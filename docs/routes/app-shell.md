@@ -107,3 +107,42 @@ under it a second time while their original parents keep `entryFor`
 precedence, and `/volby/snemovna` is a child because the sitemap reads NAV.
 `sidebarParts.test.ts` pins six modules and asserts `volby` is deliberately
 absent from `lib/civic` MODULES — the surface has no sample-data fallback.
+
+## 2026-09-04 — /admin: the review gate, one question asked the same way (G2, deck #5)
+
+`ReviewHubSection` had four panels, each answering a different question in a
+different shape: ties by tier, forensic verdicts by severity, lead dossiers,
+audit decisions by reviewer. None of them made the actual finding legible —
+that three of those populations were in the hundreds with a decided count of
+**zero**, because no writer for them existed anywhere in the tree.
+
+A per-kind coverage table now sits above the four: **decided / pending / total /
+audit rows**, one row per claim kind, all counts, no rate. A rate is precisely
+the number that hides how big the population is, and the population is the
+finding.
+
+Two rules the table exists to keep:
+
+- **A kind with no writer says so.** `tripwire` and `lead` carry a „bez
+  zapisovatele" marker. A queue nobody has worked and a queue that CANNOT be
+  worked look identical in the numbers, and an operator must not have to guess
+  which one they are reading.
+- **Audit rows may exceed decisions, and that is not an error.** A claim can be
+  decided, reversed with a stated reason, and decided again; every step is its
+  own chained row. The source note says so rather than letting the two columns
+  look like a bug.
+
+The effort denominator is CLAIMS, not people: one MP can carry three verdicts
+(`effort_low_score_reason`, `effort_rapporteur_load`, `effort_workhorse`) and
+each is decided on its own address (`psp:person:<id>#<prop>`).
+
+`getAdminData`'s forensic block also stopped defaulting an absent
+`forensic_review_state` to `"pending_review"` — the same fabrication removed
+from `getLawData.ts` in this change, which had been sitting in two places.
+
+**Carry-over, named rather than implied.** The table is a BOARD, not yet a
+queue: it has no decision buttons and no server action. The two-phase confirm
+(the `LoopMissionControl` pattern) and posting through the one writer with the
+existing `REVIEWER_TOKEN` / `ADMIN_TOKEN` gates are the next slice. Until then
+the door is reachable only from the repository, and this record says so rather
+than letting an operator infer a queue from a table.

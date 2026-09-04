@@ -394,4 +394,35 @@ create table if not exists vote_tag (
 );
 create index if not exists vote_tag_theme_idx on vote_tag(theme);
 create index if not exists vote_tag_vote_idx on vote_tag(vote_psp_id);
+-- ── [G2 review door v2] one audited door for every claim kind ────────────────
+-- review_audit was tie-shaped: src/rel/dst plus a decision, and ONE writer
+-- (setTieReviewState). Three other machine-produced claim kinds — bill forensic
+-- verdicts, person-level effort verdicts, tripwire candidates — reached readers
+-- with no writer at all, so their \`pending_review\` was permanent by construction.
+-- These three columns generalise the table WITHOUT touching a single stored byte:
+--   • subject_kind — the claim kind ('tie' | 'bill_verdict' | 'effort_verdict'
+--     | 'tripwire' | 'lead'). Deliberately NOT a check constraint: a new kind
+--     must be addable by appending here, and the closed vocabulary that matters
+--     is the TypeScript one (REVIEW_SUBJECT_KINDS in lib/db/types.ts), which the
+--     single writer validates before any row is built.
+--   • subject_id   — the claim's stable address, whatever its shape: an edge
+--     triple for a tie, \`bill:tisk:N\` for a bill verdict,
+--     \`psp:person:<id>#<field>\` for an effort verdict.
+--   • hash_domain  — WHICH domain tag the row's hash was taken under. NULL means
+--     'politicas-audit-v1' (every row written before this block existed). New
+--     rows store 'politicas-audit-v2' explicitly, over a wider preimage that
+--     includes subject_kind + subject_id.
+--
+-- NO BACKFILL STATEMENT LIVES HERE, on purpose, and not only because
+-- pending.ts::destructiveStatements would (correctly) refuse an \`update … set\`
+-- inside CORE_DDL. Rewriting the old rows' subject columns would make the stored
+-- data disagree with the preimage its hash was taken over — the one thing the
+-- chain exists to make impossible. The legacy rows are therefore read as
+-- \`tie\` + their triple AT READ TIME (mapAuditRow in repositories/review.ts),
+-- their hashes stay v1, and nothing is ever rehashed.
+alter table review_audit add column if not exists subject_kind text;
+alter table review_audit add column if not exists subject_id   text;
+alter table review_audit add column if not exists hash_domain  text;
+create index if not exists review_audit_subject_idx on review_audit(subject_kind, subject_id);
+
 `;

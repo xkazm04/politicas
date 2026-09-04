@@ -50,6 +50,7 @@ import {
 } from "@/lib/analysis/contribution";
 import { isPublicSafe, publicCopyOrNull } from "@/lib/analysis/public-copy";
 import { median } from "@/lib/analysis/score-legibility";
+import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-provenance";
 import { CLUB_DISPLAY } from "@/lib/civic/data";
 import { STEEL } from "@/features/landing/palette";
 import { computeTrend } from "@/lib/analysis/contribution-trend";
@@ -151,6 +152,24 @@ function effortRecordedAt(props: Record<string, unknown>): string | null {
   return typeof at === "string" && at.length >= 10 ? at.slice(0, 10) : null;
 }
 
+/**
+ * The rung each of this MP's effort verdicts stands on (G2, deck #12).
+ *
+ * Only fields the loop actually STAMPED enter the map: a missing key is „nothing
+ * was recorded", which the badge states by printing no rung, and defaulting it to
+ * `machine` would be a guess about provenance rendered as provenance. The whole
+ * derivation lives in lib/analysis/verdict-provenance.ts so this loader, the
+ * profile loader and the sentinel cannot drift apart.
+ */
+function effortVerdictRungs(props: Record<string, unknown>): LeaderboardEntry["effortVerdictRungs"] {
+  const out: LeaderboardEntry["effortVerdictRungs"] = {};
+  for (const field of EFFORT_VERDICT_FIELDS) {
+    const v = readVerdictRung(props, field);
+    if (v) out[field] = { rung: v.rung, decidedBy: v.decidedBy, decidedAt: v.decidedAt };
+  }
+  return out;
+}
+
 /** Volební kraj organ nameCz → the label we render. */
 function regionLabel(nameCz: string | null): string | null {
   if (!nameCz) return null;
@@ -232,6 +251,7 @@ function toListEntry(e: LeaderboardEntry): LeaderboardListEntry {
     effortWorkhorseFlavour: e.effortWorkhorseFlavour,
     effortRapporteurLoad: e.effortRapporteurLoad,
     effortHasDossier: e.effortHasDossier,
+    effortVerdictRungs: e.effortVerdictRungs,
     effortLowScoreReason: e.effortLowScoreReason,
     effortRecordedAt: e.effortRecordedAt,
     duelFacts: e.duelFacts,
@@ -368,6 +388,7 @@ async function readChamber(): Promise<BuiltChamber | null> {
             ? p.props.effort_rapporteur_load
             : 0,
         effortHasDossier: hasDossierProps(p.props),
+        effortVerdictRungs: effortVerdictRungs(p.props),
         duelFacts: {
           speechTurns: numOrNull(p.props.speech_turns),
           amendmentsAuthored: numOrNull(p.props.amendments_authored),

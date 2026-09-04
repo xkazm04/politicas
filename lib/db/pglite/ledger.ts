@@ -20,10 +20,23 @@
 // ── Hash domains ────────────────────────────────────────────────────────────────
 //  Every hash is sha256 over a domain-separated preimage, so an audit-row hash can
 //  never be confused with a Merkle leaf, nor a leaf with an interior node:
-//   audit row     sha256("politicas-audit-v1\n"  + prevHash + "\n" + canonicalJson(payload))
+//   audit row v1  sha256("politicas-audit-v1\n"  + prevHash + "\n" + canonicalJson(payload))
+//   audit row v2  sha256("politicas-audit-v2\n"  + prevHash + "\n" + canonicalJson(payload
+//                        + subjectKind + subjectId))
 //   Merkle leaf   sha256("politicas-merkle-leaf-v1\n" + table + "\n" + canonicalJson(row))
 //   Merkle node   sha256("politicas-merkle-node-v1\n" + left  + "\n" + right)
 //  All hashes are lowercase hex. The chain genesis `prevHash` is 64 zeros.
+//
+// ── Why v2 is a SECOND tag and not an edit of v1 ────────────────────────────────
+//  When `review_audit` grew a claim-kind discriminator (G2, 2026-09-04) the audit
+//  preimage had to widen. Editing the v1 preimage would have invalidated every row
+//  ever written; recomputing the old rows under the wider preimage would have been
+//  worse — the whole point of the chain is that a stored hash is evidence about the
+//  bytes that existed WHEN IT WAS TAKEN. So v1 rows keep their v1 hashes forever,
+//  new rows are taken under v2, and `verifyAuditChain` walks a chain that changes
+//  tag partway through. The one thing it will NOT accept is a REGRESSION: once a
+//  chain has produced a v2 row, a later v1 row is a divergence, because the only
+//  way to author one is to have written it by hand.
 
 import { createHash } from "node:crypto";
 
@@ -96,7 +109,7 @@ export function computeAuditRowHash(prevHash: string, payload: AuditHashPayload)
   // Field names are pinned here (snake-free, sorted by canonicalJson) — renaming a
   // TS property would silently change every future hash, hence this explicit object.
   return sha256Hex(
-    `politicas-audit-v1\n${prevHash}\n${canonicalJson({
+    `${AUDIT_DOMAIN_V1}\n${prevHash}\n${canonicalJson({
       id: payload.id,
       src: payload.src,
       rel: payload.rel,
@@ -110,11 +123,72 @@ export function computeAuditRowHash(prevHash: string, payload: AuditHashPayload)
   );
 }
 
+/* ── v2: the same row, plus the claim kind it decides ────────────────────────── */
+
+export const AUDIT_DOMAIN_V1 = "politicas-audit-v1";
+export const AUDIT_DOMAIN_V2 = "politicas-audit-v2";
+
+/**
+ * The tag a stored row's hash was taken under. `hash_domain is null` in the store
+ * means v1 — every row that predates the column. It is never inferred from the
+ * row's other columns: `subject_kind` is derived at read time for legacy rows, so
+ * a present `subject_kind` proves nothing about which preimage was hashed.
+ */
+export type AuditHashDomain = typeof AUDIT_DOMAIN_V1 | typeof AUDIT_DOMAIN_V2;
+
+export interface AuditHashPayloadV2 extends AuditHashPayload {
+  /** The claim kind this row decides — see REVIEW_SUBJECT_KINDS in lib/db/types.ts. */
+  subjectKind: string;
+  /** The claim's stable address, whatever its shape (edge triple, bill id, person#field). */
+  subjectId: string;
+}
+
+export function computeAuditRowHashV2(prevHash: string, payload: AuditHashPayloadV2): string {
+  return sha256Hex(
+    `${AUDIT_DOMAIN_V2}\n${prevHash}\n${canonicalJson({
+      id: payload.id,
+      src: payload.src,
+      rel: payload.rel,
+      dst: payload.dst,
+      subjectKind: payload.subjectKind,
+      subjectId: payload.subjectId,
+      decision: payload.decision,
+      reviewer: payload.reviewer,
+      note: payload.note,
+      decidedAt: payload.decidedAt,
+      priorState: payload.priorState,
+    })}`,
+  );
+}
+
+/**
+ * Recompute a row's hash under the tag it declares. A v1 row is hashed over the
+ * narrow preimage even when it carries subject columns (they were derived, not
+ * stored, when the hash was taken).
+ */
+export function computeAuditRowHashFor(
+  domain: AuditHashDomain,
+  prevHash: string,
+  payload: AuditHashPayloadV2,
+): string {
+  return domain === AUDIT_DOMAIN_V2
+    ? computeAuditRowHashV2(prevHash, payload)
+    : computeAuditRowHash(prevHash, payload);
+}
+
 /** One chained audit row as needed by verification (a projection of ReviewAuditRow). */
 export interface ChainedAuditRow extends AuditHashPayload {
   chainPos: number;
   prevHash: string;
   rowHash: string;
+  /**
+   * Absent/null ⇒ v1 (the row predates the tag column). Present ⇒ hashed under
+   * exactly that tag. Optional so every existing caller keeps compiling and keeps
+   * verifying v1 rows exactly as before.
+   */
+  hashDomain?: AuditHashDomain | null;
+  subjectKind?: string | null;
+  subjectId?: string | null;
 }
 
 export interface ChainDivergence {
@@ -122,7 +196,7 @@ export interface ChainDivergence {
   index: number;
   chainPos: number;
   id: string;
-  reason: "gap-in-chain-pos" | "prev-hash-mismatch" | "row-hash-mismatch";
+  reason: "gap-in-chain-pos" | "prev-hash-mismatch" | "row-hash-mismatch" | "hash-domain-regression";
   expected: string;
   actual: string;
 }
@@ -140,6 +214,7 @@ export type ChainVerification =
 export function verifyAuditChain(rows: readonly ChainedAuditRow[]): ChainVerification {
   let prevHash = GENESIS_HASH;
   let prevPos = 0;
+  let prevDomain: AuditHashDomain = AUDIT_DOMAIN_V1;
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
     const diverge = (reason: ChainDivergence["reason"], expected: string, actual: string): ChainVerification => ({
@@ -154,12 +229,24 @@ export function verifyAuditChain(rows: readonly ChainedAuditRow[]): ChainVerific
     if (row.prevHash !== prevHash) {
       return diverge("prev-hash-mismatch", prevHash, row.prevHash);
     }
-    const recomputed = computeAuditRowHash(row.prevHash, row);
+    // Both tags are accepted IN SEQUENCE: v1 rows, then v2 rows from the row where
+    // the door was generalised. Going BACK to v1 after a v2 row is refused — the
+    // writer only ever moves forward, so a regression is authored, not written.
+    const domain: AuditHashDomain = row.hashDomain ?? AUDIT_DOMAIN_V1;
+    if (prevDomain === AUDIT_DOMAIN_V2 && domain === AUDIT_DOMAIN_V1) {
+      return diverge("hash-domain-regression", AUDIT_DOMAIN_V2, domain);
+    }
+    const recomputed = computeAuditRowHashFor(domain, row.prevHash, {
+      ...row,
+      subjectKind: row.subjectKind ?? "",
+      subjectId: row.subjectId ?? "",
+    });
     if (recomputed !== row.rowHash) {
       return diverge("row-hash-mismatch", recomputed, row.rowHash);
     }
     prevHash = row.rowHash;
     prevPos = row.chainPos;
+    prevDomain = domain;
   }
   return { ok: true, length: rows.length, headHash: rows.length ? prevHash : null };
 }

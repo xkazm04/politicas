@@ -220,6 +220,21 @@ export interface ProfileData {
    * two committee numbers describe two different terms.
    */
   effortPsp9TrendNote: string | null;
+  /**
+   * WHICH RUNG each person-level verdict stands on (G2, deck #12, 2026-09-04),
+   * keyed by the prop it is about. Derived by `readVerdictRung`
+   * (lib/analysis/verdict-provenance.ts) off `effort_provenance.verdicts`.
+   *
+   * A field ABSENT from this map was never stamped by the loop: the badge then
+   * prints no rung rather than defaulting to `machine`, because assuming a
+   * provenance is the same act as inventing one. `rejected` means the badge
+   * WITHHOLDS the claim and shows the refusal instead — a vanished badge would
+   * be a second claim, made silently, that nobody decided.
+   */
+  effortVerdictRungs: Record<
+    string,
+    { rung: "machine" | "pending" | "verified" | "rejected"; decidedBy: string | null; decidedAt: string | null }
+  >;
   sponsoredBills: SponsoredBill[];
   /** Q-effort-2 split of bills_authored (pass 34): first-signatory vs co-signer
    * counts over the same universe — sums to bills_authored, which stays untouched. */

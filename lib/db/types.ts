@@ -208,6 +208,33 @@ export interface KgEdgeRow {
  * update — `priorState` is always the edge's `review_state` immediately before
  * this decision, so the trail can reconstruct every flip.
  */
+/**
+ * The claim kinds that go through THE review door (G2, deck #5 + #12). Closed
+ * here rather than in SQL on purpose: a check constraint on `review_audit`
+ * would have to be dropped and re-added to grow — a destructive migration for
+ * an additive change — while this union is checked by the one writer before a
+ * row is built, and by the compiler at every call site.
+ *
+ * The address shape per kind, pinned so a verifier can re-derive it:
+ *   tie             `<src>|linked_to|<dst>`         (the legacy triple, verbatim)
+ *   bill_verdict    `bill:tisk:<n>`                 the bill node id
+ *   effort_verdict  `psp:person:<id>#<prop>`        the person node + the one prop
+ *   tripwire        the tripwire candidate id       (carry-over: no writer yet)
+ *   lead            the lead id                     (carry-over: no writer yet)
+ */
+export const REVIEW_SUBJECT_KINDS = [
+  "tie",
+  "bill_verdict",
+  "effort_verdict",
+  "tripwire",
+  "lead",
+] as const;
+export type ReviewSubjectKind = (typeof REVIEW_SUBJECT_KINDS)[number];
+
+export function isReviewSubjectKind(v: unknown): v is ReviewSubjectKind {
+  return typeof v === "string" && (REVIEW_SUBJECT_KINDS as readonly string[]).includes(v);
+}
+
 export interface ReviewAuditRow {
   id: string;
   src: string;
@@ -235,6 +262,25 @@ export interface ReviewAuditRow {
   chainPos?: number | null;
   prevHash?: string | null;
   rowHash?: string | null;
+  /**
+   * WHICH claim kind this decision was about, and the claim's stable address.
+   *
+   * NEVER NULL on the way out, even though the columns are (G2, 2026-09-04): a
+   * row written before the columns existed is READ as `tie` with its own triple
+   * as the address. That is a derivation, not a backfill — the stored bytes are
+   * untouched and the row's v1 hash still covers exactly what it covered.
+   * `hashDomain` is the field that says which of the two preimages was hashed,
+   * and it is the only one a verifier may trust.
+   */
+  subjectKind: ReviewSubjectKind;
+  subjectId: string;
+  /**
+   * Spelled out here rather than imported from `pglite/ledger` so this file keeps
+   * its zero imports — it is the shared row vocabulary and must not pull
+   * `node:crypto` behind it. Structurally identical to `AuditHashDomain` there;
+   * `ledger.test.ts` pins the two literals so a drift is a failing test.
+   */
+  hashDomain: "politicas-audit-v1" | "politicas-audit-v2";
 }
 
 /** The six universal criteria, scored 1–5, plus their mean. */

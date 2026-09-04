@@ -32,7 +32,10 @@ export interface ForensicIndexBill {
   forensic: {
     severity: string;
     confidence: number | null;
-    reviewState: string;
+    /** `null` ⇒ uzel nenese `forensic_review_state`. Chybějící stav se NEDOPLŇUJE
+     *  na „pending_review": to by byl slib fronty, kterou do 2026-09-04 nikdo
+     *  neobsluhoval — viz LawForensicView.reviewState. */
+    reviewState: string | null;
     withheldFields: number;
     pass: number | null;
     /** `forensic_provenance.ref` — který výpočet posudek napsal. */
@@ -50,7 +53,7 @@ export interface ForensicIndexEntry {
   severity: string;
   /** false ⇒ katalog pro token nemá štítek; plocha ho vypíše doslova a označí. */
   severityKnown: boolean;
-  reviewState: string;
+  reviewState: string | null;
   confidence: number | null;
   /** Kolik čtenářských řetězců tohoto posudku zadržela jazyková brána. */
   withheldFields: number;
@@ -64,7 +67,9 @@ export interface ForensicSeverityGroup {
 }
 
 export interface ForensicReviewStateCount {
-  state: string;
+  /** `null` je VLASTNÍ kbelík: „bez uloženého stavu brány" je zjištění, ne mezera,
+   *  a slévat ho s `pending_review` byl přesně ten výmysl, který tenhle průchod ruší. */
+  state: string | null;
   count: number;
 }
 
@@ -150,11 +155,13 @@ export function deriveForensicIndex(bills: readonly ForensicIndexBill[]): Forens
     // podle „síly" závažnosti — to by byla stupnice, kterou nikdo nevydal.
     .sort((a, b) => b.count - a.count || a.severity.localeCompare(b.severity));
 
-  const byState = new Map<string, number>();
+  const byState = new Map<string | null, number>();
   for (const e of entries) byState.set(e.reviewState, (byState.get(e.reviewState) ?? 0) + 1);
   const reviewStates: ForensicReviewStateCount[] = [...byState.entries()]
     .map(([state, count]) => ({ state, count }))
-    .sort((a, b) => b.count - a.count || a.state.localeCompare(b.state));
+    // Neuložený stav nemá token, kterým by šel porovnat, a vydávat ho za prázdný
+    // řetězec by ho při shodě počtu schovalo mezi ostatní. Řadí se na konec.
+    .sort((a, b) => b.count - a.count || (a.state ?? "￿").localeCompare(b.state ?? "￿"));
 
   const verdicts = bills.flatMap((b) => (b.forensic ? [b.forensic] : []));
   const passes = [...new Set(verdicts.flatMap((v) => (v.pass != null ? [v.pass] : [])))].sort((a, b) => a - b);

@@ -192,7 +192,7 @@ read as an editorial choice when it is actually an outage.
 features/shared/components/   domain-agnostic catalog (SourceNote, AnimatedScore,
                               SectionRule, RankDelta, SectionHeading, StatTile,
                               DataUnavailable, LiveDataNotice, FlagList,
-                              Combobox, …) —
+                              Combobox, VerdictProvenance, …) —
                               @catalog JSDoc tag, NO imports from features/*
                               or lib/civic (lint-enforced)
 features/<feature>/           feature module: orchestrator + components/ + palette
@@ -204,3 +204,23 @@ app/                          thin routes only — pages just mount a feature
 Before building any widget, check the shared catalog first; hand-rolling a
 primitive that exists is the #1 source of UI drift (personas' lesson). New
 reusable primitives go INTO the catalog with a `@catalog` one-liner.
+
+### `VerdictProvenance` — the rung a claim stands on (2026-09-04, G2)
+
+Any surface that renders a MODEL-AUTHORED verdict about a named person or a
+named bill draws its rung with this primitive, and does not invent its own
+label. Four rungs, four token colours: `machine` steel (an unremarkable
+default, not a warning), `pending` ochre, `verified` cobalt, `rejected` signal.
+
+Two rules the primitive exists to enforce, both of which surfaces got wrong
+before it existed:
+
+- **A rejected verdict withholds; it never blanks.** Removing the badge would
+  assert its negation — a second claim, made silently, that nobody decided.
+  Callers pass `withheld` and render the primitive INSTEAD of the claim.
+- **An unstamped verdict prints no rung at all.** There is no default rung.
+  Assuming a provenance is the same act as inventing one.
+
+It is purely presentational, like every catalog primitive: the rung is derived
+server-side by `lib/analysis/verdict-provenance.ts`, and the decision date
+arrives ALREADY FORMATTED from the caller — the primitive never touches Intl.

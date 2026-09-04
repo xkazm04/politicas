@@ -46,6 +46,7 @@ function mk(
     effortWorkhorseFlavour: null,
     effortRapporteurLoad: 0,
     effortHasDossier: false,
+    effortVerdictRungs: {},
     effortLowScoreReason: null,
     effortRecordedAt: null,
     duelFacts: {

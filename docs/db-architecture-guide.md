@@ -558,3 +558,61 @@ SQLite is Node built-in, PGlite comes from the root install) — never in the pr
 Kuzu is **x64-only** but installs from a bundled prebuilt (no cmake build). Output goes to
 `.db-bench/` (gitignored). Case #4's data is the temporary `benchmark-data/*.csv` bundle
 (portable CSV export of the PSP store; see its README).
+
+## The review door: one writer, two hash domains, no rehash (2026-09-04)
+
+`review_audit` was tie-shaped — `src / rel / dst`, a decision, a chain position
+and two hashes — and `setTieReviewState` was its only writer. That made three
+other machine-produced claim kinds unreviewable by construction.
+
+### The schema change, and the statement that is deliberately NOT in it
+
+`CORE_DDL` grew three columns in a block marked `[G2 review door v2]`:
+`subject_kind`, `subject_id`, `hash_domain`. All additive, all `if not exists`.
+
+There is **no backfill `update` in the DDL**, for two independent reasons and
+the second is the real one:
+
+1. `pending.ts::destructiveStatements` flags `update … set` and `db:migrate`
+   would refuse the DDL outright — correctly.
+2. Rewriting the old rows' subject columns would make the stored bytes disagree
+   with the preimage their hash was taken over. **A stored hash is evidence
+   about the bytes that existed when it was taken.** Recomputing it to match new
+   bytes does not preserve the evidence; it destroys it while leaving something
+   that looks like evidence behind.
+
+So legacy rows are read as `tie` + their triple **at read time** (`mapAuditRow`
+in `repositories/review.ts`), their bytes are untouched, and their v1 hashes
+still cover exactly what they always covered.
+
+### Two domain tags in one chain
+
+`politicas-audit-v1` hashes the narrow preimage; `politicas-audit-v2` hashes it
+plus `subjectKind` + `subjectId`. `verifyAuditChain` walks a chain that changes
+tag partway through and reads `hash_domain` **strictly**: null means v1, and only
+the literal v2 tag means v2. It is never inferred from the subject columns —
+those are derived for legacy rows and so prove nothing about which preimage was
+hashed. Getting that backwards would fail every row written before 2026-09-04.
+
+The one sequence it refuses is a **regression**: a v1 row appended after a v2
+row. The writer only ever moves forward, so that ordering can only be authored
+by hand.
+
+### What `setReviewState` guarantees
+
+One skeleton for every kind, in one transaction: read the subject's state → map
+the decision (`confirm`→`verified`, `reject`→`rejected` **terminal**,
+`needs-more`→`pending_review`) → refuse a reasonless reversal of an
+already-decided claim, **writing nothing at all** → append the chained audit row
+→ only then write the subject's state, superseding the prior version into
+`kg_edge_history` / `kg_node_history`.
+
+Node prop writes go through `props || $patch` (jsonb concatenation, a SHALLOW
+merge) — the rule from `memory/kg-upsert-replaces-props.md`. `||` does not
+recurse, so the effort branch reads `effort_provenance` first and hands back a
+fully merged object; a whole-object write would have dropped every `effort_*`
+prop the loop computed.
+
+`machine` is **not producible by this function**. Only the enrichment loops write
+that state, so no script can promote its own verdict to a human-confirmed one,
+and no human decision can be demoted back to "nobody looked at this".

@@ -123,11 +123,30 @@ describe("tamper-evident review-audit chain (DB integration)", () => {
 
     const b = backup[0];
     await pg.query(
-      `insert into review_audit (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state, chain_pos, prev_hash, row_hash)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
-      [b.id, b.src, b.rel, b.dst, b.decision, b.reviewer, b.note, b.decided_at, b.prior_state, b.chain_pos, b.prev_hash, b.row_hash],
+      // The restore has to put back EVERY column, `hash_domain` included: the row
+      // was hashed under v2, so restoring it without its tag makes the verifier
+      // re-hash it under v1 and the chain stays broken — which is the correct
+      // behaviour, and the reason this insert names the three G2 columns.
+      `insert into review_audit (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state, chain_pos, prev_hash, row_hash, subject_kind, subject_id, hash_domain)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
+      [b.id, b.src, b.rel, b.dst, b.decision, b.reviewer, b.note, b.decided_at, b.prior_state, b.chain_pos, b.prev_hash, b.row_hash, b.subject_kind, b.subject_id, b.hash_domain],
     );
     expect((await ledger.verifyReviewChain()).ok).toBe(true);
+  });
+
+  it("COUNTS BY KIND: every declared kind is present with a denominator, never absent", async () => {
+    const pg = await open();
+    const ledger = makeLedgerRepo(pg);
+    const counts = await ledger.countReviewAudit();
+    // A kind nobody has decided yet reads as 0, not as a missing key — the
+    // denominator is the whole point of the number.
+    expect(Object.keys(counts.byKind).sort()).toEqual(
+      ["bill_verdict", "effort_verdict", "lead", "tie", "tripwire"],
+    );
+    expect(counts.byKind.tie).toBeGreaterThan(0);
+    expect(counts.byKind.tripwire).toBe(0);
+    // Legacy (NULL subject_kind) rows are counted as ties, so the split is total.
+    expect(Object.values(counts.byKind).reduce((a, b) => a + b, 0)).toBe(counts.total);
   });
 
   it("MERKLE: sealing an ingest run is deterministic; empty run seals to the pinned constant", async () => {

@@ -52,7 +52,8 @@ export interface ForensicIndexSectionData {
     verdictCount: number;
     complete: boolean;
     groups: { severity: string; known: boolean; count: number; entries: ForensicIndexEntry[] }[];
-    reviewStates: { state: string; count: number }[];
+    /** `state: null` ⇒ posudky bez uloženého stavu brány. Vlastní kbelík, vlastní věta. */
+    reviewStates: { state: string | null; count: number }[];
     withheldVerdictCount: number;
     withheldFieldCount: number;
     unlinkableCount: number;
@@ -87,7 +88,18 @@ export default function ForensicIndexSection({
     info.status === "unmapped" ? tOvereni(info.labelKey, { token: info.token }) : tOvereni(info.labelKey);
   // Korpus s jediným uloženým stavem ho smí vyslovit v jedné větě; korpus s víc
   // stavy ne — ten je vypsaný po jednom v řádku s počty pod tím.
-  const uniformGate = fi.reviewStates.length === 1 ? gateStatusInfo(fi.reviewStates[0].state) : null;
+  // Jediný uložený stav se smí vyslovit v jedné větě. Korpus, jehož jediný „stav"
+  // je ŽÁDNÝ stav, tu větu nedostane — o bráně by netvrdil nic.
+  const uniformGate =
+    fi.reviewStates.length === 1 && fi.reviewStates[0].state != null
+      ? gateStatusInfo(fi.reviewStates[0].state)
+      : null;
+  /** Řádek jednoho kbelíku stavů. Neuložený stav má vlastní větu, nikdy štítek
+   *  vypůjčený od `pending_review` — to byla přesně ta záměna, kterou G2 ruší. */
+  const stateLine = (s: { state: string | null; count: number }): string =>
+    s.state == null
+      ? `${t("forensicIndex.reviewStateAbsent")} · ${f.int(s.count)}`
+      : `${gateLabel(gateStatusInfo(s.state))} (${s.state}) · ${f.int(s.count)}`;
   // Claim se razí sdíleným modulem, ne tady: /overeni musí složit bajtově týž ref.
   const censusFigure = forensicCensusClaim(fi.verdictCount, fi);
   const billByTiskId = useMemo(
@@ -151,9 +163,7 @@ export default function ForensicIndexSection({
               </p>
             )}
             <p className="mt-2 text-[13px] leading-relaxed text-steel">
-              {fi.reviewStates
-                .map((s) => `${gateLabel(gateStatusInfo(s.state))} (${s.state}) · ${f.int(s.count)}`)
-                .join(" | ")}
+              {fi.reviewStates.map(stateLine).join(" | ")}
               {" — "}
               {t("forensicIndex.reviewStateNote")}
             </p>

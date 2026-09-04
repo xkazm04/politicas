@@ -241,6 +241,30 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
   only a human verifies — since batch 003, exclusively through `ReviewRepository`
   + the token-gated `/penize/kontrola` server action, with an append-only
   `review_audit` row before every flip.
+- **The gate now covers BILL VERDICTS and PERSON-LEVEL EFFORT VERDICTS too**
+  (2026-09-04, moonshot G2 / deck #5 + #12). Until then the rule above was true
+  and almost vacuous: it governed one claim kind, while three others — bill
+  forensic verdicts, effort verdicts about named MPs, tripwire candidates —
+  reached readers with **no writer at all**, so their `pending_review` was
+  permanent by construction. `ReviewRepository.setReviewState(subject, …)` is
+  now the one writer for `tie`, `bill_verdict` and `effort_verdict` alike, over
+  one shared skeleton: read state → shared decision mapping → refuse a
+  reasonless reversal → append the chained audit row → **only then** write the
+  subject's state, all in one transaction.
+  - The effort loop stamps `review_state: "machine"` and **cannot write anything
+    above it**: `merge-batch.ts` writes only that rung, and `gate.ts` DROPS a
+    proposal that arrives claiming `verified` or carrying a `decided_by`. A
+    script promoting its own verdict is now a gate failure, not a possibility.
+  - Re-running the loop **never resets a decided verdict** back to `machine` —
+    the stamp is merge-preserving per field.
+  - The sentinel's `effort-review-chain` invariant is the backstop the Authority
+    rule never had: a verdict claiming `verified`/`rejected` with no audit row
+    behind it is a violation. A mass `machine → verified` flip leaves every hash
+    in the chain intact and passes every other invariant, which is precisely why
+    that check exists (fault-injected in `sentinel.test.ts`).
+  - `tripwire` and `lead` are **declared and refused**, not silently recorded:
+    neither has a durable subject a decision could be read back from, and a
+    decision nothing can read back is worse than none.
 - **A human write layer over a re-derivable ingest needs an explicit durability
   contract** (P44/D1): the ingest must merge-preserve human-written fields (or
   the audit trail must replay after ingest) — `props = excluded.props`

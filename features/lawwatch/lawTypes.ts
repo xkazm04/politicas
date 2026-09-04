@@ -41,7 +41,25 @@ export type BillOrigin = (typeof BILL_ORIGINS)[number];
 export interface LawForensicView {
   severity: "low" | "medium" | "high" | string;
   confidence: number | null;
-  reviewState: string; // "pending_review"
+  /**
+   * The bill's forensic gate state, READ FROM THE STORE — `null` when the node
+   * carries none.
+   *
+   * It used to be `state ?? "pending_review"` (getLawData.ts:201), which was a
+   * fabrication with a very specific shape: it promised a queue. „Pending review"
+   * says a human will get to this, and until 2026-09-04 no writer of
+   * `forensic_review_state` existed anywhere in the tree, so the promise could
+   * not be kept by construction. `/zakony` printed „pending_review · 141" beside
+   * an „ungated" note and meant nothing by it.
+   *
+   * A bill with no stored state now renders as HAVING NO STATE, which is the
+   * true thing, and one that has been through the door renders what the door
+   * wrote (`verified` / `rejected` / `pending_review`) with its decider.
+   */
+  reviewState: string | null;
+  /** Who decided, and when — null unless a human went through the review door. */
+  reviewedBy: string | null;
+  reviewedAt: string | null;
   statedReasoning: string | null;
   researchedContext: string | null;
   conflictAssessment: string | null;

@@ -32,6 +32,7 @@ import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
+import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-provenance";
 import { getTripwireData } from "./getTripwireData";
 import { LOOPS_STATUS_SOURCE, parseLoopsStatus, parsePassLog, type LoopsStatusFact } from "./loops/loopState";
 import type {
@@ -43,6 +44,7 @@ import type {
   LoopCaseProgress,
   MoneyLeadSummary,
   ReviewAuditSummary,
+  ReviewKindCoverage,
   ReviewHubData,
   SystemState,
   TieReviewSummary,
@@ -488,7 +490,7 @@ function asStr(v: unknown): string | null {
 
 async function loadReviewHub(): Promise<ReviewHubData> {
   const leads = loadMoneyLeads();
-  const empty: ReviewHubData = { ties: null, forensic: null, leads, audit: null };
+  const empty: ReviewHubData = { ties: null, forensic: null, leads, audit: null, coverage: [] };
   try {
     const store = await getStore();
     if (!store) return empty;
@@ -567,7 +569,11 @@ async function loadReviewHub(): Promise<ReviewHubData> {
           cislo: typeof p.cislo === "number" ? p.cislo : null,
           title: n.label,
           severity: sev,
-          reviewState: state ?? "pending_review",
+          // NOT `?? "pending_review"` (G2, 2026-09-04): the same fabrication
+          // getLawData.ts:201 carried. An absent gate state is absent, and this
+          // board's own coverage row counts it as pending WITHOUT relabelling
+          // the bill as something a queue has promised to look at.
+          reviewState: state ?? "",
         });
       }
       if (items.length > 0) {
@@ -607,7 +613,95 @@ async function loadReviewHub(): Promise<ReviewHubData> {
       audit = null;
     }
 
-    return { ties, forensic, leads, audit };
+    // ── [G2 review door] per-kind coverage: decided / pending / total ────────
+    // The four counters above each answer a different question in a different
+    // shape. This board answers ONE question the same way for every claim kind
+    // that reaches a reader, because that is the only form in which the finding
+    // is legible: three of these populations were in the hundreds with a decided
+    // count of zero, and nothing on this page said so.
+    //
+    // Counts only, never a rate. And a kind with NO WRITER is marked as such
+    // rather than shown as an unworked queue — those two zeroes mean opposite
+    // things and an operator must not have to guess which one they are reading.
+    let coverage: ReviewKindCoverage[] = [];
+    try {
+      const auditByKind = await store.countReviewAuditByKind();
+      const rows: ReviewKindCoverage[] = [];
+
+      if (ties) {
+        rows.push({
+          kind: "tie",
+          total: ties.total,
+          decided: ties.verified + ties.rejected,
+          pending: ties.pending,
+          auditRows: auditByKind.tie ?? 0,
+          hasWriter: true,
+        });
+      }
+      if (forensic) {
+        const decided = forensic.items.filter(
+          (i) => i.reviewState === "verified" || i.reviewState === "rejected",
+        ).length;
+        rows.push({
+          kind: "bill_verdict",
+          total: forensic.total,
+          decided,
+          pending: forensic.total - decided,
+          auditRows: auditByKind.bill_verdict ?? 0,
+          hasWriter: true,
+        });
+      }
+
+      // Effort verdicts: the denominator is claims, not people — one MP can
+      // carry three, and each is decided on its own.
+      const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
+      let effortTotal = 0;
+      let effortDecided = 0;
+      for (const n of persons) {
+        const p = (n.props ?? {}) as Record<string, unknown>;
+        for (const field of EFFORT_VERDICT_FIELDS) {
+          if (p[field] === undefined || p[field] === null) continue;
+          effortTotal++;
+          const v = readVerdictRung(p, field);
+          if (v && (v.rung === "verified" || v.rung === "rejected")) effortDecided++;
+        }
+      }
+      rows.push({
+        kind: "effort_verdict",
+        total: effortTotal,
+        decided: effortDecided,
+        pending: effortTotal - effortDecided,
+        auditRows: auditByKind.effort_verdict ?? 0,
+        hasWriter: true,
+      });
+
+      // Declared, carried over. `total` is what the operator can SEE today: the
+      // lead payloads on disk. Tripwires are re-derived per read and hold no
+      // state, so their population is not countable from here and reads as 0 —
+      // which the surface must not present as "none found".
+      rows.push({
+        kind: "lead",
+        total: leads.length,
+        decided: 0,
+        pending: leads.length,
+        auditRows: auditByKind.lead ?? 0,
+        hasWriter: false,
+      });
+      rows.push({
+        kind: "tripwire",
+        total: 0,
+        decided: 0,
+        pending: 0,
+        auditRows: auditByKind.tripwire ?? 0,
+        hasWriter: false,
+      });
+      coverage = rows;
+    } catch (err) {
+      reportLoaderFailure("getAdminData.loadReviewHub.coverage", err);
+      coverage = [];
+    }
+
+    return { ties, forensic, leads, audit, coverage };
   } catch (err) {
     reportLoaderFailure("getAdminData.loadReviewHub", err);
     return empty;

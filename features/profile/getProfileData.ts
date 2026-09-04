@@ -26,6 +26,7 @@ import { byListOrder } from "@/lib/db/kgOrder";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
 import { publicCopyOrNull } from "@/lib/analysis/public-copy";
+import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-provenance";
 import {
   buildLeaderboard,
   CLUB_FALLBACK_COLOR,
@@ -303,6 +304,18 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const effortPsp9TrendNote = personNode
       ? publicCopyOrNull(personNode.props.effort_psp9_trend_note as string | undefined)
       : null;
+    // The rung each effort verdict stands on (G2, deck #12). Only fields the loop
+    // actually stamped enter the map — a missing key is „nothing was recorded",
+    // which the badge states by printing no rung. The derivation lives in
+    // lib/analysis/verdict-provenance.ts so this loader and the leaderboard
+    // loader cannot answer the same question two ways.
+    const effortVerdictRungs: ProfileData["effortVerdictRungs"] = {};
+    if (personNode) {
+      for (const field of EFFORT_VERDICT_FIELDS) {
+        const v = readVerdictRung(personNode.props, field);
+        if (v) effortVerdictRungs[field] = { rung: v.rung, decidedBy: v.decidedBy, decidedAt: v.decidedAt };
+      }
+    }
 
     // ── Kariérní spis ─────────────────────────────────────────────────────────
     // The mandate registry is ingested in FULL across all terms (2 157 rows,
@@ -606,6 +619,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       effortNotes,
       effortDataFlag,
       effortPsp9TrendNote,
+      effortVerdictRungs,
       sponsoredBills,
       billsFirstSigned,
       billsCoSigned,

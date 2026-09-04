@@ -160,6 +160,88 @@ function checkAuditChain(facts: SentinelFacts): SentinelCheck {
   return ok(id, label, `all ${total} review_audit rows are chained and verify; head ${chain.headHash}`);
 }
 
+/* ── [G2 review door] two checks over the door itself ─────────────────────── */
+
+/**
+ * REVIEW COVERAGE: per claim kind, how much of the population a human has
+ * decided — decided / pending / total, NEVER a rate without its denominator.
+ *
+ * This check does not fail on a low number. A queue nobody has worked yet is a
+ * fact about the operation, not a defect in the data, and a sentinel that goes
+ * red for it would be turned off within a week. What it refuses is a MISSING
+ * DENOMINATOR: a kind whose population it cannot count is `unevaluable`, because
+ * „0 decided" is meaningless without the number it is 0 of — and that meaningless
+ * pair is exactly what /zakony printed for 141 bills for months.
+ */
+function checkReviewCoverage(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "review-coverage";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const rows = facts.reviewCoverage;
+  if (rows.length === 0) {
+    return unevaluable(id, label, "no claim-kind populations could be counted — nothing to state coverage over");
+  }
+  const empty = rows.filter((r) => r.total === 0);
+  const line = rows.map((r) => `${r.kind} ${r.decided}/${r.total} decided, ${r.pending} pending`).join("; ");
+  if (empty.length === rows.length) {
+    return unevaluable(
+      id,
+      label,
+      `every claim kind has an EMPTY population (${line}) — a store with no claims proves nothing ` +
+        `about whether the door covers them.`,
+    );
+  }
+  return ok(id, label, line);
+}
+
+/**
+ * EFFORT REVIEW CHAIN: every effort verdict that CLAIMS a human decision has an
+ * audit row behind it.
+ *
+ * A person-level verdict whose stored rung says `verified` or `rejected` asserts
+ * that a named human looked at a claim about a named MP. The only writer that
+ * can produce those two states appends a chained audit row first, in the same
+ * transaction — so a claimed decision with no row is either a script that
+ * promoted its own verdict or a hand-edited node, and both are precisely what
+ * the door exists to make impossible.
+ *
+ * The converse is deliberately NOT checked. An audit row with no matching
+ * claimed decision is normal: `needs-more` returns a verdict to pending and
+ * leaves its row behind, exactly as intended.
+ */
+function checkEffortReviewChain(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "effort-review-chain";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const { total, byRung, claimedDecided, auditedSubjectIds } = facts.effortVerdicts;
+  if (total === 0) {
+    return unevaluable(
+      id,
+      label,
+      "no person node carries an effort verdict — there is no claim about a named MP to vouch for. " +
+        "Not a pass: an empty population proves nothing about the gate.",
+    );
+  }
+  const audited = new Set(auditedSubjectIds);
+  const unbacked = claimedDecided.filter((s) => !audited.has(s));
+  if (unbacked.length > 0) {
+    return violation(
+      id,
+      label,
+      `${unbacked.length} of ${claimedDecided.length} effort verdict(s) claim a HUMAN decision with no ` +
+        `audit row behind it, e.g. ${unbacked.slice(0, 5).join("; ")}. ` +
+        `Only ReviewRepository.setReviewState can write verified/rejected, and it appends the chained ` +
+        `row in the same transaction — so this is a script that promoted its own verdict, or a ` +
+        `hand-edited node. Neither may stand on a surface that names a person.`,
+    );
+  }
+  return ok(
+    id,
+    label,
+    `all ${claimedDecided.length} decided effort verdict(s) of ${total} are backed by an audit row ` +
+      `(machine ${byRung.machine}, pending ${byRung.pending}, verified ${byRung.verified}, ` +
+      `rejected ${byRung.rejected}, unrecorded ${byRung.unrecorded})`,
+  );
+}
+
 function checkOrphanEdges(facts: SentinelFacts): SentinelCheck {
   const id: SentinelCheckId = "orphan-edges";
   const label = SENTINEL_CHECK_LABELS[id];
@@ -295,6 +377,10 @@ export const SENTINEL_CHECK_LABELS = {
   "components-sum": `six components sum to the stored composite (±${SCORE_TOLERANCE})`,
   "recompute-sample": `computeContribution() over stored inputs reproduces the stored score (±${SCORE_TOLERANCE})`,
   determinism: "sampled derivations deterministic across two collection passes",
+  // [G2 review door] appended at the END of the label map and the END of the
+  // order array, so the existing report diffs cleanly against every prior run.
+  "review-coverage": "every claim kind states decided/pending over a real denominator",
+  "effort-review-chain": "every decided effort verdict has an audit row (lib/db/pglite/repositories/review.ts)",
 } as const;
 
 export type SentinelCheckId = keyof typeof SENTINEL_CHECK_LABELS;
@@ -316,6 +402,8 @@ export const SENTINEL_CHECK_ORDER: readonly SentinelCheckId[] = [
   "components-sum",
   "recompute-sample",
   "determinism",
+  "review-coverage",
+  "effort-review-chain",
 ];
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
@@ -558,6 +646,9 @@ export function evaluateSentinel(a: SentinelFacts, b: SentinelFacts, opts: Evalu
     "components-sum": checkComponentsSum(a),
     "recompute-sample": checkRecomputeSample(a),
     determinism: checkDeterminism(a, b, opts.now),
+    // [G2 review door] appended last, matching SENTINEL_CHECK_ORDER.
+    "review-coverage": checkReviewCoverage(a),
+    "effort-review-chain": checkEffortReviewChain(a),
   };
   const checks = SENTINEL_CHECK_ORDER.map((id) => byId[id]);
   return {

@@ -140,6 +140,11 @@ const LeaderboardRow = memo(function LeaderboardRow({
   const tcom = useTranslations("common");
   const locale = useLocale();
   const f = useFormat();
+  // Formatting stays with the caller (lib/format.ts through useFormat) — the
+  // catalog primitive takes an already-formatted label and never touches Intl.
+  // An undated decision prints no date rather than today's, same rule the
+  // `recordedAt` line has followed since 2026-08-04.
+  const decidedLabel = (at: string | null | undefined) => (at ? f.date(at) : null);
   return (
     <motion.div
       role="row"
@@ -188,6 +193,9 @@ const LeaderboardRow = memo(function LeaderboardRow({
               reason={r.effortLowScoreReason}
               recordedAt={r.effortRecordedAt}
               dateLabel={r.effortRecordedAt ? f.date(r.effortRecordedAt) : null}
+              rung={r.effortVerdictRungs.effort_low_score_reason?.rung ?? null}
+              decidedBy={r.effortVerdictRungs.effort_low_score_reason?.decidedBy ?? null}
+              decidedAtLabel={decidedLabel(r.effortVerdictRungs.effort_low_score_reason?.decidedAt)}
             />
           </span>
         )}
@@ -217,9 +225,19 @@ const LeaderboardRow = memo(function LeaderboardRow({
               speechTurns={r.duelFacts.speechTurns}
               recordedAt={r.effortRecordedAt}
               compact
+              rung={r.effortVerdictRungs.effort_workhorse?.rung ?? null}
+              decidedBy={r.effortVerdictRungs.effort_workhorse?.decidedBy ?? null}
+              decidedAtLabel={decidedLabel(r.effortVerdictRungs.effort_workhorse?.decidedAt)}
             />
           )}
-          <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
+          <RapporteurBadge
+            load={r.effortRapporteurLoad}
+            recordedAt={r.effortRecordedAt}
+            compact
+            rung={r.effortVerdictRungs.effort_rapporteur_load?.rung ?? null}
+            decidedBy={r.effortVerdictRungs.effort_rapporteur_load?.decidedBy ?? null}
+            decidedAtLabel={decidedLabel(r.effortVerdictRungs.effort_rapporteur_load?.decidedAt)}
+          />
         </span>
       </span>
       {!compact && (
