@@ -1,6 +1,14 @@
 {
   "_comment": "Registry of jsonb prop keys the graph carries, per node kind and edge rel. SEEDED 2026-08-22 from the live store (every key present was grandfathered; counts are the seed census, informational). A writer (scripts/case-loops/persist-batch.ts) REFUSES a key not listed here unless --allow-new-keys is passed, and `npm run da:props-check` diffs the live store against this file. Adding a key = add it here AND describe it in docs/data-analysis/graph-schema.md in the same change. Why: every case-loop batch invented keys (direction_*, public_mandate_*, review_*, corroboration_*) and nothing stood between 'a batch wrote a key' and 'a surface reads it'; the readers pay an asUnion()/str() tax per key and a typo in a writer is invisible.",
   "seededAt": "2026-08-22",
+  "_provenanceComment": "The five keys of the kg_node/kg_edge `provenance` column (NOT props) declared by lib/kg/provenance.ts — the contract card #22 introduced. Mirrored here so the jsonb schema of a graph row is described in ONE file: props by kind/rel above, origin by these keys. `source` is a key of INGESTED_SOURCES (lib/analysis/atlas.ts) or the counted, never-guessed value \"unknown\"; `ingest_run_id` is null when the writer opened no run. Legacy stamps also carry method/computedAt/track — preserved, never listed here, because they are history rather than contract.",
+  "provenance": [
+    "ingest_run_id",
+    "pass",
+    "ref",
+    "source",
+    "writer"
+  ],
   "nodes": {
     "bill": [
       "amended_laws",
