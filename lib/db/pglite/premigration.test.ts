@@ -51,8 +51,9 @@ afterAll(async () => {
 describe("what CORE_DDL declares", () => {
   it("reads the declarations without reading its own prose", () => {
     const d = declaredObjects();
-    expect(d.tables).toHaveLength(18);
+    expect(d.tables).toHaveLength(19);
     expect(d.tables).toContain("vote_tag");
+    expect(d.tables).toContain("sentinel_run");
     expect(d.indexes.length).toBeGreaterThan(20);
     expect(d.columns.some((c) => c.table === "review_audit" && c.column === "row_hash")).toBe(true);
     // The DDL discusses `create table if not exists` inside a comment; a parser
@@ -69,6 +70,81 @@ describe("what CORE_DDL declares", () => {
     expect(destructiveStatements("drop table person;")).toEqual(["drop table person"]);
     expect(destructiveStatements("alter table kg_node drop column props;")).toHaveLength(1);
     expect(destructiveStatements("update person set name_full = '';")).toHaveLength(1);
+  });
+});
+
+/*
+ * The G5 block, proven HERE and nowhere near the live store. The coordinator
+ * runs `npm run db:migrate` against ./.pglite after the merge; what this lane
+ * owes is the evidence that the step is additive and that the columns actually
+ * project the stamp rather than needing a second write.
+ */
+describe("[G5] the provenance columns", () => {
+  it("declares four columns and four indexes, and every one of them is additive", () => {
+    const d = declaredObjects();
+    for (const table of ["kg_node", "kg_edge"] as const) {
+      for (const column of ["source", "ingest_run_id"] as const) {
+        expect(d.columns).toContainEqual({ table, column });
+      }
+    }
+    for (const idx of ["kg_node_source_idx", "kg_node_run_idx", "kg_edge_source_idx", "kg_edge_run_idx"]) {
+      expect(d.indexes).toContain(idx);
+    }
+    // The whole block, generated columns and check constraint included, is still
+    // create/add-only — so `db:migrate` proceeds loudly rather than refusing.
+    expect(destructiveStatements()).toEqual([]);
+  });
+
+  it("projects the stamp — the columns cannot disagree with the row they describe", async () => {
+    const pg = await open();
+    await pg.query(
+      `insert into kg_node (id, kind, label, props, provenance)
+       values ('g5:test:node', 'person', 'G5 fixture', '{}'::jsonb, $1::jsonb)
+       on conflict (id) do update set provenance = excluded.provenance`,
+      [
+        JSON.stringify({
+          source: "smlouvy-gov-cz",
+          ingest_run_id: 4242,
+          pass: 51,
+          ref: "g5-fixture",
+          writer: "premigration.test",
+        }),
+      ],
+    );
+    const { rows } = await pg.query<{ source: unknown; ingest_run_id: unknown }>(
+      `select source, ingest_run_id from kg_node where id = 'g5:test:node'`,
+    );
+    expect(String(rows[0]!.source)).toBe("smlouvy-gov-cz");
+    expect(Number(rows[0]!.ingest_run_id)).toBe(4242);
+
+    // A row whose writer opened no run keeps NULL — "no run coverage", which is
+    // the truth, not a missing field. And an UNKNOWN source is a value, not a gap.
+    await pg.query(
+      `update kg_node set provenance = $1::jsonb where id = 'g5:test:node'`,
+      [JSON.stringify({ source: "unknown", ingest_run_id: null, pass: 0, ref: "backfill", writer: "b" })],
+    );
+    const after = await pg.query<{ source: unknown; ingest_run_id: unknown }>(
+      `select source, ingest_run_id from kg_node where id = 'g5:test:node'`,
+    );
+    expect(String(after.rows[0]!.source)).toBe("unknown");
+    expect(after.rows[0]!.ingest_run_id).toBeNull();
+
+    await pg.query(`delete from kg_node where id = 'g5:test:node'`);
+  });
+
+  it("keeps a sentinel verdict keyed by the manifest it judged", async () => {
+    const pg = await open();
+    await pg.query(
+      `insert into sentinel_run (id, manifest_hash, ran_at, verdict, report)
+       values ('g5:run:1', 'deadbeef', now(), 'ok', '{}'::jsonb) on conflict (id) do nothing`,
+    );
+    // The verdict vocabulary is the report's own three states — a fourth is refused.
+    await expect(
+      pg.query(
+        `insert into sentinel_run (id, manifest_hash, ran_at, verdict) values ('g5:run:2', 'x', now(), 'green')`,
+      ),
+    ).rejects.toThrow();
+    await pg.query(`delete from sentinel_run where id like 'g5:run:%'`);
   });
 });
 

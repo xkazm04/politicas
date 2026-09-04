@@ -25,6 +25,7 @@ import {
   type AtlasReport,
 } from "@/lib/analysis/atlas";
 import AtlasCards from "./AtlasCards";
+import AtlasUnattributed from "./AtlasUnattributed";
 import AtlasUnscored from "./AtlasUnscored";
 
 function StoreDownState() {
@@ -52,6 +53,10 @@ export default function AtlasPage({ report, locale }: { report: AtlasReport | nu
   let section = 0;
   const sourcesIndex = report === null ? null : ++section;
   const unscoredIndex = unscored.length > 0 ? ++section : null;
+  // Nepřiřazené řádky grafu se ukazují jen tehdy, když je co ukázat: bez reportu
+  // (nečitelný store) o grafu nevíme nic a mlčení je poctivější než nula.
+  const unattributed = report?.unattributed ?? null;
+  const unattributedIndex = unattributed && unattributed.byEntity.length > 0 ? ++section : null;
   const relatedIndex = ++section;
   return (
     <main className="min-h-screen overflow-x-clip bg-paper font-sans text-ink">
@@ -112,6 +117,10 @@ export default function AtlasPage({ report, locale }: { report: AtlasReport | nu
 
         {unscoredIndex !== null && (
           <AtlasUnscored unscored={unscored} index={unscoredIndex} locale={locale} />
+        )}
+
+        {unattributed !== null && unattributedIndex !== null && (
+          <AtlasUnattributed facts={unattributed} index={unattributedIndex} locale={locale} />
         )}
 
         <section className="mt-14 border-t-4 border-ink pt-10">

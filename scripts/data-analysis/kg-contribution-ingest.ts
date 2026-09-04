@@ -230,7 +230,18 @@ async function main() {
         // typed here. This script used to stamp the literal "contribution" — a ref frozen at
         // pass 11 — so re-running it after the 2026-07-29 committee-dedupe correction would
         // have DOWNGRADED every node's declared lineage below the formula that scored it.
-        contribution_provenance: { pass, method: "deterministic", ref: CONTRIBUTION_FORMULA_REF, computedAt },
+        // ENRICHMENT, not origin: `provenance: existing.provenance` below keeps
+        // the person row's own stamp (kg-compute wrote it off psp-poslanci), and
+        // this annotation says which formula pass produced the numbers beside it.
+        // `writer` joins {pass, ref} so the sentinel can name WHICH script a
+        // divergent bucket came from, not merely that one exists.
+        contribution_provenance: {
+          pass,
+          method: "deterministic",
+          ref: CONTRIBUTION_FORMULA_REF,
+          writer: "kg-contribution-ingest",
+          computedAt,
+        },
       },
       firstSeenPass: existing.firstSeenPass,
       provenance: existing.provenance,

@@ -328,6 +328,25 @@ export default function DataReleasesPage({
                     )}
                   </div>
 
+                  {/* [G5] Ověřil to někdy někdo? Do 2026-09-04 tahle věta na
+                      stránce nebyla a „latest" plynulo z kardinalitních prahů —
+                      těch samých, které týdny certifikovaly 0,98 % korpusu
+                      smluv. Verdikt se spojuje na PŘESNOU shodu otisku, takže
+                      „neověřeno" znamená neověřeno, ne „nejbližší běh dopadl
+                      dobře". */}
+                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">
+                    {m.certification === "none" || m.certifiedBy === null
+                      ? t("current.certificationNone")
+                      : t(`current.certification.${m.certification}`, {
+                          date: f.date(m.certifiedBy.ranAt),
+                          platnych: f.int(m.certifiedBy.checksHeld ?? 0),
+                          vsech: f.int(m.certifiedBy.checksTotal ?? 0),
+                        })}
+                  </p>
+                  <div className="mt-2">
+                    <SourceNote>{t("current.certificationSource")}</SourceNote>
+                  </div>
+
                   {/* Kardinality proti prahům — vydávací brána, řádek po řádku. */}
                   <div className="mt-8 overflow-x-auto">
                     <table className="w-full border-collapse text-left">

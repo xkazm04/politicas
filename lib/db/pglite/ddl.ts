@@ -425,4 +425,54 @@ alter table review_audit add column if not exists subject_id   text;
 alter table review_audit add column if not exists hash_domain  text;
 create index if not exists review_audit_subject_idx on review_audit(subject_kind, subject_id);
 
+
+-- [G5 provenance columns] ADDITIVE — moonshot cards #22 + #26 --------------
+-- Everything below this marker is appended by the provenance/certification
+-- work and nothing above it is touched. Two stored generated columns turn the
+-- free-form \`provenance\` jsonb into a JOIN KEY.
+--
+-- WHY GENERATED, not written by the writers. The stamp lives in one place
+-- (lib/kg/provenance.ts, validated by every writer before a write); the columns
+-- are a projection of it, so they can never disagree with the row they describe
+-- and no backfill has to keep two copies in step. \`stored\` rather than
+-- \`virtual\` because they are read by grouped counts on ~154 000 nodes and
+-- ~178 000 edges, and an index over a virtual column is not available.
+--
+-- The cast on the run id is safe because \`->>\` yields NULL for an absent key
+-- and the ONLY writer of that key is makeProvenance(), which refuses anything
+-- but an integer or null. A row stamped by a writer that opened no run keeps
+-- NULL here, and /atlas reads that as "no run coverage" — which is the truth,
+-- not a missing field.
+alter table kg_node add column if not exists source        text   generated always as (provenance->>'source') stored;
+alter table kg_node add column if not exists ingest_run_id bigint generated always as ((provenance->>'ingest_run_id')::bigint) stored;
+alter table kg_edge add column if not exists source        text   generated always as (provenance->>'source') stored;
+alter table kg_edge add column if not exists ingest_run_id bigint generated always as ((provenance->>'ingest_run_id')::bigint) stored;
+create index if not exists kg_node_source_idx on kg_node(source);
+create index if not exists kg_node_run_idx    on kg_node(ingest_run_id);
+create index if not exists kg_edge_source_idx on kg_edge(source);
+create index if not exists kg_edge_run_idx    on kg_edge(ingest_run_id);
+
+-- The sentinel's verdict, keyed by the manifest it judged (card #26).
+--
+-- Until now \`npm run sentinel\` printed its report to stdout and that was the
+-- end of it: no surface could say when the invariants last held, so /data
+-- stamped a release "latest" from cardinality floors alone — floors that once
+-- certified a 0,98 % contract corpus for weeks. A row here lets
+-- deriveReleaseManifest join TODAY's manifest hash to the newest verdict over
+-- THAT EXACT hash. The join is exact-match by design: a fuzzy one would certify
+-- a release the sentinel never saw, which is the "never ran rendered as passed"
+-- failure this whole lane exists to abolish.
+--
+-- The sentinel never opens the live handle (it audits a copy), so it does not
+-- write this table directly — it queues the row to a file that the next live
+-- open applies (lib/db/pglite/sentinelQueue.ts). \`id\` is the run's canonical
+-- content hash, so replaying a queue file is idempotent.
+create table if not exists sentinel_run (
+  id            text primary key,
+  manifest_hash text,
+  ran_at        timestamptz not null,
+  verdict       text not null check (verdict in ('ok', 'violation', 'unevaluable')),
+  report        jsonb not null default '{}'::jsonb
+);
+create index if not exists sentinel_run_manifest_idx on sentinel_run(manifest_hash, ran_at desc);
 `;

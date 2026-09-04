@@ -111,6 +111,11 @@ async function main() {
       pass,
       method: stamp.method ?? "verdict",
       ref: arg("ref") ?? stamp.ref ?? file,
+      // ENRICHMENT, not origin: this path merges props onto rows that already
+      // exist and never touches their `provenance` column, so it names the
+      // WRITER rather than claiming a source. That is what lets the sentinel's
+      // per-layer uniformity check say which script a divergent bucket came from.
+      writer: "persist-batch",
       computedAt,
     };
     const live = await store.listKgEdges({ rel: raw.edges[0].rel });
@@ -135,7 +140,14 @@ async function main() {
 
   if (raw.proposals?.length) {
     const ns = arg("ns") ?? "effort";
-    const provenance = { track: arg("track") ?? ns, pass, method: "verdict", ref: arg("ref") ?? file, computedAt };
+    const provenance = {
+      track: arg("track") ?? ns,
+      pass,
+      method: "verdict",
+      ref: arg("ref") ?? file,
+      writer: "persist-batch",
+      computedAt,
+    };
     const live = await store.listKgNodes({});
     const byId = new Map(live.map((n) => [n.id, n]));
     const merged = raw.proposals.map((p) => {

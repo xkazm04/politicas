@@ -146,3 +146,33 @@ queue: it has no decision buttons and no server action. The two-phase confirm
 existing `REVIEWER_TOKEN` / `ADMIN_TOKEN` gates are the next slice. Until then
 the door is reachable only from the repository, and this record says so rather
 than letting an operator infer a queue from a table.
+**2026-09-04 — degradations become answerable (moonshot #26).** This file has
+said plainly that `Sentry.captureException` is a no-op here because the repo has
+no DSN. Together with `console.error`, that was the entire sink list for
+`reportLoaderFailure` — **121 call sites** whose evidence scrolls off a terminal
+and vanishes into a disabled reporter. So the operator's actual question — which
+surfaces fell back to mock in the last 24 hours — had no answer anywhere, and
+the loader convention's own failure mode is exactly that invisibility: a dead
+store is indistinguishable from an empty graph.
+
+`lib/db/loaderFailureLog.ts` adds a third sink: a bounded JSONL sidecar at
+`.data/loader-failures.jsonl` (newest 2 000 lines; the summary reports what it
+counted, not what ever happened). `/admin` "Stav systému" renders the 24 h
+roll-up — total, the loaders that degraded, the last instant — with its source
+path printed beside it, and the sentinel reads it as the `loader-degradations`
+check.
+
+Two rulings, both about not collapsing distinctions:
+
+- **An absent log is not a clean one.** `summarizeLoaderDegradations` returns
+  `null` for a missing file and `{ total: 0 }` for a present, empty one. Missing
+  means nobody was watching; empty means somebody was and nothing happened. The
+  strip says so in words, and the sentinel maps the first to `unevaluable` —
+  never `ok`.
+- **The append never throws.** It is the one writer in this repo that runs
+  inside a `catch` block, and the file it is logging to is not the thing the
+  reader came for. A throw there would convert an honest fallback into a crash —
+  an observability feature causing an outage. It reports its own failure to
+  stderr once per process instead, so it is silent about the LOG and never about
+  the degradation: the `console.error` line the reporter already prints is
+  unconditional.

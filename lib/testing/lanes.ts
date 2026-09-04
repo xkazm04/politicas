@@ -54,6 +54,7 @@ export const PGLITE_LANE_FILES = [
   "lib/db/pglite/maintenance-store.test.ts",
   "lib/db/pglite/open-retry.test.ts",
   "lib/db/pglite/premigration.test.ts",
+  "lib/db/pglite/sentinelQueue.test.ts",
   "lib/db/pglite/repositories/changes.test.ts",
   "lib/db/pglite/repositories/graph.test.ts",
   "lib/db/pglite/repositories/kg-bitemporal.test.ts",
@@ -67,6 +68,7 @@ export const PGLITE_LANE_FILES = [
   "lib/testing/loaders.test.ts",
   "lib/testing/sentinel/sentinel.test.ts",
   "scripts/case-loops/apply-batch.test.ts",
+  "scripts/data-analysis/kg-writer-provenance.test.ts",
 ] as const;
 
 /**

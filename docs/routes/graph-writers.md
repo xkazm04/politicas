@@ -86,3 +86,73 @@ CLAUDE.md's claim that both builders are held to the same invariants was
 false; two tests close it (every sample href is a module index; none carries a
 node id).
 
+
+## 2026-09-04 — every write names its origin, or is refused
+
+`kg_node.provenance` / `kg_edge.provenance` were free-form jsonb, and the seven
+writers filled them seven ways: `{pass, method, ref, computedAt}` with no
+`source` and no run key anywhere. The cost was not stylistic. `/atlas` could
+score **3 of 14** declared sources and printed a paragraph explaining why the
+other eleven — including **both** that carry the whole of `/penize` — get no
+number at all; the Merkle seal covered eight entity tables and **zero** graph
+rows, so a half-applied money or law pass was invisible to the sentinel while a
+half-applied score pass was not.
+
+`lib/kg/provenance.ts` is now the one declaration: `{source, ingest_run_id,
+pass, ref, writer}`, with `source` a key of `INGESTED_SOURCES` **imported** from
+`lib/analysis/atlas.ts` rather than re-listed. Two stored generated columns on
+each table project `source` and `ingest_run_id` out of the jsonb, so the column
+can never disagree with the row it describes and no backfill has to keep two
+copies in step.
+
+**The split that matters here is origin vs enrichment**, and it is the same
+distinction `kg-contribution-ingest` already drew when it kept
+`provenance: existing.provenance`:
+
+| Writer | Role | Stamps |
+| --- | --- | --- |
+| `kg-compute` | origin | per ref — nodes `psp-poslanci`, the three edge rels `psp-hlasovani` |
+| `kg-money-ingest` | origin | per kind/rel — company + `linked_to` `dataor-justice-cz`, contract + `supplies` `smlouvy-gov-cz` |
+| `kg-legislation-ingest` | origin | source `psp-tisky-law`, ref `psp-tisky` |
+| `kg-promote` | origin | `--source=` required; no default that is a guess |
+| `kg-vote-bill-ingest` | origin | source `psp-hlasovani` — the `decides` edge asserts the VOTE half; the bill is only referenced |
+| `kg-contribution-ingest` | enrichment | `contribution_provenance.writer`; row provenance untouched |
+| `kg-forensics` | enrichment | `forensic_provenance.writer`; row provenance untouched |
+| `persist-batch` | enrichment | `<ns>_provenance.writer`; row provenance untouched |
+
+An enrichment writer claiming a source would say a person node came from a
+scoring pass rather than from the chamber register. It does not; it names the
+**writer** instead, which is what lets a per-layer uniformity check say *which
+script* a divergent bucket came from rather than only that one exists.
+
+`guardStampedRows()` runs immediately before every origin upsert and throws with
+the row index and the reason. `--allow-unstamped` exists for the migration pass
+alone and **counts** what it lets through — a bypass nobody counts is a bypass
+that becomes permanent.
+
+**`source: "unknown"` is a value, not a hole.** `kg-promote` without
+`--source=` and every row the backfill cannot reconstruct land there, and
+`/atlas` counts them on the card. A migration that guessed a plausible source
+would be repair, and this repo discloses: a number printed and burned down beats
+a number that looks finished and is not.
+
+### The migration pass
+
+`scripts/data-analysis/kg-provenance-backfill.ts` (dry run by default) derives a
+stamp for every pre-contract row from the `ref` it already carries — four rules,
+each read off the writer that produced it. Rows it cannot resolve land on
+`unknown`, grouped by the unresolved ref and printed as the number to burn down;
+re-running the owning writer replaces it with a real source. It passes `props`
+through byte-for-byte (this is exactly the script shape that once erased the
+effort layer off all 207 MPs), leaves a row already under contract alone unless
+`--restamp`, and attaches no `ingest_run_id` to a historical row — that would
+place it inside a seal that never covered it. On the fixture mirroring the five
+legacy stamp shapes, 13 of 16 rows derive and 3 land on `unknown` across two
+refs.
+
+Proven on a store copy (`scripts/data-analysis/kg-writer-provenance.test.ts`),
+never against the live store — including the thing every writer on this page has
+broken before: a later pass's props still survive a stamped rewrite of the same
+node. `kg-money-ingest` also gained the `isDirectRun` guard `kg-promote` already
+carried; importing its pure half used to fire `main()` and exit 1 for want of an
+API token.

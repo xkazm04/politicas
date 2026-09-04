@@ -1,4 +1,6 @@
-import { rmSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
 import { pgliteFixtureDir } from "../pglite-fixture";
 
@@ -8,6 +10,13 @@ import { pgliteFixtureDir } from "../pglite-fixture";
 // leaderboard-loader.test.ts: isolated PGLITE_PATH tmpdir set BEFORE any
 // import that reaches open() (which memoises on globalThis).
 const dataDir = pgliteFixtureDir("politicas-sentinel-test-");
+
+// [G5] The degradation log is a FILE, not a table, and its absence is a finding
+// (`unevaluable`, never `ok`) — so the clean-store case has to hand the check a
+// real, present, empty log. Isolated per run, beside the fixture store.
+const loaderLogPath = join(mkdtempSync(join(tmpdir(), "politicas-sentinel-log-")), "loader-failures.jsonl");
+process.env.LOADER_FAILURE_PATH = loaderLogPath;
+writeFileSync(loaderLogPath, "", "utf8");
 
 const { open } = await import("../../db/pglite/internals");
 const { GENESIS_HASH, computeAuditRowHash } = await import("../../db/pglite/ledger");
@@ -145,6 +154,35 @@ describe("live-graph sentinel against fixture stores", () => {
         ('fx:person:0', 'member_of', 'fx:company:0', 1, '{}'::jsonb, '{}'::jsonb),
         ('fx:person:1', 'author_of', 'fx:bill:0', 1, '{}'::jsonb, '{}'::jsonb)`,
     );
+    // [G5] The money, law and graph layers the roster grew for. Each is seeded
+    // in its CLEAN shape, so this case says "the invariant holds", not "there
+    // was nothing to look at" — the failure cases below break each in turn.
+    await pg.query(
+      `insert into kg_edge (src, rel, dst, weight, props, provenance) values
+        ('fx:person:0', 'linked_to', 'fx:company:0', null, $1::jsonb, $2::jsonb),
+        ('fx:bill:0',   'amends',    'fx:law:0',     null, '{}'::jsonb, $2::jsonb),
+        ('fx:bill:1',   'amends',    'fx:law:1',     null, '{}'::jsonb, $2::jsonb)`,
+      [
+        // corroboration `registry-confirmed` + class `manager` ⇒ reviewTier 1.
+        JSON.stringify({ tie_class: "manager", corroboration: "registry-confirmed", review_tier: 1 }),
+        JSON.stringify({
+          source: "psp-tisky-law",
+          ingest_run_id: null,
+          pass: 60,
+          ref: "fixture",
+          writer: "sentinel.test",
+        }),
+      ],
+    );
+    await pg.query(
+      `update kg_node set props = props || $1::jsonb where id in ('fx:bill:0', 'fx:bill:1')`,
+      [
+        JSON.stringify({
+          forensic_severity: "medium",
+          forensic_provenance: { pass: 20, ref: "law-forensics", writer: "kg-forensics" },
+        }),
+      ],
+    );
     // One finished ok run per cadenced source (lib/analysis/atlas.ts
     // SOURCE_CADENCE_DAYS is the ground truth) — finished "now" ⇒ čerstvé,
     // and the newest one cuts the release version.
@@ -228,6 +266,11 @@ describe("live-graph sentinel against fixture stores", () => {
       ["determinism", "ok"],
       ["review-coverage", "ok"],
       ["effort-review-chain", "ok"],
+      ["money-rank-cache", "ok"],
+      ["law-provenance-uniformity", "ok"],
+      ["graph-provenance-uniformity", "ok"],
+      ["amends-closure", "ok"],
+      ["loader-degradations", "ok"],
     ]);
     expect(report.verdict).toBe("ok");
     // Counts, with their denominators, and never a rate.

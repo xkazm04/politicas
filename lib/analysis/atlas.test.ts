@@ -5,6 +5,8 @@ import {
   ageDaysBetween,
   ATLAS_DIMENSIONS,
   ATLAS_RULES,
+  ATLAS_UNATTRIBUTED_SOURCE,
+  ATLAS_UNSTAMPED_SOURCE,
   deriveAtlas,
   deriveFreshness,
   freshnessScore,
@@ -411,5 +413,70 @@ describe("čerstvost — nekladná kadence je nehodnoceno, ne NaN", () => {
     if (r.score.status === "nehodnoceno") expect(r.score.reason).toContain("není měřítko");
     expect(r.ageDays).toBe(2);
     expect(r.staleness).toBeNull();
+  });
+});
+
+/* ── [G5] Graf se konečně dá měřit — a co se změřit nedá, se počítá ────────── */
+
+describe("grafové zdroje: karta jako každá jiná, jakmile řádky nesou source", () => {
+  const graphInputs = (): AtlasInputs => ({
+    now: NOW,
+    entityCoverage: [
+      { source: "smlouvy-gov-cz", entity: "kg_node", rows: 2000, rowsWithRun: 2000 },
+      { source: "smlouvy-gov-cz", entity: "kg_edge", rows: 19266, rowsWithRun: 0 },
+      { source: ATLAS_UNATTRIBUTED_SOURCE, entity: "kg_node", rows: 40, rowsWithRun: 0 },
+      { source: ATLAS_UNATTRIBUTED_SOURCE, entity: "kg_edge", rows: 11, rowsWithRun: 0 },
+      { source: ATLAS_UNSTAMPED_SOURCE, entity: "kg_node", rows: 7, rowsWithRun: 0 },
+    ],
+    runStats: [],
+  });
+
+  it("zdroj, jehož řádky dopadají do grafu, dostane KARTU a vypadne ze seznamu mimo dosah", () => {
+    const r = deriveAtlas(graphInputs());
+    const card = r.sources.find((s) => s.source === "smlouvy-gov-cz");
+    expect(card).toBeDefined();
+    // Pokrytí je teď měřitelné — a měří, co skutečně je: 2 000 z 21 266 řádků.
+    expect(card!.dimensions.coverage).toMatchObject({ status: "hodnoceno", score: 9 });
+    expect(card!.entities.map((e) => e.entity)).toEqual(["kg_edge", "kg_node"]);
+    expect(r.unscored.map((u) => u.source)).not.toContain("smlouvy-gov-cz");
+  });
+
+  it("nepřiřazené klíče NIKDY nedostanou kartu — nejsou to vydavatelé", () => {
+    const r = deriveAtlas(graphInputs());
+    const keys = r.sources.map((s) => s.source);
+    expect(keys).not.toContain(ATLAS_UNATTRIBUTED_SOURCE);
+    expect(keys).not.toContain(ATLAS_UNSTAMPED_SOURCE);
+  });
+
+  it("místo toho se počítají — a nedohledáno se s neorazítkováno nesčítá", () => {
+    const { unattributed } = deriveAtlas(graphInputs());
+    expect(unattributed.unknownRows).toBe(51);
+    expect(unattributed.unstampedRows).toBe(7);
+    expect(unattributed.byEntity).toEqual([
+      { entity: "kg_edge", unknownRows: 11, unstampedRows: 0 },
+      { entity: "kg_node", unknownRows: 40, unstampedRows: 7 },
+    ]);
+  });
+
+  it("žádný nepřiřazený řádek nevstoupí do skóre žádné karty", () => {
+    const r = deriveAtlas(graphInputs());
+    const rows = r.sources.reduce((n, s) => n + s.rowsTotal, 0);
+    expect(rows).toBe(21266); // 51 + 7 nepřiřazených zůstalo venku
+  });
+
+  it("graf bez jediného nepřiřazeného řádku hlásí nulu, ne prázdno", () => {
+    const { unattributed } = deriveAtlas({
+      now: NOW,
+      entityCoverage: [{ source: "psp-tisky-law", entity: "kg_node", rows: 141, rowsWithRun: 141 }],
+      runStats: [],
+    });
+    expect(unattributed).toEqual({ unknownRows: 0, unstampedRows: 0, byEntity: [] });
+  });
+
+  it("pravidlo integrity tiskne, že zapečetěná a hodnocená množina tabulek je táž", () => {
+    // Rozšířit atlas o graf šlo jen proto, že se ROZŠÍŘILA i pečeť (RUN_TABLES);
+    // opačné pořadí by tuhle větu proměnilo v nepravdu na stránce o pravdivosti.
+    expect(ATLAS_RULES.integrity.rule).toContain("kg_node/kg_edge");
+    expect(ATLAS_RULES.integrity.rule).toContain("Zapečetěná a hodnocená množina tabulek je tedy táž");
   });
 });

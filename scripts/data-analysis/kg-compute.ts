@@ -51,6 +51,7 @@
  *   npx tsx scripts/data-analysis/kg-compute.ts --commit --reset --supersede   # wipe kg_* first (destructive)
  */
 import { getStore } from "@/lib/db/store";
+import { guardStampedRows, makeProvenance } from "@/lib/kg/provenance";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 import type { VoteChoice } from "@/lib/ingest/normalize";
 import {
@@ -89,7 +90,17 @@ async function main() {
   const reset = process.argv.includes("--reset");
   const supersede = process.argv.includes("--supersede");
   const computedAt = new Date().toISOString();
-  const provenance = (ref: string) => ({ pass, method: "deterministic", ref, computedAt });
+  const allowUnstamped = process.argv.includes("--allow-unstamped");
+  // The structured stamp (lib/kg/provenance.ts) beside the legacy method/computedAt
+  // keys the earlier passes left. `source` is per-ref because this writer derives
+  // from two different landings: the nodes come off mandates and organs
+  // (psp-poslanci), the three edge relations off roll-call ballots (psp-hlasovani).
+  // Nothing here is a guess — it is what the read actually consumed.
+  const provenance = (ref: string, source: string) => ({
+    method: "deterministic",
+    computedAt,
+    ...makeProvenance({ source, pass, ref, writer: "kg-compute" }),
+  });
 
   const store = await getStore();
   if (!store) {
@@ -235,7 +246,7 @@ async function main() {
       props,
       // Which pass CREATED the node — never restamped by a recompute.
       firstSeenPass: prev?.firstSeenPass ?? pass,
-      provenance: provenance(c.ref),
+      provenance: provenance(c.ref, "psp-poslanci"),
     };
   });
 
@@ -248,7 +259,7 @@ async function main() {
       dst: personUrn(e.dst),
       weight: e.agreement,
       props: { shared: e.shared, agree: e.agree },
-      provenance: provenance("kg-compute:co_votes_with"),
+      provenance: provenance("kg-compute:co_votes_with", "psp-hlasovani"),
     });
   }
   for (const e of rebels) {
@@ -258,7 +269,7 @@ async function main() {
       dst: organUrn(e.clubOrganId),
       weight: e.rate,
       props: { rebelVotes: e.rebelVotes, eligibleVotes: e.eligibleVotes, club: e.clubAbbrev },
-      provenance: provenance("kg-compute:rebels_against"),
+      provenance: provenance("kg-compute:rebels_against", "psp-hlasovani"),
     });
   }
   for (const e of influence) {
@@ -268,7 +279,7 @@ async function main() {
       dst: organUrn(e.organId),
       weight: e.weight,
       props: { role: e.role },
-      provenance: provenance("kg-compute:influential_in"),
+      provenance: provenance("kg-compute:influential_in", "psp-hlasovani"),
     });
   }
 
@@ -359,6 +370,8 @@ async function main() {
     await store.clearKg();
     console.log(`\ncleared kg_node/kg_edge`);
   }
+  guardStampedRows(nodes, { allowUnstamped, label: "kg-compute nodes" });
+  guardStampedRows(edges, { allowUnstamped, label: "kg-compute edges" });
   const wroteNodes = await store.upsertKgNodes(nodes);
   const wroteEdges = await store.upsertKgEdges(edges);
   console.log(

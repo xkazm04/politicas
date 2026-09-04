@@ -3209,7 +3209,7 @@
       },
       "integrity": {
         "label": "integrity",
-        "rule": "100 × (the source’s finished successful runs sealed with a Merkle root / all of the source’s finished successful runs), rounded. The seal is applied by LedgerRepository.sealIngestRun over every row the run wrote. A source with no finished successful run = unrated."
+        "rule": "100 x (this source's finished ok ingest runs sealed with a Merkle root / all its finished ok runs), rounded. The seal is applied by LedgerRepository.sealIngestRun over every row the run wrote — across the eight entity tables and kg_node/kg_edge, which since 2026-09-04 claim their run through ingest_run_id. The sealed set of tables and the scored set are therefore the same set. A source with no finished ok run = not scored."
       },
       "completeness": {
         "label": "completeness",
@@ -3251,7 +3251,7 @@
       "aside": "source: the source registry (lib/analysis/atlas.ts) — a declaration in code, not a measurement",
       "lead": "Politicas works with {declared} sources. This page can rate {scored} of them; the remaining {unscored} it cannot. Saying nothing about them would amount to claiming the platform only has the rated ones — and the two that carry the whole public-money module are among those left unsaid. None of them gets a number here: each gets a sentence naming where its rows land and why the atlas cannot measure them. A zero would be a statement about data quality; this is a statement about what our own storage cannot do.",
       "source": "source: the source registry in lib/analysis/atlas.ts; every row names the module that reads that source — verifiable in the repository",
-      "scopeNote": "Why the atlas is not simply widened: the integrity rule printed beside every score states that the sealed set of tables and the rated set are the same. Scoring the knowledge graph would mean loosening that rule before the pipeline can do what it promises. So the limit is named rather than pushed through a printed rule — connecting these sources is a change to ingest and to the ledger, not to this page.",
+      "scopeNote": "Why some sources still stand here without a score: the integrity rule printed beside the score says the sealed set of tables and the scored set are the same set. Since 2026-09-04 that holds for the knowledge graph too — kg_node and kg_edge claim their ingest run through ingest_run_id and the seal covers them. A source stays here only until an ingest under the provenance contract stamps it; the limit is named, never pushed past the printed rule.",
       "landingNote": "Listed here are the sources the atlas can measure — {shown}. Politicas reads {declared}; for the remaining {unscored} the atlas states why it cannot measure them.",
       "landing": {
         "graph": "lands in the knowledge graph (kg_node / kg_edge)",
@@ -3259,10 +3259,18 @@
         "none": "nothing in the product reads it"
       },
       "reason": {
-        "graph": "This source’s rows land in kg_node/kg_edge. Those tables have no source column and no ingest_run_id — provenance in them is free text in a provenance.ref field, so no join key runs between a row and the ingest_run table. Provenance coverage, freshness and the Merkle seal therefore cannot be measured for them. This is a limit of OUR pipeline, not a statement about the publisher: the data is in the store, the atlas just has no measurable link to it.",
+        "graph": "This source's rows land in kg_node/kg_edge. Since 2026-09-04 those tables DO carry source and ingest_run_id, so the atlas can measure them as soon as a writer stamps them. This source has no card because the store holds not one stamped row of it yet: an ingest under the new provenance contract has not reached it. That is a limit of OUR pipeline, not a statement about the publisher — the data is in the store, it just does not yet claim this source key.",
         "generatedModule": "This source’s harvest is frozen into a generated module in the repository, which the page reads directly — nothing lands in the store. With no row in the store and no ingest run there is nothing to measure; the retrieval date is carried by that module itself and printed on the page. This is a limit of OUR pipeline, not a statement about the publisher.",
         "none": "This source’s adapter is written and tested, but nothing in the product reads it — it is not ingested. The atlas measures nothing here because there is nothing to measure. It is listed so that the list of sources does not conceal what lies unconnected in the repository."
       }
+    },
+    "unattributed": {
+      "title": "Graph rows with no declared publisher",
+      "aside": "source: kg_node.source / kg_edge.source (generated from provenance) — counts, not scores",
+      "lead": "The knowledge graph holds {unknown} rows whose origin could not honestly be reconstructed from what they carry, and {unstamped} rows the provenance migration has not reached. Guessing a source for them would have been possible and would have been untrue: a card would claim something about a publisher nobody verified. So they get no card — they get a number.",
+      "row": "unresolved {unknown} · unstamped {unstamped}",
+      "source": "source: a query over kg_node/kg_edge grouped by the source column, which is generated from the provenance field (lib/db/pglite/ddl.ts)",
+      "note": "These are two different claims and they do not add up: “unresolved” is an admission about origin, “unstamped” is the state of the migration. The first is burned down by re-running the writer that owns those rows, which replaces it with a real source. Zero here does not mean finished; it means every row claims some source."
     }
   },
   "dataReleases": {
@@ -3291,7 +3299,14 @@
       "unreleasedSource": "source: ingest_run — 0 successful runs; nothing is concealed",
       "badgeDegraded": "degraded — not latest",
       "badgeLatest": "latest",
-      "cut": "cut: {date}"
+      "cut": "cut: {date}",
+      "certificationNone": "Not verified — the sentinel has not run over this fingerprint. That is neither a mark against the release nor a pass: nobody has looked yet. The “latest” badge above comes from cardinality floors, and floors are not an audit.",
+      "certificationSource": "source: the sentinel_run table, newest row with the SAME manifest fingerprint; written by npm run sentinel through a queue the next store open drains",
+      "certification": {
+        "ok": "Invariants verified on {date} — {platnych} of {vsech} held. The sentinel ran over THIS fingerprint, not over some nearby release.",
+        "violation": "On {date} the sentinel found a VIOLATION over this fingerprint — {platnych} of {vsech} held. Red is a data problem, not a tooling fault: fix the ingest, never the invariant.",
+        "unevaluable": "On {date} the sentinel never reached the data — {platnych} of {vsech} invariants were evaluated. This is not a pass and must not read as one."
+      }
     },
     "table": {
       "kind": "node kind",

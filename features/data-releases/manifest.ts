@@ -39,6 +39,37 @@ export interface ReleaseStats {
   ingestRuns: ReadonlyArray<IngestRunRow>;
   /** Hlavy trezoru (`LedgerRepository.getLedgerHeads`), jen čtení. */
   ledgerHeads: LedgerHeads;
+  /**
+   * Nejnovější verdikt sentinela NAD TÍMTO OTISKEM manifestu, nebo null.
+   *
+   * Loader ho posílá jako FUNKCI otisku: manifest se derivuje nejdřív, jeho
+   * otisk se použije jako klíč a teprve pak se doplní certifikace — proto je
+   * to vstup, a ne něco, co by si tenhle čistý modul někde přečetl.
+   */
+  certification?: SentinelCertification | null;
+}
+
+/**
+ * Co o vydání říká sentinel — a čtvrtý stav je celý smysl.
+ *
+ * Do 2026-09-04 tiskl `/data` „latest" z kardinalitních prahů, a nic na světě
+ * neříkalo, jestli nad tím vydáním kdy nějaká invarianta proběhla. Prahy jednou
+ * certifikovaly 0,98 % korpusu smluv jako „latest" na celé týdny.
+ *
+ *  · `ok` / `violation` / `unevaluable` — sentinel nad TÍMHLE otiskem běžel a
+ *    tohle vrátil (`unevaluable` = nedosáhl na data; není to průchod).
+ *  · `none` — sentinel nad tímhle otiskem NEBĚŽEL. Není to chyba vydání a
+ *    nesmí se číst jako průchod; je to nepřítomnost auditu, vytištěná.
+ */
+export type ReleaseCertification = "ok" | "violation" | "unevaluable" | "none";
+
+export interface SentinelCertification {
+  /** ISO okamžik běhu. */
+  ranAt: string;
+  verdict: Exclude<ReleaseCertification, "none">;
+  /** Kolik invariant PLATILO / kolik jich report nesl; null, když se nedaly přečíst. */
+  checksHeld: number | null;
+  checksTotal: number | null;
 }
 
 // ── Výstup: manifest ────────────────────────────────────────────────────────
@@ -75,6 +106,17 @@ export interface ReleaseManifest {
   hashAlgorithm: typeof HASH_ALGORITHM;
   /** Otisk manifestu (FNV-1a/32 nad kanonickým JSON těla bez tohoto pole). */
   manifestHash: string;
+  /**
+   * Verdikt sentinela nad TÍMTO otiskem — `none`, když nad ním neběžel.
+   *
+   * MIMO OTISK, ZÁMĚRNĚ: otisk je funkce OBSAHU vydání, ne toho, co o něm kdo
+   * později zjistil. Kdyby certifikace do otisku vstupovala, sentinelův zápis
+   * by otisk změnil a verdikt by se okamžitě přestal vztahovat k vydání, které
+   * hodnotil — spojení je vždycky na PŘESNOU shodu, nikdy na nejbližší běh.
+   */
+  certification: ReleaseCertification;
+  /** Detail verdiktu (datum, kolik invariant platilo); null u `none`. */
+  certifiedBy: SentinelCertification | null;
 }
 
 /** Okamžik, který běh reprezentuje: dokončení, jinak start (běžící běh). */
@@ -129,9 +171,22 @@ export function deriveReleaseManifest(stats: ReleaseStats): ReleaseManifest {
         : null,
     },
     hashAlgorithm: HASH_ALGORITHM,
-  } satisfies Omit<ReleaseManifest, "manifestHash">;
+    // `certification`/`certifiedBy` jsou VĚDOMĚ mimo tělo, ze kterého se počítá
+    // otisk — jsou to fakta o vydání zvenčí, ne jeho obsah.
+  } satisfies Omit<ReleaseManifest, "manifestHash" | "certification" | "certifiedBy">;
 
-  return { ...body, manifestHash: contentHash(canonicalJson(body)) };
+  const manifestHash = contentHash(canonicalJson(body));
+  // Certifikace se dopočítá AŽ TEĎ, nad hotovým otiskem, a do otisku nevstupuje
+  // (viz komentář u pole). Ověřuje se, že verdikt patří TOMUHLE vydání: loader
+  // čte řádek `sentinel_run` na PŘESNOU shodu otisku, takže „žádný takový běh"
+  // se vrátí jako `none` a ne jako nejbližší cizí verdikt.
+  const cert = stats.certification ?? null;
+  return {
+    ...body,
+    manifestHash,
+    certification: cert?.verdict ?? "none",
+    certifiedBy: cert,
+  };
 }
 
 // ── Changelog: ingest běhy seskupené po dnech = řádky vydávacího vlaku ──────

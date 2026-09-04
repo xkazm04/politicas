@@ -3209,7 +3209,7 @@
       },
       "integrity": {
         "label": "integrita",
-        "rule": "100 × (dokončené úspěšné běhy zdroje zapečetěné Merkle kořenem / všechny dokončené úspěšné běhy zdroje), zaokrouhleno. Pečeť přikládá LedgerRepository.sealIngestRun nad každým řádkem, který běh zapsal. Zdroj bez dokončeného úspěšného běhu = nehodnoceno."
+        "rule": "100 × (dokončené úspěšné běhy zdroje zapečetěné Merkle kořenem / všechny dokončené úspěšné běhy zdroje), zaokrouhleno. Pečeť přikládá LedgerRepository.sealIngestRun nad každým řádkem, který běh zapsal — v osmi entitních tabulkách i v kg_node/kg_edge, které se od 2026-09-04 k běhu hlásí sloupcem ingest_run_id. Zapečetěná a hodnocená množina tabulek je tedy táž. Zdroj bez dokončeného úspěšného běhu = nehodnoceno."
       },
       "completeness": {
         "label": "úplnost",
@@ -3251,7 +3251,7 @@
       "aside": "zdroj: registr zdrojů (lib/analysis/atlas.ts) — deklarace v kódu, ne měření",
       "lead": "Politicas pracuje s {declared} zdroji. Ohodnotit jich tahle stránka umí {scored}; zbylých {unscored} ne. Mlčet o nich by znamenalo tvrdit, že platforma má jen ty ohodnocené — a mezi těmi zamlčenými jsou oba, které nesou celý modul o veřejných penězích. Žádný z nich tu nedostane číslo: dostane větu, kam jeho řádky dopadají a proč to atlas neumí změřit. Nula by byla tvrzení o kvalitě dat; tohle je tvrzení o tom, co neumí naše ukládání.",
       "source": "zdroj: registr zdrojů v lib/analysis/atlas.ts; každý řádek nese modul, který ten zdroj čte — dohledatelný v repozitáři",
-      "scopeNote": "Proč se atlas prostě nerozšíří: pravidlo integrity vedle skóre tiskne, že zapečetěná a hodnocená množina tabulek je táž. Skórovat znalostní graf by znamenalo to pravidlo uvolnit dřív, než roura umí to, co slibuje. Mez se proto pojmenuje, netlačí se přes vytištěné pravidlo — napojit tyhle zdroje je změna ingestu a ledgeru, ne téhle stránky.",
+      "scopeNote": "Proč tu některé zdroje pořád stojí bez skóre: pravidlo integrity vedle skóre tiskne, že zapečetěná a hodnocená množina tabulek je táž. Od 2026-09-04 to platí i pro znalostní graf — kg_node a kg_edge se k ingest běhu hlásí sloupcem ingest_run_id a pečeť je pokrývá. Zdroj tu tedy zůstává jen do chvíle, než ho nasypání pod smlouvou původu orazítkuje; mez se pojmenuje, netlačí se přes vytištěné pravidlo.",
       "landingNote": "Vypsané jsou zdroje, které atlas umí změřit — {shown}. Politicas jich čte {declared}; u zbylých {unscored} atlas říká, proč je změřit neumí.",
       "landing": {
         "graph": "dopadá do znalostního grafu (kg_node / kg_edge)",
@@ -3259,10 +3259,18 @@
         "none": "v produktu to nečte nic"
       },
       "reason": {
-        "graph": "Řádky tohoto zdroje dopadají do kg_node/kg_edge. Ty nemají sloupec source ani ingest_run_id — původ v nich je volný text v poli provenance.ref, takže mezi řádkem a tabulkou ingest_run nevede žádný spojovací klíč. Pokrytí provenancí, čerstvost ani Merkle pečeť se u nich proto změřit nedají. Je to mez NAŠÍ roury, ne výpověď o vydavateli: data ve store jsou, jen k nim atlas nevede měřitelnou vazbu.",
+        "graph": "Řádky tohoto zdroje dopadají do kg_node/kg_edge. Ty od 2026-09-04 sloupce source i ingest_run_id mají — atlas je tedy měřit UMÍ, jakmile je zapisovač orazítkuje. Tenhle zdroj kartu nemá proto, že ve store zatím nestojí ani jeden jeho orazítkovaný řádek: nasypání pod novou smlouvou původu ho ještě neminulo. Je to mez NAŠÍ roury, ne výpověď o vydavateli: data ve store jsou, jen se k tomuhle klíči zdroje zatím nehlásí.",
         "generatedModule": "Sklizeň tohoto zdroje je zamrazená do generovaného modulu v repozitáři, který plocha čte přímo — do úložiště nedopadá nic. Bez řádku ve store a bez ingest běhu není co měřit; datum stažení nese ten modul sám a plocha ho tiskne. Je to mez NAŠÍ roury, ne výpověď o vydavateli.",
         "none": "Adaptér tohoto zdroje je napsaný a otestovaný, ale v produktu ho nečte nic — nenasypává se. Atlas tu neměří proto, že tu měřit není co. Uvádí se, aby seznam zdrojů nezamlčel, co v repozitáři leží nezapojené."
       }
+    },
+    "unattributed": {
+      "title": "Řádky grafu bez přiznaného vydavatele",
+      "aside": "zdroj: kg_node.source / kg_edge.source (generované z provenance) — počty, ne skóre",
+      "lead": "Znalostní graf nese {unknown} řádků, u kterých se původ z toho, co nesou, poctivě rekonstruovat nedal, a {unstamped} řádků, ke kterým migrace původu zatím nedošla. Uhodnout u nich zdroj by bylo možné a byla by to nepravda: karta by tvrdila něco o vydavateli, kterého nikdo neověřil. Nedostávají proto kartu — dostávají číslo.",
+      "row": "nedohledáno {unknown} · neorazítkováno {unstamped}",
+      "source": "zdroj: dotaz nad kg_node/kg_edge seskupený podle sloupce source; ten sloupec je generovaný z pole provenance (lib/db/pglite/ddl.ts)",
+      "note": "Jsou to dvě různá tvrzení a nesčítají se: „nedohledáno“ je přiznání o původu, „neorazítkováno“ je stav migrace. První číslo se splácí tím, že doběhne zapisovač, který ty řádky vlastní — přepíše je skutečným zdrojem. Nula tu neznamená hotovo, znamená, že se každý řádek k nějakému zdroji hlásí."
     }
   },
   "dataReleases": {
@@ -3291,7 +3299,14 @@
       "unreleasedSource": "zdroj: ingest_run — 0 úspěšných běhů; nic není zamlčeno",
       "badgeDegraded": "degradováno — není latest",
       "badgeLatest": "latest",
-      "cut": "řez: {date}"
+      "cut": "řez: {date}",
+      "certificationNone": "Neověřeno — sentinel nad tímhle otiskem neběžel. Není to výtka vydání ani jeho průchod: nikdo se zatím nepodíval. „Latest“ výš plyne z kardinalitních prahů, a prahy nejsou audit.",
+      "certificationSource": "zdroj: tabulka sentinel_run, nejnovější řádek se SHODNÝM otiskem manifestu; zapisuje ho npm run sentinel přes frontu, kterou vysype nejbližší otevření store",
+      "certification": {
+        "ok": "Invarianty ověřeny k {date} — platilo {platnych} z {vsech}. Sentinel běžel nad TÍMHLE otiskem, ne nad nějakým blízkým vydáním.",
+        "violation": "Sentinel k {date} nad tímhle otiskem NAŠEL PORUŠENÍ — platilo {platnych} z {vsech}. Červená je datový problém, ne chyba nástroje: opravuje se ingest, ne invarianta.",
+        "unevaluable": "Sentinel k {date} na data NEDOSÁHL — vyhodnoceno {platnych} z {vsech} invariant. Není to průchod a nesmí se tak číst."
+      }
     },
     "table": {
       "kind": "druh uzlu",
