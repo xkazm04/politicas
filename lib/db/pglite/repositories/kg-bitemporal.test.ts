@@ -253,7 +253,8 @@ describe("bitemporal kg claims (DB integration)", () => {
     expect(edgeAtV1.known && edgeAtV1.value?.props.review_state).toBe("pending_review");
 
     // 2) at the second version's instant → version 2 (half-open span)
-    expect((await kg.asOfNode("bt:pt", v2)).value?.label).toBe("Verze 2");
+    const atV2 = await kg.asOfNode("bt:pt", v2);
+    expect(atV2.known && atV2.value?.label).toBe("Verze 2");
     const edgeNow = await kg.asOfEdge({ src: "bt:pt", rel: "linked_to", dst: "bt:pt2" }, new Date());
     expect(edgeNow.known && edgeNow.value?.props.review_state).toBe("verified");
 
@@ -275,7 +276,7 @@ describe("bitemporal kg claims (DB integration)", () => {
     expect((await kg.asOfNode("bt:pt", "not-a-date")).known).toBe(false);
 
     // 6) the point read agrees with the whole-relation instrument at the same instant
-    expect(atV1.value).toEqual((await kg.asOf(v1).getKgNodes(["bt:pt"]))[0]);
+    expect(atV1.known && atV1.value).toEqual((await kg.asOf(v1).getKgNodes(["bt:pt"]))[0]);
   });
 
   it("LAST VERSION: an address the serving graph no longer carries still names what it last said, and when", async () => {
