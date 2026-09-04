@@ -20,6 +20,8 @@ import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import ReportClaimLink from "@/features/shared/components/ReportClaimLink";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
+import { useFormat } from "@/lib/i18n/useFormat";
+import { LIVE_AS_OF, type ReceiptAsOf, type ReceiptLastVersion } from "./asOfLens";
 import { caseFileLinkFor } from "./caseFileLink";
 import { claimRefPath } from "./claimRef";
 import type { DecodedClaim, DecodedEndpoint, ProvenanceReceipt } from "./receipt";
@@ -142,14 +144,53 @@ function GoneEndpoint({ endpoint }: { endpoint: DecodedEndpoint }) {
   );
 }
 
+/**
+ * POSLEDNÍ ZAZNAMENANÁ VERZE zaniklé adresy — „naposledy zaznamenáno … /
+ * nahrazeno …".
+ *
+ * Je to HISTORIE, ne tvrzení, a sazba to musí udržet: vlastní nadpis, oba
+ * okamžiky u sebe, výslovná věta, že se záznam nevrací do grafu. Stránka
+ * zůstává „gone" a strojová značka (ClaimReview) odsud nejde ven vůbec —
+ * povýšit archivovanou verzi zpátky na doložené tvrzení by bylo přesně to
+ * dosazování, které /zdroj odmítá.
+ */
+function LastVersionPanel({ last }: { last: ReceiptLastVersion }) {
+  const t = useTranslations("shared");
+  const f = useFormat();
+  return (
+    <section className="mt-8 border-2 border-hairline bg-paper-strong px-5 py-6 sm:px-6">
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
+        {t("receipt.page.lastKicker")}
+      </p>
+      <p className="mt-2 font-mono text-xs text-ink">
+        {t("receipt.page.lastRecorded", { date: f.date(last.recordedAt) })}
+        {" · "}
+        {last.supersededAt
+          ? t("receipt.page.lastSuperseded", { date: f.date(last.supersededAt) })
+          : t("receipt.page.lastStillOpen")}
+      </p>
+      <p className="mt-2 max-w-2xl font-mono text-xs leading-relaxed text-steel-aa">
+        {t("receipt.page.lastNote")}
+      </p>
+      <div className="mt-5 border-t-2 border-ink pt-5">
+        <ReceiptBody receipt={last.receipt} />
+      </div>
+      <SourceNote className="mt-4">{t("receipt.page.lastSource")}</SourceNote>
+    </section>
+  );
+}
+
 export function ReceiptGonePage({
   encodedRef,
   decoded,
+  last = null,
 }: {
   encodedRef: string;
   /** Co adresa TVRDILA (getReceiptData ji stejně luští). Bez ní by stránka
    *  čtenáře nechala stát nad base64 blobem — viz doc getReceiptData. */
   decoded: DecodedClaim;
+  /** Poslední verze, kterou store o téhle adrese kdy zapsal; null = ani ta ne. */
+  last?: ReceiptLastVersion | null;
 }) {
   const t = useTranslations("shared");
   // Relace jde katalogem; neznámý token se vypíše doslova (týž vzor jako
@@ -190,6 +231,11 @@ export function ReceiptGonePage({
         </div>
 
         <SourceNote className="mt-6">{t("receipt.page.goneRef", { ref: encodedRef })}</SourceNote>
+
+        {/* Zaniklá adresa, o které store DRŽÍ historický řádek: čtenář, který
+            přišel po citaci, si přečte, co jsme tvrdili a kdy to přestalo
+            platit. Bez řádku se nic nedosazuje — panel prostě není. */}
+        {last && <LastVersionPanel last={last} />}
       </div>
 
       <CitationFooter encodedRef={encodedRef} />
@@ -197,11 +243,18 @@ export function ReceiptGonePage({
   );
 }
 
-export default function ReceiptPage({ receipt }: { receipt: ProvenanceReceipt }) {
+export default function ReceiptPage({
+  receipt,
+  asOf = LIVE_AS_OF,
+}: {
+  receipt: ProvenanceReceipt;
+  /** Čočka „k tomu dni" z `?k=`; banner sází ReceiptBody NAD obsahem. */
+  asOf?: ReceiptAsOf;
+}) {
   return (
     <PageFrame>
       <div className="border-2 border-ink bg-paper px-5 py-8 sm:px-8 sm:py-10">
-        <ReceiptBody receipt={receipt} />
+        <ReceiptBody receipt={receipt} asOf={asOf} />
       </div>
 
       <CitationFooter encodedRef={receipt.ref} />
