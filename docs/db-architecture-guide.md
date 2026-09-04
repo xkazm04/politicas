@@ -390,6 +390,53 @@ a PGlite open that FAILS still holds the directory in that process, so the renam
 that moves a damaged store aside comes back `EPERM` — which is why restore is a
 separate process and not a recovery branch inside the app.
 
+## The as-of contract — record time enters the Store (2026-09-04)
+
+`asOf(at)` had existed since the bitemporal kg tables landed, but it was declared
+on the PGlite kg repository only, with a comment saying a later batch could lift
+it, and its sole non-test caller was `scripts/data-analysis/kg-repair-orphans.ts`.
+The consequence was not a missing feature but a missing *sentence*: no
+reader-facing surface could answer "what did this address say on the day it was
+cited". `KnowledgeGraphRepository` now carries it, plus the reads a citation
+surface actually needs. Three things about the contract are load-bearing.
+
+**The whole-relation lister and the point reads are different instruments, and
+the type does not say so — the comments do.** `asOf(at).listKgEdges()` runs over
+an un-indexed `UNION ALL` of serving + history: a forensic instrument, fine for
+a script, wrong for a page. `asOfNode(id, at)` / `asOfEdge({src,rel,dst}, at)`
+push the key filter INSIDE both legs of that union, so they ride
+`kg_node_history_id_idx` / `kg_edge_history_key_idx` and touch one claim's
+versions. Anything reader-facing takes the point reads; `getReceiptData` is the
+worked example, and it deliberately does not spend a second `kgNeighbours` on
+the as-of leg.
+
+**The epoch rule is typed, not documented-and-hoped.** A point read before the
+oldest `recorded_at` the store carries answers `{ known: false, epoch }` and no
+value. The bitemporal migration stamped every pre-existing row with ONE shared
+`recorded_at` (the same fact `repositories/changes.ts` calls its silent event
+zero), so a span that "contains" an earlier day is an artefact of the migration,
+not knowledge about that day; returning the value would render as "unchanged
+since then", which the record cannot support. The union has a third arm that
+matters as much: `{ known: true, value: null }` means "we kept records then and
+this claim was not among them" — a different sentence, and surfaces must not
+collapse the two.
+
+**`bitemporalEpoch()` is memoised per repository instance, and that is safe for
+a structural reason.** History is append-only and every write path archives
+rather than deletes — `clearKg` included — so the minimum `recorded_at` never
+moves. Without the memo, an un-indexed `min()` over four columns would run on
+every receipt. A failed read clears the memo so the next caller retries rather
+than inheriting a rejection.
+
+`lastKgNodeVersion` / `lastKgEdgeVersion` complete the set: the newest version
+the store ever recorded for a key, current or not. That is what an address
+today's graph no longer carries can honestly show — disclosed as history, with
+both instants, never re-promoted to a current claim (no ClaimReview, no counting
+anywhere else).
+
+No DDL changed. `BitemporalKnowledgeGraphRepository` survives as a deprecated
+alias so no import moved.
+
 ## Roadmap — experiments to add
 
 1. **OLAP** over 406k ballots — PGlite vs DuckDB vs SQLite _(✓ done — case #1)_.
