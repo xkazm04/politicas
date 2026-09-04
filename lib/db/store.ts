@@ -76,6 +76,26 @@ export interface GraphRepository {
    * its type is "Klub". Returns mandatePspId → club abbreviation.
    */
   clubByMandate(termCode: string): Promise<Map<number, string>>;
+  /**
+   * The same join as `clubByMandate`, but DATED and complete: every club window a
+   * mandate had, ordered by `fromAt`.
+   *
+   * `clubByMandate` has no predicate on `from_at`/`to_at` and does `out.set(...)`
+   * per row, so an MP who changed club gets whichever row the query returned last
+   * — the club that wins is decided by the dump, and every historical ballot is
+   * repainted with it. The windows have always been on `membership`
+   * (`MembershipRow.fromAt/toAt`); nothing read them. Pair with
+   * `clubAt(windows, mandate, isoDay)` in `lib/analysis/clubAt.ts` to resolve a
+   * ballot against the club its caster was actually in that day.
+   */
+  clubWindowsByMandate(termCode: string): Promise<Map<number, ClubWindow[]>>;
+}
+
+/** One membership window of a mandate in a parliamentary club. `toAt: null` = open. */
+export interface ClubWindow {
+  club: string;
+  fromAt: string | null;
+  toAt: string | null;
 }
 
 /**

@@ -1,7 +1,7 @@
 // GraphRepository — person ↔ party/committee ↔ mandate, the static side of the
 // civic graph.
 
-import type { GraphRepository } from "../../store";
+import type { ClubWindow, GraphRepository } from "../../store";
 import type { MandateRow, MembershipRow, OrganRow, PersonRow } from "../../types";
 import { limitOf, num, str, upsertMany, warnIfTruncated, type Pglite } from "../internals";
 import {
@@ -155,6 +155,39 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
       );
       const out = new Map<number, string>();
       for (const r of rows) out.set(num(r.mandate_psp_id), str(r.abbrev));
+      return out;
+    },
+
+    // Same join, plus the two columns `clubByMandate` throws away. The ORDER BY is
+    // load-bearing: `clubAt` walks the windows and an unordered list makes "the
+    // window containing this day" ambiguous the moment an MP has two of them.
+    async clubWindowsByMandate(termCode) {
+      const { rows } = await pg.query<Record<string, unknown>>(
+        `with term as (select psp_id from organ where abbrev = $1),
+              club as (
+                select o.psp_id, o.abbrev
+                from organ o, term t
+                where o.parent_psp_id = t.psp_id and o.organ_type_cz = 'Klub'
+              )
+         select mn.psp_id as mandate_psp_id, club.abbrev, ms.from_at, ms.to_at
+           from mandate mn
+           join term t on mn.term_psp_id = t.psp_id
+           join membership ms on ms.person_psp_id = mn.person_psp_id and ms.kind = 'member'
+           join club on club.psp_id = ms.organ_psp_id
+          order by mn.psp_id, ms.from_at nulls first, ms.to_at nulls last`,
+        [termCode],
+      );
+      const out = new Map<number, ClubWindow[]>();
+      for (const r of rows) {
+        const mandate = num(r.mandate_psp_id);
+        const windows = out.get(mandate) ?? [];
+        windows.push({
+          club: str(r.abbrev),
+          fromAt: r.from_at == null ? null : str(r.from_at),
+          toAt: r.to_at == null ? null : str(r.to_at),
+        });
+        out.set(mandate, windows);
+      }
       return out;
     },
   };
