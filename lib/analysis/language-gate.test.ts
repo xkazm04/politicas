@@ -90,6 +90,26 @@ describe("language-gate — unit behaviour", () => {
     expect(looksEnglish(text)).toBe(true);
   });
 
+  it("does not withhold Czech whose only English-shaped tokens are morphology look-alikes", () => {
+    // Regression fixtures from the pass-74 probe (2026-09-01): three reviewer notes
+    // and one dossier note were withheld on ONE shape hit each (`ongoing`, `LEAD`,
+    // `leadership`), and Czech plurals/nouns in `-ly`/`-hled` trip the same rule.
+    const czech = [
+      "ARES VR: člen správní rady/předseda 1999-12-28→2025-06-30 · peníze: historical · graf tvrdil „ongoing“ — rejstřík říká jinak.",
+      "Aktuální 50% společník od 2022-12-10. Graf 'od 2002-01-01' chybný — mezera 2006–2016 s nulovým podílem. LEAD: firma darovala 215 000 Kč.",
+      "Pohled na vzhled budovy",
+      "Firmy vlastnily podíly a dostaly zakázky",
+    ];
+    for (const text of czech) expect(looksEnglish(text), text).toBe(false);
+  });
+
+  it("still flags English that carries no closed-list word but several English-shaped ones", () => {
+    // The one English reviewer note in the pass-74 corpus: zero closed-list words,
+    // three shape hits. Morphology alone must keep deciding at that density.
+    const text = "Q-money-15 (batch 008): live ARES VR re-check flipped conflicting → registry-confirmed. Role(s): Jednatel.";
+    expect(looksEnglish(text)).toBe(true);
+  });
+
   it("treats empty and blank input as neither language and never as English", () => {
     expect(looksEnglish("")).toBe(false);
     expect(looksEnglish(null)).toBe(false);

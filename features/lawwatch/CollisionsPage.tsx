@@ -31,8 +31,8 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { CZECH_WITHHELD_CZ } from "@/lib/analysis/language-gate";
 import RadarLedger from "./components/RadarLedger";
 import { clusterAnchorOf } from "./deriveRadar";
-import type { CollisionClassification, CollisionClusterView, CollisionData, CollisionPairView } from "./getCollisionData";
-import type { RadarData } from "./getRadarData";
+import type { CollisionClassification, CollisionClusterView, CollisionData, CollisionPairView } from "./collisionTypes";
+import type { RadarData } from "./radarTypes";
 
 /** confirmed = signal (nejsilnější příznak, stejně jako „možný střet“ jinde v appce);
  * coordination-risk = ochre (měkčí příznak, stejně jako §-diff blok). Žádné nové barvy. */

@@ -1956,7 +1956,7 @@
     "notInRecordTitle": "obec v záznamu smluv grafu není",
     "notInRecordBody": "{town} se mezi stranami {municipal} obecních smluv peněžního grafu nevyskytuje. To neznamená, že obec smlouvy nemá — graf zatím nese jen smlouvy svých firem ({towns} obcí ano). Úplný obraz je v Registru smluv; sem přiteče s rozšířením grafu. Nic se tu nedopočítává ani neodhaduje.",
     "cardContracts": "smlouvy s firmami grafu",
-    "cardContractsMeta": "{contracts} smluv · {suppliers} protistran",
+    "cardContractsMeta": "{contracts} smluvních vztahů (smlouva × protistrana) · {suppliers} protistran",
     "cardContractsYears": "smlouvy podepsané {firstYear}–{lastYear}",
     "cardContractsYear": "smlouvy podepsané v roce {year}",
     "cardContractsYearsUnknown": "roky podpisu záznam u těchto smluv neuvádí",
@@ -1984,6 +1984,7 @@
     "noPeerRecord": "bez vrstevníka v záznamu",
     "peerTownCount": "({count} obcí)",
     "restRow": "… a dalších {count} protistran za {sum} — výpis nese {top} největších podle objemu v záznamu.",
+    "restRowTiesLifted": "… a dalších {count} protistran za {sum} — výpis nese {top} největších podle objemu v záznamu a každou protistranu s vazbou na poslance ({lifted} nad rámec těch největších); mezi složenými protistranami žádná vazba na poslance v záznamu není.",
     "trailFootnote": "Vrstevnický medián u protistrany se počítá jen z obcí téhož pásma, které mají s touž firmou smlouvy v záznamu — obec mimo záznam medián nesráží k nule. Smlouva, kde směr platby registr neuvádí, se nikdy nevykládá jako výdaj ani příjem obce."
   },
   "lawwatch": {

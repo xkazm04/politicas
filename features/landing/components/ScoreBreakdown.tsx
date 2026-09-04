@@ -11,7 +11,8 @@
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { ComponentDef, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import type { ComponentDef } from "@/features/civicscore/componentDefs";
+import type { LeaderboardListEntry } from "@/features/civicscore/leaderboardTypes";
 import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";

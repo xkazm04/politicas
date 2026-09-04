@@ -17,11 +17,10 @@ import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { canonicalIco, companyNodeId } from "./companyId";
 import { pspIdFromNodeId } from "./moneyLoader";
+import type { PacketTarget } from "./moneyTypes";
 
-export interface PacketTarget {
-  pspId: number;
-  name: string;
-}
+// Re-exported so server-side importers keep reading the shape from the loader.
+export type { PacketTarget } from "./moneyTypes";
 
 /** IČO → poslanci s doloženou linked_to vazbou na tu firmu (pspId vzestupně).
  *  Plain objekt (ne Map) — jde přes hranici server → klient. */

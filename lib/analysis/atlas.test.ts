@@ -1,3 +1,4 @@
+import { existsSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { SOURCE_DOCS } from "@/lib/analysis/context-model";
 import {
@@ -5,6 +6,7 @@ import {
   ATLAS_DIMENSIONS,
   ATLAS_RULES,
   deriveAtlas,
+  deriveFreshness,
   freshnessScore,
   INGESTED_SOURCES,
   SOURCE_CADENCE_DAYS,
@@ -280,11 +282,34 @@ describe("registr zdrojů — atlas mlčí o devíti z dvanácti, nebo o nich ml
     }
   });
 
+  it("registr je odvozený od stromu: každý adaptér v lib/ingest/sources má svůj řádek", () => {
+    // 2026-09-01: seznam vznikl ručně („každý řádek je ověřený nad stromem") a
+    // test ho porovnával jen sám se sebou — takže dva adaptéry, které ve stromě
+    // ležely od srpna, v něm chyběly: isvz.ts (Registr veřejných zakázek, celá
+    // vrstva tendrů na /volby) a smlouvy-dump.ts (bulk dumpy registru smluv).
+    // Stránka, která má vyjmenovat VŠECHNY zdroje, tak vyjmenovávala 12 ze 14.
+    // Pravda o tom, které adaptéry existují, je adresář — test čte ten.
+    const HELPERS: Record<string, string> = {
+      "backoff.ts": "jittered backoff for the fetch helpers — no source of its own",
+      "kiosek-pdf.ts": "PDF text extraction split out of kiosek.ts — the source is kiosek-uredni-deska",
+    };
+    const dir = "lib/ingest/sources";
+    const adapters = readdirSync(dir)
+      .filter((f) => f.endsWith(".ts") && !f.endsWith(".test.ts") && !(f in HELPERS))
+      .map((f) => `${dir}/${f}`)
+      .sort();
+    const named = new Set(INGESTED_SOURCES.map((s) => s.adapter));
+    for (const a of adapters) expect(named.has(a), `${a} has no INGESTED_SOURCES row`).toBe(true);
+    for (const s of INGESTED_SOURCES) expect(existsSync(s.adapter), `${s.source}: ${s.adapter} is not in the tree`).toBe(true);
+  });
+
   it("oba zdroje, které nesou modul o veřejných penězích, jsou pojmenované", () => {
     // Kdyby vypadly, vrátí se přesně ten stav, kvůli kterému tahle sekce vznikla:
     // čtenář kontrolující kvalitu dat pod /penize nenajde ani řádek.
+    // 2026-09-01: the bulk-dump path of the contracts register joined the list;
+    // the pin grows with it rather than loosening to "at least two".
     const money = INGESTED_SOURCES.filter((s) => /smlouvy|dataor/.test(s.source));
-    expect(money.map((s) => s.source).sort()).toEqual(["dataor-justice-cz", "smlouvy-gov-cz"]);
+    expect(money.map((s) => s.source).sort()).toEqual(["dataor-justice-cz", "smlouvy-gov-cz", "smlouvy-gov-cz-dump"]);
     for (const s of money) expect(s.landing).toBe("graph");
   });
 
@@ -366,5 +391,24 @@ describe("kadence se deklaruje jen tam, kde ji jde změřit", () => {
     for (const s of unscoredSources()) {
       expect(SOURCE_CADENCE_DAYS[s.source], s.source).toBeUndefined();
     }
+  });
+});
+
+/* ── Kadence, která není měřítko (2026-09-01) ───────────────────────────────── */
+
+describe("čerstvost — nekladná kadence je nehodnoceno, ne NaN", () => {
+  it("freshnessScore odmítne kadenci 0 místo tichého NaN", () => {
+    // Před opravou: 0 × 3 − 0 = 0 ve jmenovateli → NaN → „hodnoceno" s NaN,
+    // které JSON.stringify přepíše na null.
+    expect(() => freshnessScore(5, 0)).toThrow(RangeError);
+    expect(() => freshnessScore(5, -7)).toThrow(RangeError);
+  });
+
+  it("deriveFreshness vrátí nehodnoceno s důvodem, stáří zůstane spočítané", () => {
+    const r = deriveFreshness("2026-09-01T00:00:00Z", "2026-08-30T00:00:00Z", 0);
+    expect(r.score.status).toBe("nehodnoceno");
+    if (r.score.status === "nehodnoceno") expect(r.score.reason).toContain("není měřítko");
+    expect(r.ageDays).toBe(2);
+    expect(r.staleness).toBeNull();
   });
 });

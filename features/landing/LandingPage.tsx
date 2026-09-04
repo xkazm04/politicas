@@ -21,7 +21,8 @@ import { useMemo, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import type { ComponentDef, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import type { ComponentDef } from "@/features/civicscore/componentDefs";
+import type { LeaderboardListEntry } from "@/features/civicscore/leaderboardTypes";
 import {
   effectiveWeights,
   isPublishedWeights,

@@ -4,7 +4,7 @@
 
 **Routes** — `/rozpocty` (BudgetMirror: 132 towns with wired budget series,
 town-vs-peer-group mirror, debt-per-capita trends) and `/rozpocty/[ico]`
-(permanent town address, ~360 prerendered pages).
+(permanent town address; ~360 towns declared in `generateStaticParams`, none prerendered today — see 2026-09-01).
 
 **Reads** — the budget series come from the checked-in generated modules
 `features/budget/data/*.generated.ts` (FIN 2-12 M consolidated figures), **not
@@ -77,7 +77,7 @@ repaired three ways (missing `#penize` anchor, §01 label drift, no
 pattern; nine mock-era keys asserting „smyšlená čísla, MONITOR nenapojen"
 are deleted from both catalogs and `budget.sourceLine` interpolates the
 generated retrieved-date constants instead of a hand-typed literal
-(`features/budget/messages.test.ts` forbids the tokens). ~360 prerendered
+(`features/budget/messages.test.ts` forbids the tokens). ~360 declared
 town pages joined the sitemap through `features/budget/municipalRoutes.ts`
 — ONE list for `generateStaticParams` AND `app/sitemap.ts` (a municipality
 is a public register, not a person, and the register is a static module:
@@ -96,3 +96,62 @@ deliberate small delta: a quick-pick chip no longer clears a query typed in
 the search field (the list still closes via blur). `KrajPickerPage` and
 `/graf` `NodeSearch` are the two remaining hand-rolled copies, left for a
 later package.
+
+**Nothing is prerendered, and three places said it was (2026-09-01, explorer sweep).**
+`.next/prerender-manifest.json` from the 2026-08-27 build lists 0 `/rozpocty` paths:
+the locale cookie read in `lib/i18n/request.ts` renders every route dynamically
+(`memory/revalidate-is-inert-every-route-is-dynamic.md`), so `generateStaticParams` on
+`/rozpocty/[ico]` is a declared ceiling, not a description of the build. The page
+comment, the `municipalRoutes.ts` header and this file all claimed „~360 prerendered
+pages"; the sitemap argument leaned on it („Next z něj tytéž stránky už
+předgeneruje"). The argument still stands on its other leg — a municipality is a
+public register baked into the build, no store read, no person — and the three
+claims now say what runs. Noted for the day the app goes static: `getSupplierTies`
+(the live human-review state) must not be frozen into static output; its header
+already says so, and the page comment now points there.
+
+**The picker ranks by population again (2026-09-01, explorer sweep).** `searchMunicipalities`
+promised „uvnitř stupně podle počtu obyvatel sestupně" and delivered it by relying on the
+registry's input order plus a stable sort. Commit 26d695a (the repo-wide total-order
+tiebreak, correct in intent) appended `ic` straight after the score, so within a tier the
+order became IČO order: „pra" returned Pravonín (572) ahead of Prachatice (11 119). The
+comparator now states population desc explicitly, then IČO; a test feeds the registry
+reversed so the order can never again be an assumption about the input.
+
+**§04 lists every counterparty with an MP tie, not only the twelve largest (2026-09-01,
+explorer sweep).** The tie lookup ran only over the first `TOP_SUPPLIERS` rows, so a
+tied counterparty ranked 13th or lower vanished into „a dalších N protistran" with no
+word — on the surface whose purpose is that tie. Measured against the store: Brno
+(44992785) has 17 counterparties, 13 tied, four of them (RAILREKLAM, ČSOB Pojišťovna,
+Vzdělávací centrum pro veřejnou správu, Univerzita Palackého) at ranks 13–16, all
+hidden. `liftTiedRows` (`supplierTrail.ts`, tested) now keeps the twelve largest AND every
+tied row, in volume order; the fold sentence (`budget.restRowTiesLifted`, cs + en) states
+how many rows were lifted beyond the largest and that no folded counterparty has a tie
+on record. Without the live tie layer nothing is lifted and the old sentence stays,
+beside `tiesUnavailable`. Not visually verified in this session — no politicas dev
+server was available; the split is a pure function under test.
+
+**§04's headline count is named for what it measures (2026-09-01, explorer sweep 2).**
+`contractCount` sums the per-counterparty rows, so a contract with two graph companies (or
+two municipal parties) counts once per row; the batch carries no contract ids, so a unique
+count cannot be derived from it. Measured: 11 741 row-counts against 11 582 municipal
+contracts (+1,4 %). The card now says „smluvních vztahů (smlouva × protistrana)" in both
+catalogs, pinned by `messages.test.ts`; the per-row column stays „smluv", which per row is
+true. Also this pass: §03 and §04 tables carry `aria-labelledby` to their section heading
+(`SectionHeading` gained an optional `id`), and the graph-link button keeps its label while
+pending with `aria-busy` instead of swapping to „…".
+
+**The peer median is taken at the town's own year (2026-09-01, explorer sweep 2).** `MetricDuo`
+prints one year over both bars — the town's last reported year — while `peerMedians` always
+took the batch's last year. They coincided only because 132/132 towns report 2025. The page
+now passes the town's year index; a town whose last statement is 2024 is measured against the
+2024 median (and the 2024 bar ceilings), with `sampleSize` saying how many peers reported that
+year. No number moves on the checked-in batch; `peerGroups.test.ts` pins both the contract and
+the fact that today the two indices are equal.
+
+**The tab title follows the picked town (2026-09-01, explorer sweep 2).** `select()` changes the
+address with `history.replaceState` and no server round-trip, so `<title>` stayed on the town
+from the URL (Brno in the tab, Ostrava on the page). The handler now sets `document.title` from
+the same catalog key `generateMetadata` uses on `/rozpocty/[ico]` (`meta.budgetIcoTitle`), so
+both paths say the same sentence; the description meta is left as is (it is not what a reader
+sees). NOT verified in a browser — no politicas dev server was available.

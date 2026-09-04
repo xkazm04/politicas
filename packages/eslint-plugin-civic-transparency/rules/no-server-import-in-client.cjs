@@ -24,10 +24,27 @@ module.exports = {
       serverImportInClient:
         'Client component imports server module "{{source}}" as a value — that drags getStore()/PGlite ' +
         "toward the browser bundle. Import only types (import type), or receive the data via props from the server page.",
+      typeImportInClient:
+        'Client component imports types from server module "{{source}}". Move the shapes into a sibling pure ' +
+        "*Types.ts module that both the loader and the client import (features/votetrack/themeTypes.ts is the canonical shape).",
     },
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          typeImports: { enum: ["allow", "forbid"] },
+        },
+        additionalProperties: false,
+      },
+    ],
   },
   create(context) {
+    // `typeImports: "forbid"` also reports `import type` from a loader — a type-only
+    // import still couples the client file to the server module, and the next
+    // value specifier added to that line is a bundle breach that reads as "a type
+    // moved". Default stays "allow" so the package presets keep their contract;
+    // politicas sets "forbid" (docs/architect/decisions/2026-07-26-server-only-boundary-enforcement.md).
+    const forbidTypeImports = (context.options[0] && context.options[0].typeImports) === "forbid";
     let isClientModule = false;
     return {
       Program(node) {
@@ -40,13 +57,17 @@ module.exports = {
       },
       ImportDeclaration(node) {
         if (!isClientModule) return;
-        if (node.importKind === "type") return;
-        // `import { type A, type B } from ...` — all-type specifier lists erase too.
         const specifiers = node.specifiers || [];
-        if (specifiers.length > 0 && specifiers.every((s) => s.importKind === "type")) return;
+        // `import type {...}` and `import { type A, type B }` erase at compile time.
+        const typeOnly =
+          node.importKind === "type" ||
+          (specifiers.length > 0 && specifiers.every((s) => s.importKind === "type"));
         const source = String(node.source.value);
-        if (SERVER_SOURCE.test(source)) {
+        if (!SERVER_SOURCE.test(source)) return;
+        if (!typeOnly) {
           context.report({ node, messageId: "serverImportInClient", data: { source } });
+        } else if (forbidTypeImports) {
+          context.report({ node, messageId: "typeImportInClient", data: { source } });
         }
       },
       // `import("./getGoalData")` is a dynamic import — a completely different

@@ -5,17 +5,26 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 
 ## Pending
 
-- **[2026-07-26] Enforce the server-only loader boundary mechanically** — type: convention-gap, risk: 1, effort: s, payoff: 3, reach: 7 loader headers / 4 type-leaking loaders / 0 lint rules
-  ADR: [[decisions/2026-07-26-server-only-boundary-enforcement]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: in-progress (commits 431d147, 4e1f112 shipped; type extraction blocked: working-tree-conflict — client pages dirty from a concurrent session)
-- **[2026-07-26] Bring the loader chain under test** — type: weak-pattern, risk: 1, effort: m, payoff: 4, reach: 7 loaders / 2540 lines / 0 direct tests
-  ADR: [[decisions/2026-07-26-loader-test-coverage]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: in-progress (6753f8b constant mirror eliminated, 366e866 leaderboard loader test; law/money/vote loader tests + getStore reset test remain)
+- **[2026-09-01] Moonshot deck — 47 L/XL cards in 9 corroborated themes, all pending a human decision** — type: portfolio, risk: n/a, effort: l–xl, payoff: see per-card scores, reach: 10 groups / 49 contexts
+  Record: [[moonshot-2026-09-01]] (decision table + full §4.10 bodies) · Lens: ad-hoc `moonshot-architect` via scan-sweep · Status: triaged 2026-09-04 — 34 accepted, 3 folded, 10 rejected (per card in the record); nothing built yet
+  Strongest spines by corroboration: as-of re-derivation from the bitemporal store (5 scouts), a claim address on every figure (5), one audited review door for every claim kind (5), the municipality as one graph subject (4).
 - **[2026-07-26] One fallback-state contract (labelled mock / honest empty / DataUnavailable)** — type: weak-pattern, risk: 3, effort: l, payoff: 5, reach: 16 pages / 5 idioms / 6 mock-welded components
   ADR: [[decisions/2026-07-26-fallback-state-contract]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: proposed
   Notes: contains the highest-severity brand item — fabricated 2,1 mld Kč cited to the real contracts registry with no sample banner (`FollowTheMoneyPage.tsx:66-71`).
 - **[2026-07-26] Ingest readiness guard + cardinality-floor test** — type: structural-bug-class, risk: 2, effort: m, payoff: 4, reach: 7 loaders / 0 ingest_run consumers / 0 cardinality tests
   ADR: [[decisions/2026-07-26-ingest-readiness-guard]] · Scan: [[scans/2026-07-26-data-loading-boundary]] · Status: in-progress (25a7b65 gate + floors + test shipped; /admin ingest-status surfacing remains)
 
+- **[2026-09-01] Empty slices are scored, not withheld — `scoreSlice` gives a 0-row slice 1/5 on four criteria** — type: convention-gap (law: missing-is-not-zero), risk: 2, effort: m, payoff: 3, reach: every source×term×entity `slice-stats.ts` emits with 0 rows
+  Found by: scan-sweep (analysis-quality, registry-conformance lens) · Site: `lib/analysis/quality.ts` `scoreSlice` (`fracScore(0) = 1`), emitted unconditionally by `scripts/data-analysis/slice-stats.ts` · Status: proposed (gate: contract — `SliceQualityRow.scores` would need a not-measured state, and `slice_quality` + DataHub consumers read the six numbers)
+  Notes: the outbox finding cap was full when found, so this line is the record.
+
 ## Shipped
+
+- **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
+  ADR: [[decisions/2026-07-26-loader-test-coverage]] · every wired loader has a direct test (loaders.test.ts, one boot), the row mappers have parity + coercion tests, the getStore() lockstep contract is pinned, and the absorbed duplicate suite is gone.
+
+- **[2026-07-26] Enforce the server-only loader boundary mechanically** — code complete 2026-09-01 via `/architect resume`, browser smoke pending (commits 431d147, 4e1f112, 45d8fea, 09004fa, 751b100, b22d1a9, 0b217ff)
+  ADR: [[decisions/2026-07-26-server-only-boundary-enforcement]] · 9 loaders' prop types moved to sibling `*Types.ts` (29 client import sites), `getPermalinkData` guarded, and the rule now runs with `typeImports: "forbid"` — a `"use client"` file imports nothing from a loader, not even a type. Not browser-verified (no JSX touched).
 
 - **[2026-07-26] One mapper for the money tie** — shipped same day (commit 8dddf90, live-verified)
   ADR: [[decisions/2026-07-26-money-tie-mapper-dedup]] · `mapLinkedToTie()` owns the projection; ReviewTie deliberately left as a separate projection (rationale in the ADR).

@@ -6,7 +6,19 @@ One entry per live session in this checkout. Move to "Recently completed" at wra
 
 (none)
 
+
 ## Recently completed
+
+- **/architect resume — loader-test-coverage remainder** — COMPLETE 2026-09-02 (Fable 5.1). ADR
+  `docs/architect/decisions/2026-07-26-loader-test-coverage.md` shipped: 1c035c4 (mappers parity +
+  coercion tests; duplicate suite deleted), b9684ae (getStore lockstep test, lane list), 75798b1
+  (context map). `npm run check` green 3 063 + 212.
+
+- **/architect resume — server-only loader boundary** — COMPLETE 2026-09-01 (Fable 5.1). ADR
+  `docs/architect/decisions/2026-07-26-server-only-boundary-enforcement.md` shipped: 45d8fea (permalink
+  guard), 09004fa / 751b100 / b22d1a9 (9 loaders' prop types → sibling `*Types.ts`, 29 client sites),
+  0b217ff (`no-server-import-in-client` with `typeImports: "forbid"`). `npm run check` green. Not
+  browser-verified (no JSX touched).
 
 - **/spark election-replay** — COMPLETE 2026-08-27 (Fable 5). `/volby` shipped in 4
   commits on master: `d644d73` (shared Combobox), `6b9eb9c` (lib/analysis/volby rules),
