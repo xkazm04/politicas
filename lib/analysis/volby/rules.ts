@@ -72,6 +72,7 @@ export const RULE_REF: Record<FindingKind, string> = {
   effort_workhorse: "volby:P2",
   effort_rapporteur: "volby:P3",
   money_ties_unrated: "volby:U1",
+  law_final_vote: "volby:R1",
 };
 
 /** The flag names as `tender.flags` carries them (batch-012). */
@@ -293,6 +294,14 @@ export interface SponsoredBill {
   fateSb: string | null;
   fatePublishedOn: string | null;
   sponsoredOn: string | null;
+  /**
+   * Den POSLEDNÍHO jmenovitého hlasování o tisku (hrany `decides`), nebo `null`.
+   *
+   * Není to datum volby ani rozhodnutí poslance — je to POZDĚJŠÍ datovaný fakt o
+   * tisku, který poslanec předložil. Proto nikdy neplní `decidedOn`: to zůstává
+   * `null`, dokud graf nenese datum předložení. Sněmovna hlasovala potom.
+   */
+  finalVoteOn: string | null;
 }
 export interface MpInput {
   pspId: number;
@@ -356,6 +365,21 @@ export function composeMpFindings(input: MpInput): Finding[] {
       f.reviewState = "pending_review";
       f.decidedOn = bill.sponsoredOn;
       f.figures = { sponsor_contract_czk: czk, sponsor_money_companies: bill.sponsorMoneyCompanies ?? 0 };
+      f.evidence = [subjectRef, billRef];
+      out.push(f);
+    }
+    // ZÁZNAMOVÝ řádek, ne nález: sněmovna o předloženém tisku jmenovitě hlasovala
+    // a je to DATOVANÉ. Valence `unrated` schválně — doktrína `contested.ts`:
+    // ledger tenhle řádek ukáže a spočítá, ale nezapočte do `total`, protože
+    // „hlasovalo se" není ani plus, ani minus u předkladatele. Bez toho by první
+    // datovaný sněmovní výstup na časové ose /volby musel být buď nálezem, který
+    // není, nebo neviditelný.
+    if (bill.finalVoteOn !== null) {
+      const f = mk("law_final_vote", "unrated", "low", oid);
+      // `decidedOn` zůstává null: hlasování je pozdější fakt, ne volba poslance
+      // (datum předložení graf nenese — viz volbyLoader `sponsoredOn`).
+      f.laterOn = bill.finalVoteOn;
+      f.laterKind = "final_vote";
       f.evidence = [subjectRef, billRef];
       out.push(f);
     }

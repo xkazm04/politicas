@@ -58,9 +58,23 @@ const ballots = (): BallotIn[] =>
     { votePspId: e.pspId, mandatePspId: 5, choice: "no" },
   ]);
 
+/* Vazba na tisk je ve fixtures schválně STŘÍDAVÁ, ze stejného důvodu jako práh:
+ * s konstantní by tvrzení „vazba na mezi kroniky nezávisí" prošlo i nad rozbitou
+ * derivací. Každé páté hlasování rozhoduje o jednom tisku, každé sedmé o dvou
+ * (blok), zbytek o žádném. */
+const billCislosByVote = (): Map<number, number[]> => {
+  const m = new Map<number, number[]>();
+  for (let i = 0; i < VOTES; i++) {
+    if (i % 7 === 0) m.set(i + 1, [10 + i, 200 + i]);
+    else if (i % 5 === 0) m.set(i + 1, [10 + i]);
+  }
+  return m;
+};
+
 const input = () => ({
   events: events(),
   ballots: ballots(),
+  billCislosByVote: billCislosByVote(),
   clubByMandate: new Map([
     [1, "A"],
     [2, "A"],
@@ -141,11 +155,40 @@ describe("chronicleCap je prezentační řez, ne vstup derivace", () => {
       //     ČTE, nikdy ho nemění. Kdyby se počítaly až z uříznuté kroniky nebo
       //     z okna deníku, byl by to nález, který se scvrkává podle prezentační
       //     meze; přesně to test níž falzifikuje kratším oknem.
+      // 2026-09-04 · ROZHODNUTÍ O VAZBĚ NA TISK A O KLUBU PŘI HLASOVÁNÍ. Obojí
+      // přibylo dovnitř existujících polí, takže tenhle výčet zůstává beze změny.
+      // Ruling je vědomý:
+      //   · `LedgerVote.billCislo` / `.billCount` (hrany `decides`) vezou uvnitř
+      //     `ledger`. Jsou to vlastnosti JEDNOHO hlasování — o kolika tiscích
+      //     rozhodovalo — a kronika do nich nemá čím promluvit. `billCount` je
+      //     jmenovatel k `billCislo`: bez něj se „nespojeno" (0) a „blok víc
+      //     tisků" (> 1) nedají odlišit, a obojí je `billCislo === null`.
+      //   · `coverage.clubBasis` / `.outsideClubWindow` / `.ambiguousClubWindow`
+      //     vezou uvnitř `coverage` a počítají se nad VŠEMI hlasy záznamu, ne nad
+      //     oknem deníku ani nad uříznutou kronikou. Test níž to drží adresně.
       "coverage",
     ];
     for (const key of fields) expect(c[key], key).toEqual(f[key]);
     // A ten výčet je úplný: kromě kroniky nezbylo nic neporovnaného.
     expect([...fields, "chronicle"].sort()).toEqual(Object.keys(f).sort());
+  });
+
+  it("vazba na tisk se mezí kroniky nehne a blok se nikdy nezúží na jeden tisk", () => {
+    const f = full();
+    const c = capped();
+    // Předpoklad: fixtures vazbu opravdu nesou a opravdu se v ní liší — bez toho
+    // by porovnání níž bylo shodou samých null.
+    expect(f.ledger.some((l) => l.billCislo !== null)).toBe(true);
+    expect(f.ledger.some((l) => l.billCount > 1)).toBe(true);
+    expect(f.ledger.some((l) => l.billCount === 0)).toBe(true);
+    expect(c.ledger.map((l) => [l.billCislo, l.billCount])).toEqual(f.ledger.map((l) => [l.billCislo, l.billCount]));
+    // A ruling sám: `billCislo` je `null` VŽDY, když tisků nebyl právě jeden.
+    // Vybrat z bloku první by poslalo čtenáře na tisk, o kterém se samostatně
+    // nehlasovalo — a to je přesně to, co se tímhle polem odmítá.
+    for (const l of f.ledger) {
+      if (l.billCount === 1) expect(l.billCislo).not.toBeNull();
+      else expect(l.billCislo).toBeNull();
+    }
   });
 
   it("práh hlasování ani jeho populace se mezí kroniky nehnou", () => {
