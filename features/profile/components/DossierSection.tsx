@@ -87,6 +87,13 @@ export interface DossierContent {
   /** `effort_provenance.computedAt` — kdy enrichment ty verdikty zaznamenal. Null = nedatováno
    *  (nikdy se nedopočítává na dnešek), stejné pravidlo jako u LowScoreReasonChip. */
   effortRecordedAt: string | null;
+  /** Stupeň žebříčku tvrzení pro každý verdikt (G2, 2026-09-04), klíčovaný
+   *  propem, kterého se týká. Chybějící klíč = loop stupeň nezapsal → štítek
+   *  netiskne žádný stupeň, nikdy nedoplňuje „machine". */
+  effortVerdictRungs?: Record<
+    string,
+    { rung: "machine" | "pending" | "verified" | "rejected"; decidedBy: string | null; decidedAt: string | null }
+  >;
 }
 
 /** Does this MP carry anything this section would actually render? The section
@@ -147,7 +154,12 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
     workhorseFlavour,
     rapporteurLoad,
     effortRecordedAt,
+    effortVerdictRungs = {},
   } = d;
+
+  // Formátuje volající, jedinou formátovací autoritou (lib/format.ts přes `f`),
+  // a nedatované rozhodnutí datum netiskne — nikdy se nedopočítává na dnešek.
+  const decidedLabel = (at: string | null | undefined) => (at ? f.date(at) : null);
 
   const hasThemes = !!workThemes && workThemes.length > 0;
   const hasBillTrack = !!billFocus || sponsoredBills.length > 0;
@@ -197,8 +209,17 @@ export default async function DossierSection({ index, ...d }: DossierContent & {
                 flavour={workhorseFlavour}
                 speechTurns={speechTurnsTotal}
                 recordedAt={effortRecordedAt}
+                rung={effortVerdictRungs.effort_workhorse?.rung ?? null}
+                decidedBy={effortVerdictRungs.effort_workhorse?.decidedBy ?? null}
+                decidedAtLabel={decidedLabel(effortVerdictRungs.effort_workhorse?.decidedAt)}
               />
-              <RapporteurBadge load={rapporteurLoad} recordedAt={effortRecordedAt} />
+              <RapporteurBadge
+                load={rapporteurLoad}
+                recordedAt={effortRecordedAt}
+                rung={effortVerdictRungs.effort_rapporteur_load?.rung ?? null}
+                decidedBy={effortVerdictRungs.effort_rapporteur_load?.decidedBy ?? null}
+                decidedAtLabel={decidedLabel(effortVerdictRungs.effort_rapporteur_load?.decidedAt)}
+              />
             </div>
             {/* Verdiktní věty jdou od 2026-08-12 přes katalog (`verdicts`) —
                 lib/analysis vrací KLÍČ, ne českou větu; počet do věty vstupuje

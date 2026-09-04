@@ -108,6 +108,25 @@ export interface LeaderboardEntry {
   // affordance on the leaderboard and an honest coverage count. 165/207 as of
   // batch 005; grows as later batches enrich the remaining army.
   effortHasDossier: boolean;
+  /**
+   * WHICH RUNG each person-level verdict stands on (G2, deck #12, 2026-09-04):
+   * `machine` (the pipeline said it, nobody looked) · `pending` (a human sent it
+   * back) · `verified` (with a name and a date) · `rejected` (the claim is
+   * withheld, disclosed). Keyed by the prop the verdict is about, because
+   * rejecting „this MP is a workhorse" says NOTHING about the low-score reason
+   * stored on the same node.
+   *
+   * A field ABSENT from this map is a field the loop never stamped — the badge
+   * then prints no rung at all rather than defaulting to `machine`, because
+   * assuming a provenance is the same act as inventing one.
+   *
+   * `decidedBy`/`decidedAt` are null on `machine` by construction: no human was
+   * involved, and a stale decider must never appear beside „strojově odvozeno".
+   */
+  effortVerdictRungs: Record<
+    string,
+    { rung: "machine" | "pending" | "verified" | "rejected"; decidedBy: string | null; decidedAt: string | null }
+  >;
   /** What the Souboj compares beyond the composite — see `DuelFacts`. */
   duelFacts: DuelFacts;
 }
@@ -168,6 +187,10 @@ export type LeaderboardListEntry = Pick<
   | "effortWorkhorseFlavour"
   | "effortRapporteurLoad"
   | "effortHasDossier"
+  // Added 2026-09-04 (G2): the rung each person-level verdict stands on. Carried
+  // on the row because the badges render ON the row — the ladder of assertion has
+  // to be visible exactly where the claim is made, not one click away.
+  | "effortVerdictRungs"
   // Added 2026-08-04: the honest correction the ranking owed the reader. It exists on
   // 34 of 207 person nodes and used to reach only /poslanec, so /zebricek printed a low
   // number for an MP who declined the mandate with nothing beside it. MEASURED cost of

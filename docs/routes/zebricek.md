@@ -479,3 +479,41 @@ a multi-second read (/dashboard, /denik, /penize, /penize/strety — all on the
 ~12 s money layer, /penize/strety on the 15 800 ms collision pass). A skeleton
 on a half-second route is a lie about latency, and this app does not tell those.
 
+
+## 2026-09-04 — the badges now say which rung they stand on (G2, deck #12)
+
+Until today every person-level verdict on a /zebricek row — the low-score
+correction (34/207), the quiet-workhorse badge (~16/207), the rapporteur load
+(18/207) — rendered with a DATE and nothing else. A reader could not tell a
+deterministic graph pass from a checked fact, and the ladder of assertion was
+flattened at exactly the point where it costs a named person something.
+
+`LeaderboardEntry.effortVerdictRungs` now carries, per verdict prop, the rung it
+stands on (`machine` · `pending` · `verified` · `rejected`) plus who decided and
+when. It is derived by `readVerdictRung` (`lib/analysis/verdict-provenance.ts`)
+off `effort_provenance.verdicts.<field>` — the same function the /poslanec
+loader calls, so the two surfaces cannot answer one question two ways — and
+rendered by the shared catalog primitive `VerdictProvenance`.
+
+**What this record refuses to derive.** A verdict prop the effort loop never
+stamped carries NO key in the map, and the badge then prints no rung at all.
+There is deliberately no default: `machine` would be a guess about provenance
+rendered as provenance, and it is a guess that always flatters the pipeline.
+
+**A rejected verdict withholds; it does not blank the row.** For the low-score
+chip this is not a nicety. The chip exists because a low number standing alone
+reads as an accusation of indifference — that is the finding it was built for
+(2026-08-04). Deleting it on rejection would restore exactly that harm, silently.
+So the chip is replaced by the disclosed „verdikt zamítnut" state, which is
+visible, and the reader knows a claim was refused rather than never made.
+
+**Payload cost.** `effortVerdictRungs` is an object per row, empty for every MP
+the loop has not stamped — which today is all 207, since the rung is written by
+`merge-batch.ts` on the NEXT effort batch and nothing backfills the graph. An
+empty object per row is what compresses away; the field is paid for now so the
+surface is ready when the first stamped batch lands, and so that no reader ever
+sees a stamped badge on one surface and an unstamped one on another.
+
+**Carry-over.** `HeadToHead` (Souboj) and `KrajPage` call the same three badges
+without the rung props. They default to `null`, so those surfaces are honest —
+they print no rung rather than a wrong one — but they do not yet show the ladder.

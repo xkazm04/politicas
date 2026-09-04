@@ -3472,6 +3472,25 @@
         "reject": "rejected",
         "return": "returned for more evidence"
       }
+    },
+    "verdict": {
+      "machine": "machine-derived",
+      "pending": "returned for more",
+      "verified": "verified",
+      "rejected": "verdict rejected",
+      "withheld": "verdict rejected — withheld",
+      "by": "{who}",
+      "byOn": "{who}, {when}",
+      "queueTitle": "Review queue by claim kind",
+      "queueKindTie": "money ties",
+      "queueKindBill": "bill forensic verdicts",
+      "queueKindEffort": "verdicts about MPs",
+      "queueKindTripwire": "tripwire candidates",
+      "queueKindLead": "leads",
+      "queueDecided": "decided",
+      "queuePending": "pending",
+      "queueTotal": "total",
+      "queueNoWriter": "no writer — a decision cannot be recorded yet"
     }
   },
   "errors": {

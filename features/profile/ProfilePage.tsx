@@ -146,6 +146,10 @@ export default async function ProfilePage({
     workhorseFlavour: person.effortWorkhorse ? person.effortWorkhorseFlavour : null,
     rapporteurLoad: person.effortRapporteurLoad,
     effortRecordedAt: person.effortRecordedAt,
+    // Kterým stupněm žebříčku tvrzení každý verdikt o TOMHLE člověku prošel
+    // (G2, 2026-09-04). Spis je místo, kde tvrzení stojí nejblíž jménu, takže
+    // je to i místo, kde se stupeň musí tisknout.
+    effortVerdictRungs: data.effortVerdictRungs,
   };
   // Section numbers are DERIVED from what actually renders. DossierSection is
   // omitted for an MP with no dossier content, and the fixed index={2} then left

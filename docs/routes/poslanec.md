@@ -349,3 +349,34 @@ rows are not a departure and a return); and the years column is the pure
 replacement's own start with the chamber's end, and an end suppressed as
 unreadable silently borrowed the very date that had just been refused. The
 unrendered `firstRecordFrom` is deleted: it had exactly that defect.
+
+## 2026-09-04 — the dossier's verdicts carry a rung, and a reviewable address (G2, deck #12)
+
+The spis is where a claim stands closest to a person's name, so it is where the
+rung has to be printed. `ProfileData.effortVerdictRungs` now carries, per verdict
+prop, the rung (`machine` · `pending` · `verified` · `rejected`) plus who decided
+and when; `DossierSection` passes it into `WorkhorseBadge` and `RapporteurBadge`,
+which draw it through the shared `VerdictProvenance` primitive.
+
+The derivation is `readVerdictRung` (`lib/analysis/verdict-provenance.ts`) — the
+identical call the /zebricek loader makes. That is the point of the module: the
+leaderboard row and the case file must not be able to disagree about whether a
+verdict was checked.
+
+**Per verdict, not per person.** The review address is
+`psp:person:<id>#<prop>`, so a reviewer who rejects „this MP is a quiet
+workhorse" has said nothing about the low-score reason stored on the same node,
+and the audit chain does not pretend otherwise.
+
+**A rejected verdict is withheld and SAID, never removed.** A vanished workhorse
+badge would read as „this MP is not a workhorse" — a second claim, made in
+silence, that nobody decided.
+
+**No default rung.** A prop the effort loop never stamped prints no rung at all.
+Nothing is inferred from the presence of the prop itself.
+
+**What did NOT change.** The prose fields (`effort_notes`, `effort_bill_focus`,
+`effort_public_role`, `effort_psp9_trend_note`) still ride the public-copy guard
+alone and take no rung — they are carried over, and named as such in the G2
+report. `effort_provenance.computedAt` keeps its separate job: WHEN the pipeline
+recorded the claim, which is a different fact from WHO checked it.

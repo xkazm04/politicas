@@ -3472,6 +3472,25 @@
         "reject": "zamítnuto",
         "return": "vráceno k doplnění"
       }
+    },
+    "verdict": {
+      "machine": "strojově odvozeno",
+      "pending": "vráceno k doplnění",
+      "verified": "ověřeno",
+      "rejected": "verdikt zamítnut",
+      "withheld": "verdikt zamítnut — netiskneme jej",
+      "by": "{who}",
+      "byOn": "{who}, {when}",
+      "queueTitle": "Fronta revize podle druhu tvrzení",
+      "queueKindTie": "majetkové vazby",
+      "queueKindBill": "forenzní verdikty tisků",
+      "queueKindEffort": "verdikty o poslancích",
+      "queueKindTripwire": "kandidáti tripwire",
+      "queueKindLead": "stopy",
+      "queueDecided": "rozhodnuto",
+      "queuePending": "čeká",
+      "queueTotal": "celkem",
+      "queueNoWriter": "bez zapisovatele — rozhodnutí zatím nelze zaznamenat"
     }
   },
   "errors": {
