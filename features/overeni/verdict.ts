@@ -19,6 +19,7 @@
 
 import { claimStatus } from "@/lib/claims/claim";
 import type { IssuedFigure } from "@/lib/claims/registry";
+import type { ReceiptAsOf } from "@/features/shared/provenance/asOfLens";
 import type { ProvenanceReceipt } from "@/features/shared/provenance/receipt";
 import { gateStatusInfo, type GateStatusInfo } from "./gateVocabulary";
 import type { DetectedRef, NeznamyReason } from "./refDetect";
@@ -53,6 +54,22 @@ export interface HashComparison {
   currentDate: string;
 }
 
+/**
+ * PROSTŘEDNÍ SLOUPEC verdiktu — „co jsme toho dne zveřejnili MY".
+ *
+ * Brána uměla dvě strany: co vložil čtenář a co platí dnes. Třetí strana je ta,
+ * za kterou ručíme — a bez ní `moved` znamenalo jen „vaše číslo se liší od
+ * dnešního", nikdy „my jsme toho dne tvrdili tohle". `asOf` nese DŮVOD, proč
+ * sloupec je nebo není (asOfLens.ts): den před epochou, den bez tvrzení,
+ * odmítnutý parametr a rodina, která se přehrát neumí, jsou čtyři různá
+ * zjištění a nesmějí splynout do jednoho prázdna.
+ */
+export interface ThenSide {
+  asOf: ReceiptAsOf;
+  /** Účtenka platná k tomu dni; null u každého stavu kromě `at`. */
+  receipt: ProvenanceReceipt | null;
+}
+
 export type GateVerdict =
   // Figura (claim-ref / data-claim-* payload)
   | {
@@ -77,7 +94,15 @@ export type GateVerdict =
     }
   | { family: "figura"; kind: "unknown"; reason: "mimo-rejstrik" | "zaznam-nenalezen"; ref: string }
   // Účtenka původu (/zdroj)
-  | { family: "zdroj"; kind: "verified"; encoded: string; receipt: ProvenanceReceipt }
+  | {
+      family: "zdroj";
+      kind: "verified";
+      encoded: string;
+      receipt: ProvenanceReceipt;
+      /** Prostřední sloupec, byl-li dotázán den (`&k=`); jinak null. */
+      then?: ThenSide | null;
+    }
+  | { family: "zdroj"; kind: "moved"; encoded: string; receipt: ProvenanceReceipt; then: ThenSide }
   | { family: "zdroj"; kind: "unknown"; reason: "zaznam-nenalezen" | "nerozlustitelny"; encoded: string }
   // Citace pohledu na graf (/graf/p)
   | { family: "graf"; kind: "verified"; view: HashComparison }
@@ -148,14 +173,43 @@ export type ZdrojLookup =
  *  lidské brány je samostatný modifikátor (verdictGate/verdictHeadline) —
  *  `review_state` je terminální a zamítnutá hrana v grafu ZŮSTÁVÁ, takže bez
  *  toho rozlišení by /zdroj odkaz zamítnuté vazby vysázel obří „OVĚŘENO". */
-export function zdrojVerdict(encoded: string, lookup: ZdrojLookup): GateVerdict {
+export function zdrojVerdict(encoded: string, lookup: ZdrojLookup, then?: ThenSide | null): GateVerdict {
   if (lookup.status === "invalid") {
     return { family: "zdroj", kind: "unknown", reason: "nerozlustitelny", encoded };
   }
   if (lookup.status === "gone") {
     return { family: "zdroj", kind: "unknown", reason: "zaznam-nenalezen", encoded };
   }
-  return { family: "zdroj", kind: "verified", encoded, receipt: lookup.receipt };
+  // TŘETÍ SLOUPEC (2026-09-04, moonshot G1): ptal-li se čtenář na den a store
+  // ten den umí přehrát, porovná se to, co jsme ZVEŘEJNILI TEHDY, s dneškem.
+  // Teprve tohle dělá ze `zdroj` rodinu, která umí `moved`: adresa dál buď
+  // v grafu je, nebo není — pohnout se ale může OBSAH záznamu na ní.
+  if (then && then.asOf.state === "at" && then.receipt !== null) {
+    if (receiptMoved(then.receipt, lookup.receipt)) {
+      return { family: "zdroj", kind: "moved", encoded, receipt: lookup.receipt, then };
+    }
+  }
+  return { family: "zdroj", kind: "verified", encoded, receipt: lookup.receipt, then: then ?? null };
+}
+
+/**
+ * Pohnul se OBSAH záznamu mezi dvěma verzemi téže adresy?
+ *
+ * Porovnávají se jen pole, která účtenka SÁZÍ jako tvrzení: stav lidské brány,
+ * váha (částka / míra shody), průchod a metoda odvození. Štítky uzlů se
+ * schválně neporovnávají — přejmenovaná firma je táž firma a „pohnulo se" by
+ * na ní bylo falešné poplašení. Chybějící hodnota na jedné straně JE rozdíl
+ * (missing is not zero), proto se srovnává i null proti číslu.
+ */
+export function receiptMoved(then: ProvenanceReceipt, now: ProvenanceReceipt): boolean {
+  if (then.kind !== now.kind) return true;
+  if (then.provenance.pass !== now.provenance.pass) return true;
+  if (then.provenance.method !== now.provenance.method) return true;
+  if (then.kind === "edge" && now.kind === "edge") {
+    if (!Object.is(then.weight, now.weight)) return true;
+    if ((then.gate?.status ?? null) !== (now.gate?.status ?? null)) return true;
+  }
+  return false;
 }
 
 // ── Otiskové rodiny (graf, exponát) ─────────────────────────────────────────

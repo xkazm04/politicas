@@ -2592,7 +2592,11 @@
         "unavailableTitle": "Data se právě nedají přečíst",
         "unavailableNote": "výpadek na naší straně, ne zánik citace — zkuste to prosím znovu",
         "invalidNote": "tuhle adresu nelze rozluštit — není to citace politicas"
-      }
+      },
+      "thenKicker": "tehdy — otisk v adrese",
+      "nowKicker": "dnes — znovuodvozeno",
+      "noIssueDate": "adresa datum vydání nenese",
+      "diffUnavailable": "otisky se rozešly, takže obsah pohledu se od vydání citace změnil. CO se změnilo, zatím neumíme pojmenovat: tehdejší verzi pohledu nepřehráváme, a mlčení o změnách by se četlo jako „nezměnilo se nic“. Jednotlivé záznamy se dají dohledat přes účtenky původu (/zdroj) a chronologický záznam (/denik)."
     },
     "provenance": {
       "title": "provenience grafu",
@@ -2794,7 +2798,9 @@
       "exhibitFakt": "datovaný fakt z knihy velína",
       "derivation": "základ odvození dnes",
       "citedDerivation": "základ odvození citace",
-      "subject": "předmět tvrzení"
+      "subject": "předmět tvrzení",
+      "publishedThen": "co jsme zveřejnili {day}",
+      "publishedThenSource": "verze záznamu platná k tomu dni z bitemporální historie znalostního grafu (kg_edge_history / kg_node_history); je to čas záznamu, ne čas světa"
     },
     "guide": {
       "title": "Jak citovat, aby to bylo ověřitelné",
@@ -3094,7 +3100,8 @@
       "recomputeTitle": "Index přispění přepočten pro celou sněmovnu — průchod {pass}; o kolik se skóre pohnulo, záznam neříká",
       "recomputeSource": "výpočet politicas — {ref}",
       "forensicTitle": "forenzní posudek potvrzen — {subject}",
-      "forensicSource": "kg_node bill.forensic_* · závažnost {detail}"
+      "forensicSource": "kg_node bill.forensic_* · závažnost {detail}",
+      "recomputeTitleSized": "Index přispění přepočten pro celou sněmovnu — průchod {pass}; skóre tohoto poslance se posunulo o {delta} bodu oproti průchodu {priorPass}"
     },
     "kinds": {
       "contract": "{count, plural, one {smlouva} few {smlouvy} other {smluv}}",
@@ -3465,7 +3472,13 @@
         "goneRef": "adresa tvrzení: {ref}",
         "citationKicker": "citace",
         "verify": "ověřit tuto citaci",
-        "footerSource": "znalostní graf politicas — psp.cz · ares · registr smluv; stav lidské brány podle auditované kontroly (review_audit)"
+        "footerSource": "znalostní graf politicas — psp.cz · ares · registr smluv; stav lidské brány podle auditované kontroly (review_audit)",
+        "lastKicker": "naposledy zaznamenáno",
+        "lastRecorded": "zaznamenáno {date}",
+        "lastSuperseded": "nahrazeno {date}",
+        "lastStillOpen": "tato verze nebyla nahrazena novější",
+        "lastNote": "Tohle je historie, ne dnešní tvrzení: archivovaná verze se nevrací do grafu ani do strojově čitelné značky a nepočítá se do žádného čísla na ostatních plochách.",
+        "lastSource": "poslední verze záznamu z bitemporální historie znalostního grafu (kg_node_history / kg_edge_history); oba okamžiky jsou časy záznamu, ne časy světa"
       },
       "gate": {
         "verified": "ověřeno člověkem",
@@ -3507,6 +3520,15 @@
         "confirm": "potvrzeno",
         "reject": "zamítnuto",
         "return": "vráceno k doplnění"
+      },
+      "asOf": {
+        "kicker": "čas záznamu",
+        "at": "Takhle tenhle záznam vypadal {day} — je to archivovaná verze, ne dnešní stav. Dnešní podobu ukáže táž adresa bez parametru k.",
+        "absentThen": "K {day} jsme záznamy vedli, ale tohle tvrzení mezi nimi nebylo. Níže je proto DNEŠNÍ záznam, ne tehdejší.",
+        "beforeEpoch": "Záznam k {day} neexistuje: historii záznamů vedeme až od {epoch} a před tím datem o žádném dni nic netvrdíme. Níže je DNEŠNÍ záznam.",
+        "beforeEpochUnknown": "Záznam k {day} neexistuje: k téhle adrese zatím nevedeme žádnou historii záznamů. Níže je DNEŠNÍ záznam.",
+        "refused": "„{raw}“ není datum ve tvaru RRRR-MM-DD. Adresu neopravujeme za vás, takže se k žádnému dni nevracíme — níže je DNEŠNÍ záznam.",
+        "notReplayable": "Tenhle druh adresy zatím k žádnému dni přehrát neumíme: odvozené figury se počítají z dnešního záznamu, ne z historie grafu. K {day} tedy netvrdíme nic — níže je DNEŠNÍ záznam."
       }
     }
   },

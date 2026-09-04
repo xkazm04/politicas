@@ -81,20 +81,48 @@ describe("kodek adresy citace", () => {
 // ── Nerozluštitelné adresy → null (stránka odpoví 404) ──────────────────────
 
 describe("neplatný ref vrací null", () => {
-  const valid = encodeGraphRef({ kind: "uzel", variant: "mapa", node: "n1" }, HASH);
+  // Historický tvar `g.` (prázdné datum vydání) — dál platná citace.
+  const valid = encodeGraphRef({ kind: "uzel", variant: "mapa", node: "n1" }, HASH, "");
+  const body = valid.slice("g.".length);
 
   it.each([
     ["prázdný řetězec", ""],
     ["jiný prefix", valid.replace(/^g\./, "x.")],
+    ["jiný prefix u datovaného tvaru", `g3.${body}.20260904`],
     ["chybějící otisk", valid.split(".").slice(0, 2).join(".")],
     ["otisk mimo hex", valid.replace(/[0-9a-f]{8}$/, "ZZZZZZZZ")],
     ["krátký otisk", valid.replace(/[0-9a-f]{8}$/, "0a1b2c3")],
-    ["čtyři segmenty", `${valid}.extra`],
+    ["čtyři segmenty u starého tvaru", `${valid}.extra`],
+    ["pět segmentů", `g2.${body}.20260904.navic`],
+    // Datum se NEOPRAVUJE: 31. února není 3. březen, je to neplatná adresa.
+    ["neexistující den", `g2.${body}.20260231`],
+    ["datum s pomlčkami", `g2.${body}.2026-09-04`],
+    ["příliš krátké datum", `g2.${body}.260904`],
+    ["datované bez data", `g2.${body}`],
     ["rozbité base64url", `g.@@@.${HASH}`],
     ["base64url nesoucí ne-JSON", `g.bmVqc29u.${HASH}`], // „nejson"
     ["příliš dlouhá adresa", `g.${"A".repeat(800)}.${HASH}`],
   ])("%s", (_name, ref) => {
     expect(decodeGraphRef(ref)).toBeNull();
+  });
+
+  /* PROSTOR ADRES JE APPEND-ONLY (2026-09-04, moonshot G1): `g2.` přibylo
+   * s datem vydání, `g.` musí dál luštit — vydaná citace se nikdy neruší. */
+  it("oba tvary se luští; datum nese jen ten druhý", () => {
+    const state = { kind: "uzel", variant: "mapa", node: "n1" } as const;
+    const old = decodeGraphRef(encodeGraphRef(state, HASH, ""));
+    expect(old).toEqual({ state, hash: HASH, issuedAt: null });
+
+    const dated = decodeGraphRef(encodeGraphRef(state, HASH, "20260904"));
+    expect(dated).toEqual({ state, hash: HASH, issuedAt: "2026-09-04" });
+  });
+
+  it("nově vydaná citace nese datum sama od sebe", () => {
+    // Vydávající akce (graphActions.citeViewAction) o datu neví; kodek ho
+    // razítkuje, protože „kdy byla citace vydána" se odjinud odvodit nedá.
+    const ref = encodeGraphRef({ kind: "uzel", variant: "mapa", node: "n1" }, HASH);
+    expect(ref.startsWith("g2.")).toBe(true);
+    expect(decodeGraphRef(ref)?.issuedAt).toBe(new Date().toISOString().slice(0, 10));
   });
 
   it("čitelný JSON se špatným tvarem stavu je taky null", () => {
@@ -194,6 +222,8 @@ const cestaView = (
     urlHash: "00000000",
     currentHash: fresh ? "00000000" : "11111111",
     fresh,
+    issuedAt: null,
+    diff: null,
     retrievedOn: "2026-07-30",
     title: "label p1 → label c1",
     origin: opts.origin === undefined ? "https://politicas.cz" : opts.origin,
@@ -219,6 +249,8 @@ const uzelView = (links: NodeDetail["links"]): Extract<PermalinkView, { kind: "u
   urlHash: "00000000",
   currentHash: "00000000",
   fresh: true,
+  issuedAt: null,
+  diff: null,
   retrievedOn: "2026-07-30",
   title: "firma: Teplárny Brno",
   origin: "https://politicas.cz",
@@ -251,6 +283,8 @@ const trasaWithGates = (gates: (GateStatus | null)[]): Extract<PermalinkView, { 
   origin: "https://politicas.cz",
   bundleDescription: BUNDLE_DESC,
   orderingRule: null,
+  issuedAt: null,
+  diff: null,
   kind: "trasa",
   trail: {
     key: "penize-poslancu",
@@ -281,6 +315,8 @@ const okoliView = (): Extract<PermalinkView, { kind: "okoli" }> => ({
   origin: "https://politicas.cz",
   bundleDescription: BUNDLE_DESC,
   orderingRule: null,
+  issuedAt: null,
+  diff: null,
   kind: "okoli",
   neighbourhood: {
     anchor: node("co:1", "company"),
@@ -586,9 +622,20 @@ describe("balíček důkazů — stav kontroly doslova, nikdy překlopený boole
 describe("okolí uzlu jako citovatelný pohled", () => {
   const okoli: GraphViewState = { kind: "okoli", variant: "mapa", node: "co:46347534" };
 
-  it("projde kodekem tam i zpět", () => {
-    const ref = encodeGraphRef(okoli, HASH);
-    expect(decodeGraphRef(ref)).toEqual({ state: okoli, hash: HASH });
+  it("projde kodekem tam i zpět — v OBOU tvarech adresy", () => {
+    // Nový druh pohledu se přidává do prostoru adres, který je append-only:
+    // musí projít starým tvarem  i datovaným  (G1), jinak by okolí
+    // bylo citovatelné jen v jedné polovině adres.
+    expect(decodeGraphRef(encodeGraphRef(okoli, HASH, ""))).toEqual({
+      state: okoli,
+      hash: HASH,
+      issuedAt: null,
+    });
+    expect(decodeGraphRef(encodeGraphRef(okoli, HASH, "20260904"))).toEqual({
+      state: okoli,
+      hash: HASH,
+      issuedAt: "2026-09-04",
+    });
   });
 
   it("validace je stejně přísná jako u ostatních druhů", () => {

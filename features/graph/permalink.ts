@@ -25,6 +25,7 @@
  * sloučit do lib/.
  */
 
+import type { ViewDiff } from "./diffViews";
 import type {
   GateStatus,
   GraphNode,
@@ -163,21 +164,64 @@ export function parseViewState(v: unknown): GraphViewState | null {
 
 // ── Kodek adresy ────────────────────────────────────────────────────────────
 //
-// Tvar:  g.<b64url(kanonický JSON stavu)>.<otisk8>
+// DVA TVARY, JEDEN PROSTOR ADRES (append-only, 2026-09-04 / moonshot G1):
+//
+//   g.<b64url(kanonický JSON stavu)>.<otisk8>                — původní
+//   g2.<b64url(kanonický JSON stavu)>.<otisk8>.<RRRRMMDD>    — s datem vydání
+//
 // Oddělovač je tečka: base64url ani hex ji neobsahují, v URL segmentu je legální.
+//
+// PROČ DRUHÝ TVAR: `g.` nenese okamžik, kdy citace vznikla, takže server u
+// zastaralé citace věděl JEN „otisk v adrese ≠ otisk dnes" — nikdy „a takhle
+// to vypadalo, když jste to citoval". Bez data se historie grafu (kg_*_history)
+// nemá k čemu vztáhnout. `g2.` datum nese; `g.` se dál luští a zůstává platnou
+// citací, jen „pohnutou bez data přehrání". Vydaná adresa se NIKDY neruší.
+//
+// Datum je den (`RRRRMMDD` bez oddělovačů — v adrese už jednu tečku jako
+// oddělovač používáme). Neexistující kalendářní den je ODMÍTNUT, ne posunut:
+// `20260231` není 3. březen, je to neplatná adresa.
 
 export interface GraphRef {
   state: GraphViewState;
   /** Otisk OBSAHU pohledu v okamžiku vydání citace (hashViewContent). */
   hash: string;
+  /** `YYYY-MM-DD` vydání citace; null u tvaru `g.`, který datum nenese. */
+  issuedAt: string | null;
 }
 
 const HASH_RE = /^[0-9a-f]{8}$/;
+const ISSUED_RE = /^\d{8}$/;
 /** Horní mez délky celé adresy (vzor claimRef.ts). */
 const MAX_REF_LENGTH = 700;
 
-export function encodeGraphRef(state: GraphViewState, hash: string): string {
-  return `g.${toBase64Url(canonicalJson(state))}.${hash}`;
+/** `RRRRMMDD` → `RRRR-MM-DD`, nebo null. Kalendář rozhoduje, ne regulární
+ *  výraz: zpětný převod odhalí přetečený den, který by `new Date` tiše posunul. */
+function parseIssuedAt(compact: string): string | null {
+  if (!ISSUED_RE.test(compact)) return null;
+  const day = `${compact.slice(0, 4)}-${compact.slice(4, 6)}-${compact.slice(6, 8)}`;
+  const parsed = new Date(`${day}T00:00:00.000Z`);
+  if (Number.isNaN(parsed.getTime())) return null;
+  return parsed.toISOString().slice(0, 10) === day ? day : null;
+}
+
+/** Dnešní den ve tvaru adresy. Jediné místo v modulu, které čte hodiny —
+ *  „kdy byla citace vydána" se z ničeho jiného odvodit nedá, a vydání je
+ *  přesně ten okamžik. Testy datum vždy předávají výslovně. */
+export const issuedTodayCompact = (): string => new Date().toISOString().slice(0, 10).replaceAll("-", "");
+
+/**
+ * Adresa citace. Bez `issuedAtCompact` se orazítkuje DNEŠKEM a vyjde `g2.` —
+ * každá nově vydaná citace tak nese datum, aniž by o něm vydávající akce
+ * musela vědět. Prázdný řetězec vynutí historický tvar `g.` (ilustrační
+ * příklady v návodu, které se nesmějí měnit každý den).
+ */
+export function encodeGraphRef(
+  state: GraphViewState,
+  hash: string,
+  issuedAtCompact: string = issuedTodayCompact(),
+): string {
+  const body = `${toBase64Url(canonicalJson(state))}.${hash}`;
+  return issuedAtCompact === "" ? `g.${body}` : `g2.${body}.${issuedAtCompact}`;
 }
 
 export function decodeGraphRef(encoded: string): GraphRef | null {
@@ -185,7 +229,14 @@ export function decodeGraphRef(encoded: string): GraphRef | null {
     return null;
   }
   const parts = encoded.split(".");
-  if (parts.length !== 3 || parts[0] !== "g" || !HASH_RE.test(parts[2])) return null;
+  const legacy = parts.length === 3 && parts[0] === "g";
+  const dated = parts.length === 4 && parts[0] === "g2";
+  if (!legacy && !dated) return null;
+  if (!HASH_RE.test(parts[2])) return null;
+  // Datum se neopravuje: `g2.` s nečitelným dnem není „citace bez data",
+  // je to neplatná adresa (táž disciplína jako rozbitý base64 níže).
+  const issuedAt = dated ? parseIssuedAt(parts[3]) : null;
+  if (dated && issuedAt === null) return null;
   const json = fromBase64Url(parts[1]);
   if (json === null || json.length === 0) return null;
   let raw: unknown;
@@ -197,7 +248,7 @@ export function decodeGraphRef(encoded: string): GraphRef | null {
     return null;
   }
   const state = parseViewState(raw);
-  return state ? { state, hash: parts[2] } : null;
+  return state ? { state, hash: parts[2], issuedAt } : null;
 }
 
 /** Cesta trvalé citace — jediné místo, kde se skládá /graf/p/<ref>. */
@@ -214,6 +265,18 @@ export interface PermalinkCommon {
   /** Otisk dnešního znovuodvození. Rozdíl ⇒ citace je zastaralá a řekne to. */
   currentHash: string;
   fresh: boolean;
+  /**
+   * `YYYY-MM-DD` vydání citace z adresy (tvar `g2.`); null u historického
+   * tvaru `g.`, který datum nenese. Bez něj se zastaralá citace dá jen
+   * PROHLÁSIT za zastaralou — s ním se dá DATOVAT („změněno od …").
+   */
+  issuedAt: string | null;
+  /**
+   * Rozdíl tehdejší a dnešní verze pohledu (diffViews.ts). null = tehdejší
+   * verzi jsme nepřehráli, a sazba to MUSÍ napsat — prázdný rozdíl a
+   * nepřehraná verze se nesmějí číst stejně (viz `ViewDiff.incomparable`).
+   */
+  diff: ViewDiff | null;
   /** `YYYY-MM-DD` dnešního znovuodvození (datum získání dat). */
   retrievedOn: string;
   /** Český titulek pohledu — sází ho stránka i OG obraz. */

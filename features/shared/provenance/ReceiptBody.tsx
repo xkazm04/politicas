@@ -18,6 +18,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { caseFileLinkFor } from "./caseFileLink";
+import { LIVE_AS_OF, type ReceiptAsOf } from "./asOfLens";
 import type { ReceiptEndpoint, ProvenanceReceipt, ReviewStatus } from "./receipt";
 import { formatWeight, relLabelKey } from "./receipt";
 
@@ -102,7 +103,53 @@ function EndpointSources({ endpoint, t }: { endpoint: ReceiptEndpoint; t: T }) {
   );
 }
 
-export default function ReceiptBody({ receipt }: { receipt: ProvenanceReceipt }) {
+/**
+ * BANNER ČASU ZÁZNAMU — nad obsahem, nikdy pod ním.
+ *
+ * Pravidlo je půjčené z /graf/p (docs/routes/graf-permalink.md): sdělení
+ * „tohle není dnešek" musí čtenář potkat DŘÍV než údaj, kterého se týká,
+ * jinak si ho přečte jako dnešní a banner pod ním už nic nespraví.
+ *
+ * Čtyři stavy, čtyři různé věty — a tři z nich přiznávají, že to, co je pod
+ * bannerem, je DNEŠNÍ záznam (asOfLens.ts): den před epochou, den bez tvrzení
+ * a odmítnutý `k` nejsou totéž a nesmějí znít stejně.
+ */
+function AsOfBanner({ asOf, t }: { asOf: ReceiptAsOf; t: T }) {
+  const f = useFormat();
+  if (asOf.state === "live") return null;
+  const historical = asOf.state === "at";
+  const text =
+    asOf.state === "at"
+      ? t("receipt.asOf.at", { day: f.date(asOf.day) })
+      : asOf.state === "absentThen"
+        ? t("receipt.asOf.absentThen", { day: f.date(asOf.day) })
+        : asOf.state === "refused"
+          ? t("receipt.asOf.refused", { raw: asOf.raw })
+          : asOf.state === "notReplayable"
+            ? t("receipt.asOf.notReplayable", { day: f.date(asOf.day) })
+            : asOf.epoch
+              ? t("receipt.asOf.beforeEpoch", { day: f.date(asOf.day), epoch: f.date(asOf.epoch) })
+              : t("receipt.asOf.beforeEpochUnknown", { day: f.date(asOf.day) });
+  return (
+    <div
+      className={`mb-5 border-l-4 pl-3 ${historical ? "border-ochre bg-ochre/15" : "border-steel"} py-2 pr-3`}
+    >
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+        {t("receipt.asOf.kicker")}
+      </p>
+      <p className="mt-1 font-mono text-xs leading-relaxed text-ink">{text}</p>
+    </div>
+  );
+}
+
+export default function ReceiptBody({
+  receipt,
+  /** Čočka „k tomu dni"; výchozí `live` = žádný banner (kapsle, /penize…). */
+  asOf = LIVE_AS_OF,
+}: {
+  receipt: ProvenanceReceipt;
+  asOf?: ReceiptAsOf;
+}) {
   const t = useTranslations("shared");
   const locale = useLocale();
   const f = useFormat();
@@ -114,6 +161,7 @@ export default function ReceiptBody({ receipt }: { receipt: ProvenanceReceipt })
 
   return (
     <div>
+      <AsOfBanner asOf={asOf} t={t} />
       {/* ── tvrzení ────────────────────────────────────────────── */}
       <p className="text-lg font-black uppercase leading-snug tracking-tight text-ink">
         {receipt.subject.label}

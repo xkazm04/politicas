@@ -36,13 +36,28 @@ async function absoluteReceiptUrl(encodedRef: string): Promise<string | null> {
   return `${proto}://${host}${claimRefPath(encodedRef)}`;
 }
 
+/**
+ * `?k=YYYY-MM-DD` — čočka „k tomu dni". Plumbing, nic víc: co je platný den a
+ * co se stane s tím, co jím není, rozhoduje features/shared/provenance/asOfLens.ts
+ * (odmítnuto, ne opraveno), a routa jen předá první hodnotu parametru.
+ */
+const asOfParam = (v: string | string[] | undefined): string | null =>
+  typeof v === "string" ? v : Array.isArray(v) ? (v[0] ?? null) : null;
+
+type SearchParams = Promise<Record<string, string | string[] | undefined>>;
+
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ ref: string }>;
+  searchParams: SearchParams;
 }): Promise<Metadata> {
-  const { ref } = await params;
-  const [result, t] = await Promise.all([getReceiptData(ref), getTranslations("shared")]);
+  const [{ ref }, sp] = await Promise.all([params, searchParams]);
+  const [result, t] = await Promise.all([
+    getReceiptData(ref, asOfParam(sp.k)),
+    getTranslations("shared"),
+  ]);
   const title =
     result.status === "ok"
       ? t("receipt.meta.titleWithSubject", { subject: result.receipt.subject.label })
@@ -50,9 +65,15 @@ export async function generateMetadata({
   return { title, description: t("receipt.meta.description") };
 }
 
-export default async function ZdrojPage({ params }: { params: Promise<{ ref: string }> }) {
-  const { ref } = await params;
-  const result = await getReceiptData(ref);
+export default async function ZdrojPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ ref: string }>;
+  searchParams: SearchParams;
+}) {
+  const [{ ref }, sp] = await Promise.all([params, searchParams]);
+  const result = await getReceiptData(ref, asOfParam(sp.k));
 
   if (result.status === "invalid") notFound();
   if (result.status === "unavailable") {
@@ -68,15 +89,19 @@ export default async function ZdrojPage({ params }: { params: Promise<{ ref: str
     );
   }
   if (result.status === "gone") {
-    return <ReceiptGonePage encodedRef={result.ref} decoded={result.decoded} />;
+    return <ReceiptGonePage encodedRef={result.ref} decoded={result.decoded} last={result.last} />;
   }
 
   // null = tvrzení lidskou branou neprošlo (nebo základ adresy nejde zjistit) —
   // pak nejde ven ŽÁDNÁ fact-check značka; zeslabený náhradní typ se nevymýšlí.
-  const jsonLd = toClaimReviewJsonLd(
-    result.receipt,
-    await absoluteReceiptUrl(result.receipt.ref),
-  );
+  // ...a rovněž ne z účtenky ČTENÉ K NĚJAKÉMU DNI: značka nese žádné datum
+  // pohledu, takže crawler by historickou verzi (nebo dnešní záznam sázený pod
+  // bannerem „k tomu dni neexistuje") přečetl jako aktuální ověřené tvrzení.
+  // Mlčení je jediná poctivá strojová odpověď na dotaz do minulosti.
+  const jsonLd =
+    result.asOf.state === "live"
+      ? toClaimReviewJsonLd(result.receipt, await absoluteReceiptUrl(result.receipt.ref))
+      : null;
   return (
     <>
       {jsonLd && (
@@ -87,7 +112,7 @@ export default async function ZdrojPage({ params }: { params: Promise<{ ref: str
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replaceAll("<", "\\u003c") }}
         />
       )}
-      <ReceiptPage receipt={result.receipt} />
+      <ReceiptPage receipt={result.receipt} asOf={result.asOf} />
     </>
   );
 }
