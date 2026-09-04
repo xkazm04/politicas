@@ -23,6 +23,7 @@
 // row, nor an audit row without its decision.
 
 import { randomUUID } from "node:crypto";
+import { effortVerdictState } from "../../../analysis/verdict-provenance";
 import type { ReviewRepository, ReviewSubject } from "../../store";
 import { isReviewSubjectKind, type ReviewAuditRow, type ReviewSubjectKind } from "../../types";
 import {
@@ -306,39 +307,6 @@ function handlerFor(subject: ReviewSubject): SubjectHandler {
   }
 }
 
-/**
- * The stored review state of ONE effort verdict prop, or null when the loop has
- * not stamped it. Exported so the loaders read the rung through exactly the
- * shape the writer writes, rather than re-deriving the path in three places.
- */
-export function effortVerdictState(props: Record<string, unknown>, field: string): string | null {
-  const prov = props.effort_provenance;
-  if (!prov || typeof prov !== "object") return null;
-  const verdicts = (prov as { verdicts?: unknown }).verdicts;
-  if (!verdicts || typeof verdicts !== "object") return null;
-  const entry = (verdicts as Record<string, unknown>)[field];
-  if (!entry || typeof entry !== "object") return null;
-  const state = (entry as { review_state?: unknown }).review_state;
-  return typeof state === "string" ? state : null;
-}
-
-/** Who decided an effort verdict and when — null unless a human went through the door. */
-export function effortVerdictDecider(
-  props: Record<string, unknown>,
-  field: string,
-): { by: string; at: string | null } | null {
-  const prov = props.effort_provenance;
-  if (!prov || typeof prov !== "object") return null;
-  const verdicts = (prov as { verdicts?: unknown }).verdicts;
-  if (!verdicts || typeof verdicts !== "object") return null;
-  const entry = (verdicts as Record<string, unknown>)[field];
-  if (!entry || typeof entry !== "object") return null;
-  const by = (entry as { decided_by?: unknown }).decided_by;
-  if (typeof by !== "string" || by.length === 0) return null;
-  const at = (entry as { decided_at?: unknown }).decided_at;
-  return { by, at: typeof at === "string" ? at : null };
-}
-
 export function makeReviewRepo(pg: Pglite): ReviewRepository {
   const repo: ReviewRepository = {
     async setReviewState(subject, decision, reviewer, note) {
@@ -507,3 +475,11 @@ function notFoundMessage(subject: ReviewSubject): string {
       return `no writer for claim kind "${subject.kind}"`;
   }
 }
+
+/**
+ * The effort-verdict readers live in lib/analysis/verdict-provenance.ts (pure,
+ * no store), so the writer here and the two loaders read the SAME shape through
+ * the same function instead of each re-deriving the path into effort_provenance.
+ * Re-exported for the tests and callers that already reach for them here.
+ */
+export { effortVerdictState, effortVerdictDecider } from "../../../analysis/verdict-provenance";
