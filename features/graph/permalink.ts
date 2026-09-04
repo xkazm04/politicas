@@ -735,3 +735,39 @@ export function toEvidenceJsonLd(view: PermalinkView): EvidenceJsonLd {
     hasPart: parts,
   };
 }
+
+/*
+ * [G4] NEJHORŠÍ STAV BRÁNY V CITOVANÉM POHLEDU — pro modifikátor /overeni.
+ *
+ * `verdictGate` vrací pro rodinu `graf` paušální `ungated` s odůvodněním
+ * „otiskové rodiny jsou deterministický přepočet pohledu". To platí o OTISKU
+ * a neplatí o OBSAHU: přepočet je sice deterministický, ale pohled, který se
+ * přepočítal, může stát na hraně čekající na kontrolu — nebo na hraně, kterou
+ * kontrola ODMÍTLA. „Ověřeno" nad takovou citací je totéž tvrzení, jaké
+ * z balíčku důkazů odešlo do 2026-09-04.
+ *
+ * Pořadí je pořadím ZÁVAŽNOSTI, ne abecedy: odmítnutí bije čekání, čekání bije
+ * ověřeno, a `null` znamená „pohled žádnou branou hodnocenou hranu nenese"
+ * (uzel, nebo pohled ze samých negated relací) — tedy skutečně `ungated`,
+ * nikoli „ověřeno".
+ *
+ * Žije TADY, v čistém modulu, aby ho /overeni jen zavolalo: pravidlo o tom, co
+ * pohled na graf tvrdí o kontrole, nesmí existovat ve dvou opisech.
+ */
+export function worstGateOfView(view: PermalinkView): GateStatus | null {
+  const edges =
+    view.kind === "cesta"
+      ? (view.trail?.edges ?? [])
+      : view.kind === "trasa"
+        ? view.trail.edges
+        : view.kind === "okoli"
+          ? view.neighbourhood.edges
+          : [];
+  let worst: GateStatus | null = null;
+  for (const e of edges) {
+    if (e.gate === "rejected") return "rejected";
+    if (e.gate === "pending_review") worst = "pending_review";
+    else if (e.gate === "verified" && worst === null) worst = "verified";
+  }
+  return worst;
+}

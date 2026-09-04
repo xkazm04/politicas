@@ -24,6 +24,7 @@ import {
   permalinkPath,
   permalinkSources,
   toEvidenceJsonLd,
+  worstGateOfView,
   type GraphViewState,
   type PermalinkView,
 } from "./permalink";
@@ -643,5 +644,23 @@ describe("okolí uzlu jako citovatelný pohled", () => {
       allVerified: false,
       confirming: false,
     });
+  });
+});
+
+describe("worstGateOfView — modifikátor brány pro /overeni", () => {
+  it("odmítnutí bije čekání a čekání bije ověřeno", () => {
+    expect(worstGateOfView(trasaWithGates(["verified", "pending_review", "rejected"]))).toBe("rejected");
+    expect(worstGateOfView(trasaWithGates(["verified", "pending_review"]))).toBe("pending_review");
+    expect(worstGateOfView(trasaWithGates(["verified", "verified"]))).toBe("verified");
+  });
+
+  it("pohled bez hran hodnocených branou je SKUTEČNĚ ungated, ne ověřený", () => {
+    // null = „na co se ptát není": uzel, nebo pohled ze samých negated relací.
+    expect(worstGateOfView(trasaWithGates([null, null]))).toBeNull();
+    expect(worstGateOfView(uzelView([]))).toBeNull();
+  });
+
+  it("okolí se hodnotí týmž pravidlem jako trasa", () => {
+    expect(worstGateOfView(okoliView())).toBe("rejected");
   });
 });
