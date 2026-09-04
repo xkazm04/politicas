@@ -73,7 +73,7 @@ and the graph-metrics block in [[coverage-ledger]] for progress.
 | id | target | why | status |
 |---|---|---|---|
 | Q-law-1 | conflict-by-sector-adjacency (tie NACE vs law domain) vs raw CZK | raw flag saturated by municipal/SOE roles (P32) | open |
-| Q-law-2 | bill→roll-call linkage (`voted_in`) | needs hlasovani-agenda ingest; hist.unl col5 is a document id, NOT a vote id (dead-end documented) | blocked (ingest) |
+| Q-law-2 | bill→roll-call linkage (`decides`) | MEASURED 2026-09-04, no longer blocked. The dead end was `hist.unl` col 5 (a document id); the key was the agenda item all along — `vote_event(sessionNo, agendaItem)` ⋈ `bod_schuze(bod, id_tisk)` on the agenda AS TAKEN (`pozvanka IS NULL`). 473 of 2 075 valid PSP10 roll calls link (22,8 %; 37,9 % of the 1 247 that name an item — 828 are procedural and carry `bod = 0`), 730 pairs, 77 prints, 6 ambiguous items (all „písemné interpelace" blocks), corroborated 97,2 % against the roll calls' own titles. The `pozvanka = 1` numbering is the trap: cleaner-looking, 27,5 % right. See [[graph-log]] and `lib/ingest/sources/psp-activity.ts` `parseAgendaPrints`. | measured (writer dry-run only) |
 | Q-law-3 | how many bills amend statutes NOT named in the title? | amends undercount (C6, tisk 4 proof) | open |
 | Q-law-4 | sibling-print §-collision pre-check | tisk 120↔244 (P33) | open |
 

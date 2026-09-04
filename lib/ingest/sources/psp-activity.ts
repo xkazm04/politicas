@@ -14,7 +14,7 @@
 // The aggregation logic is pure over parsed UNL rows (testable with parseUnl on UNL
 // strings); the zip-reading wrapper is the only IO.
 
-import { colInt, decodeUnl, parseUnl, type UnlRow } from "../unl";
+import { col, colInt, decodeUnl, parseUnl, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
 
 export const SOURCE_TISKY = "psp-tisky";
@@ -292,4 +292,138 @@ export function normalizeActivity(
       speechTurnPeople: speeches.size,
     },
   };
+}
+
+/* ── The vote→print spine: the agenda item as the join key (2026-09-04) ──────
+ *
+ * `hlasovani.unl` names the sitting and the agenda item of every roll call
+ * (`schuze` col 2, `bod` col 4 — see ./psp.ts HLASOVANI_COLS), and `bod_schuze`
+ * names the print each agenda item carries. Nobody had joined the two, so the
+ * graph had no edge between a roll call and the print it decided.
+ *
+ * Column layout, verified against the live 2026-09-04 dumps:
+ *   schuze.unl     : 0 id_schuze | 1 id_org (term organ) | 2 schuze (SITTING NUMBER,
+ *                    the number `hlasovani.schuze` refers to) | …
+ *   bod_schuze.unl : 0 id_bod | 1 id_schuze | 2 id_tisk (INTERNAL tisk id, the
+ *                    `bill:tisk:<id>` key; empty for non-tisk items) | 3 id_typ |
+ *                    4 bod (AGENDA ITEM NUMBER) | 5 uplny_naz | 6 uplny_kon |
+ *                    7 poznamka | 8 id_bod_stav | 9 pozvanka | … | 14 zkratka
+ *
+ * THE `pozvanka` PREDICATE IS THE WHOLE CORRECTNESS ARGUMENT. `bod_schuze` holds
+ * TWO numberings per sitting: the rows of the *pozvánky* (the proposed agenda,
+ * `pozvanka = 1`), whose `bod` restarts inside each block of the invitation, and
+ * the rows of the agenda AS TAKEN (`pozvanka` empty), whose `bod` is the number a
+ * roll call cites. Measured on PSP10 (2 075 valid roll calls) by checking each
+ * resolved item's own short name (`zkratka`) against the roll call's own title —
+ * an independent corroboration the join itself never reads:
+ *
+ *     pozvanka IS NULL   427 keys, 6 ambiguous   97,2 % corroborated  ← used
+ *     pozvanka = 1       589 keys, 0 ambiguous   27,5 % corroborated  ← WRONG
+ *     both pooled        853 keys, 116 ambiguous 85,3 % corroborated
+ *
+ * The proposed-agenda numbering looks *cleaner* (it collides with nothing) and is
+ * wrong three times out of four: taking it would have written ~480 roll calls onto
+ * the wrong print, several of them onto a named MP's bill. So the reader takes the
+ * agenda as taken and nothing else; an item that exists only on the pozvánce stays
+ * unresolved and is counted, never guessed from a title.
+ */
+
+/** `${sittingNo}:${agendaItem}` — the key a roll call and an agenda item share. */
+export const agendaKey = (sittingNo: number, agendaItem: number) => `${sittingNo}:${agendaItem}`;
+
+export interface AgendaPrintIndex {
+  /** agenda key → the INTERNAL id_tisk values that item carries (sorted, deduped).
+   *  Many-to-many on purpose: an item can name several prints (PSP10: six do, all of
+   *  them „písemné interpelace" blocks). Items carrying no print are absent. */
+  printsByItem: Map<string, number[]>;
+  /** agenda key → the item's own short name, for corroboration and reader copy. */
+  labelByItem: Map<string, string>;
+  coverage: {
+    /** `bod_schuze` rows of the term on the agenda AS TAKEN (deduped by id_bod). */
+    agendaRowsAsTaken: number;
+    /** rows ignored because they belong to the pozvánky's own numbering. */
+    proposedAgendaRowsIgnored: number;
+    /** distinct agenda keys on the agenda as taken. */
+    agendaItems: number;
+    /** …of which carry at least one print. */
+    agendaItemsWithPrint: number;
+    /** …of which carry MORE THAN ONE print — the ambiguity, counted not resolved. */
+    agendaItemsMultiPrint: number;
+  };
+}
+
+/**
+ * Index the term's agenda items by `(sitting number, agenda item number)` → prints.
+ *
+ * Pure over parsed UNL rows. `pozvanka` (col 9) is the predicate that decides which
+ * of the dump's two numberings is being read — see the note above; it is not an
+ * optimisation and must not be relaxed.
+ */
+export function parseAgendaPrints(
+  schuze: readonly UnlRow[],
+  bodSchuze: readonly UnlRow[],
+  termPspId: number,
+): AgendaPrintIndex {
+  // id_schuze → sitting number, for the term's sittings only. The dump repeats each
+  // sitting row (one per state); the mapping is 1:1 either way.
+  const sittingNoById = new Map<number, number>();
+  for (const r of schuze) {
+    if (colInt(r, 1) !== termPspId) continue;
+    const id = colInt(r, 0);
+    const no = colInt(r, 2);
+    if (id != null && no != null) sittingNoById.set(id, no);
+  }
+
+  const printsByItem = new Map<string, Set<number>>();
+  const labelByItem = new Map<string, string>();
+  const seenRows = new Set<number>(); // bod_schuze repeats its rows too
+  let agendaRowsAsTaken = 0;
+  let proposedAgendaRowsIgnored = 0;
+
+  for (const r of bodSchuze) {
+    const sittingNo = sittingNoById.get(colInt(r, 1) ?? -1);
+    if (sittingNo == null) continue; // another term
+    const idBod = colInt(r, 0);
+    if (idBod == null || seenRows.has(idBod)) continue;
+    seenRows.add(idBod);
+    if (colInt(r, 9) === 1) {
+      proposedAgendaRowsIgnored++;
+      continue; // the pozvánky's own numbering — a different key space
+    }
+    const agendaItem = colInt(r, 4);
+    if (agendaItem == null || agendaItem < 1) continue; // „pořadí bodu není známo"
+    agendaRowsAsTaken++;
+    const key = agendaKey(sittingNo, agendaItem);
+    const label = col(r, 14) ?? "";
+    if (label && !labelByItem.has(key)) labelByItem.set(key, label);
+    const idTisk = colInt(r, 2);
+    if (idTisk == null || idTisk <= 0) continue;
+    let prints = printsByItem.get(key);
+    if (!prints) printsByItem.set(key, (prints = new Set<number>()));
+    prints.add(idTisk);
+  }
+
+  const out = new Map<string, number[]>();
+  let multi = 0;
+  for (const [k, s] of printsByItem) {
+    if (s.size > 1) multi++;
+    out.set(k, [...s].sort((a, b) => a - b));
+  }
+  return {
+    printsByItem: out,
+    labelByItem,
+    coverage: {
+      agendaRowsAsTaken,
+      proposedAgendaRowsIgnored,
+      agendaItems: new Set([...labelByItem.keys(), ...out.keys()]).size,
+      agendaItemsWithPrint: out.size,
+      agendaItemsMultiPrint: multi,
+    },
+  };
+}
+
+/** Read `schuze.zip` and index its agenda items by (sitting, item) → prints. */
+export function normalizeAgendaPrints(schuzeZip: Uint8Array, termPspId: number): AgendaPrintIndex {
+  const m = readZipMap(schuzeZip);
+  return parseAgendaPrints(unlOf(m, "schuze.unl"), unlOf(m, "bod_schuze.unl"), termPspId);
 }

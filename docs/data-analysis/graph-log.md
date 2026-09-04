@@ -1350,3 +1350,73 @@ new rules and was caught by the sweep''s own re-gate throw. Carried: a STRUCTURA
 (three batches, three new token classes — the literal list wants a closed-form rule), evidence
 anchored to the bill''s structural coordinates over transcript lines, partitionFallback per
 census row. Backlog: 52 pending bills; §-level sector attribution now unblocked.
+
+---
+
+## Probe (track: law) — the vote→print join, measured; Q-law-2 unblocked (2026-09-04)
+
+Not a write pass — the measurement that licenses one. Q-law-2 („bill→roll-call
+linkage") has sat at **blocked (ingest)** since batch 001 because the only probe ever
+run (`scripts/case-loops/law/inspect-votes.ts`) read `hist.unl` col 5 and found a
+document id, not a vote id. The agenda-item route was never tried, and both halves of
+its key were already in the store: `vote_event.sessionNo` + `.agendaItem`
+(`lib/ingest/sources/psp.ts:77,321`) on one side, `bod_schuze.id_tisk` on the other
+(`psp-activity.ts`, read since pass 35 for `spoke_on`).
+
+Measured on the live psp.cz dumps (`hl-2025ps.zip` fetched 2026-09-04 + `schuze.zip`),
+PSP10 = term organ 174, no store involved:
+
+| | count |
+| --- | ---: |
+| roll calls in the term | 2 091 |
+| …voided (`zmatecne.unl`) | 16 |
+| **valid roll calls** | **2 075** |
+| …carrying no agenda item at all (`bod` = 0) | 828 |
+| …naming an agenda item | 1 247 |
+| …whose item resolves on the agenda as taken | 818 |
+| **…resolving to ≥ 1 print** | **473** |
+| `votesWithoutPrint` | 1 602 |
+| `agendaItemsMultiPrint` | 6 |
+| votes landing on a multi-print item | 19 |
+| vote→print pairs (the edges a write would emit) | 730 |
+| distinct prints reached | 77 |
+
+**Join rate: 22,8 % of valid roll calls, 37,9 % of the 1 247 that name an item.** The
+denominator that matters is the second one: 828 roll calls (39,9 %) are procedural —
+„Pořad schůze", closing debate, procedural motions — and carry `bod = 0` by design.
+They are not a coverage failure and no future pass can link them.
+
+**The correctness argument, and the trap under it.** `bod_schuze` holds TWO numberings
+per sitting. Rows of the *pozvánky* (`pozvanka = 1`) are numbered inside each block of
+the invitation; rows of the agenda AS TAKEN (`pozvanka` empty) carry the number a roll
+call cites. Both are joinable, and the wrong one looks better. Corroborating each
+resolved item's own short name (`zkratka`) against the roll call's own title — an
+independent signal the join never reads:
+
+| pool | keys | ambiguous keys | roll calls linked | corroborated |
+| --- | ---: | ---: | ---: | ---: |
+| `pozvanka IS NULL` (agenda as taken) | 427 | 6 | 473 | **97,2 %** |
+| `pozvanka = 1` (proposed agenda) | 589 | **0** | 664 | 27,5 % |
+| both pooled | 853 | 116 | 995 | 85,3 % |
+
+The proposed-agenda numbering collides with nothing and is wrong three times in four.
+Taking it — the choice a „maximise coverage, minimise ambiguity" instinct makes — would
+have written ~480 roll calls onto the wrong print, some of them onto a named MP's bill.
+The 23 residual disagreements in the chosen pool were read by hand: all are artifacts of
+the string matcher against the dump's heavy abbreviations („SR 2026" vs „Vl. n. z. o
+státním rozpočtu ČR na rok 2026"; „regulace cen pohon. hmot" vs „Novela z. o cenách"),
+so 97,2 % is a floor, not an estimate.
+
+**The six ambiguous items are all one shape.** Every multi-print agenda item in PSP10 is
+a „písemné interpelace" block — one item answering 2, 7, 11, 11, 18 and 17 written
+interpellations at once. None is a law bill. The edge stays many-to-many and the count
+ships with it (`agendaItemsMultiPrint`), because collapsing a 17-print block to one print
+is the failure mode the card names.
+
+**Instrument:** `parseAgendaPrints()` in `lib/ingest/sources/psp-activity.ts`, pure over
+parsed UNL, 5 colocated tests pinning the `pozvanka` predicate, the many-to-many
+ambiguity, term scope, row dedupe and `bod < 1`. Writer:
+`scripts/data-analysis/kg-vote-bill-ingest.ts` (`--dry-run` by default).
+
+**Corpus drift worth noting:** pass 1 computed over 2 014 non-voided votes; the term now
+holds 2 075. Every rate in this entry is against the 2026-09-04 dump, not pass 1's.
