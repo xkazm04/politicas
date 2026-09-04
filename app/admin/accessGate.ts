@@ -1,6 +1,8 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { checkSharedToken } from "@/lib/security/token";
+import { decideAdminGate, type AdminGateStatus } from "@/lib/security/adminGate";
+
+export type { AdminGateStatus };
 
 /**
  * Access gate for /admin — the operator console (case-loop run status, money
@@ -34,25 +36,21 @@ export const ADMIN_COOKIE = "politicas_admin";
 export const ADMIN_COOKIE_MAX_AGE = 60 * 60 * 12;
 
 /**
- * `not-configured` — ADMIN_TOKEN unset in this environment: DENY and say so.
- * `locked` — configured, but this browser has not identified yet (first visit).
- * `unauthorized` — a token was presented and it does not match.
- */
-export type AdminGateStatus = "ok" | "not-configured" | "locked" | "unauthorized";
-
-/**
- * The verdict for the current request. Fails closed: the only route to "ok" is a
- * configured ADMIN_TOKEN plus a cookie whose value matches it constant-time.
- * Reading cookies also opts the route out of static prerendering, so the console
- * is never baked into a build artifact.
+ * The verdict for the current request. Reading cookies also opts the route out of
+ * static prerendering, so the console is never baked into a build artifact.
+ *
+ * This function is the request-scoped READ and nothing else. It takes no verdict
+ * branch: `decideAdminGate` in lib/security/adminGate.ts owns all four, over
+ * plain values, where the unit lane can reach them — `cookies()` throws outside a
+ * request scope, and while the verdict lived here three of its four branches had
+ * no caller that could exist in a test.
+ *
+ * The one branch below is not a verdict. It skips the cookie read when the console
+ * is unconfigured, because the original did and the verdict cannot depend on it;
+ * removing it would newly opt an unconfigured /admin out of prerendering.
  */
 export async function readAdminGate(): Promise<AdminGateStatus> {
   const expected = process.env.ADMIN_TOKEN;
-  if (!expected?.trim()) return "not-configured";
-  const submitted = (await cookies()).get(ADMIN_COOKIE)?.value;
-  // No cookie at all is a locked door, not a failed attempt — the two must not
-  // render the same message, or a first-time operator is told they typed the
-  // token wrong when they never typed one.
-  if (!submitted) return "locked";
-  return checkSharedToken(submitted, expected) === "ok" ? "ok" : "unauthorized";
+  const submitted = expected?.trim() ? (await cookies()).get(ADMIN_COOKIE)?.value : undefined;
+  return decideAdminGate({ expected, submitted });
 }
