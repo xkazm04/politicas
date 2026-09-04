@@ -44,7 +44,7 @@ import { useTranslations } from "next-intl";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
-import type { DependencyData, DependencyHit } from "../getDependencyData";
+import type { DependencyData, DependencyHit } from "../buildDependencyView";
 import { resolveCompanionLink } from "../buildDependencyView";
 
 /** „ten podnět" — masculine inanimate, so numeral congruence bends the verb

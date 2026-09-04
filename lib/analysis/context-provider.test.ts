@@ -58,9 +58,21 @@ const ENV = "PROD";
 
 /* ── a mock GMS that returns exactly what datahub-sync would have published ───── */
 
-function jsonResponse(body: unknown, ok = true): Response {
-  return { ok, json: async () => body } as unknown as Response;
+/** A Response the way fetch really behaves: `text()` hands back the raw body, and
+ *  `json()` THROWS on an empty one (the shape this GMS build sends for scroll
+ *  pages past ~10) — a mock whose `json()` politely returned `""` would have kept
+ *  the empty-body defect invisible to this suite. */
+function jsonResponse(body: unknown, ok = true, raw: string = JSON.stringify(body)): Response {
+  return {
+    ok,
+    text: async () => raw,
+    json: async () => {
+      if (raw.trim().length === 0) throw new SyntaxError("Unexpected end of JSON input");
+      return body;
+    },
+  } as unknown as Response;
 }
+const emptyBodyResponse = (): Response => jsonResponse(null, true, "");
 
 /** Build the OpenAPI-v3 aspect bags the real GMS would return for our fixtures, so
  *  LiteContextProvider round-trips the SAME context DirectContextProvider builds. */
@@ -189,6 +201,37 @@ describe("DirectContextProvider — local assembly", () => {
   });
 });
 
+describe("LiteContextProvider — a 2xx with an empty body is 'nothing here', not a crash", () => {
+  it("ends the sibling scroll on an empty page instead of rejecting the whole context read", async () => {
+    // The real mock answers every URN; only the sibling scroll page comes back empty,
+    // exactly as the GMS build does past ~10 pages. Before 2026-09-01 `res.json()`
+    // threw here and `getSliceContext` rejected — the caller lost the slice AND the
+    // corpus, not just the siblings.
+    const real = makeMockFetch({ source: "psp-hlasovani", entity: "vote_event" });
+    const fetchImpl = (async (input: string | URL | Request, init?: RequestInit) => {
+      const url = typeof input === "string" ? input : input.toString();
+      return url.includes("/entity/dataset?") ? emptyBodyResponse() : real(input, init);
+    }) as unknown as typeof fetch;
+    const lite = await new LiteContextProvider({ gms: "http://gms.test", env: ENV, fetchImpl }).getSliceContext(
+      "psp-hlasovani",
+      "PSP10",
+      "vote_event",
+    );
+    expect(lite).not.toBeNull();
+    expect(lite!.slice.name).toBe("slice/psp-hlasovani/PSP10/vote_event");
+    expect(lite!.siblingSlicesOnThisSource).toEqual({});
+  });
+
+  it("returns null for the slice when its own read comes back empty", async () => {
+    const lite = await new LiteContextProvider({
+      gms: "http://gms.test",
+      env: ENV,
+      fetchImpl: (async () => emptyBodyResponse()) as unknown as typeof fetch,
+    }).getSliceContext("psp-hlasovani", "PSP10", "vote_event");
+    expect(lite).toBeNull();
+  });
+});
+
 describe("LiteContextProvider — missing slice", () => {
   it("returns null when the catalog has no datasetProperties for the slice", async () => {
     const lite = await new LiteContextProvider({
@@ -197,5 +240,20 @@ describe("LiteContextProvider — missing slice", () => {
       fetchImpl: (async () => jsonResponse(null, false)) as unknown as typeof fetch,
     }).getSliceContext("psp-hlasovani", "PSP10", "vote_event");
     expect(lite).toBeNull();
+  });
+});
+
+describe("the context dates its own point-in-time facts (2026-09-01)", () => {
+  it("prints the analysis-pass day next to the known issues, in both arms", async () => {
+    const direct = await new DirectContextProvider(ALL, ENV).getSliceContext("psp-hlasovani", "PSP10", "vote_event");
+    const lite = await new LiteContextProvider({
+      gms: "http://gms.test",
+      env: ENV,
+      fetchImpl: makeMockFetch({ source: "psp-hlasovani", entity: "vote_event" }),
+    }).getSliceContext("psp-hlasovani", "PSP10", "vote_event");
+    for (const ctx of [direct, lite]) {
+      expect(ctx?.slice.documentation).toContain("analysis pass of 2026-07-23");
+      expect(ctx?.corpus?.documentation).toContain("analysis pass of 2026-07-23");
+    }
   });
 });

@@ -25,7 +25,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowUp, ArrowUpRight, FileText, Gavel, Rows3, ShieldCheck, Swords } from "lucide-react";
-import type { ClubFacet, LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
+import type { ClubFacet, LeaderboardData, LeaderboardListEntry } from "../leaderboardTypes";
 import { useFormat } from "@/lib/i18n/useFormat";
 import CitableNumber from "@/lib/claims/CitableNumber";
 import type { Locale } from "@/lib/i18n/config";

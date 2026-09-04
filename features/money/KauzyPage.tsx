@@ -38,8 +38,7 @@ import {
   confidenceInfo,
   sourceKindInfo,
 } from "./dossierVocabulary";
-import type { LeadDossiers } from "./getLeadDossiers";
-import type { PacketTarget } from "./getLeadPacketTargets";
+import type { LeadDossiers, PacketTarget } from "./moneyTypes";
 import type { DossierMediaEntry, LeadDossier } from "./moneyTypes";
 import { dossierAnchorId } from "./moneyTypes";
 

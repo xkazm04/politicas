@@ -142,3 +142,8 @@ Record durable non-obvious facts via the project memory system (`memory/<slug>.m
 - Cadence: weekly at most. Alternate scan (fill the queue) and resume (drain it).
 - A finding that contradicts a recorded strong pattern is the most interesting finding of the run.
 - Never propose a tech swap with reach >=100 files unless smell strength is 5.
+
+## Skill improvement log
+
+- 2026-09-01 - Resume on the current branch worked with THREE parallel builders on disjoint directories (civicscore+landing / lawwatch / budget+money+profile) that verified in place (tsc, eslint, their vitest lanes) and never touched git; commits were made centrally, one per rollout step, pathspec-only, `git diff --cached --stat` checked each time. The commit-msg doc-sync hook owes README/AGENTS/ROADMAP/vercel/case-loops plus the route docs on every features/** or app/** change - write the scoped `Doc-sync(<doc>): <reason>` trailers into the commit template up front; a refused commit leaves the index staged, so retrying costs one command.
+- 2026-09-02 - `git rm` STAGES the deletion. A later `git add <one file> && git diff --cached --stat | tail -1` then shows a two-file total and the deletion rides into the wrong commit (1c035c4). Read the stat's file LIST before committing, never its total line. Also: `lib/testing/archivedScripts.test.ts` walks the tree in ~2,2 s against a 5 s budget - under a concurrent full gate it timed out once; treat a lone timeout there as contention and re-run before touching code.

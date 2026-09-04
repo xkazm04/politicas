@@ -66,7 +66,10 @@ const eslintConfig = defineConfig([
     },
     rules: {
       "custom/no-silent-catch": "error",
-      "custom/no-server-import-in-client": "error",
+      // typeImports: "forbid" since 2026-09-01 — every loader's prop types live in a sibling
+      // pure *Types.ts module, so a "use client" file imports nothing from a loader, not even a type
+      // (docs/architect/decisions/2026-07-26-server-only-boundary-enforcement.md).
+      "custom/no-server-import-in-client": ["error", { typeImports: "forbid" }],
       "custom/role-button-requires-keydown": "error",
       "custom/enforce-reduced-motion-fallback": "error",
       "custom/no-hardcoded-colors": "error",

@@ -16,6 +16,7 @@ import {
   type ContractNodeLike,
   type SuppliesEdgeLike,
   type SupplierRow,
+  liftTiedRows,
 } from "./supplierTrail";
 import { SUPPLIERS_PACKED } from "./data/municipalSuppliers.generated";
 
@@ -354,5 +355,28 @@ describe("supplierPeerStats / peerSupplierTotals", () => {
       sampleSize: 2,
     });
     expect(peerSupplierTotals(["00999999"], table)).toEqual({ medianCzk: null, sampleSize: 0 });
+  });
+});
+
+describe("liftTiedRows — výpis nese N největších a KAŽDOU protistranu s vazbou (2026-09-01)", () => {
+  const rows = ["a", "b", "c", "d", "e", "f"];
+
+  it("bez vrstvy vazeb (null) je to prostý řez — nic se nezvedá", () => {
+    expect(liftTiedRows(rows, 2, null)).toEqual({ shown: ["a", "b"], folded: ["c", "d", "e", "f"], lifted: 0 });
+  });
+
+  it("řádek s vazbou za hranicí se vypíše, pořadí zůstává, `lifted` počítá jen ty nad rámec", () => {
+    const tied = new Set(["a", "d", "f"]);
+    const r = liftTiedRows(rows, 2, (x) => tied.has(x));
+    expect(r.shown).toEqual(["a", "b", "d", "f"]);
+    expect(r.folded).toEqual(["c", "e"]);
+    expect(r.lifted).toBe(2); // „a" je v top 2 i bez vazby
+  });
+
+  it("po zvednutí není mezi složenými řádky žádná vazba — to je věta, kterou souhrn tvrdí", () => {
+    const tied = new Set(["e"]);
+    const r = liftTiedRows(rows, 3, (x) => tied.has(x));
+    expect(r.folded.some((x) => tied.has(x))).toBe(false);
+    expect(r.shown.length + r.folded.length).toBe(rows.length);
   });
 });

@@ -14,7 +14,8 @@
 
 import { RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { ComponentDef, LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import type { ComponentDef } from "@/features/civicscore/componentDefs";
+import type { LeaderboardListEntry } from "@/features/civicscore/leaderboardTypes";
 import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import type { WeightVector } from "@/features/civicscore/lens";
 import { PUBLISHED_WEIGHTS_LABEL } from "@/features/civicscore/lens";

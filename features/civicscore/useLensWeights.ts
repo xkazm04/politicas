@@ -32,7 +32,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { ComponentKey } from "./getLeaderboardData";
+import type { ComponentKey } from "./componentDefs";
 import {
   decodeWeights,
   encodeWeights,

@@ -28,7 +28,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
-import type { LeaderboardData, LeaderboardListEntry } from "../getLeaderboardData";
+import type { LeaderboardData, LeaderboardListEntry } from "../leaderboardTypes";
 import { componentWinner, duelOutcome } from "../duel";
 import { duelFactRows } from "../duelFacts";
 import { contributionScoreClaim } from "../scoreClaim";
