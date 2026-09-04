@@ -182,6 +182,37 @@ describe("live-graph sentinel against fixture stores", () => {
       ],
     );
 
+    // [G2] The two review-door checks need a real population to be evaluable —
+    // an empty one is `unevaluable` by design, not a pass. One tie with a
+    // decided state, one bill carrying a forensic verdict, and one MP carrying
+    // two effort verdicts at the bottom rung: enough for both checks to have a
+    // denominator, and nothing claiming a human decision yet.
+    await pg.query(
+      `insert into kg_edge (src, rel, dst, weight, props, provenance) values
+        ('fx:person:2', 'linked_to', 'fx:company:1', 1, $1::jsonb, '{}'::jsonb)`,
+      [JSON.stringify({ review_state: "verified" })],
+    );
+    await pg.query(
+      `update kg_node set props = props || $1::jsonb where id = 'fx:bill:0'`,
+      [JSON.stringify({ forensic_severity: "medium", forensic_review_state: "pending_review" })],
+    );
+    await pg.query(
+      `update kg_node set props = props || $1::jsonb where id = 'fx:person:0'`,
+      [
+        JSON.stringify({
+          effort_workhorse: true,
+          effort_rapporteur_load: 4,
+          effort_provenance: {
+            computedAt: "2026-07-31T10:00:00.000Z",
+            verdicts: {
+              effort_workhorse: { review_state: "machine" },
+              effort_rapporteur_load: { review_state: "machine" },
+            },
+          },
+        }),
+      ],
+    );
+
     const report = await audit();
     expect(report.checks.map((c) => [c.id, c.status])).toEqual([
       ["manifest-bounds", "ok"],
@@ -195,8 +226,13 @@ describe("live-graph sentinel against fixture stores", () => {
       ["components-sum", "ok"],
       ["recompute-sample", "ok"],
       ["determinism", "ok"],
+      ["review-coverage", "ok"],
+      ["effort-review-chain", "ok"],
     ]);
     expect(report.verdict).toBe("ok");
+    // Counts, with their denominators, and never a rate.
+    expect(check(report, "review-coverage").detail).toContain("effort_verdict 0/2 decided, 2 pending");
+    expect(check(report, "effort-review-chain").detail).toContain("machine 2");
     expect(report.manifestVersion).toBe("2026.07.31");
     expect(check(report, "audit-chain").detail).toContain("all 2 review_audit rows are chained");
     // The roster is load-bearing: a real audit emits exactly the pinned check
@@ -221,6 +257,58 @@ describe("live-graph sentinel against fixture stores", () => {
     expect(report.verdict).toBe("violation");
     expect(report.checks.filter((x) => x.status === "violation").map((x) => x.id)).toEqual(["orphan-edges"]);
     await pg.query(`delete from kg_edge where dst = 'fx:ghost:404'`);
+  });
+
+  // ── THE PROMOTION PROOF (G2, deck #12) ───────────────────────────────────
+  // The attack this check exists for is not tampering — it is a script (or a
+  // hand) flipping `machine` to `verified` in bulk. That costs one UPDATE, it
+  // leaves every hash in the chain intact, and it puts „ověřeno (redakce)" on a
+  // badge beside a named MP's name with nobody's decision behind it. Every other
+  // invariant in this file passes over that store, which is exactly why this one
+  // had to be written.
+  it("a mass machine → verified flip with NO audit rows fires effort-review-chain", async () => {
+    const pg = await open();
+    await pg.query(
+      `update kg_node
+          set props = jsonb_set(
+            props, '{effort_provenance,verdicts}',
+            $1::jsonb, true)
+        where id = 'fx:person:0'`,
+      [
+        JSON.stringify({
+          effort_workhorse: { review_state: "verified", decided_by: "redakce", decided_at: "2026-09-04T00:00:00.000Z" },
+          effort_rapporteur_load: { review_state: "verified", decided_by: "redakce", decided_at: "2026-09-04T00:00:00.000Z" },
+        }),
+      ],
+    );
+
+    const report = await audit();
+    const c = check(report, "effort-review-chain");
+    expect(c.status).toBe("violation");
+    expect(c.detail).toContain("2 of 2");
+    expect(c.detail).toContain("fx:person:0#effort_workhorse");
+    expect(report.verdict).toBe("violation");
+    // The hash chain is UNTOUCHED by the flip and still says everything is fine —
+    // the whole point: this class of forgery is invisible to audit-chain.
+    expect(check(report, "audit-chain").status).toBe("ok");
+    // …and it is the ONLY check that fires, so the report names the real defect.
+    expect(report.checks.filter((x) => x.status === "violation").map((x) => x.id)).toEqual([
+      "effort-review-chain",
+    ]);
+
+    // Put the bottom rung back for the tests that follow.
+    await pg.query(
+      `update kg_node
+          set props = jsonb_set(props, '{effort_provenance,verdicts}', $1::jsonb, true)
+        where id = 'fx:person:0'`,
+      [
+        JSON.stringify({
+          effort_workhorse: { review_state: "machine" },
+          effort_rapporteur_load: { review_state: "machine" },
+        }),
+      ],
+    );
+    expect(check(await audit(), "effort-review-chain").status).toBe("ok");
   });
 
   it("tampered audit row fires the audit-chain invariant with the divergence", async () => {
