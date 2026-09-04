@@ -48,6 +48,20 @@ describe("detekce rodiny — holé adresy", () => {
     const e = detectRef(encodeExhibitId({ kind: "rez", hash: "0a1b2c3d" }));
     expect(e.family).toBe("exponat");
   });
+
+  it("holá citace grafu se pozná v OBOU tvarech — `g.` i datovaný `g2.`", () => {
+    // Prostor adres je append-only (moonshot G1): citace vydaná před
+    // 2026-09-04 nemá datum a musí se ověřit dál. Sniff holé adresy je jediné
+    // místo, kde se na to dá zapomenout — proto tenhle test.
+    const state = { kind: "uzel", variant: "mapa", node: "osoba-1" } as const;
+    const old = detectRef(encodeGraphRef(state, "0a1b2c3d", ""));
+    expect(old.family).toBe("graf");
+    if (old.family === "graf") expect(old.ref.issuedAt).toBeNull();
+
+    const dated = detectRef(encodeGraphRef(state, "0a1b2c3d", "20260904"));
+    expect(dated.family).toBe("graf");
+    if (dated.family === "graf") expect(dated.ref.issuedAt).toBe("2026-09-04");
+  });
 });
 
 describe("detekce rodiny — celé URL a cesty", () => {

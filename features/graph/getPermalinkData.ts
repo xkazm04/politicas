@@ -188,6 +188,17 @@ export async function getPermalinkData(ref: string): Promise<PermalinkResult> {
       urlHash: decoded.hash,
       currentHash,
       fresh: currentHash === decoded.hash,
+      // Datum vydání z adresy (tvar `g2.`) — s ním se zastaralá citace dá
+      // DATOVAT, ne jen prohlásit za zastaralou.
+      issuedAt: decoded.issuedAt,
+      /* PŘEHRÁNÍ TEHDEJŠÍHO POHLEDU ZATÍM NEUMÍME, a `null` to říká přesně:
+       * `diffViews()` (čistý, otestovaný) čeká na `resolveView(state, at)`,
+       * a ta potřebuje `getTrails` / `getPathBetween` / `getNodeDetail`
+       * parametrizované `KgAsOfReads` — tedy zásah do graphLoader.ts, který
+       * tahle skupina vlastnicky nemá. Sazba MUSÍ rozdíl mezi „nic se
+       * nezměnilo" a „tehdejší verzi jsme nepřehráli" napsat; prázdný ledger
+       * by lhal. */
+      diff: null,
       retrievedOn: today(),
       title: resolved.title,
       origin,

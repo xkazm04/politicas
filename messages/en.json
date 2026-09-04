@@ -2584,7 +2584,11 @@
         "unavailableTitle": "The data cannot be read right now",
         "unavailableNote": "an outage on our side, not the end of this citation — please try again",
         "invalidNote": "this address cannot be decoded — it is not a politicas citation"
-      }
+      },
+      "thenKicker": "then — fingerprint in the address",
+      "nowKicker": "now — re-derived",
+      "noIssueDate": "this address carries no issue date",
+      "diffUnavailable": "The fingerprints have diverged, so the view's content has changed since the citation was issued. WHAT changed we cannot yet name: we do not replay the view as it stood then, and silence about the changes would read as “nothing changed”. Individual records can be traced through the provenance receipts (/zdroj) and the dated record (/denik)."
     }
   },
   "metodika": {

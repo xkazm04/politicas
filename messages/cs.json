@@ -2584,7 +2584,11 @@
         "unavailableTitle": "Data se právě nedají přečíst",
         "unavailableNote": "výpadek na naší straně, ne zánik citace — zkuste to prosím znovu",
         "invalidNote": "tuhle adresu nelze rozluštit — není to citace politicas"
-      }
+      },
+      "thenKicker": "tehdy — otisk v adrese",
+      "nowKicker": "dnes — znovuodvozeno",
+      "noIssueDate": "adresa datum vydání nenese",
+      "diffUnavailable": "otisky se rozešly, takže obsah pohledu se od vydání citace změnil. CO se změnilo, zatím neumíme pojmenovat: tehdejší verzi pohledu nepřehráváme, a mlčení o změnách by se četlo jako „nezměnilo se nic“. Jednotlivé záznamy se dají dohledat přes účtenky původu (/zdroj) a chronologický záznam (/denik)."
     }
   },
   "metodika": {
