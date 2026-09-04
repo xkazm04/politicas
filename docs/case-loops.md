@@ -389,5 +389,27 @@ resumes exactly.
 - The human gate is inviolable (see Authority).
 - No silent truncation: a skipped unit, a dropped row, a sampled subset is
   logged in the batch note.
+- A harvested dump is complete or it is not a dump: the money harvester
+  (`scripts/case-loops/money/harvest-contract-dumps.ts`) streams each monthly
+  file under a `.partial` name, pins the byte size the registry's index states
+  before the first byte, and only renames to the final name when the received
+  count matches — a month is never marked done over a short file (added
+  2026-09-02; before this, a server that advertised and delivered fewer bytes
+  than the index passed every check).
+- A parse that costs something is kept, and it names what produced it: the
+  kiosek slice (`scripts/case-loops/sources/kiosek-slice.ts`) no longer throws
+  away its `unpdf` output. `lib/ingest/parsedText.ts` writes a `<pdf>.txt`
+  sidecar beside the cached bytes whose first line is
+  `#parsed-text/1 unpdf@<version> sha256:<16>`, and reuse requires the format,
+  the parser version AND the byte fingerprint to match — a missing, older or
+  foreign stamp re-parses loudly, and an unreadable `unpdf` version disables
+  the sidecar rather than degrading it into an unverifiable cache. A warm
+  re-run invokes `unpdf` zero times, so re-scoring the corpus against a new
+  statute pattern or a refined IČO rule is regex-over-text; `--reparse` is the
+  deliberate override. The sidecar dies with its bytes (`deleteParsedText`) —
+  extracted text with no source to re-derive it from is a claim without a
+  source. This does NOT extend to the contract-dump lane, where retaining a
+  filtered-out corpus beside the dump would break the publisher's GDPR
+  condition (added 2026-09-03).
 - Build phases meet the same bar as any session: `npm run check` green, docs
   synced same-session, tokens/colors discipline, Czech-first copy.

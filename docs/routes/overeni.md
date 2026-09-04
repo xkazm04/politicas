@@ -186,3 +186,62 @@ asserts mint → bare ref → `verified` with the identical value, registry
 refs never touch the store, store-null answers `unavailable` never
 `mimo-rejstrik`. A metric added without a routing branch now FAILS a test
 instead of silently degrading to „rejstřík ji nezná".
+
+**Record time reaches the gate — the third column (2026-09-04, moonshot G1,
+cards #1/#9/#10).** The gate could show two sides: what the reader pasted and
+what holds today. It could not show the one we are answerable for, so `moved`
+meant "your figure differs from ours", never "on that day we said this" — which
+is exactly what the registry's three-verdict vocabulary requires ("moved is
+shown with both sides and both dates"). `/overeni?ref=…&k=YYYY-MM-DD` adds it.
+
+For the `zdroj` family the replay goes through `getReceiptData(ref, day)` — the
+gate still writes no graph read of its own — and `zdrojVerdict` compares the
+version valid that day against today's. That gives this family a `moved` kind
+for the first time: the address is still either in the graph or not, but the
+CONTENT at it can move. `receiptMoved` is pure and compares only what a receipt
+typesets as a claim (gate state, weight, pass, method). Node labels are
+deliberately excluded — a renamed company is the same company and "moved" on it
+would be a false alarm — while a missing weight against a number IS a move
+(missing is not zero). The audit trail shown beside a historical version is
+trimmed to decisions taken by that instant; today's decisions under a
+three-month-old version would be a document that lies.
+
+The record-time banner sits ABOVE the verdict (the `/graf/p` staleness rule: a
+"this is not today" line placed under the figure is read after the figure) and
+comes from the SAME catalog keys `/zdroj` uses — two copies of that sentence
+would diverge at the first correction, and both surfaces answer the same
+question. It has five readings, and they are five different findings that must
+never share one silence: `at` (the receipt IS the archived version),
+`absentThen` (we kept records; this claim was not among them), `beforeEpoch`
+(the migration's shared `recorded_at` means we assert nothing before it),
+`refused` (`k` was not an ISO day — `2026-02-31` is rejected, not slid to 3
+March) and `notReplayable`.
+
+`notReplayable` is the honest answer for the derived figures (`/penize`,
+`/zebricek`, `/zakony`): those are computed by their owning loaders over today's
+store rather than read from graph history, so we cannot say what we published on
+a given day — and saying nothing would read as "there was nothing there". What
+would close it: `liveFigures.ts` re-deriving through the money/score/law loaders
+parameterised by a `KgAsOfReads`, which is those features' write set, not this
+one's. Also open: the `graf` family carries only the banner today, because
+naming what changed in a view needs the replay described in
+`docs/routes/graf-permalink.md`.
+
+An as-of receipt emits NO `ClaimReview` (`app/zdroj/[ref]/page.tsx`): the markup
+carries no as-of date, so a crawler would read a months-old version as a current
+verified claim. `refDetect` also learned the `g2.` prefix, so a bare dated graph
+citation pasted into the gate is recognised as one — and the old `g.` form keeps
+verifying, because an issued address is never withdrawn.
+
+**And `/zdroj` answers "as of the day you cited it" (same change).** The same
+`?k=` lens re-derives the receipt through the store's key-indexed point reads,
+with the dated banner above the content and the endpoint labels read at the same
+instant, so the page is one date rather than a collage of two. A `gone` receipt
+additionally shows the LAST recorded version — "naposledy zaznamenáno … /
+nahrazeno …" from `lastKgEdgeVersion` / `lastKgNodeVersion` — typeset as history
+under its own heading with both instants. It is never promoted: the status stays
+`gone`, no ClaimReview goes out, no audit trail is attached, and nothing on
+another surface counts it. The day rule itself is pure and shared
+(`features/shared/provenance/asOfLens.ts`), so the two surfaces cannot drift
+about what a valid day is or which instant it means — a day is read at its END,
+because the reader cited what we published that day, not what stood at midnight.

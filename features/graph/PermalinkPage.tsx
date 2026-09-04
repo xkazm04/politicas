@@ -500,8 +500,39 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
             dřív než důkazy (pravidlo Exponátu). */}
         {!view.fresh && (
           <div className="mb-6 border-2 border-signal bg-paper-strong px-4 py-3">
-            <SourceNote tone="signal">
-              {t("permalink.staleNotice", { urlHash: view.urlHash, currentHash: view.currentHash })}
+            {/* TEHDY / DNES — dva sloupce, každý s VLASTNÍM datem. Do
+                2026-09-04 tu stály jen dva otisky bez dat: čtenář se dozvěděl,
+                že se něco změnilo, ne KDY to platilo. Adresa tvaru `g2.` datum
+                vydání nese, `g.` ne — a ten rozdíl se přiznává, místo aby se
+                dosadil dnešek. */}
+            <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+              <div>
+                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+                  {t("permalink.thenKicker")}
+                </p>
+                <p className="mt-0.5 font-mono text-xs text-ink">
+                  {view.urlHash}{" "}
+                  <span className="text-steel-aa">
+                    ({view.issuedAt === null ? t("permalink.noIssueDate") : f.date(view.issuedAt)})
+                  </span>
+                </p>
+              </div>
+              <div>
+                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+                  {t("permalink.nowKicker")}
+                </p>
+                <p className="mt-0.5 font-mono text-xs text-ink">
+                  {view.currentHash}{" "}
+                  <span className="text-steel-aa">({f.date(view.retrievedOn)})</span>
+                </p>
+              </div>
+            </div>
+            <SourceNote tone="signal" className="mt-3">
+              {/* „Nepřehráno" a „beze změny" se NESMÍ číst stejně: prázdný
+                  seznam změn by z nedostatku znalosti udělal tvrzení. */}
+              {view.diff === null
+                ? t("permalink.diffUnavailable")
+                : t("permalink.staleNotice", { urlHash: view.urlHash, currentHash: view.currentHash })}
             </SourceNote>
           </div>
         )}

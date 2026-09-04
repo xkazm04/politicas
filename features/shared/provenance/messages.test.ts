@@ -101,6 +101,66 @@ describe("zaniklá účtenka má co říct", () => {
     }
   });
 
+  it("poslední zaznamenaná verze se nesází jako dnešní tvrzení", () => {
+    for (const [ns, lang] of [
+      [csNs, "cs"],
+      [enNs, "en"],
+    ] as const) {
+      // oba okamžiky, každý s vlastním datem
+      expect(placeholders(ns["page.lastRecorded"]), `${lang}.page.lastRecorded`).toEqual(["date"]);
+      expect(placeholders(ns["page.lastSuperseded"]), `${lang}.page.lastSuperseded`).toEqual(["date"]);
+      expect(ns["page.lastRecorded"]).not.toBe(ns["page.lastSuperseded"]);
+      // a věta, která z archivované verze nedělá tvrzení
+      expect(ns["page.lastNote"], `${lang}.page.lastNote`).toBeTruthy();
+      expect(ns["page.lastSource"], `${lang}.page.lastSource`).toBeTruthy();
+    }
+  });
+});
+
+describe("banner „k tomu dni“ rozlišuje, co neví", () => {
+  // Akceptační mez směru #10: tři různá „tenhle den ti neukážeme" nesmějí
+  // splynout v jednu větu. `absentThen` (záznamy jsme vedli, tohle mezi nimi
+  // nebylo), `beforeEpoch` (tak daleko zpátky nevedeme nic) a `refused` (to
+  // nebyl den) jsou tři různá zjištění a čtou se různě.
+  const NOT_TODAY = ["absentThen", "beforeEpoch", "beforeEpochUnknown", "refused"] as const;
+
+  it("každý stav má v obou katalozích vlastní, neprázdnou a navzájem různou větu", () => {
+    for (const [ns, lang] of [
+      [csNs, "cs"],
+      [enNs, "en"],
+    ] as const) {
+      const sentences = [...NOT_TODAY, "at"].map((s) => {
+        const v = ns[`asOf.${s}`];
+        expect(v, `${lang}.asOf.${s}`).toBeTruthy();
+        return v;
+      });
+      expect(new Set(sentences).size, lang).toBe(sentences.length);
+      expect(ns["asOf.kicker"], `${lang}.asOf.kicker`).toBeTruthy();
+    }
+  });
+
+  it("stavy, pod kterými stojí DNEŠNÍ záznam, to musí říct", () => {
+    // Bez téhle věty čtenář odejde s dojmem, že takhle to tehdy vypadalo — a
+    // to je přesně ta chyba, kterou banner existuje odchytit.
+    for (const s of NOT_TODAY) {
+      expect(csNs[`asOf.${s}`], `cs.asOf.${s}`).toMatch(/DNEŠNÍ/);
+      expect(enNs[`asOf.${s}`], `en.asOf.${s}`).toMatch(/TODAY/);
+    }
+    // `at` je jediný stav, kde je pod bannerem archivovaná verze
+    expect(csNs["asOf.at"]).not.toMatch(/DNEŠNÍ/);
+    expect(enNs["asOf.at"]).not.toMatch(/TODAY's record/);
+  });
+
+  it("každá věta drží své ICU placeholdery", () => {
+    expect(placeholders(csNs["asOf.at"])).toEqual(["day"]);
+    expect(placeholders(csNs["asOf.absentThen"])).toEqual(["day"]);
+    expect(placeholders(csNs["asOf.beforeEpoch"])).toEqual(["day", "epoch"]);
+    expect(placeholders(csNs["asOf.beforeEpochUnknown"])).toEqual(["day"]);
+    expect(placeholders(csNs["asOf.refused"])).toEqual(["raw"]);
+  });
+});
+
+describe("zaniklá účtenka má co říct (pokračování)", () => {
   it("nedostupný store neposílá čtenáře do provozního velína", () => {
     // backHref je „/" (app/zdroj/[ref]/page.tsx) — popisek to musí říkat, jinak
     // se odkaz čte jako cesta do /dashboard, kam externí čtenář nepatří.
