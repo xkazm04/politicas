@@ -1105,6 +1105,8 @@
       "methodTitle": "disclosed computation rule",
       "methodBody": "Group line = strict majority of the group's positional ballots (for/against) in a given roll call; a tie determines no line. Discipline = share of the group's positional ballots on the line. Cohesion = the Rice index |for−against|/(for+against), weighted at chamber level by the positional-ballot counts of groups with ≥ {minClubPositional} positional ballots. Since amendment 90/1995 Coll. the Chamber does not distinguish the “abstained / did not vote” slot and it does not count as a position; voided roll calls are excluded; unaffiliated MPs are displayed but not scored. The left-to-right ordering of groups in the hemicycle is an editorial constant.",
       "methodSource": "psp.cz — PSP10 roll-call votes · {valid} valid roll calls ({voided} voided excluded, {withoutDate} with no stated day and therefore outside the seismograph) · {ballots} ballots · {from} – {to}",
+      "clubBasisAtVote": "Each ballot is weighed against the group its caster was in ON THE DAY OF THAT VOTE, read from membership windows — an MP who changed group mid-term counts towards the group they were in at the time. {outside} ballots fell on a day inside no window of theirs (an MP between groups) and {ambiguous} on a day covered by two windows at once; neither is counted towards a group, towards the unaffiliated, or towards rebellion — they are stated, not imputed.",
+      "clubBasisTermWide": "Each ballot is weighed against ONE group for the whole term, because membership windows were unavailable. For an MP who changed group mid-term this repaints ballots cast in the previous one. It is a weaker basis than the group at the vote, and the page says so rather than presenting it as dated.",
       "freshness": "the whole record is derived from {ballots} stored ballots; that computation is memoized and expires after {hours} h — that is the most these numbers can lag the graph. /penize and the control room declare the same bound; the graph is a batch artifact, it changes on recompute, not during a request.",
       "reconcileTitle": "the recount checked against the published tallies",
       "reconcileMethod": "The Chamber publishes its own tallies for roll-call votes. Our recount from the stored ballots is compared with them one to one: for against the yes column, against against the no column, and the merged “abstained / did not vote” slot against the sum of the abstained and did-not-vote columns. The “not signed in / excused” slot is not compared at all — the source publishes no column for it, and deriving one would mean estimating how many MPs were supposed to be in the room. A difference is stated, never repaired: neither our recount nor the published tally is rewritten.",
@@ -1150,6 +1152,8 @@
       "thresholdRowPresent": "present {nFmt}",
       "thresholdRowPresentNone": "the source states no attendance count",
       "thresholdRowQuorum": "needed {nFmt}",
+      "billLink": "on print {cislo}",
+      "billBlock": "block of {countFmt} prints — the vote was on the block, not on one print",
       "thresholdRowQuorumNone": "the source states no threshold",
       "thresholdRowOver": "{n, plural, one {{nFmt} vote} other {{nFmt} votes}} above the threshold",
       "thresholdRowUnder": "{n, plural, one {{nFmt} vote} other {{nFmt} votes}} below the threshold",
@@ -1182,6 +1186,7 @@
       "clubsBoardNote": "group line = strict majority of its positional ballots in a given roll call; a tie determines no line",
       "mpsBoard": "match with MPs",
       "mpsBoardNote": "sorted by match; order within the same match carries only the count of comparable votes and the Czech alphabet",
+      "clubBasisNote": "The group beside a name is the group TODAY (the open membership). The group line above each question is the group AT THE VOTE, on the day of that roll call — for an MP who changed group mid-term the two differ, and that is deliberate: a row is an MP, a line is a roll call.",
       "alignmentOf": "{matches} of {comparable} comparable",
       "kShort": "abstained/did not vote",
       "awayShort": "not signed in",
@@ -2161,6 +2166,16 @@
       "rapporteursHeading": "rapporteurs — psp.cz hist · hist_vybory · tisky_za",
       "debateHeading": "floor debate — {countFmt} substantive speeches · psp.cz stenographic records",
       "amendmentDocsHeading": "written amendments — {countFmt} · psp.cz parliamentary documents",
+      "rollCallsHeading": "how the chamber voted — {countFmt} roll calls on this print",
+      "rollCallNoDate": "no stated day",
+      "rollCallLine": {
+        "yes": "for",
+        "no": "against"
+      },
+      "rollCallChamber": "for {yes} · against {no} · abstained / did not vote {k}",
+      "rollCallNoBallots": "we hold no named ballots for this roll call, so no tally is printed — “we have no ballots” is not “nobody voted”",
+      "rollCallBlockItem": "The agenda item carried {countFmt} prints at once — the vote was on the block, not on this print alone. The link is therefore kept on all of them rather than guessing one.",
+      "rollCallsSource": "psp.cz — roll calls joined to the print through the sitting's agenda item (sitting + item, on the agenda as taken). Chamber tallies and group lines come from the SAME derived record that renders /hlasovani, not from a second recount. {blockFmt} of these roll calls belonged to an item carrying several prints. Which reading it was is not stated in the source data, and we do not guess it.",
       "conflictSource": "possible conflict of interest · derived from the sponsor’s money ties",
       "conflictText": "The sponsor has ties to {count, plural, one {{countFmt} company} other {{countFmt} companies}} with a total public-contract flow of <b>{amount}</b>. A signal to examine, not a proven conflict — sector adjacency is an indication, not evidence.",
       "conflictAttribution": "The figure above is the worst case among this print's sponsors and sums every company the sponsor is tied to in the graph — including institutions where the role is merely a stewardship seat. An MP's money file attributes more strictly: an institution's money belongs to the institution, never to the MP, so the file usually shows a smaller amount. The file decides, not this flag.",
@@ -2654,6 +2669,8 @@
     "volbyRule_effort_workhorse_rule": "Positive finding: the MP carries the Case ② workhorse badge (deterministic contribution triage).",
     "volbyRule_effort_rapporteur_title": "Rapporteur workhorse",
     "volbyRule_effort_rapporteur_rule": "Positive finding: rapporteur of at least {rapporteurMin} bills.",
+    "volbyRule_law_final_vote_title": "The chamber voted on the print",
+    "volbyRule_law_final_vote_rule": "The day of the last roll call on a tabled print, joined through the sitting agenda item. A RECORD, not a finding: valence “unrated”, never entering the total — that the chamber voted is neither a credit nor a charge against the sponsor. The date is a LATER fact about the print, not the date of the sponsor's own choice, so it sits beside a decision on the timeline, never in place of one.",
     "volbyRule_money_ties_unrated_title": "Ties pending review",
     "volbyRule_money_ties_unrated_rule": "Count of MP ↔ company ties that have not passed the human gate. Valence “unrated”: shown, never added to the finding total."
   },
@@ -3698,7 +3715,8 @@
       "law_became_law_clean": "Became law without a conflict",
       "effort_workhorse": "Workhorse",
       "effort_rapporteur": "Rapporteur workhorse",
-      "money_ties_unrated": "Ties without assessment"
+      "money_ties_unrated": "Ties without assessment",
+      "law_final_vote": "The chamber voted on the print"
     },
     "severity": {
       "low": "low",
@@ -3719,7 +3737,8 @@
       "fate_sb": "published in the Collection of Laws",
       "forensic_verdict": "forensic opinion recorded",
       "collision_detected": "collision detected",
-      "flags_computed": "flags computed"
+      "flags_computed": "flags computed",
+      "final_vote": "the chamber voted"
     },
     "figure": {
       "lots": "lots in the term",

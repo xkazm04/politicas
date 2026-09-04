@@ -291,6 +291,16 @@
     "cites": [
       "rationale"
     ],
+    "decides": [
+      "agendaItem",
+      "agendaLabel",
+      "itemPrintCount",
+      "joinBasis",
+      "outcome",
+      "readingStage",
+      "sessionNo",
+      "votedOn"
+    ],
     "belongs_to": [
       "rationale"
     ],

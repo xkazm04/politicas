@@ -188,3 +188,115 @@ it drawn) and `voteIndex` is untouched — the kompas needs no threshold;
 locations ride INSIDE `ledger`/`coverage`, so the pinned whole-type list is
 unchanged, with fixtures given an ALTERNATING threshold so the assertion has
 something to fail on.
+
+**The club is the club AT THE VOTE (2026-09-04).** Every club line, discipline
+figure, cohesion index and rebellion row on this page was computed against ONE
+club per mandate for the whole term. `clubByMandate`
+(`lib/db/pglite/repositories/graph.ts`) joins `membership` to the term's `Klub`
+organs with **no predicate on `from_at`/`to_at`** and does `out.set(mandate,
+abbrev)` per row, so an MP with two club rows got whichever row the query
+returned last — which club won was decided by the dump, and every historical
+ballot was repainted with it. The windows had been on `MembershipRow.fromAt/toAt`
+the whole time; nothing read them. Same defect class as the committee dates
+`/zakony` fixed on 2026-08-13, when „the committee date stopped being decided by
+dump ROW ORDER".
+
+`store.clubWindowsByMandate(term)` now returns every window per mandate (ordered
+by `from_at` — load-bearing, not cosmetic), `lib/analysis/clubAt.ts` resolves a
+day against them, and `deriveVoteRecord` threads the roll call's `votedOn` into
+BOTH passes: the club tallies and the rebellion denominator. `clubAt` returns a
+tagged verdict rather than `string | null`, because the three ways it can fail
+to name a club are three different facts:
+
+| verdict | what it means | what the record does |
+| --- | --- | --- |
+| `in_club` | the day sits in exactly one window | scored against that club |
+| `no_window` | the mandate has no club window at all | `unaffiliated` — unchanged behaviour |
+| `outside_window` | it has windows, none covers this day | `coverage.outsideClubWindow`, **not** scored, **not** folded into `unaffiliated` |
+| `ambiguous` | two windows cover the day | `coverage.ambiguousClubWindow`, refused |
+
+**`outsideClubWindow` is deliberately not `unaffiliated`.** An MP between clubs
+and an MP who never joined one are different facts, and adding the first to the
+second weighs a ballot against a club line that did not apply to its caster. Such
+a ballot enters no club tally and no rebellion denominator: an uncounted ballot
+is better than a ballot attributed to a club its caster was not in. `ambiguous`
+is refused for the same reason the whole change exists — picking the first of two
+overlapping windows is precisely the row-order failure being corrected.
+
+The basis itself is now a published field. `coverage.clubBasis` is `at_vote` when
+the windows were supplied and `term_wide` when they were not, and the discipline
+board prints one of two sentences accordingly (`hlasovani.record.clubBasisAtVote`
+carries the two loss counts; `…TermWide` states plainly that the page is
+repainting an MP's older ballots). A caller that does not pass windows gets the
+old behaviour AND is told so — the degradation is disclosed, never assumed.
+
+The kompas board deliberately mixes two things and now says so: the club beside
+an MP's name is the club **today** (read from the open window, no longer from
+`clubByMandate`'s row order), while the line above each question is the club **at
+that vote**. A row is an MP; a line is a roll call (`hlasovani.kompas.clubBasisNote`).
+
+**What has NOT moved: no stored number.** `lib/analysis/kg.ts` `rebellion()` /
+`partyCohesion()` and `scripts/data-analysis/kg-compute.ts` still read the undated
+map, so every `rebellion_rate` prop on the 207 person nodes and every
+`party.cohesion` is byte-identical to before this change. That recompute is
+gated on `memory/recompute-replay-gate.md` — the old formula must first reproduce
+every stored value on a fixture before the windowed formula may write a new pass —
+and the replay cannot be run from a worktree with no store. It is carried over
+with its before/after table owed, because a published rebellion rate that moves
+without that proof reads as an unattributable rewrite.
+
+**The ledger row says what the vote was about (2026-09-04).** All 48 rows linked no
+print, because the graph held no edge between a roll call and the print it decided.
+`LedgerVote.billCislo` reads the new `decides` edges (through `readBillCislosByVote()`
+in `ledgerRead.ts` — read on THIS side of the boundary, because `/zakony` imports
+`getFullVoteRecord()` and the opposite import would close a cycle) and the row links
+`/zakony/<cislo>`.
+
+**A link only when the roll call decided exactly one print.** An agenda item that
+carried several is a block — in PSP10 all six such items are „písemné interpelace",
+one item answering up to eighteen prints — and linking one of them would assert the
+vote was about that one. Such a row prints „blok N tisků" instead. `billCount` is the
+denominator that keeps the two `null` cases apart: 0 = no print at all (1 602 of 2 075
+valid roll calls, 828 of them procedural), > 1 = a block. Without it the row could not
+tell „we know of no print" from „we know of several", and both are `billCislo === null`.
+
+`chronicleCap.test.ts` carries the ruling in writing: both fields ride INSIDE `ledger`,
+so the pinned whole-type list is unchanged, and the fixture alternates between one
+print, two prints and none so the „the chronicle cap does not move the bill link"
+assertion has something to fail on.
+
+**…and the club-at-vote correction moves NOTHING today. Measured, 2026-09-04.**
+The defect is real — `clubByMandate`'s SQL has no date predicate and is last-row-wins
+— but before claiming a fix matters, here is its population, read off the live psp.cz
+dumps (`poslanci.zip` `zarazeni` ⋈ the eight PSP10 `Klub` organs, `hl-2025ps.zip`
+ballots):
+
+| | PSP10 (organ 174) |
+| --- | ---: |
+| club membership rows | 207 |
+| distinct persons holding one | 207 |
+| **persons with MORE THAN ONE club window** | **0** |
+| …open windows (`do_o` empty) | 200 |
+| …closed windows (the 7 replaced MPs, one each) | 7 |
+| ballots on valid roll calls | 415 000 |
+| …resolving inside their caster's window | 415 000 (100,00 %) |
+| **…`outsideClubWindow`** | **0** |
+| **…`ambiguousClubWindow`** | **0** |
+| …`no_window` (genuinely unaffiliated) | 0 |
+
+So `clubAt` and `clubByMandate` return the SAME club for every one of the 415 000
+ballots in the corpus today. Nobody in this Chamber has changed club yet — the term
+opened 2025-11-03 — and each of the seven replaced MPs holds a single closed window.
+For contrast, PSP9 (organ 173) has exactly ONE person with two distinct clubs across
+211, so this is a rare event even over a full term, not a never event.
+
+**Two consequences, both honest.** First, this change is a correctness fix landed
+BEFORE it is needed rather than after the first defection has already been scored
+wrong — which is the only time it can be landed without moving published numbers.
+Second, it means step 7 of the design (the graph recompute) would today produce a
+before/after table of ALL ZEROS: no MP's `rebellion_rate` and no `party.cohesion`
+would move, because no ballot's club changes. That is a reason to carry it over
+carefully, not a reason to skip it: the moment one MP crosses the floor,
+`kg-compute.ts` starts writing rebellion rates against the wrong club, and the replay
+gate (`memory/recompute-replay-gate.md`) is what will let that correction be told
+apart from a rewrite when it finally does move somebody's number.

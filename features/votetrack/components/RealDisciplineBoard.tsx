@@ -256,6 +256,16 @@ export default function RealDisciplineBoard({
             to: data.coverage.to ? f.date(data.coverage.to) : "—",
           })}
         </SourceNote>
+        {/* Na jakém základě je v tomhle záznamu KLUB. Dvě věty, ne jedna: datovaný
+            základ vypisuje své dvě ztráty, nedatovaný přiznává, že přebarvuje. */}
+        <SourceNote className="mt-2">
+          {data.coverage.clubBasis === "at_vote"
+            ? t("record.clubBasisAtVote", {
+                outside: f.int(data.coverage.outsideClubWindow),
+                ambiguous: f.int(data.coverage.ambiguousClubWindow),
+              })
+            : t("record.clubBasisTermWide")}
+        </SourceNote>
         <SourceNote className="mt-2">
           {t("record.freshness", { ballots: f.int(data.coverage.ballots), hours: f.int(RECORD_MEMO_HOURS) })}
         </SourceNote>

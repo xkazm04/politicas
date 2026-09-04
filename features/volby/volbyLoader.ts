@@ -240,8 +240,36 @@ async function readBills(store: Store): Promise<BillsByMp> {
       fatePublishedOn: isoDay(p.fate_published_on),
       // No bill prop carries the sponsorship date (checked 2026-08-27: the only date-shaped
       // prop is `fate_published_on`) — null, never the fate date or the edge's pass stamp.
+      // Still null on 2026-09-04: the `decides` edges below date the chamber's VOTE, which
+      // is a later fact about the bill, not the moment its sponsor chose to table it.
       sponsoredOn: null,
+      finalVoteOn: null, // filled from `decides` below when the graph carries one
     });
+  }
+
+  /* The chamber's own dated outcome per print — the LAST roll call on it (`decides`,
+   * 2026-09-04). This is /volby's first dated chamber fact: until now every `law_*`
+   * finding shipped `decidedOn: null` and the dated-outcome timeline had nothing to
+   * anchor on. It anchors on `laterOn`, never on `decidedOn` — the vote is what
+   * HAPPENED to the bill, not what the sponsor chose.
+   *
+   * A vote whose agenda item named several prints (PSP10: six such items, all written-
+   * interpellation blocks) still dates each of them: the roll call really did dispose
+   * of the whole block. What it must not do is claim the block was about one print,
+   * and a date makes no such claim. */
+  const decides = await store.listKgEdges({ rel: "decides", limit: KG_READ_CAP });
+  if (decides.length > 0) {
+    const latestByBill = new Map<string, string>();
+    for (const e of decides) {
+      const day = isoDay((e.props ?? {}).votedOn);
+      if (day === null) continue; // an undated roll call dates nothing
+      const prev = latestByBill.get(e.dst);
+      if (prev === undefined || day > prev) latestByBill.set(e.dst, day);
+    }
+    for (const [billNodeId, day] of latestByBill) {
+      const bill = billById.get(billNodeId);
+      if (bill) bill.finalVoteOn = day;
+    }
   }
   const byPspId = new Map<number, SponsoredBill[]>();
   let edgesToUnknownBill = 0;
