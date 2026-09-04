@@ -42,6 +42,11 @@ const SKIP_DIRS = new Set([
   "docs",
   "memory",
   "benchmark-data",
+  // Agent worktrees live INSIDE the repo dir (.claude/worktrees/<agent>/…), each a
+  // full clone with its own node_modules: measured 2026-09-05 with five builders
+  // running, 10 730 of the walk's 16 431 files were worktree copies and the
+  // 5 s budget became 94 s. A worktree is another checkout, not this tree.
+  "worktrees",
 ]);
 const LIVE_EXTS = [".ts", ".tsx", ".mjs", ".cjs"];
 /** Non-source files whose content is still wiring: a command, a CI step. */
