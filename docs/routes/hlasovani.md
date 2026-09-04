@@ -264,3 +264,39 @@ tell „we know of no print" from „we know of several", and both are `billCisl
 so the pinned whole-type list is unchanged, and the fixture alternates between one
 print, two prints and none so the „the chronicle cap does not move the bill link"
 assertion has something to fail on.
+
+**…and the club-at-vote correction moves NOTHING today. Measured, 2026-09-04.**
+The defect is real — `clubByMandate`'s SQL has no date predicate and is last-row-wins
+— but before claiming a fix matters, here is its population, read off the live psp.cz
+dumps (`poslanci.zip` `zarazeni` ⋈ the eight PSP10 `Klub` organs, `hl-2025ps.zip`
+ballots):
+
+| | PSP10 (organ 174) |
+| --- | ---: |
+| club membership rows | 207 |
+| distinct persons holding one | 207 |
+| **persons with MORE THAN ONE club window** | **0** |
+| …open windows (`do_o` empty) | 200 |
+| …closed windows (the 7 replaced MPs, one each) | 7 |
+| ballots on valid roll calls | 415 000 |
+| …resolving inside their caster's window | 415 000 (100,00 %) |
+| **…`outsideClubWindow`** | **0** |
+| **…`ambiguousClubWindow`** | **0** |
+| …`no_window` (genuinely unaffiliated) | 0 |
+
+So `clubAt` and `clubByMandate` return the SAME club for every one of the 415 000
+ballots in the corpus today. Nobody in this Chamber has changed club yet — the term
+opened 2025-11-03 — and each of the seven replaced MPs holds a single closed window.
+For contrast, PSP9 (organ 173) has exactly ONE person with two distinct clubs across
+211, so this is a rare event even over a full term, not a never event.
+
+**Two consequences, both honest.** First, this change is a correctness fix landed
+BEFORE it is needed rather than after the first defection has already been scored
+wrong — which is the only time it can be landed without moving published numbers.
+Second, it means step 7 of the design (the graph recompute) would today produce a
+before/after table of ALL ZEROS: no MP's `rebellion_rate` and no `party.cohesion`
+would move, because no ballot's club changes. That is a reason to carry it over
+carefully, not a reason to skip it: the moment one MP crosses the floor,
+`kg-compute.ts` starts writing rebellion rates against the wrong club, and the replay
+gate (`memory/recompute-replay-gate.md`) is what will let that correction be told
+apart from a rewrite when it finally does move somebody's number.

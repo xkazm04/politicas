@@ -1420,3 +1420,40 @@ ambiguity, term scope, row dedupe and `bod < 1`. Writer:
 
 **Corpus drift worth noting:** pass 1 computed over 2 014 non-voided votes; the term now
 holds 2 075. Every rate in this entry is against the 2026-09-04 dump, not pass 1's.
+
+---
+
+## Probe (track: votes) — club-at-vote: the defect is real, its population is zero (2026-09-04)
+
+Companion to the `decides` probe above, and the reason step 7 of the G3 design is
+carried over rather than executed. `clubByMandate`
+(`lib/db/pglite/repositories/graph.ts`) joins `membership` to the term's `Klub` organs
+with **no predicate on `from_at`/`to_at`** and does `out.set(mandate, abbrev)` per row,
+so a person with two club rows gets whichever the dump returned last. Every club line,
+`rebellion_rate` and `party.cohesion` in the graph rests on that map.
+
+Before treating that as a live corruption, it was measured on the dumps (`poslanci.zip`
+`zarazeni` ⋈ the eight PSP10 `Klub` organs; `hl-2025ps.zip` ballots), no store:
+
+| | PSP10 (organ 174) |
+| --- | ---: |
+| club membership rows / distinct persons | 207 / 207 |
+| **persons with >1 club window** | **0** |
+| open windows / closed (the 7 replaced MPs) | 200 / 7 |
+| ballots on valid roll calls | 415 000 |
+| **ballots outside the assigned club's window** | **0** |
+| ballots covered by two windows at once | 0 |
+
+`clubAt()` and `clubByMandate` therefore agree on 415 000 of 415 000 ballots. Nobody in
+this Chamber has changed club since it opened on 2025-11-03, and each replaced MP holds
+one closed window. PSP9 (organ 173) has exactly one such person across 211 — rare over
+a full term, not impossible.
+
+**What this licenses and what it forbids.** It licenses landing the dated read now, in
+the window where it moves no published number (the surfaces ship it; see
+`docs/routes/hlasovani.md`). It forbids running the graph recompute and calling the
+result a correction: the before/after table would be all zeros, so the replay gate would
+be proving nothing, and the pass number would be spent. `rebellion()` / `partyCohesion()`
+/ `kg-compute.ts` keep reading the undated map until a first defection makes the two
+disagree — at which point the replay gate is exactly the instrument that separates the
+correction from a rewrite.
