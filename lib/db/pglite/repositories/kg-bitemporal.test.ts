@@ -217,4 +217,91 @@ describe("bitemporal kg claims (DB integration)", () => {
     // and the record honestly shows the wipe itself
     expect(await kg.asOf(new Date()).countKgNodes()).toBe(0);
   });
+
+  /* ── the as-of spine: the point reads a reader-facing surface uses ──────────
+   * The whole-relation `asOf()` listers above are the history instrument; a
+   * receipt asks about ONE claim, so it goes through the key-indexed point
+   * reads. These pin the three answers the surfaces must be able to tell apart:
+   * a value, "we kept records then and this claim was not among them", and "we
+   * have no record time that far back at all" (the epoch rule). */
+
+  it("POINT READS: asOfNode/asOfEdge answer per version, and the epoch rule refuses a pre-epoch instant", async () => {
+    const pg = await open();
+    const kg = makeKgRepo(pg);
+
+    await kg.upsertKgNodes([node("bt:pt", "Verze 1", { contribution_score: 10 }), node("bt:pt2", "Druhý")]);
+    await kg.upsertKgEdges([edge("bt:pt", "bt:pt2", { review_state: "pending_review" })]);
+    await tick();
+    const v1 = await tsText(`select recorded_at::text as t from kg_node where id = 'bt:pt'`);
+    const edgeV1 = await tsText(
+      `select recorded_at::text as t from kg_edge where src = 'bt:pt' and rel = 'linked_to' and dst = 'bt:pt2'`,
+    );
+    await tick();
+
+    await kg.upsertKgNodes([node("bt:pt", "Verze 2", { contribution_score: 20 })]);
+    await kg.upsertKgEdges([edge("bt:pt", "bt:pt2", { review_state: "verified" })]);
+    await tick();
+    const v2 = await tsText(`select recorded_at::text as t from kg_node where id = 'bt:pt'`);
+    expect(v2).not.toBe(v1);
+
+    // 1) at the first version's instant → version 1, node and edge alike
+    const atV1 = await kg.asOfNode("bt:pt", v1);
+    expect(atV1.known).toBe(true);
+    expect(atV1.known && atV1.value?.label).toBe("Verze 1");
+    expect(atV1.known && atV1.value?.props.contribution_score).toBe(10);
+    const edgeAtV1 = await kg.asOfEdge({ src: "bt:pt", rel: "linked_to", dst: "bt:pt2" }, edgeV1);
+    expect(edgeAtV1.known && edgeAtV1.value?.props.review_state).toBe("pending_review");
+
+    // 2) at the second version's instant → version 2 (half-open span)
+    expect((await kg.asOfNode("bt:pt", v2)).value?.label).toBe("Verze 2");
+    const edgeNow = await kg.asOfEdge({ src: "bt:pt", rel: "linked_to", dst: "bt:pt2" }, new Date());
+    expect(edgeNow.known && edgeNow.value?.props.review_state).toBe("verified");
+
+    // 3) known, but nothing there: a key the graph never carried
+    expect(await kg.asOfNode("bt:never-existed", v2)).toMatchObject({ known: true, value: null });
+
+    // 4) EPOCH RULE: before the oldest record time the store carries, the answer
+    //    is "unknown" — never a value, never "unchanged since <epoch>".
+    const epoch = await kg.bitemporalEpoch();
+    expect(epoch).not.toBeNull();
+    const preEpoch = await kg.asOfNode("bt:pt", "1999-01-01T00:00:00Z");
+    expect(preEpoch.known).toBe(false);
+    expect(preEpoch.epoch).toBe(epoch);
+    expect(
+      (await kg.asOfEdge({ src: "bt:pt", rel: "linked_to", dst: "bt:pt2" }, "1999-01-01T00:00:00Z")).known,
+    ).toBe(false);
+
+    // 5) a malformed instant is refused the same way — never repaired
+    expect((await kg.asOfNode("bt:pt", "not-a-date")).known).toBe(false);
+
+    // 6) the point read agrees with the whole-relation instrument at the same instant
+    expect(atV1.value).toEqual((await kg.asOf(v1).getKgNodes(["bt:pt"]))[0]);
+  });
+
+  it("LAST VERSION: an address the serving graph no longer carries still names what it last said, and when", async () => {
+    const pg = await open();
+    const kg = makeKgRepo(pg);
+    await kg.upsertKgNodes([node("bt:lv:a", "Odešlý"), node("bt:lv:b", "Zůstal")]);
+    await kg.upsertKgEdges([edge("bt:lv:a", "bt:lv:b", { review_state: "rejected" })]);
+    await tick();
+
+    const key = { src: "bt:lv:a", rel: "linked_to", dst: "bt:lv:b" };
+    const still = await kg.lastKgEdgeVersion(key);
+    expect(still?.supersededAt).toBeNull(); // current version: the span is still open
+    expect(still?.row.props.review_state).toBe("rejected");
+
+    await kg.deleteKgEdges([key]);
+    const gone = await kg.lastKgEdgeVersion(key);
+    expect(gone?.row.props.review_state).toBe("rejected");
+    expect(gone?.recordedAt).toBeTruthy();
+    // the closing instant is recorded — "naposledy zaznamenáno … / nahrazeno …"
+    expect(gone?.supersededAt).toBeTruthy();
+    // the serving read agrees the edge is gone: history is disclosure, not re-promotion
+    expect((await kg.listKgEdges({ rel: "linked_to" })).some((e) => e.src === "bt:lv:a")).toBe(false);
+
+    // a key the store never held has no last version — missing is not zero
+    expect(await kg.lastKgEdgeVersion({ src: "bt:nope", rel: "linked_to", dst: "bt:nope2" })).toBeNull();
+    expect(await kg.lastKgNodeVersion("bt:nope")).toBeNull();
+    expect((await kg.lastKgNodeVersion("bt:lv:b"))?.row.label).toBe("Zůstal");
+  });
 });
