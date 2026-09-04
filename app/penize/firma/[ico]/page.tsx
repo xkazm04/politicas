@@ -7,7 +7,11 @@ import { canonicalIco } from "@/features/money/companyId";
 
 /** The page asserts a signature-plausibility bound drawn against a DAY (contracts signed
  *  after "today" are data faults, not dates), so a build-frozen page would slowly start
- *  calling a real 2027 signature impossible. Same window as the other graph surfaces. */
+ *  calling a real 2027 signature impossible. What keeps `todayIso` moving TODAY is not
+ *  this line: `lib/i18n/request.ts` reads the locale cookie, so every route renders
+ *  dynamically and `revalidate` is inert (memory/revalidate-is-inert-every-route-is-dynamic).
+ *  It stays as the declared ceiling for the day the app goes static — the same window as
+ *  /dashboard and /penize/strety — so that day cannot arrive with the bound frozen. */
 export const revalidate = 86_400;
 
 export async function generateMetadata({

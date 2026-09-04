@@ -19,7 +19,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Check, Link2, RotateCcw } from "lucide-react";
-import type { LeaderboardData } from "../getLeaderboardData";
+import type { LeaderboardData } from "../leaderboardTypes";
 import {
   effectiveWeights,
   encodeWeights,

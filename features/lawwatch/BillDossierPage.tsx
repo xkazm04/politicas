@@ -11,7 +11,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { BillDossier } from "./getLawData";
+import type { BillDossier } from "./lawTypes";
 import BillDetail from "./components/BillDetail";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";

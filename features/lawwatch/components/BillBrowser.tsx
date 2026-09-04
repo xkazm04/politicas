@@ -13,7 +13,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { BillOrigin } from "../getLawData";
+import type { BillOrigin } from "../lawTypes";
 import type { LawWatchWire, PublicLawBill } from "../publicWire";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";

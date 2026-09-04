@@ -23,7 +23,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import SourceNote from "@/features/shared/components/SourceNote";
-import type { ComponentKey } from "@/features/civicscore/getLeaderboardData";
+import type { ComponentKey } from "@/features/civicscore/componentDefs";
 import {
   effectiveWeights,
   encodeWeights,

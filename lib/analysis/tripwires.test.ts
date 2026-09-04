@@ -357,3 +357,23 @@ describe("dayInRolePeriod", () => {
     expect(dayInRolePeriod("2099-12-31", "2022-01-10", null)).toBe(true);
   });
 });
+
+/* ── Parita s vyhlášeným pravidlem střetů (2026-09-01) ──────────────────────── */
+
+describe("dayInRolePeriod je totéž pravidlo jako voteInRolePeriod ze /penize/strety", () => {
+  it("shodne se na každé kombinaci krajních dnů, otevřeného konce a časové části", async () => {
+    // Duplikát je záměrný (lib nesmí importovat features), ale dvě kopie jednoho
+    // pravidla se rozejdou, pokud je nic nesrovnává — tohle je to srovnání.
+    const { voteInRolePeriod } = await import("@/features/money/collisions/statuteRelevance");
+    const { dayInRolePeriod } = await import("./tripwires");
+    const days = ["2024-12-31", "2025-01-01", "2025-06-15", "2025-12-31", "2026-01-01", "2025-06-15T23:59:00Z"];
+    const froms = ["2025-01-01", "2025-06-15", "2025-06-15T08:00:00Z"];
+    const tos: (string | null)[] = [null, "2025-12-31", "2025-06-15", "2025-06-15T00:00:00Z"];
+    let compared = 0;
+    for (const d of days) for (const f of froms) for (const t of tos) {
+      expect(dayInRolePeriod(d, f, t), `${d} in [${f}, ${t}]`).toBe(voteInRolePeriod(d, f, t));
+      compared++;
+    }
+    expect(compared).toBe(days.length * froms.length * tos.length);
+  });
+});

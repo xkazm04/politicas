@@ -29,7 +29,7 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { radarCitationCs, type RadarDay, type RadarEntry } from "../deriveRadar";
-import type { RadarData } from "../getRadarData";
+import type { RadarData } from "../radarTypes";
 
 /** kolize = signal (nález porovnání textů), příznak = ochre (odvozený,
  * čeká na ověření — stejný tón jako pending jinde v appce). Žádné nové barvy. */

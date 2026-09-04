@@ -72,3 +72,18 @@ is the one declaration of the thresholds and parameterises both catalogs, so a
 constant change reflows the machine rule and both locales from one edit
 (demonstrated). `features/atlas/messages.test.ts` is the feature's first — it was
 the only catalogued surface without one.
+
+**The source register is derived from the tree, not copied from it
+(2026-09-01, scan-sweep).** `INGESTED_SOURCES` was hand-written on 2026-08-13
+with the note that every row had been verified over the tree, and its test
+compared the list only to itself. Two adapters that entered `lib/ingest/sources`
+afterwards never got a row: `isvz.ts` (Registr veřejných zakázek — the whole
+tender layer `/volby` reads, 61 k nodes) and `smlouvy-dump.ts` (the bulk
+Registr smluv dumps behind the contract census). So the page whose purpose is
+to name every source the platform works with named 12 of 14, and the landing's
+source panel printed „12 deklarovaných" from the same constant. Both now carry
+rows (`isvz-nipez-cz`, `smlouvy-gov-cz-dump`, landing `graph`, unscored for the
+same reason as the other graph sources), and `lib/analysis/atlas.test.ts` reads
+the adapters directory and fails on the next module that lands without a row
+(two named helpers excluded, each with its reason). Counts on this page and on
+`/` moved 12 → 14 declared, 9 → 11 unscored.

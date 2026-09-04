@@ -26,6 +26,7 @@
  * Do OTISKU nevstupuje ani jedno: hashuje se `content`, ne pohledový model.
  */
 
+import "server-only";
 import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { formatInt } from "@/lib/format";
