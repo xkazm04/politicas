@@ -37,7 +37,30 @@ const RUN_TABLES = [
   "vote_ballot",
   "absence",
   "source_release",
+  // ── [G5] the graph, sealed at last (moonshot card #22) ─────────────────────
+  // Until 2026-09-04 the seal covered eight entity tables and ZERO graph rows,
+  // because kg_node/kg_edge had no ingest_run_id to filter on. `supplies`
+  // (19 266 rows in the snapshot cut), `linked_to`, `amends` and `owns_stake` —
+  // the edges readers actually cite — had no run, no seal and no freshness,
+  // while a half-applied score pass tripped the sentinel the same day.
+  //
+  // They join the pinned order at the END so every previously sealed run keeps
+  // the root it was sealed with: appending a table can only add leaves for runs
+  // that actually wrote graph rows, and a run that wrote none is byte-identical
+  // to what it was. Re-sealing an old run therefore reproduces its root.
+  "kg_node",
+  "kg_edge",
 ] as const;
+
+/**
+ * The column each table's rows are ordered by when sealing. `id` for everything
+ * that has one; `kg_edge`'s identity is its (src, rel, dst) triple, so ordering
+ * it by a column it does not have would throw rather than produce a wrong root.
+ * Sealing is only deterministic if this order is.
+ */
+const RUN_TABLE_ORDER: Readonly<Record<string, string>> = {
+  kg_edge: "src, rel, dst",
+};
 
 export interface ReviewChainHead {
   chainPos: number;
@@ -175,7 +198,7 @@ export function makeLedgerRepo(pg: Pglite): LedgerRepository {
       const leaves: string[] = [];
       for (const table of RUN_TABLES) {
         const { rows } = await pg.query<Record<string, unknown>>(
-          `select * from ${table} where ingest_run_id = $1 order by id asc`,
+          `select * from ${table} where ingest_run_id = $1 order by ${RUN_TABLE_ORDER[table] ?? "id"} asc`,
           [runId],
         );
         for (const row of rows) leaves.push(merkleLeafHash(table, row));

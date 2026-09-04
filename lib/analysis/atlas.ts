@@ -108,7 +108,9 @@ export const ATLAS_RULES: Readonly<Record<AtlasDimension, { label: string; rule:
     rule:
       "100 × (dokončené úspěšné běhy zdroje zapečetěné Merkle kořenem / všechny dokončené úspěšné " +
       "běhy zdroje), zaokrouhleno. Pečeť přikládá LedgerRepository.sealIngestRun nad každým řádkem, " +
-      "který běh zapsal. Zdroj bez dokončeného úspěšného běhu = nehodnoceno.",
+      "který běh zapsal — v osmi entitních tabulkách i v kg_node/kg_edge, které se od 2026-09-04 " +
+      "k běhu hlásí sloupcem ingest_run_id. Zapečetěná a hodnocená množina tabulek je tedy táž. " +
+      "Zdroj bez dokončeného úspěšného běhu = nehodnoceno.",
   },
   completeness: {
     label: "úplnost",
@@ -234,10 +236,11 @@ export const INGESTED_SOURCES: readonly AtlasIngestedSource[] = [
  */
 export const UNSCORED_REASONS: Readonly<Record<AtlasUnscorableLanding, string>> = {
   graph:
-    "Řádky tohoto zdroje dopadají do kg_node/kg_edge. Ty nemají sloupec source ani ingest_run_id — " +
-    "původ v nich je volný text v poli provenance.ref, takže mezi řádkem a tabulkou ingest_run nevede " +
-    "žádný spojovací klíč. Pokrytí provenancí, čerstvost ani Merkle pečeť se u nich proto změřit nedají. " +
-    "Je to mez NAŠÍ roury, ne výpověď o vydavateli: data ve store jsou, jen k nim atlas nevede měřitelnou vazbu.",
+    "Řádky tohoto zdroje dopadají do kg_node/kg_edge. Ty od 2026-09-04 sloupce source i ingest_run_id " +
+    "mají — atlas je tedy měřit UMÍ, jakmile je zapisovač orazítkuje. Tenhle zdroj kartu nemá proto, že " +
+    "ve store zatím nestojí ani jeden jeho orazítkovaný řádek: nasypání pod novou smlouvou původu ho " +
+    "ještě neminulo. Je to mez NAŠÍ roury, ne výpověď o vydavateli: data ve store jsou, jen se k tomuhle " +
+    "klíči zdroje zatím nehlásí.",
   "generated-module":
     "Sklizeň tohoto zdroje je zamrazená do generovaného modulu v repozitáři, který plocha čte přímo — do " +
     "úložiště nedopadá nic. Bez řádku ve store a bez ingest běhu není co měřit; datum stažení nese ten modul " +
@@ -308,6 +311,33 @@ export interface AtlasInputs {
   runStats: ReadonlyArray<AtlasSourceRunStats>;
 }
 
+/**
+ * Řádky grafu, které se k žádnému deklarovanému zdroji NEHLÁSÍ. Dvě různé
+ * pravdy, a splynout nesmějí:
+ *
+ *  · `unknown` — řádek migrací PROŠEL a jeho původ se z toho, co nese, poctivě
+ *    rekonstruovat nedal. Číslo ke splácení, vytištěné. Uhodnutý zdroj by byl
+ *    oprava, a tahle stránka nic neopravuje.
+ *  · `unstamped` — řádek zatím nemá `source` vůbec (migrace ho ještě neminula).
+ *    Není to výpověď o původu, je to výpověď o postupu migrace.
+ *
+ * Ani jedno nedostane kartu: karta je tvrzení o VYDAVATELI, a „unknown" žádný
+ * vydavatel není. Report je proto vede zvlášť a plocha je vypisuje jako počty.
+ */
+export interface AtlasUnattributed {
+  /** Řádky se `source = 'unknown'` — rekonstrukce se nezdařila a přiznává se. */
+  unknownRows: number;
+  /** Řádky bez `source` — migrace k nim ještě nedošla. */
+  unstampedRows: number;
+  /** Rozpad podle tabulky (kg_node / kg_edge), řazeno podle jména. */
+  byEntity: Array<{ entity: string; unknownRows: number; unstampedRows: number }>;
+}
+
+/** Zdroj, který NENÍ vydavatel — nikdy nedostane kartu (viz AtlasUnattributed). */
+export const ATLAS_UNATTRIBUTED_SOURCE = "unknown";
+/** Klíč, kterým loader označí řádky bez jakéhokoli `source`. */
+export const ATLAS_UNSTAMPED_SOURCE = "";
+
 /* ── Výstup ─────────────────────────────────────────────────────────────────── */
 
 /** Skóre dimenze: buď hodnocené číslo 0–100 s podkladem, nebo poctivé nehodnoceno. */
@@ -370,6 +400,11 @@ export interface AtlasReport {
    * s tím, co umí změřit; dnes to není pravda a stránka to říká nahlas.
    */
   unscored: AtlasUnscoredSource[];
+  /**
+   * Řádky grafu bez přiznaného vydavatele — počítané, nikdy schované. Nula tu
+   * neznamená „hotovo": znamená, že se každý řádek k nějakému zdroji hlásí.
+   */
+  unattributed: AtlasUnattributed;
 }
 
 const UNKNOWNS_NOTE =
@@ -525,6 +560,10 @@ export function deriveAtlas(inputs: AtlasInputs): AtlasReport {
   const keys = new Set<string>(Object.keys(SOURCE_DOCS));
   for (const c of inputs.entityCoverage) keys.add(c.source);
   for (const r of inputs.runStats) keys.add(r.source);
+  // „unknown" a prázdný klíč nejsou vydavatelé — karta by o nich tvrdila něco,
+  // co vydavatel není. Vedou se zvlášť, jako počty (viz AtlasUnattributed).
+  keys.delete(ATLAS_UNATTRIBUTED_SOURCE);
+  keys.delete(ATLAS_UNSTAMPED_SOURCE);
 
   const sources = [...keys].sort().map((source): AtlasSourceCard => {
     const doc = SOURCE_DOCS[source] ?? null;
@@ -590,5 +629,36 @@ export function deriveAtlas(inputs: AtlasInputs): AtlasReport {
     // Zdroje s kartou se sem nesmí dostat podruhé — proto se předává množina
     // klíčů, které kartu dostaly, ne jen `INGESTED_SOURCES`.
     unscored: unscoredSources(keys),
+    unattributed: deriveUnattributed(inputs.entityCoverage),
+  };
+}
+
+/** Řádky bez přiznaného vydavatele, po tabulkách. Nikdy se nesčítají do skóre. */
+export function deriveUnattributed(
+  coverage: ReadonlyArray<AtlasEntityCoverage>,
+): AtlasUnattributed {
+  const byEntity = new Map<string, { unknownRows: number; unstampedRows: number }>();
+  let unknownRows = 0;
+  let unstampedRows = 0;
+  for (const c of coverage) {
+    const isUnknown = c.source === ATLAS_UNATTRIBUTED_SOURCE;
+    const isUnstamped = c.source === ATLAS_UNSTAMPED_SOURCE;
+    if (!isUnknown && !isUnstamped) continue;
+    const bucket = byEntity.get(c.entity) ?? { unknownRows: 0, unstampedRows: 0 };
+    if (isUnknown) {
+      bucket.unknownRows += c.rows;
+      unknownRows += c.rows;
+    } else {
+      bucket.unstampedRows += c.rows;
+      unstampedRows += c.rows;
+    }
+    byEntity.set(c.entity, bucket);
+  }
+  return {
+    unknownRows,
+    unstampedRows,
+    byEntity: [...byEntity]
+      .map(([entity, b]) => ({ entity, ...b }))
+      .sort((a, b) => (a.entity < b.entity ? -1 : a.entity > b.entity ? 1 : 0)),
   };
 }
