@@ -2584,7 +2584,11 @@
         "unavailableTitle": "The data cannot be read right now",
         "unavailableNote": "an outage on our side, not the end of this citation — please try again",
         "invalidNote": "this address cannot be decoded — it is not a politicas citation"
-      }
+      },
+      "thenKicker": "then — fingerprint in the address",
+      "nowKicker": "now — re-derived",
+      "noIssueDate": "this address carries no issue date",
+      "diffUnavailable": "The fingerprints have diverged, so the view's content has changed since the citation was issued. WHAT changed we cannot yet name: we do not replay the view as it stood then, and silence about the changes would read as “nothing changed”. Individual records can be traced through the provenance receipts (/zdroj) and the dated record (/denik)."
     }
   },
   "metodika": {
@@ -2758,7 +2762,9 @@
       "exhibitFakt": "dated fact from the control-room ledger",
       "derivation": "derivation today",
       "citedDerivation": "derivation cited",
-      "subject": "subject of the claim"
+      "subject": "subject of the claim",
+      "publishedThen": "what we published on {day}",
+      "publishedThenSource": "the version of the record valid on that day, from the knowledge graph's bitemporal history (kg_edge_history / kg_node_history); record time, not world time"
     },
     "guide": {
       "title": "How to cite so it can be verified",
@@ -3058,7 +3064,8 @@
       "recomputeTitle": "Contribution index recomputed for the whole chamber — pass {pass}; how far the score moved, the record does not say",
       "recomputeSource": "politicas computation — {ref}",
       "forensicTitle": "forensic report confirmed — {subject}",
-      "forensicSource": "kg_node bill.forensic_* · severity {detail}"
+      "forensicSource": "kg_node bill.forensic_* · severity {detail}",
+      "recomputeTitleSized": "The contribution index was recomputed for the whole chamber — pass {pass}; this MP's score moved by {delta} points against pass {priorPass}"
     },
     "kinds": {
       "contract": "{count, plural, one {contract} other {contracts}}",
@@ -3444,7 +3451,13 @@
         "goneRef": "claim address: {ref}",
         "citationKicker": "citation",
         "verify": "verify this citation",
-        "footerSource": "politicas knowledge graph — psp.cz · ares · contracts register; human-gate state per audited review (review_audit)"
+        "footerSource": "politicas knowledge graph — psp.cz · ares · contracts register; human-gate state per audited review (review_audit)",
+        "lastKicker": "last recorded",
+        "lastRecorded": "recorded {date}",
+        "lastSuperseded": "superseded {date}",
+        "lastStillOpen": "this version was never superseded",
+        "lastNote": "This is history, not a current claim: an archived version is never promoted back into the graph or into the machine-readable markup, and counts towards no figure on any other surface.",
+        "lastSource": "last recorded version from the knowledge graph's bitemporal history (kg_node_history / kg_edge_history); both instants are record times, not world times"
       },
       "gate": {
         "verified": "verified by a human",
@@ -3486,6 +3499,15 @@
         "confirm": "confirmed",
         "reject": "rejected",
         "return": "returned for more evidence"
+      },
+      "asOf": {
+        "kicker": "record time",
+        "at": "This is how the record looked on {day} — an archived version, not today's state. The same address without the k parameter shows today.",
+        "absentThen": "On {day} we were keeping records, but this claim was not among them. What follows is therefore TODAY's record, not that day's.",
+        "beforeEpoch": "There is no record for {day}: our record history starts on {epoch}, and before that date we assert nothing about any day. What follows is TODAY's record.",
+        "beforeEpochUnknown": "There is no record for {day}: we hold no record history for this address yet. What follows is TODAY's record.",
+        "refused": "“{raw}” is not a date in YYYY-MM-DD form. We do not repair addresses for you, so no day was replayed — what follows is TODAY's record.",
+        "notReplayable": "We cannot yet replay this kind of address to any day: derived figures are computed from today's record, not from the graph's history. We therefore assert nothing about {day} — what follows is TODAY's record."
       }
     }
   },

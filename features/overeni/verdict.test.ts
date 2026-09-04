@@ -170,6 +170,63 @@ describe("verdikt účtenky (/zdroj)", () => {
     }
   });
 
+  /* TŘETÍ SLOUPEC (moonshot G1): „co jsme zveřejnili TOHO DNE".
+   * Do 2026-09-04 uměla brána dvě strany — citaci čtenáře a dnešek — takže
+   * `moved` znamenalo „vaše číslo se liší od našeho", nikdy „my jsme toho dne
+   * tvrdili tohle". Tyhle testy drží, že se prostřední strana objeví JEN když
+   * ji store opravdu přehrál (`at`), a že se `moved` neurodí z ničeho. */
+  const thenAt = (receipt: ProvenanceReceipt) => ({ asOf: { state: "at" as const, day: "2026-08-01" }, receipt });
+
+  it("verze k tomu dni se liší od dnešní → moved s OBĚMA stranami", () => {
+    const then = thenAt({
+      ...RECEIPT,
+      gate: { status: "verified", reviewer: "kontrolor", reviewedAt: "2026-07-20", note: null, audit: [] },
+    });
+    const v = zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: RECEIPT }, then);
+    expect(v.kind).toBe("moved");
+    if (v.family === "zdroj" && v.kind === "moved") {
+      // dnešní strana
+      expect(v.receipt.kind === "edge" && v.receipt.gate?.status).toBe("pending_review");
+      // a strana, za kterou ručíme my, s vlastním datem
+      expect(v.then.receipt?.kind === "edge" && v.then.receipt.gate?.status).toBe("verified");
+      expect(v.then.asOf.state === "at" && v.then.asOf.day).toBe("2026-08-01");
+    }
+  });
+
+  it("shodná verze k tomu dni → verified, ale prostřední sloupec se NESE dál", () => {
+    const v = zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: RECEIPT }, thenAt(RECEIPT));
+    expect(v.kind).toBe("verified");
+    if (v.family === "zdroj" && v.kind === "verified") {
+      expect(v.then?.asOf.state).toBe("at");
+    }
+  });
+
+  it("den, který store přehrát neumí, NEVYROBÍ moved — jen důvod, proč sloupec chybí", () => {
+    for (const asOf of [
+      { state: "beforeEpoch" as const, day: "2020-01-01", epoch: "2026-08-01T00:00:00.000Z" },
+      { state: "absentThen" as const, day: "2020-01-01" },
+      { state: "notReplayable" as const, day: "2020-01-01" },
+      { state: "refused" as const, raw: "včera" },
+    ]) {
+      const v = zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: RECEIPT }, { asOf, receipt: null });
+      expect(v.kind, asOf.state).toBe("verified");
+      if (v.family === "zdroj" && v.kind === "verified") expect(v.then?.receipt).toBeNull();
+    }
+  });
+
+  it("štítek uzlu se za pohyb NEPOVAŽUJE — přejmenovaná firma je táž firma", () => {
+    const renamed = thenAt({
+      ...RECEIPT,
+      object: { ...RECEIPT.object, label: "Firma B, a.s. (dříve B s.r.o.)" },
+    });
+    expect(zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: RECEIPT }, renamed).kind).toBe("verified");
+  });
+
+  it("chybějící váha proti číslu JE pohyb (missing is not zero)", () => {
+    const then = thenAt({ ...RECEIPT, weight: null });
+    expect(zdrojVerdict("h.abc.def.ghi", { status: "ok", receipt: RECEIPT }, then).kind).toBe("moved");
+  });
+
   it("gone → unknown (záznam-nenalezen); invalid → unknown (nerozluštitelný)", () => {
     expect(zdrojVerdict("h.x.y.z", { status: "gone", ref: "h.x.y.z" })).toEqual({
       family: "zdroj",

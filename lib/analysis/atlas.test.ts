@@ -294,6 +294,7 @@ describe("registr zdrojů — atlas mlčí o devíti z dvanácti, nebo o nich ml
     const HELPERS: Record<string, string> = {
       "backoff.ts": "jittered backoff for the fetch helpers — no source of its own",
       "kiosek-pdf.ts": "PDF text extraction split out of kiosek.ts — the source is kiosek-uredni-deska",
+      "refusal-class.ts": "refusal classification for the fetch-retry helpers (imported by monitor.ts) — no source of its own",
     };
     const dir = "lib/ingest/sources";
     const adapters = readdirSync(dir)
