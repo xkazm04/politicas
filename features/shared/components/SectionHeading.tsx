@@ -10,11 +10,16 @@ export default function SectionHeading({
   index,
   title,
   aside,
+  id,
 }: {
   index: number;
   title: string;
   /** Pravý okraj řádku — odkaz „všech 200 →", SourceNote apod. */
   aside?: React.ReactNode;
+  /** id titulku (h2), aby se na něj mohla odkázat tabulka nebo region pod ním
+   *  přes `aria-labelledby` — sekce s tabulkou jinak čtečce nemá jak říct,
+   *  čeho jsou ty sloupce čísel. Volitelné: hlavička bez tabulky id nepotřebuje. */
+  id?: string;
 }) {
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
@@ -22,7 +27,7 @@ export default function SectionHeading({
         <p className="font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-signal">
           /{String(index).padStart(2, "0")}
         </p>
-        <h2 className="mt-1 text-3xl font-black uppercase tracking-tight sm:text-4xl">
+        <h2 id={id} className="mt-1 text-3xl font-black uppercase tracking-tight sm:text-4xl">
           {title}
           <span className="text-signal">.</span>
         </h2>

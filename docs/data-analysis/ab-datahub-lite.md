@@ -83,3 +83,10 @@ deploy would run acryl DataHub Lite on a supported Python.)
 - 8 slices, one corpus. The conclusion (content-transparency) is structural, not statistical,
   so it holds regardless of slice count — but the *delivery-mechanism* benefits (discoverability,
   portability, coverage-state-as-data) grow with corpus size and are not captured by this diff.
+
+**2026-09-01 — the context dates its own counts.** `SOURCE_DOCS` entries now carry
+`asOf` (the onboarding pass, 2026-07-23) and `buildDocumentation` prints it beside
+the known-issues list, so „44 633 merged ballots" or „203/207 photos" reach an analyst
+as dated facts rather than live ones. Both arms build from the same string, so parity
+is unchanged; the Lite catalog shows the date only after the next `datahub-sync`.
+The `LEDGER` comment no longer claims `promote-verdicts` writes it (nothing does).

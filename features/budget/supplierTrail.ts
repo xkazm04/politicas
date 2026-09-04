@@ -72,6 +72,11 @@ export interface TownSupplierSummary {
    *  je váha hrany `supplies`, tedy hodnota smlouvy podle registru). */
   totalCzk: number;
   paidCzk: number;
+  /** Σ počtů přes řádky = SMLUVNÍ VZTAHY (smlouva × protistrana), ne smlouvy:
+   *  smlouva se dvěma firmami grafu je ve dvou řádcích a počítá se dvakrát.
+   *  Dávka nenese id smluv, takže unikátní počet se z ní neodvodí — plocha proto
+   *  říká „smluvních vztahů" (změřeno 2026-09-01: 11 741 vztahů proti 11 582
+   *  smlouvám obcí v celé dávce, +1,4 %). */
   contractCount: number;
   paidContractCount: number;
   supplierCount: number;
@@ -512,4 +517,36 @@ export function supplierCoverage(table: ReadonlyMap<string, SupplierRow[]>): Sup
     retrievedOn: SUPPLIERS_RETRIEVED_ON,
     pass: SUPPLIERS_PASS,
   };
+}
+
+/* ── Výpis protistran: N největších + KAŽDÁ s vazbou na poslance ──────────── */
+
+/**
+ * Rozdělí řádky obce (celkové CZK sestupně) na vypsané a složené do souhrnu.
+ * Vypisuje se `top` největších A KAŽDÁ protistrana s vazbou na poslance, ať je
+ * kdekoli v pořadí — do 2026-09-01 se vazba hledala jen u prvních `top` řádků,
+ * takže u Brna (44992785) čtyři protistrany s vazbou (RAILREKLAM, ČSOB
+ * Pojišťovna, Vzdělávací centrum pro veřejnou správu, Univerzita Palackého —
+ * pořadí 13.–16.) zmizely v „a dalších 5 protistran" beze slova, na ploše,
+ * jejímž smyslem je právě ta vazba. Pořadí zůstává celkové CZK sestupně;
+ * `lifted` říká, kolik řádků se vypisuje NAD rámec `top` jen kvůli vazbě, aby
+ * to souhrnný řádek mohl přiznat. `hasTie` = null znamená vrstva vazeb není
+ * k dispozici — pak se nic nezvedá a souhrn to říká jinou větou (tiesUnavailable).
+ */
+export function liftTiedRows<T>(
+  rows: readonly T[],
+  top: number,
+  hasTie: ((row: T) => boolean) | null,
+): { shown: T[]; folded: T[]; lifted: number } {
+  const shown: T[] = [];
+  const folded: T[] = [];
+  let lifted = 0;
+  rows.forEach((r, i) => {
+    if (i < top) shown.push(r);
+    else if (hasTie !== null && hasTie(r)) {
+      shown.push(r);
+      lifted++;
+    } else folded.push(r);
+  });
+  return { shown, folded, lifted };
 }

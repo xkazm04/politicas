@@ -43,10 +43,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const t = await getTranslations("meta");
-  const pspId = Number(id);
   // Nečíselný slug není poslanec za žádného stavu store — tělo na něj volá
-  // `notFound()` bez čtení, a metadata proto taky nečtou.
-  if (!Number.isFinite(pspId)) return { title: t("profileNotFound") };
+  // `notFound()` bez čtení, a metadata proto taky nečtou. „Číselný" = jen
+  // číslice: `Number("1e3")` je konečné číslo a dávalo poslanci druhou adresu.
+  if (!/^\d+$/.test(id)) return { title: t("profileNotFound") };
+  const pspId = Number(id);
   const data = await getProfileData(pspId);
   if (!data) {
     const known = await getAllProfilePspIds();
@@ -75,8 +76,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function PoslanecPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  if (!/^\d+$/.test(id)) notFound(); // a non-digit slug is genuinely no MP (see generateMetadata)
   const pspId = Number(id);
-  if (!Number.isFinite(pspId)) notFound(); // a non-numeric slug is genuinely no MP
   const data = await getProfileData(pspId);
   if (data) {
     // Jmenovité rebelie stojí na čtení celého hlasovacího záznamu (406 000 řádků,

@@ -69,8 +69,28 @@ const EN_STOPWORDS = new Set<string>([
  * are deliberately NOT here — Czech has `dokument`, `argument`, `parlament`,
  * `reference`, `konference`. The 5-character floor keeps Czech `med`, `led`, `sed`
  * out of the `-ed` bucket.
+ *
+ * The floor does NOT keep out `pohled`/`vzhled`/`soused` (`-ed`) or the whole
+ * feminine-plural past tense (`dostaly`, `vlastnily`, `hlasovaly` — `-ly`), so a
+ * morphology hit is EVIDENCE, never a verdict: see `MORPHOLOGY_ALONE_MIN` below.
  */
 const EN_MORPHOLOGY = /(?:tions?|ing|ed|ly|ness|ship)$/;
+
+/**
+ * Morphology hits count in full once at least one closed-list English word is
+ * present; with NO closed-list hit they count only from this many, because below
+ * it the shape rule cannot tell English from Czech.
+ *
+ * Measured 2026-09-01 on the pass-74 graph (1 966 reader-facing strings): with
+ * morphology deciding alone, 4 genuinely Czech strings were withheld — three
+ * `linked_to.reviewer_note` rows whose only "English" token was `ongoing`/`LEAD`
+ * next to registry dates, and one dossier note tripped by `leadership` — while the
+ * one English reviewer note in the corpus carried three shape hits (`flipped`,
+ * `conflicting`, `registry-confirmed`) and no closed-list word. Three is the
+ * smallest floor that keeps that note out and lets the four Czech ones through
+ * (13 → 9 withheld, 0 new English shown; the product catalog moved 13 → 11).
+ */
+const MORPHOLOGY_ALONE_MIN = 3;
 
 function hasEnglishMorphology(word: string): boolean {
   return word.length >= 5 && EN_MORPHOLOGY.test(word) && !/[áčďéěíňóřšťúůýž]/.test(word);
@@ -119,11 +139,16 @@ const EN_RATE_THRESHOLD = 0.05;
 export function scoreLanguage(text: string): LanguageScore {
   const words = (text.match(WORD_RE) ?? []).map((w) => w.toLocaleLowerCase("cs"));
   let czech = 0;
-  let english = 0;
+  let closedList = 0;
+  let morphology = 0;
   for (const w of words) {
     if (CS_STOPWORDS.has(w)) czech++;
-    else if (EN_STOPWORDS.has(w) || hasEnglishMorphology(w)) english++;
+    else if (EN_STOPWORDS.has(w)) closedList++;
+    else if (hasEnglishMorphology(w)) morphology++;
   }
+  // Shape hits corroborate a closed-list hit; on their own they decide only in bulk.
+  const english =
+    closedList > 0 ? closedList + morphology : morphology >= MORPHOLOGY_ALONE_MIN ? morphology : 0;
   const tokens = words.length;
   if (tokens === 0) return { tokens, czech, english, looksEnglish: false, reason: "prázdný text" };
 
