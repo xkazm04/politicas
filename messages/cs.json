@@ -2480,12 +2480,16 @@
       "hover": {
         "verified": "{n} ověřených hran",
         "pending": "{n} čeká na kontrolu",
-        "cols": "relace · ověřeno / čeká",
+        "cols": "relace · ověřeno / čeká / odmítnuto",
         "empty": "uzel bez hran v aktuálním výřezu",
         "more": "+ {n} dalších relací",
-        "open": "klik otevře úplný záznam s prameny"
+        "open": "klik otevře úplný záznam s prameny",
+        "rejected": "{n} odmítnuto kontrolou",
+        "ungated": "{n} bez brány (odvozeno)"
       },
-      "source": "zdroj: review_state znalostního grafu — stav lidské brány kontroly u každé hrany"
+      "source": "zdroj: review_state znalostního grafu — stav lidské brány kontroly u každé hrany",
+      "hiddenRejected": "{n} zamítnutých vazeb se nekreslí — lidská kontrola je odmítla",
+      "lensNoteRejected": "{n} zamítnutých kroků ve vyžádané odpovědi zůstává — tečkovaně, jako odmítnuté"
     },
     "steps": "{count, plural, one {{countFmt} krok} few {{countFmt} kroky} other {{countFmt} kroků}}",
     "allVerified": "vše ověřeno",

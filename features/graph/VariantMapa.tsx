@@ -39,7 +39,7 @@ import NodeSearch from "./components/NodeSearch";
 import TrailFinder from "./components/TrailFinder";
 import { InspectorDrawer, LegendOverlay, StatChip, TopLeft } from "./components/StageOverlays";
 import { mapAction, pathAction, trailsAction } from "./graphActions";
-import { HUB_DEGREE, MAX_COST } from "./trailPath";
+import { HUB_DEGREE, MAX_COST, PATH_RULE_REF } from "./trailPath";
 import { useNodeSelection } from "./useNodeSelection";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import type { GraphViewState } from "./permalink";
@@ -55,6 +55,11 @@ const PATH_UNAVAILABLE: PathQueryResult = {
   capped: false,
   maxCost: MAX_COST,
   hubDegree: HUB_DEGREE,
+  // Nulou se tu netvrdí „žádné zamítnuté hrany nejsou" — tenhle tvar znamená
+  // „hledání vůbec neproběhlo" (status: "unavailable"), a plocha sází výpadek,
+  // ne počty.
+  excludedRejected: 0,
+  ruleRef: PATH_RULE_REF,
 };
 
 /** Interval rozsvěcení kroků cesty (bez reduced-motion). */
@@ -288,6 +293,8 @@ export default function VariantMapa({ seed }: { seed: GraphSeed | null }) {
           <ForensicStrip
             hiddenPending={forensicFilter.hiddenPending}
             keptPending={forensicFilter.keptPending}
+            hiddenRejected={forensicFilter.hiddenRejected}
+            keptRejected={forensicFilter.keptRejected}
             showPending={showPending}
             onTogglePending={() => setShowPending((v) => !v)}
           />

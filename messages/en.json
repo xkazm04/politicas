@@ -2480,12 +2480,16 @@
       "hover": {
         "verified": "{n} verified edges",
         "pending": "{n} pending review",
-        "cols": "relation · verified / pending",
+        "cols": "relation · verified / pending / refused",
         "empty": "no edges for this node in the current slice",
         "more": "+ {n} more relations",
-        "open": "click opens the full record with sources"
+        "open": "click opens the full record with sources",
+        "rejected": "{n} refused by review",
+        "ungated": "{n} ungated (derived)"
       },
-      "source": "source: knowledge-graph review_state — human review-gate status of every edge"
+      "source": "source: knowledge-graph review_state — human review-gate status of every edge",
+      "hiddenRejected": "{n} rejected ties are not drawn — human review refused them",
+      "lensNoteRejected": "{n} rejected steps stay in the requested answer — dotted, marked as refused"
     },
     "steps": "{count, plural, one {{countFmt} step} other {{countFmt} steps}}",
     "allVerified": "all verified",

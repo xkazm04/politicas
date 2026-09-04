@@ -17,6 +17,33 @@
 
 import { COBALT, HAIRLINE, INK, OCHRE, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
 import { FORENSIC_ATTR, FORENSIC_VALUE } from "@/features/shared/forensic/forensicMode";
+import type { GateStatus } from "./graphTypes";
+
+/*
+ * TAH PODLE STAVU LIDSKÉ BRÁNY — tři vzory, ne dva.
+ *
+ * plná      … ověřeno, nebo negated relace (deterministické odvození);
+ * čárkovaná … čeká na kontrolu (návrh stroje);
+ * tečkovaná … kontrola tvrzení ODMÍTLA.
+ *
+ * Zamítnutá hrana se na plátně objeví jen tam, kde si ji čtenář VYŽÁDAL
+ * (kurátorská trasa, ohnisko uzlu): vyžádaná odpověď se nefiltruje, protože
+ * vynechaný krok by byl lež. Do 2026-09-04 se ale kreslila PLNOU čarou, tedy
+ * v podobě vyhrazené pro ověřené tvrzení — jediné, co o ní čtenář z plátna
+ * vyčetl, byl opak pravdy.
+ *
+ * Vzory jsou v jednotkách světa a dělí se `k` až na místě sazby (jako lineWidth).
+ */
+export const EDGE_DASH: Record<"verified" | "pending_review" | "rejected", number[]> = {
+  verified: [],
+  pending_review: [5, 5],
+  rejected: [1.5, 3],
+};
+
+/** Vzor tahu hrany; `null` (negated relace) kreslí plnou — „nemá co ověřovat"
+ *  není tvrzení o kontrole a nesmí se sázet jako výstraha. */
+export const dashForGate = (gate: GateStatus | null): number[] =>
+  gate === "pending_review" || gate === "rejected" ? EDGE_DASH[gate] : EDGE_DASH.verified;
 
 export interface StagePalette {
   paper: string;

@@ -25,7 +25,9 @@
  * sloučit do lib/.
  */
 
-import type { GraphNode, NodeDetail, PathTrailDto, Trail } from "./graphTypes";
+import type { GateStatus, GraphNode, NodeDetail, PathTrailDto, Trail } from "./graphTypes";
+// [G4] Adresa tvrzení pro každou hranu citace — čistý modul, žádný server.
+import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 
 // ── Kanonická serializace (vzor exhibit.ts) ─────────────────────────────────
 
@@ -236,6 +238,9 @@ export type PermalinkCore =
       capped: boolean;
       maxCost: number;
       hubDegree: number;
+      // [G4] Vyloučené zamítnuté kroky + identita pravidla hledání.
+      excludedRejected: number;
+      ruleRef: string;
     }
   | { kind: "trasa"; trail: Trail }
   | { kind: "uzel"; detail: NodeDetail };
@@ -380,7 +385,13 @@ export type PermalinkCardInput =
  *  nebo cesta, kterou dnešní graf nedokládá). */
 export interface PermalinkCardReview {
   pendingEdges: number;
-  /** Tvrzení o DNEŠNÍM znovuodvození: žádná hrana nečeká na kontrolu. */
+  // [G4] Zamítnuté kroky mají VLASTNÍ číslo. „Čeká na kontrolu" a „kontrola to
+  // odmítla" jsou dvě různé věty; do 2026-09-04 karta znala jen tu první a
+  // zamítnutý krok tiše počítala mezi ověřené (`allVerified` pak tvrdilo
+  // „vše ověřeno" nad cestou vedoucí přes odmítnuté tvrzení).
+  rejectedEdges: number;
+  /** Tvrzení o DNEŠNÍM znovuodvození: žádná hrana nečeká na kontrolu ANI
+   *  nebyla odmítnuta. */
   allVerified: boolean;
   /**
    * Smí se ten řádek vysázet POTVRZUJÍCÍ barvou? Jediné místo, kde se to
@@ -418,9 +429,17 @@ export function permalinkCardModel(input: PermalinkCardInput): PermalinkCardMode
   const stale = !view.fresh;
   let review: PermalinkCardReview | null = null;
   if (view.kind === "cesta" && view.trail !== null) {
-    review = reviewOf(view.trail.pendingCount, stale);
+    // [G4] Cesta se hledá jen po nezamítnutých hranách (buildAdjacency), takže
+    // zamítnutý krok v ní být NEMŮŽE — číslo je 0 a je to tvrzení, ne mezera.
+    review = reviewOf(view.trail.pendingCount, 0, stale);
   } else if (view.kind === "trasa") {
-    review = reviewOf(view.trail.edges.filter((e) => e.pending).length, stale);
+    // [G4] Kurátorská trasa se NEfiltruje (vyžádaná odpověď), takže zamítnutý
+    // krok v ní být může — a musí být vidět jako zamítnutý.
+    review = reviewOf(
+      view.trail.edges.filter((e) => e.gate === "pending_review").length,
+      view.trail.edges.filter((e) => e.gate === "rejected").length,
+      stale,
+    );
   }
   return {
     state: "ok",
@@ -434,10 +453,13 @@ export function permalinkCardModel(input: PermalinkCardInput): PermalinkCardMode
   };
 }
 
-const reviewOf = (pendingEdges: number, stale: boolean): PermalinkCardReview => ({
+// [G4] `rejectedEdges` váží stejně jako `pendingEdges`: karta se nesmí vysázet
+// potvrzující barvou nad pohledem, jehož krok člověk odmítl.
+const reviewOf = (pendingEdges: number, rejectedEdges: number, stale: boolean): PermalinkCardReview => ({
   pendingEdges,
-  allVerified: pendingEdges === 0,
-  confirming: pendingEdges === 0 && !stale,
+  rejectedEdges,
+  allVerified: pendingEdges === 0 && rejectedEdges === 0,
+  confirming: pendingEdges === 0 && rejectedEdges === 0 && !stale,
 });
 
 // ── Citační řádek („citovat") ───────────────────────────────────────────────
@@ -502,19 +524,45 @@ const prop = (name: string, value: string | number): JsonLdProperty => ({
   value,
 });
 
-const edgeClaim = (
-  fromLabel: string,
-  rel: string,
-  toLabel: string,
-  pending: boolean,
-  moneyCzk: number | null,
-): JsonLdClaim => ({
+/*
+ * [G4] STAV KONTROLY JDE VEN DOSLOVA, NE JAKO PŘEKLOPENÝ BOOLEAN.
+ *
+ * Do 2026-09-04 tu stálo `prop("review_state", pending ? "pending_review" :
+ * "verified")` — dvouhodnotová věta o TŘÍHODNOTOVÉM poli. Hrana, kterou člověk
+ * ZAMÍTL, měla `pending: false`, takže nejhůř opravitelný artefakt produktu
+ * (strojový balíček důkazů, který si redakce i crawlery archivují) o ní
+ * tvrdil `review_state: verified`. Teď se vypisuje uložený token, `null`
+ * (negated relace) se vypíše jako `ungated` — nikdy jako „ověřeno" — a každé
+ * tvrzení nese svou vlastní trvalou adresu, takže je krok cesty sám o sobě
+ * dohledatelná účtenka.
+ */
+interface EdgeClaimArgs {
+  fromLabel: string;
+  rel: string;
+  toLabel: string;
+  gate: GateStatus | null;
+  provenance: { pass: number | null; method: string | null; ref: string | null } | null;
+  claimRef: string;
+  moneyCzk: number | null;
+  origin: string | null;
+}
+
+const edgeClaim = (a: EdgeClaimArgs): JsonLdClaim => ({
   "@type": "Claim",
-  name: `${fromLabel} — ${rel} — ${toLabel}`,
+  name: `${a.fromLabel} — ${a.rel} — ${a.toLabel}`,
   additionalProperty: [
-    prop("relation", rel),
-    prop("review_state", pending ? "pending_review" : "verified"),
-    ...(moneyCzk !== null ? [prop("amount_czk", moneyCzk)] : []),
+    prop("relation", a.rel),
+    prop("review_state", a.gate ?? "ungated"),
+    prop("claim_ref", a.claimRef),
+    // Absolutní adresa, nebo žádná (týž závěr jako `url` balíčku): relativní
+    // „/zdroj/…" je v archivovaném JSON-LD nerozluštitelná.
+    ...(a.origin ? [prop("claim_url", `${a.origin}/zdroj/${a.claimRef}`)] : []),
+    ...(a.provenance?.ref ? [prop("provenance_ref", a.provenance.ref)] : []),
+    ...(a.provenance?.pass !== null && a.provenance?.pass !== undefined
+      ? [prop("provenance_pass", a.provenance.pass)]
+      : []),
+    ...(a.provenance?.method ? [prop("provenance_method", a.provenance.method)] : []),
+    ...(a.moneyCzk !== null ? [prop("amount_czk", a.moneyCzk)] : []),
   ],
 });
 
@@ -522,14 +570,34 @@ export function toEvidenceJsonLd(view: PermalinkView): EvidenceJsonLd {
   const parts: JsonLdClaim[] = [];
   if (view.kind === "cesta" && view.trail) {
     for (const row of view.trail.ledger) {
-      parts.push(edgeClaim(row.from.label, row.rel, row.to.label, row.pending, row.moneyCzk));
+      parts.push(
+        edgeClaim({
+          fromLabel: row.from.label,
+          rel: row.rel,
+          toLabel: row.to.label,
+          gate: row.gate,
+          provenance: row.provenance,
+          claimRef: row.claimRef,
+          moneyCzk: row.moneyCzk,
+          origin: view.origin,
+        }),
+      );
     }
   }
   if (view.kind === "trasa") {
     const byId = new Map(view.trail.nodes.map((n) => [n.id, n.label]));
     for (const e of view.trail.edges) {
       parts.push(
-        edgeClaim(byId.get(e.src) ?? e.src, e.rel, byId.get(e.dst) ?? e.dst, e.pending, null),
+        edgeClaim({
+          fromLabel: byId.get(e.src) ?? e.src,
+          rel: e.rel,
+          toLabel: byId.get(e.dst) ?? e.dst,
+          gate: e.gate,
+          provenance: e.provenance,
+          claimRef: edgeClaimRef(e.src, e.rel, e.dst),
+          moneyCzk: null,
+          origin: view.origin,
+        }),
       );
     }
   }
@@ -568,6 +636,12 @@ export function toEvidenceJsonLd(view: PermalinkView): EvidenceJsonLd {
           prop("path_hub_degree_threshold", view.hubDegree),
           prop("paths_found", view.totalFound),
           prop("path_search_capped", view.capped ? "yes" : "no"),
+          // [G4] Kolik hran hledání nepoužilo, protože je odmítl člověk.
+          // Prázdná odpověď se nesmí tvářit jako „nic tu nebylo".
+          prop("path_excluded_rejected", view.excludedRejected),
+          // [G4] Identita PRAVIDLA, ne jen jeho čísla — „stejná cesta, jiné
+          // pravidlo" jde poznat až podle tohohle.
+          prop("path_rule_ref", view.ruleRef),
           ...(view.orderingRule ? [prop("path_ordering_rule", view.orderingRule)] : []),
         ]
       : [];

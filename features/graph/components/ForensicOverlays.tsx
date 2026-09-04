@@ -8,8 +8,14 @@
  * Vyžádané čočky (trasa, spočítaná cesta) se nefiltrují nikdy — vynechaný
  * krok ve vyžádané odpovědi by byl lež; pásek to říká.
  *
+ * TŘI STAVY, TŘI ČÍSLA (2026-09-04): „čeká na kontrolu" a „kontrola to
+ * ODMÍTLA" jsou dvě různé věty a pásek ani karta z nich jedno číslo nedělá.
+ * Zamítnuté hrany se v krajině nekreslí vůbec (odmítnuté tvrzení není doložená
+ * vazba) a nedá se je přikreslit tlačítkem — na rozdíl od čekajících, které
+ * jsou návrh stroje, ne rozhodnutí člověka.
+ *
  * Karta najetí: stavy lidské kontroly kolem uzlu BEZ klikání — najetí
- * ukazatelem vypíše rozpad ověřené/čekající po relacích (čistý model
+ * ukazatelem vypíše rozpad ověřené/čekající/odmítnuté po relacích (čistý model
  * hoverCardModel ve forensicView.ts). Karta je pointer-events-none, aby
  * nekradla najetí plátnu, a na malých displejích se skrývá (najetí tam
  * neexistuje; plný záznam dál nabízí klik = inspektor).
@@ -24,11 +30,15 @@ import type { HoverCardModel } from "../forensicView";
 export function ForensicStrip({
   hiddenPending,
   keptPending,
+  hiddenRejected,
+  keptRejected,
   showPending,
   onTogglePending,
 }: {
   hiddenPending: number;
   keptPending: number;
+  hiddenRejected: number;
+  keptRejected: number;
   showPending: boolean;
   onTogglePending: () => void;
 }) {
@@ -49,6 +59,14 @@ export function ForensicStrip({
           <p>{t("none")}</p>
         )}
         {keptPending > 0 && <p className="mt-1">{t("lensNote", { n: f.int(keptPending) })}</p>}
+        {/* Zamítnuté se počítají VŽDY, i když je jich nula k přikreslení:
+            skryté nesmí mizet mlčky a „odmítnuto" se nesmí slít s „čeká". */}
+        {hiddenRejected > 0 && (
+          <p className="mt-1 text-signal">{t("hiddenRejected", { n: f.int(hiddenRejected) })}</p>
+        )}
+        {keptRejected > 0 && (
+          <p className="mt-1 text-signal">{t("lensNoteRejected", { n: f.int(keptRejected) })}</p>
+        )}
         {hiddenPending > 0 && (
           <button
             type="button"
@@ -92,6 +110,20 @@ export function ForensicHoverCard({
           <span className={model.pending > 0 ? "text-signal" : "text-steel-aa"}>
             {t("pending", { n: f.int(model.pending) })}
           </span>
+          {model.rejected > 0 && (
+            <>
+              <span className="text-steel-aa">·</span>
+              <span className="text-signal line-through">
+                {t("rejected", { n: f.int(model.rejected) })}
+              </span>
+            </>
+          )}
+          {model.ungated > 0 && (
+            <>
+              <span className="text-steel-aa">·</span>
+              <span className="text-steel-aa">{t("ungated", { n: f.int(model.ungated) })}</span>
+            </>
+          )}
         </p>
         {model.rows.length === 0 ? (
           <p className="mt-1.5 font-mono text-[11px] uppercase tracking-wider text-steel-aa">{t("empty")}</p>
@@ -106,7 +138,13 @@ export function ForensicHoverCard({
               >
                 <span className="min-w-0 truncate uppercase tracking-wider">{relLabel(row.rel)}</span>
                 <span className="shrink-0 tabular-nums text-steel-aa">
-                  {f.int(row.verified)} / {row.pending > 0 ? <span className="text-signal">{f.int(row.pending)}</span> : f.int(row.pending)}
+                  {f.int(row.verified)} /{" "}
+                  {row.pending > 0 ? <span className="text-signal">{f.int(row.pending)}</span> : f.int(row.pending)} /{" "}
+                  {row.rejected > 0 ? (
+                    <span className="text-signal line-through">{f.int(row.rejected)}</span>
+                  ) : (
+                    f.int(row.rejected)
+                  )}
                 </span>
               </li>
             ))}
