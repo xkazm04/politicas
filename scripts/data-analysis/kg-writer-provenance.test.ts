@@ -124,7 +124,9 @@ describe("[G5] the merge-preserving idiom, on a store copy", () => {
         label: "G5",
         props: { contribution_score: 61 },
         firstSeenPass: 1,
-        provenance: makeProvenance({ source: "psp-poslanci", pass: 1, ref: "kg-compute:person", writer: "kg-compute" }),
+        provenance: {
+          ...makeProvenance({ source: "psp-poslanci", pass: 1, ref: "kg-compute:person", writer: "kg-compute" }),
+        },
       },
     ]);
 

@@ -112,8 +112,18 @@ export interface SystemState {
   loopsStatusLabel: string;
   /** Dokument, ze kterého se stav přečetl — vypisuje se čtenáři. */
   loopsStatusSource: string;
+  /**
+   * [G5] Degradace na hranici loaderů za posledních 24 h.
+   *
+   * `null` znamená, že žurnál NEEXISTUJE — tedy „nikdo se nedíval", ne „nic se
+   * nestalo". Ta dvě tvrzení jsou opačná a nesmějí sdílet jednu kontrolku:
+   * `reportLoaderFailure` má 121 volání a jeho dva starší odběry neodpovídají
+   * na nic zpětně (odrolovaná konzole, Sentry bez DSN).
+   */
+  loaderDegradations: LoaderDegradationSummary | null;
 }
 
+import type { LoaderDegradationSummary } from "@/lib/db/loaderFailureLog";
 import type { LoopsRunState } from "./loops/loopState";
 import type { TripwireData } from "@/lib/analysis/tripwires";
 

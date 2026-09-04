@@ -81,6 +81,24 @@ const KEPT: RetentionPolicy = {
 };
 
 /**
+ * [G5] One row per sentinel run, keyed by the manifest hash it judged.
+ *
+ * Accumulating, and its OWN dated decision rather than a share of the
+ * 2026-08-24 one — a policy inherits a date only from the day somebody actually
+ * weighed it. What was weighed: the report is a HISTORICAL claim ("on this date
+ * these invariants held over this exact release"), and re-running the sentinel
+ * today cannot reproduce yesterday's verdict over yesterday's store. Pruning
+ * would delete the only record that a past release was ever audited — the state
+ * this table exists to abolish. It is also tiny: one row per nightly run.
+ */
+const SENTINEL_RUNS_KEPT: RetentionPolicy = {
+  class: "accumulating",
+  policy:
+    "UNBOUNDED BY DECISION — one row per sentinel run; a verdict is a dated claim about a release that no later run can reproduce, so pruning it erases the audit history itself. ~1 row/night.",
+  decidedAt: "2026-09-04",
+};
+
+/**
  * Every table `CORE_DDL` creates, and what bounds it.
  *
  * The audit named five accumulating tables. There are SIX: `ingest_run` writes
@@ -110,6 +128,7 @@ export const RETENTION: Readonly<Record<string, RetentionPolicy>> = {
   kg_edge_history: KEPT,
   change_event: KEPT,
   lens_submission: KEPT,
+  sentinel_run: SENTINEL_RUNS_KEPT,
 };
 
 /** Tables `CORE_DDL` creates that no policy above covers. Empty is the passing state.

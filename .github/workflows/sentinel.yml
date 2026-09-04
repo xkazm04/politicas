@@ -17,7 +17,7 @@
 #
 # The fix chosen, and why: the run step is now UNCONDITIONAL. Running it is
 # strictly more informative than guarding it — `npm run sentinel` detects the
-# absent store itself, writes a schema-valid report whose eleven checks are all
+# absent store itself, writes a schema-valid report whose sixteen checks are all
 # `unevaluable` (verdict "unevaluable", never "ok"), and exits 2. So the job
 # fails, the failure NAMES the adoption point, and the artifact says which
 # invariants were not evaluated. The alternative (keep the guard, fail the job
@@ -25,15 +25,31 @@
 # machine report. The artifact upload is `if: always()` on BOTH branches: a run
 # that evaluated nothing still owes the reader its report.
 #
-# There is no cron. A red on every hosted nightly is noise, not signal — the
-# store's absence is a known, stated fact about hosted runners, not news. Once
-# the ADOPTION POINT is wired (or a self-hosted runner is used), restore:
-#   schedule:
-#     - cron: "17 3 * * *"   # nightly 03:17 UTC, off the hour to dodge cron herds
+# THE CRON IS BACK, AND THE ADOPTION POINT IS WIRED (2026-09-04, moonshot #26).
+# The store reaches the runner as an ARTIFACT: `npm run db:backup` on the ingest
+# machine takes a CHECKPOINTed, pruned copy through lib/db/pglite/storeCopy.ts,
+# and the `store-snapshot` artifact it uploads is downloaded here. Two properties
+# of that path matter and are not incidental:
+#
+#   • it is a COPY. The sentinel never opens a live handle (PGlite is
+#     single-connection), and a backup copy is a cold one by construction —
+#     the same door `SENTINEL_NO_COPY` was built for.
+#   • it carries pg_wal. Between checkpoints the recent commits live ONLY
+#     there; a copy without it is a store that opens and quietly lacks the last
+#     writes. db:backup is the only copy path in the repo, for that reason.
+#
+# THE JOB STAYS RED ON `unevaluable`. If the artifact is missing or expired, the
+# sentinel reports every invariant as not-evaluated and exits 2, and this job
+# fails. That is the entire discipline: a nightly that goes green because
+# nothing ran is the failure this instrument exists to prevent, and a cron
+# makes that failure mode DAILY rather than occasional.
 name: sentinel
 
 on:
   workflow_dispatch: {}
+  schedule:
+    # Nightly 03:17 UTC — off the hour to dodge the cron herd.
+    - cron: "17 3 * * *"
 
 jobs:
   sentinel:
@@ -51,9 +67,24 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      # ADOPTION POINT: materialize the store here (self-hosted runner path,
-      # artifact download, object-storage sync…) so ./.pglite exists. Until
-      # then the step below fails on purpose and says so.
+      # ADOPTION POINT (wired 2026-09-04): materialize the store from the
+      # newest `store-snapshot` artifact the ingest machine uploaded. Never
+      # gating — a download that finds nothing leaves ./.pglite absent, the
+      # sentinel says every invariant was not evaluated, and the job goes red.
+      # `continue-on-error` is on the DOWNLOAD, not on the audit: a missing
+      # artifact must reach the reader as an unevaluable report, not as a step
+      # that failed before writing one.
+      - name: Fetch the store snapshot (db:backup artifact from the ingest machine)
+        continue-on-error: true
+        uses: actions/download-artifact@v7
+        with:
+          name: store-snapshot
+          path: ./.pglite
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # The artifact is produced by a different workflow run on the ingest
+          # machine, so it is looked up across runs rather than in this one.
+          run-id: ${{ vars.SENTINEL_STORE_RUN_ID }}
+          repository: ${{ github.repository }}
       - name: Store present?
         # Annotation only — this step NEVER gates the run. It exists so the log
         # names the adoption point next to the failure that follows.
@@ -61,7 +92,7 @@ jobs:
           if [ -d ./.pglite ]; then
             echo "::notice::.pglite store present — the sentinel will evaluate the real invariants"
           else
-            echo "::warning::.pglite store not present on this runner — the sentinel will report every invariant as UNEVALUATED and this job will fail (exit 2). Wire the ADOPTION POINT in .github/workflows/sentinel.yml, or run \`npm run sentinel\` on the ingest machine."
+            echo "::warning::.pglite store not present on this runner — the sentinel will report every invariant as UNEVALUATED and this job will fail (exit 2). The store arrives as the \`store-snapshot\` artifact of a \`npm run db:backup\` run on the ingest machine; set the repository variable SENTINEL_STORE_RUN_ID to that run, or run \`npm run sentinel\` locally."
           fi
       - name: Run sentinel (read-only; exit 1 = violation, exit 2 = nothing evaluated)
         run: SENTINEL_JSON=sentinel-report.json npm run sentinel

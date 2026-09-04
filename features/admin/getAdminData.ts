@@ -28,6 +28,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { czechInt } from "@/lib/format";
+import { summarizeLoaderDegradations } from "@/lib/db/loaderFailureLog";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
@@ -623,6 +624,11 @@ async function loadSystemState(vaultHeads: VaultHeads, loopsStatus: LoopsStatusF
     loopsRunState: loopsStatus.state,
     loopsStatusLabel: loopsStatus.labelCs,
     loopsStatusSource: LOOPS_STATUS_SOURCE,
+    // [G5] A FILE read, not a store read — so it survives the store being down,
+    // which is precisely the moment an operator wants to see it. `null` (no
+    // file) is passed through untouched: "nobody was watching" must not be
+    // rendered as "nothing happened".
+    loaderDegradations: summarizeLoaderDegradations(),
   };
   try {
     const store = await getStore();

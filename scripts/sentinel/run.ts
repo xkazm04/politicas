@@ -27,9 +27,9 @@
  * a stderr line and wrote NO machine report even with SENTINEL_JSON set. So
  * nothing anywhere distinguished "ran and passed" from "never ran": both left
  * the same artifact, none. Both paths now emit `unevaluableSentinelReport` —
- * the SAME eleven rows in the SAME order, every one `unevaluable` with the
+ * the SAME sixteen rows in the SAME order, every one `unevaluable` with the
  * reason — which parses as a valid politicas.sentinel/1 report, renders as
- * "0 of 11 invariants could be evaluated", and keeps exit code 2. It is not a
+ * "0 of 16 invariants could be evaluated", and keeps exit code 2. It is not a
  * pass and it does not pretend to be one.
  *
  * THIS COMMAND IS THE REAL EXECUTION PATH. `.github/workflows/sentinel.yml` runs
@@ -38,7 +38,7 @@
  * the truth, and is why the run step is no longer gated behind a guard that made
  * "never ran" render as a pass. Local `npm run sentinel` against a copy of the
  * real store is the only path on which the invariants actually execute —
- * including the four scoring ones added 2026-08-04, the only thing standing
+ * including the four scoring ones added 2026-08-04 and the money/law/graph lane added 2026-09-04, the only thing standing
  * between a formula correction and a silently stale published ranking. Run this
  * locally after any contribution pass.
  */
