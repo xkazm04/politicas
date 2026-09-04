@@ -207,6 +207,80 @@ export interface KnowledgeGraphRepository {
    * this is a plain row delete, not an integrity-checked operation).
    */
   deleteKgNodes(ids: readonly string[]): Promise<number>;
+
+  /* ── as-of reads (record time) ─────────────────────────────────────────────
+   * Lifted into the contract on 2026-09-04 (moonshot G1). Until then `asOf`
+   * lived only on the PGlite kg repository, so no reader-facing surface could
+   * ask the store what it published on a given day. See the bitemporal
+   * write-discipline block in pglite/repositories/kg.ts for the invariants
+   * these reads depend on. */
+
+  /**
+   * The graph as it was known at `at` (record time). Runs over an un-indexed
+   * union of serving + history tables — a HISTORY INSTRUMENT, not a hot
+   * serving path. Reader-facing surfaces want the point reads below.
+   */
+  asOf(at: Date | string): KgAsOfReads;
+  /**
+   * The oldest record-time instant the store carries, or null when the graph
+   * is empty. The bitemporal migration stamped every pre-existing row with ONE
+   * shared `recorded_at`, so this instant is a floor on knowledge, not the
+   * moment those claims were made: nothing before it can be answered, and
+   * "unchanged since <epoch>" is never an honest reading of it.
+   */
+  bitemporalEpoch(): Promise<string | null>;
+  /** One node as of one instant, over `kg_node_history_id_idx`. */
+  asOfNode(id: string, at: Date | string): Promise<KgAsOfPoint<KgNodeRow>>;
+  /** One edge as of one instant, over `kg_edge_history_key_idx`. */
+  asOfEdge(key: KgEdgeKey, at: Date | string): Promise<KgAsOfPoint<KgEdgeRow>>;
+  /**
+   * The newest version of a node/edge the store ever recorded, whether or not
+   * it is still current — the honest answer for an address today's graph no
+   * longer carries. Disclosed as history; never re-promoted to a current claim.
+   */
+  lastKgNodeVersion(id: string): Promise<KgVersion<KgNodeRow> | null>;
+  lastKgEdgeVersion(key: KgEdgeKey): Promise<KgVersion<KgEdgeRow> | null>;
+}
+
+/** The composite key of one graph edge — the triple `kg_edge_history_key_idx` is on. */
+export interface KgEdgeKey {
+  src: string;
+  rel: string;
+  dst: string;
+}
+
+/** One recorded version of a claim, with its half-open record-time span. */
+export interface KgVersion<T> {
+  row: T;
+  /** ISO instant the version's content appeared. */
+  recordedAt: string;
+  /** ISO instant it was replaced; null = still the current version. */
+  supersededAt: string | null;
+}
+
+/**
+ * The result of a point read at an instant.
+ *
+ * `known: false` is the EPOCH RULE: the asked-for instant lies before the
+ * oldest record-time the store carries, so the store has no knowledge of that
+ * day at all — and a caller must render "no record for that day", never a
+ * value and never "unchanged". `known: true` with `value: null` is the
+ * different, also-honest answer "we did keep records then, and this claim was
+ * not among them".
+ */
+export type KgAsOfPoint<T> =
+  | { known: true; at: string; epoch: string | null; value: T | null }
+  /** `epoch: null` = the store carries no record time at all (empty graph). */
+  | { known: false; at: string; epoch: string | null };
+
+/** Reads of the graph as it was KNOWN at one instant (record time). */
+export interface KgAsOfReads {
+  listKgNodes(opts?: { kind?: string; limit?: number }): Promise<KgNodeRow[]>;
+  listKgEdges(opts?: { rel?: string; limit?: number }): Promise<KgEdgeRow[]>;
+  getKgNodes(ids: string[]): Promise<KgNodeRow[]>;
+  kgNeighbours(opts: { id: string; rels?: string[]; limit?: number }): Promise<{ edges: KgEdgeRow[]; nodes: KgNodeRow[] }>;
+  countKgNodes(): Promise<number>;
+  countKgEdges(): Promise<number>;
 }
 
 /**

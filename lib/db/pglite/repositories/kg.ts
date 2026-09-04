@@ -2,9 +2,9 @@
 // self-expanding KG loop). Typed nodes + typed, weighted, provenanced edges;
 // DERIVED, recomputable metadata (kg-compute + gated verdicts are the only writers).
 
-import type { KnowledgeGraphRepository } from "../../store";
+import type { KgAsOfPoint, KgEdgeKey, KgVersion, KnowledgeGraphRepository } from "../../store";
 import type { KgEdgeRow, KgNodeRow } from "../../types";
-import { num, str, warnIfTruncated, type Pglite, type PgTransaction } from "../internals";
+import { isoTs, num, str, warnIfTruncated, type Pglite, type PgTransaction } from "../internals";
 import { KG_EDGE_COLS, KG_NODE_COLS, mapKgEdge, mapKgNode } from "../mappers";
 
 /* ── bitemporal write discipline (SUPERSEDE, never overwrite) ────────────────
@@ -40,32 +40,20 @@ import { KG_EDGE_COLS, KG_NODE_COLS, mapKgEdge, mapKgNode } from "../mappers";
  * when content is identical. Pipelines that care about history hygiene should
  * upsert in place (rule 1 makes that free) rather than clear + rebuild. */
 
-/** Reads of the graph as it was KNOWN at one instant (record time). */
-export interface KgAsOfReads {
-  listKgNodes(opts?: { kind?: string; limit?: number }): Promise<KgNodeRow[]>;
-  listKgEdges(opts?: { rel?: string; limit?: number }): Promise<KgEdgeRow[]>;
-  getKgNodes(ids: string[]): Promise<KgNodeRow[]>;
-  kgNeighbours(opts: { id: string; rels?: string[]; limit?: number }): Promise<{ edges: KgEdgeRow[]; nodes: KgNodeRow[] }>;
-  countKgNodes(): Promise<number>;
-  countKgEdges(): Promise<number>;
-}
+/* Reads of the graph as it was KNOWN at one instant (record time) — the shape
+ * moved into lib/db/store.ts on 2026-09-04 (moonshot G1) when `asOf` was lifted
+ * into the Store contract. Re-exported here so the historical import path keeps
+ * working; the declaration has ONE home. */
+export type { KgAsOfReads } from "../../store";
 
 /**
- * The kg repository plus the bitemporal read API. Deliberately declared HERE,
- * not in lib/db/store.ts (that file is another item's surface this batch):
- * `makeKgRepo` returns the wider type, so the store object carries `asOf` at
- * runtime; later batches can lift it into the Store interface.
+ * Historical alias. `asOf` and the point reads now live in
+ * `KnowledgeGraphRepository` itself (lib/db/store.ts), so this adds nothing —
+ * kept only so existing imports resolve.
+ *
+ * @deprecated use `KnowledgeGraphRepository`.
  */
-export interface BitemporalKnowledgeGraphRepository extends KnowledgeGraphRepository {
-  /**
-   * The graph as it was known at `at` (record time, [recorded_at,
-   * superseded_at) half-open — at the exact supersede instant the newer
-   * version is visible). `asOf(now)` is row-identical to the current reads.
-   * Runs over an un-indexed union of serving + history tables — a history
-   * instrument, not a hot serving path.
-   */
-  asOf(at: Date | string): KgAsOfReads;
-}
+export type BitemporalKnowledgeGraphRepository = KnowledgeGraphRepository;
 
 /**
  * The distinct ids at the far end of `edges` relative to `id`, excluding `id`
@@ -188,6 +176,115 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
       order by ${table === "kg_node" ? "id" : "src, rel, dst"}, recorded_at desc, superseded_at desc nulls first
     )`;
   };
+
+  /* ── the epoch, and the two point reads that respect it ───────────────────
+   *
+   * The oldest record time the store carries, over serving + history of BOTH
+   * kg tables. Memoised per repository instance: history is append-only and
+   * every write path archives rather than deletes (clearKg included), so this
+   * minimum never moves — and an un-indexed min() over four columns is not a
+   * cost worth paying on every receipt. A failed read clears the memo so the
+   * next caller retries instead of inheriting the rejection. */
+  let epochMemo: Promise<string | null> | undefined;
+  function bitemporalEpoch(): Promise<string | null> {
+    if (epochMemo === undefined) {
+      const p = (async () => {
+        const { rows } = await pg.query<{ t: unknown }>(
+          `select min(recorded_at) as t from (
+             select recorded_at from kg_node
+             union all select recorded_at from kg_node_history
+             union all select recorded_at from kg_edge
+             union all select recorded_at from kg_edge_history
+           ) v`,
+        );
+        return isoTs(rows[0]?.t ?? null);
+      })();
+      epochMemo = p;
+      p.catch(() => {
+        if (epochMemo === p) epochMemo = undefined;
+      });
+    }
+    return epochMemo;
+  }
+
+  /**
+   * ONE claim as of ONE instant, by its key — the reader-facing shape of
+   * `asOf`. `keyWhere` is filtered INSIDE both legs of the union (never after
+   * it), so the read rides `kg_node_history_id_idx` /
+   * `kg_edge_history_key_idx` and touches only that claim's versions; the
+   * whole-relation lister in `asOf()` stays the un-indexed history instrument
+   * it says it is.
+   *
+   * EPOCH RULE: an instant before the oldest record time answers
+   * `{ known: false }`. The bitemporal migration stamped every pre-existing row
+   * with one shared `recorded_at`, so "the span containing that day starts at
+   * the epoch" is an artefact of the migration, not knowledge about that day —
+   * returning the value would read as "unchanged since then", which we cannot
+   * know. Missing is not zero.
+   */
+  async function pointRead<T>(
+    table: "kg_node" | "kg_edge",
+    cols: readonly string[],
+    map: (r: Record<string, unknown>) => T,
+    at: Date | string,
+    keyWhere: string,
+    keyParams: unknown[],
+  ): Promise<KgAsOfPoint<T>> {
+    const atIso = at instanceof Date ? at.toISOString() : at;
+    const epoch = await bitemporalEpoch();
+    const atMs = Date.parse(atIso);
+    const epochMs = epoch === null ? Number.NaN : Date.parse(epoch);
+    // An unparseable instant is refused the same way as a pre-epoch one: we
+    // will not guess which day the caller meant (disclose, never repair).
+    if (!Number.isFinite(atMs) || !Number.isFinite(epochMs) || atMs < epochMs) {
+      return { known: false, at: atIso, epoch };
+    }
+    const list = cols.join(", ");
+    const { rows } = await pg.query<Record<string, unknown>>(
+      `select ${list} from (
+         select ${list}, recorded_at, superseded_at from ${table} where ${keyWhere}
+         union all
+         select ${list}, recorded_at, superseded_at from ${table}_history where ${keyWhere}
+       ) v
+       where recorded_at <= $1::timestamptz
+         and (superseded_at is null or superseded_at > $1::timestamptz)
+       order by recorded_at desc, superseded_at desc nulls first
+       limit 1`,
+      [atIso, ...keyParams],
+    );
+    return { known: true, at: atIso, epoch, value: rows[0] ? map(rows[0]) : null };
+  }
+
+  /**
+   * The newest version of one claim the store EVER recorded, current or not —
+   * what an address today's graph no longer carries can still honestly show.
+   * Same single-key indexed shape as `pointRead`; `superseded_at desc nulls
+   * first` keeps a still-current version ahead of a same-instant archived one.
+   */
+  async function lastVersion<T>(
+    table: "kg_node" | "kg_edge",
+    cols: readonly string[],
+    map: (r: Record<string, unknown>) => T,
+    keyWhere: string,
+    keyParams: unknown[],
+  ): Promise<KgVersion<T> | null> {
+    const list = cols.join(", ");
+    const { rows } = await pg.query<Record<string, unknown>>(
+      `select ${list}, recorded_at, superseded_at from (
+         select ${list}, recorded_at, superseded_at from ${table} where ${keyWhere}
+         union all
+         select ${list}, recorded_at, superseded_at from ${table}_history where ${keyWhere}
+       ) v
+       order by recorded_at desc, superseded_at desc nulls first
+       limit 1`,
+      keyParams,
+    );
+    const row = rows[0];
+    if (!row) return null;
+    const recordedAt = isoTs(row.recorded_at);
+    if (recordedAt === null) return null;
+    return { row: map(row), recordedAt, supersededAt: isoTs(row.superseded_at) };
+  }
 
   return {
     // Supersede-aware (see the write-discipline block at the top of this file);
@@ -460,6 +557,32 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
           return num(rows[0]?.n);
         },
       };
+    },
+
+    bitemporalEpoch,
+
+    async asOfNode(id, at) {
+      return pointRead("kg_node", KG_NODE_COLS, mapKgNode, at, `id = $2`, [id]);
+    },
+
+    async asOfEdge(key, at) {
+      return pointRead("kg_edge", KG_EDGE_COLS, mapKgEdge, at, `src = $2 and rel = $3 and dst = $4`, [
+        key.src,
+        key.rel,
+        key.dst,
+      ]);
+    },
+
+    async lastKgNodeVersion(id) {
+      return lastVersion("kg_node", KG_NODE_COLS, mapKgNode, `id = $1`, [id]);
+    },
+
+    async lastKgEdgeVersion(key: KgEdgeKey) {
+      return lastVersion("kg_edge", KG_EDGE_COLS, mapKgEdge, `src = $1 and rel = $2 and dst = $3`, [
+        key.src,
+        key.rel,
+        key.dst,
+      ]);
     },
   };
 }

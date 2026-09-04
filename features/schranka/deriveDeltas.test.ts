@@ -2,7 +2,15 @@ import { describe, expect, it } from "vitest";
 import type { DenikEntry } from "@/features/denik/deriveDenik";
 import type { EvidenceEntry } from "@/features/dukazy/deriveFeed";
 import { CONTRIBUTION_FORMULA_REF } from "@/lib/analysis/contribution";
-import { recomputeDelta, recomputeFactFromProps, type RecomputeFact } from "./recomputeFact";
+import {
+  priorScoreFromProps,
+  recomputeDelta,
+  recomputeFactFromProps,
+  scoreMagnitude,
+  uniformPrior,
+  type PriorScore,
+  type RecomputeFact,
+} from "./recomputeFact";
 import {
   daysBefore,
   dayOf,
@@ -230,11 +238,78 @@ describe("přepočet indexu jako delta", () => {
     expect(row!.sourceParams).toEqual({ ref: "contribution-committee-dedupe" });
   });
 
-  it("NIKDY netvrdí velikost změny skóre — graf předchozí hodnoty nedrží", () => {
+  it("BEZ předchozí verze netvrdí velikost změny — původní věta zůstává", () => {
     const row = recomputeDelta(FACT, "poslanec:1", "2026-01-01")!;
     expect(row.titleCs).toMatch(/o kolik se skóre pohnulo, záznam neříká/);
     // Žádné číslo kromě průchodu: v titulku nesmí být bodová změna.
     expect(row.titleCs.match(/\d+/g)).toEqual(["42"]);
+  });
+
+  /* VELIKOST ZMĚNY (2026-09-04, moonshot G1): bitemporální vrstva předchozí
+   * hodnoty drží, takže „o kolik" už se dá říct — ale jen pod třemi
+   * podmínkami. Tyhle testy jsou ta laťka; bez nich by se magnituda tiše
+   * vysázela i tam, kde je to dohad. */
+  const prior = (over: Partial<PriorScore> = {}): PriorScore => ({
+    value: 70,
+    pass: 41,
+    ref: "contribution-committee-dedupe",
+    ...over,
+  });
+
+  it("s předchozí verzí TÉHOŽ vzorce se velikost změny vysází, s desetinnou čárkou", () => {
+    const row = recomputeDelta(FACT, "poslanec:1", "2026-01-01", { prior: prior(), current: 73.25 })!;
+    expect(row.titleKey).toBe("schranka.delta.recomputeTitleSized");
+    expect(row.titleParams).toEqual({ pass: 42, delta: "3,3", priorPass: 41 });
+    expect(row.titleCs).toContain("o 3,3 bodu");
+    // id se magnitudou NEMĚNÍ — týž přepočet, týž řádek, žádný duplikát
+    expect(row.id).toBe(recomputeDelta(FACT, "poslanec:1", "2026-01-01")!.id);
+  });
+
+  it("beze změny hodnoty je to posun o nulu, ne neznámá velikost", () => {
+    const row = recomputeDelta(FACT, "poslanec:1", "2026-01-01", { prior: prior(), current: 70 })!;
+    expect(row.titleKey).toBe("schranka.delta.recomputeTitleSized");
+    expect(row.titleParams).toMatchObject({ delta: "0,0" });
+  });
+
+  it("JINÝ VZOREC velikost neříká: rozdíl by míchal opravu formule s pohybem dat", () => {
+    const row = recomputeDelta(FACT, "poslanec:1", "2026-01-01", {
+      prior: prior({ ref: "contribution-v1" }),
+      current: 73.25,
+    })!;
+    expect(row.titleKey).toBe("schranka.delta.recomputeTitle");
+    expect(row.titleCs).toMatch(/záznam neříká/);
+  });
+
+  it("předchůdce z TÉHOŽ průchodu není předchůdce", () => {
+    const row = recomputeDelta(FACT, "poslanec:1", "2026-01-01", {
+      prior: prior({ pass: 42 }),
+      current: 73.25,
+    })!;
+    expect(row.titleKey).toBe("schranka.delta.recomputeTitle");
+  });
+
+  it("scoreMagnitude vrací přesný rozdíl, ne zaokrouhlený — sazbu dělá lib/format", () => {
+    expect(scoreMagnitude({ prior: prior({ value: 70.05 }), current: 70.1 }, FACT)).toBeCloseTo(0.05, 10);
+    expect(scoreMagnitude(null, FACT)).toBeNull();
+  });
+
+  it("priorScoreFromProps nic nedosazuje: bez skóre ani bez razítka není předchůdce", () => {
+    const ok = priorScoreFromProps({
+      contribution_score: 70,
+      contribution_provenance: { pass: 41, ref: "r", computedAt: "2026-07-01" },
+    });
+    expect(ok).toEqual({ value: 70, pass: 41, ref: "r" });
+    // uzel BEZ skóre není uzel se skóre nula
+    expect(priorScoreFromProps({ contribution_provenance: { pass: 41, ref: "r" } })).toBeNull();
+    expect(priorScoreFromProps({ contribution_score: 70 })).toBeNull();
+    expect(priorScoreFromProps(null)).toBeNull();
+  });
+
+  it("uniformPrior: jeden {pass, ref} pro všechny, jinak nic", () => {
+    expect(uniformPrior([prior(), prior()])).toEqual({ pass: 41, ref: "contribution-committee-dedupe" });
+    expect(uniformPrior([prior(), prior({ pass: 40 })])).toBeNull();
+    expect(uniformPrior([prior(), null])).toBeNull(); // chybějící předchůdce boří jednotnost
+    expect(uniformPrior([])).toBeNull(); // prázdná množina není jednotná
   });
 
   it("firma ani tisk řádek o přepočtu nedostanou", () => {
