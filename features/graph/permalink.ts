@@ -25,7 +25,14 @@
  * sloučit do lib/.
  */
 
-import type { GateStatus, GraphNode, NodeDetail, PathTrailDto, Trail } from "./graphTypes";
+import type {
+  GateStatus,
+  GraphNode,
+  Neighbourhood,
+  NodeDetail,
+  PathTrailDto,
+  Trail,
+} from "./graphTypes";
 // [G4] Adresa tvrzení pro každou hranu citace — čistý modul, žádný server.
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 
@@ -106,7 +113,10 @@ export type GraphVariant = "mapa" | "trasy";
 export type GraphViewState =
   | { kind: "uzel"; variant: GraphVariant; node: string }
   | { kind: "trasa"; variant: GraphVariant; trail: string }
-  | { kind: "cesta"; variant: GraphVariant; from: string; to: string; path: number };
+  | { kind: "cesta"; variant: GraphVariant; from: string; to: string; path: number }
+  // [G4] ČTVRTÝ CITOVATELNÝ DRUH POHLEDU: okolí uzlu dotažené na vyžádání.
+  // Adresa je slib, který se jen PŘIDÁVÁ — starší tvary čte dekodér beze změny.
+  | { kind: "okoli"; variant: GraphVariant; node: string };
 
 /** Horní mez délky id/klíče ve stavu — id grafu jsou krátké urny; cokoli
  *  delšího je zneužitá adresa, ne citace (vzor claimRef.MAX_REF_LENGTH). */
@@ -130,6 +140,11 @@ export function parseViewState(v: unknown): GraphViewState | null {
   }
   if (o.kind === "trasa" && isId(o.trail)) {
     return { kind: "trasa", variant: o.variant, trail: o.trail };
+  }
+  // [G4] Táž přísnost jako u „uzel": neznámé klíče se nepropouštějí, výstup se
+  // skládá znovu jen ze známých polí (akce i dekodér jsou veřejné endpointy).
+  if (o.kind === "okoli" && isId(o.node)) {
+    return { kind: "okoli", variant: o.variant, node: o.node };
   }
   if (
     o.kind === "cesta" &&
@@ -243,7 +258,9 @@ export type PermalinkCore =
       ruleRef: string;
     }
   | { kind: "trasa"; trail: Trail }
-  | { kind: "uzel"; detail: NodeDetail };
+  | { kind: "uzel"; detail: NodeDetail }
+  // [G4] Okolí se cituje přesně jako trasa: otisk, tři stavy, strop s populací.
+  | { kind: "okoli"; neighbourhood: Neighbourhood };
 
 export type PermalinkView = PermalinkCommon & PermalinkCore;
 
@@ -432,6 +449,14 @@ export function permalinkCardModel(input: PermalinkCardInput): PermalinkCardMode
     // [G4] Cesta se hledá jen po nezamítnutých hranách (buildAdjacency), takže
     // zamítnutý krok v ní být NEMŮŽE — číslo je 0 a je to tvrzení, ne mezera.
     review = reviewOf(view.trail.pendingCount, 0, stale);
+  } else if (view.kind === "okoli") {
+    // [G4] Okolí je taky vyžádaná odpověď: nefiltruje se, tedy zamítnutá vazba
+    // uzlu se v něm vysází — označená, a spočítaná zvlášť.
+    review = reviewOf(
+      view.neighbourhood.edges.filter((e) => e.gate === "pending_review").length,
+      view.neighbourhood.edges.filter((e) => e.gate === "rejected").length,
+      stale,
+    );
   } else if (view.kind === "trasa") {
     // [G4] Kurátorská trasa se NEfiltruje (vyžádaná odpověď), takže zamítnutý
     // krok v ní být může — a musí být vidět jako zamítnutý.
@@ -601,6 +626,28 @@ export function toEvidenceJsonLd(view: PermalinkView): EvidenceJsonLd {
       );
     }
   }
+  // [G4] `hasPart` okolí = jeho hrany se stavem brány, týž tvar jako u trasy.
+  if (view.kind === "okoli") {
+    const n = view.neighbourhood;
+    const byId = new Map<string, string>([
+      ...(n.anchor ? ([[n.anchor.id, n.anchor.label]] as [string, string][]) : []),
+      ...n.nodes.map((x) => [x.id, x.label] as [string, string]),
+    ]);
+    for (const e of n.edges) {
+      parts.push(
+        edgeClaim({
+          fromLabel: byId.get(e.src) ?? e.src,
+          rel: e.rel,
+          toLabel: byId.get(e.dst) ?? e.dst,
+          gate: e.gate,
+          provenance: e.provenance,
+          claimRef: edgeClaimRef(e.src, e.rel, e.dst),
+          moneyCzk: null,
+          origin: view.origin,
+        }),
+      );
+    }
+  }
   if (view.kind === "uzel") {
     const d = view.detail;
     parts.push({
@@ -645,6 +692,27 @@ export function toEvidenceJsonLd(view: PermalinkView): EvidenceJsonLd {
           ...(view.orderingRule ? [prop("path_ordering_rule", view.orderingRule)] : []),
         ]
       : [];
+  /*
+   * [G4] KAŽDÝ STROP NESE SVOU POPULACI. Okolí je řez („nejvýš N hran"), a řez
+   * bez počtu je tvrzení o celku, které o celku nic neví. Strojový odběratel
+   * proto dostává „N z M", ne jen N — a když se do svého stropu nevešlo ani
+   * čtení, řekne se i to.
+   */
+  const neighbourBound: JsonLdProperty[] =
+    view.kind === "okoli"
+      ? [
+          prop("neighbourhood_edges_shown", view.neighbourhood.edges.length),
+          prop(
+            "neighbourhood_edges_total",
+            view.neighbourhood.perRel.reduce((sum, r) => sum + r.total, 0),
+          ),
+          prop("neighbourhood_limit", view.neighbourhood.limit),
+          prop("neighbourhood_read_truncated", view.neighbourhood.readTruncated ? "yes" : "no"),
+          ...view.neighbourhood.perRel.map((r) =>
+            prop(`neighbourhood_rel_${r.rel}`, `${r.shown}/${r.total}`),
+          ),
+        ]
+      : [];
   return {
     "@context": "https://schema.org",
     "@type": "Dataset",
@@ -662,6 +730,7 @@ export function toEvidenceJsonLd(view: PermalinkView): EvidenceJsonLd {
       prop("cited_content_hash", view.urlHash),
       prop("fresh", view.fresh ? "yes" : "no"),
       ...searchBound,
+      ...neighbourBound,
     ],
     hasPart: parts,
   };

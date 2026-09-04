@@ -2438,7 +2438,11 @@
       "unavailable": "the map couldn't be built — the data warehouse isn't available",
       "footnote": "the whole graph at once: the evidence layer as a network, contracts as dots around suppliers · co-voting isn't drawn (96% pair density — see methodology)",
       "lensLabel": "trails on the map",
-      "lensOff": "whole map — no trail"
+      "lensOff": "whole map — no trail",
+      "offMap": "{n} steps off the map, drawn in on request",
+      "overlayBudget": "{n} neighbourhood nodes did not fit the stage budget ({budget})",
+      "offMapSource": "the procurement layer (48,647 tenders, 12,467 procurement-only companies) is not drawn on the mass map — a neighbourhood is fetched per node, never for the whole graph",
+      "expandLabel": "draw the neighbourhood"
     },
     "trasy": {
       "canvasLabel": "trails",
@@ -2607,7 +2611,17 @@
         "absent": "unstamped"
       },
       "source": "source: kg_edge.provenance — {pass, method, ref} written by the pass that derived the edge; the graph is recomputed per relation, so different relations carry different passes"
-    }
+    },
+    "okoli": {
+      "title": "node neighbourhood",
+      "shownOfTotal": "{shown} of {total} ties",
+      "cap": "view cap: {n} edges",
+      "readTruncated": "the read hit its own cap too — \"total\" is a lower bound",
+      "empty": "this node has no ties in today's graph",
+      "goneAnchor": "this node is not in today's graph",
+      "source": "source: kg_edge around this node (indexed kgNeighbours read), {nodes} neighbours drawn; the cut is deterministic (src, rel, dst order), not by weight"
+    },
+    "rejectedEdges": "{count, plural, one {1 edge refused by review} other {{countFmt} edges refused by review}}"
   },
   "metodika": {
     "backToLeaderboard": "back to the leaderboard",

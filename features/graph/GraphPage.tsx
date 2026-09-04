@@ -67,7 +67,15 @@ function choose(key: VariantKey) {
   for (const l of listeners) l();
 }
 
-export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
+export default function GraphPage({
+  seed,
+  okoli = null,
+}: {
+  seed: GraphSeed | null;
+  /** Uzel, jehož okolí se má rozkreslit hned po otevření (`/graf?okoli=<id>`) —
+   *  vstup z jiné plochy (spis firmy, zakázka); null = běžné otevření. */
+  okoli?: string | null;
+}) {
   const t = useTranslations("graph");
   const tp = useTranslations("graph.provenance");
   const tr = useTranslations("graph.rels");
@@ -149,7 +157,7 @@ export default function GraphPage({ seed }: { seed: GraphSeed | null }) {
             <p className="max-w-xl text-base leading-relaxed text-steel">{t("page.unavailable")}</p>
           </div>
         ) : (
-          <Active seed={seed} />
+          <Active seed={seed} okoli={okoli} />
         )}
       </div>
 

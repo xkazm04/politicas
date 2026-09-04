@@ -268,6 +268,35 @@ const trasaWithGates = (gates: (GateStatus | null)[]): Extract<PermalinkView, { 
   },
 });
 
+/** Okolí uzlu: dvě vykreslené hrany z devíti, jedna z nich zamítnutá. */
+const okoliView = (): Extract<PermalinkView, { kind: "okoli" }> => ({
+  ref: "g.o.00000000",
+  state: { kind: "okoli", variant: "mapa", node: "co:1" },
+  urlHash: "00000000",
+  currentHash: "00000000",
+  fresh: true,
+  retrievedOn: "2026-09-04",
+  title: "firma: Alfa",
+  origin: "https://politicas.cz",
+  bundleDescription: BUNDLE_DESC,
+  orderingRule: null,
+  kind: "okoli",
+  neighbourhood: {
+    anchor: node("co:1", "company"),
+    nodes: [{ ...node("co:2", "company"), x: 10, y: 20 }],
+    edges: [
+      { src: "co:1", dst: "co:2", rel: "supplies", weight: null, pending: false, gate: null, provenance: null },
+      { src: "co:1", dst: "co:2", rel: "linked_to", weight: null, pending: false, gate: "rejected", provenance: null },
+    ],
+    perRel: [
+      { rel: "supplies", shown: 1, total: 7 },
+      { rel: "linked_to", shown: 1, total: 2 },
+    ],
+    limit: 60,
+    readTruncated: false,
+  },
+});
+
 describe("citační řádek a JSON-LD", () => {
   it("citační řádek nese titul, datum, adresu i otisk s algoritmem", () => {
     const line = citationLine({
@@ -537,6 +566,77 @@ describe("balíček důkazů — stav kontroly doslova, nikdy překlopený boole
       status: "ok",
       view: { ...trasaWithGates(["verified", "rejected"]), fresh: true, currentHash: "00000000" },
     });
+    expect(card.review).toEqual({
+      pendingEdges: 0,
+      rejectedEdges: 1,
+      allVerified: false,
+      confirming: false,
+    });
+  });
+});
+
+/*
+ * [G4] OKOLÍ UZLU — čtvrtý citovatelný druh pohledu.
+ *
+ * Adresa je slib, který se jen PŘIDÁVÁ: starší tvary (`uzel`, `trasa`,
+ * `cesta`) musí projít kodekem beze změny, a nový tvar musí projít TOUŽ
+ * přísností — akce i dekodér jsou veřejné endpointy, ne funkce.
+ */
+describe("okolí uzlu jako citovatelný pohled", () => {
+  const okoli: GraphViewState = { kind: "okoli", variant: "mapa", node: "co:46347534" };
+
+  it("projde kodekem tam i zpět", () => {
+    const ref = encodeGraphRef(okoli, HASH);
+    expect(decodeGraphRef(ref)).toEqual({ state: okoli, hash: HASH });
+  });
+
+  it("validace je stejně přísná jako u ostatních druhů", () => {
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "x" })).toEqual(okoli.node ? {
+      kind: "okoli",
+      variant: "mapa",
+      node: "x",
+    } : null);
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "" })).toBeNull();
+    expect(parseViewState({ kind: "okoli", variant: "jina", node: "x" })).toBeNull();
+    expect(parseViewState({ kind: "okoli", node: "x" })).toBeNull();
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "x".repeat(201) })).toBeNull();
+  });
+
+  it("neznámé klíče se nepropouštějí — výstup se skládá jen ze známých polí", () => {
+    expect(parseViewState({ kind: "okoli", variant: "mapa", node: "x", zlo: 1 })).toEqual({
+      kind: "okoli",
+      variant: "mapa",
+      node: "x",
+    });
+  });
+
+  it("balíček nese strop I jeho populaci — řez bez počtu je tvrzení o ničem", () => {
+    const view = okoliView();
+    const props = Object.fromEntries(
+      toEvidenceJsonLd(view).additionalProperty.map((p) => [p.name, p.value]),
+    );
+    expect(props.neighbourhood_edges_shown).toBe(2);
+    expect(props.neighbourhood_edges_total).toBe(9);
+    expect(props.neighbourhood_limit).toBe(60);
+    expect(props.neighbourhood_read_truncated).toBe("no");
+    // Per relaci taky „N z M", ne jen N.
+    expect(props.neighbourhood_rel_supplies).toBe("1/7");
+    expect(props.neighbourhood_rel_linked_to).toBe("1/2");
+  });
+
+  it("hrany okolí jdou ven jako tvrzení se stavem brány, zamítnuté doslova", () => {
+    const tokens = toEvidenceJsonLd(okoliView())
+      .hasPart.flatMap((c) => c.additionalProperty)
+      .filter((p) => p.name === "review_state")
+      .map((p) => p.value);
+    // `supplies` je negated relace → `ungated`, NIKDY „verified"; `linked_to`
+    // odmítla kontrola → `rejected` doslova. Ani jeden token není „verified",
+    // a to je celý smysl: ověření se tvrdí jen tam, kde ho někdo napsal.
+    expect(tokens.sort()).toEqual(["rejected", "ungated"]);
+  });
+
+  it("karta počítá zamítnutou vazbu okolí zvlášť a potvrzující barvu nedá", () => {
+    const card = permalinkCardModel({ status: "ok", view: okoliView() });
     expect(card.review).toEqual({
       pendingEdges: 0,
       rejectedEdges: 1,

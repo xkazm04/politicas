@@ -155,3 +155,85 @@ than a lint warning: a node's degree describes the graph currently on screen,
 not a claim a reader could go and check, and the provenance of the graph is on
 the surface above it.
 
+## 2026-09-04 — the three-state gate, the derivation stamp, and the layer that could not be drawn (G4, deck #36 + #28 + #41)
+
+**A rejected tie is not a documented connection.** `kg_edge.props.review_state`
+carries three values, `rejected` is terminal and the edge stays in the graph, and
+`/graf` reduced all of it to `pending: boolean`. Consequences, all measured in the
+code before the fix: `toEdge` mapped a human REFUSAL to `pending: false`;
+`buildAdjacency` walked it as a full-strength documentary hop; the ranking's rule 2
+("fewer pending wins") let a refused path OUTRANK a pending one, because "not
+waiting" was being read as "verified"; `GraphStage` drew it solid — the stroke
+reserved for proof; `forensicEdges` kept it inside the "verified only" landscape;
+and `hoverCardModel` counted it in the `verified` column. `GraphEdge`, `PathEdge`,
+`PathHop` and `PathLedgerRow` now carry `gate: GateStatus | null` and
+`provenance: {pass, method, ref} | null`. `pending` survives as a DERIVED field for
+the stage, documented as not meaning "verified" — `pendingFromGate` is its single
+definition. `null` means the relation does not pass the gate at all (`GATED_RELS`):
+"nothing to review" is neither approval nor a queue, and the surface says so.
+
+**The one interpretation of `review_state` is imported, never restated.**
+`features/graph/edgeGate.ts` (new, pure) wraps the receipt layer's `gateFromEdge`.
+It is pure rather than living in `graphLoader.ts` because `scripts/sentinel/path-oracle.ts`
+must read the gate with the SAME code as the loader, and the loader is `server-only`
+— the oracle's paths have to be the reader's paths, or it certifies a graph nobody sees.
+
+**`buildAdjacency` refuses to traverse a refused claim, and counts what it refused.**
+`excludedRejected` rides on `Adjacency`, `FindPathsResult` and `PathQueryResult`, so
+"we found no connection" and "the only connection runs through a claim a human
+refused" stop being the same empty answer. Three strokes on the stage now: solid
+(verified, or an ungated derivation), dashed (pending), dotted (refused). A refused
+hop inside a REQUESTED lens still renders — a requested answer with omitted steps is
+a lie — but it renders marked. The forensic strip counts hidden/kept refusals apart
+from pending and does not offer to draw them back in: pending is a machine's
+proposal, refused is a person's decision.
+
+**The fingerprint grew an author.** `PATH_RULE_REF = "evidence-path/v1"` +
+`pathRule()`, pinned against the constants by a test that fails if either moves
+alone; `content` for `cesta` gained `{ruleRef, excludedRels, hubDegree, maxCost}`.
+The announced cost is in `docs/routes/graf-permalink.md`: every path citation issued
+before today reads as `moved` exactly once.
+
+**The graph publishes its provenance as a population.** `lib/kg/graphProvenance.ts`
+(pure) aggregates `kg_edge.provenance` per relation into
+`{state, pass, ref, method, variants, coverage}`, mirroring the leaderboard's
+aggregate shape without importing it (`lib/**` must not depend on `features/**`).
+The two "mixed" are deliberately not one number: mixed ACROSS relations is the
+ordinary state of a graph recomputed relation by relation, while mixed WITHIN one
+relation is a half recompute and is reported separately as `mixedWithinRel`. A mixed
+population publishes NO single pass, and an empty `{}` never counts as a stamp —
+missing is not pass 0. `buildIndex` computes it on the full-edge scan it already ran,
+so it costs no extra read; the header prints the table behind a disclosure with a
+`SourceNote` citing `kg_edge.provenance`.
+
+**The procurement layer reaches the canvas — and what still cannot be drawn is
+counted.** 48 647 tenders and 12 467 procurement-only companies are in the search
+index and in the path adjacency but deliberately not in `MapData`, so a computed
+path could route through them: the ledger printed three hops, the stage drew one
+(`if (!a || !b) continue`), and the difference was recorded nowhere. That was the
+requested-answer rule honoured in the ledger and broken on the stage.
+`getNeighbourhood(id, {rels, limit})` reads `kgNeighbours` — never at its default
+limit of 500, which sits below the mean `supplies` fan-out and drops the cheapest
+edges of the busiest entity — cuts deterministically with `byListOrder` rather than
+the read's non-total `weight desc`, and returns `shown/total` per relation plus
+`readTruncated`, because a result whose length equals its cap is indistinguishable
+from a truncated one. Positions are a hash ring around the anchor, rounded to two
+decimals (the hydration memo). `VariantMapa` merges the neighbourhood as an overlay
+in the SAME world (no second geometry), auto-fetches the anchors a computed path
+needs so a lens never lights a node it cannot place, wires `NodeInspector.onExpand`,
+and prints "N kroků mimo mapu, dokresleno na vyžádání" plus its own overlay node
+budget when either bites. `okoli` is the fourth citable view kind — an append-only
+address promise — fingerprinted over `{anchor, edges}`, with the cap and its
+population in the JSON-LD, on the page (`OkoliExhibit`) and on the OG card.
+`/graf?okoli=<id>` is the entry point from another surface.
+
+**Carry-over.** `/overeni`'s `grafVerdict` still returns a blanket `ungated` for the
+`graf` family — `verdict.ts` belonged to another builder this wave; the exact
+modifier is in the wave report. The sentinel checks `graph-provenance-uniformity`
+(mixed across relations informational, mixed within one relation the alarm) and
+`path-rule-ref` (the store's stamped rule vs the code's constant) are not built.
+`/dashboard`'s state-graph slice does not print the variant table. `/penize/firma/[ico]`
+and the tender surface do not yet link into `/graf?okoli=<id>`, and `caseFileLink`
+is still unused by `features/graph`. The neighbourhood overlay is deliberately ONE
+level deep: a neighbourhood anchored on another overlay node would depend on
+arrival order and would turn the node budget into a suggestion.

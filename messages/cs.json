@@ -2438,7 +2438,11 @@
       "unavailable": "mapu se nepodařilo sestavit — datový sklad není dostupný",
       "footnote": "celý graf najednou: důkazní vrstva jako síť, smlouvy jako tečky kolem dodavatelů · společné hlasování se nekreslí (96 % hustoty párů — viz metodika)",
       "lensLabel": "trasy na mapě",
-      "lensOff": "celá mapa — bez trasy"
+      "lensOff": "celá mapa — bez trasy",
+      "offMap": "{n} kroků mimo mapu, dokresleno na vyžádání",
+      "overlayBudget": "{n} uzlů okolí se nevešlo do rozpočtu plátna ({budget})",
+      "offMapSource": "zakázková vrstva (48 647 zakázek, 12 467 zakázkových firem) se na mapě masy nekreslí — okolí se dotahuje k uzlu, ne k celku",
+      "expandLabel": "dokreslit okolí"
     },
     "trasy": {
       "canvasLabel": "trasy",
@@ -2607,7 +2611,17 @@
         "absent": "bez razítka"
       },
       "source": "zdroj: kg_edge.provenance — {pass, method, ref} zapsané průchodem, který hranu odvodil; graf se přepočítává po relacích, takže různé relace nesou různé průchody"
-    }
+    },
+    "okoli": {
+      "title": "okolí uzlu",
+      "shownOfTotal": "{shown} z {total} vazeb",
+      "cap": "strop pohledu: {n} hran",
+      "readTruncated": "i čtení narazilo na svůj strop — „celkem\" je spodní odhad",
+      "empty": "uzel v dnešním grafu žádné vazby nemá",
+      "goneAnchor": "uzel v dnešním grafu není",
+      "source": "zdroj: kg_edge kolem tohoto uzlu (indexované čtení kgNeighbours), {nodes} vykreslených sousedů; řez je deterministický (pořadí src, rel, dst), ne podle váhy"
+    },
+    "rejectedEdges": "{count, plural, one {1 hranu odmítla kontrola} few {{countFmt} hrany odmítla kontrola} other {{countFmt} hran odmítla kontrola}}"
   },
   "metodika": {
     "backToLeaderboard": "zpět na žebříček",

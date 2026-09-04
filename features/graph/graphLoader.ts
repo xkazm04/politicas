@@ -58,6 +58,7 @@ import {
   type GraphProvenance,
 } from "@/lib/kg/graphProvenance";
 import { citableId, sourceLinksFor, type KgNodeKind } from "@/lib/kg/sourceLinks";
+import { byListOrder } from "@/lib/db/kgOrder";
 import { isKgNodeKind } from "./kindStyle";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { moneyReachesCompany } from "@/features/money/reachableMoney";
@@ -77,6 +78,9 @@ import { pendingFromGate } from "./graphTypes";
 import type {
   GraphEdge,
   GraphNode,
+  MapNodeDto,
+  Neighbourhood,
+  NeighbourRelCount,
   GraphSeed,
   MapData,
   NodeDetail,
@@ -945,6 +949,139 @@ export async function getNodeDetail(id: string, locale: string): Promise<NodeDet
     };
   } catch (err) {
     reportLoaderFailure("graphLoader.getNodeDetail", err);
+    return null;
+  }
+}
+
+
+// ── Okolí uzlu (na vyžádání, nikdy memoizované) ──────────────────────────────
+
+/**
+ * Kolik hran okolí VYKRESLÍ. Jeviště nesmí přerůst otištěný rozpočet uzlů:
+ * zadavatel s tisíci hranami `procures` by z mapy udělal skvrnu, a skvrna
+ * neodpovídá na žádnou otázku. Strop je zároveň otištěný (`Neighbourhood.limit`)
+ * a jeho populace jde ven s ním.
+ */
+export const NEIGHBOURHOOD_LIMIT = 60;
+
+/**
+ * Kolik hran se PŘEČTE, aby se dala spočítat populace. Vyšší než vykreslovací
+ * strop schválně: `shown/total` bez `total` je jen `shown`.
+ *
+ * NIKDY se nebere výchozí limit `kgNeighbours` (500) — je pod průměrem hran
+ * `supplies` na firmu (~784) a řadí se `weight desc`, takže by mizely nejlevnější
+ * hrany nejrušnějších entit; přesně tak /denik přišel o 4 872 smluv.
+ */
+export const NEIGHBOURHOOD_READ_CAP = 5_000;
+
+/** Poloměr prstence okolí ve světových souřadnicích. */
+const NEIGHBOUR_RING = { min: 60, span: 90 };
+
+/**
+ * Okolí jednoho uzlu — indexované čtení `kgNeighbours`, deterministicky
+ * seřazené a rozvržené na prstenci kolem kotvy.
+ *
+ * NIKDY MEMOIZOVANÉ: mapa, index i sousedství cest jsou artefakty procesu
+ * (spočítat jednou, žít z toho), ale okolí je dotaz NA UZEL — memoizovat ho
+ * znamená držet v paměti tolik prstenců, kolik uzlů čtenář rozklikl.
+ *
+ * POŘADÍ: `kgNeighbours` řadí `weight desc nulls last`, což NENÍ úplné
+ * uspořádání (váhy jsou zaokrouhlené, remízy husté), takže by se řez lišil
+ * mezi buildy. Řez proto vzniká až po přeřazení `byListOrder` — týž zvyk, po
+ * kterém se jednou tiše přeházel spojenecký seznam 202 ze 207 poslanců.
+ */
+export async function getNeighbourhood(
+  id: string,
+  opts: { rels?: string[]; limit?: number } = {},
+): Promise<Neighbourhood | null> {
+  try {
+    const store = await getStore();
+    if (!store) {
+      reportLoaderFailure(
+        "graphLoader.getNeighbourhood",
+        new Error(`datový sklad není dostupný — okolí uzlu ${id.slice(0, 120)} se nepřečetlo`),
+      );
+      return null;
+    }
+    const limit = Math.max(1, Math.min(opts.limit ?? NEIGHBOURHOOD_LIMIT, NEIGHBOURHOOD_LIMIT));
+    const rels = opts.rels && opts.rels.length > 0 ? opts.rels : undefined;
+
+    const [anchorRow] = await store.getKgNodes([id]);
+    // ZÁMĚRNĚ BEZ STOPY: čtení proběhlo a odpovědělo „takový uzel tu není".
+    // To je fakt o grafu, ne degradace plochy (doktrína getNodeDetail).
+    if (!anchorRow || !isKgNodeKind(anchorRow.kind)) {
+      return { anchor: null, nodes: [], edges: [], perRel: [], limit, readTruncated: false };
+    }
+
+    const { edges: rows, nodes: nodeRows } = await store.kgNeighbours({
+      id,
+      rels,
+      limit: NEIGHBOURHOOD_READ_CAP,
+    });
+    // Délka přesně na stropu je k nerozeznání od uříznuté — přiznává se obojí.
+    const readTruncated = rows.length >= NEIGHBOURHOOD_READ_CAP;
+
+    // Populace PŘED řezem: co se nevykreslí, se musí dát spočítat.
+    const total = new Map<string, number>();
+    for (const r of rows) total.set(r.rel, (total.get(r.rel) ?? 0) + 1);
+
+    const ordered = [...rows].sort(byListOrder);
+    const kept = ordered.slice(0, limit);
+
+    const shown = new Map<string, number>();
+    for (const r of kept) shown.set(r.rel, (shown.get(r.rel) ?? 0) + 1);
+
+    const perRel: NeighbourRelCount[] = [...total.entries()]
+      .map(([rel, t]) => ({ rel, shown: shown.get(rel) ?? 0, total: t }))
+      .sort((a, b) => b.total - a.total || (a.rel < b.rel ? -1 : a.rel > b.rel ? 1 : 0));
+
+    const idx = await graphIndex();
+    const anchor: GraphNode = {
+      id: anchorRow.id,
+      kind: anchorRow.kind as KgNodeKind,
+      label: anchorRow.label,
+      degree: idx?.byId.get(anchorRow.id)?.degree ?? rows.length,
+    };
+
+    // Kotva sedí ve středu vlastního světa okolí; překryv si klient posadí nad
+    // mapu sám (VariantMapa), takže tady stačí souřadnice RELATIVNÍ ke kotvě.
+    const byId = new Map(nodeRows.map((n) => [n.id, n]));
+    const neighbourIds: string[] = [];
+    const seen = new Set<string>([id]);
+    for (const e of kept) {
+      const other = e.src === id ? e.dst : e.src;
+      if (seen.has(other)) continue;
+      seen.add(other);
+      neighbourIds.push(other);
+    }
+
+    const nodes: MapNodeDto[] = [];
+    for (const nid of neighbourIds) {
+      const row = byId.get(nid);
+      if (!row || !isKgNodeKind(row.kind)) continue; // neznámý druh se nekreslí
+      // Týž deterministický prstenec, jaký kolem dodavatele drží halo smluv —
+      // a souřadnice ZAOKROUHLENÉ na 2 desetinná místa, jinak se server a
+      // klient rozejdou na float driftu a hydratace praskne.
+      const angle = (hashId(nid) / 0x100000000) * Math.PI * 2;
+      const radius = NEIGHBOUR_RING.min + (hashId(`r${nid}`) / 0x100000000) * NEIGHBOUR_RING.span;
+      nodes.push({
+        id: row.id,
+        kind: row.kind as KgNodeKind,
+        label: row.label,
+        degree: idx?.byId.get(row.id)?.degree ?? 0,
+        x: Math.round(Math.cos(angle) * radius * 100) / 100,
+        y: Math.round(Math.sin(angle) * radius * 100) / 100,
+      });
+    }
+
+    const drawn = new Set<string>([id, ...nodes.map((n) => n.id)]);
+    const edges: GraphEdge[] = kept
+      .filter((e) => drawn.has(e.src) && drawn.has(e.dst))
+      .map((e) => toEdge(e));
+
+    return { anchor, nodes, edges, perRel, limit, readTruncated };
+  } catch (err) {
+    reportLoaderFailure("graphLoader.getNeighbourhood", err);
     return null;
   }
 }

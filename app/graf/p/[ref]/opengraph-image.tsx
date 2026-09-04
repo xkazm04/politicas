@@ -87,8 +87,23 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
   const card = permalinkCardModel(result);
   const view = result.status === "ok" ? result.view : null;
   const kicker = `politicas / graf · ${t("permalink.tag")}`;
-  const pendingLine = (pending: number) =>
-    pending === 0 ? t("allVerified") : t("pendingEdges", { count: pending, countFmt: fInt(pending) });
+  /*
+   * STAV KONTROLY NA KARTĚ — tři stavy, ne dva.
+   *
+   * `allVerified` je tvrzení, které smí padnout jen tehdy, když ŽÁDNÁ hrana
+   * nečeká A ŽÁDNOU člověk neodmítl. Do 2026-09-04 se zamítnutá hrana nesla
+   * jako `pending: false`, takže karta — kterou si sítě nacachují a redakce
+   * screenshotují — vytiskla „vše ověřeno" nad pohledem, jehož krok kontrola
+   * zamítla. Odmítnutí má vlastní větu a bije čekání: je to rozhodnutí
+   * člověka, ne fronta.
+   */
+  const reviewLineOf = (pending: number, rejectedEdges = 0) =>
+    rejectedEdges > 0
+      ? t("rejectedEdges", { count: rejectedEdges, countFmt: fInt(rejectedEdges) })
+      : pending === 0
+        ? t("allVerified")
+        : t("pendingEdges", { count: pending, countFmt: fInt(pending) });
+  const pendingLine = (pending: number) => reviewLineOf(pending);
 
   // Prameny: registry uzlu mají přednost před pramennou základnou platformy —
   // TÉŽ pravidlo, kterým se řídí citační lišta a `isBasedOn` (permalinkSources).
@@ -123,13 +138,33 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
     );
   } else if (view?.kind === "trasa") {
     title = view.title;
-    reviewLine = pendingLine(view.trail.edges.filter((e) => e.pending).length);
+    reviewLine = reviewLineOf(
+      view.trail.edges.filter((e) => e.gate === "pending_review").length,
+      view.trail.edges.filter((e) => e.gate === "rejected").length,
+    );
     statLine = `${t("permalink.og.curatedTrail")} · ${t("counts", {
       nodes: fInt(view.trail.nodes.length),
       edges: fInt(view.trail.edges.length),
     })}`;
     for (const kind of view.trail.columns.slice(0, 4)) {
       const style = KIND_STYLE[kind as keyof typeof KIND_STYLE];
+      if (style) glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
+    }
+  } else if (view?.kind === "okoli") {
+    // KAŽDÝ STROP NESE SVOU POPULACI — i na kartě, která se nedá opravit.
+    const n = view.neighbourhood;
+    title = view.title;
+    const total = n.perRel.reduce((sum, r) => sum + r.total, 0);
+    statLine = `${t("okoli.title")} · ${t("okoli.shownOfTotal", {
+      shown: fInt(n.edges.length),
+      total: fInt(total),
+    })}`;
+    reviewLine = reviewLineOf(
+      n.edges.filter((e) => e.gate === "pending_review").length,
+      n.edges.filter((e) => e.gate === "rejected").length,
+    );
+    if (n.anchor) {
+      const style = KIND_STYLE[n.anchor.kind];
       if (style) glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
     }
   } else if (view?.kind === "uzel") {

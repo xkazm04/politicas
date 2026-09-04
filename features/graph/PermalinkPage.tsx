@@ -37,7 +37,7 @@ import {
   type PermalinkSourceLink,
   type PermalinkView,
 } from "./permalink";
-import type { GraphNode, NodeDetail, Trail } from "./graphTypes";
+import type { GraphNode, Neighbourhood, NodeDetail, Trail } from "./graphTypes";
 
 // ── Drobné stavební kameny ──────────────────────────────────────────────────
 
@@ -280,6 +280,60 @@ function TrasaExhibit({ trail }: { trail: Trail }) {
   );
 }
 
+
+/*
+ * [G4] OKOLÍ UZLU — čtvrtý exponát citace.
+ *
+ * Řez („nejvýš N hran") je tvrzení o celku jen tehdy, když s sebou nese ten
+ * celek: každý řádek relace proto říká `zobrazeno / celkem`, nikdy jen
+ * `zobrazeno`. Když se do svého stropu nevešlo ani ČTENÍ, je i `celkem` spodní
+ * odhad — a i to se říká, protože strop není počítadlo.
+ */
+function OkoliExhibit({ neighbourhood }: { neighbourhood: Neighbourhood }) {
+  const t = useTranslations("graph");
+  const to = useTranslations("graph.okoli");
+  const f = useFormat();
+  const { anchor, nodes, edges, perRel, limit, readTruncated } = neighbourhood;
+  const total = perRel.reduce((sum, r) => sum + r.total, 0);
+
+  return (
+    <div className="border-2 border-ink bg-paper">
+      <div className="border-b-2 border-ink px-5 py-3">
+        <p className="text-lg font-black uppercase leading-tight tracking-tight">
+          {anchor ? anchor.label : to("goneAnchor")}
+        </p>
+        {anchor && <p className="mt-1 text-[13px] leading-snug text-steel">{t(`kinds.${anchor.kind}`)}</p>}
+      </div>
+      <p className="border-b border-hairline px-5 py-2 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
+        {to("shownOfTotal", { shown: f.int(edges.length), total: f.int(total) })}
+        <span className="block">{to("cap", { n: f.int(limit) })}</span>
+        {readTruncated && <span className="block text-signal">{to("readTruncated")}</span>}
+      </p>
+      {perRel.length === 0 ? (
+        <p className="px-5 py-3 text-sm text-steel">{to("empty")}</p>
+      ) : (
+        <ul className="divide-y divide-hairline">
+          {perRel.map((r) => (
+            <li key={r.rel} className="flex items-baseline justify-between gap-3 px-5 py-2">
+              <span className="min-w-0 truncate font-mono text-[11px] uppercase tracking-wider">
+                {t(`rels.${r.rel}`)}
+              </span>
+              <span className="shrink-0 font-mono text-[11px] tabular-nums text-steel-aa">
+                {to("shownOfTotal", { shown: f.int(r.shown), total: f.int(r.total) })}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="border-t border-hairline px-5 py-2.5">
+        <SourceNote>
+          {to("source", { nodes: f.int(nodes.length) })}
+        </SourceNote>
+      </div>
+    </div>
+  );
+}
+
 /** Jeden uzel grafu — statický štítek s fakty, registry a proveniencí. */
 function UzelExhibit({ detail }: { detail: NodeDetail }) {
   const t = useTranslations("graph");
@@ -511,6 +565,8 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
             {view.kind === "cesta" && <CestaExhibit view={view} />}
             {view.kind === "trasa" && <TrasaExhibit trail={view.trail} />}
             {view.kind === "uzel" && <UzelExhibit detail={view.detail} />}
+            {/* [G4] */}
+            {view.kind === "okoli" && <OkoliExhibit neighbourhood={view.neighbourhood} />}
           </div>
           <CitationRail view={view} />
         </div>

@@ -198,6 +198,44 @@ export interface PathQueryResult {
   provenance: GraphProvenance;
 }
 
+/** Kolik hran jedné relace se kolem uzlu ukáže / kolik jich uzel má. */
+export interface NeighbourRelCount {
+  rel: string;
+  /** Kolik hran té relace odpověď skutečně nese. */
+  shown: number;
+  /** Kolik jich uzel má celkem — KAŽDÝ STROP NESE SVOU POPULACI. */
+  total: number;
+}
+
+/**
+ * Okolí jednoho uzlu, dotažené NA VYŽÁDÁNÍ (nikdy memoizované: je to dotaz
+ * per uzel, ne artefakt procesu).
+ *
+ * Proč vůbec existuje: 48 647 zakázek a 12 467 čistě zakázkových firem je
+ * v indexu i v sousedství cest, ale ZÁMĚRNĚ ne na mapě masy — payload by nesl
+ * ~60 tisíc uzlů. Spočítaná cesta ale přes ně vést může, a jeviště pak
+ * rozsvěcelo uzly, pro které nemá pozici, a jejich hrany MLČKY zahazovalo
+ * (`if (!a || !b) continue`). Vyžádaná odpověď s vynechanými kroky je lež;
+ * okolí je způsob, jak ty kroky dokreslit, místo aby zmizely.
+ */
+export interface Neighbourhood {
+  /** Uzel, kolem kterého se okolí kreslí; null = v dnešním grafu není. */
+  anchor: GraphNode | null;
+  /** Uzly okolí S POZICEMI (deterministický prstenec kolem kotvy). */
+  nodes: MapNodeDto[];
+  edges: GraphEdge[];
+  /** Strop a jeho populace, po relacích — sestupně podle `total`. */
+  perRel: NeighbourRelCount[];
+  /** Strop na počet hran, který si odpověď sama uložila (tiskne se). */
+  limit: number;
+  /**
+   * true = ani ČTENÍ okolí se do svého stropu nevešlo, takže i `total` je
+   * spodní odhad. Strop není počítadlo: výsledek délky přesně na stropu je
+   * k nerozeznání od uříznutého, a plocha to musí přiznat, ne zamlčet.
+   */
+  readTruncated: boolean;
+}
+
 export interface GraphSeed {
   /** Sčítání uzlů podle druhu — podklad pro mapu i pro popis rozsahu. */
   census: Array<{ kind: KgNodeKind; count: number }>;

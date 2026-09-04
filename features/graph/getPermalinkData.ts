@@ -31,7 +31,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 import { formatInt } from "@/lib/format";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
-import { getNodeDetail, getPathBetween, getTrails } from "./graphLoader";
+import { getNeighbourhood, getNodeDetail, getPathBetween, getTrails } from "./graphLoader";
 // [G4] Vyloučené relace patří do otisku pravidla, ne jen do komentáře.
 import { EXCLUDED_RELS } from "./trailPath";
 import {
@@ -113,6 +113,33 @@ async function resolveView(state: GraphViewState): Promise<Resolved> {
       content: { kind: "trasa", trail },
       title: t.has(titleKey) ? t(titleKey) : (TRAIL_TITLES[trail.key] ?? trail.key),
       core: { kind: "trasa", trail },
+    };
+  }
+
+  // [G4] OKOLÍ UZLU — čtvrtý citovatelný pohled, řešený přesně jako trasa:
+  // znovuodvodí se z téhož loaderu, otisk se počítá nad {anchor, edges} (uzly
+  // ani pozice do něj nevstupují — jsou odvozené z hran a z kotvy), a zaniklá
+  // kotva je poctivé „gone", ne prázdný rám.
+  if (state.kind === "okoli") {
+    const neighbourhood = await getNeighbourhood(state.node);
+    if (neighbourhood === null) return { status: "unavailable" };
+    if (neighbourhood.anchor === null) return { status: "gone" };
+    const t = await getTranslations("graph");
+    const kindKey = `kinds.${neighbourhood.anchor.kind}`;
+    const kindLabel = t.has(kindKey)
+      ? t(kindKey)
+      : (KIND_LABELS[neighbourhood.anchor.kind] ?? neighbourhood.anchor.kind);
+    return {
+      status: "ok",
+      content: {
+        kind: "okoli",
+        anchor: neighbourhood.anchor.id,
+        // Hrany v ULOŽENÉ orientaci a v pořadí, ve kterém je loader uřízl —
+        // řez je deterministický (byListOrder), takže otisk je stabilní.
+        edges: neighbourhood.edges.map((e) => `${e.src}|${e.rel}|${e.dst}`),
+      },
+      title: `${kindLabel}: ${neighbourhood.anchor.label}`,
+      core: { kind: "okoli", neighbourhood },
     };
   }
 
