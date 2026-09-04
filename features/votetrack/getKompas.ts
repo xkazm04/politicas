@@ -47,6 +47,7 @@
 
 import "server-only";
 import { cache } from "react";
+import { clubNameAt } from "@/lib/analysis/clubAt";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { getFullVoteRecord } from "./getVoteRecord";
@@ -138,13 +139,18 @@ export const getKompas = cache(async function getKompas(): Promise<SilverLayerRe
       return null;
     }
 
-    const { clubByMandate, personByMandate, nameByPerson } = registry;
+    const { clubWindowsByMandate, personByMandate, nameByPerson } = registry;
     const ballotMap: KompasBallots = {};
     const mpSeen = new Map<number, KompasMp>();
+    // Řádek tabule je poslanec, ne hlasování, takže jeho klub může být jen JEDEN —
+    // a poctivá volba je klub DNES, čtený z otevřeného okna členství, ne klub
+    // vybraný pořadím řádků v dumpu (`clubByMandate`). Klub PŘI HLASOVÁNÍ nese
+    // `clubLines` per otázka; že jsou to dvě různé věci, říká copy.
+    const today = new Date().toISOString().slice(0, 10);
     for (const b of rows) {
       const person = personByMandate.get(b.mandatePspId);
       if (person === undefined) continue;
-      const club = clubByMandate.get(b.mandatePspId) ?? null;
+      const club = clubNameAt(clubWindowsByMandate.get(b.mandatePspId), today);
       if (!mpSeen.has(person)) {
         mpSeen.set(person, { personPspId: person, name: nameByPerson.get(person) ?? `#${person}`, club });
       }

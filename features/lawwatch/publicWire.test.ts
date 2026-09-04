@@ -87,6 +87,21 @@ function bill(overrides: Partial<LawBillView> = {}): LawBillView {
         companyIco: "46347534",
       },
     ],
+    rollCalls: [
+      {
+        votePspId: 86426,
+        title: "Vl. n. z. o státním rozpočtu ČR na rok 2026",
+        votedOn: "2025-11-26",
+        sessionNo: 3,
+        voteNo: 1,
+        outcome: "A",
+        sourceUrl: "https://www.psp.cz/sqw/hlasy.sqw?g=86426",
+        readingStage: null,
+        itemPrintCount: 1,
+        chamber: { yes: 108, no: 0, k: 3, away: 89 },
+        clubLines: { ANO2011: "yes", ODS: "no" },
+      },
+    ],
     ...overrides,
   };
 }
@@ -166,6 +181,9 @@ describe("BILL_WIRE / toPublicBill", () => {
   it("leaves the sector-attribution flags and the sponsor roster on the server", () => {
     const wired = toPublicBill(bill()) as Record<string, unknown>;
     expect(wired.sectorAttributionFlags).toBeUndefined();
+    // Jmenovitá hlasování nesou celosněmovní tally a linie všech klubů — index z nich
+    // nečte nic, takže na drát nesmí.
+    expect(wired.rollCalls).toBeUndefined();
     expect(wired.sponsors).toBeUndefined();
     expect(wired.speakers).toBeUndefined();
     expect(wired.amendmentAuthors).toBeUndefined();

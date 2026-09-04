@@ -1105,6 +1105,8 @@
       "methodTitle": "zveřejněné pravidlo výpočtu",
       "methodBody": "Linie klubu = přísná většina pozičních hlasů (pro/proti) klubu v daném hlasování; remíza linii neurčuje. Disciplína = podíl pozičních hlasů klubu na linii. Soudržnost = Riceův index |pro−proti|/(pro+proti), za sněmovnu vážený počtem pozičních hlasů klubů s ≥ {minClubPositional} pozičními hlasy. Slot „zdržel se / nehlasoval“ sněmovna od novely 90/1995 Sb. nerozlišuje a jako pozice se nepočítá; zmatečná hlasování jsou vyřazena; nezařazení poslanci se zobrazují, ale neskórují. Řazení klubů v hemicyklu zleva doprava je redakční konstanta.",
       "methodSource": "psp.cz — jmenovitá hlasování PSP10 · {valid} platných hlasování ({voided} zmatečných vyřazeno, {withoutDate} bez uvedeného dne, a tedy mimo seismograf) · {ballots} hlasů · {from} – {to}",
+      "clubBasisAtVote": "Klub se u každého hlasu bere ke DNI toho hlasování, z oken členství — poslanec, který klub v období změnil, se u starších hlasování počítá do klubu, ve kterém tehdy byl. {outside} hlasů padlo na den, který neleží v žádném jeho okně (poslanec mezi kluby), a {ambiguous} na den pokrytý dvěma okny naráz; ani jedny se nepočítají do klubu, do nezařazených, ani do rebelie — jsou vypsané, ne dopočítané.",
+      "clubBasisTermWide": "Klub se u každého hlasu bere jako JEDEN na celé období, protože okna členství nebyla k dispozici. Poslanci, který klub v období změnil, se tím přebarvují i hlasy odevzdané v tom předchozím. Je to slabší základ než klub ke dni hlasování a stránka ho přiznává, místo aby ho vydávala za datovaný.",
       "freshness": "celý záznam se odvozuje z {ballots} uložených hlasů; ten výpočet je memoizovaný a vyprší po {hours} h — o tolik mohou být tahle čísla nejvýš starší než graf. Stejnou mez deklaruje /penize i velín; graf je dávkový artefakt, mění se přepočtem, ne za běhu požadavku.",
       "reconcileTitle": "kontrola přepočtu proti zveřejněným součtům",
       "reconcileMethod": "Ke jmenovitým hlasováním zveřejňuje sněmovna vlastní součty. Náš přepočet z uložených hlasů se s nimi porovnává jedna ku jedné: pro proti sloupci ano, proti proti sloupci ne a sloučený slot „zdržel se / nehlasoval“ proti součtu sloupců zdržel se a nehlasoval. Slot „nepřihlášen / omluven“ se neporovnává vůbec — zdroj pro něj žádný sloupec nezveřejňuje a dopočítat ho by znamenalo odhadovat, kolik poslanců mělo být v sále. Rozdíl se konstatuje, nikdy neopravuje: nepřepisuje se ani náš přepočet, ani zveřejněný součet.",
@@ -1150,6 +1152,8 @@
       "thresholdRowPresent": "přítomno {nFmt}",
       "thresholdRowPresentNone": "počet přítomných zdroj neuvádí",
       "thresholdRowQuorum": "potřeba {nFmt}",
+      "billLink": "o tisku {cislo}",
+      "billBlock": "blok {countFmt} tisků — hlasovalo se o bloku, ne o jednom tisku",
       "thresholdRowQuorumNone": "počet potřebných hlasů zdroj neuvádí",
       "thresholdRowOver": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} nad prahem",
       "thresholdRowUnder": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} pod prahem",
@@ -1182,6 +1186,7 @@
       "clubsBoardNote": "linie klubu = přísná většina jeho pozičních hlasů v daném hlasování; remíza linii neurčuje",
       "mpsBoard": "shoda s poslanci",
       "mpsBoardNote": "řazeno podle shody; pořadí uvnitř stejné shody nese jen počet srovnatelných hlasů a česká abeceda",
+      "clubBasisNote": "Klub u jména je klub DNES (otevřené členství). Linie klubu nad každou otázkou je naopak klub PŘI HLASOVÁNÍ, tedy ke dni toho hlasování — u poslance, který klub v období změnil, se ty dvě liší, a je to tak schválně: řádek je poslanec, linie je hlasování.",
       "alignmentOf": "{matches} z {comparable} srovnatelných",
       "kShort": "zdržel se/nehlasoval",
       "awayShort": "nepřihlášen",
@@ -2161,6 +2166,16 @@
       "rapporteursHeading": "zpravodajové — psp.cz hist · hist_vybory · tisky_za",
       "debateHeading": "rozprava — {countFmt} věcných vystoupení · stenozáznamy psp.cz",
       "amendmentDocsHeading": "písemné pozměňovací návrhy — {countFmt} · sněmovní dokumenty psp.cz",
+      "rollCallsHeading": "jak sněmovna hlasovala — {countFmt} jmenovitých hlasování o tomhle tisku",
+      "rollCallNoDate": "bez uvedeného dne",
+      "rollCallLine": {
+        "yes": "pro",
+        "no": "proti"
+      },
+      "rollCallChamber": "pro {yes} · proti {no} · zdržel se / nehlasoval {k}",
+      "rollCallNoBallots": "k tomuhle hlasování nedržíme jmenovité hlasy — součet proto nevypisujeme; „nemáme hlasy“ není „nikdo nehlasoval“",
+      "rollCallBlockItem": "Bod pořadu nesl {countFmt} tisků najednou — hlasovalo se o bloku, ne jen o tomhle tisku. Vazbu proto necháváme na všech, místo abychom uhodli jeden.",
+      "rollCallsSource": "psp.cz — hlasování spojená s tiskem přes bod pořadu schůze (schůze + bod, pořad schůze tak, jak byl projednán). Sněmovní součty i linie klubů pocházejí z TÉHOŽ odvozeného záznamu, který kreslí /hlasovani, ne z druhého přepočtu. {blockFmt} z těchto hlasování patřilo bodu s víc tisky. Které to bylo čtení, zdroj v datech neuvádí, a my to neodhadujeme.",
       "conflictSource": "možný střet zájmů · odvozeno z peněžních vazeb předkladatele",
       "conflictText": "Předkladatel má vazby na {count, plural, one {{countFmt} firmu} few {{countFmt} firmy} other {{countFmt} firem}} s celkovým tokem veřejných zakázek <b>{amount}</b>. Signál k prověření, ne prokázaný střet — sektorová blízkost je indicie, ne důkaz.",
       "conflictAttribution": "Uvedené číslo je nejvyšší případ mezi předkladateli tisku a sčítá všechny firmy, ke kterým je předkladatel v grafu vázán — včetně institucí, kde má jen správní roli. Peněžní spis poslance sčítá přísněji: peníze instituce připisuje instituci, nikdy poslanci, a proto tam bývá částka nižší. Rozhoduje spis, ne tenhle příznak.",
@@ -2690,6 +2705,8 @@
     "volbyRule_effort_workhorse_rule": "Pozitivní nález: poslanec nese odznak tahouna z případu ② (deterministické třídění přispění).",
     "volbyRule_effort_rapporteur_title": "Zpravodajský tahoun",
     "volbyRule_effort_rapporteur_rule": "Pozitivní nález: zpravodaj nejméně {rapporteurMin} tisků.",
+    "volbyRule_law_final_vote_title": "Sněmovna o tisku hlasovala",
+    "volbyRule_law_final_vote_rule": "Den posledního jmenovitého hlasování o předloženém tisku, spojený přes bod pořadu schůze. ZÁZNAM, ne nález: valence „neposouzeno“, do součtu nikdy nevstupuje — že se o tisku hlasovalo, není u předkladatele ani plus, ani minus. Datum je POZDĚJŠÍ fakt o tisku, ne datum volby poslance, a proto stojí na časové ose vedle rozhodnutí, ne místo něj.",
     "volbyRule_money_ties_unrated_title": "Vazby bez posouzení",
     "volbyRule_money_ties_unrated_rule": "Počet vazeb poslanec ↔ firma, které dosud neprošly lidskou branou. Valence „neposouzeno“: zobrazuje se, do součtu nálezů nikdy nevstupuje."
   },
@@ -3719,7 +3736,8 @@
       "law_became_law_clean": "Zákon prošel bez střetu",
       "effort_workhorse": "Tahoun",
       "effort_rapporteur": "Zpravodajský tahoun",
-      "money_ties_unrated": "Vazby bez posouzení"
+      "money_ties_unrated": "Vazby bez posouzení",
+      "law_final_vote": "Sněmovna o tisku hlasovala"
     },
     "severity": {
       "low": "nízká",
@@ -3740,7 +3758,8 @@
       "fate_sb": "vyhlášeno ve Sbírce",
       "forensic_verdict": "posudek zapsán",
       "collision_detected": "kolize zjištěna",
-      "flags_computed": "příznaky spočteny"
+      "flags_computed": "příznaky spočteny",
+      "final_vote": "sněmovna hlasovala"
     },
     "figure": {
       "lots": "zakázek v období",

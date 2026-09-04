@@ -98,3 +98,29 @@ index (no slug on `Finding`); the zero-finding sentence names the term window,
 not a lot count (an empty `SubjectCard` carries none); `ProvenanceCapsule`
 receipts are not minted — `u.`/`h.` refs link to `/zdroj`, other refs render
 as text. `custom/require-source-citation` warnings: 0 before, 0 after.
+
+**The timeline got its first dated chamber outcome (2026-09-04).** Every `law_*` finding
+on this surface shipped `decidedOn: null`, because `volbyLoader.ts` set
+`sponsoredOn: null` on every sponsored bill — no bill prop carries the sponsorship date
+— and `rules.ts` derived `decidedOn` from it. The dated-outcome timeline therefore had
+nothing to anchor a legislative finding on.
+
+The `decides` edges (roll call → print) date the chamber's own act on a sponsored print.
+`SponsoredBill.finalVoteOn` is the day of the LAST roll call on it, and `law_final_vote`
+(`volby:R1`) is emitted for it.
+
+**It is a RECORD row, not a finding** — the `contested.ts` doctrine. Valence `unrated`,
+so `rollupLedger` counts it and shows it but never adds it to `total`: that the chamber
+voted on a print is neither a credit nor a charge against the member who tabled it, and
+scoring it either way would be the surface inventing a judgment its rules do not hold.
+
+**And it does not fill `decidedOn`.** The vote is a LATER fact about the bill, so it
+lands on `laterOn` with `laterKind: "final_vote"`; `decidedOn` stays null until the graph
+actually carries a sponsorship date. Putting the vote date in the decision slot would
+have made „when the chamber acted" read as „when the member chose" — the timeline's whole
+distinction. A roll call on a multi-print agenda item still dates each of its prints: the
+vote genuinely disposed of the whole block, and a date claims nothing about which print
+the block was about.
+
+Until the writer runs against the live store there are no `decides` edges, so no
+`law_final_vote` row is emitted and nothing on the surface changes.

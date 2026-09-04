@@ -64,6 +64,17 @@ export const KG_EDGE_RELS = [
   // Writer: scripts/data-analysis/kg-bill-engagement-ingest.ts.
   "spoke_on",
   "proposes_amendment",
+  // "decides" (vote -> bill, 2026-09-04): the roll call and the print it decided,
+  // joined through the sitting's agenda — vote_event(sessionNo, agendaItem) ⋈
+  // bod_schuze(bod, id_tisk) on the agenda AS TAKEN (`pozvanka IS NULL`; the
+  // pozvánky's own numbering is a different key space and is 27,5 % right).
+  // props {votedOn, outcome, readingStage|null, sessionNo, agendaItem, agendaLabel,
+  // itemPrintCount, joinBasis: "schuze+bod"}. Many-to-many: an agenda item may name
+  // several prints (PSP10: 6, all „písemné interpelace" blocks) and the count rides
+  // on the edge as `itemPrintCount` rather than being resolved away. A roll call
+  // whose item names no print stays unlinked and is COUNTED (votesWithoutPrint) —
+  // never guessed from a title. Writer: scripts/data-analysis/kg-vote-bill-ingest.ts.
+  "decides",
 ] as const;
 export type KgEdgeRel = (typeof KG_EDGE_RELS)[number];
 
