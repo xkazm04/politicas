@@ -181,3 +181,37 @@ running on defaults is recoverable and clobbering a newer payload is not. The
 repo's reviewed counter-position on version-in-the-key
 (`scripts/census/rules.json`, `satisfied: client-state-persistence`) still stands
 for its other two cases, which carry no shape at all.
+
+**"o kolik se skóre pohnulo, záznam neříká" stops being unconditional
+(2026-09-04, moonshot G1, card #1).** That sentence was true when it was written
+and stopped being true when the bitemporal layer landed: `kg_node_history` keeps
+the prior versions and `store.asOfNode` reads them. It survived because nothing
+had gone back to check. `recomputeDelta` now takes an optional per-MP
+`ScoreMove` and prints the magnitude — and `scoreMagnitude` refuses it in three
+cases, with the old sentence standing unchanged in every one:
+
+1. **no prior version.** A node with no `contribution_score` in history is not a
+   node whose score was zero.
+2. **the prior is not a prior.** Same `pass` as today means nothing was
+   superseded, so there is nothing to subtract.
+3. **the formula changed.** A differing `ref` means the difference would mix a
+   formula correction with a movement in the data, and "this MP's score fell by
+   3,2" would be a falsehood about a person rather than a fact about a
+   computation (`MEMORY.md` → recompute-replay-gate: a corrected formula is
+   replayed, not subtracted).
+
+`uniformPrior` holds the same bar the today-side already held — one `{pass, ref}`
+for the whole compared set, and one missing prior breaks uniformity rather than
+counting as zero. Zero is a legitimate answer and reads as "recomputed, value
+unchanged", which is a different sentence from "we do not know the size". The
+delta `id` does not change with the magnitude, so the same recompute is still one
+row; the number goes through `czech()` (decimal comma) and the bilingual surface
+takes `schranka.delta.recomputeTitleSized` while the single-language feeds keep
+their literal Czech.
+
+**Carry-over: the read is not wired.** Reading each followed MP's prior version
+means one `asOfNode` per key in `features/schranka/getRecomputeFact.ts`, which
+was outside the G1 write set (the design owns `recomputeFact.ts` and its test).
+Until that lands, `recomputeDelta` is called with no move and every row keeps the
+"size unknown" sentence — the honest default, and the one the code already
+produces. The pure half ships with its bar so the wiring cannot quietly lower it.

@@ -64,3 +64,46 @@ requested now. Honest carry-over: for `cesta`/`trasa` the sources still fall bac
 all four registries — narrowing by node kind needs `PermalinkPage.tsx` to adopt the
 same rule, and shipping half of it would have put two rules on one citation.
 
+**The address learns when it was issued (2026-09-04, moonshot G1, card #13).**
+A stale citation could be *declared* stale and nothing more, because the address
+itself carried no issue instant: `g.<state>.<hash8>` gave the server two
+fingerprints and no date, so even a bitemporal store had nothing to replay the
+view AGAINST. The address space grows rather than moves:
+
+```
+g.<state>.<hash8>                 — still decodes, forever
+g2.<state>.<hash8>.<YYYYMMDD>     — issued from now on
+```
+
+`encodeGraphRef` stamps today by default, so `graphActions.citeViewAction` needed
+no change and every newly issued citation is dated; passing `""` keeps the old
+shape for the guide's illustrative example, which must not change daily. The date
+is refused, never repaired — `20260231` is not 3 March, it is an invalid address,
+the same discipline the base64 body already had — and `features/overeni/refDetect.ts`
+learned the second prefix so a bare `g.` ref pasted into the gate keeps verifying.
+
+The staleness block above the content is now a **tehdy / dnes** ledger: both
+fingerprints, each with its own date, and `permalink.noIssueDate` where a `g.`
+address carries none rather than today's date silently standing in for the issue
+date.
+
+`diffViews()` ships pure and tested (`features/graph/diffViews.ts`). It compares
+the CANONICAL CONTENT — the very object `hashViewContent` hashes — so
+"fingerprints differ but the diff is empty" is a detectable inconsistency rather
+than a silent state. Edges are keyed `src|rel|dst`, so reordering is not a
+change; weights compare exactly (0,87 → 0,88 is a move the display rounding
+would have swallowed); a missing weight against a number IS a change; gate flips
+are their own finding beside weight changes; a path is re-routed by SEQUENCE,
+not by set; and `incomparable` exists precisely so "nothing changed" and "we did
+not replay the then-side" can never be typeset the same way.
+
+**Carry-over, named in the product and not only here.** `view.diff` is typed and
+wired but `null`, and the page says in as many words that it can date the change
+but not yet name it. Producing the then-side needs `resolveView(state, at)` over
+`getTrails` / `getPathBetween` / `getNodeDetail` parameterised by a
+`KgAsOfReads` — a change to `features/graph/graphLoader.ts`, which the G1 write
+set does not include (G4 owns it). Also still open from card #13: the JSON-LD
+`hasPart` for the then-side with `validFrom`/`validThrough`, the OG card's
+"změněno od <date>", and the diff table under `moved` at `/overeni`; all three
+wait on the same replay.
+
