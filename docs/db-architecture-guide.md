@@ -540,6 +540,91 @@ and its columnar direction means R14 would have to be re-tested rather than assu
    recommended architecture is still measured-and-not-landed, and that remains the
    highest-value open item in this guide.
 
+## Provenance becomes a join key — and the seal reaches the graph (2026-09-04)
+
+`kg_node` and `kg_edge` carried a free-form `provenance jsonb` and nothing else.
+Three consequences, all of them things a reader could see:
+
+- `/atlas` scored **3 of 14** declared sources. The eleven that land in the
+  graph — including both that carry the whole of `/penize` — printed a paragraph
+  explaining that no join key ran from a graph row to `ingest_run`.
+- The Merkle seal covered eight entity tables and **zero** graph rows.
+  `supplies` (19 266 rows in the snapshot cut), `linked_to`, `amends`,
+  `owns_stake` — the edges readers actually cite — had no run, no seal and no
+  freshness, while a half-applied score pass tripped the sentinel the same day.
+- The snapshot could not say where a row came from.
+
+### The contract, and why the columns are generated
+
+`lib/kg/provenance.ts` declares one shape: `{source, ingest_run_id, pass, ref,
+writer}`, with `source` a key of `INGESTED_SOURCES` **imported** from
+`lib/analysis/atlas.ts` rather than re-listed, so a source the atlas declares is
+immediately writable and a typo is a refusal instead of an unscoreable row.
+
+`CORE_DDL` projects two of those keys into columns:
+
+```sql
+alter table kg_node add column if not exists source        text   generated always as (provenance->>'source') stored;
+alter table kg_node add column if not exists ingest_run_id bigint generated always as ((provenance->>'ingest_run_id')::bigint) stored;
+```
+
+**Generated, not written by the writers**, so the column can never disagree with
+the row it describes and no backfill has to keep two copies in step. **Stored,
+not virtual**, because they are read by grouped counts over ~154 000 nodes and
+~178 000 edges and an index over a virtual column is not available. The cast is
+safe because `->>` yields NULL for an absent key and the only writer of that key
+refuses anything but an integer or null.
+
+The block is appended at the END of `CORE_DDL` under a `-- [G5 provenance
+columns]` marker; `destructiveStatements()` stays empty, so `db:migrate`
+proceeds loudly rather than refusing. It is proven on the PGlite test lane
+(`premigration.test.ts`) — the columns project a real stamp, an absent run stays
+NULL rather than becoming a fabricated 0 — and applied to the live store by
+`npm run db:migrate`, never by a worktree.
+
+### `RUN_TABLES` grows by two, at the end
+
+`repositories/ledger.ts` seals `kg_node` and `kg_edge` filtered by
+`ingest_run_id`. Two details are load-bearing:
+
+- **Appended, never reordered.** A table added at the end can only add leaves
+  for runs that actually wrote graph rows; every previously sealed run is
+  byte-identical to what it was, so re-sealing an old run reproduces its root.
+- **`kg_edge` seals in `(src, rel, dst)` order.** Its identity is the triple and
+  it has no `id` column, so the pinned per-table order key is not cosmetic —
+  ordering it by a column it lacks would throw rather than quietly produce a
+  wrong root.
+
+This had to happen BEFORE `/atlas` read the tables, not after: the integrity
+rule PRINTS that the sealed set of tables and the scored set are the same set,
+and scoring the graph first would have made that sentence false on the one page
+whose subject is not saying false things.
+
+### `sentinel_run`, and why it is `KEPT`
+
+`sentinel_run(id, manifest_hash, ran_at, verdict, report)` — `id` is the
+canonical content hash of the report, which makes replaying the outbox
+idempotent; `verdict` carries the report's own three-state check constraint, so
+a fourth value is a refusal rather than a release certified by a word nobody
+defined.
+
+Its `RETENTION` entry is `accumulating` with **its own dated decision**
+(2026-09-04), not a share of the 2026-08-24 batch: a policy inherits a date only
+from the day somebody actually weighed it. What was weighed — a verdict is a
+historical claim ("on this date these invariants held over this exact release")
+that no later run can reproduce, so pruning would erase the audit history the
+table exists to keep. It grows by roughly one row per night.
+
+### The outbox: how a read-only auditor writes
+
+`lib/db/pglite/sentinelQueue.ts`. The sentinel never opens the live handle —
+that guarantee is why it can be pointed at production data — so it appends to
+`.data/sentinel-queue.jsonl` and the next live `open()` drains the file into the
+table. The append fails loud; the drain is idempotent, never fatal, and empties
+the file only after every entry landed. It is the same shape as the
+pre-migration snapshot's discipline: the risky step is the one that gets the
+verification, and nothing is discarded until its replacement is proven.
+
 ## How to run
 
 ```bash

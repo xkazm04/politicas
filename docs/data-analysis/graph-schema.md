@@ -98,3 +98,42 @@ registry entry + a line in this file describing it**, same change. Writer conven
   with HIGH switch_rate reads as rotation, with LOW switch_rate as lock — the surface
   states the numbers, never intent. Recomputed whole-corpus like flags (no mixed
   vintages).
+
+## The provenance contract — origin becomes a column (2026-09-04)
+
+The paragraph above ("Every node/edge carries `provenance = {pass, method, ref,
+computedAt}`") described a CONVENTION, not a schema: seven writers filled that
+jsonb seven ways, no `source`, no run key. `/atlas` could therefore score 3 of
+14 declared sources and the Merkle seal covered zero graph rows.
+
+`lib/kg/provenance.ts` is now the one declaration, mirrored in
+`lib/kg/prop-registry.json` under `provenance` so a single file describes a graph
+row's whole jsonb schema — what it may claim (`nodes`/`edges`) and where it came
+from:
+
+| key | meaning |
+| --- | --- |
+| `source` | a key of `INGESTED_SOURCES` (`lib/analysis/atlas.ts`), **imported, never re-listed** — or `"unknown"` |
+| `ingest_run_id` | the `ingest_run` this row was written by; **null = the writer opened none** |
+| `pass` | the graph pass that wrote it |
+| `ref` | a declared formula or batch ref |
+| `writer` | the script, by module name |
+
+`kg_node.source` / `kg_node.ingest_run_id` (and the same on `kg_edge`) are
+STORED GENERATED columns projected from this object, so the column can never
+disagree with the row. The legacy `method` / `computedAt` / `track` keys are
+**preserved, not replaced** — the contract is additive over history.
+
+**Origin vs enrichment.** Only a writer that CREATES a row stamps its
+`provenance`: `kg-compute`, `kg-money-ingest`, `kg-legislation-ingest`,
+`kg-vote-bill-ingest`, `kg-promote`. The enrichment writers
+(`kg-contribution-ingest`, `kg-forensics`, `persist-batch`) keep
+`provenance: existing.provenance` and add `writer` inside their nested
+`<ns>_provenance` annotation instead — claiming a source there would say a
+person node came from a scoring pass rather than from the chamber register.
+See `docs/routes/graph-writers.md` for the per-writer table.
+
+**`"unknown"` is a declared value, not a gap.** Rows whose origin cannot be
+reconstructed are stamped `unknown` and COUNTED on `/atlas` (which never gives
+them a card — `unknown` is not a publisher). A migration that guessed a
+plausible source would be repair; this store discloses.

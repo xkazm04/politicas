@@ -118,3 +118,72 @@ floor guards, with the corpus and ingest that set it recorded per row, so the
 next ingest has something to check against. Pinned both ways: a 99 % loss
 (1 528 survivors — **above the old floor**) degrades the release; today's
 corpus passes.
+
+## 2026-09-04 — a release says whether anyone ever audited it (moonshot #26)
+
+`/data` stamped `latest` from cardinality floors and nothing else. The section
+above records what that was worth: floors that certified a 0,98 % contract
+corpus for weeks. Meanwhile `npm run sentinel` — the only instrument in the repo
+that can see a stale ranking — printed its verdict to stdout and that was the
+end of it. Zero in-product consumers. Nothing on any surface could say when the
+invariants last held over the release a reader was about to cite.
+
+**§01 now prints one of two sentences**, and the second is the point:
+
+> invarianty ověřeny k 4. 9. 2026 — platilo 16 z 16
+> neověřeno — sentinel nad tímhle otiskem neběžel
+
+`none` is neither a mark against the release nor a pass. It says nobody has
+looked, and it says so beside the badge that comes from floors — with the
+reminder, in the same breath, that floors are not an audit.
+
+### Two properties hold the whole thing up
+
+**The join is EXACT on `manifest_hash`.** Not the newest run, not the nearest,
+not a prefix — `loader.test.ts` pins a prefix returning `null`. A fuzzy join
+would certify a release the sentinel never saw, which is the "never ran rendered
+as passed" failure the three-state verdict vocabulary exists to abolish.
+
+**Certification is OUTSIDE the hashed body.** The fingerprint is a function of
+the release's CONTENT, never of what somebody later learned about it. Folding
+the verdict in would change the hash the instant a verdict landed, and the
+verdict would immediately stop applying to the release it judged. So the loader
+derives twice: the manifest first, then the lookup by its hash, then the
+manifest again with the verdict attached — and the test asserts the hash did not
+move.
+
+`unevaluable` travels as `unevaluable`. An unreadable `sentinel_run` degrades to
+`none`, because "we do not know it was audited" is the honest reading of both.
+`/data/manifest.json` carries `certification` and `certifiedBy`; `loader.test.ts`
+pins the page and the JSON to one derivation.
+
+### How the verdict gets there without the sentinel writing
+
+The sentinel audits a **copy** and never opens the live handle — PGlite is
+single-connection, and that guarantee is the reason the audit can run against
+production data at all. Card #26 does not get to spend it. So `npm run sentinel`
+appends its canonical report to an outbox file (`.data/sentinel-queue.jsonl`,
+`lib/db/pglite/sentinelQueue.ts`) and the next live `open()` drains it into
+`sentinel_run`.
+
+- The append **fails loud**: a verdict quietly not kept is indistinguishable
+  from a run that never happened.
+- The drain is **idempotent by content hash** and never fatal — the store has a
+  hundred readers and the queue has one writer — and it empties the file only
+  after every entry landed, so a crash mid-drain replays rather than loses.
+- A half-written line is **counted, never repaired** into a verdict.
+
+### The roster grew 11 → 16, and the cron came back
+
+`money-rank-cache`, `law-provenance-uniformity`, `graph-provenance-uniformity`,
+`amends-closure`, `loader-degradations` — appended at the END of the pinned
+order so an old report still diffs cleanly against a new one. The report schema
+stays `politicas.sentinel/1`: additive rows, no field renamed or removed.
+
+`.github/workflows/sentinel.yml` downloads the `store-snapshot` artifact of a
+`db:backup` run on the ingest machine (a cold copy carrying `pg_wal` — the
+reason `db:backup` is the only copy path in the repo) and runs nightly at 03:17
+UTC. The download is `continue-on-error`; the **audit is not**. A missing
+artifact reaches the reader as an unevaluable report and a red job, because a
+nightly that goes green because nothing ran is precisely the failure this
+instrument exists to prevent.

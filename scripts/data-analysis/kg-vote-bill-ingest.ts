@@ -34,6 +34,7 @@ import { join } from "node:path";
 
 import { nextPass } from "@/lib/analysis/kg";
 import { getStore } from "@/lib/db/store";
+import { guardStampedRows, makeProvenance } from "@/lib/kg/provenance";
 import type { KgEdgeRow, KgNodeRow, VoteEventRow } from "@/lib/db/types";
 import { agendaKey, normalizeAgendaPrints, type AgendaPrintIndex } from "@/lib/ingest/sources/psp-activity";
 
@@ -232,7 +233,16 @@ async function main() {
     if (Number.isFinite(tiskId)) billNodeIdByTiskId.set(tiskId, n.id);
   }
   const pass = Number(argOf("pass")) || nextPass(nodes);
-  const provenance = { pass, method: "deterministic", ref: "psp-vote-bill-agenda", computedAt: new Date().toISOString() };
+  // [G5] The structured stamp beside the legacy method/computedAt keys. The
+  // `decides` edge is derived from the roll-call agenda join, so its source is
+  // the roll-call dump the votes come from — not the tisky dump the bill NODES
+  // came from. The edge is the claim "this vote decided that print", and it is
+  // the vote half that is being asserted; the bill half is only referenced.
+  const provenance = {
+    method: "deterministic",
+    computedAt: new Date().toISOString(),
+    ...makeProvenance({ source: "psp-hlasovani", pass, ref: "psp-vote-bill-agenda", writer: "kg-vote-bill-ingest" }),
+  };
 
   const { edges, coverage } = joinVotesToPrints(votes, agenda, billNodeIdByTiskId, provenance);
 
@@ -246,6 +256,7 @@ async function main() {
     await store.close();
     return;
   }
+  guardStampedRows(edges, { allowUnstamped: flag("allow-unstamped"), label: "kg-vote-bill-ingest edges" });
   const written = await store.upsertKgEdges(edges);
   console.log(`\nCOMMITTED: ${written} decides edges written (pass ${pass}). No node was touched.`);
   await store.close();

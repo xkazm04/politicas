@@ -115,6 +115,7 @@ distinction `kg-contribution-ingest` already drew when it kept
 | `kg-money-ingest` | origin | per kind/rel — company + `linked_to` `dataor-justice-cz`, contract + `supplies` `smlouvy-gov-cz` |
 | `kg-legislation-ingest` | origin | source `psp-tisky-law`, ref `psp-tisky` |
 | `kg-promote` | origin | `--source=` required; no default that is a guess |
+| `kg-vote-bill-ingest` | origin | source `psp-hlasovani` — the `decides` edge asserts the VOTE half; the bill is only referenced |
 | `kg-contribution-ingest` | enrichment | `contribution_provenance.writer`; row provenance untouched |
 | `kg-forensics` | enrichment | `forensic_provenance.writer`; row provenance untouched |
 | `persist-batch` | enrichment | `<ns>_provenance.writer`; row provenance untouched |
