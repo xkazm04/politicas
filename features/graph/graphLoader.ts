@@ -62,9 +62,13 @@ import {
   findEvidencePaths,
   HUB_DEGREE,
   MAX_COST,
+  PATH_RULE_REF,
   type Adjacency,
   type PathEdge,
 } from "./trailPath";
+import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
+import { gateFieldsOf, gateOf, provenanceOf, type GatedEdgeRow } from "./edgeGate";
+import { pendingFromGate } from "./graphTypes";
 import type {
   GraphEdge,
   GraphNode,
@@ -247,19 +251,21 @@ export async function searchGraph(q: string, kinds: KgNodeKind[] | null, limit =
   return hits.slice(0, limit).map((h) => toNode(h.e));
 }
 
-const toEdge = (e: {
-  src: string;
-  dst: string;
-  rel: string;
-  weight: number | null;
-  props: Record<string, unknown>;
-}): GraphEdge => ({
+/**
+ * Řádek hrany → hrana plátna. Stav lidské brány čte `gateFieldsOf`
+ * (features/graph/edgeGate.ts), který obaluje `gateFromEdge` z účtenky —
+ * pravidlo `review_state` má v repozitáři JEDEN výklad a tohle není jeho opis.
+ *
+ * Do 2026-09-04 tady stálo `pending: props.review_state === "pending_review"`:
+ * jeden boolean ze tří stavů, takže ZAMÍTNUTÁ hrana vyšla jako `pending:
+ * false`, tedy k nerozeznání od ověřené.
+ */
+const toEdge = (e: GatedEdgeRow & { weight: number | null }): GraphEdge => ({
   src: e.src,
   dst: e.dst,
   rel: e.rel,
   weight: e.weight,
-  // Vazba osoba–firma je do lidské kontroly tvrzením stroje, ne faktem.
-  pending: e.props?.review_state === "pending_review",
+  ...gateFieldsOf(e),
 });
 
 // ── Mapa masy (rozvržení celého grafu spočítané na serveru) ─────────────────
@@ -490,22 +496,34 @@ async function buildTrails(): Promise<Trail[] | null> {
       companiesOf.set(e.src, [...(companiesOf.get(e.src) ?? []), e.dst]);
       personsOf.set(e.dst, [...(personsOf.get(e.dst) ?? []), e.src]);
     }
-    const pendingLink = new Set(
-      linked.filter((e) => e.props?.review_state === "pending_review").map((e) => e.src + "|" + e.dst),
-    );
-    const linkEdge = (p: string, c: string): GraphEdge => ({
-      src: p,
-      dst: c,
-      rel: "linked_to",
-      weight: null,
-      pending: pendingLink.has(p + "|" + c),
-    });
+    // KURÁTORSKÉ TRASY SE NEFILTRUJÍ — trasa je vyžádaná odpověď a vynechaný
+    // krok by byl lež (týž výklad jako forensicView). Zamítnutý krok se tedy
+    // vykreslí, ale OZNAČENÝ: nese `gate: "rejected"` a jeviště pro něj má
+    // vlastní tah. Do 2026-09-04 nesl `pending: false`, tedy podobu ověřené.
+    const linkGate = new Map(linked.map((e) => [e.src + "|" + e.dst, gateOf(e)] as const));
+    const linkProv = new Map(linked.map((e) => [e.src + "|" + e.dst, provenanceOf(e)] as const));
+    const linkEdge = (p: string, c: string): GraphEdge => {
+      const gate = linkGate.get(p + "|" + c) ?? null;
+      return {
+        src: p,
+        dst: c,
+        rel: "linked_to",
+        weight: null,
+        pending: pendingFromGate(gate),
+        gate,
+        provenance: linkProv.get(p + "|" + c) ?? null,
+      };
+    };
+    // Deterministicky odvozené relace lidskou branou NEPROCHÁZEJÍ: `gate: null`
+    // není „ověřeno", je to „nemá co ověřovat" (GATED_RELS).
     const plainEdge = (src: string, dst: string, rel: string): GraphEdge => ({
       src,
       dst,
       rel,
       weight: null,
       pending: false,
+      gate: null,
+      provenance: null,
     });
 
     const trails: Trail[] = [];
@@ -696,12 +714,15 @@ async function buildPathAdjacency(): Promise<Adjacency | null> {
     const evidence: PathEdge[] = [];
     for (const e of all) {
       if (!idx.byId.has(e.src) || !idx.byId.has(e.dst)) continue;
+      const gate = gateOf(e);
       evidence.push({
         src: e.src,
         dst: e.dst,
         rel: e.rel,
         weight: e.weight,
-        pending: e.props?.review_state === "pending_review",
+        pending: pendingFromGate(gate),
+        gate,
+        provenance: provenanceOf(e),
       });
     }
     return buildAdjacency(evidence);
@@ -727,6 +748,8 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
     capped: false,
     maxCost: MAX_COST,
     hubDegree: HUB_DEGREE,
+    excludedRejected: 0,
+    ruleRef: PATH_RULE_REF,
   };
   const idx = await graphIndex();
   const adj = await pathAdjacency();
@@ -758,6 +781,16 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
         to: toNode(to),
         rel: hop.rel,
         pending: hop.pending,
+        gate: hop.gate,
+        provenance: hop.provenance,
+        // Krok cesty je sám o sobě tvrzení — a od 2026-09-04 má vlastní
+        // trvalou adresu, takže si ho čtenář může rozkliknout na účtenku
+        // (/zdroj/<ref>) místo aby musel věřit řádku v tabulce.
+        claimRef: edgeClaimRef(
+          hop.forward ? hop.from : hop.to,
+          hop.rel,
+          hop.forward ? hop.to : hop.from,
+        ),
         moneyCzk:
           hop.rel === "supplies" && typeof hop.weight === "number" && Number.isFinite(hop.weight)
             ? hop.weight
@@ -773,6 +806,8 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
         rel: h.rel,
         weight: h.weight,
         pending: h.pending,
+        gate: h.gate,
+        provenance: h.provenance,
       })),
       ledger: rows,
       pendingCount: p.pendingCount,
@@ -780,7 +815,13 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
       hops: p.hops.length,
     });
   }
-  return { ...base, paths, totalFound: found.totalFound, capped: found.capped };
+  return {
+    ...base,
+    paths,
+    totalFound: found.totalFound,
+    capped: found.capped,
+    excludedRejected: found.excludedRejected,
+  };
 }
 
 // ── Detail uzlu ──────────────────────────────────────────────────────────────
