@@ -58,6 +58,7 @@ export const PGLITE_LANE_FILES = [
   "lib/db/pglite/repositories/graph.test.ts",
   "lib/db/pglite/repositories/kg-bitemporal.test.ts",
   "lib/db/pglite/repositories/ledger.test.ts",
+  "lib/db/pglite/repositories/review-kinds.test.ts",
   "lib/db/pglite/repositories/review.test.ts",
   "lib/db/pglite/repositories/votes.test.ts",
   "lib/db/pglite/repositories/weights.test.ts",
