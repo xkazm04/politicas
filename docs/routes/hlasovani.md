@@ -244,3 +244,23 @@ every stored value on a fixture before the windowed formula may write a new pass
 and the replay cannot be run from a worktree with no store. It is carried over
 with its before/after table owed, because a published rebellion rate that moves
 without that proof reads as an unattributable rewrite.
+
+**The ledger row says what the vote was about (2026-09-04).** All 48 rows linked no
+print, because the graph held no edge between a roll call and the print it decided.
+`LedgerVote.billCislo` reads the new `decides` edges (through `readBillCislosByVote()`
+in `ledgerRead.ts` — read on THIS side of the boundary, because `/zakony` imports
+`getFullVoteRecord()` and the opposite import would close a cycle) and the row links
+`/zakony/<cislo>`.
+
+**A link only when the roll call decided exactly one print.** An agenda item that
+carried several is a block — in PSP10 all six such items are „písemné interpelace",
+one item answering up to eighteen prints — and linking one of them would assert the
+vote was about that one. Such a row prints „blok N tisků" instead. `billCount` is the
+denominator that keeps the two `null` cases apart: 0 = no print at all (1 602 of 2 075
+valid roll calls, 828 of them procedural), > 1 = a block. Without it the row could not
+tell „we know of no print" from „we know of several", and both are `billCislo === null`.
+
+`chronicleCap.test.ts` carries the ruling in writing: both fields ride INSIDE `ledger`,
+so the pinned whole-type list is unchanged, and the fixture alternates between one
+print, two prints and none so the „the chronicle cap does not move the bill link"
+assertion has something to fail on.

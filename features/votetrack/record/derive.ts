@@ -220,6 +220,10 @@ export function deriveVoteRecord(
     clubWindowsByMandate?: ReadonlyMap<number, ClubWindow[]>;
     personByMandate: ReadonlyMap<number, number>;
     nameByPerson: ReadonlyMap<number, string>;
+    /** Hlasování → veřejná čísla tisků, o kterých rozhodovalo (hrany `decides`).
+     *  Volitelné: kdo ji nepředá, dostane deník bez odkazů na tisky — nikdy
+     *  odkaz odhadnutý z názvu hlasování. */
+    billCislosByVote?: ReadonlyMap<number, number[]>;
   },
   opts: DeriveOptions = {},
 ): FullVoteRecord {
@@ -229,7 +233,7 @@ export function deriveVoteRecord(
   const chronicleCap = opts.chronicleCap ?? CHRONICLE_CAP;
   const topRebelsCap = opts.topRebelsCap ?? TOP_REBELS_CAP;
 
-  const { events, ballots, clubByMandate, clubWindowsByMandate, personByMandate, nameByPerson } = input;
+  const { events, ballots, clubByMandate, clubWindowsByMandate, personByMandate, nameByPerson, billCislosByVote } = input;
 
   const valid = sortValidNewestFirst(events);
   const eventById = new Map(valid.map((e) => [e.pspId, e]));
@@ -380,7 +384,13 @@ export function deriveVoteRecord(
     list.sort((a, b) => a.name.localeCompare(b.name, "cs") || a.personPspId - b.personPspId);
 
   /* ledger window */
-  const ledger: LedgerVote[] = valid.slice(0, ledgerWindow).map((e) => ({
+  const ledger: LedgerVote[] = valid.slice(0, ledgerWindow).map((e) => {
+    // Odkaz na dossier se dává jen tehdy, když hlasování rozhodovalo o PRÁVĚ
+    // JEDNOM tisku. Bod pořadu s víc tisky (blok písemných interpelací) by jinak
+    // poslal čtenáře na jeden z nich, jako by se hlasovalo o něm — proto `null`
+    // a počet vedle, ne vybraný první.
+    const cislos = billCislosByVote?.get(e.pspId) ?? [];
+    return {
     pspId: e.pspId,
     title: titleOf(e),
     outcome: e.outcome,
@@ -392,7 +402,10 @@ export function deriveVoteRecord(
     stat: statById.get(e.pspId)!,
     rebels: rebelsByVote.get(e.pspId) ?? [],
     threshold: thresholdById.get(e.pspId)!,
-  }));
+    billCislo: cislos.length === 1 ? cislos[0] : null,
+    billCount: cislos.length,
+    };
+  });
   const inLedger = new Set(ledger.map((l) => l.pspId));
 
   /* per-vote index — the compact projection /kompas selects its questions from.

@@ -77,6 +77,10 @@ export const BILL_WIRE = {
   amendedLawsFull: "internal",
   amendsUndercount: "internal",
   sectorAttributionFlags: "internal",
+  // Jmenovitá hlasování o tisku (`decides`, 2026-09-04). Index je nefiltruje,
+  // nehledá ani nekreslí — a nesou celosněmovní tally a linie VŠECH klubů, tedy
+  // řádově víc bajtů než celý zbytek řádku. Zůstávají na dossieru /zakony/[cislo].
+  rollCalls: "internal",
 } as const satisfies Record<keyof LawBillView, "public" | "internal">;
 
 type PublicBillKey = {

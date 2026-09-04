@@ -1152,6 +1152,8 @@
       "thresholdRowPresent": "přítomno {nFmt}",
       "thresholdRowPresentNone": "počet přítomných zdroj neuvádí",
       "thresholdRowQuorum": "potřeba {nFmt}",
+      "billLink": "o tisku {cislo}",
+      "billBlock": "blok {countFmt} tisků — hlasovalo se o bloku, ne o jednom tisku",
       "thresholdRowQuorumNone": "počet potřebných hlasů zdroj neuvádí",
       "thresholdRowOver": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} nad prahem",
       "thresholdRowUnder": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} pod prahem",
@@ -2164,6 +2166,16 @@
       "rapporteursHeading": "zpravodajové — psp.cz hist · hist_vybory · tisky_za",
       "debateHeading": "rozprava — {countFmt} věcných vystoupení · stenozáznamy psp.cz",
       "amendmentDocsHeading": "písemné pozměňovací návrhy — {countFmt} · sněmovní dokumenty psp.cz",
+      "rollCallsHeading": "jak sněmovna hlasovala — {countFmt} jmenovitých hlasování o tomhle tisku",
+      "rollCallNoDate": "bez uvedeného dne",
+      "rollCallLine": {
+        "yes": "pro",
+        "no": "proti"
+      },
+      "rollCallChamber": "pro {yes} · proti {no} · zdržel se / nehlasoval {k}",
+      "rollCallNoBallots": "k tomuhle hlasování nedržíme jmenovité hlasy — součet proto nevypisujeme; „nemáme hlasy“ není „nikdo nehlasoval“",
+      "rollCallBlockItem": "Bod pořadu nesl {countFmt} tisků najednou — hlasovalo se o bloku, ne jen o tomhle tisku. Vazbu proto necháváme na všech, místo abychom uhodli jeden.",
+      "rollCallsSource": "psp.cz — hlasování spojená s tiskem přes bod pořadu schůze (schůze + bod, pořad schůze tak, jak byl projednán). Sněmovní součty i linie klubů pocházejí z TÉHOŽ odvozeného záznamu, který kreslí /hlasovani, ne z druhého přepočtu. {blockFmt} z těchto hlasování patřilo bodu s víc tisky. Které to bylo čtení, zdroj v datech neuvádí, a my to neodhadujeme.",
       "conflictSource": "možný střet zájmů · odvozeno z peněžních vazeb předkladatele",
       "conflictText": "Předkladatel má vazby na {count, plural, one {{countFmt} firmu} few {{countFmt} firmy} other {{countFmt} firem}} s celkovým tokem veřejných zakázek <b>{amount}</b>. Signál k prověření, ne prokázaný střet — sektorová blízkost je indicie, ne důkaz.",
       "conflictAttribution": "Uvedené číslo je nejvyšší případ mezi předkladateli tisku a sčítá všechny firmy, ke kterým je předkladatel v grafu vázán — včetně institucí, kde má jen správní roli. Peněžní spis poslance sčítá přísněji: peníze instituce připisuje instituci, nikdy poslanci, a proto tam bývá částka nižší. Rozhoduje spis, ne tenhle příznak.",
@@ -2653,6 +2665,8 @@
     "volbyRule_effort_workhorse_rule": "Pozitivní nález: poslanec nese odznak tahouna z případu ② (deterministické třídění přispění).",
     "volbyRule_effort_rapporteur_title": "Zpravodajský tahoun",
     "volbyRule_effort_rapporteur_rule": "Pozitivní nález: zpravodaj nejméně {rapporteurMin} tisků.",
+    "volbyRule_law_final_vote_title": "Sněmovna o tisku hlasovala",
+    "volbyRule_law_final_vote_rule": "Den posledního jmenovitého hlasování o předloženém tisku, spojený přes bod pořadu schůze. ZÁZNAM, ne nález: valence „neposouzeno“, do součtu nikdy nevstupuje — že se o tisku hlasovalo, není u předkladatele ani plus, ani minus. Datum je POZDĚJŠÍ fakt o tisku, ne datum volby poslance, a proto stojí na časové ose vedle rozhodnutí, ne místo něj.",
     "volbyRule_money_ties_unrated_title": "Vazby bez posouzení",
     "volbyRule_money_ties_unrated_rule": "Počet vazeb poslanec ↔ firma, které dosud neprošly lidskou branou. Valence „neposouzeno“: zobrazuje se, do součtu nálezů nikdy nevstupuje."
   },
@@ -3664,7 +3678,8 @@
       "law_became_law_clean": "Zákon prošel bez střetu",
       "effort_workhorse": "Tahoun",
       "effort_rapporteur": "Zpravodajský tahoun",
-      "money_ties_unrated": "Vazby bez posouzení"
+      "money_ties_unrated": "Vazby bez posouzení",
+      "law_final_vote": "Sněmovna o tisku hlasovala"
     },
     "severity": {
       "low": "nízká",
@@ -3685,7 +3700,8 @@
       "fate_sb": "vyhlášeno ve Sbírce",
       "forensic_verdict": "posudek zapsán",
       "collision_detected": "kolize zjištěna",
-      "flags_computed": "příznaky spočteny"
+      "flags_computed": "příznaky spočteny",
+      "final_vote": "sněmovna hlasovala"
     },
     "figure": {
       "lots": "zakázek v období",

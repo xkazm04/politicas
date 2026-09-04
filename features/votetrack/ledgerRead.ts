@@ -66,7 +66,41 @@ export interface LedgerRead {
   clubWindowsByMandate: ReadonlyMap<number, ClubWindow[]>;
   personByMandate: ReadonlyMap<number, number>;
   nameByPerson: ReadonlyMap<number, string>;
+  /** Roll call → veřejná čísla tisků, o kterých se hlasovalo (`decides`). */
+  billCislosByVote: ReadonlyMap<number, number[]>;
 }
+
+/**
+ * Hlasování → tisky, o kterých rozhodovalo (hrany `decides`, 2026-09-04).
+ *
+ * Čte se TADY, ne v lawwatchi: /zakony si `getFullVoteRecord()` importuje, takže
+ * opačný import by uzavřel cyklus. Vrací VEŘEJNÁ čísla tisků (`bill.props.cislo`,
+ * adresa /zakony/<cislo>), ne interní id — deník linkuje dossier, ne uzel.
+ *
+ * Prázdná mapa je poctivý stav: hran `decides` je v grafu tolik, kolik jich zapsal
+ * `kg-vote-bill-ingest.ts`, a hlasování bez tisku se sem nikdy nedostane odhadem.
+ */
+export const readBillCislosByVote = cache(async function readBillCislosByVote(): Promise<Map<number, number[]>> {
+  const out = new Map<number, number[]>();
+  const store = await getStore();
+  if (!store) return out;
+  const edges = await store.listKgEdges({ rel: "decides", limit: KG_READ_CAP });
+  if (edges.length === 0) return out; // writer neběžel — žádné druhé čtení uzlů
+  const bills = await store.listKgNodes({ kind: "bill", limit: KG_READ_CAP });
+  const cisloByBillId = new Map<string, number>();
+  for (const b of bills) if (typeof b.props.cislo === "number") cisloByBillId.set(b.id, b.props.cislo);
+  for (const e of edges) {
+    const votePspId = Number(/^psp:hlasovani:(\d+)$/.exec(e.src)?.[1] ?? NaN);
+    const cislo = cisloByBillId.get(e.dst);
+    // Tisk bez veřejného čísla nemá adresu dossieru — vynechá se, nedomýšlí.
+    if (!Number.isFinite(votePspId) || cislo === undefined) continue;
+    const arr = out.get(votePspId) ?? [];
+    if (!arr.includes(cislo)) arr.push(cislo);
+    out.set(votePspId, arr);
+  }
+  for (const arr of out.values()) arr.sort((a, b) => a - b);
+  return out;
+});
 
 /** The one row→input projection. Both loaders derive from the same event shape.
  *
@@ -182,6 +216,7 @@ export const readLedger = cache(async function readLedger(): Promise<LedgerRead 
 
   const registry = await readRegistry();
   if (registry === null) return null;
+  const billCislosByVote = await readBillCislosByVote();
 
-  return { events: events.map(toEventIn), ballots, ...registry };
+  return { events: events.map(toEventIn), ballots, ...registry, billCislosByVote };
 });
