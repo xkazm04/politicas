@@ -10,6 +10,7 @@ import {
   type BallotIn,
   type EventIn,
 } from "./derive";
+import type { ClubWindow } from "@/lib/db/store";
 import type { ClubTally, ClubVoteStat } from "./types";
 
 /* ── fixtures ──────────────────────────────────────────────────────────────── */
@@ -329,5 +330,98 @@ describe("vote anchors", () => {
     expect(parseVoteAnchor("#h--5")).toBeNull();
     expect(parseVoteAnchor("#h-0")).toBeNull();
     expect(parseVoteAnchor("")).toBeNull();
+  });
+});
+
+/* ── klub PŘI HLASOVÁNÍ (clubWindowsByMandate) ─────────────────────────────── */
+
+describe("deriveVoteRecord — klub ke dni hlasování", () => {
+  // Mandát 12 (Cyril) přestoupil z A do B k 2026-03-01. Mandát 21 (Emil) má mezi
+  // okny mezeru (2026-02-16 → 2026-03-31), tedy dny MEZI kluby.
+  const WINDOWS = new Map<number, ClubWindow[]>([
+    [10, [{ club: "A", fromAt: "2026-01-01", toAt: null }]],
+    [11, [{ club: "A", fromAt: "2026-01-01", toAt: null }]],
+    [12, [
+      { club: "A", fromAt: "2026-01-01", toAt: "2026-02-28" },
+      { club: "B", fromAt: "2026-03-01", toAt: null },
+    ]],
+    [20, [{ club: "B", fromAt: "2026-01-01", toAt: null }]],
+    [21, [
+      { club: "B", fromAt: "2026-01-01", toAt: "2026-02-15" },
+      { club: "B", fromAt: "2026-04-01", toAt: null },
+    ]],
+  ]);
+  const dated = (events: EventIn[], ballots: BallotIn[]) =>
+    deriveVoteRecord(
+      { events, ballots, clubByMandate: CLUB, clubWindowsByMandate: WINDOWS, personByMandate: PERSON, nameByPerson: NAME },
+      { minClubPositional: 1, minEligible: 1, ledgerWindow: 3 },
+    );
+
+  // Jedno hlasování PŘED přestupem a jedno PO něm, se stejnými hlasy.
+  const events = [ev(1, "2026-02-01"), ev(2, "2026-05-01")];
+  const ballots = [
+    b(1, 10, "yes"), b(1, 11, "yes"), b(1, 12, "no"), b(1, 20, "no"), b(1, 21, "no"),
+    b(2, 10, "yes"), b(2, 11, "yes"), b(2, 12, "no"), b(2, 20, "no"), b(2, 21, "no"),
+  ];
+
+  it("váží týž hlas jednou proti A a podruhé proti B", () => {
+    const rec = dated(events, ballots);
+    // 2026-02-01: mandát 12 je ještě v A, takže A hlasovalo 2:1.
+    expect(rec.ledger.find((l) => l.pspId === 1)!.stat.byClub.A).toMatchObject({ yes: 2, no: 1 });
+    // 2026-05-01: mandát 12 je v B, takže A hlasovalo 2:0 a jeho "no" spadlo do B.
+    expect(rec.ledger.find((l) => l.pspId === 2)!.stat.byClub.A).toMatchObject({ yes: 2, no: 0 });
+    expect(rec.ledger.find((l) => l.pspId === 2)!.stat.byClub.B).toMatchObject({ yes: 0, no: 3 });
+  });
+
+  it("nedatovaný základ tentýž hlas přebarví — to je ta opravovaná chyba", () => {
+    const undatedRec = derive(events, ballots);
+    // Bez oken je mandát 12 v A po CELÉ období, takže A hlasuje 2:1 i 2026-05-01.
+    expect(undatedRec.ledger.find((l) => l.pspId === 2)!.stat.byClub.A).toMatchObject({ yes: 2, no: 1 });
+    expect(undatedRec.coverage.clubBasis).toBe("term_wide");
+    expect(undatedRec.coverage.outsideClubWindow).toBe(0);
+  });
+
+  it("hlas mimo každé okno se počítá a NEsčítá se do nezařazených", () => {
+    const gap = dated([...events, ev(3, "2026-03-10")], [...ballots, b(3, 21, "yes"), b(3, 20, "yes")]);
+    expect(gap.coverage.outsideClubWindow).toBe(1);
+    expect(gap.coverage.clubBasis).toBe("at_vote");
+    // Nezařazený (mandát 30) je jiný fakt a do tohohle kbelíku nepatří.
+    const withUnaffiliated = dated(events, [...ballots, b(1, 30, "yes")]);
+    expect(withUnaffiliated.coverage.outsideClubWindow).toBe(0);
+    expect(withUnaffiliated.ledger.find((l) => l.pspId === 1)!.stat.unaffiliated.yes).toBe(1);
+  });
+
+  it("hlas mimo okno nevstupuje do klubové tally ani do rebelie", () => {
+    const gap = dated([ev(3, "2026-03-10")], [b(3, 21, "yes"), b(3, 20, "no"), b(3, 10, "no")]);
+    const stat = gap.ledger.find((l) => l.pspId === 3)!.stat;
+    // Mandát 21 je mimo okno: B má jen hlas mandátu 20.
+    expect(stat.byClub.B).toMatchObject({ yes: 0, no: 1 });
+    expect(stat.unaffiliated).toMatchObject({ yes: 0, no: 0 });
+    // …a Emil (osoba 5) není v žebříčku rebelů, protože nemá způsobilý hlas.
+    expect(gap.topRebels.some((r) => r.personPspId === 5)).toBe(false);
+  });
+
+  it("dvě okna na týž den se ODMÍTNOU, ne rozseknou pořadím", () => {
+    const overlapping = new Map<number, ClubWindow[]>([
+      [10, [
+        { club: "A", fromAt: "2026-01-01", toAt: "2026-06-30" },
+        { club: "B", fromAt: "2026-01-01", toAt: null },
+      ]],
+    ]);
+    const rec = deriveVoteRecord(
+      {
+        events: [ev(1, "2026-02-01")], ballots: [b(1, 10, "yes")],
+        clubByMandate: CLUB, clubWindowsByMandate: overlapping, personByMandate: PERSON, nameByPerson: NAME,
+      },
+      { minClubPositional: 1, minEligible: 1 },
+    );
+    expect(rec.coverage.ambiguousClubWindow).toBe(1);
+    expect(rec.coverage.outsideClubWindow).toBe(0);
+    expect(rec.ledger[0].stat.byClub).toEqual({});
+  });
+
+  it("ztráta se počítá jednou, i když hlas projde oběma průchody", () => {
+    const gap = dated([ev(3, "2026-03-10")], [b(3, 21, "yes"), b(3, 20, "no")]);
+    expect(gap.coverage.outsideClubWindow).toBe(1); // ne 2
   });
 });

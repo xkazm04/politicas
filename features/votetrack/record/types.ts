@@ -226,6 +226,34 @@ export interface VoteRecordData {
     ledgerWindow: number;
     unaffiliatedSeats: number;
     /**
+     * Na jakém základě je v tomhle záznamu KLUB.
+     *
+     * `at_vote` — klub ke DNI hlasování, z oken členství (`clubWindowsByMandate`).
+     * `term_wide` — jeden klub na celé období, vybraný POŘADÍM ŘÁDKŮ v dumpu
+     * (`clubByMandate`, SQL bez predikátu na `from_at`/`to_at`). Je to stav před
+     * 2026-09-04 a poslanci, který klub změnil, přebarvuje i staré hlasy. Existuje
+     * jako pole proto, aby plocha ten rozdíl uměla PŘIZNAT — volající, který okna
+     * nepředá, dostane `term_wide` a ví o tom.
+     */
+    clubBasis: "at_vote" | "term_wide";
+    /**
+     * Hlasy odevzdané v den, který neleží v ŽÁDNÉM klubovém okně toho mandátu —
+     * poslanec MEZI kluby.
+     *
+     * Nikdy se nesčítá do `unaffiliated`: poslanec bez klubu a poslanec mezi kluby
+     * jsou dva různé fakty a jejich sečtením by se hlas vážil proti linii, která
+     * pro jeho autora neplatila. Do klubových tally ani do jmenovatele rebelie
+     * takový hlas nevstupuje — nespočítaný hlas je lepší než hlas přiřknutý cizímu
+     * klubu. `term_wide` základ tenhle kbelík neumí naplnit a nechává ho na nule.
+     */
+    outsideClubWindow: number;
+    /**
+     * Hlasy, u kterých den pokrývají DVĚ různá klubová okna — zdroj si odporuje.
+     * Odmítnuto a spočítáno, nikdy rozseknuto pořadím: vybrat první je přesně ta
+     * chyba, kterou datovaný klub opravuje.
+     */
+    ambiguousClubWindow: number;
+    /**
      * Práh přes CELÝ záznam — populace nálezu, který deník ukazuje po jednom
      * hlasování (`ThresholdCoverage` v record/threshold.ts).
      *

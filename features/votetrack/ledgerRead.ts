@@ -28,6 +28,7 @@
 import "server-only";
 import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import type { ClubWindow } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
 import type { VoteBallotRow, VoteEventRow, VoteTagRow } from "@/lib/db/types";
@@ -47,6 +48,10 @@ export const BALLOT_FLOOR = 280_000;
  *  a kluby k ~4 000 hlasům vybraných hlasování, ne k 406 000. */
 export interface RegistryRead {
   clubByMandate: ReadonlyMap<number, string>;
+  /** Okna členství v klubu per mandát — klub PŘI HLASOVÁNÍ (`lib/analysis/clubAt.ts`).
+   *  Čte se vedle `clubByMandate`, ne místo něj: „klub dnes" je pořád vlastní fakt
+   *  (kdo v klubu sedí teď) a plocha ta dvě rozlišuje v copy. */
+  clubWindowsByMandate: ReadonlyMap<number, ClubWindow[]>;
   personByMandate: ReadonlyMap<number, number>;
   nameByPerson: ReadonlyMap<number, string>;
 }
@@ -58,6 +63,7 @@ export interface LedgerRead {
    *  406 000-object allocation buys nothing but memory. */
   ballots: readonly VoteBallotRow[];
   clubByMandate: ReadonlyMap<number, string>;
+  clubWindowsByMandate: ReadonlyMap<number, ClubWindow[]>;
   personByMandate: ReadonlyMap<number, number>;
   nameByPerson: ReadonlyMap<number, string>;
 }
@@ -120,11 +126,14 @@ export const readRegistry = cache(async function readRegistry(): Promise<Registr
   const store = await getStore();
   if (!store) return null;
   const clubByMandate = await store.clubByMandate(TERM);
+  // Týž join, jen datovaný. Jde přes stejné dvě tabulky jako `clubByMandate` (28 ms
+  // tam), takže je to druhý index-scan nad `membership`, ne nové čtení korpusu.
+  const clubWindowsByMandate = await store.clubWindowsByMandate(TERM);
   const mandates = await store.listMandates({ termCode: TERM, limit: KG_READ_CAP });
   const personByMandate = new Map(mandates.map((m) => [m.pspId, m.personPspId]));
   const persons = await store.listPersons({ limit: KG_READ_CAP });
   const nameByPerson = new Map(persons.map((p) => [p.pspId, p.nameFull]));
-  return { clubByMandate, personByMandate, nameByPerson };
+  return { clubByMandate, clubWindowsByMandate, personByMandate, nameByPerson };
 });
 
 /**
