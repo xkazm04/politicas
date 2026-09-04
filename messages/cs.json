@@ -3064,7 +3064,8 @@
       "recomputeTitle": "Index přispění přepočten pro celou sněmovnu — průchod {pass}; o kolik se skóre pohnulo, záznam neříká",
       "recomputeSource": "výpočet politicas — {ref}",
       "forensicTitle": "forenzní posudek potvrzen — {subject}",
-      "forensicSource": "kg_node bill.forensic_* · závažnost {detail}"
+      "forensicSource": "kg_node bill.forensic_* · závažnost {detail}",
+      "recomputeTitleSized": "Index přispění přepočten pro celou sněmovnu — průchod {pass}; skóre tohoto poslance se posunulo o {delta} bodu oproti průchodu {priorPass}"
     },
     "kinds": {
       "contract": "{count, plural, one {smlouva} few {smlouvy} other {smluv}}",

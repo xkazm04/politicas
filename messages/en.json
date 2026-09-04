@@ -3064,7 +3064,8 @@
       "recomputeTitle": "Contribution index recomputed for the whole chamber — pass {pass}; how far the score moved, the record does not say",
       "recomputeSource": "politicas computation — {ref}",
       "forensicTitle": "forensic report confirmed — {subject}",
-      "forensicSource": "kg_node bill.forensic_* · severity {detail}"
+      "forensicSource": "kg_node bill.forensic_* · severity {detail}",
+      "recomputeTitleSized": "The contribution index was recomputed for the whole chamber — pass {pass}; this MP's score moved by {delta} points against pass {priorPass}"
     },
     "kinds": {
       "contract": "{count, plural, one {contract} other {contracts}}",
