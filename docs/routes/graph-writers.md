@@ -135,6 +135,20 @@ that becomes permanent.
 would be repair, and this repo discloses: a number printed and burned down beats
 a number that looks finished and is not.
 
+### The migration pass
+
+`scripts/data-analysis/kg-provenance-backfill.ts` (dry run by default) derives a
+stamp for every pre-contract row from the `ref` it already carries — four rules,
+each read off the writer that produced it. Rows it cannot resolve land on
+`unknown`, grouped by the unresolved ref and printed as the number to burn down;
+re-running the owning writer replaces it with a real source. It passes `props`
+through byte-for-byte (this is exactly the script shape that once erased the
+effort layer off all 207 MPs), leaves a row already under contract alone unless
+`--restamp`, and attaches no `ingest_run_id` to a historical row — that would
+place it inside a seal that never covered it. On the fixture mirroring the five
+legacy stamp shapes, 13 of 16 rows derive and 3 land on `unknown` across two
+refs.
+
 Proven on a store copy (`scripts/data-analysis/kg-writer-provenance.test.ts`),
 never against the live store — including the thing every writer on this page has
 broken before: a later pass's props still survive a stamped rewrite of the same
