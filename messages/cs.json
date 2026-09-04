@@ -2589,6 +2589,24 @@
         "unavailableNote": "výpadek na naší straně, ne zánik citace — zkuste to prosím znovu",
         "invalidNote": "tuhle adresu nelze rozluštit — není to citace politicas"
       }
+    },
+    "provenance": {
+      "title": "provenience grafu",
+      "cols": "relace · průchod / pokrytí",
+      "pass": "průchod {n}",
+      "noPass": "bez čísla průchodu",
+      "mixed": "{n} různých průchodů",
+      "absent": "bez provenience",
+      "coverage": "({stamped}/{read})",
+      "more": "+ {n} dalších relací",
+      "empty": "žádná hrana nenese provenienci — není to průchod č. 0, je to prázdný záznam",
+      "halfRecomputed": "{n} relací je rozpolcených samo v sobě ({rels}) — poloviční přepočet",
+      "state": {
+        "uniform": "jeden průchod",
+        "mixed": "průchody po relacích",
+        "absent": "bez razítka"
+      },
+      "source": "zdroj: kg_edge.provenance — {pass, method, ref} zapsané průchodem, který hranu odvodil; graf se přepočítává po relacích, takže různé relace nesou různé průchody"
     }
   },
   "metodika": {

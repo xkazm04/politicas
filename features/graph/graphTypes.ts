@@ -3,6 +3,7 @@
 // plátno z nich potřebuje jen štítek a druh. Detail se dotahuje až na kliknutí.
 
 import type { KgNodeKind, SourceLink } from "@/lib/kg/sourceLinks";
+import type { GraphProvenance } from "@/lib/kg/graphProvenance";
 
 export interface GraphNode {
   id: string;
@@ -138,6 +139,8 @@ export interface Trail {
   columns: string[];
   nodes: TrailNode[];
   edges: GraphEdge[];
+  /** Provenience hran TÉTO trasy po relacích — citace nese i to, čím vznikla. */
+  provenance: GraphProvenance;
 }
 
 /** Jeden krok důkazní cesty „Spoj dva body" — sazený řádek účetní knihy. */
@@ -191,6 +194,8 @@ export interface PathQueryResult {
   /** Identita PRAVIDLA, kterým cesta vznikla (PATH_RULE_REF). Do otisku
    *  vstupuje, takže „stejná cesta, jiné pravidlo" se pozná. */
   ruleRef: string;
+  /** Provenience hran vrácených cest po relacích. */
+  provenance: GraphProvenance;
 }
 
 export interface GraphSeed {
@@ -200,4 +205,10 @@ export interface GraphSeed {
   totalEdges: number;
   /** Nabídnuté vstupní body: nejpropojenější uzly, na kterých má smysl začít. */
   suggested: SearchHit[];
+  /**
+   * Provenience CELÉHO grafu po relacích — kdo hrany napsal a jedním průchodem
+   * ho psal, nebo víc. Napříč relacemi je `mixed` běžný stav (průchody běží po
+   * relacích); `mixedWithinRel` je ta půlka, která znamená poloviční přepočet.
+   */
+  provenance: GraphProvenance;
 }

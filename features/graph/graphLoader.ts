@@ -52,6 +52,11 @@ import { getStore } from "@/lib/db/store";
 import { formattersFor } from "@/lib/format";
 import { isLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
 import { forceLayout, hashId } from "@/lib/kg/layout";
+import {
+  EMPTY_GRAPH_PROVENANCE,
+  summarizeGraphProvenance,
+  type GraphProvenance,
+} from "@/lib/kg/graphProvenance";
 import { citableId, sourceLinksFor, type KgNodeKind } from "@/lib/kg/sourceLinks";
 import { isKgNodeKind } from "./kindStyle";
 import { KG_READ_CAP } from "@/lib/db/readCap";
@@ -101,6 +106,8 @@ interface GraphIndex {
   census: Array<{ kind: KgNodeKind; count: number }>;
   totalNodes: number;
   totalEdges: number;
+  /** Provenience hran po relacích — spočítaná při TÉMŽE průchodu, co stupně. */
+  provenance: GraphProvenance;
 }
 
 /**
@@ -201,6 +208,10 @@ async function buildIndex(): Promise<GraphIndex | null> {
         .sort((a, b) => b.count - a.count),
       totalNodes: entries.length,
       totalEdges: edges.length,
+      // Průchod přes VŠECHNY hrany už tu jednou proběhl (stupně výš), takže
+      // agregace provenience nestojí ani jedno čtení navíc — a graf konečně
+      // umí říct, čím byl napsán, ne jen kolik ho je.
+      provenance: summarizeGraphProvenance(edges),
     };
   } catch (err) {
     reportLoaderFailure("graphLoader.buildIndex", err);
@@ -230,6 +241,7 @@ export async function getGraphSeed(): Promise<GraphSeed | null> {
       .sort((a, b) => b.degree - a.degree)
       .slice(0, 12)
       .map(toNode),
+    provenance: idx.provenance,
   };
 }
 
@@ -552,7 +564,7 @@ async function buildTrails(): Promise<Trail[] | null> {
           edges.push(linkEdge(pid, cid));
         }
       }
-      if (nodes.length > 0) trails.push({ key: "penize-poslancu", columns: ["person", "company"], nodes, edges });
+      if (nodes.length > 0) trails.push({ key: "penize-poslancu", columns: ["person", "company"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // 2 · Nejpřepisovanější zákony: zákon ← tisky ← předkladatelé.
@@ -593,7 +605,7 @@ async function buildTrails(): Promise<Trail[] | null> {
         }
       }
       if (nodes.length > 0)
-        trails.push({ key: "nejnovelizovanejsi", columns: ["person", "bill", "law"], nodes, edges });
+        trails.push({ key: "nejnovelizovanejsi", columns: ["person", "bill", "law"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // 3 · Dárci stran: firmy s darem straně + poslanci s vazbou na ně.
@@ -615,7 +627,7 @@ async function buildTrails(): Promise<Trail[] | null> {
           edges.push(linkEdge(pid, cid));
         }
       }
-      if (nodes.length > 0) trails.push({ key: "darci-stran", columns: ["person", "company"], nodes, edges });
+      if (nodes.length > 0) trails.push({ key: "darci-stran", columns: ["person", "company"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // 4 · Výbory a peníze: výbor ← členové s vazbami ← jejich firmy.
@@ -661,13 +673,16 @@ async function buildTrails(): Promise<Trail[] | null> {
         }
       }
       if (nodes.length > 0)
-        trails.push({ key: "vybory-a-penize", columns: ["organ", "person", "company"], nodes, edges });
+        trails.push({ key: "vybory-a-penize", columns: ["organ", "person", "company"], nodes, edges, provenance: EMPTY_GRAPH_PROVENANCE });
     }
 
     // Pořadí ve sloupci = řádek sazby: podle peněz, pak podle stupně.
     // BEZ TOHOTO se celý sloupec položí na jeden bod (order 0) a z trasy
     // zbydou tři uzly — přesně tak se to jednou rozbilo.
     for (const trail of trails) {
+      // Citovatelná trasa nese provenienci SVÝCH hran, ne celého grafu:
+      // „čím vznikly tyhle kroky" je jiná otázka než „čím vznikl graf".
+      trail.provenance = summarizeGraphProvenance(trail.edges);
       const perColumn = new Map<number, number>();
       for (const n of [...trail.nodes].sort(
         (a, b) => (b.moneyCzk ?? 0) - (a.moneyCzk ?? 0) || b.degree - a.degree,
@@ -750,6 +765,8 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
     hubDegree: HUB_DEGREE,
     excludedRejected: 0,
     ruleRef: PATH_RULE_REF,
+    // Prázdná agregace = „hledání neproběhlo", ne „graf nemá provenienci".
+    provenance: EMPTY_GRAPH_PROVENANCE,
   };
   const idx = await graphIndex();
   const adj = await pathAdjacency();
@@ -821,6 +838,8 @@ export async function getPathBetween(srcId: string, dstId: string): Promise<Path
     totalFound: found.totalFound,
     capped: found.capped,
     excludedRejected: found.excludedRejected,
+    // Provenience hran, po kterých vrácené cesty skutečně vedou.
+    provenance: summarizeGraphProvenance(paths.flatMap((t) => t.edges)),
   };
 }
 

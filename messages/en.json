@@ -2589,6 +2589,24 @@
         "unavailableNote": "an outage on our side, not the end of this citation — please try again",
         "invalidNote": "this address cannot be decoded — it is not a politicas citation"
       }
+    },
+    "provenance": {
+      "title": "graph provenance",
+      "cols": "relation · pass / coverage",
+      "pass": "pass {n}",
+      "noPass": "no pass number",
+      "mixed": "{n} different passes",
+      "absent": "no provenance",
+      "coverage": "({stamped}/{read})",
+      "more": "+ {n} more relations",
+      "empty": "no edge carries provenance — that is an empty record, not pass 0",
+      "halfRecomputed": "{n} relations are split within themselves ({rels}) — a half recompute",
+      "state": {
+        "uniform": "one pass",
+        "mixed": "pass per relation",
+        "absent": "unstamped"
+      },
+      "source": "source: kg_edge.provenance — {pass, method, ref} written by the pass that derived the edge; the graph is recomputed per relation, so different relations carry different passes"
     }
   },
   "metodika": {

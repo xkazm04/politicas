@@ -28,6 +28,7 @@ import {
   type PermalinkView,
 } from "./permalink";
 import type { GateStatus, GraphNode, NodeDetail, PathTrailDto } from "./graphTypes";
+import { EMPTY_GRAPH_PROVENANCE } from "@/lib/kg/graphProvenance";
 
 const HASH = "0a1b2c3d";
 
@@ -263,6 +264,7 @@ const trasaWithGates = (gates: (GateStatus | null)[]): Extract<PermalinkView, { 
       gate,
       provenance: null,
     })),
+    provenance: EMPTY_GRAPH_PROVENANCE,
   },
 });
 

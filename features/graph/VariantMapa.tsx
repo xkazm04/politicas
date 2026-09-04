@@ -40,6 +40,7 @@ import TrailFinder from "./components/TrailFinder";
 import { InspectorDrawer, LegendOverlay, StatChip, TopLeft } from "./components/StageOverlays";
 import { mapAction, pathAction, trailsAction } from "./graphActions";
 import { HUB_DEGREE, MAX_COST, PATH_RULE_REF } from "./trailPath";
+import { EMPTY_GRAPH_PROVENANCE } from "@/lib/kg/graphProvenance";
 import { useNodeSelection } from "./useNodeSelection";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import type { GraphViewState } from "./permalink";
@@ -60,6 +61,7 @@ const PATH_UNAVAILABLE: PathQueryResult = {
   // ne počty.
   excludedRejected: 0,
   ruleRef: PATH_RULE_REF,
+  provenance: EMPTY_GRAPH_PROVENANCE,
 };
 
 /** Interval rozsvěcení kroků cesty (bez reduced-motion). */
