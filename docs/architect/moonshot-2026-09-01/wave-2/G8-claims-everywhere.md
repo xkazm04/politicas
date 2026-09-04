@@ -112,3 +112,16 @@ A1 → A2 → A3 → A4 → A5 → B6 → B7 → B8 → B9 → C10 → C11 → d
 README shape, plus: metric families with a resolvable receipt (0 → n), claim-bearing
 numerals on `/dashboard` (0 → n), `CitableNumber` count under `features/votetrack`,
 the reconciled `liveFigures` dataset table, carry-over.
+
+## Addendum from wave 1 (2026-09-05)
+
+- **Figura family as-of.** G1 shipped `/overeni?k=` with `notReplayable` for the
+  derived-figure families. When you fill `IssuedFigure.inputs`, also accept an
+  optional `at` and re-derive through the owning loaders where they can take one
+  (money ties via `asOfEdge`; contribution via `asOfNode` on the person); where a
+  loader cannot, keep `notReplayable` — never silence.
+- **Receipts print run + pass.** G5's stamps are on every kg row: read
+  `kg_node.source` / `kg_edge.source`, `ingest_run_id` (generated, indexed) or
+  `provenance->>'pass'`, `->>'ref'`, `->>'writer'`; `ingest_run_id IS NULL` means
+  "no run", `source = 'unknown'` is a counted value. Print them on the edge/node
+  receipt's provenance block and on the figure receipt's input rows.

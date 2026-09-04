@@ -90,3 +90,11 @@ A1 → A2 → A3 → A4 → A5 → A6 → B7 → B8 → B9 → B10 → docs.
 README shape, plus: mock renderers referenced from `features/dashboard` (4 → 0),
 distinct `rez.` addresses decodable (old fixtures all decode), the sealed fallback
 rendering on a store-down fixture, carry-over.
+
+## Addendum from wave 1 (2026-09-05)
+
+- **State-slice provenance table** (G4 carry-over): `/dashboard` prints the
+  per-relation `{pass, ref}` variant table from `summarizeGraphProvenance`
+  (`lib/kg/graphProvenance.ts`) with a `SourceNote`.
+- **Rung props** (G2 carry-over): `DashboardPage` badges pass the effort verdict
+  rung instead of defaulting to null.

@@ -58,3 +58,4 @@ Deck ranks (`#n`) refer to the card numbers in the deck.
 ## Log
 
 - 2026-09-04 — wave 1 dispatched (G1–G5).
+- 2026-09-05 — wave 1 merged (4332800, 4ebcddd, e5c16c5, 57e45ca, 085baad); carry-overs in wave-1/CARRY-OVER.md and as addenda on G8, G12, G13, G15.

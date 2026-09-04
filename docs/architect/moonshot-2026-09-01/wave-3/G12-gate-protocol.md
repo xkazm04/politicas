@@ -84,3 +84,16 @@ A1 → A2 → A3 → A4 → B5 → B6 → B7 → B8 → B9 → B10 → docs.
 README shape, plus: export lanes with a gate-recognised address (1 → n of 5),
 p95 of a 12-ref batch on the test fixture, the document-mode verdict table on a
 fixture article, carry-over.
+
+## Addendum from wave 1 (2026-09-05)
+
+- **`grafVerdict` gate modifier.** G4 exported `worstGateOfView(view)` from
+  `features/graph/permalink.ts`. Apply, in `verdict.ts`: for the `graf` family
+  return `{kind: "gated", info: gateStatusInfo(worst)}` when
+  `v.view.worstGate` is non-null, else `ungated`; add `worstGate: GateStatus |
+  null` to `HashComparison` (null for `exponat`) filled in `hashedVerdict`.
+- **Bill-claim gate modifier.** G2's `forensic_review_state` is now a real
+  three-state value (absent renders as absent); the law claim verdict carries it
+  as the modifier the same way ties do.
+- **`/data` snapshot `limits` per source** (G5 carry-over): the snapshot's
+  `limits` gain in-cut vs in-store per `source` from the generated column.

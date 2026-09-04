@@ -99,3 +99,11 @@ A1 → A2 → A3 → A4 → A5 → A6 → B7 → B8 → B9 → B10 → docs.
 README shape, plus: matching implementations (4 → 1), identity rows on the
 fixture backfill with their review_state histogram, chain leads found on the
 fixture with per-club counts, carry-over.
+
+## Addendum from wave 1 (2026-09-05)
+
+- **`/penize/kontrola` lanes for the new claim kinds** (G2 carry-over): the
+  console gains lanes for `bill_verdict` and `effort_verdict` decisions through
+  the same `setReviewState` writer (G2 built the `/admin` board only).
+- **Cross-links into the canvas** (G4 carry-over): `/penize/firma/[ico]` and the
+  tender surface link `/graf?okoli=<id>`; wire `caseFileLink` in `NodeInspector`.
