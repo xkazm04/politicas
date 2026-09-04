@@ -63,6 +63,18 @@ async function emit(report: import("@/lib/testing/sentinel/report").SentinelRepo
     writeFileSync(resolve(process.env.SENTINEL_JSON), json + "\n", "utf8");
     console.error(`[sentinel] machine report written to ${resolve(process.env.SENTINEL_JSON)}`);
   }
+  // [G5] The verdict stops evaporating on stdout. It goes into an OUTBOX FILE,
+  // not the store: this process audits a copy and must never hold the live
+  // handle (see the READ-ONLY GUARANTEE above), so the next live open() drains
+  // it into `sentinel_run`. The append FAILS LOUD — a verdict quietly not kept
+  // is indistinguishable from a run that never happened, which is the whole
+  // confusion this lane exists to abolish.
+  const { enqueueSentinelRun, sentinelQueueDisplayPath } = await import("@/lib/db/pglite/sentinelQueue");
+  const entry = enqueueSentinelRun(report);
+  console.error(
+    `[sentinel] verdict ${report.verdict} queued as ${entry.id.slice(0, 12)} in ${sentinelQueueDisplayPath()} ` +
+      `(manifest ${report.manifestHash ?? "none"}) — applied on the next live open`,
+  );
 }
 
 /** The store could not be read. Emit the all-`unevaluable` report and exit 2 —

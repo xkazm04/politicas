@@ -3235,7 +3235,14 @@
       "unreleasedSource": "source: ingest_run — 0 successful runs; nothing is concealed",
       "badgeDegraded": "degraded — not latest",
       "badgeLatest": "latest",
-      "cut": "cut: {date}"
+      "cut": "cut: {date}",
+      "certificationNone": "Not verified — the sentinel has not run over this fingerprint. That is neither a mark against the release nor a pass: nobody has looked yet. The “latest” badge above comes from cardinality floors, and floors are not an audit.",
+      "certificationSource": "source: the sentinel_run table, newest row with the SAME manifest fingerprint; written by npm run sentinel through a queue the next store open drains",
+      "certification": {
+        "ok": "Invariants verified on {date} — {platnych} of {vsech} held. The sentinel ran over THIS fingerprint, not over some nearby release.",
+        "violation": "On {date} the sentinel found a VIOLATION over this fingerprint — {platnych} of {vsech} held. Red is a data problem, not a tooling fault: fix the ingest, never the invariant.",
+        "unevaluable": "On {date} the sentinel never reached the data — {platnych} of {vsech} invariants were evaluated. This is not a pass and must not read as one."
+      }
     },
     "table": {
       "kind": "node kind",

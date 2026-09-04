@@ -44,6 +44,7 @@ import {
   deriveReleaseManifest,
   type ChangelogRelease,
   type ReleaseManifest,
+  type SentinelCertification,
 } from "./manifest";
 import {
   buildSnapshot,
@@ -94,6 +95,26 @@ export function resetSnapshotMemo(): void {
   snapshotMemo.reset();
 }
 
+/**
+ * The newest sentinel verdict over EXACTLY this manifest hash, or null.
+ *
+ * A read that throws degrades to null — which renders as `none`, "the sentinel
+ * did not run over this fingerprint". That is the honest reading of an
+ * unreadable verdict table too: we do not know that it was audited, and
+ * `certification` may never claim more than we know.
+ */
+async function readCertification(manifestHash: string): Promise<SentinelCertification | null> {
+  try {
+    const { open } = await import("@/lib/db/pglite/internals");
+    const { readNewestCertification } = await import("@/lib/db/pglite/sentinelQueue");
+    const row = await readNewestCertification(await open(), manifestHash);
+    return row === null ? null : { ...row };
+  } catch (err) {
+    reportLoaderFailure("getDataReleases:certification", err);
+    return null;
+  }
+}
+
 async function readManifest(
   store: Store,
 ): Promise<{ manifest: ReleaseManifest; ingestRuns: Awaited<ReturnType<Store["listIngestRuns"]>> }> {
@@ -107,7 +128,7 @@ async function readManifest(
       store.listIngestRuns(INGEST_RUN_LIMIT),
       getLedgerRepo().then((repo) => repo.getLedgerHeads()),
     ]);
-  const manifest = deriveReleaseManifest({
+  const stats = {
     kindCounts,
     edgeRelCounts,
     kgNodeTotal,
@@ -115,7 +136,17 @@ async function readManifest(
     voteBallotTotal,
     ingestRuns,
     ledgerHeads,
-  });
+  };
+  // TWO derivations, and the order is the contract. The hash is a function of
+  // the release's CONTENT, so it must be computed before anything is looked up
+  // by it; only then can the sentinel's verdict be joined on the EXACT hash.
+  // Deriving certification into the hashed body would change the hash the
+  // moment a verdict landed, and the verdict would instantly stop applying to
+  // the release it judged.
+  const unattested = deriveReleaseManifest(stats);
+  const certification = await readCertification(unattested.manifestHash);
+  const manifest =
+    certification === null ? unattested : deriveReleaseManifest({ ...stats, certification });
   return { manifest, ingestRuns };
 }
 

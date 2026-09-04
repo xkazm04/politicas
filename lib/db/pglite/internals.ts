@@ -8,6 +8,7 @@ import { CORE_DDL } from "./ddl";
 import { assertDurabilityContract } from "./durability";
 import { instrumentPglite } from "./instrument";
 import { withQuietWindowMaintenance } from "./maintenance";
+import { drainSentinelQueue } from "./sentinelQueue";
 
 export interface PgResult<T> {
   rows: T[];
@@ -68,6 +69,13 @@ export async function open(): Promise<Pglite> {
       await pg.waitReady;
       await disclosePendingDdl(pg);
       await pg.exec(CORE_DDL);
+      // [G5] The sentinel audits a COPY and never opens this handle, so its
+      // verdict arrives through a file. Draining it here is the one moment a
+      // live connection exists; it is idempotent by content hash and never
+      // fatal — the store has a hundred readers and the queue has one writer.
+      await drainSentinelQueue(pg).catch((err: unknown) => {
+        console.warn(`[db] sentinel queue not drained this boot: ${String(err)}`);
+      });
       await assertDurabilityContract(pg).catch((err: unknown) => {
         // The contract could not be READ. That is worth a line (it is already
         // one, inside), and it is not a reason to withhold a working store.

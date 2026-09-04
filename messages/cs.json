@@ -3235,7 +3235,14 @@
       "unreleasedSource": "zdroj: ingest_run — 0 úspěšných běhů; nic není zamlčeno",
       "badgeDegraded": "degradováno — není latest",
       "badgeLatest": "latest",
-      "cut": "řez: {date}"
+      "cut": "řez: {date}",
+      "certificationNone": "Neověřeno — sentinel nad tímhle otiskem neběžel. Není to výtka vydání ani jeho průchod: nikdo se zatím nepodíval. „Latest“ výš plyne z kardinalitních prahů, a prahy nejsou audit.",
+      "certificationSource": "zdroj: tabulka sentinel_run, nejnovější řádek se SHODNÝM otiskem manifestu; zapisuje ho npm run sentinel přes frontu, kterou vysype nejbližší otevření store",
+      "certification": {
+        "ok": "Invarianty ověřeny k {date} — platilo {platnych} z {vsech}. Sentinel běžel nad TÍMHLE otiskem, ne nad nějakým blízkým vydáním.",
+        "violation": "Sentinel k {date} nad tímhle otiskem NAŠEL PORUŠENÍ — platilo {platnych} z {vsech}. Červená je datový problém, ne chyba nástroje: opravuje se ingest, ne invarianta.",
+        "unevaluable": "Sentinel k {date} na data NEDOSÁHL — vyhodnoceno {platnych} z {vsech} invariant. Není to průchod a nesmí se tak číst."
+      }
     },
     "table": {
       "kind": "druh uzlu",
