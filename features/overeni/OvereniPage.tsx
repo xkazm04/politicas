@@ -19,6 +19,8 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowRight, ScanLine, Stamp } from "lucide-react";
+import { HASH_ALGORITHM as EXHIBIT_HASH_ALGORITHM } from "@/features/dashboard/exhibit";
+import { HASH_ALGORITHM as GRAPH_HASH_ALGORITHM } from "@/features/graph/permalink";
 import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -276,6 +278,9 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
   if ((verdict.family === "graf" || verdict.family === "exponat") && verdict.kind !== "unknown") {
     const v = verdict.view;
     const path = verdict.family === "graf" ? `/graf/p/${v.encoded}` : `/dashboard/exponat/${v.encoded}`;
+    // Jméno algoritmu vlastní rodina (permalink.ts / exhibit.ts), ne brána — do
+    // 2026-09-05 tu stálo opsané „fnv-1a/32“, které by přežilo změnu v rodině.
+    const algo = verdict.family === "graf" ? GRAPH_HASH_ALGORITHM : EXHIBIT_HASH_ALGORITHM;
     return (
       <div className="mt-4">
         {/* Titulek buď vlastní rodina (doslovný text pohledu na graf), nebo
@@ -287,7 +292,7 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
         </Row>
         <Row label={t("row.currentHash")}>
           <span className="font-mono">{v.currentHash}</span>{" "}
-          <span className="text-steel-aa">({f.date(v.currentDate)}, fnv-1a/32)</span>
+          <span className="text-steel-aa">({f.date(v.currentDate)}, {algo})</span>
         </Row>
         <Row label={t("row.fullView")}>
           <Link href={path} className="inline-flex items-center gap-1 text-cobalt underline-offset-2 hover:underline">

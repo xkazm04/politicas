@@ -245,3 +245,10 @@ another surface counts it. The day rule itself is pure and shared
 (`features/shared/provenance/asOfLens.ts`), so the two surfaces cannot drift
 about what a valid day is or which instant it means — a day is read at its END,
 because the reader cited what we published that day, not what stood at midnight.
+
+**The gate names the hash algorithm from the family it verifies (2026-09-05,
+scan-sweep, parity-auditor).** `/graf/p` and the exhibit each export
+`HASH_ALGORITHM` and set it from the constant; the gate's „otisk dnes" row carried
+the literal `fnv-1a/32`, so a change of algorithm in either family would have
+printed the old name next to a new hash. The row now picks the constant by
+family; `pageSource.test.ts` forbids the literal.
