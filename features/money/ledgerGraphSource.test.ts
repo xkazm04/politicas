@@ -22,3 +22,12 @@ describe("moneyLoader.ts narrows review_state through reviewStateOf", () => {
     expect(s).not.toMatch(/rawState === "verified" \?/);
   });
 });
+
+describe("loadMpMoneySlice dates its plausibility bound in Prague", () => {
+  const s = src("features/money/moneyLoader.ts");
+  it("calls pragueDay() and no longer slices the UTC ISO string", () => {
+    expect(s).toMatch(/import \{ pragueDay \} from "@\/features\/denik\/pragueDay"/);
+    expect(s).toMatch(/const datesCheckedOn = pragueDay\(\)/);
+    expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
+  });
+});

@@ -26,6 +26,8 @@ import {
 } from "./moneyTypes";
 // JEDNA hranice možného data v celé aplikaci (modul si to říká ve své hlavičce).
 import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
+// …a JEDEN den, proti kterému se kreslí: pražský (features/denik/pragueDay.ts).
+import { pragueDay } from "@/features/denik/pragueDay";
 // One reader of `provenance`-shaped props across the platform (features/shared/provenance):
 // the receipt page and the money tie must date an analyst note by the same rule.
 import { toProvenance } from "@/features/shared/provenance/receipt";
@@ -744,11 +746,11 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
     // klientovi jako DATA. Počítá se AŽ TADY, za memoizovaným čtením smluv:
     // uvnitř `companySuppliesMemo` by se hranice zamrazila na den, kdy se buňka
     // naplnila, a den by pak zestárnul o celé okno TTL.
-    // Týž tvar jako `/penize/firma/[ico]`, aby dvě sousední plochy nekreslily
-    // hranici k jinému dni (pražský den deníku je vědomě jiné pravidlo — jeho
-    // sjednocení by pohnulo publikovaným počtem firemního spisu, a to se sem
-    // nepropašuje; viz zpráva k této změně).
-    const datesCheckedOn = new Date().toISOString().slice(0, 10);
+    // Den je PRAŽSKÝ (pragueDay), týž jako u `/penize/firma/[ico]` od 7225d18:
+    // řez UTC řetězce zaostával za Prahou až o dvě hodiny po půlnoci, takže
+    // smlouva podepsaná dnes se četla jako podepsaná v budoucnu — a dvě sousední
+    // plochy kreslily hranici k jinému dni (scan-sweep 2026-09-07).
+    const datesCheckedOn = pragueDay();
     const contractsByCompany = new Map<string, CompanyContracts>();
     const linesByCompany = new Map<string, ContractLine[]>();
     let contractsTruncated = false;

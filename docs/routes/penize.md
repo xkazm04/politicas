@@ -781,3 +781,10 @@ v triage (round 31) a v ARES-VR skriptech (round 34).
 ručně psaný ternár nad `review_state` (po loaderu konzole, round 33) je pryč;
 `mapLinkedToTie` čte týž slovník `REVIEW_STATES`. Z karty „ReviewState nemá
 runtimový seznam“ zbývá jen kopie ve skriptu triage.
+
+**Řez poslance kreslí hranici možného data k pražskému dni (2026-09-07).**
+`loadMpMoneySlice` bral „dnes“ z UTC hodin a jeho komentář žádal, aby se řez
+poslance a firemní spis shodly — jenže firemní spis přešel v 7225d18 na
+`pragueDay()`. Mezi půlnocí a 01:00/02:00 tak obě plochy kreslily hranici
+k jinému dni pro tutéž smlouvu. Řez teď bere den z `pragueDay()`; karta z roundu 33
+je uzavřená.
