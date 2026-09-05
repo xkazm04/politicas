@@ -535,3 +535,12 @@ checked company/person/law/bill/organ, and the write-time gate in
 `verdictScope.ts` — what the army is told is exactly what the gate enforces
 (`verdictScope.test.ts`). The write-time gate is another context and is a
 backlog card: it is wider than the gate that precedes it.
+
+**`triage.ts` refuses to replace a live ledger, and records the formula it
+computes (2026-09-07, scan-sweep, risk-assessor + copy-auditor).** The batch-001
+bootstrap writes `ledger.json` wholesale — the exact P44/D1 write every later
+batch avoids by merge-writing — and had no guard against being re-run; it now
+refuses when the file exists unless `--replace` is passed. Its recorded
+`triageFormula` advertised `sev*1e9 + amends*5e6 + churn*2e6 + routeAnom*2.5e8`
+while the code computed log-scaled bands of 1e6 / 3e4 / 1e3 / 5e3 / 2e3; both
+now read one `BANDS` constant (`triageSource.test.ts`).
