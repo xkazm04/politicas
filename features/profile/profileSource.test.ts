@@ -26,3 +26,11 @@ describe("getProfileData.ts evaluates the whole spis against ONE Prague day", ()
     expect(s).not.toMatch(/buildAbsenceRecord\(rows, pragueDay\(\)\)/);
   });
 });
+
+describe("profileMoney.ts does not re-run the plausibility bound", () => {
+  const s = src("features/profile/profileMoney.ts");
+  it("reads dateWithheldOn and imports no plausible-date", () => {
+    expect(s).toMatch(/c\.dateWithheldOn != null/);
+    expect(s).not.toMatch(/plausibleIsoDateOrNull/);
+  });
+});
