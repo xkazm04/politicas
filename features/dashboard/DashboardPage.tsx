@@ -114,6 +114,9 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
    * obě vydávaly za jeden hotový průchod. Každý ze čtyř stavů má vlastní větu.
    */
   const p = data?.provenance ?? null;
+  // Průchod je číslo a jde přes lib/format jako každé jiné — exponát ho tak sází
+  // (`graphPass`), velín ho do 2026-09-06 posílal surové na čtyřech místech.
+  const passLabel = (pass: number | null) => (pass === null ? "—" : f.int(pass));
   const provenanceNote = !data
     ? t("headerNoteUnavailable")
     : p === null || p.state === "absent"
@@ -125,8 +128,8 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
             total: f.int(p.total),
           })
         : p.computedAt
-          ? t("headerNoteReal", { date: f.date(p.computedAt), pass: p.pass ?? "—" })
-          : t("headerNoteNoDate", { pass: p.pass ?? "—" });
+          ? t("headerNoteReal", { date: f.date(p.computedAt), pass: passLabel(p.pass) })
+          : t("headerNoteNoDate", { pass: passLabel(p.pass) });
 
   /*
    * ČÁSTEČNÝ VÝPADEK SE ŘEKNE NAHLAS. Vrstvy degradují nezávisle (viz loader), ale
@@ -272,7 +275,7 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                 sub={t("realStats.avgSub", {
                   median: f.dec(data.summary.median),
                   sigma: f.dec(data.summary.sigma),
-                  count: data.summary.count,
+                  count: f.int(data.summary.count),
                 })}
                 source={
                   <>
@@ -345,7 +348,7 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                   source={
                     <>
                       {tcom("sourcePrefix")}{" "}
-                      {t("realStats.moneySource", { pass: data.money.pass })} ·{" "}
+                      {t("realStats.moneySource", { pass: passLabel(data.money.pass) })} ·{" "}
                       {moneyReviewNote(data.money.review)} ·{" "}
                       {/* Dlaždice shrnuje modul, který má vlastní plochu —
                           bez dveří byla shrnutím bez pokračování (vzor: odkaz
@@ -390,7 +393,7 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                     <>
                       {tcom("sourcePrefix")}{" "}
                       {t("realStats.lawsSource", {
-                        pass: data.laws.pass ?? "—",
+                        pass: passLabel(data.laws.pass),
                         undercount: f.int(data.laws.censusUndercount),
                       })}
                       {/* Zadržený řetězec se přizná, nezmizí — táž zásada, s jakou
@@ -509,7 +512,7 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                 href="/zebricek"
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
               >
-                {data ? t("allMpsLink", { count: data.summary.count }) : t("allMpsLinkFallback")}{" "}
+                {data ? t("allMpsLink", { count: f.int(data.summary.count) }) : t("allMpsLinkFallback")}{" "}
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             }
@@ -527,7 +530,7 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                     className="group grid grid-cols-[2.5rem_1fr_auto] items-center gap-4 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong"
                   >
                     <span className={`font-mono text-xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel"}`}>
-                      {m.rank}
+                      {f.int(m.rank)}
                     </span>
                     <span className="min-w-0">
                       <span className="block truncate text-base font-black uppercase tracking-tight">
@@ -580,7 +583,7 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                   ))}
                   <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <SourceNote>
-                      {t("realRanking.footnote", { count: data.summary.count })}
+                      {t("realRanking.footnote", { count: f.int(data.summary.count) })}
                     </SourceNote>
                     {/* Štítky na řádku jsou TVRZENÍ enrichmentu — mají vlastní
                         citaci, ne jen datum schované v titulku. */}

@@ -337,3 +337,10 @@ desktop-only. `graph.realRule` narrowed to the population the seed scan
 actually reads (donor firms among MP-tied companies, not „v grafu
 jediné") and is pinned; the money and law tiles finally carry doors to
 /penize and /zakony (the avg-tile /metodika pattern).
+
+**Every number on the velín reaches the DOM and the ICU sentences formatted
+(2026-09-06, scan-sweep, copy-auditor).** The chamber count went raw into three
+sentences, the rank raw into the ledger row, and the graph pass raw into four
+citations — while the exhibit's footer already formatted the same pass through
+`f.int`. All eight sites go through `lib/format` now (one `passLabel` helper for
+the nullable pass); `pageSource.test.ts` pins them.
