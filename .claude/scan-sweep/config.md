@@ -263,3 +263,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   A `Record<string, string>` map with a `??` default over a closed enum is a default branch
   that NAMES a value for anything unknown: `as const satisfies Record<Enum, string>`.
   Files inside a context's folder that no context owns (asOfLens.ts) are still veto 1.
+- 2026-09-07 — shell-navigation, first sweep (28 lenses, 5 built in 5 commits, 3 cards). NEVER
+  `git commit … | grep` - the pipe hides a doc-sync refusal and the next commit in the chain
+  lands non-self-contained (happened here; fixed by reset --hard + replay from the fixNN.py).
+  Gate commits on git's exit code (ci() helper) exactly like vt() gates on vitest's. Doc-sync
+  dismissal reasons need >= 12 chars - 'test only' is refused. A hand list whose ground truth is
+  a catalog gets a resolve-every-key test; when it is green on arrival, prove it by mutation.

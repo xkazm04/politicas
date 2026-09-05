@@ -187,6 +187,15 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-07] The poster's histogram axis end hard-codes the leaderboard's 5-point band** — type: parity, risk: 1, effort: s, payoff: 1, reach: `features/shared/poster/demo/LeaderboardPoster.tsx:160` (`(histogram[last]?.from ?? 0) + 5`) vs `features/civicscore/getLeaderboardData.ts:468` (`from += 5`, label `${from}–${from + 5}`)
   Found by: scan-sweep (shared-provenance, parity-auditor) · a band-width change in the loader would leave the printed axis ending one band short or long; the poster is an archival print nobody corrects. Fix: `histogram[].to` filled by the loader, passed through `app/plakat/[view]/page.tsx`, read by the poster · escalation: none beyond the context boundary (civicscore-leaderboard + mp-rankings-routes)
 
+- **[2026-09-07] `app/sitemap.ts` is the fourth `host` + `x-forwarded-proto` copy** — type: parity, risk: 1, effort: s, payoff: 1, reach: `app/sitemap.ts` (`h.get("host")`, `h.get("x-forwarded-proto") ?? "http"`) vs `lib/routing/liveUrl.ts` (`liveUrlFrom`, `liveUrl` — rounds 37/39 unified /kraj, /plakat and the schránka feed)
+  Found by: scan-sweep (shell-navigation, parity-auditor) · the sitemap's base-URL rule must equal the feeds' and the poster's; today it is spelled a fourth time. Fix: `const base = await liveUrl(""); if (!base) return [];` (the empty-host branch stays, `sitemapRoutes.test.ts` pins the shape) · escalation: none beyond the context boundary (app-shell owns app/sitemap.ts)
+
+- **[2026-09-07] Five files in swept folders belong to no context** — type: config, risk: 1, effort: s, payoff: 1, reach: `context-map.json` — `features/shell/sidebarParts.test.ts`, `features/shell/sitemapRoutes.test.ts`, `features/shared/provenance/asOfLens.ts`, `features/shared/provenance/asOfLens.test.ts`, `features/shared/provenance/messages.test.ts`
+  Found by: scan-sweep (shell-navigation + shared-provenance, documentation-auditor) · veto 1 forbids editing an unowned file, so a sweep of the owning folder reads them for pins and leaves them; the doc-sync coverage block already reports 3 unmapped contexts. Fix: add the five paths to `shell-navigation` / `shared-provenance` `file_paths` (or rescan) · escalation: none (map hygiene)
+
+- **[2026-09-07] The rentgen terminal's five instrument links are not checked against the app tree** — type: test, risk: 1, effort: s, payoff: 1, reach: `features/labs/rentgen/VariantRentgen.tsx` (`INSTRUMENTS`: /graf, /penize, /dukazy, /denik, /overeni; `SOURCE_REGISTRY` external hosts)
+  Found by: scan-sweep (shell-navigation, test-strategist) · `navModel.test.ts` scans `app/` for every rail href; the archived terminal keeps its own list of product surfaces with no such scan, so a renamed route would leave a dead link on the press page. Fix: move `INSTRUMENTS` to `terminalModel.ts` (pure) and assert each `href` has an `app/<path>/page.tsx` in `terminalSource.test.ts` · escalation: none (labs, S)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
