@@ -28,7 +28,7 @@
 // several GB, unmeasured, flagged as future work in the assessment) — file fetches are
 // targeted, one court×form×year at a time, cached to disk so a batch never re-fetches.
 
-import { createGunzip, gunzipSync } from "node:zlib";
+import { createGunzip } from "node:zlib";
 import { createReadStream, createWriteStream } from "node:fs";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
@@ -554,9 +554,9 @@ function rowToRecord(fields: string[], h: DataorHeader): DataorRawRecord | null 
   };
 }
 
-/** Parse a full dataor CSV text blob into records. Fine for small/medium files (tests,
- *  the smaller court×form combinations); for a large FULL export prefer
- *  `findRecordByIcoInCsvText`, which never materializes every row. */
+/** Parse a full dataor CSV text blob into records. Fine for small/medium texts (tests,
+ *  fixtures); a real dataset is read by the streaming finder below
+ *  (`findRecordsByIcosInFile`), which never materializes every row. */
 export function parseDataorCsv(text: string): DataorRawRecord[] {
   const h = readHeader(text);
   if (!h) return [];
@@ -573,64 +573,11 @@ export function parseDataorCsv(text: string): DataorRawRecord[] {
   return out;
 }
 
-/** Memory-efficient targeted lookup: scans row by row WITHOUT building an array of every
- *  record (the whole-file `parseDataorCsv` result for a large FULL export is ~300MB+ of
- *  JS objects — wasteful when the caller only wants one IČO). Stops at the first match. A
- *  cheap pre-filter (`text.indexOf('"' + digits + '"')`) skips straight to a plausible
- *  offset before falling back to full-row scanning if the fast path doesn't confirm a
- *  column-aligned hit (guards against the same digits appearing inside `udaje` prose). */
-export function findRecordByIcoInCsvText(text: string, ico: string): DataorRawRecord | null {
-  const h = readHeader(text);
-  if (!h) return null;
-  const target = ico.replace(/^0+/, "") || "0";
-  let pos = h.bodyStart;
-  const n = text.length;
-  while (pos < n) {
-    const { fields, next } = readCsvRow(text, pos);
-    if (next === pos) break;
-    const rawIco = (fields[h.idxIco] ?? "").trim();
-    if ((rawIco.replace(/^0+/, "") || "0") === target) {
-      return rowToRecord(fields, h);
-    }
-    pos = next;
-  }
-  return null;
-}
-
-/* ── file fetch + disk cache ─────────────────────────────────────────────────── */
-
-async function ensureCacheDir(): Promise<string> {
-  const fs = await import("node:fs/promises");
-  await fs.mkdir(CACHE_DIR, { recursive: true });
-  return CACHE_DIR;
-}
-
-/** Fetch (with on-disk cache) the CSV text of one court×legalForm×year dataset. Prefers
- *  the `.csv.gz` resource (smaller transfer); falls back to plain `.csv`. Returns null if
- *  the dataset doesn't exist (package_show 404 / not found) — the caller decides whether
- *  that's "wrong court/form guess" or "no data for this year". */
-export async function fetchDatasetCsv(id: string): Promise<string | null> {
-  const dir = await ensureCacheDir();
-  const fs = await import("node:fs/promises");
-  const cachePath = `${dir}/${id}.csv`;
-  try {
-    return await fs.readFile(cachePath, "utf8");
-  } catch (err) {
-    console.warn(`[dataor] cache miss for ${cachePath} — fetching from CKAN:`, (err as Error).message);
-  }
-  const pkg = await packageShow(id);
-  if (!pkg) return null;
-  const gz = pkg.resources.find((r) => /\.csv\.gz$/i.test(r.url));
-  const plain = pkg.resources.find((r) => /\.csv$/i.test(r.url) && !/\.gz$/i.test(r.url));
-  const resource = gz ?? plain;
-  if (!resource) return null;
-  const res = await fetchRetry(resource.url);
-  if (!res.ok) throw new Error(`dataor file ${resource.url} → ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  const text = gz ? gunzipSync(buf).toString("utf8") : buf.toString("utf8");
-  await fs.writeFile(cachePath, text, "utf8");
-  return text;
-}
+/* The whole-file read path (`fetchDatasetCsv` → one V8 string, `findRecordByIcoInCsvText`
+ * over it) was removed on 2026-09-06: zero consumers since money batch 017 moved every
+ * caller to the streaming finder below, and it carried the exact failure the STREAMING
+ * PATH header records — "Invalid string length" on any dataset past ~512 MiB, read as a
+ * network blip. One script comment (ownership-sweep.ts) still names it as history. */
 
 /** Find one record by IČO inside an already-parsed record array (small fixtures/tests). */
 export function findRecordByIco(records: DataorRawRecord[], ico: string): DataorRawRecord | null {
