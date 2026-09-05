@@ -29,6 +29,7 @@ import { join } from "node:path";
 import { validateLawVerdict } from "@/lib/analysis/law-verdict";
 import { getStore } from "@/lib/db/store";
 import type { KgNodeRow } from "@/lib/db/types";
+import { verdictGateScope } from "./verdictScope";
 
 const DIR = "docs/data-analysis/case-law/payloads/verdicts";
 
@@ -79,16 +80,10 @@ async function main() {
   const nodes = await store.listKgNodes();
   const nodesById = new Map(nodes.map((n) => [n.id, n]));
 
-  const knownLawRefs = new Set(nodes.filter((n) => n.kind === "law").map((n) => String((n.props as Record<string, unknown>).ref)));
-  const graphLawCount = knownLawRefs.size;
-  if (existsSync(".data/esbirka/known-laws.json")) {
-    const reg = JSON.parse(readFileSync(".data/esbirka/known-laws.json", "utf8")) as { refs: string[] };
-    for (const r of reg.refs) knownLawRefs.add(r);
-  }
-  // ONE gate scope (batch-003 — collapses the stale --wide/canonical split), matching the live
-  // write-time gate in kg-forensics.ts exactly: graph_fact may cite company/person/law/bill/organ.
-  const idKinds = ["company", "person", "law", "bill", "organ"];
-  const knownIds = new Set(nodes.filter((n) => idKinds.includes(n.kind)).map((n) => n.id));
+  // ONE gate scope (batch-003 — collapses the stale --wide/canonical split): graph_fact may
+  // cite company/person/law/bill/organ. The definition is verdictScope.ts, shared with
+  // prepare-batch.ts so the army self-checks against exactly what this gate enforces.
+  const { knownLawRefs, knownIds, graphLawCount } = verdictGateScope(nodes);
   const billByCislo = new Map(nodes.filter((n) => n.kind === "bill").map((n) => [Number((n.props as Record<string, unknown>).cislo), n.id]));
 
   console.log(`GATE scope: ${graphLawCount} graph laws + e-Sbírka registry = ${knownLawRefs.size} known law refs · ${knownIds.size} known ids · ${billByCislo.size} bills\n`);

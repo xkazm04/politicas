@@ -5,14 +5,18 @@
  * e-Sbírka title), sponsors (pspId → name), each sponsor's Case-① money ties (linked_to
  * companies ⋈ supplies contract CZK), formal committee routing (garanční + další), and the
  * psp.cz důvodová-zpráva / historie URLs. Also ships the anti-fabrication gate scope
- * (knownLawRefs = graph laws ∪ .data/esbirka/known-laws.json; knownIds = company/person/law urns).
+ * (verdictScope.ts — the SAME definition gate-verdicts.ts enforces: knownLawRefs = graph laws
+ * ∪ the e-Sbírka registry; knownIds = company/person/law/bill/organ urns. Until 2026-09-07 this
+ * file shipped company/person/law only, so an agent self-checking a bill or organ citation
+ * was told it would fail a gate that accepts it).
  *
  *   PGLITE_PATH=./.pglite-copy-law npx tsx scripts/case-loops/law/prepare-batch.ts
  * → docs/data-analysis/case-law/payloads/batch-001-targets.json
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 
 import { getStore } from "@/lib/db/store";
+import { verdictGateScope } from "./verdictScope";
 
 const OUT = "docs/data-analysis/case-law/payloads/batch-001-targets.json";
 
@@ -100,13 +104,9 @@ async function main() {
     };
   });
 
-  // anti-fabrication gate scope
-  const knownLawRefs = new Set(nodes.filter((n) => n.kind === "law").map((n) => String((n.props as Record<string, unknown>).ref)));
-  if (existsSync(".data/esbirka/known-laws.json")) {
-    const reg = JSON.parse(readFileSync(".data/esbirka/known-laws.json", "utf8")) as { refs: string[] };
-    for (const r of reg.refs) knownLawRefs.add(r);
-  }
-  const knownIds = nodes.filter((n) => n.kind === "company" || n.kind === "person" || n.kind === "law").map((n) => n.id);
+  // anti-fabrication gate scope — the gate's own definition, not a copy of it
+  const { knownLawRefs, knownIds: knownIdSet } = verdictGateScope(nodes);
+  const knownIds = [...knownIdSet];
 
   mkdirSync("docs/data-analysis/case-law/payloads", { recursive: true });
   writeFileSync(OUT, JSON.stringify({ generatedAt: new Date().toISOString(), batch: 1, targets, gateScope: { knownLawRefsCount: knownLawRefs.size, knownIdsCount: knownIds.length }, knownLawRefs: [...knownLawRefs], knownIds }, null, 1));

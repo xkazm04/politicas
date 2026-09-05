@@ -526,3 +526,12 @@ read as different provisions; the range is expanded. `collision-core.test.ts`
 pins the instruction grammar's hand-validated cases (the one-line `Čl. VI V § 8`
 form that once produced every false drop, the `podle § N` citation that must not
 match), the § extractor, the per-statute partition and the odstavce scoping.
+
+**The verdict gate scope has one definition (2026-09-07, scan-sweep,
+parity-auditor).** It was computed three times and no two agreed:
+`prepare-batch.ts` shipped company/person/law ids to the army, `gate-verdicts.ts`
+checked company/person/law/bill/organ, and the write-time gate in
+`kg-forensics.ts` accepts every node id. The pre-write pair now reads
+`verdictScope.ts` — what the army is told is exactly what the gate enforces
+(`verdictScope.test.ts`). The write-time gate is another context and is a
+backlog card: it is wider than the gate that precedes it.
