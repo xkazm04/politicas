@@ -31,6 +31,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { glyphPath, KIND_STYLE } from "./kindStyle";
 import {
+  gateCounts,
   HASH_ALGORITHM,
   permalinkPath,
   permalinkSources,
@@ -229,7 +230,9 @@ function TrasaExhibit({ trail }: { trail: Trail }) {
   const f = useFormat();
   const locale = useLocale();
 
-  const pendingEdges = trail.edges.filter((e) => e.pending).length;
+  // Táž trojice stavů, jakou počítá karta (permalinkCardModel) i OG obraz —
+  // stránka pod kartou nesmí o odmítnutém kroku mlčet, když karta ho jmenuje.
+  const gates = gateCounts(trail.edges);
   const columns = trail.columns.map((kind, i) => ({
     kind,
     nodes: trail.nodes.filter((n) => n.column === i).sort((a, b) => a.order - b.order),
@@ -245,9 +248,14 @@ function TrasaExhibit({ trail }: { trail: Trail }) {
       </div>
       <p className="border-b border-hairline px-5 py-2 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
         {t("counts", { nodes: f.int(trail.nodes.length), edges: f.int(trail.edges.length) })}
-        {pendingEdges > 0 && (
+        {gates.pending > 0 && (
           <span className="block">
-            {t("pendingEdges", { count: pendingEdges, countFmt: f.int(pendingEdges) })}
+            {t("pendingEdges", { count: gates.pending, countFmt: f.int(gates.pending) })}
+          </span>
+        )}
+        {gates.rejected > 0 && (
+          <span className="block text-signal">
+            {t("rejectedEdges", { count: gates.rejected, countFmt: f.int(gates.rejected) })}
           </span>
         )}
       </p>
@@ -295,6 +303,9 @@ function OkoliExhibit({ neighbourhood }: { neighbourhood: Neighbourhood }) {
   const f = useFormat();
   const { anchor, nodes, edges, perRel, limit, readTruncated } = neighbourhood;
   const total = perRel.reduce((sum, r) => sum + r.total, 0);
+  // Okolí se nefiltruje (vyžádaná odpověď), takže zamítnutá vazba v něm být může —
+  // karta a OG obraz ji počítají od 2026-09-04, stránka od 2026-09-06.
+  const gates = gateCounts(edges);
 
   return (
     <div className="border-2 border-ink bg-paper">
@@ -308,6 +319,16 @@ function OkoliExhibit({ neighbourhood }: { neighbourhood: Neighbourhood }) {
         {to("shownOfTotal", { shown: f.int(edges.length), total: f.int(total) })}
         <span className="block">{to("cap", { n: f.int(limit) })}</span>
         {readTruncated && <span className="block text-signal">{to("readTruncated")}</span>}
+        {gates.pending > 0 && (
+          <span className="block">
+            {t("pendingEdges", { count: gates.pending, countFmt: f.int(gates.pending) })}
+          </span>
+        )}
+        {gates.rejected > 0 && (
+          <span className="block text-signal">
+            {t("rejectedEdges", { count: gates.rejected, countFmt: f.int(gates.rejected) })}
+          </span>
+        )}
       </p>
       {perRel.length === 0 ? (
         <p className="px-5 py-3 text-sm text-steel">{to("empty")}</p>

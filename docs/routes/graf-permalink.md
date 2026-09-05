@@ -151,3 +151,12 @@ wait on the same replay.
 parity-auditor).** The bundle already sent `retry-after: 600`; a shared cache could
 still have held the outage. 404 and 410 are unchanged — a gone citation is a state
 of today's pass and is reported, not cached, by the page.
+
+**The page prints the gate line the card prints (2026-09-06, scan-sweep,
+parity-auditor).** Since 2026-09-04 `permalinkCardModel` and the OG image count
+`gate === "rejected"` for `trasa` and `okoli` and say „N hran odmítla kontrola"; the
+page under the card still counted `e.pending` only for a trail and printed no gate
+line at all for a neighbourhood, so the card could refuse the confirming colour over
+a page that said nothing. The counting now lives once, in `gateCounts()`
+(`permalink.ts`), and `TrasaExhibit` / `OkoliExhibit` print pending and rejected
+from it (2 inline countings + 1 partial → 1 function, 4 callers).

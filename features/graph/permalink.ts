@@ -526,19 +526,13 @@ export function permalinkCardModel(input: PermalinkCardInput): PermalinkCardMode
   } else if (view.kind === "okoli") {
     // [G4] Okolí je taky vyžádaná odpověď: nefiltruje se, tedy zamítnutá vazba
     // uzlu se v něm vysází — označená, a spočítaná zvlášť.
-    review = reviewOf(
-      view.neighbourhood.edges.filter((e) => e.gate === "pending_review").length,
-      view.neighbourhood.edges.filter((e) => e.gate === "rejected").length,
-      stale,
-    );
+    const g = gateCounts(view.neighbourhood.edges);
+    review = reviewOf(g.pending, g.rejected, stale);
   } else if (view.kind === "trasa") {
     // [G4] Kurátorská trasa se NEfiltruje (vyžádaná odpověď), takže zamítnutý
     // krok v ní být může — a musí být vidět jako zamítnutý.
-    review = reviewOf(
-      view.trail.edges.filter((e) => e.gate === "pending_review").length,
-      view.trail.edges.filter((e) => e.gate === "rejected").length,
-      stale,
-    );
+    const g = gateCounts(view.trail.edges);
+    review = reviewOf(g.pending, g.rejected, stale);
   }
   return {
     state: "ok",
@@ -550,6 +544,23 @@ export function permalinkCardModel(input: PermalinkCardInput): PermalinkCardMode
     },
     review,
   };
+}
+
+/**
+ * Kolik hran pohledu čeká na kontrolu a kolik jich kontrola ODMÍTLA — jedno
+ * počítání pro kartu, stránku i OG obraz. Do 2026-09-06 si ho karta psala dvakrát
+ * inline a stránka počítala jen `pending` (a u okolí nic), takže OG obraz řekl
+ * „1 hranu odmítla kontrola" nad stránkou, která o odmítnutí mlčela.
+ * `null` (negated relace) ani `verified` se nepočítají — nejsou ani jedno z toho.
+ */
+export function gateCounts(edges: ReadonlyArray<{ gate: GateStatus | null }>): { pending: number; rejected: number } {
+  let pending = 0;
+  let rejected = 0;
+  for (const e of edges) {
+    if (e.gate === "pending_review") pending++;
+    else if (e.gate === "rejected") rejected++;
+  }
+  return { pending, rejected };
 }
 
 // [G4] `rejectedEdges` váží stejně jako `pendingEdges`: karta se nesmí vysázet
