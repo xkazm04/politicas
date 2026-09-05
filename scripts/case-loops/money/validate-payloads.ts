@@ -6,9 +6,9 @@
  *
  * Validates the two EDGE-ANNOTATION payloads (batch-001 + batch-002) by default, or one file
  * via --file <path>. Later batches introduced other proposal shapes (node-create, edge-repoint,
- * live flips) that this edge-only membership check does not cover - they were gated by their
- * own validators (archive/validate-batch006.ts, archive/validate-batch008.ts); the header used
- * to promise "any future batch", which the two-file DEFAULT_FILES list never delivered.
+ * live flips) that this edge-only membership check does not cover - each was gated by its own
+ * batch validator, since retired to the archive folder; the header used to promise "any future
+ * batch", which the two-file DEFAULT_FILES list never delivered.
  *
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/validate-payloads.ts
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/validate-payloads.ts --file docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json
