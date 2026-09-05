@@ -9,6 +9,7 @@ import { RebellionInstancesPending } from "@/features/profile/components/Rebelli
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { getAllProfilePspIds, getProfileData } from "@/features/profile/getProfileData";
 import { formatDecimal } from "@/lib/format";
+import { pspIdFromParam } from "@/lib/routing/pspIdParam";
 
 /**
  * The dossier states a date it is current AS OF (committee seats split into
@@ -44,10 +45,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const { id } = await params;
   const t = await getTranslations("meta");
   // Nečíselný slug není poslanec za žádného stavu store — tělo na něj volá
-  // `notFound()` bez čtení, a metadata proto taky nečtou. „Číselný" = jen
-  // číslice: `Number("1e3")` je konečné číslo a dávalo poslanci druhou adresu.
-  if (!/^\d+$/.test(id)) return { title: t("profileNotFound") };
-  const pspId = Number(id);
+  // `notFound()` bez čtení, a metadata proto taky nečtou. Pravidlo „jen číslice"
+  // má JEDNU definici (lib/routing/pspIdParam.ts, táž jako /penize/[pspId]);
+  // do 2026-09-07 ji tahle routa opisovala na dvou místech.
+  const pspId = pspIdFromParam(id);
+  if (pspId === null) return { title: t("profileNotFound") };
   const data = await getProfileData(pspId);
   if (!data) {
     const known = await getAllProfilePspIds();
@@ -76,8 +78,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function PoslanecPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  if (!/^\d+$/.test(id)) notFound(); // a non-digit slug is genuinely no MP (see generateMetadata)
-  const pspId = Number(id);
+  const pspId = pspIdFromParam(id);
+  if (pspId === null) notFound(); // a non-digit slug is genuinely no MP (see generateMetadata)
   const data = await getProfileData(pspId);
   if (data) {
     // Jmenovité rebelie stojí na čtení celého hlasovacího záznamu (406 000 řádků,

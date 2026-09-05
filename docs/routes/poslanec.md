@@ -412,3 +412,9 @@ Record<CommitteeRole, string>`: chybějící klíč je chyba kompilace, ne řád
 ploše. Token mimo výčet (typ `CommitteeSeat.role` je na drátě `string`) se dál
 tiskne doslova.
 
+**Routa čte segment jedinou definicí pravidla (2026-09-07, scan-sweep,
+parity-auditor).** `/poslanec/[id]` opisovala pravidlo „jen číslice“ dvakrát
+(metadata i tělo) — třetí kopie vedle `/penize/[pspId]` a `/paket`, které od
+roundu 32 čtou `lib/routing/pspIdParam.ts`. Obě místa teď volají
+`pspIdFromParam`; karta z roundu 32 je uzavřená.
+
