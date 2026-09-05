@@ -636,7 +636,16 @@ export function temporalBadge(tie: {
         tone: "ended",
       };
     default:
-      return { labelCs: "neověřeno vůči ARES VR", labelEn: "not checked against ARES VR", tone: "unknown" };
+      // Registry-CONFIRMED, but the writer recorded no `temporal_status` — five edges in the
+      // live payloads (batch-006 dataor ×2, the PRaK re-point ×2, one batch-008 live flip).
+      // Until 2026-09-07 this branch badged them „neověřeno vůči ARES VR“: a tie the registry
+      // confirmed, labelled as never checked. What the edge DOES carry is the role's end date
+      // (null = the register shows no end), and that is the same rule reconcile-ares-vr
+      // applies before it looks at the money; the money-vs-role comparison needs the
+      // contract dates and is left unclaimed here.
+      return tie.roleValidTo
+        ? { labelCs: `ukončeno ${year(tie.roleValidTo)}`, labelEn: `ended ${year(tie.roleValidTo)}`, tone: "ended" }
+        : { labelCs: "trvá", labelEn: "current", tone: "current" };
   }
 }
 

@@ -794,3 +794,13 @@ je uzavřená.
 který „funguje“ i nad id poslance. Oba čtou `icoFromCompanyNodeId` z
 `companyId.ts` — kontrola prefixu a kanonických osm číslic, totéž pravidlo,
 na kterém stojí routa `/penize/firma/[ico]`.
+
+**Potvrzená vazba se nikdy neoznačí „neověřeno“ (2026-09-07).** Pět hran
+v živých payloadech (dataor batch 006 ×2, přepojení PRaK ×2, jeden živý flip
+batch 008) je zapsáno `corroboration: registry-confirmed` BEZ `temporal_status`
+— a výchozí větev `temporalBadge` je sázela jako „neověřeno vůči ARES VR“:
+vazbu, kterou rejstřík potvrdil, jako nikdy nekontrolovanou. Odznak teď u
+potvrzené vazby bez stavu čte konec role (`role_valid_to`): datum → „ukončeno
+RRRR“, null → „trvá“ — totéž pravidlo, jakým `reconcile-ares-vr` stav odvozuje,
+než se podívá na peníze; porovnání peněz s rolí, které potřebuje data smluv,
+odznak netvrdí. `temporalBadge.test.ts` to připíná.
