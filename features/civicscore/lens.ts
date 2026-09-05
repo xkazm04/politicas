@@ -25,6 +25,7 @@
 // jakou přiznává oficiální rozpad (getLeaderboardData.ts).
 
 import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
+import { median } from "@/lib/analysis/score-legibility";
 import { COMPONENT_DEFS } from "./componentDefs";
 import type { ComponentKey, LeaderboardData, LeaderboardListEntry } from "./getLeaderboardData";
 
@@ -113,15 +114,16 @@ export interface LensView {
   totalRaw: number;
 }
 
-/** Průměr / medián / σ nad skóre — zrcadlí výpočet loaderu (getLeaderboardData). */
+/** Průměr / medián / σ nad skóre — zrcadlí výpočet loaderu (getLeaderboardData).
+ *  JEDEN MEDIÁN (2026-09-05): loader přešel na `median()` z lib/analysis/score-legibility
+ *  („two implementations of one statistic on one page is how they diverge") a čočka si
+ *  svou kopii nechala — teď volá tutéž funkci. */
 export function summarizeScores(scores: readonly number[]): LensView["summary"] {
   const n = scores.length;
   if (n === 0) return { avg: 0, median: 0, sigma: 0, count: 0 };
   const avg = scores.reduce((s, v) => s + v, 0) / n;
-  const sorted = [...scores].sort((a, b) => a - b);
-  const median = n % 2 ? sorted[(n - 1) / 2] : (sorted[n / 2 - 1] + sorted[n / 2]) / 2;
   const sigma = Math.sqrt(scores.reduce((s, v) => s + (v - avg) ** 2, 0) / n);
-  return { avg: round1(avg), median: round1(median), sigma: round1(sigma), count: n };
+  return { avg: round1(avg), median: round1(median(scores) ?? 0), sigma: round1(sigma), count: n };
 }
 
 /** Histogram po 5bodových pásmech [od, od+5) — totéž pravidlo (včetně horní
@@ -166,8 +168,12 @@ export function reweigh(
     return { ...e, score: round1(score), components: points };
   });
 
-  // Řazení: skóre sestupně, uvnitř shody česká abeceda (bez významu — viz tieNote).
-  rows.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, "cs"));
+  // Řazení: skóre sestupně, uvnitř shody česká abeceda (bez významu — viz tieNote),
+  // a pspId jako ÚPLNÝ rozhodčí — totéž pravidlo jako `compareLeaderboardRow` v loaderu
+  // (0342d91); do 2026-09-05 čočka tail neměla a dva poslanci téhož jména a skóre se
+  // řadili podle pořadí vstupu. Komparátor se neimportuje: loader je `server-only`,
+  // čočka běží na klientu — paritu obou drží lens.test.ts.
+  rows.sort((a, b) => b.score - a.score || a.name.localeCompare(b.name, "cs") || a.pspId - b.pspId);
 
   // Competition ranking (1, 2, 2, 4) — totéž pravidlo jako oficiální žebříček.
   const tiedCountByScore = new Map<number, number>();

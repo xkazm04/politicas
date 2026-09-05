@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 import { CONTRIBUTION_WEIGHTS } from "@/lib/analysis/contribution";
+import { median } from "@/lib/analysis/score-legibility";
 import { componentDefs } from "./componentDefs";
+import { compareLeaderboardRow } from "./getLeaderboardData";
 import type { ComponentKey, LeaderboardData, LeaderboardListEntry } from "./getLeaderboardData";
 import {
   decodeWeights,
@@ -234,5 +236,28 @@ describe("PUBLISHED_WEIGHTS_LABEL", () => {
     expect(PUBLISHED_WEIGHTS_LABEL).toBe(
       LENS_COMPONENT_ORDER.map((k) => CONTRIBUTION_WEIGHTS[k]).join("-"),
     );
+  });
+});
+
+describe("the lens keeps the rules the loader has since unified (2026-09-05)", () => {
+  it("two MPs on one lens score AND one name order by pspId — the loader's total order, not input order", () => {
+    // 0342d91 gave the official ranking a pspId tail so identical score+name never resolves by
+    // input position; the lens sort kept `score || name` only. Same fixture, reversed input.
+    const twinA = mk("Novák", 20, { participation: 25, committee: 0, legislative: 0, speech: 0, attendance: 10, leadership: 0 }, 35);
+    const twinB = mk("Novák", 10, { participation: 25, committee: 0, legislative: 0, speech: 0, attendance: 10, leadership: 0 }, 35);
+    const attendanceOnly = w({ participation: 0, committee: 0, legislative: 0, speech: 0, attendance: 100, leadership: 0 });
+    const forward = reweigh([twinA, twinB], COMPONENTS, attendanceOnly).entries.map((e) => e.pspId);
+    const reversed = reweigh([twinB, twinA], COMPONENTS, attendanceOnly).entries.map((e) => e.pspId);
+    expect(forward).toEqual(reversed);
+    expect(forward).toEqual([10, 20]);
+    // ...and it is the loader's comparator, not a lookalike: the same rows sorted by it agree.
+    const lensRows = reweigh([twinA, twinB, C], COMPONENTS, attendanceOnly).entries;
+    expect([...lensRows].sort(compareLeaderboardRow).map((e) => e.pspId)).toEqual(lensRows.map((e) => e.pspId));
+  });
+
+  it("the lens median IS score-legibility's median — one definition, not a second copy", () => {
+    for (const sample of [[1, 2, 3], [1, 2, 3, 10], [5], [70.2, 68.6, 71.9, 40.1, 99]]) {
+      expect(summarizeScores(sample).median).toBe(Math.round((median(sample) ?? 0) * 10) / 10);
+    }
   });
 });

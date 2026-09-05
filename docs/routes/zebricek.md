@@ -537,3 +537,13 @@ formatting authority — the rule RapporteurBadge states in its comment), and th
 standout delta in the table went out as `{Math.abs(best.delta)}`. All three go
 through `useFormat` now; `formattedNumbers.test.ts` pins the sites by source. The
 lint rule `no-raw-number-display` sees only `toFixed`/`toLocale*`, not this shape.
+
+**The lens keeps the loader's later rules (2026-09-05, scan-sweep, parity-auditor).**
+`reweigh()` mirrors the official ranking, and two rules the loader tightened after the
+lens was written never reached it: the pspId tail of `compareLeaderboardRow` (0342d91 —
+identical score and name resolved by input order under a lens) and the one shared
+`median()` from `lib/analysis/score-legibility` (the loader's own comment on why a second
+copy of one statistic on one page is how they diverge). Both are in `lens.ts` now; the
+comparator itself cannot be imported (the loader is `server-only`, the lens runs on the
+client), so `lens.test.ts` pins the lens order against the loader's comparator over the
+same rows, and the lens median against the shared function.
