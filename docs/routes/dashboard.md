@@ -356,3 +356,16 @@ scan-sweep, state-coverage).** `perCompanyCap` is `number | null` independently 
 `isFloor`; the money tile collapsed a null cap through `?? 0`. The note now
 requires a real cap, the rule `MpCaseFilePage` already applies (the same `?? 0`
 still stands in `FollowTheMoneyPage`, another context — recorded in the backlog).
+
+**The chart label and the sample ledger format their numbers too (2026-09-06,
+scan-sweep, copy-auditor).** `ChamberChart` handed the chamber count raw to the
+histogram label's ICU sentence and `MockRankingLedger` printed the rank raw — the
+two sites the velín page fix (f160c7e) did not reach because they live in
+components. Both go through `lib/format`; `componentSource.test.ts` pins them.
+
+**The graph's text form names its links (2026-09-06, scan-sweep,
+accessibility-checker).** `GraphNodeList` rendered up to seventeen „poslanec →"
+and seventeen „deník entity →" links with identical text, the exact
+indistinguishable-controls defect `FactRow` fixed for its buttons with named
+`aria-label`s. Both link kinds carry the node's name now
+(`list.caseFileNamed`, `list.denikNamed`, both catalogs).
