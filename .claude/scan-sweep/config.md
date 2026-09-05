@@ -78,3 +78,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   pair: every later fix to the original is a candidate finding here — diff the two rule
   sets, not the code. When the original is `server-only` and the mirror is client code,
   the parity instrument is a TEST that imports both (the vitest alias allows it).
+- 2026-09-06 — claim-verifier, first sweep (28 lenses, 6 S built). `?? 0` on a nullable count
+  that reaches a sentence is a missing-is-not-zero defect every time - grep `?? 0` in every
+  page and follow the type to where null is produced. A `slice(0, N)` with no sentence
+  after it is a silent truncation; a hash/algorithm NAME printed as a literal beside a value
+  computed elsewhere is a parity pair. A test title containing `#1234` trips the colour lint.

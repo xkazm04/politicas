@@ -14,3 +14,5 @@
 {"ts": "2026-09-05T22:10:00Z", "bundle": "civic-intelligence", "subjects": ["politician-performance-scoring", "claim-verification-and-provenance"], "techniques": ["gate-state-as-modifier", "derivation-comparison", "three-verdict-vocabulary"], "deviations": 1}
 {"ts": "2026-09-05T23:40:00Z", "bundle": "civic-intelligence", "subjects": ["politician-performance-scoring", "accountability-publishing-ethics"], "techniques": ["non-partisan-symmetry", "real-vs-illustrative-form-encoding"], "deviations": 0}
 {"ts": "2026-09-05T23:40:00Z", "bundle": "software-engineering", "subjects": ["scoring-rubrics"], "techniques": ["published-rubric-single-source"], "deviations": 1}
+{"ts": "2026-09-06T00:40:00Z", "bundle": "civic-intelligence", "subjects": ["claim-verification-and-provenance"], "techniques": ["missing-is-not-zero", "citation-carries-its-own-algorithm"], "deviations": 2}
+{"ts": "2026-09-06T00:40:00Z", "bundle": "software-engineering", "subjects": ["test-harness", "quality-gates"], "techniques": ["source-grep-as-a11y-instrument", "red-then-green-per-finding"], "deviations": 0}
