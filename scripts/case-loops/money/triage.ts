@@ -10,6 +10,7 @@
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/triage.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { byScoreThenId } from "../shared/ordering";
 // JEDNA definice heuristiky i pořadí kontroly (2026-08-13). Tenhle skript nesl
 // vlastní kopii `PUBLIC_MARKERS`/`OWNER_ROLES`/`BOARD_MGMT_ROLES`/`classifyTie`
@@ -75,11 +76,11 @@ async function main() {
   const store = await getStore();
   if (!store) throw new Error("no store (set PGLITE_PATH to the copy)");
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const contracts = await store.listKgNodes({ kind: "contract", limit: 100_000 });
-  const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
+  const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
 
   const companyById = new Map(companies.map((c) => [c.id, c]));
   const personById = new Map(persons.map((p) => [p.id, p]));

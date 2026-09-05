@@ -4,13 +4,17 @@
  * company node must exist. A proposal that fails is DROPPED and logged — never
  * persisted (the kg-verdict discipline). Read-only on the copy.
  *
- * Validates ALL payload files under payloads/ by default (batch-001 + batch-002 +
- * any future batch), or one file via --file <path>.
+ * Validates the two EDGE-ANNOTATION payloads (batch-001 + batch-002) by default, or one file
+ * via --file <path>. Later batches introduced other proposal shapes (node-create, edge-repoint,
+ * live flips) that this edge-only membership check does not cover - they were gated by their
+ * own validators (archive/validate-batch006.ts, archive/validate-batch008.ts); the header used
+ * to promise "any future batch", which the two-file DEFAULT_FILES list never delivered.
  *
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/validate-payloads.ts
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/validate-payloads.ts --file docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 
 const DEFAULT_FILES = [
   "docs/data-analysis/case-money/payloads/batch-001-corroboration.json",
@@ -25,9 +29,9 @@ async function main() {
   const fileArgIdx = process.argv.indexOf("--file");
   const files = fileArgIdx >= 0 ? [process.argv[fileArgIdx + 1]] : DEFAULT_FILES;
 
-  const nodes = await store.listKgNodes({ limit: 200_000 });
+  const nodes = await store.listKgNodes({ limit: KG_READ_CAP });
   const nodeIds = new Set(nodes.map((n) => n.id));
-  const edges = await store.listKgEdges({ rel: "linked_to", limit: 200_000 });
+  const edges = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
   const edgeKey = new Set(edges.map((e) => `${e.src}|${e.rel}|${e.dst}`));
 
   let totalOk = 0;

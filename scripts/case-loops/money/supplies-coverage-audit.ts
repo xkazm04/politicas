@@ -19,6 +19,7 @@
  *   PGLITE_PATH=./.pglite-copy-money-ag npx tsx scripts/case-loops/money/supplies-coverage-audit.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 
 const OUT = "docs/data-analysis/case-money/qmoney-supplies-coverage-b11.json";
 const str = (v: unknown): string | null => (typeof v === "string" && v.length > 0 ? v : null);
@@ -29,9 +30,9 @@ async function main() {
   if (!store) throw new Error("no store (set PGLITE_PATH to a copy)");
   const fs = await import("node:fs/promises");
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const contracts = await store.listKgNodes({ kind: "contract", limit: 200_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 200_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
   await store.close();
 
   const contractById = new Map(contracts.map((c) => [c.id, c]));

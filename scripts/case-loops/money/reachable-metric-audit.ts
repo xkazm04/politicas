@@ -16,6 +16,7 @@
  *   PGLITE_PATH=./.pglite-copy-money-b12 npx tsx scripts/case-loops/money/reachable-metric-audit.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 
 const OUT = "docs/data-analysis/case-money/qmoney-reachable-metric-b12.json";
 const num = (v: unknown): number => (typeof v === "number" && Number.isFinite(v) ? v : 0);
@@ -32,9 +33,9 @@ async function main() {
   if (!store) throw new Error("no store");
   const fs = await import("node:fs/promises");
 
-  const contracts = await store.listKgNodes({ kind: "contract", limit: 500_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 500_000 });
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
+  const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
   await store.close();
 
   const contractById = new Map(contracts.map((c) => [c.id, c]));

@@ -32,6 +32,7 @@
  *   PGLITE_PATH=./.pglite-copy-money-b6 npx tsx scripts/case-loops/money/dataor-corroborate.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { AresClient } from "@/lib/analysis/money-feed";
 import { datasetId, fetchAndFindRecord, resolveCourtAndForm, type AresSubjectForCourtForm } from "@/lib/ingest/sources/dataor";
 
@@ -62,9 +63,9 @@ async function main() {
   if (!store) throw new Error("no store (set PGLITE_PATH to the copy)");
   const fs = await import("node:fs/promises");
 
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
   const rosterPersons = await store.listPersons();
   const companyById = new Map(companies.map((c) => [c.id, c]));
   const personById = new Map(persons.map((p) => [p.id, p]));

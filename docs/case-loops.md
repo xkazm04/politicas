@@ -551,3 +551,12 @@ so the boilerplate MP title is not economy — had no test; `triage-core.test.ts
 pins it, five sector titles, case/diacritic folding and the ten-sector
 vocabulary. `build-bill-summaries.ts` now imports the cache path from
 `collision-core` instead of spelling it.
+
+**The money triage reads at the one cap (2026-09-07, scan-sweep, bounty-hunter).**
+`triage.ts` and both indirect-ownership passes read contracts and `supplies` at
+`limit: 100_000` against the batch-012 corpus of 152 702 contract nodes and
+153 634 supplies edges - an ordered read, so every late-sorting company lost all
+of its contracts silently, the failure `lib/db/readCap.ts` documents. All ten
+live scripts now read at `KG_READ_CAP`; `moneyTriageSource.test.ts` refuses a
+literal limit. `validate-payloads.ts` says what its two-file default really
+covers.
