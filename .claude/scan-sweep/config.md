@@ -118,3 +118,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   writer names and diff them against the declarations they describe. A comment inside
   CORE_DDL changes the schema snapshot - regenerate with `npm run db:snapshot` in the
   same commit or CI's drift check goes red.
+- 2026-09-06 — effort-case-loop, first sweep (28 lenses, 4 S built). Case-loop scripts are where
+  lib vocabularies get re-typed: grep every `new Set(["` and every `"a" | "b"` union in
+  scripts/ against lib/analysis exports. A date literal that was a run date is a defect on
+  the second run - make it `--reference=` with today as default and let the payload record it.
+  Evidence scripts from a finished batch (divergence-retune) are left with their literals.

@@ -54,6 +54,7 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 
 - **[2026-09-06] Two writers re-declare the tenure vocabulary as inline unions instead of importing `TenureClass`** — type: duplication, risk: 1, effort: s, payoff: 2, reach: 2 scripts (`scripts/case-loops/effort/tenure.ts:79`, `triage.ts:83`)
   Found by: scan-sweep (contribution-scoring, parity-auditor) · `lib/analysis/tenure-copy.ts` owns `TenureClass` + `isTenureClass`; the writer that stamps `effort_tenure_class` types it by hand, so a fifth class added there renders as graceful null everywhere with no compile error. Fix: import the type (data-ingestion context) · escalation: architecture (cross-context edit)
+  SHIPPED 2026-09-06 (effort-case-loop sweep): `triage.ts`, `tenure.ts`, `extract-dossiers.ts` import `TenureClass`; `roles-triage.ts` never spelled the union.
 
 - **[2026-09-06] `features/civicscore/provenance.ts` re-implements `storedFormulaRef`** — type: duplication, risk: 1, effort: s, payoff: 2, reach: 1 file (`provenance.ts:79-83` vs `lib/analysis/contribution.ts` `storedFormulaRef`)
   Found by: scan-sweep (contribution-scoring, parity-auditor) · Same semantics today (string, non-empty ⇒ ref, else null); the write guard and the read-side `formulaMatch` are the two halves of one contract and should read the ref through one function. Fix: import `storedFormulaRef` (civicscore-leaderboard context) · escalation: architecture (cross-context edit)
@@ -81,6 +82,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 
 - **[2026-09-06] `context-map.json` lists 16 files for `db-repositories` and omits five test files that live in the same directory** — type: map-drift, risk: 1, effort: s, payoff: 2, reach: 1 entry (`truncationGuards.test.ts`, `graph.test.ts`, `votes.test.ts`, `review-kinds.test.ts`, and the new `clubByMandate.test.ts`)
   Found by: scan-sweep (db-repositories, documentation-auditor) · The sweep's veto 1 scopes edits by `file_paths`; unlisted tests in the repository directory belong to no context, so every sweep of this directory has to decide their ownership ad hoc. Fix: add them to the entry · escalation: architecture (context-map edit)
+
+- **[2026-09-06] The effort gate's deterministic-owned prop list stops at pass 11** — type: policy-tighten, risk: 2, effort: s, payoff: 3, reach: 1 regex (`scripts/case-loops/effort/gate.ts` `FORBIDDEN_PROP`)
+  Found by: scan-sweep (effort-case-loop, risk-assessor) · The gate refuses a batch that proposes `bills_authored`, `speech_turns` and the other pass-11 numbers, but the pass-34/35 deterministic props the same loop now reads (`bills_first_signed`, `bills_co_signed`, `amendments_authored`, `effort_rapporteur_load`) are not in the list — an LLM payload could overwrite a counted number. Fix: extend the regex, or better derive it from the writers that own those props · escalation: policy-tighten (which props are deterministic-owned is the loop owner's call)
 
 ## Shipped
 

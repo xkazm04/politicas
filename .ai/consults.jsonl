@@ -24,3 +24,4 @@
 {"ts": "2026-09-06T05:20:00Z", "bundle": "software-engineering", "subjects": ["data-ingestion-integrity", "quality-gates"], "techniques": ["missing-beats-wrong-on-write-paths", "count-lives-with-the-list"], "deviations": 2}
 {"ts": "2026-09-06T06:30:00Z", "bundle": "software-engineering", "subjects": ["transactions-over-a-replicated-log", "test-harness"], "techniques": ["unspecified-order-is-a-defect", "one-guard-per-lister"], "deviations": 2}
 {"ts": "2026-09-06T07:30:00Z", "bundle": "software-engineering", "subjects": ["transactions-over-a-replicated-log", "docs-sync"], "techniques": ["count-lives-with-the-list", "header-names-the-current-writer"], "deviations": 1}
+{"ts": "2026-09-06T08:40:00Z", "bundle": "civic-intelligence", "subjects": ["politician-performance-scoring"], "techniques": ["published-formula-single-source", "reference-date-is-an-input"], "deviations": 3}
