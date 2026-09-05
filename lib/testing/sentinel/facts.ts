@@ -22,7 +22,12 @@
  */
 
 import type { AtlasEntityCoverage, AtlasSourceRunStats } from "@/lib/analysis/atlas";
-import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-provenance";
+import {
+  EFFORT_VERDICT_FIELDS,
+  readVerdictRung,
+  tallyVerdictRungs,
+  type VerdictRung,
+} from "@/lib/analysis/verdict-provenance";
 import { isoTs, json, num, str, strOrNull, type Pglite } from "@/lib/db/pglite/internals";
 import {
   summarizeLoaderDegradations,
@@ -97,7 +102,9 @@ export interface ReviewKindFacts {
  */
 export interface EffortVerdictFacts {
   total: number;
-  byRung: Record<string, number>;
+  /** Closed over the rung vocabulary: a rung the vocabulary gains without a bucket
+   *  here is a type error, not `undefined++` → NaN in the report. */
+  byRung: Record<VerdictRung | "unrecorded", number>;
   /** `psp:person:<id>#<prop>` for every claim whose rung is verified or rejected. */
   claimedDecided: string[];
   /** `subject_id` of every `effort_verdict` row in review_audit. */
@@ -273,21 +280,23 @@ async function readEffortVerdicts(pg: Pglite): Promise<EffortVerdictFacts> {
   const { rows } = await pg.query<Record<string, unknown>>(
     `select id, props from kg_node where kind = 'person' order by id`,
   );
-  const byRung: Record<string, number> = { machine: 0, pending: 0, verified: 0, rejected: 0, unrecorded: 0 };
-  const claimedDecided: string[] = [];
+  // The tally is the vocabulary module's own (tallyVerdictRungs, the same count
+  // /zebricek's gate footnote prints) summed over the effort fields — until
+  // 2026-09-07 this was a second hand-written loop with a string-keyed bucket map.
+  const propsById = rows.map((r) => ({ id: str(r.id), props: json(r.props) }));
+  const byRung: Record<VerdictRung | "unrecorded", number> = { machine: 0, pending: 0, verified: 0, rejected: 0, unrecorded: 0 };
   let total = 0;
-  for (const r of rows) {
-    const props = json(r.props);
+  for (const field of EFFORT_VERDICT_FIELDS) {
+    const t = tallyVerdictRungs(propsById.map((p) => p.props), field);
+    total += t.total;
+    for (const rung of Object.keys(byRung) as Array<keyof typeof byRung>) byRung[rung] += t[rung];
+  }
+  const claimedDecided: string[] = [];
+  for (const { id, props } of propsById) {
     for (const field of EFFORT_VERDICT_FIELDS) {
       if (props[field] === undefined || props[field] === null) continue;
-      total++;
       const v = readVerdictRung(props, field);
-      if (v === null) {
-        byRung.unrecorded++;
-        continue;
-      }
-      byRung[v.rung]++;
-      if (v.rung === "verified" || v.rung === "rejected") claimedDecided.push(`${str(r.id)}#${field}`);
+      if (v !== null && (v.rung === "verified" || v.rung === "rejected")) claimedDecided.push(`${id}#${field}`);
     }
   }
   const { rows: auditRows } = await pg.query<Record<string, unknown>>(
