@@ -363,7 +363,16 @@ export default function BudgetMirrorPage({
               title={t("section2Title")}
               aside={<SourceNote>{t("section2Aside", { town: town.name })}</SourceNote>}
             />
-            <div className="mt-8 w-full overflow-hidden" style={{ aspectRatio: "5 / 2", minHeight: 220 }}>
+            {/* Graf je <svg> bez textu — role="img" + aria-label ho odečítačce
+                popíší týmiž katalogovými větami, které vidí zrakový čtenář
+                (titulek sekce + řádek „plná čára = obec · čárkovaná = medián").
+                Do 2026-09-05 tu žádný textový ekvivalent nebyl; pinuje a11y.test.ts. */}
+            <div
+              role="img"
+              aria-label={`${t("section2Title")} — ${t("section2Aside", { town: town.name })}`}
+              className="mt-8 w-full overflow-hidden"
+              style={{ aspectRatio: "5 / 2", minHeight: 220 }}
+            >
               <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
                 <LineChart data={trendData} margin={{ top: 8, right: 8, left: -4, bottom: 0 }}>
                   <CartesianGrid stroke={HAIRLINE} vertical={false} />

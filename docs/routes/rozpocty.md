@@ -167,3 +167,11 @@ Measured on the shipped batch: **60 of 1 026** rows (Praha × Ministerstvo finan
 in both catalogs, and `supplierTrail.test.ts` pins that the batch carries that state.
 Nothing else moves: the card sums (`paidCzk`, `paidContractCount`) were already
 right — only the per-row sentence lied.
+
+**§02's chart has a text alternative (2026-09-05, scan-sweep, accessibility-checker).**
+The debt-trend `<svg>` sat between two tables that carry `aria-labelledby` (§03, §04)
+with no text equivalent of its own — an empty image to a screen reader. The wrapper
+now carries `role="img"` and an `aria-label` composed from the two catalog sentences
+the section already prints (`section2Title` + `section2Aside`), so the description
+says what the sighted reader sees, in both locales. `features/budget/a11y.test.ts`
+pins it by source, the same honest instrument as the other a11y suites.
