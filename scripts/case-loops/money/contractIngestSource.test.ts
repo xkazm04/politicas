@@ -101,3 +101,12 @@ describe("harvest-contract-dumps.ts: resume state", () => {
     expect(s).toMatch(/all\.length === 0\) throw/);
   });
 });
+
+describe("persist-contract-harvest.ts: --commit requires a real --pass", () => {
+  it("reads the pass through parsePassArg and refuses a null under --commit", () => {
+    const s = src("money/persist-contract-harvest.ts");
+    expect(s).toMatch(/import \{ parsePassArg \} from "\.\/passArg"/);
+    expect(s).toMatch(/if \(commit && pass === null\) throw/);
+    expect(s).not.toMatch(/Number\(arg\("pass"\) \?\? 0\)/);
+  });
+});

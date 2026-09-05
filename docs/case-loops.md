@@ -649,3 +649,10 @@ month marked done, so the data was gone and nothing re-collected it; it now
 resets the month record with the file. And a refused or empty dump index no
 longer reads as "nothing to do" — it throws.
 
+**`--commit` really requires `--pass` (2026-09-07, scan-sweep, bounty-hunter).**
+`persist-contract-harvest.ts` promised it and checked
+`Number.isFinite(Number(arg ?? 0))`, which is true for a missing flag — a commit
+without a pass would have stamped `pass: 0` into the provenance of 152 702
+nodes. `passArg.ts` parses the flag to a positive integer or null, and the
+script refuses a null under `--commit`.
+

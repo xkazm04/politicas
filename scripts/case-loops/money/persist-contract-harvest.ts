@@ -39,6 +39,7 @@ import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { directionFor, type DumpRecord } from "@/lib/ingest/sources/smlouvy-dump";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
+import { parsePassArg } from "./passArg";
 
 const JSONL = "data/raw/registr-smluv/contracts-harvest.jsonl";
 const REPORT = "docs/data-analysis/case-money/qmoney-contract-reingest-b12.json";
@@ -48,8 +49,11 @@ const arg = (n: string) => process.argv.find((a) => a.startsWith(`--${n}=`))?.sp
 
 async function main() {
   const commit = flag("commit");
-  const pass = Number(arg("pass") ?? 0);
-  if (commit && !Number.isFinite(pass)) throw new Error("--commit requires --pass=<n>");
+  // A live write stamps `pass` into the provenance of every row it touches, so the flag is
+  // REQUIRED under --commit and must be a positive integer - `Number(undefined ?? 0)` passed
+  // the old check and wrote pass 0.
+  const pass = parsePassArg(arg("pass"));
+  if (commit && pass === null) throw new Error("--commit requires --pass=<positive integer>");
   if (commit && !process.env.PGLITE_PATH && !flag("confirm-live")) {
     console.error(
       "REFUSED: --commit with PGLITE_PATH unset targets the LIVE ./.pglite.\n" +
