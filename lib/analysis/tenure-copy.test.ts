@@ -33,6 +33,15 @@ describe("formatCzechDate", () => {
     expect(formatCzechDate("2026-03-01")).toBe("1. 3. 2026");
   });
 
+  it("returns null for a date-SHAPED string that is not a calendar date (2026-09-06, bounty-hunter)", () => {
+    // The shape check alone let month 13 and day 32 through; the consumer then formats
+    // them with lib/format and renders „Invalid Date“ — a fabricated date by another name.
+    expect(formatCzechDate("2025-13-01")).toBeNull();
+    expect(formatCzechDate("2025-02-30")).toBeNull();
+    expect(formatCzechDate("2025-00-10")).toBeNull();
+    expect(formatCzechDate("2024-02-29")).toBe("29. 2. 2024");
+  });
+
   it("returns null for malformed input", () => {
     expect(formatCzechDate("not-a-date")).toBeNull();
     expect(formatCzechDate("")).toBeNull();

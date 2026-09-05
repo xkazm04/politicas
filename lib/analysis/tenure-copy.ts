@@ -113,11 +113,18 @@ export function isTrendTooEarly(tenureDays: unknown): boolean {
   return typeof tenureDays !== "number" || !Number.isFinite(tenureDays) || tenureDays < TREND_MIN_TENURE_DAYS;
 }
 
-/** "2025-11-12" → "12. 11. 2025" (cs-CZ day-first, no leading zeros — matches spoken Czech dates). */
+/** "2025-11-12" → "12. 11. 2025" (cs-CZ day-first, no leading zeros — matches spoken Czech dates).
+ *  Null for anything that is not a real calendar date: the shape check alone accepted
+ *  „2025-13-01" until 2026-09-06, and the consumer then handed it to lib/format, which
+ *  renders „Invalid Date" — a fabricated date by another name. */
 export function formatCzechDate(isoDate: string): string | null {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate);
   if (!m) return null;
   const [, y, mo, d] = m;
+  const probe = new Date(Date.UTC(Number(y), Number(mo) - 1, Number(d)));
+  if (probe.getUTCFullYear() !== Number(y) || probe.getUTCMonth() !== Number(mo) - 1 || probe.getUTCDate() !== Number(d)) {
+    return null;
+  }
   return `${Number(d)}. ${Number(mo)}. ${y}`;
 }
 

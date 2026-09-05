@@ -380,3 +380,10 @@ Nothing is inferred from the presence of the prop itself.
 alone and take no rung — they are carried over, and named as such in the G2
 report. `effort_provenance.computedAt` keeps its separate job: WHEN the pipeline
 recorded the claim, which is a different fact from WHO checked it.
+
+**A date-shaped tenure prop that is not a calendar date yields null (2026-09-06,
+scan-sweep, bounty-hunter).** `formatCzechDate` — the validator behind
+`mandateNoteCopy` — checked only the `YYYY-MM-DD` shape, so „2025-13-01" passed and the
+profile would have formatted it through `lib/format` as „Invalid Date". The check now
+round-trips the parts through a UTC date; the module's own promise („never a fabricated
+date") is pinned by the new test cases.
