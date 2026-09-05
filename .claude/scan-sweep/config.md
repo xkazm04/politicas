@@ -127,3 +127,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   has no defects of its own; its findings live in the test that guards it. A guard that SKIPs on
   MODULE_NOT_FOUND without first checking the directory exists cannot tell 'no shims' from
   'one shim missing' - grep every try/catch SKIP in a test runner for what it actually tests.
+- 2026-09-06 — graph-admin-data-routes, first sweep (28 lenses, 1 S built over 5 files). A rule a
+  sibling route family adopted (feeds: 503 => no-store) is a finding on every other machine
+  route until one test names them all; when the routes span contexts, the test belongs in
+  lib/testing next to the other repo-wide guards, and the commit says so.
