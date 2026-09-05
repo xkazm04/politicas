@@ -90,3 +90,11 @@ the known-issues list, so „44 633 merged ballots" or „203/207 photos" reach 
 as dated facts rather than live ones. Both arms build from the same string, so parity
 is unchanged; the Lite catalog shows the date only after the next `datahub-sync`.
 The `LEDGER` comment no longer claims `promote-verdicts` writes it (nothing does).
+
+**2026-09-06 — one set of aspect helpers, urns from the shared model (scan-sweep,
+parity-auditor).** `kg-datahub-sync.ts` promised to reference „the SAME corpus dataset
+urns datahub-sync.ts publishes, so lineage joins up" while re-spelling PLATFORM,
+`clean`, `datasetUrn` and `corpusName` by hand; both scripts also carried their own
+envelope / profile / operation / lineage / schemaOf / post. `datahubAspects.ts` holds
+the helpers once and the urns come from `lib/analysis/context-model.ts` (2 copies → 1;
+the join is now by construction, `datahubAspects.test.ts`). Metadata only, as before.
