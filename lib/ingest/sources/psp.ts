@@ -22,8 +22,9 @@
 // here: watching the release page and extracting its machine-readable manifest.
 
 import { asciiFold, fullName, readBirthDate, termCode, voteChoice, voteKind, voteOutcome } from "../normalize";
-import { col, colInt, czDateHourToIso, czDateTimeToIso, czDateToIso, decodeUnl, parseUnl, type UnlRow } from "../unl";
+import { col, colInt, czDateHourToIso, czDateTimeToIso, czDateToIso, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
+import { unlOf } from "./unlMembers";
 import type {
   AbsenceRow,
   MandateRow,
@@ -53,12 +54,6 @@ interface Prov {
   sourceUrl: string;
   fetchedAt: string;
   ingestRunId: number | null;
-}
-
-/** Decode + parse one UNL member of a dump; missing members yield []. */
-function unlOf(members: Map<string, Uint8Array>, name: string): UnlRow[] {
-  const bytes = members.get(name.toLowerCase());
-  return bytes ? parseUnl(decodeUnl(bytes)) : [];
 }
 
 /** Row → a plain object keyed by the publisher's own column names (for `raw`). */
@@ -180,7 +175,8 @@ export function normalizePoslanci(zipBytes: Uint8Array, prov: Prov): PoslanciBun
       pspId,
       personPspId,
       termPspId,
-      termCode: termCodes.get(termPspId) ?? `ORGAN${termPspId}`,
+      // The fallback is termCode()'s own (`ORGAN<n>`), not a second spelling of it.
+      termCode: termCodes.get(termPspId) ?? termCode(null, termPspId),
       regionPspId: colInt(r, 2),
       partyListPspId: colInt(r, 3),
       web: col(r, 5),
@@ -315,7 +311,7 @@ export function normalizeHlasovani(
         id: `psp:hlasovani:${pspId}`,
         pspId,
         termPspId,
-        termCode: termCodes.get(termPspId) ?? `ORGAN${termPspId}`,
+        termCode: termCodes.get(termPspId) ?? termCode(null, termPspId),
         sessionNo: colInt(r, 2),
         voteNo: colInt(r, 3),
         agendaItem: colInt(r, 4),

@@ -14,8 +14,9 @@
 // The aggregation logic is pure over parsed UNL rows (testable with parseUnl on UNL
 // strings); the zip-reading wrapper is the only IO.
 
-import { col, colInt, decodeUnl, parseUnl, type UnlRow } from "../unl";
+import { col, colInt, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
+import { unlOf } from "./unlMembers";
 
 export const SOURCE_TISKY = "psp-tisky";
 export const SOURCE_INTERP = "psp-interp";
@@ -41,6 +42,25 @@ const bump = (m: Map<number, number>, k: number | null) => {
 };
 
 /**
+ * THE MP-authored bill universe of a term — the internal tisk ids whose print is a law
+ * bill (`id_druh` ≠ 0 and ≠ written interpellation) proposed by a single MP or a group
+ * of MPs (`id_navrh` ∈ {2, 3}). `billsAndWrittenInterp` and `splitBillAuthorship` each
+ * spelled this filter until 2026-09-06; their agreement was a test's promise, not the
+ * code's. One definition, three callers.
+ */
+export function mpAuthoredBillIds(tisky: readonly UnlRow[], termPspId: number): Set<number> {
+  const ids = new Set<number>();
+  for (const r of tisky) {
+    const idTisk = colInt(r, 0);
+    const idDruh = colInt(r, 1);
+    const idNavrh = colInt(r, 5);
+    if (idTisk == null || colInt(r, 7) !== termPspId || idDruh == null || idDruh === 0) continue;
+    if (idDruh !== DRUH_PISEMNA_INTERPELACE && idNavrh != null && MP_ORIGIN_NAVRH.has(idNavrh)) ids.add(idTisk);
+  }
+  return ids;
+}
+
+/**
  * Bill authorship + written interpellations from tisky.zip, scoped to `termPspId`.
  * MP-authored bills come from `predkladatel` (multi-author, ordered) — NOT from
  * tisky.id_osoba, which is empty for recent-term MP bills. Only `id_navrh ∈ {2,3}`
@@ -53,17 +73,13 @@ export function billsAndWrittenInterp(
   predkladatel: readonly UnlRow[],
   termPspId: number,
 ): { billsByPerson: Map<number, number>; writtenInterpByPerson: Map<number, number>; mpAuthoredBills: number } {
-  const mpBillTiskIds = new Set<number>();
+  const mpBillTiskIds = mpAuthoredBillIds(tisky, termPspId);
   const writtenInterpByPerson = new Map<number, number>();
   for (const r of tisky) {
     const idTisk = colInt(r, 0);
     const idDruh = colInt(r, 1);
-    const idNavrh = colInt(r, 5);
-    const idOrgObd = colInt(r, 7);
-    const idOsoba = colInt(r, 8);
-    if (idTisk == null || idOrgObd !== termPspId || idDruh == null || idDruh === 0) continue;
-    if (idDruh === DRUH_PISEMNA_INTERPELACE) bump(writtenInterpByPerson, idOsoba);
-    else if (idNavrh != null && MP_ORIGIN_NAVRH.has(idNavrh)) mpBillTiskIds.add(idTisk);
+    if (idTisk == null || colInt(r, 7) !== termPspId || idDruh !== DRUH_PISEMNA_INTERPELACE) continue;
+    bump(writtenInterpByPerson, colInt(r, 8));
   }
   const billsByPerson = new Map<number, number>();
   for (const r of predkladatel) {
@@ -87,14 +103,7 @@ export function splitBillAuthorship(
   predkladatel: readonly UnlRow[],
   termPspId: number,
 ): { firstByPerson: Map<number, number>; coByPerson: Map<number, number> } {
-  const mpBillTiskIds = new Set<number>();
-  for (const r of tisky) {
-    const idTisk = colInt(r, 0);
-    const idDruh = colInt(r, 1);
-    const idNavrh = colInt(r, 5);
-    if (idTisk == null || colInt(r, 7) !== termPspId || idDruh == null || idDruh === 0) continue;
-    if (idDruh !== DRUH_PISEMNA_INTERPELACE && idNavrh != null && MP_ORIGIN_NAVRH.has(idNavrh)) mpBillTiskIds.add(idTisk);
-  }
+  const mpBillTiskIds = mpAuthoredBillIds(tisky, termPspId);
   const firstByPerson = new Map<number, number>();
   const coByPerson = new Map<number, number>();
   for (const r of predkladatel) {
@@ -212,11 +221,6 @@ export function parseAmendments(sdDokument: readonly UnlRow[], termPspId: number
     out.push({ tiskCislo, idOsoba, sdCislo: colInt(r, 2) });
   }
   return out;
-}
-
-function unlOf(members: Map<string, Uint8Array>, name: string): UnlRow[] {
-  const bytes = members.get(name.toLowerCase());
-  return bytes ? parseUnl(decodeUnl(bytes)) : [];
 }
 
 /** IO wrapper for the per-bill engagement layer (schuze.zip + steno.zip + sd.zip). */

@@ -28,8 +28,9 @@
 
 import { isPlausibleIsoDate } from "@/lib/analysis/plausible-date";
 
-import { col, colInt, decodeUnl, parseUnl, type UnlRow } from "../unl";
+import { col, colInt, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
+import { unlOf } from "./unlMembers";
 
 export const SOURCE_TISKY_LAW = "psp-tisky-law";
 
@@ -116,11 +117,6 @@ export function parseLawBills(
     });
   }
   return bills;
-}
-
-function unlOf(members: Map<string, Uint8Array>, name: string): UnlRow[] {
-  const bytes = members.get(name.toLowerCase());
-  return bytes ? parseUnl(decodeUnl(bytes)) : [];
 }
 
 /** The IO wrapper: read tisky.zip and produce the term's law-amendment bills. */
