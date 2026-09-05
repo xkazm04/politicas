@@ -404,12 +404,18 @@ export default function VariantMapa({
   );
 
   // Karta najetí čte NEfiltrovaný seznam — říká pravdu o stavu záznamu,
-  // ne o tom, co je zrovna vidět.
+  // ne o tom, co je zrovna vidět. A čte TÝŽ seznam uzlů, jaký jeviště kreslí:
+  // do 2026-09-06 hledala jen v uzlech mapy, takže najetí na dokreslený uzel
+  // okolí kartu nedalo a hrany okolí se nepočítaly.
+  const allEdges = useMemo(
+    () => (overlayLayer.edges.length === 0 ? edges : [...edges, ...overlayLayer.edges]),
+    [edges, overlayLayer],
+  );
   const hoverModel = useMemo(() => {
     if (!forensic || !hoverId) return null;
-    const n = nodes.find((x) => x.id === hoverId);
-    return n ? hoverCardModel(n, edges) : null;
-  }, [forensic, hoverId, nodes, edges]);
+    const n = stageNodes.find((x) => x.id === hoverId);
+    return n ? hoverCardModel(n, allEdges) : null;
+  }, [forensic, hoverId, stageNodes, allEdges]);
 
   // Rám kamery: CELÁ cesta (ne jen rozsvícený úsek — kamera nesmí cukat),
   // jinak výřez kurátorské trasy.

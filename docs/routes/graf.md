@@ -306,3 +306,10 @@ the inspector, the search hits, the path-finder rows and the permalink page stil
 painted `fill={style.fill}`, the canvas hex, so in forensic mode one kind wore two
 colours. All five DOM glyph sites now go through `KIND_FILL_CLASS[KIND_FILL_TOKEN]`;
 the hex stays for `<canvas>` only (5 hex-painted DOM glyphs → 0).
+
+**The forensic hover card sees the overlay (2026-09-06, scan-sweep, state-coverage).**
+`hoverCardModel` looked the hovered node up in the map's node list and counted over
+the map's edges, so a neighbourhood-overlay node — the layer the map deliberately
+omits and the reader explicitly asked to draw — hovered to nothing, and an overlay
+edge never counted. The card now reads `stageNodes` and the unfiltered map + overlay
+edges (0 of N overlay nodes hoverable → N of N).
