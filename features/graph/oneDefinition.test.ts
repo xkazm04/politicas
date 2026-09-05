@@ -6,7 +6,10 @@ const strip = (src: string) =>
 const read = (p: string) => strip(readFileSync(p, "utf8"));
 import { globSync } from "node:fs";
 
-const files = globSync("features/graph/**/*.{ts,tsx}").filter((f) => !f.endsWith(".test.ts"));
+// Windows globSync hands back backslashes — normalise so the expected paths are one shape.
+const files = globSync("features/graph/**/*.{ts,tsx}")
+  .map((f) => f.replaceAll("\\", "/"))
+  .filter((f) => !f.endsWith(".test.ts"));
 const sources = files.map((f) => [f, read(f)] as const);
 const definers = (re: RegExp) => sources.filter(([, s]) => re.test(s)).map(([f]) => f);
 
