@@ -188,3 +188,13 @@ headers, cron jobs, or region pinning that would require overriding those
 defaults. Adding a `vercel.json` would only introduce config that can drift from
 the framework's own conventions. Add one only if a concrete need appears (e.g. a
 custom header policy, a cron, or a pinned function region).
+
+**The edge runtime scrubs the follow list too (2026-09-07, scan-sweep,
+security-auditor).** `sentry.edge.config.ts` was the one Sentry init without
+`beforeSend` / `beforeSendTransaction` bound to
+`features/schranka/telemetryScrub.ts`, while the server and client configs have
+carried both since 2026-08-12. No middleware or edge route exists today, so the
+gap was latent; a runtime added later would have shipped a reader's follow list
+(a fingerprint) to Sentry. `lib/testing/sentryScrubSource.test.ts` pins all three
+runtimes.
+
