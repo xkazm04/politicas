@@ -253,3 +253,13 @@ A 6-digit row therefore sent the reader to an ARES REST path that 404s and to a
 Hlídač subject the deník addressed under another number. Links now use the padded
 IČO; `deriveFeed.test.ts` pins a 6-digit dst against its own `companyHref` and the
 canonical case byte-for-byte.
+
+**A placeholder entity is text, not a filter link (2026-09-05, scan-sweep,
+state-coverage).** A row with no readable entity carries `zaznam:<id>` so that
+`entities` is never empty; the page rendered every entity as a chip linking
+`/denik?entita=<key>`, and for that key the target view can only say „tvar klíče
+neodpovídá" — a link into a sentence about its own invalidity. Chips now link only
+keys `isEntityKey` accepts (the same test the route, the follow button and the
+schránka apply); the placeholder renders as plain text. `entityChips.test.ts` pins
+both halves: the derivation's placeholder is not an entity key, and the page guards
+the Link with that test.
