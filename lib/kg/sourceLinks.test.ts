@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { KG_NODE_KINDS } from "@/lib/analysis/kg-verdict";
+import { canonicalIco } from "@/features/money/companyId";
 import {
   citableId,
   parseLawRef,
@@ -293,5 +294,33 @@ describe("výčet druhů je jeden", () => {
     // Typová rovnost je vynucená exportem; tady se pinuje, že seznam má všech 11 druhů včetně `tender`.
     expect(ALL_KINDS).toContain("tender");
     expect(ALL_KINDS.length).toBe(11);
+  });
+});
+
+describe("IČO v odkazu i citaci je kanonické — osm číslic", () => {
+  it("nedoplněné IČO z props se doplní nulami ve všech čtyřech registrech i v citaci", () => {
+    const s = subject({ kind: "company", id: "company:ico:123", props: { ico: "123" } });
+    for (const l of sourceLinksFor(s)) expect(l.url, l.registry).toContain("00000123");
+    for (const l of sourceLinksFor(s)) expect(l.url, l.registry).not.toMatch(/[=/:]123(?![0-9])/);
+    expect(citableId(s)).toBe("IČO 00000123");
+  });
+
+  it("dodavatel smlouvy se hledá pod kanonickým IČO", () => {
+    const s = subject({ kind: "contract", id: "contract:7", props: { supplierIco: "45" } });
+    expect(sourceLinksFor(s)[0].url).toContain(encodeURIComponent("ico:00000045"));
+  });
+
+  it("nečíselné IČO nevydá odkaz ani citaci — nikdy odhad", () => {
+    const s = subject({ kind: "company", id: "company:ico:ABC", props: { ico: "ABC" } });
+    expect(sourceLinksFor(s)).toEqual([]);
+    expect(citableId(s)).toBeNull();
+  });
+
+  it("lib/kg a features/money kanonizují stejně — dvě funkce, jeden tvar (test je drží u sebe)", () => {
+    for (const raw of ["123", "00000123", "25841991", " 7 ", "ABC", "123456789", ""]) {
+      const viaKg = citableId(subject({ kind: "company", id: "company:ico:x", props: { ico: raw } }));
+      const viaMoney = canonicalIco(raw);
+      expect(viaKg, raw).toBe(viaMoney === null ? null : `IČO ${viaMoney}`);
+    }
   });
 });
