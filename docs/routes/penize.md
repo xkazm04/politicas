@@ -776,3 +776,8 @@ JAKÉHOKOLI id za `:` — id firmy nebo smlouvy by prošlo jako poslanec — a o
 loadery /penize ho odsud importovaly. Modul teď re-exportuje přísný parser
 z `lib/ingest/changeEvents.ts` (`/^psp:person:(\d+)$/`); týž nález jako
 v triage (round 31) a v ARES-VR skriptech (round 34).
+
+**Mapper knihy zužuje stav kontroly přes `reviewStateOf` (2026-09-07).** Druhý
+ručně psaný ternár nad `review_state` (po loaderu konzole, round 33) je pryč;
+`mapLinkedToTie` čte týž slovník `REVIEW_STATES`. Z karty „ReviewState nemá
+runtimový seznam“ zbývá jen kopie ve skriptu triage.

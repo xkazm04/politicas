@@ -14,3 +14,11 @@ describe("moneyLoader.ts reads ids and states through the shared definitions", (
     expect(s).not.toMatch(/function pspIdFromNodeId/);
   });
 });
+
+describe("moneyLoader.ts narrows review_state through reviewStateOf", () => {
+  const s = src("features/money/moneyLoader.ts");
+  it("imports the shared vocabulary and carries no hand-spelled ternary", () => {
+    expect(s).toMatch(/import \{[^}]*\breviewStateOf\b[^}]*\} from "\.\/reviewTypes"/);
+    expect(s).not.toMatch(/rawState === "verified" \?/);
+  });
+});

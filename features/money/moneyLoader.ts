@@ -23,7 +23,6 @@ import {
   type MoneyTie,
   type OwnershipDisclosed,
   type PublicMandateOwner,
-  type ReviewState,
 } from "./moneyTypes";
 // JEDNA hranice možného data v celé aplikaci (modul si to říká ve své hlavičce).
 import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
@@ -31,7 +30,14 @@ import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 // the receipt page and the money tie must date an analyst note by the same rule.
 import { toProvenance } from "@/features/shared/provenance/receipt";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
-import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
+import {
+  isDeMinimis,
+  nearThresholdCount,
+  resolveReviewOrder,
+  resolveTieClass,
+  reviewSignal,
+  reviewStateOf,
+} from "./reviewTypes";
 import { moneyReachesCompany } from "./reachableMoney";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 // Daňová základna smluvní částky. NULOVÉ NOVÉ ČTENÍ: obě čtení hran níž dělají
@@ -169,9 +175,9 @@ export function mapLinkedToTie(args: {
 }): MoneyTie & { contractBasis: BasisComposition } {
   const { edge: e, company: comp, contracts, person } = args;
   const cp = comp.props ?? {};
-  const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-  const reviewState: ReviewState =
-    rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
+  // ONE vocabulary (reviewTypes.reviewStateOf) — the console loader reads the same two
+  // prop names through it; this was the second hand-spelled ternary.
+  const reviewState = reviewStateOf(e.props?.review_state ?? e.props?.state);
 
   const role = String(e.props?.role ?? "");
   const contractCzk = contracts.czk;
