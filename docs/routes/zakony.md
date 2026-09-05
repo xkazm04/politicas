@@ -274,3 +274,17 @@ first time that sentence has been true here.
 **Carry-over.** `/overeni`'s gate modifier for bill claims and the
 `/penize/kontrola` lane for this kind are out of this wave by design; the
 `/admin` coverage board is the first door.
+
+**A collision pair's batch is the batch of its file (2026-09-07, scan-sweep,
+bounty-hunter).** `/zakony/kolize` resolved the batch badge and the method
+sentence under each pair by PAIR ID through a ladder of per-file id sets. Pair
+ids are not unique across payloads: the same two prints get re-read on a later
+topology, and 18 ids occur in more than one file. The ladder gave both rows the
+batch it checked first, so four rendered pairs described a batch that did not
+produce them (102-111 and 7-221 from batch 008 read as 009; 85-88 and 4-121 from
+batch 004 read as 009 and 005). `collisionBatch.ts` dates a row by its file and
+carries the per-batch method sentence; `collisionBatch.test.ts` reads the real
+payload directory and pins that shared ids resolve to distinct batches. The three
+`collision-close-reads-groupN.json` files stay unloaded on purpose: they are the
+per-army-group inputs whose union is the batch-003 file, and loading them would
+double every batch-003 pair.
