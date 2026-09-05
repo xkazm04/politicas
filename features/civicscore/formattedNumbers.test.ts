@@ -20,6 +20,7 @@ function stripComments(src: string): string {
 const TREND = stripComments(readFileSync("features/civicscore/components/TrendPanel.tsx", "utf8"));
 const KRAJ = stripComments(readFileSync("features/civicscore/KrajPage.tsx", "utf8"));
 const TABLE = stripComments(readFileSync("features/civicscore/components/LeaderboardTable.tsx", "utf8"));
+const PANEL = stripComments(readFileSync("features/civicscore/components/WeightPanel.tsx", "utf8"));
 
 describe("no bare count reaches the DOM or an ICU sentence", () => {
   it("TrendPanel prints the raw activity counts through f.int", () => {
@@ -39,5 +40,20 @@ describe("no bare count reaches the DOM or an ICU sentence", () => {
   it("LeaderboardTable prints the standout delta through f.int", () => {
     expect(TABLE).not.toMatch(/\{Math\.abs\(best\.delta\)\}/);
     expect(TABLE).toMatch(/f\.int\(Math\.abs\(best\.delta\)\)/);
+  });
+});
+
+describe("WeightPanel hands its numbers to ICU sentences already formatted", () => {
+  it("row title and slider aria-label carry the published weight through f.int", () => {
+    const title = PANEL.slice(PANEL.indexOf('t("weightRowTitle"'), PANEL.indexOf(")", PANEL.indexOf('t("weightRowTitle"')) + 1);
+    expect(title).toMatch(/weight:\s*f\.int\(/);
+    const aria = PANEL.slice(PANEL.indexOf('t("weightSliderAria"'), PANEL.indexOf(")", PANEL.indexOf('t("weightSliderAria"')) + 1);
+    expect(aria).toMatch(/weight:\s*f\.int\(/);
+  });
+
+  it("aria-valuetext carries the slider value through f.int", () => {
+    const start = PANEL.indexOf('t("weightSliderValue"');
+    const site = PANEL.slice(start, PANEL.indexOf("})", start));
+    expect(site).toMatch(/value:\s*f\.int\(/);
   });
 });

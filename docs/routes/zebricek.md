@@ -547,3 +547,12 @@ copy of one statistic on one page is how they diverge). Both are in `lens.ts` no
 comparator itself cannot be imported (the loader is `server-only`, the lens runs on the
 client), so `lens.test.ts` pins the lens order against the loader's comparator over the
 same rows, and the lens median against the shared function.
+
+**WeightPanel's ICU sentences and two stale headers (2026-09-05, scan-sweep,
+copy-auditor).** Three numbers went into the panel's `title` / `aria-label` /
+`aria-valuetext` sentences as raw numbers (next-intl then formats them itself, outside
+`lib/format`); `WeightPanel`'s header still said its copy was inline literals with the
+catalog out of reach — three weeks after every string moved to `civicscore.*`; and
+`duelFacts.ts` rule 5 still asserted „všech 211 vazeb je pending_review", the sentence
+the catalog test forbids and `HeadToHead`'s header calls false since the first gate
+confirmation. All three corrected; `formattedNumbers.test.ts` pins the panel's sites.
