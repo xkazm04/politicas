@@ -494,3 +494,14 @@ download now lands in `.part`, is renamed on completion and is read back from
 disk as a stream (`esbirkaStream.ts`, tested). A malformed record is counted into
 `malformedRecords` in the output and the console line instead of being swallowed
 behind an `eslint-disable`.
+
+**`collision-check.ts` imports its pipeline and extractors instead of copying
+them (2026-09-07, scan-sweep, parity-auditor).** The live script still carried the
+batch-002 byte copies of the tisk pipeline (pre-NFC, no refusal classification —
+a 503 skipped the bill) and of `extractParagraphs` /
+`partitionParagraphsByStatute`, the very functions batch-009 extracted into
+`collision-core.ts` so they would stop being copied. It now imports `tiskText.ts`
+and `collision-core.ts`; `collisionSource.test.ts` fails if a local definition
+returns. The docType-aware `operativeSlice` stays local on purpose: for a platné
+znění document it keeps the text before the first ČÁST heading, which the core's
+bill-only slice would cut.

@@ -26,21 +26,23 @@
  * Caching: every index HTML, PDF, and extracted .txt is cached under .data/law-collision-cache/
  * (.data/ is already gitignored) so a re-run only fetches what's missing.
  *
- *   npx tsx scripts/case-loops/law/collision-check.ts
- * → docs/data-analysis/case-law/payloads/collision-report.json
+ *   npx tsx scripts/case-loops/law/collision-check.ts          # flat §-overlap → collision-report.json
+ *   npx tsx scripts/case-loops/law/collision-check.ts --v2     # partitioned (batch-004 Q-law-10) → collision-report-v2.json
+ *
+ * The fetch/cache/pdftotext pipeline is tiskText.ts and the §-extractors are collision-core.ts
+ * (scan-sweep 2026-09-07): this file carried byte copies of both — the pipeline copy without
+ * batch-008's NFC normalisation and without refusal classification (a 503 skipped the bill), the
+ * extractor copies identical to the ones collision-core.ts extracted in batch-009 for the sweep.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { execFileSync } from "node:child_process";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
-import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
+import { extractParagraphs, partitionParagraphsByStatute, type StatutePartition } from "./collision-core";
+import { BASE, extractText, fetchIndexHtml, fetchPdf, parseIndex } from "./tiskText";
 
 const GROUPS_PATH = "docs/data-analysis/case-law/payloads/collision-groups.json";
 const OUT_PATH = "docs/data-analysis/case-law/payloads/collision-report.json";
 const OUT_PATH_V2 = "docs/data-analysis/case-law/payloads/collision-report-v2.json";
-const CACHE_DIR = ".data/law-collision-cache";
-const PDFTOTEXT_BIN = existsSync("/clangarm64/bin/pdftotext") ? "/clangarm64/bin/pdftotext" : "pdftotext";
-const BASE = "https://www.psp.cz/sqw/text/";
 const CONCURRENCY = 3;
 const DELAY_MS = 350;
 
@@ -72,96 +74,6 @@ function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/** psp.cz occasionally resets connections under light concurrency (observed, not rate-limit
- * headers) — retry transient network failures a few times with backoff before giving up. */
-async function fetchWithRetry(url: string, opts: { timeoutMs: number }, attempts = 4): Promise<Response> {
-  let lastErr: unknown;
-  for (let i = 0; i < attempts; i++) {
-    try {
-      return await fetch(url, { signal: AbortSignal.timeout(opts.timeoutMs) });
-    } catch (e) {
-      lastErr = e;
-      if (i < attempts - 1) await sleep(500 * 2 ** i);
-    }
-  }
-  throw lastErr;
-}
-
-// ---------- fetch + parse index page ----------
-
-interface IndexEntry {
-  header: string;
-  idd: string;
-  filename: string;
-}
-
-function parseIndex(html: string): IndexEntry[] {
-  const headers: { idx: number; text: string }[] = [];
-  const headerRe = /<th colspan=2 class="lightblue">([^<]+)<\/th>/g;
-  let hm: RegExpExecArray | null;
-  while ((hm = headerRe.exec(html))) {
-    headers.push({ idx: hm.index, text: hm[1].replace(/&nbsp;/g, " ").trim() });
-  }
-  const pdfRe = /<span class="file pdf"><a href="([^"]+)" title="Dokument PDF">([^<]+)<\/a>/g;
-  const results: IndexEntry[] = [];
-  let pm: RegExpExecArray | null;
-  while ((pm = pdfRe.exec(html))) {
-    const href = pm[1];
-    const filename = pm[2];
-    const iddMatch = href.match(/idd=(\d+)/);
-    if (!iddMatch) continue;
-    let header = "";
-    for (const h of headers) {
-      if (h.idx < pm.index) header = h.text;
-      else break;
-    }
-    results.push({ header, idd: iddMatch[1], filename });
-  }
-  return results;
-}
-
-async function fetchIndexHtml(cislo: number): Promise<string> {
-  const cacheFile = path.join(CACHE_DIR, `tisk-${cislo}`, "index.html");
-  if (existsSync(cacheFile)) return readFileSync(cacheFile, "utf8");
-  const url = `https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=${cislo}&ct1=0`;
-  const res = await fetchWithRetry(url, { timeoutMs: 30_000 });
-  if (!res.ok) throw new Error(`index HTTP ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  const html = new TextDecoder("windows-1250").decode(buf);
-  if (!/Sněmovní tisk/i.test(html)) throw new Error("index page did not contain 'Sněmovní tisk' — unexpected content");
-  mkdirSync(path.dirname(cacheFile), { recursive: true });
-  writeFileSync(cacheFile, html, "utf8");
-  return html;
-}
-
-async function fetchPdf(cislo: number, idd: string): Promise<string> {
-  const dir = path.join(CACHE_DIR, `tisk-${cislo}`);
-  mkdirSync(dir, { recursive: true });
-  const pdfPath = path.join(dir, `${idd}.pdf`);
-  if (existsSync(pdfPath)) return pdfPath;
-  const url = `${BASE}orig2.sqw?idd=${idd}`;
-  const res = await fetchWithRetry(url, { timeoutMs: 60_000 });
-  if (!res.ok) throw new Error(`pdf HTTP ${res.status}`);
-  const ct = res.headers.get("content-type") ?? "";
-  const buf = Buffer.from(await res.arrayBuffer());
-  if (!ct.includes("pdf") && buf.slice(0, 4).toString("latin1") !== "%PDF") {
-    throw new Error(`response at idd=${idd} was not a PDF (content-type: ${ct})`);
-  }
-  writeFileSync(pdfPath, buf);
-  return pdfPath;
-}
-
-function extractText(pdfPath: string): string {
-  const txtPath = pdfPath.replace(/\.pdf$/, ".txt");
-  if (existsSync(txtPath)) return readFileSync(txtPath, "utf8");
-  const out = execFileSync(PDFTOTEXT_BIN, ["-layout", "-enc", "UTF-8", pdfPath, "-"], {
-    encoding: "utf8",
-    maxBuffer: 50_000_000,
-  });
-  writeFileSync(txtPath, out, "utf8");
-  return out;
-}
-
 /** Restrict to the operative novelization text. "platne-zneni" docs (current law + marked
  * changes) contain no explanatory memo — used whole, with a defensive trim if one somehow
  * appears. "navrh-zakona" docs (bill + memo) are trimmed to Čl. I / ČÁST PRVNÍ … before
@@ -175,15 +87,6 @@ function operativeSlice(text: string, docType: BillExtraction["docType"]): strin
   const start = startMatch?.index ?? 0;
   const end = memoIdx > start ? memoIdx : text.length;
   return text.slice(start, end);
-}
-
-/** Base § reference extraction: "§ 35ba", "§35", "§ 38gb" → "35ba", "35", "38gb" (lowercased). */
-function extractParagraphs(text: string): string[] {
-  const re = /§\s?(\d+[a-z]*)/gi;
-  const set = new Set<string>();
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(text))) set.add(m[1].toLowerCase());
-  return [...set].sort((a, b) => a.localeCompare(b, "cs"));
 }
 
 /** Short deterministic excerpt around a §'s first occurrence — prefers a standalone section-
@@ -312,52 +215,7 @@ async function fetchNavrhOperative(cislo: number): Promise<{ text?: string; skip
   return { text: operativeSlice(text, "navrh-zakona") };
 }
 
-interface StatutePartition {
-  paragraphs: Set<string>;
-  text: string;
-}
-
-/** Split a bill's operative novelization text into per-target-statute §-sets, using the same
- * Čl. N article-boundary + first-citation-per-block convention as amends-census.ts's
- * `extractRealAmendedLaws`. Unlike that function (which only needs ONE citation per block), this
- * keeps the FULL block text to extract every § referenced under that block, and concatenates
- * blocks that target the same statute (a bill can have multiple articles amending the same law,
- * e.g. a follow-up "Čl. N — přechodná ustanovení" article with no fresh citation of its own,
- * which is intentionally bucketed under "unknown" rather than guessed). */
-function partitionParagraphsByStatute(operative: string): Map<string, StatutePartition> {
-  const artRe = /\n\s*Čl\.\s*([IVXLCDM]+|\d+)\.?\s*\n/g;
-  const arts: { label: string; idx: number }[] = [];
-  let am: RegExpExecArray | null;
-  while ((am = artRe.exec(operative))) arts.push({ label: am[1], idx: am.index });
-
-  const byStatute = new Map<string, StatutePartition>();
-  const addBlock = (ref: string, block: string) => {
-    const entry = byStatute.get(ref) ?? { paragraphs: new Set<string>(), text: "" };
-    for (const p of extractParagraphs(block)) entry.paragraphs.add(p);
-    entry.text = entry.text ? `${entry.text}\n${block}` : block;
-    byStatute.set(ref, entry);
-  };
-
-  if (arts.length === 0) {
-    // no article structure -- single-subject bill; the whole operative text amends one statute,
-    // matching amends-census's fallback convention (first citation in the whole text).
-    const m = LAW_CITATION.exec(operative);
-    LAW_CITATION.lastIndex = 0;
-    addBlock(m ? `${Number(m[1])}/${m[2]}` : "unknown", operative);
-    return byStatute;
-  }
-
-  for (let i = 0; i < arts.length; i++) {
-    const start = arts[i].idx;
-    const end = i + 1 < arts.length ? arts[i + 1].idx : operative.length;
-    const block = operative.slice(start, end);
-    const head = block.slice(0, 800); // citation is always near the article's top (amends-census convention)
-    const m = LAW_CITATION.exec(head);
-    LAW_CITATION.lastIndex = 0;
-    addBlock(m ? `${Number(m[1])}/${m[2]}` : "unknown", block);
-  }
-  return byStatute;
-}
+// `StatutePartition` and `partitionParagraphsByStatute` live in collision-core.ts (imported above).
 
 interface V2Extraction {
   cislo: number;
