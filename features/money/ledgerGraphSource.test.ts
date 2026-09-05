@@ -43,6 +43,7 @@ describe("company id → IČO goes through companyId.icoFromCompanyNodeId", () =
 describe("TiesLedger: the search field has an accessible name (placeholder is not one)", () => {
   it("the type=search input carries aria-label", () => {
     const s = src("features/money/components/TiesLedger.tsx");
-    expect(s).toMatch(/type="search"[\s\S]{0,400}aria-label=\{t\("real\.ledger\.searchPlaceholder"\)\}/);
+    const input = /<input\s+type="search"[\s\S]*?\/>/.exec(s)?.[0] ?? "";
+    expect(input).toMatch(/aria-label=\{t\("real\.ledger\.searchPlaceholder"\)\}/);
   });
 });
