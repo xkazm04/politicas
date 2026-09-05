@@ -16,8 +16,16 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { votePspUrl } from "../record/anchor";
 import { clubStyle, wedgeSort } from "../record/clubStyle";
+import { isKnownOutcome, outcomeTone } from "../record/outcome";
 import type { LedgerVote } from "../record/types";
 import RealHemicycle from "./RealHemicycle";
+
+/** Tón výsledku → třída; neznámý výsledek je tlumený, ne „zamítnuto" (record/outcome.ts). */
+const OUTCOME_CLASS = {
+  accepted: "text-cobalt",
+  rejected: "text-signal",
+  other: "text-steel-aa",
+} as const satisfies Record<ReturnType<typeof outcomeTone>, string>;
 
 const LEGEND = [
   { key: "yes", cls: "bg-cobalt" },
@@ -93,11 +101,9 @@ export default function RealChamberDetail({ vote }: { vote: LedgerVote }) {
             {vote.time ? ` · ${vote.time}` : ""} · {sessionVote(vote.sessionNo, vote.voteNo)}
           </span>
           <span
-            className={`font-mono text-lg font-black uppercase tracking-wider ${
-              vote.outcome === "accepted" ? "text-cobalt" : "text-signal"
-            }`}
+            className={`font-mono text-lg font-black uppercase tracking-wider ${OUTCOME_CLASS[outcomeTone(vote.outcome)]}`}
           >
-            {vote.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
+            {isKnownOutcome(vote.outcome) ? tcom(`voteResult.${vote.outcome}`) : vote.outcome}
           </span>
         </div>
         <h3 className="mt-1 text-xl font-black uppercase leading-tight tracking-tight sm:text-2xl">{vote.title}</h3>

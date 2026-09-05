@@ -15,8 +15,16 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { voteAnchorId } from "../record/anchor";
+import { isKnownOutcome, outcomeTone } from "../record/outcome";
 import type { ThresholdCoverage } from "../record/threshold";
 import type { ClubTally, LedgerVote } from "../record/types";
+
+/** Tón výsledku → třída; neznámý výsledek je tlumený, ne „zamítnuto" (record/outcome.ts). */
+const OUTCOME_CLASS = {
+  accepted: "text-cobalt",
+  rejected: "text-signal-deep",
+  other: "text-steel-aa",
+} as const satisfies Record<ReturnType<typeof outcomeTone>, string>;
 
 function RatioBar({ total }: { total: ClubTally }) {
   const seats = total.yes + total.no + total.k + total.away;
@@ -118,10 +126,10 @@ export default function RealVoteLedger({
                   </span>
                   <span
                     className={`font-mono text-[11px] font-black uppercase tracking-wider ${
-                      v.outcome === "accepted" ? "text-cobalt" : "text-signal-deep"
+                      OUTCOME_CLASS[outcomeTone(v.outcome)]
                     }`}
                   >
-                    {v.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
+                    {isKnownOutcome(v.outcome) ? tcom(`voteResult.${v.outcome}`) : v.outcome}
                   </span>
                 </span>
                 <span className="mt-1 line-clamp-2 block text-[15px] font-bold leading-snug">{v.title}</span>
