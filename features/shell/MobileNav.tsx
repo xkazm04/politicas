@@ -15,7 +15,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import FollowCurrent from "@/features/schranka/FollowCurrent";
 import SchrankaBadge from "@/features/schranka/SchrankaBadge";
 import { NAV } from "./navModel";
-import { SectionLink, useNavLabels, type SidebarProps } from "./sidebarParts";
+import { BrandMark, SectionLink, useNavLabels, type SidebarProps } from "./sidebarParts";
 
 export default function MobileNav({ pathname, sections, activeSection, activeEntry }: SidebarProps) {
   const t = useTranslations("nav");
@@ -38,11 +38,7 @@ export default function MobileNav({ pathname, sections, activeSection, activeEnt
     <div className="border-b-4 border-ink bg-paper lg:hidden">
       <div className="flex items-center justify-between gap-3 px-4 py-3">
         <Link href="/" className="flex items-center gap-2.5 transition-colors hover:text-signal">
-          <svg viewBox="0 0 32 32" className="h-6 w-6 shrink-0" aria-hidden>
-            <rect width="32" height="32" className="fill-signal" />
-            <circle cx="16" cy="16" r="9" className="fill-paper" />
-            <rect x="14.5" y="4" width="3" height="24" className="fill-ink" />
-          </svg>
+          <BrandMark className="h-6 w-6 shrink-0" />
           <span className="text-base font-black uppercase tracking-tight">Politicas</span>
         </Link>
         <div className="flex items-center gap-3">

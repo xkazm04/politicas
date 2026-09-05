@@ -210,3 +210,11 @@ empty list, and `features/shell/sitemapRoutes.test.ts` pins the address SHAPE
 for both files (https behind a forwarding proxy, honest http in dev, root with
 its trailing slash, nothing without a host) the way `publicRoutes.test.ts` pins
 the path SET.
+
+**2026-09-07 — the chrome draws its logo once (scan-sweep, parity-auditor).**
+`MobileNav` carried a byte-identical copy of `BrandBlock`'s mark SVG; a change to
+the mark would have needed two edits and a missed one would have shipped two
+logos. `BrandMark` in `sidebarParts.tsx` is now the single drawing, sized by
+`className` (h-7 on the rail, h-6 on the mobile strip). `shellSource.test.ts`
+counts one `viewBox="0 0 32 32"` in the shell.
+
