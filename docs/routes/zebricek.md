@@ -556,3 +556,11 @@ catalog out of reach — three weeks after every string moved to `civicscore.*`;
 `duelFacts.ts` rule 5 still asserted „všech 211 vazeb je pending_review", the sentence
 the catalog test forbids and `HeadToHead`'s header calls false since the first gate
 confirmation. All three corrected; `formattedNumbers.test.ts` pins the panel's sites.
+
+**Živá URL archu má jednu definici (2026-09-07, scan-sweep, parity-auditor).**
+`/kraj/[kraj]` i `/plakat/[view]` skládaly adresu do patičky tištěného archu
+z request hlaviček vlastní funkcí pod týmž komentářem („na patičce nesmí být
+vymyšlená doména“). `lib/routing/liveUrl.ts` nese čistou část
+(`liveUrlFrom(host, proto, path)`, testovanou: bez hostu relativní cesta,
+bez proxy hlavičky `http`) a tenký `liveUrl(path)` nad `headers()`; obě routy
+ho importují.

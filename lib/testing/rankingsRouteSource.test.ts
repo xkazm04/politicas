@@ -15,3 +15,12 @@ describe("/poslanec/[id] reads its segment through lib/routing/pspIdParam", () =
     expect(s).not.toMatch(/Number\(id\)/);
   });
 });
+
+describe("live URL from request headers has one definition (lib/routing/liveUrl.ts)", () => {
+  it.each(["app/kraj/[kraj]/page.tsx", "app/plakat/[view]/page.tsx"])("%s imports liveUrl and carries no copy", (f) => {
+    const s = src(f);
+    expect(s).toMatch(/import \{ liveUrl \} from "@\/lib\/routing\/liveUrl"/);
+    expect(s).not.toMatch(/x-forwarded-proto/);
+    expect(s).not.toMatch(/from "next\/headers"/);
+  });
+});
