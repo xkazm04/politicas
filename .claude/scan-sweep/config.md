@@ -178,3 +178,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   cache under its final name while streaming is the dataor .part class again - grep
   `createWriteStream(` next to `existsSync(` before reading the script. When appending one doc
   paragraph per atomic commit, base the rewrite on the round's START commit, not HEAD.
+- 2026-09-07 — law-collision-analysis, first sweep (28 lenses, 5 built in 4 commits, 0 cards). A
+  regex module that documents its own hand-validated cases is a test waiting to be written - run
+  the documented cases through it FIRST (a tsx probe), because one of them may already be red
+  (the `az` range was). A keyword net under /i needs `\b` on BOTH sides of a short token; probe
+  the real corpus for the false-positive count before building so the card carries a figure.
+  When a source test spans two commits, commit the describe with the change it pins - an
+  intermediate commit here carried one red describe for one commit.
