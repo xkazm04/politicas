@@ -2,7 +2,8 @@ import type { MetadataRoute } from "next";
 import { headers } from "next/headers";
 
 /*
- * ROBOTS — the crawler-facing half of "internal" .
+ * ROBOTS — the crawler-facing half of "internal": what the app asks crawlers
+ * not to fetch, stated in one file.
  *
  * The repo had no robots.ts at all, so every route was crawlable, including
  * `/penize/kontrola`: the human-review console (unlinked from the /penize header

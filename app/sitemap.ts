@@ -22,10 +22,15 @@ import { DISALLOWED_PATHS } from "./robots";
  * z chuti: oba důvody vyloučení tu odpadají. Obec není osoba ani firma — je to
  * veřejný číselník MONITORu zabudovaný do buildu, takže vypsání adres nikoho
  * nevyjmenovává; a nečte se pro ně úložiště, protože rejstřík je statický modul
- * (`features/budget/municipalRoutes.ts`), z něhož Next tytéž stránky UŽ
- * předgeneruje (`generateStaticParams`). Adresa, která se staví do statického
- * výstupu, ale v sitemapě chybí, je vada indexace. Seznam se odsud NEODVOZUJE
- * podruhé — importuje se týž, který build používá.
+ * (`features/budget/municipalRoutes.ts`) — týž, který `generateStaticParams`
+ * v app/rozpocty/[ico]/page.tsx deklaruje jako strop. POZOR NA SLOVO „UŽ":
+ * do 2026-09-05 tu stálo, že Next tytéž stránky už předgeneruje. Nepředgeneruje
+ * — locale cookie čtená v lib/i18n/request.ts renderuje KAŽDOU cestu dynamicky
+ * (změřeno 2026-09-01 nad .next/prerender-manifest.json: 0 cest /rozpocty; viz
+ * hlavičku té stránky). Obce tu tedy nejsou proto, že by je build stavěl
+ * staticky, ale z obou důvodů výše; a až se stavět začnou, adresa ve statickém
+ * výstupu bez řádku v sitemapě bude vada indexace. Seznam se odsud NEODVOZUJE
+ * podruhé — importuje se týž, který ta stránka deklaruje.
  *
  * ZÁKLAD ADRESY se čte z hlaviček requestu — týž precedens jako všechny čtyři
  * feedy (/denik, /dukazy, /zakony/kolize, /schranka): v dev čestně localhost, v

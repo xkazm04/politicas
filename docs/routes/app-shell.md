@@ -191,3 +191,12 @@ installed runtime rather than from a copied string: the next rename fails there,
 not at a reader. The two files were a pair fixed together, which is the whole
 point of checking pairs — the same bug in `global-error` would have survived a
 fix to `error.tsx` alone.
+
+**2026-09-05 — two rationale claims corrected (scan-sweep, copy-auditor).**
+`sitemap.ts` justified listing the 360 municipalities partly with „Next already
+pre-generates these pages"; `app/rozpocty/[ico]/page.tsx` had measured on
+2026-09-01 that nothing is pre-generated (the locale cookie makes every route
+dynamic). The listing stands on the two reasons that hold — a static registry,
+no store read — and the comment now says so, with the „already" retracted.
+`robots.ts` opened with a sentence missing its predicate; it now states the
+file's job.
