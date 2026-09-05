@@ -56,6 +56,7 @@ export const PGLITE_LANE_FILES = [
   "lib/db/pglite/premigration.test.ts",
   "lib/db/pglite/sentinelQueue.test.ts",
   "lib/db/pglite/repositories/changes.test.ts",
+  "lib/db/pglite/repositories/clubByMandate.test.ts",
   "lib/db/pglite/repositories/graph.test.ts",
   "lib/db/pglite/repositories/kg-bitemporal.test.ts",
   "lib/db/pglite/repositories/ledger.test.ts",

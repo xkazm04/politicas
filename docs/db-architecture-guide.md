@@ -701,3 +701,12 @@ prop the loop computed.
 `machine` is **not producible by this function**. Only the enrichment loops write
 that state, so no script can promote its own verdict to a human-confirmed one,
 and no human decision can be demoted back to "nobody looked at this".
+
+**`clubByMandate` answers the club TODAY by rule, not by scan order (2026-09-06,
+scan-sweep, bounty-hunter).** The one-club-per-mandate read had no `ORDER BY`, so an
+MP who changed clubs mid-term resolved to whichever membership row PGlite returned
+last — insertion order, while `/zebricek`, `/penize` and `/volby` all print that
+value as the current club. The query now orders closed windows first and open
+windows by start date, so the last row per mandate is the open window with the
+latest start; `clubByMandate.test.ts` seeds a switcher with the current club
+inserted first and pins the answer.

@@ -138,6 +138,12 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
       return rows.map(mapMembership);
     },
 
+    // ONE club per mandate — and every reader treats it as the club TODAY. The
+    // query had no ORDER BY until 2026-09-06, so a club switcher resolved to
+    // whichever membership row the scan returned last (insertion order, not the
+    // calendar). The order below makes the last row per mandate the OPEN window
+    // with the latest start — closed windows first, then open ones by from_at —
+    // so `out.set` (last wins) is a rule, not an accident.
     async clubByMandate(termCode) {
       const { rows } = await pg.query<Record<string, unknown>>(
         `with term as (select psp_id from organ where abbrev = $1),
@@ -150,7 +156,8 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
            from mandate mn
            join term t on mn.term_psp_id = t.psp_id
            join membership ms on ms.person_psp_id = mn.person_psp_id and ms.kind = 'member'
-           join club on club.psp_id = ms.organ_psp_id`,
+           join club on club.psp_id = ms.organ_psp_id
+          order by mn.psp_id, (ms.to_at is null) asc, ms.from_at asc nulls first`,
         [termCode],
       );
       const out = new Map<number, string>();
