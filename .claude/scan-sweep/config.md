@@ -131,3 +131,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   sibling route family adopted (feeds: 503 => no-store) is a finding on every other machine
   route until one test names them all; when the routes span contexts, the test belongs in
   lib/testing next to the other repo-wide guards, and the commit says so.
+- 2026-09-06 — graph-explorer, first sweep (28 lenses, 9 built over 14 files, 1 prior card withdrawn).
+  A catalog (messages/*.json) is a hand-maintained list: test it against the enum it labels,
+  never against itself - `graph.kinds`/`graph.rels` were 9 labels behind KG_NODE_KINDS/KG_EDGE_RELS.
+  A card written from another context's vantage must be re-read from inside the context before
+  it is built: the round-20 'cesta cannot report rejected' card died on trailPath.ts:185.
+  Tooling: a Czech „…" quote inside a JS double-quoted test title ends the string (twice this
+  round) - use ‚…‘ in titles; node:fs globSync returns backslashes on Windows - normalise.
