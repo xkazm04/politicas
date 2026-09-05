@@ -51,19 +51,11 @@ export interface SourceLink {
   tier: SourceTier;
 }
 
-/** Drží se v syncu s KG_NODE_KINDS v lib/analysis/kg-verdict.ts. */
-export type KgNodeKind =
-  | "person"
-  | "party"
-  | "organ"
-  | "bloc"
-  | "theme"
-  | "company"
-  | "contract"
-  | "bill"
-  | "law"
-  | "notice"
-  | "tender";
+/** JEDEN výčet druhů: odvozeno z KG_NODE_KINDS (lib/analysis/kg-verdict), ne
+ *  druhá kopie „držená v syncu" — do 2026-09-05 tu byl ručně psaný union a jeho
+ *  test obsluhy četl třetí ručně psaný seznam, kterému `tender` chyběl. */
+export type { KgNodeKind } from "@/lib/analysis/kg-verdict";
+import type { KgNodeKind } from "@/lib/analysis/kg-verdict";
 
 export interface SourceSubject {
   kind: KgNodeKind;

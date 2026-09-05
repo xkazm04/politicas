@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { KG_NODE_KINDS } from "@/lib/analysis/kg-verdict";
 import {
   citableId,
   parseLawRef,
@@ -16,18 +17,10 @@ const subject = (over: Partial<SourceSubject> & Pick<SourceSubject, "kind" | "id
 /** Doslovná adresa jedné vývěsky z docs/data-analysis/case-sources/kiosek-payload.json. */
 const POSTING_URL = "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9420213";
 
-const ALL_KINDS: KgNodeKind[] = [
-  "person",
-  "party",
-  "organ",
-  "bloc",
-  "theme",
-  "company",
-  "contract",
-  "bill",
-  "law",
-  "notice",
-];
+// Odvozeno z JEDINÉHO výčtu druhů (lib/analysis/kg-verdict), ne opsáno:
+// ručně psaný seznam tu do 2026-09-05 nesl 10 druhů z 11 — `tender` chyběl —
+// takže test „každý druh je obsloužen" procházel a jeden druh nikdy neprošel.
+const ALL_KINDS: readonly KgNodeKind[] = KG_NODE_KINDS;
 
 describe("odkazy do registrů", () => {
   it("osoba dostane kanonický detail na psp.cz z pspId", () => {
@@ -284,5 +277,13 @@ describe("parseLawRef", () => {
     expect(parseLawRef("č. 134/2016 Sb.")).toEqual({ cislo: "134", rok: "2016" });
     expect(parseLawRef("134/2016")).toEqual({ cislo: "134", rok: "2016" });
     expect(parseLawRef("bez čísla")).toBeNull();
+  });
+});
+
+describe("výčet druhů je jeden", () => {
+  it("KgNodeKind ze sourceLinks je totéž co KG_NODE_KINDS — a test obsluhy je z něj odvozený, ne opsaný", () => {
+    // Typová rovnost je vynucená exportem; tady se pinuje, že seznam má všech 11 druhů včetně `tender`.
+    expect(ALL_KINDS).toContain("tender");
+    expect(ALL_KINDS.length).toBe(11);
   });
 });
