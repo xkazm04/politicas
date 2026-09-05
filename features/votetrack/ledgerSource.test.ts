@@ -38,3 +38,14 @@ describe("the record's published counts go through f.int like every other figure
     );
   });
 });
+
+describe("themeLabels mirrors the classifier's slug set, not a memory of it", () => {
+  it("THEME_SLUGS equals the THEMES slugs in scripts/hybrid-bench/materialize-tags.ts", () => {
+    const script = src("scripts/hybrid-bench/materialize-tags.ts");
+    const block = /const THEMES: ReadonlyArray<readonly \[string, string\]> = \[([\s\S]*?)\n\];/.exec(script)?.[1] ?? "";
+    const written = [...block.matchAll(/\n\s*\["([a-z-]+)",/g)].map((m) => m[1]);
+    expect(written.length).toBeGreaterThan(5);
+    const labelled = [...src("features/votetrack/themeLabels.ts").matchAll(/^\s+"([a-z-]+)",$/gm)].map((m) => m[1]);
+    expect(labelled.sort()).toEqual([...written].sort());
+  });
+});

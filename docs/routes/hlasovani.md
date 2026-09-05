@@ -312,3 +312,11 @@ apart from a rewrite when it finally does move somebody's number.
 **2026-09-07 — the deník ratio bar draws absent MPs in steel (scan-sweep, visual-craft).** `RatioBar` painted the `away` segment `bg-hairline` on a track that is itself `bg-hairline`: zero effective contrast, so a 150 : 30 roll call with forty absentees read as a bar with two gaps. The mock `ChamberDetail` fixed exactly this in its own comment („steel, not hairline") and `RealChamberDetail` + the legend already use steel; the ledger row now matches them.
 
 **2026-09-07 — the record's published counts are Czech-formatted (scan-sweep, copy-auditor).** `disciplineNote`, `ledgerFootnote` and `methodSource` passed `valid` / `voided` / `window` to the catalog raw while `ballots` and `withoutDate` in the same sentence went through `f.int`; the chamber's 2 075 valid roll calls read „2075 platných hlasování". All five counts now format like every other figure on the page.
+
+**2026-09-07 — the theme label set is checked against the classifier's set (scan-sweep,
+test-strategist).** `themeLabels.ts` „mirrors the slugs written by
+scripts/hybrid-bench/materialize-tags.ts" by hand (13 slugs); a slug added to the
+classifier without a label would have rendered raw on /hlasovani and /kompas with no
+test noticing. `ledgerSource.test.ts` now parses the script's `THEMES` literal and
+asserts equality with `THEME_SLUGS` (verified red by mutating one slug).
+
