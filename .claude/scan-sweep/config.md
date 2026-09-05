@@ -108,3 +108,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   resilience. Scripts with a top-level main() get the kg-promote isDirectRun guard before a
   test imports them. A 'second implementation' finding needs its figure - the NFD folder
   differed from asciiFold on 0 of 400 names and was rejected, not built.
+- 2026-09-06 — db-repositories, first sweep (28 lenses, 3 S built). A read that picks ONE row per
+  key with no ORDER BY is a defect even when today's plan returns the right row - write the
+  test, and when it does not go red say so in the commit rather than claiming a reproduction.
+  A new PGlite-booting test must be registered in lib/testing/lanes.ts (PGLITE_LANE_FILES) -
+  the lane list is explicit and lane-partition.test.ts enforces it.

@@ -79,6 +79,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-06] `.github/workflows/sentinel.yml` comment still says the unevaluable report has „sixteen checks"** — type: docs-drift, risk: 1, effort: s, payoff: 1, reach: 1 line (`sentinel.yml:20`; the list is 18 since 2026-09-04, fixed in the runner header this round)
   Found by: scan-sweep (db-hybrid-benchmarks, documentation-auditor) · Same stale count as the runner header; the workflow file is another context · escalation: architecture (cross-context edit)
 
+- **[2026-09-06] `context-map.json` lists 16 files for `db-repositories` and omits five test files that live in the same directory** — type: map-drift, risk: 1, effort: s, payoff: 2, reach: 1 entry (`truncationGuards.test.ts`, `graph.test.ts`, `votes.test.ts`, `review-kinds.test.ts`, and the new `clubByMandate.test.ts`)
+  Found by: scan-sweep (db-repositories, documentation-auditor) · The sweep's veto 1 scopes edits by `file_paths`; unlisted tests in the repository directory belong to no context, so every sweep of this directory has to decide their ownership ad hoc. Fix: add them to the entry · escalation: architecture (context-map edit)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)

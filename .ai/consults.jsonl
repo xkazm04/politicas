@@ -22,3 +22,4 @@
 {"ts": "2026-09-06T03:20:00Z", "bundle": "civic-intelligence", "subjects": ["claim-verification-and-provenance", "accountability-publishing-ethics"], "techniques": ["missing-is-not-zero", "no-desktop-only-provenance"], "deviations": 2}
 {"ts": "2026-09-06T04:20:00Z", "bundle": "civic-intelligence", "subjects": ["accountability-publishing-ethics"], "techniques": ["named-controls-over-repeated-labels", "single-href-builder"], "deviations": 1}
 {"ts": "2026-09-06T05:20:00Z", "bundle": "software-engineering", "subjects": ["data-ingestion-integrity", "quality-gates"], "techniques": ["missing-beats-wrong-on-write-paths", "count-lives-with-the-list"], "deviations": 2}
+{"ts": "2026-09-06T06:30:00Z", "bundle": "software-engineering", "subjects": ["transactions-over-a-replicated-log", "test-harness"], "techniques": ["unspecified-order-is-a-defect", "one-guard-per-lister"], "deviations": 2}
