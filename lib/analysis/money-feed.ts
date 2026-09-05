@@ -23,6 +23,8 @@
 // is fully fixture-tested. It must NEVER be run on invented data.
 
 import type { Company, Contract, MoneyGraph, PersonCompanyLink } from "@/lib/analysis/kg-money";
+import { backoffDelayMs } from "@/lib/ingest/sources/backoff";
+import { classifyResponse, isTerminalRefusal, RefusedError } from "@/lib/ingest/sources/refusal-class";
 
 /* ── raw response shapes (only the fields we read) ──────────────────────────── */
 
@@ -597,33 +599,40 @@ export function dedupeContracts(contracts: readonly Contract[]): Contract[] {
 /* ── the IO edge: thin clients (the ONLY non-pure code here) ────────────────── */
 
 /**
- * Fetch that RESPECTS rate limits: on 429/503 it backs off (honouring `Retry-After`
- * when present, else exponential) and retries. Hlídač exposes no quota headers and
- * WILL 429 under load — without this, a rate-limited request looks like a failure and
- * an MP looks "unresolved" when it was only throttled.
+ * Fetch that retries only what a retry can change (refusal-class.ts, `classify-before-
+ * you-respond`). PRESSURE (429/503 — Hlídač exposes no quota headers and WILL 429 under
+ * load) and BROKEN (5xx) back off and retry, honouring `Retry-After` when present, with
+ * the repo's jittered back-off; DECLINED (401/403…) and ABSENT (404/410) are answered once
+ * and thrown as a RefusedError that names the class. Until 2026-09-06 only 429/503
+ * retried, so a host having a bad minute read as a miss — an MP „unresolved" because ARES
+ * answered 500 once — and a 403 and a 404 threw the same shapeless error.
  */
 async function fetchRetry(
+  source: string,
   doFetch: typeof fetch,
   url: string,
   init: RequestInit,
   maxRetries = 5,
 ): Promise<Response> {
-  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, Math.min(30_000, 750 * 2 ** attempt)));
+  const backoff = (attempt: number) => new Promise((r) => setTimeout(r, backoffDelayMs(attempt, 750, 30_000)));
   for (let attempt = 0; ; attempt++) {
     try {
       // A 20s abort on EVERY request — a stalled connection must never freeze the run;
       // it aborts, retries, and (after maxRetries) surfaces as a normal error the caller
       // treats as a miss. Without this a single hung fetch stalls the whole sweep.
       const res = await doFetch(url, { ...init, signal: AbortSignal.timeout(20_000) });
-      if ((res.status === 429 || res.status === 503) && attempt < maxRetries) {
+      const cls = classifyResponse(res.status);
+      if (cls.kind === "ok") return res;
+      if (!cls.retryable) throw new RefusedError(source, url, cls);
+      if (attempt < maxRetries) {
         const ra = Number(res.headers.get("retry-after"));
         if (Number.isFinite(ra) && ra > 0) await new Promise((r) => setTimeout(r, ra * 1000));
         else await backoff(attempt);
         continue;
       }
-      return res;
+      throw new RefusedError(source, url, cls);
     } catch (e) {
-      if (attempt >= maxRetries) throw e; // timeout / network — give up after retries (a miss, never a hang)
+      if (isTerminalRefusal(e) || attempt >= maxRetries) throw e; // terminal, or out of retries — a miss, never a hang
       await backoff(attempt);
     }
   }
@@ -633,6 +642,8 @@ export interface HlidacClientOptions {
   token: string;
   base?: string;
   fetchImpl?: typeof fetch;
+  /** Retries for the pressure/broken classes (default 5); tests pass a small number. */
+  retries?: number;
 }
 
 /** Thin Hlídač REST client. Rate-limit/throttle is the CALLER's concern (the API
@@ -641,15 +652,17 @@ export class HlidacClient {
   private readonly base: string;
   private readonly token: string;
   private readonly doFetch: typeof fetch;
+  private readonly retries: number;
   constructor(opts: HlidacClientOptions) {
     this.base = (opts.base ?? "https://api.hlidacstatu.cz/Api/v2").replace(/\/+$/, "");
     this.token = opts.token;
     this.doFetch = opts.fetchImpl ?? fetch;
+    this.retries = opts.retries ?? 5;
   }
   private async get(path: string): Promise<unknown> {
-    const res = await fetchRetry(this.doFetch, `${this.base}${path}`, {
+    const res = await fetchRetry("Hlídač", this.doFetch, `${this.base}${path}`, {
       headers: { Authorization: `Token ${this.token}`, Accept: "application/json" },
-    });
+    }, this.retries);
     if (!res.ok) throw new Error(`Hlidac ${path} → ${res.status} ${res.statusText}`);
     return res.json();
   }
@@ -678,20 +691,24 @@ export class HlidacClient {
 export interface AresClientOptions {
   base?: string;
   fetchImpl?: typeof fetch;
+  /** Retries for the pressure/broken classes (default 5); tests pass a small number. */
+  retries?: number;
 }
 
 /** Thin ARES client — no account needed; respect ~500 req/min (caller-throttled). */
 export class AresClient {
   private readonly base: string;
   private readonly doFetch: typeof fetch;
+  private readonly retries: number;
   constructor(opts: AresClientOptions = {}) {
     this.base = (opts.base ?? "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest").replace(/\/+$/, "");
     this.doFetch = opts.fetchImpl ?? fetch;
+    this.retries = opts.retries ?? 5;
   }
   async subject(ico: string): Promise<unknown> {
-    const res = await fetchRetry(this.doFetch, `${this.base}/ekonomicke-subjekty/${encodeURIComponent(ico)}`, {
+    const res = await fetchRetry("ARES", this.doFetch, `${this.base}/ekonomicke-subjekty/${encodeURIComponent(ico)}`, {
       headers: { Accept: "application/json" },
-    });
+    }, this.retries);
     if (!res.ok) throw new Error(`ARES ${ico} → ${res.status} ${res.statusText}`);
     return res.json();
   }
@@ -706,20 +723,22 @@ export class AresClient {
    */
   async vrRecord(ico: string): Promise<unknown> {
     const res = await fetchRetry(
+      "ARES",
       this.doFetch,
       `${this.base}/ekonomicke-subjekty-vr/${encodeURIComponent(ico)}`,
       { headers: { Accept: "application/json" } },
+      this.retries,
     );
     if (!res.ok) throw new Error(`ARES VR ${ico} → ${res.status} ${res.statusText}`);
     return res.json();
   }
   /** Name search — POST /ekonomicke-subjekty/vyhledat {obchodniJmeno}. Feeds pickExactIco. */
   async subjectSearch(obchodniJmeno: string, pocet = 20): Promise<unknown> {
-    const res = await fetchRetry(this.doFetch, `${this.base}/ekonomicke-subjekty/vyhledat`, {
+    const res = await fetchRetry("ARES", this.doFetch, `${this.base}/ekonomicke-subjekty/vyhledat`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({ obchodniJmeno, pocet }),
-    });
+    }, this.retries);
     if (!res.ok) throw new Error(`ARES search "${obchodniJmeno}" → ${res.status} ${res.statusText}`);
     return res.json();
   }
