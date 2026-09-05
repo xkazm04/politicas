@@ -269,3 +269,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   Gate commits on git's exit code (ci() helper) exactly like vt() gates on vitest's. Doc-sync
   dismissal reasons need >= 12 chars - 'test only' is refused. A hand list whose ground truth is
   a catalog gets a resolve-every-key test; when it is green on arrival, prove it by mutation.
+- 2026-09-07 — testing-sentinel, first sweep (28 lenses, 5 built in 5 commits, 3 cards). A
+  header that says 'the SAME list as X and Y' is a claim - open X and Y (one had grown by two).
+  When the partner constant is private in another context, a test that PARSES the partner's
+  source is an S instrument that turns the comment into a check. `as SomeUnion` on a stored
+  string is a default branch in disguise: guard with the vocabulary array and NAME the strays.
