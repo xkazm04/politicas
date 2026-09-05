@@ -70,6 +70,15 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-06] A bill assigned to the same committee twice yields two dated facts with one id** — type: contract, risk: 2, effort: s, payoff: 3, reach: 1 module + every exhibit address of an `assigned:` fact (`features/dashboard/datedFacts.ts:236` `id: assigned:${cislo}:${organLabel}`)
   Found by: scan-sweep (dashboard-state-graph, bounty-hunter) · The id omits role and date, so a re-assignment (return to the same committee) collides: duplicate React keys in the feed and `locateDatedFact` resolves the citation to the first row. Fact ids are deliberately stable (they ARE the exhibit address), so the fix is a contract change: measure first (count `(cislo, organLabel)` duplicates in `committeesByBill` on the live store), then suffix only the second and later duplicates in a deterministic order so every issued single-assignment address survives · escalation: contract
 
+- **[2026-09-06] `scripts/db-bench/node-sqlite.d.ts` is a dead type shim with a stale reason** — type: tech-debt, risk: 1, effort: s, payoff: 1, reach: 1 file
+  Found by: scan-sweep (db-hybrid-benchmarks, dependency-auditor) · `tsconfig.json` excludes `scripts/db-bench`, so tsc never reads the shim, and `@types/node@^24.13.3` ships `sqlite.d.ts`; the shim's comment still says „not yet in @types/node@20". Fix: delete the file and drop it from `context-map.json` (a map edit) · escalation: architecture (context-map edit)
+
+- **[2026-09-06] `scripts/sentinel/inspect-findings.ts` is a one-off pass-11 inspection left in the live tree** — type: tech-debt, risk: 1, effort: s, payoff: 2, reach: 1 file (defaults to `.pglite-backup-pass11`, header dates it 2026-07-31)
+  Found by: scan-sweep (db-hybrid-benchmarks, tech-debt-tracker) · The repo archives finished one-offs under `scripts/case-loops/effort/archive/` with `lib/testing/archivedScripts.test.ts` pinning them; this script has no npm entry, no test and a hard-coded July backup name. Fix: move to an archive folder + map update · escalation: architecture (context-map edit)
+
+- **[2026-09-06] `.github/workflows/sentinel.yml` comment still says the unevaluable report has „sixteen checks"** — type: docs-drift, risk: 1, effort: s, payoff: 1, reach: 1 line (`sentinel.yml:20`; the list is 18 since 2026-09-04, fixed in the runner header this round)
+  Found by: scan-sweep (db-hybrid-benchmarks, documentation-auditor) · Same stale count as the runner header; the workflow file is another context · escalation: architecture (cross-context edit)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)

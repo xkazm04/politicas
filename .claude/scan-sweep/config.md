@@ -102,3 +102,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   declares in use - a truncated version can fail the pre-commit lint (unused helper) and the
   next commit then carries the test ahead of its fix. Truncate by removing helpers too, or
   commit the shared test with the last finding.
+- 2026-09-06 — db-hybrid-benchmarks, first sweep (28 lenses, 2 S built). A benchmark harness
+  that also WRITES product data (materialize-tags → vote_tag) is an ingest path and gets the
+  ingest doctrine: a parse fallback that invents a default label is a fabrication, not
+  resilience. Scripts with a top-level main() get the kg-promote isDirectRun guard before a
+  test imports them. A 'second implementation' finding needs its figure - the NFD folder
+  differed from asciiFold on 0 of 400 names and was rejected, not built.
