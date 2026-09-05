@@ -48,3 +48,9 @@ describe("ProvenanceCapsule's panel is the modal dialog its header promises", ()
     );
   });
 });
+
+describe("LeaderboardPosterData can carry an undated record", () => {
+  it("retrievedAt admits null - the citation module already prints the reason", () => {
+    expect(src("features/shared/poster/demo/LeaderboardPoster.tsx")).toMatch(/retrievedAt: string \| null;/);
+  });
+});

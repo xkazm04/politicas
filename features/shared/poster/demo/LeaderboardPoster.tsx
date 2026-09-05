@@ -22,8 +22,11 @@ import { usePosterMode } from "../usePosterMode";
 
 /** Přesně to, co arch žebříčku sází — ořez LeaderboardListData na serveru. */
 export interface LeaderboardPosterData {
-  /** ISO datum dne, ke kterému byl arch vykreslen ze živého grafu. */
-  retrievedAt: string;
+  /** ISO den, ke kterému čísla platí — a `null`, když ho záznam o původu nenese
+   *  jednotně (viz citation.ts, posterUndatedNote): patička pak den nevytiskne a
+   *  řekne proč. Do 2026-09-07 byl typ povinný `string`, takže volající musel
+   *  dosadit den tisku — přesně to, co citation.ts zakazuje. */
+  retrievedAt: string | null;
   /** Živá URL žebříčku (odvozená z requestu — nikdy vymyšlená doména). */
   liveUrl: string;
   provenancePass: number | null;
