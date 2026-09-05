@@ -113,3 +113,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   test, and when it does not go red say so in the commit rather than claiming a reproduction.
   A new PGlite-booting test must be registered in lib/testing/lanes.ts (PGLITE_LANE_FILES) -
   the lane list is explicit and lane-partition.test.ts enforces it.
+- 2026-09-06 — db-store, first sweep (28 lenses, 1 docs fix). A context whose invariants are
+  already pinned by ~120 tests yields comments, not code: grep its headers for counts and
+  writer names and diff them against the declarations they describe. A comment inside
+  CORE_DDL changes the schema snapshot - regenerate with `npm run db:snapshot` in the
+  same commit or CI's drift check goes red.
