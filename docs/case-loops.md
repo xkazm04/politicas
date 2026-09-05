@@ -606,3 +606,11 @@ queried" population from the same truncated read. Eight scripts now import the
 shared cap; `contractIngestSource.test.ts` refuses a literal `limit:` in any of
 the thirteen.
 
+**The ARES-VR scripts import their id and period parsers (2026-09-07,
+scan-sweep, parity-auditor).** `reconcile-ares-vr.ts` and
+`reverify-open-vs-live-ares-vr.ts` each carried a `pspIdFromNodeId` that took
+the last `:`-segment of ANY id (a company or contract id parsed as an MP), and
+the former a `parsePeriod` that matched only an en-dash while the shared parser
+accepts a hyphen too — the same drift round 31 found in `triage.ts`. Both now
+import `lib/ingest/changeEvents.ts` and `features/money/reviewTypes.ts`.
+

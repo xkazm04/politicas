@@ -43,7 +43,10 @@ import { AresClient } from "@/lib/analysis/money-feed";
 // běh zapíše to, co plocha čte.
 // `reviewTypes.ts` je čistý modul (jediný běhový import je `asciiFold`), takže
 // z tsx skriptu neprosakuje žádná server-only hranice.
-import { classifyTie } from "@/features/money/reviewTypes";
+import { classifyTie, parsePeriod } from "@/features/money/reviewTypes";
+// The id parser is the strict shared one (`/^psp:person:(\d+)$/`); the copy that stood here
+// took the last `:`-segment of ANY id, so a company or contract id parsed as an MP.
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 
 const VR_BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr";
 const THROTTLE_MS = 150; // ~400 req/min, well under ARES's ~500 req/min budget
@@ -54,18 +57,6 @@ function sleep(ms: number) {
 }
 function num(v: unknown): number {
   return typeof v === "number" && Number.isFinite(v) ? v : 0;
-}
-function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
-}
-function parsePeriod(source: string): { from: string | null; to: string | null } {
-  const m = source.match(/(\d{4}-\d{2}-\d{2}|\?)–(\d{4}-\d{2}-\d{2}|ongoing|\?)/);
-  if (!m) return { from: null, to: null };
-  const from = m[1] === "?" ? null : m[1];
-  const to = m[2] === "ongoing" || m[2] === "?" ? null : m[2];
-  return { from, to };
 }
 
 /* ── ARES VR raw shape (only the fields we read) ─────────────────────────────── */

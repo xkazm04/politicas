@@ -47,3 +47,16 @@ describe("every whole-relation read uses KG_READ_CAP (lib/db/readCap.ts)", () =>
     expect(src(f)).toMatch(/import \{ KG_READ_CAP \} from "@\/lib\/db\/readCap"/);
   });
 });
+
+describe("the ARES-VR scripts read their parsers from the shared modules", () => {
+  it.each(["money/reconcile-ares-vr.ts", "money/reverify-open-vs-live-ares-vr.ts"])("%s imports pspIdFromNodeId", (f) => {
+    const s = src(f);
+    expect(s).toMatch(/import \{ pspIdFromNodeId \} from "@\/lib\/ingest\/changeEvents"/);
+    expect(s).not.toMatch(/function pspIdFromNodeId/);
+  });
+  it("reconcile-ares-vr.ts takes parsePeriod from features/money/reviewTypes (hyphen AND en-dash)", () => {
+    const s = src("money/reconcile-ares-vr.ts");
+    expect(s).toMatch(/import \{[^}]*\bparsePeriod\b[^}]*\} from "@\/features\/money\/reviewTypes"/);
+    expect(s).not.toMatch(/function parsePeriod/);
+  });
+});
