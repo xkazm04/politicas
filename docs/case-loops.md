@@ -511,3 +511,10 @@ bill-only slice would cut.
 and its own `.txt` join; it now calls `readCachedBillText` and applies only its
 comparison form on top — one cache path and one NFC read for every collision
 script.
+
+**`company-sectors.ts`: `IT` is a whole word (2026-09-07, scan-sweep,
+bounty-hunter).** Under the `/i` flag `IT\b` was a suffix match, so any label
+ending in "-it" (audit, kredit, profit, transit) classified as `digital` — the
+P42 class the module's own header warns about. 0 realised hits over the 156
+company labels in the case payloads (probed), 1 reproduced in
+`company-sectors.test.ts`, which also pins the overrides and the municipal net.
