@@ -218,3 +218,12 @@ logos. `BrandMark` in `sidebarParts.tsx` is now the single drawing, sized by
 `className` (h-7 on the rail, h-6 on the mobile strip). `shellSource.test.ts`
 counts one `viewBox="0 0 32 32"` in the shell.
 
+**2026-09-07 — every catalog key the nav model names is checked against both
+catalogs (scan-sweep, test-strategist).** `NAV` and `PAGE_SECTIONS` are hand-kept
+lists of `labelKey`/`tagKey` strings that the rail renders through `t()`; a key
+absent from `messages/{cs,en}.json` renders as the bare key. Three feature tests
+guarded their own anchors (/hlasovani, /rozpocty, /volby — 17 of 52 keys); the
+rail rows, /dashboard, /zebricek, /penize, /zakony and /poslanec had no guard.
+`navModel.test.ts` now resolves all 52 against both catalogs (0 missing today;
+the guard was verified red by mutating one key).
+
