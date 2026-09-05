@@ -27,6 +27,15 @@ describe("asciiFold", () => {
   it("collapses and trims whitespace", () => {
     expect(asciiFold("  a   b  ")).toBe("a b");
   });
+  it("folds EVERY letter of the Czech and Slovak alphabets — the table is checked against the alphabet, not a sample (2026-09-06)", () => {
+    // Ground truth is the alphabet, spelled out here; the FOLD table is the thing under test.
+    const czech = "áčďéěíňóřšťúůýž";
+    const slovak = "äĺľôŕ";
+    for (const ch of czech + slovak + (czech + slovak).toUpperCase()) {
+      expect(asciiFold(ch), ch).toMatch(/^[a-z]$/);
+    }
+  });
+
   it("produces pure ASCII for any Czech input", () => {
     for (const s of ["Žluťoučký kůň", "Bělobrádek", "Výbor pro životní prostředí"]) {
       expect(asciiFold(s)).toMatch(/^[\x20-\x7e]*$/);
