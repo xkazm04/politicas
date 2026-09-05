@@ -55,13 +55,6 @@ export type { KgAsOfReads } from "../../store";
  */
 export type BitemporalKnowledgeGraphRepository = KnowledgeGraphRepository;
 
-/**
- * The distinct ids at the far end of `edges` relative to `id`, excluding `id`
- * itself. Pure and exported for a colocated test — the one bit of `kgNeighbours`
- * that's logic rather than a query: a self-loop (src = dst = id) resolves to
- * `id` on the "other end" no matter which side you read, so it must be dropped
- * rather than returned as a neighbour of itself.
- */
 /* The truncation guard used by the two listers below now lives in `../internals`
  * (`warnIfTruncated`) — the relational listers in `graph.ts` had the same hazard and
  * no guard at all, so the rule has one definition for both sides of the store. */
@@ -73,6 +66,13 @@ function neighbourFilter(id: string, rels: readonly string[] | undefined): strin
   return `${id} rels=${rels && rels.length > 0 ? rels.join("|") : "*"}`;
 }
 
+/**
+ * The distinct ids at the far end of `edges` relative to `id`, excluding `id`
+ * itself. Pure and exported for a colocated test — the one bit of `kgNeighbours`
+ * that's logic rather than a query: a self-loop (src = dst = id) resolves to
+ * `id` on the "other end" no matter which side you read, so it must be dropped
+ * rather than returned as a neighbour of itself.
+ */
 export function neighbourIds(edges: KgEdgeRow[], id: string): string[] {
   const out = new Set<string>();
   for (const e of edges) {

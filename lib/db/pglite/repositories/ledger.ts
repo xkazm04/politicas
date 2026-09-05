@@ -1,7 +1,8 @@
 // LedgerRepository — the tamper-evident ledger's data API (read/verify/seal).
 //
-// The WRITE side of the chain lives in review.ts (setTieReviewState appends the
-// chained audit row inside its existing transaction); this repository exposes:
+// The WRITE side of the chain lives in review.ts (`setReviewState` appends the
+// chained audit row inside its transaction, for every claim kind since 2026-09-04;
+// `setTieReviewState` is its tie alias); this repository exposes:
 //  • the current chain head + one-pass O(n) verification with first-divergence,
 //  • Merkle sealing of an ingest run (root over every row the run wrote),
 //  • the combined "heads" view — the data an admin surface (VaultHeadsPanel or a
@@ -102,7 +103,7 @@ export interface LedgerHeads {
  * query: `verifyReviewChain` keeps its contract (re-hash what is chained),
  * and a caller that must tell "empty" from "erased" asks for both numbers.
  * `chained <= total` always; `chained < total` means rows exist outside the
- * chain, which no writer in this repo produces (setTieReviewState appends
+ * chain, which no writer in this repo produces (`setReviewState` appends
  * chained rows inside its transaction).
  */
 export interface ReviewAuditCounts {

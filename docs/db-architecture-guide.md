@@ -716,3 +716,19 @@ inserted first and pins the answer.
 `repositories/` reading without `warnIfTruncated`, while `/data` derives
 `lineage.runsTotal` and the release changelog from its length; the guard now fires
 when the read returns exactly its cap, and `truncationGuards.test.ts` pins it.
+
+**Two headers caught up with the door (2026-09-06, scan-sweep,
+documentation-auditor).** `ledger.ts` still named `setTieReviewState` as the chain's
+writer twice; since the 2026-09-04 review door the writer is `setReviewState` for
+every claim kind, and the tie call is its alias. In `kg.ts` the JSDoc of
+`neighbourIds` had been separated from its function by a later comment block and
+was hovering over `neighbourFilter`; it sits on its own function again.
+
+**`clubByMandate` answers the club TODAY by rule, not by scan order (2026-09-06,
+scan-sweep, bounty-hunter).** The one-club-per-mandate read had no `ORDER BY`, so an
+MP who changed clubs mid-term resolved to whichever membership row PGlite returned
+last — insertion order, while `/zebricek`, `/penize` and `/volby` all print that
+value as the current club. The query now orders closed windows first and open
+windows by start date, so the last row per mandate is the open window with the
+latest start; `clubByMandate.test.ts` seeds a switcher with the current club
+inserted first and pins the answer.
