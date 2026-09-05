@@ -53,10 +53,13 @@ export default function KompasPage({ data }: { data: KompasData }) {
         minConfidence: minConfidencePct,
       }),
       scoring: t("kompas.scoringRule"),
+      // Počty jdou přes f.int jako každé jiné vypsané číslo — do 2026-09-07 se
+      // „platných hlasování“ (stovky až tisíce) sázelo bez české mezery tisíců,
+      // zatímco řádek prahů (`floors`) o kus níž ji měl.
       source: t("kompas.rulesSource", {
-        valid: data.coverage.valid,
-        tagged: data.coverage.tagged,
-        candidates: data.coverage.candidates,
+        valid: f.int(data.coverage.valid),
+        tagged: f.int(data.coverage.tagged),
+        candidates: f.int(data.coverage.candidates),
         minConfidence: minConfidencePct,
         from: data.coverage.from ? f.date(data.coverage.from) : "—",
         to: data.coverage.to ? f.date(data.coverage.to) : "—",

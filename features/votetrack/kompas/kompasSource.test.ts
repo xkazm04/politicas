@@ -20,3 +20,13 @@ describe("QuestionCard renders only a KNOWN outcome through the catalog", () => 
     expect(s).not.toMatch(/q\.outcome === "accepted" \? tcom\("voteResult\.accepted"\) : tcom\("voteResult\.rejected"\)/);
   });
 });
+
+describe("KompasPage formats the coverage counts it publishes", () => {
+  it("valid / tagged / candidates go through f.int in rulesSource", () => {
+    const s = src("features/votetrack/kompas/KompasPage.tsx");
+    const block = /source: t\("kompas\.rulesSource", \{[\s\S]*?\}\)/.exec(s)?.[0] ?? "";
+    expect(block).toMatch(/valid: f\.int\(data\.coverage\.valid\)/);
+    expect(block).toMatch(/tagged: f\.int\(data\.coverage\.tagged\)/);
+    expect(block).toMatch(/candidates: f\.int\(data\.coverage\.candidates\)/);
+  });
+});
