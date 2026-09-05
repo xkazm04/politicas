@@ -732,3 +732,13 @@ value as the current club. The query now orders closed windows first and open
 windows by start date, so the last row per mandate is the open window with the
 latest start; `clubByMandate.test.ts` seeds a switcher with the current club
 inserted first and pins the answer.
+
+**Three store headers catch up with the code they describe (2026-09-06,
+scan-sweep, documentation-auditor).** `store.ts` said the facade is composed from
+"four" repositories (seven interfaces are extended); its `ReviewRepository` header
+and `types.ts`'s `ReviewAuditRow` doc — the latter detached above the kind
+vocabulary — still described the tie-only writer two days after the G2 door made
+`setReviewState` the writer for every claim kind, as did the `review_audit`
+comment inside `CORE_DDL` (snapshot regenerated). `VoteTagRow.theme`'s example
+slug now exists in the taxonomy. `storeSource.test.ts` pins the count-free header,
+composer/interface parity and the writer name.

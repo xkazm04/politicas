@@ -202,13 +202,6 @@ export interface KgEdgeRow {
 }
 
 /**
- * One append-only audit row for a human review decision on a `linked_to` tie
- * (Case ① FollowTheMoney verification console). Written by
- * `ReviewRepository.setTieReviewState` BEFORE the corresponding `kg_edge.props`
- * update — `priorState` is always the edge's `review_state` immediately before
- * this decision, so the trail can reconstruct every flip.
- */
-/**
  * The claim kinds that go through THE review door (G2, deck #5 + #12). Closed
  * here rather than in SQL on purpose: a check constraint on `review_audit`
  * would have to be dropped and re-added to grow — a destructive migration for
@@ -235,6 +228,15 @@ export function isReviewSubjectKind(v: unknown): v is ReviewSubjectKind {
   return typeof v === "string" && (REVIEW_SUBJECT_KINDS as readonly string[]).includes(v);
 }
 
+/**
+ * One append-only audit row for a human review decision on a claim — a
+ * `linked_to` tie (Case ① FollowTheMoney verification console), a bill forensic
+ * verdict or an effort verdict. Written by `ReviewRepository.setReviewState`
+ * BEFORE the subject's state is touched — `priorState` is always the state the
+ * subject carried immediately before this decision, so the trail can
+ * reconstruct every flip. (Until 2026-09-06 this doc sat detached above the
+ * kind vocabulary and still named the tie-only writer.)
+ */
 export interface ReviewAuditRow {
   id: string;
   src: string;
@@ -314,7 +316,8 @@ export interface SliceQualityRow {
 export interface VoteTagRow {
   id: string; // `vote_tag:<votePspId>`
   votePspId: number;
-  /** Canonical theme slug from the fixed taxonomy (e.g. `budget-finance`). */
+  /** Canonical theme slug from the fixed taxonomy (e.g. `rozpocet-finance`,
+   *  scripts/hybrid-bench/materialize-tags.ts THEMES). */
   theme: string;
   /** The classifier's self-reported confidence, 0–1 (nullable). */
   confidence: number | null;

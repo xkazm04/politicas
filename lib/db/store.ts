@@ -6,8 +6,11 @@
  * interface. The concrete driver is chosen by `lib/db/config.ts` and imported
  * lazily below, so the ~3 MB PGlite WASM never enters a client bundle.
  *
- * `Store` is composed from four narrow repositories, one per bounded concern.
- * A consumer that only needs one may depend on the narrow interface.
+ * `Store` is composed from narrow repositories, one per bounded concern — exactly
+ * the interfaces `Store` extends at the bottom of this file (the count lives in
+ * that clause, not in this sentence: it said "four" until 2026-09-06, three
+ * repositories after it stopped being true). A consumer that only needs one may
+ * depend on the narrow interface.
  *
  * To add a backend: implement `Store`, wire it into `getStore()`. No call-site
  * changes. To add domain data: extend a repository here and implement it in
@@ -304,11 +307,14 @@ export interface KgAsOfReads {
 }
 
 /**
- * The human-review write path for `linked_to` ties (Case ① FollowTheMoney
- * verification console). THIS is the only code path in the app that is ever
- * allowed to write `kg_edge.props.review_state` — every other consumer
- * (including `kg-compute`) only reads it. Every decision is audited to
- * `review_audit` BEFORE the edge is touched (see `ReviewAuditRow`).
+ * The human-review write path for EVERY claim kind that reaches a reader —
+ * `linked_to` ties (Case ① FollowTheMoney verification console) first, bill
+ * forensic verdicts and person-level effort verdicts since the G2 door
+ * (2026-09-04). THIS is the only code path in the app that is ever allowed to
+ * write a review state (`kg_edge.props.review_state`, a bill's
+ * `forensic_review_state`, an effort verdict's `review_state`) — every other
+ * consumer (including `kg-compute`) only reads it. Every decision is audited to
+ * `review_audit` BEFORE the subject is touched (see `ReviewAuditRow`).
  */
 export interface ReviewRepository {
   /**
