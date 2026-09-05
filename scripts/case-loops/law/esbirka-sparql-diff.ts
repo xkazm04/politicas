@@ -32,6 +32,8 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 
+import { sparqlQuery, type SparqlBinding } from "./esbirkaSparql";
+
 const SPARQL_ENDPOINT = "https://opendata.eselpoint.gov.cz/sparql";
 const BASE = "https://opendata.eselpoint.gov.cz/esel-esb";
 const P = {
@@ -50,21 +52,8 @@ const arg = (name: string, fb = ""): string => {
   return h ? h.slice(name.length + 3) : fb;
 };
 
-interface SparqlBinding {
-  [k: string]: { type: string; value: string };
-}
-async function sparql(query: string): Promise<SparqlBinding[]> {
-  const url = `${SPARQL_ENDPOINT}?query=${encodeURIComponent(query)}&format=${encodeURIComponent("application/sparql-results+json")}`;
-  const res = await fetch(url, { headers: { Accept: "application/sparql-results+json" } });
-  const text = await res.text();
-  let json: { results?: { bindings?: SparqlBinding[] } };
-  try {
-    json = JSON.parse(text);
-  } catch {
-    throw new Error(`SPARQL endpoint returned non-JSON (HTTP ${res.status}): ${text.slice(0, 300)}`);
-  }
-  return json.results?.bindings ?? [];
-}
+/** Point query against the e-Sbírka endpoint — status-checked (esbirkaSparql.ts). */
+const sparql = (query: string): Promise<SparqlBinding[]> => sparqlQuery(SPARQL_ENDPOINT, query);
 
 function versionIri(lawRef: string, date: string): string {
   const [cislo, rok] = lawRef.split("/");
