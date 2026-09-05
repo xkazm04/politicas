@@ -87,7 +87,8 @@ async function main() {
     ico: string;
     isPublicBody: boolean;
     children: string[];
-    contracts: number;
+    /** null = the query FAILED; this parent is unmeasured, not contract-free. */
+    contracts: number | null;
     truncated: boolean;
     valuedContracts: number;
     totalCzk: number;
@@ -129,10 +130,11 @@ async function main() {
       console.log(`${rows.length} contract(s), ${total.toLocaleString("cs-CZ")} CZK across ${valued.length} valued${truncated ? " [TRUNCATED at maxPages]" : ""}`);
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      // Never silently absorb a failed query — an un-queried parent must not read as a zero.
+      // Never silently absorb a failed query — an un-queried parent must not read as a zero,
+      // and until 2026-09-07 the payload row said `contracts: 0` under its `error`.
       results.push({
         parentId: p.id, parent: p.label, ico: p.ico, isPublicBody: p.isPublicBody, children: p.children,
-        contracts: 0, truncated: false, valuedContracts: 0, totalCzk: 0, unvaluedContracts: 0,
+        contracts: null, truncated: false, valuedContracts: 0, totalCzk: 0, unvaluedContracts: 0,
         earliest: null, latest: null, topRows: [], error: msg,
       });
       console.log(`QUERY FAILED — ${msg}`);
@@ -143,7 +145,7 @@ async function main() {
   const failed = results.filter((r) => r.error);
   const priv = ok.filter((r) => !r.isPublicBody);
   const pub = ok.filter((r) => r.isPublicBody);
-  const privHits = priv.filter((r) => r.contracts > 0);
+  const privHits = priv.filter((r) => (r.contracts ?? 0) > 0);
 
   console.log(`\n── PRIVATE ownership parents (attributable indirect exposure — leads) ──`);
   for (const r of priv.sort((a, b) => b.totalCzk - a.totalCzk)) {
@@ -154,7 +156,7 @@ async function main() {
     );
   }
   console.log(`\n── PUBLIC-BODY parents (own mandate — NEVER attributed to an MP) ──`);
-  for (const r of pub.sort((a, b) => b.contracts - a.contracts)) {
+  for (const r of pub.sort((a, b) => (b.contracts ?? 0) - (a.contracts ?? 0))) {
     console.log(`  ${r.parent} (${r.ico}) — ${r.contracts} contract(s) [not attributable]`);
   }
   if (failed.length) {

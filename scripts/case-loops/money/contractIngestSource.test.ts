@@ -78,3 +78,12 @@ describe("ONE retry rule for the Registr smluv sweeps (smlouvyRetry.ts)", () => 
     expect(s).not.toMatch(/includes\("429"\)/);
   });
 });
+
+describe("parent-contract-sweep.ts: a failed query is an UNMEASURED parent, never a zero", () => {
+  it("records contracts: null on the error row (the company sweep already does)", () => {
+    const s = src("money/parent-contract-sweep.ts");
+    expect(s).toMatch(/contracts: number \| null;/);
+    expect(s).toMatch(/contracts: null, truncated: false/);
+    expect(s).not.toMatch(/contracts: 0, truncated: false/);
+  });
+});

@@ -633,3 +633,10 @@ matched an IČO carrying those digits in the quoted URL, so a 404 for such a
 company was retried three times as a rate limit. `smlouvyRetry.ts` holds the
 predicate and the ladder; both sweeps import it, and the test pins the IČO case.
 
+**An unmeasured parent is `null`, never zero (2026-09-07, scan-sweep,
+state-coverage).** `parent-contract-sweep.ts` wrote `contracts: 0` on a failed
+query's payload row — under an `error` field, but a zero all the same, and the
+company sweep's own header names exactly this as the batch-009 mistake it
+corrected. The row now carries `contracts: null`; the console summaries already
+filtered on `error`.
+
