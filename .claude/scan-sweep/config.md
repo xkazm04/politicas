@@ -165,3 +165,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   is a finding on X. A frozen literal where 8 siblings derive a value (pass, cap) is a pair.
   Files a context map does not own (kg-vote-bill-ingest, the provenance test/backfill) are
   named in the round, never edited - veto 1 covers 'nobody's' files too.
+- 2026-09-06 — landing-page, first sweep (28 lenses, 6 built in 5 commits). A UI context's pairs
+  are comments: 'týž vzorec jako X', 'drž v sync s Y', 'týž seznam jako Z' each named a second
+  copy of one rule held by prose - grep the context for `sync`, `týž`, `same list` before any
+  lens. A write path's OWN doctrine (aggregate rule 1: sum 0 is no vote) is a checklist for its
+  door: the action accepted what the aggregate skipped. Server actions need the same three
+  states as loaders (ok / refused / unavailable) and the client needs a catch for the fourth.
