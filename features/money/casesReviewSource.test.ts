@@ -36,3 +36,12 @@ describe("collision candidates: statute ref from a law node id", () => {
     expect(s).not.toMatch(/replace\(\/\^law:sb:\//);
   });
 });
+
+describe("evidence packet: the compiled-at stamp is the Prague day", () => {
+  it("calls pragueDay() and no longer slices the UTC ISO string", () => {
+    const s = src("features/money/getEvidencePacket.ts");
+    expect(s).toMatch(/import \{ pragueDay \} from "@\/features\/denik\/pragueDay"/);
+    expect(s).toMatch(/const compiledAt = pragueDay\(\)/);
+    expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
+  });
+});

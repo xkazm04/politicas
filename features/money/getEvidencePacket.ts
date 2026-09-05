@@ -9,6 +9,7 @@
 
 import "server-only";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { pragueDay } from "@/features/denik/pragueDay";
 import { getMoneyMpDetail } from "./getMpDetail";
 import { compileEvidencePacket, type EvidencePacket } from "./packet";
 
@@ -17,8 +18,10 @@ export async function getEvidencePacket(pspId: number): Promise<EvidencePacket |
     const detail = await getMoneyMpDetail(pspId);
     if (!detail) return null;
     // Datum sestavení je datovaný otisk (poster-konvence "stav dat ke dni");
-    // ZÁMĚRNĚ není součástí hashe obsahu — viz packet.ts.
-    const compiledAt = new Date().toISOString().slice(0, 10);
+    // ZÁMĚRNĚ není součástí hashe obsahu — viz packet.ts. Den je PRAŽSKÝ den
+    // (features/denik/pragueDay.ts): řez UTC řetězce zaostával za Prahou až o dvě
+    // hodiny po půlnoci a citace „Stav ke dni“ nesla včerejší datum.
+    const compiledAt = pragueDay();
     return compileEvidencePacket(detail, { compiledAt });
   } catch (err) {
     reportLoaderFailure("getEvidencePacket", err);

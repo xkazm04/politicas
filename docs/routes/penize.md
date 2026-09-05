@@ -743,3 +743,10 @@ zápisem (odřízni `law:sb:`, první pomlčku nahraď lomítkem) — druhý par
 z JAKÉHOKOLI cizího id věrohodně vypadající „x/y“; inverze vrátí pro nekanonické
 id null a plocha ukáže surové id — viditelný urn, nikdy vyrobená citace.
 
+**Paket nese pražský den (2026-09-07).** Razítko „Stav ke dni“ na důkazním paketu
+se bralo z UTC hodin (`toISOString().slice(0, 10)`); Praha je o hodinu až dvě
+napřed, takže paket zkompilovaný po půlnoci nesl včerejší datum — v citaci,
+kterou novinář kopíruje. `getEvidencePacket` bere den z `pragueDay()`
+(features/denik/pragueDay.ts), týmž pravidlem jako deník a od 7225d18 i firemní
+spis. Otisk obsahu se nemění: `compiledAt` do hashe záměrně nevstupuje.
+
