@@ -93,3 +93,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   container reader that skips the checksum its container carries contradicts its own
   "reject loudly" header. Stage discipline: when two findings edit the same file, commit
   the first BEFORE applying the second - `--only <file>` stages the whole file.
+- 2026-09-06 — dashboard-instruments, first sweep (28 lenses, 3 S built). Two pages in one
+  context are a standing pair: a rule one of them adopted with a dated record (velín 2026-08-12,
+  `hidden sm:block`; exhibit `f.int(pass)`) is a finding wherever the sibling still lacks it -
+  grep the sibling for the exact string the record names.

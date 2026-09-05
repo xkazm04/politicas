@@ -61,6 +61,12 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-06] `readZipMap` silently keeps the last of two members with one basename** — type: contract, risk: 1, effort: s, payoff: 2, reach: 1 function (`packages/czech-civic-data/src/zip.ts` `readZipMap`, every ingest adapter reads through it)
   Found by: scan-sweep (czech-civic-data-parsing, error-handler) · The map is keyed by lower-cased basename, so `a/organy.unl` and `b/organy.unl` collapse to one entry and the earlier member is dropped with no error — against the module's "reject loudly rather than silently mis-read" rule. psp.cz dumps are flat today. Fix: throw a named error on a duplicate key (a behaviour change for any archive that relies on last-wins) · escalation: contract
 
+- **[2026-09-06] `/dashboard/exponat/[id]` renders its unavailable state in Czech for every locale** — type: i18n, risk: 1, effort: s, payoff: 3, reach: 1 route (`app/dashboard/exponat/[id]/page.tsx:46` `what="Exponát" backLabel="zpět do velína"`)
+  Found by: scan-sweep (dashboard-instruments, copy-auditor) · Every other route passes `DataUnavailable` translated strings (`app/volby`, `app/poslanec/[id]`, `app/kraj/[kraj]`, …); this one hands it literals, so an English reader of a citation page meets Czech. Fix: two `meta.*` keys + `getTranslations` (mp-rankings-routes context) · escalation: architecture (cross-context edit)
+
+- **[2026-09-06] `FollowTheMoneyPage` prints a null per-company cap as 0, twice** — type: contract, risk: 1, effort: s, payoff: 2, reach: 1 file (`features/money/FollowTheMoneyPage.tsx:156,161` `perCompanyCap ?? 0`)
+  Found by: scan-sweep (dashboard-instruments, state-coverage) · `MpCaseFilePage` guards the same sentence with `!== null` and the velín now does too (this round); the module's own front page still collapses null to „strop 0". Fix: the `!== null` guard or a cap-less variant sentence (money-ledger-graph context) · escalation: architecture (cross-context edit)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
