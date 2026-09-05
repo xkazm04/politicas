@@ -73,6 +73,7 @@ function StandoutStat({
   medians: Record<string, number>;
 }) {
   const t = useTranslations("civicscore");
+  const f = useFormat();
   let best: { label: string; delta: number } | null = null;
   for (const c of components) {
     const delta = Math.round(entry.components[c.key] - (medians[c.key] ?? 0));
@@ -80,13 +81,15 @@ function StandoutStat({
   }
   if (!best || best.delta === 0) return <span className="font-mono text-[10px] uppercase tracking-wider text-steel">{t("standoutNearMedian")}</span>;
   const up = best.delta > 0;
+  // Odchylka jde formátovací autoritou (lib/format) jako každé jiné číslo na ploše.
+  const magnitude = f.int(Math.abs(best.delta));
   return (
     <span
       className={`font-mono text-[10px] font-bold uppercase tracking-wider ${up ? "text-cobalt" : "text-signal"}`}
-      title={t("standoutTitle", { label: best.label, delta: `${up ? "+" : ""}${best.delta}` })}
+      title={t("standoutTitle", { label: best.label, delta: `${up ? "+" : "−"}${magnitude}` })}
     >
       {up ? "+" : "−"}
-      {Math.abs(best.delta)} {best.label}
+      {magnitude} {best.label}
     </span>
   );
 }

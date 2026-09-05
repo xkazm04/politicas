@@ -127,8 +127,10 @@ export default function TrendPanel({
           <div key={s.label} className="bg-paper p-3">
             <p className="font-mono text-[10px] uppercase tracking-widest text-steel">{s.label}</p>
             <p className="mt-1 font-mono text-lg font-black tabular-nums">
+              {/* Počty jdou formátovací autoritou (lib/format): vystoupení v sále
+                  přesahují tisíc a Čech čte „1 234", ne „1234" (2026-09-05). */}
               {/* citation-ok: zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
-              {s.v.prior} <span className="text-steel">→</span> {s.v.current}
+              {f.int(s.v.prior)} <span className="text-steel">→</span> {f.int(s.v.current)}
             </p>
           </div>
         ))}

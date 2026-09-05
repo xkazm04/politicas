@@ -61,11 +61,15 @@ function PillarBars({
   components: LeaderboardListData["components"];
 }) {
   const t = useTranslations("civicscore");
+  const f = useFormat();
   // Miniaturní složkové pruhy: výška = míra naplnění složky (body / váha).
   // Čistě inkoustové — na papíře nesmí význam nést barva. Hodnoty duplikují
   // skóre vedle, proto aria-hidden + title s plným rozpisem.
+  // Číslo vstupuje do věty UŽ ZFORMÁTOVANÉ (lib/format.ts) — next-intl by ho
+  // jinak protáhl vlastním Intl.NumberFormat mimo jedinou formátovací autoritu
+  // (týž důvod jako v RapporteurBadge). Body na desetiny, váha celá.
   const title = components
-    .map((c) => t("krajBarItem", { label: c.label, points: row.components[c.key], weight: c.weight }))
+    .map((c) => t("krajBarItem", { label: c.label, points: f.dec(row.components[c.key]), weight: f.int(c.weight) }))
     .join(" · ");
   return (
     <span aria-hidden title={title} className="flex shrink-0 items-end gap-1">
