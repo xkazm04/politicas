@@ -369,3 +369,9 @@ and seventeen „deník entity →" links with identical text, the exact
 indistinguishable-controls defect `FactRow` fixed for its buttons with named
 `aria-label`s. Both link kinds carry the node's name now
 (`list.caseFileNamed`, `list.denikNamed`, both catalogs).
+
+**`companyCaseFileHref` removed as a dead second builder of the company href
+(2026-09-06, scan-sweep, tech-debt-tracker).** Zero consumers outside its own test
+(grep over `app/`, `features/`, `lib/`); the company node's `/penize/firma/<ičo>`
+href is built once, in `stateSlice.ts`, and a second builder nobody calls is the
+pair that diverges unnoticed.

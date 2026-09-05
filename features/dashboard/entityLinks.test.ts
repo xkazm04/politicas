@@ -1,12 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 import { sliceCompanyId, sliceMoneyId, slicePersonId, sliceBillId, slicePartyId, sliceLawId } from "./stateSlice";
-import {
-  companyCaseFileHref,
-  denikEntityHref,
-  denikFactHref,
-  sliceNodeEntityKey,
-} from "./entityLinks";
+// `companyCaseFileHref` was removed 2026-09-06: zero consumers outside this test (grep over
+// app/, features/, lib/); the company node's href is built once, in stateSlice.ts.
+import { denikEntityHref, denikFactHref, sliceNodeEntityKey } from "./entityLinks";
 
 describe("sliceNodeEntityKey", () => {
   it("translates the three node kinds that HAVE a public stream", () => {
@@ -53,14 +50,3 @@ describe("denik addresses", () => {
   });
 });
 
-describe("companyCaseFileHref", () => {
-  it("addresses the company's own case file, not the first MP tied to it", () => {
-    expect(companyCaseFileHref(sliceCompanyId("46347534"))).toBe("/penize/firma/46347534");
-    expect(companyCaseFileHref(sliceMoneyId("46347534"))).toBe("/penize/firma/46347534");
-  });
-
-  it("is null for anything that is not a firm with a canonical IČO", () => {
-    expect(companyCaseFileHref(slicePersonId(6881))).toBeNull();
-    expect(companyCaseFileHref("c:3")).toBeNull();
-  });
-});

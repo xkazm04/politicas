@@ -74,12 +74,3 @@ export function denikFactHref(entityKey: string, date: string | null): string {
   return date && /^\d{4}-\d{2}-\d{2}$/.test(date) ? `${base}#${dayAnchor(date)}` : base;
 }
 
-/** Spis firmy — junction uzel grafu; jen pro uzel firmy/peněz s platným IČO. */
-export function companyCaseFileHref(nodeId: string): string | null {
-  const sep = nodeId.indexOf(":");
-  if (sep < 0) return null;
-  const prefix = nodeId.slice(0, sep);
-  const raw = nodeId.slice(sep + 1);
-  if (prefix !== "c" && prefix !== "m") return null;
-  return ICO_RE.test(raw) ? `/penize/firma/${raw}` : null;
-}
