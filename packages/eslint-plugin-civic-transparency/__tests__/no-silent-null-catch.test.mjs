@@ -46,6 +46,14 @@ tester.run("no-silent-null-catch", rule, {
       code: `try { load(); } catch {}`,
     },
     {
+      name: "promise .catch that reports before its fallback",
+      code: `const rows = load().catch((err) => { reportLoaderFailure("getRows", err); return []; });`,
+    },
+    {
+      name: "promise .catch returning a real value is not a silent degradation",
+      code: `const rows = load().catch((err) => ({ error: String(err) }));`,
+    },
+    {
       name: "non-empty array return is not the fallback shape",
       code: `function f() { try { return load(); } catch { return [FALLBACK]; } }`,
     },
@@ -64,6 +72,16 @@ tester.run("no-silent-null-catch", rule, {
     {
       name: "prepended busywork does not bypass the scan",
       code: `function f() { try { return load(); } catch (err) { setLoading(false); return null; } }`,
+      errors: [{ messageId: "silentNullCatch" }],
+    },
+    {
+      name: "promise .catch(() => null) is the same silent degradation in a different syntax",
+      code: `const data = load().catch(() => null);`,
+      errors: [{ messageId: "silentNullCatch" }],
+    },
+    {
+      name: "promise .catch with a block body returning [] and no trace",
+      code: `const rows = load().catch((err) => { setLoading(false); return []; });`,
       errors: [{ messageId: "silentNullCatch" }],
     },
     {

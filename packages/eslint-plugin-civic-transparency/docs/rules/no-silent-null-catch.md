@@ -47,3 +47,10 @@ is one grep-able, structured degradation channel, not ad-hoc logging.
 Scope it to loader files, as politicas does (flat-config `files:
 ["features/**/get*.ts", "features/**/*Loader.ts"]`), rather than repo-wide —
 in UI event handlers a null fallback is often a legitimate, already-visible state.
+
+## Promise chains
+
+`load().catch(() => null)` and `.catch((err) => { …; return []; })` are the same
+silent degradation in promise-chain syntax and are reported since 2026-09-05;
+call `reportLoaderFailure` inside the handler before the fallback. An EMPTY
+handler stays `no-silent-catch`'s territory.

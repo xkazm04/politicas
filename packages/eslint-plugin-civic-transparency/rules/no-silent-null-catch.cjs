@@ -43,7 +43,33 @@ module.exports = {
       const callee = stmt.expression.callee;
       return callee.type === "Identifier" && callee.name === "reportLoaderFailure";
     }
+    /** `null` / `[]` as an expression — the fallback shape without a `return`. */
+    function isNullyExpression(expr) {
+      if (!expr) return false;
+      return (expr.type === "Literal" && expr.value === null) || (expr.type === "ArrayExpression" && expr.elements.length === 0);
+    }
     return {
+      // `promise.catch(() => null)` / `.catch(() => [])` is the same degradation
+      // in promise-chain syntax — a CallExpression, not a CatchClause, so the
+      // visitor below never saw it (the sibling no-silent-catch closed the same
+      // gap for EMPTY handlers). Measured 2026-09-05: 0 sites in the rule's
+      // scope (features/**/get*.ts, *Loader.ts), so this closes a bypass shape,
+      // not a live inventory.
+      CallExpression(node) {
+        const callee = node.callee;
+        if (callee.type !== "MemberExpression" || callee.computed || callee.property.type !== "Identifier" || callee.property.name !== "catch") return;
+        const handler = node.arguments[0];
+        if (!handler || (handler.type !== "ArrowFunctionExpression" && handler.type !== "FunctionExpression")) return;
+        if (handler.body.type !== "BlockStatement") {
+          if (isNullyExpression(handler.body)) context.report({ node: handler.body, messageId: "silentNullCatch" });
+          return;
+        }
+        const body = handler.body.body;
+        if (body.length === 0) return; // empty handler: no-silent-catch's territory
+        if (body.some(isNullyReturn) && !body.some(isReportLoaderFailureCall)) {
+          context.report({ node: handler.body, messageId: "silentNullCatch" });
+        }
+      },
       CatchClause(node) {
         const body = node.body && node.body.body;
         // Gating on body.length === 1 made this trivially bypassed by prepending
