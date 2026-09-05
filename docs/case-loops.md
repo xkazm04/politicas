@@ -569,3 +569,10 @@ parsed in the app and read as "no period" in triage), the near-threshold rule an
 the psp id parser. `triage.ts` and `dataor-corroborate.ts` now read
 `parsePeriod` / `nearThresholdCount` from `features/money/reviewTypes` and
 `pspIdFromNodeId` from `lib/ingest/changeEvents`.
+
+**A rejected money tie is not pending (2026-09-07, scan-sweep, state-coverage).**
+`triage.ts` wrote every stored review state other than `verified` to the ledger
+as `pending_review`, so a tie a reviewer had rejected re-entered the queue as
+waiting for review. Known states now pass through; the runtime list lives in the
+script with `satisfies readonly ReviewState[]` because `reviewTypes.ts` exports
+only the type.
