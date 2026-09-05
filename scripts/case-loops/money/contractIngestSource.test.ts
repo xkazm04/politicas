@@ -60,3 +60,12 @@ describe("the ARES-VR scripts read their parsers from the shared modules", () =>
     expect(s).not.toMatch(/function parsePeriod/);
   });
 });
+
+describe("ONE ARES-VR matcher (aresVrMatch.ts) for both reconciliation scripts", () => {
+  it.each(["money/reconcile-ares-vr.ts", "money/reverify-open-vs-live-ares-vr.ts"])("%s imports it and carries no copy", (f) => {
+    const s = src(f);
+    expect(s).toMatch(/from "\.\/aresVrMatch"/);
+    expect(s).not.toMatch(/function findMatches/);
+    expect(s).not.toMatch(/interface VrZaznam/);
+  });
+});

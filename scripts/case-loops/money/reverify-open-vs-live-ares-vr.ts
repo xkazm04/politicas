@@ -15,6 +15,7 @@ import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { AresClient } from "@/lib/analysis/money-feed";
 import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
+import { findMatches, mergeMatches, type VrResponse } from "./aresVrMatch";
 
 const VR_BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr";
 const THROTTLE_MS = 200;
@@ -23,62 +24,7 @@ function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-interface VrFunkce { vznikFunkce?: string; zanikFunkce?: string; nazev?: string; }
-interface VrFyzickaOsoba { datumNarozeni?: string; jmeno?: string; prijmeni?: string; }
-interface VrClenOrganu { datumZapisu?: string; datumVymazu?: string; clenstvi?: { funkce?: VrFunkce }; fyzickaOsoba?: VrFyzickaOsoba; }
-interface VrStatutarniOrgan { clenoveOrganu?: VrClenOrganu[]; }
-interface VrPodil { datumZapisu?: string; datumVymazu?: string; velikostPodilu?: { typObnos?: string; hodnota?: string }; }
-interface VrSpolecnikOsoba { datumZapisu?: string; datumVymazu?: string; podil?: VrPodil[]; osoba?: { fyzickaOsoba?: VrFyzickaOsoba }; }
-interface VrSpolecnici { spolecnik?: VrSpolecnikOsoba[]; }
-interface VrZaznam {
-  primarniZaznam?: boolean;
-  stavSubjektu?: string;
-  statutarniOrgany?: VrStatutarniOrgan[];
-  ostatniOrgany?: VrStatutarniOrgan[];
-  spolecnici?: VrSpolecnici[];
-}
-interface VrResponse { kod?: string; zaznamy?: VrZaznam[]; }
-
-interface MatchedEntry {
-  functionName: string | null;
-  validFrom: string | null;
-  validTo: string | null;
-  stakePct: number | null;
-}
-
-function findMatches(rec: VrZaznam, birthDate: string): MatchedEntry[] {
-  const out: MatchedEntry[] = [];
-  for (const org of [...(rec.statutarniOrgany ?? []), ...(rec.ostatniOrgany ?? [])]) {
-    for (const m of org.clenoveOrganu ?? []) {
-      if (m.fyzickaOsoba?.datumNarozeni === birthDate) {
-        out.push({
-          functionName: m.clenstvi?.funkce?.nazev ?? null,
-          validFrom: m.clenstvi?.funkce?.vznikFunkce ?? m.datumZapisu ?? null,
-          validTo: m.clenstvi?.funkce?.zanikFunkce ?? m.datumVymazu ?? null,
-          stakePct: null,
-        });
-      }
-    }
-  }
-  for (const grp of rec.spolecnici ?? []) {
-    for (const s of grp.spolecnik ?? []) {
-      if (s.osoba?.fyzickaOsoba?.datumNarozeni === birthDate) {
-        const activePodil = (s.podil ?? []).find((p) => !p.datumVymazu) ?? s.podil?.[s.podil.length - 1];
-        const pct =
-          activePodil?.velikostPodilu?.typObnos === "PROCENTA" && activePodil.velikostPodilu.hodnota
-            ? Number(activePodil.velikostPodilu.hodnota.replace(",", "."))
-            : null;
-        out.push({
-          functionName: "společník",
-          validFrom: s.datumZapisu ?? null,
-          validTo: s.datumVymazu ?? null,
-          stakePct: Number.isFinite(pct) ? pct : null,
-        });
-      }
-    }
-  }
-  return out;
-}
+// VR shape + matcher + merge: aresVrMatch.ts, the same definition reconcile-ares-vr.ts uses.
 
 async function main() {
   const store = await getStore();
@@ -147,19 +93,16 @@ async function main() {
 
     if (matches.length > 0) {
       // LIVE finds a match — this is a flip candidate regardless of prior label.
-      const roles = [...new Set(matches.map((m) => m.functionName).filter(Boolean))];
-      const froms = matches.map((m) => m.validFrom).filter(Boolean).sort();
-      const anyOngoing = matches.some((m) => !m.validTo);
-      const tos = matches.map((m) => m.validTo).filter(Boolean).sort();
+      const merged = mergeMatches(matches);
       flips.push({
         src: e.src, rel: "linked_to", dst: e.dst, mp, company: comp.label, ico,
         priorCorr,
         propsMerge: {
           corroboration: "registry-confirmed",
           corroboration_source: `${VR_BASE}/${ico}`,
-          role_valid_from: froms[0] ?? null,
-          role_valid_to: anyOngoing ? null : (tos[tos.length - 1] ?? null),
-          reviewer_note: `Q-money-15 (batch 008): live ARES VR re-check flipped ${priorCorr} → registry-confirmed. Role(s): ${roles.join("/") || "?"}.`,
+          role_valid_from: merged.validFrom,
+          role_valid_to: merged.validTo,
+          reviewer_note: `Q-money-15 (batch 008): live ARES VR re-check flipped ${priorCorr} → registry-confirmed. Role(s): ${merged.roles.join("/") || "?"}.`,
           flags: ["q-money-15-live-flip"],
         },
       });

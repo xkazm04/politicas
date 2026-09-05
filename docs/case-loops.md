@@ -614,3 +614,14 @@ the former a `parsePeriod` that matched only an en-dash while the shared parser
 accepts a hyphen too — the same drift round 31 found in `triage.ts`. Both now
 import `lib/ingest/changeEvents.ts` and `features/money/reviewTypes.ts`.
 
+**One ARES-VR matcher (2026-09-07, scan-sweep, parity-auditor).**
+`reconcile-ares-vr.ts` (batch 002, the main writer of corroboration, role dates
+and `tie_class`) and `reverify-open-vs-live-ares-vr.ts` (batch 008) each carried
+the VR record shape, the exact-birth-date `findMatches` and the fold of a
+person's entries into one span, held together by the comment "same match
+discipline as reconcile-ares-vr.ts". `scripts/case-loops/money/aresVrMatch.ts`
+is now the single definition, unit-tested on a fixture that spans statutární
+orgány, ostatní orgány and společníci (a Czech decimal comma in the stake, an
+ongoing entry keeping the span open); both scripts import it and the reverify
+script's inline merge is gone.
+
