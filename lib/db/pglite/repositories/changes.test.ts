@@ -86,11 +86,12 @@ describe("ChangeEventRepository.backfillChangeEvents", () => {
     const tieNew = byType.get("tie-new")!;
     expect(tieNew.src).toBe(MP_NEW);
     expect(tieNew.recordedAt).toBe(T1);
-    expect(tieNew.entityKeys).toEqual(["poslanec:2000", "firma:222222"]);
+    // Klíč firmy je KANONICKÝ (8 číslic) od 005767e — tvar, kterým deník filtruje.
+    expect(tieNew.entityKeys).toEqual(["poslanec:2000", "firma:00222222"]);
 
     const contractNew = byType.get("contract-new")!;
     expect(contractNew.dst).toBe(CONTRACT_NEW);
-    expect(contractNew.entityKeys).toEqual(["firma:111111"]);
+    expect(contractNew.entityKeys).toEqual(["firma:00111111"]);
 
     // review-only přepnutí MP_OLD↔CO_OLD NENÍ tie-changed — jeho event je
     // rozhodnutí brány samo.
@@ -111,7 +112,7 @@ describe("ChangeEventRepository.backfillChangeEvents", () => {
   it("filtr entity čte jsonb klíče; neznámý klíč → poctivě prázdno", async () => {
     const mp = await repo.listChangeEvents({ entityKey: "poslanec:2000" });
     expect(mp.map((e) => e.eventType)).toEqual(["tie-new"]);
-    const co = await repo.listChangeEvents({ entityKey: "firma:111111" });
+    const co = await repo.listChangeEvents({ entityKey: "firma:00111111" });
     expect(co.map((e) => e.eventType).sort()).toEqual(["contract-new", "review-decision"]);
     expect(await repo.listChangeEvents({ entityKey: "firma:999999" })).toEqual([]);
     const typed = await repo.listChangeEvents({ eventType: "contract-new" });

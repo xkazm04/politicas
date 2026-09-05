@@ -150,3 +150,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   canonical) before trusting it. Fixture bytes for windows-1250: only á é í ó ú ý survive latin1.
   lib/ingest/sources/ is a REGISTRY directory (atlas.test.ts derives the adapter list from it):
   a helper file there fails the FULL gate, not the unit run - the gate runs before the ledgers.
+- 2026-09-06 — round-23 close-out lesson: the ledgers commit 1e6f2ae said 'exit 0' while the pglite
+  lane was red (changes.test.ts still asserted the raw firma key 005767e canonicalised). The grep
+  matched the presence of CHECK_EXIT, not '=0' - always grep 'CHECK_EXIT=0' and read the Test Files
+  lines of BOTH lanes before writing 'exit 0'. A contract fix owes every consumer test its new value.
