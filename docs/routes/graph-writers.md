@@ -171,3 +171,8 @@ it is named here, not touched.
 Its default was the literal `12` while eight sibling writers derive the pass from the
 graph (`nextPass`), so every re-run without `--pass` restamped the `assigned_to` edges
 as pass 12. It now derives like the others (1 frozen default → 0; `writerPass.test.ts`).
+
+**`kg-contribution-recompute` reads person nodes through `KG_READ_CAP` (2026-09-06,
+scan-sweep, parity-auditor).** The last literal cap among the kg writers (`limit:
+1000`) is gone; `writerReadCap.test.ts` pins that no writer lists graph rows under a
+literal (1 → 0).
