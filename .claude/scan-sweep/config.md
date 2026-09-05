@@ -216,3 +216,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   forbids it - describe the old code, never paste it. A fix that moves one half of a comment-
   held pair (round 32's Prague day on the company route) re-opens the pair in the partner's
   context; card it the same round, in the partner's name, and say who opened it.
+- 2026-09-07 — money-contract-ingest, first sweep (28 lenses, 10 built in 8 commits, 1 card). On a
+  never-swept scripts context, grep the three shared imports first (readCap, changeEvents
+  pspIdFromNodeId, reviewTypes parsePeriod) - the pair hunt hits on the first grep every time.
+  A 'required' CLI flag parsed with `?? 0` is not required. A --restart that deletes the
+  artefact must reset the resume record with it, or the record says 'done' over nothing. A
+  retry predicate that substring-matches a status code also matches the id in the quoted URL.
