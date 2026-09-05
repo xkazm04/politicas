@@ -451,7 +451,12 @@ export function sampleForRecompute(persons: readonly PersonScoreFact[]): PersonS
  * invariant, which is the only thing that can see a change in what "one body" means.
  *
  * The rates are re-expressed over a 1 000-unit denominator: a 3-decimal rate is an exact
- * integer there, so no precision is invented. Returns null when an input is missing.
+ * integer there, so no precision is invented. Returns null when one of the FOUR structural
+ * inputs (committees, leadership, participation, absence) is missing. The three effort
+ * counters (bills, interpellations, speech turns) default to 0 ON PURPOSE: that is what
+ * the scorer itself does (`input.billsAuthored ?? 0`, lib/analysis/contribution.ts), so
+ * the re-derivation sees the same input the stored score was computed from — a null
+ * here would report "no usable inputs" for a chamber the formula scored fine.
  */
 export function inputsFromStored(p: PersonScoreFact): ContributionInputs | null {
   const { committeeCount, leadershipCount, participationRate, absenceRate } = p.inputs;
