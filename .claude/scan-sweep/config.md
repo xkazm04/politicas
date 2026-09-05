@@ -60,3 +60,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   (canonical IČO), write the lib copy and pin the two together in the lib TEST, which
   MAY import features. A whole-tree `tsc` + two vitest runs + eslint in one chain exceeds
   the 300 s foreground budget — run multi-step build chains with run_in_background.
+- 2026-09-05 — civic-transparency-eslint-plugin, first sweep (28 lenses, 4 built). The
+  plugin's gate is `node packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs`
+  (seconds) + eslint on the touched .cjs/.mjs; tsc does not cover the package, so a chain
+  of four fixes fits one background call. `packages/**` is coupled to no doc in the map —
+  the rule's own `docs/rules/<rule>.md` is the record and must move with the matcher.
+  Three opt-out matchers (`citation-ok`, `reduced-motion-ok`, `raw-format-ok`) are one
+  rule in three copies: grep all three whenever one changes.
