@@ -89,6 +89,17 @@ describe("date parsing", () => {
     expect(czDateToIso("")).toBeNull();
     expect(czDateToIso(null)).toBeNull();
   });
+  it("rejects a date-SHAPED value that is not a calendar date (2026-09-06)", () => {
+    // Range checks alone let 31.02. through as "2026-02-31" — syntactically ISO,
+    // semantically no day at all. Missing beats wrong.
+    expect(czDateToIso("31.02.2026")).toBeNull();
+    expect(czDateToIso("29.02.2025")).toBeNull();
+    expect(czDateToIso("29.02.2024")).toBe("2024-02-29");
+    expect(czDateHourToIso("2026-02-31 10")).toBeNull();
+    expect(czDateHourToIso("2026-04-31")).toBeNull();
+    expect(czDateTimeToIso("31.04.2026", "10:00")).toBeNull();
+  });
+
   it("parses datetime(year to hour) into a UTC instant", () => {
     expect(czDateHourToIso("2025-10-04 15")).toBe("2025-10-04T15:00:00.000Z");
     expect(czDateHourToIso("2025-10-04")).toBe("2025-10-04T00:00:00.000Z");
@@ -121,6 +132,12 @@ describe("col / colInt", () => {
   it("accepts negative integers and surrounding whitespace", () => {
     expect(colInt([" -42 "], 0)).toBe(-42);
   });
+  it("rejects an integer beyond Number's exact range instead of returning a rounded id (2026-09-06)", () => {
+    // parseInt("99999999999999999999") is 1e20 — finite, and not the number written.
+    expect(colInt(["99999999999999999999"], 0)).toBeNull();
+    expect(colInt([String(Number.MAX_SAFE_INTEGER)], 0)).toBe(Number.MAX_SAFE_INTEGER);
+  });
+
   it("requires the FULL value to be digits — no prefix-parse coercion", () => {
     // Number.parseInt would silently accept "123abc" as 123, coercing a
     // malformed or mis-escaped field into a plausible-looking wrong id.

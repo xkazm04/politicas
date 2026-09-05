@@ -93,13 +93,23 @@ export function colInt(row: UnlRow, i: number): number | null {
   const trimmed = v.trim();
   if (!/^-?\d+$/.test(trimmed)) return null;
   const n = Number.parseInt(trimmed, 10);
-  return Number.isFinite(n) ? n : null;
+  // Safe, not merely finite: a 20-digit field parses to a finite 1e20 that is not
+  // the number written — a rounded id is the coerced-wrong case this guard exists for.
+  return Number.isSafeInteger(n) ? n : null;
+}
+
+/** True when year/month/day name a real calendar day. Range checks alone let
+ *  `31.02.` through as `…-02-31` (syntactically ISO, semantically no day at all)
+ *  until 2026-09-06; a UTC round-trip is the cheapest complete check. */
+function isCalendarDay(year: number, month: number, day: number): boolean {
+  const probe = new Date(Date.UTC(year, month - 1, day));
+  return probe.getUTCFullYear() === year && probe.getUTCMonth() === month - 1 && probe.getUTCDate() === day;
 }
 
 /**
  * `DD.MM.YYYY` → `YYYY-MM-DD`. Returns null for empty/malformed input rather
  * than guessing — a wrong date on a civic-accountability record is worse than a
- * missing one.
+ * missing one. Calendar-validated, not just range-checked.
  */
 export function czDateToIso(v: string | null): string | null {
   if (!v) return null;
@@ -108,7 +118,7 @@ export function czDateToIso(v: string | null): string | null {
   const [, d, mo, y] = m;
   const day = Number(d);
   const month = Number(mo);
-  if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+  if (!isCalendarDay(Number(y), month, day)) return null;
   return `${y}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
@@ -125,10 +135,10 @@ export function czDateHourToIso(v: string | null): string | null {
   const month = Number(mo);
   const day = Number(d);
   const hour = Number(h ?? 0);
-  // Same range validation czDateToIso already enforces for DD.MM.YYYY — a
-  // regex-shaped but semantically invalid value (month 13, hour 27) must not
-  // be emitted as a syntactically-ISO but meaningless timestamp.
-  if (month < 1 || month > 12 || day < 1 || day > 31 || hour < 0 || hour > 23) return null;
+  // Same calendar validation czDateToIso enforces for DD.MM.YYYY — a
+  // regex-shaped but semantically invalid value (month 13, day 31 of April,
+  // hour 27) must not be emitted as a syntactically-ISO but meaningless timestamp.
+  if (!isCalendarDay(Number(y), month, day) || hour < 0 || hour > 23) return null;
   return `${y}-${mo}-${d}T${String(hour).padStart(2, "0")}:00:00.000Z`;
 }
 

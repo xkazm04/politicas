@@ -41,7 +41,7 @@ modules can also be imported individually.
 | `parseUnl(body)` / `parseUnlLine(line)` | Escape-aware split: `\|` inside a value is a literal pipe (vote titles DO contain pipes), `\\` a backslash, `\n`/`\r`/`\t` controls; empty column → SQL `NULL` → `null`. Splits physical newlines FIRST, then unescapes, so an escaped `\n` survives. |
 | `decodeUnl(bytes)` | windows-1250 → string with `fatal: true`: an unmappable byte (corrupt download, wrong encoding) **throws** instead of silently writing U+FFFD into a name. |
 | `col(row, i)` / `colInt(row, i)` | Null-safe column access. `colInt` requires the FULL trimmed value to be digits — `"123abc"` is `null`, never `123`. |
-| `czDateToIso` / `czDateHourToIso` / `czDateTimeToIso` | `DD.MM.YYYY`, `datetime(year to hour)`, and date+`HH:MM` → ISO. Range-validated; malformed input → `null`, never a guess. |
+| `czDateToIso` / `czDateHourToIso` / `czDateTimeToIso` | `DD.MM.YYYY`, `datetime(year to hour)`, and date+`HH:MM` → ISO. Calendar-validated (`31.02.` is `null`, not `-02-31`); malformed input → `null`, never a guess. |
 
 ### `normalize` — folding, sentinels, vote vocabularies
 
