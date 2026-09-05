@@ -29,7 +29,7 @@ applies the rule to.
 
 ## Escape hatches
 
-`// raw-format-ok: <reason>` on the line or the line above, for deliberate
+`// raw-format-ok: <reason>` on the line or ENDING on the line above (a multi-line reason counts), for deliberate
 exceptions (e.g. an internal admin console that never server-renders, or a
 build-time static table):
 

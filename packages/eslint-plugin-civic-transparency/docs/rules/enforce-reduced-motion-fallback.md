@@ -33,7 +33,7 @@ does gate loops inside nested callbacks (`.map`, effects) of that component.
 
 - Gate the loop: `const reduced = useReducedMotion();` then
   `animate={reduced ? {} : loopKeyframes}`.
-- One-off decorative exception, annotated on the element or the line above:
+- One-off decorative exception, annotated on the element or ENDING on the line above (a multi-line reason counts):
 
 ```tsx
 // reduced-motion-ok: 2px shimmer on a 6s cycle, imperceptible as motion

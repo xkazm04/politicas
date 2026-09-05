@@ -96,13 +96,17 @@ module.exports = {
   create(context) {
     const sourceCode = context.sourceCode || context.getSourceCode();
 
+    // The annotation counts when it ENDS on the flagged line or the line above,
+    // not when it STARTS there — the same semantics require-source-citation has
+    // had since 2026-08-24. Matching on the start line rejected every
+    // multi-line reason on the one construct whose entire value is the reason.
     function hasInlineOptOut(node) {
       const comments = sourceCode.getAllComments();
       const line = node.loc.start.line;
       return comments.some(
         (c) =>
           /reduced-motion-ok/.test(c.value) &&
-          c.loc.start.line >= line - 1 &&
+          c.loc.end.line >= line - 1 &&
           c.loc.start.line <= node.loc.end.line,
       );
     }

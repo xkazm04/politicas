@@ -50,6 +50,15 @@ tester.run("enforce-reduced-motion-fallback", rule, {
              );`,
     },
     {
+      name: "a MULTI-LINE reduced-motion-ok reason counts (it ENDS on the line above)",
+      code: `import { motion } from "framer-motion";
+             export const X = () => (
+               /* reduced-motion-ok: decorative 2px shimmer on the masthead rule,
+                  amplitude below the vestibular threshold; verified 2026-09-05 */
+               <motion.div animate={{ opacity: [0.6, 1] }} transition={{ repeat: Infinity }} />
+             );`,
+    },
+    {
       name: "repeat: 0 is not a loop",
       code: `import { motion } from "framer-motion";
              export const X = () => <motion.div animate={{ x: 4 }} transition={{ repeat: 0 }} />;`,
