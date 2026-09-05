@@ -30,11 +30,15 @@ function RatioBar({ total }: { total: ClubTally }) {
   const seats = total.yes + total.no + total.k + total.away;
   if (seats === 0) return <div className="h-3 w-full bg-hairline" />;
   const w = (n: number) => `${(n / seats) * 100}%`;
+  // Nepřítomní ocelově, ne vlasově: dráha pruhu JE bg-hairline, takže vlasový
+  // segment na ní měl nulový kontrast a poměr „150 : 30" vypadal jako pruh se
+  // dvěma mezerami. Sál (RealChamberDetail) i legenda nepřítomné sází ocelí
+  // od 2026-08; deník až od 2026-09-07.
   return (
     <div className="flex h-3 w-full overflow-hidden bg-hairline">
       {total.yes > 0 && <span className="h-full bg-cobalt" style={{ width: w(total.yes) }} />}
       {total.k > 0 && <span className="h-full bg-ochre" style={{ width: w(total.k) }} />}
-      {total.away > 0 && <span className="h-full bg-hairline" style={{ width: w(total.away) }} />}
+      {total.away > 0 && <span className="h-full bg-steel" style={{ width: w(total.away) }} />}
       {total.no > 0 && <span className="h-full bg-signal" style={{ width: w(total.no) }} />}
     </div>
   );

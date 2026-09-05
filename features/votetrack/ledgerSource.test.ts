@@ -15,3 +15,12 @@ describe("every surface that prints a vote outcome reads record/outcome", () => 
     });
   }
 });
+
+describe("the ledger's ratio bar draws absent MPs in a colour that exists on its track", () => {
+  it("RatioBar paints the away segment bg-steel, never the bg-hairline of the track behind it", () => {
+    const s = src("features/votetrack/components/RealVoteLedger.tsx");
+    const bar = /function RatioBar[\s\S]*?\n\}/.exec(s)?.[0] ?? "";
+    expect(bar).toMatch(/total\.away > 0 && <span className="h-full bg-steel"/);
+    expect(bar).not.toMatch(/total\.away > 0 && <span className="h-full bg-hairline"/);
+  });
+});
