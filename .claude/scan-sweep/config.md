@@ -247,3 +247,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   of the code it greps: when the fix is 'centralise three literal blocks', check whether a
   source-grep test asserts the literal first - here it did, the refactor was dropped before the
   gate, and the minimal fix (add the two hooks to the one runtime missing them) landed instead.
+- 2026-09-07 — schranka-notifications, first sweep (28 lenses, 3 built in 3 commits, 0 cards).
+  Client and server are two clocks: grep `toISOString().slice(0, 10)` on the CLIENT (hooks,
+  localStorage stamps) whenever the server already uses pragueDay(). When a round's source-grep
+  file grows per commit, split it so each commit is green on its own (park the later describes
+  in the scratchpad and re-append) - a red intermediate commit is a red `git bisect`.
