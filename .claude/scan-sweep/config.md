@@ -197,3 +197,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   reading the rendering code. Two comments that say 'shodně s X' / 'same as X' in one file are
   two parity tests. When the context map lists 22 of a folder's 34 files, read the unmapped ones
   as pair partners - the types and the wire live there.
+- 2026-09-07 — money-analysis-triage, first sweep (28 lenses, 6 built in 4 commits, 2 cards). A
+  literal `limit:` in a script is measured against the corpus the docs record (batch notes carry
+  the row counts) - 100_000 under 152 702 is a defect, not a style point. A file whose header
+  says 'copies replaced by imports on <date>' still has copies: grep the shared module's export
+  list against the file. An always-empty field in a published payload (`.slice(0, 0)`) is copy
+  that lies by shape. Never name an archive/ path in a live file's prose - the quarantine test
+  (lib/testing/archivedScripts.test.ts) reads comments too; it cost one red gate this round.
