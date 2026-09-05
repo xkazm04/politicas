@@ -582,3 +582,16 @@ total (2026-09-07, scan-sweep, copy-auditor).** Its payload field
 `topNonAttributable` was an empty slice by construction; it now carries the ten
 steward/untied companies with the most reachable CZK, from the same buckets the
 audit already computed.
+
+**One parser of the `[pspId]` route segment (2026-09-07, scan-sweep,
+parity-auditor).** `/penize/[pspId]` and `/penize/[pspId]/paket` each spelled the
+digits-only rule that keeps one MP at one address; `lib/routing/pspIdParam.ts`
+is the definition, tested against the lenient parses it refuses (`1e3`, `0x10`,
+`" 5"`). `/poslanec/[id]` still carries its own copy (its context's round).
+
+**The company case file dates its plausibility bound in Prague (2026-09-07,
+scan-sweep, bounty-hunter).** `/penize/firma/[ico]` derived "today" from the UTC
+clock; between midnight and 01:00/02:00 Prague the UTC day is still yesterday, so
+a contract signed today read as signed in the future. The route now calls
+`pragueDay()` (`features/denik/pragueDay.ts`, written for the same mistake in the
+deník loader); `lib/testing/moneyRouteSource.test.ts` pins it.
