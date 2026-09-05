@@ -289,3 +289,12 @@ se nepodařilo spočítat z dostupných dat") — the empty-state sentence — a
 keep the null and print `graph.trasy.unavailable`; the honest-fallback rule
 (`DataUnavailable`, never plausible emptiness) reaches the two variants (2 collapsed
 states → 0).
+
+**Every server-action call settles on rejection (2026-09-06, scan-sweep,
+error-handler).** Eight `*Action()` call sites in the feature chained `.then` with no
+rejection handler, so a failed action (network, server error) froze its state
+machine: the map said „sestavuji mapu grafu…" forever, the inspector „načítám"
+forever, the search „hledám…" forever, the cite button stayed disabled. Each call now
+settles into the state the loader's own null would produce (outage typeset as
+outage, request counters still honoured) and leaves a console trace;
+`actionSettle.test.ts` pins one `.catch` per `.then` chain (8 unhandled → 0).

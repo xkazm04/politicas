@@ -52,10 +52,16 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
   const [hoverId, setHoverId] = useState<string | null>(null);
 
   useEffect(() => {
-    void trailsAction().then((ts) => {
-      setTrails(ts);
-      if (ts && ts.length > 0) setActiveKey(ts[0].key);
-    });
+    void trailsAction()
+      .then((ts) => {
+        setTrails(ts);
+        if (ts && ts.length > 0) setActiveKey(ts[0].key);
+      })
+      .catch((err) => {
+        // Selhaná akce = týž stav jako neběžící sklad: null, ne „pracuji" navěky.
+        console.error("graf: trasy se nepřečetly", err);
+        setTrails(null);
+      });
   }, []);
 
   const active = useMemo(

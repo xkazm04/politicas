@@ -141,16 +141,34 @@ export default function VariantMapa({
   const expand = useCallback((id: string) => {
     if (askedRef.current.has(id)) return;
     askedRef.current.add(id);
-    void neighbourhoodAction(id, null).then((nb) => {
-      if (nb === null || nb.anchor === null) return;
-      setOverlay((prev) => (prev.some((x) => x.anchor?.id === nb.anchor?.id) ? prev : [...prev, nb]));
-    });
+    void neighbourhoodAction(id, null)
+      .then((nb) => {
+        if (nb === null || nb.anchor === null) return;
+        setOverlay((prev) => (prev.some((x) => x.anchor?.id === nb.anchor?.id) ? prev : [...prev, nb]));
+      })
+      .catch((err) => {
+        // Selhaný dotaz kotvu odemkne, aby šlo okolí vyžádat znovu.
+        console.error("graf: okolí uzlu se nedotáhlo", err);
+        askedRef.current.delete(id);
+      });
   }, []);
 
   useEffect(() => {
     // setState až v async callbacích; dvojí StrictMode fetch odstíní serverová cache.
-    void mapAction().then((d) => setData(d));
-    void trailsAction().then((ts) => setTrails(ts));
+    // Selhaná akce nesmí nechat plátno v „sestavuji mapu…" navěky: výpadek se
+    // sází jako výpadek (null), přesně jako když loader vrátí null sám.
+    void mapAction()
+      .then((d) => setData(d))
+      .catch((err) => {
+        console.error("graf: mapa se nepřečetla", err);
+        setData(null);
+      });
+    void trailsAction()
+      .then((ts) => setTrails(ts))
+      .catch((err) => {
+        console.error("graf: trasy se nepřečetly", err);
+        setTrails(null);
+      });
   }, []);
 
   // Dotaz běží Z OBSLUHY UDÁLOSTI, ne z efektu (doktrína useNodeSelection);
@@ -167,10 +185,16 @@ export default function VariantMapa({
     setActiveKey(null); // čočka patří cestě — kurátorská trasa zhasne
     selection.clear();
     setPathResult("loading");
-    void pathAction(from.id, to.id).then((r) => {
-      if (pathReqRef.current !== req) return;
-      setPathResult(r ?? PATH_UNAVAILABLE);
-    });
+    void pathAction(from.id, to.id)
+      .then((r) => {
+        if (pathReqRef.current !== req) return;
+        setPathResult(r ?? PATH_UNAVAILABLE);
+      })
+      .catch((err) => {
+        console.error("graf: hledání cesty selhalo", err);
+        if (pathReqRef.current !== req) return;
+        setPathResult(PATH_UNAVAILABLE);
+      });
   };
 
   const pathMode = pathFrom !== null || pathTo !== null;

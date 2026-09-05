@@ -48,12 +48,21 @@ export default function NodeSearch({
       return;
     }
     setBusy(true);
-    void searchGraphAction(value, null).then((res) => {
-      if (reqRef.current !== req) return;
-      setHits(res);
-      setActive(0);
-      setBusy(false);
-    });
+    void searchGraphAction(value, null)
+      .then((res) => {
+        if (reqRef.current !== req) return;
+        setHits(res);
+        setActive(0);
+        setBusy(false);
+      })
+      .catch((err) => {
+        // Selhaná akce nesmí nechat našeptávač „hledám…" navěky: prázdno je
+        // poctivá odpověď, výpadek dostane stopu v konzoli.
+        console.error("graf: hledání selhalo", err);
+        if (reqRef.current !== req) return;
+        setHits([]);
+        setBusy(false);
+      });
   }, []);
 
   const onChange = (value: string) => {

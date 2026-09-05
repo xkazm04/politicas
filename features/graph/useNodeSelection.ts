@@ -39,11 +39,19 @@ export function useNodeSelection(): NodeSelection {
       return;
     }
     setLoading(true);
-    void nodeDetailAction(id).then((d) => {
-      if (reqRef.current !== req) return;
-      setDetail(d);
-      setLoading(false);
-    });
+    void nodeDetailAction(id)
+      .then((d) => {
+        if (reqRef.current !== req) return;
+        setDetail(d);
+        setLoading(false);
+      })
+      .catch((err) => {
+        // Bez toho by inspektor po selhané akci ukazoval „načítám" navěky.
+        console.error("graf: detail uzlu se nepřečetl", err);
+        if (reqRef.current !== req) return;
+        setDetail(null);
+        setLoading(false);
+      });
   }, []);
 
   const clear = useCallback(() => select(null), [select]);
