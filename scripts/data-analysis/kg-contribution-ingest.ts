@@ -29,9 +29,6 @@
  *   npx tsx scripts/data-analysis/kg-contribution-ingest.ts --commit      # write
  * Flags: --commit  --term=PSP10  --pass=N  --supersede
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-
 import {
   absenteeManagerSignal,
   computeContribution,
@@ -45,6 +42,7 @@ import { nextPass } from "@/lib/analysis/kg";
 import { emptyCounts, normalizeActivity, type ActivityCounts } from "@/lib/ingest/sources/psp-activity";
 import { getStore } from "@/lib/db/store";
 import type { KgNodeRow } from "@/lib/db/types";
+import { getDump } from "./pspDump";
 
 function arg(name: string, fallback = ""): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -52,29 +50,6 @@ function arg(name: string, fallback = ""): string {
 }
 const flag = (name: string) => process.argv.includes(`--${name}`);
 const fmt = (n: number) => new Intl.NumberFormat("cs-CZ").format(Math.round(n));
-
-/* Cached psp.cz dump download (same source/UA/cache as scripts/data-analysis/ingest.ts). */
-const CACHE_DIR = process.env.PSP_CACHE_DIR || "./.data/psp";
-const PSP_BASE = "https://www.psp.cz/eknih/cdrom/opendata";
-const UA = "politicas-ingest/0.1 (+https://www.psp.cz/sqw/hp.sqw?k=1300; open-data mirror)";
-async function getDump(fileName: string, refetch: boolean): Promise<Uint8Array | null> {
-  mkdirSync(CACHE_DIR, { recursive: true });
-  const path = join(CACHE_DIR, fileName);
-  if (!refetch && existsSync(path)) return new Uint8Array(readFileSync(path));
-  try {
-    const res = await fetch(`${PSP_BASE}/${fileName}`, { headers: { "user-agent": UA }, signal: AbortSignal.timeout(180_000) });
-    if (!res.ok) {
-      console.log(`  ! ${fileName} → HTTP ${res.status}`);
-      return null;
-    }
-    const bytes = new Uint8Array(await res.arrayBuffer());
-    writeFileSync(path, bytes);
-    return bytes;
-  } catch (e) {
-    console.log(`  ! ${fileName} fetch failed: ${e instanceof Error ? e.message : e}`);
-    return null;
-  }
-}
 
 /** A cast ballot represents a real position (present + registered a choice). The
  *  merged post-1995 abstain/not-voting bucket (K) still counts as a cast position;

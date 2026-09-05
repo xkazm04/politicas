@@ -22,41 +22,20 @@
  *   npx tsx scripts/data-analysis/kg-bill-roles-ingest.ts --commit   # write
  * Flags: --commit  --term=PSP10  --refetch
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-
 import { nextPass } from "@/lib/analysis/kg";
 import { normalizeBillRoles, type RapporteurScope } from "@/lib/ingest/sources/psp-legislation";
 import { splitBillAuthorship } from "@/lib/ingest/sources/psp-activity";
-import { decodeUnl, parseUnl, type UnlRow } from "@/lib/ingest/unl";
+import { unlOf } from "@/lib/ingest/unlMembers";
 import { readZipMap } from "@/lib/ingest/zip";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
+import { getDump } from "./pspDump";
 
 function argOf(name: string, fallback = ""): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
   return hit ? hit.slice(name.length + 3) : fallback;
 }
 const flag = (name: string) => process.argv.includes(`--${name}`);
-
-const CACHE_DIR = process.env.PSP_CACHE_DIR || "./.data/psp";
-const PSP_BASE = "https://www.psp.cz/eknih/cdrom/opendata";
-const UA = "politicas-ingest/0.1 (+https://www.psp.cz/sqw/hp.sqw?k=1300; open-data mirror)";
-async function getDump(fileName: string, refetch: boolean): Promise<Uint8Array | null> {
-  mkdirSync(CACHE_DIR, { recursive: true });
-  const path = join(CACHE_DIR, fileName);
-  if (!refetch && existsSync(path)) return new Uint8Array(readFileSync(path));
-  try {
-    const res = await fetch(`${PSP_BASE}/${fileName}`, { headers: { "user-agent": UA }, signal: AbortSignal.timeout(180_000) });
-    if (!res.ok) return null;
-    const bytes = new Uint8Array(await res.arrayBuffer());
-    writeFileSync(path, bytes);
-    return bytes;
-  } catch (e) {
-    console.warn(`  [getDump ${fileName}] ${e instanceof Error ? e.message : e}`);
-    return null;
-  }
-}
 
 async function main() {
   const commit = flag("commit");
@@ -82,11 +61,7 @@ async function main() {
 
   const { sponsorRoles, rapporteurs, fates } = normalizeBillRoles(tiskyZip);
   const zipMembers = readZipMap(tiskyZip);
-  const unlOf = (name: string): UnlRow[] => {
-    const bytes = zipMembers.get(name);
-    return bytes ? parseUnl(decodeUnl(bytes)) : [];
-  };
-  const { firstByPerson, coByPerson } = splitBillAuthorship(unlOf("tisky.unl"), unlOf("predkladatel.unl"), termPspId);
+  const { firstByPerson, coByPerson } = splitBillAuthorship(unlOf(zipMembers, "tisky.unl"), unlOf(zipMembers, "predkladatel.unl"), termPspId);
 
   // poslanec.id_poslanec → osoby.id_osoba, term-scoped (rapporteur ids are mandate ids).
   const mandates = await store.listMandates();

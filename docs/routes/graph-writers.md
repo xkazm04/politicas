@@ -156,3 +156,13 @@ broken before: a later pass's props still survive a stamped rewrite of the same
 node. `kg-money-ingest` also gained the `isDirectRun` guard `kg-promote` already
 carried; importing its pure half used to fire `main()` and exit 1 for want of an
 API token.
+
+**One dump reader for the kg writers (2026-09-06, scan-sweep, parity-auditor).**
+`getDump` — cache dir, base URL, user-agent, 180 s timeout, warn-and-null — was
+copied byte-for-byte into five writers, and one copy already logged a non-ok status
+that the other four swallowed. `scripts/data-analysis/pspDump.ts` is the one
+definition; `ingest.ts` keeps its metadata-recording variant on purpose (it feeds
+the `ingest_run` row). `kg-bill-roles-ingest` also dropped its private UNL member
+reader for `lib/ingest/unlMembers` (5 + 1 copies → 1 + 1; `oneDump.test.ts` pins it).
+`kg-vote-bill-ingest.ts` carries a sixth copy and is not in this context's file list;
+it is named here, not touched.
