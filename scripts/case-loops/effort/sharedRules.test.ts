@@ -34,3 +34,14 @@ describe("the loop imports the formula's saturation caps and the tenure vocabula
     expect(read("extract-dossiers.ts")).not.toMatch(/tenureClass\?: "full_term" \| "replacement";/);
   });
 });
+
+describe("tenure days are measured to a stated reference date, not a date frozen in July (2026-09-06, bounty-hunter)", () => {
+  it("tenure.ts and triage.ts take --reference=YYYY-MM-DD and default to today", () => {
+    for (const f of ["tenure.ts", "triage.ts"]) {
+      const src = read(f);
+      expect(src, f).not.toMatch(/new Date\("2026-07-24T00:00:00\.000Z"\)/);
+      expect(src, f).toMatch(/referenceDate\(\)/);
+    }
+    expect(read("shared-reference-date.ts")).toMatch(/--reference=/);
+  });
+});

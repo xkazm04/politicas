@@ -456,3 +456,11 @@ copy still had two classes two batches after the vocabulary grew to four. All re
 the re-declared union is shipped by this change). `divergence-retune.ts` keeps its
 literals on purpose: it is batch 003's validation evidence and must reproduce that
 run.
+
+**Tenure days are counted to a stated reference date, not to 2026-07-24 forever
+(2026-09-06, scan-sweep, bounty-hunter).** `tenure.ts` and `triage.ts` both carried
+batch 003's run date as a literal, so any later run would have written
+`effort_tenure_days` measured to July — the number `TenureTrendGate` compares
+against `TREND_MIN_TENURE_DAYS`. Both scripts now read `--reference=YYYY-MM-DD`
+(default today) through one shared helper; batch 003 stays reproducible by passing
+its date, which its payload records.

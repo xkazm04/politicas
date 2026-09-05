@@ -38,11 +38,14 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 import type { TenureClass } from "@/lib/analysis/tenure-copy";
+import { referenceDate } from "./shared-reference-date";
 
 const TERM = "PSP10";
 const OUT = "docs/data-analysis/case-effort";
 const CHAMBER_ORGAN_PSP_ID = 174; // organ.abbrev === "PSP10", the term chamber itself
-const REFERENCE_DATE = new Date("2026-07-24T00:00:00.000Z"); // batch-003 run date
+// The day tenure is counted to — `--reference=YYYY-MM-DD`, default today. Batch 003
+// ran with 2026-07-24 (recorded in its payload's `referenceDate`).
+const REFERENCE_DATE = referenceDate();
 
 async function main() {
   const store = await getStore();

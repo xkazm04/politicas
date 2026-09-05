@@ -26,6 +26,7 @@ import { getStore } from "@/lib/db/store";
 import { COMMITTEE_SATURATION, LEGISLATIVE_SATURATION, SPEECH_SATURATION } from "@/lib/analysis/contribution";
 import type { TenureClass } from "@/lib/analysis/tenure-copy";
 import { byScoreThenId } from "../shared/ordering";
+import { referenceDate } from "./shared-reference-date";
 
 const TERM = "PSP10";
 const OUT = "docs/data-analysis/case-effort";
@@ -54,6 +55,9 @@ const round = (x: number, d = 2) => Math.round(x * 10 ** d) / 10 ** d;
 
 const argArmy = process.argv.find((a) => a.startsWith("--army="));
 const ARMY_SIZE = argArmy ? Number(argArmy.split("=")[1]) : 20;
+// Tenure days are counted to this day (`--reference=YYYY-MM-DD`, default today) —
+// the same rule tenure.ts uses; a literal 2026-07-24 sat here until 2026-09-06.
+const REFERENCE_DATE = referenceDate();
 
 interface PriorUnit { pspId: number; stage: string; batch: number | null; signal: number | null }
 interface PriorLedger { batch: number; units: PriorUnit[] }
@@ -207,7 +211,7 @@ async function main() {
       tenureClass: tenureClassOf(pspId, participationRate, committeeCount),
       tenureDays: chamberFromByPerson.has(pspId)
         ? Math.round(
-            ((chamberToByPerson.has(pspId) ? new Date(chamberToByPerson.get(pspId)!) : new Date("2026-07-24T00:00:00.000Z")).getTime() -
+            ((chamberToByPerson.has(pspId) ? new Date(chamberToByPerson.get(pspId)!) : REFERENCE_DATE).getTime() -
               new Date(chamberFromByPerson.get(pspId)!).getTime()) /
               86_400_000,
           )
