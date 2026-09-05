@@ -97,3 +97,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   context are a standing pair: a rule one of them adopted with a dated record (velín 2026-08-12,
   `hidden sm:block`; exhibit `f.int(pass)`) is a finding wherever the sibling still lacks it -
   grep the sibling for the exact string the record names.
+- 2026-09-06 — dashboard-state-graph, first sweep (28 lenses, 3 S built). Commit split trap:
+  a source-grep test file shared by several findings must be committed with EVERY helper it
+  declares in use - a truncated version can fail the pre-commit lint (unused helper) and the
+  next commit then carries the test ahead of its fix. Truncate by removing helpers too, or
+  commit the shared test with the last finding.

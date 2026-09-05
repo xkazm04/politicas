@@ -20,3 +20,4 @@
 {"ts": "2026-09-06T01:30:00Z", "bundle": "software-engineering", "subjects": ["scoring-rubrics", "test-harness"], "techniques": ["hand-list-vs-ground-truth-test"], "deviations": 1}
 {"ts": "2026-09-06T02:20:00Z", "bundle": "software-engineering", "subjects": ["data-ingestion-integrity", "test-harness"], "techniques": ["verify-what-the-container-declares", "alphabet-as-ground-truth"], "deviations": 2}
 {"ts": "2026-09-06T03:20:00Z", "bundle": "civic-intelligence", "subjects": ["claim-verification-and-provenance", "accountability-publishing-ethics"], "techniques": ["missing-is-not-zero", "no-desktop-only-provenance"], "deviations": 2}
+{"ts": "2026-09-06T04:20:00Z", "bundle": "civic-intelligence", "subjects": ["accountability-publishing-ethics"], "techniques": ["named-controls-over-repeated-labels", "single-href-builder"], "deviations": 1}

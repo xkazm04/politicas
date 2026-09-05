@@ -67,6 +67,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-06] `FollowTheMoneyPage` prints a null per-company cap as 0, twice** — type: contract, risk: 1, effort: s, payoff: 2, reach: 1 file (`features/money/FollowTheMoneyPage.tsx:156,161` `perCompanyCap ?? 0`)
   Found by: scan-sweep (dashboard-instruments, state-coverage) · `MpCaseFilePage` guards the same sentence with `!== null` and the velín now does too (this round); the module's own front page still collapses null to „strop 0". Fix: the `!== null` guard or a cap-less variant sentence (money-ledger-graph context) · escalation: architecture (cross-context edit)
 
+- **[2026-09-06] A bill assigned to the same committee twice yields two dated facts with one id** — type: contract, risk: 2, effort: s, payoff: 3, reach: 1 module + every exhibit address of an `assigned:` fact (`features/dashboard/datedFacts.ts:236` `id: assigned:${cislo}:${organLabel}`)
+  Found by: scan-sweep (dashboard-state-graph, bounty-hunter) · The id omits role and date, so a re-assignment (return to the same committee) collides: duplicate React keys in the feed and `locateDatedFact` resolves the citation to the first row. Fact ids are deliberately stable (they ARE the exhibit address), so the fix is a contract change: measure first (count `(cislo, organLabel)` duplicates in `committeesByBill` on the live store), then suffix only the second and later duplicates in a deterministic order so every issued single-assignment address survives · escalation: contract
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
