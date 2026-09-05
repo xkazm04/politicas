@@ -11,7 +11,7 @@
 // (deflate). None occur in the psp.cz dumps; if one ever does, the ingest fails
 // with a named error instead of writing garbage into the corpus.
 
-import { inflateRawSync } from "node:zlib";
+import { crc32, inflateRawSync } from "node:zlib";
 
 const EOCD_SIGNATURE = 0x06054b50;
 const CENTRAL_SIGNATURE = 0x02014b50;
@@ -51,7 +51,9 @@ export function readZip(data: Uint8Array): ZipEntry[] {
     }
     const method = buf.readUInt16LE(offset + 10);
     const flags = buf.readUInt16LE(offset + 8);
+    const expectedCrc = buf.readUInt32LE(offset + 16);
     const compressedSize = buf.readUInt32LE(offset + 20);
+    const uncompressedSize = buf.readUInt32LE(offset + 24);
     const nameLen = buf.readUInt16LE(offset + 28);
     const extraLen = buf.readUInt16LE(offset + 30);
     const commentLen = buf.readUInt16LE(offset + 32);
@@ -79,6 +81,21 @@ export function readZip(data: Uint8Array): ZipEntry[] {
     if (method === 0) bytes = new Uint8Array(raw);
     else if (method === 8) bytes = new Uint8Array(inflateRawSync(raw, { maxOutputLength: MAX_INFLATED_BYTES }));
     else throw new Error(`unsupported ZIP compression method ${method} for entry ${name}`);
+
+    // The central directory PROMISES a length and a CRC-32 for every member; until
+    // 2026-09-06 neither was checked, so a bit-flipped stored member (or a deflate
+    // stream that happened to inflate) reached the caller as a complete read — the
+    // "silently mis-read" case this module's header says it rejects. Node ships
+    // the CRC (node:zlib.crc32, 22.2+); the check costs one pass over the bytes.
+    if (bytes.byteLength !== uncompressedSize) {
+      throw new Error(
+        `corrupt ZIP: size mismatch for entry ${name} (declared ${uncompressedSize} bytes, read ${bytes.byteLength})`,
+      );
+    }
+    const actualCrc = crc32(bytes);
+    if (actualCrc !== expectedCrc) {
+      throw new Error(`corrupt ZIP: CRC-32 mismatch for entry ${name} (declared ${expectedCrc.toString(16)}, computed ${actualCrc.toString(16)})`);
+    }
 
     entries.push({ name, bytes });
   }
