@@ -12,3 +12,11 @@ describe("getKompas reads the MP's club as of the Prague day", () => {
     expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
   });
 });
+
+describe("QuestionCard renders only a KNOWN outcome through the catalog", () => {
+  it("accepted/rejected go through voteResult.*; anything else prints as the stored token", () => {
+    const s = src("features/votetrack/kompas/QuestionCard.tsx");
+    expect(s).toMatch(/KNOWN_OUTCOMES/);
+    expect(s).not.toMatch(/q\.outcome === "accepted" \? tcom\("voteResult\.accepted"\) : tcom\("voteResult\.rejected"\)/);
+  });
+});

@@ -302,3 +302,5 @@ gate (`memory/recompute-replay-gate.md`) is what will let that correction be tol
 apart from a rewrite when it finally does move somebody's number.
 
 **2026-09-07 — the kompas reads each MP's club on the Prague day (scan-sweep, parity-auditor).** `getKompas` resolved the "club today" window with a UTC date slice while every other loader (deník, money, profile) dates itself with `pragueDay()`; between midnight and 01:00/02:00 Prague the membership window was read as of yesterday. `kompas/kompasSource.test.ts` forbids the UTC slice.
+
+**2026-09-07 — a kompas card prints an unknown outcome as itself (scan-sweep, state-coverage).** `QuestionCard` rendered every outcome that was not `accepted` through the „zamítnuto" branch — a default that named a value. The card now labels the two catalog outcomes (`common.voteResult.*`) and prints any other stored token verbatim in a neutral tone, the `VoteThemeFilter` pattern; `RealVoteLedger` and `RealChamberDetail` still carry the two-way ternary (backlog card, votetrack-ledger).
