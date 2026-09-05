@@ -489,7 +489,9 @@ export default function DataReleasesPage({
                         <li key={r.runId} className="border-b border-hairline pb-2 font-mono text-sm last:border-b-0">
                           <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                             <span>
-                              {t("sealed.run", { id: f.int(r.runId) })} · {r.source}
+                              {/* Id je identifikátor, ne množství — f.int by z #1234 udělal
+                                  „#1 234“ (tisícová mezera), a to není číslo běhu. */}
+                              {t("sealed.run", { id: String(r.runId) })} · {r.source}
                             </span>
                             <span className="tabular-nums text-steel-aa">
                               {t("sealed.leaves", { count: f.int(r.leafCount) })}

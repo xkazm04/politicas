@@ -217,3 +217,8 @@ raw number in `noteValues`; the page passed it straight into the ICU sentence,
 where next-intl formats with its own `Intl.NumberFormat` — the same divergence
 the CivicScore sweep closed in `WeightPanel` on 2026-09-05. Numeric `noteValues`
 now go through `f.int` on the page.
+
+**Run ids print as identifiers, not quantities (2026-09-05, scan-sweep,
+bounty-hunter).** „běh #{id}" formatted the run id through `f.int`, which groups
+thousands — the thousandth sealed run would have read `#1 234`. The id is passed
+as a string; `pageSource.test.ts` pins it.

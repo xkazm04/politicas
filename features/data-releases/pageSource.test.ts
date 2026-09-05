@@ -80,3 +80,10 @@ describe("čísla vstupují do ICU vět už zformátovaná (2026-09-05, parity-a
     expect(PAGE).toMatch(/t\(fam\.noteKey, icuValues\(fam\.noteValues\)\)/);
   });
 });
+
+describe("identifikátor běhu není množství (2026-09-05, bounty-hunter)", () => {
+  it("„běh {id}“ dostává id jako řetězec, ne přes f.int (tisícová mezera by z běhu 1234 udělala „1 234“)", () => {
+    expect(PAGE).not.toMatch(/f\.int\(r\.runId\)/);
+    expect(PAGE).toMatch(/id: String\(r\.runId\)/);
+  });
+});
