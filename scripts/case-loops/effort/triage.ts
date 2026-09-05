@@ -23,6 +23,8 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
+import { COMMITTEE_SATURATION, LEGISLATIVE_SATURATION, SPEECH_SATURATION } from "@/lib/analysis/contribution";
+import type { TenureClass } from "@/lib/analysis/tenure-copy";
 import { byScoreThenId } from "../shared/ordering";
 
 const TERM = "PSP10";
@@ -80,7 +82,7 @@ interface MpRow {
   quietWorkhorseIndex: number;
   workhorseFlavour: "legislative" | "oversight" | null; // P31: two positive-symmetry flavours
   neverCastBallot: boolean; // batch-002 pre-filter (Q-effort-1)
-  tenureClass: "full_term" | "replacement" | "departed" | "never_seated"; // Q-effort-5 (batch 003), 4-class synced batch 004
+  tenureClass: TenureClass; // Q-effort-5 (batch 003), 4-class synced batch 004; the union is lib/analysis/tenure-copy's
   tenureDays: number | null;
   componentDivergence: number; // batch-003 retune (Q-effort-6): stddev of 6 (club×tenure_class)-cohort
   // z-scored components — one-sided vs COMPARABLE peers, not vs an absolute 0-1 scale.
@@ -139,7 +141,7 @@ async function main() {
   for (const d of chamberFromByPerson.values()) startFreq.set(d.slice(0, 10), (startFreq.get(d.slice(0, 10)) ?? 0) + 1);
   let modeStartDay = "", modeStartCount = 0;
   for (const [d, n] of startFreq) if (n > modeStartCount) { modeStartDay = d; modeStartCount = n; }
-  const tenureClassOf = (pspId: number, participationRate: number, committeeCount: number): "full_term" | "replacement" | "departed" | "never_seated" => {
+  const tenureClassOf = (pspId: number, participationRate: number, committeeCount: number): TenureClass => {
     const iso = chamberFromByPerson.get(pspId);
     const toIso = chamberToByPerson.get(pspId);
     if (toIso) {
@@ -267,7 +269,9 @@ async function main() {
   // against full-term clubmates' participation denominators). Cohorts under 3 members
   // fall back to club-wide, then population-wide. Validated: sd 0.098 → 0.323, distinct
   // values (2dp) 38 → 95 of 207 — see payloads/batch-003-divergence-validation.json.
-  const COMMITTEE_SAT = 3, LEGIS_SAT = 4, SPEECH_SAT = 40;
+  // The caps are the formula's own (lib/analysis/contribution.ts says "never mirror
+  // these"); until 2026-09-06 this file re-typed 3 / 4 / 40 as literals.
+  const COMMITTEE_SAT = COMMITTEE_SATURATION, LEGIS_SAT = LEGISLATIVE_SATURATION, SPEECH_SAT = SPEECH_SATURATION;
   const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
   const meanSd = (vals: number[]) => {
     const mean = vals.reduce((a, b) => a + b, 0) / vals.length;

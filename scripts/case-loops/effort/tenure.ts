@@ -37,6 +37,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
+import type { TenureClass } from "@/lib/analysis/tenure-copy";
 
 const TERM = "PSP10";
 const OUT = "docs/data-analysis/case-effort";
@@ -76,7 +77,7 @@ async function main() {
     fromDate: string | null;
     toDate: string | null;
     tenureDays: number | null;
-    tenureClass: "full_term" | "replacement" | "departed" | "never_seated" | null;
+    tenureClass: TenureClass | null;
   }[] = [];
 
   for (const p of persons) {

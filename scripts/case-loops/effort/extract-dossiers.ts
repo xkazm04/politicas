@@ -11,6 +11,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 import { isCommitteeSeat, isLeadership, type CommitteeSeat } from "@/lib/analysis/contribution";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
+import type { TenureClass } from "@/lib/analysis/tenure-copy";
 
 const TERM = "PSP10";
 const OUT = "docs/data-analysis/case-effort";
@@ -26,7 +27,8 @@ async function main() {
     quietWorkhorseIndex?: number;
     triageScore?: number;
     componentDivergence?: number;
-    tenureClass?: "full_term" | "replacement";
+    /** Four classes since batch 004; this row type still said two until 2026-09-06. */
+    tenureClass?: TenureClass;
     tenureDays?: number | null;
     workhorseFlavour?: "legislative" | "oversight" | null;
   };

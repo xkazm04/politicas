@@ -445,3 +445,14 @@ twelve-value `Set` of `effort_low_score_reason` values beside
 from; identical today, and a reason added to one would have been silently dropped
 by the other. The gate now validates through `isLowScoreReason`;
 `sharedRules.test.ts` pins it.
+
+**Triage, tenure and the dossier extractor import the shared definitions they
+mirrored (2026-09-06, scan-sweep, parity-auditor).** `triage.ts` re-typed the
+formula's three saturation caps as literals (3 / 4 / 40) against
+`lib/analysis/contribution.ts`'s "never mirror these"; `triage.ts`, `tenure.ts` and
+`extract-dossiers.ts` each spelled the tenure-class union by hand — the extractor's
+copy still had two classes two batches after the vocabulary grew to four. All read
+`TenureClass` and the `*_SATURATION` constants now (the 2026-09-06 backlog card on
+the re-declared union is shipped by this change). `divergence-retune.ts` keeps its
+literals on purpose: it is batch 003's validation evidence and must reproduce that
+run.
