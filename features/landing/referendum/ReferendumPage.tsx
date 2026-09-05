@@ -39,7 +39,7 @@ import { storedRefLabel } from "@/features/civicscore/provenance";
 import { useLensWeights } from "@/features/civicscore/useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { submitLensVector } from "./actions";
-import { K_ANONYMITY_FLOOR, serializeWeights, type WeightAggregate } from "./aggregate";
+import { carriesLens, K_ANONYMITY_FLOOR, serializeWeights, type WeightAggregate } from "./aggregate";
 
 /** Klíč místní zábrany dvojhlasu — jedna urna na prohlížeč, přiznaně měkká. */
 const BALLOT_KEY = "politicas-referendum-hlas";
@@ -102,21 +102,32 @@ export default function ReferendumPage({
   );
   const [sessionBallot, setSessionBallot] = useState<"open" | "cast" | "failed">("open");
   const cast = storedBallot || sessionBallot === "cast";
+  // Vektor bez čočky (vše na nule) agregát nezapočítá (aggregate.ts, pravidlo
+  // č. 1) a dveře urny ho odmítnou týmž predikátem — tlačítko to říká PŘED
+  // kliknutím, ne až chybovou větou o úložišti, které za nic nemůže.
+  const emptyLens = !carriesLens(lens.weights);
   const [pending, startTransition] = useTransition();
   const castVote = () => {
     const canonical = serializeWeights(lens.weights);
     startTransition(async () => {
-      const res = await submitLensVector(canonical);
-      if (res.status === "ok") {
-        setAggregate(res.aggregate);
-        setSessionBallot("cast");
-        try {
-          window.localStorage.setItem(BALLOT_KEY, canonical);
-        } catch (err) {
-          // Hlas už je odevzdán — jen se místní zábrana dvojhlasu neudrží.
-          console.warn("[referendum] zápis místní zábrany selhal", err);
+      try {
+        const res = await submitLensVector(canonical);
+        if (res.status === "ok") {
+          setAggregate(res.aggregate);
+          setSessionBallot("cast");
+          try {
+            window.localStorage.setItem(BALLOT_KEY, canonical);
+          } catch (err) {
+            // Hlas už je odevzdán — jen se místní zábrana dvojhlasu neudrží.
+            console.warn("[referendum] zápis místní zábrany selhal", err);
+          }
+        } else {
+          setSessionBallot("failed");
         }
-      } else {
+      } catch (err) {
+        // Zamítnutý slib akce (síť, pád serveru) dosud nechal urnu „otevřenou"
+        // beze slova — čtenář zmáčkl a nestalo se nic.
+        console.warn("[referendum] odevzdání hlasu selhalo", err);
         setSessionBallot("failed");
       }
     });
@@ -389,7 +400,7 @@ export default function ReferendumPage({
                     <button
                       type="button"
                       onClick={castVote}
-                      disabled={pending || cast}
+                      disabled={pending || cast || emptyLens}
                       className="inline-flex items-center gap-2 bg-signal-deep px-5 py-3 text-sm font-black uppercase tracking-wider text-paper transition-transform enabled:hover:-translate-y-0.5 disabled:opacity-50"
                     >
                       <Vote className="h-4 w-4" aria-hidden />
@@ -398,11 +409,13 @@ export default function ReferendumPage({
                     <span aria-live="polite" className="font-mono text-xs uppercase tracking-wider text-steel-aa">
                       {cast
                         ? "tenhle prohlížeč už hlasoval (místní zábrana, ne účet)"
-                        : sessionBallot === "failed"
-                          ? "hlas se nepodařilo uložit — úložiště teď nepřijímá zápisy"
-                          : custom
-                            ? `odevzdáte váhy ${vector}`
-                            : "odevzdáte zveřejněnou metodiku (i souhlas je hlas)"}
+                        : emptyLens
+                          ? "součet vah je 0 — vektor bez čočky se neodevzdává (agregát by ho nezapočítal)"
+                          : sessionBallot === "failed"
+                            ? "hlas se nepodařilo uložit — úložiště teď nepřijímá zápisy"
+                            : custom
+                              ? `odevzdáte váhy ${vector}`
+                              : "odevzdáte zveřejněnou metodiku (i souhlas je hlas)"}
                     </span>
                   </div>
                 </div>

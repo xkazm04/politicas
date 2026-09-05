@@ -132,3 +132,9 @@ by a comment alone; `lensSource.test.ts` pins that the facade calls the rule
 instead of restating it. `componentBgParity.test.ts` pins ReferendumTeaser's
 Tailwind `COMPONENT_BG` to `COMPONENT_FILL` token-for-token (the "keep in sync"
 sentence was the only guard).
+The referendum's ballot box refuses a zero-sum vector at the door with the
+same `carriesLens` predicate the aggregate skips it by (it used to store the
+vote, say „hlas odevzdán" and lock the browser's ballot for a vote that never
+counted); the button says so before the click; a storage exception in the
+server action returns `unavailable` and a rejected action promise lands in
+`failed` instead of silence (`actions.test.ts`, `referendumPageSource.test.ts`).

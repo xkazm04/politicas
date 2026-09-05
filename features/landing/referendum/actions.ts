@@ -11,8 +11,9 @@
 // lens.ts). Neplatný vektor → "invalid", nikdy tichá oprava.
 
 import { revalidatePath } from "next/cache";
+import { decodeWeights } from "@/features/civicscore/lens";
 import { getWeightsRepo } from "@/lib/db/pglite/repositories/weights";
-import { deriveWeightAggregate, type WeightAggregate } from "./aggregate";
+import { carriesLens, deriveWeightAggregate, type WeightAggregate } from "./aggregate";
 
 export type SubmitLensResult =
   | { status: "ok"; aggregate: WeightAggregate }
@@ -23,11 +24,23 @@ export type SubmitLensResult =
 export async function submitLensVector(raw: string): Promise<SubmitLensResult> {
   // Tvrdá mez délky před jakoukoli prací: kanonický vektor má ≤ 23 znaků.
   if (typeof raw !== "string" || raw.length > 64) return { status: "invalid" };
-  const repo = await getWeightsRepo();
-  if (repo === null) return { status: "unavailable" };
-  const written = await repo.submitLensVector(raw);
-  if (!written.ok) return { status: "invalid" };
-  const aggregate = deriveWeightAggregate(await repo.listLensVectors());
-  revalidatePath("/referendum");
-  return { status: "ok", aggregate };
+  // Vektor bez čočky (součet 0) agregát nikdy nezapočítá (aggregate.ts, pravidlo
+  // č. 1) — přijmout ho u dveří by čtenáři řeklo „hlas odevzdán" o hlasu, který
+  // se nezapočte, a místní zábrana by mu za něj zamkla urnu. Týž predikát, ne opis.
+  const decoded = decodeWeights(raw);
+  if (decoded === null || !carriesLens(decoded)) return { status: "invalid" };
+  try {
+    const repo = await getWeightsRepo();
+    if (repo === null) return { status: "unavailable" };
+    const written = await repo.submitLensVector(raw);
+    if (!written.ok) return { status: "invalid" };
+    const aggregate = deriveWeightAggregate(await repo.listLensVectors());
+    revalidatePath("/referendum");
+    return { status: "ok", aggregate };
+  } catch (err) {
+    // Výjimka úložiště (zámek, plný disk) byla dosud neošetřený pád serverové
+    // akce — klient neměl žádnou větu. Stav se pojmenuje a hlas se NEpředstírá.
+    console.error("[referendum] zápis hlasu selhal — úložiště nepřijalo INSERT", err);
+    return { status: "unavailable" };
+  }
 }
