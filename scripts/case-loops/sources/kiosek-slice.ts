@@ -159,39 +159,46 @@ async function main() {
       p.attachments[0].url,
   );
   const toFetch = candidates.slice(0, MAX_ADDITIONAL_PDFS);
+  // The PDF is cached beside its text sidecar, so a warm re-run (`--reparse`, a new statute
+  // pattern) reads it from disk. Until 2026-09-07 every run fetched all 18 again - the sidecar
+  // spared the parse, not the download - and one refused attachment aborted the whole slice.
+  const safeNameFor = (posting: PostingRow) =>
+    `${posting.institutionCode}-${(posting.spisovaZnacka ?? posting.id).replace(/[^\w.-]+/g, "_")}.pdf`;
+  const pdfPathFor = (posting: PostingRow) => join(CACHE_DIR, safeNameFor(posting));
+  const missing = toFetch.filter((p) => !existsSync(pdfPathFor(p)));
 
   console.log(
-    `slice scope: ${allPostings.length} postings parsed across 5 institutions; ${candidates.length} additional substantive MS-Praha candidates found in target agendas; fetching ${toFetch.length} (budget ${MAX_ADDITIONAL_PDFS})`,
+    `slice scope: ${allPostings.length} postings parsed across 5 institutions; ${candidates.length} additional substantive MS-Praha candidates found in target agendas; ` +
+      `extracting ${toFetch.length} (budget ${MAX_ADDITIONAL_PDFS}) · ${toFetch.length - missing.length} already cached, ${missing.length} to fetch live`,
   );
 
-  if (toFetch.length > 0) {
+  if (missing.length > 0) {
     const responses = await fetchWithThrottle(
-      toFetch.map((p) => p.attachments[0].url),
+      missing.map((p) => p.attachments[0].url),
       (url) => fetch(url),
       { delayMs: KIOSEK_THROTTLE_MS },
     );
-    for (let i = 0; i < toFetch.length; i++) {
-      const posting = toFetch[i];
-      const res = responses[i];
-      const bytes = new Uint8Array(await res.arrayBuffer());
-      const safeName = `${posting.institutionCode}-${(posting.spisovaZnacka ?? posting.id).replace(/[^\w.-]+/g, "_")}.pdf`;
-      const cachedPdf = join(CACHE_DIR, safeName);
-      writeFileSync(cachedPdf, bytes);
-      const { text, source } = await readOrExtractText(cachedPdf, bytes, { reparse });
-      textSource[source]++;
-      extractions.push({
-        postingId: posting.id,
-        institutionCode: posting.institutionCode,
-        spisovaZnacka: posting.spisovaZnacka,
-        title: posting.title,
-        agendas: posting.agendas,
-        pdfSource: "fetched-live",
-        pdfFile: safeName,
-        textLength: text.length,
-        statutes: extractStatuteCitations(posting.id, text),
-        icos: extractIcos(posting.id, text),
-      });
+    for (let i = 0; i < missing.length; i++) {
+      writeFileSync(pdfPathFor(missing[i]), new Uint8Array(await responses[i].arrayBuffer()));
     }
+  }
+  for (const posting of toFetch) {
+    const cachedPdf = pdfPathFor(posting);
+    const bytes = new Uint8Array(readFileSync(cachedPdf));
+    const { text, source } = await readOrExtractText(cachedPdf, bytes, { reparse });
+    textSource[source]++;
+    extractions.push({
+      postingId: posting.id,
+      institutionCode: posting.institutionCode,
+      spisovaZnacka: posting.spisovaZnacka,
+      title: posting.title,
+      agendas: posting.agendas,
+      pdfSource: "fetched-live",
+      pdfFile: safeNameFor(posting),
+      textLength: text.length,
+      statutes: extractStatuteCitations(posting.id, text),
+      icos: extractIcos(posting.id, text),
+    });
   }
 
   // ── 4. write the slice payload ───────────────────────────────────────────
@@ -210,6 +217,7 @@ async function main() {
       unmatchedCachedPdfs,
       additionalPdfCandidatesFound: candidates.length,
       additionalPdfsFetched: toFetch.length,
+      additionalPdfsFetchedLive: missing.length,
       additionalPdfBudget: MAX_ADDITIONAL_PDFS,
     },
     extractions,

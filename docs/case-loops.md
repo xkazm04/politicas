@@ -656,3 +656,10 @@ without a pass would have stamped `pass: 0` into the provenance of 152 702
 nodes. `passArg.ts` parses the flag to a positive integer or null, and the
 script refuses a null under `--commit`.
 
+**The kiosek slice reads a cached PDF instead of refetching it (2026-09-07,
+scan-sweep, code-optimizer).** `kiosek-slice.ts` re-downloaded all 18 additional
+PDFs on every run — the text sidecar spared the parse, not the download — and one
+refused attachment aborted the whole slice. Only postings whose PDF is missing
+from `.kiosek-cache/pdfs` are fetched now; the payload reports
+`additionalPdfsFetchedLive` beside the extracted count.
+

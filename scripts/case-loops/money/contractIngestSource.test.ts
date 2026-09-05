@@ -110,3 +110,11 @@ describe("persist-contract-harvest.ts: --commit requires a real --pass", () => {
     expect(s).not.toMatch(/Number\(arg\("pass"\) \?\? 0\)/);
   });
 });
+
+describe("kiosek-slice.ts: a PDF already in the cache is read, not refetched", () => {
+  it("fetches only the postings whose PDF is missing from .kiosek-cache", () => {
+    const s = src("sources/kiosek-slice.ts");
+    expect(s).toMatch(/const missing = toFetch\.filter\(\(p\) => !existsSync\(pdfPathFor\(p\)\)\)/);
+    expect(s).toMatch(/additionalPdfsFetchedLive: missing\.length/);
+  });
+});
