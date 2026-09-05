@@ -23,7 +23,7 @@
 
 import { czechDate, czechInt } from "@/lib/format";
 import { canonicalJson, contentHash, HASH_ALGORITHM } from "@/features/dashboard/exhibit";
-import { buildRegistryLinks, type RegistryLinks } from "./reviewTypes";
+import { buildRegistryLinks, reviewedDay, type RegistryLinks } from "./reviewTypes";
 import { compactCzk, displaySignedOn, tieClassInfo, type MoneyMpDetail, type MoneyTieDetail } from "./moneyTypes";
 import type { TieClass, TieClassOrigin } from "./reviewTypes";
 import type { ContractLine } from "./moneyTypes";
@@ -209,7 +209,7 @@ export function buildCiteCs(args: {
   const originNote = t.tieClassOrigin === "derived" ? " (třída odvozená heuristicky, bez rejstříkového zápisu)" : "";
   const stewardRule = t.tieClass === "steward" ? ` Pozn.: ${info.descCs}` : "";
   const reviewed = t.lastReviewedAt
-    ? ` Lidsky ověřeno ${czechDate(t.lastReviewedAt.slice(0, 10))}${t.lastReviewer ? ` (${t.lastReviewer})` : ""}.`
+    ? ` Lidsky ověřeno ${czechDate(reviewedDay(t.lastReviewedAt))}${t.lastReviewer ? ` (${t.lastReviewer})` : ""}.`
     : " Lidsky ověřeno (/penize/kontrola).";
   return (
     `${name}${club ? ` (${club})` : ""} — ${t.company}, IČO ${t.ico}: ` +
@@ -296,7 +296,7 @@ function deriveTimeline(ties: PacketTie[]): {
     if (t.lastReviewedAt) {
       events.push({
         ...base,
-        date: t.lastReviewedAt.slice(0, 10),
+        date: reviewedDay(t.lastReviewedAt),
         kind: "review",
         detail: [t.lastDecision, t.lastReviewer].filter(Boolean).join(" · ") || "lidská kontrola",
         amountCzk: null,

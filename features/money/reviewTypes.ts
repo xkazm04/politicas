@@ -425,3 +425,10 @@ export function resolveReviewOrder(t: {
   const agrees = t.storedTier === tier && Math.abs((t.storedRank as number) - rank) < 0.5;
   return { reviewTier: tier, reviewRank: rank, origin: agrees ? "stored" : "stale-recomputed" };
 }
+
+/** `last_reviewed_at` is written as a full ISO instant (ReviewRepository); the surfaces
+ *  print the DAY. One definition — two pages used to print the raw timestamp
+ *  („2026-08-04T12:34:56.789Z“) in an uppercase mono line while two others sliced it. */
+export function reviewedDay(iso: string): string {
+  return iso.slice(0, 10);
+}

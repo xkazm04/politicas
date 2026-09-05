@@ -24,6 +24,7 @@ import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { usePosterMode } from "@/features/shared/poster/usePosterMode";
 import { compactCzk, tieClassInfo } from "./moneyTypes";
+import { reviewedDay } from "./reviewTypes";
 import type { EvidencePacket, PacketEvent, PacketTie } from "./packet";
 
 const EVENT_LABEL_KEY: Record<PacketEvent["kind"], string> = {
@@ -278,7 +279,7 @@ function PacketTieRow({ tie, en, locale }: { tie: PacketTie; en: boolean; locale
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
                   {t("packet.decision")}: {tie.lastDecision}
                   {tie.lastReviewer ? ` · ${tie.lastReviewer}` : ""}
-                  {tie.lastReviewedAt ? ` · ${tie.lastReviewedAt.slice(0, 10)}` : ""}
+                  {tie.lastReviewedAt ? ` · ${reviewedDay(tie.lastReviewedAt)}` : ""}
                 </p>
               )}
             </div>

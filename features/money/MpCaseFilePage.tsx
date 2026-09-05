@@ -20,7 +20,7 @@ import type { Locale } from "@/lib/i18n/config";
 import { mpEntityKey } from "@/features/denik/deriveDenik";
 import { entityDenikHref } from "@/features/schranka/followCodec";
 import { mpBucketClaim } from "./moneyClaims";
-import { buildRegistryLinks, type ReviewState } from "./reviewTypes";
+import { buildRegistryLinks, reviewedDay, type ReviewState } from "./reviewTypes";
 import { tieFlagInfos } from "./tieFlags";
 import AnalystNote from "./components/AnalystNote";
 import { BasisNote, BasisTag } from "./components/BasisDisclosure";
@@ -415,7 +415,7 @@ function TieCard({ tie, locale, en }: { tie: MoneyTieDetail; locale: string; en:
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel">
                   {t("caseFile.lastDecision")}: {tie.lastDecision}
                   {tie.lastReviewer ? ` · ${tie.lastReviewer}` : ""}
-                  {tie.lastReviewedAt ? ` · ${tie.lastReviewedAt}` : ""}
+                  {tie.lastReviewedAt ? ` · ${reviewedDay(tie.lastReviewedAt)}` : ""}
                 </p>
               )}
             </div>

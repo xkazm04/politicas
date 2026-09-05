@@ -758,3 +758,9 @@ copy říká „import, never re-word“ a veřejný spis ji odsud importuje. Re
 čtenář se shodovali jen náhodou. Všech pět míst teď čte `tieClassInfo(...)`;
 test `casesReviewSource.test.ts` hlídá, že se lokální tabulka nevrátí.
 
+**Datum lidské kontroly je den, na všech plochách (2026-09-07).** Brána zapisuje
+`last_reviewed_at` jako celý ISO okamžik („2026-08-04T12:34:56.789Z“). Paket a
+jeho stránka ho řezaly na den, spis poslance a konzole ho tiskly celý — do řádku
+verzálkami v monospace. Řez má jednu definici, `reviewedDay` v `reviewTypes.ts`,
+a čtou ho všechna čtyři místa.
+

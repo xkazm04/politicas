@@ -57,3 +57,19 @@ describe("verification console: tie-class copy is imported, never re-worded", ()
     expect(CODE).toMatch(/tieClassInfo\(/);
   });
 });
+
+describe("last human review: rendered as a day on every surface", () => {
+  it("no surface interpolates the raw ISO timestamp", () => {
+    for (const f of [
+      "features/money/MpCaseFilePage.tsx",
+      "features/money/EvidencePacketPage.tsx",
+      "features/money/components/VerificationConsole.tsx",
+      "features/money/packet.ts",
+    ]) {
+      const s = src(f);
+      expect(s, f).not.toMatch(/\$\{tie\.lastReviewedAt\}/);
+      expect(s, f).not.toMatch(/lastReviewedAt\.slice\(0, 10\)/);
+      expect(s, f).toMatch(/reviewedDay\(/);
+    }
+  });
+});

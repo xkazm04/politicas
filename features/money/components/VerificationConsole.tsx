@@ -92,7 +92,7 @@ const BADGE_TONE_CLS: Record<string, string> = {
   warn: "border-ochre bg-ochre/15 text-ink",
   unknown: "border-dashed border-hairline text-steel",
 };
-import type { ReviewDecision, ReviewQueue, ReviewTie, TieClass } from "../reviewTypes";
+import { reviewedDay, type ReviewDecision, type ReviewQueue, type ReviewTie, type TieClass } from "../reviewTypes";
 
 // Třída vazby se sází z `tieClassInfo` (moneyTypes.ts) — jediný zdroj té copy, „import,
 // never re-word“. Do 2026-09-07 tu stála lokální tabulka popisků a druhá, kratší verze
@@ -1017,7 +1017,7 @@ function ReviewCard({
                 <p className="mt-1 font-mono text-[10px] uppercase tracking-widest text-steel-aa">
                   poslední rozhodnutí: {tie.lastDecision}
                   {tie.lastReviewer ? ` · ${tie.lastReviewer}` : ""}
-                  {tie.lastReviewedAt ? ` · ${tie.lastReviewedAt}` : ""}
+                  {tie.lastReviewedAt ? ` · ${reviewedDay(tie.lastReviewedAt)}` : ""}
                 </p>
               )}
             </div>
