@@ -298,3 +298,11 @@ forever, the search „hledám…" forever, the cite button stayed disabled. Eac
 settles into the state the loader's own null would produce (outage typeset as
 outage, request counters still honoured) and leaves a console trace;
 `actionSettle.test.ts` pins one `.catch` per `.then` chain (8 unhandled → 0).
+
+**DOM glyphs take their colour from the token class (2026-09-06, scan-sweep,
+parity-auditor).** The legend painted kind glyphs with `fill-<token>` so the
+forensic layer could remap them and said why („hex z KIND_STYLE by na tmě lhal");
+the inspector, the search hits, the path-finder rows and the permalink page still
+painted `fill={style.fill}`, the canvas hex, so in forensic mode one kind wore two
+colours. All five DOM glyph sites now go through `KIND_FILL_CLASS[KIND_FILL_TOKEN]`;
+the hex stays for `<canvas>` only (5 hex-painted DOM glyphs → 0).

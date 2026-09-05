@@ -15,7 +15,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Search, X } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { glyphPath, KIND_STYLE } from "../kindStyle";
+import { glyphPath, KIND_FILL_CLASS, KIND_FILL_TOKEN, KIND_STYLE } from "../kindStyle";
 import { searchGraphAction } from "../graphActions";
 import type { SearchHit } from "../graphTypes";
 
@@ -159,7 +159,7 @@ export default function NodeSearch({
                   }`}
                 >
                   <svg viewBox="-12 -12 24 24" className="h-3 w-3 shrink-0" aria-hidden>
-                    <path d={glyphPath(style.shape, 9)} fill={style.fill} />
+                    <path d={glyphPath(style.shape, 9)} className={KIND_FILL_CLASS[KIND_FILL_TOKEN[hit.kind]]} />
                   </svg>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium">{hit.label}</span>

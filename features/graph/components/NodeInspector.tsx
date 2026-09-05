@@ -25,7 +25,7 @@ import { useTranslations } from "next-intl";
 import { ExternalLink, Plus, X } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { glyphPath, KIND_STYLE } from "../kindStyle";
+import { glyphPath, KIND_FILL_CLASS, KIND_FILL_TOKEN, KIND_STYLE } from "../kindStyle";
 import type { NodeDetail } from "../graphTypes";
 
 export default function NodeInspector({
@@ -72,7 +72,7 @@ export default function NodeInspector({
         <div className="min-w-0">
           <p className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
             <svg viewBox="-12 -12 24 24" className="h-3 w-3 shrink-0" aria-hidden>
-              <path d={glyphPath(style.shape, 9)} fill={style.fill} />
+              <path d={glyphPath(style.shape, 9)} className={KIND_FILL_CLASS[KIND_FILL_TOKEN[node.kind]]} />
             </svg>
             {t(`kinds.${node.kind}`)}
           </p>

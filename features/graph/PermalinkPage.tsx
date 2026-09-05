@@ -29,7 +29,7 @@ import { compactCzk } from "@/features/money/moneyTypes";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { glyphPath, KIND_STYLE } from "./kindStyle";
+import { glyphPath, KIND_FILL_CLASS, KIND_FILL_TOKEN, KIND_STYLE } from "./kindStyle";
 import {
   gateCounts,
   HASH_ALGORITHM,
@@ -46,7 +46,7 @@ function NodeGlyph({ node, className = "h-3 w-3" }: { node: GraphNode; className
   const style = KIND_STYLE[node.kind];
   return (
     <svg viewBox="-12 -12 24 24" className={`${className} shrink-0`} aria-hidden>
-      <path d={glyphPath(style.shape, 9)} fill={style.fill} />
+      <path d={glyphPath(style.shape, 9)} className={KIND_FILL_CLASS[KIND_FILL_TOKEN[node.kind]]} />
     </svg>
   );
 }

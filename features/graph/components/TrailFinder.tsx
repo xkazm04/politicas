@@ -25,15 +25,17 @@ import { Waypoints, X } from "lucide-react";
 import { compactCzk } from "@/features/money/moneyTypes";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { glyphPath, KIND_STYLE } from "../kindStyle";
+import { glyphPath, KIND_FILL_CLASS, KIND_FILL_TOKEN, KIND_STYLE } from "../kindStyle";
 import NodeSearch from "./NodeSearch";
 import type { GraphNode, PathQueryResult, SearchHit } from "../graphTypes";
 
 function NodeGlyph({ node }: { node: GraphNode }) {
   const style = KIND_STYLE[node.kind];
+  // Barva přes slot tokenu (fill-*), ne hex plátna — legenda to tak dělá od
+  // 2026-08, tyhle glyfy od 2026-09-06; forenzní vrstva tak přebarví i řádky.
   return (
     <svg viewBox="-12 -12 24 24" className="h-3 w-3 shrink-0" aria-hidden>
-      <path d={glyphPath(style.shape, 9)} fill={style.fill} />
+      <path d={glyphPath(style.shape, 9)} className={KIND_FILL_CLASS[KIND_FILL_TOKEN[node.kind]]} />
     </svg>
   );
 }
@@ -54,7 +56,7 @@ function SlotChip({ hit, onClear }: { hit: SearchHit; onClear: () => void }) {
   return (
     <div className="flex items-center gap-2 border-2 border-ink bg-paper-strong px-3 py-2">
       <svg viewBox="-12 -12 24 24" className="h-3 w-3 shrink-0" aria-hidden>
-        <path d={glyphPath(style.shape, 9)} fill={style.fill} />
+        <path d={glyphPath(style.shape, 9)} className={KIND_FILL_CLASS[KIND_FILL_TOKEN[hit.kind]]} />
       </svg>
       <span className="min-w-0 flex-1">
         <span className="block truncate text-sm font-bold">{hit.label}</span>
