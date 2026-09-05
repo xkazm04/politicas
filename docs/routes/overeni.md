@@ -252,3 +252,13 @@ scan-sweep, parity-auditor).** `/graf/p` and the exhibit each export
 the literal `fnv-1a/32`, so a change of algorithm in either family would have
 printed the old name next to a new hash. The row now picks the constant by
 family; `pageSource.test.ts` forbids the literal.
+
+**2026-09-07 — the person-id grammar of the receipt's case-file link has one owner
+(scan-sweep, parity-auditor).** `caseFileLink.ts` carried its own
+`/^psp:person:(\d+)$/` next to the identical regex in `lib/ingest/changeEvents.ts`
+(`pspIdFromNodeId`) — two definitions of „our id" that would part on the first
+change; `pspIdFromEntityId` now delegates. The IČO half stays local on purpose:
+its canonical owner is `features/money/companyId.ts`, which the shared catalog may
+not import (eslint boundary) — backlogged as a move to `lib/`.
+`provenanceSource.test.ts` forbids a second person-id regex.
+

@@ -14,6 +14,8 @@
  *  3. Čistý modul — sází ho kapsle, stránka /zdroj i brána /overeni.
  */
 
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
+
 /** Spis na naší ploše pro koncový bod účtenky. */
 export interface CaseFileLink {
   href: string;
@@ -21,22 +23,24 @@ export interface CaseFileLink {
   target: "poslanec" | "firma";
 }
 
-const PERSON_ID = /^psp:person:(\d+)$/;
 const COMPANY_ID = /^company:ico:(\d{1,8})$/;
 
 /*
- * Tvar id JE gramatika — a bydlí tady, jednou. Hodnotové claimy (/penize,
- * /zebricek) nesou v `subject` přesně tahle id, takže je brána musí umět
- * přečíst zpátky na pspId / IČO. Kdyby si na to napsala vlastní regulární
- * výraz, měl by repozitář dvě definice toho, co je „naše id", a rozešly by se
- * na první změně (přesně to, čemu se vyhýbá refDetect u adres).
+ * Tvar id JE gramatika — a každý tvar bydlí v repozitáři JEDNOU. Hodnotové
+ * claimy (/penize, /zebricek) nesou v `subject` přesně tahle id, takže je brána
+ * musí umět přečíst zpátky na pspId / IČO. Kdyby si na to napsala vlastní
+ * regulární výraz, měl by repozitář dvě definice toho, co je „naše id", a
+ * rozešly by se na první změně (přesně to, čemu se vyhýbá refDetect u adres).
+ *
+ * Osoba: gramatiku `psp:person:<n>` vlastní lib/ingest/changeEvents.ts
+ * (pspIdFromNodeId) — do 2026-09-07 tu stál druhý regulární výraz téhož tvaru.
+ * Firma: kanonický tvar IČO vlastní features/money/companyId.ts, který katalog
+ * importovat NESMÍ (hranice features/shared, eslint no-restricted-imports);
+ * dokud se nepřestěhuje do lib/, zůstává tvar `company:ico:<1-8 číslic>` zde.
  */
 
 /** `psp:person:6881` → 6881; jiný tvar → null. */
-export function pspIdFromEntityId(id: string): number | null {
-  const m = id.match(PERSON_ID);
-  return m ? Number(m[1]) : null;
-}
+export const pspIdFromEntityId = (id: string): number | null => pspIdFromNodeId(id);
 
 /** `company:ico:46347534` → „46347534"; jiný tvar → null. Nenormalizuje —
  *  kanonický osmimístný tvar vlastní features/money/companyId.ts. */
