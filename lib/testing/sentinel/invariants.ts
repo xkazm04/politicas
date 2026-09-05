@@ -33,7 +33,7 @@ import {
 } from "@/lib/analysis/contribution";
 import { canonicalJson, sha256Hex } from "@/lib/db/pglite/ledger";
 import { loaderFailureDisplayPath } from "@/lib/db/loaderFailureLog";
-import { reviewTier } from "@/features/money/reviewTypes";
+import { reviewTier, TIE_CLASSES, type TieClass } from "@/features/money/reviewTypes";
 import { floorVerdicts } from "@/lib/db/readiness";
 import { deriveReleaseManifest, type ReleaseManifest } from "@/features/data-releases/manifest";
 import type { PersonScoreFact, SentinelFacts } from "./facts";
@@ -702,7 +702,10 @@ export function evaluateSentinel(a: SentinelFacts, b: SentinelFacts, opts: Evalu
  * The population SHIPS with the verdict (law: every-cap-ships-its-population) —
  * "4 of 208" and "4 of 4" are different findings and a bare 4 hides which.
  */
-function checkMoneyRankCache(facts: SentinelFacts): SentinelCheck {
+const isTieClass = (v: string | null): v is TieClass => v !== null && (TIE_CLASSES as readonly string[]).includes(v);
+
+/** Exported for the unit test in sentinelSource.test.ts; the roster calls it through evaluateSentinel. */
+export function checkMoneyRankCache(facts: SentinelFacts): SentinelCheck {
   const id: SentinelCheckId = "money-rank-cache";
   const label = SENTINEL_CHECK_LABELS[id];
   const ties = facts.moneyTies;
@@ -719,12 +722,27 @@ function checkMoneyRankCache(facts: SentinelFacts): SentinelCheck {
         `so there is no cache to go stale`,
     );
   }
+  // A stored class the vocabulary does not know is a finding of its own. Until
+  // 2026-09-07 it was CAST to TieClass and fell through reviewTier's last branch
+  // (steward), so a tier of 2 stamped on garbage passed as "matches".
+  const unknownClass = stamped.filter((t) => t.tieClass !== null && !isTieClass(t.tieClass));
+  if (unknownClass.length > 0) {
+    return violation(
+      id,
+      label,
+      `${unknownClass.length}/${stamped.length} stamped tie(s) carry a tie_class outside the TIE_CLASSES vocabulary ` +
+        `(${[...new Set(unknownClass.map((t) => t.tieClass))].join(", ")}), e.g. ${unknownClass
+          .slice(0, 3)
+          .map((t) => t.key)
+          .join(", ")} — reviewTier() cannot order what it cannot classify`,
+    );
+  }
   const wrong = stamped.filter(
     (t) =>
-      t.tieClass !== null &&
+      isTieClass(t.tieClass) &&
       t.storedTier !==
         reviewTier({
-          tieClass: t.tieClass as Parameters<typeof reviewTier>[0]["tieClass"],
+          tieClass: t.tieClass,
           corroboration: t.corroboration as Parameters<typeof reviewTier>[0]["corroboration"],
         }),
   );
