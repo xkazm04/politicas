@@ -226,3 +226,9 @@ In the same pass novinky.json stopped holding its own copy of the day regex and 
 are stated at the call site (feeds: first-visit window; badge: everything).
 `features/schranka/feedRoutes.test.ts` runs the three handlers over a mocked loader
 and pins the policy, the 503 `no-store`, and the parser.
+
+**Origin feedu skládá jedna definice (2026-09-07, scan-sweep, parity-auditor).**
+`feedRequest.requestOrigin` byl třetí opis skládání adresy z hlaviček hostu
+a proxy schématu vedle /kraj a /plakat (round 37 je sjednotil do
+`lib/routing/liveUrl.ts`); teď volá `liveUrl("")`. Chování beze změny: bez
+hlavičky host prázdný origin, bez proxy hlavičky `http`.
