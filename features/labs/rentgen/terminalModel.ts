@@ -25,6 +25,7 @@
  */
 
 import { claimRefPath, edgeClaimRef, nodeClaimRef } from "@/features/shared/provenance/claimRef";
+import { tieClassInfo } from "@/features/money/moneyTypes";
 import { buildRegistryLinks, type ReviewState, type TieClass } from "@/features/money/reviewTypes";
 import { czech, czechDate, czechInt } from "@/lib/format";
 
@@ -83,11 +84,11 @@ export interface TerminalTieLike {
   source: string;
 }
 
-export const TIE_CLASS_CS: Record<TerminalTieClass, string> = {
-  "owner-operator": "vlastník/jednatel",
-  manager: "management",
-  steward: "správní role",
-};
+/** Český popisek třídy vazby — z tieClassInfo (features/money/moneyTypes.ts), JEDINÉHO
+ *  zdroje té formulace (pravidlo P29: „import, never re-word inline“). Do 2026-09-07 tu
+ *  stála vlastní trojice („management“, „správní role“…), takže terminál pojmenovával
+ *  tutéž vazbu jinak než /penize a tiskový výpis se s knihou vazeb rozcházel ve slovech. */
+export const tieClassCs = (cls: TerminalTieClass): string => tieClassInfo(cls).labelCs;
 
 // ── formát peněz (deterministicky, bez Intl — vzor lib/format.ts) ───────────
 
@@ -208,7 +209,7 @@ export function deriveTerminalGraph(ties: readonly TerminalTieLike[]): TerminalG
       id: `c:${tie.dstId}`,
       kind: "company",
       label: tie.company,
-      sub: `IČO ${tie.ico} · ${TIE_CLASS_CS[tie.tieClass]}`,
+      sub: `IČO ${tie.ico} · ${tieClassCs(tie.tieClass)}`,
       x: 52,
       y,
       href: claimRefPath(nodeClaimRef(tie.dstId)),
@@ -216,7 +217,7 @@ export function deriveTerminalGraph(ties: readonly TerminalTieLike[]): TerminalG
     edges.push({
       from: `p:${tie.srcId}`,
       to: `c:${tie.dstId}`,
-      label: TIE_CLASS_CS[tie.tieClass],
+      label: tieClassCs(tie.tieClass),
       trail: true,
       href: tieRef,
     });
@@ -302,7 +303,7 @@ export function deriveTerminalLedger(ties: readonly TerminalTieLike[]): Terminal
       pspId: t.pspId,
       company: t.company,
       ico: t.ico,
-      tieClassCs: TIE_CLASS_CS[t.tieClass],
+      tieClassCs: tieClassCs(t.tieClass),
       czk: reachable(t),
       czkCs: czkCompact(reachable(t)),
       receiptHref: claimRefPath(edgeClaimRef(t.srcId, "linked_to", t.dstId)),
