@@ -5,3 +5,5 @@
 {"ts":"2026-09-05T00:00:00Z","bundle":"software-engineering","subjects":["quality-gates","optional-dependency-degradation"],"techniques":["prose-rule-drift","severity-by-construction","renameable-detector-keys","blocking-by-input-determinism","absent-degrades-malformed-fails-fast"],"deviations":3}
 {"ts": "2026-09-05T13:05:00Z", "bundle": "software-engineering", "subjects": ["app-shell"], "techniques": ["navigation-model", "shell-hosted-services"], "deviations": 0}
 {"ts": "2026-09-05T14:40:00Z", "bundle": "civic-intelligence", "subjects": ["state-budget-analysis"], "techniques": ["municipal-money-trail", "median-over-mean-for-peers", "peer-group-construction", "small-sample-widening"], "deviations": 1}
+{"ts": "2026-09-05T16:20:00Z", "bundle": "software-engineering", "subjects": ["feed", "audit-logging"], "techniques": ["reverse-chronology-semantics", "append-only-design", "decision-records", "tamper-evidence"], "deviations": 0}
+{"ts": "2026-09-05T16:20:00Z", "bundle": "civic-intelligence", "subjects": ["civic-knowledge-graphs"], "techniques": ["per-claim-provenance-stamping", "civic-entity-ontology"], "deviations": 1}

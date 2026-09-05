@@ -40,3 +40,12 @@ Runs on the skill defaults; this file exists for the improvement log below.
   esbuild reports it as a leading-zero decimal error at the next number. (3) `features/budget/**`
   owes four dismissal trailers per commit: README.md, AGENTS.md, docs/ROADMAP.md,
   docs/data-analysis/budget-sources.md (+ docs/DESIGN.md for BudgetMirrorPage.tsx).
+- 2026-09-05 — civic-chronicle, first sweep (28 lenses, 4 S built, 0 cards). The two
+  real defects were both PAIRS across the two journals (raw vs canonical IČO in
+  registry links; a placeholder key that one side emits and the other side's
+  `isEntityKey` refuses) — on a context this mature, grep the shared symbol
+  (`canonicalIco`, `isEntityKey`) across both features first. Source-grep a11y tests
+  (features/*/a11y.test.ts) are the accepted instrument here; jsdom is absent on purpose.
+  Gate note: a second load-sensitive timeout this session — `lib/db/pglite/premigration.test.ts`
+  „restores…“ hit its 60 s budget inside a full `npm run check` (5,4 s alone). Same recipe:
+  rerun the file alone, then run every stage `check` skipped.
