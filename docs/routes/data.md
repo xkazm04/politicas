@@ -210,3 +210,10 @@ named constant now and, when the list is longer, a counted sentence
 (`sealed.shownNewest`) points the rest at `manifest.json`, which carries every
 returned run. The 50-row ceiling itself is the repository's and is not a total —
 the sentence counts what was returned, never what the store holds.
+
+**Feed-family note numbers are formatted before they reach next-intl (2026-09-05,
+scan-sweep, parity-auditor).** `feedIndex.ts` hands the diary cap to the note as a
+raw number in `noteValues`; the page passed it straight into the ICU sentence,
+where next-intl formats with its own `Intl.NumberFormat` — the same divergence
+the CivicScore sweep closed in `WeightPanel` on 2026-09-05. Numeric `noteValues`
+now go through `f.int` on the page.

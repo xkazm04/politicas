@@ -71,3 +71,12 @@ describe("zapečetěné běhy přiznají, kolik jich stránka NEukazuje (2026-09
     }
   });
 });
+
+describe("čísla vstupují do ICU vět už zformátovaná (2026-09-05, parity-auditor)", () => {
+  it("noteValues rodiny feedu jdou přes f.int, ne surové do next-intl", () => {
+    // Pravidlo z features/civicscore/formattedNumbers.test.ts: surové číslo v ICU
+    // argumentu zformátuje next-intl vlastním Intl.NumberFormat mimo lib/format.
+    expect(PAGE).not.toMatch(/t\(fam\.noteKey, fam\.noteValues\)/);
+    expect(PAGE).toMatch(/t\(fam\.noteKey, icuValues\(fam\.noteValues\)\)/);
+  });
+});

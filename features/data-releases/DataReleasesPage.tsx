@@ -236,6 +236,12 @@ export default function DataReleasesPage({
   const t = useTranslations("dataReleases");
   const f = formattersFor(locale);
   const mono = (chunks: React.ReactNode) => <span className="font-mono">{chunks}</span>;
+  /** Čísla vstupují do ICU vět UŽ ZFORMÁTOVANÁ (lib/format) — next-intl by je
+   *  jinak protáhl vlastním Intl.NumberFormat mimo jedinou formátovací autoritu. */
+  const icuValues = (values: Record<string, string | number> | undefined) =>
+    values === undefined
+      ? undefined
+      : Object.fromEntries(Object.entries(values).map(([k, v]) => [k, typeof v === "number" ? f.int(v) : v]));
   const m = data?.manifest ?? null;
   // Číslo sekce se ODVOZUJE z toho, co se skutečně vykreslí: při nedostupném
   // úložišti sekce 01–04 nejsou, a „05" nad prázdnem by odkazovalo na kapitoly,
@@ -671,7 +677,7 @@ export default function DataReleasesPage({
                   <p className="text-sm leading-relaxed">{t(fam.carriesKey)}</p>
                   {fam.noteKey && (
                     <p className="border-l-4 border-hairline pl-3 text-sm leading-relaxed text-steel-aa">
-                      {t(fam.noteKey, fam.noteValues)}
+                      {t(fam.noteKey, icuValues(fam.noteValues))}
                     </p>
                   )}
                 </div>
