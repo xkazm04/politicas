@@ -28,6 +28,19 @@ for (const suite of suites) {
 // ── 2. Plugin surface: every rule exported, every preset resolvable ──────────
 const plugin = require("../index.cjs");
 
+// The ground truth is the FILESYSTEM, not this list: a rule file, its RuleTester
+// suite and its doc page must exist as one set. Until 2026-09-05 only the
+// exported names were compared against EXPECTED_RULES — a rule added with no doc
+// or no test (or a doc for a rule that no longer exists) passed in silence.
+const listed = (dir, suffix) =>
+  readdirSync(join(here, "..", dir))
+    .filter((f) => f.endsWith(suffix))
+    .map((f) => f.slice(0, -suffix.length))
+    .sort();
+const ruleFiles = listed("rules", ".cjs");
+const docFiles = listed("docs/rules", ".md");
+const testFiles = suites.map((f) => f.slice(0, -".test.mjs".length)).sort();
+
 const EXPECTED_RULES = [
   "enforce-reduced-motion-fallback",
   "no-hardcoded-colors",
@@ -42,6 +55,10 @@ const EXPECTED_RULES = [
 ];
 
 assert.deepEqual(Object.keys(plugin.rules).sort(), EXPECTED_RULES, "plugin.rules exports all 10 rules");
+assert.deepEqual(ruleFiles, EXPECTED_RULES, "every rules/*.cjs file is exported and nothing exported lacks a file");
+assert.deepEqual(docFiles, EXPECTED_RULES, "every rule has docs/rules/<rule>.md and no doc describes a missing rule");
+assert.deepEqual(testFiles, EXPECTED_RULES, "every rule has a RuleTester suite and no suite tests a missing rule");
+console.log("PASS rule set parity (rules/ == docs/rules/ == __tests__/ == plugin.rules)");
 for (const [name, rule] of Object.entries(plugin.rules)) {
   assert.equal(typeof rule.create, "function", `${name} has a create()`);
   assert.ok(rule.meta && rule.meta.docs && rule.meta.docs.description, `${name} has meta.docs.description`);
