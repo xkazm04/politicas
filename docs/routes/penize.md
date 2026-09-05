@@ -804,3 +804,8 @@ potvrzené vazby bez stavu čte konec role (`role_valid_to`): datum → „ukon�
 RRRR“, null → „trvá“ — totéž pravidlo, jakým `reconcile-ares-vr` stav odvozuje,
 než se podívá na peníze; porovnání peněz s rolí, které potřebuje data smluv,
 odznak netvrdí. `temporalBadge.test.ts` to připíná.
+
+**Hledání v knize má přístupné jméno (2026-09-07).** Pole `type="search"` neslo
+jen placeholder — ten zmizí s prvním znakem a některé odečítačky ho nečtou
+(týž nález jako u poznámky v konzoli, 2026-08-12). Nese `aria-label` s týmž
+klíčem; druhá věta nevznikla.
