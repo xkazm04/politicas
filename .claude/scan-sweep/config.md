@@ -123,3 +123,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   scripts/ against lib/analysis exports. A date literal that was a run date is a defect on
   the second run - make it `--reference=` with today as default and let the payload record it.
   Evidence scripts from a finished batch (divergence-retune) are left with their literals.
+- 2026-09-06 — eslint-rules-shims, first sweep (28 lenses, 0 built, 3 cards). A shim-only context
+  has no defects of its own; its findings live in the test that guards it. A guard that SKIPs on
+  MODULE_NOT_FOUND without first checking the directory exists cannot tell 'no shims' from
+  'one shim missing' - grep every try/catch SKIP in a test runner for what it actually tests.
