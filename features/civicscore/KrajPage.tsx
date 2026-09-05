@@ -103,6 +103,8 @@ export default function KrajPage({
   const tm = useTranslations("metodika");
   const { printPoster } = usePosterMode();
   const [format, setFormat] = useState<PosterFormat>("a4");
+  // Nedatované rozhodnutí netiskne dnešek — týž tvar jako v LeaderboardTable.
+  const decidedLabel = (at: string | null | undefined) => (at ? f.date(at) : null);
 
   // Čtenářova čočka: pod ní se přepočítá CELÝ žebříček a kraj se vyřezává
   // až z přepočtu — krajská i celostátní příčka pak obě nesou čočku.
@@ -318,6 +320,9 @@ export default function KrajPage({
                           reason={r.effortLowScoreReason}
                           recordedAt={r.effortRecordedAt}
                           dateLabel={r.effortRecordedAt ? f.date(r.effortRecordedAt) : null}
+                          rung={r.effortVerdictRungs.effort_low_score_reason?.rung ?? null}
+                          decidedBy={r.effortVerdictRungs.effort_low_score_reason?.decidedBy ?? null}
+                          decidedAtLabel={decidedLabel(r.effortVerdictRungs.effort_low_score_reason?.decidedAt)}
                         />
                       )}
                       <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
@@ -335,12 +340,25 @@ export default function KrajPage({
                           speechTurns={r.duelFacts.speechTurns}
                           recordedAt={r.effortRecordedAt}
                           compact
+                          rung={r.effortVerdictRungs.effort_workhorse?.rung ?? null}
+                          decidedBy={r.effortVerdictRungs.effort_workhorse?.decidedBy ?? null}
+                          decidedAtLabel={decidedLabel(r.effortVerdictRungs.effort_workhorse?.decidedAt)}
                         />
                       )}
                       {/* Zpravodajská zátěž je táž třída datovaného verdiktu — na
                           žebříčku se tiskne, na kandidátce chyběla. Pod prahem se
-                          nevykreslí vůbec (čestná degradace v komponentě). */}
-                      <RapporteurBadge load={r.effortRapporteurLoad} recordedAt={r.effortRecordedAt} compact />
+                          nevykreslí vůbec (čestná degradace v komponentě).
+                          STUPEŇ JDE I NA PAPÍR (2026-09-05): tištěná kandidátka
+                          sázela verdikty bez `rung`, takže zamítnutý verdikt na ní
+                          dál svítil jako kladný — a papír se po tisku neopraví. */}
+                      <RapporteurBadge
+                        load={r.effortRapporteurLoad}
+                        recordedAt={r.effortRecordedAt}
+                        compact
+                        rung={r.effortVerdictRungs.effort_rapporteur_load?.rung ?? null}
+                        decidedBy={r.effortVerdictRungs.effort_rapporteur_load?.decidedBy ?? null}
+                        decidedAtLabel={decidedLabel(r.effortVerdictRungs.effort_rapporteur_load?.decidedAt)}
+                      />
                     </span>
                     <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-wider text-steel-aa">
                       {t("krajNationalRank", { rank: f.int(r.rank), total: f.int(slate.totalMps) })}

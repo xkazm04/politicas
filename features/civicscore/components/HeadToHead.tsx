@@ -58,6 +58,8 @@ function Fighter({
   const t = useTranslations("civicscore");
   const f = useFormat();
   const right = align === "right";
+  // Nedatované rozhodnutí netiskne dnešek — týž tvar jako v LeaderboardTable.
+  const decidedLabel = (at: string | null | undefined) => (at ? f.date(at) : null);
   return (
     <div className={right ? "text-right" : "text-left"}>
       <div className={`flex items-center gap-2 ${right ? "justify-end" : ""}`}>
@@ -86,7 +88,11 @@ function Fighter({
         claim={claim}
         className={`mt-2 block text-6xl font-black leading-none tracking-tighter sm:text-7xl ${custom ? "text-cobalt" : ""}`}
       />
-      {/* Verdiktová copy VERBATIM z lib/analysis/* — žádný druhý copy engine. */}
+      {/* Verdiktová copy VERBATIM z lib/analysis/* — žádný druhý copy engine.
+          STUPEŇ JDE S NÍ (2026-09-05): 9853059 dal štítkům v žebříčku a ve spisu
+          `rung`/`decidedBy`/`decidedAtLabel`, souboj je sázel bez nich — takže
+          verdikt, který lidská brána ZAMÍTLA, tu dál svítil jako kladný štítek,
+          zatímco žebříček o dva bloky níž ho zamlčel. Pinuje verdictRung.test.ts. */}
       <div className={`mt-2 flex flex-wrap items-center gap-1.5 ${right ? "justify-end" : ""}`}>
         {row.effortWorkhorse && (
           <WorkhorseBadge
@@ -94,14 +100,27 @@ function Fighter({
             speechTurns={row.duelFacts.speechTurns}
             recordedAt={row.effortRecordedAt}
             compact
+            rung={row.effortVerdictRungs.effort_workhorse?.rung ?? null}
+            decidedBy={row.effortVerdictRungs.effort_workhorse?.decidedBy ?? null}
+            decidedAtLabel={decidedLabel(row.effortVerdictRungs.effort_workhorse?.decidedAt)}
           />
         )}
-        <RapporteurBadge load={row.effortRapporteurLoad} recordedAt={row.effortRecordedAt} compact />
+        <RapporteurBadge
+          load={row.effortRapporteurLoad}
+          recordedAt={row.effortRecordedAt}
+          compact
+          rung={row.effortVerdictRungs.effort_rapporteur_load?.rung ?? null}
+          decidedBy={row.effortVerdictRungs.effort_rapporteur_load?.decidedBy ?? null}
+          decidedAtLabel={decidedLabel(row.effortVerdictRungs.effort_rapporteur_load?.decidedAt)}
+        />
         {row.effortLowScoreReason && (
           <LowScoreReasonChip
             reason={row.effortLowScoreReason}
             recordedAt={row.effortRecordedAt}
             dateLabel={row.effortRecordedAt ? f.date(row.effortRecordedAt) : null}
+            rung={row.effortVerdictRungs.effort_low_score_reason?.rung ?? null}
+            decidedBy={row.effortVerdictRungs.effort_low_score_reason?.decidedBy ?? null}
+            decidedAtLabel={decidedLabel(row.effortVerdictRungs.effort_low_score_reason?.decidedAt)}
           />
         )}
       </div>

@@ -517,3 +517,23 @@ sees a stamped badge on one surface and an unstamped one on another.
 **Carry-over.** `HeadToHead` (Souboj) and `KrajPage` call the same three badges
 without the rung props. They default to `null`, so those surfaces are honest —
 they print no rung rather than a wrong one — but they do not yet show the ladder.
+
+**The rung reaches the duel and the printed slate (2026-09-05, scan-sweep,
+parity-auditor).** 9853059 gave the three verdict badges `rung` / `decidedBy` /
+`decidedAtLabel` in the leaderboard rows and the profile dossier; `HeadToHead` and
+`KrajPage` rendered the same three badges without them — six of twelve sites in
+this feature. The consequence was not a missing footnote: a verdict the human gate
+REJECTED is withheld visibly in the table while the duel and the printable kraj
+card kept showing it as a positive badge, and the card is the one surface nobody
+corrects after printing. All twelve sites now pass the rung; `verdictRung.test.ts`
+pins every badge opening tag on the three surfaces by source.
+
+**Three counts went to the DOM or an ICU sentence unformatted (2026-09-05,
+scan-sweep, copy-auditor).** `TrendPanel` printed the raw activity counts
+(`{s.v.prior} → {s.v.current}`; speech turns exceed a thousand, so a Czech reader
+saw „1234" for „1 234"), `KrajPage` handed pillar points and weight to
+`krajBarItem` as numbers (next-intl then formats with its own Intl, outside the one
+formatting authority — the rule RapporteurBadge states in its comment), and the
+standout delta in the table went out as `{Math.abs(best.delta)}`. All three go
+through `useFormat` now; `formattedNumbers.test.ts` pins the sites by source. The
+lint rule `no-raw-number-display` sees only `toFixed`/`toLocale*`, not this shape.
