@@ -280,3 +280,12 @@ that matched neither pattern, and the forensic „relace · neověřeno" label r
 `pending` boolean, so a rejected step of a requested lens carried a plain label.
 Both now read the gate; the legend's two dash patterns come from `EDGE_DASH` and
 `graph.stage.rejected` is the third label (1 of 3 strokes named → 3 of 3).
+
+**A null trails answer is an outage, not „no trails" (2026-09-06, scan-sweep,
+state-coverage).** `trailsAction()` returns null when the store is down and the loader
+has already left its trace; `VariantTrasy` typeset that null with `trasy.empty` („trasu
+se nepodařilo spočítat z dostupných dat") — the empty-state sentence — and
+`VariantMapa` collapsed it to `[]`, so the trail lens panel simply vanished. Both now
+keep the null and print `graph.trasy.unavailable`; the honest-fallback rule
+(`DataUnavailable`, never plausible emptiness) reaches the two variants (2 collapsed
+states → 0).

@@ -106,7 +106,8 @@ export default function VariantMapa({
   const f = useFormat();
   const locale = useLocale();
   const [data, setData] = useState<MapData | null | "loading">("loading");
-  const [trails, setTrails] = useState<Trail[]>([]);
+  // null = trasy se nepřečetly (sklad neběží) — panel to řekne, místo aby zmizel.
+  const [trails, setTrails] = useState<Trail[] | null>([]);
   const [activeKey, setActiveKey] = useState<string | null>(null);
   const [focusId, setFocusId] = useState<string | null>(null);
   const selection = useNodeSelection();
@@ -149,7 +150,7 @@ export default function VariantMapa({
   useEffect(() => {
     // setState až v async callbacích; dvojí StrictMode fetch odstíní serverová cache.
     void mapAction().then((d) => setData(d));
-    void trailsAction().then((ts) => setTrails(ts ?? []));
+    void trailsAction().then((ts) => setTrails(ts));
   }, []);
 
   // Dotaz běží Z OBSLUHY UDÁLOSTI, ne z efektu (doktrína useNodeSelection);
@@ -200,7 +201,7 @@ export default function VariantMapa({
   }, [pathKey, activePath, prefersReducedMotion]);
   const revealedHops = activePath ? (prefersReducedMotion ? activePath.hops : Math.min(reveal.n, activePath.hops)) : 0;
 
-  const activeTrail = useMemo(() => trails.find((x) => x.key === activeKey) ?? null, [trails, activeKey]);
+  const activeTrail = useMemo(() => trails?.find((x) => x.key === activeKey) ?? null, [trails, activeKey]);
 
   // Citovatelný stav pohledu — priorita kopíruje čočku: spočítaná cesta bije
   // kurátorskou trasu, ta bije pouhý výběr uzlu. Nic citovatelného = žádná
@@ -493,7 +494,12 @@ export default function VariantMapa({
 
         {/* Trasy jako čočky nad mapou — jádro fúze A×C. Když čtenář spojuje
             vlastní dva body, kurátorský rejstřík ustoupí panelu cesty. */}
-        {!pathMode && trails.length > 0 && (
+        {!pathMode && trails === null && (
+          <div className="border-2 border-signal bg-paper px-3 py-2 font-mono text-[11px] uppercase tracking-wider text-signal">
+            {tt("unavailable")}
+          </div>
+        )}
+        {!pathMode && trails !== null && trails.length > 0 && (
           <div className="border-2 border-ink bg-paper">
             <div className="flex items-center gap-2 border-b-2 border-ink px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest">
               <Route className="h-3.5 w-3.5 text-signal" />

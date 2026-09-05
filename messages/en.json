@@ -2482,6 +2482,7 @@
       "listLabel": "selected trails",
       "pick": "pick a trail — the canvas shows its graph cutout",
       "empty": "the trail couldn't be computed from the available data",
+      "unavailable": "trails can't be computed — the data store is unavailable",
       "footnote": "trails are computed from real graph edges, nothing is illustration · amounts = contracts and grants reachable via IČO",
       "trails": {
         "penize-poslancu": {

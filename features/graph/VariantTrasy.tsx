@@ -115,7 +115,9 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
       ) : (
         <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
           <p className="font-mono text-xs uppercase tracking-widest text-steel">
-            {trails === "loading" ? t("working") : tt("empty")}
+            {/* null = sklad neběží (loader nechal stopu); [] = trasy se nespočítaly.
+                Do 2026-09-06 obojí říkalo „nepodařilo se spočítat z dostupných dat". */}
+            {trails === "loading" ? t("working") : trails === null ? tt("unavailable") : tt("empty")}
           </p>
         </div>
       )}
@@ -159,8 +161,10 @@ export default function VariantTrasy({ seed }: { seed: GraphSeed | null }) {
               </button>
             );
           })}
-          {trails !== "loading" && (!trails || trails.length === 0) && (
-            <p className="px-3 py-4 font-mono text-[11px] uppercase tracking-widest text-steel">{tt("empty")}</p>
+          {trails !== "loading" && (trails === null || trails.length === 0) && (
+            <p className="px-3 py-4 font-mono text-[11px] uppercase tracking-widest text-steel">
+              {trails === null ? tt("unavailable") : tt("empty")}
+            </p>
           )}
         </div>
         {/* Trvalá citace — vybraný uzel bije trasu (čtenář ukazuje NA něj). */}

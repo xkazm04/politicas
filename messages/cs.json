@@ -2482,6 +2482,7 @@
       "listLabel": "vybrané trasy",
       "pick": "vyberte trasu — plátno ukáže její výřez grafu",
       "empty": "trasu se nepodařilo spočítat z dostupných dat",
+      "unavailable": "trasy nejde spočítat — datový sklad není dostupný",
       "footnote": "trasy jsou spočítané ze skutečných hran grafu, nic není ilustrace · částky = smlouvy a dotace dosažitelné přes IČO",
       "trails": {
         "penize-poslancu": {
