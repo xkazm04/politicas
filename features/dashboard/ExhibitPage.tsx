@@ -217,13 +217,14 @@ export default function ExhibitPage({ data }: { data: ExhibitViewModel }) {
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
       <header className="border-b-4 border-ink">
-        <div className="flex items-center justify-between gap-4 px-6 py-3.5">
+        {/* Na úzké ploše se hlavička SKLÁDÁ POD SEBE, nemizí — táž oprava, jakou
+            dostal velín 2026-08-12. Datum znovuodvození je provenience citace a
+            čtenář na telefonu ho do 2026-09-06 neviděl vůbec. */}
+        <div className="flex flex-col gap-2 px-6 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">
             politicas / {t("headerTag")}
           </span>
-          <SourceNote className="hidden sm:block">
-            {t("rederived", { date: f.date(data.builtOn) })}
-          </SourceNote>
+          <SourceNote>{t("rederived", { date: f.date(data.builtOn) })}</SourceNote>
         </div>
       </header>
 

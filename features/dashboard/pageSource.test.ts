@@ -34,3 +34,10 @@ describe("čísla jdou do DOM i do ICU vět už zformátovaná (2026-09-06, copy
     expect(EXHIBIT).toMatch(/pass: f\.int\(pass\)/);
   });
 });
+
+describe("nic na exponátu není jen pro desktop (2026-09-06, mobile-specialist)", () => {
+  it("datum znovuodvození v hlavičce nenese `hidden sm:block` — velín to pravidlo přijal 2026-08-12, exponát ne", () => {
+    expect(EXHIBIT).not.toMatch(/hidden sm:block/);
+    expect(EXHIBIT).toMatch(/flex flex-col gap-2 px-6 py-3\.5 sm:flex-row sm:items-center sm:justify-between/);
+  });
+});

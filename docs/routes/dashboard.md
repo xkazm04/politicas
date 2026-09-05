@@ -344,3 +344,9 @@ sentences, the rank raw into the ledger row, and the graph pass raw into four
 citations — while the exhibit's footer already formatted the same pass through
 `f.int`. All eight sites go through `lib/format` now (one `passLabel` helper for
 the nullable pass); `pageSource.test.ts` pins them.
+
+**The exhibit's re-derivation date is no longer desktop-only (2026-09-06,
+scan-sweep, mobile-specialist).** The velín dropped its `hidden sm:block` wrappers
+on 2026-08-12 („no information on the velín is desktop-only"); the exhibit header
+kept one on the very sentence that dates a citation. The header stacks on narrow
+screens now, like the velín's.
