@@ -3392,6 +3392,11 @@
       "emptyBody": "Žádný ingest běh není zaznamenán — changelog se založí prvním nasypáním dat.",
       "badgeOk": "zeleně",
       "badgeFailures": "obsahuje selhání",
+      "status": {
+        "ok": "běh dokončen",
+        "failed": "běh selhal",
+        "running": "běh probíhá"
+      },
       "runsLine": "{runs} běhů · {rows} zapsaných řádků",
       "runRow": "{rows} řádků",
       "dukazyLink": "deník důkazů",

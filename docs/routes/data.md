@@ -196,3 +196,9 @@ into a sentence claiming zero invariants held of zero. Missing is not zero: the
 three verdict sentences now have count-free variants
 (`current.certificationNoCounts.*`), chosen when either count is null;
 `pageSource.test.ts` pins the branch and the keys in both catalogs.
+
+**Changelog run status is text for the screen reader, not only a glyph
+(2026-09-05, scan-sweep, accessibility-checker).** Each run row carried its state
+as `✓ / ✕ / …` plus a colour — announced as „check mark" or „horizontal ellipsis",
+never as a failure. The glyph is `aria-hidden` now and an `sr-only` sentence
+(`changelog.status.{ok,failed,running}`, both catalogs) names the state.

@@ -581,9 +581,13 @@ export default function DataReleasesPage({
                         <ul className="mt-1 space-y-1">
                           {rel.runs.map((r) => (
                             <li key={r.id} className="font-mono text-sm">
-                              <span className={r.status === "failed" ? "text-signal-deep" : ""}>
+                              {/* Glyf je pro oko; stav pro čtečku nese text — do 2026-09-05
+                                  byl glyf + barva jediným nositelem a čtečka četla
+                                  „check mark“ místo „běh dokončen“. */}
+                              <span aria-hidden className={r.status === "failed" ? "text-signal-deep" : ""}>
                                 {r.status === "ok" ? "✓" : r.status === "failed" ? "✕" : "…"}
-                              </span>{" "}
+                              </span>
+                              <span className="sr-only">{t(`changelog.status.${r.status}`)}</span>{" "}
                               {r.source} · {t("changelog.runRow", { rows: f.int(r.rowsWritten) })}
                               {r.note ? <span className="text-steel-aa"> — {r.note}</span> : null}
                             </li>

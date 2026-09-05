@@ -3392,6 +3392,11 @@
       "emptyBody": "No ingest run is on record — the changelog will be founded by the first data ingest.",
       "badgeOk": "all green",
       "badgeFailures": "contains failures",
+      "status": {
+        "ok": "run finished",
+        "failed": "run failed",
+        "running": "run in progress"
+      },
       "runsLine": "{runs} runs · {rows} rows written",
       "runRow": "{rows} rows",
       "dukazyLink": "evidence journal",

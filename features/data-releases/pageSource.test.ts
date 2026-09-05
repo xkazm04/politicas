@@ -38,3 +38,21 @@ describe("certifikace bez čitelných počtů se nesází jako „0 z 0“ (2026
     }
   });
 });
+
+describe("stav ingest běhu v changelogu nenese jen glyf (2026-09-05, accessibility-checker)", () => {
+  it("✓ / ✕ / … je aria-hidden a vedle něj stojí text stavu pro čtečku", () => {
+    // Glyf + barva byly jediným nositelem stavu; čtečka četla „check mark“ nebo
+    // „horizontal ellipsis“ a o selhání se nedozvěděla nic.
+    expect(PAGE).toMatch(/<span aria-hidden className=\{r\.status === "failed"/);
+    expect(PAGE).toMatch(/className="sr-only">\{t\(`changelog\.status\.\$\{r\.status\}`\)\}/);
+  });
+
+  it("každý stav IngestRunRow má větu v obou katalozích", () => {
+    // Tři stavy jsou `IngestRunRow["status"]` (lib/db/types.ts) — typ se za běhu
+    // neenumeruje, tak se drží výčtem a tsc hlídá, že je úplný.
+    const statuses: Array<"running" | "ok" | "failed"> = ["running", "ok", "failed"];
+    for (const s of statuses) {
+      for (const text of inBoth(`dataReleases.changelog.status.${s}`)) expect(typeof text, s).toBe("string");
+    }
+  });
+});
