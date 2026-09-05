@@ -83,7 +83,7 @@ export default function RealVoteTrack({ record }: { record: VoteRecordData }) {
         <SectionHeading
           index={3}
           title={t("record.disciplineTitle")}
-          aside={<SourceNote>{t("record.disciplineNote", { valid: record.coverage.valid })}</SourceNote>}
+          aside={<SourceNote>{t("record.disciplineNote", { valid: f.int(record.coverage.valid) })}</SourceNote>}
         />
         <div className="mt-8">
           <RealDisciplineBoard data={record} onSelectVote={jumpTo} />

@@ -198,7 +198,7 @@ export default function RealVoteLedger({
         })}
       </ul>
       <div className="mt-3 space-y-1.5">
-        <SourceNote>{t("record.ledgerFootnote", { window: ledgerWindow, valid: validTotal })}</SourceNote>
+        <SourceNote>{t("record.ledgerFootnote", { window: f.int(ledgerWindow), valid: f.int(validTotal) })}</SourceNote>
         {/* Druhá citace, ne delší první: mluví o JINÉ populaci — o celém záznamu,
             ne o okně deníku nad ní. Bez ní by se řádkový nález („práh se od prosté
             většiny přítomných liší") četl jako vlastnost padesáti vypsaných

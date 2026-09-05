@@ -58,7 +58,7 @@ export default function RealDisciplineBoard({
       <div className="grid gap-12 lg:grid-cols-[5fr_7fr]">
         {/* ── žebříček disciplíny ───────────────────────────── */}
         <div className="min-w-0">
-          <SourceNote>{t("record.disciplineNote", { valid: data.coverage.valid })}</SourceNote>
+          <SourceNote>{t("record.disciplineNote", { valid: f.int(data.coverage.valid) })}</SourceNote>
           <div className="mt-3 border-t-2 border-ink">
             {ranked.map((c, i) => {
               const style = clubStyle(c.club);
@@ -246,8 +246,11 @@ export default function RealDisciplineBoard({
         </p>
         <SourceNote className="mt-3">
           {t("record.methodSource", {
-            valid: data.coverage.valid,
-            voided: data.coverage.voided,
+            // Počty přes f.int jako každé jiné vypsané číslo — do 2026-09-07 šly
+            // `valid`/`voided` do věty bez české mezery tisíců, zatímco `ballots`
+            // o dva řádky níž ji měl.
+            valid: f.int(data.coverage.valid),
+            voided: f.int(data.coverage.voided),
             // Čtvrtá počítaná ztráta záznamu, vedle zmatečných a hlasování bez
             // jediného uloženého hlasu: platné hlasování, které zdroj nedatoval.
             withoutDate: f.int(data.coverage.withoutDate),

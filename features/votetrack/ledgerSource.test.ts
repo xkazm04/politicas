@@ -24,3 +24,17 @@ describe("the ledger's ratio bar draws absent MPs in a colour that exists on its
     expect(bar).not.toMatch(/total\.away > 0 && <span className="h-full bg-hairline"/);
   });
 });
+
+describe("the record's published counts go through f.int like every other figure", () => {
+  it("disciplineNote / ledgerFootnote / methodSource format valid, voided and window", () => {
+    expect(src("features/votetrack/components/RealVoteTrack.tsx")).toMatch(
+      /t\("record\.disciplineNote", \{ valid: f\.int\(record\.coverage\.valid\) \}\)/,
+    );
+    const board = src("features/votetrack/components/RealDisciplineBoard.tsx");
+    expect(board).toMatch(/t\("record\.disciplineNote", \{ valid: f\.int\(data\.coverage\.valid\) \}\)/);
+    expect(board).toMatch(/valid: f\.int\(data\.coverage\.valid\),\s*voided: f\.int\(data\.coverage\.voided\),/);
+    expect(src("features/votetrack/components/RealVoteLedger.tsx")).toMatch(
+      /t\("record\.ledgerFootnote", \{ window: f\.int\(ledgerWindow\), valid: f\.int\(validTotal\) \}\)/,
+    );
+  });
+});
