@@ -74,7 +74,14 @@ import { useFormat } from "@/lib/i18n/useFormat";
 // kterou u té vazby publikuje /penize.
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { canonicalIco } from "../companyId";
-import { compactCzk, publicMandateInfo, roleRegisterContradiction, temporalBadge, tieClassOriginInfo } from "../moneyTypes";
+import {
+  compactCzk,
+  publicMandateInfo,
+  roleRegisterContradiction,
+  temporalBadge,
+  tieClassInfo,
+  tieClassOriginInfo,
+} from "../moneyTypes";
 import { hasStaleOngoingFlag, tieFlagInfos } from "../tieFlags";
 import { submitReviewDecision } from "../reviewActions";
 import AnalystNote from "./AnalystNote";
@@ -87,11 +94,9 @@ const BADGE_TONE_CLS: Record<string, string> = {
 };
 import type { ReviewDecision, ReviewQueue, ReviewTie, TieClass } from "../reviewTypes";
 
-const CLASS_LABEL: Record<TieClass, string> = {
-  "owner-operator": "vlastník / jednatel",
-  manager: "představenstvo",
-  steward: "dozorčí / správní",
-};
+// Třída vazby se sází z `tieClassInfo` (moneyTypes.ts) — jediný zdroj té copy, „import,
+// never re-word“. Do 2026-09-07 tu stála lokální tabulka popisků a druhá, kratší verze
+// pravidla u čísla; obě se s veřejným spisem shodovaly jen náhodou.
 
 // Batch-005 review-order tiers (features/money/reviewTypes.ts::reviewTier) — the order
 // the queue is now PRIMARILY sorted by (reviewRank asc), distinct from signalScore.
@@ -409,7 +414,7 @@ export default function VerificationConsole({
   const TILES = [
     { label: "nepotvrzené vazby", value: f.int(data.stats.pending), sub: "čekají na lidskou kontrolu", src: "kg_edge linked_to · pending_review" },
     {
-      label: "vlastník / jednatel",
+      label: tieClassInfo("owner-operator").labelCs,
       value: f.int(data.stats.ownerOperator),
       sub: "soukromá firma dodávající státu",
       // The class is no longer always a heuristic: it is read off the edge where a
@@ -528,7 +533,7 @@ export default function VerificationConsole({
                     filter === c ? "border-ink bg-ink text-paper" : "border-hairline text-steel hover:border-ink hover:text-ink"
                   }`}
                 >
-                  {c === "all" ? "vše" : c === "unpublished" ? "vlastník neuveden" : c === "contradiction" ? "rozpor role × rejstřík" : CLASS_LABEL[c]}
+                  {c === "all" ? "vše" : c === "unpublished" ? "vlastník neuveden" : c === "contradiction" ? "rozpor role × rejstřík" : tieClassInfo(c).labelCs}
                   <span className="ml-1.5 font-normal">
                     {c === "all"
                       ? f.int(data.stats.pending)
@@ -756,7 +761,7 @@ function Shell({ children }: { children: React.ReactNode }) {
           Kontrola vazeb<span className="text-signal">.</span>
         </h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-steel">
-          Každá vazba poslanec↔firma je automaticky nalezený <em>vodítko</em>, ne fakt. Tady ji člověk
+          Každá vazba poslanec↔firma je automaticky nalezené <em>vodítko</em>, ne fakt. Tady ji člověk
           ověří proti primárním rejstříkům — obchodní rejstřík (ARES VR), Registr smluv, Hlídač státu —
           a teprve pak se z ní může stát potvrzená vazba.
         </p>
@@ -890,14 +895,14 @@ function ReviewCard({
             {temporalBadge(tie).labelCs}
           </span>
           <span className="font-mono text-[10px] uppercase tracking-widest text-steel">
-            třída: {CLASS_LABEL[tie.tieClass]}{" "}
+            třída: {tieClassInfo(tie.tieClass).labelCs}{" "}
             <span className={tie.tieClassOrigin === "stored" ? "text-steel" : "text-ochre"}>
               ({tieClassOriginInfo(tie.tieClassOrigin).labelCs})
             </span>
           </span>
           {tie.tieClassOrigin === "stored" && tie.tieClassHeuristic !== tie.tieClass && (
             <span className="max-w-[16rem] text-right font-mono text-[10px] leading-relaxed uppercase tracking-widest text-steel">
-              heuristika by uvedla: {CLASS_LABEL[tie.tieClassHeuristic]} — přednost má zapsaná třída
+              heuristika by uvedla: {tieClassInfo(tie.tieClassHeuristic).labelCs} — přednost má zapsaná třída
             </span>
           )}
           {/* DRUHÁ OSA — o firmě, ne o roli (batch 015/019). Konzole dosud ukazovala jen
@@ -1039,13 +1044,7 @@ function ReviewCard({
           </p>
           {/* Pravidlo u čísla, ne o obrazovku níž: u dozorčí funkce je to peníze
               instituce, ne poslance, a bez téhle věty se to čte úplně stejně. */}
-          <p className="mt-1 text-xs leading-relaxed text-steel">
-            {tie.tieClass === "steward"
-              ? "peníze té instituce, ne poslance — dozorčí/správní funkce ve veřejné nebo neziskové organizaci"
-              : tie.tieClass === "manager"
-                ? "firma, v jejímž statutárním orgánu poslanec sedí"
-                : "firma, kterou poslanec vlastní nebo řídí"}
-          </p>
+          <p className="mt-1 text-xs leading-relaxed text-steel">{tieClassInfo(tie.tieClass).descCs}</p>
           <SourceNote className="mt-1">
             zdroj: registr smluv Σ supplies.weight + subsidies_total_czk
           </SourceNote>

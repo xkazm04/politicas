@@ -45,3 +45,15 @@ describe("evidence packet: the compiled-at stamp is the Prague day", () => {
     expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
   });
 });
+
+describe("verification console: tie-class copy is imported, never re-worded", () => {
+  const CODE = src("features/money/components/VerificationConsole.tsx")
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/^\s*\/\/.*$/gm, "");
+  it("has no local class-label table and no literal class caption", () => {
+    expect(CODE).not.toMatch(/CLASS_LABEL/);
+    expect(CODE).not.toMatch(/"vlastník \/ jednatel"/);
+    expect(CODE).not.toMatch(/"firma, kterou poslanec vlastní nebo řídí"/);
+    expect(CODE).toMatch(/tieClassInfo\(/);
+  });
+});

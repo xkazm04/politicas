@@ -750,3 +750,11 @@ kterou novinář kopíruje. `getEvidencePacket` bere den z `pragueDay()`
 (features/denik/pragueDay.ts), týmž pravidlem jako deník a od 7225d18 i firemní
 spis. Otisk obsahu se nemění: `compiledAt` do hashe záměrně nevstupuje.
 
+**Konzole sází třídu vazby z `tieClassInfo` (2026-09-07).** Ověřovací konzole
+držela vlastní tabulku popisků tříd (`CLASS_LABEL`), pátou kopii popisku
+„vlastník / jednatel“ na dlaždici a kratší, vlastní verzi pravidla u čísla
+(„firma, kterou poslanec vlastní nebo řídí“ …), zatímco `moneyTypes.ts` u téže
+copy říká „import, never re-word“ a veřejný spis ji odsud importuje. Recenzent a
+čtenář se shodovali jen náhodou. Všech pět míst teď čte `tieClassInfo(...)`;
+test `casesReviewSource.test.ts` hlídá, že se lokální tabulka nevrátí.
+
