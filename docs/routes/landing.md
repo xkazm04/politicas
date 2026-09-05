@@ -138,3 +138,7 @@ vote, say „hlas odevzdán" and lock the browser's ballot for a vote that never
 counted); the button says so before the click; a storage exception in the
 server action returns `unavailable` and a rejected action promise lands in
 `failed` instead of silence (`actions.test.ts`, `referendumPageSource.test.ts`).
+The copyable `<iframe>` snippet's `title` now comes from the same `embedTitle()`
+the widget document uses for its own `<title>` (`embedTitle.ts`): under a reader
+lens the frame's accessible name names the lens instead of asserting the
+published methodology over a recomputed table.

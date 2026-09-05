@@ -40,6 +40,7 @@ import { useLensWeights } from "@/features/civicscore/useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { submitLensVector } from "./actions";
 import { carriesLens, K_ANONYMITY_FLOOR, serializeWeights, type WeightAggregate } from "./aggregate";
+import { embedTitle } from "./embedTitle";
 
 /** Klíč místní zábrany dvojhlasu — jedna urna na prohlížeč, přiznaně měkká. */
 const BALLOT_KEY = "politicas-referendum-hlas";
@@ -80,7 +81,8 @@ export default function ReferendumPage({
   );
   const shareHref = custom && vector ? `/referendum?vahy=${vector}` : "/referendum";
   const embedSrc = `${origin || ""}/embed/zebricek${custom && vector ? `?vahy=${vector}` : ""}`;
-  const embedSnippet = `<iframe src="${embedSrc}" width="420" height="560" style="border:0" title="politicas — otevřený index přispění"></iframe>`;
+  // Titulek rámu je týž, jaký si widget dává sám — pod čočkou jmenuje čočku.
+  const embedSnippet = `<iframe src="${embedSrc}" width="420" height="560" style="border:0" title="${embedTitle(custom && vector ? vector : null)}"></iframe>`;
 
   // ── hlas do urny ──────────────────────────────────────────────────────────
   const [aggregate, setAggregate] = useState<WeightAggregate | null>(initialAggregate);
