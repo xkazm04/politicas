@@ -154,3 +154,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   lane was red (changes.test.ts still asserted the raw firma key 005767e canonicalised). The grep
   matched the presence of CHECK_EXIT, not '=0' - always grep 'CHECK_EXIT=0' and read the Test Files
   lines of BOTH lanes before writing 'exit 0'. A contract fix owes every consumer test its new value.
+- 2026-09-06 — kg-analysis, first sweep (28 lenses, 4 built in 3 commits). Three 'contract' modules
+  that mirror each other (verdict/kg-verdict/law-verdict) share prologue code by copy: grep the
+  first exported helper of one in the other two. A module's own doctrine comment ('never zero-
+  faked', 'three states') is a checklist for the module - two of four findings were the doctrine
+  unapplied to one more field in the same file.

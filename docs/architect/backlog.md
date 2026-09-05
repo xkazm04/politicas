@@ -112,6 +112,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-06] `tieChangeEvents` passes any `review_state` string verbatim; `gateFromEdge` collapses unknown tokens to `pending_review`** — type: architecture, risk: 2, effort: m, payoff: 2, reach: `lib/ingest/changeEvents.ts:340` payload vs `features/shared/provenance/receipt.ts:177` (the one interpretation of `review_state`)
   Found by: scan-sweep (ingest-psp-sources, parity-auditor) · Two readers of one field; a mistyped token in kg_edge.props would reach the deník's change stream as a state the receipt would have read as pending. Not fixable in place: `lib/` must not import `features/`, so the gate rule has no lib home today. Fix: move `gateFromEdge`'s status mapping (and GATED_RELS) to `lib/kg/` and have receipt.ts, edgeGate.ts and changeEvents.ts read it · escalation: architecture (layering; three contexts)
 
+- **[2026-09-06] `parseSubsidies` keys an id-less subsidy by array position, so two pages collide** — type: contract, risk: 2, effort: s, payoff: 2, reach: `lib/analysis/money-feed.ts:341` (`id: String(r.id ?? `${ico}:${out.length}`)`) → any consumer that dedupes subsidies by `id` across pages
+  Found by: scan-sweep (kg-analysis, bounty-hunter) · Hlídač's /dotace/hledat is paged; a result without `id` on page 2 gets the same `${ico}:0` as page 1's first id-less row, and a Map-by-id drop is silent. The honest id is a content key (ico + year + provider + amount) or a per-page offset supplied by the caller; either changes what `Subsidy.id` promises · escalation: contract (Subsidy.id semantics; money-ledger-graph consumers)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
