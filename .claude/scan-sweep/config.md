@@ -185,3 +185,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   the real corpus for the false-positive count before building so the card carries a figure.
   When a source test spans two commits, commit the describe with the change it pins - an
   intermediate commit here carried one red describe for one commit.
+- 2026-09-07 — law-triage-batch, first sweep (28 lenses, 5 built in 3 commits, 1 card). A gate that
+  exists in three places (what the worker is told, what the pre-write gate checks, what the
+  write-time gate accepts) is three definitions until one module is imported by at least the
+  first two - diff the id-kind lists, they will differ. A 'bootstrap' script that writes a file
+  every later script merge-writes is a durability hazard: grep `writeFileSync(` on ledgers and
+  ask what refuses. A recorded formula string is copy - compare it to the code it describes.
