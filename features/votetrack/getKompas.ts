@@ -47,6 +47,7 @@
 
 import "server-only";
 import { cache } from "react";
+import { pragueDay } from "@/features/denik/pragueDay";
 import { clubNameAt } from "@/lib/analysis/clubAt";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
@@ -146,7 +147,10 @@ export const getKompas = cache(async function getKompas(): Promise<SilverLayerRe
     // a poctivá volba je klub DNES, čtený z otevřeného okna členství, ne klub
     // vybraný pořadím řádků v dumpu (`clubByMandate`). Klub PŘI HLASOVÁNÍ nese
     // `clubLines` per otázka; že jsou to dvě různé věci, říká copy.
-    const today = new Date().toISOString().slice(0, 10);
+    // Pražský den (features/denik/pragueDay.ts), týž kalendář jako každý jiný
+    // loader; do 2026-09-07 tu stál řez UTC řetězce, takže mezi půlnocí a
+    // 01:00/02:00 pražského času se okno členství četlo ke včerejšku.
+    const today = pragueDay();
     for (const b of rows) {
       const person = personByMandate.get(b.mandatePspId);
       if (person === undefined) continue;

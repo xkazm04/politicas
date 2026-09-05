@@ -300,3 +300,5 @@ carefully, not a reason to skip it: the moment one MP crosses the floor,
 `kg-compute.ts` starts writing rebellion rates against the wrong club, and the replay
 gate (`memory/recompute-replay-gate.md`) is what will let that correction be told
 apart from a rewrite when it finally does move somebody's number.
+
+**2026-09-07 — the kompas reads each MP's club on the Prague day (scan-sweep, parity-auditor).** `getKompas` resolved the "club today" window with a UTC date slice while every other loader (deník, money, profile) dates itself with `pragueDay()`; between midnight and 01:00/02:00 Prague the membership window was read as of yesterday. `kompas/kompasSource.test.ts` forbids the UTC slice.
