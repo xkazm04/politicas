@@ -171,3 +171,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   lens. A write path's OWN doctrine (aggregate rule 1: sum 0 is no vote) is a checklist for its
   door: the action accepted what the aggregate skipped. Server actions need the same three
   states as loaders (ok / refused / unavailable) and the client needs a catch for the fourth.
+- 2026-09-07 — law-amends-analysis, first sweep (28 lenses, 6 built in 4 commits). A case-loop folder
+  with an archive/ is read live-files-in-full, archive-by-header: the archive is history and is
+  never edited, but its headers say what the live copy lacks ('kept unchanged for history' on
+  the LIVE file means archive/ holds the newer method - that is a card). A script that writes a
+  cache under its final name while streaming is the dataor .part class again - grep
+  `createWriteStream(` next to `existsSync(` before reading the script. When appending one doc
+  paragraph per atomic commit, base the rewrite on the round's START commit, not HEAD.
