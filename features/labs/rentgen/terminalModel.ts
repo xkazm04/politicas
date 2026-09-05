@@ -25,7 +25,7 @@
  */
 
 import { claimRefPath, edgeClaimRef, nodeClaimRef } from "@/features/shared/provenance/claimRef";
-import { buildRegistryLinks } from "@/features/money/reviewTypes";
+import { buildRegistryLinks, type ReviewState, type TieClass } from "@/features/money/reviewTypes";
 import { czech, czechDate, czechInt } from "@/lib/format";
 
 // ── společné tvary ──────────────────────────────────────────────────────────
@@ -56,8 +56,10 @@ export interface TerminalViewData {
   retrievedOn: string;
 }
 
-export type TerminalReviewState = "verified" | "pending_review" | "rejected";
-export type TerminalTieClass = "owner-operator" | "manager" | "steward";
+/** Slovník stavu brány a třídy vazby je slovník /penize (features/money/reviewTypes.ts)
+ *  — do 2026-09-07 tu stály obě trojice vypsané podruhé. */
+export type TerminalReviewState = ReviewState;
+export type TerminalTieClass = TieClass;
 
 /** Řez MoneyTie + endpointů, který terminál potřebuje (loader ho složí
  *  z loadMoneyLayer + mapLinkedToTie; testy z fixture). */

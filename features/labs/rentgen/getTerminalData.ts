@@ -24,6 +24,7 @@ import { getStore } from "@/lib/db/store";
 import { getChangesRepo } from "@/lib/db/pglite/repositories/changes";
 import { pragueDay } from "@/features/denik/pragueDay";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "@/features/money/moneyLoader";
+import { reviewStateOf } from "@/features/money/reviewTypes";
 import {
   deriveTerminalGraph,
   deriveTerminalLedger,
@@ -143,7 +144,8 @@ async function readChanges(): Promise<{ changes: TailChangeLike[]; ok: boolean }
         dst: e.dst,
         srcLabel: e.src !== null ? (labels.get(e.src) ?? null) : null,
         dstLabel: e.dst !== null ? (labels.get(e.dst) ?? null) : null,
-        pending: e.payload.review_state !== "verified",
+        // Týž výklad stavu jako /penize (reviewStateOf): neznámý i chybějící stav čeká.
+        pending: reviewStateOf(e.payload.review_state) !== "verified",
       })),
       ok: true,
     };

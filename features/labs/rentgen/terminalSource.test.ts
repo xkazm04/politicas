@@ -14,3 +14,15 @@ describe("getTerminalData dates its retrieval on the Prague day", () => {
     expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
   });
 });
+
+describe("the terminal speaks the money module's review vocabulary", () => {
+  it("terminalModel aliases ReviewState and TieClass instead of respelling them", () => {
+    const s = src("features/labs/rentgen/terminalModel.ts");
+    expect(s).toMatch(/export type TerminalReviewState = ReviewState;/);
+    expect(s).toMatch(/export type TerminalTieClass = TieClass;/);
+  });
+  it("getTerminalData classifies a change payload through reviewStateOf", () => {
+    const s = src("features/labs/rentgen/getTerminalData.ts");
+    expect(s).toMatch(/reviewStateOf\(e\.payload\.review_state\) !== "verified"/);
+  });
+});
