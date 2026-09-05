@@ -625,3 +625,11 @@ orgány, ostatní orgány and společníci (a Czech decimal comma in the stake, 
 ongoing entry keeping the span open); both scripts import it and the reverify
 script's inline merge is gone.
 
+**One retry rule for the Registr smluv sweeps (2026-09-07, scan-sweep,
+error-handler).** `company-contract-sweep.ts` and `parent-contract-sweep.ts`
+each had a `withBackoff` with its own idea of "transient": the first read the
+status after the client's arrow, the second `msg.includes("429")` — which also
+matched an IČO carrying those digits in the quoted URL, so a 404 for such a
+company was retried three times as a rate limit. `smlouvyRetry.ts` holds the
+predicate and the ladder; both sweeps import it, and the test pins the IČO case.
+

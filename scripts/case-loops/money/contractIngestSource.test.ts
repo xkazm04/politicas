@@ -69,3 +69,12 @@ describe("ONE ARES-VR matcher (aresVrMatch.ts) for both reconciliation scripts",
     expect(s).not.toMatch(/interface VrZaznam/);
   });
 });
+
+describe("ONE retry rule for the Registr smluv sweeps (smlouvyRetry.ts)", () => {
+  it.each(["money/company-contract-sweep.ts", "money/parent-contract-sweep.ts"])("%s imports withBackoff and carries no copy", (f) => {
+    const s = src(f);
+    expect(s).toMatch(/import \{ withBackoff \} from "\.\/smlouvyRetry"/);
+    expect(s).not.toMatch(/async function withBackoff/);
+    expect(s).not.toMatch(/includes\("429"\)/);
+  });
+});

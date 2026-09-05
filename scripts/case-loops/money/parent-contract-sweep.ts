@@ -34,31 +34,12 @@
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { SmlouvyClient, type SmlouvyRow } from "@/lib/ingest/sources/smlouvy";
+import { withBackoff } from "./smlouvyRetry";
 
 const PAYLOAD_PATH = "docs/data-analysis/case-money/qmoney-parent-contract-sweep-b9.json";
 const flag = (name: string) => process.argv.includes(`--${name}`);
 const arg = (name: string) => process.argv.find((a) => a.startsWith(`--${name}=`))?.split("=")[1];
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
-
-/** Retry a 429 with escalating backoff. Returns the result, or rethrows the last error —
- *  never converts a rate-limit into an empty result set. */
-async function withBackoff<T>(label: string, run: () => Promise<T>, waits: number[]): Promise<T> {
-  let lastErr: unknown;
-  for (let attempt = 0; attempt <= waits.length; attempt++) {
-    try {
-      return await run();
-    } catch (e) {
-      lastErr = e;
-      const msg = e instanceof Error ? e.message : String(e);
-      const retryable = msg.includes("429") || msg.includes("fetch failed");
-      if (!retryable || attempt === waits.length) throw e;
-      const wait = waits[attempt];
-      console.log(`\n      rate-limited on ${label} — backing off ${wait / 1000}s (attempt ${attempt + 1}/${waits.length})`);
-      await sleep(wait);
-    }
-  }
-  throw lastErr;
-}
 
 /** A parent whose contract activity is its own public mandate, never an MP's exposure.
  *  Keyed on the label pattern the graph actually carries (ministries, kraje, města). */
