@@ -2,7 +2,7 @@
 
 import type { ProvenanceRepository } from "../../store";
 import type { IngestRunRow, SourceReleaseRow } from "../../types";
-import { isoTs, num, str, strOrNull, upsertMany, type Pglite } from "../internals";
+import { isoTs, num, str, strOrNull, upsertMany, warnIfTruncated, type Pglite } from "../internals";
 import { RELEASE_COLS, mapRelease } from "../mappers";
 
 export function makeProvenanceRepo(pg: Pglite): ProvenanceRepository {
@@ -25,9 +25,14 @@ export function makeProvenanceRepo(pg: Pglite): ProvenanceRepository {
       );
     },
     async listIngestRuns(limit = 200) {
+      const lim = Math.max(1, Math.min(1000, limit));
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select * from ingest_run order by started_at desc limit ${Math.max(1, Math.min(1000, limit))}`,
+        `select * from ingest_run order by started_at desc limit ${lim}`,
       );
+      // The one lister in this directory that had no guard (2026-09-06): /data
+      // derives `lineage.runsTotal` and the whole changelog from this length, so a
+      // silent cut would publish a shorter release history under today's date.
+      warnIfTruncated("listIngestRuns", rows.length, lim);
       return rows.map((r) => ({
         id: num(r.id),
         source: str(r.source),

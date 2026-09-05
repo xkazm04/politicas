@@ -710,3 +710,9 @@ value as the current club. The query now orders closed windows first and open
 windows by start date, so the last row per mandate is the open window with the
 latest start; `clubByMandate.test.ts` seeds a switcher with the current club
 inserted first and pins the answer.
+
+**`listIngestRuns` carries the truncation guard every sibling lister has
+(2026-09-06, scan-sweep, parity-auditor).** It was the one lister in
+`repositories/` reading without `warnIfTruncated`, while `/data` derives
+`lineage.runsTotal` and the release changelog from its length; the guard now fires
+when the read returns exactly its cap, and `truncationGuards.test.ts` pins it.
