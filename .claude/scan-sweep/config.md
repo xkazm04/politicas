@@ -83,3 +83,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   page and follow the type to where null is produced. A `slice(0, N)` with no sentence
   after it is a silent truncation; a hash/algorithm NAME printed as a literal beside a value
   computed elsewhere is a parity pair. A test title containing `#1234` trips the colour lint.
+- 2026-09-06 — contribution-scoring, first sweep (28 lenses, 2 S built, 3 cards). A pure-lib
+  context whose defects are contracts its CONSUMERS inherit (a `?? 0` on a nullable prior
+  count is printed by a component in another context) cannot be fixed in-context under
+  veto 1 - route the type change as a contract card, name the consumer file, and build
+  only what the module can prove alone (a completeness test, a validator).

@@ -49,6 +49,15 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-06] `getLedgerHeads` caps `sealedRuns` at 50 rows and carries no total** — type: contract, risk: 2, effort: s, payoff: 3, reach: 2 surfaces (`/data` sealed-runs list, `/data/manifest.json` `integrity.sealedRuns`)
   Found by: scan-sweep (claim-verifier, state-coverage) · `lib/db/pglite/repositories/ledger.ts` reads `order by merkle_sealed_at desc, id desc limit 50`; the page now counts what was returned (f520bbb) but neither surface can say how many sealed runs the store holds once there are more than 50, and the manifest's `sealedRuns` silently becomes a window. Fix: add `sealedRunsTotal` (a `count(*) where merkle_root is not null`) to `LedgerHeads` and print it on both surfaces · escalation: contract (`LedgerHeads` shape + `politicas.data-release/1` manifest field)
 
+- **[2026-09-06] `computeTrend` prints a missing prior-term count as 0** — type: contract, risk: 2, effort: s, payoff: 3, reach: 1 module + 1 consumer (`lib/analysis/contribution-trend.ts` `counts.*.prior: num(...) ?? 0`; `features/civicscore/components/TrendPanel.tsx:133` renders `f.int(s.v.prior) → f.int(s.v.current)`)
+  Found by: scan-sweep (contribution-scoring, copy-auditor) · The module's sibling `score-legibility.ts` states the rule ("MISSING IS NOT ZERO") and types every value `number | null`; the trend's five count pairs default an absent prior to 0, so a PSP9 prop without `speechTurns` renders „0 → 48" as a rise from zero. Fix: `CountTrend.prior: number | null` + a null branch in TrendPanel (two contexts) · escalation: contract
+
+- **[2026-09-06] Two writers re-declare the tenure vocabulary as inline unions instead of importing `TenureClass`** — type: duplication, risk: 1, effort: s, payoff: 2, reach: 2 scripts (`scripts/case-loops/effort/tenure.ts:79`, `triage.ts:83`)
+  Found by: scan-sweep (contribution-scoring, parity-auditor) · `lib/analysis/tenure-copy.ts` owns `TenureClass` + `isTenureClass`; the writer that stamps `effort_tenure_class` types it by hand, so a fifth class added there renders as graceful null everywhere with no compile error. Fix: import the type (data-ingestion context) · escalation: architecture (cross-context edit)
+
+- **[2026-09-06] `features/civicscore/provenance.ts` re-implements `storedFormulaRef`** — type: duplication, risk: 1, effort: s, payoff: 2, reach: 1 file (`provenance.ts:79-83` vs `lib/analysis/contribution.ts` `storedFormulaRef`)
+  Found by: scan-sweep (contribution-scoring, parity-auditor) · Same semantics today (string, non-empty ⇒ ref, else null); the write guard and the read-side `formulaMatch` are the two halves of one contract and should read the ref through one function. Fix: import `storedFormulaRef` (civicscore-leaderboard context) · escalation: architecture (cross-context edit)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
