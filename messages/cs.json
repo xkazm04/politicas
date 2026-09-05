@@ -2460,7 +2460,8 @@
       "fullscreen": "na celou obrazovku",
       "exitFullscreen": "opustit celou obrazovku",
       "legend": "legenda",
-      "unverified": "neověřeno"
+      "unverified": "neověřeno",
+      "rejected": "odmítnuto kontrolou"
     },
     "mapa": {
       "canvasLabel": "mapa masy",

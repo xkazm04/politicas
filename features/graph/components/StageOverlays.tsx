@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { glyphPath, KIND_FILL_CLASS, KIND_FILL_TOKEN, KIND_ORDER, KIND_STYLE } from "../kindStyle";
+import { EDGE_DASH } from "../stagePalette";
 import NodeInspector from "./NodeInspector";
 import type { NodeSelection } from "../useNodeSelection";
 
@@ -87,11 +88,36 @@ export function LegendOverlay({ footnote }: { footnote: string }) {
                 </span>
               );
             })}
+            {/* Vzory tahu z TÉŽE tabulky, kterou kreslí plátno (EDGE_DASH): do
+                2026-09-06 legenda znala jen čárkovanou (s literálem 4 4) a tečkovaný
+                tah zamítnuté hrany neměl v legendě jméno. */}
             <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
               <svg viewBox="0 0 24 6" className="h-1.5 w-6 shrink-0" aria-hidden>
-                <line x1={0} y1={3} x2={24} y2={3} className="stroke-steel" strokeWidth={2} strokeDasharray="4 4" />
+                <line
+                  x1={0}
+                  y1={3}
+                  x2={24}
+                  y2={3}
+                  className="stroke-steel"
+                  strokeWidth={2}
+                  strokeDasharray={EDGE_DASH.pending_review.join(" ")}
+                />
               </svg>
               {tcom("pendingReview")}
+            </span>
+            <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-steel">
+              <svg viewBox="0 0 24 6" className="h-1.5 w-6 shrink-0" aria-hidden>
+                <line
+                  x1={0}
+                  y1={3}
+                  x2={24}
+                  y2={3}
+                  className="stroke-steel"
+                  strokeWidth={2}
+                  strokeDasharray={EDGE_DASH.rejected.join(" ")}
+                />
+              </svg>
+              {ts("rejected")}
             </span>
           </div>
           <SourceNote className="mt-2">{footnote}</SourceNote>

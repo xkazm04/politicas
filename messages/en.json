@@ -2460,7 +2460,8 @@
       "fullscreen": "fullscreen",
       "exitFullscreen": "exit fullscreen",
       "legend": "legend",
-      "unverified": "unverified"
+      "unverified": "unverified",
+      "rejected": "refused by review"
     },
     "mapa": {
       "canvasLabel": "map of the mass",

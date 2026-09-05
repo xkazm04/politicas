@@ -272,3 +272,11 @@ thousand had no `companyMoney` entry, so `?? 0` made its contracts vanish from
 „Peníze kolem poslanců" and „Výbory a peníze" without a trace. Five sibling loaders
 already read companies with the cap; `loaderSource.test.ts` pins that no whole-relation
 read in the graph loader carries a literal limit (1 → 0 literal-capped reads).
+
+**The legend and the forensic inline label name the rejected stroke (2026-09-06,
+scan-sweep, visual-craft).** The canvas has drawn three strokes since 2026-09-04
+(`EDGE_DASH`: solid, dashed, dotted); the legend listed one, with a literal `4 4`
+that matched neither pattern, and the forensic „relace · neověřeno" label read the
+`pending` boolean, so a rejected step of a requested lens carried a plain label.
+Both now read the gate; the legend's two dash patterns come from `EDGE_DASH` and
+`graph.stage.rejected` is the third label (1 of 3 strokes named → 3 of 3).

@@ -492,7 +492,10 @@ export default function GraphStage({
         const text = relLabel(e.rel);
         if (!text) continue;
         attempts++;
-        edgeLabel(e, e.pending ? `${text} · ${t("unverified")}` : text, e.pending ? pal.signal : pal.steel);
+        // Tři stavy, tři štítky (2026-09-06): zamítnutý krok vyžádané čočky se do
+        // té doby popisoval jako plný, protože rozhodoval jen boolean `pending`.
+        const flag = e.gate === "rejected" ? t("rejected") : e.pending ? t("unverified") : null;
+        edgeLabel(e, flag ? `${text} · ${flag}` : text, flag ? pal.signal : pal.steel);
       }
     }
   }, [nodes, edges, positions, selectedId, size, captions, relLabel, radiusOf, lens, pal, inlineProvenance, t]);
