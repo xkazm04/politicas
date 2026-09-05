@@ -144,10 +144,17 @@ export function pspIdFromNodeId(nodeId: string | null): number | null {
   return m ? Number(m[1]) : null;
 }
 
-/** Company node id → trailing IČO segment (`kg:company:ico:04544152` → "04544152"). */
+/**
+ * Company node id → its IČO in the CANONICAL 8-digit form (`company:ico:1234567` →
+ * "01234567"). The deník builds its `firma:` keys from `canonicalIco`, so a key built
+ * from the raw segment never matched the `?entita=` filter for an unpadded id (until
+ * 2026-09-06 this read the trailing 6–8 digits of ANY id verbatim — a person id that
+ * ends in digits would have become a company). Prefix-checked, then padded — the same
+ * shape `features/money/companyId.ts` and `lib/kg/sourceLinks.ts` hold.
+ */
 export function icoFromNodeId(nodeId: string | null): string | null {
-  const seg = (nodeId ?? "").split(":").pop() ?? "";
-  return /^\d{6,8}$/.test(seg) ? seg : null;
+  const m = /(?:^|:)company:(?:ico:)?(\d{1,8})$/.exec(nodeId ?? "");
+  return m ? m[1].padStart(8, "0") : null;
 }
 
 /** Watch keys for a person↔company edge — only the parseable endpoints. */

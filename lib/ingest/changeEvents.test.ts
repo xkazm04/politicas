@@ -199,7 +199,8 @@ describe("klíče entit z id uzlů (zrcadlo deníkových klíčů)", () => {
     expect(icoFromNodeId("kg:company:ico:04544152")).toBe("04544152");
     expect(icoFromNodeId("kg:company:04544152")).toBe("04544152");
     expect(icoFromNodeId("kg:contract:abc")).toBeNull();
-    expect(edgeEntityKeys("psp:person:1", "kg:company:ico:222222")).toEqual(["poslanec:1", "firma:222222"]);
+    // Canonical (8-digit) since 2026-09-06 — the deník's `companyEntityKey` shape.
+    expect(edgeEntityKeys("psp:person:1", "kg:company:ico:222222")).toEqual(["poslanec:1", "firma:00222222"]);
     expect(edgeEntityKeys(null, null)).toEqual([]);
   });
 });
