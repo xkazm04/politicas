@@ -148,7 +148,10 @@ export function denikEntryGuid(e: DenikFeedItem, prefix = "politicas:denik"): st
 /** Jednořádkové tělo záznamu, sdílené oběma formáty — brankovaná věta + zdroj. */
 export function denikEntrySummaryCs(e: DenikFeedItem): string {
   const pending = e.pending ? " Vazba čeká na lidskou kontrolu." : "";
-  return `${e.titleCs}.${pending} Zdroj: ${e.source}.`;
+  // Věta se uzavírá JEDNOU tečkou: titulek smlouvy z registru končí tečkou
+  // dost často („Smlouva o dílo.") a do 2026-09-05 pak feed vysázel „..".
+  const title = e.titleCs.replace(/\.+$/, "");
+  return `${title}.${pending} Zdroj: ${e.source}.`;
 }
 
 function escapeXml(s: string): string {

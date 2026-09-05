@@ -52,6 +52,10 @@ describe("veřejné adresy záznamu", () => {
       "podepsána smlouva — Alfa & Beta s.r.o.: Dodávka <IT>. Vazba čeká na lidskou kontrolu. Zdroj: registr smluv — smlouvy.gov.cz.",
     );
     expect(denikEntrySummaryCs(entry({ pending: false }))).not.toContain("čeká");
+    // Titulek končící tečkou (registrový název smlouvy) nedá „..“.
+    expect(denikEntrySummaryCs(entry({ pending: false, titleCs: "podepsána smlouva — X: Smlouva o dílo." }))).toBe(
+      "podepsána smlouva — X: Smlouva o dílo. Zdroj: registr smluv — smlouvy.gov.cz.",
+    );
   });
 });
 
