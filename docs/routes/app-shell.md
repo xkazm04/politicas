@@ -200,3 +200,13 @@ dynamic). The listing stands on the two reasons that hold — a static registry,
 no store read — and the comment now says so, with the „already" retracted.
 `robots.ts` opened with a sentence missing its predicate; it now states the
 file's job.
+
+**2026-09-05 — a sitemap with no host is empty, not relative (scan-sweep,
+state-coverage).** The standing rule above said the base is never guessed and
+the robots `Sitemap:` line is omitted without a host — but `sitemap.ts` in the
+same state emitted 387 relative `<loc>` entries, which the sitemaps.org protocol
+does not define (every location must be fully qualified). It now returns an
+empty list, and `features/shell/sitemapRoutes.test.ts` pins the address SHAPE
+for both files (https behind a forwarding proxy, honest http in dev, root with
+its trailing slash, nothing without a host) the way `publicRoutes.test.ts` pins
+the path SET.

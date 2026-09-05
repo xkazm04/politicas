@@ -51,7 +51,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const h = await headers();
   const host = h.get("host");
   const proto = h.get("x-forwarded-proto") ?? "http";
-  const baseUrl = host ? `${proto}://${host}` : "";
+  // Bez hostitele je sitemapa PRÁZDNÁ — týž tah jako vynechaný řádek `Sitemap:`
+  // v app/robots.ts. Do 2026-09-05 se tu vypsalo ~390 RELATIVNÍCH adres („/zebricek"),
+  // a protokol sitemap.org relativní <loc> nezná: každá musí být plně
+  // kvalifikovaná. Prázdný seznam je poctivá odpověď; uhodnutá doména ne.
+  // Pinuje features/shell/sitemapRoutes.test.ts.
+  if (!host) return [];
+  const baseUrl = `${proto}://${host}`;
 
   // Kořen se sází s lomítkem („https://host/"), ne jako holý původ — holý
   // původ je platná, ale nezvyklá podoba a čtečky sitemap ji hlásí jako odchylku.
