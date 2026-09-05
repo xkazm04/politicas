@@ -228,3 +228,11 @@ Runs on the skill defaults; this file exists for the improvement log below.
   payload files for the figure when the store cannot be opened. Never chain `vitest | grep` with
   `&&` - grep's exit is 0 when it matches the FAIL line, and a red describe committed; gate the
   commit on vitest's own exit code.
+- 2026-09-07 — mp-profile, first sweep (28 lenses, 3 built in 3 commits, 1 built-then-reverted,
+  2 cards). A page that reads the clock twice has two calendars - grep `toISOString().slice(0,
+  10)` AND `pragueDay()` in the same file. A doc comment that names a 'follow-up step'
+  (moneyTypes' dateWithheldOn) is a finding pre-written for the context that owns the other
+  half - but BEFORE building it, grep the whole repo for the symbol you are removing: a
+  source-grep pin in an unowned test (contractDates.test.ts) asserted the old implementation,
+  the profile lane was green, the full gate red, and one gate run was lost to the revert.
+  `satisfies Record<Enum, string>` turns a hand-held copy map into a compile-time pair.
