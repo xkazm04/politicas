@@ -38,6 +38,7 @@ import { computeScoreLegibility } from "@/lib/analysis/score-legibility";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
 import { getMoneyMpDetail } from "@/features/money/getMpDetail";
 import { pragueDay } from "@/features/denik/pragueDay";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 import { buildAbsenceRecord, type ProfileAbsenceRecord } from "./absenceRecord";
 import { emptyProfileMoney, toProfileMoney, type ProfileMoney } from "./profileMoney";
 import {
@@ -146,7 +147,9 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const coVotersAll: CoVoter[] = edgesByRel("co_votes_with")
       .map((e) => {
         const otherId = e.src === selfId ? e.dst : e.src;
-        const otherPspId = Number(otherId.split(":").pop());
+        // The STRICT shared parser (`/^psp:person:(\d+)$/`): the `Number(tail)` read that
+        // stood here accepted any id ending in digits. NaN keeps the drop below in force.
+        const otherPspId = pspIdFromNodeId(otherId) ?? Number.NaN;
         const club = directory.clubByPersonPspId.get(otherPspId) ?? null;
         return {
           pspId: otherPspId,

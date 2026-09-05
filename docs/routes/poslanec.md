@@ -387,3 +387,11 @@ scan-sweep, bounty-hunter).** `formatCzechDate` — the validator behind
 profile would have formatted it through `lib/format` as „Invalid Date". The check now
 round-trips the parts through a UTC date; the module's own promise („never a fabricated
 date") is pinned by the new test cases.
+
+**Spojenci se rozlišují přísným sdíleným parserem id (2026-09-07, scan-sweep,
+parity-auditor).** `getProfileData` četl pspId spojence jako `Number()` z
+posledního segmentu id — zápis, který přijme jakékoli id končící číslicemi.
+Loader teď volá `pspIdFromNodeId` z `lib/ingest/changeEvents.ts`
+(`/^psp:person:(\d+)$/`); nerozpoznané id dál padá na `NaN` a stávající filtr ho
+zahodí, nikdy nehádá. Týž nález jako v moneyLoaderu (round 35) a v ARES-VR
+skriptech (round 34).
