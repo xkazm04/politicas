@@ -191,3 +191,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   first two - diff the id-kind lists, they will differ. A 'bootstrap' script that writes a file
   every later script merge-writes is a durability hazard: grep `writeFileSync(` on ledgers and
   ask what refuses. A recorded formula string is copy - compare it to the code it describes.
+- 2026-09-07 — lawwatch, first sweep (28 lenses, 5 built in 2 commits, 1 card). A loader that keys
+  a per-row attribute (batch, source, date) by an id that the loader's OWN comment says is not
+  unique is a defect waiting for a probe: count the duplicates in the real payloads before
+  reading the rendering code. Two comments that say 'shodně s X' / 'same as X' in one file are
+  two parity tests. When the context map lists 22 of a folder's 34 files, read the unmapped ones
+  as pair partners - the types and the wire live there.
