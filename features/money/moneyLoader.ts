@@ -41,6 +41,9 @@ import {
   reviewStateOf,
 } from "./reviewTypes";
 import { moneyReachesCompany } from "./reachableMoney";
+// The ONE inverse of the company-node grammar (prefix-checked, canonical 8 digits) — not a
+// tail-of-id read, which also "works" on a person id.
+import { icoFromCompanyNodeId } from "./companyId";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 // Daňová základna smluvní částky. NULOVÉ NOVÉ ČTENÍ: obě čtení hran níž dělají
 // `select * from kg_edge`, takže `props.amountBasis` je u ruky už dnes — fold ho
@@ -213,7 +216,7 @@ export function mapLinkedToTie(args: {
     // helper — the same one /rentgen and the /overeni guide use — so the ref that a
     // reader copies is by construction the triple `getReceiptData` will look up.
     receiptRef: edgeClaimRef(e.src, e.rel, e.dst),
-    ico: String(cp.ico ?? comp.id.split(":").pop() ?? ""),
+    ico: cp.ico != null ? String(cp.ico) : (icoFromCompanyNodeId(comp.id) ?? ""),
     company: comp.label,
     role,
     reviewState,

@@ -41,6 +41,7 @@ import { ArrowUpRight, Crosshair } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { compactCzk, type MoneyGraphData } from "./moneyTypes";
+import { icoFromCompanyNodeId } from "./companyId";
 import type { ReviewSummary } from "./reviewSummary";
 import {
   firstNodeId,
@@ -145,7 +146,7 @@ function RealGraph({ data, review }: { data: MoneyGraphData; review: ReviewSumma
         id: cid,
         kind: "company",
         label: trunc(c.company, 20),
-        sub: c.role || `IČO ${c.id.split(":").pop()}`,
+        sub: c.role || `IČO ${icoFromCompanyNodeId(c.id) ?? c.id}`,
         x: 44,
         y: cy,
         entityId: c.id,

@@ -31,3 +31,11 @@ describe("loadMpMoneySlice dates its plausibility bound in Prague", () => {
     expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
   });
 });
+
+describe("company id → IČO goes through companyId.icoFromCompanyNodeId", () => {
+  it.each(["features/money/moneyLoader.ts", "features/money/MoneyGraph.tsx"])("%s carries no tail-of-id read", (f) => {
+    const s = src(f);
+    expect(s).toMatch(/icoFromCompanyNodeId/);
+    expect(s).not.toMatch(/\.id\.split\(":"\)\.pop\(\)/);
+  });
+});

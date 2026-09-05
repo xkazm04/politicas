@@ -788,3 +788,9 @@ poslance a firemní spis shodly — jenže firemní spis přešel v 7225d18 na
 `pragueDay()`. Mezi půlnocí a 01:00/02:00 tak obě plochy kreslily hranici
 k jinému dni pro tutéž smlouvu. Řez teď bere den z `pragueDay()`; karta z roundu 33
 je uzavřená.
+
+**IČO z id firmy jedinou inverzí (2026-09-07).** Mapper knihy i peněžní obrázek
+četly IČO jako poslední segment id (`comp.id.split(":").pop()`), tedy zápisem,
+který „funguje“ i nad id poslance. Oba čtou `icoFromCompanyNodeId` z
+`companyId.ts` — kontrola prefixu a kanonických osm číslic, totéž pravidlo,
+na kterém stojí routa `/penize/firma/[ico]`.
