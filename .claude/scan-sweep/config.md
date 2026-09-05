@@ -256,3 +256,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   primitive that ENFORCES a brand rule in code is the rule's only instrument - if its logic is
   unexported, the rule has no test; extract the pure part beside the component. `aria-label`
   without a role is a name nothing announces: grep `aria-label` on <svg>/<span>/<div>.
+- 2026-09-07 — shared-provenance, first sweep (28 lenses, 5 built in 5 commits, 4 cards). The
+  catalog boundary (features/shared may not import features/*) turns cross-feature pairs into
+  cards, not fixes - check the eslint no-restricted-imports scope BEFORE designing the
+  delegation, and prefer a lib/ owner when one exists (lib/ingest had the person-id regex).
+  A `Record<string, string>` map with a `??` default over a closed enum is a default branch
+  that NAMES a value for anything unknown: `as const satisfies Record<Enum, string>`.
+  Files inside a context's folder that no context owns (asOfLens.ts) are still veto 1.
