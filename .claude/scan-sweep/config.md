@@ -138,3 +138,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   it is built: the round-20 'cesta cannot report rejected' card died on trailPath.ts:185.
   Tooling: a Czech „…" quote inside a JS double-quoted test title ends the string (twice this
   round) - use ‚…‘ in titles; node:fs globSync returns backslashes on Windows - normalise.
+- 2026-09-06 — ingest-external-sources, first sweep (28 lenses, 6 S built over 4 adapters). In an
+  adapter folder the pairs are: one retry doctrine vs N loops (grep `res.ok`/`status ===` per
+  file), one fold rule vs the stem lists it is applied to (assert asciiFold(stem) === stem), and
+  two decoders of one grammar (feed both the same string). A resume/retry branch that `break`s
+  out of its loop is worth one temp-dir test - the post-loop code decides what the break meant.
