@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import CompanyCaseFilePage from "@/features/money/CompanyCaseFilePage";
 import { getCompanyCaseFile } from "@/features/money/getCompanyDetail";
 import { canonicalIco } from "@/features/money/companyId";
+import { pragueDay } from "@/features/denik/pragueDay";
 
 /** The page asserts a signature-plausibility bound drawn against a DAY (contracts signed
  *  after "today" are data faults, not dates), so a build-frozen page would slowly start
@@ -39,8 +40,10 @@ export default async function CompanyCaseFileRoute({
   if (!canonicalIco(icoRaw)) notFound();
 
   // ONE instant for the whole page (see lib/analysis/plausible-date.ts): reading the
-  // clock inside the render would drift SSR against CSR.
-  const todayIso = new Date().toISOString().slice(0, 10);
+  // clock inside the render would drift SSR against CSR. The day is the PRAGUE day
+  // (features/denik/pragueDay.ts): the UTC slice lagged Prague by up to two hours after
+  // midnight, and a contract signed "today" read as signed in the future.
+  const todayIso = pragueDay();
   // Dvě varianty, jeden loader: firma s vazbou dostane peněžní spis, firma bez vazby, ale
   // se zapsaným vlastnictvím, rejstříkový výpis. `getCompanyDetail()` (užší kontrakt pro
   // /overeni) tu schválně nestojí — vrátil by `null` i pro firmu, o které graf něco ví.
