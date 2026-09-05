@@ -564,3 +564,9 @@ vymyšlená doména“). `lib/routing/liveUrl.ts` nese čistou část
 (`liveUrlFrom(host, proto, path)`, testovanou: bez hostu relativní cesta,
 bez proxy hlavičky `http`) a tenký `liveUrl(path)` nad `headers()`; obě routy
 ho importují.
+
+**První hodnota parametru adresy má jednu definici (2026-09-07, scan-sweep,
+parity-auditor).** `/referendum` i `/zebricek` nesly tutéž tvarovou pojistku
+nad `searchParams` (`string | string[] | undefined` → první hodnota) pod
+komentářem odkazujícím na druhou routu. `lib/routing/searchParam.ts::firstParam`
+je ta jedna, testovaná; kodek čočky se dál importuje z `features/civicscore/lens`.

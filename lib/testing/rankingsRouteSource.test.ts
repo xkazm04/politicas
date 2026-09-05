@@ -24,3 +24,11 @@ describe("live URL from request headers has one definition (lib/routing/liveUrl.
     expect(s).not.toMatch(/from "next\/headers"/);
   });
 });
+
+describe("the first search-param value has one definition (lib/routing/searchParam.ts)", () => {
+  it.each(["app/referendum/page.tsx", "app/zebricek/page.tsx"])("%s imports firstParam and carries no copy", (f) => {
+    const s = src(f);
+    expect(s).toMatch(/import \{ firstParam \} from "@\/lib\/routing\/searchParam"/);
+    expect(s).not.toMatch(/const one = /);
+  });
+});
