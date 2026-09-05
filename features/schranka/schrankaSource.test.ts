@@ -31,3 +31,11 @@ describe("the schránka reads its days on the Prague calendar, like the server's
     expect(s).toMatch(/import \{ pragueDay \} from "@\/features\/denik\/pragueDay"/);
   });
 });
+
+describe("useNews does not keep a refused (non-2xx) response in its TTL cache", () => {
+  it("evicts the query on !res.ok exactly as it does on a thrown failure", () => {
+    const s = src("features/schranka/useNews.ts");
+    const then = /\.then\(async \(res\) => \{[\s\S]*?\}\)/.exec(s)?.[0] ?? "";
+    expect(then).toMatch(/if \(!res\.ok\) \{[\s\S]*cache\.delete\(query\);[\s\S]*return null;/);
+  });
+});

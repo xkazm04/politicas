@@ -241,3 +241,10 @@ totéž — mezi půlnocí a 01:00/02:00 pražského času měl čtenář jiný 
 server: okno první návštěvy posunuté, odznak přepínal den ve dvě ráno, návštěva
 v 00:30 padala do včerejška. Všechna tři místa čtou `pragueDay()`; test
 `sinceDay` teď říká, že 23:59 UTC je pražský následující den.
+
+**Odmítnutá odpověď novinek se v cache nedrží (2026-09-07, scan-sweep,
+error-handler).** `useNews.fetchNovinky` drží odpověď minutu v modulové cache
+a vyhozenou chybu z ní hned vyhazoval — jenže odpověď se stavem mimo 2xx
+(503 při nečitelném deníku) vracel jako `null` a v cache ji nechal: odznak po
+přechodném výpadku mlčel o minutu déle, než musel. Obě cesty neúspěchu teď
+cache vyhazují stejně.
