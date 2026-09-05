@@ -276,3 +276,13 @@ reader announced „článek" for every decision while /denik's days carry
 `aria-labelledby`. The article now names itself by the decision badge and the
 subject line it already renders (`-v`, `-s` ids); no catalog key added;
 `features/dukazy/a11y.test.ts` pins that every referenced id is assigned in the file.
+
+**/dukazy feeds hold the rule their siblings hold (2026-09-05, scan-sweep,
+parity-auditor).** c210d19 gave the /schranka and /denik feed routes `no-store` on
+their 503 branches and one shared `requestOrigin`; the bulletin's two routes kept
+their own copies of `requestOrigin` and answered „store unavailable" with no headers
+at all — cacheable by a shared cache, and content-type-less on the XML route. Both
+now import `requestOrigin` from `features/denik/feedRequest.ts` and send `no-store`
+plus a content type on 503. `features/dukazy/feedRoutes.test.ts` is the first test
+that runs these handlers (mocked loader + `next/headers`); it pins the 503 headers
+and that the channel address is the request host, or empty — never invented.
