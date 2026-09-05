@@ -24,11 +24,10 @@ import { useTranslations } from "next-intl";
 import type { ComponentDef } from "@/features/civicscore/componentDefs";
 import type { LeaderboardListEntry } from "@/features/civicscore/leaderboardTypes";
 import {
-  effectiveWeights,
   isPublishedWeights,
-  LENS_COMPONENT_ORDER,
   PUBLISHED_WEIGHTS,
   PUBLISHED_WEIGHTS_LABEL,
+  reweigh,
   type WeightVector,
 } from "@/features/civicscore/lens";
 import type { ContributionProvenance } from "@/features/civicscore/provenance";
@@ -78,21 +77,6 @@ export interface LandingData {
   provenance: ContributionProvenance;
 }
 
-const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
-const round1 = (x: number) => Math.round(x * 10) / 10;
-
-/** Přepočet jednoho poslance pod čtenářovými vahami — TÝŽ vzorec jako
- *  lens.reweigh (míra naplnění × efektivní váha), jen pro jeden řádek. */
-function lensScore(e: LeaderboardListEntry, weights: WeightVector): number {
-  const eff = effectiveWeights(weights);
-  let s = 0;
-  for (const k of LENS_COMPONENT_ORDER) {
-    const pub = PUBLISHED_WEIGHTS[k];
-    s += (pub > 0 ? clamp01(e.components[k] / pub) : 0) * eff[k];
-  }
-  return round1(s);
-}
-
 export default function LandingPage({
   data,
   sources,
@@ -123,11 +107,15 @@ export default function LandingPage({
   const [weights, setWeights] = useState<WeightVector>({ ...PUBLISHED_WEIGHTS });
   const isDefault = isPublishedWeights(weights);
 
-  // Zveřejněné váhy → autoritativní skóre z grafu; jinak přepočet čočkou.
+  // Zveřejněné váhy → autoritativní skóre z grafu; jinak přepočet čočkou —
+  // TÝMŽ reweigh() jako /zebricek, /referendum i widget, nad jedním řádkem.
+  // Do 2026-09-06 tu stál vlastní opis vzorce (`lensScore`) držený jen větou
+  // „týž vzorec jako lens.reweigh"; druhá implementace jednoho pravidla se
+  // rozchází při první opravě té první (lensSource.test.ts to hlídá).
   const score = useMemo(() => {
-    if (!mp) return 0;
-    return isDefault ? mp.score : lensScore(mp, weights);
-  }, [mp, weights, isDefault]);
+    if (!mp || !data) return 0;
+    return isDefault ? mp.score : reweigh([mp], data.components, weights).entries[0].score;
+  }, [mp, data, weights, isDefault]);
 
   // Citace se razí JEN nad zveřejněným kompozitem — týmž čistým razidlem, jaké
   // používá spis i karta kraje (žádná druhá ražba téže figury). Pod čtenářovou

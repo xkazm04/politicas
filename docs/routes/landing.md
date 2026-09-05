@@ -124,3 +124,11 @@ wave 3 as a separate landing redesign.
 prints `INGESTED_SOURCES.length`; the atlas register gained the two adapters it
 had missed (`isvz.ts`, `smlouvy-dump.ts`) — see `docs/routes/atlas.md` for the
 finding. No landing code changed.
+
+**2026-09-06 — scan-sweep round (landing-page, first sweep).** The specimen's
+reader-lens score is now `reweigh([mp], components, weights)` over one row: the
+page carried its own `lensScore` copy of the formula, held to the canonical one
+by a comment alone; `lensSource.test.ts` pins that the facade calls the rule
+instead of restating it. `componentBgParity.test.ts` pins ReferendumTeaser's
+Tailwind `COMPONENT_BG` to `COMPONENT_FILL` token-for-token (the "keep in sync"
+sentence was the only guard).
