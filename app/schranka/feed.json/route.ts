@@ -29,7 +29,8 @@ export async function GET(request: Request): Promise<Response> {
     generatedAt: new Date().toISOString(),
     channel: schrankaFeedChannel({ baseUrl, keys, since: built.since, format: "json" }),
   });
+  // Viz feed.xml: osobní odpověď = `private`, jako novinky.json (2026-09-05).
   return new Response(json, {
-    headers: { "content-type": "application/feed+json; charset=utf-8" },
+    headers: { "content-type": "application/feed+json; charset=utf-8", "cache-control": "private, max-age=60" },
   });
 }

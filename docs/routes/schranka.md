@@ -215,3 +215,14 @@ was outside the G1 write set (the design owns `recomputeFact.ts` and its test).
 Until that lands, `recomputeDelta` is called with no move and every row keeps the
 "size unknown" sentence — the honest default, and the one the code already
 produces. The pure half ships with its bar so the wiring cannot quietly lower it.
+
+**The feeds are private responses, and `od=` has one parser (2026-09-05,
+scan-sweep, security-auditor + parity-auditor).** Both feed routes answered 200 with
+no `cache-control` while their address carries the reader's follow list; novinky.json
+— same subscription, same loader — already sent `private, max-age=60`. The feeds now
+send the same, so no shared cache decides on its own to keep a personal artefact.
+In the same pass novinky.json stopped holding its own copy of the day regex and reads
+`od=` through `feedSince` like the feeds; only the default differs, and both defaults
+are stated at the call site (feeds: first-visit window; badge: everything).
+`features/schranka/feedRoutes.test.ts` runs the three handlers over a mocked loader
+and pins the policy, the 503 `no-store`, and the parser.
