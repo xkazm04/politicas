@@ -40,3 +40,11 @@ describe("the case-file label map is defined once, in caseFileLink.ts", () => {
     }
   });
 });
+
+describe("ProvenanceCapsule's panel is the modal dialog its header promises", () => {
+  it('role="dialog" carries aria-modal', () => {
+    expect(src("features/shared/provenance/ProvenanceCapsule.tsx")).toMatch(
+      /role="dialog"\s+aria-modal="true"/,
+    );
+  });
+});

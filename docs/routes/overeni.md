@@ -279,3 +279,9 @@ parity-auditor).** `ReceiptBody` and `ReceiptPage` each declared an identical
 surfaces import it — a renamed catalog key or a third case-file target changes one
 place. Count: 2 copies → 1.
 
+**2026-09-07 — the provenance capsule's dialog holds the contract its header states
+(scan-sweep, accessibility-checker).** The component's header promised „panel
+role=dialog aria-modal"; the panel carried the role, the focus trap and Esc, but
+not `aria-modal`, so assistive tech was not told the trapped focus was
+intentional. The attribute is now set; the header is true again.
+
