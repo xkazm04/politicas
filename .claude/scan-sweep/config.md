@@ -236,3 +236,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   source-grep pin in an unowned test (contractDates.test.ts) asserted the old implementation,
   the profile lane was green, the full gate red, and one gate run was lost to the revert.
   `satisfies Record<Enum, string>` turns a hand-held copy map into a compile-time pair.
+- 2026-09-07 — mp-rankings-routes, first sweep (28 lenses, 5 built in 5 commits, 2 cards). Thin
+  routes pair with each other: two routes with the same comment ('na patičce nesmí být
+  vymyšlená doména', 'týž tvar jako app/...') hold one rule twice - grep the comment text
+  across app/. A poster or card that stamps `new Date()` dates itself, not its data; the
+  chamber provenance is the day. New lib/routing helpers get their own unit test AND a
+  source-grep in lib/testing so the routes cannot drift back.
