@@ -694,7 +694,15 @@ export async function downloadResumable(
     try {
       arm();
       const res = await fetch(url, { headers: have > 0 ? { Range: `bytes=${have}-` } : {}, signal: ac.signal });
-      if (res.status === 416) break; // already complete
+      if (res.status === 416) {
+        // The .part already holds every byte: a previous run finished the transfer and
+        // died before the rename. Until 2026-09-06 this branch only left the loop, the
+        // part kept its name and the post-loop check threw "failed after N attempts"
+        // over a complete file.
+        if (timer) clearTimeout(timer);
+        await fs.rename(part, dest);
+        return;
+      }
       if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
       const append = res.status === 206 && have > 0;
       if (!append && have > 0) await fs.rm(part, { force: true }); // server ignored Range: restart
@@ -712,7 +720,6 @@ export async function downloadResumable(
       await new Promise((r) => setTimeout(r, backoffDelayMs(attempt, 1_000, 20_000)));
     }
   }
-  if (await fs.stat(part).then(() => false, () => true)) return; // renamed by a 416 path
   throw new Error(`dataor download failed after ${attempts} attempts: ${(lastErr as Error)?.message ?? "unknown"}`);
 }
 
