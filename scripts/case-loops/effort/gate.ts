@@ -12,6 +12,7 @@ import { readFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 import { jargonViolationDetails } from "@/lib/analysis/public-copy";
 import { committeeClaimWarnings } from "@/lib/analysis/committee-claims";
+import { isLowScoreReason } from "@/lib/analysis/low-score-reason";
 
 /**
  * Every verdict rung a proposal carries that a SCRIPT is not allowed to author.
@@ -43,7 +44,10 @@ export function verdictRungViolations(props: Record<string, unknown>): string[] 
 }
 
 const FORBIDDEN_PROP = /^(contribution_score|participation_rate|committee_count|leadership_count|absence_rate|bills_authored|interpellations|speech_turns|contribution_provenance)$/;
-const LOW_SCORE_REASONS = new Set(["minister", "deputy_pm", "prime_minister", "opposition_leader", "replacement", "new_mp", "dual_mandate", "genuine_absentee", "low_legislative_output", "declined_mandate", "institutional_promotion", "unknown"]);
+// The closed vocabulary is READ from lib/analysis/low-score-reason.ts (the module the
+// badge renders from), never copied here: until 2026-09-06 this file carried its own
+// twelve-value Set, so a reason added to the badge would have been dropped at the gate
+// with no failing test - the same fork the batch-010 committee scan already paid for.
 
 // ── Q-effort-11 (batch 004): prose-vs-props cross-check ──────────────────────
 // A deterministic sibling of the Opus-verification lesson from batch 003:
@@ -226,7 +230,7 @@ async function main() {
     }
     // effort_low_score_reason, if present, must be from the closed vocabulary
     const reason = prop.props.effort_low_score_reason as string | undefined;
-    if (reason !== undefined && !LOW_SCORE_REASONS.has(reason)) {
+    if (reason !== undefined && !isLowScoreReason(reason)) {
       drops.push(`${prop.id} (${prop.name}) — effort_low_score_reason "${reason}" not in the closed vocabulary`);
       continue;
     }

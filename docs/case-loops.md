@@ -437,3 +437,11 @@ resumes exactly.
   condition (added 2026-09-03).
 - Build phases meet the same bar as any session: `npm run check` green, docs
   synced same-session, tokens/colors discipline, Czech-first copy.
+
+**The effort gate reads the low-score vocabulary from the badge's module (2026-09-06,
+scan-sweep, parity-auditor).** `scripts/case-loops/effort/gate.ts` carried its own
+twelve-value `Set` of `effort_low_score_reason` values beside
+`lib/analysis/low-score-reason.ts`, which owns the vocabulary the badge renders
+from; identical today, and a reason added to one would have been silently dropped
+by the other. The gate now validates through `isLowScoreReason`;
+`sharedRules.test.ts` pins it.
