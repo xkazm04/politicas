@@ -159,3 +159,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   first exported helper of one in the other two. A module's own doctrine comment ('never zero-
   faked', 'three states') is a checklist for the module - two of four findings were the doctrine
   unapplied to one more field in the same file.
+- 2026-09-06 — kg-pipeline, first sweep (28 lenses, 7 built). A scripts folder is where the same
+  20 lines get pasted per script: grep `^async function <name>` and `const <name> = (` across the
+  folder before reading any one file. A sibling's header that says 'a re-run of X would erase Y'
+  is a finding on X. A frozen literal where 8 siblings derive a value (pass, cap) is a pair.
+  Files a context map does not own (kg-vote-bill-ingest, the provenance test/backfill) are
+  named in the round, never edited - veto 1 covers 'nobody's' files too.
