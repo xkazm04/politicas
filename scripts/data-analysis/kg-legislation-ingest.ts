@@ -16,7 +16,7 @@
  *   npx tsx scripts/data-analysis/kg-legislation-ingest.ts --commit   # write
  * Flags: --commit  --term=PSP10  --pass=N  --refetch  --min-czk=1000000
  */
-import { nextPass } from "@/lib/analysis/kg";
+import { mergeComputedNodeProps, nextPass } from "@/lib/analysis/kg";
 import { normalizeLegislation, type LawBill } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
 import { guardStampedRows, makeProvenance } from "@/lib/kg/provenance";
@@ -69,6 +69,12 @@ async function main() {
       contractCzkByCompany.set(e.src, (contractCzkByCompany.get(e.src) ?? 0) + (typeof e.weight === "number" ? e.weight : 0));
     }
   }
+  // The nodes as stored, by id: bill nodes carry later-added props (summary_cz,
+  // forensic_*, amends_*, sponsors_ranked, stav …) that a from-scratch rebuild
+  // would wholesale-erase — kg-bill-roles-ingest's header said so about THIS writer
+  // and the hazard stayed in place until 2026-09-06. Computed props win, every other
+  // stored prop survives; firstSeenPass records the pass that CREATED the node.
+  const nodeById = new Map(nodes.map((n) => [n.id, n]));
   const contributionByPerson = new Map<number, number>();
   const personNodeIds = new Set<string>();
   for (const n of nodes) {
@@ -130,11 +136,12 @@ async function main() {
     }
     const flaggedConflict = maxCompanies > 0 && maxCzk >= minCzk;
 
+    const prev = nodeById.get(billUrn(b.tiskId));
     billNodes.push({
       id: billUrn(b.tiskId),
       kind: "bill",
       label: (b.title ?? `tisk ${b.cislo ?? b.tiskId}`).slice(0, 200),
-      props: {
+      props: mergeComputedNodeProps(prev?.props, {
         cislo: b.cislo,
         druh: b.druh,
         origin: b.origin,
@@ -146,8 +153,8 @@ async function main() {
         sponsor_contract_czk: maxCzk,
         sponsor_min_contribution: minContribution,
         flagged_conflict: flaggedConflict,
-      },
-      firstSeenPass: pass,
+      }),
+      firstSeenPass: prev?.firstSeenPass ?? pass,
       provenance,
     });
     for (const id of graphSponsors) {
@@ -155,7 +162,18 @@ async function main() {
     }
     for (const ref of b.amendedLaws) {
       const urn = lawUrn(ref);
-      if (!lawNodes.has(urn)) lawNodes.set(urn, { id: urn, kind: "law", label: `zákon č. ${ref} Sb.`, props: { ref }, firstSeenPass: pass, provenance });
+      if (!lawNodes.has(urn)) {
+        // A law node may already carry esbirka_title / esbirka_exists (esbirka-laws.ts).
+        const prev = nodeById.get(urn);
+        lawNodes.set(urn, {
+          id: urn,
+          kind: "law",
+          label: prev?.label ?? `zákon č. ${ref} Sb.`,
+          props: mergeComputedNodeProps(prev?.props, { ref }),
+          firstSeenPass: prev?.firstSeenPass ?? pass,
+          provenance,
+        });
+      }
       edgeRows.push({ src: billUrn(b.tiskId), rel: "amends", dst: urn, weight: null, props: {}, provenance });
     }
   }

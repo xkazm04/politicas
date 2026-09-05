@@ -185,3 +185,11 @@ this page catalogues) and restamped the pass that created the node. `moneyGraphT
 now takes the stored nodes and merges through `mergeComputedNodeProps`; the ingest
 passes them (`kgMoneyIngestMerge.test.ts`: a stored `ico_unresolvable_in_ares`
 survives, a computed `subsidies_total_czk` wins, `firstSeenPass` stays).
+
+**`kg-legislation-ingest` read-merges bill and law nodes (2026-09-06, scan-sweep,
+bounty-hunter).** `kg-bill-roles-ingest`'s header has said since pass 34 that a full
+re-run of this writer „would wholesale-erase" `summary_cz`, `forensic_*` and `amends_*`
+off every bill node; the hazard was documented in the sibling and left in place here.
+Bill and law nodes now merge through `mergeComputedNodeProps` and keep the pass that
+created them; a law node's e-Sbírka title (esbirka-laws.ts) survives too
+(`legislationMerge.test.ts`; 2 from-scratch node builders → 0).
