@@ -67,3 +67,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   the rule's own `docs/rules/<rule>.md` is the record and must move with the matcher.
   Three opt-out matchers (`citation-ok`, `reduced-motion-ok`, `raw-format-ok`) are one
   rule in three copies: grep all three whenever one changes.
+- 2026-09-05 — civicscore-leaderboard, first sweep (28 lenses, 2 S built). A commit that
+  threads a new prop through "every badge" (9853059) is a pair-hunt target by itself: grep
+  the badge's opening tag across ALL surfaces that render it and diff the attribute lists —
+  here 6 of 12 sites were missed, on the duel and on the one surface that gets PRINTED.
+  `features/civicscore/**` owes seven dismissal trailers (README, CLAUDE, AGENTS, ROADMAP,
+  DESIGN, routes/metodika.md, routes/poslanec.md) when zebricek.md is the record touched.
