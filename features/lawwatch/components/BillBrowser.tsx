@@ -14,6 +14,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { BillOrigin } from "../lawTypes";
+import { BILL_ORIGIN_ORDER } from "../lawwatchLabels";
 import type { LawWatchWire, PublicLawBill } from "../publicWire";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -30,8 +31,6 @@ const FACETS: { key: FacetKey; test: (b: PublicLawBill) => boolean }[] = [
   { key: "conflict", test: (b) => b.flaggedConflict },
   { key: "committee", test: (b) => b.hasCommittees },
 ];
-
-const ORIGIN_ORDER: BillOrigin[] = ["government", "mp_group", "mp", "senate", "other"];
 
 export default function BillBrowser({ data }: { data: LawWatchWire }) {
   const t = useTranslations("lawwatch");
@@ -84,7 +83,7 @@ export default function BillBrowser({ data }: { data: LawWatchWire }) {
         >
           {t("filterAll")}
         </button>
-        {ORIGIN_ORDER.filter((o) => data.originCounts[o]).map((o) => {
+        {BILL_ORIGIN_ORDER.filter((o) => data.originCounts[o]).map((o) => {
           const count = facetFilteredBills.filter((b) => b.origin === o).length;
           return (
             <button

@@ -31,6 +31,7 @@ import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
 import { getFullVoteRecord } from "@/features/votetrack/getVoteRecord";
 import { deriveForensicIndex } from "./forensicIndex";
+import { refFromLawNodeId } from "./statuteRef";
 import { buildCompanyIcoResolver, buildSectorAttributionIndex, type SectorAttributionRaw } from "./sectorAttribution";
 export type { SectorAttributionFlag } from "./sectorAttribution";
 import {
@@ -424,7 +425,9 @@ async function loadLawData(): Promise<LawData | null> {
       const props = (n?.props ?? {}) as Record<string, unknown>;
       return {
         urn,
-        ref: asStr(props.ref) ?? urn.replace(/^law:sb:/, "").replace("-", "/"),
+        // ONE parser of the law node id (statuteRef.ts) — a second `.replace()` here drifted
+        // silently from the canonical form the moment it was written for any non-canonical urn.
+        ref: asStr(props.ref) ?? refFromLawNodeId(urn) ?? urn,
         label: n?.label ?? urn,
         title: asStr(props.esbirka_title),
       };

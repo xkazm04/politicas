@@ -288,3 +288,12 @@ payload directory and pins that shared ids resolve to distinct batches. The thre
 `collision-close-reads-groupN.json` files stay unloaded on purpose: they are the
 per-army-group inputs whose union is the batch-003 file, and loading them would
 double every batch-003 pair.
+
+**One definition each for the print URL, the origin order and the law-id parser
+(2026-09-07, scan-sweep, parity-auditor).** `CollisionsPage` built its own psp.cz
+history address beside `lawwatchLabels.pspBillUrl`; `LawWatchPage` and
+`BillBrowser` each spelled the origin display order; `getLawData` parsed a law
+urn with its own `.replace()` beside `statuteRef.refFromLawNodeId`. All four now
+read the shared definition, and `lawwatchLabels.test.ts` pins `pspBillUrl` and
+`esbirkaUrl` byte-for-byte to the addresses `lib/kg/sourceLinks.ts` builds (they
+were held together by a comment) and gives `citationRef` its first tests.

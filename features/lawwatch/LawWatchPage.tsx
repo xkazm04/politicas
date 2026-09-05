@@ -22,7 +22,7 @@ import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import type { DependencyData } from "./buildDependencyView";
-import type { BillOrigin } from "./lawTypes";
+import { BILL_ORIGIN_ORDER } from "./lawwatchLabels";
 import { TOP_LAWS_RENDERED, type LawWatchWire } from "./publicWire";
 import { statuteSlug } from "./statuteRef";
 import BillBrowser from "./components/BillBrowser";
@@ -90,8 +90,6 @@ function RealLawWatch({ data, dependencyData }: { data: LawWatchWire; dependency
   const t = useTranslations("lawwatch");
   const f = useFormat();
 
-  const originOrder: BillOrigin[] = ["government", "mp_group", "mp", "senate", "other"];
-
   return (
     <>
       {/* Statistický pás */}
@@ -118,7 +116,7 @@ function RealLawWatch({ data, dependencyData }: { data: LawWatchWire; dependency
             : t("statsSourceNoPass", { committeeRouted: f.int(data.committeeRoutedBills) })}
         </SourceNote>
         <span className="flex flex-wrap gap-x-3 font-mono text-[11px] uppercase tracking-wider text-steel">
-          {originOrder
+          {BILL_ORIGIN_ORDER
             .filter((o) => data.originCounts[o])
             .map((o) => (
               <span key={o}>
