@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { INGEST_RUN_LIMIT, SENTINEL_ENTITY_TABLES } from "./facts";
 import { checkMoneyRankCache } from "./invariants";
 import type { MoneyTieFact, SentinelFacts } from "./facts";
 
@@ -41,5 +42,27 @@ describe("money-rank-cache names a tie_class outside the vocabulary instead of c
     expect(r.status).toBe("violation");
     expect(r.detail).toMatch(/shareholder/);
     expect(r.detail).toMatch(/outside the TIE_CLASSES vocabulary/);
+  });
+});
+
+/** The string items of the first `const NAME = [ … ]` array literal in a source file. */
+const arrayLiteral = (source: string, name: string): string[] => {
+  const m = source.match(new RegExp(`const ${name} = \\[([\\s\\S]*?)\\]`));
+  if (!m) throw new Error(`${name} not found`);
+  return [...m[1].matchAll(/"([a-z_]+)"/g)].map((x) => x[1]);
+};
+
+describe("the lists facts.ts says it mirrors are the lists it mirrors", () => {
+  it("SENTINEL_ENTITY_TABLES equals the atlas loader's ENTITY_TABLES", () => {
+    const atlas = arrayLiteral(src("features/atlas/getAtlasData.ts"), "ENTITY_TABLES");
+    expect([...SENTINEL_ENTITY_TABLES]).toEqual(atlas);
+  });
+  it("…and is a subset of the ledger's RUN_TABLES (which sealed the graph rows since G5)", () => {
+    const run = arrayLiteral(src("lib/db/pglite/repositories/ledger.ts"), "RUN_TABLES");
+    for (const t of SENTINEL_ENTITY_TABLES) expect(run, t).toContain(t);
+  });
+  it("INGEST_RUN_LIMIT is the /data loader's cap, byte for byte", () => {
+    const loader = src("features/data-releases/getDataReleasesData.ts");
+    expect(loader).toMatch(new RegExp(`const INGEST_RUN_LIMIT = ${INGEST_RUN_LIMIT};`));
   });
 });

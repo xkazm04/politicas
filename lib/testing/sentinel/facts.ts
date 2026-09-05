@@ -193,9 +193,12 @@ export const INGEST_RUN_LIMIT = 500;
 
 /**
  * Entity tables carrying the provenance quartet — the SAME pinned list as
- * RUN_TABLES in lib/db/pglite/repositories/ledger.ts and ENTITY_TABLES in
- * features/atlas/getAtlasData.ts. Pinned so the sentinel never touches a table
- * the quartet contract does not cover.
+ * ENTITY_TABLES in features/atlas/getAtlasData.ts (the coverage /atlas publishes),
+ * and a SUBSET of RUN_TABLES in lib/db/pglite/repositories/ledger.ts: since the
+ * G5 seal (2026-09-04) the ledger also seals kg_node / kg_edge, which the atlas
+ * does not count per source. Until 2026-09-07 this header called all three the
+ * same list; sentinelSource.test.ts now checks both relations against the code.
+ * Pinned so the sentinel never touches a table the quartet contract does not cover.
  */
 export const SENTINEL_ENTITY_TABLES = [
   "person",
