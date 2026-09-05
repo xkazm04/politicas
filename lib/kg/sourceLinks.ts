@@ -218,7 +218,9 @@ export function sourceLinksFor(subject: SourceSubject): SourceLink[] {
 
   switch (kind) {
     case "person": {
-      const psp = idSuffix(id);
+      // Číslo, nebo nic — jako v `citableId`. `idSuffix` by z `kg:person:novak-j`
+      // vyrobil `detail.sqw?id=novak-j`: hádanou adresu (pravidlo 1).
+      const psp = pspNumber(id);
       const links: SourceLink[] = [];
       if (psp) {
         links.push({ registry: "psp.cz", url: `https://www.psp.cz/sqw/detail.sqw?id=${psp}`, tier: "detail" });

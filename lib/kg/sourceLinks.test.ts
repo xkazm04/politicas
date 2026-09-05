@@ -30,6 +30,14 @@ describe("odkazy do registrů", () => {
     expect(psp.tier).toBe("detail");
   });
 
+  it("osoba s nečíselným sufixem id psp.cz odkaz NEDOSTANE — táž kázeň jako citableId", () => {
+    // `pspNumber` (číslo, nebo nic) platí pro citaci od 2026-08-13; odkaz bral
+    // `idSuffix` dál, takže `psp:person:x` vydal detail.sqw?id=x — hádanou adresu.
+    const links = sourceLinksFor(subject({ kind: "person", id: "kg:person:novak-j", label: "J. Novák" }));
+    expect(links.find((l) => l.registry === "psp.cz")).toBeUndefined();
+    expect(links.map((l) => l.tier)).toEqual(["search"]);
+  });
+
   it("dotaz do registru se NIKDY netváří jako detail entity", () => {
     // Rozdíl detail/search je celý smysl `tier` — rešerše není citace.
     const links = sourceLinksFor(subject({ kind: "person", id: "psp:person:6202", label: "J. Pokorná" }));
