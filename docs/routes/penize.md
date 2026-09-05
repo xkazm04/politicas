@@ -764,3 +764,9 @@ jeho stránka ho řezaly na den, spis poslance a konzole ho tiskly celý — do 
 verzálkami v monospace. Řez má jednu definici, `reviewedDay` v `reviewTypes.ts`,
 a čtou ho všechna čtyři místa.
 
+**Zaplněný strop čtení auditu se hlásí (2026-09-07).** `getVerificationQueue` čte
+`review_audit` se stropem 10 000 řádků (od nejnovějšího). Živý sklad nese 0
+řádků, ale den, kdy by se strop naplnil, by nejstarší historie z konzole zmizely
+a rozhodnutá vazba by tvrdila „auditní stopa žádný záznam nevede“. Čtení, které
+strop naplní, teď zapíše varování; stránka se vykreslí dál.
+

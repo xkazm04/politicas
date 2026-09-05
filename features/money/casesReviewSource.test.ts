@@ -73,3 +73,10 @@ describe("last human review: rendered as a day on every surface", () => {
     }
   });
 });
+
+describe("verification queue: a capped audit read is reported, not silent", () => {
+  it("warns when the ledger read returns as many rows as the cap", () => {
+    const s = src("features/money/getVerificationData.ts");
+    expect(s).toMatch(/rows\.length >= AUDIT_READ_CAP/);
+  });
+});
