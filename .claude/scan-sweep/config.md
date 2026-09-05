@@ -143,3 +143,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   file), one fold rule vs the stem lists it is applied to (assert asciiFold(stem) === stem), and
   two decoders of one grammar (feed both the same string). A resume/retry branch that `break`s
   out of its loop is worth one temp-dir test - the post-loop code decides what the break meant.
+- 2026-09-06 — ingest-psp-sources, first sweep (28 lenses, 3 built: 1 instrument + 1 dedupe + 1 key
+  fix). A context whose primary file has 0 tests while its siblings have dozens: build the fixture
+  first (an in-memory stored zip is 30 lines) - the round's other findings then have somewhere to
+  land. A 'mirror of X' comment is a pair claim: diff the two builders (here firma:<ico> raw vs
+  canonical) before trusting it. Fixture bytes for windows-1250: only á é í ó ú ý survive latin1.
+  lib/ingest/sources/ is a REGISTRY directory (atlas.test.ts derives the adapter list from it):
+  a helper file there fails the FULL gate, not the unit run - the gate runs before the ledgers.

@@ -29,3 +29,4 @@
 {"ts": "2026-09-06T10:20:00Z", "bundle": "software-engineering", "subjects": ["quality-gates", "docs-sync"], "techniques": ["outage-is-never-cacheable", "one-rule-every-route"], "deviations": 1}
 {"ts": "2026-09-06T13:40:00Z", "bundle": "software-engineering", "subjects": ["quality-gates", "docs-sync", "i18n"], "techniques": ["derive-the-catalog-from-the-enum", "one-cap-every-read", "settle-every-promise", "missing-is-not-zero"], "deviations": 3}
 {"ts": "2026-09-06T15:30:00Z", "bundle": "software-engineering", "subjects": ["integration", "quality-gates"], "techniques": ["classify-before-you-respond", "fold-before-you-match", "verified-dead-removal", "one-cap-every-read"], "deviations": 2}
+{"ts": "2026-09-06T17:10:00Z", "bundle": "software-engineering", "subjects": ["quality-gates", "data-modeling"], "techniques": ["build-the-instrument-first", "one-definition-per-rule", "canonical-key-mirror"], "deviations": 2}
