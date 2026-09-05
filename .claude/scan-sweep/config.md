@@ -49,3 +49,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   Gate note: a second load-sensitive timeout this session — `lib/db/pglite/premigration.test.ts`
   „restores…“ hit its 60 s budget inside a full `npm run check` (5,4 s alone). Same recipe:
   rerun the file alone, then run every stage `check` skipped.
+- 2026-09-05 — civic-feeds-verification, first sweep (28 lenses, 3 S built). Route handlers
+  ARE unit-testable here: `vi.mock("next/headers")` + `vi.mock("./get<Loader>")` and
+  `await import("@/app/<route>/route")` (the `server-only` alias in vitest.config.ts makes
+  the import legal). Two suites now exist as templates: features/dukazy/feedRoutes.test.ts,
+  features/schranka/feedRoutes.test.ts. A mocked `SchrankaDeltas.coverage` needs all six
+  NovinkyCoverage flags (dukazy, recompute too) or tsc goes red on the test file.
