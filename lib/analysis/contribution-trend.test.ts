@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { CONTRIBUTION_WEIGHTS } from "./contribution";
 import { computeTrend, type CurrentContribution } from "./contribution-trend";
 
 const current: CurrentContribution = {
@@ -69,5 +70,22 @@ describe("computeTrend", () => {
     expect(t.priorScore).toBe(55);
     expect(t.scoreDelta).toBe(-15);
     expect(t.pendingComponents).toEqual([]);
+  });
+});
+
+describe("the trend's component list is the formula's, not a hand copy (2026-09-06, test-strategist)", () => {
+  it("names every CONTRIBUTION_WEIGHTS key exactly once — a seventh weight could not be left out silently", () => {
+    // COMPONENT_ORDER is typed `ComponentKey[]`, which allows omissions and repeats; the
+    // formula's own key set is the ground truth the order must cover.
+    const trend = computeTrend(
+      { score: 50, components: { participation: 10, committee: 10, legislative: 10, speech: 10, attendance: 5, leadership: 5 },
+        billsAuthored: 1, interpellations: 1, speechTurns: 1, committeeCount: 1, leadershipCount: 1 },
+      { term: "PSP9", complete: false, components: { committee: 5, legislative: 5, speech: 5 } },
+    );
+    expect(trend).not.toBeNull();
+    const keys = trend!.components.map((c) => c.key);
+    expect([...keys].sort()).toEqual(Object.keys(CONTRIBUTION_WEIGHTS).sort());
+    expect(new Set(keys).size).toBe(keys.length);
+    for (const c of trend!.components) expect(c.weight).toBe(CONTRIBUTION_WEIGHTS[c.key]);
   });
 });
