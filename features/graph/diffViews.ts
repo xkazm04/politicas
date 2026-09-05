@@ -24,11 +24,12 @@
  *    věty — proč se to stalo, ví /denik a účtenka, ne tenhle modul.
  */
 
+import { edgeKey } from "./forensicView";
 import type { GraphEdge } from "./graphTypes";
 
-/** Klíč hrany v obou verzích — uložená orientace, jako všude v grafu. */
-export const edgeKey = (e: { src: string; rel: string; dst: string }): string =>
-  `${e.src}|${e.rel}|${e.dst}`;
+/** Klíč hrany v obou verzích — uložená orientace, jako všude v grafu. KANONICKÁ
+ *  definice žije ve forensicView.ts (jedna kopie pravidla, od 2026-09-06). */
+export { edgeKey };
 
 /** Jedna hrana, jak ji rozdíl pojmenuje: klíč plus to, co se o ní sází. */
 export interface DiffEdge {

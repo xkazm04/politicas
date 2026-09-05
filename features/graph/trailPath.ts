@@ -31,7 +31,8 @@
  * si nese `forward`, aby klíč hrany (src|rel|dst) seděl na plátno.
  */
 
-import type { EdgeProvenance, GateStatus } from "./graphTypes";
+import { EMPTY_GRAPH_PROVENANCE } from "@/lib/kg/graphProvenance";
+import type { EdgeProvenance, GateStatus, PathQueryResult } from "./graphTypes";
 
 // ── Konstanty pravidla (UI je tiskne, testy je přibíjejí) ────────────────────
 
@@ -71,6 +72,27 @@ export function pathRule(): {
 } {
   return { ruleRef: PATH_RULE_REF, excludedRels: EXCLUDED_RELS, hubDegree: HUB_DEGREE, maxCost: MAX_COST };
 }
+
+/**
+ * Odpověď „hledání neproběhlo" (sklad neběží, akce spadla) — JEDINÁ definice.
+ * Do 2026-09-06 ji graphLoader i VariantMapa psaly každý sám; dvanácté pole by
+ * dorazilo jen do jedné z nich. Nuly tu nic netvrdí: `status: "unavailable"`
+ * říká, že se nepočítalo, a plocha sází výpadek, ne počty.
+ */
+export const unavailablePathResult = (): PathQueryResult => ({
+  status: "unavailable",
+  from: null,
+  to: null,
+  paths: [],
+  totalFound: 0,
+  capped: false,
+  maxCost: MAX_COST,
+  hubDegree: HUB_DEGREE,
+  excludedRejected: 0,
+  ruleRef: PATH_RULE_REF,
+  // Prázdná agregace = „hledání neproběhlo", ne „graf nemá provenienci".
+  provenance: EMPTY_GRAPH_PROVENANCE,
+});
 
 // ── Tvary ────────────────────────────────────────────────────────────────────
 

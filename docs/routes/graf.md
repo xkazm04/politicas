@@ -313,3 +313,11 @@ the map's edges, so a neighbourhood-overlay node — the layer the map deliberat
 omits and the reader explicitly asked to draw — hovered to nothing, and an overlay
 edge never counted. The card now reads `stageNodes` and the unfiltered map + overlay
 edges (0 of N overlay nodes hoverable → N of N).
+
+**One definition per shared shape (2026-09-06, scan-sweep, parity-auditor).**
+`edgeKey` was defined byte-identically in `forensicView.ts` and `diffViews.ts`; the
+eleven-field „hledání neproběhlo" `PathQueryResult` was spelled by hand in both
+`graphLoader.getPathBetween` and `VariantMapa` — a twelfth field would have reached
+one copy. `diffViews` now re-exports the canonical `edgeKey` and both the loader and
+the variant build the unavailable result from `trailPath.unavailablePathResult()`
+(2 + 2 definitions → 1 + 1; `oneDefinition.test.ts` pins both).

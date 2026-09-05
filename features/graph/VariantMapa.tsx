@@ -39,8 +39,7 @@ import NodeSearch from "./components/NodeSearch";
 import TrailFinder from "./components/TrailFinder";
 import { InspectorDrawer, LegendOverlay, StatChip, TopLeft } from "./components/StageOverlays";
 import { mapAction, neighbourhoodAction, pathAction, trailsAction } from "./graphActions";
-import { HUB_DEGREE, MAX_COST, PATH_RULE_REF } from "./trailPath";
-import { EMPTY_GRAPH_PROVENANCE } from "@/lib/kg/graphProvenance";
+import { unavailablePathResult } from "./trailPath";
 import { useNodeSelection } from "./useNodeSelection";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import type { GraphViewState } from "./permalink";
@@ -55,23 +54,9 @@ import type {
   Trail,
 } from "./graphTypes";
 
-/** Odpověď pro případ, kdy akce spadne dřív, než loader stihne odpovědět. */
-const PATH_UNAVAILABLE: PathQueryResult = {
-  status: "unavailable",
-  from: null,
-  to: null,
-  paths: [],
-  totalFound: 0,
-  capped: false,
-  maxCost: MAX_COST,
-  hubDegree: HUB_DEGREE,
-  // Nulou se tu netvrdí „žádné zamítnuté hrany nejsou" — tenhle tvar znamená
-  // „hledání vůbec neproběhlo" (status: "unavailable"), a plocha sází výpadek,
-  // ne počty.
-  excludedRejected: 0,
-  ruleRef: PATH_RULE_REF,
-  provenance: EMPTY_GRAPH_PROVENANCE,
-};
+/** Odpověď pro případ, kdy akce spadne dřív, než loader stihne odpovědět —
+ *  táž definice, jakou vrací loader (trailPath.unavailablePathResult). */
+const PATH_UNAVAILABLE = unavailablePathResult();
 
 /** Interval rozsvěcení kroků cesty (bez reduced-motion). */
 const REVEAL_STEP_MS = 380;

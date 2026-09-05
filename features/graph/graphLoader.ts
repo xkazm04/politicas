@@ -66,11 +66,9 @@ import {
   buildAdjacency,
   EXCLUDED_RELS,
   findEvidencePaths,
-  HUB_DEGREE,
-  MAX_COST,
-  PATH_RULE_REF,
   type Adjacency,
   type PathEdge,
+  unavailablePathResult,
 } from "./trailPath";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
 import { gateFieldsOf, gateOf, provenanceOf, type GatedEdgeRow } from "./edgeGate";
@@ -762,20 +760,7 @@ async function buildPathAdjacency(): Promise<Adjacency | null> {
  * aby klíč src|rel|dst sedl na hrany mapy (čočka jeviště).
  */
 export async function getPathBetween(srcId: string, dstId: string): Promise<PathQueryResult> {
-  const unavailable: PathQueryResult = {
-    status: "unavailable",
-    from: null,
-    to: null,
-    paths: [],
-    totalFound: 0,
-    capped: false,
-    maxCost: MAX_COST,
-    hubDegree: HUB_DEGREE,
-    excludedRejected: 0,
-    ruleRef: PATH_RULE_REF,
-    // Prázdná agregace = „hledání neproběhlo", ne „graf nemá provenienci".
-    provenance: EMPTY_GRAPH_PROVENANCE,
-  };
+  const unavailable = unavailablePathResult();
   const idx = await graphIndex();
   const adj = await pathAdjacency();
   if (!idx || !adj) return unavailable;
