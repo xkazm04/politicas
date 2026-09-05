@@ -26,11 +26,7 @@
  *    částku nese (loader ji načte, /penize ji tiskne jako peníze instituce),
  *    spis ji u řádku vědomě nevykresluje a řekne proč + odkáže na spis peněz.
  *    To je redakční pravidlo o PŘIČÍTÁNÍ, ne druhý výpočet.
- *  • Datum, které nemohlo nastat, se u řádku potlačí a přizná. Verdikt hranice
- *    (`lib/analysis/plausible-date.ts`) kreslí LOADER a nese ho řádek sám
- *    (`ContractLine.dateWithheldOn`); spis ho čte, nepřepočítává — do 2026-09-07
- *    tu běžela druhá kopie téže hranice proti VLASTNÍMU dni (UTC `seatsAsOf`),
- *    zatímco loader kreslil pražský den: dvě plochy, dvě odpovědi o jednom podpisu.
+ *  • Datum, které nemohlo nastat, se u řádku potlačí a přizná (plausible-date).
  */
 
 import { mpBucketClaim, type MoneyFigure } from "@/features/money/moneyClaims";
@@ -42,6 +38,7 @@ import {
   type BasisComposition,
 } from "@/features/money/amountBasis";
 import type { Corroboration, MoneyMpDetail, ReviewState, TieClass } from "@/features/money/moneyTypes";
+import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
 
 /** Kolik smluvních řádků se u vazby vypíše; zbytek se počítá, nikdy nezahazuje. */
 export const PROFILE_CONTRACT_LINES = 5;
@@ -158,17 +155,19 @@ export function emptyProfileMoney(unavailable: boolean): ProfileMoney {
 
 /**
  * `MoneyMpDetail` → náklad spisu. Žádné sčítání: `detail.money` je výsledek
- * `reachableMoney()` a přebírá se, jak přišel — a žádný druhý den: verdikt
- * o datu podpisu přichází na řádku z loaderu (`dateWithheldOn`).
+ * `reachableMoney()` a přebírá se, jak přišel.
+ *
+ * `asOf` je den, proti kterému se posuzuje uvěřitelnost data podpisu (spis ho
+ * i tiskne, takže musí být jeden pro celou stránku).
  */
-export function toProfileMoney(detail: MoneyMpDetail): ProfileMoney {
+export function toProfileMoney(detail: MoneyMpDetail, asOf: string): ProfileMoney {
   let unusableDates = 0;
   const ties: ProfileMoneyTie[] = detail.ties.map((t) => {
     const attributable = isAttributable(t.tieClass);
     const lines: ProfileContractLine[] = attributable
       ? t.contracts.slice(0, PROFILE_CONTRACT_LINES).map((c) => {
-          const dateUnusable = c.dateWithheldOn != null;
-          const signedOn = dateUnusable ? null : c.signedOn;
+          const signedOn = plausibleIsoDateOrNull(c.signedOn, asOf);
+          const dateUnusable = typeof c.signedOn === "string" && c.signedOn !== "" && signedOn === null;
           if (dateUnusable) unusableDates += 1;
           return {
             id: c.id,

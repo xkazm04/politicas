@@ -576,7 +576,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     const resolvableTies = edgesByRel("linked_to").filter((e) => e.src === selfId && companyById.has(e.dst));
     const moneyDetail = resolvableTies.length > 0 ? await getMoneyMpDetail(pspId) : null;
     const money: ProfileMoney = moneyDetail
-      ? toProfileMoney(moneyDetail)
+      ? toProfileMoney(moneyDetail, seatsAsOf)
       : emptyProfileMoney(resolvableTies.length > 0);
 
     // Score legibility — derived entirely from rows already in memory: the ranked

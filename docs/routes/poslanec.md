@@ -403,16 +403,6 @@ omluv o dva řádky níž brala `pragueDay()`: jedna stránka, dva kalendáře, 
 půlnocí a 01:00/02:00 pražského času o den rozjeté. `seatsAsOf` je teď
 `pragueDay(instant)` z téhož okamžiku a omluvy se kreslí proti němu.
 
-**Spis čte verdikt o datu podpisu z loaderu (2026-09-07, scan-sweep,
-parity-auditor).** `toProfileMoney` spouštěl druhý běh hranice možného data nad
-každou smlouvou proti VLASTNÍMU dni (UTC `seatsAsOf`), zatímco peněžní loader
-už verdikt kreslil — od roundu 35 k pražskému dni — a nesl ho na řádku
-(`ContractLine.dateWithheldOn`). Dvě plochy, dvě odpovědi o jednom podpisu.
-Projekce teď verdikt čte, parametr `asOf` zmizel a `profileMoney.test.ts`
-připíná tři tvary řádku (datum drženo · potlačeno · chybí), strop řádků i to,
-že steward vazba nenese na spisu žádné Kč. Tohle je „navazující krok", který
-`moneyTypes.ts` u `dateWithheldOn` jmenuje.
-
 **Mapa rolí ve výboru je úplná typem (2026-09-07, scan-sweep, parity-auditor).**
 `ROLE_KEY` v `ProfilePage` překládá výčet `chair | vice | member`
 (`lib/analysis/kg.ts::ROLE_WEIGHT`) na klíče katalogu a byl typovaný jako volný
