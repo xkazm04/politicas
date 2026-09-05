@@ -464,9 +464,13 @@ async function buildTrails(): Promise<Trail[] | null> {
       return null;
     }
 
+    // KG_READ_CAP i tady: do 2026-09-06 se firmy četly s limitem 10 000, zatímco
+    // graf jich od Case ④ nese ~16 tisíc — firma, která se do čtení nevešla, měla
+    // v trase peníze 0 (`companyMoney.get(cid) ?? 0`), tedy chyběla mlčky. Pět
+    // sousedních loaderů čte firmy stropem readCap.ts; tenhle byl šestý výklad.
     const [companies, bills, allEdges] = await Promise.all([
-      store.listKgNodes({ kind: "company", limit: 10_000 }),
-      store.listKgNodes({ kind: "bill", limit: 10_000 }),
+      store.listKgNodes({ kind: "company", limit: KG_READ_CAP }),
+      store.listKgNodes({ kind: "bill", limit: KG_READ_CAP }),
       store.listKgEdges({ limit: KG_READ_CAP }),
     ]);
 

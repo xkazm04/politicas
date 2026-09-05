@@ -263,3 +263,12 @@ missing-key string typeset as a label. The pure-module mirrors in `permalink.ts`
 (`KIND_LABELS`, `REL_LABELS`) had the same holes. `catalogParity.test.ts` now derives
 the required key set from `KG_NODE_KINDS` / `KG_EDGE_RELS` for both locales and both
 mirrors; 1 kind + 8 relations were added (0 → 9 missing labels closed).
+
+**`buildTrails` reads companies through `KG_READ_CAP` (2026-09-06, scan-sweep,
+bounty-hunter).** The trail loader listed `company` nodes with a literal `10_000` —
+the very ad-hoc limit `lib/db/readCap.ts` names as the class of bug it ends — while
+the graph carries ~16k company nodes since Case ④. A company outside the first ten
+thousand had no `companyMoney` entry, so `?? 0` made its contracts vanish from
+„Peníze kolem poslanců" and „Výbory a peníze" without a trace. Five sibling loaders
+already read companies with the cap; `loaderSource.test.ts` pins that no whole-relation
+read in the graph loader carries a literal limit (1 → 0 literal-capped reads).
