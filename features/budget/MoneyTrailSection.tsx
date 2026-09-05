@@ -33,6 +33,7 @@ import { MIN_PEERS, peerGroupFor } from "./peerGroups";
 import {
   getSupplierTable,
   liftTiedRows,
+  paidCellKind,
   peerSupplierTotals,
   rowTotalCount,
   rowTotalCzk,
@@ -331,11 +332,21 @@ export default function MoneyTrailSection({
                         {f.int(rowTotalCount(r))}
                       </td>
                       <td className="py-3.5 pr-4 text-right font-mono text-sm tabular-nums">
-                        {r.paidCzk > 0 ? (
-                          f.czk(r.paidCzk)
-                        ) : (
-                          <span className="text-steel-aa">{t("directionUnknown")}</span>
-                        )}
+                        {/* Tři stavy, ne dva (paidCellKind): do 2026-09-05 tu rozhodovalo
+                            `paidCzk > 0`, takže řádek s doloženým směrem a nezaznamenanou
+                            částkou (60 z 1 026 v dávce) tvrdil „směr neuveden". */}
+                        {(() => {
+                          const kind = paidCellKind(r);
+                          if (kind === "amount") return f.czk(r.paidCzk);
+                          if (kind === "documentedNoAmount") {
+                            return (
+                              <span className="text-steel-aa">
+                                {t("paidDocumentedNoAmount", { count: f.int(r.paidCount) })}
+                              </span>
+                            );
+                          }
+                          return <span className="text-steel-aa">{t("directionUnknown")}</span>;
+                        })()}
                       </td>
                       <td className="py-3.5 pr-4 text-right font-mono text-sm tabular-nums text-steel-aa">
                         {peer.medianCzk === null ? (

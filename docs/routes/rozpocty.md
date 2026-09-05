@@ -155,3 +155,15 @@ from the URL (Brno in the tab, Ostrava on the page). The handler now sets `docum
 the same catalog key `generateMetadata` uses on `/rozpocty/[ico]` (`meta.budgetIcoTitle`), so
 both paths say the same sentence; the description meta is left as is (it is not what a reader
 sees). NOT verified in a browser — no politicas dev server was available.
+
+**§04's „z toho doložený směr" cell has three states, not two (2026-09-05, scan-sweep,
+state-coverage).** The cell decided on `paidCzk > 0`, so a row whose contracts DO
+document the town as payer but carry no amount in the register (`asCzk` maps an
+absent weight to 0) printed „směr neuveden" — the opposite of what the record holds.
+Measured on the shipped batch: **60 of 1 026** rows (Praha × Ministerstvo financí:
+1 documented contract, 0 Kč; ČEPRO, Středočeský kraj…). `paidCellKind` in
+`supplierTrail.ts` names the three states (`amount` / `documentedNoAmount` /
+`unknown`), the cell prints „směr doložen · částka neuvedena (n)" for the middle one
+in both catalogs, and `supplierTrail.test.ts` pins that the batch carries that state.
+Nothing else moves: the card sums (`paidCzk`, `paidContractCount`) were already
+right — only the per-row sentence lied.

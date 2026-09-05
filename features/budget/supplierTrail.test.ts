@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  paidCellKind,
   asCzk,
   deriveMunicipalSupplierRows,
   getSupplierTable,
@@ -378,5 +379,22 @@ describe("liftTiedRows — výpis nese N největších a KAŽDOU protistranu s v
     const r = liftTiedRows(rows, 3, (x) => tied.has(x));
     expect(r.folded.some((x) => tied.has(x))).toBe(false);
     expect(r.shown.length + r.folded.length).toBe(rows.length);
+  });
+});
+
+describe("paidCellKind — doložený směr bez částky není „směr neuveden“ (2026-09-05)", () => {
+  it("rozlišuje tři stavy podle počtu doložených smluv a částky", () => {
+    expect(paidCellKind({ paidCount: 0, paidCzk: 0 })).toBe("unknown");
+    expect(paidCellKind({ paidCount: 1, paidCzk: 0 })).toBe("documentedNoAmount");
+    expect(paidCellKind({ paidCount: 1, paidCzk: 100 })).toBe("amount");
+  });
+
+  it("zapsaná dávka ten třetí stav skutečně nese — to je řádek, který plocha do teď popírala", () => {
+    const rows = parseSupplierRows(SUPPLIERS_PACKED);
+    const documentedNoAmount = rows.filter((r) => paidCellKind(r) === "documentedNoAmount");
+    expect(documentedNoAmount.length).toBeGreaterThan(0);
+    // Praha × Ministerstvo financí: 1 smlouva s doloženým směrem, částka nezaznamenaná.
+    expect(documentedNoAmount.some((r) => r.townIc === "00064581" && r.supplierIco === "00006947")).toBe(true);
+    for (const r of documentedNoAmount) expect(r.paidCount).toBeGreaterThan(0);
   });
 });

@@ -65,6 +65,22 @@ export interface SupplierRow {
 export const rowTotalCzk = (r: SupplierRow): number => r.paidCzk + r.otherCzk;
 export const rowTotalCount = (r: SupplierRow): number => r.paidCount + r.otherCount;
 
+/**
+ * Co smí buňka „z toho doložený směr" o řádku tvrdit. Tři stavy, ne dva:
+ *   - `amount`            — doložený směr A částka: sází se Kč;
+ *   - `documentedNoAmount`— směr doložen (paidCount > 0), ale registr u těch
+ *                            smluv částku nenese (`asCzk` mapuje absenci na 0);
+ *   - `unknown`           — žádná smlouva řádku směr nedokládá.
+ * Do 2026-09-05 plocha rozhodovala podle `paidCzk > 0`, takže 60 z 1 026 řádků
+ * zapsané dávky (Praha × Ministerstvo financí: 1 doložená smlouva, 0 Kč) tvrdilo
+ * „směr neuveden" — opak toho, co záznam nese. Absence částky není absence směru.
+ */
+export type PaidCellKind = "amount" | "documentedNoAmount" | "unknown";
+export function paidCellKind(r: Pick<SupplierRow, "paidCount" | "paidCzk">): PaidCellKind {
+  if (r.paidCount === 0) return "unknown";
+  return r.paidCzk > 0 ? "amount" : "documentedNoAmount";
+}
+
 export interface TownSupplierSummary {
   /** Řádky obce, celkové CZK sestupně (pořadí z generátoru, deterministické). */
   rows: SupplierRow[];

@@ -1986,6 +1986,7 @@
     "tieVerified": "tie verified",
     "tieNeedsReview": "needs verification",
     "directionUnknown": "direction not stated",
+    "paidDocumentedNoAmount": "direction documented · amount not recorded ({count})",
     "noPeerRecord": "no peer on record",
     "peerTownCount": "({count} municipalities)",
     "restRow": "… plus {count} more counterparties worth {sum} — the listing carries the {top} largest by recorded volume.",

@@ -1986,6 +1986,7 @@
     "tieVerified": "vazba ověřena",
     "tieNeedsReview": "vyžaduje ověření",
     "directionUnknown": "směr neuveden",
+    "paidDocumentedNoAmount": "směr doložen · částka neuvedena ({count})",
     "noPeerRecord": "bez vrstevníka v záznamu",
     "peerTownCount": "({count} obcí)",
     "restRow": "… a dalších {count} protistran za {sum} — výpis nese {top} největších podle objemu v záznamu.",
