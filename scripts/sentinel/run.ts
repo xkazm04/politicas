@@ -27,10 +27,13 @@
  * a stderr line and wrote NO machine report even with SENTINEL_JSON set. So
  * nothing anywhere distinguished "ran and passed" from "never ran": both left
  * the same artifact, none. Both paths now emit `unevaluableSentinelReport` —
- * the SAME sixteen rows in the SAME order, every one `unevaluable` with the
- * reason — which parses as a valid politicas.sentinel/1 report, renders as
- * "0 of 16 invariants could be evaluated", and keeps exit code 2. It is not a
- * pass and it does not pretend to be one.
+ * every row of `SENTINEL_CHECK_ORDER` (lib/testing/sentinel/invariants.ts) in
+ * that order, each `unevaluable` with the reason — which parses as a valid
+ * politicas.sentinel/1 report, renders as "0 of N invariants could be
+ * evaluated", and keeps exit code 2. It is not a pass and it does not pretend to
+ * be one. (The header said "sixteen" from 2026-08-13 until 2026-09-06, two
+ * checks after the list had grown to eighteen — the count belongs to the list,
+ * not to this comment.)
  *
  * THIS COMMAND IS THE REAL EXECUTION PATH. `.github/workflows/sentinel.yml` runs
  * it on a hosted runner where there is no `./.pglite` (a local, gitignored 1.6 GB
