@@ -78,7 +78,11 @@ describe("kalendářní pomocníci", () => {
   });
 
   it("sinceDay: den poslední návštěvy; bez razítka okno první návštěvy (7 dnů včetně dneška)", () => {
-    expect(sinceDay("2026-07-28T23:59:00Z", "2026-07-31")).toBe("2026-07-28");
+    // 23:59 UTC is 01:59 PRAGUE on the 29th - the day the reader was actually looking
+    // at the schránka; the deník entries the threshold is measured against carry the
+    // Prague day (getDenikData.builtOn), so the threshold does too (2026-09-07).
+    expect(sinceDay("2026-07-28T23:59:00Z", "2026-07-31")).toBe("2026-07-29");
+    expect(sinceDay("2026-07-28T20:00:00Z", "2026-07-31")).toBe("2026-07-28");
     expect(sinceDay(null, "2026-07-31")).toBe("2026-07-25");
   });
 });

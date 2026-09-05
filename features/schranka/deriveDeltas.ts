@@ -34,6 +34,7 @@ import {
   type DenikEntry,
 } from "@/features/denik/deriveDenik";
 import type { EvidenceEntry } from "@/features/dukazy/deriveFeed";
+import { pragueDay } from "@/features/denik/pragueDay";
 import { entityDenikHref, entityHref, isEntityKey } from "./followCodec";
 import { recomputeDelta, type RecomputeFact } from "./recomputeFact";
 
@@ -100,11 +101,18 @@ export const FIRST_VISIT_DAYS = 7;
 
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** `YYYY-MM-DD` dne, do kterého spadá ISO instant; nevalidní vstup → null. */
+/** `YYYY-MM-DD` PRAŽSKÉHO dne, do kterého spadá ISO instant; nevalidní vstup → null.
+ *  Do 2026-09-07 se bral prefix řetězce, tedy UTC den: razítko návštěvy v 00:30
+ *  pražského času padalo do včerejška, zatímco záznamy deníku, proti kterým se
+ *  práh měří, nesou pražský den (`getDenikData.builtOn`). Holé datum bez času
+ *  je den sám. */
 export function dayOf(iso: string | null): string | null {
   if (!iso) return null;
-  const m = iso.match(/^(\d{4}-\d{2}-\d{2})/);
-  return m ? m[1] : null;
+  const m = iso.match(/^(\d{4}-\d{2}-\d{2})(T.*)?$/);
+  if (!m) return null;
+  if (m[2] === undefined) return m[1];
+  const t = Date.parse(iso);
+  return Number.isFinite(t) ? pragueDay(new Date(t)) : null;
 }
 
 /** Den o `days` dnů před `today` (UTC aritmetika — žádné pásmové drifty). */

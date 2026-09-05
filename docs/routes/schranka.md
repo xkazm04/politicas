@@ -232,3 +232,12 @@ and pins the policy, the 503 `no-store`, and the parser.
 a proxy schématu vedle /kraj a /plakat (round 37 je sjednotil do
 `lib/routing/liveUrl.ts`); teď volá `liveUrl("")`. Chování beze změny: bez
 hlavičky host prázdný origin, bez proxy hlavičky `http`.
+
+**Schránka počítá dny v pražském kalendáři, jako server (2026-09-07, scan-sweep,
+bounty-hunter).** Server datuje `builtOn` i práh delty pražským dnem
+(`getDenikData`), ale klient bral „dnešek" z UTC řetězce (`useToday`), den
+razítka návštěvy z prefixu ISO okamžiku (`visitWindow.openVisit`) a `dayOf`
+totéž — mezi půlnocí a 01:00/02:00 pražského času měl čtenář jiný den než
+server: okno první návštěvy posunuté, odznak přepínal den ve dvě ráno, návštěva
+v 00:30 padala do včerejška. Všechna tři místa čtou `pragueDay()`; test
+`sinceDay` teď říká, že 23:59 UTC je pražský následující den.

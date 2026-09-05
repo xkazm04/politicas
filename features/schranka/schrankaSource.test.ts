@@ -14,3 +14,20 @@ describe("feedRequest.ts builds the request origin through lib/routing/liveUrl",
     expect(s).not.toMatch(/from "next\/headers"/);
   });
 });
+
+describe("the schránka reads its days on the Prague calendar, like the server's builtOn", () => {
+  it("useToday derives today with pragueDay(), not a UTC slice", () => {
+    const s = src("features/schranka/useToday.ts");
+    expect(s).toMatch(/import \{ pragueDay \} from "@\/features\/denik\/pragueDay"/);
+    expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
+  });
+  it("visitWindow stamps the visit day with pragueDay(instant)", () => {
+    const s = src("features/schranka/visitWindow.ts");
+    expect(s).toMatch(/pragueDay\(new Date\(now\)\)/);
+    expect(s).not.toMatch(/now\.slice\(0, 10\)/);
+  });
+  it("deriveDeltas.dayOf maps an instant to its Prague day", () => {
+    const s = src("features/schranka/deriveDeltas.ts");
+    expect(s).toMatch(/import \{ pragueDay \} from "@\/features\/denik\/pragueDay"/);
+  });
+});
