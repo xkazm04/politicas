@@ -28,7 +28,7 @@ const VALID_DECISIONS: readonly ReviewDecision[] = ["confirm", "reject", "needs-
 
 export interface SubmitReviewInput {
   src: string; // kg_edge.src, "psp:person:<pspId>"
-  dst: string; // kg_edge.dst, "kg:company:<ico>" (whatever the tie's actual node id is)
+  dst: string; // kg_edge.dst, `company:ico:<8-digit>` (companyId.ts) — whatever the tie's actual node id is
   decision: ReviewDecision;
   note: string | null;
   /** Reviewer-submitted token, checked against process.env.REVIEWER_TOKEN. */
