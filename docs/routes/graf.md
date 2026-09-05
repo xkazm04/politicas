@@ -237,3 +237,18 @@ and the tender surface do not yet link into `/graf?okoli=<id>`, and `caseFileLin
 is still unused by `features/graph`. The neighbourhood overlay is deliberately ONE
 level deep: a neighbourhood anchored on another overlay node would depend on
 arrival order and would turn the node budget into a suggestion.
+
+**`lib/kg/sourceLinks.ts` — three pairs closed (2026-09-05, scan-sweep).** (1) The
+node-kind enum existed three times — a hand-typed union here, `KG_NODE_KINDS` in
+`lib/analysis/kg-verdict`, and a third hand-typed list in the test — and the test's
+list lacked `tender`, so „every kind is handled" passed over 10 of 11 kinds. The type
+is now re-exported from the one enum and the test derives from it (`594408f`).
+(2) `citableId` has demanded a NUMERIC psp id since 2026-08-13; `sourceLinksFor`'s
+person branch still took any id suffix, so `kg:person:novak-j` minted a psp.cz
+detail address that points at nothing. Both branches now share `pspNumber`.
+(3) Company links and „IČO …" citations took `props.ico` verbatim; ingest carries
+unpadded IČO, so ARES/OR/Hlídač received „123" for „00000123" — the same class
+`8db835f` fixed on /dukazy. `lib/kg` cannot import `features/money/companyId`, so the
+padding lives here and `sourceLinks.test.ts` holds the two functions to one shape over
+seven samples. Real `psp:person:<n>` ids and already-canonical IČO produce
+byte-identical links; only the guessed and unpadded cases changed.

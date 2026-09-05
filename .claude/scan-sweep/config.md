@@ -55,3 +55,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   the import legal). Two suites now exist as templates: features/dukazy/feedRoutes.test.ts,
   features/schranka/feedRoutes.test.ts. A mocked `SchrankaDeltas.coverage` needs all six
   NovinkyCoverage flags (dukazy, recompute too) or tsc goes red on the test file.
+- 2026-09-05 — civic-kg-primitives, first sweep (28 lenses, 3 S built, 1 card). `lib/**`
+  may not import `features/**`; when a lib helper must agree with a features helper
+  (canonical IČO), write the lib copy and pin the two together in the lib TEST, which
+  MAY import features. A whole-tree `tsc` + two vitest runs + eslint in one chain exceeds
+  the 300 s foreground budget — run multi-step build chains with run_in_background.

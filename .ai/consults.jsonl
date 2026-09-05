@@ -8,3 +8,5 @@
 {"ts": "2026-09-05T16:20:00Z", "bundle": "software-engineering", "subjects": ["feed", "audit-logging"], "techniques": ["reverse-chronology-semantics", "append-only-design", "decision-records", "tamper-evidence"], "deviations": 0}
 {"ts": "2026-09-05T16:20:00Z", "bundle": "civic-intelligence", "subjects": ["civic-knowledge-graphs"], "techniques": ["per-claim-provenance-stamping", "civic-entity-ontology"], "deviations": 1}
 {"ts": "2026-09-05T17:30:00Z", "bundle": "civic-intelligence", "subjects": ["claim-verification-and-provenance"], "techniques": ["claim-ref-addressing", "structured-review-emission", "recomputation-receipts"], "deviations": 0}
+{"ts": "2026-09-05T19:10:00Z", "bundle": "civic-intelligence", "subjects": ["civic-knowledge-graphs", "accountability-publishing-ethics"], "techniques": ["civic-entity-ontology", "per-claim-provenance-stamping", "real-vs-illustrative-form-encoding"], "deviations": 1}
+{"ts": "2026-09-05T19:10:00Z", "bundle": "software-engineering", "subjects": ["canvas-graph"], "techniques": ["graph-layout", "render-budget"], "deviations": 0}
