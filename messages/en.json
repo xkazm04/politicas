@@ -3350,6 +3350,7 @@
       "run": "run #{id}",
       "leaves": "{count} leaves",
       "root": "root {hash}",
+      "shownNewest": "showing the newest {count}; the other {rest} are in manifest.json",
       "source": "source: ingest_run.merkle_root — sealed by LedgerRepository.sealIngestRun"
     },
     "download": {

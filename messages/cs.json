@@ -3350,6 +3350,7 @@
       "run": "běh #{id}",
       "leaves": "{count} listů",
       "root": "kořen {hash}",
+      "shownNewest": "zobrazeno {count} nejnovějších; dalších {rest} nese manifest.json",
       "source": "zdroj: ingest_run.merkle_root — pečetí LedgerRepository.sealIngestRun"
     },
     "download": {

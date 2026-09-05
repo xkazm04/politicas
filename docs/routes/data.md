@@ -202,3 +202,11 @@ three verdict sentences now have count-free variants
 as `✓ / ✕ / …` plus a colour — announced as „check mark" or „horizontal ellipsis",
 never as a failure. The glyph is `aria-hidden` now and an `sr-only` sentence
 (`changelog.status.{ok,failed,running}`, both catalogs) names the state.
+
+**The sealed-runs list says how many it leaves out (2026-09-05, scan-sweep,
+state-coverage).** `getLedgerHeads` returns up to 50 sealed runs; the page showed
+the newest eight with nothing after them, so eight read as all. The cap is a
+named constant now and, when the list is longer, a counted sentence
+(`sealed.shownNewest`) points the rest at `manifest.json`, which carries every
+returned run. The 50-row ceiling itself is the repository's and is not a total —
+the sentence counts what was returned, never what the store holds.

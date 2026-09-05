@@ -42,6 +42,10 @@ import type { DataReleasesData, SnapshotFacts } from "./getDataReleasesData";
  *  hodnota zůstává v title (a strojově v /data/manifest.json). */
 const shortHash = (hash: string) => (hash.length > 18 ? `${hash.slice(0, 16)}…` : hash);
 
+/** Kolik zapečetěných běhů stránka vysází; zbytek nese manifest.json a věta pod
+ *  seznamem ho POČÍTÁ — do 2026-09-05 tu bylo `slice(0, 8)` a o zbytku mlčení. */
+const SEALED_RUNS_SHOWN = 8;
+
 function StoreDownState() {
   const t = useTranslations("dataReleases");
   return (
@@ -475,7 +479,7 @@ export default function DataReleasesPage({
                     <p className="mt-2 text-sm leading-relaxed text-steel-aa">{t("sealed.empty")}</p>
                   ) : (
                     <ul className="mt-2 space-y-2">
-                      {m.integrity.sealedRuns.slice(0, 8).map((r) => (
+                      {m.integrity.sealedRuns.slice(0, SEALED_RUNS_SHOWN).map((r) => (
                         <li key={r.runId} className="border-b border-hairline pb-2 font-mono text-sm last:border-b-0">
                           <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                             <span>
@@ -491,6 +495,14 @@ export default function DataReleasesPage({
                         </li>
                       ))}
                     </ul>
+                  )}
+                  {m.integrity.sealedRuns.length > SEALED_RUNS_SHOWN && (
+                    <p className="mt-2 font-mono text-xs text-steel-aa">
+                      {t("sealed.shownNewest", {
+                        count: f.int(SEALED_RUNS_SHOWN),
+                        rest: f.int(m.integrity.sealedRuns.length - SEALED_RUNS_SHOWN),
+                      })}
+                    </p>
                   )}
                   <div className="mt-3">
                     <SourceNote>{t("sealed.source")}</SourceNote>

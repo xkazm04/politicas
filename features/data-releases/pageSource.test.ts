@@ -56,3 +56,18 @@ describe("stav ingest běhu v changelogu nenese jen glyf (2026-09-05, accessibil
     }
   });
 });
+
+describe("zapečetěné běhy přiznají, kolik jich stránka NEukazuje (2026-09-05, state-coverage)", () => {
+  it("výřez osmi nejnovějších jde přes pojmenovaný strop a věta o zbytku existuje v obou katalozích", () => {
+    // `slice(0, 8)` bez věty: trezor vrátí až 50 zapečetěných běhů, stránka jich
+    // vysázela osm a o zbytku mlčela — čtenář četl osm jako všechny.
+    expect(PAGE).not.toMatch(/sealedRuns\.slice\(0, 8\)/);
+    expect(PAGE).toMatch(/sealedRuns\.slice\(0, SEALED_RUNS_SHOWN\)/);
+    expect(PAGE).toMatch(/sealed\.shownNewest/);
+    for (const text of inBoth("dataReleases.sealed.shownNewest")) {
+      expect(typeof text).toBe("string");
+      expect(text as string).toContain("{count}");
+      expect(text as string).toContain("{rest}");
+    }
+  });
+});
