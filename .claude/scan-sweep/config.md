@@ -274,3 +274,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   When the partner constant is private in another context, a test that PARSES the partner's
   source is an S instrument that turns the comment into a check. `as SomeUnion` on a stored
   string is a default branch in disguise: guard with the vocabulary array and NAME the strays.
+- 2026-09-07 — votetrack-kompas, first sweep (28 lenses, 3 built in 3 commits, 1 card). When a
+  sibling context already holds the HONEST version of a pattern (VoteThemeFilter's known-set
+  render), grep the feature for the dishonest one and fix the in-context copies; the sibling's
+  copies go to the next round if that context is next in map order, not to a card.
