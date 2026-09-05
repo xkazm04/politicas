@@ -2383,7 +2383,8 @@
       "contract": "contract",
       "bill": "bill",
       "law": "law",
-      "notice": "notice"
+      "notice": "notice",
+      "tender": "tender"
     },
     "rels": {
       "co_votes_with": "co-voting",
@@ -2398,7 +2399,15 @@
       "cites": "cites",
       "owns_stake": "stake in company",
       "owns": "theme remit",
-      "belongs_to": "belongs to bloc"
+      "belongs_to": "belongs to bloc",
+      "procures": "procures",
+      "bids_on": "bids on",
+      "wins": "wins",
+      "concerns": "concerns",
+      "rapporteur": "rapporteur of",
+      "spoke_on": "spoke on",
+      "proposes_amendment": "proposes amendment to",
+      "decides": "decides"
     },
     "search": {
       "placeholder": "search the graph…",
@@ -2440,7 +2449,8 @@
         "contract": "This contract carries neither its own address in the Contract Register nor the supplier's IČO we use to query it.",
         "bill": "This bill is missing the number psp.cz uses to reference it.",
         "law": "The law citation in the record has no recognizable number and year, so a link into e-Sbírka can't be built.",
-        "notice": "This notice doesn't carry the address it was posted at — without it no link can be built, and reconstructing one would mean guessing. It stays at the case number."
+        "notice": "This notice doesn't carry the address it was posted at — without it no link can be built, and reconstructing one would mean guessing. It stays at the case number.",
+        "tender": "This tender carries neither a contracting-authority profile nor a NIPEZ identifier, so a link into ISVZ can't be built."
       }
     },
     "stage": {

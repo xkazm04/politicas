@@ -252,3 +252,14 @@ unpadded IČO, so ARES/OR/Hlídač received „123" for „00000123" — the sam
 padding lives here and `sourceLinks.test.ts` holds the two functions to one shape over
 seven samples. Real `psp:person:<n>` ids and already-canonical IČO produce
 byte-identical links; only the guessed and unpadded cases changed.
+
+**The graph catalogs are derived from the KG enums, not hand-synced (2026-09-06,
+scan-sweep, parity-auditor).** `graph.kinds` lacked `tender` and `graph.rels` lacked
+the procurement layer (`procures`, `bids_on`, `wins`) and five later relations
+(`concerns`, `rapporteur`, `spoke_on`, `proposes_amendment`, `decides`), while the
+canvas, the search index and the neighbourhood already carried them — a company's
+`okoli` printed `graph.rels.wins` and the legend `graph.kinds.tender`, next-intl's
+missing-key string typeset as a label. The pure-module mirrors in `permalink.ts`
+(`KIND_LABELS`, `REL_LABELS`) had the same holes. `catalogParity.test.ts` now derives
+the required key set from `KG_NODE_KINDS` / `KG_EDGE_RELS` for both locales and both
+mirrors; 1 kind + 8 relations were added (0 → 9 missing labels closed).

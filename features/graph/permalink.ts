@@ -393,8 +393,10 @@ export function permalinkSources(view: PermalinkView): PermalinkSources {
 // OG obraz i serverové titulky dnes jdou přes getTranslations (graph.kinds.*,
 // graph.trasy.trails.*); tyhle konstanty zůstávají jako POSLEDNÍ ZÁCHRANA pro
 // druh/trasu, kterou katalog ještě nezná (t.has → fallback), a pro čisté testy
-// bez i18n kontextu. Drž je v sync s graph.trasy.trails, graph.kinds a
-// graph.rels.
+// bez i18n kontextu. Sync s graph.trasy.trails, graph.kinds a graph.rels
+// hlídá catalogParity.test.ts PROTI enumům KG_NODE_KINDS / KG_EDGE_RELS —
+// do 2026-09-06 tu stálo jen „drž v sync" a `tender` i celá zakázková vrstva
+// (procures, bids_on, wins) chyběly ve všech třech.
 
 export const TRAIL_TITLES: Record<string, string> = {
   "penize-poslancu": "Peníze kolem poslanců",
@@ -414,6 +416,7 @@ export const KIND_LABELS: Record<string, string> = {
   bill: "tisk",
   law: "zákon",
   notice: "vývěska",
+  tender: "zadávací řízení",
 };
 
 export const REL_LABELS: Record<string, string> = {
@@ -430,6 +433,14 @@ export const REL_LABELS: Record<string, string> = {
   owns_stake: "podíl ve firmě",
   owns: "gesce tématu",
   belongs_to: "patří do bloku",
+  procures: "zadává",
+  bids_on: "uchází se o",
+  wins: "vítězí v",
+  concerns: "týká se",
+  rapporteur: "zpravodaj tisku",
+  spoke_on: "vystoupil k",
+  proposes_amendment: "navrhuje pozměňovací návrh k",
+  decides: "rozhoduje o",
 };
 
 export const relLabel = (rel: string): string => REL_LABELS[rel] ?? rel;

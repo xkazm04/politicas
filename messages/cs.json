@@ -2383,7 +2383,8 @@
       "contract": "smlouva",
       "bill": "tisk",
       "law": "zákon",
-      "notice": "vývěska"
+      "notice": "vývěska",
+      "tender": "zadávací řízení"
     },
     "rels": {
       "co_votes_with": "společné hlasování",
@@ -2398,7 +2399,15 @@
       "cites": "cituje",
       "owns_stake": "podíl ve firmě",
       "owns": "gesce tématu",
-      "belongs_to": "patří do bloku"
+      "belongs_to": "patří do bloku",
+      "procures": "zadává",
+      "bids_on": "uchází se o",
+      "wins": "vítězí v",
+      "concerns": "týká se",
+      "rapporteur": "zpravodaj tisku",
+      "spoke_on": "vystoupil k",
+      "proposes_amendment": "navrhuje pozměňovací návrh k",
+      "decides": "rozhoduje o"
     },
     "search": {
       "placeholder": "hledat v grafu…",
@@ -2440,7 +2449,8 @@
         "contract": "U této smlouvy nemáme ani uloženou adresu v Registru smluv, ani IČO dodavatele, přes které se do rejstříku dotazujeme.",
         "bill": "U tohoto tisku chybí číslo, kterým se na psp.cz odkazuje.",
         "law": "Citace zákona v záznamu nemá rozpoznatelné číslo a ročník, takže odkaz do e-Sbírky sestavit nejde.",
-        "notice": "Tahle vývěska nenese adresu, na které byla vyvěšena — bez ní odkaz sestavit nejde a rekonstruovat ho by znamenalo hádat. Zůstává spisová značka."
+        "notice": "Tahle vývěska nenese adresu, na které byla vyvěšena — bez ní odkaz sestavit nejde a rekonstruovat ho by znamenalo hádat. Zůstává spisová značka.",
+        "tender": "U tohoto řízení chybí profil zadavatele i identifikátor NIPEZ, takže odkaz do ISVZ sestavit nejde."
       }
     },
     "stage": {
