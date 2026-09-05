@@ -343,3 +343,26 @@ describe("řetěz a účtenka — čím se rozhodnutí dá nezávisle ověřit",
     expect(e.companyHref).toBeNull();
   });
 });
+
+describe("registry links use the CANONICAL IČO — the same one the deník pads (2026-09-05)", () => {
+  // `icoFromDst` accepts 6–8 digits because node ids exist unpadded in the
+  // graph; ARES's REST path and Hlídač's subject route want the 8-digit form.
+  // /denik's `companyLinks` pads through `canonicalIco`; this feed built the
+  // same three links from the raw segment, so the two journals sent a reader
+  // to two different addresses for one firm — and the 6-digit ARES one 404s.
+  it("a 6-digit dst yields links on the padded IČO, matching companyHref", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({ dst: "kg:company:123456" })] }));
+    expect(e.companyHref).toBe("/penize/firma/00123456");
+    for (const l of e.links) expect(l.href).toContain("00123456");
+    for (const l of e.links) expect(l.href).not.toMatch(/[^0]123456/);
+  });
+
+  it("an already-canonical dst is unchanged", () => {
+    const [e] = deriveEvidenceFeed(input({ audit: [row({})] }));
+    expect(e.links.map((l) => l.href)).toEqual([
+      "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr/04544152",
+      "https://www.hlidacstatu.cz/subjekt/04544152",
+      `https://www.hlidacstatu.cz/hledatsmlouvy?Q=${encodeURIComponent("ico:04544152")}`,
+    ]);
+  });
+});

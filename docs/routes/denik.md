@@ -244,3 +244,12 @@ fields built exclusively from the mapper's output; falsified by nulling the
 mapper → `gap-in-chain-pos`). `feedIndex.ts`'s existing promise that this family
 carries a chain link was made TRUE rather than edited — it belongs to another
 surface's write set, and the payload was the honest place to fix it.
+
+**/dukazy links the same IČO the deník links (2026-09-05, scan-sweep, parity-auditor).**
+`icoFromDst` accepts 6–8 digits because unpadded node ids exist in the graph, and the
+bulletin's three registry links were built from that raw segment while `companyHref`
+on the SAME entry — and every company link on /denik — went through `canonicalIco`.
+A 6-digit row therefore sent the reader to an ARES REST path that 404s and to a
+Hlídač subject the deník addressed under another number. Links now use the padded
+IČO; `deriveFeed.test.ts` pins a 6-digit dst against its own `companyHref` and the
+canonical case byte-for-byte.

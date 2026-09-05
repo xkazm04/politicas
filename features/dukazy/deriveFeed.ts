@@ -241,17 +241,23 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
   const pspId = pspIdFromSrc(row.src);
   const source = input.tieSources.get(`${row.src}→${row.dst}`) ?? "";
 
+  // Links are built on the CANONICAL (8-digit) IČO, exactly as /denik's
+  // `companyLinks` does. Until 2026-09-05 they took the raw dst segment —
+  // `icoFromDst` accepts 6–8 digits because unpadded node ids exist in the
+  // graph — so a 6-digit row sent the reader to an ARES REST path that 404s
+  // and to a Hlídač subject the deník addressed differently. One firm, one
+  // address, in both journals.
+  const canonical = ico ? canonicalIco(ico) : null;
+
   const links: EvidenceLink[] = [];
-  if (ico) {
-    const r = buildRegistryLinks(ico, source);
+  if (canonical) {
+    const r = buildRegistryLinks(canonical, source);
     links.push(
       { label: "ARES VR", href: r.aresVr },
       { label: "Hlídač státu", href: r.hlidacSubjekt },
       { label: "Registr smluv", href: r.registrSmluv },
     );
   }
-
-  const canonical = ico ? canonicalIco(ico) : null;
 
   return {
     id: row.id,
