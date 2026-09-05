@@ -252,3 +252,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   localStorage stamps) whenever the server already uses pragueDay(). When a round's source-grep
   file grows per commit, split it so each commit is green on its own (park the later describes
   in the scratchpad and re-append) - a red intermediate commit is a red `git bisect`.
+- 2026-09-07 — shared-primitives, first sweep (28 lenses, 2 built in 2 commits, 0 cards). A
+  primitive that ENFORCES a brand rule in code is the rule's only instrument - if its logic is
+  unexported, the rule has no test; extract the pure part beside the component. `aria-label`
+  without a role is a name nothing announces: grep `aria-label` on <svg>/<span>/<div>.
