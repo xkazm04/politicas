@@ -30,7 +30,7 @@ import { isPlausibleIsoDate } from "@/lib/analysis/plausible-date";
 
 import { col, colInt, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
-import { unlOf } from "./unlMembers";
+import { unlOf } from "../unlMembers";
 
 export const SOURCE_TISKY_LAW = "psp-tisky-law";
 

@@ -10,11 +10,11 @@ const ACT = read("lib/ingest/sources/psp-activity.ts");
 const LEG = read("lib/ingest/sources/psp-legislation.ts");
 
 describe("one definition per shared psp rule (2026-09-06, parity-auditor)", () => {
-  it("unlOf lives once (unlMembers.ts); the three adapters import it", () => {
+  it("unlOf lives once (lib/ingest/unlMembers.ts); the three adapters import it", () => {
     // Three byte-identical copies of „decode + parse one UNL member, missing → []".
     for (const [name, src] of [["psp.ts", PSP], ["psp-activity.ts", ACT], ["psp-legislation.ts", LEG]] as const) {
       expect(src, name).not.toMatch(/function unlOf\(/);
-      expect(src, name).toMatch(/import \{ unlOf \} from "\.\/unlMembers"/);
+      expect(src, name).toMatch(/import \{ unlOf \} from "\.\.\/unlMembers"/);
     }
   });
 

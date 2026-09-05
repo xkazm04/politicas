@@ -16,7 +16,7 @@
 
 import { col, colInt, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
-import { unlOf } from "./unlMembers";
+import { unlOf } from "../unlMembers";
 
 export const SOURCE_TISKY = "psp-tisky";
 export const SOURCE_INTERP = "psp-interp";

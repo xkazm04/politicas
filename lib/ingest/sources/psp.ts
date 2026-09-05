@@ -24,7 +24,7 @@
 import { asciiFold, fullName, readBirthDate, termCode, voteChoice, voteKind, voteOutcome } from "../normalize";
 import { col, colInt, czDateHourToIso, czDateTimeToIso, czDateToIso, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
-import { unlOf } from "./unlMembers";
+import { unlOf } from "../unlMembers";
 import type {
   AbsenceRow,
   MandateRow,
