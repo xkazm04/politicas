@@ -210,3 +210,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   helper, and every `new Date().toISOString().slice(0, 10)` is a UTC day in a Prague product.
   Two null meanings in one loader (outage vs empty) surface as a card when the page prints one
   sentence for both.
+- 2026-09-07 — money-cases-review, first sweep (28 lenses, 7 built in 7 commits, 1 new card, 2
+  updated). Write the source-grep test BEFORE the edit: it found a fifth copy of a label (a tile)
+  the full read had missed. A comment that quotes the removed formula matches the test that
+  forbids it - describe the old code, never paste it. A fix that moves one half of a comment-
+  held pair (round 32's Prague day on the company route) re-opens the pair in the partner's
+  context; card it the same round, in the partner's name, and say who opened it.
