@@ -104,11 +104,10 @@ function ownershipDisclosedOf(v: unknown): OwnershipDisclosed | null {
   };
 }
 
-export function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
-}
+// The id parser is the STRICT shared one (`/^psp:person:(\d+)$/`, lib/ingest/changeEvents).
+// The copy that stood here took the last `:`-segment of ANY id, so a company or contract id
+// parsed as an MP; both /penize loaders import it from here, hence the re-export.
+export { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 
 /** Per-company contract aggregate. NO line items: a contract's label and signature date
  *  live on the `contract` NODE, and reading 152 788 of them costs 7.8 s to answer a

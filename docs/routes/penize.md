@@ -770,3 +770,9 @@ a čtou ho všechna čtyři místa.
 a rozhodnutá vazba by tvrdila „auditní stopa žádný záznam nevede“. Čtení, které
 strop naplní, teď zapíše varování; stránka se vykreslí dál.
 
+**Loader knihy čte id poslance přísným sdíleným parserem (2026-09-07).**
+`moneyLoader.ts` nesl vlastní `pspIdFromNodeId`, který bral poslední segment
+JAKÉHOKOLI id za `:` — id firmy nebo smlouvy by prošlo jako poslanec — a oba
+loadery /penize ho odsud importovaly. Modul teď re-exportuje přísný parser
+z `lib/ingest/changeEvents.ts` (`/^psp:person:(\d+)$/`); týž nález jako
+v triage (round 31) a v ARES-VR skriptech (round 34).
