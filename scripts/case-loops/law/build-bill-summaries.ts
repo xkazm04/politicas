@@ -31,8 +31,8 @@ import { join, dirname } from "node:path";
 
 import { czechGateErrors } from "@/lib/analysis/language-gate";
 import { getStore } from "@/lib/db/store";
+import { CACHE_DIR } from "./collision-core";
 
-const CACHE_DIR = ".data/law-collision-cache";
 const OUT = "docs/data-analysis/case-law/payloads/bill-summaries-cz.json";
 const INDEX = "docs/data-analysis/case-law/payloads/bill-index.json";
 

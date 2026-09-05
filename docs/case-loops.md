@@ -544,3 +544,10 @@ refuses when the file exists unless `--replace` is passed. Its recorded
 `triageFormula` advertised `sev*1e9 + amends*5e6 + churn*2e6 + routeAnom*2.5e8`
 while the code computed log-scaled bands of 1e6 / 3e4 / 1e3 / 5e3 / 2e3; both
 now read one `BANDS` constant (`triageSource.test.ts`).
+
+**`triage-core.ts`'s domain matcher is tested (2026-09-07, scan-sweep,
+test-strategist).** The batch-002 P42 fix — "vydání" no longer reads as "daní",
+so the boilerplate MP title is not economy — had no test; `triage-core.test.ts`
+pins it, five sector titles, case/diacritic folding and the ten-sector
+vocabulary. `build-bill-summaries.ts` now imports the cache path from
+`collision-core` instead of spelling it.
