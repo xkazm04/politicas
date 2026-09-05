@@ -736,3 +736,10 @@ teď nese `REVIEW_STATES` (týmž vzorem jako `TIE_CLASSES`) a `reviewStateOf(ra
 loader konzole čte přes něj. Cokoli, co brána nikdy nezapsala — prázdné pole,
 cizí zápis — je „čeká na kontrolu“, protože o takové vazbě člověk nerozhodl.
 
+**Střety čtou číslo předpisu jedinou inverzí (2026-09-07).** Když uzel předpisu
+nenese `props.ref`, odvozoval si `getCollisionCandidates` číslo z id uzlu vlastním
+zápisem (odřízni `law:sb:`, první pomlčku nahraď lomítkem) — druhý parser vedle
+`refFromLawNodeId` v `features/lawwatch/statuteRef.ts`. Ten vlastní zápis udělal
+z JAKÉHOKOLI cizího id věrohodně vypadající „x/y“; inverze vrátí pro nekanonické
+id null a plocha ukáže surové id — viditelný urn, nikdy vyrobená citace.
+

@@ -28,3 +28,11 @@ describe("review state: one runtime vocabulary (reviewTypes.ts)", () => {
     expect(s).not.toMatch(/rawState === "verified" \?/);
   });
 });
+
+describe("collision candidates: statute ref from a law node id", () => {
+  it("imports the lawwatch inverse instead of re-spelling the urn grammar", () => {
+    const s = src("features/money/collisions/getCollisionCandidates.ts");
+    expect(s).toMatch(/import \{ refFromLawNodeId \} from "@\/features\/lawwatch\/statuteRef"/);
+    expect(s).not.toMatch(/replace\(\/\^law:sb:\//);
+  });
+});
