@@ -222,3 +222,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   A 'required' CLI flag parsed with `?? 0` is not required. A --restart that deletes the
   artefact must reset the resume record with it, or the record says 'done' over nothing. A
   retry predicate that substring-matches a status code also matches the id in the quoted URL.
+- 2026-09-07 — money-ledger-graph, first sweep (28 lenses, 6 built in 6 commits + 1 test repair, 1
+  card, 1 card closed). A switch's `default:` branch is copy too - read what it SAYS for the
+  inputs that reach it (five payload edges reached it and were called 'not checked'). Probe the
+  payload files for the figure when the store cannot be opened. Never chain `vitest | grep` with
+  `&&` - grep's exit is 0 when it matches the FAIL line, and a red describe committed; gate the
+  commit on vitest's own exit code.
