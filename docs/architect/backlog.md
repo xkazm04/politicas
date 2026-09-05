@@ -58,6 +58,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-06] `features/civicscore/provenance.ts` re-implements `storedFormulaRef`** — type: duplication, risk: 1, effort: s, payoff: 2, reach: 1 file (`provenance.ts:79-83` vs `lib/analysis/contribution.ts` `storedFormulaRef`)
   Found by: scan-sweep (contribution-scoring, parity-auditor) · Same semantics today (string, non-empty ⇒ ref, else null); the write guard and the read-side `formulaMatch` are the two halves of one contract and should read the ref through one function. Fix: import `storedFormulaRef` (civicscore-leaderboard context) · escalation: architecture (cross-context edit)
 
+- **[2026-09-06] `readZipMap` silently keeps the last of two members with one basename** — type: contract, risk: 1, effort: s, payoff: 2, reach: 1 function (`packages/czech-civic-data/src/zip.ts` `readZipMap`, every ingest adapter reads through it)
+  Found by: scan-sweep (czech-civic-data-parsing, error-handler) · The map is keyed by lower-cased basename, so `a/organy.unl` and `b/organy.unl` collapse to one entry and the earlier member is dropped with no error — against the module's "reject loudly rather than silently mis-read" rule. psp.cz dumps are flat today. Fix: throw a named error on a duplicate key (a behaviour change for any archive that relies on last-wins) · escalation: contract
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)

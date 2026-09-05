@@ -88,3 +88,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   count is printed by a component in another context) cannot be fixed in-context under
   veto 1 - route the type change as a contract card, name the consumer file, and build
   only what the module can prove alone (a completeness test, a validator).
+- 2026-09-06 — czech-civic-data-parsing, first sweep (28 lenses, 4 S built). A codec that
+  range-checks a date (1-12, 1-31) is the same defect as one that shape-checks it; and a
+  container reader that skips the checksum its container carries contradicts its own
+  "reject loudly" header. Stage discipline: when two findings edit the same file, commit
+  the first BEFORE applying the second - `--only <file>` stages the whole file.
