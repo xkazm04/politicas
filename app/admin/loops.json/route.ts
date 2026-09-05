@@ -11,6 +11,9 @@ import { encodeLoopsDoc } from "@/features/admin/loops/loopsJson";
 export const dynamic = "force-dynamic";
 
 const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" } as const;
+// A refused or unconfigured console must not be cached as the console's answer
+// (the 503 no-store rule every machine route holds since 2026-09-06).
+const REFUSED_HEADERS = { ...JSON_HEADERS, "cache-control": "no-store" } as const;
 
 export async function GET(): Promise<Response> {
   const gate = await readAdminGate();
@@ -23,7 +26,7 @@ export async function GET(): Promise<Response> {
             ? "Konzole není nakonfigurována (ADMIN_TOKEN chybí)."
             : "Přístup neověřen — přihlaste se tokenem na /admin.",
       }),
-      { status, headers: JSON_HEADERS },
+      { status, headers: REFUSED_HEADERS },
     );
   }
   const doc = await getLoopsDoc();

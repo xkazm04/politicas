@@ -132,3 +132,8 @@ it, not because the tables structurally cannot be measured. Both that sentence
 and the scope note are byte-pinned to their constants by
 `features/atlas/messages.test.ts`, so the prose and the capability cannot drift
 apart again.
+
+**`/atlas/atlas.json` answers an outage with an uncacheable 503 (2026-09-06,
+scan-sweep, parity-auditor).** Same rule as the feed and data endpoints
+(`cache-control: no-store`, `retry-after: 600`); pinned by
+`lib/testing/machineRoutes503.test.ts`.

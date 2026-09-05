@@ -222,3 +222,11 @@ now go through `f.int` on the page.
 bounty-hunter).** „běh #{id}" formatted the run id through `f.int`, which groups
 thousands — the thousandth sealed run would have read `#1 234`. The id is passed
 as a string; `pageSource.test.ts` pins it.
+
+**`/data/manifest.json` and `/data/snapshot.json` answer an outage with an
+uncacheable 503 (2026-09-06, scan-sweep, parity-auditor).** The feed routes
+adopted `cache-control: no-store` on 503 in c210d19 and 650a4d9; the two data
+endpoints (and `/atlas/atlas.json`, `/graf/p/[ref]/bundle`, `/admin/loops.json`)
+still returned a cacheable „store unavailable". All five carry `no-store` now,
+the three JSON ones also `retry-after: 600`; `lib/testing/machineRoutes503.test.ts`
+pins every machine route over mocked loaders.

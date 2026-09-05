@@ -147,3 +147,7 @@ set does not include (G4 owns it). Also still open from card #13: the JSON-LD
 "změněno od <date>", and the diff table under `moved` at `/overeni`; all three
 wait on the same replay.
 
+**`/graf/p/[ref]/bundle` adds `no-store` to its 503 (2026-09-06, scan-sweep,
+parity-auditor).** The bundle already sent `retry-after: 600`; a shared cache could
+still have held the outage. 404 and 410 are unchanged — a gone citation is a state
+of today's pass and is reported, not cached, by the page.

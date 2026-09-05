@@ -20,7 +20,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ ref: string }>
     return new Response(null, { status: 410 });
   }
   if (result.status === "unavailable") {
-    return new Response(null, { status: 503, headers: { "retry-after": "600" } });
+    return new Response(null, { status: 503, headers: { "retry-after": "600", "cache-control": "no-store" } });
   }
   return Response.json(toEvidenceJsonLd(result.view), {
     headers: {
