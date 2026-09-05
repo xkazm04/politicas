@@ -6,6 +6,7 @@ import { deriveReferendumCard } from "@/features/landing/referendum/ogPayload";
 import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import { HAIRLINE, INK, OCHRE, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
 import { czech, czechDate, czechInt } from "@/lib/format";
+import type { ComponentKey } from "@/lib/analysis/contribution-trend";
 
 /*
  * OG karta referenda o metodice (moonshot 7B) — sdílený odkaz /referendum
@@ -46,14 +47,17 @@ async function loadGoogleFont(family: string, weight: number, text: string): Pro
 /** Tmavá varianta složkové barvy: inkoust na inkoustu by zmizel. */
 const darkFill = (light: string): string => (light === INK ? PAPER : light);
 
-const COMPONENT_SHORT: Record<string, string> = {
+// `satisfies` over the formula's own key type: a seventh component added to
+// CONTRIBUTION_WEIGHTS fails to compile here instead of printing its raw key on the card.
+const COMPONENT_SHORT = {
   participation: "účast",
   committee: "výbory",
   legislative: "legislativa",
   speech: "vystoupení",
   attendance: "docházka",
   leadership: "vedení",
-};
+} as const satisfies Record<ComponentKey, string>;
+const shortLabel = (key: string): string => (key in COMPONENT_SHORT ? COMPONENT_SHORT[key as ComponentKey] : key);
 
 export async function GET(req: NextRequest) {
   const raw = req.nextUrl.searchParams.get(LENS_PARAM);
@@ -128,7 +132,7 @@ export async function GET(req: NextRequest) {
   const bars =
     card.kind === "official" || card.kind === "lens"
       ? card.fingerprint.map((fp) => ({
-          label: COMPONENT_SHORT[fp.key] ?? fp.key,
+          label: shortLabel(fp.key),
           value: czech(fp.eff),
           width: Math.max(6, Math.round(fp.eff * 6)),
           color: darkFill(COMPONENT_FILL[fp.key]?.color ?? STEEL),

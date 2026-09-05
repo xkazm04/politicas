@@ -570,3 +570,10 @@ parity-auditor).** `/referendum` i `/zebricek` nesly tutéž tvarovou pojistku
 nad `searchParams` (`string | string[] | undefined` → první hodnota) pod
 komentářem odkazujícím na druhou routu. `lib/routing/searchParam.ts::firstParam`
 je ta jedna, testovaná; kodek čočky se dál importuje z `features/civicscore/lens`.
+
+**Zkratky složek na OG kartě jsou úplné typem (2026-09-07, scan-sweep,
+parity-auditor).** `COMPONENT_SHORT` v `app/referendum/og/route.tsx` překládá
+šest klíčů vzorce na krátké české popisky a byl typovaný jako volný
+`Record<string, string>` — sedmá složka přidaná do `CONTRIBUTION_WEIGHTS` by
+na sdílené kartě vytiskla svůj syrový klíč. Mapa je `satisfies
+Record<ComponentKey, string>`: chybějící klíč je chyba kompilace.
