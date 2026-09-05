@@ -505,3 +505,9 @@ and `collision-core.ts`; `collisionSource.test.ts` fails if a local definition
 returns. The docType-aware `operativeSlice` stays local on purpose: for a platné
 znění document it keeps the text before the first ČÁST heading, which the core's
 bill-only slice would cut.
+
+**`verify-close-reads.ts` reads the cache through `collision-core`
+(2026-09-07, scan-sweep, parity-auditor).** The P49 guard had its own cache path
+and its own `.txt` join; it now calls `readCachedBillText` and applies only its
+comparison form on top — one cache path and one NFC read for every collision
+script.
