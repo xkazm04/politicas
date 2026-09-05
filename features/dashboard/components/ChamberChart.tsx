@@ -54,7 +54,7 @@ function ChamberChart({ histogram, mockTrend, count, reduceMotion }: ChamberChar
   return (
     <>
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel">
-        {histogram ? t("histogram.label", { count }) : t("chamberTrendLabel")}
+        {histogram ? t("histogram.label", { count: f.int(count) }) : t("chamberTrendLabel")}
       </p>
       <div className="mt-3 w-full overflow-hidden" style={{ aspectRatio: "5 / 3", minHeight: 200 }}>
         <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
