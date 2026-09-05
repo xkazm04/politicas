@@ -119,7 +119,7 @@ export const KRAJ_CODE_TO_COURT_SLUG: Record<number, string> = {
   27: "praha", // Středočeský
   31: "ceske_budejovice", // Jihočeský
   32: "plzen", // Plzeňský
-  41: "usti_nad_labem", // Karlovarský (folds to Plzeň court per some sources; kept with Ústí group is wrong — see NOTE below)
+  41: "plzen", // Karlovarský — rejstříkový soud je Krajský soud v Plzni, ne Ústí (do 2026-09-06 to literál tvrdil obráceně a opravoval se až o 15 řádků níž)
   42: "usti_nad_labem", // Ústecký
   51: "usti_nad_labem", // Liberecký
   52: "hradec_kralove", // Královéhradecký
@@ -130,11 +130,6 @@ export const KRAJ_CODE_TO_COURT_SLUG: Record<number, string> = {
   72: "brno", // Zlínský
   80: "ostrava", // Moravskoslezský
 };
-// NOTE (honest limitation, not silently guessed): Karlovarský kraj's registry court is
-// actually Krajský soud v Plzni, not Ústí — kodKraje 41 above is a known-approximate entry
-// (ČSÚ kraj code for Karlovarský; corrected mapping below). Kept as an explicit override
-// table entry rather than fixed inline so a wrong guess is visible and correctable:
-KRAJ_CODE_TO_COURT_SLUG[41] = "plzen"; // Karlovarský → Krajský soud v Plzni (corrected)
 
 /** ARES `pravniForma` numeric codelist → dataor legal-form slug. Only the forms actually
  *  observed among Case ① money's open ties + the catalog's own published slug list
