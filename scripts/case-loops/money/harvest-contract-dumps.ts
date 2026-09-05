@@ -23,6 +23,7 @@
  *   npx tsx scripts/case-loops/money/harvest-contract-dumps.ts --from=2025-10
  *   npx tsx scripts/case-loops/money/harvest-contract-dumps.ts            # everything
  *   npx tsx scripts/case-loops/money/harvest-contract-dumps.ts --refresh=2026-07
+ *   npx tsx scripts/case-loops/money/harvest-contract-dumps.ts --restart     # discard harvest + state
  */
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
@@ -72,17 +73,35 @@ async function main() {
   await fs.mkdir(WORK_DIR, { recursive: true });
 
   // 2) resume state
+  // Only a MISSING state file means "first run". A state file that cannot be read or parsed
+  // is a fault: treating it as fresh would re-harvest every month (~26 GB) and re-append every
+  // record, silently. Until 2026-09-07 any error here started over.
+  const fresh = (): HarvestState => ({ months: {}, publisherOnlyByIco: {}, icoCount: icos.size, startedAt: new Date().toISOString(), updatedAt: "" });
   const state: HarvestState = await fs
     .readFile(STATE, "utf8")
     .then((s) => JSON.parse(s) as HarvestState)
     .catch((e: unknown) => {
-      console.log(`  (starting a fresh harvest: ${e instanceof Error ? e.message : String(e)})`);
-      return { months: {}, publisherOnlyByIco: {}, icoCount: icos.size, startedAt: new Date().toISOString(), updatedAt: "" };
+      if ((e as NodeJS.ErrnoException | null)?.code !== "ENOENT") throw e;
+      console.log("  (starting a fresh harvest: no state file yet)");
+      return fresh();
     });
+  // `--restart` discards the harvest AND the record of what was harvested - the two must move
+  // together. Deleting only the JSONL (what this flag did until 2026-09-07) left every month
+  // marked done and therefore skipped, so the harvest was gone and nothing re-collected it.
+  if (flag("restart")) {
+    await fs.rm(OUT_JSONL, { force: true });
+    state.months = {};
+    state.publisherOnlyByIco = {};
+    console.log("  (--restart: harvest file and month record discarded)");
+  }
 
   // 3) index
-  const indexXml = await (await fetch(INDEX_URL, { signal: AbortSignal.timeout(120_000) })).text();
-  const all = parseDumpIndex(indexXml);
+  const idxRes = await fetch(INDEX_URL, { signal: AbortSignal.timeout(120_000) });
+  if (!idxRes.ok) throw new Error(`dump index ${INDEX_URL} → HTTP ${idxRes.status}`);
+  const all = parseDumpIndex(await idxRes.text());
+  // An index that parses to nothing is a changed page or an error body, never "no dumps":
+  // the loop below would otherwise print "nothing to do." and exit 0.
+  if (all.length === 0) throw new Error(`dump index ${INDEX_URL} parsed to zero entries`);
   // Daily increments are subsets of their month — harvesting both would double-count.
   let months = all.filter((e) => e.isMonthly).sort((a, b) => a.rok - b.rok || a.mesic - b.mesic);
   const from = arg("from");
@@ -104,7 +123,6 @@ async function main() {
 
   // Appending (not rewriting) keeps a killed run's work; the persist step dedupes on
   // idSmlouvy anyway, and `--refresh` deliberately re-appends a corrected month.
-  if (flag("restart")) await fs.rm(OUT_JSONL, { force: true });
 
   let grandTotal = 0;
   let grandDropped = 0;

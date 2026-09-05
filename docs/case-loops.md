@@ -640,3 +640,12 @@ company sweep's own header names exactly this as the batch-009 mistake it
 corrected. The row now carries `contracts: null`; the console summaries already
 filtered on `error`.
 
+**The harvest's resume state is trusted only when it is missing (2026-09-07,
+scan-sweep, error-handler).** `harvest-contract-dumps.ts` started a fresh
+harvest on ANY error reading its state file — a corrupt or unreadable state
+would have re-downloaded ~26 GB and re-appended every record silently; now only
+`ENOENT` means "first run". `--restart` deleted the harvest JSONL but left every
+month marked done, so the data was gone and nothing re-collected it; it now
+resets the month record with the file. And a refused or empty dump index no
+longer reads as "nothing to do" — it throws.
+

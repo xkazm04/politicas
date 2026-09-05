@@ -87,3 +87,17 @@ describe("parent-contract-sweep.ts: a failed query is an UNMEASURED parent, neve
     expect(s).not.toMatch(/contracts: 0, truncated: false/);
   });
 });
+
+describe("harvest-contract-dumps.ts: resume state", () => {
+  const s = src("money/harvest-contract-dumps.ts");
+  it("only a missing state file starts a fresh harvest; a corrupt one is an error", () => {
+    expect(s).toMatch(/code !== "ENOENT"\) throw/);
+  });
+  it("--restart resets the recorded months together with the harvest file", () => {
+    expect(s).toMatch(/flag\("restart"\)[\s\S]{0,400}state\.months = \{\}/);
+  });
+  it("a refused or empty dump index never reads as 'everything harvested'", () => {
+    expect(s).toMatch(/idxRes\.ok/);
+    expect(s).toMatch(/all\.length === 0\) throw/);
+  });
+});
