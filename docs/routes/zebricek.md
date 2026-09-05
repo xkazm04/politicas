@@ -577,3 +577,11 @@ parity-auditor).** `COMPONENT_SHORT` v `app/referendum/og/route.tsx` překládá
 `Record<string, string>` — sedmá složka přidaná do `CONTRIBUTION_WEIGHTS` by
 na sdílené kartě vytiskla svůj syrový klíč. Mapa je `satisfies
 Record<ComponentKey, string>`: chybějící klíč je chyba kompilace.
+
+**Plakát datuje data, ne vykreslení (2026-09-07, scan-sweep, bounty-hunter).**
+`/plakat/zebricek` razil `retrievedAt` jako den vykreslení z UTC hodin — tedy
+arch datoval sám sebe místo dat pod sebou, přesně ta vada, kterou karta kraje
+opravila 2026-08-12. Den teď vydává komorový agregát provenience
+(`provenance.computedAt`), týž zdroj jako u karty kraje a vestavného widgetu;
+když se komora na jednom dni neshodne, arch dostane pražský den vytištění, protože
+typ `retrievedAt` ve sdíleném plakátu „neuvedeno“ neumí — viz karta v backlogu.

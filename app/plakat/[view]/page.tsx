@@ -8,6 +8,7 @@ import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { formulaMismatchOrNull } from "@/features/civicscore/provenance";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 import { liveUrl } from "@/lib/routing/liveUrl";
+import { pragueDay } from "@/features/denik/pragueDay";
 
 /*
  * /plakat/<view> — Režim plakátu (batch 1D): tisková podoba klíčových ploch.
@@ -48,8 +49,13 @@ export default async function PlakatPage({ params }: { params: Promise<{ view: s
   }
 
   const poster: LeaderboardPosterData = {
-    // Datum, ke kterému čísla platí = den vykreslení ze živého grafu.
-    retrievedAt: new Date().toISOString().slice(0, 10),
+    // Den, ke kterému čísla platí, vydává KOMOROVÝ agregát provenience
+    // (`provenance.computedAt` — jeden den nad jedním {pass, ref}), týž zdroj, ze
+    // kterého datuje karta kraje i vestavný widget. Do 2026-09-07 tu stál den
+    // vykreslení z UTC hodin, takže arch datoval sám sebe místo dat pod sebou.
+    // Když se komora na jednom dni neshodne, arch dostane PRAŽSKÝ den vytištění —
+    // typ `retrievedAt` nemá „neuvedeno“ (features/shared/poster); viz backlog.
+    retrievedAt: data.provenance.computedAt ?? pragueDay(),
     // Živá URL žebříčku z request hlaviček (lib/routing/liveUrl.ts) — na patičce
     // plakátu nesmí být vymyšlená doména.
     liveUrl: await liveUrl("/zebricek"),

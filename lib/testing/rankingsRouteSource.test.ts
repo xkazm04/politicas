@@ -32,3 +32,11 @@ describe("the first search-param value has one definition (lib/routing/searchPar
     expect(s).not.toMatch(/const one = /);
   });
 });
+
+describe("/plakat/[view] dates the sheet by the chamber provenance, not the render", () => {
+  const s = src("app/plakat/[view]/page.tsx");
+  it("reads provenance.computedAt first and falls back to the Prague day", () => {
+    expect(s).toMatch(/retrievedAt: data\.provenance\.computedAt \?\? pragueDay\(\)/);
+    expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
+  });
+});
