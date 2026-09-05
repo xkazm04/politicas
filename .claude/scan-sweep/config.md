@@ -33,3 +33,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   export no prop types; a minor upgrade (16.2 -> 16.3, `unstable_retry` -> `retry`) broke
   both boundaries with tsc green. Check every convention file against
   `node_modules/next/dist/docs/.../03-file-conventions/` whenever the Next version moves.
+- 2026-09-05 — budget-mirror, first sweep (28 lenses, 2 S built, 2 cards). (1) The outbox
+  is at its 200-line cap and holds 30 findings: this round emitted NOTHING there; coverage
+  lives only in the snapshot until the app drains the file. (2) Czech test titles use the
+  „ … “ pair (U+201E/U+201C); an ASCII `"` as the closing quote terminates the string and
+  esbuild reports it as a leading-zero decimal error at the next number. (3) `features/budget/**`
+  owes four dismissal trailers per commit: README.md, AGENTS.md, docs/ROADMAP.md,
+  docs/data-analysis/budget-sources.md (+ docs/DESIGN.md for BudgetMirrorPage.tsx).

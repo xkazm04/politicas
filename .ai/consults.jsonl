@@ -4,3 +4,4 @@
 {"ts":"2026-09-01T20:06:33.871Z","bundle":"civic-intelligence","subjects":["llm-forensic-gating"],"techniques":["prose-register-gates","whole-artifact-invariants","human-review-doors"],"deviations":2}
 {"ts":"2026-09-05T00:00:00Z","bundle":"software-engineering","subjects":["quality-gates","optional-dependency-degradation"],"techniques":["prose-rule-drift","severity-by-construction","renameable-detector-keys","blocking-by-input-determinism","absent-degrades-malformed-fails-fast"],"deviations":3}
 {"ts": "2026-09-05T13:05:00Z", "bundle": "software-engineering", "subjects": ["app-shell"], "techniques": ["navigation-model", "shell-hosted-services"], "deviations": 0}
+{"ts": "2026-09-05T14:40:00Z", "bundle": "civic-intelligence", "subjects": ["state-budget-analysis"], "techniques": ["municipal-money-trail", "median-over-mean-for-peers", "peer-group-construction", "small-sample-widening"], "deviations": 1}
