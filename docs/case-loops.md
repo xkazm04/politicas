@@ -490,3 +490,24 @@ scan-sweep, state-coverage).** A Virtuoso error with a JSON body parsed to zero
 bindings and surfaced as "no fragments found — check the version exists", i.e. a
 claim about the statute for a fault in the query or the endpoint.
 `esbirkaSparql.ts` names the status; tested.
+
+**The psp.cz tisk text pipeline has one definition (2026-09-06, scan-sweep,
+parity-auditor).** `amends-census.ts` and `collision-check.ts` each carried a byte
+copy of index-page → PDF → `pdftotext` sidecar, and the copies had grown apart:
+batch-008's NFC fix reached the census only. `scripts/case-loops/law/tiskText.ts`
+is the module now (the census imports it; the collision scripts are the next
+context's round). It also classifies refusals the way the ingest adapters do: a
+503 is retried with jittered backoff instead of falling through to a per-bill
+skip, a 404 is one request. `tiskText.test.ts` pins retry, index parsing and the
+NFC read.
+
+**`esbirka-sparql-diff.ts` reads the HTTP status before the body (2026-09-06,
+scan-sweep, state-coverage).** A Virtuoso error with a JSON body parsed to zero
+bindings and surfaced as "no fragments found — check the version exists", i.e. a
+claim about the statute for a fault in the query or the endpoint.
+`esbirkaSparql.ts` names the status; tested.
+
+**`provenance-probe.ts`'s EXPECT is pinned to STATE.md's table (2026-09-06,
+scan-sweep, documentation-auditor).** The probe's literal and the state page's
+row are two hand copies of the ledgered chamber (141 / 293 / 582, passes 45–55);
+`provenanceProbe.test.ts` fails when a batch moves one without the other.
