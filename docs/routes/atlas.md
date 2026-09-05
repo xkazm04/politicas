@@ -137,3 +137,12 @@ apart again.
 scan-sweep, parity-auditor).** Same rule as the feed and data endpoints
 (`cache-control: no-store`, `retry-after: 600`); pinned by
 `lib/testing/machineRoutes503.test.ts`.
+
+**The atlas's table list is pinned to the seal's (2026-09-06, scan-sweep,
+parity-auditor).** `getAtlasData.ts` measures `ENTITY_TABLES` + `GRAPH_TABLES`
+and its header says "the same list as `RUN_TABLES`"; nothing held that but the
+sentence, and the seal has already grown once (2026-09-04). A third hand copy,
+`SENTINEL_ENTITY_TABLES` in `lib/testing/sentinel/facts.ts`, still lacks the
+two graph tables while claiming the same identity - filed as a backlog card
+(other context). `features/atlas/sealTables.test.ts` now reads both sources and
+fails the moment the two lists differ.
