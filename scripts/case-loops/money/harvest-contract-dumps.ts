@@ -25,6 +25,7 @@
  *   npx tsx scripts/case-loops/money/harvest-contract-dumps.ts --refresh=2026-07
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { parseDump, parseDumpIndex, type DumpIndexEntry } from "@/lib/ingest/sources/smlouvy-dump";
 
 const INDEX_URL = "https://data.smlouvy.gov.cz/";
@@ -58,7 +59,7 @@ async function main() {
   // 1) the allow-list — required, and drawn from the graph so it can never drift
   const store = await getStore();
   if (!store) throw new Error("no store");
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
   await store.close();
   const icos = new Set(
     companies

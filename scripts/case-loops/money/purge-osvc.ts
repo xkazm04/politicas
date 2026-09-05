@@ -45,6 +45,7 @@
  * Flags: --commit (opt-in write; default is dry-run, same convention as kg-money-ingest.ts)
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import type { KgEdgeRow } from "@/lib/db/types";
 
 const TARGET_ICO_NODE = "company:ico:04627695";
@@ -91,7 +92,7 @@ async function main() {
   console.log(`OSVČ purge (batch 004, Q-money-11) · ${commit ? "COMMIT" : "DRY-RUN"}\n`);
 
   // (a) every linked_to edge pointing at the bogus company — QUERY, don't hardcode 49.
-  const linkedToTarget = await store.listKgEdges({ rel: TARGET_REL, limit: 2_000_000 });
+  const linkedToTarget = await store.listKgEdges({ rel: TARGET_REL, limit: KG_READ_CAP });
   const candidateEdges = linkedToTarget.filter((e) => e.dst === TARGET_ICO_NODE);
   console.log(`edges matching dst=${TARGET_ICO_NODE}: ${candidateEdges.length}`);
   if (candidateEdges.length !== 49) {
@@ -119,7 +120,7 @@ async function main() {
   // (c) does the node qualify for deletion? Check EVERY other edge referencing it —
   // any linked_to edge to it beyond the confirmed set, or any supplies edge where it's
   // the src (or dst, for completeness) — via a full edge scan, not an assumption.
-  const allEdges = await store.listKgEdges({ limit: 2_000_000 });
+  const allEdges = await store.listKgEdges({ limit: KG_READ_CAP });
   const confirmedKeys = new Set(confirmed.map((e) => `${e.src}|${e.rel}|${e.dst}`));
   const otherReferences = allEdges.filter(
     (e) =>

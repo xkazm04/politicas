@@ -50,6 +50,7 @@
  *   PGLITE_PATH=./.pglite-copy-money-b6 npx tsx scripts/case-loops/money/prak-repoint.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { datasetId, fetchAndFindRecord, type DataorOfficer } from "@/lib/ingest/sources/dataor";
 // JEDNA definice heuristiky (2026-08-13). Tenhle skript nesl TŘETÍ kopii
 // `classifyTie` pod komentářem „Same rule as reconcile-ares-vr.ts" — a ta rule
@@ -89,8 +90,8 @@ async function main() {
   const fs = await import("node:fs/promises");
 
   const persons = await store.listPersons();
-  const edges = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const newNodeExists = (await store.listKgNodes({ kind: "company", limit: 100_000 })).some((n) => n.id === `company:ico:${NEW_ICO}`);
+  const edges = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const newNodeExists = (await store.listKgNodes({ kind: "company", limit: KG_READ_CAP })).some((n) => n.id === `company:ico:${NEW_ICO}`);
   console.log(`company:ico:${NEW_ICO} already in graph: ${newNodeExists}`);
 
   const id = datasetId("as", "full", "praha", 2012);

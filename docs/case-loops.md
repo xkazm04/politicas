@@ -595,3 +595,14 @@ clock; between midnight and 01:00/02:00 Prague the UTC day is still yesterday, s
 a contract signed today read as signed in the future. The route now calls
 `pragueDay()` (`features/denik/pragueDay.ts`, written for the same mistake in the
 deník loader); `lib/testing/moneyRouteSource.test.ts` pins it.
+
+**The contract-ingest scripts read the graph under `KG_READ_CAP` (2026-09-07,
+scan-sweep, bounty-hunter).** `reconcile-ares-vr.ts` — the main writer of
+`corroboration`, role dates and `tie_class` — read contracts and supplies at
+`limit: 100_000` against the batch-012 corpus of 152 702 contract nodes and
+153 634 supplies edges, so a late-sorting company had no money and its tie was
+stamped `historical-no-money`; `parent-contract-sweep.ts` built its "never
+queried" population from the same truncated read. Eight scripts now import the
+shared cap; `contractIngestSource.test.ts` refuses a literal `limit:` in any of
+the thirteen.
+

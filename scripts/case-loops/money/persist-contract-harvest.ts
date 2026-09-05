@@ -36,6 +36,7 @@
  *   npx tsx scripts/case-loops/money/persist-contract-harvest.ts --commit --pass=41
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { directionFor, type DumpRecord } from "@/lib/ingest/sources/smlouvy-dump";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
@@ -61,15 +62,15 @@ async function main() {
   const store = await getStore();
   if (!store) throw new Error("no store");
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
   const icoToCompany = new Map<string, string>();
   for (const c of companies) {
     const ico = String((c.props as Record<string, unknown>)?.ico ?? "");
     if (/^\d{8}$/.test(ico)) icoToCompany.set(ico, c.id);
   }
-  const existingContracts = await store.listKgNodes({ kind: "contract", limit: 500_000 });
+  const existingContracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
   const existingById = new Map(existingContracts.map((c) => [c.id, c]));
-  const existingSupplies = await store.listKgEdges({ rel: "supplies", limit: 500_000 });
+  const existingSupplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
   const existingEdgeKeys = new Set(existingSupplies.map((e) => `${e.src}|${e.dst}`));
 
   console.log(`graph: ${icoToCompany.size} companies with IČO · ${existingContracts.length} contract nodes · ${existingSupplies.length} supplies edges`);

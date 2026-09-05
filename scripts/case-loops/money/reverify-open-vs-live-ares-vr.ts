@@ -12,6 +12,7 @@
  *   PGLITE_PATH=./.pglite-copy-money-b8 npx tsx scripts/case-loops/money/reverify-open-vs-live-ares-vr.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { AresClient } from "@/lib/analysis/money-feed";
 
 const VR_BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr";
@@ -88,9 +89,9 @@ async function main() {
   if (!store) throw new Error("no store (set PGLITE_PATH to the copy)");
   const fs = await import("node:fs/promises");
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
   const rosterPersons = await store.listPersons();
 
   const companyById = new Map(companies.map((c) => [c.id, c]));

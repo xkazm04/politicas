@@ -30,6 +30,7 @@
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/reconcile-ares-vr.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { AresClient } from "@/lib/analysis/money-feed";
 // JEDNA definice heuristiky (2026-08-13). Tenhle skript je HLAVNÍ ZAPISOVATEL
 // `tie_class` — batch-002 anotoval 245 z 211 živých vazeb — a nesl si vlastní
@@ -197,11 +198,11 @@ async function main() {
   };
   const doneKeys = new Set(already.edges.map((e) => `${e.src}|${e.dst}`));
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
-  const contracts = await store.listKgNodes({ kind: "contract", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
+  const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
   const rosterPersons = await store.listPersons();
 
   const companyById = new Map(companies.map((c) => [c.id, c]));

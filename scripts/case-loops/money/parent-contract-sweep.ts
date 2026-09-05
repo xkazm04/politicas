@@ -32,6 +32,7 @@
  * Reads the graph (safe on the live DB — read-only), then hits the network once per parent.
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { SmlouvyClient, type SmlouvyRow } from "@/lib/ingest/sources/smlouvy";
 
 const PAYLOAD_PATH = "docs/data-analysis/case-money/qmoney-parent-contract-sweep-b9.json";
@@ -68,11 +69,11 @@ async function main() {
   if (!store) throw new Error("no store");
   const fs = await import("node:fs/promises");
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
   const byId = new Map(companies.map((c) => [c.id, c]));
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const ownsStake = await store.listKgEdges({ rel: "owns_stake", limit: 100_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const ownsStake = await store.listKgEdges({ rel: "owns_stake", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
   const tied = new Set(linked.map((e) => e.dst));
   const everQueried = new Set(supplies.map((e) => e.src));
   await store.close();
