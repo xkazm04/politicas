@@ -33,10 +33,10 @@ import SectionRule from "@/features/shared/components/SectionRule";
 
 export default function RouteError({
   error,
-  unstable_retry,
+  retry,
 }: {
   error: Error & { digest?: string };
-  unstable_retry: () => void;
+  retry: () => void;
 }) {
   const t = useTranslations("errors");
 
@@ -74,7 +74,7 @@ export default function RouteError({
         <div className="mt-8 flex flex-wrap gap-3">
           <button
             type="button"
-            onClick={() => unstable_retry()}
+            onClick={() => retry()}
             className="border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:border-signal hover:bg-signal"
           >
             {t("route.retry")}

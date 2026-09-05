@@ -176,3 +176,18 @@ Two rulings, both about not collapsing distinctions:
   stderr once per process instead, so it is silent about the LOG and never about
   the degradation: the `console.error` line the reporter already prints is
   unconditional.
+
+**2026-09-05 — the retry button called `undefined` (scan-sweep, bounty-hunter).**
+Both boundaries destructured `unstable_retry`. Next 16.2 passed that prop; 16.3.0
+stabilised it as `retry` and stopped passing the old name (error.md „Version
+History"; the runtime hands the fallback `reset: this.reset, retry: this.retry`
+and nothing else). Since the 16.3.1 upgrade every „Zkusit znovu" on `/error` and
+`global-error` threw a TypeError inside the surface whose job is to lead the
+reader OUT of an error — and nothing could catch it: Next exports no prop type
+for `error.tsx`, so `tsc` accepted any name, and the repo has no jsdom to click
+the button. Fixed at the source in both files and pinned by
+`features/shell/errorBoundaryProps.test.ts`, which reads the prop name FROM the
+installed runtime rather than from a copied string: the next rename fails there,
+not at a reader. The two files were a pair fixed together, which is the whole
+point of checking pairs — the same bug in `global-error` would have survived a
+fix to `error.tsx` alone.
