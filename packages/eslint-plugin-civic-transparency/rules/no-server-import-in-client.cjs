@@ -70,6 +70,35 @@ module.exports = {
           context.report({ node, messageId: "typeImportInClient", data: { source } });
         }
       },
+      // `export { getX } from "./getX"` and `export * from "./getX"` pull the
+      // module exactly like an import — they are ExportNamedDeclaration /
+      // ExportAllDeclaration nodes WITH a source, which the import visitor never
+      // sees. Until 2026-09-05 a client barrel could re-export a loader with no
+      // report. `export type { X } from` erases like `import type`.
+      ExportNamedDeclaration(node) {
+        if (!isClientModule || !node.source) return;
+        const source = String(node.source.value);
+        if (!SERVER_SOURCE.test(source)) return;
+        const specifiers = node.specifiers || [];
+        const typeOnly =
+          node.exportKind === "type" ||
+          (specifiers.length > 0 && specifiers.every((s) => s.exportKind === "type"));
+        if (!typeOnly) {
+          context.report({ node, messageId: "serverImportInClient", data: { source } });
+        } else if (forbidTypeImports) {
+          context.report({ node, messageId: "typeImportInClient", data: { source } });
+        }
+      },
+      ExportAllDeclaration(node) {
+        if (!isClientModule) return;
+        const source = String(node.source.value);
+        if (!SERVER_SOURCE.test(source)) return;
+        if (node.exportKind === "type") {
+          if (forbidTypeImports) context.report({ node, messageId: "typeImportInClient", data: { source } });
+          return;
+        }
+        context.report({ node, messageId: "serverImportInClient", data: { source } });
+      },
       // `import("./getGoalData")` is a dynamic import — a completely different
       // AST node (ImportExpression, not ImportDeclaration) that the static-import
       // visitor above never sees. There is no type-only concept for a dynamic

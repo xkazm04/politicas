@@ -20,6 +20,9 @@ Only in files whose **first statement** is the `"use client"` directive:
   specifier is enough to pull the module.
 - **Dynamic imports** (`await import("./getXData")`) — there is no type-only
   dynamic import; every one is a real runtime breach.
+- **Re-exports** (`export { getXData } from "./getXData"`, `export * from`) — a
+  client barrel pulls the module exactly like an import; `export type { … } from`
+  erases like `import type` (and is reported under `typeImports: "forbid"`).
 
 ## When it does not fire
 

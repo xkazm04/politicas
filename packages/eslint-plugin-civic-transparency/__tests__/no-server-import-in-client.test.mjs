@@ -56,6 +56,14 @@ tester.run("no-server-import-in-client", rule, {
       options: [{ typeImports: "forbid" }],
     },
     {
+      name: "a type-only re-export from a loader erases at compile time",
+      code: `"use client";\nexport type { MoneyData } from "./getMoneyData";`,
+    },
+    {
+      name: "a value re-export from a non-server module is fine",
+      code: `"use client";\nexport { chartTheme } from "./chartTheme";`,
+    },
+    {
       name: "dynamic import of a non-server module",
       code: `"use client";\nasync function f() { await import("./chartTheme"); }`,
     },
@@ -92,6 +100,22 @@ tester.run("no-server-import-in-client", rule, {
       name: "mixed value+type specifiers still pull the module",
       code: `"use client";\nimport { getMoneyData, type MoneyData } from "./getMoneyData";`,
       errors: [{ messageId: "serverImportInClient" }],
+    },
+    {
+      name: "a value RE-EXPORT of a loader pulls the module exactly like an import",
+      code: `"use client";\nexport { getMoneyData } from "./getMoneyData";`,
+      errors: [{ messageId: "serverImportInClient" }],
+    },
+    {
+      name: "export * from a loader is a breach too",
+      code: `"use client";\nexport * from "@/features/graph/graphLoader";`,
+      errors: [{ messageId: "serverImportInClient" }],
+    },
+    {
+      name: "typeImports: forbid — a type-only re-export is reported with the type message",
+      code: `"use client";\nexport type { MoneyData } from "./getMoneyData";`,
+      options: [{ typeImports: "forbid" }],
+      errors: [{ messageId: "typeImportInClient" }],
     },
     {
       name: "dynamic import of a server loader is always a breach",
