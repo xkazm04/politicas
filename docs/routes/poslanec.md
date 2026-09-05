@@ -412,3 +412,13 @@ Projekce teď verdikt čte, parametr `asOf` zmizel a `profileMoney.test.ts`
 připíná tři tvary řádku (datum drženo · potlačeno · chybí), strop řádků i to,
 že steward vazba nenese na spisu žádné Kč. Tohle je „navazující krok", který
 `moneyTypes.ts` u `dateWithheldOn` jmenuje.
+
+**Mapa rolí ve výboru je úplná typem (2026-09-07, scan-sweep, parity-auditor).**
+`ROLE_KEY` v `ProfilePage` překládá výčet `chair | vice | member`
+(`lib/analysis/kg.ts::ROLE_WEIGHT`) na klíče katalogu a byl typovaný jako volný
+`Record<string, string>` — čtvrtá role přidaná do výčtu by na jinak české stránce
+vytiskla svůj syrový token a nic by se nehnulo. Mapa je teď `satisfies
+Record<CommitteeRole, string>`: chybějící klíč je chyba kompilace, ne řádek na
+ploše. Token mimo výčet (typ `CommitteeSeat.role` je na drátě `string`) se dál
+tiskne doslova.
+

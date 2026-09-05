@@ -53,16 +53,20 @@ import MoneySection from "@/features/profile/components/MoneySection";
 import ScoreLegibilityPanel from "@/features/profile/components/ScoreLegibilityPanel";
 import FollowButton from "@/features/schranka/FollowButton";
 import type { ComponentKey } from "@/lib/analysis/contribution-trend";
-import { MIN_ELIGIBLE_VOTES, MIN_SHARED_VOTES } from "@/lib/analysis/kg";
+import { MIN_ELIGIBLE_VOTES, MIN_SHARED_VOTES, type CommitteeRole } from "@/lib/analysis/kg";
 
 /** Internal committee-role enum -> the copy a reader sees. The enum
  *  (`chair` | `vice` | `member`, lib/analysis/kg.ts) used to print raw on an
  *  otherwise all-Czech page. */
-const ROLE_KEY: Record<string, string> = {
+const ROLE_KEY = {
   chair: "committeeRoleChair",
   vice: "committeeRoleVice",
   member: "committeeRoleMember",
-};
+  // `satisfies` over the enum's own key type: a fourth role added to ROLE_WEIGHT fails to
+  // compile here instead of printing its raw token on an otherwise all-Czech page.
+} as const satisfies Record<CommitteeRole, string>;
+/** `CommitteeSeat.role` is typed `string` on the wire; a token outside the enum prints raw. */
+const roleLabelKey = (role: string): string | null => (role in ROLE_KEY ? ROLE_KEY[role as CommitteeRole] : null);
 
 export default async function ProfilePage({
   data,
@@ -631,7 +635,7 @@ export default async function ProfilePage({
                   >
                     <p className="text-lg font-black uppercase tracking-tight">{cm.abbrev}</p>
                     <p className="mt-0.5 font-mono text-[11px] uppercase tracking-wider text-steel">
-                      {cm.organType ?? "—"} · {ROLE_KEY[cm.role] ? t(ROLE_KEY[cm.role]) : cm.role}
+                      {cm.organType ?? "—"} · {roleLabelKey(cm.role) ? t(roleLabelKey(cm.role)!) : cm.role}
                     </p>
                     {cm.toAtUnreadable && (
                       <p className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-ochre">
