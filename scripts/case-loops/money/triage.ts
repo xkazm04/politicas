@@ -23,33 +23,27 @@ import { byScoreThenId } from "../shared/ordering";
 // se z tsx skriptu importuje bez server-only hranice.
 import {
   classifyTie,
+  nearThresholdCount,
+  parsePeriod,
   reviewRank as sharedReviewRank,
   reviewTier as sharedReviewTier,
+  type ReviewState,
   type TieClass,
 } from "@/features/money/reviewTypes";
 import { CORROBORATIONS, type Corroboration } from "@/features/money/moneyTypes";
-
-const NEAR_THRESHOLDS = [2_000_000, 6_000_000]; // CZK zadávací limity
-const NEAR_BAND = 0.1; // within 10% below a limit = "near-threshold"
+// The same 2026-08-13 rule, applied to the three copies that survived it (scan-sweep
+// 2026-09-07): `parsePeriod` here matched only an en-dash between the dates while the shared
+// parser matches "-" too, so a provenance string written with a hyphen parsed in the app and
+// read as "no-period-in-source" here; the near-threshold rule and the psp id parser were
+// byte copies with nothing holding them.
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 
 function num(v: unknown): number {
   return typeof v === "number" && Number.isFinite(v) ? v : 0;
 }
-function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
-}
-/** Parse a role period out of the linked_to source string:
- *  "… · 2015-03-01–ongoing" / "… · 2013-06-10–2017-02-02" → {from,to}. */
-function parsePeriod(source: string): { from: string | null; to: string | null } {
-  // last "date–date|ongoing" token
-  const m = source.match(/(\d{4}-\d{2}-\d{2}|\?)–(\d{4}-\d{2}-\d{2}|ongoing|\?)/);
-  if (!m) return { from: null, to: null };
-  const from = m[1] === "?" ? null : m[1];
-  const to = m[2] === "ongoing" || m[2] === "?" ? null : m[2];
-  return { from, to };
-}
+/** Runtime twin of `ReviewState` — reviewTypes.ts exports only the type (another context), so
+ *  the list lives here and `satisfies` keeps every member a real ReviewState. */
+const KNOWN_REVIEW_STATES = ["verified", "pending_review", "rejected"] as const satisfies readonly ReviewState[];
 function inPeriod(signedOn: string | null, from: string | null, to: string | null): boolean {
   if (!signedOn) return false;
   if (from && signedOn < from) return false;
@@ -69,7 +63,6 @@ interface ContractAgg {
   count: number;
   czk: number;
   signed: { signedOn: string | null; amount: number }[];
-  nearThreshold: number; // contracts within NEAR_BAND below a limit
 }
 
 async function main() {
@@ -89,16 +82,13 @@ async function main() {
   // company id → contract aggregate (via supplies edges → contract nodes)
   const aggByCompany = new Map<string, ContractAgg>();
   for (const e of supplies) {
-    const agg = aggByCompany.get(e.src) ?? { count: 0, czk: 0, signed: [], nearThreshold: 0 };
+    const agg = aggByCompany.get(e.src) ?? { count: 0, czk: 0, signed: [] };
     const ct = contractById.get(e.dst);
     const amount = num(e.weight) || num(ct?.props?.amount);
     const signedOn = (ct?.props?.signedOn as string | null) ?? null;
     agg.count += 1;
     agg.czk += amount;
     agg.signed.push({ signedOn, amount });
-    for (const limit of NEAR_THRESHOLDS) {
-      if (amount > 0 && amount <= limit && amount >= limit * (1 - NEAR_BAND)) agg.nearThreshold += 1;
-    }
     aggByCompany.set(e.src, agg);
   }
 
@@ -113,7 +103,7 @@ async function main() {
     ico: string;
     company: string;
     role: string;
-    reviewState: string;
+    reviewState: ReviewState;
     source: string;
     periodFrom: string | null;
     periodTo: string | null;
@@ -149,7 +139,7 @@ async function main() {
     const person = personById.get(e.src);
     if (!comp || pspId == null) continue; // unresolved endpoint — surfaced below as a flag unit? drop & count
     const cp = comp.props ?? {};
-    const agg = aggByCompany.get(comp.id) ?? { count: 0, czk: 0, signed: [], nearThreshold: 0 };
+    const agg = aggByCompany.get(comp.id) ?? { count: 0, czk: 0, signed: [] };
     const source = String(e.props?.source ?? "");
     const { from, to } = parsePeriod(source);
     let alignedCzk = 0;
@@ -166,6 +156,12 @@ async function main() {
     const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
     const triangle = agg.czk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
     const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
+    // The stored state passes through when it is a known one. Until 2026-09-07 anything but
+    // "verified" was written as "pending_review", so a tie a reviewer had REJECTED re-entered
+    // the ledger as waiting for review - the missing-is-not-zero rule, applied to a verdict.
+    const reviewState: ReviewState = (KNOWN_REVIEW_STATES as readonly string[]).includes(rawState ?? "")
+      ? (rawState as ReviewState)
+      : "pending_review";
     const corroboration = asCorroboration(e.props?.corroboration);
     const tieClass = classifyTie(String(e.props?.role ?? ""), comp.label);
     const tier = sharedReviewTier({ tieClass, corroboration });
@@ -186,7 +182,7 @@ async function main() {
       ico: String(cp.ico ?? comp.id.split(":").pop() ?? ""),
       company: comp.label,
       role: String(e.props?.role ?? ""),
-      reviewState: rawState === "verified" ? "verified" : "pending_review",
+      reviewState,
       source,
       periodFrom: from,
       periodTo: to,
@@ -198,7 +194,7 @@ async function main() {
       donationRecipientParty: cp.donation_recipient_party != null ? String(cp.donation_recipient_party) : null,
       temporalAlignedCzk: alignedCzk,
       temporalAlignedCount: alignedCount,
-      nearThresholdCount: agg.nearThreshold,
+      nearThresholdCount: nearThresholdCount(agg.signed.map((s) => s.amount)),
       triangle,
       tieClass,
       corroboration,

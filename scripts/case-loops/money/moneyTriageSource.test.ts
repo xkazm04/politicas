@@ -33,3 +33,42 @@ describe("every whole-relation read uses KG_READ_CAP (lib/db/readCap.ts)", () =>
     expect(src(f)).toMatch(/import \{ KG_READ_CAP \} from "@\/lib\/db\/readCap"/);
   });
 });
+
+describe("triage.ts reads its helpers from the shared modules its own header names", () => {
+  it("period parsing and the near-threshold rule come from features/money/reviewTypes", () => {
+    const s = src("triage.ts");
+    expect(s).toMatch(/import \{[^}]*\bparsePeriod\b[^}]*\} from "@\/features\/money\/reviewTypes"/);
+    expect(s).toMatch(/import \{[^}]*\bnearThresholdCount\b[^}]*\} from "@\/features\/money\/reviewTypes"/);
+    expect(s).not.toMatch(/^function parsePeriod\b/m);
+    expect(s).not.toMatch(/^const NEAR_THRESHOLDS\b/m);
+  });
+  it("the shared parsePeriod accepts the hyphen the triage copy rejected", async () => {
+    // The copy matched only an en-dash between the dates; the shared parser matches both, so a
+    // provenance string written with "-" parsed in the app and read as "no period" in triage.
+    const { parsePeriod } = await import("@/features/money/reviewTypes");
+    expect(parsePeriod("hlidac:osoby/x · 2015-03-01-ongoing")).toEqual({ from: "2015-03-01", to: null });
+    expect(parsePeriod("hlidac:osoby/x · 2013-06-10–2017-02-02")).toEqual({ from: "2013-06-10", to: "2017-02-02" });
+  });
+  it.each(["triage.ts", "dataor-corroborate.ts"])("%s takes pspIdFromNodeId from lib/ingest/changeEvents", (f) => {
+    const s = src(f);
+    expect(s).toMatch(/import \{ pspIdFromNodeId \} from "@\/lib\/ingest\/changeEvents"/);
+    expect(s).not.toMatch(/^function pspIdFromNodeId\b/m);
+  });
+});
+
+describe("triage.ts keeps the review-state vocabulary", () => {
+  it("a stored `rejected` state is written to the ledger as rejected, not as pending_review", () => {
+    const s = src("triage.ts");
+    expect(s).toMatch(/satisfies readonly ReviewState\[\]/);
+    expect(s).not.toMatch(/rawState === "verified" \? "verified" : "pending_review"/);
+  });
+});
+
+describe("reachable-metric-audit.ts publishes what it measures", () => {
+  it("topNonAttributable is computed, not an always-empty slice", () => {
+    const s = src("reachable-metric-audit.ts");
+    expect(s).not.toMatch(/\.slice\(0, 0\)/);
+    expect(s).toMatch(/topNonAttributable:/);
+    expect(s).toMatch(/czkByCompany/);
+  });
+});

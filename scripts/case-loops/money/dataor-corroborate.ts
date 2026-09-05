@@ -34,17 +34,13 @@
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { AresClient } from "@/lib/analysis/money-feed";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 import { datasetId, fetchAndFindRecord, resolveCourtAndForm, type AresSubjectForCourtForm } from "@/lib/ingest/sources/dataor";
 
 const DATAOR_YEAR = 2026; // current-year FULL export — daily-updated, complete history within record
 
 function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms));
-}
-function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
 }
 
 interface OpenTie {

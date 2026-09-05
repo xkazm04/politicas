@@ -560,3 +560,12 @@ of its contracts silently, the failure `lib/db/readCap.ts` documents. All ten
 live scripts now read at `KG_READ_CAP`; `moneyTriageSource.test.ts` refuses a
 literal limit. `validate-payloads.ts` says what its two-file default really
 covers.
+
+**`triage.ts` imports the helpers its own header said it imports (2026-09-07,
+scan-sweep, parity-auditor).** The 2026-08-13 de-duplication left three copies
+behind: `parsePeriod` (the copy matched only an en-dash between the dates while
+the shared parser also takes a hyphen, so a provenance string written with `-`
+parsed in the app and read as "no period" in triage), the near-threshold rule and
+the psp id parser. `triage.ts` and `dataor-corroborate.ts` now read
+`parsePeriod` / `nearThresholdCount` from `features/money/reviewTypes` and
+`pspIdFromNodeId` from `lib/ingest/changeEvents`.
