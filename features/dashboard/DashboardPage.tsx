@@ -335,10 +335,13 @@ export default function DashboardPage({ data }: { data: DashboardWire | null }) 
                       {t("realStats.moneySub", {
                         steward: compactCzk(data.money.stewardCzk, locale),
                       })}
-                      {data.money.isFloor && (
+                      {/* Strop je `number | null` nezávisle na `isFloor`; bez něj se
+                          věta nesází — „strop 0“ by byla vymyšlená mez (pravidlo
+                          spisu poslance, MpCaseFilePage). */}
+                      {data.money.isFloor && data.money.perCompanyCap !== null && (
                         <span className="mt-1 block">
                           {t("realStats.moneyFloorNote", {
-                            cap: f.int(data.money.perCompanyCap ?? 0),
+                            cap: f.int(data.money.perCompanyCap),
                             companies: f.int(data.money.companiesAtCap),
                           })}
                         </span>

@@ -350,3 +350,9 @@ scan-sweep, mobile-specialist).** The velín dropped its `hidden sm:block` wrapp
 on 2026-08-12 („no information on the velín is desktop-only"); the exhibit header
 kept one on the very sentence that dates a citation. The header stacks on narrow
 screens now, like the velín's.
+
+**A floor note without a known cap is not printed as „strop 0" (2026-09-06,
+scan-sweep, state-coverage).** `perCompanyCap` is `number | null` independently of
+`isFloor`; the money tile collapsed a null cap through `?? 0`. The note now
+requires a real cap, the rule `MpCaseFilePage` already applies (the same `?? 0`
+still stands in `FollowTheMoneyPage`, another context — recorded in the backlog).

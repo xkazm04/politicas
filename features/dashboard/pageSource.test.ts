@@ -41,3 +41,12 @@ describe("nic na exponátu není jen pro desktop (2026-09-06, mobile-specialist)
     expect(EXHIBIT).toMatch(/flex flex-col gap-2 px-6 py-3\.5 sm:flex-row sm:items-center sm:justify-between/);
   });
 });
+
+describe("chybějící strop není nula (2026-09-06, state-coverage)", () => {
+  it("věta o stropu smluv se sází jen s reálným stropem — `perCompanyCap ?? 0` by tiskla „strop 0“", () => {
+    // `perCompanyCap` je `number | null` nezávisle na `isFloor`; spis poslance
+    // (MpCaseFilePage) větu podmiňuje `!== null`, velín ji dopočítával nulou.
+    expect(PAGE).not.toMatch(/perCompanyCap \?\? 0/);
+    expect(PAGE).toMatch(/data\.money\.isFloor && data\.money\.perCompanyCap !== null && \(/);
+  });
+});
