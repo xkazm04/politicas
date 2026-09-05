@@ -56,8 +56,12 @@ function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) 
   const denikHref =
     e.mpPspId == null ? null : entityDayHref(mpEntityKey(e.mpPspId), e.decidedAt);
   return (
+    // Přístupné jméno záznamu = výrok + subjekt, které už plocha sází (2026-09-05):
+    // bez něj odečítačka hlásila jen „článek" ×N, zatímco /denik svým dnům jméno
+    // dává. Žádný nový katalogový klíč — pinuje features/dukazy/a11y.test.ts.
     <article
       id={e.anchor}
+      aria-labelledby={`${e.anchor}-v ${e.anchor}-s`}
       className="grid scroll-mt-24 gap-x-6 gap-y-2 border-b border-hairline py-5 target:bg-paper-strong sm:grid-cols-[7rem_1fr]"
     >
       <div className="flex flex-col gap-1">
@@ -92,7 +96,10 @@ function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) 
       </div>
       <div className="flex min-w-0 flex-col gap-2">
         <div className="flex flex-wrap items-baseline gap-2">
-          <span className={`px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-widest ${DECISION_TONE[e.decision]}`}>
+          <span
+            id={`${e.anchor}-v`}
+            className={`px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-widest ${DECISION_TONE[e.decision]}`}
+          >
             {e.decisionKey ? t(e.decisionKey) : e.decisionCs}
           </span>
           <span className="font-mono text-xs uppercase tracking-widest text-steel-aa">
@@ -106,7 +113,7 @@ function EntryRow({ e, locale, t }: { e: EvidenceEntry; locale: Locale; t: T }) 
             </span>
           )}
         </div>
-        <p className="text-base font-bold leading-snug">
+        <p id={`${e.anchor}-s`} className="text-base font-bold leading-snug">
           {e.internalHref ? (
             <Link href={e.internalHref} className="hover:text-signal-deep hover:underline">
               {e.subjectCs}

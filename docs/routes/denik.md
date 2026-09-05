@@ -263,3 +263,16 @@ keys `isEntityKey` accepts (the same test the route, the follow button and the
 schránka apply); the placeholder renders as plain text. `entityChips.test.ts` pins
 both halves: the derivation's placeholder is not an entity key, and the page guards
 the Link with that test.
+
+**The feed closes a sentence once (2026-09-05, scan-sweep, copy-auditor).** A
+contract title from the register often ends with its own period („Smlouva o dílo.");
+`denikEntrySummaryCs` appended another, so RSS descriptions and JSON `content_text`
+read „…dílo.. Zdroj: …". A trailing period on the title is now dropped before the
+sentence closes; the codec test pins the case.
+
+**Every /dukazy record has an accessible name (2026-09-05, scan-sweep,
+accessibility-checker).** Each `<article id="z-<id>">` had no name, so a screen
+reader announced „článek" for every decision while /denik's days carry
+`aria-labelledby`. The article now names itself by the decision badge and the
+subject line it already renders (`-v`, `-s` ids); no catalog key added;
+`features/dukazy/a11y.test.ts` pins that every referenced id is assigned in the file.
