@@ -204,3 +204,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   list against the file. An always-empty field in a published payload (`.slice(0, 0)`) is copy
   that lies by shape. Never name an archive/ path in a live file's prose - the quarantine test
   (lib/testing/archivedScripts.test.ts) reads comments too; it cost one red gate this round.
+- 2026-09-07 — money-budget-routes, first sweep (28 lenses, 3 built in 3 commits, 2 cards). A thin-
+  route context is small; its pairs are with what the routes CALL: a literal the framework forces
+  (`revalidate`) is pinned by a test that reads app/, a guard repeated per route becomes a lib/
+  helper, and every `new Date().toISOString().slice(0, 10)` is a UTC day in a Prague product.
+  Two null meanings in one loader (outage vs empty) surface as a card when the page prints one
+  sentence for both.

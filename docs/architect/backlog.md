@@ -148,6 +148,12 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-07] `ReviewState` has no runtime list; three sites spell it** — type: contract, risk: 1, effort: s, payoff: 2, reach: `features/money/reviewTypes.ts:16` (type only) → `scripts/case-loops/money/triage.ts` (KNOWN_REVIEW_STATES, ad964c0), review-console and graph-gate narrowing sites
   Found by: scan-sweep (money-analysis-triage, parity-auditor) · a stored graph prop is a string; every place that narrows it needs the member list, and a type cannot be iterated. `export const REVIEW_STATES = [...] as const` + `type ReviewState = typeof REVIEW_STATES[number]` is the repo's own pattern (`BILL_ORIGINS`, `CORROBORATIONS`) · escalation: contract (money-cases-review owns the module)
 
+- **[2026-09-07] `getMoneyMpDetail` returns null for an outage AND for an MP with no ties; the case file prints „žádné vazby“ for both** — type: contract, risk: 3, effort: s, payoff: 3, reach: `features/money/getMpDetail.ts:21` (`if (!slice) return null` — store/readiness) and `:37` (`if (ties.length === 0) return null`) → `features/money/MpCaseFilePage.tsx:68` (`caseFile.noTies`)
+  Found by: scan-sweep (money-budget-routes, state-coverage) · a store outage renders as a clean money record for a named MP — the opposite of the repo's fallback rule ("never plausible fiction presented as real"); /penize/firma/[ico] already separates the two sentences. Fix: `{ status: "unavailable" } | { status: "empty", person } | detail`, or a null + `DataUnavailable` branch when `storeReady` fails · escalation: contract (loader shape; money-cases-review)
+
+- **[2026-09-07] `/poslanec/[id]` spells the digits-only segment rule that `lib/routing/pspIdParam.ts` now owns** — type: parity, risk: 1, effort: s, payoff: 1, reach: `app/poslanec/[id]/page.tsx:49,79` (`/^\d+$/`) vs `lib/routing/pspIdParam.ts` (round 32)
+  Found by: scan-sweep (money-budget-routes, parity-auditor) · the three routes' comments name each other as the same rule; two now import it. Fix: `pspIdFromParam(id)` in both the metadata and the page branch · escalation: none needed beyond the context boundary (mp-rankings-routes)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
