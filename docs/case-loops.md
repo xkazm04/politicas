@@ -464,3 +464,13 @@ batch 003's run date as a literal, so any later run would have written
 against `TREND_MIN_TENURE_DAYS`. Both scripts now read `--reference=YYYY-MM-DD`
 (default today) through one shared helper; batch 003 stays reproducible by passing
 its date, which its payload records.
+
+**The psp.cz tisk text pipeline has one definition (2026-09-06, scan-sweep,
+parity-auditor).** `amends-census.ts` and `collision-check.ts` each carried a byte
+copy of index-page → PDF → `pdftotext` sidecar, and the copies had grown apart:
+batch-008's NFC fix reached the census only. `scripts/case-loops/law/tiskText.ts`
+is the module now (the census imports it; the collision scripts are the next
+context's round). It also classifies refusals the way the ingest adapters do: a
+503 is retried with jittered backoff instead of falling through to a per-bill
+skip, a 404 is one request. `tiskText.test.ts` pins retry, index parsing and the
+NFC read.
