@@ -518,3 +518,11 @@ ending in "-it" (audit, kredit, profit, transit) classified as `digital` — the
 P42 class the module's own header warns about. 0 realised hits over the 156
 company labels in the case payloads (probed), 1 reproduced in
 `company-sectors.test.ts`, which also pins the overrides and the municipal net.
+
+**`collision-core.ts` is tested, and `odst. 5 až 7` now touches 6 (2026-09-07,
+scan-sweep, bounty-hunter + test-strategist).** `targetedOdstavce` recorded only
+the two ends of an „až" range, so two bills both editing the middle paragraph
+read as different provisions; the range is expanded. `collision-core.test.ts`
+pins the instruction grammar's hand-validated cases (the one-line `Čl. VI V § 8`
+form that once produced every false drop, the `podle § N` citation that must not
+match), the § extractor, the per-statute partition and the odstavce scoping.

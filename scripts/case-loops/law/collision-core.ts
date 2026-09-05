@@ -141,11 +141,17 @@ export function amendsParagraph(text: string, num: string): boolean {
 export function targetedOdstavce(text: string, num: string): Set<string> {
   const n = num.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const out = new Set<string>();
-  const re = new RegExp(`V\\s*§\\s?${n}\\s+odst\\.\\s*(\\d+)(?:\\s*(?:a|až|,)\\s*(\\d+))?`, "giu");
+  const re = new RegExp(`V\\s*§\\s?${n}\\s+odst\\.\\s*(\\d+)(?:\\s*(a|až|,)\\s*(\\d+))?`, "giu");
   let m: RegExpExecArray | null;
   while ((m = re.exec(text))) {
+    const first = Number(m[1]);
     out.add(m[1]);
-    if (m[2]) out.add(m[2]);
+    if (!m[3]) continue;
+    const last = Number(m[3]);
+    // „odst. 5 až 7" names every paragraph in the range — until 2026-09-07 only its two ends
+    // were recorded, so two bills both editing odst. 6 read as "different provisions".
+    if (m[2] === "až" && last > first) for (let k = first + 1; k < last; k++) out.add(String(k));
+    out.add(m[3]);
   }
   return out;
 }
