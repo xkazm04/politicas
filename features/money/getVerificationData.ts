@@ -29,8 +29,8 @@ import { hasStaleOngoingFlag } from "./tieFlags";
 import {
   buildRegistryLinks,
   parsePeriod,
+  reviewStateOf,
   type ReviewQueue,
-  type ReviewState,
   type ReviewTie,
 } from "./reviewTypes";
 
@@ -84,9 +84,9 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
     const ties: ReviewTie[] = [];
     const decided: ReviewTie[] = [];
     for (const e of linked) {
-      const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-      const reviewState: ReviewState =
-        rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
+      // ONE vocabulary (reviewTypes.reviewStateOf) — the ledger mapper reads the same two
+      // prop names; the narrowing used to be a third hand-spelled ternary here.
+      const reviewState = reviewStateOf(e.props?.review_state ?? e.props?.state);
 
       const comp = companyById.get(e.dst);
       const pspId = pspIdFromNodeId(e.src);

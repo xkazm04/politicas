@@ -13,7 +13,22 @@
 // D7 (batch 004): "rejected" is a terminal state distinct from "pending_review" — a
 // reject decision must not be re-served in the pending queue forever (see
 // getVerificationQueue's filter). "needs-more" legitimately stays "pending_review".
-export type ReviewState = "verified" | "pending_review" | "rejected";
+//
+// ONE RUNTIME LIST (scan-sweep 2026-09-07). The stored `review_state` prop is a string, so
+// every site that narrows it needs the member list — and a type cannot be iterated. Until
+// now three sites spelled `rawState === "verified" ? … : rawState === "rejected" ? … :
+// "pending_review"` by hand (this loader's, the ledger's, the triage script's). Same pattern
+// as TIE_CLASSES below.
+export const REVIEW_STATES = ["verified", "pending_review", "rejected"] as const;
+export type ReviewState = (typeof REVIEW_STATES)[number];
+
+/** The stored `review_state` prop → the gate state. Anything else — absent, empty, a
+ *  spelling the gate never wrote — is `pending_review`: a tie no human has ruled on. The
+ *  repository layer keeps "absent" distinct for its own audit purposes; the surfaces do
+ *  not, because for a reader "not yet decided" is the true sentence in both cases. */
+export function reviewStateOf(raw: unknown): ReviewState {
+  return raw === "verified" || raw === "rejected" ? raw : "pending_review";
+}
 
 /** Owner-operator = MP controls/owns a private company that supplies the state (the real
  *  FollowTheMoney). Manager = board-of-directors seat. Steward = supervisory seat on a

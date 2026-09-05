@@ -727,3 +727,12 @@ jednou — 211 řádků měnilo pořadí a asistivní technologii se to neřeklo
 oznámení byla šipka. Aktivní sloupec teď nese `ascending`/`descending` odvozené
 z `sortDir` (1 = vzestupně, komparátory jím násobí rozdíl), ostatní řaditelné
 sloupce `none` — ne prázdno, aby čtečka věděla, že řadit JDE.
+
+**Stav kontroly má jeden runtimový slovník (2026-09-07).** `ReviewState` byl jen
+typ, a tak si každé místo, které čte uložený `review_state`, psalo vlastní
+trojcestný ternár („verified“ / „rejected“ / jinak „pending_review“) — loader
+konzole, mapper knihy a skript triage, tři opisy jednoho pravidla. `reviewTypes.ts`
+teď nese `REVIEW_STATES` (týmž vzorem jako `TIE_CLASSES`) a `reviewStateOf(raw)`;
+loader konzole čte přes něj. Cokoli, co brána nikdy nezapsala — prázdné pole,
+cizí zápis — je „čeká na kontrolu“, protože o takové vazbě člověk nerozhodl.
+
