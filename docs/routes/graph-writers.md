@@ -176,3 +176,12 @@ as pass 12. It now derives like the others (1 frozen default → 0; `writerPass.
 scan-sweep, parity-auditor).** The last literal cap among the kg writers (`limit:
 1000`) is gone; `writerReadCap.test.ts` pins that no writer lists graph rows under a
 literal (1 → 0).
+
+**`kg-money-ingest` read-merges its nodes (2026-09-06, scan-sweep, bounty-hunter).**
+D1 (batch 004) made the `linked_to` edges merge-preserving; the company and contract
+NODES were still built fresh — `props: n.props`, `firstSeenPass: opts.pass` — so a
+re-ingest wholesale-replaced every company node's props (the `upsertKgNodes` replace
+this page catalogues) and restamped the pass that created the node. `moneyGraphToKgRows`
+now takes the stored nodes and merges through `mergeComputedNodeProps`; the ingest
+passes them (`kgMoneyIngestMerge.test.ts`: a stored `ico_unresolvable_in_ares`
+survives, a computed `subsidies_total_czk` wins, `firstSeenPass` stays).

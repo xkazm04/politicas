@@ -44,7 +44,7 @@ import {
   type HlidacPersonDetail,
   type RosterPerson,
 } from "@/lib/analysis/money-feed";
-import { nextPass } from "@/lib/analysis/kg";
+import { mergeComputedNodeProps, nextPass } from "@/lib/analysis/kg";
 import {
   buildMoneyGraph,
   mergePreservedTieProps,
@@ -87,6 +87,15 @@ export function moneyGraphToKgRows(
     /** The `ingest_run` this feed opened, when it opened one; null = none. */
     ingestRunId?: number | null;
     existingLinkedToProps?: Map<string, Record<string, unknown>>;
+    /**
+     * The nodes as they stand in the store, by id. D1 made the `linked_to` EDGES
+     * merge-preserving here; the NODES were still built fresh until 2026-09-06, so a
+     * re-ingest wholesale-replaced every company node's props (`upsertKgNodes` is a
+     * replace — memory/kg-upsert-replaces-props.md) and restamped `firstSeenPass`,
+     * which records the pass that CREATED the node. Computed props win, every other
+     * stored prop survives (`mergeComputedNodeProps`, the kg-compute rule).
+     */
+    existingNodes?: Map<string, { props: Record<string, unknown>; firstSeenPass: number }>;
   },
 ): { nodes: KgNodeRow[]; edges: KgEdgeRow[] } {
   // Per kind / per rel, because this feed lands rows from TWO registries and one
@@ -108,14 +117,17 @@ export function moneyGraphToKgRows(
   const COMPANY_SOURCE = "dataor-justice-cz";
   const CONTRACT_SOURCE = "smlouvy-gov-cz";
   return {
-    nodes: g.nodes.map((n) => ({
-      id: n.id,
-      kind: n.kind,
-      label: n.label,
-      props: n.props,
-      firstSeenPass: opts.pass,
-      provenance: stamp(n.kind === "contract" ? CONTRACT_SOURCE : COMPANY_SOURCE),
-    })),
+    nodes: g.nodes.map((n) => {
+      const prev = opts.existingNodes?.get(n.id);
+      return {
+        id: n.id,
+        kind: n.kind,
+        label: n.label,
+        props: mergeComputedNodeProps(prev?.props, n.props),
+        firstSeenPass: prev?.firstSeenPass ?? opts.pass,
+        provenance: stamp(n.kind === "contract" ? CONTRACT_SOURCE : COMPANY_SOURCE),
+      };
+    }),
     edges: g.edges.map((e) => {
       const props =
         e.rel === "linked_to"
@@ -169,6 +181,8 @@ async function main() {
   const existingLinkedToProps = new Map<string, Record<string, unknown>>(
     (await store.listKgEdges({ rel: "linked_to" })).map((e) => [tieKey(e.src, e.rel, e.dst), e.props]),
   );
+  // The nodes as stored, so company/contract props other passes wrote survive this run.
+  const existingNodeState = new Map(existingNodes.map((n) => [n.id, { props: n.props, firstSeenPass: n.firstSeenPass }]));
 
   console.log(`FollowTheMoney ingest · ${chamber ? `chamber ${chamber}` : `${slugs.length} slug(s)`} · pass ${pass} · ${commit ? "COMMIT" : "DRY-RUN"}\n`);
 
@@ -362,6 +376,7 @@ async function main() {
       computedAt: new Date().toISOString(),
       ref: "money-feed:hlidac+ares+registr-smluv",
       existingLinkedToProps,
+      existingNodes: existingNodeState,
     });
     guardStampedRows(nodes, { allowUnstamped, label: "kg-money-ingest nodes" });
     guardStampedRows(edges, { allowUnstamped, label: "kg-money-ingest edges" });
