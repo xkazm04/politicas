@@ -26,3 +26,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   calling the gate red, and still run the stages `check` skipped. (2) `next.config.ts`
   imported under tsx is double-wrapped (`.default.default`) before `headers()` is
   reachable — the header contract test in the backlog needs that unwrap.
+- 2026-09-05 — app-shell, first sweep (28 lenses, 3 S built). (1) `git commit --only <path>`
+  REFUSES an untracked path ("pathspec did not match") — `git add` the new file first,
+  and never pipe the commit through `grep`: the refusal scrolled away and `git log -1`
+  showed a concurrent session's commit instead. (2) Next file conventions (error.tsx)
+  export no prop types; a minor upgrade (16.2 -> 16.3, `unstable_retry` -> `retry`) broke
+  both boundaries with tsc green. Check every convention file against
+  `node_modules/next/dist/docs/.../03-file-conventions/` whenever the Next version moves.
