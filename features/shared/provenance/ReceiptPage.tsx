@@ -22,16 +22,11 @@ import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { LIVE_AS_OF, type ReceiptAsOf, type ReceiptLastVersion } from "./asOfLens";
-import { caseFileLinkFor } from "./caseFileLink";
+import { CASE_FILE_LABEL_KEY, caseFileLinkFor } from "./caseFileLink";
 import { claimRefPath } from "./claimRef";
 import type { DecodedClaim, DecodedEndpoint, ProvenanceReceipt } from "./receipt";
 import { relLabelKey } from "./receipt";
 import ReceiptBody from "./ReceiptBody";
-
-const CASE_FILE_LABEL_KEY: Record<"poslanec" | "firma", string> = {
-  poslanec: "receipt.caseFile.poslanec",
-  firma: "receipt.caseFile.firma",
-};
 
 function PageFrame({ children }: { children: React.ReactNode }) {
   const t = useTranslations("shared");

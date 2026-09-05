@@ -17,7 +17,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { caseFileLinkFor } from "./caseFileLink";
+import { CASE_FILE_LABEL_KEY, caseFileLinkFor } from "./caseFileLink";
 import { LIVE_AS_OF, type ReceiptAsOf } from "./asOfLens";
 import type { SourceTier } from "@/lib/kg/sourceLinks";
 import type { ReceiptAuditEntry, ReceiptEndpoint, ProvenanceReceipt, ReviewStatus } from "./receipt";
@@ -25,11 +25,6 @@ import { formatWeight, relLabelKey } from "./receipt";
 
 /** Překladač namespace `shared` — jediný typ, který si dílčí sazba předává. */
 type T = ReturnType<typeof useTranslations<"shared">>;
-
-const CASE_FILE_LABEL_KEY: Record<"poslanec" | "firma", string> = {
-  poslanec: "receipt.caseFile.poslanec",
-  firma: "receipt.caseFile.firma",
-};
 
 const GATE_BADGE: Record<ReviewStatus, { labelKey: string; cls: string }> = {
   verified: { labelKey: "receipt.gate.verified", cls: "border-cobalt text-cobalt" },

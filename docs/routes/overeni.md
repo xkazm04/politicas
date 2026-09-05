@@ -272,3 +272,10 @@ return. Both maps are now `as const satisfies Record<…, string>`; `needs-more`
 named explicitly and the fallbacks are gone, so a missing label is a type error,
 not a sentence the reader acts on.
 
+**2026-09-07 — one case-file label map for the capsule and the page (scan-sweep,
+parity-auditor).** `ReceiptBody` and `ReceiptPage` each declared an identical
+`CASE_FILE_LABEL_KEY`; the map now lives beside the rule that produces the link
+(`caseFileLink.ts`, `satisfies Record<CaseFileLink["target"], string>`) and both
+surfaces import it — a renamed catalog key or a third case-file target changes one
+place. Count: 2 copies → 1.
+

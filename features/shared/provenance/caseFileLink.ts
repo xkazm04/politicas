@@ -23,6 +23,13 @@ export interface CaseFileLink {
   target: "poslanec" | "firma";
 }
 
+/** Katalogový klíč popisku odkazu na spis (`shared.receipt.caseFile.*`) — JEDNA
+ *  mapa pro kapsli i stránku /zdroj; do 2026-09-07 nesly obě vlastní shodnou kopii. */
+export const CASE_FILE_LABEL_KEY = {
+  poslanec: "receipt.caseFile.poslanec",
+  firma: "receipt.caseFile.firma",
+} as const satisfies Record<CaseFileLink["target"], string>;
+
 const COMPANY_ID = /^company:ico:(\d{1,8})$/;
 
 /*

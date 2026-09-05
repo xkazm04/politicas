@@ -27,3 +27,16 @@ describe("ReceiptBody types its catalog maps by the closed enums they label", ()
     expect(s).not.toMatch(/\?\? "receipt\.audit\.return"/);
   });
 });
+
+describe("the case-file label map is defined once, in caseFileLink.ts", () => {
+  it("caseFileLink exports it; ReceiptBody and ReceiptPage import it", () => {
+    expect(src("features/shared/provenance/caseFileLink.ts")).toMatch(
+      /export const CASE_FILE_LABEL_KEY = \{[\s\S]*?\} as const satisfies Record<CaseFileLink\["target"\], string>/,
+    );
+    for (const f of ["ReceiptBody.tsx", "ReceiptPage.tsx"]) {
+      const s = src(`features/shared/provenance/${f}`);
+      expect(s, f).not.toMatch(/const CASE_FILE_LABEL_KEY/);
+      expect(s, f).toMatch(/import \{ CASE_FILE_LABEL_KEY, caseFileLinkFor \} from "\.\/caseFileLink"/);
+    }
+  });
+});
