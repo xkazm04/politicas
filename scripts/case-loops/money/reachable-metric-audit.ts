@@ -36,7 +36,9 @@ async function main() {
   const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
   const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
   const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
   await store.close();
+  const labelById = new Map(companies.map((c) => [c.id, c.label]));
 
   const contractById = new Map(contracts.map((c) => [c.id, c]));
 
@@ -58,6 +60,9 @@ async function main() {
   const direction: Record<string, Bucket> = { recipient: mk(), unknown: mk(), payer: mk() };
   let implausibleDate = 0;
   let noDate = 0;
+  /** Per-company reachable CZK — the audit's whole point is WHO dominates the raw total, and
+   *  until 2026-09-07 the payload's `topNonAttributable` was an empty slice by construction. */
+  const czkByCompany = new Map<string, number>();
 
   for (const e of supplies) {
     const node = contractById.get(e.dst);
@@ -75,6 +80,7 @@ async function main() {
     add(all);
     add(byClass[cls] ?? byClass.untied);
     add(direction[dir] ?? direction.unknown);
+    czkByCompany.set(e.src, (czkByCompany.get(e.src) ?? 0) + amount);
 
     const d = str(props.signedOn);
     if (!d) noDate++;
@@ -126,8 +132,14 @@ async function main() {
         notAttributableCzk: all.czk - attributable,
         byDirection: Object.fromEntries(Object.entries(direction).map(([k, v]) => [k, fmt(v)])),
         dateSanity: { implausible: implausibleDate, missing: noDate, plausibleOnly: fmt(plausibleOnly) },
-        topNonAttributable: [...byClass.steward.companies, ...byClass.untied.companies]
-          .slice(0, 0),
+        // The ten companies carrying the most NON-attributable money (steward seats and untied
+        // suppliers) — the public bodies and ownership parents the header names, now listed
+        // from the same buckets instead of asserted.
+        topNonAttributable: [...czkByCompany.entries()]
+          .filter(([id]) => byClass.steward.companies.has(id) || byClass.untied.companies.has(id))
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 10)
+          .map(([id, czk]) => ({ id, label: labelById.get(id) ?? id, tieClass: classByCompany.get(id) ?? "untied", czk })),
       },
       null, 2,
     ),

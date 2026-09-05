@@ -576,3 +576,9 @@ as `pending_review`, so a tie a reviewer had rejected re-entered the queue as
 waiting for review. Known states now pass through; the runtime list lives in the
 script with `satisfies readonly ReviewState[]` because `reviewTypes.ts` exports
 only the type.
+
+**`reachable-metric-audit.ts` lists the companies it accuses of dominating the
+total (2026-09-07, scan-sweep, copy-auditor).** Its payload field
+`topNonAttributable` was an empty slice by construction; it now carries the ten
+steward/untied companies with the most reachable CZK, from the same buckets the
+audit already computed.
