@@ -15,6 +15,7 @@
  *   npx tsx scripts/data-analysis/kg-committee-routing.ts --commit   # write
  * Flags: --commit  --pass=N  --refetch
  */
+import { nextPass } from "@/lib/analysis/kg";
 import { normalizeCommitteeRouting, type CommitteeAssignment } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
 import type { KgEdgeRow } from "@/lib/db/types";
@@ -60,7 +61,9 @@ async function main() {
   }
 
   const all: CommitteeAssignment[] = normalizeCommitteeRouting(tiskyZip);
-  const pass = Number(arg("pass")) || 12;
+  // Derived like every sibling writer (nextPass), not frozen: until 2026-09-06 the
+  // default was the literal 12, so each re-run restamped these edges as pass 12.
+  const pass = Number(arg("pass")) || nextPass(nodes);
   const computedAt = new Date().toISOString();
   const provenance = { track: "law", pass, method: "deterministic", ref: "F15", computedAt };
 

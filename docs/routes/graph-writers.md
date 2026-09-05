@@ -166,3 +166,8 @@ the `ingest_run` row). `kg-bill-roles-ingest` also dropped its private UNL membe
 reader for `lib/ingest/unlMembers` (5 + 1 copies → 1 + 1; `oneDump.test.ts` pins it).
 `kg-vote-bill-ingest.ts` carries a sixth copy and is not in this context's file list;
 it is named here, not touched.
+
+**`kg-committee-routing` derives its pass (2026-09-06, scan-sweep, parity-auditor).**
+Its default was the literal `12` while eight sibling writers derive the pass from the
+graph (`nextPass`), so every re-run without `--pass` restamped the `assigned_to` edges
+as pass 12. It now derives like the others (1 frozen default → 0; `writerPass.test.ts`).
