@@ -19,7 +19,8 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { caseFileLinkFor } from "./caseFileLink";
 import { LIVE_AS_OF, type ReceiptAsOf } from "./asOfLens";
-import type { ReceiptEndpoint, ProvenanceReceipt, ReviewStatus } from "./receipt";
+import type { SourceTier } from "@/lib/kg/sourceLinks";
+import type { ReceiptAuditEntry, ReceiptEndpoint, ProvenanceReceipt, ReviewStatus } from "./receipt";
 import { formatWeight, relLabelKey } from "./receipt";
 
 /** Překladač namespace `shared` — jediný typ, který si dílčí sazba předává. */
@@ -36,16 +37,21 @@ const GATE_BADGE: Record<ReviewStatus, { labelKey: string; cls: string }> = {
   rejected: { labelKey: "receipt.gate.rejected", cls: "border-steel text-steel-aa" },
 };
 
-/** Známé úrovně odkazů do registrů; neznámá úroveň se vypíše doslova. */
-const TIER_LABEL_KEY: Record<string, string> = {
+/** Úrovně odkazů do registrů — UZAVŘENÝ slovník lib/kg/sourceLinks (`SourceTier`):
+ *  nová úroveň bez popisku je chyba typu, ne strojový token v sazbě. */
+const TIER_LABEL_KEY = {
   detail: "receipt.tier.detail",
   search: "receipt.tier.search",
-};
+} as const satisfies Record<SourceTier, string>;
 
-const AUDIT_DECISION_KEY: Record<string, string> = {
+/** Rozhodnutí brány — všechna tři pojmenovaná. Do 2026-09-07 mapa nesla dvě a
+ *  „vráceno k doplnění“ stálo jako VÝCHOZÍ větev pro cokoli jiného: nové
+ *  rozhodnutí by se čtenáři vysázelo jako vrácení. */
+const AUDIT_DECISION_KEY = {
   confirm: "receipt.audit.confirm",
   reject: "receipt.audit.reject",
-};
+  "needs-more": "receipt.audit.return",
+} as const satisfies Record<ReceiptAuditEntry["decision"], string>;
 
 function MetaRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -91,7 +97,7 @@ function EndpointSources({ endpoint, t }: { endpoint: ReceiptEndpoint; t: T }) {
               >
                 {l.registry}
                 <span className="text-steel-aa no-underline">
-                  · {TIER_LABEL_KEY[l.tier] ? t(TIER_LABEL_KEY[l.tier]) : l.tier}
+                  · {t(TIER_LABEL_KEY[l.tier])}
                 </span>
                 <ArrowUpRight className="h-3 w-3" aria-hidden />
               </a>
@@ -248,7 +254,7 @@ export default function ReceiptBody({
             {gate.audit.map((a, i) => (
               <li key={`${a.decidedAt}-${i}`} className="font-mono text-xs text-steel-aa">
                 <span className="font-bold text-ink">{f.date(a.decidedAt)}</span>{" "}
-                {t(AUDIT_DECISION_KEY[a.decision] ?? "receipt.audit.return")}{" "}
+                {t(AUDIT_DECISION_KEY[a.decision])}{" "}
                 · {a.reviewer}
                 {a.note ? ` · ${a.note}` : ""}
               </li>

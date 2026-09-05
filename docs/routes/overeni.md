@@ -262,3 +262,13 @@ its canonical owner is `features/money/companyId.ts`, which the shared catalog m
 not import (eslint boundary) — backlogged as a move to `lib/`.
 `provenanceSource.test.ts` forbids a second person-id regex.
 
+**2026-09-07 — the receipt's two catalog maps are closed over the enums they label
+(scan-sweep, state-coverage).** `ReceiptBody` kept the registry-tier labels and the
+audit-decision labels as `Record<string, string>`: the tier map had a raw-token
+fallback for a union that has exactly two members, and the decision map named two
+of the three `ReviewAuditRow.decision` values and let a `??` default label
+EVERYTHING else „vráceno k doplnění" — a new decision would have printed as a
+return. Both maps are now `as const satisfies Record<…, string>`; `needs-more` is
+named explicitly and the fallbacks are gone, so a missing label is a type error,
+not a sentence the reader acts on.
+

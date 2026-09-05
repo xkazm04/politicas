@@ -14,3 +14,16 @@ describe("caseFileLink reads the person-id grammar from lib/ingest/changeEvents"
     expect(s).not.toMatch(/const PERSON_ID/);
   });
 });
+
+describe("ReceiptBody types its catalog maps by the closed enums they label", () => {
+  const s = src("features/shared/provenance/ReceiptBody.tsx");
+  it("the registry-tier map satisfies Record<SourceTier, string> and has no raw-token fallback", () => {
+    expect(s).toMatch(/satisfies Record<SourceTier, string>/);
+    expect(s).not.toMatch(/TIER_LABEL_KEY\[l\.tier\] \?/);
+  });
+  it("every audit decision is named; nothing falls through to „vráceno“", () => {
+    expect(s).toMatch(/satisfies Record<ReceiptAuditEntry\["decision"\], string>/);
+    expect(s).toMatch(/"needs-more": "receipt\.audit\.return"/);
+    expect(s).not.toMatch(/\?\? "receipt\.audit\.return"/);
+  });
+});
