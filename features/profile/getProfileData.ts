@@ -230,9 +230,12 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // open row on that organ do we fall back to the highest role among ended rows, and
     // then the seat is marked past. Every field of the result comes from ONE row.
     // One evaluation instant for every seat on this page (and the one the page
-    // prints), rather than a fresh `Date.now()` per row.
+    // prints), rather than a fresh `Date.now()` per row. The DAY of that instant is the
+    // PRAGUE day (features/denik/pragueDay.ts): the UTC slice that stood here lagged Prague
+    // by up to two hours after midnight, and the same page drew its absence record against
+    // `pragueDay()` two reads below - one spis, two calendars (scan-sweep 2026-09-07).
     const asOfMs = Date.now();
-    const seatsAsOf = new Date(asOfMs).toISOString().slice(0, 10);
+    const seatsAsOf = pragueDay(new Date(asOfMs));
     const rowsByOrgan = new Map<number, CommitteeSeat[]>();
     // `memberships` je už čtený PODLE OSOBY (viz predikát výš), takže se tu na
     // `personPspId` nefiltruje — jediné, co řádek diskvalifikuje, je chybějící organ.
@@ -365,7 +368,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
                 mandatePspIds: termMandateIds,
                 limit: KG_READ_CAP,
               });
-              return buildAbsenceRecord(rows, pragueDay());
+              return buildAbsenceRecord(rows, seatsAsOf);
             } catch (err) {
               reportLoaderFailure("getProfileData/absence", err);
               return null;

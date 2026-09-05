@@ -395,3 +395,10 @@ Loader teď volá `pspIdFromNodeId` z `lib/ingest/changeEvents.ts`
 (`/^psp:person:(\d+)$/`); nerozpoznané id dál padá na `NaN` a stávající filtr ho
 zahodí, nikdy nehádá. Týž nález jako v moneyLoaderu (round 35) a v ARES-VR
 skriptech (round 34).
+
+**Celý spis se hodnotí k JEDNOMU pražskému dni (2026-09-07, scan-sweep,
+bounty-hunter).** `seatsAsOf` — den, ke kterému se posuzují výbory (běžící/minulé),
+kariérní páteř a který stránka tiskne — vznikal z UTC řetězce, zatímco evidence
+omluv o dva řádky níž brala `pragueDay()`: jedna stránka, dva kalendáře, a mezi
+půlnocí a 01:00/02:00 pražského času o den rozjeté. `seatsAsOf` je teď
+`pragueDay(instant)` z téhož okamžiku a omluvy se kreslí proti němu.
