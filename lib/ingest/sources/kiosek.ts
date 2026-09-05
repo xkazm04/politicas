@@ -43,7 +43,9 @@
 // extraction budget is spent on the ~40-50% of postings that carry real
 // join-key content, not the boilerplate half.
 
+import { backoffDelayMs } from "./backoff";
 import { LAW_CITATION } from "./psp-legislation";
+import { classifyResponse, isTerminalRefusal, RefusedError } from "./refusal-class";
 
 export const SOURCE_KIOSEK = "kiosek-uredni-deska";
 
@@ -188,6 +190,15 @@ export async function fetchWithThrottle(
   return out;
 }
 
+/**
+ * Retry only what a retry can change (refusal-class.ts, `classify-before-you-
+ * respond`). Until 2026-09-06 every non-ok status was retried `retries` times
+ * with a linear back-off — a board that does not exist (404) or a host that
+ * said no (403) cost four requests, against the one civic host whose discovery
+ * session already showed connection failures under a tight loop. MONITOR made
+ * the same move on 2026-09-04 and measured 3 → 1 requests per terminal refusal.
+ * The waits are the repo's jittered back-off, not a hand-rolled linear ramp.
+ */
 async function fetchWithRetry(
   url: string,
   fetchOne: (url: string) => Promise<Response>,
@@ -198,12 +209,15 @@ async function fetchWithRetry(
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const res = await fetchOne(url);
-      if (res.ok) return res;
-      lastErr = new Error(`${url} → HTTP ${res.status}`);
+      const cls = classifyResponse(res.status);
+      if (cls.kind === "ok") return res;
+      if (!cls.retryable) throw new RefusedError("kiosek", url, cls);
+      lastErr = new RefusedError("kiosek", url, cls);
     } catch (e) {
+      if (isTerminalRefusal(e)) throw e;
       lastErr = e;
     }
-    if (attempt < retries) await sleep(delayMs * (attempt + 1)); // linear backoff
+    if (attempt < retries) await sleep(backoffDelayMs(attempt, delayMs, delayMs * 8));
   }
   throw lastErr instanceof Error ? lastErr : new Error(String(lastErr));
 }
