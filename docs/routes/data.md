@@ -187,3 +187,12 @@ UTC. The download is `continue-on-error`; the **audit is not**. A missing
 artifact reaches the reader as an unevaluable report and a red job, because a
 nightly that goes green because nothing ran is precisely the failure this
 instrument exists to prevent.
+
+**A certification whose counts could not be read no longer prints „platilo 0 z 0"
+(2026-09-05, scan-sweep, copy-auditor).** `checksHeld` / `checksTotal` are
+`number | null`, and null means the sentinel report's check list was unreadable
+(`sentinelQueue.readNewestCertification`) — the page collapsed both through `?? 0`
+into a sentence claiming zero invariants held of zero. Missing is not zero: the
+three verdict sentences now have count-free variants
+(`current.certificationNoCounts.*`), chosen when either count is null;
+`pageSource.test.ts` pins the branch and the keys in both catalogs.

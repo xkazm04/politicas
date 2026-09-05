@@ -3301,6 +3301,11 @@
       "badgeDegraded": "degradováno — není latest",
       "badgeLatest": "latest",
       "cut": "řez: {date}",
+      "certificationNoCounts": {
+        "ok": "Invarianty ověřeny k {date}; kolik jich platilo, report nenese čitelně. Sentinel běžel nad TÍMHLE otiskem, ne nad nějakým blízkým vydáním.",
+        "violation": "Sentinel k {date} nad tímhle otiskem NAŠEL PORUŠENÍ; počet platných invariant report nenese čitelně. Červená je datový problém, ne chyba nástroje: opravuje se ingest, ne invarianta.",
+        "unevaluable": "Sentinel k {date} na data NEDOSÁHL; počet vyhodnocených invariant report nenese čitelně. Není to průchod a nesmí se tak číst."
+      },
       "certificationNone": "Neověřeno — sentinel nad tímhle otiskem neběžel. Není to výtka vydání ani jeho průchod: nikdo se zatím nepodíval. „Latest“ výš plyne z kardinalitních prahů, a prahy nejsou audit.",
       "certificationSource": "zdroj: tabulka sentinel_run, nejnovější řádek se SHODNÝM otiskem manifestu; zapisuje ho npm run sentinel přes frontu, kterou vysype nejbližší otevření store",
       "certification": {

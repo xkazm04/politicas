@@ -334,14 +334,22 @@ export default function DataReleasesPage({
                       smluv. Verdikt se spojuje na PŘESNOU shodu otisku, takže
                       „neověřeno" znamená neověřeno, ne „nejbližší běh dopadl
                       dobře". */}
+                  {/* Počty invariant jsou `number | null` a null znamená „report se nedal
+                      přečíst“ (sentinelQueue.readNewestCertification) — do 2026-09-05 tu
+                      propadal přes `?? 0` jako „platilo 0 z 0“, tedy výsledek auditu,
+                      který audit nevydal. Missing is not zero: věta bez počtů. */}
                   <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">
                     {m.certification === "none" || m.certifiedBy === null
                       ? t("current.certificationNone")
-                      : t(`current.certification.${m.certification}`, {
-                          date: f.date(m.certifiedBy.ranAt),
-                          platnych: f.int(m.certifiedBy.checksHeld ?? 0),
-                          vsech: f.int(m.certifiedBy.checksTotal ?? 0),
-                        })}
+                      : m.certifiedBy.checksHeld === null || m.certifiedBy.checksTotal === null
+                        ? t(`current.certificationNoCounts.${m.certification}`, {
+                            date: f.date(m.certifiedBy.ranAt),
+                          })
+                        : t(`current.certification.${m.certification}`, {
+                            date: f.date(m.certifiedBy.ranAt),
+                            platnych: f.int(m.certifiedBy.checksHeld),
+                            vsech: f.int(m.certifiedBy.checksTotal),
+                          })}
                   </p>
                   <div className="mt-2">
                     <SourceNote>{t("current.certificationSource")}</SourceNote>

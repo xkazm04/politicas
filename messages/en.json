@@ -3301,6 +3301,11 @@
       "badgeDegraded": "degraded — not latest",
       "badgeLatest": "latest",
       "cut": "cut: {date}",
+      "certificationNoCounts": {
+        "ok": "Invariants verified on {date}; how many held, the report does not carry legibly. The sentinel ran over THIS fingerprint, not over some nearby release.",
+        "violation": "On {date} the sentinel found a VIOLATION over this fingerprint; the count of invariants that held is not legible in the report. Red is a data problem, not a tooling fault: fix the ingest, never the invariant.",
+        "unevaluable": "On {date} the sentinel never reached the data; the count of evaluated invariants is not legible in the report. This is not a pass and must not read as one."
+      },
       "certificationNone": "Not verified — the sentinel has not run over this fingerprint. That is neither a mark against the release nor a pass: nobody has looked yet. The “latest” badge above comes from cardinality floors, and floors are not an audit.",
       "certificationSource": "source: the sentinel_run table, newest row with the SAME manifest fingerprint; written by npm run sentinel through a queue the next store open drains",
       "certification": {
