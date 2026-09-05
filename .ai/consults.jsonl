@@ -12,3 +12,5 @@
 {"ts": "2026-09-05T19:10:00Z", "bundle": "software-engineering", "subjects": ["canvas-graph"], "techniques": ["graph-layout", "render-budget"], "deviations": 0}
 {"ts": "2026-09-05T20:40:00Z", "bundle": "software-engineering", "subjects": ["quality-gates", "test-harness", "design-tokens", "accessibility"], "techniques": ["renameable-detector-keys", "vacuous-by-evaluation", "negative-control-tests", "token-enforcement", "preference-respect"], "deviations": 2}
 {"ts": "2026-09-05T22:10:00Z", "bundle": "civic-intelligence", "subjects": ["politician-performance-scoring", "claim-verification-and-provenance"], "techniques": ["gate-state-as-modifier", "derivation-comparison", "three-verdict-vocabulary"], "deviations": 1}
+{"ts": "2026-09-05T23:40:00Z", "bundle": "civic-intelligence", "subjects": ["politician-performance-scoring", "accountability-publishing-ethics"], "techniques": ["non-partisan-symmetry", "real-vs-illustrative-form-encoding"], "deviations": 0}
+{"ts": "2026-09-05T23:40:00Z", "bundle": "software-engineering", "subjects": ["scoring-rubrics"], "techniques": ["published-rubric-single-source"], "deviations": 1}

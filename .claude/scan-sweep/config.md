@@ -73,3 +73,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   here 6 of 12 sites were missed, on the duel and on the one surface that gets PRINTED.
   `features/civicscore/**` owes seven dismissal trailers (README, CLAUDE, AGENTS, ROADMAP,
   DESIGN, routes/metodika.md, routes/poslanec.md) when zebricek.md is the record touched.
+- 2026-09-05 — civicscore-lens-duel, first sweep (28 lenses, 2 S built). A module that
+  "mirrors" another (lens.ts mirrors the loader's sort / median / histogram) is a standing
+  pair: every later fix to the original is a candidate finding here — diff the two rule
+  sets, not the code. When the original is `server-only` and the mirror is client code,
+  the parity instrument is a TEST that imports both (the vitest alias allows it).
