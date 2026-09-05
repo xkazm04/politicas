@@ -242,3 +242,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   across app/. A poster or card that stamps `new Date()` dates itself, not its data; the
   chamber provenance is the day. New lib/routing helpers get their own unit test AND a
   source-grep in lib/testing so the routes cannot drift back.
+- 2026-09-07 — observability, first sweep (28 lenses, 1 built, 0 cards; a 4-file context yields
+  4 findings and that is the honest number). A pin in another context's test owns the SHAPE
+  of the code it greps: when the fix is 'centralise three literal blocks', check whether a
+  source-grep test asserts the literal first - here it did, the refactor was dropped before the
+  gate, and the minimal fix (add the two hooks to the one runtime missing them) landed instead.

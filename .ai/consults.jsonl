@@ -44,3 +44,4 @@
 {"ts": "2026-09-07T12:20:00Z", "bundle": "software-engineering", "subjects": ["frontend", "data-modeling", "accessibility"], "techniques": ["one-definition-per-rule", "local-day-not-utc", "default-branch-must-be-true", "placeholder-is-not-a-name"], "deviations": 1}
 {"ts": "2026-09-07T13:30:00Z", "bundle": "software-engineering", "subjects": ["frontend", "data-modeling"], "techniques": ["one-definition-per-rule", "local-day-not-utc", "one-instant-per-page", "exhaustive-by-type"], "deviations": 1}
 {"ts": "2026-09-07T14:30:00Z", "bundle": "software-engineering", "subjects": ["frontend", "quality-gates"], "techniques": ["one-definition-per-rule", "date-the-data-not-the-render", "exhaustive-by-type", "local-day-not-utc"], "deviations": 2}
+{"ts": "2026-09-07T15:10:00Z", "bundle": "software-engineering", "subjects": ["observability", "security"], "techniques": ["every-runtime-scrubs", "grep-pins-before-refactor"], "deviations": 0}
