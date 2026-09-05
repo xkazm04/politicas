@@ -19,3 +19,10 @@ Runs on the skill defaults; this file exists for the improvement log below.
   `docs/hybrid-benchmark-plan.md`, so every commit there needs both trailers.
   (3) The outbox's 30-finding cap was full after the moonshot round; check the
   count BEFORE the round and route overflow to the architect backlog.
+- 2026-09-05 — app-config, first sweep (28 lenses, 1 S built, 5 cards to backlog.md;
+  outbox finding cap still full). Two facts for the next round: (1) under a full
+  `npm run check` the unit lane can time out `lib/testing/archivedScripts.test.ts`
+  at its 5 s budget (6,3 s measured; 1,9 s alone) — rerun the file alone before
+  calling the gate red, and still run the stages `check` skipped. (2) `next.config.ts`
+  imported under tsx is double-wrapped (`.default.default`) before `headers()` is
+  reachable — the header contract test in the backlog needs that unwrap.
