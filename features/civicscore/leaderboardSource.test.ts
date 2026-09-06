@@ -36,3 +36,11 @@ describe("the table's per-component median is lib/analysis/score-legibility's, n
     expect(s).not.toMatch(/vals\[n \/ 2 - 1\]/);
   });
 });
+
+describe("the kraj picker folds its query with the one folding scheme (search.ts → asciiFold)", () => {
+  it("KrajPickerPage imports foldQuery and spells no NFD strip of its own", () => {
+    const s = src("features/civicscore/KrajPickerPage.tsx");
+    expect(s).toMatch(/import \{ foldQuery \} from "\.\/search"/);
+    expect(s).not.toMatch(/normalize\("NFD"\)/);
+  });
+});
