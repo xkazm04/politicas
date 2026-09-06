@@ -409,3 +409,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   CEILING is a clock too: `date <= today` refuses a real same-day fact when `today` is the wrong
   zone's day. Grep `toISOString().slice(0, 10)` for DEFAULT PARAMETERS specifically - a default
   the production caller never overrides is live code, however the comment reads.
+- 2026-09-08 — kg-analysis, second sweep (28 lenses, 1 built, 0 cards, 2 leads). A wait the HOST dictates
+  (Retry-After) is a wait too: list every sleep in a retry loop and check each has a ceiling, the
+  header-driven one included. Fake timers (vi.useFakeTimers + advanceTimersByTimeAsync) make a
+  100 000 s header testable in milliseconds - the instrument for any timing bound.
