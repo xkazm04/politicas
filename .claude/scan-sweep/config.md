@@ -348,3 +348,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   carried item confirmed carded). An ICU parameter that is an IDENTIFIER (pass, run id, step)
   must be a string and one that is a QUANTITY must be pre-formatted - a raw number is wrong
   either way; grep `\{ [a-z]+: [a-z.]+\.(pass|id|no) \}` beside every `t(`.
+- 2026-09-08 — contribution-scoring, second sweep (28 lenses, 2 built in 2 commits, 0 cards). A
+  closed vocabulary spelled as BOTH a union type and an array is two declarations of one list;
+  grep `readonly \w+\[\] = \[` beside every `export type \w+ = "` in lib/. A fixture value that
+  looks misspelled may be a deliberate unknown-value passthrough - read the fixture's comment
+  before filing it.
