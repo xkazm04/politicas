@@ -303,3 +303,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   lib/analysis modules may read lib/format (deterministic, no Intl) - a raw `toFixed`/template
   number inside a Czech sentence is a defect there too, not only in JSX. A held local copy of a
   hash (tripwires vs exhibit) is trusted until a test pins the two equal; write that test.
+- 2026-09-08 — app-config, second sweep (28 lenses, 1 built, 0 new cards). A lint config's scopes
+  are a hand-maintained list: when two rule blocks describe the same audience in prose
+  ('reader-facing tree') but enumerate different globs, the narrower one is the finding. A
+  config has no unit test - a synthetic file linted before/after is the probe rung.
