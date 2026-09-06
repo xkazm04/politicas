@@ -388,3 +388,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   writer's audit comment names a sibling as the stricter precedent, read the sibling - it may have
   been the weaker one all along. Grep `Number(arg("pass")) ||` and `?? <n> + 1` in every script
   that stamps provenance: a pass a script derives for itself is an invented number on a live row.
+- 2026-09-08 — eslint-rules-shims, second sweep (28 lenses, 0 built, 0 cards, 1 lead). A shim layer
+  whose only consumer is the test that pins it is clean by construction; the round's work is the
+  consumer grep (name the dirs, never grep `.` - the data dir makes it hang) and the lead it
+  leaves: a kept compatibility surface is a direction to retire, not a cleanup to land.
