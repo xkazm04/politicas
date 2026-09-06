@@ -358,3 +358,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   `$` and every `if (!m) return <default>` is a guess wearing a fallback's clothes: grep
   `\.exec\(` and read the branch that runs when it fails. A timezone fix that changes stored
   strings is a data refresh, not a parser edit - keep it on the card.
+- 2026-09-08 — dashboard-instruments, second sweep (28 lenses, 2 built in 2 commits, 1 card
+  updated). `toISOString().slice(0, 10)` is the UTC day: grep it repo-wide whenever a loader
+  passes a `today` into a `date <= today` filter - the Prague day is ahead of it for one or two
+  hours every night and the dropped rows land in an honesty counter. A Record keyed by another
+  file's private literals is a pair: read the literals in the test instead of re-typing them.
