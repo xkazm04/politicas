@@ -26,3 +26,9 @@ describe("citationScopeIssue — a company graph_fact may not assert ownership o
     expect(citationScopeIssue("vlastní většinu", "psp:person:6790", nodes)).toBeNull();
   });
 });
+
+describe("citationScopeIssue — Czech keywords need Unicode boundaries (2026-09-09, bounty-hunter)", () => {
+  it("flags the phrase statni podnik - an ASCII word boundary after the i-acute never fired before a space", () => {
+    expect(citationScopeIssue("Jde o státní podnik založený ministerstvem", company.id, nodes)).not.toBeNull();
+  });
+});

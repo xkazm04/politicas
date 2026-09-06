@@ -49,7 +49,10 @@ const OUT_OF_SCOPE_COMPANY_CLAIM_KEYWORDS: RegExp[] = [
   // public/private/municipal status substance
   /soukrom\w*/i, // soukromý/á/é
   /veřejn\w*/i, // veřejný/á/é
-  /\bstátní\b/i,
+  // Unicode-aware boundaries: JS's ASCII `\b` sits BEFORE a diacritic, so `/\bstátní\b/`
+  // matched „státním" and never „státní podnik" (the \w/\b trap the census notes; fixed
+  // 2026-09-09). The same idiom verify-close-reads.ts uses.
+  /(?<!\p{L})státní(?!\p{L})/iu,
   /\bměst\w*/i, // město/městský — municipal
   /\bkraj\w*/i,
   /\bprivate\b/i,

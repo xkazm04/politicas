@@ -725,3 +725,10 @@ three earlier cases in `collision-core.test.ts` still hold).
 **2026-09-09 (scan-sweep, law-triage-batch round 78).** `build-bill-summaries.ts` read the
 bill nodes with a literal `limit: 100_000`; it reads them under `KG_READ_CAP` now — the cap
 `lib/db/readCap.ts` declares as the end of that class (`summariesReadCap.test.ts`).
+
+**2026-09-09 (round 78, continued).** `gate-verdicts.ts`'s citation-scope check exports
+`citationScopeIssue` behind a direct-run guard and is pinned by `citationScope.test.ts`;
+the test then caught that the „státní" keyword was written with an ASCII `\b` after a
+diacritic, so „státní podnik" in a company graph_fact claim never raised the scope
+warning (only „státním" did). It uses Unicode boundaries now — a warning, not a hard gate,
+so no persisted verdict changes; the 27 gated verdicts were not re-run here.
