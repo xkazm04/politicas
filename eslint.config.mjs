@@ -142,19 +142,23 @@ const eslintConfig = defineConfig([
   // (2026-09-05: the rule reads className ON the element only), so a new prop
   // default carrying a size override would still pass. Tracked in
   // docs/architect/backlog.md.
+  // `components/**` JOINED 2026-09-08. The display-string rule below already
+  // calls app + features + components "the reader-facing tree", and the tree is
+  // real: app/poslanec/[id] mounts components/MpProfileBeacon.tsx, the shell and
+  // the landing header mount components/LanguageSwitcher.tsx. Yet the three
+  // provenance rules stopped at features/** and app/**, so a raw number or an
+  // uncited figure in components/ passed lint. Measured before widening with a
+  // synthetic components/__probe.tsx carrying a raw `{12345}`, no citation and a
+  // `!text-[10px]` SourceNote: 0 reports under the old scope, 1 under this one
+  // (the size override; the SourceNote itself satisfies the citation rule), and
+  // the two real files report 0 - an empty inventory, promoted on arrival for
+  // the reason written three times above.
   {
-    files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
+    files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
     rules: {
       "custom/require-source-citation": "error",
       "custom/no-raw-number-display": "error",
       "custom/no-source-note-size-override": "error",
-    },
-  },
-  {
-    files: ["app/**/*.{ts,tsx}"],
-    rules: {
-      "custom/require-source-citation": "error",
-      "custom/no-raw-number-display": "error",
     },
   },
   // ── Catalog discipline for display copy (2026-08-24) ──────────────────────
