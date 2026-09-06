@@ -321,3 +321,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   very fallback is the highest-yield parity grep in this tree: grep `|| 0` next to every
   `replace(/^` and check whether a `*FromNodeId` sibling already exists. A builder without
   its inverse (mpEntityKey with no parser) breeds regex copies in every loader that reads it.
+- 2026-09-08 — civic-feeds-verification, second sweep (28 lenses, 3 built in 3 commits + doc,
+  1 card). Sibling routes are a pair by construction: diff the SUCCESS branch headers, not
+  only the 503s a previous round aligned. A page that drops a repeated query parameter while
+  its feed takes the first is two readers of one address disagreeing - grep `typeof raw ===
+  "string"` beside every searchParams read.

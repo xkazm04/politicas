@@ -60,3 +60,4 @@
 {"ts": "2026-09-08T04:00:00Z", "bundle": "software-engineering", "subjects": ["frontend", "accessibility", "routing"], "techniques": ["one-definition-per-rule", "contrast-by-the-palette's-own-figures", "hand-list-vs-ground-truth"], "deviations": 0}
 {"ts": "2026-09-08T05:00:00Z", "bundle": "software-engineering", "subjects": ["frontend", "data-modeling"], "techniques": ["three-states-not-two", "one-definition-per-rule", "missing-is-not-worse"], "deviations": 0}
 {"ts": "2026-09-08T06:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "observability", "routing"], "techniques": ["missing-is-not-low", "strict-id-codec-or-no-address", "one-definition-per-rule", "inverse-lives-beside-the-builder"], "deviations": 0}
+{"ts": "2026-09-08T07:00:00Z", "bundle": "software-engineering", "subjects": ["routing", "caching", "frontend"], "techniques": ["one-definition-per-rule", "siblings-hold-the-same-headers", "first-value-not-silent-drop"], "deviations": 0}
