@@ -81,3 +81,4 @@
 {"ts": "2026-09-08T22:30:00Z", "bundle": "software-engineering", "subjects": ["correctness"], "techniques": ["one-clock-per-domain-day", "ceiling-travels-with-the-rows"], "deviations": 0}
 {"ts": "2026-09-08T23:00:00Z", "bundle": "software-engineering", "subjects": ["resilience"], "techniques": ["bound-every-wait-including-the-hosts", "classify-before-you-respond"], "deviations": 0}
 {"ts": "2026-09-08T23:30:00Z", "bundle": "software-engineering", "subjects": ["parity", "documentation"], "techniques": ["derive-the-default-from-the-store", "publish-the-enum-never-retype-it"], "deviations": 0}
+{"ts": "2026-09-09T00:00:00Z", "bundle": "software-engineering", "subjects": ["parity"], "techniques": ["derive-the-figure-never-retype-it", "pin-the-fact-a-literal-assumes"], "deviations": 0}

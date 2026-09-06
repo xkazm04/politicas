@@ -417,3 +417,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   ONE sibling leaves the class open: after fixing a writer's frozen default, grep the same
   default in every sibling and pin the rule, not the instance. A published schema that lists a
   vocabulary by hand is a hand-kept list - join it from the enum.
+- 2026-09-09 — landing-page, second sweep (28 lenses, 1 built, 1 card, 1 lead). When one component
+  says 'this figure is a derivation, not a literal', grep the figure's literal across the feature:
+  the sibling page still had it. A `?? <constant>` fallback is a claim about the data - ask what
+  pins the constant.
