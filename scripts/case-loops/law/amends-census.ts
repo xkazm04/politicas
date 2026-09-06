@@ -20,6 +20,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
@@ -208,7 +209,7 @@ interface ExtractResult {
   repealedRefs: string[];
 }
 
-function extractRealAmendedLaws(operative: string): ExtractResult {
+export function extractRealAmendedLaws(operative: string): ExtractResult {
   const artRe = /\n\s*Čl\.\s*([IVXLCDM]+|\d+)\.?\s*\n/g;
   const arts: { label: string; idx: number }[] = [];
   let am: RegExpExecArray | null;
@@ -515,7 +516,13 @@ async function main() {
   await store.close();
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(2);
-});
+// Only self-execute when run directly — `extractRealAmendedLaws` is the pure core a test
+// needs (amendsCensusExtract.test.ts), and importing this module must not start a
+// 141-bill fetch. kg-promote.ts's guard, for the same reason.
+const isDirectRun = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(2);
+  });
+}
