@@ -672,3 +672,5 @@ from `.kiosek-cache/pdfs` are fetched now; the payload reports
 **2026-09-07 (scan-sweep, admin-control) — a verdict without a severity is not „low".** `getAdminData` bucketed a bill with a gate state and no `forensic_severity` under `low`; missing is not low. It has its own `neuvedeno` bucket, printed verbatim in a neutral tone.
 
 **2026-09-07 (scan-sweep, admin-control) — review-hub counts and the batch number go through `czechInt`.** Three count chips (severity, decision, reviewer) and the progress tile's batch number rendered raw numbers beside figures that were formatted.
+
+**2026-09-07 (scan-sweep, admin-control) — the stalled alert sentence formats its figures with `lib/format`.** `loopState` built „stáří 15.4 dne/dní" with `String().replace` and raw cadence/streak numbers; `czech()` / `czechInt()` now format them, pinned by `loopState.test.ts`.

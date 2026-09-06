@@ -20,6 +20,7 @@
 // nikdy 0 a nikdy vymyšlený stav.
 
 import { canonicalJson, contentHash } from "@/features/dashboard/exhibit";
+import { czech, czechInt } from "@/lib/format";
 
 export const LOOPS_SCHEMA = "politicas.loops/1";
 
@@ -456,8 +457,8 @@ export function deriveLoopState(inputs: LoopStateInputs): LoopsDerived {
         loopId: loop.id,
         kind: "stalled",
         messageCs:
-          `${loop.labelCs}: zastaralé — stáří ${String(loop.ageDays).replace(".", ",")} dne/dní ` +
-          `překročilo kadence × ${STALLED_CADENCE_MULTIPLIER} (kadence ${loop.cadenceDays} dne/dní).`,
+          `${loop.labelCs}: zastaralé — stáří ${loop.ageDays == null ? "—" : czech(loop.ageDays)} dne/dní ` +
+          `překročilo kadence × ${czechInt(STALLED_CADENCE_MULTIPLIER)} (kadence ${czechInt(loop.cadenceDays)} dne/dní).`,
         since: loop.lastOkFinishedAt,
       });
     }
@@ -467,7 +468,7 @@ export function deriveLoopState(inputs: LoopStateInputs): LoopsDerived {
         loopId: loop.id,
         kind: "failure-streak",
         messageCs:
-          `${loop.labelCs}: ${loop.failureStreak} po sobě jdoucí neúspěšné běhy` +
+          `${loop.labelCs}: ${czechInt(loop.failureStreak)} po sobě jdoucí neúspěšné běhy` +
           `${loop.lastFailureCause ? ` — poslední příčina: ${loop.lastFailureCause}` : ""}.`,
         since: loop.lastActivityAt,
       });
