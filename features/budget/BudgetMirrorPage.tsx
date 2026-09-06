@@ -32,7 +32,7 @@ import {
   latestMetrics,
   type Municipality,
 } from "./mirrorData";
-import { peerGroupFor, peerMedians, MIN_PEERS } from "./peerGroups";
+import { compareToPeer, peerGroupFor, peerMedians, MIN_PEERS } from "./peerGroups";
 import {
   SNAPSHOT_YEARS,
   SNAPSHOT_FLOOR_POPULATION,
@@ -69,12 +69,15 @@ function MetricDuo({
   const t = useTranslations("budget");
   const f = useFormat();
   const formatPlain = (n: number) => (kind === "czk" ? f.czk(n) : `${f.dec(n)} %`);
-  const better = town !== null && peer !== null && (lowerIsBetter ? town <= peer : town >= peer);
+  // Signální červeň jen u DOLOŽENÉ prohry s mediánem: obec bez vzorku vrstevníků
+  // („medián · bez vzorku" pod ní) se do 2026-09-08 sázela červeně, jako by
+  // proti někomu prohrála.
+  const worse = compareToPeer(town, peer, lowerIsBetter) === "worse";
   const width = (v: number) => `${Math.min(100, Math.max(2, (Math.abs(v) / max) * 100))}%`;
   return (
     <div className="bg-paper p-5">
       <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">{label}</p>
-      <p className={`mt-2 text-3xl font-black tabular-nums ${better || town === null ? "text-ink" : "text-signal-deep"}`}>
+      <p className={`mt-2 text-3xl font-black tabular-nums ${worse ? "text-signal-deep" : "text-ink"}`}>
         {town === null ? (
           "—"
         ) : kind === "czk" ? (

@@ -81,6 +81,21 @@ export function peerGroupFor(
   };
 }
 
+/** Srovnání obce s mediánem vrstevníků pro JEDNU metriku. Tři stavy, ne dva:
+ *  bez mediánu (skupina bez vzorku) nebo bez hodnoty obce není obec ani lepší,
+ *  ani horší — je nesrovnatelná. Do 2026-09-08 MetricDuo na ploše rozhodovalo
+ *  dvouhodnotově a obec bez vzorku vrstevníků sázelo signální červení, jako by
+ *  proti někomu prohrála. Rovnost je „better" (obec drží medián). */
+export type PeerComparison = "better" | "worse" | "incomparable";
+export function compareToPeer(
+  town: number | null,
+  peer: number | null,
+  lowerIsBetter: boolean,
+): PeerComparison {
+  if (town === null || peer === null) return "incomparable";
+  return (lowerIsBetter ? town <= peer : town >= peer) ? "better" : "worse";
+}
+
 /** Medián; prázdný vstup → null (medián z ničeho není 0). */
 export function median(xs: readonly number[]): number | null {
   if (xs.length === 0) return null;
