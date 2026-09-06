@@ -446,7 +446,7 @@ export default function LeaderboardTable({
                 Vidět je zkratka (týž tvar, na kterém stojí i filtr a karta kraje),
                 slyšet celý název. */}
             <span aria-hidden>{c.abbrev}</span>
-            <span className="sr-only">{c.name}</span> · {c.seats}
+            <span className="sr-only">{c.name}</span> · {f.int(c.seats)}
           </button>
         ))}
         <input
@@ -481,7 +481,7 @@ export default function LeaderboardTable({
                 }`}
               >
                 <Icon className="h-3 w-3" aria-hidden />
-                {tv(copy.badgeKey)} · {workhorseCounts[flav]}
+                {tv(copy.badgeKey)} · {f.int(workhorseCounts[flav])}
               </button>
             );
           })}
@@ -501,7 +501,7 @@ export default function LeaderboardTable({
             }`}
           >
             <FileText className="h-3 w-3" aria-hidden />
-            {t("dossierFilterLabel")} · {dossierCount}
+            {t("dossierFilterLabel")} · {f.int(dossierCount)}
           </button>
         )}
         <button
@@ -577,7 +577,10 @@ export default function LeaderboardTable({
             (vzor: features/dashboard/components/FeedPanelShell.tsx). */}
         <div role="status" aria-live="polite">
           <SourceNote>
-            {t("shownOf", { count: rows.length, total: entries.length })}
+            {/* Čísla vstupují do věty UŽ ZFORMÁTOVANÁ (lib/format) — next-intl by
+                je jinak protáhl vlastním Intl.NumberFormat (týž důvod jako v
+                PillarBars a RapporteurBadge); do 2026-09-08 tu šla surová. */}
+            {t("shownOf", { count: f.int(rows.length), total: f.int(entries.length) })}
           </SourceNote>
         </div>
         {custom ? (

@@ -57,7 +57,7 @@ export default function ScoreHistogram({
               <Tooltip
                 cursor={{ fill: PAPER_STRONG }}
                 contentStyle={TOOLTIP_STYLE}
-                formatter={(value) => [t("histogramCount", { value: Number(value) }), t("histogramBand")]}
+                formatter={(value) => [t("histogramCount", { value: f.int(Number(value)) }), t("histogramBand")]}
               />
               {/* Tři stavy, ne dva. Pásmo, V NĚMŽ medián leží, není „pod mediánem" —
                   a přesně to se dřív dělo největšímu pásmu sněmovny (65–70 při
