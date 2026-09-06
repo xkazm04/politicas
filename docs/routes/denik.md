@@ -301,3 +301,12 @@ name (pinned by identity). (4) The deník loader parsed `poslanec:<n>` keys with
 local regex and spelled the tie review ladder by hand; `pspIdFromEntityKey` is the
 inverse of `mpEntityKey` in `deriveDenik.ts`, and the ladder is `reviewStateOf`
 (`denikSource.test.ts`).
+
+**The thin routes hold their siblings' rules (2026-09-08, scan-sweep,
+civic-feeds-verification).** `/dukazy/feed.*` answered success with no
+`cache-control` at all while `/denik/feed.*` send `FEED_CACHE_CONTROL`; both
+bulletin feeds now send it. `/denik?entita=a&entita=b` dropped the repeated
+parameter and rendered the unfiltered journal while the feeds took the first value;
+the page reads it through `firstParam` now. `lib/testing/civicFeedRouteSource.test.ts`
+pins both, together with `/zdroj/[ref]` reading its origin from `lib/routing/liveUrl`
+and `/overeni` + `/zdroj` reading params through `firstParam` instead of local copies.
