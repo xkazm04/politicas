@@ -26,3 +26,10 @@ describe("the admin loaders read at the one app cap, never an ad-hoc literal", (
     expect(s).toMatch(/rows\.length >= AUDIT_READ_CAP/);
   });
 });
+
+describe("getAdminData never swallows a read failure without a trace", () => {
+  it("every catch in the loader reports through reportLoaderFailure", () => {
+    const s = src("features/admin/getAdminData.ts");
+    expect(s).not.toMatch(/\} catch \{/);
+  });
+});

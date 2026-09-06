@@ -206,7 +206,8 @@ function loadFrontierOpenCounts(): Partial<Record<CaseId, number>> {
     const text = readTextSafe(`${VAULT}/frontier.md`);
     if (!text) return {};
     return parseFrontierOpenCounts(text);
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadFrontierOpenCounts", err);
     return {};
   }
 }
@@ -226,7 +227,8 @@ function loadVaultHeads(): VaultHeads {
     const text = readTextSafe(`${VAULT}/graph-log.md`);
     if (!text) return { lastPass: null, recentPasses: [] };
     return parseVaultHeads(text);
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadVaultHeads", err);
     return { lastPass: null, recentPasses: [] };
   }
 }
@@ -310,7 +312,8 @@ function loadMoneyProgress(): LoopCaseProgress {
       openFrontier: null,
       source,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadMoneyProgress", err);
     return emptyProgress("money", labelCs, source);
   }
 }
@@ -343,7 +346,8 @@ function loadEffortProgress(): LoopCaseProgress {
       openFrontier: null,
       source,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadEffortProgress", err);
     return emptyProgress("effort", "Docházka (kontribuční index)", source);
   }
 }
@@ -442,7 +446,8 @@ function loadLawProgress(): LoopCaseProgress {
       openFrontier: null,
       source,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadLawProgress", err);
     return emptyProgress("law", labelCs, source);
   }
 }
