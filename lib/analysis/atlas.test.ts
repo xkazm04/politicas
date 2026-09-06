@@ -480,3 +480,15 @@ describe("grafové zdroje: karta jako každá jiná, jakmile řádky nesou sourc
     expect(ATLAS_RULES.integrity.rule).toContain("Zapečetěná a hodnocená množina tabulek je tedy táž");
   });
 });
+
+describe("věty čerstvosti sázejí čísla česky (lib/format), ne surovým řetězcem", () => {
+  it("stáří 15,4 dne proti kadenci 7 stojí v basis s desetinnou čárkou", () => {
+    const out = deriveFreshness("2026-09-01T00:00:00.000Z", "2026-08-16T14:24:00.000Z", 7);
+    expect(out.score.status).toBe("hodnoceno");
+    expect(out.score.status === "hodnoceno" ? out.score.basis : "").toContain("stáří 15,4 dne/dní proti kadenci 7 dne/dní");
+  });
+  it("bez kadence nese důvod totéž stáří s čárkou", () => {
+    const out = deriveFreshness("2026-09-01T00:00:00.000Z", "2026-08-16T14:24:00.000Z", null);
+    expect(out.score.status === "nehodnoceno" ? out.score.reason : "").toContain("stáří 15,4 dne/dní");
+  });
+});

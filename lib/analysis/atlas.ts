@@ -28,6 +28,7 @@
  */
 
 import { SOURCE_DOCS } from "@/lib/analysis/context-model";
+import { czech, czechInt } from "@/lib/format";
 
 export const ATLAS_SCHEMA = "politicas.atlas/1";
 
@@ -480,7 +481,7 @@ export function deriveFreshness(
     return {
       score: {
         status: "nehodnoceno",
-        reason: `kadence zdroje není deklarována — stáří ${ageRounded} dne/dní bez měřítka není skóre`,
+        reason: `kadence zdroje není deklarována — stáří ${czech(ageRounded)} dne/dní bez měřítka není skóre`,
       },
       ageDays: ageRounded,
       staleness: null,
@@ -493,7 +494,7 @@ export function deriveFreshness(
     return {
       score: {
         status: "nehodnoceno",
-        reason: `deklarovaná kadence ${cadenceDays} dne/dní není měřítko — stáří ${ageRounded} dne/dní se nemá k čemu vztáhnout`,
+        reason: `deklarovaná kadence ${czechInt(cadenceDays)} dne/dní není měřítko — stáří ${czech(ageRounded)} dne/dní se nemá k čemu vztáhnout`,
       },
       ageDays: ageRounded,
       staleness: null,
@@ -504,7 +505,9 @@ export function deriveFreshness(
     score: {
       status: "hodnoceno",
       score: freshnessScore(age, cadenceDays),
-      basis: `stáří ${ageRounded} dne/dní proti kadenci ${cadenceDays} dne/dní — ${staleness}`,
+      // lib/format je deterministický a bez Intl (viz jeho hlavička), takže ho tenhle
+      // čistý modul smí číst - do 2026-09-08 tu stálo surové `15.4` v české větě.
+      basis: `stáří ${czech(ageRounded)} dne/dní proti kadenci ${czechInt(cadenceDays)} dne/dní — ${staleness}`,
     },
     ageDays: ageRounded,
     staleness,
