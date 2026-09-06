@@ -15,3 +15,12 @@ describe("the dukazy feeds answer success with the feeds' one cache policy, like
     });
   }
 });
+
+describe("the receipt page reads the tree's one live-URL definition", () => {
+  it("app/zdroj/[ref]/page.tsx imports liveUrl and carries no host + x-forwarded-proto copy", () => {
+    const s = src("app/zdroj/[ref]/page.tsx");
+    expect(s).toMatch(/import \{ liveUrl \} from "@\/lib\/routing\/liveUrl"/);
+    expect(s).not.toMatch(/x-forwarded-proto/);
+    expect(s).not.toMatch(/from "next\/headers"/);
+  });
+});
