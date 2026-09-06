@@ -88,7 +88,7 @@ describe("extractRealAmendedLaws — a ČÁST's heading window stops at the next
 });
 
 describe("extractRealAmendedLaws — a ČÁST label keeps its diacritics (2026-09-09, bounty-hunter)", () => {
-  it("reports PRVNÍ / TŘETÍ / ČTVRTÁ, not the ASCII-\b-truncated PRVN / TŘET / ČTVRT", () => {
+  it("reports PRVNÍ / TŘETÍ / ČTVRTÁ, not the ASCII-word-boundary-truncated PRVN / TŘET / ČTVRT", () => {
     const text = ["", "ČÁST PRVNÍ", "NĚCO", "§ 1 text", "", "ČÁST TŘETÍ", "ZRUŠOVACÍ USTANOVENÍ", "Zrušují se:", "1. Zákon č. 348/2005 Sb.", "", "ČÁST ČTVRTÁ", "ÚČINNOST", ""].join("\n");
     expect(extractRealAmendedLaws(text).skippedParts.map((p) => p.label)).toEqual(["PRVNÍ", "TŘETÍ", "ČTVRTÁ"]);
   });
