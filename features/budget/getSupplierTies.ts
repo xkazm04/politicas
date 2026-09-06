@@ -13,6 +13,7 @@
 import "server-only";
 import { cache } from "react";
 import { loadMoneyLayer, pspIdFromNodeId } from "@/features/money/moneyLoader";
+import { reviewStateOf } from "@/features/money/reviewTypes";
 import { getSupplierTable, icoFromCompanyId, normalizeIco } from "./supplierTrail";
 import type { SupplierTie, SupplierTiesResult } from "./supplierTiesTypes";
 
@@ -41,10 +42,10 @@ export const getSupplierTies = cache(async function getSupplierTies(): Promise<S
     const ico = icoFromCompanyId(company.id) ?? normalizeIco(company.props?.ico);
     if (ico === null || !supplierIcos.has(ico)) continue;
 
-    // Týž převod stavu jako mapLinkedToTie: absence = pending, nikdy verified.
-    const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-    if (rawState === "rejected") continue;
-    const reviewState: SupplierTie["reviewState"] = rawState === "verified" ? "verified" : "pending_review";
+    // Jeden žebřík stavů pro celý strom (reviewStateOf): absence = pending,
+    // nikdy verified; do 2026-09-08 ho tenhle soubor opisoval.
+    const reviewState = reviewStateOf(e.props?.review_state ?? e.props?.state);
+    if (reviewState === "rejected") continue;
 
     const pspId = pspIdFromNodeId(e.src);
     if (pspId === null) continue;
