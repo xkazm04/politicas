@@ -405,3 +405,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   first: walk the crash points between stages and ask what the next run does with each leftover.
   Grep a client class's name across scripts/ before trusting a card's stated reach - the harvest here
   had none.
+- 2026-09-08 — ingest-psp-sources, second sweep (28 lenses, 1 built, 0 cards, 2 leads). A plausibility
+  CEILING is a clock too: `date <= today` refuses a real same-day fact when `today` is the wrong
+  zone's day. Grep `toISOString().slice(0, 10)` for DEFAULT PARAMETERS specifically - a default
+  the production caller never overrides is live code, however the comment reads.

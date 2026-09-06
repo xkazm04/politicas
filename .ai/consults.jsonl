@@ -78,3 +78,4 @@
 {"ts": "2026-09-08T21:00:00Z", "bundle": "software-engineering", "subjects": ["security", "resilience"], "techniques": ["no-store-on-gated-responses", "bound-every-outbound-fetch"], "deviations": 0}
 {"ts": "2026-09-08T21:30:00Z", "bundle": "software-engineering", "subjects": ["correctness", "parity"], "techniques": ["one-clock-per-domain-day", "one-definition-per-request-shape"], "deviations": 0}
 {"ts": "2026-09-08T22:00:00Z", "bundle": "software-engineering", "subjects": ["resilience"], "techniques": ["resume-every-stage-of-a-cache", "final-name-means-complete"], "deviations": 0}
+{"ts": "2026-09-08T22:30:00Z", "bundle": "software-engineering", "subjects": ["correctness"], "techniques": ["one-clock-per-domain-day", "ceiling-travels-with-the-rows"], "deviations": 0}
