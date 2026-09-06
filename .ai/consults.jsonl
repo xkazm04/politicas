@@ -83,3 +83,4 @@
 {"ts": "2026-09-08T23:30:00Z", "bundle": "software-engineering", "subjects": ["parity", "documentation"], "techniques": ["derive-the-default-from-the-store", "publish-the-enum-never-retype-it"], "deviations": 0}
 {"ts": "2026-09-09T00:00:00Z", "bundle": "software-engineering", "subjects": ["parity"], "techniques": ["derive-the-figure-never-retype-it", "pin-the-fact-a-literal-assumes"], "deviations": 0}
 {"ts": "2026-09-09T00:30:00Z", "bundle": "software-engineering", "subjects": ["testing", "parity"], "techniques": ["build-the-instrument-first", "positive-integer-pass"], "deviations": 0}
+{"ts": "2026-09-09T01:00:00Z", "bundle": "software-engineering", "subjects": ["correctness"], "techniques": ["read-the-whole-list-not-the-first-connector"], "deviations": 0}

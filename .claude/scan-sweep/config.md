@@ -426,3 +426,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   five-line instrument that turns an audited-by-hand heuristic into a pinned one. A pass gate is
   `isInteger && > 0` everywhere - grep `isFinite(pass)` after each fix of the class. A new test over an
   audited-by-hand heuristic found two latent defects in one run - the instrument pays on day one.
+- 2026-09-09 — law-collision-analysis, second sweep (28 lenses, 1 built, 0 cards, 2 leads). After a grammar
+  fix for one shape (a range), walk the sibling shapes the same clause admits (a list, a list with a
+  range inside) - the fix's own class is the cheapest place to find the next defect. This shell's
+  heredoc unescapes backslashes: a byte-level edit that needs one goes through the Write tool.
