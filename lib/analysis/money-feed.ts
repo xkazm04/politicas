@@ -607,6 +607,13 @@ export function dedupeContracts(contracts: readonly Contract[]): Contract[] {
  * retried, so a host having a bad minute read as a miss — an MP „unresolved" because ARES
  * answered 500 once — and a 403 and a 404 threw the same shapeless error.
  */
+/** The longest a `Retry-After` may park one request. Every other wait here is bounded
+ *  (20 s per request, 30 s back-off ceiling); until 2026-09-08 the header was obeyed
+ *  verbatim, so a host answering "come back in 86 400 s" stalled the whole sweep for a
+ *  day with no error. A header past this waits the cap and retries; the request then
+ *  either succeeds or runs out of retries and reads as a miss — never a hang. */
+export const RETRY_AFTER_CAP_MS = 60_000;
+
 async function fetchRetry(
   source: string,
   doFetch: typeof fetch,
@@ -626,7 +633,7 @@ async function fetchRetry(
       if (!cls.retryable) throw new RefusedError(source, url, cls);
       if (attempt < maxRetries) {
         const ra = Number(res.headers.get("retry-after"));
-        if (Number.isFinite(ra) && ra > 0) await new Promise((r) => setTimeout(r, ra * 1000));
+        if (Number.isFinite(ra) && ra > 0) await new Promise((r) => setTimeout(r, Math.min(ra * 1000, RETRY_AFTER_CAP_MS)));
         else await backoff(attempt);
         continue;
       }
