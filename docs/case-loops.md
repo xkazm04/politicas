@@ -676,3 +676,5 @@ from `.kiosek-cache/pdfs` are fetched now; the payload reports
 **2026-09-07 (scan-sweep, admin-control) — the stalled alert sentence formats its figures with `lib/format`.** `loopState` built „stáří 15.4 dne/dní" with `String().replace` and raw cadence/streak numbers; `czech()` / `czechInt()` now format them, pinned by `loopState.test.ts`.
 
 **2026-09-07 (scan-sweep, admin-control) — mission control dates instants on the Prague day.** `LoopMissionControl` passed ISO instants (run end, queue time, alert since, acknowledgement) straight to `czechDate`, i.e. the UTC day: a run finished at 23:30 UTC stood under yesterday's date. A `dayCs` helper reads the Prague day first; `STALENESS_CLS` is closed over `LoopStaleness`.
+
+**2026-09-07 (scan-sweep, admin-control) — the admin page draws the shell's `BrandMark`.** `AdminPage` carried its own copy of the mark SVG; the shell exports `BrandMark` since round 42 and pages must not draw their own logo.

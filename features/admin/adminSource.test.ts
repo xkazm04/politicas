@@ -64,3 +64,11 @@ describe("LoopMissionControl dates ISO instants on the Prague day", () => {
     expect(s).toMatch(/satisfies Record<LoopStaleness, string>/);
   });
 });
+
+describe("AdminPage draws the shell's BrandMark, not a logo of its own", () => {
+  it("imports BrandMark and carries no inline mark SVG", () => {
+    const s = src("features/admin/AdminPage.tsx");
+    expect(s).toMatch(/import \{ BrandMark \} from "@\/features\/shell\/sidebarParts"/);
+    expect(s).not.toMatch(/viewBox="0 0 32 32"/);
+  });
+});
