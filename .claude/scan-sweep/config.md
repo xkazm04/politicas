@@ -368,3 +368,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   `: \w+\[\] = \["` in components and ask whether the type would notice an omission - the
   repo's own answer is `as const satisfies Record<Union, …>`. When a header says 'positive
   integer', read the regex under it; `\d+` is not that.
+- 2026-09-08 — db-hybrid-benchmarks, second sweep (28 lenses, 1 built in 1 commit, 1 card). A
+  benchmark harness that parses model output has the same missing-beats-wrong duty as a loader:
+  grep `: 0.5` and `?? 0` beside every `typeof o.x === "number"` and ask which arm a guessed
+  value would choose. When one sibling parser was fixed last round, diff the other parsers in
+  the folder first.
