@@ -334,3 +334,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   0 new cards). A lint rule's trigger list is a hand-maintained mirror of some module's export
   surface: diff the two (lib/format exports vs NUMERIC_NAMED_FORMATTERS) before reading a
   single rule body. Widen a rule only after measuring the repo-wide report count on both sides.
+- 2026-09-08 — civicscore-leaderboard, second sweep (28 lenses, 4 built in 4 commits, 1 card).
+  A raw number passed as an ICU parameter (`t(key, { count: n })`) is the same defect as a raw
+  number in JSX - next-intl formats it with Intl outside lib/format; grep `{ count: [a-z]` beside
+  every `t(` in a file that already calls `f.int` elsewhere. `Number(id.split(':').pop())` is the
+  third lenient-id shape this sweep has replaced with a strict parser.
