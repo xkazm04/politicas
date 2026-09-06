@@ -28,3 +28,11 @@ describe("every count the table and histogram render goes through lib/format", (
     expect(s).toMatch(/value: f\.int\(Number\(value\)\)/);
   });
 });
+
+describe("the table's per-component median is lib/analysis/score-legibility's, not a second copy", () => {
+  it("LeaderboardTable imports median and spells no sort-and-pick of its own", () => {
+    const s = src("features/civicscore/components/LeaderboardTable.tsx");
+    expect(s).toMatch(/import \{ median \} from "@\/lib\/analysis\/score-legibility"/);
+    expect(s).not.toMatch(/vals\[n \/ 2 - 1\]/);
+  });
+});
