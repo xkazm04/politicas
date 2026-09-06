@@ -214,6 +214,9 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-07] The kompas card keeps a fourth copy of the outcome vocabulary** — type: parity, risk: 1, effort: s, payoff: 1, reach: `features/votetrack/kompas/QuestionCard.tsx` (`const KNOWN_OUTCOMES = new Set(["accepted", "rejected"])`, 27a77dc) vs `features/votetrack/record/outcome.ts` (4c42a4a: `KNOWN_OUTCOMES`, `isKnownOutcome`, `outcomeTone`)
   Found by: scan-sweep (votetrack-ledger, parity-auditor) · round 44 fixed the card with a local set one round before the shared module existed. Fix: import `isKnownOutcome`/`outcomeTone` from `../record/outcome`, drop the local set, extend `ledgerSource.test.ts`'s file list with the card · escalation: none (votetrack-kompas owns the card; S)
 
+- **[2026-09-07] `pspIdFromParam` spells the rule `positiveIntParam` now owns** — type: parity, risk: 1, effort: s, payoff: 1, reach: `lib/routing/pspIdParam.ts:9` (`/^\d+$/.test(raw) ? Number(raw) : null`) vs `lib/routing/intParam.ts` (`positiveIntParam`, round 46: same regex + safe-integer + > 0)
+  Found by: scan-sweep (voting-legislation-routes, parity-auditor) · two spellings of „a route segment is a bare positive integer"; the MP one also accepts `0` and an unsafe run of digits. Fix: `export const pspIdFromParam = positiveIntParam` (keep the name for its four importers) · escalation: none (lib/routing is unowned in context-map.json — veto 1 kept this round from editing it; add the folder to a context)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)

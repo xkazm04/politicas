@@ -283,3 +283,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   wall clock with a Z, so the display is right and the instant is wrong - the finding moves to
   the writer's context. A segment coloured like its own track is a visual-craft grep:
   `bg-hairline` inside a `bg-hairline` container.
+- 2026-09-07 — voting-legislation-routes, first sweep (28 lenses, 3 built in 3 commits, 1 card).
+  NEVER run vitest while a gate is running: the pglite lane holds the single-connection fixture
+  store and a concurrent `npx vitest run` turns three unrelated files red (round 45's gate was
+  refused for exactly that; the files pass alone). The gate's background task reported exit 0
+  because the subshell's exit is `echo`'s - read CHECK_EXIT from the log, never the task status.
+  Round 45's snapshot says exit 0; this round's note carries the correction.
