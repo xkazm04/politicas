@@ -413,3 +413,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   (Retry-After) is a wait too: list every sleep in a retry loop and check each has a ceiling, the
   header-driven one included. Fake timers (vi.useFakeTimers + advanceTimersByTimeAsync) make a
   100 000 s header testable in milliseconds - the instrument for any timing bound.
+- 2026-09-08 — kg-pipeline, second sweep (28 lenses, 2 built, 1 card, 1 lead). A parity fix that pins
+  ONE sibling leaves the class open: after fixing a writer's frozen default, grep the same
+  default in every sibling and pin the rule, not the instance. A published schema that lists a
+  vocabulary by hand is a hand-kept list - join it from the enum.
