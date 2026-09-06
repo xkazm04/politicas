@@ -141,17 +141,23 @@ export function amendsParagraph(text: string, num: string): boolean {
 export function targetedOdstavce(text: string, num: string): Set<string> {
   const n = num.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const out = new Set<string>();
-  const re = new RegExp(`V\\s*§\\s?${n}\\s+odst\\.\\s*(\\d+)(?:\\s*(a|až|,)\\s*(\\d+))?`, "giu");
+  // The WHOLE list after „odst.": „1, 2 a 4", „5 až 7", „1, 3 až 5 a 7". Until 2026-09-09
+  // only the first item and ONE connector were read, so „odst. 1, 2 a 4" lost the 4 and two
+  // bills both editing odst. 4 read as "different provisions" — the class the 2026-09-07
+  // range fix closed for „5 až 7", one shape over. A connector must be followed by a number,
+  // so „odst. 2 a v § 9" stays a one-item list.
+  const re = new RegExp(`V\\s*§\\s?${n}\\s+odst\\.\\s*(\\d+(?:\\s*(?:a|až|,)\\s*\\d+)*)`, "giu");
   let m: RegExpExecArray | null;
   while ((m = re.exec(text))) {
-    const first = Number(m[1]);
-    out.add(m[1]);
-    if (!m[3]) continue;
-    const last = Number(m[3]);
-    // „odst. 5 až 7" names every paragraph in the range — until 2026-09-07 only its two ends
-    // were recorded, so two bills both editing odst. 6 read as "different provisions".
-    if (m[2] === "až" && last > first) for (let k = first + 1; k < last; k++) out.add(String(k));
-    out.add(m[3]);
+    for (const item of m[1].matchAll(/(\d+)(?:\s*až\s*(\d+))?/gu)) {
+      const first = Number(item[1]);
+      out.add(item[1]);
+      if (!item[2]) continue;
+      const last = Number(item[2]);
+      // „odst. 5 až 7" names every paragraph in the range.
+      if (last > first) for (let k = first + 1; k < last; k++) out.add(String(k));
+      out.add(item[2]);
+    }
   }
   return out;
 }

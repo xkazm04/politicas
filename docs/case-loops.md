@@ -714,3 +714,10 @@ ended its label group with `\b`, and JS's ASCII-only word boundary sits before t
 diacritic, so every census row's `skippedParts` named „PRVNÍ" as „PRVN" (and „ČTVRTÁ" as
 „ČTVRT"). The boundary is gone; the letter class already ends the label. Reporting only —
 no amend decision read the label.
+
+**2026-09-09 (scan-sweep, law-collision-analysis round 77).** `targetedOdstavce` in
+`collision-core.ts` read only the first paragraph and one connector after „odst.", so
+„odst. 1, 2 a 4" recorded 1 and 2 and lost the 4 — two bills both editing odst. 4 of one §
+read as different provisions, the class the 2026-09-07 range fix closed for „5 až 7". It now
+reads the whole list, ranges inside it included (`targetedOdstavceList.test.ts`, 3 cases; the
+three earlier cases in `collision-core.test.ts` still hold).
