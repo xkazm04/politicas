@@ -397,3 +397,12 @@ unparseable batch, a dropped row or an unknown slug into `vote_tag` rows of them
 batch, which the VoteTrack theme filter reads as real „other" verdicts. Such rows
 are now left untagged and counted in the run summary; `parseTags` is exported and
 tested, and the script runs `main` only when invoked directly.
+
+**An unstated confidence no longer counts as 0.5 (2026-09-08, scan-sweep,
+parity-auditor).** `scripts/hybrid-bench/semop.ts` gave a label whose confidence
+the model omitted the value 0.5 — an invented certainty sitting exactly where the
+cascade decides whether to escalate (τ 0.75 escalated it, τ 0.5 would not). The
+materializer already refuses an unstated confidence; the filter now reads it as
+0, the same floor a dropped row gets, so the escalation decision is never made on
+a number the model did not state. `parseLabels` is exported and pinned by
+`semop.test.ts`, red-then-green.

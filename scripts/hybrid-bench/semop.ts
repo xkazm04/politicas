@@ -48,7 +48,15 @@ function extractJsonArray(text: string): unknown[] | null {
   }
 }
 
-function parseLabels(text: string, batch: Item[]): Label[] {
+/**
+ * Exported for the colocated test. A MISSING confidence is 0, not 0.5: 0.5 was
+ * an invented certainty that sat exactly where the cascade decides whether to
+ * escalate (tau 0.75 escalated it, tau 0.5 would not) — a number the model
+ * never stated deciding which arm answers. The floor matches the rule for a row
+ * the model dropped (`semFilter` below) and the materializer's refusal of an
+ * unstated confidence (materialize-tags.ts, 2026-09-06).
+ */
+export function parseLabels(text: string, batch: Item[]): Label[] {
   const arr = extractJsonArray(text) ?? [];
   const byId = new Map<string, Label>();
   arr.forEach((raw, i) => {
@@ -56,7 +64,8 @@ function parseLabels(text: string, batch: Item[]): Label[] {
     // Map by id when present + valid, else fall back to positional order.
     const id = typeof o.id === "string" && batch.some((b) => b.id === o.id) ? o.id : batch[i]?.id;
     if (!id) return;
-    const confidence = typeof o.confidence === "number" ? Math.max(0, Math.min(1, o.confidence)) : 0.5;
+    const confidence =
+      typeof o.confidence === "number" && Number.isFinite(o.confidence) ? Math.max(0, Math.min(1, o.confidence)) : 0;
     byId.set(id, { id, match: o.match === true, confidence });
   });
   return [...byId.values()];
