@@ -143,6 +143,10 @@ export default function WeightPanel({
                   }`}
                 >
                   {t(p.labelKey)}
+                  {/* Poznámka je TEXT, ne jen `title`: hover nedostane klávesnice ani
+                      dotyk a `title` čtečka čte nespolehlivě (týž nález jako výklad
+                      časové osy v /denik, 2026-08-12). */}
+                  <span className="sr-only"> — {t(p.noteKey)}</span>
                 </button>
               );
             })}
@@ -184,6 +188,8 @@ export default function WeightPanel({
                       aria-hidden
                     />
                     <span className="truncate">{c.label}</span>
+                    {/* Zdroj složky jde i čtečce — do 2026-09-08 stál jen v `title`. */}
+                    <span className="sr-only"> — {c.source}</span>
                   </span>
                   <input
                     type="range"
