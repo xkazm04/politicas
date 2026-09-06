@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { headers } from "next/headers";
+import { liveUrl } from "@/lib/routing/liveUrl";
 
 /*
  * ROBOTS — the crawler-facing half of "internal": what the app asks crawlers
@@ -39,8 +39,9 @@ export const DISALLOWED_PATHS = ["/penize/kontrola", "/rentgen", "/admin"] as co
  * bez řádku `Sitemap:` čekala celá evidenční polovina platformy na náhodný
  * proklik přesně tak, jak to popisuje hlavička sitemapy.
  *
- * ZÁKLAD ADRESY se čte z hlaviček requestu — týž precedens jako `app/sitemap.ts`
- * a všechny čtyři feedy: v dev čestně localhost, v nasazení skutečný host,
+ * ZÁKLAD ADRESY se čte z hlaviček requestu — JEDNOU definicí pro celý strom
+ * (`lib/routing/liveUrl`, táž jako sitemapa, feedy a plakát; do 2026-09-08 ji
+ * tenhle soubor opisoval): v dev čestně localhost, v nasazení skutečný host,
  * NIKDY vymyšlená doména. Řádek `Sitemap:` přitom musí být ABSOLUTNÍ URL; bez
  * hostitele se proto nevypíše vůbec, místo aby se doména uhodla. Čtení hlaviček
  * dělá z robots.txt dynamickou routu — stejně jako u sitemapy, a ze stejného
@@ -49,9 +50,9 @@ export const DISALLOWED_PATHS = ["/penize/kontrola", "/rentgen", "/admin"] as co
 export const dynamic = "force-dynamic";
 
 export default async function robots(): Promise<MetadataRoute.Robots> {
-  const h = await headers();
-  const host = h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? "http";
+  // Bez hostitele vrací liveUrl jen cestu (relativní) — a relativní `Sitemap:`
+  // řádek se nevypisuje.
+  const sitemapUrl = await liveUrl("/sitemap.xml");
 
   return {
     rules: [
@@ -61,6 +62,6 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
         disallow: [...DISALLOWED_PATHS],
       },
     ],
-    ...(host ? { sitemap: `${proto}://${host}/sitemap.xml` } : {}),
+    ...(sitemapUrl.startsWith("/") ? {} : { sitemap: sitemapUrl }),
   };
 }
