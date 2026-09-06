@@ -278,3 +278,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   sibling context already holds the HONEST version of a pattern (VoteThemeFilter's known-set
   render), grep the feature for the dishonest one and fix the in-context copies; the sibling's
   copies go to the next round if that context is next in map order, not to a card.
+- 2026-09-07 — votetrack-ledger, first sweep (28 lenses, 4 built in 4 commits, 2 cards). Before
+  calling a `slice(11, 16)` on an ISO instant a UTC bug, read the WRITER: this ingest stamps the
+  wall clock with a Z, so the display is right and the instant is wrong - the finding moves to
+  the writer's context. A segment coloured like its own track is a visual-craft grep:
+  `bg-hairline` inside a `bg-hairline` container.
