@@ -721,3 +721,7 @@ no amend decision read the label.
 read as different provisions, the class the 2026-09-07 range fix closed for „5 až 7". It now
 reads the whole list, ranges inside it included (`targetedOdstavceList.test.ts`, 3 cases; the
 three earlier cases in `collision-core.test.ts` still hold).
+
+**2026-09-09 (scan-sweep, law-triage-batch round 78).** `build-bill-summaries.ts` read the
+bill nodes with a literal `limit: 100_000`; it reads them under `KG_READ_CAP` now — the cap
+`lib/db/readCap.ts` declares as the end of that class (`summariesReadCap.test.ts`).

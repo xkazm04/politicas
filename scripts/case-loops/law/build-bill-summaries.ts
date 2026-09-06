@@ -30,6 +30,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync, mkdirSync } from 
 import { join, dirname } from "node:path";
 
 import { czechGateErrors } from "@/lib/analysis/language-gate";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
 import { CACHE_DIR } from "./collision-core";
 
@@ -217,7 +218,9 @@ async function loadBillIndex(): Promise<{ cislo: number | null; billUrn: string 
   }
   const store = await getStore();
   if (!store) throw new Error("no store — set PGLITE_PATH to a COPY of .pglite, never the live one");
-  const bills = await store.listKgNodes({ kind: "bill", limit: 100_000 });
+  // KG_READ_CAP, not a literal: 141 bills fit under 100 000 today, and "fits today" is how
+  // every silently truncated read in this repo began (lib/db/readCap.ts).
+  const bills = await store.listKgNodes({ kind: "bill", limit: KG_READ_CAP });
   const index = bills.map((n) => {
     const props = (n.props ?? {}) as Record<string, unknown>;
     return { cislo: typeof props.cislo === "number" ? props.cislo : null, billUrn: n.id };
