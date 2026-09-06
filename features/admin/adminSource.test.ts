@@ -54,3 +54,13 @@ describe("every count on the review hub and the progress tile goes through czech
     expect(src("features/admin/components/LoopProgressGrid.tsx")).toMatch(/`dávka \$\{czechInt\(p\.batchesCompleted\)\}`/);
   });
 });
+
+describe("LoopMissionControl dates ISO instants on the Prague day", () => {
+  it("every czechDate over an instant goes through a Prague-day helper; STALENESS_CLS is closed", () => {
+    const s = src("features/admin/components/LoopMissionControl.tsx");
+    expect(s).toMatch(/import \{ pragueDay \} from "@\/features\/denik\/pragueDay"/);
+    expect(s).toMatch(/const dayCs = /);
+    expect(s).not.toMatch(/czechDate\((loop|item|alert)\./);
+    expect(s).toMatch(/satisfies Record<LoopStaleness, string>/);
+  });
+});
