@@ -17,3 +17,16 @@ describe("kg-compute derives its default pass from the graph, like its eight sib
     expect(src).toMatch(/nextPass\(await store\.listKgNodes\(\)\)/);
   });
 });
+
+describe("kg-datahub-sync publishes the graph's vocabularies from the enums (2026-09-08, documentation-auditor)", () => {
+  it("the kind and rel field docs are joined from KG_NODE_KINDS / KG_EDGE_RELS, not retyped", () => {
+    // Until 2026-09-08 the published schema named 7 of 11 node kinds and 7 of 21 edge
+    // rels — a catalogue that told an external agent the graph has no bill, law, notice
+    // or tender node and no sponsors, amends, decides … edge.
+    const src = read("scripts/data-analysis/kg-datahub-sync.ts");
+    expect(src).toMatch(/from "@\/lib\/analysis\/kg-verdict"/);
+    expect(src).toMatch(/KG_NODE_KINDS\.join\(" \| "\)/);
+    expect(src).toMatch(/KG_EDGE_RELS\.join\(" \| "\)/);
+    expect(src).not.toMatch(/\(extensible\)/);
+  });
+});

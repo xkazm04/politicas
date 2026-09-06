@@ -200,3 +200,10 @@ recompute restamped every node's and edge's provenance as pass 1 — the false v
 own header describes — while its eight siblings derived the pass from the graph. It now
 reads `nextPass(store.listKgNodes())` like them; an explicit `--pass=N` still wins
 (`kgPipelineSource.test.ts`; 9 writers, 0 frozen defaults).
+
+**2026-09-08 (scan-sweep, kg-pipeline round 74, documentation-auditor).** The DataHub
+projection (`kg-datahub-sync`) published the `kind` and `rel` field docs as hand-typed
+lists that had stopped at 7 of 11 node kinds and 7 of 21 edge relations — a catalogue
+telling an external agent the graph has no bill, law, notice or tender node. Both docs
+are now joined from `KG_NODE_KINDS` / `KG_EDGE_RELS` (`lib/analysis/kg-verdict.ts`), so a
+kind or rel added there is published the day it lands (11/11 and 21/21, pinned by source).
