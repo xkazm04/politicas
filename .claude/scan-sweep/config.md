@@ -392,3 +392,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   whose only consumer is the test that pins it is clean by construction; the round's work is the
   consumer grep (name the dirs, never grep `.` - the data dir makes it hang) and the lead it
   leaves: a kept compatibility surface is a direction to retire, not a cleanup to land.
+- 2026-09-08 — graph-admin-data-routes, second sweep (28 lenses, 2 built in 1 commit - one message names half of it, 0 cards,
+  1 lead). A cache rule pinned on the refusal branch is half a rule: check the SERVED branch of
+  every gated route too. Grep `await fetch(` in app/ for calls with no `signal:` - a hang is not
+  a failure and the catch block never sees it.
