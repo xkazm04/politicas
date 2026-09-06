@@ -392,3 +392,12 @@ the link silently and the citation footer printed a bare name. The new
 `instrumentsSource.test.ts` reads the literals out of `datedFacts.ts` and asserts
 each has a link, and that a registry named in both link lists shares one host.
 Green on arrival — the three names agree today; the pin is what was missing.
+
+**The legend's kind order is complete by type (2026-09-08, scan-sweep,
+test-strategist).** `GraphLegend` kept its canonical shape order as a plain
+`StateNodeKind[]`, a free subset that nothing held against the vocabulary: a kind
+the union gained and the list did not would render on the canvas and be missing
+from the legend, silently. The order is now a `Record<StateNodeKind, number>`
+under `as const satisfies` (the `publicWire.ts` shape), so an omitted kind is a
+compile error; `stateGraphSource.test.ts` pins the declaration. Probed by
+removing one kind: `tsc` reports the missing property.

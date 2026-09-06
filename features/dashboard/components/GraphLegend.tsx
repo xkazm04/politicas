@@ -10,8 +10,25 @@ import { useTranslations } from "next-intl";
 import type { StateNodeKind } from "@/lib/civic/stateGraph";
 import GraphGlyph from "./GraphGlyph";
 
-/** Kanonické pořadí tvarosloví — legenda z něj bere jen to, co graf kreslí. */
-const KIND_ORDER: StateNodeKind[] = ["person", "company", "money", "party", "vote", "bill", "law"];
+/**
+ * Kanonické pořadí tvarosloví — legenda z něj bere jen to, co graf kreslí.
+ *
+ * ÚPLNÉ PO TYPU: druh, který by `StateNodeKind` přibyl a tady chyběl, je chyba
+ * kompilace — ne legenda, která nový tvar mlčky vynechá. Do 2026-09-08 byl
+ * seznam typovaný jako `StateNodeKind[]`, tedy libovolná PODMNOŽINA druhů, a
+ * nic ho proti slovníku nedrželo (týž tvar, jakým publicWire.ts drží
+ * klasifikaci polí: `as const satisfies Record<…>`).
+ */
+const KIND_RANK = {
+  person: 0,
+  company: 1,
+  money: 2,
+  party: 3,
+  vote: 4,
+  bill: 5,
+  law: 6,
+} as const satisfies Record<StateNodeKind, number>;
+const KIND_ORDER = (Object.keys(KIND_RANK) as StateNodeKind[]).sort((a, b) => KIND_RANK[a] - KIND_RANK[b]);
 
 export default function GraphLegend({
   kinds,
