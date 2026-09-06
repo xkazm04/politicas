@@ -663,3 +663,4 @@ refused attachment aborted the whole slice. Only postings whose PDF is missing
 from `.kiosek-cache/pdfs` are fetched now; the payload reports
 `additionalPdfsFetchedLive` beside the extracted count.
 
+**2026-09-07 (scan-sweep, admin-control) — the admin's tie review state reads `reviewStateOf`.** `getAdminData` spelled its own verified/rejected/else ladder over `review_state`; the money module's `reviewStateOf` is the one interpretation /penize uses, so the two boards cannot disagree about what „waiting" means.

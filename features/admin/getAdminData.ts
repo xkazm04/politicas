@@ -32,7 +32,7 @@ import { summarizeLoaderDegradations } from "@/lib/db/loaderFailureLog";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
-import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
+import { resolveTieClass, reviewStateOf, reviewTier } from "@/features/money/reviewTypes";
 import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-provenance";
 import { getTripwireData } from "./getTripwireData";
 import { LOOPS_STATUS_SOURCE, parseLoopsStatus, parsePassLog, type LoopsStatusFact } from "./loops/loopState";
@@ -522,9 +522,11 @@ async function loadReviewHub(): Promise<ReviewHubData> {
             continue;
           }
 
-          const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-          if (rawState === "verified") verified++;
-          else if (rawState === "rejected") rejected++;
+          // TÁŽ interpretace stavu jako /penize (reviewStateOf): neznámý i chybějící
+          // stav čeká - do 2026-09-07 tu stál vlastní žebřík verified/rejected/else.
+          const state = reviewStateOf(e.props?.review_state ?? e.props?.state);
+          if (state === "verified") verified++;
+          else if (state === "rejected") rejected++;
           else pending++;
 
           const role = String(e.props?.role ?? "");
