@@ -36,6 +36,17 @@ describe("sliceNodeEntityKey", () => {
     expect(sliceNodeEntityKey("p:")).toBeNull();
     expect(sliceNodeEntityKey("nonsense")).toBeNull();
   });
+
+  it("zero and a zero-padded number are not ids — the header promises a POSITIVE integer (2026-09-08)", () => {
+    // `p:007` would have become `poslanec:7`, a DIFFERENT entity than the id names;
+    // `p:0` is no mandate at all. Neither is ever built by stateSlice, so refusing
+    // them costs nothing and the rule matches its own documentation.
+    expect(sliceNodeEntityKey("p:0")).toBeNull();
+    expect(sliceNodeEntityKey("p:007")).toBeNull();
+    expect(sliceNodeEntityKey("b:0")).toBeNull();
+    expect(sliceNodeEntityKey("b:058")).toBeNull();
+    expect(sliceNodeEntityKey(slicePersonId(7))).toBe("poslanec:7");
+  });
 });
 
 describe("denik addresses", () => {

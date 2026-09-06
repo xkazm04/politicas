@@ -401,3 +401,10 @@ from the legend, silently. The order is now a `Record<StateNodeKind, number>`
 under `as const satisfies` (the `publicWire.ts` shape), so an omitted kind is a
 compile error; `stateGraphSource.test.ts` pins the declaration. Probed by
 removing one kind: `tsc` reports the missing property.
+
+**A slice node id is a positive integer, as its header promised (2026-09-08,
+scan-sweep, bounty-hunter).** `sliceNodeEntityKey` documented „pspId a číslo
+tisku celé kladné číslo" but tested `/^\d+$/`, so `p:0` produced `poslanec:0` and
+`p:007` the key of a different entity, `poslanec:7`. The rule is `/^[1-9]\d*$/`
+now; `entityLinks.test.ts` pins zero and zero-padded ids as null, red-then-green.
+No real slice builds such an id, so nothing rendered changes today.

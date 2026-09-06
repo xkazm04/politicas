@@ -32,7 +32,10 @@ import { billEntityKey, companyEntityKey, dayAnchor, mpEntityKey } from "@/featu
 import { isEntityKey } from "@/features/schranka/followCodec";
 
 const ICO_RE = /^\d{8}$/;
-const NUM_RE = /^\d+$/;
+/** Celé KLADNÉ číslo bez vedoucích nul — jak hlavička slibuje. Do 2026-09-08
+ *  prošlo i `0` a `007` (to by se stalo klíčem `poslanec:7`, tedy jinou
+ *  entitou, než jakou id jmenuje). */
+const NUM_RE = /^[1-9]\d*$/;
 
 /**
  * Veřejný klíč entity pro uzel REÁLNÉHO výřezu, nebo null.
