@@ -297,3 +297,5 @@ urn with its own `.replace()` beside `statuteRef.refFromLawNodeId`. All four now
 read the shared definition, and `lawwatchLabels.test.ts` pins `pspBillUrl` and
 `esbirkaUrl` byte-for-byte to the addresses `lib/kg/sourceLinks.ts` builds (they
 were held together by a comment) and gives `citationRef` its first tests.
+
+**2026-09-07 — the collision-radar feeds read the feeds' one origin definition (scan-sweep, parity-auditor).** `feed.json` and `feed.xml` under `/zakony/kolize` each carried a local `host` + `x-forwarded-proto` copy — the fifth and sixth in the tree — while `/denik` and `/dukazy` share `requestOrigin` from `features/denik/feedRequest.ts` (itself on `lib/routing/liveUrl.ts` since round 39). Both radar feeds now import it; `lib/testing/legislationRouteSource.test.ts` forbids the copy.
