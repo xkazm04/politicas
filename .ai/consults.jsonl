@@ -67,3 +67,4 @@
 {"ts": "2026-09-08T11:00:00Z", "bundle": "software-engineering", "subjects": ["accessibility", "frontend"], "techniques": ["explanation-is-text-not-attribute", "one-definition-per-rule"], "deviations": 0}
 {"ts": "2026-09-08T12:00:00Z", "bundle": "software-engineering", "subjects": ["frontend", "data-modeling"], "techniques": ["identifier-is-a-string-not-a-quantity", "local-day-not-utc", "one-definition-per-rule"], "deviations": 0}
 {"ts": "2026-09-08T13:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "testing"], "techniques": ["one-declaration-type-derives-from-it", "one-definition-per-rule"], "deviations": 0}
+{"ts": "2026-09-08T14:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "parsing"], "techniques": ["missing-beats-wrong", "anchor-every-parser", "no-guessed-instant"], "deviations": 0}

@@ -353,3 +353,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   grep `readonly \w+\[\] = \[` beside every `export type \w+ = "` in lib/. A fixture value that
   looks misspelled may be a deliberate unknown-value passthrough - read the fixture's comment
   before filing it.
+- 2026-09-08 — czech-civic-data-parsing, second sweep (28 lenses, 2 built in 2 commits, 1 card
+  updated). In a parser package whose doctrine is 'missing beats wrong', every regex without
+  `$` and every `if (!m) return <default>` is a guess wearing a fallback's clothes: grep
+  `\.exec\(` and read the branch that runs when it fails. A timezone fix that changes stored
+  strings is a data refresh, not a parser edit - keep it on the card.
