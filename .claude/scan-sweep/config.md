@@ -373,3 +373,9 @@ Runs on the skill defaults; this file exists for the improvement log below.
   grep `: 0.5` and `?? 0` beside every `typeof o.x === "number"` and ask which arm a guessed
   value would choose. When one sibling parser was fixed last round, diff the other parsers in
   the folder first.
+- 2026-09-08 — db-repositories, second sweep (28 lenses, 2 built in 3 commits - one a correction, 1 card, 1 lead).
+  When one repository documents a rule in a comment ('present with a zero, never absent'),
+  grep the same aggregate's NAME across the directory - the twin without the comment is the one
+  without the rule. A constant whose header says 'one address' is found by grepping its VALUE,
+  not its name. And a build chain must gate each commit on the TEST's exit, not the edit
+  step's - round 65 committed a red pin that way.
