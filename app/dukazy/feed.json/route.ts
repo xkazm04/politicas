@@ -1,4 +1,4 @@
-import { requestOrigin } from "@/features/denik/feedRequest";
+import { FEED_CACHE_CONTROL, requestOrigin } from "@/features/denik/feedRequest";
 import { getDukazyData } from "@/features/dukazy/getDukazyData";
 import { evidenceFeedToJson } from "@/features/dukazy/feedCodecs";
 import { dukazyFeedNotice } from "@/features/dukazy/feedNotes";
@@ -28,6 +28,8 @@ export async function GET(): Promise<Response> {
     notice: dukazyFeedNotice(data.limits),
   });
   return new Response(json, {
-    headers: { "content-type": "application/feed+json; charset=utf-8" },
+    // Táž politika cache jako /denik/feed.* — do 2026-09-08 tu 200 nenesla
+    // žádnou hlavičku, takže si každá cache vybírala vlastní chování.
+    headers: { "content-type": "application/feed+json; charset=utf-8", "cache-control": FEED_CACHE_CONTROL },
   });
 }
