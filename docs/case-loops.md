@@ -689,3 +689,14 @@ into `contribution_psp9` provenance. All three gate on
 `Number.isInteger(pass) && pass > 0` now; a dry run may print a null pass, a
 `--commit` without a real assigned pass refuses. `scripts/case-loops/writerPass.test.ts`
 pins the three gates by source.
+
+**2026-09-09 (scan-sweep, law-amends-analysis round 76).** Two changes to the law loop's
+scripts. `apply-amends-regen.ts` now refuses `--commit` unless `--pass` is a positive
+integer — the previous `Number.isFinite` gate let the payload's own placeholder `0`, a
+negative or a fraction through to every provenance stamp the run writes (the rule
+`persist-batch.ts` and the effort writers adopted on 2026-09-08). And the census's core
+heuristic, `extractRealAmendedLaws` in `amends-census.ts`, is exported behind a direct-run
+guard and pinned by `amendsCensusExtract.test.ts` over four corpus-shaped texts (a
+Čl.-organised omnibus with a transitional article and a repeal block, a ČÁST-organised
+bill with a `Změna` part, a new standalone act, a single-subject novela with a footnote)
+— six audited fixes had been re-verified only by re-auditing 141 bills.

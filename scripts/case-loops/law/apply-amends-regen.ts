@@ -168,8 +168,11 @@ async function main() {
   const passArg = arg("pass");
   const pass = passArg ? Number(passArg) : NaN;
 
-  if (commit && !Number.isFinite(pass)) {
-    console.error("REFUSED: --commit requires --pass=<n> (a real assigned pass number, never a placeholder).");
+  // A pass is a POSITIVE INTEGER (persist-batch.ts, 3035dfb): the previous gate,
+  // Number.isFinite, let `--pass=0` — the payload's own placeholder — a negative or a
+  // fraction through to every provenance stamp this run writes (until 2026-09-09).
+  if (commit && !(Number.isInteger(pass) && pass > 0)) {
+    console.error("REFUSED: --commit requires --pass=<n>, a positive integer (a real assigned pass number, never the placeholder 0).");
     process.exit(1);
   }
   if (commit && !process.env.PGLITE_PATH && !flag("confirm-live")) {
