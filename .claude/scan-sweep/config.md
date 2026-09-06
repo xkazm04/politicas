@@ -344,3 +344,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   fixed on 2026-08-12: grep `title=\{t(` across every "use client" surface. A pure module a
   server-only loader could import but instead mirrors (lens.ts ↔ getLeaderboardData) is a
   parity card, not a comment.
+- 2026-09-08 — claim-verifier, second sweep (28 lenses, 3 built in 3 commits, 0 new cards, 1
+  carried item confirmed carded). An ICU parameter that is an IDENTIFIER (pass, run id, step)
+  must be a string and one that is a QUANTITY must be pre-formatted - a raw number is wrong
+  either way; grep `\{ [a-z]+: [a-z.]+\.(pass|id|no) \}` beside every `t(`.
