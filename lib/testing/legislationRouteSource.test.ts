@@ -27,3 +27,12 @@ describe("a radar feed's 503 carries cache-control: no-store, like the dukazy fe
     });
   }
 });
+
+describe("/zakony/[cislo] parses the print number strictly", () => {
+  it("reads positiveIntParam and holds no Number(cislo)", () => {
+    const s = src("app/zakony/[cislo]/page.tsx");
+    expect(s).toMatch(/import \{ positiveIntParam \} from "@\/lib\/routing\/intParam"/);
+    expect(s).not.toMatch(/Number\(cislo\)/);
+    expect(s).not.toMatch(/Number\.isFinite\(n\)/);
+  });
+});
