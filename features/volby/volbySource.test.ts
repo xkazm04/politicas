@@ -38,3 +38,11 @@ describe("VolbyPage looks a kraj up by IČO through krajByIco", () => {
     expect(s).not.toMatch(/KRAJ_CROSSWALK\.find/);
   });
 });
+
+describe("ListPage pins the kraj's members by the rule the loader sorted them with", () => {
+  it("compares region to regionLabelFromPspName(pinned.pspLabel), no slug-or-label pair", () => {
+    const s = src("features/volby/ListPage.tsx");
+    expect(s).toMatch(/regionLabelFromPspName\(pinned\.pspLabel\)/);
+    expect(s).not.toMatch(/krajSlug\(m\.region\) === pinned\.slug/);
+  });
+});

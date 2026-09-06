@@ -146,3 +146,9 @@ checks that each kind has a `volbyRule_<kind>_title/_rule` in cs and en.
 **2026-09-07 — the home page resolves a kraj by IČO through `krajByIco` (scan-sweep,
 parity-auditor).** `VolbyPage.subjectLabel` scanned `KRAJ_CROSSWALK` by hand while
 `labels.subjectHref` reads `krajByIco` for the same question; one lookup now.
+
+**2026-09-07 — the list page pins a kraj's members by the loader's rule (scan-sweep,
+parity-auditor).** `ListPage` filtered pinned members with „slug equals OR literal psp
+label equals" while `getListData` sorts them by `region === regionLabelFromPspName(pspLabel)`
+— two spellings of one question (equivalent today, free to drift). The page reads the
+loader's rule.
