@@ -46,3 +46,11 @@ describe("ListPage pins the kraj's members by the rule the loader sorted them wi
     expect(s).not.toMatch(/krajSlug\(m\.region\) === pinned\.slug/);
   });
 });
+
+describe("/volby/snemovna/[slug] reads ?kraj= through lib/routing/searchParam", () => {
+  it("imports firstParam and keeps no Array.isArray(raw) copy", () => {
+    const s = src("app/volby/snemovna/[slug]/page.tsx");
+    expect(s).toMatch(/import \{ firstParam \} from "@\/lib\/routing\/searchParam"/);
+    expect(s).not.toMatch(/Array\.isArray\(raw\)/);
+  });
+});

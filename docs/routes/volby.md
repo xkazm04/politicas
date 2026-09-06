@@ -152,3 +152,7 @@ parity-auditor).** `ListPage` filtered pinned members with „slug equals OR lit
 label equals" while `getListData` sorts them by `region === regionLabelFromPspName(pspLabel)`
 — two spellings of one question (equivalent today, free to drift). The page reads the
 loader's rule.
+
+**2026-09-07 — `?kraj=` is read through `lib/routing/searchParam` (scan-sweep,
+parity-auditor).** The list route unpacked `string | string[]` by hand; `firstParam` is the
+reader every other route adopted in round 37.
