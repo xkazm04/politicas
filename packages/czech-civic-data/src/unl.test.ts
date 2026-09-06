@@ -117,6 +117,12 @@ describe("date parsing", () => {
     expect(czDateTimeToIso("03.11.2025", "25:00")).toBeNull();
     expect(czDateTimeToIso("03.11.2025", "12:61")).toBeNull();
   });
+  it("a MALFORMED non-empty time is null, not midnight — only an absent time means the day (2026-09-08)", () => {
+    expect(czDateTimeToIso("03.11.2025", "abc")).toBeNull();
+    expect(czDateTimeToIso("03.11.2025", "1510")).toBeNull();
+    expect(czDateTimeToIso("03.11.2025", "")).toBe("2025-11-03T00:00:00.000Z");
+    expect(czDateTimeToIso("03.11.2025", "  ")).toBe("2025-11-03T00:00:00.000Z");
+  });
 });
 
 describe("col / colInt", () => {
