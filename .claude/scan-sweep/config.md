@@ -384,3 +384,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   types, the literal that a shared constant was meant to replace, the memo pair that must clear
   together. A context whose directory holds 19 files no context owns is under-described by the
   map, not by the sweep.
+- 2026-09-08 — effort-case-loop, second sweep (28 lenses, 2 built in 1 commit, 2 cards). When one
+  writer's audit comment names a sibling as the stricter precedent, read the sibling - it may have
+  been the weaker one all along. Grep `Number(arg("pass")) ||` and `?? <n> + 1` in every script
+  that stamps provenance: a pass a script derives for itself is an invented number on a live row.
