@@ -9,7 +9,9 @@
  *     nikdy „opravený" objekt.
  */
 
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { pragueDay } from "@/features/denik/pragueDay";
 import {
   canonicalJson,
   citationLine,
@@ -122,7 +124,17 @@ describe("neplatný ref vrací null", () => {
     // razítkuje, protože „kdy byla citace vydána" se odjinud odvodit nedá.
     const ref = encodeGraphRef({ kind: "uzel", variant: "mapa", node: "n1" }, HASH);
     expect(ref.startsWith("g2.")).toBe(true);
-    expect(decodeGraphRef(ref)?.issuedAt).toBe(new Date().toISOString().slice(0, 10));
+    // Den vydání je PRAŽSKÝ (2026-09-08): mezi půlnocí a 01:00/02:00 Prahy
+    // dávala UTC do adresy včerejšek — datum, které čtenář cituje jako den vydání.
+    expect(decodeGraphRef(ref)?.issuedAt).toBe(pragueDay());
+  });
+
+  it("jediné hodiny modulu i `retrievedOn` loaderu jdou přes pragueDay (2026-09-08)", () => {
+    const codec = readFileSync("features/graph/permalink.ts", "utf8");
+    expect(codec).toMatch(/issuedTodayCompact = \(\): string => pragueDay\(\)/);
+    expect(codec).not.toMatch(/toISOString\(\)\.slice\(0, 10\)\.replaceAll/);
+    const loader = readFileSync("features/graph/getPermalinkData.ts", "utf8");
+    expect(loader).toMatch(/const today = \(\): string => pragueDay\(\);/);
   });
 
   it("čitelný JSON se špatným tvarem stavu je taky null", () => {

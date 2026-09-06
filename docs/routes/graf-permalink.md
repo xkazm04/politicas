@@ -160,3 +160,16 @@ line at all for a neighbourhood, so the card could refuse the confirming colour 
 a page that said nothing. The counting now lives once, in `gateCounts()`
 (`permalink.ts`), and `TrasaExhibit` / `OkoliExhibit` print pending and rejected
 from it (2 inline countings + 1 partial → 1 function, 4 callers).
+
+**2026-09-08 (scan-sweep, graph-explorer round 70).** Two dates on this surface were
+the server's UTC day, not Prague's: the issue date stamped into every new `g2.`
+address (`issuedTodayCompact` in `permalink.ts`) and `retrievedOn` — the "Získáno"
+line on the card, `dateModified` in the JSON-LD receipt and the day printed on a
+gone citation (`today()` in `getPermalinkData.ts`). Between Prague midnight and
+01:00 (02:00 in summer) both said yesterday, and the issue date is the one figure a
+reader copies as "when this citation was issued". Both now go through
+`features/denik/pragueDay` — the same helper and the same reason as Deník's
+`today` (2026-08-04) and the dashboard's `builtOn` (2026-09-08). The address's
+hash covers the content only, so no existing citation changes. In the same round
+the loader's private request-origin copy (host + `x-forwarded-proto`) became a
+call to `lib/routing/liveUrl`, the one definition of that shape since 2026-09-07.

@@ -36,6 +36,7 @@ import type {
 } from "./graphTypes";
 // [G4] Adresa tvrzení pro každou hranu citace — čistý modul, žádný server.
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
+import { pragueDay } from "@/features/denik/pragueDay";
 
 // ── Kanonická serializace (vzor exhibit.ts) ─────────────────────────────────
 
@@ -206,8 +207,11 @@ function parseIssuedAt(compact: string): string | null {
 
 /** Dnešní den ve tvaru adresy. Jediné místo v modulu, které čte hodiny —
  *  „kdy byla citace vydána" se z ničeho jiného odvodit nedá, a vydání je
- *  přesně ten okamžik. Testy datum vždy předávají výslovně. */
-export const issuedTodayCompact = (): string => new Date().toISOString().slice(0, 10).replaceAll("-", "");
+ *  přesně ten okamžik. Testy datum vždy předávají výslovně.
+ *  Den je PRAŽSKÝ (2026-09-08): do té doby UTC, takže citace vydaná mezi
+ *  půlnocí a 01:00/02:00 v Praze nesla v adrese včerejší datum — a to datum
+ *  čtenář cituje jako den vydání. Týž důvod a týž pomocník jako v deníku. */
+export const issuedTodayCompact = (): string => pragueDay().replaceAll("-", "");
 
 /**
  * Adresa citace. Bez `issuedAtCompact` se orazítkuje DNEŠKEM a vyjde `g2.` —

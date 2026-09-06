@@ -29,6 +29,7 @@
 import "server-only";
 import { getLocale, getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
+import { pragueDay } from "@/features/denik/pragueDay";
 import { formatInt } from "@/lib/format";
 import { defaultLocale, isLocale } from "@/lib/i18n/config";
 import { getNeighbourhood, getNodeDetail, getPathBetween, getTrails } from "./graphLoader";
@@ -54,7 +55,9 @@ export type PermalinkResult =
  *  obsahu nesmí záviset na jazyku prohlížeče; citace je česká plocha. */
 const HASH_LOCALE = "cs";
 
-const today = (): string => new Date().toISOString().slice(0, 10);
+/** „Získáno <den>" na kartě, `dateModified` v JSON-LD a den zmizelé citace:
+ *  PRAŽSKÝ den (2026-09-08), ne UTC — server v jiném pásmu jinak tiskl včerejšek. */
+const today = (): string => pragueDay();
 
 /**
  * Původ requestu, nebo null. Týž tvar jako app/sitemap.ts, /zdroj/[ref]
