@@ -160,7 +160,9 @@ export const getTripwireData = cache(async function getTripwireData(): Promise<T
     let votesAvailable = false;
     const votes: TripwireVoteIn[] = [];
     try {
-      const events = await store.listVoteEvents({ termCode: TERM, limit: 100_000 });
+      // JEDEN strop pro celou aplikaci (lib/db/readCap.ts): menší limit je tiché
+      // oříznutí a na PGlite i pomalejší plán (getVoteThemes.ts, 2026-08-10).
+      const events = await store.listVoteEvents({ termCode: TERM, limit: KG_READ_CAP });
       if (events.length >= EVENT_FLOOR) {
         votesAvailable = true;
         for (const v of events) {

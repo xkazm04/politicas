@@ -664,3 +664,5 @@ from `.kiosek-cache/pdfs` are fetched now; the payload reports
 `additionalPdfsFetchedLive` beside the extracted count.
 
 **2026-09-07 (scan-sweep, admin-control) — the admin's tie review state reads `reviewStateOf`.** `getAdminData` spelled its own verified/rejected/else ladder over `review_state`; the money module's `reviewStateOf` is the one interpretation /penize uses, so the two boards cannot disagree about what „waiting" means.
+
+**2026-09-07 (scan-sweep, admin-control) — the admin loaders read at the one app cap.** `getTripwireData` listed vote events at a literal 100 000 (a silent truncation below the row count and a slower PGlite plan); it reads at `KG_READ_CAP`. `getAdminData` read `review_audit` at a bare 10 000 — the cap is now named (`AUDIT_READ_CAP`, the same figure `getVerificationData` uses) and a read that fills it is reported rather than silently truncated.

@@ -55,6 +55,9 @@ import type {
 
 const ROOT = process.cwd();
 const VAULT = "docs/data-analysis";
+/** Strop čtení review_audit - týž jako getVerificationData.ts (10 000); plná
+ *  stránka se hlásí, nikdy se mlčky ořízne. */
+const AUDIT_READ_CAP = 10_000;
 
 // ── generic disk helpers ─────────────────────────────────────────────────
 
@@ -596,7 +599,10 @@ async function loadReviewHub(): Promise<ReviewHubData> {
     // review_audit: decisions actually made through the human gate.
     let audit: ReviewAuditSummary | null = null;
     try {
-      const rows = await store.listReviewAudit({ limit: 10_000 });
+      const rows = await store.listReviewAudit({ limit: AUDIT_READ_CAP });
+      if (rows.length >= AUDIT_READ_CAP) {
+        console.warn(`[getAdminData] review_audit read filled the cap (${AUDIT_READ_CAP}) - totals below may be truncated`);
+      }
       if (rows.length > 0) {
         const byDecision: Record<string, number> = {};
         const byReviewer: Record<string, number> = {};
