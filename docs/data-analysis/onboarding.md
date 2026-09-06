@@ -286,3 +286,8 @@ scroll endpoint at 10 — the local GMS returns an empty body above that).
   fixed; today it serves only as a change-detection / staleness signal.
 - **membership carries a far-future placeholder date** (a 'Předseda' row dated
   year 2925, a 2025 typo) — surfaced and flagged, not corrected in source.
+- **dataor's cache resumes at both stages** (2026-09-08): a `.csv.gz` at its final
+  name in `.dataor-cache/` is complete by construction (the download renames its
+  `.part` last), so `ensureDatasetCached` gunzips it instead of fetching the archive
+  again — a run killed between the transfer and the gunzip no longer costs a second
+  2,4 GB download. Delete the `.csv.gz` to force a re-fetch.
