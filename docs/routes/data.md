@@ -230,3 +230,10 @@ endpoints (and `/atlas/atlas.json`, `/graf/p/[ref]/bundle`, `/admin/loops.json`)
 still returned a cacheable „store unavailable". All five carry `no-store` now,
 the three JSON ones also `retry-after: 600`; `lib/testing/machineRoutes503.test.ts`
 pins every machine route over mocked loaders.
+
+**The manifest's „newest run" rule is written once (2026-09-08, scan-sweep,
+parity-auditor).** `deriveReleaseManifest` carried two byte-identical reductions —
+one cutting the version from the newest successful run, one naming the lineage's
+newest run — and either could have changed without the other. `newestRun(runs)` is
+the one rule (latest moment, higher id on a tie, null for none); `manifest.test.ts`
+pins it, including that a running run counts by its start on both sites.
