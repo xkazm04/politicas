@@ -99,7 +99,7 @@ export default function GlobalError({
             <button
               type="button"
               onClick={() => retry()}
-              className="border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:border-signal hover:bg-signal"
+              className="border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:border-signal-deep hover:bg-signal-deep"
             >
               Zkusit znovu <span lang="en">· Try again</span>
             </button>

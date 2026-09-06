@@ -48,7 +48,10 @@ export default function RouteError({
   return (
     <main className="min-h-screen bg-paper font-sans text-ink">
       <div className="mx-auto max-w-3xl px-6 py-20">
-        <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
+        {/* `signal-deep`, ne `signal`: 11px text pod prahem 18,66 px potřebuje 4,5:1
+            a `signal` na `paper` sedí na 4,10:1 (globals.css) — global-error.tsx to
+            měl správně, tahle plocha ne. */}
+        <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-signal-deep">
           {t("route.kicker")}
         </p>
         <h1 className="mt-3 text-4xl font-black uppercase leading-[0.95] tracking-tight sm:text-5xl">
@@ -75,7 +78,7 @@ export default function RouteError({
           <button
             type="button"
             onClick={() => retry()}
-            className="border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:border-signal hover:bg-signal"
+            className="border-2 border-ink bg-ink px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:border-signal-deep hover:bg-signal-deep"
           >
             {t("route.retry")}
           </button>
