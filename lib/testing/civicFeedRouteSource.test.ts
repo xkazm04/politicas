@@ -24,3 +24,13 @@ describe("the receipt page reads the tree's one live-URL definition", () => {
     expect(s).not.toMatch(/from "next\/headers"/);
   });
 });
+
+describe("search params are read through lib/routing/searchParam.firstParam", () => {
+  for (const f of ["app/overeni/page.tsx", "app/zdroj/[ref]/page.tsx", "app/denik/page.tsx"]) {
+    it(`${f} imports firstParam and spells no Array.isArray shape guard of its own`, () => {
+      const s = src(f);
+      expect(s).toMatch(/import \{ firstParam \} from "@\/lib\/routing\/searchParam"/);
+      expect(s).not.toMatch(/Array\.isArray/);
+    });
+  }
+});

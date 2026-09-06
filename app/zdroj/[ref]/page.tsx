@@ -7,6 +7,7 @@ import ReceiptPage, { ReceiptGonePage } from "@/features/shared/provenance/Recei
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { toClaimReviewJsonLd } from "@/features/shared/provenance/receipt";
 import { liveUrl } from "@/lib/routing/liveUrl";
+import { firstParam } from "@/lib/routing/searchParam";
 
 /**
  * /zdroj/[ref] — trvalá účtenka jednoho tvrzení znalostního grafu.
@@ -39,10 +40,10 @@ async function absoluteReceiptUrl(encodedRef: string): Promise<string | null> {
 /**
  * `?k=YYYY-MM-DD` — čočka „k tomu dni". Plumbing, nic víc: co je platný den a
  * co se stane s tím, co jím není, rozhoduje features/shared/provenance/asOfLens.ts
- * (odmítnuto, ne opraveno), a routa jen předá první hodnotu parametru.
+ * (odmítnuto, ne opraveno), a routa jen předá první hodnotu parametru —
+ * sdíleným tvarovým strážcem, ne vlastní kopií.
  */
-const asOfParam = (v: string | string[] | undefined): string | null =>
-  typeof v === "string" ? v : Array.isArray(v) ? (v[0] ?? null) : null;
+const asOfParam = firstParam;
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
