@@ -384,3 +384,11 @@ the exhibit's „data obtained" date — with the UTC day. Between Prague midnig
 counted in `droppedImplausible`, the number the panel uses to disclose defective
 data. The loader reads `pragueDay()` now, the helper `/denik` adopted for the
 identical defect on 2026-08-04; `instrumentsSource.test.ts` pins it.
+
+**The exhibit's source links are pinned to the book's source names (2026-09-08,
+scan-sweep, parity-auditor).** `FACT_SOURCE_LINKS` re-types the three registry
+names `datedFacts.ts` keeps as private literals; a rename on either side stripped
+the link silently and the citation footer printed a bare name. The new
+`instrumentsSource.test.ts` reads the literals out of `datedFacts.ts` and asserts
+each has a link, and that a registry named in both link lists shares one host.
+Green on arrival — the three names agree today; the pin is what was missing.
