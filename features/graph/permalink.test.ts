@@ -723,3 +723,11 @@ describe("worstGateOfView — modifikátor brány pro /overeni", () => {
     expect(worstGateOfView(okoliView())).toBe("rejected");
   });
 });
+describe("původ requestu pro balíček důkazů (2026-09-08, parity-auditor)", () => {
+  it("getPermalinkData čte host a x-forwarded-proto jen přes lib/routing/liveUrl", () => {
+    const loader = readFileSync("features/graph/getPermalinkData.ts", "utf8");
+    expect(loader).toMatch(/liveUrl\(""\)/);
+    expect(loader).not.toMatch(/x-forwarded-proto/);
+    expect(loader).not.toMatch(/from "next\/headers"/);
+  });
+});
