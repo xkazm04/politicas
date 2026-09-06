@@ -16,9 +16,11 @@ export const dynamic = "force-dynamic";
 export async function GET(): Promise<Response> {
   const data = await getRadarData();
   if (!data) {
+    // 503 s `no-store` (parita s /dukazy, 2026-09-05): výpadek se nesmí
+    // uložit do cache jako odpověď feedu.
     return new Response(JSON.stringify({ error: "store unavailable" }), {
       status: 503,
-      headers: { "content-type": "application/json; charset=utf-8" },
+      headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
     });
   }
   const json = radarFeedToJson(data.entries, {

@@ -299,3 +299,5 @@ read the shared definition, and `lawwatchLabels.test.ts` pins `pspBillUrl` and
 were held together by a comment) and gives `citationRef` its first tests.
 
 **2026-09-07 — the collision-radar feeds read the feeds' one origin definition (scan-sweep, parity-auditor).** `feed.json` and `feed.xml` under `/zakony/kolize` each carried a local `host` + `x-forwarded-proto` copy — the fifth and sixth in the tree — while `/denik` and `/dukazy` share `requestOrigin` from `features/denik/feedRequest.ts` (itself on `lib/routing/liveUrl.ts` since round 39). Both radar feeds now import it; `lib/testing/legislationRouteSource.test.ts` forbids the copy.
+
+**2026-09-07 — a radar feed's 503 is never cached (scan-sweep, parity-auditor).** The dukazy feeds send `cache-control: no-store` with their 503 (2026-09-05) so an outage is not stored by a proxy as the feed's answer; the two collision-radar feeds sent a bare 503. Both now carry the header.

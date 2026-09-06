@@ -17,3 +17,13 @@ describe("the collision-radar feeds build their origin through features/denik/fe
     });
   }
 });
+
+describe("a radar feed's 503 carries cache-control: no-store, like the dukazy feeds", () => {
+  for (const f of FEEDS) {
+    it(`${f} sends no-store with its 503`, () => {
+      const s = src(f);
+      const block = /status: 503,[\s\S]*?\}\)/.exec(s)?.[0] ?? "";
+      expect(block).toMatch(/"cache-control": "no-store"/);
+    });
+  }
+});

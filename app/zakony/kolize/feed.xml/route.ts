@@ -18,7 +18,9 @@ export async function GET(): Promise<Response> {
   if (!data) {
     // Úložiště i archiv nedostupné: 503, ne prázdný feed — prázdno by bylo
     // nepravdivé tvrzení „žádné nálezy neexistují".
-    return new Response("store unavailable", { status: 503 });
+    // 503 s `no-store` (parita s /dukazy, 2026-09-05): výpadek se nesmí
+    // uložit do cache jako odpověď feedu.
+    return new Response("store unavailable", { status: 503, headers: { "cache-control": "no-store" } });
   }
   const xml = radarFeedToRss(data.entries, {
     baseUrl: await requestOrigin(),
