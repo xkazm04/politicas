@@ -135,3 +135,10 @@ so a flagged bill whose contract sum the graph does not carry showed „0 Kč" o
 row as if measured (and `sponsor_money_companies` likewise). The finding is medium — it
 cannot clear the 100-mil. bar without a number — and its `figures` carry only the values
 the bill has; `rules.test.ts` pins the null case.
+
+**2026-09-07 — every rule `RULE_REF` names has its /metodika anchor (scan-sweep,
+copy-auditor).** `MetodikaVolbySection` kept a hand copy of eleven finding kinds; the R1
+record rule (`law_final_vote`, 2026-09-04) was missing, so `/metodika#volby-R1` — linked
+from every final-vote row — led nowhere, although both catalogs carried its title and
+sentence. The list now derives from `RULE_REF` and `features/volby/volbySource.test.ts`
+checks that each kind has a `volbyRule_<kind>_title/_rule` in cs and en.

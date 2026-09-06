@@ -33,23 +33,16 @@ import {
   VOLBY_RULES_REF,
 } from "@/lib/analysis/volby/rules";
 import { TERM_WINDOWS } from "@/lib/analysis/volby/terms";
+import type { FindingKind } from "@/lib/analysis/volby/types";
 
 /** Kotva pravidla: `volby:N1` → `volby-N1`. Stejný převod používá řádek nálezu. */
 export const ruleAnchor = (ruleRef: string): string => ruleRef.replace(":", "-");
 
-const RULE_KINDS = [
-  "tender_konvejer",
-  "tender_dvorni_dodavatel",
-  "tender_rotace",
-  "tender_kratke_lhuty",
-  "tender_cisty_radar",
-  "law_posudek",
-  "law_sponsor_conflict",
-  "law_became_law_clean",
-  "effort_workhorse",
-  "effort_rapporteur",
-  "money_ties_unrated",
-] as const;
+/** KAŽDÉ pravidlo, které RULE_REF pojmenuje — v jeho pořadí. Do 2026-09-07 tu stál
+ *  ruční opis jedenácti druhů a záznamové pravidlo R1 (`law_final_vote`) v něm
+ *  chybělo, takže odkaz `/metodika#volby-R1` z řádku nálezu vedl do prázdna;
+ *  katalog jeho větu měl celou dobu. */
+const RULE_KINDS = Object.keys(RULE_REF) as FindingKind[];
 
 export default function MetodikaVolbySection({ index }: { index: number }) {
   const t = useTranslations("metodika");
