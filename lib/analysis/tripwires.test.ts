@@ -15,6 +15,7 @@ import {
   TRIPWIRE_RULE_VERSION,
   dayInRolePeriod,
   deriveTripwires,
+  MONEY_PTS_THRESHOLDS_MIL,
   evidenceScore,
   tripwireCandidateId,
 } from "./tripwires";
@@ -375,5 +376,21 @@ describe("dayInRolePeriod je totéž pravidlo jako voteInRolePeriod ze /penize/s
       compared++;
     }
     expect(compared).toBe(days.length * froms.length * tos.length);
+  });
+});
+
+describe("otisk kandidáta je TÝŽ algoritmus jako exhibit.contentHash (držené lokální kopie se ověřují, ne věří)", () => {
+  it("tripwireCandidateId == contentHash(canonicalJson(key)) pro tři klíče", async () => {
+    const { canonicalJson, contentHash } = await import("@/features/dashboard/exhibit");
+    const keys = [
+      { pattern: "tie-vote-window" as const, edgeSrc: "psp:person:1", edgeDst: "company:ico:00000001" },
+      { pattern: "rapporteur-channel" as const, edgeSrc: "psp:person:2", edgeDst: "company:ico:00000002", extra: "bill:tisk:9" },
+      { pattern: "ownership-chain" as const, edgeSrc: "psp:person:3", edgeDst: "company:ico:00000003", extra: "company:ico:00000004" },
+    ];
+    for (const k of keys) expect(tripwireCandidateId(k)).toBe(contentHash(canonicalJson(k)));
+  });
+  it("popisek peněžní složky cituje tytéž prahy, kterými se počítá", () => {
+    const parts = evidenceScore({ corroboration: null, roleValidFrom: null, roleValidTo: null, reviewState: "pending_review", matchedStatuteRefs: [], reachableCzk: 1_000_000 }).parts;
+    expect(parts[0].labelCs).toBe(`dosažitelné veřejné peníze (prahy ${MONEY_PTS_THRESHOLDS_MIL.join("/")} mil. Kč)`);
   });
 });
