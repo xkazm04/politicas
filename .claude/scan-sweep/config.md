@@ -330,3 +330,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   cards). When a file states a rule in its header ('two decimals') and a test checks it for
   SOME branches, probe the other branches with the same instrument - the test's scope, not the
   rule, was the gap. A hand-coded range beside generated data earns a sum-equals-count pin.
+- 2026-09-08 — civic-transparency-eslint-plugin, second sweep (28 lenses, 3 built in 3 commits,
+  0 new cards). A lint rule's trigger list is a hand-maintained mirror of some module's export
+  surface: diff the two (lib/format exports vs NUMERIC_NAMED_FORMATTERS) before reading a
+  single rule body. Widen a rule only after measuring the repo-wide report count on both sides.
