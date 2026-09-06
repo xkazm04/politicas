@@ -40,6 +40,7 @@ import {
   type WithheldForensic,
 } from "./deriveFeed";
 import { readReviewAudit } from "./readReviewAudit";
+import { tiskIdFromBillNodeId } from "@/features/lawwatch/billRef";
 
 /**
  * WHAT THIS READING LOST, COUNTED (2026-08-13).
@@ -121,14 +122,24 @@ export async function getDukazyData(): Promise<DukazyData | null> {
     let forensicRead = true;
     try {
       const bills = await store.listKgNodes({ kind: "bill", limit: KG_READ_CAP });
+      let unreadableIds = 0;
       forensic = bills.flatMap((n) => {
         const p = (n.props ?? {}) as Record<string, unknown>;
         const state = asStr(p.forensic_review_state);
         if (!state) return [];
+        // The node id is read by the ONE bill-id codec (features/lawwatch/billRef).
+        // Until 2026-09-08 an unreadable id fell back to 0, so every such verdict
+        // would have shared the public anchor `z-tisk-0`; a verdict without a
+        // readable id has no address and is counted, never published under one.
+        const tiskId = tiskIdFromBillNodeId(n.id);
+        if (tiskId === null) {
+          unreadableIds += 1;
+          return [];
+        }
         const prov = (p.forensic_provenance ?? {}) as Record<string, unknown>;
         return [
           {
-            tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,
+            tiskId,
             cislo: typeof p.cislo === "number" ? p.cislo : null,
             title: n.label,
             severity: asStr(p.forensic_severity),
@@ -137,6 +148,12 @@ export async function getDukazyData(): Promise<DukazyData | null> {
           },
         ];
       });
+      if (unreadableIds > 0) {
+        reportLoaderFailure(
+          "getDukazyData.listKgNodes(bill)",
+          new Error(`${unreadableIds} bill node(s) with a forensic state carry an id the codec cannot read — withheld`),
+        );
+      }
     } catch (err) {
       forensicRead = false;
       reportLoaderFailure("getDukazyData.listKgNodes(bill)", err);
