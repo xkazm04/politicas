@@ -181,3 +181,13 @@ describe("language-gate — the real 27 law-forensics verdicts", () => {
     for (const v of czech) for (const s of readerStrings(v)) expect(czechCopyOrNull(s)).toBe(s);
   });
 });
+
+describe("the gate's Czech reason formats its percentage the Czech way", () => {
+  it("prints a decimal comma, not toFixed's point", () => {
+    const en = "The bill amends the statute and the government sponsors it; the committee reading is scheduled and the effects on the budget are large.";
+    const score = scoreLanguage(en);
+    expect(score.looksEnglish).toBe(true);
+    expect(score.reason).toMatch(/\(\d+,\d %\)/);
+    expect(score.reason).not.toMatch(/\d\.\d %/);
+  });
+});

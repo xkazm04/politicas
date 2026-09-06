@@ -125,6 +125,8 @@ export interface LanguageScore {
   reason: string;
 }
 
+import { czech } from "@/lib/format";
+
 const WORD_RE = /[\p{L}][\p{L}\p{M}'-]*/gu;
 
 /** Minimum tokens before the frequency rule is trusted; below it, a stricter presence rule applies. */
@@ -138,11 +140,11 @@ const EN_RATE_THRESHOLD = 0.05;
  */
 export function scoreLanguage(text: string): LanguageScore {
   const words = (text.match(WORD_RE) ?? []).map((w) => w.toLocaleLowerCase("cs"));
-  let czech = 0;
+  let czechHits = 0;
   let closedList = 0;
   let morphology = 0;
   for (const w of words) {
-    if (CS_STOPWORDS.has(w)) czech++;
+    if (CS_STOPWORDS.has(w)) czechHits++;
     else if (EN_STOPWORDS.has(w)) closedList++;
     else if (hasEnglishMorphology(w)) morphology++;
   }
@@ -150,35 +152,35 @@ export function scoreLanguage(text: string): LanguageScore {
   const english =
     closedList > 0 ? closedList + morphology : morphology >= MORPHOLOGY_ALONE_MIN ? morphology : 0;
   const tokens = words.length;
-  if (tokens === 0) return { tokens, czech, english, looksEnglish: false, reason: "prázdný text" };
+  if (tokens === 0) return { tokens, czech: czechHits, english, looksEnglish: false, reason: "prázdný text" };
 
   // Short strings (a citation claim can be a single clause): a frequency rate is
   // noise at n<12, so require an outright English majority with at least two hits.
   if (tokens < MIN_TOKENS_FOR_RATE) {
     // `>=` not `>`: a short bilingual citation label ("Amended statute: zákon č. …")
     // ties on hits, and a tie in a Czech-first product resolves against rendering.
-    const looksEnglish = english >= 2 && english >= czech;
+    const looksEnglish = english >= 2 && english >= czechHits;
     return {
       tokens,
-      czech,
+      czech: czechHits,
       english,
       looksEnglish,
       reason: looksEnglish
-        ? `krátký text: ${english} anglických funkčních slov vs ${czech} českých`
+        ? `krátký text: ${english} anglických funkčních slov vs ${czechHits} českých`
         : "text neprošel jako anglický (krátký text)",
     };
   }
 
   const rate = english / tokens;
-  const looksEnglish = english > czech && rate >= EN_RATE_THRESHOLD;
+  const looksEnglish = english > czechHits && rate >= EN_RATE_THRESHOLD;
   return {
     tokens,
-    czech,
+    czech: czechHits,
     english,
     looksEnglish,
     reason: looksEnglish
-      ? `${english} anglických funkčních slov z ${tokens} (${(rate * 100).toFixed(1)} %), českých jen ${czech}`
-      : `česky nebo neurčeno (${english} EN / ${czech} CS z ${tokens})`,
+      ? `${english} anglických funkčních slov z ${tokens} (${czech(rate * 100)} %), českých jen ${czechHits}`
+      : `česky nebo neurčeno (${english} EN / ${czechHits} CS z ${tokens})`,
   };
 }
 
