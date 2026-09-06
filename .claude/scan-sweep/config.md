@@ -400,3 +400,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   address is the strongest case of the UTC-day class: grep `toISOString().slice(0, 10)` in every
   encoder/loader, and check the test - one of them asserted the UTC value itself. When a shared
   helper lands (liveUrl), re-grep the copies the card lists and fold the ones in the context you are in.
+- 2026-09-08 — ingest-external-sources, second sweep (28 lenses, 1 built, 0 cards, 3 leads). A multi-stage
+  cache (download -> rename -> decompress -> rename) must resume at EVERY stage boundary, not only the
+  first: walk the crash points between stages and ask what the next run does with each leftover.
+  Grep a client class's name across scripts/ before trusting a card's stated reach - the harvest here
+  had none.
