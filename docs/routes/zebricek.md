@@ -585,3 +585,15 @@ opravila 2026-08-12. Den teď vydává komorový agregát provenience
 (`provenance.computedAt`), týž zdroj jako u karty kraje a vestavného widgetu;
 když se komora na jednom dni neshodne, arch dostane pražský den vytištění, protože
 typ `retrievedAt` ve sdíleném plakátu „neuvedeno“ neumí — viz karta v backlogu.
+
+**Round 57 of the sweep (2026-09-08, scan-sweep, civicscore-leaderboard).** Four
+findings landed. (1) The chamber pass read the person id as `Number(id.split(":")
+.pop())`; it reads `pspIdFromNodeId` (the strict `psp:person:<n>` parser) now and
+withholds, counted, a node whose id the parser refuses — no rank under NaN, no
+`/poslanec/NaN` link. (2) The table printed club seats, the two filter counts and
+the „zobrazeno X z Y" pair raw, and the histogram tooltip handed a raw number to the
+catalog (next-intl's own Intl formatting); all go through `f.int` now. (3) The
+table's per-component median was a second copy of `score-legibility.median`; it
+imports it, and an empty chamber yields no median (null) instead of 0. (4) The kraj
+picker folded its query with its own NFD strip beside `search.ts`; it uses
+`foldQuery`. `features/civicscore/leaderboardSource.test.ts` pins all four.
