@@ -379,3 +379,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   without the rule. A constant whose header says 'one address' is found by grepping its VALUE,
   not its name. And a build chain must gate each commit on the TEST's exit, not the edit
   step's - round 65 committed a red pin that way.
+- 2026-09-08 — db-store, second sweep (28 lenses, 1 built in 1 commit, 0 cards). The most-tested
+  context yields least; drive the tail at the seams tests do not pin - the DDL against the row
+  types, the literal that a shared constant was meant to replace, the memo pair that must clear
+  together. A context whose directory holds 19 files no context owns is under-described by the
+  map, not by the sweep.

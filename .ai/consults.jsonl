@@ -72,3 +72,4 @@
 {"ts": "2026-09-08T16:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "testing"], "techniques": ["exhaustive-by-type", "strict-id-codec", "doc-claims-vs-code"], "deviations": 0}
 {"ts": "2026-09-08T17:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "testing"], "techniques": ["missing-beats-wrong", "one-rule-one-implementation"], "deviations": 0}
 {"ts": "2026-09-08T18:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "persistence"], "techniques": ["one-rule-one-implementation", "one-constant-one-address", "denominator-present-with-zero"], "deviations": 0}
+{"ts": "2026-09-08T19:00:00Z", "bundle": "software-engineering", "subjects": ["persistence", "data-modeling"], "techniques": ["one-constant-one-address"], "deviations": 0}
