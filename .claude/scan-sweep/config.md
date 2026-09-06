@@ -421,3 +421,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   says 'this figure is a derivation, not a literal', grep the figure's literal across the feature:
   the sibling page still had it. A `?? <constant>` fallback is a claim about the data - ask what
   pins the constant.
+- 2026-09-09 — law-amends-analysis, second sweep (28 lenses, 4 built, 0 cards, 2 leads). A script that runs
+  main() on import hides its pure core from every test: the direct-run guard (kg-promote.ts) is a
+  five-line instrument that turns an audited-by-hand heuristic into a pinned one. A pass gate is
+  `isInteger && > 0` everywhere - grep `isFinite(pass)` after each fix of the class. A new test over an
+  audited-by-hand heuristic found two latent defects in one run - the instrument pays on day one.
