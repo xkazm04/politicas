@@ -219,6 +219,13 @@ export function weekdayKey(isoDate: string): string | null {
 // ── Veřejné klíče entit (adresa filtru = adresa odběru) ─────────────────────
 
 export const mpEntityKey = (pspId: number) => `poslanec:${pspId}`;
+/** Inverze `mpEntityKey`: `poslanec:6543` → 6543, jiný tvar → null. Jediné
+ *  místo, které tvar klíče poslance ČTE — loader ho do 2026-09-08 parsoval
+ *  vlastním regulárním výrazem. */
+export function pspIdFromEntityKey(key: string): number | null {
+  const m = /^poslanec:(\d+)$/.exec(key);
+  return m ? Number(m[1]) : null;
+}
 export const companyEntityKey = (ico: string) => `firma:${ico}`;
 export const billEntityKey = (cislo: number) => `tisk:${cislo}`;
 

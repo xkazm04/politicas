@@ -15,6 +15,7 @@ import {
   filterDenikEntries,
   groupDenikDays,
   mpEntityKey,
+  pspIdFromEntityKey,
   billEntityKey,
   czechWeekday,
   type DenikInput,
@@ -734,5 +735,15 @@ describe("entityDayHref — adresa JEDNOHO DNE jedné entity", () => {
     for (const bad of ["", "včera", "2026-7-1", "21.07.2026", "neznámo"]) {
       expect(entityDayHref(mpEntityKey(6543), bad), bad).toBeNull();
     }
+  });
+});
+
+describe("pspIdFromEntityKey — inverze mpEntityKey (2026-09-08)", () => {
+  it("čte pspId z klíče `poslanec:<n>` a nic jiného", () => {
+    expect(pspIdFromEntityKey(mpEntityKey(6543))).toBe(6543);
+    expect(pspIdFromEntityKey("poslanec:0")).toBe(0);
+    expect(pspIdFromEntityKey("firma:04544152")).toBeNull();
+    expect(pspIdFromEntityKey("poslanec:")).toBeNull();
+    expect(pspIdFromEntityKey("poslanec:12a")).toBeNull();
   });
 });

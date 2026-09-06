@@ -37,11 +37,12 @@ import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { getMoneyData } from "@/features/money/getMoneyData";
 import { isAttributable } from "@/features/money/reachableMoney";
 import { canonicalIco } from "@/features/money/companyId";
+import { reviewStateOf } from "@/features/money/reviewTypes";
 import { getLawData } from "@/features/lawwatch/getLawData";
 import { icoFromDst, pspIdFromSrc } from "@/features/dukazy/deriveFeed";
 import { readReviewAudit } from "@/features/dukazy/readReviewAudit";
 import { pragueDay } from "./pragueDay";
-import { DENIK_CHANGE_TYPES } from "./deriveDenik";
+import { DENIK_CHANGE_TYPES, pspIdFromEntityKey } from "./deriveDenik";
 import type {
   DenikBill,
   DenikChange,
@@ -531,8 +532,11 @@ async function readChanges(): Promise<ChangeLayer> {
         const fromSrc = pspIdFromSrc(e.src);
         if (fromSrc !== null) return fromSrc;
       }
-      const key = e.entityKeys.find((k) => /^poslanec:\d+$/.test(k));
-      return key ? Number(key.slice("poslanec:".length)) : null;
+      for (const k of e.entityKeys) {
+        const fromKey = pspIdFromEntityKey(k);
+        if (fromKey !== null) return fromKey;
+      }
+      return null;
     };
     const personId = (pspId: number): string => `psp:person:${pspId}`;
 
@@ -580,7 +584,7 @@ async function readChanges(): Promise<ChangeLayer> {
         source: e.source,
         // „Čeká na kontrolu" je stav VAZBY. Mandátové a orgánové eventy na
         // žádné vazbě nestojí, takže o kontrole nic netvrdí.
-        pending: isTie && e.payload.review_state !== "verified",
+        pending: isTie && reviewStateOf(e.payload.review_state) !== "verified",
       };
     });
     return { changes, ok: true, fromGate, undisplayable, read: events.length, truncated };
