@@ -4,6 +4,7 @@
 
 import type { KgAsOfPoint, KgEdgeKey, KgVersion, KnowledgeGraphRepository } from "../../store";
 import type { KgEdgeRow, KgNodeRow } from "../../types";
+import { KG_READ_CAP } from "../../readCap";
 import { isoTs, num, str, warnIfTruncated, type Pglite, type PgTransaction } from "../internals";
 import { KG_EDGE_COLS, KG_NODE_COLS, mapKgEdge, mapKgNode } from "../mappers";
 
@@ -55,7 +56,12 @@ export type { KgAsOfReads } from "../../store";
  */
 export type BitemporalKnowledgeGraphRepository = KnowledgeGraphRepository;
 
-/* The truncation guard used by the two listers below now lives in `../internals`
+/* The whole-relation listers below default to `KG_READ_CAP` (lib/db/readCap.ts) —
+ * until 2026-09-08 each re-typed its value as a literal, so the one constant whose
+ * whole point is to be one had a second, third and fourth address here. The hard
+ * ceiling a caller may raise it to stays local.
+ *
+ * The truncation guard used by the two listers below now lives in `../internals`
  * (`warnIfTruncated`) — the relational listers in `graph.ts` had the same hazard and
  * no guard at all, so the rule has one definition for both sides of the store. */
 
@@ -345,7 +351,7 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
     },
 
     async listKgNodes(opts) {
-      const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
+      const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? KG_READ_CAP));
       const where = opts?.kind ? `where kind = $1` : "";
       const { rows } = await pg.query<Record<string, unknown>>(
         `select * from kg_node ${where} order by id limit ${lim}`,
@@ -355,7 +361,7 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
       return rows.map(mapKgNode);
     },
     async listKgEdges(opts) {
-      const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
+      const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? KG_READ_CAP));
       const where = opts?.rel ? `where rel = $1` : "";
       const { rows } = await pg.query<Record<string, unknown>>(
         `select * from kg_edge ${where} order by src, rel, dst limit ${lim}`,
@@ -486,7 +492,7 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
       const atIso = at instanceof Date ? at.toISOString() : at;
       return {
         async listKgNodes(opts) {
-          const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
+          const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? KG_READ_CAP));
           const params: unknown[] = opts?.kind ? [opts.kind, atIso] : [atIso];
           const { rows } = await pg.query<Record<string, unknown>>(
             `select * from ${visibleSql("kg_node", KG_NODE_COLS, params.length)} s
@@ -497,7 +503,7 @@ export function makeKgRepo(pg: Pglite): BitemporalKnowledgeGraphRepository {
           return rows.map(mapKgNode);
         },
         async listKgEdges(opts) {
-          const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
+          const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? KG_READ_CAP));
           const params: unknown[] = opts?.rel ? [opts.rel, atIso] : [atIso];
           const { rows } = await pg.query<Record<string, unknown>>(
             `select * from ${visibleSql("kg_edge", KG_EDGE_COLS, params.length)} s
