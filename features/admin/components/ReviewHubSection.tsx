@@ -166,7 +166,7 @@ export default function ReviewHubSection({ data }: { data: ReviewHubData }) {
             <div className="flex flex-wrap gap-2">
               {Object.entries(forensic.bySeverity).map(([sev, n]) => (
                 <span key={sev} className={`px-2 py-1 font-mono text-[11px] uppercase tracking-widest ${SEVERITY_TONE[sev] ?? "bg-hairline text-ink"}`}>
-                  {sev} · {n}
+                  {sev} · {czechInt(n)}
                 </span>
               ))}
             </div>
@@ -237,14 +237,14 @@ export default function ReviewHubSection({ data }: { data: ReviewHubData }) {
             <div className="flex flex-wrap gap-2">
               {Object.entries(audit.byDecision).map(([d, n]) => (
                 <span key={d} className="bg-hairline px-2 py-1 font-mono text-[11px] uppercase tracking-widest text-ink">
-                  {d} · {n}
+                  {d} · {czechInt(n)}
                 </span>
               ))}
             </div>
             <div className="flex flex-wrap gap-2">
               {Object.entries(audit.byReviewer).map(([r, n]) => (
                 <span key={r} className="border border-ink px-2 py-1 font-mono text-[11px] uppercase tracking-widest text-ink">
-                  {r} · {n}
+                  {r} · {czechInt(n)}
                 </span>
               ))}
             </div>

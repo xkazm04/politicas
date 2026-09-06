@@ -41,3 +41,16 @@ describe("a forensic verdict without a stored severity is not filed under low", 
     expect(s).not.toMatch(/severity \?\? "low"/);
   });
 });
+
+describe("every count on the review hub and the progress tile goes through czechInt", () => {
+  it("ReviewHubSection prints bySeverity / byDecision / byReviewer counts formatted", () => {
+    const s = src("features/admin/components/ReviewHubSection.tsx");
+    expect(s).not.toMatch(/\{sev\} · \{n\}/);
+    expect(s).not.toMatch(/\{d\} · \{n\}/);
+    expect(s).not.toMatch(/\{r\} · \{n\}/);
+    expect(s.match(/· \{czechInt\(n\)\}/g)?.length).toBe(3);
+  });
+  it("LoopProgressGrid prints the batch number formatted", () => {
+    expect(src("features/admin/components/LoopProgressGrid.tsx")).toMatch(/`dávka \$\{czechInt\(p\.batchesCompleted\)\}`/);
+  });
+});

@@ -670,3 +670,5 @@ from `.kiosek-cache/pdfs` are fetched now; the payload reports
 **2026-09-07 (scan-sweep, admin-control) — every catch in `getAdminData` leaves a trace.** Five catch blocks (frontier counts, vault heads, the three case-progress readers) swallowed the error and returned an empty shape, so a degradation on the operator's own board never reached the loader-failure log that the same board displays. Each now calls `reportLoaderFailure` before degrading.
 
 **2026-09-07 (scan-sweep, admin-control) — a verdict without a severity is not „low".** `getAdminData` bucketed a bill with a gate state and no `forensic_severity` under `low`; missing is not low. It has its own `neuvedeno` bucket, printed verbatim in a neutral tone.
+
+**2026-09-07 (scan-sweep, admin-control) — review-hub counts and the batch number go through `czechInt`.** Three count chips (severity, decision, reviewer) and the progress tile's batch number rendered raw numbers beside figures that were formatted.
