@@ -156,7 +156,15 @@ export class LiteContextProvider implements ContextProvider {
     if (!res.ok) return null;
     const text = await res.text();
     if (text.trim().length === 0) return null;
-    return JSON.parse(text) as Record<string, unknown>;
+    // A 2xx that is not JSON (a proxy's HTML error page, a truncated body) is the
+    // same "nothing to read" as an empty body - until 2026-09-08 the SyntaxError
+    // escaped getSliceContext whole, exactly what the empty-body rule above fixed.
+    try {
+      return JSON.parse(text) as Record<string, unknown>;
+    } catch (err) {
+      console.warn(`[context-provider] GMS returned a non-JSON body for ${path}`, err);
+      return null;
+    }
   }
 
   private async entity(urn: string, aspects: string[]): Promise<AspectBag | null> {

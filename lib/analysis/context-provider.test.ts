@@ -257,3 +257,11 @@ describe("the context dates its own point-in-time facts (2026-09-01)", () => {
     }
   });
 });
+
+describe("LiteContextProvider — a 2xx whose body is not JSON is 'nothing here', not a crash", () => {
+  it("returns null for the slice instead of letting the SyntaxError escape", async () => {
+    const fetchImpl = (async () => new Response("<html>gateway busy</html>", { status: 200 })) as unknown as typeof fetch;
+    const lite = new LiteContextProvider({ gms: "http://gms.test", fetchImpl });
+    await expect(lite.getSliceContext("psp-hlasovani", "PSP10", "vote_event")).resolves.toBeNull();
+  });
+});
