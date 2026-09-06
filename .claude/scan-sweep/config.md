@@ -339,3 +339,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   number in JSX - next-intl formats it with Intl outside lib/format; grep `{ count: [a-z]` beside
   every `t(` in a file that already calls `f.int` elsewhere. `Number(id.split(':').pop())` is the
   third lenient-id shape this sweep has replaced with a strict parser.
+- 2026-09-08 — civicscore-lens-duel, second sweep (28 lenses, 1 built, 3 cards). `title={t(...)}`
+  on a button or label with no sr-only sibling is the hover-only-explanation defect the deník
+  fixed on 2026-08-12: grep `title=\{t(` across every "use client" surface. A pure module a
+  server-only loader could import but instead mirrors (lens.ts ↔ getLeaderboardData) is a
+  parity card, not a comment.
