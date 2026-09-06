@@ -15,3 +15,11 @@ describe("identifiers reach the catalog as strings, never as numbers next-intl w
     expect(s).toMatch(/no: String\(step\.no\)/);
   });
 });
+
+describe("the live re-derivation dates itself by the Prague day, not the UTC day", () => {
+  it("liveFigures imports pragueDay and keeps no toISOString().slice(0, 10) of its own", () => {
+    const s = src("features/overeni/liveFigures.ts");
+    expect(s).toMatch(/import \{ pragueDay \} from "@\/features\/denik\/pragueDay"/);
+    expect(s).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
+  });
+});
