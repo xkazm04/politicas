@@ -142,3 +142,12 @@ The copyable `<iframe>` snippet's `title` now comes from the same `embedTitle()`
 the widget document uses for its own `<title>` (`embedTitle.ts`): under a reader
 lens the frame's accessible name names the lens instead of asserting the
 published methodology over a recomputed table.
+
+**2026-09-08 (scan-sweep, landing-page round 75, parity-auditor).** `/referendum` handed
+`WeightPanel` the literal `100` as the weight total under the published methodology,
+while the landing teaser derives the same figure from `PUBLISHED_WEIGHTS` and says so.
+The page derives it now (`publishedTotal`), and the new
+`publishedTotalSource.test.ts` pins both the derivation and the fact the literal
+assumed — the published weights sum to 100 — which no test had held (1 literal → 0
+in this feature; `features/civicscore/CivicScorePage.tsx` still carries the same
+`?? 100`, another context's).
