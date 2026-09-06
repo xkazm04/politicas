@@ -286,3 +286,18 @@ now import `requestOrigin` from `features/denik/feedRequest.ts` and send `no-sto
 plus a content type on 503. `features/dukazy/feedRoutes.test.ts` is the first test
 that runs these handlers (mocked loader + `next/headers`); it pins the 503 headers
 and that the channel address is the request host, or empty — never invented.
+
+**Round 53 of the sweep (2026-09-08, scan-sweep, civic-chronicle).** Four
+findings, all landed. (1) A signed forensic verdict whose bill node carries no
+`forensic_severity` was published with „závažnost low" — the loader defaulted the
+token; `ForensicSignoffLike.severity` is now `string | null` and the entry cites
+„neuvedena" (`deriveFeed.test.ts`). (2) The forensic tisk id was
+`Number(id.replace(…)) || 0`, so every unreadable bill id would have shared the
+public anchor `z-tisk-0`; the loader reads it through `tiskIdFromBillNodeId`
+(`features/lawwatch/billRef`) and withholds, counted, what the codec cannot read
+(`dukazySource.test.ts`). (3) `pspIdFromSrc` was a second copy of the strict
+person-id regex; it is now `lib/ingest/changeEvents.pspIdFromNodeId` under the old
+name (pinned by identity). (4) The deník loader parsed `poslanec:<n>` keys with a
+local regex and spelled the tie review ladder by hand; `pspIdFromEntityKey` is the
+inverse of `mpEntityKey` in `deriveDenik.ts`, and the ladder is `reviewStateOf`
+(`denikSource.test.ts`).

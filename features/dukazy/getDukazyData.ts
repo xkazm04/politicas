@@ -131,7 +131,7 @@ export async function getDukazyData(): Promise<DukazyData | null> {
             tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,
             cislo: typeof p.cislo === "number" ? p.cislo : null,
             title: n.label,
-            severity: asStr(p.forensic_severity) ?? "low",
+            severity: asStr(p.forensic_severity),
             reviewState: state,
             signedAt: asStr(p.forensic_signed_at) ?? asStr(prov.computedAt),
           },

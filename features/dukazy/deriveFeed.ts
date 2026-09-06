@@ -56,7 +56,10 @@ export interface ForensicSignoffLike {
   tiskId: number;
   cislo: number | null;
   title: string;
-  severity: string;
+  /** Verbatim `forensic_severity` token, or null when the node carries none —
+   *  the loader does NOT default it (until 2026-09-08 a missing severity was
+   *  published as "low", a verdict the gate never made). */
+  severity: string | null;
   /** kg_node bill props.forensic_review_state — only "verified" is published. */
   reviewState: string;
   /** Best available sign-off timestamp (props or provenance.computedAt). */
@@ -285,6 +288,9 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
   };
 }
 
+/** Co se cituje místo závažnosti, kterou uzel nenese. */
+export const SEVERITY_NOT_STATED = "neuvedena";
+
 function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
   const id = `tisk-${f.tiskId}`;
   return {
@@ -310,9 +316,11 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
     rowHash: null,
     receiptHref: null,
     companyHref: null,
-    sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity}`,
+    // Chybějící závažnost se řekne — token „neuvedena" je doslovný stav uzlu,
+    // ne nejnižší stupeň.
+    sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity ?? SEVERITY_NOT_STATED}`,
     sourceKey: "entry.sourceForensic",
-    sourceDetail: f.severity,
+    sourceDetail: f.severity ?? SEVERITY_NOT_STATED,
   };
 }
 
