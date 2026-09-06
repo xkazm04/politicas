@@ -496,3 +496,19 @@ describe("submitReviewDecision — D5 runtime decision whitelist", () => {
     expect(result).toMatchObject({ status: "ok", reviewState: "verified" });
   });
 });
+
+describe("countReviewAuditByKind — a declared kind is present with a zero, never absent (2026-09-08)", () => {
+  // The same rule ledger.ts's countReviewAudit documents: the point of the number
+  // is the DENOMINATOR, and a missing key renders as nothing at all.
+  it("every REVIEW_SUBJECT_KINDS entry is a key, and the values sum to the row total", async () => {
+    const { REVIEW_SUBJECT_KINDS } = await import("../../types");
+    const pg = await open();
+    const repo = makeReviewRepo(pg);
+    const byKind = await repo.countReviewAuditByKind();
+    for (const kind of REVIEW_SUBJECT_KINDS) expect(byKind[kind], kind).toBeTypeOf("number");
+    expect(byKind.tripwire).toBe(0);
+    expect(byKind.lead).toBe(0);
+    const { rows } = await pg.query<{ n: number }>("select count(*)::int as n from review_audit");
+    expect(Object.values(byKind).reduce((a, b) => a + b, 0)).toBe(rows[0].n);
+  });
+});

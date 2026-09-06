@@ -25,7 +25,7 @@
 import { randomUUID } from "node:crypto";
 import { effortVerdictState } from "../../../analysis/verdict-provenance";
 import type { ReviewRepository, ReviewSubject } from "../../store";
-import { isReviewSubjectKind, type ReviewAuditRow, type ReviewSubjectKind } from "../../types";
+import { REVIEW_SUBJECT_KINDS, isReviewSubjectKind, type ReviewAuditRow, type ReviewSubjectKind } from "../../types";
 import {
   isoTs,
   json,
@@ -452,9 +452,14 @@ export function makeReviewRepo(pg: Pglite): ReviewRepository {
 
     async countReviewAuditByKind() {
       const { rows } = await pg.query<Record<string, unknown>>(
-        `select coalesce(subject_kind, 'tie') as kind, count(*) as n from review_audit group by 1`,
+        `select coalesce(subject_kind, 'tie') as kind, count(*)::int as n from review_audit group by 1`,
       );
+      // A kind with no rows is PRESENT WITH A ZERO, never absent — the rule
+      // ledger.ts's countReviewAudit spelled out on 2026-09-04 and this twin of it
+      // did not carry until 2026-09-08: the point of the number is the
+      // denominator, and a missing key renders as nothing at all.
       const out: Record<string, number> = {};
+      for (const k of REVIEW_SUBJECT_KINDS) out[k] = 0;
       for (const r of rows) out[str(r.kind)] = num(r.n);
       return out;
     },
