@@ -307,3 +307,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   are a hand-maintained list: when two rule blocks describe the same audience in prose
   ('reader-facing tree') but enumerate different globs, the narrower one is the finding. A
   config has no unit test - a synthetic file linted before/after is the probe rung.
+- 2026-09-08 — app-shell, second sweep (28 lenses, 3 built in 3 commits, 0 new cards, 1
+  card closed). When a palette file states its own contrast figures (signal 4,10:1 vs
+  signal-deep 5,31:1), every `text-signal`/`hover:bg-signal` on small or paper text is a
+  measured AA defect, not taste - grep the small-text classes against the palette's table.
