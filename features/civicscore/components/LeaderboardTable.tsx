@@ -576,12 +576,12 @@ export default function LeaderboardTable({
         {/* Kolik řádků filtru vyhovuje, je JEDINÁ zpětná vazba na hledání
             a na osm klubových tlačítek — a byla to obyčejná `<div>` citace,
             kterou odečítačka po změně filtru nepřečetla. Živá oblast
-            (vzor: features/dashboard/components/FeedPanelShell.tsx). */}
+            (vzor: features/dashboard/components/FeedPanelShell.tsx).
+            Čísla vstupují do věty UŽ ZFORMÁTOVANÁ (lib/format) — next-intl by
+            je jinak protáhl vlastním Intl.NumberFormat (týž důvod jako v
+            PillarBars a RapporteurBadge); do 2026-09-08 tu šla surová. */}
         <div role="status" aria-live="polite">
           <SourceNote>
-            {/* Čísla vstupují do věty UŽ ZFORMÁTOVANÁ (lib/format) — next-intl by
-                je jinak protáhl vlastním Intl.NumberFormat (týž důvod jako v
-                PillarBars a RapporteurBadge); do 2026-09-08 tu šla surová. */}
             {t("shownOf", { count: f.int(rows.length), total: f.int(entries.length) })}
           </SourceNote>
         </div>
