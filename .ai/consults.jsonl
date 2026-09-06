@@ -69,3 +69,4 @@
 {"ts": "2026-09-08T13:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "testing"], "techniques": ["one-declaration-type-derives-from-it", "one-definition-per-rule"], "deviations": 0}
 {"ts": "2026-09-08T14:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "parsing"], "techniques": ["missing-beats-wrong", "anchor-every-parser", "no-guessed-instant"], "deviations": 0}
 {"ts": "2026-09-08T15:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "testing"], "techniques": ["domain-day-not-server-day", "read-the-literal-do-not-retype-it"], "deviations": 0}
+{"ts": "2026-09-08T16:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "testing"], "techniques": ["exhaustive-by-type", "strict-id-codec", "doc-claims-vs-code"], "deviations": 0}

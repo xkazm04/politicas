@@ -363,3 +363,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   passes a `today` into a `date <= today` filter - the Prague day is ahead of it for one or two
   hours every night and the dropped rows land in an honesty counter. A Record keyed by another
   file's private literals is a pair: read the literals in the test instead of re-typing them.
+- 2026-09-08 — dashboard-state-graph, second sweep (28 lenses, 2 built in 2 commits, 2 cards).
+  A hand list typed `Union[]` is a subset, not a vocabulary: grep `: \w+Kind\[\] = \[` and
+  `: \w+\[\] = \["` in components and ask whether the type would notice an omission - the
+  repo's own answer is `as const satisfies Record<Union, …>`. When a header says 'positive
+  integer', read the regex under it; `\d+` is not that.
