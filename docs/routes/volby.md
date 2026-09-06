@@ -128,3 +128,10 @@ Until the writer runs against the live store there are no `decides` edges, so no
 **2026-09-07 — the person urn is read through `pspIdFromNodeId` (scan-sweep, parity-auditor).**
 `volbyLoader.ts` spelled `/^psp:person:(\d+)$/` twice (ties per person, sponsors per
 person); `lib/ingest/changeEvents.ts` owns that grammar. Both sites read it now.
+
+**2026-09-07 — a sponsor conflict with an unknown amount prints no amount (scan-sweep,
+bounty-hunter).** `law_sponsor_conflict` defaulted a missing `sponsor_contract_czk` to 0,
+so a flagged bill whose contract sum the graph does not carry showed „0 Kč" on its finding
+row as if measured (and `sponsor_money_companies` likewise). The finding is medium — it
+cannot clear the 100-mil. bar without a number — and its `figures` carry only the values
+the bill has; `rules.test.ts` pins the null case.

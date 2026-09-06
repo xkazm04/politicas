@@ -360,11 +360,17 @@ export function composeMpFindings(input: MpInput): Finding[] {
       out.push(f);
     }
     if (bill.flaggedConflict) {
-      const czk = bill.sponsorContractCzk ?? 0;
-      const f = mk("law_sponsor_conflict", "negative", czk >= CONFLICT_HIGH_CZK ? "high" : "medium", oid);
+      // MISSING IS NOT ZERO (2026-09-07): a flagged conflict whose contract sum the
+      // graph does not carry is medium (it cannot clear the high bar) and prints NO
+      // amount - until now `?? 0` put „0 Kč" on the finding row as if measured.
+      const czk = bill.sponsorContractCzk;
+      const f = mk("law_sponsor_conflict", "negative", czk !== null && czk >= CONFLICT_HIGH_CZK ? "high" : "medium", oid);
       f.reviewState = "pending_review";
       f.decidedOn = bill.sponsoredOn;
-      f.figures = { sponsor_contract_czk: czk, sponsor_money_companies: bill.sponsorMoneyCompanies ?? 0 };
+      f.figures = {
+        ...(czk !== null ? { sponsor_contract_czk: czk } : {}),
+        ...(bill.sponsorMoneyCompanies !== null ? { sponsor_money_companies: bill.sponsorMoneyCompanies } : {}),
+      };
       f.evidence = [subjectRef, billRef];
       out.push(f);
     }

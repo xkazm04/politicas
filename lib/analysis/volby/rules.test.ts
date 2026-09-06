@@ -475,3 +475,21 @@ describe("posudek floor + list dedupe (2026-08-27 recalibration)", () => {
     expect(merged[0].subjectId).toBe("person:1");
   });
 });
+
+describe("law_sponsor_conflict with an unknown amount (missing is not zero)", () => {
+  it("is medium (never high) and carries NO sponsor_contract_czk figure - a null is not a 0 Kč", () => {
+    const out = composeMpFindings(
+      mp({ sponsoredBills: [bill({ flaggedConflict: true, sponsorContractCzk: null, sponsorMoneyCompanies: null })] }),
+    );
+    const f = out.filter((x) => x.kind === "law_sponsor_conflict");
+    expect(f).toHaveLength(1);
+    expect(f[0].severity).toBe("medium");
+    expect(f[0].figures).toEqual({});
+  });
+  it("carries only the figures the bill actually has", () => {
+    const out = composeMpFindings(
+      mp({ sponsoredBills: [bill({ flaggedConflict: true, sponsorContractCzk: null, sponsorMoneyCompanies: 3 })] }),
+    );
+    expect(out.find((x) => x.kind === "law_sponsor_conflict")?.figures).toEqual({ sponsor_money_companies: 3 });
+  });
+});
