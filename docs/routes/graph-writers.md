@@ -193,3 +193,10 @@ off every bill node; the hazard was documented in the sibling and left in place 
 Bill and law nodes now merge through `mergeComputedNodeProps` and keep the pass that
 created them; a law node's e-Sbírka title (esbirka-laws.ts) survives too
 (`legislationMerge.test.ts`; 2 from-scratch node builders → 0).
+
+**2026-09-08 (scan-sweep, kg-pipeline round 74, parity-auditor).** `kg-compute` was the
+last writer with a frozen pass default: `--pass` fell back to the literal `1`, so a bare
+recompute restamped every node's and edge's provenance as pass 1 — the false vintage its
+own header describes — while its eight siblings derived the pass from the graph. It now
+reads `nextPass(store.listKgNodes())` like them; an explicit `--pass=N` still wins
+(`kgPipelineSource.test.ts`; 9 writers, 0 frozen defaults).
