@@ -375,3 +375,12 @@ indistinguishable-controls defect `FactRow` fixed for its buttons with named
 (grep over `app/`, `features/`, `lib/`); the company node's `/penize/firma/<ičo>`
 href is built once, in `stateSlice.ts`, and a second builder nobody calls is the
 pair that diverges unnoticed.
+
+**The build day is the Prague day (2026-09-08, scan-sweep, bounty-hunter).**
+`getDashboardData` stamped `builtOn` — the `today` bound of `buildDatedFacts` and
+the exhibit's „data obtained" date — with the UTC day. Between Prague midnight and
+01:00 (02:00 in summer) the Prague day is one ahead of UTC, so a contract signed
+„today" in Prague sat past the `date <= today` bound, left the book and was
+counted in `droppedImplausible`, the number the panel uses to disclose defective
+data. The loader reads `pragueDay()` now, the helper `/denik` adopted for the
+identical defect on 2026-08-04; `instrumentsSource.test.ts` pins it.
