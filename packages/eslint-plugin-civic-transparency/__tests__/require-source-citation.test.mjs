@@ -149,6 +149,18 @@ tester.run("require-source-citation", rule, {
       errors: [{ messageId: "uncitedFigure" }],
     },
     {
+      name: "formatCompactCzk from the chokepoint is a money figure (the deník renders it)",
+      code: `import { formatCompactCzk } from "@/lib/format";
+             export function X({ n }) { return <span>{formatCompactCzk(n, "cs")}</span>; }`,
+      errors: [{ messageId: "uncitedFigure" }],
+    },
+    {
+      name: "formatByKind from the chokepoint is a figure of whichever kind",
+      code: `import { formatByKind } from "@/lib/format";
+             export function X({ n }) { return <span>{formatByKind(n, "cs", "int")}</span>; }`,
+      errors: [{ messageId: "uncitedFigure" }],
+    },
+    {
       name: "compactCzk from moneyTypes is a money figure",
       code: `import { compactCzk } from "@/features/money/moneyTypes";
              export function X({ n }) { return <span>{compactCzk(n, "cs")}</span>; }`,

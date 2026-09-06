@@ -17,8 +17,11 @@
  *      without the chokepoint import the file is not using house formatters
  *      and stays silent.
  *   2. Direct calls to formatter names IMPORTED from the chokepoint
- *      (czech, czechInt, formatDecimal, formatInt, formatCzk) or to
- *      `compactCzk` (features/money/moneyTypes), again in JSX child position.
+ *      (czech, czechInt, formatDecimal, formatInt, formatCzk, formatCompactCzk,
+ *      formatByKind) or to `compactCzk` (features/money/moneyTypes), again in
+ *      JSX child position. The list mirrors lib/format's string-returning
+ *      exports; until 2026-09-08 it lagged two of them, so a compact money
+ *      figure (the deník's amounts) was no trigger at all.
  *   3. An `<AnimatedScore …/>` element — the canonical score display.
  *
  * Deliberately NOT triggers: date formatting (`f.date`, czechDate — dates are
@@ -65,6 +68,8 @@ const NUMERIC_NAMED_FORMATTERS = new Set([
   "formatDecimal",
   "formatInt",
   "formatCzk",
+  "formatCompactCzk",
+  "formatByKind",
   "compactCzk",
 ]);
 const CHOKEPOINT_SOURCE = /(^|\/)lib\/(format|i18n\/useFormat)$|(^|\/)moneyTypes$/;
