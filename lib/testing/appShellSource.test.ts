@@ -29,3 +29,16 @@ describe("the error boundaries keep small red text and hover buttons above AA (g
     }
   });
 });
+
+describe("every path robots disallows is also noindex on its own page (one declaration, two readers)", () => {
+  it("DISALLOWED_PATHS is read from app/robots.ts and each page declares robots: { index: false }", () => {
+    const robots = src("app/robots.ts");
+    const list = robots.match(/DISALLOWED_PATHS = \[([^\]]*)\]/)?.[1] ?? "";
+    const paths = [...list.matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+    expect(paths.length).toBeGreaterThanOrEqual(3);
+    for (const p of paths) {
+      const page = src(`app${p}/page.tsx`);
+      expect(page, p).toMatch(/robots:\s*\{\s*index:\s*false/);
+    }
+  });
+});
