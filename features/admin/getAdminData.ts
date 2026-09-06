@@ -573,7 +573,10 @@ async function loadReviewHub(): Promise<ReviewHubData> {
         const state = asStr(p.forensic_review_state);
         const severity = asStr(p.forensic_severity);
         if (!state && !severity) continue;
-        const sev = severity ?? "low";
+        // Chybějící závažnost NENÍ „low" - do 2026-09-07 se tisk se stavem brány a
+        // bez závažnosti počítal mezi nízké; má vlastní kbelík, který plocha vysází
+        // doslova (SEVERITY_TONE má pro neznámý klíč neutrální tón).
+        const sev = severity ?? "neuvedeno";
         bySeverity[sev] = (bySeverity[sev] ?? 0) + 1;
         items.push({
           tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,

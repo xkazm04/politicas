@@ -33,3 +33,11 @@ describe("getAdminData never swallows a read failure without a trace", () => {
     expect(s).not.toMatch(/\} catch \{/);
   });
 });
+
+describe("a forensic verdict without a stored severity is not filed under low", () => {
+  it("getAdminData buckets a missing severity as neuvedeno, never as low", () => {
+    const s = src("features/admin/getAdminData.ts");
+    expect(s).toMatch(/const sev = severity \?\? "neuvedeno";/);
+    expect(s).not.toMatch(/severity \?\? "low"/);
+  });
+});

@@ -668,3 +668,5 @@ from `.kiosek-cache/pdfs` are fetched now; the payload reports
 **2026-09-07 (scan-sweep, admin-control) — the admin loaders read at the one app cap.** `getTripwireData` listed vote events at a literal 100 000 (a silent truncation below the row count and a slower PGlite plan); it reads at `KG_READ_CAP`. `getAdminData` read `review_audit` at a bare 10 000 — the cap is now named (`AUDIT_READ_CAP`, the same figure `getVerificationData` uses) and a read that fills it is reported rather than silently truncated.
 
 **2026-09-07 (scan-sweep, admin-control) — every catch in `getAdminData` leaves a trace.** Five catch blocks (frontier counts, vault heads, the three case-progress readers) swallowed the error and returned an empty shape, so a degradation on the operator's own board never reached the loader-failure log that the same board displays. Each now calls `reportLoaderFailure` before degrading.
+
+**2026-09-07 (scan-sweep, admin-control) — a verdict without a severity is not „low".** `getAdminData` bucketed a bill with a gate state and no `forensic_severity` under `low`; missing is not low. It has its own `neuvedeno` bucket, printed verbatim in a neutral tone.
