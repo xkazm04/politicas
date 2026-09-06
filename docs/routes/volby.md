@@ -142,3 +142,7 @@ record rule (`law_final_vote`, 2026-09-04) was missing, so `/metodika#volby-R1` 
 from every final-vote row — led nowhere, although both catalogs carried its title and
 sentence. The list now derives from `RULE_REF` and `features/volby/volbySource.test.ts`
 checks that each kind has a `volbyRule_<kind>_title/_rule` in cs and en.
+
+**2026-09-07 — the home page resolves a kraj by IČO through `krajByIco` (scan-sweep,
+parity-auditor).** `VolbyPage.subjectLabel` scanned `KRAJ_CROSSWALK` by hand while
+`labels.subjectHref` reads `krajByIco` for the same question; one lookup now.

@@ -30,3 +30,11 @@ describe("/metodika explains every rule a finding can link to", () => {
     });
   }
 });
+
+describe("VolbyPage looks a kraj up by IČO through krajByIco", () => {
+  it("imports krajByIco and does not scan KRAJ_CROSSWALK by hand", () => {
+    const s = src("features/volby/VolbyPage.tsx");
+    expect(s).toMatch(/krajByIco/);
+    expect(s).not.toMatch(/KRAJ_CROSSWALK\.find/);
+  });
+});
