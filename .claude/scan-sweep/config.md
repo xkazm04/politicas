@@ -311,3 +311,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   card closed). When a palette file states its own contrast figures (signal 4,10:1 vs
   signal-deep 5,31:1), every `text-signal`/`hover:bg-signal` on small or paper text is a
   measured AA defect, not taste - grep the small-text classes against the palette's table.
+- 2026-09-08 — budget-mirror, second sweep (28 lenses, 2 built in 2 commits, 0 new cards). A
+  two-way ternary that colours 'not provably better' as 'worse' is the missing-is-not-zero law
+  in a tone: grep `? "text-signal` / `? "bg-signal` beside every `null` comparison. Land the
+  coupled route-doc paragraph WITH the first commit that touches the feature - the commit-msg
+  hook refuses a feature edit whose doc lands later in the same round.
