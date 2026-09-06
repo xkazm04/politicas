@@ -708,3 +708,9 @@ next part's heading and was searched for a target it never carries — the class
 F1 fix closed for the Čl. branch. The window now stops at the next part. The effect on the
 audited census was not re-measured here (a census re-run is an operator action); the pinned
 case is a two-line first part followed by a `Změna` part.
+
+**2026-09-09 (round 76, continued).** The same test caught a reporting defect: `PART_RE`
+ended its label group with `\b`, and JS's ASCII-only word boundary sits before the last
+diacritic, so every census row's `skippedParts` named „PRVNÍ" as „PRVN" (and „ČTVRTÁ" as
+„ČTVRT"). The boundary is gone; the letter class already ends the label. Reporting only —
+no amend decision read the label.

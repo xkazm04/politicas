@@ -131,7 +131,11 @@ function isFootnoteLine(operative: string, matchIndex: number): boolean {
 }
 
 const AMENDING_TITLE_RE = /kter(?:ým|ou|ými)\s+se\s+mění/iu;
-const PART_RE = /\n\s*ČÁST\s+([A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+)\b([^\n]*)\n/g;
+// No `\b` after the label: JS's ASCII-only word boundary sat BEFORE the last diacritic,
+// so „PRVNÍ" was reported as „PRVN" in every census row's skippedParts (until 2026-09-09) —
+// the same \w/\b trap the NON_AMEND_ART_HEADING_RE note below records. The letter class
+// already ends the label at the first non-letter.
+const PART_RE = /\n\s*ČÁST\s+([A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+)([^\n]*)\n/g;
 const HEADING_WINDOW = 320; // how far past a ČÁST label its own "Změna …" sub-heading can sit
 const PART_CITATION_WINDOW = 1200; // citation is always near a real amending part's top
 const ART_CITATION_WINDOW = 800; // unchanged from the original Čl.-block logic
