@@ -294,3 +294,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   nullable figure that reaches a `figures` record is a fabricated measurement - grep `?? 0`
   next to every `figures =`. A UI that hand-copies an enum's keys (RULE_KINDS) is a dead
   anchor waiting for the next member: derive from the record and assert the catalog.
+- 2026-09-08 — admin-control, second sweep (28 lenses, 8 built in 8 commits, 1 card). A 9-lens
+  'balanced' first pass left the whole stabilize deep tier unrun: eight findings on re-read,
+  five of them in the loader family (silent catches, literal caps, a hand-spelled state
+  ladder). Under machine load, chains of vitest+tsc+eslint exceed the 600 s tool cap - run
+  them with run_in_background from the start and read the output file, never re-run.
