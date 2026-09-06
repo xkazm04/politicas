@@ -129,7 +129,11 @@ export function czDateToIso(v: string | null): string | null {
  */
 export function czDateHourToIso(v: string | null): string | null {
   if (!v) return null;
-  const m = /^(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{1,2}))?/.exec(v.trim());
+  // Anchored: a prefix-parse read `2025-10-04xyz` as the day and `… 15abc` as
+  // 15:00 until 2026-09-08 — the same coercion colInt refuses. The optional
+  // `:MM[:SS]` tail is the publisher's finer datetime shapes, still read at hour
+  // resolution, which is all these columns carry meaning at.
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{1,2})(?::\d{2}(?::\d{2})?)?)?\s*$/.exec(v.trim());
   if (!m) return null;
   const [, y, mo, d, h] = m;
   const month = Number(mo);
