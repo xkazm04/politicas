@@ -20,6 +20,7 @@
 //      are a public API — nothing here may depend on array order of the input.
 
 import { canonicalIco } from "@/features/money/companyId";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 import { buildRegistryLinks } from "@/features/money/reviewTypes";
 import { claimRefPath, decodeClaimRef, edgeClaimRef } from "@/features/shared/provenance/claimRef";
 
@@ -161,11 +162,10 @@ export const DECISION_KEYS: Record<EvidenceDecision, string> = {
   "forensic-verified": "decision.forensicVerified",
 };
 
-/** "psp:person:123" → 123; anything else → null. */
-export function pspIdFromSrc(src: string): number | null {
-  const m = src.match(/^psp:person:(\d+)$/);
-  return m ? Number(m[1]) : null;
-}
+/** "psp:person:123" → 123; anything else → null. The tree's one strict parser
+ *  (lib/ingest/changeEvents), re-exported under the name the bulletin has always
+ *  used — until 2026-09-08 this was a second copy of the same regex. */
+export const pspIdFromSrc = pspIdFromNodeId;
 
 /** Company node id → IČO (the trailing segment): "kg:company:04544152" → "04544152". */
 export function icoFromDst(dst: string): string | null {

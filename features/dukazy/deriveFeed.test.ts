@@ -19,6 +19,7 @@ import {
   type ForensicSignoffLike,
 } from "./deriveFeed";
 import { decodeClaimRef } from "@/features/shared/provenance/claimRef";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 
 const row = (over: Partial<AuditRowLike>): AuditRowLike => ({
   id: "a1",
@@ -381,5 +382,11 @@ describe("závažnost, kterou uzel nenese, se NEVYMÝŠLÍ (2026-09-08)", () => 
     expect(e.sourceCs).toBe("zdroj: kg_node bill.forensic_* · závažnost neuvedena");
     expect(e.sourceDetail).toBe("neuvedena");
     expect(e.sourceCs).not.toMatch(/low|null/);
+  });
+});
+
+describe("pspIdFromSrc je TÝŽ parser jako lib/ingest/changeEvents.pspIdFromNodeId", () => {
+  it("jedna funkce, ne druhá kopie regulárního výrazu", () => {
+    expect(pspIdFromSrc).toBe(pspIdFromNodeId);
   });
 });
