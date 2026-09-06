@@ -24,6 +24,7 @@ import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { buildLeaderboard, type LeaderboardEntry } from "@/features/civicscore/getLeaderboardData";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import type { Store } from "@/lib/db/store";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 import type { OrganRow } from "@/lib/db/types";
 import { asUnion } from "@/lib/db/narrow";
 import { median } from "@/lib/analysis/score-legibility";
@@ -125,9 +126,8 @@ async function readChamber(store: Store): Promise<VolbyChamber | null> {
   const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
   const tiesByPerson = new Map<number, number>();
   for (const e of linked) {
-    const m = /^psp:person:(\d+)$/.exec(e.src);
-    if (!m) continue;
-    const id = Number(m[1]);
+    const id = pspIdFromNodeId(e.src);
+    if (id === null) continue;
     tiesByPerson.set(id, (tiesByPerson.get(id) ?? 0) + 1);
   }
 
@@ -274,13 +274,12 @@ async function readBills(store: Store): Promise<BillsByMp> {
   const byPspId = new Map<number, SponsoredBill[]>();
   let edgesToUnknownBill = 0;
   for (const e of sponsors) {
-    const m = /^psp:person:(\d+)$/.exec(e.src);
+    const id = pspIdFromNodeId(e.src);
     const bill = billById.get(e.dst);
-    if (!m || !bill) {
+    if (id === null || !bill) {
       edgesToUnknownBill++;
       continue;
     }
-    const id = Number(m[1]);
     const arr = byPspId.get(id) ?? [];
     arr.push(bill);
     byPspId.set(id, arr);

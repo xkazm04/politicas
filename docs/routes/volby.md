@@ -124,3 +124,7 @@ the block was about.
 
 Until the writer runs against the live store there are no `decides` edges, so no
 `law_final_vote` row is emitted and nothing on the surface changes.
+
+**2026-09-07 — the person urn is read through `pspIdFromNodeId` (scan-sweep, parity-auditor).**
+`volbyLoader.ts` spelled `/^psp:person:(\d+)$/` twice (ties per person, sponsors per
+person); `lib/ingest/changeEvents.ts` owns that grammar. Both sites read it now.
