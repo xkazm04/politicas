@@ -291,3 +291,8 @@ scroll endpoint at 10 — the local GMS returns an empty body above that).
   `.part` last), so `ensureDatasetCached` gunzips it instead of fetching the archive
   again — a run killed between the transfer and the gunzip no longer costs a second
   2,4 GB download. Delete the `.csv.gz` to force a re-fetch.
+- **Sbírka publication dates are checked against the PRAGUE day** (2026-09-08):
+  `parseBillFates`' plausibility ceiling defaulted to the server's UTC day, so a
+  `kg-bill-roles-ingest` run between Prague midnight and 01:00/02:00 refused a law
+  published that day as impossible. The default is `pragueDay()` now; a caller that
+  pins a dump still passes `retrievedOn` explicitly.
