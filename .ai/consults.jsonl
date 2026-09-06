@@ -53,3 +53,4 @@
 {"ts": "2026-09-07T20:30:00Z", "bundle": "software-engineering", "subjects": ["frontend", "data-modeling"], "techniques": ["local-day-not-utc", "no-default-that-names-a-value", "every-figure-formatted"], "deviations": 0}
 {"ts": "2026-09-07T21:30:00Z", "bundle": "software-engineering", "subjects": ["frontend", "accessibility", "data-modeling"], "techniques": ["one-vocabulary-module", "contrast-against-the-track", "every-figure-formatted", "hand-list-vs-ground-truth"], "deviations": 0}
 {"ts": "2026-09-07T22:30:00Z", "bundle": "software-engineering", "subjects": ["backend", "http-caching", "routing"], "techniques": ["one-definition-per-rule", "no-store-on-outage", "strict-route-param"], "deviations": 0}
+{"ts": "2026-09-07T23:30:00Z", "bundle": "software-engineering", "subjects": ["frontend", "data-modeling", "routing"], "techniques": ["missing-is-not-zero", "one-definition-per-rule", "derive-the-list-from-the-source", "hand-list-vs-ground-truth"], "deviations": 0}

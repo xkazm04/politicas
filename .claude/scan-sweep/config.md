@@ -289,3 +289,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   refused for exactly that; the files pass alone). The gate's background task reported exit 0
   because the subshell's exit is `echo`'s - read CHECK_EXIT from the log, never the task status.
   Round 45's snapshot says exit 0; this round's note carries the correction.
+- 2026-09-07 — volby-election-mirror, first sweep (28 lenses, 7 built in 7 commits, 1 card). The
+  last never-swept context: every context in context-map.json now has a snapshot. `?? 0` on a
+  nullable figure that reaches a `figures` record is a fabricated measurement - grep `?? 0`
+  next to every `figures =`. A UI that hand-copies an enum's keys (RULE_KINDS) is a dead
+  anchor waiting for the next member: derive from the record and assert the catalog.
