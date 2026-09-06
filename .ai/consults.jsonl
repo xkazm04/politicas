@@ -76,3 +76,4 @@
 {"ts": "2026-09-08T20:00:00Z", "bundle": "software-engineering", "subjects": ["data-modeling", "tooling"], "techniques": ["one-rule-one-implementation", "no-invented-provenance", "dry-run-default"], "deviations": 0}
 {"ts": "2026-09-08T20:30:00Z", "bundle": "software-engineering", "subjects": ["tooling"], "techniques": ["zero-consumer-proof-before-removal"], "deviations": 0}
 {"ts": "2026-09-08T21:00:00Z", "bundle": "software-engineering", "subjects": ["security", "resilience"], "techniques": ["no-store-on-gated-responses", "bound-every-outbound-fetch"], "deviations": 0}
+{"ts": "2026-09-08T21:30:00Z", "bundle": "software-engineering", "subjects": ["correctness", "parity"], "techniques": ["one-clock-per-domain-day", "one-definition-per-request-shape"], "deviations": 0}

@@ -396,3 +396,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   1 lead). A cache rule pinned on the refusal branch is half a rule: check the SERVED branch of
   every gated route too. Grep `await fetch(` in app/ for calls with no `signal:` - a hang is not
   a failure and the catch block never sees it.
+- 2026-09-08 — graph-explorer, second sweep (28 lenses, 2 built, 0 cards, 1 lead). A date stamped INTO an
+  address is the strongest case of the UTC-day class: grep `toISOString().slice(0, 10)` in every
+  encoder/loader, and check the test - one of them asserted the UTC value itself. When a shared
+  helper lands (liveUrl), re-grep the copies the card lists and fold the ones in the context you are in.
