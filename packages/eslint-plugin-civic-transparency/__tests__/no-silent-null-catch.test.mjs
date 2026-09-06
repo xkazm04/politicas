@@ -65,6 +65,21 @@ tester.run("no-silent-null-catch", rule, {
       errors: [{ messageId: "silentNullCatch" }],
     },
     {
+      name: "catch { return; } is the same silent fallback (undefined instead of null)",
+      code: `function f() { try { return load(); } catch { return; } }`,
+      errors: [{ messageId: "silentNullCatch" }],
+    },
+    {
+      name: "catch { return undefined } is spelled-out silence",
+      code: `function f() { try { return load(); } catch { return undefined; } }`,
+      errors: [{ messageId: "silentNullCatch" }],
+    },
+    {
+      name: "promise .catch(() => undefined) degrades silently too",
+      code: `const p = load().catch(() => undefined);`,
+      errors: [{ messageId: "silentNullCatch" }],
+    },
+    {
       name: "catch { return [] } with no trace",
       code: `function f() { try { return load(); } catch { return []; } }`,
       errors: [{ messageId: "silentNullCatch" }],
