@@ -299,3 +299,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   five of them in the loader family (silent catches, literal caps, a hand-spelled state
   ladder). Under machine load, chains of vitest+tsc+eslint exceed the 600 s tool cap - run
   them with run_in_background from the start and read the output file, never re-run.
+- 2026-09-08 — analysis-quality, second sweep (28 lenses, 4 built in 4 commits, 2 cards). Pure
+  lib/analysis modules may read lib/format (deterministic, no Intl) - a raw `toFixed`/template
+  number inside a Czech sentence is a defect there too, not only in JSX. A held local copy of a
+  hash (tripwires vs exhibit) is trusted until a test pins the two equal; write that test.

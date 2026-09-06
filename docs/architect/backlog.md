@@ -223,6 +223,12 @@ Status values: `proposed | approved | in-progress | shipped | abandoned | blocke
 - **[2026-09-08] `AUDIT_READ_CAP = 10_000` lives twice** — type: parity, risk: 1, effort: s, payoff: 1, reach: `features/money/getVerificationData.ts:42` and `features/admin/getAdminData.ts` (d58af03, both `const AUDIT_READ_CAP = 10_000` with a warn when a `listReviewAudit` read fills it)
   Found by: scan-sweep (admin-control, parity-auditor) · two contexts declare the review-audit read window; `lib/db/readCap.ts` already owns the graph cap (`KG_READ_CAP`) and is the home for this one. Fix: `export const AUDIT_READ_CAP = 10_000` in lib/db/readCap.ts, both loaders import it · escalation: none beyond the context boundary (data-layer owns readCap.ts)
 
+- **[2026-09-08] `ageDaysBetween` / `stalenessOf` live twice** — type: parity, risk: 2, effort: s, payoff: 2, reach: `lib/analysis/atlas.ts:421-429` (exported) and `features/admin/loops/loopState.ts:239-247` (a verbatim copy, exported, typed over `LoopStaleness` instead of `Staleness`)
+  Found by: scan-sweep (analysis-quality, parity-auditor) · one staleness rule with two implementations; a threshold change in atlas leaves the admin loop console disagreeing with /atlas. Fix: loopState imports both from atlas and aliases the type · escalation: cross-context (admin-control owns loopState.ts; veto 1)
+
+- **[2026-09-08] tripwires keeps a private `canonicalJson` + `fnv1a` beside exhibit's** — type: parity, risk: 1, effort: s, payoff: 1, reach: `lib/analysis/tripwires.ts:267-285` vs `features/dashboard/exhibit.ts:32` (`canonicalJson`, `contentHash`)
+  Found by: scan-sweep (analysis-quality, parity-auditor) · the two are proven equal by a test since a08cf60, but they are still two copies because `lib/analysis` may not import `features/**`. Fix: move the pair to `lib/hash/contentHash.ts`, both modules import it · escalation: architecture (a new lib/ home touches the dashboard context's exhibit.ts)
+
 ## Shipped
 
 - **[2026-07-26] Bring the loader chain under test** — shipped 2026-09-02 via `/architect resume` (commits 6753f8b, 366e866, 1c035c4, b9684ae, 75798b1)
