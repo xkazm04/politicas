@@ -18,10 +18,12 @@ import type { ObecData } from "@/lib/analysis/volby/types";
 import { loadTenderLayer } from "./tenderLayer";
 import { NOT_FOUND, authorityCard, billsByMp, chamberForVolby, listSummaries, ok, volbyProvenance, type VolbyResult } from "./volbyLoader";
 
-const ICO_RE = /^\d{8}$/;
+/** Jediný tvar, který obec má: osm číslic. Routa i loader čtou TUHLE funkci —
+ *  do 2026-09-07 měla každá vlastní regulární výraz. */
+export const isObecIco = (raw: string): boolean => /^\d{8}$/.test(raw);
 
 export async function getObecData(ico: string): Promise<VolbyResult<ObecData>> {
-  if (!ICO_RE.test(ico)) return NOT_FOUND;
+  if (!isObecIco(ico)) return NOT_FOUND;
   const obec = getMunicipality(ico);
   if (!obec) return NOT_FOUND;
   try {

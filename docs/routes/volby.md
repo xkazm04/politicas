@@ -156,3 +156,7 @@ loader's rule.
 **2026-09-07 — `?kraj=` is read through `lib/routing/searchParam` (scan-sweep,
 parity-auditor).** The list route unpacked `string | string[]` by hand; `firstParam` is the
 reader every other route adopted in round 37.
+
+**2026-09-07 — the obec IČO shape is spelled once (scan-sweep, parity-auditor).** The
+route and `getObecData` each carried `/^\d{8}$/`; the loader now exports `isObecIco` and
+the route reads it, so a change to what „an obec's IČO" means happens in one place.

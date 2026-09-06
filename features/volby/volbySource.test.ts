@@ -54,3 +54,12 @@ describe("/volby/snemovna/[slug] reads ?kraj= through lib/routing/searchParam", 
     expect(s).not.toMatch(/Array\.isArray\(raw\)/);
   });
 });
+
+describe("the obec IČO shape is one export", () => {
+  it("getObecData exports isObecIco and the route reads it", () => {
+    expect(src("features/volby/getObecData.ts")).toMatch(/export const isObecIco/);
+    const route = src("app/volby/obec/[ico]/page.tsx");
+    expect(route).toMatch(/isObecIco/);
+    expect(route).not.toMatch(/const ICO = /);
+  });
+});
