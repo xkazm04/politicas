@@ -678,3 +678,14 @@ from `.kiosek-cache/pdfs` are fetched now; the payload reports
 **2026-09-07 (scan-sweep, admin-control) — mission control dates instants on the Prague day.** `LoopMissionControl` passed ISO instants (run end, queue time, alert since, acknowledgement) straight to `czechDate`, i.e. the UTC day: a run finished at 23:30 UTC stood under yesterday's date. A `dayCs` helper reads the Prague day first; `STALENESS_CLS` is closed over `LoopStaleness`.
 
 **2026-09-07 (scan-sweep, admin-control) — the admin page draws the shell's `BrandMark`.** `AdminPage` carried its own copy of the mark SVG; the shell exports `BrandMark` since round 42 and pages must not draw their own logo.
+
+**Every writer's pass is a positive integer, and a live commit never runs under a
+pass the script invented (2026-09-08, scan-sweep, parity-auditor).**
+`apply-batch.ts` spelled the rule out on its Opus audit (#11); `persist-batch.ts`
+still accepted a fractional `--pass`, `effort/rapporteur-load.ts` derived one from
+`max(firstSeenPass) + 1` when none was given, and `effort/psp9-contribution.ts`
+stamped `pass: 0` — the placeholder the apply writer exists to substitute away —
+into `contribution_psp9` provenance. All three gate on
+`Number.isInteger(pass) && pass > 0` now; a dry run may print a null pass, a
+`--commit` without a real assigned pass refuses. `scripts/case-loops/writerPass.test.ts`
+pins the three gates by source.
