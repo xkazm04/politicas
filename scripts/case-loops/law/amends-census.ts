@@ -283,8 +283,12 @@ export function extractRealAmendedLaws(operative: string): ExtractResult {
   if (parts.length > 0) {
     for (let i = 0; i < parts.length; i++) {
       const start = parts[i].idx;
-      const headingArea = operative.slice(start, Math.min(operative.length, start + HEADING_WINDOW));
       const end = i + 1 < parts.length ? parts[i + 1].idx : operative.length;
+      // The heading window must not cross into the NEXT part — the batch-008 F1 rule the
+      // Čl. branch got, applied here (2026-09-09): a ČÁST shorter than HEADING_WINDOW that
+      // does not name itself „Změna" borrowed the next part's „Změna" heading and was
+      // searched for a citation it never carries (pinned by amendsCensusExtract.test.ts).
+      const headingArea = operative.slice(start, Math.min(end, start + HEADING_WINDOW));
       const slice = operative.slice(start, Math.min(end, start + PART_CITATION_WINDOW));
       // Only a part whose OWN heading area names itself as an amendment ("Změna zákona o …", "–
       // změna …") gets its citation searched. This is what correctly excludes ČÁST PRVNÍ (the

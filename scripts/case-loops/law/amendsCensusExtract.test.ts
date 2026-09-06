@@ -55,3 +55,34 @@ describe("extractRealAmendedLaws — the documented corpus classes", () => {
     expect([...r.laws]).toEqual(["262/2006"]);
   });
 });
+
+describe("extractRealAmendedLaws — a ČÁST's heading window stops at the next ČÁST (2026-09-09, bounty-hunter)", () => {
+  it("ČÁST-organised bill: only a part whose heading says Změna is searched; the repeal part is reported, not amended", () => {
+    const text = [
+      "",
+      "ČÁST PRVNÍ",
+      "ZÁKON O DIGITÁLNÍ SLUŽBĚ",
+      "§ 1 Tento zákon upravuje ... podle zákona č. 111/2009 Sb.",
+      "",
+      "ČÁST DRUHÁ",
+      "Změna zákona o daních z příjmů",
+      "Zákon č. 586/1992 Sb., o daních z příjmů, se mění takto:",
+      "1. V § 6 ...",
+      "",
+      "ČÁST TŘETÍ",
+      "ZRUŠOVACÍ USTANOVENÍ",
+      "Zrušují se:",
+      "1. Zákon č. 348/2005 Sb.",
+      "",
+      "ČÁST ČTVRTÁ",
+      "ÚČINNOST",
+      "Tento zákon nabývá účinnosti ...",
+      "",
+    ].join("\n");
+    const r = extractRealAmendedLaws(text);
+    expect(r.structure).toBe("cast");
+    expect([...r.laws]).toEqual(["586/1992"]);
+    expect(r.skippedParts).toHaveLength(3);
+    expect(r.repealedRefs).toContain("348/2005");
+  });
+});

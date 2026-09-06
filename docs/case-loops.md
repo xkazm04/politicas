@@ -700,3 +700,11 @@ guard and pinned by `amendsCensusExtract.test.ts` over four corpus-shaped texts 
 Čl.-organised omnibus with a transitional article and a repeal block, a ČÁST-organised
 bill with a `Změna` part, a new standalone act, a single-subject novela with a footnote)
 — six audited fixes had been re-verified only by re-auditing 141 bills.
+
+**2026-09-09 (round 76, continued).** The test surfaced a boundary defect in the ČÁST branch
+of the same extractor: a part's `Změna` heading window ran `HEADING_WINDOW` chars forward
+regardless of where the next `ČÁST` began, so a part shorter than that window borrowed the
+next part's heading and was searched for a target it never carries — the class the batch-008
+F1 fix closed for the Čl. branch. The window now stops at the next part. The effect on the
+audited census was not re-measured here (a census re-run is an operator action); the pinned
+case is a two-line first part followed by a `Změna` part.
