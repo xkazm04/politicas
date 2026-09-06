@@ -326,3 +326,7 @@ Runs on the skill defaults; this file exists for the improvement log below.
   only the 503s a previous round aligned. A page that drops a repeated query parameter while
   its feed takes the first is two readers of one address disagreeing - grep `typeof raw ===
   "string"` beside every searchParams read.
+- 2026-09-08 — civic-kg-primitives, second sweep (28 lenses, 2 built in 2 commits, 0 new
+  cards). When a file states a rule in its header ('two decimals') and a test checks it for
+  SOME branches, probe the other branches with the same instrument - the test's scope, not the
+  rule, was the gap. A hand-coded range beside generated data earns a sum-equals-count pin.
