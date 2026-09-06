@@ -316,3 +316,8 @@ Runs on the skill defaults; this file exists for the improvement log below.
   in a tone: grep `? "text-signal` / `? "bg-signal` beside every `null` comparison. Land the
   coupled route-doc paragraph WITH the first commit that touches the feature - the commit-msg
   hook refuses a feature edit whose doc lands later in the same round.
+- 2026-09-08 — civic-chronicle, second sweep (28 lenses, 4 built in 4 commits, 1 card). A
+  `Number(id.replace(prefix, "")) || 0` beside a strict codec that was WRITTEN against that
+  very fallback is the highest-yield parity grep in this tree: grep `|| 0` next to every
+  `replace(/^` and check whether a `*FromNodeId` sibling already exists. A builder without
+  its inverse (mpEntityKey with no parser) breeds regex copies in every loader that reads it.
