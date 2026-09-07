@@ -76,7 +76,7 @@ jobs:
       # that failed before writing one.
       - name: Fetch the store snapshot (db:backup artifact from the ingest machine)
         continue-on-error: true
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: store-snapshot
           path: ./.pglite
