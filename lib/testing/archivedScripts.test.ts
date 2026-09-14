@@ -127,7 +127,16 @@ describe("archived scripts are quarantined, not merely relocated", () => {
       }
     }
     expect(offences).toEqual([]);
-  });
+    // Whole-tree scan: reads EVERY live source file in the repo, then matches
+    // each archived path against every one of them. The unit lane's 5 s budget
+    // (vitest.unit.config.ts) is deliberate and right for pure logic — this is
+    // not pure logic, it is I/O over the whole tree competing with ten other
+    // workers for the disk. Measured 2026-09-14 in an agent worktree: 17,7 s,
+    // failing 1 run in 3 on the timeout with zero offences found, which is the
+    // worst failure mode available — a gate that reports a finding it never
+    // made. Same treatment, and the same reason, as the other whole-tree test
+    // in this folder (server-boundary.test.ts, 180 s).
+  }, 180_000);
 
   it("would notice a live file that reached in", () => {
     // The guard's own red state, over the SAME predicate the scan uses: a check
