@@ -59,10 +59,8 @@ pre-push:
     # .ai/copy-baseline.json; blokují jen NOVÉ chyby. Checker je gitignorovaný
     # link do ai-registry, takže bez něj krok hlasitě přeskočí. Viz
     # docs/i18n/style-en.md. Záměrně NENÍ v `npm run check` (ten zrcadlí CI).
+    # Logika je ve skriptu schválně: inline if/then/else (víceřádkový i
+    # jednořádkový) spadl pod lefthookem na Windows ("-c: line N: syntax error:
+    # unexpected end of file") a blokoval by každý push.
     - name: copy-check
-      run: |
-        if [ -f .claude/skills/native-copy/scripts/copy-check.mjs ]; then
-          node .claude/skills/native-copy/scripts/copy-check.mjs
-        else
-          echo "pre-push: native-copy checker not installed - copy gate SKIPPED (run ai-registry/scripts/link-registry.mjs)" >&2
-        fi
+      run: sh scripts/hooks/copy-check.sh
