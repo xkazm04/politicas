@@ -246,6 +246,10 @@ is what let a genuine hero-clipping defect hide inside it.
 The em dash is standard Czech typographic punctuation. The rule is calibrated
 for English AI-slop prose.
 
+> **Superseded for English, 2026-09-14.** The operator banned the em dash in
+> English product copy fleet-wide; `messages/en.json` is now gated (EN-DASH, see
+> `docs/i18n/style-en.md`). This rejection still stands for Czech UI.
+
 ---
 
 ## Positive findings

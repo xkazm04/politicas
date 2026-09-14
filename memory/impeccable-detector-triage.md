@@ -16,7 +16,10 @@ functionalist poster and the thick rule is its primary structural device. Do not
 re-litigate this; `.impeccable/config.json` records the rejection with its
 reason. Rejected on the same record: `hero-eyebrow-chip` (the „obr. N" caption
 is a load-bearing convention), `em-dash-overuse` (standard Czech punctuation),
-and `features/labs/**` (declared token-exception zone).
+and `features/labs/**` (declared token-exception zone). The `em-dash-overuse`
+rejection was **superseded for English on 2026-09-14**: the operator banned the em
+dash in English product copy fleet-wide and `messages/en.json` is gated by
+native-copy (EN-DASH, `docs/i18n/style-en.md`); it still stands for Czech UI.
 
 **2. Without a frontmatter `DESIGN.md`, the whole design-system rule family is
 dormant.** The detector walks up to `docs/DESIGN.md` on its own, but that file

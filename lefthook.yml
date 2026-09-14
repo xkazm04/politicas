@@ -55,3 +55,14 @@ pre-push:
       run: npx tsc --noEmit
     - name: test
       run: npx vitest run
+    # Anglická copy brána (native-copy, 2026-09-14): celý messages/en.json proti
+    # .ai/copy-baseline.json; blokují jen NOVÉ chyby. Checker je gitignorovaný
+    # link do ai-registry, takže bez něj krok hlasitě přeskočí. Viz
+    # docs/i18n/style-en.md. Záměrně NENÍ v `npm run check` (ten zrcadlí CI).
+    - name: copy-check
+      run: |
+        if [ -f .claude/skills/native-copy/scripts/copy-check.mjs ]; then
+          node .claude/skills/native-copy/scripts/copy-check.mjs
+        else
+          echo "pre-push: native-copy checker not installed - copy gate SKIPPED (run ai-registry/scripts/link-registry.mjs)" >&2
+        fi

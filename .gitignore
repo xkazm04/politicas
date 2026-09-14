@@ -85,8 +85,10 @@ docs/data-analysis/case-money/contracts-harvest.jsonl
 /.claude/skills/friend
 /.claude/skills/scan-sweep
 /.claude/skills/spark
+/.claude/skills/native-copy
 /.claude/rules/ai-registry-access.md
 /.claude/rules/ai-registry-software-engineering.md
 /.claude/rules/ai-registry-civic-intelligence.md
 /.claude/rules/ai-registry-llm-observability.md
+/.claude/rules/ai-registry-localization.md
 # END ai-registry linked skills

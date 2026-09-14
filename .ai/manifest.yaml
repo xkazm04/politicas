@@ -78,7 +78,7 @@ registry:
 # domain (parliamentary data, public money, civic graph, accountability method).
 # llm-observability: scripts/hybrid-bench meters per-call model x effort cost/tokens.
 knowledge:
-  domains: [software-engineering, civic-intelligence, llm-observability]
+  domains: [software-engineering, civic-intelligence, llm-observability, localization]
 
 # Shared skills this project uses, from the registry's skills/ lane. The LINK is machine
 # state (gitignored, made by ai-registry/scripts/link-skills.mjs); THIS list is the
@@ -98,6 +98,7 @@ skills:
   - friend
   - scan-sweep
   - spark
+  - native-copy
 
 # Scope - what this project does and deliberately does not do. Read by the registry's
 # scripts/build-fleet-map.mjs to classify subjects this project has NO context for: an

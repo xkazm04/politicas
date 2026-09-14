@@ -1,0 +1,39 @@
+{
+  "_notes": [
+    "Declared 2026-09-14 (native-copy adoption). English here is a DERIVED target: Czech is the source locale (lib/i18n/config.ts defaultLocale \"cs\"); messages/cs.json is out of scope for this gate. EN-FIDELITY applies - see docs/i18n/style-en.md.",
+    "2026-09-14 --init count over messages/en.json: 3077 strings (2476 fragments) in 1 file.",
+    "spelling: UK forms 31 (favour x6, neighbouring x3, labelled x3, organisations x3, digitising x2), US forms 16 (aging x4, artifact x3, organization x2, gray x2, color x2). Catalog is MIXED and UK-leaning; declared US by the operator's fleet-wide ruling (2026-09-14). The 31 UK forms are migration debt, baselined.",
+    "dashes: em 875 (886 raw U+2014 in the file), en 32 (spaced 5), hyphen-as-dash 8. dash.emDash \"ban\" by the operator's fleet-wide ruling (2026-09-14); every existing em dash is baselined debt. Supersedes for English the 2026-07 impeccable em-dash advisory rejection (docs/design/impeccable-pass-01.md), which reasoned from Czech typography.",
+    "quotes: curly double 180, straight double 14; declared curly (majority). Apostrophes curly 53, straight 238 (not a contract key).",
+    "ellipsis: character 34, three dots 0; declared char.",
+    "case: 20 of 221 judgeable heading-class strings are Title Case (9%); no deliberate title-case element class found; declared sentence. headingKeys adds `kicker` (22 keys, eyebrow-class in this catalog); buttonKeys adds `cta<Suffix>` prefixes (ctaRanking, ctaMethod)."
+  ],
+  "variant": "US",
+  "sources": [
+    { "path": "messages/en.json", "kind": "json-catalog" }
+  ],
+  "exclude": [],
+  "dash": { "emDash": "ban" },
+  "quotes": "curly",
+  "ellipsis": "char",
+  "case": {
+    "style": "sentence",
+    "headingKeys": "^(title|heading|headline|eyebrow|kicker|h[1-6])\\d*$|[a-z0-9](Title|Heading|Headline|Eyebrow|Kicker)\\d*$",
+    "buttonKeys": "^(cta|button|btn|submit)\\d*$|^cta[A-Z]\\w*$|[a-z0-9](Cta|CTA|Button|Btn)\\d*$"
+  },
+  "terms": {
+    "accept": [
+      "Politicas",
+      "Journal of the Republic",
+      "Evidence Journal",
+      "Civic Inbox",
+      "Open Data Quality Atlas",
+      "Testimony of the Numbers",
+      "Public Procurement Act",
+      "Conflict of Interest Act"
+    ],
+    "reject": []
+  },
+  "rules": {},
+  "baseline": ".ai/copy-baseline.json"
+}
