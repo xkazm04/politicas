@@ -411,5 +411,20 @@ resumes exactly.
   source. This does NOT extend to the contract-dump lane, where retaining a
   filtered-out corpus beside the dump would break the publisher's GDPR
   condition (added 2026-09-03).
+- A backlog count names how many independent facts it holds, not just how many
+  rows. The collision lane emits one row per (statute, bill-pair) and the rows
+  are not independent: when one print's instructions are carried inside
+  another's, the two collide on every statute they share, so seven rows are one
+  fact (`batch-009-duplicate-bills.json` — "the unit of analysis for these pairs
+  is the BILL, not the pair"). That result was absorbed into the queue builder
+  as a literal `(a === 68 && b === 90)`, which subtracted the seven rows and
+  then counted the fact nowhere — so the shipped `backlogRemaining: 76` was
+  wrong in BOTH directions at once. `scripts/case-loops/law/cause-collapse.ts`
+  replaces the constant: every row is attributed to a cause read from the
+  register, no row leaves the artifact, and the queue publishes `causeCount`
+  (83 rows, 77 distinct causes, 7 explained by one relation) beside
+  `backlogRemaining`. A collapse-by-cause can move a count either way, and the
+  direction is the diagnosis — down means instances were counted as work, up
+  means a discovered cause was deleted instead of counted (added 2026-09-17).
 - Build phases meet the same bar as any session: `npm run check` green, docs
   synced same-session, tokens/colors discipline, Czech-first copy.

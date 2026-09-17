@@ -10,6 +10,8 @@ import { join } from "node:path";
 
 import { getStore } from "@/lib/db/store";
 
+import { attributeCauses, pairKey, renderCauseCount, type BillRelation } from "../cause-collapse";
+
 // --batch=013 writes batch-013-collision-queue.json etc. (default 012). Parameterized in
 // batch-013 instead of copied — the retriage-009 --batch= precedent.
 const BATCH = (process.argv.find((a) => a.startsWith("--batch=")) ?? "--batch=012").slice(8);
@@ -31,7 +33,15 @@ async function main() {
   const sweep = JSON.parse(readFileSync("docs/data-analysis/case-law/payloads/batch-009-collision-sweep.json", "utf8")) as {
     escalate: { lawRef: string; billA: number; billB: number; genuineParagraphs: string[]; odstavecOverlap: string[] | boolean; reason: string }[];
   };
-  const closedDuplicate = (a: number, b: number) => (a === 68 && b === 90) || (a === 90 && b === 68);
+  // The bill-level cause register, read rather than hardcoded. This used to be
+  //   const closedDuplicate = (a, b) => (a === 68 && b === 90) || (a === 90 && b === 68);
+  // which is one row of batch-009-duplicate-bills.json carried as a literal: the detector
+  // published every relation it found and the backlog subtracted exactly one of them by hand.
+  // A cause is now attributed rather than deleted — see ../cause-collapse.ts.
+  const register = (JSON.parse(readFileSync("docs/data-analysis/case-law/payloads/batch-009-duplicate-bills.json", "utf8")) as { findings: BillRelation[] }).findings;
+  const attributed = attributeCauses(sweep.escalate, register);
+  const closedDuplicate = (a: number, b: number) => register.some((r) => pairKey(r.billA, r.billB) === pairKey(a, b) && r.relation !== "partial-overlap");
+  const causeOf = new Map(attributed.rows.map((r) => [`${r.row.lawRef}::${pairKey(r.row.billA, r.row.billB)}`, r]));
   const readPairs = new Set<string>();
   const payloadDir = "docs/data-analysis/case-law/payloads";
   for (const f of readdirSync(payloadDir).filter((f) => f.startsWith("collision-close-reads") && f.endsWith(".json"))) {
@@ -45,9 +55,16 @@ async function main() {
   const queue = unread
     .sort((a, b) => b.genuineParagraphs.length - a.genuineParagraphs.length)
     .slice(0, QUEUE_SIZE)
-    .map((p) => ({ ...p, lawTitle: lawByRef.get(p.lawRef) ?? null, cachedTextsA: cachedTexts(p.billA), cachedTextsB: cachedTexts(p.billB) }));
-  writeFileSync(OUT, JSON.stringify({ generatedAt: new Date().toISOString(), batch: Number(BATCH), backlogRemaining: unread.length, queued: queue.length, pairs: queue }, null, 1));
+    .map((p) => {
+      const c = causeOf.get(`${p.lawRef}::${pairKey(p.billA, p.billB)}`);
+      return { ...p, lawTitle: lawByRef.get(p.lawRef) ?? null, causeId: c?.causeId ?? null, causeRelation: c?.relation ?? null, cachedTextsA: cachedTexts(p.billA), cachedTextsB: cachedTexts(p.billB) };
+    });
+  // `backlogRemaining` is a row count and reads as a work count, which it is not: rows sharing
+  // a bill-level relation are one fact. `causeCount` is that number's predicate.
+  const causeCount = { escalatedRows: attributed.rows.length, distinctCauses: attributed.distinctCauses, rowsExplainedByRelation: attributed.rowsExplainedByRelation };
+  writeFileSync(OUT, JSON.stringify({ generatedAt: new Date().toISOString(), batch: Number(BATCH), backlogRemaining: unread.length, causeCount, queued: queue.length, pairs: queue }, null, 1));
   console.log(`collision queue: ${queue.length} of ${unread.length} unread → ${OUT}`);
+  console.log(`  ${renderCauseCount(attributed)}`);
   for (const q of queue) console.log(`  ${q.lawRef} · ${q.billA}×${q.billB} · §§ ${q.genuineParagraphs.join(",")}`);
   await store.close();
 }
