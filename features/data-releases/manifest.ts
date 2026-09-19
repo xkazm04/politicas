@@ -122,6 +122,16 @@ export interface ReleaseManifest {
 /** Okamžik, který běh reprezentuje: dokončení, jinak start (běžící běh). */
 const runAt = (r: IngestRunRow): string => r.finishedAt ?? r.startedAt;
 
+/** Nejnovější běh: nejpozdější okamžik, při shodě vyšší id; prázdný vstup → null.
+ *  JEDNO pravidlo pro řez verze i pro řádek lineage — do 2026-09-08 tu stály
+ *  dvě totožné redukce a jedna by se změnila bez druhé. */
+export function newestRun(runs: ReadonlyArray<IngestRunRow>): IngestRunRow | null {
+  return runs.reduce<IngestRunRow | null>(
+    (best, r) => (best === null || runAt(r) > runAt(best) || (runAt(r) === runAt(best) && r.id > best.id) ? r : best),
+    null,
+  );
+}
+
 /** `2026-07-30T…` → `2026.07.30`; null pro neparsovatelný vstup. */
 export function versionFromIso(iso: string): string | null {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
@@ -132,16 +142,10 @@ export function deriveReleaseManifest(stats: ReleaseStats): ReleaseManifest {
   // Verzi řeže nejnovější DOKONČENÝ úspěšný běh — selhané a běžící běhy verzi
   // nevydávají (vydání je tvrzení o úspěchu, ne o pokusu).
   const okRuns = stats.ingestRuns.filter((r) => r.status === "ok" && r.finishedAt !== null);
-  const newestOk = okRuns.reduce<IngestRunRow | null>(
-    (best, r) => (best === null || runAt(r) > runAt(best) || (runAt(r) === runAt(best) && r.id > best.id) ? r : best),
-    null,
-  );
+  const newestOk = newestRun(okRuns);
 
   const verdicts = floorVerdicts(Object.fromEntries(stats.kindCounts.map((k) => [k.kind, k.count])));
-  const newestRun = stats.ingestRuns.reduce<IngestRunRow | null>(
-    (best, r) => (best === null || runAt(r) > runAt(best) || (runAt(r) === runAt(best) && r.id > best.id) ? r : best),
-    null,
-  );
+  const newest = newestRun(stats.ingestRuns);
 
   const body = {
     schema: MANIFEST_SCHEMA,
@@ -166,8 +170,8 @@ export function deriveReleaseManifest(stats: ReleaseStats): ReleaseManifest {
       runsTotal: stats.ingestRuns.length,
       okRuns: okRuns.length,
       failedRuns: stats.ingestRuns.filter((r) => r.status === "failed").length,
-      newestRun: newestRun
-        ? { id: newestRun.id, source: newestRun.source, status: newestRun.status, at: runAt(newestRun) }
+      newestRun: newest
+        ? { id: newest.id, source: newest.source, status: newest.status, at: runAt(newest) }
         : null,
     },
     hashAlgorithm: HASH_ALGORITHM,

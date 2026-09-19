@@ -21,6 +21,9 @@ npm run typecheck    # tsc --noEmit
 npm run lint         # eslint (incl. the custom rules in eslint-rules/)
 npm run test         # vitest run
 npm run build        # next build
+npm run kpi:citations # METER: citation coverage, with the denominator the gate
+                      #   cannot give (docs/kpi-meters.md)
+npm run kpi:verify    # METER: every `check` stage run independently + pass rate
 npm start            # next start — NOT the supported path: next.config.ts sets
                      #   output: "standalone". See that option's comment (and
                      #   docs/deploy/container.md §5b) for the correct recipe.
@@ -85,5 +88,7 @@ only in `app/globals.css` tokens, and **every rendered number cites its source**
 - **`context-map.json`** (repo root) — every file mapped to a context and
   business-domain group. Use it to scope edits; `docs/feature-doc-map.json`
   maps those same source paths to the docs they keep in sync.
+- **`docs/kpi-meters.md`** — the two meters, why they sit outside the gate, and
+  the dated baselines they have recorded. Read it before claiming a number moved.
 - **`MEMORY.md` + `memory/*.md`** — durable cross-session facts and gotchas
   already paid for.

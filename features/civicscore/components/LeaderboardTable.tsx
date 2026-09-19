@@ -35,6 +35,7 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { workhorseFlavourCopy, type WorkhorseFlavour } from "@/lib/analysis/workhorse-flavour";
 import { asciiFold } from "@/lib/ingest/normalize";
 import { foldQuery, nameMatches } from "../search";
+import { median } from "@/lib/analysis/score-legibility";
 import WorkhorseBadge from "./WorkhorseBadge";
 import RapporteurBadge from "./RapporteurBadge";
 import LowScoreReasonChip from "./LowScoreReasonChip";
@@ -46,17 +47,16 @@ export { COMPONENT_FILL } from "../componentFill";
 
 /** Per-component median across the whole chamber (207 MPs) — the baseline a
  *  single row's standout stat is measured against. Pure function of the full
- *  entries list; cheap enough to recompute on every render (207 × 6 numbers). */
+ *  entries list; cheap enough to recompute on every render (207 × 6 numbers).
+ *  ONE median: lib/analysis/score-legibility's (the loader's chamber summary
+ *  reads the same one) — until 2026-09-08 this file carried a second copy, and
+ *  an empty chamber got a median of 0 where the statistic has none (null). */
 function componentMedians(
   entries: LeaderboardListEntry[],
   components: LeaderboardData["components"],
-): Record<string, number> {
-  const out: Record<string, number> = {};
-  for (const c of components) {
-    const vals = entries.map((e) => e.components[c.key]).sort((a, b) => a - b);
-    const n = vals.length;
-    out[c.key] = n === 0 ? 0 : n % 2 ? vals[(n - 1) / 2] : (vals[n / 2 - 1] + vals[n / 2]) / 2;
-  }
+): Record<string, number | null> {
+  const out: Record<string, number | null> = {};
+  for (const c of components) out[c.key] = median(entries.map((e) => e.components[c.key]));
   return out;
 }
 
@@ -70,13 +70,15 @@ function StandoutStat({
 }: {
   entry: LeaderboardListEntry;
   components: LeaderboardData["components"];
-  medians: Record<string, number>;
+  medians: Record<string, number | null>;
 }) {
   const t = useTranslations("civicscore");
   const f = useFormat();
   let best: { label: string; delta: number } | null = null;
   for (const c of components) {
-    const delta = Math.round(entry.components[c.key] - (medians[c.key] ?? 0));
+    const m = medians[c.key];
+    if (m === null || m === undefined) continue;
+    const delta = Math.round(entry.components[c.key] - m);
     if (!best || Math.abs(delta) > Math.abs(best.delta)) best = { label: c.label.split(" ")[0], delta };
   }
   if (!best || best.delta === 0) return <span className="font-mono text-[10px] uppercase tracking-wider text-steel">{t("standoutNearMedian")}</span>;
@@ -97,7 +99,7 @@ function StandoutStat({
 interface LeaderboardRowProps {
   entry: LeaderboardListEntry;
   components: LeaderboardData["components"];
-  medians: Record<string, number>;
+  medians: Record<string, number | null>;
   provenance: ContributionProvenance;
   custom: boolean;
   compact: boolean;
@@ -446,7 +448,7 @@ export default function LeaderboardTable({
                 Vidět je zkratka (týž tvar, na kterém stojí i filtr a karta kraje),
                 slyšet celý název. */}
             <span aria-hidden>{c.abbrev}</span>
-            <span className="sr-only">{c.name}</span> · {c.seats}
+            <span className="sr-only">{c.name}</span> · {f.int(c.seats)}
           </button>
         ))}
         <input
@@ -481,7 +483,7 @@ export default function LeaderboardTable({
                 }`}
               >
                 <Icon className="h-3 w-3" aria-hidden />
-                {tv(copy.badgeKey)} · {workhorseCounts[flav]}
+                {tv(copy.badgeKey)} · {f.int(workhorseCounts[flav])}
               </button>
             );
           })}
@@ -501,7 +503,7 @@ export default function LeaderboardTable({
             }`}
           >
             <FileText className="h-3 w-3" aria-hidden />
-            {t("dossierFilterLabel")} · {dossierCount}
+            {t("dossierFilterLabel")} · {f.int(dossierCount)}
           </button>
         )}
         <button
@@ -574,10 +576,13 @@ export default function LeaderboardTable({
         {/* Kolik řádků filtru vyhovuje, je JEDINÁ zpětná vazba na hledání
             a na osm klubových tlačítek — a byla to obyčejná `<div>` citace,
             kterou odečítačka po změně filtru nepřečetla. Živá oblast
-            (vzor: features/dashboard/components/FeedPanelShell.tsx). */}
+            (vzor: features/dashboard/components/FeedPanelShell.tsx).
+            Čísla vstupují do věty UŽ ZFORMÁTOVANÁ (lib/format) — next-intl by
+            je jinak protáhl vlastním Intl.NumberFormat (týž důvod jako v
+            PillarBars a RapporteurBadge); do 2026-09-08 tu šla surová. */}
         <div role="status" aria-live="polite">
           <SourceNote>
-            {t("shownOf", { count: rows.length, total: entries.length })}
+            {t("shownOf", { count: f.int(rows.length), total: f.int(entries.length) })}
           </SourceNote>
         </div>
         {custom ? (

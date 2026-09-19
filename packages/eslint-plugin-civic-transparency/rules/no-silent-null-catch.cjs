@@ -29,13 +29,22 @@ module.exports = {
     schema: [],
   },
   create(context) {
-    /** True for `return null;` / `return [];` — the fallback-degradation shape. */
+    /** `undefined` as an expression — the identifier, never rebound in practice. */
+    function isUndefinedExpression(expr) {
+      return expr.type === "Identifier" && expr.name === "undefined";
+    }
+    /** True for `return null;` / `return [];` / `return;` / `return undefined;` —
+     *  the fallback-degradation shape. A bare `return;` hands the caller
+     *  `undefined`, which is the same "nothing, and no trace" as `null`; until
+     *  2026-09-08 it passed both catch rules (measured: 0 sites in scope, so this
+     *  closes a bypass shape, not a live inventory). */
     function isNullyReturn(stmt) {
-      if (stmt.type !== "ReturnStatement" || !stmt.argument) return false;
+      if (stmt.type !== "ReturnStatement") return false;
       const arg = stmt.argument;
+      if (!arg) return true;
       const isNull = arg.type === "Literal" && arg.value === null;
       const isEmptyArray = arg.type === "ArrayExpression" && arg.elements.length === 0;
-      return isNull || isEmptyArray;
+      return isNull || isEmptyArray || isUndefinedExpression(arg);
     }
     /** True for an expression-statement call to reportLoaderFailure(...). */
     function isReportLoaderFailureCall(stmt) {
@@ -46,7 +55,11 @@ module.exports = {
     /** `null` / `[]` as an expression — the fallback shape without a `return`. */
     function isNullyExpression(expr) {
       if (!expr) return false;
-      return (expr.type === "Literal" && expr.value === null) || (expr.type === "ArrayExpression" && expr.elements.length === 0);
+      return (
+        (expr.type === "Literal" && expr.value === null) ||
+        (expr.type === "ArrayExpression" && expr.elements.length === 0) ||
+        isUndefinedExpression(expr)
+      );
     }
     return {
       // `promise.catch(() => null)` / `.catch(() => [])` is the same degradation

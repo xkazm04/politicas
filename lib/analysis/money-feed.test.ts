@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { buildMoneyGraph, moneyTrails } from "@/lib/analysis/kg-money";
 import {
@@ -10,6 +10,8 @@ import {
   dedupeCompanies,
   enrichMoneyCompanies,
   foldLower,
+  HlidacClient,
+  RETRY_AFTER_CAP_MS,
   GENERIC_NAME_BLACKLIST,
   isGenericNameToken,
   isoDay,
@@ -393,5 +395,34 @@ describe("integration: feed → money graph → trail", () => {
     expect(babis.contractCount).toBe(2);
     expect(babis.totalAmount).toBe(299172.5); // the one disclosed price; the null one adds 0
     expect(babis.fullyVerified).toBe(false); // the gate propagates — nothing is presented as fact
+  });
+});
+
+describe("fetchRetry — a Retry-After beyond the back-off ceiling is capped (2026-09-08, error-handler)", () => {
+  it("waits at most RETRY_AFTER_CAP_MS on a 429 that asks for 100 000 s, then retries", async () => {
+    vi.useFakeTimers();
+    try {
+      let calls = 0;
+      const impl = (async () => {
+        calls++;
+        return calls === 1
+          ? new Response("", { status: 429, headers: { "retry-after": "100000" } })
+          : new Response("{}", { status: 200, headers: { "content-type": "application/json" } });
+      }) as typeof fetch;
+      const c = new HlidacClient({ token: "t", fetchImpl: impl, retries: 1 });
+      let settled = false;
+      const p = c.firmaByIco("00000000").then(() => {
+        settled = true;
+      });
+      // Every other wait in this module is bounded (20 s per request, 30 s back-off);
+      // until 2026-09-08 this one obeyed the header verbatim, so a host saying
+      // "come back in a day" parked the whole sweep for a day.
+      await vi.advanceTimersByTimeAsync(RETRY_AFTER_CAP_MS);
+      expect(settled).toBe(true);
+      expect(calls).toBe(2);
+      await p;
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

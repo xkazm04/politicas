@@ -150,7 +150,7 @@ function ThenColumn({
       <Row label={t("row.origin")}>
         {then.provenance.method ?? t("row.noMethod")}
         {then.provenance.pass !== null && (
-          <span className="text-steel-aa"> · {t("row.pass", { pass: then.provenance.pass })}</span>
+          <span className="text-steel-aa"> · {t("row.pass", { pass: String(then.provenance.pass) })}</span>
         )}
       </Row>
       <SourceNote className="mt-2">{t("row.publishedThenSource")}</SourceNote>
@@ -263,7 +263,7 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
         <Row label={t("row.origin")}>
           {r.provenance.method ?? t("row.noMethod")}
           {r.provenance.pass !== null && (
-            <span className="text-steel-aa"> · {t("row.pass", { pass: r.provenance.pass })}</span>
+            <span className="text-steel-aa"> · {t("row.pass", { pass: String(r.provenance.pass) })}</span>
           )}
         </Row>
         <Row label={t("row.fullReceipt")}>
@@ -533,7 +533,10 @@ export default function OvereniPage({
             {GUIDE_STEPS.map((step) => (
               <li key={step.no} className="border-t border-hairline pt-4">
                 <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-signal-deep">
-                  {t("guide.stepLabel", { no: step.no })}
+                  {/* Číslo kroku a průchodu jsou IDENTIFIKÁTORY, ne množství — jako
+                      řetězec, jinak by je next-intl protáhl Intl.NumberFormat (průchod
+                      1234 jako „1 234"; /data to opravilo u id běhu 2026-09-06). */}
+                  {t("guide.stepLabel", { no: String(step.no) })}
                 </p>
                 <h3 className="mt-1 text-base font-black uppercase tracking-tight">{t(step.titleKey)}</h3>
                 <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-steel-aa">{t(step.bodyKey)}</p>

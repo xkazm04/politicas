@@ -92,8 +92,11 @@ function gatePropKeys(
 async function main() {
   const file = arg("payload");
   const pass = Number(arg("pass"));
-  if (!file || !Number.isFinite(pass) || pass <= 0) {
-    console.error("usage: persist-batch.ts --payload=<file> --pass=<n> [--ns=..] [--track=..] [--ref=..] [--commit]");
+  // A pass is a POSITIVE INTEGER — the rule apply-batch.ts spelled out (Opus audit
+  // #11); an isFinite-and-positive check here let `--pass=1.5` through until
+  // 2026-09-08, and provenance stamps are compared by equality downstream.
+  if (!file || !(Number.isInteger(pass) && pass > 0)) {
+    console.error("usage: persist-batch.ts --payload=<file> --pass=<n> [--ns=..] [--track=..] [--ref=..] [--commit]  (n = a positive integer, a real assigned pass)");
     process.exit(1);
   }
   const raw = JSON.parse(readFileSync(file, "utf8")) as EdgePayload & NodePayload;

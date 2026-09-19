@@ -5,6 +5,7 @@ import { getVerdictData } from "@/features/overeni/getVerdictData";
 import { getGuideExample } from "@/features/overeni/getGuideExample";
 import { buildExamples } from "@/features/overeni/guide";
 import OvereniPage from "@/features/overeni/OvereniPage";
+import { firstParam } from "@/lib/routing/searchParam";
 
 /*
  * /overeni — Civic Claim Gate (moonshot 6C): veřejná ověřovací plocha.
@@ -24,12 +25,10 @@ export default async function OvereniRoute({
   searchParams: Promise<{ ref?: string | string[]; k?: string | string[] }>;
 }) {
   const params = await searchParams;
-  const first = (v: string | string[] | undefined): string =>
-    typeof v === "string" ? v : Array.isArray(v) ? (v[0] ?? "") : "";
-  const input = first(params.ref);
+  const input = firstParam(params.ref) ?? "";
   // `&k=YYYY-MM-DD` — „a co jste tvrdili TOHO DNE?". Plumbing, nic víc: co je
   // platný den a co se stane s tím, co jím není, rozhoduje asOfLens.ts.
-  const asOfDay = first(params.k);
+  const asOfDay = firstParam(params.k) ?? "";
 
   const rawLocale = await getLocale();
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;

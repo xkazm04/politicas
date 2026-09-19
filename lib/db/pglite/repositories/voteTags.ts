@@ -4,6 +4,7 @@
 
 import type { VoteTagRepository } from "../../store";
 import type { VoteTagRow } from "../../types";
+import { KG_READ_CAP } from "../../readCap";
 import { isoTs, num, numOrNull, str, upsertMany, warnIfTruncated, type Pglite } from "../internals";
 import { VOTE_TAG_COLS } from "../mappers";
 
@@ -14,7 +15,7 @@ export function makeVoteTagRepo(pg: Pglite): VoteTagRepository {
         r.id, r.votePspId, r.theme, r.confidence, r.model, r.method, r.taggedAt,
       ]),
     async listVoteTags(opts) {
-      const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
+      const lim = Math.max(1, Math.min(2_000_000, opts?.limit ?? KG_READ_CAP));
       const where = opts?.theme ? `where theme = $1` : "";
       const { rows } = await pg.query<Record<string, unknown>>(
         `select * from vote_tag ${where} order by vote_psp_id limit ${lim}`,

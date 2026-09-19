@@ -10,10 +10,13 @@ import { encodeLoopsDoc } from "@/features/admin/loops/loopsJson";
 
 export const dynamic = "force-dynamic";
 
-const JSON_HEADERS = { "content-type": "application/json; charset=utf-8" } as const;
-// A refused or unconfigured console must not be cached as the console's answer
-// (the 503 no-store rule every machine route holds since 2026-09-06).
-const REFUSED_HEADERS = { ...JSON_HEADERS, "cache-control": "no-store" } as const;
+// NOTHING this route answers may be cached — refused OR served. The document is
+// internal operator state behind a cookie; until 2026-09-08 only the refusal
+// carried `no-store` (the 503 rule every machine route holds since 2026-09-06)
+// and a served 200 said nothing, so a shared cache between the operator and the
+// server could hand the gated document to whoever asked next.
+const JSON_HEADERS = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } as const;
+const REFUSED_HEADERS = JSON_HEADERS;
 
 export async function GET(): Promise<Response> {
   const gate = await readAdminGate();

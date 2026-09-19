@@ -227,3 +227,15 @@ rail rows, /dashboard, /zebricek, /penize, /zakony and /poslanec had no guard.
 `navModel.test.ts` now resolves all 52 against both catalogs (0 missing today;
 the guard was verified red by mutating one key).
 
+**2026-09-08 — robots and the sitemap read the tree's one live-URL definition
+(scan-sweep, parity-auditor).** Both files spelled `host` + `x-forwarded-proto`
+themselves (the third and fourth copies beside the feeds and the poster, all
+defaulting to `http`) while `lib/routing/liveUrl` has been the single definition
+since 2026-09-07. Both import it now; `sitemapRoutes.test.ts` still pins the
+address shape on both sides (https behind a proxy, http in dev, empty without a
+host), and `lib/testing/appShellSource.test.ts` pins that the two files carry no
+copy. The same test pins two more pairs: every path in `DISALLOWED_PATHS` has a
+page declaring `robots: { index: false }` (three today), and the error boundaries'
+11 px red kicker and paper-text hover buttons use `signal-deep` (5,31:1), not
+`signal` (4,10:1, under AA for text below 18,66 px) — `app/error.tsx` had the
+kicker wrong and both boundaries hovered onto bare `signal`.

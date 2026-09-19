@@ -54,6 +54,7 @@ import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-p
 import { CLUB_DISPLAY } from "@/lib/civic/data";
 import { STEEL } from "@/features/landing/palette";
 import { computeTrend } from "@/lib/analysis/contribution-trend";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 import { summarizeContributionProvenance } from "./provenance";
 import { componentDefs, type ComponentKey } from "./componentDefs";
 import type {
@@ -347,8 +348,17 @@ async function readChamber(): Promise<BuiltChamber | null> {
     const nameByPspId = new Map<number, string>();
     const personPropsByPspId = new Map<number, Record<string, unknown>>();
 
-    const rows = persons.map((p) => {
-      const pspId = Number(p.id.split(":").pop());
+    // The person id is read by the ONE strict parser (`psp:person:<n>`, lib/ingest).
+    // Until 2026-09-08 it was the numeric tail of whatever id arrived, so a node
+    // with a foreign id shape would have ranked under NaN and linked to
+    // /poslanec/NaN; such a node is withheld and counted, never ranked.
+    let unreadableIds = 0;
+    const rows = persons.flatMap((p) => {
+      const pspId = pspIdFromNodeId(p.id);
+      if (pspId === null) {
+        unreadableIds += 1;
+        return [];
+      }
       nameByPspId.set(pspId, p.label);
       personPropsByPspId.set(pspId, p.props);
       const club = clubByPersonPspId.get(pspId) ?? null;
@@ -360,7 +370,7 @@ async function readChamber(): Promise<BuiltChamber | null> {
       const speechTurns = num(p.props.speech_turns);
       const committeeCount = num(p.props.committee_count);
       const leadershipCount = num(p.props.leadership_count);
-      return {
+      return [{
         pspId,
         name: p.label,
         clubAbbrev: club ?? "—",
@@ -396,8 +406,14 @@ async function readChamber(): Promise<BuiltChamber | null> {
           rapporteurLoad: numOrNull(p.props.effort_rapporteur_load),
           tenureClass: typeof p.props.effort_tenure_class === "string" ? p.props.effort_tenure_class : null,
         },
-      };
+      }];
     });
+    if (unreadableIds > 0) {
+      reportLoaderFailure(
+        "buildLeaderboard",
+        new Error(`${unreadableIds} person node(s) carry an id the strict parser cannot read — withheld from the ranking`),
+      );
+    }
 
     // Provenance is read over the WHOLE chamber, never off the first node — see
     // ./provenance.ts for the half-recomputed and stale-formula cases that hides.

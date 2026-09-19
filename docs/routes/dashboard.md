@@ -375,3 +375,36 @@ indistinguishable-controls defect `FactRow` fixed for its buttons with named
 (grep over `app/`, `features/`, `lib/`); the company node's `/penize/firma/<ičo>`
 href is built once, in `stateSlice.ts`, and a second builder nobody calls is the
 pair that diverges unnoticed.
+
+**The build day is the Prague day (2026-09-08, scan-sweep, bounty-hunter).**
+`getDashboardData` stamped `builtOn` — the `today` bound of `buildDatedFacts` and
+the exhibit's „data obtained" date — with the UTC day. Between Prague midnight and
+01:00 (02:00 in summer) the Prague day is one ahead of UTC, so a contract signed
+„today" in Prague sat past the `date <= today` bound, left the book and was
+counted in `droppedImplausible`, the number the panel uses to disclose defective
+data. The loader reads `pragueDay()` now, the helper `/denik` adopted for the
+identical defect on 2026-08-04; `instrumentsSource.test.ts` pins it.
+
+**The exhibit's source links are pinned to the book's source names (2026-09-08,
+scan-sweep, parity-auditor).** `FACT_SOURCE_LINKS` re-types the three registry
+names `datedFacts.ts` keeps as private literals; a rename on either side stripped
+the link silently and the citation footer printed a bare name. The new
+`instrumentsSource.test.ts` reads the literals out of `datedFacts.ts` and asserts
+each has a link, and that a registry named in both link lists shares one host.
+Green on arrival — the three names agree today; the pin is what was missing.
+
+**The legend's kind order is complete by type (2026-09-08, scan-sweep,
+test-strategist).** `GraphLegend` kept its canonical shape order as a plain
+`StateNodeKind[]`, a free subset that nothing held against the vocabulary: a kind
+the union gained and the list did not would render on the canvas and be missing
+from the legend, silently. The order is now a `Record<StateNodeKind, number>`
+under `as const satisfies` (the `publicWire.ts` shape), so an omitted kind is a
+compile error; `stateGraphSource.test.ts` pins the declaration. Probed by
+removing one kind: `tsc` reports the missing property.
+
+**A slice node id is a positive integer, as its header promised (2026-09-08,
+scan-sweep, bounty-hunter).** `sliceNodeEntityKey` documented „pspId a číslo
+tisku celé kladné číslo" but tested `/^\d+$/`, so `p:0` produced `poslanec:0` and
+`p:007` the key of a different entity, `poslanec:7`. The rule is `/^[1-9]\d*$/`
+now; `entityLinks.test.ts` pins zero and zero-padded ids as null, red-then-green.
+No real slice builds such an id, so nothing rendered changes today.

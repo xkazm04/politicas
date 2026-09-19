@@ -129,7 +129,11 @@ export function czDateToIso(v: string | null): string | null {
  */
 export function czDateHourToIso(v: string | null): string | null {
   if (!v) return null;
-  const m = /^(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{1,2}))?/.exec(v.trim());
+  // Anchored: a prefix-parse read `2025-10-04xyz` as the day and `… 15abc` as
+  // 15:00 until 2026-09-08 — the same coercion colInt refuses. The optional
+  // `:MM[:SS]` tail is the publisher's finer datetime shapes, still read at hour
+  // resolution, which is all these columns carry meaning at.
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:\s+(\d{1,2})(?::\d{2}(?::\d{2})?)?)?\s*$/.exec(v.trim());
   if (!m) return null;
   const [, y, mo, d, h] = m;
   const month = Number(mo);
@@ -142,12 +146,17 @@ export function czDateHourToIso(v: string | null): string | null {
   return `${y}-${mo}-${d}T${String(hour).padStart(2, "0")}:00:00.000Z`;
 }
 
-/** Combine `datum` (DD.MM.YYYY) + `čas` (HH:MM) into an ISO instant (UTC). */
+/** Combine `datum` (DD.MM.YYYY) + `čas` (HH:MM) into an ISO instant (UTC).
+ *  An ABSENT time (null/blank) means the day at midnight; a non-empty time that
+ *  is not HH:MM is null — until 2026-09-08 it fell through to midnight, a
+ *  guessed instant for a value the source wrote and this parser could not read. */
 export function czDateTimeToIso(date: string | null, time: string | null): string | null {
   const iso = czDateToIso(date);
   if (!iso) return null;
-  const m = time ? /^(\d{1,2}):(\d{2})/.exec(time.trim()) : null;
-  if (!m) return `${iso}T00:00:00.000Z`;
+  const trimmed = (time ?? "").trim();
+  if (trimmed === "") return `${iso}T00:00:00.000Z`;
+  const m = /^(\d{1,2}):(\d{2})/.exec(trimmed);
+  if (!m) return null;
   const hour = Number(m[1]);
   const minute = Number(m[2]);
   if (hour < 0 || hour > 23 || minute < 0 || minute > 59) return null;

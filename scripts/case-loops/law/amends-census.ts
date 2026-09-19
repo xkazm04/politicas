@@ -20,6 +20,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
@@ -130,7 +131,11 @@ function isFootnoteLine(operative: string, matchIndex: number): boolean {
 }
 
 const AMENDING_TITLE_RE = /kter(?:ým|ou|ými)\s+se\s+mění/iu;
-const PART_RE = /\n\s*ČÁST\s+([A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+)\b([^\n]*)\n/g;
+// No `\b` after the label: JS's ASCII-only word boundary sat BEFORE the last diacritic,
+// so „PRVNÍ" was reported as „PRVN" in every census row's skippedParts (until 2026-09-09) —
+// the same \w/\b trap the NON_AMEND_ART_HEADING_RE note below records. The letter class
+// already ends the label at the first non-letter.
+const PART_RE = /\n\s*ČÁST\s+([A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+)([^\n]*)\n/g;
 const HEADING_WINDOW = 320; // how far past a ČÁST label its own "Změna …" sub-heading can sit
 const PART_CITATION_WINDOW = 1200; // citation is always near a real amending part's top
 const ART_CITATION_WINDOW = 800; // unchanged from the original Čl.-block logic
@@ -208,7 +213,7 @@ interface ExtractResult {
   repealedRefs: string[];
 }
 
-function extractRealAmendedLaws(operative: string): ExtractResult {
+export function extractRealAmendedLaws(operative: string): ExtractResult {
   const artRe = /\n\s*Čl\.\s*([IVXLCDM]+|\d+)\.?\s*\n/g;
   const arts: { label: string; idx: number }[] = [];
   let am: RegExpExecArray | null;
@@ -282,8 +287,12 @@ function extractRealAmendedLaws(operative: string): ExtractResult {
   if (parts.length > 0) {
     for (let i = 0; i < parts.length; i++) {
       const start = parts[i].idx;
-      const headingArea = operative.slice(start, Math.min(operative.length, start + HEADING_WINDOW));
       const end = i + 1 < parts.length ? parts[i + 1].idx : operative.length;
+      // The heading window must not cross into the NEXT part — the batch-008 F1 rule the
+      // Čl. branch got, applied here (2026-09-09): a ČÁST shorter than HEADING_WINDOW that
+      // does not name itself „Změna" borrowed the next part's „Změna" heading and was
+      // searched for a citation it never carries (pinned by amendsCensusExtract.test.ts).
+      const headingArea = operative.slice(start, Math.min(end, start + HEADING_WINDOW));
       const slice = operative.slice(start, Math.min(end, start + PART_CITATION_WINDOW));
       // Only a part whose OWN heading area names itself as an amendment ("Změna zákona o …", "–
       // změna …") gets its citation searched. This is what correctly excludes ČÁST PRVNÍ (the
@@ -515,7 +524,13 @@ async function main() {
   await store.close();
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(2);
-});
+// Only self-execute when run directly — `extractRealAmendedLaws` is the pure core a test
+// needs (amendsCensusExtract.test.ts), and importing this module must not start a
+// 141-bill fetch. kg-promote.ts's guard, for the same reason.
+const isDirectRun = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(2);
+  });
+}

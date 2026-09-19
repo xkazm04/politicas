@@ -448,7 +448,7 @@
       "category": "config",
       "cross_refs": [],
       "db_tables": [],
-      "description": "Packages the project's civic-tech transparency doctrine as a portable ESLint flat-config plugin. Eight rules enforce design-token colours, server/client boundary isolation, silent-catch prevention, a11y motion safety, and machine-verified number provenance (source citations). Each rule ships with a corresponding test file in __tests__/; the plugin is consumed by the root eslint.config.mjs.",
+      "description": "Packages the project's civic-tech transparency doctrine as a portable ESLint flat-config plugin. Ten rules enforce design-token colours, server/client boundary isolation, silent-catch prevention, a11y motion safety, display-string extraction, citation-primitive sizing, and machine-verified number provenance (source citations; its `census` mode is also the citation-coverage denominator read by scripts/kpi/citation-coverage.mjs). Each rule ships with a corresponding test file in __tests__/; the plugin is consumed by the root eslint.config.mjs.",
       "entry_points": [
         "packages/eslint-plugin-civic-transparency/index.cjs"
       ],
@@ -456,18 +456,22 @@
         "packages/eslint-plugin-civic-transparency/index.cjs",
         "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs",
         "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-display-string.cjs",
         "packages/eslint-plugin-civic-transparency/rules/no-raw-number-display.cjs",
         "packages/eslint-plugin-civic-transparency/rules/no-server-import-in-client.cjs",
         "packages/eslint-plugin-civic-transparency/rules/no-silent-catch.cjs",
         "packages/eslint-plugin-civic-transparency/rules/no-silent-null-catch.cjs",
+        "packages/eslint-plugin-civic-transparency/rules/no-source-note-size-override.cjs",
         "packages/eslint-plugin-civic-transparency/rules/require-source-citation.cjs",
         "packages/eslint-plugin-civic-transparency/rules/role-button-requires-keydown.cjs",
         "packages/eslint-plugin-civic-transparency/__tests__/enforce-reduced-motion-fallback.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-colors.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-display-string.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/no-raw-number-display.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/no-server-import-in-client.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/no-silent-null-catch.test.mjs",
+        "packages/eslint-plugin-civic-transparency/__tests__/no-source-note-size-override.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/role-button-requires-keydown.test.mjs",
         "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs"
@@ -3023,6 +3027,44 @@
         "Tailwind v4",
         "recharts 3"
       ]
+    },
+    {
+      "api_surface": "",
+      "business_feature": "KPI Meters",
+      "category": "test",
+      "cross_refs": [],
+      "db_tables": [],
+      "description": "Measurement loop for the project's goals. Every gate in this repo reports failures only, which cannot produce a ratio: citation-coverage.mjs runs custom/require-source-citation in census mode to get a denominator for the reader-facing render path, and verify-loop.mjs runs each `npm run check` stage independently (stage list derived from package.json at runtime) to get a pass rate and per-stage wall clock the `&&` chain cannot give. Meters, never gates - they report, the gates refuse. Baselines and their limits live in docs/kpi-meters.md.",
+      "entry_points": [
+        "scripts/kpi/citation-coverage.mjs",
+        "scripts/kpi/verify-loop.mjs"
+      ],
+      "file_paths": [
+        "scripts/kpi/citation-coverage.mjs",
+        "scripts/kpi/verify-loop.mjs",
+        "docs/kpi-meters.md"
+      ],
+      "group": "Infrastructure & Observability",
+      "group_id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
+      "id": "7a1c0f42-9d3e-4b58-8c21-5e0f6b9d4a17",
+      "keywords": [
+        "kpi",
+        "meter",
+        "coverage",
+        "citation",
+        "verify-loop",
+        "baseline",
+        "denominator",
+        "census",
+        "measurement"
+      ],
+      "last_written_at": "2026-09-14T00:00:00.000000000+00:00",
+      "name": "kpi-meters",
+      "pinned": false,
+      "tech_stack": [
+        "Node.js",
+        "ESLint 9"
+      ]
     }
   ],
   "generated_at": "2026-08-05T08:23:24.396040500+00:00",
@@ -3079,7 +3121,7 @@
     },
     {
       "color": "red",
-      "context_count": 9,
+      "context_count": 10,
       "domain": "infrastructure",
       "id": "b4a48761-1201-423c-92e4-0a0a116ddafc",
       "name": "Infrastructure & Observability"
@@ -3109,8 +3151,8 @@
     "git_commit_count": 305
   },
   "stats": {
-    "contexts": 49,
-    "files": 843,
+    "contexts": 50,
+    "files": 847,
     "groups": 10,
     "use_cases": 0
   },

@@ -678,3 +678,57 @@ from `.kiosek-cache/pdfs` are fetched now; the payload reports
 **2026-09-07 (scan-sweep, admin-control) — mission control dates instants on the Prague day.** `LoopMissionControl` passed ISO instants (run end, queue time, alert since, acknowledgement) straight to `czechDate`, i.e. the UTC day: a run finished at 23:30 UTC stood under yesterday's date. A `dayCs` helper reads the Prague day first; `STALENESS_CLS` is closed over `LoopStaleness`.
 
 **2026-09-07 (scan-sweep, admin-control) — the admin page draws the shell's `BrandMark`.** `AdminPage` carried its own copy of the mark SVG; the shell exports `BrandMark` since round 42 and pages must not draw their own logo.
+
+**Every writer's pass is a positive integer, and a live commit never runs under a
+pass the script invented (2026-09-08, scan-sweep, parity-auditor).**
+`apply-batch.ts` spelled the rule out on its Opus audit (#11); `persist-batch.ts`
+still accepted a fractional `--pass`, `effort/rapporteur-load.ts` derived one from
+`max(firstSeenPass) + 1` when none was given, and `effort/psp9-contribution.ts`
+stamped `pass: 0` — the placeholder the apply writer exists to substitute away —
+into `contribution_psp9` provenance. All three gate on
+`Number.isInteger(pass) && pass > 0` now; a dry run may print a null pass, a
+`--commit` without a real assigned pass refuses. `scripts/case-loops/writerPass.test.ts`
+pins the three gates by source.
+
+**2026-09-09 (scan-sweep, law-amends-analysis round 76).** Two changes to the law loop's
+scripts. `apply-amends-regen.ts` now refuses `--commit` unless `--pass` is a positive
+integer — the previous `Number.isFinite` gate let the payload's own placeholder `0`, a
+negative or a fraction through to every provenance stamp the run writes (the rule
+`persist-batch.ts` and the effort writers adopted on 2026-09-08). And the census's core
+heuristic, `extractRealAmendedLaws` in `amends-census.ts`, is exported behind a direct-run
+guard and pinned by `amendsCensusExtract.test.ts` over four corpus-shaped texts (a
+Čl.-organised omnibus with a transitional article and a repeal block, a ČÁST-organised
+bill with a `Změna` part, a new standalone act, a single-subject novela with a footnote)
+— six audited fixes had been re-verified only by re-auditing 141 bills.
+
+**2026-09-09 (round 76, continued).** The test surfaced a boundary defect in the ČÁST branch
+of the same extractor: a part's `Změna` heading window ran `HEADING_WINDOW` chars forward
+regardless of where the next `ČÁST` began, so a part shorter than that window borrowed the
+next part's heading and was searched for a target it never carries — the class the batch-008
+F1 fix closed for the Čl. branch. The window now stops at the next part. The effect on the
+audited census was not re-measured here (a census re-run is an operator action); the pinned
+case is a two-line first part followed by a `Změna` part.
+
+**2026-09-09 (round 76, continued).** The same test caught a reporting defect: `PART_RE`
+ended its label group with `\b`, and JS's ASCII-only word boundary sits before the last
+diacritic, so every census row's `skippedParts` named „PRVNÍ" as „PRVN" (and „ČTVRTÁ" as
+„ČTVRT"). The boundary is gone; the letter class already ends the label. Reporting only —
+no amend decision read the label.
+
+**2026-09-09 (scan-sweep, law-collision-analysis round 77).** `targetedOdstavce` in
+`collision-core.ts` read only the first paragraph and one connector after „odst.", so
+„odst. 1, 2 a 4" recorded 1 and 2 and lost the 4 — two bills both editing odst. 4 of one §
+read as different provisions, the class the 2026-09-07 range fix closed for „5 až 7". It now
+reads the whole list, ranges inside it included (`targetedOdstavceList.test.ts`, 3 cases; the
+three earlier cases in `collision-core.test.ts` still hold).
+
+**2026-09-09 (scan-sweep, law-triage-batch round 78).** `build-bill-summaries.ts` read the
+bill nodes with a literal `limit: 100_000`; it reads them under `KG_READ_CAP` now — the cap
+`lib/db/readCap.ts` declares as the end of that class (`summariesReadCap.test.ts`).
+
+**2026-09-09 (round 78, continued).** `gate-verdicts.ts`'s citation-scope check exports
+`citationScopeIssue` behind a direct-run guard and is pinned by `citationScope.test.ts`;
+the test then caught that the „státní" keyword was written with an ASCII `\b` after a
+diacritic, so „státní podnik" in a company graph_fact claim never raised the scope
+warning (only „státním" did). It uses Unicode boundaries now — a warning, not a hard gate,
+so no persisted verdict changes; the 27 gated verdicts were not re-run here.

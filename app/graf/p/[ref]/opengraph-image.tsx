@@ -46,13 +46,20 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Trvalá citace pohledu na znalostní graf české politiky — politicas";
 
+/** How long the card waits for a font before it renders with the default one.
+ *  Until 2026-09-08 neither fetch carried a signal, so a font host that hung
+ *  (not failed — the catch below handles failure) held the whole OG response
+ *  until the platform killed it: the one artifact the product cannot re-issue,
+ *  never delivered. The fallback path already exists; this only makes it reachable. */
+const FONT_FETCH_TIMEOUT_MS = 4_000;
+
 async function loadGoogleFont(family: string, weight: number, text: string): Promise<ArrayBuffer | null> {
   try {
     const url = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}&text=${encodeURIComponent(text)}`;
-    const css = await (await fetch(url)).text();
+    const css = await (await fetch(url, { signal: AbortSignal.timeout(FONT_FETCH_TIMEOUT_MS) })).text();
     const resource = css.match(/src: url\((.+?)\) format\('(?:opentype|truetype)'\)/);
     if (!resource) return null;
-    const res = await fetch(resource[1]);
+    const res = await fetch(resource[1], { signal: AbortSignal.timeout(FONT_FETCH_TIMEOUT_MS) });
     if (!res.ok) return null;
     return await res.arrayBuffer();
   } catch (err) {

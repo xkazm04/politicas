@@ -6,6 +6,7 @@ import { getBudgetSeries, getRegistry, latestMetrics, type Municipality, type To
 import { SNAPSHOT_YEARS } from "./data/budgetSnapshots.generated";
 import {
   bandIndexFor,
+  compareToPeer,
   median,
   MIN_PEERS,
   peerGroupFor,
@@ -203,5 +204,20 @@ describe("co soubor tvrdí, drží test (2026-09-01)", () => {
     // Když tohle spadne, NENÍ to chyba: plocha už medián počítá nad rokem obce.
     // Test jen říká, od které dávky se ta cesta poprvé skutečně použila.
     expect(earlier).toBe(0);
+  });
+});
+
+describe("compareToPeer — bez vzorku vrstevníků není obec ani lepší, ani horší (2026-09-08)", () => {
+  it("s oběma hodnotami rozhoduje směr metriky", () => {
+    expect(compareToPeer(100, 200, true)).toBe("better");
+    expect(compareToPeer(300, 200, true)).toBe("worse");
+    expect(compareToPeer(300, 200, false)).toBe("better");
+    expect(compareToPeer(100, 200, false)).toBe("worse");
+    expect(compareToPeer(200, 200, true)).toBe("better");
+  });
+  it("chybí-li obec nebo medián, výsledek je „nesrovnatelné“ — nikdy „horší“", () => {
+    expect(compareToPeer(300, null, true)).toBe("incomparable");
+    expect(compareToPeer(null, 200, true)).toBe("incomparable");
+    expect(compareToPeer(null, null, false)).toBe("incomparable");
   });
 });

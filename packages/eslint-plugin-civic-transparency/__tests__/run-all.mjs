@@ -79,6 +79,28 @@ for (const presetName of ["recommended", "strict"]) {
 // strict covers every rule; recommended covers everything except the doctrine rules.
 const strictRules = Object.keys(plugin.configs.strict[0].rules).map((r) => r.split("/")[1]).sort();
 assert.deepEqual(strictRules, EXPECTED_RULES, "strict preset enables all 10 rules");
+// The composition the index.cjs header promises — pinned, because until 2026-09-08
+// that header counted "five" portable rules at error while the preset shipped four.
+const DOCTRINE_RULES = ["no-raw-number-display", "no-source-note-size-override", "require-source-citation"];
+const recommended = plugin.configs.recommended[0].rules;
+const recommendedRules = Object.keys(recommended).map((r) => r.split("/")[1]).sort();
+assert.deepEqual(
+  recommendedRules,
+  EXPECTED_RULES.filter((r) => !DOCTRINE_RULES.includes(r)),
+  "recommended preset enables every rule except the three doctrine rules",
+);
+const bySeverity = (sev) => recommendedRules.filter((r) => recommended[`civic-transparency/${r}`] === sev);
+assert.deepEqual(
+  bySeverity("error"),
+  ["enforce-reduced-motion-fallback", "no-server-import-in-client", "no-silent-catch", "role-button-requires-keydown"],
+  "recommended: the four portable rules at error",
+);
+assert.deepEqual(
+  bySeverity("warn"),
+  ["no-hardcoded-colors", "no-hardcoded-display-string", "no-silent-null-catch"],
+  "recommended: the three project-convention rules at warn",
+);
+console.log("PASS preset composition (recommended = all minus doctrine; 4 error + 3 warn)");
 
 // ── 3. Shim equivalence: the eslint-rules/ compat shims re-export these ──────
 // (skipped gracefully if the shims are absent, e.g. when the package is

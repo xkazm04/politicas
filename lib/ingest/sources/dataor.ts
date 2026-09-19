@@ -670,9 +670,10 @@ export async function downloadResumable(
  *  partial download must never be mistaken for a cached one, so the decompressed file is
  *  written as `.part` and renamed last. Returns the cache path, or null when the dataset
  *  does not exist on CKAN. */
-export async function ensureDatasetCached(id: string): Promise<string | null> {
+export async function ensureDatasetCached(id: string, opts: { cacheDir?: string } = {}): Promise<string | null> {
   const fs = await import("node:fs/promises");
-  const cachePath = `${CACHE_DIR}/${id}.csv`;
+  const cacheDir = opts.cacheDir ?? CACHE_DIR;
+  const cachePath = `${cacheDir}/${id}.csv`;
   // A missing file is the expected "not cached yet" answer, not a failure to trace.
   const existing = await fs.stat(cachePath).then((st) => st.size, () => 0);
   if (existing > 0) return cachePath;
@@ -682,10 +683,16 @@ export async function ensureDatasetCached(id: string): Promise<string | null> {
   const plain = pkg.resources.find((r) => /\.csv$/i.test(r.url) && !/\.gz$/i.test(r.url));
   const resource = gz ?? plain;
   if (!resource) return null;
-  await fs.mkdir(CACHE_DIR, { recursive: true });
+  await fs.mkdir(cacheDir, { recursive: true });
   if (gz) {
-    const gzPath = `${CACHE_DIR}/${id}.csv.gz`;
-    await downloadResumable(resource.url, gzPath);
+    const gzPath = `${cacheDir}/${id}.csv.gz`;
+    // A `.csv.gz` at its FINAL name is complete by construction: downloadResumable
+    // writes `.part` and renames last. Until 2026-09-08 only the `.part` was ever
+    // resumed, so a run that died between the transfer and the gunzip (the 2,4 GB
+    // sro-full-praha takes ~12 min at dataor's ~3,5 MB/s) fetched the whole archive
+    // again on the next call, with the complete one sitting beside it.
+    const gzHave = await fs.stat(gzPath).then((st) => st.size, () => 0);
+    if (gzHave === 0) await downloadResumable(resource.url, gzPath);
     const tmp = `${cachePath}.part`;
     await pipeline(createReadStream(gzPath), createGunzip(), createWriteStream(tmp));
     await fs.rename(tmp, cachePath);

@@ -175,3 +175,14 @@ now carries `role="img"` and an `aria-label` composed from the two catalog sente
 the section already prints (`section2Title` + `section2Aside`), so the description
 says what the sighted reader sees, in both locales. `features/budget/a11y.test.ts`
 pins it by source, the same honest instrument as the other a11y suites.
+
+**§01's metric card names three states, not two (2026-09-08, scan-sweep,
+state-coverage).** `MetricDuo` painted the town's figure `signal-deep` whenever it
+was not provably better than the median — including when there was NO median
+(„medián · bez vzorku" printed right under it), so a town with no peer sample read
+as a loser against nobody. `compareToPeer` in `peerGroups.ts` returns `better` /
+`worse` / `incomparable` and the card goes red only on `worse`; `peerGroups.test.ts`
+pins the three states. Same round: `getSupplierTies.ts` read the tie review state
+through a ladder of its own (`=== "verified" ? … : "pending_review"`, a copy of the
+money module's rule); it reads `reviewStateOf` now and `budgetSource.test.ts` pins
+that no copy remains.

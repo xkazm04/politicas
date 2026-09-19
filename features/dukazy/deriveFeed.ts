@@ -20,6 +20,7 @@
 //      are a public API — nothing here may depend on array order of the input.
 
 import { canonicalIco } from "@/features/money/companyId";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 import { buildRegistryLinks } from "@/features/money/reviewTypes";
 import { claimRefPath, decodeClaimRef, edgeClaimRef } from "@/features/shared/provenance/claimRef";
 
@@ -56,7 +57,10 @@ export interface ForensicSignoffLike {
   tiskId: number;
   cislo: number | null;
   title: string;
-  severity: string;
+  /** Verbatim `forensic_severity` token, or null when the node carries none —
+   *  the loader does NOT default it (until 2026-09-08 a missing severity was
+   *  published as "low", a verdict the gate never made). */
+  severity: string | null;
   /** kg_node bill props.forensic_review_state — only "verified" is published. */
   reviewState: string;
   /** Best available sign-off timestamp (props or provenance.computedAt). */
@@ -158,11 +162,10 @@ export const DECISION_KEYS: Record<EvidenceDecision, string> = {
   "forensic-verified": "decision.forensicVerified",
 };
 
-/** "psp:person:123" → 123; anything else → null. */
-export function pspIdFromSrc(src: string): number | null {
-  const m = src.match(/^psp:person:(\d+)$/);
-  return m ? Number(m[1]) : null;
-}
+/** "psp:person:123" → 123; anything else → null. The tree's one strict parser
+ *  (lib/ingest/changeEvents), re-exported under the name the bulletin has always
+ *  used — until 2026-09-08 this was a second copy of the same regex. */
+export const pspIdFromSrc = pspIdFromNodeId;
 
 /** Company node id → IČO (the trailing segment): "kg:company:04544152" → "04544152". */
 export function icoFromDst(dst: string): string | null {
@@ -285,6 +288,9 @@ function tieEntry(row: AuditRowLike, input: EvidenceFeedInput): EvidenceEntry {
   };
 }
 
+/** Co se cituje místo závažnosti, kterou uzel nenese. */
+export const SEVERITY_NOT_STATED = "neuvedena";
+
 function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
   const id = `tisk-${f.tiskId}`;
   return {
@@ -310,9 +316,11 @@ function forensicEntry(f: ForensicSignoffLike): EvidenceEntry {
     rowHash: null,
     receiptHref: null,
     companyHref: null,
-    sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity}`,
+    // Chybějící závažnost se řekne — token „neuvedena" je doslovný stav uzlu,
+    // ne nejnižší stupeň.
+    sourceCs: `zdroj: kg_node bill.forensic_* · závažnost ${f.severity ?? SEVERITY_NOT_STATED}`,
     sourceKey: "entry.sourceForensic",
-    sourceDetail: f.severity,
+    sourceDetail: f.severity ?? SEVERITY_NOT_STATED,
   };
 }
 

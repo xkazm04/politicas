@@ -35,3 +35,13 @@ describe("rapporteurLoadCopy", () => {
  * features/civicscore/messages.test.ts runs it over the cs catalog and holds both
  * catalogs to `RAPPORTEUR_COPY_KEYS`, including the `{load}` placeholder without
  * which the count would silently vanish from the sentence. */
+
+describe("the two rapporteur keys are spelled once (2026-09-08)", () => {
+  it("rapporteurLoadCopy hands out the very strings RAPPORTEUR_COPY_KEYS publishes — same references, not re-typed literals", () => {
+    const copy = rapporteurLoadCopy(RAPPORTEUR_WORKHORSE_MIN)!;
+    expect(RAPPORTEUR_COPY_KEYS).toContain(copy.badgeKey);
+    expect(RAPPORTEUR_COPY_KEYS).toContain(copy.detailKey);
+    expect(RAPPORTEUR_COPY_KEYS.indexOf(copy.badgeKey)).toBe(0);
+    expect(RAPPORTEUR_COPY_KEYS.indexOf(copy.detailKey)).toBe(1);
+  });
+});

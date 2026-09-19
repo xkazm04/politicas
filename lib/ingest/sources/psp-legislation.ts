@@ -26,6 +26,7 @@
 // strongest status seen (přikázáno > iniciativně > navrženo). This upgrades F12's name-based
 // committee remit (owns) to formal per-bill routing.
 
+import { pragueDay } from "@/features/denik/pragueDay";
 import { isPlausibleIsoDate } from "@/lib/analysis/plausible-date";
 
 import { col, colInt, type UnlRow } from "../unl";
@@ -375,15 +376,17 @@ function zaverIsoDate(day: number, month: number, year: number): string | null {
  * `retrievedOn` is the upper bound — the day the dump was read, not "now" at render:
  * a publication is a past event, and the /rozpocty precedent
  * (`SUPPLIERS_RETRIEVED_ON`) is that the ceiling travels with the rows. It defaults to
- * the current UTC day because at INGEST the clock IS the retrieval instant; tests and
- * any caller that pins a dump pass it explicitly.
+ * the current PRAGUE day because at INGEST the clock IS the retrieval instant — and a
+ * Sbírka date is a Czech date: until 2026-09-08 the default was the UTC day, so an
+ * ingest between Prague midnight and 01:00/02:00 refused a publication dated today as
+ * impossible. Tests and any caller that pins a dump pass it explicitly.
  */
 export function parseBillFates(
   tisky: readonly UnlRow[],
   stavy: readonly UnlRow[],
   typStavu: readonly UnlRow[],
   hist: readonly UnlRow[],
-  retrievedOn: string = new Date().toISOString().slice(0, 10),
+  retrievedOn: string = pragueDay(),
 ): Map<number, BillFate> {
   const typById = new Map<number, string>();
   for (const r of typStavu) {

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
@@ -7,6 +6,8 @@ import { getReceiptData } from "@/features/shared/provenance/getReceiptData";
 import ReceiptPage, { ReceiptGonePage } from "@/features/shared/provenance/ReceiptPage";
 import { claimRefPath } from "@/features/shared/provenance/claimRef";
 import { toClaimReviewJsonLd } from "@/features/shared/provenance/receipt";
+import { liveUrl } from "@/lib/routing/liveUrl";
+import { firstParam } from "@/lib/routing/searchParam";
 
 /**
  * /zdroj/[ref] — trvalá účtenka jednoho tvrzení znalostního grafu.
@@ -22,27 +23,27 @@ import { toClaimReviewJsonLd } from "@/features/shared/provenance/receipt";
  * ale POUZE za záznam, který prošel lidskou branou — pravidlo drží
  * `toClaimReviewJsonLd`, ne tahle routa (viz lib/claims/claim.ts §3).
  *
- * ZÁKLAD ADRESY se čte z hlaviček requestu — týž precedens jako app/sitemap.ts
- * a všechny čtyři feedy: v dev čestně localhost, v nasazení skutečný host,
- * NIKDY vymyšlená doména. Bez hostitele se pole `url` z JSON-LD prostě vynechá.
+ * ZÁKLAD ADRESY se čte z hlaviček requestu — JEDNOU definicí pro celý strom
+ * (`lib/routing/liveUrl`, táž jako sitemapa, robots, feedy a plakát; do
+ * 2026-09-08 ji tenhle soubor opisoval): v dev čestně localhost, v nasazení
+ * skutečný host, NIKDY vymyšlená doména. Bez hostitele se pole `url` z JSON-LD
+ * prostě vynechá.
  */
 
-/** Absolutní adresa téhle účtenky, nebo null, když ji nelze poctivě složit. */
+/** Absolutní adresa téhle účtenky, nebo null, když ji nelze poctivě složit
+ *  (bez hostitele vrací liveUrl jen cestu — a relativní adresa do JSON-LD nejde). */
 async function absoluteReceiptUrl(encodedRef: string): Promise<string | null> {
-  const h = await headers();
-  const host = h.get("host");
-  if (!host) return null;
-  const proto = h.get("x-forwarded-proto") ?? "http";
-  return `${proto}://${host}${claimRefPath(encodedRef)}`;
+  const url = await liveUrl(claimRefPath(encodedRef));
+  return url.startsWith("/") ? null : url;
 }
 
 /**
  * `?k=YYYY-MM-DD` — čočka „k tomu dni". Plumbing, nic víc: co je platný den a
  * co se stane s tím, co jím není, rozhoduje features/shared/provenance/asOfLens.ts
- * (odmítnuto, ne opraveno), a routa jen předá první hodnotu parametru.
+ * (odmítnuto, ne opraveno), a routa jen předá první hodnotu parametru —
+ * sdíleným tvarovým strážcem, ne vlastní kopií.
  */
-const asOfParam = (v: string | string[] | undefined): string | null =>
-  typeof v === "string" ? v : Array.isArray(v) ? (v[0] ?? null) : null;
+const asOfParam = firstParam;
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 

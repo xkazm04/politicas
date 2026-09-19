@@ -19,6 +19,7 @@ import {
   type ForensicSignoffLike,
 } from "./deriveFeed";
 import { decodeClaimRef } from "@/features/shared/provenance/claimRef";
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 
 const row = (over: Partial<AuditRowLike>): AuditRowLike => ({
   id: "a1",
@@ -364,5 +365,28 @@ describe("registry links use the CANONICAL IČO — the same one the deník pads
       "https://www.hlidacstatu.cz/subjekt/04544152",
       `https://www.hlidacstatu.cz/hledatsmlouvy?Q=${encodeURIComponent("ico:04544152")}`,
     ]);
+  });
+});
+
+describe("závažnost, kterou uzel nenese, se NEVYMÝŠLÍ (2026-09-08)", () => {
+  it("podepsaný posudek bez forensic_severity cituje „neuvedena“, ne low", () => {
+    const signed: ForensicSignoffLike = {
+      tiskId: 9,
+      cislo: 9,
+      title: "Bez závažnosti",
+      severity: null,
+      reviewState: "verified",
+      signedAt: "2026-07-20T10:00:00.000Z",
+    };
+    const [e] = deriveEvidenceFeed(input({ forensic: [signed] }));
+    expect(e.sourceCs).toBe("zdroj: kg_node bill.forensic_* · závažnost neuvedena");
+    expect(e.sourceDetail).toBe("neuvedena");
+    expect(e.sourceCs).not.toMatch(/low|null/);
+  });
+});
+
+describe("pspIdFromSrc je TÝŽ parser jako lib/ingest/changeEvents.pspIdFromNodeId", () => {
+  it("jedna funkce, ne druhá kopie regulárního výrazu", () => {
+    expect(pspIdFromSrc).toBe(pspIdFromNodeId);
   });
 });

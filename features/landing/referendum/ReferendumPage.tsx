@@ -34,7 +34,13 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import WeightPanel from "@/features/civicscore/components/WeightPanel";
 import { COMPONENT_FILL } from "@/features/civicscore/componentFill";
 import type { LeaderboardListData } from "@/features/civicscore/leaderboardTypes";
-import { encodeWeights, PUBLISHED_WEIGHTS_LABEL, reweigh } from "@/features/civicscore/lens";
+import {
+  encodeWeights,
+  LENS_COMPONENT_ORDER,
+  PUBLISHED_WEIGHTS,
+  PUBLISHED_WEIGHTS_LABEL,
+  reweigh,
+} from "@/features/civicscore/lens";
 import { storedRefLabel } from "@/features/civicscore/provenance";
 import { useLensWeights } from "@/features/civicscore/useLensWeights";
 import { useFormat } from "@/lib/i18n/useFormat";
@@ -71,6 +77,11 @@ export default function ReferendumPage({
   const custom = lensView !== null;
   const entries = lensView?.entries ?? data?.entries ?? [];
   const vector = encodeWeights(lens.weights);
+  // Součet zveřejněných vah je DERIVACE, ne literál — týž zápis jako v teaseru
+  // titulní strany (ReferendumTeaser). Do 2026-09-08 tu pod zveřejněnou metodikou
+  // stálo `?? 100`: číslo, které nedržel žádný test a které by změna vzorce
+  // nechala lhát přesně na stránce, jež čtenáře zve vzorec přepsat.
+  const publishedTotal = LENS_COMPONENT_ORDER.reduce((s, k) => s + PUBLISHED_WEIGHTS[k], 0);
 
   // Počátek adresy hydratačně bezpečně (server ho nezná → prázdný snapshot);
   // useSyncExternalStore místo efektu se setState (react-hooks doktrína).
@@ -224,7 +235,7 @@ export default function ReferendumPage({
                 }
               />
               <div className="mt-8">
-                <WeightPanel components={data.components} lens={lens} totalRaw={lensView?.totalRaw ?? 100} />
+                <WeightPanel components={data.components} lens={lens} totalRaw={lensView?.totalRaw ?? publishedTotal} />
               </div>
             </section>
 

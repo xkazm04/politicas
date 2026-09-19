@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   formatCzechDate,
   isTenureClass,
+  TENURE_CLASSES,
   isTrendTooEarly,
   mandateNoteCopy,
   tenureClassLabel,
@@ -16,6 +17,11 @@ describe("isTenureClass", () => {
     for (const c of ["full_term", "replacement", "departed", "never_seated"]) {
       expect(isTenureClass(c)).toBe(true);
     }
+  });
+
+  it("the vocabulary is ONE exported array the type derives from — like LOW_SCORE_REASONS and WORKHORSE_FLAVOURS", () => {
+    expect([...TENURE_CLASSES].sort()).toEqual(["departed", "full_term", "never_seated", "replacement"]);
+    for (const c of TENURE_CLASSES) expect(isTenureClass(c)).toBe(true);
   });
 
   it("rejects unknown strings, non-strings, null and undefined", () => {

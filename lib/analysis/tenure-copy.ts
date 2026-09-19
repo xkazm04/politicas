@@ -34,9 +34,12 @@
 //
 // Pure + defensive, unit-tested by lib/**/*.test.ts — no React, no store access.
 
-export type TenureClass = "full_term" | "replacement" | "departed" | "never_seated";
-
-const TENURE_CLASSES: readonly TenureClass[] = ["full_term", "replacement", "departed", "never_seated"];
+/** The closed tenure vocabulary — ONE declaration, the type derives from it (the
+ *  shape LOW_SCORE_REASONS and WORKHORSE_FLAVOURS already use). Until 2026-09-08
+ *  the union and the array were spelled separately, so a fifth class added to one
+ *  and not the other type-checked and then rendered as graceful null everywhere. */
+export const TENURE_CLASSES = ["full_term", "replacement", "departed", "never_seated"] as const;
+export type TenureClass = (typeof TENURE_CLASSES)[number];
 
 export function isTenureClass(x: unknown): x is TenureClass {
   return typeof x === "string" && (TENURE_CLASSES as readonly string[]).includes(x);

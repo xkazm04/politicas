@@ -25,6 +25,7 @@
  */
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { validateLawVerdict } from "@/lib/analysis/law-verdict";
 import { getStore } from "@/lib/db/store";
@@ -48,7 +49,10 @@ const OUT_OF_SCOPE_COMPANY_CLAIM_KEYWORDS: RegExp[] = [
   // public/private/municipal status substance
   /soukrom\w*/i, // soukromý/á/é
   /veřejn\w*/i, // veřejný/á/é
-  /\bstátní\b/i,
+  // Unicode-aware boundaries: JS's ASCII `\b` sits BEFORE a diacritic, so `/\bstátní\b/`
+  // matched „státním" and never „státní podnik" (the \w/\b trap the census notes; fixed
+  // 2026-09-09). The same idiom verify-close-reads.ts uses.
+  /(?<!\p{L})státní(?!\p{L})/iu,
   /\bměst\w*/i, // město/městský — municipal
   /\bkraj\w*/i,
   /\bprivate\b/i,
@@ -63,7 +67,7 @@ const OUT_OF_SCOPE_COMPANY_CLAIM_KEYWORDS: RegExp[] = [
  * person/law/bill/organ nodes carry enough varied structured prop data that a blanket keyword
  * net would false-positive too easily, so those stay unchecked here — a documented scope limit,
  * not a completeness claim. */
-function citationScopeIssue(claim: string, sourceId: string, nodesById: Map<string, KgNodeRow>): string | null {
+export function citationScopeIssue(claim: string, sourceId: string, nodesById: Map<string, KgNodeRow>): string | null {
   if (!sourceId.startsWith("company:")) return null;
   if (!nodesById.has(sourceId)) return null; // id-membership check reports unknown ids separately
   for (const re of OUT_OF_SCOPE_COMPANY_CLAIM_KEYWORDS) {
@@ -149,7 +153,13 @@ async function main() {
   process.exit(pass === files.length ? 0 : 1);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(2);
-});
+// Only self-execute when run directly — `citationScopeIssue` is the pure check a test
+// needs (citationScope.test.ts), and importing this module must not open the store and
+// exit the process. kg-promote.ts's guard, for the same reason.
+const isDirectRun = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(2);
+  });
+}

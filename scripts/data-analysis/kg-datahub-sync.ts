@@ -21,6 +21,7 @@
  */
 import { mkdirSync, writeFileSync } from "node:fs";
 import { corpusName, datasetUrn as urnFor } from "@/lib/analysis/context-model";
+import { KG_EDGE_RELS, KG_NODE_KINDS } from "@/lib/analysis/kg-verdict";
 import { getStore } from "@/lib/db/store";
 import { envelope, lineage, operation, postAspects, profile, props, schemaOf, type Entity } from "./datahubAspects";
 
@@ -37,7 +38,9 @@ const corpusUrn = (source: string, entity: string) => datasetUrn(corpusName(sour
 
 const KG_NODE_FIELDS = [
   { field: "id", doc: "urn: a raw entity (psp:person:<id>, psp:organ:<id>) or a derived node (bloc:<slug>, theme:<slug>)." },
-  { field: "kind", doc: "person | party | organ | bloc | theme | company | contract (extensible)." },
+  // Published FROM the enum lib/analysis/kg-verdict.ts declares, never retyped: until
+  // 2026-09-08 this line named 7 of the 11 kinds (no bill, law, notice, tender).
+  { field: "kind", doc: `${KG_NODE_KINDS.join(" | ")} — the closed vocabulary of lib/analysis/kg-verdict.ts.` },
   { field: "label", doc: "Human label." },
   { field: "props", doc: "Derived attributes (rebellion_rate, cohesion, contestedness, control_timeline…), each enrichment carrying its own nested *_provenance." },
   { field: "first_seen_pass", doc: "The loop pass that created the node (self-awareness).", type: "number" },
@@ -45,7 +48,8 @@ const KG_NODE_FIELDS = [
 ];
 const KG_EDGE_FIELDS = [
   { field: "src", doc: "kg_node.id." },
-  { field: "rel", doc: "co_votes_with | rebels_against | belongs_to | about | influential_in | linked_to | supplies." },
+  // Same rule: 7 of 21 rels were named here until 2026-09-08.
+  { field: "rel", doc: `${KG_EDGE_RELS.join(" | ")} — the closed vocabulary of lib/analysis/kg-verdict.ts.` },
   { field: "dst", doc: "kg_node.id." },
   { field: "weight", doc: "Per-rel: agreement rate | rebellion rate | role rank | roll-call count.", type: "number" },
   { field: "props", doc: "Per-edge detail + rationale." },

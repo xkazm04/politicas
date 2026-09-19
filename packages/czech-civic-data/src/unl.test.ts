@@ -109,6 +109,13 @@ describe("date parsing", () => {
     expect(czDateHourToIso("2025-10-04 27")).toBeNull();
     expect(czDateHourToIso(null)).toBeNull();
   });
+  it("rejects a garbage tail instead of reading the prefix; documented minute/second suffixes still parse (2026-09-08)", () => {
+    expect(czDateHourToIso("2025-10-04xyz")).toBeNull();
+    expect(czDateHourToIso("2025-10-04 15abc")).toBeNull();
+    expect(czDateHourToIso("2025-10-04 15:30")).toBe("2025-10-04T15:00:00.000Z");
+    expect(czDateHourToIso("2025-10-04 15:30:00")).toBe("2025-10-04T15:00:00.000Z");
+    expect(czDateHourToIso("2025-10-04 15 ")).toBe("2025-10-04T15:00:00.000Z");
+  });
   it("combines a Czech date and HH:MM time", () => {
     expect(czDateTimeToIso("03.11.2025", "15:10")).toBe("2025-11-03T15:10:00.000Z");
     expect(czDateTimeToIso("03.11.2025", null)).toBe("2025-11-03T00:00:00.000Z");
@@ -116,6 +123,12 @@ describe("date parsing", () => {
   it("rejects an out-of-range HH:MM instead of emitting a fake instant", () => {
     expect(czDateTimeToIso("03.11.2025", "25:00")).toBeNull();
     expect(czDateTimeToIso("03.11.2025", "12:61")).toBeNull();
+  });
+  it("a MALFORMED non-empty time is null, not midnight — only an absent time means the day (2026-09-08)", () => {
+    expect(czDateTimeToIso("03.11.2025", "abc")).toBeNull();
+    expect(czDateTimeToIso("03.11.2025", "1510")).toBeNull();
+    expect(czDateTimeToIso("03.11.2025", "")).toBe("2025-11-03T00:00:00.000Z");
+    expect(czDateTimeToIso("03.11.2025", "  ")).toBe("2025-11-03T00:00:00.000Z");
   });
 });
 

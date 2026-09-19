@@ -285,3 +285,13 @@ role=dialog aria-modal"; the panel carried the role, the focus trap and Esc, but
 not `aria-modal`, so assistive tech was not told the trapped focus was
 intentional. The attribute is now set; the header is true again.
 
+**2026-09-08 — round 59 of the sweep (scan-sweep, claim-verifier).** Two fixes on
+the gate. The verdict rows handed the graph pass to the catalog as a raw number
+(`{ pass: then.provenance.pass }`), and the guide its step number — next-intl
+formats a number with its own Intl and would print pass 1 234 with a thousands
+space; both are identifiers and go as strings now, the rule /data adopted for run
+ids on 2026-09-06. `liveFigures` dated its plausibility bound by the UTC day
+(`toISOString().slice(0, 10)`); it reads `pragueDay()` like every other loader
+that hands a „today" to the plausible-date module. `overeniSource.test.ts` pins
+both. The carried item from the first sweep — `refDetect`'s hand-kept host list —
+stays with the base-URL card in the backlog.

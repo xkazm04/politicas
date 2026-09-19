@@ -585,3 +585,28 @@ opravila 2026-08-12. Den teď vydává komorový agregát provenience
 (`provenance.computedAt`), týž zdroj jako u karty kraje a vestavného widgetu;
 když se komora na jednom dni neshodne, arch dostane pražský den vytištění, protože
 typ `retrievedAt` ve sdíleném plakátu „neuvedeno“ neumí — viz karta v backlogu.
+
+**Round 57 of the sweep (2026-09-08, scan-sweep, civicscore-leaderboard).** Four
+findings landed. (1) The chamber pass read the person id as `Number(id.split(":")
+.pop())`; it reads `pspIdFromNodeId` (the strict `psp:person:<n>` parser) now and
+withholds, counted, a node whose id the parser refuses — no rank under NaN, no
+`/poslanec/NaN` link. (2) The table printed club seats, the two filter counts and
+the „zobrazeno X z Y" pair raw, and the histogram tooltip handed a raw number to the
+catalog (next-intl's own Intl formatting); all go through `f.int` now. (3) The
+table's per-component median was a second copy of `score-legibility.median`; it
+imports it, and an empty chamber yields no median (null) instead of 0. (4) The kraj
+picker folded its query with its own NFD strip beside `search.ts`; it uses
+`foldQuery`. `features/civicscore/leaderboardSource.test.ts` pins all four.
+
+**The weight panel's explanations are text (2026-09-08, scan-sweep,
+accessibility-checker).** The three preset buttons carried their one-sentence note
+only in `title`, and each slider row its psp.cz source only in the label's `title`
+— hover-only, so keyboard and touch never got them and screen readers read them
+unreliably (the finding /denik fixed for its time-axis explanation on 2026-08-12).
+Both are `sr-only` text now, beside the titles that stay for the mouse;
+`features/civicscore/lensDuelSource.test.ts` pins it. Not built this round, carded:
+the loader, `lens.ts` and `kraj.ts` each spell competition ranking, and the loader
+and `lens.ts` each spell the 5-point histogram and the summary — `lens.ts` is pure
+and the loader could import it; `DUEL_FACT_DEFS` carries Czech labels, units and
+sources outside the catalog; `CopyLensLink` duplicates the catalog `CopyLinkButton`
+because the primitive has no compose-at-click hook.

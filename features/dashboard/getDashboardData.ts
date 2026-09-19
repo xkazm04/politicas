@@ -47,6 +47,7 @@ import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { getLeaderboardData, type LeaderboardEntry } from "@/features/civicscore/getLeaderboardData";
 import { MONEY_MEMO_TTL_MS } from "./freshness";
+import { pragueDay } from "@/features/denik/pragueDay";
 import { getLawData, type LawData } from "@/features/lawwatch/getLawData";
 import { getMoneyData } from "@/features/money/getMoneyData";
 import type { MoneyData } from "@/features/money/moneyTypes";
@@ -571,7 +572,14 @@ export async function getDashboardData(
   // the slice does. `today` comes from the server ONCE and is passed into the
   // pure builder — a fact dated in the future is a data defect, not news, and
   // the builder must stay deterministic for its tests.
-  const builtOn = new Date().toISOString().slice(0, 10);
+  //
+  // TODAY IS THE PRAGUE DAY. Until 2026-09-08 this was the UTC day, so between
+  // midnight and 01:00/02:00 in Prague a contract signed „today" sat one day
+  // past `today` in buildDatedFacts, fell out of the book and was COUNTED in
+  // `droppedImplausible` — the server's time zone inflating the honesty
+  // counter. /denik paid for the same lesson on 2026-08-04 (features/denik/
+  // pragueDay.ts); the exhibit's „data obtained" date rides the same value.
+  const builtOn = pragueDay();
   let feed: DatedFactLedger | null = null;
   let factContracts: ContractLayerRead | null = null;
   if (slice) {

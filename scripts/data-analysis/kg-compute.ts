@@ -59,6 +59,7 @@ import {
   committeeInfluence,
   guardKgReset,
   mergeComputedNodeProps,
+  nextPass,
   partyCohesion,
   positionOf,
   rebellion,
@@ -85,12 +86,22 @@ function organUrn(pspId: number): string {
 
 async function main() {
   const term = arg("term", "PSP10");
-  const pass = Number(arg("pass", "1"));
   const commit = process.argv.includes("--commit");
   const reset = process.argv.includes("--reset");
   const supersede = process.argv.includes("--supersede");
   const computedAt = new Date().toISOString();
   const allowUnstamped = process.argv.includes("--allow-unstamped");
+  const store = await getStore();
+  if (!store) {
+    console.error("no store configured");
+    process.exit(1);
+  }
+  // Derived like every sibling writer (nextPass over the stored graph), never a frozen
+  // literal: until 2026-09-08 the default was `arg("pass", "1")`, so every bare re-run
+  // restamped ~250 nodes' and ~20 000 edges' provenance as pass 1 — the false vintage
+  // the header above warns about, produced by this writer's own default. An explicit
+  // --pass=N still wins (docs/data-analysis/graph-log.md is the pass ledger).
+  const pass = Number(arg("pass", "")) || nextPass(await store.listKgNodes());
   // The structured stamp (lib/kg/provenance.ts) beside the legacy method/computedAt
   // keys the earlier passes left. `source` is per-ref because this writer derives
   // from two different landings: the nodes come off mandates and organs
@@ -101,12 +112,6 @@ async function main() {
     computedAt,
     ...makeProvenance({ source, pass, ref, writer: "kg-compute" }),
   });
-
-  const store = await getStore();
-  if (!store) {
-    console.error("no store configured");
-    process.exit(1);
-  }
 
   /* ── load the raw graph ──────────────────────────────────────────────────── */
   const persons = await store.listPersons();
