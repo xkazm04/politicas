@@ -23,6 +23,14 @@ pre-commit:
       # chyby; varování jsou nyní vidět.
       run: npx eslint --no-warn-ignored {staged_files}
 
+    # Vytiskne znalostni subjekty z ai-registry, ktere ridi prave stagovane cesty.
+    # NIKDY neblokuje: konci 0 vzdy, a kdyz checkout registry chybi, nedela nic.
+    # Mapovany kod se resi pres .ai/registry-map.json; kod mimo kontext spadne na
+    # router korpusu nad tokeny cesty - to je ta polovina, ktera chybela, protoze
+    # klauzule knowledge-sync routuje jen pres mapu a nova prace tam radek nema.
+    - name: ai-registry-consult-check
+      run: node "${AI_REGISTRY_DIR:-../ai-registry}/scripts/consult-check.mjs" || true
+
 commit-msg:
   jobs:
     # `docs/feature-doc-map.json` byla od svého vzniku POUZE konvence — CLAUDE.md
