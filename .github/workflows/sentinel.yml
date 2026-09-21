@@ -1,3 +1,36 @@
+# DISABLED AT THE REPOSITORY LEVEL ON 2026-09-21 (`gh workflow disable sentinel`).
+#
+# The cron below is still in the file, but the workflow is switched off in
+# GitHub Actions, so the schedule does not fire. The file and its history are
+# untouched: `gh workflow enable sentinel` brings it straight back, and a manual
+# `workflow_dispatch` still works while it is off.
+#
+# WHY. Every scheduled run failed identically for days (runs 35557888533,
+# 35486737317, 35418650791 and their predecessors): "Unable to download
+# artifact(s): Not Found" from the download step below, then ".pglite store not
+# present on this runner", then exit 2 with every invariant `unevaluable`. The
+# ADOPTION POINT is wired in this YAML but not in the repository: the download
+# resolves the `store-snapshot` artifact from the run id in the repository
+# variable `SENTINEL_STORE_RUN_ID`, and that variable is unset (it is still an
+# open coordinator action in
+# docs/architect/moonshot-2026-09-01/wave-1/CARRY-OVER.md), or points at a run
+# whose artifact has since expired. The sentinel is not part of the `checks` CI
+# gate, so this blocked nothing; it was only red noise in the run list.
+#
+# TO RE-ENABLE. Both halves, in this order:
+#   1. Give the runner a store. Either set the repository variable to an ingest
+#      machine run that uploaded a `npm run db:backup` copy as `store-snapshot`
+#      (`gh variable set SENTINEL_STORE_RUN_ID --body <run-id>`), remembering
+#      that artifacts expire and the variable has to be refreshed before the
+#      retention window turns over or the download 404s again; or move this job
+#      to a self-hosted runner on the ingest machine, where the store is
+#      reachable and no artifact is needed.
+#   2. `gh workflow enable sentinel`.
+#
+# Do NOT "re-enable" it by softening the exit-2-on-unevaluable rule. A green run
+# that evaluated nothing is the exact failure this instrument exists to prevent,
+# and the paragraphs below record that it has already been made once here.
+#
 # Live-Graph Sentinel — invariant audit of the real ingested store
 # (batch-7 item 7E).
 #
