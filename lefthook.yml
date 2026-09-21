@@ -29,7 +29,7 @@ pre-commit:
     # router korpusu nad tokeny cesty - to je ta polovina, ktera chybela, protoze
     # klauzule knowledge-sync routuje jen pres mapu a nova prace tam radek nema.
     - name: ai-registry-consult-check
-      run: node "${AI_REGISTRY_DIR:-../ai-registry}/scripts/consult-check.mjs" || true
+      run: sh -c 'node "${AI_REGISTRY_DIR:-../ai-registry}/scripts/consult-check.mjs" || true'
 
 commit-msg:
   jobs:
