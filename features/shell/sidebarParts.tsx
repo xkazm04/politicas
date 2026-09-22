@@ -67,17 +67,25 @@ export function useNavLabels() {
   };
 }
 
+/** Značka Politicas — JEDINÁ kresba loga v chromu (rail i mobilní pruh); do
+ *  2026-09-07 nesl MobileNav vlastní kopii téhož SVG. `className` řídí jen velikost. */
+export function BrandMark({ className }: { className: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden>
+      <rect width="32" height="32" className="fill-signal" />
+      <circle cx="16" cy="16" r="9" className="fill-paper" />
+      <rect x="14.5" y="4" width="3" height="24" className="fill-ink" />
+    </svg>
+  );
+}
+
 export function BrandBlock() {
   return (
     <Link
       href="/"
       className="flex shrink-0 items-center gap-3 border-b-4 border-ink px-5 py-4 transition-colors hover:text-signal"
     >
-      <svg viewBox="0 0 32 32" className="h-7 w-7 shrink-0" aria-hidden>
-        <rect width="32" height="32" className="fill-signal" />
-        <circle cx="16" cy="16" r="9" className="fill-paper" />
-        <rect x="14.5" y="4" width="3" height="24" className="fill-ink" />
-      </svg>
+      <BrandMark className="h-7 w-7 shrink-0" />
       <span className="min-w-0 truncate text-lg font-black uppercase tracking-tight">Politicas</span>
     </Link>
   );

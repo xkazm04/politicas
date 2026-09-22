@@ -12,19 +12,11 @@
 import "server-only";
 import { cache } from "react";
 
-import { deriveRadar, groupRadarDays, type RadarCollisionInput, type RadarDay, type RadarEntry, type RadarFlagInput } from "./deriveRadar";
+import { deriveRadar, groupRadarDays, type RadarCollisionInput, type RadarFlagInput } from "./deriveRadar";
 import { getCollisionData } from "./getCollisionData";
 import { getLawData } from "./getLawData";
-
-export interface RadarData {
-  entries: RadarEntry[];
-  days: RadarDay[];
-  collisionCount: number;
-  flagCount: number;
-  /** Entries with no record-entry date (disclosed-ordering tier). */
-  undatedCount: number;
-  newestDetectedAt: string | null;
-}
+import type { RadarData } from "./radarTypes";
+export type { RadarData } from "./radarTypes";
 
 async function loadRadarData(): Promise<RadarData | null> {
   const [collisionData, lawData] = await Promise.all([getCollisionData(), getLawData()]);

@@ -46,13 +46,20 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Trvalá citace pohledu na znalostní graf české politiky — politicas";
 
+/** How long the card waits for a font before it renders with the default one.
+ *  Until 2026-09-08 neither fetch carried a signal, so a font host that hung
+ *  (not failed — the catch below handles failure) held the whole OG response
+ *  until the platform killed it: the one artifact the product cannot re-issue,
+ *  never delivered. The fallback path already exists; this only makes it reachable. */
+const FONT_FETCH_TIMEOUT_MS = 4_000;
+
 async function loadGoogleFont(family: string, weight: number, text: string): Promise<ArrayBuffer | null> {
   try {
     const url = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}&text=${encodeURIComponent(text)}`;
-    const css = await (await fetch(url)).text();
+    const css = await (await fetch(url, { signal: AbortSignal.timeout(FONT_FETCH_TIMEOUT_MS) })).text();
     const resource = css.match(/src: url\((.+?)\) format\('(?:opentype|truetype)'\)/);
     if (!resource) return null;
-    const res = await fetch(resource[1]);
+    const res = await fetch(resource[1], { signal: AbortSignal.timeout(FONT_FETCH_TIMEOUT_MS) });
     if (!res.ok) return null;
     return await res.arrayBuffer();
   } catch (err) {
@@ -87,8 +94,23 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
   const card = permalinkCardModel(result);
   const view = result.status === "ok" ? result.view : null;
   const kicker = `politicas / graf · ${t("permalink.tag")}`;
-  const pendingLine = (pending: number) =>
-    pending === 0 ? t("allVerified") : t("pendingEdges", { count: pending, countFmt: fInt(pending) });
+  /*
+   * STAV KONTROLY NA KARTĚ — tři stavy, ne dva.
+   *
+   * `allVerified` je tvrzení, které smí padnout jen tehdy, když ŽÁDNÁ hrana
+   * nečeká A ŽÁDNOU člověk neodmítl. Do 2026-09-04 se zamítnutá hrana nesla
+   * jako `pending: false`, takže karta — kterou si sítě nacachují a redakce
+   * screenshotují — vytiskla „vše ověřeno" nad pohledem, jehož krok kontrola
+   * zamítla. Odmítnutí má vlastní větu a bije čekání: je to rozhodnutí
+   * člověka, ne fronta.
+   */
+  const reviewLineOf = (pending: number, rejectedEdges = 0) =>
+    rejectedEdges > 0
+      ? t("rejectedEdges", { count: rejectedEdges, countFmt: fInt(rejectedEdges) })
+      : pending === 0
+        ? t("allVerified")
+        : t("pendingEdges", { count: pending, countFmt: fInt(pending) });
+  const pendingLine = (pending: number) => reviewLineOf(pending);
 
   // Prameny: registry uzlu mají přednost před pramennou základnou platformy —
   // TÉŽ pravidlo, kterým se řídí citační lišta a `isBasedOn` (permalinkSources).
@@ -123,13 +145,33 @@ export default async function Image({ params }: { params: Promise<{ ref: string 
     );
   } else if (view?.kind === "trasa") {
     title = view.title;
-    reviewLine = pendingLine(view.trail.edges.filter((e) => e.pending).length);
+    reviewLine = reviewLineOf(
+      view.trail.edges.filter((e) => e.gate === "pending_review").length,
+      view.trail.edges.filter((e) => e.gate === "rejected").length,
+    );
     statLine = `${t("permalink.og.curatedTrail")} · ${t("counts", {
       nodes: fInt(view.trail.nodes.length),
       edges: fInt(view.trail.edges.length),
     })}`;
     for (const kind of view.trail.columns.slice(0, 4)) {
       const style = KIND_STYLE[kind as keyof typeof KIND_STYLE];
+      if (style) glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
+    }
+  } else if (view?.kind === "okoli") {
+    // KAŽDÝ STROP NESE SVOU POPULACI — i na kartě, která se nedá opravit.
+    const n = view.neighbourhood;
+    title = view.title;
+    const total = n.perRel.reduce((sum, r) => sum + r.total, 0);
+    statLine = `${t("okoli.title")} · ${t("okoli.shownOfTotal", {
+      shown: fInt(n.edges.length),
+      total: fInt(total),
+    })}`;
+    reviewLine = reviewLineOf(
+      n.edges.filter((e) => e.gate === "pending_review").length,
+      n.edges.filter((e) => e.gate === "rejected").length,
+    );
+    if (n.anchor) {
+      const style = KIND_STYLE[n.anchor.kind];
       if (style) glyphs.push({ shape: style.shape, fill: darkFill(style.fill) });
     }
   } else if (view?.kind === "uzel") {

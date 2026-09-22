@@ -303,12 +303,15 @@ export function dayInRolePeriod(day: string, from: string, to: string | null): b
   return true;
 }
 
+/** Vyhlášené prahy peněžní složky v milionech Kč, vzestupně: 1 bod za každý
+ *  překročený. Popisek složky se z nich SKLÁDÁ (do 2026-09-08 je opisoval). */
+export const MONEY_PTS_THRESHOLDS_MIL = [1, 10, 100] as const;
+
 /** Peněžní složka skóre — vyhlášené prahy, žádná spojitá magie. */
 function moneyPts(czk: number): number {
-  if (czk >= 100_000_000) return 3;
-  if (czk >= 10_000_000) return 2;
-  if (czk >= 1_000_000) return 1;
-  return 0;
+  let pts = 0;
+  for (const mil of MONEY_PTS_THRESHOLDS_MIL) if (czk >= mil * 1_000_000) pts++;
+  return pts;
 }
 
 /** Skóre ÚPLNOSTI DŮKAZŮ — deterministický součet vyhlášených složek.
@@ -337,7 +340,7 @@ export function evidenceScore(args: {
       pts: Math.min(distinctRefs, 3),
     });
   const m = moneyPts(args.reachableCzk);
-  if (m > 0) parts.push({ labelCs: "dosažitelné veřejné peníze (prahy 1/10/100 mil. Kč)", pts: m });
+  if (m > 0) parts.push({ labelCs: `dosažitelné veřejné peníze (prahy ${MONEY_PTS_THRESHOLDS_MIL.join("/")} mil. Kč)`, pts: m });
   return { score: parts.reduce((s, p) => s + p.pts, 0), parts };
 }
 

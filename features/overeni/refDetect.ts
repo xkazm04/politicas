@@ -281,7 +281,10 @@ function detectAt(raw: string, depth: number): DetectedRef {
   if (input.startsWith("u.") || input.startsWith("h.")) {
     return decodeFamily("zdroj", input);
   }
-  if (input.startsWith("g.")) {
+  // OBA tvary citace grafu: `g.` (bez data vydání) i `g2.` (s ním). Prostor
+  // adres je append-only — vydaná citace se nikdy neruší, takže sniff musí
+  // znát obě předpony, ne jen tu novější.
+  if (input.startsWith("g.") || input.startsWith("g2.")) {
     return decodeFamily("graf", input);
   }
   if (input.startsWith("rez.") || input.startsWith("fakt.")) {

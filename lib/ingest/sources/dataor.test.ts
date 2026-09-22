@@ -1,5 +1,10 @@
-import { beforeAll, describe, expect, it } from "vitest";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { gzipSync } from "node:zlib";
+import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import {
+  ensureDatasetCached,
   extractOfficersAndShareholders,
   extractSpisovaZnacka,
   findRecordByIco,
@@ -316,5 +321,39 @@ describe("findRecordsByIcosInFile — the streaming finder (money batch 017)", (
   it("returns an empty map for an IČO that is not there — no partial-row guesses", async () => {
     const found = await findRecordsByIcosInFile(path, ["99999999"], { highWaterMark: 5 });
     expect(found.size).toBe(0);
+  });
+});
+
+describe("ensureDatasetCached — a complete .csv.gz on disk is not fetched again (2026-09-08, error-handler)", () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("gunzips the archive it already holds and asks the network only for the catalogue", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "dataor-sweep-"));
+    const id = "sf-full-hradec_kralove-2099";
+    const csv = "ico,nazev,udaje,vymazDatum,zapisDatum\n12345678,Test s.r.o.,[],,2020-01-01\n";
+    // downloadResumable renames `.part` to the final name LAST, so a `.csv.gz` at its
+    // final name is complete by construction — this is the state a run leaves behind
+    // when it dies between the transfer and the gunzip.
+    await writeFile(join(dir, `${id}.csv.gz`), gzipSync(Buffer.from(csv)));
+    const downloads: string[] = [];
+    vi.stubGlobal("fetch", async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url.includes("package_show")) {
+        const pkg = { id, name: id, resources: [{ id: "r1", format: "CSV.GZ", url: `https://dataor.justice.cz/files/${id}.csv.gz` }] };
+        return new Response(JSON.stringify({ success: true, result: pkg }), { status: 200 });
+      }
+      downloads.push(url);
+      return new Response(gzipSync(Buffer.from(csv)), { status: 200 });
+    });
+    try {
+      const path = await ensureDatasetCached(id, { cacheDir: dir });
+      expect(path).toBe(`${dir}/${id}.csv`);
+      expect(await readFile(path!, "utf8")).toBe(csv);
+      // Until 2026-09-08 this was one download of the whole archive (2,4 GB for
+      // sro-full-praha) because only a `.part` was ever resumed.
+      expect(downloads).toEqual([]);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

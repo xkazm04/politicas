@@ -16,7 +16,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import type { LawBillView } from "../getLawData";
+import type { LawBillView } from "../lawTypes";
 import {
   COMMITTEE_ROLE_KEYS,
   COMMITTEE_STATUS_KEYS,
@@ -349,6 +349,9 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
         </div>
       )}
 
+      {/* jak sněmovna a kluby o tisku hlasovaly (hrany `decides`) */}
+      {bill.rollCalls.length > 0 && <RollCallBlock rollCalls={bill.rollCalls} />}
+
       {/* příznak střetu (Case ①) */}
       {bill.flaggedConflict && <ConflictBlock bill={bill} />}
 
@@ -385,6 +388,82 @@ export default function BillDetail({ bill }: { bill: LawBillView }) {
  * přísněji připsanou částku. Kdyby tenhle blok firmy jmenoval, publikoval by je pod
  * pravidlem, které peněžní modul zrušil.
  */
+/**
+ * Jak sněmovna a jednotlivé kluby o tomhle tisku stály, hlasování po hlasování.
+ *
+ * Čísla nejsou spočítaná tady — přicházejí z `getFullVoteRecord().voteIndex`,
+ * z TÉŽE derivace, kterou kreslí /hlasovani. Blok jen vykresluje.
+ *
+ * Dvě věci se říkají nahlas, protože jinak by je čtenář musel uhodnout:
+ *   • hlasování, jehož bod pořadu nesl VÍC tisků (`itemPrintCount > 1`), se
+ *     netýkalo jen tohohle tisku — je to blok, a řádek to nese jako varování,
+ *     ne jako poznámku pod čarou;
+ *   • `chamber === null` znamená „k tomuhle hlasování nedržíme hlasy", ne
+ *     „nikdo nehlasoval"; nulový součet by z výpadku udělal tvrzení o sněmovně.
+ * Které to bylo čtení, se NEVYKRESLUJE: `readingStage` je dnes `null` u všech
+ * hran (žádný sloupec dumpu čtení neoznačuje), a vymyslet ho by znamenalo
+ * publikovat procesní fakt, který zdroj nenese.
+ */
+function RollCallBlock({ rollCalls }: { rollCalls: LawBillView["rollCalls"] }) {
+  const t = useTranslations("lawwatch");
+  const f = useFormat();
+  const blockVotes = rollCalls.filter((r) => r.itemPrintCount > 1).length;
+  return (
+    <div className="mt-6 border-t-2 border-ink pt-4">
+      <SourceNote>{t("detail.rollCallsHeading", { countFmt: f.int(rollCalls.length) })}</SourceNote>
+      <ul className="mt-3 space-y-2">
+        {rollCalls.map((r) => {
+          const lines = Object.entries(r.clubLines).sort((a, b) => a[0].localeCompare(b[0], "cs"));
+          return (
+            <li key={r.votePspId} className="border-l-2 border-steel/40 pl-3">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <a
+                  href={r.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-baseline gap-1 text-sm font-bold transition-colors hover:text-signal"
+                >
+                  {r.title}
+                  <ExternalLink className="h-3 w-3 shrink-0" aria-hidden />
+                </a>
+                <span className="font-mono text-[11px] tabular-nums text-steel">
+                  {r.votedOn ? f.date(r.votedOn) : t("detail.rollCallNoDate")}
+                </span>
+              </div>
+              <div className="mt-1 font-mono text-[11px] tabular-nums text-steel">
+                {r.chamber
+                  ? t("detail.rollCallChamber", {
+                      yes: f.int(r.chamber.yes),
+                      no: f.int(r.chamber.no),
+                      k: f.int(r.chamber.k),
+                    })
+                  : t("detail.rollCallNoBallots")}
+              </div>
+              {lines.length > 0 && (
+                <div className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[11px] text-steel">
+                  {lines.map(([club, line]) => (
+                    <span key={club}>
+                      {club} <span className="font-bold text-ink">{t(`detail.rollCallLine.${line}`)}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
+              {r.itemPrintCount > 1 && (
+                <p className="mt-1 text-[11px] leading-snug text-signal-deep">
+                  {t("detail.rollCallBlockItem", { countFmt: f.int(r.itemPrintCount) })}
+                </p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+      <SourceNote className="mt-3">
+        {t("detail.rollCallsSource", { blockFmt: f.int(blockVotes) })}
+      </SourceNote>
+    </div>
+  );
+}
+
 function ConflictBlock({ bill }: { bill: LawBillView }) {
   const t = useTranslations("lawwatch");
   const f = useFormat();
@@ -520,7 +599,21 @@ function ForensicBlock({
             </span>
           )}
           <span>
-            {t("forensic.reviewStateLabel")} <span className="font-black text-ink">{forensic.reviewState}</span>
+            {t("forensic.reviewStateLabel")}{" "}
+            <span className="font-black text-ink">
+              {/* CHYBĚJÍCÍ STAV SE PŘIZNÁVÁ, NEDOPLŇUJE (G2, 2026-09-04). Do dneška
+                  sem getLawData posílalo `state ?? "pending_review"` — slib fronty,
+                  pro kterou v celém stromu neexistoval zapisovatel. */}
+              {forensic.reviewState ?? t("forensic.reviewStateAbsent")}
+            </span>
+            {forensic.reviewedBy && (
+              <span className="text-steel">
+                {" · "}
+                {forensic.reviewedAt
+                  ? t("forensic.reviewedByOn", { kdo: forensic.reviewedBy, kdy: f.date(forensic.reviewedAt) })
+                  : t("forensic.reviewedBy", { kdo: forensic.reviewedBy })}
+              </span>
+            )}
           </span>
         </span>
       </div>
@@ -627,7 +720,7 @@ function ForensicBlock({
           <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-steel">
             <li className="border-l-2 border-ochre pl-3">
               {t.rich("forensic.notClaim1", {
-                state: forensic.reviewState,
+                state: forensic.reviewState ?? t("forensic.reviewStateAbsent"),
                 b: (chunks) => <span className="font-bold text-ink">{chunks}</span>,
               })}
             </li>

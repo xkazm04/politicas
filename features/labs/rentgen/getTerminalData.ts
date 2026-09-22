@@ -22,7 +22,9 @@ import { cache } from "react";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { getChangesRepo } from "@/lib/db/pglite/repositories/changes";
+import { pragueDay } from "@/features/denik/pragueDay";
 import { loadMoneyLayer, mapLinkedToTie, pspIdFromNodeId } from "@/features/money/moneyLoader";
+import { reviewStateOf } from "@/features/money/reviewTypes";
 import {
   deriveTerminalGraph,
   deriveTerminalLedger,
@@ -142,7 +144,8 @@ async function readChanges(): Promise<{ changes: TailChangeLike[]; ok: boolean }
         dst: e.dst,
         srcLabel: e.src !== null ? (labels.get(e.src) ?? null) : null,
         dstLabel: e.dst !== null ? (labels.get(e.dst) ?? null) : null,
-        pending: e.payload.review_state !== "verified",
+        // Týž výklad stavu jako /penize (reviewStateOf): neznámý i chybějící stav čeká.
+        pending: reviewStateOf(e.payload.review_state) !== "verified",
       })),
       ok: true,
     };
@@ -175,6 +178,9 @@ export const getTerminalData = cache(async function getTerminalData(): Promise<T
     coverage,
     pass: money.pass,
     auditRows: gate.auditRows,
-    retrievedOn: new Date().toISOString().slice(0, 10),
+    // Pražský den získání (features/denik/pragueDay.ts) — týž kalendář jako každý
+    // jiný loader; do 2026-09-07 tu stál řez UTC řetězce, tedy mezi půlnocí a
+    // 01:00/02:00 pražského času včerejší datum v citační liště.
+    retrievedOn: pragueDay(),
   };
 });

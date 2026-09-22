@@ -46,11 +46,41 @@ tester.run("no-server-import-in-client", rule, {
       code: `"use client";\nimport x from "@/lib/dbg/tools";`,
     },
     {
+      name: "typeImports: forbid — a type import from a pure *Types.ts sibling is the intended shape",
+      code: `"use client";\nimport type { LeaderboardData } from "./leaderboardTypes";`,
+      options: [{ typeImports: "forbid" }],
+    },
+    {
+      name: "typeImports: forbid — a non-client module may still import loader types",
+      code: `import type { MoneyData } from "./getMoneyData";`,
+      options: [{ typeImports: "forbid" }],
+    },
+    {
+      name: "a type-only re-export from a loader erases at compile time",
+      code: `"use client";\nexport type { MoneyData } from "./getMoneyData";`,
+    },
+    {
+      name: "a value re-export from a non-server module is fine",
+      code: `"use client";\nexport { chartTheme } from "./chartTheme";`,
+    },
+    {
       name: "dynamic import of a non-server module",
       code: `"use client";\nasync function f() { await import("./chartTheme"); }`,
     },
   ],
   invalid: [
+    {
+      name: "typeImports: forbid — a type-only import of a loader is reported with its own message",
+      code: `"use client";\nimport type { MoneyData } from "./getMoneyData";`,
+      options: [{ typeImports: "forbid" }],
+      errors: [{ messageId: "typeImportInClient" }],
+    },
+    {
+      name: "typeImports: forbid — an all-type specifier list is reported too",
+      code: `"use client";\nimport { type MoneyData } from "@/features/graph/graphLoader";`,
+      options: [{ typeImports: "forbid" }],
+      errors: [{ messageId: "typeImportInClient" }],
+    },
     {
       name: "value import of a get* loader in a client file",
       code: `"use client";\nimport { getMoneyData } from "./getMoneyData";`,
@@ -70,6 +100,22 @@ tester.run("no-server-import-in-client", rule, {
       name: "mixed value+type specifiers still pull the module",
       code: `"use client";\nimport { getMoneyData, type MoneyData } from "./getMoneyData";`,
       errors: [{ messageId: "serverImportInClient" }],
+    },
+    {
+      name: "a value RE-EXPORT of a loader pulls the module exactly like an import",
+      code: `"use client";\nexport { getMoneyData } from "./getMoneyData";`,
+      errors: [{ messageId: "serverImportInClient" }],
+    },
+    {
+      name: "export * from a loader is a breach too",
+      code: `"use client";\nexport * from "@/features/graph/graphLoader";`,
+      errors: [{ messageId: "serverImportInClient" }],
+    },
+    {
+      name: "typeImports: forbid — a type-only re-export is reported with the type message",
+      code: `"use client";\nexport type { MoneyData } from "./getMoneyData";`,
+      options: [{ typeImports: "forbid" }],
+      errors: [{ messageId: "typeImportInClient" }],
     },
     {
       name: "dynamic import of a server loader is always a breach",

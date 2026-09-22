@@ -32,7 +32,7 @@ describe("retention declarations", () => {
     expect(unpolicedTables([...KNOWN_TABLES, "some_new_table"])).toEqual(["some_new_table"]);
   });
 
-  it("names the six accumulating tables, and only those", () => {
+  it("names the seven accumulating tables, and only those", () => {
     const kept = Object.entries(RETENTION)
       .filter(([, p]) => p.class === "accumulating")
       .map(([t]) => t)
@@ -44,9 +44,16 @@ describe("retention declarations", () => {
       "kg_node_history",
       "lens_submission",
       "review_audit",
+      // [G5] Added 2026-09-04 with sentinel_run: a verdict is a dated claim
+      // about a release that no later run can reproduce, so pruning it would
+      // erase the audit history this table exists to keep.
+      "sentinel_run",
     ]);
-    // The kept-forever policy is a DATED decision, not a default.
-    for (const t of kept) expect(retentionFor(t)?.decidedAt).toBe("2026-08-24");
+    // The kept-forever policy is a DATED decision, not a default — and the date
+    // is the day somebody actually weighed THAT table, never inherited from the
+    // batch that happened to declare the others.
+    for (const t of kept) expect(retentionFor(t)?.decidedAt, t).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(retentionFor("sentinel_run")?.decidedAt).toBe("2026-09-04");
   });
 });
 

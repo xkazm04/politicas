@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   formatCzechDate,
   isTenureClass,
+  TENURE_CLASSES,
   isTrendTooEarly,
   mandateNoteCopy,
   tenureClassLabel,
@@ -18,6 +19,11 @@ describe("isTenureClass", () => {
     }
   });
 
+  it("the vocabulary is ONE exported array the type derives from — like LOW_SCORE_REASONS and WORKHORSE_FLAVOURS", () => {
+    expect([...TENURE_CLASSES].sort()).toEqual(["departed", "full_term", "never_seated", "replacement"]);
+    for (const c of TENURE_CLASSES) expect(isTenureClass(c)).toBe(true);
+  });
+
   it("rejects unknown strings, non-strings, null and undefined", () => {
     expect(isTenureClass("mid_term")).toBe(false);
     expect(isTenureClass("")).toBe(false);
@@ -31,6 +37,15 @@ describe("formatCzechDate", () => {
   it("formats an ISO date day-first without leading zeros", () => {
     expect(formatCzechDate("2025-11-12")).toBe("12. 11. 2025");
     expect(formatCzechDate("2026-03-01")).toBe("1. 3. 2026");
+  });
+
+  it("returns null for a date-SHAPED string that is not a calendar date (2026-09-06, bounty-hunter)", () => {
+    // The shape check alone let month 13 and day 32 through; the consumer then formats
+    // them with lib/format and renders „Invalid Date“ — a fabricated date by another name.
+    expect(formatCzechDate("2025-13-01")).toBeNull();
+    expect(formatCzechDate("2025-02-30")).toBeNull();
+    expect(formatCzechDate("2025-00-10")).toBeNull();
+    expect(formatCzechDate("2024-02-29")).toBe("29. 2. 2024");
   });
 
   it("returns null for malformed input", () => {

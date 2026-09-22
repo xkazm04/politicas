@@ -347,10 +347,13 @@ export const COI_SECTORS: SectorDef[] = [
   { sector: "business_economy", committees: ["HV"], stems: ["podnikatel", "manazer", "reditel", "obchodni", "firm", "byznys", "jednatel"] },
   { sector: "health", committees: ["VZ"], stems: ["lekar", "zdravotn", "farmaceut", "nemocnic", "stomatolog", "veterinar", "lekarn"] },
   { sector: "environment", committees: ["VŽP", "VZP"], stems: ["ekolog", "odpadov", "envi"] },
-  { sector: "defense_security", committees: ["VO", "VB"], stems: ["vojak", "armad", "policist", "hasic", "bezpecnostn", "voják"] },
+  { sector: "defense_security", committees: ["VO", "VB"], stems: ["vojak", "armad", "policist", "hasic", "bezpecnostn"] },
   { sector: "public_admin", committees: ["VSR"], stems: ["starost", "mistostarost", "uredni", "radn", "hejtman", "tajemn"] },
   { sector: "education_science", committees: ["VVVMS"], stems: ["ucitel", "profesor", "vedec", "akademik", "vyzkumn", "pedagog"] },
-  { sector: "finance_budget", committees: ["RV"], stems: ["ucetn", "auditor", "bankez", "bankeř", "financn", "danov"] },
+  // "banker": asciiFold("bankéř") — until 2026-09-06 the stems were `bankez` (a typo) and
+  // `bankeř` (unfolded), so no banker ever matched; volbyStems.test.ts pins every stem
+  // as fold-idempotent.
+  { sector: "finance_budget", committees: ["RV"], stems: ["ucetn", "auditor", "banker", "financn", "danov"] },
   { sector: "law", committees: ["ÚPV", "UPV"], stems: ["pravnik", "advokat", "soudce", "notar"] },
   { sector: "media", committees: ["VMZ"], stems: ["novinar", "redaktor", "moderator"] },
 ];
@@ -360,7 +363,7 @@ export const CONTROL_COMMITTEE_ABBREV = "KV";
 
 /** Self-referential occupation stems ("poslanec", "ministr"…) — the structural blind spot: an
  *  incumbent's PS2025 POVOLANI names their OWN office, not the outside tie the signal looks for. */
-const SELF_REFERENTIAL_STEMS = ["poslan", "senator", "ministr", "hejtman", "europoslan"];
+export const SELF_REFERENTIAL_STEMS = ["poslan", "senator", "ministr", "hejtman", "europoslan"];
 
 function stemHit(foldedText: string, stem: string): boolean {
   return new RegExp(`\\b${stem}`, "i").test(foldedText);

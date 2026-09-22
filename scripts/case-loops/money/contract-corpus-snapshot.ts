@@ -10,6 +10,7 @@
  *   npx tsx scripts/case-loops/money/contract-corpus-snapshot.ts --compare
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 
 const arg = (n: string) => process.argv.find((a) => a.startsWith(`--${n}=`))?.split("=")[1];
 const flag = (n: string) => process.argv.includes(`--${n}`);
@@ -35,9 +36,9 @@ interface Snapshot {
 async function snapshot(): Promise<Snapshot> {
   const store = await getStore();
   if (!store) throw new Error("no store");
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const contracts = await store.listKgNodes({ kind: "contract", limit: 500_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 500_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
   await store.close();
 
   const byId = new Map(contracts.map((c) => [c.id, c]));

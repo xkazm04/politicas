@@ -98,3 +98,65 @@ index (no slug on `Finding`); the zero-finding sentence names the term window,
 not a lot count (an empty `SubjectCard` carries none); `ProvenanceCapsule`
 receipts are not minted — `u.`/`h.` refs link to `/zdroj`, other refs render
 as text. `custom/require-source-citation` warnings: 0 before, 0 after.
+
+**The timeline got its first dated chamber outcome (2026-09-04).** Every `law_*` finding
+on this surface shipped `decidedOn: null`, because `volbyLoader.ts` set
+`sponsoredOn: null` on every sponsored bill — no bill prop carries the sponsorship date
+— and `rules.ts` derived `decidedOn` from it. The dated-outcome timeline therefore had
+nothing to anchor a legislative finding on.
+
+The `decides` edges (roll call → print) date the chamber's own act on a sponsored print.
+`SponsoredBill.finalVoteOn` is the day of the LAST roll call on it, and `law_final_vote`
+(`volby:R1`) is emitted for it.
+
+**It is a RECORD row, not a finding** — the `contested.ts` doctrine. Valence `unrated`,
+so `rollupLedger` counts it and shows it but never adds it to `total`: that the chamber
+voted on a print is neither a credit nor a charge against the member who tabled it, and
+scoring it either way would be the surface inventing a judgment its rules do not hold.
+
+**And it does not fill `decidedOn`.** The vote is a LATER fact about the bill, so it
+lands on `laterOn` with `laterKind: "final_vote"`; `decidedOn` stays null until the graph
+actually carries a sponsorship date. Putting the vote date in the decision slot would
+have made „when the chamber acted" read as „when the member chose" — the timeline's whole
+distinction. A roll call on a multi-print agenda item still dates each of its prints: the
+vote genuinely disposed of the whole block, and a date claims nothing about which print
+the block was about.
+
+Until the writer runs against the live store there are no `decides` edges, so no
+`law_final_vote` row is emitted and nothing on the surface changes.
+
+**2026-09-07 — the person urn is read through `pspIdFromNodeId` (scan-sweep, parity-auditor).**
+`volbyLoader.ts` spelled `/^psp:person:(\d+)$/` twice (ties per person, sponsors per
+person); `lib/ingest/changeEvents.ts` owns that grammar. Both sites read it now.
+
+**2026-09-07 — a sponsor conflict with an unknown amount prints no amount (scan-sweep,
+bounty-hunter).** `law_sponsor_conflict` defaulted a missing `sponsor_contract_czk` to 0,
+so a flagged bill whose contract sum the graph does not carry showed „0 Kč" on its finding
+row as if measured (and `sponsor_money_companies` likewise). The finding is medium — it
+cannot clear the 100-mil. bar without a number — and its `figures` carry only the values
+the bill has; `rules.test.ts` pins the null case.
+
+**2026-09-07 — every rule `RULE_REF` names has its /metodika anchor (scan-sweep,
+copy-auditor).** `MetodikaVolbySection` kept a hand copy of eleven finding kinds; the R1
+record rule (`law_final_vote`, 2026-09-04) was missing, so `/metodika#volby-R1` — linked
+from every final-vote row — led nowhere, although both catalogs carried its title and
+sentence. The list now derives from `RULE_REF` and `features/volby/volbySource.test.ts`
+checks that each kind has a `volbyRule_<kind>_title/_rule` in cs and en.
+
+**2026-09-07 — the home page resolves a kraj by IČO through `krajByIco` (scan-sweep,
+parity-auditor).** `VolbyPage.subjectLabel` scanned `KRAJ_CROSSWALK` by hand while
+`labels.subjectHref` reads `krajByIco` for the same question; one lookup now.
+
+**2026-09-07 — the list page pins a kraj's members by the loader's rule (scan-sweep,
+parity-auditor).** `ListPage` filtered pinned members with „slug equals OR literal psp
+label equals" while `getListData` sorts them by `region === regionLabelFromPspName(pspLabel)`
+— two spellings of one question (equivalent today, free to drift). The page reads the
+loader's rule.
+
+**2026-09-07 — `?kraj=` is read through `lib/routing/searchParam` (scan-sweep,
+parity-auditor).** The list route unpacked `string | string[]` by hand; `firstParam` is the
+reader every other route adopted in round 37.
+
+**2026-09-07 — the obec IČO shape is spelled once (scan-sweep, parity-auditor).** The
+route and `getObecData` each carried `/^\d{8}$/`; the loader now exports `isObecIco` and
+the route reads it, so a change to what „an obec's IČO" means happens in one place.

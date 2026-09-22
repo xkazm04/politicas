@@ -28,10 +28,12 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { czechInt } from "@/lib/format";
+import { summarizeLoaderDegradations } from "@/lib/db/loaderFailureLog";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
-import { resolveTieClass, reviewTier } from "@/features/money/reviewTypes";
+import { resolveTieClass, reviewStateOf, reviewTier } from "@/features/money/reviewTypes";
+import { EFFORT_VERDICT_FIELDS, readVerdictRung } from "@/lib/analysis/verdict-provenance";
 import { getTripwireData } from "./getTripwireData";
 import { LOOPS_STATUS_SOURCE, parseLoopsStatus, parsePassLog, type LoopsStatusFact } from "./loops/loopState";
 import type {
@@ -43,6 +45,7 @@ import type {
   LoopCaseProgress,
   MoneyLeadSummary,
   ReviewAuditSummary,
+  ReviewKindCoverage,
   ReviewHubData,
   SystemState,
   TieReviewSummary,
@@ -52,6 +55,9 @@ import type {
 
 const ROOT = process.cwd();
 const VAULT = "docs/data-analysis";
+/** Strop čtení review_audit - týž jako getVerificationData.ts (10 000); plná
+ *  stránka se hlásí, nikdy se mlčky ořízne. */
+const AUDIT_READ_CAP = 10_000;
 
 // ── generic disk helpers ─────────────────────────────────────────────────
 
@@ -200,7 +206,8 @@ function loadFrontierOpenCounts(): Partial<Record<CaseId, number>> {
     const text = readTextSafe(`${VAULT}/frontier.md`);
     if (!text) return {};
     return parseFrontierOpenCounts(text);
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadFrontierOpenCounts", err);
     return {};
   }
 }
@@ -220,7 +227,8 @@ function loadVaultHeads(): VaultHeads {
     const text = readTextSafe(`${VAULT}/graph-log.md`);
     if (!text) return { lastPass: null, recentPasses: [] };
     return parseVaultHeads(text);
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadVaultHeads", err);
     return { lastPass: null, recentPasses: [] };
   }
 }
@@ -304,7 +312,8 @@ function loadMoneyProgress(): LoopCaseProgress {
       openFrontier: null,
       source,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadMoneyProgress", err);
     return emptyProgress("money", labelCs, source);
   }
 }
@@ -337,7 +346,8 @@ function loadEffortProgress(): LoopCaseProgress {
       openFrontier: null,
       source,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadEffortProgress", err);
     return emptyProgress("effort", "Docházka (kontribuční index)", source);
   }
 }
@@ -436,7 +446,8 @@ function loadLawProgress(): LoopCaseProgress {
       openFrontier: null,
       source,
     };
-  } catch {
+  } catch (err) {
+    reportLoaderFailure("getAdminData.loadLawProgress", err);
     return emptyProgress("law", labelCs, source);
   }
 }
@@ -488,7 +499,7 @@ function asStr(v: unknown): string | null {
 
 async function loadReviewHub(): Promise<ReviewHubData> {
   const leads = loadMoneyLeads();
-  const empty: ReviewHubData = { ties: null, forensic: null, leads, audit: null };
+  const empty: ReviewHubData = { ties: null, forensic: null, leads, audit: null, coverage: [] };
   try {
     const store = await getStore();
     if (!store) return empty;
@@ -519,9 +530,11 @@ async function loadReviewHub(): Promise<ReviewHubData> {
             continue;
           }
 
-          const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-          if (rawState === "verified") verified++;
-          else if (rawState === "rejected") rejected++;
+          // TÁŽ interpretace stavu jako /penize (reviewStateOf): neznámý i chybějící
+          // stav čeká - do 2026-09-07 tu stál vlastní žebřík verified/rejected/else.
+          const state = reviewStateOf(e.props?.review_state ?? e.props?.state);
+          if (state === "verified") verified++;
+          else if (state === "rejected") rejected++;
           else pending++;
 
           const role = String(e.props?.role ?? "");
@@ -560,14 +573,21 @@ async function loadReviewHub(): Promise<ReviewHubData> {
         const state = asStr(p.forensic_review_state);
         const severity = asStr(p.forensic_severity);
         if (!state && !severity) continue;
-        const sev = severity ?? "low";
+        // Chybějící závažnost NENÍ „low" - do 2026-09-07 se tisk se stavem brány a
+        // bez závažnosti počítal mezi nízké; má vlastní kbelík, který plocha vysází
+        // doslova (SEVERITY_TONE má pro neznámý klíč neutrální tón).
+        const sev = severity ?? "neuvedeno";
         bySeverity[sev] = (bySeverity[sev] ?? 0) + 1;
         items.push({
           tiskId: Number(n.id.replace(/^bill:tisk:/, "")) || 0,
           cislo: typeof p.cislo === "number" ? p.cislo : null,
           title: n.label,
           severity: sev,
-          reviewState: state ?? "pending_review",
+          // NOT `?? "pending_review"` (G2, 2026-09-04): the same fabrication
+          // getLawData.ts:201 carried. An absent gate state is absent, and this
+          // board's own coverage row counts it as pending WITHOUT relabelling
+          // the bill as something a queue has promised to look at.
+          reviewState: state ?? "",
         });
       }
       if (items.length > 0) {
@@ -587,7 +607,10 @@ async function loadReviewHub(): Promise<ReviewHubData> {
     // review_audit: decisions actually made through the human gate.
     let audit: ReviewAuditSummary | null = null;
     try {
-      const rows = await store.listReviewAudit({ limit: 10_000 });
+      const rows = await store.listReviewAudit({ limit: AUDIT_READ_CAP });
+      if (rows.length >= AUDIT_READ_CAP) {
+        console.warn(`[getAdminData] review_audit read filled the cap (${AUDIT_READ_CAP}) - totals below may be truncated`);
+      }
       if (rows.length > 0) {
         const byDecision: Record<string, number> = {};
         const byReviewer: Record<string, number> = {};
@@ -607,7 +630,95 @@ async function loadReviewHub(): Promise<ReviewHubData> {
       audit = null;
     }
 
-    return { ties, forensic, leads, audit };
+    // ── [G2 review door] per-kind coverage: decided / pending / total ────────
+    // The four counters above each answer a different question in a different
+    // shape. This board answers ONE question the same way for every claim kind
+    // that reaches a reader, because that is the only form in which the finding
+    // is legible: three of these populations were in the hundreds with a decided
+    // count of zero, and nothing on this page said so.
+    //
+    // Counts only, never a rate. And a kind with NO WRITER is marked as such
+    // rather than shown as an unworked queue — those two zeroes mean opposite
+    // things and an operator must not have to guess which one they are reading.
+    let coverage: ReviewKindCoverage[] = [];
+    try {
+      const auditByKind = await store.countReviewAuditByKind();
+      const rows: ReviewKindCoverage[] = [];
+
+      if (ties) {
+        rows.push({
+          kind: "tie",
+          total: ties.total,
+          decided: ties.verified + ties.rejected,
+          pending: ties.pending,
+          auditRows: auditByKind.tie ?? 0,
+          hasWriter: true,
+        });
+      }
+      if (forensic) {
+        const decided = forensic.items.filter(
+          (i) => i.reviewState === "verified" || i.reviewState === "rejected",
+        ).length;
+        rows.push({
+          kind: "bill_verdict",
+          total: forensic.total,
+          decided,
+          pending: forensic.total - decided,
+          auditRows: auditByKind.bill_verdict ?? 0,
+          hasWriter: true,
+        });
+      }
+
+      // Effort verdicts: the denominator is claims, not people — one MP can
+      // carry three, and each is decided on its own.
+      const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
+      let effortTotal = 0;
+      let effortDecided = 0;
+      for (const n of persons) {
+        const p = (n.props ?? {}) as Record<string, unknown>;
+        for (const field of EFFORT_VERDICT_FIELDS) {
+          if (p[field] === undefined || p[field] === null) continue;
+          effortTotal++;
+          const v = readVerdictRung(p, field);
+          if (v && (v.rung === "verified" || v.rung === "rejected")) effortDecided++;
+        }
+      }
+      rows.push({
+        kind: "effort_verdict",
+        total: effortTotal,
+        decided: effortDecided,
+        pending: effortTotal - effortDecided,
+        auditRows: auditByKind.effort_verdict ?? 0,
+        hasWriter: true,
+      });
+
+      // Declared, carried over. `total` is what the operator can SEE today: the
+      // lead payloads on disk. Tripwires are re-derived per read and hold no
+      // state, so their population is not countable from here and reads as 0 —
+      // which the surface must not present as "none found".
+      rows.push({
+        kind: "lead",
+        total: leads.length,
+        decided: 0,
+        pending: leads.length,
+        auditRows: auditByKind.lead ?? 0,
+        hasWriter: false,
+      });
+      rows.push({
+        kind: "tripwire",
+        total: 0,
+        decided: 0,
+        pending: 0,
+        auditRows: auditByKind.tripwire ?? 0,
+        hasWriter: false,
+      });
+      coverage = rows;
+    } catch (err) {
+      reportLoaderFailure("getAdminData.loadReviewHub.coverage", err);
+      coverage = [];
+    }
+
+    return { ties, forensic, leads, audit, coverage };
   } catch (err) {
     reportLoaderFailure("getAdminData.loadReviewHub", err);
     return empty;
@@ -623,6 +734,11 @@ async function loadSystemState(vaultHeads: VaultHeads, loopsStatus: LoopsStatusF
     loopsRunState: loopsStatus.state,
     loopsStatusLabel: loopsStatus.labelCs,
     loopsStatusSource: LOOPS_STATUS_SOURCE,
+    // [G5] A FILE read, not a store read — so it survives the store being down,
+    // which is precisely the moment an operator wants to see it. `null` (no
+    // file) is passed through untouched: "nobody was watching" must not be
+    // rendered as "nothing happened".
+    loaderDegradations: summarizeLoaderDegradations(),
   };
   try {
     const store = await getStore();

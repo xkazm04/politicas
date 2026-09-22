@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import LeaderboardPoster, {
@@ -8,6 +7,8 @@ import LeaderboardPoster, {
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { formulaMismatchOrNull } from "@/features/civicscore/provenance";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
+import { liveUrl } from "@/lib/routing/liveUrl";
+import { pragueDay } from "@/features/denik/pragueDay";
 
 /*
  * /plakat/<view> — Režim plakátu (batch 1D): tisková podoba klíčových ploch.
@@ -20,15 +21,6 @@ import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData
 const VIEWS = ["zebricek"] as const;
 type PosterView = (typeof VIEWS)[number];
 const isPosterView = (v: string): v is PosterView => (VIEWS as readonly string[]).includes(v);
-
-/** Živá URL žebříčku z request hlaviček — na patičce plakátu nesmí být
- *  vymyšlená doména; v dev čestně stojí localhost, v nasazení reálný host. */
-async function liveLeaderboardUrl(): Promise<string> {
-  const h = await headers();
-  const host = h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? "http";
-  return host ? `${proto}://${host}/zebricek` : "/zebricek";
-}
 
 export async function generateMetadata({
   params,
@@ -57,9 +49,16 @@ export default async function PlakatPage({ params }: { params: Promise<{ view: s
   }
 
   const poster: LeaderboardPosterData = {
-    // Datum, ke kterému čísla platí = den vykreslení ze živého grafu.
-    retrievedAt: new Date().toISOString().slice(0, 10),
-    liveUrl: await liveLeaderboardUrl(),
+    // Den, ke kterému čísla platí, vydává KOMOROVÝ agregát provenience
+    // (`provenance.computedAt` — jeden den nad jedním {pass, ref}), týž zdroj, ze
+    // kterého datuje karta kraje i vestavný widget. Do 2026-09-07 tu stál den
+    // vykreslení z UTC hodin, takže arch datoval sám sebe místo dat pod sebou.
+    // Když se komora na jednom dni neshodne, arch dostane PRAŽSKÝ den vytištění —
+    // typ `retrievedAt` nemá „neuvedeno“ (features/shared/poster); viz backlog.
+    retrievedAt: data.provenance.computedAt ?? pragueDay(),
+    // Živá URL žebříčku z request hlaviček (lib/routing/liveUrl.ts) — na patičce
+    // plakátu nesmí být vymyšlená doména.
+    liveUrl: await liveUrl("/zebricek"),
     provenancePass: data.provenancePass,
     formulaMismatch: formulaMismatchOrNull(data.provenance),
     summary: data.summary,

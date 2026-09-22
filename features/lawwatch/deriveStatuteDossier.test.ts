@@ -56,6 +56,7 @@ const bill = (over: Partial<LawBillView>): LawBillView => ({
   amendedLawsFull: [],
   amendsUndercount: 0,
   sectorAttributionFlags: [],
+  rollCalls: [],
   ...over,
 });
 

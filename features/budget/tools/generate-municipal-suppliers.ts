@@ -42,17 +42,26 @@ async function main() {
 
   const municipalIcs = new Set(getRegistry().map((m) => m.ic));
 
+  // Provenience dávky: pass + computedAt z hran supplies (batch-012 track money).
+  // Čte se PŘED odvozením, protože computedAt je zároveň horní mez možného roku
+  // podpisu (`retrievedOn`): do 2026-09-01 se nepředával a `yearOf` tak měřil
+  // nový graf dnem ZAPSANÉ dávky (SUPPLIERS_RETRIEVED_ON) — regenerace v roce
+  // 2027 by každý podpis z roku 2027 prohlásila za nemožný a rozsah potlačila.
+  // Bez computedAt se ponechá výchozí mez modulu a zapíše se prázdná konstanta
+  // — s ní `isPlausibleSignatureYear` potlačí KAŽDÝ rok, takže vadná
+  // provenience se na ploše ukáže jako potlačené rozsahy, ne jako tichý odhad.
+  const prov = supplies[0]?.provenance as Record<string, unknown> | undefined;
+  const pass = Number(prov?.pass) || 0;
+  const computedAt = typeof prov?.computedAt === "string" ? prov.computedAt.slice(0, 10) : "";
+
   const { rows, stats } = deriveMunicipalSupplierRows({
     contracts,
     supplies,
     companyLabelByIco,
     municipalIcs,
+    ...(computedAt ? { retrievedOn: computedAt } : {}),
   });
 
-  // Provenience dávky: pass + computedAt z hran supplies (batch-012 track money).
-  const prov = supplies[0]?.provenance as Record<string, unknown> | undefined;
-  const pass = Number(prov?.pass) || 0;
-  const computedAt = typeof prov?.computedAt === "string" ? prov.computedAt.slice(0, 10) : "";
   const townCount = new Set(rows.map((r) => r.townIc)).size;
 
   console.log(

@@ -14,6 +14,7 @@
 
 import { useState, useTransition } from "react";
 import { czech, czechDate, czechInt } from "@/lib/format";
+import { pragueDay } from "@/features/denik/pragueDay";
 import SourceNote from "@/features/shared/components/SourceNote";
 import {
   acknowledgeAlert,
@@ -22,7 +23,7 @@ import {
   saveQueueOrder,
   type LoopActionResult,
 } from "@/app/admin/loopActions";
-import type { LoopStatus } from "../loops/loopState";
+import type { LoopStaleness, LoopStatus } from "../loops/loopState";
 import type { LoopsDoc, LoopsDocAlert } from "../loops/loopsJson";
 
 /* ── drobné pomocníky ─────────────────────────────────────────────────────── */
@@ -37,16 +38,21 @@ function durationCs(ms: number | null): string {
   return `${czechInt(Math.floor(min / 60))} h ${czechInt(min % 60)} min`;
 }
 
+/** ISO okamžik (konec běhu, zařazení, potvrzení) → český PRAŽSKÝ den. Do
+ *  2026-09-07 šel instant do czechDate přímo, tedy jako UTC den - běh
+ *  dokončený ve 23:30 UTC stál pod včerejším datem. */
+const dayCs = (iso: string): string => czechDate(pragueDay(new Date(iso)));
+
 function ageCs(ageDays: number | null): string {
   if (ageDays == null) return "—";
   return `${czech(ageDays)} d`;
 }
 
-const STALENESS_CLS: Record<string, string> = {
+const STALENESS_CLS = {
   "čerstvé": "border-ink text-ink",
   "stárnoucí": "border-ochre text-ink",
   "zastaralé": "border-signal text-signal",
-};
+} as const satisfies Record<LoopStaleness, string>;
 
 const STATUS_CLS: Record<LoopStatus["status"], string> = {
   "pozastaveno": "border-ochre text-ink",
@@ -214,7 +220,7 @@ export default function LoopMissionControl({ doc }: { doc: LoopsDoc }) {
                 </td>
                 <td className="max-w-[16rem] px-3 py-2">
                   <p className="font-mono text-xs tabular-nums text-ink">
-                    {loop.lastActivityAt ? czechDate(loop.lastActivityAt) : "—"}
+                    {loop.lastActivityAt ? dayCs(loop.lastActivityAt) : "—"}
                   </p>
                   {loop.lastActivityLabel && (
                     <p className="truncate text-xs text-steel" title={loop.lastActivityLabel}>
@@ -244,7 +250,7 @@ export default function LoopMissionControl({ doc }: { doc: LoopsDoc }) {
                   )}
                 </td>
                 <td className="px-3 py-2 font-mono text-xs tabular-nums text-ink">
-                  {loop.nextExpectedAt ? czechDate(loop.nextExpectedAt) : "—"}
+                  {loop.nextExpectedAt ? dayCs(loop.nextExpectedAt) : "—"}
                 </td>
                 <td className="px-3 py-2">
                   {loop.failureStreak > 0 ? (
@@ -326,7 +332,7 @@ export default function LoopMissionControl({ doc }: { doc: LoopsDoc }) {
                 <div className="min-w-0 flex-1">
                   <p className="font-mono text-sm font-bold text-ink">{item.target}</p>
                   <p className="text-xs text-steel">
-                    zařazeno {czechDate(item.requestedAt)}
+                    zařazeno {dayCs(item.requestedAt)}
                     {item.note ? ` — ${item.note}` : ""}
                   </p>
                 </div>
@@ -446,8 +452,8 @@ function AlertRow({
         <p className={`text-sm leading-relaxed ${alert.acknowledged ? "text-steel" : "text-ink"}`}>{alert.messageCs}</p>
         <p className="font-mono text-[11px] uppercase tracking-widest text-steel-aa">
           {alert.loopId}
-          {alert.since ? ` · od ${czechDate(alert.since)}` : ""}
-          {alert.acknowledged && alert.acknowledgedAt ? ` · potvrzeno ${czechDate(alert.acknowledgedAt)}` : ""}
+          {alert.since ? ` · od ${dayCs(alert.since)}` : ""}
+          {alert.acknowledged && alert.acknowledgedAt ? ` · potvrzeno ${dayCs(alert.acknowledgedAt)}` : ""}
         </p>
       </div>
       {onAck && !alert.acknowledged && (

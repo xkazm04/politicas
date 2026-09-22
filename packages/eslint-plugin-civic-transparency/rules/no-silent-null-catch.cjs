@@ -29,13 +29,22 @@ module.exports = {
     schema: [],
   },
   create(context) {
-    /** True for `return null;` / `return [];` — the fallback-degradation shape. */
+    /** `undefined` as an expression — the identifier, never rebound in practice. */
+    function isUndefinedExpression(expr) {
+      return expr.type === "Identifier" && expr.name === "undefined";
+    }
+    /** True for `return null;` / `return [];` / `return;` / `return undefined;` —
+     *  the fallback-degradation shape. A bare `return;` hands the caller
+     *  `undefined`, which is the same "nothing, and no trace" as `null`; until
+     *  2026-09-08 it passed both catch rules (measured: 0 sites in scope, so this
+     *  closes a bypass shape, not a live inventory). */
     function isNullyReturn(stmt) {
-      if (stmt.type !== "ReturnStatement" || !stmt.argument) return false;
+      if (stmt.type !== "ReturnStatement") return false;
       const arg = stmt.argument;
+      if (!arg) return true;
       const isNull = arg.type === "Literal" && arg.value === null;
       const isEmptyArray = arg.type === "ArrayExpression" && arg.elements.length === 0;
-      return isNull || isEmptyArray;
+      return isNull || isEmptyArray || isUndefinedExpression(arg);
     }
     /** True for an expression-statement call to reportLoaderFailure(...). */
     function isReportLoaderFailureCall(stmt) {
@@ -43,7 +52,37 @@ module.exports = {
       const callee = stmt.expression.callee;
       return callee.type === "Identifier" && callee.name === "reportLoaderFailure";
     }
+    /** `null` / `[]` as an expression — the fallback shape without a `return`. */
+    function isNullyExpression(expr) {
+      if (!expr) return false;
+      return (
+        (expr.type === "Literal" && expr.value === null) ||
+        (expr.type === "ArrayExpression" && expr.elements.length === 0) ||
+        isUndefinedExpression(expr)
+      );
+    }
     return {
+      // `promise.catch(() => null)` / `.catch(() => [])` is the same degradation
+      // in promise-chain syntax — a CallExpression, not a CatchClause, so the
+      // visitor below never saw it (the sibling no-silent-catch closed the same
+      // gap for EMPTY handlers). Measured 2026-09-05: 0 sites in the rule's
+      // scope (features/**/get*.ts, *Loader.ts), so this closes a bypass shape,
+      // not a live inventory.
+      CallExpression(node) {
+        const callee = node.callee;
+        if (callee.type !== "MemberExpression" || callee.computed || callee.property.type !== "Identifier" || callee.property.name !== "catch") return;
+        const handler = node.arguments[0];
+        if (!handler || (handler.type !== "ArrowFunctionExpression" && handler.type !== "FunctionExpression")) return;
+        if (handler.body.type !== "BlockStatement") {
+          if (isNullyExpression(handler.body)) context.report({ node: handler.body, messageId: "silentNullCatch" });
+          return;
+        }
+        const body = handler.body.body;
+        if (body.length === 0) return; // empty handler: no-silent-catch's territory
+        if (body.some(isNullyReturn) && !body.some(isReportLoaderFailureCall)) {
+          context.report({ node: handler.body, messageId: "silentNullCatch" });
+        }
+      },
       CatchClause(node) {
         const body = node.body && node.body.body;
         // Gating on body.length === 1 made this trivially bypassed by prepending

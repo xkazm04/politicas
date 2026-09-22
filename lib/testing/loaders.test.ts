@@ -545,9 +545,13 @@ describe("loadMoneyLayer (the shared /penize read)", () => {
     expect(num(undefined)).toBe(0);
   });
 
-  it("pspIdFromNodeId reads the integer tail of an urn, else null", () => {
+  it("pspIdFromNodeId reads a strict psp:person:<n> urn, else null (no prefix, no tail)", () => {
     expect(pspIdFromNodeId("psp:person:6202")).toBe(6202);
     expect(pspIdFromNodeId("psp:person:abc")).toBeNull();
+    // Strict since 2026-09-07 (lib/ingest/changeEvents.ts): a longer id that merely
+    // ENDS in a number is not a person urn.
+    expect(pspIdFromNodeId("x:psp:person:6202")).toBeNull();
+    expect(pspIdFromNodeId("psp:person:6202:extra")).toBeNull();
   });
 });
 

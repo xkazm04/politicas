@@ -1,0 +1,432 @@
+# scan-sweep — project overlay (politicas)
+
+Runs on the skill defaults; this file exists for the improvement log below.
+
+## Skill improvement log
+
+- 2026-09-01 — `moonshot-architect` is an operator-named ad-hoc lens (absent from
+  `references/lenses.md`). Run as a 10-scout per-group fan-out (develop, L+ only);
+  snapshot scope `moonshot:all-groups`, `lens_keys: []` so it never counts as coverage.
+  The durable deck is `docs/architect/moonshot-2026-09-01.md`; the outbox holds only
+  the top 29 bodies. Re-running the lens must read that doc first and not re-propose
+  its 47 titles.
+- 2026-09-01 — analysis-quality, first sweep (23 lenses, 6 S built, 1 contract
+  finding to `docs/architect/backlog.md`). Two repo facts every round needs:
+  (1) commit with `git commit --only <paths>` — a concurrent session's staged
+  files otherwise ride along (memory: shared-index-needs-commit-only); (2) the
+  commit-msg hook `doc-sync` owes a `Doc-sync(<doc>): <reason>` trailer for every
+  coupled doc not touched — `lib/analysis/**` is coupled to `AGENTS.md` and
+  `docs/hybrid-benchmark-plan.md`, so every commit there needs both trailers.
+  (3) The outbox's 30-finding cap was full after the moonshot round; check the
+  count BEFORE the round and route overflow to the architect backlog.
+- 2026-09-05 — app-config, first sweep (28 lenses, 1 S built, 5 cards to backlog.md;
+  outbox finding cap still full). Two facts for the next round: (1) under a full
+  `npm run check` the unit lane can time out `lib/testing/archivedScripts.test.ts`
+  at its 5 s budget (6,3 s measured; 1,9 s alone) — rerun the file alone before
+  calling the gate red, and still run the stages `check` skipped. (2) `next.config.ts`
+  imported under tsx is double-wrapped (`.default.default`) before `headers()` is
+  reachable — the header contract test in the backlog needs that unwrap.
+- 2026-09-05 — app-shell, first sweep (28 lenses, 3 S built). (1) `git commit --only <path>`
+  REFUSES an untracked path ("pathspec did not match") — `git add` the new file first,
+  and never pipe the commit through `grep`: the refusal scrolled away and `git log -1`
+  showed a concurrent session's commit instead. (2) Next file conventions (error.tsx)
+  export no prop types; a minor upgrade (16.2 -> 16.3, `unstable_retry` -> `retry`) broke
+  both boundaries with tsc green. Check every convention file against
+  `node_modules/next/dist/docs/.../03-file-conventions/` whenever the Next version moves.
+- 2026-09-05 — budget-mirror, first sweep (28 lenses, 2 S built, 2 cards). (1) The outbox
+  is at its 200-line cap and holds 30 findings: this round emitted NOTHING there; coverage
+  lives only in the snapshot until the app drains the file. (2) Czech test titles use the
+  „ … “ pair (U+201E/U+201C); an ASCII `"` as the closing quote terminates the string and
+  esbuild reports it as a leading-zero decimal error at the next number. (3) `features/budget/**`
+  owes four dismissal trailers per commit: README.md, AGENTS.md, docs/ROADMAP.md,
+  docs/data-analysis/budget-sources.md (+ docs/DESIGN.md for BudgetMirrorPage.tsx).
+- 2026-09-05 — civic-chronicle, first sweep (28 lenses, 4 S built, 0 cards). The two
+  real defects were both PAIRS across the two journals (raw vs canonical IČO in
+  registry links; a placeholder key that one side emits and the other side's
+  `isEntityKey` refuses) — on a context this mature, grep the shared symbol
+  (`canonicalIco`, `isEntityKey`) across both features first. Source-grep a11y tests
+  (features/*/a11y.test.ts) are the accepted instrument here; jsdom is absent on purpose.
+  Gate note: a second load-sensitive timeout this session — `lib/db/pglite/premigration.test.ts`
+  „restores…“ hit its 60 s budget inside a full `npm run check` (5,4 s alone). Same recipe:
+  rerun the file alone, then run every stage `check` skipped.
+- 2026-09-05 — civic-feeds-verification, first sweep (28 lenses, 3 S built). Route handlers
+  ARE unit-testable here: `vi.mock("next/headers")` + `vi.mock("./get<Loader>")` and
+  `await import("@/app/<route>/route")` (the `server-only` alias in vitest.config.ts makes
+  the import legal). Two suites now exist as templates: features/dukazy/feedRoutes.test.ts,
+  features/schranka/feedRoutes.test.ts. A mocked `SchrankaDeltas.coverage` needs all six
+  NovinkyCoverage flags (dukazy, recompute too) or tsc goes red on the test file.
+- 2026-09-05 — civic-kg-primitives, first sweep (28 lenses, 3 S built, 1 card). `lib/**`
+  may not import `features/**`; when a lib helper must agree with a features helper
+  (canonical IČO), write the lib copy and pin the two together in the lib TEST, which
+  MAY import features. A whole-tree `tsc` + two vitest runs + eslint in one chain exceeds
+  the 300 s foreground budget — run multi-step build chains with run_in_background.
+- 2026-09-05 — civic-transparency-eslint-plugin, first sweep (28 lenses, 4 built). The
+  plugin's gate is `node packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs`
+  (seconds) + eslint on the touched .cjs/.mjs; tsc does not cover the package, so a chain
+  of four fixes fits one background call. `packages/**` is coupled to no doc in the map —
+  the rule's own `docs/rules/<rule>.md` is the record and must move with the matcher.
+  Three opt-out matchers (`citation-ok`, `reduced-motion-ok`, `raw-format-ok`) are one
+  rule in three copies: grep all three whenever one changes.
+- 2026-09-05 — civicscore-leaderboard, first sweep (28 lenses, 2 S built). A commit that
+  threads a new prop through "every badge" (9853059) is a pair-hunt target by itself: grep
+  the badge's opening tag across ALL surfaces that render it and diff the attribute lists —
+  here 6 of 12 sites were missed, on the duel and on the one surface that gets PRINTED.
+  `features/civicscore/**` owes seven dismissal trailers (README, CLAUDE, AGENTS, ROADMAP,
+  DESIGN, routes/metodika.md, routes/poslanec.md) when zebricek.md is the record touched.
+- 2026-09-05 — civicscore-lens-duel, first sweep (28 lenses, 2 S built). A module that
+  "mirrors" another (lens.ts mirrors the loader's sort / median / histogram) is a standing
+  pair: every later fix to the original is a candidate finding here — diff the two rule
+  sets, not the code. When the original is `server-only` and the mirror is client code,
+  the parity instrument is a TEST that imports both (the vitest alias allows it).
+- 2026-09-06 — claim-verifier, first sweep (28 lenses, 6 S built). `?? 0` on a nullable count
+  that reaches a sentence is a missing-is-not-zero defect every time - grep `?? 0` in every
+  page and follow the type to where null is produced. A `slice(0, N)` with no sentence
+  after it is a silent truncation; a hash/algorithm NAME printed as a literal beside a value
+  computed elsewhere is a parity pair. A test title containing `#1234` trips the colour lint.
+- 2026-09-06 — contribution-scoring, first sweep (28 lenses, 2 S built, 3 cards). A pure-lib
+  context whose defects are contracts its CONSUMERS inherit (a `?? 0` on a nullable prior
+  count is printed by a component in another context) cannot be fixed in-context under
+  veto 1 - route the type change as a contract card, name the consumer file, and build
+  only what the module can prove alone (a completeness test, a validator).
+- 2026-09-06 — czech-civic-data-parsing, first sweep (28 lenses, 4 S built). A codec that
+  range-checks a date (1-12, 1-31) is the same defect as one that shape-checks it; and a
+  container reader that skips the checksum its container carries contradicts its own
+  "reject loudly" header. Stage discipline: when two findings edit the same file, commit
+  the first BEFORE applying the second - `--only <file>` stages the whole file.
+- 2026-09-06 — dashboard-instruments, first sweep (28 lenses, 3 S built). Two pages in one
+  context are a standing pair: a rule one of them adopted with a dated record (velín 2026-08-12,
+  `hidden sm:block`; exhibit `f.int(pass)`) is a finding wherever the sibling still lacks it -
+  grep the sibling for the exact string the record names.
+- 2026-09-06 — dashboard-state-graph, first sweep (28 lenses, 3 S built). Commit split trap:
+  a source-grep test file shared by several findings must be committed with EVERY helper it
+  declares in use - a truncated version can fail the pre-commit lint (unused helper) and the
+  next commit then carries the test ahead of its fix. Truncate by removing helpers too, or
+  commit the shared test with the last finding.
+- 2026-09-06 — db-hybrid-benchmarks, first sweep (28 lenses, 2 S built). A benchmark harness
+  that also WRITES product data (materialize-tags → vote_tag) is an ingest path and gets the
+  ingest doctrine: a parse fallback that invents a default label is a fabrication, not
+  resilience. Scripts with a top-level main() get the kg-promote isDirectRun guard before a
+  test imports them. A 'second implementation' finding needs its figure - the NFD folder
+  differed from asciiFold on 0 of 400 names and was rejected, not built.
+- 2026-09-06 — db-repositories, first sweep (28 lenses, 3 S built). A read that picks ONE row per
+  key with no ORDER BY is a defect even when today's plan returns the right row - write the
+  test, and when it does not go red say so in the commit rather than claiming a reproduction.
+  A new PGlite-booting test must be registered in lib/testing/lanes.ts (PGLITE_LANE_FILES) -
+  the lane list is explicit and lane-partition.test.ts enforces it.
+- 2026-09-06 — db-store, first sweep (28 lenses, 1 docs fix). A context whose invariants are
+  already pinned by ~120 tests yields comments, not code: grep its headers for counts and
+  writer names and diff them against the declarations they describe. A comment inside
+  CORE_DDL changes the schema snapshot - regenerate with `npm run db:snapshot` in the
+  same commit or CI's drift check goes red.
+- 2026-09-06 — effort-case-loop, first sweep (28 lenses, 4 S built). Case-loop scripts are where
+  lib vocabularies get re-typed: grep every `new Set(["` and every `"a" | "b"` union in
+  scripts/ against lib/analysis exports. A date literal that was a run date is a defect on
+  the second run - make it `--reference=` with today as default and let the payload record it.
+  Evidence scripts from a finished batch (divergence-retune) are left with their literals.
+- 2026-09-06 — eslint-rules-shims, first sweep (28 lenses, 0 built, 3 cards). A shim-only context
+  has no defects of its own; its findings live in the test that guards it. A guard that SKIPs on
+  MODULE_NOT_FOUND without first checking the directory exists cannot tell 'no shims' from
+  'one shim missing' - grep every try/catch SKIP in a test runner for what it actually tests.
+- 2026-09-06 — graph-admin-data-routes, first sweep (28 lenses, 1 S built over 5 files). A rule a
+  sibling route family adopted (feeds: 503 => no-store) is a finding on every other machine
+  route until one test names them all; when the routes span contexts, the test belongs in
+  lib/testing next to the other repo-wide guards, and the commit says so.
+- 2026-09-06 — graph-explorer, first sweep (28 lenses, 9 built over 14 files, 1 prior card withdrawn).
+  A catalog (messages/*.json) is a hand-maintained list: test it against the enum it labels,
+  never against itself - `graph.kinds`/`graph.rels` were 9 labels behind KG_NODE_KINDS/KG_EDGE_RELS.
+  A card written from another context's vantage must be re-read from inside the context before
+  it is built: the round-20 'cesta cannot report rejected' card died on trailPath.ts:185.
+  Tooling: a Czech „…" quote inside a JS double-quoted test title ends the string (twice this
+  round) - use ‚…‘ in titles; node:fs globSync returns backslashes on Windows - normalise.
+- 2026-09-06 — ingest-external-sources, first sweep (28 lenses, 6 S built over 4 adapters). In an
+  adapter folder the pairs are: one retry doctrine vs N loops (grep `res.ok`/`status ===` per
+  file), one fold rule vs the stem lists it is applied to (assert asciiFold(stem) === stem), and
+  two decoders of one grammar (feed both the same string). A resume/retry branch that `break`s
+  out of its loop is worth one temp-dir test - the post-loop code decides what the break meant.
+- 2026-09-06 — ingest-psp-sources, first sweep (28 lenses, 3 built: 1 instrument + 1 dedupe + 1 key
+  fix). A context whose primary file has 0 tests while its siblings have dozens: build the fixture
+  first (an in-memory stored zip is 30 lines) - the round's other findings then have somewhere to
+  land. A 'mirror of X' comment is a pair claim: diff the two builders (here firma:<ico> raw vs
+  canonical) before trusting it. Fixture bytes for windows-1250: only á é í ó ú ý survive latin1.
+  lib/ingest/sources/ is a REGISTRY directory (atlas.test.ts derives the adapter list from it):
+  a helper file there fails the FULL gate, not the unit run - the gate runs before the ledgers.
+- 2026-09-06 — round-23 close-out lesson: the ledgers commit 1e6f2ae said 'exit 0' while the pglite
+  lane was red (changes.test.ts still asserted the raw firma key 005767e canonicalised). The grep
+  matched the presence of CHECK_EXIT, not '=0' - always grep 'CHECK_EXIT=0' and read the Test Files
+  lines of BOTH lanes before writing 'exit 0'. A contract fix owes every consumer test its new value.
+- 2026-09-06 — kg-analysis, first sweep (28 lenses, 4 built in 3 commits). Three 'contract' modules
+  that mirror each other (verdict/kg-verdict/law-verdict) share prologue code by copy: grep the
+  first exported helper of one in the other two. A module's own doctrine comment ('never zero-
+  faked', 'three states') is a checklist for the module - two of four findings were the doctrine
+  unapplied to one more field in the same file.
+- 2026-09-06 — kg-pipeline, first sweep (28 lenses, 7 built). A scripts folder is where the same
+  20 lines get pasted per script: grep `^async function <name>` and `const <name> = (` across the
+  folder before reading any one file. A sibling's header that says 'a re-run of X would erase Y'
+  is a finding on X. A frozen literal where 8 siblings derive a value (pass, cap) is a pair.
+  Files a context map does not own (kg-vote-bill-ingest, the provenance test/backfill) are
+  named in the round, never edited - veto 1 covers 'nobody's' files too.
+- 2026-09-06 — landing-page, first sweep (28 lenses, 6 built in 5 commits). A UI context's pairs
+  are comments: 'týž vzorec jako X', 'drž v sync s Y', 'týž seznam jako Z' each named a second
+  copy of one rule held by prose - grep the context for `sync`, `týž`, `same list` before any
+  lens. A write path's OWN doctrine (aggregate rule 1: sum 0 is no vote) is a checklist for its
+  door: the action accepted what the aggregate skipped. Server actions need the same three
+  states as loaders (ok / refused / unavailable) and the client needs a catch for the fourth.
+- 2026-09-07 — law-amends-analysis, first sweep (28 lenses, 6 built in 4 commits). A case-loop folder
+  with an archive/ is read live-files-in-full, archive-by-header: the archive is history and is
+  never edited, but its headers say what the live copy lacks ('kept unchanged for history' on
+  the LIVE file means archive/ holds the newer method - that is a card). A script that writes a
+  cache under its final name while streaming is the dataor .part class again - grep
+  `createWriteStream(` next to `existsSync(` before reading the script. When appending one doc
+  paragraph per atomic commit, base the rewrite on the round's START commit, not HEAD.
+- 2026-09-07 — law-collision-analysis, first sweep (28 lenses, 5 built in 4 commits, 0 cards). A
+  regex module that documents its own hand-validated cases is a test waiting to be written - run
+  the documented cases through it FIRST (a tsx probe), because one of them may already be red
+  (the `az` range was). A keyword net under /i needs `\b` on BOTH sides of a short token; probe
+  the real corpus for the false-positive count before building so the card carries a figure.
+  When a source test spans two commits, commit the describe with the change it pins - an
+  intermediate commit here carried one red describe for one commit.
+- 2026-09-07 — law-triage-batch, first sweep (28 lenses, 5 built in 3 commits, 1 card). A gate that
+  exists in three places (what the worker is told, what the pre-write gate checks, what the
+  write-time gate accepts) is three definitions until one module is imported by at least the
+  first two - diff the id-kind lists, they will differ. A 'bootstrap' script that writes a file
+  every later script merge-writes is a durability hazard: grep `writeFileSync(` on ledgers and
+  ask what refuses. A recorded formula string is copy - compare it to the code it describes.
+- 2026-09-07 — lawwatch, first sweep (28 lenses, 5 built in 2 commits, 1 card). A loader that keys
+  a per-row attribute (batch, source, date) by an id that the loader's OWN comment says is not
+  unique is a defect waiting for a probe: count the duplicates in the real payloads before
+  reading the rendering code. Two comments that say 'shodně s X' / 'same as X' in one file are
+  two parity tests. When the context map lists 22 of a folder's 34 files, read the unmapped ones
+  as pair partners - the types and the wire live there.
+- 2026-09-07 — money-analysis-triage, first sweep (28 lenses, 6 built in 4 commits, 2 cards). A
+  literal `limit:` in a script is measured against the corpus the docs record (batch notes carry
+  the row counts) - 100_000 under 152 702 is a defect, not a style point. A file whose header
+  says 'copies replaced by imports on <date>' still has copies: grep the shared module's export
+  list against the file. An always-empty field in a published payload (`.slice(0, 0)`) is copy
+  that lies by shape. Never name an archive/ path in a live file's prose - the quarantine test
+  (lib/testing/archivedScripts.test.ts) reads comments too; it cost one red gate this round.
+- 2026-09-07 — money-budget-routes, first sweep (28 lenses, 3 built in 3 commits, 2 cards). A thin-
+  route context is small; its pairs are with what the routes CALL: a literal the framework forces
+  (`revalidate`) is pinned by a test that reads app/, a guard repeated per route becomes a lib/
+  helper, and every `new Date().toISOString().slice(0, 10)` is a UTC day in a Prague product.
+  Two null meanings in one loader (outage vs empty) surface as a card when the page prints one
+  sentence for both.
+- 2026-09-07 — money-cases-review, first sweep (28 lenses, 7 built in 7 commits, 1 new card, 2
+  updated). Write the source-grep test BEFORE the edit: it found a fifth copy of a label (a tile)
+  the full read had missed. A comment that quotes the removed formula matches the test that
+  forbids it - describe the old code, never paste it. A fix that moves one half of a comment-
+  held pair (round 32's Prague day on the company route) re-opens the pair in the partner's
+  context; card it the same round, in the partner's name, and say who opened it.
+- 2026-09-07 — money-contract-ingest, first sweep (28 lenses, 10 built in 8 commits, 1 card). On a
+  never-swept scripts context, grep the three shared imports first (readCap, changeEvents
+  pspIdFromNodeId, reviewTypes parsePeriod) - the pair hunt hits on the first grep every time.
+  A 'required' CLI flag parsed with `?? 0` is not required. A --restart that deletes the
+  artefact must reset the resume record with it, or the record says 'done' over nothing. A
+  retry predicate that substring-matches a status code also matches the id in the quoted URL.
+- 2026-09-07 — money-ledger-graph, first sweep (28 lenses, 6 built in 6 commits + 1 test repair, 1
+  card, 1 card closed). A switch's `default:` branch is copy too - read what it SAYS for the
+  inputs that reach it (five payload edges reached it and were called 'not checked'). Probe the
+  payload files for the figure when the store cannot be opened. Never chain `vitest | grep` with
+  `&&` - grep's exit is 0 when it matches the FAIL line, and a red describe committed; gate the
+  commit on vitest's own exit code.
+- 2026-09-07 — mp-profile, first sweep (28 lenses, 3 built in 3 commits, 1 built-then-reverted,
+  2 cards). A page that reads the clock twice has two calendars - grep `toISOString().slice(0,
+  10)` AND `pragueDay()` in the same file. A doc comment that names a 'follow-up step'
+  (moneyTypes' dateWithheldOn) is a finding pre-written for the context that owns the other
+  half - but BEFORE building it, grep the whole repo for the symbol you are removing: a
+  source-grep pin in an unowned test (contractDates.test.ts) asserted the old implementation,
+  the profile lane was green, the full gate red, and one gate run was lost to the revert.
+  `satisfies Record<Enum, string>` turns a hand-held copy map into a compile-time pair.
+- 2026-09-07 — mp-rankings-routes, first sweep (28 lenses, 5 built in 5 commits, 2 cards). Thin
+  routes pair with each other: two routes with the same comment ('na patičce nesmí být
+  vymyšlená doména', 'týž tvar jako app/...') hold one rule twice - grep the comment text
+  across app/. A poster or card that stamps `new Date()` dates itself, not its data; the
+  chamber provenance is the day. New lib/routing helpers get their own unit test AND a
+  source-grep in lib/testing so the routes cannot drift back.
+- 2026-09-07 — observability, first sweep (28 lenses, 1 built, 0 cards; a 4-file context yields
+  4 findings and that is the honest number). A pin in another context's test owns the SHAPE
+  of the code it greps: when the fix is 'centralise three literal blocks', check whether a
+  source-grep test asserts the literal first - here it did, the refactor was dropped before the
+  gate, and the minimal fix (add the two hooks to the one runtime missing them) landed instead.
+- 2026-09-07 — schranka-notifications, first sweep (28 lenses, 3 built in 3 commits, 0 cards).
+  Client and server are two clocks: grep `toISOString().slice(0, 10)` on the CLIENT (hooks,
+  localStorage stamps) whenever the server already uses pragueDay(). When a round's source-grep
+  file grows per commit, split it so each commit is green on its own (park the later describes
+  in the scratchpad and re-append) - a red intermediate commit is a red `git bisect`.
+- 2026-09-07 — shared-primitives, first sweep (28 lenses, 2 built in 2 commits, 0 cards). A
+  primitive that ENFORCES a brand rule in code is the rule's only instrument - if its logic is
+  unexported, the rule has no test; extract the pure part beside the component. `aria-label`
+  without a role is a name nothing announces: grep `aria-label` on <svg>/<span>/<div>.
+- 2026-09-07 — shared-provenance, first sweep (28 lenses, 5 built in 5 commits, 4 cards). The
+  catalog boundary (features/shared may not import features/*) turns cross-feature pairs into
+  cards, not fixes - check the eslint no-restricted-imports scope BEFORE designing the
+  delegation, and prefer a lib/ owner when one exists (lib/ingest had the person-id regex).
+  A `Record<string, string>` map with a `??` default over a closed enum is a default branch
+  that NAMES a value for anything unknown: `as const satisfies Record<Enum, string>`.
+  Files inside a context's folder that no context owns (asOfLens.ts) are still veto 1.
+- 2026-09-07 — shell-navigation, first sweep (28 lenses, 5 built in 5 commits, 3 cards). NEVER
+  `git commit … | grep` - the pipe hides a doc-sync refusal and the next commit in the chain
+  lands non-self-contained (happened here; fixed by reset --hard + replay from the fixNN.py).
+  Gate commits on git's exit code (ci() helper) exactly like vt() gates on vitest's. Doc-sync
+  dismissal reasons need >= 12 chars - 'test only' is refused. A hand list whose ground truth is
+  a catalog gets a resolve-every-key test; when it is green on arrival, prove it by mutation.
+- 2026-09-07 — testing-sentinel, first sweep (28 lenses, 5 built in 5 commits, 3 cards). A
+  header that says 'the SAME list as X and Y' is a claim - open X and Y (one had grown by two).
+  When the partner constant is private in another context, a test that PARSES the partner's
+  source is an S instrument that turns the comment into a check. `as SomeUnion` on a stored
+  string is a default branch in disguise: guard with the vocabulary array and NAME the strays.
+- 2026-09-07 — votetrack-kompas, first sweep (28 lenses, 3 built in 3 commits, 1 card). When a
+  sibling context already holds the HONEST version of a pattern (VoteThemeFilter's known-set
+  render), grep the feature for the dishonest one and fix the in-context copies; the sibling's
+  copies go to the next round if that context is next in map order, not to a card.
+- 2026-09-07 — votetrack-ledger, first sweep (28 lenses, 4 built in 4 commits, 2 cards). Before
+  calling a `slice(11, 16)` on an ISO instant a UTC bug, read the WRITER: this ingest stamps the
+  wall clock with a Z, so the display is right and the instant is wrong - the finding moves to
+  the writer's context. A segment coloured like its own track is a visual-craft grep:
+  `bg-hairline` inside a `bg-hairline` container.
+- 2026-09-07 — voting-legislation-routes, first sweep (28 lenses, 3 built in 3 commits, 1 card).
+  NEVER run vitest while a gate is running: the pglite lane holds the single-connection fixture
+  store and a concurrent `npx vitest run` turns three unrelated files red (round 45's gate was
+  refused for exactly that; the files pass alone). The gate's background task reported exit 0
+  because the subshell's exit is `echo`'s - read CHECK_EXIT from the log, never the task status.
+  Round 45's snapshot says exit 0; this round's note carries the correction.
+- 2026-09-07 — volby-election-mirror, first sweep (28 lenses, 7 built in 7 commits, 1 card). The
+  last never-swept context: every context in context-map.json now has a snapshot. `?? 0` on a
+  nullable figure that reaches a `figures` record is a fabricated measurement - grep `?? 0`
+  next to every `figures =`. A UI that hand-copies an enum's keys (RULE_KINDS) is a dead
+  anchor waiting for the next member: derive from the record and assert the catalog.
+- 2026-09-08 — admin-control, second sweep (28 lenses, 8 built in 8 commits, 1 card). A 9-lens
+  'balanced' first pass left the whole stabilize deep tier unrun: eight findings on re-read,
+  five of them in the loader family (silent catches, literal caps, a hand-spelled state
+  ladder). Under machine load, chains of vitest+tsc+eslint exceed the 600 s tool cap - run
+  them with run_in_background from the start and read the output file, never re-run.
+- 2026-09-08 — analysis-quality, second sweep (28 lenses, 4 built in 4 commits, 2 cards). Pure
+  lib/analysis modules may read lib/format (deterministic, no Intl) - a raw `toFixed`/template
+  number inside a Czech sentence is a defect there too, not only in JSX. A held local copy of a
+  hash (tripwires vs exhibit) is trusted until a test pins the two equal; write that test.
+- 2026-09-08 — app-config, second sweep (28 lenses, 1 built, 0 new cards). A lint config's scopes
+  are a hand-maintained list: when two rule blocks describe the same audience in prose
+  ('reader-facing tree') but enumerate different globs, the narrower one is the finding. A
+  config has no unit test - a synthetic file linted before/after is the probe rung.
+- 2026-09-08 — app-shell, second sweep (28 lenses, 3 built in 3 commits, 0 new cards, 1
+  card closed). When a palette file states its own contrast figures (signal 4,10:1 vs
+  signal-deep 5,31:1), every `text-signal`/`hover:bg-signal` on small or paper text is a
+  measured AA defect, not taste - grep the small-text classes against the palette's table.
+- 2026-09-08 — budget-mirror, second sweep (28 lenses, 2 built in 2 commits, 0 new cards). A
+  two-way ternary that colours 'not provably better' as 'worse' is the missing-is-not-zero law
+  in a tone: grep `? "text-signal` / `? "bg-signal` beside every `null` comparison. Land the
+  coupled route-doc paragraph WITH the first commit that touches the feature - the commit-msg
+  hook refuses a feature edit whose doc lands later in the same round.
+- 2026-09-08 — civic-chronicle, second sweep (28 lenses, 4 built in 4 commits, 1 card). A
+  `Number(id.replace(prefix, "")) || 0` beside a strict codec that was WRITTEN against that
+  very fallback is the highest-yield parity grep in this tree: grep `|| 0` next to every
+  `replace(/^` and check whether a `*FromNodeId` sibling already exists. A builder without
+  its inverse (mpEntityKey with no parser) breeds regex copies in every loader that reads it.
+- 2026-09-08 — civic-feeds-verification, second sweep (28 lenses, 3 built in 3 commits + doc,
+  1 card). Sibling routes are a pair by construction: diff the SUCCESS branch headers, not
+  only the 503s a previous round aligned. A page that drops a repeated query parameter while
+  its feed takes the first is two readers of one address disagreeing - grep `typeof raw ===
+  "string"` beside every searchParams read.
+- 2026-09-08 — civic-kg-primitives, second sweep (28 lenses, 2 built in 2 commits, 0 new
+  cards). When a file states a rule in its header ('two decimals') and a test checks it for
+  SOME branches, probe the other branches with the same instrument - the test's scope, not the
+  rule, was the gap. A hand-coded range beside generated data earns a sum-equals-count pin.
+- 2026-09-08 — civic-transparency-eslint-plugin, second sweep (28 lenses, 3 built in 3 commits,
+  0 new cards). A lint rule's trigger list is a hand-maintained mirror of some module's export
+  surface: diff the two (lib/format exports vs NUMERIC_NAMED_FORMATTERS) before reading a
+  single rule body. Widen a rule only after measuring the repo-wide report count on both sides.
+- 2026-09-08 — civicscore-leaderboard, second sweep (28 lenses, 4 built in 4 commits, 1 card).
+  A raw number passed as an ICU parameter (`t(key, { count: n })`) is the same defect as a raw
+  number in JSX - next-intl formats it with Intl outside lib/format; grep `{ count: [a-z]` beside
+  every `t(` in a file that already calls `f.int` elsewhere. `Number(id.split(':').pop())` is the
+  third lenient-id shape this sweep has replaced with a strict parser.
+- 2026-09-08 — civicscore-lens-duel, second sweep (28 lenses, 1 built, 3 cards). `title={t(...)}`
+  on a button or label with no sr-only sibling is the hover-only-explanation defect the deník
+  fixed on 2026-08-12: grep `title=\{t(` across every "use client" surface. A pure module a
+  server-only loader could import but instead mirrors (lens.ts ↔ getLeaderboardData) is a
+  parity card, not a comment.
+- 2026-09-08 — claim-verifier, second sweep (28 lenses, 3 built in 3 commits, 0 new cards, 1
+  carried item confirmed carded). An ICU parameter that is an IDENTIFIER (pass, run id, step)
+  must be a string and one that is a QUANTITY must be pre-formatted - a raw number is wrong
+  either way; grep `\{ [a-z]+: [a-z.]+\.(pass|id|no) \}` beside every `t(`.
+- 2026-09-08 — contribution-scoring, second sweep (28 lenses, 2 built in 2 commits, 0 cards). A
+  closed vocabulary spelled as BOTH a union type and an array is two declarations of one list;
+  grep `readonly \w+\[\] = \[` beside every `export type \w+ = "` in lib/. A fixture value that
+  looks misspelled may be a deliberate unknown-value passthrough - read the fixture's comment
+  before filing it.
+- 2026-09-08 — czech-civic-data-parsing, second sweep (28 lenses, 2 built in 2 commits, 1 card
+  updated). In a parser package whose doctrine is 'missing beats wrong', every regex without
+  `$` and every `if (!m) return <default>` is a guess wearing a fallback's clothes: grep
+  `\.exec\(` and read the branch that runs when it fails. A timezone fix that changes stored
+  strings is a data refresh, not a parser edit - keep it on the card.
+- 2026-09-08 — dashboard-instruments, second sweep (28 lenses, 2 built in 2 commits, 1 card
+  updated). `toISOString().slice(0, 10)` is the UTC day: grep it repo-wide whenever a loader
+  passes a `today` into a `date <= today` filter - the Prague day is ahead of it for one or two
+  hours every night and the dropped rows land in an honesty counter. A Record keyed by another
+  file's private literals is a pair: read the literals in the test instead of re-typing them.
+- 2026-09-08 — dashboard-state-graph, second sweep (28 lenses, 2 built in 2 commits, 2 cards).
+  A hand list typed `Union[]` is a subset, not a vocabulary: grep `: \w+Kind\[\] = \[` and
+  `: \w+\[\] = \["` in components and ask whether the type would notice an omission - the
+  repo's own answer is `as const satisfies Record<Union, …>`. When a header says 'positive
+  integer', read the regex under it; `\d+` is not that.
+- 2026-09-08 — db-hybrid-benchmarks, second sweep (28 lenses, 1 built in 1 commit, 1 card). A
+  benchmark harness that parses model output has the same missing-beats-wrong duty as a loader:
+  grep `: 0.5` and `?? 0` beside every `typeof o.x === "number"` and ask which arm a guessed
+  value would choose. When one sibling parser was fixed last round, diff the other parsers in
+  the folder first.
+- 2026-09-08 — db-repositories, second sweep (28 lenses, 2 built in 3 commits - one a correction, 1 card, 1 lead).
+  When one repository documents a rule in a comment ('present with a zero, never absent'),
+  grep the same aggregate's NAME across the directory - the twin without the comment is the one
+  without the rule. A constant whose header says 'one address' is found by grepping its VALUE,
+  not its name. And a build chain must gate each commit on the TEST's exit, not the edit
+  step's - round 65 committed a red pin that way.
+- 2026-09-08 — db-store, second sweep (28 lenses, 1 built in 1 commit, 0 cards). The most-tested
+  context yields least; drive the tail at the seams tests do not pin - the DDL against the row
+  types, the literal that a shared constant was meant to replace, the memo pair that must clear
+  together. A context whose directory holds 19 files no context owns is under-described by the
+  map, not by the sweep.
+- 2026-09-08 — effort-case-loop, second sweep (28 lenses, 2 built in 1 commit, 2 cards). When one
+  writer's audit comment names a sibling as the stricter precedent, read the sibling - it may have
+  been the weaker one all along. Grep `Number(arg("pass")) ||` and `?? <n> + 1` in every script
+  that stamps provenance: a pass a script derives for itself is an invented number on a live row.
+- 2026-09-08 — eslint-rules-shims, second sweep (28 lenses, 0 built, 0 cards, 1 lead). A shim layer
+  whose only consumer is the test that pins it is clean by construction; the round's work is the
+  consumer grep (name the dirs, never grep `.` - the data dir makes it hang) and the lead it
+  leaves: a kept compatibility surface is a direction to retire, not a cleanup to land.
+- 2026-09-08 — graph-admin-data-routes, second sweep (28 lenses, 2 built in 1 commit - one message names half of it, 0 cards,
+  1 lead). A cache rule pinned on the refusal branch is half a rule: check the SERVED branch of
+  every gated route too. Grep `await fetch(` in app/ for calls with no `signal:` - a hang is not
+  a failure and the catch block never sees it.
+- 2026-09-08 — graph-explorer, second sweep (28 lenses, 2 built, 0 cards, 1 lead). A date stamped INTO an
+  address is the strongest case of the UTC-day class: grep `toISOString().slice(0, 10)` in every
+  encoder/loader, and check the test - one of them asserted the UTC value itself. When a shared
+  helper lands (liveUrl), re-grep the copies the card lists and fold the ones in the context you are in.
+- 2026-09-08 — ingest-external-sources, second sweep (28 lenses, 1 built, 0 cards, 3 leads). A multi-stage
+  cache (download -> rename -> decompress -> rename) must resume at EVERY stage boundary, not only the
+  first: walk the crash points between stages and ask what the next run does with each leftover.
+  Grep a client class's name across scripts/ before trusting a card's stated reach - the harvest here
+  had none.
+- 2026-09-08 — ingest-psp-sources, second sweep (28 lenses, 1 built, 0 cards, 2 leads). A plausibility
+  CEILING is a clock too: `date <= today` refuses a real same-day fact when `today` is the wrong
+  zone's day. Grep `toISOString().slice(0, 10)` for DEFAULT PARAMETERS specifically - a default
+  the production caller never overrides is live code, however the comment reads.
+- 2026-09-08 — kg-analysis, second sweep (28 lenses, 1 built, 0 cards, 2 leads). A wait the HOST dictates
+  (Retry-After) is a wait too: list every sleep in a retry loop and check each has a ceiling, the
+  header-driven one included. Fake timers (vi.useFakeTimers + advanceTimersByTimeAsync) make a
+  100 000 s header testable in milliseconds - the instrument for any timing bound.
+- 2026-09-08 — kg-pipeline, second sweep (28 lenses, 2 built, 1 card, 1 lead). A parity fix that pins
+  ONE sibling leaves the class open: after fixing a writer's frozen default, grep the same
+  default in every sibling and pin the rule, not the instance. A published schema that lists a
+  vocabulary by hand is a hand-kept list - join it from the enum.
+- 2026-09-09 — landing-page, second sweep (28 lenses, 1 built, 1 card, 1 lead). When one component
+  says 'this figure is a derivation, not a literal', grep the figure's literal across the feature:
+  the sibling page still had it. A `?? <constant>` fallback is a claim about the data - ask what
+  pins the constant.
+- 2026-09-09 — law-amends-analysis, second sweep (28 lenses, 4 built, 0 cards, 2 leads). A script that runs
+  main() on import hides its pure core from every test: the direct-run guard (kg-promote.ts) is a
+  five-line instrument that turns an audited-by-hand heuristic into a pinned one. A pass gate is
+  `isInteger && > 0` everywhere - grep `isFinite(pass)` after each fix of the class. A new test over an
+  audited-by-hand heuristic found two latent defects in one run - the instrument pays on day one.
+- 2026-09-09 — law-collision-analysis, second sweep (28 lenses, 1 built, 0 cards, 2 leads). After a grammar
+  fix for one shape (a range), walk the sibling shapes the same clause admits (a list, a list with a
+  range inside) - the fix's own class is the cheapest place to find the next defect. This shell's
+  heredoc unescapes backslashes: a byte-level edit that needs one goes through the Write tool.

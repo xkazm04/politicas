@@ -72,6 +72,7 @@ export const RULE_REF: Record<FindingKind, string> = {
   effort_workhorse: "volby:P2",
   effort_rapporteur: "volby:P3",
   money_ties_unrated: "volby:U1",
+  law_final_vote: "volby:R1",
 };
 
 /** The flag names as `tender.flags` carries them (batch-012). */
@@ -293,6 +294,14 @@ export interface SponsoredBill {
   fateSb: string | null;
   fatePublishedOn: string | null;
   sponsoredOn: string | null;
+  /**
+   * Den POSLEDNÍHO jmenovitého hlasování o tisku (hrany `decides`), nebo `null`.
+   *
+   * Není to datum volby ani rozhodnutí poslance — je to POZDĚJŠÍ datovaný fakt o
+   * tisku, který poslanec předložil. Proto nikdy neplní `decidedOn`: to zůstává
+   * `null`, dokud graf nenese datum předložení. Sněmovna hlasovala potom.
+   */
+  finalVoteOn: string | null;
 }
 export interface MpInput {
   pspId: number;
@@ -351,11 +360,32 @@ export function composeMpFindings(input: MpInput): Finding[] {
       out.push(f);
     }
     if (bill.flaggedConflict) {
-      const czk = bill.sponsorContractCzk ?? 0;
-      const f = mk("law_sponsor_conflict", "negative", czk >= CONFLICT_HIGH_CZK ? "high" : "medium", oid);
+      // MISSING IS NOT ZERO (2026-09-07): a flagged conflict whose contract sum the
+      // graph does not carry is medium (it cannot clear the high bar) and prints NO
+      // amount - until now `?? 0` put „0 Kč" on the finding row as if measured.
+      const czk = bill.sponsorContractCzk;
+      const f = mk("law_sponsor_conflict", "negative", czk !== null && czk >= CONFLICT_HIGH_CZK ? "high" : "medium", oid);
       f.reviewState = "pending_review";
       f.decidedOn = bill.sponsoredOn;
-      f.figures = { sponsor_contract_czk: czk, sponsor_money_companies: bill.sponsorMoneyCompanies ?? 0 };
+      f.figures = {
+        ...(czk !== null ? { sponsor_contract_czk: czk } : {}),
+        ...(bill.sponsorMoneyCompanies !== null ? { sponsor_money_companies: bill.sponsorMoneyCompanies } : {}),
+      };
+      f.evidence = [subjectRef, billRef];
+      out.push(f);
+    }
+    // ZÁZNAMOVÝ řádek, ne nález: sněmovna o předloženém tisku jmenovitě hlasovala
+    // a je to DATOVANÉ. Valence `unrated` schválně — doktrína `contested.ts`:
+    // ledger tenhle řádek ukáže a spočítá, ale nezapočte do `total`, protože
+    // „hlasovalo se" není ani plus, ani minus u předkladatele. Bez toho by první
+    // datovaný sněmovní výstup na časové ose /volby musel být buď nálezem, který
+    // není, nebo neviditelný.
+    if (bill.finalVoteOn !== null) {
+      const f = mk("law_final_vote", "unrated", "low", oid);
+      // `decidedOn` zůstává null: hlasování je pozdější fakt, ne volba poslance
+      // (datum předložení graf nenese — viz volbyLoader `sponsoredOn`).
+      f.laterOn = bill.finalVoteOn;
+      f.laterKind = "final_vote";
       f.evidence = [subjectRef, billRef];
       out.push(f);
     }

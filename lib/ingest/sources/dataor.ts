@@ -28,7 +28,7 @@
 // several GB, unmeasured, flagged as future work in the assessment) — file fetches are
 // targeted, one court×form×year at a time, cached to disk so a batch never re-fetches.
 
-import { createGunzip, gunzipSync } from "node:zlib";
+import { createGunzip } from "node:zlib";
 import { createReadStream, createWriteStream } from "node:fs";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
@@ -119,7 +119,7 @@ export const KRAJ_CODE_TO_COURT_SLUG: Record<number, string> = {
   27: "praha", // Středočeský
   31: "ceske_budejovice", // Jihočeský
   32: "plzen", // Plzeňský
-  41: "usti_nad_labem", // Karlovarský (folds to Plzeň court per some sources; kept with Ústí group is wrong — see NOTE below)
+  41: "plzen", // Karlovarský — rejstříkový soud je Krajský soud v Plzni, ne Ústí (do 2026-09-06 to literál tvrdil obráceně a opravoval se až o 15 řádků níž)
   42: "usti_nad_labem", // Ústecký
   51: "usti_nad_labem", // Liberecký
   52: "hradec_kralove", // Královéhradecký
@@ -130,11 +130,6 @@ export const KRAJ_CODE_TO_COURT_SLUG: Record<number, string> = {
   72: "brno", // Zlínský
   80: "ostrava", // Moravskoslezský
 };
-// NOTE (honest limitation, not silently guessed): Karlovarský kraj's registry court is
-// actually Krajský soud v Plzni, not Ústí — kodKraje 41 above is a known-approximate entry
-// (ČSÚ kraj code for Karlovarský; corrected mapping below). Kept as an explicit override
-// table entry rather than fixed inline so a wrong guess is visible and correctable:
-KRAJ_CODE_TO_COURT_SLUG[41] = "plzen"; // Karlovarský → Krajský soud v Plzni (corrected)
 
 /** ARES `pravniForma` numeric codelist → dataor legal-form slug. Only the forms actually
  *  observed among Case ① money's open ties + the catalog's own published slug list
@@ -554,9 +549,9 @@ function rowToRecord(fields: string[], h: DataorHeader): DataorRawRecord | null 
   };
 }
 
-/** Parse a full dataor CSV text blob into records. Fine for small/medium files (tests,
- *  the smaller court×form combinations); for a large FULL export prefer
- *  `findRecordByIcoInCsvText`, which never materializes every row. */
+/** Parse a full dataor CSV text blob into records. Fine for small/medium texts (tests,
+ *  fixtures); a real dataset is read by the streaming finder below
+ *  (`findRecordsByIcosInFile`), which never materializes every row. */
 export function parseDataorCsv(text: string): DataorRawRecord[] {
   const h = readHeader(text);
   if (!h) return [];
@@ -573,64 +568,11 @@ export function parseDataorCsv(text: string): DataorRawRecord[] {
   return out;
 }
 
-/** Memory-efficient targeted lookup: scans row by row WITHOUT building an array of every
- *  record (the whole-file `parseDataorCsv` result for a large FULL export is ~300MB+ of
- *  JS objects — wasteful when the caller only wants one IČO). Stops at the first match. A
- *  cheap pre-filter (`text.indexOf('"' + digits + '"')`) skips straight to a plausible
- *  offset before falling back to full-row scanning if the fast path doesn't confirm a
- *  column-aligned hit (guards against the same digits appearing inside `udaje` prose). */
-export function findRecordByIcoInCsvText(text: string, ico: string): DataorRawRecord | null {
-  const h = readHeader(text);
-  if (!h) return null;
-  const target = ico.replace(/^0+/, "") || "0";
-  let pos = h.bodyStart;
-  const n = text.length;
-  while (pos < n) {
-    const { fields, next } = readCsvRow(text, pos);
-    if (next === pos) break;
-    const rawIco = (fields[h.idxIco] ?? "").trim();
-    if ((rawIco.replace(/^0+/, "") || "0") === target) {
-      return rowToRecord(fields, h);
-    }
-    pos = next;
-  }
-  return null;
-}
-
-/* ── file fetch + disk cache ─────────────────────────────────────────────────── */
-
-async function ensureCacheDir(): Promise<string> {
-  const fs = await import("node:fs/promises");
-  await fs.mkdir(CACHE_DIR, { recursive: true });
-  return CACHE_DIR;
-}
-
-/** Fetch (with on-disk cache) the CSV text of one court×legalForm×year dataset. Prefers
- *  the `.csv.gz` resource (smaller transfer); falls back to plain `.csv`. Returns null if
- *  the dataset doesn't exist (package_show 404 / not found) — the caller decides whether
- *  that's "wrong court/form guess" or "no data for this year". */
-export async function fetchDatasetCsv(id: string): Promise<string | null> {
-  const dir = await ensureCacheDir();
-  const fs = await import("node:fs/promises");
-  const cachePath = `${dir}/${id}.csv`;
-  try {
-    return await fs.readFile(cachePath, "utf8");
-  } catch (err) {
-    console.warn(`[dataor] cache miss for ${cachePath} — fetching from CKAN:`, (err as Error).message);
-  }
-  const pkg = await packageShow(id);
-  if (!pkg) return null;
-  const gz = pkg.resources.find((r) => /\.csv\.gz$/i.test(r.url));
-  const plain = pkg.resources.find((r) => /\.csv$/i.test(r.url) && !/\.gz$/i.test(r.url));
-  const resource = gz ?? plain;
-  if (!resource) return null;
-  const res = await fetchRetry(resource.url);
-  if (!res.ok) throw new Error(`dataor file ${resource.url} → ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  const text = gz ? gunzipSync(buf).toString("utf8") : buf.toString("utf8");
-  await fs.writeFile(cachePath, text, "utf8");
-  return text;
-}
+/* The whole-file read path (`fetchDatasetCsv` → one V8 string, `findRecordByIcoInCsvText`
+ * over it) was removed on 2026-09-06: zero consumers since money batch 017 moved every
+ * caller to the streaming finder below, and it carried the exact failure the STREAMING
+ * PATH header records — "Invalid string length" on any dataset past ~512 MiB, read as a
+ * network blip. One script comment (ownership-sweep.ts) still names it as history. */
 
 /** Find one record by IČO inside an already-parsed record array (small fixtures/tests). */
 export function findRecordByIco(records: DataorRawRecord[], ico: string): DataorRawRecord | null {
@@ -694,7 +636,15 @@ export async function downloadResumable(
     try {
       arm();
       const res = await fetch(url, { headers: have > 0 ? { Range: `bytes=${have}-` } : {}, signal: ac.signal });
-      if (res.status === 416) break; // already complete
+      if (res.status === 416) {
+        // The .part already holds every byte: a previous run finished the transfer and
+        // died before the rename. Until 2026-09-06 this branch only left the loop, the
+        // part kept its name and the post-loop check threw "failed after N attempts"
+        // over a complete file.
+        if (timer) clearTimeout(timer);
+        await fs.rename(part, dest);
+        return;
+      }
       if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
       const append = res.status === 206 && have > 0;
       if (!append && have > 0) await fs.rm(part, { force: true }); // server ignored Range: restart
@@ -712,7 +662,6 @@ export async function downloadResumable(
       await new Promise((r) => setTimeout(r, backoffDelayMs(attempt, 1_000, 20_000)));
     }
   }
-  if (await fs.stat(part).then(() => false, () => true)) return; // renamed by a 416 path
   throw new Error(`dataor download failed after ${attempts} attempts: ${(lastErr as Error)?.message ?? "unknown"}`);
 }
 
@@ -721,9 +670,10 @@ export async function downloadResumable(
  *  partial download must never be mistaken for a cached one, so the decompressed file is
  *  written as `.part` and renamed last. Returns the cache path, or null when the dataset
  *  does not exist on CKAN. */
-export async function ensureDatasetCached(id: string): Promise<string | null> {
+export async function ensureDatasetCached(id: string, opts: { cacheDir?: string } = {}): Promise<string | null> {
   const fs = await import("node:fs/promises");
-  const cachePath = `${CACHE_DIR}/${id}.csv`;
+  const cacheDir = opts.cacheDir ?? CACHE_DIR;
+  const cachePath = `${cacheDir}/${id}.csv`;
   // A missing file is the expected "not cached yet" answer, not a failure to trace.
   const existing = await fs.stat(cachePath).then((st) => st.size, () => 0);
   if (existing > 0) return cachePath;
@@ -733,10 +683,16 @@ export async function ensureDatasetCached(id: string): Promise<string | null> {
   const plain = pkg.resources.find((r) => /\.csv$/i.test(r.url) && !/\.gz$/i.test(r.url));
   const resource = gz ?? plain;
   if (!resource) return null;
-  await fs.mkdir(CACHE_DIR, { recursive: true });
+  await fs.mkdir(cacheDir, { recursive: true });
   if (gz) {
-    const gzPath = `${CACHE_DIR}/${id}.csv.gz`;
-    await downloadResumable(resource.url, gzPath);
+    const gzPath = `${cacheDir}/${id}.csv.gz`;
+    // A `.csv.gz` at its FINAL name is complete by construction: downloadResumable
+    // writes `.part` and renames last. Until 2026-09-08 only the `.part` was ever
+    // resumed, so a run that died between the transfer and the gunzip (the 2,4 GB
+    // sro-full-praha takes ~12 min at dataor's ~3,5 MB/s) fetched the whole archive
+    // again on the next call, with the complete one sitting beside it.
+    const gzHave = await fs.stat(gzPath).then((st) => st.size, () => 0);
+    if (gzHave === 0) await downloadResumable(resource.url, gzPath);
     const tmp = `${cachePath}.part`;
     await pipeline(createReadStream(gzPath), createGunzip(), createWriteStream(tmp));
     await fs.rename(tmp, cachePath);

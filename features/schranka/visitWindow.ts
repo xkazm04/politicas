@@ -23,6 +23,7 @@
  * ploše.
  */
 
+import { pragueDay } from "@/features/denik/pragueDay";
 import type { EntityDelta } from "./deriveDeltas";
 import type { SeenWatermark } from "./followCodec";
 
@@ -59,7 +60,8 @@ export function openVisit(
   if (guard.stamped) return null;
   guard.stamped = true;
   const { prev, now } = stamp();
-  return { prev, day: now.slice(0, 10) };
+  // Den razítka je PRAŽSKÝ den okamžiku (týž kalendář jako `sinceDay` a server).
+  return { prev, day: pragueDay(new Date(now)) };
 }
 
 /** Kolik zápisů s dnem >= `day` delty nesou (řádky, které plocha ukázala). */

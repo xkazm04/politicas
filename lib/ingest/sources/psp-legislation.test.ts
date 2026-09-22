@@ -1,4 +1,6 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { pragueDay } from "@/features/denik/pragueDay";
 
 import { parseUnl } from "../unl";
 import {
@@ -331,5 +333,28 @@ describe("parseBillFates — an impossible publication date is refused, never re
     expect(f.sb).toBe("583/2025");
     expect(f.publishedOn).toBe("2025-12-29");
     expect(f.refusedPublications).toBe(1);
+  });
+});
+
+describe("parseBillFates — the default publication ceiling is the PRAGUE day (2026-09-08)", () => {
+  const tisky = rows(["43132|1|110|583|||||||||||||"].join("\n"));
+  const stavy = rows(["110|11|1||||"].join("\n"));
+  const typStavu = rows(["11|Sbírka zákonů|"].join("\n"));
+
+  it("a Sbírka step published TODAY in Prague is plausible when no retrievedOn is given", () => {
+    // Between Prague midnight and 01:00/02:00 the UTC day is yesterday, so the old
+    // default refused a publication dated today as one that "could not have happened".
+    const [y, m, d] = pragueDay().split("-");
+    const hist = rows([`210417|43132|${y}-${m}-${d} 00:00||57|||||||${d}.${m}.${y}|583|583|`].join("\n"));
+    const f = parseBillFates(tisky, stavy, typStavu, hist).get(43132)!;
+    expect(f.sb).toBe(`583/${y}`);
+    expect(f.publishedOn).toBe(`${y}-${m}-${d}`);
+    expect(f.refusedPublications).toBe(0);
+  });
+
+  it("the default reads the Prague day, by source", () => {
+    const src = readFileSync("lib/ingest/sources/psp-legislation.ts", "utf8");
+    expect(src).toMatch(/retrievedOn: string = pragueDay\(\),/);
+    expect(src).not.toMatch(/toISOString\(\)\.slice\(0, 10\)/);
   });
 });

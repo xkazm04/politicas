@@ -349,3 +349,72 @@ rows are not a departure and a return); and the years column is the pure
 replacement's own start with the chamber's end, and an end suppressed as
 unreadable silently borrowed the very date that had just been refused. The
 unrendered `firstRecordFrom` is deleted: it had exactly that defect.
+
+## 2026-09-04 — the dossier's verdicts carry a rung, and a reviewable address (G2, deck #12)
+
+The spis is where a claim stands closest to a person's name, so it is where the
+rung has to be printed. `ProfileData.effortVerdictRungs` now carries, per verdict
+prop, the rung (`machine` · `pending` · `verified` · `rejected`) plus who decided
+and when; `DossierSection` passes it into `WorkhorseBadge` and `RapporteurBadge`,
+which draw it through the shared `VerdictProvenance` primitive.
+
+The derivation is `readVerdictRung` (`lib/analysis/verdict-provenance.ts`) — the
+identical call the /zebricek loader makes. That is the point of the module: the
+leaderboard row and the case file must not be able to disagree about whether a
+verdict was checked.
+
+**Per verdict, not per person.** The review address is
+`psp:person:<id>#<prop>`, so a reviewer who rejects „this MP is a quiet
+workhorse" has said nothing about the low-score reason stored on the same node,
+and the audit chain does not pretend otherwise.
+
+**A rejected verdict is withheld and SAID, never removed.** A vanished workhorse
+badge would read as „this MP is not a workhorse" — a second claim, made in
+silence, that nobody decided.
+
+**No default rung.** A prop the effort loop never stamped prints no rung at all.
+Nothing is inferred from the presence of the prop itself.
+
+**What did NOT change.** The prose fields (`effort_notes`, `effort_bill_focus`,
+`effort_public_role`, `effort_psp9_trend_note`) still ride the public-copy guard
+alone and take no rung — they are carried over, and named as such in the G2
+report. `effort_provenance.computedAt` keeps its separate job: WHEN the pipeline
+recorded the claim, which is a different fact from WHO checked it.
+
+**A date-shaped tenure prop that is not a calendar date yields null (2026-09-06,
+scan-sweep, bounty-hunter).** `formatCzechDate` — the validator behind
+`mandateNoteCopy` — checked only the `YYYY-MM-DD` shape, so „2025-13-01" passed and the
+profile would have formatted it through `lib/format` as „Invalid Date". The check now
+round-trips the parts through a UTC date; the module's own promise („never a fabricated
+date") is pinned by the new test cases.
+
+**Spojenci se rozlišují přísným sdíleným parserem id (2026-09-07, scan-sweep,
+parity-auditor).** `getProfileData` četl pspId spojence jako `Number()` z
+posledního segmentu id — zápis, který přijme jakékoli id končící číslicemi.
+Loader teď volá `pspIdFromNodeId` z `lib/ingest/changeEvents.ts`
+(`/^psp:person:(\d+)$/`); nerozpoznané id dál padá na `NaN` a stávající filtr ho
+zahodí, nikdy nehádá. Týž nález jako v moneyLoaderu (round 35) a v ARES-VR
+skriptech (round 34).
+
+**Celý spis se hodnotí k JEDNOMU pražskému dni (2026-09-07, scan-sweep,
+bounty-hunter).** `seatsAsOf` — den, ke kterému se posuzují výbory (běžící/minulé),
+kariérní páteř a který stránka tiskne — vznikal z UTC řetězce, zatímco evidence
+omluv o dva řádky níž brala `pragueDay()`: jedna stránka, dva kalendáře, a mezi
+půlnocí a 01:00/02:00 pražského času o den rozjeté. `seatsAsOf` je teď
+`pragueDay(instant)` z téhož okamžiku a omluvy se kreslí proti němu.
+
+**Mapa rolí ve výboru je úplná typem (2026-09-07, scan-sweep, parity-auditor).**
+`ROLE_KEY` v `ProfilePage` překládá výčet `chair | vice | member`
+(`lib/analysis/kg.ts::ROLE_WEIGHT`) na klíče katalogu a byl typovaný jako volný
+`Record<string, string>` — čtvrtá role přidaná do výčtu by na jinak české stránce
+vytiskla svůj syrový token a nic by se nehnulo. Mapa je teď `satisfies
+Record<CommitteeRole, string>`: chybějící klíč je chyba kompilace, ne řádek na
+ploše. Token mimo výčet (typ `CommitteeSeat.role` je na drátě `string`) se dál
+tiskne doslova.
+
+**Routa čte segment jedinou definicí pravidla (2026-09-07, scan-sweep,
+parity-auditor).** `/poslanec/[id]` opisovala pravidlo „jen číslice“ dvakrát
+(metadata i tělo) — třetí kopie vedle `/penize/[pspId]` a `/paket`, které od
+roundu 32 čtou `lib/routing/pspIdParam.ts`. Obě místa teď volají
+`pspIdFromParam`; karta z roundu 32 je uzavřená.
+

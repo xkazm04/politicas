@@ -52,6 +52,7 @@ import { legacyScore } from "@/lib/analysis/contribution-legacy";
 import { nextPass } from "@/lib/analysis/kg";
 import { isoDay } from "@/lib/analysis/money-feed";
 import { staleScoreWarnings } from "@/lib/analysis/score-citations";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
 import type { KgNodeRow } from "@/lib/db/types";
 
@@ -85,7 +86,9 @@ async function main() {
   const voteEvents = await store.listVoteEvents({ termCode: term });
   const ballots = await store.listVoteBallots({ termCode: term });
   const absences = await store.listAbsences({ termCode: term });
-  const personNodes = await store.listKgNodes({ kind: "person", limit: 1000 });
+  // KG_READ_CAP, not a literal: 207 MPs fit under 1 000 today, and „fits today" is
+  // how every silently truncated read in this repo began (lib/db/readCap.ts).
+  const personNodes = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
 
   const organTypeById = new Map(organs.map((o) => [o.pspId, o.organTypeCz]));
   const personToMandate = new Map(mandates.map((m) => [m.personPspId, m.pspId]));

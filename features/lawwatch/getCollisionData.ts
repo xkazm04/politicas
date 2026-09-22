@@ -50,81 +50,23 @@ import { getStore } from "@/lib/db/store";
 // ONE staleness bound over the graph — imported from where /dashboard declares it, never
 // re-declared (see getLawData.ts / moneyLoader.ts for the same import and the same reason).
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
-
-export const COLLISION_CLASSIFICATIONS = ["confirmed-collision", "coordination-risk"] as const;
-export type CollisionClassification = (typeof COLLISION_CLASSIFICATIONS)[number];
-
-export interface CollisionEvidence {
-  billAExcerpt: string | null;
-  billBExcerpt: string | null;
-}
-
-export interface CollisionPairView {
-  pairId: string;
-  /**
-   * The PUBLIC sněmovní-tisk print numbers — the same thing `CollisionBillRef.cislo`
-   * carries and what `/zakony/<cislo>` is keyed by. NOT the graph's internal
-   * `bill:tisk:<id>` suffix. Stated here because the surface labelled these two with
-   * „tisk {tiskId}" (the INTERNAL-id message) for months while the excerpt captions
-   * two rows below already passed the very same value as `cislo`.
-   */
-  billA: number;
-  billB: number;
-  classification: CollisionClassification;
-  sharedParagraph: string;
-  evidence: CollisionEvidence;
-  /** Czech analyst prose, or null when only an English original exists and the language gate
-   * withheld it. Never a machine translation, never a partial. */
-  reasoning: string | null;
-  /** True when a reasoning exists but was withheld for not being Czech — lets the surface say
-   * so honestly instead of rendering a blank card. */
-  reasoningWithheld: boolean;
-  sourceBatch: number; // 1–5 or 8, which batch produced this close-read
-  sourceMethod: string; // one-line method note for the SourceNote
-  /** ISO timestamp the finding entered the archive — the source payload's own
-   * `generatedAt` (for batch-001/002 prior pairs: the deterministic pre-check
-   * report that first flagged them, collision-report.json). Null when the
-   * artifact carries no parseable date — never invented. Feeds the radar
-   * chronology (moonshot 4B). */
-  detectedAt: string | null;
-}
-
-export interface CollisionBillRef {
-  /** The public sněmovní-tisk print number (psp.cz `t=`/`ct=` param) — this is what every
-   * close-read payload's billA/billB and every "tisk N" reference in this case's docs means.
-   * It is NOT the graph's internal `bill:tisk:<id>` node-id suffix, which is a separate,
-   * unrelated internal id (verified: tisk 4's node id is `bill:tisk:43111`, props.cislo = 4). */
-  cislo: number;
-  title: string | null; // resolved from the graph's bill node label; null if store unavailable
-}
-
-export interface CollisionClusterView {
-  key: string; // "586/1992§35c"
-  lawRef: string; // "586/1992"
-  lawTitle: string | null; // resolved from the graph's law node esbirka_title; may be null
-  paragraph: string; // representative "§ N" label for the cluster
-  classification: CollisionClassification; // strongest classification among the cluster's pairs
-  bills: CollisionBillRef[];
-  pairs: CollisionPairView[];
-}
-
-export interface CollisionData {
-  clusters: CollisionClusterView[];
-  confirmedPairCount: number;
-  coordinationRiskPairCount: number;
-  clusterCount: number;
-  nWayClusterCount: number; // clusters spanning ≥3 bills
-  batchesRun: number; // distinct close-read batches represented here
-  /** How many rendered pairs still have no Czech analyst prose, so the surface can disclose the
-   * gap instead of quietly showing fewer words. */
-  czechPendingCount: number;
-  /** Close-read pairs the loader DROPPED as incidental (same §-number, different statute — a
-   * data artifact of the deterministic pre-check, not a finding). The rule was always stated
-   * on the page; the COUNT was not, so „44 pairs" read as the whole close-read output when it
-   * is the surviving part of a larger one. A limit that drops a row has to say how many
-   * (the /denik `droppedImplausible` precedent). */
-  incidentalPairCount: number;
-}
+import { batchFromSourceFile, PRIOR_PAIRS_BATCH, sourceMethodCs } from "./collisionBatch";
+import {
+  COLLISION_CLASSIFICATIONS,
+  type CollisionBillRef,
+  type CollisionClassification,
+  type CollisionClusterView,
+  type CollisionData,
+} from "./collisionTypes";
+export { COLLISION_CLASSIFICATIONS } from "./collisionTypes";
+export type {
+  CollisionBillRef,
+  CollisionClassification,
+  CollisionClusterView,
+  CollisionData,
+  CollisionEvidence,
+  CollisionPairView,
+} from "./collisionTypes";
 
 const PAYLOADS_DIR = "docs/data-analysis/case-law/payloads";
 
@@ -143,6 +85,9 @@ interface RawPair {
    * and pairIds are NOT unique across payloads (4-121 exists in both batch-004 and batch-005
    * on different statutes), so the file must be part of the key. */
   sourceFile?: string;
+  /** The batch that produced this row — from its FILE (collisionBatch.ts), for the same
+   * reason the rewrite key carries the file: a pair-id lookup gave two rows one batch. */
+  sourceBatch: number;
   /** The payload file's own `generatedAt` — when this finding entered the archive. */
   detectedAt?: string | null;
 }
@@ -191,6 +136,11 @@ function loadCzechReasoning(): Map<string, string> {
 
 function loadRawPairs(file: string): RawPair[] {
   try {
+    const sourceBatch = batchFromSourceFile(file);
+    if (sourceBatch === null) {
+      reportLoaderFailure("getCollisionData.payload", new Error(`payload file is not a dated close-read batch: ${file}`));
+      return [];
+    }
     const p = join(PAYLOADS_DIR, file);
     if (!existsSync(p)) return [];
     const raw = JSON.parse(readFileSync(p, "utf8")) as { pairs?: unknown; generatedAt?: unknown };
@@ -209,6 +159,7 @@ function loadRawPairs(file: string): RawPair[] {
         lawRef: o.lawRef,
         classification: normalizeClassification(o.classification),
         sourceFile: file,
+        sourceBatch,
         detectedAt,
         sharedParagraph: o.sharedParagraph,
         evidence: {
@@ -243,6 +194,7 @@ const PRIOR_PAIRS: RawPair[] = [
     billB: 207,
     lawRef: "40/2009",
     classification: "coordination-risk",
+    sourceBatch: PRIOR_PAIRS_BATCH,
     sharedParagraph: "88 odst. 2 písm. c)",
     // Czech since batch-011 — the English original sat withheld by the render-time language
     // gate (czechPendingCount 1) from the moment the gate landed in pass 33; the substance is
@@ -328,44 +280,29 @@ async function readCollisionData(): Promise<{ data: CollisionData | null; resolv
   let resolvedFromStore = false;
   try {
     const precheckDate = loadPrecheckDate();
-    const batch5Pairs = loadRawPairs("collision-close-reads-batch005.json");
-    const batch8Pairs = loadRawPairs("collision-close-reads-batch008.json");
-    const batch9Pairs = loadRawPairs("collision-close-reads-batch009.json");
-    const batch11Pairs = [
-      ...loadRawPairs("collision-close-reads-batch011-gA.json"),
-      ...loadRawPairs("collision-close-reads-batch011-gB.json"),
+    // Every dated close-read payload, in batch order. The batch each row belongs to is read
+    // from its file name (collisionBatch.ts) — never from a pair-id lookup, because a pair
+    // id recurs across batches when the same two prints are re-read on a later topology.
+    const PAYLOAD_FILES = [
+      "collision-close-reads.json",
+      "collision-close-reads-batch004.json",
+      "collision-close-reads-batch005.json",
+      "collision-close-reads-batch008.json",
+      "collision-close-reads-batch009.json",
+      "collision-close-reads-batch011-gA.json",
+      "collision-close-reads-batch011-gB.json",
+      "collision-close-reads-batch012-gA.json",
+      "collision-close-reads-batch012-gB.json",
+      "collision-close-reads-batch013-gA.json",
+      "collision-close-reads-batch013-gB.json",
+      "collision-close-reads-batch014-gA.json",
+      "collision-close-reads-batch014-gB.json",
+      "collision-close-reads-batch015-gA.json",
+      "collision-close-reads-batch015-gB.json",
     ];
-    const batch12Pairs = [
-      ...loadRawPairs("collision-close-reads-batch012-gA.json"),
-      ...loadRawPairs("collision-close-reads-batch012-gB.json"),
-    ];
-    const batch13Pairs = [
-      ...loadRawPairs("collision-close-reads-batch013-gA.json"),
-      ...loadRawPairs("collision-close-reads-batch013-gB.json"),
-    ];
-    const batch14Pairs = [
-      ...loadRawPairs("collision-close-reads-batch014-gA.json"),
-      ...loadRawPairs("collision-close-reads-batch014-gB.json"),
-    ];
-    const batch15Pairs = [
-      ...loadRawPairs("collision-close-reads-batch015-gA.json"),
-      ...loadRawPairs("collision-close-reads-batch015-gB.json"),
-    ];
-    // Parsed ONCE. `collision-close-reads.json` used to be read twice — into `rawAll` and
-    // again for `batch3Ids` — so every request paid for the same file twice.
-    const batch3Pairs = loadRawPairs("collision-close-reads.json");
     const rawEverything = [
       ...PRIOR_PAIRS.map((p) => ({ ...p, detectedAt: precheckDate })),
-      ...batch3Pairs,
-      ...loadRawPairs("collision-close-reads-batch004.json"),
-      ...batch5Pairs,
-      ...batch8Pairs,
-      ...batch9Pairs,
-      ...batch11Pairs,
-      ...batch12Pairs,
-      ...batch13Pairs,
-      ...batch14Pairs,
-      ...batch15Pairs,
+      ...PAYLOAD_FILES.flatMap(loadRawPairs),
     ];
     const rawAll = rawEverything.filter(
       (p) => p.classification === "confirmed-collision" || p.classification === "coordination-risk",
@@ -378,31 +315,6 @@ async function readCollisionData(): Promise<{ data: CollisionData | null; resolv
 
     if (rawAll.length === 0) return { data: null, resolvedFromStore };
 
-    // sourceBatch: prior pairs are batch 1/2 (their own pairId is the tell), the two JSON
-    // files are batch 3 and batch 4, batch-005's own file is batch 5.
-    const priorIds = new Set(PRIOR_PAIRS.map((p) => p.pairId));
-    const batch3Ids = new Set(batch3Pairs.map((p) => p.pairId));
-    const batch5Ids = new Set(batch5Pairs.map((p) => p.pairId));
-    const batch8Ids = new Set(batch8Pairs.map((p) => p.pairId));
-    const batch9Ids = new Set(batch9Pairs.map((p) => p.pairId));
-    const batch11Ids = new Set(batch11Pairs.map((p) => p.pairId));
-    const batch12Ids = new Set(batch12Pairs.map((p) => p.pairId));
-    const batch13Ids = new Set(batch13Pairs.map((p) => p.pairId));
-    const batch14Ids = new Set(batch14Pairs.map((p) => p.pairId));
-    const batch15Ids = new Set(batch15Pairs.map((p) => p.pairId));
-    const sourceBatchOf = (pairId: string): number => {
-      if (priorIds.has(pairId)) return 2;
-      if (batch15Ids.has(pairId)) return 15;
-      if (batch14Ids.has(pairId)) return 14;
-      if (batch13Ids.has(pairId)) return 13;
-      if (batch12Ids.has(pairId)) return 12;
-      if (batch11Ids.has(pairId)) return 11;
-      if (batch3Ids.has(pairId)) return 3;
-      if (batch9Ids.has(pairId)) return 9;
-      if (batch8Ids.has(pairId)) return 8;
-      if (batch5Ids.has(pairId)) return 5;
-      return 4;
-    };
     const czechReasoning = loadCzechReasoning();
 
     // Union-find over (lawRef, primaryParagraph) — pairs sharing a statute+§ merge into
@@ -489,17 +401,8 @@ async function readCollisionData(): Promise<{ data: CollisionData | null; resolv
             reasoning,
             reasoningWithheld: hadReasoning && reasoning === null,
             detectedAt: p.detectedAt ?? null,
-            sourceBatch: sourceBatchOf(p.pairId),
-            sourceMethod:
-              sourceBatchOf(p.pairId) <= 2
-                ? "deterministický §-překryv + ruční porovnání textů (dávka 001/002)"
-                : sourceBatchOf(p.pairId) === 9
-                  ? "deterministický dělený §-překryv nad živou topologií, stratifikovaný vzorek testující signál „přepis proti dílčí náhradě“, ruční porovnání textů, každá citace ověřena vyhledáním v archivovaném textu"
-                  : sourceBatchOf(p.pairId) === 8
-                    ? "deterministický dělený §-překryv nad živou topologií 577 hran amends, ruční porovnání textů, ověřeno grepem"
-                    : sourceBatchOf(p.pairId) === 5
-                      ? "deterministický dělený §-překryv nad přegenerovanou topologií amends (od té doby nasazenou), ruční porovnání textů"
-                      : "deterministický dělený §-překryv (--v2) + ruční porovnání textů, ověřeno grepem",
+            sourceBatch: p.sourceBatch,
+            sourceMethod: sourceMethodCs(p.sourceBatch),
             };
           })
           .sort((a, b) => (a.classification === b.classification ? 0 : a.classification === "confirmed-collision" ? -1 : 1)),

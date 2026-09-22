@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  paidCellKind,
   asCzk,
   deriveMunicipalSupplierRows,
   getSupplierTable,
@@ -16,6 +17,7 @@ import {
   type ContractNodeLike,
   type SuppliesEdgeLike,
   type SupplierRow,
+  liftTiedRows,
 } from "./supplierTrail";
 import { SUPPLIERS_PACKED } from "./data/municipalSuppliers.generated";
 
@@ -354,5 +356,45 @@ describe("supplierPeerStats / peerSupplierTotals", () => {
       sampleSize: 2,
     });
     expect(peerSupplierTotals(["00999999"], table)).toEqual({ medianCzk: null, sampleSize: 0 });
+  });
+});
+
+describe("liftTiedRows — výpis nese N největších a KAŽDOU protistranu s vazbou (2026-09-01)", () => {
+  const rows = ["a", "b", "c", "d", "e", "f"];
+
+  it("bez vrstvy vazeb (null) je to prostý řez — nic se nezvedá", () => {
+    expect(liftTiedRows(rows, 2, null)).toEqual({ shown: ["a", "b"], folded: ["c", "d", "e", "f"], lifted: 0 });
+  });
+
+  it("řádek s vazbou za hranicí se vypíše, pořadí zůstává, `lifted` počítá jen ty nad rámec", () => {
+    const tied = new Set(["a", "d", "f"]);
+    const r = liftTiedRows(rows, 2, (x) => tied.has(x));
+    expect(r.shown).toEqual(["a", "b", "d", "f"]);
+    expect(r.folded).toEqual(["c", "e"]);
+    expect(r.lifted).toBe(2); // „a" je v top 2 i bez vazby
+  });
+
+  it("po zvednutí není mezi složenými řádky žádná vazba — to je věta, kterou souhrn tvrdí", () => {
+    const tied = new Set(["e"]);
+    const r = liftTiedRows(rows, 3, (x) => tied.has(x));
+    expect(r.folded.some((x) => tied.has(x))).toBe(false);
+    expect(r.shown.length + r.folded.length).toBe(rows.length);
+  });
+});
+
+describe("paidCellKind — doložený směr bez částky není „směr neuveden“ (2026-09-05)", () => {
+  it("rozlišuje tři stavy podle počtu doložených smluv a částky", () => {
+    expect(paidCellKind({ paidCount: 0, paidCzk: 0 })).toBe("unknown");
+    expect(paidCellKind({ paidCount: 1, paidCzk: 0 })).toBe("documentedNoAmount");
+    expect(paidCellKind({ paidCount: 1, paidCzk: 100 })).toBe("amount");
+  });
+
+  it("zapsaná dávka ten třetí stav skutečně nese — to je řádek, který plocha do teď popírala", () => {
+    const rows = parseSupplierRows(SUPPLIERS_PACKED);
+    const documentedNoAmount = rows.filter((r) => paidCellKind(r) === "documentedNoAmount");
+    expect(documentedNoAmount.length).toBeGreaterThan(0);
+    // Praha × Ministerstvo financí: 1 smlouva s doloženým směrem, částka nezaznamenaná.
+    expect(documentedNoAmount.some((r) => r.townIc === "00064581" && r.supplierIco === "00006947")).toBe(true);
+    for (const r of documentedNoAmount) expect(r.paidCount).toBeGreaterThan(0);
   });
 });

@@ -35,7 +35,13 @@ export function fetchNovinky(keys: readonly string[], since: string): Promise<No
 
   const promise = fetch(query)
     .then(async (res) => {
-      if (!res.ok) return null;
+      // 503 (deník nečitelný) je stejný neúspěch jako výpadek sítě: do 2026-09-07 se
+      // ale držel v cache celou minutu, zatímco vyhozená chyba se vyhazovala hned —
+      // odznak pak po přechodném výpadku mlčel o minutu déle, než musel.
+      if (!res.ok) {
+        cache.delete(query);
+        return null;
+      }
       return parseNovinkyResponse(await res.json());
     })
     .catch((): null => {

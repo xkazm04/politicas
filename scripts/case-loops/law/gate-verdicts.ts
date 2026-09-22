@@ -25,10 +25,12 @@
  */
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { validateLawVerdict } from "@/lib/analysis/law-verdict";
 import { getStore } from "@/lib/db/store";
 import type { KgNodeRow } from "@/lib/db/types";
+import { verdictGateScope } from "./verdictScope";
 
 const DIR = "docs/data-analysis/case-law/payloads/verdicts";
 
@@ -47,7 +49,10 @@ const OUT_OF_SCOPE_COMPANY_CLAIM_KEYWORDS: RegExp[] = [
   // public/private/municipal status substance
   /soukrom\w*/i, // soukromý/á/é
   /veřejn\w*/i, // veřejný/á/é
-  /\bstátní\b/i,
+  // Unicode-aware boundaries: JS's ASCII `\b` sits BEFORE a diacritic, so `/\bstátní\b/`
+  // matched „státním" and never „státní podnik" (the \w/\b trap the census notes; fixed
+  // 2026-09-09). The same idiom verify-close-reads.ts uses.
+  /(?<!\p{L})státní(?!\p{L})/iu,
   /\bměst\w*/i, // město/městský — municipal
   /\bkraj\w*/i,
   /\bprivate\b/i,
@@ -62,7 +67,7 @@ const OUT_OF_SCOPE_COMPANY_CLAIM_KEYWORDS: RegExp[] = [
  * person/law/bill/organ nodes carry enough varied structured prop data that a blanket keyword
  * net would false-positive too easily, so those stay unchecked here — a documented scope limit,
  * not a completeness claim. */
-function citationScopeIssue(claim: string, sourceId: string, nodesById: Map<string, KgNodeRow>): string | null {
+export function citationScopeIssue(claim: string, sourceId: string, nodesById: Map<string, KgNodeRow>): string | null {
   if (!sourceId.startsWith("company:")) return null;
   if (!nodesById.has(sourceId)) return null; // id-membership check reports unknown ids separately
   for (const re of OUT_OF_SCOPE_COMPANY_CLAIM_KEYWORDS) {
@@ -79,16 +84,10 @@ async function main() {
   const nodes = await store.listKgNodes();
   const nodesById = new Map(nodes.map((n) => [n.id, n]));
 
-  const knownLawRefs = new Set(nodes.filter((n) => n.kind === "law").map((n) => String((n.props as Record<string, unknown>).ref)));
-  const graphLawCount = knownLawRefs.size;
-  if (existsSync(".data/esbirka/known-laws.json")) {
-    const reg = JSON.parse(readFileSync(".data/esbirka/known-laws.json", "utf8")) as { refs: string[] };
-    for (const r of reg.refs) knownLawRefs.add(r);
-  }
-  // ONE gate scope (batch-003 — collapses the stale --wide/canonical split), matching the live
-  // write-time gate in kg-forensics.ts exactly: graph_fact may cite company/person/law/bill/organ.
-  const idKinds = ["company", "person", "law", "bill", "organ"];
-  const knownIds = new Set(nodes.filter((n) => idKinds.includes(n.kind)).map((n) => n.id));
+  // ONE gate scope (batch-003 — collapses the stale --wide/canonical split): graph_fact may
+  // cite company/person/law/bill/organ. The definition is verdictScope.ts, shared with
+  // prepare-batch.ts so the army self-checks against exactly what this gate enforces.
+  const { knownLawRefs, knownIds, graphLawCount } = verdictGateScope(nodes);
   const billByCislo = new Map(nodes.filter((n) => n.kind === "bill").map((n) => [Number((n.props as Record<string, unknown>).cislo), n.id]));
 
   console.log(`GATE scope: ${graphLawCount} graph laws + e-Sbírka registry = ${knownLawRefs.size} known law refs · ${knownIds.size} known ids · ${billByCislo.size} bills\n`);
@@ -154,7 +153,13 @@ async function main() {
   process.exit(pass === files.length ? 0 : 1);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(2);
-});
+// Only self-execute when run directly — `citationScopeIssue` is the pure check a test
+// needs (citationScope.test.ts), and importing this module must not open the store and
+// exit the process. kg-promote.ts's guard, for the same reason.
+const isDirectRun = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(2);
+  });
+}

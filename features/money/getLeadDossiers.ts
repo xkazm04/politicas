@@ -26,7 +26,7 @@ import { reportLoaderFailure } from "@/lib/db/loaderGuard";
 // vrstvou na dvou hodinách jsou přesně to, jak dvě plochy začnou tisknout dvě
 // různá vydání jednoho čísla).
 import { createLedgerMemo } from "@/features/votetrack/ledgerMemo";
-import type { LeadDossier } from "./moneyTypes";
+import type { LeadDossier, LeadDossiers } from "./moneyTypes";
 
 const PAYLOAD_DIR = path.join(process.cwd(), "docs", "data-analysis", "case-money", "payloads");
 
@@ -61,16 +61,8 @@ export function isDossier(v: unknown): v is LeadDossier {
   );
 }
 
-/** What the surface needs to tell an empty corpus apart from a broken one. */
-export interface LeadDossiers {
-  dossiers: LeadDossier[];
-  /** The payload directory could not be listed at all — the surface is BLIND here, which
-   *  is not the same statement as "there are no kauzy". */
-  directoryUnreadable: boolean;
-  /** Files that exist but could not be read or parsed. A dossier lost to a stray comma
-   *  used to vanish with no log line and no visible difference from never existing. */
-  unreadableFiles: string[];
-}
+// Re-exported so server-side importers keep reading the shape from the loader.
+export type { LeadDossiers } from "./moneyTypes";
 
 /** Memo napříč požadavky. Payloady jsou DÁVKOVÝ artefakt na disku — mění se
  *  commitem, ne za běhu požadavku — a čtou se celé: 18 souborů, ~490 kB

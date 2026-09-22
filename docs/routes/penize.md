@@ -727,3 +727,85 @@ jednou — 211 řádků měnilo pořadí a asistivní technologii se to neřeklo
 oznámení byla šipka. Aktivní sloupec teď nese `ascending`/`descending` odvozené
 z `sortDir` (1 = vzestupně, komparátory jím násobí rozdíl), ostatní řaditelné
 sloupce `none` — ne prázdno, aby čtečka věděla, že řadit JDE.
+
+**Stav kontroly má jeden runtimový slovník (2026-09-07).** `ReviewState` byl jen
+typ, a tak si každé místo, které čte uložený `review_state`, psalo vlastní
+trojcestný ternár („verified“ / „rejected“ / jinak „pending_review“) — loader
+konzole, mapper knihy a skript triage, tři opisy jednoho pravidla. `reviewTypes.ts`
+teď nese `REVIEW_STATES` (týmž vzorem jako `TIE_CLASSES`) a `reviewStateOf(raw)`;
+loader konzole čte přes něj. Cokoli, co brána nikdy nezapsala — prázdné pole,
+cizí zápis — je „čeká na kontrolu“, protože o takové vazbě člověk nerozhodl.
+
+**Střety čtou číslo předpisu jedinou inverzí (2026-09-07).** Když uzel předpisu
+nenese `props.ref`, odvozoval si `getCollisionCandidates` číslo z id uzlu vlastním
+zápisem (odřízni `law:sb:`, první pomlčku nahraď lomítkem) — druhý parser vedle
+`refFromLawNodeId` v `features/lawwatch/statuteRef.ts`. Ten vlastní zápis udělal
+z JAKÉHOKOLI cizího id věrohodně vypadající „x/y“; inverze vrátí pro nekanonické
+id null a plocha ukáže surové id — viditelný urn, nikdy vyrobená citace.
+
+**Paket nese pražský den (2026-09-07).** Razítko „Stav ke dni“ na důkazním paketu
+se bralo z UTC hodin (`toISOString().slice(0, 10)`); Praha je o hodinu až dvě
+napřed, takže paket zkompilovaný po půlnoci nesl včerejší datum — v citaci,
+kterou novinář kopíruje. `getEvidencePacket` bere den z `pragueDay()`
+(features/denik/pragueDay.ts), týmž pravidlem jako deník a od 7225d18 i firemní
+spis. Otisk obsahu se nemění: `compiledAt` do hashe záměrně nevstupuje.
+
+**Konzole sází třídu vazby z `tieClassInfo` (2026-09-07).** Ověřovací konzole
+držela vlastní tabulku popisků tříd (`CLASS_LABEL`), pátou kopii popisku
+„vlastník / jednatel“ na dlaždici a kratší, vlastní verzi pravidla u čísla
+(„firma, kterou poslanec vlastní nebo řídí“ …), zatímco `moneyTypes.ts` u téže
+copy říká „import, never re-word“ a veřejný spis ji odsud importuje. Recenzent a
+čtenář se shodovali jen náhodou. Všech pět míst teď čte `tieClassInfo(...)`;
+test `casesReviewSource.test.ts` hlídá, že se lokální tabulka nevrátí.
+
+**Datum lidské kontroly je den, na všech plochách (2026-09-07).** Brána zapisuje
+`last_reviewed_at` jako celý ISO okamžik („2026-08-04T12:34:56.789Z“). Paket a
+jeho stránka ho řezaly na den, spis poslance a konzole ho tiskly celý — do řádku
+verzálkami v monospace. Řez má jednu definici, `reviewedDay` v `reviewTypes.ts`,
+a čtou ho všechna čtyři místa.
+
+**Zaplněný strop čtení auditu se hlásí (2026-09-07).** `getVerificationQueue` čte
+`review_audit` se stropem 10 000 řádků (od nejnovějšího). Živý sklad nese 0
+řádků, ale den, kdy by se strop naplnil, by nejstarší historie z konzole zmizely
+a rozhodnutá vazba by tvrdila „auditní stopa žádný záznam nevede“. Čtení, které
+strop naplní, teď zapíše varování; stránka se vykreslí dál.
+
+**Loader knihy čte id poslance přísným sdíleným parserem (2026-09-07).**
+`moneyLoader.ts` nesl vlastní `pspIdFromNodeId`, který bral poslední segment
+JAKÉHOKOLI id za `:` — id firmy nebo smlouvy by prošlo jako poslanec — a oba
+loadery /penize ho odsud importovaly. Modul teď re-exportuje přísný parser
+z `lib/ingest/changeEvents.ts` (`/^psp:person:(\d+)$/`); týž nález jako
+v triage (round 31) a v ARES-VR skriptech (round 34).
+
+**Mapper knihy zužuje stav kontroly přes `reviewStateOf` (2026-09-07).** Druhý
+ručně psaný ternár nad `review_state` (po loaderu konzole, round 33) je pryč;
+`mapLinkedToTie` čte týž slovník `REVIEW_STATES`. Z karty „ReviewState nemá
+runtimový seznam“ zbývá jen kopie ve skriptu triage.
+
+**Řez poslance kreslí hranici možného data k pražskému dni (2026-09-07).**
+`loadMpMoneySlice` bral „dnes“ z UTC hodin a jeho komentář žádal, aby se řez
+poslance a firemní spis shodly — jenže firemní spis přešel v 7225d18 na
+`pragueDay()`. Mezi půlnocí a 01:00/02:00 tak obě plochy kreslily hranici
+k jinému dni pro tutéž smlouvu. Řez teď bere den z `pragueDay()`; karta z roundu 33
+je uzavřená.
+
+**IČO z id firmy jedinou inverzí (2026-09-07).** Mapper knihy i peněžní obrázek
+četly IČO jako poslední segment id (`comp.id.split(":").pop()`), tedy zápisem,
+který „funguje“ i nad id poslance. Oba čtou `icoFromCompanyNodeId` z
+`companyId.ts` — kontrola prefixu a kanonických osm číslic, totéž pravidlo,
+na kterém stojí routa `/penize/firma/[ico]`.
+
+**Potvrzená vazba se nikdy neoznačí „neověřeno“ (2026-09-07).** Pět hran
+v živých payloadech (dataor batch 006 ×2, přepojení PRaK ×2, jeden živý flip
+batch 008) je zapsáno `corroboration: registry-confirmed` BEZ `temporal_status`
+— a výchozí větev `temporalBadge` je sázela jako „neověřeno vůči ARES VR“:
+vazbu, kterou rejstřík potvrdil, jako nikdy nekontrolovanou. Odznak teď u
+potvrzené vazby bez stavu čte konec role (`role_valid_to`): datum → „ukončeno
+RRRR“, null → „trvá“ — totéž pravidlo, jakým `reconcile-ares-vr` stav odvozuje,
+než se podívá na peníze; porovnání peněz s rolí, které potřebuje data smluv,
+odznak netvrdí. `temporalBadge.test.ts` to připíná.
+
+**Hledání v knize má přístupné jméno (2026-09-07).** Pole `type="search"` neslo
+jen placeholder — ten zmizí s prvním znakem a některé odečítačky ho nečtou
+(týž nález jako u poznámky v konzoli, 2026-08-12). Nese `aria-label` s týmž
+klíčem; druhá věta nevznikla.

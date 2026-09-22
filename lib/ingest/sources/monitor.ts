@@ -33,6 +33,7 @@
 // batch is DISCLOSED on-page, never passed off as completeness.
 
 import { backoffDelayMs } from "./backoff";
+import { classifyResponse, isTerminalRefusal, RefusedError } from "./refusal-class";
 
 const DEFAULT_BASE_URL = "https://monitor.statnipokladna.gov.cz/api";
 const USER_AGENT = "politicas-budget-mirror/1 (+https://github.com/xkazm04/politicas)";
@@ -218,14 +219,20 @@ async function fetchJsonWithRetry(
         headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
         signal: AbortSignal.timeout(30_000),
       });
-      if ((res.status === 429 || res.status === 503) && attempt < maxRetries) {
+      const cls = classifyResponse(res.status);
+      // A terminal class is answered once. Retrying a host that DECLINED is how
+      // a pause becomes a ban, and retrying an ABSENT resource cannot conjure
+      // it — both used to cost 3 requests here because the throw below fired
+      // inside the try and this catch retried it.
+      if (cls.kind !== "ok" && !cls.retryable) throw new RefusedError("MONITOR", url, cls);
+      if (cls.retryable && attempt < maxRetries) {
         await backoff(attempt);
         continue;
       }
-      if (!res.ok) throw new Error(`MONITOR → ${res.status} (${url})`);
+      if (!res.ok) throw new RefusedError("MONITOR", url, cls);
       return (await res.json()) as unknown;
     } catch (e) {
-      if (attempt >= maxRetries) throw e;
+      if (isTerminalRefusal(e) || attempt >= maxRetries) throw e;
       await backoff(attempt);
     }
   }

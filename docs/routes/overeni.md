@@ -186,3 +186,112 @@ asserts mint → bare ref → `verified` with the identical value, registry
 refs never touch the store, store-null answers `unavailable` never
 `mimo-rejstrik`. A metric added without a routing branch now FAILS a test
 instead of silently degrading to „rejstřík ji nezná".
+
+**Record time reaches the gate — the third column (2026-09-04, moonshot G1,
+cards #1/#9/#10).** The gate could show two sides: what the reader pasted and
+what holds today. It could not show the one we are answerable for, so `moved`
+meant "your figure differs from ours", never "on that day we said this" — which
+is exactly what the registry's three-verdict vocabulary requires ("moved is
+shown with both sides and both dates"). `/overeni?ref=…&k=YYYY-MM-DD` adds it.
+
+For the `zdroj` family the replay goes through `getReceiptData(ref, day)` — the
+gate still writes no graph read of its own — and `zdrojVerdict` compares the
+version valid that day against today's. That gives this family a `moved` kind
+for the first time: the address is still either in the graph or not, but the
+CONTENT at it can move. `receiptMoved` is pure and compares only what a receipt
+typesets as a claim (gate state, weight, pass, method). Node labels are
+deliberately excluded — a renamed company is the same company and "moved" on it
+would be a false alarm — while a missing weight against a number IS a move
+(missing is not zero). The audit trail shown beside a historical version is
+trimmed to decisions taken by that instant; today's decisions under a
+three-month-old version would be a document that lies.
+
+The record-time banner sits ABOVE the verdict (the `/graf/p` staleness rule: a
+"this is not today" line placed under the figure is read after the figure) and
+comes from the SAME catalog keys `/zdroj` uses — two copies of that sentence
+would diverge at the first correction, and both surfaces answer the same
+question. It has five readings, and they are five different findings that must
+never share one silence: `at` (the receipt IS the archived version),
+`absentThen` (we kept records; this claim was not among them), `beforeEpoch`
+(the migration's shared `recorded_at` means we assert nothing before it),
+`refused` (`k` was not an ISO day — `2026-02-31` is rejected, not slid to 3
+March) and `notReplayable`.
+
+`notReplayable` is the honest answer for the derived figures (`/penize`,
+`/zebricek`, `/zakony`): those are computed by their owning loaders over today's
+store rather than read from graph history, so we cannot say what we published on
+a given day — and saying nothing would read as "there was nothing there". What
+would close it: `liveFigures.ts` re-deriving through the money/score/law loaders
+parameterised by a `KgAsOfReads`, which is those features' write set, not this
+one's. Also open: the `graf` family carries only the banner today, because
+naming what changed in a view needs the replay described in
+`docs/routes/graf-permalink.md`.
+
+An as-of receipt emits NO `ClaimReview` (`app/zdroj/[ref]/page.tsx`): the markup
+carries no as-of date, so a crawler would read a months-old version as a current
+verified claim. `refDetect` also learned the `g2.` prefix, so a bare dated graph
+citation pasted into the gate is recognised as one — and the old `g.` form keeps
+verifying, because an issued address is never withdrawn.
+
+**And `/zdroj` answers "as of the day you cited it" (same change).** The same
+`?k=` lens re-derives the receipt through the store's key-indexed point reads,
+with the dated banner above the content and the endpoint labels read at the same
+instant, so the page is one date rather than a collage of two. A `gone` receipt
+additionally shows the LAST recorded version — "naposledy zaznamenáno … /
+nahrazeno …" from `lastKgEdgeVersion` / `lastKgNodeVersion` — typeset as history
+under its own heading with both instants. It is never promoted: the status stays
+`gone`, no ClaimReview goes out, no audit trail is attached, and nothing on
+another surface counts it. The day rule itself is pure and shared
+(`features/shared/provenance/asOfLens.ts`), so the two surfaces cannot drift
+about what a valid day is or which instant it means — a day is read at its END,
+because the reader cited what we published that day, not what stood at midnight.
+
+**The gate names the hash algorithm from the family it verifies (2026-09-05,
+scan-sweep, parity-auditor).** `/graf/p` and the exhibit each export
+`HASH_ALGORITHM` and set it from the constant; the gate's „otisk dnes" row carried
+the literal `fnv-1a/32`, so a change of algorithm in either family would have
+printed the old name next to a new hash. The row now picks the constant by
+family; `pageSource.test.ts` forbids the literal.
+
+**2026-09-07 — the person-id grammar of the receipt's case-file link has one owner
+(scan-sweep, parity-auditor).** `caseFileLink.ts` carried its own
+`/^psp:person:(\d+)$/` next to the identical regex in `lib/ingest/changeEvents.ts`
+(`pspIdFromNodeId`) — two definitions of „our id" that would part on the first
+change; `pspIdFromEntityId` now delegates. The IČO half stays local on purpose:
+its canonical owner is `features/money/companyId.ts`, which the shared catalog may
+not import (eslint boundary) — backlogged as a move to `lib/`.
+`provenanceSource.test.ts` forbids a second person-id regex.
+
+**2026-09-07 — the receipt's two catalog maps are closed over the enums they label
+(scan-sweep, state-coverage).** `ReceiptBody` kept the registry-tier labels and the
+audit-decision labels as `Record<string, string>`: the tier map had a raw-token
+fallback for a union that has exactly two members, and the decision map named two
+of the three `ReviewAuditRow.decision` values and let a `??` default label
+EVERYTHING else „vráceno k doplnění" — a new decision would have printed as a
+return. Both maps are now `as const satisfies Record<…, string>`; `needs-more` is
+named explicitly and the fallbacks are gone, so a missing label is a type error,
+not a sentence the reader acts on.
+
+**2026-09-07 — one case-file label map for the capsule and the page (scan-sweep,
+parity-auditor).** `ReceiptBody` and `ReceiptPage` each declared an identical
+`CASE_FILE_LABEL_KEY`; the map now lives beside the rule that produces the link
+(`caseFileLink.ts`, `satisfies Record<CaseFileLink["target"], string>`) and both
+surfaces import it — a renamed catalog key or a third case-file target changes one
+place. Count: 2 copies → 1.
+
+**2026-09-07 — the provenance capsule's dialog holds the contract its header states
+(scan-sweep, accessibility-checker).** The component's header promised „panel
+role=dialog aria-modal"; the panel carried the role, the focus trap and Esc, but
+not `aria-modal`, so assistive tech was not told the trapped focus was
+intentional. The attribute is now set; the header is true again.
+
+**2026-09-08 — round 59 of the sweep (scan-sweep, claim-verifier).** Two fixes on
+the gate. The verdict rows handed the graph pass to the catalog as a raw number
+(`{ pass: then.provenance.pass }`), and the guide its step number — next-intl
+formats a number with its own Intl and would print pass 1 234 with a thousands
+space; both are identifiers and go as strings now, the rule /data adopted for run
+ids on 2026-09-06. `liveFigures` dated its plausibility bound by the UTC day
+(`toISOString().slice(0, 10)`); it reads `pragueDay()` like every other loader
+that hands a „today" to the plausible-date module. `overeniSource.test.ts` pins
+both. The carried item from the first sweep — `refDetect`'s hand-kept host list —
+stays with the base-URL card in the backlog.

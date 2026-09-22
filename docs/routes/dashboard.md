@@ -337,3 +337,74 @@ desktop-only. `graph.realRule` narrowed to the population the seed scan
 actually reads (donor firms among MP-tied companies, not „v grafu
 jediné") and is pinned; the money and law tiles finally carry doors to
 /penize and /zakony (the avg-tile /metodika pattern).
+
+**Every number on the velín reaches the DOM and the ICU sentences formatted
+(2026-09-06, scan-sweep, copy-auditor).** The chamber count went raw into three
+sentences, the rank raw into the ledger row, and the graph pass raw into four
+citations — while the exhibit's footer already formatted the same pass through
+`f.int`. All eight sites go through `lib/format` now (one `passLabel` helper for
+the nullable pass); `pageSource.test.ts` pins them.
+
+**The exhibit's re-derivation date is no longer desktop-only (2026-09-06,
+scan-sweep, mobile-specialist).** The velín dropped its `hidden sm:block` wrappers
+on 2026-08-12 („no information on the velín is desktop-only"); the exhibit header
+kept one on the very sentence that dates a citation. The header stacks on narrow
+screens now, like the velín's.
+
+**A floor note without a known cap is not printed as „strop 0" (2026-09-06,
+scan-sweep, state-coverage).** `perCompanyCap` is `number | null` independently of
+`isFloor`; the money tile collapsed a null cap through `?? 0`. The note now
+requires a real cap, the rule `MpCaseFilePage` already applies (the same `?? 0`
+still stands in `FollowTheMoneyPage`, another context — recorded in the backlog).
+
+**The chart label and the sample ledger format their numbers too (2026-09-06,
+scan-sweep, copy-auditor).** `ChamberChart` handed the chamber count raw to the
+histogram label's ICU sentence and `MockRankingLedger` printed the rank raw — the
+two sites the velín page fix (f160c7e) did not reach because they live in
+components. Both go through `lib/format`; `componentSource.test.ts` pins them.
+
+**The graph's text form names its links (2026-09-06, scan-sweep,
+accessibility-checker).** `GraphNodeList` rendered up to seventeen „poslanec →"
+and seventeen „deník entity →" links with identical text, the exact
+indistinguishable-controls defect `FactRow` fixed for its buttons with named
+`aria-label`s. Both link kinds carry the node's name now
+(`list.caseFileNamed`, `list.denikNamed`, both catalogs).
+
+**`companyCaseFileHref` removed as a dead second builder of the company href
+(2026-09-06, scan-sweep, tech-debt-tracker).** Zero consumers outside its own test
+(grep over `app/`, `features/`, `lib/`); the company node's `/penize/firma/<ičo>`
+href is built once, in `stateSlice.ts`, and a second builder nobody calls is the
+pair that diverges unnoticed.
+
+**The build day is the Prague day (2026-09-08, scan-sweep, bounty-hunter).**
+`getDashboardData` stamped `builtOn` — the `today` bound of `buildDatedFacts` and
+the exhibit's „data obtained" date — with the UTC day. Between Prague midnight and
+01:00 (02:00 in summer) the Prague day is one ahead of UTC, so a contract signed
+„today" in Prague sat past the `date <= today` bound, left the book and was
+counted in `droppedImplausible`, the number the panel uses to disclose defective
+data. The loader reads `pragueDay()` now, the helper `/denik` adopted for the
+identical defect on 2026-08-04; `instrumentsSource.test.ts` pins it.
+
+**The exhibit's source links are pinned to the book's source names (2026-09-08,
+scan-sweep, parity-auditor).** `FACT_SOURCE_LINKS` re-types the three registry
+names `datedFacts.ts` keeps as private literals; a rename on either side stripped
+the link silently and the citation footer printed a bare name. The new
+`instrumentsSource.test.ts` reads the literals out of `datedFacts.ts` and asserts
+each has a link, and that a registry named in both link lists shares one host.
+Green on arrival — the three names agree today; the pin is what was missing.
+
+**The legend's kind order is complete by type (2026-09-08, scan-sweep,
+test-strategist).** `GraphLegend` kept its canonical shape order as a plain
+`StateNodeKind[]`, a free subset that nothing held against the vocabulary: a kind
+the union gained and the list did not would render on the canvas and be missing
+from the legend, silently. The order is now a `Record<StateNodeKind, number>`
+under `as const satisfies` (the `publicWire.ts` shape), so an omitted kind is a
+compile error; `stateGraphSource.test.ts` pins the declaration. Probed by
+removing one kind: `tsc` reports the missing property.
+
+**A slice node id is a positive integer, as its header promised (2026-09-08,
+scan-sweep, bounty-hunter).** `sliceNodeEntityKey` documented „pspId a číslo
+tisku celé kladné číslo" but tested `/^\d+$/`, so `p:0` produced `poslanec:0` and
+`p:007` the key of a different entity, `poslanec:7`. The rule is `/^[1-9]\d*$/`
+now; `entityLinks.test.ts` pins zero and zero-padded ids as null, red-then-green.
+No real slice builds such an id, so nothing rendered changes today.

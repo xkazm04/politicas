@@ -119,3 +119,35 @@ from both catalogs along with the dead `MODULES[].feeds` field itself.
 volíte?") and one sentence, no numbers — so no citation is owed. The hero
 stays the CivicScore index; repositioning the hero was rejected in the spark's
 wave 3 as a separate landing redesign.
+
+**Source panel counts moved 12 → 14 declared (2026-09-01).** `DataSources.tsx`
+prints `INGESTED_SOURCES.length`; the atlas register gained the two adapters it
+had missed (`isvz.ts`, `smlouvy-dump.ts`) — see `docs/routes/atlas.md` for the
+finding. No landing code changed.
+
+**2026-09-06 — scan-sweep round (landing-page, first sweep).** The specimen's
+reader-lens score is now `reweigh([mp], components, weights)` over one row: the
+page carried its own `lensScore` copy of the formula, held to the canonical one
+by a comment alone; `lensSource.test.ts` pins that the facade calls the rule
+instead of restating it. `componentBgParity.test.ts` pins ReferendumTeaser's
+Tailwind `COMPONENT_BG` to `COMPONENT_FILL` token-for-token (the "keep in sync"
+sentence was the only guard).
+The referendum's ballot box refuses a zero-sum vector at the door with the
+same `carriesLens` predicate the aggregate skips it by (it used to store the
+vote, say „hlas odevzdán" and lock the browser's ballot for a vote that never
+counted); the button says so before the click; a storage exception in the
+server action returns `unavailable` and a rejected action promise lands in
+`failed` instead of silence (`actions.test.ts`, `referendumPageSource.test.ts`).
+The copyable `<iframe>` snippet's `title` now comes from the same `embedTitle()`
+the widget document uses for its own `<title>` (`embedTitle.ts`): under a reader
+lens the frame's accessible name names the lens instead of asserting the
+published methodology over a recomputed table.
+
+**2026-09-08 (scan-sweep, landing-page round 75, parity-auditor).** `/referendum` handed
+`WeightPanel` the literal `100` as the weight total under the published methodology,
+while the landing teaser derives the same figure from `PUBLISHED_WEIGHTS` and says so.
+The page derives it now (`publishedTotal`), and the new
+`publishedTotalSource.test.ts` pins both the derivation and the fact the literal
+assumed — the published weights sum to 100 — which no test had held (1 literal → 0
+in this feature; `features/civicscore/CivicScorePage.tsx` still carries the same
+`?? 100`, another context's).

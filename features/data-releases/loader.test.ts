@@ -72,11 +72,26 @@ vi.mock("@/lib/db/pglite/repositories/ledger", () => ({
 }));
 vi.mock("@/lib/db/loaderGuard", () => ({ reportLoaderFailure }));
 
-const { getDataReleasesData, getSnapshotDownload, resetSnapshotMemo } = await import(
-  "./getDataReleasesData"
+/*
+ * [G5] Certifikace vydání. `readNewestCertification` je JEDINÝ způsob, jak se
+ * verdikt sentinela dostane do manifestu, a spojuje se na PŘESNOU shodu otisku
+ * — proto tenhle šev vrací verdikt jen pro otisk, na který ho test nastaví.
+ * Kdyby vracel „nejbližší běh", certifikoval by vydání, které sentinel nikdy
+ * neviděl.
+ */
+const certificationByHash = new Map<string, unknown>();
+const readNewestCertification = vi.fn(async (_pg: unknown, hash: string) =>
+  certificationByHash.get(hash) ?? null,
 );
+vi.mock("@/lib/db/pglite/internals", () => ({ open: async () => ({}) }));
+vi.mock("@/lib/db/pglite/sentinelQueue", () => ({ readNewestCertification }));
+
+const { getDataReleasesData, getReleaseManifest, getSnapshotDownload, resetSnapshotMemo } =
+  await import("./getDataReleasesData");
 
 beforeEach(() => {
+  certificationByHash.clear();
+  readNewestCertification.mockClear();
   ballots = CENSUS.ballots;
   resetSnapshotMemo();
   listKgNodes.mockReset();
@@ -165,5 +180,90 @@ describe("výpadek výřezu nesmete manifest", () => {
     });
     expect((await getDataReleasesData())!.snapshot).toBeNull();
     expect((await getDataReleasesData())!.snapshot).not.toBeNull();
+  });
+});
+
+/*
+ * CERTIFIKACE VYDÁNÍ (2026-09-04, moonshot #26).
+ *
+ * `/data` do teď tisklo „latest" z kardinalitních prahů a NIC neříkalo, jestli
+ * nad tím vydáním kdy nějaká invarianta proběhla — prahy jednou certifikovaly
+ * 0,98 % korpusu smluv na celé týdny. Tři věci se tu drží:
+ *   1. bez běhu je to `none`, nikdy tichý průchod,
+ *   2. spojení je na PŘESNOU shodu otisku (cizí verdikt se nezapočítá),
+ *   3. certifikace do otisku NEVSTUPUJE — jinak by zápis verdiktu otisk změnil
+ *      a verdikt by se přestal vztahovat k vydání, které hodnotil.
+ */
+describe("certifikace vydání — verdikt cestuje s otiskem", () => {
+  it("bez běhu nad tímhle otiskem je to `none`, ne tichý průchod", async () => {
+    const data = await getDataReleasesData();
+    expect(data!.manifest.certification).toBe("none");
+    expect(data!.manifest.certifiedBy).toBeNull();
+  });
+
+  it("verdikt nad SHODNÝM otiskem se vytiskne i s počtem platných invariant", async () => {
+    const first = (await getDataReleasesData())!.manifest;
+    certificationByHash.set(first.manifestHash, {
+      ranAt: "2026-09-04T06:00:00.000Z",
+      verdict: "ok",
+      checksHeld: 14,
+      checksTotal: 15,
+    });
+    resetSnapshotMemo();
+    const data = await getDataReleasesData();
+    expect(data!.manifest.certification).toBe("ok");
+    expect(data!.manifest.certifiedBy).toMatchObject({ checksHeld: 14, checksTotal: 15 });
+    // A OTISK SE NEHNUL: certifikace je fakt o vydání zvenčí, ne jeho obsah.
+    expect(data!.manifest.manifestHash).toBe(first.manifestHash);
+  });
+
+  it("verdikt nad JINÝM otiskem se nezapočítá — žádný nejbližší běh", async () => {
+    certificationByHash.set("cizi-otisk", {
+      ranAt: "2026-09-04T06:00:00.000Z",
+      verdict: "ok",
+      checksHeld: 15,
+      checksTotal: 15,
+    });
+    const data = await getDataReleasesData();
+    expect(data!.manifest.certification).toBe("none");
+  });
+
+  it("`unevaluable` doputuje jako `unevaluable` — není to průchod", async () => {
+    const first = (await getDataReleasesData())!.manifest;
+    certificationByHash.set(first.manifestHash, {
+      ranAt: "2026-09-04T06:00:00.000Z",
+      verdict: "unevaluable",
+      checksHeld: 0,
+      checksTotal: 15,
+    });
+    resetSnapshotMemo();
+    const data = await getDataReleasesData();
+    expect(data!.manifest.certification).toBe("unevaluable");
+  });
+
+  it("nečitelná tabulka verdiktů degraduje na `none` a hlásí se", async () => {
+    readNewestCertification.mockRejectedValueOnce(new Error("sentinel_run unreadable"));
+    const data = await getDataReleasesData();
+    expect(data!.manifest.certification).toBe("none");
+    expect(reportLoaderFailure).toHaveBeenCalledWith(
+      "getDataReleases:certification",
+      expect.any(Error),
+    );
+  });
+
+  it("stránka a /data/manifest.json nesou TÝŽ verdikt — jedna derivace", async () => {
+    const first = (await getDataReleasesData())!.manifest;
+    certificationByHash.set(first.manifestHash, {
+      ranAt: "2026-09-04T06:00:00.000Z",
+      verdict: "violation",
+      checksHeld: 12,
+      checksTotal: 15,
+    });
+    resetSnapshotMemo();
+    const page = (await getDataReleasesData())!.manifest;
+    const machine = (await getReleaseManifest())!;
+    expect(machine.certification).toBe(page.certification);
+    expect(machine.certifiedBy).toEqual(page.certifiedBy);
+    expect(machine.manifestHash).toBe(page.manifestHash);
   });
 });

@@ -36,6 +36,7 @@ function mk(name: string, pspId: number, score: number): LeaderboardListEntry {
     effortWorkhorseFlavour: null,
     effortRapporteurLoad: 0,
     effortHasDossier: false,
+    effortVerdictRungs: {},
   effortLowScoreReason: null,
   effortRecordedAt: null,
   duelFacts: {

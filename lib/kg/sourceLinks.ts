@@ -51,19 +51,11 @@ export interface SourceLink {
   tier: SourceTier;
 }
 
-/** Drží se v syncu s KG_NODE_KINDS v lib/analysis/kg-verdict.ts. */
-export type KgNodeKind =
-  | "person"
-  | "party"
-  | "organ"
-  | "bloc"
-  | "theme"
-  | "company"
-  | "contract"
-  | "bill"
-  | "law"
-  | "notice"
-  | "tender";
+/** JEDEN výčet druhů: odvozeno z KG_NODE_KINDS (lib/analysis/kg-verdict), ne
+ *  druhá kopie „držená v syncu" — do 2026-09-05 tu byl ručně psaný union a jeho
+ *  test obsluhy četl třetí ručně psaný seznam, kterému `tender` chyběl. */
+export type { KgNodeKind } from "@/lib/analysis/kg-verdict";
+import type { KgNodeKind } from "@/lib/analysis/kg-verdict";
 
 export interface SourceSubject {
   kind: KgNodeKind;
@@ -121,6 +113,19 @@ const hlidacContractSearch = (ico: string): SourceLink => ({
   tier: "search",
 });
 
+/**
+ * Kanonické IČO: 1–8 číslic doplněných zleva nulami na osm; cokoli jiného
+ * `null`. Stejný tvar drží `canonicalIco` ve features/money/companyId.ts —
+ * tahle knihovna do features importovat nesmí, takže test v sourceLinks.test.ts
+ * obě funkce drží u sebe. Do 2026-09-05 šlo IČO do adres i citací tak, jak
+ * přišlo (`props.ico` z ingestu bývá bez vodících nul): ARES i Hlídač pak
+ * dostaly „123" místo „00000123" — stejná vada, jakou 8db835f opravil na /dukazy.
+ */
+const canonicalIcoOf = (v: unknown): string | null => {
+  const s = str(v);
+  return s && /^\d{1,8}$/.test(s) ? s.padStart(8, "0") : null;
+};
+
 /** Poslední segment id — `psp:person:6202` → `6202`. */
 export const idSuffix = (id: string): string | null => {
   const s = id.split(":").pop();
@@ -158,7 +163,7 @@ export function citableId(subject: SourceSubject): string | null {
       return psp ? `psp id orgánu ${psp}` : null;
     }
     case "company": {
-      const ico = str(props?.ico) ?? idSuffix(id);
+      const ico = canonicalIcoOf(props?.ico) ?? canonicalIcoOf(idSuffix(id));
       return ico ? `IČO ${ico}` : null;
     }
     // `contract:<idSmlouvy>` — idSmlouvy JE klíč registru, ale NENÍ to číslo
@@ -226,7 +231,9 @@ export function sourceLinksFor(subject: SourceSubject): SourceLink[] {
 
   switch (kind) {
     case "person": {
-      const psp = idSuffix(id);
+      // Číslo, nebo nic — jako v `citableId`. `idSuffix` by z `kg:person:novak-j`
+      // vyrobil `detail.sqw?id=novak-j`: hádanou adresu (pravidlo 1).
+      const psp = pspNumber(id);
       const links: SourceLink[] = [];
       if (psp) {
         links.push({ registry: "psp.cz", url: `https://www.psp.cz/sqw/detail.sqw?id=${psp}`, tier: "detail" });
@@ -241,7 +248,7 @@ export function sourceLinksFor(subject: SourceSubject): SourceLink[] {
     }
 
     case "company": {
-      const ico = str(props?.ico) ?? idSuffix(id);
+      const ico = canonicalIcoOf(props?.ico) ?? canonicalIcoOf(idSuffix(id));
       if (!ico) return [];
       return [
         // `ares.gov.cz/ekonomicke-subjekty?ico=` je FILTR seznamu subjektů, ne
@@ -279,7 +286,7 @@ export function sourceLinksFor(subject: SourceSubject): SourceLink[] {
       if (own) links.push({ registry: "Registr smluv", url: own, tier: "detail" });
       // Dotaz na dodavatele zůstává vedle detailu jako jiná otázka („co ještě
       // ta firma dodává"), ale je to dotaz a jmenuje svého hostitele.
-      const supplier = str(props?.supplierIco);
+      const supplier = canonicalIcoOf(props?.supplierIco);
       if (supplier) links.push(hlidacContractSearch(supplier));
       return links;
     }

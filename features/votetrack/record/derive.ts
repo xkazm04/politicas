@@ -34,7 +34,9 @@
 //     different fact from a perfectly unified day, and the instrument draws it
 //     differently.
 
+import { clubAt } from "@/lib/analysis/clubAt";
 import { MIN_CLUB_POSITIONAL, MIN_ELIGIBLE_VOTES } from "@/lib/analysis/kg";
+import type { ClubWindow } from "@/lib/db/store";
 import { reconcileRecord, type PublishedTally } from "./reconcile";
 import { deriveThreshold, summarizeThresholds, type ThresholdIn, type VoteThreshold } from "./threshold";
 import type {
@@ -207,8 +209,21 @@ export function deriveVoteRecord(
     events: readonly EventIn[];
     ballots: readonly BallotIn[];
     clubByMandate: ReadonlyMap<number, string>;
+    /**
+     * Klub PŘI HLASOVÁNÍ — okna členství per mandát (`store.clubWindowsByMandate`).
+     *
+     * Když chybí, derivace spadne zpět na `clubByMandate`, tedy na JEDEN klub na
+     * celé období vybraný pořadím řádků v dumpu. To je stav před 2026-09-04 a
+     * plocha ho musí umět pojmenovat, proto se ztráta počítá
+     * (`coverage.clubBasis === "term_wide"`), ne mlčky předpokládá.
+     */
+    clubWindowsByMandate?: ReadonlyMap<number, ClubWindow[]>;
     personByMandate: ReadonlyMap<number, number>;
     nameByPerson: ReadonlyMap<number, string>;
+    /** Hlasování → veřejná čísla tisků, o kterých rozhodovalo (hrany `decides`).
+     *  Volitelné: kdo ji nepředá, dostane deník bez odkazů na tisky — nikdy
+     *  odkaz odhadnutý z názvu hlasování. */
+    billCislosByVote?: ReadonlyMap<number, number[]>;
   },
   opts: DeriveOptions = {},
 ): FullVoteRecord {
@@ -218,10 +233,50 @@ export function deriveVoteRecord(
   const chronicleCap = opts.chronicleCap ?? CHRONICLE_CAP;
   const topRebelsCap = opts.topRebelsCap ?? TOP_REBELS_CAP;
 
-  const { events, ballots, clubByMandate, personByMandate, nameByPerson } = input;
+  const { events, ballots, clubByMandate, clubWindowsByMandate, personByMandate, nameByPerson, billCislosByVote } = input;
 
   const valid = sortValidNewestFirst(events);
   const eventById = new Map(valid.map((e) => [e.pspId, e]));
+
+  /* ── klub PŘI HLASOVÁNÍ ───────────────────────────────────────────────────
+   *
+   * Do 2026-09-04 se každý hlas vážil proti JEDNOMU klubu na celé období —
+   * `clubByMandate` nemá v SQL žádný predikát na `from_at`/`to_at` a dělá
+   * `out.set()` na řádek, takže poslanci, který klub změnil, přebarvil dump
+   * i hlasy odhlasované v tom předchozím. Tady se klub rozhoduje datem hlasování.
+   *
+   * Dvě odmítnutí, obě SE POČÍTAJÍ a ani jedno se nemísí do `unaffiliated`:
+   *   outsideClubWindow  den hlasu neleží v žádném okně mandátu. Poslanec MEZI
+   *                      kluby není poslanec BEZ klubu; sečíst je znamená vážit
+   *                      hlas proti linii, která pro jeho autora neplatila.
+   *   ambiguousClubWindow  dvě okna pokrývají týž den — zdroj si odporuje.
+   *                      Vybrat první je přesně ta chyba, kterou tohle opravuje.
+   * Hlas v žádném z těch dvou kbelíků NEVSTUPUJE do klubové tally ani do
+   * jmenovatele rebelie: nespočítaný hlas je lepší než hlas přiřknutý cizímu klubu.
+   */
+  const clubBasis: "at_vote" | "term_wide" = clubWindowsByMandate ? "at_vote" : "term_wide";
+  let outsideClubWindow = 0;
+  let ambiguousClubWindow = 0;
+  /** Sentinel: „klub existuje, ale k tomuhle dni ho neumíme určit". Odlišený od
+   *  `undefined` (= nezařazený), aby se ta dvě NIKDY nesečetla. */
+  const CLUB_UNRESOLVED = " unresolved";
+  /** Klub mandátu k datu hlasování, nebo `undefined` když se nedá určit.
+   *  `counted` říká, jestli se ztráta už zapsala (pass 1 počítá, pass 2 ne — jinak
+   *  by se jeden hlas objevil v kbelíku dvakrát). */
+  const clubOfBallot = (mandatePspId: number, votedOn: string | null, counted: boolean): string | undefined => {
+    if (!clubWindowsByMandate) return clubByMandate.get(mandatePspId);
+    const windows = clubWindowsByMandate.get(mandatePspId);
+    // Mandát bez jediného okna = skutečně nezařazený poslanec: stejná větev jako
+    // dřív (spadne do `unaffiliated`), ne nový kbelík.
+    if (!windows || windows.length === 0) return undefined;
+    const at = clubAt(windows, votedOn);
+    if (at.kind === "in_club") return at.club;
+    if (counted) {
+      if (at.kind === "ambiguous") ambiguousClubWindow++;
+      else outsideClubWindow++;
+    }
+    return CLUB_UNRESOLVED;
+  };
 
   /* práh hlasování — kolik hlasů bylo potřeba a kolik poslanců u toho bylo.
    * Nezávisí na jediném jmenovitém hlasu, a to je záměr: `quorum`, `present`
@@ -239,7 +294,8 @@ export function deriveVoteRecord(
   const unaffiliated = new Map<number, ClubTally>();
   const totals = new Map<number, ClubTally>();
   for (const b of ballots) {
-    if (!eventById.has(b.votePspId)) continue; // voided or foreign-term vote
+    const event = eventById.get(b.votePspId);
+    if (!event) continue; // voided or foreign-term vote
     const bucket = bucketOf(b.choice);
     let total = totals.get(b.votePspId);
     if (!total) {
@@ -247,7 +303,10 @@ export function deriveVoteRecord(
       totals.set(b.votePspId, total);
     }
     addTally(total, bucket);
-    const club = clubByMandate.get(b.mandatePspId);
+    const club = clubOfBallot(b.mandatePspId, event.votedOn, true);
+    // Klub existuje, ale k tomuhle DNI ho neumíme určit — hlas se do žádné klubové
+    // tally nepočítá a do `unaffiliated` UŽ VŮBEC. Ztráta je v `coverage`.
+    if (club === CLUB_UNRESOLVED) continue;
     if (club === undefined) {
       let u = unaffiliated.get(b.votePspId);
       if (!u) {
@@ -296,8 +355,10 @@ export function deriveVoteRecord(
     if (!stat) continue;
     const bucket = bucketOf(b.choice);
     if (bucket !== "yes" && bucket !== "no") continue;
-    const club = clubByMandate.get(b.mandatePspId);
-    if (club === undefined) continue;
+    // `counted: false` — pass 1 už tenhle hlas do kbelíku započítalo; druhý průchod
+    // téhož hlasu by ztrátu zdvojil.
+    const club = clubOfBallot(b.mandatePspId, eventById.get(b.votePspId)?.votedOn ?? null, false);
+    if (club === undefined || club === CLUB_UNRESOLVED) continue;
     const line = stat.byClub[club]?.line ?? null;
     if (line === null) continue;
     const person = personByMandate.get(b.mandatePspId);
@@ -323,7 +384,13 @@ export function deriveVoteRecord(
     list.sort((a, b) => a.name.localeCompare(b.name, "cs") || a.personPspId - b.personPspId);
 
   /* ledger window */
-  const ledger: LedgerVote[] = valid.slice(0, ledgerWindow).map((e) => ({
+  const ledger: LedgerVote[] = valid.slice(0, ledgerWindow).map((e) => {
+    // Odkaz na dossier se dává jen tehdy, když hlasování rozhodovalo o PRÁVĚ
+    // JEDNOM tisku. Bod pořadu s víc tisky (blok písemných interpelací) by jinak
+    // poslal čtenáře na jeden z nich, jako by se hlasovalo o něm — proto `null`
+    // a počet vedle, ne vybraný první.
+    const cislos = billCislosByVote?.get(e.pspId) ?? [];
+    return {
     pspId: e.pspId,
     title: titleOf(e),
     outcome: e.outcome,
@@ -335,7 +402,10 @@ export function deriveVoteRecord(
     stat: statById.get(e.pspId)!,
     rebels: rebelsByVote.get(e.pspId) ?? [],
     threshold: thresholdById.get(e.pspId)!,
-  }));
+    billCislo: cislos.length === 1 ? cislos[0] : null,
+    billCount: cislos.length,
+    };
+  });
   const inLedger = new Set(ledger.map((l) => l.pspId));
 
   /* per-vote index — the compact projection /kompas selects its questions from.
@@ -536,6 +606,12 @@ export function deriveVoteRecord(
       to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,
       ledgerWindow: Math.min(ledgerWindow, valid.length),
       unaffiliatedSeats: latestStat ? latestStat.unaffiliated.yes + latestStat.unaffiliated.no + latestStat.unaffiliated.k + latestStat.unaffiliated.away : 0,
+      clubBasis,
+      // Dva kbelíky klubu PŘI HLASOVÁNÍ. Ani jeden se nepřičítá k `unaffiliated`
+      // a ani jeden se neskóruje — plocha je pojmenuje, nebo o nich mlčí, a mlčet
+      // o nich by znamenalo tvrdit, že klub známe u všech hlasů.
+      outsideClubWindow,
+      ambiguousClubWindow,
       // Populace nálezu o prazích. Deník ukazuje krátké okno a hlasování, u
       // kterých práh prostou většinou přítomných NENÍ, jsou v korpusu jednotky
       // promile — bez těchhle tří čísel by o nich plocha mlčela, i když je

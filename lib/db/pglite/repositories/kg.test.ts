@@ -32,3 +32,14 @@ describe("neighbourIds", () => {
     expect(neighbourIds([], "a")).toEqual([]);
   });
 });
+
+describe("the whole-relation listers default to the one shared cap (2026-09-08)", () => {
+  it("kg.ts and voteTags.ts read KG_READ_CAP instead of re-typing its value", async () => {
+    const { readFileSync } = await import("node:fs");
+    for (const p of ["lib/db/pglite/repositories/kg.ts", "lib/db/pglite/repositories/voteTags.ts"]) {
+      const s = readFileSync(p, "utf8");
+      expect(s, p).toMatch(/import \{ KG_READ_CAP \} from "..\/..\/readCap"/);
+      expect(s, p).not.toMatch(/\?\? 1_000_000/);
+    }
+  });
+});

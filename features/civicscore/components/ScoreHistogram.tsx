@@ -12,7 +12,7 @@ import { useMemo } from "react";
 import { useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { LeaderboardData } from "../getLeaderboardData";
+import type { LeaderboardData } from "../leaderboardTypes";
 import { useFormat } from "@/lib/i18n/useFormat";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { COBALT, HAIRLINE, INK, OCHRE, PAPER_STRONG, SIGNAL, STEEL, TOOLTIP_STYLE } from "@/features/landing/palette";
@@ -57,7 +57,7 @@ export default function ScoreHistogram({
               <Tooltip
                 cursor={{ fill: PAPER_STRONG }}
                 contentStyle={TOOLTIP_STYLE}
-                formatter={(value) => [t("histogramCount", { value: Number(value) }), t("histogramBand")]}
+                formatter={(value) => [t("histogramCount", { value: f.int(Number(value)) }), t("histogramBand")]}
               />
               {/* Tři stavy, ne dva. Pásmo, V NĚMŽ medián leží, není „pod mediánem" —
                   a přesně to se dřív dělo největšímu pásmu sněmovny (65–70 při

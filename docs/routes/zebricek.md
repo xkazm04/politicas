@@ -479,3 +479,134 @@ a multi-second read (/dashboard, /denik, /penize, /penize/strety — all on the
 ~12 s money layer, /penize/strety on the 15 800 ms collision pass). A skeleton
 on a half-second route is a lie about latency, and this app does not tell those.
 
+
+## 2026-09-04 — the badges now say which rung they stand on (G2, deck #12)
+
+Until today every person-level verdict on a /zebricek row — the low-score
+correction (34/207), the quiet-workhorse badge (~16/207), the rapporteur load
+(18/207) — rendered with a DATE and nothing else. A reader could not tell a
+deterministic graph pass from a checked fact, and the ladder of assertion was
+flattened at exactly the point where it costs a named person something.
+
+`LeaderboardEntry.effortVerdictRungs` now carries, per verdict prop, the rung it
+stands on (`machine` · `pending` · `verified` · `rejected`) plus who decided and
+when. It is derived by `readVerdictRung` (`lib/analysis/verdict-provenance.ts`)
+off `effort_provenance.verdicts.<field>` — the same function the /poslanec
+loader calls, so the two surfaces cannot answer one question two ways — and
+rendered by the shared catalog primitive `VerdictProvenance`.
+
+**What this record refuses to derive.** A verdict prop the effort loop never
+stamped carries NO key in the map, and the badge then prints no rung at all.
+There is deliberately no default: `machine` would be a guess about provenance
+rendered as provenance, and it is a guess that always flatters the pipeline.
+
+**A rejected verdict withholds; it does not blank the row.** For the low-score
+chip this is not a nicety. The chip exists because a low number standing alone
+reads as an accusation of indifference — that is the finding it was built for
+(2026-08-04). Deleting it on rejection would restore exactly that harm, silently.
+So the chip is replaced by the disclosed „verdikt zamítnut" state, which is
+visible, and the reader knows a claim was refused rather than never made.
+
+**Payload cost.** `effortVerdictRungs` is an object per row, empty for every MP
+the loop has not stamped — which today is all 207, since the rung is written by
+`merge-batch.ts` on the NEXT effort batch and nothing backfills the graph. An
+empty object per row is what compresses away; the field is paid for now so the
+surface is ready when the first stamped batch lands, and so that no reader ever
+sees a stamped badge on one surface and an unstamped one on another.
+
+**Carry-over.** `HeadToHead` (Souboj) and `KrajPage` call the same three badges
+without the rung props. They default to `null`, so those surfaces are honest —
+they print no rung rather than a wrong one — but they do not yet show the ladder.
+
+**The rung reaches the duel and the printed slate (2026-09-05, scan-sweep,
+parity-auditor).** 9853059 gave the three verdict badges `rung` / `decidedBy` /
+`decidedAtLabel` in the leaderboard rows and the profile dossier; `HeadToHead` and
+`KrajPage` rendered the same three badges without them — six of twelve sites in
+this feature. The consequence was not a missing footnote: a verdict the human gate
+REJECTED is withheld visibly in the table while the duel and the printable kraj
+card kept showing it as a positive badge, and the card is the one surface nobody
+corrects after printing. All twelve sites now pass the rung; `verdictRung.test.ts`
+pins every badge opening tag on the three surfaces by source.
+
+**Three counts went to the DOM or an ICU sentence unformatted (2026-09-05,
+scan-sweep, copy-auditor).** `TrendPanel` printed the raw activity counts
+(`{s.v.prior} → {s.v.current}`; speech turns exceed a thousand, so a Czech reader
+saw „1234" for „1 234"), `KrajPage` handed pillar points and weight to
+`krajBarItem` as numbers (next-intl then formats with its own Intl, outside the one
+formatting authority — the rule RapporteurBadge states in its comment), and the
+standout delta in the table went out as `{Math.abs(best.delta)}`. All three go
+through `useFormat` now; `formattedNumbers.test.ts` pins the sites by source. The
+lint rule `no-raw-number-display` sees only `toFixed`/`toLocale*`, not this shape.
+
+**The lens keeps the loader's later rules (2026-09-05, scan-sweep, parity-auditor).**
+`reweigh()` mirrors the official ranking, and two rules the loader tightened after the
+lens was written never reached it: the pspId tail of `compareLeaderboardRow` (0342d91 —
+identical score and name resolved by input order under a lens) and the one shared
+`median()` from `lib/analysis/score-legibility` (the loader's own comment on why a second
+copy of one statistic on one page is how they diverge). Both are in `lens.ts` now; the
+comparator itself cannot be imported (the loader is `server-only`, the lens runs on the
+client), so `lens.test.ts` pins the lens order against the loader's comparator over the
+same rows, and the lens median against the shared function.
+
+**WeightPanel's ICU sentences and two stale headers (2026-09-05, scan-sweep,
+copy-auditor).** Three numbers went into the panel's `title` / `aria-label` /
+`aria-valuetext` sentences as raw numbers (next-intl then formats them itself, outside
+`lib/format`); `WeightPanel`'s header still said its copy was inline literals with the
+catalog out of reach — three weeks after every string moved to `civicscore.*`; and
+`duelFacts.ts` rule 5 still asserted „všech 211 vazeb je pending_review", the sentence
+the catalog test forbids and `HeadToHead`'s header calls false since the first gate
+confirmation. All three corrected; `formattedNumbers.test.ts` pins the panel's sites.
+
+**Živá URL archu má jednu definici (2026-09-07, scan-sweep, parity-auditor).**
+`/kraj/[kraj]` i `/plakat/[view]` skládaly adresu do patičky tištěného archu
+z request hlaviček vlastní funkcí pod týmž komentářem („na patičce nesmí být
+vymyšlená doména“). `lib/routing/liveUrl.ts` nese čistou část
+(`liveUrlFrom(host, proto, path)`, testovanou: bez hostu relativní cesta,
+bez proxy hlavičky `http`) a tenký `liveUrl(path)` nad `headers()`; obě routy
+ho importují.
+
+**První hodnota parametru adresy má jednu definici (2026-09-07, scan-sweep,
+parity-auditor).** `/referendum` i `/zebricek` nesly tutéž tvarovou pojistku
+nad `searchParams` (`string | string[] | undefined` → první hodnota) pod
+komentářem odkazujícím na druhou routu. `lib/routing/searchParam.ts::firstParam`
+je ta jedna, testovaná; kodek čočky se dál importuje z `features/civicscore/lens`.
+
+**Zkratky složek na OG kartě jsou úplné typem (2026-09-07, scan-sweep,
+parity-auditor).** `COMPONENT_SHORT` v `app/referendum/og/route.tsx` překládá
+šest klíčů vzorce na krátké české popisky a byl typovaný jako volný
+`Record<string, string>` — sedmá složka přidaná do `CONTRIBUTION_WEIGHTS` by
+na sdílené kartě vytiskla svůj syrový klíč. Mapa je `satisfies
+Record<ComponentKey, string>`: chybějící klíč je chyba kompilace.
+
+**Plakát datuje data, ne vykreslení (2026-09-07, scan-sweep, bounty-hunter).**
+`/plakat/zebricek` razil `retrievedAt` jako den vykreslení z UTC hodin — tedy
+arch datoval sám sebe místo dat pod sebou, přesně ta vada, kterou karta kraje
+opravila 2026-08-12. Den teď vydává komorový agregát provenience
+(`provenance.computedAt`), týž zdroj jako u karty kraje a vestavného widgetu;
+když se komora na jednom dni neshodne, arch dostane pražský den vytištění, protože
+typ `retrievedAt` ve sdíleném plakátu „neuvedeno“ neumí — viz karta v backlogu.
+
+**Round 57 of the sweep (2026-09-08, scan-sweep, civicscore-leaderboard).** Four
+findings landed. (1) The chamber pass read the person id as `Number(id.split(":")
+.pop())`; it reads `pspIdFromNodeId` (the strict `psp:person:<n>` parser) now and
+withholds, counted, a node whose id the parser refuses — no rank under NaN, no
+`/poslanec/NaN` link. (2) The table printed club seats, the two filter counts and
+the „zobrazeno X z Y" pair raw, and the histogram tooltip handed a raw number to the
+catalog (next-intl's own Intl formatting); all go through `f.int` now. (3) The
+table's per-component median was a second copy of `score-legibility.median`; it
+imports it, and an empty chamber yields no median (null) instead of 0. (4) The kraj
+picker folded its query with its own NFD strip beside `search.ts`; it uses
+`foldQuery`. `features/civicscore/leaderboardSource.test.ts` pins all four.
+
+**The weight panel's explanations are text (2026-09-08, scan-sweep,
+accessibility-checker).** The three preset buttons carried their one-sentence note
+only in `title`, and each slider row its psp.cz source only in the label's `title`
+— hover-only, so keyboard and touch never got them and screen readers read them
+unreliably (the finding /denik fixed for its time-axis explanation on 2026-08-12).
+Both are `sr-only` text now, beside the titles that stay for the mouse;
+`features/civicscore/lensDuelSource.test.ts` pins it. Not built this round, carded:
+the loader, `lens.ts` and `kraj.ts` each spell competition ranking, and the loader
+and `lens.ts` each spell the 5-point histogram and the summary — `lens.ts` is pure
+and the loader could import it; `DUEL_FACT_DEFS` carries Czech labels, units and
+sources outside the catalog; `CopyLensLink` duplicates the catalog `CopyLinkButton`
+because the primitive has no compose-at-click hook.

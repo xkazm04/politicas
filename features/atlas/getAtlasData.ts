@@ -44,12 +44,42 @@ const ENTITY_TABLES = [
   "source_release",
 ] as const;
 
+/**
+ * [G5] Grafové tabulky. Do 2026-09-04 tady nebyly a stránka o tom napsala celý
+ * odstavec: kg_node/kg_edge neměly `source` ani `ingest_run_id`, takže mezi
+ * řádkem a ingest během nevedl klíč a jedenáct ze čtrnácti zdrojů — mezi nimi
+ * OBA, které nesou celé /penize — nedostalo ani číslo. Sloupce teď existují
+ * (generované z `provenance`, lib/db/pglite/ddl.ts) a pečeť je pokrývá
+ * (RUN_TABLES), takže se pravidlo integrity nemuselo uvolnit, aby se sem
+ * dostaly: platí dál, jen o dvě tabulky šířeji.
+ */
+const GRAPH_TABLES = ["kg_node", "kg_edge"] as const;
+
 async function readEntityCoverage(pg: Pglite): Promise<AtlasEntityCoverage[]> {
   const out: AtlasEntityCoverage[] = [];
   for (const table of ENTITY_TABLES) {
     const { rows } = await pg.query<Record<string, unknown>>(
       `select source, count(*)::int as rows, count(ingest_run_id)::int as rows_with_run
          from ${table} group by source`,
+    );
+    for (const r of rows) {
+      out.push({
+        source: str(r.source),
+        entity: table,
+        rows: num(r.rows),
+        rowsWithRun: num(r.rows_with_run),
+      });
+    }
+  }
+  // Táž otázka nad grafem. Řádek bez `source` (migrace ho ještě neminula) se
+  // NESLUČUJE s „unknown" — to je jiné tvrzení: první mluví o postupu migrace,
+  // druhé o rekonstruovatelnosti původu. Derivace je vede odděleně, tak je sem
+  // odděleně i posíláme (prázdný klíč = neorazítkováno).
+  for (const table of GRAPH_TABLES) {
+    const { rows } = await pg.query<Record<string, unknown>>(
+      `select coalesce(source, '') as source, count(*)::int as rows,
+              count(ingest_run_id)::int as rows_with_run
+         from ${table} group by coalesce(source, '')`,
     );
     for (const r of rows) {
       out.push({

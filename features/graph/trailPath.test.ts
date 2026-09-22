@@ -12,6 +12,8 @@ import {
   findEvidencePaths,
   HUB_DEGREE,
   MAX_COST,
+  PATH_RULE_REF,
+  pathRule,
   type PathEdge,
 } from "./trailPath";
 
@@ -20,9 +22,17 @@ const edge = (src: string, dst: string, rel = "linked_to", over: Partial<PathEdg
   dst,
   rel,
   weight: null,
+  // Vychozi fixture hrana je OVERENA, ne „bez stavu": test o zamitnutych
+  // krocich musi stat na explicitnim `gate`, ne na nedopatreni.
   pending: false,
+  gate: "verified",
+  provenance: null,
   ...over,
 });
+
+/** Hrana, kterou clovek ZAMITL — terminalni stav, ktery v grafu zustava. */
+const refused = (src: string, dst: string, rel = "linked_to"): PathEdge =>
+  edge(src, dst, rel, { gate: "rejected", pending: false });
 
 const nodeSeq = (r: ReturnType<typeof findEvidencePaths>) => r.paths.map((p) => p.nodeIds.join(">"));
 
@@ -76,7 +86,13 @@ describe("findEvidencePaths — základ", () => {
 
   it("bez spojení vrací čestnou prázdnotu (paths=[], cost=null)", () => {
     const adj = buildAdjacency([edge("a", "b"), edge("x", "y")]);
-    expect(findEvidencePaths(adj, "a", "y")).toEqual({ paths: [], totalFound: 0, capped: false, cost: null });
+    expect(findEvidencePaths(adj, "a", "y")).toEqual({
+      paths: [],
+      totalFound: 0,
+      capped: false,
+      cost: null,
+      excludedRejected: 0,
+    });
   });
 
   it("cesta delší než strop ceny neexistuje", () => {
@@ -196,5 +212,102 @@ describe("determinismus", () => {
     expect(reversed).toEqual(baseline);
     expect(interleaved).toEqual(baseline);
     expect(nodeSeq(baseline)).toEqual(["a>q>b", "a>r>b", "a>p>b"]);
+  });
+});
+
+/*
+ * ZAMÍTNUTÁ HRANA NENÍ DOLOŽENÁ VAZBA (2026-09-04).
+ *
+ * Tyhle testy před opravou PADALY: `rejected` se do plochy nedostávalo jako
+ * stav, jen jako `pending: false` — tedy k nerozeznání od ověřené hrany. Cesta
+ * pak vedla po tvrzení, které člověk výslovně odmítl, a řadila se dokonce PŘED
+ * cestu s čekající hranou, protože „nečeká" se počítalo za „ověřeno".
+ */
+describe("buildAdjacency — tři stavy brány, ne jeden boolean", () => {
+  it("zamítnutou hranu do sousedství vůbec nepustí a spočítá ji", () => {
+    const adj = buildAdjacency([edge("a", "b"), refused("b", "c")]);
+    expect(adj.excludedRejected).toBe(1);
+    expect(adj.neighbours.has("c")).toBe(false);
+    expect(adj.degree.get("b")).toBe(1);
+  });
+
+  it("cesta vedoucí JEN přes zamítnutý krok neexistuje — a řekne proč", () => {
+    // a—b ověřeně, b—c zamítnuto: „doložené spojení a→d" v našich datech není.
+    const adj = buildAdjacency([edge("a", "b"), refused("b", "c"), edge("c", "d")]);
+    const r = findEvidencePaths(adj, "a", "d");
+    expect(r.paths).toEqual([]);
+    expect(r.cost).toBeNull();
+    // Prázdná odpověď se nesmí tvářit jako „nic tu nebylo": počet vyloučených
+    // kroků jde ven, aby čtenář rozeznal „nenašli jsme" od „vede to jen přes
+    // odmítnuté tvrzení".
+    expect(r.excludedRejected).toBe(1);
+  });
+
+  it("zamítnutý krok nesmí přeskočit čekající — dřív vyhrával, protože nečekal", () => {
+    const adj = buildAdjacency([
+      refused("a", "x"),
+      refused("x", "b"),
+      edge("a", "p", "linked_to", { pending: true, gate: "pending_review" }),
+      edge("p", "b", "linked_to", { pending: true, gate: "pending_review" }),
+    ]);
+    const r = findEvidencePaths(adj, "a", "b");
+    // Jediná zbylá cesta je ta čekající — a je označená jako čekající, ne
+    // vydávaná za doloženou.
+    expect(nodeSeq(r)).toEqual(["a>p>b"]);
+    expect(r.paths[0].pendingCount).toBe(2);
+    expect(r.excludedRejected).toBe(2);
+  });
+
+  it("negated relace nese gate=null: nemá co ověřovat není ověřeno", () => {
+    const adj = buildAdjacency([edge("a", "b", "supplies", { gate: null })]);
+    const r = findEvidencePaths(adj, "a", "b");
+    expect(r.paths[0].hops[0].gate).toBeNull();
+    expect(r.paths[0].hops[0].pending).toBe(false);
+    expect(r.paths[0].pendingCount).toBe(0);
+  });
+
+  it("krok si nese provenienci hrany, po které vede", () => {
+    const prov = { pass: 68, method: "deterministic", ref: "psp:linked/v2" };
+    const adj = buildAdjacency([edge("a", "b", "linked_to", { provenance: prov })]);
+    expect(findEvidencePaths(adj, "a", "b").paths[0].hops[0].provenance).toEqual(prov);
+  });
+
+  it("duplicitní hrana: ověřená bije čekající a provenience jde s vítězem", () => {
+    const v = { pass: 68, method: "deterministic", ref: "verified-side" };
+    const merged = buildAdjacency([
+      edge("a", "b", "linked_to", {
+        gate: "pending_review",
+        pending: true,
+        provenance: { pass: 1, method: null, ref: "pending-side" },
+      }),
+      edge("a", "b", "linked_to", { gate: "verified", provenance: v }),
+    ]);
+    expect(merged.neighbours.get("a")?.[0]).toMatchObject({
+      gate: "verified",
+      pending: false,
+      provenance: v,
+    });
+  });
+});
+
+describe("PATH_RULE_REF — identita pravidla, ne jen jeho čísla", () => {
+  /*
+   * Otisk citace porovnává OBSAH, ne AUTORA. Kdyby se HUB_DEGREE změnilo ze
+   * 120 na 90 a dvouskoková cesta to přežila, znovuodvození by bylo bajtově
+   * shodné, otisk by seděl a /overeni by řeklo „ověřeno" o cestě, kterou
+   * vyrobilo JINÉ pravidlo. Proto se ref přibíjí PROTI konstantám: kdo změní
+   * jedno bez druhého, shodí tenhle test.
+   */
+  it("ref se mění spolu s konstantami, které pravidlo popisuje", () => {
+    expect(pathRule()).toEqual({
+      ruleRef: "evidence-path/v1",
+      excludedRels: ["co_votes_with"],
+      hubDegree: 120,
+      maxCost: 6,
+    });
+    expect(PATH_RULE_REF).toBe(pathRule().ruleRef);
+    expect(pathRule().excludedRels).toBe(EXCLUDED_RELS);
+    expect(pathRule().hubDegree).toBe(HUB_DEGREE);
+    expect(pathRule().maxCost).toBe(MAX_COST);
   });
 });

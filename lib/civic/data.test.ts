@@ -17,7 +17,7 @@ import {
   TREND_QUARTERS,
 } from "./data";
 import { chamberSplit, disciplineByParty, partyDiscipline, partyLine } from "./votes";
-import { CHAMBER_SUMMARY, LEADERBOARD } from "./leaderboard";
+import { CHAMBER_SUMMARY, LEADERBOARD, SCORE_HISTOGRAM } from "./leaderboard";
 import { czech, czechInt } from "../format";
 
 describe("pilíře (metodika v1.4)", () => {
@@ -227,6 +227,12 @@ describe("plný žebříček (CivicScore)", () => {
     for (const r of LEADERBOARD) {
       expect(composite(r.pillars), `${r.rank} ${r.name}`).toBeCloseTo(r.score, 5);
     }
+  });
+
+  it("histogram má ručně psaný rozsah košů (30–89) — každý řádek žebříčku v něm musí padnout", () => {
+    // Koš, do kterého skóre nespadne, řádek tiše vynechá; součet košů proto
+    // musí být počet řádků, ať se kotvy vzorku posunou kamkoli.
+    expect(SCORE_HISTOGRAM.reduce((sum, b) => sum + b.count, 0)).toBe(LEADERBOARD.length);
   });
 
   it("agregátní dlaždice a trend jsou přišité k počítanému souhrnu", () => {

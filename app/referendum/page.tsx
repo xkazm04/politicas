@@ -3,6 +3,7 @@ import ReferendumPage from "@/features/landing/referendum/ReferendumPage";
 import { getReferendumData } from "@/features/landing/referendum/getReferendumData";
 import { decodeWeights, isPublishedWeights, LENS_PARAM } from "@/features/civicscore/lens";
 import { serializeWeights } from "@/features/landing/referendum/aggregate";
+import { firstParam } from "@/lib/routing/searchParam";
 
 /*
  * /referendum — Referendum o metodice (moonshot 7B). Tenká routa: server načte
@@ -17,11 +18,8 @@ interface SearchParams {
   searchParams: Promise<{ [LENS_PARAM]?: string | string[] }>;
 }
 
-const one = (v: string | string[] | undefined): string | null =>
-  typeof v === "string" ? v : Array.isArray(v) ? (v[0] ?? null) : null;
-
 export async function generateMetadata({ searchParams }: SearchParams): Promise<Metadata> {
-  const raw = one((await searchParams)[LENS_PARAM]);
+  const raw = firstParam((await searchParams)[LENS_PARAM]);
   const weights = raw !== null ? decodeWeights(raw) : null;
   const custom = weights !== null && !isPublishedWeights(weights);
   const vector = custom ? serializeWeights(weights) : null;

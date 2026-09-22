@@ -54,9 +54,21 @@ export function pumperUpstreams(source: string, env = "PROD"): string[] {
 
 /* ── Known issues per source — the institutional memory that otherwise lives only
  * in markdown + the skill's watch-list. Every claim is established by the onboarding
- * pass (docs/data-analysis/onboarding.md). ─────────────────────────────────────*/
-export const SOURCE_DOCS: Record<string, { summary: string; knownIssues: string[]; provenance: string }> = {
+ * pass (docs/data-analysis/onboarding.md).
+ *
+ * `asOf` is the day the counts below were measured. They are POINT-IN-TIME facts
+ * (44 633 merged ballots, 203/207 photos, 7 045 people, 17 mirror rows) handed to an
+ * analyst as if current; until 2026-09-01 nothing in the assembled context said when
+ * they were true, so a later ingest could silently turn every one of them into a
+ * stale claim the analyst repeats (memory/corpus-role-snapshots-go-stale.md is the
+ * same failure one layer up). The documentation string prints the date next to the
+ * list, so a reader can weigh "as of 2026-07-23" against the slice's own freshness. */
+export const SOURCE_DOCS: Record<
+  string,
+  { summary: string; knownIssues: string[]; provenance: string; asOf: string }
+> = {
   "psp-poslanci": {
+    asOf: "2026-07-23",
     summary:
       "Poslanecká sněmovna person/organ/mandate/membership registries, downloaded directly from psp.cz poslanci.zip (UNL, windows-1250). The static side of the entity graph.",
     knownIssues: [
@@ -70,6 +82,7 @@ export const SOURCE_DOCS: Record<string, { summary: string; knownIssues: string[
     provenance: "docs/data-analysis/onboarding.md; lib/ingest/sources/psp.ts",
   },
   "psp-hlasovani": {
+    asOf: "2026-07-23",
     summary:
       "Poslanecká sněmovna roll calls + per-MP ballots + excused absences for one electoral term, from psp.cz hl-<year>ps.zip (UNL, windows-1250). The temporal side of the graph.",
     knownIssues: [
@@ -84,6 +97,7 @@ export const SOURCE_DOCS: Record<string, { summary: string; knownIssues: string[
     provenance: "docs/data-analysis/onboarding.md; lib/ingest/sources/psp.ts; psp.cz schema k=1302",
   },
   "pumper-psp-opendata": {
+    asOf: "2026-07-23",
     summary:
       "Release manifest + page fingerprint of the psp.cz open-data index, mirrored from the Pumper scraping backbone (extractor/extracted + watch/pages). This is what makes staleness of the direct psp.cz download DETECTABLE — the dumps carry no version or diff feed.",
     knownIssues: [
@@ -104,7 +118,14 @@ export const CORPUS_PRIMER = [
   "A parliamentary CLUB is not the elected party-list — never conflate them in a categorization or a discipline metric.",
 ];
 
-/** Coverage ledger — updated by promote-verdicts / re-sync after an analysis pass. */
+/**
+ * Coverage ledger — HAND-MAINTAINED. No script writes it: `promote-verdicts` never
+ * imported it (grep over scripts/ and lib/, 2026-09-01), despite what this comment
+ * said until then. A slice missing here reads "pending — never analyzed" in every
+ * analyst context even after a later pass analysed it, so a pass that does not add
+ * its row here leaves the next analyst re-doing the work. The `status` carries the
+ * pass date for the same reason `SOURCE_DOCS.asOf` exists.
+ */
 export const LEDGER: Record<string, { status: string; note: string }> = {
   "psp-hlasovani×PSP10×vote_event": {
     status: "analyzed-onboarding-2026-07-23",
@@ -222,7 +243,12 @@ export function buildDocumentation(
     lines.push(`Corpus entity: ${source} × ${entity}. The graph table; slices are lenses over it, scoped by term.`);
   }
   if (doc) {
-    lines.push("", `SOURCE — ${doc.summary}`, "", "KNOWN ISSUES (established by prior analysis runs):");
+    lines.push(
+      "",
+      `SOURCE — ${doc.summary}`,
+      "",
+      `KNOWN ISSUES (established by the analysis pass of ${doc.asOf}; counts are as of that day, not live):`,
+    );
     for (const issue of doc.knownIssues) lines.push(`  • ${issue}`);
     lines.push("", `Provenance: ${doc.provenance}`);
   }

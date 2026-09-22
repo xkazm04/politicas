@@ -16,6 +16,8 @@
 // `quality` is the load-bearing constraint: it rejects invented dimensions,
 // which is the documented failure mode of an unsupervised sweep.
 
+import { extractJsonBlock, parseJsonBlock } from "./jsonBlock";
+
 export const QUALITY_CRITERIA = [
   "completeness",
   "freshness",
@@ -297,22 +299,10 @@ export function validateVerdict(input: unknown, options: ValidateVerdictOptions 
 
 /** Extract the first ```json block (or outermost braces) from raw text and validate. */
 export function parseAndValidateVerdict(text: string, options: ValidateVerdictOptions = {}): ValidationResult {
-  const raw = extractJsonBlock(text);
-  if (raw === null) return { ok: false, errors: ["no JSON block found in subagent output"] };
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(raw);
-  } catch (e) {
-    return { ok: false, errors: [`JSON parse error: ${e instanceof Error ? e.message : String(e)}`] };
-  }
-  return validateVerdict(parsed, options);
+  const block = parseJsonBlock(text);
+  if (block.error !== null) return { ok: false, errors: [block.error] };
+  return validateVerdict(block.parsed, options);
 }
 
-export function extractJsonBlock(text: string): string | null {
-  const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
-  if (fence && fence[1].trim().startsWith("{")) return fence[1].trim();
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start !== -1 && end > start) return text.slice(start, end + 1);
-  return null;
-}
+// The extractor lives once, in jsonBlock.ts (re-exported so importers keep their path).
+export { extractJsonBlock };

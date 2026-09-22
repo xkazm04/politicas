@@ -69,8 +69,28 @@ const EN_STOPWORDS = new Set<string>([
  * are deliberately NOT here — Czech has `dokument`, `argument`, `parlament`,
  * `reference`, `konference`. The 5-character floor keeps Czech `med`, `led`, `sed`
  * out of the `-ed` bucket.
+ *
+ * The floor does NOT keep out `pohled`/`vzhled`/`soused` (`-ed`) or the whole
+ * feminine-plural past tense (`dostaly`, `vlastnily`, `hlasovaly` — `-ly`), so a
+ * morphology hit is EVIDENCE, never a verdict: see `MORPHOLOGY_ALONE_MIN` below.
  */
 const EN_MORPHOLOGY = /(?:tions?|ing|ed|ly|ness|ship)$/;
+
+/**
+ * Morphology hits count in full once at least one closed-list English word is
+ * present; with NO closed-list hit they count only from this many, because below
+ * it the shape rule cannot tell English from Czech.
+ *
+ * Measured 2026-09-01 on the pass-74 graph (1 966 reader-facing strings): with
+ * morphology deciding alone, 4 genuinely Czech strings were withheld — three
+ * `linked_to.reviewer_note` rows whose only "English" token was `ongoing`/`LEAD`
+ * next to registry dates, and one dossier note tripped by `leadership` — while the
+ * one English reviewer note in the corpus carried three shape hits (`flipped`,
+ * `conflicting`, `registry-confirmed`) and no closed-list word. Three is the
+ * smallest floor that keeps that note out and lets the four Czech ones through
+ * (13 → 9 withheld, 0 new English shown; the product catalog moved 13 → 11).
+ */
+const MORPHOLOGY_ALONE_MIN = 3;
 
 function hasEnglishMorphology(word: string): boolean {
   return word.length >= 5 && EN_MORPHOLOGY.test(word) && !/[áčďéěíňóřšťúůýž]/.test(word);
@@ -105,6 +125,8 @@ export interface LanguageScore {
   reason: string;
 }
 
+import { czech } from "@/lib/format";
+
 const WORD_RE = /[\p{L}][\p{L}\p{M}'-]*/gu;
 
 /** Minimum tokens before the frequency rule is trusted; below it, a stricter presence rule applies. */
@@ -118,42 +140,47 @@ const EN_RATE_THRESHOLD = 0.05;
  */
 export function scoreLanguage(text: string): LanguageScore {
   const words = (text.match(WORD_RE) ?? []).map((w) => w.toLocaleLowerCase("cs"));
-  let czech = 0;
-  let english = 0;
+  let czechHits = 0;
+  let closedList = 0;
+  let morphology = 0;
   for (const w of words) {
-    if (CS_STOPWORDS.has(w)) czech++;
-    else if (EN_STOPWORDS.has(w) || hasEnglishMorphology(w)) english++;
+    if (CS_STOPWORDS.has(w)) czechHits++;
+    else if (EN_STOPWORDS.has(w)) closedList++;
+    else if (hasEnglishMorphology(w)) morphology++;
   }
+  // Shape hits corroborate a closed-list hit; on their own they decide only in bulk.
+  const english =
+    closedList > 0 ? closedList + morphology : morphology >= MORPHOLOGY_ALONE_MIN ? morphology : 0;
   const tokens = words.length;
-  if (tokens === 0) return { tokens, czech, english, looksEnglish: false, reason: "prázdný text" };
+  if (tokens === 0) return { tokens, czech: czechHits, english, looksEnglish: false, reason: "prázdný text" };
 
   // Short strings (a citation claim can be a single clause): a frequency rate is
   // noise at n<12, so require an outright English majority with at least two hits.
   if (tokens < MIN_TOKENS_FOR_RATE) {
     // `>=` not `>`: a short bilingual citation label ("Amended statute: zákon č. …")
     // ties on hits, and a tie in a Czech-first product resolves against rendering.
-    const looksEnglish = english >= 2 && english >= czech;
+    const looksEnglish = english >= 2 && english >= czechHits;
     return {
       tokens,
-      czech,
+      czech: czechHits,
       english,
       looksEnglish,
       reason: looksEnglish
-        ? `krátký text: ${english} anglických funkčních slov vs ${czech} českých`
+        ? `krátký text: ${english} anglických funkčních slov vs ${czechHits} českých`
         : "text neprošel jako anglický (krátký text)",
     };
   }
 
   const rate = english / tokens;
-  const looksEnglish = english > czech && rate >= EN_RATE_THRESHOLD;
+  const looksEnglish = english > czechHits && rate >= EN_RATE_THRESHOLD;
   return {
     tokens,
-    czech,
+    czech: czechHits,
     english,
     looksEnglish,
     reason: looksEnglish
-      ? `${english} anglických funkčních slov z ${tokens} (${(rate * 100).toFixed(1)} %), českých jen ${czech}`
-      : `česky nebo neurčeno (${english} EN / ${czech} CS z ${tokens})`,
+      ? `${english} anglických funkčních slov z ${tokens} (${czech(rate * 100)} %), českých jen ${czechHits}`
+      : `česky nebo neurčeno (${english} EN / ${czechHits} CS z ${tokens})`,
   };
 }
 

@@ -37,7 +37,10 @@ export async function GET(request: Request): Promise<Response> {
     generatedAt: new Date().toISOString(),
     channel: schrankaFeedChannel({ baseUrl, keys, since: built.since, format: "xml" }),
   });
+  // Osobní odpověď (seznam sledovaných je v adrese) = `private`, táž politika
+  // jako novinky.json. Do 2026-09-05 bez hlavičky — jediný osobní artefakt, který
+  // sdílená cache směla držet podle vlastního úsudku. Pinuje feedRoutes.test.ts.
   return new Response(xml, {
-    headers: { "content-type": "application/rss+xml; charset=utf-8" },
+    headers: { "content-type": "application/rss+xml; charset=utf-8", "cache-control": "private, max-age=60" },
   });
 }

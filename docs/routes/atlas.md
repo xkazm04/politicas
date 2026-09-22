@@ -72,3 +72,77 @@ is the one declaration of the thresholds and parameterises both catalogs, so a
 constant change reflows the machine rule and both locales from one edit
 (demonstrated). `features/atlas/messages.test.ts` is the feature's first — it was
 the only catalogued surface without one.
+
+**The source register is derived from the tree, not copied from it
+(2026-09-01, scan-sweep).** `INGESTED_SOURCES` was hand-written on 2026-08-13
+with the note that every row had been verified over the tree, and its test
+compared the list only to itself. Two adapters that entered `lib/ingest/sources`
+afterwards never got a row: `isvz.ts` (Registr veřejných zakázek — the whole
+tender layer `/volby` reads, 61 k nodes) and `smlouvy-dump.ts` (the bulk
+Registr smluv dumps behind the contract census). So the page whose purpose is
+to name every source the platform works with named 12 of 14, and the landing's
+source panel printed „12 deklarovaných" from the same constant. Both now carry
+rows (`isvz-nipez-cz`, `smlouvy-gov-cz-dump`, landing `graph`, unscored for the
+same reason as the other graph sources), and `lib/analysis/atlas.test.ts` reads
+the adapters directory and fails on the next module that lands without a row
+(two named helpers excluded, each with its reason). Counts on this page and on
+`/` moved 12 → 14 declared, 9 → 11 unscored.
+
+**The graph became measurable, and the seal moved first (2026-09-04, moonshot
+#22).** This file has carried the refusal verbatim since 2026-08-13:
+"`kg_node` / `kg_edge` have no `source` column and no `ingest_run_id`, so no join
+key runs to `ingest_run`", and "Scoring `kg_*` coverage is deliberately out of
+scope" — because the integrity rule **prints** that the sealed set of tables and
+the scored set are the same set, and scoring the graph would have made that
+sentence false. Eleven of fourteen sources therefore printed no number at all,
+including **both** that carry the whole of `/penize`.
+
+The order of the fix is the whole point. `lib/kg/provenance.ts` declares the one
+stamp (`{source, ingest_run_id, pass, ref, writer}`); `CORE_DDL` projects
+`source` and `ingest_run_id` out of it as stored generated columns; **then**
+`RUN_TABLES` (`repositories/ledger.ts`) gains `kg_node`/`kg_edge`, appended at
+the end of the pinned order so every previously sealed run keeps its root
+(`kg_edge` seals in `(src, rel, dst)` order — its identity is the triple, it has
+no `id`); and only after the seal actually covers the graph does
+`readEntityCoverage` read the two tables. The printed integrity rule is updated
+in the same change, in `ATLAS_RULES` and byte-identically in both catalogs. The
+sentence stays true; it just got two tables wider.
+
+**Section 03: rows with no declared publisher.** With a `source` column the
+page can finally ask a question it could not ask before — how many graph rows
+claim no declared source — and the answer is a number, printed. It is **not** a
+card: a card for `unknown` would carry four dimensions and a composite and would
+sort between `psp-poslanci` and `smlouvy-gov-cz`, asserting that a publisher of
+that name exists. It does not.
+
+Two counts, deliberately not summed:
+
+| | means | how it goes away |
+| --- | --- | --- |
+| **nedohledáno** (`source = 'unknown'`) | the migration reached the row and could not honestly reconstruct its origin | re-run the writer that owns those rows; it stamps a real source |
+| **neorazítkováno** (`source IS NULL`) | the migration has not reached the row | run `kg-provenance-backfill` |
+
+Folding them into one "no provenance" figure would hide which is a confession
+and which is work in progress. **Zero here does not mean finished** — it means
+every row claims some source.
+
+The graph landing's unscored sentence changed accordingly: a graph source now
+stands in section 02 only until an ingest under the provenance contract stamps
+it, not because the tables structurally cannot be measured. Both that sentence
+and the scope note are byte-pinned to their constants by
+`features/atlas/messages.test.ts`, so the prose and the capability cannot drift
+apart again.
+
+**`/atlas/atlas.json` answers an outage with an uncacheable 503 (2026-09-06,
+scan-sweep, parity-auditor).** Same rule as the feed and data endpoints
+(`cache-control: no-store`, `retry-after: 600`); pinned by
+`lib/testing/machineRoutes503.test.ts`.
+
+**The atlas's table list is pinned to the seal's (2026-09-06, scan-sweep,
+parity-auditor).** `getAtlasData.ts` measures `ENTITY_TABLES` + `GRAPH_TABLES`
+and its header says "the same list as `RUN_TABLES`"; nothing held that but the
+sentence, and the seal has already grown once (2026-09-04). A third hand copy,
+`SENTINEL_ENTITY_TABLES` in `lib/testing/sentinel/facts.ts`, still lacks the
+two graph tables while claiming the same identity - filed as a backlog card
+(other context). `features/atlas/sealTables.test.ts` now reads both sources and
+fails the moment the two lists differ.

@@ -30,6 +30,7 @@
  *   PGLITE_PATH=./.pglite-copy-money npx tsx scripts/case-loops/money/reconcile-ares-vr.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { AresClient } from "@/lib/analysis/money-feed";
 // JEDNA definice heuristiky (2026-08-13). Tenhle skript je HLAVNÍ ZAPISOVATEL
 // `tie_class` — batch-002 anotoval 245 z 211 živých vazeb — a nesl si vlastní
@@ -42,7 +43,11 @@ import { AresClient } from "@/lib/analysis/money-feed";
 // běh zapíše to, co plocha čte.
 // `reviewTypes.ts` je čistý modul (jediný běhový import je `asciiFold`), takže
 // z tsx skriptu neprosakuje žádná server-only hranice.
-import { classifyTie } from "@/features/money/reviewTypes";
+import { classifyTie, parsePeriod } from "@/features/money/reviewTypes";
+// The id parser is the strict shared one (`/^psp:person:(\d+)$/`); the copy that stood here
+// took the last `:`-segment of ANY id, so a company or contract id parsed as an MP.
+import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
+import { findMatches, mergeMatches, type VrResponse } from "./aresVrMatch";
 
 const VR_BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr";
 const THROTTLE_MS = 150; // ~400 req/min, well under ARES's ~500 req/min budget
@@ -54,138 +59,9 @@ function sleep(ms: number) {
 function num(v: unknown): number {
   return typeof v === "number" && Number.isFinite(v) ? v : 0;
 }
-function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
-}
-function parsePeriod(source: string): { from: string | null; to: string | null } {
-  const m = source.match(/(\d{4}-\d{2}-\d{2}|\?)–(\d{4}-\d{2}-\d{2}|ongoing|\?)/);
-  if (!m) return { from: null, to: null };
-  const from = m[1] === "?" ? null : m[1];
-  const to = m[2] === "ongoing" || m[2] === "?" ? null : m[2];
-  return { from, to };
-}
 
-/* ── ARES VR raw shape (only the fields we read) ─────────────────────────────── */
-interface VrFunkce {
-  vznikFunkce?: string;
-  zanikFunkce?: string;
-  nazev?: string;
-}
-interface VrFyzickaOsoba {
-  datumNarozeni?: string;
-  jmeno?: string;
-  prijmeni?: string;
-}
-interface VrClenOrganu {
-  datumZapisu?: string;
-  datumVymazu?: string;
-  clenstvi?: { funkce?: VrFunkce };
-  fyzickaOsoba?: VrFyzickaOsoba;
-}
-interface VrStatutarniOrgan {
-  clenoveOrganu?: VrClenOrganu[];
-}
-interface VrPodil {
-  datumZapisu?: string;
-  datumVymazu?: string;
-  velikostPodilu?: { typObnos?: string; hodnota?: string };
-}
-interface VrSpolecnikOsoba {
-  datumZapisu?: string;
-  datumVymazu?: string;
-  podil?: VrPodil[];
-  osoba?: { fyzickaOsoba?: VrFyzickaOsoba };
-}
-interface VrSpolecnici {
-  spolecnik?: VrSpolecnikOsoba[];
-}
-interface VrZaznam {
-  primarniZaznam?: boolean;
-  stavSubjektu?: string;
-  statutarniOrgany?: VrStatutarniOrgan[];
-  /** Supervisory/other bodies (dozorčí rada, kontrolní komise, …) — SAME shape as
-   *  statutarniOrgany. Most `steward` ties are exactly these supervisory-board seats,
-   *  so omitting this section would systematically under-confirm the steward class. */
-  ostatniOrgany?: VrStatutarniOrgan[];
-  spolecnici?: VrSpolecnici[];
-}
-interface VrResponse {
-  kod?: string; // "NENALEZENO" on a miss
-  zaznamy?: VrZaznam[];
-}
-
-interface MatchedEntry {
-  kind: "officer" | "shareholder";
-  functionName: string | null;
-  validFrom: string | null;
-  validTo: string | null; // null = ongoing
-  stakePct: number | null;
-}
-
-/** Find every VR entry whose person birth date exactly matches `birthDate`. */
-function findMatches(rec: VrZaznam, birthDate: string): MatchedEntry[] {
-  const out: MatchedEntry[] = [];
-  for (const org of [...(rec.statutarniOrgany ?? []), ...(rec.ostatniOrgany ?? [])]) {
-    for (const m of org.clenoveOrganu ?? []) {
-      if (m.fyzickaOsoba?.datumNarozeni === birthDate) {
-        out.push({
-          kind: "officer",
-          functionName: m.clenstvi?.funkce?.nazev ?? null,
-          validFrom: m.clenstvi?.funkce?.vznikFunkce ?? m.datumZapisu ?? null,
-          validTo: m.clenstvi?.funkce?.zanikFunkce ?? m.datumVymazu ?? null,
-          stakePct: null,
-        });
-      }
-    }
-  }
-  for (const grp of rec.spolecnici ?? []) {
-    for (const s of grp.spolecnik ?? []) {
-      if (s.osoba?.fyzickaOsoba?.datumNarozeni === birthDate) {
-        const activePodil = (s.podil ?? []).find((p) => !p.datumVymazu) ?? s.podil?.[s.podil.length - 1];
-        const pct =
-          activePodil?.velikostPodilu?.typObnos === "PROCENTA" && activePodil.velikostPodilu.hodnota
-            ? Number(activePodil.velikostPodilu.hodnota.replace(",", "."))
-            : null;
-        out.push({
-          kind: "shareholder",
-          functionName: "společník",
-          validFrom: s.datumZapisu ?? null,
-          validTo: s.datumVymazu ?? null,
-          stakePct: Number.isFinite(pct) ? pct : null,
-        });
-      }
-    }
-  }
-  return out;
-}
-
-/** Distinct birth dates among matches — >1 means the exact-birthdate match is ambiguous
- *  (should not happen for one person but is possible if VR data is dirty; guard anyway
- *  by checking distinct (jmeno,prijmeni) pairs isn't needed since we filter by exact date
- *  already — this guards multiple DIFFERENT roles/entries for the SAME person, which is
- *  fine and gets merged, vs true ambiguity which would need >1 distinct name at that date;
- *  VR doesn't expose that cheaply here, so we treat >0 matches as confirmed and rely on
- *  the birth-date hinge's precision (documented as a batch-002 known limitation). */
-function mergeMatches(matches: MatchedEntry[]): {
-  validFrom: string | null;
-  validTo: string | null;
-  stakePct: number | null;
-  roles: string[];
-} {
-  const roles = [...new Set(matches.map((m) => m.functionName).filter((x): x is string => !!x))];
-  const froms = matches.map((m) => m.validFrom).filter((x): x is string => !!x).sort();
-  const anyOngoing = matches.some((m) => !m.validTo);
-  const tos = matches.map((m) => m.validTo).filter((x): x is string => !!x).sort();
-  const stake = matches.find((m) => m.stakePct != null)?.stakePct ?? null;
-  return {
-    validFrom: froms[0] ?? null,
-    validTo: anyOngoing ? null : (tos[tos.length - 1] ?? null),
-    stakePct: stake,
-    roles,
-  };
-}
+// The VR shape, the birth-date matcher and the merge live in aresVrMatch.ts - ONE definition
+// shared with reverify-open-vs-live-ares-vr.ts, which used to carry its own copy.
 
 async function main() {
   const store = await getStore();
@@ -197,11 +73,11 @@ async function main() {
   };
   const doneKeys = new Set(already.edges.map((e) => `${e.src}|${e.dst}`));
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
-  const contracts = await store.listKgNodes({ kind: "contract", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
+  const contracts = await store.listKgNodes({ kind: "contract", limit: KG_READ_CAP });
   const rosterPersons = await store.listPersons();
 
   const companyById = new Map(companies.map((c) => [c.id, c]));

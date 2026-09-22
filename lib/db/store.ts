@@ -6,8 +6,11 @@
  * interface. The concrete driver is chosen by `lib/db/config.ts` and imported
  * lazily below, so the ~3 MB PGlite WASM never enters a client bundle.
  *
- * `Store` is composed from four narrow repositories, one per bounded concern.
- * A consumer that only needs one may depend on the narrow interface.
+ * `Store` is composed from narrow repositories, one per bounded concern — exactly
+ * the interfaces `Store` extends at the bottom of this file (the count lives in
+ * that clause, not in this sentence: it said "four" until 2026-09-06, three
+ * repositories after it stopped being true). A consumer that only needs one may
+ * depend on the narrow interface.
  *
  * To add a backend: implement `Store`, wire it into `getStore()`. No call-site
  * changes. To add domain data: extend a repository here and implement it in
@@ -25,6 +28,7 @@ import type {
   OrganRow,
   PersonRow,
   ReviewAuditRow,
+  ReviewSubjectKind,
   SliceQualityRow,
   SourceReleaseRow,
   VoteBallotRow,
@@ -76,6 +80,26 @@ export interface GraphRepository {
    * its type is "Klub". Returns mandatePspId → club abbreviation.
    */
   clubByMandate(termCode: string): Promise<Map<number, string>>;
+  /**
+   * The same join as `clubByMandate`, but DATED and complete: every club window a
+   * mandate had, ordered by `fromAt`.
+   *
+   * `clubByMandate` has no predicate on `from_at`/`to_at` and does `out.set(...)`
+   * per row, so an MP who changed club gets whichever row the query returned last
+   * — the club that wins is decided by the dump, and every historical ballot is
+   * repainted with it. The windows have always been on `membership`
+   * (`MembershipRow.fromAt/toAt`); nothing read them. Pair with
+   * `clubAt(windows, mandate, isoDay)` in `lib/analysis/clubAt.ts` to resolve a
+   * ballot against the club its caster was actually in that day.
+   */
+  clubWindowsByMandate(termCode: string): Promise<Map<number, ClubWindow[]>>;
+}
+
+/** One membership window of a mandate in a parliamentary club. `toAt: null` = open. */
+export interface ClubWindow {
+  club: string;
+  fromAt: string | null;
+  toAt: string | null;
 }
 
 /**
@@ -206,14 +230,91 @@ export interface KnowledgeGraphRepository {
    * this is a plain row delete, not an integrity-checked operation).
    */
   deleteKgNodes(ids: readonly string[]): Promise<number>;
+
+  /* ── as-of reads (record time) ─────────────────────────────────────────────
+   * Lifted into the contract on 2026-09-04 (moonshot G1). Until then `asOf`
+   * lived only on the PGlite kg repository, so no reader-facing surface could
+   * ask the store what it published on a given day. See the bitemporal
+   * write-discipline block in pglite/repositories/kg.ts for the invariants
+   * these reads depend on. */
+
+  /**
+   * The graph as it was known at `at` (record time). Runs over an un-indexed
+   * union of serving + history tables — a HISTORY INSTRUMENT, not a hot
+   * serving path. Reader-facing surfaces want the point reads below.
+   */
+  asOf(at: Date | string): KgAsOfReads;
+  /**
+   * The oldest record-time instant the store carries, or null when the graph
+   * is empty. The bitemporal migration stamped every pre-existing row with ONE
+   * shared `recorded_at`, so this instant is a floor on knowledge, not the
+   * moment those claims were made: nothing before it can be answered, and
+   * "unchanged since <epoch>" is never an honest reading of it.
+   */
+  bitemporalEpoch(): Promise<string | null>;
+  /** One node as of one instant, over `kg_node_history_id_idx`. */
+  asOfNode(id: string, at: Date | string): Promise<KgAsOfPoint<KgNodeRow>>;
+  /** One edge as of one instant, over `kg_edge_history_key_idx`. */
+  asOfEdge(key: KgEdgeKey, at: Date | string): Promise<KgAsOfPoint<KgEdgeRow>>;
+  /**
+   * The newest version of a node/edge the store ever recorded, whether or not
+   * it is still current — the honest answer for an address today's graph no
+   * longer carries. Disclosed as history; never re-promoted to a current claim.
+   */
+  lastKgNodeVersion(id: string): Promise<KgVersion<KgNodeRow> | null>;
+  lastKgEdgeVersion(key: KgEdgeKey): Promise<KgVersion<KgEdgeRow> | null>;
+}
+
+/** The composite key of one graph edge — the triple `kg_edge_history_key_idx` is on. */
+export interface KgEdgeKey {
+  src: string;
+  rel: string;
+  dst: string;
+}
+
+/** One recorded version of a claim, with its half-open record-time span. */
+export interface KgVersion<T> {
+  row: T;
+  /** ISO instant the version's content appeared. */
+  recordedAt: string;
+  /** ISO instant it was replaced; null = still the current version. */
+  supersededAt: string | null;
 }
 
 /**
- * The human-review write path for `linked_to` ties (Case ① FollowTheMoney
- * verification console). THIS is the only code path in the app that is ever
- * allowed to write `kg_edge.props.review_state` — every other consumer
- * (including `kg-compute`) only reads it. Every decision is audited to
- * `review_audit` BEFORE the edge is touched (see `ReviewAuditRow`).
+ * The result of a point read at an instant.
+ *
+ * `known: false` is the EPOCH RULE: the asked-for instant lies before the
+ * oldest record-time the store carries, so the store has no knowledge of that
+ * day at all — and a caller must render "no record for that day", never a
+ * value and never "unchanged". `known: true` with `value: null` is the
+ * different, also-honest answer "we did keep records then, and this claim was
+ * not among them".
+ */
+export type KgAsOfPoint<T> =
+  | { known: true; at: string; epoch: string | null; value: T | null }
+  /** `epoch: null` = the store carries no record time at all (empty graph). */
+  | { known: false; at: string; epoch: string | null };
+
+/** Reads of the graph as it was KNOWN at one instant (record time). */
+export interface KgAsOfReads {
+  listKgNodes(opts?: { kind?: string; limit?: number }): Promise<KgNodeRow[]>;
+  listKgEdges(opts?: { rel?: string; limit?: number }): Promise<KgEdgeRow[]>;
+  getKgNodes(ids: string[]): Promise<KgNodeRow[]>;
+  kgNeighbours(opts: { id: string; rels?: string[]; limit?: number }): Promise<{ edges: KgEdgeRow[]; nodes: KgNodeRow[] }>;
+  countKgNodes(): Promise<number>;
+  countKgEdges(): Promise<number>;
+}
+
+/**
+ * The human-review write path for EVERY claim kind that reaches a reader —
+ * `linked_to` ties (Case ① FollowTheMoney verification console) first, bill
+ * forensic verdicts and person-level effort verdicts since the G2 door
+ * (2026-09-04). THIS is the only code path in the app that is ever allowed to
+ * write a review state (`kg_edge.props.review_state`, a bill's
+ * `forensic_review_state`, an effort verdict's `review_state`) — every other
+ * consumer (including `kg-compute`) only reads it. Every decision is audited to
+ * `review_audit` BEFORE the subject is touched (see `ReviewAuditRow`).
  */
 export interface ReviewRepository {
   /**
@@ -247,8 +348,72 @@ export interface ReviewRepository {
     note: string | null,
   ): Promise<{ ok: true; reviewState: string } | { ok: false; error: string }>;
   /** The audit trail, newest first; filter by edge endpoint for one tie's history. */
-  listReviewAudit(opts?: { src?: string; dst?: string; limit?: number }): Promise<ReviewAuditRow[]>;
+  listReviewAudit(opts?: {
+    src?: string;
+    dst?: string;
+    limit?: number;
+    /** Filter to one claim kind. `"tie"` includes the legacy NULL rows, which ARE ties. */
+    subjectKind?: ReviewSubjectKind;
+    /** Filter to one claim's whole history (the address shape is pinned in types.ts). */
+    subjectId?: string;
+  }): Promise<ReviewAuditRow[]>;
+
+  /* ── [G2 review door v2] every claim kind goes through the same door ───────── */
+
+  /**
+   * THE writer of review state, for every claim kind (deck #5 + #12, 2026-09-04).
+   * `setTieReviewState` above is now literally this function's `tie` branch.
+   *
+   * The skeleton is the same for all kinds and lives in ONE transaction: read the
+   * subject's current state → map the decision (`confirm`→`verified`,
+   * `reject`→`rejected` TERMINAL, `needs-more`→`pending_review`) → refuse a
+   * reasonless reversal of an already-decided claim, writing nothing at all →
+   * append the chained audit row → only then write the subject's state,
+   * superseding the prior version into the matching `*_history` table.
+   *
+   * What this function CANNOT do, by construction: write `machine`. That state is
+   * written only by the enrichment loops, so no script can promote its own verdict
+   * to a human-confirmed one, and no human decision can be demoted back to
+   * "nobody looked at this".
+   *
+   * Every row it appends is hashed under `politicas-audit-v2` (the wider preimage
+   * includes the claim kind and address). Rows written before this existed keep
+   * their v1 hashes forever and are never recomputed; `verifyAuditChain` walks a
+   * chain that changes tag partway through and refuses only a regression back.
+   *
+   * Errors (rather than throwing) when the subject doesn't exist, or when the kind
+   * has no writer yet (`tripwire`, `lead` are declared but carried over), so a
+   * surface can render an honest message instead of a stack trace.
+   */
+  setReviewState(
+    subject: ReviewSubject,
+    decision: "confirm" | "reject" | "needs-more",
+    reviewer: string,
+    note: string | null,
+  ): Promise<{ ok: true; reviewState: string } | { ok: false; error: string }>;
+
+  /** Audit rows per claim kind — the denominator the review-coverage check needs. */
+  countReviewAuditByKind(): Promise<Record<string, number>>;
 }
+
+/**
+ * What a review decision is ABOUT. A discriminated union rather than a
+ * `(kind, id)` pair so a bill can never be addressed with a tie's arguments:
+ * the compiler refuses the call before the writer has to.
+ */
+export type ReviewSubject =
+  | { kind: "tie"; src: string; dst: string }
+  /** `billId` is the bill's kg_node id, e.g. `bill:tisk:141`. */
+  | { kind: "bill_verdict"; billId: string }
+  /**
+   * ONE effort verdict prop on one MP — `field` is the prop name
+   * (`effort_low_score_reason`, `effort_workhorse`, `effort_rapporteur_load`).
+   * Per-prop on purpose: rejecting "this MP is a workhorse" says nothing about
+   * the low-score reason stored on the same node.
+   */
+  | { kind: "effort_verdict"; personId: string; field: string }
+  | { kind: "tripwire"; candidateId: string }
+  | { kind: "lead"; leadId: string };
 
 export interface Store
   extends GraphRepository,

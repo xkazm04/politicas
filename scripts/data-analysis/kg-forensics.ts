@@ -143,7 +143,20 @@ async function write(store: NonNullable<Awaited<ReturnType<typeof getStore>>>, n
         forensic_confidence: v.confidence,
         forensic_citations: v.citations,
         forensic_review_state: "pending_review",
-        forensic_provenance: { track: "law", pass, method: "verdict", ref: "law-forensics", computedAt },
+        // ENRICHMENT, not origin. This writer never touches the bill row's own
+        // `provenance` — kg-legislation-ingest owns that, and rewriting it here
+        // would claim the row came from a forensic pass rather than from the
+        // tisky dump. What the annotation gains is `writer`, so the sentinel's
+        // per-layer uniformity check can compare {pass, ref, writer} across the
+        // law layer the same way it does for contribution.
+        forensic_provenance: {
+          track: "law",
+          pass,
+          method: "verdict",
+          ref: "law-forensics",
+          writer: "kg-forensics",
+          computedAt,
+        },
       },
     });
   }

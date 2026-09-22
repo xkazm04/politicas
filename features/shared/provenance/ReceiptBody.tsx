@@ -17,17 +17,14 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { caseFileLinkFor } from "./caseFileLink";
-import type { ReceiptEndpoint, ProvenanceReceipt, ReviewStatus } from "./receipt";
+import { CASE_FILE_LABEL_KEY, caseFileLinkFor } from "./caseFileLink";
+import { LIVE_AS_OF, type ReceiptAsOf } from "./asOfLens";
+import type { SourceTier } from "@/lib/kg/sourceLinks";
+import type { ReceiptAuditEntry, ReceiptEndpoint, ProvenanceReceipt, ReviewStatus } from "./receipt";
 import { formatWeight, relLabelKey } from "./receipt";
 
 /** Překladač namespace `shared` — jediný typ, který si dílčí sazba předává. */
 type T = ReturnType<typeof useTranslations<"shared">>;
-
-const CASE_FILE_LABEL_KEY: Record<"poslanec" | "firma", string> = {
-  poslanec: "receipt.caseFile.poslanec",
-  firma: "receipt.caseFile.firma",
-};
 
 const GATE_BADGE: Record<ReviewStatus, { labelKey: string; cls: string }> = {
   verified: { labelKey: "receipt.gate.verified", cls: "border-cobalt text-cobalt" },
@@ -35,16 +32,21 @@ const GATE_BADGE: Record<ReviewStatus, { labelKey: string; cls: string }> = {
   rejected: { labelKey: "receipt.gate.rejected", cls: "border-steel text-steel-aa" },
 };
 
-/** Známé úrovně odkazů do registrů; neznámá úroveň se vypíše doslova. */
-const TIER_LABEL_KEY: Record<string, string> = {
+/** Úrovně odkazů do registrů — UZAVŘENÝ slovník lib/kg/sourceLinks (`SourceTier`):
+ *  nová úroveň bez popisku je chyba typu, ne strojový token v sazbě. */
+const TIER_LABEL_KEY = {
   detail: "receipt.tier.detail",
   search: "receipt.tier.search",
-};
+} as const satisfies Record<SourceTier, string>;
 
-const AUDIT_DECISION_KEY: Record<string, string> = {
+/** Rozhodnutí brány — všechna tři pojmenovaná. Do 2026-09-07 mapa nesla dvě a
+ *  „vráceno k doplnění“ stálo jako VÝCHOZÍ větev pro cokoli jiného: nové
+ *  rozhodnutí by se čtenáři vysázelo jako vrácení. */
+const AUDIT_DECISION_KEY = {
   confirm: "receipt.audit.confirm",
   reject: "receipt.audit.reject",
-};
+  "needs-more": "receipt.audit.return",
+} as const satisfies Record<ReceiptAuditEntry["decision"], string>;
 
 function MetaRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -90,7 +92,7 @@ function EndpointSources({ endpoint, t }: { endpoint: ReceiptEndpoint; t: T }) {
               >
                 {l.registry}
                 <span className="text-steel-aa no-underline">
-                  · {TIER_LABEL_KEY[l.tier] ? t(TIER_LABEL_KEY[l.tier]) : l.tier}
+                  · {t(TIER_LABEL_KEY[l.tier])}
                 </span>
                 <ArrowUpRight className="h-3 w-3" aria-hidden />
               </a>
@@ -102,7 +104,53 @@ function EndpointSources({ endpoint, t }: { endpoint: ReceiptEndpoint; t: T }) {
   );
 }
 
-export default function ReceiptBody({ receipt }: { receipt: ProvenanceReceipt }) {
+/**
+ * BANNER ČASU ZÁZNAMU — nad obsahem, nikdy pod ním.
+ *
+ * Pravidlo je půjčené z /graf/p (docs/routes/graf-permalink.md): sdělení
+ * „tohle není dnešek" musí čtenář potkat DŘÍV než údaj, kterého se týká,
+ * jinak si ho přečte jako dnešní a banner pod ním už nic nespraví.
+ *
+ * Čtyři stavy, čtyři různé věty — a tři z nich přiznávají, že to, co je pod
+ * bannerem, je DNEŠNÍ záznam (asOfLens.ts): den před epochou, den bez tvrzení
+ * a odmítnutý `k` nejsou totéž a nesmějí znít stejně.
+ */
+function AsOfBanner({ asOf, t }: { asOf: ReceiptAsOf; t: T }) {
+  const f = useFormat();
+  if (asOf.state === "live") return null;
+  const historical = asOf.state === "at";
+  const text =
+    asOf.state === "at"
+      ? t("receipt.asOf.at", { day: f.date(asOf.day) })
+      : asOf.state === "absentThen"
+        ? t("receipt.asOf.absentThen", { day: f.date(asOf.day) })
+        : asOf.state === "refused"
+          ? t("receipt.asOf.refused", { raw: asOf.raw })
+          : asOf.state === "notReplayable"
+            ? t("receipt.asOf.notReplayable", { day: f.date(asOf.day) })
+            : asOf.epoch
+              ? t("receipt.asOf.beforeEpoch", { day: f.date(asOf.day), epoch: f.date(asOf.epoch) })
+              : t("receipt.asOf.beforeEpochUnknown", { day: f.date(asOf.day) });
+  return (
+    <div
+      className={`mb-5 border-l-4 pl-3 ${historical ? "border-ochre bg-ochre/15" : "border-steel"} py-2 pr-3`}
+    >
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+        {t("receipt.asOf.kicker")}
+      </p>
+      <p className="mt-1 font-mono text-xs leading-relaxed text-ink">{text}</p>
+    </div>
+  );
+}
+
+export default function ReceiptBody({
+  receipt,
+  /** Čočka „k tomu dni"; výchozí `live` = žádný banner (kapsle, /penize…). */
+  asOf = LIVE_AS_OF,
+}: {
+  receipt: ProvenanceReceipt;
+  asOf?: ReceiptAsOf;
+}) {
   const t = useTranslations("shared");
   const locale = useLocale();
   const f = useFormat();
@@ -114,6 +162,7 @@ export default function ReceiptBody({ receipt }: { receipt: ProvenanceReceipt })
 
   return (
     <div>
+      <AsOfBanner asOf={asOf} t={t} />
       {/* ── tvrzení ────────────────────────────────────────────── */}
       <p className="text-lg font-black uppercase leading-snug tracking-tight text-ink">
         {receipt.subject.label}
@@ -200,7 +249,7 @@ export default function ReceiptBody({ receipt }: { receipt: ProvenanceReceipt })
             {gate.audit.map((a, i) => (
               <li key={`${a.decidedAt}-${i}`} className="font-mono text-xs text-steel-aa">
                 <span className="font-bold text-ink">{f.date(a.decidedAt)}</span>{" "}
-                {t(AUDIT_DECISION_KEY[a.decision] ?? "receipt.audit.return")}{" "}
+                {t(AUDIT_DECISION_KEY[a.decision])}{" "}
                 · {a.reviewer}
                 {a.note ? ` · ${a.note}` : ""}
               </li>

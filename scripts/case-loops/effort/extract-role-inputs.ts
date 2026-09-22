@@ -7,11 +7,8 @@
 import { writeFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 
-// 8 rapporteur workhorses + 6 heavy amenders + 2 signature-farming tops (triage 2026-07-27).
-const UNITS: number[] = [
-  // rapporteur workhorses (≥3 bills)
-  6470, // placeholders replaced below by name lookup — see NAMES
-];
+// 8 rapporteur workhorses + 6 heavy amenders + 2 signature-farming tops (triage 2026-07-27),
+// resolved by NAME lookup below (a pspId placeholder list sat here unused until 2026-09-06).
 const NAMES = [
   "Zuzana Ožanová",
   "Marek Novák",
@@ -32,7 +29,6 @@ const NAMES = [
 ];
 
 async function main() {
-  void UNITS;
   const store = await getStore();
   if (!store) throw new Error("no store");
   const persons = await store.listKgNodes({ kind: "person", limit: 1000 });

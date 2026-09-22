@@ -276,6 +276,7 @@ const bill = (over: Partial<SponsoredBill> = {}): SponsoredBill => ({
   fateSb: null,
   fatePublishedOn: null,
   sponsoredOn: "2025-11-01",
+  finalVoteOn: null,
   ...over,
 });
 const mp = (over: Partial<MpInput> = {}): MpInput => ({
@@ -337,6 +338,32 @@ describe("composeMpFindings", () => {
       mp({ sponsoredBills: [bill({ fateSb: "123/2026 Sb.", fatePublishedOn: "2026-05-05", flaggedConflict: true })] }),
     );
     expect(kinds(dirty)).toEqual(["law_sponsor_conflict"]);
+  });
+
+  it("law_final_vote is a RECORD row: dated, unrated, and never scored", () => {
+    const fs = composeMpFindings(mp({ sponsoredBills: [bill({ finalVoteOn: "2026-04-10" })] }));
+    expect(kinds(fs)).toEqual(["law_final_vote"]);
+    expect(fs[0]).toMatchObject({
+      kind: "law_final_vote",
+      valence: "unrated",
+      severity: "low",
+      laterOn: "2026-04-10",
+      laterKind: "final_vote",
+      // The vote is a LATER fact about the bill, not the sponsor's choice — so it
+      // must never fill `decidedOn`, which stays null until a sponsorship date exists.
+      decidedOn: null,
+    });
+    // `unrated` keeps it out of the scored total while still being counted and shown.
+    const ledger = rollupLedger(fs, null);
+    expect(ledger.total).toBe(0);
+    expect(ledger.counts.unrated.low).toBe(1);
+    assertWellFormed(fs);
+  });
+
+  it("no decides edge → no record row, and nothing is inferred from the fate date", () => {
+    expect(kinds(composeMpFindings(mp({ sponsoredBills: [bill({ finalVoteOn: null, fateSb: "1/2026 Sb." })] })))).toEqual([
+      "law_became_law_clean",
+    ]);
   });
 
   it("effort badges: workhorse flag, rapporteur ≥ 3 (2 refuses)", () => {
@@ -446,5 +473,23 @@ describe("posudek floor + list dedupe (2026-08-27 recalibration)", () => {
     expect(merged.filter((f) => f.kind === "law_posudek")).toHaveLength(1);
     expect(merged.filter((f) => f.kind === "effort_workhorse")).toHaveLength(2);
     expect(merged[0].subjectId).toBe("person:1");
+  });
+});
+
+describe("law_sponsor_conflict with an unknown amount (missing is not zero)", () => {
+  it("is medium (never high) and carries NO sponsor_contract_czk figure - a null is not a 0 Kč", () => {
+    const out = composeMpFindings(
+      mp({ sponsoredBills: [bill({ flaggedConflict: true, sponsorContractCzk: null, sponsorMoneyCompanies: null })] }),
+    );
+    const f = out.filter((x) => x.kind === "law_sponsor_conflict");
+    expect(f).toHaveLength(1);
+    expect(f[0].severity).toBe("medium");
+    expect(f[0].figures).toEqual({});
+  });
+  it("carries only the figures the bill actually has", () => {
+    const out = composeMpFindings(
+      mp({ sponsoredBills: [bill({ flaggedConflict: true, sponsorContractCzk: null, sponsorMoneyCompanies: 3 })] }),
+    );
+    expect(out.find((x) => x.kind === "law_sponsor_conflict")?.figures).toEqual({ sponsor_money_companies: 3 });
   });
 });

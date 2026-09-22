@@ -28,13 +28,20 @@ function readInput(): string {
   return readFileSync(0, "utf8"); // fd 0 = stdin
 }
 
-async function knownIds(): Promise<string[]> {
+/** null = no membership gate could be built (no store, no --known) — the verdict is
+ *  then checked for SHAPE only and the output says so. Until 2026-09-06 this returned
+ *  [] on a missing store, and an EMPTY known set rejects every endpoint and every
+ *  cited urn as fabricated: a store outage read as a hallucinating subagent. */
+async function knownIds(): Promise<string[] | null> {
   if (knownArg) {
     const arr: unknown = JSON.parse(readFileSync(knownArg.slice("--known=".length), "utf8"));
     return Array.isArray(arr) ? arr.filter((x): x is string => typeof x === "string") : [];
   }
   const store = await getStore();
-  if (!store) return [];
+  if (!store) {
+    console.warn("no store configured and no --known=<ids.json> — membership gate SKIPPED, shape-only validation");
+    return null;
+  }
   const ids = new Set<string>();
   for (const n of await store.listKgNodes()) ids.add(n.id);
   for (const p of await store.listPersons()) ids.add(p.id);
@@ -47,11 +54,11 @@ async function knownIds(): Promise<string[]> {
 async function main() {
   const text = readInput();
   const ids = await knownIds();
-  const result = parseAndValidateKgVerdict(text, { knownIds: ids });
+  const result = parseAndValidateKgVerdict(text, { knownIds: ids ?? undefined });
 
   if (result.ok) {
     const v = result.value!;
-    console.log(`OK  target="${v.target}"  (known ids: ${ids.length})`);
+    console.log(`OK  target="${v.target}"  (known ids: ${ids === null ? "n/a — shape-only, membership gate skipped" : ids.length})`);
     console.log(
       `    nodes=${v.nodes.length} edges=${v.edges.length} patterns=${v.patterns.length} ` +
         `opportunities=${v.featureOpportunities.length} frontier=${v.frontier.length}`,

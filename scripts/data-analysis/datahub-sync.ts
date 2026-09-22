@@ -25,16 +25,13 @@ import {
   buildDocumentation,
   corpusName,
   ENTITY_FIELDS,
-  PLATFORM,
   pumperUpstreams,
   SLICE_QUALITY_SCHEMA_FIELDS,
   sliceName,
   datasetUrn as urnFor,
   type SliceStats,
 } from "@/lib/analysis/context-model";
-
-const ACTOR = "urn:li:corpuser:data-analysis";
-const BATCH = 25;
+import { envelope, lineage, operation, postAspects, profile, props, schemaOf, type Entity } from "./datahubAspects";
 
 function arg(name: string, fallback: string): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -44,66 +41,6 @@ function arg(name: string, fallback: string): string {
 const ENV = arg("env", "PROD");
 const GMS = arg("gms", process.env.DATAHUB_GMS_URL || "http://localhost:8080").replace(/\/+$/, "");
 const datasetUrn = (name: string) => urnFor(name, ENV);
-
-type Entity = Record<string, unknown>;
-const envelope = (urn: string, aspect: Record<string, unknown>): Entity => ({
-  entityType: "dataset",
-  entityUrn: urn,
-  aspect,
-});
-
-const props = (name: string, description: string, custom: Record<string, string>): Record<string, unknown> => ({
-  __type: "DatasetProperties",
-  name,
-  description,
-  customProperties: custom,
-});
-const profile = (ms: number, rowCount: number) => ({ __type: "DatasetProfile", timestampMillis: ms, rowCount });
-const operation = (ms: number) => ({
-  __type: "Operation",
-  timestampMillis: ms,
-  lastUpdatedTimestamp: ms,
-  operationType: "UPDATE",
-});
-const lineage = (upstreams: string[], ms: number) => ({
-  __type: "UpstreamLineage",
-  upstreams: upstreams.map((dataset) => ({ auditStamp: { time: ms, actor: ACTOR }, dataset, type: "TRANSFORMED" })),
-});
-
-function schemaOf(name: string, fields: { field: string; doc: string; type?: string }[]) {
-  return {
-    __type: "SchemaMetadata",
-    schemaName: name,
-    platform: PLATFORM,
-    version: 0,
-    hash: "",
-    platformSchema: { __type: "OtherSchema", rawSchema: "" },
-    fields: fields.map((f) => ({
-      fieldPath: f.field,
-      description: f.doc,
-      nativeDataType: f.type ?? "string",
-      type: { type: { __type: f.type === "number" ? "NumberType" : "StringType" } },
-    })),
-  };
-}
-
-async function post(entities: Entity[]): Promise<void> {
-  const url = `${GMS}/openapi/entities/v1/`;
-  const token = process.env.DATAHUB_TOKEN;
-  for (let i = 0; i < entities.length; i += BATCH) {
-    const chunk = entities.slice(i, i + BATCH);
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-      body: JSON.stringify(chunk),
-      signal: AbortSignal.timeout(60_000),
-    });
-    if (!res.ok) {
-      throw new Error(`POST ${url} → ${res.status} ${res.statusText}: ${(await res.text()).slice(0, 500)}`);
-    }
-    process.stdout.write(`  … ${Math.min(i + BATCH, entities.length)}/${entities.length}\r`);
-  }
-}
 
 async function main() {
   const statsPath = arg("stats", "./.data-analysis/stats.json");
@@ -167,7 +104,7 @@ async function main() {
   entities.push(envelope(sqUrn, lineage([...corpusUrns], ms)));
 
   console.log(`pushing ${entities.length} aspects for ${slices.length} slices → ${GMS}`);
-  await post(entities);
+  await postAspects(GMS, entities);
   console.log(`\ndone: ${seenCorpus.size} corpus datasets, ${slices.length} slice datasets, 1 rubric dataset`);
 }
 

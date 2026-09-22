@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import ObecPage from "@/features/volby/ObecPage";
-import { getObecData } from "@/features/volby/getObecData";
+import { getObecData, isObecIco } from "@/features/volby/getObecData";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 
 /*
@@ -14,12 +14,10 @@ import DataUnavailable from "@/features/shared/components/DataUnavailable";
  * robot při výpadku neuložil o obci nic).
  */
 
-const ICO = /^\d{8}$/;
-
 export async function generateMetadata({ params }: { params: Promise<{ ico: string }> }): Promise<Metadata> {
   const { ico } = await params;
   const t = await getTranslations("meta");
-  if (!ICO.test(ico)) return { title: t("volbyNotFound") };
+  if (!isObecIco(ico)) return { title: t("volbyNotFound") };
   const result = await getObecData(ico);
   if (result === null) return { title: t("volbyUnavailableTitle"), robots: { index: false } };
   if (result.kind === "not-found") return { title: t("volbyNotFound") };
@@ -29,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ ico: stri
 
 export default async function ObecRoute({ params }: { params: Promise<{ ico: string }> }) {
   const { ico } = await params;
-  if (!ICO.test(ico)) notFound(); // an 8-digit IČO is the only shape an obec has
+  if (!isObecIco(ico)) notFound(); // an 8-digit IČO is the only shape an obec has
   const result = await getObecData(ico);
   if (result === null) {
     const t = await getTranslations("volby");

@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { KG_NODE_KINDS } from "@/lib/analysis/kg-verdict";
+import { canonicalIco } from "@/features/money/companyId";
 import {
   citableId,
   parseLawRef,
@@ -16,18 +18,10 @@ const subject = (over: Partial<SourceSubject> & Pick<SourceSubject, "kind" | "id
 /** Doslovná adresa jedné vývěsky z docs/data-analysis/case-sources/kiosek-payload.json. */
 const POSTING_URL = "https://infodeska.gov.cz/eudpub/uredni-deska/organizace/201000/vyveseni/9420213";
 
-const ALL_KINDS: KgNodeKind[] = [
-  "person",
-  "party",
-  "organ",
-  "bloc",
-  "theme",
-  "company",
-  "contract",
-  "bill",
-  "law",
-  "notice",
-];
+// Odvozeno z JEDINÉHO výčtu druhů (lib/analysis/kg-verdict), ne opsáno:
+// ručně psaný seznam tu do 2026-09-05 nesl 10 druhů z 11 — `tender` chyběl —
+// takže test „každý druh je obsloužen" procházel a jeden druh nikdy neprošel.
+const ALL_KINDS: readonly KgNodeKind[] = KG_NODE_KINDS;
 
 describe("odkazy do registrů", () => {
   it("osoba dostane kanonický detail na psp.cz z pspId", () => {
@@ -35,6 +29,14 @@ describe("odkazy do registrů", () => {
     const psp = links.find((l) => l.registry === "psp.cz")!;
     expect(psp.url).toBe("https://www.psp.cz/sqw/detail.sqw?id=6202");
     expect(psp.tier).toBe("detail");
+  });
+
+  it("osoba s nečíselným sufixem id psp.cz odkaz NEDOSTANE — táž kázeň jako citableId", () => {
+    // `pspNumber` (číslo, nebo nic) platí pro citaci od 2026-08-13; odkaz bral
+    // `idSuffix` dál, takže `psp:person:x` vydal detail.sqw?id=x — hádanou adresu.
+    const links = sourceLinksFor(subject({ kind: "person", id: "kg:person:novak-j", label: "J. Novák" }));
+    expect(links.find((l) => l.registry === "psp.cz")).toBeUndefined();
+    expect(links.map((l) => l.tier)).toEqual(["search"]);
   });
 
   it("dotaz do registru se NIKDY netváří jako detail entity", () => {
@@ -284,5 +286,41 @@ describe("parseLawRef", () => {
     expect(parseLawRef("č. 134/2016 Sb.")).toEqual({ cislo: "134", rok: "2016" });
     expect(parseLawRef("134/2016")).toEqual({ cislo: "134", rok: "2016" });
     expect(parseLawRef("bez čísla")).toBeNull();
+  });
+});
+
+describe("výčet druhů je jeden", () => {
+  it("KgNodeKind ze sourceLinks je totéž co KG_NODE_KINDS — a test obsluhy je z něj odvozený, ne opsaný", () => {
+    // Typová rovnost je vynucená exportem; tady se pinuje, že seznam má všech 11 druhů včetně `tender`.
+    expect(ALL_KINDS).toContain("tender");
+    expect(ALL_KINDS.length).toBe(11);
+  });
+});
+
+describe("IČO v odkazu i citaci je kanonické — osm číslic", () => {
+  it("nedoplněné IČO z props se doplní nulami ve všech čtyřech registrech i v citaci", () => {
+    const s = subject({ kind: "company", id: "company:ico:123", props: { ico: "123" } });
+    for (const l of sourceLinksFor(s)) expect(l.url, l.registry).toContain("00000123");
+    for (const l of sourceLinksFor(s)) expect(l.url, l.registry).not.toMatch(/[=/:]123(?![0-9])/);
+    expect(citableId(s)).toBe("IČO 00000123");
+  });
+
+  it("dodavatel smlouvy se hledá pod kanonickým IČO", () => {
+    const s = subject({ kind: "contract", id: "contract:7", props: { supplierIco: "45" } });
+    expect(sourceLinksFor(s)[0].url).toContain(encodeURIComponent("ico:00000045"));
+  });
+
+  it("nečíselné IČO nevydá odkaz ani citaci — nikdy odhad", () => {
+    const s = subject({ kind: "company", id: "company:ico:ABC", props: { ico: "ABC" } });
+    expect(sourceLinksFor(s)).toEqual([]);
+    expect(citableId(s)).toBeNull();
+  });
+
+  it("lib/kg a features/money kanonizují stejně — dvě funkce, jeden tvar (test je drží u sebe)", () => {
+    for (const raw of ["123", "00000123", "25841991", " 7 ", "ABC", "123456789", ""]) {
+      const viaKg = citableId(subject({ kind: "company", id: "company:ico:x", props: { ico: raw } }));
+      const viaMoney = canonicalIco(raw);
+      expect(viaKg, raw).toBe(viaMoney === null ? null : `IČO ${viaMoney}`);
+    }
   });
 });

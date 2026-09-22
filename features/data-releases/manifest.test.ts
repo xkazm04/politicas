@@ -4,6 +4,7 @@ import type { IngestRunRow } from "@/lib/db/types";
 import {
   deriveChangelog,
   deriveReleaseManifest,
+  newestRun,
   versionFromIso,
   type ReleaseStats,
 } from "./manifest";
@@ -182,5 +183,21 @@ describe("deriveChangelog", () => {
 
   it("prázdný vstup → prázdný vlak, žádný vymyšlený den", () => {
     expect(deriveChangelog([])).toEqual([]);
+  });
+});
+
+describe("newestRun — one rule for 'which run is newest' (2026-09-08)", () => {
+  it("picks the latest moment, breaks a tie by the higher id, and is order-independent", () => {
+    const a = run({ id: 1, finishedAt: "2026-07-29T10:05:00.000Z" });
+    const b = run({ id: 2, finishedAt: "2026-07-30T10:05:00.000Z" });
+    const c = run({ id: 3, finishedAt: "2026-07-30T10:05:00.000Z" });
+    expect(newestRun([a, b, c])?.id).toBe(3);
+    expect(newestRun([c, a, b])?.id).toBe(3);
+    expect(newestRun([])).toBeNull();
+  });
+  it("a running run counts by its start — the version cut and the lineage line agree on it", () => {
+    const done = run({ id: 1, finishedAt: "2026-07-29T10:05:00.000Z" });
+    const running = run({ id: 2, status: "running", startedAt: "2026-08-01T00:00:00.000Z", finishedAt: null });
+    expect(newestRun([done, running])?.id).toBe(2);
   });
 });

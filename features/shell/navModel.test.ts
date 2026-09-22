@@ -9,11 +9,11 @@
  * plocha, kterou nikdo nenajde, je neúspěšná plocha (kontrakt dávky 1, bod 7).
  */
 
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { entryFor, isBareRoute, NAV, sectionsFor, UNLISTED_ROUTES } from "./navModel";
+import { entryFor, isBareRoute, NAV, PAGE_SECTIONS, sectionsFor, UNLISTED_ROUTES } from "./navModel";
 
 const APP_DIR = fileURLToPath(new URL("../../app", import.meta.url));
 
@@ -127,4 +127,32 @@ describe("entryFor — podstránky patří pod svůj vypsaný řádek", () => {
     expect(sectionsFor("/schranka")).toEqual([]);
     expect(sectionsFor("/poslanec/123").length).toBeGreaterThan(0);
   });
+});
+
+describe("každý klíč katalogu v modelu navigace existuje v OBOU jazycích", () => {
+  // Rail i blok „na této stránce" sázejí přes t(labelKey) — klíč, který v katalogu
+  // není, se čtenáři vysází jako holý řetězec „nav.sections.x". Do 2026-09-07 tu
+  // seznam hlídaly jen testy tří ploch (/hlasovani, /rozpocty, /volby) nad svými
+  // kotvami: 17 z 52 klíčů. Tady se čte ground truth (messages/*.json) nad CELÝM
+  // modelem, řádky railu včetně.
+  const resolve = (catalog: unknown, key: string): unknown =>
+    key
+      .split(".")
+      .reduce<unknown>((o, p) => (o && typeof o === "object" ? (o as Record<string, unknown>)[p] : undefined), catalog);
+  const keys = [
+    ...NAV.flatMap((e) => [e.labelKey, e.tagKey, ...e.children.map((c) => c.labelKey)]),
+    ...Object.values(PAGE_SECTIONS).flatMap((list) => list.map((s) => s.labelKey)),
+  ].filter((k): k is string => typeof k === "string");
+
+  it("kotevní kontrola — model nese desítky klíčů", () => {
+    expect(keys.length).toBeGreaterThan(40);
+  });
+
+  for (const locale of ["cs", "en"] as const) {
+    it(`${locale}: každý labelKey i tagKey se přeloží na řetězec`, () => {
+      const catalog: unknown = JSON.parse(readFileSync(join(APP_DIR, "..", "messages", `${locale}.json`), "utf8"));
+      const missing = keys.filter((k) => typeof resolve(catalog, k) !== "string");
+      expect(missing, missing.join(", ")).toEqual([]);
+    });
+  }
 });

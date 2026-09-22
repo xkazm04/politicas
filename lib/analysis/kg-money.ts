@@ -74,6 +74,9 @@ export interface MoneyGraph {
     supplies: number;
     verified: number;
     pending_review: number;
+    /** Human-REFUSED ties. Until 2026-09-06 these were counted under `pending_review`
+     *  (every non-verified link was „pending") — two states for a three-state gate. */
+    rejected: number;
     contractsWithoutKnownSupplier: number;
   };
   /** Contract ids whose supplier IČO had no company — surfaced, never dropped silently. */
@@ -140,6 +143,7 @@ export function buildMoneyGraph(
   // links → linked_to edges (person → company), review-gated; ensure the company node exists
   let verified = 0;
   let pending = 0;
+  let rejected = 0;
   for (const link of links) {
     if (!companyByIco.has(link.ico)) continue; // link to an unknown company → skip (never fabricate a node)
     ensureCompanyNode(link.ico);
@@ -151,7 +155,9 @@ export function buildMoneyGraph(
       weight: null,
       props: { role: link.role, source: link.source, review_state: link.state },
     });
+    // Three states, three counters: a human refusal is neither verified nor pending.
     if (link.state === "verified") verified++;
+    else if (link.state === "rejected") rejected++;
     else pending++;
   }
 
@@ -161,10 +167,11 @@ export function buildMoneyGraph(
     stats: {
       companies: emittedCompanyNode.size,
       contracts: nodes.filter((n) => n.kind === "contract").length,
-      linked_to: verified + pending,
+      linked_to: verified + pending + rejected,
       supplies,
       verified,
       pending_review: pending,
+      rejected,
       contractsWithoutKnownSupplier: danglingContracts.length,
     },
     danglingContracts,
@@ -262,16 +269,23 @@ export interface MoneyTrail {
   personPspId: number;
   companies: string[]; // company urns
   contractCount: number;
+  /** Sum of the DISCLOSED contract amounts only. */
   totalAmount: number;
+  /** Contracts on the trail whose amount the register does not state — counted, never
+   *  summed as 0 CZK (the `?? 0` money-feed.ts already removed from subsidies and
+   *  donations; here it survived until 2026-09-06). */
+  undisclosedContracts: number;
   fullyVerified: boolean;
 }
 export function moneyTrails(g: MoneyGraph, links: readonly PersonCompanyLink[]): MoneyTrail[] {
-  const contractsByCompany = new Map<string, { count: number; amount: number }>();
+  const contractsByCompany = new Map<string, { count: number; amount: number; undisclosed: number }>();
   for (const e of g.edges) {
     if (e.rel !== "supplies") continue;
-    const cur = contractsByCompany.get(e.src) ?? { count: 0, amount: 0 };
+    const cur = contractsByCompany.get(e.src) ?? { count: 0, amount: 0, undisclosed: 0 };
     cur.count++;
-    cur.amount += typeof e.weight === "number" ? e.weight : 0;
+    // Missing is not zero: an undisclosed amount is counted, not added as 0 CZK.
+    if (typeof e.weight === "number") cur.amount += e.weight;
+    else cur.undisclosed++;
     contractsByCompany.set(e.src, cur);
   }
   const byPerson = new Map<number, { companies: Set<string>; verified: boolean }>();
@@ -291,14 +305,16 @@ export function moneyTrails(g: MoneyGraph, links: readonly PersonCompanyLink[]):
   for (const [personPspId, { companies, verified }] of byPerson) {
     let contractCount = 0;
     let totalAmount = 0;
+    let undisclosedContracts = 0;
     for (const urn of companies) {
       const c = contractsByCompany.get(urn);
       if (c) {
         contractCount += c.count;
         totalAmount += c.amount;
+        undisclosedContracts += c.undisclosed;
       }
     }
-    out.push({ personPspId, companies: [...companies], contractCount, totalAmount, fullyVerified: verified });
+    out.push({ personPspId, companies: [...companies], contractCount, totalAmount, undisclosedContracts, fullyVerified: verified });
   }
   return out.sort((a, b) => b.totalAmount - a.totalAmount);
 }

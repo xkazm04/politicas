@@ -180,7 +180,13 @@ function EntryRow({
           </span>
         )}
         {/* Filtr je adresa — každý čip je odkaz na vlastní deník entity. Sledovat
-            se dá až v tom pohledu (tlačítko u filtru), čip sám nic neukládá. */}
+            se dá až v tom pohledu (tlačítko u filtru), čip sám nic neukládá.
+
+            ODKAZ JEN PRO KLÍČ, KTERÝ FILTR UNESE (2026-09-05): řádek bez čitelné
+            entity nese zástupný klíč `zaznam:<id>` (deriveDenik ho vydává, aby
+            entities nebylo prázdné). `isEntityKey` ho odmítá — jako odkaz vedl
+            na pohled, který o něm říká jen „tvar klíče neodpovídá". Takový čip
+            zůstane textem; pinuje entityChips.test.ts. */}
         <span className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
           {e.entities.map((en) =>
             en.key === followedKey ? (
@@ -189,6 +195,13 @@ function EntryRow({
                 className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt"
               >
                 <Eye className="h-3 w-3" aria-hidden /> {en.label}
+              </span>
+            ) : !isEntityKey(en.key) ? (
+              <span
+                key={en.key}
+                className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-steel-aa"
+              >
+                {en.label}
               </span>
             ) : (
               <Link

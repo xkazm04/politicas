@@ -244,3 +244,69 @@ fields built exclusively from the mapper's output; falsified by nulling the
 mapper → `gap-in-chain-pos`). `feedIndex.ts`'s existing promise that this family
 carries a chain link was made TRUE rather than edited — it belongs to another
 surface's write set, and the payload was the honest place to fix it.
+
+**/dukazy links the same IČO the deník links (2026-09-05, scan-sweep, parity-auditor).**
+`icoFromDst` accepts 6–8 digits because unpadded node ids exist in the graph, and the
+bulletin's three registry links were built from that raw segment while `companyHref`
+on the SAME entry — and every company link on /denik — went through `canonicalIco`.
+A 6-digit row therefore sent the reader to an ARES REST path that 404s and to a
+Hlídač subject the deník addressed under another number. Links now use the padded
+IČO; `deriveFeed.test.ts` pins a 6-digit dst against its own `companyHref` and the
+canonical case byte-for-byte.
+
+**A placeholder entity is text, not a filter link (2026-09-05, scan-sweep,
+state-coverage).** A row with no readable entity carries `zaznam:<id>` so that
+`entities` is never empty; the page rendered every entity as a chip linking
+`/denik?entita=<key>`, and for that key the target view can only say „tvar klíče
+neodpovídá" — a link into a sentence about its own invalidity. Chips now link only
+keys `isEntityKey` accepts (the same test the route, the follow button and the
+schránka apply); the placeholder renders as plain text. `entityChips.test.ts` pins
+both halves: the derivation's placeholder is not an entity key, and the page guards
+the Link with that test.
+
+**The feed closes a sentence once (2026-09-05, scan-sweep, copy-auditor).** A
+contract title from the register often ends with its own period („Smlouva o dílo.");
+`denikEntrySummaryCs` appended another, so RSS descriptions and JSON `content_text`
+read „…dílo.. Zdroj: …". A trailing period on the title is now dropped before the
+sentence closes; the codec test pins the case.
+
+**Every /dukazy record has an accessible name (2026-09-05, scan-sweep,
+accessibility-checker).** Each `<article id="z-<id>">` had no name, so a screen
+reader announced „článek" for every decision while /denik's days carry
+`aria-labelledby`. The article now names itself by the decision badge and the
+subject line it already renders (`-v`, `-s` ids); no catalog key added;
+`features/dukazy/a11y.test.ts` pins that every referenced id is assigned in the file.
+
+**/dukazy feeds hold the rule their siblings hold (2026-09-05, scan-sweep,
+parity-auditor).** c210d19 gave the /schranka and /denik feed routes `no-store` on
+their 503 branches and one shared `requestOrigin`; the bulletin's two routes kept
+their own copies of `requestOrigin` and answered „store unavailable" with no headers
+at all — cacheable by a shared cache, and content-type-less on the XML route. Both
+now import `requestOrigin` from `features/denik/feedRequest.ts` and send `no-store`
+plus a content type on 503. `features/dukazy/feedRoutes.test.ts` is the first test
+that runs these handlers (mocked loader + `next/headers`); it pins the 503 headers
+and that the channel address is the request host, or empty — never invented.
+
+**Round 53 of the sweep (2026-09-08, scan-sweep, civic-chronicle).** Four
+findings, all landed. (1) A signed forensic verdict whose bill node carries no
+`forensic_severity` was published with „závažnost low" — the loader defaulted the
+token; `ForensicSignoffLike.severity` is now `string | null` and the entry cites
+„neuvedena" (`deriveFeed.test.ts`). (2) The forensic tisk id was
+`Number(id.replace(…)) || 0`, so every unreadable bill id would have shared the
+public anchor `z-tisk-0`; the loader reads it through `tiskIdFromBillNodeId`
+(`features/lawwatch/billRef`) and withholds, counted, what the codec cannot read
+(`dukazySource.test.ts`). (3) `pspIdFromSrc` was a second copy of the strict
+person-id regex; it is now `lib/ingest/changeEvents.pspIdFromNodeId` under the old
+name (pinned by identity). (4) The deník loader parsed `poslanec:<n>` keys with a
+local regex and spelled the tie review ladder by hand; `pspIdFromEntityKey` is the
+inverse of `mpEntityKey` in `deriveDenik.ts`, and the ladder is `reviewStateOf`
+(`denikSource.test.ts`).
+
+**The thin routes hold their siblings' rules (2026-09-08, scan-sweep,
+civic-feeds-verification).** `/dukazy/feed.*` answered success with no
+`cache-control` at all while `/denik/feed.*` send `FEED_CACHE_CONTROL`; both
+bulletin feeds now send it. `/denik?entita=a&entita=b` dropped the repeated
+parameter and rendered the unfiltered journal while the feeds took the first value;
+the page reads it through `firstParam` now. `lib/testing/civicFeedRouteSource.test.ts`
+pins both, together with `/zdroj/[ref]` reading its origin from `lib/routing/liveUrl`
+and `/overeni` + `/zdroj` reading params through `firstParam` instead of local copies.

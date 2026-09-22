@@ -19,6 +19,8 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ArrowRight, ScanLine, Stamp } from "lucide-react";
+import { HASH_ALGORITHM as EXHIBIT_HASH_ALGORITHM } from "@/features/dashboard/exhibit";
+import { HASH_ALGORITHM as GRAPH_HASH_ALGORITHM } from "@/features/graph/permalink";
 import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
@@ -27,7 +29,9 @@ import CitableNumber from "@/lib/claims/CitableNumber";
 import { claimStatus } from "@/lib/claims/claim";
 import { formatByKind, formattersFor, type CitableKind } from "@/lib/format";
 import type { Locale } from "@/lib/i18n/config";
+import type { ReceiptAsOf } from "@/features/shared/provenance/asOfLens";
 import { formatWeight, relLabelKey } from "@/features/shared/provenance/receipt";
+import type { ProvenanceReceipt } from "@/features/shared/provenance/receipt";
 import type { GateData } from "./getVerdictData";
 import { GUIDE_EXAMPLES, GUIDE_STEPS, type GuideExample } from "./guide";
 import VerdictFocus from "./VerdictFocus";
@@ -109,6 +113,51 @@ function subjectCaseFile(id: string) {
   return caseFileLinkFor({ id, kind: "person" }) ?? caseFileLinkFor({ id, kind: "company" });
 }
 
+/**
+ * CO JSME ZVEŘEJNILI TOHO DNE — prostřední sloupec `moved`.
+ *
+ * Brána uměla dvě strany (citace čtenáře · dnešek). Tahle je ta třetí a jediná,
+ * za kterou ručíme MY, a proto nese vlastní datum: bez něj by se četla jako
+ * dnešní. Sází se výhradně z účtenky platné k tomu dni (store, ne dopočet), a
+ * jen ta pole, která účtenka sází jako tvrzení — štítky uzlů ne, přejmenovaná
+ * firma je táž firma.
+ */
+function ThenColumn({
+  then,
+  day,
+  locale,
+  t,
+}: {
+  then: ProvenanceReceipt;
+  day: string;
+  locale: Locale;
+  t: T;
+}) {
+  const f = formattersFor(locale);
+  return (
+    <div className="mb-4 border-l-4 border-ochre bg-ochre/15 py-2 pl-3 pr-3">
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+        {t("row.publishedThen", { day: f.date(day) })}
+      </p>
+      {then.kind === "edge" && then.weight !== null && (
+        <Row label={t("row.weight")}>{formatWeight(then.weight, locale)}</Row>
+      )}
+      {then.kind === "edge" && (
+        <Row label={t("row.gateState")}>
+          {then.gate === null ? t(GATE_UNGATED_KEY) : gateLabel(t, then.gate.status)}
+        </Row>
+      )}
+      <Row label={t("row.origin")}>
+        {then.provenance.method ?? t("row.noMethod")}
+        {then.provenance.pass !== null && (
+          <span className="text-steel-aa"> · {t("row.pass", { pass: String(then.provenance.pass) })}</span>
+        )}
+      </Row>
+      <SourceNote className="mt-2">{t("row.publishedThenSource")}</SourceNote>
+    </div>
+  );
+}
+
 function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Locale; t: T }) {
   const f = formattersFor(locale);
   const tShared = useTranslations("shared");
@@ -180,10 +229,18 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
     );
   }
 
-  if (verdict.family === "zdroj" && verdict.kind === "verified") {
+  if (verdict.family === "zdroj" && verdict.kind !== "unknown") {
     const r = verdict.receipt;
+    const then = verdict.then ?? null;
     return (
       <div className="mt-4">
+        {/* TŘETÍ STRANA — co jsme ZVEŘEJNILI toho dne. Stojí NAD dnešním
+            záznamem: čtenář, který přišel obhájit citaci, hledá nejdřív ji.
+            Sází se jen ve stavu `at`; ostatní stavy vysvětlil banner nad
+            verdiktem a prázdný sloupec by se četl jako „nic tam nebylo". */}
+        {then !== null && then.asOf.state === "at" && then.receipt !== null && (
+          <ThenColumn then={then.receipt} day={then.asOf.day} locale={locale} t={t} />
+        )}
         {r.kind === "edge" ? (
           <>
             <Row label={t("row.record")}>
@@ -206,7 +263,7 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
         <Row label={t("row.origin")}>
           {r.provenance.method ?? t("row.noMethod")}
           {r.provenance.pass !== null && (
-            <span className="text-steel-aa"> · {t("row.pass", { pass: r.provenance.pass })}</span>
+            <span className="text-steel-aa"> · {t("row.pass", { pass: String(r.provenance.pass) })}</span>
           )}
         </Row>
         <Row label={t("row.fullReceipt")}>
@@ -221,6 +278,9 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
   if ((verdict.family === "graf" || verdict.family === "exponat") && verdict.kind !== "unknown") {
     const v = verdict.view;
     const path = verdict.family === "graf" ? `/graf/p/${v.encoded}` : `/dashboard/exponat/${v.encoded}`;
+    // Jméno algoritmu vlastní rodina (permalink.ts / exhibit.ts), ne brána — do
+    // 2026-09-05 tu stálo opsané „fnv-1a/32“, které by přežilo změnu v rodině.
+    const algo = verdict.family === "graf" ? GRAPH_HASH_ALGORITHM : EXHIBIT_HASH_ALGORITHM;
     return (
       <div className="mt-4">
         {/* Titulek buď vlastní rodina (doslovný text pohledu na graf), nebo
@@ -232,7 +292,7 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
         </Row>
         <Row label={t("row.currentHash")}>
           <span className="font-mono">{v.currentHash}</span>{" "}
-          <span className="text-steel-aa">({f.date(v.currentDate)}, fnv-1a/32)</span>
+          <span className="text-steel-aa">({f.date(v.currentDate)}, {algo})</span>
         </Row>
         <Row label={t("row.fullView")}>
           <Link href={path} className="inline-flex items-center gap-1 text-cobalt underline-offset-2 hover:underline">
@@ -247,7 +307,52 @@ function VerdictBody({ verdict, locale, t }: { verdict: GateVerdict; locale: Loc
   return null;
 }
 
-function VerdictPanel({ verdict, locale, t }: { verdict: GateVerdict; locale: Locale; t: T }) {
+/**
+ * BANNER ČASU ZÁZNAMU nad verdiktem — TÁŽ věta jako na /zdroj, týž katalog
+ * (`shared.receipt.asOf.*`). Dvě kopie téhle copy by se rozešly při první
+ * opravě, a zrovna tady se rozejít nesmějí: obě plochy odpovídají na tutéž
+ * otázku „a co jste tvrdili toho dne".
+ *
+ * Stojí NAD verdiktem, ne pod ním (pravidlo /graf/p): „tohle není dnešek" musí
+ * čtenář potkat dřív než údaj, kterého se to týká.
+ */
+function AsOfNotice({ asOf, locale }: { asOf: ReceiptAsOf; locale: Locale }) {
+  const tShared = useTranslations("shared");
+  const f = formattersFor(locale);
+  if (asOf.state === "live") return null;
+  const text =
+    asOf.state === "at"
+      ? tShared("receipt.asOf.at", { day: f.date(asOf.day) })
+      : asOf.state === "absentThen"
+        ? tShared("receipt.asOf.absentThen", { day: f.date(asOf.day) })
+        : asOf.state === "refused"
+          ? tShared("receipt.asOf.refused", { raw: asOf.raw })
+          : asOf.state === "notReplayable"
+            ? tShared("receipt.asOf.notReplayable", { day: f.date(asOf.day) })
+            : asOf.epoch
+              ? tShared("receipt.asOf.beforeEpoch", { day: f.date(asOf.day), epoch: f.date(asOf.epoch) })
+              : tShared("receipt.asOf.beforeEpochUnknown", { day: f.date(asOf.day) });
+  return (
+    <div className={`mb-4 border-l-4 py-2 pl-3 pr-3 ${asOf.state === "at" ? "border-ochre bg-ochre/15" : "border-steel"}`}>
+      <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+        {tShared("receipt.asOf.kicker")}
+      </p>
+      <p className="mt-1 font-mono text-xs leading-relaxed text-ink">{text}</p>
+    </div>
+  );
+}
+
+function VerdictPanel({
+  verdict,
+  asOf,
+  locale,
+  t,
+}: {
+  verdict: GateVerdict;
+  asOf: ReceiptAsOf;
+  locale: Locale;
+  t: T;
+}) {
   const tone = VERDICT_TONE[verdictTone(verdict)];
   const gate = verdictGate(verdict);
   return (
@@ -258,6 +363,7 @@ function VerdictPanel({ verdict, locale, t }: { verdict: GateVerdict; locale: Lo
       aria-live="polite"
       className={`mt-8 border-2 border-ink border-l-8 ${tone.border} bg-paper p-5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cobalt`}
     >
+      <AsOfNotice asOf={asOf} locale={locale} />
       <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-steel-aa">
         {t("panel.recognized", { family: t(FAMILY_KEYS[verdict.family]) })}
       </p>
@@ -410,7 +516,9 @@ export default function OvereniPage({
             </p>
           </section>
         )}
-        {data.status === "ok" && <VerdictPanel verdict={data.verdict} locale={locale} t={t} />}
+        {data.status === "ok" && (
+          <VerdictPanel verdict={data.verdict} asOf={data.asOf} locale={locale} t={t} />
+        )}
 
         {/* ── Návod pro redakce ─────────────────────────────────────────── */}
         <section aria-label={t("guide.title")} className="mt-14">
@@ -425,7 +533,10 @@ export default function OvereniPage({
             {GUIDE_STEPS.map((step) => (
               <li key={step.no} className="border-t border-hairline pt-4">
                 <p className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-signal-deep">
-                  {t("guide.stepLabel", { no: step.no })}
+                  {/* Číslo kroku a průchodu jsou IDENTIFIKÁTORY, ne množství — jako
+                      řetězec, jinak by je next-intl protáhl Intl.NumberFormat (průchod
+                      1234 jako „1 234"; /data to opravilo u id běhu 2026-09-06). */}
+                  {t("guide.stepLabel", { no: String(step.no) })}
                 </p>
                 <h3 className="mt-1 text-base font-black uppercase tracking-tight">{t(step.titleKey)}</h3>
                 <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-steel-aa">{t(step.bodyKey)}</p>

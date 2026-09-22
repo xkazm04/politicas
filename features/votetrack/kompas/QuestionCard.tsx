@@ -17,6 +17,11 @@ import type { ClubTally } from "../record/types";
 import type { Answer } from "./score";
 import type { KompasQuestion } from "./types";
 
+/** Výsledky, pro které katalog nese větu (`common.voteResult.*`). Cokoli jiného,
+ *  co by záznam nesl, se vysází DOSLOVA (vzor VoteThemeFilter) — do 2026-09-07 šla
+ *  každá neznámá hodnota do větve „zamítnuto“. */
+const KNOWN_OUTCOMES = new Set(["accepted", "rejected"]);
+
 /** The ledger's tally-bar language (RealVoteLedger): cobalt pro · ochre K ·
  * hairline away · signal proti. */
 function TallyBar({ total }: { total: ClubTally }) {
@@ -82,9 +87,15 @@ export default function QuestionCard({
             {t("kompas.chamberResult")}: {f.int(q.total.yes)} {tcom("voteChoice.for")} · {f.int(q.total.no)} {tcom("voteChoice.against")} · {f.int(q.total.k)}{" "}
             {t("kompas.kShort")} ·{" "}
             <span
-              className={`font-black uppercase ${q.outcome === "accepted" ? "text-cobalt" : "text-signal-deep"}`}
+              className={`font-black uppercase ${
+                q.outcome === "accepted"
+                  ? "text-cobalt"
+                  : q.outcome === "rejected"
+                    ? "text-signal-deep"
+                    : "text-steel-aa"
+              }`}
             >
-              {q.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
+              {KNOWN_OUTCOMES.has(q.outcome) ? tcom(`voteResult.${q.outcome}`) : q.outcome}
             </span>
           </span>
           {session && <span>{session}</span>}

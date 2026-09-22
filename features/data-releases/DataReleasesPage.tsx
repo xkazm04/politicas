@@ -42,6 +42,10 @@ import type { DataReleasesData, SnapshotFacts } from "./getDataReleasesData";
  *  hodnota zůstává v title (a strojově v /data/manifest.json). */
 const shortHash = (hash: string) => (hash.length > 18 ? `${hash.slice(0, 16)}…` : hash);
 
+/** Kolik zapečetěných běhů stránka vysází; zbytek nese manifest.json a věta pod
+ *  seznamem ho POČÍTÁ — do 2026-09-05 tu bylo `slice(0, 8)` a o zbytku mlčení. */
+const SEALED_RUNS_SHOWN = 8;
+
 function StoreDownState() {
   const t = useTranslations("dataReleases");
   return (
@@ -232,6 +236,12 @@ export default function DataReleasesPage({
   const t = useTranslations("dataReleases");
   const f = formattersFor(locale);
   const mono = (chunks: React.ReactNode) => <span className="font-mono">{chunks}</span>;
+  /** Čísla vstupují do ICU vět UŽ ZFORMÁTOVANÁ (lib/format) — next-intl by je
+   *  jinak protáhl vlastním Intl.NumberFormat mimo jedinou formátovací autoritu. */
+  const icuValues = (values: Record<string, string | number> | undefined) =>
+    values === undefined
+      ? undefined
+      : Object.fromEntries(Object.entries(values).map(([k, v]) => [k, typeof v === "number" ? f.int(v) : v]));
   const m = data?.manifest ?? null;
   // Číslo sekce se ODVOZUJE z toho, co se skutečně vykreslí: při nedostupném
   // úložišti sekce 01–04 nejsou, a „05" nad prázdnem by odkazovalo na kapitoly,
@@ -326,6 +336,33 @@ export default function DataReleasesPage({
                         {t("current.cut", { date: f.date(m.cutAt) })}
                       </span>
                     )}
+                  </div>
+
+                  {/* [G5] Ověřil to někdy někdo? Do 2026-09-04 tahle věta na
+                      stránce nebyla a „latest" plynulo z kardinalitních prahů —
+                      těch samých, které týdny certifikovaly 0,98 % korpusu
+                      smluv. Verdikt se spojuje na PŘESNOU shodu otisku, takže
+                      „neověřeno" znamená neověřeno, ne „nejbližší běh dopadl
+                      dobře". */}
+                  {/* Počty invariant jsou `number | null` a null znamená „report se nedal
+                      přečíst“ (sentinelQueue.readNewestCertification) — do 2026-09-05 tu
+                      propadal přes `?? 0` jako „platilo 0 z 0“, tedy výsledek auditu,
+                      který audit nevydal. Missing is not zero: věta bez počtů. */}
+                  <p className="mt-4 max-w-2xl text-sm leading-relaxed text-steel-aa">
+                    {m.certification === "none" || m.certifiedBy === null
+                      ? t("current.certificationNone")
+                      : m.certifiedBy.checksHeld === null || m.certifiedBy.checksTotal === null
+                        ? t(`current.certificationNoCounts.${m.certification}`, {
+                            date: f.date(m.certifiedBy.ranAt),
+                          })
+                        : t(`current.certification.${m.certification}`, {
+                            date: f.date(m.certifiedBy.ranAt),
+                            platnych: f.int(m.certifiedBy.checksHeld),
+                            vsech: f.int(m.certifiedBy.checksTotal),
+                          })}
+                  </p>
+                  <div className="mt-2">
+                    <SourceNote>{t("current.certificationSource")}</SourceNote>
                   </div>
 
                   {/* Kardinality proti prahům — vydávací brána, řádek po řádku. */}
@@ -448,11 +485,13 @@ export default function DataReleasesPage({
                     <p className="mt-2 text-sm leading-relaxed text-steel-aa">{t("sealed.empty")}</p>
                   ) : (
                     <ul className="mt-2 space-y-2">
-                      {m.integrity.sealedRuns.slice(0, 8).map((r) => (
+                      {m.integrity.sealedRuns.slice(0, SEALED_RUNS_SHOWN).map((r) => (
                         <li key={r.runId} className="border-b border-hairline pb-2 font-mono text-sm last:border-b-0">
                           <div className="flex flex-wrap items-baseline justify-between gap-x-4">
                             <span>
-                              {t("sealed.run", { id: f.int(r.runId) })} · {r.source}
+                              {/* Id je identifikátor, ne množství — f.int by z #1234 udělal
+                                  „#1 234“ (tisícová mezera), a to není číslo běhu. */}
+                              {t("sealed.run", { id: String(r.runId) })} · {r.source}
                             </span>
                             <span className="tabular-nums text-steel-aa">
                               {t("sealed.leaves", { count: f.int(r.leafCount) })}
@@ -464,6 +503,14 @@ export default function DataReleasesPage({
                         </li>
                       ))}
                     </ul>
+                  )}
+                  {m.integrity.sealedRuns.length > SEALED_RUNS_SHOWN && (
+                    <p className="mt-2 font-mono text-xs text-steel-aa">
+                      {t("sealed.shownNewest", {
+                        count: f.int(SEALED_RUNS_SHOWN),
+                        rest: f.int(m.integrity.sealedRuns.length - SEALED_RUNS_SHOWN),
+                      })}
+                    </p>
                   )}
                   <div className="mt-3">
                     <SourceNote>{t("sealed.source")}</SourceNote>
@@ -554,9 +601,13 @@ export default function DataReleasesPage({
                         <ul className="mt-1 space-y-1">
                           {rel.runs.map((r) => (
                             <li key={r.id} className="font-mono text-sm">
-                              <span className={r.status === "failed" ? "text-signal-deep" : ""}>
+                              {/* Glyf je pro oko; stav pro čtečku nese text — do 2026-09-05
+                                  byl glyf + barva jediným nositelem a čtečka četla
+                                  „check mark“ místo „běh dokončen“. */}
+                              <span aria-hidden className={r.status === "failed" ? "text-signal-deep" : ""}>
                                 {r.status === "ok" ? "✓" : r.status === "failed" ? "✕" : "…"}
-                              </span>{" "}
+                              </span>
+                              <span className="sr-only">{t(`changelog.status.${r.status}`)}</span>{" "}
                               {r.source} · {t("changelog.runRow", { rows: f.int(r.rowsWritten) })}
                               {r.note ? <span className="text-steel-aa"> — {r.note}</span> : null}
                             </li>
@@ -628,7 +679,7 @@ export default function DataReleasesPage({
                   <p className="text-sm leading-relaxed">{t(fam.carriesKey)}</p>
                   {fam.noteKey && (
                     <p className="border-l-4 border-hairline pl-3 text-sm leading-relaxed text-steel-aa">
-                      {t(fam.noteKey, fam.noteValues)}
+                      {t(fam.noteKey, icuValues(fam.noteValues))}
                     </p>
                   )}
                 </div>

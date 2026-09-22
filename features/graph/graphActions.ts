@@ -13,10 +13,24 @@
 
 import { getLocale } from "next-intl/server";
 import { isKgNodeKind } from "./kindStyle";
-import { getMapData, getNodeDetail, getPathBetween, getTrails, searchGraph } from "./graphLoader";
+import {
+  getMapData,
+  getNeighbourhood,
+  getNodeDetail,
+  getPathBetween,
+  getTrails,
+  searchGraph,
+} from "./graphLoader";
 import { issuePermalink } from "./getPermalinkData";
 import { encodeGraphRef, parseViewState, permalinkPath } from "./permalink";
-import type { MapData, NodeDetail, PathQueryResult, SearchHit, Trail } from "./graphTypes";
+import type {
+  MapData,
+  Neighbourhood,
+  NodeDetail,
+  PathQueryResult,
+  SearchHit,
+  Trail,
+} from "./graphTypes";
 
 export async function searchGraphAction(q: unknown, kinds: unknown): Promise<SearchHit[]> {
   if (typeof q !== "string") return [];
@@ -60,4 +74,23 @@ export async function pathAction(src: unknown, dst: unknown): Promise<PathQueryR
   const b = dst.slice(0, 200);
   if (!a || !b || a === b) return null;
   return getPathBetween(a, b);
+}
+
+/**
+ * Okolí jednoho uzlu na vyžádání — vrstva, kterou mapa masy ZÁMĚRNĚ nekreslí
+ * (48 647 zakázek a 12 467 zakázkových firem by z payloadu udělalo ~60 tisíc
+ * uzlů), ale kterou čtenář smí dotáhnout ke konkrétní entitě.
+ *
+ * Vstup se validuje týmž způsobem jako u `pathAction`: akce je veřejný
+ * endpoint, ne funkce. Relace se propouštějí jen jako neprázdné řetězce a
+ * strop si loader ořízne sám — klient si ho nesmí zvednout.
+ */
+export async function neighbourhoodAction(id: unknown, rels: unknown): Promise<Neighbourhood | null> {
+  if (typeof id !== "string") return null;
+  const key = id.slice(0, 200);
+  if (!key) return null;
+  const relList = Array.isArray(rels)
+    ? rels.filter((r): r is string => typeof r === "string" && r.length > 0 && r.length <= 80).slice(0, 12)
+    : undefined;
+  return getNeighbourhood(key, relList && relList.length > 0 ? { rels: relList } : {});
 }

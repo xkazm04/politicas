@@ -3,11 +3,13 @@
 // out of the repository files so each of those reads as pure query logic.
 
 import { pglitePath } from "../config";
+import { KG_READ_CAP } from "../readCap";
 import type { ListOptions } from "../store";
 import { CORE_DDL } from "./ddl";
 import { assertDurabilityContract } from "./durability";
 import { instrumentPglite } from "./instrument";
 import { withQuietWindowMaintenance } from "./maintenance";
+import { drainSentinelQueue } from "./sentinelQueue";
 
 export interface PgResult<T> {
   rows: T[];
@@ -68,6 +70,13 @@ export async function open(): Promise<Pglite> {
       await pg.waitReady;
       await disclosePendingDdl(pg);
       await pg.exec(CORE_DDL);
+      // [G5] The sentinel audits a COPY and never opens this handle, so its
+      // verdict arrives through a file. Draining it here is the one moment a
+      // live connection exists; it is idempotent by content hash and never
+      // fatal — the store has a hundred readers and the queue has one writer.
+      await drainSentinelQueue(pg).catch((err: unknown) => {
+        console.warn(`[db] sentinel queue not drained this boot: ${String(err)}`);
+      });
       await assertDurabilityContract(pg).catch((err: unknown) => {
         // The contract could not be READ. That is worth a line (it is already
         // one, inside), and it is not a reason to withhold a working store.
@@ -255,7 +264,11 @@ export async function upsertMany<T extends { id: string }>(
   });
 }
 
-export const limitOf = (opts?: ListOptions) => Math.max(1, Math.min(2_000_000, opts?.limit ?? 1_000_000));
+/** The relational listers' limit clamp. The DEFAULT is the one shared cap
+ *  (lib/db/readCap.ts) — until 2026-09-08 it was re-typed here as a literal, the
+ *  sixth address of a constant whose header says it has one. The 2 000 000
+ *  ceiling on what a caller may raise it to stays local. */
+export const limitOf = (opts?: ListOptions) => Math.max(1, Math.min(2_000_000, opts?.limit ?? KG_READ_CAP));
 
 /**
  * A `limit` that exactly equals the row count is indistinguishable from a full read, and

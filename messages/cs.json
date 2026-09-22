@@ -630,6 +630,8 @@
         "summary": "textová podoba grafu — {nodes} uzlů a {edges} vazeb",
         "intro": "týž výřez jako obrázek nad ním a týž výběr — uzel vybraný tady se vybere i v grafu",
         "index": "{index}.",
+        "caseFileNamed": "{kind}: {label} — otevřít",
+        "denikNamed": "deník entity: {label}",
         "realSource": "zdroj: znalostní graf politicas — psp.cz ⋈ ares ⋈ registr smluv ⋈ e-sbírka; seznam kreslí tytéž uzly a hrany jako obrázek, nic nedopočítává",
         "mockSource": "zdroj: ilustrativní ukázka — jména, IČO i částky jsou smyšlené, nejde o reálná data"
       },
@@ -1105,6 +1107,8 @@
       "methodTitle": "zveřejněné pravidlo výpočtu",
       "methodBody": "Linie klubu = přísná většina pozičních hlasů (pro/proti) klubu v daném hlasování; remíza linii neurčuje. Disciplína = podíl pozičních hlasů klubu na linii. Soudržnost = Riceův index |pro−proti|/(pro+proti), za sněmovnu vážený počtem pozičních hlasů klubů s ≥ {minClubPositional} pozičními hlasy. Slot „zdržel se / nehlasoval“ sněmovna od novely 90/1995 Sb. nerozlišuje a jako pozice se nepočítá; zmatečná hlasování jsou vyřazena; nezařazení poslanci se zobrazují, ale neskórují. Řazení klubů v hemicyklu zleva doprava je redakční konstanta.",
       "methodSource": "psp.cz — jmenovitá hlasování PSP10 · {valid} platných hlasování ({voided} zmatečných vyřazeno, {withoutDate} bez uvedeného dne, a tedy mimo seismograf) · {ballots} hlasů · {from} – {to}",
+      "clubBasisAtVote": "Klub se u každého hlasu bere ke DNI toho hlasování, z oken členství — poslanec, který klub v období změnil, se u starších hlasování počítá do klubu, ve kterém tehdy byl. {outside} hlasů padlo na den, který neleží v žádném jeho okně (poslanec mezi kluby), a {ambiguous} na den pokrytý dvěma okny naráz; ani jedny se nepočítají do klubu, do nezařazených, ani do rebelie — jsou vypsané, ne dopočítané.",
+      "clubBasisTermWide": "Klub se u každého hlasu bere jako JEDEN na celé období, protože okna členství nebyla k dispozici. Poslanci, který klub v období změnil, se tím přebarvují i hlasy odevzdané v tom předchozím. Je to slabší základ než klub ke dni hlasování a stránka ho přiznává, místo aby ho vydávala za datovaný.",
       "freshness": "celý záznam se odvozuje z {ballots} uložených hlasů; ten výpočet je memoizovaný a vyprší po {hours} h — o tolik mohou být tahle čísla nejvýš starší než graf. Stejnou mez deklaruje /penize i velín; graf je dávkový artefakt, mění se přepočtem, ne za běhu požadavku.",
       "reconcileTitle": "kontrola přepočtu proti zveřejněným součtům",
       "reconcileMethod": "Ke jmenovitým hlasováním zveřejňuje sněmovna vlastní součty. Náš přepočet z uložených hlasů se s nimi porovnává jedna ku jedné: pro proti sloupci ano, proti proti sloupci ne a sloučený slot „zdržel se / nehlasoval“ proti součtu sloupců zdržel se a nehlasoval. Slot „nepřihlášen / omluven“ se neporovnává vůbec — zdroj pro něj žádný sloupec nezveřejňuje a dopočítat ho by znamenalo odhadovat, kolik poslanců mělo být v sále. Rozdíl se konstatuje, nikdy neopravuje: nepřepisuje se ani náš přepočet, ani zveřejněný součet.",
@@ -1150,6 +1154,8 @@
       "thresholdRowPresent": "přítomno {nFmt}",
       "thresholdRowPresentNone": "počet přítomných zdroj neuvádí",
       "thresholdRowQuorum": "potřeba {nFmt}",
+      "billLink": "o tisku {cislo}",
+      "billBlock": "blok {countFmt} tisků — hlasovalo se o bloku, ne o jednom tisku",
       "thresholdRowQuorumNone": "počet potřebných hlasů zdroj neuvádí",
       "thresholdRowOver": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} nad prahem",
       "thresholdRowUnder": "o {n, plural, one {{nFmt} hlas} few {{nFmt} hlasy} other {{nFmt} hlasů}} pod prahem",
@@ -1182,6 +1188,7 @@
       "clubsBoardNote": "linie klubu = přísná většina jeho pozičních hlasů v daném hlasování; remíza linii neurčuje",
       "mpsBoard": "shoda s poslanci",
       "mpsBoardNote": "řazeno podle shody; pořadí uvnitř stejné shody nese jen počet srovnatelných hlasů a česká abeceda",
+      "clubBasisNote": "Klub u jména je klub DNES (otevřené členství). Linie klubu nad každou otázkou je naopak klub PŘI HLASOVÁNÍ, tedy ke dni toho hlasování — u poslance, který klub v období změnil, se ty dvě liší, a je to tak schválně: řádek je poslanec, linie je hlasování.",
       "alignmentOf": "{matches} z {comparable} srovnatelných",
       "kShort": "zdržel se/nehlasoval",
       "awayShort": "nepřihlášen",
@@ -1956,7 +1963,7 @@
     "notInRecordTitle": "obec v záznamu smluv grafu není",
     "notInRecordBody": "{town} se mezi stranami {municipal} obecních smluv peněžního grafu nevyskytuje. To neznamená, že obec smlouvy nemá — graf zatím nese jen smlouvy svých firem ({towns} obcí ano). Úplný obraz je v Registru smluv; sem přiteče s rozšířením grafu. Nic se tu nedopočítává ani neodhaduje.",
     "cardContracts": "smlouvy s firmami grafu",
-    "cardContractsMeta": "{contracts} smluv · {suppliers} protistran",
+    "cardContractsMeta": "{contracts} smluvních vztahů (smlouva × protistrana) · {suppliers} protistran",
     "cardContractsYears": "smlouvy podepsané {firstYear}–{lastYear}",
     "cardContractsYear": "smlouvy podepsané v roce {year}",
     "cardContractsYearsUnknown": "roky podpisu záznam u těchto smluv neuvádí",
@@ -1981,9 +1988,11 @@
     "tieVerified": "vazba ověřena",
     "tieNeedsReview": "vyžaduje ověření",
     "directionUnknown": "směr neuveden",
+    "paidDocumentedNoAmount": "směr doložen · částka neuvedena ({count})",
     "noPeerRecord": "bez vrstevníka v záznamu",
     "peerTownCount": "({count} obcí)",
     "restRow": "… a dalších {count} protistran za {sum} — výpis nese {top} největších podle objemu v záznamu.",
+    "restRowTiesLifted": "… a dalších {count} protistran za {sum} — výpis nese {top} největších podle objemu v záznamu a každou protistranu s vazbou na poslance ({lifted} nad rámec těch největších); mezi složenými protistranami žádná vazba na poslance v záznamu není.",
     "trailFootnote": "Vrstevnický medián u protistrany se počítá jen z obcí téhož pásma, které mají s touž firmou smlouvy v záznamu — obec mimo záznam medián nesráží k nule. Smlouva, kde směr platby registr neuvádí, se nikdy nevykládá jako výdaj ani příjem obce."
   },
   "lawwatch": {
@@ -2116,7 +2125,8 @@
       "unlinkable": "{count, plural, one {{countFmt} posudek patří tisku bez veřejného čísla — jeho řádek proto nevede na dosje.} few {{countFmt} posudky patří tiskům bez veřejného čísla — jejich řádky proto nevedou na dosje.} other {{countFmt} posudků patří tiskům bez veřejného čísla — jejich řádky proto nevedou na dosje.}}",
       "orderRule": "Vyhlášené pravidlo řazení: skupiny podle počtu posudků sestupně, při shodě podle názvu závažnosti; tisky uvnitř skupiny podle čísla tisku vzestupně. Řazení „nízká → vysoká“ tu záměrně není — závažnost je hodnocení analýzy, ne stupnice pochybení vydaná úřadem nebo soudem.",
       "withheld": "Jazyková brána zadržela část textu u {count, plural, one {{countFmt} posudku} few {{countFmt} posudků} other {{countFmt} posudků}} (celkem {fieldsFmt} zadržených částí). Text v grafu zůstává — jen se nezobrazuje, dokud není v češtině. Zadrženo neznamená chybí.",
-      "withheldNone": "U žádného posudku jazyková brána nezadržela část textu."
+      "withheldNone": "U žádného posudku jazyková brána nezadržela část textu.",
+      "reviewStateAbsent": "bez uloženého stavu brány"
     },
     "titleLinkNote": "Vazba tisk → zákon je vyčtena z názvu tisku (citace „č. N/RRRR Sb.“), jediného strukturovaného odkazu, který psp.cz o novelizovaném zákoně nese. Formální přikázání výborům (garanční / další, stav a datum) se vykresluje z reálných dat psp.cz. Úplné znění paragrafů drží e-Sbírka zvlášť —",
     "titleLinkNoteDiff": "u {count, plural, one {{countFmt} tisku} other {{countFmt} tisků}} u nejčastěji novelizovaného zákona nese skutečný §-diff mezi dvěma platnými zněními, dopočítaný přímo z veřejného SPARQL rozhraní e-Sbírky (žádný hromadný výpis, žádná smyšlená data); u ostatních tisků se diff zatím nevykresluje.",
@@ -2160,6 +2170,16 @@
       "rapporteursHeading": "zpravodajové — psp.cz hist · hist_vybory · tisky_za",
       "debateHeading": "rozprava — {countFmt} věcných vystoupení · stenozáznamy psp.cz",
       "amendmentDocsHeading": "písemné pozměňovací návrhy — {countFmt} · sněmovní dokumenty psp.cz",
+      "rollCallsHeading": "jak sněmovna hlasovala — {countFmt} jmenovitých hlasování o tomhle tisku",
+      "rollCallNoDate": "bez uvedeného dne",
+      "rollCallLine": {
+        "yes": "pro",
+        "no": "proti"
+      },
+      "rollCallChamber": "pro {yes} · proti {no} · zdržel se / nehlasoval {k}",
+      "rollCallNoBallots": "k tomuhle hlasování nedržíme jmenovité hlasy — součet proto nevypisujeme; „nemáme hlasy“ není „nikdo nehlasoval“",
+      "rollCallBlockItem": "Bod pořadu nesl {countFmt} tisků najednou — hlasovalo se o bloku, ne jen o tomhle tisku. Vazbu proto necháváme na všech, místo abychom uhodli jeden.",
+      "rollCallsSource": "psp.cz — hlasování spojená s tiskem přes bod pořadu schůze (schůze + bod, pořad schůze tak, jak byl projednán). Sněmovní součty i linie klubů pocházejí z TÉHOŽ odvozeného záznamu, který kreslí /hlasovani, ne z druhého přepočtu. {blockFmt} z těchto hlasování patřilo bodu s víc tisky. Které to bylo čtení, zdroj v datech neuvádí, a my to neodhadujeme.",
       "conflictSource": "možný střet zájmů · odvozeno z peněžních vazeb předkladatele",
       "conflictText": "Předkladatel má vazby na {count, plural, one {{countFmt} firmu} few {{countFmt} firmy} other {{countFmt} firem}} s celkovým tokem veřejných zakázek <b>{amount}</b>. Signál k prověření, ne prokázaný střet — sektorová blízkost je indicie, ne důkaz.",
       "conflictAttribution": "Uvedené číslo je nejvyšší případ mezi předkladateli tisku a sčítá všechny firmy, ke kterým je předkladatel v grafu vázán — včetně institucí, kde má jen správní roli. Peněžní spis poslance sčítá přísněji: peníze instituce připisuje instituci, nikdy poslanci, a proto tam bývá částka nižší. Rozhoduje spis, ne tenhle příznak.",
@@ -2203,7 +2223,10 @@
       "withheldParts": "{count, plural, one {{countFmt} část textu} few {{countFmt} části textu} other {{countFmt} částí textu}} tohoto posudku zatím není v češtině, a proto se nezobrazuje. Blok je tím neúplný.",
       "referencesHeading": "reference ({count})",
       "gateFootnote": "Odvozený nález gatovaný proti fabrikaci: každá citovaná č. N/RRRR Sb. musí být reálný zákon. Uložen jako <b>pending_review</b> — podnět pro člověka, ne publikovaný verdikt.",
-      "evidenceLabel": "zdroj:"
+      "evidenceLabel": "zdroj:",
+      "reviewStateAbsent": "bez uloženého stavu",
+      "reviewedBy": "rozhodl {kdo}",
+      "reviewedByOn": "rozhodl {kdo} dne {kdy}"
     },
     "diffBlock": {
       "source": "reálný §-diff · č. {law} Sb. · e-Sbírka (SPARQL, ne hromadný výpis)",
@@ -2360,7 +2383,8 @@
       "contract": "smlouva",
       "bill": "tisk",
       "law": "zákon",
-      "notice": "vývěska"
+      "notice": "vývěska",
+      "tender": "zadávací řízení"
     },
     "rels": {
       "co_votes_with": "společné hlasování",
@@ -2375,7 +2399,15 @@
       "cites": "cituje",
       "owns_stake": "podíl ve firmě",
       "owns": "gesce tématu",
-      "belongs_to": "patří do bloku"
+      "belongs_to": "patří do bloku",
+      "procures": "zadává",
+      "bids_on": "uchází se o",
+      "wins": "vítězí v",
+      "concerns": "týká se",
+      "rapporteur": "zpravodaj tisku",
+      "spoke_on": "vystoupil k",
+      "proposes_amendment": "navrhuje pozměňovací návrh k",
+      "decides": "rozhoduje o"
     },
     "search": {
       "placeholder": "hledat v grafu…",
@@ -2417,7 +2449,8 @@
         "contract": "U této smlouvy nemáme ani uloženou adresu v Registru smluv, ani IČO dodavatele, přes které se do rejstříku dotazujeme.",
         "bill": "U tohoto tisku chybí číslo, kterým se na psp.cz odkazuje.",
         "law": "Citace zákona v záznamu nemá rozpoznatelné číslo a ročník, takže odkaz do e-Sbírky sestavit nejde.",
-        "notice": "Tahle vývěska nenese adresu, na které byla vyvěšena — bez ní odkaz sestavit nejde a rekonstruovat ho by znamenalo hádat. Zůstává spisová značka."
+        "notice": "Tahle vývěska nenese adresu, na které byla vyvěšena — bez ní odkaz sestavit nejde a rekonstruovat ho by znamenalo hádat. Zůstává spisová značka.",
+        "tender": "U tohoto řízení chybí profil zadavatele i identifikátor NIPEZ, takže odkaz do ISVZ sestavit nejde."
       }
     },
     "stage": {
@@ -2427,7 +2460,8 @@
       "fullscreen": "na celou obrazovku",
       "exitFullscreen": "opustit celou obrazovku",
       "legend": "legenda",
-      "unverified": "neověřeno"
+      "unverified": "neověřeno",
+      "rejected": "odmítnuto kontrolou"
     },
     "mapa": {
       "canvasLabel": "mapa masy",
@@ -2437,13 +2471,18 @@
       "unavailable": "mapu se nepodařilo sestavit — datový sklad není dostupný",
       "footnote": "celý graf najednou: důkazní vrstva jako síť, smlouvy jako tečky kolem dodavatelů · společné hlasování se nekreslí (96 % hustoty párů — viz metodika)",
       "lensLabel": "trasy na mapě",
-      "lensOff": "celá mapa — bez trasy"
+      "lensOff": "celá mapa — bez trasy",
+      "offMap": "{n} kroků mimo mapu, dokresleno na vyžádání",
+      "overlayBudget": "{n} uzlů okolí se nevešlo do rozpočtu plátna ({budget})",
+      "offMapSource": "zakázková vrstva (48 647 zakázek, 12 467 zakázkových firem) se na mapě masy nekreslí — okolí se dotahuje k uzlu, ne k celku",
+      "expandLabel": "dokreslit okolí"
     },
     "trasy": {
       "canvasLabel": "trasy",
       "listLabel": "vybrané trasy",
       "pick": "vyberte trasu — plátno ukáže její výřez grafu",
       "empty": "trasu se nepodařilo spočítat z dostupných dat",
+      "unavailable": "trasy nejde spočítat — datový sklad není dostupný",
       "footnote": "trasy jsou spočítané ze skutečných hran grafu, nic není ilustrace · částky = smlouvy a dotace dosažitelné přes IČO",
       "trails": {
         "penize-poslancu": {
@@ -2479,12 +2518,16 @@
       "hover": {
         "verified": "{n} ověřených hran",
         "pending": "{n} čeká na kontrolu",
-        "cols": "relace · ověřeno / čeká",
+        "cols": "relace · ověřeno / čeká / odmítnuto",
         "empty": "uzel bez hran v aktuálním výřezu",
         "more": "+ {n} dalších relací",
-        "open": "klik otevře úplný záznam s prameny"
+        "open": "klik otevře úplný záznam s prameny",
+        "rejected": "{n} odmítnuto kontrolou",
+        "ungated": "{n} bez brány (odvozeno)"
       },
-      "source": "zdroj: review_state znalostního grafu — stav lidské brány kontroly u každé hrany"
+      "source": "zdroj: review_state znalostního grafu — stav lidské brány kontroly u každé hrany",
+      "hiddenRejected": "{n} zamítnutých vazeb se nekreslí — lidská kontrola je odmítla",
+      "lensNoteRejected": "{n} zamítnutých kroků ve vyžádané odpovědi zůstává — tečkovaně, jako odmítnuté"
     },
     "steps": "{count, plural, one {{countFmt} krok} few {{countFmt} kroky} other {{countFmt} kroků}}",
     "allVerified": "vše ověřeno",
@@ -2583,8 +2626,40 @@
         "unavailableTitle": "Data se právě nedají přečíst",
         "unavailableNote": "výpadek na naší straně, ne zánik citace — zkuste to prosím znovu",
         "invalidNote": "tuhle adresu nelze rozluštit — není to citace politicas"
-      }
-    }
+      },
+      "thenKicker": "tehdy — otisk v adrese",
+      "nowKicker": "dnes — znovuodvozeno",
+      "noIssueDate": "adresa datum vydání nenese",
+      "diffUnavailable": "otisky se rozešly, takže obsah pohledu se od vydání citace změnil. CO se změnilo, zatím neumíme pojmenovat: tehdejší verzi pohledu nepřehráváme, a mlčení o změnách by se četlo jako „nezměnilo se nic“. Jednotlivé záznamy se dají dohledat přes účtenky původu (/zdroj) a chronologický záznam (/denik)."
+    },
+    "provenance": {
+      "title": "provenience grafu",
+      "cols": "relace · průchod / pokrytí",
+      "pass": "průchod {n}",
+      "noPass": "bez čísla průchodu",
+      "mixed": "{n} různých průchodů",
+      "absent": "bez provenience",
+      "coverage": "({stamped}/{read})",
+      "more": "+ {n} dalších relací",
+      "empty": "žádná hrana nenese provenienci — není to průchod č. 0, je to prázdný záznam",
+      "halfRecomputed": "{n} relací je rozpolcených samo v sobě ({rels}) — poloviční přepočet",
+      "state": {
+        "uniform": "jeden průchod",
+        "mixed": "průchody po relacích",
+        "absent": "bez razítka"
+      },
+      "source": "zdroj: kg_edge.provenance — {pass, method, ref} zapsané průchodem, který hranu odvodil; graf se přepočítává po relacích, takže různé relace nesou různé průchody"
+    },
+    "okoli": {
+      "title": "okolí uzlu",
+      "shownOfTotal": "{shown} z {total} vazeb",
+      "cap": "strop pohledu: {n} hran",
+      "readTruncated": "i čtení narazilo na svůj strop — „celkem\" je spodní odhad",
+      "empty": "uzel v dnešním grafu žádné vazby nemá",
+      "goneAnchor": "uzel v dnešním grafu není",
+      "source": "zdroj: kg_edge kolem tohoto uzlu (indexované čtení kgNeighbours), {nodes} vykreslených sousedů; řez je deterministický (pořadí src, rel, dst), ne podle váhy"
+    },
+    "rejectedEdges": "{count, plural, one {1 hranu odmítla kontrola} few {{countFmt} hrany odmítla kontrola} other {{countFmt} hran odmítla kontrola}}"
   },
   "metodika": {
     "backToLeaderboard": "zpět na žebříček",
@@ -2649,6 +2724,8 @@
     "volbyRule_effort_workhorse_rule": "Pozitivní nález: poslanec nese odznak tahouna z případu ② (deterministické třídění přispění).",
     "volbyRule_effort_rapporteur_title": "Zpravodajský tahoun",
     "volbyRule_effort_rapporteur_rule": "Pozitivní nález: zpravodaj nejméně {rapporteurMin} tisků.",
+    "volbyRule_law_final_vote_title": "Sněmovna o tisku hlasovala",
+    "volbyRule_law_final_vote_rule": "Den posledního jmenovitého hlasování o předloženém tisku, spojený přes bod pořadu schůze. ZÁZNAM, ne nález: valence „neposouzeno“, do součtu nikdy nevstupuje — že se o tisku hlasovalo, není u předkladatele ani plus, ani minus. Datum je POZDĚJŠÍ fakt o tisku, ne datum volby poslance, a proto stojí na časové ose vedle rozhodnutí, ne místo něj.",
     "volbyRule_money_ties_unrated_title": "Vazby bez posouzení",
     "volbyRule_money_ties_unrated_rule": "Počet vazeb poslanec ↔ firma, které dosud neprošly lidskou branou. Valence „neposouzeno“: zobrazuje se, do součtu nálezů nikdy nevstupuje."
   },
@@ -2757,7 +2834,9 @@
       "exhibitFakt": "datovaný fakt z knihy velína",
       "derivation": "základ odvození dnes",
       "citedDerivation": "základ odvození citace",
-      "subject": "předmět tvrzení"
+      "subject": "předmět tvrzení",
+      "publishedThen": "co jsme zveřejnili {day}",
+      "publishedThenSource": "verze záznamu platná k tomu dni z bitemporální historie znalostního grafu (kg_edge_history / kg_node_history); je to čas záznamu, ne čas světa"
     },
     "guide": {
       "title": "Jak citovat, aby to bylo ověřitelné",
@@ -3057,7 +3136,8 @@
       "recomputeTitle": "Index přispění přepočten pro celou sněmovnu — průchod {pass}; o kolik se skóre pohnulo, záznam neříká",
       "recomputeSource": "výpočet politicas — {ref}",
       "forensicTitle": "forenzní posudek potvrzen — {subject}",
-      "forensicSource": "kg_node bill.forensic_* · závažnost {detail}"
+      "forensicSource": "kg_node bill.forensic_* · závažnost {detail}",
+      "recomputeTitleSized": "Index přispění přepočten pro celou sněmovnu — průchod {pass}; skóre tohoto poslance se posunulo o {delta} bodu oproti průchodu {priorPass}"
     },
     "kinds": {
       "contract": "{count, plural, one {smlouva} few {smlouvy} other {smluv}}",
@@ -3144,7 +3224,7 @@
       },
       "integrity": {
         "label": "integrita",
-        "rule": "100 × (dokončené úspěšné běhy zdroje zapečetěné Merkle kořenem / všechny dokončené úspěšné běhy zdroje), zaokrouhleno. Pečeť přikládá LedgerRepository.sealIngestRun nad každým řádkem, který běh zapsal. Zdroj bez dokončeného úspěšného běhu = nehodnoceno."
+        "rule": "100 × (dokončené úspěšné běhy zdroje zapečetěné Merkle kořenem / všechny dokončené úspěšné běhy zdroje), zaokrouhleno. Pečeť přikládá LedgerRepository.sealIngestRun nad každým řádkem, který běh zapsal — v osmi entitních tabulkách i v kg_node/kg_edge, které se od 2026-09-04 k běhu hlásí sloupcem ingest_run_id. Zapečetěná a hodnocená množina tabulek je tedy táž. Zdroj bez dokončeného úspěšného běhu = nehodnoceno."
       },
       "completeness": {
         "label": "úplnost",
@@ -3186,7 +3266,7 @@
       "aside": "zdroj: registr zdrojů (lib/analysis/atlas.ts) — deklarace v kódu, ne měření",
       "lead": "Politicas pracuje s {declared} zdroji. Ohodnotit jich tahle stránka umí {scored}; zbylých {unscored} ne. Mlčet o nich by znamenalo tvrdit, že platforma má jen ty ohodnocené — a mezi těmi zamlčenými jsou oba, které nesou celý modul o veřejných penězích. Žádný z nich tu nedostane číslo: dostane větu, kam jeho řádky dopadají a proč to atlas neumí změřit. Nula by byla tvrzení o kvalitě dat; tohle je tvrzení o tom, co neumí naše ukládání.",
       "source": "zdroj: registr zdrojů v lib/analysis/atlas.ts; každý řádek nese modul, který ten zdroj čte — dohledatelný v repozitáři",
-      "scopeNote": "Proč se atlas prostě nerozšíří: pravidlo integrity vedle skóre tiskne, že zapečetěná a hodnocená množina tabulek je táž. Skórovat znalostní graf by znamenalo to pravidlo uvolnit dřív, než roura umí to, co slibuje. Mez se proto pojmenuje, netlačí se přes vytištěné pravidlo — napojit tyhle zdroje je změna ingestu a ledgeru, ne téhle stránky.",
+      "scopeNote": "Proč tu některé zdroje pořád stojí bez skóre: pravidlo integrity vedle skóre tiskne, že zapečetěná a hodnocená množina tabulek je táž. Od 2026-09-04 to platí i pro znalostní graf — kg_node a kg_edge se k ingest běhu hlásí sloupcem ingest_run_id a pečeť je pokrývá. Zdroj tu tedy zůstává jen do chvíle, než ho nasypání pod smlouvou původu orazítkuje; mez se pojmenuje, netlačí se přes vytištěné pravidlo.",
       "landingNote": "Vypsané jsou zdroje, které atlas umí změřit — {shown}. Politicas jich čte {declared}; u zbylých {unscored} atlas říká, proč je změřit neumí.",
       "landing": {
         "graph": "dopadá do znalostního grafu (kg_node / kg_edge)",
@@ -3194,10 +3274,18 @@
         "none": "v produktu to nečte nic"
       },
       "reason": {
-        "graph": "Řádky tohoto zdroje dopadají do kg_node/kg_edge. Ty nemají sloupec source ani ingest_run_id — původ v nich je volný text v poli provenance.ref, takže mezi řádkem a tabulkou ingest_run nevede žádný spojovací klíč. Pokrytí provenancí, čerstvost ani Merkle pečeť se u nich proto změřit nedají. Je to mez NAŠÍ roury, ne výpověď o vydavateli: data ve store jsou, jen k nim atlas nevede měřitelnou vazbu.",
+        "graph": "Řádky tohoto zdroje dopadají do kg_node/kg_edge. Ty od 2026-09-04 sloupce source i ingest_run_id mají — atlas je tedy měřit UMÍ, jakmile je zapisovač orazítkuje. Tenhle zdroj kartu nemá proto, že ve store zatím nestojí ani jeden jeho orazítkovaný řádek: nasypání pod novou smlouvou původu ho ještě neminulo. Je to mez NAŠÍ roury, ne výpověď o vydavateli: data ve store jsou, jen se k tomuhle klíči zdroje zatím nehlásí.",
         "generatedModule": "Sklizeň tohoto zdroje je zamrazená do generovaného modulu v repozitáři, který plocha čte přímo — do úložiště nedopadá nic. Bez řádku ve store a bez ingest běhu není co měřit; datum stažení nese ten modul sám a plocha ho tiskne. Je to mez NAŠÍ roury, ne výpověď o vydavateli.",
         "none": "Adaptér tohoto zdroje je napsaný a otestovaný, ale v produktu ho nečte nic — nenasypává se. Atlas tu neměří proto, že tu měřit není co. Uvádí se, aby seznam zdrojů nezamlčel, co v repozitáři leží nezapojené."
       }
+    },
+    "unattributed": {
+      "title": "Řádky grafu bez přiznaného vydavatele",
+      "aside": "zdroj: kg_node.source / kg_edge.source (generované z provenance) — počty, ne skóre",
+      "lead": "Znalostní graf nese {unknown} řádků, u kterých se původ z toho, co nesou, poctivě rekonstruovat nedal, a {unstamped} řádků, ke kterým migrace původu zatím nedošla. Uhodnout u nich zdroj by bylo možné a byla by to nepravda: karta by tvrdila něco o vydavateli, kterého nikdo neověřil. Nedostávají proto kartu — dostávají číslo.",
+      "row": "nedohledáno {unknown} · neorazítkováno {unstamped}",
+      "source": "zdroj: dotaz nad kg_node/kg_edge seskupený podle sloupce source; ten sloupec je generovaný z pole provenance (lib/db/pglite/ddl.ts)",
+      "note": "Jsou to dvě různá tvrzení a nesčítají se: „nedohledáno“ je přiznání o původu, „neorazítkováno“ je stav migrace. První číslo se splácí tím, že doběhne zapisovač, který ty řádky vlastní — přepíše je skutečným zdrojem. Nula tu neznamená hotovo, znamená, že se každý řádek k nějakému zdroji hlásí."
     }
   },
   "dataReleases": {
@@ -3226,7 +3314,19 @@
       "unreleasedSource": "zdroj: ingest_run — 0 úspěšných běhů; nic není zamlčeno",
       "badgeDegraded": "degradováno — není latest",
       "badgeLatest": "latest",
-      "cut": "řez: {date}"
+      "cut": "řez: {date}",
+      "certificationNoCounts": {
+        "ok": "Invarianty ověřeny k {date}; kolik jich platilo, report nenese čitelně. Sentinel běžel nad TÍMHLE otiskem, ne nad nějakým blízkým vydáním.",
+        "violation": "Sentinel k {date} nad tímhle otiskem NAŠEL PORUŠENÍ; počet platných invariant report nenese čitelně. Červená je datový problém, ne chyba nástroje: opravuje se ingest, ne invarianta.",
+        "unevaluable": "Sentinel k {date} na data NEDOSÁHL; počet vyhodnocených invariant report nenese čitelně. Není to průchod a nesmí se tak číst."
+      },
+      "certificationNone": "Neověřeno — sentinel nad tímhle otiskem neběžel. Není to výtka vydání ani jeho průchod: nikdo se zatím nepodíval. „Latest“ výš plyne z kardinalitních prahů, a prahy nejsou audit.",
+      "certificationSource": "zdroj: tabulka sentinel_run, nejnovější řádek se SHODNÝM otiskem manifestu; zapisuje ho npm run sentinel přes frontu, kterou vysype nejbližší otevření store",
+      "certification": {
+        "ok": "Invarianty ověřeny k {date} — platilo {platnych} z {vsech}. Sentinel běžel nad TÍMHLE otiskem, ne nad nějakým blízkým vydáním.",
+        "violation": "Sentinel k {date} nad tímhle otiskem NAŠEL PORUŠENÍ — platilo {platnych} z {vsech}. Červená je datový problém, ne chyba nástroje: opravuje se ingest, ne invarianta.",
+        "unevaluable": "Sentinel k {date} na data NEDOSÁHL — vyhodnoceno {platnych} z {vsech} invariant. Není to průchod a nesmí se tak číst."
+      }
     },
     "table": {
       "kind": "druh uzlu",
@@ -3264,6 +3364,7 @@
       "run": "běh #{id}",
       "leaves": "{count} listů",
       "root": "kořen {hash}",
+      "shownNewest": "zobrazeno {count} nejnovějších; dalších {rest} nese manifest.json",
       "source": "zdroj: ingest_run.merkle_root — pečetí LedgerRepository.sealIngestRun"
     },
     "download": {
@@ -3306,6 +3407,11 @@
       "emptyBody": "Žádný ingest běh není zaznamenán — changelog se založí prvním nasypáním dat.",
       "badgeOk": "zeleně",
       "badgeFailures": "obsahuje selhání",
+      "status": {
+        "ok": "běh dokončen",
+        "failed": "běh selhal",
+        "running": "běh probíhá"
+      },
       "runsLine": "{runs} běhů · {rows} zapsaných řádků",
       "runRow": "{rows} řádků",
       "dukazyLink": "deník důkazů",
@@ -3428,7 +3534,13 @@
         "goneRef": "adresa tvrzení: {ref}",
         "citationKicker": "citace",
         "verify": "ověřit tuto citaci",
-        "footerSource": "znalostní graf politicas — psp.cz · ares · registr smluv; stav lidské brány podle auditované kontroly (review_audit)"
+        "footerSource": "znalostní graf politicas — psp.cz · ares · registr smluv; stav lidské brány podle auditované kontroly (review_audit)",
+        "lastKicker": "naposledy zaznamenáno",
+        "lastRecorded": "zaznamenáno {date}",
+        "lastSuperseded": "nahrazeno {date}",
+        "lastStillOpen": "tato verze nebyla nahrazena novější",
+        "lastNote": "Tohle je historie, ne dnešní tvrzení: archivovaná verze se nevrací do grafu ani do strojově čitelné značky a nepočítá se do žádného čísla na ostatních plochách.",
+        "lastSource": "poslední verze záznamu z bitemporální historie znalostního grafu (kg_node_history / kg_edge_history); oba okamžiky jsou časy záznamu, ne časy světa"
       },
       "gate": {
         "verified": "ověřeno člověkem",
@@ -3470,7 +3582,35 @@
         "confirm": "potvrzeno",
         "reject": "zamítnuto",
         "return": "vráceno k doplnění"
+      },
+      "asOf": {
+        "kicker": "čas záznamu",
+        "at": "Takhle tenhle záznam vypadal {day} — je to archivovaná verze, ne dnešní stav. Dnešní podobu ukáže táž adresa bez parametru k.",
+        "absentThen": "K {day} jsme záznamy vedli, ale tohle tvrzení mezi nimi nebylo. Níže je proto DNEŠNÍ záznam, ne tehdejší.",
+        "beforeEpoch": "Záznam k {day} neexistuje: historii záznamů vedeme až od {epoch} a před tím datem o žádném dni nic netvrdíme. Níže je DNEŠNÍ záznam.",
+        "beforeEpochUnknown": "Záznam k {day} neexistuje: k téhle adrese zatím nevedeme žádnou historii záznamů. Níže je DNEŠNÍ záznam.",
+        "refused": "„{raw}“ není datum ve tvaru RRRR-MM-DD. Adresu neopravujeme za vás, takže se k žádnému dni nevracíme — níže je DNEŠNÍ záznam.",
+        "notReplayable": "Tenhle druh adresy zatím k žádnému dni přehrát neumíme: odvozené figury se počítají z dnešního záznamu, ne z historie grafu. K {day} tedy netvrdíme nic — níže je DNEŠNÍ záznam."
       }
+    },
+    "verdict": {
+      "machine": "strojově odvozeno",
+      "pending": "vráceno k doplnění",
+      "verified": "ověřeno",
+      "rejected": "verdikt zamítnut",
+      "withheld": "verdikt zamítnut — netiskneme jej",
+      "by": "{kdo}",
+      "byOn": "{kdo}, {kdy}",
+      "queueTitle": "Fronta revize podle druhu tvrzení",
+      "queueKindTie": "majetkové vazby",
+      "queueKindBill": "forenzní verdikty tisků",
+      "queueKindEffort": "verdikty o poslancích",
+      "queueKindTripwire": "kandidáti tripwire",
+      "queueKindLead": "stopy",
+      "queueDecided": "rozhodnuto",
+      "queuePending": "čeká",
+      "queueTotal": "celkem",
+      "queueNoWriter": "bez zapisovatele — rozhodnutí zatím nelze zaznamenat"
     }
   },
   "errors": {
@@ -3660,7 +3800,8 @@
       "law_became_law_clean": "Zákon prošel bez střetu",
       "effort_workhorse": "Tahoun",
       "effort_rapporteur": "Zpravodajský tahoun",
-      "money_ties_unrated": "Vazby bez posouzení"
+      "money_ties_unrated": "Vazby bez posouzení",
+      "law_final_vote": "Sněmovna o tisku hlasovala"
     },
     "severity": {
       "low": "nízká",
@@ -3681,7 +3822,8 @@
       "fate_sb": "vyhlášeno ve Sbírce",
       "forensic_verdict": "posudek zapsán",
       "collision_detected": "kolize zjištěna",
-      "flags_computed": "příznaky spočteny"
+      "flags_computed": "příznaky spočteny",
+      "final_vote": "sněmovna hlasovala"
     },
     "figure": {
       "lots": "zakázek v období",

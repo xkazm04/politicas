@@ -155,3 +155,169 @@ than a lint warning: a node's degree describes the graph currently on screen,
 not a claim a reader could go and check, and the provenance of the graph is on
 the surface above it.
 
+## 2026-09-04 — the three-state gate, the derivation stamp, and the layer that could not be drawn (G4, deck #36 + #28 + #41)
+
+**A rejected tie is not a documented connection.** `kg_edge.props.review_state`
+carries three values, `rejected` is terminal and the edge stays in the graph, and
+`/graf` reduced all of it to `pending: boolean`. Consequences, all measured in the
+code before the fix: `toEdge` mapped a human REFUSAL to `pending: false`;
+`buildAdjacency` walked it as a full-strength documentary hop; the ranking's rule 2
+("fewer pending wins") let a refused path OUTRANK a pending one, because "not
+waiting" was being read as "verified"; `GraphStage` drew it solid — the stroke
+reserved for proof; `forensicEdges` kept it inside the "verified only" landscape;
+and `hoverCardModel` counted it in the `verified` column. `GraphEdge`, `PathEdge`,
+`PathHop` and `PathLedgerRow` now carry `gate: GateStatus | null` and
+`provenance: {pass, method, ref} | null`. `pending` survives as a DERIVED field for
+the stage, documented as not meaning "verified" — `pendingFromGate` is its single
+definition. `null` means the relation does not pass the gate at all (`GATED_RELS`):
+"nothing to review" is neither approval nor a queue, and the surface says so.
+
+**The one interpretation of `review_state` is imported, never restated.**
+`features/graph/edgeGate.ts` (new, pure) wraps the receipt layer's `gateFromEdge`.
+It is pure rather than living in `graphLoader.ts` because `scripts/sentinel/path-oracle.ts`
+must read the gate with the SAME code as the loader, and the loader is `server-only`
+— the oracle's paths have to be the reader's paths, or it certifies a graph nobody sees.
+
+**`buildAdjacency` refuses to traverse a refused claim, and counts what it refused.**
+`excludedRejected` rides on `Adjacency`, `FindPathsResult` and `PathQueryResult`, so
+"we found no connection" and "the only connection runs through a claim a human
+refused" stop being the same empty answer. Three strokes on the stage now: solid
+(verified, or an ungated derivation), dashed (pending), dotted (refused). A refused
+hop inside a REQUESTED lens still renders — a requested answer with omitted steps is
+a lie — but it renders marked. The forensic strip counts hidden/kept refusals apart
+from pending and does not offer to draw them back in: pending is a machine's
+proposal, refused is a person's decision.
+
+**The fingerprint grew an author.** `PATH_RULE_REF = "evidence-path/v1"` +
+`pathRule()`, pinned against the constants by a test that fails if either moves
+alone; `content` for `cesta` gained `{ruleRef, excludedRels, hubDegree, maxCost}`.
+The announced cost is in `docs/routes/graf-permalink.md`: every path citation issued
+before today reads as `moved` exactly once.
+
+**The graph publishes its provenance as a population.** `lib/kg/graphProvenance.ts`
+(pure) aggregates `kg_edge.provenance` per relation into
+`{state, pass, ref, method, variants, coverage}`, mirroring the leaderboard's
+aggregate shape without importing it (`lib/**` must not depend on `features/**`).
+The two "mixed" are deliberately not one number: mixed ACROSS relations is the
+ordinary state of a graph recomputed relation by relation, while mixed WITHIN one
+relation is a half recompute and is reported separately as `mixedWithinRel`. A mixed
+population publishes NO single pass, and an empty `{}` never counts as a stamp —
+missing is not pass 0. `buildIndex` computes it on the full-edge scan it already ran,
+so it costs no extra read; the header prints the table behind a disclosure with a
+`SourceNote` citing `kg_edge.provenance`.
+
+**The procurement layer reaches the canvas — and what still cannot be drawn is
+counted.** 48 647 tenders and 12 467 procurement-only companies are in the search
+index and in the path adjacency but deliberately not in `MapData`, so a computed
+path could route through them: the ledger printed three hops, the stage drew one
+(`if (!a || !b) continue`), and the difference was recorded nowhere. That was the
+requested-answer rule honoured in the ledger and broken on the stage.
+`getNeighbourhood(id, {rels, limit})` reads `kgNeighbours` — never at its default
+limit of 500, which sits below the mean `supplies` fan-out and drops the cheapest
+edges of the busiest entity — cuts deterministically with `byListOrder` rather than
+the read's non-total `weight desc`, and returns `shown/total` per relation plus
+`readTruncated`, because a result whose length equals its cap is indistinguishable
+from a truncated one. Positions are a hash ring around the anchor, rounded to two
+decimals (the hydration memo). `VariantMapa` merges the neighbourhood as an overlay
+in the SAME world (no second geometry), auto-fetches the anchors a computed path
+needs so a lens never lights a node it cannot place, wires `NodeInspector.onExpand`,
+and prints "N kroků mimo mapu, dokresleno na vyžádání" plus its own overlay node
+budget when either bites. `okoli` is the fourth citable view kind — an append-only
+address promise — fingerprinted over `{anchor, edges}`, with the cap and its
+population in the JSON-LD, on the page (`OkoliExhibit`) and on the OG card.
+`/graf?okoli=<id>` is the entry point from another surface.
+
+**Carry-over.** `/overeni`'s `grafVerdict` still returns a blanket `ungated` for the
+`graf` family — `verdict.ts` belonged to another builder this wave; the exact
+modifier is in the wave report. The sentinel checks `graph-provenance-uniformity`
+(mixed across relations informational, mixed within one relation the alarm) and
+`path-rule-ref` (the store's stamped rule vs the code's constant) are not built.
+`/dashboard`'s state-graph slice does not print the variant table. `/penize/firma/[ico]`
+and the tender surface do not yet link into `/graf?okoli=<id>`, and `caseFileLink`
+is still unused by `features/graph`. The neighbourhood overlay is deliberately ONE
+level deep: a neighbourhood anchored on another overlay node would depend on
+arrival order and would turn the node budget into a suggestion.
+
+**`lib/kg/sourceLinks.ts` — three pairs closed (2026-09-05, scan-sweep).** (1) The
+node-kind enum existed three times — a hand-typed union here, `KG_NODE_KINDS` in
+`lib/analysis/kg-verdict`, and a third hand-typed list in the test — and the test's
+list lacked `tender`, so „every kind is handled" passed over 10 of 11 kinds. The type
+is now re-exported from the one enum and the test derives from it (`594408f`).
+(2) `citableId` has demanded a NUMERIC psp id since 2026-08-13; `sourceLinksFor`'s
+person branch still took any id suffix, so `kg:person:novak-j` minted a psp.cz
+detail address that points at nothing. Both branches now share `pspNumber`.
+(3) Company links and „IČO …" citations took `props.ico` verbatim; ingest carries
+unpadded IČO, so ARES/OR/Hlídač received „123" for „00000123" — the same class
+`8db835f` fixed on /dukazy. `lib/kg` cannot import `features/money/companyId`, so the
+padding lives here and `sourceLinks.test.ts` holds the two functions to one shape over
+seven samples. Real `psp:person:<n>` ids and already-canonical IČO produce
+byte-identical links; only the guessed and unpadded cases changed.
+
+**The graph catalogs are derived from the KG enums, not hand-synced (2026-09-06,
+scan-sweep, parity-auditor).** `graph.kinds` lacked `tender` and `graph.rels` lacked
+the procurement layer (`procures`, `bids_on`, `wins`) and five later relations
+(`concerns`, `rapporteur`, `spoke_on`, `proposes_amendment`, `decides`), while the
+canvas, the search index and the neighbourhood already carried them — a company's
+`okoli` printed `graph.rels.wins` and the legend `graph.kinds.tender`, next-intl's
+missing-key string typeset as a label. The pure-module mirrors in `permalink.ts`
+(`KIND_LABELS`, `REL_LABELS`) had the same holes. `catalogParity.test.ts` now derives
+the required key set from `KG_NODE_KINDS` / `KG_EDGE_RELS` for both locales and both
+mirrors; 1 kind + 8 relations were added (0 → 9 missing labels closed).
+
+**`buildTrails` reads companies through `KG_READ_CAP` (2026-09-06, scan-sweep,
+bounty-hunter).** The trail loader listed `company` nodes with a literal `10_000` —
+the very ad-hoc limit `lib/db/readCap.ts` names as the class of bug it ends — while
+the graph carries ~16k company nodes since Case ④. A company outside the first ten
+thousand had no `companyMoney` entry, so `?? 0` made its contracts vanish from
+„Peníze kolem poslanců" and „Výbory a peníze" without a trace. Five sibling loaders
+already read companies with the cap; `loaderSource.test.ts` pins that no whole-relation
+read in the graph loader carries a literal limit (1 → 0 literal-capped reads).
+
+**The legend and the forensic inline label name the rejected stroke (2026-09-06,
+scan-sweep, visual-craft).** The canvas has drawn three strokes since 2026-09-04
+(`EDGE_DASH`: solid, dashed, dotted); the legend listed one, with a literal `4 4`
+that matched neither pattern, and the forensic „relace · neověřeno" label read the
+`pending` boolean, so a rejected step of a requested lens carried a plain label.
+Both now read the gate; the legend's two dash patterns come from `EDGE_DASH` and
+`graph.stage.rejected` is the third label (1 of 3 strokes named → 3 of 3).
+
+**A null trails answer is an outage, not „no trails" (2026-09-06, scan-sweep,
+state-coverage).** `trailsAction()` returns null when the store is down and the loader
+has already left its trace; `VariantTrasy` typeset that null with `trasy.empty` („trasu
+se nepodařilo spočítat z dostupných dat") — the empty-state sentence — and
+`VariantMapa` collapsed it to `[]`, so the trail lens panel simply vanished. Both now
+keep the null and print `graph.trasy.unavailable`; the honest-fallback rule
+(`DataUnavailable`, never plausible emptiness) reaches the two variants (2 collapsed
+states → 0).
+
+**Every server-action call settles on rejection (2026-09-06, scan-sweep,
+error-handler).** Eight `*Action()` call sites in the feature chained `.then` with no
+rejection handler, so a failed action (network, server error) froze its state
+machine: the map said „sestavuji mapu grafu…" forever, the inspector „načítám"
+forever, the search „hledám…" forever, the cite button stayed disabled. Each call now
+settles into the state the loader's own null would produce (outage typeset as
+outage, request counters still honoured) and leaves a console trace;
+`actionSettle.test.ts` pins one `.catch` per `.then` chain (8 unhandled → 0).
+
+**DOM glyphs take their colour from the token class (2026-09-06, scan-sweep,
+parity-auditor).** The legend painted kind glyphs with `fill-<token>` so the
+forensic layer could remap them and said why („hex z KIND_STYLE by na tmě lhal");
+the inspector, the search hits, the path-finder rows and the permalink page still
+painted `fill={style.fill}`, the canvas hex, so in forensic mode one kind wore two
+colours. All five DOM glyph sites now go through `KIND_FILL_CLASS[KIND_FILL_TOKEN]`;
+the hex stays for `<canvas>` only (5 hex-painted DOM glyphs → 0).
+
+**The forensic hover card sees the overlay (2026-09-06, scan-sweep, state-coverage).**
+`hoverCardModel` looked the hovered node up in the map's node list and counted over
+the map's edges, so a neighbourhood-overlay node — the layer the map deliberately
+omits and the reader explicitly asked to draw — hovered to nothing, and an overlay
+edge never counted. The card now reads `stageNodes` and the unfiltered map + overlay
+edges (0 of N overlay nodes hoverable → N of N).
+
+**One definition per shared shape (2026-09-06, scan-sweep, parity-auditor).**
+`edgeKey` was defined byte-identically in `forensicView.ts` and `diffViews.ts`; the
+eleven-field „hledání neproběhlo" `PathQueryResult` was spelled by hand in both
+`graphLoader.getPathBetween` and `VariantMapa` — a twelfth field would have reached
+one copy. `diffViews` now re-exports the canonical `edgeKey` and both the loader and
+the variant build the unavailable result from `trailPath.unavailablePathResult()`
+(2 + 2 definitions → 1 + 1; `oneDefinition.test.ts` pins both).

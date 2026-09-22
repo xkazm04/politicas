@@ -16,6 +16,7 @@
 
 import { czech, czechDate, czechInt } from "@/lib/format";
 import { COBALT, HAIRLINE, INK, PAPER, SIGNAL, STEEL } from "@/features/landing/palette";
+import { embedTitle } from "./embedTitle";
 import { deriveReferendumCard, type StandingsInput } from "./ogPayload";
 
 export interface EmbedResult {
@@ -151,9 +152,7 @@ ${footer(origin, "/zebricek", status)}
     })
     .join("\n");
   const href = custom ? `/zebricek?vahy=${card.vector}` : "/zebricek";
-  const title = custom
-    ? `politicas — žebříček pod vahami ${card.vector}`
-    : "politicas — otevřený index přispění";
+  const title = embedTitle(custom ? card.vector : null);
   const body = `<div class="w">
 <div class="head">
   <div><div class="kicker">politicas / ${custom ? "čtenářova čočka" : "zveřejněná metodika"}</div>

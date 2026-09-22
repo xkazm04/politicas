@@ -39,6 +39,7 @@ import { cache } from "react";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { refFromLawNodeId } from "@/features/lawwatch/statuteRef";
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 // JEDNA čtecí cesta k hlasovacímu záznamu (prahy připravenosti uvnitř) a JEDNA
@@ -180,10 +181,14 @@ async function computeCollisions(): Promise<CollisionData | null> {
     for (const e of amends) {
       const law = lawByUrn.get(e.dst);
       const props = (law?.props ?? {}) as Record<string, unknown>;
+      // The urn grammar has ONE inverse (features/lawwatch/statuteRef.ts). The hand-spelled
+      // prefix-strip-and-swap-the-hyphen that stood here turned ANY non-law id into a
+      // plausible-looking "x/y" ref; the inverse returns null for those and the raw id is
+      // shown instead — a visible urn, never a fabricated citation.
       const ref =
         typeof props.ref === "string" && props.ref.length > 0
           ? props.ref
-          : e.dst.replace(/^law:sb:/, "").replace("-", "/");
+          : (refFromLawNodeId(e.dst) ?? e.dst);
       const arr = refsByBill.get(e.src) ?? [];
       arr.push({ ref, label: law?.label ?? ref });
       refsByBill.set(e.src, arr);

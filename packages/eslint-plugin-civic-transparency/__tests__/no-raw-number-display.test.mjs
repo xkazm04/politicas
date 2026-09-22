@@ -39,6 +39,12 @@ tester.run("no-raw-number-display", rule, {
       code: `const pct = (w * 100).toFixed(0); // raw-format-ok: build-time static methodology table`,
     },
     {
+      name: "a MULTI-LINE raw-format-ok reason counts (it ENDS on the line above)",
+      code: `/* raw-format-ok: build-time static methodology table,
+                never server-rendered, compared byte-for-byte in a test */
+             const s = n.toFixed(1);`,
+    },
+    {
       name: "raw-format-ok annotation on the line above",
       code: `// raw-format-ok: admin-only console, never server-rendered
              const s = n.toLocaleString("cs-CZ");`,

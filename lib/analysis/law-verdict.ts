@@ -15,6 +15,7 @@
 import { czechGateErrors } from "@/lib/analysis/language-gate";
 import { jargonViolationDetails } from "@/lib/analysis/public-copy";
 import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
+import { extractJsonBlock, parseJsonBlock } from "./jsonBlock";
 
 export const LAW_FINDING_SEVERITY = ["low", "medium", "high"] as const;
 export type LawFindingSeverity = (typeof LAW_FINDING_SEVERITY)[number];
@@ -324,21 +325,10 @@ export function validateLawVerdict(input: unknown, opts: ValidateLawVerdictOptio
   return e.length === 0 ? { ok: true, value: input as unknown as LawForensicVerdict, errors: [] } : { ok: false, errors: e };
 }
 
-export function extractJsonBlock(text: string): string | null {
-  const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
-  if (fence && fence[1].trim().startsWith("{")) return fence[1].trim();
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  return start !== -1 && end > start ? text.slice(start, end + 1) : null;
-}
+// The extractor lives once, in jsonBlock.ts (re-exported so importers keep their path).
+export { extractJsonBlock };
 export function parseAndValidateLawVerdict(text: string, opts: ValidateLawVerdictOptions = {}): ValidationResult {
-  const raw = extractJsonBlock(text);
-  if (raw === null) return { ok: false, errors: ["no JSON block found in subagent output"] };
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(raw);
-  } catch (err) {
-    return { ok: false, errors: [`JSON parse error: ${err instanceof Error ? err.message : String(err)}`] };
-  }
-  return validateLawVerdict(parsed, opts);
+  const block = parseJsonBlock(text);
+  if (block.error !== null) return { ok: false, errors: [block.error] };
+  return validateLawVerdict(block.parsed, opts);
 }

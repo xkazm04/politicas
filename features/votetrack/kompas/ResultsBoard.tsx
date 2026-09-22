@@ -338,6 +338,9 @@ export default function ResultsBoard({
         </h3>
         <div className="mt-1">
           <SourceNote>{t("kompas.mpsBoardNote")}</SourceNote>
+          {/* Tabule míchá dvě různé věci — klub u jména je „dnes", linie je
+              „při hlasování". Bez téhle věty by to čtenář musel uhodnout. */}
+          <SourceNote className="mt-2">{t("kompas.clubBasisNote")}</SourceNote>
         </div>
         <ul className="mt-3">
           {visible.map((mp, i) => (

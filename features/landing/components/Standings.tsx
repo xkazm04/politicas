@@ -8,7 +8,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import type { LeaderboardListEntry } from "@/features/civicscore/getLeaderboardData";
+import type { LeaderboardListEntry } from "@/features/civicscore/leaderboardTypes";
 import { useFormat } from "@/lib/i18n/useFormat";
 
 export default function Standings({

@@ -88,11 +88,41 @@ export interface ReviewAuditSummary {
   lastDecidedAt: string | null;
 }
 
+/**
+ * ONE claim kind's coverage through the review door (G2, deck #5).
+ *
+ * Every field is a COUNT. There is deliberately no rate anywhere in this shape:
+ * „14 % gated" is the number that hides how big the population is, and the whole
+ * finding behind this board is that three of these kinds had a population of
+ * hundreds and a decided count of zero because no writer existed.
+ */
+export interface ReviewKindCoverage {
+  kind: string;
+  /** Claims of this kind that exist AT ALL — the denominator. */
+  total: number;
+  /** Claims whose stored state says a human decided (verified or rejected). */
+  decided: number;
+  /** Claims still waiting: machine, pending_review, or no state at all. */
+  pending: number;
+  /** Rows in `review_audit` for this kind. May exceed `decided`: a claim can be
+   *  decided, reversed and decided again, and every step is its own row. */
+  auditRows: number;
+  /**
+   * False for a kind the writer cannot yet serve (`tripwire`, `lead`). The board
+   * SAYS so instead of printing „0 decided" beside the others, because those two
+   * zeroes mean opposite things: one is a queue nobody has worked, the other is
+   * a queue that cannot be worked.
+   */
+  hasWriter: boolean;
+}
+
 export interface ReviewHubData {
   ties: TieReviewSummary | null;
   forensic: ForensicReviewSummary | null;
   leads: MoneyLeadSummary[];
   audit: ReviewAuditSummary | null;
+  /** Per claim kind: decided / pending / total. Empty only when the store is unreadable. */
+  coverage: ReviewKindCoverage[];
 }
 
 export interface GraphTotals {
@@ -112,8 +142,18 @@ export interface SystemState {
   loopsStatusLabel: string;
   /** Dokument, ze kterého se stav přečetl — vypisuje se čtenáři. */
   loopsStatusSource: string;
+  /**
+   * [G5] Degradace na hranici loaderů za posledních 24 h.
+   *
+   * `null` znamená, že žurnál NEEXISTUJE — tedy „nikdo se nedíval", ne „nic se
+   * nestalo". Ta dvě tvrzení jsou opačná a nesmějí sdílet jednu kontrolku:
+   * `reportLoaderFailure` má 121 volání a jeho dva starší odběry neodpovídají
+   * na nic zpětně (odrolovaná konzole, Sentry bez DSN).
+   */
+  loaderDegradations: LoaderDegradationSummary | null;
 }
 
+import type { LoaderDegradationSummary } from "@/lib/db/loaderFailureLog";
 import type { LoopsRunState } from "./loops/loopState";
 import type { TripwireData } from "@/lib/analysis/tripwires";
 

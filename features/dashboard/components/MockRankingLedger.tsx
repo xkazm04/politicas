@@ -32,7 +32,7 @@ export default function MockRankingLedger() {
           className="group grid grid-cols-[2.5rem_1fr_auto_auto_auto] items-center gap-4 border-b border-hairline px-2 py-3.5 transition-colors hover:bg-paper-strong"
         >
           <span className={`font-mono text-xl font-bold ${m.rank <= 3 ? "text-signal" : "text-steel"}`}>
-            {m.rank}
+            {f.int(m.rank)}
           </span>
           <span className="min-w-0">
             <span className="block truncate text-base font-black uppercase tracking-tight">{m.name}</span>

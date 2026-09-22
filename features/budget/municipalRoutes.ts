@@ -13,9 +13,14 @@
  * /penize/firma/<ičo> a /zdroj/<ref> znamená vypsat adresy vyjmenovat konkrétní
  * lidi a firmy — a znamená to číst za běhu úložiště. Obec není ani jedno:
  * rejstřík obcí je veřejný číselník MONITORu zabudovaný do buildu (žádné čtení
- * grafu, žádný osobní údaj) a Next z něj tytéž stránky UŽ předgeneruje. Adresa,
- * která se staví do statického výstupu, ale v sitemapě chybí, je vada indexace,
- * ne opatrnost.
+ * grafu, žádný osobní údaj), takže seznam adres vzniká bez skladu a bez osoby.
+ * Na tom výjimka stojí — a stojí SAMA. Do 2026-09-01 se opírala i o větu „Next
+ * z něj tytéž stránky už předgeneruje", která není pravda: locale cookie čtená
+ * v lib/i18n/request.ts renderuje každou cestu dynamicky a build z 2026-08-27
+ * nese 0 předgenerovaných cest /rozpocty (memory/revalidate-is-inert-every-
+ * route-is-dynamic). `generateStaticParams` je deklarovaný strop, ne popis
+ * buildu; sitemapa proto zve na stránky, které se staví NA VYŽÁDÁNÍ, což pro
+ * robota není rozdíl — pro čtenáře tohoto souboru ano.
  *
  * Seznam je filtrovaný rejstříkem: IČO, které `getMunicipality` nezná, by dalo
  * stránku volající `notFound()` — sitemapa nesmí zvát na 404 (dnes 0 takových).
@@ -25,9 +30,9 @@
 import { getBudgetSeries, getMunicipality } from "./mirrorData";
 import { getSupplierTable } from "./supplierTrail";
 
-/** Obce s vlastní předgenerovanou plochou: rozpočtová řada MONITORu (132) ∪
- *  obce se smlouvami v peněžním grafu (353). Zbytek rejstříku se renderuje na
- *  vyžádání — do sitemapy nepatří, protože žádnou stránku nemá vystavěnou. */
+/** Obce s vlastní deklarovanou plochou: rozpočtová řada MONITORu (132) ∪
+ *  obce se smlouvami v peněžním grafu (353). Zbytek rejstříku se renderuje jen
+ *  na přímý dotaz — do sitemapy nepatří, protože o něm plocha nic nenese. */
 export function municipalRouteIcos(): string[] {
   const icos = new Set([...getBudgetSeries().keys(), ...getSupplierTable().keys()]);
   return [...icos].filter((ico) => getMunicipality(ico) !== null).sort();

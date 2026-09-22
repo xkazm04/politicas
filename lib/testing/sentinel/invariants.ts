@@ -32,6 +32,8 @@ import {
   type ContributionInputs,
 } from "@/lib/analysis/contribution";
 import { canonicalJson, sha256Hex } from "@/lib/db/pglite/ledger";
+import { loaderFailureDisplayPath } from "@/lib/db/loaderFailureLog";
+import { reviewTier, TIE_CLASSES, type TieClass } from "@/features/money/reviewTypes";
 import { floorVerdicts } from "@/lib/db/readiness";
 import { deriveReleaseManifest, type ReleaseManifest } from "@/features/data-releases/manifest";
 import type { PersonScoreFact, SentinelFacts } from "./facts";
@@ -158,6 +160,88 @@ function checkAuditChain(facts: SentinelFacts): SentinelCheck {
     );
   }
   return ok(id, label, `all ${total} review_audit rows are chained and verify; head ${chain.headHash}`);
+}
+
+/* ── [G2 review door] two checks over the door itself ─────────────────────── */
+
+/**
+ * REVIEW COVERAGE: per claim kind, how much of the population a human has
+ * decided — decided / pending / total, NEVER a rate without its denominator.
+ *
+ * This check does not fail on a low number. A queue nobody has worked yet is a
+ * fact about the operation, not a defect in the data, and a sentinel that goes
+ * red for it would be turned off within a week. What it refuses is a MISSING
+ * DENOMINATOR: a kind whose population it cannot count is `unevaluable`, because
+ * „0 decided" is meaningless without the number it is 0 of — and that meaningless
+ * pair is exactly what /zakony printed for 141 bills for months.
+ */
+function checkReviewCoverage(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "review-coverage";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const rows = facts.reviewCoverage;
+  if (rows.length === 0) {
+    return unevaluable(id, label, "no claim-kind populations could be counted — nothing to state coverage over");
+  }
+  const empty = rows.filter((r) => r.total === 0);
+  const line = rows.map((r) => `${r.kind} ${r.decided}/${r.total} decided, ${r.pending} pending`).join("; ");
+  if (empty.length === rows.length) {
+    return unevaluable(
+      id,
+      label,
+      `every claim kind has an EMPTY population (${line}) — a store with no claims proves nothing ` +
+        `about whether the door covers them.`,
+    );
+  }
+  return ok(id, label, line);
+}
+
+/**
+ * EFFORT REVIEW CHAIN: every effort verdict that CLAIMS a human decision has an
+ * audit row behind it.
+ *
+ * A person-level verdict whose stored rung says `verified` or `rejected` asserts
+ * that a named human looked at a claim about a named MP. The only writer that
+ * can produce those two states appends a chained audit row first, in the same
+ * transaction — so a claimed decision with no row is either a script that
+ * promoted its own verdict or a hand-edited node, and both are precisely what
+ * the door exists to make impossible.
+ *
+ * The converse is deliberately NOT checked. An audit row with no matching
+ * claimed decision is normal: `needs-more` returns a verdict to pending and
+ * leaves its row behind, exactly as intended.
+ */
+function checkEffortReviewChain(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "effort-review-chain";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const { total, byRung, claimedDecided, auditedSubjectIds } = facts.effortVerdicts;
+  if (total === 0) {
+    return unevaluable(
+      id,
+      label,
+      "no person node carries an effort verdict — there is no claim about a named MP to vouch for. " +
+        "Not a pass: an empty population proves nothing about the gate.",
+    );
+  }
+  const audited = new Set(auditedSubjectIds);
+  const unbacked = claimedDecided.filter((s) => !audited.has(s));
+  if (unbacked.length > 0) {
+    return violation(
+      id,
+      label,
+      `${unbacked.length} of ${claimedDecided.length} effort verdict(s) claim a HUMAN decision with no ` +
+        `audit row behind it, e.g. ${unbacked.slice(0, 5).join("; ")}. ` +
+        `Only ReviewRepository.setReviewState can write verified/rejected, and it appends the chained ` +
+        `row in the same transaction — so this is a script that promoted its own verdict, or a ` +
+        `hand-edited node. Neither may stand on a surface that names a person.`,
+    );
+  }
+  return ok(
+    id,
+    label,
+    `all ${claimedDecided.length} decided effort verdict(s) of ${total} are backed by an audit row ` +
+      `(machine ${byRung.machine}, pending ${byRung.pending}, verified ${byRung.verified}, ` +
+      `rejected ${byRung.rejected}, unrecorded ${byRung.unrecorded})`,
+  );
 }
 
 function checkOrphanEdges(facts: SentinelFacts): SentinelCheck {
@@ -295,6 +379,20 @@ export const SENTINEL_CHECK_LABELS = {
   "components-sum": `six components sum to the stored composite (±${SCORE_TOLERANCE})`,
   "recompute-sample": `computeContribution() over stored inputs reproduces the stored score (±${SCORE_TOLERANCE})`,
   determinism: "sampled derivations deterministic across two collection passes",
+  // [G2 review door] appended at the END of the label map and the END of the
+  // order array, so the existing report diffs cleanly against every prior run.
+  "review-coverage": "every claim kind states decided/pending over a real denominator",
+  "effort-review-chain": "every decided effort verdict has an audit row (lib/db/pglite/repositories/review.ts)",
+  // ── [G5] appended 2026-09-04 (moonshot #26) ────────────────────────────────
+  // The roster covered ONE of three scored layers: four checks, all contribution.
+  // A half-applied money or law pass was the same "single-row generalization"
+  // the sentinel exists to catch, one module over — and it went unseen for
+  // weeks (memory/money-stored-review-rank-is-a-stale-cache.md).
+  "money-rank-cache": "stored review_tier equals the pure reviewTier of the tie it sits on",
+  "law-provenance-uniformity": "every bill verdict agrees on one {pass, ref, writer}",
+  "graph-provenance-uniformity": "every kg_edge relation is internally uniform on {pass, ref, writer}",
+  "amends-closure": "every amends edge resolves both ends, and a bill with a verdict has one",
+  "loader-degradations": "surfaces that fell back to mock in the last 24 h are known",
 } as const;
 
 export type SentinelCheckId = keyof typeof SENTINEL_CHECK_LABELS;
@@ -316,6 +414,15 @@ export const SENTINEL_CHECK_ORDER: readonly SentinelCheckId[] = [
   "components-sum",
   "recompute-sample",
   "determinism",
+  "review-coverage",
+  "effort-review-chain",
+  // [G5] appended at the END so every previous report diffs cleanly against a
+  // new one: rows are added below the ones a reader already knows.
+  "money-rank-cache",
+  "law-provenance-uniformity",
+  "graph-provenance-uniformity",
+  "amends-closure",
+  "loader-degradations",
 ];
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
@@ -344,7 +451,12 @@ export function sampleForRecompute(persons: readonly PersonScoreFact[]): PersonS
  * invariant, which is the only thing that can see a change in what "one body" means.
  *
  * The rates are re-expressed over a 1 000-unit denominator: a 3-decimal rate is an exact
- * integer there, so no precision is invented. Returns null when an input is missing.
+ * integer there, so no precision is invented. Returns null when one of the FOUR structural
+ * inputs (committees, leadership, participation, absence) is missing. The three effort
+ * counters (bills, interpellations, speech turns) default to 0 ON PURPOSE: that is what
+ * the scorer itself does (`input.billsAuthored ?? 0`, lib/analysis/contribution.ts), so
+ * the re-derivation sees the same input the stored score was computed from — a null
+ * here would report "no usable inputs" for a chamber the formula scored fine.
  */
 export function inputsFromStored(p: PersonScoreFact): ContributionInputs | null {
   const { committeeCount, leadershipCount, participationRate, absenceRate } = p.inputs;
@@ -558,6 +670,14 @@ export function evaluateSentinel(a: SentinelFacts, b: SentinelFacts, opts: Evalu
     "components-sum": checkComponentsSum(a),
     "recompute-sample": checkRecomputeSample(a),
     determinism: checkDeterminism(a, b, opts.now),
+    // [G2 review door] appended last, matching SENTINEL_CHECK_ORDER.
+    "review-coverage": checkReviewCoverage(a),
+    "effort-review-chain": checkEffortReviewChain(a),
+    "money-rank-cache": checkMoneyRankCache(a),
+    "law-provenance-uniformity": checkLawProvenanceUniformity(a),
+    "graph-provenance-uniformity": checkGraphProvenanceUniformity(a),
+    "amends-closure": checkAmendsClosure(a),
+    "loader-degradations": checkLoaderDegradations(a),
   };
   const checks = SENTINEL_CHECK_ORDER.map((id) => byId[id]);
   return {
@@ -570,6 +690,245 @@ export function evaluateSentinel(a: SentinelFacts, b: SentinelFacts, opts: Evalu
     verdict: sentinelVerdict(checks),
     checks,
   };
+}
+
+/* ── [G5] the money, law and graph lanes (moonshot #26) ─────────────────────── */
+
+/**
+ * (e) The stored review order still matches the tie it sits on.
+ *
+ * `props.tie_class` is a JUDGEMENT — an analyst read the registry and wrote it,
+ * and it WINS over the heuristic. `props.review_tier` / `review_rank` are
+ * something else entirely: a pass-24 SNAPSHOT of a pure function of class ×
+ * corroboration × reachable CZK. After batch-012 moved the contract corpus,
+ * 153 of 208 ranks and 4 of 208 tiers no longer described their tie, and the
+ * only thing that noticed was a person, weeks later.
+ *
+ * The population SHIPS with the verdict (law: every-cap-ships-its-population) —
+ * "4 of 208" and "4 of 4" are different findings and a bare 4 hides which.
+ */
+const isTieClass = (v: string | null): v is TieClass => v !== null && (TIE_CLASSES as readonly string[]).includes(v);
+
+/** Exported for the unit test in sentinelSource.test.ts; the roster calls it through evaluateSentinel. */
+export function checkMoneyRankCache(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "money-rank-cache";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const ties = facts.moneyTies;
+  if (ties.length === 0) {
+    return unevaluable(id, label, "no linked_to ties in the store — nothing to compare");
+  }
+  const stamped = ties.filter((t) => t.storedTier !== null);
+  if (stamped.length === 0) {
+    // Nothing stored is not a stale cache; it is no cache. The reader is told.
+    return ok(
+      id,
+      label,
+      `${ties.length} ties, none carrying a stored review_tier — the order is computed at read time, ` +
+        `so there is no cache to go stale`,
+    );
+  }
+  // A stored class the vocabulary does not know is a finding of its own. Until
+  // 2026-09-07 it was CAST to TieClass and fell through reviewTier's last branch
+  // (steward), so a tier of 2 stamped on garbage passed as "matches".
+  const unknownClass = stamped.filter((t) => t.tieClass !== null && !isTieClass(t.tieClass));
+  if (unknownClass.length > 0) {
+    return violation(
+      id,
+      label,
+      `${unknownClass.length}/${stamped.length} stamped tie(s) carry a tie_class outside the TIE_CLASSES vocabulary ` +
+        `(${[...new Set(unknownClass.map((t) => t.tieClass))].join(", ")}), e.g. ${unknownClass
+          .slice(0, 3)
+          .map((t) => t.key)
+          .join(", ")} — reviewTier() cannot order what it cannot classify`,
+    );
+  }
+  const wrong = stamped.filter(
+    (t) =>
+      isTieClass(t.tieClass) &&
+      t.storedTier !==
+        reviewTier({
+          tieClass: t.tieClass,
+          corroboration: t.corroboration as Parameters<typeof reviewTier>[0]["corroboration"],
+        }),
+  );
+  if (wrong.length > 0) {
+    return violation(
+      id,
+      label,
+      `${wrong.length}/${stamped.length} stored review_tier value(s) no longer match their tie — the queue a ` +
+        `reviewer clears is ordered by two incomparable vintages, e.g. ${wrong.slice(0, 3).map((t) => t.key).join(", ")}. ` +
+        `Recompute from reviewTier(); never sort a queue that mixes stored and recomputed keys`,
+    );
+  }
+  return ok(id, label, `all ${stamped.length}/${ties.length} stored tiers match reviewTier() over the current tie`);
+}
+
+/** The bucket key `facts.ts` produces for a row carrying no stamp at all. */
+const UNSTAMPED_BUCKET = "pass — / ref — / writer —";
+
+/** Render a layer's buckets: uniform, or a NAMED split with counts. */
+function describeBuckets(layer: { buckets: Array<{ key: string; count: number }>; rows: number }): string {
+  return layer.buckets.map((b) => `${b.key} ×${b.count}`).join(" · ");
+}
+
+/**
+ * (f) The law layer agrees on one stamp.
+ *
+ * The contribution layer has had this check since 2026-08-04 and it is the one
+ * that would have caught the six-day stale ranking. The law layer runs the same
+ * risk through a different script: a forensic pass that lands on half the bills
+ * publishes one register built from two vintages.
+ */
+function checkLawProvenanceUniformity(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "law-provenance-uniformity";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const layer = facts.lawProvenance;
+  if (layer.rows === 0) {
+    return unevaluable(id, label, "no bill carries a forensic verdict — nothing to compare");
+  }
+  if (layer.buckets.length > 1) {
+    return violation(
+      id,
+      label,
+      `${layer.buckets.length} distinct provenances across ${layer.rows} bill verdict(s) — a partially applied ` +
+        `forensic pass publishes one register built from two vintages: ${describeBuckets(layer)}`,
+    );
+  }
+  return ok(id, label, `${layer.rows} bill verdicts, all on ${layer.buckets[0]!.key}`);
+}
+
+/**
+ * (g) Each RELATION of the graph is internally uniform.
+ *
+ * The unit is the relation, not the store. Different relations legitimately come
+ * from different passes and writers — `supplies` from the money feed, `amends`
+ * from the legislation ingest — so comparing them to each other would make this
+ * check fire permanently and mean nothing. MIXED WITHIN ONE RELATION is the
+ * alarm: that is the shape a half-applied pass has.
+ *
+ * A relation whose rows are all unstamped is `unevaluable` for that relation and
+ * SAID so, never quietly counted as agreement.
+ */
+function checkGraphProvenanceUniformity(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "graph-provenance-uniformity";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const layers = facts.graphProvenance;
+  if (layers.length === 0) return unevaluable(id, label, "no kg_edge rows — nothing to compare");
+
+  // An UNSTAMPED row is not a second vintage — it is a row the provenance
+  // migration has not reached, and /atlas already counts it as exactly that.
+  // Folding it in here would report a permanent violation that means "the
+  // backfill has not finished" while saying "a pass was half applied", and the
+  // two are different findings. So the comparison is over the rows that DO
+  // carry a stamp; the unstamped ones are counted and named beside the verdict.
+  const stamped = layers.map((l) => ({
+    layer: l.layer,
+    rows: l.rows,
+    buckets: l.buckets.filter((b) => b.key !== UNSTAMPED_BUCKET),
+    unstampedRows: l.buckets.find((b) => b.key === UNSTAMPED_BUCKET)?.count ?? 0,
+  }));
+  const mixed = stamped.filter((l) => l.buckets.length > 1);
+  if (mixed.length > 0) {
+    return violation(
+      id,
+      label,
+      mixed
+        .map((l) => `${l.layer}: ${l.buckets.length} provenances over ${l.rows} rows (${describeBuckets(l)})`)
+        .join(" · ") +
+        ` — mixed WITHIN one relation is a half-applied pass, not two legitimate sources`,
+    );
+  }
+  const judged = stamped.filter((l) => l.buckets.length === 1);
+  const unstampedRows = stamped.reduce((n, l) => n + l.unstampedRows, 0);
+  if (judged.length === 0) {
+    return unevaluable(
+      id,
+      label,
+      `all ${layers.length} relation(s) are unstamped (${unstampedRows} rows) — run ` +
+        `scripts/data-analysis/kg-provenance-backfill.ts; an unstamped layer agrees on nothing, it says nothing`,
+    );
+  }
+  const detail = judged.map((l) => `${l.layer} ${l.buckets[0]!.count}×${l.buckets[0]!.key}`).join(" · ");
+  return unstampedRows > 0
+    ? ok(
+        id,
+        label,
+        `${judged.length}/${layers.length} relation(s) uniform on their stamps; ${unstampedRows} row(s) carry no ` +
+          `stamp at all — counted, never called agreement. ${detail}`,
+      )
+    : ok(id, label, `all ${layers.length} relations uniform — ${detail}`);
+}
+
+/**
+ * (h) `amends` closes: both ends resolve, and a verdict implies an edge.
+ *
+ * `/zakony` cites "this bill amends that law" as a fact about the record. A
+ * dangling end is a citation to a node that is not there; a bill carrying a
+ * forensic verdict and NO amends edge means the verdict was written over a bill
+ * whose amendment graph was never regenerated — the reader sees a finding about
+ * a change nothing in the graph connects to a law.
+ */
+function checkAmendsClosure(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "amends-closure";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const a = facts.amends;
+  if (a.edges === 0 && a.billsWithVerdict === 0) {
+    return unevaluable(id, label, "no amends edges and no bill verdicts — nothing to close");
+  }
+  const problems: string[] = [];
+  if (a.danglingEnds > 0) {
+    problems.push(`${a.danglingEnds}/${a.edges} amends edge(s) have an endpoint no kg_node resolves`);
+  }
+  if (a.billsWithVerdictAndNoAmends.length > 0) {
+    problems.push(
+      `${a.billsWithVerdictAndNoAmends.length}/${a.billsWithVerdict} bill(s) carry a forensic verdict but no ` +
+        `amends edge, e.g. ${a.billsWithVerdictAndNoAmends.slice(0, 3).join(", ")} — the verdict names a change ` +
+        `the graph connects to no law`,
+    );
+  }
+  if (problems.length > 0) return violation(id, label, problems.join("; "));
+  return ok(
+    id,
+    label,
+    `${a.edges} amends edges, both ends resolving; all ${a.billsWithVerdict} bill verdict(s) carry one`,
+  );
+}
+
+/**
+ * (i) Somebody was watching the loader boundary.
+ *
+ * ABSENT FILE IS NEVER `ok`. `reportLoaderFailure` has 121 call sites and its
+ * other two sinks answer nothing after the fact (a scrolled console, a Sentry
+ * no-op with no DSN). A missing log means nobody was watching; a present, empty
+ * one means somebody was and nothing happened. Those are opposite findings and
+ * this check refuses to give them the same verdict.
+ *
+ * Degradations themselves are NOT a violation of an invariant about the DATA —
+ * they are an operational fact, reported with its population so an operator can
+ * act. The sentinel's red is reserved for the record being wrong.
+ */
+function checkLoaderDegradations(facts: SentinelFacts): SentinelCheck {
+  const id: SentinelCheckId = "loader-degradations";
+  const label = SENTINEL_CHECK_LABELS[id];
+  const d = facts.loaderDegradations;
+  if (d === null) {
+    return unevaluable(
+      id,
+      label,
+      `no degradation log at ${loaderFailureDisplayPath()} — nobody was watching the loader boundary. ` +
+        `"No file" is not "no degradations": those are opposite findings`,
+    );
+  }
+  if (d.total === 0) {
+    return ok(id, label, `0 degradations in the last ${d.windowHours} h (log present at ${d.path})`);
+  }
+  return ok(
+    id,
+    label,
+    `${d.total} degradation(s) in the last ${d.windowHours} h across ${d.byLoader.length} loader(s), ` +
+      `last ${d.lastAt}: ${d.byLoader.slice(0, 3).map((l) => `${l.loader} ×${l.count}`).join(", ")} ` +
+      `(${d.path}) — a fallback that rendered is a surface a reader saw degraded`,
+  );
 }
 
 /**

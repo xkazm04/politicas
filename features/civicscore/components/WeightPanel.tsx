@@ -10,16 +10,17 @@
  * vlastní čočka = kobaltový rám + kobaltové akcenty (tatáž konvence jako
  * landing LiveSpecimen: kobalt znamená „vaše číslo, ne zveřejněné").
  *
- * Česká UI kopie je inline literálem, ne next-intl: messages/*.json je ve
- * fleet režimu sdílený/mimo hranici (týž precedens jako LowScoreReasonBadge
- * a workhorse-filtr v LeaderboardTable) — navržené klíče jsou v předávacím
- * protokolu dávky pro orchestrátora.
+ * Copy jde přes next-intl (`civicscore.*`, oba katalogy) — do 2026-09-05 tu
+ * hlavička tvrdila opak („inline literál, katalog mimo hranici"), tři týdny po
+ * tom, co se to změnilo. Čísla vstupují do ICU vět UŽ ZFORMÁTOVANÁ (lib/format
+ * přes useFormat), jinak by je next-intl protáhl vlastním Intl.NumberFormat
+ * mimo jedinou formátovací autoritu aplikace.
  */
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Check, Link2, RotateCcw } from "lucide-react";
-import type { LeaderboardData } from "../getLeaderboardData";
+import type { LeaderboardData } from "../leaderboardTypes";
 import {
   effectiveWeights,
   encodeWeights,
@@ -142,6 +143,10 @@ export default function WeightPanel({
                   }`}
                 >
                   {t(p.labelKey)}
+                  {/* Poznámka je TEXT, ne jen `title`: hover nedostane klávesnice ani
+                      dotyk a `title` čtečka čte nespolehlivě (týž nález jako výklad
+                      časové osy v /denik, 2026-08-12). */}
+                  <span className="sr-only"> — {t(p.noteKey)}</span>
                 </button>
               );
             })}
@@ -175,7 +180,7 @@ export default function WeightPanel({
                 <div key={c.key} className="grid grid-cols-[minmax(8.5rem,11rem)_1fr_2.5rem_4.5rem] items-center gap-3 max-sm:grid-cols-[1fr_2.5rem_4.5rem]">
                   <span
                     className="flex items-center gap-2 text-sm font-black uppercase tracking-wide max-sm:col-span-3"
-                    title={t("weightRowTitle", { label: c.label, weight: c.weight, source: c.source })}
+                    title={t("weightRowTitle", { label: c.label, weight: f.int(c.weight), source: c.source })}
                   >
                     <span
                       className="inline-block h-3 w-3 shrink-0"
@@ -183,6 +188,8 @@ export default function WeightPanel({
                       aria-hidden
                     />
                     <span className="truncate">{c.label}</span>
+                    {/* Zdroj složky jde i čtečce — do 2026-09-08 stál jen v `title`. */}
+                    <span className="sr-only"> — {c.source}</span>
                   </span>
                   <input
                     type="range"
@@ -210,8 +217,8 @@ export default function WeightPanel({
                     // Poslední záchytný bod: gesto ukončené jinak (ztráta
                     // pointeru, přepnutí okna) nesmí nechat adresu pozadu.
                     onBlur={commit}
-                    aria-label={t("weightSliderAria", { label: c.label, weight: c.weight })}
-                    aria-valuetext={t("weightSliderValue", { value: weights[c.key], effective: f.dec(eff[c.key]) })}
+                    aria-label={t("weightSliderAria", { label: c.label, weight: f.int(c.weight) })}
+                    aria-valuetext={t("weightSliderValue", { value: f.int(weights[c.key]), effective: f.dec(eff[c.key]) })}
                     className="k-range"
                   />
                   <span

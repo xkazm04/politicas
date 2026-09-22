@@ -87,6 +87,14 @@ describe("řetěz brány dorazí z databáze až na věstník", () => {
         chainPos: r.chainPos as number,
         prevHash: r.prevHash as string,
         rowHash: r.rowHash as string,
+        // G2 (2026-09-04): the chain now runs over two hash domains, so „which
+        // preimage was this row hashed under" is part of what the mapper has to
+        // carry. Dropping `hashDomain` here re-hashed every v2 row under v1 and
+        // broke the chain — which is this test doing exactly its job: it exists
+        // to catch a field losing its value on the way out of the mapper.
+        hashDomain: r.hashDomain,
+        subjectKind: r.subjectKind,
+        subjectId: r.subjectId,
       }))
       .sort((a, b) => a.chainPos - b.chainPos);
     const verdict = verifyAuditChain(chained);

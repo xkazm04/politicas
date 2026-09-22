@@ -17,8 +17,13 @@
  */
 
 import { useSyncExternalStore } from "react";
+import { pragueDay } from "@/features/denik/pragueDay";
 
-export const todayStr = (): string => new Date().toISOString().slice(0, 10);
+/** Dnešek jako PRAŽSKÝ den (features/denik/pragueDay.ts) — server datuje `builtOn`
+ *  i práh delty pražským dnem, a do 2026-09-07 tu stál řez UTC řetězce: mezi půlnocí
+ *  a 01:00/02:00 pražského času měl klient jiný „dnešek“ než server, okno první
+ *  návštěvy bylo o den posunuté a odznak přepínal den ve dvě ráno. */
+export const todayStr = (): string => pragueDay();
 
 const TICK_MS = 60_000;
 

@@ -4,10 +4,12 @@
  * the 141 bill nodes into docs/data-analysis/case-law/ledger.json and prints a ranked
  * triage table. The ranking is deterministic — the LLM never authors a score:
  *
- *   triageScore =  forensicSeverityWeight (existing gated verdict)   ×  1_000_000_000
- *                + sponsor_contract_czk (worst-case flagged sponsor)
- *                + amendsCount × 5_000_000            (churn / repeat-target proximity)
- *                + routingAnomaly × 250_000_000       (garanční committee remit ⊥ law domain)
+ *   triageScore =  forensicSeverityWeight (existing gated verdict)   × BANDS.sev
+ *                + maxTargetChurn                                    × BANDS.churn
+ *                + round(log10(1 + sponsor_contract_czk)             × BANDS.moneyLog)
+ *                + amendsCount                                       × BANDS.amends
+ *                + (routingAnomaly && flagged_conflict)              × BANDS.route
+ *   (the bands are declared once below and the ledger's `triageFormula` is printed from them)
  *
  * Routing anomaly (F12 owns ⋈ F15 assigned_to): for each bill's garanční committee we
  * take its owned themes (owns → theme) and ask whether ANY owned theme keyword appears in
@@ -18,7 +20,7 @@
  *   PGLITE_PATH=./.pglite-copy-law npx tsx scripts/case-loops/law/triage.ts
  *   PGLITE_PATH=./.pglite-copy-law npx tsx scripts/case-loops/law/triage.ts --top=8
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 
 import { getStore } from "@/lib/db/store";
 import { byScoreThenId } from "../shared/ordering";
@@ -31,6 +33,19 @@ const arg = (name: string, fb = ""): string => {
 
 const SEVERITY_WEIGHT: Record<string, number> = { high: 3, medium: 2, low: 1 };
 const OUT_DIR = "docs/data-analysis/case-law";
+const LEDGER_PATH = `${OUT_DIR}/ledger.json`;
+
+/** The packed, non-overlapping score bands — read by the scoring AND by the `triageFormula`
+ *  string the ledger records, so the recorded formula cannot describe weights the code does
+ *  not use (until 2026-09-07 it advertised the batch-001 draft weights of 1e9 / 5e6 / 2e6 /
+ *  2.5e8 while the code computed the log-scaled bands below). */
+const BANDS = {
+  sev: 1_000_000, // × severity weight 1..3 → 0..3e6
+  churn: 30_000, // × max target churn → 0..~210_000 (586/1992 ×7)
+  moneyLog: 1_000, // × log10(1 + sponsor CZK) → 0..~10_000
+  amends: 5_000, // × amends count
+  route: 2_000, // routing anomaly, only combined with a flagged conflict
+} as const;
 
 /** Rough theme→keyword remit so we can test a garanční committee's F12 owns-themes against a law title. */
 const THEME_KEYWORDS: Record<string, string[]> = {
@@ -141,11 +156,11 @@ async function main() {
     // one score with capped, non-overlapping bands so a mega money figure cannot swamp severity.
     // Money is LOG-scaled (band 0..~10) precisely because sponsor_contract_czk is saturated by a
     // single municipal-board figure (ARENA BRNO 5.39e9 recurs on every Hladík print) — see reflect.
-    const sevBand = (forensicSeverity ? SEVERITY_WEIGHT[forensicSeverity] ?? 0 : 0) * 1_000_000; // 0..3e6
-    const moneyBand = Math.round(Math.log10(1 + sponsorContractCzk) * 1_000); // 0..~10_000
-    const churnBand = maxTargetChurn * 30_000; // 0..~210_000 (586/1992 ×7)
-    const amendsBand = amendsCount * 5_000;
-    const routeBand = routingAnomaly && p.flagged_conflict === true ? 2_000 : 0; // only meaningful combined
+    const sevBand = (forensicSeverity ? SEVERITY_WEIGHT[forensicSeverity] ?? 0 : 0) * BANDS.sev;
+    const moneyBand = Math.round(Math.log10(1 + sponsorContractCzk) * BANDS.moneyLog);
+    const churnBand = maxTargetChurn * BANDS.churn;
+    const amendsBand = amendsCount * BANDS.amends;
+    const routeBand = routingAnomaly && p.flagged_conflict === true ? BANDS.route : 0; // only meaningful combined
     const triageScore = sevBand + churnBand + moneyBand + amendsBand + routeBand;
 
     return {
@@ -202,6 +217,18 @@ async function main() {
   const batchIds = new Set(pending.slice(0, top).map((r) => r.billNodeId));
   for (const r of rows) if (batchIds.has(r.billNodeId)) r.batch = 1;
 
+  // P44/D1: this bootstrap REPLACES the ledger. Every later batch merge-writes (retriage-009,
+  // update-ledger-011) because a wholesale write erases the accumulated totals.* blocks and the
+  // per-row verdict bookkeeping. Re-running the bootstrap over a live ledger is therefore a
+  // deliberate act, never a default.
+  if (existsSync(LEDGER_PATH) && !process.argv.includes("--replace")) {
+    console.error(
+      `REFUSED: ${LEDGER_PATH} already exists and this script replaces it wholesale (totals.* blocks and verdict bookkeeping would be lost). ` +
+        `Use the merge-preserving re-triage, or pass --replace to state the wholesale rewrite is intentional.`,
+    );
+    await store.close();
+    process.exit(1);
+  }
   mkdirSync(OUT_DIR, { recursive: true });
   const ledger = {
     case: "law",
@@ -216,11 +243,11 @@ async function main() {
       routingAnomalies: rows.filter((r) => r.routingAnomaly).length,
       existingForensic: rows.filter((r) => r.forensicState).length,
     },
-    triageFormula: "sev*1e9 + sponsorCzk + amends*5e6 + churn*2e6 + routeAnom*2.5e8",
+    triageFormula: `sevWeight*${BANDS.sev} + churn*${BANDS.churn} + round(log10(1+sponsorCzk)*${BANDS.moneyLog}) + amends*${BANDS.amends} + (routeAnom&&flagged)*${BANDS.route}`,
     rows,
   };
-  writeFileSync(`${OUT_DIR}/ledger.json`, JSON.stringify(ledger, null, 1));
-  console.log(`\n→ wrote ${OUT_DIR}/ledger.json (${rows.length} rows)`);
+  writeFileSync(LEDGER_PATH, JSON.stringify(ledger, null, 1));
+  console.log(`\n→ wrote ${LEDGER_PATH} (${rows.length} rows)`);
   await store.close();
 }
 

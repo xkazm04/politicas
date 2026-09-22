@@ -2,8 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import { parseUnl } from "../unl";
 import {
+  agendaKey,
   billsAndWrittenInterp,
   oralInterp,
+  parseAgendaPrints,
   parseAmendments,
   parseBillSpeeches,
   speechTurns,
@@ -164,5 +166,66 @@ describe("parseAmendments (pass 35)", () => {
       { tiskCislo: 72, idOsoba: 6473, sdCislo: 4 },
       { tiskCislo: 94, idOsoba: 6789, sdCislo: 5 },
     ]);
+  });
+});
+
+describe("parseAgendaPrints (the vote→print join key)", () => {
+  // schuze.unl: 0 id_schuze | 1 id_org | 2 schuze (SITTING NUMBER). The dump repeats
+  // each sitting row once per state — the mapping stays 1:1.
+  const schuze = parseUnl(
+    [
+      "848|174|5|2025-11-03 14|2025-11-05 20||",
+      "848|174|5|2025-11-03 14|||1",
+      "844|174|3|2025-11-26 10|||",
+      "500|170|5|2011-01-01 10|||", // another term's sitting number 5
+    ].join("\n"),
+  );
+  // bod_schuze.unl: 0 id_bod | 1 id_schuze | 2 id_tisk | 3 id_typ | 4 bod | 5 naz |
+  //                 6 kon | 7 pozn | 8 id_bod_stav | 9 pozvanka | … | 14 zkratka
+  const row = (idBod: number, idSchuze: number, tisk: string, bod: string, pozvanka: string, zkratka: string) =>
+    [idBod, idSchuze, tisk, "1", bod, "název", "/sněmovní tisk/", "", "0", pozvanka, "0", "", "0", "", zkratka].join("|");
+  const bodSchuze = parseUnl(
+    [
+      row(58039, 848, "43117", "1", "", "mediální služby"), // agenda as taken
+      row(58039, 848, "43117", "1", "", "mediální služby"), // repeated row → deduped
+      row(58047, 848, "43118", "1", "1", "pojistné"), // pozvánka: SAME (5,1), other print
+      row(58060, 848, "43187", "67", "", "písemná inter."), // (5,67) print A
+      row(58061, 848, "43188", "67", "", "písemná inter."), // (5,67) print B → ambiguous
+      row(58070, 844, "", "2", "", "slib poslanců"), // no print → item, no edge
+      row(58071, 844, "43132", "0", "", "pořadí neznámo"), // bod < 1 → ignored
+      row(40000, 500, "30000", "1", "", "jiné období"), // another term → ignored
+    ].join("\n"),
+  );
+  const idx = parseAgendaPrints(schuze, bodSchuze, 174);
+
+  it("keys by SITTING NUMBER and agenda item, not by the internal sitting id", () => {
+    expect(idx.printsByItem.get(agendaKey(5, 1))).toEqual([43117]);
+    expect(agendaKey(5, 1)).toBe("5:1");
+  });
+
+  it("reads the agenda AS TAKEN and refuses the pozvánky's own numbering", () => {
+    // 43118 sits at (5,1) only on the pozvánka — taking it would put a roll call on
+    // the wrong print. The measured cost of relaxing this is in the module header.
+    expect(idx.printsByItem.get(agendaKey(5, 1))).not.toContain(43118);
+    expect(idx.coverage.proposedAgendaRowsIgnored).toBe(1);
+  });
+
+  it("keeps a multi-print item many-to-many and COUNTS the ambiguity", () => {
+    expect(idx.printsByItem.get(agendaKey(5, 67))).toEqual([43187, 43188]);
+    expect(idx.coverage.agendaItemsMultiPrint).toBe(1);
+  });
+
+  it("scopes to the term, dedupes repeated rows, and drops bod < 1", () => {
+    expect(idx.printsByItem.has(agendaKey(5, 1))).toBe(true);
+    expect([...idx.printsByItem.values()].flat()).not.toContain(30000); // other term
+    expect([...idx.printsByItem.values()].flat()).not.toContain(43132); // bod < 1
+    expect(idx.coverage.agendaRowsAsTaken).toBe(4); // 58039, 58060, 58061, 58070
+  });
+
+  it("keeps an item that carries no print as an item, with no edge", () => {
+    expect(idx.labelByItem.get(agendaKey(3, 2))).toBe("slib poslanců");
+    expect(idx.printsByItem.has(agendaKey(3, 2))).toBe(false);
+    expect(idx.coverage.agendaItemsWithPrint).toBe(2);
+    expect(idx.coverage.agendaItems).toBe(3);
   });
 });

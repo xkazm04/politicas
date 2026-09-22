@@ -86,3 +86,124 @@ CLAUDE.md's claim that both builders are held to the same invariants was
 false; two tests close it (every sample href is a module index; none carries a
 node id).
 
+
+## 2026-09-04 — every write names its origin, or is refused
+
+`kg_node.provenance` / `kg_edge.provenance` were free-form jsonb, and the seven
+writers filled them seven ways: `{pass, method, ref, computedAt}` with no
+`source` and no run key anywhere. The cost was not stylistic. `/atlas` could
+score **3 of 14** declared sources and printed a paragraph explaining why the
+other eleven — including **both** that carry the whole of `/penize` — get no
+number at all; the Merkle seal covered eight entity tables and **zero** graph
+rows, so a half-applied money or law pass was invisible to the sentinel while a
+half-applied score pass was not.
+
+`lib/kg/provenance.ts` is now the one declaration: `{source, ingest_run_id,
+pass, ref, writer}`, with `source` a key of `INGESTED_SOURCES` **imported** from
+`lib/analysis/atlas.ts` rather than re-listed. Two stored generated columns on
+each table project `source` and `ingest_run_id` out of the jsonb, so the column
+can never disagree with the row it describes and no backfill has to keep two
+copies in step.
+
+**The split that matters here is origin vs enrichment**, and it is the same
+distinction `kg-contribution-ingest` already drew when it kept
+`provenance: existing.provenance`:
+
+| Writer | Role | Stamps |
+| --- | --- | --- |
+| `kg-compute` | origin | per ref — nodes `psp-poslanci`, the three edge rels `psp-hlasovani` |
+| `kg-money-ingest` | origin | per kind/rel — company + `linked_to` `dataor-justice-cz`, contract + `supplies` `smlouvy-gov-cz` |
+| `kg-legislation-ingest` | origin | source `psp-tisky-law`, ref `psp-tisky` |
+| `kg-promote` | origin | `--source=` required; no default that is a guess |
+| `kg-vote-bill-ingest` | origin | source `psp-hlasovani` — the `decides` edge asserts the VOTE half; the bill is only referenced |
+| `kg-contribution-ingest` | enrichment | `contribution_provenance.writer`; row provenance untouched |
+| `kg-forensics` | enrichment | `forensic_provenance.writer`; row provenance untouched |
+| `persist-batch` | enrichment | `<ns>_provenance.writer`; row provenance untouched |
+
+An enrichment writer claiming a source would say a person node came from a
+scoring pass rather than from the chamber register. It does not; it names the
+**writer** instead, which is what lets a per-layer uniformity check say *which
+script* a divergent bucket came from rather than only that one exists.
+
+`guardStampedRows()` runs immediately before every origin upsert and throws with
+the row index and the reason. `--allow-unstamped` exists for the migration pass
+alone and **counts** what it lets through — a bypass nobody counts is a bypass
+that becomes permanent.
+
+**`source: "unknown"` is a value, not a hole.** `kg-promote` without
+`--source=` and every row the backfill cannot reconstruct land there, and
+`/atlas` counts them on the card. A migration that guessed a plausible source
+would be repair, and this repo discloses: a number printed and burned down beats
+a number that looks finished and is not.
+
+### The migration pass
+
+`scripts/data-analysis/kg-provenance-backfill.ts` (dry run by default) derives a
+stamp for every pre-contract row from the `ref` it already carries — four rules,
+each read off the writer that produced it. Rows it cannot resolve land on
+`unknown`, grouped by the unresolved ref and printed as the number to burn down;
+re-running the owning writer replaces it with a real source. It passes `props`
+through byte-for-byte (this is exactly the script shape that once erased the
+effort layer off all 207 MPs), leaves a row already under contract alone unless
+`--restamp`, and attaches no `ingest_run_id` to a historical row — that would
+place it inside a seal that never covered it. On the fixture mirroring the five
+legacy stamp shapes, 13 of 16 rows derive and 3 land on `unknown` across two
+refs.
+
+Proven on a store copy (`scripts/data-analysis/kg-writer-provenance.test.ts`),
+never against the live store — including the thing every writer on this page has
+broken before: a later pass's props still survive a stamped rewrite of the same
+node. `kg-money-ingest` also gained the `isDirectRun` guard `kg-promote` already
+carried; importing its pure half used to fire `main()` and exit 1 for want of an
+API token.
+
+**One dump reader for the kg writers (2026-09-06, scan-sweep, parity-auditor).**
+`getDump` — cache dir, base URL, user-agent, 180 s timeout, warn-and-null — was
+copied byte-for-byte into five writers, and one copy already logged a non-ok status
+that the other four swallowed. `scripts/data-analysis/pspDump.ts` is the one
+definition; `ingest.ts` keeps its metadata-recording variant on purpose (it feeds
+the `ingest_run` row). `kg-bill-roles-ingest` also dropped its private UNL member
+reader for `lib/ingest/unlMembers` (5 + 1 copies → 1 + 1; `oneDump.test.ts` pins it).
+`kg-vote-bill-ingest.ts` carries a sixth copy and is not in this context's file list;
+it is named here, not touched.
+
+**`kg-committee-routing` derives its pass (2026-09-06, scan-sweep, parity-auditor).**
+Its default was the literal `12` while eight sibling writers derive the pass from the
+graph (`nextPass`), so every re-run without `--pass` restamped the `assigned_to` edges
+as pass 12. It now derives like the others (1 frozen default → 0; `writerPass.test.ts`).
+
+**`kg-contribution-recompute` reads person nodes through `KG_READ_CAP` (2026-09-06,
+scan-sweep, parity-auditor).** The last literal cap among the kg writers (`limit:
+1000`) is gone; `writerReadCap.test.ts` pins that no writer lists graph rows under a
+literal (1 → 0).
+
+**`kg-money-ingest` read-merges its nodes (2026-09-06, scan-sweep, bounty-hunter).**
+D1 (batch 004) made the `linked_to` edges merge-preserving; the company and contract
+NODES were still built fresh — `props: n.props`, `firstSeenPass: opts.pass` — so a
+re-ingest wholesale-replaced every company node's props (the `upsertKgNodes` replace
+this page catalogues) and restamped the pass that created the node. `moneyGraphToKgRows`
+now takes the stored nodes and merges through `mergeComputedNodeProps`; the ingest
+passes them (`kgMoneyIngestMerge.test.ts`: a stored `ico_unresolvable_in_ares`
+survives, a computed `subsidies_total_czk` wins, `firstSeenPass` stays).
+
+**`kg-legislation-ingest` read-merges bill and law nodes (2026-09-06, scan-sweep,
+bounty-hunter).** `kg-bill-roles-ingest`'s header has said since pass 34 that a full
+re-run of this writer „would wholesale-erase" `summary_cz`, `forensic_*` and `amends_*`
+off every bill node; the hazard was documented in the sibling and left in place here.
+Bill and law nodes now merge through `mergeComputedNodeProps` and keep the pass that
+created them; a law node's e-Sbírka title (esbirka-laws.ts) survives too
+(`legislationMerge.test.ts`; 2 from-scratch node builders → 0).
+
+**2026-09-08 (scan-sweep, kg-pipeline round 74, parity-auditor).** `kg-compute` was the
+last writer with a frozen pass default: `--pass` fell back to the literal `1`, so a bare
+recompute restamped every node's and edge's provenance as pass 1 — the false vintage its
+own header describes — while its eight siblings derived the pass from the graph. It now
+reads `nextPass(store.listKgNodes())` like them; an explicit `--pass=N` still wins
+(`kgPipelineSource.test.ts`; 9 writers, 0 frozen defaults).
+
+**2026-09-08 (scan-sweep, kg-pipeline round 74, documentation-auditor).** The DataHub
+projection (`kg-datahub-sync`) published the `kind` and `rel` field docs as hand-typed
+lists that had stopped at 7 of 11 node kinds and 7 of 21 edge relations — a catalogue
+telling an external agent the graph has no bill, law, notice or tender node. Both docs
+are now joined from `KG_NODE_KINDS` / `KG_EDGE_RELS` (`lib/analysis/kg-verdict.ts`), so a
+kind or rel added there is published the day it lands (11/11 and 21/21, pinned by source).

@@ -9,6 +9,8 @@
  *   cp -r .pglite .pglite-mat && DB_DRIVER=pglite PGLITE_PATH=.pglite-mat \
  *     npx tsx scripts/hybrid-bench/materialize-tags.ts --limit=200
  */
+import { pathToFileURL } from "node:url";
+
 import { runClaude } from "./engine.js";
 import { getStore } from "@/lib/db/store";
 import type { VoteTagRow } from "@/lib/db/types";
@@ -53,7 +55,15 @@ Položky (id | název):
 ${list}`;
 }
 
-function parseTags(text: string, batch: Item[]): Map<number, { theme: string; confidence: number }> {
+/**
+ * Rows the model ANSWERED, and only those. Until 2026-09-06 an unknown slug
+ * became "jine", a missing confidence became 0.5 and an unparseable batch was
+ * logged and then written as forty rows of "jine"/0 — a fabricated
+ * classification that the VoteTrack theme filter cannot tell from a real
+ * "other". Missing beats wrong (the czech-civic-data doctrine): a row the model
+ * did not classify is not classified, and `main` reports how many.
+ */
+export function parseTags(text: string, batch: Item[]): Map<number, { theme: string; confidence: number }> {
   const out = new Map<number, { theme: string; confidence: number }>();
   const s = text.indexOf("["), e = text.lastIndexOf("]");
   if (s === -1 || e <= s) return out;
@@ -62,12 +72,12 @@ function parseTags(text: string, batch: Item[]): Map<number, { theme: string; co
     arr.forEach((o, i) => {
       const id = typeof o.id === "number" ? o.id : batch[i]?.votePspId;
       if (id === undefined) return;
-      const theme = typeof o.theme === "string" && THEME_SLUGS.has(o.theme) ? o.theme : "jine";
-      const confidence = typeof o.confidence === "number" ? Math.max(0, Math.min(1, o.confidence)) : 0.5;
-      out.set(id, { theme, confidence });
+      if (typeof o.theme !== "string" || !THEME_SLUGS.has(o.theme)) return;
+      if (typeof o.confidence !== "number" || !Number.isFinite(o.confidence)) return;
+      out.set(id, { theme: o.theme, confidence: Math.max(0, Math.min(1, o.confidence)) });
     });
   } catch (err) {
-    console.warn("[materialize-tags] unparseable classifier batch — defaulting to 'jine':", err instanceof Error ? err.message : err);
+    console.warn("[materialize-tags] unparseable classifier batch — its rows stay untagged:", err instanceof Error ? err.message : err);
   }
   return out;
 }
@@ -93,14 +103,18 @@ async function main() {
   const taggedAt = new Date().toISOString();
   const tags: VoteTagRow[] = [];
   let tokens = 0;
+  let unanswered = 0;
   for (let i = 0; i < items.length; i += batchSize) {
     const batch = items.slice(i, i + batchSize);
     process.stdout.write(`classify ${i + 1}..${i + batch.length}/${items.length} ... `);
     const res = await runClaude(classifyPrompt(batch), { model });
     tokens += res.outputTokens;
     const parsed = parseTags(res.text, batch);
+    let skipped = 0;
     for (const it of batch) {
-      const t = parsed.get(it.votePspId) ?? { theme: "jine", confidence: 0 };
+      const t = parsed.get(it.votePspId);
+      // No answer, no row: an invented "jine" would sit in vote_tag as a verdict.
+      if (!t) { skipped++; continue; }
       tags.push({
         id: `vote_tag:${it.votePspId}`,
         votePspId: it.votePspId,
@@ -111,18 +125,22 @@ async function main() {
         taggedAt,
       });
     }
-    console.log(`ok (tok=${res.outputTokens})`);
+    unanswered += skipped;
+    console.log(`ok (tok=${res.outputTokens}${skipped ? `, ${skipped} unanswered — left untagged` : ""})`);
   }
 
   const written = await store.upsertVoteTags(tags);
   const counts = await store.voteTagCountsByTheme();
   await store.close();
 
-  console.log(`\nwrote ${written} vote_tag rows (model=${model}, ${tokens} output tokens).`);
+  console.log(`\nwrote ${written} vote_tag rows (model=${model}, ${tokens} output tokens); ${unanswered} of ${items.length} votes left untagged (no valid answer).`);
   console.log("theme distribution:");
   for (const [theme, n] of Object.entries(counts).sort((a, b) => b[1] - a[1])) {
     console.log(`  ${theme.padEnd(26)} ${n}`);
   }
 }
 
-main().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });
+// Run only when invoked directly (the kg-promote.ts pattern) — the test imports
+// `parseTags` without opening a store.
+const isDirectRun = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectRun) main().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });

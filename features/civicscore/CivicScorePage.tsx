@@ -28,7 +28,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight, RotateCcw } from "lucide-react";
-import type { LeaderboardListData, LeaderboardListEntry } from "./getLeaderboardData";
+import type { LeaderboardListData, LeaderboardListEntry } from "./leaderboardTypes";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";

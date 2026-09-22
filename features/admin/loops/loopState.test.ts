@@ -345,3 +345,21 @@ describe("deriveLoopState — ingest smyčky", () => {
     expect(a.alerts[0].id).not.toBe(b.alerts[0].id);
   });
 });
+
+describe("výstraha stalled sází čísla přes lib/format, ne ručním replace", () => {
+  it("stáří 15,4 dne a kadence 7 dní stojí ve větě česky formátované", () => {
+    const now = "2026-09-01T00:00:00.000Z";
+    const out = deriveLoopState({
+      now,
+      loopsRunState: "running",
+      caseLoops: [],
+      casePasses: [],
+      ingestRuns: [
+        { source: "psp-poslanci", startedAt: "2026-08-16T13:00:00.000Z", finishedAt: "2026-08-16T14:24:00.000Z", status: "ok", rowsWritten: 1, note: null },
+      ],
+    });
+    const msg = out.alerts.find((a) => a.kind === "stalled")?.messageCs ?? "";
+    expect(msg).toContain("stáří 15,4 dne/dní");
+    expect(msg).toContain("kadence 7 dne/dní");
+  });
+});

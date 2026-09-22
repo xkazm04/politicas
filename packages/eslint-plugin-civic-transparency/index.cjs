@@ -53,7 +53,7 @@ const plugin = {
 // `civic-transparency`.
 //
 // `recommended` — the generic discipline, adoptable by any TS/React repo:
-//   the five portable rules at `error`, plus the three rules whose fix paths
+//   the four portable rules at `error`, plus the three rules whose fix paths
 //   name project-specific conventions at `warn` (no-hardcoded-colors expects
 //   a design-token layer; no-silent-null-catch expects a reportLoaderFailure
 //   helper; no-hardcoded-display-string expects a message catalog and needs

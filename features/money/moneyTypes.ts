@@ -395,6 +395,24 @@ export interface LeadDossier {
   confidence: string;
 }
 
+/** What the surface needs to tell an empty corpus apart from a broken one. */
+export interface LeadDossiers {
+  dossiers: LeadDossier[];
+  /** The payload directory could not be listed at all — the surface is BLIND here, which
+   *  is not the same statement as "there are no kauzy". */
+  directoryUnreadable: boolean;
+  /** Files that exist but could not be read or parsed. A dossier lost to a stray comma
+   *  used to vanish with no log line and no visible difference from never existing. */
+  unreadableFiles: string[];
+}
+
+/** One MP a „sestavit důkazní paket" link on /penize/kauzy can target (see
+ *  getLeadPacketTargets.ts for the drop-don't-guess join that produces these). */
+export interface PacketTarget {
+  pspId: number;
+  name: string;
+}
+
 /** Stabilní kotva jednoho spisu: `#kauza-<leadId>`. Odvozuje se z leadId, které
  *  spis nese SÁM (Q-money-5) — nikdy z pozice v poli, protože pole se řadí podle
  *  signálu a třetí spis by přeadresoval oba stávající. Malá písmena + pomlčky,
@@ -618,7 +636,16 @@ export function temporalBadge(tie: {
         tone: "ended",
       };
     default:
-      return { labelCs: "neověřeno vůči ARES VR", labelEn: "not checked against ARES VR", tone: "unknown" };
+      // Registry-CONFIRMED, but the writer recorded no `temporal_status` — five edges in the
+      // live payloads (batch-006 dataor ×2, the PRaK re-point ×2, one batch-008 live flip).
+      // Until 2026-09-07 this branch badged them „neověřeno vůči ARES VR“: a tie the registry
+      // confirmed, labelled as never checked. What the edge DOES carry is the role's end date
+      // (null = the register shows no end), and that is the same rule reconcile-ares-vr
+      // applies before it looks at the money; the money-vs-role comparison needs the
+      // contract dates and is left unclaimed here.
+      return tie.roleValidTo
+        ? { labelCs: `ukončeno ${year(tie.roleValidTo)}`, labelEn: `ended ${year(tie.roleValidTo)}`, tone: "ended" }
+        : { labelCs: "trvá", labelEn: "current", tone: "current" };
   }
 }
 

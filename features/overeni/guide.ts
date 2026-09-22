@@ -121,7 +121,10 @@ export function buildExamples(live: LiveEdgeExample | null): GuideExample[] {
   examples.push({
     family: "graf",
     labelKey: "guide.exGrafIllustrativeLabel",
-    input: `/graf/p/${encodeGraphRef({ kind: "trasa", variant: "mapa", trail: "penize-poslancu" }, "00000000")}`,
+    // Ilustrační adresa musí být STÁLÁ: prázdné datum vydání drží historický
+    // tvar `g.`, takže příklad v návodu se nemění každý den (a rovnou ukazuje,
+    // že starý tvar adresy dál platí).
+    input: `/graf/p/${encodeGraphRef({ kind: "trasa", variant: "mapa", trail: "penize-poslancu" }, "00000000", "")}`,
     noteKey: "guide.exGrafIllustrativeNote",
     live: false,
   });

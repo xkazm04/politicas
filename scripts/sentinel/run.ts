@@ -27,10 +27,13 @@
  * a stderr line and wrote NO machine report even with SENTINEL_JSON set. So
  * nothing anywhere distinguished "ran and passed" from "never ran": both left
  * the same artifact, none. Both paths now emit `unevaluableSentinelReport` —
- * the SAME eleven rows in the SAME order, every one `unevaluable` with the
- * reason — which parses as a valid politicas.sentinel/1 report, renders as
- * "0 of 11 invariants could be evaluated", and keeps exit code 2. It is not a
- * pass and it does not pretend to be one.
+ * every row of `SENTINEL_CHECK_ORDER` (lib/testing/sentinel/invariants.ts) in
+ * that order, each `unevaluable` with the reason — which parses as a valid
+ * politicas.sentinel/1 report, renders as "0 of N invariants could be
+ * evaluated", and keeps exit code 2. It is not a pass and it does not pretend to
+ * be one. (The header said "sixteen" from 2026-08-13 until 2026-09-06, two
+ * checks after the list had grown to eighteen — the count belongs to the list,
+ * not to this comment.)
  *
  * THIS COMMAND IS THE REAL EXECUTION PATH. `.github/workflows/sentinel.yml` runs
  * it on a hosted runner where there is no `./.pglite` (a local, gitignored 1.6 GB
@@ -38,7 +41,7 @@
  * the truth, and is why the run step is no longer gated behind a guard that made
  * "never ran" render as a pass. Local `npm run sentinel` against a copy of the
  * real store is the only path on which the invariants actually execute —
- * including the four scoring ones added 2026-08-04, the only thing standing
+ * including the four scoring ones added 2026-08-04 and the money/law/graph lane added 2026-09-04, the only thing standing
  * between a formula correction and a silently stale published ranking. Run this
  * locally after any contribution pass.
  */
@@ -63,6 +66,18 @@ async function emit(report: import("@/lib/testing/sentinel/report").SentinelRepo
     writeFileSync(resolve(process.env.SENTINEL_JSON), json + "\n", "utf8");
     console.error(`[sentinel] machine report written to ${resolve(process.env.SENTINEL_JSON)}`);
   }
+  // [G5] The verdict stops evaporating on stdout. It goes into an OUTBOX FILE,
+  // not the store: this process audits a copy and must never hold the live
+  // handle (see the READ-ONLY GUARANTEE above), so the next live open() drains
+  // it into `sentinel_run`. The append FAILS LOUD — a verdict quietly not kept
+  // is indistinguishable from a run that never happened, which is the whole
+  // confusion this lane exists to abolish.
+  const { enqueueSentinelRun, sentinelQueueDisplayPath } = await import("@/lib/db/pglite/sentinelQueue");
+  const entry = enqueueSentinelRun(report);
+  console.error(
+    `[sentinel] verdict ${report.verdict} queued as ${entry.id.slice(0, 12)} in ${sentinelQueueDisplayPath()} ` +
+      `(manifest ${report.manifestHash ?? "none"}) — applied on the next live open`,
+  );
 }
 
 /** The store could not be read. Emit the all-`unevaluable` report and exit 2 —

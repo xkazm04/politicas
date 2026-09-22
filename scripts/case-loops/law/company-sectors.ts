@@ -146,7 +146,9 @@ const SECTOR_KEYWORDS: Record<Sector, RegExp[]> = {
   environment: [/chemi/i, /ekolog/i, /odpad/i, /životní/i, /energ/i, /báňsk/i],
   economy: [/holding/i, /invest/i, /facility/i, /consult/i, /reality|nemovitost/i, /stavební|stavby/i, /finan/i],
   health: [/zdravotn/i, /medic/i, /farmaceut/i, /biotech|biolog/i],
-  digital: [/digit|IT\b|informač|telekomunik|software|net\b/i],
+  // `IT` is matched case-SENSITIVELY with both boundaries: under /i, `IT\b` was a suffix match
+  // and every "-it" label (audit, kredit, profit, transit) read as digital — the P42 class.
+  digital: [/digit|informač|telekomunik|software|\bnet\b/i, /\bIT\b/],
   transport: [/doprav|logistik|airport|letišt/i],
   justice: [],
   education: [],

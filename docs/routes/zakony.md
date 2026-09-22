@@ -199,3 +199,105 @@ precedent), refuses calendar-invalid dates a lexicographic range check would
 pass (`32.13.2025`), keeps the row and its `stav`, and COUNTS the refusals
 into `BillFate.refusedPublications` — a silent refusal is the same defect as
 a silent guess.
+
+**The bill dossier gained its roll calls (2026-09-04).** `/zakony` promised the
+vote→impact loop at founding and drew 141 bills with **zero** votes: `BillDetail.tsx`
+contained no occurrence of `vote`/`hlasov` at all, and this file said so — „the graph
+carries no bill-stage pipeline, so neither is drawn". The missing piece was one edge.
+`decides` (roll call → print) joins `vote_event(sessionNo, agendaItem)` to
+`bod_schuze(bod, id_tisk)` through the sitting's agenda; `LawBillView.rollCalls` reads
+it, and `RollCallBlock` renders how the chamber and each club stood, roll call by roll
+call, with the psp.cz address on every one.
+
+**Not a second derivation.** The chamber tally and the club lines come from
+`getFullVoteRecord().voteIndex` — the same memoized artifact `/hlasovani` renders. This
+route now imports it. Computing the tallies here instead would have given two surfaces
+two different numbers for one roll call, which is the failure `voteIndex` was extracted
+to prevent in the first place.
+
+**Three refusals ride on the block, all visible to the reader.** A roll call whose
+agenda item carried several prints (`itemPrintCount > 1` — six items in PSP10, every one
+a „písemné interpelace" block) prints a line saying the vote was on the block, and the
+edge stays on all of the block's prints rather than being narrowed to a plausible one.
+`chamber === null` prints „we hold no ballots", never a zero tally — „no ballots" and
+„nobody voted" are different claims. And the reading stage is **not drawn at all**:
+`readingStage` is null on 100 % of edges because no dump column labels it, and inventing
+one would publish a procedural fact the source does not carry.
+
+**Wire ruling.** `rollCalls` is `internal` in `BILL_WIRE` — the index neither filters,
+searches nor renders it, and the field carries a whole-chamber tally plus every club's
+line, i.e. more bytes than the rest of a row put together. It stays on `/zakony/[cislo]`.
+`publicWire.test.ts` holds that adressably, with a non-empty fixture so the assertion has
+something to fail on.
+
+**Population, printed on the surface.** Of 2 075 valid PSP10 roll calls, 473 link to at
+least one print and 1 602 do not (828 of them procedural, carrying `bod = 0`). Measured
+2026-09-04; the writer has not been run against the live store, so until it is, every
+dossier renders this block empty — an honest empty state, not a failure.
+
+## 2026-09-04 — the gate state is READ, and an absent one renders as absent (G2, deck #5)
+
+`getLawData.ts:201` used to be `reviewState: state ?? "pending_review"`. That
+default was not a harmless fallback — it was a fabrication with a very specific
+shape: **it promised a queue.** „Pending review" says a human will get to this,
+and until today no writer of `forensic_review_state` existed anywhere in the
+tree (grep found readers in `triage-core.ts` and this loader, and nothing else).
+So `/zakony` printed `pending_review · 141` beside an „ungated" note and meant
+nothing by either.
+
+Two changes, and they are one change:
+
+1. **The default is gone.** `LawForensicView.reviewState` is `string | null`,
+   and a bill with no stored state renders as HAVING NO STATE
+   (`forensic.reviewStateAbsent`). `ForensicReviewStateCount.state` is nullable
+   for the same reason and „no stored gate state" is its OWN bucket in the index
+   line — merging it into `pending_review` was exactly the conflation being
+   removed. It sorts last on a count tie, because it has no token to compare and
+   pretending it has an empty one would hide it among the others.
+
+2. **There is now a writer.** `ReviewRepository.setReviewState({ kind:
+   "bill_verdict", billId })` writes `forensic_review_state` after appending a
+   chained audit row, in one transaction, with the same terminal-reject and
+   reasoned-reversal rules money ties have had since batch 004. The bill detail
+   prints the decider beside the state when one exists.
+
+**What the surface still refuses.** It does not rank severity, it does not
+translate an unknown token, and it does not infer a state from the presence of a
+verdict. A bill that carries `forensic_severity` and no gate state is a machine
+finding nobody has looked at, and that is what it says.
+
+**Measured.** Bill forensic verdicts with a writer: 0 → 1 code path (the one
+door). Fabricated `pending_review` labels on this surface: 141 → 0. The decided
+count is 0 today and the surface says 0 of its real denominator, which is the
+first time that sentence has been true here.
+
+**Carry-over.** `/overeni`'s gate modifier for bill claims and the
+`/penize/kontrola` lane for this kind are out of this wave by design; the
+`/admin` coverage board is the first door.
+
+**A collision pair's batch is the batch of its file (2026-09-07, scan-sweep,
+bounty-hunter).** `/zakony/kolize` resolved the batch badge and the method
+sentence under each pair by PAIR ID through a ladder of per-file id sets. Pair
+ids are not unique across payloads: the same two prints get re-read on a later
+topology, and 18 ids occur in more than one file. The ladder gave both rows the
+batch it checked first, so four rendered pairs described a batch that did not
+produce them (102-111 and 7-221 from batch 008 read as 009; 85-88 and 4-121 from
+batch 004 read as 009 and 005). `collisionBatch.ts` dates a row by its file and
+carries the per-batch method sentence; `collisionBatch.test.ts` reads the real
+payload directory and pins that shared ids resolve to distinct batches. The three
+`collision-close-reads-groupN.json` files stay unloaded on purpose: they are the
+per-army-group inputs whose union is the batch-003 file, and loading them would
+double every batch-003 pair.
+
+**One definition each for the print URL, the origin order and the law-id parser
+(2026-09-07, scan-sweep, parity-auditor).** `CollisionsPage` built its own psp.cz
+history address beside `lawwatchLabels.pspBillUrl`; `LawWatchPage` and
+`BillBrowser` each spelled the origin display order; `getLawData` parsed a law
+urn with its own `.replace()` beside `statuteRef.refFromLawNodeId`. All four now
+read the shared definition, and `lawwatchLabels.test.ts` pins `pspBillUrl` and
+`esbirkaUrl` byte-for-byte to the addresses `lib/kg/sourceLinks.ts` builds (they
+were held together by a comment) and gives `citationRef` its first tests.
+
+**2026-09-07 — the collision-radar feeds read the feeds' one origin definition (scan-sweep, parity-auditor).** `feed.json` and `feed.xml` under `/zakony/kolize` each carried a local `host` + `x-forwarded-proto` copy — the fifth and sixth in the tree — while `/denik` and `/dukazy` share `requestOrigin` from `features/denik/feedRequest.ts` (itself on `lib/routing/liveUrl.ts` since round 39). Both radar feeds now import it; `lib/testing/legislationRouteSource.test.ts` forbids the copy.
+
+**2026-09-07 — a radar feed's 503 is never cached (scan-sweep, parity-auditor).** The dukazy feeds send `cache-control: no-store` with their 503 (2026-09-05) so an outage is not stored by a proxy as the feed's answer; the two collision-radar feeds sent a bare 503. Both now carry the header.

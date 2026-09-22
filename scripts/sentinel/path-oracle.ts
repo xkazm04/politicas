@@ -37,6 +37,8 @@ import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } 
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { KG_NODE_KINDS } from "@/lib/analysis/kg-verdict";
+import { gateOf, provenanceOf } from "@/features/graph/edgeGate";
+import { pendingFromGate } from "@/features/graph/graphTypes";
 
 const ORACLE = resolve("lib/testing/sentinel/path-oracle.json");
 
@@ -94,8 +96,11 @@ async function main(): Promise<number> {
     const pg = await open();
     try {
       const kg = makeKgRepo(pg);
-      // Same edge set the loader builds paths over (graphLoader.ts:684-707): endpoints must
-      // be nodes of a KNOWN kind, `pending` is read from review_state.
+      // Same edge set the loader builds paths over (graphLoader.ts): endpoints must be
+      // nodes of a KNOWN kind, and the human gate is read through the ONE interpretation
+      // of `review_state` (`gateOf`, which wraps the receipt layer's `gateFromEdge`).
+      // Since 2026-09-04 that is three states, not a boolean: `buildAdjacency` refuses to
+      // traverse a `rejected` hop, so the oracle's paths are the reader's paths.
       const known = new Set(
         (await kg.listKgNodes({ limit: KG_READ_CAP }))
           .filter((n) => (KG_NODE_KINDS as readonly string[]).includes(n.kind))
@@ -109,7 +114,16 @@ async function main(): Promise<number> {
           .map((e) => {
             const ref = typeof e.provenance?.ref === "string" ? e.provenance.ref : "(no ref)";
             cite.set(`${e.src}|${e.rel}|${e.dst}`, ref);
-            return { src: e.src, dst: e.dst, rel: e.rel, weight: e.weight, pending: e.props.review_state === "pending_review" };
+            const gate = gateOf(e);
+            return {
+              src: e.src,
+              dst: e.dst,
+              rel: e.rel,
+              weight: e.weight,
+              pending: pendingFromGate(gate),
+              gate,
+              provenance: provenanceOf(e),
+            };
           }),
       );
 

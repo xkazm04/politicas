@@ -1,0 +1,67 @@
+{
+  "schema": "lighttrack-use-cases/1",
+  "project": "politicas",
+  "generated_at": "2026-09-05",
+  "note": "Declared LLM call sites. The shipped app runtime calls no LLM; these are offline tooling plus one batch job whose output reaches the product. Registered into LightTrack via `lt use-cases register`; the gap between this declaration and observed events.name is the coverage report.",
+  "use_cases": [
+    {
+      "key": "bench.sem_filter",
+      "name": "Semantic filter benchmark",
+      "description": "Benchmarks a LOTUS-style sem_filter operator that labels a batch of items match/no-match with a confidence score, to compare against a deterministic baseline.",
+      "kind": "classification",
+      "status": "active",
+      "component": "scripts/hybrid-bench/semop.ts (semFilter)",
+      "expected_models": ["haiku", "opus"],
+      "owner": "politicas"
+    },
+    {
+      "key": "bench.sem_agg",
+      "name": "Semantic aggregation benchmark",
+      "description": "Benchmarks a sem_agg operator that either aggregates vote counts or narrates known facts into a headline/summary for a voting session.",
+      "kind": "summarization",
+      "status": "active",
+      "component": "scripts/hybrid-bench/agg-op.ts (semAgg)",
+      "owner": "politicas"
+    },
+    {
+      "key": "bench.sem_join",
+      "name": "Semantic join benchmark",
+      "description": "Benchmarks a sem_join operator that links a noisy candidate name to the correct registry entry (or abstains), scored for positive-accuracy, negative-abstain and fabrication rate.",
+      "kind": "extraction",
+      "status": "active",
+      "component": "scripts/hybrid-bench/join.ts",
+      "expected_models": ["haiku", "sonnet", "opus"],
+      "owner": "politicas"
+    },
+    {
+      "key": "bench.sem_derive",
+      "name": "Semantic derive benchmark",
+      "description": "Benchmarks a sem_derive operator that derives numeric vote-tally fields (n_votes, acceptance rate, margins, etc.) from raw vote records, compared against ground truth.",
+      "kind": "extraction",
+      "status": "active",
+      "component": "scripts/hybrid-bench/derived.ts",
+      "expected_models": ["haiku", "sonnet", "opus"],
+      "owner": "politicas"
+    },
+    {
+      "key": "product.vote_theme_classify",
+      "name": "Vote theme classification",
+      "description": "Batch-classifies each roll-call vote into a policy theme and writes the result into the PGlite vote_tag table; this is the one call site whose output reaches the shipped product, since VoteTrack's theme filter reads vote_tag directly.",
+      "kind": "classification",
+      "status": "active",
+      "component": "scripts/hybrid-bench/materialize-tags.ts",
+      "expected_models": ["haiku"],
+      "owner": "politicas"
+    },
+    {
+      "key": "dev.impeccable_copy_edit_apply",
+      "name": "Impeccable copy-edit apply agent",
+      "description": "Dev-tool skill that runs a copy-edit batch through the Claude or Codex CLI (env-selectable) to apply live copy edits directly to source files.",
+      "kind": "agent",
+      "status": "active",
+      "component": ".claude/skills/impeccable/scripts/live-copy-edit-agent.mjs (runCopyEditBatchAgent)",
+      "mutates_working_tree": true,
+      "owner": "politicas"
+    }
+  ]
+}

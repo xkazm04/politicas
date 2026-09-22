@@ -29,8 +29,8 @@ import { hasStaleOngoingFlag } from "./tieFlags";
 import {
   buildRegistryLinks,
   parsePeriod,
+  reviewStateOf,
   type ReviewQueue,
-  type ReviewState,
   type ReviewTie,
 } from "./reviewTypes";
 
@@ -53,6 +53,14 @@ async function loadAuditByEdge(): Promise<Map<string, ReviewAuditRow[]>> {
     const store = await getStore();
     if (!store) return byEdge;
     const rows = await store.listReviewAudit({ limit: AUDIT_READ_CAP });
+    // A read that fills its cap has DROPPED the oldest rows (newest first), and the console
+    // would then print „auditní stopa žádný záznam nevede“ under a tie that has one. Say
+    // so where an operator reads it; the page still renders.
+    if (rows.length >= AUDIT_READ_CAP) {
+      console.warn(
+        `[getVerificationQueue] review audit read filled its cap (${AUDIT_READ_CAP} rows); the oldest histories are missing from the console`,
+      );
+    }
     for (const r of rows) {
       const key = edgeKey(r.src, r.dst);
       const list = byEdge.get(key);
@@ -84,9 +92,9 @@ export async function getVerificationQueue(): Promise<ReviewQueue | null> {
     const ties: ReviewTie[] = [];
     const decided: ReviewTie[] = [];
     for (const e of linked) {
-      const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-      const reviewState: ReviewState =
-        rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
+      // ONE vocabulary (reviewTypes.reviewStateOf) — the ledger mapper reads the same two
+      // prop names; the narrowing used to be a third hand-spelled ternary here.
+      const reviewState = reviewStateOf(e.props?.review_state ?? e.props?.state);
 
       const comp = companyById.get(e.dst);
       const pspId = pspIdFromNodeId(e.src);

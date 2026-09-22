@@ -38,6 +38,7 @@
  *   PGLITE_PATH=./.pglite-copy-money-b9 npx tsx scripts/case-loops/money/canonicalize-ico-nodes.ts --commit
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
 const PAYLOAD_PATH = "docs/data-analysis/case-money/payloads/batch-009-ico-canonicalization.json";
@@ -73,7 +74,7 @@ async function main() {
   console.log(`IČO canonicalization (batch 009, Q-money-18) · ${commit ? "COMMIT" : "DRY-RUN"}`);
   console.log(`  target data dir: ${process.env.PGLITE_PATH || "./.pglite"}\n`);
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
   const byId = new Map(companies.map((c) => [c.id, c]));
 
   // Identify the malformed set by QUERYING, never by hardcoding the list.
@@ -85,7 +86,7 @@ async function main() {
 
   // Every edge in the graph, so we can find (and later verify the absence of) references.
   const edgesByRel = new Map<string, KgEdgeRow[]>();
-  for (const rel of ALL_RELS) edgesByRel.set(rel, await store.listKgEdges({ rel, limit: 200_000 }));
+  for (const rel of ALL_RELS) edgesByRel.set(rel, await store.listKgEdges({ rel, limit: KG_READ_CAP }));
   const allEdges = [...edgesByRel.values()].flat();
 
   const moves: Move[] = [];
@@ -186,7 +187,7 @@ async function main() {
     const de = await store.deleteKgEdges(edgeDeletes);
     // Verify nothing still references the malformed ids before deleting the nodes.
     const after = (
-      await Promise.all(ALL_RELS.map((rel) => store.listKgEdges({ rel, limit: 200_000 })))
+      await Promise.all(ALL_RELS.map((rel) => store.listKgEdges({ rel, limit: KG_READ_CAP })))
     ).flat();
     const stillReferenced = nodeDeletes.filter((id) => after.some((e) => e.src === id || e.dst === id));
     if (stillReferenced.length) {

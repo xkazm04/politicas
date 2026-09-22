@@ -30,6 +30,7 @@ import { Gavel, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { workhorseFlavourCopy, type WorkhorseFlavour } from "@/lib/analysis/workhorse-flavour";
+import VerdictProvenance, { type VerdictRungName } from "@/features/shared/components/VerdictProvenance";
 
 const ICON: Record<WorkhorseFlavour, typeof Gavel> = {
   legislative: Gavel,
@@ -41,6 +42,9 @@ export default function WorkhorseBadge({
   speechTurns = null,
   recordedAt = null,
   compact = false,
+  rung = null,
+  decidedBy = null,
+  decidedAtLabel = null,
 }: {
   flavour: string | null;
   /** `speech_turns` — vystoupení v sále; číslo, o které se „tichý" opírá. Null = údaj chybí. */
@@ -48,6 +52,13 @@ export default function WorkhorseBadge({
   /** ISO datum záznamu verdiktu (`effort_provenance.computedAt`), nebo null. */
   recordedAt?: string | null;
   compact?: boolean;
+  /** Stupeň žebříčku tvrzení (lib/analysis/verdict-provenance.ts). `null` = loop
+   *  stupeň nezapsal — pak se NEDOPLŇUJE „machine", stupeň se prostě netiskne,
+   *  protože domýšlet původ je totéž co ho vymyslet. */
+  rung?: VerdictRungName | null;
+  decidedBy?: string | null;
+  /** Už zformátované datum rozhodnutí (volající přes useFormat). */
+  decidedAtLabel?: string | null;
 }) {
   const t = useTranslations("civicscore");
   // Verdiktní slovník je vlastní jmenný prostor (`verdicts`): do 2026-08-12 to
@@ -58,6 +69,21 @@ export default function WorkhorseBadge({
   const f = useFormat();
   const copy = workhorseFlavourCopy(flavour);
   if (!copy) return null;
+
+  // ZAMÍTNUTÝ VERDIKT SE ZAMLČUJE, NEVYPRÁZDNÍ SE (G2, 2026-09-04). Zmizelý
+  // štítek by čtenář četl jako „tenhle poslanec tichý pracant NENÍ" — druhé
+  // tvrzení, vyslovené mlčky, o kterém nikdo nerozhodl.
+  if (rung === "rejected") {
+    return (
+      <VerdictProvenance
+        rung="rejected"
+        withheld
+        decidedBy={decidedBy}
+        decidedAtLabel={decidedAtLabel}
+        compact={compact}
+      />
+    );
+  }
   const Icon = ICON[flavour as WorkhorseFlavour];
 
   const turns = speechTurns != null ? f.int(speechTurns) : null;
@@ -71,14 +97,24 @@ export default function WorkhorseBadge({
     : "gap-1.5 border-2 px-2.5 py-1 text-[11px]";
 
   return (
-    <span
-      title={claim}
-      className={`inline-flex items-center border-cobalt bg-cobalt/5 font-mono font-bold uppercase tracking-wider text-cobalt ${size}`}
-    >
-      <Icon className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
-      {tv(copy.badgeKey)}
-      {turns && <span className="tabular-nums">· {t("workhorseTurnsShort", { turns })}</span>}
-      <span className="sr-only"> — {claim}</span>
+    <span className="inline-flex items-center gap-1">
+      <span
+        title={claim}
+        className={`inline-flex items-center border-cobalt bg-cobalt/5 font-mono font-bold uppercase tracking-wider text-cobalt ${size}`}
+      >
+        <Icon className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
+        {tv(copy.badgeKey)}
+        {turns && <span className="tabular-nums">· {t("workhorseTurnsShort", { turns })}</span>}
+        <span className="sr-only"> — {claim}</span>
+      </span>
+      {rung && (
+        <VerdictProvenance
+          rung={rung}
+          decidedBy={decidedBy}
+          decidedAtLabel={decidedAtLabel}
+          compact={compact}
+        />
+      )}
     </span>
   );
 }

@@ -85,9 +85,13 @@ describe("glyphPath", () => {
   });
 
   it("souřadnice jsou zaokrouhlené — SSR a CSR musí vyjít stejně", () => {
-    for (const shape of ["pentagon", "hexagon"] as const) {
-      for (const n of glyphPath(shape, 9).match(/-?\d+\.\d+/g) ?? []) {
-        expect(n.split(".")[1].length, `${shape}: ${n}`).toBeLessThanOrEqual(2);
+    // VŠECHNY tvary, ne jen mnohoúhelníky: trojúhelník násobí r desetinným
+    // koeficientem a do 2026-09-08 vysázel `7.700000000000001` (r = 7).
+    for (const shape of ALL_GLYPH_SHAPES) {
+      for (const r of [6, 7, 9, 5.5]) {
+        for (const n of glyphPath(shape, r).match(/-?\d+\.\d+/g) ?? []) {
+          expect(n.split(".")[1].length, `${shape} r=${r}: ${n}`).toBeLessThanOrEqual(2);
+        }
       }
     }
   });

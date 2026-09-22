@@ -12,9 +12,42 @@ import { readFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
 import { jargonViolationDetails } from "@/lib/analysis/public-copy";
 import { committeeClaimWarnings } from "@/lib/analysis/committee-claims";
+import { isLowScoreReason } from "@/lib/analysis/low-score-reason";
+
+/**
+ * Every verdict rung a proposal carries that a SCRIPT is not allowed to author.
+ * `machine` is the only legal value on the way in; anything else — including a
+ * `pending_review` a batch invented — has to come from the door, with a reviewer
+ * and an audit row behind it. Exported so the rule is testable without booting
+ * the store the rest of this gate needs.
+ */
+export function verdictRungViolations(props: Record<string, unknown>): string[] {
+  const prov = props.effort_provenance;
+  if (!prov || typeof prov !== "object" || Array.isArray(prov)) return [];
+  const verdicts = (prov as { verdicts?: unknown }).verdicts;
+  if (!verdicts || typeof verdicts !== "object" || Array.isArray(verdicts)) return [];
+  const out: string[] = [];
+  for (const [field, entry] of Object.entries(verdicts as Record<string, unknown>)) {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+      out.push(`${field} — verdict entry is not an object`);
+      continue;
+    }
+    const state = (entry as { review_state?: unknown }).review_state;
+    if (state !== "machine") {
+      out.push(`${field} — review_state ${JSON.stringify(state)} (only "machine" may be authored by a batch)`);
+    }
+    if ((entry as { decided_by?: unknown }).decided_by !== undefined) {
+      out.push(`${field} — carries decided_by; only the review door names a decider`);
+    }
+  }
+  return out;
+}
 
 const FORBIDDEN_PROP = /^(contribution_score|participation_rate|committee_count|leadership_count|absence_rate|bills_authored|interpellations|speech_turns|contribution_provenance)$/;
-const LOW_SCORE_REASONS = new Set(["minister", "deputy_pm", "prime_minister", "opposition_leader", "replacement", "new_mp", "dual_mandate", "genuine_absentee", "low_legislative_output", "declined_mandate", "institutional_promotion", "unknown"]);
+// The closed vocabulary is READ from lib/analysis/low-score-reason.ts (the module the
+// badge renders from), never copied here: until 2026-09-06 this file carried its own
+// twelve-value Set, so a reason added to the badge would have been dropped at the gate
+// with no failing test - the same fork the batch-010 committee scan already paid for.
 
 // ── Q-effort-11 (batch 004): prose-vs-props cross-check ──────────────────────
 // A deterministic sibling of the Opus-verification lesson from batch 003:
@@ -197,8 +230,20 @@ async function main() {
     }
     // effort_low_score_reason, if present, must be from the closed vocabulary
     const reason = prop.props.effort_low_score_reason as string | undefined;
-    if (reason !== undefined && !LOW_SCORE_REASONS.has(reason)) {
+    if (reason !== undefined && !isLowScoreReason(reason)) {
       drops.push(`${prop.id} (${prop.name}) — effort_low_score_reason "${reason}" not in the closed vocabulary`);
+      continue;
+    }
+    // ── G2 (deck #12): a batch may not author a rung above `machine` ─────────
+    // The whole point of the review door is that a HUMAN raises a verdict off
+    // the bottom rung, through ReviewRepository.setReviewState, leaving an audit
+    // row. A payload that arrives already claiming `verified` would put a
+    // human-confirmed label on a reader-facing badge about a named person with
+    // nobody's name behind it and nothing in the chain. Dropped, not warned:
+    // there is no legitimate reason for a batch to carry one.
+    const rungViolations = verdictRungViolations(prop.props);
+    if (rungViolations.length) {
+      drops.push(`${prop.id} (${prop.name}) — verdict rung(s) a batch may not author: ${rungViolations.join(" · ")}`);
       continue;
     }
     // Q-effort-14: public-copy check on verbatim-rendered fields (batch 006).

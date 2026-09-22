@@ -3,6 +3,7 @@
 // plátno z nich potřebuje jen štítek a druh. Detail se dotahuje až na kliknutí.
 
 import type { KgNodeKind, SourceLink } from "@/lib/kg/sourceLinks";
+import type { GraphProvenance } from "@/lib/kg/graphProvenance";
 
 export interface GraphNode {
   id: string;
@@ -18,13 +19,49 @@ export interface GraphNode {
   mark?: boolean;
 }
 
+/**
+ * TŘI STAVY LIDSKÉ BRÁNY, ne jeden boolean.
+ *
+ * `kg_edge.props.review_state` má tři hodnoty a `rejected` je TERMINÁLNÍ stav,
+ * který v grafu ZŮSTÁVÁ (jediný zapisovatel je ReviewRepository). Do 2026-09-04
+ * je celá plocha grafu srážela na `pending: boolean`, takže člověkem ZAMÍTNUTÁ
+ * vazba se kreslila plnou čarou, řadila se jako doložený krok a v balíčku
+ * důkazů odcházela jako `review_state: verified` — nejhůř opravitelný artefakt
+ * produktu certifikoval lidské odmítnutí jako ověření.
+ *
+ * `null` = relace lidskou branou NEPROCHÁZÍ (deterministické odvození, viz
+ * `GATED_RELS` v features/shared/provenance/receipt.ts). Není to „ověřeno" ani
+ * „čeká" — je to „nemá co ověřovat", a plocha to musí umět říct.
+ */
+export type GateStatus = "verified" | "pending_review" | "rejected";
+
+/** Provenience hrany — {pass, method, ref} doslova z `kg_edge.provenance`;
+ *  null = hrana žádnou nenese (a nedosazuje se žádná). */
+export interface EdgeProvenance {
+  pass: number | null;
+  method: string | null;
+  ref: string | null;
+}
+
+/** Odvozený stav „čárkovaně" pro jeviště. JEDINÁ definice — do 2026-09-04 ji
+ *  loader opisoval na třech místech jako `review_state === "pending_review"`. */
+export const pendingFromGate = (gate: GateStatus | null): boolean => gate === "pending_review";
+
 export interface GraphEdge {
   src: string;
   dst: string;
   rel: string;
   weight: number | null;
-  /** Hrana čeká na lidskou kontrolu (review_state) — kreslí se čárkovaně. */
+  /**
+   * ODVOZENÉ pole, drží se kvůli jevišti: `gate === "pending_review"`.
+   * POZOR — `pending: false` NEZNAMENÁ „ověřeno": znamená jen „nečeká".
+   * Kdo se ptá na doloženost, ptá se `gate`, ne tohohle.
+   */
   pending: boolean;
+  /** Stav lidské brány; null = negated relace (deterministické odvození). */
+  gate: GateStatus | null;
+  /** Provenience záznamu; null = hrana ji nenese. */
+  provenance: EdgeProvenance | null;
   /** Trvalý štítek hrany (agregáty, částky) — kreslí se přes režii popisků. */
   label?: string;
   /** Hrana se kreslí až od tohoto přiblížení (smluvní spoje v mapě). */
@@ -102,6 +139,8 @@ export interface Trail {
   columns: string[];
   nodes: TrailNode[];
   edges: GraphEdge[];
+  /** Provenience hran TÉTO trasy po relacích — citace nese i to, čím vznikla. */
+  provenance: GraphProvenance;
 }
 
 /** Jeden krok důkazní cesty „Spoj dva body" — sazený řádek účetní knihy. */
@@ -111,8 +150,15 @@ export interface PathLedgerRow {
   from: GraphNode;
   to: GraphNode;
   rel: string;
-  /** Hrana čeká na lidskou kontrolu (review_state). */
+  /** ODVOZENÉ z `gate` (viz GraphEdge.pending) — `false` není „ověřeno". */
   pending: boolean;
+  /** Stav lidské brány kroku; null = negated relace. */
+  gate: GateStatus | null;
+  /** Provenience hrany kroku; null = hrana ji nenese. */
+  provenance: EdgeProvenance | null;
+  /** Trvalá adresa tvrzení kroku — segment do /zdroj/<ref>, aby byl každý
+   *  krok cesty sám o sobě dohledatelná účtenka. */
+  claimRef: string;
   /** Částka na smluvní hraně (supplies), jinak null — formátuje klient. */
   moneyCzk: number | null;
 }
@@ -141,6 +187,53 @@ export interface PathQueryResult {
   /** Konstanty pravidla — UI je tiskne, ne hádá. */
   maxCost: number;
   hubDegree: number;
+  /** Kolik ZAMÍTNUTÝCH hran hledání vůbec nepustilo do sousedství. Odmítnuté
+   *  tvrzení není doložená vazba — a mlčky vynechaný krok by byl druhá lež,
+   *  takže se počet tiskne (viz TrailFinder ruleNote, permalink.rule). */
+  excludedRejected: number;
+  /** Identita PRAVIDLA, kterým cesta vznikla (PATH_RULE_REF). Do otisku
+   *  vstupuje, takže „stejná cesta, jiné pravidlo" se pozná. */
+  ruleRef: string;
+  /** Provenience hran vrácených cest po relacích. */
+  provenance: GraphProvenance;
+}
+
+/** Kolik hran jedné relace se kolem uzlu ukáže / kolik jich uzel má. */
+export interface NeighbourRelCount {
+  rel: string;
+  /** Kolik hran té relace odpověď skutečně nese. */
+  shown: number;
+  /** Kolik jich uzel má celkem — KAŽDÝ STROP NESE SVOU POPULACI. */
+  total: number;
+}
+
+/**
+ * Okolí jednoho uzlu, dotažené NA VYŽÁDÁNÍ (nikdy memoizované: je to dotaz
+ * per uzel, ne artefakt procesu).
+ *
+ * Proč vůbec existuje: 48 647 zakázek a 12 467 čistě zakázkových firem je
+ * v indexu i v sousedství cest, ale ZÁMĚRNĚ ne na mapě masy — payload by nesl
+ * ~60 tisíc uzlů. Spočítaná cesta ale přes ně vést může, a jeviště pak
+ * rozsvěcelo uzly, pro které nemá pozici, a jejich hrany MLČKY zahazovalo
+ * (`if (!a || !b) continue`). Vyžádaná odpověď s vynechanými kroky je lež;
+ * okolí je způsob, jak ty kroky dokreslit, místo aby zmizely.
+ */
+export interface Neighbourhood {
+  /** Uzel, kolem kterého se okolí kreslí; null = v dnešním grafu není. */
+  anchor: GraphNode | null;
+  /** Uzly okolí S POZICEMI (deterministický prstenec kolem kotvy). */
+  nodes: MapNodeDto[];
+  edges: GraphEdge[];
+  /** Strop a jeho populace, po relacích — sestupně podle `total`. */
+  perRel: NeighbourRelCount[];
+  /** Strop na počet hran, který si odpověď sama uložila (tiskne se). */
+  limit: number;
+  /**
+   * true = ani ČTENÍ okolí se do svého stropu nevešlo, takže i `total` je
+   * spodní odhad. Strop není počítadlo: výsledek délky přesně na stropu je
+   * k nerozeznání od uříznutého, a plocha to musí přiznat, ne zamlčet.
+   */
+  readTruncated: boolean;
 }
 
 export interface GraphSeed {
@@ -150,4 +243,10 @@ export interface GraphSeed {
   totalEdges: number;
   /** Nabídnuté vstupní body: nejpropojenější uzly, na kterých má smysl začít. */
   suggested: SearchHit[];
+  /**
+   * Provenience CELÉHO grafu po relacích — kdo hrany napsal a jedním průchodem
+   * ho psal, nebo víc. Napříč relacemi je `mixed` běžný stav (průchody běží po
+   * relacích); `mixedWithinRel` je ta půlka, která znamená poloviční přepočet.
+   */
+  provenance: GraphProvenance;
 }

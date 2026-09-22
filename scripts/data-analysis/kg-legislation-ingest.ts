@@ -16,13 +16,12 @@
  *   npx tsx scripts/data-analysis/kg-legislation-ingest.ts --commit   # write
  * Flags: --commit  --term=PSP10  --pass=N  --refetch  --min-czk=1000000
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-
-import { nextPass } from "@/lib/analysis/kg";
+import { mergeComputedNodeProps, nextPass } from "@/lib/analysis/kg";
 import { normalizeLegislation, type LawBill } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
+import { guardStampedRows, makeProvenance } from "@/lib/kg/provenance";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
+import { getDump } from "./pspDump";
 
 function arg(name: string, fallback = ""): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -30,25 +29,6 @@ function arg(name: string, fallback = ""): string {
 }
 const flag = (name: string) => process.argv.includes(`--${name}`);
 const fmt = (n: number) => new Intl.NumberFormat("cs-CZ").format(Math.round(n));
-
-const CACHE_DIR = process.env.PSP_CACHE_DIR || "./.data/psp";
-const PSP_BASE = "https://www.psp.cz/eknih/cdrom/opendata";
-const UA = "politicas-ingest/0.1 (+https://www.psp.cz/sqw/hp.sqw?k=1300; open-data mirror)";
-async function getDump(fileName: string, refetch: boolean): Promise<Uint8Array | null> {
-  mkdirSync(CACHE_DIR, { recursive: true });
-  const path = join(CACHE_DIR, fileName);
-  if (!refetch && existsSync(path)) return new Uint8Array(readFileSync(path));
-  try {
-    const res = await fetch(`${PSP_BASE}/${fileName}`, { headers: { "user-agent": UA }, signal: AbortSignal.timeout(180_000) });
-    if (!res.ok) return null;
-    const bytes = new Uint8Array(await res.arrayBuffer());
-    writeFileSync(path, bytes);
-    return bytes;
-  } catch (e) {
-    console.warn(`  [getDump ${fileName}] ${e instanceof Error ? e.message : e}`);
-    return null;
-  }
-}
 
 const lawUrn = (ref: string) => `law:sb:${ref.replace("/", "-")}`; // "37/2021" → law:sb:37-2021
 const billUrn = (tiskId: number) => `bill:tisk:${tiskId}`;
@@ -89,6 +69,12 @@ async function main() {
       contractCzkByCompany.set(e.src, (contractCzkByCompany.get(e.src) ?? 0) + (typeof e.weight === "number" ? e.weight : 0));
     }
   }
+  // The nodes as stored, by id: bill nodes carry later-added props (summary_cz,
+  // forensic_*, amends_*, sponsors_ranked, stav …) that a from-scratch rebuild
+  // would wholesale-erase — kg-bill-roles-ingest's header said so about THIS writer
+  // and the hazard stayed in place until 2026-09-06. Computed props win, every other
+  // stored prop survives; firstSeenPass records the pass that CREATED the node.
+  const nodeById = new Map(nodes.map((n) => [n.id, n]));
   const contributionByPerson = new Map<number, number>();
   const personNodeIds = new Set<string>();
   for (const n of nodes) {
@@ -113,7 +99,17 @@ async function main() {
   const bills: LawBill[] = normalizeLegislation(tiskyZip, termPspId);
   const pass = Number(arg("pass")) || nextPass(nodes);
   const computedAt = new Date().toISOString();
-  const provenance = { pass, method: "deterministic", ref: "psp-tisky", computedAt };
+  const allowUnstamped = flag("allow-unstamped");
+  // The ref stays "psp-tisky" (what pass 11 stamped, and what the stored rows
+  // carry); the SOURCE is the key the atlas declares for this adapter,
+  // `psp-tisky-law`. They differ on purpose and the difference is now visible
+  // instead of being the reason nobody could join a bill row to a run — see
+  // lib/analysis/atlas.ts, which recorded exactly this mismatch as a finding.
+  const provenance = {
+    method: "deterministic",
+    computedAt,
+    ...makeProvenance({ source: "psp-tisky-law", pass, ref: "psp-tisky", writer: "kg-legislation-ingest" }),
+  };
 
   const byOrigin = new Map<string, number>();
   for (const b of bills) byOrigin.set(b.origin, (byOrigin.get(b.origin) ?? 0) + 1);
@@ -140,11 +136,12 @@ async function main() {
     }
     const flaggedConflict = maxCompanies > 0 && maxCzk >= minCzk;
 
+    const prev = nodeById.get(billUrn(b.tiskId));
     billNodes.push({
       id: billUrn(b.tiskId),
       kind: "bill",
       label: (b.title ?? `tisk ${b.cislo ?? b.tiskId}`).slice(0, 200),
-      props: {
+      props: mergeComputedNodeProps(prev?.props, {
         cislo: b.cislo,
         druh: b.druh,
         origin: b.origin,
@@ -156,8 +153,8 @@ async function main() {
         sponsor_contract_czk: maxCzk,
         sponsor_min_contribution: minContribution,
         flagged_conflict: flaggedConflict,
-      },
-      firstSeenPass: pass,
+      }),
+      firstSeenPass: prev?.firstSeenPass ?? pass,
       provenance,
     });
     for (const id of graphSponsors) {
@@ -165,7 +162,18 @@ async function main() {
     }
     for (const ref of b.amendedLaws) {
       const urn = lawUrn(ref);
-      if (!lawNodes.has(urn)) lawNodes.set(urn, { id: urn, kind: "law", label: `zákon č. ${ref} Sb.`, props: { ref }, firstSeenPass: pass, provenance });
+      if (!lawNodes.has(urn)) {
+        // A law node may already carry esbirka_title / esbirka_exists (esbirka-laws.ts).
+        const prev = nodeById.get(urn);
+        lawNodes.set(urn, {
+          id: urn,
+          kind: "law",
+          label: prev?.label ?? `zákon č. ${ref} Sb.`,
+          props: mergeComputedNodeProps(prev?.props, { ref }),
+          firstSeenPass: prev?.firstSeenPass ?? pass,
+          provenance,
+        });
+      }
       edgeRows.push({ src: billUrn(b.tiskId), rel: "amends", dst: urn, weight: null, props: {}, provenance });
     }
   }
@@ -184,7 +192,10 @@ async function main() {
   }
 
   if (commit) {
-    const n = await store.upsertKgNodes([...billNodes, ...lawNodes.values()]);
+    const allNodes = [...billNodes, ...lawNodes.values()];
+    guardStampedRows(allNodes, { allowUnstamped, label: "kg-legislation-ingest nodes" });
+    guardStampedRows(edgeRows, { allowUnstamped, label: "kg-legislation-ingest edges" });
+    const n = await store.upsertKgNodes(allNodes);
     const e = await store.upsertKgEdges(edgeRows);
     console.log(`\nCOMMITTED: ${n} nodes + ${e} edges (pass ${pass}).`);
   } else {

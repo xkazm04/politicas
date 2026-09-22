@@ -11,19 +11,21 @@
  * live extractor), and compares real vs recorded amends counts per bill.
  *
  *   PGLITE_PATH=./.pglite-copy-law npx tsx scripts/case-loops/law/amends-census.ts
- * → docs/data-analysis/case-law/payloads/amends-census.json
- * → docs/data-analysis/case-law/payloads/amended-laws-full-proposal.json
+ * → docs/data-analysis/case-law/payloads/batch-008-amends-census.json          (CENSUS_OUT)
+ * → docs/data-analysis/case-law/payloads/batch-008-amended-laws-full-proposal.json (PROPOSAL_OUT)
+ *
+ * The fetch/cache/pdftotext pipeline is tiskText.ts (scan-sweep 2026-09-06) — it was a byte copy
+ * of collision-check.ts's that had already grown apart (the NFC fix landed here only); the shared
+ * module also classifies refusals, so a 503 from psp.cz is retried instead of skipping the bill.
  */
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { execFileSync } from "node:child_process";
+import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { LAW_CITATION } from "@/lib/ingest/sources/psp-legislation";
 import { getStore } from "@/lib/db/store";
+import { BASE, CACHE_DIR, extractText, fetchIndexHtml, fetchPdf, parseIndex } from "./tiskText";
 
-const CACHE_DIR = ".data/law-collision-cache";
-const PDFTOTEXT_BIN = existsSync("/clangarm64/bin/pdftotext") ? "/clangarm64/bin/pdftotext" : "pdftotext";
-const BASE = "https://www.psp.cz/sqw/text/";
 const CONCURRENCY = 4;
 
 // batch-008: re-run after the F1 fix (round-2 audit — clip the Čl. block's forward heading
@@ -33,98 +35,6 @@ const CENSUS_OUT = "docs/data-analysis/case-law/payloads/batch-008-amends-census
 const PROPOSAL_OUT = "docs/data-analysis/case-law/payloads/batch-008-amended-laws-full-proposal.json";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
-async function fetchWithRetry(url: string, opts: { timeoutMs: number }, attempts = 4): Promise<Response> {
-  let lastErr: unknown;
-  for (let i = 0; i < attempts; i++) {
-    try {
-      return await fetch(url, { signal: AbortSignal.timeout(opts.timeoutMs) });
-    } catch (e) {
-      lastErr = e;
-      if (i < attempts - 1) await sleep(500 * 2 ** i);
-    }
-  }
-  throw lastErr;
-}
-
-interface IndexEntry {
-  header: string;
-  idd: string;
-  filename: string;
-}
-function parseIndex(html: string): IndexEntry[] {
-  const headers: { idx: number; text: string }[] = [];
-  const headerRe = /<th colspan=2 class="lightblue">([^<]+)<\/th>/g;
-  let hm: RegExpExecArray | null;
-  while ((hm = headerRe.exec(html))) headers.push({ idx: hm.index, text: hm[1].replace(/&nbsp;/g, " ").trim() });
-  const pdfRe = /<span class="file pdf"><a href="([^"]+)" title="Dokument PDF">([^<]+)<\/a>/g;
-  const results: IndexEntry[] = [];
-  let pm: RegExpExecArray | null;
-  while ((pm = pdfRe.exec(html))) {
-    const href = pm[1];
-    const filename = pm[2];
-    const iddMatch = href.match(/idd=(\d+)/);
-    if (!iddMatch) continue;
-    let header = "";
-    for (const h of headers) {
-      if (h.idx < pm.index) header = h.text;
-      else break;
-    }
-    results.push({ header, idd: iddMatch[1], filename });
-  }
-  return results;
-}
-
-async function fetchIndexHtml(cislo: number): Promise<string> {
-  const cacheFile = path.join(CACHE_DIR, `tisk-${cislo}`, "index.html");
-  if (existsSync(cacheFile)) return readFileSync(cacheFile, "utf8");
-  const url = `https://www.psp.cz/sqw/text/tiskt.sqw?o=10&ct=${cislo}&ct1=0`;
-  const res = await fetchWithRetry(url, { timeoutMs: 30_000 });
-  if (!res.ok) throw new Error(`index HTTP ${res.status}`);
-  const buf = Buffer.from(await res.arrayBuffer());
-  const html = new TextDecoder("windows-1250").decode(buf);
-  if (!/Sněmovní tisk/i.test(html)) throw new Error("index page did not contain 'Sněmovní tisk' — unexpected content");
-  mkdirSync(path.dirname(cacheFile), { recursive: true });
-  writeFileSync(cacheFile, html, "utf8");
-  return html;
-}
-
-async function fetchPdf(cislo: number, idd: string): Promise<string> {
-  const dir = path.join(CACHE_DIR, `tisk-${cislo}`);
-  mkdirSync(dir, { recursive: true });
-  const pdfPath = path.join(dir, `${idd}.pdf`);
-  if (existsSync(pdfPath)) return pdfPath;
-  const url = `${BASE}orig2.sqw?idd=${idd}`;
-  const res = await fetchWithRetry(url, { timeoutMs: 60_000 });
-  if (!res.ok) throw new Error(`pdf HTTP ${res.status}`);
-  const ct = res.headers.get("content-type") ?? "";
-  const buf = Buffer.from(await res.arrayBuffer());
-  if (!ct.includes("pdf") && buf.slice(0, 4).toString("latin1") !== "%PDF") {
-    throw new Error(`response at idd=${idd} was not a PDF (content-type: ${ct})`);
-  }
-  writeFileSync(pdfPath, buf);
-  return pdfPath;
-}
-
-function extractText(pdfPath: string): string {
-  const txtPath = pdfPath.replace(/\.pdf$/, ".txt");
-  // batch-008 latent-risk fix (adversarial audit, batch-008-audit.md): pdftotext can emit the
-  // SAME diacritic letter in two different Unicode normalization forms within ONE document (a
-  // decomposed base-letter + combining mark instead of the precomposed form — found live on tisk
-  // 36's title, see amends-regen-008.ts's titleRoleGateDrops comment for the concrete example).
-  // Every regex literal in this file that matches a diacritic character only matches the
-  // precomposed form, so an un-normalized read can silently under-match. NFC-normalize once here,
-  // at the single point every downstream extractor reads cached text through — the audit found 0
-  // realised effect on this corpus's 140 rows (re-verified below), but it is the correct fix at
-  // the source rather than requiring every caller to remember to normalize itself.
-  if (existsSync(txtPath)) return readFileSync(txtPath, "utf8").normalize("NFC");
-  const out = execFileSync(PDFTOTEXT_BIN, ["-layout", "-enc", "UTF-8", pdfPath, "-"], {
-    encoding: "utf8",
-    maxBuffer: 50_000_000,
-  }).normalize("NFC");
-  writeFileSync(txtPath, out, "utf8");
-  return out;
-}
 
 interface Skip {
   cislo: number;
@@ -221,7 +131,11 @@ function isFootnoteLine(operative: string, matchIndex: number): boolean {
 }
 
 const AMENDING_TITLE_RE = /kter(?:ým|ou|ými)\s+se\s+mění/iu;
-const PART_RE = /\n\s*ČÁST\s+([A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+)\b([^\n]*)\n/g;
+// No `\b` after the label: JS's ASCII-only word boundary sat BEFORE the last diacritic,
+// so „PRVNÍ" was reported as „PRVN" in every census row's skippedParts (until 2026-09-09) —
+// the same \w/\b trap the NON_AMEND_ART_HEADING_RE note below records. The letter class
+// already ends the label at the first non-letter.
+const PART_RE = /\n\s*ČÁST\s+([A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]+)([^\n]*)\n/g;
 const HEADING_WINDOW = 320; // how far past a ČÁST label its own "Změna …" sub-heading can sit
 const PART_CITATION_WINDOW = 1200; // citation is always near a real amending part's top
 const ART_CITATION_WINDOW = 800; // unchanged from the original Čl.-block logic
@@ -299,7 +213,7 @@ interface ExtractResult {
   repealedRefs: string[];
 }
 
-function extractRealAmendedLaws(operative: string): ExtractResult {
+export function extractRealAmendedLaws(operative: string): ExtractResult {
   const artRe = /\n\s*Čl\.\s*([IVXLCDM]+|\d+)\.?\s*\n/g;
   const arts: { label: string; idx: number }[] = [];
   let am: RegExpExecArray | null;
@@ -373,8 +287,12 @@ function extractRealAmendedLaws(operative: string): ExtractResult {
   if (parts.length > 0) {
     for (let i = 0; i < parts.length; i++) {
       const start = parts[i].idx;
-      const headingArea = operative.slice(start, Math.min(operative.length, start + HEADING_WINDOW));
       const end = i + 1 < parts.length ? parts[i + 1].idx : operative.length;
+      // The heading window must not cross into the NEXT part — the batch-008 F1 rule the
+      // Čl. branch got, applied here (2026-09-09): a ČÁST shorter than HEADING_WINDOW that
+      // does not name itself „Změna" borrowed the next part's „Změna" heading and was
+      // searched for a citation it never carries (pinned by amendsCensusExtract.test.ts).
+      const headingArea = operative.slice(start, Math.min(end, start + HEADING_WINDOW));
       const slice = operative.slice(start, Math.min(end, start + PART_CITATION_WINDOW));
       // Only a part whose OWN heading area names itself as an amendment ("Změna zákona o …", "–
       // změna …") gets its citation searched. This is what correctly excludes ČÁST PRVNÍ (the
@@ -606,7 +524,13 @@ async function main() {
   await store.close();
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(2);
-});
+// Only self-execute when run directly — `extractRealAmendedLaws` is the pure core a test
+// needs (amendsCensusExtract.test.ts), and importing this module must not start a
+// 141-bill fetch. kg-promote.ts's guard, for the same reason.
+const isDirectRun = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(2);
+  });
+}

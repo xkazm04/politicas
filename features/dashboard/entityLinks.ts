@@ -32,7 +32,10 @@ import { billEntityKey, companyEntityKey, dayAnchor, mpEntityKey } from "@/featu
 import { isEntityKey } from "@/features/schranka/followCodec";
 
 const ICO_RE = /^\d{8}$/;
-const NUM_RE = /^\d+$/;
+/** Celé KLADNÉ číslo bez vedoucích nul — jak hlavička slibuje. Do 2026-09-08
+ *  prošlo i `0` a `007` (to by se stalo klíčem `poslanec:7`, tedy jinou
+ *  entitou, než jakou id jmenuje). */
+const NUM_RE = /^[1-9]\d*$/;
 
 /**
  * Veřejný klíč entity pro uzel REÁLNÉHO výřezu, nebo null.
@@ -74,12 +77,3 @@ export function denikFactHref(entityKey: string, date: string | null): string {
   return date && /^\d{4}-\d{2}-\d{2}$/.test(date) ? `${base}#${dayAnchor(date)}` : base;
 }
 
-/** Spis firmy — junction uzel grafu; jen pro uzel firmy/peněz s platným IČO. */
-export function companyCaseFileHref(nodeId: string): string | null {
-  const sep = nodeId.indexOf(":");
-  if (sep < 0) return null;
-  const prefix = nodeId.slice(0, sep);
-  const raw = nodeId.slice(sep + 1);
-  if (prefix !== "c" && prefix !== "m") return null;
-  return ICO_RE.test(raw) ? `/penize/firma/${raw}` : null;
-}

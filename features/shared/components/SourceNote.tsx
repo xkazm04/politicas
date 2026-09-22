@@ -33,32 +33,16 @@
 
 import ProvenanceCapsule from "@/features/shared/provenance/ProvenanceCapsule";
 import type { ProvenanceReceipt } from "@/features/shared/provenance/receipt";
+// The rule itself (threshold + walker) is a pure, tested module beside this file.
+import { citationMode } from "./sourceNoteMode";
 
-/** Nad tímhle počtem znaků přestává být citace štítkem a stává se větou.
- *  48 drží „obr. 4 — ověřené veřejné zdroje" (31) štítkem a pouští
- *  „ilustrativní schéma — ilustrativní ukázka — nejde o reálná data" (63)
- *  do větné sazby. */
-export const LABEL_MAX_CHARS = 48;
+export { LABEL_MAX_CHARS } from "./sourceNoteMode";
 
 const TONE = {
   steel: "text-steel-aa",
   signal: "text-signal-deep",
   paper: "text-paper/90",
 } as const;
-
-/** Spočítá délku textu v libovolném stromu potomků — citace se běžně skládá
- *  z řetězců i vnořených prvků a rozhodnutí musí padnout na celku. */
-function textLength(node: React.ReactNode): number {
-  if (node === null || node === undefined || typeof node === "boolean") return 0;
-  if (typeof node === "string") return node.length;
-  if (typeof node === "number") return String(node).length;
-  if (Array.isArray(node)) return node.reduce<number>((n, child) => n + textLength(child), 0);
-  if (typeof node === "object" && "props" in node) {
-    const props = (node as { props?: { children?: React.ReactNode } }).props;
-    return textLength(props?.children);
-  }
-  return 0;
-}
 
 export default function SourceNote({
   children,
@@ -80,7 +64,7 @@ export default function SourceNote({
    *  Bez ní se výstup nemění ani o bajt (aditivní opt-in). */
   provenance?: ProvenanceReceipt;
 }) {
-  const mode = as ?? (textLength(children) > LABEL_MAX_CHARS ? "sentence" : "label");
+  const mode = as ?? citationMode(children);
   const type =
     mode === "label"
       ? "font-mono text-xs uppercase tracking-widest"

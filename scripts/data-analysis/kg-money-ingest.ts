@@ -17,6 +17,8 @@
  *   HLIDAC_API_TOKEN=… npx tsx scripts/data-analysis/kg-money-ingest.ts --chamber=PSP10 --commit          # full sweep
  * Flags: --commit  --pass=N  --throttle=ms(200)  --contract-pages=N(1)  --limit=N(cap MPs)
  */
+import { pathToFileURL } from "node:url";
+
 import {
   AresClient,
   HlidacClient,
@@ -42,7 +44,7 @@ import {
   type HlidacPersonDetail,
   type RosterPerson,
 } from "@/lib/analysis/money-feed";
-import { nextPass } from "@/lib/analysis/kg";
+import { mergeComputedNodeProps, nextPass } from "@/lib/analysis/kg";
 import {
   buildMoneyGraph,
   mergePreservedTieProps,
@@ -52,6 +54,7 @@ import {
   type MoneyGraph,
 } from "@/lib/analysis/kg-money";
 import { getStore } from "@/lib/db/store";
+import { guardStampedRows, makeProvenance } from "@/lib/kg/provenance";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
 function arg(name: string, fallback = ""): string {
@@ -77,17 +80,67 @@ export const tieKey = (src: string, rel: string, dst: string): string => `${src}
  */
 export function moneyGraphToKgRows(
   g: MoneyGraph,
-  opts: { pass: number; computedAt: string; ref: string; existingLinkedToProps?: Map<string, Record<string, unknown>> },
+  opts: {
+    pass: number;
+    computedAt: string;
+    ref: string;
+    /** The `ingest_run` this feed opened, when it opened one; null = none. */
+    ingestRunId?: number | null;
+    existingLinkedToProps?: Map<string, Record<string, unknown>>;
+    /**
+     * The nodes as they stand in the store, by id. D1 made the `linked_to` EDGES
+     * merge-preserving here; the NODES were still built fresh until 2026-09-06, so a
+     * re-ingest wholesale-replaced every company node's props (`upsertKgNodes` is a
+     * replace — memory/kg-upsert-replaces-props.md) and restamped `firstSeenPass`,
+     * which records the pass that CREATED the node. Computed props win, every other
+     * stored prop survives (`mergeComputedNodeProps`, the kg-compute rule).
+     */
+    existingNodes?: Map<string, { props: Record<string, unknown>; firstSeenPass: number }>;
+  },
 ): { nodes: KgNodeRow[]; edges: KgEdgeRow[] } {
-  const provenance = { pass: opts.pass, method: "deterministic", ref: opts.ref, computedAt: opts.computedAt };
+  // Per kind / per rel, because this feed lands rows from TWO registries and one
+  // stamp for both would be a guess dressed as a fact: company rows and the
+  // person->company ties come out of the OR/ARES bulk (dataor-justice-cz),
+  // contract rows and the supplies edges out of the contract register
+  // (smlouvy-gov-cz). See lib/analysis/kg-money.ts buildMoneyGraph.
+  const stamp = (source: string) => ({
+    method: "deterministic",
+    computedAt: opts.computedAt,
+    ...makeProvenance({
+      source,
+      pass: opts.pass,
+      ref: opts.ref,
+      writer: "kg-money-ingest",
+      ingestRunId: opts.ingestRunId ?? null,
+    }),
+  });
+  const COMPANY_SOURCE = "dataor-justice-cz";
+  const CONTRACT_SOURCE = "smlouvy-gov-cz";
   return {
-    nodes: g.nodes.map((n) => ({ id: n.id, kind: n.kind, label: n.label, props: n.props, firstSeenPass: opts.pass, provenance })),
+    nodes: g.nodes.map((n) => {
+      const prev = opts.existingNodes?.get(n.id);
+      return {
+        id: n.id,
+        kind: n.kind,
+        label: n.label,
+        props: mergeComputedNodeProps(prev?.props, n.props),
+        firstSeenPass: prev?.firstSeenPass ?? opts.pass,
+        provenance: stamp(n.kind === "contract" ? CONTRACT_SOURCE : COMPANY_SOURCE),
+      };
+    }),
     edges: g.edges.map((e) => {
       const props =
         e.rel === "linked_to"
           ? mergePreservedTieProps(opts.existingLinkedToProps?.get(tieKey(e.src, e.rel, e.dst)), e.props)
           : e.props;
-      return { src: e.src, rel: e.rel, dst: e.dst, weight: e.weight, props, provenance };
+      return {
+        src: e.src,
+        rel: e.rel,
+        dst: e.dst,
+        weight: e.weight,
+        props,
+        provenance: stamp(e.rel === "supplies" ? CONTRACT_SOURCE : COMPANY_SOURCE),
+      };
     }),
   };
 }
@@ -105,6 +158,7 @@ async function main() {
     process.exit(2);
   }
   const commit = flag("commit");
+  const allowUnstamped = flag("allow-unstamped");
   const throttle = Number(arg("throttle", "200")) || 200;
   const contractPages = Math.max(1, Number(arg("contract-pages", "1")) || 1);
   const limit = Number(arg("limit")) || Infinity;
@@ -127,6 +181,8 @@ async function main() {
   const existingLinkedToProps = new Map<string, Record<string, unknown>>(
     (await store.listKgEdges({ rel: "linked_to" })).map((e) => [tieKey(e.src, e.rel, e.dst), e.props]),
   );
+  // The nodes as stored, so company/contract props other passes wrote survive this run.
+  const existingNodeState = new Map(existingNodes.map((n) => [n.id, { props: n.props, firstSeenPass: n.firstSeenPass }]));
 
   console.log(`FollowTheMoney ingest · ${chamber ? `chamber ${chamber}` : `${slugs.length} slug(s)`} · pass ${pass} · ${commit ? "COMMIT" : "DRY-RUN"}\n`);
 
@@ -320,7 +376,10 @@ async function main() {
       computedAt: new Date().toISOString(),
       ref: "money-feed:hlidac+ares+registr-smluv",
       existingLinkedToProps,
+      existingNodes: existingNodeState,
     });
+    guardStampedRows(nodes, { allowUnstamped, label: "kg-money-ingest nodes" });
+    guardStampedRows(edges, { allowUnstamped, label: "kg-money-ingest edges" });
     if (commit) {
       totalNodes += await store.upsertKgNodes(nodes);
       totalEdges += await store.upsertKgEdges(edges);
@@ -341,9 +400,17 @@ async function main() {
   await store.close();
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  });
+// Only self-execute when run directly, never on import — `moneyGraphToKgRows` is
+// the pure half a test needs, and importing it used to fire main() (no token in a
+// test env ⇒ process.exit(1) as an unhandled rejection). Same guard kg-promote.ts
+// carries, and the same reason: exported purity is worth nothing if reading it
+// starts a network ingest.
+const isDirectRun = process.argv[1] != null && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isDirectRun) {
+  main()
+    .then(() => process.exit(0))
+    .catch((e) => {
+      console.error(e);
+      process.exit(1);
+    });
+}

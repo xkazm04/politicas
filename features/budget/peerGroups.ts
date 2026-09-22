@@ -13,7 +13,11 @@
 
 import type { Municipality, TownBudgetSeries } from "./mirrorData";
 
-/** Populační pásma (dolní mez včetně, horní mez vyjma; poslední bez stropu). */
+/** Populační pásma (dolní mez včetně, horní mez vyjma; poslední bez stropu).
+ *  `label` je česká podoba pravidla pro čtenáře KÓDU a pro testy; plocha sází
+ *  katalogový klíč `budget.band{i}` (messages/cs.json, en.json), aby copy šlo
+ *  přes next-intl jako všechno ostatní. Dvě deklarace jedné věty — paritu drží
+ *  peerGroups.test.ts, jinak by se rozešly potichu. */
 export const POPULATION_BANDS: readonly { min: number; max: number | null; label: string }[] = [
   { min: 0, max: 200, label: "do 199 obyvatel" },
   { min: 200, max: 500, label: "200–499 obyvatel" },
@@ -40,7 +44,10 @@ export function bandIndexFor(population: number): number {
 }
 
 export interface PeerGroup {
-  /** Vrstevníci v záznamu (bez obce samotné), seřazení podle dluhu vzestupně. */
+  /** Vrstevníci v záznamu (bez obce samotné) v POŘADÍ REJSTŘÍKU (počet obyvatel
+   *  sestupně, stabilní filtr). Tenhle modul neřadí podle žádné metriky — §03
+   *  na ploše si řadí podle dluhu sama (BudgetMirrorPage.tableRows), a do
+   *  2026-09-01 to tenhle komentář tvrdil za ni. */
   peers: Municipality[];
   bandIndex: number;
   bandLabel: string;
@@ -74,6 +81,21 @@ export function peerGroupFor(
   };
 }
 
+/** Srovnání obce s mediánem vrstevníků pro JEDNU metriku. Tři stavy, ne dva:
+ *  bez mediánu (skupina bez vzorku) nebo bez hodnoty obce není obec ani lepší,
+ *  ani horší — je nesrovnatelná. Do 2026-09-08 MetricDuo na ploše rozhodovalo
+ *  dvouhodnotově a obec bez vzorku vrstevníků sázelo signální červení, jako by
+ *  proti někomu prohrála. Rovnost je „better" (obec drží medián). */
+export type PeerComparison = "better" | "worse" | "incomparable";
+export function compareToPeer(
+  town: number | null,
+  peer: number | null,
+  lowerIsBetter: boolean,
+): PeerComparison {
+  if (town === null || peer === null) return "incomparable";
+  return (lowerIsBetter ? town <= peer : town >= peer) ? "better" : "worse";
+}
+
 /** Medián; prázdný vstup → null (medián z ničeho není 0). */
 export function median(xs: readonly number[]): number | null {
   if (xs.length === 0) return null;
@@ -93,22 +115,32 @@ export interface PeerMedians {
 }
 
 /**
- * Mediány vrstevnické skupiny nad posledním rokem řad + trend dluhu po letech.
- * Vrstevník bez vykázané hodnoty do daného mediánu nevstupuje (null ≠ 0).
+ * Mediány vrstevnické skupiny nad ROKEM `atIndex` (index do řad; výchozí
+ * poslední rok dávky) + trend dluhu po letech. Vrstevník bez vykázané hodnoty
+ * v tom roce do mediánu nevstupuje (null ≠ 0) — i kdyby jiný rok vykázal.
+ *
+ * ROK, KTERÝ PLOCHA TISKNE. MetricDuo popisuje obě hodnoty (obec i medián)
+ * rokem `latestMetrics(town).year`, tedy posledním rokem, který vykázala OBEC.
+ * Do 2026-09-01 se medián počítal vždy nad posledním rokem DÁVKY a popisek
+ * platil jen proto, že každá obec v záznamu ten rok vykázala (132/132 za 2025).
+ * Teď plocha předá index roku obce, takže „(2024)" nad oběma pruhy je pravda
+ * z konstrukce: obec s posledním výkazem 2024 se měří proti mediánu 2024, ne
+ * proti roku, který sama nevykázala. `sampleSize` říká, kolik vrstevníků ten
+ * rok vykázalo — u staršího roku bývá menší, a tiskne se, nikdy nedomýšlí.
  */
 export function peerMedians(
   peers: readonly Municipality[],
   series: ReadonlyMap<string, TownBudgetSeries>,
   yearCount: number,
+  atIndex: number = yearCount - 1,
 ): PeerMedians {
   const latestOf = (pick: (s: TownBudgetSeries) => (number | null)[]): number[] => {
     const vals: number[] = [];
     for (const p of peers) {
       const s = series.get(p.ic);
       if (!s) continue;
-      const arr = pick(s);
-      const v = arr[arr.length - 1];
-      if (v !== null) vals.push(v);
+      const v = pick(s)[atIndex];
+      if (v !== null && v !== undefined) vals.push(v);
     }
     return vals;
   };

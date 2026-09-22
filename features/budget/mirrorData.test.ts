@@ -126,4 +126,18 @@ describe("searchMunicipalities", () => {
   it("respects the limit at 6k scale", () => {
     expect(searchMunicipalities(all, "l", 12)).toHaveLength(12);
   });
+
+  it("inside one tier the larger town comes first — and the order is written in the comparator, not assumed of the input", () => {
+    // Vstup schválně zamíchaný (obrácené pořadí rejstříku): do 2026-09-01 se
+    // řazení podle obyvatel opíralo o pořadí vstupu, a 26d695a ho nahradil
+    // řazením podle IČO — „pra" vracelo Pravonín (572) před Prachaticemi (11 119).
+    const shuffled = [...all].reverse();
+    const hits = searchMunicipalities(shuffled, "pra", 5);
+    expect(hits.every((m) => foldCzech(m.name).startsWith("pra"))).toBe(true);
+    for (let i = 1; i < hits.length; i++) {
+      expect(hits[i - 1].population).toBeGreaterThanOrEqual(hits[i].population);
+    }
+    expect(hits[0].name).toBe("Prachatice");
+    expect(hits.some((m) => m.name === "Pravonín")).toBe(false);
+  });
 });

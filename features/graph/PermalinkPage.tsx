@@ -29,15 +29,16 @@ import { compactCzk } from "@/features/money/moneyTypes";
 import SectionRule from "@/features/shared/components/SectionRule";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
-import { glyphPath, KIND_STYLE } from "./kindStyle";
+import { glyphPath, KIND_FILL_CLASS, KIND_FILL_TOKEN, KIND_STYLE } from "./kindStyle";
 import {
+  gateCounts,
   HASH_ALGORITHM,
   permalinkPath,
   permalinkSources,
   type PermalinkSourceLink,
   type PermalinkView,
 } from "./permalink";
-import type { GraphNode, NodeDetail, Trail } from "./graphTypes";
+import type { GraphNode, Neighbourhood, NodeDetail, Trail } from "./graphTypes";
 
 // ── Drobné stavební kameny ──────────────────────────────────────────────────
 
@@ -45,7 +46,7 @@ function NodeGlyph({ node, className = "h-3 w-3" }: { node: GraphNode; className
   const style = KIND_STYLE[node.kind];
   return (
     <svg viewBox="-12 -12 24 24" className={`${className} shrink-0`} aria-hidden>
-      <path d={glyphPath(style.shape, 9)} fill={style.fill} />
+      <path d={glyphPath(style.shape, 9)} className={KIND_FILL_CLASS[KIND_FILL_TOKEN[node.kind]]} />
     </svg>
   );
 }
@@ -229,7 +230,9 @@ function TrasaExhibit({ trail }: { trail: Trail }) {
   const f = useFormat();
   const locale = useLocale();
 
-  const pendingEdges = trail.edges.filter((e) => e.pending).length;
+  // Táž trojice stavů, jakou počítá karta (permalinkCardModel) i OG obraz —
+  // stránka pod kartou nesmí o odmítnutém kroku mlčet, když karta ho jmenuje.
+  const gates = gateCounts(trail.edges);
   const columns = trail.columns.map((kind, i) => ({
     kind,
     nodes: trail.nodes.filter((n) => n.column === i).sort((a, b) => a.order - b.order),
@@ -245,9 +248,14 @@ function TrasaExhibit({ trail }: { trail: Trail }) {
       </div>
       <p className="border-b border-hairline px-5 py-2 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
         {t("counts", { nodes: f.int(trail.nodes.length), edges: f.int(trail.edges.length) })}
-        {pendingEdges > 0 && (
+        {gates.pending > 0 && (
           <span className="block">
-            {t("pendingEdges", { count: pendingEdges, countFmt: f.int(pendingEdges) })}
+            {t("pendingEdges", { count: gates.pending, countFmt: f.int(gates.pending) })}
+          </span>
+        )}
+        {gates.rejected > 0 && (
+          <span className="block text-signal">
+            {t("rejectedEdges", { count: gates.rejected, countFmt: f.int(gates.rejected) })}
           </span>
         )}
       </p>
@@ -275,6 +283,73 @@ function TrasaExhibit({ trail }: { trail: Trail }) {
       </div>
       <div className="border-t border-hairline px-5 py-2.5">
         <SourceNote>{tt(`trails.${trail.key}.source`)}</SourceNote>
+      </div>
+    </div>
+  );
+}
+
+
+/*
+ * [G4] OKOLÍ UZLU — čtvrtý exponát citace.
+ *
+ * Řez („nejvýš N hran") je tvrzení o celku jen tehdy, když s sebou nese ten
+ * celek: každý řádek relace proto říká `zobrazeno / celkem`, nikdy jen
+ * `zobrazeno`. Když se do svého stropu nevešlo ani ČTENÍ, je i `celkem` spodní
+ * odhad — a i to se říká, protože strop není počítadlo.
+ */
+function OkoliExhibit({ neighbourhood }: { neighbourhood: Neighbourhood }) {
+  const t = useTranslations("graph");
+  const to = useTranslations("graph.okoli");
+  const f = useFormat();
+  const { anchor, nodes, edges, perRel, limit, readTruncated } = neighbourhood;
+  const total = perRel.reduce((sum, r) => sum + r.total, 0);
+  // Okolí se nefiltruje (vyžádaná odpověď), takže zamítnutá vazba v něm být může —
+  // karta a OG obraz ji počítají od 2026-09-04, stránka od 2026-09-06.
+  const gates = gateCounts(edges);
+
+  return (
+    <div className="border-2 border-ink bg-paper">
+      <div className="border-b-2 border-ink px-5 py-3">
+        <p className="text-lg font-black uppercase leading-tight tracking-tight">
+          {anchor ? anchor.label : to("goneAnchor")}
+        </p>
+        {anchor && <p className="mt-1 text-[13px] leading-snug text-steel">{t(`kinds.${anchor.kind}`)}</p>}
+      </div>
+      <p className="border-b border-hairline px-5 py-2 font-mono text-[11px] uppercase tracking-widest text-steel-aa">
+        {to("shownOfTotal", { shown: f.int(edges.length), total: f.int(total) })}
+        <span className="block">{to("cap", { n: f.int(limit) })}</span>
+        {readTruncated && <span className="block text-signal">{to("readTruncated")}</span>}
+        {gates.pending > 0 && (
+          <span className="block">
+            {t("pendingEdges", { count: gates.pending, countFmt: f.int(gates.pending) })}
+          </span>
+        )}
+        {gates.rejected > 0 && (
+          <span className="block text-signal">
+            {t("rejectedEdges", { count: gates.rejected, countFmt: f.int(gates.rejected) })}
+          </span>
+        )}
+      </p>
+      {perRel.length === 0 ? (
+        <p className="px-5 py-3 text-sm text-steel">{to("empty")}</p>
+      ) : (
+        <ul className="divide-y divide-hairline">
+          {perRel.map((r) => (
+            <li key={r.rel} className="flex items-baseline justify-between gap-3 px-5 py-2">
+              <span className="min-w-0 truncate font-mono text-[11px] uppercase tracking-wider">
+                {t(`rels.${r.rel}`)}
+              </span>
+              <span className="shrink-0 font-mono text-[11px] tabular-nums text-steel-aa">
+                {to("shownOfTotal", { shown: f.int(r.shown), total: f.int(r.total) })}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="border-t border-hairline px-5 py-2.5">
+        <SourceNote>
+          {to("source", { nodes: f.int(nodes.length) })}
+        </SourceNote>
       </div>
     </div>
   );
@@ -500,8 +575,39 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
             dřív než důkazy (pravidlo Exponátu). */}
         {!view.fresh && (
           <div className="mb-6 border-2 border-signal bg-paper-strong px-4 py-3">
-            <SourceNote tone="signal">
-              {t("permalink.staleNotice", { urlHash: view.urlHash, currentHash: view.currentHash })}
+            {/* TEHDY / DNES — dva sloupce, každý s VLASTNÍM datem. Do
+                2026-09-04 tu stály jen dva otisky bez dat: čtenář se dozvěděl,
+                že se něco změnilo, ne KDY to platilo. Adresa tvaru `g2.` datum
+                vydání nese, `g.` ne — a ten rozdíl se přiznává, místo aby se
+                dosadil dnešek. */}
+            <div className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
+              <div>
+                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+                  {t("permalink.thenKicker")}
+                </p>
+                <p className="mt-0.5 font-mono text-xs text-ink">
+                  {view.urlHash}{" "}
+                  <span className="text-steel-aa">
+                    ({view.issuedAt === null ? t("permalink.noIssueDate") : f.date(view.issuedAt)})
+                  </span>
+                </p>
+              </div>
+              <div>
+                <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-steel-aa">
+                  {t("permalink.nowKicker")}
+                </p>
+                <p className="mt-0.5 font-mono text-xs text-ink">
+                  {view.currentHash}{" "}
+                  <span className="text-steel-aa">({f.date(view.retrievedOn)})</span>
+                </p>
+              </div>
+            </div>
+            <SourceNote tone="signal" className="mt-3">
+              {/* „Nepřehráno" a „beze změny" se NESMÍ číst stejně: prázdný
+                  seznam změn by z nedostatku znalosti udělal tvrzení. */}
+              {view.diff === null
+                ? t("permalink.diffUnavailable")
+                : t("permalink.staleNotice", { urlHash: view.urlHash, currentHash: view.currentHash })}
             </SourceNote>
           </div>
         )}
@@ -511,6 +617,8 @@ export default function PermalinkPage({ view }: { view: PermalinkView }) {
             {view.kind === "cesta" && <CestaExhibit view={view} />}
             {view.kind === "trasa" && <TrasaExhibit trail={view.trail} />}
             {view.kind === "uzel" && <UzelExhibit detail={view.detail} />}
+            {/* [G4] */}
+            {view.kind === "okoli" && <OkoliExhibit neighbourhood={view.neighbourhood} />}
           </div>
           <CitationRail view={view} />
         </div>

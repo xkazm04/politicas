@@ -16,6 +16,11 @@
 
 export type GlyphShape = "circle" | "ring" | "square" | "diamond" | "triangle" | "pentagon" | "hexagon";
 
+/** Dvě desetinná místa — táž disciplína jako `polygon()` níž a Hemicycle.tsx.
+ *  Platí pro KAŽDOU souřadnici cesty: trojúhelník a kosočtverec násobí `r`
+ *  desetinným koeficientem a do 2026-09-08 vysázely `7.700000000000001`. */
+const r2 = (n: number): number => Math.round(n * 100) / 100;
+
 /** Body pravidelného mnohoúhelníku se středem v [0,0], vrchol nahoru. */
 function polygon(sides: number, r: number): Array<[number, number]> {
   return Array.from({ length: sides }, (_, i) => {
@@ -35,11 +40,15 @@ export function glyphPath(shape: GlyphShape, r: number): string {
     case "square":
       return `M ${-r} ${-r} h ${r * 2} v ${r * 2} h ${-r * 2} Z`;
     case "diamond": {
-      const d = r * 1.25;
+      const d = r2(r * 1.25);
       return `M 0 ${-d} L ${d} 0 L 0 ${d} L ${-d} 0 Z`;
     }
-    case "triangle":
-      return `M 0 ${-r * 1.2} L ${r * 1.1} ${r * 0.8} L ${-r * 1.1} ${r * 0.8} Z`;
+    case "triangle": {
+      const top = r2(r * 1.2);
+      const half = r2(r * 1.1);
+      const base = r2(r * 0.8);
+      return `M 0 ${-top} L ${half} ${base} L ${-half} ${base} Z`;
+    }
     case "pentagon":
     case "hexagon":
       return `${polygon(shape === "pentagon" ? 5 : 6, r)

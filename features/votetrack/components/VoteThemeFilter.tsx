@@ -12,10 +12,16 @@ import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { themeLabelKey } from "../themeLabels";
 import { votePspUrl } from "../record/anchor";
+import { isKnownOutcome, outcomeTone } from "../record/outcome";
 import type { VoteThemeData } from "../themeTypes";
 import SourceNote from "@/features/shared/components/SourceNote";
 
-const KNOWN_RESULT = new Set(["accepted", "rejected"]);
+/** Tón výsledku → třída (record/outcome.ts — jedna množina pro deník, sál i témata). */
+const OUTCOME_CLASS = {
+  accepted: "text-cobalt",
+  rejected: "text-signal",
+  other: "text-steel-aa",
+} as const satisfies Record<ReturnType<typeof outcomeTone>, string>;
 
 /** Kolik hlasování se ve vybraném řezu vypíše. Prezentační strop — do 2026-08-10
  *  řezal seznam beze slova, teď ho stránka jmenuje i s počtem, který mu podléhá. */
@@ -74,11 +80,9 @@ export default function VoteThemeFilter({ data }: { data: VoteThemeData }) {
                 {v.votedOn ? f.date(v.votedOn) : "—"} · {themeName(v.theme)}
               </span>
               <span
-                className={`font-mono text-[11px] font-black uppercase tracking-wider ${
-                  v.outcome === "accepted" ? "text-cobalt" : "text-signal"
-                }`}
+                className={`font-mono text-[11px] font-black uppercase tracking-wider ${OUTCOME_CLASS[outcomeTone(v.outcome)]}`}
               >
-                {KNOWN_RESULT.has(v.outcome) ? tcom(`voteResult.${v.outcome}`) : v.outcome}
+                {isKnownOutcome(v.outcome) ? tcom(`voteResult.${v.outcome}`) : v.outcome}
               </span>
             </div>
             <span className="mt-1 block text-[15px] font-bold leading-snug">{v.title}</span>

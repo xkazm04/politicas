@@ -19,7 +19,7 @@ import { getMunicipality, getRegistry } from "@/features/budget/mirrorData";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
 import StatTile from "@/features/shared/components/StatTile";
-import { KRAJ_CROSSWALK } from "@/lib/analysis/volby/kraje";
+import { KRAJ_CROSSWALK, krajByIco } from "@/lib/analysis/volby/kraje";
 import { VOLBY_RULES_REF } from "@/lib/analysis/volby/rules";
 import type { Finding, VolbyHomeData } from "@/lib/analysis/volby/types";
 import FindingRow from "./components/FindingRow";
@@ -35,7 +35,8 @@ const isObec = (ico: string) => getMunicipality(ico) !== null;
 function subjectLabel(finding: Finding): string {
   if (finding.subjectId.startsWith("company:ico:")) {
     const ico = finding.subjectId.slice("company:ico:".length);
-    const kraj = KRAJ_CROSSWALK.find((k) => k.krajIco === ico);
+    // Táž funkce, kterou nález odkazuje na kraj (labels.subjectHref) — ne druhý sken.
+    const kraj = krajByIco(ico);
     if (kraj) return kraj.name;
     const obec = getMunicipality(ico);
     if (obec) return obec.name;

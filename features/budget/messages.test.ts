@@ -154,6 +154,13 @@ describe("peněžní stopa říká, co je to za částku", () => {
     expect(en.contractValueRule).toMatch(/contract value/i);
   });
 
+  it("počet u součtu se jmenuje po tom, co měří — smluvní vztahy (smlouva × protistrana), ne smlouvy", () => {
+    // contractCount sčítá řádky obec×protistrana; smlouva se dvěma firmami
+    // grafu je ve dvou řádcích. Změřeno 2026-09-01: 11 741 proti 11 582.
+    expect(cs.cardContractsMeta).toMatch(/smluvních vztahů/);
+    expect(cs.cardContractsMeta).not.toMatch(/\{contracts\} smluv/);
+    expect(en.cardContractsMeta).toMatch(/contract relationships/);
+  });
   it("kvalifikátor popírá obojí čtení, kterým Σ za tři dekády svádí", () => {
     // Číslo je součet hodnot smluv za roky 1995–2026: není to ani uhrazená
     // platba, ani roční tok. Obě popření musí být VYSLOVENÁ.

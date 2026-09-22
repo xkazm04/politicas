@@ -18,9 +18,12 @@
 //     stejné pravidlo jako `componentWinner` v duel.ts, které se sem importuje
 //     místo druhé kopie. Při shodě (nebo když jedné straně údaj chybí)
 //     nevyhrává nikdo: srovnávat číslo s prázdnem není souboj.
-//  5. PENÍZE SE NEPOROVNÁVAJÍ. Všech 211 vazeb v grafu je `pending_review`;
-//     postavit je do souboje by z nepotvrzené stopy udělalo zjištění. Souboj
-//     to v patičce říká nahlas, místo aby to mlčky vynechal.
+//  5. PENÍZE SE NEPOROVNÁVAJÍ — a je to PRAVIDLO, ne popis dat. Vazby procházejí
+//     lidskou branou (/penize/kontrola zapisuje rozhodnutí od e8bf6c8), takže věta
+//     „všech 211 vazeb je pending_review", která tu stála do 2026-09-05, je od
+//     prvního potvrzení nepravdivá (HeadToHead to říká v hlavičce; katalog ji
+//     zakazuje testem). Postavit nepotvrzenou stopu do souboje by z ní udělalo
+//     zjištění; souboj to v patičce říká nahlas, bez počtu, který by ho vyvrátil.
 
 import { median } from "@/lib/analysis/score-legibility";
 import { componentWinner } from "./duel";

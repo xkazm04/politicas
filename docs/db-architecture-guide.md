@@ -390,6 +390,53 @@ a PGlite open that FAILS still holds the directory in that process, so the renam
 that moves a damaged store aside comes back `EPERM` — which is why restore is a
 separate process and not a recovery branch inside the app.
 
+## The as-of contract — record time enters the Store (2026-09-04)
+
+`asOf(at)` had existed since the bitemporal kg tables landed, but it was declared
+on the PGlite kg repository only, with a comment saying a later batch could lift
+it, and its sole non-test caller was `scripts/data-analysis/kg-repair-orphans.ts`.
+The consequence was not a missing feature but a missing *sentence*: no
+reader-facing surface could answer "what did this address say on the day it was
+cited". `KnowledgeGraphRepository` now carries it, plus the reads a citation
+surface actually needs. Three things about the contract are load-bearing.
+
+**The whole-relation lister and the point reads are different instruments, and
+the type does not say so — the comments do.** `asOf(at).listKgEdges()` runs over
+an un-indexed `UNION ALL` of serving + history: a forensic instrument, fine for
+a script, wrong for a page. `asOfNode(id, at)` / `asOfEdge({src,rel,dst}, at)`
+push the key filter INSIDE both legs of that union, so they ride
+`kg_node_history_id_idx` / `kg_edge_history_key_idx` and touch one claim's
+versions. Anything reader-facing takes the point reads; `getReceiptData` is the
+worked example, and it deliberately does not spend a second `kgNeighbours` on
+the as-of leg.
+
+**The epoch rule is typed, not documented-and-hoped.** A point read before the
+oldest `recorded_at` the store carries answers `{ known: false, epoch }` and no
+value. The bitemporal migration stamped every pre-existing row with ONE shared
+`recorded_at` (the same fact `repositories/changes.ts` calls its silent event
+zero), so a span that "contains" an earlier day is an artefact of the migration,
+not knowledge about that day; returning the value would render as "unchanged
+since then", which the record cannot support. The union has a third arm that
+matters as much: `{ known: true, value: null }` means "we kept records then and
+this claim was not among them" — a different sentence, and surfaces must not
+collapse the two.
+
+**`bitemporalEpoch()` is memoised per repository instance, and that is safe for
+a structural reason.** History is append-only and every write path archives
+rather than deletes — `clearKg` included — so the minimum `recorded_at` never
+moves. Without the memo, an un-indexed `min()` over four columns would run on
+every receipt. A failed read clears the memo so the next caller retries rather
+than inheriting a rejection.
+
+`lastKgNodeVersion` / `lastKgEdgeVersion` complete the set: the newest version
+the store ever recorded for a key, current or not. That is what an address
+today's graph no longer carries can honestly show — disclosed as history, with
+both instants, never re-promoted to a current claim (no ClaimReview, no counting
+anywhere else).
+
+No DDL changed. `BitemporalKnowledgeGraphRepository` survives as a deprecated
+alias so no import moved.
+
 ## Roadmap — experiments to add
 
 1. **OLAP** over 406k ballots — PGlite vs DuckDB vs SQLite _(✓ done — case #1)_.
@@ -493,6 +540,91 @@ and its columnar direction means R14 would have to be re-tested rather than assu
    recommended architecture is still measured-and-not-landed, and that remains the
    highest-value open item in this guide.
 
+## Provenance becomes a join key — and the seal reaches the graph (2026-09-04)
+
+`kg_node` and `kg_edge` carried a free-form `provenance jsonb` and nothing else.
+Three consequences, all of them things a reader could see:
+
+- `/atlas` scored **3 of 14** declared sources. The eleven that land in the
+  graph — including both that carry the whole of `/penize` — printed a paragraph
+  explaining that no join key ran from a graph row to `ingest_run`.
+- The Merkle seal covered eight entity tables and **zero** graph rows.
+  `supplies` (19 266 rows in the snapshot cut), `linked_to`, `amends`,
+  `owns_stake` — the edges readers actually cite — had no run, no seal and no
+  freshness, while a half-applied score pass tripped the sentinel the same day.
+- The snapshot could not say where a row came from.
+
+### The contract, and why the columns are generated
+
+`lib/kg/provenance.ts` declares one shape: `{source, ingest_run_id, pass, ref,
+writer}`, with `source` a key of `INGESTED_SOURCES` **imported** from
+`lib/analysis/atlas.ts` rather than re-listed, so a source the atlas declares is
+immediately writable and a typo is a refusal instead of an unscoreable row.
+
+`CORE_DDL` projects two of those keys into columns:
+
+```sql
+alter table kg_node add column if not exists source        text   generated always as (provenance->>'source') stored;
+alter table kg_node add column if not exists ingest_run_id bigint generated always as ((provenance->>'ingest_run_id')::bigint) stored;
+```
+
+**Generated, not written by the writers**, so the column can never disagree with
+the row it describes and no backfill has to keep two copies in step. **Stored,
+not virtual**, because they are read by grouped counts over ~154 000 nodes and
+~178 000 edges and an index over a virtual column is not available. The cast is
+safe because `->>` yields NULL for an absent key and the only writer of that key
+refuses anything but an integer or null.
+
+The block is appended at the END of `CORE_DDL` under a `-- [G5 provenance
+columns]` marker; `destructiveStatements()` stays empty, so `db:migrate`
+proceeds loudly rather than refusing. It is proven on the PGlite test lane
+(`premigration.test.ts`) — the columns project a real stamp, an absent run stays
+NULL rather than becoming a fabricated 0 — and applied to the live store by
+`npm run db:migrate`, never by a worktree.
+
+### `RUN_TABLES` grows by two, at the end
+
+`repositories/ledger.ts` seals `kg_node` and `kg_edge` filtered by
+`ingest_run_id`. Two details are load-bearing:
+
+- **Appended, never reordered.** A table added at the end can only add leaves
+  for runs that actually wrote graph rows; every previously sealed run is
+  byte-identical to what it was, so re-sealing an old run reproduces its root.
+- **`kg_edge` seals in `(src, rel, dst)` order.** Its identity is the triple and
+  it has no `id` column, so the pinned per-table order key is not cosmetic —
+  ordering it by a column it lacks would throw rather than quietly produce a
+  wrong root.
+
+This had to happen BEFORE `/atlas` read the tables, not after: the integrity
+rule PRINTS that the sealed set of tables and the scored set are the same set,
+and scoring the graph first would have made that sentence false on the one page
+whose subject is not saying false things.
+
+### `sentinel_run`, and why it is `KEPT`
+
+`sentinel_run(id, manifest_hash, ran_at, verdict, report)` — `id` is the
+canonical content hash of the report, which makes replaying the outbox
+idempotent; `verdict` carries the report's own three-state check constraint, so
+a fourth value is a refusal rather than a release certified by a word nobody
+defined.
+
+Its `RETENTION` entry is `accumulating` with **its own dated decision**
+(2026-09-04), not a share of the 2026-08-24 batch: a policy inherits a date only
+from the day somebody actually weighed it. What was weighed — a verdict is a
+historical claim ("on this date these invariants held over this exact release")
+that no later run can reproduce, so pruning would erase the audit history the
+table exists to keep. It grows by roughly one row per night.
+
+### The outbox: how a read-only auditor writes
+
+`lib/db/pglite/sentinelQueue.ts`. The sentinel never opens the live handle —
+that guarantee is why it can be pointed at production data — so it appends to
+`.data/sentinel-queue.jsonl` and the next live `open()` drains the file into the
+table. The append fails loud; the drain is idempotent, never fatal, and empties
+the file only after every entry landed. It is the same shape as the
+pre-migration snapshot's discipline: the risky step is the one that gets the
+verification, and nothing is discarded until its replacement is proven.
+
 ## How to run
 
 ```bash
@@ -511,3 +643,102 @@ SQLite is Node built-in, PGlite comes from the root install) — never in the pr
 Kuzu is **x64-only** but installs from a bundled prebuilt (no cmake build). Output goes to
 `.db-bench/` (gitignored). Case #4's data is the temporary `benchmark-data/*.csv` bundle
 (portable CSV export of the PSP store; see its README).
+
+## The review door: one writer, two hash domains, no rehash (2026-09-04)
+
+`review_audit` was tie-shaped — `src / rel / dst`, a decision, a chain position
+and two hashes — and `setTieReviewState` was its only writer. That made three
+other machine-produced claim kinds unreviewable by construction.
+
+### The schema change, and the statement that is deliberately NOT in it
+
+`CORE_DDL` grew three columns in a block marked `[G2 review door v2]`:
+`subject_kind`, `subject_id`, `hash_domain`. All additive, all `if not exists`.
+
+There is **no backfill `update` in the DDL**, for two independent reasons and
+the second is the real one:
+
+1. `pending.ts::destructiveStatements` flags `update … set` and `db:migrate`
+   would refuse the DDL outright — correctly.
+2. Rewriting the old rows' subject columns would make the stored bytes disagree
+   with the preimage their hash was taken over. **A stored hash is evidence
+   about the bytes that existed when it was taken.** Recomputing it to match new
+   bytes does not preserve the evidence; it destroys it while leaving something
+   that looks like evidence behind.
+
+So legacy rows are read as `tie` + their triple **at read time** (`mapAuditRow`
+in `repositories/review.ts`), their bytes are untouched, and their v1 hashes
+still cover exactly what they always covered.
+
+### Two domain tags in one chain
+
+`politicas-audit-v1` hashes the narrow preimage; `politicas-audit-v2` hashes it
+plus `subjectKind` + `subjectId`. `verifyAuditChain` walks a chain that changes
+tag partway through and reads `hash_domain` **strictly**: null means v1, and only
+the literal v2 tag means v2. It is never inferred from the subject columns —
+those are derived for legacy rows and so prove nothing about which preimage was
+hashed. Getting that backwards would fail every row written before 2026-09-04.
+
+The one sequence it refuses is a **regression**: a v1 row appended after a v2
+row. The writer only ever moves forward, so that ordering can only be authored
+by hand.
+
+### What `setReviewState` guarantees
+
+One skeleton for every kind, in one transaction: read the subject's state → map
+the decision (`confirm`→`verified`, `reject`→`rejected` **terminal**,
+`needs-more`→`pending_review`) → refuse a reasonless reversal of an
+already-decided claim, **writing nothing at all** → append the chained audit row
+→ only then write the subject's state, superseding the prior version into
+`kg_edge_history` / `kg_node_history`.
+
+Node prop writes go through `props || $patch` (jsonb concatenation, a SHALLOW
+merge) — the rule from `memory/kg-upsert-replaces-props.md`. `||` does not
+recurse, so the effort branch reads `effort_provenance` first and hands back a
+fully merged object; a whole-object write would have dropped every `effort_*`
+prop the loop computed.
+
+`machine` is **not producible by this function**. Only the enrichment loops write
+that state, so no script can promote its own verdict to a human-confirmed one,
+and no human decision can be demoted back to "nobody looked at this".
+
+**`clubByMandate` answers the club TODAY by rule, not by scan order (2026-09-06,
+scan-sweep, bounty-hunter).** The one-club-per-mandate read had no `ORDER BY`, so an
+MP who changed clubs mid-term resolved to whichever membership row PGlite returned
+last — insertion order, while `/zebricek`, `/penize` and `/volby` all print that
+value as the current club. The query now orders closed windows first and open
+windows by start date, so the last row per mandate is the open window with the
+latest start; `clubByMandate.test.ts` seeds a switcher with the current club
+inserted first and pins the answer.
+
+**`listIngestRuns` carries the truncation guard every sibling lister has
+(2026-09-06, scan-sweep, parity-auditor).** It was the one lister in
+`repositories/` reading without `warnIfTruncated`, while `/data` derives
+`lineage.runsTotal` and the release changelog from its length; the guard now fires
+when the read returns exactly its cap, and `truncationGuards.test.ts` pins it.
+
+**Two headers caught up with the door (2026-09-06, scan-sweep,
+documentation-auditor).** `ledger.ts` still named `setTieReviewState` as the chain's
+writer twice; since the 2026-09-04 review door the writer is `setReviewState` for
+every claim kind, and the tie call is its alias. In `kg.ts` the JSDoc of
+`neighbourIds` had been separated from its function by a later comment block and
+was hovering over `neighbourFilter`; it sits on its own function again.
+
+**`clubByMandate` answers the club TODAY by rule, not by scan order (2026-09-06,
+scan-sweep, bounty-hunter).** The one-club-per-mandate read had no `ORDER BY`, so an
+MP who changed clubs mid-term resolved to whichever membership row PGlite returned
+last — insertion order, while `/zebricek`, `/penize` and `/volby` all print that
+value as the current club. The query now orders closed windows first and open
+windows by start date, so the last row per mandate is the open window with the
+latest start; `clubByMandate.test.ts` seeds a switcher with the current club
+inserted first and pins the answer.
+
+**Three store headers catch up with the code they describe (2026-09-06,
+scan-sweep, documentation-auditor).** `store.ts` said the facade is composed from
+"four" repositories (seven interfaces are extended); its `ReviewRepository` header
+and `types.ts`'s `ReviewAuditRow` doc — the latter detached above the kind
+vocabulary — still described the tie-only writer two days after the G2 door made
+`setReviewState` the writer for every claim kind, as did the `review_audit`
+comment inside `CORE_DDL` (snapshot regenerated). `VoteTagRow.theme`'s example
+slug now exists in the taxonomy. `storeSource.test.ts` pins the count-free header,
+composer/interface parity and the writer name.

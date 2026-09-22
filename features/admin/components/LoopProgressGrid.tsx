@@ -33,7 +33,7 @@ function CaseTile({ p }: { p: LoopCaseProgress }) {
       <div className="flex items-baseline justify-between gap-2">
         <h3 className="text-xl font-black uppercase tracking-tight">{p.labelCs}</h3>
         <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
-          {p.batchesCompleted != null ? `dávka ${p.batchesCompleted}` : "bez dat"}
+          {p.batchesCompleted != null ? `dávka ${czechInt(p.batchesCompleted)}` : "bez dat"}
         </span>
       </div>
 

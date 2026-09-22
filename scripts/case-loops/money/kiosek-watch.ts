@@ -12,6 +12,7 @@
  *   PGLITE_PATH=./.pglite-copy-money-b8 npx tsx scripts/case-loops/money/kiosek-watch.ts
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 
 function icoOf(id: string): string | null {
   const m = id.match(/ico:(\d+)/);
@@ -23,11 +24,11 @@ async function main() {
   if (!store) throw new Error("no store (set PGLITE_PATH to the copy)");
   const fs = await import("node:fs/promises");
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
-  const notices = await store.listKgNodes({ kind: "notice", limit: 100_000 });
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const concerns = await store.listKgEdges({ rel: "concerns", limit: 100_000 });
-  const cites = await store.listKgEdges({ rel: "cites", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
+  const notices = await store.listKgNodes({ kind: "notice", limit: KG_READ_CAP });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const concerns = await store.listKgEdges({ rel: "concerns", limit: KG_READ_CAP });
+  const cites = await store.listKgEdges({ rel: "cites", limit: KG_READ_CAP });
 
   const companyById = new Map(companies.map((c) => [c.id, c]));
   const tiedCompanyIds = new Set(linked.map((e) => e.dst));
@@ -66,7 +67,7 @@ async function main() {
   const hits: Hit[] = [];
   let noticesWithIcoLink = 0;
 
-  const persons = await store.listKgNodes({ kind: "person", limit: 100_000 });
+  const persons = await store.listKgNodes({ kind: "person", limit: KG_READ_CAP });
   const personById = new Map(persons.map((p) => [p.id, p]));
 
   for (const n of notices) {

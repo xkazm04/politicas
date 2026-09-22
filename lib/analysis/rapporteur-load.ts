@@ -33,11 +33,16 @@ export interface RapporteurLoadCopy {
   load: number;
 }
 
+/** The two message keys, spelled ONCE — the published list and the copy read the
+ *  same constants (until 2026-09-08 each side re-typed the literals). */
+const BADGE_KEY = "rapporteurBadge";
+const DETAIL_KEY = "rapporteurDetail";
+
 /** Every key this module can emit (the /overeni `*_COPY_KEYS` contract). */
-export const RAPPORTEUR_COPY_KEYS: readonly string[] = ["rapporteurBadge", "rapporteurDetail"];
+export const RAPPORTEUR_COPY_KEYS: readonly string[] = [BADGE_KEY, DETAIL_KEY];
 
 /** Badge copy for a stored `effort_rapporteur_load`; null below threshold or invalid. */
 export function rapporteurLoadCopy(load: unknown): RapporteurLoadCopy | null {
   if (typeof load !== "number" || !Number.isFinite(load) || load < RAPPORTEUR_WORKHORSE_MIN) return null;
-  return { badgeKey: "rapporteurBadge", detailKey: "rapporteurDetail", load };
+  return { badgeKey: BADGE_KEY, detailKey: DETAIL_KEY, load };
 }

@@ -53,6 +53,7 @@ import {
 } from "@/features/lawwatch/lawClaims";
 import { tiskIdFromBillNodeId } from "@/features/lawwatch/billRef";
 import { refFromLawNodeId } from "@/features/lawwatch/statuteRef";
+import { pragueDay } from "@/features/denik/pragueDay";
 
 export type LiveFigureResult =
   /** Metrika není z živé rodiny — o figuře rozhodne rejstřík (nebo „mimo rejstřík"). */
@@ -71,9 +72,11 @@ const LIVE_DATASETS: ReadonlySet<string> = new Set([
 
 export const isLiveClaim = (parts: ClaimRefParts): boolean => LIVE_DATASETS.has(parts.dataset);
 
-/** ISO den pro meze věrohodnosti data podpisu — plocha ho také předává, nikdy
- *  se nečte uvnitř renderu (lib/analysis/plausible-date.ts). */
-const todayIso = (): string => new Date().toISOString().slice(0, 10);
+/** Dnešek pro meze věrohodnosti data podpisu — PRAŽSKÝ den (features/denik/
+ *  pragueDay), ne UTC: mezi půlnocí a druhou hodinou je pražský den o den napřed
+ *  a smlouva podepsaná „dnes" by pod UTC dnem padla za horní mez. Plocha ho
+ *  také předává, nikdy se nečte uvnitř renderu (lib/analysis/plausible-date.ts). */
+const todayIso = (): string => pragueDay();
 
 export async function resolveLiveFigure(parts: ClaimRefParts): Promise<LiveFigureResult> {
   if (!isLiveClaim(parts)) return { status: "not-live" };

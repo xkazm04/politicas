@@ -23,16 +23,27 @@ import {
   type MoneyTie,
   type OwnershipDisclosed,
   type PublicMandateOwner,
-  type ReviewState,
 } from "./moneyTypes";
 // JEDNA hranice možného data v celé aplikaci (modul si to říká ve své hlavičce).
 import { plausibleIsoDateOrNull } from "@/lib/analysis/plausible-date";
+// …a JEDEN den, proti kterému se kreslí: pražský (features/denik/pragueDay.ts).
+import { pragueDay } from "@/features/denik/pragueDay";
 // One reader of `provenance`-shaped props across the platform (features/shared/provenance):
 // the receipt page and the money tie must date an analyst note by the same rule.
 import { toProvenance } from "@/features/shared/provenance/receipt";
 import { edgeClaimRef } from "@/features/shared/provenance/claimRef";
-import { isDeMinimis, nearThresholdCount, resolveReviewOrder, resolveTieClass, reviewSignal } from "./reviewTypes";
+import {
+  isDeMinimis,
+  nearThresholdCount,
+  resolveReviewOrder,
+  resolveTieClass,
+  reviewSignal,
+  reviewStateOf,
+} from "./reviewTypes";
 import { moneyReachesCompany } from "./reachableMoney";
+// The ONE inverse of the company-node grammar (prefix-checked, canonical 8 digits) — not a
+// tail-of-id read, which also "works" on a person id.
+import { icoFromCompanyNodeId } from "./companyId";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 // Daňová základna smluvní částky. NULOVÉ NOVÉ ČTENÍ: obě čtení hran níž dělají
 // `select * from kg_edge`, takže `props.amountBasis` je u ruky už dnes — fold ho
@@ -104,11 +115,10 @@ function ownershipDisclosedOf(v: unknown): OwnershipDisclosed | null {
   };
 }
 
-export function pspIdFromNodeId(id: string): number | null {
-  const tail = id.split(":").pop();
-  const n = tail ? Number(tail) : NaN;
-  return Number.isInteger(n) ? n : null;
-}
+// The id parser is the STRICT shared one (`/^psp:person:(\d+)$/`, lib/ingest/changeEvents).
+// The copy that stood here took the last `:`-segment of ANY id, so a company or contract id
+// parsed as an MP; both /penize loaders import it from here, hence the re-export.
+export { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 
 /** Per-company contract aggregate. NO line items: a contract's label and signature date
  *  live on the `contract` NODE, and reading 152 788 of them costs 7.8 s to answer a
@@ -170,9 +180,9 @@ export function mapLinkedToTie(args: {
 }): MoneyTie & { contractBasis: BasisComposition } {
   const { edge: e, company: comp, contracts, person } = args;
   const cp = comp.props ?? {};
-  const rawState = (e.props?.review_state ?? e.props?.state) as string | undefined;
-  const reviewState: ReviewState =
-    rawState === "verified" ? "verified" : rawState === "rejected" ? "rejected" : "pending_review";
+  // ONE vocabulary (reviewTypes.reviewStateOf) — the console loader reads the same two
+  // prop names through it; this was the second hand-spelled ternary.
+  const reviewState = reviewStateOf(e.props?.review_state ?? e.props?.state);
 
   const role = String(e.props?.role ?? "");
   const contractCzk = contracts.czk;
@@ -206,7 +216,7 @@ export function mapLinkedToTie(args: {
     // helper — the same one /rentgen and the /overeni guide use — so the ref that a
     // reader copies is by construction the triple `getReceiptData` will look up.
     receiptRef: edgeClaimRef(e.src, e.rel, e.dst),
-    ico: String(cp.ico ?? comp.id.split(":").pop() ?? ""),
+    ico: cp.ico != null ? String(cp.ico) : (icoFromCompanyNodeId(comp.id) ?? ""),
     company: comp.label,
     role,
     reviewState,
@@ -739,11 +749,11 @@ export const loadMpMoneySlice = cache(async function loadMpMoneySlice(
     // klientovi jako DATA. Počítá se AŽ TADY, za memoizovaným čtením smluv:
     // uvnitř `companySuppliesMemo` by se hranice zamrazila na den, kdy se buňka
     // naplnila, a den by pak zestárnul o celé okno TTL.
-    // Týž tvar jako `/penize/firma/[ico]`, aby dvě sousední plochy nekreslily
-    // hranici k jinému dni (pražský den deníku je vědomě jiné pravidlo — jeho
-    // sjednocení by pohnulo publikovaným počtem firemního spisu, a to se sem
-    // nepropašuje; viz zpráva k této změně).
-    const datesCheckedOn = new Date().toISOString().slice(0, 10);
+    // Den je PRAŽSKÝ (pragueDay), týž jako u `/penize/firma/[ico]` od 7225d18:
+    // řez UTC řetězce zaostával za Prahou až o dvě hodiny po půlnoci, takže
+    // smlouva podepsaná dnes se četla jako podepsaná v budoucnu — a dvě sousední
+    // plochy kreslily hranici k jinému dni (scan-sweep 2026-09-07).
+    const datesCheckedOn = pragueDay();
     const contractsByCompany = new Map<string, CompanyContracts>();
     const linesByCompany = new Map<string, ContractLine[]>();
     let contractsTruncated = false;

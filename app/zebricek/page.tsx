@@ -4,6 +4,7 @@ import CivicScorePage from "@/features/civicscore/CivicScorePage";
 import { getLeaderboardListData } from "@/features/civicscore/getLeaderboardData";
 import { decodeWeights, isPublishedWeights, LENS_PARAM } from "@/features/civicscore/lens";
 import { serializeWeights } from "@/features/landing/referendum/aggregate";
+import { firstParam } from "@/lib/routing/searchParam";
 
 /*
  * /zebricek — plný žebříček. Tenká routa; čočka (?vahy=…) žije v adrese a
@@ -26,15 +27,9 @@ interface SearchParams {
   searchParams: Promise<{ [LENS_PARAM]?: string | string[] }>;
 }
 
-/** První hodnota parametru — Next dodává `string | string[]`. Tvarová pojistka
- *  nad searchParams, ne kodek čočky (ten se importuje); týž tvar jako
- *  app/referendum/page.tsx. */
-const one = (v: string | string[] | undefined): string | null =>
-  typeof v === "string" ? v : Array.isArray(v) ? (v[0] ?? null) : null;
-
 export async function generateMetadata({ searchParams }: SearchParams): Promise<Metadata> {
   const t = await getTranslations("meta");
-  const raw = one((await searchParams)[LENS_PARAM]);
+  const raw = firstParam((await searchParams)[LENS_PARAM]);
   const present = raw !== null && raw !== "";
   const weights = present ? decodeWeights(raw) : null;
   const custom = weights !== null && !isPublishedWeights(weights);

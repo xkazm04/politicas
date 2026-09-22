@@ -24,16 +24,27 @@ import { FileSearch } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { rapporteurLoadCopy } from "@/lib/analysis/rapporteur-load";
+import VerdictProvenance, { type VerdictRungName } from "@/features/shared/components/VerdictProvenance";
 
 export default function RapporteurBadge({
   load,
   recordedAt = null,
   compact = false,
+  rung = null,
+  decidedBy = null,
+  decidedAtLabel = null,
 }: {
   load: number;
   /** ISO datum záznamu verdiktu (`effort_provenance.computedAt`), nebo null. */
   recordedAt?: string | null;
   compact?: boolean;
+  /** Stupeň žebříčku tvrzení (lib/analysis/verdict-provenance.ts). `null` = loop
+   *  stupeň nezapsal — pak se NEDOPLŇUJE „machine", stupeň se prostě netiskne,
+   *  protože domýšlet původ je totéž co ho vymyslet. */
+  rung?: VerdictRungName | null;
+  decidedBy?: string | null;
+  /** Už zformátované datum rozhodnutí (volající přes useFormat). */
+  decidedAtLabel?: string | null;
 }) {
   const t = useTranslations("civicscore");
   /** Verdiktní slovník — `verdicts` (od 2026-08-12 v katalogu, ne v lib/analysis). */
@@ -41,6 +52,19 @@ export default function RapporteurBadge({
   const f = useFormat();
   const copy = rapporteurLoadCopy(load);
   if (!copy) return null;
+
+  // ZAMÍTNUTÝ VERDIKT SE ZAMLČUJE, NEVYPRÁZDNÍ SE (G2, 2026-09-04).
+  if (rung === "rejected") {
+    return (
+      <VerdictProvenance
+        rung="rejected"
+        withheld
+        decidedBy={decidedBy}
+        decidedAtLabel={decidedAtLabel}
+        compact={compact}
+      />
+    );
+  }
 
   // Číslo verdiktu prochází jedinou formátovací autoritou (lib/format.ts přes useFormat).
   // Citaci zdroje (psp.cz tisky.zip / pass 34) nese sekce, ve které štítek stojí —
@@ -57,14 +81,24 @@ export default function RapporteurBadge({
     : "gap-1.5 border-2 px-2.5 py-1 text-[11px]";
 
   return (
-    <span
-      title={claim}
-      className={`inline-flex items-center border-ochre bg-ochre/5 font-mono font-bold uppercase tracking-wider text-ochre ${size}`}
-    >
-      <FileSearch className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
-      {tv(copy.badgeKey)}
-      <span className="tabular-nums">· {loadLabel}</span>
-      <span className="sr-only"> — {claim}</span>
+    <span className="inline-flex items-center gap-1">
+      <span
+        title={claim}
+        className={`inline-flex items-center border-ochre bg-ochre/5 font-mono font-bold uppercase tracking-wider text-ochre ${size}`}
+      >
+        <FileSearch className={compact ? "h-2.5 w-2.5" : "h-3.5 w-3.5"} aria-hidden />
+        {tv(copy.badgeKey)}
+        <span className="tabular-nums">· {loadLabel}</span>
+        <span className="sr-only"> — {claim}</span>
+      </span>
+      {rung && (
+        <VerdictProvenance
+          rung={rung}
+          decidedBy={decidedBy}
+          decidedAtLabel={decidedAtLabel}
+          compact={compact}
+        />
+      )}
     </span>
   );
 }

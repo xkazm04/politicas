@@ -31,8 +31,9 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { CZECH_WITHHELD_CZ } from "@/lib/analysis/language-gate";
 import RadarLedger from "./components/RadarLedger";
 import { clusterAnchorOf } from "./deriveRadar";
-import type { CollisionClassification, CollisionClusterView, CollisionData, CollisionPairView } from "./getCollisionData";
-import type { RadarData } from "./getRadarData";
+import { pspBillUrl } from "./lawwatchLabels";
+import type { CollisionClassification, CollisionClusterView, CollisionData, CollisionPairView } from "./collisionTypes";
+import type { RadarData } from "./radarTypes";
 
 /** confirmed = signal (nejsilnější příznak, stejně jako „možný střet“ jinde v appce);
  * coordination-risk = ochre (měkčí příznak, stejně jako §-diff blok). Žádné nové barvy. */
@@ -40,9 +41,6 @@ const CLASS_TONE: Record<CollisionClassification, { border: string; bg: string; 
   "confirmed-collision": { border: "border-signal", bg: "bg-signal/5", text: "text-signal" },
   "coordination-risk": { border: "border-ochre", bg: "bg-ochre/5", text: "text-ochre" },
 };
-
-/** psp.cz historie tisku (PSP10 = o=10) — jediný stabilní veřejný odkaz na tisk. */
-const pspBillUrl = (cislo: number) => `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}`;
 
 export default function CollisionsPage({ data, radar }: { data: CollisionData | null; radar: RadarData | null }) {
   const t = useTranslations("lawwatch");
@@ -259,7 +257,7 @@ function ClusterCard({ cluster }: { cluster: CollisionClusterView }) {
                 <CalendarDays className="h-3 w-3" />
               </Link>
               <a
-                href={pspBillUrl(b.cislo)}
+                href={pspBillUrl(b.cislo) ?? undefined}
                 target="_blank"
                 rel="noreferrer"
                 title={t("detail.pspHistory")}

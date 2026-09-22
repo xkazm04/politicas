@@ -29,35 +29,37 @@ import { KG_READ_CAP } from "@/lib/db/readCap";
 import { MONEY_MEMO_TTL_MS } from "@/features/dashboard/freshness";
 import { storeReady } from "@/lib/db/readiness";
 import { getStore } from "@/lib/db/store";
-import { deriveForensicIndex, type ForensicIndexView } from "./forensicIndex";
-import {
-  buildCompanyIcoResolver,
-  buildSectorAttributionIndex,
-  type SectorAttributionFlag,
-  type SectorAttributionRaw,
-} from "./sectorAttribution";
+import { getFullVoteRecord } from "@/features/votetrack/getVoteRecord";
+import { deriveForensicIndex } from "./forensicIndex";
+import { refFromLawNodeId } from "./statuteRef";
+import { buildCompanyIcoResolver, buildSectorAttributionIndex, type SectorAttributionRaw } from "./sectorAttribution";
 export type { SectorAttributionFlag } from "./sectorAttribution";
-
-/** A real §-level fragment change between two ENACTED e-Sbírka versions of a statute.
- * `before`/`after` are the verbatim `text-fragmentu` values actually fetched from the
- * e-Sbírka SPARQL endpoint for that exact version+fragment — NEVER synthesized. See
- * `scripts/case-loops/law/esbirka-sparql-diff.ts` (the producer) and
- * `docs/data-analysis/case-law/payloads/diffs/*.json` (the artifacts). */
-export interface ParagraphDiffHunk {
-  fragment: string; // e.g. "§ 35ba odst. 1 písm. b)"
-  op: "modified" | "added" | "removed";
-  before: string | null; // null only when op === "added"
-  after: string | null; // null only when op === "removed"
-}
-export interface ParagraphDiff {
-  law: string; // "586/1992"
-  source: string;
-  fetchedAt: string;
-  from: { date: string; effectiveFrom: string | null; effectiveTo: string | null; eli: string };
-  to: { date: string; effectiveFrom: string | null; effectiveTo: string | null; eli: string };
-  parScope: string;
-  hunks: ParagraphDiffHunk[];
-}
+import {
+  BILL_ORIGINS,
+  type AmendedLawRef,
+  type BillDossier,
+  type BillRollCall,
+  type CommitteeRoutingView,
+  type LawBillView,
+  type LawData,
+  type LawForensicView,
+  type ParagraphDiff,
+  type TopLawView,
+} from "./lawTypes";
+export { BILL_ORIGINS } from "./lawTypes";
+export type {
+  AmendedLawRef,
+  BillDossier,
+  BillOrigin,
+  BillRollCall,
+  CommitteeRoutingView,
+  LawBillView,
+  LawData,
+  LawForensicView,
+  ParagraphDiff,
+  ParagraphDiffHunk,
+  TopLawView,
+} from "./lawTypes";
 
 /** The artifact stores the verbatim e-Sbírka `text-fragmentu` value (incl. internal <a>/<var>
  * cross-ref markup) as the anti-fabrication source-of-truth. Strip markup only for display —
@@ -144,143 +146,6 @@ function loadSectorAttributionRows(): SectorAttributionRaw[] {
   }
 }
 
-export const BILL_ORIGINS = ["government", "mp", "mp_group", "senate", "other"] as const;
-export type BillOrigin = (typeof BILL_ORIGINS)[number];
-
-/** A gated law-forensics verdict (method:"verdict", written pending_review). Rendered as DERIVED, never as raw fact.
- *
- * Every prose field is `string | null`: null means the graph's text did not pass the
- * Czech-language gate (`lib/analysis/language-gate.ts`) and is WITHHELD rather than shown
- * to a Czech reader in English. Withholding is non-destructive — the text stays in the
- * graph for the rewrite pass, it simply does not ship. `withheldFields` counts them so the
- * surface can say so honestly instead of silently rendering a shorter block. */
-export interface LawForensicView {
-  severity: "low" | "medium" | "high" | string;
-  confidence: number | null;
-  reviewState: string; // "pending_review"
-  statedReasoning: string | null;
-  researchedContext: string | null;
-  conflictAssessment: string | null;
-  unstatedEffects: { effect: string | null; whoBenefits: string | null; evidence: string }[];
-  citations: { claim: string | null; kind: string; source: string }[];
-  pass: number | null;
-  /** `forensic_provenance.ref` — WHICH computation wrote this verdict ("law-forensics").
-   * Read for the same reason `CONTRIBUTION_FORMULA_REF` is read on the score side: a
-   * citation of the corpus has to be able to name its own author, and a number that
-   * matches under two different computations is a coincidence, not a confirmation.
-   * The pass alone cannot say it — any unrelated enrichment advances a pass. */
-  provenanceRef: string | null;
-  /** `forensic_provenance.computedAt` — the ISO instant the verdict was written. The
-   * claim carries the DAY of it; the graph carries no other date for this layer. */
-  computedAt: string | null;
-  /** How many reader-facing strings this verdict had withheld for not being Czech. */
-  withheldFields: number;
-}
-
-export interface AmendedLawRef {
-  urn: string; // law:sb:586-1992
-  ref: string; // "586/1992"
-  label: string; // node label ("zákon č. 586/1992 Sb. — …")
-  title: string | null; // esbirka_title, when the statute is in the e-Sbírka registry
-}
-
-/** Formal per-bill committee routing (assigned_to edge, F15 — psp.cz hist_vybory ⋈ hist). */
-export interface CommitteeRoutingView {
-  organUrn: string; // psp:organ:<id>
-  organLabel: string; // výbor name (node label)
-  role: "garancni" | "dalsi" | string; // garanční (věcně příslušný) vs a further committee
-  status: "prikazano" | "navrzeno" | "iniciativne" | string; // strongest routing state reached
-  assignedOn: string | null; // YYYY-MM-DD from the linked hist step
-}
-
-export interface LawBillView {
-  tiskId: number;
-  cislo: number | null; // public print number → psp.cz URL
-  title: string; // official návrh title (node label)
-  /** One plain Czech line: what this print actually changes. null ⇒ „shrnutí zatím není" —
-   * the print's own text yielded no honest structure to derive one from, and nothing is invented. */
-  summary: string | null;
-  /** The cached artifact the summary was derived from, for the SourceNote. */
-  summarySource: string | null;
-  origin: BillOrigin;
-  submitter: string | null; // ministry / MP names free text
-  /** Resolved MP sponsors (/poslanec/<pspId>), ordered by signature rank (pass 34):
-   * rank 1 = předkladatel (the responsible first signatory), else spolupodepsal.
-   * role/rank are null for edges predating the roles backfill — rendered without a tag. */
-  sponsors: { pspId: number; name: string; role: "predkladatel" | "spolupodepsal" | null; rank: number | null; joinedLater: boolean }[];
-  /** Zpravodajové (rapporteur edges, pass 34) — the assigned analytical role on this
-   * print, from psp.cz hist (plenary) + hist_vybory/tisky_za (committee side). */
-  rapporteurs: { pspId: number; name: string; scopes: string[] }[];
-  /** Who actually spoke to this print on the floor (spoke_on edges, pass 35) —
-   * substantive turns only (chair excluded), desc by turn count. */
-  speakers: { pspId: number; name: string; turns: number }[];
-  /** Written-amendment authors (proposes_amendment edges, pass 35 — sd_dokument
-   * typ 13, attributed via id_x), desc by amendment count. */
-  amendmentAuthors: { pspId: number; name: string; count: number }[];
-  /** Current procedural state (Czech typ_stavu name from psp.cz stavy/typ_stavu). */
-  stav: string | null;
-  /** "583/2025" + date when the print was published in the Sbírka (hist zaver step). */
-  fateSb: string | null;
-  fatePublishedOn: string | null;
-  /** Lowest contribution score among MP sponsors (Case ② index) — effort context. */
-  sponsorMinContribution: number | null;
-  amendedLaws: AmendedLawRef[]; // statutes this print changes
-  committees: CommitteeRoutingView[]; // formal committee routing (garanční first) — F15, may be empty
-  flaggedConflict: boolean; // a sponsor has real money ties over the threshold
-  sponsorContractCzk: number; // worst-case sponsor's flagged public-contract flow
-  sponsorMoneyCompanies: number;
-  forensic: LawForensicView | null;
-  paragraphDiffs: ParagraphDiff[]; // real e-Sbírka §-diffs on any statute this bill amends (may be empty)
-  /** Census cross-check (pass 20, batch-003, 53 bills): the FULL list of statute refs this
-   * print actually novelizes, hand-derived from the print's body text — NOT the title-only
-   * citation the `amends` edges are built from. Empty when this bill has no census record
-   * (the other 88 bills only carry the title-derived `amendedLaws` above). Never silently
-   * merged into `amendedLaws` — the two are honestly different provenance (C6/C8). */
-  amendedLawsFull: string[];
-  /** amendedLawsFull.length − (refs also present in amendedLaws), i.e. how many body-amended
-   * statutes the title-only `amends` edges missed for this bill. 0 when no census record. */
-  amendsUndercount: number;
-  /** batch-017 §-level sector-attribution flags for this print (company ↔ sponsor ↔ statute),
-   * each a DERIVED, UNGATED lead already carrying a published verdict's disposition. Empty for
-   * the 133 prints the payload does not cover — see features/lawwatch/sectorAttribution.ts. */
-  sectorAttributionFlags: SectorAttributionFlag[];
-}
-
-export interface TopLawView {
-  urn: string;
-  ref: string;
-  label: string;
-  title: string | null;
-  billCount: number; // how many prints amend it
-}
-
-export interface LawData {
-  bills: LawBillView[]; // amends-carrying prints first, then by print number
-  topLaws: TopLawView[]; // most-amended statutes, desc
-  originCounts: Record<string, number>;
-  totalBills: number;
-  totalLaws: number;
-  totalAmends: number;
-  flaggedCount: number;
-  forensicCount: number;
-  /** The forensic corpus as an INDEX — census completion, the severity distribution and the
-   * per-bill entries, aggregated from the same `bills` array above (features/lawwatch/
-   * forensicIndex.ts). Pure derivation, zero extra reads: it exists so /zakony can publish
-   * the corpus as a browsable whole instead of one verdict per page view. */
-  forensicIndex: ForensicIndexView;
-  /** Bills carrying a derived "co to mění" summary (the rest honestly say „shrnutí zatím není"). */
-  summaryCount: number;
-  /** Verdicts with ≥1 reader-facing string withheld by the Czech-language gate. */
-  forensicWithheldCount: number;
-  paragraphDiffCount: number; // bills carrying ≥1 real e-Sbírka §-diff artifact
-  committeeRoutedBills: number; // bills carrying ≥1 formal committee assignment (F15)
-  censusBillCount: number; // bills carrying a pass-20 census record (amended_laws_full)
-  censusUndercountTotal: number; // sum of amendsUndercount over census-carrying bills
-  sectorAttributionBillCount: number; // bills carrying ≥1 batch-017 sector-attribution flag
-  sectorAttributionFlagCount: number; // total flags rendered across all bills (post-gate)
-  pass: number | null;
-}
-
 function asStr(v: unknown): string | null {
   return typeof v === "string" && v.length > 0 ? v : null;
 }
@@ -337,7 +202,12 @@ function readForensic(p: Record<string, unknown>): LawForensicView | null {
   return {
     severity: severity ?? "low",
     confidence: typeof p.forensic_confidence === "number" ? p.forensic_confidence : null,
-    reviewState: state ?? "pending_review",
+    // NOT `?? "pending_review"`. An absent gate state renders as absent — see
+    // LawForensicView.reviewState for why the default was a promise the tree had
+    // no writer to keep.
+    reviewState: state ?? null,
+    reviewedBy: asStr(p.forensic_review_by),
+    reviewedAt: asStr(p.forensic_review_at),
     statedReasoning: cz(p.forensic_stated_reasoning),
     researchedContext: cz(p.forensic_researched_context),
     conflictAssessment: cz(p.forensic_conflict_assessment),
@@ -400,7 +270,7 @@ async function loadLawData(): Promise<LawData | null> {
     // Eight independent reads that used to run strictly one after another, each awaiting a
     // predecessor it does not use. PGlite is single-connection, so this is not parallelism
     // in the engine — it is one queue instead of eight round-trips of caller latency.
-    const [lawNodes, organNodes, amends, assignedTo, rapporteurEdges, spokeOnEdges, amendmentEdges, persons] =
+    const [lawNodes, organNodes, amends, assignedTo, rapporteurEdges, spokeOnEdges, amendmentEdges, decidesEdges, persons] =
       await Promise.all([
         store.listKgNodes({ kind: "law", limit: KG_READ_CAP }),
         store.listKgNodes({ kind: "organ", limit: KG_READ_CAP }),
@@ -409,9 +279,59 @@ async function loadLawData(): Promise<LawData | null> {
         store.listKgEdges({ rel: "rapporteur", limit: KG_READ_CAP }),
         store.listKgEdges({ rel: "spoke_on", limit: KG_READ_CAP }),
         store.listKgEdges({ rel: "proposes_amendment", limit: KG_READ_CAP }),
+        store.listKgEdges({ rel: "decides", limit: KG_READ_CAP }),
         store.listPersons(),
       ]);
     const nameById = new Map(persons.map((p) => [p.pspId, p.nameFull]));
+
+    /* ── bill → roll calls (`decides`, 2026-09-04) ─────────────────────────────
+     *
+     * Čísla NEPOČÍTÁME znovu: `getFullVoteRecord()` je táž derivace, kterou kreslí
+     * /hlasovani, a je memoizovaná mezi požadavky, takže tenhle join je čtení
+     * indexu, ne druhý fold 406 000 hlasů. Kdyby se tally počítala tady, měly by
+     * dvě plochy dvě různá čísla o jednom hlasování.
+     *
+     * Když hrany nejsou (writer ještě neběžel), zůstává mapa prázdná a každý tisk
+     * dostane `rollCalls: []` — poctivý prázdný stav, ne dopočítaný.
+     */
+    const rollCallsByBill = new Map<string, BillRollCall[]>();
+    if (decidesEdges.length > 0) {
+      const record = await getFullVoteRecord();
+      const voteById = new Map((record?.voteIndex ?? []).map((v) => [v.pspId, v]));
+      for (const e of decidesEdges) {
+        const votePspId = Number(/^psp:hlasovani:(\d+)$/.exec(e.src)?.[1] ?? NaN);
+        const v = voteById.get(votePspId);
+        // Hrana na hlasování, které v záznamu není (zmatečné, jiné období), se
+        // zahodí — vykreslit ji bez tally by znamenalo tvrdit součet, který nemáme.
+        if (!Number.isFinite(votePspId) || !v) continue;
+        const p = (e.props ?? {}) as Record<string, unknown>;
+        const arr = rollCallsByBill.get(e.dst) ?? [];
+        arr.push({
+          votePspId,
+          title: v.title,
+          votedOn: v.votedOn,
+          sessionNo: v.sessionNo,
+          voteNo: v.voteNo,
+          outcome: v.outcome,
+          sourceUrl: v.sourceUrl,
+          readingStage: typeof p.readingStage === "string" ? p.readingStage : null,
+          itemPrintCount: typeof p.itemPrintCount === "number" ? p.itemPrintCount : 1,
+          chamber: v.total,
+          clubLines: v.clubLines,
+        });
+        rollCallsByBill.set(e.dst, arr);
+      }
+      // Nejnovější první, táž osa jako deník — a determinismus i pro hlasování
+      // téhož dne (sněmovna jich má desítky).
+      for (const arr of rollCallsByBill.values())
+        arr.sort(
+          (a, b) =>
+            (b.votedOn ?? "").localeCompare(a.votedOn ?? "") ||
+            (b.sessionNo ?? 0) - (a.sessionNo ?? 0) ||
+            (b.voteNo ?? 0) - (a.voteNo ?? 0) ||
+            b.votePspId - a.votePspId,
+        );
+    }
 
     // bill → zpravodajové (pass 34): person urn on the src side, scopes in props.
     const rapporteursByBill = new Map<string, { pspId: number; name: string; scopes: string[] }[]>();
@@ -505,7 +425,9 @@ async function loadLawData(): Promise<LawData | null> {
       const props = (n?.props ?? {}) as Record<string, unknown>;
       return {
         urn,
-        ref: asStr(props.ref) ?? urn.replace(/^law:sb:/, "").replace("-", "/"),
+        // ONE parser of the law node id (statuteRef.ts) — a second `.replace()` here drifted
+        // silently from the canonical form the moment it was written for any non-canonical urn.
+        ref: asStr(props.ref) ?? refFromLawNodeId(urn) ?? urn,
         label: n?.label ?? urn,
         title: asStr(props.esbirka_title),
       };
@@ -591,6 +513,7 @@ async function loadLawData(): Promise<LawData | null> {
         amendedLawsFull,
         amendsUndercount,
         sectorAttributionFlags: cislo != null ? (sectorAttributionIndex.get(cislo) ?? []) : [],
+        rollCalls: rollCallsByBill.get(n.id) ?? [],
       };
     });
 
@@ -650,12 +573,6 @@ async function loadLawData(): Promise<LawData | null> {
 }
 
 export const getLawData = cache(loadLawData);
-
-export interface BillDossier {
-  bill: LawBillView;
-  prevCislo: number | null; // cyclic file-nav, ordered by print number (cislo)
-  nextCislo: number | null;
-}
 
 /** Pure lookup over an already-loaded LawData for the /zakony/[cislo] dossier route — no
  * extra store round-trip. Navigation order is print number (`cislo`), not the `LawData.bills`

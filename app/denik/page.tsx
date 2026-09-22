@@ -5,6 +5,7 @@ import DenikPage from "@/features/denik/DenikPage";
 import { buildDenik } from "@/features/denik/deriveDenik";
 import { getDenikData } from "@/features/denik/getDenikData";
 import { isEntityKey } from "@/features/schranka/followCodec";
+import { firstParam } from "@/lib/routing/searchParam";
 
 /*
  * /denik — Deník republiky (moonshot 3A): chronologický denní záznam státu.
@@ -16,10 +17,12 @@ import { isEntityKey } from "@/features/schranka/followCodec";
 type DenikSearchParams = Promise<{ entita?: string | string[] }>;
 
 /** Klíč entity z query: routa přijímá jakýkoli neprázdný řetězec (plocha pak
- *  přizná, že tvar klíče neodpovídá) — tady se jen normalizuje pole/prázdno. */
+ *  přizná, že tvar klíče neodpovídá) — tady se jen normalizuje pole/prázdno.
+ *  Opakovaný parametr bere PRVNÍ hodnotu, jako oba feedy (`searchParams.get`);
+ *  do 2026-09-08 ho stránka tiše zahodila a ukázala nefiltrovaný deník. */
 function readEntityKey(params: { entita?: string | string[] }): string | null {
-  const raw = params.entita;
-  return typeof raw === "string" && raw.length > 0 ? raw : null;
+  const raw = firstParam(params.entita);
+  return raw !== null && raw.length > 0 ? raw : null;
 }
 
 /**

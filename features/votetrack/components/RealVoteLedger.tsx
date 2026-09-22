@@ -9,23 +9,36 @@
  * store-outage fallback only.
  */
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useFormat } from "@/lib/i18n/useFormat";
 import CopyLinkButton from "@/features/shared/components/CopyLinkButton";
 import SourceNote from "@/features/shared/components/SourceNote";
 import { voteAnchorId } from "../record/anchor";
+import { isKnownOutcome, outcomeTone } from "../record/outcome";
 import type { ThresholdCoverage } from "../record/threshold";
 import type { ClubTally, LedgerVote } from "../record/types";
+
+/** Tón výsledku → třída; neznámý výsledek je tlumený, ne „zamítnuto" (record/outcome.ts). */
+const OUTCOME_CLASS = {
+  accepted: "text-cobalt",
+  rejected: "text-signal-deep",
+  other: "text-steel-aa",
+} as const satisfies Record<ReturnType<typeof outcomeTone>, string>;
 
 function RatioBar({ total }: { total: ClubTally }) {
   const seats = total.yes + total.no + total.k + total.away;
   if (seats === 0) return <div className="h-3 w-full bg-hairline" />;
   const w = (n: number) => `${(n / seats) * 100}%`;
+  // Nepřítomní ocelově, ne vlasově: dráha pruhu JE bg-hairline, takže vlasový
+  // segment na ní měl nulový kontrast a poměr „150 : 30" vypadal jako pruh se
+  // dvěma mezerami. Sál (RealChamberDetail) i legenda nepřítomné sází ocelí
+  // od 2026-08; deník až od 2026-09-07.
   return (
     <div className="flex h-3 w-full overflow-hidden bg-hairline">
       {total.yes > 0 && <span className="h-full bg-cobalt" style={{ width: w(total.yes) }} />}
       {total.k > 0 && <span className="h-full bg-ochre" style={{ width: w(total.k) }} />}
-      {total.away > 0 && <span className="h-full bg-hairline" style={{ width: w(total.away) }} />}
+      {total.away > 0 && <span className="h-full bg-steel" style={{ width: w(total.away) }} />}
       {total.no > 0 && <span className="h-full bg-signal" style={{ width: w(total.no) }} />}
     </div>
   );
@@ -117,10 +130,10 @@ export default function RealVoteLedger({
                   </span>
                   <span
                     className={`font-mono text-[11px] font-black uppercase tracking-wider ${
-                      v.outcome === "accepted" ? "text-cobalt" : "text-signal-deep"
+                      OUTCOME_CLASS[outcomeTone(v.outcome)]
                     }`}
                   >
-                    {v.outcome === "accepted" ? tcom("voteResult.accepted") : tcom("voteResult.rejected")}
+                    {isKnownOutcome(v.outcome) ? tcom(`voteResult.${v.outcome}`) : v.outcome}
                   </span>
                 </span>
                 <span className="mt-1 line-clamp-2 block text-[15px] font-bold leading-snug">{v.title}</span>
@@ -156,6 +169,21 @@ export default function RealVoteLedger({
                   {v.rebels.length > 0 && (
                     <span className="font-bold text-signal-deep">{t("rebelsCount", { n: v.rebels.length })}</span>
                   )}
+                  {/* O čem se hlasovalo — odkaz na dossier tisku (hrany `decides`).
+                      Odkaz jen když tisk byl PRÁVĚ JEDEN: bod pořadu s víc tisky
+                      by jinak poslal čtenáře na jeden z bloku, jako by se hlasovalo
+                      o něm. Blok proto dostane větu, ne odkaz — a hlasování bez
+                      tisku nedostane nic, protože se nehádá z názvu. */}
+                  {v.billCislo !== null ? (
+                    <Link
+                      href={`/zakony/${v.billCislo}`}
+                      className="font-bold text-cobalt underline-offset-2 hover:underline"
+                    >
+                      {t("record.billLink", { cislo: v.billCislo })}
+                    </Link>
+                  ) : v.billCount > 1 ? (
+                    <span className="text-steel-aa">{t("record.billBlock", { countFmt: f.int(v.billCount) })}</span>
+                  ) : null}
                 </span>
                 {/* Sdílená katalogová komponenta, nikdy druhá kopie — a kopíruje
                     přesně tu adresu, kterou slibuje `title` na řádku. */}
@@ -170,7 +198,7 @@ export default function RealVoteLedger({
         })}
       </ul>
       <div className="mt-3 space-y-1.5">
-        <SourceNote>{t("record.ledgerFootnote", { window: ledgerWindow, valid: validTotal })}</SourceNote>
+        <SourceNote>{t("record.ledgerFootnote", { window: f.int(ledgerWindow), valid: f.int(validTotal) })}</SourceNote>
         {/* Druhá citace, ne delší první: mluví o JINÉ populaci — o celém záznamu,
             ne o okně deníku nad ní. Bez ní by se řádkový nález („práh se od prosté
             většiny přítomných liší") četl jako vlastnost padesáti vypsaných

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import EvidencePacketPage from "@/features/money/EvidencePacketPage";
 import { getEvidencePacket } from "@/features/money/getEvidencePacket";
+import { pspIdFromParam } from "@/lib/routing/pspIdParam";
 
 export async function generateMetadata({
   params,
@@ -23,8 +24,10 @@ export default async function EvidencePacketRoute({
   params: Promise<{ pspId: string }>;
 }) {
   const { pspId: pspIdRaw } = await params;
-  const pspId = Number(pspIdRaw);
-  if (!Number.isInteger(pspId)) notFound();
+  // Jen číslice — JEDNA definice pravidla (lib/routing/pspIdParam.ts), táž jako
+  // /penize/[pspId].
+  const pspId = pspIdFromParam(pspIdRaw);
+  if (pspId === null) notFound();
 
   const data = await getEvidencePacket(pspId);
   return <EvidencePacketPage data={data} />;

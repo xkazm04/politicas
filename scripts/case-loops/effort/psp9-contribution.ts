@@ -117,7 +117,13 @@ async function main() {
 
   const nodes = await store.listKgNodes({ kind: "person", limit: 1000 });
   const nodeById = new Map(nodes.map((n) => [n.id, n]));
-  const pass = Number(arg("pass")) || 0;
+  // The pass is ASSIGNED, never a placeholder: until 2026-09-08 a `--commit` with
+  // no `--pass` stamped `pass: 0` — the very placeholder apply-batch.ts exists to
+  // substitute away — into contribution_psp9's provenance on every continuing MP.
+  const pass = Number(arg("pass"));
+  if (commit && !(Number.isInteger(pass) && pass > 0)) {
+    throw new Error("REFUSED: --commit requires --pass=<n> where n is a positive integer (a real assigned pass number, never a placeholder).");
+  }
   const computedAt = new Date().toISOString();
 
   const toWrite: KgNodeRow[] = [];
@@ -170,7 +176,7 @@ async function main() {
         participation,
         attendance,
       },
-      provenance: { track: "effort", pass, method: "deterministic", ref: "contribution-psp9", computedAt },
+      provenance: { track: "effort", pass: Number.isInteger(pass) && pass > 0 ? pass : null, method: "deterministic", ref: "contribution-psp9", computedAt },
     };
 
     preview.push({ name: nameById.get(pid) ?? `#${pid}`, committee: p.components.committee, leadership: p.components.leadership, legislative: p.components.legislative, speech: p.components.speech, bills: p.billsAuthored, interp: p.interpellations, sp: p.speechTurns, part: participationRate });

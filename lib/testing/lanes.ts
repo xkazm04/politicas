@@ -54,18 +54,22 @@ export const PGLITE_LANE_FILES = [
   "lib/db/pglite/maintenance-store.test.ts",
   "lib/db/pglite/open-retry.test.ts",
   "lib/db/pglite/premigration.test.ts",
+  "lib/db/pglite/sentinelQueue.test.ts",
   "lib/db/pglite/repositories/changes.test.ts",
+  "lib/db/pglite/repositories/clubByMandate.test.ts",
   "lib/db/pglite/repositories/graph.test.ts",
   "lib/db/pglite/repositories/kg-bitemporal.test.ts",
   "lib/db/pglite/repositories/ledger.test.ts",
+  "lib/db/pglite/repositories/review-kinds.test.ts",
   "lib/db/pglite/repositories/review.test.ts",
   "lib/db/pglite/repositories/votes.test.ts",
   "lib/db/pglite/repositories/weights.test.ts",
   "lib/db/readiness.test.ts",
-  "lib/testing/leaderboard-loader.test.ts",
+  "lib/db/store-lockstep.test.ts",
   "lib/testing/loaders.test.ts",
   "lib/testing/sentinel/sentinel.test.ts",
   "scripts/case-loops/apply-batch.test.ts",
+  "scripts/data-analysis/kg-writer-provenance.test.ts",
 ] as const;
 
 /**

@@ -14,11 +14,19 @@ import { municipalRouteIcos } from "@/features/budget/municipalRoutes";
  */
 
 export function generateStaticParams(): { ico: string }[] {
-  // Předgeneruj obce s napojenou rozpočtovou řadou (132 v této dávce) i obce
-  // se smlouvami v peněžním grafu (4D); zbytek rejstříku se renderuje na
-  // vyžádání (dynamicParams default). Seznam vlastní features/budget/
-  // municipalRoutes.ts — TÝŽ, ze kterého čte app/sitemap.ts, aby se to, co se
-  // staví, nemohlo rozejít s tím, co se nabízí robotovi.
+  // Obce s napojenou rozpočtovou řadou (132 v této dávce) i obce se smlouvami
+  // v peněžním grafu (4D); zbytek rejstříku se renderuje na vyžádání
+  // (dynamicParams default). Seznam vlastní features/budget/municipalRoutes.ts
+  // — TÝŽ, ze kterého čte app/sitemap.ts, aby se to, co se deklaruje, nemohlo
+  // rozejít s tím, co se nabízí robotovi.
+  //
+  // DNES SE NIC NEPŘEDGENERUJE (změřeno 2026-09-01: .next/prerender-manifest.json
+  // z buildu 2026-08-27 nese 0 cest /rozpocty). Locale cookie čtená v
+  // lib/i18n/request.ts renderuje KAŽDOU cestu dynamicky
+  // (memory/revalidate-is-inert-every-route-is-dynamic), takže tenhle seznam je
+  // deklarovaný strop pro den, kdy aplikace půjde staticky — ne popis buildu.
+  // Až ten den přijde, getSupplierTies (živý stav lidské kontroly) se do
+  // statického výstupu zmrazit NESMÍ; viz hlavičku features/budget/getSupplierTies.ts.
   return municipalRouteIcos().map((ico) => ({ ico }));
 }
 

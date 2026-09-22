@@ -64,3 +64,112 @@ requested now. Honest carry-over: for `cesta`/`trasa` the sources still fall bac
 all four registries — narrowing by node kind needs `PermalinkPage.tsx` to adopt the
 same rule, and shipping half of it would have put two rules on one citation.
 
+**`/graf/p/[ref]` — the bundle stopped certifying refusals, and the fingerprint
+grew an author (2026-09-04, G4 / deck #36 + #28).**
+`edgeClaim` emitted `prop("review_state", pending ? "pending_review" : "verified")`
+— a two-valued sentence about a THREE-valued field. `kg_edge.props.review_state`
+carries `verified | pending_review | rejected`, `rejected` is terminal and the edge
+stays in the graph (`repositories/review.ts`), and the whole graph surface collapsed
+that to one boolean. A tie a human had REFUSED therefore left `pending: false` and
+the least-correctable artifact this product emits printed `review_state: verified`
+over it. Now the stored token goes out literally, and a relation the gate does not
+cover (`GATED_RELS`) prints `ungated` — never "verified", because "nothing to review"
+is not a review. Each `Claim` also carries `claim_ref`, an absolute `claim_url`
+(`/zdroj/<edgeClaimRef>`, omitted with no host — never a guessed domain, the same rule
+as `url`/`identifier`), and its `provenance_ref`/`provenance_pass`/`provenance_method`:
+every hop of a cited path is now itself a citable receipt, which is what the golden
+path means by a checkable path. `permalinkCardModel.review` splits `pendingEdges` from
+`rejectedEdges` and a refused step denies the card its confirming colour, on the same
+reasoning that denied it to a stale one.
+
+**DERIVATION BUMP — every issued `cesta` ref reads as `moved` exactly once.**
+`hashViewContent` hashed `{kind, from, to, path}` while `maxCost`/`hubDegree` sat in
+`core`, OUTSIDE the hash, and the rule constants had no version identity at all. Change
+`HUB_DEGREE` from 120 to 90 and a two-hop path that survives re-derives byte-identical:
+the fingerprint matches, `/overeni` says `verified`, and the citation was authored by a
+different rule — a coincidence stamped as verification. `content` for `cesta` now carries
+`{ruleRef, excludedRels, hubDegree, maxCost}` and `trailPath.ts` exports
+`PATH_RULE_REF = "evidence-path/v1"` + `pathRule()`, test-pinned against the constants so
+changing one without the other fails. This is announced, not silent: it moves the content
+hash of every path citation issued before today, once. The alternative was to keep hashing
+a lie. Bump `PATH_RULE_REF` on any semantic change to the constants or the ordering rule.
+The bundle additionally carries `path_excluded_rejected` — how many hops the search
+refused to walk because a human refused them — so an empty answer can distinguish "we
+found no connection" from "the only connection runs through a refused claim".
+
+Honest carry-over from this pass: `/overeni`'s `grafVerdict` still returns a blanket
+`ungated` for the `graf` family (`verdict.ts` belongs to G1 this wave); the exact
+modifier it should return is in this wave's report. `moved`-by-basis reporting — the
+"same path, different rule" sentence comparing a cited `ruleRef` to today's — is not
+built either, and older refs carry no basis at all, so they must read as "stamps not
+compared", never as a mismatch.
+
+**The address learns when it was issued (2026-09-04, moonshot G1, card #13).**
+A stale citation could be *declared* stale and nothing more, because the address
+itself carried no issue instant: `g.<state>.<hash8>` gave the server two
+fingerprints and no date, so even a bitemporal store had nothing to replay the
+view AGAINST. The address space grows rather than moves:
+
+```
+g.<state>.<hash8>                 — still decodes, forever
+g2.<state>.<hash8>.<YYYYMMDD>     — issued from now on
+```
+
+`encodeGraphRef` stamps today by default, so `graphActions.citeViewAction` needed
+no change and every newly issued citation is dated; passing `""` keeps the old
+shape for the guide's illustrative example, which must not change daily. The date
+is refused, never repaired — `20260231` is not 3 March, it is an invalid address,
+the same discipline the base64 body already had — and `features/overeni/refDetect.ts`
+learned the second prefix so a bare `g.` ref pasted into the gate keeps verifying.
+
+The staleness block above the content is now a **tehdy / dnes** ledger: both
+fingerprints, each with its own date, and `permalink.noIssueDate` where a `g.`
+address carries none rather than today's date silently standing in for the issue
+date.
+
+`diffViews()` ships pure and tested (`features/graph/diffViews.ts`). It compares
+the CANONICAL CONTENT — the very object `hashViewContent` hashes — so
+"fingerprints differ but the diff is empty" is a detectable inconsistency rather
+than a silent state. Edges are keyed `src|rel|dst`, so reordering is not a
+change; weights compare exactly (0,87 → 0,88 is a move the display rounding
+would have swallowed); a missing weight against a number IS a change; gate flips
+are their own finding beside weight changes; a path is re-routed by SEQUENCE,
+not by set; and `incomparable` exists precisely so "nothing changed" and "we did
+not replay the then-side" can never be typeset the same way.
+
+**Carry-over, named in the product and not only here.** `view.diff` is typed and
+wired but `null`, and the page says in as many words that it can date the change
+but not yet name it. Producing the then-side needs `resolveView(state, at)` over
+`getTrails` / `getPathBetween` / `getNodeDetail` parameterised by a
+`KgAsOfReads` — a change to `features/graph/graphLoader.ts`, which the G1 write
+set does not include (G4 owns it). Also still open from card #13: the JSON-LD
+`hasPart` for the then-side with `validFrom`/`validThrough`, the OG card's
+"změněno od <date>", and the diff table under `moved` at `/overeni`; all three
+wait on the same replay.
+
+**`/graf/p/[ref]/bundle` adds `no-store` to its 503 (2026-09-06, scan-sweep,
+parity-auditor).** The bundle already sent `retry-after: 600`; a shared cache could
+still have held the outage. 404 and 410 are unchanged — a gone citation is a state
+of today's pass and is reported, not cached, by the page.
+
+**The page prints the gate line the card prints (2026-09-06, scan-sweep,
+parity-auditor).** Since 2026-09-04 `permalinkCardModel` and the OG image count
+`gate === "rejected"` for `trasa` and `okoli` and say „N hran odmítla kontrola"; the
+page under the card still counted `e.pending` only for a trail and printed no gate
+line at all for a neighbourhood, so the card could refuse the confirming colour over
+a page that said nothing. The counting now lives once, in `gateCounts()`
+(`permalink.ts`), and `TrasaExhibit` / `OkoliExhibit` print pending and rejected
+from it (2 inline countings + 1 partial → 1 function, 4 callers).
+
+**2026-09-08 (scan-sweep, graph-explorer round 70).** Two dates on this surface were
+the server's UTC day, not Prague's: the issue date stamped into every new `g2.`
+address (`issuedTodayCompact` in `permalink.ts`) and `retrievedOn` — the "Získáno"
+line on the card, `dateModified` in the JSON-LD receipt and the day printed on a
+gone citation (`today()` in `getPermalinkData.ts`). Between Prague midnight and
+01:00 (02:00 in summer) both said yesterday, and the issue date is the one figure a
+reader copies as "when this citation was issued". Both now go through
+`features/denik/pragueDay` — the same helper and the same reason as Deník's
+`today` (2026-08-04) and the dashboard's `builtOn` (2026-09-08). The address's
+hash covers the content only, so no existing citation changes. In the same round
+the loader's private request-origin copy (host + `x-forwarded-proto`) became a
+call to `lib/routing/liveUrl`, the one definition of that shape since 2026-09-07.

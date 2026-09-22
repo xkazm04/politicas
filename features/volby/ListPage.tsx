@@ -9,8 +9,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import SectionHeading from "@/features/shared/components/SectionHeading";
 import SourceNote from "@/features/shared/components/SourceNote";
-import { krajSlug } from "@/features/civicscore/kraj";
-import { krajBySlug } from "@/lib/analysis/volby/kraje";
+import { krajBySlug, regionLabelFromPspName } from "@/lib/analysis/volby/kraje";
 import type { ListData } from "@/lib/analysis/volby/types";
 import ContestedMatrix from "./components/ContestedMatrix";
 import SubjectCard from "./components/SubjectCard";
@@ -73,11 +72,11 @@ function MembersTable({ members, caption, t, f }: { members: readonly Member[]; 
 export default async function ListPage({ data }: { data: ListData }) {
   const { t, f } = await volbyIntl();
   const pinned = data.pinnedKraj ? krajBySlug(data.pinnedKraj) : null;
-  // Kraj poslance přichází jako štítek (regionLabel) — srovnává se přes týž
-  // slug, kterým je adresován kraj, ne přes rovnost řetězců tří slovníků.
-  const pinnedMembers = pinned
-    ? data.members.filter((m) => m.region !== null && (krajSlug(m.region) === pinned.slug || m.region === pinned.pspLabel))
-    : [];
+  // TÁŽ podmínka, kterou loader (getListData) poslance kraje řadí dopředu: štítek
+  // kraje poslance = štítek odvozený z psp.cz jména kraje. Do 2026-09-07 tu stálo
+  // druhé pravidlo (slug NEBO doslovný psp štítek) — dvě odpovědi na jednu otázku.
+  const pinnedRegion = pinned ? regionLabelFromPspName(pinned.pspLabel) : null;
+  const pinnedMembers = pinnedRegion !== null ? data.members.filter((m) => m.region === pinnedRegion) : [];
   const clubs = Object.entries(data.list.clubsToday)
     .sort((a, b) => b[1] - a[1])
     .map(([club, n]) => `${club} ${f.int(n)}`)

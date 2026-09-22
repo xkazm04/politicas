@@ -106,6 +106,9 @@ export function decodeXml(s: string): string {
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")
     .replace(/&#(\d+);/g, (_, d: string) => String.fromCodePoint(Number(d)))
+    // Hexadecimal references are XML too (`&#xA0;`) — until 2026-09-06 only the decimal
+    // form was read, unlike the HTML client's decodeHtmlEntities (smlouvy.ts).
+    .replace(/&#[xX]([0-9a-fA-F]+);/g, (_, h: string) => String.fromCodePoint(parseInt(h, 16)))
     .replace(/&amp;/g, "&"); // last, so "&amp;lt;" does not become "<"
 }
 

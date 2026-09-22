@@ -4,16 +4,15 @@
  */
 
 import "server-only";
-import { headers } from "next/headers";
+import { liveUrl } from "@/lib/routing/liveUrl";
 
 const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
-/** Origin requestu (precedens /denik/feed.*). Prázdný, když host chybí. */
+/** Origin requestu (precedens /denik/feed.*). Prázdný, když host chybí. Skládá ho
+ *  JEDNA definice (lib/routing/liveUrl.ts, round 37) — do 2026-09-07 tu stála třetí
+ *  kopie skládání adresy z hlaviček hostu a proxy schématu vedle /kraj a /plakat. */
 export async function requestOrigin(): Promise<string> {
-  const h = await headers();
-  const host = h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? "http";
-  return host ? `${proto}://${host}` : "";
+  return liveUrl("");
 }
 
 /** Práh z `od=`; nevalidní nebo chybějící → null, tedy okno první návštěvy

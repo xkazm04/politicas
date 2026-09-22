@@ -94,9 +94,13 @@ export default function GraphNodeList({
                     {t.kind}
                     {t.sub ? ` · ${t.sub}` : ""}
                   </span>
+                  {/* Pojmenované cíle, ne sedmnáctkrát „poslanec“ a „deník entity“:
+                      odečítačka jinak čte seznam nerozlišitelných odkazů (táž
+                      zásada jako u tlačítek v FactRow). */}
                   {n.href && (
                     <Link
                       href={n.href}
+                      aria-label={tg("list.caseFileNamed", { kind: t.kind, label: t.label })}
                       className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
                     >
                       {t.kind} <ArrowUpRight className="h-3 w-3" aria-hidden />
@@ -105,6 +109,7 @@ export default function GraphNodeList({
                   {entityKey && (
                     <Link
                       href={denikEntityHref(entityKey)}
+                      aria-label={tg("list.denikNamed", { label: t.label })}
                       className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wider text-cobalt transition-colors hover:text-signal"
                     >
                       {tg("denikEntity")} <ArrowUpRight className="h-3 w-3" aria-hidden />

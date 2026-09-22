@@ -181,3 +181,70 @@ running on defaults is recoverable and clobbering a newer payload is not. The
 repo's reviewed counter-position on version-in-the-key
 (`scripts/census/rules.json`, `satisfied: client-state-persistence`) still stands
 for its other two cases, which carry no shape at all.
+
+**"o kolik se skóre pohnulo, záznam neříká" stops being unconditional
+(2026-09-04, moonshot G1, card #1).** That sentence was true when it was written
+and stopped being true when the bitemporal layer landed: `kg_node_history` keeps
+the prior versions and `store.asOfNode` reads them. It survived because nothing
+had gone back to check. `recomputeDelta` now takes an optional per-MP
+`ScoreMove` and prints the magnitude — and `scoreMagnitude` refuses it in three
+cases, with the old sentence standing unchanged in every one:
+
+1. **no prior version.** A node with no `contribution_score` in history is not a
+   node whose score was zero.
+2. **the prior is not a prior.** Same `pass` as today means nothing was
+   superseded, so there is nothing to subtract.
+3. **the formula changed.** A differing `ref` means the difference would mix a
+   formula correction with a movement in the data, and "this MP's score fell by
+   3,2" would be a falsehood about a person rather than a fact about a
+   computation (`MEMORY.md` → recompute-replay-gate: a corrected formula is
+   replayed, not subtracted).
+
+`uniformPrior` holds the same bar the today-side already held — one `{pass, ref}`
+for the whole compared set, and one missing prior breaks uniformity rather than
+counting as zero. Zero is a legitimate answer and reads as "recomputed, value
+unchanged", which is a different sentence from "we do not know the size". The
+delta `id` does not change with the magnitude, so the same recompute is still one
+row; the number goes through `czech()` (decimal comma) and the bilingual surface
+takes `schranka.delta.recomputeTitleSized` while the single-language feeds keep
+their literal Czech.
+
+**Carry-over: the read is not wired.** Reading each followed MP's prior version
+means one `asOfNode` per key in `features/schranka/getRecomputeFact.ts`, which
+was outside the G1 write set (the design owns `recomputeFact.ts` and its test).
+Until that lands, `recomputeDelta` is called with no move and every row keeps the
+"size unknown" sentence — the honest default, and the one the code already
+produces. The pure half ships with its bar so the wiring cannot quietly lower it.
+
+**The feeds are private responses, and `od=` has one parser (2026-09-05,
+scan-sweep, security-auditor + parity-auditor).** Both feed routes answered 200 with
+no `cache-control` while their address carries the reader's follow list; novinky.json
+— same subscription, same loader — already sent `private, max-age=60`. The feeds now
+send the same, so no shared cache decides on its own to keep a personal artefact.
+In the same pass novinky.json stopped holding its own copy of the day regex and reads
+`od=` through `feedSince` like the feeds; only the default differs, and both defaults
+are stated at the call site (feeds: first-visit window; badge: everything).
+`features/schranka/feedRoutes.test.ts` runs the three handlers over a mocked loader
+and pins the policy, the 503 `no-store`, and the parser.
+
+**Origin feedu skládá jedna definice (2026-09-07, scan-sweep, parity-auditor).**
+`feedRequest.requestOrigin` byl třetí opis skládání adresy z hlaviček hostu
+a proxy schématu vedle /kraj a /plakat (round 37 je sjednotil do
+`lib/routing/liveUrl.ts`); teď volá `liveUrl("")`. Chování beze změny: bez
+hlavičky host prázdný origin, bez proxy hlavičky `http`.
+
+**Schránka počítá dny v pražském kalendáři, jako server (2026-09-07, scan-sweep,
+bounty-hunter).** Server datuje `builtOn` i práh delty pražským dnem
+(`getDenikData`), ale klient bral „dnešek" z UTC řetězce (`useToday`), den
+razítka návštěvy z prefixu ISO okamžiku (`visitWindow.openVisit`) a `dayOf`
+totéž — mezi půlnocí a 01:00/02:00 pražského času měl čtenář jiný den než
+server: okno první návštěvy posunuté, odznak přepínal den ve dvě ráno, návštěva
+v 00:30 padala do včerejška. Všechna tři místa čtou `pragueDay()`; test
+`sinceDay` teď říká, že 23:59 UTC je pražský následující den.
+
+**Odmítnutá odpověď novinek se v cache nedrží (2026-09-07, scan-sweep,
+error-handler).** `useNews.fetchNovinky` drží odpověď minutu v modulové cache
+a vyhozenou chybu z ní hned vyhazoval — jenže odpověď se stavem mimo 2xx
+(503 při nečitelném deníku) vracel jako `null` a v cache ji nechal: odznak po
+přechodném výpadku mlčel o minutu déle, než musel. Obě cesty neúspěchu teď
+cache vyhazují stejně.

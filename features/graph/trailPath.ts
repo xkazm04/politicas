@@ -13,6 +13,9 @@
  *      odevšad všude a nic by neříkala;
  *   2. při stejné délce vyhrává cesta s MÉNĚ neověřenými hranami
  *      (review_state = pending_review) — ověřené bije návrh stroje;
+ *      ZAMÍTNUTÉ hrany (review_state = rejected) se do sousedství vůbec
+ *      nedostanou: odmítnuté tvrzení není doložená vazba, takže po něm cesta
+ *      nevede a jejich počet se čtenáři přiznává (excludedRejected);
  *   3. pak vyšší doložená částka (součet vah smluvních hran `supplies`);
  *   4. pak abeceda otisku cesty (id uzlů a relace) — poslední, čistě
  *      technický klíč, který zaručuje jednoznačné pořadí.
@@ -28,7 +31,25 @@
  * si nese `forward`, aby klíč hrany (src|rel|dst) seděl na plátno.
  */
 
+import { EMPTY_GRAPH_PROVENANCE } from "@/lib/kg/graphProvenance";
+import type { EdgeProvenance, GateStatus, PathQueryResult } from "./graphTypes";
+
 // ── Konstanty pravidla (UI je tiskne, testy je přibíjejí) ────────────────────
+
+/**
+ * IDENTITA PRAVIDLA, kterým cesta vznikla.
+ *
+ * Otisk citace porovnává OBSAH, ne AUTORA: změň HUB_DEGREE ze 120 na 90 a
+ * dvouskoková cesta, která to přežije, se znovuodvodí bajtově stejně — otisk
+ * sedí, /overeni řekne „ověřeno", a přitom to je jiné pravidlo. Proto pravidlo
+ * nese vlastní verzi, ta vstupuje do `content` citace, a `pathRule()` je
+ * jediné místo, odkud ji kdokoli čte.
+ *
+ * BUMPNI JI PŘI KAŽDÉ SÉMANTICKÉ ZMĚNĚ konstant níž nebo pravidla řazení.
+ * `trailPath.test.ts` ji přibíjí PROTI konstantám: změna jednoho bez druhého
+ * shodí test, takže na to nejde zapomenout.
+ */
+export const PATH_RULE_REF = "evidence-path/v1";
 
 /** Relace, po kterých cesta nesmí vést. */
 export const EXCLUDED_RELS: readonly string[] = ["co_votes_with"];
@@ -41,6 +62,38 @@ export const ENUM_CAP = 64;
 /** Kolik nejlepších cest se vrací (vítěz + alternativy). */
 export const ALTERNATES = 3;
 
+/** Celé pravidlo jako jeden čitelný objekt — UI, otisk citace i sentinel čtou
+ *  TOHLE, ne jednotlivé konstanty rozeseté po importech. */
+export function pathRule(): {
+  ruleRef: string;
+  excludedRels: readonly string[];
+  hubDegree: number;
+  maxCost: number;
+} {
+  return { ruleRef: PATH_RULE_REF, excludedRels: EXCLUDED_RELS, hubDegree: HUB_DEGREE, maxCost: MAX_COST };
+}
+
+/**
+ * Odpověď „hledání neproběhlo" (sklad neběží, akce spadla) — JEDINÁ definice.
+ * Do 2026-09-06 ji graphLoader i VariantMapa psaly každý sám; dvanácté pole by
+ * dorazilo jen do jedné z nich. Nuly tu nic netvrdí: `status: "unavailable"`
+ * říká, že se nepočítalo, a plocha sází výpadek, ne počty.
+ */
+export const unavailablePathResult = (): PathQueryResult => ({
+  status: "unavailable",
+  from: null,
+  to: null,
+  paths: [],
+  totalFound: 0,
+  capped: false,
+  maxCost: MAX_COST,
+  hubDegree: HUB_DEGREE,
+  excludedRejected: 0,
+  ruleRef: PATH_RULE_REF,
+  // Prázdná agregace = „hledání neproběhlo", ne „graf nemá provenienci".
+  provenance: EMPTY_GRAPH_PROVENANCE,
+});
+
 // ── Tvary ────────────────────────────────────────────────────────────────────
 
 export interface PathEdge {
@@ -48,8 +101,12 @@ export interface PathEdge {
   dst: string;
   rel: string;
   weight: number | null;
-  /** Hrana čeká na lidskou kontrolu (review_state = pending_review). */
+  /** ODVOZENÉ z `gate` — `false` neznamená „ověřeno", jen „nečeká". */
   pending: boolean;
+  /** Stav lidské brány; null = negated relace (deterministické odvození). */
+  gate: GateStatus | null;
+  /** Provenience hrany; null = hrana ji nenese. */
+  provenance: EdgeProvenance | null;
 }
 
 interface AdjEntry {
@@ -57,6 +114,8 @@ interface AdjEntry {
   rel: string;
   weight: number | null;
   pending: boolean;
+  gate: GateStatus | null;
+  provenance: EdgeProvenance | null;
   /** true = hrana je uložená current→other; false = obráceně. */
   forward: boolean;
 }
@@ -65,6 +124,12 @@ export interface Adjacency {
   neighbours: Map<string, AdjEntry[]>;
   /** Důkazní stupeň nad hranami, ze kterých se hledá (bez vyloučených relací). */
   degree: Map<string, number>;
+  /**
+   * Kolik hran sousedství ODMÍTLO, protože je odmítl člověk (review_state =
+   * rejected). Není to nula proto, že by žádné nebyly — je to počet, a plocha
+   * ho tiskne: cesta, která se nenašla, se mohla nenajít PRÁVĚ proto.
+   */
+  excludedRejected: number;
 }
 
 export interface PathHop {
@@ -74,6 +139,8 @@ export interface PathHop {
   rel: string;
   weight: number | null;
   pending: boolean;
+  gate: GateStatus | null;
+  provenance: EdgeProvenance | null;
   /** Orientace uložené hrany: true = uložená from→to. */
   forward: boolean;
 }
@@ -105,6 +172,8 @@ export interface FindPathsResult {
   capped: boolean;
   /** Cena nejkratší cesty; null = žádná v limitu neexistuje. */
   cost: number | null;
+  /** Kolik zamítnutých hran sousedství vůbec nenabídlo (viz Adjacency). */
+  excludedRejected: number;
 }
 
 // ── Stavba sousedství ────────────────────────────────────────────────────────
@@ -112,22 +181,55 @@ export interface FindPathsResult {
 const cmp = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
 const num = (v: number | null) => (typeof v === "number" && Number.isFinite(v) ? v : 0);
 
+/** Pořadí „doloženosti" pro slučování duplicit: ověřená hrana bije čekající,
+ *  negated relace se nesrovnává (nemá co ověřovat) a řadí se mezi ně. */
+const GATE_RANK: Record<string, number> = { verified: 0, pending_review: 2 };
+const gateRank = (g: GateStatus | null): number => (g === null ? 1 : (GATE_RANK[g] ?? 2));
+
 /**
  * Neorientované sousedství nad důkazními hranami. Duplicitní hrany
  * (src|rel|dst) se slučují komutativně — ověřená vyhrává, váha se bere vyšší —
  * a seznamy sousedů se řadí, takže výsledek nezávisí na pořadí vstupu.
+ *
+ * ZAMÍTNUTÉ HRANY SE NEPOUŽÍVAJÍ. `rejected` je terminální rozhodnutí člověka,
+ * že tvrzení neplatí; kdyby po něm cesta vedla, plocha by odmítnutou vazbu
+ * vydávala za doložený krok (a do 2026-09-04 přesně to dělala — plnou čarou
+ * a v balíčku důkazů jako `verified`). Vyloučené se POČÍTAJÍ, ne mlčí:
+ * „spojení jsme nenašli" a „spojení vede jen přes odmítnuté tvrzení" jsou dvě
+ * různé odpovědi a čtenář má právo vědět, kterou drží.
  */
 export function buildAdjacency(edges: PathEdge[]): Adjacency {
   const dedup = new Map<string, PathEdge>();
+  let excludedRejected = 0;
   for (const e of edges) {
     if (EXCLUDED_RELS.includes(e.rel)) continue;
     if (e.src === e.dst) continue;
+    if (e.gate === "rejected") {
+      excludedRejected++;
+      continue;
+    }
     const key = `${e.src}|${e.rel}|${e.dst}`;
     const prev = dedup.get(key);
     if (!prev) {
-      dedup.set(key, { src: e.src, dst: e.dst, rel: e.rel, weight: e.weight, pending: e.pending });
+      dedup.set(key, {
+        src: e.src,
+        dst: e.dst,
+        rel: e.rel,
+        weight: e.weight,
+        pending: e.pending,
+        gate: e.gate,
+        provenance: e.provenance,
+      });
     } else {
-      prev.pending = prev.pending && e.pending;
+      // Doloženější stav vyhrává a provenience jde S NÍM — jinak by řádek
+      // nesl původ jiné hrany, než jakou nakonec tiskne.
+      if (gateRank(e.gate) < gateRank(prev.gate)) {
+        prev.gate = e.gate;
+        prev.provenance = e.provenance;
+      } else if (prev.provenance === null) {
+        prev.provenance = e.provenance;
+      }
+      prev.pending = prev.gate === "pending_review";
       prev.weight = num(prev.weight) >= num(e.weight) ? prev.weight : e.weight;
     }
   }
@@ -141,13 +243,14 @@ export function buildAdjacency(edges: PathEdge[]): Adjacency {
     degree.set(id, (degree.get(id) ?? 0) + 1);
   };
   for (const e of dedup.values()) {
-    push(e.src, { other: e.dst, rel: e.rel, weight: e.weight, pending: e.pending, forward: true });
-    push(e.dst, { other: e.src, rel: e.rel, weight: e.weight, pending: e.pending, forward: false });
+    const shared = { rel: e.rel, weight: e.weight, pending: e.pending, gate: e.gate, provenance: e.provenance };
+    push(e.src, { other: e.dst, ...shared, forward: true });
+    push(e.dst, { other: e.src, ...shared, forward: false });
   }
   for (const list of neighbours.values()) {
     list.sort((a, b) => cmp(a.other, b.other) || cmp(a.rel, b.rel) || Number(a.forward) - Number(b.forward));
   }
-  return { neighbours, degree };
+  return { neighbours, degree, excludedRejected };
 }
 
 // ── Hledání ──────────────────────────────────────────────────────────────────
@@ -197,7 +300,13 @@ export function findEvidencePaths(
   const enumCap = opts.enumCap ?? ENUM_CAP;
   const alternates = opts.alternates ?? ALTERNATES;
 
-  const none: FindPathsResult = { paths: [], totalFound: 0, capped: false, cost: null };
+  const none: FindPathsResult = {
+    paths: [],
+    totalFound: 0,
+    capped: false,
+    cost: null,
+    excludedRejected: adj.excludedRejected,
+  };
   if (src === dst) return none;
   if (!adj.neighbours.has(src) || !adj.neighbours.has(dst)) return none;
 
@@ -243,6 +352,8 @@ export function findEvidencePaths(
         rel: entry.rel,
         weight: entry.weight,
         pending: entry.pending,
+        gate: entry.gate,
+        provenance: entry.provenance,
         forward: entry.forward,
       });
       seq.push(entry.other);
@@ -261,5 +372,11 @@ export function findEvidencePaths(
       cmp(signatureOf(a.hops), signatureOf(b.hops)),
   );
 
-  return { paths: found.slice(0, alternates), totalFound: found.length, capped, cost: best };
+  return {
+    paths: found.slice(0, alternates),
+    totalFound: found.length,
+    capped,
+    cost: best,
+    excludedRejected: adj.excludedRejected,
+  };
 }

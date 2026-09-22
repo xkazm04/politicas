@@ -17,6 +17,13 @@ import registry from "./prop-registry.json";
 
 export interface PropRegistry {
   seededAt: string;
+  /**
+   * The keys of the `provenance` COLUMN (not `props`) — the contract declared by
+   * ./provenance.ts, mirrored here so one file describes the whole jsonb schema
+   * of a graph row: what it may claim (nodes/edges) and where it came from.
+   * Validation of a stamp lives in provenance.ts; this is the declaration.
+   */
+  provenance: string[];
   nodes: Record<string, string[]>;
   edges: Record<string, string[]>;
 }

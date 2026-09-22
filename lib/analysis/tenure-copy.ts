@@ -34,9 +34,12 @@
 //
 // Pure + defensive, unit-tested by lib/**/*.test.ts — no React, no store access.
 
-export type TenureClass = "full_term" | "replacement" | "departed" | "never_seated";
-
-const TENURE_CLASSES: readonly TenureClass[] = ["full_term", "replacement", "departed", "never_seated"];
+/** The closed tenure vocabulary — ONE declaration, the type derives from it (the
+ *  shape LOW_SCORE_REASONS and WORKHORSE_FLAVOURS already use). Until 2026-09-08
+ *  the union and the array were spelled separately, so a fifth class added to one
+ *  and not the other type-checked and then rendered as graceful null everywhere. */
+export const TENURE_CLASSES = ["full_term", "replacement", "departed", "never_seated"] as const;
+export type TenureClass = (typeof TENURE_CLASSES)[number];
 
 export function isTenureClass(x: unknown): x is TenureClass {
   return typeof x === "string" && (TENURE_CLASSES as readonly string[]).includes(x);
@@ -113,11 +116,18 @@ export function isTrendTooEarly(tenureDays: unknown): boolean {
   return typeof tenureDays !== "number" || !Number.isFinite(tenureDays) || tenureDays < TREND_MIN_TENURE_DAYS;
 }
 
-/** "2025-11-12" → "12. 11. 2025" (cs-CZ day-first, no leading zeros — matches spoken Czech dates). */
+/** "2025-11-12" → "12. 11. 2025" (cs-CZ day-first, no leading zeros — matches spoken Czech dates).
+ *  Null for anything that is not a real calendar date: the shape check alone accepted
+ *  „2025-13-01" until 2026-09-06, and the consumer then handed it to lib/format, which
+ *  renders „Invalid Date" — a fabricated date by another name. */
 export function formatCzechDate(isoDate: string): string | null {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(isoDate);
   if (!m) return null;
   const [, y, mo, d] = m;
+  const probe = new Date(Date.UTC(Number(y), Number(mo) - 1, Number(d)));
+  if (probe.getUTCFullYear() !== Number(y) || probe.getUTCMonth() !== Number(mo) - 1 || probe.getUTCDate() !== Number(d)) {
+    return null;
+  }
   return `${Number(d)}. ${Number(mo)}. ${y}`;
 }
 

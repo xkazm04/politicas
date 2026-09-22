@@ -5,6 +5,7 @@ import ListPage from "@/features/volby/ListPage";
 import { getListData } from "@/features/volby/getListData";
 import DataUnavailable from "@/features/shared/components/DataUnavailable";
 import { krajBySlug } from "@/lib/analysis/volby/kraje";
+import { firstParam } from "@/lib/routing/searchParam";
 
 /*
  * /volby/snemovna/[slug] — jedna zvolená kandidátka; `?kraj=<slug>` připne
@@ -17,8 +18,8 @@ import { krajBySlug } from "@/lib/analysis/volby/kraje";
 type Search = Promise<{ [key: string]: string | string[] | undefined }>;
 
 const krajParam = (raw: string | string[] | undefined): string | undefined => {
-  const v = Array.isArray(raw) ? raw[0] : raw;
-  return v && krajBySlug(v) ? v : undefined;
+  const v = firstParam(raw);
+  return v !== null && krajBySlug(v) ? v : undefined;
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

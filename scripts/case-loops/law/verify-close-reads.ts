@@ -57,8 +57,9 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { readCachedBillText } from "./collision-core";
+
 const PAYLOADS = "docs/data-analysis/case-law/payloads";
-const CACHE = ".data/law-collision-cache";
 
 const arg = (n: string): string | null => {
   const h = process.argv.find((a) => a.startsWith(`--${n}=`));
@@ -93,20 +94,13 @@ function cmp(s: string): string {
 
 const textCache = new Map<number, string | null>();
 /** All cached text for one print, concatenated — a bill's novelization can span several
- * documents in the cache dir, and a claim is satisfied by ANY of them. */
+ * documents in the cache dir, and a claim is satisfied by ANY of them. The read itself is
+ * collision-core's `readCachedBillText` (one cache path, one NFC read for every collision
+ * script); this guard only adds its comparison form on top. */
 function billText(cislo: number): string | null {
   if (textCache.has(cislo)) return textCache.get(cislo)!;
-  const dir = join(CACHE, `tisk-${cislo}`);
-  if (!existsSync(dir)) {
-    textCache.set(cislo, null);
-    return null;
-  }
-  const txts = readdirSync(dir).filter((f) => f.endsWith(".txt"));
-  if (txts.length === 0) {
-    textCache.set(cislo, null);
-    return null;
-  }
-  const joined = cmp(txts.map((f) => readFileSync(join(dir, f), "utf8")).join("\n"));
+  const raw = readCachedBillText(cislo);
+  const joined = raw === null ? null : cmp(raw);
   textCache.set(cislo, joined);
   return joined;
 }

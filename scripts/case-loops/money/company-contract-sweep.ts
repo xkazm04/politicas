@@ -26,6 +26,7 @@
  *   npx tsx scripts/case-loops/money/company-contract-sweep.ts --delay=30000 --only=64258998
  */
 import { SmlouvyClient, type SmlouvyRow } from "@/lib/ingest/sources/smlouvy";
+import { withBackoff } from "./smlouvyRetry";
 
 const POPULATION = "docs/data-analysis/case-money/qmoney-unqueried-population-b10.json";
 const OUT = "docs/data-analysis/case-money/qmoney-company-sweep-b10.json";
@@ -50,23 +51,6 @@ interface Result {
   topRows: SmlouvyRow[];
   error: string | null;
   checkedAt: string;
-}
-
-async function withBackoff<T>(label: string, run: () => Promise<T>, waits: number[]): Promise<T> {
-  for (let attempt = 0; ; attempt++) {
-    try {
-      return await run();
-    } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e);
-      // 429 (rate limit), any 5xx (the site returned a real 500 mid-sweep on 2026-07-27),
-      // and transport failures are all transient. A header-drift or parse error is NOT —
-      // retrying those just repeats a bug.
-      const retryable = /→ (?:429|5\d\d) /.test(msg) || msg.includes("fetch failed");
-      if (!retryable || attempt >= waits.length) throw e;
-      console.log(`\n      rate-limited on ${label} — backing off ${waits[attempt] / 1000}s (${attempt + 1}/${waits.length})`);
-      await sleep(waits[attempt]);
-    }
-  }
 }
 
 async function main() {

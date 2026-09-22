@@ -1,10 +1,14 @@
+import { existsSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { SOURCE_DOCS } from "@/lib/analysis/context-model";
 import {
   ageDaysBetween,
   ATLAS_DIMENSIONS,
   ATLAS_RULES,
+  ATLAS_UNATTRIBUTED_SOURCE,
+  ATLAS_UNSTAMPED_SOURCE,
   deriveAtlas,
+  deriveFreshness,
   freshnessScore,
   INGESTED_SOURCES,
   SOURCE_CADENCE_DAYS,
@@ -280,11 +284,35 @@ describe("registr zdrojů — atlas mlčí o devíti z dvanácti, nebo o nich ml
     }
   });
 
+  it("registr je odvozený od stromu: každý adaptér v lib/ingest/sources má svůj řádek", () => {
+    // 2026-09-01: seznam vznikl ručně („každý řádek je ověřený nad stromem") a
+    // test ho porovnával jen sám se sebou — takže dva adaptéry, které ve stromě
+    // ležely od srpna, v něm chyběly: isvz.ts (Registr veřejných zakázek, celá
+    // vrstva tendrů na /volby) a smlouvy-dump.ts (bulk dumpy registru smluv).
+    // Stránka, která má vyjmenovat VŠECHNY zdroje, tak vyjmenovávala 12 ze 14.
+    // Pravda o tom, které adaptéry existují, je adresář — test čte ten.
+    const HELPERS: Record<string, string> = {
+      "backoff.ts": "jittered backoff for the fetch helpers — no source of its own",
+      "kiosek-pdf.ts": "PDF text extraction split out of kiosek.ts — the source is kiosek-uredni-deska",
+      "refusal-class.ts": "refusal classification for the fetch-retry helpers (imported by monitor.ts) — no source of its own",
+    };
+    const dir = "lib/ingest/sources";
+    const adapters = readdirSync(dir)
+      .filter((f) => f.endsWith(".ts") && !f.endsWith(".test.ts") && !(f in HELPERS))
+      .map((f) => `${dir}/${f}`)
+      .sort();
+    const named = new Set(INGESTED_SOURCES.map((s) => s.adapter));
+    for (const a of adapters) expect(named.has(a), `${a} has no INGESTED_SOURCES row`).toBe(true);
+    for (const s of INGESTED_SOURCES) expect(existsSync(s.adapter), `${s.source}: ${s.adapter} is not in the tree`).toBe(true);
+  });
+
   it("oba zdroje, které nesou modul o veřejných penězích, jsou pojmenované", () => {
     // Kdyby vypadly, vrátí se přesně ten stav, kvůli kterému tahle sekce vznikla:
     // čtenář kontrolující kvalitu dat pod /penize nenajde ani řádek.
+    // 2026-09-01: the bulk-dump path of the contracts register joined the list;
+    // the pin grows with it rather than loosening to "at least two".
     const money = INGESTED_SOURCES.filter((s) => /smlouvy|dataor/.test(s.source));
-    expect(money.map((s) => s.source).sort()).toEqual(["dataor-justice-cz", "smlouvy-gov-cz"]);
+    expect(money.map((s) => s.source).sort()).toEqual(["dataor-justice-cz", "smlouvy-gov-cz", "smlouvy-gov-cz-dump"]);
     for (const s of money) expect(s.landing).toBe("graph");
   });
 
@@ -366,5 +394,101 @@ describe("kadence se deklaruje jen tam, kde ji jde změřit", () => {
     for (const s of unscoredSources()) {
       expect(SOURCE_CADENCE_DAYS[s.source], s.source).toBeUndefined();
     }
+  });
+});
+
+/* ── Kadence, která není měřítko (2026-09-01) ───────────────────────────────── */
+
+describe("čerstvost — nekladná kadence je nehodnoceno, ne NaN", () => {
+  it("freshnessScore odmítne kadenci 0 místo tichého NaN", () => {
+    // Před opravou: 0 × 3 − 0 = 0 ve jmenovateli → NaN → „hodnoceno" s NaN,
+    // které JSON.stringify přepíše na null.
+    expect(() => freshnessScore(5, 0)).toThrow(RangeError);
+    expect(() => freshnessScore(5, -7)).toThrow(RangeError);
+  });
+
+  it("deriveFreshness vrátí nehodnoceno s důvodem, stáří zůstane spočítané", () => {
+    const r = deriveFreshness("2026-09-01T00:00:00Z", "2026-08-30T00:00:00Z", 0);
+    expect(r.score.status).toBe("nehodnoceno");
+    if (r.score.status === "nehodnoceno") expect(r.score.reason).toContain("není měřítko");
+    expect(r.ageDays).toBe(2);
+    expect(r.staleness).toBeNull();
+  });
+});
+
+/* ── [G5] Graf se konečně dá měřit — a co se změřit nedá, se počítá ────────── */
+
+describe("grafové zdroje: karta jako každá jiná, jakmile řádky nesou source", () => {
+  const graphInputs = (): AtlasInputs => ({
+    now: NOW,
+    entityCoverage: [
+      { source: "smlouvy-gov-cz", entity: "kg_node", rows: 2000, rowsWithRun: 2000 },
+      { source: "smlouvy-gov-cz", entity: "kg_edge", rows: 19266, rowsWithRun: 0 },
+      { source: ATLAS_UNATTRIBUTED_SOURCE, entity: "kg_node", rows: 40, rowsWithRun: 0 },
+      { source: ATLAS_UNATTRIBUTED_SOURCE, entity: "kg_edge", rows: 11, rowsWithRun: 0 },
+      { source: ATLAS_UNSTAMPED_SOURCE, entity: "kg_node", rows: 7, rowsWithRun: 0 },
+    ],
+    runStats: [],
+  });
+
+  it("zdroj, jehož řádky dopadají do grafu, dostane KARTU a vypadne ze seznamu mimo dosah", () => {
+    const r = deriveAtlas(graphInputs());
+    const card = r.sources.find((s) => s.source === "smlouvy-gov-cz");
+    expect(card).toBeDefined();
+    // Pokrytí je teď měřitelné — a měří, co skutečně je: 2 000 z 21 266 řádků.
+    expect(card!.dimensions.coverage).toMatchObject({ status: "hodnoceno", score: 9 });
+    expect(card!.entities.map((e) => e.entity)).toEqual(["kg_edge", "kg_node"]);
+    expect(r.unscored.map((u) => u.source)).not.toContain("smlouvy-gov-cz");
+  });
+
+  it("nepřiřazené klíče NIKDY nedostanou kartu — nejsou to vydavatelé", () => {
+    const r = deriveAtlas(graphInputs());
+    const keys = r.sources.map((s) => s.source);
+    expect(keys).not.toContain(ATLAS_UNATTRIBUTED_SOURCE);
+    expect(keys).not.toContain(ATLAS_UNSTAMPED_SOURCE);
+  });
+
+  it("místo toho se počítají — a nedohledáno se s neorazítkováno nesčítá", () => {
+    const { unattributed } = deriveAtlas(graphInputs());
+    expect(unattributed.unknownRows).toBe(51);
+    expect(unattributed.unstampedRows).toBe(7);
+    expect(unattributed.byEntity).toEqual([
+      { entity: "kg_edge", unknownRows: 11, unstampedRows: 0 },
+      { entity: "kg_node", unknownRows: 40, unstampedRows: 7 },
+    ]);
+  });
+
+  it("žádný nepřiřazený řádek nevstoupí do skóre žádné karty", () => {
+    const r = deriveAtlas(graphInputs());
+    const rows = r.sources.reduce((n, s) => n + s.rowsTotal, 0);
+    expect(rows).toBe(21266); // 51 + 7 nepřiřazených zůstalo venku
+  });
+
+  it("graf bez jediného nepřiřazeného řádku hlásí nulu, ne prázdno", () => {
+    const { unattributed } = deriveAtlas({
+      now: NOW,
+      entityCoverage: [{ source: "psp-tisky-law", entity: "kg_node", rows: 141, rowsWithRun: 141 }],
+      runStats: [],
+    });
+    expect(unattributed).toEqual({ unknownRows: 0, unstampedRows: 0, byEntity: [] });
+  });
+
+  it("pravidlo integrity tiskne, že zapečetěná a hodnocená množina tabulek je táž", () => {
+    // Rozšířit atlas o graf šlo jen proto, že se ROZŠÍŘILA i pečeť (RUN_TABLES);
+    // opačné pořadí by tuhle větu proměnilo v nepravdu na stránce o pravdivosti.
+    expect(ATLAS_RULES.integrity.rule).toContain("kg_node/kg_edge");
+    expect(ATLAS_RULES.integrity.rule).toContain("Zapečetěná a hodnocená množina tabulek je tedy táž");
+  });
+});
+
+describe("věty čerstvosti sázejí čísla česky (lib/format), ne surovým řetězcem", () => {
+  it("stáří 15,4 dne proti kadenci 7 stojí v basis s desetinnou čárkou", () => {
+    const out = deriveFreshness("2026-09-01T00:00:00.000Z", "2026-08-16T14:24:00.000Z", 7);
+    expect(out.score.status).toBe("hodnoceno");
+    expect(out.score.status === "hodnoceno" ? out.score.basis : "").toContain("stáří 15,4 dne/dní proti kadenci 7 dne/dní");
+  });
+  it("bez kadence nese důvod totéž stáří s čárkou", () => {
+    const out = deriveFreshness("2026-09-01T00:00:00.000Z", "2026-08-16T14:24:00.000Z", null);
+    expect(out.score.status === "nehodnoceno" ? out.score.reason : "").toContain("stáří 15,4 dne/dní");
   });
 });

@@ -37,6 +37,17 @@ export const K_ANONYMITY_FLOOR = 20;
 const round1 = (x: number) => Math.round(x * 10) / 10;
 
 /**
+ * Nese vektor vůbec nějakou čočku? Součet 0 (vše na nule) žádnou — pravidlo č. 1
+ * agregátu. JEDNA definice pro agregát, dveře urny (actions.ts) i tlačítko na
+ * /referendum: do 2026-09-06 se takový vektor u dveří přijal, čtenář dostal
+ * „hlas odevzdán" a místní zábrana mu zamkla urnu za hlas, který se nikdy
+ * nezapočítal.
+ */
+export function carriesLens(w: WeightVector): boolean {
+  return LENS_COMPONENT_ORDER.reduce((s, k) => s + w[k], 0) > 0;
+}
+
+/**
  * Úložná serializace vektoru — kanonický pomlčkový tvar v pořadí
  * LENS_COMPONENT_ORDER. Na rozdíl od `encodeWeights` serializuje i zveřejněnou
  * metodiku (encodeWeights ji záměrně kóduje jako null — čistá adresa; úložiště
@@ -74,7 +85,7 @@ export function deriveWeightAggregate(storedVectors: readonly string[]): WeightA
   for (const raw of storedVectors) {
     const decoded = decodeWeights(raw);
     if (decoded === null) continue;
-    if (LENS_COMPONENT_ORDER.reduce((s, k) => s + decoded[k], 0) === 0) continue;
+    if (!carriesLens(decoded)) continue;
     effective.push(effectiveWeights(decoded));
   }
   const n = effective.length;

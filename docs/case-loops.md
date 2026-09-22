@@ -241,6 +241,30 @@ resume → triage → dispatch army → gate + persist → reflect → build-rev
   only a human verifies — since batch 003, exclusively through `ReviewRepository`
   + the token-gated `/penize/kontrola` server action, with an append-only
   `review_audit` row before every flip.
+- **The gate now covers BILL VERDICTS and PERSON-LEVEL EFFORT VERDICTS too**
+  (2026-09-04, moonshot G2 / deck #5 + #12). Until then the rule above was true
+  and almost vacuous: it governed one claim kind, while three others — bill
+  forensic verdicts, effort verdicts about named MPs, tripwire candidates —
+  reached readers with **no writer at all**, so their `pending_review` was
+  permanent by construction. `ReviewRepository.setReviewState(subject, …)` is
+  now the one writer for `tie`, `bill_verdict` and `effort_verdict` alike, over
+  one shared skeleton: read state → shared decision mapping → refuse a
+  reasonless reversal → append the chained audit row → **only then** write the
+  subject's state, all in one transaction.
+  - The effort loop stamps `review_state: "machine"` and **cannot write anything
+    above it**: `merge-batch.ts` writes only that rung, and `gate.ts` DROPS a
+    proposal that arrives claiming `verified` or carrying a `decided_by`. A
+    script promoting its own verdict is now a gate failure, not a possibility.
+  - Re-running the loop **never resets a decided verdict** back to `machine` —
+    the stamp is merge-preserving per field.
+  - The sentinel's `effort-review-chain` invariant is the backstop the Authority
+    rule never had: a verdict claiming `verified`/`rejected` with no audit row
+    behind it is a violation. A mass `machine → verified` flip leaves every hash
+    in the chain intact and passes every other invariant, which is precisely why
+    that check exists (fault-injected in `sentinel.test.ts`).
+  - `tripwire` and `lead` are **declared and refused**, not silently recorded:
+    neither has a durable subject a decision could be read back from, and a
+    decision nothing can read back is worse than none.
 - **A human write layer over a re-derivable ingest needs an explicit durability
   contract** (P44/D1): the ingest must merge-preserve human-written fields (or
   the audit trail must replay after ingest) — `props = excluded.props`
@@ -428,3 +452,298 @@ resumes exactly.
   means a discovered cause was deleted instead of counted (added 2026-09-17).
 - Build phases meet the same bar as any session: `npm run check` green, docs
   synced same-session, tokens/colors discipline, Czech-first copy.
+
+**The effort gate reads the low-score vocabulary from the badge's module (2026-09-06,
+scan-sweep, parity-auditor).** `scripts/case-loops/effort/gate.ts` carried its own
+twelve-value `Set` of `effort_low_score_reason` values beside
+`lib/analysis/low-score-reason.ts`, which owns the vocabulary the badge renders
+from; identical today, and a reason added to one would have been silently dropped
+by the other. The gate now validates through `isLowScoreReason`;
+`sharedRules.test.ts` pins it.
+
+**Triage, tenure and the dossier extractor import the shared definitions they
+mirrored (2026-09-06, scan-sweep, parity-auditor).** `triage.ts` re-typed the
+formula's three saturation caps as literals (3 / 4 / 40) against
+`lib/analysis/contribution.ts`'s "never mirror these"; `triage.ts`, `tenure.ts` and
+`extract-dossiers.ts` each spelled the tenure-class union by hand — the extractor's
+copy still had two classes two batches after the vocabulary grew to four. All read
+`TenureClass` and the `*_SATURATION` constants now (the 2026-09-06 backlog card on
+the re-declared union is shipped by this change). `divergence-retune.ts` keeps its
+literals on purpose: it is batch 003's validation evidence and must reproduce that
+run.
+
+**Tenure days are counted to a stated reference date, not to 2026-07-24 forever
+(2026-09-06, scan-sweep, bounty-hunter).** `tenure.ts` and `triage.ts` both carried
+batch 003's run date as a literal, so any later run would have written
+`effort_tenure_days` measured to July — the number `TenureTrendGate` compares
+against `TREND_MIN_TENURE_DAYS`. Both scripts now read `--reference=YYYY-MM-DD`
+(default today) through one shared helper; batch 003 stays reproducible by passing
+its date, which its payload records.
+
+**The psp.cz tisk text pipeline has one definition (2026-09-06, scan-sweep,
+parity-auditor).** `amends-census.ts` and `collision-check.ts` each carried a byte
+copy of index-page → PDF → `pdftotext` sidecar, and the copies had grown apart:
+batch-008's NFC fix reached the census only. `scripts/case-loops/law/tiskText.ts`
+is the module now (the census imports it; the collision scripts are the next
+context's round). It also classifies refusals the way the ingest adapters do: a
+503 is retried with jittered backoff instead of falling through to a per-bill
+skip, a 404 is one request. `tiskText.test.ts` pins retry, index parsing and the
+NFC read.
+
+**`esbirka-sparql-diff.ts` reads the HTTP status before the body (2026-09-06,
+scan-sweep, state-coverage).** A Virtuoso error with a JSON body parsed to zero
+bindings and surfaced as "no fragments found — check the version exists", i.e. a
+claim about the statute for a fault in the query or the endpoint.
+`esbirkaSparql.ts` names the status; tested.
+
+**`provenance-probe.ts`'s EXPECT is pinned to STATE.md's table (2026-09-06,
+scan-sweep, documentation-auditor).** The probe's literal and the state page's
+row are two hand copies of the ledgered chamber (141 / 293 / 582, passes 45–55);
+`provenanceProbe.test.ts` fails when a batch moves one without the other.
+
+**`esbirka-versions.ts` caches the 176 MB dump atomically and counts what it
+skips (2026-09-06, scan-sweep, error-handler).** The raw `.gz` was written under
+its final name while streaming, so an aborted run left a truncated archive that
+every later run "used" and gunzip rejected until someone deleted it by hand; the
+download now lands in `.part`, is renamed on completion and is read back from
+disk as a stream (`esbirkaStream.ts`, tested). A malformed record is counted into
+`malformedRecords` in the output and the console line instead of being swallowed
+behind an `eslint-disable`.
+
+**`collision-check.ts` imports its pipeline and extractors instead of copying
+them (2026-09-07, scan-sweep, parity-auditor).** The live script still carried the
+batch-002 byte copies of the tisk pipeline (pre-NFC, no refusal classification —
+a 503 skipped the bill) and of `extractParagraphs` /
+`partitionParagraphsByStatute`, the very functions batch-009 extracted into
+`collision-core.ts` so they would stop being copied. It now imports `tiskText.ts`
+and `collision-core.ts`; `collisionSource.test.ts` fails if a local definition
+returns. The docType-aware `operativeSlice` stays local on purpose: for a platné
+znění document it keeps the text before the first ČÁST heading, which the core's
+bill-only slice would cut.
+
+**`verify-close-reads.ts` reads the cache through `collision-core`
+(2026-09-07, scan-sweep, parity-auditor).** The P49 guard had its own cache path
+and its own `.txt` join; it now calls `readCachedBillText` and applies only its
+comparison form on top — one cache path and one NFC read for every collision
+script.
+
+**`company-sectors.ts`: `IT` is a whole word (2026-09-07, scan-sweep,
+bounty-hunter).** Under the `/i` flag `IT\b` was a suffix match, so any label
+ending in "-it" (audit, kredit, profit, transit) classified as `digital` — the
+P42 class the module's own header warns about. 0 realised hits over the 156
+company labels in the case payloads (probed), 1 reproduced in
+`company-sectors.test.ts`, which also pins the overrides and the municipal net.
+
+**`collision-core.ts` is tested, and `odst. 5 až 7` now touches 6 (2026-09-07,
+scan-sweep, bounty-hunter + test-strategist).** `targetedOdstavce` recorded only
+the two ends of an „až" range, so two bills both editing the middle paragraph
+read as different provisions; the range is expanded. `collision-core.test.ts`
+pins the instruction grammar's hand-validated cases (the one-line `Čl. VI V § 8`
+form that once produced every false drop, the `podle § N` citation that must not
+match), the § extractor, the per-statute partition and the odstavce scoping.
+
+**The verdict gate scope has one definition (2026-09-07, scan-sweep,
+parity-auditor).** It was computed three times and no two agreed:
+`prepare-batch.ts` shipped company/person/law ids to the army, `gate-verdicts.ts`
+checked company/person/law/bill/organ, and the write-time gate in
+`kg-forensics.ts` accepts every node id. The pre-write pair now reads
+`verdictScope.ts` — what the army is told is exactly what the gate enforces
+(`verdictScope.test.ts`). The write-time gate is another context and is a
+backlog card: it is wider than the gate that precedes it.
+
+**`triage.ts` refuses to replace a live ledger, and records the formula it
+computes (2026-09-07, scan-sweep, risk-assessor + copy-auditor).** The batch-001
+bootstrap writes `ledger.json` wholesale — the exact P44/D1 write every later
+batch avoids by merge-writing — and had no guard against being re-run; it now
+refuses when the file exists unless `--replace` is passed. Its recorded
+`triageFormula` advertised `sev*1e9 + amends*5e6 + churn*2e6 + routeAnom*2.5e8`
+while the code computed log-scaled bands of 1e6 / 3e4 / 1e3 / 5e3 / 2e3; both
+now read one `BANDS` constant (`triageSource.test.ts`).
+
+**`triage-core.ts`'s domain matcher is tested (2026-09-07, scan-sweep,
+test-strategist).** The batch-002 P42 fix — "vydání" no longer reads as "daní",
+so the boilerplate MP title is not economy — had no test; `triage-core.test.ts`
+pins it, five sector titles, case/diacritic folding and the ten-sector
+vocabulary. `build-bill-summaries.ts` now imports the cache path from
+`collision-core` instead of spelling it.
+
+**The money triage reads at the one cap (2026-09-07, scan-sweep, bounty-hunter).**
+`triage.ts` and both indirect-ownership passes read contracts and `supplies` at
+`limit: 100_000` against the batch-012 corpus of 152 702 contract nodes and
+153 634 supplies edges - an ordered read, so every late-sorting company lost all
+of its contracts silently, the failure `lib/db/readCap.ts` documents. All ten
+live scripts now read at `KG_READ_CAP`; `moneyTriageSource.test.ts` refuses a
+literal limit. `validate-payloads.ts` says what its two-file default really
+covers.
+
+**`triage.ts` imports the helpers its own header said it imports (2026-09-07,
+scan-sweep, parity-auditor).** The 2026-08-13 de-duplication left three copies
+behind: `parsePeriod` (the copy matched only an en-dash between the dates while
+the shared parser also takes a hyphen, so a provenance string written with `-`
+parsed in the app and read as "no period" in triage), the near-threshold rule and
+the psp id parser. `triage.ts` and `dataor-corroborate.ts` now read
+`parsePeriod` / `nearThresholdCount` from `features/money/reviewTypes` and
+`pspIdFromNodeId` from `lib/ingest/changeEvents`.
+
+**A rejected money tie is not pending (2026-09-07, scan-sweep, state-coverage).**
+`triage.ts` wrote every stored review state other than `verified` to the ledger
+as `pending_review`, so a tie a reviewer had rejected re-entered the queue as
+waiting for review. Known states now pass through; the runtime list lives in the
+script with `satisfies readonly ReviewState[]` because `reviewTypes.ts` exports
+only the type.
+
+**`reachable-metric-audit.ts` lists the companies it accuses of dominating the
+total (2026-09-07, scan-sweep, copy-auditor).** Its payload field
+`topNonAttributable` was an empty slice by construction; it now carries the ten
+steward/untied companies with the most reachable CZK, from the same buckets the
+audit already computed.
+
+**One parser of the `[pspId]` route segment (2026-09-07, scan-sweep,
+parity-auditor).** `/penize/[pspId]` and `/penize/[pspId]/paket` each spelled the
+digits-only rule that keeps one MP at one address; `lib/routing/pspIdParam.ts`
+is the definition, tested against the lenient parses it refuses (`1e3`, `0x10`,
+`" 5"`). `/poslanec/[id]` still carries its own copy (its context's round).
+
+**The company case file dates its plausibility bound in Prague (2026-09-07,
+scan-sweep, bounty-hunter).** `/penize/firma/[ico]` derived "today" from the UTC
+clock; between midnight and 01:00/02:00 Prague the UTC day is still yesterday, so
+a contract signed today read as signed in the future. The route now calls
+`pragueDay()` (`features/denik/pragueDay.ts`, written for the same mistake in the
+deník loader); `lib/testing/moneyRouteSource.test.ts` pins it.
+
+**The contract-ingest scripts read the graph under `KG_READ_CAP` (2026-09-07,
+scan-sweep, bounty-hunter).** `reconcile-ares-vr.ts` — the main writer of
+`corroboration`, role dates and `tie_class` — read contracts and supplies at
+`limit: 100_000` against the batch-012 corpus of 152 702 contract nodes and
+153 634 supplies edges, so a late-sorting company had no money and its tie was
+stamped `historical-no-money`; `parent-contract-sweep.ts` built its "never
+queried" population from the same truncated read. Eight scripts now import the
+shared cap; `contractIngestSource.test.ts` refuses a literal `limit:` in any of
+the thirteen.
+
+**The ARES-VR scripts import their id and period parsers (2026-09-07,
+scan-sweep, parity-auditor).** `reconcile-ares-vr.ts` and
+`reverify-open-vs-live-ares-vr.ts` each carried a `pspIdFromNodeId` that took
+the last `:`-segment of ANY id (a company or contract id parsed as an MP), and
+the former a `parsePeriod` that matched only an en-dash while the shared parser
+accepts a hyphen too — the same drift round 31 found in `triage.ts`. Both now
+import `lib/ingest/changeEvents.ts` and `features/money/reviewTypes.ts`.
+
+**One ARES-VR matcher (2026-09-07, scan-sweep, parity-auditor).**
+`reconcile-ares-vr.ts` (batch 002, the main writer of corroboration, role dates
+and `tie_class`) and `reverify-open-vs-live-ares-vr.ts` (batch 008) each carried
+the VR record shape, the exact-birth-date `findMatches` and the fold of a
+person's entries into one span, held together by the comment "same match
+discipline as reconcile-ares-vr.ts". `scripts/case-loops/money/aresVrMatch.ts`
+is now the single definition, unit-tested on a fixture that spans statutární
+orgány, ostatní orgány and společníci (a Czech decimal comma in the stake, an
+ongoing entry keeping the span open); both scripts import it and the reverify
+script's inline merge is gone.
+
+**One retry rule for the Registr smluv sweeps (2026-09-07, scan-sweep,
+error-handler).** `company-contract-sweep.ts` and `parent-contract-sweep.ts`
+each had a `withBackoff` with its own idea of "transient": the first read the
+status after the client's arrow, the second `msg.includes("429")` — which also
+matched an IČO carrying those digits in the quoted URL, so a 404 for such a
+company was retried three times as a rate limit. `smlouvyRetry.ts` holds the
+predicate and the ladder; both sweeps import it, and the test pins the IČO case.
+
+**An unmeasured parent is `null`, never zero (2026-09-07, scan-sweep,
+state-coverage).** `parent-contract-sweep.ts` wrote `contracts: 0` on a failed
+query's payload row — under an `error` field, but a zero all the same, and the
+company sweep's own header names exactly this as the batch-009 mistake it
+corrected. The row now carries `contracts: null`; the console summaries already
+filtered on `error`.
+
+**The harvest's resume state is trusted only when it is missing (2026-09-07,
+scan-sweep, error-handler).** `harvest-contract-dumps.ts` started a fresh
+harvest on ANY error reading its state file — a corrupt or unreadable state
+would have re-downloaded ~26 GB and re-appended every record silently; now only
+`ENOENT` means "first run". `--restart` deleted the harvest JSONL but left every
+month marked done, so the data was gone and nothing re-collected it; it now
+resets the month record with the file. And a refused or empty dump index no
+longer reads as "nothing to do" — it throws.
+
+**`--commit` really requires `--pass` (2026-09-07, scan-sweep, bounty-hunter).**
+`persist-contract-harvest.ts` promised it and checked
+`Number.isFinite(Number(arg ?? 0))`, which is true for a missing flag — a commit
+without a pass would have stamped `pass: 0` into the provenance of 152 702
+nodes. `passArg.ts` parses the flag to a positive integer or null, and the
+script refuses a null under `--commit`.
+
+**The kiosek slice reads a cached PDF instead of refetching it (2026-09-07,
+scan-sweep, code-optimizer).** `kiosek-slice.ts` re-downloaded all 18 additional
+PDFs on every run — the text sidecar spared the parse, not the download — and one
+refused attachment aborted the whole slice. Only postings whose PDF is missing
+from `.kiosek-cache/pdfs` are fetched now; the payload reports
+`additionalPdfsFetchedLive` beside the extracted count.
+
+**2026-09-07 (scan-sweep, admin-control) — the admin's tie review state reads `reviewStateOf`.** `getAdminData` spelled its own verified/rejected/else ladder over `review_state`; the money module's `reviewStateOf` is the one interpretation /penize uses, so the two boards cannot disagree about what „waiting" means.
+
+**2026-09-07 (scan-sweep, admin-control) — the admin loaders read at the one app cap.** `getTripwireData` listed vote events at a literal 100 000 (a silent truncation below the row count and a slower PGlite plan); it reads at `KG_READ_CAP`. `getAdminData` read `review_audit` at a bare 10 000 — the cap is now named (`AUDIT_READ_CAP`, the same figure `getVerificationData` uses) and a read that fills it is reported rather than silently truncated.
+
+**2026-09-07 (scan-sweep, admin-control) — every catch in `getAdminData` leaves a trace.** Five catch blocks (frontier counts, vault heads, the three case-progress readers) swallowed the error and returned an empty shape, so a degradation on the operator's own board never reached the loader-failure log that the same board displays. Each now calls `reportLoaderFailure` before degrading.
+
+**2026-09-07 (scan-sweep, admin-control) — a verdict without a severity is not „low".** `getAdminData` bucketed a bill with a gate state and no `forensic_severity` under `low`; missing is not low. It has its own `neuvedeno` bucket, printed verbatim in a neutral tone.
+
+**2026-09-07 (scan-sweep, admin-control) — review-hub counts and the batch number go through `czechInt`.** Three count chips (severity, decision, reviewer) and the progress tile's batch number rendered raw numbers beside figures that were formatted.
+
+**2026-09-07 (scan-sweep, admin-control) — the stalled alert sentence formats its figures with `lib/format`.** `loopState` built „stáří 15.4 dne/dní" with `String().replace` and raw cadence/streak numbers; `czech()` / `czechInt()` now format them, pinned by `loopState.test.ts`.
+
+**2026-09-07 (scan-sweep, admin-control) — mission control dates instants on the Prague day.** `LoopMissionControl` passed ISO instants (run end, queue time, alert since, acknowledgement) straight to `czechDate`, i.e. the UTC day: a run finished at 23:30 UTC stood under yesterday's date. A `dayCs` helper reads the Prague day first; `STALENESS_CLS` is closed over `LoopStaleness`.
+
+**2026-09-07 (scan-sweep, admin-control) — the admin page draws the shell's `BrandMark`.** `AdminPage` carried its own copy of the mark SVG; the shell exports `BrandMark` since round 42 and pages must not draw their own logo.
+
+**Every writer's pass is a positive integer, and a live commit never runs under a
+pass the script invented (2026-09-08, scan-sweep, parity-auditor).**
+`apply-batch.ts` spelled the rule out on its Opus audit (#11); `persist-batch.ts`
+still accepted a fractional `--pass`, `effort/rapporteur-load.ts` derived one from
+`max(firstSeenPass) + 1` when none was given, and `effort/psp9-contribution.ts`
+stamped `pass: 0` — the placeholder the apply writer exists to substitute away —
+into `contribution_psp9` provenance. All three gate on
+`Number.isInteger(pass) && pass > 0` now; a dry run may print a null pass, a
+`--commit` without a real assigned pass refuses. `scripts/case-loops/writerPass.test.ts`
+pins the three gates by source.
+
+**2026-09-09 (scan-sweep, law-amends-analysis round 76).** Two changes to the law loop's
+scripts. `apply-amends-regen.ts` now refuses `--commit` unless `--pass` is a positive
+integer — the previous `Number.isFinite` gate let the payload's own placeholder `0`, a
+negative or a fraction through to every provenance stamp the run writes (the rule
+`persist-batch.ts` and the effort writers adopted on 2026-09-08). And the census's core
+heuristic, `extractRealAmendedLaws` in `amends-census.ts`, is exported behind a direct-run
+guard and pinned by `amendsCensusExtract.test.ts` over four corpus-shaped texts (a
+Čl.-organised omnibus with a transitional article and a repeal block, a ČÁST-organised
+bill with a `Změna` part, a new standalone act, a single-subject novela with a footnote)
+— six audited fixes had been re-verified only by re-auditing 141 bills.
+
+**2026-09-09 (round 76, continued).** The test surfaced a boundary defect in the ČÁST branch
+of the same extractor: a part's `Změna` heading window ran `HEADING_WINDOW` chars forward
+regardless of where the next `ČÁST` began, so a part shorter than that window borrowed the
+next part's heading and was searched for a target it never carries — the class the batch-008
+F1 fix closed for the Čl. branch. The window now stops at the next part. The effect on the
+audited census was not re-measured here (a census re-run is an operator action); the pinned
+case is a two-line first part followed by a `Změna` part.
+
+**2026-09-09 (round 76, continued).** The same test caught a reporting defect: `PART_RE`
+ended its label group with `\b`, and JS's ASCII-only word boundary sits before the last
+diacritic, so every census row's `skippedParts` named „PRVNÍ" as „PRVN" (and „ČTVRTÁ" as
+„ČTVRT"). The boundary is gone; the letter class already ends the label. Reporting only —
+no amend decision read the label.
+
+**2026-09-09 (scan-sweep, law-collision-analysis round 77).** `targetedOdstavce` in
+`collision-core.ts` read only the first paragraph and one connector after „odst.", so
+„odst. 1, 2 a 4" recorded 1 and 2 and lost the 4 — two bills both editing odst. 4 of one §
+read as different provisions, the class the 2026-09-07 range fix closed for „5 až 7". It now
+reads the whole list, ranges inside it included (`targetedOdstavceList.test.ts`, 3 cases; the
+three earlier cases in `collision-core.test.ts` still hold).
+
+**2026-09-09 (scan-sweep, law-triage-batch round 78).** `build-bill-summaries.ts` read the
+bill nodes with a literal `limit: 100_000`; it reads them under `KG_READ_CAP` now — the cap
+`lib/db/readCap.ts` declares as the end of that class (`summariesReadCap.test.ts`).
+
+**2026-09-09 (round 78, continued).** `gate-verdicts.ts`'s citation-scope check exports
+`citationScopeIssue` behind a direct-run guard and is pinned by `citationScope.test.ts`;
+the test then caught that the „státní" keyword was written with an ASCII `\b` after a
+diacritic, so „státní podnik" in a company graph_fact claim never raised the scope
+warning (only „státním" did). It uses Unicode boundaries now — a warning, not a hard gate,
+so no persisted verdict changes; the 27 gated verdicts were not re-run here.

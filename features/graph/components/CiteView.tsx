@@ -56,7 +56,16 @@ export default function CiteView({ state }: { state: GraphViewState }) {
   const cite = async () => {
     const req = ++reqRef.current;
     setStatus("working");
-    const issued = await citeViewAction(state);
+    let issued: Awaited<ReturnType<typeof citeViewAction>>;
+    try {
+      issued = await citeViewAction(state);
+    } catch (err) {
+      // Selhaná akce nesmí nechat tlačítko „vydávám citaci…" (disabled) navěky.
+      console.error("citace grafu: vydání selhalo", err);
+      if (reqRef.current !== req) return;
+      settle("unissued");
+      return;
+    }
     if (reqRef.current !== req) return;
     if (issued === null) {
       settle("unissued");

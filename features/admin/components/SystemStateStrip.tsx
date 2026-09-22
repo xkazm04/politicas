@@ -19,6 +19,7 @@ const RUN_STATE_DOT: Record<SystemState["loopsRunState"], string> = {
  *  a hardcoded constant that had outlived the operation it described. */
 export default function SystemStateStrip({ state }: { state: SystemState }) {
   const { graph, lastPass, loopsRunState, loopsStatusLabel, loopsStatusSource } = state;
+  const deg = state.loaderDegradations;
   const topKinds = graph ? Object.entries(graph.nodesByKind).sort((a, b) => b[1] - a[1]).slice(0, 5) : [];
   const topRels = graph ? Object.entries(graph.edgesByRel).sort((a, b) => b[1] - a[1]).slice(0, 5) : [];
 
@@ -65,7 +66,41 @@ export default function SystemStateStrip({ state }: { state: SystemState }) {
         <p className="border-t border-paper/20 pt-4 text-sm text-paper/70">Graf se nepodařilo načíst (store nedostupný).</p>
       )}
 
+      {/* [G5] Které plochy spadly na náhradní data. Do 2026-09-04 to nešlo
+          zjistit: konzole odroluje a Sentry je bez DSN no-op, takže odpověď na
+          „co za posledních 24 h degradovalo" neexistovala nikde. */}
+      <div className="border-t border-paper/20 pt-4">
+        {deg === null ? (
+          <p className="font-mono text-[11px] uppercase tracking-widest text-paper/60">
+            degradace za 24 h: žurnál neexistuje — nikdo se nedíval (není to totéž co &bdquo;nic se nestalo&ldquo;)
+          </p>
+        ) : (
+          <>
+            <p className="font-mono text-[11px] uppercase tracking-widest text-paper/60">
+              degradace za {czechInt(deg.windowHours)} h:{" "}
+              <span className="font-bold text-paper">{czechInt(deg.total)}</span>
+              {deg.lastAt !== null && ` · naposledy ${deg.lastAt}`}
+            </p>
+            {deg.byLoader.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {deg.byLoader.slice(0, 6).map((l) => (
+                  <span
+                    key={l.loader}
+                    className="border border-paper/40 px-2 py-1 font-mono text-[11px] uppercase tracking-widest"
+                  >
+                    {l.loader} · {czechInt(l.count)}
+                  </span>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+
       <SourceNote tone="paper">
+        {deg === null
+          ? "degradace: žurnál .data/loader-failures.jsonl chybí — hlásí se to, nedopočítává se nula · "
+          : `degradace: ${deg.path}, jeden řádek na jeden pád loaderu (lib/db/loaderGuard.ts) · `}
         zdroj: kg_node / kg_edge — countKgNodes/Edges + countKgEdgesByRel + kgKindCounts (indexované
         group-by, ne výčet uzlů) · stav smyček: STATUS řádek {loopsStatusSource}
       </SourceNote>

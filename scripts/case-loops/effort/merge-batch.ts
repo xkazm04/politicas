@@ -5,6 +5,7 @@
  *   npx tsx scripts/case-loops/effort/merge-batch.ts 3 A B C D E F G
  */
 import { readFileSync, writeFileSync } from "node:fs";
+import { EFFORT_VERDICT_FIELDS } from "../../../lib/analysis/verdict-provenance";
 
 const OUT = "docs/data-analysis/case-effort";
 const [, , batchArg, ...groups] = process.argv;
@@ -39,13 +40,46 @@ function main() {
     console.warn(`WARNING — army size ${armyIds.size} but merged ${all.length} proposals; missing: ${missing.join(", ")}`);
   }
 
+  // ── Stamp the rung (G2, deck #12) ──────────────────────────────────────────
+  // Every effort verdict about a NAMED PERSON leaves this loop as `machine`:
+  // the pipeline said it, nobody has looked. That is the bottom rung, and it is
+  // the ONLY one a script may write — `verified` is producible exclusively by
+  // ReviewRepository.setReviewState, so no enrichment pass can promote its own
+  // claim to a human-confirmed one.
+  //
+  // Merge-preserving in both directions: an existing `effort_provenance` keeps
+  // every key it had (computedAt, pass, track…), and a verdict entry a human has
+  // ALREADY decided is left exactly as it is — re-running the loop must never
+  // reset a reviewed claim back to "nobody looked at this".
+  let stamped = 0;
+  let preserved = 0;
+  for (const p of all) {
+    const prov = (p.props.effort_provenance ?? {}) as Record<string, unknown>;
+    const verdicts = { ...((prov.verdicts ?? {}) as Record<string, unknown>) };
+    let touched = false;
+    for (const field of EFFORT_VERDICT_FIELDS) {
+      if (p.props[field] === undefined || p.props[field] === null) continue;
+      if (verdicts[field] !== undefined) {
+        preserved++;
+        continue;
+      }
+      verdicts[field] = { review_state: "machine" };
+      stamped++;
+      touched = true;
+    }
+    if (touched || Object.keys(verdicts).length > 0) {
+      p.props.effort_provenance = { ...prov, verdicts };
+    }
+  }
+
   const merged = {
     case: "effort",
     batch,
     generatedAt: new Date().toISOString(),
-    note: `Merged from ${groups.length} grouped Sonnet agents (${groups.join(",")}), cross-checked against triage.json's ${armyIds.size}-MP army list. All props effort_*-namespaced, no contribution_* touched, review_state pending_review.`,
+    note: `Merged from ${groups.length} grouped Sonnet agents (${groups.join(",")}), cross-checked against triage.json's ${armyIds.size}-MP army list. All props effort_*-namespaced, no contribution_* touched. Every verdict prop stamped effort_provenance.verdicts.<field>.review_state = "machine" — the bottom rung; only ReviewRepository.setReviewState can raise it.`,
     proposals: all,
   };
+  console.log(`Rung stamp: ${stamped} verdict(s) stamped machine, ${preserved} left as already-decided.`);
   const pad = String(batch).padStart(3, "0");
   writeFileSync(`${OUT}/payloads/batch-${pad}-props.json`, JSON.stringify(merged, null, 2));
   console.log(`Merged ${all.length} proposals from groups [${groups.join(",")}] → batch-${pad}-props.json`);

@@ -389,3 +389,20 @@ a Silver-layer Pumper dataset the app consumes (§4).
 - [Compiling NL queries into semantic-operator pipelines (arxiv 2606.04641)](https://arxiv.org/pdf/2606.04641) · [FDABench — data agents over heterogeneous data (arxiv 2509.02473)](https://arxiv.org/pdf/2509.02473)
 - [Medallion architecture (endjin, 2025)](https://endjin.com/blog/2025/05/what-is-the-medallion-architecture) · [Beyond Bronze/Silver/Gold — AI era Feature + Vector layers](https://medium.com/@vishal.dutt.data.architect/beyond-bronze-silver-gold-evolving-the-medallion-architecture-for-the-ai-era-77d3cca78745)
 - Related in-repo: `docs/knowledge-graph-loop.md`, `docs/data-analysis/*`; Wellspring `docs/data-analysis/tier2-eval-harness.md` (the engine/substrate harness this reuses).
+
+**The materializer no longer writes a verdict the model never gave (2026-09-06,
+scan-sweep, bounty-hunter).** `scripts/hybrid-bench/materialize-tags.ts` turned an
+unparseable batch, a dropped row or an unknown slug into `vote_tag` rows of theme
+`jine` with confidence 0 — up to forty fabricated classifications per failed
+batch, which the VoteTrack theme filter reads as real „other" verdicts. Such rows
+are now left untagged and counted in the run summary; `parseTags` is exported and
+tested, and the script runs `main` only when invoked directly.
+
+**An unstated confidence no longer counts as 0.5 (2026-09-08, scan-sweep,
+parity-auditor).** `scripts/hybrid-bench/semop.ts` gave a label whose confidence
+the model omitted the value 0.5 — an invented certainty sitting exactly where the
+cascade decides whether to escalate (τ 0.75 escalated it, τ 0.5 would not). The
+materializer already refuses an unstated confidence; the filter now reads it as
+0, the same floor a dropped row gets, so the escalation decision is never made on
+a number the model did not state. `parseLabels` is exported and pinned by
+`semop.test.ts`, red-then-green.

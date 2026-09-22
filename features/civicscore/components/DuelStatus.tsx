@@ -17,7 +17,7 @@
  */
 
 import { useTranslations } from "next-intl";
-import type { LeaderboardListEntry } from "../getLeaderboardData";
+import type { LeaderboardListEntry } from "../leaderboardTypes";
 
 export default function DuelStatus({
   selected,

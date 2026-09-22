@@ -630,6 +630,8 @@
         "summary": "the graph as text — {nodes} nodes and {edges} ties",
         "intro": "the same slice as the picture above and the same selection — a node picked here is picked in the graph",
         "index": "{index}.",
+        "caseFileNamed": "{kind}: {label} — open",
+        "denikNamed": "entity diary: {label}",
         "realSource": "source: politicas knowledge graph — psp.cz ⋈ ares ⋈ contract registry ⋈ e-sbírka; the list draws the same nodes and edges as the picture and derives nothing",
         "mockSource": "source: illustrative sample — names, company numbers and amounts are invented, not real data"
       },
@@ -1105,6 +1107,8 @@
       "methodTitle": "disclosed computation rule",
       "methodBody": "Group line = strict majority of the group's positional ballots (for/against) in a given roll call; a tie determines no line. Discipline = share of the group's positional ballots on the line. Cohesion = the Rice index |for−against|/(for+against), weighted at chamber level by the positional-ballot counts of groups with ≥ {minClubPositional} positional ballots. Since amendment 90/1995 Coll. the Chamber does not distinguish the “abstained / did not vote” slot and it does not count as a position; voided roll calls are excluded; unaffiliated MPs are displayed but not scored. The left-to-right ordering of groups in the hemicycle is an editorial constant.",
       "methodSource": "psp.cz — PSP10 roll-call votes · {valid} valid roll calls ({voided} voided excluded, {withoutDate} with no stated day and therefore outside the seismograph) · {ballots} ballots · {from} – {to}",
+      "clubBasisAtVote": "Each ballot is weighed against the group its caster was in ON THE DAY OF THAT VOTE, read from membership windows — an MP who changed group mid-term counts towards the group they were in at the time. {outside} ballots fell on a day inside no window of theirs (an MP between groups) and {ambiguous} on a day covered by two windows at once; neither is counted towards a group, towards the unaffiliated, or towards rebellion — they are stated, not imputed.",
+      "clubBasisTermWide": "Each ballot is weighed against ONE group for the whole term, because membership windows were unavailable. For an MP who changed group mid-term this repaints ballots cast in the previous one. It is a weaker basis than the group at the vote, and the page says so rather than presenting it as dated.",
       "freshness": "the whole record is derived from {ballots} stored ballots; that computation is memoized and expires after {hours} h — that is the most these numbers can lag the graph. /penize and the control room declare the same bound; the graph is a batch artifact, it changes on recompute, not during a request.",
       "reconcileTitle": "the recount checked against the published tallies",
       "reconcileMethod": "The Chamber publishes its own tallies for roll-call votes. Our recount from the stored ballots is compared with them one to one: for against the yes column, against against the no column, and the merged “abstained / did not vote” slot against the sum of the abstained and did-not-vote columns. The “not signed in / excused” slot is not compared at all — the source publishes no column for it, and deriving one would mean estimating how many MPs were supposed to be in the room. A difference is stated, never repaired: neither our recount nor the published tally is rewritten.",
@@ -1150,6 +1154,8 @@
       "thresholdRowPresent": "present {nFmt}",
       "thresholdRowPresentNone": "the source states no attendance count",
       "thresholdRowQuorum": "needed {nFmt}",
+      "billLink": "on print {cislo}",
+      "billBlock": "block of {countFmt} prints — the vote was on the block, not on one print",
       "thresholdRowQuorumNone": "the source states no threshold",
       "thresholdRowOver": "{n, plural, one {{nFmt} vote} other {{nFmt} votes}} above the threshold",
       "thresholdRowUnder": "{n, plural, one {{nFmt} vote} other {{nFmt} votes}} below the threshold",
@@ -1182,6 +1188,7 @@
       "clubsBoardNote": "group line = strict majority of its positional ballots in a given roll call; a tie determines no line",
       "mpsBoard": "match with MPs",
       "mpsBoardNote": "sorted by match; order within the same match carries only the count of comparable votes and the Czech alphabet",
+      "clubBasisNote": "The group beside a name is the group TODAY (the open membership). The group line above each question is the group AT THE VOTE, on the day of that roll call — for an MP who changed group mid-term the two differ, and that is deliberate: a row is an MP, a line is a roll call.",
       "alignmentOf": "{matches} of {comparable} comparable",
       "kShort": "abstained/did not vote",
       "awayShort": "not signed in",
@@ -1956,7 +1963,7 @@
     "notInRecordTitle": "municipality not in the graph's contracts record",
     "notInRecordBody": "{town} does not appear among the parties of the money graph's {municipal} municipal contracts. That does not mean the municipality has no contracts — the graph so far carries only its own companies' contracts ({towns} municipalities do appear). The complete picture is in the Contracts Register; it will flow in here as the graph grows. Nothing is extrapolated or estimated.",
     "cardContracts": "contracts with graph companies",
-    "cardContractsMeta": "{contracts} contracts · {suppliers} counterparties",
+    "cardContractsMeta": "{contracts} contract relationships (contract × counterparty) · {suppliers} counterparties",
     "cardContractsYears": "contracts signed {firstYear}–{lastYear}",
     "cardContractsYear": "contracts signed in {year}",
     "cardContractsYearsUnknown": "the record does not state the signing years of these contracts",
@@ -1981,9 +1988,11 @@
     "tieVerified": "tie verified",
     "tieNeedsReview": "needs verification",
     "directionUnknown": "direction not stated",
+    "paidDocumentedNoAmount": "direction documented · amount not recorded ({count})",
     "noPeerRecord": "no peer on record",
     "peerTownCount": "({count} municipalities)",
     "restRow": "… plus {count} more counterparties worth {sum} — the listing carries the {top} largest by recorded volume.",
+    "restRowTiesLifted": "… plus {count} more counterparties worth {sum} — the listing carries the {top} largest by recorded volume and every counterparty with a tie to an MP ({lifted} beyond the largest); none of the folded counterparties has an MP tie on record.",
     "trailFootnote": "A counterparty's peer median is computed only from municipalities of the same band that have contracts with the same company on record — a municipality outside the record does not drag the median toward zero. A contract whose payment direction the register does not state is never read as municipal expenditure or income."
   },
   "lawwatch": {
@@ -2116,7 +2125,8 @@
       "unlinkable": "{count, plural, one {{countFmt} assessment belongs to a print with no public number — its row does not lead to a dossier.} other {{countFmt} assessments belong to prints with no public number — their rows do not lead to a dossier.}}",
       "orderRule": "Declared ordering rule: groups by assessment count descending, ties by severity name; prints within a group by print number ascending. There is deliberately no low-to-high ordering — severity is the analysis's own rating, not a wrongdoing scale issued by any authority or court.",
       "withheld": "The language gate withheld part of the text of {count, plural, one {{countFmt} assessment} other {{countFmt} assessments}} ({fieldsFmt} withheld passages in total). The text stays in the graph — it simply does not ship until it is in Czech. Withheld does not mean missing.",
-      "withheldNone": "No assessment had part of its text withheld by the language gate."
+      "withheldNone": "No assessment had part of its text withheld by the language gate.",
+      "reviewStateAbsent": "no stored gate state"
     },
     "titleLinkNote": "The print → act link is read from the print’s title (the “č. N/RRRR Sb.” citation), the only structured reference psp.cz carries about the amended act. Formal committee referrals (lead / additional, status and date) render from real psp.cz data. The full section wording is held separately by e-Sbírka —",
     "titleLinkNoteDiff": "for {count, plural, one {{countFmt} print} other {{countFmt} prints}} of the most-amended act it carries a real section diff between two in-force wordings, computed directly from e-Sbírka’s public SPARQL endpoint (no bulk export, no fabricated data); for the remaining prints no diff is rendered yet.",
@@ -2160,6 +2170,16 @@
       "rapporteursHeading": "rapporteurs — psp.cz hist · hist_vybory · tisky_za",
       "debateHeading": "floor debate — {countFmt} substantive speeches · psp.cz stenographic records",
       "amendmentDocsHeading": "written amendments — {countFmt} · psp.cz parliamentary documents",
+      "rollCallsHeading": "how the chamber voted — {countFmt} roll calls on this print",
+      "rollCallNoDate": "no stated day",
+      "rollCallLine": {
+        "yes": "for",
+        "no": "against"
+      },
+      "rollCallChamber": "for {yes} · against {no} · abstained / did not vote {k}",
+      "rollCallNoBallots": "we hold no named ballots for this roll call, so no tally is printed — “we have no ballots” is not “nobody voted”",
+      "rollCallBlockItem": "The agenda item carried {countFmt} prints at once — the vote was on the block, not on this print alone. The link is therefore kept on all of them rather than guessing one.",
+      "rollCallsSource": "psp.cz — roll calls joined to the print through the sitting's agenda item (sitting + item, on the agenda as taken). Chamber tallies and group lines come from the SAME derived record that renders /hlasovani, not from a second recount. {blockFmt} of these roll calls belonged to an item carrying several prints. Which reading it was is not stated in the source data, and we do not guess it.",
       "conflictSource": "possible conflict of interest · derived from the sponsor’s money ties",
       "conflictText": "The sponsor has ties to {count, plural, one {{countFmt} company} other {{countFmt} companies}} with a total public-contract flow of <b>{amount}</b>. A signal to examine, not a proven conflict — sector adjacency is an indication, not evidence.",
       "conflictAttribution": "The figure above is the worst case among this print's sponsors and sums every company the sponsor is tied to in the graph — including institutions where the role is merely a stewardship seat. An MP's money file attributes more strictly: an institution's money belongs to the institution, never to the MP, so the file usually shows a smaller amount. The file decides, not this flag.",
@@ -2203,7 +2223,10 @@
       "withheldParts": "{count, plural, one {{countFmt} part of this review’s text is} other {{countFmt} parts of this review’s text are}} not yet available in Czech and therefore not displayed. The block is incomplete as a result.",
       "referencesHeading": "references ({count})",
       "gateFootnote": "A derived finding gated against fabrication: every cited č. N/RRRR Sb. must be a real act. Stored as <b>pending_review</b> — a lead for a human, not a published verdict.",
-      "evidenceLabel": "source:"
+      "evidenceLabel": "source:",
+      "reviewStateAbsent": "no stored state",
+      "reviewedBy": "decided by {kdo}",
+      "reviewedByOn": "decided by {kdo}, {kdy}"
     },
     "diffBlock": {
       "source": "real section diff · č. {law} Sb. · e-Sbírka (SPARQL, not a bulk export)",
@@ -2360,7 +2383,8 @@
       "contract": "contract",
       "bill": "bill",
       "law": "law",
-      "notice": "notice"
+      "notice": "notice",
+      "tender": "tender"
     },
     "rels": {
       "co_votes_with": "co-voting",
@@ -2375,7 +2399,15 @@
       "cites": "cites",
       "owns_stake": "stake in company",
       "owns": "theme remit",
-      "belongs_to": "belongs to bloc"
+      "belongs_to": "belongs to bloc",
+      "procures": "procures",
+      "bids_on": "bids on",
+      "wins": "wins",
+      "concerns": "concerns",
+      "rapporteur": "rapporteur of",
+      "spoke_on": "spoke on",
+      "proposes_amendment": "proposes amendment to",
+      "decides": "decides"
     },
     "search": {
       "placeholder": "search the graph…",
@@ -2417,7 +2449,8 @@
         "contract": "This contract carries neither its own address in the Contract Register nor the supplier's IČO we use to query it.",
         "bill": "This bill is missing the number psp.cz uses to reference it.",
         "law": "The law citation in the record has no recognizable number and year, so a link into e-Sbírka can't be built.",
-        "notice": "This notice doesn't carry the address it was posted at — without it no link can be built, and reconstructing one would mean guessing. It stays at the case number."
+        "notice": "This notice doesn't carry the address it was posted at — without it no link can be built, and reconstructing one would mean guessing. It stays at the case number.",
+        "tender": "This tender carries neither a contracting-authority profile nor a NIPEZ identifier, so a link into ISVZ can't be built."
       }
     },
     "stage": {
@@ -2427,7 +2460,8 @@
       "fullscreen": "fullscreen",
       "exitFullscreen": "exit fullscreen",
       "legend": "legend",
-      "unverified": "unverified"
+      "unverified": "unverified",
+      "rejected": "refused by review"
     },
     "mapa": {
       "canvasLabel": "map of the mass",
@@ -2437,13 +2471,18 @@
       "unavailable": "the map couldn't be built — the data warehouse isn't available",
       "footnote": "the whole graph at once: the evidence layer as a network, contracts as dots around suppliers · co-voting isn't drawn (96% pair density — see methodology)",
       "lensLabel": "trails on the map",
-      "lensOff": "whole map — no trail"
+      "lensOff": "whole map — no trail",
+      "offMap": "{n} steps off the map, drawn in on request",
+      "overlayBudget": "{n} neighbourhood nodes did not fit the stage budget ({budget})",
+      "offMapSource": "the procurement layer (48,647 tenders, 12,467 procurement-only companies) is not drawn on the mass map — a neighbourhood is fetched per node, never for the whole graph",
+      "expandLabel": "draw the neighbourhood"
     },
     "trasy": {
       "canvasLabel": "trails",
       "listLabel": "selected trails",
       "pick": "pick a trail — the canvas shows its graph cutout",
       "empty": "the trail couldn't be computed from the available data",
+      "unavailable": "trails can't be computed — the data store is unavailable",
       "footnote": "trails are computed from real graph edges, nothing is illustration · amounts = contracts and grants reachable via IČO",
       "trails": {
         "penize-poslancu": {
@@ -2479,12 +2518,16 @@
       "hover": {
         "verified": "{n} verified edges",
         "pending": "{n} pending review",
-        "cols": "relation · verified / pending",
+        "cols": "relation · verified / pending / refused",
         "empty": "no edges for this node in the current slice",
         "more": "+ {n} more relations",
-        "open": "click opens the full record with sources"
+        "open": "click opens the full record with sources",
+        "rejected": "{n} refused by review",
+        "ungated": "{n} ungated (derived)"
       },
-      "source": "source: knowledge-graph review_state — human review-gate status of every edge"
+      "source": "source: knowledge-graph review_state — human review-gate status of every edge",
+      "hiddenRejected": "{n} rejected ties are not drawn — human review refused them",
+      "lensNoteRejected": "{n} rejected steps stay in the requested answer — dotted, marked as refused"
     },
     "steps": "{count, plural, one {{countFmt} step} other {{countFmt} steps}}",
     "allVerified": "all verified",
@@ -2583,8 +2626,40 @@
         "unavailableTitle": "The data cannot be read right now",
         "unavailableNote": "an outage on our side, not the end of this citation — please try again",
         "invalidNote": "this address cannot be decoded — it is not a politicas citation"
-      }
-    }
+      },
+      "thenKicker": "then — fingerprint in the address",
+      "nowKicker": "now — re-derived",
+      "noIssueDate": "this address carries no issue date",
+      "diffUnavailable": "The fingerprints have diverged, so the view's content has changed since the citation was issued. WHAT changed we cannot yet name: we do not replay the view as it stood then, and silence about the changes would read as “nothing changed”. Individual records can be traced through the provenance receipts (/zdroj) and the dated record (/denik)."
+    },
+    "provenance": {
+      "title": "graph provenance",
+      "cols": "relation · pass / coverage",
+      "pass": "pass {n}",
+      "noPass": "no pass number",
+      "mixed": "{n} different passes",
+      "absent": "no provenance",
+      "coverage": "({stamped}/{read})",
+      "more": "+ {n} more relations",
+      "empty": "no edge carries provenance — that is an empty record, not pass 0",
+      "halfRecomputed": "{n} relations are split within themselves ({rels}) — a half recompute",
+      "state": {
+        "uniform": "one pass",
+        "mixed": "pass per relation",
+        "absent": "unstamped"
+      },
+      "source": "source: kg_edge.provenance — {pass, method, ref} written by the pass that derived the edge; the graph is recomputed per relation, so different relations carry different passes"
+    },
+    "okoli": {
+      "title": "node neighbourhood",
+      "shownOfTotal": "{shown} of {total} ties",
+      "cap": "view cap: {n} edges",
+      "readTruncated": "the read hit its own cap too — \"total\" is a lower bound",
+      "empty": "this node has no ties in today's graph",
+      "goneAnchor": "this node is not in today's graph",
+      "source": "source: kg_edge around this node (indexed kgNeighbours read), {nodes} neighbours drawn; the cut is deterministic (src, rel, dst order), not by weight"
+    },
+    "rejectedEdges": "{count, plural, one {1 edge refused by review} other {{countFmt} edges refused by review}}"
   },
   "metodika": {
     "backToLeaderboard": "back to the leaderboard",
@@ -2649,6 +2724,8 @@
     "volbyRule_effort_workhorse_rule": "Positive finding: the MP carries the Case ② workhorse badge (deterministic contribution triage).",
     "volbyRule_effort_rapporteur_title": "Rapporteur workhorse",
     "volbyRule_effort_rapporteur_rule": "Positive finding: rapporteur of at least {rapporteurMin} bills.",
+    "volbyRule_law_final_vote_title": "The chamber voted on the print",
+    "volbyRule_law_final_vote_rule": "The day of the last roll call on a tabled print, joined through the sitting agenda item. A RECORD, not a finding: valence “unrated”, never entering the total — that the chamber voted is neither a credit nor a charge against the sponsor. The date is a LATER fact about the print, not the date of the sponsor's own choice, so it sits beside a decision on the timeline, never in place of one.",
     "volbyRule_money_ties_unrated_title": "Ties pending review",
     "volbyRule_money_ties_unrated_rule": "Count of MP ↔ company ties that have not passed the human gate. Valence “unrated”: shown, never added to the finding total."
   },
@@ -2757,7 +2834,9 @@
       "exhibitFakt": "dated fact from the control-room ledger",
       "derivation": "derivation today",
       "citedDerivation": "derivation cited",
-      "subject": "subject of the claim"
+      "subject": "subject of the claim",
+      "publishedThen": "what we published on {day}",
+      "publishedThenSource": "the version of the record valid on that day, from the knowledge graph's bitemporal history (kg_edge_history / kg_node_history); record time, not world time"
     },
     "guide": {
       "title": "How to cite so it can be verified",
@@ -3057,7 +3136,8 @@
       "recomputeTitle": "Contribution index recomputed for the whole chamber — pass {pass}; how far the score moved, the record does not say",
       "recomputeSource": "politicas computation — {ref}",
       "forensicTitle": "forensic report confirmed — {subject}",
-      "forensicSource": "kg_node bill.forensic_* · severity {detail}"
+      "forensicSource": "kg_node bill.forensic_* · severity {detail}",
+      "recomputeTitleSized": "The contribution index was recomputed for the whole chamber — pass {pass}; this MP's score moved by {delta} points against pass {priorPass}"
     },
     "kinds": {
       "contract": "{count, plural, one {contract} other {contracts}}",
@@ -3144,7 +3224,7 @@
       },
       "integrity": {
         "label": "integrity",
-        "rule": "100 × (the source’s finished successful runs sealed with a Merkle root / all of the source’s finished successful runs), rounded. The seal is applied by LedgerRepository.sealIngestRun over every row the run wrote. A source with no finished successful run = unrated."
+        "rule": "100 x (this source's finished ok ingest runs sealed with a Merkle root / all its finished ok runs), rounded. The seal is applied by LedgerRepository.sealIngestRun over every row the run wrote — across the eight entity tables and kg_node/kg_edge, which since 2026-09-04 claim their run through ingest_run_id. The sealed set of tables and the scored set are therefore the same set. A source with no finished ok run = not scored."
       },
       "completeness": {
         "label": "completeness",
@@ -3186,7 +3266,7 @@
       "aside": "source: the source registry (lib/analysis/atlas.ts) — a declaration in code, not a measurement",
       "lead": "Politicas works with {declared} sources. This page can rate {scored} of them; the remaining {unscored} it cannot. Saying nothing about them would amount to claiming the platform only has the rated ones — and the two that carry the whole public-money module are among those left unsaid. None of them gets a number here: each gets a sentence naming where its rows land and why the atlas cannot measure them. A zero would be a statement about data quality; this is a statement about what our own storage cannot do.",
       "source": "source: the source registry in lib/analysis/atlas.ts; every row names the module that reads that source — verifiable in the repository",
-      "scopeNote": "Why the atlas is not simply widened: the integrity rule printed beside every score states that the sealed set of tables and the rated set are the same. Scoring the knowledge graph would mean loosening that rule before the pipeline can do what it promises. So the limit is named rather than pushed through a printed rule — connecting these sources is a change to ingest and to the ledger, not to this page.",
+      "scopeNote": "Why some sources still stand here without a score: the integrity rule printed beside the score says the sealed set of tables and the scored set are the same set. Since 2026-09-04 that holds for the knowledge graph too — kg_node and kg_edge claim their ingest run through ingest_run_id and the seal covers them. A source stays here only until an ingest under the provenance contract stamps it; the limit is named, never pushed past the printed rule.",
       "landingNote": "Listed here are the sources the atlas can measure — {shown}. Politicas reads {declared}; for the remaining {unscored} the atlas states why it cannot measure them.",
       "landing": {
         "graph": "lands in the knowledge graph (kg_node / kg_edge)",
@@ -3194,10 +3274,18 @@
         "none": "nothing in the product reads it"
       },
       "reason": {
-        "graph": "This source’s rows land in kg_node/kg_edge. Those tables have no source column and no ingest_run_id — provenance in them is free text in a provenance.ref field, so no join key runs between a row and the ingest_run table. Provenance coverage, freshness and the Merkle seal therefore cannot be measured for them. This is a limit of OUR pipeline, not a statement about the publisher: the data is in the store, the atlas just has no measurable link to it.",
+        "graph": "This source's rows land in kg_node/kg_edge. Since 2026-09-04 those tables DO carry source and ingest_run_id, so the atlas can measure them as soon as a writer stamps them. This source has no card because the store holds not one stamped row of it yet: an ingest under the new provenance contract has not reached it. That is a limit of OUR pipeline, not a statement about the publisher — the data is in the store, it just does not yet claim this source key.",
         "generatedModule": "This source’s harvest is frozen into a generated module in the repository, which the page reads directly — nothing lands in the store. With no row in the store and no ingest run there is nothing to measure; the retrieval date is carried by that module itself and printed on the page. This is a limit of OUR pipeline, not a statement about the publisher.",
         "none": "This source’s adapter is written and tested, but nothing in the product reads it — it is not ingested. The atlas measures nothing here because there is nothing to measure. It is listed so that the list of sources does not conceal what lies unconnected in the repository."
       }
+    },
+    "unattributed": {
+      "title": "Graph rows with no declared publisher",
+      "aside": "source: kg_node.source / kg_edge.source (generated from provenance) — counts, not scores",
+      "lead": "The knowledge graph holds {unknown} rows whose origin could not honestly be reconstructed from what they carry, and {unstamped} rows the provenance migration has not reached. Guessing a source for them would have been possible and would have been untrue: a card would claim something about a publisher nobody verified. So they get no card — they get a number.",
+      "row": "unresolved {unknown} · unstamped {unstamped}",
+      "source": "source: a query over kg_node/kg_edge grouped by the source column, which is generated from the provenance field (lib/db/pglite/ddl.ts)",
+      "note": "These are two different claims and they do not add up: “unresolved” is an admission about origin, “unstamped” is the state of the migration. The first is burned down by re-running the writer that owns those rows, which replaces it with a real source. Zero here does not mean finished; it means every row claims some source."
     }
   },
   "dataReleases": {
@@ -3226,7 +3314,19 @@
       "unreleasedSource": "source: ingest_run — 0 successful runs; nothing is concealed",
       "badgeDegraded": "degraded — not latest",
       "badgeLatest": "latest",
-      "cut": "cut: {date}"
+      "cut": "cut: {date}",
+      "certificationNoCounts": {
+        "ok": "Invariants verified on {date}; how many held, the report does not carry legibly. The sentinel ran over THIS fingerprint, not over some nearby release.",
+        "violation": "On {date} the sentinel found a VIOLATION over this fingerprint; the count of invariants that held is not legible in the report. Red is a data problem, not a tooling fault: fix the ingest, never the invariant.",
+        "unevaluable": "On {date} the sentinel never reached the data; the count of evaluated invariants is not legible in the report. This is not a pass and must not read as one."
+      },
+      "certificationNone": "Not verified — the sentinel has not run over this fingerprint. That is neither a mark against the release nor a pass: nobody has looked yet. The “latest” badge above comes from cardinality floors, and floors are not an audit.",
+      "certificationSource": "source: the sentinel_run table, newest row with the SAME manifest fingerprint; written by npm run sentinel through a queue the next store open drains",
+      "certification": {
+        "ok": "Invariants verified on {date} — {platnych} of {vsech} held. The sentinel ran over THIS fingerprint, not over some nearby release.",
+        "violation": "On {date} the sentinel found a VIOLATION over this fingerprint — {platnych} of {vsech} held. Red is a data problem, not a tooling fault: fix the ingest, never the invariant.",
+        "unevaluable": "On {date} the sentinel never reached the data — {platnych} of {vsech} invariants were evaluated. This is not a pass and must not read as one."
+      }
     },
     "table": {
       "kind": "node kind",
@@ -3264,6 +3364,7 @@
       "run": "run #{id}",
       "leaves": "{count} leaves",
       "root": "root {hash}",
+      "shownNewest": "showing the newest {count}; the other {rest} are in manifest.json",
       "source": "source: ingest_run.merkle_root — sealed by LedgerRepository.sealIngestRun"
     },
     "download": {
@@ -3306,6 +3407,11 @@
       "emptyBody": "No ingest run is on record — the changelog will be founded by the first data ingest.",
       "badgeOk": "all green",
       "badgeFailures": "contains failures",
+      "status": {
+        "ok": "run finished",
+        "failed": "run failed",
+        "running": "run in progress"
+      },
       "runsLine": "{runs} runs · {rows} rows written",
       "runRow": "{rows} rows",
       "dukazyLink": "evidence journal",
@@ -3428,7 +3534,13 @@
         "goneRef": "claim address: {ref}",
         "citationKicker": "citation",
         "verify": "verify this citation",
-        "footerSource": "politicas knowledge graph — psp.cz · ares · contracts register; human-gate state per audited review (review_audit)"
+        "footerSource": "politicas knowledge graph — psp.cz · ares · contracts register; human-gate state per audited review (review_audit)",
+        "lastKicker": "last recorded",
+        "lastRecorded": "recorded {date}",
+        "lastSuperseded": "superseded {date}",
+        "lastStillOpen": "this version was never superseded",
+        "lastNote": "This is history, not a current claim: an archived version is never promoted back into the graph or into the machine-readable markup, and counts towards no figure on any other surface.",
+        "lastSource": "last recorded version from the knowledge graph's bitemporal history (kg_node_history / kg_edge_history); both instants are record times, not world times"
       },
       "gate": {
         "verified": "verified by a human",
@@ -3470,7 +3582,35 @@
         "confirm": "confirmed",
         "reject": "rejected",
         "return": "returned for more evidence"
+      },
+      "asOf": {
+        "kicker": "record time",
+        "at": "This is how the record looked on {day} — an archived version, not today's state. The same address without the k parameter shows today.",
+        "absentThen": "On {day} we were keeping records, but this claim was not among them. What follows is therefore TODAY's record, not that day's.",
+        "beforeEpoch": "There is no record for {day}: our record history starts on {epoch}, and before that date we assert nothing about any day. What follows is TODAY's record.",
+        "beforeEpochUnknown": "There is no record for {day}: we hold no record history for this address yet. What follows is TODAY's record.",
+        "refused": "“{raw}” is not a date in YYYY-MM-DD form. We do not repair addresses for you, so no day was replayed — what follows is TODAY's record.",
+        "notReplayable": "We cannot yet replay this kind of address to any day: derived figures are computed from today's record, not from the graph's history. We therefore assert nothing about {day} — what follows is TODAY's record."
       }
+    },
+    "verdict": {
+      "machine": "machine-derived",
+      "pending": "returned for more",
+      "verified": "verified",
+      "rejected": "verdict rejected",
+      "withheld": "verdict rejected — withheld",
+      "by": "{kdo}",
+      "byOn": "{kdo}, {kdy}",
+      "queueTitle": "Review queue by claim kind",
+      "queueKindTie": "money ties",
+      "queueKindBill": "bill forensic verdicts",
+      "queueKindEffort": "verdicts about MPs",
+      "queueKindTripwire": "tripwire candidates",
+      "queueKindLead": "leads",
+      "queueDecided": "decided",
+      "queuePending": "pending",
+      "queueTotal": "total",
+      "queueNoWriter": "no writer — a decision cannot be recorded yet"
     }
   },
   "errors": {
@@ -3660,7 +3800,8 @@
       "law_became_law_clean": "Became law without a conflict",
       "effort_workhorse": "Workhorse",
       "effort_rapporteur": "Rapporteur workhorse",
-      "money_ties_unrated": "Ties without assessment"
+      "money_ties_unrated": "Ties without assessment",
+      "law_final_vote": "The chamber voted on the print"
     },
     "severity": {
       "low": "low",
@@ -3681,7 +3822,8 @@
       "fate_sb": "published in the Collection of Laws",
       "forensic_verdict": "forensic opinion recorded",
       "collision_detected": "collision detected",
-      "flags_computed": "flags computed"
+      "flags_computed": "flags computed",
+      "final_vote": "the chamber voted"
     },
     "figure": {
       "lots": "lots in the term",

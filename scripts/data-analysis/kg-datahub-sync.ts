@@ -20,11 +20,10 @@
  *   npx tsx scripts/data-analysis/kg-datahub-sync.ts --push --gms=http://localhost:8080   # POST to a GMS
  */
 import { mkdirSync, writeFileSync } from "node:fs";
+import { corpusName, datasetUrn as urnFor } from "@/lib/analysis/context-model";
+import { KG_EDGE_RELS, KG_NODE_KINDS } from "@/lib/analysis/kg-verdict";
 import { getStore } from "@/lib/db/store";
-
-const PLATFORM = "urn:li:dataPlatform:politicas";
-const ACTOR = "urn:li:corpuser:data-analysis";
-const BATCH = 25;
+import { envelope, lineage, operation, postAspects, profile, props, schemaOf, type Entity } from "./datahubAspects";
 
 function arg(name: string, fallback: string): string {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -32,31 +31,16 @@ function arg(name: string, fallback: string): string {
 }
 const ENV = arg("env", "PROD");
 const GMS = arg("gms", process.env.DATAHUB_GMS_URL || "http://localhost:8080").replace(/\/+$/, "");
-const clean = (s: string) => s.replace(/[.\-]/g, "_");
-const datasetUrn = (name: string) => `urn:li:dataset:(${PLATFORM},${name},${ENV})`;
-/** Reference the SAME corpus dataset urns datahub-sync.ts publishes, so lineage joins up. */
-const corpusUrn = (source: string, entity: string) => datasetUrn(`corpus.${clean(source)}.${entity}`);
-
-type Entity = Record<string, unknown>;
-const envelope = (urn: string, aspect: Record<string, unknown>): Entity => ({ entityType: "dataset", entityUrn: urn, aspect });
-const props = (name: string, description: string, custom: Record<string, string>) => ({ __type: "DatasetProperties", name, description, customProperties: custom });
-const profile = (ms: number, rowCount: number) => ({ __type: "DatasetProfile", timestampMillis: ms, rowCount });
-const operation = (ms: number) => ({ __type: "Operation", timestampMillis: ms, lastUpdatedTimestamp: ms, operationType: "UPDATE" });
-const lineage = (upstreams: string[], ms: number) => ({
-  __type: "UpstreamLineage",
-  upstreams: upstreams.map((dataset) => ({ auditStamp: { time: ms, actor: ACTOR }, dataset, type: "TRANSFORMED" })),
-});
-function schemaOf(name: string, fields: { field: string; doc: string; type?: string }[]) {
-  return {
-    __type: "SchemaMetadata", schemaName: name, platform: PLATFORM, version: 0, hash: "",
-    platformSchema: { __type: "OtherSchema", rawSchema: "" },
-    fields: fields.map((f) => ({ fieldPath: f.field, description: f.doc, nativeDataType: f.type ?? "string", type: { type: { __type: f.type === "number" ? "NumberType" : "StringType" } } })),
-  };
-}
+const datasetUrn = (name: string) => urnFor(name, ENV);
+/** The SAME corpus dataset urns datahub-sync.ts publishes (shared context-model
+ *  helpers, not a local re-spelling), so lineage joins up by construction. */
+const corpusUrn = (source: string, entity: string) => datasetUrn(corpusName(source, entity));
 
 const KG_NODE_FIELDS = [
   { field: "id", doc: "urn: a raw entity (psp:person:<id>, psp:organ:<id>) or a derived node (bloc:<slug>, theme:<slug>)." },
-  { field: "kind", doc: "person | party | organ | bloc | theme | company | contract (extensible)." },
+  // Published FROM the enum lib/analysis/kg-verdict.ts declares, never retyped: until
+  // 2026-09-08 this line named 7 of the 11 kinds (no bill, law, notice, tender).
+  { field: "kind", doc: `${KG_NODE_KINDS.join(" | ")} — the closed vocabulary of lib/analysis/kg-verdict.ts.` },
   { field: "label", doc: "Human label." },
   { field: "props", doc: "Derived attributes (rebellion_rate, cohesion, contestedness, control_timeline…), each enrichment carrying its own nested *_provenance." },
   { field: "first_seen_pass", doc: "The loop pass that created the node (self-awareness).", type: "number" },
@@ -64,7 +48,8 @@ const KG_NODE_FIELDS = [
 ];
 const KG_EDGE_FIELDS = [
   { field: "src", doc: "kg_node.id." },
-  { field: "rel", doc: "co_votes_with | rebels_against | belongs_to | about | influential_in | linked_to | supplies." },
+  // Same rule: 7 of 21 rels were named here until 2026-09-08.
+  { field: "rel", doc: `${KG_EDGE_RELS.join(" | ")} — the closed vocabulary of lib/analysis/kg-verdict.ts.` },
   { field: "dst", doc: "kg_node.id." },
   { field: "weight", doc: "Per-rel: agreement rate | rebellion rate | role rank | roll-call count.", type: "number" },
   { field: "props", doc: "Per-edge detail + rationale." },
@@ -87,16 +72,6 @@ const NODE_KIND: Record<string, { doc: string; up: string[] }> = {
   bloc: { doc: "Derived voting bloc; props overall_win_rate, control_timeline (verdict-named over the co-voting matrix).", up: [datasetUrn("kg.edge.co_votes_with")] },
   theme: { doc: "Derived legislative theme; props opposed_fraction/contestedness (verdict-named over vote titles).", up: [corpusUrn("psp-hlasovani", "vote_event")] },
 };
-
-async function post(entities: Entity[]): Promise<void> {
-  const url = `${GMS}/openapi/entities/v1/`;
-  const token = process.env.DATAHUB_TOKEN;
-  for (let i = 0; i < entities.length; i += BATCH) {
-    const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify(entities.slice(i, i + BATCH)), signal: AbortSignal.timeout(60_000) });
-    if (!res.ok) throw new Error(`POST ${url} → ${res.status} ${res.statusText}: ${(await res.text()).slice(0, 500)}`);
-    process.stdout.write(`  … ${Math.min(i + BATCH, entities.length)}/${entities.length}\r`);
-  }
-}
 
 async function main() {
   const push = process.argv.includes("--push");
@@ -167,7 +142,7 @@ async function main() {
 
   if (push) {
     console.log(`\npushing ${entities.length} aspects → ${GMS}`);
-    await post(entities);
+    await postAspects(GMS, entities);
     console.log(`\ndone (DataHub is a disposable mirror — rebuildable from kg_* any time).`);
   } else {
     console.log(`\n(no --push: aspects written to file only; the projection is optional and DataHub-free-verifiable.)`);

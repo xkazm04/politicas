@@ -21,6 +21,8 @@
 // posting node.
 // "tender" added by Case ④ (tender loop, batch 002): one node per tender LOT from the
 // ISVZ/RVZ open data — the procurement-procedure layer the contract layer cannot carry.
+import { extractJsonBlock, parseJsonBlock } from "./jsonBlock";
+
 export const KG_NODE_KINDS = ["person", "party", "organ", "bloc", "theme", "company", "contract", "bill", "law", "notice", "tender"] as const;
 export type KgNodeKind = (typeof KG_NODE_KINDS)[number];
 
@@ -64,6 +66,17 @@ export const KG_EDGE_RELS = [
   // Writer: scripts/data-analysis/kg-bill-engagement-ingest.ts.
   "spoke_on",
   "proposes_amendment",
+  // "decides" (vote -> bill, 2026-09-04): the roll call and the print it decided,
+  // joined through the sitting's agenda — vote_event(sessionNo, agendaItem) ⋈
+  // bod_schuze(bod, id_tisk) on the agenda AS TAKEN (`pozvanka IS NULL`; the
+  // pozvánky's own numbering is a different key space and is 27,5 % right).
+  // props {votedOn, outcome, readingStage|null, sessionNo, agendaItem, agendaLabel,
+  // itemPrintCount, joinBasis: "schuze+bod"}. Many-to-many: an agenda item may name
+  // several prints (PSP10: 6, all „písemné interpelace" blocks) and the count rides
+  // on the edge as `itemPrintCount` rather than being resolved away. A roll call
+  // whose item names no print stays unlinked and is COUNTED (votesWithoutPrint) —
+  // never guessed from a title. Writer: scripts/data-analysis/kg-vote-bill-ingest.ts.
+  "decides",
 ] as const;
 export type KgEdgeRel = (typeof KG_EDGE_RELS)[number];
 
@@ -348,22 +361,11 @@ export function citedEntityUrns(input: unknown): string[] {
 
 /** Extract the first ```json block (or outermost braces) from raw text and validate. */
 export function parseAndValidateKgVerdict(text: string, options: ValidateKgVerdictOptions = {}): ValidationResult {
-  const raw = extractJsonBlock(text);
-  if (raw === null) return { ok: false, errors: ["no JSON block found in subagent output"] };
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(raw);
-  } catch (e) {
-    return { ok: false, errors: [`JSON parse error: ${e instanceof Error ? e.message : String(e)}`] };
-  }
-  return validateKgVerdict(parsed, options);
+  const block = parseJsonBlock(text);
+  if (block.error !== null) return { ok: false, errors: [block.error] };
+  return validateKgVerdict(block.parsed, options);
 }
 
-export function extractJsonBlock(text: string): string | null {
-  const fence = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
-  if (fence && fence[1].trim().startsWith("{")) return fence[1].trim();
-  const start = text.indexOf("{");
-  const end = text.lastIndexOf("}");
-  if (start !== -1 && end > start) return text.slice(start, end + 1);
-  return null;
-}
+// The extractor lives once, in jsonBlock.ts (three contracts carried a copy each until
+// 2026-09-06); re-exported so existing importers keep their path.
+export { extractJsonBlock };

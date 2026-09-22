@@ -62,6 +62,12 @@ const audit: ReviewAuditRow[] = [
     note: "doloženo v OR",
     decidedAt: "2026-07-26T12:00:00Z",
     priorState: "pending_review",
+    // A row as the repository now hands it back. This one is shaped like a
+    // LEGACY row — v1 hash domain, kind and address derived from the triple —
+    // because that is what every stored row was until 2026-09-04.
+    subjectKind: "tie",
+    subjectId: `${person.id}|linked_to|${company.id}`,
+    hashDomain: "politicas-audit-v1",
   },
 ];
 

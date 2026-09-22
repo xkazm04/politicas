@@ -41,7 +41,17 @@ export interface KompasQuestion {
 export interface KompasMp {
   personPspId: number;
   name: string;
-  /** Club abbrev; null = nezařazení (rendered, never club-scored). */
+  /**
+   * Klub DNES — otevřené okno členství (`to_at IS NULL`), ne klub při hlasování.
+   *
+   * Tabule tedy míchá dvě různé věci schválně a musí to říct: řádek je poslanec
+   * podle klubu, ve kterém sedí TEĎ, zatímco `clubLines` je linie klubu v den
+   * TOHO hlasování. U poslance, který klub v období změnil, se ty dvě liší, a
+   * copy (`hlasovani.kompas.clubBasis*`) ten rozdíl pojmenovává.
+   *
+   * `null` = nezařazený, nebo mandát bez otevřeného okna (vykreslí se, nikdy se
+   * neskóruje proti klubové linii).
+   */
   club: string | null;
 }
 

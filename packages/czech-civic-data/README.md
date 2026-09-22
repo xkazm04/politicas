@@ -17,7 +17,7 @@ psp.cz vote-code vocabularies** — including the treacherous `K` code that has
 merged "abstained" and "did not vote" since 1995.
 
 - Zero runtime dependencies / žádné běhové závislosti (Node builtins only:
-  `node:zlib`; `TextDecoder` for cp1250).
+  `node:zlib`, whose `crc32` needs Node 22.2+; `TextDecoder` for cp1250).
 - Pure functions over bytes and strings — no IO, no framework.
 - Doctrine: **missing beats wrong / chybějící je lepší než špatné.** Every
   parser returns `null` or throws a named error instead of guessing.
@@ -41,7 +41,7 @@ modules can also be imported individually.
 | `parseUnl(body)` / `parseUnlLine(line)` | Escape-aware split: `\|` inside a value is a literal pipe (vote titles DO contain pipes), `\\` a backslash, `\n`/`\r`/`\t` controls; empty column → SQL `NULL` → `null`. Splits physical newlines FIRST, then unescapes, so an escaped `\n` survives. |
 | `decodeUnl(bytes)` | windows-1250 → string with `fatal: true`: an unmappable byte (corrupt download, wrong encoding) **throws** instead of silently writing U+FFFD into a name. |
 | `col(row, i)` / `colInt(row, i)` | Null-safe column access. `colInt` requires the FULL trimmed value to be digits — `"123abc"` is `null`, never `123`. |
-| `czDateToIso` / `czDateHourToIso` / `czDateTimeToIso` | `DD.MM.YYYY`, `datetime(year to hour)`, and date+`HH:MM` → ISO. Range-validated; malformed input → `null`, never a guess. |
+| `czDateToIso` / `czDateHourToIso` / `czDateTimeToIso` | `DD.MM.YYYY`, `datetime(year to hour)`, and date+`HH:MM` → ISO. Calendar-validated (`31.02.` is `null`, not `-02-31`); malformed input → `null`, never a guess. |
 
 ### `normalize` — folding, sentinels, vote vocabularies
 
@@ -81,7 +81,8 @@ terms**. Say so in your product; do not split the number. That is why
 
 `readZip(bytes)` / `readZipMap(bytes)` (keyed by lower-cased basename).
 Deliberately minimal — stored + deflate only, single-disk, with a 512 MiB
-inflate cap per member. ZIP64, encryption, other methods, truncated entries
+inflate cap per member; every member is checked against the CRC-32 and the
+uncompressed size its central-directory record declares. ZIP64, encryption, other methods, truncated entries
 and bad signatures are **rejected with named errors** rather than silently
 mis-read: fewer moving parts to trust in a civic-data supply chain.
 

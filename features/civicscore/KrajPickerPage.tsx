@@ -24,13 +24,11 @@ import SourceNote from "@/features/shared/components/SourceNote";
 import { useFormat } from "@/lib/i18n/useFormat";
 import { decodeWeights, LENS_PARAM } from "./lens";
 import type { KrajInfo } from "./kraj";
+import { foldQuery } from "./search";
 
-/** Bez diakritiky, malými — jen pro hledání v tomhle poli. */
-const fold = (s: string) =>
-  s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+/** Bez diakritiky, malými — TÝMŽ skládáním jako hledání v žebříčku (search.ts →
+ *  asciiFold z lib/ingest); do 2026-09-08 tu bylo druhé schéma skládání. */
+const fold = foldQuery;
 
 export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) {
   const t = useTranslations("civicscore");

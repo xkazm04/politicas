@@ -221,6 +221,10 @@ function RealLedger({ data, review }: { data: MoneyLedgerData; review: ReviewSum
             setPage(0);
           }}
           placeholder={t("real.ledger.searchPlaceholder")}
+          // Placeholder NENÍ přístupné jméno: zmizí s prvním znakem a některé odečítačky ho
+          // nečtou vůbec (týž nález jako u poznámky v konzoli, 2026-08-12). Týž klíč, žádná
+          // druhá věta.
+          aria-label={t("real.ledger.searchPlaceholder")}
           className="w-full max-w-sm border-2 border-hairline bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-ink"
         />
         <div className="flex flex-wrap gap-2">

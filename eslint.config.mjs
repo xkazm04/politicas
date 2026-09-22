@@ -66,7 +66,10 @@ const eslintConfig = defineConfig([
     },
     rules: {
       "custom/no-silent-catch": "error",
-      "custom/no-server-import-in-client": "error",
+      // typeImports: "forbid" since 2026-09-01 — every loader's prop types live in a sibling
+      // pure *Types.ts module, so a "use client" file imports nothing from a loader, not even a type
+      // (docs/architect/decisions/2026-07-26-server-only-boundary-enforcement.md).
+      "custom/no-server-import-in-client": ["error", { typeImports: "forbid" }],
       "custom/role-button-requires-keydown": "error",
       "custom/enforce-reduced-motion-fallback": "error",
       "custom/no-hardcoded-colors": "error",
@@ -86,9 +89,11 @@ const eslintConfig = defineConfig([
   // RATCHET ADVANCED 2026-08-24. Re-measured repo-wide (`eslint --format json`):
   // 29 -> 11 warnings, and `no-raw-number-display` is now at ZERO everywhere.
   // A warning-only rule with an empty inventory protects nothing (`npm run lint`
-  // has no --max-warnings and the pre-commit hook runs `eslint --quiet`, which
-  // drops warnings entirely), so the measured-clean rule is promoted to `error`
-  // here — the burn-down is locked in and cannot regress.
+  // has no --max-warnings, so eslint exits 0 at any warning count; the pre-commit
+  // hook ran `eslint --quiet` until 2026-08-24, when lefthook.yml dropped the flag
+  // after fault-injection showed it hid warnings without blocking anything), so
+  // the measured-clean rule is promoted to `error` here — the burn-down is locked
+  // in and cannot regress.
   // SECOND RATCHET CLOSED 2026-08-24. The note above named the exit — "fixing
   // those three files, not an exemption for them" — and that is what happened,
   // so `require-source-citation` joins `no-raw-number-display` at `error`:
@@ -127,25 +132,33 @@ const eslintConfig = defineConfig([
   // positive evidence that a `text-*` token sets FONT-SIZE. Ships at `error`
   // rather than `warn` for the reason written twice above: no `--max-warnings`
   // exists here, so warn enforces nothing by construction.
-  // ONE KNOWN LIVE VIOLATION IS OUT OF THE MATCHER'S REACH and is recorded
-  // rather than exempted: features/money/components/BasisDisclosure.tsx:61
-  // launders `!text-[10px]` through a prop default and passes it as
-  // `className={className}`. Widening the matcher to resolve single-definition
-  // static initialisers is the intended next step — after that default is
-  // fixed, not before, so the rule is not red on arrival.
+  // ONE VIOLATION WAS OUT OF THE MATCHER'S REACH on arrival:
+  // features/money/components/BasisDisclosure.tsx laundered `!text-[10px]`
+  // through a prop default (`className = "mt-2 !text-[10px]"`) and passed it as
+  // `className={className}`. That default was fixed the same day (it is `mt-2`
+  // now; the file's own comment records the removal), so the matcher's intended
+  // widening — resolving single-definition static initialisers — is no longer
+  // blocked by a red-on-arrival site. The widening itself has NOT happened yet
+  // (2026-09-05: the rule reads className ON the element only), so a new prop
+  // default carrying a size override would still pass. Tracked in
+  // docs/architect/backlog.md.
+  // `components/**` JOINED 2026-09-08. The display-string rule below already
+  // calls app + features + components "the reader-facing tree", and the tree is
+  // real: app/poslanec/[id] mounts components/MpProfileBeacon.tsx, the shell and
+  // the landing header mount components/LanguageSwitcher.tsx. Yet the three
+  // provenance rules stopped at features/** and app/**, so a raw number or an
+  // uncited figure in components/ passed lint. Measured before widening with a
+  // synthetic components/__probe.tsx carrying a raw `{12345}`, no citation and a
+  // `!text-[10px]` SourceNote: 0 reports under the old scope, 1 under this one
+  // (the size override; the SourceNote itself satisfies the citation rule), and
+  // the two real files report 0 - an empty inventory, promoted on arrival for
+  // the reason written three times above.
   {
-    files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
+    files: ["features/**/*.{ts,tsx}", "app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
     rules: {
       "custom/require-source-citation": "error",
       "custom/no-raw-number-display": "error",
       "custom/no-source-note-size-override": "error",
-    },
-  },
-  {
-    files: ["app/**/*.{ts,tsx}"],
-    rules: {
-      "custom/require-source-citation": "error",
-      "custom/no-raw-number-display": "error",
     },
   },
   // ── Catalog discipline for display copy (2026-08-24) ──────────────────────
@@ -226,8 +239,9 @@ const eslintConfig = defineConfig([
       "custom/no-hardcoded-display-string": "off",
     },
   },
-  // Declared token-mirror + fixed-art-direction + data-color zones (see
-  // eslint-rules/no-hardcoded-colors.cjs for the rationale).
+  // Declared token-mirror + fixed-art-direction + data-color zones (rationale:
+  // packages/eslint-plugin-civic-transparency/docs/rules/no-hardcoded-colors.md —
+  // eslint-rules/no-hardcoded-colors.cjs is a one-line compat shim now).
   {
     files: ["features/landing/palette.ts", "features/labs/**/*.{ts,tsx}", "lib/civic/data.ts"],
     rules: {

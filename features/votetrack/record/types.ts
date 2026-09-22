@@ -70,6 +70,19 @@ export interface LedgerVote {
    * a prostá většina přítomných jsou ODVOZENÉ a jako odvozené se i sázejí.
    */
   threshold: VoteThreshold;
+  /**
+   * Veřejné číslo tisku, o kterém se hlasovalo — adresa `/zakony/<cislo>`.
+   *
+   * `null` znamená dvě různé věci a `billCount` je rozlišuje: 0 = hlasování není
+   * spojené s žádným tiskem (1 602 z 2 075 platných hlasování PSP10, z toho 828
+   * procedurálních — bod pořadu tisk nenese a NIKDY se nehádá z názvu), > 1 =
+   * bod pořadu nesl víc tisků, hlasovalo se o bloku, a poslat čtenáře na jeden
+   * z nich by tvrdilo, že se hlasovalo o něm.
+   */
+  billCislo: number | null;
+  /** Kolik tisků hlasování rozhodovalo. Jmenovatel k `billCislo` — bez něj se
+   *  „nespojeno" a „blok víc tisků" nedají odlišit. */
+  billCount: number;
 }
 
 export interface SeismoDay {
@@ -225,6 +238,34 @@ export interface VoteRecordData {
     to: string | null;
     ledgerWindow: number;
     unaffiliatedSeats: number;
+    /**
+     * Na jakém základě je v tomhle záznamu KLUB.
+     *
+     * `at_vote` — klub ke DNI hlasování, z oken členství (`clubWindowsByMandate`).
+     * `term_wide` — jeden klub na celé období, vybraný POŘADÍM ŘÁDKŮ v dumpu
+     * (`clubByMandate`, SQL bez predikátu na `from_at`/`to_at`). Je to stav před
+     * 2026-09-04 a poslanci, který klub změnil, přebarvuje i staré hlasy. Existuje
+     * jako pole proto, aby plocha ten rozdíl uměla PŘIZNAT — volající, který okna
+     * nepředá, dostane `term_wide` a ví o tom.
+     */
+    clubBasis: "at_vote" | "term_wide";
+    /**
+     * Hlasy odevzdané v den, který neleží v ŽÁDNÉM klubovém okně toho mandátu —
+     * poslanec MEZI kluby.
+     *
+     * Nikdy se nesčítá do `unaffiliated`: poslanec bez klubu a poslanec mezi kluby
+     * jsou dva různé fakty a jejich sečtením by se hlas vážil proti linii, která
+     * pro jeho autora neplatila. Do klubových tally ani do jmenovatele rebelie
+     * takový hlas nevstupuje — nespočítaný hlas je lepší než hlas přiřknutý cizímu
+     * klubu. `term_wide` základ tenhle kbelík neumí naplnit a nechává ho na nule.
+     */
+    outsideClubWindow: number;
+    /**
+     * Hlasy, u kterých den pokrývají DVĚ různá klubová okna — zdroj si odporuje.
+     * Odmítnuto a spočítáno, nikdy rozseknuto pořadím: vybrat první je přesně ta
+     * chyba, kterou datovaný klub opravuje.
+     */
+    ambiguousClubWindow: number;
     /**
      * Práh přes CELÝ záznam — populace nálezu, který deník ukazuje po jednom
      * hlasování (`ThresholdCoverage` v record/threshold.ts).

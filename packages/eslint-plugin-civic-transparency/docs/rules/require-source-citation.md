@@ -60,6 +60,36 @@ span several lines. Matching the start line rejected every multi-line reason,
 which pushed authors toward one-line reasons that say nothing — on the one
 construct whose entire value is the reason.
 
+## Census mode — the coverage denominator
+
+```js
+"civic-transparency/require-source-citation": ["warn", { census: true }]
+```
+
+The gate reports only failures, so it can report "0 uncited figures" but never
+"0 out of how many". That is not a pedantic distinction: a violation count goes
+to zero both when every figure is cited and when nobody renders a figure at all,
+and those are opposite facts about the same rule. Coverage needs a denominator,
+and nothing else in the tree knows what a *rendered figure* is.
+
+With `{ census: true }` the rule reports **every** rendered figure its triggers
+see — cited or not — as `censusFigure`, interpolating the state that decided it:
+
+| state      | meaning                                                          |
+| ---------- | ---------------------------------------------------------------- |
+| `cited`    | a satisfier lives in the same file                                |
+| `declared` | a `// citation-ok:` annotation — the citation is one file up      |
+| `uncited`  | neither; this set is exactly what the gate errors on              |
+
+The triggers and satisfiers are the *same code paths* in both modes, so the
+meter and the gate cannot disagree about what counts. Census mode is a reporting
+mode, never a gate: it reports on every file, so wiring it into CI at `error`
+would fail a perfectly cited repository.
+
+politicas consumes it from `scripts/kpi/citation-coverage.mjs`; no config in
+`eslint.config.mjs` passes the option, so the gate behaves identically without
+it.
+
 ## Adoption mapping
 
 This rule is politicas-shaped: it assumes a formatting chokepoint and a

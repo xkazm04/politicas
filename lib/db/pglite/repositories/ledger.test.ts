@@ -123,11 +123,30 @@ describe("tamper-evident review-audit chain (DB integration)", () => {
 
     const b = backup[0];
     await pg.query(
-      `insert into review_audit (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state, chain_pos, prev_hash, row_hash)
-       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
-      [b.id, b.src, b.rel, b.dst, b.decision, b.reviewer, b.note, b.decided_at, b.prior_state, b.chain_pos, b.prev_hash, b.row_hash],
+      // The restore has to put back EVERY column, `hash_domain` included: the row
+      // was hashed under v2, so restoring it without its tag makes the verifier
+      // re-hash it under v1 and the chain stays broken — which is the correct
+      // behaviour, and the reason this insert names the three G2 columns.
+      `insert into review_audit (id, src, rel, dst, decision, reviewer, note, decided_at, prior_state, chain_pos, prev_hash, row_hash, subject_kind, subject_id, hash_domain)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
+      [b.id, b.src, b.rel, b.dst, b.decision, b.reviewer, b.note, b.decided_at, b.prior_state, b.chain_pos, b.prev_hash, b.row_hash, b.subject_kind, b.subject_id, b.hash_domain],
     );
     expect((await ledger.verifyReviewChain()).ok).toBe(true);
+  });
+
+  it("COUNTS BY KIND: every declared kind is present with a denominator, never absent", async () => {
+    const pg = await open();
+    const ledger = makeLedgerRepo(pg);
+    const counts = await ledger.countReviewAudit();
+    // A kind nobody has decided yet reads as 0, not as a missing key — the
+    // denominator is the whole point of the number.
+    expect(Object.keys(counts.byKind).sort()).toEqual(
+      ["bill_verdict", "effort_verdict", "lead", "tie", "tripwire"],
+    );
+    expect(counts.byKind.tie).toBeGreaterThan(0);
+    expect(counts.byKind.tripwire).toBe(0);
+    // Legacy (NULL subject_kind) rows are counted as ties, so the split is total.
+    expect(Object.values(counts.byKind).reduce((a, b) => a + b, 0)).toBe(counts.total);
   });
 
   it("MERKLE: sealing an ingest run is deterministic; empty run seals to the pinned constant", async () => {
@@ -181,5 +200,68 @@ describe("tamper-evident review-audit chain (DB integration)", () => {
     const resealed = await ledger.sealIngestRun(sealed.runId);
     expect(resealed.ok).toBe(true);
     if (resealed.ok) expect(resealed.merkleRoot).not.toBe(sealed.merkleRoot);
+  });
+});
+
+/*
+ * [G5] The seal covers the graph (moonshot card #22).
+ *
+ * Until 2026-09-04 `RUN_TABLES` was eight entity tables and the graph had no
+ * `ingest_run_id` to filter on, so `supplies` (19 266 rows in the snapshot cut),
+ * `linked_to` and `amends` — the edges readers actually cite — carried no seal
+ * at all while a half-applied SCORE pass tripped the sentinel the same day.
+ */
+describe("[G5] Merkle seal over graph runs", () => {
+  it("seals kg_node and kg_edge rows a run wrote, and stays idempotent", async () => {
+    const pg = await open();
+    const ledger = makeLedgerRepo(pg);
+    const { rows } = await pg.query<{ id: number }>(
+      `insert into ingest_run (source, status, finished_at) values ('psp-tisky-law', 'ok', now()) returning id`,
+    );
+    const runId = Number(rows[0]!.id);
+    const stamp = (source: string) =>
+      JSON.stringify({ source, ingest_run_id: runId, pass: 60, ref: "g5-seal", writer: "ledger.test" });
+
+    await pg.query(
+      `insert into kg_node (id, kind, label, props, provenance)
+       values ('g5:seal:bill', 'bill', 'B', '{}'::jsonb, $1::jsonb),
+              ('g5:seal:law',  'law',  'L', '{}'::jsonb, $1::jsonb)`,
+      [stamp("psp-tisky-law")],
+    );
+    await pg.query(
+      `insert into kg_edge (src, rel, dst, props, provenance)
+       values ('g5:seal:bill', 'amends', 'g5:seal:law', '{}'::jsonb, $1::jsonb)`,
+      [stamp("psp-tisky-law")],
+    );
+
+    const sealed = await ledger.sealIngestRun(runId);
+    expect(sealed.ok).toBe(true);
+    if (!sealed.ok) return;
+    expect(sealed.leafCount).toBe(3); // two nodes + one edge
+    expect(await ledger.sealIngestRun(runId)).toEqual(sealed);
+
+    // kg_edge has no `id` column — its identity is the (src, rel, dst) triple.
+    // Ordering it by a column it does not have would throw, not merely produce a
+    // different root, so the deterministic order is asserted by the seal working.
+    await pg.query(`update kg_edge set weight = 42 where src = 'g5:seal:bill'`);
+    const resealed = await ledger.sealIngestRun(runId);
+    expect(resealed.ok).toBe(true);
+    if (resealed.ok) expect(resealed.merkleRoot).not.toBe(sealed.merkleRoot);
+
+    await pg.query(`delete from kg_edge where src = 'g5:seal:bill'`);
+    await pg.query(`delete from kg_node where id like 'g5:seal:%'`);
+  });
+
+  it("a run that wrote no graph rows seals exactly as it did before the tables joined", async () => {
+    // Appending to the pinned order can only ADD leaves for runs that wrote graph
+    // rows; every previously sealed run therefore keeps the root it was sealed
+    // with, which is why this was an append and not a reordering.
+    const pg = await open();
+    const ledger = makeLedgerRepo(pg);
+    const { rows } = await pg.query<{ id: number }>(
+      `insert into ingest_run (source, status, finished_at) values ('g5-no-graph', 'ok', now()) returning id`,
+    );
+    const sealed = await ledger.sealIngestRun(Number(rows[0]!.id));
+    expect(sealed).toEqual({ ok: true, merkleRoot: EMPTY_MERKLE_ROOT, leafCount: 0 });
   });
 });

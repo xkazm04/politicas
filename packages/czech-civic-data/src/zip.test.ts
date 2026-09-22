@@ -1,4 +1,4 @@
-import { deflateRawSync } from "node:zlib";
+import { crc32, deflateRawSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 import { readZip, readZipMap } from "./zip";
 
@@ -12,6 +12,10 @@ interface FixtureEntry {
   flags?: number;
   /** Override the compressedSize written to the CENTRAL directory only. */
   centralCompressedSize?: number;
+  /** Override the CRC-32 written to the central directory (default: the real one). */
+  centralCrc?: number;
+  /** Override the uncompressedSize written to the central directory (default: the real one). */
+  centralUncompressedSize?: number;
 }
 
 /**
@@ -32,7 +36,7 @@ function buildZip(entries: FixtureEntry[]): Uint8Array {
     local.writeUInt32LE(0x04034b50, 0);
     local.writeUInt16LE(e.flags ?? 0, 6);
     local.writeUInt16LE(method, 8);
-    local.writeUInt32LE(0, 14); // crc (unchecked by the reader)
+    local.writeUInt32LE(crc32(e.data), 14);
     local.writeUInt32LE(stored.length, 18);
     local.writeUInt32LE(e.data.length, 22);
     local.writeUInt16LE(nameBuf.length, 26);
@@ -42,8 +46,9 @@ function buildZip(entries: FixtureEntry[]): Uint8Array {
     cen.writeUInt32LE(0x02014b50, 0);
     cen.writeUInt16LE(e.flags ?? 0, 8);
     cen.writeUInt16LE(method, 10);
+    cen.writeUInt32LE(e.centralCrc ?? crc32(e.data), 16);
     cen.writeUInt32LE(e.centralCompressedSize ?? stored.length, 20);
-    cen.writeUInt32LE(e.data.length, 24);
+    cen.writeUInt32LE(e.centralUncompressedSize ?? e.data.length, 24);
     cen.writeUInt16LE(nameBuf.length, 28);
     cen.writeUInt32LE(offset, 42);
     central.push(cen, nameBuf);
@@ -139,5 +144,28 @@ describe("readZip", () => {
     const centralOffset = buf.readUInt32LE(buf.length - 22 + 16);
     buf.writeUInt32LE(0xdeadbeef, centralOffset);
     expect(() => readZip(new Uint8Array(buf))).toThrow(/bad central-directory signature/);
+  });
+});
+
+describe("readZip verifies what the central directory promised (2026-09-06)", () => {
+  // Until now a member whose bytes disagreed with its own CRC-32 or declared size
+  // was handed to the caller as a complete, successful read — the "silently
+  // mis-read" case the module header says it rejects. A flipped bit in a stored
+  // UNL member would have gone straight into the corpus.
+  it("rejects a stored member whose CRC-32 does not match", () => {
+    const zip = buildZip([{ name: "a.unl", data: Buffer.from("1|Novák|\n"), centralCrc: 0xdeadbeef }]);
+    expect(() => readZip(zip)).toThrow(/CRC-32 mismatch.*a\.unl/);
+  });
+  it("rejects a deflated member whose CRC-32 does not match", () => {
+    const zip = buildZip([{ name: "b.unl", data: Buffer.from("x".repeat(500)), deflate: true, centralCrc: 1 }]);
+    expect(() => readZip(zip)).toThrow(/CRC-32 mismatch.*b\.unl/);
+  });
+  it("rejects a member whose inflated length differs from the declared uncompressedSize", () => {
+    const zip = buildZip([{ name: "c.unl", data: Buffer.from("abcdef"), deflate: true, centralUncompressedSize: 5 }]);
+    expect(() => readZip(zip)).toThrow(/size mismatch.*c\.unl/);
+  });
+  it("still reads an intact archive whose headers carry the real CRC and size", () => {
+    const [a] = readZip(buildZip([{ name: "ok.unl", data: Buffer.from("1|Nováková|"), deflate: true }]));
+    expect(Buffer.from(a.bytes).toString("utf8")).toBe("1|Nováková|");
   });
 });

@@ -32,32 +32,14 @@
  * Reads the graph (safe on the live DB — read-only), then hits the network once per parent.
  */
 import { getStore } from "@/lib/db/store";
+import { KG_READ_CAP } from "@/lib/db/readCap";
 import { SmlouvyClient, type SmlouvyRow } from "@/lib/ingest/sources/smlouvy";
+import { withBackoff } from "./smlouvyRetry";
 
 const PAYLOAD_PATH = "docs/data-analysis/case-money/qmoney-parent-contract-sweep-b9.json";
 const flag = (name: string) => process.argv.includes(`--${name}`);
 const arg = (name: string) => process.argv.find((a) => a.startsWith(`--${name}=`))?.split("=")[1];
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
-
-/** Retry a 429 with escalating backoff. Returns the result, or rethrows the last error —
- *  never converts a rate-limit into an empty result set. */
-async function withBackoff<T>(label: string, run: () => Promise<T>, waits: number[]): Promise<T> {
-  let lastErr: unknown;
-  for (let attempt = 0; attempt <= waits.length; attempt++) {
-    try {
-      return await run();
-    } catch (e) {
-      lastErr = e;
-      const msg = e instanceof Error ? e.message : String(e);
-      const retryable = msg.includes("429") || msg.includes("fetch failed");
-      if (!retryable || attempt === waits.length) throw e;
-      const wait = waits[attempt];
-      console.log(`\n      rate-limited on ${label} — backing off ${wait / 1000}s (attempt ${attempt + 1}/${waits.length})`);
-      await sleep(wait);
-    }
-  }
-  throw lastErr;
-}
 
 /** A parent whose contract activity is its own public mandate, never an MP's exposure.
  *  Keyed on the label pattern the graph actually carries (ministries, kraje, města). */
@@ -68,11 +50,11 @@ async function main() {
   if (!store) throw new Error("no store");
   const fs = await import("node:fs/promises");
 
-  const companies = await store.listKgNodes({ kind: "company", limit: 100_000 });
+  const companies = await store.listKgNodes({ kind: "company", limit: KG_READ_CAP });
   const byId = new Map(companies.map((c) => [c.id, c]));
-  const linked = await store.listKgEdges({ rel: "linked_to", limit: 100_000 });
-  const ownsStake = await store.listKgEdges({ rel: "owns_stake", limit: 100_000 });
-  const supplies = await store.listKgEdges({ rel: "supplies", limit: 100_000 });
+  const linked = await store.listKgEdges({ rel: "linked_to", limit: KG_READ_CAP });
+  const ownsStake = await store.listKgEdges({ rel: "owns_stake", limit: KG_READ_CAP });
+  const supplies = await store.listKgEdges({ rel: "supplies", limit: KG_READ_CAP });
   const tied = new Set(linked.map((e) => e.dst));
   const everQueried = new Set(supplies.map((e) => e.src));
   await store.close();
@@ -105,7 +87,8 @@ async function main() {
     ico: string;
     isPublicBody: boolean;
     children: string[];
-    contracts: number;
+    /** null = the query FAILED; this parent is unmeasured, not contract-free. */
+    contracts: number | null;
     truncated: boolean;
     valuedContracts: number;
     totalCzk: number;
@@ -147,10 +130,11 @@ async function main() {
       console.log(`${rows.length} contract(s), ${total.toLocaleString("cs-CZ")} CZK across ${valued.length} valued${truncated ? " [TRUNCATED at maxPages]" : ""}`);
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
-      // Never silently absorb a failed query — an un-queried parent must not read as a zero.
+      // Never silently absorb a failed query — an un-queried parent must not read as a zero,
+      // and until 2026-09-07 the payload row said `contracts: 0` under its `error`.
       results.push({
         parentId: p.id, parent: p.label, ico: p.ico, isPublicBody: p.isPublicBody, children: p.children,
-        contracts: 0, truncated: false, valuedContracts: 0, totalCzk: 0, unvaluedContracts: 0,
+        contracts: null, truncated: false, valuedContracts: 0, totalCzk: 0, unvaluedContracts: 0,
         earliest: null, latest: null, topRows: [], error: msg,
       });
       console.log(`QUERY FAILED — ${msg}`);
@@ -161,7 +145,7 @@ async function main() {
   const failed = results.filter((r) => r.error);
   const priv = ok.filter((r) => !r.isPublicBody);
   const pub = ok.filter((r) => r.isPublicBody);
-  const privHits = priv.filter((r) => r.contracts > 0);
+  const privHits = priv.filter((r) => (r.contracts ?? 0) > 0);
 
   console.log(`\n── PRIVATE ownership parents (attributable indirect exposure — leads) ──`);
   for (const r of priv.sort((a, b) => b.totalCzk - a.totalCzk)) {
@@ -172,7 +156,7 @@ async function main() {
     );
   }
   console.log(`\n── PUBLIC-BODY parents (own mandate — NEVER attributed to an MP) ──`);
-  for (const r of pub.sort((a, b) => b.contracts - a.contracts)) {
+  for (const r of pub.sort((a, b) => (b.contracts ?? 0) - (a.contracts ?? 0))) {
     console.log(`  ${r.parent} (${r.ico}) — ${r.contracts} contract(s) [not attributable]`);
   }
   if (failed.length) {

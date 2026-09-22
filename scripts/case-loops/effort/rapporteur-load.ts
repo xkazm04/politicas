@@ -20,8 +20,15 @@ async function main() {
   if (!store) throw new Error("no store");
   const persons = await store.listKgNodes({ kind: "person", limit: 1000 });
   const rapporteur = await store.listKgEdges({ rel: "rapporteur", limit: 100_000 });
-  const pass = Number(argOf("pass")) || Math.max(0, ...persons.map((n) => n.firstSeenPass)) + 1;
-  const provenance = { pass, method: "deterministic", ref: "rapporteur-edges", computedAt: new Date().toISOString() };
+  // The pass is ASSIGNED, never derived: until 2026-09-08 a `--commit` with no
+  // `--pass` stamped max(firstSeenPass)+1 — a number this script made up — into
+  // the provenance of 207 live nodes. A dry run may still print a null pass.
+  const pass = Number(argOf("pass"));
+  if (commit && !(Number.isInteger(pass) && pass > 0)) {
+    console.error("REFUSED: --commit requires --pass=<n> where n is a positive integer (a real assigned pass number, never a derived one).");
+    process.exit(1);
+  }
+  const provenance = { pass: Number.isInteger(pass) && pass > 0 ? pass : null, method: "deterministic", ref: "rapporteur-edges", computedAt: new Date().toISOString() };
 
   const loadByPerson = new Map<string, Set<string>>();
   for (const e of rapporteur) {
@@ -40,7 +47,7 @@ async function main() {
   }));
   const nonzero = updates.filter((u) => (u.props.effort_rapporteur_load as number) > 0).length;
   const ge3 = updates.filter((u) => (u.props.effort_rapporteur_load as number) >= 3).length;
-  console.log(`effort_rapporteur_load · ${updates.length} persons · nonzero ${nonzero} · ≥3 ${ge3} · ${commit ? "COMMIT" : "DRY-RUN"} · pass ${pass}`);
+  console.log(`effort_rapporteur_load · ${updates.length} persons · nonzero ${nonzero} · ≥3 ${ge3} · ${commit ? "COMMIT" : "DRY-RUN"} · pass ${provenance.pass ?? "(none — dry run)"}`);
   if (commit) {
     const n = await store.upsertKgNodes(updates);
     console.log(`COMMITTED: ${n} nodes updated.`);

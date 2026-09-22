@@ -48,6 +48,12 @@ export const CITATION_KIND_KEYS: ReadonlySet<string> = new Set(["bill_text", "we
  * verbatim and labelled untranslated at the render site (the tieFlags.ts precedent). */
 export const SECTOR_KEYS: ReadonlySet<string> = new Set(["economy", "environment", "agriculture", "digital", "health"]);
 
+/** Pořadí původů tisku na plochách (/zakony statistický pás, filtr prohlížeče) — vláda
+ *  první, pak poslanecké skupiny a jednotlivci, senát, ostatní. Jedna definice: do
+ *  2026-09-07 ji LawWatchPage i BillBrowser nesly každý jako vlastní literál. Je to
+ *  permutace `BILL_ORIGINS` (lawTypes.ts) — lawwatchLabels.test.ts to drží. */
+export const BILL_ORIGIN_ORDER = ["government", "mp_group", "mp", "senate", "other"] as const;
+
 /** psp.cz historie tisku (PSP10 = o=10) — jediný stabilní veřejný odkaz na tisk. */
 export const pspBillUrl = (cislo: number | null): string | null =>
   cislo != null ? `https://www.psp.cz/sqw/historie.sqw?o=10&t=${cislo}` : null;

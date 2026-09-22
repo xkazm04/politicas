@@ -1,4 +1,5 @@
 import { getSchrankaDeltas } from "@/features/schranka/getSchrankaDeltas";
+import { feedSince } from "@/features/schranka/feedRequest";
 import { parseFollowKeys } from "@/features/schranka/followCodec";
 import type { NovinkyResponse } from "@/features/schranka/novinky";
 
@@ -18,16 +19,16 @@ import type { NovinkyResponse } from "@/features/schranka/novinky";
 
 export const dynamic = "force-dynamic";
 
-const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
-
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const keys = parseFollowKeys(url.searchParams.getAll("e"));
-  const odRaw = url.searchParams.get("od");
 
   // Práh: den z `od`, jinak „všechno" (klient bez razítka si okno první
-  // návštěvy počítá sám přes sinceDay — sem už posílá hotový den).
-  const since = odRaw !== null && DAY_RE.test(odRaw) ? odRaw : "0000-01-01";
+  // návštěvy počítá sám přes sinceDay — sem už posílá hotový den). Tvar dne
+  // čte TÝŽ `feedSince` jako oba feedy (do 2026-09-05 tu byla vlastní kopie
+  // regulárního výrazu); jen výchozí hodnota zůstává tahle — feedy padají na
+  // okno první návštěvy, odznak na „všechno", a oba důvody jsou u sebe.
+  const since = feedSince(url.searchParams.get("od")) ?? "0000-01-01";
 
   const built = await getSchrankaDeltas(keys, since);
   if (!built) {

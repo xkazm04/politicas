@@ -244,10 +244,11 @@ create index if not exists kg_edge_dst_idx on kg_edge(dst);
 create index if not exists kg_edge_rel_idx on kg_edge(rel);
 
 -- ── review audit trail (human-gate write path, Case ① verification console) ──
--- Append-only: the ONLY writer is ReviewRepository.setTieReviewState. Records every
--- human decision on a linked_to tie BEFORE kg_edge.props.review_state is touched, so
--- the audit row for a given decision always predates (or is concurrent with, never
--- after) the state flip it explains. `id` is a client-generated UUID (crypto.randomUUID
+-- Append-only: the ONLY writer is ReviewRepository.setReviewState (setTieReviewState
+-- is its tie alias). Records every human decision on a claim — a linked_to tie, a bill
+-- verdict, an effort verdict (see the [G2 review door v2] block below) — BEFORE the
+-- subject's state is touched, so the audit row for a given decision always predates
+-- (or is concurrent with, never after) the state flip it explains. `id` is a client-generated UUID (crypto.randomUUID
 -- in the writer), not a bigserial, so the writer can log the id before the insert lands.
 create table if not exists review_audit (
   id           text primary key,
@@ -393,4 +394,85 @@ create table if not exists vote_tag (
 );
 create index if not exists vote_tag_theme_idx on vote_tag(theme);
 create index if not exists vote_tag_vote_idx on vote_tag(vote_psp_id);
+-- ── [G2 review door v2] one audited door for every claim kind ────────────────
+-- review_audit was tie-shaped: src/rel/dst plus a decision, and ONE writer
+-- (setTieReviewState). Three other machine-produced claim kinds — bill forensic
+-- verdicts, person-level effort verdicts, tripwire candidates — reached readers
+-- with no writer at all, so their `pending_review` was permanent by construction.
+-- These three columns generalise the table WITHOUT touching a single stored byte:
+--   • subject_kind — the claim kind ('tie' | 'bill_verdict' | 'effort_verdict'
+--     | 'tripwire' | 'lead'). Deliberately NOT a check constraint: a new kind
+--     must be addable by appending here, and the closed vocabulary that matters
+--     is the TypeScript one (REVIEW_SUBJECT_KINDS in lib/db/types.ts), which the
+--     single writer validates before any row is built.
+--   • subject_id   — the claim's stable address, whatever its shape: an edge
+--     triple for a tie, `bill:tisk:N` for a bill verdict,
+--     `psp:person:<id>#<field>` for an effort verdict.
+--   • hash_domain  — WHICH domain tag the row's hash was taken under. NULL means
+--     'politicas-audit-v1' (every row written before this block existed). New
+--     rows store 'politicas-audit-v2' explicitly, over a wider preimage that
+--     includes subject_kind + subject_id.
+--
+-- NO BACKFILL STATEMENT LIVES HERE, on purpose, and not only because
+-- pending.ts::destructiveStatements would (correctly) refuse an `update … set`
+-- inside CORE_DDL. Rewriting the old rows' subject columns would make the stored
+-- data disagree with the preimage its hash was taken over — the one thing the
+-- chain exists to make impossible. The legacy rows are therefore read as
+-- `tie` + their triple AT READ TIME (mapAuditRow in repositories/review.ts),
+-- their hashes stay v1, and nothing is ever rehashed.
+alter table review_audit add column if not exists subject_kind text;
+alter table review_audit add column if not exists subject_id   text;
+alter table review_audit add column if not exists hash_domain  text;
+create index if not exists review_audit_subject_idx on review_audit(subject_kind, subject_id);
+
+
+-- [G5 provenance columns] ADDITIVE — moonshot cards #22 + #26 --------------
+-- Everything below this marker is appended by the provenance/certification
+-- work and nothing above it is touched. Two stored generated columns turn the
+-- free-form `provenance` jsonb into a JOIN KEY.
+--
+-- WHY GENERATED, not written by the writers. The stamp lives in one place
+-- (lib/kg/provenance.ts, validated by every writer before a write); the columns
+-- are a projection of it, so they can never disagree with the row they describe
+-- and no backfill has to keep two copies in step. `stored` rather than
+-- `virtual` because they are read by grouped counts on ~154 000 nodes and
+-- ~178 000 edges, and an index over a virtual column is not available.
+--
+-- The cast on the run id is safe because `->>` yields NULL for an absent key
+-- and the ONLY writer of that key is makeProvenance(), which refuses anything
+-- but an integer or null. A row stamped by a writer that opened no run keeps
+-- NULL here, and /atlas reads that as "no run coverage" — which is the truth,
+-- not a missing field.
+alter table kg_node add column if not exists source        text   generated always as (provenance->>'source') stored;
+alter table kg_node add column if not exists ingest_run_id bigint generated always as ((provenance->>'ingest_run_id')::bigint) stored;
+alter table kg_edge add column if not exists source        text   generated always as (provenance->>'source') stored;
+alter table kg_edge add column if not exists ingest_run_id bigint generated always as ((provenance->>'ingest_run_id')::bigint) stored;
+create index if not exists kg_node_source_idx on kg_node(source);
+create index if not exists kg_node_run_idx    on kg_node(ingest_run_id);
+create index if not exists kg_edge_source_idx on kg_edge(source);
+create index if not exists kg_edge_run_idx    on kg_edge(ingest_run_id);
+
+-- The sentinel's verdict, keyed by the manifest it judged (card #26).
+--
+-- Until now `npm run sentinel` printed its report to stdout and that was the
+-- end of it: no surface could say when the invariants last held, so /data
+-- stamped a release "latest" from cardinality floors alone — floors that once
+-- certified a 0,98 % contract corpus for weeks. A row here lets
+-- deriveReleaseManifest join TODAY's manifest hash to the newest verdict over
+-- THAT EXACT hash. The join is exact-match by design: a fuzzy one would certify
+-- a release the sentinel never saw, which is the "never ran rendered as passed"
+-- failure this whole lane exists to abolish.
+--
+-- The sentinel never opens the live handle (it audits a copy), so it does not
+-- write this table directly — it queues the row to a file that the next live
+-- open applies (lib/db/pglite/sentinelQueue.ts). `id` is the run's canonical
+-- content hash, so replaying a queue file is idempotent.
+create table if not exists sentinel_run (
+  id            text primary key,
+  manifest_hash text,
+  ran_at        timestamptz not null,
+  verdict       text not null check (verdict in ('ok', 'violation', 'unevaluable')),
+  report        jsonb not null default '{}'::jsonb
+);
+create index if not exists sentinel_run_manifest_idx on sentinel_run(manifest_hash, ran_at desc);
 

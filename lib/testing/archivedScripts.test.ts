@@ -42,6 +42,11 @@ const SKIP_DIRS = new Set([
   "docs",
   "memory",
   "benchmark-data",
+  // Agent worktrees live INSIDE the repo dir (.claude/worktrees/<agent>/…), each a
+  // full clone with its own node_modules: measured 2026-09-05 with five builders
+  // running, 10 730 of the walk's 16 431 files were worktree copies and the
+  // 5 s budget became 94 s. A worktree is another checkout, not this tree.
+  "worktrees",
 ]);
 const LIVE_EXTS = [".ts", ".tsx", ".mjs", ".cjs"];
 /** Non-source files whose content is still wiring: a command, a CI step. */
@@ -122,7 +127,16 @@ describe("archived scripts are quarantined, not merely relocated", () => {
       }
     }
     expect(offences).toEqual([]);
-  });
+    // Whole-tree scan: reads EVERY live source file in the repo, then matches
+    // each archived path against every one of them. The unit lane's 5 s budget
+    // (vitest.unit.config.ts) is deliberate and right for pure logic — this is
+    // not pure logic, it is I/O over the whole tree competing with ten other
+    // workers for the disk. Measured 2026-09-14 in an agent worktree: 17,7 s,
+    // failing 1 run in 3 on the timeout with zero offences found, which is the
+    // worst failure mode available — a gate that reports a finding it never
+    // made. Same treatment, and the same reason, as the other whole-tree test
+    // in this folder (server-boundary.test.ts, 180 s).
+  }, 180_000);
 
   it("would notice a live file that reached in", () => {
     // The guard's own red state, over the SAME predicate the scan uses: a check

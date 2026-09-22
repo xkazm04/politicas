@@ -194,8 +194,14 @@ export function foldCzech(s: string): string {
 /**
  * Vyhledá obce podle názvu (bez diakritiky, bez ohledu na velikost písmen).
  * Pořadí: přesná shoda → prefix → podřetězec; uvnitř stupně podle počtu
- * obyvatel sestupně (vstup je tak už seřazen generátorem, sort je stabilní).
- * Prázdný dotaz vrací největší obce — výchozí stav pickeru.
+ * obyvatel sestupně, a teprve pak IČO jako úplný rozhodčí (dvě obce téhož jména
+ * a téže velikosti). Prázdný dotaz vrací největší obce — výchozí stav pickeru.
+ *
+ * Počet obyvatel je v komparátoru VÝSLOVNĚ (2026-09-01): do té doby se spoléhal
+ * na pořadí rejstříku + stabilní sort, a 26d695a — správný krok, dát každému
+ * řazení úplné pořadí — připsal `ic` hned za skóre, čímž pásmo prefixů seřadil
+ * podle IČO: „pra" vracelo Pravonín (572 obyv.) před Prachaticemi (11 119).
+ * Pořadí, na kterém plocha stojí, patří do komparátoru, ne do předpokladu o vstupu.
  */
 export function searchMunicipalities(all: readonly Municipality[], query: string, limit: number): Municipality[] {
   const q = foldCzech(query.trim());
@@ -211,7 +217,7 @@ export function searchMunicipalities(all: readonly Municipality[], query: string
     scored.push({ m, score });
   }
   return scored
-    .sort((a, b) => a.score - b.score || a.m.ic.localeCompare(b.m.ic))
+    .sort((a, b) => a.score - b.score || b.m.population - a.m.population || a.m.ic.localeCompare(b.m.ic))
     .slice(0, limit)
     .map((s) => s.m);
 }

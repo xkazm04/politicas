@@ -149,6 +149,18 @@ tester.run("require-source-citation", rule, {
       errors: [{ messageId: "uncitedFigure" }],
     },
     {
+      name: "formatCompactCzk from the chokepoint is a money figure (the deník renders it)",
+      code: `import { formatCompactCzk } from "@/lib/format";
+             export function X({ n }) { return <span>{formatCompactCzk(n, "cs")}</span>; }`,
+      errors: [{ messageId: "uncitedFigure" }],
+    },
+    {
+      name: "formatByKind from the chokepoint is a figure of whichever kind",
+      code: `import { formatByKind } from "@/lib/format";
+             export function X({ n }) { return <span>{formatByKind(n, "cs", "int")}</span>; }`,
+      errors: [{ messageId: "uncitedFigure" }],
+    },
+    {
       name: "compactCzk from moneyTypes is a money figure",
       code: `import { compactCzk } from "@/features/money/moneyTypes";
              export function X({ n }) { return <span>{compactCzk(n, "cs")}</span>; }`,
@@ -180,6 +192,61 @@ tester.run("require-source-citation", rule, {
            return <ul>{rows.map((r) => <li key={r.id}>{f.dec(r.score)}</li>)}</ul>;
          }`,
       errors: [{ messageId: "uncitedFigure" }],
+    },
+  ],
+});
+
+// ── Census mode (option `{ census: true }`) ─────────────────────────────────
+// The coverage denominator. Every case here is a file the GATE is silent about;
+// census reports it anyway, tagged with the state that made the gate silent.
+tester.run("require-source-citation (census)", rule, {
+  valid: [
+    {
+      name: "census reports nothing when nothing is a rendered figure",
+      options: [{ census: true }],
+      code: FORMAT_IMPORT + `export function Note() { return <p>bez čísel</p>; }`,
+    },
+    {
+      name: "a formatter call the file never imported is not a census row either",
+      options: [{ census: true }],
+      code: `export function Row({ n }) { return <span>{czech(n)}</span>; }`,
+    },
+  ],
+  invalid: [
+    {
+      name: "a CITED figure is a census row — that is the denominator the gate cannot give",
+      options: [{ census: true }],
+      code:
+        FORMAT_IMPORT +
+        `import SourceNote from "@/features/shared/components/SourceNote";
+         export function Score({ n }) {
+           const f = useFormat();
+           return (<div><span>{f.int(n)}</span><SourceNote>zdroj: PSP</SourceNote></div>);
+         }`,
+      errors: [{ messageId: "censusFigure", data: { state: "cited" } }],
+    },
+    {
+      name: "a citation-ok site counts as DECLARED, not as absent",
+      options: [{ census: true }],
+      code:
+        FORMAT_IMPORT +
+        `export function Row({ n }) {
+           const f = useFormat();
+           // citation-ok: the parent renders the source next to this row
+           return (<span>{f.int(n)}</span>);
+         }`,
+      errors: [{ messageId: "censusFigure", data: { state: "declared" } }],
+    },
+    {
+      name: "an uncited figure is reported as UNCITED — census and gate agree on the count",
+      options: [{ census: true }],
+      code:
+        FORMAT_IMPORT +
+        `export function Row({ n }) {
+           const f = useFormat();
+           return (<span>{f.dec(n)}</span>);
+         }`,
+      errors: [{ messageId: "censusFigure", data: { state: "uncited" } }],
     },
   ],
 });

@@ -107,3 +107,135 @@ under it a second time while their original parents keep `entryFor`
 precedence, and `/volby/snemovna` is a child because the sitemap reads NAV.
 `sidebarParts.test.ts` pins six modules and asserts `volby` is deliberately
 absent from `lib/civic` MODULES — the surface has no sample-data fallback.
+
+## 2026-09-04 — /admin: the review gate, one question asked the same way (G2, deck #5)
+
+`ReviewHubSection` had four panels, each answering a different question in a
+different shape: ties by tier, forensic verdicts by severity, lead dossiers,
+audit decisions by reviewer. None of them made the actual finding legible —
+that three of those populations were in the hundreds with a decided count of
+**zero**, because no writer for them existed anywhere in the tree.
+
+A per-kind coverage table now sits above the four: **decided / pending / total /
+audit rows**, one row per claim kind, all counts, no rate. A rate is precisely
+the number that hides how big the population is, and the population is the
+finding.
+
+Two rules the table exists to keep:
+
+- **A kind with no writer says so.** `tripwire` and `lead` carry a „bez
+  zapisovatele" marker. A queue nobody has worked and a queue that CANNOT be
+  worked look identical in the numbers, and an operator must not have to guess
+  which one they are reading.
+- **Audit rows may exceed decisions, and that is not an error.** A claim can be
+  decided, reversed with a stated reason, and decided again; every step is its
+  own chained row. The source note says so rather than letting the two columns
+  look like a bug.
+
+The effort denominator is CLAIMS, not people: one MP can carry three verdicts
+(`effort_low_score_reason`, `effort_rapporteur_load`, `effort_workhorse`) and
+each is decided on its own address (`psp:person:<id>#<prop>`).
+
+`getAdminData`'s forensic block also stopped defaulting an absent
+`forensic_review_state` to `"pending_review"` — the same fabrication removed
+from `getLawData.ts` in this change, which had been sitting in two places.
+
+**Carry-over, named rather than implied.** The table is a BOARD, not yet a
+queue: it has no decision buttons and no server action. The two-phase confirm
+(the `LoopMissionControl` pattern) and posting through the one writer with the
+existing `REVIEWER_TOKEN` / `ADMIN_TOKEN` gates are the next slice. Until then
+the door is reachable only from the repository, and this record says so rather
+than letting an operator infer a queue from a table.
+**2026-09-04 — degradations become answerable (moonshot #26).** This file has
+said plainly that `Sentry.captureException` is a no-op here because the repo has
+no DSN. Together with `console.error`, that was the entire sink list for
+`reportLoaderFailure` — **121 call sites** whose evidence scrolls off a terminal
+and vanishes into a disabled reporter. So the operator's actual question — which
+surfaces fell back to mock in the last 24 hours — had no answer anywhere, and
+the loader convention's own failure mode is exactly that invisibility: a dead
+store is indistinguishable from an empty graph.
+
+`lib/db/loaderFailureLog.ts` adds a third sink: a bounded JSONL sidecar at
+`.data/loader-failures.jsonl` (newest 2 000 lines; the summary reports what it
+counted, not what ever happened). `/admin` "Stav systému" renders the 24 h
+roll-up — total, the loaders that degraded, the last instant — with its source
+path printed beside it, and the sentinel reads it as the `loader-degradations`
+check.
+
+Two rulings, both about not collapsing distinctions:
+
+- **An absent log is not a clean one.** `summarizeLoaderDegradations` returns
+  `null` for a missing file and `{ total: 0 }` for a present, empty one. Missing
+  means nobody was watching; empty means somebody was and nothing happened. The
+  strip says so in words, and the sentinel maps the first to `unevaluable` —
+  never `ok`.
+- **The append never throws.** It is the one writer in this repo that runs
+  inside a `catch` block, and the file it is logging to is not the thing the
+  reader came for. A throw there would convert an honest fallback into a crash —
+  an observability feature causing an outage. It reports its own failure to
+  stderr once per process instead, so it is silent about the LOG and never about
+  the degradation: the `console.error` line the reporter already prints is
+  unconditional.
+
+**2026-09-05 — the retry button called `undefined` (scan-sweep, bounty-hunter).**
+Both boundaries destructured `unstable_retry`. Next 16.2 passed that prop; 16.3.0
+stabilised it as `retry` and stopped passing the old name (error.md „Version
+History"; the runtime hands the fallback `reset: this.reset, retry: this.retry`
+and nothing else). Since the 16.3.1 upgrade every „Zkusit znovu" on `/error` and
+`global-error` threw a TypeError inside the surface whose job is to lead the
+reader OUT of an error — and nothing could catch it: Next exports no prop type
+for `error.tsx`, so `tsc` accepted any name, and the repo has no jsdom to click
+the button. Fixed at the source in both files and pinned by
+`features/shell/errorBoundaryProps.test.ts`, which reads the prop name FROM the
+installed runtime rather than from a copied string: the next rename fails there,
+not at a reader. The two files were a pair fixed together, which is the whole
+point of checking pairs — the same bug in `global-error` would have survived a
+fix to `error.tsx` alone.
+
+**2026-09-05 — two rationale claims corrected (scan-sweep, copy-auditor).**
+`sitemap.ts` justified listing the 360 municipalities partly with „Next already
+pre-generates these pages"; `app/rozpocty/[ico]/page.tsx` had measured on
+2026-09-01 that nothing is pre-generated (the locale cookie makes every route
+dynamic). The listing stands on the two reasons that hold — a static registry,
+no store read — and the comment now says so, with the „already" retracted.
+`robots.ts` opened with a sentence missing its predicate; it now states the
+file's job.
+
+**2026-09-05 — a sitemap with no host is empty, not relative (scan-sweep,
+state-coverage).** The standing rule above said the base is never guessed and
+the robots `Sitemap:` line is omitted without a host — but `sitemap.ts` in the
+same state emitted 387 relative `<loc>` entries, which the sitemaps.org protocol
+does not define (every location must be fully qualified). It now returns an
+empty list, and `features/shell/sitemapRoutes.test.ts` pins the address SHAPE
+for both files (https behind a forwarding proxy, honest http in dev, root with
+its trailing slash, nothing without a host) the way `publicRoutes.test.ts` pins
+the path SET.
+
+**2026-09-07 — the chrome draws its logo once (scan-sweep, parity-auditor).**
+`MobileNav` carried a byte-identical copy of `BrandBlock`'s mark SVG; a change to
+the mark would have needed two edits and a missed one would have shipped two
+logos. `BrandMark` in `sidebarParts.tsx` is now the single drawing, sized by
+`className` (h-7 on the rail, h-6 on the mobile strip). `shellSource.test.ts`
+counts one `viewBox="0 0 32 32"` in the shell.
+
+**2026-09-07 — every catalog key the nav model names is checked against both
+catalogs (scan-sweep, test-strategist).** `NAV` and `PAGE_SECTIONS` are hand-kept
+lists of `labelKey`/`tagKey` strings that the rail renders through `t()`; a key
+absent from `messages/{cs,en}.json` renders as the bare key. Three feature tests
+guarded their own anchors (/hlasovani, /rozpocty, /volby — 17 of 52 keys); the
+rail rows, /dashboard, /zebricek, /penize, /zakony and /poslanec had no guard.
+`navModel.test.ts` now resolves all 52 against both catalogs (0 missing today;
+the guard was verified red by mutating one key).
+
+**2026-09-08 — robots and the sitemap read the tree's one live-URL definition
+(scan-sweep, parity-auditor).** Both files spelled `host` + `x-forwarded-proto`
+themselves (the third and fourth copies beside the feeds and the poster, all
+defaulting to `http`) while `lib/routing/liveUrl` has been the single definition
+since 2026-09-07. Both import it now; `sitemapRoutes.test.ts` still pins the
+address shape on both sides (https behind a proxy, http in dev, empty without a
+host), and `lib/testing/appShellSource.test.ts` pins that the two files carry no
+copy. The same test pins two more pairs: every path in `DISALLOWED_PATHS` has a
+page declaring `robots: { index: false }` (three today), and the error boundaries'
+11 px red kicker and paper-text hover buttons use `signal-deep` (5,31:1), not
+`signal` (4,10:1, under AA for text below 18,66 px) — `app/error.tsx` had the
+kicker wrong and both boundaries hovered onto bare `signal`.

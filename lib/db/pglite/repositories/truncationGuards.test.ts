@@ -21,6 +21,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Pglite } from "../internals";
 import { makeChangesRepo } from "./changes";
 import { makeKgRepo } from "./kg";
+import { makeProvenanceRepo } from "./provenance";
 import { makeReviewRepo } from "./review";
 import { makeVoteRepo } from "./votes";
 import { makeVoteTagRepo } from "./voteTags";
@@ -145,6 +146,14 @@ describe("hlídky ostatních listerů", () => {
     const repo = makeChangesRepo(stubPg(() => [event("e1"), event("e2")]));
     await repo.listChangeEvents({ limit: 2 });
     expect(warningsFor("listChangeEvents")).toHaveLength(1);
+  });
+
+  it("listIngestRuns — z jeho délky /data odvozuje verzi, changelog i lineage (2026-09-06)", async () => {
+    // Jediný lister repozitářů bez hlídky: getDataReleasesData čte 500 běhů a
+    // z délky dělá `runsTotal`; useknutí by tiše zkrátilo changelog vydání.
+    const repo = makeProvenanceRepo(stubPg(() => [{ id: 1 }, { id: 2 }]));
+    await repo.listIngestRuns(2);
+    expect(warningsFor("listIngestRuns")).toHaveLength(1);
   });
 
   it("listLensVectors — čtení pod PUBLIKOVANÝM mediánem referenda", async () => {
