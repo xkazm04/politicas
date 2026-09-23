@@ -28,8 +28,13 @@ pre-commit:
     # Mapovany kod se resi pres .ai/registry-map.json; kod mimo kontext spadne na
     # router korpusu nad tokeny cesty - to je ta polovina, ktera chybela, protoze
     # klauzule knowledge-sync routuje jen pres mapu a nova prace tam radek nema.
+    # Telo je ve skriptu, ne v `run:`. Lefthook sam rozbali `$` a `${` v radku run
+    # jeste pred sh, takze `${VAR:-vychozi}` se zmenil na `:-../ai-registry`, node
+    # spadl na MODULE_NOT_FOUND a `|| true` to hlasilo zelene: kontrola od 2026-09-21
+    # nebezela ani jednou. Obsah skriptu lefthook nerozbaluje (overeno 2026-09-24).
     - name: ai-registry-consult-check
-      run: sh -c 'node "${AI_REGISTRY_DIR:-../ai-registry}/scripts/consult-check.mjs" || true'
+      script: "ai-registry-consult.sh"
+      runner: sh
 
 commit-msg:
   jobs:
