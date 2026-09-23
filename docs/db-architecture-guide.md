@@ -118,6 +118,40 @@ at 69 hits each).
   Postgres-WASM per-row overhead. On PGlite, use `tsvector`+GIN, never rely on ILIKE
   for a hot text path.
 
+### Case #3b: full-text speedup by query shape (GIN vs seq scan) - 2026-09-24
+
+Case #3 timed one shape: `count(*)` of a single whole-token term matching 69 of 200k docs
+(0.03%). The planned full-text work (steno substance, a full-corpus law ingest) will issue
+ranked, multi-term, phrase and common-word queries, so this case holds the corpus, the
+column and the engine fixed and varies only the query. Arms: a stored `tsvector` column
+seq-scanned (index-assisted plans disabled) vs the same column with a GIN index.
+Contracts: `count(*)` and ranked top-10 (`ts_rank_cd`). 24 queries: six single terms
+across the document-frequency range, and six 2-3-token runs sampled from real sentences,
+each read as AND, OR and phrase. Corpus: the 141 committed bill summaries
+(`docs/data-analysis/case-law/payloads/bill-summaries-cz.json`) replicated to 200k, so it
+runs on any checkout. **Floor held: both arms returned identical counts and identical
+top-10 score lists on all 24 queries**, on two separate runs.
+(`npx tsx scripts/db-bench/fts-contracts.ts --n=200000`)
+
+| fraction of docs matched | count(*) speedup | top-10 speedup |
+| --- | ---: | ---: |
+| 0% (case #3's regime) | 150-234x | 190-208x |
+| 0.7-3% | 13-25x | 4-11x |
+| 6-13% | 6-8x | 2-4x |
+| 23-100% | 0.8-2.5x | 0.7-1.6x |
+
+**What it shows:**
+- **The index's speedup is set by how much of the corpus the query must visit**, not by
+  having an index. Case #3's 52x was the rare-term end of this curve.
+- **Ranked top-10 roughly halves it again at the same match count** (2.1% matched:
+  21x counting, 9x ranking). Ranking scores and sorts every match; GIN has no way to
+  stop early at the tenth result.
+- **A phrase costs what its terms' AND costs.** `sb <-> zákon` matches 1.4% of docs and
+  still runs at 0.9-1.4x, because GIN can only narrow to the docs holding both words
+  (51%) and must recheck positions on each of them.
+- **A common-word OR is a full scan with extra steps.** At 100% matched, ranked top-10
+  took 680-740 ms at 200k docs in PGlite, and that cost grows with the corpus.
+
 ### Case #4 — graph traversal, recursive-CTE stores vs native graph (Kuzu) — 2026-07-24
 
 The deferred graph case, now run on an **x64/Windows** box (Kuzu is x64-only but installs
@@ -227,6 +261,14 @@ _Derived from the measured cases as they land. Each rule cites the case that bac
 - **R11 — FTS stays in the existing store — no new engine.** Postgres `tsvector`+GIN
   keeps full-text in PGlite (in-DB, transactional); SQLite FTS5 is the free, fastest
   option if you're already on SQLite. Never LIKE-scan a large corpus on PGlite. _(case #3)_
+- **R11a - R9's speedup holds for rare terms only; measure the query mix before a big
+  ingest.** GIN's advantage falls from 150x+ at zero matches to 6-8x at a tenth of the
+  corpus and to about 1x past a quarter, ranked top-10 about halves it at every step, and
+  a phrase pays for its terms' AND. Steno substance searched with common Czech words, or
+  ranked, over millions of turns is a scan at index cost. Before that ingest, run
+  `fts-contracts.ts` over a sample of the real queries at the real corpus size, and treat
+  "ranked search over common terms" as a separate engine question, not an R11 default.
+  _(case #3b)_
 - **R12 — No graph DB at Politicas's scale.** On the real co-voting graph (203 MPs,
   ~10–20k edges, near-complete), **Kuzu lost every workload** to PGlite / DuckDB / SQLite.
   Keep traversal in the incumbent (recursive CTE); push the heavy graph aggregate to DuckDB
@@ -443,7 +485,7 @@ alias so no import moved.
 2. **Graph traversal** — recursive-CTE co-votes/committee walks vs Kuzu _(✓ done — case #4,
    on an x64/Windows box; Kuzu installs from a bundled prebuilt, no build. Verdict: no graph
    DB needed at this scale)_.
-3. **Full-text** — `tsvector`/GIN vs FTS5 vs LIKE _(✓ done — case #3)_.
+3. **Full-text** — `tsvector`/GIN vs FTS5 vs LIKE _(✓ done — case #3; by query shape, case #3b)_.
 4. **Vector** — pgvector (in-DB) vs LanceDB _(✓ done — case #2)_.
 5. **OLTP** — one-MP-profile read path: PGlite vs SQLite; is Postgres overkill for
    the serving layer?
