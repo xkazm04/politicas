@@ -90,3 +90,5 @@
 {"ts":"2026-09-20T17:34:15.510Z","bundle":"software-engineering","context":"votetrack-ledger","subjects":["table"],"techniques":["sorting","pagination","performance","loading-and-empty-states"],"deviations":0}
 {"ts":"2026-09-20T17:34:15.510Z","bundle":"software-engineering","context":"volby-election-mirror","subjects":["table"],"techniques":["sorting","performance","loading-and-empty-states","pagination"],"deviations":0}
 {"ts":"2026-09-20T17:34:15.510Z","bundle":"software-engineering","context":"budget-mirror","subjects":["table"],"techniques":["sorting","pagination","performance"],"deviations":1}
+{"ts":"2026-09-23T22:15:05Z","bundle":"software-engineering","subjects":["concurrent-vcs","knowledge-registry"],"techniques":[],"deviations":0,"outcome":"missed","from":"consult-check"}
+{"ts":"2026-09-23T22:15:05Z","bundle":"civic-intelligence","subjects":["public-procurement-analysis"],"techniques":[],"deviations":0,"outcome":"missed","from":"consult-check"}
