@@ -45,7 +45,7 @@ import FollowButton from "./FollowButton";
 import { fetchNovinky } from "./useNews";
 import { useSchranka } from "./useSchranka";
 import { useToday } from "./useToday";
-import { countSeen, newVisitGuard, openVisit, type VisitWindow } from "./visitWindow";
+import { commitVisit, countSeen, newVisitGuard, openVisit, type VisitWindow } from "./visitWindow";
 
 const TONE_DOT: Record<DeltaEntry["tone"], string> = {
   signal: "bg-signal",
@@ -196,26 +196,25 @@ export default function SchrankaPage() {
   const tAll = useTranslations();
   const locale = useLocale();
   const f = useFormat();
-  const { state, stampVisit, markSeen } = useSchranka();
+  const { state, peekVisit, commitVisit: writeVisit, markSeen } = useSchranka();
   const today = useToday();
 
-  // Práh pohledu = PŘEDCHOZÍ razítko; nová návštěva se orazítkuje hned při
-  // otevření, ale pohled drží starý práh do reloadu.
-  // Razítkuje se v rAF — zápis do localStorage rozvlní useSchranka a
-  // synchronní setState v těle efektu je kaskádový render (precedens
-  // useActiveSection; react-hooks/set-state-in-effect). Razítko se počítá
-  // PŘED setState a přes jednorázovou pojistku: updater ve StrictMode běží
-  // dvakrát a razítkování uvnitř něj by okno „od minulé návštěvy" zavřelo
-  // (viz openVisit v visitWindow.ts).
+  // Práh pohledu = PŘEDCHOZÍ razítko, přečtené při otevření; nové razítko se
+  // zapíše až nad načtenými daty (commitVisit níž) a pohled drží starý práh
+  // do reloadu.
+  // Okno se otevírá v rAF — synchronní setState v těle efektu je kaskádový
+  // render (precedens useActiveSection; react-hooks/set-state-in-effect).
+  // Počítá se PŘED setState a přes jednorázovou pojistku: updater ve
+  // StrictMode běží dvakrát (viz openVisit v visitWindow.ts).
   const [visit, setVisit] = useState<VisitWindow | null>(null);
   const guard = useRef(newVisitGuard());
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      const opened = openVisit(guard.current, stampVisit);
+      const opened = openVisit(guard.current, peekVisit);
       if (opened !== null) setVisit(opened);
     });
     return () => cancelAnimationFrame(frame);
-  }, [stampVisit]);
+  }, [peekVisit]);
 
   const keysSig = state.follows
     .map((f2) => f2.key)
@@ -249,6 +248,12 @@ export default function SchrankaPage() {
     if (visit === null || data === undefined || data === null) return;
     markSeen({ day: visit.day, count: countSeen(data.deltas, visit.day) });
   }, [visit, data, markSeen]);
+
+  // Razítko návštěvy: až plocha delty ukázala (nebo nebylo co načíst). Chyba
+  // načtení ani záložka zavřená před odpovědí práh neposune (visitWindow.ts).
+  useEffect(() => {
+    commitVisit(guard.current, visit, data, keysSig === "", writeVisit);
+  }, [visit, data, keysSig, writeVisit]);
 
   // Adresa odběru: origin se čte AŽ po připojení (na serveru žádný není a
   // dokreslit ho do prvního renderu je hydratační rozdíl); do té doby se

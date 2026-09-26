@@ -100,9 +100,12 @@ export interface SchrankaApi {
   isFollowed: (key: string) => boolean;
   follow: (key: string, label: string) => void;
   unfollow: (key: string) => void;
-  /** Orazítkuje návštěvu schránky; vrací PŘEDCHOZÍ razítko (práh delty) i to
-   *  právě zapsané (den, ke kterému se pak zapíše vodoznak viděného). */
-  stampVisit: () => { prev: string | null; now: string };
+  /** Přečte PŘEDCHOZÍ razítko (práh delty) a okamžik téhle návštěvy — NIC
+   *  nezapisuje. Zapisuje až `commitVisit`, a to teprve nad načtenými daty. */
+  peekVisit: () => { prev: string | null; now: string };
+  /** Zapíše razítko návštěvy. Nikdy necouvá: starší okamžik než uložený (jiná
+   *  záložka byla mezitím dál) se nezapíše. */
+  commitVisit: (at: string) => void;
   /** Zapíše vodoznak viděného — co plocha při téhle návštěvě ukázala (odznak
    *  v liště to pak odečítá, viz visitWindow.ts). */
   markSeen: (seen: SeenWatermark) => void;
@@ -121,11 +124,15 @@ export function useSchranka(): SchrankaApi {
     writeState(withoutFollow(getSnapshot(), key));
   }, []);
 
-  const stampVisit = useCallback((): { prev: string | null; now: string } => {
+  const peekVisit = useCallback((): { prev: string | null; now: string } => {
+    return { prev: getSnapshot().lastVisit, now: new Date().toISOString() };
+  }, []);
+
+  const commitVisit = useCallback((at: string) => {
     const fresh = getSnapshot();
-    const now = new Date().toISOString();
-    writeState({ ...fresh, lastVisit: now });
-    return { prev: fresh.lastVisit, now };
+    // ISO řetězce téhož tvaru (toISOString, UTC) se řadí jako čas.
+    if (fresh.lastVisit !== null && fresh.lastVisit >= at) return;
+    writeState({ ...fresh, lastVisit: at });
   }, []);
 
   const markSeen = useCallback((seen: SeenWatermark) => {
@@ -136,5 +143,5 @@ export function useSchranka(): SchrankaApi {
     if (next !== fresh) writeState(next);
   }, []);
 
-  return { state, isFollowed, follow, unfollow, stampVisit, markSeen };
+  return { state, isFollowed, follow, unfollow, peekVisit, commitVisit, markSeen };
 }

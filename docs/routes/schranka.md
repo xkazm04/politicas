@@ -17,9 +17,12 @@ no identity is sent** — only the key list and a day threshold.
 dated by DAY, so the threshold is the day of the last visit and that day counts
 whole (rather show a row twice than withhold it). The BADGE cannot be — under
 that rule it would never go dark until midnight — so it subtracts a **seen
-watermark** (`visitWindow.ts`). The page states both rules. The visit is stamped
-through a one-shot guard BEFORE `setState` (stamping inside the updater
-collapses the window under StrictMode), and the day enters every derivation
+watermark** (`visitWindow.ts`). The page states both rules. The previous stamp
+is read through a one-shot guard BEFORE `setState` (stamping inside the updater
+collapses the window under StrictMode), and the new stamp is written only once
+the response has landed (`commitVisit`): a failed load or a tab closed before
+the data arrived leaves the threshold where it was, so the entries it covered
+are shown next time instead of never. The day enters every derivation
 through `useToday()` — a subscription, never a render-time `new Date()`.
 
 **Owned rules** — `followCodec.ts` (keys, `isEntityKey`, `entityDenikHref`) ·
@@ -63,9 +66,12 @@ cannot be — under that rule it would never go dark until midnight — so it
 subtracts a **seen watermark**: on each visit the page records how many
 entries of that day it actually showed (`SchrankaState.seen`), and the badge
 deducts it while the day matches (`visitWindow.ts`, pure + tested; the page
-states both rules). The visit is stamped through a one-shot guard BEFORE
+states both rules). The previous stamp is read through a one-shot guard BEFORE
 `setState` — stamping inside the updater collapsed the window under
-StrictMode's double invoke — and the day enters every derivation through
+StrictMode's double invoke — and the new one is committed only over a loaded
+response, never on open (`commitVisit`; stamping on open let one failed load
+hide every entry between the last good visit and that day). The day enters
+every derivation through
 `useToday()` (a subscription, not a render-time `new Date()`, which the effect
 deps never saw across midnight). `parseNovinkyResponse` validates entries
 field by field; a malformed row is dropped, COUNTED and disclosed.
