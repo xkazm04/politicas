@@ -18,7 +18,7 @@ describe("amendsParagraph — instruction vs citation", () => {
     ["Čl. VI V § 8 odst. 2 zákona č. 166/1993 Sb., se slova „x“ nahrazují", "8"],
     ["1. V § 15 odst. 1 písm. b) se slova „a“ nahrazují slovy „b“.", "15"],
     ["§ 4c zní:", "4c"],
-    ["Za § 13 se vkládá nový § 13a, který zní:", "13"],
+    ["Za § 13 se vkládá nový § 13a, který zní:", "13a"],
     ["§ 101a se odstavce 2 a 3 zrušují.", "101a"],
   ])("issues an instruction: %s → § %s", (text, num) => {
     expect(amendsParagraph(text, num)).toBe(true);
@@ -28,12 +28,14 @@ describe("amendsParagraph — instruction vs citation", () => {
     ["Postupuje se podle § 8 odst. 1 zákona.", "8"],
     ["uvedený v § 15 se nepoužije", "15"],
     ["V § 150 se slova „x“ nahrazují", "15"],
+    // the insertion anchor is a position, not an edit (batch-017 closure M11)
+    ["Za § 13 se vkládá nový § 13a, který zní:", "13"],
   ])("merely cites: %s → § %s", (text, num) => {
     expect(amendsParagraph(text, num)).toBe(false);
   });
 
-  it("the grammar has four forms and escapes the § number", () => {
-    expect(instructionFormsFor("8")).toHaveLength(4);
+  it("the edit grammar has three forms and escapes the § number", () => {
+    expect(instructionFormsFor("8")).toHaveLength(3);
     expect(amendsParagraph("V § 8a odst. 1 se", "8")).toBe(false);
   });
 });
