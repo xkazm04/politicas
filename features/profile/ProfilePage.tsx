@@ -510,6 +510,31 @@ export default async function ProfilePage({
                   </div>
                 ))}
               </div>
+              {/* Shoda je souběh lístků, ne spojenectví: číslo se čte proti normě.
+                  Medián přes VŠECHNY dvojice tohoto poslance, ne přes vypsané řádky
+                  (features/profile/coVoteBaseline.ts). */}
+              {(data.coVoteReference.ownClub || data.coVoteReference.otherClubs) && (
+                <p className="mt-3 text-[13px] leading-relaxed text-steel">
+                  {t("alliesBaselineLead")}{" "}
+                  {[
+                    ["alliesBaselineOwn", data.coVoteReference.ownClub] as const,
+                    ["alliesBaselineOthers", data.coVoteReference.otherClubs] as const,
+                  ]
+                    .flatMap(([key, side]) =>
+                      side
+                        ? [
+                            t(key, {
+                              median: f.dec(side.median * 100),
+                              pairs: side.pairs,
+                              pairsFmt: f.int(side.pairs),
+                            }),
+                          ]
+                        : [],
+                    )
+                    .join(" · ")}
+                  . {t("alliesBaselineNote")}
+                </p>
+              )}
               {/* Strop se přiznává, zbytek se počítá — poslední mlčící mez na
                   téhle stránce (týž zápis jako `rebelInstancesMore`). */}
               {data.coVotersTotal > coVoters.length && (

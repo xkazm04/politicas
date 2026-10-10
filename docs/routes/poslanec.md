@@ -55,7 +55,7 @@ attributed. A bad date loses its date, keeps its row, and is counted.
 politicas.md §3's "real product". Wired to the real graph (no mock path):
 poster header + contribution score/rank, the six weighted components, the
 work-profile dossier (effort-loop enrichment + sponsored/rapporteur bills),
-co-voting allies, club rebellions, committee seats, prev/next file nav.
+co-voting agreement (most similar voting records), club rebellions, committee seats, prev/next file nav.
 The dossier also carries the **work record** (2026-07-28): floor speeches and
 written amendments PER BILL (`spoke_on` / `proposes_amendment`, pass 35,
 linked to `/zakony/<cislo>`), the interpellation count and the excused-absence
@@ -418,3 +418,16 @@ parity-auditor).** `/poslanec/[id]` opisovala pravidlo „jen číslice“ dvakr
 roundu 32 čtou `lib/routing/pspIdParam.ts`. Obě místa teď volají
 `pspIdFromParam`; karta z roundu 32 je uzavřená.
 
+**Shoda hlasování se čte proti normě, ne jako spojenectví (2026-10-10, registry
+intake apply co-voting-agreement-matrix).** Oddíl „Nejbližší spojenci“ tiskl
+shodu bez srovnání. Přehráno nad veřejnými dumpy PSP10 vlastní funkcí
+`coVotingEdges`: medián shody dvou členů jednoho klubu je 99,6 %, členů různých
+klubů 43,1 %, a 87,4 % vypsaných řádků (1 419 z 1 624) byl poslancův vlastní
+klub. „99,7 %“ tedy bez srovnání čte jako mimořádné pouto, ač je to klubová
+norma. Oddíl se teď jmenuje „Nejpodobněji hlasující“ a pod řádky tiskne
+medián shody s vlastním klubem a s ostatními kluby, počítaný přes VŠECHNY
+dvojice poslance (`features/profile/coVoteBaseline.ts`), s větou, že shoda je
+souběh hlasů, ne spojenectví. Otevřené: váha hrany je zaokrouhlená na 3 desetinná
+místa, takže u 151 z 203 spisů řez na 8 řádcích padne do remízy a 604 míst
+rozhodne pořadí id uzlu; přesný rozdíl na řezu má medián 0,0002 (méně než
+jeden lístek z ~2 200), takže ani přesné řazení by z nich neudělalo „bližší“.
