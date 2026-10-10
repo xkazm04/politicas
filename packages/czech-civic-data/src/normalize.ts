@@ -44,7 +44,8 @@ const FOLD: Record<string, string> = {
  * Non-letter characters are kept as-is; whitespace is collapsed and trimmed.
  * Deterministic and allocation-cheap — it runs once per ingested row.
  *
- * THE ONLY FOLD. Search, matching and slugs import this one; a second scheme
+ * THE ONLY NAME FOLD. Search and name matching import this one (a URL slug such
+ * as krajSlug is a different contract); a second scheme
  * beside it disagrees exactly on the rare inputs (a stroke letter, a doubled
  * space in a publisher's company name) and a name then silently stops matching.
  */
