@@ -15,9 +15,12 @@
 // explicit "unknown", never to a guess.
 
 // Czech + Slovak letters, plus the German/Polish neighbours that appear in the
-// person registry (naturalized MPs, historical records). Explicit table rather
-// than String.normalize("NFD") + strip-combining, because ď/ť/ľ/đ/ø do not
-// decompose and would survive the strip.
+// person registry (naturalized MPs, historical records). The table sits AFTER
+// String.normalize("NFD") + strip-combining, not instead of it: ł/đ/ø and the
+// multi-letter folds (ß/æ/œ) do not decompose and would survive the strip, and
+// a table alone keeps the combining mark of a DECOMPOSED input ("a" + U+0301,
+// as pdftotext and some exports emit it) and writes a non-ASCII name_norm.
+// (ď/ť/ľ do decompose; until 2026-10-10 this comment said otherwise.)
 const FOLD: Record<string, string> = {
   á: "a", à: "a", â: "a", ä: "a", ą: "a", ā: "a", å: "a", ã: "a",
   č: "c", ć: "c", ç: "c",
@@ -40,9 +43,13 @@ const FOLD: Record<string, string> = {
  * Fold a Czech string to lowercase ASCII for indexing and matching.
  * Non-letter characters are kept as-is; whitespace is collapsed and trimmed.
  * Deterministic and allocation-cheap — it runs once per ingested row.
+ *
+ * THE ONLY FOLD. Search, matching and slugs import this one; a second scheme
+ * beside it disagrees exactly on the rare inputs (a stroke letter, a doubled
+ * space in a publisher's company name) and a name then silently stops matching.
  */
 export function asciiFold(input: string): string {
-  const lower = input.toLowerCase();
+  const lower = input.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   let out = "";
   for (const ch of lower) out += FOLD[ch] ?? ch;
   return out.replace(/\s+/g, " ").trim();

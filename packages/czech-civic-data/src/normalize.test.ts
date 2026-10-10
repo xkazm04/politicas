@@ -20,9 +20,17 @@ describe("asciiFold", () => {
     );
     expect(asciiFold("Řehoř Čížek")).toBe("rehor cizek");
   });
-  it("folds letters that NFD-strip would miss (ď/ť/ľ/đ/ø)", () => {
+  it("folds letters that NFD-strip would miss (ł/đ/ø, ß/æ/œ) and the caron letters that it would not (ď/ť/ľ)", () => {
     expect(asciiFold("ďťľ")).toBe("dtl");
     expect(asciiFold("Đorđ Ø")).toBe("dord o");
+    expect(asciiFold("Łukasz Weiß")).toBe("lukasz weiss");
+  });
+  it("folds a DECOMPOSED input to the same ASCII key as the composed one (2026-10-10)", () => {
+    // Before the NFD step the table kept the combining marks: "nováková" with U+0301 inside.
+    for (const s of ["Nováková", "Řehoř Čížek", "Žluťoučký kůň", "Ľubomír Ďurovčík"]) {
+      expect(asciiFold(s.normalize("NFD")), s).toBe(asciiFold(s));
+      expect(asciiFold(s.normalize("NFD")), s).toMatch(/^[\x20-\x7e]*$/);
+    }
   });
   it("collapses and trims whitespace", () => {
     expect(asciiFold("  a   b  ")).toBe("a b");
