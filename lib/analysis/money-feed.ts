@@ -23,6 +23,7 @@
 // is fully fixture-tested. It must NEVER be run on invented data.
 
 import type { Company, Contract, MoneyGraph, PersonCompanyLink } from "@/lib/analysis/kg-money";
+import { asciiFold } from "@/lib/ingest/normalize";
 import { backoffDelayMs } from "@/lib/ingest/sources/backoff";
 import { classifyResponse, isTerminalRefusal, RefusedError } from "@/lib/ingest/sources/refusal-class";
 
@@ -96,14 +97,11 @@ export function isoDay(s: string | null | undefined): string | null {
   return m ? m[1] : null;
 }
 
-/** Diacritic-fold + lowercase + collapse whitespace — for name comparison only. */
+/** Diacritic-fold + lowercase + collapse whitespace — for name comparison only.
+ *  The ingest fold itself: a second scheme here missed ł/đ/ø/ß, which the roster's
+ *  person.name_norm folds (until 2026-10-10). */
 export function foldLower(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .replace(/\s+/g, " ")
-    .trim();
+  return asciiFold(s);
 }
 
 const LEGAL_FORMS = [

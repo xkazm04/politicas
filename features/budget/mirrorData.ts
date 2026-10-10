@@ -11,6 +11,7 @@
 // protože generátor je deterministický a vadný řádek znamená poškozený soubor,
 // ne "trochu jiná data".
 
+import { asciiFold } from "@/lib/ingest/normalize";
 import { perCapita, capexRatioPct } from "@/lib/ingest/sources/monitor";
 import { KRAJE, REGISTRY_PACKED } from "./data/registryData.generated";
 import { SNAPSHOT_YEARS, SNAPSHOTS_PACKED } from "./data/budgetSnapshots.generated";
@@ -183,12 +184,10 @@ export function coverageStats(): CoverageStats {
 
 /* ── Vyhledávání (search-first picker nad 6 254 obcemi) ───────────────────── */
 
-/** Složí český text na malá písmena bez diakritiky — "Řevničov" → "revnicov". */
+/** Složí český text na malá písmena bez diakritiky — "Řevničov" → "revnicov".
+ *  Je to ingestový `asciiFold` (do 2026-10-10 tu stálo druhé schéma skládání). */
 export function foldCzech(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase();
+  return asciiFold(s);
 }
 
 /**

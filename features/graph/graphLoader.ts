@@ -48,6 +48,7 @@
 import "server-only";
 
 import { reportLoaderFailure } from "@/lib/db/loaderGuard";
+import { asciiFold } from "@/lib/ingest/normalize";
 import { getStore } from "@/lib/db/store";
 import { formattersFor } from "@/lib/format";
 import { isLocale, defaultLocale, type Locale } from "@/lib/i18n/config";
@@ -147,13 +148,14 @@ function memoNonNull<T>(cell: MemoCell<T>, load: () => Promise<T | null>): Promi
 
 const indexCell: MemoCell<GraphIndex> = { promise: null };
 
-/** „Nováková" → „novakova". Jediné místo, kde se skládá diakritika. */
+/**
+ * „Nováková" → „novakova". Skládá ingestový `asciiFold` — do 2026-10-10 tu stálo
+ * vlastní schéma (NFD + strip, jen trim) s komentářem „jediné místo". Lišilo se
+ * od ingestu u ł/đ/ø/ß a u zdvojené mezery: „AGEL  a.s." se na dotaz „agel a.s."
+ * nenašel (13 z 1 252 jmen v payloadech případů).
+ */
 export function fold(s: string): string {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .trim();
+  return asciiFold(s);
 }
 
 async function buildIndex(): Promise<GraphIndex | null> {
