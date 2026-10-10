@@ -582,6 +582,46 @@ export function buildPersonCompanyLinks(
   return [...out.values()];
 }
 
+/**
+ * Default fan-in at which one IČO is treated as a junk-name attractor. Measured on the
+ * recorded pass-21 population (docs/data-analysis/case-money/payloads/
+ * batch-002-ares-vr-reconciliation.json: 245 linked_to edges, 73 MPs, 181 IČOs): the
+ * OSVČ entity drew 49 distinct MPs, the next highest drew 3 (two Plzeň regional bodies,
+ * registry-confirmed — MPs from one region share boards). Any value from 4 to 49 flags
+ * the incident and nothing else; 5 keeps one MP of headroom over the legitimate maximum.
+ */
+export const ATTRACTOR_MIN_PERSONS = 5;
+
+export interface JunkNameAttractor {
+  ico: string;
+  persons: number;
+}
+
+/**
+ * IČOs that many DIFFERENT people resolve to through the same free-text field. A name
+ * that is not a company name at all (an occupation, a placeholder) still exact-matches
+ * whatever register entity happens to bear it, and then welds every person carrying the
+ * label to that one entity — the C10/pass-21 shape. `GENERIC_NAME_BLACKLIST` stops the
+ * tokens already seen; this catches the NEXT one by its shape, before anything is
+ * written. A hit is a review trigger, not a verdict: the caller holds the cluster back.
+ * Pure; `ties` may mix this run's links with edges already in the store.
+ */
+export function junkNameAttractors(
+  ties: readonly { person: string; ico: string }[],
+  minPersons: number = ATTRACTOR_MIN_PERSONS,
+): JunkNameAttractor[] {
+  const byIco = new Map<string, Set<string>>();
+  for (const t of ties) {
+    const set = byIco.get(t.ico) ?? new Set<string>();
+    set.add(t.person);
+    byIco.set(t.ico, set);
+  }
+  return [...byIco]
+    .filter(([, persons]) => persons.size >= minPersons)
+    .map(([ico, persons]) => ({ ico, persons: persons.size }))
+    .sort((a, b) => b.persons - a.persons || a.ico.localeCompare(b.ico));
+}
+
 /* ── dedupe helpers for assembling a feed from many pages/people ────────────── */
 
 export function dedupeCompanies(companies: readonly Company[]): Company[] {

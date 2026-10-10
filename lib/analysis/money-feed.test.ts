@@ -1,8 +1,12 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
 import { describe, expect, it, vi } from "vitest";
 
 import { buildMoneyGraph, moneyTrails } from "@/lib/analysis/kg-money";
 import {
   aresSearchQuery,
+  ATTRACTOR_MIN_PERSONS,
   bridgePerson,
   bridgeSearchByBirthdate,
   buildPersonCompanyLinks,
@@ -14,6 +18,7 @@ import {
   RETRY_AFTER_CAP_MS,
   GENERIC_NAME_BLACKLIST,
   isGenericNameToken,
+  junkNameAttractors,
   isoDay,
   normalizeCompanyName,
   parseAresCompany,
@@ -198,6 +203,35 @@ describe("pickExactIco — strict name→IČO (never guesses)", () => {
 });
 
 /* ── identity bridge (conservative) ─────────────────────────────────────────── */
+
+/* ── junk-name attractors (the C10 shape, caught by fan-in) ─────────────────── */
+
+describe("junkNameAttractors — one IČO drawing many unrelated people", () => {
+  it("flags an IČO at the threshold of DISTINCT persons, not edges", () => {
+    const ties = [
+      ...["1", "2", "3", "4", "5"].map((p) => ({ person: p, ico: "J" })),
+      { person: "1", ico: "A" },
+      { person: "1", ico: "A" }, // same person twice is one person
+      { person: "2", ico: "A" },
+    ];
+    expect(junkNameAttractors(ties, 5)).toEqual([{ ico: "J", persons: 5 }]);
+    expect(junkNameAttractors(ties, 6)).toEqual([]);
+    expect(junkNameAttractors(ties, 2).map((a) => a.ico)).toEqual(["J", "A"]);
+  });
+
+  // The recorded pass-21 population, before the purge: the OSVČ entity is the only
+  // IČO the default threshold flags, and no legitimate shared board reaches it.
+  it("flags exactly the OSVČ entity in the recorded pass-21 population", () => {
+    const payload = JSON.parse(
+      readFileSync(path.join(process.cwd(), "docs/data-analysis/case-money/payloads/batch-002-ares-vr-reconciliation.json"), "utf8"),
+    ) as { edges: { src: string; dst: string }[] };
+    const ties = payload.edges.map((e) => ({ person: e.src, ico: e.dst.replace(/^company:ico:/, "") }));
+    expect(ties.length).toBe(245);
+    expect(junkNameAttractors(ties, ATTRACTOR_MIN_PERSONS)).toEqual([{ ico: "04627695", persons: 49 }]);
+    expect(junkNameAttractors(ties, 4)).toEqual([{ ico: "04627695", persons: 49 }]);
+    expect(junkNameAttractors(ties, 3)).toHaveLength(3); // two regional bodies, both registry-confirmed
+  });
+});
 
 describe("bridgePerson", () => {
   it("matches on name AND exact birth date, refusing same-name different-DOB", () => {

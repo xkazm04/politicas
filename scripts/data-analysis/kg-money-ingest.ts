@@ -15,12 +15,13 @@
  *
  *   HLIDAC_API_TOKEN=… npx tsx scripts/data-analysis/kg-money-ingest.ts --persons=andrej-babis            # dry-run
  *   HLIDAC_API_TOKEN=… npx tsx scripts/data-analysis/kg-money-ingest.ts --chamber=PSP10 --commit          # full sweep
- * Flags: --commit  --pass=N  --throttle=ms(200)  --contract-pages=N(1)  --limit=N(cap MPs)
+ * Flags: --commit  --pass=N  --throttle=ms(200)  --contract-pages=N(1)  --limit=N(cap MPs)  --attractor-min=N(5)
  */
 import { pathToFileURL } from "node:url";
 
 import {
   AresClient,
+  ATTRACTOR_MIN_PERSONS,
   HlidacClient,
   aresSearchQuery,
   bridgePerson,
@@ -31,6 +32,7 @@ import {
   dedupeContracts,
   enrichMoneyCompanies,
   foldLower,
+  junkNameAttractors,
   parseAresCompany,
   parseAresSearch,
   parseContracts,
@@ -52,6 +54,7 @@ import {
   type Company,
   type Contract,
   type MoneyGraph,
+  type PersonCompanyLink,
 } from "@/lib/analysis/kg-money";
 import { getStore } from "@/lib/db/store";
 import { guardStampedRows, makeProvenance } from "@/lib/kg/provenance";
@@ -162,6 +165,7 @@ async function main() {
   const throttle = Number(arg("throttle", "200")) || 200;
   const contractPages = Math.max(1, Number(arg("contract-pages", "1")) || 1);
   const limit = Number(arg("limit")) || Infinity;
+  const attractorMin = Number(arg("attractor-min")) || ATTRACTOR_MIN_PERSONS;
 
   const store = await getStore();
   if (!store) {
@@ -323,15 +327,45 @@ async function main() {
   let totalNodes = 0;
   let totalEdges = 0;
   const grand = { people: 0, companies: 0, contracts: 0, czk: 0 };
+  // 1) resolve company names → IČO, then gated links — for EVERY target before any
+  //    write, because a junk-name attractor is only visible across people.
+  const dropped = new Map<string, number>(); // unresolved organization name → events
+  const resolved: { t: (typeof targets)[number]; events: ReturnType<typeof privateRoleEvents>; links: PersonCompanyLink[] }[] = [];
   for (const t of targets) {
     const events = privateRoleEvents(t.detail);
-    // 1) resolve company names → IČO, then gated links
     const nameToIco = new Map<string, string>();
     for (const e of events) {
-      const ico = await resolveIco(e.organizace!.trim());
-      if (ico) nameToIco.set(e.organizace!.trim(), ico);
+      const name = e.organizace!.trim();
+      const ico = await resolveIco(name);
+      if (ico) nameToIco.set(name, ico);
+      else dropped.set(name, (dropped.get(name) ?? 0) + 1);
     }
     const links = buildPersonCompanyLinks(t.detail, t.pspId, { resolveIco: (n) => nameToIco.get(n.trim()) ?? null });
+    resolved.push({ t, events, links });
+  }
+  // Fan-in over this run's links AND the ties already stored, so a --persons run sees
+  // an attractor the graph already holds. Attractor links are held back, never written.
+  const storedTies = [...existingLinkedToProps.keys()].flatMap((k) => {
+    const [src, , dst] = k.split(" ");
+    const m = /^company:ico:(.+)$/.exec(dst ?? "");
+    return m ? [{ person: src, ico: m[1] }] : [];
+  });
+  const attractors = junkNameAttractors(
+    [...storedTies, ...resolved.flatMap((r) => r.links.map((l) => ({ person: `psp:person:${l.personPspId}`, ico: l.ico })))],
+    attractorMin,
+  );
+  const quarantined = new Set(attractors.map((a) => a.ico));
+  let heldBack = 0;
+  for (const a of attractors) {
+    console.warn(`  !! junk-name attractor IČO ${a.ico}: ${a.persons} distinct MPs resolve to it — links held back for review`);
+  }
+  for (const r of resolved) {
+    const kept = r.links.filter((l) => !quarantined.has(l.ico));
+    heldBack += r.links.length - kept.length;
+    r.links = kept;
+  }
+
+  for (const { t, events, links } of resolved) {
     if (!links.length) {
       console.log(`  · ${t.slug} (psp:person:${t.pspId}) — ${events.length} roles, 0 links resolved`);
       continue;
@@ -397,6 +431,13 @@ async function main() {
     `\n${commit ? "COMMITTED" : "DRY-RUN"}: ${grand.people} MPs · ${grand.companies} companies · ${grand.contracts} contracts · ` +
       `${fmt(grand.czk)} CZK in contracts · ${totalNodes} kg_node ${commit ? "written" : "(would write)"} · ${totalEdges} kg_edge (pass ${pass}, all pending_review)`,
   );
+  // The drops ship with the run, so a coverage claim reads against what was NOT linked.
+  const droppedEvents = [...dropped.values()].reduce((a, b) => a + b, 0);
+  console.log(
+    `dropped: ${droppedEvents} private-role event(s) under ${dropped.size} unresolved name(s) — leads, never linked` +
+      ` · held back: ${heldBack} link(s) to ${attractors.length} junk-name attractor(s) (fan-in >= ${attractorMin})`,
+  );
+  for (const [name, n] of [...dropped].sort((a, b) => b[1] - a[1]).slice(0, 25)) console.log(`  - "${name}" ×${n}`);
   await store.close();
 }
 

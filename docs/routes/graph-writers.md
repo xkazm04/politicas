@@ -207,3 +207,14 @@ lists that had stopped at 7 of 11 node kinds and 7 of 21 edge relations — a ca
 telling an external agent the graph has no bill, law, notice or tender node. Both docs
 are now joined from `KG_NODE_KINDS` / `KG_EDGE_RELS` (`lib/analysis/kg-verdict.ts`), so a
 kind or rel added there is published the day it lands (11/11 and 21/21, pinned by source).
+
+**2026-10-10 (ai-registry intake apply, name-to-identifier-discipline).** `kg-money-ingest`
+now resolves every target before it writes any, so a junk-name attractor is visible:
+an IČO that many distinct MPs resolve to through the private-role name field (the
+C10/pass-21 shape, where an occupation label exact-matched a party registered under it).
+`junkNameAttractors` counts distinct MPs per IČO over this run's links plus the
+`linked_to` ties already stored; at `--attractor-min` (default 5) the links are held
+back from the write and printed. The run also prints how many private-role events went
+unresolved and under which names, so the drop count ships with the run. Replayed on the
+pre-purge payload (245 ties, 73 MPs, 181 IČOs): the OSVČ entity drew 49 MPs, the next
+highest 3; the default flags only the incident (`money-feed.test.ts`).
