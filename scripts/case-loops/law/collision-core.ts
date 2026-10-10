@@ -146,8 +146,8 @@ export function instructionFormsFor(num: string): RegExp[] {
 
 /** Insertion instructions: „Za § 31 se vkládá nový § 31a", „se za § N vkládá …", „Nad označení
  * § N se vkládá …". The anchor § N is not edited; every § listed after „vkládá" is CREATED.
- * Batch-017 closure M11 corrected this in the census DATA only, from a private regex in
- * `archive/amended-paragraph-census-016.ts`. This is the one shared rule. Over the cached prints
+ * Batch-017 closure M11 corrected this in the census DATA only, from a private regex in the
+ * archived batch-016 census script. This is the one shared rule. Over the cached prints
  * it demotes 93 anchors and credits 242 inserted §§, against the census's 333 corrections. Two
  * bills inserting the same new § (tisk 4 and 112, § 31a of 117/1995) collide, and only this sees it. */
 export function insertionTargets(text: string): { anchors: Set<string>; inserted: Set<string> } {
