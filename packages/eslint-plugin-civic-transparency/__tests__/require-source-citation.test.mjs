@@ -9,6 +9,9 @@
 
 import { RuleTester } from "eslint";
 import { createRequire } from "node:module";
+import { mkdtempSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, sep } from "node:path";
 
 const require = createRequire(import.meta.url);
 const rule = require("../rules/require-source-citation.cjs");
@@ -20,6 +23,26 @@ const tester = new RuleTester({
     parserOptions: { ecmaFeatures: { jsx: true } },
   },
 });
+
+// Fixture parent: cites via `rankingSource` in code, and mentions `onlyInComment`
+// solely inside a comment (which must NOT satisfy a delegation).
+const fixtureDir = mkdtempSync(join(tmpdir(), "citation-parent-"));
+const PARENT = join(fixtureDir, "Parent.tsx").replaceAll(sep, "/");
+writeFileSync(
+  PARENT,
+  `// onlyInComment
+export const P = () => <SourceNote>{t.rankingSource}</SourceNote>;
+`,
+);
+const MISSING = join(fixtureDir, "Gone.tsx").replaceAll(sep, "/");
+
+const structured = (ann, body = "<span>{f.int(n)}</span>") =>
+  FORMAT_IMPORT +
+  `export function Cell({ n }) {
+     const f = useFormat();
+     // ${ann}: reason
+     return ${body};
+   }`;
 
 const FORMAT_IMPORT = `import { useFormat } from "@/lib/i18n/useFormat";\n`;
 
@@ -88,6 +111,14 @@ tester.run("require-source-citation", rule, {
            // citation-ok: SourceNote renders in the parent DossierSection
            return <span>{f.int(n)}</span>;
          }`,
+    },
+    {
+      name: "structured citation-ok whose parent still carries the key",
+      code: structured(`citation-ok(parent=${PARENT}, key=rankingSource)`),
+    },
+    {
+      name: "structured citation-ok without parent verifies this very file",
+      code: structured("citation-ok(key=useFormat)"),
     },
     {
       name: "member call without a chokepoint import is not a house formatter",
@@ -192,6 +223,38 @@ tester.run("require-source-citation", rule, {
            return <ul>{rows.map((r) => <li key={r.id}>{f.dec(r.score)}</li>)}</ul>;
          }`,
       errors: [{ messageId: "uncitedFigure" }],
+    },
+    {
+      name: "structured citation-ok whose key was deleted from the parent",
+      code: structured(`citation-ok(parent=${PARENT}, key=trendSource)`),
+      errors: [{ messageId: "brokenDelegation" }],
+    },
+    {
+      name: "a key that survives only in a parent COMMENT does not verify",
+      code: structured(`citation-ok(parent=${PARENT}, key=onlyInComment)`),
+      errors: [{ messageId: "brokenDelegation" }],
+    },
+    {
+      name: "structured citation-ok whose parent file is gone",
+      code: structured(`citation-ok(parent=${MISSING}, key=rankingSource)`),
+      errors: [{ messageId: "brokenDelegation" }],
+    },
+    {
+      name: "structured citation-ok without a key is malformed, not an exemption",
+      code: structured(`citation-ok(parent=${PARENT})`),
+      errors: [{ messageId: "brokenDelegation" }],
+    },
+    {
+      name: "same-file key that exists only in the annotation itself does not verify",
+      code: structured("citation-ok(key=nowhereElse)"),
+      errors: [{ messageId: "brokenDelegation" }],
+    },
+    {
+      name: "AnimatedScore with a broken structured delegation",
+      code: `import AnimatedScore from "@/features/shared/components/AnimatedScore";
+             // citation-ok(parent=${MISSING}, key=x): reason
+             export const X = ({ n }) => <AnimatedScore value={n} />;`,
+      errors: [{ messageId: "brokenDelegation" }],
     },
   ],
 });

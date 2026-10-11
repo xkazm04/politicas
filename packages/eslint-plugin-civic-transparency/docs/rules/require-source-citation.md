@@ -55,6 +55,14 @@ when the citation genuinely exists but lives outside the file (e.g. the parent
 component renders the caption). Grep-able audit trail; a bare disable comment is
 not.
 
+**Verified form:** `// citation-ok(parent=<path>, key=<identifier>): <reason>`.
+The rule checks the delegation itself: `parent` (repo-root-relative or absolute;
+omit it for "this file") must be readable and contain `key` as a whole word
+outside comments. If the citation is deleted or renamed, the figure is reported
+(`brokenDelegation`) instead of staying silently exempt. The check is textual —
+it proves the key still exists in code, not that it renders inside a
+`SourceNote`. The bare form keeps working.
+
 The match is on where the comment **ends**, not where it starts, so a reason may
 span several lines. Matching the start line rejected every multi-line reason,
 which pushed authors toward one-line reasons that say nothing — on the one
