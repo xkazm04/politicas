@@ -87,3 +87,20 @@ only in `app/globals.css` tokens, and **every rendered number cites its source**
   maps those same source paths to the docs they keep in sync.
 - **`MEMORY.md` + `memory/*.md`** — durable cross-session facts and gotchas
   already paid for.
+
+## Before opening a pull request — remote-divergence pre-flight
+
+Any run that delivers a branch for review (a PR against `origin/master`) starts
+with this check, before the branch is pushed or the PR opened:
+
+```bash
+git fetch origin
+git rev-list --left-right --count origin/master...master   # "<behind>\t<ahead>"
+```
+
+If local `master` is more than ~5 commits **ahead** of `origin/master`, do not
+open the PR: it would arrive as an unreviewable diff of every unpublished
+commit, not of your change. Stop and escalate the publish decision to the
+operator (who pushes `master`), then open the PR once the counts are back
+within range. Measured 2026-09-15: `0 88` (88 ahead). Pushing stays the
+operator's act (see `CLAUDE.md` § Git discipline).
