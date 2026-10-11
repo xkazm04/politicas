@@ -174,7 +174,7 @@ function RealGraph({ data, review }: { data: MoneyGraphData; review: ReviewSumma
     return { nodes: ns, edges: es };
   }, [data, locale, t]);
 
-  // citation-ok: the review counts and their source note (`money.real.review.source` —
+  // citation-ok: [verified 2026-10-11] the review counts and their source note (`money.real.review.source` —
   // kg_edge.props.review_state ⋈ review_audit) are rendered by the parent,
   // FollowTheMoneyPage, immediately above this frame; the footer badge restates the same
   // `ReviewSummary` object rather than introducing a second figure.
@@ -372,7 +372,7 @@ function RealGraph({ data, review }: { data: MoneyGraphData; review: ReviewSumma
             <span className="text-steel">
               — {node.sub || "—"} ·{" "}
               {t("graph.edgesInRecord", {
-                // citation-ok: counts the edges THIS picture draws, not the graph; the frame's own source note (`money.real.graphSelection`, incl. the selection rule) is rendered by the parent, FollowTheMoneyPage, immediately below it.
+                // citation-ok: [verified 2026-10-11] counts the edges THIS picture draws, not the graph; the frame's own source note (`money.real.graphSelection`, incl. the selection rule) is rendered by the parent, FollowTheMoneyPage, immediately below it.
                 count: f.int(edges.filter((e) => e.from === node.id || e.to === node.id).length),
               })}
             </span>
@@ -393,7 +393,7 @@ function RealGraph({ data, review }: { data: MoneyGraphData; review: ReviewSumma
           )}
           {/* Derived from the same counts as the lede banner — the badge used to assert
               „všechny hrany … čekají na kontrolu" as a constant.
-              citation-ok: the counts and their source note (`money.real.review.source` —
+              citation-ok: [verified 2026-10-11] the counts and their source note (`money.real.review.source` —
               kg_edge.props.review_state ⋈ review_audit) are rendered by the parent,
               FollowTheMoneyPage, immediately above this frame; the badge is the same
               `ReviewSummary` object restated, not a second figure. */}

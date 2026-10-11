@@ -83,7 +83,7 @@ export default function QuestionCard({
         <TallyBar total={q.total} />
         <p className="mt-1.5 flex flex-wrap items-baseline justify-between gap-x-3 font-mono text-xs tabular-nums text-steel-aa">
           <span>
-            {/* citation-ok: sčítání sálu cituje odkaz psp.cz v patičce karty + zdrojový řádek pravidel na stránce (KompasPage rulesSource) */}
+            {/* citation-ok: [verified 2026-10-11] sčítání sálu cituje odkaz psp.cz v patičce karty + zdrojový řádek pravidel na stránce (KompasPage rulesSource) */}
             {t("kompas.chamberResult")}: {f.int(q.total.yes)} {tcom("voteChoice.for")} · {f.int(q.total.no)} {tcom("voteChoice.against")} · {f.int(q.total.k)}{" "}
             {t("kompas.kShort")} ·{" "}
             <span

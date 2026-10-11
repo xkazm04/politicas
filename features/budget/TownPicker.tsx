@@ -78,7 +78,7 @@ export default function TownPicker({
               </span>
             </span>
             <span className="shrink-0 text-right">
-              {/* citation-ok: počty obyvatel cituje SourceNote rodičovské plochy (BudgetMirrorPage, řádek zdroje MONITOR) */}
+              {/* citation-ok: [verified 2026-10-11] počty obyvatel cituje SourceNote rodičovské plochy (BudgetMirrorPage, řádek zdroje MONITOR) */}
               <span className="font-mono text-xs tabular-nums">{f.int(m.population)}</span>
               <span
                 className={`ml-2 font-mono text-[10px] uppercase tracking-wider ${

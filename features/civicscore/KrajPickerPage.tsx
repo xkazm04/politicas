@@ -184,7 +184,7 @@ export default function KrajPickerPage({ kraje }: { kraje: KrajInfo[] | null }) 
                       {k.unassigned ? t("krajUnassignedLabel") : k.label}
                     </span>
                     <span className={`font-mono text-xs tabular-nums ${i === active ? "text-paper/70" : "text-steel-aa"}`}>
-                      {/* citation-ok: zdroj počtů (registr psp.cz) cituje SourceNote v hlavičce stránky */}
+                      {/* citation-ok: [verified 2026-10-11] zdroj počtů (registr psp.cz) cituje SourceNote v hlavičce stránky */}
                       {t("krajMpCount", { count: f.int(k.count) })}
                     </span>
                   </li>
