@@ -68,13 +68,32 @@ COVERAGE     100 % of figures, 100 % of files
 Cross-checked against the gate: `npx eslint --format json` over all 1 245 files
 reports 0 errors and 2 warnings, neither of them this rule.
 
-**What is NOT measured here:** the *dated* half of "every rendered number carries
-a dated, sourced citation". The rule satisfies a file on the PRESENCE of a
-provenance element, and `SourceNote` takes free-form children, so a citation with
-no retrieval date passes. The construct that guarantees a date is the optional
-`provenance` receipt prop — 11 call sites out of 441 `<SourceNote>` sites on
-2026-09-14. Building that measurement is a filed backlog item; until it exists,
-no target is set for it.
+### The dated half — measured since 2026-10-11
+
+The rule satisfies a file on the PRESENCE of a provenance element, and
+`SourceNote` takes free-form children, so a citation with no retrieval date
+passes the gate. `kpi:citations` therefore also classifies every satisfier
+element (`SourceNote`, `SourceRef`, `DataUnavailable`, `LiveDataNotice`,
+`CitableNumber`, `ProvenanceCapsule`, and `<PosterFrame citation>`) by its
+OWN subtree:
+
+- **dated** — a `provenance` / `receipt` / `citation` prop (the receipt carries
+  the retrieval date), or a date formatter call (`f.date`, `czechDate`,
+  `formatDate`, ...) or an ISO / Czech date literal inside the element;
+- **undated** — none of those.
+
+Baseline 2026-10-11 (`--json` adds `dated.byElement` and `dated.undatedFiles`):
+
+```
+DATED SHARE  5,07 % of 473 citation elements carry a date —
+             3 by receipt prop, 21 by a date in the element, 449 undated
+```
+
+Limits, stated so the number is not over-read: the pass is syntactic. A date
+computed elsewhere and passed in as a variable (`{lastDecidedAt}`) reads as
+undated, so this is a lower bound on how many citations are really dated. It
+is a measurement, not a gate, and **no target is set** — the number exists first;
+a target follows the number, not the other way round.
 
 ## `kpi:verify` — the verify loop, stage by stage
 
