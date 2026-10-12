@@ -1508,7 +1508,11 @@
           "revision": 30,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/security/token.ts:57 Searching lib/routing/, lib/i18n/, and lib/security/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the context only provides routing helpers, locale resolution, and constant-time operator token matching.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:afba7a2b8c938ae1",
+          "evaluatedRevision": 31
         },
         {
           "subject": "translation-pipeline-topology",
@@ -2809,7 +2813,11 @@
           "revision": 30,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/schranka/followCodec.ts:41 Searching features/schranka/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as civic-inbox stores subscriber follows directly in browser localStorage and serves public unauthenticated feeds.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:afba7a2b8c938ae1",
+          "evaluatedRevision": 31
         },
         {
           "subject": "agent-runtime-assembly",
@@ -4699,7 +4707,11 @@
           "revision": 30,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/db/config.ts:18 Searching lib/db/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the module configures and selects the internal embedded PGlite database driver.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:afba7a2b8c938ae1",
+          "evaluatedRevision": 31
         },
         {
           "subject": "fleet-orchestration",
@@ -7573,7 +7585,11 @@
           "revision": 30,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:96 Searching scripts/data-analysis/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as kg-promote operates as an offline pipeline script validating and landing static JSON verdict files into graph tables.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:afba7a2b8c938ae1",
+          "evaluatedRevision": 31
         },
         {
           "subject": "knowledge-registry",
@@ -11106,7 +11122,11 @@
           "revision": 30,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shell/publicRoutes.ts:42 Searching features/shell/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the context exclusively manages web application chrome, nav rail entries, and public static routes.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:afba7a2b8c938ae1",
+          "evaluatedRevision": 31
         },
         {
           "subject": "lazy-section-addressability",

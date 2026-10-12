@@ -1,0 +1,118 @@
+{
+ "schema": "conform-run/1",
+ "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+ "subject": "mcp-tools",
+ "evaluatedAt": "2026-10-12T23:01:40.740445+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "db-store-engine",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/config.ts:18 Searching lib/db/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the module configures and selects the internal embedded PGlite database driver.",
+   "techniques": [],
+   "registryProposal": "The mcp-tools standard applies exclusively to Model Context Protocol tool servers, hosts, and clients; lexical matching on 'store' and 'connection' over-matches internal embedded database configurations."
+  },
+  {
+   "context": "kg-graph-writers",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/kg-promote.ts:96 Searching scripts/data-analysis/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as kg-promote operates as an offline pipeline script validating and landing static JSON verdict files into graph tables.",
+   "techniques": [],
+   "registryProposal": "The mcp-tools standard applies to tool servers and clients; offline batch verdict ingestion scripts do not expose or consume tool protocol primitives."
+  },
+  {
+   "context": "app-utilities",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/security/token.ts:57 Searching lib/routing/, lib/i18n/, and lib/security/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the context only provides routing helpers, locale resolution, and constant-time operator token matching.",
+   "techniques": [],
+   "registryProposal": "The mcp-tools standard applies to tool protocol capability tokens and scoping; basic HTTP routing and constant-time operator secret matching do not implement tool protocols."
+  },
+  {
+   "context": "shell-navigation",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shell/publicRoutes.ts:42 Searching features/shell/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the context exclusively manages web application chrome, nav rail entries, and public static routes.",
+   "techniques": [],
+   "registryProposal": "The mcp-tools standard applies to tool catalogs and discovery protocols; web application UI shell navigation models do not implement tool protocols."
+  },
+  {
+   "context": "civic-inbox",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/schranka/followCodec.ts:41 Searching features/schranka/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as civic-inbox stores subscriber follows directly in browser localStorage and serves public unauthenticated feeds.",
+   "techniques": [],
+   "registryProposal": "The mcp-tools standard applies to tool servers and client integrations; unauthenticated client-side local storage follow lists and RSS feeds do not implement tool protocols."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-12T23:01:40.740445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-12T23:01:40.740445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-12T23:01:40.740445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "app-utilities",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-12T23:01:40.740445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shell-navigation",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-12T23:01:40.740445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civic-inbox",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}

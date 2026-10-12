@@ -469,6 +469,61 @@
       "evaluatedTs": "2026-10-12T21:56:37.588Z",
       "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
       "techniques": []
+    },
+    "8867f710-55df-4e4f-9da3-e412d2462001/mcp-tools": {
+      "context": "db-store-engine",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T23:01:40.740Z",
+      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "techniques": [],
+      "registryProposal": "The mcp-tools standard applies exclusively to Model Context Protocol tool servers, hosts, and clients; lexical matching on 'store' and 'connection' over-matches internal embedded database configurations."
+    },
+    "1e6194ec-5275-4cfd-b045-c0604ab491e2/mcp-tools": {
+      "context": "kg-graph-writers",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T23:01:40.740Z",
+      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "techniques": [],
+      "registryProposal": "The mcp-tools standard applies to tool servers and clients; offline batch verdict ingestion scripts do not expose or consume tool protocol primitives."
+    },
+    "4a469aa2-e8dd-4ec4-b8c7-b8838f526aae/mcp-tools": {
+      "context": "app-utilities",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T23:01:40.740Z",
+      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "techniques": [],
+      "registryProposal": "The mcp-tools standard applies to tool protocol capability tokens and scoping; basic HTTP routing and constant-time operator secret matching do not implement tool protocols."
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/mcp-tools": {
+      "context": "shell-navigation",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T23:01:40.740Z",
+      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "techniques": [],
+      "registryProposal": "The mcp-tools standard applies to tool catalogs and discovery protocols; web application UI shell navigation models do not implement tool protocols."
+    },
+    "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/mcp-tools": {
+      "context": "civic-inbox",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T23:01:40.740Z",
+      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "techniques": [],
+      "registryProposal": "The mcp-tools standard applies to tool servers and client integrations; unauthenticated client-side local storage follow lists and RSS feeds do not implement tool protocols."
     }
   }
 }

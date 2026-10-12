@@ -173,3 +173,9 @@
 {"ts":"2026-10-12T21:56:37.588759+00:00","bundle":"software-engineering","subjects":["agent-memory"],"techniques":[],"deviations":0,"context":"kg-graph-writers","via":"curator-multi:grok","model":"grok-4.7"}
 {"ts":"2026-10-12T21:56:37.588759+00:00","bundle":"software-engineering","subjects":["agent-memory"],"techniques":[],"deviations":0,"context":"db-pglite-engine","via":"curator-multi:grok","model":"grok-4.7"}
 {"ts":"2026-10-12T21:57:47Z","bundle":"software-engineering","subjects":["eval-harness","knowledge-registry"],"techniques":[],"deviations":0,"outcome":"missed","from":"consult-check"}
+{"ts":"2026-10-12T22:51:01Z","bundle":"software-engineering","subjects":["adaptive-fidelity-tiers","engine-binding-surface"],"techniques":[],"deviations":0,"outcome":"missed","from":"consult-check"}
+{"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"db-store-engine","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
+{"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"kg-graph-writers","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
+{"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"app-utilities","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
+{"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"shell-navigation","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
+{"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"civic-inbox","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
