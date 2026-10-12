@@ -1,0 +1,425 @@
+{
+ "schema": "conform-run/1",
+ "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+ "subject": "quality-gates",
+ "evaluatedAt": "2026-10-12T19:27:40.075839+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "census-quality-gate",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "package.json:18 npm run check binds census:test and library:check but omits npm run census (run-census.mjs --check), leaving the census ratchet completely detached from the mandatory gating lane.",
+   "techniques": [
+    {
+     "technique": "enforcement-binding",
+     "verdict": "deviation",
+     "evidence": "package.json:18 The primary verification script 'check' runs census:test and library:check but omits the actual census scan command (node scripts/census/run-census.mjs --check), leaving the rule evaluation detached from the merge pipeline."
+    },
+    {
+     "technique": "advancement-evidence-fields",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:107 Satisfied principles must provide non-empty mechanisms of at least 40 characters along with reproducible verification commands before advancement is acknowledged."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:19 Validates gate detection capabilities by running the real engine against fixture trees with seeded violations to ensure detection failures are actively surfaced."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:95 Filters out comment-only lines so commentary about migrations is not counted as code matches during pattern evaluation."
+    },
+    {
+     "technique": "item-liveness",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:292 Flags exemptions that no longer match any existing repository file as stale structural problems to prevent orphan waivers."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:156 Normalizes CRLF line endings to LF before calculating SHA digests to prevent false-positive drift alarms across operating systems."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:127 Refuses short or empty decline reasons, demanding substantive rationale of at least 25 characters to prevent casual shrugs."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/census/run-census.mjs:150 Structural instrument problems strictly fail with exit code 1, separating fatal engine breaks from optional drift checks."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:283 Instructs the developer to delete completed rules rather than baselining them at zero when no matches are found."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:64 Loudly exits with status 2 when the vendored index is empty, asserting that instrument availability precedes evaluation."
+    }
+   ]
+  },
+  {
+   "context": "scripts-quality-gates",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "scripts/docs/self-test.mjs:17 The quality gates suite establishes verifiable multi-tier checks with live repository test harnesses, explicit skip classifications, and strict commit-message dismissal syntax.",
+   "techniques": [
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/self-test.mjs:17 Seeds genuine violations into a temporary git repository to confirm that the doc-sync gate halts when rules are broken."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:164 Defines explicit skip enumerations (precondition, instrument, incomplete, unresolvable) with exit code 2 when evaluation data is unmeasurable."
+    },
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:678 Requires dismissal annotations to target the exact document path and contain a reason satisfying a minimum length threshold."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:682 Rejects brief dismissals under 12 characters to prevent superficial bypasses of documentation synchronization rules."
+    },
+    {
+     "technique": "hook-hygiene",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:22 Examines git diff ranges rather than untracked or dirty working directory files to ensure repeatable hook execution."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:843 Applies a display cap to CLI terminal listings without truncating the complete array of evaluated findings in JSON output."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:834 Prints the exact git commit message syntax needed to record an authorized waiver for uncoupled documents."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/kpi/citation-coverage.mjs:132 Citation coverage acts strictly as an advisory reporting meter that records progress and always exits 0."
+    },
+    {
+     "technique": "blocking-by-input-determinism",
+     "verdict": "conformant",
+     "evidence": "scripts/sentinel/run.ts:22 Distinguishes between valid invariant checks (exit 0/1) and unavailable store state where evaluation could not occur (exit 2)."
+    },
+    {
+     "technique": "oracle-frozen-during-repair",
+     "verdict": "conformant",
+     "evidence": "scripts/sentinel/path-oracle.ts:168 Demands an explicit human-directed update flag to modify reference path oracle fixtures rather than updating them automatically."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "scripts/smoke.ts:27 Verifies that production smoke testing targets the built distribution directory (.next) rather than development sources."
+    },
+    {
+     "technique": "gate-laddering",
+     "verdict": "conformant",
+     "evidence": "scripts/smoke.ts:6 Separates verification into fast, dependency-free Tier 1 routes and stateful Tier 2 routes requiring real store fixtures."
+    },
+    {
+     "technique": "enforcement-binding",
+     "verdict": "conformant",
+     "evidence": "package.json:18 Binds doc-sync and doc-sync self-testing directly into the mandatory 'check' script."
+    },
+    {
+     "technique": "excess-indicts-the-instrument",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:386 Fails immediately if repository file count falls below the expected walk floor, identifying crawler breakdowns rather than empty passes."
+    },
+    {
+     "technique": "item-liveness",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:582 Flags exclusion glob patterns that match zero files as stale drift, keeping exemptions active only while artifacts exist."
+    }
+   ]
+  },
+  {
+   "context": "effort-scoring-tools",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "scripts/case-loops/effort/gate.ts:46 The effort scoring pipeline enforces strict separation between deterministic graph props and proposed enrichments while maintaining public copy and review rung rules.",
+   "techniques": [
+    {
+     "technique": "advancement-evidence-fields",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:24 Restricts batch-authored proposals to the 'machine' review state, preventing automated processes from claiming human verification."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:241 Rejects incoming payloads claiming verified status without going through the authorized human review door."
+    },
+    {
+     "technique": "self-reported-gate-inputs",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:46 Prohibits proposals from specifying deterministic-owned properties like contribution scores, ensuring numbers are derived from the graph."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:172 Converts conversational public-copy guidelines into automated gate checks after observing repeated manual review leaks."
+    },
+    {
+     "technique": "excess-indicts-the-instrument",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:290 Removes an overly sensitive superseded score detector that generated 66 false positives rather than crying wolf."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:113 Adjusts numeric extractor regex to recognize Czech negation terms to prevent counting negated mentions as positive quantities."
+    },
+    {
+     "technique": "blocking-by-input-determinism",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/shared-reference-date.ts:14 Accepts explicit reference dates to guarantee reproducible scoring runs across historical evaluation batches."
+    },
+    {
+     "technique": "shared-substrate-check-partition",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:183 Imports public copy jargon rules from a shared library used across ingestion drop gates and frontend rendering filters."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate-rung.test.ts:37 Unit test asserts that refusal messages explicitly communicate that only 'machine' status can be authored by a batch."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/divergence-retune.ts:20 Implements deterministic cohort baseline fallbacks when small peer groups lack sufficient data points."
+    },
+    {
+     "technique": "gate-laddering",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:60 Treats numeric prose discrepancies as review warnings rather than fatal drops, allowing human evaluators to assess context."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:134 Compares claims made in descriptive text against established graph ground truth values rather than unvalidated proposal text."
+    },
+    {
+     "technique": "oracle-frozen-during-repair",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/divergence-retune.ts:29 Generates comparative distribution statistics between old and new metrics prior to updating triage criteria."
+    },
+    {
+     "technique": "chokepoint-tag-registry",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:233 Enforces that low-score reason labels match the closed vocabulary defined in the badge render module."
+    }
+   ]
+  },
+  {
+   "context": "verdict-and-law-analysis",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "lib/analysis/verdict-provenance.ts:52 Verdict and law analysis features provide structured JSON schema enforcement, deterministic language gating, and multi-rung provenance tracking.",
+   "techniques": [
+    {
+     "technique": "advancement-evidence-fields",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/verdict-provenance.ts:52 Maintains a strict four-state review rung vocabulary ('machine', 'pending', 'verified', 'rejected') and withholds rejected claims without silent deletion."
+    },
+    {
+     "technique": "blocking-by-input-determinism",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/language-gate.ts:28 Performs deterministic Czech language verification using static stopword frequencies without external model calls."
+    },
+    {
+     "technique": "unparseable-form-is-a-finding",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/verdict.ts:222 Validates exact object keys against schema definitions to reject unexpected or invented properties."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/language-gate.ts:93 Establishes an empirical floor of 3 morphology hits before triggering English detection in the absence of closed-list words."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg-verdict.ts:344 Verifies that every entity URN cited in prose exists in the known entity database to reject hallucinated references."
+    },
+    {
+     "technique": "shared-substrate-check-partition",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/language-gate.ts:16 Applies the identical language ruleset during ingestion validation and frontend render-time withholding."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/tripwires.ts:20 Orders tripwire candidate alerts strictly by evidence completeness score rather than subjective severity ratings."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/verdict.ts:215 Provides clear error instructions directing subagents to place aggregate findings into patterns or backlog rather than entity id slots."
+    },
+    {
+     "technique": "item-liveness",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/plausible-date.ts:39 Validates date strings against historical boundaries (1993 to today), withholding invalid dates without fabricating replacements."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/tripwires.ts:17 Binds verbatim Czech rule text directly to tripwire evaluation functions so that displayed criteria cannot drift from code."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:175 Evaluates all matching terms against allowlists to prevent early matches from masking subsequent forbidden terminology."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/verdict-provenance.ts:29 Returns explicit null for unrecorded legacy fields to distinguish unexamined properties from machine-evaluated ones."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:49 Exports structured draft-07 JSON Schema definitions to constrain LLM subagents at the generation boundary."
+    },
+    {
+     "technique": "gate-laddering",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:12 Partitions verification between automated pre-persistence gate rejection and post-persistence pending_review door human evaluation."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "quality-gates",
+   "context": "kg-graph-writers",
+   "reason": "conformant below the evidence floor: 12 distinct anchors for 27 techniques, 14 needed"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-12T19:27:40.075839+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "advancement-evidence-fields",
+    "enforcement-binding",
+    "fabrication-economics",
+    "false-positive-economics",
+    "gate-liveness",
+    "item-liveness",
+    "match-the-resolved-artifact",
+    "refusal-names-a-reachable-remedy",
+    "severity-by-construction",
+    "unmeasurable-criteria"
+   ],
+   "deviations": 1,
+   "context": "census-quality-gate",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-12T19:27:40.075839+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "blocking-by-input-determinism",
+    "enforcement-binding",
+    "excess-indicts-the-instrument",
+    "fabrication-economics",
+    "gate-laddering",
+    "gate-liveness",
+    "hook-hygiene",
+    "item-liveness",
+    "match-the-resolved-artifact",
+    "oracle-frozen-during-repair",
+    "policy-projection",
+    "refusal-names-a-reachable-remedy",
+    "severity-by-construction",
+    "unmeasurable-criteria",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 0,
+   "context": "scripts-quality-gates",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-12T19:27:40.075839+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "advancement-evidence-fields",
+    "blocking-by-input-determinism",
+    "chokepoint-tag-registry",
+    "excess-indicts-the-instrument",
+    "fabrication-economics",
+    "false-positive-economics",
+    "gate-laddering",
+    "match-the-resolved-artifact",
+    "oracle-frozen-during-repair",
+    "prose-rule-drift",
+    "refusal-names-a-reachable-remedy",
+    "self-reported-gate-inputs",
+    "shared-substrate-check-partition",
+    "unmeasurable-criteria"
+   ],
+   "deviations": 0,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-12T19:27:40.075839+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "advancement-evidence-fields",
+    "blocking-by-input-determinism",
+    "fabrication-economics",
+    "false-positive-economics",
+    "gate-laddering",
+    "item-liveness",
+    "match-the-resolved-artifact",
+    "policy-projection",
+    "prose-rule-drift",
+    "refusal-names-a-reachable-remedy",
+    "severity-by-construction",
+    "shared-substrate-check-partition",
+    "unmeasurable-criteria",
+    "unparseable-form-is-a-finding"
+   ],
+   "deviations": 0,
+   "context": "verdict-and-law-analysis",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}

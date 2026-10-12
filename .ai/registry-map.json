@@ -1905,7 +1905,11 @@
           "revision": 52,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "package.json:18 npm run check binds census:test and library:check but omits npm run census (run-census.mjs --check), leaving the census ratchet completely detached from the mandatory gating lane.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
+          "evaluatedRevision": 53
         },
         {
           "subject": "test-harness",
@@ -4934,7 +4938,11 @@
           "revision": 52,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:46 The effort scoring pipeline enforces strict separation between deterministic graph props and proposed enrichments while maintaining public copy and review rung rules.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
+          "evaluatedRevision": 53
         },
         {
           "subject": "agent-memory",
@@ -10524,7 +10532,11 @@
           "revision": 52,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/docs/self-test.mjs:17 The quality gates suite establishes verifiable multi-tier checks with live repository test harnesses, explicit skip classifications, and strict commit-message dismissal syntax.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
+          "evaluatedRevision": 53
         },
         {
           "subject": "docs-sync",
@@ -11714,7 +11726,11 @@
           "revision": 52,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "lib/analysis/verdict-provenance.ts:52 Verdict and law analysis features provide structured JSON schema enforcement, deterministic language gating, and multi-rung provenance tracking.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
+          "evaluatedRevision": 53
         },
         {
           "subject": "parliamentary-data-modeling",
