@@ -1807,7 +1807,11 @@
           "revision": 24,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/apply-batch.test.ts:222 The test claiming that an open stake outranks a later closed stake filters its closed row out for lacking a numeric share, leaving the claimed winner decision untested.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:5521806124d93882",
+          "evaluatedRevision": 26
         },
         {
           "subject": "agent-memory",
@@ -10734,7 +10738,11 @@
           "revision": 24,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/shared/components/verdictProvenance.test.ts:11 The test claims coverage of every verdict rung while iterating a handwritten non-exhaustive typed array, so extending the union need not extend the tested population.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:5521806124d93882",
+          "evaluatedRevision": 26
         },
         {
           "subject": "prompt-assembly",
@@ -11394,7 +11402,11 @@
           "revision": 24,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/pglite-fixture.ts:65 Fixture handoff checks file counts and aggregate sizes but does not query each copied database before returning it, omitting the standard's usability probe.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:5521806124d93882",
+          "evaluatedRevision": 26
         },
         {
           "subject": "conformance-checking",
@@ -11560,7 +11572,11 @@
           "revision": 24,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/flake/registry.ts:16 The registry explicitly leaves labeling manual, so detection does not implement the standard's automatic, reversible label lifecycle.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:5521806124d93882",
+          "evaluatedRevision": 26
         },
         {
           "subject": "test-input-generation",

@@ -1,0 +1,197 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-10-12T20:55:59.230909+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "testing-core",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/pglite-fixture.ts:65 Fixture handoff checks file counts and aggregate sizes but does not query each copied database before returning it, omitting the standard's usability probe.",
+   "techniques": [
+    {
+     "technique": "derived-selection-must-be-measured",
+     "verdict": "conformant",
+     "evidence": "lib/testing/contextMapRefs.test.ts:60 The derived reference walk has a committed selection floor before its clean-result assertion."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "deviation",
+     "evidence": "lib/testing/pglite-fixture.ts:65 The fingerprinted template is useful, but each copy is handed off after structural checks without the required query proving usability."
+    },
+    {
+     "technique": "gate-scope-is-not-report-scope",
+     "verdict": "conformant",
+     "evidence": "lib/testing/revalidateParity.test.ts:25 For this uniformity check, membership comes from declarations discovered across app sources rather than a handwritten route list."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "lib/testing/archivedScripts.test.ts:146 An explicitly offending fixture exercises the same predicate used by the archive scan; neighboring assertions distinguish an actual reference from prose."
+    },
+    {
+     "technique": "suite-partitioning",
+     "verdict": "deviation",
+     "evidence": "lib/testing/lane-partition.test.ts:54 The exhaustiveness guard synthesizes unit membership as the complement instead of reading actual configuration membership, so narrowing a config can escape this assertion."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "lib/testing/civicFeedRouteSource.test.ts:32 The search-param check pins the helper's import, not adoption at the call site; removing its use while retaining the import leaves this assertion satisfied."
+    }
+   ]
+  },
+  {
+   "context": "testing-flake-sentinel",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/flake/registry.ts:16 The registry explicitly leaves labeling manual, so detection does not implement the standard's automatic, reversible label lifecycle.",
+   "techniques": [
+    {
+     "technique": "flake-lifecycle",
+     "verdict": "deviation",
+     "evidence": "lib/testing/flake/registry.ts:16 Detection and expiring quarantine exist, but automatic label application and removal are explicitly absent; human quarantine approval does not excuse manual labeling."
+    },
+    {
+     "technique": "history-driven-partitioning",
+     "verdict": "deviation",
+     "evidence": "lib/testing/flake/history.ts:53 Duration ordering uses retained measurements, but history identity is the path and test name, so renaming either resets history contrary to the standard's identity requirement."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "lib/testing/sentinel/sentinel.test.ts:301 The fixture receives a real orphan edge and the test requires precisely that invariant to fire, checking the corruption and its diagnosis."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "lib/testing/sentinel/sentinelSource.test.ts:16 The bare helper name is satisfied by an import or prose and does not establish the tally call claimed by the surrounding describe block."
+    }
+   ]
+  },
+  {
+   "context": "shared-components",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/shared/components/verdictProvenance.test.ts:11 The test claims coverage of every verdict rung while iterating a handwritten non-exhaustive typed array, so extending the union need not extend the tested population.",
+   "techniques": [
+    {
+     "technique": "gate-scope-is-not-report-scope",
+     "verdict": "deviation",
+     "evidence": "features/shared/components/verdictProvenance.test.ts:11 VerdictRung[] validates listed members but does not require every union member; the test's 'every rung' claim therefore exceeds its enforced denominator."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "features/shared/components/sourceNoteMode.test.ts:2 The extracted citation rule is tested directly, but no adoption assertion for SourceNote.tsx was found; replacing its citationMode call would leave these helper tests unchanged."
+    }
+   ]
+  },
+  {
+   "context": "case-loops-core",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/apply-batch.test.ts:222 The test claiming that an open stake outranks a later closed stake filters its closed row out for lacking a numeric share, leaving the claimed winner decision untested.",
+   "techniques": [
+    {
+     "technique": "fixture-economics",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/apply-batch.test.ts:21 One mutable database is reused across tests with a manually maintained table-deletion reset, instead of a private template copy discarded whole per test."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/apply-batch.test.ts:175 A deliberately lying deletion-store fixture must trigger the specific refusal, and the armed allowlist is restored in finally."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/apply-batch.test.ts:222 apply-batch.ts:203 excludes this closed row before winner selection; the named open-versus-closed protection therefore sees only one surviving stake."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "eslint-plugin-civic-transparency-tests",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-12T20:55:59.230909+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "derived-selection-must-be-measured",
+    "fixture-economics",
+    "gate-scope-is-not-report-scope",
+    "negative-control-tests",
+    "suite-partitioning",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "testing-core",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-12T20:55:59.230909+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "flake-lifecycle",
+    "history-driven-partitioning",
+    "negative-control-tests",
+    "pin-the-call-not-the-name"
+   ],
+   "deviations": 1,
+   "context": "testing-flake-sentinel",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-12T20:55:59.230909+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "gate-scope-is-not-report-scope",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "shared-components",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-12T20:55:59.230909+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "fixture-economics",
+    "negative-control-tests",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "case-loops-core",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
