@@ -428,6 +428,47 @@
           "evidence": "scripts/case-loops/apply-batch.test.ts:222 apply-batch.ts:203 excludes this closed row before winner selection; the named open-versus-closed protection therefore sees only one surviving stake."
         }
       ]
+    },
+    "747db329-14c0-47a7-b8b5-eaf8095b9fdb/agent-memory": {
+      "context": "effort-scoring-tools",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T21:56:37.588Z",
+      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+      "techniques": [],
+      "registryProposal": "The subject assumes a runtime belief pipeline. A markdown lesson index (MEMORY.md) and a civic dossier review rung are both outside that pipeline, and this subject has no technique that says so."
+    },
+    "78e81519-5df8-43ec-adb6-ba4dae3ea206/agent-memory": {
+      "context": "census-quality-gate",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T21:56:37.588Z",
+      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+      "techniques": []
+    },
+    "1e6194ec-5275-4cfd-b045-c0604ab491e2/agent-memory": {
+      "context": "kg-graph-writers",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T21:56:37.588Z",
+      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+      "techniques": []
+    },
+    "5a54b236-a7d7-47c5-aaeb-e663266033e7/agent-memory": {
+      "context": "db-pglite-engine",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T21:56:37.588Z",
+      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+      "techniques": []
     }
   }
 }
