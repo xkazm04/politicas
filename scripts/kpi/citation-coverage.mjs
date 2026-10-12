@@ -79,6 +79,7 @@ const figures = { cited: 0, declared: 0, uncited: 0 };
 const files = { cited: 0, declared: 0, uncited: 0 };
 const uncitedFiles = [];
 const declaredFiles = [];
+const censusFiles = new Set(); // files where the rule's triggers classified at least one figure
 
 for (const result of results) {
   const rows = result.messages.filter((m) => m.ruleId === RULE);
@@ -98,6 +99,7 @@ for (const result of results) {
 
   // A file is counted at its WORST state: one uncited figure makes the file
   // uncited however many cited ones sit beside it.
+  censusFiles.add(result.filePath.replaceAll("\\", "/").replace(process.cwd().replaceAll("\\", "/") + "/", ""));
   const worst = states.has("uncited") ? "uncited" : states.has("declared") ? "declared" : "cited";
   files[worst] += 1;
   const rel = result.filePath.replace(process.cwd() + "\\", "").replace(process.cwd() + "/", "");
@@ -160,6 +162,7 @@ function subtreeHasDate(node) {
 
 const dated = { dated: 0, undated: 0, byReceipt: 0, byDateInSubtree: 0 };
 const byElement = {};
+const satisfierFiles = new Map(); // file -> Set of citation element names it RENDERS (real JSX, not a comment or a string)
 const undatedFiles = new Map();
 for (const root of TARGETS) {
   for (const file of walkSources(root)) {
@@ -173,6 +176,9 @@ for (const root of TARGETS) {
         const attrs = attrNames(opening);
         const isSatisfier = SATISFIERS.has(name) || (name === "PosterFrame" && attrs.includes("citation"));
         if (isSatisfier) {
+          const relFile = relative(process.cwd(), file).replaceAll("\\", "/");
+          if (!satisfierFiles.has(relFile)) satisfierFiles.set(relFile, new Set());
+          satisfierFiles.get(relFile).add(name);
           const byReceipt = attrs.includes("provenance") || attrs.includes("citation") || attrs.includes("receipt");
           const isDated = byReceipt || subtreeHasDate(n);
           const row = (byElement[name] ??= { dated: 0, undated: 0 });
@@ -196,6 +202,20 @@ for (const root of TARGETS) {
 }
 const totalSatisfiers = dated.dated + dated.undated;
 
+// ── the denominator's blind side ─────────────────────────────────────────
+// A file that renders a citation element but in which the triggers classified no
+// figure. The census can only count what the triggers see (precision over recall),
+// so "100 % of files" is a ratio over a LOWER BOUND; this is the size of the part
+// it cannot see. docs/kpi-meters.md ("Denominator audit") classifies why.
+// A file whose ONLY citation element is <DataUnavailable> renders an honest empty/error
+// state, not a figure someone could cite, so it is counted apart instead of inflating the gap.
+const unclassified = [...satisfierFiles].filter(([f]) => !censusFiles.has(f));
+const unclassifiedCitedFiles = unclassified
+  .filter(([, names]) => [...names].some((n) => n !== "DataUnavailable"))
+  .map(([f]) => f)
+  .sort();
+const dataUnavailableOnlyFiles = unclassified.length - unclassifiedCitedFiles.length;
+
 const report = {
   measuredAt: new Date().toISOString().slice(0, 10),
   scope: "app/** + features/** + components/**, minus features/labs/**",
@@ -207,6 +227,8 @@ const report = {
   citedOnlyPctFigures: pct(figures.cited, totalFigures),
   uncitedFiles,
   declaredFiles,
+  unclassifiedCitedFiles,
+  dataUnavailableOnlyFiles,
   dated: {
     satisfierElements: totalSatisfiers,
     dated: dated.dated,
@@ -239,6 +261,9 @@ if (asJson) {
       `${d.datedByReceiptProp} by receipt prop, ${d.datedByDateInSubtree} by a date in the element, ${d.undated} undated`,
   );
   console.log(`               (syntactic, own-subtree only; no target is set for this number)`);
+  console.log(
+    `  BLIND SIDE   ${unclassifiedCitedFiles.length} more files render a citation element but no figure the triggers classify (plus ${dataUnavailableOnlyFiles} that only render an empty state) — the file ratio above is a lower bound (--json lists them)`,
+  );
   if (uncitedFiles.length) {
     console.log(`  uncited files:`);
     for (const f of uncitedFiles) console.log(`    ${f}`);
