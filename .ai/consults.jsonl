@@ -179,3 +179,4 @@
 {"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"app-utilities","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
 {"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"shell-navigation","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
 {"ts":"2026-10-12T23:01:40.740445+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"civic-inbox","via":"curator-multi:agy","model":"gemini-3.8-flash-high"}
+{"ts":"2026-10-12T23:03:05Z","bundle":"software-engineering","subjects":["eval-harness","knowledge-registry"],"techniques":[],"deviations":0,"outcome":"missed","from":"consult-check"}
