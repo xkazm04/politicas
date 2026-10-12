@@ -164,7 +164,7 @@ export default function NodeSearch({
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm font-medium">{hit.label}</span>
                     <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-                      {/* citation-ok: [verified 2026-10-11] stupeň uzlu je vlastnost PRÁVĚ VYKRESLENÉHO
+                      {/* citation-ok(parent=features/graph/GraphPage.tsx, key=counts): [verified 2026-10-11] stupeň uzlu je vlastnost PRÁVĚ VYKRESLENÉHO
                           grafu — kolik hran načtený výřez u toho uzlu drží — ne
                           tvrzení o světě, které by šlo ocitovat samostatně.
                           Provenienci grafu nese plocha nad tímhle polem

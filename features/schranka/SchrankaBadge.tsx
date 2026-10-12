@@ -27,7 +27,7 @@ export default function SchrankaBadge() {
           className="border border-signal-deep px-1.5 font-mono text-[11px] font-bold tabular-nums text-signal-deep"
           aria-label={t("badge.ariaLabel", { count: f.int(count) })}
         >
-          {/* citation-ok: [verified 2026-10-11] odznak je počet položek UI; citaci zdrojů nese plocha /schranka, kam řádek lišty vede */}
+          {/* citation-ok(parent=features/schranka/SchrankaPage.tsx, key=followed.asideLoaded): [verified 2026-10-11] odznak je počet položek UI; citaci zdrojů nese plocha /schranka, kam řádek lišty vede */}
           {f.int(count)}
         </span>
       )}

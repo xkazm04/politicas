@@ -61,7 +61,7 @@ export default function FeedPanelShell({
           <span className="font-mono text-[11px] uppercase tracking-widest text-steel">
             {/* Počet řádků okna. Citaci sází panel do patičky (`footer`) — jen ten
                 ví, jestli počítá reálnou knihu faktů, nebo označený vzorek. */}
-            {/* citation-ok: [verified 2026-10-11] citace je v `footer` panelu, který ten počet vlastní */}
+            {/* citation-ok(key=footer): [verified 2026-10-11] citace je v `footer` panelu, který ten počet vlastní */}
             {tf("matchCount", { count: f.int(matchCount), total: f.int(total) })}
           </span>
           {headerLink}
@@ -79,7 +79,7 @@ export default function FeedPanelShell({
           <span className="min-w-0 truncate font-mono text-[11px] font-bold uppercase tracking-widest text-signal">
             {tf("filteredTo", { label: filterLabel ?? "" })}{" "}
             <span className="sr-only">
-              {/* citation-ok: [verified 2026-10-11] týž počet jako v hlavičce; citace je v `footer` panelu */}
+              {/* citation-ok(key=footer): [verified 2026-10-11] týž počet jako v hlavičce; citace je v `footer` panelu */}
               {tf("matchCount", { count: f.int(matchCount), total: f.int(total) })}
             </span>
           </span>

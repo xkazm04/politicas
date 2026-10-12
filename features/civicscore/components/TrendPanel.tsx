@@ -32,7 +32,7 @@ function Delta({ value, suffix = "" }: { value: number | null; suffix?: string }
   return (
     <span className={`inline-flex items-center gap-1 font-mono text-sm font-bold tabular-nums ${cls}`}>
       <Icon className="h-3.5 w-3.5" aria-hidden />
-      {/* citation-ok: [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
+      {/* citation-ok(key=trendSource): [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
       {`${value > 0 ? "+" : ""}${f.dec(value)}`}
       {suffix}
     </span>
@@ -87,7 +87,7 @@ export default function TrendPanel({
         {trend.complete && trend.scoreDelta !== null ? (
           <div className="flex items-baseline gap-3">
             <span className="font-mono text-[11px] uppercase tracking-wider text-steel">
-              {/* citation-ok: [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
+              {/* citation-ok(key=trendSource): [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
               {trend.priorTerm} {f.dec(trend.priorScore ?? 0)} → {f.dec(trend.currentScore)}
             </span>
             <Delta value={trend.scoreDelta} suffix={` ${tcom("pts")}`} />
@@ -108,7 +108,7 @@ export default function TrendPanel({
             </span>
             <span className="flex items-center gap-3">
               <span className="font-mono text-xs tabular-nums text-steel">
-                {/* citation-ok: [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
+                {/* citation-ok(key=trendSource): [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
                 {f.dec(c.prior ?? 0)} → {f.dec(c.current)}
               </span>
               <Delta value={c.delta} />
@@ -129,7 +129,7 @@ export default function TrendPanel({
             <p className="mt-1 font-mono text-lg font-black tabular-nums">
               {/* Počty jdou formátovací autoritou (lib/format): vystoupení v sále
                   přesahují tisíc a Čech čte „1 234", ne „1234" (2026-09-05). */}
-              {/* citation-ok: [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
+              {/* citation-ok(key=trendSource): [verified 2026-10-11] zdrojovou větu (trendSource/trendSourcePass, psp.cz) tiskne patička panelu */}
               {f.int(s.v.prior)} <span className="text-steel">→</span> {f.int(s.v.current)}
             </p>
           </div>
@@ -144,7 +144,7 @@ export default function TrendPanel({
 
       <p className="mt-3 font-mono text-[10px] uppercase tracking-widest text-steel">
         {typeof trend.provenance?.pass === "number" && Number.isFinite(trend.provenance.pass)
-          ? // citation-ok: [verified 2026-10-11] tento řádek JE zdrojová věta panelu (psp.cz + průchod grafu)
+          ? // citation-ok(key=trendSource): [verified 2026-10-11] tento řádek JE zdrojová věta panelu (psp.cz + průchod grafu)
             t("trendSourcePass", { term: trend.priorTerm, pass: f.int(trend.provenance.pass) })
           : t("trendSource", { term: trend.priorTerm })}
       </p>
