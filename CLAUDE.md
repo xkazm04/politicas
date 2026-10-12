@@ -106,7 +106,13 @@ npm run typecheck    # tsc --noEmit
 npm run lint         # eslint incl. the 8 custom rules (see below)
 npm run test         # vitest (lib/**, features/**, scripts/**, packages/*/src/**)
 npm run build        # production build
+npm run kpi:citations # METER, not a gate: citation coverage with a denominator
+npm run kpi:verify    # METER: every check stage run independently + pass rate
 ```
+
+The two `kpi:*` commands are meters, deliberately outside the gate — both gates
+report failures only, so neither can produce a ratio (`docs/kpi-meters.md` has
+the reasoning, the baselines and what they still cannot see).
 
 Store housekeeping, none of it in the gate (they touch the data dir, not the
 code): `npm run db:backup` (CHECKPOINT + copy, pruned to the last N),
@@ -159,9 +165,11 @@ the config):
   `lib/format.ts`. `error` under `app/**` AND `features/**` since 2026-08-24
   (measured 0 violations repo-wide; the ratchet graduated)
 - `custom/require-source-citation` — every rendered figure's file carries a
-  provenance element. `error` under `app/**`; still `warn` under `features/**`
-  while 11 measured violations burn down (2026-08-24), in three files named in
-  `eslint.config.mjs`
+  provenance element. `error` under `app/**`, `features/**` AND `components/**`
+  since the second ratchet closed 2026-08-24 (off under `features/labs/**`); the
+  11-violation inventory it was warning against is gone, measured 0. It also
+  takes `{ census: true }`, which reports every rendered figure cited or not —
+  that is where `npm run kpi:citations` gets a denominator the gate cannot give
 - `custom/no-source-note-size-override` — no font-size utility in a
   `<SourceNote>` className; the citation primitive sets its own size by
   measuring its children (`docs/DESIGN.md` §3). `error` under `app/**` AND
@@ -198,10 +206,14 @@ is not green.
       `reportLoaderFailure()` (`lib/db/loaderGuard.ts`), and the surface shows
       a labelled mock or an honest empty state (`DataUnavailable`) — never
       plausible fiction presented as real.
-- [ ] The nine custom ESLint rules pass **unsuppressed** — and that includes
-      the warn-level `custom/require-source-citation` under `features/**`: its
-      count may go down, never up. Fix the code; do not disable a rule, add an
-      `eslint-disable`, or widen an exemption zone in `eslint.config.mjs`.
+- [ ] The nine custom ESLint rules pass **unsuppressed** — all nine at `error`
+      on the reader-facing tree, all nine measured at 0. Fix the code; do not
+      disable a rule, add an `eslint-disable`, or widen an exemption zone in
+      `eslint.config.mjs`. Citation coverage additionally has a meter with a
+      denominator (`npm run kpi:citations`, baseline in `docs/kpi-meters.md`):
+      a change that adds an uncited figure fails the gate, and a change that
+      adds a `// citation-ok:` instead of a source moves the meter without
+      failing anything — read both.
 - [ ] Colors come from `app/globals.css` tokens; Czech display numbers go
       through `lib/format.ts`; new reusable widgets went into
       `features/shared/components/` with a `@catalog` line.
@@ -248,7 +260,7 @@ not derivable in ten seconds from `docs/` — no filler, no restating the docs.
 <!-- personas:context-map:start -->
 ## Project Context Map
 
-This project is organized into **49 contexts** across **10 groups**. The full machine-readable map lives in `context-map.json` at the project root — read it at task start to scope your edits to the relevant context's files.
+This project is organized into **50 contexts** across **10 groups**. The full machine-readable map lives in `context-map.json` at the project root — read it at task start to scope your edits to the relevant context's files.
 
 Taxonomy: each context has a `category` (ui · api · lib · data · test · config); each group has a `domain` (feature · infrastructure · shared · integration · data).
 
@@ -261,7 +273,7 @@ Taxonomy: each context has a `category` (ui · api · lib · data · test · con
 - **Data Ingestion** _(domain: integration · 10 contexts)_
 - **Data Layer** _(domain: data · 2 contexts)_
 - **Shared UI Primitives** _(domain: shared · 3 contexts)_
-- **Infrastructure & Observability** _(domain: infrastructure · 9 contexts)_
+- **Infrastructure & Observability** _(domain: infrastructure · 10 contexts)_
 - **Knowledge Graph Explorer** _(domain: feature · 1 contexts)_
 - **Civic Feed & Transparency** _(domain: feature · 4 contexts)_
 

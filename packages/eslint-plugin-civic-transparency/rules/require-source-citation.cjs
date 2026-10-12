@@ -70,6 +70,20 @@
  * cannot see a citation living in a DIFFERENT file (parent component) — that
  * is what `// citation-ok:` is for. Severity is `warn` repo-wide until the
  * inventory is burned down (eslint.config.mjs).
+ *
+ * ── Census mode (option `{ census: true }`, 2026-09-14) ──────────────────
+ * The gate reports only FAILURES, so it can say "0 uncited figures" but never
+ * "0 out of how many" — there was no denominator anywhere in the repo, and a
+ * coverage RATIO cannot be computed from a violation count. Census mode reports
+ * EVERY rendered figure the triggers see, cited or not, tagging each with the
+ * state that decided it (`cited` — a satisfier in the file; `declared` — a
+ * `citation-ok:` annotation; `uncited` — neither). Same triggers, same
+ * satisfiers, one implementation: the census and the gate cannot disagree about
+ * what a rendered figure is, which is the whole point of not writing a second
+ * scanner beside this one.
+ *
+ * Nothing in eslint.config.mjs passes the option, so the gate's behaviour is
+ * byte-identical without it. The consumer is scripts/kpi/citation-coverage.mjs.
  */
 
 const NUMERIC_MEMBER_FORMATTERS = new Set(["dec", "int", "czk"]);
@@ -211,11 +225,19 @@ module.exports = {
       brokenDelegation:
         "`citation-ok` names a delegated citation that no longer checks out: {{reason}}. " +
         "The figure is uncited until the citation is restored or the annotation is corrected.",
+      censusFigure: "Rendered figure ({{state}}).",
     },
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: { census: { type: "boolean" } },
+        additionalProperties: false,
+      },
+    ],
   },
   create(context) {
     const sourceCode = context.sourceCode || context.getSourceCode();
+    const census = context.options[0] != null && context.options[0].census === true;
 
     let hasChokepointImport = false;
     const importedFormatterNames = new Set();
@@ -300,13 +322,16 @@ module.exports = {
         }
         if (!isFigure) return;
         if (!isJsxChildExpression(node)) return;
+        // The opt-out is RECORDED, not filtered out: the gate skips a verified one
+        // (below), but a `citation-ok` site is still a rendered figure and belongs in the
+        // census denominator — it is a citation declared to live elsewhere, not
+        // the absence of one. `optOut` is { ok, reason } or null.
         const optOut = inlineOptOut(node);
-        if (optOut && optOut.ok) return;
         candidates.push({
           node,
           kind: isFigure,
           name: callee.type === "Identifier" ? callee.name : null,
-          broken: optOut ? optOut.reason : null,
+          optOut,
         });
       },
       JSXOpeningElement(node) {
@@ -315,10 +340,7 @@ module.exports = {
         // <PosterFrame citation={…}> — the prop is the evidence, not the name.
         if (name === CITATION_PROP_SATISFIER && hasCitationProp(node)) fileSatisfied = true;
         if (name === "AnimatedScore") {
-          const optOut = inlineOptOut(node);
-          if (!(optOut && optOut.ok)) {
-            candidates.push({ node, kind: "element", name, broken: optOut ? optOut.reason : null });
-          }
+          candidates.push({ node, kind: "element", name, optOut: inlineOptOut(node) });
         }
       },
       JSXAttribute(node) {
@@ -327,11 +349,21 @@ module.exports = {
         }
       },
       "Program:exit"() {
-        if (fileSatisfied) return;
-        for (const { node, kind, name, broken } of candidates) {
+        if (!census && fileSatisfied) return;
+        for (const { node, kind, name, optOut } of candidates) {
+          // Trigger gating is shared by both modes: a formatter call the file
+          // never imported from the chokepoint was never a figure at all, so it
+          // is no more a census row than it is a violation.
           if (kind === "member" && !hasChokepointImport) continue;
           if (kind === "named" && !importedFormatterNames.has(name)) continue;
-          if (broken) context.report({ node, messageId: "brokenDelegation", data: { reason: broken } });
+          if (census) {
+            // Only a VERIFIED citation-ok counts as declared; a broken delegation is uncited.
+            const state = fileSatisfied ? "cited" : optOut && optOut.ok ? "declared" : "uncited";
+            context.report({ node, messageId: "censusFigure", data: { state } });
+            continue;
+          }
+          if (optOut && optOut.ok) continue;
+          if (optOut) context.report({ node, messageId: "brokenDelegation", data: { reason: optOut.reason } });
           else context.report({ node, messageId: "uncitedFigure" });
         }
       },

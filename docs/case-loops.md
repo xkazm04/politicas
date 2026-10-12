@@ -732,3 +732,23 @@ the test then caught that the „státní" keyword was written with an ASCII `\b
 diacritic, so „státní podnik" in a company graph_fact claim never raised the scope
 warning (only „státním" did). It uses Unicode boundaries now — a warning, not a hard gate,
 so no persisted verdict changes; the 27 gated verdicts were not re-run here.
+
+**2026-10-10 (registry apply, amendment-instruction-grammar).** `collision-core.ts`'s
+instruction grammar was re-run against the 141 prints, re-fetched into a scratch cache. HEAD's
+grammar reproduced the batch-016 census exactly (3166 of 3166 pairs), and was then compared
+with a revised grammar on the same texts. Five changes, each pinned by a clause from a real
+print in `instructionGrammar.test.ts`:
+- The insertion rule now lives in the grammar. „Za § N se vkládá nový § M" makes § N an anchor
+  and § M created (`insertionTargets`, `instructionRole`). The batch-017 census applied this as a
+  private data correction (333); the shared rule demotes 93 anchors and credits 242 inserted §§.
+  Two bills creating the same new § now collide, e.g. tisk 4 and 112 on § 31a of 117/1995.
+- New forms read as instructions: „§ 416 se včetně nadpisu zrušuje", „§ 30 odst. 1 zní:",
+  ranges („§ 280 až 282 se zrušují"), and joint clauses („V § 199 odst. 1 a v § 303 odst. 1 se …").
+  Together they make 227 more pairs operative; every sampled one was a genuine instruction.
+- The grammar is case-sensitive. Under `/i`, „uvedených\nv § 77" was an instruction whenever
+  a layout line break preceded the „v" (8 pairs, all citations; the batch-016 audit's item 16).
+- `targetedScope` keeps whole-§ / named odstavce / unresolved apart and marks paragraph
+  renumbering as `positional`. Pairs with an undecidable paragraph overlap went from 114 of 326
+  to 44 of 341.
+- Live callers: none. Every caller of the grammar is under `archive/`; the durable
+  `collision-check.ts` still compares raw § tokens. The next collision batch has to wire it in.

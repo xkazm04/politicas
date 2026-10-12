@@ -58,6 +58,7 @@ const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x)
 export const PROFILE_ALLY_ROWS = 8;
 
 import type { CoVoter, Rebellion, CommitteeSeat, SponsoredBill, RapporteurBill, BillEngagement, ProfileData } from "./profileTypes";
+import { coVoteBaseline } from "./coVoteBaseline";
 
 // Re-exported so server-side importers (the page, DossierSection, tests) keep
 // reading every profile shape from the loader.
@@ -172,6 +173,8 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
     // holds for this MP after the malformed-id drop above, so the disclosure counts
     // rows the reader could otherwise have seen — never edges we refused to resolve.
     const coVoters = coVotersAll.slice(0, PROFILE_ALLY_ROWS);
+    // The reference the rates are read against, over the whole set, never the top rows.
+    const coVoteReference = coVoteBaseline(coVotersAll, person.clubAbbrev);
 
     // rebels_against — dst is the club/party node; its label is the club.
     const partyLabelById = new Map(incidentNodes.filter((n) => n.kind === "party").map((p) => [p.id, p.label]));
@@ -610,6 +613,7 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       legibility,
       coVoters,
       coVotersTotal: coVotersAll.length,
+      coVoteReference,
       rebellions,
       committees,
       seatsAsOf,
