@@ -5018,7 +5018,11 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/effort/psp9-contribution.ts:110 A cached ZIP lacking its required UNL members can normalize successfully to empty activity and then zero counts, so decoding success does not establish that the scoring payload was present.",
+          "evaluatedAt": "2026-10-12",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "eval-harness",

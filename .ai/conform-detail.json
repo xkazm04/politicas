@@ -524,6 +524,27 @@
       "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
       "techniques": [],
       "registryProposal": "The mcp-tools standard applies to tool servers and client integrations; unauthenticated client-side local storage follow lists and RSS feeds do not implement tool protocols."
+    },
+    "747db329-14c0-47a7-b8b5-eaf8095b9fdb/supply-chain": {
+      "context": "effort-scoring-tools",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-12",
+      "evaluatedTs": "2026-10-12T23:56:34.451Z",
+      "worker": "0bfcdee9-c117-4cee-aa91-f256f5c98c2d",
+      "techniques": [
+        {
+          "technique": "archive-extraction-safety",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/psp9-contribution.ts:110 Traced to lib/ingest/sources/psp-activity.ts:262–276 and lib/ingest/unlMembers.ts:16: missing expected members yield [], without the required payload sentinel; psp9-contribution.ts:135 substitutes emptyCounts()."
+        },
+        {
+          "technique": "unsafe-deserialization-off-by-default",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:208 The scoring proposal payload uses data-only JSON parsing without object-construction instructions or a permissive loading option."
+        }
+      ]
     }
   }
 }

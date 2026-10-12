@@ -1,0 +1,68 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0bfcdee9-c117-4cee-aa91-f256f5c98c2d",
+ "subject": "supply-chain",
+ "evaluatedAt": "2026-10-12T23:56:34.451149+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "effort-scoring-tools",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/effort/psp9-contribution.ts:110 A cached ZIP lacking its required UNL members can normalize successfully to empty activity and then zero counts, so decoding success does not establish that the scoring payload was present.",
+   "techniques": [
+    {
+     "technique": "archive-extraction-safety",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/effort/psp9-contribution.ts:110 Traced to lib/ingest/sources/psp-activity.ts:262\u2013276 and lib/ingest/unlMembers.ts:16: missing expected members yield [], without the required payload sentinel; psp9-contribution.ts:135 substitutes emptyCounts()."
+    },
+    {
+     "technique": "unsafe-deserialization-off-by-default",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:208 The scoring proposal payload uses data-only JSON parsing without object-construction instructions or a permissive loading option."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "supply-chain",
+   "context": "law-archive-late",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "supply-chain",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "supply-chain",
+   "context": "kg-graph-writers",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "supply-chain",
+   "context": "census-quality-gate",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-12T23:56:34.451149+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "archive-extraction-safety",
+    "unsafe-deserialization-off-by-default"
+   ],
+   "deviations": 1,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
