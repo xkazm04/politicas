@@ -172,3 +172,4 @@
 {"ts":"2026-10-12T21:56:37.588759+00:00","bundle":"software-engineering","subjects":["agent-memory"],"techniques":[],"deviations":0,"context":"census-quality-gate","via":"curator-multi:grok","model":"grok-4.7"}
 {"ts":"2026-10-12T21:56:37.588759+00:00","bundle":"software-engineering","subjects":["agent-memory"],"techniques":[],"deviations":0,"context":"kg-graph-writers","via":"curator-multi:grok","model":"grok-4.7"}
 {"ts":"2026-10-12T21:56:37.588759+00:00","bundle":"software-engineering","subjects":["agent-memory"],"techniques":[],"deviations":0,"context":"db-pglite-engine","via":"curator-multi:grok","model":"grok-4.7"}
+{"ts":"2026-10-12T21:57:47Z","bundle":"software-engineering","subjects":["eval-harness","knowledge-registry"],"techniques":[],"deviations":0,"outcome":"missed","from":"consult-check"}
