@@ -1302,6 +1302,176 @@
         "at": "2026-10-13T08:37:18.571487+00:00",
         "reason": "reviewer (sonnet): The anchor at run-census.mjs:67 is a bare import and incidental: it does not show the absence of an agent runtime, and the grep terms were not shown to be the right ones."
       }
+    },
+    "61b546ac-220d-425f-ad42-8e39576b3784/docs-sync": {
+      "context": "scripts-quality-gates",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:13:16.113Z",
+      "worker": "9a2a4bd5-150d-49ae-bbc8-5c3500427216",
+      "techniques": [
+        {
+          "technique": "same-change-enforcement",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:23 Enforces change-boundary coupling over git diffs, rejects prefix satisfaction in favor of named target docs, and verifies structured Doc-sync dismissal trailers with reasons."
+        },
+        {
+          "technique": "checked-vs-skipped-denominators",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:164 Distinguishes checked, drifted, and 4 skip reason classes, prints skips at zero, exits 2 on empty denominator, and embeds populations in JSON output."
+        },
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:444 Validates that every mapped doc exists and each sourceGlob matches live files, while checking coverage against context-map.json contexts."
+        },
+        {
+          "technique": "source-as-data-without-the-app",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:369 Standalone Node script reads coupling configuration directly as JSON data without importing application code or bundlers."
+        },
+        {
+          "technique": "named-duplication-points",
+          "verdict": "conformant",
+          "evidence": "scripts/sentinel/run.test.ts:15 Mechanical test verifies that runner header text does not duplicate the dynamic invariant count from SENTINEL_CHECK_ORDER."
+        },
+        {
+          "technique": "catch-up-markers",
+          "verdict": "deviation",
+          "evidence": "scripts/docs/check-doc-sync.mjs:127 The checker provides no batch catch-up pass or marker recording the last full pass anchor, covered topics, and deliberately skipped debts."
+        },
+        {
+          "technique": "cross-repo-drift-detection",
+          "verdict": "not-applicable",
+          "evidence": "scripts/docs/check-doc-sync.mjs:143 Documentation and application source reside in the same monorepo tree."
+        },
+        {
+          "technique": "translations-drift-against-the-product",
+          "verdict": "not-applicable",
+          "evidence": "scripts/docs/check-doc-sync.mjs:630 Documentation is monolingual with no localized doc tree."
+        },
+        {
+          "technique": "rendered-surface-coupling",
+          "verdict": "not-applicable",
+          "evidence": "scripts/docs/check-doc-sync.mjs:631 The documentation corpus contains no rendered diagram figures or image rasterizations."
+        }
+      ]
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/docs-sync": {
+      "context": "civic-verification",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:13:16.113Z",
+      "techniques": [
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:2 Civic claim verification is an application domain service verifying external political claims, not codebase documentation."
+        },
+        {
+          "technique": "same-change-enforcement",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:29 VerdictKind models civic claim outcomes, not documentation change gate statuses."
+        },
+        {
+          "technique": "checked-vs-skipped-denominators",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:20 Imports runtime claim evaluation logic rather than documentation drift reporting denominators."
+        }
+      ],
+      "withdrawn": {
+        "worker": "9a2a4bd5-150d-49ae-bbc8-5c3500427216",
+        "state": "not-applicable",
+        "at": "2026-10-13T09:13:45.262843+00:00",
+        "reason": "reviewer (sonnet): docs/feature-doc-map.json couples features/overeni/** to docs/routes/overeni.md, so this context is mapped source that doc-sync governs; the not-applicable rests only on a vocabulary grep and an incidental header-comment anchor (verdict.ts:2)."
+      }
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/docs-sync": {
+      "context": "civic-fallback-data",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:13:16.113Z",
+      "techniques": [
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/data.ts:15 Sample data arrays provide civic score fallback values rather than docs-as-code mappings."
+        },
+        {
+          "technique": "same-change-enforcement",
+          "verdict": "not-applicable",
+          "evidence": "lib/claims/claim.ts:36 Claim defines rendered numeric citation metadata for application UI, not documentation debt collection."
+        },
+        {
+          "technique": "earned-verification-state",
+          "verdict": "not-applicable",
+          "evidence": "lib/claims/claim.ts:33 ClaimReviewStatus tracks human verification of political facts, not documentation freshness stamps."
+        }
+      ],
+      "withdrawn": {
+        "worker": "9a2a4bd5-150d-49ae-bbc8-5c3500427216",
+        "state": "not-applicable",
+        "at": "2026-10-13T09:13:45.292671+00:00",
+        "reason": "reviewer (sonnet): feature-doc-map.json has sourceGlobs on lib/civic/** and lib/civic/data.ts, so the context is coupled source and the not-applicable is contradicted; the anchors (claim.ts:36, data.ts:15) are incidental declarations."
+      }
+    },
+    "3e5e8c14-4e90-463a-a9c3-c3538c866bab/docs-sync": {
+      "context": "eslint-plugin-civic-transparency-tests",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:13:16.113Z",
+      "worker": "9a2a4bd5-150d-49ae-bbc8-5c3500427216",
+      "techniques": [
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:59 Derives rule-to-doc coupling by filesystem convention (rules/*.cjs to docs/rules/*.md) and asserts exact bijection with no omissions."
+        },
+        {
+          "technique": "same-change-enforcement",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:41 Checks only static filesystem existence of doc files during test runs, without inspecting git diffs to ensure rule updates modify the corresponding documentation in the same change."
+        },
+        {
+          "technique": "source-as-data-without-the-app",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:29 Tests evaluate the plugin directly in Node without bundler or Next.js application runtime dependencies."
+        }
+      ]
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/docs-sync": {
+      "context": "civic-feed-routes",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:13:16.113Z",
+      "techniques": [
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "not-applicable",
+          "evidence": "app/denik/feed.json/route.ts:27 Route handler serves RSS/JSON feeds for civic records; it maintains no documentation coupling."
+        },
+        {
+          "technique": "same-change-enforcement",
+          "verdict": "not-applicable",
+          "evidence": "app/denik/feed.json/route.ts:21 Implements HTTP error responses for API endpoints rather than change-boundary documentation enforcement."
+        }
+      ],
+      "withdrawn": {
+        "worker": "9a2a4bd5-150d-49ae-bbc8-5c3500427216",
+        "state": "not-applicable",
+        "at": "2026-10-13T09:13:45.317315+00:00",
+        "reason": "reviewer (sonnet): The map couples app/** globs (and features/denik/**, features/dukazy/**, features/schranka/**) to docs, so these route files fall under doc-sync coupling; the route.ts:27 anchor only shows a GET handler, not that the precondition is absent."
+      }
     }
   }
 }

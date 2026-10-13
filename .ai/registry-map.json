@@ -5588,7 +5588,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:41 The test runner verifies full rule-to-doc coverage by convention but lacks same-change enforcement over version-control diffs when rule implementations are modified.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "data-access",
@@ -10648,7 +10652,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/docs/check-doc-sync.mjs:127 While check-doc-sync.mjs enforces same-change coupling and honest denominators over feature-doc-map.json, it lacks a recovery lane and catch-up markers for batch repair passes.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "test-harness",
