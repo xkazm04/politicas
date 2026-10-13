@@ -60,6 +60,29 @@ describe("parseCandidates", () => {
   });
 });
 
+describe("schema drift is refused, not parsed", () => {
+  const header =
+    "VOLKRAJ;KSTRANA;PORCISLO;JMENO;PRIJMENI;TITULPRED;TITULZA;VEK;POVOLANI;BYDLISTEN;PSTRANA;NSTRANA;PLATNOST;POCHLASU;POCPROC;MANDAT;SKRUTINIUM;PORADIMAND;PORADINAHR";
+  const row = '10;22;3;"Josef";"Kott";"Ing.";"";54;"poslanec PSP ČR";"Olešná";768;768;"A";2026;1.94;"A";1;3;0';
+  it("throws when a column is inserted before the names", () => {
+    const ins = (l: string, v: string) => { const p = l.split(";"); p.splice(3, 0, v); return p.join(";"); };
+    expect(() => parseCandidates([ins(header, "POHLAVI"), ins(row, '"M"')].join("\n"))).toThrow(/schema drift.*JMENO.*POHLAVI/);
+  });
+  it("throws on a maintenance page or an empty body instead of returning no candidates", () => {
+    expect(() => parseCandidates("<html><body>Probíhá údržba</body></html>")).toThrow(/schema drift/);
+    expect(() => parseCandidates("")).toThrow(/schema drift/);
+  });
+  it("throws on a row cut short mid-download", () => {
+    expect(() => parseCandidates([header, row.slice(0, 40)].join("\n"))).toThrow(/truncated/);
+  });
+  it("tolerates a documented additive trailing column", () => {
+    expect(parseCandidates([header + ";NOVY", row + ";x"].join("\n"))).toHaveLength(1);
+  });
+  it("refuses a drifted party-list header", () => {
+    expect(() => parsePartyLists('X;KSTRANA;VSTRANA;NAZEVCELK;NAZEV_STRK;ZKRATKAK30;ZKRATKAK8\n9;1;1706;"a";"b";"c";"d"\n')).toThrow(/schema drift/);
+  });
+});
+
 describe("parsePartyLists", () => {
   it("parses the party/list registry keyed by the local KSTRANA id", () => {
     const body = 'KSTRANA;VSTRANA;NAZEVCELK;NAZEV_STRK;ZKRATKAK30;ZKRATKAK8\n1;1706;"Rebelové";"Rebelové";"Rebelové";"REB"\n';

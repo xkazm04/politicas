@@ -167,13 +167,42 @@ export interface CandidateRow {
   scrutiny: boolean;
 }
 
-/** `csv/psrk.csv` → typed candidate rows. Skips the header row. */
+/**
+ * The registry has no version and no changelog, and every field here is read by
+ * position, so a column inserted anywhere shifts every later one and still parses
+ * (an occupation read as an age, MANDAT read as 0). Pin the labelled prefix we read
+ * and refuse to parse on a mismatch. A documented additive trailing column is
+ * tolerated: the prefix is checked by label, the width by minimum.
+ * Verified against the live file 2026-07-25.
+ */
+export const CANDIDATE_HEADER = [
+  "VOLKRAJ", "KSTRANA", "PORCISLO", "JMENO", "PRIJMENI", "TITULPRED", "TITULZA", "VEK", "POVOLANI",
+  "BYDLISTEN", "PSTRANA", "NSTRANA", "PLATNOST", "POCHLASU", "POCPROC", "MANDAT", "SKRUTINIUM",
+] as const;
+export const PARTY_LIST_HEADER = ["KSTRANA", "VSTRANA", "NAZEVCELK", "NAZEV_STRK", "ZKRATKAK30", "ZKRATKAK8"] as const;
+
+/** Throws, naming expected versus actual labels only (no row values), when the header drifted. */
+export function assertHeader(rows: string[][], expected: readonly string[], what: string): void {
+  const actual = (rows[0] ?? []).map((c, i) => (i === 0 ? c.replace(/^\uFEFF/, "") : c).trim().toUpperCase());
+  const bad = expected.findIndex((label, i) => actual[i] !== label);
+  if (rows.length === 0 || bad !== -1) {
+    throw new Error(
+      `${what}: schema drift - expected header prefix [${expected.join(";")}], got [${actual.slice(0, expected.length + 2).join(";")}]` +
+        ` (${actual.length} columns). Re-verify the live file and update the pinned header before parsing.`,
+    );
+  }
+}
+
+/** `csv/psrk.csv` → typed candidate rows. Skips the header row; throws on a drifted header or a truncated row. */
 export function parseCandidates(csvBody: string): CandidateRow[] {
   const rows = parseCsv(csvBody);
-  if (rows.length === 0) return [];
+  assertHeader(rows, CANDIDATE_HEADER, "volby psrk.csv");
   const out: CandidateRow[] = [];
   for (const r of rows.slice(1)) {
-    if (r.length < 16) continue; // short/blank trailing row
+    if (r.every((c) => c.trim() === "")) continue; // blank trailing row
+    if (r.length < CANDIDATE_HEADER.length) {
+      throw new Error(`volby psrk.csv: row has ${r.length} cells, expected at least ${CANDIDATE_HEADER.length} (truncated download?)`);
+    }
     const firstName = r[3]?.trim() ?? "";
     const lastName = r[4]?.trim() ?? "";
     if (!firstName && !lastName) continue;
@@ -214,7 +243,7 @@ export interface PartyListRow {
 /** `csv/psrkl.csv` → party/list registry rows, keyed by the local KSTRANA id. */
 export function parsePartyLists(csvBody: string): PartyListRow[] {
   const rows = parseCsv(csvBody);
-  if (rows.length === 0) return [];
+  assertHeader(rows, PARTY_LIST_HEADER, "volby psrkl.csv");
   const out: PartyListRow[] = [];
   for (const r of rows.slice(1)) {
     const kStrana = n(r[0]);
