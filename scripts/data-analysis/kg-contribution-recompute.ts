@@ -54,6 +54,7 @@ import { isoDay } from "@/lib/analysis/money-feed";
 import { staleScoreWarnings } from "@/lib/analysis/score-citations";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { getStore } from "@/lib/db/store";
+import { PRESENT_CHOICES } from "@/lib/ingest/normalize";
 import type { KgNodeRow } from "@/lib/db/types";
 
 function arg(name: string, fallback = ""): string {
@@ -67,7 +68,7 @@ const round1 = (x: number) => Math.round(x * 10) / 10;
 const num = (x: unknown): number => (typeof x === "number" && Number.isFinite(x) ? x : 0);
 
 /** Same ballot vocabulary as kg-contribution-ingest.ts (pass 11). */
-const POSITION = new Set(["yes", "no", "abstain", "not_voting", "abstain_or_not_voting"]);
+const POSITION: ReadonlySet<string> = PRESENT_CHOICES;
 
 async function main() {
   const commit = flag("commit");

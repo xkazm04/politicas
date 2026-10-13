@@ -32,6 +32,7 @@ import { join } from "node:path";
 import { computeContribution, type CommitteeSeat, type ContributionInputs } from "@/lib/analysis/contribution";
 import { emptyCounts, normalizeActivity, type ActivityCounts } from "@/lib/ingest/sources/psp-activity";
 import { getStore } from "@/lib/db/store";
+import { PRESENT_CHOICES } from "@/lib/ingest/normalize";
 import type { KgNodeRow } from "@/lib/db/types";
 
 const CACHE_DIR = process.env.PSP_CACHE_DIR || "./.data/psp";
@@ -47,7 +48,8 @@ function cachedDump(fileName: string): Uint8Array | null {
   return existsSync(p) ? new Uint8Array(readFileSync(p)) : null;
 }
 
-const POSITION = new Set(["yes", "no", "abstain", "not_voting", "abstain_or_not_voting"]);
+// The participation base (not the yes/no positional base), imported rather than restated.
+const POSITION: ReadonlySet<string> = PRESENT_CHOICES;
 
 async function main() {
   const commit = flag("commit");

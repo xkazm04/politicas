@@ -41,6 +41,7 @@ import { isoDay } from "@/lib/analysis/money-feed";
 import { nextPass } from "@/lib/analysis/kg";
 import { emptyCounts, normalizeActivity, type ActivityCounts } from "@/lib/ingest/sources/psp-activity";
 import { getStore } from "@/lib/db/store";
+import { PRESENT_CHOICES } from "@/lib/ingest/normalize";
 import type { KgNodeRow } from "@/lib/db/types";
 import { getDump } from "./pspDump";
 
@@ -51,10 +52,10 @@ function arg(name: string, fallback = ""): string {
 const flag = (name: string) => process.argv.includes(`--${name}`);
 const fmt = (n: number) => new Intl.NumberFormat("cs-CZ").format(Math.round(n));
 
-/** A cast ballot represents a real position (present + registered a choice). The
- *  merged post-1995 abstain/not-voting bucket (K) still counts as a cast position;
- *  excused / not-logged-in / pre-oath do not. */
-const POSITION = new Set(["yes", "no", "abstain", "not_voting", "abstain_or_not_voting"]);
+/** The PARTICIPATION base (present + registered a choice), imported from the one place
+ *  it is defined beside the choice vocabulary. NOT the positional base (yes/no): the
+ *  numerator of `participation_rate` counts abstentions, the party-line metrics do not. */
+const POSITION: ReadonlySet<string> = PRESENT_CHOICES;
 
 async function main() {
   const commit = flag("commit");
