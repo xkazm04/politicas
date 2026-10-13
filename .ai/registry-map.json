@@ -1175,7 +1175,11 @@
           "revision": 26,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:95 Searching features/admin/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as admin-observability parses manual case-loop markdown logs and database ingest runs for an administrative status board rather than executing an agent runtime assembly.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:9036e979656a8dc5",
+          "evaluatedRevision": 27
         },
         {
           "subject": "markdown-vault",
@@ -2666,7 +2670,11 @@
           "revision": 26,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/denik/feed.json/route.ts:27 Searching app/denik/, app/dukazy/, app/schranka/, app/overeni/, and app/zdroj/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as civic-feed-routes exposes standard Next.js feed and page route handlers rather than an agent runtime assembly.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:9036e979656a8dc5",
+          "evaluatedRevision": 27
         },
         {
           "subject": "feed",
@@ -2839,7 +2847,11 @@
           "revision": 26,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/schranka/followCodec.ts:41 Searching features/schranka/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as civic-inbox stores subscriber follows in browser localStorage and derives entity delta feeds rather than operating an agent runtime assembly.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:9036e979656a8dc5",
+          "evaluatedRevision": 27
         },
         {
           "subject": "agent-memory",

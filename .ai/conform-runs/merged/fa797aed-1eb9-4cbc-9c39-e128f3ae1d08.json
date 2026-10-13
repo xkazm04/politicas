@@ -1,0 +1,123 @@
+{
+  "schema": "conform-run/1",
+  "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
+  "subject": "agent-runtime-assembly",
+  "evaluatedAt": "2026-10-13T08:36:47.731770+00:00",
+  "provider": "agy",
+  "model": "gemini-3.8-flash-high",
+  "pairs": [
+    {
+      "context": "civic-inbox",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/schranka/followCodec.ts:41 Searching features/schranka/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as civic-inbox stores subscriber follows in browser localStorage and derives entity delta feeds rather than operating an agent runtime assembly.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "mcp",
+        "tool_call"
+      ]
+    },
+    {
+      "context": "admin-observability",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/admin/loops/loopState.ts:95 Searching features/admin/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as admin-observability parses manual case-loop markdown logs and database ingest runs for an administrative status board rather than executing an agent runtime assembly.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "mcp",
+        "tool_call"
+      ]
+    },
+    {
+      "context": "civic-feed-routes",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "app/denik/feed.json/route.ts:27 Searching app/denik/, app/dukazy/, app/schranka/, app/overeni/, and app/zdroj/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as civic-feed-routes exposes standard Next.js feed and page route handlers rather than an agent runtime assembly.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "mcp",
+        "tool_call"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "agent-runtime-assembly",
+      "context": "law-triage-collision",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor at gate-verdicts.ts:109 is an ordinary validation call and does not show that no agent runtime is present, and the directory holds ARMY-CONTRACT.md and prepare-batch.ts (LLM batch workflow), which I did not trace."
+    },
+    {
+      "subject": "agent-runtime-assembly",
+      "context": "census-quality-gate",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor at run-census.mjs:67 is a bare import and incidental: it does not show the absence of an agent runtime, and the grep terms were not shown to be the right ones."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-13T08:36:47.731770+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "agent-runtime-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "civic-inbox",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-13T08:36:47.731770+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "agent-runtime-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "admin-observability",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-13T08:36:47.731770+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "agent-runtime-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "law-triage-collision",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-13T08:36:47.731770+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "agent-runtime-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "civic-feed-routes",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-13T08:36:47.731770+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "agent-runtime-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "census-quality-gate",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    }
+  ]
+}
