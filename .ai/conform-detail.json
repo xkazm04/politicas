@@ -1185,6 +1185,63 @@
           "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:29 This writer emits corroboration, role dates and tie class. The search found no significance score or review-queue sort in these scripts."
         }
       ]
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/translation-pipeline-topology": {
+      "context": "money-contracts",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T07:53:09.877Z",
+      "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+      "techniques": []
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/translation-pipeline-topology": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T07:53:09.877Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+        "state": "not-applicable",
+        "at": "2026-10-13T07:53:46.194159+00:00",
+        "reason": "reviewer (sonnet): The anchor scripts/data-analysis/datahubAspects.ts:19 is `export type Entity = Record<string, unknown>;`, which does not show the context is only DataHub dataset sync, so the anchor is incidental, even though my grep found no translation, i18n or next-intl terms in the context."
+      }
+    },
+    "4a469aa2-e8dd-4ec4-b8c7-b8838f526aae/translation-pipeline-topology": {
+      "context": "app-utilities",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T07:53:09.877Z",
+      "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+      "techniques": [
+        {
+          "technique": "canonical-fallback-serving",
+          "verdict": "deviation",
+          "evidence": "lib/i18n/request.ts:15 Directly imports the single requested locale message file without falling back to the canonical Czech source catalog when translations are missing."
+        },
+        {
+          "technique": "language-registry-single-source",
+          "verdict": "conformant",
+          "evidence": "lib/i18n/config.ts:8 Defines the single source of truth for supported locales and locale metadata used across the application."
+        }
+      ],
+      "registryProposal": "In UI frameworks using message catalogs like next-intl, per-unit fallback requires explicitly merging the base catalog with the requested locale catalog at load time; the standard's fallback model should explicitly specify this catalog composition pattern."
+    },
+    "61b546ac-220d-425f-ad42-8e39576b3784/translation-pipeline-topology": {
+      "context": "scripts-quality-gates",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T07:53:09.877Z",
+      "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+      "techniques": []
     }
   }
 }

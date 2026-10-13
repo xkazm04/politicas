@@ -1527,7 +1527,11 @@
           "revision": 11,
           "changedAt": "2026-09-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/i18n/request.ts:15 The request configuration imports only the requested locale catalog without providing per-unit fallback to the canonical Czech source catalog when translations are absent.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
+          "evaluatedRevision": 12
         },
         {
           "subject": "model-routing",
@@ -9435,7 +9439,11 @@
           "revision": 11,
           "changedAt": "2026-09-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/harvest-contract-dumps.ts:8 Searches for translation pipeline terminology across the money contract scripts yielded no occurrences, as the context is exclusively dedicated to harvesting and triaging Czech public contract dumps from Registr smluv.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
+          "evaluatedRevision": 12
         },
         {
           "subject": "public-money-attribution",
@@ -10696,7 +10704,11 @@
           "revision": 11,
           "changedAt": "2026-09-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/sentinel/run.ts:4 Searches across the quality gate scripts revealed no translation pipeline machinery, as the context is focused on live-store database invariant checks, citation KPIs, and doc synchronization.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
+          "evaluatedRevision": 12
         },
         {
           "subject": "agent-instruction-files",

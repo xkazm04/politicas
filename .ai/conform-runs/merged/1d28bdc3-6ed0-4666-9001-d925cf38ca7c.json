@@ -1,0 +1,121 @@
+{
+  "schema": "conform-run/1",
+  "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+  "subject": "translation-pipeline-topology",
+  "evaluatedAt": "2026-10-13T07:53:09.877268+00:00",
+  "provider": "agy",
+  "model": "gemini-3.8-flash-high",
+  "pairs": [
+    {
+      "context": "money-contracts",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evidence": "scripts/case-loops/money/harvest-contract-dumps.ts:8 Searches for translation pipeline terminology across the money contract scripts yielded no occurrences, as the context is exclusively dedicated to harvesting and triaging Czech public contract dumps from Registr smluv.",
+      "techniques": [],
+      "absenceTerms": [
+        "translation",
+        "pseudo",
+        "termbase"
+      ]
+    },
+    {
+      "context": "app-utilities",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "deviation",
+      "evidence": "lib/i18n/request.ts:15 The request configuration imports only the requested locale catalog without providing per-unit fallback to the canonical Czech source catalog when translations are absent.",
+      "techniques": [
+        {
+          "technique": "canonical-fallback-serving",
+          "verdict": "deviation",
+          "evidence": "lib/i18n/request.ts:15 Directly imports the single requested locale message file without falling back to the canonical Czech source catalog when translations are missing."
+        },
+        {
+          "technique": "language-registry-single-source",
+          "verdict": "conformant",
+          "evidence": "lib/i18n/config.ts:8 Defines the single source of truth for supported locales and locale metadata used across the application."
+        }
+      ],
+      "registryProposal": "In UI frameworks using message catalogs like next-intl, per-unit fallback requires explicitly merging the base catalog with the requested locale catalog at load time; the standard's fallback model should explicitly specify this catalog composition pattern."
+    },
+    {
+      "context": "scripts-quality-gates",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evidence": "scripts/sentinel/run.ts:4 Searches across the quality gate scripts revealed no translation pipeline machinery, as the context is focused on live-store database invariant checks, citation KPIs, and doc synchronization.",
+      "techniques": [],
+      "absenceTerms": [
+        "translation",
+        "pseudo",
+        "termbase"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "translation-pipeline-topology",
+      "context": "shell-ui-components",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "translation-pipeline-topology",
+      "context": "kg-analysis-and-catalog",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor scripts/data-analysis/datahubAspects.ts:19 is `export type Entity = Record<string, unknown>;`, which does not show the context is only DataHub dataset sync, so the anchor is incidental, even though my grep found no translation, i18n or next-intl terms in the context."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-13T07:53:09.877268+00:00",
+      "bundle": "localization",
+      "subjects": [
+        "translation-pipeline-topology"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "money-contracts",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-13T07:53:09.877268+00:00",
+      "bundle": "localization",
+      "subjects": [
+        "translation-pipeline-topology"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "kg-analysis-and-catalog",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-13T07:53:09.877268+00:00",
+      "bundle": "localization",
+      "subjects": [
+        "translation-pipeline-topology"
+      ],
+      "techniques": [
+        "canonical-fallback-serving",
+        "language-registry-single-source"
+      ],
+      "deviations": 1,
+      "context": "app-utilities",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-13T07:53:09.877268+00:00",
+      "bundle": "localization",
+      "subjects": [
+        "translation-pipeline-topology"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "scripts-quality-gates",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    }
+  ]
+}
