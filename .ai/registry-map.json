@@ -3133,7 +3133,11 @@
           "revision": 5,
           "changedAt": "2026-09-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/score-citations.ts:95 The stale-score prose check emits hard-coded warning strings without a declared rule disposition, so its severity is implemented in code rather than auditable rule data.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
+          "evaluatedRevision": 5
         },
         {
           "subject": "measurement-honesty",
@@ -7172,7 +7176,11 @@
           "revision": 5,
           "changedAt": "2026-09-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-forensics.ts:124 Forensic ingestion rejects every validator error, including the default score-based language classification, whereas the standard requires score-threshold judgments to warn.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
+          "evaluatedRevision": 5
         },
         {
           "subject": "test-harness",
@@ -8137,7 +8145,11 @@
           "revision": 5,
           "changedAt": "2026-09-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/messages.test.ts:59 The prose extractor deletes placeholders and plural-branch text, allowing the language check to pass without examining all rendered sentences.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
+          "evaluatedRevision": 5
         },
         {
           "subject": "module-design",
@@ -10832,7 +10844,11 @@
           "revision": 5,
           "changedAt": "2026-09-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/hooks/copy-check.sh:18 The copy hook explicitly skips a missing checker and returns success, so this write seam permits unchecked copy.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
+          "evaluatedRevision": 5
         },
         {
           "subject": "translation-pipeline-topology",

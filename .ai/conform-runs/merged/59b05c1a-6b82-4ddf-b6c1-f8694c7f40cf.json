@@ -1,0 +1,155 @@
+{
+ "schema": "conform-run/1",
+ "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+ "subject": "copy-quality-gates",
+ "evaluatedAt": "2026-10-13T22:59:25.077014+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "kg-analysis-and-catalog",
+   "subject": "copy-quality-gates",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-forensics.ts:124 Forensic ingestion rejects every validator error, including the default score-based language classification, whereas the standard requires score-threshold judgments to warn.",
+   "techniques": [
+    {
+     "technique": "layered-mechanical-gate",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-forensics.ts:122 This call retains requireCzech's default; its language-score findings become rejection errors rather than advisory warnings."
+    }
+   ]
+  },
+  {
+   "context": "scripts-quality-gates",
+   "subject": "copy-quality-gates",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "scripts/hooks/copy-check.sh:18 The copy hook explicitly skips a missing checker and returns success, so this write seam permits unchecked copy.",
+   "techniques": [
+    {
+     "technique": "enforcement-at-the-write-seams",
+     "verdict": "deviation",
+     "evidence": "scripts/hooks/copy-check.sh:19 The missing-checker branch succeeds; announcing the skip does not enforce the gate."
+    }
+   ]
+  },
+  {
+   "context": "civic-score-computation",
+   "subject": "copy-quality-gates",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "lib/analysis/score-citations.ts:95 The stale-score prose check emits hard-coded warning strings without a declared rule disposition, so its severity is implemented in code rather than auditable rule data.",
+   "techniques": [
+    {
+     "technique": "severity-as-declared-data",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/score-citations.ts:85 The function fixes disposition as warnings and returns string[]; no rule-ID disposition row or resolution cascade is used."
+    }
+   ]
+  },
+  {
+   "context": "landing-core",
+   "subject": "copy-quality-gates",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "features/landing/messages.test.ts:59 The prose extractor deletes placeholders and plural-branch text, allowing the language check to pass without examining all rendered sentences.",
+   "techniques": [
+    {
+     "technique": "layered-mechanical-gate",
+     "verdict": "deviation",
+     "evidence": "features/landing/messages.test.ts:311 The language-score classifier directly fails a test; the standard requires score-threshold findings to remain advisory."
+    },
+    {
+     "technique": "length-and-render-budgets",
+     "verdict": "deviation",
+     "evidence": "features/landing/components/ReferendumTeaser.tsx:112 Translated short labels occupy a 5.5rem grid cell and are truncated; no declared rendered-text budget or overflow check was found for this surface."
+    },
+    {
+     "technique": "rendered-string-extraction",
+     "verdict": "deviation",
+     "evidence": "features/landing/messages.test.ts:59 Repeated brace-content deletion removes every leadPresets plural branch instead of expanding branches and substituting typed values."
+    },
+    {
+     "technique": "severity-as-declared-data",
+     "verdict": "deviation",
+     "evidence": "features/landing/messages.test.ts:182 Blocking disposition is encoded as an assertion over a language score, rather than a declared advisory disposition for a score-based check."
+    },
+    {
+     "technique": "source-defects-from-cross-language-agreement",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/messages.test.ts:255 The checked catalogs are Czech source and one English target, so there are not two target languages whose failures can agree."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "copy-quality-gates",
+   "context": "kg-graph-writers",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-13T22:59:25.077014+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "copy-quality-gates"
+   ],
+   "techniques": [
+    "layered-mechanical-gate"
+   ],
+   "deviations": 1,
+   "context": "kg-analysis-and-catalog",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-13T22:59:25.077014+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "copy-quality-gates"
+   ],
+   "techniques": [
+    "enforcement-at-the-write-seams"
+   ],
+   "deviations": 1,
+   "context": "scripts-quality-gates",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-13T22:59:25.077014+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "copy-quality-gates"
+   ],
+   "techniques": [
+    "severity-as-declared-data"
+   ],
+   "deviations": 1,
+   "context": "civic-score-computation",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-13T22:59:25.077014+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "copy-quality-gates"
+   ],
+   "techniques": [
+    "layered-mechanical-gate",
+    "length-and-render-budgets",
+    "rendered-string-extraction",
+    "severity-as-declared-data",
+    "source-defects-from-cross-language-agreement"
+   ],
+   "deviations": 1,
+   "context": "landing-core",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

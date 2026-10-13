@@ -2569,6 +2569,90 @@
           "evidence": "features/dashboard/graphText.ts:61 Node text is cached by node object in a locale-scoped WeakMap, reusing formatting across hover renders without retaining obsolete graph objects."
         }
       ]
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/copy-quality-gates": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "copy-quality-gates",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:59:25.077Z",
+      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "techniques": [
+        {
+          "technique": "layered-mechanical-gate",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-forensics.ts:122 This call retains requireCzech's default; its language-score findings become rejection errors rather than advisory warnings."
+        }
+      ]
+    },
+    "61b546ac-220d-425f-ad42-8e39576b3784/copy-quality-gates": {
+      "context": "scripts-quality-gates",
+      "subject": "copy-quality-gates",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:59:25.077Z",
+      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "techniques": [
+        {
+          "technique": "enforcement-at-the-write-seams",
+          "verdict": "deviation",
+          "evidence": "scripts/hooks/copy-check.sh:19 The missing-checker branch succeeds; announcing the skip does not enforce the gate."
+        }
+      ]
+    },
+    "fef38523-7caf-4366-a28e-18e28677d5bf/copy-quality-gates": {
+      "context": "civic-score-computation",
+      "subject": "copy-quality-gates",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:59:25.077Z",
+      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "techniques": [
+        {
+          "technique": "severity-as-declared-data",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/score-citations.ts:85 The function fixes disposition as warnings and returns string[]; no rule-ID disposition row or resolution cascade is used."
+        }
+      ]
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/copy-quality-gates": {
+      "context": "landing-core",
+      "subject": "copy-quality-gates",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:59:25.077Z",
+      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "techniques": [
+        {
+          "technique": "layered-mechanical-gate",
+          "verdict": "deviation",
+          "evidence": "features/landing/messages.test.ts:311 The language-score classifier directly fails a test; the standard requires score-threshold findings to remain advisory."
+        },
+        {
+          "technique": "length-and-render-budgets",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/ReferendumTeaser.tsx:112 Translated short labels occupy a 5.5rem grid cell and are truncated; no declared rendered-text budget or overflow check was found for this surface."
+        },
+        {
+          "technique": "rendered-string-extraction",
+          "verdict": "deviation",
+          "evidence": "features/landing/messages.test.ts:59 Repeated brace-content deletion removes every leadPresets plural branch instead of expanding branches and substituting typed values."
+        },
+        {
+          "technique": "severity-as-declared-data",
+          "verdict": "deviation",
+          "evidence": "features/landing/messages.test.ts:182 Blocking disposition is encoded as an assertion over a language score, rather than a declared advisory disposition for a score-based check."
+        },
+        {
+          "technique": "source-defects-from-cross-language-agreement",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/messages.test.ts:255 The checked catalogs are Czech source and one English target, so there are not two target languages whose failures can agree."
+        }
+      ]
     }
   }
 }
