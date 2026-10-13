@@ -5572,7 +5572,11 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:2 run-all.mjs executes RuleTester suites for the civic-transparency plugin, and a search of packages/eslint-plugin-civic-transparency for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:25b61236a62604b0",
+          "evaluatedRevision": 31
         },
         {
           "subject": "docs-sync",
@@ -5742,7 +5746,11 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "eslint-rules/README.md:14 eslint-rules is a compatibility shim over the civic-transparency plugin, and a search of eslint-rules for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:25b61236a62604b0",
+          "evaluatedRevision": 31
         },
         {
           "subject": "quality-gates",
@@ -9289,7 +9297,11 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/verify-b14.ts:1 verify-b14.ts is a one-shot script that prints the live /penize figures, and a search of scripts/case-loops/money/archive for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:25b61236a62604b0",
+          "evaluatedRevision": 31
         },
         {
           "subject": "quality-gates",
@@ -9767,7 +9779,11 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/money/CompanyCaseFilePage.tsx:4 This file is the public company case-file page, and a search of features/money for AGENTS.md, CLAUDE.md, frontmatter and SKILL.md found none of the instruction-file vocabulary this subject governs.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:25b61236a62604b0",
+          "evaluatedRevision": 31
         },
         {
           "subject": "beneficial-ownership-resolution",
@@ -11064,7 +11080,11 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shared/provenance/ProvenanceCapsule.tsx:4 ProvenanceCapsule is a clickable citation dialog for a receipt, and a search of features/shared/provenance and features/shared/poster for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:25b61236a62604b0",
+          "evaluatedRevision": 31
         },
         {
           "subject": "agent-chaining",

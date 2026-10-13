@@ -1,0 +1,147 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b91f38b4-889f-42cb-b095-eadd6eb53e56",
+ "subject": "agent-instruction-files",
+ "evaluatedAt": "2026-10-13T09:44:13.901017+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "money-investigations",
+   "subject": "agent-instruction-files",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/money/CompanyCaseFilePage.tsx:4 This file is the public company case-file page, and a search of features/money for AGENTS.md, CLAUDE.md, frontmatter and SKILL.md found none of the instruction-file vocabulary this subject governs.",
+   "techniques": [],
+   "absenceTerms": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "frontmatter",
+    "SKILL.md"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-tests",
+   "subject": "agent-instruction-files",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:2 run-all.mjs executes RuleTester suites for the civic-transparency plugin, and a search of packages/eslint-plugin-civic-transparency for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+   "techniques": [],
+   "absenceTerms": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "frontmatter",
+    "SKILL.md",
+    "prompt"
+   ]
+  },
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "agent-instruction-files",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "eslint-rules/README.md:14 eslint-rules is a compatibility shim over the civic-transparency plugin, and a search of eslint-rules for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+   "techniques": [],
+   "absenceTerms": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "frontmatter",
+    "SKILL.md",
+    "prompt"
+   ]
+  },
+  {
+   "context": "shared-provenance",
+   "subject": "agent-instruction-files",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shared/provenance/ProvenanceCapsule.tsx:4 ProvenanceCapsule is a clickable citation dialog for a receipt, and a search of features/shared/provenance and features/shared/poster for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+   "techniques": [],
+   "absenceTerms": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "frontmatter",
+    "SKILL.md",
+    "prompt"
+   ]
+  },
+  {
+   "context": "money-archive-probes",
+   "subject": "agent-instruction-files",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/money/archive/verify-b14.ts:1 verify-b14.ts is a one-shot script that prints the live /penize figures, and a search of scripts/case-loops/money/archive for AGENTS.md, CLAUDE.md, frontmatter, SKILL.md and prompt found no instruction-file vocabulary.",
+   "techniques": [],
+   "absenceTerms": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    "frontmatter",
+    "SKILL.md",
+    "prompt"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-13T09:44:13.901017+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-instruction-files"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "money-investigations",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T09:44:13.901017+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-instruction-files"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-tests",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T09:44:13.901017+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-instruction-files"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T09:44:13.901017+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-instruction-files"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shared-provenance",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T09:44:13.901017+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-instruction-files"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "money-archive-probes",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}

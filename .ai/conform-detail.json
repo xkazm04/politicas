@@ -1472,6 +1472,56 @@
         "at": "2026-10-13T09:13:45.317315+00:00",
         "reason": "reviewer (sonnet): The map couples app/** globs (and features/denik/**, features/dukazy/**, features/schranka/**) to docs, so these route files fall under doc-sync coupling; the route.ts:27 anchor only shows a GET handler, not that the precondition is absent."
       }
+    },
+    "5ff6a2d7-0be4-4d65-b0c9-404b4fbede66/agent-instruction-files": {
+      "context": "money-investigations",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:44:13.901Z",
+      "worker": "b91f38b4-889f-42cb-b095-eadd6eb53e56",
+      "techniques": []
+    },
+    "3e5e8c14-4e90-463a-a9c3-c3538c866bab/agent-instruction-files": {
+      "context": "eslint-plugin-civic-transparency-tests",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:44:13.901Z",
+      "worker": "b91f38b4-889f-42cb-b095-eadd6eb53e56",
+      "techniques": []
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/agent-instruction-files": {
+      "context": "eslint-transparency-rules",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:44:13.901Z",
+      "worker": "b91f38b4-889f-42cb-b095-eadd6eb53e56",
+      "techniques": []
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/agent-instruction-files": {
+      "context": "shared-provenance",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:44:13.901Z",
+      "worker": "b91f38b4-889f-42cb-b095-eadd6eb53e56",
+      "techniques": []
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/agent-instruction-files": {
+      "context": "money-archive-probes",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T09:44:13.901Z",
+      "worker": "b91f38b4-889f-42cb-b095-eadd6eb53e56",
+      "techniques": []
     }
   }
 }
