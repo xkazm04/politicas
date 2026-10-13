@@ -5887,7 +5887,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/kg-money.ts:313 moneyTrails adds every linked company's contract amount into one person total and does not split owner-operator, manager and steward.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
+          "evaluatedRevision": 4
         },
         {
           "subject": "public-money-attribution",
@@ -9581,7 +9585,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/collisions/statuteRelevance.ts:83 A null role end skips the upper bound, so any later vote, including one after a snapshot, counts as inside the mandate.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
+          "evaluatedRevision": 4
         },
         {
           "subject": "public-money-attribution",
@@ -9715,7 +9723,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/getLeadDossiers.ts:123 The public kauzy dossiers, which the loader describes as still pending review, are ordered by a hand-authored signalScore, highest story score first.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
+          "evaluatedRevision": 4
         },
         {
           "subject": "agent-instruction-files",
@@ -9897,7 +9909,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/reviewTypes.ts:327 The score moneyLoader stores is the log of the raw contract-plus-subsidy total, with no aligned-amount term and no aligned-fraction term.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
+          "evaluatedRevision": 4
         },
         {
           "subject": "supply-chain",
@@ -10079,7 +10095,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:15 The corroboration writer stores a birth-date no-match as conflicting, which this technique reserves for a register that contradicts the claimed role.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
+          "evaluatedRevision": 4
         },
         {
           "subject": "public-money-attribution",

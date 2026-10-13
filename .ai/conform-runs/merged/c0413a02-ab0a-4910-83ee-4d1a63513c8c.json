@@ -1,0 +1,303 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+ "subject": "conflict-of-interest-detection",
+ "evaluatedAt": "2026-10-13T04:09:27.482676+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "money-evidence",
+   "subject": "conflict-of-interest-detection",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/money/collisions/statuteRelevance.ts:83 A null role end skips the upper bound, so any later vote, including one after a snapshot, counts as inside the mandate.",
+   "techniques": [
+    {
+     "technique": "tie-class-taxonomy",
+     "verdict": "conformant",
+     "evidence": "features/money/reachableMoney.ts:260 Reachable money is split into an attributable bucket and a steward bucket, and a company is not summed once across both."
+    },
+    {
+     "technique": "registry-corroboration-gating",
+     "verdict": "deviation",
+     "evidence": "features/money/packet.ts:343 The published evidence packet keeps every human-verified tie. It does not also require registry-confirmed, which tieEntersJoin does require for the vote join."
+    },
+    {
+     "technique": "temporal-alignment-of-money-and-role",
+     "verdict": "deviation",
+     "evidence": "features/money/collisions/statuteRelevance.ts:83 Inclusive day bounds are tested, but a missing end is treated as open forever. deriveCollisions.test.ts expects a 2031 vote to enter when roleValidTo is null, and the join does not read temporalStatus to separate a known current role from an unknown end."
+    },
+    {
+     "technique": "statute-relevance-mapping",
+     "verdict": "conformant",
+     "evidence": "features/money/collisions/statuteRelevance.ts:16 One declared channel table, versioned as strety-v1, imported by the join and rendered literally on StretyPage. Rows are ref and label only, with no per-row effective period."
+    },
+    {
+     "technique": "vote-versus-interest-join",
+     "verdict": "deviation",
+     "evidence": "features/money/collisions/deriveCollisions.ts:175 The six clauses, ambiguous-agenda drop, coverage nulls, and one candidate per tie-vote pair are present. Conflicting ballots are not quarantined: the first row is kept."
+    },
+    {
+     "technique": "triage-signal-scoring",
+     "verdict": "not-applicable",
+     "evidence": "features/money/packet.ts:348 This context orders the packet by review rank and collision candidates by vote date. A search of the evidence and collisions files found no significance-score formula."
+    }
+   ]
+  },
+  {
+   "context": "money-ledger",
+   "subject": "conflict-of-interest-detection",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/money/reviewTypes.ts:327 The score moneyLoader stores is the log of the raw contract-plus-subsidy total, with no aligned-amount term and no aligned-fraction term.",
+   "techniques": [
+    {
+     "technique": "tie-class-taxonomy",
+     "verdict": "conformant",
+     "evidence": "features/money/getMoneyData.ts:196 MP ordering and the featured graph use the attributable bucket. Steward reach is a separate field."
+    },
+    {
+     "technique": "registry-corroboration-gating",
+     "verdict": "conformant",
+     "evidence": "features/money/getMoneyData.ts:178 Ties inside a case file sort by reviewRank, which is tier first and money only inside the tier. The closed corroboration vocabulary is registry-confirmed, registry-unconfirmed, conflicting."
+    },
+    {
+     "technique": "temporal-alignment-of-money-and-role",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyTypes.ts:624 The ledger badges a stored temporal_status. A search of the ledger modules found no comparison of payment dates with roleValidFrom and roleValidTo and no aligned amount."
+    },
+    {
+     "technique": "statute-relevance-mapping",
+     "verdict": "not-applicable",
+     "evidence": "features/money/FollowTheMoneyPage.tsx:6 A search of the listed ledger modules for statute, 134/2016, amends, votePsp and collision returned no matches."
+    },
+    {
+     "technique": "vote-versus-interest-join",
+     "verdict": "not-applicable",
+     "evidence": "features/money/MoneyGraph.tsx:4 The graph is person, company and money. The same search found no roll-call join in these files."
+    },
+    {
+     "technique": "triage-signal-scoring",
+     "verdict": "deviation",
+     "evidence": "features/money/reviewTypes.ts:327 reviewSignal, called from moneyLoader, uses log money, a class multiplier, triangle, near-threshold and donation. It omits the aligned amount and aligned fraction that scripts/case-loops/money/triage.ts adds. publicWire marks signalScore internal, and review order stays on reviewRank."
+    }
+   ]
+  },
+  {
+   "context": "financial-analysis",
+   "subject": "conflict-of-interest-detection",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/analysis/kg-money.ts:313 moneyTrails adds every linked company's contract amount into one person total and does not split owner-operator, manager and steward.",
+   "techniques": [
+    {
+     "technique": "tie-class-taxonomy",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/kg-money.ts:313 buildMoneyGraph writes linked_to with role, source and review_state and no tie class, then moneyTrails sums those companies together and sorts people by that total."
+    },
+    {
+     "technique": "registry-corroboration-gating",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/money-feed.ts:570 OfficerCorroborator is a boolean of person and I\u010cO. Only a hit is written into the source string, so a miss looks like a check that never ran, and the claimed role is not matched. The link stays pending_review."
+    },
+    {
+     "technique": "temporal-alignment-of-money-and-role",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/money-feed.ts:565 A missing Hl\u00edda\u010d end date is stored as the word ongoing, so an unknown end is recorded as indefinite continuation."
+    },
+    {
+     "technique": "statute-relevance-mapping",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/kg-money.ts:21 The declared pipeline ends at person, company and contract. A search of kg-money.ts, money-feed.ts, public-body.ts and public-copy.ts found no statute-relevance table."
+    },
+    {
+     "technique": "vote-versus-interest-join",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/kg-money.ts:156 The linked_to props are role, source and review state. The same search found no roll-call join."
+    },
+    {
+     "technique": "triage-signal-scoring",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/public-copy.ts:33 These modules do not compute a significance score or a trust-tier queue. The only triageScore hit is a token banned from public copy."
+    }
+   ]
+  },
+  {
+   "context": "money-investigations",
+   "subject": "conflict-of-interest-detection",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/money/getLeadDossiers.ts:123 The public kauzy dossiers, which the loader describes as still pending review, are ordered by a hand-authored signalScore, highest story score first.",
+   "techniques": [
+    {
+     "technique": "tie-class-taxonomy",
+     "verdict": "conformant",
+     "evidence": "features/money/MpCaseFilePage.tsx:147 The MP case file renders attributable money and steward money as two tiles, and stored-versus-heuristic class disagreement is shown on the company file."
+    },
+    {
+     "technique": "registry-corroboration-gating",
+     "verdict": "conformant",
+     "evidence": "features/money/getVerificationData.ts:155 The human review queue and the MP and company case files sort by reviewRank, trust tier before money. The public case file still lists unconfirmed ties with their status."
+    },
+    {
+     "technique": "temporal-alignment-of-money-and-role",
+     "verdict": "not-applicable",
+     "evidence": "features/money/CompanyCaseFilePage.tsx:471 The case file only renders a stored-status badge. A search of the investigation modules found no payment-versus-role overlap and no aligned amount."
+    },
+    {
+     "technique": "statute-relevance-mapping",
+     "verdict": "not-applicable",
+     "evidence": "features/money/MpCaseFilePage.tsx:5 The case file lists class, review state and corroboration. A search of these investigation files for statute, collision and vote found no matches."
+    },
+    {
+     "technique": "vote-versus-interest-join",
+     "verdict": "not-applicable",
+     "evidence": "features/money/getVerificationData.ts:1 This loader is the human review queue. The same search found no vote-versus-interest join in these files."
+    },
+    {
+     "technique": "triage-signal-scoring",
+     "verdict": "deviation",
+     "evidence": "features/money/getLeadDossiers.ts:123 The kontrola queue itself sorts by reviewRank, not by signalScore. The dossier list is a separate public ordering by a hand-written signalScore, not by trust tier or evidence completeness, and it is not the deterministic reviewSignal formula."
+    }
+   ]
+  },
+  {
+   "context": "money-ownership",
+   "subject": "conflict-of-interest-detection",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:15 The corroboration writer stores a birth-date no-match as conflicting, which this technique reserves for a register that contradicts the claimed role.",
+   "techniques": [
+    {
+     "technique": "tie-class-taxonomy",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/prak-repoint.ts:43 The class writer calls classifyTie. Anything that is not an owner keyword or p\u0159edstavenstvo becomes steward, so an unclassifiable title does not stay unknown."
+    },
+    {
+     "technique": "registry-corroboration-gating",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:15 No birth-date match is written as conflicting at reconcile-ares-vr.ts:193. dataor-corroborate later records a full-history no-match in dataor_check but does not relabel that corroboration field."
+    },
+    {
+     "technique": "temporal-alignment-of-money-and-role",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/aresVrMatch.ts:124 Several entries for one person are folded into one span from the earliest start, left open if any entry has no end. That is a union window. The money-versus-role test in reconcile-ares-vr.ts only checks signedOn <= end, not the start."
+    },
+    {
+     "technique": "statute-relevance-mapping",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:22 These scripts record company ownership and register corroboration. A search of the listed ownership scripts for statute, vote, signalScore and reviewRank found no matches."
+    },
+    {
+     "technique": "vote-versus-interest-join",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/aresVrMatch.ts:7 Matching is birth date against the commercial register. The same search found no roll-call or bill linkage."
+    },
+    {
+     "technique": "triage-signal-scoring",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:29 This writer emits corroboration, role dates and tie class. The search found no significance score or review-queue sort in these scripts."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-13T04:09:27.482676+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "conflict-of-interest-detection"
+   ],
+   "techniques": [
+    "registry-corroboration-gating",
+    "statute-relevance-mapping",
+    "temporal-alignment-of-money-and-role",
+    "tie-class-taxonomy",
+    "triage-signal-scoring",
+    "vote-versus-interest-join"
+   ],
+   "deviations": 1,
+   "context": "money-evidence",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T04:09:27.482676+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "conflict-of-interest-detection"
+   ],
+   "techniques": [
+    "registry-corroboration-gating",
+    "statute-relevance-mapping",
+    "temporal-alignment-of-money-and-role",
+    "tie-class-taxonomy",
+    "triage-signal-scoring",
+    "vote-versus-interest-join"
+   ],
+   "deviations": 1,
+   "context": "money-ledger",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T04:09:27.482676+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "conflict-of-interest-detection"
+   ],
+   "techniques": [
+    "registry-corroboration-gating",
+    "statute-relevance-mapping",
+    "temporal-alignment-of-money-and-role",
+    "tie-class-taxonomy",
+    "triage-signal-scoring",
+    "vote-versus-interest-join"
+   ],
+   "deviations": 1,
+   "context": "financial-analysis",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T04:09:27.482676+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "conflict-of-interest-detection"
+   ],
+   "techniques": [
+    "registry-corroboration-gating",
+    "statute-relevance-mapping",
+    "temporal-alignment-of-money-and-role",
+    "tie-class-taxonomy",
+    "triage-signal-scoring",
+    "vote-versus-interest-join"
+   ],
+   "deviations": 1,
+   "context": "money-investigations",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T04:09:27.482676+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "conflict-of-interest-detection"
+   ],
+   "techniques": [
+    "registry-corroboration-gating",
+    "statute-relevance-mapping",
+    "temporal-alignment-of-money-and-role",
+    "tie-class-taxonomy",
+    "triage-signal-scoring",
+    "vote-versus-interest-join"
+   ],
+   "deviations": 1,
+   "context": "money-ownership",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}
