@@ -3347,7 +3347,11 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/civicscore/getLeaderboardData.ts:17 Grep of features/civicscore for judge, rubric, holdout, scenario, pass rate, pairwise, temperature, llm, prompt and agent found only the word evaluated on a numeric badge threshold, and a repo search for judge packet, holdout, any-of-N and eval-harness hit only docs/hybrid-benchmark-plan.md outside this context, so this page ranks 207 MPs by a deterministic graph score and never runs a model against a scenario.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "politician-performance-scoring",
@@ -5038,7 +5042,11 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/effort/triage.ts:4 Grep of scripts/case-loops/effort for llm, judge, rubric, holdout, scenario, temperature and model-client imports found only claims that the scripts do not call a model, plus a gate comment that prose is checked against graph numbers rather than another LLM-authored number, so nothing here runs an agent against declared scenarios.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "cross-provider-benchmark-operations",
@@ -8530,7 +8538,11 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:11 Grep of scripts/case-loops/law/archive for LLM, judge, rubric, holdout and temperature found repeated statements of no model judgment; pairwise is base-section set overlap and precision is a deterministic amending-verb proxy over cached bill text.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "test-harness",
@@ -10624,7 +10636,11 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/sentinel/run.ts:7 Grep of scripts/sentinel, scripts/kpi, scripts/docs and scripts/smoke.ts for holdout, judge packet, rubric, scenario, LLM and temperature found no model-eval constructs; judged and evaluated name graph invariants or a doc-diff obligation, and the verify-loop pass rate is the share of npm check stages that exit 0.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "copy-quality-gates",
@@ -11340,7 +11356,11 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/tender/arena.ts:20 Grep of scripts/case-loops/tender for holdout, rubric, LLM, temperature, prompt and scenario found no model-eval constructs; arena is a deterministic map from contracting-authority category to an election, and deep-read leaves any judgment to a person reading register numbers.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "guest-execution-bounding",

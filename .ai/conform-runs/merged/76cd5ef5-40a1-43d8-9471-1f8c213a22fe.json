@@ -1,0 +1,268 @@
+{
+ "schema": "conform-run/1",
+ "worker": "76cd5ef5-40a1-43d8-9471-1f8c213a22fe",
+ "subject": "eval-harness",
+ "evaluatedAt": "2026-10-13T01:11:05.836241+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "civicscore-leaderboard",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/civicscore/getLeaderboardData.ts:17 Grep of features/civicscore for judge, rubric, holdout, scenario, pass rate, pairwise, temperature, llm, prompt and agent found only the word evaluated on a numeric badge threshold, and a repo search for judge packet, holdout, any-of-N and eval-harness hit only docs/hybrid-benchmark-plan.md outside this context, so this page ranks 207 MPs by a deterministic graph score and never runs a model against a scenario.",
+   "techniques": [
+    {
+     "technique": "metric-role-contract",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/getLeaderboardData.ts:15 Six published weights form one contribution index; there is no eval run declaring one optimized metric and N thresholds."
+    },
+    {
+     "technique": "comparison-modes",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/getLeaderboardData.ts:18 The order is persons by one stored score, not an absolute, pairwise or matrix question over model candidates."
+    },
+    {
+     "technique": "resolution-precondition",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/lens.ts:15 Reader-weight ties use competition ranking of a deterministic recompute, not a noisy matrix of models, prompts or configurations."
+    },
+    {
+     "technique": "assertion-vs-judgment",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/leaderboardTypes.ts:22 The only evaluated hit in this tree is a numeric badge threshold, not a judge scoring model prose."
+    }
+   ],
+   "registryProposal": "Technique use_when lines that say publishing an order, a pass rate, an arena, a baseline or a judge match deterministic civic code by vocabulary; the golden path already hands composite ranking to scoring-rubrics and deterministic suites to test-harness, and the triggers do not repeat that exclusion."
+  },
+  {
+   "context": "effort-scoring-tools",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/effort/triage.ts:4 Grep of scripts/case-loops/effort for llm, judge, rubric, holdout, scenario, temperature and model-client imports found only claims that the scripts do not call a model, plus a gate comment that prose is checked against graph numbers rather than another LLM-authored number, so nothing here runs an agent against declared scenarios.",
+   "techniques": [
+    {
+     "technique": "comparison-modes",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/effort/triage.ts:1 The ranking is a deterministic triage of person nodes, not a mode chosen for an eval question."
+    },
+    {
+     "technique": "candidate-write-access",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/effort/triage.ts:5 The script reads stored props; there is no agent candidate sharing the harness shell."
+    },
+    {
+     "technique": "assertion-vs-judgment",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/effort/gate.ts:134 Numeric claims in prose are diffed to graph props; the file never invokes a judge or a model."
+    },
+    {
+     "technique": "unaided-baseline-screening",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/effort/measure-baseline.ts:1 Baseline here is a jargon-violation census of live nodes, not a deprived-candidate screen of generated scenarios."
+    }
+   ]
+  },
+  {
+   "context": "scripts-quality-gates",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/sentinel/run.ts:7 Grep of scripts/sentinel, scripts/kpi, scripts/docs and scripts/smoke.ts for holdout, judge packet, rubric, scenario, LLM and temperature found no model-eval constructs; judged and evaluated name graph invariants or a doc-diff obligation, and the verify-loop pass rate is the share of npm check stages that exit 0.",
+   "techniques": [
+    {
+     "technique": "rebase-the-varied-input",
+     "verdict": "not-applicable",
+     "evidence": "scripts/sentinel/run.ts:7 Two passes re-check the same graph derivation for determinism; no single input is shifted and then rebased."
+    },
+    {
+     "technique": "failure-signatures-beside-the-pass-rate",
+     "verdict": "not-applicable",
+     "evidence": "scripts/kpi/verify-loop.mjs:11 The rate is npm check stages exiting 0, with per-stage duration, not failure families of model trials."
+    },
+    {
+     "technique": "certification-levels",
+     "verdict": "not-applicable",
+     "evidence": "scripts/smoke.ts:6 Tier 1 is HTTP 200 on four static routes, not a theoretical pass that gates live certification of an agent."
+    },
+    {
+     "technique": "monitor-inside-the-loop",
+     "verdict": "not-applicable",
+     "evidence": "scripts/docs/check-doc-sync.mjs:23 The checker reads a git diff for doc coupling; no model monitor gates a scored loop."
+    },
+    {
+     "technique": "assertion-vs-judgment",
+     "verdict": "not-applicable",
+     "evidence": "scripts/sentinel/run.ts:23 Evaluated means the invariant runner could not read the store, not that a judge scored an output."
+    }
+   ]
+  },
+  {
+   "context": "law-archive-early",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:11 Grep of scripts/case-loops/law/archive for LLM, judge, rubric, holdout and temperature found repeated statements of no model judgment; pairwise is base-section set overlap and precision is a deterministic amending-verb proxy over cached bill text.",
+   "techniques": [
+    {
+     "technique": "comparison-modes",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:631 Pairwise here is section-set overlap inside a statute group, not a mirrored preference arena."
+    },
+    {
+     "technique": "failure-attribution",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:633 A shared section is a human triage candidate, not a red model case assigned to one of seven owners."
+    },
+    {
+     "technique": "measurement-revision",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/measure-precision-006.ts:160 The script labels a regex proxy on one regenerated edge set; it does not re-sample a published model-eval and call the second pass a correction."
+    },
+    {
+     "technique": "judge-stability",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/duplicate-bills-009.ts:26 Identity is byte-identical normalized instruction text, so there is no judge packet to pin or drift-test."
+    },
+    {
+     "technique": "assertion-vs-judgment",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/duplicate-bills-009.ts:15 The comparison is a set equality over extracted instructions, not a choice between an assertion and a judge."
+    },
+    {
+     "technique": "scenario-design",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:26 The cache stores fetched bill text so a re-run skips downloads; it is not a generated-scenario cache keyed against a candidate."
+    }
+   ]
+  },
+  {
+   "context": "tender-pipeline",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/tender/arena.ts:20 Grep of scripts/case-loops/tender for holdout, rubric, LLM, temperature, prompt and scenario found no model-eval constructs; arena is a deterministic map from contracting-authority category to an election, and deep-read leaves any judgment to a person reading register numbers.",
+   "techniques": [
+    {
+     "technique": "pairing-schedule",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/arena.ts:5 This arena maps a legal category onto the election that holds the body accountable; it runs no pairwise schedule."
+    },
+    {
+     "technique": "comparison-modes",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/compose-pictures.ts:5 Authority and winner pictures are aggregated register counts, not absolute, pairwise or matrix scores of candidates."
+    },
+    {
+     "technique": "monitor-inside-the-loop",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/deep-read.ts:7 A person reads a case file the tool laid out; no model monitor gates a scored result."
+    },
+    {
+     "technique": "probe-the-decision-not-the-artifact",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/deep-read.ts:6 The script emits evidence and makes no judgment, so there is no prose artifact whose only metric is a judge score."
+    },
+    {
+     "technique": "assertion-vs-judgment",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/arena.ts:20 The module states there is no judgment; the output is a category-to-ballot map."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-13T01:11:05.836241+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [
+    "assertion-vs-judgment",
+    "comparison-modes",
+    "metric-role-contract",
+    "resolution-precondition"
+   ],
+   "deviations": 0,
+   "context": "civicscore-leaderboard",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T01:11:05.836241+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [
+    "assertion-vs-judgment",
+    "candidate-write-access",
+    "comparison-modes",
+    "unaided-baseline-screening"
+   ],
+   "deviations": 0,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T01:11:05.836241+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [
+    "assertion-vs-judgment",
+    "certification-levels",
+    "failure-signatures-beside-the-pass-rate",
+    "monitor-inside-the-loop",
+    "rebase-the-varied-input"
+   ],
+   "deviations": 0,
+   "context": "scripts-quality-gates",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T01:11:05.836241+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [
+    "assertion-vs-judgment",
+    "comparison-modes",
+    "failure-attribution",
+    "judge-stability",
+    "measurement-revision",
+    "scenario-design"
+   ],
+   "deviations": 0,
+   "context": "law-archive-early",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T01:11:05.836241+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [
+    "assertion-vs-judgment",
+    "comparison-modes",
+    "monitor-inside-the-loop",
+    "pairing-schedule",
+    "probe-the-decision-not-the-artifact"
+   ],
+   "deviations": 0,
+   "context": "tender-pipeline",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}
