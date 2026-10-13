@@ -1,0 +1,173 @@
+{
+ "schema": "conform-run/1",
+ "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+ "subject": "canvas-graph",
+ "evaluatedAt": "2026-10-13T22:36:15.686645+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "graph-canvas",
+   "subject": "canvas-graph",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/graph/components/GraphStage.tsx:668 The drag threshold compares consecutive pointer events rather than displacement from the press origin, so a slow pan can finish as a selection click.",
+   "techniques": [
+    {
+     "technique": "canvas-accessibility",
+     "verdict": "deviation",
+     "evidence": "features/graph/VariantTrasy.tsx:117 The fixed canvasAria translation supplies no node or edge totals, contrary to the requirement that the accessible name describe the graph population."
+    },
+    {
+     "technique": "direct-manipulation",
+     "verdict": "deviation",
+     "evidence": "features/graph/components/GraphStage.tsx:668 drag.x and drag.y are reset after every event; successive one-pixel moves pan the camera without crossing this threshold, then pointer-up selects."
+    },
+    {
+     "technique": "edge-management",
+     "verdict": "deviation",
+     "evidence": "features/graph/components/GraphStage.tsx:201 Arrow anchoring uses a circular radius for every glyph shape; a horizontal diamond extends to 1.25 times that radius, placing its arrow tip inside the glyph."
+    },
+    {
+     "technique": "graph-layout",
+     "verdict": "deviation",
+     "evidence": "features/graph/VariantMapa.tsx:296 Arriving neighbors preserve existing positions but are inserted directly at their proposed offsets without collision checking or an outward placement probe."
+    },
+    {
+     "technique": "render-budget",
+     "verdict": "deviation",
+     "evidence": "features/graph/components/GraphStage.tsx:398 Every pan-triggered draw measures unchanged node labels again; immediate-mode repainting does not retire the requirement to cache per-node derived work."
+    },
+    {
+     "technique": "viewport-transform",
+     "verdict": "deviation",
+     "evidence": "features/graph/components/GraphStage.tsx:160 The stage derives its visible world rectangle with independent inverse-transform math instead of deriving it through viewTransform, which the standard also assigns ownership of rectangle conversion."
+    }
+   ]
+  },
+  {
+   "context": "kg-graph-utilities",
+   "subject": "canvas-graph",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/kg/layout.ts:160 The force layout consumes noncanonical node and edge order, and an in-memory permutation probe changed every position of an unchanged 24-node star.",
+   "techniques": [
+    {
+     "technique": "graph-layout",
+     "verdict": "deviation",
+     "evidence": "lib/kg/layout.ts:160 Reversing both input arrays for the same 24-node star changed all 24 positions despite stable hash initialization and output quantization."
+    }
+   ]
+  },
+  {
+   "context": "dashboard-instruments",
+   "subject": "canvas-graph",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Local hover changes rerun the entire node render loop and every node's degree computation, violating the requirement that nodes rerender only on their own changes.",
+   "techniques": [
+    {
+     "technique": "canvas-accessibility",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/components/StateGraphCanvas.tsx:292 All arrow navigation uses connected-neighbor traversal; the surface offers neither unrestricted spatial navigation nor distinct topological shortcuts as required by the standard."
+    },
+    {
+     "technique": "render-budget",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Each hover rerender executes this computation for every node, and the node render loop is not isolated through memoized node components."
+    }
+   ]
+  },
+  {
+   "context": "dashboard-feed-logic",
+   "subject": "canvas-graph",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dashboard/graphTraversal.ts:93 Directional navigation considers only graph neighbors, so this helper does not provide the independent spatial-navigation path required alongside topological traversal.",
+   "techniques": [
+    {
+     "technique": "canvas-accessibility",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/graphTraversal.ts:93 The sole directional step restricts candidates to adjacent nodes and can strand an unconnected node; no separate unrestricted spatial step is provided."
+    },
+    {
+     "technique": "render-budget",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/graphText.ts:61 Node text is cached by node object in a locale-scoped WeakMap, reusing formatting across hover renders without retaining obsolete graph objects."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "canvas-graph",
+   "context": "graph-data-logic",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-13T22:36:15.686645+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "canvas-graph"
+   ],
+   "techniques": [
+    "canvas-accessibility",
+    "direct-manipulation",
+    "edge-management",
+    "graph-layout",
+    "render-budget",
+    "viewport-transform"
+   ],
+   "deviations": 1,
+   "context": "graph-canvas",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-13T22:36:15.686645+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "canvas-graph"
+   ],
+   "techniques": [
+    "graph-layout"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-utilities",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-13T22:36:15.686645+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "canvas-graph"
+   ],
+   "techniques": [
+    "canvas-accessibility",
+    "render-budget"
+   ],
+   "deviations": 1,
+   "context": "dashboard-instruments",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-13T22:36:15.686645+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "canvas-graph"
+   ],
+   "techniques": [
+    "canvas-accessibility",
+    "render-budget"
+   ],
+   "deviations": 1,
+   "context": "dashboard-feed-logic",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

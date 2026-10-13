@@ -2470,6 +2470,105 @@
           "evidence": "lib/analysis/kg.ts:257 Computes Rice cohesion index |yes - no| / (yes + no) on positional votes, requiring at least MIN_CLUB_POSITIONAL (5) members participating."
         }
       ]
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/canvas-graph": {
+      "context": "graph-canvas",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:36:15.686Z",
+      "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+      "techniques": [
+        {
+          "technique": "canvas-accessibility",
+          "verdict": "deviation",
+          "evidence": "features/graph/VariantTrasy.tsx:117 The fixed canvasAria translation supplies no node or edge totals, contrary to the requirement that the accessible name describe the graph population."
+        },
+        {
+          "technique": "direct-manipulation",
+          "verdict": "deviation",
+          "evidence": "features/graph/components/GraphStage.tsx:668 drag.x and drag.y are reset after every event; successive one-pixel moves pan the camera without crossing this threshold, then pointer-up selects."
+        },
+        {
+          "technique": "edge-management",
+          "verdict": "deviation",
+          "evidence": "features/graph/components/GraphStage.tsx:201 Arrow anchoring uses a circular radius for every glyph shape; a horizontal diamond extends to 1.25 times that radius, placing its arrow tip inside the glyph."
+        },
+        {
+          "technique": "graph-layout",
+          "verdict": "deviation",
+          "evidence": "features/graph/VariantMapa.tsx:296 Arriving neighbors preserve existing positions but are inserted directly at their proposed offsets without collision checking or an outward placement probe."
+        },
+        {
+          "technique": "render-budget",
+          "verdict": "deviation",
+          "evidence": "features/graph/components/GraphStage.tsx:398 Every pan-triggered draw measures unchanged node labels again; immediate-mode repainting does not retire the requirement to cache per-node derived work."
+        },
+        {
+          "technique": "viewport-transform",
+          "verdict": "deviation",
+          "evidence": "features/graph/components/GraphStage.tsx:160 The stage derives its visible world rectangle with independent inverse-transform math instead of deriving it through viewTransform, which the standard also assigns ownership of rectangle conversion."
+        }
+      ]
+    },
+    "5124b667-8ec0-4118-a497-f984b3a1e3d9/canvas-graph": {
+      "context": "kg-graph-utilities",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:36:15.686Z",
+      "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+      "techniques": [
+        {
+          "technique": "graph-layout",
+          "verdict": "deviation",
+          "evidence": "lib/kg/layout.ts:160 Reversing both input arrays for the same 24-node star changed all 24 positions despite stable hash initialization and output quantization."
+        }
+      ]
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/canvas-graph": {
+      "context": "dashboard-instruments",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:36:15.686Z",
+      "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+      "techniques": [
+        {
+          "technique": "canvas-accessibility",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:292 All arrow navigation uses connected-neighbor traversal; the surface offers neither unrestricted spatial navigation nor distinct topological shortcuts as required by the standard."
+        },
+        {
+          "technique": "render-budget",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Each hover rerender executes this computation for every node, and the node render loop is not isolated through memoized node components."
+        }
+      ]
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/canvas-graph": {
+      "context": "dashboard-feed-logic",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:36:15.686Z",
+      "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+      "techniques": [
+        {
+          "technique": "canvas-accessibility",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/graphTraversal.ts:93 The sole directional step restricts candidates to adjacent nodes and can strand an unconnected node; no separate unrestricted spatial step is provided."
+        },
+        {
+          "technique": "render-budget",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/graphText.ts:61 Node text is cached by node object in a locale-scoped WeakMap, reusing formatting across hover renders without retaining obsolete graph objects."
+        }
+      ]
     }
   }
 }

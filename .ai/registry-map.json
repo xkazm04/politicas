@@ -3942,7 +3942,11 @@
           "revision": 5,
           "changedAt": "2026-09-26",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/graphTraversal.ts:93 Directional navigation considers only graph neighbors, so this helper does not provide the independent spatial-navigation path required alongside topological traversal.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:59c31182b8b6b4db",
+          "evaluatedRevision": 5
         },
         {
           "subject": "conflict-of-interest-detection",
@@ -4140,7 +4144,11 @@
           "revision": 5,
           "changedAt": "2026-09-26",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Local hover changes rerun the entire node render loop and every node's degree computation, violating the requirement that nodes rerender only on their own changes.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:59c31182b8b6b4db",
+          "evaluatedRevision": 5
         }
       ],
       "governance": "governed"
@@ -6155,7 +6163,11 @@
           "revision": 5,
           "changedAt": "2026-09-26",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/components/GraphStage.tsx:668 The drag threshold compares consecutive pointer events rather than displacement from the press origin, so a slow pan can finish as a selection click.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:59c31182b8b6b4db",
+          "evaluatedRevision": 5
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -7500,7 +7512,11 @@
           "revision": 5,
           "changedAt": "2026-09-26",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/kg/layout.ts:160 The force layout consumes noncanonical node and edge order, and an in-memory permutation probe changed every position of an unchanged 24-node star.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:59c31182b8b6b4db",
+          "evaluatedRevision": 5
         },
         {
           "subject": "test-harness",
