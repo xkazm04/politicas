@@ -1652,6 +1652,26 @@
           "evidence": "lib/civic/stateGraph.ts:69 Reduces edge review status to a boolean flag without required per-claim provenance fields (method, pass, ref, timestamp)."
         }
       ]
+    },
+    "8867f710-55df-4e4f-9da3-e412d2462001/fleet-orchestration": {
+      "context": "db-store-engine",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T11:01:17.897Z",
+      "worker": "c7d3bf96-038d-4622-a356-745b7b017e69",
+      "techniques": []
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/fleet-orchestration": {
+      "context": "civic-verification",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T11:01:17.897Z",
+      "worker": "c7d3bf96-038d-4622-a356-745b7b017e69",
+      "techniques": []
     }
   }
 }
