@@ -47,7 +47,7 @@ import { classifyTie, parsePeriod } from "@/features/money/reviewTypes";
 // The id parser is the strict shared one (`/^psp:person:(\d+)$/`); the copy that stood here
 // took the last `:`-segment of ANY id, so a company or contract id parsed as an MP.
 import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
-import { findMatches, mergeMatches, type VrResponse } from "./aresVrMatch";
+import { findMatches, keylessNameCandidates, mergeMatches, type VrResponse } from "./aresVrMatch";
 
 const VR_BASE = "https://ares.gov.cz/ekonomicke-subjekty-v-be/rest/ekonomicke-subjekty-vr";
 const THROTTLE_MS = 150; // ~400 req/min, well under ARES's ~500 req/min budget
@@ -187,6 +187,21 @@ async function main() {
 
     const matches = findMatches(rec, birthDate);
     if (matches.length === 0) {
+      // A negative while some entries carry no birth date is not conclusive (officer-record-reading):
+      // the person may be among the keyless ones, so the tie is unresolved, never "conflicting".
+      if (keylessNameCandidates(rec, mp) > 0) {
+        results.push({
+          src: e.src, rel: "linked_to", dst: e.dst, mp, company: comp.label,
+          propsMerge: {
+            corroboration: "registry-unconfirmed",
+            corroboration_source: src,
+            tie_class: tieClass,
+            reviewer_note: `Firma ${ico} v ARES VR existuje; shodné datum narození nenalezeno, ale zápis téhož jména bez data narození ano — negativní výsledek není průkazný.`,
+            flags: ["vr-entry-lacks-birthdate"],
+          },
+        });
+        continue;
+      }
       results.push({
         src: e.src, rel: "linked_to", dst: e.dst, mp, company: comp.label,
         propsMerge: {

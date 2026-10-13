@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findMatches, mergeMatches, type VrZaznam } from "./aresVrMatch";
+import { findMatches, keylessNameCandidates, mergeMatches, type VrZaznam } from "./aresVrMatch";
 
 const BD = "1966-07-05";
 const rec: VrZaznam = {
@@ -43,6 +43,24 @@ describe("findMatches (exact birth-date hinge over statutární + ostatní orgá
   });
   it("returns nothing for a birth date the record does not carry", () => {
     expect(findMatches(rec, "1999-12-31")).toEqual([]);
+  });
+});
+
+describe("akcionari + keyless name fallback (officer-record-reading)", () => {
+  const joint: VrZaznam = {
+    akcionari: [{ datumZapisu: "2012-01-01", clenoveOrganu: [{ fyzickaOsoba: { datumNarozeni: BD, jmeno: "Jan", prijmeni: "Novák" } }] }],
+    statutarniOrgany: [{ clenoveOrganu: [{ fyzickaOsoba: { jmeno: "Petr", prijmeni: "Dvořák" } }] }],
+  };
+  it("reads the akcionari array as a shareholder entry", () => {
+    expect(findMatches(joint, BD)).toMatchObject([{ kind: "shareholder", functionName: "akcionář", validFrom: "2012-01-01" }]);
+  });
+  it("counts a keyless entry with the same full name, accent- and case-folded", () => {
+    expect(keylessNameCandidates(joint, "petr DVORAK")).toBe(1);
+  });
+  it("never counts a keyed entry, a surname-only hit or a different first name", () => {
+    expect(keylessNameCandidates(joint, "Jan Novák")).toBe(0);
+    expect(keylessNameCandidates(joint, "Dvořák")).toBe(0);
+    expect(keylessNameCandidates(joint, "Pavel Dvořák")).toBe(0);
   });
 });
 

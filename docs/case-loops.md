@@ -640,6 +640,16 @@ orgány, ostatní orgány and společníci (a Czech decimal comma in the stake, 
 ongoing entry keeping the span open); both scripts import it and the reverify
 script's inline merge is gone.
 
+**A no-match with keyless entries is unresolved, not conflicting (2026-10-13,
+registry officer-record-reading).** `findMatches` now also reads `akcionari[]`
+(joint-stock holders, the same member shape as an organ), and
+`keylessNameCandidates` counts entries with no birth date and the same full
+name. When the exact-birth-date match finds nothing but such an entry exists,
+`reconcile-ares-vr.ts` writes `registry-unconfirmed` with the flag
+`vr-entry-lacks-birthdate` instead of `conflicting`. Replayed on the 23
+`no-birthdate-match-in-vr` ties of batch 002 against live VR: 4 of 23 carry a
+same-name keyless entry (all ended, pre-key era), 19 stay `conflicting`.
+
 **One retry rule for the Registr smluv sweeps (2026-09-07, scan-sweep,
 error-handler).** `company-contract-sweep.ts` and `parent-contract-sweep.ts`
 each had a `withBackoff` with its own idea of "transient": the first read the

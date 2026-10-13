@@ -27,6 +27,8 @@ export interface VrClenOrganu {
   fyzickaOsoba?: VrFyzickaOsoba;
 }
 export interface VrStatutarniOrgan {
+  datumZapisu?: string;
+  datumVymazu?: string;
   clenoveOrganu?: VrClenOrganu[];
 }
 export interface VrPodil {
@@ -52,6 +54,10 @@ export interface VrZaznam {
    *  so omitting this section would systematically under-confirm the steward class. */
   ostatniOrgany?: VrStatutarniOrgan[];
   spolecnici?: VrSpolecnici[];
+  /** Joint-stock shareholders: the member object IS the person record, same shape as an
+   *  organ's `clenoveOrganu` (verified on a live a.s. record 2026-10-13; lib/analysis/public-body.ts
+   *  already reads it for legal-person owners). */
+  akcionari?: VrStatutarniOrgan[];
 }
 export interface VrResponse {
   kod?: string; // "NENALEZENO" on a miss
@@ -82,6 +88,19 @@ export function findMatches(rec: VrZaznam, birthDate: string): MatchedEntry[] {
       }
     }
   }
+  for (const grp of rec.akcionari ?? []) {
+    for (const m of grp.clenoveOrganu ?? []) {
+      if (m.fyzickaOsoba?.datumNarozeni === birthDate) {
+        out.push({
+          kind: "shareholder",
+          functionName: "akcionář",
+          validFrom: m.datumZapisu ?? grp.datumZapisu ?? null,
+          validTo: m.datumVymazu ?? grp.datumVymazu ?? null,
+          stakePct: null,
+        });
+      }
+    }
+  }
   for (const grp of rec.spolecnici ?? []) {
     for (const s of grp.spolecnik ?? []) {
       if (s.osoba?.fyzickaOsoba?.datumNarozeni === birthDate) {
@@ -101,6 +120,26 @@ export function findMatches(rec: VrZaznam, birthDate: string): MatchedEntry[] {
     }
   }
   return out;
+}
+
+const foldName = (s: string | undefined) =>
+  (s ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
+
+/** The gated name fallback: how many person entries carry NO birth date (entries older than the
+ *  register's collection of it) and share the MP's exact full name. Only meaningful when
+ *  `findMatches` found nothing - then a non-zero count means the negative is not conclusive. It
+ *  never confirms anything; the caller labels the tie unresolved, not contradicted. */
+export function keylessNameCandidates(rec: VrZaznam, fullName: string): number {
+  const want = foldName(fullName);
+  let n = 0;
+  const check = (f: VrFyzickaOsoba | undefined) => {
+    if (f && !f.datumNarozeni && foldName(`${f.jmeno ?? ""} ${f.prijmeni ?? ""}`) === want) n++;
+  };
+  for (const org of [...(rec.statutarniOrgany ?? []), ...(rec.ostatniOrgany ?? []), ...(rec.akcionari ?? [])]) {
+    for (const m of org.clenoveOrganu ?? []) check(m.fyzickaOsoba);
+  }
+  for (const grp of rec.spolecnici ?? []) for (const s of grp.spolecnik ?? []) check(s.osoba?.fyzickaOsoba);
+  return n;
 }
 
 /** The person's entries folded into one span: earliest start, an ongoing entry keeps the span

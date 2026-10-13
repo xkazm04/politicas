@@ -73,6 +73,15 @@ const FLAGS: Record<string, FlagCopy> = {
       "The company exists in ARES VR, but no officer or shareholder there matches the MP's birth date — the tie is asserted by the graph's source only, not confirmed by the registry.",
     tone: "warn",
   },
+  "vr-entry-lacks-birthdate": {
+    labelCs: "zápis téhož jména bez data narození",
+    labelEn: "same-name registry entry without a birth date",
+    noteCs:
+      "Ve veřejném rejstříku není shoda data narození, ale existuje zápis stejného jména, který datum narození neuvádí. Vazbu proto nelze ani potvrdit, ani vyvrátit — rozhodnout musí člověk.",
+    noteEn:
+      "The registry has no birth-date match, but an entry with the same name carries no birth date. The tie can be neither confirmed nor refuted - a person has to decide.",
+    tone: "info",
+  },
   "vr-missing-dob-on-old-record": {
     labelCs: "starý zápis bez data narození",
     labelEn: "old registry entry carries no birth date",
