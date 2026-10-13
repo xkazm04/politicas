@@ -3187,7 +3187,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/overeni/verdict.ts:29 The Civic Claim Gate re-derives cited figures and views using shared loaders, returning a closed three-verdict vocabulary modified by orthogonal human review standing and derivation basis comparison.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:21e4652c65cd9dfb",
+          "evaluatedRevision": 3
         },
         {
           "subject": "test-harness",
@@ -3639,7 +3643,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/civicscore/provenance.ts:118 CivicScore summarizes chamber-wide calculation provenance into uniform, mixed, or absent states, checks stored stamps against declared formula references, and mints ungated claim references.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:21e4652c65cd9dfb",
+          "evaluatedRevision": 3
         },
         {
           "subject": "scoring-rubrics",
@@ -11116,7 +11124,11 @@
           "revision": 3,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/shared/provenance/receipt.ts:200 Receipts derive fresh view models from graph edges and nodes without storage repair, preserving exact weights, ungated distinctions, and gating ClaimReview emission to human-verified claims.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:21e4652c65cd9dfb",
+          "evaluatedRevision": 3
         },
         {
           "subject": "quality-gates",

@@ -2222,6 +2222,99 @@
           "evidence": "lib/testing/loaders.test.ts:45 The language use here is a prose gate on rendered text, not a per-language stored record."
         }
       ]
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/claim-verification-and-provenance": {
+      "context": "civic-verification",
+      "subject": "claim-verification-and-provenance",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T21:05:40.337Z",
+      "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+      "techniques": [
+        {
+          "technique": "three-verdict-vocabulary",
+          "verdict": "conformant",
+          "evidence": "features/overeni/verdict.ts:29 Closes the gate vocabulary at verified, moved, and unknown with no fourth verdict."
+        },
+        {
+          "technique": "gate-state-as-modifier",
+          "verdict": "conformant",
+          "evidence": "features/overeni/gateVocabulary.ts:30 Normalizes review-state tokens across families while preserving unmapped tokens verbatim."
+        },
+        {
+          "technique": "derivation-comparison",
+          "verdict": "conformant",
+          "evidence": "features/overeni/verdict.ts:143 Emits movedBy: 'basis' when a cited value matches today's value but was written by a different derivation formula."
+        },
+        {
+          "technique": "claim-ref-addressing",
+          "verdict": "conformant",
+          "evidence": "features/overeni/refDetect.ts:245 Enforces input bounds and returns unknown reasons rather than repairing malformed or oversized inputs."
+        },
+        {
+          "technique": "recomputation-receipts",
+          "verdict": "conformant",
+          "evidence": "features/overeni/getVerdictData.ts:101 The gate evaluates receipts dynamically by invoking the shared receipt loader getReceiptData."
+        }
+      ]
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/claim-verification-and-provenance": {
+      "context": "shared-provenance",
+      "subject": "claim-verification-and-provenance",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T21:05:40.337Z",
+      "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+      "techniques": [
+        {
+          "technique": "claim-ref-addressing",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/claimRef.ts:72 Decodes self-describing claim addresses with length bounding and returns null on malformed inputs without repair."
+        },
+        {
+          "technique": "recomputation-receipts",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/receipt.ts:239 Formats stored weights deterministically without rounding to preserve exact evidentiary records."
+        },
+        {
+          "technique": "structured-review-emission",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/receipt.ts:353 Guards schema.org ClaimReview emission inside the emitter to only emit for claims that passed the human review gate."
+        },
+        {
+          "technique": "gate-state-as-modifier",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/receipt.ts:180 Distinguishes deterministic ungated relations from gated relations where unrecorded states default to pending review."
+        }
+      ]
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/claim-verification-and-provenance": {
+      "context": "civicscore-scoring",
+      "subject": "claim-verification-and-provenance",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T21:05:40.337Z",
+      "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+      "techniques": [
+        {
+          "technique": "derivation-comparison",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/provenance.ts:118 Summarizes whole-population calculation stamps into uniform, mixed, or absent states instead of reading a single row."
+        },
+        {
+          "technique": "claim-ref-addressing",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/scoreClaim.ts:70 Encodes natural dataset, metric, and subject tokens into self-describing claim addresses while keeping formula versions in derivation."
+        },
+        {
+          "technique": "gate-state-as-modifier",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/scoreClaim.ts:76 Explicitly designates the deterministic composite score claim as ungated rather than confusing it with a human review queue."
+        }
+      ]
     }
   }
 }

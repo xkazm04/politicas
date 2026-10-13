@@ -1,0 +1,197 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+ "subject": "claim-verification-and-provenance",
+ "evaluatedAt": "2026-10-13T21:05:40.337896+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "civic-verification",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/overeni/verdict.ts:29 The Civic Claim Gate re-derives cited figures and views using shared loaders, returning a closed three-verdict vocabulary modified by orthogonal human review standing and derivation basis comparison.",
+   "techniques": [
+    {
+     "technique": "three-verdict-vocabulary",
+     "verdict": "conformant",
+     "evidence": "features/overeni/verdict.ts:29 Closes the gate vocabulary at verified, moved, and unknown with no fourth verdict."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "features/overeni/gateVocabulary.ts:30 Normalizes review-state tokens across families while preserving unmapped tokens verbatim."
+    },
+    {
+     "technique": "derivation-comparison",
+     "verdict": "conformant",
+     "evidence": "features/overeni/verdict.ts:143 Emits movedBy: 'basis' when a cited value matches today's value but was written by a different derivation formula."
+    },
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "features/overeni/refDetect.ts:245 Enforces input bounds and returns unknown reasons rather than repairing malformed or oversized inputs."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "conformant",
+     "evidence": "features/overeni/getVerdictData.ts:101 The gate evaluates receipts dynamically by invoking the shared receipt loader getReceiptData."
+    }
+   ]
+  },
+  {
+   "context": "shared-provenance",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/shared/provenance/receipt.ts:200 Receipts derive fresh view models from graph edges and nodes without storage repair, preserving exact weights, ungated distinctions, and gating ClaimReview emission to human-verified claims.",
+   "techniques": [
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "features/shared/provenance/claimRef.ts:72 Decodes self-describing claim addresses with length bounding and returns null on malformed inputs without repair."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "conformant",
+     "evidence": "features/shared/provenance/receipt.ts:239 Formats stored weights deterministically without rounding to preserve exact evidentiary records."
+    },
+    {
+     "technique": "structured-review-emission",
+     "verdict": "conformant",
+     "evidence": "features/shared/provenance/receipt.ts:353 Guards schema.org ClaimReview emission inside the emitter to only emit for claims that passed the human review gate."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "features/shared/provenance/receipt.ts:180 Distinguishes deterministic ungated relations from gated relations where unrecorded states default to pending review."
+    }
+   ]
+  },
+  {
+   "context": "civicscore-scoring",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/civicscore/provenance.ts:118 CivicScore summarizes chamber-wide calculation provenance into uniform, mixed, or absent states, checks stored stamps against declared formula references, and mints ungated claim references.",
+   "techniques": [
+    {
+     "technique": "derivation-comparison",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/provenance.ts:118 Summarizes whole-population calculation stamps into uniform, mixed, or absent states instead of reading a single row."
+    },
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/scoreClaim.ts:70 Encodes natural dataset, metric, and subject tokens into self-describing claim addresses while keeping formula versions in derivation."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/scoreClaim.ts:76 Explicitly designates the deterministic composite score claim as ungated rather than confusing it with a human review queue."
+    }
+   ]
+  },
+  {
+   "context": "civic-feed-routes",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "app/zdroj/[ref]/page.tsx:103 The citation permalink route dynamically re-derives receipts on request, rejects undecodable references with notFound(), renders historical tombstones, and gates ClaimReview JSON-LD emission to live verified claims.",
+   "techniques": [
+    {
+     "technique": "structured-review-emission",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:103 Restricts schema.org ClaimReview JSON-LD emission to live receipts passing human review, omitting markup on historical lens views."
+    },
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:79 Refuses undecodable or malformed claim references with notFound() instead of attempting heuristic repairs."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:77 Calls the server loader dynamically on each request to recompute the receipt from live data."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "claim-verification-and-provenance",
+   "context": "verdict-and-law-analysis",
+   "reason": "The files in lib/analysis/ implement internal AI data-analysis schema validation, forensic legislative analysis, and knowledge graph review rungs, rather than public claim-ref addressing, citation receipts, or gate verification of published civic claims."
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-13T21:05:40.337896+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "derivation-comparison",
+    "gate-state-as-modifier",
+    "recomputation-receipts",
+    "three-verdict-vocabulary"
+   ],
+   "deviations": 0,
+   "context": "civic-verification",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T21:05:40.337896+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "gate-state-as-modifier",
+    "recomputation-receipts",
+    "structured-review-emission"
+   ],
+   "deviations": 0,
+   "context": "shared-provenance",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T21:05:40.337896+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "derivation-comparison",
+    "gate-state-as-modifier"
+   ],
+   "deviations": 0,
+   "context": "civicscore-scoring",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T21:05:40.337896+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "recomputation-receipts",
+    "structured-review-emission"
+   ],
+   "deviations": 0,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}
