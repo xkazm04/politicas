@@ -34,6 +34,7 @@ import {
   type LeaderboardEntry,
 } from "@/features/civicscore/getLeaderboardData";
 import { isCommitteeSeat, type CommitteeSeat as ContributionCommitteeSeat } from "@/lib/analysis/contribution";
+import { seatWindow } from "./seatWindow";
 import { computeScoreLegibility } from "@/lib/analysis/score-legibility";
 import { classifyRole, ROLE_WEIGHT } from "@/lib/analysis/kg";
 import { getMoneyMpDetail } from "@/features/money/getMpDetail";
@@ -245,21 +246,20 @@ export const getProfileData = cache(async function getProfileData(pspId: number)
       const seat: ContributionCommitteeSeat = { organType, functionType: m.functionTypeCz };
       if (!isCommitteeSeat(seat)) continue;
       const role = classifyRole(m.functionTypeCz);
-      const toAtMs = m.toAt ? Date.parse(m.toAt) : null;
-      const toAtUnreadable = toAtMs !== null && !Number.isFinite(toAtMs);
+      const win = seatWindow(m.fromAt, m.toAt, asOfMs);
       const row: CommitteeSeat = {
         abbrev: organByPsp.get(m.organPspId)?.abbrev ?? organByPsp.get(m.organPspId)?.nameCz ?? String(m.organPspId),
         organType,
         role,
         weight: ROLE_WEIGHT[role],
-        // An unreadable end date proves nothing about the seat having ended, so it
-        // does NOT demote the seat to "past" — it is flagged instead (the psp.cz
-        // dumps carry at least one placeholder year-2925 membership date, see
-        // docs/hybrid-benchmark-plan.md).
-        current: !m.toAt || toAtUnreadable || (toAtMs as number) > asOfMs,
+        // Only an OPEN window holds the seat now. An unknown end (unparseable, or a
+        // future placeholder such as the year-2925 date the psp.cz dumps carry) or an
+        // end before the start is flagged, never repaired and never read as current -
+        // the same rule careerSpine applies to the mandate window (seatWindow.ts).
+        current: win.current,
         fromAt: m.fromAt,
         toAt: m.toAt,
-        toAtUnreadable,
+        toAtUnreadable: win.unreadable,
       };
       const arr = rowsByOrgan.get(m.organPspId) ?? [];
       arr.push(row);

@@ -300,6 +300,7 @@ an MP carrying none, so nothing may hard-code an index. `getProfileData` is
 `store.kgNeighbours()`; it must never scan a whole `kg_edge` relation (see
 `lib/db/kgOrder.ts` for why the result is re-sorted). The route carries an
 explicit `revalidate` because the page asserts a committee-seat as-of date.
+A seat is **current only while its window is open** (`features/profile/seatWindow.ts`): an unparseable or future (year-2925 placeholder) end, or an end before the start, is flagged `seatEndUnreadable`, never read as current and never repaired.
 **The registry is read PER PERSON since 2026-08-13.** `membership_person_idx`
 and `mandate_person_idx` have been in the DDL since the first migration with
 no lister able to use them, so the most-linked page in the product — and 207
