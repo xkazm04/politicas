@@ -1522,6 +1522,136 @@
       "evaluatedTs": "2026-10-13T09:44:13.901Z",
       "worker": "b91f38b4-889f-42cb-b095-eadd6eb53e56",
       "techniques": []
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/civic-knowledge-graphs": {
+      "context": "kg-domain-ingest",
+      "subject": "civic-knowledge-graphs",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T10:22:04.570Z",
+      "worker": "13a2c35f-7728-4888-b5b2-d4bb7f06d901",
+      "techniques": [
+        {
+          "technique": "civic-entity-ontology",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:33 Keys law entities using official statute collection registry citations rather than freeform names."
+        },
+        {
+          "technique": "pass-based-incremental-enrichment",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-money-ingest.ts:129 Uses the shared mergeComputedNodeProps helper to merge newly derived company props over existing node props while preserving firstSeenPass."
+        },
+        {
+          "technique": "per-claim-provenance-stamping",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:196 Enforces that every node row written to the store carries valid provenance metadata before committing."
+        }
+      ]
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/civic-knowledge-graphs": {
+      "context": "graph-canvas",
+      "subject": "civic-knowledge-graphs",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T10:22:04.570Z",
+      "worker": "13a2c35f-7728-4888-b5b2-d4bb7f06d901",
+      "techniques": [
+        {
+          "technique": "forensic-view-filtering",
+          "verdict": "conformant",
+          "evidence": "features/graph/components/ForensicOverlays.tsx:61 Discloses counts of pending edges that remain visible specifically because a user-selected lens requested them."
+        },
+        {
+          "technique": "evidence-path-finding",
+          "verdict": "conformant",
+          "evidence": "features/graph/components/TrailFinder.tsx:291 Prints the explicit ranking rule, hub degree threshold, maximum cost, and enumeration cap to the user alongside connection results."
+        },
+        {
+          "technique": "per-claim-provenance-stamping",
+          "verdict": "conformant",
+          "evidence": "features/graph/edgeGate.ts:60 Extracts review gate status and provenance metadata directly from edge rows to distinguish verified, pending, and rejected claims."
+        }
+      ]
+    },
+    "1e6194ec-5275-4cfd-b045-c0604ab491e2/civic-knowledge-graphs": {
+      "context": "kg-graph-writers",
+      "subject": "civic-knowledge-graphs",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T10:22:04.570Z",
+      "worker": "13a2c35f-7728-4888-b5b2-d4bb7f06d901",
+      "techniques": [
+        {
+          "technique": "destructive-rebuild-guard",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-compute.ts:369 Blocks destructive reset execution when guardKgReset detects unregenerated node kinds, edge rels, or dropped entities without explicit supersede flag."
+        },
+        {
+          "technique": "pass-based-incremental-enrichment",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-compute.ts:253 Preserves the pass number that originally created each entity node rather than overwriting it during recomputes."
+        },
+        {
+          "technique": "civic-entity-ontology",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-promote.ts:98 Derives case-owned node kinds from the centralized KG_NODE_KINDS ontology to prevent promotion writers from accepting kinds owned by other pipelines."
+        },
+        {
+          "technique": "per-claim-provenance-stamping",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-promote.ts:117 Validates that proposed edge endpoints exist in the knowledge graph before admission, dropping non-resident endpoints to prevent fabricated links."
+        }
+      ]
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/civic-knowledge-graphs": {
+      "context": "graph-data-logic",
+      "subject": "civic-knowledge-graphs",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T10:22:04.570Z",
+      "worker": "13a2c35f-7728-4888-b5b2-d4bb7f06d901",
+      "techniques": [
+        {
+          "technique": "evidence-path-finding",
+          "verdict": "conformant",
+          "evidence": "features/graph/trailPath.ts:316 Implements degree-based step pricing where passing through high-degree hubs costs double, while exempting query endpoints."
+        },
+        {
+          "technique": "forensic-view-filtering",
+          "verdict": "conformant",
+          "evidence": "features/graph/forensicView.ts:60 Filters out pending and rejected review-state edges from the ambient graph view unless explicitly requested by an active lens."
+        },
+        {
+          "technique": "civic-entity-ontology",
+          "verdict": "conformant",
+          "evidence": "features/graph/catalogParity.test.ts:27 Enforces that display catalogs maintain complete parity with the shared KG_NODE_KINDS closed vocabulary enum."
+        }
+      ]
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/civic-knowledge-graphs": {
+      "context": "civic-fallback-data",
+      "subject": "civic-knowledge-graphs",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T10:22:04.570Z",
+      "worker": "13a2c35f-7728-4888-b5b2-d4bb7f06d901",
+      "techniques": [
+        {
+          "technique": "civic-entity-ontology",
+          "verdict": "deviation",
+          "evidence": "lib/civic/stateGraph.ts:15 Defines an independent, non-standard node kind enum introducing a synthetic 'money' entity kind instead of importing KG_NODE_KINDS."
+        },
+        {
+          "technique": "per-claim-provenance-stamping",
+          "verdict": "deviation",
+          "evidence": "lib/civic/stateGraph.ts:69 Reduces edge review status to a boolean flag without required per-claim provenance fields (method, pass, ref, timestamp)."
+        }
+      ]
     }
   }
 }

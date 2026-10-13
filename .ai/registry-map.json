@@ -2520,7 +2520,11 @@
           "revision": 4,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/civic/data.ts:203 The fallback civic dataset reifies contract amounts into a synthetic 'money' node kind and omits standard registry keys and per-claim provenance stamps.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:c3e404f166d9270f",
+          "evaluatedRevision": 4
         },
         {
           "subject": "public-claim-provenance",
@@ -6135,7 +6139,11 @@
           "revision": 4,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/graph/components/ForensicOverlays.tsx:57 The interactive graph canvas defaults to verified ties in forensic mode, displaying explicit counts of hidden pending ties.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:c3e404f166d9270f",
+          "evaluatedRevision": 4
         },
         {
           "subject": "quality-gates",
@@ -6285,7 +6293,11 @@
           "revision": 4,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/graph/trailPath.ts:55 The graph data layer excludes dense statistical relations from evidence traversals and filters pending ties in forensic view modes.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:c3e404f166d9270f",
+          "evaluatedRevision": 4
         },
         {
           "subject": "quality-gates",
@@ -7278,7 +7290,11 @@
           "revision": 4,
           "changedAt": "2026-09-09",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:144 Domain ingest scripts merge computed node properties over existing stored properties rather than replacing them, preserving prior enrichments and creating pass stamps.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:c3e404f166d9270f",
+          "evaluatedRevision": 4
         },
         {
           "subject": "quality-gates",
@@ -7562,7 +7578,11 @@
           "revision": 4,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/data-analysis/kg-compute.ts:245 The graph writer pipeline guards destructive rebuilds against live database contents and incrementally merges computed properties onto existing entities.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:c3e404f166d9270f",
+          "evaluatedRevision": 4
         },
         {
           "subject": "supply-chain",
