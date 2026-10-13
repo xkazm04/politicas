@@ -4388,7 +4388,11 @@
           "revision": 17,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/db/pglite/mappers.ts:137 An unrecognized membership.kind is returned as the live value member, so a corrupt vocabulary cell becomes a healthy row instead of a failed read or a recorded skip.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b67182492821d592",
+          "evaluatedRevision": 18
         },
         {
           "subject": "migrations",
@@ -5624,7 +5628,11 @@
           "revision": 17,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:57 This directory is the RuleTester harness for an ESLint plugin; a search of __tests__ for transaction, upsert, sql, and mapper found no store seam.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b67182492821d592",
+          "evaluatedRevision": 18
         },
         {
           "subject": "sidecar-provisioning",
@@ -5794,7 +5802,11 @@
           "revision": 17,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "eslint-rules/README.md:17 This directory is a set of one-line ESLint re-export shims; a search of eslint-rules for repository, transaction, upsert, and sql found no store seam.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b67182492821d592",
+          "evaluatedRevision": 18
         },
         {
           "subject": "voice-io",
@@ -7654,7 +7666,11 @@
           "revision": 17,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 The orphan repair opens PGlite itself and runs its own archive-delete SQL, so statements against kg_edge are not confined to the repository.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b67182492821d592",
+          "evaluatedRevision": 18
         },
         {
           "subject": "mcp-tools",
@@ -11674,7 +11690,11 @@
           "revision": 17,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/loaders.test.ts:153 The loader suite seeds an ordinary person row with a raw INSERT on the engine handle, so the fixture does not go through the repository write surface.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b67182492821d592",
+          "evaluatedRevision": 18
         },
         {
           "subject": "test-input-generation",

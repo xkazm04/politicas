@@ -1,0 +1,318 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+ "subject": "data-access",
+ "evaluatedAt": "2026-10-13T13:12:26.241021+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "kg-graph-writers",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 The orphan repair opens PGlite itself and runs its own archive-delete SQL, so statements against kg_edge are not confined to the repository.",
+   "techniques": [
+    {
+     "technique": "query-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-repair-orphans.ts:90 The three key values are bound; the column list is the imported KG_EDGE_COLS constant, not an external token."
+    },
+    {
+     "technique": "layering-rules",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 Header still names store.deleteKgEdges; the body duplicates that SQL on a raw handle."
+    },
+    {
+     "technique": "transactions-and-units-of-work",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-compute.ts:380 The next line upserts edges as a second call; a reset clearKg() above that is a third call. No scope in this file spans them."
+    },
+    {
+     "technique": "batching-and-n-plus-one",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-repair-orphans.ts:88 That statement sits in a for-loop, one round trip per orphan edge."
+    },
+    {
+     "technique": "repo-testing",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:116 The merge test opens a fixture copy via open() and writes through the kg repository."
+    },
+    {
+     "technique": "cross-driver-invariant-parity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:16 The context has one PGlite store; there is no second backend behind the writers."
+    },
+    {
+     "technique": "capability-declared-in-the-type",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-compute.ts:94 Callers use one store facade. A missing operation is not a capability gap across implementations."
+    },
+    {
+     "technique": "existence-authority-written-last",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-compute.ts:44 Nodes and edges are two tables of one PGlite, not two stores that share no transaction."
+    },
+    {
+     "technique": "operator-defined-tables",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-promote.ts:96 Node kinds are a closed code set. Nothing here creates a table from an operator's runtime definition."
+    },
+    {
+     "technique": "localized-record-identity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-contribution-recompute.ts:325 The only language hit in these files is Czech collation of a name, not a per-language record."
+    }
+   ]
+  },
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "eslint-rules/README.md:17 This directory is a set of one-line ESLint re-export shims; a search of eslint-rules for repository, transaction, upsert, and sql found no store seam.",
+   "techniques": [],
+   "absenceTerms": [
+    "repository",
+    "transaction",
+    "upsert",
+    "sql"
+   ]
+  },
+  {
+   "context": "db-pglite-engine",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/pglite/mappers.ts:137 An unrecognized membership.kind is returned as the live value member, so a corrupt vocabulary cell becomes a healthy row instead of a failed read or a recorded skip.",
+   "techniques": [
+    {
+     "technique": "query-construction",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/durability.ts:100 Setting names are spliced in as quoted literals. They can be bound. upsertMany and storeAccounting do bind values and allowlist table identifiers."
+    },
+    {
+     "technique": "row-mapping",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/mappers.ts:137 mappers.test.ts pins this coercion. json() in internals.ts also turns a failed JSON.parse into {} with no skip record."
+    },
+    {
+     "technique": "layering-rules",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/internals.ts:46 Engine modules import lib/db siblings and domain types. No feature or handler import in these files."
+    },
+    {
+     "technique": "transactions-and-units-of-work",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/internals.ts:237 upsertMany commits every chunk inside one pg.transaction so a mid-loop failure does not leave a prefix."
+    },
+    {
+     "technique": "batching-and-n-plus-one",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/internals.ts:232 Placeholders are generated per value, an empty row list returns 0 before any statement, and the chunk stays under the WASM parameter ceiling."
+    },
+    {
+     "technique": "repo-testing",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/durability.test.ts:30 open() execs CORE_DDL. The test file isolates the data dir with pgliteFixtureDir and asserts the engine's reported settings."
+    },
+    {
+     "technique": "cross-driver-invariant-parity",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/durability.ts:5 One engine's durability contract. No second storage backend is implemented in this tree."
+    },
+    {
+     "technique": "read-models-and-projections",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/accounting.ts:74 derived-recomputable here is a retention class for table size, not a projection surface for a screen."
+    },
+    {
+     "technique": "capability-declared-in-the-type",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/internals.ts:67 A single engine is constructed. There is no family of partial store implementations to admit."
+    },
+    {
+     "technique": "sequence-token-write-ordering",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/sentinelQueue.ts:170 Newest certification across the JSONL queue and sentinel_run is a wall-clock stamp, with a content-hash tie-break forcing a total order."
+    },
+    {
+     "technique": "existence-authority-written-last",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/sentinelQueue.ts:127 The queue file is appended first; sentinel_run is inserted on drain; the file is truncated only after those inserts. Certification reads the table."
+    },
+    {
+     "technique": "operator-defined-tables",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/ddl.ts:13 Tables are a schema string in source. No runtime DDL from an operator-supplied type."
+    },
+    {
+     "technique": "localized-record-identity",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/accounting.ts:69 Entity tables are source mirrors of a published dump. name_en on organ is a dump column, not a user-authored translation row with its own lifecycle."
+    }
+   ],
+   "registryProposal": "Row-mapping already bans coercing an unknown vocabulary value into a live member. It is worth one sentence that a deduped console warning does not turn that coercion into degrade-visibly, because the returned row still has no skip identity and no taint."
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-tests",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:57 This directory is the RuleTester harness for an ESLint plugin; a search of __tests__ for transaction, upsert, sql, and mapper found no store seam.",
+   "techniques": [],
+   "absenceTerms": [
+    "transaction",
+    "upsert",
+    "sql",
+    "mapper"
+   ]
+  },
+  {
+   "context": "testing-core",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/loaders.test.ts:153 The loader suite seeds an ordinary person row with a raw INSERT on the engine handle, so the fixture does not go through the repository write surface.",
+   "techniques": [
+    {
+     "technique": "query-construction",
+     "verdict": "conformant",
+     "evidence": "lib/testing/crash-writer.mjs:24 The probe binds the id. Loader seed SQL is static source text, not values concatenated from variables."
+    },
+    {
+     "technique": "repo-testing",
+     "verdict": "deviation",
+     "evidence": "lib/testing/loaders.test.ts:153 Ordinary rows are raw inserts. The template path does apply CORE_DDL, which is the production schema road for the engine fixture."
+    },
+    {
+     "technique": "cross-driver-invariant-parity",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/lanes.ts:41 The lane is one embedded engine. No second backend is stood up here."
+    },
+    {
+     "technique": "capability-declared-in-the-type",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/pglite-template.ts:148 The harness constructs one engine."
+    },
+    {
+     "technique": "sequence-token-write-ordering",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/pglite-template.ts:198 One process publishes one template. There is no multi-store write stream to order."
+    },
+    {
+     "technique": "existence-authority-written-last",
+     "verdict": "conformant",
+     "evidence": "lib/testing/pglite-template.ts:137 Store files are built in scratch, renamed into place, and TEMPLATE_READY is written after that. isTemplateReady is the reader gate; a dir missing it is removed."
+    },
+    {
+     "technique": "operator-defined-tables",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/pglite-template.ts:157 The test template applies the schema constant from source."
+    },
+    {
+     "technique": "localized-record-identity",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/loaders.test.ts:45 The language use here is a prose gate on rendered text, not a per-language stored record."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-13T13:12:26.241021+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "batching-and-n-plus-one",
+    "capability-declared-in-the-type",
+    "cross-driver-invariant-parity",
+    "existence-authority-written-last",
+    "layering-rules",
+    "localized-record-identity",
+    "operator-defined-tables",
+    "query-construction",
+    "repo-testing",
+    "transactions-and-units-of-work"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T13:12:26.241021+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T13:12:26.241021+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "batching-and-n-plus-one",
+    "capability-declared-in-the-type",
+    "cross-driver-invariant-parity",
+    "existence-authority-written-last",
+    "layering-rules",
+    "localized-record-identity",
+    "operator-defined-tables",
+    "query-construction",
+    "read-models-and-projections",
+    "repo-testing",
+    "row-mapping",
+    "sequence-token-write-ordering",
+    "transactions-and-units-of-work"
+   ],
+   "deviations": 1,
+   "context": "db-pglite-engine",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T13:12:26.241021+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-tests",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-13T13:12:26.241021+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "capability-declared-in-the-type",
+    "cross-driver-invariant-parity",
+    "existence-authority-written-last",
+    "localized-record-identity",
+    "operator-defined-tables",
+    "query-construction",
+    "repo-testing",
+    "sequence-token-write-ordering"
+   ],
+   "deviations": 1,
+   "context": "testing-core",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}
