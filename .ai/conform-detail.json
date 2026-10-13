@@ -1848,6 +1848,171 @@
           "evidence": "scripts/case-loops/money/verify-surface.ts:10 Surface verification reads figures directly through the production loader getMoneyData rather than re-computing arithmetic locally."
         }
       ]
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/public-procurement-analysis": {
+      "context": "money-contracts",
+      "subject": "public-procurement-analysis",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T12:17:35.698Z",
+      "worker": "50b1129e-2c06-4637-8c07-c7b88785af02",
+      "techniques": [
+        {
+          "technique": "contract-registry-record-model",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/persist-contract-harvest.ts:121 Keys contract nodes on idSmlouvy while storing version idVerze as an attribute."
+        },
+        {
+          "technique": "contract-version-supersession",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/persist-contract-harvest.ts:91 Drops superseded versions using the platnyZaznam flag and dedupes on idSmlouvy."
+        },
+        {
+          "technique": "payer-vs-receiver-direction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/persist-contract-harvest.ts:174 Refuses to generate a supplies edge when the company is flagged as payer."
+        },
+        {
+          "technique": "registry-coverage-blind-spots",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/supplies-coverage-audit.ts:96 Audits per-company contract counts to detect query ceiling spikes and qualify sums as floors."
+        },
+        {
+          "technique": "threshold-proximity-signals",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/triage.ts:197 Computes near-threshold clustering counts to weight review triage ranking."
+        },
+        {
+          "technique": "value-basis-non-summability",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/persist-contract-harvest.ts:125 Determines and records the explicit value basis on every contract and supplies edge."
+        }
+      ]
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/public-procurement-analysis": {
+      "context": "ingest-sources-financial",
+      "subject": "public-procurement-analysis",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T12:17:35.698Z",
+      "worker": "50b1129e-2c06-4637-8c07-c7b88785af02",
+      "techniques": [
+        {
+          "technique": "contract-registry-record-model",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:59 Models contract identity idSmlouvy separately from version identity idVerze."
+        },
+        {
+          "technique": "contract-version-supersession",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:76 Captures the platnyZaznam flag distinguishing valid current versions from superseded records."
+        },
+        {
+          "technique": "payer-vs-receiver-direction",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:193 Resolves direction from per-party platce/prijemce flags, returning unknown when unstated."
+        },
+        {
+          "technique": "registry-coverage-blind-spots",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/smlouvy.ts:36 Documents search-side role asymmetry where party_idnum misses contracts published by the entity."
+        },
+        {
+          "technique": "threshold-proximity-signals",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/isvz.ts:29 Source adapters ingest register facts verbatim without running red-flag heuristics or triage queues."
+        },
+        {
+          "technique": "value-basis-non-summability",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:71 Parses hodnotaBezDph, hodnotaVcetneDph, and foreign currency into distinct fields without coercion."
+        }
+      ]
+    },
+    "ededba42-cb3c-4821-8d13-dd4123266054/public-procurement-analysis": {
+      "context": "financial-analysis",
+      "subject": "public-procurement-analysis",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T12:17:35.698Z",
+      "worker": "50b1129e-2c06-4637-8c07-c7b88785af02",
+      "techniques": [
+        {
+          "technique": "contract-registry-record-model",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/money-feed.ts:187 Keys contracts by idSmlouvy and compares idVerze."
+        },
+        {
+          "technique": "contract-version-supersession",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/money-feed.ts:199 Keeps the latest version of a contract by comparing version identifiers."
+        },
+        {
+          "technique": "payer-vs-receiver-direction",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/kg-money.ts:138 Creates supplies edges with empty props without recording direction or accounting for non-recipient records."
+        },
+        {
+          "technique": "value-basis-non-summability",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/money-feed.ts:178 Falls back from gross to net without recording which basis populated the contract amount."
+        }
+      ]
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/public-procurement-analysis": {
+      "context": "kg-domain-ingest",
+      "subject": "public-procurement-analysis",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T12:17:35.698Z",
+      "worker": "50b1129e-2c06-4637-8c07-c7b88785af02",
+      "techniques": [
+        {
+          "technique": "payer-vs-receiver-direction",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-money-ingest.ts:231 Forces supplierIco on every contract result without reading or writing direction flags."
+        },
+        {
+          "technique": "registry-coverage-blind-spots",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-money-ingest.ts:166 Silently limits per-company contract pulls to 1 page, manufacturing a capped sample without a coverage declaration."
+        },
+        {
+          "technique": "value-basis-non-summability",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-money-ingest.ts:144 Persists supplies edges without amountBasis attributes."
+        }
+      ]
+    },
+    "698307e2-e6e2-444a-81c9-07254c5d1725/public-procurement-analysis": {
+      "context": "money-evidence",
+      "subject": "public-procurement-analysis",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T12:17:35.698Z",
+      "worker": "50b1129e-2c06-4637-8c07-c7b88785af02",
+      "techniques": [
+        {
+          "technique": "payer-vs-receiver-direction",
+          "verdict": "conformant",
+          "evidence": "features/money/reachableMoney.ts:96 Filters non-recipient and payer contract values from reachable money attribution."
+        },
+        {
+          "technique": "registry-coverage-blind-spots",
+          "verdict": "conformant",
+          "evidence": "features/money/reachableMoney.ts:212 Detects harvest cap signatures across company contract counts to declare reachable money as a floor."
+        },
+        {
+          "technique": "value-basis-non-summability",
+          "verdict": "conformant",
+          "evidence": "features/money/amountBasis.ts:110 Computes basis composition in a pure function to flag mixed tax bases and isolate non-VAT rows."
+        }
+      ]
     }
   }
 }

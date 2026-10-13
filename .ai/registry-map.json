@@ -5963,7 +5963,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/money-feed.ts:178 The money feed collapses tax-inclusive and tax-exclusive contract values into a single amount field via prefer-gross-else-net fallback without preserving the value basis.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:293191c2bd9122d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "state-budget-analysis",
@@ -6848,7 +6852,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:59 The financial ingest source adapters model separate contract and version identity keys, parse mutually exclusive value bases, evaluate party direction, and warn of search-side coverage blind spots.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:293191c2bd9122d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "federated-benchmark-sharing",
@@ -7398,7 +7406,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-money-ingest.ts:166 The domain money ingest defaults to a 1-page query cap per company without recording coverage or declaring derived totals to be truncated floors.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:293191c2bd9122d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "roll-call-vote-analysis",
@@ -9483,7 +9495,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/case-loops/money/persist-contract-harvest.ts:121 The contract persistence pipeline keys contract nodes on idSmlouvy, drops superseded versions, tags direction and value bases, and refuses to attribute payer contracts as supplies.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:293191c2bd9122d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "translation-pipeline-topology",
@@ -9709,7 +9725,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/money/amountBasis.ts:110 The money evidence layer derives basis composition to flag mixed-tax totals, excludes non-recipient contract directions from reachable money, and computes coverage floors from modal ceilings.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:293191c2bd9122d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "quality-gates",
