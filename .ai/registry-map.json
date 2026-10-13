@@ -12014,7 +12014,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "lib/analysis/kg.ts:1 Implements deterministic computation of knowledge graph roll-call vote edges and metrics including co-voting agreement, party rebellion, and Rice cohesion.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:1952ca06aa46d09f",
+          "evaluatedRevision": 5
         },
         {
           "subject": "test-harness",
@@ -12378,7 +12382,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/votetrack/record/derive.ts:207 Derives full deterministic roll-call vote records from ingested ballots, calculating majority party lines, Rice cohesion, rebellion rates with support floors, and tally reconciliation.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:1952ca06aa46d09f",
+          "evaluatedRevision": 5
         },
         {
           "subject": "quality-gates",
@@ -12528,7 +12536,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/votetrack/getVoteRecord.ts:115 Loads and caches the full derived vote record for the ledger and seismogram surfaces while preserving complete population counts before presentation slicing.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:1952ca06aa46d09f",
+          "evaluatedRevision": 5
         },
         {
           "subject": "political-compass-from-votes",

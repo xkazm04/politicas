@@ -2377,6 +2377,99 @@
         "at": "2026-10-13T21:33:39.739045+00:00",
         "reason": "reviewer (sonnet): The cited lines show only a read-only dashboard parsing fixed-path graph-log.md and frontier.md with documented best-effort regexes (getAdminData.ts:16-17). A containment violation is not shown, because readTextSafe joins constant relative paths onto ROOT and no user input reaches it. The 'no deep-l"
       }
+    },
+    "4bf433a5-ab8e-4468-b456-344daae2ce21/roll-call-vote-analysis": {
+      "context": "votetrack-ledger",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:07:22.262Z",
+      "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+      "techniques": [
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/components/RealRebellions.tsx:100 Renders rebellion rankings gated on MIN_ELIGIBLE_VOTES (50) and reports total eligible population before slicing presentation cap."
+        },
+        {
+          "technique": "positional-vs-participation-bases",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:95 Separately outputs lineVotes and riceVotes denominators so the reader sees positional bases rather than all term votes."
+        },
+        {
+          "technique": "rice-cohesion-index",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:85 Displays Rice cohesion index per club, rendering null (when below qualification floor) as an em-dash rather than 0 or 1."
+        },
+        {
+          "technique": "tally-reconciliation",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:326 Displays reconciliation results against source tallies, presenting deltas as findings and linking to primary psp.cz source."
+        }
+      ]
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/roll-call-vote-analysis": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:07:22.262Z",
+      "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+      "techniques": [
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/derive.ts:144 Defines party line as strict majority of positional ballots; ties yield null so no line is derived for evenly split groups."
+        },
+        {
+          "technique": "positional-vs-participation-bases",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/derive.ts:122 Partitions choices into yes, no, merged K bucket, and away, ensuring only yes/no form the positional base."
+        },
+        {
+          "technique": "rice-cohesion-index",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/derive.ts:157 Calculates Rice cohesion index |yes - no| / (yes + no) over positional votes, returning null when no positional ballots exist."
+        },
+        {
+          "technique": "tally-reconciliation",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/reconcile.ts:95 Compares recount against published chamber counts 1:1 without estimation, reporting discrepancies as findings rather than repairs."
+        }
+      ]
+    },
+    "b63c108e-2ffa-42b1-8a41-2e052c4bae86/roll-call-vote-analysis": {
+      "context": "verdict-and-law-analysis",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T22:07:22.262Z",
+      "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+      "techniques": [
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg.ts:175 Derives party lines as strict majorities of positional ballots with tied votes skipped, gating rebellion rates on MIN_ELIGIBLE_VOTES (50)."
+        },
+        {
+          "technique": "co-voting-agreement-matrix",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg.ts:86 Computes undirected pairwise co-voting matrix over shared positional ballots, gated on MIN_SHARED_VOTES (50) and excluding voided votes."
+        },
+        {
+          "technique": "positional-vs-participation-bases",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg.ts:48 Filters ballots to yes/no for all side-taking metrics (co-voting, rebellion, cohesion) while treating all other choices as non-participation."
+        },
+        {
+          "technique": "rice-cohesion-index",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg.ts:257 Computes Rice cohesion index |yes - no| / (yes + no) on positional votes, requiring at least MIN_CLUB_POSITIONAL (5) members participating."
+        }
+      ]
     }
   }
 }

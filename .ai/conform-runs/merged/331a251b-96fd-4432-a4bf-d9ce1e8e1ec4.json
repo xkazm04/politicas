@@ -1,0 +1,162 @@
+{
+ "schema": "conform-run/1",
+ "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+ "subject": "roll-call-vote-analysis",
+ "evaluatedAt": "2026-10-13T22:07:22.262693+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "votetrack-ledger",
+   "subject": "roll-call-vote-analysis",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/votetrack/getVoteRecord.ts:115 Loads and caches the full derived vote record for the ledger and seismogram surfaces while preserving complete population counts before presentation slicing.",
+   "techniques": [
+    {
+     "technique": "club-line-and-rebellion",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/components/RealRebellions.tsx:100 Renders rebellion rankings gated on MIN_ELIGIBLE_VOTES (50) and reports total eligible population before slicing presentation cap."
+    },
+    {
+     "technique": "positional-vs-participation-bases",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:95 Separately outputs lineVotes and riceVotes denominators so the reader sees positional bases rather than all term votes."
+    },
+    {
+     "technique": "rice-cohesion-index",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:85 Displays Rice cohesion index per club, rendering null (when below qualification floor) as an em-dash rather than 0 or 1."
+    },
+    {
+     "technique": "tally-reconciliation",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:326 Displays reconciliation results against source tallies, presenting deltas as findings and linking to primary psp.cz source."
+    }
+   ]
+  },
+  {
+   "context": "votetrack-kompas-analysis",
+   "subject": "roll-call-vote-analysis",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/votetrack/record/derive.ts:207 Derives full deterministic roll-call vote records from ingested ballots, calculating majority party lines, Rice cohesion, rebellion rates with support floors, and tally reconciliation.",
+   "techniques": [
+    {
+     "technique": "club-line-and-rebellion",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/record/derive.ts:144 Defines party line as strict majority of positional ballots; ties yield null so no line is derived for evenly split groups."
+    },
+    {
+     "technique": "positional-vs-participation-bases",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/record/derive.ts:122 Partitions choices into yes, no, merged K bucket, and away, ensuring only yes/no form the positional base."
+    },
+    {
+     "technique": "rice-cohesion-index",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/record/derive.ts:157 Calculates Rice cohesion index |yes - no| / (yes + no) over positional votes, returning null when no positional ballots exist."
+    },
+    {
+     "technique": "tally-reconciliation",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/record/reconcile.ts:95 Compares recount against published chamber counts 1:1 without estimation, reporting discrepancies as findings rather than repairs."
+    }
+   ]
+  },
+  {
+   "context": "verdict-and-law-analysis",
+   "subject": "roll-call-vote-analysis",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "lib/analysis/kg.ts:1 Implements deterministic computation of knowledge graph roll-call vote edges and metrics including co-voting agreement, party rebellion, and Rice cohesion.",
+   "techniques": [
+    {
+     "technique": "club-line-and-rebellion",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg.ts:175 Derives party lines as strict majorities of positional ballots with tied votes skipped, gating rebellion rates on MIN_ELIGIBLE_VOTES (50)."
+    },
+    {
+     "technique": "co-voting-agreement-matrix",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg.ts:86 Computes undirected pairwise co-voting matrix over shared positional ballots, gated on MIN_SHARED_VOTES (50) and excluding voided votes."
+    },
+    {
+     "technique": "positional-vs-participation-bases",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg.ts:48 Filters ballots to yes/no for all side-taking metrics (co-voting, rebellion, cohesion) while treating all other choices as non-participation."
+    },
+    {
+     "technique": "rice-cohesion-index",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg.ts:257 Computes Rice cohesion index |yes - no| / (yes + no) on positional votes, requiring at least MIN_CLUB_POSITIONAL (5) members participating."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "roll-call-vote-analysis",
+   "context": "kg-domain-ingest",
+   "reason": "Precondition does not hold: context scripts ingest domain entities (bills, e-Sb\u00edrka laws, money ties, bill roles) and psp.cz raw dumps into the knowledge graph; roll-call vote analysis (co-voting, club line derivation, Rice cohesion, tally reconciliation) is not implemented within these scripts."
+  },
+  {
+   "subject": "roll-call-vote-analysis",
+   "context": "voting-legislation-routes",
+   "reason": "Precondition does not hold: context consists of thin Next.js route handlers and page shells (e.g. app/hlasovani/page.tsx, app/zakony/); actual roll-call vote derivation and analysis logic reside in features/votetrack/ and lib/analysis/."
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-13T22:07:22.262693+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "roll-call-vote-analysis"
+   ],
+   "techniques": [
+    "club-line-and-rebellion",
+    "positional-vs-participation-bases",
+    "rice-cohesion-index",
+    "tally-reconciliation"
+   ],
+   "deviations": 0,
+   "context": "votetrack-ledger",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T22:07:22.262693+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "roll-call-vote-analysis"
+   ],
+   "techniques": [
+    "club-line-and-rebellion",
+    "positional-vs-participation-bases",
+    "rice-cohesion-index",
+    "tally-reconciliation"
+   ],
+   "deviations": 0,
+   "context": "votetrack-kompas-analysis",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T22:07:22.262693+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "roll-call-vote-analysis"
+   ],
+   "techniques": [
+    "club-line-and-rebellion",
+    "co-voting-agreement-matrix",
+    "positional-vs-participation-bases",
+    "rice-cohesion-index"
+   ],
+   "deviations": 0,
+   "context": "verdict-and-law-analysis",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}
