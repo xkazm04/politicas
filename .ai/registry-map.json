@@ -2795,7 +2795,11 @@
           "revision": 41,
           "changedAt": "2026-09-29",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/schranka/getSchrankaDeltas.ts:75 Context and repository searches for prompt assembly, model requests, compaction and context-window budgeting found no owned prompt assembler here; this loader derives subscriber deltas for browser and feed consumers.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:7436fd55a7cb2500",
+          "evaluatedRevision": 43
         },
         {
           "subject": "mcp-tools",
@@ -8337,7 +8341,11 @@
           "revision": 41,
           "changedAt": "2026-09-29",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:175 Context and repository searches found corpus parsing, deterministic summary construction and verdict processing rather than an owned prompt assembler, so these bill summaries do not constitute model-written conversation compaction.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:7436fd55a7cb2500",
+          "evaluatedRevision": 43
         },
         {
           "subject": "test-harness",
