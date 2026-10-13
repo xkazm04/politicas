@@ -721,6 +721,207 @@
           "evidence": "scripts/case-loops/tender/arena.ts:20 The module states there is no judgment; the output is a category-to-ballot map."
         }
       ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/table": {
+      "context": "admin-observability",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T02:05:25.893Z",
+      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "techniques": [
+        {
+          "technique": "sorting",
+          "verdict": "deviation",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:193 Order is total in the state machine (loopState.ts:447), but the table carries no caption or status announcement exposing the sort order to assistive technology."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:211 Rows are keyed by immutable loop domain identity rather than positional index."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:285 Settled empty state explicitly names why no rows are available instead of rendering generic empty text."
+        },
+        {
+          "technique": "pagination",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:447 Loop set is a closed enumeration composed of fixed cases and ingest sources with no windowing requirement."
+        },
+        {
+          "technique": "filtering",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:210 The status board provides no filter controls or predicate axis."
+        }
+      ],
+      "registryProposal": "The table golden path specifies an accessibility posture (caption/accessible name and column header associations) at the subject level, but none of the 6 constituent techniques covers general table accessibility, forcing semantic header/caption omissions to map onto sorting announcement.",
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:187 is a bounded status board: order is total and declared (features/admin/loops/loopState.ts:446 case loops then ingest sources by id), rows keyed by identity (:203), empty-settled names its cause (:279). pagination and filtering are not-applicable - the row set is a closed enumeration, one row per declared loop plus one per ingest source (features/admin/loops/loopState.ts:411-:444), with no query axis on the surface. Deviation: the table carries no caption or accessible name (:187-:188) although sibling tables in this repo do (features/votetrack/components/RealDisciplineBoard.tsx:133), so a screen reader meets nine unnamed columns.",
+          "evaluatedAt": "2026-09-22",
+          "worker": null,
+          "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        }
+      ]
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/table": {
+      "context": "budget-mirror",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T02:05:25.893Z",
+      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "techniques": [
+        {
+          "technique": "sorting",
+          "verdict": "deviation",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:439 Rows are deterministically sorted by debt per capita (BudgetMirrorPage.tsx:212), but the sorted column header lacks aria-sort and any caption or announcement of the order."
+        },
+        {
+          "technique": "pagination",
+          "verdict": "conformant",
+          "evidence": "features/budget/MoneyTrailSection.tsx:52 Supplier table bounds visible rows to 12 items plus tied entities, honestly disclosing the remainder with row count and summed volume (MoneyTrailSection.tsx:387)."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/budget/MoneyTrailSection.tsx:285 Supplier and peer comparison rows are keyed by immutable organization identification numbers (IČO)."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/budget/MoneyTrailSection.tsx:251 and features/budget/BudgetMirrorPage.tsx:411 carry no caption, no accessible name and no scope on any header cell, so neither table's columns are associated with their cells - the golden path's accessibility posture, and the same repo meets it at features/volby/components/ListsLedger.tsx:36. Otherwise realized: sorting total with an ic tiebreak and a declared home for absent values (features/budget/BudgetMirrorPage.tsx:197-:200), pagination an honest bound with the remainder disclosed as a summed row (features/budget/MoneyTrailSection.tsx:49, :107-:110), performance keyed by identity with named derivations (features/budget/MoneyTrailSection.tsx:107, :267; features/budget/BudgetMirrorPage.tsx:424).",
+          "evaluatedAt": "2026-09-22",
+          "worker": null,
+          "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        }
+      ]
+    },
+    "e9b0f297-acb5-4de0-91ed-aebb33374531/table": {
+      "context": "civicscore-leaderboard",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T02:05:25.893Z",
+      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "techniques": [
+        {
+          "technique": "filtering",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:572 Empty-settled state renders a generic empty message without naming the active filter predicate, and the 4 filter axes lack a unified clear affordance."
+        },
+        {
+          "technique": "sorting",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/getLeaderboardData.ts:217 Sorting is total and deterministic, combining score descending, Czech name collation, and unique pspId tiebreaker."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:132 Rows are memoized with React.memo and keyed by MP identity (pspId) to prevent re-rendering unaffected rows during interactions."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:510 is the grid-role table over a 207-row all-client snapshot; sorting is total (features/civicscore/getLeaderboardData.ts:198, score|name|pspId), performance is rungs 2-3 (features/civicscore/components/LeaderboardTable.tsx:127 row memo on identity, :384 folds names once per list) and the count carries its predicate in a live region (:559). filtering deviates: four axes (:331, :332, :338, :352) with no single clear affordance and none projected to the URL, so a filtered leaderboard cannot be shared or restored, and :549 asserts empty without naming the applied predicate.",
+          "evaluatedAt": "2026-09-22",
+          "worker": null,
+          "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        }
+      ]
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/table": {
+      "context": "money-ledger",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T02:05:25.893Z",
+      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "techniques": [
+        {
+          "technique": "filtering",
+          "verdict": "deviation",
+          "evidence": "features/money/components/TiesLedger.tsx:135 Five filter axes operate simultaneously without a unified clear action, and all filter selections are lost on refresh or navigation."
+        },
+        {
+          "technique": "pagination",
+          "verdict": "deviation",
+          "evidence": "features/money/components/TiesLedger.tsx:141 Pagination window state is held in local useState rather than reflected in navigational state (URL query params), resetting on reload."
+        },
+        {
+          "technique": "client-server-split",
+          "verdict": "deviation",
+          "evidence": "features/money/publicWire.ts:202 All ties are transferred uncut to the client without a declared dataset growth bound or guard."
+        },
+        {
+          "technique": "sorting",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:167 Sorting enforces a total, reproducible order across re-renders with an immutable compound tiebreaker (pspId + companyId)."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:64 Materialized window is capped at 25 rows, text search keys are folded once per dataset (line 126), and rows are keyed by stable entity IDs (line 353)."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/money/components/TiesLedger.tsx:322 is the full three-axis table: sorting total with an identity tiebreak (:167) and announced (:613), filter changes reset the window (:134-:141 each setPage(0)), empty names its applied predicate (:478), count carries it (:307), perf rungs 1-3 (:64 PAGE_SIZE 25, :125 fold once per list, :344 identity key). Three deviations: five filter axes (:134-:139) with no single clear affordance; window+sort+filter live only in useState (:141) so back-navigation, refresh and a shared link silently reset a surface whose purpose is citing one row; and the all-client growth bet is unwritten - features/money/publicWire.ts:202 ships every tie uncut while :208 caps the chip list at 36 with a stated reason.",
+          "evaluatedAt": "2026-09-22",
+          "worker": null,
+          "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        }
+      ]
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/table": {
+      "context": "volby-elections",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T02:05:25.893Z",
+      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "techniques": [
+        {
+          "technique": "sorting",
+          "verdict": "conformant",
+          "evidence": "features/volby/volbyLoader.ts:167 Order is total and deterministic using Czech locale collation and unique pspId tiebreaker in the loader."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:61 Table rows are keyed by stable slug identity; numbers are right-aligned with fixed-width tabular numerals."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:30 Empty condition is verified and settled with localized messaging before table chrome renders."
+        },
+        {
+          "technique": "client-server-split",
+          "verdict": "conformant",
+          "evidence": "features/volby/getListData.ts:25 Datasets are bounded and shaped on the server (12 contested votes, chamber list rollups) before client delivery."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "Four server-rendered comparison tables (features/volby/components/ListsLedger.tsx:35, features/volby/components/ContestedMatrix.tsx:37, features/volby/KrajPage.tsx:50, features/volby/ListPage.tsx:25) share one realization: sorting total with identity or locale tiebreaks in the loader (features/volby/volbyLoader.ts:167, :351, :453), performance keyed by identity (features/volby/components/ListsLedger.tsx:61, features/volby/components/ContestedMatrix.tsx:63, features/volby/KrajPage.tsx:67, features/volby/ListPage.tsx:45), loading-and-empty-states settled-empty before any table renders (features/volby/components/ListsLedger.tsx:30, features/volby/components/ContestedMatrix.tsx:33). Windows are bounded by the domain (a chamber's seats, the twelve closest votes) rather than by a pager; column conventions hold - numbers right-aligned in tabular numerals (features/volby/components/ListsLedger.tsx:72-:75), caption and scope on every table.",
+          "evaluatedAt": "2026-09-22",
+          "worker": null,
+          "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        }
+      ]
     }
   }
 }

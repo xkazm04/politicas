@@ -1,0 +1,244 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+ "subject": "table",
+ "evaluatedAt": "2026-10-13T02:05:25.893864+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "admin-observability",
+   "subject": "table",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/admin/components/LoopMissionControl.tsx:193 The status board renders nine columns without a caption or accessible name, meeting screen readers with an unnamed data table.",
+   "techniques": [
+    {
+     "technique": "sorting",
+     "verdict": "deviation",
+     "evidence": "features/admin/components/LoopMissionControl.tsx:193 Order is total in the state machine (loopState.ts:447), but the table carries no caption or status announcement exposing the sort order to assistive technology."
+    },
+    {
+     "technique": "performance",
+     "verdict": "conformant",
+     "evidence": "features/admin/components/LoopMissionControl.tsx:211 Rows are keyed by immutable loop domain identity rather than positional index."
+    },
+    {
+     "technique": "loading-and-empty-states",
+     "verdict": "conformant",
+     "evidence": "features/admin/components/LoopMissionControl.tsx:285 Settled empty state explicitly names why no rows are available instead of rendering generic empty text."
+    },
+    {
+     "technique": "pagination",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:447 Loop set is a closed enumeration composed of fixed cases and ingest sources with no windowing requirement."
+    },
+    {
+     "technique": "filtering",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/components/LoopMissionControl.tsx:210 The status board provides no filter controls or predicate axis."
+    }
+   ],
+   "registryProposal": "The table golden path specifies an accessibility posture (caption/accessible name and column header associations) at the subject level, but none of the 6 constituent techniques covers general table accessibility, forcing semantic header/caption omissions to map onto sorting announcement."
+  },
+  {
+   "context": "budget-mirror",
+   "subject": "table",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/budget/BudgetMirrorPage.tsx:437 Header cells lack scope attributes and captions across budget comparison tables, leaving column headers disconnected from their cells in the accessibility tree.",
+   "techniques": [
+    {
+     "technique": "sorting",
+     "verdict": "deviation",
+     "evidence": "features/budget/BudgetMirrorPage.tsx:439 Rows are deterministically sorted by debt per capita (BudgetMirrorPage.tsx:212), but the sorted column header lacks aria-sort and any caption or announcement of the order."
+    },
+    {
+     "technique": "pagination",
+     "verdict": "conformant",
+     "evidence": "features/budget/MoneyTrailSection.tsx:52 Supplier table bounds visible rows to 12 items plus tied entities, honestly disclosing the remainder with row count and summed volume (MoneyTrailSection.tsx:387)."
+    },
+    {
+     "technique": "performance",
+     "verdict": "conformant",
+     "evidence": "features/budget/MoneyTrailSection.tsx:285 Supplier and peer comparison rows are keyed by immutable organization identification numbers (I\u010cO)."
+    }
+   ]
+  },
+  {
+   "context": "civicscore-leaderboard",
+   "subject": "table",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/civicscore/components/LeaderboardTable.tsx:411 Four client-side filter axes live in local state without URL reflection or a unified clear action, and an empty result fails to name the applied predicate.",
+   "techniques": [
+    {
+     "technique": "filtering",
+     "verdict": "deviation",
+     "evidence": "features/civicscore/components/LeaderboardTable.tsx:572 Empty-settled state renders a generic empty message without naming the active filter predicate, and the 4 filter axes lack a unified clear affordance."
+    },
+    {
+     "technique": "sorting",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/getLeaderboardData.ts:217 Sorting is total and deterministic, combining score descending, Czech name collation, and unique pspId tiebreaker."
+    },
+    {
+     "technique": "performance",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/components/LeaderboardTable.tsx:132 Rows are memoized with React.memo and keyed by MP identity (pspId) to prevent re-rendering unaffected rows during interactions."
+    }
+   ]
+  },
+  {
+   "context": "money-ledger",
+   "subject": "table",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/money/components/TiesLedger.tsx:134 Five filter axes and pagination window state live solely in component state without URL synchronization, and the client receives the entire tie graph without an upper-bound growth guarantee.",
+   "techniques": [
+    {
+     "technique": "filtering",
+     "verdict": "deviation",
+     "evidence": "features/money/components/TiesLedger.tsx:135 Five filter axes operate simultaneously without a unified clear action, and all filter selections are lost on refresh or navigation."
+    },
+    {
+     "technique": "pagination",
+     "verdict": "deviation",
+     "evidence": "features/money/components/TiesLedger.tsx:141 Pagination window state is held in local useState rather than reflected in navigational state (URL query params), resetting on reload."
+    },
+    {
+     "technique": "client-server-split",
+     "verdict": "deviation",
+     "evidence": "features/money/publicWire.ts:202 All ties are transferred uncut to the client without a declared dataset growth bound or guard."
+    },
+    {
+     "technique": "sorting",
+     "verdict": "conformant",
+     "evidence": "features/money/components/TiesLedger.tsx:167 Sorting enforces a total, reproducible order across re-renders with an immutable compound tiebreaker (pspId + companyId)."
+    },
+    {
+     "technique": "performance",
+     "verdict": "conformant",
+     "evidence": "features/money/components/TiesLedger.tsx:64 Materialized window is capped at 25 rows, text search keys are folded once per dataset (line 126), and rows are keyed by stable entity IDs (line 353)."
+    }
+   ]
+  },
+  {
+   "context": "volby-elections",
+   "subject": "table",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "features/volby/components/ListsLedger.tsx:35 Server-rendered election ledger meets full accessibility standards with hidden caption, scoped column and row headers, tabular numbers, and identity-keyed rows.",
+   "techniques": [
+    {
+     "technique": "sorting",
+     "verdict": "conformant",
+     "evidence": "features/volby/volbyLoader.ts:167 Order is total and deterministic using Czech locale collation and unique pspId tiebreaker in the loader."
+    },
+    {
+     "technique": "performance",
+     "verdict": "conformant",
+     "evidence": "features/volby/components/ListsLedger.tsx:61 Table rows are keyed by stable slug identity; numbers are right-aligned with fixed-width tabular numerals."
+    },
+    {
+     "technique": "loading-and-empty-states",
+     "verdict": "conformant",
+     "evidence": "features/volby/components/ListsLedger.tsx:30 Empty condition is verified and settled with localized messaging before table chrome renders."
+    },
+    {
+     "technique": "client-server-split",
+     "verdict": "conformant",
+     "evidence": "features/volby/getListData.ts:25 Datasets are bounded and shaped on the server (12 contested votes, chamber list rollups) before client delivery."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-13T02:05:25.893864+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "table"
+   ],
+   "techniques": [
+    "filtering",
+    "loading-and-empty-states",
+    "pagination",
+    "performance",
+    "sorting"
+   ],
+   "deviations": 1,
+   "context": "admin-observability",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T02:05:25.893864+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "table"
+   ],
+   "techniques": [
+    "pagination",
+    "performance",
+    "sorting"
+   ],
+   "deviations": 1,
+   "context": "budget-mirror",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T02:05:25.893864+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "table"
+   ],
+   "techniques": [
+    "filtering",
+    "performance",
+    "sorting"
+   ],
+   "deviations": 1,
+   "context": "civicscore-leaderboard",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T02:05:25.893864+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "table"
+   ],
+   "techniques": [
+    "client-server-split",
+    "filtering",
+    "pagination",
+    "performance",
+    "sorting"
+   ],
+   "deviations": 1,
+   "context": "money-ledger",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T02:05:25.893864+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "table"
+   ],
+   "techniques": [
+    "client-server-split",
+    "loading-and-empty-states",
+    "performance",
+    "sorting"
+   ],
+   "deviations": 0,
+   "context": "volby-elections",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}

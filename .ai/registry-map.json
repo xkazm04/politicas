@@ -1277,18 +1277,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "deviation",
-          "evidence": "features/admin/components/LoopMissionControl.tsx:187 is a bounded status board: order is total and declared (features/admin/loops/loopState.ts:446 case loops then ingest sources by id), rows keyed by identity (:203), empty-settled names its cause (:279). pagination and filtering are not-applicable - the row set is a closed enumeration, one row per declared loop plus one per ingest source (features/admin/loops/loopState.ts:411-:444), with no query axis on the surface. Deviation: the table carries no caption or accessible name (:187-:188) although sibling tables in this repo do (features/votetrack/components/RealDisciplineBoard.tsx:133), so a screen reader meets nine unnamed columns.",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:193 The status board renders nine columns without a caption or accessible name, meeting screen readers with an unnamed data table.",
           "confidence": "strong",
-          "evaluatedAt": "2026-09-22",
-          "evaluatedAgainst": "sha256:b220b0cfe6a4bcda",
-          "evaluatedRevision": 7,
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b2b329111d190ae7",
+          "evaluatedRevision": 12,
           "digest": "sha256-b2:b2b329111d190ae7",
           "revision": 12,
           "changedAt": "2026-09-23",
           "source": "conform",
           "adoptedFrom": "bdc25695-c6ce-4084-85dd-3ca6814b84c5",
-          "revisionsBehind": 5,
-          "stale": true
+          "revisionsBehind": 5
         }
       ],
       "governance": "governed"
@@ -1748,18 +1747,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "deviation",
-          "evidence": "features/budget/MoneyTrailSection.tsx:251 and features/budget/BudgetMirrorPage.tsx:411 carry no caption, no accessible name and no scope on any header cell, so neither table's columns are associated with their cells - the golden path's accessibility posture, and the same repo meets it at features/volby/components/ListsLedger.tsx:36. Otherwise realized: sorting total with an ic tiebreak and a declared home for absent values (features/budget/BudgetMirrorPage.tsx:197-:200), pagination an honest bound with the remainder disclosed as a summed row (features/budget/MoneyTrailSection.tsx:49, :107-:110), performance keyed by identity with named derivations (features/budget/MoneyTrailSection.tsx:107, :267; features/budget/BudgetMirrorPage.tsx:424).",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:437 Header cells lack scope attributes and captions across budget comparison tables, leaving column headers disconnected from their cells in the accessibility tree.",
           "confidence": "strong",
-          "evaluatedAt": "2026-09-22",
-          "evaluatedAgainst": "sha256:b220b0cfe6a4bcda",
-          "evaluatedRevision": 7,
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b2b329111d190ae7",
+          "evaluatedRevision": 12,
           "digest": "sha256-b2:b2b329111d190ae7",
           "revision": 12,
           "changedAt": "2026-09-23",
           "source": "conform",
           "adoptedFrom": "38aa6449-424a-40ee-a6e9-30dbb180afb8",
-          "revisionsBehind": 5,
-          "stale": true
+          "revisionsBehind": 5
         }
       ],
       "governance": "governed"
@@ -3453,18 +3451,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "deviation",
-          "evidence": "features/civicscore/components/LeaderboardTable.tsx:510 is the grid-role table over a 207-row all-client snapshot; sorting is total (features/civicscore/getLeaderboardData.ts:198, score|name|pspId), performance is rungs 2-3 (features/civicscore/components/LeaderboardTable.tsx:127 row memo on identity, :384 folds names once per list) and the count carries its predicate in a live region (:559). filtering deviates: four axes (:331, :332, :338, :352) with no single clear affordance and none projected to the URL, so a filtered leaderboard cannot be shared or restored, and :549 asserts empty without naming the applied predicate.",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:411 Four client-side filter axes live in local state without URL reflection or a unified clear action, and an empty result fails to name the applied predicate.",
           "confidence": "strong",
-          "evaluatedAt": "2026-09-22",
-          "evaluatedAgainst": "sha256:b220b0cfe6a4bcda",
-          "evaluatedRevision": 7,
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b2b329111d190ae7",
+          "evaluatedRevision": 12,
           "digest": "sha256-b2:b2b329111d190ae7",
           "revision": 12,
           "changedAt": "2026-09-23",
           "source": "conform",
           "adoptedFrom": "4fcb315e-66a1-4642-8eb7-94236d979535",
-          "revisionsBehind": 5,
-          "stale": true
+          "revisionsBehind": 5
         }
       ],
       "governance": "governed"
@@ -10010,18 +10007,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "deviation",
-          "evidence": "features/money/components/TiesLedger.tsx:322 is the full three-axis table: sorting total with an identity tiebreak (:167) and announced (:613), filter changes reset the window (:134-:141 each setPage(0)), empty names its applied predicate (:478), count carries it (:307), perf rungs 1-3 (:64 PAGE_SIZE 25, :125 fold once per list, :344 identity key). Three deviations: five filter axes (:134-:139) with no single clear affordance; window+sort+filter live only in useState (:141) so back-navigation, refresh and a shared link silently reset a surface whose purpose is citing one row; and the all-client growth bet is unwritten - features/money/publicWire.ts:202 ships every tie uncut while :208 caps the chip list at 36 with a stated reason.",
+          "evidence": "features/money/components/TiesLedger.tsx:134 Five filter axes and pagination window state live solely in component state without URL synchronization, and the client receives the entire tie graph without an upper-bound growth guarantee.",
           "confidence": "strong",
-          "evaluatedAt": "2026-09-22",
-          "evaluatedAgainst": "sha256:b220b0cfe6a4bcda",
-          "evaluatedRevision": 7,
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b2b329111d190ae7",
+          "evaluatedRevision": 12,
           "digest": "sha256-b2:b2b329111d190ae7",
           "revision": 12,
           "changedAt": "2026-09-23",
           "source": "conform",
           "adoptedFrom": "95e598cd-7db2-49a2-b977-9cbfac6e6d7d",
-          "revisionsBehind": 5,
-          "stale": true
+          "revisionsBehind": 5
         }
       ],
       "governance": "governed"
@@ -12138,18 +12134,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "conformant",
-          "evidence": "Four server-rendered comparison tables (features/volby/components/ListsLedger.tsx:35, features/volby/components/ContestedMatrix.tsx:37, features/volby/KrajPage.tsx:50, features/volby/ListPage.tsx:25) share one realization: sorting total with identity or locale tiebreaks in the loader (features/volby/volbyLoader.ts:167, :351, :453), performance keyed by identity (features/volby/components/ListsLedger.tsx:61, features/volby/components/ContestedMatrix.tsx:63, features/volby/KrajPage.tsx:67, features/volby/ListPage.tsx:45), loading-and-empty-states settled-empty before any table renders (features/volby/components/ListsLedger.tsx:30, features/volby/components/ContestedMatrix.tsx:33). Windows are bounded by the domain (a chamber's seats, the twelve closest votes) rather than by a pager; column conventions hold - numbers right-aligned in tabular numerals (features/volby/components/ListsLedger.tsx:72-:75), caption and scope on every table.",
+          "evidence": "features/volby/components/ListsLedger.tsx:35 Server-rendered election ledger meets full accessibility standards with hidden caption, scoped column and row headers, tabular numbers, and identity-keyed rows.",
           "confidence": "strong",
-          "evaluatedAt": "2026-09-22",
-          "evaluatedAgainst": "sha256:b220b0cfe6a4bcda",
-          "evaluatedRevision": 7,
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:b2b329111d190ae7",
+          "evaluatedRevision": 12,
           "digest": "sha256-b2:b2b329111d190ae7",
           "revision": 12,
           "changedAt": "2026-09-23",
           "source": "conform",
           "adoptedFrom": "volby-election-mirror-2026-08-27",
-          "revisionsBehind": 5,
-          "stale": true
+          "revisionsBehind": 5
         }
       ],
       "governance": "governed"
