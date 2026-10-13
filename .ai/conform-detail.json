@@ -2315,6 +2315,68 @@
           "evidence": "features/civicscore/scoreClaim.ts:76 Explicitly designates the deterministic composite score claim as ungated rather than confusing it with a human review queue."
         }
       ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/markdown-vault": {
+      "context": "admin-observability",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-13",
+      "evaluatedTs": "2026-10-13T21:32:54.878Z",
+      "techniques": [
+        {
+          "technique": "vault-as-database",
+          "verdict": "deviation",
+          "evidence": "features/admin/getAdminData.ts:66 Resolves paths without validating containment within vault root and treats notes without frontmatter schema validation or minted IDs."
+        },
+        {
+          "technique": "vault-walking",
+          "verdict": "deviation",
+          "evidence": "features/admin/getAdminData.ts:118 Hand-rolls directory traversal using raw readdirSync rather than a shared vault walker with declared depth, exclusion, and error policies."
+        },
+        {
+          "technique": "editor-interop",
+          "verdict": "deviation",
+          "evidence": "features/admin/components/VaultHeadsPanel.tsx:42 Surfaces vault records as static text without deep-link navigation back to the editor or a filesystem watcher for external edits."
+        },
+        {
+          "technique": "link-graph-extraction",
+          "verdict": "deviation",
+          "evidence": "features/admin/loops/loopState.ts:259 Vault log parsing only matches pass heading regexes, omitting link extraction, backlink indexing, and reference graph resolution for wikilinked notes."
+        },
+        {
+          "technique": "knowledge-integrity-lint",
+          "verdict": "deviation",
+          "evidence": "features/admin/loops/loopState.ts:279 Vault case-loops declare no cadence or staleness evaluation, leaving temporal integrity unmonitored with no broken link or orphan detection."
+        },
+        {
+          "technique": "mirror-indexes",
+          "verdict": "deviation",
+          "evidence": "features/admin/loops/loopsJson.ts:49 Serializes loop state derivation into JSON without an explicit hash-gated incremental sync or named rebuild mechanism back from the vault."
+        },
+        {
+          "technique": "read-triggered-reconciliation",
+          "verdict": "deviation",
+          "evidence": "features/admin/loops/getLoopState.ts:65 Recomputes loop document on read without recording or comparing source file change-stamps (stored != live) for incremental reconciliation."
+        },
+        {
+          "technique": "replicated-substrate",
+          "verdict": "deviation",
+          "evidence": "features/admin/getAdminData.ts:119 Filters batch files with strict regex without identifying or reporting replication conflict artifacts as a separate defect class."
+        },
+        {
+          "technique": "projection-covers-the-record",
+          "verdict": "deviation",
+          "evidence": "features/admin/getAdminData.ts:173 Strips table rows and bullet markers in an ad-hoc projection without a shared construct predicate or union coverage assertions."
+        }
+      ],
+      "registryProposal": "The standard should clarify expectations for read-only administrative observer surfaces that monitor human-authored vaults without writing to them.",
+      "withdrawn": {
+        "worker": "bea2deea-bda0-4616-8873-e4c89bf1daf5",
+        "state": "deviation",
+        "at": "2026-10-13T21:33:39.739045+00:00",
+        "reason": "reviewer (sonnet): The cited lines show only a read-only dashboard parsing fixed-path graph-log.md and frontier.md with documented best-effort regexes (getAdminData.ts:16-17). A containment violation is not shown, because readTextSafe joins constant relative paths onto ROOT and no user input reaches it. The 'no deep-l"
+      }
     }
   }
 }

@@ -1,0 +1,60 @@
+{
+  "schema": "conform-run/1",
+  "worker": "bea2deea-bda0-4616-8873-e4c89bf1daf5",
+  "subject": "markdown-vault",
+  "evaluatedAt": "2026-10-13T21:32:54.878925+00:00",
+  "provider": "agy",
+  "model": "gemini-3.8-flash-high",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "markdown-vault",
+      "context": "shared-components",
+      "reason": "UI primitive catalog (SourceNote, Combobox, StatTile, etc.) contains no markdown vault, file-based database, or note ingestion mechanisms."
+    },
+    {
+      "subject": "markdown-vault",
+      "context": "money-ledger",
+      "reason": "FollowTheMoney financial tie surface operates over PGlite knowledge graph tables rather than markdown vault notes."
+    },
+    {
+      "subject": "markdown-vault",
+      "context": "mp-profile",
+      "reason": "MP profile surface renders politician dossier and voting records from the relational/graph database without markdown vault storage or navigation."
+    },
+    {
+      "subject": "markdown-vault",
+      "context": "budget-mirror",
+      "reason": "BudgetMirror derives municipal budget snapshots from MONITOR data tables and static snapshots without markdown note storage or vault integration."
+    },
+    {
+      "subject": "markdown-vault",
+      "context": "admin-observability",
+      "reason": "withdrawn after review: reviewer (sonnet): The cited lines show only a read-only dashboard parsing fixed-path graph-log.md and frontier.md with documented best-effort regexes (getAdminData.ts:16-17). A containment violation is not shown, because readTextSafe joins constant relative paths onto ROOT and no user input reaches it. The 'no deep-l"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-13T21:32:54.878925+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [
+        "editor-interop",
+        "knowledge-integrity-lint",
+        "link-graph-extraction",
+        "mirror-indexes",
+        "projection-covers-the-record",
+        "read-triggered-reconciliation",
+        "replicated-substrate",
+        "vault-as-database",
+        "vault-walking"
+      ],
+      "deviations": 1,
+      "context": "admin-observability",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    }
+  ]
+}
