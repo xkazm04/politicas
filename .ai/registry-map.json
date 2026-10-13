@@ -9277,7 +9277,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:63 The archive ownership probe assigns each company the tie_class of the first linked_to edge encountered in scan order rather than evaluating all ties under stated precedence, violating entity-level deduplication rules.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "conflict-of-interest-detection",
@@ -9515,7 +9519,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/case-loops/money/reachable-metric-audit.ts:99 The contract ingestion and auditing tools audit capped per-company samples as floors and analyze reachable contract sums broken down by deduplicated entity tie classes.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "test-harness",
@@ -9771,7 +9779,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/money/getMpDetail.ts:57 MP and company case files enforce the shared reachableMoney attribution split and compute bounded slice coverage while evidence packets gate publication strictly on human-verified material.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "conflict-of-interest-detection",
@@ -9961,7 +9973,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/money/FollowTheMoneyPage.tsx:117 The FollowTheMoney surface displays reachable public money qualified by floor coverage, split strictly between attributable supplier firms and public body stewardship, backed by entity-level deduplication and citable figures.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "conflict-of-interest-detection",
@@ -10183,7 +10199,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:21 The beneficial ownership pipeline separates role classification from entity mandate, ensuring public ownership gates attribution while indirect ownership discoveries remain reviewable leads.",
+          "evaluatedAt": "2026-10-13",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "quality-gates",

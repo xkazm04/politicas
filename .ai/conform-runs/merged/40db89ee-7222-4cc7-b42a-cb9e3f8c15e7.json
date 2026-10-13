@@ -1,0 +1,268 @@
+{
+ "schema": "conform-run/1",
+ "worker": "40db89ee-7222-4cc7-b42a-cb9e3f8c15e7",
+ "subject": "public-money-attribution",
+ "evaluatedAt": "2026-10-13T11:39:08.192227+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "money-ledger",
+   "subject": "public-money-attribution",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/money/FollowTheMoneyPage.tsx:117 The FollowTheMoney surface displays reachable public money qualified by floor coverage, split strictly between attributable supplier firms and public body stewardship, backed by entity-level deduplication and citable figures.",
+   "techniques": [
+    {
+     "technique": "citable-money-claims",
+     "verdict": "conformant",
+     "evidence": "features/money/moneyClaims.ts:79 Aggregated claim figures only attain verified review status when every constituent tie has passed human review."
+    },
+    {
+     "technique": "entity-level-deduplication",
+     "verdict": "conformant",
+     "evidence": "features/money/getMoneyData.ts:113 The ledger loader routes all reachable ties through the shared reachableMoney fold which collapses records per company before computing totals."
+    },
+    {
+     "technique": "floor-versus-total-disclosure",
+     "verdict": "conformant",
+     "evidence": "features/money/FollowTheMoneyPage.tsx:118 The headline tile renders an 'at least' lower bound prefix whenever the corpus contract read is flagged as a floor."
+    },
+    {
+     "technique": "owner-operator-vs-steward-split",
+     "verdict": "conformant",
+     "evidence": "features/money/FollowTheMoneyPage.tsx:121 Public body stewardship contracts are displayed in a secondary explanatory breakdown and never merged into the official attributable headline."
+    },
+    {
+     "technique": "public-body-classification",
+     "verdict": "conformant",
+     "evidence": "features/money/moneyLoader.ts:246 The money loader reads the public mandate verdict from company props to gate whether company revenue can be attributed to an individual."
+    },
+    {
+     "technique": "attribution-perimeter",
+     "verdict": "conformant",
+     "evidence": "features/money/moneyTypes.ts:13 Ties between politicians and entities are gated by human review state, and only verified edges are permitted to enter published scores."
+    }
+   ]
+  },
+  {
+   "context": "money-investigations",
+   "subject": "public-money-attribution",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/money/getMpDetail.ts:57 MP and company case files enforce the shared reachableMoney attribution split and compute bounded slice coverage while evidence packets gate publication strictly on human-verified material.",
+   "techniques": [
+    {
+     "technique": "citable-money-claims",
+     "verdict": "conformant",
+     "evidence": "features/money/EvidencePacketPage.tsx:89 The evidence packet discloses exact counts of pending and rejected ties excluded from the verified packet."
+    },
+    {
+     "technique": "floor-versus-total-disclosure",
+     "verdict": "conformant",
+     "evidence": "features/money/getMpDetail.ts:63 Indexed slice loaders explicitly pass readScope to prevent misleading small-sample corpus cap heuristics from running on slices."
+    },
+    {
+     "technique": "owner-operator-vs-steward-split",
+     "verdict": "conformant",
+     "evidence": "features/money/MpCaseFilePage.tsx:134 The MP case file renders separate distinct cards for attributable business ties and public stewardship institutions."
+    },
+    {
+     "technique": "entity-level-deduplication",
+     "verdict": "conformant",
+     "evidence": "features/money/getCompanyDetail.ts:185 The company case file runs its multi-MP ties through the shared reachableMoney fold to consolidate the firm's money reach into one bucket."
+    },
+    {
+     "technique": "public-body-classification",
+     "verdict": "conformant",
+     "evidence": "features/money/CompanyCaseFilePage.tsx:102 The company case file checks publicMandateAttributable to determine whether public ownership overrides role-based attribution."
+    },
+    {
+     "technique": "attribution-perimeter",
+     "verdict": "conformant",
+     "evidence": "features/money/getCompanyDetail.ts:140 Without a direct official-to-company tie edge in the graph, no money reach is published even if registered corporate ownership exists."
+    }
+   ]
+  },
+  {
+   "context": "money-archive-probes",
+   "subject": "public-money-attribution",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:63 The archive ownership probe assigns each company the tie_class of the first linked_to edge encountered in scan order rather than evaluating all ties under stated precedence, violating entity-level deduplication rules.",
+   "techniques": [
+    {
+     "technique": "entity-level-deduplication",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:63 The probe resolves entity tie class via first-tie-encountered scan order rather than applying stated precedence across all candidate ties."
+    },
+    {
+     "technique": "public-body-classification",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/archive/classify-public-mandate-b10.ts:94 The batch 010 diagnostic probe runs the two-layer legal form and shareholder classification to separate public mandates from private firms."
+    },
+    {
+     "technique": "owner-operator-vs-steward-split",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/archive/direction-triage-b14.ts:61 Direction triage filters companies by attributable tie classes using the shared isAttributable predicate."
+    },
+    {
+     "technique": "attribution-perimeter",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:26 Ownership chain proposals are treated strictly as factual leads without drawing automated personal attribution."
+    }
+   ],
+   "registryProposal": "Diagnostic scripts and exploratory probes frequently adopt simplified first-seen tie-class selection heuristics; the standard could clarify whether archived analytical scripts fall under full production deduplication rules or under exploratory triage exemptions."
+  },
+  {
+   "context": "money-ownership",
+   "subject": "public-money-attribution",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:21 The beneficial ownership pipeline separates role classification from entity mandate, ensuring public ownership gates attribution while indirect ownership discoveries remain reviewable leads.",
+   "techniques": [
+    {
+     "technique": "public-body-classification",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/ownership-depth2.ts:19 Depth-2 ownership traversal only ever removes personal attribution when a parent entity is proven public, never promoting unverified ties."
+    },
+    {
+     "technique": "attribution-perimeter",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/indirect-ownership-exposure.ts:9 Multi-hop indirect exposure is compiled as investigatory leads without modifying review states or asserting personal enrichment."
+    },
+    {
+     "technique": "owner-operator-vs-steward-split",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:134 The mandate sweep scopes default analysis to attributable ties using the shared isAttributable predicate."
+    },
+    {
+     "technique": "entity-level-deduplication",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:137 Sweep targets are deduplicated by company node ID, collecting all tie classes associated with the company."
+    }
+   ]
+  },
+  {
+   "context": "money-contracts",
+   "subject": "public-money-attribution",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "scripts/case-loops/money/reachable-metric-audit.ts:99 The contract ingestion and auditing tools audit capped per-company samples as floors and analyze reachable contract sums broken down by deduplicated entity tie classes.",
+   "techniques": [
+    {
+     "technique": "floor-versus-total-disclosure",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/supplies-coverage-audit.ts:10 The coverage audit identifies the artificial 25-contract cap signature and demonstrates that raw sums are truncated floors."
+    },
+    {
+     "technique": "owner-operator-vs-steward-split",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/reachable-metric-audit.ts:100 The reachable metric audit partitions the total contract sum into owner-operator, manager, and steward buckets."
+    },
+    {
+     "technique": "entity-level-deduplication",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/reachable-metric-audit.ts:52 The audit resolves conflicting tie classes for a company using an explicit attribution precedence rank."
+    },
+    {
+     "technique": "citable-money-claims",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/verify-surface.ts:10 Surface verification reads figures directly through the production loader getMoneyData rather than re-computing arithmetic locally."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-13T11:39:08.192227+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "public-money-attribution"
+   ],
+   "techniques": [
+    "attribution-perimeter",
+    "citable-money-claims",
+    "entity-level-deduplication",
+    "floor-versus-total-disclosure",
+    "owner-operator-vs-steward-split",
+    "public-body-classification"
+   ],
+   "deviations": 0,
+   "context": "money-ledger",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T11:39:08.192227+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "public-money-attribution"
+   ],
+   "techniques": [
+    "attribution-perimeter",
+    "citable-money-claims",
+    "entity-level-deduplication",
+    "floor-versus-total-disclosure",
+    "owner-operator-vs-steward-split",
+    "public-body-classification"
+   ],
+   "deviations": 0,
+   "context": "money-investigations",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T11:39:08.192227+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "public-money-attribution"
+   ],
+   "techniques": [
+    "attribution-perimeter",
+    "entity-level-deduplication",
+    "owner-operator-vs-steward-split",
+    "public-body-classification"
+   ],
+   "deviations": 1,
+   "context": "money-archive-probes",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T11:39:08.192227+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "public-money-attribution"
+   ],
+   "techniques": [
+    "attribution-perimeter",
+    "entity-level-deduplication",
+    "owner-operator-vs-steward-split",
+    "public-body-classification"
+   ],
+   "deviations": 0,
+   "context": "money-ownership",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  },
+  {
+   "ts": "2026-10-13T11:39:08.192227+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "public-money-attribution"
+   ],
+   "techniques": [
+    "citable-money-claims",
+    "entity-level-deduplication",
+    "floor-versus-total-disclosure",
+    "owner-operator-vs-steward-split"
+   ],
+   "deviations": 0,
+   "context": "money-contracts",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}
