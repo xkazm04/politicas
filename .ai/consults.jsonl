@@ -201,3 +201,4 @@
 {"ts":"2026-10-13T03:06:37.693671+00:00","bundle":"software-engineering","subjects":["prompt-assembly"],"techniques":["layered-composition"],"deviations":0,"context":"civic-inbox","via":"curator-multi:codex","model":"gpt-6.1-sol"}
 {"ts":"2026-10-13T03:06:37.693671+00:00","bundle":"software-engineering","subjects":["prompt-assembly"],"techniques":["layered-composition","summary-evidence-gate"],"deviations":0,"context":"law-amends-corpus","via":"curator-multi:codex","model":"gpt-6.1-sol"}
 {"ts":"2026-10-13T03:06:37.693671+00:00","bundle":"software-engineering","subjects":["prompt-assembly"],"techniques":["layered-composition"],"deviations":0,"context":"effort-scoring-tools","via":"curator-multi:codex","model":"gpt-6.1-sol"}
+{"ts":"2026-10-13T03:07:50Z","bundle":"software-engineering","subjects":["knowledge-registry","test-harness"],"techniques":[],"deviations":0,"outcome":"missed","from":"consult-check"}
