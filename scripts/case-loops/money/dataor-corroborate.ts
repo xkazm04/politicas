@@ -35,6 +35,7 @@ import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
 import { AresClient } from "@/lib/analysis/money-feed";
 import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
+import { dataorMatchNote, dataorNoMatchNote } from "./corroborationNotes";
 import { datasetId, fetchAndFindRecord, resolveCourtAndForm, type AresSubjectForCourtForm } from "@/lib/ingest/sources/dataor";
 
 const DATAOR_YEAR = 2026; // current-year FULL export — daily-updated, complete history within record
@@ -211,7 +212,7 @@ async function main() {
       const termsNote = sorted.length > 1
         ? ` Historie funkcí v záznamu (${sorted.length} období): ` + sorted.map((m) => `${m.role ?? "?"} ${m.validFrom ?? "?"}→${m.validTo ?? "trvá"}`).join("; ") + "."
         : "";
-      console.log(`  MATCH: ${roleLabel} ${roleValidFrom ?? "?"}→${roleValidTo ?? "trvá"} (birth date ${birthDate} confirmed against dataor officer record, ${sorted.length} matching term(s)).`);
+      console.log(`  MATCH: ${roleLabel} ${roleValidFrom ?? "?"}→${roleValidTo ?? "trvá"} (roster birth date matched a dataor officer record, ${sorted.length} matching term(s)).`);
       results.push({
         src: tie.src, rel: "linked_to", dst: tie.dst, mp: tie.mp, company: tie.company,
         propsMerge: {
@@ -224,7 +225,7 @@ async function main() {
           // VR's own live endpoint DOES carry this exact membership, so the original v1
           // draft's "ARES VR did not see this" claim was false; the actual cause of the
           // batch-002 mismatch was not re-diagnosed this batch (flagged as an open item).
-          reviewer_note: `dataor.justice.cz (bulk ISVR export, ${id}): ${roleLabel} ${roleValidFrom ?? "?"}→${roleValidTo ?? "trvá"} — datum narození poslance (${birthDate}) potvrzeno proti záznamu úředníka v ${lookup.spisovaZnacka ?? "OR"}.${termsNote} (Pozn.: příčina, proč tuto shodu nezachytila dřívější ARES-VR rekonciliace, nebyla v této dávce zjištěna — ARES VR live endpoint tuto shodu při zpětné kontrole obsahuje.)`,
+          reviewer_note: dataorMatchNote({ datasetId: id, span: { roleLabel, from: roleValidFrom, to: roleValidTo }, spisovaZnacka: lookup.spisovaZnacka ?? null, termsNote }),
           flags: ["dataor-closed"],
           dataor_check: { checked: true, result: "match", datasetId: id, matchingTerms: sorted.length, checkedAt: new Date().toISOString().slice(0, 10) },
         },
@@ -246,10 +247,7 @@ async function main() {
         dataor_check: {
           checked: true, result: "no-match", datasetId: id,
           officersRead: lookup.officers.length, officersWithoutBirthdate,
-          note: !birthDate
-            ? "Datum narození poslance v roster psp.cz chybí — dataor záznam nelze porovnat vůbec."
-            : `Žádný záznam v dataor (${id}) nemá shodné datum narození (${birthDate}) — vazba tvrzená grafem NENÍ potvrzena ani po kontrole úplné historie funkcí z bulk ISVR exportu.` +
-              (officersWithoutBirthdate > 0 ? ` Pozn.: ${officersWithoutBirthdate} záznam(ů) v tomto souboru nemá datum narození vyplněné (typicky pre-2000 zápisy) — u těch nelze shodu ani vyloučit.` : ""),
+          note: dataorNoMatchNote({ datasetId: id, rosterBirthKnown: !!birthDate, officersWithoutBirthdate }),
           checkedAt: new Date().toISOString().slice(0, 10),
         },
       },

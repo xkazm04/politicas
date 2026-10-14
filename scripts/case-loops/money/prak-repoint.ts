@@ -61,6 +61,7 @@ import { datasetId, fetchAndFindRecord, type DataorOfficer } from "@/lib/ingest/
 // proti Předmětu podnikání záznamu (běžný obchod/inženýring/reklama, nula
 // železničních/dopravních/obecních termínů).
 import { classifyTie } from "@/features/money/reviewTypes";
+import { prakConfidenceNote } from "./corroborationNotes";
 
 const OLD_ICO = "49683144";
 const NEW_ICO = "61858111";
@@ -120,7 +121,7 @@ async function main() {
       continue;
     }
     console.log(`${cand.firstName} ${cand.lastName}: ${allEntries.length} entr${allEntries.length === 1 ? "y" : "ies"} found:`);
-    for (const e of allEntries) console.log(`    ${e.role} ${e.validFrom}→${e.validTo ?? "trvá"} birthDate=${e.birthDate ?? "null"}`);
+    for (const e of allEntries) console.log(`    ${e.role} ${e.validFrom}→${e.validTo ?? "trvá"} birthDate=${e.birthDate ? "present" : "null"}`);
 
     const confirmedEntries = allEntries.filter((e) => e.birthDate != null && e.birthDate === rosterBirthDate);
     const identityConfirmed = confirmedEntries.length > 0;
@@ -137,9 +138,7 @@ async function main() {
     const tieClass = classifyTie(primary.role ?? "", companyName);
     console.log(`  → identity ${identityConfirmed ? "CONFIRMED" : "NOT birth-date-confirmed"}, representative role="${primary.role}", tie_class=${tieClass}`);
 
-    const confidenceNote = identityConfirmed
-      ? `datum narození (${rosterBirthDate}) potvrzeno proti dataor.justice.cz záznamu (entrie: ${primary.role}, ${primary.validFrom}→${primary.validTo ?? "trvá"})`
-      : `IDENTITA NENÍ potvrzena datem narození u žádné z ${allEntries.length} nalezených položek (pre-2000 zápisy bez narozDatum, P36) — shoda pouze podle jména, firmy a období (střední jistota)`;
+    const confidenceNote = prakConfidenceNote({ identityConfirmed, entries: allEntries.length, role: primary.role, from: primary.validFrom, to: primary.validTo });
 
     edgeRepoints.push({
       oldEdge: { src: `psp:person:${cand.pspId}`, rel: "linked_to", dst: `company:ico:${OLD_ICO}` },
