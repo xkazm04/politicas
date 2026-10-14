@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { isPublicSafe, jargonViolationDetails, jargonViolations, publicCopyOrNull } from "./public-copy";
+import { isPublicSafe, jargonViolationDetails, jargonViolations, publicCopyOrNull, privateLifeTerm } from "./public-copy";
 
 describe("public-copy guard", () => {
   // Real strings taken from the live graph (batches 001–005) — the exact class
@@ -102,6 +102,29 @@ describe("sample-scoped self-reference rule (batch 008)", () => {
       "Je členem skupiny přátel Česko-Japonsko.",
     ]) {
       expect(jargonViolations(ok), ok).toEqual([]);
+    }
+  });
+});
+
+describe("public-role scope limit advisory", () => {
+  it("flags kinship and family-reason prose measured in the case-effort payloads", () => {
+    for (const bad of [
+      "jejího manžela Rémiho Decroixe v Horní Dubenky",
+      "vlastnictví převedl na manželku",
+      "shodná adresa, patrně otec/příbuzný",
+      "rezignace z rodinných důvodů",
+    ]) {
+      expect(privateLifeTerm(bad), bad).not.toBeNull();
+    }
+  });
+  it("does not flag a profession, a corporate parent or a committee name", () => {
+    for (const ok of [
+      "dříve pracovala jako sestra na ARO Nemocnice Jablonec",
+      "stoprocentním vlastníkem je slovenská mateřská společnost",
+      "členka Stálé komise pro rodinu a rovné příležitosti",
+      "tisk 109 (nemocenské pojištění)",
+    ]) {
+      expect(privateLifeTerm(ok), ok).toBeNull();
     }
   });
 });

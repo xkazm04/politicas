@@ -88,3 +88,25 @@ export function isPublicSafe(text: string | null | undefined): boolean {
 export function publicCopyOrNull(text: string | null | undefined): string | null {
   return isPublicSafe(text) ? (text as string) : null;
 }
+
+/**
+ * Public-role scope limit (persist-time ADVISORY, not a withhold).
+ *
+ * Kinship, family and health terms in verbatim-rendered dossier prose. The
+ * fact boundary says a private fact enters only through a registry nexus, and
+ * then the fact that enters is the declaration or contract, not the marriage.
+ * A term list cannot tell a nexus from gossip ("firma manžela v rejstříku"
+ * versus "patrně otec/příbuzný" inferred from a shared address), so this
+ * returns matches for a reviewer and is deliberately NOT part of PIPELINE_JARGON:
+ * render-time withholding must not blank a cited registry fact on a keyword.
+ * Kept to person-relation terms; "sestra" (a profession) and "mateřská
+ * společnost" (a corporate parent) were measured as false positives and left out.
+ */
+const PRIVATE_LIFE_TERMS =
+  /\b(manžel\p{L}*|dcer\p{L}*|syn(?:a|ovi|em|ové|ů)?|otec|otce|otci|matk\p{L}*|bratr\p{L}*|tchán\p{L}*|tchyn\p{L}*|příbuzn\p{L}*|rodinn(?:ých|é|ý) (?:důvod\p{L}*|záležitost\p{L}*)|těhotenstv\p{L}*|diagnóz\p{L}*|zdravotní (?:důvod\p{L}*|stav\p{L}*)|nábožen\p{L}*)\b/iu;
+
+/** The kinship/health term a string carries, or null. Advisory: see above. */
+export function privateLifeTerm(text: string | null | undefined): string | null {
+  if (typeof text !== "string") return null;
+  return PRIVATE_LIFE_TERMS.exec(text)?.[0] ?? null;
+}

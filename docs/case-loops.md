@@ -380,6 +380,10 @@ analytical-loop vs investigative-track numbering ambiguity documented in
   → 8% → 2% → 0%). A guard whose failures nobody has read is not evidence.
 - **Public-role facts only.** The platform holds public officials accountable
   for public roles; private life is out of scope, always.
+  The effort gate (`scripts/case-loops/effort/gate.ts`) warns when a verbatim-rendered
+  dossier field carries a kinship or family-reason term (`privateLifeTerm`, `lib/analysis/public-copy.ts`);
+  advisory, because a spouse's firm cited to its registry is in scope and a term
+  list cannot tell nexus from gossip.
 - **Non-partisan symmetry.** Positive findings get equal surface: the quiet
   workhorse, the clean-hands MP, the committee that scrutinizes well. "134 MPs
   with zero detected ties" is a finding.
