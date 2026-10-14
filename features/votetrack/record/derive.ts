@@ -461,6 +461,7 @@ export function deriveVoteRecord(
         date,
         votes: d.votes,
         meanCohesion: d.cohesions.length ? round3(d.cohesions.reduce((s, v) => s + v, 0) / d.cohesions.length) : null,
+        cohesionVotes: d.cohesions.length,
         rebels: d.rebels,
         worst:
           d.worst && worstEvent

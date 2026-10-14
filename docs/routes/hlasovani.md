@@ -118,7 +118,8 @@ print under the instrument (`record.seismoScale`, constants interpolated)
 and the comment tells the truth. Four falsifiable method literals became
 live values (`MATRIX_WINDOW`, `STRONG_DISCIPLINE_PCT`, `MIN_CLUB_POSITIONAL`,
 the mock sample length via `ROLL_CALLS.length`); a shorter-than-window
-ledger gets its own sentence. The chronicle and the rebel board carry their
+ledger gets its own sentence. The day's mean cohesion carries its qualifying-vote
+count (`SeismoDay.cohesionVotes`, shown in the day detail). The chronicle and the rebel board carry their
 POPULATIONS, counted BEFORE the slice (`chronicleTotal` 1 301 live,
 `topRebelsTotal` 203) — „24 rows" no longer reads as „24 rebellions ever".
 The messages pin is a shape rule over the whole `record.*` namespace with

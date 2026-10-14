@@ -208,6 +208,20 @@ describe("deriveVoteRecord", () => {
     expect(r.seismogram[1]).toMatchObject({ votes: 1, meanCohesion: 1, rebels: 0 });
   });
 
+  it("the day's mean ships the number of votes it is a mean over, not only the day's vote count", () => {
+    // Rice technique: a mean over qualifying votes travels with its qualifying-vote count.
+    // Every vote of day 1 has a chamber cohesion (both clubs clear the floor in the fixture),
+    // so the two counts agree there; raising the floor above every club's size makes the
+    // day unmeasured while it still holds votes, and the count must say 0, not 2.
+    const r = derive(events, ballots);
+    expect(r.seismogram[0]).toMatchObject({ votes: 2, cohesionVotes: 2 });
+    const strict = deriveVoteRecord(
+      { events, ballots, clubByMandate: CLUB, personByMandate: PERSON, nameByPerson: NAME },
+      { minClubPositional: 99, minEligible: 1, ledgerWindow: 3 },
+    );
+    expect(strict.seismogram[0]).toMatchObject({ votes: 2, meanCohesion: null, cohesionVotes: 0 });
+  });
+
   it("club aggregates average over line votes; seats come from the newest roll call", () => {
     const r = derive(events, ballots);
     const a = r.clubs.find((c) => c.club === "A")!;

@@ -1075,6 +1075,7 @@
       "seismoDayAria": "{date}: {votes} hlasování, soudržnost {cohesion}, rebelií {rebels}",
       "seismoVotes": "hlasování",
       "seismoCohesion": "soudržnost",
+      "seismoCohesionOf": "(průměr z {n} hlasování s měřitelnou soudržností)",
       "seismoRebels": "rebelií",
       "seismoWorst": "nejtěsnější den — nejnižší soudržnost měl bod",
       "seismoJump": "otevřít v deníku",

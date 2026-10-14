@@ -1075,6 +1075,7 @@
       "seismoDayAria": "{date}: {votes} roll-call votes, cohesion {cohesion}, rebellions {rebels}",
       "seismoVotes": "roll-call votes",
       "seismoCohesion": "cohesion",
+      "seismoCohesionOf": "(mean over {n} votes with measurable cohesion)",
       "seismoRebels": "rebellions",
       "seismoWorst": "tightest day — the lowest cohesion sat at",
       "seismoJump": "open in the ledger",

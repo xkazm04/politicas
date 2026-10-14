@@ -298,6 +298,12 @@ export default function Seismograf({
               >
                 {cohesionText(selected.meanCohesion)}
               </span>
+              {selected.meanCohesion !== null && (
+                <span className="text-steel-aa">
+                  {" "}
+                  {t("record.seismoCohesionOf", { n: f.int(selected.cohesionVotes) })}
+                </span>
+              )}
             </span>
             <span className="font-mono text-xs uppercase tracking-wider">
               <span className="text-steel-aa">{t("record.seismoRebels")} </span>
