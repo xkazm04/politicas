@@ -30,7 +30,7 @@ import {
   makeProvenance,
   UNKNOWN_SOURCE,
 } from "@/lib/kg/provenance";
-import { KG_NODE_KINDS, parseAndValidateKgVerdict, type KgVerdict } from "@/lib/analysis/kg-verdict";
+import { KG_EDGE_RELS, KG_NODE_KINDS, parseAndValidateKgVerdict, type KgVerdict } from "@/lib/analysis/kg-verdict";
 import type { KgEdgeRow, KgNodeRow } from "@/lib/db/types";
 
 function arg(name: string, fallback = ""): string {
@@ -68,7 +68,18 @@ function verdictFiles(): string[] {
 // upserted. This is scoped to kg-promote.ts only — it does not touch the shared
 // KG_EDGE_RELS enum (other case loops' own promote/ingest paths still use those
 // rels correctly, through their own merge-preserving writers).
-export const CASE_OWNED_EDGE_RELS = new Set<string>(["linked_to", "supplies"]);
+//
+// 2026-10-14 (pass-based-incremental-enrichment): that was a TWO-item deny list over a
+// ~24-rel enum, while the node half above was derived as an allow-list - so the header's
+// "enforced on both halves" was true of one. `sponsors`, `owns`/`owns_stake`, `amends`,
+// `rapporteur`, `decides`, `bids_on`... all passed the gate and, on --commit, were
+// replaced with `{rationale}` alone. Same shape as the node fix: allow what this path
+// has ever written (pass 2 and 3: belongs_to, about) and derive the refusal set as the
+// enum minus it, so a rel added to KG_EDGE_RELS later is refused here the day it lands.
+export const PROMOTABLE_EDGE_RELS = new Set<string>(["belongs_to", "about"]);
+export const CASE_OWNED_EDGE_RELS: ReadonlySet<string> = new Set(
+  KG_EDGE_RELS.filter((r) => !PROMOTABLE_EDGE_RELS.has(r)),
+);
 
 // D5 (2026-08-13): the edge half of that fix left the NODE half open, and the node
 // half is worse. `toRows` builds `props: { rationale: n.rationale }` for ANY declared
@@ -258,7 +269,7 @@ async function main() {
     if (droppedRels.length > 0) {
       console.log(
         `    REFUSED ${droppedRels.length} edge(s) with case-owned rel(s) ${JSON.stringify([...new Set(droppedRels)])} — ` +
-          `linked_to/supplies belong to their own case loop's merge-preserving ingest, never this generic promote path.`,
+          `those rels belong to their own loop's merge-preserving writer, never this generic promote path (only ${JSON.stringify([...PROMOTABLE_EDGE_RELS])} are promotable here).`,
       );
     }
     if (droppedEndpoints.length > 0) {
