@@ -229,6 +229,20 @@ describe("parseSponsorRoles (Q-effort-2)", () => {
   });
 });
 
+describe("parseSponsorRoles: a missing poradi stays unknown", () => {
+  const roles = parseSponsorRoles(
+    rows(["50001|7001||0|", "50001|7002|2|0|", "50001|7001|||", "50002|7003||1|"].join("\n")),
+  );
+  it("never promotes an unranked row to first signatory by file position", () => {
+    const list = roles.get(50001)!;
+    expect(list.map((s) => s.idOsoba)).toEqual([7002, 7001]);
+    expect(list[0].rank).toBe(2);
+    expect(list[1].rank).toBeNull();
+    expect(roles.get(50002)![0].rank).toBeNull();
+    expect(roles.get(50002)![0].joinedLater).toBe(true);
+  });
+});
+
 describe("parseRapporteurs", () => {
   // hist.unl (0-idx): 0 id_hist | 1 id_tisk | … | 8 orgv_id_posl | 9 ps_id_posl
   const hist = rows(

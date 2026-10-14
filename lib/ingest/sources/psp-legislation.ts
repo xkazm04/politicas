@@ -293,12 +293,17 @@ export function normalizeCommitteeRouting(tiskyZip: Uint8Array): CommitteeAssign
  * responsible first signatory (rank 1, "předkladatel") from co-signers. */
 export interface SponsorRole {
   idOsoba: number;
-  rank: number; // predkladatel.poradi; falls back to list position when poradi is missing
+  /** predkladatel.poradi. NULL when the row carries no poradi: file order is not
+   * attribution evidence, so a missing rank stays unknown rather than being read as
+   * list position (which promoted whichever unranked row came first to rank 1,
+   * "předkladatel"). */
+  rank: number | null;
   joinedLater: boolean; // typ = 1 — signed on after submission
 }
 
 /** Signature lists per tisk, ordered by rank. Duplicate (tisk, osoba) rows keep the
- * lowest rank (the strongest claim to authorship). */
+ * known rank; an unknown rank never beats a known one, and sorts after the ranked
+ * signatories in file order. */
 export function parseSponsorRoles(predkladatel: readonly UnlRow[]): Map<number, SponsorRole[]> {
   const byTisk = new Map<number, Map<number, SponsorRole>>();
   for (const r of predkladatel) {
@@ -306,14 +311,14 @@ export function parseSponsorRoles(predkladatel: readonly UnlRow[]): Map<number, 
     const idOsoba = colInt(r, 1);
     if (idTisk == null || idOsoba == null) continue;
     const list = byTisk.get(idTisk) ?? new Map<number, SponsorRole>();
-    const rank = colInt(r, 2) ?? list.size + 1;
+    const rank = colInt(r, 2);
     const joinedLater = colInt(r, 3) === 1;
     const prev = list.get(idOsoba);
-    if (!prev || rank < prev.rank) list.set(idOsoba, { idOsoba, rank, joinedLater });
+    if (!prev || (rank != null && (prev.rank == null || rank < prev.rank))) list.set(idOsoba, { idOsoba, rank, joinedLater });
     byTisk.set(idTisk, list);
   }
   const out = new Map<number, SponsorRole[]>();
-  for (const [tisk, list] of byTisk) out.set(tisk, [...list.values()].sort((a, b) => a.rank - b.rank));
+  for (const [tisk, list] of byTisk) out.set(tisk, [...list.values()].sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity)));
   return out;
 }
 
