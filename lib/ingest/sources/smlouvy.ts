@@ -80,8 +80,11 @@ export interface SmlouvyRow {
   subject: string;
   /** ISO yyyy-mm-dd, parsed from the site's DD.MM.YYYY. */
   publishedOn: string | null;
-  /** null means the publisher's own "Neuvedeno" (not stated) — NEVER 0. */
+  /** null means no usable CZK figure — NEVER 0. Read `valueState` for WHY. */
   valueCzk: number | null;
+  /** Which kind of missing `valueCzk === null` is (publisher-sentinel-values): the
+   *  publisher's own "Neuvedeno", an empty cell, or a cell we could not read. */
+  valueState: ValueState;
   /** e.g. "bez DPH" | "s DPH" | null (present only when a value was stated). */
   valueNote: string | null;
   counterparties: string[];
@@ -207,21 +210,32 @@ export function checkHeaderRow(html: string): void {
   }
 }
 
+/** `stated` = a CZK figure; `not_stated` = the publisher's "Neuvedeno" sentinel;
+ *  `absent` = the cell was empty; `unparsed` = text we refused to read (a foreign
+ *  currency, a changed format) — a coverage spike here means the format moved. */
+export type ValueState = "stated" | "not_stated" | "absent" | "unparsed";
+
+/** The publisher's documented "value not stated" cell text. */
+export const VALUE_NOT_STATED_SENTINEL = "Neuvedeno";
+
 /** "84 000 CZK bez DPH" → {valueCzk: 84000, valueNote: "bez DPH"}. "Neuvedeno" →
  *  {null, null} — the publisher's own not-stated sentinel, NEVER coerced to 0.
  *  Handles both a literal nbsp and a plain space as the thousands separator. */
-export function parseValueCell(raw: string): { valueCzk: number | null; valueNote: string | null } {
+export function parseValueCell(raw: string): {
+  valueCzk: number | null;
+  valueNote: string | null;
+  valueState: ValueState;
+} {
   const text = stripTagsText(raw);
-  if (text === "" || text === "Neuvedeno") return { valueCzk: null, valueNote: null };
+  if (text === "") return { valueCzk: null, valueNote: null, valueState: "absent" };
+  if (text === VALUE_NOT_STATED_SENTINEL) return { valueCzk: null, valueNote: null, valueState: "not_stated" };
   const m = /^([\d\s .,]+)\s*CZK\s*(.*)$/.exec(text);
-  if (!m) return { valueCzk: null, valueNote: null };
+  if (!m) return { valueCzk: null, valueNote: null, valueState: "unparsed" };
   const digits = m[1].replace(/[\s .,]/g, "");
   const value = digits.length > 0 ? Number(digits) : NaN;
   const note = m[2].trim();
-  return {
-    valueCzk: Number.isFinite(value) ? value : null,
-    valueNote: note.length > 0 ? note : null,
-  };
+  if (!Number.isFinite(value)) return { valueCzk: null, valueNote: null, valueState: "unparsed" };
+  return { valueCzk: value, valueNote: note.length > 0 ? note : null, valueState: "stated" };
 }
 
 /** "13.07.2026" → "2026-07-13". Returns null (never a guess) if unparseable. */
@@ -264,7 +278,7 @@ export function parseDataRow(trHtml: string): SmlouvyRow | null {
   );
   const detail = extractDetail(detailCell);
   if (!detail) return null;
-  const { valueCzk, valueNote } = parseValueCell(valueCell);
+  const { valueCzk, valueNote, valueState } = parseValueCell(valueCell);
   return {
     contractId: detail.contractId,
     detailUrl: detail.detailUrl,
@@ -272,6 +286,7 @@ export function parseDataRow(trHtml: string): SmlouvyRow | null {
     subject: stripTagsText(subjectCell),
     publishedOn: parseCzechDate(dateCell),
     valueCzk,
+    valueState,
     valueNote,
     counterparties: parseCounterparties(partiesCell),
     latestVersion: stripTagsText(versionCell).toLowerCase() === "ano",

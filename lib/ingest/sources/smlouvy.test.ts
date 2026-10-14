@@ -139,19 +139,24 @@ describe("decodeHtmlEntities", () => {
 
 describe("parseValueCell", () => {
   it("parses a stated value with a 'bez DPH' note, real space thousands separator", () => {
-    expect(parseValueCell("210 000 CZK bez DPH")).toEqual({ valueCzk: 210_000, valueNote: "bez DPH" });
+    expect(parseValueCell("210 000 CZK bez DPH")).toEqual({ valueCzk: 210_000, valueNote: "bez DPH", valueState: "stated" });
   });
   it("parses a stated value with an 's DPH' note", () => {
-    expect(parseValueCell("321 100 CZK s DPH")).toEqual({ valueCzk: 321_100, valueNote: "s DPH" });
+    expect(parseValueCell("321 100 CZK s DPH")).toEqual({ valueCzk: 321_100, valueNote: "s DPH", valueState: "stated" });
   });
   it("parses an &nbsp;-separated value (decoded before the numeric match)", () => {
-    expect(parseValueCell("84&nbsp;000 CZK bez DPH")).toEqual({ valueCzk: 84_000, valueNote: "bez DPH" });
+    expect(parseValueCell("84&nbsp;000 CZK bez DPH")).toEqual({ valueCzk: 84_000, valueNote: "bez DPH", valueState: "stated" });
   });
   it("returns null, never 0, for the literal 'Neuvedeno' sentinel", () => {
-    expect(parseValueCell("Neuvedeno")).toEqual({ valueCzk: null, valueNote: null });
+    expect(parseValueCell("Neuvedeno")).toEqual({ valueCzk: null, valueNote: null, valueState: "not_stated" });
   });
   it("returns null for an empty cell", () => {
-    expect(parseValueCell("   ")).toEqual({ valueCzk: null, valueNote: null });
+    expect(parseValueCell("   ")).toEqual({ valueCzk: null, valueNote: null, valueState: "absent" });
+  });
+  it("tells a refused cell (foreign currency) from the publisher's sentinel", () => {
+    // Both are null-valued; only one is the publisher saying "unknown".
+    expect(parseValueCell("1 200 EUR bez DPH")).toEqual({ valueCzk: null, valueNote: null, valueState: "unparsed" });
+    expect(parseValueCell("Neuvedeno").valueState).not.toBe(parseValueCell("1 200 EUR").valueState);
   });
 });
 
@@ -229,6 +234,7 @@ describe("parseDataRow", () => {
       subject: "Darovací smlouva DEZA",
       publishedOn: "2026-07-07",
       valueCzk: 210_000,
+      valueState: "stated",
       valueNote: "bez DPH",
       counterparties: ["DEZA", "a.s."],
       latestVersion: true,
@@ -238,6 +244,7 @@ describe("parseDataRow", () => {
   it("parses 'Neuvedeno' to a null value, never 0", () => {
     const row = parseDataRow(ROW_WITH_NEUVEDENO);
     expect(row?.valueCzk).toBeNull();
+    expect(row?.valueState).toBe("not_stated");
     expect(row?.valueNote).toBeNull();
     expect(row?.contractId).toBe("38736140");
   });
