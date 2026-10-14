@@ -31,6 +31,7 @@ import {
   type TieClass,
 } from "@/features/money/reviewTypes";
 import { CORROBORATIONS, type Corroboration } from "@/features/money/moneyTypes";
+import { alignContractsToRole } from "@/features/money/roleAlignment";
 // The same 2026-08-13 rule, applied to the three copies that survived it (scan-sweep
 // 2026-09-07): `parsePeriod` here matched only an en-dash between the dates while the shared
 // parser matches "-" too, so a provenance string written with a hyphen parsed in the app and
@@ -38,19 +39,14 @@ import { CORROBORATIONS, type Corroboration } from "@/features/money/moneyTypes"
 // byte copies with nothing holding them.
 import { pspIdFromNodeId } from "@/lib/ingest/changeEvents";
 
+const TODAY_ISO = new Date().toISOString().slice(0, 10);
+
 function num(v: unknown): number {
   return typeof v === "number" && Number.isFinite(v) ? v : 0;
 }
 /** Runtime twin of `ReviewState` — reviewTypes.ts exports only the type (another context), so
  *  the list lives here and `satisfies` keeps every member a real ReviewState. */
 const KNOWN_REVIEW_STATES = ["verified", "pending_review", "rejected"] as const satisfies readonly ReviewState[];
-function inPeriod(signedOn: string | null, from: string | null, to: string | null): boolean {
-  if (!signedOn) return false;
-  if (from && signedOn < from) return false;
-  if (to && signedOn > to) return false;
-  return true;
-}
-
 /** Hodnota z grafu na kontrolovanou doménu — neznámý řetězec je `null` (týž
  *  postoj jako `asUnion` v moneyLoaderu: graf není typový systém). */
 function asCorroboration(v: unknown): Corroboration | null {
@@ -142,16 +138,10 @@ async function main() {
     const agg = aggByCompany.get(comp.id) ?? { count: 0, czk: 0, signed: [] };
     const source = String(e.props?.source ?? "");
     const { from, to } = parsePeriod(source);
-    let alignedCzk = 0;
-    let alignedCount = 0;
-    if (from || to) {
-      for (const s of agg.signed) {
-        if (inPeriod(s.signedOn, from, to)) {
-          alignedCzk += s.amount;
-          alignedCount += 1;
-        }
-      }
-    }
+    // The window rule is one shared function (features/money/roleAlignment.ts): no registered
+    // start means no alignment, boundaries are inclusive by day, "ongoing" ends at today, and an
+    // implausible signature date is undated rather than aligned.
+    const { alignedCzk, alignedCount } = alignContractsToRole(agg.signed, from, to, TODAY_ISO);
     const subsidiesCzk = num(cp.subsidies_total_czk);
     const donatedToPartyCzk = cp.donated_to_party_czk != null ? num(cp.donated_to_party_czk) : null;
     const triangle = agg.czk > 0 && subsidiesCzk > 0 && (donatedToPartyCzk ?? 0) > 0;
@@ -169,6 +159,7 @@ async function main() {
     const flags: string[] = [];
     if (!/IČO \d/.test(source) && !/ico \d/i.test(source)) flags.push("source-missing-ico");
     if (!from && !to) flags.push("no-period-in-source");
+    else if (!from) flags.push("no-period-start");
     if (agg.count === 0 && subsidiesCzk === 0) flags.push("no-money-reachable");
 
     units.push({
