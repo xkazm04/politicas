@@ -178,6 +178,19 @@ describe("parseCommitteeAssignments — an unknown typ is unknown, not 'navrzeno
     expect(unknownFirst.status).toBe("navrzeno");
   });
 
+  it("an unknown row beside a documented one is kept visible, in either order", () => {
+    const a = parseCommitteeAssignments(rows(["43204|1772|2|300003|||1||", "43204|1772|4|300003|||1||"].join("\n")), HIST)[0];
+    const b = parseCommitteeAssignments(rows(["43204|1772|4|300003|||1||", "43204|1772|2|300003|||1||"].join("\n")), HIST)[0];
+    expect(a.status).toBe("prikazano");
+    expect(a.unrecognisedTyp).toEqual(["4"]);
+    expect(b.unrecognisedTyp).toEqual(["4"]);
+  });
+
+  it("a pair with only documented codes carries no unrecognisedTyp field", () => {
+    const a = parseCommitteeAssignments(rows("43204|1772|2|300003|||1||"), HIST)[0];
+    expect("unrecognisedTyp" in a).toBe(false);
+  });
+
   it("the token is outside the renderer's key whitelist, so it cannot print as a real status", () => {
     // features/lawwatch/lawwatchLabels.ts COMMITTEE_STATUS_KEYS — retyped here on
     // purpose: this test guards the CONTRACT between the two files, and importing the

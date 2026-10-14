@@ -154,6 +154,14 @@ export interface CommitteeAssignment {
   role: AssignmentRole; // garanční výbor, else a further committee
   status: AssignmentStatus; // strongest hist_vybory.typ collapsed over the print's rows
   assignedOn: string | null; // YYYY-MM-DD of the EARLIEST step at that status (see below)
+  /**
+   * Distinct undocumented `typ` values ("null" for an empty one) among the pair's rows.
+   * Absent when every row carried a documented code. Ranking unknown below every real
+   * status keeps it from LOWERING the reported status, but must not also hide that the
+   * log held a row nobody can read — a later unknown row could be a reassignment or a
+   * revocation, and "strongest status ever reached" does not say who holds the print.
+   */
+  unrecognisedTyp?: string[];
 }
 
 const STATUS_BY_TYP: Record<string, AssignmentStatus> = { "1": "navrzeno", "2": "prikazano", "3": "iniciativne" };
@@ -190,6 +198,12 @@ function histDate(v: string | null): string | null {
  * step, the pair is reported undated rather than dated by an event that is not the one
  * the status names — `přikázáno · <the day it was merely navrženo>` is a false claim
  * about when the print was referred, and the consumer renders the two side by side.
+ *
+ * An unrecognised `typ` row never lowers the status (it ranks below every real one) but
+ * is no longer erased either: its distinct codes ride along as `unrecognisedTyp`.
+ * Measured on the live dump (15,739 rows, 11,383 pairs, 2026-10-14): one row, typ 4, on
+ * tisk 27357 / organ 614 beside a documented přikázáno — previously indistinguishable
+ * from a pair with no such row.
  */
 export function parseCommitteeAssignments(
   histVybory: readonly UnlRow[],
@@ -202,18 +216,25 @@ export function parseCommitteeAssignments(
   }
 
   const byPair = new Map<string, CommitteeAssignment & { rank: number }>();
+  const unrecognisedByPair = new Map<string, Set<string>>();
   for (const r of histVybory) {
     const tiskId = colInt(r, 0);
     const organId = colInt(r, 1);
     if (tiskId == null || organId == null) continue;
     // An undocumented or NULL typ is UNKNOWN, never downgraded to the weakest real status.
     const status = STATUS_BY_TYP[col(r, 2) ?? ""] ?? "unknown";
+    const unrecognised = status === "unknown" ? (col(r, 2) ?? "null") : null;
     const garancni = col(r, 6) === "1" || col(r, 6) === "2";
     const idHist = colInt(r, 3);
     const date = idHist != null ? (dateByHist.get(idHist) ?? null) : null;
     const rank = STATUS_RANK[status];
 
     const key = `${tiskId}:${organId}`;
+    if (unrecognised !== null) {
+      const seen = unrecognisedByPair.get(key) ?? new Set<string>();
+      seen.add(unrecognised);
+      unrecognisedByPair.set(key, seen);
+    }
     const prev = byPair.get(key);
     if (!prev) {
       byPair.set(key, {
@@ -240,7 +261,10 @@ export function parseCommitteeAssignments(
     }
   }
 
-  return [...byPair.values()].map(({ rank: _rank, ...a }) => a);
+  return [...byPair].map(([key, { rank: _rank, ...a }]) => {
+    const codes = unrecognisedByPair.get(key);
+    return codes ? { ...a, unrecognisedTyp: [...codes].sort() } : a;
+  });
 }
 
 /** IO wrapper: read tisky.zip and produce the collapsed committee assignments (all terms). */
