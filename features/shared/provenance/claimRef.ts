@@ -69,6 +69,16 @@ export function encodeClaimRef(ref: ClaimRef): string {
 }
 
 export function decodeClaimRef(encoded: string): ClaimRef | null {
+  const ref = decodeClaimRefLoose(encoded);
+  // KANONICKÁ ADRESA: jedno tvrzení má právě jednu adresu. Dekodér base64url
+  // zahodí nevyužité koncové bity ("u.QQ" a "u.QR" dávají týž bajt) a UTF-8
+  // dekodér nahradí neplatný bajt znakem U+FFFD — oboje by z cizí adresy
+  // tiše udělalo tvrzení, které nikdo nevydal. Re-enkódováním a porovnáním
+  // se vstupem se z obou stane null (odmítnout, nikdy nespravovat).
+  return ref !== null && encodeClaimRef(ref) === encoded ? ref : null;
+}
+
+function decodeClaimRefLoose(encoded: string): ClaimRef | null {
   if (typeof encoded !== "string" || encoded.length === 0 || encoded.length > MAX_REF_LENGTH) {
     return null;
   }

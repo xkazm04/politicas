@@ -58,6 +58,15 @@ describe("kodek adresy tvrzení (claimRef)", () => {
     expect(decodeClaimRef(long)).toBeNull();
   });
 
+  it("odmítá nekanonickou adresu: jedno tvrzení = jedna adresa", () => {
+    // "QQ" a "QR" dekódují na týž bajt (nevyužité koncové bity) — druhá není vydaná adresa.
+    expect(decodeClaimRef("u.QQ")).toEqual({ kind: "node", id: "A" });
+    expect(decodeClaimRef("u.QR")).toBeNull();
+    expect(decodeClaimRef("h.QQ.QR.QQ")).toBeNull();
+    // neplatný UTF-8 bajt by se tiše opravil na U+FFFD
+    expect(decodeClaimRef("u.wA")).toBeNull();
+  });
+
   it("claimRefPath skládá /zdroj/<ref> z refu i z hotového řetězce", () => {
     const ref: ClaimRef = { kind: "node", id: "psp:person:6202" };
     const encoded = encodeClaimRef(ref);
