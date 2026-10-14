@@ -2653,6 +2653,62 @@
           "evidence": "features/landing/messages.test.ts:255 The checked catalogs are Czech source and one English target, so there are not two target languages whose failures can agree."
         }
       ]
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/module-design": {
+      "context": "graph-data-logic",
+      "subject": "module-design",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-14",
+      "evaluatedTs": "2026-10-14T23:29:08.550Z",
+      "worker": "431e7b57-3c8a-42d9-899d-0a067fd5f215",
+      "techniques": [
+        {
+          "technique": "io-free-core",
+          "verdict": "conformant",
+          "evidence": "features/graph/trailPath.ts:201 Takes an array of edge values and returns adjacency data structures purely, without touching any store or network."
+        },
+        {
+          "technique": "concurrency-at-the-edge",
+          "verdict": "conformant",
+          "evidence": "features/graph/graphActions.ts:71 Asynchronous execution and input validation are restricted to server action boundaries at the edge."
+        },
+        {
+          "technique": "declarative-or-sequential",
+          "verdict": "conformant",
+          "evidence": "features/graph/diffViews.ts:126 Sequential loop constructs three collections in parallel (added, removed, changed) where declarative pipelines would require multiple passes."
+        },
+        {
+          "technique": "mirror-type-at-the-edge",
+          "verdict": "conformant",
+          "evidence": "features/graph/permalink.ts:473 Structural mirror type declared at the edge lets the card formatter run in pure unit tests without importing the server loader."
+        },
+        {
+          "technique": "module-depth",
+          "verdict": "conformant",
+          "evidence": "features/graph/oneDefinition.test.ts:20 Guards against duplicate encodings across modules, ensuring canonical definitions like edgeKey have a single owner."
+        },
+        {
+          "technique": "borrowed-surface",
+          "verdict": "conformant",
+          "evidence": "features/graph/graphTypes.ts:8 GraphNode declares an explicit narrowed boundary type for the canvas rather than delegating or exposing raw DB row shapes."
+        },
+        {
+          "technique": "seams-and-adapters",
+          "verdict": "conformant",
+          "evidence": "features/graph/trailPath.ts:52 Pins the pathfinding search constants and algorithm behavior under an explicit versioned reference asserted by tests."
+        },
+        {
+          "technique": "locality-and-leverage",
+          "verdict": "conformant",
+          "evidence": "features/graph/graphActions.ts:88 Balances locality and caller leverage by exposing focused on-demand subgraph fetching rather than dumping full graphs onto clients."
+        },
+        {
+          "technique": "marked-unverifiable-region",
+          "verdict": "conformant",
+          "evidence": "features/graph/permalink.ts:138 Unchecked URL state is validated inside an enclosed parser before casting to typed GraphViewState."
+        }
+      ]
     }
   }
 }

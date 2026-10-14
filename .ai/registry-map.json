@@ -6625,7 +6625,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/graph/trailPath.ts:4 The pathfinding core is completely free of server and framework imports, processing graph edges as pure values with deterministic results.",
+          "evaluatedAt": "2026-10-14",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "supply-chain",
