@@ -649,6 +649,13 @@ month marked done, so the data was gone and nothing re-collected it; it now
 resets the month record with the file. And a refused or empty dump index no
 longer reads as "nothing to do" — it throws.
 
+**The harvest discards a torn final record before it resumes (2026-10-14, registry apply).**
+A kill during a month's append left an unterminated last line, and the next run
+appended after it, fusing two records into a line `persist-contract-harvest.ts`
+cannot parse. `harvestJsonlTail.ts` truncates the JSONL to its last newline on
+start, reading backwards from the end. The state file stays: a month with zero
+party records writes no row, so the output cannot record its own completion.
+
 **`--commit` really requires `--pass` (2026-09-07, scan-sweep, bounty-hunter).**
 `persist-contract-harvest.ts` promised it and checked
 `Number.isFinite(Number(arg ?? 0))`, which is true for a missing flag — a commit
