@@ -1630,6 +1630,8 @@
       "registryHlidacPerson": "Hlídač person"
     },
     "caseFile": {
+      "unavailableWhat": "the MP case file",
+      "unavailableBack": "back to the ledger",
       "noTies": "No materialized money ties found for this MP.",
       "eyebrow": "case file · pass {pass}",
       "absenteeFlag": "low chamber work (Case ②)",
@@ -1663,6 +1665,8 @@
       "disclaimer": "Every tie is published as a dated, sourced fact, never an accusation. Ties not yet human-confirmed carry a “pending review” label and do not feed the Integrity pillar."
     },
     "companyFile": {
+      "unavailableWhat": "the company file",
+      "unavailableBack": "back to the ledger",
       "noTie": "The knowledge graph holds no MP tie for this company id.",
       "backToLedger": "back to the ledger",
       "ledgerShort": "ledger",

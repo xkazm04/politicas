@@ -1630,6 +1630,8 @@
       "registryHlidacPerson": "Hlídač osoba"
     },
     "caseFile": {
+      "unavailableWhat": "spis poslance",
+      "unavailableBack": "zpět do knihy vazeb",
       "noTies": "Pro tohoto poslance nemá znalostní graf žádnou materializovanou vazbu.",
       "eyebrow": "spis · pass {pass}",
       "absenteeFlag": "málo práce v sále (Case ②)",
@@ -1663,6 +1665,8 @@
       "disclaimer": "Vazby zveřejňujeme jako datovaná, doložená fakta, nikdy jako obvinění. Vazby bez lidského schválení nesou štítek „čeká na kontrolu“ a do pilíře Integrita se nepropisují."
     },
     "companyFile": {
+      "unavailableWhat": "spis firmy",
+      "unavailableBack": "zpět do knihy vazeb",
       "noTie": "Znalostní graf nevede pro tohle IČO žádnou vazbu na poslance.",
       "backToLedger": "zpět do knihy vazeb",
       "ledgerShort": "kniha vazeb",
