@@ -34,8 +34,8 @@ bookmarkable address IS the subscription — so `telemetryScrub.ts` scrubs **by
 PARAMETER, not by path** (the address appears as an absolute URL, a relative
 path and a bare query string; a path rule misses one), across
 `contexts.trace.data`, `request.url`/`query_string`, `spans[].data` and
-`breadcrumbs[].data`, from both `beforeSend` and `beforeSendTransaction`. A
-foreign `e=` is left alone. The copy states the one thing scrubbing does not
+`breadcrumbs[].data` and `request.headers` (`Referer`), also when `query_string` is a list of pairs, from both `beforeSend` and `beforeSendTransaction`. A
+A value that is merely key-shaped (wrong case, trailing space, a `#fragment`) is scrubbed too, because a malformed value can still carry the list; a foreign `e=` (no key prefix) is left alone. The copy states the one thing scrubbing does not
 change: **the server still sees the request IP.** Honest limit — no DSN exists
 in this repo, so verification is at the event level, not at a request observed
 in Sentry.

@@ -37,13 +37,21 @@ export const FOLLOW_QUERY_PARAM = "e";
 /** Náhrada v telemetrii — počet přežije, klíče ne. */
 export const FOLLOW_COUNT_PARAM = "e_count";
 
+/** Tvar KLÍČE, i když ho server nepřijme (jiná velikost písmen, mezera,
+ *  ocásek). Rozbitá hodnota může stále nést seznam sledovaných, a proto se
+ *  škrtá i ona — jinak by stačil jeden překlep a celý seznam by v telemetrii
+ *  zůstal. Cizí `e=42` tvar nemá a zůstává. */
+const KEY_SHAPED = /^s*(poslanec|tisk|firma|obec)s*:/i;
+
+const carriesKey = (v: string): boolean => isEntityKey(v) || KEY_SHAPED.test(v);
+
 /** Vyškrtne klíče z parametrů; true = něco se škrtlo. */
 function scrubParams(params: URLSearchParams): boolean {
   const values = params.getAll(FOLLOW_QUERY_PARAM);
-  // Škrtá se jen tam, kde `e` opravdu nese klíč entity — cizí `e` (jiná
-  // stránka, jiný význam) se nesmí měnit, telemetrie by pak lhala o cizím
-  // dotazu.
-  if (!values.some((v) => isEntityKey(v))) return false;
+  // Škrtá se jen tam, kde `e` nese (nebo má tvar) klíč entity — cizí `e`
+  // (jiná stránka, jiný význam) se nesmí měnit, telemetrie by pak lhala
+  // o cizím dotazu.
+  if (!values.some(carriesKey)) return false;
   params.delete(FOLLOW_QUERY_PARAM);
   params.set(FOLLOW_COUNT_PARAM, String(values.length));
   return true;
@@ -54,7 +62,15 @@ function scrubParams(params: URLSearchParams): boolean {
  * Nezasažená hodnota se vrací BEZE ZMĚNY — telemetrie se přepisuje jen tam,
  * kde by jinak nesla klíče.
  */
+// Fragment (`#…`) do dotazu nepatří: bez oddělení by se přilepil k poslední
+// hodnotě a rozbil ji.
 export function scrubFollowUrl(value: string): string {
+  const hash = value.indexOf("#");
+  if (hash >= 0) {
+    const before = value.slice(0, hash);
+    const head = scrubFollowUrl(before);
+    return head === before ? value : head + value.slice(hash);
+  }
   if (!value.includes(`${FOLLOW_QUERY_PARAM}=`)) return value;
 
   const q = value.indexOf("?");
@@ -117,6 +133,15 @@ export function scrubFollowTelemetry<T extends ScrubbableEvent>(event: T): T {
     if (typeof req.query_string === "string") req.query_string = scrubFollowUrl(req.query_string);
     // `query_string` smí být i slovník nebo pole dvojic (tvar Sentry).
     if (isRecord(req.query_string)) scrubValues(req.query_string);
+    if (Array.isArray(req.query_string)) {
+      for (const pair of req.query_string) {
+        if (Array.isArray(pair) && pair[0] === FOLLOW_QUERY_PARAM && typeof pair[1] === "string" && carriesKey(pair[1])) {
+          pair[1] = "";
+        }
+      }
+    }
+    // `Referer` nese celou adresu, odkud se přišlo, i s dotazem.
+    scrubValues(req.headers);
   }
 
   if (isRecord(event.contexts) && isRecord(event.contexts.trace)) {
