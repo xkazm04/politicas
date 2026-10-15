@@ -7610,7 +7610,11 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/ingest/sources/psp-legislation.ts:433 kg-bill-roles-ingest persists parseBillFates, which replaces an earlier valid Sbírka publication with a later one and does not record first publication, correction, and reprint as distinct.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
+          "evaluatedRevision": 5
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -8872,7 +8876,11 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/amends-census.ts:271 The first eligible statute citation in a Čl. block becomes a confirmed amended law with no test that the block issues an amendment instruction.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
+          "evaluatedRevision": 5
         },
         {
           "subject": "context-hierarchy",
@@ -9028,7 +9036,11 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/archive/collision-signal-009.ts:57 Batch 009 measures amendment instructions with a private verb regex instead of the shared clause-anchored grammar.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
+          "evaluatedRevision": 5
         },
         {
           "subject": "agent-memory",
@@ -9466,7 +9478,11 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "messages/cs.json:2162 The bill dossier labels statute links as title citations and, where a census row exists, states how many targets that title link missed.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
+          "evaluatedRevision": 5
         },
         {
           "subject": "conflict-of-interest-detection",

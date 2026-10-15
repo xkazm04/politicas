@@ -3262,6 +3262,173 @@
           "evidence": "features/votetrack/kompas/KompasPage.tsx:38 No auto-approval grant governs this computation."
         }
       ]
+    },
+    "9d0a4dbd-85b7-4cb1-8306-4bfec537b1dd/legislative-change-tracking": {
+      "context": "lawwatch-bills",
+      "subject": "legislative-change-tracking",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:11:18.298Z",
+      "worker": "af09c450-e43a-4a53-a060-1183f6f6157e",
+      "techniques": [
+        {
+          "technique": "statute-citation-extraction",
+          "verdict": "conformant",
+          "evidence": "messages/cs.json:2162 Title-only amends stay separate from amendedLawsFull; the census note states the undercount."
+        },
+        {
+          "technique": "amendment-instruction-grammar",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getCollisionData.ts:160 The surface normalizes a stored close-read label. It does not decide whether a § mention is an instruction."
+        },
+        {
+          "technique": "statute-collision-clustering",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getCollisionData.ts:31 Published pairs are prior close-reads; incidental same-number pairs are counted and dropped, not shown as conflicts."
+        },
+        {
+          "technique": "committee-routing-reconstruction",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getLawData.ts:405 A missing status stays unknown rather than navrženo, and the dossier prints the date only when assignedOn is present."
+        },
+        {
+          "technique": "sponsorship-and-rapporteur-roles",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getLawData.ts:470 Missing signature rank stays null. Rank 1 is předložil, later ranks are co-signatures, and rapporteur scopes are listed separately."
+        },
+        {
+          "technique": "bill-fate-dating",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/components/BillDetail.tsx:107 Procedural stav and the Sbírka date render as separate fields; a publication row with no date does not borrow one."
+        }
+      ],
+      "registryProposal": "The committee technique tells the UI to keep the token unknown outside the label catalog. LawWatch translates it as „krok zdroj neoznačil“, an honest non-status. The standard should allow that localized unknown label."
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/legislative-change-tracking": {
+      "context": "kg-domain-ingest",
+      "subject": "legislative-change-tracking",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:11:18.298Z",
+      "worker": "af09c450-e43a-4a53-a060-1183f6f6157e",
+      "techniques": [
+        {
+          "technique": "statute-citation-extraction",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/psp-legislation.ts:44 Bill titles use this one pattern, with the Sb. m. s. lookahead, numeric normalization, and per-title dedupe."
+        },
+        {
+          "technique": "amendment-instruction-grammar",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:4 This ingest never reads operative bill text, so it does not decide provision-level instructions."
+        },
+        {
+          "technique": "statute-collision-clustering",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:7 Searched collision, kolize, partition, sharedParagraph, omnibus, and amendsParagraph in the listed ingest scripts. The only hit is a slug-collision comment in the money ingest."
+        },
+        {
+          "technique": "committee-routing-reconstruction",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/psp-legislation.ts:155 Unknown ranks below real statuses and the earliest date at the strongest status is kept, but the pair does not also carry the raw unrecognised typ codes."
+        },
+        {
+          "technique": "sponsorship-and-rapporteur-roles",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/psp-legislation.ts:285 A missing poradi becomes list position, and a duplicate person keeps the lowest rank plus that row's joined-later flag."
+        },
+        {
+          "technique": "bill-fate-dating",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/psp-legislation.ts:433 Impossible dates are refused and counted, but several valid publication steps collapse to the latest date."
+        }
+      ],
+      "registryProposal": "Sponsorship says both that dedupe keeps the strongest claim and that conflicting ranks must not be resolved by lowest-rank promotion. Those two sentences are what the parser implemented as one rule."
+    },
+    "eda8e129-2a39-4921-bff2-0251c7f61cb0/legislative-change-tracking": {
+      "context": "law-archive-early",
+      "subject": "legislative-change-tracking",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:11:18.298Z",
+      "worker": "af09c450-e43a-4a53-a060-1183f6f6157e",
+      "techniques": [
+        {
+          "technique": "statute-citation-extraction",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/archive/amends-regen-005.ts:114 Known non-acts are excluded, but a law node with no e-Sbírka title is still accepted as an amends target."
+        },
+        {
+          "technique": "amendment-instruction-grammar",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/archive/collision-signal-009.ts:57 This is a call-site copy. collision-check-005 also feeds every § mention from extractParagraphs into the collision set."
+        },
+        {
+          "technique": "statute-collision-clustering",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:254 The §-set is every paragraph number in the slice. Mentions are not limited to instruction forms, and the script prefers a platné znění PDF when one exists."
+        },
+        {
+          "technique": "committee-routing-reconstruction",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:71 The batch packet copies stored edges and replaces a missing status with ?, not the explicit unknown token."
+        },
+        {
+          "technique": "sponsorship-and-rapporteur-roles",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:88 Every sponsor id is listed with money ties and no signature rank or joined-later flag."
+        },
+        {
+          "technique": "bill-fate-dating",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:108 Searched fate_, zaver_publik, and publishedOn in the listed archive scripts. The packet only links to psp.cz history."
+        }
+      ]
+    },
+    "83c0d33f-f7db-4a99-9d17-48a23e417b22/legislative-change-tracking": {
+      "context": "law-amends-corpus",
+      "subject": "legislative-change-tracking",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:11:18.298Z",
+      "worker": "af09c450-e43a-4a53-a060-1183f6f6157e",
+      "techniques": [
+        {
+          "technique": "statute-citation-extraction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/amends-census.ts:182 Body extraction imports LAW_CITATION, skips footnotes and repeal context, and cuts the explanatory memo out of návrh text."
+        },
+        {
+          "technique": "amendment-instruction-grammar",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/amends-census.ts:271 realLaws is a citation-in-block heuristic. A platné znění PDF is also accepted whole when no návrh PDF exists."
+        },
+        {
+          "technique": "statute-collision-clustering",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/amends-census.ts:69 Searched amendsParagraph, partitionParagraphsByStatute, sharedParagraph, and kolize in the listed files. Article splits name statutes; they do not cluster pending bills."
+        },
+        {
+          "technique": "committee-routing-reconstruction",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/inspect-hist.ts:34 Searched assigned_to, garancni, hist_vybory, and prikazano. No committee collapse. inspect-hist only prints raw hist columns."
+        },
+        {
+          "technique": "sponsorship-and-rapporteur-roles",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/amends-census.ts:456 Searched predkladatel, sponsors_ranked, zpravodaj, and rapporteur. Census rows keep institutional origin and do not attribute members."
+        },
+        {
+          "technique": "bill-fate-dating",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/esbirka-versions.ts:1 Searched fate_published, zaver_publik, and parseBillFates. Version rows store statute účinnost, not a bill's procedural fate."
+        }
+      ],
+      "registryProposal": "The grammar upgrades a citation to a provision operation, while this census's confirmed output is a statute set from the first citation in each article. The standard should say whether that article heuristic may be stored as an amends edge before the grammar runs."
     }
   }
 }
