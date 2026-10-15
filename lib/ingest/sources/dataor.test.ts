@@ -2,7 +2,7 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { gzipSync } from "node:zlib";
-import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import {
   ensureDatasetCached,
   extractOfficersAndShareholders,
@@ -295,11 +295,16 @@ describe("findRecordsByIcosInFile — the streaming finder (money batch 017)", (
     '"00000002","Beta","[{udajTyp={kod=SPIS_ZN};hodnotaText=C 2\nsecond line ""quoted""}]",,"2002-02-02"\n' +
     '"00000003","Gama","[{udajTyp={kod=SPIS_ZN};hodnotaText=C 3/KSBR}]","2020-01-01","2003-03-03"\n';
   let path = "";
+  let streamDir = "";
+  afterAll(async () => {
+    if (streamDir) await rm(streamDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
+  });
   beforeAll(async () => {
     const { mkdtemp, writeFile } = await import("node:fs/promises");
     const { tmpdir } = await import("node:os");
     const { join } = await import("node:path");
     const dir = await mkdtemp(join(tmpdir(), "dataor-stream-"));
+    streamDir = dir;
     path = join(dir, "x.csv");
     await writeFile(path, csv, "utf8");
   });

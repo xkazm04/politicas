@@ -1,6 +1,6 @@
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
 import { pgliteFixtureDir } from "../pglite-fixture";
 
@@ -687,4 +687,5 @@ afterAll(async () => {
   const pg = await open();
   await pg.close();
   rmSync(dataDir, { recursive: true, force: true });
+  rmSync(dirname(loaderLogPath), { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 });

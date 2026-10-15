@@ -28,14 +28,17 @@ async function seedTies(pg: Awaited<ReturnType<typeof open>>) {
   }
 }
 
-describe("tamper-evident review-audit chain (DB integration)", () => {
-  afterAll(async () => {
-    const pg = await open();
-    await pg.close();
-    delete (globalThis as GlobalWithPglite)[PGLITE_KEY];
-    rmSync(dataDir, { recursive: true, force: true });
-  });
+// File level, not inside one describe: this file has a second describe ([G5] Merkle seal) that
+// runs after the first. A describe-scoped afterAll closed the store and removed the dir before
+// those tests, which then re-initialised a fresh store at the same path and left it behind.
+afterAll(async () => {
+  const pg = await open();
+  await pg.close();
+  delete (globalThis as GlobalWithPglite)[PGLITE_KEY];
+  rmSync(dataDir, { recursive: true, force: true });
+});
 
+describe("tamper-evident review-audit chain (DB integration)", () => {
   it("EMPTY CHAIN: verifies ok with null head before any decision exists", async () => {
     const pg = await open();
     const ledger = makeLedgerRepo(pg);
