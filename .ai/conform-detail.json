@@ -3585,6 +3585,145 @@
           "evidence": "lib/claims/registry.ts:19 Figures with missing or unreadable source rows are omitted so callers receive an honest unknown instead of zero."
         }
       ]
+    },
+    "1d4e5da8-7190-49ac-9a60-facf0bce4162/beneficial-ownership-resolution": {
+      "context": "money-ownership",
+      "subject": "beneficial-ownership-resolution",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T03:20:39.740Z",
+      "worker": "f6926070-381e-43a1-a595-64e2d162f383",
+      "techniques": [
+        {
+          "technique": "role-period-reconciliation",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/aresVrMatch.ts:163 Collapses multiple role records into an earliest-start and latest-end envelope without preserving intervening tenure gaps."
+        },
+        {
+          "technique": "identifier-checksum-validation",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/canonicalize-ico-nodes.ts:48 Zero-pads short IČO strings to 8 digits without validating their modulo-11 check digit against the register specification."
+        },
+        {
+          "technique": "name-to-identifier-discipline",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/purge-osvc.ts:106 Selects candidate edges for deletion strictly by the recorded false_edge_suspected defect annotation rather than destination alone."
+        },
+        {
+          "technique": "officer-record-reading",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:192 Gates name-similarity fallback to entries lacking birth dates, reporting inconclusive negatives as registry-unconfirmed rather than conflicting."
+        },
+        {
+          "technique": "ownership-chain-traversal",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/ownership-sweep.ts:226 Explicitly records entities skipped due to traversal budget caps as not-attempted with documented reasons instead of reporting absence."
+        },
+        {
+          "technique": "struck-off-entity-archives",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/dataor-corroborate.ts:239 Distinguishes checked negatives from inconclusive archive checks where old records omit birth dates."
+        }
+      ]
+    },
+    "5ff6a2d7-0be4-4d65-b0c9-404b4fbede66/beneficial-ownership-resolution": {
+      "context": "money-investigations",
+      "subject": "beneficial-ownership-resolution",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T03:20:39.740Z",
+      "worker": "f6926070-381e-43a1-a595-64e2d162f383",
+      "techniques": [
+        {
+          "technique": "identifier-checksum-validation",
+          "verdict": "deviation",
+          "evidence": "features/money/getCompanyDetail.ts:73 Passes unvalidated route parameters through canonicalIco without verifying the modulo-11 check digit."
+        },
+        {
+          "technique": "officer-record-reading",
+          "verdict": "conformant",
+          "evidence": "features/money/reviewTypes.ts:354 Reorders review priority tiers based on registry corroboration without auto-promoting ties to verified."
+        },
+        {
+          "technique": "role-period-reconciliation",
+          "verdict": "conformant",
+          "evidence": "features/money/reviewTypes.ts:98 Carries parsed tenure boundaries and flags open-ended ongoing periods as suspected stale claims requiring register verification."
+        },
+        {
+          "technique": "struck-off-entity-archives",
+          "verdict": "conformant",
+          "evidence": "features/money/getCompanyDetail.ts:142 Preserves registered corporate surroundings for historical entities without active MP ties rather than bailing on missing current ties."
+        }
+      ]
+    },
+    "698307e2-e6e2-444a-81c9-07254c5d1725/beneficial-ownership-resolution": {
+      "context": "money-evidence",
+      "subject": "beneficial-ownership-resolution",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T03:20:39.740Z",
+      "worker": "f6926070-381e-43a1-a595-64e2d162f383",
+      "techniques": [
+        {
+          "technique": "identifier-checksum-validation",
+          "verdict": "deviation",
+          "evidence": "features/money/companyId.ts:24 Accepts any 1-8 digit token and pads it with zeroes without enforcing the modulo-11 check digit algorithm."
+        },
+        {
+          "technique": "ownership-chain-traversal",
+          "verdict": "conformant",
+          "evidence": "features/money/ownership.ts:96 Separates regex-derived sole-owner shares from published register percentages, and reports unlinked hops in droppedUnresolved."
+        },
+        {
+          "technique": "struck-off-entity-archives",
+          "verdict": "conformant",
+          "evidence": "features/money/ownership.ts:297 Renders unresolvable and extinct entities with their recorded dissolution reasons and checked endpoints rather than treating them as uncheckable."
+        },
+        {
+          "technique": "officer-record-reading",
+          "verdict": "conformant",
+          "evidence": "features/money/tieFlags.ts:276 Maintains a strict flag vocabulary where unrecognized tokens render verbatim and machine reviews are explicitly distinguished from human gates."
+        },
+        {
+          "technique": "role-period-reconciliation",
+          "verdict": "conformant",
+          "evidence": "features/money/tieFlags.ts:62 Surfaces disagreements between source ongoing periods and register end dates as explicit stale-ongoing warning flags."
+        }
+      ]
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/beneficial-ownership-resolution": {
+      "context": "money-ledger",
+      "subject": "beneficial-ownership-resolution",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T03:20:39.740Z",
+      "worker": "f6926070-381e-43a1-a595-64e2d162f383",
+      "techniques": [
+        {
+          "technique": "officer-record-reading",
+          "verdict": "conformant",
+          "evidence": "features/money/getMoneyData.ts:97 Gates verified counts strictly on human review state rather than promoting ties upon automated corroboration."
+        },
+        {
+          "technique": "ownership-chain-traversal",
+          "verdict": "conformant",
+          "evidence": "features/money/getMoneyData.ts:165 Discloses corporate money with unpublished ownership separately rather than treating absence of ownership records as private ownership."
+        },
+        {
+          "technique": "struck-off-entity-archives",
+          "verdict": "conformant",
+          "evidence": "features/money/components/OwnershipBlock.tsx:96 Suppresses live navigation links for unresolvable entities and displays archived dissolution reasons and checked endpoints instead."
+        },
+        {
+          "technique": "role-period-reconciliation",
+          "verdict": "conformant",
+          "evidence": "features/money/moneyLoader.ts:673 Withholds implausible contract signature dates and records the omission rather than inventing dates or altering periods."
+        }
+      ]
     }
   }
 }

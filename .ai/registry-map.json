@@ -10149,7 +10149,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/companyId.ts:24 canonicalIco validates only character width and digit format, failing to run modulo-11 checksum validation before identifiers enter the company node lookup.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:6ed2df0c3ed437c2",
+          "evaluatedRevision": 7
         },
         {
           "subject": "public-procurement-analysis",
@@ -10305,7 +10309,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/getCompanyDetail.ts:73 The company case-file loader accepts unverified identifier strings from route parameters through canonicalIco without validating their modulo-11 check digit before querying the graph.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:6ed2df0c3ed437c2",
+          "evaluatedRevision": 7
         },
         {
           "subject": "prompt-assembly",
@@ -10536,7 +10544,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/money/getMoneyData.ts:97 The core ledger loader isolates machine corroboration from human review, issuing verified claims only for ties explicitly confirmed by human review.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:6ed2df0c3ed437c2",
+          "evaluatedRevision": 7
         },
         {
           "subject": "prompt-assembly",
@@ -10656,7 +10668,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/aresVrMatch.ts:163 The person matcher merges disjoint officer tenures into a single earliest-start and latest-end envelope, which causes tenure reconciliation to falsely treat contracts signed in gaps between disjoint roles as falling within tenure.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:6ed2df0c3ed437c2",
+          "evaluatedRevision": 7
         },
         {
           "subject": "conflict-of-interest-detection",
