@@ -5390,7 +5390,11 @@
           "revision": 6,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/effort/gate.ts:226 The gate accepts arbitrary effort-prefixed properties instead of enforcing a closed, versioned verdict schema.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:7fdfdb199dd8e60a",
+          "evaluatedRevision": 6
         },
         {
           "subject": "prompt-assembly",
@@ -9378,7 +9382,11 @@
           "revision": 6,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:128 Citation-scope violations are collected separately from errors, so a verdict can pass despite asserting substance beyond its cited company record.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:7fdfdb199dd8e60a",
+          "evaluatedRevision": 6
         },
         {
           "subject": "hitl-approval",
@@ -9559,7 +9567,11 @@
           "revision": 6,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/components/BillDetail.tsx:648 A conflict assessment renders whenever its text exists, so pending or rejected review states do not prevent its public display.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:7fdfdb199dd8e60a",
+          "evaluatedRevision": 6
         },
         {
           "subject": "civic-knowledge-graphs",

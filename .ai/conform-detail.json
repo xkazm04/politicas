@@ -3934,6 +3934,165 @@
       "evaluatedTs": "2026-10-15T04:04:44.151Z",
       "worker": "22bba22a-7a4d-40a7-aeba-4d8c5d39cda9",
       "techniques": []
+    },
+    "747db329-14c0-47a7-b8b5-eaf8095b9fdb/llm-forensic-gating": {
+      "context": "effort-scoring-tools",
+      "subject": "llm-forensic-gating",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T04:26:30.151Z",
+      "worker": "2ac9c861-2f9e-468d-bf41-8e457f37a154",
+      "techniques": [
+        {
+          "technique": "citation-required-per-claim",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/merge-batch.ts:14 Citations are optional strings, and the inspected runtime gate does not require or bind evidence to individual claims about MPs."
+        },
+        {
+          "technique": "entity-id-membership-gates",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/merge-batch.ts:27 Out-of-batch IDs only produce warnings and are still merged; gate.ts subsequently checks membership against all fetched person nodes rather than the batch's supplied scope."
+        },
+        {
+          "technique": "prose-register-gates",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/gate.ts:196 The public-copy gate uses the shared jargon matcher, whose inspected implementation has finite token patterns but no language classifier or general identifier-shape checks."
+        },
+        {
+          "technique": "structured-verdict-schemas",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/gate.ts:226 Prefix validation permits invented effort_* dimensions; it does not enforce a closed schema with required, typed fields."
+        },
+        {
+          "technique": "whole-artifact-invariants",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/archive/apply-batch-008-fixes.ts:113 This explicitly included archived rewrite emits its modified payload after replacement-count checks, without the specified artifact-preservation checks."
+        }
+      ]
+    },
+    "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/llm-forensic-gating": {
+      "context": "law-triage-collision",
+      "subject": "llm-forensic-gating",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T04:26:30.151Z",
+      "worker": "2ac9c861-2f9e-468d-bf41-8e457f37a154",
+      "techniques": [
+        {
+          "technique": "citation-required-per-claim",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/law-verdict.ts:244 The validator invoked by gate-verdicts.ts checks evidence string length but never requires its value to occur among citation sources, despite the army contract requiring that binding."
+        },
+        {
+          "technique": "entity-id-membership-gates",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:122 ID membership is checked, but detected claims exceeding company-record scope remain advisory and do not reject the verdict."
+        },
+        {
+          "technique": "hallucinated-reference-sweep",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/law-verdict.ts:218 The invoked sweep scans serialized JSON rather than decoded strings with paths; escaped newlines can prevent the canonical whitespace-sensitive reference pattern from matching."
+        },
+        {
+          "technique": "prose-register-gates",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/law-verdict.ts:291 The validator called by this context rejects reader-field jargon and separately applies the Czech language gate; LawWatch imports the same rule modules for rendering."
+        },
+        {
+          "technique": "structured-verdict-schemas",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/law-verdict.ts:228 Unexpected-key rejection covers the root only; nested effects and citations accept additional keys despite additionalProperties:false in their declared schemas."
+        }
+      ]
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/llm-forensic-gating": {
+      "context": "civic-verification",
+      "subject": "llm-forensic-gating",
+      "bundle": "civic-intelligence",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T04:26:30.151Z",
+      "techniques": [
+        {
+          "technique": "citation-required-per-claim",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/getVerdictData.ts:68 This path resolves a previously issued claim reference; it does not generate accusations requiring model citation bindings."
+        },
+        {
+          "technique": "entity-id-membership-gates",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:135 The checked reference comes from parsed reader input, not an analyst model's identifier slot."
+        },
+        {
+          "technique": "groundedness-scoring-triage",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:139 Verification uses exact comparison with a derived figure, not probabilistic claim/source support scoring."
+        },
+        {
+          "technique": "hallucinated-reference-sweep",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/getVerdictData.ts:47 The parser identifies reader-supplied references; there is no generated verdict prose to sweep."
+        },
+        {
+          "technique": "human-review-doors",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:326 This context reflects an existing review decision in its headline without promoting or publishing a new model claim."
+        },
+        {
+          "technique": "prose-register-gates",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:327 The verdict selects fixed localization keys rather than rendering newly authored model prose."
+        },
+        {
+          "technique": "structured-verdict-schemas",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:29 This is a deterministic application-result vocabulary, not a contract for analyst-model output."
+        },
+        {
+          "technique": "whole-artifact-invariants",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:209 The context compares historical and current records without rewriting a source prose artifact."
+        }
+      ],
+      "withdrawn": {
+        "worker": "2ac9c861-2f9e-468d-bf41-8e457f37a154",
+        "state": "not-applicable",
+        "at": "2026-10-15T04:27:07.411647+00:00",
+        "reason": "reviewer (sonnet): The context is not free of LLM-verdict handling: features/overeni/liveFigures.ts:92-240 resolves forensicCensus and forensicConfidence figures from bill.forensic (stored analyst-model verdict fields). The absence terms (prompt, structuredOutput, generateText) miss that path, and the anchors at getVe"
+      }
+    },
+    "9d0a4dbd-85b7-4cb1-8306-4bfec537b1dd/llm-forensic-gating": {
+      "context": "lawwatch-bills",
+      "subject": "llm-forensic-gating",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T04:26:30.151Z",
+      "worker": "2ac9c861-2f9e-468d-bf41-8e457f37a154",
+      "techniques": [
+        {
+          "technique": "citation-required-per-claim",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getLawData.ts:187 The loader retains an effect when its evidence is absent or withheld, substituting an empty evidence string instead of withholding the unsupported analytical unit."
+        },
+        {
+          "technique": "human-review-doors",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/components/BillDetail.tsx:648 The assessment block checks text presence only; readForensic also accepts rejected states, so review-state disclosure does not enforce the publication door."
+        },
+        {
+          "technique": "prose-register-gates",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getLawData.ts:171 Reader-facing verdict fields pass the imported Czech and shared law-jargon gates, with non-destructive withholding and a withheld-field count."
+        },
+        {
+          "technique": "whole-artifact-invariants",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getLawData.ts:175 This presentation gate returns the accepted source string unchanged or withholds it; it does not perform a prose rewrite."
+        }
+      ]
     }
   }
 }
