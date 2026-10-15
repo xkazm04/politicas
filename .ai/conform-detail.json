@@ -4683,6 +4683,119 @@
           "evidence": "lib/analysis/contribution.ts:253 Omitted activity measurements become zero and enter the composite instead of preserving missingness and enforcing a common coverage rule."
         }
       ]
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/public-claim-provenance": {
+      "context": "civic-verification",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T23:23:48.833Z",
+      "worker": "da5723fb-0a7c-4cc6-ad38-edde02c2ce49",
+      "techniques": [
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "conformant",
+          "evidence": "features/overeni/guide.ts:118 The unavailable live-edge branch explicitly revokes liveness."
+        },
+        {
+          "technique": "derived-numerator-authored-denominator",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/verdict.ts:140 This compares an individual cited value with its current derivation; it is not a shipped-count/target fraction."
+        },
+        {
+          "technique": "no-data-source-labelled-inline",
+          "verdict": "conformant",
+          "evidence": "features/overeni/guide.ts:117 The fabricated example carries an adjacent explanatory note, rendered beside it, explaining that the live example could not load and where real references originate."
+        },
+        {
+          "technique": "presentation-invariants-on-derived-values",
+          "verdict": "conformant",
+          "evidence": "features/overeni/OvereniPage.tsx:564 One live flag controls both copy and verify actions; illustrative labels and notes come from the same resolved example."
+        },
+        {
+          "technique": "promise-only-what-ships",
+          "verdict": "conformant",
+          "evidence": "features/overeni/verdict.ts:285 Deterministic figures are displayed as ungated rather than promising a human review that nobody is preparing."
+        }
+      ]
+    },
+    "e9b0f297-acb5-4de0-91ed-aebb33374531/public-claim-provenance": {
+      "context": "civicscore-leaderboard",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T23:23:48.833Z",
+      "worker": "da5723fb-0a7c-4cc6-ad38-edde02c2ce49",
+      "techniques": [
+        {
+          "technique": "build-time-derivation-off-the-client-bundle",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/CivicScorePage.tsx:65 The ranking entries are already needed for the interactive lens; counting them does not require downloading an additional catalog merely to support a counter."
+        },
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/CivicScorePage.tsx:149 An unavailable loader result selects copy without a population count instead of substituting a plausible seed."
+        },
+        {
+          "technique": "derived-numerator-authored-denominator",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/getLeaderboardData.ts:495 The headline count derives from the actual ranked entries; there is no invented target denominator."
+        },
+        {
+          "technique": "presentation-invariants-on-derived-values",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:258 The shared custom-lens condition selects plain reader-weighted scores versus canonical CitableNumber claims, preventing custom results from inheriting published provenance."
+        }
+      ]
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/public-claim-provenance": {
+      "context": "ingest-sources-financial",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T23:23:48.833Z",
+      "worker": "da5723fb-0a7c-4cc6-ad38-edde02c2ce49",
+      "techniques": [
+        {
+          "technique": "build-time-derivation-off-the-client-bundle",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/dataor.ts:774 The streaming reduction returns source records for ingest, not a public catalog count."
+        },
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy.ts:467 This is an adapter result with truncation metadata, not a public liveness badge."
+        },
+        {
+          "technique": "derived-numerator-authored-denominator",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:274 The output contains parsed records and extraction counts, without an authored public progress target."
+        },
+        {
+          "technique": "no-data-source-labelled-inline",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/monitor.ts:180 The adapter reads an upstream indicator instead of typing an uninstrumented public figure."
+        },
+        {
+          "technique": "presentation-invariants-on-derived-values",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/monitor.ts:199 This guarded ratio compares two source measurements, not a moving public count against an authored target."
+        },
+        {
+          "technique": "promise-only-what-ships",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:528 The function retrieves attachment bytes and publishes no confirmation or follow-up promise."
+        },
+        {
+          "technique": "provenance-as-a-build-gate",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/isvz.ts:29 These source adapters extract register facts; the searched directory contains no public citation renderer for this surface gate to inspect."
+        }
+      ]
     }
   }
 }

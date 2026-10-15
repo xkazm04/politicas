@@ -3522,7 +3522,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/overeni/guide.ts:118 Unavailable guide data produces explicitly illustrative examples whose labels and actions do not claim a working live citation.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:60eb54ef03f44a69",
+          "evaluatedRevision": 3
         },
         {
           "subject": "transactions-over-a-replicated-log",
@@ -3686,7 +3690,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/civicscore/CivicScorePage.tsx:149 The headline uses the loaded population count, omits it when unavailable, and keeps custom scores distinct from published citations.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:60eb54ef03f44a69",
+          "evaluatedRevision": 3
         },
         {
           "subject": "search",
@@ -7341,7 +7349,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:274 Searches for SourceNote, CitableNumber and ClaimReview found no hits in lib/ingest/sources, whose inspected adapters return harvested records rather than publish product claims.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:60eb54ef03f44a69",
+          "evaluatedRevision": 3
         },
         {
           "subject": "usage-event-ingestion",
