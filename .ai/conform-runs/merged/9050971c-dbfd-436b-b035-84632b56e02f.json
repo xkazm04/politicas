@@ -1,0 +1,207 @@
+{
+ "schema": "conform-run/1",
+ "worker": "9050971c-dbfd-436b-b035-84632b56e02f",
+ "subject": "embedded-db",
+ "evaluatedAt": "2026-10-15T00:34:36.822104+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "db-pglite-engine",
+   "subject": "embedded-db",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/pglite/maintenance.ts:33 The quiet-window gauge counts only in-flight statements on the one connection, which is the database-layer idle proxy the technique says misses foreground work that will need the machine again.",
+   "techniques": [
+    {
+     "technique": "connection-pooling",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/internals.ts:36 The engine memoises one WASM connection; there is no pool to size, time, or leak."
+    },
+    {
+     "technique": "quiet-window-maintenance",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/maintenance.ts:33 Interval, WAL-byte escalation, and a ran/deferred/failed ledger are present; the gauge itself is the named failing proxy."
+    },
+    {
+     "technique": "journal-and-durability-modes",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/durability.ts:90 Contract is written, queried every open, and mismatched loudly; fsync=off is the embedding's command-line value, not an unread default. File-set copies go through storeCopy."
+    },
+    {
+     "technique": "extension-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/internals.ts:68 Open takes only a data dir. Searched this context for CREATE EXTENSION, extensions, and loadExtension; schema uses built-in types and GIN, not a loadable module."
+    },
+    {
+     "technique": "storage-accounting-and-pruning",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/accounting.ts:79 Every CORE_DDL table has a named policy; the report uses exact counts and page-allocated bytes. Keep-forever is the dated decision, so there is no row pruner."
+    },
+    {
+     "technique": "db-self-instrumentation",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/instrument.ts:354 In-memory ring, closed table vocabulary, rows touched, per-family local thresholds, and counted warn suppression. Issue depth stands in for an unreadable WASM lock wait."
+    },
+    {
+     "technique": "single-writer-holder-discipline",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/storeCopy.ts:59 Copies drop the holder marker, callers checkpoint while they hold the connection, and a failed rename during restore refuses rather than copying over a held dir."
+    },
+    {
+     "technique": "derived-capacity-limits",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/internals.ts:232 Statement width is a function of the WASM bind ceiling, written next to the number. The 500 and 30000 constants are not pinned by a measuring test."
+    }
+   ],
+   "registryProposal": "quiet-window-maintenance names a database-layer idle gauge as a failing proxy, but does not say how short a pass must be before the store's own front door is an acceptable gauge. A single CHECKPOINT measured at a few tens of milliseconds has no other signal to import."
+  },
+  {
+   "context": "db-store-engine",
+   "subject": "embedded-db",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/config.ts:29 The store's own path rule tells analysis scripts to byte-copy the live row-store directory because a second connection is forbidden, which is the contention bill for leaving analytical reads on the serving store.",
+   "techniques": [
+    {
+     "technique": "connection-pooling",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/config.ts:26 Admission is one connection per data dir, not a pool."
+    },
+    {
+     "technique": "extension-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/migrations/0001_civic_graph.sql:12 Folded text is stored in plain columns. No module is named by the schema snapshot."
+    },
+    {
+     "technique": "single-writer-holder-discipline",
+     "verdict": "conformant",
+     "evidence": "lib/db/store.ts:450 getStore's cache and the connection memo are cleared by the same close path; store-lockstep.test.ts reopens after close."
+    },
+    {
+     "technique": "analytical-reads-off-the-serving-store",
+     "verdict": "deviation",
+     "evidence": "lib/db/config.ts:29 This is the analysis-script copy instruction. pglite-store.ts:14 also says the serving store stays PGlite for heavy analytical joins."
+    },
+    {
+     "technique": "derived-capacity-limits",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/readCap.ts:13 KG_READ_CAP is a truncation guard set above the corpus, not an entry, transaction, or cache limit derived from an engine leaf."
+    }
+   ],
+   "registryProposal": "analytical-reads-off-the-serving-store treats an analysis script's copy-the-directory instruction as decisive, and also says a batch nobody waits on should add no second engine. An offline script on a single-writer store must copy even when nobody waits; the technique should say which condition wins."
+  },
+  {
+   "context": "db-tooling",
+   "subject": "embedded-db",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/db/backup.ts:67 The backup checkpoints and then closes before copyStoreDir, so the directory copy is no longer of a store this process holds.",
+   "techniques": [
+    {
+     "technique": "connection-pooling",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/accounting.ts:31 Scripts open one connection and exit."
+    },
+    {
+     "technique": "quiet-window-maintenance",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/backup.ts:30 CHECKPOINT here is a manual operator command, not a timer inside the user process."
+    },
+    {
+     "technique": "journal-and-durability-modes",
+     "verdict": "deviation",
+     "evidence": "scripts/db/migrate.ts:38 Migrate deliberately skips open() and never reads pg_settings, so this connection does not assert the durability contract. Backup copies still go through copyStoreDir."
+    },
+    {
+     "technique": "extension-lifecycle",
+     "verdict": "conformant",
+     "evidence": "scripts/db-bench/vector.ts:52 pgvector is passed at construction, before waitReady and before create extension and the vector table. A load failure exits the process."
+    },
+    {
+     "technique": "storage-accounting-and-pruning",
+     "verdict": "conformant",
+     "evidence": "scripts/db/accounting.ts:38 On-demand per-table report. If the live dir is held the script stops instead of half-reporting. Row pruning is the engine module's keep-forever decision."
+    },
+    {
+     "technique": "single-writer-holder-discipline",
+     "verdict": "deviation",
+     "evidence": "scripts/db/backup.ts:67 Open-plus-checkpoint is the admission check, then the holder is released before the copy. Premigration in the engine context copies while still holding."
+    },
+    {
+     "technique": "analytical-reads-off-the-serving-store",
+     "verdict": "conformant",
+     "evidence": "scripts/db-bench/olap.ts:52 The OLAP bench loads an exported canonical CSV into in-process DuckDB and checksums the same aggregates, including the self-join, across engines."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "embedded-db",
+   "context": "hybrid-bench",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-15T00:34:36.822104+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "embedded-db"
+   ],
+   "techniques": [
+    "connection-pooling",
+    "db-self-instrumentation",
+    "derived-capacity-limits",
+    "extension-lifecycle",
+    "journal-and-durability-modes",
+    "quiet-window-maintenance",
+    "single-writer-holder-discipline",
+    "storage-accounting-and-pruning"
+   ],
+   "deviations": 1,
+   "context": "db-pglite-engine",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T00:34:36.822104+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "embedded-db"
+   ],
+   "techniques": [
+    "analytical-reads-off-the-serving-store",
+    "connection-pooling",
+    "derived-capacity-limits",
+    "extension-lifecycle",
+    "single-writer-holder-discipline"
+   ],
+   "deviations": 1,
+   "context": "db-store-engine",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T00:34:36.822104+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "embedded-db"
+   ],
+   "techniques": [
+    "analytical-reads-off-the-serving-store",
+    "connection-pooling",
+    "extension-lifecycle",
+    "journal-and-durability-modes",
+    "quiet-window-maintenance",
+    "single-writer-holder-discipline",
+    "storage-accounting-and-pruning"
+   ],
+   "deviations": 1,
+   "context": "db-tooling",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}
