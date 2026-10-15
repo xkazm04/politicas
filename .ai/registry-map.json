@@ -2136,7 +2136,11 @@
           "revision": 10,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/census/check-library-adherence.mjs:110 The adherence checker enforces the presence of a verifiedBy command string for satisfied principles, but never executes it, writes back verified stamps, or demotes failing claims.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:58a3b7c0b9efb42c",
+          "evaluatedRevision": 10
         },
         {
           "subject": "docs-sync",
