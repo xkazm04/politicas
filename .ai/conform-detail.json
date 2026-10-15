@@ -4242,6 +4242,258 @@
         }
       ],
       "registryProposal": "The golden path allows a deliberate ledger-less replay, while idempotent-steps says the ledger is always required and transactional-ddl requires the version bump inside each step. Spell which of those clauses a priced replay design suspends, or a deliberate single-script chain is scored as missing a bump it was told not to keep."
+    },
+    "f50627ef-a7a1-40a4-9491-560efa6cb05d/motion": {
+      "context": "mp-profile",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T21:55:11.153Z",
+      "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
+      "techniques": [
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:41 Width is the graphic of an already-computed pct; the hidden start is not gated, so the degraded bar is a confident zero."
+        },
+        {
+          "technique": "performance-discipline",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:42 The shared gesture animates width, which is layout, not transform or opacity."
+        },
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:44 The fallback is a call-site branch that collapses the duration to exact zero instead of a preset-level settle."
+        },
+        {
+          "technique": "one-shot-guarding",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:25 The header entrance is tied to mount; this context has no identity-keyed seen-set that survives a return visit."
+        },
+        {
+          "technique": "preset-vocabulary",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:24 The entrance is an inline opacity/pixel object with no named intent, duration class, or easing role."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:17 A fire-and-forget fade-up runs on the animation library, whose preference hook is also the reader."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "conformant",
+          "evidence": "features/profile/components/MotionIslands.tsx:43 The bar reveal is scroll-triggered, plays once, and finishes in the 0.6s transition, so it owes no pause control."
+        },
+        {
+          "technique": "continuity-across-change",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/ProfilePage.tsx:441 The pillar value is static text beside the bar; this surface does not animate a pending marker into a result."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/components/MotionIslands.tsx:4 The file's two gestures are a header entrance and a bar fill; a search of features/profile found no setInterval, repeat, or requestAnimationFrame."
+        }
+      ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/motion": {
+      "context": "admin-observability",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T21:55:11.153Z",
+      "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
+      "techniques": [
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "features/admin/components/ReviewHubSection.tsx:116 The nudge is travel and this context never reads the preference or adds motion-reduce; a search found no prefers-reduced-motion or framer-motion under features/admin."
+        },
+        {
+          "technique": "performance-discipline",
+          "verdict": "deviation",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:82 The hover transition animates color, which is paint, outside the transform/opacity set."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "conformant",
+          "evidence": "features/admin/AdminPage.tsx:33 Hover feedback is a platform CSS transition; this context does not import an animation library."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/components/TripwireSection.tsx:82 The only movement is group-hover, so it is prompted feedback, not an autoplay, attract loop, or scroll reveal."
+        },
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/components/LoopProgressGrid.tsx:15 The progress width is painted at its real percentage with no entrance gesture to degrade."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/components/LoopProgressGrid.tsx:15 No animated loop exists here; features/admin has no setInterval, requestAnimationFrame, or keyframes. Admin durationNote fields are run timings, not motion."
+        }
+      ]
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/motion": {
+      "context": "graph-canvas",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T21:55:11.153Z",
+      "techniques": [
+        {
+          "technique": "preset-vocabulary",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:559 The title gesture inlines a 14px rise and does not reference a named preset, duration class, or easing role."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:24 The fire-and-forget title uses the animation library even though the canvas drag already has an owned frame loop."
+        },
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:534 The title reads the library hook at the call site, while VariantMapa already has a platform matchMedia resolver in usePrefersReducedMotion.ts."
+        },
+        {
+          "technique": "one-shot-guarding",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:560 The title entrance replays on every mount; nothing records that this permalink has already been seen."
+        },
+        {
+          "technique": "taste-budgets",
+          "verdict": "deviation",
+          "evidence": "features/graph/VariantMapa.tsx:62 Each hop waits 380ms and trailPath.ts caps a path at 6 ordinary steps, so a full reveal runs past the about-one-second entrance cap with no named total."
+        },
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "conformant",
+          "evidence": "features/graph/VariantMapa.tsx:211 Under reduced motion the path lights every hop immediately instead of freezing on an empty prefix."
+        },
+        {
+          "technique": "performance-discipline",
+          "verdict": "conformant",
+          "evidence": "features/graph/components/GraphStage.tsx:23 Pan and zoom write the view through a ref and one requestAnimationFrame, so pointer motion does not re-render React."
+        },
+        {
+          "technique": "gesture-decomposition",
+          "verdict": "conformant",
+          "evidence": "features/graph/components/GraphStage.tsx:669 Dragging is value-driven by the pointer delta, kept separate from the time-stepped path reveal."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "conformant",
+          "evidence": "features/graph/VariantMapa.tsx:207 The path sequence is user-started, stops at the hop count, and holds; at 380ms and at most 6 steps it finishes under five seconds."
+        }
+      ],
+      "withdrawn": {
+        "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
+        "state": "deviation",
+        "at": "2026-10-15T21:55:39.457775+00:00",
+        "reason": "reviewer (sonnet): PermalinkPage.tsx:559 does have a framer-motion title that starts at opacity 0 when motion is allowed. But the file header says the page has no canvas, and I found no hand-rolled path sequencer in it. The canvas drag's requestAnimationFrame loop is in components/GraphStage.tsx, which isn't among thi"
+      }
+    },
+    "f4e73683-b40c-4436-b8ea-20e407f499ab/motion": {
+      "context": "eslint-plugin-civic-transparency-rules",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T21:55:11.153Z",
+      "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
+      "techniques": [
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:9 Mentioning the library hook in the component is treated as the fallback, and a reduced-motion-ok comment exempts the loop with no stillness requirement."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:21 Only framer-motion elements count, so a stylesheet animation or a scripted loop is outside the check."
+        },
+        {
+          "technique": "one-shot-guarding",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:7 The rule declines one-shot entrances and contains no seen-set, identity key, or replay guard."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:39 repeat is an AST flag for the lint, not a runtime loop with a merged pause signal."
+        }
+      ],
+      "registryProposal": "The technique forbids call-site branching and the animation library's own preference hook, but it never names a pattern a linter can require instead, so a rule that treats a useReducedMotion mention as success encodes the failure mode."
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/motion": {
+      "context": "landing-core",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T21:55:11.153Z",
+      "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
+      "techniques": [
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/Hemicycle.tsx:84 Reduction is a per-component branch to duration 0, and motion.test.ts requires every delay and duration to mention reduceMotion."
+        },
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/Hemicycle.tsx:81 The seat marks, which are the score graphic, start invisible and stay invisible until whileInView fires."
+        },
+        {
+          "technique": "preset-vocabulary",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/HeroStory.tsx:42 Entrance delays are raw seconds in the component, not a named duration class from one vocabulary."
+        },
+        {
+          "technique": "taste-budgets",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/SystemModules.tsx:77 Stagger is an inline 0.05s times the row index, with no named entrance cap or stagger-count cutoff."
+        },
+        {
+          "technique": "one-shot-guarding",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/HeroStory.tsx:34 The hero entrance runs from mount with no surface-scoped seen-set, so a return visit replays it."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/HeroStory.tsx:14 Fire-and-forget entrances and the preference read both come from the animation library."
+        },
+        {
+          "technique": "performance-discipline",
+          "verdict": "conformant",
+          "evidence": "features/landing/components/SystemModules.tsx:74 The module entrance moves only opacity and x, which framer maps to opacity and transform."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "conformant",
+          "evidence": "features/landing/components/SystemModules.tsx:76 The scroll reveal plays once per mount and the stagger finishes well under five seconds, so no pause control is owed."
+        },
+        {
+          "technique": "gesture-decomposition",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/components/Hemicycle.tsx:82 Each landing gesture is one opacity or fade-rise on a single timing, not several properties on different curves."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/motion.test.ts:8 The landing motions are entrances; a search of features/landing found no setInterval, repeat, or requestAnimationFrame."
+        }
+      ],
+      "registryProposal": "The epsilon-never-zero rule and the withdraw-the-gesture rule are not distinguishable to a source test, so landing's motion test can only require every delay and duration expression to mention the preference, which blesses exact zero."
     }
   }
 }

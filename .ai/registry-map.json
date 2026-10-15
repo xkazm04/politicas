@@ -1219,7 +1219,11 @@
           "revision": 10,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/admin/components/ReviewHubSection.tsx:116 Hover travel on the arrow runs as a CSS transform with no reduced-motion fallback in this surface.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:8d9b3eabe2f3b534",
+          "evaluatedRevision": 10
         },
         {
           "subject": "agent-runtime-assembly",
@@ -5806,7 +5810,11 @@
           "revision": 10,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:92 The rule's required fix is a call-site library hook or a comment that lets a repeating animation keep cycling.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:8d9b3eabe2f3b534",
+          "evaluatedRevision": 10
         }
       ],
       "governance": "governed"
@@ -8599,7 +8607,11 @@
           "revision": 10,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/components/Hemicycle.tsx:84 The hemicycle stagger is an inline per-row delay whose reduced form sets duration and delay to exact zero at the call site.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:8d9b3eabe2f3b534",
+          "evaluatedRevision": 10
         }
       ],
       "governance": "governed"
@@ -10939,7 +10951,11 @@
           "revision": 10,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:41 The pillar bar always mounts at width 0, including under reduced motion, so a known percentage reads as an empty score until a viewport trigger snaps it.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:8d9b3eabe2f3b534",
+          "evaluatedRevision": 10
         },
         {
           "subject": "quality-gates",

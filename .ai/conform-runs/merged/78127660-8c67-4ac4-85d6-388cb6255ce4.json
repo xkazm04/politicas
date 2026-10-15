@@ -1,0 +1,305 @@
+{
+  "schema": "conform-run/1",
+  "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
+  "subject": "motion",
+  "evaluatedAt": "2026-10-15T21:55:11.153159+00:00",
+  "provider": "grok",
+  "model": "grok-4.7",
+  "pairs": [
+    {
+      "context": "mp-profile",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/profile/components/MotionIslands.tsx:41 The pillar bar always mounts at width 0, including under reduced motion, so a known percentage reads as an empty score until a viewport trigger snaps it.",
+      "techniques": [
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:41 Width is the graphic of an already-computed pct; the hidden start is not gated, so the degraded bar is a confident zero."
+        },
+        {
+          "technique": "performance-discipline",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:42 The shared gesture animates width, which is layout, not transform or opacity."
+        },
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:44 The fallback is a call-site branch that collapses the duration to exact zero instead of a preset-level settle."
+        },
+        {
+          "technique": "one-shot-guarding",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:25 The header entrance is tied to mount; this context has no identity-keyed seen-set that survives a return visit."
+        },
+        {
+          "technique": "preset-vocabulary",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:24 The entrance is an inline opacity/pixel object with no named intent, duration class, or easing role."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/MotionIslands.tsx:17 A fire-and-forget fade-up runs on the animation library, whose preference hook is also the reader."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "conformant",
+          "evidence": "features/profile/components/MotionIslands.tsx:43 The bar reveal is scroll-triggered, plays once, and finishes in the 0.6s transition, so it owes no pause control."
+        },
+        {
+          "technique": "continuity-across-change",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/ProfilePage.tsx:441 The pillar value is static text beside the bar; this surface does not animate a pending marker into a result."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/components/MotionIslands.tsx:4 The file's two gestures are a header entrance and a bar fill; a search of features/profile found no setInterval, repeat, or requestAnimationFrame."
+        }
+      ]
+    },
+    {
+      "context": "admin-observability",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/admin/components/ReviewHubSection.tsx:116 Hover travel on the arrow runs as a CSS transform with no reduced-motion fallback in this surface.",
+      "techniques": [
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "features/admin/components/ReviewHubSection.tsx:116 The nudge is travel and this context never reads the preference or adds motion-reduce; a search found no prefers-reduced-motion or framer-motion under features/admin."
+        },
+        {
+          "technique": "performance-discipline",
+          "verdict": "deviation",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:82 The hover transition animates color, which is paint, outside the transform/opacity set."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "conformant",
+          "evidence": "features/admin/AdminPage.tsx:33 Hover feedback is a platform CSS transition; this context does not import an animation library."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/components/TripwireSection.tsx:82 The only movement is group-hover, so it is prompted feedback, not an autoplay, attract loop, or scroll reveal."
+        },
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/components/LoopProgressGrid.tsx:15 The progress width is painted at its real percentage with no entrance gesture to degrade."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/components/LoopProgressGrid.tsx:15 No animated loop exists here; features/admin has no setInterval, requestAnimationFrame, or keyframes. Admin durationNote fields are run timings, not motion."
+        }
+      ]
+    },
+    {
+      "context": "eslint-plugin-civic-transparency-rules",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:92 The rule's required fix is a call-site library hook or a comment that lets a repeating animation keep cycling.",
+      "techniques": [
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:9 Mentioning the library hook in the component is treated as the fallback, and a reduced-motion-ok comment exempts the loop with no stillness requirement."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:21 Only framer-motion elements count, so a stylesheet animation or a scripted loop is outside the check."
+        },
+        {
+          "technique": "one-shot-guarding",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:7 The rule declines one-shot entrances and contains no seen-set, identity key, or replay guard."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:39 repeat is an AST flag for the lint, not a runtime loop with a merged pause signal."
+        }
+      ],
+      "registryProposal": "The technique forbids call-site branching and the animation library's own preference hook, but it never names a pattern a linter can require instead, so a rule that treats a useReducedMotion mention as success encodes the failure mode."
+    },
+    {
+      "context": "landing-core",
+      "subject": "motion",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/landing/components/Hemicycle.tsx:84 The hemicycle stagger is an inline per-row delay whose reduced form sets duration and delay to exact zero at the call site.",
+      "techniques": [
+        {
+          "technique": "reduced-motion-mechanics",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/Hemicycle.tsx:84 Reduction is a per-component branch to duration 0, and motion.test.ts requires every delay and duration to mention reduceMotion."
+        },
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/Hemicycle.tsx:81 The seat marks, which are the score graphic, start invisible and stay invisible until whileInView fires."
+        },
+        {
+          "technique": "preset-vocabulary",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/HeroStory.tsx:42 Entrance delays are raw seconds in the component, not a named duration class from one vocabulary."
+        },
+        {
+          "technique": "taste-budgets",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/SystemModules.tsx:77 Stagger is an inline 0.05s times the row index, with no named entrance cap or stagger-count cutoff."
+        },
+        {
+          "technique": "one-shot-guarding",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/HeroStory.tsx:34 The hero entrance runs from mount with no surface-scoped seen-set, so a return visit replays it."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/HeroStory.tsx:14 Fire-and-forget entrances and the preference read both come from the animation library."
+        },
+        {
+          "technique": "performance-discipline",
+          "verdict": "conformant",
+          "evidence": "features/landing/components/SystemModules.tsx:74 The module entrance moves only opacity and x, which framer maps to opacity and transform."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "conformant",
+          "evidence": "features/landing/components/SystemModules.tsx:76 The scroll reveal plays once per mount and the stagger finishes well under five seconds, so no pause control is owed."
+        },
+        {
+          "technique": "gesture-decomposition",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/components/Hemicycle.tsx:82 Each landing gesture is one opacity or fade-rise on a single timing, not several properties on different curves."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/motion.test.ts:8 The landing motions are entrances; a search of features/landing found no setInterval, repeat, or requestAnimationFrame."
+        }
+      ],
+      "registryProposal": "The epsilon-never-zero rule and the withdraw-the-gesture rule are not distinguishable to a source test, so landing's motion test can only require every delay and duration expression to mention the preference, which blesses exact zero."
+    }
+  ],
+  "declined": [
+    {
+      "subject": "motion",
+      "context": "graph-canvas",
+      "reason": "withdrawn after review: reviewer (sonnet): PermalinkPage.tsx:559 does have a framer-motion title that starts at opacity 0 when motion is allowed. But the file header says the page has no canvas, and I found no hand-rolled path sequencer in it. The canvas drag's requestAnimationFrame loop is in components/GraphStage.tsx, which isn't among thi"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-15T21:55:11.153159+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "motion"
+      ],
+      "techniques": [
+        "content-bearing-degradation",
+        "continuity-across-change",
+        "engine-selection",
+        "loop-pause-governance",
+        "one-shot-guarding",
+        "performance-discipline",
+        "preset-vocabulary",
+        "reduced-motion-mechanics",
+        "unprompted-motion-lifecycle"
+      ],
+      "deviations": 1,
+      "context": "mp-profile",
+      "via": "curator-multi:grok",
+      "model": "grok-4.7"
+    },
+    {
+      "ts": "2026-10-15T21:55:11.153159+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "motion"
+      ],
+      "techniques": [
+        "content-bearing-degradation",
+        "engine-selection",
+        "loop-pause-governance",
+        "performance-discipline",
+        "reduced-motion-mechanics",
+        "unprompted-motion-lifecycle"
+      ],
+      "deviations": 1,
+      "context": "admin-observability",
+      "via": "curator-multi:grok",
+      "model": "grok-4.7"
+    },
+    {
+      "ts": "2026-10-15T21:55:11.153159+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "motion"
+      ],
+      "techniques": [
+        "content-bearing-degradation",
+        "engine-selection",
+        "gesture-decomposition",
+        "one-shot-guarding",
+        "performance-discipline",
+        "preset-vocabulary",
+        "reduced-motion-mechanics",
+        "taste-budgets",
+        "unprompted-motion-lifecycle"
+      ],
+      "deviations": 1,
+      "context": "graph-canvas",
+      "via": "curator-multi:grok",
+      "model": "grok-4.7"
+    },
+    {
+      "ts": "2026-10-15T21:55:11.153159+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "motion"
+      ],
+      "techniques": [
+        "engine-selection",
+        "loop-pause-governance",
+        "one-shot-guarding",
+        "reduced-motion-mechanics"
+      ],
+      "deviations": 1,
+      "context": "eslint-plugin-civic-transparency-rules",
+      "via": "curator-multi:grok",
+      "model": "grok-4.7"
+    },
+    {
+      "ts": "2026-10-15T21:55:11.153159+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "motion"
+      ],
+      "techniques": [
+        "content-bearing-degradation",
+        "engine-selection",
+        "gesture-decomposition",
+        "loop-pause-governance",
+        "one-shot-guarding",
+        "performance-discipline",
+        "preset-vocabulary",
+        "reduced-motion-mechanics",
+        "taste-budgets",
+        "unprompted-motion-lifecycle"
+      ],
+      "deviations": 1,
+      "context": "landing-core",
+      "via": "curator-multi:grok",
+      "model": "grok-4.7"
+    }
+  ]
+}
