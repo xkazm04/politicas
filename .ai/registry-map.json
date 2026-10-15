@@ -4478,7 +4478,11 @@
           "revision": 10,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/data-releases/snapshot.ts:29 The schema string here versions a published JSON extract, and a search of this context found no store-migration runner.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b7d5afcb859dfff9",
+          "evaluatedRevision": 10
         },
         {
           "subject": "prompt-assembly",
@@ -4661,7 +4665,11 @@
           "revision": 10,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/db/pglite/pending.ts:24 A column that already exists under the right name but the wrong type is not pending, and the guarded add neither corrects it nor halts.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b7d5afcb859dfff9",
+          "evaluatedRevision": 10
         },
         {
           "subject": "voice-io",
@@ -4936,7 +4944,11 @@
           "revision": 10,
           "changedAt": "2026-09-05",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/db/migrations/0001_civic_graph.sql:300 This statement backfills kg_node.recorded_at with now() in the same ALTER that adds the column, so the shape change and the row rewrite are one fused step.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b7d5afcb859dfff9",
+          "evaluatedRevision": 10
         },
         {
           "subject": "translation-quality-measurement",
@@ -5080,7 +5092,11 @@
           "revision": 10,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/db/migrate.ts:85 The runner applies the whole CORE_DDL script in one exec and never writes a schema-version bump inside a per-step transaction.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:b7d5afcb859dfff9",
+          "evaluatedRevision": 10
         },
         {
           "subject": "embedded-db",

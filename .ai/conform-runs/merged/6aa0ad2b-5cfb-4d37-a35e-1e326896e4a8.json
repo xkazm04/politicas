@@ -1,0 +1,233 @@
+{
+ "schema": "conform-run/1",
+ "worker": "6aa0ad2b-5cfb-4d37-a35e-1e326896e4a8",
+ "subject": "migrations",
+ "evaluatedAt": "2026-10-15T21:19:17.814878+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "db-store-engine",
+   "subject": "migrations",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/migrations/0001_civic_graph.sql:300 This statement backfills kg_node.recorded_at with now() in the same ALTER that adds the column, so the shape change and the row rewrite are one fused step.",
+   "techniques": [
+    {
+     "technique": "idempotent-steps",
+     "verdict": "deviation",
+     "evidence": "lib/db/migrations/0001_civic_graph.sql:274 The guard adds when the name is absent and does not halt when the same name exists with another type."
+    },
+    {
+     "technique": "data-migrations",
+     "verdict": "deviation",
+     "evidence": "lib/db/migrations/0001_civic_graph.sql:300 Existing rows are stamped by the engine default inside the shape change, not by a separate backfill step."
+    },
+    {
+     "technique": "migrate-from-data-shape",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/migrations/0001_civic_graph.sql:3 The artifact is a SQL schema snapshot, not a per-record shape classifier."
+    },
+    {
+     "technique": "expand-deploy-contract",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/config.ts:26 One process holds the only connection, so two releases cannot serve one store at once."
+    },
+    {
+     "technique": "dynamic-table-set-migrations",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/migrations/0001_civic_graph.sql:13 Tables are named in the static schema text, not discovered from operator-defined types."
+    }
+   ]
+  },
+  {
+   "context": "db-tooling",
+   "subject": "migrations",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/db/migrate.ts:85 The runner applies the whole CORE_DDL script in one exec and never writes a schema-version bump inside a per-step transaction.",
+   "techniques": [
+    {
+     "technique": "pre-migration-snapshots",
+     "verdict": "conformant",
+     "evidence": "scripts/db/migrate.ts:75 A failed verification on additive work is named and the run continues; destructive work exits 1. Restore requires --yes."
+    },
+    {
+     "technique": "transactional-ddl",
+     "verdict": "deviation",
+     "evidence": "scripts/db/migrate.ts:85 One exec is the whole chain. There is no per-step transaction and no ledger bump inside it."
+    },
+    {
+     "technique": "data-migrations",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/migrate.ts:17 The CLI applies additive DDL and does not backfill or rewrite row contents."
+    },
+    {
+     "technique": "error-propagation",
+     "verdict": "conformant",
+     "evidence": "scripts/db/migrate.ts:92 A step that did not land exits 1 and is not reported as done. A thrown catalog read also rejects main."
+    },
+    {
+     "technique": "migrate-from-data-shape",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/migrate.ts:41 Pending work is a catalog diff of declared objects, not a per-record shape classification."
+    },
+    {
+     "technique": "expand-deploy-contract",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/accounting.ts:7 The store allows one holder, so a rolling two-version overlap against one store does not arise."
+    },
+    {
+     "technique": "dynamic-table-set-migrations",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/migrate.ts:23 The runner applies one fixed DDL module, not a table set discovered at run time."
+    }
+   ]
+  },
+  {
+   "context": "data-releases-atlas",
+   "subject": "migrations",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/data-releases/snapshot.ts:29 The schema string here versions a published JSON extract, and a search of this context found no store-migration runner.",
+   "techniques": [],
+   "absenceTerms": [
+    "migration",
+    "CORE_DDL",
+    "premigration",
+    "schema_version",
+    "pendingSchema"
+   ]
+  },
+  {
+   "context": "db-pglite-engine",
+   "subject": "migrations",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/pglite/pending.ts:24 A column that already exists under the right name but the wrong type is not pending, and the guarded add neither corrects it nor halts.",
+   "techniques": [
+    {
+     "technique": "idempotent-steps",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/pending.ts:114 Name present means not pending. A different type, a missing table for a later patch, and an unreadable probe are not the halt states the technique requires."
+    },
+    {
+     "technique": "pre-migration-snapshots",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/premigration.ts:160 Not enough free space throws, so an additive migration is blocked. The rest of the contract is present: snapshot only when an existing store has pending work, checkpoint then copy, reopen-verify, fingerprint manifest, rotate the whole copy, restore moves the live store aside."
+    },
+    {
+     "technique": "transactional-ddl",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/internals.ts:72 Boot applies the whole script in one exec. There is no per-step transaction and no version bump inside it. Whether PGlite exec autocommits each statement was not verified."
+    },
+    {
+     "technique": "data-migrations",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/ddl.ts:301 The backfill of existing rows is the column default inside the ADD COLUMN, not a separate rewrite step with a predicate count."
+    },
+    {
+     "technique": "error-propagation",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/internals.ts:134 An unreadable catalog is warned and then open() still execs CORE_DDL. A superset schema is also not pending, because the probe is declared-to-present only. No failed-at mark is stored."
+    },
+    {
+     "technique": "schema-drift-detection",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/pending.ts:27 After the chain settles, boot does not assert that the live schema matches what the DDL claims beyond object names. schemaFingerprint is written onto snapshots and is not checked at boot."
+    },
+    {
+     "technique": "migrate-from-data-shape",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/pending.ts:6 This is guarded replay of a DDL script. PGlite can store a version row in the same transaction as the DDL, so the no-atomic-marker precondition does not hold."
+    },
+    {
+     "technique": "expand-deploy-contract",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/internals.ts:36 One connection per data directory. Two code versions cannot serve one store during a rollout."
+    },
+    {
+     "technique": "dynamic-table-set-migrations",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/pending.ts:58 Targets are parsed from the static CORE_DDL text, not from operator-defined record types."
+    }
+   ],
+   "registryProposal": "The golden path allows a deliberate ledger-less replay, while idempotent-steps says the ledger is always required and transactional-ddl requires the version bump inside each step. Spell which of those clauses a priced replay design suspends, or a deliberate single-script chain is scored as missing a bump it was told not to keep."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-15T21:19:17.814878+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "migrations"
+   ],
+   "techniques": [
+    "data-migrations",
+    "dynamic-table-set-migrations",
+    "expand-deploy-contract",
+    "idempotent-steps",
+    "migrate-from-data-shape"
+   ],
+   "deviations": 1,
+   "context": "db-store-engine",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T21:19:17.814878+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "migrations"
+   ],
+   "techniques": [
+    "data-migrations",
+    "dynamic-table-set-migrations",
+    "error-propagation",
+    "expand-deploy-contract",
+    "migrate-from-data-shape",
+    "pre-migration-snapshots",
+    "transactional-ddl"
+   ],
+   "deviations": 1,
+   "context": "db-tooling",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T21:19:17.814878+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "migrations"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "data-releases-atlas",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T21:19:17.814878+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "migrations"
+   ],
+   "techniques": [
+    "data-migrations",
+    "dynamic-table-set-migrations",
+    "error-propagation",
+    "expand-deploy-contract",
+    "idempotent-steps",
+    "migrate-from-data-shape",
+    "pre-migration-snapshots",
+    "schema-drift-detection",
+    "transactional-ddl"
+   ],
+   "deviations": 1,
+   "context": "db-pglite-engine",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}
