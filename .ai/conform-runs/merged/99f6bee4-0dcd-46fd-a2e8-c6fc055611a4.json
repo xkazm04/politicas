@@ -1,0 +1,422 @@
+{
+ "schema": "conform-run/1",
+ "worker": "99f6bee4-0dcd-46fd-a2e8-c6fc055611a4",
+ "subject": "hitl-approval",
+ "evaluatedAt": "2026-10-15T01:28:08.149061+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "mp-profile",
+   "subject": "hitl-approval",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/profile/profileMoney.ts:189 Context and repository searches found approval mechanisms elsewhere but no approval, consent, or unattended mechanism here; the profile projects existing review states into a reader-facing dossier.",
+   "techniques": [
+    {
+     "technique": "author-advisories-yield-to-the-users-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 This context projects domain data rather than merging agent approval policies."
+    },
+    {
+     "technique": "consent-gates",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 The profile reads review status; it does not request authorization for an agent action."
+    },
+    {
+     "technique": "cosmetic-vs-enforced-threshold-invariant",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 Displayed review status has no approval enforcement clock in this context."
+    },
+    {
+     "technique": "decision-records",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 The profile consumes status supplied by another context rather than recording authorization."
+    },
+    {
+     "technique": "fail-closed-profile-for-headless",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 No headless agent approval policy is selected here."
+    },
+    {
+     "technique": "fail-loud-classification-default",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 This is a projection of stored review status, not intake classification for approval routing."
+    },
+    {
+     "technique": "fixed-policy-amendable-plan",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 No dispatched executor or amendable execution plan is governed by these files."
+    },
+    {
+     "technique": "gate-state-machines",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 Reading a gate label is not driving an approval transition."
+    },
+    {
+     "technique": "handoff-is-a-declared-door",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 No model-requested human escalation is implemented by the profile."
+    },
+    {
+     "technique": "human-performed-steps",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 The dossier does not dispatch machine-forbidden work to a human runbook."
+    },
+    {
+     "technique": "oracle-before-gate",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 Reader-facing evidence is displayed without arming a human approval gate here."
+    },
+    {
+     "technique": "resume-after-decision",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 No staged agent action waits for a verdict or resumes from one."
+    },
+    {
+     "technique": "review-queues",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 The MP dossier displays existing statuses rather than serving as an approval inbox."
+    },
+    {
+     "technique": "severity-sla-ladder",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 There are no pending approval deadlines or terminal timeout actions here."
+    },
+    {
+     "technique": "truncated-verdict-space",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 The profile does not assess admission to a trust boundary."
+    },
+    {
+     "technique": "unattended-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/profileMoney.ts:189 No auto-approval grant is issued or evaluated."
+    }
+   ],
+   "absenceTerms": [
+    "approval",
+    "consent",
+    "unattended"
+   ]
+  },
+  {
+   "context": "law-triage-collision",
+   "subject": "hitl-approval",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/triage-core.ts:221 An unrecognized stored forensic severity receives band zero, below low severity, without a classification-default reason flag, reducing review priority when the classification is unknown.",
+   "techniques": [
+    {
+     "technique": "fail-loud-classification-default",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/triage-core.ts:221 Unknown severity strings fall through to zero instead of the highest severity with an explicit default marker."
+    },
+    {
+     "technique": "oracle-before-gate",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/collision-check.ts:432 Collision candidates carry primary-text excerpts for both bills, and the report explicitly requires comparing those excerpts before confirming a collision."
+    }
+   ]
+  },
+  {
+   "context": "shared-components",
+   "subject": "hitl-approval",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shared/components/VerdictProvenance.tsx:24 Context and repository searches found no approval, consent, or unattended mechanism in this catalog; its verdict component explicitly presents supplied status without reading or changing the decision store.",
+   "techniques": [
+    {
+     "technique": "author-advisories-yield-to-the-users-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 Presentation primitives do not load or merge agent approval policies."
+    },
+    {
+     "technique": "consent-gates",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 The catalog does not authorize agent capabilities or record consent grants."
+    },
+    {
+     "technique": "cosmetic-vs-enforced-threshold-invariant",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 Status colors do not form an urgency clock paired with approval enforcement."
+    },
+    {
+     "technique": "decision-records",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 The badge displays supplied attribution rather than persisting a decision."
+    },
+    {
+     "technique": "fail-closed-profile-for-headless",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 No agent-session execution policy is implemented by these primitives."
+    },
+    {
+     "technique": "fail-loud-classification-default",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 The component does not classify incoming approval items."
+    },
+    {
+     "technique": "fixed-policy-amendable-plan",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 No executor policy or execution-plan amendment is governed here."
+    },
+    {
+     "technique": "gate-state-machines",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 Rendering a supplied rung does not transition a durable approval gate."
+    },
+    {
+     "technique": "handoff-is-a-declared-door",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 No model-requested escalation or authenticated reply handling is implemented."
+    },
+    {
+     "technique": "human-performed-steps",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 Reader controls are not dispatched human runbooks."
+    },
+    {
+     "technique": "oracle-before-gate",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 Citation presentation does not arm an approval gate in this catalog."
+    },
+    {
+     "technique": "resume-after-decision",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 No staged agent action or decision-triggered continuation is owned here."
+    },
+    {
+     "technique": "review-queues",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 Generic rendering controls do not query or settle a pending approval set."
+    },
+    {
+     "technique": "severity-sla-ladder",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 No approval deadline or terminal timeout action is implemented."
+    },
+    {
+     "technique": "truncated-verdict-space",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 The primitive displays outcomes rather than assessing trust-boundary admission."
+    },
+    {
+     "technique": "unattended-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/VerdictProvenance.tsx:24 No unattended authorization grant is issued or matched."
+    }
+   ],
+   "absenceTerms": [
+    "approval",
+    "consent",
+    "unattended"
+   ]
+  },
+  {
+   "context": "votetrack-kompas-analysis",
+   "subject": "hitl-approval",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Context and repository searches found no approval, consent, or unattended mechanism in VoteTrack; the compass computes alignment from reader answers while its record modules derive parliamentary data.",
+   "techniques": [
+    {
+     "technique": "author-advisories-yield-to-the-users-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Reader-answer scoring does not merge author and operator approval policies."
+    },
+    {
+     "technique": "consent-gates",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Policy-question answers are scoring inputs, not grants for agent actions."
+    },
+    {
+     "technique": "cosmetic-vs-enforced-threshold-invariant",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Voting and scoring thresholds are not approval urgency and enforcement deadlines."
+    },
+    {
+     "technique": "decision-records",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 The reader supplies political positions rather than authorization verdicts."
+    },
+    {
+     "technique": "fail-closed-profile-for-headless",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 No headless agent approval policy participates in alignment computation."
+    },
+    {
+     "technique": "fail-loud-classification-default",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Ballot and outcome classification does not route pending approvals."
+    },
+    {
+     "technique": "fixed-policy-amendable-plan",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 No dispatched agent plan or scope amendment is implemented."
+    },
+    {
+     "technique": "gate-state-machines",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Computing a result does not transition an agent authorization gate."
+    },
+    {
+     "technique": "handoff-is-a-declared-door",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Questionnaire interaction is not a model-requested escalation."
+    },
+    {
+     "technique": "human-performed-steps",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Supplying political preferences is not performing a machine-forbidden operational step."
+    },
+    {
+     "technique": "oracle-before-gate",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 The disclosed arithmetic and receipts do not arm a human approval gate."
+    },
+    {
+     "technique": "resume-after-decision",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Answer changes recompute alignment rather than resume an approved staged action."
+    },
+    {
+     "technique": "review-queues",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Question cards and ranked MPs are not pending authorization items."
+    },
+    {
+     "technique": "severity-sla-ladder",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 No pending approval clock or timeout verdict is involved."
+    },
+    {
+     "technique": "truncated-verdict-space",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Alignment results do not admit or exclude parties at a trust boundary."
+    },
+    {
+     "technique": "unattended-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:38 No auto-approval grant governs this computation."
+    }
+   ],
+   "absenceTerms": [
+    "approval",
+    "consent",
+    "unattended"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "hitl-approval",
+   "context": "verdict-and-law-analysis",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-15T01:28:08.149061+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "hitl-approval"
+   ],
+   "techniques": [
+    "author-advisories-yield-to-the-users-mode",
+    "consent-gates",
+    "cosmetic-vs-enforced-threshold-invariant",
+    "decision-records",
+    "fail-closed-profile-for-headless",
+    "fail-loud-classification-default",
+    "fixed-policy-amendable-plan",
+    "gate-state-machines",
+    "handoff-is-a-declared-door",
+    "human-performed-steps",
+    "oracle-before-gate",
+    "resume-after-decision",
+    "review-queues",
+    "severity-sla-ladder",
+    "truncated-verdict-space",
+    "unattended-mode"
+   ],
+   "deviations": 0,
+   "context": "mp-profile",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-15T01:28:08.149061+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "hitl-approval"
+   ],
+   "techniques": [
+    "fail-loud-classification-default",
+    "oracle-before-gate"
+   ],
+   "deviations": 1,
+   "context": "law-triage-collision",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-15T01:28:08.149061+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "hitl-approval"
+   ],
+   "techniques": [
+    "author-advisories-yield-to-the-users-mode",
+    "consent-gates",
+    "cosmetic-vs-enforced-threshold-invariant",
+    "decision-records",
+    "fail-closed-profile-for-headless",
+    "fail-loud-classification-default",
+    "fixed-policy-amendable-plan",
+    "gate-state-machines",
+    "handoff-is-a-declared-door",
+    "human-performed-steps",
+    "oracle-before-gate",
+    "resume-after-decision",
+    "review-queues",
+    "severity-sla-ladder",
+    "truncated-verdict-space",
+    "unattended-mode"
+   ],
+   "deviations": 0,
+   "context": "shared-components",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-15T01:28:08.149061+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "hitl-approval"
+   ],
+   "techniques": [
+    "author-advisories-yield-to-the-users-mode",
+    "consent-gates",
+    "cosmetic-vs-enforced-threshold-invariant",
+    "decision-records",
+    "fail-closed-profile-for-headless",
+    "fail-loud-classification-default",
+    "fixed-policy-amendable-plan",
+    "gate-state-machines",
+    "handoff-is-a-declared-door",
+    "human-performed-steps",
+    "oracle-before-gate",
+    "resume-after-decision",
+    "review-queues",
+    "severity-sla-ladder",
+    "truncated-verdict-space",
+    "unattended-mode"
+   ],
+   "deviations": 0,
+   "context": "votetrack-kompas-analysis",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

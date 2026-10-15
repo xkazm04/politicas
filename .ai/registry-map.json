@@ -9354,7 +9354,11 @@
           "revision": 22,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/triage-core.ts:221 An unrecognized stored forensic severity receives band zero, below low severity, without a classification-default reason flag, reducing review priority when the classification is unknown.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:52d7f3cfb87a79d9",
+          "evaluatedRevision": 22
         },
         {
           "subject": "fleet-orchestration",
@@ -10799,7 +10803,11 @@
           "revision": 22,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/profile/profileMoney.ts:189 Context and repository searches found approval mechanisms elsewhere but no approval, consent, or unattended mechanism here; the profile projects existing review states into a reader-facing dossier.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:52d7f3cfb87a79d9",
+          "evaluatedRevision": 22
         },
         {
           "subject": "test-harness",
@@ -11445,7 +11453,11 @@
           "revision": 22,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shared/components/VerdictProvenance.tsx:24 Context and repository searches found no approval, consent, or unattended mechanism in this catalog; its verdict component explicitly presents supplied status without reading or changing the decision store.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:52d7f3cfb87a79d9",
+          "evaluatedRevision": 22
         },
         {
           "subject": "markdown-vault",
@@ -12975,7 +12987,11 @@
           "revision": 22,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:38 Context and repository searches found no approval, consent, or unattended mechanism in VoteTrack; the compass computes alignment from reader answers while its record modules derive parliamentary data.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:52d7f3cfb87a79d9",
+          "evaluatedRevision": 22
         },
         {
           "subject": "multi-provider-gateway-plane",
