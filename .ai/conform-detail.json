@@ -4544,6 +4544,145 @@
       "evaluatedTs": "2026-10-15T22:27:12.571Z",
       "worker": "c0b7bedf-b648-4d31-9362-bb20c455cd9b",
       "techniques": []
+    },
+    "e9b0f297-acb5-4de0-91ed-aebb33374531/politician-performance-scoring": {
+      "context": "civicscore-leaderboard",
+      "subject": "politician-performance-scoring",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:52:59.009Z",
+      "worker": "1a6047ea-a5ae-4b17-b46d-2ea6068832bb",
+      "techniques": [
+        {
+          "technique": "comparison-fairness",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:367 num() maps missing or nonfinite values to zero; these rows remain ranked and included in the median."
+        },
+        {
+          "technique": "participatory-reweighting",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/lens.ts:102 An all-zero vector produces zero effective weights and a zero-score ranking instead of being rejected for lacking a positive total."
+        },
+        {
+          "technique": "structural-low-score-corrections",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/components/LowScoreReasonChip.tsx:64 Only rejected reasons are withheld; machine reasons and reasons without review metadata still render before human review."
+        },
+        {
+          "technique": "weighted-component-index",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:185 A missing absence rate becomes zero, yielding full attendance points rather than preserving missing fulfillment or withholding an incomplete composite."
+        }
+      ]
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/politician-performance-scoring": {
+      "context": "civicscore-scoring",
+      "subject": "politician-performance-scoring",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:52:59.009Z",
+      "worker": "1a6047ea-a5ae-4b17-b46d-2ea6068832bb",
+      "techniques": [
+        {
+          "technique": "comparison-fairness",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/duel.ts:24 It rounds the raw difference instead of subtracting individually rounded display values; a probe with 1.24 and 1.26 reports a tie although they display as 1.2 and 1.3."
+        },
+        {
+          "technique": "formula-lineage-stamping",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/provenance.ts:133 Unstamped people are skipped before variants are built, and this condition never requires covered === total; a two-person probe returned formulaMatch=true with covered=1."
+        },
+        {
+          "technique": "participatory-reweighting",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/useLensWeights.ts:137 Setting the last positive slider to zero applies an all-zero vector without the required positive-total validation."
+        },
+        {
+          "technique": "saturation-caps",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/MetodikaPage.tsx:140 The methodology publishes cap values but no saturated N-of-M populations; its only data prop is provenance, so it cannot disclose those populations."
+        }
+      ]
+    },
+    "f50627ef-a7a1-40a4-9491-560efa6cb05d/politician-performance-scoring": {
+      "context": "mp-profile",
+      "subject": "politician-performance-scoring",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:52:59.009Z",
+      "worker": "1a6047ea-a5ae-4b17-b46d-2ea6068832bb",
+      "techniques": [
+        {
+          "technique": "comparison-fairness",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/ScoreLegibilityPanel.tsx:125 Component medians exclude missing observations upstream, but the rendered comparison supplies no measured-subset size or exclusion count."
+        },
+        {
+          "technique": "formula-lineage-stamping",
+          "verdict": "deviation",
+          "evidence": "features/profile/ProfilePage.tsx:336 Absent provenance explicitly suppresses the mismatch message, and the profile has no corresponding absent-provenance disclosure beside its score."
+        },
+        {
+          "technique": "participatory-reweighting",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/ProfilePage.tsx:309 The profile renders the official score; scoped searches found no reweigh, effectiveWeights or useLensWeights implementation in features/profile."
+        },
+        {
+          "technique": "structural-low-score-corrections",
+          "verdict": "deviation",
+          "evidence": "features/profile/ProfilePage.tsx:395 The badge receives only the reason; its implementation renders vocabulary matches without review-state or applicable-date checks."
+        },
+        {
+          "technique": "weighted-component-index",
+          "verdict": "deviation",
+          "evidence": "features/profile/ProfilePage.tsx:441 Component tiles unconditionally print numeric points even when the separate legibility panel reports missing component inputs; the incomplete composite remains displayed."
+        }
+      ]
+    },
+    "fef38523-7caf-4366-a28e-18e28677d5bf/politician-performance-scoring": {
+      "context": "civic-score-computation",
+      "subject": "politician-performance-scoring",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:52:59.009Z",
+      "worker": "1a6047ea-a5ae-4b17-b46d-2ea6068832bb",
+      "techniques": [
+        {
+          "technique": "comparison-fairness",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/contribution-trend.ts:118 A missing prior-term speech count becomes zero in the comparison instead of remaining absent."
+        },
+        {
+          "technique": "formula-lineage-stamping",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/contribution.ts:126 Unstamped records are reported but automatically allowed without an explicit initialization or migration policy; a probe confirmed this with supersede=false."
+        },
+        {
+          "technique": "participatory-reweighting",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/contribution.ts:262 These files compute the official index and derived explanations; scoped searches found no reader-lens implementation in lib/analysis."
+        },
+        {
+          "technique": "saturation-caps",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/contribution.ts:225 Unresolved body identities receive per-row keys and count toward saturation instead of remaining outside identity-based counts; two unresolved rows earned 13.3 committee points in a probe."
+        },
+        {
+          "technique": "structural-low-score-corrections",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/low-score-reason.ts:107 The vocabulary includes unknown, so this guard accepts it and returns badge copy; a probe confirmed that unknown does not render nothing."
+        },
+        {
+          "technique": "weighted-component-index",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/contribution.ts:253 Omitted activity measurements become zero and enter the composite instead of preserving missingness and enforcing a common coverage rule."
+        }
+      ]
     }
   }
 }

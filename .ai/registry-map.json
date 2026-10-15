@@ -3284,7 +3284,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/contribution.ts:249 Zero opportunity denominators become numeric rates and still produce a composite, with a zero-opportunity probe receiving ten attendance points.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:70bd66eb3a460ff5",
+          "evaluatedRevision": 3
         },
         {
           "subject": "generator-uncertainty-scoring",
@@ -3613,7 +3617,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:367 Missing scores become zero and enter the ranking and population statistics as measured inactivity.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:70bd66eb3a460ff5",
+          "evaluatedRevision": 3
         },
         {
           "subject": "scoring-rubrics",
@@ -3749,7 +3757,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/civicscore/provenance.ts:133 The provenance aggregate can declare a matching formula for a population containing scored but unstamped people.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:70bd66eb3a460ff5",
+          "evaluatedRevision": 3
         },
         {
           "subject": "test-harness",
@@ -11003,7 +11015,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/profile/ProfilePage.tsx:395 The profile publishes low-score explanations without passing or checking their review state, including whether a person rejected them.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:70bd66eb3a460ff5",
+          "evaluatedRevision": 3
         },
         {
           "subject": "markdown-vault",
