@@ -1,0 +1,37 @@
+{
+ "schema": "conform-run/1",
+ "worker": "25b61846-df2f-45f0-8391-f195c7a581e5",
+ "subject": "translation-quality-measurement",
+ "evaluatedAt": "2026-10-15T02:30:42.919522+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "translation-quality-measurement",
+   "context": "db-store-engine",
+   "reason": "Precondition does not hold: this context manages the embedded PGlite store lifecycle, readiness checks, read caps, and migration coordination; it has no translation pipeline, machine translation engines, or localization quality measurement, and not-applicable is refused from this seat."
+  },
+  {
+   "subject": "translation-quality-measurement",
+   "context": "civic-score-computation",
+   "reason": "Precondition does not hold: this context computes CivicScore formulas (contribution, legacy, trend, citations, legibility) and evaluates open-data quality for Czech parliamentary data; it does not perform machine translation or translation quality measurement, and not-applicable is refused from this seat."
+  },
+  {
+   "subject": "translation-quality-measurement",
+   "context": "census-quality-gate",
+   "reason": "Precondition does not hold: this context implements the component library import ratchet and adoption rules; it does not touch translated stores, machine translation engines, or localization quality measurement, and not-applicable is refused from this seat."
+  },
+  {
+   "subject": "translation-quality-measurement",
+   "context": "kg-analysis-and-catalog",
+   "reason": "Precondition does not hold: this context provides deterministic slice statistics, forensics orchestration, and DataHub catalog synchronization for Czech civic data; it contains no machine translation or translation quality measurement, and not-applicable is refused from this seat."
+  },
+  {
+   "subject": "translation-quality-measurement",
+   "context": "scripts-quality-gates",
+   "reason": "Precondition does not hold: this context contains quality gates for database invariants (sentinel), doc synchronization, and citation coverage; it does not measure translation quality or evaluate translation engines, and not-applicable is refused from this seat."
+  }
+ ],
+ "consults": []
+}
