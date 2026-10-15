@@ -3429,6 +3429,162 @@
         }
       ],
       "registryProposal": "The grammar upgrades a citation to a provision operation, while this census's confirmed output is a statute set from the first citation in each article. The standard should say whether that article heuristic may be stored as an amends edge before the grammar runs."
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/accountability-publishing-ethics": {
+      "context": "civic-verification",
+      "subject": "accountability-publishing-ethics",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:56:46.200Z",
+      "worker": "0dfaf3f8-8bef-4dfc-be64-2419106820a8",
+      "techniques": [
+        {
+          "technique": "lead-not-verdict-framing",
+          "verdict": "conformant",
+          "evidence": "features/overeni/verdict.ts:172 The gate explicitly separates edge existence in the graph from human review verification."
+        },
+        {
+          "technique": "honest-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/overeni/getVerdictData.ts:76 Unavailable backend data returns an explicit unavailable status rather than an unknown-record verdict."
+        },
+        {
+          "technique": "real-vs-illustrative-form-encoding",
+          "verdict": "conformant",
+          "evidence": "features/overeni/guide.ts:116 Illustrative examples use fictional entity placeholders and are marked live: false without copy/verify actions."
+        },
+        {
+          "technique": "severity-free-factual-framing",
+          "verdict": "conformant",
+          "evidence": "features/overeni/gateVocabulary.ts:30 Gate status vocabulary uses strict procedural categories with no severity labels."
+        },
+        {
+          "technique": "accountless-notification-privacy",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/OvereniPage.tsx:14 The claim gate surface does not implement user notification subscriptions or follow lists."
+        }
+      ]
+    },
+    "5ff6a2d7-0be4-4d65-b0c9-404b4fbede66/accountability-publishing-ethics": {
+      "context": "money-investigations",
+      "subject": "accountability-publishing-ethics",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:56:46.200Z",
+      "worker": "0dfaf3f8-8bef-4dfc-be64-2419106820a8",
+      "techniques": [
+        {
+          "technique": "severity-free-factual-framing",
+          "verdict": "deviation",
+          "evidence": "features/money/getLeadDossiers.ts:123 Lead dossiers are ordered by descending subjective story-worthiness signalScore rather than evidence completeness."
+        },
+        {
+          "technique": "lead-not-verdict-framing",
+          "verdict": "deviation",
+          "evidence": "features/money/dossierVocabulary.ts:24 Analyst working notes and hypotheses are published verbatim on the public /penize/kauzy route."
+        },
+        {
+          "technique": "honest-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/money/EvidencePacketPage.tsx:89 Evidence packets explicitly disclose and count pending and rejected exclusions at the top of the dossier."
+        },
+        {
+          "technique": "accountless-notification-privacy",
+          "verdict": "not-applicable",
+          "evidence": "features/money/reviewActions.ts:27 Money investigations surface does not handle reader notification subscriptions."
+        }
+      ],
+      "registryProposal": "The standard should clarify whether qualitative investigative dossiers presenting two-sided balance (what sources sustain vs do not sustain) may be published on public exploratory routes alongside evidence packets."
+    },
+    "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/accountability-publishing-ethics": {
+      "context": "civic-inbox",
+      "subject": "accountability-publishing-ethics",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:56:46.200Z",
+      "worker": "0dfaf3f8-8bef-4dfc-be64-2419106820a8",
+      "techniques": [
+        {
+          "technique": "accountless-notification-privacy",
+          "verdict": "conformant",
+          "evidence": "features/schranka/telemetryScrub.ts:47 Telemetry scrubbing removes follow keys across all request shapes and replaces them with counts."
+        },
+        {
+          "technique": "honest-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/schranka/deriveDeltas.ts:276 Entities without new deltas are displayed with an honest 'no change' status rather than being omitted."
+        },
+        {
+          "technique": "severity-free-factual-framing",
+          "verdict": "conformant",
+          "evidence": "features/schranka/deriveDeltas.ts:188 Deltas are sorted by deterministic event category and date with no severity rankings."
+        },
+        {
+          "technique": "lead-not-verdict-framing",
+          "verdict": "conformant",
+          "evidence": "features/schranka/deriveDeltas.ts:152 Only verified forensic findings enter deltas, keeping unadjudicated hypotheses out of notifications."
+        }
+      ]
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/accountability-publishing-ethics": {
+      "context": "dashboard-feed-logic",
+      "subject": "accountability-publishing-ethics",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:56:46.200Z",
+      "worker": "0dfaf3f8-8bef-4dfc-be64-2419106820a8",
+      "techniques": [
+        {
+          "technique": "severity-free-factual-framing",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/stateSlice.ts:17 The state slice orders seed MPs by neutral mandate ID pspId rather than financial or metric rankings."
+        },
+        {
+          "technique": "honest-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/datedFacts.ts:91 Contract read states are explicitly propagated to distinguish reading failures from zero contracts."
+        },
+        {
+          "technique": "lead-not-verdict-framing",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/datedFacts.ts:28 Dated facts derived from unverified ties explicitly carry their pending status."
+        },
+        {
+          "technique": "real-vs-illustrative-form-encoding",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/feedRelevance.ts:19 Sample graph fallback relevance is governed by explicit rules to prevent misleading entity targeting."
+        }
+      ]
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/accountability-publishing-ethics": {
+      "context": "civic-fallback-data",
+      "subject": "accountability-publishing-ethics",
+      "bundle": "civic-intelligence",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T02:56:46.200Z",
+      "worker": "0dfaf3f8-8bef-4dfc-be64-2419106820a8",
+      "techniques": [
+        {
+          "technique": "lead-not-verdict-framing",
+          "verdict": "conformant",
+          "evidence": "lib/claims/claim.ts:16 Claims default to pending review status and only emit ClaimReview JSON-LD once verified."
+        },
+        {
+          "technique": "real-vs-illustrative-form-encoding",
+          "verdict": "conformant",
+          "evidence": "lib/civic/data.ts:2 Illustrative fallback data uses fictitious MP names and explicit mock indicators."
+        },
+        {
+          "technique": "honest-empty-states",
+          "verdict": "conformant",
+          "evidence": "lib/claims/registry.ts:19 Figures with missing or unreadable source rows are omitted so callers receive an honest unknown instead of zero."
+        }
+      ]
     }
   }
 }

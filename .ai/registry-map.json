@@ -2729,7 +2729,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "lib/claims/claim.ts:16 The claim subsystem enforces that figures default to unverified pending status and only emit ClaimReview when verified by a human gate.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:df5e3b3acc0625d6",
+          "evaluatedRevision": 6
         },
         {
           "subject": "fleet-orchestration",
@@ -3148,7 +3152,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/schranka/telemetryScrub.ts:47 The civic inbox strips followed entity identifiers from all outbound telemetry and restricts notifications to verbatim published facts.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:df5e3b3acc0625d6",
+          "evaluatedRevision": 6
         }
       ],
       "governance": "governed"
@@ -3534,7 +3542,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/overeni/verdict.ts:172 The Civic Claim Gate structurally separates factual graph edge existence from human gate approval and provides honest distinct states for missing or unavailable records.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:df5e3b3acc0625d6",
+          "evaluatedRevision": 6
         }
       ],
       "governance": "governed"
@@ -4081,7 +4093,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/dashboard/stateSlice.ts:17 The dashboard state slice avoids ranking entities by severity or financial magnitude, ordering seeds by neutral mandate ID.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:df5e3b3acc0625d6",
+          "evaluatedRevision": 6
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -10338,7 +10354,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/getLeadDossiers.ts:123 Lead dossiers on /penize/kauzy are ranked by descending signalScore to surface story-worthy leads first instead of sorting by an objective evidence completeness metric.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:df5e3b3acc0625d6",
+          "evaluatedRevision": 6
         },
         {
           "subject": "test-harness",
