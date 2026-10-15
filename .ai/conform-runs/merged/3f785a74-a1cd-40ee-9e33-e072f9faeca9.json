@@ -1,0 +1,203 @@
+{
+ "schema": "conform-run/1",
+ "worker": "3f785a74-a1cd-40ee-9e33-e072f9faeca9",
+ "subject": "guest-execution-bounding",
+ "evaluatedAt": "2026-10-15T00:59:29.043133+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "tender-pipeline",
+   "subject": "guest-execution-bounding",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/tender/increment.ts:114 Monthly preprocessing launches a synchronous Python decoder without a child-process timeout, so a stuck decoder can hold the increment indefinitely.",
+   "techniques": [
+    {
+     "technique": "instruction-budget-for-fuzzing",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/measure.ts:33 This path parses procurement records; the context search found no generated-program fuzz harness."
+    },
+    {
+     "technique": "nested-liveness-ceilings",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/tender/measure.ts:32 The enclosing month loop has no aggregate deadline, and the inspected reader's Python fallback has only maxBuffer, leaving both decoding and batch completion unbounded."
+    },
+    {
+     "technique": "one-terminator-many-armed-slots",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/increment.ts:137 This is a sequential monthly CLI invocation, not a hot request dispatcher with independently armed engine instances."
+    },
+    {
+     "technique": "terminate-from-outside-when-you-cannot-count",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/tender/increment.ts:114 The foreign decoder already runs in a killable child process, but the invocation supplies no deadline or termination mechanism."
+    }
+   ]
+  },
+  {
+   "context": "law-archive-early",
+   "subject": "guest-execution-bounding",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:157 Archived collision probes launch pdftotext with an output-buffer cap but no execution timeout, so a stuck PDF decoder can block the entire bill batch.",
+   "techniques": [
+    {
+     "technique": "instruction-budget-for-fuzzing",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/collision-check-008.ts:530 Inputs are recorded bill identifiers, not generated executable programs; searches found no execution fuzz harness."
+    },
+    {
+     "technique": "nested-liveness-ceilings",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:519 HTTP attempt timeouts do not bound the callback's synchronous PDF decoding, and the inspected worker pool has no enclosing batch deadline."
+    },
+    {
+     "technique": "one-terminator-many-armed-slots",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/collision-check-008.ts:675 This selects one CLI batch; decoding uses child processes rather than per-connection embedded engines on a hot dispatch path."
+    },
+    {
+     "technique": "terminate-from-outside-when-you-cannot-count",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:157 The complete inspected options contain encoding and maxBuffer only; neither archived collision-check copy sets a child-process timeout."
+    }
+   ]
+  },
+  {
+   "context": "law-triage-collision",
+   "subject": "guest-execution-bounding",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/collision-check.ts:151 Collision checking calls a helper that synchronously launches pdftotext without an execution timeout, allowing one stuck PDF conversion to stall the batch.",
+   "techniques": [
+    {
+     "technique": "instruction-budget-for-fuzzing",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/collision-check.ts:363 This processes a bill corpus rather than generated executable programs; the context search found no execution fuzz harness."
+    },
+    {
+     "technique": "nested-liveness-ceilings",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/collision-check.ts:352 The worker callback includes decoding beyond the HTTP deadlines, while neither the item callback nor its enclosing pool has a liveness deadline."
+    },
+    {
+     "technique": "one-terminator-many-armed-slots",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/collision-check.ts:508 One CLI batch uses external decoder processes; no hot dispatcher with per-connection embedded engine instances was found."
+    },
+    {
+     "technique": "terminate-from-outside-when-you-cannot-count",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/collision-check.ts:151 The imported helper was opened: scripts/case-loops/law/tiskText.ts lines 131\u2013134 launch pdftotext with encoding and maxBuffer, without timeout or cancellation."
+    }
+   ]
+  },
+  {
+   "context": "money-ownership",
+   "subject": "guest-execution-bounding",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/money/dataor-corroborate.ts:155 The 25-second race rejects the caller without cancelling the download, decoding and record lookup, so its budget bounds waiting rather than execution.",
+   "techniques": [
+    {
+     "technique": "instruction-budget-for-fuzzing",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/ownership-sweep.ts:238 Inputs are ownership datasets and company identifiers, not generated executable programs; searches found no execution fuzz harness."
+    },
+    {
+     "technique": "nested-liveness-ceilings",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/dataor-corroborate.ts:154 Cached lookups bypass the per-tie timeout entirely, and the enclosing sweep has no aggregate execution deadline."
+    },
+    {
+     "technique": "one-terminator-many-armed-slots",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/dataor-corroborate.ts:289 This is a one-shot sequential CLI sweep, not a hot dispatcher with per-connection embedded engine instances."
+    },
+    {
+     "technique": "terminate-from-outside-when-you-cannot-count",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/dataor-corroborate.ts:155 The competing timer only rejects; the inspected lookup API accepts no cancellation signal, and its resumable download explicitly has no overall deadline."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "guest-execution-bounding",
+   "context": "budget-mirror",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-15T00:59:29.043133+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "guest-execution-bounding"
+   ],
+   "techniques": [
+    "instruction-budget-for-fuzzing",
+    "nested-liveness-ceilings",
+    "one-terminator-many-armed-slots",
+    "terminate-from-outside-when-you-cannot-count"
+   ],
+   "deviations": 1,
+   "context": "tender-pipeline",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-15T00:59:29.043133+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "guest-execution-bounding"
+   ],
+   "techniques": [
+    "instruction-budget-for-fuzzing",
+    "nested-liveness-ceilings",
+    "one-terminator-many-armed-slots",
+    "terminate-from-outside-when-you-cannot-count"
+   ],
+   "deviations": 1,
+   "context": "law-archive-early",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-15T00:59:29.043133+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "guest-execution-bounding"
+   ],
+   "techniques": [
+    "instruction-budget-for-fuzzing",
+    "nested-liveness-ceilings",
+    "one-terminator-many-armed-slots",
+    "terminate-from-outside-when-you-cannot-count"
+   ],
+   "deviations": 1,
+   "context": "law-triage-collision",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-15T00:59:29.043133+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "guest-execution-bounding"
+   ],
+   "techniques": [
+    "instruction-budget-for-fuzzing",
+    "nested-liveness-ceilings",
+    "one-terminator-many-armed-slots",
+    "terminate-from-outside-when-you-cannot-count"
+   ],
+   "deviations": 1,
+   "context": "money-ownership",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

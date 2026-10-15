@@ -9094,7 +9094,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:157 Archived collision probes launch pdftotext with an output-buffer cap but no execution timeout, so a stuck PDF decoder can block the entire bill batch.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "fleet-orchestration",
@@ -9416,7 +9420,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/collision-check.ts:151 Collision checking calls a helper that synchronously launches pdftotext without an execution timeout, allowing one stuck PDF conversion to stall the batch.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         }
       ],
       "governance": "governed"
@@ -10717,7 +10725,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/dataor-corroborate.ts:155 The 25-second race rejects the caller without cancelling the download, decoding and record lookup, so its budget bounds waiting rather than execution.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "cross-provider-benchmark-operations",
@@ -11985,7 +11997,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/tender/increment.ts:114 Monthly preprocessing launches a synchronous Python decoder without a child-process timeout, so a stuck decoder can hold the increment indefinitely.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-memory",
