@@ -4494,6 +4494,56 @@
         }
       ],
       "registryProposal": "The epsilon-never-zero rule and the withdraw-the-gesture rule are not distinguishable to a source test, so landing's motion test can only require every delay and duration expression to mention the preference, which blesses exact zero."
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/multi-provider-gateway-plane": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "multi-provider-gateway-plane",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:27:12.571Z",
+      "worker": "c0b7bedf-b648-4d31-9362-bb20c455cd9b",
+      "techniques": []
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/multi-provider-gateway-plane": {
+      "context": "dashboard-instruments",
+      "subject": "multi-provider-gateway-plane",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:27:12.571Z",
+      "worker": "c0b7bedf-b648-4d31-9362-bb20c455cd9b",
+      "techniques": []
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/multi-provider-gateway-plane": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "multi-provider-gateway-plane",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:27:12.571Z",
+      "worker": "c0b7bedf-b648-4d31-9362-bb20c455cd9b",
+      "techniques": []
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/multi-provider-gateway-plane": {
+      "context": "dashboard-feed-logic",
+      "subject": "multi-provider-gateway-plane",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:27:12.571Z",
+      "worker": "c0b7bedf-b648-4d31-9362-bb20c455cd9b",
+      "techniques": []
+    },
+    "6b1859ef-0a64-4966-bfbb-8808a7c04d1e/multi-provider-gateway-plane": {
+      "context": "czech-civic-data",
+      "subject": "multi-provider-gateway-plane",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-15",
+      "evaluatedTs": "2026-10-15T22:27:12.571Z",
+      "worker": "c0b7bedf-b648-4d31-9362-bb20c455cd9b",
+      "techniques": []
     }
   }
 }

@@ -3998,7 +3998,11 @@
           "revision": 9,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:7 Case-insensitive search of packages/czech-civic-data for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; this package folds Czech civic text at ingest into a persisted norm column, which is record canonicalization rather than a product proxy.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:f268193750c0a517",
+          "evaluatedRevision": 9
         }
       ],
       "governance": "governed"
@@ -4137,7 +4141,11 @@
           "revision": 9,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:2 Case-insensitive search of features/dashboard for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; stateSlice is a pure cut of an already-computed knowledge-graph view, and feedRelevance candidates are graph-node ids for a feed row, not upstreams.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:f268193750c0a517",
+          "evaluatedRevision": 9
         },
         {
           "subject": "docs-sync",
@@ -4245,7 +4253,11 @@
           "revision": 9,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:11 Case-insensitive search of features/dashboard for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; the Velín loader copies headline fields from the loaders that already own them and does not front interchangeable upstreams.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:f268193750c0a517",
+          "evaluatedRevision": 9
         },
         {
           "subject": "module-design",
@@ -7578,7 +7590,11 @@
           "revision": 9,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/dh-context.ts:10 Case-insensitive search of scripts/data-analysis for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; the only dual path is a catalog-versus-local flag that must return the same analyst context, not a plane choosing among non-identical upstreams.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:f268193750c0a517",
+          "evaluatedRevision": 9
         },
         {
           "subject": "mcp-tools",
@@ -13123,7 +13139,11 @@
           "revision": 9,
           "changedAt": "2026-09-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/votetrack/getKompas.ts:5 Case-insensitive search of features/votetrack for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; kompas ships selected roll calls for client-side alignment against MP ballots, and its candidates are votes that passed a selection floor.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:f268193750c0a517",
+          "evaluatedRevision": 9
         }
       ],
       "governance": "governed"

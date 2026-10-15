@@ -1,0 +1,148 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c0b7bedf-b648-4d31-9362-bb20c455cd9b",
+ "subject": "multi-provider-gateway-plane",
+ "evaluatedAt": "2026-10-15T22:27:12.571744+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "kg-analysis-and-catalog",
+   "subject": "multi-provider-gateway-plane",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/dh-context.ts:10 Case-insensitive search of scripts/data-analysis for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; the only dual path is a catalog-versus-local flag that must return the same analyst context, not a plane choosing among non-identical upstreams.",
+   "techniques": [],
+   "absenceTerms": [
+    "failover",
+    "gateway",
+    "event-stream",
+    "strategyTree",
+    "circuitBreaker"
+   ]
+  },
+  {
+   "context": "dashboard-instruments",
+   "subject": "multi-provider-gateway-plane",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dashboard/getDashboardData.ts:11 Case-insensitive search of features/dashboard for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; the Vel\u00edn loader copies headline fields from the loaders that already own them and does not front interchangeable upstreams.",
+   "techniques": [],
+   "absenceTerms": [
+    "failover",
+    "gateway",
+    "event-stream",
+    "strategyTree",
+    "circuitBreaker"
+   ]
+  },
+  {
+   "context": "votetrack-kompas-analysis",
+   "subject": "multi-provider-gateway-plane",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/votetrack/getKompas.ts:5 Case-insensitive search of features/votetrack for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; kompas ships selected roll calls for client-side alignment against MP ballots, and its candidates are votes that passed a selection floor.",
+   "techniques": [],
+   "absenceTerms": [
+    "failover",
+    "gateway",
+    "event-stream",
+    "strategyTree",
+    "circuitBreaker"
+   ]
+  },
+  {
+   "context": "dashboard-feed-logic",
+   "subject": "multi-provider-gateway-plane",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dashboard/stateSlice.ts:2 Case-insensitive search of features/dashboard for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; stateSlice is a pure cut of an already-computed knowledge-graph view, and feedRelevance candidates are graph-node ids for a feed row, not upstreams.",
+   "techniques": [],
+   "absenceTerms": [
+    "failover",
+    "gateway",
+    "event-stream",
+    "strategyTree",
+    "circuitBreaker"
+   ]
+  },
+  {
+   "context": "czech-civic-data",
+   "subject": "multi-provider-gateway-plane",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/czech-civic-data/src/normalize.ts:7 Case-insensitive search of packages/czech-civic-data for failover, gateway, event-stream, strategyTree and circuitBreaker found nothing; this package folds Czech civic text at ingest into a persisted norm column, which is record canonicalization rather than a product proxy.",
+   "techniques": [],
+   "absenceTerms": [
+    "failover",
+    "gateway",
+    "event-stream",
+    "strategyTree",
+    "circuitBreaker"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-15T22:27:12.571744+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "multi-provider-gateway-plane"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-analysis-and-catalog",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T22:27:12.571744+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "multi-provider-gateway-plane"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "dashboard-instruments",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T22:27:12.571744+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "multi-provider-gateway-plane"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "votetrack-kompas-analysis",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T22:27:12.571744+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "multi-provider-gateway-plane"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "dashboard-feed-logic",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-15T22:27:12.571744+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "multi-provider-gateway-plane"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "czech-civic-data",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}
