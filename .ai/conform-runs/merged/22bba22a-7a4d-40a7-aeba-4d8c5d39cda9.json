@@ -1,0 +1,192 @@
+{
+  "schema": "conform-run/1",
+  "worker": "22bba22a-7a4d-40a7-aeba-4d8c5d39cda9",
+  "subject": "cross-provider-benchmark-operations",
+  "evaluatedAt": "2026-10-15T04:04:44.151680+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [
+    {
+      "context": "effort-scoring-tools",
+      "subject": "cross-provider-benchmark-operations",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evidence": "scripts/case-loops/effort/triage.ts:2 Context and repository searches located model benchmarks elsewhere but no benchmark or scorecard hits in this context, whose scripts prepare, score and validate MP enrichment rather than compare model configurations.",
+      "techniques": [],
+      "absenceTerms": [
+        "benchmark",
+        "scorecard"
+      ]
+    },
+    {
+      "context": "money-contracts",
+      "subject": "cross-provider-benchmark-operations",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evidence": "scripts/case-loops/money/triage.ts:8 Searches found no benchmark or scorecard hits in this context's directory; its scripts harvest public contracts, audit coverage and triage financial ties rather than evaluate competing models.",
+      "techniques": [],
+      "absenceTerms": [
+        "benchmark",
+        "scorecard"
+      ]
+    },
+    {
+      "context": "hybrid-bench",
+      "subject": "cross-provider-benchmark-operations",
+      "bundle": "llm-observability",
+      "state": "deviation",
+      "evidence": "scripts/hybrid-bench/run.ts:132 The model-comparison scorecard reports agreement and token/call counts but omits measured latency and priced cost, preventing the standard's required three-axis comparison.",
+      "techniques": [
+        {
+          "technique": "axes-and-caveats-live-at-the-surface",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:120 proxyEffort affects generation at line 103 but is absent from this row label and the saved metadata at line 145, so differing effort settings are indistinguishable in the artifact."
+        },
+        {
+          "technique": "budget-preflight-and-ceiling",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/semop.ts:85 The batch loop starts generation without a spend estimate or accumulated-cost ceiling; engine.ts:38 also permits retaining API credentials, so metered execution is supported."
+        },
+        {
+          "technique": "cheapest-sufficient-configuration",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:5 The selected path is called proven cheapest reliable, but the runners provide token/call comparisons without measured-price selection or a corrected paired sufficiency test."
+        },
+        {
+          "technique": "dataset-sampling-anonymize-freeze",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:31 Runs read a mutable export and select its first eligible rows without a frozen dataset version or content stamp; saved runs cannot establish that subsequent reruns used the same dataset."
+        },
+        {
+          "technique": "determinism-stamping",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/derived.ts:159 The persisted results contain scores and details but no generation/judging determinism stamps or pessimistically folded run stamp; CLI access is not disclosed as best-effort in the artifact."
+        },
+        {
+          "technique": "entitlement-exhaustion-is-not-ill-health",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/engine.ts:94 The default subscription-backed engine reduces provider refusals to generic errors without typed entitlement/wait classification, an exhaustion result state or exhaustion-point accounting."
+        },
+        {
+          "technique": "failure-clustering-recommendations",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:145 Each row's labels are Maps, which this native JSON serialization writes as empty objects, losing the per-case predictions needed for auditable failure clusters; the report supplies aggregate metrics and token savings without a failure diagnosis."
+        },
+        {
+          "technique": "handicap-disclosure-in-the-result-row",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/join.ts:178 The model arms receive the same candidate registry and query set; no capability-driven workload weakening was found in the inspected runners."
+        },
+        {
+          "technique": "sampling-knobs-are-axes-not-strings",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/engine.ts:83 Effort is separately passed to the CLI, but the request deadline does not depend on effort and every arm defaults to the same 240-second timeout."
+        },
+        {
+          "technique": "self-hosted-residency-is-part-of-the-target",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/engine.ts:26 The inspected target runner invokes Claude CLI; no self-hosted model, local weight loading or accelerator-residency target was found."
+        },
+        {
+          "technique": "target-matrix-runs",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:132 Arms share cases, but their scorecard lacks median/tail latency and priced cost even though the engine captures duration and cost; targets are also supplied through invocation flags rather than a versioned benchmark declaration."
+        }
+      ],
+      "registryProposal": "Resolve the conflicting tier-selection instructions: cheapest-sufficient-configuration says to recommend per difficulty tier, whereas graded-case-difficulty explicitly forbids per-tier recommendations; specify the sample-size and statistical conditions under which tier-level selection is allowed."
+    },
+    {
+      "context": "money-ownership",
+      "subject": "cross-provider-benchmark-operations",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:27 Searches found no benchmark or scorecard hits in this context's directory; its ownership resolution and registry reconciliation produce domain evidence rather than comparative model measurements.",
+      "techniques": [],
+      "absenceTerms": [
+        "benchmark",
+        "scorecard"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "cross-provider-benchmark-operations",
+      "context": "money-investigations",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor features/money/getEvidencePacket.ts:25 is an incidental line (compiledAt/compileEvidencePacket call) that does not show absence of model-comparison work; no 'NO LLM' or equivalent statement was found at or near it."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-15T04:04:44.151680+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "cross-provider-benchmark-operations"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "effort-scoring-tools",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "ts": "2026-10-15T04:04:44.151680+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "cross-provider-benchmark-operations"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "money-contracts",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "ts": "2026-10-15T04:04:44.151680+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "cross-provider-benchmark-operations"
+      ],
+      "techniques": [
+        "axes-and-caveats-live-at-the-surface",
+        "budget-preflight-and-ceiling",
+        "cheapest-sufficient-configuration",
+        "dataset-sampling-anonymize-freeze",
+        "determinism-stamping",
+        "entitlement-exhaustion-is-not-ill-health",
+        "failure-clustering-recommendations",
+        "handicap-disclosure-in-the-result-row",
+        "sampling-knobs-are-axes-not-strings",
+        "self-hosted-residency-is-part-of-the-target",
+        "target-matrix-runs"
+      ],
+      "deviations": 1,
+      "context": "hybrid-bench",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "ts": "2026-10-15T04:04:44.151680+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "cross-provider-benchmark-operations"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "money-investigations",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "ts": "2026-10-15T04:04:44.151680+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "cross-provider-benchmark-operations"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "money-ownership",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}

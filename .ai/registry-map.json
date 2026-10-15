@@ -5354,7 +5354,11 @@
           "revision": 12,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/effort/triage.ts:2 Context and repository searches located model benchmarks elsewhere but no benchmark or scorecard hits in this context, whose scripts prepare, score and validate MP enrichment rather than compare model configurations.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
+          "evaluatedRevision": 12
         },
         {
           "subject": "test-harness",
@@ -6843,7 +6847,11 @@
           "revision": 12,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:132 The model-comparison scorecard reports agreement and token/call counts but omits measured latency and priced cost, preventing the standard's required three-axis comparison.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
+          "evaluatedRevision": 12
         },
         {
           "subject": "embedded-db",
@@ -10061,7 +10069,11 @@
           "revision": 12,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/triage.ts:8 Searches found no benchmark or scorecard hits in this context's directory; its scripts harvest public contracts, audit coverage and triage financial ties rather than evaluate competing models.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
+          "evaluatedRevision": 12
         },
         {
           "subject": "civic-source-adapters",
@@ -10805,7 +10817,11 @@
           "revision": 12,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:27 Searches found no benchmark or scorecard hits in this context's directory; its ownership resolution and registry reconciliation produce domain evidence rather than comparative model measurements.",
+          "evaluatedAt": "2026-10-15",
+          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
+          "evaluatedRevision": 12
         },
         {
           "subject": "test-harness",
