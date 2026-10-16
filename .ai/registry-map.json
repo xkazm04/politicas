@@ -13054,7 +13054,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/votetrack/kompas/ResultsBoard.tsx:368 MPs below the comparability floor render only after show-all, and that control exists only when more than 15 MPs are rankable, so the thin-overlap tail stays off the board.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:22ebe640d72191dc",
+          "evaluatedRevision": 3
         },
         {
           "subject": "roll-call-vote-analysis",
@@ -13444,7 +13448,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/hlasovani/page.tsx:21 These routes mount the vote ledger and the law index; a search of app/hlasovani and app/zakony found no compass scoring or question-selection symbols.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:22ebe640d72191dc",
+          "evaluatedRevision": 3
         },
         {
           "subject": "quality-gates",

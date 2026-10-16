@@ -5138,6 +5138,58 @@
           "evidence": "features/volby/getListData.ts:28 The chamber vote record selects the stored institutional term code instead of reconstructing scope from dates."
         }
       ]
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/political-compass-from-votes": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "political-compass-from-votes",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T23:42:51.615Z",
+      "worker": "604f14a6-b265-4e70-8392-b5ef00027b24",
+      "techniques": [
+        {
+          "technique": "divisive-vote-selection",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/select.ts:166 The value stored for ranking is the margin already rounded to 3dp, and the sort uses that value, so distinct closeness ratios become ties."
+        },
+        {
+          "technique": "theme-balanced-drawing",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:62 Round-robin with caps 20 and 2 is implemented; the surface publishes one aggregate candidate total and no per-theme pool size."
+        },
+        {
+          "technique": "non-positional-abstention-handling",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/score.ts:93 A missing ballot is scored as confirmed absence. bucketOf maps source state unknown to away, and lineOf sets a club line on any strict majority with no positional quorum."
+        },
+        {
+          "technique": "comparability-floor-for-ranking",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/ResultsBoard.tsx:368 Rankability is ceil(answered/2) and results wait for MIN_ANSWERS 3, but the unranked tail is hidden behind showAll."
+        },
+        {
+          "technique": "matching-model-choice",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/kompas/score.ts:108 The authoritative number is the agreement rate over binary pro/proti answers; skips stay out of the answered set, with no salience weights and no map-derived rank."
+        },
+        {
+          "technique": "disclosed-scoring-rule",
+          "verdict": "deviation",
+          "evidence": "messages/cs.json:1190 The board states rate, comparable count and Czech alphabet, omits the personPspId tie-break in score.ts, and does not say the name order is meaningless. The scoring sentence is a catalog string with no live constants."
+        }
+      ],
+      "registryProposal": "The group-line quorum is only under Coverage and group inference; Group lines inherit the rule requires a strict positional majority and a tie, so a 3–1 line with no floor satisfies the main section."
+    },
+    "78075124-3bda-491e-bb0e-08de5bbb4b3b/political-compass-from-votes": {
+      "context": "voting-legislation-routes",
+      "subject": "political-compass-from-votes",
+      "bundle": "civic-intelligence",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T23:42:51.615Z",
+      "worker": "604f14a6-b265-4e70-8392-b5ef00027b24",
+      "techniques": []
     }
   }
 }

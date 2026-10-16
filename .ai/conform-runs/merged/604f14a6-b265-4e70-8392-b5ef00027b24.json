@@ -1,0 +1,105 @@
+{
+ "schema": "conform-run/1",
+ "worker": "604f14a6-b265-4e70-8392-b5ef00027b24",
+ "subject": "political-compass-from-votes",
+ "evaluatedAt": "2026-10-16T23:42:51.615458+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "votetrack-kompas-analysis",
+   "subject": "political-compass-from-votes",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/votetrack/kompas/ResultsBoard.tsx:368 MPs below the comparability floor render only after show-all, and that control exists only when more than 15 MPs are rankable, so the thin-overlap tail stays off the board.",
+   "techniques": [
+    {
+     "technique": "divisive-vote-selection",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/kompas/select.ts:166 The value stored for ranking is the margin already rounded to 3dp, and the sort uses that value, so distinct closeness ratios become ties."
+    },
+    {
+     "technique": "theme-balanced-drawing",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/kompas/KompasPage.tsx:62 Round-robin with caps 20 and 2 is implemented; the surface publishes one aggregate candidate total and no per-theme pool size."
+    },
+    {
+     "technique": "non-positional-abstention-handling",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/kompas/score.ts:93 A missing ballot is scored as confirmed absence. bucketOf maps source state unknown to away, and lineOf sets a club line on any strict majority with no positional quorum."
+    },
+    {
+     "technique": "comparability-floor-for-ranking",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/kompas/ResultsBoard.tsx:368 Rankability is ceil(answered/2) and results wait for MIN_ANSWERS 3, but the unranked tail is hidden behind showAll."
+    },
+    {
+     "technique": "matching-model-choice",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/kompas/score.ts:108 The authoritative number is the agreement rate over binary pro/proti answers; skips stay out of the answered set, with no salience weights and no map-derived rank."
+    },
+    {
+     "technique": "disclosed-scoring-rule",
+     "verdict": "deviation",
+     "evidence": "messages/cs.json:1190 The board states rate, comparable count and Czech alphabet, omits the personPspId tie-break in score.ts, and does not say the name order is meaningless. The scoring sentence is a catalog string with no live constants."
+    }
+   ],
+   "registryProposal": "The group-line quorum is only under Coverage and group inference; Group lines inherit the rule requires a strict positional majority and a tie, so a 3\u20131 line with no floor satisfies the main section."
+  },
+  {
+   "context": "voting-legislation-routes",
+   "subject": "political-compass-from-votes",
+   "bundle": "civic-intelligence",
+   "state": "not-applicable",
+   "evidence": "app/hlasovani/page.tsx:21 These routes mount the vote ledger and the law index; a search of app/hlasovani and app/zakony found no compass scoring or question-selection symbols.",
+   "techniques": [],
+   "absenceTerms": [
+    "scoreAlignment",
+    "selectQuestions",
+    "MIN_ANSWERS",
+    "QUESTIONS_CAP",
+    "kompas"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "political-compass-from-votes",
+   "context": "votetrack-ledger",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-16T23:42:51.615458+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "political-compass-from-votes"
+   ],
+   "techniques": [
+    "comparability-floor-for-ranking",
+    "disclosed-scoring-rule",
+    "divisive-vote-selection",
+    "matching-model-choice",
+    "non-positional-abstention-handling",
+    "theme-balanced-drawing"
+   ],
+   "deviations": 1,
+   "context": "votetrack-kompas-analysis",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-16T23:42:51.615458+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "political-compass-from-votes"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "voting-legislation-routes",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}
