@@ -5737,7 +5737,11 @@
           "revision": 7,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:14 The color checker accepts primitive color utilities such as bg-red-500, so error severity does not enforce consumption through semantic roles.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:165125b7a54d0de3",
+          "evaluatedRevision": 7
         },
         {
           "subject": "accessibility",
@@ -8622,7 +8626,11 @@
           "revision": 7,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/components/Hemicycle.tsx:84 The hemicycle embeds its duration and row stagger directly, preventing a vocabulary-level motion retune.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:165125b7a54d0de3",
+          "evaluatedRevision": 7
         },
         {
           "subject": "mcp-tools",
@@ -13324,7 +13332,11 @@
           "revision": 7,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:107 The discipline board defines duration and stagger values locally instead of consuming the required closed motion vocabulary.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:165125b7a54d0de3",
+          "evaluatedRevision": 7
         },
         {
           "subject": "settings",

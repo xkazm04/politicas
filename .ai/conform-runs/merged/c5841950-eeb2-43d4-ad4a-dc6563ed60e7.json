@@ -1,0 +1,121 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c5841950-eeb2-43d4-ad4a-dc6563ed60e7",
+ "subject": "design-tokens",
+ "evaluatedAt": "2026-10-16T21:34:41.002715+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "design-tokens",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:14 The color checker accepts primitive color utilities such as bg-red-500, so error severity does not enforce consumption through semantic roles.",
+   "techniques": [
+    {
+     "technique": "token-enforcement",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:14 An in-memory ESLint probe at error severity accepted bg-red-500 while reporting bg-[#131313]; the matcher does not enforce semantic-token membership."
+    }
+   ]
+  },
+  {
+   "context": "votetrack-ledger",
+   "subject": "design-tokens",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:107 The discipline board defines duration and stagger values locally instead of consuming the required closed motion vocabulary.",
+   "techniques": [
+    {
+     "technique": "motion-tokens",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:107 Duration, stagger and reduced-motion timing are local numeric decisions rather than bindings in a shared motion vocabulary."
+    },
+    {
+     "technique": "token-taxonomy",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/components/RealVoteLedger.tsx:139 The vote title composes an arbitrary size, weight and line height at the call site instead of selecting a named typography recipe."
+    }
+   ]
+  },
+  {
+   "context": "landing-core",
+   "subject": "design-tokens",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/landing/components/Hemicycle.tsx:84 The hemicycle embeds its duration and row stagger directly, preventing a vocabulary-level motion retune.",
+   "techniques": [
+    {
+     "technique": "cross-language-token-parity",
+     "verdict": "deviation",
+     "evidence": "features/landing/palette.test.ts:4 The suite checks eight fixed pairs without comparing token sets; the CSS authority defines ten color roles, while steel-aa and signal-deep are absent from the mirror."
+    },
+    {
+     "technique": "motion-tokens",
+     "verdict": "deviation",
+     "evidence": "features/landing/components/Hemicycle.tsx:84 The component owns numeric duration, stagger and reduced-motion branches instead of consuming a shared motion ladder."
+    },
+    {
+     "technique": "token-taxonomy",
+     "verdict": "deviation",
+     "evidence": "features/landing/components/HeroStory.tsx:46 The hero assembles typography ingredients, including arbitrary line height, rather than consuming a named text-role recipe."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "design-tokens",
+   "context": "eslint-transparency-rules",
+   "reason": "The opened files delegate rules and test suites to the package; eslint-rules/README.md:17 explicitly documents the re-export, so an independent behavioral verdict would duplicate the package evidence."
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-16T21:34:41.002715+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "design-tokens"
+   ],
+   "techniques": [
+    "token-enforcement"
+   ],
+   "deviations": 1,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-16T21:34:41.002715+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "design-tokens"
+   ],
+   "techniques": [
+    "motion-tokens",
+    "token-taxonomy"
+   ],
+   "deviations": 1,
+   "context": "votetrack-ledger",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-16T21:34:41.002715+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "design-tokens"
+   ],
+   "techniques": [
+    "cross-language-token-parity",
+    "motion-tokens",
+    "token-taxonomy"
+   ],
+   "deviations": 1,
+   "context": "landing-core",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
