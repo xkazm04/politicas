@@ -1,0 +1,37 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a145ef19-cf9b-4c8a-916f-a04880817582",
+ "subject": "repository-landing-document",
+ "evaluatedAt": "2026-10-16T00:08:16.473287+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "repository-landing-document",
+   "context": "landing-core",
+   "reason": "The subject 'repository-landing-document' governs a code repository's root front page (README.md) and code host metadata (description, topics, homepage). The standard explicitly excludes application-rendered UI surfaces, assigning them to 'public-claim-provenance' (\u00a7 Where this subject's walls sit). 'landing-core' is an application web UI orchestrator (features/landing/LandingPage.tsx) rendering live CivicScore standings, hemicycle visualization, and data source status, not a repository front page."
+  },
+  {
+   "subject": "repository-landing-document",
+   "context": "app-shell",
+   "reason": "The subject 'repository-landing-document' governs a repository's root front page (README.md) and host metadata on a code host. 'app-shell' provides the Next.js App Router root layout (app/layout.tsx), global CSS tokens (app/globals.css), error boundaries, and static legal pages for the web application. It contains no repository landing document or repository host metadata."
+  },
+  {
+   "subject": "repository-landing-document",
+   "context": "landing-referendum",
+   "reason": "The subject 'repository-landing-document' governs a code repository's front page (README.md) and code host metadata. 'landing-referendum' is an interactive sub-surface for civic referendum polling (features/landing/referendum/ReferendumPage.tsx) that captures user lens preferences and serializes aggregate cards, with no relation to repository documentation stewardship."
+  },
+  {
+   "subject": "repository-landing-document",
+   "context": "shell-navigation",
+   "reason": "The subject 'repository-landing-document' governs a code repository's root front page (README.md). 'shell-navigation' provides persistent application chrome (features/shell/AppShell.tsx, Sidebar.tsx, MobileNav.tsx) for the web platform, which is an application UI navigation system rather than a repository document router."
+  },
+  {
+   "subject": "repository-landing-document",
+   "context": "graph-canvas",
+   "reason": "The subject 'repository-landing-document' governs a repository's front page (README.md). 'graph-canvas' is the whole-graph interactive canvas UI on /graf (features/graph/GraphPage.tsx), rendering graph nodes, edge glyphs, and inspection overlays. It contains no repository landing document constructs."
+  }
+ ],
+ "consults": []
+}
