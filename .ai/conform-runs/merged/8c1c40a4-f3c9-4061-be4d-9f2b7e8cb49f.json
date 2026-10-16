@@ -1,0 +1,32 @@
+{
+ "schema": "conform-run/1",
+ "worker": "8c1c40a4-f3c9-4061-be4d-9f2b7e8cb49f",
+ "subject": "federated-benchmark-sharing",
+ "evaluatedAt": "2026-10-16T22:20:42.221220+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "federated-benchmark-sharing",
+   "context": "ingest-sources-legislative",
+   "reason": "not-applicable without the 2+ search terms that prove the absence"
+  },
+  {
+   "subject": "federated-benchmark-sharing",
+   "context": "kg-domain-ingest",
+   "reason": "not-applicable without the 2+ search terms that prove the absence"
+  },
+  {
+   "subject": "federated-benchmark-sharing",
+   "context": "ingest-sources-financial",
+   "reason": "not-applicable without the 2+ search terms that prove the absence"
+  },
+  {
+   "subject": "federated-benchmark-sharing",
+   "context": "ingest-pipeline",
+   "reason": "not-applicable without the 2+ search terms that prove the absence"
+  }
+ ],
+ "consults": []
+}
