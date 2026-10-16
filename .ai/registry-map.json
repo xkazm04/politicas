@@ -1981,7 +1981,11 @@
           "revision": 14,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/persist-batch.ts:165 The writer submits whole rows assembled from an earlier read without a version condition, allowing intervening changes to be overwritten.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:ccc991958e998a93",
+          "evaluatedRevision": 16
         },
         {
           "subject": "prompt-assembly",
@@ -5016,7 +5020,11 @@
           "revision": 14,
           "changedAt": "2026-09-17",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/db/loaderFailureLog.ts:84 Log trimming rewrites the published file in place, allowing another process reading the degradation log to observe incomplete content.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:ccc991958e998a93",
+          "evaluatedRevision": 16
         },
         {
           "subject": "mcp-tools",
@@ -11665,7 +11673,11 @@
           "revision": 14,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/shared/components/CopyLinkButton.tsx:54 Clipboard attempts update status without checking attempt identity, so an older completion can overwrite the outcome of a newer click.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:ccc991958e998a93",
+          "evaluatedRevision": 16
         },
         {
           "subject": "ui-controls",

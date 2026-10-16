@@ -1,0 +1,163 @@
+{
+ "schema": "conform-run/1",
+ "worker": "af401df4-e7f9-4dae-bbb3-0b0b082b15d6",
+ "subject": "concurrency-guards",
+ "evaluatedAt": "2026-10-16T21:13:55.298969+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "db-store-engine",
+   "subject": "concurrency-guards",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/loaderFailureLog.ts:84 Log trimming rewrites the published file in place, allowing another process reading the degradation log to observe incomplete content.",
+   "techniques": [
+    {
+     "technique": "atomic-file-publish",
+     "verdict": "deviation",
+     "evidence": "lib/db/loaderFailureLog.ts:84 The shared log is truncated and rewritten directly, without temporary-file publication, flushing, or bounded replacement retries."
+    },
+    {
+     "technique": "critical-section-across-a-suspension",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/sentinelQueue.ts:148 The drain reads the queue before awaiting database inserts, then truncates the entire file; an entry appended during those awaits is erased without being inserted."
+    },
+    {
+     "technique": "fence-inside-write-transaction",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/config.ts:26 The declared architecture permits one process to hold the embedded store, rather than using a cluster lease over a shared multi-client store."
+    },
+    {
+     "technique": "guard-key-design",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/internals.ts:32 Connection establishment uses one stable, named global key for the process's configured store; concurrent openers collide on that key."
+    },
+    {
+     "technique": "idempotency-by-design",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/sentinelQueue.ts:142 Sentinel replay deduplicates atomically by the report's content-derived identity, and RETURNING distinguishes insertion from an already-present report."
+    },
+    {
+     "technique": "leadership-is-the-lock",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/config.ts:14 The only declared driver is embedded PGlite, not a replicated log whose leadership controls write admission."
+    },
+    {
+     "technique": "shared-claims-by-announce-and-verify",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/internals.ts:28 The backend provides serialized SQL transactions; it is not a shared-claim store limited to per-key conditional writes."
+    }
+   ]
+  },
+  {
+   "context": "shared-components",
+   "subject": "concurrency-guards",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/shared/components/CopyLinkButton.tsx:54 Clipboard attempts update status without checking attempt identity, so an older completion can overwrite the outcome of a newer click.",
+   "techniques": [
+    {
+     "technique": "atomic-file-publish",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/components/CopyLinkButton.tsx:53 The reviewed runtime components perform browser work, including this clipboard write; searches found no shared-file publisher in the context."
+    },
+    {
+     "technique": "attempt-attribution",
+     "verdict": "deviation",
+     "evidence": "features/shared/components/CopyLinkButton.tsx:54 Repeated clicks start independent awaits; neither success nor failure checks an incumbent attempt before updating status or replacing its reset timer."
+    },
+    {
+     "technique": "idempotency-by-design",
+     "verdict": "conformant",
+     "evidence": "features/shared/forensic/forensicMode.ts:46 Enabling forensic mode sets an absolute URL value, so repeating the same intent does not accumulate parameters; the colocated test checks double enabling."
+    }
+   ]
+  },
+  {
+   "context": "case-loops-core",
+   "subject": "concurrency-guards",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/persist-batch.ts:165 The writer submits whole rows assembled from an earlier read without a version condition, allowing intervening changes to be overwritten.",
+   "techniques": [
+    {
+     "technique": "atomic-file-publish",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/sources/kiosek-build-payload.ts:149 The JSON payload consumed by apply-batch is published directly in place, without temporary-file replacement, flushing, or bounded replacement retries."
+    },
+    {
+     "technique": "critical-section-across-a-suspension",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/apply-batch.ts:476 Node rows have already been prepared from a live snapshot before this await, while their later upsert has no enclosing transaction covering the original read and merge."
+    },
+    {
+     "technique": "idempotency-by-design",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/apply-batch.ts:458 The first application inserts payload props, while replay adds or refreshes a timestamped note, changing published KG content and producing further history instead of converging."
+    },
+    {
+     "technique": "preparation-is-the-staleness-window",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/persist-batch.ts:165 The merge uses previously fetched props, but the final store write carries no expected version or other condition preventing stale-snapshot replacement."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-16T21:13:55.298969+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "concurrency-guards"
+   ],
+   "techniques": [
+    "atomic-file-publish",
+    "critical-section-across-a-suspension",
+    "fence-inside-write-transaction",
+    "guard-key-design",
+    "idempotency-by-design",
+    "leadership-is-the-lock",
+    "shared-claims-by-announce-and-verify"
+   ],
+   "deviations": 1,
+   "context": "db-store-engine",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-16T21:13:55.298969+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "concurrency-guards"
+   ],
+   "techniques": [
+    "atomic-file-publish",
+    "attempt-attribution",
+    "idempotency-by-design"
+   ],
+   "deviations": 1,
+   "context": "shared-components",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-16T21:13:55.298969+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "concurrency-guards"
+   ],
+   "techniques": [
+    "atomic-file-publish",
+    "critical-section-across-a-suspension",
+    "idempotency-by-design",
+    "preparation-is-the-staleness-window"
+   ],
+   "deviations": 1,
+   "context": "case-loops-core",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
