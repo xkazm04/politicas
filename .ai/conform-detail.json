@@ -5019,6 +5019,125 @@
           "evidence": "app/page.tsx:48 Landing page loader trims the 200+ MP leaderboard down to 5 featured entries on the server, avoiding transferring and parsing a 120KB payload on the client."
         }
       ]
+    },
+    "b63c108e-2ffa-42b1-8a41-2e052c4bae86/parliamentary-data-modeling": {
+      "context": "verdict-and-law-analysis",
+      "subject": "parliamentary-data-modeling",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T23:12:27.964Z",
+      "worker": "dc639dc9-2c42-43c8-8059-4c9ca61fb2e2",
+      "techniques": [
+        {
+          "technique": "mandate-vs-person-identity",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg.ts:109 Co-voting resolves the ballot's mandate through an explicit mandate-to-person mapping."
+        },
+        {
+          "technique": "membership-window-modeling",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/clubAt.ts:46 Containment includes the stored end day; the standard requires normalization to half-open intervals."
+        },
+        {
+          "technique": "party-club-vs-electoral-list",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/kg.ts:189 Rebellion uses a mandate-only club map without resolving affiliation on each vote date; partyCohesion repeats this approach."
+        }
+      ]
+    },
+    "f5990dbf-2b69-4da7-9e42-b3b510462622/parliamentary-data-modeling": {
+      "context": "ingest-sources-legislative",
+      "subject": "parliamentary-data-modeling",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T23:12:27.964Z",
+      "worker": "dc639dc9-2c42-43c8-8059-4c9ca61fb2e2",
+      "techniques": [
+        {
+          "technique": "cross-term-registry-loading",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/psp.ts:363 Excluded absence rows are discarded without an exclusion counter; scope is derived solely from observed roll calls, without reconciling an authoritative intended scope."
+        },
+        {
+          "technique": "mandate-vs-person-identity",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/psp.ts:346 Normalized ballots preserve the publisher's mandate identifier rather than re-keying events to persons."
+        },
+        {
+          "technique": "membership-window-modeling",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/psp.ts:228 The parser returns null for both malformed and absent end values, and the normalized membership has no separate unknown-end state."
+        },
+        {
+          "technique": "office-vs-plain-membership",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/psp.ts:222 Only discriminator 1 is recognized as an office; every other value, including null or an unknown code, defaults to membership."
+        },
+        {
+          "technique": "party-club-vs-electoral-list",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/psp.ts:181 Electoral affiliation is retained on the mandate separately from club affiliation represented by membership rows."
+        }
+      ]
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/parliamentary-data-modeling": {
+      "context": "kg-domain-ingest",
+      "subject": "parliamentary-data-modeling",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T23:12:27.964Z",
+      "worker": "dc639dc9-2c42-43c8-8059-4c9ca61fb2e2",
+      "techniques": [
+        {
+          "technique": "cross-term-registry-loading",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/ingest.ts:110 Full membership snapshots are applied through ID-based upserts without reconciliation; removed rows or corrected start dates leave previous windows stored."
+        },
+        {
+          "technique": "mandate-vs-person-identity",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:85 The term-wide roll-call count and sitting-day count are passed unchanged into each person's score inputs instead of using mandate-specific eligible opportunities."
+        },
+        {
+          "technique": "term-and-chamber-scoping",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:196 The selectable --term score is written to the same unscoped property on the stable person node, without recording that selected term alongside the score."
+        }
+      ]
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/parliamentary-data-modeling": {
+      "context": "volby-elections",
+      "subject": "parliamentary-data-modeling",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T23:12:27.964Z",
+      "worker": "dc639dc9-2c42-43c8-8059-4c9ca61fb2e2",
+      "techniques": [
+        {
+          "technique": "mandate-vs-person-identity",
+          "verdict": "conformant",
+          "evidence": "features/volby/getListData.ts:47 The contested-vote record selects ballots using mandate identifiers rather than person identifiers."
+        },
+        {
+          "technique": "membership-window-modeling",
+          "verdict": "deviation",
+          "evidence": "features/volby/volbyLoader.ts:94 Every unparseable end value passes the open-membership predicate, conflating unknown end dates with current membership."
+        },
+        {
+          "technique": "party-club-vs-electoral-list",
+          "verdict": "conformant",
+          "evidence": "features/volby/volbyLoader.ts:358 Election-list rollups use the mandate's electoral-list identity, while current clubs remain a separate breakdown."
+        },
+        {
+          "technique": "term-and-chamber-scoping",
+          "verdict": "conformant",
+          "evidence": "features/volby/getListData.ts:28 The chamber vote record selects the stored institutional term code instead of reconstructing scope from dates."
+        }
+      ]
     }
   }
 }

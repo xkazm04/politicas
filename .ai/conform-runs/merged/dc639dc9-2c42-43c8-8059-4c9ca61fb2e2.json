@@ -1,0 +1,191 @@
+{
+ "schema": "conform-run/1",
+ "worker": "dc639dc9-2c42-43c8-8059-4c9ca61fb2e2",
+ "subject": "parliamentary-data-modeling",
+ "evaluatedAt": "2026-10-16T23:12:27.964905+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "verdict-and-law-analysis",
+   "subject": "parliamentary-data-modeling",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/analysis/kg.ts:189 Rebellion computation uses one club per mandate across all ballots, allowing a club change to misattribute historical votes.",
+   "techniques": [
+    {
+     "technique": "mandate-vs-person-identity",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg.ts:109 Co-voting resolves the ballot's mandate through an explicit mandate-to-person mapping."
+    },
+    {
+     "technique": "membership-window-modeling",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/clubAt.ts:46 Containment includes the stored end day; the standard requires normalization to half-open intervals."
+    },
+    {
+     "technique": "party-club-vs-electoral-list",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/kg.ts:189 Rebellion uses a mandate-only club map without resolving affiliation on each vote date; partyCohesion repeats this approach."
+    }
+   ]
+  },
+  {
+   "context": "ingest-sources-legislative",
+   "subject": "parliamentary-data-modeling",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/ingest/sources/psp.ts:222 Missing or unrecognized role discriminators become plain memberships, asserting a relationship that the source did not resolve.",
+   "techniques": [
+    {
+     "technique": "cross-term-registry-loading",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/psp.ts:363 Excluded absence rows are discarded without an exclusion counter; scope is derived solely from observed roll calls, without reconciling an authoritative intended scope."
+    },
+    {
+     "technique": "mandate-vs-person-identity",
+     "verdict": "conformant",
+     "evidence": "lib/ingest/sources/psp.ts:346 Normalized ballots preserve the publisher's mandate identifier rather than re-keying events to persons."
+    },
+    {
+     "technique": "membership-window-modeling",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/psp.ts:228 The parser returns null for both malformed and absent end values, and the normalized membership has no separate unknown-end state."
+    },
+    {
+     "technique": "office-vs-plain-membership",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/psp.ts:222 Only discriminator 1 is recognized as an office; every other value, including null or an unknown code, defaults to membership."
+    },
+    {
+     "technique": "party-club-vs-electoral-list",
+     "verdict": "conformant",
+     "evidence": "lib/ingest/sources/psp.ts:181 Electoral affiliation is retained on the mandate separately from club affiliation represented by membership rows."
+    }
+   ]
+  },
+  {
+   "context": "kg-domain-ingest",
+   "subject": "parliamentary-data-modeling",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:85 The contribution writer gives every mandate the full term's opportunity denominators, so replacement members can be scored against opportunities they never had.",
+   "techniques": [
+    {
+     "technique": "cross-term-registry-loading",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/ingest.ts:110 Full membership snapshots are applied through ID-based upserts without reconciliation; removed rows or corrected start dates leave previous windows stored."
+    },
+    {
+     "technique": "mandate-vs-person-identity",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:85 The term-wide roll-call count and sitting-day count are passed unchanged into each person's score inputs instead of using mandate-specific eligible opportunities."
+    },
+    {
+     "technique": "term-and-chamber-scoping",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:196 The selectable --term score is written to the same unscoped property on the stable person node, without recording that selected term alongside the score."
+    }
+   ]
+  },
+  {
+   "context": "volby-elections",
+   "subject": "parliamentary-data-modeling",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/volby/volbyLoader.ts:94 An unparseable membership end is treated as open and can include a person in current-holder counts despite unknown temporal validity.",
+   "techniques": [
+    {
+     "technique": "mandate-vs-person-identity",
+     "verdict": "conformant",
+     "evidence": "features/volby/getListData.ts:47 The contested-vote record selects ballots using mandate identifiers rather than person identifiers."
+    },
+    {
+     "technique": "membership-window-modeling",
+     "verdict": "deviation",
+     "evidence": "features/volby/volbyLoader.ts:94 Every unparseable end value passes the open-membership predicate, conflating unknown end dates with current membership."
+    },
+    {
+     "technique": "party-club-vs-electoral-list",
+     "verdict": "conformant",
+     "evidence": "features/volby/volbyLoader.ts:358 Election-list rollups use the mandate's electoral-list identity, while current clubs remain a separate breakdown."
+    },
+    {
+     "technique": "term-and-chamber-scoping",
+     "verdict": "conformant",
+     "evidence": "features/volby/getListData.ts:28 The chamber vote record selects the stored institutional term code instead of reconstructing scope from dates."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-16T23:12:27.964905+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "parliamentary-data-modeling"
+   ],
+   "techniques": [
+    "mandate-vs-person-identity",
+    "membership-window-modeling",
+    "party-club-vs-electoral-list"
+   ],
+   "deviations": 1,
+   "context": "verdict-and-law-analysis",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-16T23:12:27.964905+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "parliamentary-data-modeling"
+   ],
+   "techniques": [
+    "cross-term-registry-loading",
+    "mandate-vs-person-identity",
+    "membership-window-modeling",
+    "office-vs-plain-membership",
+    "party-club-vs-electoral-list"
+   ],
+   "deviations": 1,
+   "context": "ingest-sources-legislative",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-16T23:12:27.964905+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "parliamentary-data-modeling"
+   ],
+   "techniques": [
+    "cross-term-registry-loading",
+    "mandate-vs-person-identity",
+    "term-and-chamber-scoping"
+   ],
+   "deviations": 1,
+   "context": "kg-domain-ingest",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-16T23:12:27.964905+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "parliamentary-data-modeling"
+   ],
+   "techniques": [
+    "mandate-vs-person-identity",
+    "membership-window-modeling",
+    "party-club-vs-electoral-list",
+    "term-and-chamber-scoping"
+   ],
+   "deviations": 1,
+   "context": "volby-elections",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

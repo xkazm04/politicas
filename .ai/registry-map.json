@@ -7439,7 +7439,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/ingest/sources/psp.ts:222 Missing or unrecognized role discriminators become plain memberships, asserting a relationship that the source did not resolve.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:127bbeee60e64648",
+          "evaluatedRevision": 6
         },
         {
           "subject": "federated-benchmark-sharing",
@@ -7845,7 +7849,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:85 The contribution writer gives every mandate the full term's opportunity denominators, so replacement members can be scored against opportunities they never had.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:127bbeee60e64648",
+          "evaluatedRevision": 6
         },
         {
           "subject": "public-procurement-analysis",
@@ -12662,7 +12670,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/kg.ts:189 Rebellion computation uses one club per mandate across all ballots, allowing a club change to misattribute historical votes.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:127bbeee60e64648",
+          "evaluatedRevision": 6
         },
         {
           "subject": "roll-call-vote-analysis",
@@ -12951,7 +12963,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/volby/volbyLoader.ts:94 An unparseable membership end is treated as open and can include a person in current-holder counts despite unknown temporal validity.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:127bbeee60e64648",
+          "evaluatedRevision": 6
         },
         {
           "subject": "roll-call-vote-analysis",
