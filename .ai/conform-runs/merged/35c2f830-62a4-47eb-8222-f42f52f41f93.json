@@ -1,0 +1,87 @@
+{
+ "schema": "conform-run/1",
+ "worker": "35c2f830-62a4-47eb-8222-f42f52f41f93",
+ "subject": "page-load-pipeline",
+ "evaluatedAt": "2026-10-16T22:49:43.139422+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "app-shell",
+   "subject": "page-load-pipeline",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "app/page.tsx:60 The streaming Suspense boundary on the landing page renders a fallback that lacks vertical height reservation for the delayed ledger entries, causing visible layout shifts once the streamed DenikSlot resolves.",
+   "techniques": [
+    {
+     "technique": "layout-stability-by-reservation",
+     "verdict": "deviation",
+     "evidence": "app/page.tsx:60 Fallback DenikTeaserPending only renders a header and a short paragraph without reserving height for the multi-item ledger that streams in ~12 seconds later."
+    },
+    {
+     "technique": "field-measured-load-budget",
+     "verdict": "deviation",
+     "evidence": "app/layout.tsx:108 Shell only loads Plausible pageview analytics; 75th percentile Core Web Vitals (LCP, CLS, INP) are not collected and no pre-merge route byte limits are configured."
+    },
+    {
+     "technique": "font-loading-discipline",
+     "verdict": "conformant",
+     "evidence": "app/layout.tsx:28 Self-hosts Archivo and Plex Mono with Latin/Latin-ext character subsets for Czech typography, while pruning unused 127KB Fraunces serif to stay within font payload budget."
+    },
+    {
+     "technique": "render-blocking-budget",
+     "verdict": "conformant",
+     "evidence": "app/layout.tsx:110 Loads the third-party analytics script with strategy=\"afterInteractive\" so it executes outside the critical render-blocking path."
+    },
+    {
+     "technique": "discoverable-critical-resources",
+     "verdict": "conformant",
+     "evidence": "app/layout.tsx:8 Imports global styles directly in the root layout to ensure the stylesheet link is emitted in server-rendered HTML for look-ahead scanner discovery."
+    },
+    {
+     "technique": "script-cost-is-main-thread-time",
+     "verdict": "conformant",
+     "evidence": "app/page.tsx:48 Landing page loader trims the 200+ MP leaderboard down to 5 featured entries on the server, avoiding transferring and parsing a 120KB payload on the client."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "page-load-pipeline",
+   "context": "labs-graph-routes",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "page-load-pipeline",
+   "context": "civic-feed-routes",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "page-load-pipeline",
+   "context": "voting-legislation-routes",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-16T22:49:43.139422+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "page-load-pipeline"
+   ],
+   "techniques": [
+    "discoverable-critical-resources",
+    "field-measured-load-budget",
+    "font-loading-discipline",
+    "layout-stability-by-reservation",
+    "render-blocking-budget",
+    "script-cost-is-main-thread-time"
+   ],
+   "deviations": 1,
+   "context": "app-shell",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}

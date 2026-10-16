@@ -4978,6 +4978,47 @@
           "evidence": "features/labs/rentgen/getTerminalData.ts:108 Review history renders names resolved from current nodes rather than contemporaneous names captured on the historical record."
         }
       ]
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/page-load-pipeline": {
+      "context": "app-shell",
+      "subject": "page-load-pipeline",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T22:49:43.139Z",
+      "worker": "35c2f830-62a4-47eb-8222-f42f52f41f93",
+      "techniques": [
+        {
+          "technique": "layout-stability-by-reservation",
+          "verdict": "deviation",
+          "evidence": "app/page.tsx:60 Fallback DenikTeaserPending only renders a header and a short paragraph without reserving height for the multi-item ledger that streams in ~12 seconds later."
+        },
+        {
+          "technique": "field-measured-load-budget",
+          "verdict": "deviation",
+          "evidence": "app/layout.tsx:108 Shell only loads Plausible pageview analytics; 75th percentile Core Web Vitals (LCP, CLS, INP) are not collected and no pre-merge route byte limits are configured."
+        },
+        {
+          "technique": "font-loading-discipline",
+          "verdict": "conformant",
+          "evidence": "app/layout.tsx:28 Self-hosts Archivo and Plex Mono with Latin/Latin-ext character subsets for Czech typography, while pruning unused 127KB Fraunces serif to stay within font payload budget."
+        },
+        {
+          "technique": "render-blocking-budget",
+          "verdict": "conformant",
+          "evidence": "app/layout.tsx:110 Loads the third-party analytics script with strategy=\"afterInteractive\" so it executes outside the critical render-blocking path."
+        },
+        {
+          "technique": "discoverable-critical-resources",
+          "verdict": "conformant",
+          "evidence": "app/layout.tsx:8 Imports global styles directly in the root layout to ensure the stylesheet link is emitted in server-rendered HTML for look-ahead scanner discovery."
+        },
+        {
+          "technique": "script-cost-is-main-thread-time",
+          "verdict": "conformant",
+          "evidence": "app/page.tsx:48 Landing page loader trims the 200+ MP leaderboard down to 5 featured entries on the server, avoiding transferring and parsing a 120KB payload on the client."
+        }
+      ]
     }
   }
 }

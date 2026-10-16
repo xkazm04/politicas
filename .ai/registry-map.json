@@ -1511,7 +1511,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/page.tsx:60 The streaming Suspense boundary on the landing page renders a fallback that lacks vertical height reservation for the delayed ledger entries, causing visible layout shifts once the streamed DenikSlot resolves.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:f51109a4fa17ac48",
+          "evaluatedRevision": 3
         },
         {
           "subject": "docs-content-model",
