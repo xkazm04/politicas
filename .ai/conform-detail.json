@@ -4962,6 +4962,22 @@
           "evidence": "features/landing/components/HeroStory.tsx:46 The hero assembles typography ingredients, including arbitrary line height, rather than consuming a named text-role recipe."
         }
       ]
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/entity-lifecycle": {
+      "context": "labs-rentgen",
+      "subject": "entity-lifecycle",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-16",
+      "evaluatedTs": "2026-10-16T22:00:07.754Z",
+      "worker": "2a2f68d0-eb08-471c-967d-db2fab058517",
+      "techniques": [
+        {
+          "technique": "provenance-denormalization",
+          "verdict": "deviation",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:108 Review history renders names resolved from current nodes rather than contemporaneous names captured on the historical record."
+        }
+      ]
     }
   }
 }

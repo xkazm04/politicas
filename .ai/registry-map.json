@@ -8337,7 +8337,11 @@
           "revision": 6,
           "changedAt": "2026-08-31",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:108 Historical review entries display current company names and fall back to identifiers after deletion, so contemporaneous names are not preserved in the rendered history.",
+          "evaluatedAt": "2026-10-16",
+          "evaluatedAgainst": "sha256-b2:cef5e3463825ff22",
+          "evaluatedRevision": 6
         },
         {
           "subject": "retry-backoff",

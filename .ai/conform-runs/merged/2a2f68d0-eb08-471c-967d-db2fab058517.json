@@ -1,0 +1,57 @@
+{
+ "schema": "conform-run/1",
+ "worker": "2a2f68d0-eb08-471c-967d-db2fab058517",
+ "subject": "entity-lifecycle",
+ "evaluatedAt": "2026-10-16T22:00:07.754574+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "labs-rentgen",
+   "subject": "entity-lifecycle",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/labs/rentgen/getTerminalData.ts:108 Historical review entries display current company names and fall back to identifiers after deletion, so contemporaneous names are not preserved in the rendered history.",
+   "techniques": [
+    {
+     "technique": "provenance-denormalization",
+     "verdict": "deviation",
+     "evidence": "features/labs/rentgen/getTerminalData.ts:108 Review history renders names resolved from current nodes rather than contemporaneous names captured on the historical record."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "entity-lifecycle",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "entity-lifecycle",
+   "context": "money-archive-probes",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "entity-lifecycle",
+   "context": "law-archive-late",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-16T22:00:07.754574+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "entity-lifecycle"
+   ],
+   "techniques": [
+    "provenance-denormalization"
+   ],
+   "deviations": 1,
+   "context": "labs-rentgen",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
