@@ -1,0 +1,103 @@
+{
+  "schema": "conform-run/1",
+  "worker": "d10ec6d5-d713-4216-b4c0-cea46c1d631a",
+  "subject": "invariant-placement",
+  "evaluatedAt": "2026-10-17T22:47:50.165811+00:00",
+  "provider": "agy",
+  "model": "gemini-3.8-flash-high",
+  "pairs": [
+    {
+      "context": "testing-flake-sentinel",
+      "subject": "invariant-placement",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evidence": "lib/testing/sentinel/invariants.ts:659 The sentinel subsystem enforces all cross-check exhaustiveness, corruption refusal, and derived state consistency via compile-time placement and negative fixtures.",
+      "techniques": [
+        {
+          "technique": "placement-precedes-gate",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:659 Record<SentinelCheckId, SentinelCheck> enforces exhaustive registration of all sentinel checks at compile time."
+        },
+        {
+          "technique": "constraint-deletion-is-silent",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:400 Negative test verifies that dropping a row from the audit chain produces an explicit violation status, proving the invariant cannot be silently deleted."
+        },
+        {
+          "technique": "derived-properties-cannot-be-forged",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:748 checkMoneyRankCache verifies that persisted storedTier matches the pure re-evaluation of reviewTier on the tie's properties."
+        },
+        {
+          "technique": "repairing-check-erases-its-evidence",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:733 Unknown tie classes are retained and flagged as violations rather than being silently cast or defaulted."
+        },
+        {
+          "technique": "occurrence-is-not-a-type",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinelSource.test.ts:57 Table list parity between sentinel facts and atlas loader is tested by source AST inspection since TypeScript cannot statically verify table array equality across modules."
+        },
+        {
+          "technique": "initialization-proof-tokens",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:955 When store initialization fails, a distinct unevaluable report carrying the explicit reason is produced rather than dummy or partial check results."
+        },
+        {
+          "technique": "paired-sites-localize-the-fault",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:136 checkAuditChain independently recalculates hash chains on read to detect divergence and report the exact chain position and hash mismatch produced at write time."
+        }
+      ],
+      "registryProposal": "Techniques placement-precedes-gate and constraint-deletion-is-silent are effectively reinforced when compile-time exhaustiveness maps are coupled with dedicated targeted corruption fixtures."
+    }
+  ],
+  "declined": [
+    {
+      "subject": "invariant-placement",
+      "context": "mp-profile",
+      "reason": "withdrawn after review: reviewer (sonnet): The `unknown` member of `CareerYears` (careerSpine.ts:180) is a deliberate tagged state meaning 'the register carries no start, so nothing is claimed'. CareerSpineSection.tsx handles it in an ordinary `case \"unknown\"` of an exhaustive switch, and I found no invented fallback branches. The evidence's"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-17T22:47:50.165811+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "invariant-placement"
+      ],
+      "techniques": [
+        "constraint-deletion-is-silent",
+        "derived-properties-cannot-be-forged",
+        "occurrence-is-not-a-type",
+        "placement-precedes-gate",
+        "repairing-check-erases-its-evidence",
+        "shape-with-a-not-applicable-member"
+      ],
+      "deviations": 1,
+      "context": "mp-profile",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-17T22:47:50.165811+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "invariant-placement"
+      ],
+      "techniques": [
+        "constraint-deletion-is-silent",
+        "derived-properties-cannot-be-forged",
+        "initialization-proof-tokens",
+        "occurrence-is-not-a-type",
+        "paired-sites-localize-the-fault",
+        "placement-precedes-gate",
+        "repairing-check-erases-its-evidence"
+      ],
+      "deviations": 0,
+      "context": "testing-flake-sentinel",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    }
+  ]
+}

@@ -7130,6 +7130,100 @@
           "evidence": "lib/analysis/rapporteur-load.ts:47 Returns fixed badge copy with an observed bill count, without requesting a model label distribution."
         }
       ]
+    },
+    "f50627ef-a7a1-40a4-9491-560efa6cb05d/invariant-placement": {
+      "context": "mp-profile",
+      "subject": "invariant-placement",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T22:47:50.165Z",
+      "techniques": [
+        {
+          "technique": "shape-with-a-not-applicable-member",
+          "verdict": "deviation",
+          "evidence": "features/profile/careerSpine.ts:180 CareerYears union includes an internal unknown member so the resolver careerYears() can return an unresolved state, forcing UI consumers to handle unknown."
+        },
+        {
+          "technique": "derived-properties-cannot-be-forged",
+          "verdict": "conformant",
+          "evidence": "features/profile/rebellionRecord.ts:56 Rebellion instances are strictly projected from upstream ChronicleEntry records derived by deriveVoteRecord, preventing duplicate divergent derivation."
+        },
+        {
+          "technique": "repairing-check-erases-its-evidence",
+          "verdict": "conformant",
+          "evidence": "features/profile/careerSpine.ts:266 Unreadable or out-of-range dates explicitly set dateUnreadable to true rather than being coerced or silently defaulted."
+        },
+        {
+          "technique": "occurrence-is-not-a-type",
+          "verdict": "conformant",
+          "evidence": "features/profile/profileSource.test.ts:26 Enforces single-clock instant evaluation across loader functions via source AST regex tests, as single-occurrence clock constraints cannot be typed in TypeScript."
+        },
+        {
+          "technique": "placement-precedes-gate",
+          "verdict": "conformant",
+          "evidence": "features/profile/getProfileData.ts:239 Captures the evaluation date once at the top of the loader and passes seatsAsOf down directly to avoid divergent time readings."
+        },
+        {
+          "technique": "constraint-deletion-is-silent",
+          "verdict": "conformant",
+          "evidence": "features/profile/careerSpine.test.ts:386 Explicit negative structural test asserts that career years never mix date bounds across two distinct mandate/chamber windows."
+        }
+      ],
+      "registryProposal": "Document in shape-with-a-not-applicable-member that resolvers returning closed domain unions should wrap the result in null/optional when unresolvable, rather than injecting an 'unknown' variant into the domain type itself.",
+      "withdrawn": {
+        "worker": "d10ec6d5-d713-4216-b4c0-cea46c1d631a",
+        "state": "deviation",
+        "at": "2026-10-17T22:48:07.099437+00:00",
+        "reason": "reviewer (sonnet): The `unknown` member of `CareerYears` (careerSpine.ts:180) is a deliberate tagged state meaning 'the register carries no start, so nothing is claimed'. CareerSpineSection.tsx handles it in an ordinary `case \"unknown\"` of an exhaustive switch, and I found no invented fallback branches. The evidence's"
+      }
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/invariant-placement": {
+      "context": "testing-flake-sentinel",
+      "subject": "invariant-placement",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T22:47:50.165Z",
+      "worker": "d10ec6d5-d713-4216-b4c0-cea46c1d631a",
+      "techniques": [
+        {
+          "technique": "placement-precedes-gate",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:659 Record<SentinelCheckId, SentinelCheck> enforces exhaustive registration of all sentinel checks at compile time."
+        },
+        {
+          "technique": "constraint-deletion-is-silent",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:400 Negative test verifies that dropping a row from the audit chain produces an explicit violation status, proving the invariant cannot be silently deleted."
+        },
+        {
+          "technique": "derived-properties-cannot-be-forged",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:748 checkMoneyRankCache verifies that persisted storedTier matches the pure re-evaluation of reviewTier on the tie's properties."
+        },
+        {
+          "technique": "repairing-check-erases-its-evidence",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:733 Unknown tie classes are retained and flagged as violations rather than being silently cast or defaulted."
+        },
+        {
+          "technique": "occurrence-is-not-a-type",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinelSource.test.ts:57 Table list parity between sentinel facts and atlas loader is tested by source AST inspection since TypeScript cannot statically verify table array equality across modules."
+        },
+        {
+          "technique": "initialization-proof-tokens",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:955 When store initialization fails, a distinct unevaluable report carrying the explicit reason is produced rather than dummy or partial check results."
+        },
+        {
+          "technique": "paired-sites-localize-the-fault",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:136 checkAuditChain independently recalculates hash chains on read to detect divergence and report the exact chain position and hash mismatch produced at write time."
+        }
+      ],
+      "registryProposal": "Techniques placement-precedes-gate and constraint-deletion-is-silent are effectively reinforced when compile-time exhaustiveness maps are coupled with dedicated targeted corruption fixtures."
     }
   }
 }

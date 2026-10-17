@@ -12742,7 +12742,11 @@
           "revision": 9,
           "changedAt": "2026-09-21",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "lib/testing/sentinel/invariants.ts:659 The sentinel subsystem enforces all cross-check exhaustiveness, corruption refusal, and derived state consistency via compile-time placement and negative fixtures.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:c6563834f502429c",
+          "evaluatedRevision": 9
         },
         {
           "subject": "civic-source-adapters",
