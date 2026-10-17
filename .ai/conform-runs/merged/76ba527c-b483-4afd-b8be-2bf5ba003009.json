@@ -1,0 +1,135 @@
+{
+ "schema": "conform-run/1",
+ "worker": "76ba527c-b483-4afd-b8be-2bf5ba003009",
+ "subject": "client-fetch-cache",
+ "evaluatedAt": "2026-10-17T02:21:15.132028+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "volby-elections",
+   "subject": "client-fetch-cache",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/volby/tenderLayer.ts:339 The surface-loader cache has one TTL followed by a blocking replacement read, without the standard's separately declared stale-serving window and background revalidation.",
+   "techniques": [
+    {
+     "technique": "cache-key-discipline",
+     "verdict": "conformant",
+     "evidence": "features/volby/tenderLayer.ts:330 The fixed public tender fold is keyed by its Store instance, separating reads from different store instances."
+    },
+    {
+     "technique": "in-flight-dedup",
+     "verdict": "deviation",
+     "evidence": "features/volby/tenderLayer.ts:346 Cleanup does not compare flight identity, so an older flight failing after TTL replacement can delete the newer flight's entry."
+    },
+    {
+     "technique": "parse-and-derive-caches",
+     "verdict": "conformant",
+     "evidence": "features/volby/volbyLoader.ts:418 The pure findings derivation uses layer reference identity, WeakMap eviction, and a recomputation fallback inside allAuthorityFindings."
+    },
+    {
+     "technique": "plural-policy-claims",
+     "verdict": "not-applicable",
+     "evidence": "features/volby/tenderLayer.ts:337 The shared read accepts a Store only; callers cannot supply competing lifetime or eviction claims."
+    },
+    {
+     "technique": "similarity-keyed-admission",
+     "verdict": "not-applicable",
+     "evidence": "features/volby/tenderLayer.ts:338 Lookup uses exact Store object identity, without a resemblance metric or admission threshold."
+    },
+    {
+     "technique": "swr-design",
+     "verdict": "deviation",
+     "evidence": "features/volby/tenderLayer.ts:339 Only one TTL is declared; expiration starts a replacement read rather than serving stale data while revalidating."
+    }
+   ]
+  },
+  {
+   "context": "dashboard-instruments",
+   "subject": "client-fetch-cache",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dashboard/getDashboardData.ts:287 The dashboard discards its remembered money read at expiration and awaits a replacement instead of implementing the standard's separately declared fresh and stale windows.",
+   "techniques": [
+    {
+     "technique": "cache-key-discipline",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/graphText.ts:59 The graph-label caches use node/edge reference identity and are recreated when locale changes."
+    },
+    {
+     "technique": "in-flight-dedup",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/getDashboardData.ts:296 Failure cleanup clears the shared slot unconditionally, allowing an older failed flight to remove a replacement admitted after TTL rollover."
+    },
+    {
+     "technique": "parse-and-derive-caches",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/graphText.ts:61 Graph-label derivations use documented reference identity, garbage-collected input lifetime, and compute-on-miss accessors."
+    },
+    {
+     "technique": "plural-policy-claims",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/getDashboardData.ts:286 The shared money read takes no consumer cache-policy options, so competing policy claims do not arise here."
+    },
+    {
+     "technique": "similarity-keyed-admission",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/graphText.ts:151 Graph-label lookup uses exact node object identity rather than resemblance."
+    },
+    {
+     "technique": "swr-design",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/getDashboardData.ts:287 The memo declares one expiration threshold and clears the previous result before refreshing; it has no separate stale-serving window."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "client-fetch-cache",
+   "context": "votetrack-kompas-analysis",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-17T02:21:15.132028+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "client-fetch-cache"
+   ],
+   "techniques": [
+    "cache-key-discipline",
+    "in-flight-dedup",
+    "parse-and-derive-caches",
+    "plural-policy-claims",
+    "similarity-keyed-admission",
+    "swr-design"
+   ],
+   "deviations": 1,
+   "context": "volby-elections",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T02:21:15.132028+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "client-fetch-cache"
+   ],
+   "techniques": [
+    "cache-key-discipline",
+    "in-flight-dedup",
+    "parse-and-derive-caches",
+    "plural-policy-claims",
+    "similarity-keyed-admission",
+    "swr-design"
+   ],
+   "deviations": 1,
+   "context": "dashboard-instruments",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

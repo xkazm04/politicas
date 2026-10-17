@@ -5763,6 +5763,88 @@
           "evidence": "features/data-releases/DataReleasesPage.tsx:591 Those badges are run outcome. Searched unseen, readPosition, and lastSeen under features/data-releases and features/atlas; the loader takes no reader."
         }
       ]
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/client-fetch-cache": {
+      "context": "volby-elections",
+      "subject": "client-fetch-cache",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T02:21:15.132Z",
+      "worker": "76ba527c-b483-4afd-b8be-2bf5ba003009",
+      "techniques": [
+        {
+          "technique": "cache-key-discipline",
+          "verdict": "conformant",
+          "evidence": "features/volby/tenderLayer.ts:330 The fixed public tender fold is keyed by its Store instance, separating reads from different store instances."
+        },
+        {
+          "technique": "in-flight-dedup",
+          "verdict": "deviation",
+          "evidence": "features/volby/tenderLayer.ts:346 Cleanup does not compare flight identity, so an older flight failing after TTL replacement can delete the newer flight's entry."
+        },
+        {
+          "technique": "parse-and-derive-caches",
+          "verdict": "conformant",
+          "evidence": "features/volby/volbyLoader.ts:418 The pure findings derivation uses layer reference identity, WeakMap eviction, and a recomputation fallback inside allAuthorityFindings."
+        },
+        {
+          "technique": "plural-policy-claims",
+          "verdict": "not-applicable",
+          "evidence": "features/volby/tenderLayer.ts:337 The shared read accepts a Store only; callers cannot supply competing lifetime or eviction claims."
+        },
+        {
+          "technique": "similarity-keyed-admission",
+          "verdict": "not-applicable",
+          "evidence": "features/volby/tenderLayer.ts:338 Lookup uses exact Store object identity, without a resemblance metric or admission threshold."
+        },
+        {
+          "technique": "swr-design",
+          "verdict": "deviation",
+          "evidence": "features/volby/tenderLayer.ts:339 Only one TTL is declared; expiration starts a replacement read rather than serving stale data while revalidating."
+        }
+      ]
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/client-fetch-cache": {
+      "context": "dashboard-instruments",
+      "subject": "client-fetch-cache",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T02:21:15.132Z",
+      "worker": "76ba527c-b483-4afd-b8be-2bf5ba003009",
+      "techniques": [
+        {
+          "technique": "cache-key-discipline",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/graphText.ts:59 The graph-label caches use node/edge reference identity and are recreated when locale changes."
+        },
+        {
+          "technique": "in-flight-dedup",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/getDashboardData.ts:296 Failure cleanup clears the shared slot unconditionally, allowing an older failed flight to remove a replacement admitted after TTL rollover."
+        },
+        {
+          "technique": "parse-and-derive-caches",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/graphText.ts:61 Graph-label derivations use documented reference identity, garbage-collected input lifetime, and compute-on-miss accessors."
+        },
+        {
+          "technique": "plural-policy-claims",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:286 The shared money read takes no consumer cache-policy options, so competing policy claims do not arise here."
+        },
+        {
+          "technique": "similarity-keyed-admission",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/graphText.ts:151 Graph-label lookup uses exact node object identity rather than resemblance."
+        },
+        {
+          "technique": "swr-design",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/getDashboardData.ts:287 The memo declares one expiration threshold and clears the previous result before refreshing; it has no separate stale-serving window."
+        }
+      ]
     }
   }
 }

@@ -4402,7 +4402,11 @@
           "revision": 15,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/getDashboardData.ts:287 The dashboard discards its remembered money read at expiration and awaits a replacement instead of implementing the standard's separately declared fresh and stale windows.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:20824426732ffb6a",
+          "evaluatedRevision": 15
         },
         {
           "subject": "analytics-store-design",
@@ -12916,7 +12920,11 @@
           "revision": 15,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/volby/tenderLayer.ts:339 The surface-loader cache has one TTL followed by a blocking replacement read, without the standard's separately declared stale-serving window and background revalidation.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:20824426732ffb6a",
+          "evaluatedRevision": 15
         },
         {
           "subject": "docs-sync",
