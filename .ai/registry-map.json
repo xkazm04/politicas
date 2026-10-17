@@ -1430,7 +1430,11 @@
           "revision": 4,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/layout.tsx:99 The root layout composes the left rail and page children inside the document body; a case-insensitive search of app/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits, so this context has no native process holding a capability the page cannot reach.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:0ab230f2977430e7",
+          "evaluatedRevision": 4
         },
         {
           "subject": "app-shell",
@@ -6849,7 +6853,11 @@
           "revision": 4,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:4 The canvas reaches the knowledge graph only through Next.js server actions that validate inputs and read the store; a case-insensitive search of features/graph/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:0ab230f2977430e7",
+          "evaluatedRevision": 4
         },
         {
           "subject": "translation-pipeline-topology",
@@ -12055,7 +12063,11 @@
           "revision": 4,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shell/AppShell.tsx:4 AppShell is the in-document navigation frame, with the left rail as part of the layout and the route taken from next/navigation; a case-insensitive search of features/shell/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:0ab230f2977430e7",
+          "evaluatedRevision": 4
         },
         {
           "subject": "prompt-assembly",

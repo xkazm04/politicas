@@ -6132,6 +6132,36 @@
           "evidence": "lib/analysis/money-feed.ts:618 This threshold identifies companies attracting multiple person matches; it is an identity-resolution check, with no fiscal peer group to widen."
         }
       ]
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/native-shell-integration": {
+      "context": "app-shell",
+      "subject": "native-shell-integration",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T03:06:50.098Z",
+      "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
+      "techniques": []
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/native-shell-integration": {
+      "context": "shell-navigation",
+      "subject": "native-shell-integration",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T03:06:50.098Z",
+      "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
+      "techniques": []
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/native-shell-integration": {
+      "context": "graph-data-logic",
+      "subject": "native-shell-integration",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T03:06:50.098Z",
+      "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
+      "techniques": []
     }
   }
 }
