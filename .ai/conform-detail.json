@@ -6477,6 +6477,78 @@
           "evidence": "features/dukazy/limitNotes.ts:59 The notice identifies an unread data layer, not a chain continuation disposition."
         }
       ]
+    },
+    "3e0155e0-4169-49a7-b22d-7a7fe3483ee4/audit-logging": {
+      "context": "civic-evidence",
+      "subject": "audit-logging",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T03:53:49.681Z",
+      "techniques": [
+        {
+          "technique": "append-only-design",
+          "verdict": "conformant",
+          "evidence": "features/dukazy/chainRow.test.ts:3 The bulletin's own chain test names the trail append-only and reads two successive decisions on one tie back as two rows."
+        },
+        {
+          "technique": "audit-querying",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/deriveFeed.ts:305 The forensic entry invents the actor. Tie subjects are also current kg labels looked up at read time, not names stored on the row. The page is a capped chronological dump, not a filter on actor, action, subject, and time."
+        },
+        {
+          "technique": "decision-records",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/deriveFeed.ts:306 The forensic act hardcodes the previous status. Tie rows do carry the audit row's priorState, reviewer, and id; this branch does not."
+        },
+        {
+          "technique": "record-axis-predicate",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/deriveFeed.ts:339 Ordering uses one decidedAt clock. A search of features/dukazy for invalidated_at, recorded_at, and asOf found no invalidation interval to rewind."
+        },
+        {
+          "technique": "tamper-evidence",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/DukazyPage.tsx:84 The page shows the stored position and hash, or an unchained label, and does not recompute a verified, tampered, unsigned, or unverifiable verdict. chainRow.test.ts verifies the mapper output in a test, not on the served page."
+        },
+        {
+          "technique": "two-clock-records",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/getDukazyData.ts:147 A missing sign-off time is published as provenance computedAt. Nothing in the tree writes forensic_signed_at; the review door stamps forensic_review_at, which this read does not use."
+        },
+        {
+          "technique": "write-chokepoint",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/deriveFeed.ts:312 The feed still publishes that sign-off as a decision entry with a null chain, so this class of decision does not pass the audit insert."
+        },
+        {
+          "technique": "write-path-sanitization",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/deriveFeed.ts:15 The free-text note is accepted on the audit row and dropped only when the bulletin is built, which is an after-the-fact omission rather than a scrub before insert."
+        }
+      ],
+      "registryProposal": "decision-records says to commit the mutable state first and append the ledger best-effort afterwards, while best-effort-with-accounting's named exception lets the record precede the action and fail it. A human judgment cannot follow both; the standard should say which rule wins when the audited act is the judgment itself.",
+      "withdrawn": {
+        "worker": "751afbc0-d053-4fa7-a16a-560415ee9aeb",
+        "state": "deviation",
+        "at": "2026-10-17T03:54:08.821066+00:00",
+        "reason": "reviewer (sonnet): deriveFeed.ts:305 sets reviewer to the placeholder \"posudek podepsán\" (\"report signed\"), which names no person. DukazyPage.tsx:108 renders a separate signedOff label for forensic entries instead of the reviewer field. The code comments state that the forensic entry has no chain position or hash and "
+      }
+    },
+    "4bf433a5-ab8e-4468-b456-344daae2ce21/audit-logging": {
+      "context": "votetrack-ledger",
+      "subject": "audit-logging",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T03:53:49.681Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "751afbc0-d053-4fa7-a16a-560415ee9aeb",
+        "state": "not-applicable",
+        "at": "2026-10-17T03:54:08.859760+00:00",
+        "reason": "reviewer (sonnet): The anchor, ledgerRead.ts:108, is a doc comment on toEventIn. It describes which vote_event columns are projected but does not show that the context has no system audit trail. The only support is a keyword search for five terms that I could not confirm are the right ones for this subject."
+      }
     }
   }
 }
