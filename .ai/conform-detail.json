@@ -5540,6 +5540,119 @@
           "evidence": "app/sitemap.ts:63 For this context's sitemap consumer, public destinations derive from the shared navigation declarations and imported crawler exclusions rather than another handwritten route list."
         }
       ]
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/civic-source-adapters": {
+      "context": "money-contracts",
+      "subject": "civic-source-adapters",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T01:23:09.130Z",
+      "worker": "461f5a73-9fb0-4637-b304-e58d6d79abf5",
+      "techniques": [
+        {
+          "technique": "entity-name-normalization",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/persist-contract-harvest.ts:73 The scoped contract joins use company IČOs and contract identifiers rather than cross-registry name matching."
+        },
+        {
+          "technique": "fail-loud-schema-drift",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/smlouvy.ts:191 Missing headers bypass validation; parsePage subsequently permits an empty result without proving page identity or a documented empty-result marker."
+        },
+        {
+          "technique": "legacy-encoding-and-escape-parsing",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/smlouvy.ts:233 The technique's raw-column coercion rule applies: parseCzechDate checks token shape but emits impossible calendar dates without semantic validation."
+        },
+        {
+          "technique": "licence-and-privacy-by-construction",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/harvest-contract-dumps.ts:148 A failed download retains unfiltered bulk data in a .partial file; the finally block removes only the final .xml path, leaving this temporary copy outside the promised filtering and cleanup boundary."
+        },
+        {
+          "technique": "publisher-sentinel-values",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/smlouvy.ts:215 Blank values and the publisher's not-stated sentinel share the same result, also used for rejected input, so their missingness reasons cannot be counted separately."
+        },
+        {
+          "technique": "session-bound-scraping",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/smlouvy.ts:454 The client implements cookie handoff but appends pages without detecting repeated windows or duplicate contract IDs; an ignored offset can therefore duplicate contracts until the page cap."
+        }
+      ]
+    },
+    "6b1859ef-0a64-4966-bfbb-8808a7c04d1e/civic-source-adapters": {
+      "context": "czech-civic-data",
+      "subject": "civic-source-adapters",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T01:23:09.130Z",
+      "worker": "461f5a73-9fb0-4637-b304-e58d6d79abf5",
+      "techniques": [
+        {
+          "technique": "entity-name-normalization",
+          "verdict": "conformant",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:55 The shared folding utility combines lowercase NFD normalization, explicit transliteration, whitespace collapse, and preservation of unsupported characters; tests cover composed and decomposed inputs."
+        },
+        {
+          "technique": "legacy-encoding-and-escape-parsing",
+          "verdict": "deviation",
+          "evidence": "packages/czech-civic-data/src/unl.ts:39 The fallback consumes undocumented escape markers; unl.test.ts explicitly expects a\\\\qb to become aqb rather than preserving the original token."
+        },
+        {
+          "technique": "publisher-sentinel-values",
+          "verdict": "deviation",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:75 Absent birth dates return exactly the same object as BIRTH_DATE_UNKNOWN_SENTINEL in the following branch, losing the required absent-versus-publisher-sentinel distinction."
+        },
+        {
+          "technique": "session-bound-scraping",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/README.md:153 Source acquisition and feed lifecycle are delegated to adapters; the package implements in-memory codecs and normalization rather than registry search sessions."
+        }
+      ]
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/civic-source-adapters": {
+      "context": "testing-flake-sentinel",
+      "subject": "civic-source-adapters",
+      "bundle": "civic-intelligence",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T01:23:09.130Z",
+      "worker": "461f5a73-9fb0-4637-b304-e58d6d79abf5",
+      "techniques": [
+        {
+          "technique": "entity-name-normalization",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/flake/history.ts:53 Identity keys combine test module paths and test names, not civic person or company names."
+        },
+        {
+          "technique": "fail-loud-schema-drift",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/sentinel/report.ts:110 This validates an internal, explicitly versioned report codec rather than a publisher's positional table or versionless snapshot."
+        },
+        {
+          "technique": "legacy-encoding-and-escape-parsing",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/flake/registry.ts:73 The quarantine register is local UTF-8 JSON, not a legacy civic export."
+        },
+        {
+          "technique": "licence-and-privacy-by-construction",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/flake/history-reporter.ts:41 The reporter records test execution metadata rather than acquiring public-registry records."
+        },
+        {
+          "technique": "publisher-sentinel-values",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/sentinel/report.ts:124 These are internally defined audit verdicts, not publisher codes or magic missing-value conventions."
+        },
+        {
+          "technique": "session-bound-scraping",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/sentinel/facts.ts:217 Fact collection queries the existing local graph rather than scraping a registry search interface."
+        }
+      ]
     }
   }
 }

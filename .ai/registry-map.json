@@ -4014,7 +4014,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/czech-civic-data/src/unl.ts:39 The UNL parser strips the backslash from undocumented escapes instead of preserving and quarantining them, silently changing source values.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:12619eb6d175ea59",
+          "evaluatedRevision": 7
         },
         {
           "subject": "multi-provider-gateway-plane",
@@ -10221,7 +10225,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/ingest/sources/smlouvy.ts:191 The sweeps' shared scraper accepts a missing header without verifying an empty-result marker, allowing an unexpected page to become an apparently successful empty acquisition.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:12619eb6d175ea59",
+          "evaluatedRevision": 7
         }
       ],
       "governance": "governed"
@@ -12638,7 +12646,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/testing/sentinel/invariants.ts:3 Searches found no parseUnl, decodeUnl, SmlouvyClient, or asciiFold hits in the flake/sentinel directories, while repository searches found them elsewhere; this context handles local test history and stored-graph checks.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:12619eb6d175ea59",
+          "evaluatedRevision": 7
         }
       ],
       "governance": "governed"
