@@ -6992,6 +6992,52 @@
           "evidence": "features/budget/tools/generate-municipal-suppliers.ts:102 The opened generator constructs and writes its own deterministic data module; the technique excludes deterministic generators."
         }
       ]
+    },
+    "f4e73683-b40c-4436-b8ea-20e407f499ab/dependency-declaration": {
+      "context": "eslint-plugin-civic-transparency-rules",
+      "subject": "dependency-declaration",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T04:36:29.835Z",
+      "worker": "d753f52c-b29e-4870-8b75-00a00727aa5d",
+      "techniques": [
+        {
+          "technique": "attachment-coherence",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:75 Registration supplies a plugin-owned object under an explicit namespace; the inspected rules do not attach interface implementations to foreign types."
+        },
+        {
+          "technique": "declaration-invariants",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 The package owns its peer requirement; its rule modules declare their direct references without requiring consumers to enumerate transitive requirements."
+        },
+        {
+          "technique": "logical-name-or-address",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:37 A direct relative address binds a package-owned internal rule, where consumer substitution is unnecessary."
+        },
+        {
+          "technique": "progressive-resolution",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:46 The entry point explicitly lists its closed set of owned rules; it does not implement an open dependency resolver or consume a generated transitive map."
+        },
+        {
+          "technique": "shortcut-is-not-the-substrate",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:108 The exported object exposes rules directly alongside optional presets, allowing consumers to register it under their own prefix and configure rules independently."
+        },
+        {
+          "technique": "unsatisfiable-set-empirical-gate",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:31 The manifest's sole peer constraint is ESLint >=9, compatible with the application's declared ESLint ^9; no mutually exclusive constraint pair or install bypass was established."
+        },
+        {
+          "technique": "vendored-copy-loses-composition",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:8 The inspected entry point loads owned source modules, while ESLint remains an external peer; this is not a bundled private copy of a shared runtime."
+        }
+      ]
     }
   }
 }

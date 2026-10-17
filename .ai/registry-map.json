@@ -5853,7 +5853,11 @@
           "revision": 6,
           "changedAt": "2026-09-11",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 The plugin declares its host requirement locally, references its own rules directly, and exposes registration independently of its convenience presets.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:4eb7088d6ed99926",
+          "evaluatedRevision": 6
         },
         {
           "subject": "mcp-tools",
