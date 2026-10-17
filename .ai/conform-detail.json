@@ -7224,6 +7224,87 @@
         }
       ],
       "registryProposal": "Techniques placement-precedes-gate and constraint-deletion-is-silent are effectively reinforced when compile-time exhaustiveness maps are coupled with dedicated targeted corruption fixtures."
+    },
+    "4a469aa2-e8dd-4ec4-b8c7-b8838f526aae/model-routing": {
+      "context": "app-utilities",
+      "subject": "model-routing",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T22:54:06.302Z",
+      "techniques": [
+        {
+          "technique": "admission-is-not-a-tier",
+          "verdict": "not-applicable",
+          "evidence": "lib/security/adminGate.ts:44 This admission check authenticates an administrator; it does not admit model endpoints."
+        },
+        {
+          "technique": "cache-continuity",
+          "verdict": "not-applicable",
+          "evidence": "lib/i18n/useFormat.ts:16 The memoized object contains locale formatters, not a model conversation or cached prompt."
+        },
+        {
+          "technique": "candidate-ranking",
+          "verdict": "not-applicable",
+          "evidence": "lib/routing/intParam.ts:14 Route-segment validation does not rank model candidates."
+        },
+        {
+          "technique": "capability-floors",
+          "verdict": "not-applicable",
+          "evidence": "lib/routing/pspIdParam.ts:10 The acceptance constraint concerns an MP identifier, not minimum model capability."
+        },
+        {
+          "technique": "consumer-overrides",
+          "verdict": "not-applicable",
+          "evidence": "lib/i18n/locale.ts:13 The consumer preference changes a locale cookie, not model routing."
+        },
+        {
+          "technique": "effort-calibration",
+          "verdict": "not-applicable",
+          "evidence": "lib/i18n/config.ts:8 The configuration enumerates locales and supplies no model-tier or reasoning-effort mapping."
+        },
+        {
+          "technique": "failover-horizon",
+          "verdict": "not-applicable",
+          "evidence": "lib/routing/liveUrl.ts:10 The fallback returns a relative page URL; it does not substitute an answering model."
+        },
+        {
+          "technique": "failover-path-liveness",
+          "verdict": "not-applicable",
+          "evidence": "lib/routing/liveUrl.test.ts:15 The exercised fallback handles a missing host header, not a failed model provider."
+        },
+        {
+          "technique": "model-identity",
+          "verdict": "not-applicable",
+          "evidence": "lib/i18n/request.ts:15 The selected resource is a local translation catalog, not a model or provider endpoint."
+        },
+        {
+          "technique": "policy-governance",
+          "verdict": "not-applicable",
+          "evidence": "lib/security/token.ts:57 The decision concerns shared-token authorization and creates no model-routing policy obligation."
+        },
+        {
+          "technique": "quality-axis-separation",
+          "verdict": "not-applicable",
+          "evidence": "lib/security/token.ts:29 Token equality supplies no model transport or generated-answer quality signal."
+        },
+        {
+          "technique": "routing-policy",
+          "verdict": "not-applicable",
+          "evidence": "lib/i18n/request.ts:13 The selection policy resolves a locale, not permitted model providers."
+        },
+        {
+          "technique": "turn-classification",
+          "verdict": "not-applicable",
+          "evidence": "lib/routing/searchParam.ts:8 This extracts a URL parameter; the context originates no language-model calls requiring classes."
+        }
+      ],
+      "withdrawn": {
+        "worker": "1d99d94a-4635-44c6-bd10-47691e9cc560",
+        "state": "not-applicable",
+        "at": "2026-10-17T22:54:27.102447+00:00",
+        "reason": "reviewer (sonnet): The context really has no model calls (my grep of lib/routing and lib/i18n for llm, model, gemini, gpt, claude, completion and prompt found nothing relevant). But the anchor liveUrl.ts:16 (`const h = await headers()`) is incidental: it shows nothing about model routing being absent. The technique an"
+      }
     }
   }
 }

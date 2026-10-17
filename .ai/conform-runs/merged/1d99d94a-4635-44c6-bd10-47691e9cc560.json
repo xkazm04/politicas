@@ -1,0 +1,49 @@
+{
+  "schema": "conform-run/1",
+  "worker": "1d99d94a-4635-44c6-bd10-47691e9cc560",
+  "subject": "model-routing",
+  "evaluatedAt": "2026-10-17T22:54:06.302281+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "model-routing",
+      "context": "effort-scoring-tools",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "model-routing",
+      "context": "app-utilities",
+      "reason": "withdrawn after review: reviewer (sonnet): The context really has no model calls (my grep of lib/routing and lib/i18n for llm, model, gemini, gpt, claude, completion and prompt found nothing relevant). But the anchor liveUrl.ts:16 (`const h = await headers()`) is incidental: it shows nothing about model routing being absent. The technique an"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-17T22:54:06.302281+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "model-routing"
+      ],
+      "techniques": [
+        "admission-is-not-a-tier",
+        "cache-continuity",
+        "candidate-ranking",
+        "capability-floors",
+        "consumer-overrides",
+        "effort-calibration",
+        "failover-horizon",
+        "failover-path-liveness",
+        "model-identity",
+        "policy-governance",
+        "quality-axis-separation",
+        "routing-policy",
+        "turn-classification"
+      ],
+      "deviations": 0,
+      "context": "app-utilities",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}
