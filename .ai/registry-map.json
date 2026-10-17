@@ -2573,7 +2573,11 @@
           "revision": 12,
           "changedAt": "2026-09-18",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dukazy/getDukazyData.ts:163 Searches found no agent, handoff, chainId or stopReason in this context, which projects audit records and signed verdicts into a public feed rather than continuing agent executions.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:596d59ae9fc2d310",
+          "evaluatedRevision": 12
         },
         {
           "subject": "agent-runtime-assembly",
@@ -11927,7 +11931,11 @@
           "revision": 12,
           "changedAt": "2026-09-18",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shared/provenance/getReceiptData.ts:179 Searches found no agent, handoff, chainId or stopReason in this context, whose loader derives receipts from stored graph records without event-wired agent continuation.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:596d59ae9fc2d310",
+          "evaluatedRevision": 12
         },
         {
           "subject": "public-claim-provenance",

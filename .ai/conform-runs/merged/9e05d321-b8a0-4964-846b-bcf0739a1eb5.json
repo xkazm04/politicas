@@ -1,0 +1,165 @@
+{
+ "schema": "conform-run/1",
+ "worker": "9e05d321-b8a0-4964-846b-bcf0739a1eb5",
+ "subject": "agent-chaining",
+ "evaluatedAt": "2026-10-17T03:22:37.538447+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "shared-provenance",
+   "subject": "agent-chaining",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shared/provenance/getReceiptData.ts:179 Searches found no agent, handoff, chainId or stopReason in this context, whose loader derives receipts from stored graph records without event-wired agent continuation.",
+   "techniques": [
+    {
+     "technique": "chain-identity-and-rollup",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/claimRef.ts:91 Identity addresses a graph claim, not a chain of agent executions."
+    },
+    {
+     "technique": "cycle-and-depth-guards",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/claimRef.ts:72 The bound validates a citation address; there is no agent continuation path to bound."
+    },
+    {
+     "technique": "graph-to-wiring-translation",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/caseFileLink.ts:63 Graph identifiers become navigation URLs, not emitter/listener wiring."
+    },
+    {
+     "technique": "grounding-over-deliberation",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/ReceiptPage.tsx:96 Verification is offered through reader navigation; this context adds no agent verification step."
+    },
+    {
+     "technique": "handoff-figures-carry-their-population",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/ReceiptBody.tsx:215 The receipt formats a stored weight for display rather than passing an arithmetic operand between agents."
+    },
+    {
+     "technique": "handoff-payload-contracts",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/ProvenanceCapsule.tsx:143 The receipt crosses a component-prop boundary, not an agent handoff."
+    },
+    {
+     "technique": "run-conditions",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/receipt.ts:353 This condition controls ClaimReview publication, not whether a downstream agent starts."
+    },
+    {
+     "technique": "stop-reason-ledgers",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/getReceiptData.ts:182 This reports receipt-loading failure; no agent chain has stopped."
+    }
+   ],
+   "absenceTerms": [
+    "agent",
+    "handoff",
+    "chainId",
+    "stopReason"
+   ]
+  },
+  {
+   "context": "civic-evidence",
+   "subject": "agent-chaining",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dukazy/getDukazyData.ts:163 Searches found no agent, handoff, chainId or stopReason in this context, which projects audit records and signed verdicts into a public feed rather than continuing agent executions.",
+   "techniques": [
+    {
+     "technique": "chain-identity-and-rollup",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:279 This preserves a hash-linked audit row's position, not agent execution membership."
+    },
+    {
+     "technique": "cycle-and-depth-guards",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/readReviewAudit.ts:67 The limit bounds a database read; no recursive agent execution is admitted."
+    },
+    {
+     "technique": "graph-to-wiring-translation",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:281 An audited relation becomes a receipt link, not runtime subscriptions."
+    },
+    {
+     "technique": "grounding-over-deliberation",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:201 The feed reads an existing human sign-off; it does not construct an agent confidence chain."
+    },
+    {
+     "technique": "handoff-figures-carry-their-population",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/getDukazyData.ts:164 This counts the audit rows read for publication, not a numeric operand handed to another agent."
+    },
+    {
+     "technique": "handoff-payload-contracts",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/feedCodecs.ts:178 Serialization produces a public JSON feed rather than an agent handoff envelope."
+    },
+    {
+     "technique": "run-conditions",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:336 The predicate selects published records; it does not trigger downstream execution."
+    },
+    {
+     "technique": "stop-reason-ledgers",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/limitNotes.ts:59 The notice identifies an unread data layer, not a chain continuation disposition."
+    }
+   ],
+   "absenceTerms": [
+    "agent",
+    "handoff",
+    "chainId",
+    "stopReason"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T03:22:37.538447+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-chaining"
+   ],
+   "techniques": [
+    "chain-identity-and-rollup",
+    "cycle-and-depth-guards",
+    "graph-to-wiring-translation",
+    "grounding-over-deliberation",
+    "handoff-figures-carry-their-population",
+    "handoff-payload-contracts",
+    "run-conditions",
+    "stop-reason-ledgers"
+   ],
+   "deviations": 0,
+   "context": "shared-provenance",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T03:22:37.538447+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-chaining"
+   ],
+   "techniques": [
+    "chain-identity-and-rollup",
+    "cycle-and-depth-guards",
+    "graph-to-wiring-translation",
+    "grounding-over-deliberation",
+    "handoff-figures-carry-their-population",
+    "handoff-payload-contracts",
+    "run-conditions",
+    "stop-reason-ledgers"
+   ],
+   "deviations": 0,
+   "context": "civic-evidence",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
