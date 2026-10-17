@@ -1,0 +1,117 @@
+{
+ "schema": "conform-run/1",
+ "worker": "27bf6ebb-68c4-4ab0-9f23-722d02508b15",
+ "subject": "i18n",
+ "evaluatedAt": "2026-10-17T02:37:27.295112+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "app-utilities",
+   "subject": "i18n",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/i18n/request.ts:15 The request loader imports the entire selected catalog without section splitting or source-catalog merging, so delivery and missing-translation behavior fall short of the standard.",
+   "techniques": [
+    {
+     "technique": "catalog-architecture",
+     "verdict": "deviation",
+     "evidence": "lib/i18n/request.ts:15 Loads one whole locale file rather than independently loadable sections and supplies no source-catalog merge."
+    },
+    {
+     "technique": "incomplete-bundle-kill-switch",
+     "verdict": "deviation",
+     "evidence": "lib/i18n/locale.ts:11 The setter checks membership in the supported locale list, with no separate per-locale shipping predicate; request rehydration likewise uses only isLocale."
+    },
+    {
+     "technique": "interpolation-and-plurals",
+     "verdict": "deviation",
+     "evidence": "lib/format.ts:66 The implementation behind useFormat constructs numeric notation manually; the technique requires platform locale-aware formatters."
+    },
+    {
+     "technique": "script-aware-presentation",
+     "verdict": "not-applicable",
+     "evidence": "lib/i18n/config.ts:8 The supported locales both use Latin script; no additional script requires separate presentation metrics."
+    },
+    {
+     "technique": "token-label-separation",
+     "verdict": "conformant",
+     "evidence": "lib/i18n/config.ts:15 Locale identifiers have an exhaustive typed mapping to human-readable endonyms, keeping machine identity separate from display labels."
+    }
+   ]
+  },
+  {
+   "context": "shell-ui-components",
+   "subject": "i18n",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "components/LanguageSwitcher.tsx:35 The switcher renders every supported locale without a shipping predicate, preventing independent withdrawal of an untrustworthy bundle.",
+   "techniques": [
+    {
+     "technique": "incomplete-bundle-kill-switch",
+     "verdict": "deviation",
+     "evidence": "components/LanguageSwitcher.tsx:35 The menu enumerates the entire supported locale list without filtering through a per-locale shipping predicate."
+    },
+    {
+     "technique": "interpolation-and-plurals",
+     "verdict": "not-applicable",
+     "evidence": "components/LanguageSwitcher.tsx:33 The switcher's prose is a complete parameterless message; neither component constructs dynamic sentences or pluralized copy."
+    },
+    {
+     "technique": "locale-runtime",
+     "verdict": "deviation",
+     "evidence": "components/LanguageSwitcher.tsx:42 Locale switching starts on click; the fully inspected component has no hover or focus handler to prefetch the candidate locale on intent."
+    },
+    {
+     "technique": "script-aware-presentation",
+     "verdict": "not-applicable",
+     "evidence": "components/LanguageSwitcher.tsx:3 The toggle offers Czech and English, both Latin-script locales, so cross-script typography adjustments are not triggered."
+    },
+    {
+     "technique": "token-label-separation",
+     "verdict": "conformant",
+     "evidence": "components/LanguageSwitcher.tsx:44 Accessibility text comes from the locale-label map while selection and persistence use the stable locale identifier."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T02:37:27.295112+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "i18n"
+   ],
+   "techniques": [
+    "catalog-architecture",
+    "incomplete-bundle-kill-switch",
+    "interpolation-and-plurals",
+    "script-aware-presentation",
+    "token-label-separation"
+   ],
+   "deviations": 1,
+   "context": "app-utilities",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T02:37:27.295112+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "i18n"
+   ],
+   "techniques": [
+    "incomplete-bundle-kill-switch",
+    "interpolation-and-plurals",
+    "locale-runtime",
+    "script-aware-presentation",
+    "token-label-separation"
+   ],
+   "deviations": 1,
+   "context": "shell-ui-components",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

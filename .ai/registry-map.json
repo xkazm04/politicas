@@ -1573,7 +1573,11 @@
           "revision": 7,
           "changedAt": "2026-09-06",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/i18n/request.ts:15 The request loader imports the entire selected catalog without section splitting or source-catalog merging, so delivery and missing-translation behavior fall short of the standard.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:13f1a2698a82c874",
+          "evaluatedRevision": 7
         },
         {
           "subject": "mcp-tools",
@@ -12182,7 +12186,11 @@
           "revision": 7,
           "changedAt": "2026-09-06",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "components/LanguageSwitcher.tsx:35 The switcher renders every supported locale without a shipping predicate, preventing independent withdrawal of an untrustworthy bundle.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:13f1a2698a82c874",
+          "evaluatedRevision": 7
         },
         {
           "subject": "quality-gates",
