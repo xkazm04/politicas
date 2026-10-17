@@ -6050,6 +6050,88 @@
         "at": "2026-10-17T02:48:15.920556+00:00",
         "reason": "reviewer (sonnet): The anchor changeEvents.ts:12 is a header comment about civic change events and doesn't show that no LLM call exists. The technique anchors are incidental lines (the recordedAt epoch filter, an entityKeys/evidence map, a parser stamp). My grep over lib/ingest for anthropic, openai, gemini, llm and t"
       }
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/state-budget-analysis": {
+      "context": "budget-mirror",
+      "subject": "state-budget-analysis",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T02:55:54.938Z",
+      "worker": "5da7ea67-e8f2-4f5d-88e1-e0cdc6bee6c2",
+      "techniques": [
+        {
+          "technique": "consolidated-vs-headline-figures",
+          "verdict": "deviation",
+          "evidence": "features/budget/data/budgetSnapshots.generated.ts:3 The adapter consistently selects consolidated expenditure, capital expenditure and balance, but the inspected provenance does not declare the metric-specific institutional perimeter, accounting basis or approved/revised/executed stage required by the standard."
+        },
+        {
+          "technique": "median-over-mean-for-peers",
+          "verdict": "deviation",
+          "evidence": "features/budget/peerGroups.ts:162 Empty medians return null and missing values are excluded, but only the selected year's debt sample count is returned; capital, balance and individual trend points lack their own effective sample sizes."
+        },
+        {
+          "technique": "municipal-money-trail",
+          "verdict": "deviation",
+          "evidence": "features/budget/supplierTrail.ts:253 Publisher status independently establishes attribution, although the standard requires the town to be a contracting party; live review-state handling and contract-value disclaimers do not resolve this join error."
+        },
+        {
+          "technique": "peer-group-construction",
+          "verdict": "deviation",
+          "evidence": "features/budget/peerGroups.ts:72 Membership checks self-exclusion, coverage and population band, followed by region, but never establishes comparable mandates or reporting perimeters before grouping."
+        },
+        {
+          "technique": "per-capita-normalisation",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/monitor.ts:194 mirrorData imports this helper and stores rounded per-capita series before peer medians are computed, contrary to retaining full precision until display."
+        },
+        {
+          "technique": "small-sample-widening",
+          "verdict": "deviation",
+          "evidence": "features/budget/MoneyTrailSection.tsx:352 Supplier comparisons display every non-null median, including the one-peer case exercised in supplierTrail.test.ts, without applying MIN_PEERS to the effective sample or establishing the complete-population exception."
+        }
+      ]
+    },
+    "ededba42-cb3c-4821-8d13-dd4123266054/state-budget-analysis": {
+      "context": "financial-analysis",
+      "subject": "state-budget-analysis",
+      "bundle": "civic-intelligence",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T02:55:54.938Z",
+      "worker": "5da7ea67-e8f2-4f5d-88e1-e0cdc6bee6c2",
+      "techniques": [
+        {
+          "technique": "consolidated-vs-headline-figures",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/money-feed.ts:205 This parser selects an individual contract's registered price, not an official figure representing a municipality's budget."
+        },
+        {
+          "technique": "median-over-mean-for-peers",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/kg-money.ts:313 The computation sums contract amounts along an MP's company trail rather than estimating a typical municipality."
+        },
+        {
+          "technique": "municipal-money-trail",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/kg-money.ts:152 The linkage starts from an MP and connects companies to contracts; this context does not attribute contracts to a municipality's budget."
+        },
+        {
+          "technique": "peer-group-construction",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/kg-money.ts:299 Grouping collects companies under a person identifier, not comparable municipalities."
+        },
+        {
+          "technique": "per-capita-normalisation",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/money-feed.ts:448 Company enrichment carries subsidy totals, without publishing municipal fiscal metrics or comparing towns of different sizes."
+        },
+        {
+          "technique": "small-sample-widening",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/money-feed.ts:618 This threshold identifies companies attracting multiple person matches; it is an identity-resolution check, with no fiscal peer group to widen."
+        }
+      ]
     }
   }
 }

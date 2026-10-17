@@ -1722,7 +1722,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/budget/supplierTrail.ts:253 The supplier join attributes contracts through the municipality's publisher identifier without requiring contracting-party membership, which the standard explicitly forbids.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:950ba8b9dd844d1f",
+          "evaluatedRevision": 3
         },
         {
           "subject": "prompt-assembly",
@@ -6388,7 +6392,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/analysis/kg-money.ts:317 This context aggregates contract trails by MP and company; searches for the five listed budget-analysis identifiers found no matches throughout lib/analysis, while repository searches located the municipal implementation in BudgetMirror and its MONITOR adapter.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:950ba8b9dd844d1f",
+          "evaluatedRevision": 3
         },
         {
           "subject": "test-harness",
