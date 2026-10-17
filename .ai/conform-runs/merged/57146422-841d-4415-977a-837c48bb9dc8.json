@@ -1,0 +1,151 @@
+{
+ "schema": "conform-run/1",
+ "worker": "57146422-841d-4415-977a-837c48bb9dc8",
+ "subject": "generator-uncertainty-scoring",
+ "evaluatedAt": "2026-10-17T21:27:04.668966+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "civicscore-scoring",
+   "subject": "generator-uncertainty-scoring",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "features/civicscore/duel.ts:24 Searches found no logprobs, prompt, or entropy in features/civicscore; the reviewed surface compares published civic scores rather than measuring generator uncertainty.",
+   "techniques": [
+    {
+     "technique": "compare-gates-at-matched-coverage",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/duel.ts:26 Compares two MPs' scores, without a confidence gate or scorer comparison."
+    },
+    {
+     "technique": "generator-vs-itself",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/provenance.ts:93 Aggregates stored provenance deterministically; no repeated generation is measured."
+    },
+    {
+     "technique": "probability-calibration-is-not-agreement",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/MetodikaVolbySection.tsx:55 The displayed percentage expresses a dependence threshold, not confidence in generated output."
+    },
+    {
+     "technique": "score-source-ensembling",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/MetodikaPage.tsx:47 Sums published civic formula weights, not weights combining uncertainty scorers."
+    },
+    {
+     "technique": "score-source-kinds",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/duel.ts:12 The comparison consumes graph scores rather than defining dimensions of generator-output quality."
+    },
+    {
+     "technique": "scorer-cost-class",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/components/HeadToHead.tsx:212 Derives comparison rows locally from supplied parliamentary data; no generator scorer is selected."
+    },
+    {
+     "technique": "stated-distribution-over-closed-labels",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/components/HeadToHead.tsx:103 Displays an existing verdict rung; this surface makes no model-based closed-set decision."
+    }
+   ],
+   "absenceTerms": [
+    "logprobs",
+    "prompt",
+    "entropy"
+   ]
+  },
+  {
+   "context": "civic-score-computation",
+   "subject": "generator-uncertainty-scoring",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/analysis/contribution.ts:262 Searches found no logprobs, prompt, or entropy in lib/analysis; the reviewed engine derives parliamentary activity and corpus-quality metrics rather than generator uncertainty.",
+   "techniques": [
+    {
+     "technique": "compare-gates-at-matched-coverage",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/contribution-legacy.ts:76 The legacy scorer replays civic arithmetic, not a recalibrated confidence gate."
+    },
+    {
+     "technique": "generator-vs-itself",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/contribution-legacy.test.ts:71 Checks deterministic formula replay; repeated generator responses are absent."
+    },
+    {
+     "technique": "probability-calibration-is-not-agreement",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/atlas.ts:451 This percentage measures observed provenance coverage, not probability of correctness."
+    },
+    {
+     "technique": "score-source-ensembling",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/quality.ts:318 Combines deterministic corpus criteria, without judge or generator-confidence components."
+    },
+    {
+     "technique": "score-source-kinds",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/quality.ts:4 The quality scorer evaluates stored civic records, not model commitment or generated-answer quality."
+    },
+    {
+     "technique": "scorer-cost-class",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/context-provider.ts:172 The provider reads DataHub catalog metadata; it is not a model-serving or uncertainty-scoring provider."
+    },
+    {
+     "technique": "stated-distribution-over-closed-labels",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/rapporteur-load.ts:47 Returns fixed badge copy with an observed bill count, without requesting a model label distribution."
+    }
+   ],
+   "absenceTerms": [
+    "logprobs",
+    "prompt",
+    "entropy"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T21:27:04.668966+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "generator-uncertainty-scoring"
+   ],
+   "techniques": [
+    "compare-gates-at-matched-coverage",
+    "generator-vs-itself",
+    "probability-calibration-is-not-agreement",
+    "score-source-ensembling",
+    "score-source-kinds",
+    "scorer-cost-class",
+    "stated-distribution-over-closed-labels"
+   ],
+   "deviations": 0,
+   "context": "civicscore-scoring",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T21:27:04.668966+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "generator-uncertainty-scoring"
+   ],
+   "techniques": [
+    "compare-gates-at-matched-coverage",
+    "generator-vs-itself",
+    "probability-calibration-is-not-agreement",
+    "score-source-ensembling",
+    "score-source-kinds",
+    "scorer-cost-class",
+    "stated-distribution-over-closed-labels"
+   ],
+   "deviations": 0,
+   "context": "civic-score-computation",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

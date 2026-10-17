@@ -3352,7 +3352,11 @@
           "revision": 3,
           "changedAt": "2026-10-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/analysis/contribution.ts:262 Searches found no logprobs, prompt, or entropy in lib/analysis; the reviewed engine derives parliamentary activity and corpus-quality metrics rather than generator uncertainty.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a449ca2b8da79c6e",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-memory",
@@ -3865,7 +3869,11 @@
           "revision": 3,
           "changedAt": "2026-10-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:24 Searches found no logprobs, prompt, or entropy in features/civicscore; the reviewed surface compares published civic scores rather than measuring generator uncertainty.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a449ca2b8da79c6e",
+          "evaluatedRevision": 3
         },
         {
           "subject": "eval-harness",
