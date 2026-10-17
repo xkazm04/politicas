@@ -6748,6 +6748,88 @@
           "evidence": "app/not-found.tsx:47 The recovery link addresses an application entity surface, not a documentation topic describing a product location."
         }
       ]
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/english": {
+      "context": "landing-core",
+      "subject": "english",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T04:18:57.408Z",
+      "worker": "8f92523b-e29e-4ba0-aba0-842d7c26d8ae",
+      "techniques": [
+        {
+          "technique": "de-translationese-constructions",
+          "verdict": "deviation",
+          "evidence": "messages/en.json:511 EN-SOURCE-RESIDUE: the translated source citation retains Czech low-opening quotation marks around “unrated”; DataSources.tsx:140 renders this key."
+        },
+        {
+          "technique": "generated-prose-patterns",
+          "verdict": "conformant",
+          "evidence": "messages/en.json:195 EN-TEMPLATED-GRID: the five module descriptions name distinct mechanisms; this BudgetMirror description specifies concrete comparison measures."
+        },
+        {
+          "technique": "register-and-voice",
+          "verdict": "deviation",
+          "evidence": "messages/en.json:514 EN-WE: this unavailable-state message uses “we” instead of reporting the state neutrally; DataSources.tsx:84 renders it."
+        },
+        {
+          "technique": "typography-and-capitalization",
+          "verdict": "deviation",
+          "evidence": "messages/en.json:453 EN-DASH: the hero eyebrow contains an em dash despite the declared English ban."
+        },
+        {
+          "technique": "ui-and-landing-microcopy",
+          "verdict": "deviation",
+          "evidence": "messages/en.json:457 EN-BUTTON: HeroStory.tsx:71 renders this noun as the primary CTA; use a specific action such as “View the ranking”."
+        },
+        {
+          "technique": "variant-and-locale-conventions",
+          "verdict": "deviation",
+          "evidence": "features/landing/components/DataSources.tsx:102 EN-NUMFMT: this call renders messages/en.json:500, whose “{pct} %” preserves source-locale percent spacing instead of “{pct}%”."
+        }
+      ]
+    },
+    "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/english": {
+      "context": "landing-referendum",
+      "subject": "english",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T04:18:57.408Z",
+      "worker": "8f92523b-e29e-4ba0-aba0-842d7c26d8ae",
+      "techniques": [
+        {
+          "technique": "de-translationese-constructions",
+          "verdict": "deviation",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:192 EN-SOURCE-RESIDUE: this product paragraph bypasses translation and remains Czech when English is selected."
+        },
+        {
+          "technique": "false-friends-and-collocations",
+          "verdict": "deviation",
+          "evidence": "messages/en.json:1302 EN-COLLOCATION: these numerical scores are computed, not authored; the Czech source says “nespočítal”, and ReferendumPage.tsx:323 renders this translation."
+        },
+        {
+          "technique": "generated-prose-patterns",
+          "verdict": "conformant",
+          "evidence": "messages/en.json:1300 The provenance copy supplies a specific computation pass and names psp.cz instead of using vague attribution or importance claims; ReferendumPage.tsx:317 renders it."
+        },
+        {
+          "technique": "register-and-voice",
+          "verdict": "conformant",
+          "evidence": "messages/en.json:3468 EN-WE and EN-EXCLAIM: the imported CopyLinkButton reports completion tersely and neutrally, without corporate “we”, blame or an exclamation."
+        },
+        {
+          "technique": "typography-and-capitalization",
+          "verdict": "deviation",
+          "evidence": "messages/en.json:1303 EN-DASH: the English provenance notice rendered at ReferendumPage.tsx:333 contains an em dash despite the declared ban."
+        },
+        {
+          "technique": "ui-and-landing-microcopy",
+          "verdict": "deviation",
+          "evidence": "messages/en.json:3469 EN-ERROR: the recovery instruction points below, but this context displays the address above the button at ReferendumPage.tsx:360 and mounts CopyLinkButton at line 378."
+        }
+      ]
     }
   }
 }

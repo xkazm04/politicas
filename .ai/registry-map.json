@@ -8606,7 +8606,11 @@
           "revision": 3,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "messages/en.json:500 DataSources renders a space before the percent sign in English, violating EN-NUMFMT.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:3071c9ca3c71710b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-memory",
@@ -8939,7 +8943,11 @@
           "revision": 3,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:192 The referendum renders untranslated Czech body copy even when its translated controls and provenance use the English catalog, leaving source-language residue.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:3071c9ca3c71710b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "roll-call-vote-analysis",

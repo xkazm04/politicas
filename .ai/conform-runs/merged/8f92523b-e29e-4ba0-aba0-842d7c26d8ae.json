@@ -1,0 +1,129 @@
+{
+ "schema": "conform-run/1",
+ "worker": "8f92523b-e29e-4ba0-aba0-842d7c26d8ae",
+ "subject": "english",
+ "evaluatedAt": "2026-10-17T04:18:57.408440+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "landing-core",
+   "subject": "english",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "messages/en.json:500 DataSources renders a space before the percent sign in English, violating EN-NUMFMT.",
+   "techniques": [
+    {
+     "technique": "de-translationese-constructions",
+     "verdict": "deviation",
+     "evidence": "messages/en.json:511 EN-SOURCE-RESIDUE: the translated source citation retains Czech low-opening quotation marks around \u201cunrated\u201d; DataSources.tsx:140 renders this key."
+    },
+    {
+     "technique": "generated-prose-patterns",
+     "verdict": "conformant",
+     "evidence": "messages/en.json:195 EN-TEMPLATED-GRID: the five module descriptions name distinct mechanisms; this BudgetMirror description specifies concrete comparison measures."
+    },
+    {
+     "technique": "register-and-voice",
+     "verdict": "deviation",
+     "evidence": "messages/en.json:514 EN-WE: this unavailable-state message uses \u201cwe\u201d instead of reporting the state neutrally; DataSources.tsx:84 renders it."
+    },
+    {
+     "technique": "typography-and-capitalization",
+     "verdict": "deviation",
+     "evidence": "messages/en.json:453 EN-DASH: the hero eyebrow contains an em dash despite the declared English ban."
+    },
+    {
+     "technique": "ui-and-landing-microcopy",
+     "verdict": "deviation",
+     "evidence": "messages/en.json:457 EN-BUTTON: HeroStory.tsx:71 renders this noun as the primary CTA; use a specific action such as \u201cView the ranking\u201d."
+    },
+    {
+     "technique": "variant-and-locale-conventions",
+     "verdict": "deviation",
+     "evidence": "features/landing/components/DataSources.tsx:102 EN-NUMFMT: this call renders messages/en.json:500, whose \u201c{pct} %\u201d preserves source-locale percent spacing instead of \u201c{pct}%\u201d."
+    }
+   ]
+  },
+  {
+   "context": "landing-referendum",
+   "subject": "english",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "features/landing/referendum/ReferendumPage.tsx:192 The referendum renders untranslated Czech body copy even when its translated controls and provenance use the English catalog, leaving source-language residue.",
+   "techniques": [
+    {
+     "technique": "de-translationese-constructions",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:192 EN-SOURCE-RESIDUE: this product paragraph bypasses translation and remains Czech when English is selected."
+    },
+    {
+     "technique": "false-friends-and-collocations",
+     "verdict": "deviation",
+     "evidence": "messages/en.json:1302 EN-COLLOCATION: these numerical scores are computed, not authored; the Czech source says \u201cnespo\u010d\u00edtal\u201d, and ReferendumPage.tsx:323 renders this translation."
+    },
+    {
+     "technique": "generated-prose-patterns",
+     "verdict": "conformant",
+     "evidence": "messages/en.json:1300 The provenance copy supplies a specific computation pass and names psp.cz instead of using vague attribution or importance claims; ReferendumPage.tsx:317 renders it."
+    },
+    {
+     "technique": "register-and-voice",
+     "verdict": "conformant",
+     "evidence": "messages/en.json:3468 EN-WE and EN-EXCLAIM: the imported CopyLinkButton reports completion tersely and neutrally, without corporate \u201cwe\u201d, blame or an exclamation."
+    },
+    {
+     "technique": "typography-and-capitalization",
+     "verdict": "deviation",
+     "evidence": "messages/en.json:1303 EN-DASH: the English provenance notice rendered at ReferendumPage.tsx:333 contains an em dash despite the declared ban."
+    },
+    {
+     "technique": "ui-and-landing-microcopy",
+     "verdict": "deviation",
+     "evidence": "messages/en.json:3469 EN-ERROR: the recovery instruction points below, but this context displays the address above the button at ReferendumPage.tsx:360 and mounts CopyLinkButton at line 378."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T04:18:57.408440+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "english"
+   ],
+   "techniques": [
+    "de-translationese-constructions",
+    "generated-prose-patterns",
+    "register-and-voice",
+    "typography-and-capitalization",
+    "ui-and-landing-microcopy",
+    "variant-and-locale-conventions"
+   ],
+   "deviations": 1,
+   "context": "landing-core",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T04:18:57.408440+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "english"
+   ],
+   "techniques": [
+    "de-translationese-constructions",
+    "false-friends-and-collocations",
+    "generated-prose-patterns",
+    "register-and-voice",
+    "typography-and-capitalization",
+    "ui-and-landing-microcopy"
+   ],
+   "deviations": 1,
+   "context": "landing-referendum",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
