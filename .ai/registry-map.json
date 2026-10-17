@@ -3164,7 +3164,11 @@
           "revision": 15,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/schranka/useSchranka.ts:115 Every follow button subscribes to the entire inbox snapshot, so visit and watermark changes rerender consumers that only need one entity's followed status.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:b667f5c1f4abdd9d",
+          "evaluatedRevision": 15
         },
         {
           "subject": "quality-gates",
@@ -8847,7 +8851,11 @@
           "revision": 15,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:99 The page retains its initial aggregate and replaces it after its own successful vote, but mounted readers have no mechanism to learn about other submissions or refreshed aggregate props.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:b667f5c1f4abdd9d",
+          "evaluatedRevision": 15
         },
         {
           "subject": "data-access",

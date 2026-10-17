@@ -1,0 +1,183 @@
+{
+ "schema": "conform-run/1",
+ "worker": "cb7aeb34-7f16-48e1-9dcf-ddaaa8a12d15",
+ "subject": "client-state",
+ "evaluatedAt": "2026-10-17T03:59:12.254883+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "civic-inbox",
+   "subject": "client-state",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/schranka/useSchranka.ts:115 Every follow button subscribes to the entire inbox snapshot, so visit and watermark changes rerender consumers that only need one entity's followed status.",
+   "techniques": [
+    {
+     "technique": "async-race-guards",
+     "verdict": "deviation",
+     "evidence": "features/schranka/useNews.ts:34 Deduplication expires after 60 seconds even when the original request remains pending, permitting duplicate identical flights; an older failure can subsequently delete the replacement cache entry."
+    },
+    {
+     "technique": "effect-identity-and-latched-callbacks",
+     "verdict": "conformant",
+     "evidence": "features/schranka/useNews.ts:95 The request session depends on its query identity, and cleanup makes its late continuations inert; no caller-supplied callback restarts it."
+    },
+    {
+     "technique": "identity-scoped-eviction",
+     "verdict": "not-applicable",
+     "evidence": "features/schranka/followCodec.ts:7 The inspected paths use browser-local follows and public entity queries, without a signed-in identity or account-switch lifecycle."
+    },
+    {
+     "technique": "invalidation-strategy",
+     "verdict": "deviation",
+     "evidence": "features/schranka/useNews.ts:88 Mounted readers fetch when query dependencies change; TTL expiry neither notifies them nor triggers revalidation, and server changes have no delivery path to those readers."
+    },
+    {
+     "technique": "observed-read-subscription",
+     "verdict": "deviation",
+     "evidence": "features/schranka/FollowButton.tsx:54 A button needs one entity's followed status but receives a hook subscribed to the whole snapshot, without a declared projection or observed-read narrowing."
+    },
+    {
+     "technique": "optimistic-write-path",
+     "verdict": "not-applicable",
+     "evidence": "features/schranka/useSchranka.ts:120 Following writes synchronous client-owned truth; it does not paint a guess awaiting remote authority."
+    },
+    {
+     "technique": "persistence-and-migration",
+     "verdict": "deviation",
+     "evidence": "features/schranka/followCodec.ts:194 Malformed JSON silently becomes the empty default without a diagnostic distinguishing corruption from first run, despite the realized version and future-payload protections."
+    },
+    {
+     "technique": "singleton-lifecycle",
+     "verdict": "deviation",
+     "evidence": "features/schranka/useToday.ts:31 The module owns mutable day, listener, and timer state and reaps the timer on last unsubscribe, but provides no explicit test-reset hatch required by the technique."
+    },
+    {
+     "technique": "status-fsms",
+     "verdict": "deviation",
+     "evidence": "features/schranka/useNews.ts:98 Pending, obsolete, and failed reads collapse to the same null result, while the request layer discards failure evidence instead of retaining an explicit operation status and cause."
+    },
+    {
+     "technique": "store-slicing",
+     "verdict": "deviation",
+     "evidence": "features/schranka/useSchranka.ts:115 Mutations have a central owner, but consumers subscribe to the complete state rather than their narrowest projection."
+    }
+   ]
+  },
+  {
+   "context": "landing-referendum",
+   "subject": "client-state",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/landing/referendum/ReferendumPage.tsx:99 The page retains its initial aggregate and replaces it after its own successful vote, but mounted readers have no mechanism to learn about other submissions or refreshed aggregate props.",
+   "techniques": [
+    {
+     "technique": "async-race-guards",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:416 The page has no replaceable asynchronous read slot, and its vote button is disabled while the single submission runs."
+    },
+    {
+     "technique": "effect-identity-and-latched-callbacks",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:60 The storage subscription has stable module-scope identity and removes the exact registered callback; page state changes do not redefine the subscription."
+    },
+    {
+     "technique": "identity-scoped-eviction",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/actions.ts:7 Voting and aggregate loading are anonymous public operations, without account-scoped client caches or identity transitions."
+    },
+    {
+     "technique": "invalidation-strategy",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:99 Own-write reconciliation is present, but initialAggregate is only a state initializer; later props and other voters' changes do not update the held aggregate."
+    },
+    {
+     "technique": "observed-read-subscription",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:90 External-store snapshots are independent primitive values, not shared multifield results requiring read-set inference."
+    },
+    {
+     "technique": "optimistic-write-path",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:129 The aggregate is updated from the authority's response only after awaiting a successful submission; there is no optimistic paint or rollback."
+    },
+    {
+     "technique": "persistence-and-migration",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:132 The ballot marker persists a bare canonical vector without a schema version or migration path under its feature-private storage key."
+    },
+    {
+     "technique": "rehydration-narrowing",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:108 The stored value supplies an independent presence marker; it is not restored as weights, a filtering mode, or a scope requiring companion values."
+    },
+    {
+     "technique": "singleton-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:52 Module scope contains immutable constants and subscription functions; mutable ballot and aggregate state belong to component instances."
+    },
+    {
+     "technique": "status-fsms",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:116 The failed state carries no evidence: invalid results, unavailable storage, and rejected promises all become the same bare value, and retries do not clear that failure when starting."
+    },
+    {
+     "technique": "store-slicing",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:74 The lens ranking is derived from authoritative props and current weights rather than stored separately, while page-specific ballot state remains local."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T03:59:12.254883+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "client-state"
+   ],
+   "techniques": [
+    "async-race-guards",
+    "effect-identity-and-latched-callbacks",
+    "identity-scoped-eviction",
+    "invalidation-strategy",
+    "observed-read-subscription",
+    "optimistic-write-path",
+    "persistence-and-migration",
+    "singleton-lifecycle",
+    "status-fsms",
+    "store-slicing"
+   ],
+   "deviations": 1,
+   "context": "civic-inbox",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T03:59:12.254883+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "client-state"
+   ],
+   "techniques": [
+    "async-race-guards",
+    "effect-identity-and-latched-callbacks",
+    "identity-scoped-eviction",
+    "invalidation-strategy",
+    "observed-read-subscription",
+    "optimistic-write-path",
+    "persistence-and-migration",
+    "rehydration-narrowing",
+    "singleton-lifecycle",
+    "status-fsms",
+    "store-slicing"
+   ],
+   "deviations": 1,
+   "context": "landing-referendum",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
