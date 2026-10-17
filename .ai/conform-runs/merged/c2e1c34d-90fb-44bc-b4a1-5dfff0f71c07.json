@@ -1,0 +1,313 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c2e1c34d-90fb-44bc-b4a1-5dfff0f71c07",
+ "subject": "structured-output",
+ "evaluatedAt": "2026-10-17T03:14:08.745284+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "shared-provenance",
+   "subject": "structured-output",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shared/provenance/getReceiptData.ts:140 The searched terms had no context hits, and receipts are derived from database records rather than extracted from model output.",
+   "techniques": [
+    {
+     "technique": "answer-coverage-gating",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/getReceiptData.ts:123 Retrieves an identified database node; no enumerated model answers require coverage gating."
+    },
+    {
+     "technique": "artifact-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/getReceiptData.ts:179 Completes a database loader, without a model generation and extraction lifecycle."
+    },
+    {
+     "technique": "constrained-decoding-is-a-shared-budget",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/poster/PosterToolbar.tsx:50 Formatting controls select paper format; no contributions assemble decoding constraints."
+    },
+    {
+     "technique": "constraint-and-tool-channel-exclusion",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/claimRef.ts:98 Constructs a navigation path, without assembling schemas and model tools."
+    },
+    {
+     "technique": "display-vs-machine-channels",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/ReceiptBody.tsx:168 Renders a typed receipt field; there is no mixed model response to separate."
+    },
+    {
+     "technique": "enumerable-domain-decoding",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/receipt.ts:376 The serializer assigns this constant directly; no decoder generates the value."
+    },
+    {
+     "technique": "extraction-observability",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/getReceiptData.ts:181 Reports database loader failures, rather than model extraction outcomes."
+    },
+    {
+     "technique": "extraction-strategies",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/claimRef.ts:75 Parses a deterministic address codec, not settled model text."
+    },
+    {
+     "technique": "graded-span-grounding",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/receipt.ts:160 Builds registry links from entity identifiers; no model quotation needs alignment."
+    },
+    {
+     "technique": "op-grammar-allowlisting",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/caseFileLink.ts:63 Returns navigation data, without dispatching model-proposed operations."
+    },
+    {
+     "technique": "output-budget-signal",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/poster/citation.ts:193 Copies supplied citation data; no model output ceiling governs production."
+    },
+    {
+     "technique": "schema-validation-and-repair",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/asOfLens.ts:60 Validates a navigation date, not a model-produced candidate artifact."
+    }
+   ],
+   "absenceTerms": [
+    "prompt",
+    "response_format",
+    "tool_calls",
+    "json_schema"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "structured-output",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/package.json:5 The searched terms had no context hits, and the package implements deterministic ESLint analysis rather than model-output extraction.",
+   "techniques": [
+    {
+     "technique": "answer-coverage-gating",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/require-source-citation.cjs:263 Classifies AST citation candidates; this is not coverage of requested model answers."
+    },
+    {
+     "technique": "artifact-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:155 Buffers AST candidates during lint traversal, without a producer run lifecycle."
+    },
+    {
+     "technique": "constrained-decoding-is-a-shared-budget",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:46 Composes ESLint rule modules, not competing decoding constraints."
+    },
+    {
+     "technique": "constraint-and-tool-channel-exclusion",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-server-import-in-client.cjs:35 This schema configures ESLint options; no model request carries schemas and tools."
+    },
+    {
+     "technique": "display-vs-machine-channels",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-display-string.cjs:197 Emits a deterministic lint diagnostic, without a mixed model response."
+    },
+    {
+     "technique": "enumerable-domain-decoding",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-source-note-size-override.cjs:162 Checks a static CSS vocabulary; no generative decoder requires a token mask."
+    },
+    {
+     "technique": "extraction-observability",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-silent-null-catch.cjs:98 Reports a source-code pattern, not an extraction pipeline outcome."
+    },
+    {
+     "technique": "extraction-strategies",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:58 Matches color literals in source code, not payloads embedded in model text."
+    },
+    {
+     "technique": "graded-span-grounding",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/require-source-citation.cjs:242 Detects citation markup presence; it does not admit model-provided quotations."
+    },
+    {
+     "technique": "op-grammar-allowlisting",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/role-button-requires-keydown.cjs:54 Produces a lint report rather than executing proposed operations."
+    },
+    {
+     "technique": "output-budget-signal",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-display-string.cjs:191 Bounds a diagnostic preview; this is unrelated to model generation ceilings."
+    },
+    {
+     "technique": "schema-validation-and-repair",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-server-import-in-client.cjs:37 Validates lint configuration, without accepting or repairing model-produced artifacts."
+    }
+   ],
+   "absenceTerms": [
+    "prompt",
+    "response_format",
+    "tool_calls",
+    "json_schema"
+   ]
+  },
+  {
+   "context": "labs-rentgen",
+   "subject": "structured-output",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/labs/rentgen/getTerminalData.ts:159 The searched terms had no context hits, and the terminal derives its display from stored ties, review decisions, and change events rather than model responses.",
+   "techniques": [
+    {
+     "technique": "answer-coverage-gating",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:162 Filters stored ties by review state; no model request enumerates required answers."
+    },
+    {
+     "technique": "artifact-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/getTerminalData.ts:175 Derives a view model directly from loaded records, without a generation lifecycle."
+    },
+    {
+     "technique": "constrained-decoding-is-a-shared-budget",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/getTerminalData.ts:47 Loads the existing money layer; no provider request aggregates decoding constraints."
+    },
+    {
+     "technique": "constraint-and-tool-channel-exclusion",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/getTerminalData.ts:89 Reads stored audit rows, without a model request combining tools and constraints."
+    },
+    {
+     "technique": "display-vs-machine-channels",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/VariantRentgen.tsx:266 Selects structured display data; there is no mixed model payload to separate."
+    },
+    {
+     "technique": "enumerable-domain-decoding",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:91 Looks up a deterministic label; no decoder generates a domain value."
+    },
+    {
+     "technique": "extraction-observability",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/getTerminalData.ts:80 Reports data-loading failures rather than model extraction quality."
+    },
+    {
+     "technique": "extraction-strategies",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:432 Transforms typed change events, without searching settled model text for payloads."
+    },
+    {
+     "technique": "graded-span-grounding",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:207 Constructs a citation address from stored identifiers; no generated quote requires alignment."
+    },
+    {
+     "technique": "op-grammar-allowlisting",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:310 Creates a navigation link, without dispatching model-proposed operations."
+    },
+    {
+     "technique": "output-budget-signal",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:298 Caps displayed database rows; no growing model response approaches an output ceiling."
+    },
+    {
+     "technique": "schema-validation-and-repair",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/getTerminalData.ts:148 Interprets stored review state, rather than validating and repairing model artifacts."
+    }
+   ],
+   "absenceTerms": [
+    "prompt",
+    "response_format",
+    "tool_calls",
+    "json_schema"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T03:14:08.745284+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "structured-output"
+   ],
+   "techniques": [
+    "answer-coverage-gating",
+    "artifact-lifecycle",
+    "constrained-decoding-is-a-shared-budget",
+    "constraint-and-tool-channel-exclusion",
+    "display-vs-machine-channels",
+    "enumerable-domain-decoding",
+    "extraction-observability",
+    "extraction-strategies",
+    "graded-span-grounding",
+    "op-grammar-allowlisting",
+    "output-budget-signal",
+    "schema-validation-and-repair"
+   ],
+   "deviations": 0,
+   "context": "shared-provenance",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T03:14:08.745284+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "structured-output"
+   ],
+   "techniques": [
+    "answer-coverage-gating",
+    "artifact-lifecycle",
+    "constrained-decoding-is-a-shared-budget",
+    "constraint-and-tool-channel-exclusion",
+    "display-vs-machine-channels",
+    "enumerable-domain-decoding",
+    "extraction-observability",
+    "extraction-strategies",
+    "graded-span-grounding",
+    "op-grammar-allowlisting",
+    "output-budget-signal",
+    "schema-validation-and-repair"
+   ],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T03:14:08.745284+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "structured-output"
+   ],
+   "techniques": [
+    "answer-coverage-gating",
+    "artifact-lifecycle",
+    "constrained-decoding-is-a-shared-budget",
+    "constraint-and-tool-channel-exclusion",
+    "display-vs-machine-channels",
+    "enumerable-domain-decoding",
+    "extraction-observability",
+    "extraction-strategies",
+    "graded-span-grounding",
+    "op-grammar-allowlisting",
+    "output-budget-signal",
+    "schema-validation-and-repair"
+   ],
+   "deviations": 0,
+   "context": "labs-rentgen",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
