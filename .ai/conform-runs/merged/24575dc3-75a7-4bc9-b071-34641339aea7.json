@@ -1,0 +1,127 @@
+{
+ "schema": "conform-run/1",
+ "worker": "24575dc3-75a7-4bc9-b071-34641339aea7",
+ "subject": "docs-content-model",
+ "evaluatedAt": "2026-10-17T04:08:32.413433+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "shell-navigation",
+   "subject": "docs-content-model",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shell/publicRoutes.ts:44 The inventory enumerates application routes, and searches of this context and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
+   "techniques": [
+    {
+     "technique": "catalog-referential-invariants",
+     "verdict": "not-applicable",
+     "evidence": "features/shell/publicRoutes.ts:45 The additional registry contains application route exceptions, not documentation records paired with prose bodies."
+    },
+    {
+     "technique": "derived-navigation-projection",
+     "verdict": "not-applicable",
+     "evidence": "features/shell/Sidebar.tsx:35 The sidebar renders the application navigation model; no documentation topic catalog supplies this list."
+    },
+    {
+     "technique": "draft-visibility-gating",
+     "verdict": "not-applicable",
+     "evidence": "features/shell/AppShell.tsx:50 Bare routes retain their content while omitting chrome; this is layout selection rather than documentation draft publication."
+    },
+    {
+     "technique": "per-topic-freshness-metadata",
+     "verdict": "not-applicable",
+     "evidence": "features/shell/sidebarParts.tsx:103 The footer reports ingestion information; this context has no documentation topic records requiring review metadata."
+    },
+    {
+     "technique": "product-location-mapping",
+     "verdict": "not-applicable",
+     "evidence": "features/shell/navModel.ts:298 This maps an application route to its navigation parent, not a documentation topic to the product area it describes."
+    }
+   ],
+   "absenceTerms": [
+    "topicId",
+    "bodyMap",
+    "watchedSources"
+   ]
+  },
+  {
+   "context": "app-shell",
+   "subject": "docs-content-model",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/sitemap.ts:64 The sitemap combines application paths with municipality pages, while searches of app and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
+   "techniques": [
+    {
+     "technique": "catalog-referential-invariants",
+     "verdict": "not-applicable",
+     "evidence": "app/ochrana-osobnich-udaju/page.tsx:18 The legal route directly mounts its content component without a documentation metadata/body registry."
+    },
+    {
+     "technique": "derived-navigation-projection",
+     "verdict": "not-applicable",
+     "evidence": "app/sitemap.ts:63 This projects the application's public routes, not a documentation topic catalog."
+    },
+    {
+     "technique": "draft-visibility-gating",
+     "verdict": "not-applicable",
+     "evidence": "app/robots.ts:32 The exclusions concern application tools and an archived surface; no documentation draft records are present."
+    },
+    {
+     "technique": "per-topic-freshness-metadata",
+     "verdict": "not-applicable",
+     "evidence": "app/podminky/TermsContent.tsx:21 Terms are rendered from legal translation content rather than documentation topic records with freshness fields."
+    },
+    {
+     "technique": "product-location-mapping",
+     "verdict": "not-applicable",
+     "evidence": "app/not-found.tsx:47 The recovery link addresses an application entity surface, not a documentation topic describing a product location."
+    }
+   ],
+   "absenceTerms": [
+    "topicId",
+    "bodyMap",
+    "watchedSources"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T04:08:32.413433+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-content-model"
+   ],
+   "techniques": [
+    "catalog-referential-invariants",
+    "derived-navigation-projection",
+    "draft-visibility-gating",
+    "per-topic-freshness-metadata",
+    "product-location-mapping"
+   ],
+   "deviations": 0,
+   "context": "shell-navigation",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T04:08:32.413433+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-content-model"
+   ],
+   "techniques": [
+    "catalog-referential-invariants",
+    "derived-navigation-projection",
+    "draft-visibility-gating",
+    "per-topic-freshness-metadata",
+    "product-location-mapping"
+   ],
+   "deviations": 0,
+   "context": "app-shell",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

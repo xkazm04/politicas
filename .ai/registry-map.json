@@ -1539,7 +1539,11 @@
           "revision": 2,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/sitemap.ts:64 The sitemap combines application paths with municipality pages, while searches of app and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:95cdaebc076df84d",
+          "evaluatedRevision": 2
         }
       ],
       "governance": "governed"
@@ -12160,7 +12164,11 @@
           "revision": 2,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shell/publicRoutes.ts:44 The inventory enumerates application routes, and searches of this context and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:95cdaebc076df84d",
+          "evaluatedRevision": 2
         },
         {
           "subject": "repository-landing-document",
