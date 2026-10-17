@@ -5488,6 +5488,58 @@
           "evidence": "features/votetrack/components/useVoteAnchor.ts:49 The parser interprets a navigation fragment, not a serialized application setting."
         }
       ]
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/app-shell": {
+      "context": "shell-navigation",
+      "subject": "app-shell",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T01:02:51.289Z",
+      "worker": "091c9c4e-3083-41ec-81e7-175b1af8f3f8",
+      "techniques": [
+        {
+          "technique": "badge-and-attention",
+          "verdict": "deviation",
+          "evidence": "features/schranka/SchrankaBadge.tsx:31 The badge mounted by Sidebar.tsx:72 and MobileNav.tsx:107 prints the full count without the display cap required by the technique; its predicate and persisted clearing watermark are implemented."
+        },
+        {
+          "technique": "entitlement-gating",
+          "verdict": "deviation",
+          "evidence": "features/shell/navModel.ts:123 The registry deliberately omits the internal review console, but app/penize/kontrola/page.tsx:22 loads its queue unconditionally; REVIEWER_TOKEN protects writes rather than entry to the destination."
+        },
+        {
+          "technique": "nav-hierarchy",
+          "verdict": "deviation",
+          "evidence": "features/shell/MobileNav.tsx:111 Inside NAV.map, children render for every entry without an active-section condition, unlike the desktop sidebar."
+        },
+        {
+          "technique": "navigation-model",
+          "verdict": "deviation",
+          "evidence": "features/shell/Sidebar.tsx:41 Section entries always navigate to their registry root rather than the last visited sub-destination; searches found no per-section location restoration in the shell."
+        }
+      ]
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/app-shell": {
+      "context": "app-shell",
+      "subject": "app-shell",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T01:02:51.289Z",
+      "worker": "091c9c4e-3083-41ec-81e7-175b1af8f3f8",
+      "techniques": [
+        {
+          "technique": "lazy-section-loading",
+          "verdict": "deviation",
+          "evidence": "app/layout.tsx:93 getMessages() supplies the complete catalog loaded by lib/i18n/request.ts:15, without filtering it to the frame and requested section."
+        },
+        {
+          "technique": "navigation-model",
+          "verdict": "conformant",
+          "evidence": "app/sitemap.ts:63 For this context's sitemap consumer, public destinations derive from the shared navigation declarations and imported crawler exclusions rather than another handwritten route list."
+        }
+      ]
     }
   }
 }
