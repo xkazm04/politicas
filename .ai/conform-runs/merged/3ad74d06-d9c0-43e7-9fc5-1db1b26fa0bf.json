@@ -1,0 +1,127 @@
+{
+  "schema": "conform-run/1",
+  "worker": "3ad74d06-d9c0-43e7-9fc5-1db1b26fa0bf",
+  "subject": "llm-call-telemetry-model",
+  "evaluatedAt": "2026-10-17T02:47:50.185367+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [
+    {
+      "context": "ingest-sources-financial",
+      "subject": "llm-call-telemetry-model",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evidence": "lib/ingest/sources/kiosek.ts:316 Searches found none of the five listed accounting identifiers in the financial adapters, and the classifier explicitly uses deterministic patterns without an LLM, so no LLM call receiving schema requires these techniques here.",
+      "techniques": [
+        {
+          "technique": "dual-clock-event-time",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:516 The timestamp records public-source retrieval provenance; no LLM spend window was found."
+        },
+        {
+          "technique": "ingest-skew-rejection",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy.ts:230 This parses dates published by the contract register; no client-reported LLM event time is accepted."
+        },
+        {
+          "technique": "metadata-attribution-keys",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:50 The identifier names a public-data source; no customer, product, or writing-credential attribution for model calls was found."
+        },
+        {
+          "technique": "nullable-cost-never-zero",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy.ts:215 Nullability describes an unpublished contract amount; the LLM model-pricing precondition is absent."
+        },
+        {
+          "technique": "server-owned-fields",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:523 The wrapper stamps source-fetch provenance on postings; no untrusted LLM call-accounting ingest path was found."
+        },
+        {
+          "technique": "token-usage-quadruple",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek-pdf.ts:26 Document extraction uses the PDF parser; no model-provider usage block is processed."
+        }
+      ],
+      "absenceTerms": [
+        "input_tokens",
+        "output_tokens",
+        "cost_usd",
+        "received_at",
+        "api_key_id"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "llm-call-telemetry-model",
+      "context": "civic-inbox",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor telemetryScrub.ts:98 is only a Sentry-scrub docblock and doesn't show that no LLM call exists. The technique anchors are unrelated lines (cache timestamp, date regex, storage key, czk field). My grep over features/schranka for anthropic, openai, gemini, llm and model found nothing, but th"
+    },
+    {
+      "subject": "llm-call-telemetry-model",
+      "context": "ingest-pipeline",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor changeEvents.ts:12 is a header comment about civic change events and doesn't show that no LLM call exists. The technique anchors are incidental lines (the recordedAt epoch filter, an entityKeys/evidence map, a parser stamp). My grep over lib/ingest for anthropic, openai, gemini, llm and t"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-17T02:47:50.185367+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "llm-call-telemetry-model"
+      ],
+      "techniques": [
+        "dual-clock-event-time",
+        "ingest-skew-rejection",
+        "metadata-attribution-keys",
+        "nullable-cost-never-zero",
+        "server-owned-fields",
+        "token-usage-quadruple"
+      ],
+      "deviations": 0,
+      "context": "civic-inbox",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "ts": "2026-10-17T02:47:50.185367+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "llm-call-telemetry-model"
+      ],
+      "techniques": [
+        "dual-clock-event-time",
+        "ingest-skew-rejection",
+        "metadata-attribution-keys",
+        "nullable-cost-never-zero",
+        "server-owned-fields",
+        "token-usage-quadruple"
+      ],
+      "deviations": 0,
+      "context": "ingest-sources-financial",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    },
+    {
+      "ts": "2026-10-17T02:47:50.185367+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "llm-call-telemetry-model"
+      ],
+      "techniques": [
+        "dual-clock-event-time",
+        "ingest-skew-rejection",
+        "metadata-attribution-keys",
+        "nullable-cost-never-zero",
+        "server-owned-fields",
+        "token-usage-quadruple"
+      ],
+      "deviations": 0,
+      "context": "ingest-pipeline",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}

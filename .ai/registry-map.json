@@ -7355,7 +7355,11 @@
           "revision": 7,
           "changedAt": "2026-10-06",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:316 Searches found none of the five listed accounting identifiers in the financial adapters, and the classifier explicitly uses deterministic patterns without an LLM, so no LLM call receiving schema requires these techniques here.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:9f199f8ff9e7a925",
+          "evaluatedRevision": 7
         },
         {
           "subject": "prompt-assembly",
