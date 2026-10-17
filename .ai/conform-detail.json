@@ -5336,6 +5336,158 @@
         }
       ],
       "registryProposal": "relevance-floors says every nearest-neighbour lane owes a floor, but its use_when is about returning nothing and about recalibrating after an embedder swap; it does not say whether an exact top-k latency probe, whose top-1 is only a cross-engine checksum, is in scope."
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/settings": {
+      "context": "money-ledger",
+      "subject": "settings",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T00:40:21.670Z",
+      "worker": "cb4e2047-a279-4e57-aeed-90e5deb1fb70",
+      "techniques": [
+        {
+          "technique": "applied-defaults-ledger",
+          "verdict": "not-applicable",
+          "evidence": "features/money/components/TiesLedger.tsx:135 Filter initialization is transient state, not a shipped collection of editable persisted defaults."
+        },
+        {
+          "technique": "author-declared-include-graph",
+          "verdict": "not-applicable",
+          "evidence": "features/money/getMoneyData.ts:52 The loader reads domain data; searches found no configuration inheritance resolver."
+        },
+        {
+          "technique": "config-backup-and-restore",
+          "verdict": "not-applicable",
+          "evidence": "features/money/KauzyPage.tsx:54 Dossier read failures concern evidence documents, not an application-overwritten settings file."
+        },
+        {
+          "technique": "cross-source-precedence-chain",
+          "verdict": "not-applicable",
+          "evidence": "features/money/FollowTheMoneyPage.tsx:81 Stored-versus-derived domain classifications are not competing configuration sources."
+        },
+        {
+          "technique": "in-place-document-patch",
+          "verdict": "not-applicable",
+          "evidence": "features/money/publicWire.ts:170 This projects a transport payload; it does not round-trip a long-lived settings document."
+        },
+        {
+          "technique": "inherited-default-override",
+          "verdict": "not-applicable",
+          "evidence": "features/money/MoneyGraph.tsx:187 Graph focus is transient interaction state, without a persisted inherited-default override."
+        },
+        {
+          "technique": "key-registry",
+          "verdict": "not-applicable",
+          "evidence": "features/money/publicWire.ts:43 TIE_WIRE classifies domain payload fields, not legal settings keys."
+        },
+        {
+          "technique": "presence-decides-precedence",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:185 These alternate domain property names describe a claim's review state, not renamed configuration keys."
+        },
+        {
+          "technique": "read-batching",
+          "verdict": "not-applicable",
+          "evidence": "features/money/getMoneyData.ts:54 The loaded population consists of civic entities and relationships, not settings rows."
+        },
+        {
+          "technique": "save-experience",
+          "verdict": "not-applicable",
+          "evidence": "features/money/components/TiesLedger.tsx:134 Search changes local view state; there is no settings save operation."
+        },
+        {
+          "technique": "setting-kinds",
+          "verdict": "not-applicable",
+          "evidence": "features/money/components/TiesLedger.tsx:104 These are view sorting alternatives, not registered application settings."
+        },
+        {
+          "technique": "settings-audit-and-history",
+          "verdict": "not-applicable",
+          "evidence": "features/money/getMoneyData.ts:11 The human review trail concerns evidential claims, not settings changes."
+        },
+        {
+          "technique": "typed-accessors",
+          "verdict": "not-applicable",
+          "evidence": "features/money/ledgerSearch.ts:29 This normalizes search input; it is not an accessor for serialized settings."
+        }
+      ]
+    },
+    "4bf433a5-ab8e-4468-b456-344daae2ce21/settings": {
+      "context": "votetrack-ledger",
+      "subject": "settings",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T00:40:21.670Z",
+      "worker": "cb4e2047-a279-4e57-aeed-90e5deb1fb70",
+      "techniques": [
+        {
+          "technique": "applied-defaults-ledger",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/components/RealVoteTrack.tsx:27 Initial vote selection is transient state, not a persisted editable collection of shipped defaults."
+        },
+        {
+          "technique": "author-declared-include-graph",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/getVoteThemes.ts:28 The loader composes domain reads; searches found no configuration include resolver."
+        },
+        {
+          "technique": "config-backup-and-restore",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/getVoteRecord.ts:80 This prepares a display payload, not an application-overwritten settings file."
+        },
+        {
+          "technique": "cross-source-precedence-chain",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/getVoteThemes.ts:48 Fallbacks between vote title fields are domain presentation rules, not configuration-source precedence."
+        },
+        {
+          "technique": "in-place-document-patch",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/ledgerMemo.ts:64 Replacing a private derived-data cache cell is outside the technique's settings-document identity contract."
+        },
+        {
+          "technique": "inherited-default-override",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/components/useVoteAnchor.ts:20 Motion follows the environment directly; no persisted user override or attach/detach setting was found."
+        },
+        {
+          "technique": "key-registry",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/getVoteThemes.ts:50 Identifiers here address domain votes, not writable settings keys."
+        },
+        {
+          "technique": "presence-decides-precedence",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/components/RealVoteTrack.tsx:30 Selection fallback does not resolve a renamed configuration key."
+        },
+        {
+          "technique": "read-batching",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/ledgerMemo.ts:12 The cache holds derived civic records, not mirrored settings rows."
+        },
+        {
+          "technique": "save-experience",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/components/RealVoteTrack.tsx:33 Selecting a vote changes navigation state without a settings save operation."
+        },
+        {
+          "technique": "setting-kinds",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/ledgerRead.ts:43 This is a compiled data-readiness rule, not an operator-editable settings key."
+        },
+        {
+          "technique": "settings-audit-and-history",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/components/useVoteAnchor.ts:45 Temporary navigation highlighting is view feedback, not settings-change history."
+        },
+        {
+          "technique": "typed-accessors",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/components/useVoteAnchor.ts:49 The parser interprets a navigation fragment, not a serialized application setting."
+        }
+      ]
     }
   }
 }

@@ -10741,7 +10741,11 @@
           "revision": 13,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/money/components/TiesLedger.tsx:139 Context and repository searches found no settings store in this surface; its sorting and filtering controls hold transient React state, which the standard excludes.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:85c48ec5bdb5581f",
+          "evaluatedRevision": 13
         },
         {
           "subject": "cost-metering",
@@ -13396,7 +13400,11 @@
           "revision": 13,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/votetrack/components/useVoteAnchor.ts:64 Context and repository searches found no settings store in this surface; vote selection is React and URL navigation state, which the standard excludes.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:85c48ec5bdb5581f",
+          "evaluatedRevision": 13
         },
         {
           "subject": "table",
