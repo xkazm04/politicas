@@ -1,0 +1,127 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a69234c5-95a6-4b4b-ac02-e1d941dcb481",
+ "subject": "peer-benchmarking",
+ "evaluatedAt": "2026-10-17T23:19:43.409027+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "hybrid-bench",
+   "subject": "peer-benchmarking",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/hybrid-bench/run.ts:132 Searches found no percentile, cohort, or tenant constructs in this context; its outputs compare experimental accuracy and cost without placing a subject within a peer population.",
+   "techniques": [
+    {
+     "technique": "basis-disclosure",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/join.ts:190 Exported percentages describe matching outcomes, not peer positions."
+    },
+    {
+     "technique": "cohort-minimum-size",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/agg.ts:34 This floor selects sessions by vote count; it does not suppress positions based on comparable peer counts."
+    },
+    {
+     "technique": "comparability-filters",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/run.ts:125 Experimental arms are evaluated against reference labels, not admitted into a peer-ranking corpus."
+    },
+    {
+     "technique": "corpus-tenancy-boundary",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/materialize-tags.ts:96 The product-data path classifies parliamentary vote events; it does not assemble a cross-tenant comparison."
+    },
+    {
+     "technique": "population-vs-scalar-ranking",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/run.ts:64 Accuracy is a proportion of reference-label agreements, not a percentile of an aggregate among peers."
+    }
+   ],
+   "absenceTerms": [
+    "percentile",
+    "cohort",
+    "tenant"
+   ]
+  },
+  {
+   "context": "db-tooling",
+   "subject": "peer-benchmarking",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/db-bench/olap.ts:107 Searches found no percentile, cohort, or tenant constructs in this context; the scripts maintain stores and compare database execution measurements without computing peer-population positions.",
+   "techniques": [
+    {
+     "technique": "basis-disclosure",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:96 The report exports build times, query latencies, and a nearest-vector identifier rather than peer ranks."
+    },
+    {
+     "technique": "cohort-minimum-size",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:43 The configured sample count controls benchmark queries, not participants eligible for a peer position."
+    },
+    {
+     "technique": "comparability-filters",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/fts-contracts.ts:68 The ranking found in this directory orders documents by search relevance, not measurements from peer organizations."
+    },
+    {
+     "technique": "corpus-tenancy-boundary",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:47 This comparison generates synthetic vectors locally; the inspected maintenance and parliamentary-data workloads likewise expose no caller/peer tenancy boundary."
+    },
+    {
+     "technique": "population-vs-scalar-ranking",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:22 Sorting selects a median execution time; it does not place that aggregate within a peer distribution."
+    }
+   ],
+   "absenceTerms": [
+    "percentile",
+    "cohort",
+    "tenant"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T23:19:43.409027+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "peer-benchmarking"
+   ],
+   "techniques": [
+    "basis-disclosure",
+    "cohort-minimum-size",
+    "comparability-filters",
+    "corpus-tenancy-boundary",
+    "population-vs-scalar-ranking"
+   ],
+   "deviations": 0,
+   "context": "hybrid-bench",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T23:19:43.409027+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "peer-benchmarking"
+   ],
+   "techniques": [
+    "basis-disclosure",
+    "cohort-minimum-size",
+    "comparability-filters",
+    "corpus-tenancy-boundary",
+    "population-vs-scalar-ranking"
+   ],
+   "deviations": 0,
+   "context": "db-tooling",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

@@ -7305,6 +7305,78 @@
         "at": "2026-10-17T22:54:27.102447+00:00",
         "reason": "reviewer (sonnet): The context really has no model calls (my grep of lib/routing and lib/i18n for llm, model, gemini, gpt, claude, completion and prompt found nothing relevant). But the anchor liveUrl.ts:16 (`const h = await headers()`) is incidental: it shows nothing about model routing being absent. The technique an"
       }
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/peer-benchmarking": {
+      "context": "hybrid-bench",
+      "subject": "peer-benchmarking",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T23:19:43.409Z",
+      "worker": "a69234c5-95a6-4b4b-ac02-e1d941dcb481",
+      "techniques": [
+        {
+          "technique": "basis-disclosure",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/join.ts:190 Exported percentages describe matching outcomes, not peer positions."
+        },
+        {
+          "technique": "cohort-minimum-size",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/agg.ts:34 This floor selects sessions by vote count; it does not suppress positions based on comparable peer counts."
+        },
+        {
+          "technique": "comparability-filters",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:125 Experimental arms are evaluated against reference labels, not admitted into a peer-ranking corpus."
+        },
+        {
+          "technique": "corpus-tenancy-boundary",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:96 The product-data path classifies parliamentary vote events; it does not assemble a cross-tenant comparison."
+        },
+        {
+          "technique": "population-vs-scalar-ranking",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:64 Accuracy is a proportion of reference-label agreements, not a percentile of an aggregate among peers."
+        }
+      ]
+    },
+    "313a8c55-3182-49d8-a3f7-331198b2093f/peer-benchmarking": {
+      "context": "db-tooling",
+      "subject": "peer-benchmarking",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T23:19:43.409Z",
+      "worker": "a69234c5-95a6-4b4b-ac02-e1d941dcb481",
+      "techniques": [
+        {
+          "technique": "basis-disclosure",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:96 The report exports build times, query latencies, and a nearest-vector identifier rather than peer ranks."
+        },
+        {
+          "technique": "cohort-minimum-size",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:43 The configured sample count controls benchmark queries, not participants eligible for a peer position."
+        },
+        {
+          "technique": "comparability-filters",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/fts-contracts.ts:68 The ranking found in this directory orders documents by search relevance, not measurements from peer organizations."
+        },
+        {
+          "technique": "corpus-tenancy-boundary",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:47 This comparison generates synthetic vectors locally; the inspected maintenance and parliamentary-data workloads likewise expose no caller/peer tenancy boundary."
+        },
+        {
+          "technique": "population-vs-scalar-ranking",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:22 Sorting selects a median execution time; it does not place that aggregate within a peer distribution."
+        }
+      ]
     }
   }
 }

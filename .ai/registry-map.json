@@ -5346,7 +5346,11 @@
           "revision": 3,
           "changedAt": "2026-10-01",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/db-bench/olap.ts:107 Searches found no percentile, cohort, or tenant constructs in this context; the scripts maintain stores and compare database execution measurements without computing peer-population positions.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a3239df32fc1070b",
+          "evaluatedRevision": 3
         }
       ],
       "governance": "governed"
@@ -7113,7 +7117,11 @@
           "revision": 3,
           "changedAt": "2026-10-01",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:132 Searches found no percentile, cohort, or tenant constructs in this context; its outputs compare experimental accuracy and cost without placing a subject within a peer population.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a3239df32fc1070b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-runtime-assembly",
