@@ -4117,7 +4117,11 @@
           "revision": 17,
           "changedAt": "2026-09-30",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dashboard/datedFacts.ts:293 The feed ledger sorts an in-memory fact list by date then id; a search of features/dashboard for embedding, retrieval, fts, rerank, and cosine found no query index or vector lane.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a49d27f889212d3f",
+          "evaluatedRevision": 19
         },
         {
           "subject": "accountability-publishing-ethics",
@@ -5262,7 +5266,11 @@
           "revision": 17,
           "changedAt": "2026-09-30",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/db-bench/vector.ts:68 The kNN probe orders by L2 distance and always keeps ten ids, with no distance cutoff, so a neighbourhood with nothing close still returns a full slice.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a49d27f889212d3f",
+          "evaluatedRevision": 19
         },
         {
           "subject": "peer-benchmarking",
@@ -6891,7 +6899,11 @@
           "revision": 17,
           "changedAt": "2026-09-30",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:31 The bench loads a JSON export of vote titles and labels every kept row with an LLM predicate; a search of scripts/hybrid-bench for embedding, retrieval, fts, rerank, and cosine found no index, vector lane, or query-to-slice path.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a49d27f889212d3f",
+          "evaluatedRevision": 19
         },
         {
           "subject": "test-harness",
@@ -7688,7 +7700,11 @@
           "revision": 17,
           "changedAt": "2026-09-30",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/slice-stats.ts:6 slice-stats partitions graph tables into deterministic quality counts for a catalog; a search of scripts/data-analysis for embedding, retrieval, fts, rerank, and cosine found no query index or ranked slice.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:a49d27f889212d3f",
+          "evaluatedRevision": 19
         }
       ],
       "governance": "governed"

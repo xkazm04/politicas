@@ -1,0 +1,241 @@
+{
+ "schema": "conform-run/1",
+ "worker": "f97f90e7-244b-4c85-9e97-d573fa16ae39",
+ "subject": "retrieval",
+ "evaluatedAt": "2026-10-17T00:14:11.110793+00:00",
+ "provider": "grok",
+ "model": "grok-4.7",
+ "pairs": [
+  {
+   "context": "hybrid-bench",
+   "subject": "retrieval",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/hybrid-bench/run.ts:31 The bench loads a JSON export of vote titles and labels every kept row with an LLM predicate; a search of scripts/hybrid-bench for embedding, retrieval, fts, rerank, and cosine found no index, vector lane, or query-to-slice path.",
+   "techniques": [
+    {
+     "technique": "query-decomposition-before-the-lanes",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/semop.ts:26 The whole handed batch is one prompt string; there is no multi-level index to split keys across."
+    },
+    {
+     "technique": "relevance-floors",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/semop.ts:55 This floor is missing LLM confidence on a classifier cascade, not a nearest-neighbour cutoff."
+    },
+    {
+     "technique": "retrieval-evaluation",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/run.ts:62 Recall here is predicate agreement with a gold label map over the loaded rows, not ranking recall of a retrieved slice."
+    }
+   ],
+   "absenceTerms": [
+    "embedding",
+    "fts",
+    "rerank",
+    "cosine"
+   ],
+   "registryProposal": "LOTUS sem_filter over a batch already in hand is a classifier, not this subject's semantic lane; the shared word semantic is not enough to apply the subject."
+  },
+  {
+   "context": "kg-analysis-and-catalog",
+   "subject": "retrieval",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/slice-stats.ts:6 slice-stats partitions graph tables into deterministic quality counts for a catalog; a search of scripts/data-analysis for embedding, retrieval, fts, rerank, and cosine found no query index or ranked slice.",
+   "techniques": [
+    {
+     "technique": "retrieval-triggering",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-forensics.ts:3 Forensics builds context for already-flagged bills; it does not decide whether a request should consult a corpus."
+    }
+   ],
+   "absenceTerms": [
+    "embedding",
+    "fts",
+    "rerank",
+    "cosine"
+   ]
+  },
+  {
+   "context": "dashboard-feed-logic",
+   "subject": "retrieval",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dashboard/datedFacts.ts:293 The feed ledger sorts an in-memory fact list by date then id; a search of features/dashboard for embedding, retrieval, fts, rerank, and cosine found no query index or vector lane.",
+   "techniques": [
+    {
+     "technique": "named-period-vote",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/datedFacts.ts:289 Impossible dates are dropped and counted; no question names a period to vote or filter on."
+    },
+    {
+     "technique": "relationship-proximity-lane",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/getDashboardData.ts:374 supplies edges are a point read for firms already drawn on the canvas, not an expansion of query hits into a recall slice."
+    },
+    {
+     "technique": "ranking-budgets",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/datedFacts.ts:295 The prefix is a chronological UI window over one list, not a shared budget across retrieval lanes."
+    }
+   ],
+   "absenceTerms": [
+    "embedding",
+    "fts",
+    "rerank",
+    "cosine"
+   ]
+  },
+  {
+   "context": "db-tooling",
+   "subject": "retrieval",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/db-bench/vector.ts:68 The kNN probe orders by L2 distance and always keeps ten ids, with no distance cutoff, so a neighbourhood with nothing close still returns a full slice.",
+   "techniques": [
+    {
+     "technique": "retrieval-triggering",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:49 The script always runs a fixed query count; there is no request that might not need the corpus."
+    },
+    {
+     "technique": "query-decomposition-before-the-lanes",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:48 Each probe is one raw vector against one flat table; there is no second abstraction level."
+    },
+    {
+     "technique": "chunking-and-indexing",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/fts.ts:38 Whole titles are replicated to inflate N for a latency load; this is not a re-sync choosing chunk boundaries."
+    },
+    {
+     "technique": "embedding-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:24 Vectors come from a seeded PRNG, not an embedder, so there is no model stamp, swap, or backfill to govern."
+    },
+    {
+     "technique": "hybrid-lane-fusion",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/fts.ts:73 The lexical probe returns a hit count on its own corpus; it never merges a candidate list with the vector bench."
+    },
+    {
+     "technique": "named-period-vote",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/fts.ts:23 Probe terms name topics only, and the docs table has no event time to vote with."
+    },
+    {
+     "technique": "relationship-proximity-lane",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/graph.ts:11 The graph bench checksums reachability counts; it does not add neighbours to a ranked recall slice."
+    },
+    {
+     "technique": "structural-centrality-lane",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/graph.ts:12 The graph workloads are reach counts, triangles, and typed joins; a search of scripts/db-bench and scripts/db found no centrality or importance rank."
+    },
+    {
+     "technique": "second-pass-rescoring",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:70 The first id is recorded as soon as the query returns; nothing rescores the ten."
+    },
+    {
+     "technique": "ranking-budgets",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:7 Ten is the latency metric's width on equal-sized ids, not a consumer budget split across lanes."
+    },
+    {
+     "technique": "relevance-floors",
+     "verdict": "deviation",
+     "evidence": "scripts/db-bench/vector.ts:68 Nearest-neighbour search with a fixed limit and no distance floor always returns k."
+    },
+    {
+     "technique": "padded-slots-are-misses",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:85 LanceDB limit yields a variable-length array of real hits; there is no sentinel slot resolved by position."
+    },
+    {
+     "technique": "retrieval-evaluation",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db-bench/vector.ts:101 The only correctness check is that two exact engines agree on top-1; it is not a labeled relevance set."
+    }
+   ],
+   "registryProposal": "relevance-floors says every nearest-neighbour lane owes a floor, but its use_when is about returning nothing and about recalibrating after an embedder swap; it does not say whether an exact top-k latency probe, whose top-1 is only a cross-engine checksum, is in scope."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T00:14:11.110793+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "retrieval"
+   ],
+   "techniques": [
+    "query-decomposition-before-the-lanes",
+    "relevance-floors",
+    "retrieval-evaluation"
+   ],
+   "deviations": 0,
+   "context": "hybrid-bench",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-17T00:14:11.110793+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "retrieval"
+   ],
+   "techniques": [
+    "retrieval-triggering"
+   ],
+   "deviations": 0,
+   "context": "kg-analysis-and-catalog",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-17T00:14:11.110793+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "retrieval"
+   ],
+   "techniques": [
+    "named-period-vote",
+    "ranking-budgets",
+    "relationship-proximity-lane"
+   ],
+   "deviations": 0,
+   "context": "dashboard-feed-logic",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  },
+  {
+   "ts": "2026-10-17T00:14:11.110793+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "retrieval"
+   ],
+   "techniques": [
+    "chunking-and-indexing",
+    "embedding-lifecycle",
+    "hybrid-lane-fusion",
+    "named-period-vote",
+    "padded-slots-are-misses",
+    "query-decomposition-before-the-lanes",
+    "ranking-budgets",
+    "relationship-proximity-lane",
+    "relevance-floors",
+    "retrieval-evaluation",
+    "retrieval-triggering",
+    "second-pass-rescoring",
+    "structural-centrality-lane"
+   ],
+   "deviations": 1,
+   "context": "db-tooling",
+   "via": "curator-multi:grok",
+   "model": "grok-4.7"
+  }
+ ]
+}

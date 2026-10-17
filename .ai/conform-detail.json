@@ -5190,6 +5190,152 @@
       "evaluatedTs": "2026-10-16T23:42:51.615Z",
       "worker": "604f14a6-b265-4e70-8392-b5ef00027b24",
       "techniques": []
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/retrieval": {
+      "context": "hybrid-bench",
+      "subject": "retrieval",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T00:14:11.110Z",
+      "worker": "f97f90e7-244b-4c85-9e97-d573fa16ae39",
+      "techniques": [
+        {
+          "technique": "query-decomposition-before-the-lanes",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/semop.ts:26 The whole handed batch is one prompt string; there is no multi-level index to split keys across."
+        },
+        {
+          "technique": "relevance-floors",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/semop.ts:55 This floor is missing LLM confidence on a classifier cascade, not a nearest-neighbour cutoff."
+        },
+        {
+          "technique": "retrieval-evaluation",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:62 Recall here is predicate agreement with a gold label map over the loaded rows, not ranking recall of a retrieved slice."
+        }
+      ],
+      "registryProposal": "LOTUS sem_filter over a batch already in hand is a classifier, not this subject's semantic lane; the shared word semantic is not enough to apply the subject."
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/retrieval": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "retrieval",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T00:14:11.110Z",
+      "worker": "f97f90e7-244b-4c85-9e97-d573fa16ae39",
+      "techniques": [
+        {
+          "technique": "retrieval-triggering",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-forensics.ts:3 Forensics builds context for already-flagged bills; it does not decide whether a request should consult a corpus."
+        }
+      ]
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/retrieval": {
+      "context": "dashboard-feed-logic",
+      "subject": "retrieval",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T00:14:11.110Z",
+      "worker": "f97f90e7-244b-4c85-9e97-d573fa16ae39",
+      "techniques": [
+        {
+          "technique": "named-period-vote",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/datedFacts.ts:289 Impossible dates are dropped and counted; no question names a period to vote or filter on."
+        },
+        {
+          "technique": "relationship-proximity-lane",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:374 supplies edges are a point read for firms already drawn on the canvas, not an expansion of query hits into a recall slice."
+        },
+        {
+          "technique": "ranking-budgets",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/datedFacts.ts:295 The prefix is a chronological UI window over one list, not a shared budget across retrieval lanes."
+        }
+      ]
+    },
+    "313a8c55-3182-49d8-a3f7-331198b2093f/retrieval": {
+      "context": "db-tooling",
+      "subject": "retrieval",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T00:14:11.110Z",
+      "worker": "f97f90e7-244b-4c85-9e97-d573fa16ae39",
+      "techniques": [
+        {
+          "technique": "retrieval-triggering",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:49 The script always runs a fixed query count; there is no request that might not need the corpus."
+        },
+        {
+          "technique": "query-decomposition-before-the-lanes",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:48 Each probe is one raw vector against one flat table; there is no second abstraction level."
+        },
+        {
+          "technique": "chunking-and-indexing",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/fts.ts:38 Whole titles are replicated to inflate N for a latency load; this is not a re-sync choosing chunk boundaries."
+        },
+        {
+          "technique": "embedding-lifecycle",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:24 Vectors come from a seeded PRNG, not an embedder, so there is no model stamp, swap, or backfill to govern."
+        },
+        {
+          "technique": "hybrid-lane-fusion",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/fts.ts:73 The lexical probe returns a hit count on its own corpus; it never merges a candidate list with the vector bench."
+        },
+        {
+          "technique": "named-period-vote",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/fts.ts:23 Probe terms name topics only, and the docs table has no event time to vote with."
+        },
+        {
+          "technique": "relationship-proximity-lane",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/graph.ts:11 The graph bench checksums reachability counts; it does not add neighbours to a ranked recall slice."
+        },
+        {
+          "technique": "structural-centrality-lane",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/graph.ts:12 The graph workloads are reach counts, triangles, and typed joins; a search of scripts/db-bench and scripts/db found no centrality or importance rank."
+        },
+        {
+          "technique": "second-pass-rescoring",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:70 The first id is recorded as soon as the query returns; nothing rescores the ten."
+        },
+        {
+          "technique": "ranking-budgets",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:7 Ten is the latency metric's width on equal-sized ids, not a consumer budget split across lanes."
+        },
+        {
+          "technique": "relevance-floors",
+          "verdict": "deviation",
+          "evidence": "scripts/db-bench/vector.ts:68 Nearest-neighbour search with a fixed limit and no distance floor always returns k."
+        },
+        {
+          "technique": "padded-slots-are-misses",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:85 LanceDB limit yields a variable-length array of real hits; there is no sentinel slot resolved by position."
+        },
+        {
+          "technique": "retrieval-evaluation",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/vector.ts:101 The only correctness check is that two exact engines agree on top-1; it is not a labeled relevance set."
+        }
+      ],
+      "registryProposal": "relevance-floors says every nearest-neighbour lane owes a floor, but its use_when is about returning nothing and about recalibrating after an embedder swap; it does not say whether an exact top-k latency probe, whose top-1 is only a cross-engine checksum, is in scope."
     }
   }
 }
