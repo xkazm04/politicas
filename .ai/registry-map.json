@@ -2524,7 +2524,11 @@
           "revision": 4,
           "changedAt": "2026-09-20",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dukazy/deriveFeed.ts:340 The evidence feed breaks equal decidedAt values by id ascending, while the review_audit read that fills its 10 000-row window orders decided_at descending, id descending, so a tie at the cut keeps a different row than this ranking.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:fdaa24ca3f5177d9",
+          "evaluatedRevision": 4
         },
         {
           "subject": "agent-memory",
@@ -2860,7 +2864,11 @@
           "revision": 4,
           "changedAt": "2026-09-20",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/denik/deriveDenik.ts:810 The deník JSON and XML handlers publish deriveDenikEntries unchanged and then keep the first FEED_ENTRIES, so same-day rows are ordered by kind after the clock was reduced to a calendar day.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:fdaa24ca3f5177d9",
+          "evaluatedRevision": 4
         },
         {
           "subject": "claim-verification-and-provenance",
@@ -4588,7 +4596,11 @@
           "revision": 4,
           "changedAt": "2026-09-20",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/data-releases/manifest.ts:229 Changelog days and version labels are the first ten characters of a zone-suffixed UTC instant (toISOString / .000Z fixtures), so the calendar day is the universal day.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:fdaa24ca3f5177d9",
+          "evaluatedRevision": 4
         },
         {
           "subject": "packaging",

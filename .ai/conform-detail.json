@@ -5653,6 +5653,116 @@
           "evidence": "lib/testing/sentinel/facts.ts:217 Fact collection queries the existing local graph rather than scraping a registry search interface."
         }
       ]
+    },
+    "3e0155e0-4169-49a7-b22d-7a7fe3483ee4/feed": {
+      "context": "civic-evidence",
+      "subject": "feed",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T02:06:17.202Z",
+      "worker": "02c986e6-819b-45ea-9490-b552fd609189",
+      "techniques": [
+        {
+          "technique": "reverse-chronology-semantics",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/deriveFeed.ts:340 Event time (decidedAt) and a three-way id tiebreak are stable for one full set; the window query in listReviewAudit uses the opposite id direction."
+        },
+        {
+          "technique": "event-clustering",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/deriveFeed.ts:335 One public row per gate decision (confirm, reject, needs-more, forensic-verified); those are the singular approvals the technique says not to collapse."
+        },
+        {
+          "technique": "feed-retention",
+          "verdict": "conformant",
+          "evidence": "features/dukazy/feedCodecs.ts:48 The channel states the 10 000-row read ceiling over append-only review_audit; a binding cap is a floor (sourceFloor), and an unreadable store is 503 rather than an empty feed."
+        },
+        {
+          "technique": "live-prepend",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/DukazyPage.tsx:7 The bulletin is one server render per request; there is no live insertion above a held viewport."
+        },
+        {
+          "technique": "read-position-and-unseen",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/DukazyPage.tsx:2 Same public rows for every reader. Searched seen, unseen, readPosition, lastRead, markRead; the only unread strings are unreadable data layers."
+        }
+      ],
+      "registryProposal": "feed-retention's reaper safeguards (operator settings, floor, preview, reap record) have no conformant slot for a stated read ceiling over an append-only archive that never deletes."
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/feed": {
+      "context": "civic-feed-routes",
+      "subject": "feed",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T02:06:17.202Z",
+      "worker": "02c986e6-819b-45ea-9490-b552fd609189",
+      "techniques": [
+        {
+          "technique": "reverse-chronology-semantics",
+          "verdict": "deviation",
+          "evidence": "features/denik/deriveDenik.ts:810 datePart drops the time of day; inside a day the published order is kind, then id, and kinds mix event day (účinné) with record day (zaznamenáno)."
+        },
+        {
+          "technique": "event-clustering",
+          "verdict": "not-applicable",
+          "evidence": "app/denik/page.tsx:11 No cluster construct in these handlers or the deník/schránka derivations they call; a repeated contract id is merged into one fact, which is identity, not a burst view."
+        },
+        {
+          "technique": "feed-retention",
+          "verdict": "conformant",
+          "evidence": "features/denik/feedCodecs.ts:94 Both deník routes slice to that constant, and the channel text points older days at /denik; schránka's channel states its own 100-item and per-entity caps the same way."
+        },
+        {
+          "technique": "live-prepend",
+          "verdict": "not-applicable",
+          "evidence": "app/dukazy/page.tsx:31 Handlers return one document per GET. Searched scroll, prepend, and a held buffer in features/schranka and found none."
+        },
+        {
+          "technique": "read-position-and-unseen",
+          "verdict": "deviation",
+          "evidence": "app/schranka/novinky.json/route.ts:31 The badge route's missing od is the epoch (everything unseen) while the schránka feeds fall back to a first-visit window, and feedSince accepts only a calendar day, not a (timestamp, id) anchor."
+        }
+      ],
+      "registryProposal": "read-position-and-unseen specifies a (timestamp, identity) anchor per reader and does not say what to store for an account-less inbox whose shared clock is a calendar day."
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/feed": {
+      "context": "data-releases-atlas",
+      "subject": "feed",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T02:06:17.202Z",
+      "worker": "02c986e6-819b-45ea-9490-b552fd609189",
+      "techniques": [
+        {
+          "technique": "reverse-chronology-semantics",
+          "verdict": "deviation",
+          "evidence": "features/data-releases/manifest.ts:229 Intra-day order is a real three-way total order on finishedAt, else startedAt, then higher id. The read that fills the list is ordered by started_at alone."
+        },
+        {
+          "technique": "event-clustering",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/DataReleasesPage.tsx:611 Each ingest run, including a failure, is its own row under a day divider; that divider is a chronology bucket, and failures are the rows the technique says not to collapse."
+        },
+        {
+          "technique": "feed-retention",
+          "verdict": "deviation",
+          "evidence": "features/data-releases/getDataReleasesData.ts:80 The changelog is cut at 500 runs with the comment that this is more than will ever exist; the page never states that ceiling, unlike the snapshot cut which renders limits.truncated."
+        },
+        {
+          "technique": "live-prepend",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/DataReleasesPage.tsx:8 The release page does not insert rows above a viewport. Atlas card sorting is a scorecard, not this changelog."
+        },
+        {
+          "technique": "read-position-and-unseen",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/DataReleasesPage.tsx:591 Those badges are run outcome. Searched unseen, readPosition, and lastSeen under features/data-releases and features/atlas; the loader takes no reader."
+        }
+      ]
     }
   }
 }
