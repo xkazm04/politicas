@@ -1833,7 +1833,11 @@
           "revision": 12,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/budget/tools/generate-municipal-suppliers.ts:32 Searches found no codebase, ruleset, sensor, or reachability matches in this context; its scan processes contract data, while its source-reading tests enforce fixed assertions and fall outside the standard's discovery boundary.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:06416fce13bc2342",
+          "evaluatedRevision": 12
         },
         {
           "subject": "module-design",
@@ -9426,7 +9430,11 @@
           "revision": 12,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:63 Searches found no codebase, ruleset, sensor, or reachability matches in this context; its probes examine legislative text and stored forensic records rather than discover codebase defects.",
+          "evaluatedAt": "2026-10-17",
+          "evaluatedAgainst": "sha256-b2:06416fce13bc2342",
+          "evaluatedRevision": 12
         },
         {
           "subject": "entity-lifecycle",

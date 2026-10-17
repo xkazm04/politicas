@@ -1,0 +1,237 @@
+{
+ "schema": "conform-run/1",
+ "worker": "487d2d3d-d558-4b5c-bcd3-26d8873d77c0",
+ "subject": "codebase-scanning",
+ "evaluatedAt": "2026-10-17T04:28:46.093576+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "law-archive-late",
+   "subject": "codebase-scanning",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:63 Searches found no codebase, ruleset, sensor, or reachability matches in this context; its probes examine legislative text and stored forensic records rather than discover codebase defects.",
+   "techniques": [
+    {
+     "technique": "causes-beside-the-finding-count",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:65 The reported population is affected bills, outside this subject's code-finding population."
+    },
+    {
+     "technique": "dead-code-detection",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/apply-census-completion-013.ts:55 This reconciles legislative graph nodes, without claiming code is unreachable or unused."
+    },
+    {
+     "technique": "evidence-scoping",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:36 The evidence being searched is stored legal reasoning, not evidence of engineering practices in a foreign repository."
+    },
+    {
+     "technique": "finding-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:53 These candidates identify bill-data migration targets, not codebase findings."
+    },
+    {
+     "technique": "incremental-scanning",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-013.ts:17 Batch scope selects parliamentary bills, not code units changed since a previous scan."
+    },
+    {
+     "technique": "ingestion-budget",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:35 The census reads local cached legislative texts rather than a foreign repository through a metered interface."
+    },
+    {
+     "technique": "llm-assisted-scanning",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:38 This detector mechanically searches bill citations; it is not a model scanning code."
+    },
+    {
+     "technique": "precision-trades-have-a-direction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/sector-adjacency-010.ts:90 The compared approaches classify legislative sectors, not alternative static-analysis backends."
+    },
+    {
+     "technique": "rule-precision-discipline",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/amended-paragraph-census-016.ts:71 The extraction rule operates on statutory text rather than a population of code defects."
+    },
+    {
+     "technique": "sensor-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:29 Gathering supplies bill records to a domain-data diagnostic, not sensors to a codebase sweep."
+    },
+    {
+     "technique": "the-broad-root-is-the-unaudited-one",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:22 The configured input is a legislative document cache, not a scanner's code entry-point declaration."
+    },
+    {
+     "technique": "the-narrowest-view-owns-the-number",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/sector-attribution-para-017.ts:148 This qualifies a bill's extraction diagnostics; it does not price a judgment over a restricted code view."
+    },
+    {
+     "technique": "the-tree-is-not-the-population",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:34 Traversal enumerates cached bill transcripts, not a repository tree offered to code detectors."
+    },
+    {
+     "technique": "verify-after-generate",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/apply-census-completion-013.ts:68 This path applies deterministic legislative-data completion, not an artifact produced by a model-driven codebase scanner."
+    }
+   ],
+   "absenceTerms": [
+    "codebase",
+    "ruleset",
+    "sensor",
+    "reachability"
+   ]
+  },
+  {
+   "context": "budget-mirror",
+   "subject": "codebase-scanning",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/budget/tools/generate-municipal-suppliers.ts:32 Searches found no codebase, ruleset, sensor, or reachability matches in this context; its scan processes contract data, while its source-reading tests enforce fixed assertions and fall outside the standard's discovery boundary.",
+   "techniques": [
+    {
+     "technique": "causes-beside-the-finding-count",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/supplierTrail.ts:224 The scan count measures contracts processed, not findings or independent remediation causes."
+    },
+    {
+     "technique": "dead-code-detection",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/supplierTrail.ts:426 The inventory contains supplier rows, with no claim about unused code or orphaned generated modules."
+    },
+    {
+     "technique": "evidence-scoping",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/peerGroups.ts:72 Eligibility selects municipal peers, not repository evidence for engineering-practice detectors."
+    },
+    {
+     "technique": "finding-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/getSupplierTies.ts:47 Review state belongs to politician-company ties, not code-scanning findings."
+    },
+    {
+     "technique": "incremental-scanning",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/mirrorData.ts:139 This derives municipal time series from a generated dataset, without an incremental code-scan ledger."
+    },
+    {
+     "technique": "ingestion-budget",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/tools/generate-municipal-suppliers.ts:43 Input selection uses a local municipality registry, not budgeted reads of a foreign codebase."
+    },
+    {
+     "technique": "llm-assisted-scanning",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/tools/generate-municipal-suppliers.ts:57 Generation invokes a deterministic supplier-join function, not a model code-review sensor."
+    },
+    {
+     "technique": "precision-trades-have-a-direction",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/supplierTrail.ts:219 The analysis aggregates financial graph edges; no static-analysis backend trade is implemented here."
+    },
+    {
+     "technique": "rule-precision-discipline",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/budgetSource.test.ts:11 This is an enforcing regression assertion, which the standard explicitly separates from advisory discovery rules."
+    },
+    {
+     "technique": "sensor-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/tools/generate-municipal-suppliers.ts:33 The generator gathers financial graph data, not codebase-scanning sensors."
+    },
+    {
+     "technique": "the-broad-root-is-the-unaudited-one",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/municipalRoutes.ts:37 This population declares municipal web routes, not scanner roots or source inclusion patterns."
+    },
+    {
+     "technique": "the-narrowest-view-owns-the-number",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/supplierTrail.ts:531 Coverage describes towns in the supplier record, not evidence available to a code-assessment reasoner."
+    },
+    {
+     "technique": "the-tree-is-not-the-population",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/mirrorData.ts:84 The population comes from packed municipality data rather than a filtered repository traversal."
+    },
+    {
+     "technique": "verify-after-generate",
+     "verdict": "not-applicable",
+     "evidence": "features/budget/tools/generate-municipal-suppliers.ts:102 The opened generator constructs and writes its own deterministic data module; the technique excludes deterministic generators."
+    }
+   ],
+   "absenceTerms": [
+    "codebase",
+    "ruleset",
+    "sensor",
+    "reachability"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-17T04:28:46.093576+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "codebase-scanning"
+   ],
+   "techniques": [
+    "causes-beside-the-finding-count",
+    "dead-code-detection",
+    "evidence-scoping",
+    "finding-lifecycle",
+    "incremental-scanning",
+    "ingestion-budget",
+    "llm-assisted-scanning",
+    "precision-trades-have-a-direction",
+    "rule-precision-discipline",
+    "sensor-pipeline",
+    "the-broad-root-is-the-unaudited-one",
+    "the-narrowest-view-owns-the-number",
+    "the-tree-is-not-the-population",
+    "verify-after-generate"
+   ],
+   "deviations": 0,
+   "context": "law-archive-late",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-17T04:28:46.093576+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "codebase-scanning"
+   ],
+   "techniques": [
+    "causes-beside-the-finding-count",
+    "dead-code-detection",
+    "evidence-scoping",
+    "finding-lifecycle",
+    "incremental-scanning",
+    "ingestion-budget",
+    "llm-assisted-scanning",
+    "precision-trades-have-a-direction",
+    "rule-precision-discipline",
+    "sensor-pipeline",
+    "the-broad-root-is-the-unaudited-one",
+    "the-narrowest-view-owns-the-number",
+    "the-tree-is-not-the-population",
+    "verify-after-generate"
+   ],
+   "deviations": 0,
+   "context": "budget-mirror",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
