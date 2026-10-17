@@ -1,0 +1,90 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4196ab3f-d371-47a0-838a-80878188a467",
+ "subject": "retry-backoff",
+ "evaluatedAt": "2026-10-17T23:40:36.576159+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "ingest-sources-legislative",
+   "subject": "retry-backoff",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/ingest/sources/refusal-class.ts:54 The classifier defaults novel or unrecognised non-ok HTTP responses to the permanent declined class instead of an unknown class with conservative retries and rate monitoring, permanently dropping recoverable requests.",
+   "techniques": [
+    {
+     "technique": "backoff-design",
+     "verdict": "conformant",
+     "evidence": "lib/ingest/sources/backoff.ts:24 Computes exponential backoff clamped to capMs with full jitter drawn uniformly from [0, ceiling]."
+    },
+    {
+     "technique": "circuit-breakers",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/pumper.ts:70 Direct HTTP calls lack circuit breaker protection to track consecutive failures, enter cooldown, or probe recovery."
+    },
+    {
+     "technique": "client-retry-and-redirect-conventions",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/pumper.ts:72 Client fails immediately on non-ok status without schedule stop values and does not enforce single-redirect bounds or scheme downgrade checks."
+    },
+    {
+     "technique": "durable-retries",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/pumper.ts:199 Dataset mirror passes execute in memory without persisting attempt counts, next retry-at schedules, or terminal states across restarts."
+    },
+    {
+     "technique": "error-classification-for-retry",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/refusal-class.ts:54 Fallback branch classifies unknown non-ok status codes as declined (permanent) rather than unknown, and ignores response headers like Retry-After."
+    },
+    {
+     "technique": "retry-observability",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/refusal-class.ts:67 Terminal failures format an error string but emit no structured per-item attempt histories, distinct terminal states, or attempts-per-success metrics."
+    },
+    {
+     "technique": "storm-control",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/backoff.ts:11 Per-attempt exponential backoff caps individual rungs but lacks aggregate fleet retry budgets, cross-item caps, or warn-once latching."
+    },
+    {
+     "technique": "suspension-is-not-failure",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/sources/pumper.ts:71 Blocked or failed requests immediately throw rather than suspending attempts under unmet local conditions with stricter resumption predicates."
+    }
+   ],
+   "registryProposal": "Consider noting in error-classification-for-retry that scraping adapters targeting rate-sensitive public civic infrastructure intentionally fail toward permanent refusal for unrecognised 4xx status codes to avoid triggering upstream IP bans."
+  }
+ ],
+ "declined": [
+  {
+   "subject": "retry-backoff",
+   "context": "labs-rentgen",
+   "reason": "Archived UI art-direction exploration (/rentgen) operates over static and specimen data in the local store and contains no remote HTTP calls, external fetch adapters, or retry/backoff mechanisms."
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-17T23:40:36.576159+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "retry-backoff"
+   ],
+   "techniques": [
+    "backoff-design",
+    "circuit-breakers",
+    "client-retry-and-redirect-conventions",
+    "durable-retries",
+    "error-classification-for-retry",
+    "retry-observability",
+    "storm-control",
+    "suspension-is-not-failure"
+   ],
+   "deviations": 1,
+   "context": "ingest-sources-legislative",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}

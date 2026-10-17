@@ -7377,6 +7377,58 @@
           "evidence": "scripts/db-bench/vector.ts:22 Sorting selects a median execution time; it does not place that aggregate within a peer distribution."
         }
       ]
+    },
+    "f5990dbf-2b69-4da7-9e42-b3b510462622/retry-backoff": {
+      "context": "ingest-sources-legislative",
+      "subject": "retry-backoff",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-17",
+      "evaluatedTs": "2026-10-17T23:40:36.576Z",
+      "worker": "4196ab3f-d371-47a0-838a-80878188a467",
+      "techniques": [
+        {
+          "technique": "backoff-design",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/backoff.ts:24 Computes exponential backoff clamped to capMs with full jitter drawn uniformly from [0, ceiling]."
+        },
+        {
+          "technique": "circuit-breakers",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/pumper.ts:70 Direct HTTP calls lack circuit breaker protection to track consecutive failures, enter cooldown, or probe recovery."
+        },
+        {
+          "technique": "client-retry-and-redirect-conventions",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/pumper.ts:72 Client fails immediately on non-ok status without schedule stop values and does not enforce single-redirect bounds or scheme downgrade checks."
+        },
+        {
+          "technique": "durable-retries",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/pumper.ts:199 Dataset mirror passes execute in memory without persisting attempt counts, next retry-at schedules, or terminal states across restarts."
+        },
+        {
+          "technique": "error-classification-for-retry",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/refusal-class.ts:54 Fallback branch classifies unknown non-ok status codes as declined (permanent) rather than unknown, and ignores response headers like Retry-After."
+        },
+        {
+          "technique": "retry-observability",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/refusal-class.ts:67 Terminal failures format an error string but emit no structured per-item attempt histories, distinct terminal states, or attempts-per-success metrics."
+        },
+        {
+          "technique": "storm-control",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/backoff.ts:11 Per-attempt exponential backoff caps individual rungs but lacks aggregate fleet retry budgets, cross-item caps, or warn-once latching."
+        },
+        {
+          "technique": "suspension-is-not-failure",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/pumper.ts:71 Blocked or failed requests immediately throw rather than suspending attempts under unmet local conditions with stricter resumption predicates."
+        }
+      ],
+      "registryProposal": "Consider noting in error-classification-for-retry that scraping adapters targeting rate-sensitive public civic infrastructure intentionally fail toward permanent refusal for unrecognised 4xx status codes to avoid triggering upstream IP bans."
     }
   }
 }
