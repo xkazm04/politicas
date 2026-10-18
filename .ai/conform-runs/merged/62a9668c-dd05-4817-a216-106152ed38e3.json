@@ -1,0 +1,83 @@
+{
+ "schema": "conform-run/1",
+ "worker": "62a9668c-dd05-4817-a216-106152ed38e3",
+ "subject": "document-text-extraction",
+ "evaluatedAt": "2026-10-18T22:55:06.329698+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "ingest-pipeline",
+   "subject": "document-text-extraction",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/ingest/parsedText.ts:110 The sidecar persists extracted text with cache provenance but no readability assessment or refusal, allowing an incomplete extraction to survive as an ordinary cache hit.",
+   "techniques": [
+    {
+     "technique": "band-calibration-by-construction",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/parsedText.ts:76 The stamp identifies the parser and input bytes; this path chooses no quality-band threshold or confidence score to calibrate."
+    },
+    {
+     "technique": "escalation-adjudication",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/parsedText.test.ts:92 Reparse is an explicit cache override, not an automatic second-reader attempt to repair a condemned region."
+    },
+    {
+     "technique": "extraction-yield-bands",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/parsedText.ts:40 The extraction interface supplies only text, without expected-content measurements or mapping diagnostics; the standard explicitly excludes banding when structural evidence cannot distinguish sparse from legitimately short."
+    },
+    {
+     "technique": "recognition-boundary-and-escalation",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/parsedText.ts:91 The default reader extracts PDF text layers, but its contract publishes no recognition limitation and provides no distinct needs-recognition refusal; callers cannot distinguish scanned content from an empty document."
+    },
+    {
+     "technique": "screen-then-confirm-detection",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/parsedText.ts:108 On a cache miss the real extraction runs directly; there is no readability screen whose suspicions require confirmation."
+    },
+    {
+     "technique": "structural-amplification-caps",
+     "verdict": "deviation",
+     "evidence": "packages/czech-civic-data/src/zip.ts:100 The implementation exported by lib/ingest/zip.ts retains every expanded member; its 512 MiB per-member inflate ceiling has no aggregate payload budget, so individually permitted members can exhaust process memory."
+    },
+    {
+     "technique": "structure-saturation-guard",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/parsedText.ts:112 This path returns text and cache provenance without assigning headings, lists or other inferred document structure, so there is no structural classifier to guard."
+    },
+    {
+     "technique": "unreadable-region-refusal",
+     "verdict": "deviation",
+     "evidence": "lib/ingest/parsedText.ts:104 A matching cache stamp admits text without any completeness assessment; the underlying reader merges pages without refusing empty content-bearing regions, and neither the result nor sidecar preserves assessment state or unreadable-region information."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T22:55:06.329698+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "document-text-extraction"
+   ],
+   "techniques": [
+    "band-calibration-by-construction",
+    "escalation-adjudication",
+    "extraction-yield-bands",
+    "recognition-boundary-and-escalation",
+    "screen-then-confirm-detection",
+    "structural-amplification-caps",
+    "structure-saturation-guard",
+    "unreadable-region-refusal"
+   ],
+   "deviations": 1,
+   "context": "ingest-pipeline",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

@@ -7255,7 +7255,11 @@
           "revision": 2,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/ingest/parsedText.ts:110 The sidecar persists extracted text with cache provenance but no readability assessment or refusal, allowing an incomplete extraction to survive as an ordinary cache hit.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:ee97c74f3f5e0c28",
+          "evaluatedRevision": 2
         },
         {
           "subject": "quality-gates",
