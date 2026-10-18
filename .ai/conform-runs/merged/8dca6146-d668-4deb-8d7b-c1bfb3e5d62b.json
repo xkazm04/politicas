@@ -1,0 +1,40 @@
+{
+  "schema": "conform-run/1",
+  "worker": "8dca6146-d668-4deb-8d7b-c1bfb3e5d62b",
+  "subject": "chat-transcript",
+  "evaluatedAt": "2026-10-18T02:03:29.852656+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "chat-transcript",
+      "context": "graph-canvas",
+      "reason": "withdrawn after review: reviewer (sonnet): The primary anchor, GraphStage.tsx:235, is edge-drawing code (moveTo/lineTo after a viewport cull) and doesn't show that transcript behaviour is absent. Technique anchors NodeSearch:51, GraphStage:319 and :410 are consistent with the verdict. The case-insensitive 'chat' grep over the directory match"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-18T02:03:29.852656+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "chat-transcript"
+      ],
+      "techniques": [
+        "composer-turn-queue",
+        "immutable-model-cached-layout",
+        "inline-structured-rows",
+        "markdown-and-code-rendering",
+        "progress-narration",
+        "transcript-scroll",
+        "turn-metadata",
+        "turn-model",
+        "virtual-filtered-channel"
+      ],
+      "deviations": 0,
+      "context": "graph-canvas",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}

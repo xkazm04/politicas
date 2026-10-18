@@ -8120,6 +8120,67 @@
           "evidence": "features/admin/loops/getLoopState.ts:50 This reads historical records with a row limit; no tracked-operation collector or budgeted readiness-wait API was found."
         }
       ]
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/chat-transcript": {
+      "context": "graph-canvas",
+      "subject": "chat-transcript",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T02:03:29.852Z",
+      "techniques": [
+        {
+          "technique": "composer-turn-queue",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/NodeSearch.tsx:51 Text input searches graph entities; it does not submit conversational follow-ups to a running turn."
+        },
+        {
+          "technique": "immutable-model-cached-layout",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:319 The renderer batches graph glyphs, with no transcript messages or settled history to cache."
+        },
+        {
+          "technique": "inline-structured-rows",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/StageOverlays.tsx:47 The inspector overlay displays selected-node details, not tool calls or approvals belonging to a conversation."
+        },
+        {
+          "technique": "markdown-and-code-rendering",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:410 Canvas text consists of graph labels; this context has no streaming model-markup renderer."
+        },
+        {
+          "technique": "progress-narration",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantTrasy.tsx:126 The status describes trail-data loading, not activity narration within a machine turn."
+        },
+        {
+          "technique": "transcript-scroll",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:635 Wheel input zooms a spatial graph; there is no growing conversational tail or thread-history restoration."
+        },
+        {
+          "technique": "turn-metadata",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/NodeInspector.tsx:163 Displayed timing belongs to graph-node provenance, not a settled conversational turn."
+        },
+        {
+          "technique": "turn-model",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/useNodeSelection.ts:42 Identity and asynchronous state concern selected graph nodes, with no authored turns or streaming-to-settled lifecycle."
+        },
+        {
+          "technique": "virtual-filtered-channel",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantMapa.tsx:370 Filtering derives a graph-edge collection, not a subscribed transcript channel with retained messages."
+        }
+      ],
+      "withdrawn": {
+        "worker": "8dca6146-d668-4deb-8d7b-c1bfb3e5d62b",
+        "state": "not-applicable",
+        "at": "2026-10-18T02:03:42.604812+00:00",
+        "reason": "reviewer (sonnet): The primary anchor, GraphStage.tsx:235, is edge-drawing code (moveTo/lineTo after a viewport cull) and doesn't show that transcript behaviour is absent. Technique anchors NodeSearch:51, GraphStage:319 and :410 are consistent with the verdict. The case-insensitive 'chat' grep over the directory match"
+      }
     }
   }
 }
