@@ -1,0 +1,17 @@
+{
+ "schema": "conform-run/1",
+ "worker": "17092937-99a5-4f28-8658-02c8fc3eb4f8",
+ "subject": "delivery-analytics",
+ "evaluatedAt": "2026-10-18T22:35:55.245550+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "delivery-analytics",
+   "context": "db-repositories",
+   "reason": "not-applicable without the 2+ search terms that prove the absence"
+  }
+ ],
+ "consults": []
+}
