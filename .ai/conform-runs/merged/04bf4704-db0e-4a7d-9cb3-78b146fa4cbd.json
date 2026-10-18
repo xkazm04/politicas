@@ -1,0 +1,35 @@
+{
+  "schema": "conform-run/1",
+  "worker": "04bf4704-db0e-4a7d-9cb3-78b146fa4cbd",
+  "subject": "context-hierarchy",
+  "evaluatedAt": "2026-10-18T21:10:04.602488+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "context-hierarchy",
+      "context": "law-amends-corpus",
+      "reason": "withdrawn after review: reviewer (sonnet): Four of the five anchors are in build-bill-summaries.ts, which is not in the context's file list, so they describe a different context; the one in-context anchor (esbirka-sparql-diff.ts:82) is a fragment lookup that doesn't show the summary-tree precondition is absent; line 253 is a rows.push, not a"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-18T21:10:04.602488+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "context-hierarchy"
+      ],
+      "techniques": [
+        "digest-gated-upward-refresh",
+        "per-node-summary-tiers",
+        "seeded-descent-retrieval",
+        "stable-sampling-for-wide-nodes"
+      ],
+      "deviations": 0,
+      "context": "law-amends-corpus",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}

@@ -8232,6 +8232,42 @@
         "at": "2026-10-18T02:08:54.781293+00:00",
         "reason": "reviewer (sonnet): The primary anchor, getDashboardData.ts:11, is a header comment about the loader passing through fields from the other loaders and does not show that a companion runtime is absent. The only support for absence is the zero-hit grep, which is not a line in the code."
       }
+    },
+    "83c0d33f-f7db-4a99-9d17-48a23e417b22/context-hierarchy": {
+      "context": "law-amends-corpus",
+      "subject": "context-hierarchy",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T21:10:04.602Z",
+      "techniques": [
+        {
+          "technique": "digest-gated-upward-refresh",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:248 A summary derives directly from its bill text; there is no ancestor-summary dependency requiring upward propagation."
+        },
+        {
+          "technique": "per-node-summary-tiers",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:253 These are presentation summaries of independent bill records, without interior corpus nodes requiring abstract and overview tiers."
+        },
+        {
+          "technique": "seeded-descent-retrieval",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/esbirka-sparql-diff.ts:82 The paragraph lookup returns source fragments for a specified law version and paragraph prefix; it does not retrieve through summary-bearing interior nodes."
+        },
+        {
+          "technique": "stable-sampling-for-wide-nodes",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:177 The prefix selects captions for a bill's display sentence, rather than sampling child summaries for a wide interior node's overview."
+        }
+      ],
+      "withdrawn": {
+        "worker": "04bf4704-db0e-4a7d-9cb3-78b146fa4cbd",
+        "state": "not-applicable",
+        "at": "2026-10-18T21:10:25.360614+00:00",
+        "reason": "reviewer (sonnet): Four of the five anchors are in build-bill-summaries.ts, which is not in the context's file list, so they describe a different context; the one in-context anchor (esbirka-sparql-diff.ts:82) is a fragment lookup that doesn't show the summary-tree precondition is absent; line 253 is a rows.push, not a"
+      }
     }
   }
 }
