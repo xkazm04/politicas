@@ -1,0 +1,17 @@
+{
+ "schema": "conform-run/1",
+ "worker": "07a68863-808d-45c5-a471-b9d176c5b054",
+ "subject": "czech",
+ "evaluatedAt": "2026-10-18T21:49:58.820467+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "czech",
+   "context": "czech-civic-data",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": []
+}
