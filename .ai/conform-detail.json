@@ -8181,6 +8181,57 @@
         "at": "2026-10-18T02:03:42.604812+00:00",
         "reason": "reviewer (sonnet): The primary anchor, GraphStage.tsx:235, is edge-drawing code (moveTo/lineTo after a viewport cull) and doesn't show that transcript behaviour is absent. Technique anchors NodeSearch:51, GraphStage:319 and :410 are consistent with the verdict. The case-insensitive 'chat' grep over the directory match"
       }
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/companion-runtime": {
+      "context": "dashboard-instruments",
+      "subject": "companion-runtime",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T02:08:43.384Z",
+      "techniques": [
+        {
+          "technique": "action-catalog-single-source",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/FactRow.tsx:107 The interaction selects a graph node on a person's click; no model-produced action vocabulary was found."
+        },
+        {
+          "technique": "autonomous-cycle-hosting",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:287 The loader expires its read cache when called; it does not host autonomous companion cycles."
+        },
+        {
+          "technique": "headless-turn-stream",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getExhibitData.ts:43 Exhibit requests await a data projection; no conversation turn or turn transport was found."
+        },
+        {
+          "technique": "host-seam-contracts",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:425 The alternate graph presentation shares data and selection callbacks; it is not a second consumer of a companion brain."
+        },
+        {
+          "technique": "metered-llm-seam",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:548 Dashboard orchestration reads domain loaders; no runtime model invocation or background model leg was found."
+        },
+        {
+          "technique": "operative-working-set",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:86 This transient state tracks graph hover, not a companion's present-tense observations beside durable memory."
+        },
+        {
+          "technique": "signal-economy-contract",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/GraphFeedPanel.tsx:64 The panel counts dated facts matching a selected entity; it does not report autonomous companion outcomes."
+        }
+      ],
+      "withdrawn": {
+        "worker": "50f784b4-d532-48b3-9e8e-575e1c1179f7",
+        "state": "not-applicable",
+        "at": "2026-10-18T02:08:54.781293+00:00",
+        "reason": "reviewer (sonnet): The primary anchor, getDashboardData.ts:11, is a header comment about the loader passing through fields from the other loaders and does not show that a companion runtime is absent. The only support for absence is the zero-hit grep, which is not a line in the code."
+      }
     }
   }
 }
