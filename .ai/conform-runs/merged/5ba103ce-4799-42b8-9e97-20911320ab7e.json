@@ -1,0 +1,70 @@
+{
+ "schema": "conform-run/1",
+ "worker": "5ba103ce-4799-42b8-9e97-20911320ab7e",
+ "subject": "durable-agent-operations",
+ "evaluatedAt": "2026-10-18T23:13:33.035338+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "testing-core",
+   "subject": "durable-agent-operations",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/testing/crash-writer.mjs:23 The inspected context implements test infrastructure and database crash probes, while searches found no transcript, tool_call, or settlement in lib/testing and only unrelated repository matches, so the agent-operation precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "close-is-a-controlled-crash",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/pglite-template.ts:160 Closes a database template connection after schema initialization; this module owns no durable agent operation."
+    },
+    {
+     "technique": "intent-mints-the-identity",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/crash-writer.mjs:24 The crash probe performs an idempotent keyed insert, without a provider/tool outcome or transcript identity reservation."
+    },
+    {
+     "technique": "recovery-prefix-enumeration",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/crash-writer.mjs:8 Exercises database WAL recovery; there is no durable agent-state vocabulary whose recovery prefixes require enumeration."
+    },
+    {
+     "technique": "total-restart-point-by-reference",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/pglite-fixture.ts:62 Copies a provisioned database into an isolated fixture; it does not persist an agent operation's restart point."
+    },
+    {
+     "technique": "two-cancellations-and-a-synchronous-door",
+     "verdict": "not-applicable",
+     "evidence": "lib/testing/adminRouteHeaders.test.ts:34 The cancellation-related check concerns font-fetch timeouts, without observer cancellation, durable agent cancellation, or effect admission."
+    }
+   ],
+   "absenceTerms": [
+    "transcript",
+    "tool_call",
+    "settlement"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T23:13:33.035338+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "durable-agent-operations"
+   ],
+   "techniques": [
+    "close-is-a-controlled-crash",
+    "intent-mints-the-identity",
+    "recovery-prefix-enumeration",
+    "total-restart-point-by-reference",
+    "two-cancellations-and-a-synchronous-door"
+   ],
+   "deviations": 0,
+   "context": "testing-core",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

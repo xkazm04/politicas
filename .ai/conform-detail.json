@@ -8477,6 +8477,42 @@
           "evidence": "lib/ingest/parsedText.ts:104 A matching cache stamp admits text without any completeness assessment; the underlying reader merges pages without refusing empty content-bearing regions, and neither the result nor sidecar preserves assessment state or unreadable-region information."
         }
       ]
+    },
+    "77144fa6-99c0-41be-9032-46aa6c0a1392/durable-agent-operations": {
+      "context": "testing-core",
+      "subject": "durable-agent-operations",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T23:13:33.035Z",
+      "worker": "5ba103ce-4799-42b8-9e97-20911320ab7e",
+      "techniques": [
+        {
+          "technique": "close-is-a-controlled-crash",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/pglite-template.ts:160 Closes a database template connection after schema initialization; this module owns no durable agent operation."
+        },
+        {
+          "technique": "intent-mints-the-identity",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/crash-writer.mjs:24 The crash probe performs an idempotent keyed insert, without a provider/tool outcome or transcript identity reservation."
+        },
+        {
+          "technique": "recovery-prefix-enumeration",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/crash-writer.mjs:8 Exercises database WAL recovery; there is no durable agent-state vocabulary whose recovery prefixes require enumeration."
+        },
+        {
+          "technique": "total-restart-point-by-reference",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/pglite-fixture.ts:62 Copies a provisioned database into an isolated fixture; it does not persist an agent operation's restart point."
+        },
+        {
+          "technique": "two-cancellations-and-a-synchronous-door",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/adminRouteHeaders.test.ts:34 The cancellation-related check concerns font-fetch timeouts, without observer cancellation, durable agent cancellation, or effect admission."
+        }
+      ]
     }
   }
 }

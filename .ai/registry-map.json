@@ -12661,7 +12661,11 @@
           "revision": 4,
           "changedAt": "2026-10-06",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/testing/crash-writer.mjs:23 The inspected context implements test infrastructure and database crash probes, while searches found no transcript, tool_call, or settlement in lib/testing and only unrelated repository matches, so the agent-operation precondition does not hold.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:19065e70c3b1b5a2",
+          "evaluatedRevision": 4
         }
       ],
       "governance": "governed"
