@@ -8513,6 +8513,77 @@
           "evidence": "lib/testing/adminRouteHeaders.test.ts:34 The cancellation-related check concerns font-fetch timeouts, without observer cancellation, durable agent cancellation, or effect admission."
         }
       ]
+    },
+    "0e0462f1-6bc2-4a2d-b576-759f57a58449/error-handling": {
+      "context": "lawwatch-radar",
+      "subject": "error-handling",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T23:26:29.982Z",
+      "worker": "47db0976-4a81-4569-ab2f-b5918dad7100",
+      "techniques": [
+        {
+          "technique": "cancellation-attribution",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/components/RadarLedger.tsx:179 Context only clears a local component timer; no cancellable asynchronous operations or AbortController signals are used."
+        },
+        {
+          "technique": "consumer-decides-error-shape",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:147 The loader exposes an opaque null return on failure instead of a discriminated error enumeration or structured aggregate for consumers."
+        },
+        {
+          "technique": "containment-boundary-restores-state",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/deriveRadar.ts:18 Context operates purely over stateless, read-only data transformations with no mutable session or document state requiring containment restoration."
+        },
+        {
+          "technique": "crash-capture",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getRadarData.ts:22 The async loader executes without a handled-path crash reporter or top-level loader try/catch guard."
+        },
+        {
+          "technique": "error-doors",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getRadarData.ts:23 When both collision and law datasets are absent, loadRadarData returns null without routing the failure to telemetry or a log door."
+        },
+        {
+          "technique": "exit-contract-is-a-taxonomy-projection",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:1 Context produces RSS and JSON feed projections for web routes, not a process exit code for CLI or process supervisors."
+        },
+        {
+          "technique": "parse-failure-keeps-identity",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/sectorAttribution.ts:145 When a raw sector attribution row lacks required fields, it is discarded to null rather than decoding into an identity-preserving failure item."
+        },
+        {
+          "technique": "reclassification-is-not-repair",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/deriveRadar.ts:65 Context defines domain finding kinds rather than declaring an internal never-fires assertion error class."
+        },
+        {
+          "technique": "structured-propagation",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:146 The caught exception is intercepted and converted to a null return value, stripping structured category and cause across the layer boundary."
+        },
+        {
+          "technique": "swallowed-error-prevention",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/components/RadarLedger.tsx:194 Clipboard failure is caught and logged solely to the client console, leaving the failure swallowed from operator telemetry."
+        },
+        {
+          "technique": "taxonomy-design",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:145 Caught errors are treated as untyped exceptions rather than classified into a closed taxonomy specifying transience or fault lines."
+        },
+        {
+          "technique": "user-facing-mapping",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/components/RadarLedger.tsx:195 Failed actions toggle a local boolean status to display a static string rather than resolving through a structured message-and-suggestion registry."
+        }
+      ]
     }
   }
 }
