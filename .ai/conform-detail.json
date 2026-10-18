@@ -7429,6 +7429,103 @@
         }
       ],
       "registryProposal": "Consider noting in error-classification-for-retry that scraping adapters targeting rate-sensitive public civic infrastructure intentionally fail toward permanent refusal for unrecognised 4xx status codes to avoid triggering upstream IP bans."
+    },
+    "e9b0f297-acb5-4de0-91ed-aebb33374531/scoring-rubrics": {
+      "context": "civicscore-leaderboard",
+      "subject": "scoring-rubrics",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:00:13.855Z",
+      "worker": "7c94be2d-ad38-48f2-b2ae-eda9d3d29d87",
+      "techniques": [
+        {
+          "technique": "unmeasured-honesty",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:72 Missing values are coerced to zero at read time, converting unmeasured dimensions into floor penalties or penalty-ceiling windfalls rather than renormalizing or enforcing a coverage floor."
+        },
+        {
+          "technique": "weight-lenses",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/lens.ts:229 Preset lenses maintain the closed six-dimension vocabulary with explicit weights summing to 100 on every lens."
+        },
+        {
+          "technique": "rubric-stability",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/lens.test.ts:255 Parity test locks client-side lens re-ranking to the server loader's total-order comparator across identical fixtures."
+        },
+        {
+          "technique": "weight-design",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/componentDefs.ts:28 Weights assert a 100-point sum in test fixtures, but omit per-dimension rationales justifying why each magnitude was chosen relative to its neighbors."
+        },
+        {
+          "technique": "score-explanation",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:16 Breakdown points are re-derived on the read side from rates rather than returned as part of a single rubric compute contract, and rows omit actionable top gaps."
+        },
+        {
+          "technique": "gap-ranking",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:82 The row calculates a single-component deviation from median instead of ranking gaps by impact per effort or phrasing the top gap as an action."
+        },
+        {
+          "technique": "normalization",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:202 Absence is inverted via scattered subtraction (1 - absenceRate) rather than an explicit per-dimension polarity declaration, and clamping is not disclosed."
+        }
+      ]
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/scoring-rubrics": {
+      "context": "civicscore-scoring",
+      "subject": "scoring-rubrics",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:00:13.855Z",
+      "techniques": [
+        {
+          "technique": "unmeasured-honesty",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/duel.ts:26 Head-to-head duel declares leaders from composite scores that default unmeasured inputs to zero without enforcing an eligibility coverage floor."
+        },
+        {
+          "technique": "rubric-stability",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/verdictRung.test.ts:43 Static parity suite ensures all surfaces displaying verdict badges pass provenance rungs so rejected claims are withheld consistently across views."
+        },
+        {
+          "technique": "weight-lenses",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/HeadToHead.tsx:357 Under custom lenses, the duel adjusts component weighting and explicitly withholds citation claims with a dedicated disclosure note."
+        },
+        {
+          "technique": "weight-design",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/MetodikaPage.tsx:47 Methodology page dynamically totals formula weights to verify 100 points, but lacks per-dimension rationales justifying relative importance."
+        },
+        {
+          "technique": "score-explanation",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/components/HeadToHead.tsx:244 The head-to-head view visualizes re-derived component breakdowns side-by-side but does not provide actionable gap derivations."
+        },
+        {
+          "technique": "gap-ranking",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/duel.ts:34 Comparative logic resolves point advantages between opponents without calculating effort-weighted gap sequences or recommending next actions."
+        },
+        {
+          "technique": "normalization",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/MetodikaPage.tsx:135 Methodology documents saturation caps for counts, but omits explicit per-dimension polarity properties and breakdown clamping disclosures."
+        }
+      ],
+      "withdrawn": {
+        "worker": "7c94be2d-ad38-48f2-b2ae-eda9d3d29d87",
+        "state": "deviation",
+        "at": "2026-10-18T00:01:03.084882+00:00",
+        "reason": "reviewer (sonnet): duel.ts:26 only subtracts two already-published scores and does no zero-coercion, so the unmeasured-input-to-zero claim is about the loader's num() in getLeaderboardData.ts (a different context)."
+      }
     }
   }
 }

@@ -3693,7 +3693,11 @@
           "revision": 3,
           "changedAt": "2026-09-20",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:72 Coercing non-finite and absent properties to zero causes unmeasured dimensions to quietly register as failures or windfalls without exclude-and-renormalize handling or a coverage floor.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:476078a37f34137d",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-memory",

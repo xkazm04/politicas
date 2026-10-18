@@ -1,0 +1,103 @@
+{
+  "schema": "conform-run/1",
+  "worker": "7c94be2d-ad38-48f2-b2ae-eda9d3d29d87",
+  "subject": "scoring-rubrics",
+  "evaluatedAt": "2026-10-18T00:00:13.855859+00:00",
+  "provider": "agy",
+  "model": "gemini-3.8-flash-high",
+  "pairs": [
+    {
+      "context": "civicscore-leaderboard",
+      "subject": "scoring-rubrics",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/civicscore/getLeaderboardData.ts:72 Coercing non-finite and absent properties to zero causes unmeasured dimensions to quietly register as failures or windfalls without exclude-and-renormalize handling or a coverage floor.",
+      "techniques": [
+        {
+          "technique": "unmeasured-honesty",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:72 Missing values are coerced to zero at read time, converting unmeasured dimensions into floor penalties or penalty-ceiling windfalls rather than renormalizing or enforcing a coverage floor."
+        },
+        {
+          "technique": "weight-lenses",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/lens.ts:229 Preset lenses maintain the closed six-dimension vocabulary with explicit weights summing to 100 on every lens."
+        },
+        {
+          "technique": "rubric-stability",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/lens.test.ts:255 Parity test locks client-side lens re-ranking to the server loader's total-order comparator across identical fixtures."
+        },
+        {
+          "technique": "weight-design",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/componentDefs.ts:28 Weights assert a 100-point sum in test fixtures, but omit per-dimension rationales justifying why each magnitude was chosen relative to its neighbors."
+        },
+        {
+          "technique": "score-explanation",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:16 Breakdown points are re-derived on the read side from rates rather than returned as part of a single rubric compute contract, and rows omit actionable top gaps."
+        },
+        {
+          "technique": "gap-ranking",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:82 The row calculates a single-component deviation from median instead of ranking gaps by impact per effort or phrasing the top gap as an action."
+        },
+        {
+          "technique": "normalization",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/getLeaderboardData.ts:202 Absence is inverted via scattered subtraction (1 - absenceRate) rather than an explicit per-dimension polarity declaration, and clamping is not disclosed."
+        }
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "scoring-rubrics",
+      "context": "civicscore-scoring",
+      "reason": "withdrawn after review: reviewer (sonnet): duel.ts:26 only subtracts two already-published scores and does no zero-coercion, so the unmeasured-input-to-zero claim is about the loader's num() in getLeaderboardData.ts (a different context)."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-18T00:00:13.855859+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "scoring-rubrics"
+      ],
+      "techniques": [
+        "gap-ranking",
+        "normalization",
+        "rubric-stability",
+        "score-explanation",
+        "unmeasured-honesty",
+        "weight-design",
+        "weight-lenses"
+      ],
+      "deviations": 1,
+      "context": "civicscore-leaderboard",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    },
+    {
+      "ts": "2026-10-18T00:00:13.855859+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "scoring-rubrics"
+      ],
+      "techniques": [
+        "gap-ranking",
+        "normalization",
+        "rubric-stability",
+        "score-explanation",
+        "unmeasured-honesty",
+        "weight-design",
+        "weight-lenses"
+      ],
+      "deviations": 1,
+      "context": "civicscore-scoring",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    }
+  ]
+}
