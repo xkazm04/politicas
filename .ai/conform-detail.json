@@ -7526,6 +7526,84 @@
         "at": "2026-10-18T00:01:03.084882+00:00",
         "reason": "reviewer (sonnet): duel.ts:26 only subtracts two already-published scores and does no zero-coercion, so the unmeasured-input-to-zero claim is about the loader's num() in getLeaderboardData.ts (a different context)."
       }
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/search": {
+      "context": "graph-data-logic",
+      "subject": "search",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:15:22.262Z",
+      "worker": "3803eb05-b445-4d37-8c6d-38d8342d1388",
+      "techniques": [
+        {
+          "technique": "query-parsing",
+          "verdict": "deviation",
+          "evidence": "features/graph/graphLoader.ts:254 Index unavailability becomes the same successful empty array as a genuine zero-match query; logging inside buildIndex does not preserve failure in the returned result."
+        },
+        {
+          "technique": "ranking-and-excerpts",
+          "verdict": "deviation",
+          "evidence": "features/graph/graphLoader.ts:266 Distinct nodes sharing match rank, degree and label compare equal because the comparator never reaches node identity."
+        },
+        {
+          "technique": "saved-views",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/permalink.ts:187 The permalink represents a content-stamped citation with change detection, rather than a named saved search predicate."
+        },
+        {
+          "technique": "typed-filter-language",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphLoader.ts:261 User text is matched literally against folded labels, rather than parsed as a predicate program."
+        }
+      ],
+      "registryProposal": "Clarify whether inline entity comboboxes inherit command-surface requirements: the golden path associates navigation intent with that technique, while the technique describes a globally summoned palette."
+    },
+    "e9b0f297-acb5-4de0-91ed-aebb33374531/search": {
+      "context": "civicscore-leaderboard",
+      "subject": "search",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:15:22.262Z",
+      "worker": "3803eb05-b445-4d37-8c6d-38d8342d1388",
+      "techniques": [
+        {
+          "technique": "command-surface",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:455 The leaderboard input filters table membership; the regional chooser is an inline picker, rather than a command palette."
+        },
+        {
+          "technique": "faceting-and-filters",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:376 The dossier count depends only on all entries, ignoring the query, club and workhorse selections; workhorse badge counts likewise iterate all entries."
+        },
+        {
+          "technique": "full-text-indexing",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:407 The bounded 207-name substring filter precomputes folded labels; search.ts documents why this scan avoids an unnecessary index or additional relation read."
+        },
+        {
+          "technique": "query-parsing",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/KrajPickerPage.tsx:46 The picker shares folding but implements its own matching predicate beside search.ts's named nameMatches function, violating the required single matching-policy door."
+        },
+        {
+          "technique": "ranking-and-excerpts",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:411 Text narrows the existing business-score order; the golden path explicitly distinguishes this filter intent from relevance-ranked search requiring excerpts."
+        },
+        {
+          "technique": "saved-views",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/lens.ts:233 Named lens presets contain scoring weights, rather than saved query/filter/sort predicates."
+        },
+        {
+          "technique": "typed-filter-language",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/search.ts:32 The input is a literal substring filter, with no user-authored expression language to type-check."
+        }
+      ]
     }
   }
 }

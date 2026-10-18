@@ -3766,7 +3766,11 @@
           "revision": 5,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:486 Facet badges retain whole-chamber counts when the query or other filters change, so they do not describe either supported current-selection count convention.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:395e660a5e607abe",
+          "evaluatedRevision": 6
         },
         {
           "subject": "table",
@@ -6946,7 +6950,11 @@
           "revision": 5,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/graphLoader.ts:266 Search ordering ends at a non-unique label, so equal-ranked nodes with equal degrees and labels lack the required identity tiebreaker.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:395e660a5e607abe",
+          "evaluatedRevision": 6
         }
       ],
       "governance": "governed"
