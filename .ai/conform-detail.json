@@ -7604,6 +7604,83 @@
           "evidence": "features/civicscore/search.ts:32 The input is a literal substring filter, with no user-authored expression language to type-check."
         }
       ]
+    },
+    "6b1859ef-0a64-4966-bfbb-8808a7c04d1e/self-describing-model-packages": {
+      "context": "czech-civic-data",
+      "subject": "self-describing-model-packages",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:27:33.839Z",
+      "worker": "5a2b9b15-1824-4358-80ad-19ef9aa13c13",
+      "techniques": [
+        {
+          "technique": "advisory-version-floors",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/package.json:33 This declares a Node runtime requirement, not versions recorded when building a trained model."
+        },
+        {
+          "technique": "config-frozen-artifact",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/tsconfig.json:8 The package exposes TypeScript utilities; inspection and searches found no compiled-model export to freeze configuration into."
+        },
+        {
+          "technique": "declared-vs-derived-outputs",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:105 Vote normalization maps source codes directly; it does not post-process network outputs."
+        },
+        {
+          "technique": "normative-layout-contract",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/package.json:21 The package locates ordinary source modules through npm exports, not model metadata and weights."
+        },
+        {
+          "technique": "symbolic-shape-constraints",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/unl.ts:28 The parser consumes text rows; no network input-shape family or forward-pass validator was found."
+        }
+      ]
+    },
+    "f4e73683-b40c-4436-b8ea-20e407f499ab/self-describing-model-packages": {
+      "context": "eslint-plugin-civic-transparency-rules",
+      "subject": "self-describing-model-packages",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:27:33.839Z",
+      "worker": "5a2b9b15-1824-4358-80ad-19ef9aa13c13",
+      "techniques": [
+        {
+          "technique": "advisory-version-floors",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 This is an ESLint peer dependency, not a trained model's recorded framework or tensor-engine version."
+        },
+        {
+          "technique": "config-frozen-artifact",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:8 The package loads CommonJS rule implementations; inspection and searches found no serialized-model export."
+        },
+        {
+          "technique": "declared-vs-derived-outputs",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/no-silent-catch.cjs:39 The rule emits lint diagnostics from AST inspection, not raw or post-processed network outputs."
+        },
+        {
+          "technique": "normative-layout-contract",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/README.md:44 The documented distribution contains plugin code and rule documentation, not a trained-model package."
+        },
+        {
+          "technique": "self-locating-validation-schema",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/no-server-import-in-client.cjs:35 The embedded schema validates ESLint rule options, not model metadata presented to an unfamiliar consumer."
+        },
+        {
+          "technique": "symbolic-shape-constraints",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/role-button-requires-keydown.cjs:51 The rule checks JSX attributes; no tensor-shape contract or network forward pass was found."
+        }
+      ]
     }
   }
 }

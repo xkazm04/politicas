@@ -4034,7 +4034,11 @@
           "revision": 1,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/czech-civic-data/package.json:5 The manifest and implementations describe deterministic data utilities, and searches found no weights, tensor, logits, or weights_path in the package directory, so the trained-model packaging precondition does not hold.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:d22f4172adbc5004",
+          "evaluatedRevision": 1
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -5930,7 +5934,11 @@
           "revision": 1,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:5 The manifest and implementations describe an ESLint plugin, and searches found no weights, tensor, logits, or weights_path in its directory, so the trained-model packaging precondition does not hold.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:d22f4172adbc5004",
+          "evaluatedRevision": 1
         },
         {
           "subject": "motion",
