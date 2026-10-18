@@ -1,0 +1,22 @@
+{
+ "schema": "conform-run/1",
+ "worker": "6f7ca870-87a5-4fb8-891c-68955132425c",
+ "subject": "usage-event-ingestion",
+ "evaluatedAt": "2026-10-18T01:30:18.424543+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "usage-event-ingestion",
+   "context": "ingest-pipeline",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "usage-event-ingestion",
+   "context": "ingest-sources-financial",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": []
+}
