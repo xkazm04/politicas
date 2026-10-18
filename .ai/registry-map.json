@@ -5813,7 +5813,11 @@
           "revision": 8,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:37 The module loads shipped JavaScript rules locally, and context searches found no sidecar, child_process, execFile or handshake constructs that would establish responsibility for provisioning external capabilities.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:25f000a9ae879947",
+          "evaluatedRevision": 8
         },
         {
           "subject": "design-tokens",
@@ -6106,7 +6110,11 @@
           "revision": 8,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:25 The runner imports test suites from its own directory, and context searches found no sidecar, child_process, execFile or handshake constructs that would introduce external artifact provisioning.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:25f000a9ae879947",
+          "evaluatedRevision": 8
         },
         {
           "subject": "data-access",

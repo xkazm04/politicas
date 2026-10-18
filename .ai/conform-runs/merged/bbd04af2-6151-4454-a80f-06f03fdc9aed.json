@@ -1,0 +1,189 @@
+{
+ "schema": "conform-run/1",
+ "worker": "bbd04af2-6151-4454-a80f-06f03fdc9aed",
+ "subject": "sidecar-provisioning",
+ "evaluatedAt": "2026-10-18T01:05:29.191991+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "sidecar-provisioning",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:37 The module loads shipped JavaScript rules locally, and context searches found no sidecar, child_process, execFile or handshake constructs that would establish responsibility for provisioning external capabilities.",
+   "techniques": [
+    {
+     "technique": "atomic-downloads",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:42 Loads a shipped rule; no artifact transfer or publication occurs."
+    },
+    {
+     "technique": "capability-detection",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:39 Loads a local AST rule, without probing an independently installed executable."
+    },
+    {
+     "technique": "change-rate-partitioning",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:46 The dependency is shipped source code, not a downloadable payload with independently changing parts."
+    },
+    {
+     "technique": "grade-selection",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:44 Selects a fixed local rule module, without model or engine grades."
+    },
+    {
+     "technique": "model-storage-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:45 The rule resides in the shipped package, not a provisioned artifact store."
+    },
+    {
+     "technique": "plugin-lazy-load-and-reload",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:75 The preset registers an in-process ESLint object, not an out-of-process plugin mount."
+    },
+    {
+     "technique": "process-isolation",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:41 Loads JavaScript AST analysis; no native runtime collision triggers the isolation rule."
+    },
+    {
+     "technique": "resolution-ladders",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:40 Uses an exact package-relative module rather than resolving an unshipped dependency."
+    },
+    {
+     "technique": "source-pinning",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:43 Loads shipped code; no runtime artifact acquisition requires a source catalog."
+    },
+    {
+     "technique": "split-trust-by-registration-path",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:92 Registers an ESLint object in configuration; there is no executable-plugin API registration door."
+    }
+   ],
+   "absenceTerms": [
+    "sidecar",
+    "child_process",
+    "execFile",
+    "handshake"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-tests",
+   "subject": "sidecar-provisioning",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:25 The runner imports test suites from its own directory, and context searches found no sidecar, child_process, execFile or handshake constructs that would introduce external artifact provisioning.",
+   "techniques": [
+    {
+     "technique": "atomic-downloads",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-colors.test.mjs:11 Exercises a local rule; no downloaded artifact is staged or published."
+    },
+    {
+     "technique": "capability-detection",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-server-import-in-client.test.mjs:16 Uses an installed JavaScript parser, without probing an external executable capability."
+    },
+    {
+     "technique": "change-rate-partitioning",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-display-string.test.mjs:23 Loads repository source rather than acquiring a partitioned binary payload."
+    },
+    {
+     "technique": "grade-selection",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-raw-number-display.test.mjs:12 Tests a fixed rule implementation; no host-sized model or engine variant is selected."
+    },
+    {
+     "technique": "model-storage-lifecycle",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-source-note-size-override.test.mjs:18 Consumes shipped rule source, without resident model artifacts or eviction."
+    },
+    {
+     "technique": "plugin-lazy-load-and-reload",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:29 Loads the plugin object in the runner process; no plugin process is mounted or shared."
+    },
+    {
+     "technique": "process-isolation",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/enforce-reduced-motion-fallback.test.mjs:11 Tests JavaScript AST analysis, without a native capability requiring a process boundary."
+    },
+    {
+     "technique": "resolution-ladders",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/role-button-requires-keydown.test.mjs:11 The target is an exact repository-relative module, not an override/managed/system dependency."
+    },
+    {
+     "technique": "source-pinning",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:14 Loads local source; no remote artifact or self-provisioning library is acquired."
+    },
+    {
+     "technique": "split-trust-by-registration-path",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:72 Checks preset references to one in-process object, without executable-plugin registration paths."
+    }
+   ],
+   "absenceTerms": [
+    "sidecar",
+    "child_process",
+    "execFile",
+    "handshake"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T01:05:29.191991+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "sidecar-provisioning"
+   ],
+   "techniques": [
+    "atomic-downloads",
+    "capability-detection",
+    "change-rate-partitioning",
+    "grade-selection",
+    "model-storage-lifecycle",
+    "plugin-lazy-load-and-reload",
+    "process-isolation",
+    "resolution-ladders",
+    "source-pinning",
+    "split-trust-by-registration-path"
+   ],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-18T01:05:29.191991+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "sidecar-provisioning"
+   ],
+   "techniques": [
+    "atomic-downloads",
+    "capability-detection",
+    "change-rate-partitioning",
+    "grade-selection",
+    "model-storage-lifecycle",
+    "plugin-lazy-load-and-reload",
+    "process-isolation",
+    "resolution-ladders",
+    "source-pinning",
+    "split-trust-by-registration-path"
+   ],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-tests",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
