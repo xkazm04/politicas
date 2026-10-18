@@ -1,0 +1,17 @@
+{
+ "schema": "conform-run/1",
+ "worker": "07eaaa9f-c363-4391-ac7c-b65ecd5ccc21",
+ "subject": "analytics-store-design",
+ "evaluatedAt": "2026-10-18T01:49:41.815947+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "analytics-store-design",
+   "context": "dashboard-instruments",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": []
+}
