@@ -1,0 +1,78 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a0ad627a-c5e6-494e-a8ac-0462e065477f",
+ "subject": "accessibility",
+ "evaluatedAt": "2026-10-18T01:39:41.460665+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "accessibility",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:152 The reduced-motion lint rule exits on non-repeating animations and permits arbitrary non-essential entrance and slide motion without fallbacks, deviating from the preference-respect contract.",
+   "techniques": [
+    {
+     "technique": "preference-respect",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:152 The rule checks only looping animations and skips non-repeating transitions, allowing non-essential entrance and slide motion without reduced-motion fallbacks."
+    },
+    {
+     "technique": "keyboard-navigation-models",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/role-button-requires-keydown.cjs:53 The check passes non-button elements with role='button' and onClick if onKeyDown is present, without requiring tabIndex to ensure keyboard focusability in the tab order."
+    },
+    {
+     "technique": "primitive-level-a11y",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/role-button-requires-keydown.cjs:43 The rule legitimizes custom non-button containers with role='button' as long as keydown is handled, rather than enforcing native button elements or shared primitives that encapsulate the full contract."
+    },
+    {
+     "technique": "a11y-verification",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:159 The lint check observes a proxy by exempting animations whenever a fallback identifier token exists anywhere in the enclosing scope, without verifying that motion is actually gated."
+    },
+    {
+     "technique": "hidden-but-mounted-inertness",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/package.json:5 The context is an ESLint rule plugin rather than a UI component managing hidden-but-mounted subtrees or DOM inertness."
+    },
+    {
+     "technique": "live-region-architecture",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:2 The context provides static AST lint rules and does not mount an application shell or live region announcement provider."
+    },
+    {
+     "technique": "assistive-tech-divergence",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 The package specifies an ESLint engine peer dependency and does not define a held assistive technology pairing list or screen reader workarounds."
+    }
+   ],
+   "registryProposal": "Consider clarifying in preference-respect and a11y-verification whether static AST linting rules are recognized as a static enforcement gate or if static linters that observe identifier proxies rather than rendered/runtime behavior constitute verification gaps."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T01:39:41.460665+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "accessibility"
+   ],
+   "techniques": [
+    "a11y-verification",
+    "assistive-tech-divergence",
+    "hidden-but-mounted-inertness",
+    "keyboard-navigation-models",
+    "live-region-architecture",
+    "preference-respect",
+    "primitive-level-a11y"
+   ],
+   "deviations": 1,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}

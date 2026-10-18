@@ -5853,7 +5853,11 @@
           "revision": 7,
           "changedAt": "2026-09-20",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:152 The reduced-motion lint rule exits on non-repeating animations and permits arbitrary non-essential entrance and slide motion without fallbacks, deviating from the preference-respect contract.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:5e30485ee0c7c123",
+          "evaluatedRevision": 7
         },
         {
           "subject": "voice-io",
