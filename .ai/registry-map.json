@@ -1187,7 +1187,11 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/admin/loops/loopState.ts:440 The health roster includes only sources found in returned run history, so a source with declared cadence but no returned runs disappears instead of exposing missing activity.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:22ed2a99172ae050",
+          "evaluatedRevision": 5
         },
         {
           "subject": "session-continuation",

@@ -1,0 +1,71 @@
+{
+ "schema": "conform-run/1",
+ "worker": "bfe87b7a-7cae-496e-a670-b52847d138a8",
+ "subject": "background-jobs",
+ "evaluatedAt": "2026-10-18T01:54:50.657802+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "admin-observability",
+   "subject": "background-jobs",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/admin/loops/loopState.ts:440 The health roster includes only sources found in returned run history, so a source with declared cadence but no returned runs disappears instead of exposing missing activity.",
+   "techniques": [
+    {
+     "technique": "adaptive-cadence",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/AdminPage.tsx:26 The surface renders supplied snapshots; searches found no client polling or recurring dispatch in this context."
+    },
+    {
+     "technique": "loop-health-telemetry",
+     "verdict": "deviation",
+     "evidence": "features/admin/loops/loopState.ts:151 The health input cannot distinguish succeeded-empty, crashed, timed-out, or skipped outcomes; the history-derived roster also omits sources without returned runs."
+    },
+    {
+     "technique": "loop-supervision",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/driveState.ts:28 These controls record operator requests and acknowledgements; searches and action tracing found no recurring-loop creation or supervisor lifecycle owned here."
+    },
+    {
+     "technique": "startup-sweeps",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/driveLog.ts:60 Loading reconstructs journal state for observation; this context does not start a worker runtime or own recovery of execution claims."
+    },
+    {
+     "technique": "tick-isolation",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:444 The context derives status from recorded runs rather than executing tick bodies, so tick crash barriers, overlap guards, and deadlines have no execution boundary here."
+    },
+    {
+     "technique": "timeout-is-a-status-not-a-consumption",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/getLoopState.ts:50 This reads historical records with a row limit; no tracked-operation collector or budgeted readiness-wait API was found."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T01:54:50.657802+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "background-jobs"
+   ],
+   "techniques": [
+    "adaptive-cadence",
+    "loop-health-telemetry",
+    "loop-supervision",
+    "startup-sweeps",
+    "tick-isolation",
+    "timeout-is-a-status-not-a-consumption"
+   ],
+   "deviations": 1,
+   "context": "admin-observability",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
