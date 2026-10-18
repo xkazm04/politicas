@@ -7925,6 +7925,113 @@
           "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:72 Checks preset references to one in-process object, without executable-plugin registration paths."
         }
       ]
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/test-input-generation": {
+      "context": "testing-flake-sentinel",
+      "subject": "test-input-generation",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T01:16:16.792Z",
+      "worker": "47c3554e-492b-4473-bcaa-3916bebaf6af",
+      "techniques": [
+        {
+          "technique": "field-captured-operation-traces",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/flake/history-reporter.ts:38 The retained history contains test outcomes and durations; inspection and searches found no interactive operation generator or field-trace replay campaign here."
+        },
+        {
+          "technique": "generator-bounds-the-space",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/flake/detect.test.ts:17 Detector inputs are explicitly constructed histories; no randomized test-input generator was found in this context."
+        },
+        {
+          "technique": "inside-out-invariants",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/facts.ts:530 The sentinel directly checks related internal graph state: unresolved amendment endpoints and verdict-bearing bills missing amendment edges."
+        },
+        {
+          "technique": "liveness-needs-a-quiet-period",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/sentinel/facts.ts:4 These tests judge snapshot consistency; they do not exercise autonomous recovery under continuing fault injection."
+        },
+        {
+          "technique": "model-based-oracle",
+          "verdict": "deviation",
+          "evidence": "lib/testing/sentinel/path-oracle.json:23 The recorded-output oracle is unpopulated: every case has expect:null and both freezing metadata fields are null; the runner explicitly reports such cases as unevaluable."
+        },
+        {
+          "technique": "negative-space-generation",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.test.ts:81 A valid entry is perturbed in one field and the specific refusal is asserted; the same suite accepts the unmodified positive control."
+        },
+        {
+          "technique": "seed-is-not-a-reproduction",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/flake/history.ts:45 These persisted records measure harness outcomes; they are not failing randomized cases or seed-backed reproductions."
+        },
+        {
+          "technique": "stage-ordered-fuzz-targets",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:48 The fixture audit compares two collected fact snapshots; inspection and searches found no multi-stage fuzz campaign."
+        },
+        {
+          "technique": "swarm-feature-sampling",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/sentinel/invariants.ts:437 Recomputation uses a deterministic population sample, with an ordered stride above the cap, rather than probabilistic operation sequences."
+        }
+      ]
+    },
+    "77144fa6-99c0-41be-9032-46aa6c0a1392/test-input-generation": {
+      "context": "testing-core",
+      "subject": "test-input-generation",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T01:16:16.792Z",
+      "worker": "47c3554e-492b-4473-bcaa-3916bebaf6af",
+      "techniques": [
+        {
+          "technique": "field-captured-operation-traces",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/loaders.test.ts:255 Field-derived regressions here are fixed data records; no long interactive operation sequence or shared generator/logger vocabulary was found."
+        },
+        {
+          "technique": "generator-bounds-the-space",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/loaders.test.ts:144 Loader inputs come from an explicit shared fixture; inspection and searches found no randomized test-input generator."
+        },
+        {
+          "technique": "inside-out-invariants",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/loaders.test.ts:1598 This cross-loader relationship is expressible through returned public values and is checked externally, matching the technique's explicit exclusion for externally observable properties."
+        },
+        {
+          "technique": "model-based-oracle",
+          "verdict": "deviation",
+          "evidence": "lib/testing/loaders.test.ts:718 Lines 713–717 identify this as a reconciliation defect, and line 719 expects four returned ties; the oracle freezes the known wrong result instead of asserting the computable reconciliation property."
+        },
+        {
+          "technique": "negative-space-generation",
+          "verdict": "conformant",
+          "evidence": "lib/testing/loaders.test.ts:554 The suite accepts the valid person identifier, then tests adjacent invalid forms by adding a prefix or suffix and requires the precise null rejection."
+        },
+        {
+          "technique": "seed-is-not-a-reproduction",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/loaders.test.ts:436 Here seed names a graph response, not PRNG provenance; no persisted failing randomized case was found."
+        },
+        {
+          "technique": "stage-ordered-fuzz-targets",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/loaders.test.ts:452 Loader stages have ordinary fixture-based tests; inspection and searches found no pipeline fuzz target whose shallow failures mask deeper findings."
+        },
+        {
+          "technique": "swarm-feature-sampling",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/loaders.test.ts:143 Tests initialize a fixed scenario rather than drawing operation sequences from fixed probabilities, so feature-weight sampling has no applicable generator."
+        }
+      ]
     }
   }
 }

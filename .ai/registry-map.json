@@ -12584,7 +12584,11 @@
           "revision": 9,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/loaders.test.ts:718 The test preserves an explicitly documented reconciliation defect by accepting five total ties while asserting that only four ties appear in the returned rows.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:d5ab12a92aba67c4",
+          "evaluatedRevision": 10
         },
         {
           "subject": "mcp-tools",
@@ -12692,7 +12696,11 @@
           "revision": 9,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/sentinel/path-oracle.json:14 All nine path-oracle cases lack recorded expectations, so their path answers cannot be checked against the intended regression oracle.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:d5ab12a92aba67c4",
+          "evaluatedRevision": 10
         },
         {
           "subject": "quality-gates",
