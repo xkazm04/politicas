@@ -8549,7 +8549,11 @@
           "revision": 17,
           "changedAt": "2026-10-06",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:159 Searches found no job coordination terms in Rentgen and only external matches elsewhere; this context reads existing records and derives a request-scoped display without executing durable jobs.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:68f09609d1498e88",
+          "evaluatedRevision": 17
         },
         {
           "subject": "eval-harness",

@@ -8620,6 +8620,67 @@
           "evidence": "features/civicscore/duelFacts.ts:83 Fact rows come from a fixed field catalog rather than a model decomposing written answers, so decomposer calibration has no precondition here."
         }
       ]
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/job-coordination": {
+      "context": "labs-rentgen",
+      "subject": "job-coordination",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T23:59:01.412Z",
+      "worker": "b8a7123f-0d0c-40d3-aebd-f6c8b84810a1",
+      "techniques": [
+        {
+          "technique": "in-flight-is-a-position",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:123 Reads recorded events without dispatching non-idempotent effects requiring an in-flight position."
+        },
+        {
+          "technique": "job-observability",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:370 The terminal reports political evidence events, rather than a fleet of live jobs."
+        },
+        {
+          "technique": "job-state-machines",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:162 The state being consumed classifies reviewed political ties; this context performs no job lifecycle transitions."
+        },
+        {
+          "technique": "lease-renewal",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:89 Reading review history acquires no durable execution claim needing renewal or fencing."
+        },
+        {
+          "technique": "liveness-proof-reclaim",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:95 This is a label lookup with no recorded executor ownership to probe or reclaim."
+        },
+        {
+          "technique": "no-unrestorable-state-at-a-suspension-point",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:47 Suspensions load reconstructible display inputs; no paired destructive effects leave unrestorable state between them."
+        },
+        {
+          "technique": "no-wall-clock-in-the-advance-contract",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:158 The exposed operation returns view data, rather than advancing a durable work record."
+        },
+        {
+          "technique": "step-position-and-resumability",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:175 Graph generation recomputes a view from loaded ties without a multi-step side-effecting job to resume."
+        },
+        {
+          "technique": "terminal-state-recovery",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:81 A failed read returns layer availability to the caller and leaves no running job record requiring recovery."
+        },
+        {
+          "technique": "terms-travel-permission-does-not",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:296 This filters current records for immediate display; no submitted work crosses a deferred execution boundary."
+        }
+      ]
     }
   }
 }
