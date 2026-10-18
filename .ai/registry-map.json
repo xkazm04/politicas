@@ -1037,7 +1037,11 @@
           "revision": 1,
           "changedAt": "2026-09-02",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/data/snapshot.json/route.ts:23 Searches for zero-copy, brokered, SharedArrayBuffer and routeProbe found no hits in the context or repository; these files serve HTTP responses and journal operator actions without selecting between brokered and direct message transports.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:0b29d5d6d98509f2",
+          "evaluatedRevision": 1
         },
         {
           "subject": "agent-runtime-assembly",

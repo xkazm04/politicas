@@ -1,0 +1,77 @@
+{
+ "schema": "conform-run/1",
+ "worker": "bca1c825-eeb5-4bfd-886a-373e9500c0c6",
+ "subject": "data-plane-transport-selection",
+ "evaluatedAt": "2026-10-18T22:04:57.954616+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "admin-infrastructure",
+   "subject": "data-plane-transport-selection",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/data/snapshot.json/route.ts:23 Searches for zero-copy, brokered, SharedArrayBuffer and routeProbe found no hits in the context or repository; these files serve HTTP responses and journal operator actions without selecting between brokered and direct message transports.",
+   "techniques": [
+    {
+     "technique": "control-plane-off-the-data-path",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/page.tsx:23 The admin page reads operational state for rendering; no supervisor routing messages or awaiting guaranteed publishes was found."
+    },
+    {
+     "technique": "moved-payload-has-no-fallback",
+     "verdict": "not-applicable",
+     "evidence": "app/data/snapshot.json/route.ts:23 The download returns serialized JSON through an HTTP Response, with no consuming shared-buffer send or alternate transport fallback."
+    },
+    {
+     "technique": "path-divergence-audit",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loops.json/route.ts:36 Loop state uses an encoded HTTP response; no second transport for the same message edge was found."
+    },
+    {
+     "technique": "policy-demotes-transport",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loopActions.ts:53 Requeue records an operator action in the journal rather than deriving a transport from declared message-edge guarantees."
+    },
+    {
+     "technique": "route-probe-then-freeze",
+     "verdict": "not-applicable",
+     "evidence": "app/atlas/atlas.json/route.ts:13 The endpoint loads a report per request; no direct peer session, acknowledgement probe or run-long route decision was found."
+    },
+    {
+     "technique": "size-threshold-by-page-cost",
+     "verdict": "not-applicable",
+     "evidence": "app/data/manifest.json/route.ts:22 The manifest is serialized into an HTTP response without page-granular shared allocation or payload-size transport selection."
+    }
+   ],
+   "absenceTerms": [
+    "zero-copy",
+    "brokered",
+    "SharedArrayBuffer",
+    "routeProbe"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T22:04:57.954616+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-plane-transport-selection"
+   ],
+   "techniques": [
+    "control-plane-off-the-data-path",
+    "moved-payload-has-no-fallback",
+    "path-divergence-audit",
+    "policy-demotes-transport",
+    "route-probe-then-freeze",
+    "size-threshold-by-page-cost"
+   ],
+   "deviations": 0,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
