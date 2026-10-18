@@ -6737,7 +6737,11 @@
           "revision": 1,
           "changedAt": "2026-09-02",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:144 Repository and context searches found no input_ports, output_ports, or control-plane occurrences, and the inspected module renders entity relationships on a canvas without declaring communicating processes.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:8bc79a0c5315d2ac",
+          "evaluatedRevision": 1
         },
         {
           "subject": "motion",

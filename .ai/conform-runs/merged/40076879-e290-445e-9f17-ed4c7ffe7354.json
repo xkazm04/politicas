@@ -1,0 +1,76 @@
+{
+ "schema": "conform-run/1",
+ "worker": "40076879-e290-445e-9f17-ed4c7ffe7354",
+ "subject": "declared-process-graph",
+ "evaluatedAt": "2026-10-18T22:20:22.487244+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "graph-canvas",
+   "subject": "declared-process-graph",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/graph/components/GraphStage.tsx:144 Repository and context searches found no input_ports, output_ports, or control-plane occurrences, and the inspected module renders entity relationships on a canvas without declaring communicating processes.",
+   "techniques": [
+    {
+     "technique": "additive-live-mutation",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/VariantMapa.tsx:132 Adds fetched neighborhoods to visual state; it does not add running processes or mutate channel routing."
+    },
+    {
+     "technique": "bounded-expansion",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/VariantMapa.tsx:129 Expansion requests knowledge-graph neighbors by entity identifier, rather than recursively including author-selected documents."
+    },
+    {
+     "technique": "composite-expansion-contract",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/VariantTrasy.tsx:83 Transforms trail items into display coordinates; no composite process bodies or exposed ports are expanded."
+    },
+    {
+     "technique": "panic-proof-numeric-fields",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/VariantMapa.tsx:62 The animation interval is a code constant, not an authored topology duration crossing a runtime conversion boundary."
+    },
+    {
+     "technique": "per-kind-field-whitelist",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/kindStyle.ts:31 Kinds select entity glyph presentation, which the technique explicitly excludes from behavioral field whitelisting."
+    },
+    {
+     "technique": "typed-port-compatibility",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/edgeGate.ts:40 Edges carry factual relationships and review provenance, rather than producer and consumer port declarations."
+    }
+   ],
+   "absenceTerms": [
+    "input_ports",
+    "output_ports",
+    "control-plane"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T22:20:22.487244+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "declared-process-graph"
+   ],
+   "techniques": [
+    "additive-live-mutation",
+    "bounded-expansion",
+    "composite-expansion-contract",
+    "panic-proof-numeric-fields",
+    "per-kind-field-whitelist",
+    "typed-port-compatibility"
+   ],
+   "deviations": 0,
+   "context": "graph-canvas",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
