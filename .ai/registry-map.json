@@ -3926,7 +3926,11 @@
           "revision": 2,
           "changedAt": "2026-09-30",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:24 This context compares parliamentary index values rather than evaluating answers against evidence, and searches of its directory and the repository found none of the four listed answer-scoring terms.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:9de247df0b7199eb",
+          "evaluatedRevision": 2
         },
         {
           "subject": "fleet-orchestration",

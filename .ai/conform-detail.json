@@ -8584,6 +8584,42 @@
           "evidence": "features/lawwatch/components/RadarLedger.tsx:195 Failed actions toggle a local boolean status to display a static string rather than resolving through a structured message-and-suggestion registry."
         }
       ]
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/grounded-answer-scoring": {
+      "context": "civicscore-scoring",
+      "subject": "grounded-answer-scoring",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T23:44:59.052Z",
+      "worker": "7ca1797a-2eb2-4990-9054-8b77eab9a918",
+      "techniques": [
+        {
+          "technique": "bidirectional-claim-matching",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:26 The comparison selects the leading MP from numeric scores; there is no candidate answer and written reference answer."
+        },
+        {
+          "technique": "decompose-then-verify",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/components/HeadToHead.tsx:205 Claims here cite an existing numeric index and its provenance; they are not assertions extracted from an answer for passage entailment scoring."
+        },
+        {
+          "technique": "per-source-attribution",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/provenance.ts:133 The provenance check compares stored formula references with the declared formula, without retrieved passages or a reference answer for fault attribution."
+        },
+        {
+          "technique": "question-blind-relevance",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/components/DuelStatus.tsx:37 The status sentence interpolates selected MPs into a translation template; no question-answer relevance judgment occurs."
+        },
+        {
+          "technique": "the-decomposer-is-inside-the-instrument",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/duelFacts.ts:83 Fact rows come from a fixed field catalog rather than a model decomposing written answers, so decomposer calibration has no precondition here."
+        }
+      ]
     }
   }
 }
