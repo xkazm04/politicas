@@ -10917,7 +10917,11 @@
           "revision": 15,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:490 Context and repository searches found usage-token terms only in the separate offline benchmark, while money-ledger reads stored political-finance facts without an identified metered-service call, so cost-metering does not apply here.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:7247db31eb8f3dce",
+          "evaluatedRevision": 15
         },
         {
           "subject": "table",

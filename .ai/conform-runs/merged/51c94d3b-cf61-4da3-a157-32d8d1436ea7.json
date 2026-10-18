@@ -1,0 +1,120 @@
+{
+ "schema": "conform-run/1",
+ "worker": "51c94d3b-cf61-4da3-a157-32d8d1436ea7",
+ "subject": "cost-metering",
+ "evaluatedAt": "2026-10-18T21:32:18.119615+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "money-ledger",
+   "subject": "cost-metering",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/money/moneyLoader.ts:490 Context and repository searches found usage-token terms only in the separate offline benchmark, while money-ledger reads stored political-finance facts without an identified metered-service call, so cost-metering does not apply here.",
+   "techniques": [
+    {
+     "technique": "budget-enforcement",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:488 The loader reads local graph records; searches identified no metered-spend initiation requiring a budget gate."
+    },
+    {
+     "technique": "engagement-paced-cadence",
+     "verdict": "not-applicable",
+     "evidence": "features/money/MoneyGraph.tsx:118 Graph construction is a React computation over supplied data; no continuously self-driven agent loop was found."
+    },
+    {
+     "technique": "housekeeping-calls-obey-the-ceiling",
+     "verdict": "not-applicable",
+     "evidence": "features/money/components/AnalystNote.tsx:37 Analyst prose is read from an existing tie; the component makes no summarization or compaction call."
+    },
+    {
+     "technique": "one-pot-across-delegation",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:744 Parallel work consists of memoized company-contract reads, without delegated agent runs or multiplied spend allowances."
+    },
+    {
+     "technique": "preflight-estimation",
+     "verdict": "not-applicable",
+     "evidence": "features/money/getMoneyData.ts:95 Amounts come from stored contract aggregates; no prospective metered call needs a consumption estimate."
+    },
+    {
+     "technique": "price-tables",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:418 The monetary input is a recorded contract-edge amount, without a provider-unit-to-currency conversion."
+    },
+    {
+     "technique": "reversible-debit-and-settle",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:427 This accumulates reported contract values; it does not debit a caller balance before paid work."
+    },
+    {
+     "technique": "spend-attribution",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:218 The identity cites a political relationship in the graph; no metered call requires run, actor, or customer attribution."
+    },
+    {
+     "technique": "spend-observability",
+     "verdict": "not-applicable",
+     "evidence": "features/money/FollowTheMoneyPage.tsx:119 The surface displays public-contract amounts associated with companies, rather than operating spend against service budgets."
+    },
+    {
+     "technique": "time-ceilings-count-working-time",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:443 This clock expires cached graph aggregates; it is not an interactive agent working-time ceiling."
+    },
+    {
+     "technique": "unit-classes-are-open",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:189 The mapper consumes recorded subsidy and contract currency amounts, without provider usage-unit classes to normalize or price."
+    },
+    {
+     "technique": "usage-ledgers",
+     "verdict": "not-applicable",
+     "evidence": "features/money/moneyLoader.ts:447 The ledger derives from company-to-contract graph edges, not success or failure records of metered-service calls."
+    },
+    {
+     "technique": "whole-prompt-denominator",
+     "verdict": "not-applicable",
+     "evidence": "features/money/MoneyGraph.tsx:144 The renderer consumes a precomputed currency amount; no provider token block or prompt-cache denominator is processed."
+    }
+   ],
+   "absenceTerms": [
+    "metered",
+    "input_tokens",
+    "output_tokens",
+    "priceTable",
+    "billing"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T21:32:18.119615+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "cost-metering"
+   ],
+   "techniques": [
+    "budget-enforcement",
+    "engagement-paced-cadence",
+    "housekeeping-calls-obey-the-ceiling",
+    "one-pot-across-delegation",
+    "preflight-estimation",
+    "price-tables",
+    "reversible-debit-and-settle",
+    "spend-attribution",
+    "spend-observability",
+    "time-ceilings-count-working-time",
+    "unit-classes-are-open",
+    "usage-ledgers",
+    "whole-prompt-denominator"
+   ],
+   "deviations": 0,
+   "context": "money-ledger",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

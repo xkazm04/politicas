@@ -8268,6 +8268,82 @@
         "at": "2026-10-18T21:10:25.360614+00:00",
         "reason": "reviewer (sonnet): Four of the five anchors are in build-bill-summaries.ts, which is not in the context's file list, so they describe a different context; the one in-context anchor (esbirka-sparql-diff.ts:82) is a fragment lookup that doesn't show the summary-tree precondition is absent; line 253 is a rows.push, not a"
       }
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/cost-metering": {
+      "context": "money-ledger",
+      "subject": "cost-metering",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T21:32:18.119Z",
+      "worker": "51c94d3b-cf61-4da3-a157-32d8d1436ea7",
+      "techniques": [
+        {
+          "technique": "budget-enforcement",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:488 The loader reads local graph records; searches identified no metered-spend initiation requiring a budget gate."
+        },
+        {
+          "technique": "engagement-paced-cadence",
+          "verdict": "not-applicable",
+          "evidence": "features/money/MoneyGraph.tsx:118 Graph construction is a React computation over supplied data; no continuously self-driven agent loop was found."
+        },
+        {
+          "technique": "housekeeping-calls-obey-the-ceiling",
+          "verdict": "not-applicable",
+          "evidence": "features/money/components/AnalystNote.tsx:37 Analyst prose is read from an existing tie; the component makes no summarization or compaction call."
+        },
+        {
+          "technique": "one-pot-across-delegation",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:744 Parallel work consists of memoized company-contract reads, without delegated agent runs or multiplied spend allowances."
+        },
+        {
+          "technique": "preflight-estimation",
+          "verdict": "not-applicable",
+          "evidence": "features/money/getMoneyData.ts:95 Amounts come from stored contract aggregates; no prospective metered call needs a consumption estimate."
+        },
+        {
+          "technique": "price-tables",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:418 The monetary input is a recorded contract-edge amount, without a provider-unit-to-currency conversion."
+        },
+        {
+          "technique": "reversible-debit-and-settle",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:427 This accumulates reported contract values; it does not debit a caller balance before paid work."
+        },
+        {
+          "technique": "spend-attribution",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:218 The identity cites a political relationship in the graph; no metered call requires run, actor, or customer attribution."
+        },
+        {
+          "technique": "spend-observability",
+          "verdict": "not-applicable",
+          "evidence": "features/money/FollowTheMoneyPage.tsx:119 The surface displays public-contract amounts associated with companies, rather than operating spend against service budgets."
+        },
+        {
+          "technique": "time-ceilings-count-working-time",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:443 This clock expires cached graph aggregates; it is not an interactive agent working-time ceiling."
+        },
+        {
+          "technique": "unit-classes-are-open",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:189 The mapper consumes recorded subsidy and contract currency amounts, without provider usage-unit classes to normalize or price."
+        },
+        {
+          "technique": "usage-ledgers",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:447 The ledger derives from company-to-contract graph edges, not success or failure records of metered-service calls."
+        },
+        {
+          "technique": "whole-prompt-denominator",
+          "verdict": "not-applicable",
+          "evidence": "features/money/MoneyGraph.tsx:144 The renderer consumes a precomputed currency amount; no provider token block or prompt-cache denominator is processed."
+        }
+      ]
     }
   }
 }
