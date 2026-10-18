@@ -1203,7 +1203,11 @@
           "revision": 8,
           "changedAt": "2026-10-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/admin/getAdminData.ts:100 Context searches for continuation, compaction and stop_hook returned no matches, and the inspected code reads analytical-loop status and journals operator actions without controlling an agent conversation.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:b0eabf78abd856a4",
+          "evaluatedRevision": 8
         },
         {
           "subject": "motion",
@@ -11675,7 +11679,11 @@
           "revision": 8,
           "changedAt": "2026-10-09",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/docs/check-doc-sync.mjs:23 Context searches for continuation, compaction and stop_hook returned no matches, and the inspected entrypoints perform CLI checks over git changes, npm stages, graph facts and HTTP responses rather than enforcing agent-session continuation.",
+          "evaluatedAt": "2026-10-18",
+          "evaluatedAgainst": "sha256-b2:b0eabf78abd856a4",
+          "evaluatedRevision": 8
         },
         {
           "subject": "agent-runtime-assembly",

@@ -7681,6 +7681,128 @@
           "evidence": "packages/eslint-plugin-civic-transparency/rules/role-button-requires-keydown.cjs:51 The rule checks JSX attributes; no tensor-shape contract or network forward pass was found."
         }
       ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/session-continuation": {
+      "context": "admin-observability",
+      "subject": "session-continuation",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:43:04.862Z",
+      "worker": "9c6707e6-02d8-41ef-817d-fe8e8f84f559",
+      "techniques": [
+        {
+          "technique": "advisory-guard-fail-mode",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopsJson.ts:57 This validates a status document, not input to a turn-boundary interceptor."
+        },
+        {
+          "technique": "boundary-applied-stop",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/getLoopState.ts:50 The loader reads recorded ingest runs; it does not dispatch reasoning calls or tool batches."
+        },
+        {
+          "technique": "compaction-checkpoint",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/driveLog.ts:59 The persisted artifact is an operator-action journal, not control state ferried across conversation compaction."
+        },
+        {
+          "technique": "continuation-as-state",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/driveState.ts:166 Requeue records create pending work items; they do not arm a session or refuse its stop."
+        },
+        {
+          "technique": "gate-state-lifetimes",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:438 This groups historical telemetry by ingest source, not stop-gate state by agent session."
+        },
+        {
+          "technique": "ordered-teardown",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/driveState.ts:171 Resolving a queue item changes the derived queue; it does not cancel session guards."
+        },
+        {
+          "technique": "ordered-yield-composition",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/driveState.ts:190 The ordering concerns operator queue items, not behaviours competing to consume a candidate yield."
+        },
+        {
+          "technique": "sealed-stage-advance",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:263 Pass headings are parsed as historical observations; model completion signals do not advance an autonomous session."
+        },
+        {
+          "technique": "single-loop-authority",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/getLoopState.ts:78 The surface observes documented run status rather than arbitrating session continuation authorities."
+        },
+        {
+          "technique": "stuck-loop-detection",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:467 Failure streaks produce ingest-monitoring alerts; this context owns no agent repair lane to halt."
+        }
+      ]
+    },
+    "61b546ac-220d-425f-ad42-8e39576b3784/session-continuation": {
+      "context": "scripts-quality-gates",
+      "subject": "session-continuation",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-18",
+      "evaluatedTs": "2026-10-18T00:43:04.862Z",
+      "worker": "9c6707e6-02d8-41ef-817d-fe8e8f84f559",
+      "techniques": [
+        {
+          "technique": "advisory-guard-fail-mode",
+          "verdict": "not-applicable",
+          "evidence": "scripts/docs/check-doc-sync.mjs:262 The checker consumes a git diff at a change boundary, not a message at an agent turn boundary."
+        },
+        {
+          "technique": "boundary-applied-stop",
+          "verdict": "not-applicable",
+          "evidence": "scripts/smoke.ts:93 This loop waits for HTTP readiness; it has no reasoning/tool-batch boundary."
+        },
+        {
+          "technique": "compaction-checkpoint",
+          "verdict": "not-applicable",
+          "evidence": "scripts/docs/check-doc-sync.mjs:258 The durable change record is version control, not a checkpoint restored after conversation compaction."
+        },
+        {
+          "technique": "continuation-as-state",
+          "verdict": "not-applicable",
+          "evidence": "scripts/kpi/verify-loop.mjs:71 The verify loop executes npm commands directly and does not keep an agent conversation working."
+        },
+        {
+          "technique": "gate-state-lifetimes",
+          "verdict": "not-applicable",
+          "evidence": "scripts/kpi/verify-loop.mjs:78 These measurements belong to completed command stages, not session-keyed continuation gates."
+        },
+        {
+          "technique": "ordered-teardown",
+          "verdict": "not-applicable",
+          "evidence": "scripts/smoke.ts:179 Shutdown targets a production-server subprocess; it does not clear stop-blocking agent guards."
+        },
+        {
+          "technique": "ordered-yield-composition",
+          "verdict": "not-applicable",
+          "evidence": "scripts/kpi/verify-loop.mjs:69 This is sequential command execution, with no independently authored continuation behaviours or candidate yields."
+        },
+        {
+          "technique": "sealed-stage-advance",
+          "verdict": "not-applicable",
+          "evidence": "scripts/kpi/verify-loop.mjs:43 Stages derive from an npm script for this invocation; no interrupted model-driven staged session is resumed."
+        },
+        {
+          "technique": "single-loop-authority",
+          "verdict": "not-applicable",
+          "evidence": "scripts/sentinel/run.ts:150 The sentinel maps invariant results to process exits, not evaluator verdicts to session completion."
+        },
+        {
+          "technique": "stuck-loop-detection",
+          "verdict": "not-applicable",
+          "evidence": "scripts/sentinel/run.ts:141 The sentinel collects two comparison passes and reports; it does not repeatedly attempt agent-authored repairs."
+        }
+      ]
     }
   }
 }

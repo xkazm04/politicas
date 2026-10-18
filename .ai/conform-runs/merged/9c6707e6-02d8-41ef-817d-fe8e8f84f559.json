@@ -1,0 +1,187 @@
+{
+ "schema": "conform-run/1",
+ "worker": "9c6707e6-02d8-41ef-817d-fe8e8f84f559",
+ "subject": "session-continuation",
+ "evaluatedAt": "2026-10-18T00:43:04.862318+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "admin-observability",
+   "subject": "session-continuation",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/admin/getAdminData.ts:100 Context searches for continuation, compaction and stop_hook returned no matches, and the inspected code reads analytical-loop status and journals operator actions without controlling an agent conversation.",
+   "techniques": [
+    {
+     "technique": "advisory-guard-fail-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopsJson.ts:57 This validates a status document, not input to a turn-boundary interceptor."
+    },
+    {
+     "technique": "boundary-applied-stop",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/getLoopState.ts:50 The loader reads recorded ingest runs; it does not dispatch reasoning calls or tool batches."
+    },
+    {
+     "technique": "compaction-checkpoint",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/driveLog.ts:59 The persisted artifact is an operator-action journal, not control state ferried across conversation compaction."
+    },
+    {
+     "technique": "continuation-as-state",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/driveState.ts:166 Requeue records create pending work items; they do not arm a session or refuse its stop."
+    },
+    {
+     "technique": "gate-state-lifetimes",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:438 This groups historical telemetry by ingest source, not stop-gate state by agent session."
+    },
+    {
+     "technique": "ordered-teardown",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/driveState.ts:171 Resolving a queue item changes the derived queue; it does not cancel session guards."
+    },
+    {
+     "technique": "ordered-yield-composition",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/driveState.ts:190 The ordering concerns operator queue items, not behaviours competing to consume a candidate yield."
+    },
+    {
+     "technique": "sealed-stage-advance",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:263 Pass headings are parsed as historical observations; model completion signals do not advance an autonomous session."
+    },
+    {
+     "technique": "single-loop-authority",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/getLoopState.ts:78 The surface observes documented run status rather than arbitrating session continuation authorities."
+    },
+    {
+     "technique": "stuck-loop-detection",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:467 Failure streaks produce ingest-monitoring alerts; this context owns no agent repair lane to halt."
+    }
+   ],
+   "absenceTerms": [
+    "continuation",
+    "compaction",
+    "stop_hook"
+   ]
+  },
+  {
+   "context": "scripts-quality-gates",
+   "subject": "session-continuation",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/docs/check-doc-sync.mjs:23 Context searches for continuation, compaction and stop_hook returned no matches, and the inspected entrypoints perform CLI checks over git changes, npm stages, graph facts and HTTP responses rather than enforcing agent-session continuation.",
+   "techniques": [
+    {
+     "technique": "advisory-guard-fail-mode",
+     "verdict": "not-applicable",
+     "evidence": "scripts/docs/check-doc-sync.mjs:262 The checker consumes a git diff at a change boundary, not a message at an agent turn boundary."
+    },
+    {
+     "technique": "boundary-applied-stop",
+     "verdict": "not-applicable",
+     "evidence": "scripts/smoke.ts:93 This loop waits for HTTP readiness; it has no reasoning/tool-batch boundary."
+    },
+    {
+     "technique": "compaction-checkpoint",
+     "verdict": "not-applicable",
+     "evidence": "scripts/docs/check-doc-sync.mjs:258 The durable change record is version control, not a checkpoint restored after conversation compaction."
+    },
+    {
+     "technique": "continuation-as-state",
+     "verdict": "not-applicable",
+     "evidence": "scripts/kpi/verify-loop.mjs:71 The verify loop executes npm commands directly and does not keep an agent conversation working."
+    },
+    {
+     "technique": "gate-state-lifetimes",
+     "verdict": "not-applicable",
+     "evidence": "scripts/kpi/verify-loop.mjs:78 These measurements belong to completed command stages, not session-keyed continuation gates."
+    },
+    {
+     "technique": "ordered-teardown",
+     "verdict": "not-applicable",
+     "evidence": "scripts/smoke.ts:179 Shutdown targets a production-server subprocess; it does not clear stop-blocking agent guards."
+    },
+    {
+     "technique": "ordered-yield-composition",
+     "verdict": "not-applicable",
+     "evidence": "scripts/kpi/verify-loop.mjs:69 This is sequential command execution, with no independently authored continuation behaviours or candidate yields."
+    },
+    {
+     "technique": "sealed-stage-advance",
+     "verdict": "not-applicable",
+     "evidence": "scripts/kpi/verify-loop.mjs:43 Stages derive from an npm script for this invocation; no interrupted model-driven staged session is resumed."
+    },
+    {
+     "technique": "single-loop-authority",
+     "verdict": "not-applicable",
+     "evidence": "scripts/sentinel/run.ts:150 The sentinel maps invariant results to process exits, not evaluator verdicts to session completion."
+    },
+    {
+     "technique": "stuck-loop-detection",
+     "verdict": "not-applicable",
+     "evidence": "scripts/sentinel/run.ts:141 The sentinel collects two comparison passes and reports; it does not repeatedly attempt agent-authored repairs."
+    }
+   ],
+   "absenceTerms": [
+    "continuation",
+    "compaction",
+    "stop_hook"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-18T00:43:04.862318+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "session-continuation"
+   ],
+   "techniques": [
+    "advisory-guard-fail-mode",
+    "boundary-applied-stop",
+    "compaction-checkpoint",
+    "continuation-as-state",
+    "gate-state-lifetimes",
+    "ordered-teardown",
+    "ordered-yield-composition",
+    "sealed-stage-advance",
+    "single-loop-authority",
+    "stuck-loop-detection"
+   ],
+   "deviations": 0,
+   "context": "admin-observability",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-18T00:43:04.862318+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "session-continuation"
+   ],
+   "techniques": [
+    "advisory-guard-fail-mode",
+    "boundary-applied-stop",
+    "compaction-checkpoint",
+    "continuation-as-state",
+    "gate-state-lifetimes",
+    "ordered-teardown",
+    "ordered-yield-composition",
+    "sealed-stage-advance",
+    "single-loop-authority",
+    "stuck-loop-detection"
+   ],
+   "deviations": 0,
+   "context": "scripts-quality-gates",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
