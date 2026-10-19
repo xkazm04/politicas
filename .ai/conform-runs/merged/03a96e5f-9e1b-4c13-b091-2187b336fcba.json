@@ -1,0 +1,39 @@
+{
+  "schema": "conform-run/1",
+  "worker": "03a96e5f-9e1b-4c13-b091-2187b336fcba",
+  "subject": "repo-manifest-standard",
+  "evaluatedAt": "2026-10-19T22:28:23.656180+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "repo-manifest-standard",
+      "context": "admin-infrastructure",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor (app/data/manifest.json/route.ts:4) is a comment about the data-release manifest and doesn't show that a repo-manifest precondition is absent; the evidence's own claim that the repository contract 'lives separately under .ai/' points to .ai/manifest.yaml, outside this context, so the verd"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-19T22:28:23.656180+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "repo-manifest-standard"
+      ],
+      "techniques": [
+        "capability-not-tool-vocabulary",
+        "generated-from-provenance",
+        "must-ignore-unknown",
+        "pointers-not-embeds",
+        "reserved-space-must-be-unusable",
+        "semver-additive-evolution",
+        "spec-ships-with-artifact",
+        "version-gate-precedes-schema-gate"
+      ],
+      "deviations": 0,
+      "context": "admin-infrastructure",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}

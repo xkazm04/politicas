@@ -9169,6 +9169,62 @@
           "evidence": "app/atlas/atlas.json/route.ts:13 The inspected loader derives the report from PGlite queries; it does not choose between remote metadata and fragment probes."
         }
       ]
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/repo-manifest-standard": {
+      "context": "admin-infrastructure",
+      "subject": "repo-manifest-standard",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T22:28:23.656Z",
+      "techniques": [
+        {
+          "technique": "capability-not-tool-vocabulary",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/manifest.ts:87 The manifest describes graph data, not repository capabilities and their invocations."
+        },
+        {
+          "technique": "generated-from-provenance",
+          "verdict": "not-applicable",
+          "evidence": "app/data/page.tsx:20 This is a runtime data-release description, not a committed repository contract requiring synthesis and drift checking."
+        },
+        {
+          "technique": "must-ignore-unknown",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/loops.json/route.ts:2 The loop document carries operational state; it is not an extensible repository description."
+        },
+        {
+          "technique": "pointers-not-embeds",
+          "verdict": "not-applicable",
+          "evidence": "app/data/snapshot.json/route.ts:4 The endpoint intentionally exports graph contents rather than a repository contract pointing to evidence."
+        },
+        {
+          "technique": "reserved-space-must-be-unusable",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/manifest.ts:26 This identifies a domain data-release format; the inspected context does not define reserved repository-contract extension space."
+        },
+        {
+          "technique": "semver-additive-evolution",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/manifest.ts:152 The version identifies an ingest-derived data release, so repository-contract semver requirements do not govern this field."
+        },
+        {
+          "technique": "spec-ships-with-artifact",
+          "verdict": "not-applicable",
+          "evidence": "app/atlas/atlas.json/route.ts:4 Atlas publishes a data-quality report, not the repository self-description whose specification this technique requires."
+        },
+        {
+          "technique": "version-gate-precedes-schema-gate",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopsJson.ts:59 This parses runtime loop state, not a single-reader configuration declaring a minimum tool version."
+        }
+      ],
+      "withdrawn": {
+        "worker": "03a96e5f-9e1b-4c13-b091-2187b336fcba",
+        "state": "not-applicable",
+        "at": "2026-10-19T22:28:44.589975+00:00",
+        "reason": "reviewer (sonnet): The anchor (app/data/manifest.json/route.ts:4) is a comment about the data-release manifest and doesn't show that a repo-manifest precondition is absent; the evidence's own claim that the repository contract 'lives separately under .ai/' points to .ai/manifest.yaml, outside this context, so the verd"
+      }
     }
   }
 }
