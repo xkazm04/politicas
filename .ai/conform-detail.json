@@ -9040,6 +9040,52 @@
           "evidence": "scripts/case-loops/tender/persist-month.ts:203 These exits distinguish ingest completion from execution failure, not statistical pass, regression, or unverified evaluation outcomes."
         }
       ]
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/realtime-events": {
+      "context": "ingest-pipeline",
+      "subject": "realtime-events",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T21:48:18.187Z",
+      "worker": "e20a1d2f-ee9b-49df-973f-c7da087988e3",
+      "techniques": [
+        {
+          "technique": "capacity-packed-subscription-pool",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:7 This context constructs events without transport IO; searches found no push-provider connections, subscription limits, or topic pool."
+        },
+        {
+          "technique": "change-data-capture",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:332 The module derives historical events from supplied versions and snapshot differences; it does not install or drain a storage-engine change hook."
+        },
+        {
+          "technique": "coalescing-and-batching",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:212 Snapshot comparison returns a synchronous difference; there is no consumer arrival buffer, scheduled flush, or rendering settlement in this context."
+        },
+        {
+          "technique": "event-registry",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/changeEvents.ts:115 CHANGE_EVENT_TYPES closes the names, but ChangeEvent.payload is an open record and parsing only checks that it is an object; review-decision can therefore pass with an empty payload or a non-string decision."
+        },
+        {
+          "technique": "outbound-fan-out",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:83 The boundary operation serializes an event into a string; this context owns no external delivery attempts, subscriptions, or delivery watermarks."
+        },
+        {
+          "technique": "push-vs-refetch-reconciliation",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:200 This compares supplied snapshots to produce facts; it does not maintain consumer display state or reconcile pushed events with asynchronous reads."
+        },
+        {
+          "technique": "subscription-lifecycle",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:258 The builder returns events synchronously without registering callbacks or acquiring subscription handles; no subscription setup or teardown was found in the context."
+        }
+      ]
     }
   }
 }
