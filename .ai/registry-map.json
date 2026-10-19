@@ -7455,7 +7455,11 @@
           "revision": 2,
           "changedAt": "2026-09-16",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:497 Context searches found no prompt, embedding or extractEntities occurrences, and the adapters parse registry records and identifier-bearing text deterministically, so the standard's model-extracted graph without an identity authority is outside this context.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:bd7032bc2fb05c3b",
+          "evaluatedRevision": 2
         },
         {
           "subject": "llm-call-telemetry-model",

@@ -8773,6 +8773,37 @@
           "evidence": "features/shell/useActiveSection.ts:74 The scroll spy attaches an IntersectionObserver only to elements present during the initial animation frame and lacks late registration or retry logic for deferred sections."
         }
       ]
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/llm-extracted-entity-graph": {
+      "context": "ingest-sources-financial",
+      "subject": "llm-extracted-entity-graph",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T00:35:08.849Z",
+      "worker": "a5f50832-db41-420c-b61a-8d3e1a75c65b",
+      "techniques": [
+        {
+          "technique": "accumulate-then-threshold-merge",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:152 Descriptions are parsed source fields; these adapters do not merge model-extracted passage fragments into node descriptions."
+        },
+        {
+          "technique": "recall-passes-with-a-declared-cap",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:477 PDF identifier extraction iterates regex matches; there is no model extraction whose recall requires further passes."
+        },
+        {
+          "technique": "recoverable-fan-out-write",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/dataor.ts:697 Persistence here caches source files; these adapters do not fan extracted graph facts out to graph and vector stores."
+        },
+        {
+          "technique": "surface-form-identity-and-its-risk",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:497 The company reference uses the extracted, checksum-validated registry identifier; adjacent name text does not determine identity."
+        }
+      ]
     }
   }
 }
