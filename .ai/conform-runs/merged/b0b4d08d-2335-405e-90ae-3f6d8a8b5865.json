@@ -1,0 +1,101 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b0b4d08d-2335-405e-90ae-3f6d8a8b5865",
+ "subject": "judge-calibration-and-drift",
+ "evaluatedAt": "2026-10-19T00:09:39.667032+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "civic-score-computation",
+   "subject": "judge-calibration-and-drift",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/analysis/quality.ts:4 Context and repository searches found no kappa, golden-set, LLM-judge or repeatability machinery, and the inspected scoring paths calculate civic-data metrics deterministically, so LLM-judge calibration does not apply.",
+   "techniques": [
+    {
+     "technique": "fit-and-report-on-disjoint-labels",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/contribution.ts:262 The contribution score is a fixed arithmetic formula; this context does not fit or select a judge against human labels."
+    },
+    {
+     "technique": "golden-set-agreement-measurement",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/quality.ts:318 Quality aggregates mechanically derived criteria rather than measuring a judge's agreement with human quality labels."
+    },
+    {
+     "technique": "judge-replacement-bridge",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/contribution-legacy.ts:76 The legacy scorer replays an earlier arithmetic formula; it does not replace a retired benchmark judge."
+    },
+    {
+     "technique": "judge-selection-by-spread",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/context-provider.ts:102 The provider supplies schema descriptions as analyst context; it does not select a judging model."
+    },
+    {
+     "technique": "reference-ladder",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/score-legibility.ts:188 The comparison counts parliamentary scores above a formula projection, rather than scoring candidate fidelity against reference outputs."
+    },
+    {
+     "technique": "repeatability-floor",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/contribution.ts:249 Component values come from deterministic activity ratios, with no stochastic judge draws whose repeatability requires measurement."
+    },
+    {
+     "technique": "reserved-rubric-persistence",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/context-model.ts:274 Published quality metadata carries slice criteria; there are no judge-calibration cycles requiring reserved-rubric history."
+    },
+    {
+     "technique": "scheduled-recalibration",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/atlas.ts:587 Cadence measures source-ingest freshness, rather than the age of a production judge's calibration."
+    },
+    {
+     "technique": "trust-bar-verdict",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/contribution.ts:121 The write guard checks formula-version identity; it does not authorize downstream use of LLM-judge scores."
+    },
+    {
+     "technique": "windowed-score-drop-alerting",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/contribution-trend.ts:103 The trend compares an MP's parliamentary terms, whose activity may change, rather than monitoring quality or judge-agreement regression."
+    }
+   ],
+   "absenceTerms": [
+    "kappa",
+    "goldenSet",
+    "llmJudge",
+    "repeatability"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-19T00:09:39.667032+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "judge-calibration-and-drift"
+   ],
+   "techniques": [
+    "fit-and-report-on-disjoint-labels",
+    "golden-set-agreement-measurement",
+    "judge-replacement-bridge",
+    "judge-selection-by-spread",
+    "reference-ladder",
+    "repeatability-floor",
+    "reserved-rubric-persistence",
+    "scheduled-recalibration",
+    "trust-bar-verdict",
+    "windowed-score-drop-alerting"
+   ],
+   "deviations": 0,
+   "context": "civic-score-computation",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

@@ -3423,7 +3423,11 @@
           "revision": 6,
           "changedAt": "2026-10-13",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/analysis/quality.ts:4 Context and repository searches found no kappa, golden-set, LLM-judge or repeatability machinery, and the inspected scoring paths calculate civic-data metrics deterministically, so LLM-judge calibration does not apply.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:80bd8653a6d797f2",
+          "evaluatedRevision": 6
         }
       ],
       "governance": "governed"
