@@ -12515,7 +12515,11 @@
           "revision": 8,
           "changedAt": "2026-09-30",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/tender/compose-pictures.ts:8 Searches found no baseline, regression, benchmark, or unverified terms in this context; repository matches concern other contexts or descriptive procurement baselines, while these files perform deterministic procurement analysis without an evaluation regression gate.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:2fa1e4fd027c9e92",
+          "evaluatedRevision": 8
         }
       ],
       "governance": "governed"

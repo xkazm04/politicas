@@ -1,0 +1,83 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4ceef782-35d7-4855-b24f-fdeeea727c35",
+ "subject": "quality-regression-gating",
+ "evaluatedAt": "2026-10-19T21:31:07.667897+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "tender-pipeline",
+   "subject": "quality-regression-gating",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/tender/compose-pictures.ts:8 Searches found no baseline, regression, benchmark, or unverified terms in this context; repository matches concern other contexts or descriptive procurement baselines, while these files perform deterministic procurement analysis without an evaluation regression gate.",
+   "techniques": [
+    {
+     "technique": "baseline-carries-its-conditions",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/compute-flags.ts:99 The threshold comes from the current procurement corpus, not a stored evaluation baseline."
+    },
+    {
+     "technique": "family-wise-correction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/compute-flags.ts:180 Flags restate deterministic procurement conditions; they are not simultaneous statistical regression tests."
+    },
+    {
+     "technique": "fixed-alpha-discipline",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/compute-flags.ts:70 This is a procurement concentration threshold, not a significance level governing an automated statistical verdict."
+    },
+    {
+     "technique": "paired-per-case-testing",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/measure.ts:107 The tool reports procurement distributions rather than comparing evaluation runs on matched cases."
+    },
+    {
+     "technique": "partial-run-never-green",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/increment.ts:18 The orchestrator acquires procurement data and leaves signal persistence to manual review; it produces no evaluation pass verdict."
+    },
+    {
+     "technique": "tested-superiority-claims",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/compose-pictures.ts:103 The selected supplier has the most recorded contract wins; this is descriptive counting, not a claim that one evaluated model outperforms another."
+    },
+    {
+     "technique": "unverified-vs-regressed-exit-states",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/tender/persist-month.ts:203 These exits distinguish ingest completion from execution failure, not statistical pass, regression, or unverified evaluation outcomes."
+    }
+   ],
+   "absenceTerms": [
+    "baseline",
+    "regression",
+    "benchmark",
+    "unverified"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-19T21:31:07.667897+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "quality-regression-gating"
+   ],
+   "techniques": [
+    "baseline-carries-its-conditions",
+    "family-wise-correction",
+    "fixed-alpha-discipline",
+    "paired-per-case-testing",
+    "partial-run-never-green",
+    "tested-superiority-claims",
+    "unverified-vs-regressed-exit-states"
+   ],
+   "deviations": 0,
+   "context": "tender-pipeline",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

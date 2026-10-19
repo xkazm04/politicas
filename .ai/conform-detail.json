@@ -8994,6 +8994,52 @@
           "evidence": "features/landing/referendum/embed.ts:151 Custom scores contain only the number, with their qualification in a separate banner and their distinction in a colour class, so cropped values lose the qualification and non-colour distinction."
         }
       ]
+    },
+    "1ca62705-6ea0-4813-a251-0689db1ca519/quality-regression-gating": {
+      "context": "tender-pipeline",
+      "subject": "quality-regression-gating",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T21:31:07.667Z",
+      "worker": "4ceef782-35d7-4855-b24f-fdeeea727c35",
+      "techniques": [
+        {
+          "technique": "baseline-carries-its-conditions",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/compute-flags.ts:99 The threshold comes from the current procurement corpus, not a stored evaluation baseline."
+        },
+        {
+          "technique": "family-wise-correction",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/compute-flags.ts:180 Flags restate deterministic procurement conditions; they are not simultaneous statistical regression tests."
+        },
+        {
+          "technique": "fixed-alpha-discipline",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/compute-flags.ts:70 This is a procurement concentration threshold, not a significance level governing an automated statistical verdict."
+        },
+        {
+          "technique": "paired-per-case-testing",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/measure.ts:107 The tool reports procurement distributions rather than comparing evaluation runs on matched cases."
+        },
+        {
+          "technique": "partial-run-never-green",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/increment.ts:18 The orchestrator acquires procurement data and leaves signal persistence to manual review; it produces no evaluation pass verdict."
+        },
+        {
+          "technique": "tested-superiority-claims",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/compose-pictures.ts:103 The selected supplier has the most recorded contract wins; this is descriptive counting, not a claim that one evaluated model outperforms another."
+        },
+        {
+          "technique": "unverified-vs-regressed-exit-states",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/persist-month.ts:203 These exits distinguish ingest completion from execution failure, not statistical pass, regression, or unverified evaluation outcomes."
+        }
+      ]
     }
   }
 }
