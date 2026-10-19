@@ -67,7 +67,7 @@
  *   npx tsx scripts/case-loops/apply-batch.ts --which=<key> --commit --confirm-live --pass=<N>
  */
 import { readFileSync } from "node:fs";
-import { mkdir, writeFile } from "node:fs/promises";
+import { appendFile, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { getStore } from "../../lib/db/store";
@@ -364,7 +364,54 @@ export interface ApplyBatchReport {
   rejections: string[];
 }
 
+export const VOCAB_REFUSAL_LEDGER = "docs/data-analysis/vocab-refusals.jsonl";
+
 export class ApplyBatchError extends Error {}
+
+/**
+ * One assertion the closed vocabulary could not hold — the typed outcome of a
+ * refusal at the enum gate (registry: civic-entity-ontology, "the gate's
+ * rejections are the ritual's trigger"). It records what the writer ASSERTED,
+ * from which batch, and the endpoints it would have joined, so a refused kind is
+ * a lead for the amendment ritual rather than a message that scrolls away. Never
+ * a node or an edge: nothing reads these into a view or a census.
+ */
+export interface VocabRefusal {
+  /** "node-kind" = a node asserted a kind outside KG_NODE_KINDS; "edge-rel" = an edge asserted a rel outside KG_EDGE_RELS. */
+  gate: "node-kind" | "edge-rel";
+  /** The kind or relation exactly as the writer asserted it. */
+  asserted: string;
+  /** The batch (source/pass producer) that proposed it. */
+  source: string;
+  /** node-kind: the node id (src); edge-rel: the edge src. */
+  src: string;
+  /** edge-rel only: the other endpoint. */
+  dst?: string;
+  /** Kinds of the endpoints where the batch itself declares them (an endpoint that is only live in the store is unknown here). */
+  srcKind?: string;
+  dstKind?: string;
+}
+
+export class VocabRefusalError extends ApplyBatchError {
+  constructor(message: string, readonly refusals: VocabRefusal[]) {
+    super(message);
+  }
+}
+
+/** Pure: every out-of-vocabulary assertion in a batch, all of them (not the first). */
+export function collectVocabRefusals(batch: NormalizedBatch): VocabRefusal[] {
+  const kindOf = new Map(batch.nodes.map((n) => [n.id, n.kind]));
+  const out: VocabRefusal[] = [];
+  for (const n of batch.nodes) {
+    if (!(KG_NODE_KINDS as readonly string[]).includes(n.kind)) out.push({ gate: "node-kind", asserted: n.kind, source: batch.key, src: n.id });
+  }
+  for (const e of batch.edges) {
+    if (!(KG_EDGE_RELS as readonly string[]).includes(e.rel)) {
+      out.push({ gate: "edge-rel", asserted: e.rel, source: batch.key, src: e.src, dst: e.dst, srcKind: kindOf.get(e.src), dstKind: kindOf.get(e.dst) });
+    }
+  }
+  return out;
+}
 
 /**
  * The one shared engine every adapter's NormalizedBatch runs through. Order:
@@ -406,13 +453,14 @@ export async function applyBatch(store: ApplyStore, batch: NormalizedBatch, opts
   }
 
   // ---- Step 1: kind/rel enum enforcement ----
-  const badNodeKinds = batch.nodes.filter((n) => !(KG_NODE_KINDS as readonly string[]).includes(n.kind));
-  if (badNodeKinds.length > 0) {
-    throw new ApplyBatchError(`REFUSED: unknown node kind(s) not in KG_NODE_KINDS: ${badNodeKinds.map((n) => `${n.id} (kind=${JSON.stringify(n.kind)})`).join(", ")}`);
-  }
-  const badEdgeRels = batch.edges.filter((e) => !(KG_EDGE_RELS as readonly string[]).includes(e.rel));
-  if (badEdgeRels.length > 0) {
-    throw new ApplyBatchError(`REFUSED: unknown edge rel(s) not in KG_EDGE_RELS: ${badEdgeRels.map((e) => `${e.src}->${e.dst} (rel=${JSON.stringify(e.rel)})`).join(", ")}`);
+  const vocabRefusals = collectVocabRefusals(batch);
+  if (vocabRefusals.length > 0) {
+    const nodeRefs = vocabRefusals.filter((r) => r.gate === "node-kind");
+    const relRefs = vocabRefusals.filter((r) => r.gate === "edge-rel");
+    const parts: string[] = [];
+    if (nodeRefs.length) parts.push(`REFUSED: unknown node kind(s) not in KG_NODE_KINDS: ${nodeRefs.map((r) => `${r.src} (kind=${JSON.stringify(r.asserted)})`).join(", ")}`);
+    if (relRefs.length) parts.push(`REFUSED: unknown edge rel(s) not in KG_EDGE_RELS: ${relRefs.map((r) => `${r.src}->${r.dst} (rel=${JSON.stringify(r.asserted)})`).join(", ")}`);
+    throw new VocabRefusalError(parts.join("\n"), vocabRefusals);
   }
 
   // ---- Step 2: node-then-edge endpoint check ----
@@ -642,8 +690,11 @@ async function main() {
     // prevent. Always write SOMETHING, even on the error path.
     const msg = e instanceof Error ? e.message : String(e);
     console.error(msg);
+    const refusals = e instanceof VocabRefusalError ? e.refusals : undefined;
     await mkdir(path.dirname(outPathEarly), { recursive: true });
-    await writeFile(outPathEarly, JSON.stringify({ key: which, mode: commit ? "commit-failed" : "dry-run-failed", error: msg, generatedAt: new Date().toISOString() }, null, 2));
+    await writeFile(outPathEarly, JSON.stringify({ key: which, mode: commit ? "commit-failed" : "dry-run-failed", error: msg, ...(refusals ? { refusals } : {}), generatedAt: new Date().toISOString() }, null, 2));
+    // The vocabulary-refusal ledger is the amendment ritual's inbox: append-only, one line per refused assertion, never read as data.
+    if (refusals) await appendFile(VOCAB_REFUSAL_LEDGER, refusals.map((r) => JSON.stringify({ ...r, at: new Date().toISOString() })).join("\n") + "\n");
     await store.close();
     process.exit(1);
     return;

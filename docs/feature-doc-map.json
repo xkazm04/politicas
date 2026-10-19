@@ -137,7 +137,8 @@
       "doc": "docs/db-architecture-guide.md",
       "sourceGlobs": [
         "lib/db/**",
-        "scripts/db-bench/**"
+        "scripts/db-bench/**",
+        "lib/testing/sentinel/**"
       ]
     },
     {
@@ -147,6 +148,7 @@
         "lib/ingest/normalize.ts",
         "lib/ingest/unl.ts",
         "lib/ingest/zip.ts",
+        "packages/czech-civic-data/src/**",
         "lib/ingest/sources/**",
         "lib/analysis/quality.ts",
         "scripts/data-analysis/ingest.ts",

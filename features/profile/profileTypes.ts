@@ -10,6 +10,7 @@ import type { ScoreLegibility } from "@/lib/analysis/score-legibility";
 import type { ProfileAbsenceRecord } from "./absenceRecord";
 import type { ProfileMoney } from "./profileMoney";
 import type { CareerSpine } from "./careerSpine";
+import type { CoVoteBaseline } from "./coVoteBaseline";
 
 export interface CoVoter {
   pspId: number;
@@ -167,6 +168,10 @@ export interface ProfileData {
    *  The page prints the remainder rather than swallowing it (the
    *  `moneyMoreContracts` / `rebelInstancesMore` rule). */
   coVotersTotal: number;
+  /** Own-club and other-club median agreement over EVERY pairing the graph holds
+   *  for this MP, printed beside the rows: a rate is only "high" against the norm
+   *  (features/profile/coVoteBaseline.ts). */
+  coVoteReference: CoVoteBaseline;
   rebellions: Rebellion[];
   committees: CommitteeSeat[];
   /**

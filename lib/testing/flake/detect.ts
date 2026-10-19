@@ -77,6 +77,18 @@ export function detect(runs: RunRecord[]): {
   return { head, comparable: best.length, candidates };
 }
 
+/**
+ * One line for the unit-run output that separates the two things an empty register
+ * can mean: "no history yet" (no verdict) from "history says nothing flipped".
+ */
+export function observationLine(runs: RunRecord[]): string {
+  const r = detect(runs);
+  if (r.reason) return `no verdict yet — ${r.reason}. An empty register is NOT evidence of no flakes.`;
+  if (r.candidates.length === 0)
+    return `no flakes observed — 0 tests changed outcome across ${r.comparable} same-code runs on HEAD ${r.head?.slice(0, 8)}.`;
+  return `${r.candidates.length} flake candidate(s) across ${r.comparable} same-code runs — run \`npm run flake:detect\`; promoting to the register is a human decision.`;
+}
+
 function main(): void {
   const runs = readRuns();
   const health = inspectRegister(loadRegister());

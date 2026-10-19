@@ -27,6 +27,7 @@
  */
 import { getStore } from "@/lib/db/store";
 import { KG_READ_CAP } from "@/lib/db/readCap";
+import { repairTornTail } from "./harvestJsonlTail";
 import { parseDump, parseDumpIndex, type DumpIndexEntry } from "@/lib/ingest/sources/smlouvy-dump";
 
 const INDEX_URL = "https://data.smlouvy.gov.cz/";
@@ -94,6 +95,11 @@ async function main() {
     state.publisherOnlyByIco = {};
     console.log("  (--restart: harvest file and month record discarded)");
   }
+
+  // A kill mid-append leaves an unterminated final record; discard it before appending after it.
+  // (Its month is not in the state file, so the resume re-harvests it.)
+  const torn = await repairTornTail(OUT_JSONL);
+  if (torn > 0) console.log(`  (discarded ${torn} byte(s) of an unterminated final record from a killed run)`);
 
   // 3) index
   const idxRes = await fetch(INDEX_URL, { signal: AbortSignal.timeout(120_000) });

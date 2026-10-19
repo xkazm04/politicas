@@ -49,7 +49,7 @@ export default function Standings({
             </span>
           </span>
           <span className={`text-2xl font-black tabular-nums ${e.pspId === selectedId ? "text-signal" : "text-ink"}`}>
-            {/* citation-ok: citaci sekce (rankingSource — index přispění · psp.cz) tiskne LandingPage u nadpisu */}
+            {/* citation-ok(parent=features/landing/LandingPage.tsx, key=rankingSource): [verified 2026-10-11] citaci sekce (rankingSource — index přispění · psp.cz) tiskne LandingPage u nadpisu */}
             {f.dec(e.score)}
           </span>
         </button>

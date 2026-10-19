@@ -87,7 +87,7 @@ async function main() {
       rel: "assigned_to",
       dst,
       weight: null,
-      props: { role: a.role, status: a.status, assignedOn: a.assignedOn },
+      props: { role: a.role, status: a.status, assignedOn: a.assignedOn, ...(a.unrecognisedTyp ? { unrecognisedTyp: a.unrecognisedTyp } : {}) },
       provenance,
     });
   }

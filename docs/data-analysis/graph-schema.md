@@ -73,6 +73,10 @@ Every node/edge carries `provenance = {pass, method, ref, computedAt}`. Two meth
 - **Blocs are *named* by the LLM but *defined* by the computation** — the co-voting
   matrix is ground truth; the gate rejects a bloc member who isn't a real person id.
 
+## Out-of-vocabulary assertions — the refusal ledger (2026-10-14)
+
+`KG_NODE_KINDS` / `KG_EDGE_RELS` are closed, and `scripts/case-loops/apply-batch.ts` refuses a batch that asserts a kind or rel outside them. The refusal is a typed outcome, not only a message: `VocabRefusalError.refusals` lists EVERY refused assertion (gate, asserted kind or rel, producing batch, endpoints and the endpoint kinds the batch declares), and the CLI appends them to `docs/data-analysis/vocab-refusals.jsonl` as well as the failure report. That ledger is the inbox of the amendment ritual above (state the assertion, amend the enum, add the catalogue row, then write data): a kind refused across several batches is a recurring lead, a single refusal may still expose a missing kind. Its rows are never nodes, never read into a view and counted by no census; one that turns out to be a writer error is closed with the reason, not promoted. There is deliberately no catch-all `other` kind.
+
 ## jsonb prop keys — the registry (2026-08-22)
 
 `kg_node.props` / `kg_edge.props` are schemaless, and the case loops have used that

@@ -124,6 +124,12 @@ export interface Shareholder {
   /** Share in percent when VR states it (s.r.o. `podil[].velikostPodilu`, PROCENTA or
    *  "50%"-style TEXT); null when VR does not — an a.s. akcionář carries none. */
   sharePct?: number | null;
+  /**
+   * What walking UP from this owner established. Absent = the owner's own owners were
+   * never read. `private-terminal` = the walk reached natural persons / a non-public
+   * end within its bounds. Only consulted when `requireOwnerChain` is set.
+   */
+  upstream?: "private-terminal";
 }
 
 export interface PublicMandateInput {
@@ -143,6 +149,15 @@ export interface PublicMandateInput {
    * than having its verdicts silently change underneath it.
    */
   ownersRecorded?: number;
+  /**
+   * Opt-in (ownership-chain-traversal): a legal-person owner with a private-law form is
+   * not evidence of private ownership until the walk above it ended somewhere non-public
+   * (`Shareholder.upstream === "private-terminal"`). A form-private a.s. can be the state
+   * group's own subsidiary (a state railway's research institute sat as `private` this
+   * way). When set, an unwalked corporate owner yields `unknown`, still attributable.
+   * Absent keeps the one-hop answer, so no caller's verdict moves silently.
+   */
+  requireOwnerChain?: boolean;
 }
 
 export type PublicMandateKind =
@@ -247,6 +262,19 @@ export function classifyPublicMandate(input: PublicMandateInput): PublicMandateV
       unknownCodes: [...new Set(unknownCodes)],
       attributable: true,
     };
+  }
+
+  if (input.requireOwnerChain) {
+    const unwalked = input.shareholders.filter((s) => s.current && s.upstream !== "private-terminal");
+    if (unwalked.length > 0) {
+      return {
+        kind: "unknown",
+        reason: `Právní forma ${input.legalForm} je soukromoprávní a současným společníkem/akcionářem je právnická osoba (${unwalked.map((o) => o.name).join(", ")}), jejíž vlastníci nebyli dohledáni — soukromá právní forma vlastníka není důkazem soukromého vlastnictví. Řetězec nebyl prověřen, ne vyvrácen; vyžaduje ruční posouzení.`,
+        publicOwners: [],
+        unknownCodes: [...new Set(unknownCodes)],
+        attributable: true,
+      };
+    }
   }
 
   // The distinction this module was missing: "VR names owners, none of them public" is

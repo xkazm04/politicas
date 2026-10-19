@@ -429,3 +429,28 @@ describe("recomputeFactFromProps — jednotnost, nebo nic", () => {
     });
   });
 });
+
+// ── dvojí forma: klíčovaná = smyčka nad jednohodnotovou ────────────────────
+
+describe("deriveDeltas je jen smyčka nad deriveEntityDelta (parita dvou forem)", () => {
+  // Každý parametr, který deriveEntityDelta přijímá, musí klíčovaná forma
+  // přepravit; test staví obě formy ze STEJNÉ sady argumentů a porovnává
+  // výstup na jednoklíčovém vstupu. Přibude-li parametr jen do jedné formy,
+  // klíčovaná forma tiše poběží na výchozí hodnotě — nic jiného to nechytí.
+  const FACT_PARITY: RecomputeFact = { computedAt: "2026-07-29", pass: 7, ref: "parity", covered: 3 };
+  const CASES: { name: string; extra: Record<string, unknown>; key: string; since: string }[] = [
+    { name: "cap", extra: { cap: 1 }, key: "poslanec:1", since: "2026-01-01" },
+    { name: "forensic", extra: { forensic: [FORENSIC] }, key: "tisk:141", since: "2026-07-25" },
+    { name: "recompute", extra: { recompute: FACT_PARITY }, key: "poslanec:1", since: "2026-07-28" },
+    { name: "výchozí", extra: {}, key: "firma:04544152", since: "2026-07-30" },
+  ];
+
+  for (const c of CASES) {
+    it(`jednoklíčový vstup dává totéž v obou formách: ${c.name}`, () => {
+      const args = { entries: ENTRIES, since: c.since, ...c.extra };
+      const single = deriveEntityDelta({ ...args, key: c.key });
+      const keyed = deriveDeltas({ ...args, keys: [c.key] });
+      expect(keyed).toEqual([single]);
+    });
+  }
+});

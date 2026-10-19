@@ -11,7 +11,7 @@
 
 import { describe, expect, it } from "vitest";
 
-import { detect } from "./detect";
+import { detect, observationLine } from "./detect";
 import type { RunRecord } from "./history";
 
 const run = (head: string, at: string, tests: Record<string, "passed" | "failed">, dirty = false): RunRecord => ({
@@ -94,5 +94,22 @@ describe("the transition detector", () => {
     expect(r.candidates.map((c) => c.key)).toEqual(["a.test.ts > veryFlaky", "b.test.ts > slightlyFlaky"]);
     expect(r.candidates[0].transitions).toBe(4);
     expect(r.candidates[1].transitions).toBe(2);
+  });
+});
+
+describe("observationLine", () => {
+  it("says no verdict yet when history is too thin", () => {
+    expect(observationLine([])).toContain("no verdict yet");
+  });
+
+  it("says no flakes observed only with a full same-code window", () => {
+    const runs = ["01", "02", "03", "04"].map((n) => run(H, `2026-08-24T${n}:00:00Z`, { "a.test.ts > x": "passed" }));
+    expect(observationLine(runs)).toContain("no flakes observed");
+  });
+
+  it("points at candidates without promoting them", () => {
+    const s = ["passed", "failed", "passed", "failed"] as const;
+    const runs = s.map((o, i) => run(H, `2026-08-24T0${i + 1}:00:00Z`, { "a.test.ts > x": o }));
+    expect(observationLine(runs)).toContain("flake candidate");
   });
 });

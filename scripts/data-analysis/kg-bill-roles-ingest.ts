@@ -94,12 +94,15 @@ async function main() {
       edgesWithoutRole++;
       continue; // leave the edge as-is rather than invent a rank
     }
+    // An unranked signature row keeps rank and role UNKNOWN (null / absent): promoting
+    // it to "spolupodepsal" would be as invented as promoting it to "predkladatel".
+    const { role: _staleRole, ...restProps } = e.props as Record<string, unknown>;
     edgeUpdates.push({
       ...e,
       props: {
-        ...e.props,
+        ...restProps,
         rank: role.rank,
-        role: role.rank === 1 ? "predkladatel" : "spolupodepsal",
+        ...(role.rank == null ? {} : { role: role.rank === 1 ? "predkladatel" : "spolupodepsal" }),
         joined_later: role.joinedLater,
       },
       provenance,

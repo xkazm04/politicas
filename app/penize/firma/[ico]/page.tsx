@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import CompanyCaseFilePage from "@/features/money/CompanyCaseFilePage";
+import DataUnavailable from "@/features/shared/components/DataUnavailable";
+import { moneyStoreReadable } from "@/features/money/moneyStoreReadable";
 import { getCompanyCaseFile } from "@/features/money/getCompanyDetail";
 import { canonicalIco } from "@/features/money/companyId";
 import { pragueDay } from "@/features/denik/pragueDay";
@@ -48,5 +50,12 @@ export default async function CompanyCaseFileRoute({
   // se zapsaným vlastnictvím, rejstříkový výpis. `getCompanyDetail()` (užší kontrakt pro
   // /overeni) tu schválně nestojí — vrátil by `null` i pro firmu, o které graf něco ví.
   const data = await getCompanyCaseFile(icoRaw, todayIso);
+  // Same rule as the MP case file: null is "no tie" only when the store could be read.
+  if (!data && !(await moneyStoreReadable())) {
+    const t = await getTranslations("money");
+    return (
+      <DataUnavailable what={t("companyFile.unavailableWhat")} backHref="/penize" backLabel={t("companyFile.unavailableBack")} />
+    );
+  }
   return <CompanyCaseFilePage data={data} />;
 }

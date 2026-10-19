@@ -44,7 +44,9 @@ to a person. A company file is never ranked by money. Two-hop adjacency is
 computed nowhere. A stored class is never rewritten by code — re-classifying is
 a human decision at `/penize/kontrola`. A bad date loses its date, keeps its
 row, and the count is disclosed; it is never repaired. An unreadable money layer
-renders as unreadable, never as "no ties".
+renders as unreadable, never as "no ties". That holds on the two case-file routes too:
+`/penize/[pspId]` and `/penize/firma/[ico]` answer a null read with the data-unavailable
+page when the store cannot be read (`moneyStoreReadable`), and with "no tie" only when it can.
 
 **Live state** — 211 `linked_to` ties, **all `pending_review`**, 0 rejected; the
 rejected path is proven by test, not by data.

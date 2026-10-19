@@ -178,6 +178,19 @@ describe("parseCommitteeAssignments — an unknown typ is unknown, not 'navrzeno
     expect(unknownFirst.status).toBe("navrzeno");
   });
 
+  it("an unknown row beside a documented one is kept visible, in either order", () => {
+    const a = parseCommitteeAssignments(rows(["43204|1772|2|300003|||1||", "43204|1772|4|300003|||1||"].join("\n")), HIST)[0];
+    const b = parseCommitteeAssignments(rows(["43204|1772|4|300003|||1||", "43204|1772|2|300003|||1||"].join("\n")), HIST)[0];
+    expect(a.status).toBe("prikazano");
+    expect(a.unrecognisedTyp).toEqual(["4"]);
+    expect(b.unrecognisedTyp).toEqual(["4"]);
+  });
+
+  it("a pair with only documented codes carries no unrecognisedTyp field", () => {
+    const a = parseCommitteeAssignments(rows("43204|1772|2|300003|||1||"), HIST)[0];
+    expect("unrecognisedTyp" in a).toBe(false);
+  });
+
   it("the token is outside the renderer's key whitelist, so it cannot print as a real status", () => {
     // features/lawwatch/lawwatchLabels.ts COMMITTEE_STATUS_KEYS — retyped here on
     // purpose: this test guards the CONTRACT between the two files, and importing the
@@ -213,6 +226,20 @@ describe("parseSponsorRoles (Q-effort-2)", () => {
   it("flags later joiners and keeps first-signatory status per bill, not per person", () => {
     expect(roles.get(43111)!.find((s) => s.idOsoba === 6500)!.joinedLater).toBe(true);
     expect(roles.get(43112)![0].rank).toBe(2); // 6473 is a co-signer on 43112
+  });
+});
+
+describe("parseSponsorRoles: a missing poradi stays unknown", () => {
+  const roles = parseSponsorRoles(
+    rows(["50001|7001||0|", "50001|7002|2|0|", "50001|7001|||", "50002|7003||1|"].join("\n")),
+  );
+  it("never promotes an unranked row to first signatory by file position", () => {
+    const list = roles.get(50001)!;
+    expect(list.map((s) => s.idOsoba)).toEqual([7002, 7001]);
+    expect(list[0].rank).toBe(2);
+    expect(list[1].rank).toBeNull();
+    expect(roles.get(50002)![0].rank).toBeNull();
+    expect(roles.get(50002)![0].joinedLater).toBe(true);
   });
 });
 

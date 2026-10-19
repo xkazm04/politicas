@@ -352,3 +352,45 @@ describe("ownershipRecord — the s.r.o. `spolecnik[]` shape (money batch 018)",
     expect(v.kind).toBe("private");
   });
 });
+
+describe("requireOwnerChain (ownership-chain-traversal)", () => {
+  const rail = {
+    ico: "27257258",
+    name: "Výzkumný Ústav Železniční, a.s.",
+    legalForm: "121",
+    vrRetrieved: true,
+    ownersRecorded: 1,
+  };
+  const parent = { ico: "70994226", name: "České dráhy, a.s.", legalForm: "121", current: true };
+
+  it("A: the one-hop answer files a state group's subsidiary as private", () => {
+    expect(classifyPublicMandate({ ...rail, shareholders: [parent] }).kind).toBe("private");
+  });
+
+  it("B: an unwalked private-form corporate owner is unknown, and stays attributable", () => {
+    const v = classifyPublicMandate({ ...rail, shareholders: [parent], requireOwnerChain: true });
+    expect(v.kind).toBe("unknown");
+    expect(v.attributable).toBe(true);
+  });
+
+  it("B: private is earned only when the walk above the owner ended non-public", () => {
+    const v = classifyPublicMandate({
+      ...rail,
+      shareholders: [{ ...parent, upstream: "private-terminal" }],
+      requireOwnerChain: true,
+    });
+    expect(v.kind).toBe("private");
+  });
+
+  it("B: a historical owner does not block, a public owner still wins, natural-person-only is untouched", () => {
+    expect(classifyPublicMandate({ ...rail, shareholders: [{ ...parent, current: false }], requireOwnerChain: true }).kind).toBe("private");
+    expect(
+      classifyPublicMandate({
+        ...rail,
+        shareholders: [{ ico: "44992785", name: "Statutární město Brno", legalForm: "801", current: true }, parent],
+        requireOwnerChain: true,
+      }).kind,
+    ).toBe("publicly-owned");
+    expect(classifyPublicMandate({ ...rail, shareholders: [], requireOwnerChain: true }).kind).toBe("private");
+  });
+});

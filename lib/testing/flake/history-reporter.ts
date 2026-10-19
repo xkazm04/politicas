@@ -16,7 +16,8 @@ import { relative } from "node:path";
 
 import type { Reporter, TestModule } from "vitest/node";
 
-import { currentCode, testKey, writeRun, type Outcome, type RunRecord } from "./history";
+import { observationLine } from "./detect";
+import { currentCode, readRuns, testKey, writeRun, type Outcome, type RunRecord } from "./history";
 import { inspectRegister, loadRegister, publishedFigures } from "./registry";
 
 export default class HistoryReporter implements Reporter {
@@ -46,6 +47,7 @@ export default class HistoryReporter implements Reporter {
     try {
       const health = inspectRegister(loadRegister());
       console.info(`\n[flake] ${publishedFigures(health)}`);
+      console.info(`[flake] ${observationLine(readRuns())}`);
     } catch (err) {
       console.warn("[flake] could not read the quarantine register; its gate is registry.test.ts", err);
     }

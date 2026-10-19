@@ -11,7 +11,7 @@ const dataDir = pgliteFixtureDir("politicas-apply-batch-");
 
 const { open } = await import("../../lib/db/pglite/internals");
 const { makeKgRepo } = await import("../../lib/db/pglite/repositories/kg");
-const { applyBatch, adaptPrakRepoint, adaptOwnershipChains, adaptKiosek, ApplyBatchError, DELETION_ALLOWLIST } = await import("./apply-batch");
+const { applyBatch, adaptPrakRepoint, adaptOwnershipChains, adaptKiosek, ApplyBatchError, VocabRefusalError, collectVocabRefusals, DELETION_ALLOWLIST } = await import("./apply-batch");
 
 type Pg = Awaited<ReturnType<typeof open>>;
 let pg: Pg;
@@ -132,6 +132,31 @@ describe("applyBatch — insert path", () => {
       excludedEdges: [],
     };
     await expect(applyBatch(store, badRel, { pass: 7, ns: "test", commit: true })).rejects.toThrow(/unknown edge rel/i);
+  });
+
+  it("keeps every out-of-vocabulary assertion as a typed refusal, not only the first message", async () => {
+    const store = makeKgRepo(pg);
+    const prov = { track: "money", pass: null, method: "verdict", ref: "test", computedAt: "2026-07-25" };
+    const batch = {
+      key: "test-vocab-ledger",
+      nodes: [
+        { id: "x:1", kind: "not-a-real-kind", label: "x", props: {}, provenance: prov },
+        { id: "x:2", kind: "person", label: "y", props: {}, provenance: prov },
+      ],
+      edges: [{ src: "x:2", rel: "not-a-real-rel", dst: "x:1", props: {}, provenance: prov }],
+      proposedDeletions: [],
+      excludedEdges: [],
+    };
+    const err = await applyBatch(store, batch, { pass: 7, ns: "test", commit: true }).catch((e) => e);
+    expect(err).toBeInstanceOf(VocabRefusalError);
+    expect(err.refusals).toEqual([
+      { gate: "node-kind", asserted: "not-a-real-kind", source: "test-vocab-ledger", src: "x:1" },
+      { gate: "edge-rel", asserted: "not-a-real-rel", source: "test-vocab-ledger", src: "x:2", dst: "x:1", srcKind: "person", dstKind: "not-a-real-kind" },
+    ]);
+    // both gates reported in one refusal, and the pure collector agrees with the gate
+    expect(err.message).toMatch(/unknown node kind/i);
+    expect(err.message).toMatch(/unknown edge rel/i);
+    expect(collectVocabRefusals(batch)).toEqual(err.refusals);
   });
 
   it("refuses the whole run if a DELETION_ALLOWLIST entry doesn't match a live row (generalized apply-amends-regen startup assertion)", async () => {

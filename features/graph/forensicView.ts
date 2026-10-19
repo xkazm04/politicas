@@ -55,9 +55,14 @@ export function forensicEdges(edges: GraphEdge[], keep: ReadonlySet<string> = ne
   let hiddenRejected = 0;
   let keptRejected = 0;
   for (const e of edges) {
-    // `gate === null` = negated relace (deterministické odvození): nemá co
-    // ověřovat, takže ji forenzní pohled neskrývá — a netvrdí o ní „ověřeno".
-    if (e.gate !== "pending_review" && e.gate !== "rejected") {
+    // PROPUSTÍ SE JEN TO, CO JE VÝSLOVNĚ ZNÁMÉ: `verified` (člověk to napsal)
+    // a `null` (negated relace, deterministické odvození: nemá co ověřovat, takže
+    // ji pohled neskrývá — a netvrdí o ní „ověřeno"). Dřív filtr vyjmenovával
+    // jen ZLÉ stavy (pending, rejected) a vše ostatní propustil — tak se do
+    // 2026-09-04 dostal zamítnutý stav mezi „ověřené". Nezařazený stav (budoucí
+    // čtvrtý, nebo poškozená hodnota z JSONu) tedy nesmí propadnout do
+    // „viditelné": byl by tiše ověřen vynecháním. Počítá se jako čekající.
+    if (e.gate === null || e.gate === "verified") {
       out.push(e);
       continue;
     }
@@ -133,9 +138,14 @@ export function hoverCardModel(node: GraphNode, edges: GraphEdge[]): HoverCardMo
     } else if (e.gate === "verified") {
       row.verified++;
       verified++;
-    } else {
+    } else if (e.gate === null) {
       row.ungated++;
       ungated++;
+    } else {
+      // Nezařazený stav se na kartě nikdy netváří jako „bez brány": je to
+      // tvrzení, o kterém neumíme říct, že ho člověk potvrdil → čeká.
+      row.pending++;
+      pending++;
     }
   }
   const total = (r: ReviewBreakdownRow) => r.verified + r.pending + r.rejected + r.ungated;

@@ -10,7 +10,7 @@
  */
 import { readFileSync } from "node:fs";
 import { getStore } from "@/lib/db/store";
-import { jargonViolationDetails } from "@/lib/analysis/public-copy";
+import { jargonViolationDetails, privateLifeTerm } from "@/lib/analysis/public-copy";
 import { committeeClaimWarnings } from "@/lib/analysis/committee-claims";
 import { isLowScoreReason } from "@/lib/analysis/low-score-reason";
 
@@ -253,6 +253,14 @@ async function main() {
       continue;
     }
     ok++;
+    // Public-role scope limit (civic-intelligence/accountability-publishing-ethics):
+    // kinship/health terms in verbatim-rendered prose are an ADVISORY, not a DROP -
+    // a spouse's firm cited to its registry is in scope, the marriage is not, and a
+    // term list cannot tell them apart. The reviewer decides.
+    for (const field of PUBLIC_RENDER_FIELDS) {
+      const term = privateLifeTerm(prop.props[field] as string | undefined);
+      if (term) warnings.push(`${prop.id} (${prop.name}) - ${field} carries "${term}": confirm a registry nexus or cut the private-life fact (public-role scope limit)`);
+    }
     // Q-effort-11: prose-vs-props numeric cross-check, sourced from this person's
     // deterministic graph props (not the proposal itself — those are gate-forbidden).
     const person = persons.find((p) => p.id === prop.id);
@@ -301,7 +309,7 @@ async function main() {
     console.log("All proposals reference real person nodes, are effort_*-namespaced, and touch no deterministic-owned number.");
   }
   if (warnings.length) {
-    console.log(`\nQ-effort-11 WARNINGS (prose-vs-props numeric mismatch, soft-fail — reviewer decides) · ${warnings.length}:`);
+    console.log(`\nWARNINGS (prose-vs-props numeric mismatch and public-role scope, soft-fail — reviewer decides) · ${warnings.length}:`);
     warnings.forEach((w) => console.log(`  ⚠ ${w}`));
   } else {
     console.log("Q-effort-11: no prose-vs-props numeric mismatches detected.");

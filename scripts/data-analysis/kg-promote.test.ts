@@ -50,6 +50,25 @@ describe("kg-promote toRows — case-owned rel guard (D-gap-1, batch 004)", () =
     expect(droppedRels).toEqual(["linked_to"]);
   });
 
+  it("refuses every enum rel this path has never promoted, not only money's two (allow-list)", () => {
+    for (const rel of ["sponsors", "owns", "owns_stake", "amends", "rapporteur", "decides", "bids_on", "co_votes_with"]) {
+      const v = verdict({ edges: [{ src: "psp:person:1", rel, dst: "psp:bill:2", rationale: "x" } as never] });
+      const { edges, droppedRels } = toRows(v, 2, "2026-07-24T00:00:00.000Z");
+      expect(edges, rel).toHaveLength(0);
+      expect(droppedRels, rel).toEqual([rel]);
+    }
+  });
+
+  it("still promotes belongs_to and about", () => {
+    const v = verdict({
+      edges: [
+        { src: "psp:person:1", rel: "belongs_to", dst: "bloc:x", rationale: "r" },
+        { src: "psp:hlasovani:1", rel: "about", dst: "theme:y", rationale: "r" },
+      ],
+    });
+    expect(toRows(v, 2, "2026-07-24T00:00:00.000Z").edges.map((e) => e.rel)).toEqual(["belongs_to", "about"]);
+  });
+
   it("refuses a supplies edge the same way", () => {
     const v = verdict({
       edges: [{ src: "company:ico:111", rel: "supplies", dst: "contract:k1", rationale: "an LLM claims a supply" }],

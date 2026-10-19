@@ -144,6 +144,10 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
     // calendar). The order below makes the last row per mandate the OPEN window
     // with the latest start — closed windows first, then open ones by from_at —
     // so `out.set` (last wins) is a rule, not an accident.
+    // A SITTING MP (open chamber-seat membership) with no open club window is an
+    // independent today: the closed windows are history, not the answer, so the mandate
+    // is absent from the map ("no club" is an answer, party-club-vs-electoral-list). A
+    // replaced MP (seat closed) keeps the last KNOWN club, as before.
     async clubByMandate(termCode) {
       const { rows } = await pg.query<Record<string, unknown>>(
         `with term as (select psp_id from organ where abbrev = $1),
@@ -157,6 +161,15 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
            join term t on mn.term_psp_id = t.psp_id
            join membership ms on ms.person_psp_id = mn.person_psp_id and ms.kind = 'member'
            join club on club.psp_id = ms.organ_psp_id
+          where not (
+                  ms.to_at is not null
+              and exists (select 1 from membership seat
+                           where seat.person_psp_id = mn.person_psp_id
+                             and seat.organ_psp_id = t.psp_id and seat.to_at is null)
+              and not exists (select 1 from membership k join club kc on kc.psp_id = k.organ_psp_id
+                               where k.person_psp_id = mn.person_psp_id
+                                 and k.kind = 'member' and k.to_at is null)
+          )
           order by mn.psp_id, (ms.to_at is null) asc, ms.from_at asc nulls first`,
         [termCode],
       );

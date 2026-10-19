@@ -21,6 +21,7 @@ freezing it would be a false vintage).
 | --- | --- |
 | `guardKgReset` | A `--reset` that would delete more than the run re-emits. It compares what the store ACTUALLY holds against what the run ACTUALLY emits — never a hardcoded list — names the casualties, and prints the verdict on every dry run |
 | `CASE_OWNED_NODE_KINDS` (`kg-promote`) | A node of a kind this path has never legitimately written; derived as the enum MINUS `bloc`/`theme`, so a kind added to the enum is refused by default. A refused node never joins `kgResident`, so no edge can come to rest on it |
+| `CASE_OWNED_EDGE_RELS` (`kg-promote`) | An edge rel this path has never legitimately written; derived as `KG_EDGE_RELS` MINUS `belongs_to`/`about` (was a two-item deny list of `linked_to`/`supplies`, which let `sponsors`, `owns_stake`, `rapporteur`, `decides`... through to a `{rationale}` replace) |
 | `guardContributionWrite` | A `--commit` over a node whose stored `contribution_provenance.ref` differs from the ref being stamped. The rule is EQUALITY, not lineage ordering — `pass` cannot rank two formulas |
 
 `--supersede` is the deliberate human override for the contribution guards; a

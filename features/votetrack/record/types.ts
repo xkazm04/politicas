@@ -91,6 +91,9 @@ export interface SeismoDay {
   votes: number;
   /** Mean vote cohesion across the day's votes with a cohesion value; null if none. 3dp. */
   meanCohesion: number | null;
+  /** How many of the day's votes the mean is over (those with a cohesion value) - the
+   *  mean ships with its qualifying-vote count, never only with `votes`. */
+  cohesionVotes: number;
   rebels: number;
   /** The day's lowest-cohesion roll call — the crack the needle points at. */
   worst: { pspId: number; title: string; cohesion: number; sourceUrl: string; inLedger: boolean } | null;

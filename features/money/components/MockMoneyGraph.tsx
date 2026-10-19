@@ -215,7 +215,7 @@ export default function MockGraph() {
             <span className="text-steel">
               — {tc(`graphNodes.${node.id}.sub`)} ·{" "}
               {t("graph.edgesInRecord", {
-                // citation-ok: counts the edges THIS sample picture draws, not any graph; the frame's source note (`money.graphCaption`) is rendered by the parent, FollowTheMoneyPage, and the badge beside this line says the whole picture is sample data.
+                // citation-ok(parent=features/money/FollowTheMoneyPage.tsx, key=graphCaption): [verified 2026-10-11] counts the edges THIS sample picture draws, not any graph; the frame's source note (`money.graphCaption`) is rendered by the parent, FollowTheMoneyPage, and the badge beside this line says the whole picture is sample data.
                 count: f.int(GRAPH_EDGES.filter((e) => e.from === node.id || e.to === node.id).length),
               })}
             </span>

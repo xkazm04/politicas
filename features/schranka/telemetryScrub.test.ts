@@ -140,3 +140,33 @@ describe("scrub je NAVÁZANÝ na obou stranách — zdrojová pojistka", () => {
     },
   );
 });
+
+describe("scrubFollowTelemetry — díry, které měřená událost ukázala (apply: accountless-notification-privacy)", () => {
+  it("rozbitá hodnota nesmí seznam zachránit: velká písmena, mezera, fragment", () => {
+    expect(scrubFollowUrl("/schranka/novinky.json?e=Poslanec:6881&e=firma:4634753")).toBe(
+      "/schranka/novinky.json?e_count=2",
+    );
+    expect(scrubFollowUrl("/schranka/novinky.json?e=poslanec:6881%20")).toBe(
+      "/schranka/novinky.json?e_count=1",
+    );
+    expect(scrubFollowUrl("https://politicas.cz/schranka?e=poslanec:6881#x")).toBe(
+      "https://politicas.cz/schranka?e_count=1#x",
+    );
+    expect(scrubFollowUrl("/neco?e=42#x")).toBe("/neco?e=42#x");
+  });
+
+  it("query_string jako pole dvojic a hlavička Referer", () => {
+    const ev = {
+      request: {
+        query_string: [["e", "poslanec:6881"], ["od", "2026-08-01"]],
+        headers: { Referer: "https://politicas.cz/schranka/novinky.json?e=poslanec:6881&e=tisk:1" },
+      },
+    };
+    scrubFollowTelemetry(ev);
+    const all = JSON.stringify(ev);
+    expect(all).not.toContain("poslanec");
+    expect(all).not.toContain("tisk:1");
+    expect(ev.request.headers.Referer).toContain("e_count=2");
+    expect(ev.request.query_string[1]).toEqual(["od", "2026-08-01"]);
+  });
+});

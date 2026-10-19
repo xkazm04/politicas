@@ -118,6 +118,28 @@ describe("forensicEdges — zamítnuté se skrývají ZVLÁŠŤ, nikdy jako ově
   });
 });
 
+/*
+ * NEZAŘAZENÝ STAV — fall-through do „viditelné" (forensic-view-filtering, 2026-10-14).
+ * Typ GateStatus je uzavřený a loader (gateFromEdge) jiný stav nevyrobí, takže
+ * tohle je obrana do hloubky: hodnota mimo sjednocení (poškozený bundle, čtvrtý
+ * stav přidaný dřív než filtr) nesmí projít jako ověřená.
+ */
+describe("forensicEdges — nezařazený stav nepropadá do ověřených", () => {
+  const unknownGate = (src: string, dst: string): GraphEdge =>
+    ({ ...gated(src, dst, "linked_to", "verified"), gate: "needs_info", pending: false }) as unknown as GraphEdge; // záměrně mimo GateStatus
+
+  it("skryje se a počítá jako čekající, ne jako ověřená", () => {
+    const v = forensicEdges([gated("a", "b", "supplies", "verified"), unknownGate("a", "c")]);
+    expect(v.edges.map(edgeKey)).toEqual(["a|supplies|b"]);
+    expect(v.hiddenPending).toBe(1);
+  });
+
+  it("karta uzlu ho počítá mezi čekající, ne mezi bez brány", () => {
+    const m = hoverCardModel(node("a"), [unknownGate("a", "c")]);
+    expect(m).toMatchObject({ verified: 0, pending: 1, ungated: 0 });
+  });
+});
+
 describe("hoverCardModel — stavy kontroly bez klikání", () => {
   it("počítá ověřené a čekající hrany uzlu z NEfiltrovaného seznamu", () => {
     const m = hoverCardModel(node("a"), FIXTURE);
