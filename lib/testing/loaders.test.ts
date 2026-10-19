@@ -1085,16 +1085,17 @@ describe("getProfileData against a seeded graph", () => {
   });
 
   it("an unreadable seat end-date is FLAGGED, never rendered as an ended seat", async () => {
-    // A legal `timestamptz` the app cannot parse ('infinity'). Two defects met here:
-    // the mapper used to throw RangeError on it and take the WHOLE dossier down to
-    // DataUnavailable, and — once that was fixed — Date.parse(toAt) > now() is false,
-    // so the seat would have rendered as PAST. Neither is what the data says.
+    // A legal `timestamptz` the app cannot parse ('infinity'). The mapper used to
+    // throw RangeError on it and take the WHOLE dossier down to DataUnavailable.
+    // Since f16eed40 (membership-window-modeling, features/profile/seatWindow.ts) a
+    // seat is current only while its window is OPEN: an unreadable end is flagged,
+    // never read as current and never as an ended past seat either.
     const p = (await withReadinessOff(() => getProfileData(100)))!;
     expect(p).not.toBeNull();
     const seat = p.committees.find((c) => c.abbrev === "KOM")!;
     expect(seat).toBeDefined();
     expect(seat.toAtUnreadable).toBe(true);
-    expect(seat.current).toBe(true); // an unreadable date proves nothing about it having ended
+    expect(seat.current).toBe(false); // an unknown end does not hold the seat; the flag carries it
   });
 
   it("states the date the current/past seat split was evaluated against", async () => {
