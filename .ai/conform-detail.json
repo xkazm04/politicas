@@ -9128,6 +9128,47 @@
         }
       ],
       "registryProposal": "Clarify applicability to independently released datasets: identify the required change-history source and artifact verification equivalents when releases have ingest lineage and schema consumers rather than executable installers."
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/remote-capability-probing": {
+      "context": "admin-infrastructure",
+      "subject": "remote-capability-probing",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T22:11:43.810Z",
+      "worker": "b4546d01-5126-4c2a-8a0f-883dc2095074",
+      "techniques": [
+        {
+          "technique": "advertised-support-is-not-evidence",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/accessGate.ts:55 This verdict concerns locally configured authentication; no read path branches on a remote capability advertisement."
+        },
+        {
+          "technique": "assertion-permission-and-bypass-are-three-switches",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/loopActions.ts:53 The operator action records a queue instruction; the inspected controls do not configure a remote capability probe or its fallback."
+        },
+        {
+          "technique": "buffer-by-access-latency-class",
+          "verdict": "not-applicable",
+          "evidence": "app/data/snapshot.json/route.ts:23 The route serves a serialized snapshot produced from database rows, without a file abstraction spanning remote and resident backing stores."
+        },
+        {
+          "technique": "degraded-rung-refusal-ceiling",
+          "verdict": "not-applicable",
+          "evidence": "app/data/manifest.json/route.ts:22 The endpoint serializes its derived manifest; no fallback replaces a requested remote fragment with a whole-object transfer."
+        },
+        {
+          "technique": "instrument-by-cause-not-by-hit-rate",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/loops.json/route.ts:36 This endpoint exports operational state, without remote read-buffer counters or a readahead policy to instrument."
+        },
+        {
+          "technique": "the-probe-that-is-also-the-first-read",
+          "verdict": "not-applicable",
+          "evidence": "app/atlas/atlas.json/route.ts:13 The inspected loader derives the report from PGlite queries; it does not choose between remote metadata and fragment probes."
+        }
+      ]
     }
   }
 }

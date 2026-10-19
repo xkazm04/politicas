@@ -1,0 +1,78 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b4546d01-5126-4c2a-8a0f-883dc2095074",
+ "subject": "remote-capability-probing",
+ "evaluatedAt": "2026-10-19T22:11:43.810503+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "admin-infrastructure",
+   "subject": "remote-capability-probing",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/data/snapshot.json/route.ts:23 Context and repository searches found none of the listed capability-probing terms, and the inspected routes serve locally derived documents rather than negotiate remote fragment reads.",
+   "techniques": [
+    {
+     "technique": "advertised-support-is-not-evidence",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/accessGate.ts:55 This verdict concerns locally configured authentication; no read path branches on a remote capability advertisement."
+    },
+    {
+     "technique": "assertion-permission-and-bypass-are-three-switches",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loopActions.ts:53 The operator action records a queue instruction; the inspected controls do not configure a remote capability probe or its fallback."
+    },
+    {
+     "technique": "buffer-by-access-latency-class",
+     "verdict": "not-applicable",
+     "evidence": "app/data/snapshot.json/route.ts:23 The route serves a serialized snapshot produced from database rows, without a file abstraction spanning remote and resident backing stores."
+    },
+    {
+     "technique": "degraded-rung-refusal-ceiling",
+     "verdict": "not-applicable",
+     "evidence": "app/data/manifest.json/route.ts:22 The endpoint serializes its derived manifest; no fallback replaces a requested remote fragment with a whole-object transfer."
+    },
+    {
+     "technique": "instrument-by-cause-not-by-hit-rate",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loops.json/route.ts:36 This endpoint exports operational state, without remote read-buffer counters or a readahead policy to instrument."
+    },
+    {
+     "technique": "the-probe-that-is-also-the-first-read",
+     "verdict": "not-applicable",
+     "evidence": "app/atlas/atlas.json/route.ts:13 The inspected loader derives the report from PGlite queries; it does not choose between remote metadata and fragment probes."
+    }
+   ],
+   "absenceTerms": [
+    "accept-ranges",
+    "content-range",
+    "readahead",
+    "capabilityProbe",
+    "skipProbe"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-19T22:11:43.810503+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "remote-capability-probing"
+   ],
+   "techniques": [
+    "advertised-support-is-not-evidence",
+    "assertion-permission-and-bypass-are-three-switches",
+    "buffer-by-access-latency-class",
+    "degraded-rung-refusal-ceiling",
+    "instrument-by-cause-not-by-hit-rate",
+    "the-probe-that-is-also-the-first-read"
+   ],
+   "deviations": 0,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}

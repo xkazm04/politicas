@@ -1138,7 +1138,11 @@
           "revision": 1,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/data/snapshot.json/route.ts:23 Context and repository searches found none of the listed capability-probing terms, and the inspected routes serve locally derived documents rather than negotiate remote fragment reads.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:a4c05c585323b3c3",
+          "evaluatedRevision": 1
         },
         {
           "subject": "repo-manifest-standard",
