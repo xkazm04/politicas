@@ -9031,7 +9031,11 @@
           "revision": 3,
           "changedAt": "2026-09-08",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/embed/zebricek/route.ts:40 The endpoint publicly caches resolved, customized and unavailable renders identically, allowing failures and caller-specific output to persist in shared caches.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:200cd4cd4f576869",
+          "evaluatedRevision": 3
         },
         {
           "subject": "english",

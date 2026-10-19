@@ -1,0 +1,71 @@
+{
+ "schema": "conform-run/1",
+ "worker": "44227f84-72df-4de7-85e3-f2ab670eea48",
+ "subject": "public-verdict-badge",
+ "evaluatedAt": "2026-10-19T21:16:12.448639+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "landing-referendum",
+   "subject": "public-verdict-badge",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "app/embed/zebricek/route.ts:40 The endpoint publicly caches resolved, customized and unavailable renders identically, allowing failures and caller-specific output to persist in shared caches.",
+   "techniques": [
+    {
+     "technique": "customization-scope-guard",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/embed.ts:66 Rendering fixes score colours to palette constants; the typed builder accepts no colour override, validates weights through the shared codec, escapes output and bounds row counts."
+    },
+    {
+     "technique": "embed-reach-attribution",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/aggregate.ts:61 This aggregate counts submitted votes, not impressions; searches for impression, referrer, referer, reach and view-count constructs found no embed-reach measurement in the context or its delivery routes."
+    },
+    {
+     "technique": "embed-snippet-contract",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:94 Custom weights are explicit, but published default weights are omitted despite being a supported meaning-bearing parameter, so an existing snippet inherits later changes to the published weights."
+    },
+    {
+     "technique": "neutral-state-vocabulary",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/ogPayload.ts:108 The leaderboard loader returns null for both an empty corpus and caught failures; this mapping collapses them into one nodata outcome instead of preserving unknown versus unavailable."
+    },
+    {
+     "technique": "outcome-branched-cache",
+     "verdict": "deviation",
+     "evidence": "app/embed/zebricek/route.ts:40 Both nodata and customized renders return 200, receiving the resolved public cache policy rather than transient-failure and private-customization policies."
+    },
+    {
+     "technique": "verdict-honesty-qualifiers",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/embed.ts:151 Custom scores contain only the number, with their qualification in a separate banner and their distinction in a colour class, so cropped values lose the qualification and non-colour distinction."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-19T21:16:12.448639+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "public-verdict-badge"
+   ],
+   "techniques": [
+    "customization-scope-guard",
+    "embed-reach-attribution",
+    "embed-snippet-contract",
+    "neutral-state-vocabulary",
+    "outcome-branched-cache",
+    "verdict-honesty-qualifiers"
+   ],
+   "deviations": 1,
+   "context": "landing-referendum",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
