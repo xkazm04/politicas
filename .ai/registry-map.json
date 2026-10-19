@@ -12248,7 +12248,11 @@
           "revision": 2,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/shell/AppShell.tsx:54 The application shell filters out unmounted section anchors from navigation instead of providing unconditional anchor wrappers that preserve page addressability and geometry regardless of content loading state.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:7932d7ba8929c786",
+          "evaluatedRevision": 2
         },
         {
           "subject": "test-harness",

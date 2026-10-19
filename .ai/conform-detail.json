@@ -8742,6 +8742,37 @@
           "evidence": "lib/analysis/contribution-trend.ts:103 The trend compares an MP's parliamentary terms, whose activity may change, rather than monitoring quality or judge-agreement regression."
         }
       ]
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/lazy-section-addressability": {
+      "context": "shell-navigation",
+      "subject": "lazy-section-addressability",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T00:28:31.856Z",
+      "worker": "8cab7f0f-aa21-48b1-b7b6-8afecd1ac709",
+      "techniques": [
+        {
+          "technique": "always-present-anchor-wrappers",
+          "verdict": "deviation",
+          "evidence": "features/shell/useActiveSection.ts:57 Anchor presence is determined dynamically from the rendered DOM after mount, and unrendered anchors are filtered out rather than hosted by page-level unconditional wrappers."
+        },
+        {
+          "technique": "anchor-coverage-guard",
+          "verdict": "deviation",
+          "evidence": "features/shell/navModel.test.ts:144 Tests check translation key presence in message catalogs but lack bidirectional coverage checks verifying that declared section anchors match rendered page elements."
+        },
+        {
+          "technique": "external-anchor-vs-internal-id",
+          "verdict": "deviation",
+          "evidence": "features/shell/Sidebar.tsx:89 The public hash URL link and the internal scroll tracker active state share the same identifier string without separate namespaces or aliases."
+        },
+        {
+          "technique": "scroll-to-hydrate-then-retry",
+          "verdict": "deviation",
+          "evidence": "features/shell/useActiveSection.ts:74 The scroll spy attaches an IntersectionObserver only to elements present during the initial animation frame and lacks late registration or retry logic for deferred sections."
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,59 @@
+{
+ "schema": "conform-run/1",
+ "worker": "8cab7f0f-aa21-48b1-b7b6-8afecd1ac709",
+ "subject": "lazy-section-addressability",
+ "evaluatedAt": "2026-10-19T00:28:31.856697+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [
+  {
+   "context": "shell-navigation",
+   "subject": "lazy-section-addressability",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/shell/AppShell.tsx:54 The application shell filters out unmounted section anchors from navigation instead of providing unconditional anchor wrappers that preserve page addressability and geometry regardless of content loading state.",
+   "techniques": [
+    {
+     "technique": "always-present-anchor-wrappers",
+     "verdict": "deviation",
+     "evidence": "features/shell/useActiveSection.ts:57 Anchor presence is determined dynamically from the rendered DOM after mount, and unrendered anchors are filtered out rather than hosted by page-level unconditional wrappers."
+    },
+    {
+     "technique": "anchor-coverage-guard",
+     "verdict": "deviation",
+     "evidence": "features/shell/navModel.test.ts:144 Tests check translation key presence in message catalogs but lack bidirectional coverage checks verifying that declared section anchors match rendered page elements."
+    },
+    {
+     "technique": "external-anchor-vs-internal-id",
+     "verdict": "deviation",
+     "evidence": "features/shell/Sidebar.tsx:89 The public hash URL link and the internal scroll tracker active state share the same identifier string without separate namespaces or aliases."
+    },
+    {
+     "technique": "scroll-to-hydrate-then-retry",
+     "verdict": "deviation",
+     "evidence": "features/shell/useActiveSection.ts:74 The scroll spy attaches an IntersectionObserver only to elements present during the initial animation frame and lacks late registration or retry logic for deferred sections."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-19T00:28:31.856697+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "lazy-section-addressability"
+   ],
+   "techniques": [
+    "always-present-anchor-wrappers",
+    "anchor-coverage-guard",
+    "external-anchor-vs-internal-id",
+    "scroll-to-hydrate-then-retry"
+   ],
+   "deviations": 1,
+   "context": "shell-navigation",
+   "via": "curator-multi:agy",
+   "model": "gemini-3.8-flash-high"
+  }
+ ]
+}
