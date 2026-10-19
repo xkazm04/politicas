@@ -8845,6 +8845,47 @@
           "evidence": "lib/ingest/unlMembers.ts:16 This shared parser consumes parliamentary dump members; no alternative LLM telemetry ingestion doors were found."
         }
       ]
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/operator-surfaces-for-llm-spend": {
+      "context": "dashboard-instruments",
+      "subject": "operator-surfaces-for-llm-spend",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T00:48:39.795Z",
+      "worker": "3074d9f5-fbc1-4237-a5a5-15dee2b753a0",
+      "techniques": [
+        {
+          "technique": "agent-prompts-as-dashboards",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/DashboardPage.tsx:88 The journey opens a browser exhibit; no conversational-agent prompt catalog was found."
+        },
+        {
+          "technique": "glyph-encoded-business-thresholds",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/GraphLegend.tsx:51 Graph glyphs encode entity kinds; the context does not render a spend or operational-health threshold table."
+        },
+        {
+          "technique": "read-tools-default-writes-gated",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:519 This is server-side loading of parliamentary data; no agent tool protocol or capability registration was found."
+        },
+        {
+          "technique": "secret-surfaces-never-exposed-to-agents",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getExhibitData.ts:43 Exhibit resolution re-derives dashboard facts; no agent API wrapper exists here to assess for secret exposure."
+        },
+        {
+          "technique": "single-render-layer-many-consumers",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/FactRow.tsx:82 The renderer formats public-contract facts, without a shared LLM accounting payload served through agent, CLI or export consumers."
+        },
+        {
+          "technique": "sql-panel-sets-over-the-relational-store",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/ChamberChart.tsx:62 The public political dashboard renders a supplied score histogram, rather than an ambient SQL panel wall over a spend store."
+        }
+      ]
     }
   }
 }
