@@ -8886,6 +8886,73 @@
           "evidence": "features/dashboard/components/ChamberChart.tsx:62 The public political dashboard renders a supplied score histogram, rather than an ambient SQL panel wall over a spend store."
         }
       ]
+    },
+    "0e0462f1-6bc2-4a2d-b576-759f57a58449/optional-dependency-degradation": {
+      "context": "lawwatch-radar",
+      "subject": "optional-dependency-degradation",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-19",
+      "evaluatedTs": "2026-10-19T00:56:56.723Z",
+      "techniques": [
+        {
+          "technique": "absent-degrades-malformed-fails-fast",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:141 Catches parse failures on the census payload and sets an empty fallback map, treating malformed data identically to an absent file."
+        },
+        {
+          "technique": "misconfiguration-never-reaches-a-fallback",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:140 Reports loader failure on corrupted census data but continues into the triage fallback rather than refusing early."
+        },
+        {
+          "technique": "guarded-singleton-accessor",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getRadarData.ts:23 Returns untyped null on missing dependencies instead of throwing a typed configuration error, and cache() memoizes the null failure."
+        },
+        {
+          "technique": "capability-honest-refusal",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/components/DependencyRadar.tsx:93 The UI honestly admits missing input, but the module lacks machine-readable refusal codes from a closed union for API consumers."
+        },
+        {
+          "technique": "refusal-is-not-failure",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/buildDependencyView.ts:230 Respects validator refusal from the gate function and withholds the hit without falling back to unvalidated raw content."
+        },
+        {
+          "technique": "per-variable-blast-radius",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getRadarData.ts:5 The radar module defines no environment variables or configuration values; all data is derived from existing loaders."
+        },
+        {
+          "technique": "probe-the-grant-not-the-config",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/deriveRadar.ts:18 No multi-tier storage or credential permissions exist in this pure derivation layer."
+        },
+        {
+          "technique": "degradation-coupled-to-hardening",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/sectorAttribution.ts:13 Module performs pure in-memory projections and has no database credentials or role permissions to harden."
+        },
+        {
+          "technique": "fallback-retirement-condition",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/deriveRadar.ts:29 No temporary platform-gap workarounds or closing upstream shims are maintained in this context."
+        },
+        {
+          "technique": "minimal-install-test-lane",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getDependencyData.test.ts:2 Politicas is an application rather than a published library declaring package extras."
+        }
+      ],
+      "registryProposal": "The standard focuses heavily on network credentials and environment variables; extending guidance to include file-based optional data artifacts (payloads/sidecars) would clarify expectations for data pipelines where boot validation passes are absent.",
+      "withdrawn": {
+        "worker": "848ed978-4113-4abb-9b36-fe25fd2d3019",
+        "state": "deviation",
+        "at": "2026-10-19T00:57:13.922234+00:00",
+        "reason": "reviewer (sonnet): The code contradicts the claim that malformed census data is conflated with an absent file: the absent case returns an empty map silently, but the malformed case calls reportLoaderFailure(\"getDependencyData.census\", err) before the fallback. The comment at getDependencyData.ts:136-140 also states th"
+      }
     }
   }
 }
