@@ -4554,7 +4554,11 @@
           "revision": 11,
           "changedAt": "2026-09-20",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/data-releases/snapshot.ts:29 The public snapshot retains its schema version because added fields are considered additive, whereas the standard requires surveying readers or versioning additions when external readers cannot be surveyed.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:faf052699c35ced4",
+          "evaluatedRevision": 11
         },
         {
           "subject": "supply-chain",

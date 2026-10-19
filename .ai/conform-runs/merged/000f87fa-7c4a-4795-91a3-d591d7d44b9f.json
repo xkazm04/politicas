@@ -1,0 +1,72 @@
+{
+ "schema": "conform-run/1",
+ "worker": "000f87fa-7c4a-4795-91a3-d591d7d44b9f",
+ "subject": "release-pipeline",
+ "evaluatedAt": "2026-10-19T22:02:30.655321+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "data-releases-atlas",
+   "subject": "release-pipeline",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/data-releases/snapshot.ts:29 The public snapshot retains its schema version because added fields are considered additive, whereas the standard requires surveying readers or versioning additions when external readers cannot be surveyed.",
+   "techniques": [
+    {
+     "technique": "changelog-generation",
+     "verdict": "deviation",
+     "evidence": "features/data-releases/manifest.ts:225 The generator groups every supplied ingest run by date, including failed and running attempts; it does not implement the standard's commit-derived, audience-filtered changelog or unreleased ledger."
+    },
+    {
+     "technique": "pipeline-staging",
+     "verdict": "deviation",
+     "evidence": "features/data-releases/getDataReleasesData.ts:216 Each download constructs its artifact from the current mutable store after reading manifest statistics; there is no pinned release snapshot or durable build-to-publish artifact handoff."
+    },
+    {
+     "technique": "release-level-by-reader-reach",
+     "verdict": "deviation",
+     "evidence": "features/data-releases/snapshot.ts:37 The unchanged schema accompanies added nodeKinds/edgeRels fields, justified at lines 29\u201331 by additivity rather than demonstrated reader tolerance; repository searches located no external-reader survey."
+    },
+    {
+     "technique": "release-verification",
+     "verdict": "deviation",
+     "evidence": "features/data-releases/getDataReleasesData.ts:217 Download returns serialized bytes without requiring successful certification or a verification verdict keyed to those bytes; the existing certification concerns manifest metadata rather than the complete snapshot payload."
+    },
+    {
+     "technique": "size-budgets",
+     "verdict": "deviation",
+     "evidence": "features/data-releases/snapshot.ts:202 Payload bytes are measured and displayed, but searches found no snapshot byte ceiling, committed size baseline, delta gate, or ratchet; row-count caps do not bound variable-size row properties."
+    },
+    {
+     "technique": "updater-chain",
+     "verdict": "not-applicable",
+     "evidence": "features/data-releases/feedIndex.ts:73 These are content feeds and JSON data downloads; context and repository searches for updater/auto-update machinery found no installed-application update chain belonging to this context."
+    }
+   ],
+   "registryProposal": "Clarify applicability to independently released datasets: identify the required change-history source and artifact verification equivalents when releases have ingest lineage and schema consumers rather than executable installers."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-19T22:02:30.655321+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "release-pipeline"
+   ],
+   "techniques": [
+    "changelog-generation",
+    "pipeline-staging",
+    "release-level-by-reader-reach",
+    "release-verification",
+    "size-budgets",
+    "updater-chain"
+   ],
+   "deviations": 1,
+   "context": "data-releases-atlas",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
