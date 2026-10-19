@@ -7364,7 +7364,11 @@
           "revision": 6,
           "changedAt": "2026-09-20",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:262 This context produces civic change events and parses documents; searches found none of the five telemetry terms in its directory or delegated package, while repository usage hits belonged to an offline benchmark.",
+          "evaluatedAt": "2026-10-19",
+          "evaluatedAgainst": "sha256-b2:a0932e26160bfd85",
+          "evaluatedRevision": 7
         },
         {
           "subject": "realtime-events",

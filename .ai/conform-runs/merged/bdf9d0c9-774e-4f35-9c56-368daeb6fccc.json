@@ -1,0 +1,78 @@
+{
+ "schema": "conform-run/1",
+ "worker": "bdf9d0c9-774e-4f35-9c56-368daeb6fccc",
+ "subject": "multi-provider-event-normalization",
+ "evaluatedAt": "2026-10-19T00:40:12.624729+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "ingest-pipeline",
+   "subject": "multi-provider-event-normalization",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/changeEvents.ts:262 This context produces civic change events and parses documents; searches found none of the five telemetry terms in its directory or delegated package, while repository usage hits belonged to an offline benchmark.",
+   "techniques": [
+    {
+     "technique": "attribute-precedence-lists",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/shims.test.ts:39 Normalization handles parliamentary vote codes; no version-skewed telemetry attribute mapping was found."
+    },
+    {
+     "technique": "deterministic-span-derived-ids",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/changeEvents.ts:245 Civic events use deterministic natural keys; these records are not mapped telemetry spans."
+    },
+    {
+     "technique": "per-provider-usage-extractors",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/parsedText.ts:108 The extractor reads document bytes into text, rather than provider responses into token usage."
+    },
+    {
+     "technique": "provider-family-matching",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/changeEvents.ts:156 Identity parsing recognizes company identifiers; no heterogeneous LLM provider identity resolution was found."
+    },
+    {
+     "technique": "refuse-to-derive",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/changeEvents.ts:110 This validates civic change-event types; the subject's LLM event normalization boundary is absent."
+    },
+    {
+     "technique": "two-doors-one-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/unlMembers.ts:16 This shared parser consumes parliamentary dump members; no alternative LLM telemetry ingestion doors were found."
+    }
+   ],
+   "absenceTerms": [
+    "gen_ai",
+    "otlp",
+    "traceId",
+    "spanId",
+    "input_tokens"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-19T00:40:12.624729+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "multi-provider-event-normalization"
+   ],
+   "techniques": [
+    "attribute-precedence-lists",
+    "deterministic-span-derived-ids",
+    "per-provider-usage-extractors",
+    "provider-family-matching",
+    "refuse-to-derive",
+    "two-doors-one-pipeline"
+   ],
+   "deviations": 0,
+   "context": "ingest-pipeline",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
