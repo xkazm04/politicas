@@ -9225,6 +9225,52 @@
         "at": "2026-10-19T22:28:44.589975+00:00",
         "reason": "reviewer (sonnet): The anchor (app/data/manifest.json/route.ts:4) is a comment about the data-release manifest and doesn't show that a repo-manifest precondition is absent; the evidence's own claim that the repository contract 'lives separately under .ai/' points to .ai/manifest.yaml, outside this context, so the verd"
       }
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/runner-fleet": {
+      "context": "db-repositories",
+      "subject": "runner-fleet",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-20",
+      "evaluatedTs": "2026-10-20T21:18:06.079Z",
+      "techniques": [
+        {
+          "technique": "capability-typed-queues",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/graph.ts:27 The context writes domain records through PGlite; searches found no delivery jobs requesting runner capabilities."
+        },
+        {
+          "technique": "ephemeral-versus-warm-runners",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/ledger.test.ts:7 This provisions a test database directory; context searches found no runner provisioning or persistence policy."
+        },
+        {
+          "technique": "fleet-isolation-boundaries",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/graph.test.ts:5 The isolation concerns database fixtures; no repository-to-runner or runner-to-environment grants were found here."
+        },
+        {
+          "technique": "queue-depth-elasticity",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/review.test.ts:125 The queue holds civic claims awaiting review; searches found no runner capacity or autoscaling controls."
+        },
+        {
+          "technique": "shared-cache-integrity",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/kg.ts:3 The stored derived values are knowledge-graph metadata; context-wide cache searches returned no matches."
+        },
+        {
+          "technique": "shared-resource-serialization",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/review.ts:318 This is application-level transaction control, explicitly outside the subject; no delivery-resource exclusion is defined here."
+        }
+      ],
+      "withdrawn": {
+        "worker": "20353835-4b95-4435-b499-ed86eb89a146",
+        "state": "not-applicable",
+        "at": "2026-10-20T21:18:34.774813+00:00",
+        "reason": "reviewer (sonnet): The not-applicable rests on incidental anchors: changes.ts:22 is a comment about derivation logic, graph.ts:27 is a PGlite upsert, ledger.test.ts:7 is a fixture-dir comment, and review.test.ts:125 is a queue test. None of them shows that runner or delivery constructs are absent. The empty grep for r"
+      }
     }
   }
 }

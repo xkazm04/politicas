@@ -1,0 +1,37 @@
+{
+  "schema": "conform-run/1",
+  "worker": "20353835-4b95-4435-b499-ed86eb89a146",
+  "subject": "runner-fleet",
+  "evaluatedAt": "2026-10-20T21:18:06.079693+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "runner-fleet",
+      "context": "db-repositories",
+      "reason": "withdrawn after review: reviewer (sonnet): The not-applicable rests on incidental anchors: changes.ts:22 is a comment about derivation logic, graph.ts:27 is a PGlite upsert, ledger.test.ts:7 is a fixture-dir comment, and review.test.ts:125 is a queue test. None of them shows that runner or delivery constructs are absent. The empty grep for r"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-20T21:18:06.079693+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "runner-fleet"
+      ],
+      "techniques": [
+        "capability-typed-queues",
+        "ephemeral-versus-warm-runners",
+        "fleet-isolation-boundaries",
+        "queue-depth-elasticity",
+        "shared-cache-integrity",
+        "shared-resource-serialization"
+      ],
+      "deviations": 0,
+      "context": "db-repositories",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}
