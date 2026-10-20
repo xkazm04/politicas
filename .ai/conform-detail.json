@@ -9271,6 +9271,52 @@
         "at": "2026-10-20T21:18:34.774813+00:00",
         "reason": "reviewer (sonnet): The not-applicable rests on incidental anchors: changes.ts:22 is a comment about derivation logic, graph.ts:27 is a PGlite upsert, ledger.test.ts:7 is a fixture-dir comment, and review.test.ts:125 is a queue test. None of them shows that runner or delivery constructs are absent. The empty grep for r"
       }
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/status-vocabulary": {
+      "context": "civic-fallback-data",
+      "subject": "status-vocabulary",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-20",
+      "evaluatedTs": "2026-10-20T21:33:22.970Z",
+      "techniques": [
+        {
+          "technique": "status-color-mapping",
+          "verdict": "deviation",
+          "evidence": "lib/civic/data.ts:809 Party presentation table couples member keys directly to raw hex literals instead of design-system color roles and lacks an unknown fallback direction."
+        },
+        {
+          "technique": "vocabulary-chain-integrity",
+          "verdict": "deviation",
+          "evidence": "lib/analytics.ts:23 Analytics trackEvent accepts arbitrary strings rather than a closed union over the funnel event vocabulary."
+        },
+        {
+          "technique": "number-formatting",
+          "verdict": "deviation",
+          "evidence": "lib/format.ts:194 Citable formatting delegates visible text to kind formatters that discard claim units, leaving unit concatenation to call sites."
+        },
+        {
+          "technique": "timestamp-display",
+          "verdict": "deviation",
+          "evidence": "lib/format.ts:114 The format module provides only fixed calendar date formatting without elapsed/relative time primitives, shared ticker updates, or style variants."
+        },
+        {
+          "technique": "untrusted-label-rendering",
+          "verdict": "conformant",
+          "evidence": "lib/claims/CitableNumber.tsx:49 Numeric claim figures render as plain JSX text children within HTML data elements, escaping untrusted values by default without markup injection."
+        },
+        {
+          "technique": "vocabulary-evolution-checklist",
+          "verdict": "deviation",
+          "evidence": "lib/civic/data.ts:820 New entity entry was added solely within the display record without extending the underlying authority type or following a synchronized four-layer evolution."
+        }
+      ],
+      "withdrawn": {
+        "worker": "17f48709-b6d7-4636-9bff-28221cf51718",
+        "state": "deviation",
+        "at": "2026-10-20T21:33:37.019599+00:00",
+        "reason": "reviewer (sonnet): The comment at lib/civic/data.ts:798-799 says an unknown club is not invented and gets the raw registry abbreviation plus a neutral colour, which contradicts 'lacks unknown-member fallback'. The comment at 804 calls the colour a 'mirror tokenu' (it mirrors a design token). Three of the four techniqu"
+      }
     }
   }
 }
