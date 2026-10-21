@@ -9522,6 +9522,77 @@
           "evidence": "lib/ingest/sources/pumper.ts:145 Identifies mirrored dataset-release records rather than archived harness sessions."
         }
       ]
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/measurement-honesty": {
+      "context": "civic-fallback-data",
+      "subject": "measurement-honesty",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-21",
+      "evaluatedTs": "2026-10-21T22:14:49.039Z",
+      "techniques": [
+        {
+          "technique": "co-published-numbers-must-reconcile",
+          "verdict": "conformant",
+          "evidence": "lib/civic/data.test.ts:235 Executable checks reconcile histogram totals, score components, vote partitions, summary tiles, and trend endpoints."
+        },
+        {
+          "technique": "control-failure-is-not-a-datum-state",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/votes.ts:68 The context aggregates ballot partitions; it does not run experimental arms whose comparison controls can fail."
+        },
+        {
+          "technique": "incomplete-not-verdict",
+          "verdict": "not-applicable",
+          "evidence": "lib/claims/registry.ts:91 This context reads static fixtures and registers their values; acquisition completeness and loader failures belong to upstream contexts."
+        },
+        {
+          "technique": "instrument-exposure-control",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/leaderboard.ts:199 Fallback scores are constructed illustrations, rather than capability measurements of subjects exposed to a published instrument."
+        },
+        {
+          "technique": "lower-bound-disclosure",
+          "verdict": "not-applicable",
+          "evidence": "lib/analytics.ts:28 Analytics collection can be absent, but this context publishes no reach or usage tally from those observations."
+        },
+        {
+          "technique": "noise-band-and-hysteresis",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/data.ts:447 The context supplies illustrative fixed trends, without a repeated measurement or announcement decision over instrument noise."
+        },
+        {
+          "technique": "speed-figure-names-its-endpoints",
+          "verdict": "not-applicable",
+          "evidence": "lib/analytics.ts:29 The helper emits events without measuring or publishing latency, throughput, or another speed figure."
+        },
+        {
+          "technique": "the-baseline-is-the-untouched-path",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/data.ts:237 The computation produces a weighted civic score, without claiming an intervention's saving against a control path."
+        },
+        {
+          "technique": "tuning-corpus-disjointness",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/leaderboard.ts:149 Seeded fixture generation does not fit an artifact on a tuning workload or publish benchmark performance."
+        },
+        {
+          "technique": "unelidable-measurement",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/data.test.ts:37 These tests observe computed outputs for correctness; they do not measure the cost of performing work."
+        },
+        {
+          "technique": "unmeasurable-vs-zero",
+          "verdict": "deviation",
+          "evidence": "lib/civic/stateGraph.ts:95 The same amount sentinel represents the explicit no-contract case at data.ts:650–651 and unresolved companies at data.ts:659–662; both omit the money node."
+        }
+      ],
+      "withdrawn": {
+        "worker": "0692277e-dc13-4172-b775-e8f9e6dd1ad5",
+        "state": "deviation",
+        "at": "2026-10-21T22:15:15.103472+00:00",
+        "reason": "reviewer (sonnet): In lib/civic/data.ts the only non-money amount value is \"—\", and the stateGraph.ts:94 comment documents it as \"firma bez zakázek\" (a company with no contracts). No separate unresolved-amount value exists in MONEY_TIES for hasMoney to conflate with it, so the claimed loss of the unknown-versus-absent"
+      }
     }
   }
 }

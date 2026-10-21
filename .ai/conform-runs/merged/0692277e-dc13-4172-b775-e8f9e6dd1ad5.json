@@ -1,0 +1,42 @@
+{
+  "schema": "conform-run/1",
+  "worker": "0692277e-dc13-4172-b775-e8f9e6dd1ad5",
+  "subject": "measurement-honesty",
+  "evaluatedAt": "2026-10-21T22:14:49.039624+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "measurement-honesty",
+      "context": "civic-fallback-data",
+      "reason": "withdrawn after review: reviewer (sonnet): In lib/civic/data.ts the only non-money amount value is \"—\", and the stateGraph.ts:94 comment documents it as \"firma bez zakázek\" (a company with no contracts). No separate unresolved-amount value exists in MONEY_TIES for hasMoney to conflate with it, so the claimed loss of the unknown-versus-absent"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-21T22:14:49.039624+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "measurement-honesty"
+      ],
+      "techniques": [
+        "co-published-numbers-must-reconcile",
+        "control-failure-is-not-a-datum-state",
+        "incomplete-not-verdict",
+        "instrument-exposure-control",
+        "lower-bound-disclosure",
+        "noise-band-and-hysteresis",
+        "speed-figure-names-its-endpoints",
+        "the-baseline-is-the-untouched-path",
+        "tuning-corpus-disjointness",
+        "unelidable-measurement",
+        "unmeasurable-vs-zero"
+      ],
+      "deviations": 1,
+      "context": "civic-fallback-data",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}
