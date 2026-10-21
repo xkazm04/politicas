@@ -1,0 +1,328 @@
+{
+ "schema": "conform-run/1",
+ "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+ "subject": "agent-session-archive",
+ "evaluatedAt": "2026-10-21T21:06:42.487968+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "law-archive-early",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:38 Searches found no harness, sessionId or messageOrdinal in the context, whose archived scripts prepare legislative graph dossiers rather than preserve agent transcripts.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:18 Reads a legislative case ledger, not a harness transcript."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:107 References parliamentary documents rather than archived messages."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:29 Selects legislative batch rows; no agent-session inventory was found."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:120 Writes derived dossier targets; no transcript-capture retention store was found."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:41 Processes law-verdict payloads rather than archived agent or tool messages."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:39 Identity here belongs to laws in the entity graph, not harness sessions."
+    }
+   ],
+   "absenceTerms": [
+    "harness",
+    "sessionId",
+    "messageOrdinal"
+   ]
+  },
+  {
+   "context": "law-archive-late",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:29 Searches found no harness, sessionId or messageOrdinal in the context, and its transcript references concern bill PDF extraction rather than agent-session archives.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/_apply-missing-law-nodes-copy.ts:25 Reads a prepared law-node payload, not a third-party agent transcript."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:42 Migrates citations to public bill URLs; these are not archived-message coordinates."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/extract-old27-jargon-015.ts:12 Enumerates bill nodes for verdict inspection, not live harness transcript sources."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:71 The preserved originals are verdict payloads, not successive agent-transcript captures."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:33 Scans legislative forensic records; no stored agent-message surface was found."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/_apply-missing-law-nodes-copy.ts:29 Checks existing law entities rather than canonicalizing session identities."
+    }
+   ],
+   "absenceTerms": [
+    "harness",
+    "sessionId",
+    "messageOrdinal"
+   ]
+  },
+  {
+   "context": "money-archive-probes",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:53 Searches found no harness, sessionId or messageOrdinal in the context, whose archived probes inspect companies, contracts and money attribution rather than agent conversations.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:66 Discovers cached public-register CSV datasets rather than harness transcripts."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/verify-b14.ts:13 Reads the money surface loader, not a session-search result or message lookup."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/live-state-b9.ts:24 Inventories graph relationships rather than changing transcript sources."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/build-stale-ico-payload.ts:144 Produces a correction payload; no transcript-capture retirement mechanism was found."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/partyStates.ts:28 Extracts contract-party data, not archived agent or tool messages."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:55 Identifiers are company ICOs, not origin/harness/session-path keys."
+    }
+   ],
+   "absenceTerms": [
+    "harness",
+    "sessionId",
+    "messageOrdinal"
+   ]
+  },
+  {
+   "context": "ingest-sources-financial",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/dataor.ts:790 Searches found no harness, sessionId or messageOrdinal in the context, whose adapters ingest public financial and registry records rather than agent transcripts.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/dataor.ts:772 Caches a public-register dataset; the agent-transcript precondition does not hold."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/smlouvy-dump.ts:148 Extracts a contract's published link rather than an archived-message coordinate."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/isvz.ts:154 Parses procurement records, not sources in a live agent-session store."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/monitor.ts:303 Budget snapshots are municipality/year observations, not repeated transcript captures."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/kiosek.ts:523 Normalizes public institutional postings rather than storing agent-message content."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/smlouvy-dump.ts:136 Uses the contract registry's contract identifier; no session identity is involved."
+    }
+   ],
+   "absenceTerms": [
+    "harness",
+    "sessionId",
+    "messageOrdinal"
+   ]
+  },
+  {
+   "context": "ingest-sources-legislative",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/psp-legislation.ts:126 Searches found no harness, sessionId or messageOrdinal in the context, whose adapters normalize parliamentary and electoral datasets rather than preserve agent-session history.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/psp.ts:99 Reads parliamentary organ-type records, not third-party agent transcripts."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/pumper.ts:150 References published dataset files rather than normalized session messages."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/psp-activity.ts:263 Normalizes legislative activity dumps; no agent-transcript inventory was found."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/volby.ts:269 Processes an electoral candidate registry, not successive transcript captures."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/psp.ts:107 Normalizes parliamentary organizations rather than indexing agent or tool messages."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/pumper.ts:145 Identifies mirrored dataset-release records rather than archived harness sessions."
+    }
+   ],
+   "absenceTerms": [
+    "harness",
+    "sessionId",
+    "messageOrdinal"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-21T21:06:42.487968+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "law-archive-early",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-21T21:06:42.487968+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "law-archive-late",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-21T21:06:42.487968+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "money-archive-probes",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-21T21:06:42.487968+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "ingest-sources-financial",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  },
+  {
+   "ts": "2026-10-21T21:06:42.487968+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "ingest-sources-legislative",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
