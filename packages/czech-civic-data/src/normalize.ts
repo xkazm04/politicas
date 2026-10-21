@@ -138,6 +138,18 @@ export const PRESENT_CHOICES: ReadonlySet<VoteChoice> = new Set<VoteChoice>([
 /** Choices that express a position the party line can be measured against. */
 export const POSITIONAL_CHOICES: ReadonlySet<VoteChoice> = new Set<VoteChoice>(["yes", "no"]);
 
+/**
+ * Documented choices that mean the MP was NOT at the desk: not logged in, excused,
+ * not yet sworn. With PRESENT_CHOICES this covers every documented value, so the
+ * one value in neither set is `unknown`, and a consumer that buckets choices must
+ * count it on its own instead of folding it into an absence.
+ */
+export const ABSENT_CHOICES: ReadonlySet<VoteChoice> = new Set<VoteChoice>([
+  "not_logged_in",
+  "excused",
+  "pre_oath",
+]);
+
 /** hl_hlasovani.vysledek → outcome vocabulary (publisher schema page k=1302). */
 export function voteOutcome(code: string | null): string {
   switch ((code ?? "").trim().toUpperCase()) {

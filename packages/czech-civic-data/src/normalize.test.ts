@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  ABSENT_CHOICES,
   asciiFold,
   BIRTH_DATE_UNKNOWN_SENTINEL,
   fullName,
@@ -114,6 +115,14 @@ describe("choice bases", () => {
   it("POSITIONAL_CHOICES is only yes/no — K can never be counted as a position", () => {
     expect([...POSITIONAL_CHOICES].sort()).toEqual(["no", "yes"]);
     expect(POSITIONAL_CHOICES.has("abstain_or_not_voting")).toBe(false);
+  });
+  it("PRESENT and ABSENT partition every documented code; unknown is in neither", () => {
+    for (const code of ["A", "B", "N", "C", "F", "K", "@", "M", "W"]) {
+      const c = voteChoice(code);
+      expect(Number(PRESENT_CHOICES.has(c)) + Number(ABSENT_CHOICES.has(c)), code).toBe(1);
+    }
+    expect(PRESENT_CHOICES.has("unknown")).toBe(false);
+    expect(ABSENT_CHOICES.has("unknown")).toBe(false);
   });
 });
 

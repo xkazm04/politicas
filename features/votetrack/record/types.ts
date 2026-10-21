@@ -237,6 +237,12 @@ export interface VoteRecordData {
      */
     withoutDate: number;
     ballots: number;
+    /**
+     * Ballots whose code the vocabulary maps to `unknown` (lib/ingest/normalize.ts).
+     * Counted inside `ballots` but in no tally: an undocumented code is not
+     * evidence of absence, so it never becomes "away".
+     */
+    unknownChoice: number;
     from: string | null;
     to: string | null;
     ledgerWindow: number;

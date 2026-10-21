@@ -159,7 +159,7 @@ export const getKompas = cache(async function getKompas(): Promise<SilverLayerRe
         mpSeen.set(person, { personPspId: person, name: nameByPerson.get(person) ?? `#${person}`, club });
       }
       const bucket = bucketOf(b.choice);
-      if (bucket !== "away") {
+      if (bucket !== null && bucket !== "away") {
         (ballotMap[b.votePspId] ??= {})[person] = bucket;
       }
     }

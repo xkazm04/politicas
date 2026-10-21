@@ -76,7 +76,10 @@ describe("bucketOf", () => {
     expect(bucketOf("not_logged_in")).toBe("away");
     expect(bucketOf("excused")).toBe("away");
     expect(bucketOf("pre_oath")).toBe("away");
-    expect(bucketOf("unknown")).toBe("away");
+  });
+  it("has no default bucket: unknown and an off-vocabulary string are not absences", () => {
+    expect(bucketOf("unknown")).toBeNull();
+    expect(bucketOf("abstained")).toBeNull();
   });
 });
 
@@ -269,6 +272,33 @@ describe("deriveVoteRecord", () => {
     expect(r.seismogram.reduce((n, d) => n + d.votes, 0)).toBe(r.coverage.valid - r.coverage.withoutDate);
     // A bez nedatovaného hlasování je počítadlo nula — nepočítá zmatečná ani nic jiného.
     expect(derive(events, ballots).coverage.withoutDate).toBe(0);
+  });
+
+  it("an unknown ballot code is counted, never filed as an absence", () => {
+    // voteChoice() mapuje nezdokumentovaný kód na `unknown`; do 2026-10-22 ho
+    // bucketOf() tady mlčky přeložil na „away", tedy na tvrzení, že poslanec u
+    // pultu nebyl. Nevíme to — spočítá se to a v tally se neobjeví.
+    const r0 = derive(events, ballots);
+    const withUnknown = [...ballots, b(101, 31, "unknown")];
+    const r = derive(events, withUnknown);
+    expect(r0.coverage.unknownChoice).toBe(0);
+    expect(r.coverage.unknownChoice).toBe(1);
+    const stat = (rec: typeof r) => rec.ledger.find((l) => l.pspId === 101)!;
+    expect(stat(r).stat.unaffiliated).toEqual(stat(r0).stat.unaffiliated);
+    expect(r.coverage.ballots).toBe(r0.coverage.ballots + 1);
+  });
+
+  it("a seat whose ballot carries an unknown code is still a seat", () => {
+    // Nejnovější hlasování (103): Cyrilův lístek nese nezdokumentovaný kód. Klub A
+    // má pořád tři křesla; jen jeho „ano" se o jedno zmenší a nikdo nepřibude do „away".
+    const r0 = derive(events, ballots);
+    const swapped = ballots.map((x) => (x.votePspId === 103 && x.mandatePspId === 12 ? b(103, 12, "unknown") : x));
+    const r = derive(events, swapped);
+    const seats = (rec: typeof r) => rec.clubs.find((c) => c.club === "A")!.seats;
+    expect(seats(r)).toBe(seats(r0));
+    const a103 = r.ledger.find((l) => l.pspId === 103)!.stat.byClub.A;
+    expect([a103.yes, a103.away]).toEqual([2, 0]);
+    expect(r.coverage.unknownChoice).toBe(1);
   });
 
   it("ranks rebels by rate over eligible votes and caps the chronicle newest-first", () => {
