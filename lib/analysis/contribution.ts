@@ -209,6 +209,12 @@ export interface ContributionProfile {
 // NB batch 005 attributed the mismatch to excluded Podvýbor seats; batch 006 disproved that
 // (0 PSP10 memberships reference any of the 430 Podvýbor organs, so neither side counts them,
 // and /v[ýy]bor|komis/i does in fact match the string "Podvýbor" anyway).
+// CORRECTION 2026-10-22: that 0 was measured through listMemberships({termCode}), which
+// scoped one organ level below the chamber; a podvýbor hangs under its výbor, two levels
+// down. The public PSP10 dump has 781 podvýbor membership rows. Podvýbor is in
+// COMMITTEE_ORGAN_TYPES, so a depth-correct read would count them: committee_count moves
+// for 173/207 MPs and the committee component for 51 (+361.3 points in total). That is a
+// formula decision, not a read fix - see .ai/tasks/2026-10-22-membership-term-depth.md.
 // Do not fork this logic again — import isCommitteeSeat/isLeadership instead.
 export const isCommitteeSeat = (s: CommitteeSeat): boolean =>
   !!s.organType && (COMMITTEE_ORGAN_TYPES as readonly string[]).includes(s.organType);

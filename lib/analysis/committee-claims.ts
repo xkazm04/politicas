@@ -24,6 +24,12 @@
  *    ZERO subcommittee membership rows (Výbor 512 · Komise 257 · Delegace 86 ·
  *    Podvýbor 0), so a „sedmi podvýborů" sentence is sourced from psp.cz directly and is
  *    not a claim about this prop at all. 7 false hits.
+ *    CORRECTION 2026-10-22: the zero is the term-scoped READ, not the ingest. The store
+ *    holds every zarazeni row, but listMemberships({termCode}) scoped one organ level
+ *    below the chamber, and a podvýbor sits two levels down (under its výbor). The public
+ *    PSP10 dump carries 781 podvýbor membership rows. The exclusion stays right only
+ *    while committee_count is computed through that read; see
+ *    .ai/tasks/2026-10-22-membership-term-depth.md before changing either.
  *  · A preposition or adverb between the numeral and the noun breaks the binding:
  *    „6 stále ve výborech" is six BILLS still sitting in committees. 1 false hit.
  *  · A partitive („jeden ze šesti výborů") binds the numeral to the SET, not to the
