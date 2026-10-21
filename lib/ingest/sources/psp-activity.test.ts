@@ -79,6 +79,35 @@ describe("speechTurns", () => {
   });
 });
 
+describe("splitBillAuthorship: rank per pair, unknown kept unknown", () => {
+  const tisky = parseUnl(["43142|2|x|35|x|3|x|174|||||||||", "43150|2|x|36|x|2|x|174|||||||||"].join("\n"));
+  const predkladatel = parseUnl(
+    [
+      "43142|6150|1|0|",
+      "43142|6783|1|1|", // one MP, two rows, two ranks: the 2026-10-22 dump case
+      "43142|6783|2|1|",
+      "43150|7001||0|", // no poradi
+      "43150|7002|1|0|",
+      "43150|7003|1|1|", // later joiners restart at poradi 1
+    ].join("\n"),
+  );
+  it("counts a later joiner at poradi 1 as a co-signer", () => {
+    const { firstByPerson, coByPerson } = splitBillAuthorship(tisky, predkladatel, 174);
+    expect(firstByPerson.get(7002)).toBe(1);
+    expect(firstByPerson.get(7003)).toBeUndefined();
+    expect(coByPerson.get(7003)).toBe(1);
+  });
+  it("counts a contradictory or unranked pair once, as unknown, never as first or co", () => {
+    const { firstByPerson, coByPerson, unknownByPerson } = splitBillAuthorship(tisky, predkladatel, 174);
+    expect(firstByPerson.get(6150)).toBe(1);
+    expect(firstByPerson.get(6783)).toBeUndefined();
+    expect(coByPerson.get(6783)).toBeUndefined();
+    expect(unknownByPerson.get(6783)).toBe(1);
+    expect(coByPerson.get(7001)).toBeUndefined();
+    expect(unknownByPerson.get(7001)).toBe(1);
+  });
+});
+
 describe("splitBillAuthorship (Q-effort-2)", () => {
   // tisky.unl: 0 id_tisk | 1 id_druh | 5 id_navrh | 7 id_org_obd — same universe as billsAndWrittenInterp
   const tisky = parseUnl(
@@ -101,7 +130,7 @@ describe("splitBillAuthorship (Q-effort-2)", () => {
   );
 
   it("splits by poradi and the split sums to billsAuthored per person", () => {
-    const { firstByPerson, coByPerson } = splitBillAuthorship(tisky, predkladatel, 174);
+    const { firstByPerson, coByPerson, unknownByPerson } = splitBillAuthorship(tisky, predkladatel, 174);
     expect(firstByPerson.get(6473)).toBe(1);
     expect(coByPerson.get(6473)).toBeUndefined();
     expect(firstByPerson.get(6433)).toBe(1);
@@ -110,7 +139,7 @@ describe("splitBillAuthorship (Q-effort-2)", () => {
 
     const { billsByPerson } = billsAndWrittenInterp(tisky, predkladatel, 174);
     for (const [id, total] of billsByPerson) {
-      expect((firstByPerson.get(id) ?? 0) + (coByPerson.get(id) ?? 0)).toBe(total);
+      expect((firstByPerson.get(id) ?? 0) + (coByPerson.get(id) ?? 0) + (unknownByPerson.get(id) ?? 0)).toBe(total);
     }
   });
 });

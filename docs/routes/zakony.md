@@ -200,6 +200,21 @@ pass (`32.13.2025`), keeps the row and its `stav`, and COUNTS the refusals
 into `BillFate.refusedPublications` — a silent refusal is the same defect as
 a silent guess.
 
+**„Předložil" stopped going to later joiners (2026-10-22).** `predkladatel.poradi`
+is numbered WITHIN `typ`, not across the list: of the 23 prints in the public dump
+of 2026-10-22 that carry both submission-time (`typ 0`) and later (`typ 1`) rows,
+21 restart the later joiners at poradi 1, and the dossier read „rank 1" alone, so 21
+bills showed two předkladatelé, the second one a member who signed after submission.
+In 3 of 3 sampled the print's own proposer text names the `typ 0` signatory (43240
+Juchelka, 43118 Schillerová, 41958 Hamáček), never the joiner. Role and order now
+come from `isFirstSignatory` / `bySignatureOrder` in `psp-legislation.ts`, with the
+same condition in `getLawData.ts`: předkladatel = poradi 1 on a `typ 0` row, the
+submission list first, then the joiners. Six prints carry only `typ 1` rows; there
+the dossier now names no předkladatel, which is true of the table: the proposer the
+print names (e.g. 43177, Vojtěch) is not in it at all. Same pass: duplicate
+(print, MP) rows with contradictory poradi (43142, osoba 6783 at 1 AND 2) keep rank
+unknown with `rank_conflict` instead of the lowest rank winning.
+
 **The bill dossier gained its roll calls (2026-09-04).** `/zakony` promised the
 vote→impact loop at founding and drew 141 bills with **zero** votes: `BillDetail.tsx`
 contained no occurrence of `vote`/`hlasov` at all, and this file said so — „the graph

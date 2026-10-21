@@ -168,6 +168,16 @@ reader for `lib/ingest/unlMembers` (5 + 1 copies → 1 + 1; `oneDump.test.ts` pi
 `kg-vote-bill-ingest.ts` carries a sixth copy and is not in this context's file list;
 it is named here, not touched.
 
+**`kg-bill-roles-ingest` writes rank conflicts and a third split bucket (2026-10-22).**
+`sponsors` edges get `role: "predkladatel"` only for poradi 1 on a `typ 0` row
+(`isFirstSignatory`; later joiners restart at poradi 1). A duplicate (print, MP) pair
+with contradictory poradi writes `rank: null` plus `rank_conflict: [..]` on the edge and
+in `sponsors_ranked`, and the run log names each one. Person nodes gain
+`bills_rank_unknown` beside `bills_first_signed` / `bills_co_signed`. `bills_authored`
+still counts signature ROWS (it feeds the contribution formula), so a repeated row makes
+first + co + unknown fall one short and the split-mismatch warning fires: on the dump of
+2026-10-22, 1 person (osoba 6783, print 43142).
+
 **`kg-committee-routing` derives its pass (2026-09-06, scan-sweep, parity-auditor).**
 Its default was the literal `12` while eight sibling writers derive the pass from the
 graph (`nextPass`), so every re-run without `--pass` restamped the `assigned_to` edges

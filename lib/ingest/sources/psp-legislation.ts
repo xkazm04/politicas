@@ -298,27 +298,65 @@ export interface SponsorRole {
    * list position (which promoted whichever unranked row came first to rank 1,
    * "předkladatel"). */
   rank: number | null;
-  joinedLater: boolean; // typ = 1 — signed on after submission
+  joinedLater: boolean; // typ = 1 — signed on after submission (any row saying so)
+  /** The distinct ranks when duplicate (tisk, osoba) rows DISAGREE. Present only on a
+   * conflict, and `rank` is then null: the lowest rank is not the strongest claim, it
+   * is one of two contradictory ones. Live case (dump of 2026-10-22): tisk 43142 lists
+   * osoba 6783 at poradi 1 AND 2, both typ 1, beside a submission-time list that
+   * already holds ranks 1-3 — lowest-rank dedupe made a later joiner a second
+   * "předkladatel" of the bill. */
+  rankConflict?: number[];
+  /** Duplicate rows disagree on typ (submitted vs joined later). */
+  joinedLaterConflict?: true;
 }
 
-/** Signature lists per tisk, ordered by rank. Duplicate (tisk, osoba) rows keep the
- * known rank; an unknown rank never beats a known one, and sorts after the ranked
- * signatories in file order. */
+/** The responsible first signatory ("předkladatel"): poradi 1 on a SUBMISSION-time row.
+ * poradi is numbered within typ, not across the list: of the 23 prints in the dump of
+ * 2026-10-22 that carry both typ 0 and typ 1 rows, 21 restart the later joiners at
+ * poradi 1, so "rank 1" alone made a later joiner a second předkladatel on 21 bills. */
+export function isFirstSignatory(s: { rank: number | null; joinedLater: boolean }): boolean {
+  return s.rank === 1 && !s.joinedLater;
+}
+
+/** Signature-list order: the submission-time list by poradi, then the later joiners by
+ * their own poradi, unknown ranks last within each part. */
+export function bySignatureOrder(a: { rank: number | null; joinedLater: boolean }, b: { rank: number | null; joinedLater: boolean }): number {
+  return Number(a.joinedLater) - Number(b.joinedLater) || (a.rank ?? Infinity) - (b.rank ?? Infinity);
+}
+
+/** Signature lists per tisk, in `bySignatureOrder`. Identical duplicate (tisk, osoba) rows
+ * collapse; an unknown rank never beats a known one; duplicates with contradictory
+ * ranks keep rank UNKNOWN and carry `rankConflict` instead of promoting the lowest.
+ * Unranked rows sort after the ranked signatories in file order. */
 export function parseSponsorRoles(predkladatel: readonly UnlRow[]): Map<number, SponsorRole[]> {
-  const byTisk = new Map<number, Map<number, SponsorRole>>();
+  const byTisk = new Map<number, Map<number, { ranks: Set<number>; typs: Set<boolean> }>>();
   for (const r of predkladatel) {
     const idTisk = colInt(r, 0);
     const idOsoba = colInt(r, 1);
     if (idTisk == null || idOsoba == null) continue;
-    const list = byTisk.get(idTisk) ?? new Map<number, SponsorRole>();
+    const list = byTisk.get(idTisk) ?? new Map<number, { ranks: Set<number>; typs: Set<boolean> }>();
+    const slot = list.get(idOsoba) ?? { ranks: new Set<number>(), typs: new Set<boolean>() };
     const rank = colInt(r, 2);
-    const joinedLater = colInt(r, 3) === 1;
-    const prev = list.get(idOsoba);
-    if (!prev || (rank != null && (prev.rank == null || rank < prev.rank))) list.set(idOsoba, { idOsoba, rank, joinedLater });
+    if (rank != null) slot.ranks.add(rank);
+    slot.typs.add(colInt(r, 3) === 1);
+    list.set(idOsoba, slot);
     byTisk.set(idTisk, list);
   }
   const out = new Map<number, SponsorRole[]>();
-  for (const [tisk, list] of byTisk) out.set(tisk, [...list.values()].sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity)));
+  for (const [tisk, list] of byTisk) {
+    const roles: SponsorRole[] = [];
+    for (const [idOsoba, { ranks, typs }] of list) {
+      const known = [...ranks].sort((a, b) => a - b);
+      roles.push({
+        idOsoba,
+        rank: known.length === 1 ? known[0] : null,
+        joinedLater: typs.has(true),
+        ...(known.length > 1 ? { rankConflict: known } : {}),
+        ...(typs.size > 1 ? { joinedLaterConflict: true as const } : {}),
+      });
+    }
+    out.set(tisk, roles.sort(bySignatureOrder));
+  }
   return out;
 }
 

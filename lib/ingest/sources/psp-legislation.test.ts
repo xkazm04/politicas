@@ -8,6 +8,7 @@ import {
   parseBillFates,
   parseCommitteeAssignments,
   parseLawBills,
+  isFirstSignatory,
   parseRapporteurs,
   parseSponsorRoles,
 } from "./psp-legislation";
@@ -209,18 +210,19 @@ describe("parseSponsorRoles (Q-effort-2)", () => {
         "43111|6473|1|0|", // first signatory
         "43111|6433|2|0|", // co-signer
         "43111|6500|3|1|", // joined the list later
-        "43111|6433|5|0|", // duplicate row with a weaker rank — the lower rank wins
+        "43111|6433|2|0|", // identical duplicate row — collapses, no conflict
         "43112|6473|2|0|", // same MP, different bill, NOT first there
         "|x|1|0|", // garbage row ignored
       ].join("\n"),
     ),
   );
 
-  it("orders the signature list by poradi and keeps the lowest rank on duplicates", () => {
+  it("orders the signature list by poradi and collapses identical duplicates", () => {
     const list = roles.get(43111)!;
     expect(list.map((s) => s.idOsoba)).toEqual([6473, 6433, 6500]);
     expect(list[0].rank).toBe(1);
     expect(list.find((s) => s.idOsoba === 6433)!.rank).toBe(2);
+    expect(list.find((s) => s.idOsoba === 6433)!.rankConflict).toBeUndefined();
   });
 
   it("flags later joiners and keeps first-signatory status per bill, not per person", () => {
@@ -240,6 +242,44 @@ describe("parseSponsorRoles: a missing poradi stays unknown", () => {
     expect(list[1].rank).toBeNull();
     expect(roles.get(50002)![0].rank).toBeNull();
     expect(roles.get(50002)![0].joinedLater).toBe(true);
+  });
+});
+
+describe("parseSponsorRoles: contradictory duplicate ranks stay unknown", () => {
+  // tisk 43142 in the psp.cz dump of 2026-10-22: a submission-time list ranked 1-3,
+  // and a later joiner (typ 1) carried on TWO rows at poradi 1 and 2.
+  const roles = parseSponsorRoles(
+    rows(
+      [
+        "43142|6150|1|0|",
+        "43142|6105|2|0|",
+        "43142|7022|3|0|",
+        "43142|6783|1|1|",
+        "43142|6783|2|1|",
+        "43143|7001|2|0|", // same pair, submitted AND joined later
+        "43143|7001|2|1|",
+      ].join("\n"),
+    ),
+  );
+  it("never promotes the lowest of two contradictory ranks to first signatory", () => {
+    const list = roles.get(43142)!;
+    expect(list.filter((s) => s.rank === 1).map((s) => s.idOsoba)).toEqual([6150]);
+    const joiner = list.find((s) => s.idOsoba === 6783)!;
+    expect(joiner.rank).toBeNull();
+    expect(joiner.rankConflict).toEqual([1, 2]);
+    expect(joiner.joinedLater).toBe(true);
+    expect(list.map((s) => s.idOsoba)).toEqual([6150, 6105, 7022, 6783]);
+  });
+  it("numbers later joiners in their own list: poradi 1 on a typ 1 row is not first", () => {
+    const list = parseSponsorRoles(rows(["43200|6003|1|1|", "43200|6002|2|0|", "43200|6001|1|0|"].join("\n"))).get(43200)!;
+    expect(list.map((s) => s.idOsoba)).toEqual([6001, 6002, 6003]);
+    expect(list.filter(isFirstSignatory).map((s) => s.idOsoba)).toEqual([6001]);
+  });
+  it("flags a typ disagreement instead of picking a side silently", () => {
+    const s = roles.get(43143)![0];
+    expect(s.rank).toBe(2);
+    expect(s.rankConflict).toBeUndefined();
+    expect(s.joinedLaterConflict).toBe(true);
   });
 });
 
