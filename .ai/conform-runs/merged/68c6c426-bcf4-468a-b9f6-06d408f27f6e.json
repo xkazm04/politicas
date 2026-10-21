@@ -1,0 +1,22 @@
+{
+ "schema": "conform-run/1",
+ "worker": "68c6c426-bcf4-468a-b9f6-06d408f27f6e",
+ "subject": "concurrent-vcs",
+ "evaluatedAt": "2026-10-21T21:31:36.542998+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "concurrent-vcs",
+   "context": "shared-provenance",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "concurrent-vcs",
+   "context": "case-loops-core",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": []
+}
