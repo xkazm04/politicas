@@ -24,6 +24,7 @@ import { isCzechSafe } from "@/lib/analysis/language-gate";
 import { PAGE_SECTIONS, sectionsFor } from "@/features/shell/navModel";
 import { SNAPSHOTS_RETRIEVED_ON } from "./data/budgetSnapshots.generated";
 import { REGISTRY_PERIOD_LABEL, REGISTRY_RETRIEVED_ON } from "./data/registryData.generated";
+import { BUDGET_INDICATORS } from "@/lib/ingest/sources/monitor";
 
 type Ns = Record<string, unknown>;
 
@@ -137,6 +138,22 @@ describe("citace zdroje nese datum dávky, ne literál", () => {
     for (const v of [cs.sourceLine, en.sourceLine]) {
       expect(v).not.toMatch(/\b20\d\d\b/);
       expect(v).not.toMatch(/\b\d{1,2}\.\s*\d{1,2}\.\s*\d{4}\b/);
+    }
+  });
+
+  it("citace pojmenuje variantu dluhu — dluh není konsolidovaný FIN 2-12 M, ale rozvaha obce bez příspěvkových organizací", () => {
+    // Do 2026-10-22 obě věty tvrdily „konsolidované hodnoty" o všech metrikách,
+    // i o dluhu, kterým se tabulka řadí — přitom MONITOR u `dluh` hlásí
+    // source "rozvaha", consolidated null (BUDGET_INDICATORS v monitor.ts) a
+    // 90 ze 132 obcí dávky má dluh příspěvkových organizací vykázaný zvlášť.
+    expect(BUDGET_INDICATORS.debtCzk.consolidated).toBeNull();
+    for (const v of [cs.sourceLine, cs.stewardshipNoteLive]) {
+      expect(v).toMatch(/rozvah/);
+      expect(v).toMatch(/příspěvkových organizací/);
+    }
+    for (const v of [en.sourceLine, en.stewardshipNoteLive]) {
+      expect(v).toMatch(/balance sheet/);
+      expect(v).toMatch(/contributory organizations/);
     }
   });
 

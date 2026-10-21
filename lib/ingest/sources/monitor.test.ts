@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  BUDGET_INDICATORS,
   capexRatioPct,
   extractBudgetYear,
   latestFinMPeriod,
@@ -91,6 +92,42 @@ describe("parseMunicipality", () => {
     const { rows, dropped } = parseMunicipalities([MUNICIPALITY_FIXTURE, { ic: "bad" }, null]);
     expect(rows).toHaveLength(1);
     expect(dropped).toBe(2);
+  });
+});
+
+// Live /api/ukazatele capture 2026-10-22 (IČO 00236021, 12/2025), with the per-indicator
+// `source` and `consolidated` fields the API returns. A town whose příspěvkové
+// organizace carry debt: `dluh_celkem` = `dluh` + `dluh_po`, and gross `vydaje` is
+// 2.17× `vydaje_kons`.
+const VARIANTS_FIXTURE = {
+  dluh: { name: "dluh", source: "rozvaha", consolidated: null, value: 3508510 },
+  dluh_po: { name: "dluh_po", source: "rozvaha", consolidated: null, value: 35773844.72 },
+  dluh_celkem: { name: "dluh_celkem", source: "rozvaha", consolidated: null, value: 39282354.72 },
+  vydaje: { name: "vydaje", source: "rozpocet", consolidated: false, value: 1238821621.55 },
+  vydaje_kons: { name: "vydaje_kons", source: "rozpocet_konsolidovany", consolidated: true, value: 570558162.79 },
+  kapitalove_vydaje_kons: { name: "kapitalove_vydaje_kons", source: "rozpocet_konsolidovany", consolidated: true, value: 191581285.06 },
+  saldo_kons: { name: "saldo_kons", source: "rozpocet_konsolidovany", consolidated: true, value: 26458378.4 },
+  obyvatele: { name: "obyvatele", source: "pocob", consolidated: false, value: 10399 },
+};
+
+describe("BUDGET_INDICATORS", () => {
+  it("declares, per field, the statement and variant the live API reports for that indicator", () => {
+    for (const [field, d] of Object.entries(BUDGET_INDICATORS)) {
+      const live = VARIANTS_FIXTURE[d.key as keyof typeof VARIANTS_FIXTURE];
+      expect(live, field).toBeDefined();
+      expect({ source: live.source, consolidated: live.consolidated }, field).toEqual({
+        source: d.source,
+        consolidated: d.consolidated,
+      });
+    }
+  });
+
+  it("debt is the town's own (`dluh`), never the organizations' total, and never mixed with the gross flows", () => {
+    const year = extractBudgetYear(VARIANTS_FIXTURE);
+    expect(year.debtCzk).toBe(3508510);
+    expect(year.expenditureCzk).toBe(570558162.79);
+    // the ratio takes both operands from the consolidated variant
+    expect(capexRatioPct(year.capexCzk, year.expenditureCzk)).toBe(33.6);
   });
 });
 

@@ -7,8 +7,9 @@ town-vs-peer-group mirror, debt-per-capita trends) and `/rozpocty/[ico]`
 (permanent town address; ~360 towns declared in `generateStaticParams`, none prerendered today — see 2026-09-01).
 
 **Reads** — the budget series come from the checked-in generated modules
-`features/budget/data/*.generated.ts` (FIN 2-12 M consolidated figures), **not
-from a store read**; the supplier trail rides the money graph.
+`features/budget/data/*.generated.ts` (expenditure, capex and saldo: FIN 2-12 M
+consolidated figures; debt: the balance-sheet `dluh`, the town's own without its
+příspěvkové organizace, see 2026-10-22), **not from a store read**; the supplier trail rides the money graph.
 `municipalRoutes.ts` is ONE list feeding both `generateStaticParams` and
 `app/sitemap.ts` — a municipality is a public register, not a person, so the
 sitemap exclusion that applies to people does not apply here (argued in place).
@@ -186,3 +187,19 @@ pins the three states. Same round: `getSupplierTies.ts` read the tie review stat
 through a ladder of its own (`=== "verified" ? … : "pending_review"`, a copy of the
 money module's rule); it reads `reviewStateOf` now and `budgetSource.test.ts` pins
 that no copy remains.
+
+**Debt is not a consolidated figure, and the page now says so (2026-10-22).** The
+source line and the stewardship note called every value on the page "konsolidované
+FIN 2-12 M". Three of four fields are (`vydaje_kons`, `kapitalove_vydaje_kons`,
+`saldo_kons`); the debt the peer table sorts by is `dluh`, which MONITOR's own API
+tags `source: "rozvaha"`, `consolidated: null`. It is the town's own debt only:
+`dluh_celkem` is exactly `dluh + dluh_po` in all 330 of the batch's 660 town-years
+where the two differ, 90 of the 132 towns carry organization debt in some year, and
+in 2025 five towns read 0 Kč while their organizations owe up to 11.7 mil. Measured
+over the same 660 rows, gross `vydaje` runs 1.14x to 7.98x `vydaje_kons` (median
+2.54x). Changed: the copy in both catalogs names each field's statement and
+variant, and `BUDGET_INDICATORS` in `lib/ingest/sources/monitor.ts` is the one
+definition `extractBudgetYear` reads, pinned against a live 2026-10-22 capture. Not
+changed: no figure moves; the mirror still reads `dluh`. Whether organization
+debt belongs in "the town's debt" is a perimeter decision for the owner, and taking
+`dluh_celkem` would move every peer median and the stewardship input.
