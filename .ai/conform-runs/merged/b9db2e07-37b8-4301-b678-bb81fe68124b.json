@@ -1,0 +1,43 @@
+{
+  "schema": "conform-run/1",
+  "worker": "b9db2e07-37b8-4301-b678-bb81fe68124b",
+  "subject": "terminal-multiplexing",
+  "evaluatedAt": "2026-10-22T21:49:04.029104+00:00",
+  "provider": "codex",
+  "model": "gpt-6.1-sol",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "terminal-multiplexing",
+      "context": "labs-rentgen",
+      "reason": "withdrawn after review: reviewer (sonnet): The not-applicable anchor, terminalSource.test.ts:7, is only an import of tieClassInfo and does not show that no interactive terminal session is hosted. The other context files confirm the code is a read-only data view, but the verdict's own anchor is incidental, so it goes back to unknown."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-22T21:49:04.029104+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "terminal-multiplexing"
+      ],
+      "techniques": [
+        "attach-detach-lifecycle",
+        "bounded-replay-buffers",
+        "capability-revalidation",
+        "completion-authority-arbitration",
+        "injected-hook-reconvergence",
+        "keystroke-injection",
+        "multi-client-fan-out",
+        "multiplexer-state",
+        "occupant-state-detection",
+        "pty-management",
+        "readiness-edge-detection",
+        "renderer-economics"
+      ],
+      "deviations": 0,
+      "context": "labs-rentgen",
+      "via": "curator-multi:codex",
+      "model": "gpt-6.1-sol"
+    }
+  ]
+}

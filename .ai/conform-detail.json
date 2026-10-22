@@ -9696,6 +9696,82 @@
         "at": "2026-10-22T21:40:51.404006+00:00",
         "reason": "reviewer (sonnet): Anchors :56 and :74 support the narrow e-parameter claim, but the carrying anchors :26 and :25 do not say what is claimed. Line 26 is a header comment saying the module is not anonymization. Line 25 is just `beforeSend: scrubFollowTelemetry`, which is a shared hook binding, so the claims of no share"
       }
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/terminal-multiplexing": {
+      "context": "labs-rentgen",
+      "subject": "terminal-multiplexing",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-22",
+      "evaluatedTs": "2026-10-22T21:49:04.029Z",
+      "techniques": [
+        {
+          "technique": "attach-detach-lifecycle",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/VariantRentgen.tsx:269 The view selects supplied records or sample records; there is no running terminal session to attach, park or detach."
+        },
+        {
+          "technique": "bounded-replay-buffers",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:444 This bounds a derived provenance list by records; it is not a terminal-output replay ring, so the byte-budget requirement does not apply."
+        },
+        {
+          "technique": "capability-revalidation",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:166 Coverage concerns readable database layers; no injected shell capability or per-command protocol tier exists."
+        },
+        {
+          "technique": "completion-authority-arbitration",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:159 The asynchronous work reads domain data; there is no hosted command whose completion requires protocol-versus-heuristic arbitration."
+        },
+        {
+          "technique": "injected-hook-reconvergence",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:177 The displayed log comes from review and graph-change records, without an injected shell integration or user shell configuration."
+        },
+        {
+          "technique": "keystroke-injection",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/VariantRentgen.tsx:211 Graph interaction changes the highlighted node; the inspected component has no terminal-input or automation-injection path."
+        },
+        {
+          "technique": "multi-client-fan-out",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/VariantRentgen.tsx:502 The component renders its supplied log array; no shared terminal session distributes output to independent attached viewers."
+        },
+        {
+          "technique": "multiplexer-state",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:168 The model groups financial ties by person; it does not maintain session machinery or route terminal focus."
+        },
+        {
+          "technique": "occupant-state-detection",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:62 State describes the money module's review vocabulary; there is no hosted interactive occupant to classify."
+        },
+        {
+          "technique": "pty-management",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:123 The log source is a database repository query; no pseudo-terminal device, child sizing or resize chain exists here."
+        },
+        {
+          "technique": "readiness-edge-detection",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:47 Data loading awaits the money layer; there is no shell startup stream or command-ready marker to detect."
+        },
+        {
+          "technique": "renderer-economics",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/VariantRentgen.tsx:206 Rendering builds SVG graph shapes and ordinary text, without terminal emulators or accelerated terminal-renderer resources."
+        }
+      ],
+      "withdrawn": {
+        "worker": "b9db2e07-37b8-4301-b678-bb81fe68124b",
+        "state": "not-applicable",
+        "at": "2026-10-22T21:49:25.807718+00:00",
+        "reason": "reviewer (sonnet): The not-applicable anchor, terminalSource.test.ts:7, is only an import of tieClassInfo and does not show that no interactive terminal session is hosted. The other context files confirm the code is a read-only data view, but the verdict's own anchor is incidental, so it goes back to unknown."
+      }
     }
   }
 }
