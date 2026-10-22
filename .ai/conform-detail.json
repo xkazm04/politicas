@@ -9593,6 +9593,62 @@
         "at": "2026-10-21T22:15:15.103472+00:00",
         "reason": "reviewer (sonnet): In lib/civic/data.ts the only non-money amount value is \"—\", and the stateGraph.ts:94 comment documents it as \"firma bez zakázek\" (a company with no contracts). No separate unresolved-amount value exists in MONEY_TIES for hasMoney to conflate with it, so the claimed loss of the unknown-versus-absent"
       }
+    },
+    "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/talking-avatar": {
+      "context": "labs-graph-routes",
+      "subject": "talking-avatar",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-22",
+      "evaluatedTs": "2026-10-22T21:24:34.543Z",
+      "worker": "030eefc1-1786-40c7-8e7a-739f8c6da911",
+      "techniques": [
+        {
+          "technique": "face-signal-across-surfaces",
+          "verdict": "not-applicable",
+          "evidence": "app/graf/p/[ref]/page.tsx:73 Renders a graph citation view; searches found no companion face to mirror across surfaces."
+        },
+        {
+          "technique": "motion-route-selection",
+          "verdict": "not-applicable",
+          "evidence": "app/referendum/page.tsx:45 Mounts a leaderboard and voting-weight surface; no avatar animation route was found."
+        },
+        {
+          "technique": "neural-motion-retargeting",
+          "verdict": "not-applicable",
+          "evidence": "app/referendum/og/route.tsx:65 Derives a civic-data sharing card; no audio-to-motion model or retargeting consumer was found."
+        },
+        {
+          "technique": "paced-realtime-measurement",
+          "verdict": "not-applicable",
+          "evidence": "app/referendum/og/route.tsx:165 Produces a static sharing image; no talking-head playback route requires measurement against an audio clock."
+        },
+        {
+          "technique": "per-sentence-face-sidecar",
+          "verdict": "not-applicable",
+          "evidence": "app/graf/p/[ref]/bundle/route.ts:25 Returns citation evidence as JSON-LD; no voice pipeline or face helper was found."
+        },
+        {
+          "technique": "procedural-presence-motion",
+          "verdict": "not-applicable",
+          "evidence": "app/rentgen/page.tsx:26 Mounts the evidence terminal; searches found no character requiring idle motion, blinks, or speech gestures."
+        },
+        {
+          "technique": "rig-parameter-contract",
+          "verdict": "not-applicable",
+          "evidence": "app/graf/p/[ref]/opengraph-image.tsx:131 The image uses graph glyph shapes and fills; no avatar motion producers or rig parameter seam was found."
+        },
+        {
+          "technique": "single-image-layer-decomposition",
+          "verdict": "not-applicable",
+          "evidence": "app/graf/p/[ref]/opengraph-image.tsx:46 This module generates a static citation card; no portrait decomposition or moving image layers were found."
+        },
+        {
+          "technique": "viseme-drive",
+          "verdict": "not-applicable",
+          "evidence": "app/svedectvi/page.tsx:125 The testimony page renders citable figures; no synthesized speech or speaking element was found."
+        }
+      ]
     }
   }
 }

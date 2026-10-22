@@ -8681,7 +8681,11 @@
           "revision": 4,
           "changedAt": "2026-10-21",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/graf/page.tsx:34 These routes expose civic-data views and exports, and searches of their directories, mounted features, and repository found no avatar, viseme, phoneme, lipSync, or speechSynthesis references, so speaking-face animation has no consumer here.",
+          "evaluatedAt": "2026-10-22",
+          "evaluatedAgainst": "sha256-b2:72517c45ca8e4198",
+          "evaluatedRevision": 4
         },
         {
           "subject": "canvas-graph",

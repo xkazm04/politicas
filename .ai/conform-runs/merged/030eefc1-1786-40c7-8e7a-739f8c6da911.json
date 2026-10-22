@@ -1,0 +1,96 @@
+{
+ "schema": "conform-run/1",
+ "worker": "030eefc1-1786-40c7-8e7a-739f8c6da911",
+ "subject": "talking-avatar",
+ "evaluatedAt": "2026-10-22T21:24:34.543914+00:00",
+ "provider": "codex",
+ "model": "gpt-6.1-sol",
+ "pairs": [
+  {
+   "context": "labs-graph-routes",
+   "subject": "talking-avatar",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/graf/page.tsx:34 These routes expose civic-data views and exports, and searches of their directories, mounted features, and repository found no avatar, viseme, phoneme, lipSync, or speechSynthesis references, so speaking-face animation has no consumer here.",
+   "techniques": [
+    {
+     "technique": "face-signal-across-surfaces",
+     "verdict": "not-applicable",
+     "evidence": "app/graf/p/[ref]/page.tsx:73 Renders a graph citation view; searches found no companion face to mirror across surfaces."
+    },
+    {
+     "technique": "motion-route-selection",
+     "verdict": "not-applicable",
+     "evidence": "app/referendum/page.tsx:45 Mounts a leaderboard and voting-weight surface; no avatar animation route was found."
+    },
+    {
+     "technique": "neural-motion-retargeting",
+     "verdict": "not-applicable",
+     "evidence": "app/referendum/og/route.tsx:65 Derives a civic-data sharing card; no audio-to-motion model or retargeting consumer was found."
+    },
+    {
+     "technique": "paced-realtime-measurement",
+     "verdict": "not-applicable",
+     "evidence": "app/referendum/og/route.tsx:165 Produces a static sharing image; no talking-head playback route requires measurement against an audio clock."
+    },
+    {
+     "technique": "per-sentence-face-sidecar",
+     "verdict": "not-applicable",
+     "evidence": "app/graf/p/[ref]/bundle/route.ts:25 Returns citation evidence as JSON-LD; no voice pipeline or face helper was found."
+    },
+    {
+     "technique": "procedural-presence-motion",
+     "verdict": "not-applicable",
+     "evidence": "app/rentgen/page.tsx:26 Mounts the evidence terminal; searches found no character requiring idle motion, blinks, or speech gestures."
+    },
+    {
+     "technique": "rig-parameter-contract",
+     "verdict": "not-applicable",
+     "evidence": "app/graf/p/[ref]/opengraph-image.tsx:131 The image uses graph glyph shapes and fills; no avatar motion producers or rig parameter seam was found."
+    },
+    {
+     "technique": "single-image-layer-decomposition",
+     "verdict": "not-applicable",
+     "evidence": "app/graf/p/[ref]/opengraph-image.tsx:46 This module generates a static citation card; no portrait decomposition or moving image layers were found."
+    },
+    {
+     "technique": "viseme-drive",
+     "verdict": "not-applicable",
+     "evidence": "app/svedectvi/page.tsx:125 The testimony page renders citable figures; no synthesized speech or speaking element was found."
+    }
+   ],
+   "absenceTerms": [
+    "avatar",
+    "viseme",
+    "phoneme",
+    "lipSync",
+    "speechSynthesis"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-22T21:24:34.543914+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "talking-avatar"
+   ],
+   "techniques": [
+    "face-signal-across-surfaces",
+    "motion-route-selection",
+    "neural-motion-retargeting",
+    "paced-realtime-measurement",
+    "per-sentence-face-sidecar",
+    "procedural-presence-motion",
+    "rig-parameter-contract",
+    "single-image-layer-decomposition",
+    "viseme-drive"
+   ],
+   "deviations": 0,
+   "context": "labs-graph-routes",
+   "via": "curator-multi:codex",
+   "model": "gpt-6.1-sol"
+  }
+ ]
+}
