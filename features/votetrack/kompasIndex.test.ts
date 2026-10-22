@@ -103,7 +103,8 @@ function legacyTotals(): Map<number, ClubTally> {
       t = emptyTally();
       totals.set(b.votePspId, t);
     }
-    t[bucketOf(b.choice)]++;
+    const k = bucketOf(b.choice);
+    if (k) t[k]++;
   }
   return totals;
 }
@@ -117,7 +118,7 @@ function legacyClubLines(selectedIds: ReadonlySet<number>): Record<number, Recor
     if (person === undefined) continue;
     const club = clubByMandate.get(b.mandatePspId) ?? null;
     const bucket = bucketOf(b.choice);
-    if (club !== null) {
+    if (club !== null && bucket !== null) {
       let clubs = clubTallies.get(b.votePspId);
       if (!clubs) {
         clubs = new Map();

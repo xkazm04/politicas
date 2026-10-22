@@ -91,8 +91,15 @@ export function compareToPeer(
   town: number | null,
   peer: number | null,
   lowerIsBetter: boolean,
+  /** Z kolika vykázaných vrstevníků medián stojí. Pod MIN_PEERS se medián
+   *  smí vytisknout popisně (s počtem), ale verdikt lepší/horší ne: i po
+   *  celostátním rozšíření může pásmo mít méně než MIN_PEERS obcí s výkazem
+   *  a peerGroupFor to nehlídá. Ve dávce 2021–2025 je nejmenší vzorek 5
+   *  (18 ze 132 obcí), takže dnes to platí jen z dat, ne z konstrukce. */
+  sampleSize?: number,
 ): PeerComparison {
   if (town === null || peer === null) return "incomparable";
+  if (sampleSize !== undefined && sampleSize < MIN_PEERS) return "incomparable";
   return (lowerIsBetter ? town <= peer : town >= peer) ? "better" : "worse";
 }
 

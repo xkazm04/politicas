@@ -24,6 +24,19 @@
 //     double-counts); `vydaje_kons` is 794 mil — the town's actual budget. The
 //     mirror therefore reads `_kons` for expenditures/saldo; `dluh` and `obyvatele`
 //     have no consolidation variant.
+//   - MEASURED 2026-10-22 over the batch's 132 towns × 2021–2025 (660 rows): gross
+//     `vydaje` / `vydaje_kons` runs 1.14× to 7.98×, median 2.54× — Beroun's 2.3× is
+//     not the extreme, so a mixed read is never "roughly the same number".
+//   - `dluh` is a different statement and a different perimeter, and the API says so
+//     per indicator: `source: "rozvaha"` (balance sheet, not the FIN 2-12 M budget
+//     statement) and `consolidated: null`. It is the town's own debt only; MONITOR
+//     reports its příspěvkové organizace's debt as `dluh_po`, and `dluh_celkem` is
+//     exactly `dluh + dluh_po` in all 330 rows where the two differ. 90 of the 132
+//     towns carry `dluh_po` in some year; in 2025 five towns read `dluh` 0 while
+//     their organizations owe up to 11.7 mil. The mirror keeps `dluh` (which debt
+//     counts is the owner's perimeter decision, and changing it moves every peer
+//     median); BUDGET_INDICATORS below records each field's variant, and the
+//     /rozpocty source line must name it rather than call every figure consolidated.
 //
 // SCALE DISCIPLINE: the registry is 14 requests (quick); indicators are one request
 // per town × period. A full 6,254 × 6-year sweep is ~37k requests — a standing batch
@@ -177,13 +190,25 @@ export function extractBudgetYear(json: unknown): MonitorBudgetYear {
     return finiteNumber(entry.value);
   };
   return {
-    debtCzk: pick("dluh"),
-    expenditureCzk: pick("vydaje_kons"),
-    capexCzk: pick("kapitalove_vydaje_kons"),
-    saldoCzk: pick("saldo_kons"),
-    population: pick("obyvatele"),
+    debtCzk: pick(BUDGET_INDICATORS.debtCzk.key),
+    expenditureCzk: pick(BUDGET_INDICATORS.expenditureCzk.key),
+    capexCzk: pick(BUDGET_INDICATORS.capexCzk.key),
+    saldoCzk: pick(BUDGET_INDICATORS.saldoCzk.key),
+    population: pick(BUDGET_INDICATORS.population.key),
   };
 }
+
+/** The one definition of which MONITOR indicator, from which statement and in which
+ *  variant, each mirror field reads. `source` and `consolidated` are the values the
+ *  live API returns on that indicator (verified 2026-10-22); the fixture test pins
+ *  them, and the /rozpocty provenance copy names them. */
+export const BUDGET_INDICATORS = {
+  debtCzk: { key: "dluh", source: "rozvaha", consolidated: null },
+  expenditureCzk: { key: "vydaje_kons", source: "rozpocet_konsolidovany", consolidated: true },
+  capexCzk: { key: "kapitalove_vydaje_kons", source: "rozpocet_konsolidovany", consolidated: true },
+  saldoCzk: { key: "saldo_kons", source: "rozpocet_konsolidovany", consolidated: true },
+  population: { key: "obyvatele", source: "pocob", consolidated: false },
+} as const satisfies Record<keyof MonitorBudgetYear, { key: string; source: string; consolidated: boolean | null }>;
 
 /* ── Per-capita / ratio derivations (pure; shared by ingest and surface) ─────── */
 

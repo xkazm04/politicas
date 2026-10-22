@@ -52,7 +52,9 @@ async function main() {
   // (committee_count). The old basis here was influential_in edges (kg-compute.ts), which
   // diverge from committee_count for two MEASURED reasons (batch 006; batch 005's "excludes
   // Podvýbor + ověřovatel" diagnosis was checked and disproved — 0 PSP10 memberships
-  // reference any of the 430 Podvýbor organs, so neither side ever counted them):
+  // reference any of the 430 Podvýbor organs, so neither side ever counted them;
+  // CORRECTION 2026-10-22: that 0 is the one-level term read below, not the data - the
+  // public PSP10 dump has 781 podvýbor rows, see .ai/tasks/2026-10-22-membership-term-depth.md):
   //   · kg-compute filters organ types by /v[ýy]bor|komis/i, which does NOT match
   //     "Delegace" — 39/207 MPs undercounted;
   //   · committee_count counts membership ROWS and psp.cz writes a leadership seat as two

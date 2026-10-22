@@ -14,7 +14,7 @@
  *                    ids mapped to osoba via the mandate table.
  *   bill nodes       + sponsors_ranked [{osoba, rank, joined_later}], stav (Czech
  *                    state name), fate_sb ("583/2025" when published), fate_published_on.
- *   person nodes     + bills_first_signed / bills_co_signed — the Q-effort-2 split of
+ *   person nodes     + bills_first_signed / bills_co_signed / bills_rank_unknown — the Q-effort-2 split of
  *                    the exact bills_authored universe; the composite number and
  *                    computeContribution stay untouched.
  *
@@ -23,7 +23,7 @@
  * Flags: --commit  --term=PSP10  --refetch
  */
 import { nextPass } from "@/lib/analysis/kg";
-import { normalizeBillRoles, type RapporteurScope } from "@/lib/ingest/sources/psp-legislation";
+import { isFirstSignatory, normalizeBillRoles, type RapporteurScope } from "@/lib/ingest/sources/psp-legislation";
 import { splitBillAuthorship } from "@/lib/ingest/sources/psp-activity";
 import { unlOf } from "@/lib/ingest/unlMembers";
 import { readZipMap } from "@/lib/ingest/zip";
@@ -61,7 +61,7 @@ async function main() {
 
   const { sponsorRoles, rapporteurs, fates } = normalizeBillRoles(tiskyZip);
   const zipMembers = readZipMap(tiskyZip);
-  const { firstByPerson, coByPerson } = splitBillAuthorship(unlOf(zipMembers, "tisky.unl"), unlOf(zipMembers, "predkladatel.unl"), termPspId);
+  const { firstByPerson, coByPerson, unknownByPerson } = splitBillAuthorship(unlOf(zipMembers, "tisky.unl"), unlOf(zipMembers, "predkladatel.unl"), termPspId);
 
   // poslanec.id_poslanec → osoby.id_osoba, term-scoped (rapporteur ids are mandate ids).
   const mandates = await store.listMandates();
@@ -102,8 +102,10 @@ async function main() {
       props: {
         ...restProps,
         rank: role.rank,
-        ...(role.rank == null ? {} : { role: role.rank === 1 ? "predkladatel" : "spolupodepsal" }),
+        ...(role.rank == null ? {} : { role: isFirstSignatory(role) ? "predkladatel" : "spolupodepsal" }),
         joined_later: role.joinedLater,
+        ...(role.rankConflict ? { rank_conflict: role.rankConflict } : {}),
+        ...(role.joinedLaterConflict ? { joined_later_conflict: true } : {}),
       },
       provenance,
     });
@@ -152,7 +154,14 @@ async function main() {
       props: {
         ...node.props,
         ...(roles.length > 0
-          ? { sponsors_ranked: roles.map((r) => ({ osoba: r.idOsoba, rank: r.rank, joined_later: r.joinedLater })) }
+          ? {
+              sponsors_ranked: roles.map((r) => ({
+                osoba: r.idOsoba,
+                rank: r.rank,
+                joined_later: r.joinedLater,
+                ...(r.rankConflict ? { rank_conflict: r.rankConflict } : {}),
+              })),
+            }
           : {}),
         stav: fate?.stav ?? null,
         fate_sb: fate?.sb ?? null,
@@ -170,11 +179,12 @@ async function main() {
     if (!Number.isFinite(osoba)) continue;
     const first = firstByPerson.get(osoba) ?? 0;
     const co = coByPerson.get(osoba) ?? 0;
+    const unknown = unknownByPerson.get(osoba) ?? 0;
     const authored = node.props.bills_authored;
-    if (typeof authored === "number" && authored !== first + co) splitMismatches++;
+    if (typeof authored === "number" && authored !== first + co + unknown) splitMismatches++;
     personUpdates.push({
       ...node,
-      props: { ...node.props, bills_first_signed: first, bills_co_signed: co, bill_split_provenance: provenance },
+      props: { ...node.props, bills_first_signed: first, bills_co_signed: co, bills_rank_unknown: unknown, bill_split_provenance: provenance },
     });
   }
 
@@ -189,7 +199,7 @@ async function main() {
   );
   console.log(`Bill roles backfill · term ${term} (organ ${termPspId}) · ${commit ? "COMMIT" : "DRY-RUN"} · pass ${pass}`);
   console.log(`  sponsors edges: ${sponsorEdges.length} existing → ${edgeUpdates.length} get {rank, role} (${edgesWithoutRole} without a predkladatel row — left untouched)`);
-  console.log(`    of which rank 1 (predkladatel): ${edgeUpdates.filter((e) => e.props.rank === 1).length}`);
+  console.log(`    of which predkladatel (rank 1, submitted): ${edgeUpdates.filter((e) => e.props.role === "predkladatel").length}`);
   console.log(`  rapporteur edges: ${rapporteurEdges.length} pairs (skipped: ${rapUnmappedPoslanec} unmapped poslanec ids, ${rapOutsideGraph} persons outside graph)`);
   console.log(`  bill nodes: ${billUpdates.length} get stav/fate (${publishedBills} published in Sbírka) — props MERGED, summaries/forensics preserved`);
   if (refusedPublications > 0) {
@@ -198,9 +208,17 @@ async function main() {
         `The citation is withheld, never repaired; the bill keeps its stav.`,
     );
   }
-  console.log(`  person nodes: ${personUpdates.length} get bills_first_signed/bills_co_signed`);
+  // Contradictory duplicate signature rows (same bill, same MP, different poradi) are
+  // written with rank UNKNOWN and named here, never resolved by lowest-rank promotion.
+  const rankConflicts = [...sponsorRoles].flatMap(([tisk, roles]) =>
+    roles.filter((r) => r.rankConflict).map((r) => `tisk ${tisk} osoba ${r.idOsoba} poradi ${r.rankConflict!.join("/")}`),
+  );
+  if (rankConflicts.length > 0) {
+    console.warn(`  ⚠ ${rankConflicts.length} contradictory signature rank(s) kept UNKNOWN: ${rankConflicts.join("; ")}`);
+  }
+  console.log(`  person nodes: ${personUpdates.length} get bills_first_signed/bills_co_signed/bills_rank_unknown`);
   if (splitMismatches > 0) {
-    console.warn(`  ⚠ ${splitMismatches} persons where first+co ≠ stored bills_authored — bills_authored NOT touched; investigate before trusting the split for those`);
+    console.warn(`  ⚠ ${splitMismatches} persons where first+co+unknown ≠ stored bills_authored (a repeated signature row counts twice there) — bills_authored NOT touched; investigate before trusting the split for those`);
   }
 
   if (commit) {

@@ -17,6 +17,7 @@
 import { col, colInt, type UnlRow } from "../unl";
 import { readZipMap } from "../zip";
 import { unlOf } from "../unlMembers";
+import { isFirstSignatory, parseSponsorRoles } from "./psp-legislation";
 
 export const SOURCE_TISKY = "psp-tisky";
 export const SOURCE_INTERP = "psp-interp";
@@ -97,22 +98,33 @@ export function billsAndWrittenInterp(
  * co-signer (spolupodepsal). Row-for-row identical filtering, so per person
  * firstSigned + coSigned always equals billsAuthored — the composite number the
  * contribution index consumes stays untouched; this only adds provenance.
+ *
+ * The rank of each (bill, person) PAIR comes from `parseSponsorRoles` — one rule, not a
+ * second reading of `poradi`. Until 2026-10-22 this counted rows: an unranked row landed
+ * in co-signed (an invented rank), and a duplicate pair with contradictory ranks counted
+ * once as first AND once as co. A pair whose rank is missing or contradictory now lands
+ * in `unknownByPerson`, and a later joiner at poradi 1 is a co-signer, not first
+ * (`isFirstSignatory`). `billsAndWrittenInterp` still counts rows, so first + co +
+ * unknown equals billsAuthored except where the dump repeats a pair — the ingest's
+ * mismatch warning is where that duplicate surfaces.
  */
 export function splitBillAuthorship(
   tisky: readonly UnlRow[],
   predkladatel: readonly UnlRow[],
   termPspId: number,
-): { firstByPerson: Map<number, number>; coByPerson: Map<number, number> } {
+): { firstByPerson: Map<number, number>; coByPerson: Map<number, number>; unknownByPerson: Map<number, number> } {
   const mpBillTiskIds = mpAuthoredBillIds(tisky, termPspId);
   const firstByPerson = new Map<number, number>();
   const coByPerson = new Map<number, number>();
-  for (const r of predkladatel) {
+  const unknownByPerson = new Map<number, number>();
+  const inUniverse = predkladatel.filter((r) => {
     const idTisk = colInt(r, 0);
-    const idOsoba = colInt(r, 1);
-    if (idTisk == null || !mpBillTiskIds.has(idTisk)) continue;
-    bump(colInt(r, 2) === 1 ? firstByPerson : coByPerson, idOsoba);
+    return idTisk != null && mpBillTiskIds.has(idTisk);
+  });
+  for (const roles of parseSponsorRoles(inUniverse).values()) {
+    for (const s of roles) bump(s.rank == null ? unknownByPerson : isFirstSignatory(s) ? firstByPerson : coByPerson, s.idOsoba);
   }
-  return { firstByPerson, coByPerson };
+  return { firstByPerson, coByPerson, unknownByPerson };
 }
 
 /** Oral interpellations from interp.zip: poradi.id_poslanec (an id_osoba) per losování

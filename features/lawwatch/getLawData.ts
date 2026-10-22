@@ -463,13 +463,13 @@ async function loadLawData(): Promise<LawData | null> {
         .map((pspId) => {
           const rk = rankByOsoba.get(pspId);
           const role: "predkladatel" | "spolupodepsal" | null = rk
-            ? rk.rank === 1
+            ? rk.rank === 1 && !rk.joinedLater // poradi restarts for later joiners
               ? "predkladatel"
               : "spolupodepsal"
             : null;
           return { pspId, name: nameById.get(pspId) ?? `#${pspId}`, role, rank: rk?.rank ?? null, joinedLater: rk?.joinedLater ?? false };
         })
-        .sort((a, b) => (a.rank ?? 1e9) - (b.rank ?? 1e9));
+        .sort((a, b) => Number(a.joinedLater) - Number(b.joinedLater) || (a.rank ?? 1e9) - (b.rank ?? 1e9));
 
       const amendedUrns = lawsByBill.get(n.id) ?? [];
       const amendedLaws = amendedUrns.map(lawRefOf);

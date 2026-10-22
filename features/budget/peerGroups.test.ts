@@ -221,3 +221,41 @@ describe("compareToPeer — bez vzorku vrstevníků není obec ani lepší, ani 
     expect(compareToPeer(null, null, false)).toBe("incomparable");
   });
 });
+
+describe("compareToPeer — medián pod MIN_PEERS vykázanými vrstevníky nevynáší verdikt (2026-10-22)", () => {
+  it("vzorek pod MIN_PEERS → nesrovnatelná; na MIN_PEERS a výš verdikt platí", () => {
+    expect(compareToPeer(300, 200, true, MIN_PEERS - 1)).toBe("incomparable");
+    expect(compareToPeer(100, 200, true, 1)).toBe("incomparable");
+    expect(compareToPeer(300, 200, true, MIN_PEERS)).toBe("worse");
+    expect(compareToPeer(100, 200, false, MIN_PEERS + 1)).toBe("worse");
+  });
+
+  it("ve skutečné dávce guard nemění žádný verdikt — nejmenší vzorek je dnes právě MIN_PEERS", () => {
+    const all = getRegistry();
+    const series = getBudgetSeries();
+    const covered = new Set(series.keys());
+    let verdicts = 0;
+    const changed: string[] = [];
+    for (const m of all) {
+      if (!covered.has(m.ic)) continue;
+      const latest = latestMetrics(series.get(m.ic));
+      if (!latest) continue;
+      const g = peerGroupFor(m, all, covered);
+      const md = peerMedians(g.peers, series, SNAPSHOT_YEARS.length, SNAPSHOT_YEARS.indexOf(latest.year));
+      const pairs: [number | null, number | null, boolean][] = [
+        [latest.debtPerCapita, md.debtPerCapita, true],
+        [latest.capexRatio, md.capexRatio, false],
+        [latest.saldoPerCapita, md.saldoPerCapita, false],
+      ];
+      for (const [town, peer, lower] of pairs) {
+        const before = compareToPeer(town, peer, lower);
+        if (before !== "incomparable") verdicts++;
+        if (before !== compareToPeer(town, peer, lower, md.sampleSize)) changed.push(m.name);
+      }
+    }
+    expect(verdicts).toBeGreaterThan(0);
+    // Když tohle spadne, do dávky přibylo pásmo s méně než MIN_PEERS vykázanými
+    // vrstevníky a plocha u něj verdikt správně stáhla — přepište pin, ne guard.
+    expect(changed).toEqual([]);
+  });
+});

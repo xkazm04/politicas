@@ -103,7 +103,10 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
       const clauses: string[] = [];
       const params: unknown[] = [];
       // Term scoping for memberships goes through the organ tree: an organ either
-      // IS the term chamber or has it as parent.
+      // IS the term chamber or has it as parent. ONE level only: an organ two levels
+      // down (podvýbor under its výbor, a group under the MPU) is NOT in the term here -
+      // 1 915 of 3 260 PSP10 rows on the public dump. Known and deliberate until the
+      // committee_count decision in .ai/tasks/2026-10-22-membership-term-depth.md.
       if (opts?.termCode) {
         params.push(opts.termCode);
         const p = `$${params.length}`;

@@ -37,6 +37,7 @@
 import { clubAt } from "@/lib/analysis/clubAt";
 import { MIN_CLUB_POSITIONAL, MIN_ELIGIBLE_VOTES } from "@/lib/analysis/kg";
 import type { ClubWindow } from "@/lib/db/store";
+import { ABSENT_CHOICES, POSITIONAL_CHOICES, PRESENT_CHOICES, type VoteChoice } from "@/lib/ingest/normalize";
 import { reconcileRecord, type PublishedTally } from "./reconcile";
 import { deriveThreshold, summarizeThresholds, type ThresholdIn, type VoteThreshold } from "./threshold";
 import type {
@@ -117,21 +118,17 @@ export interface DeriveOptions {
 export type Bucket = "yes" | "no" | "k" | "away";
 
 /** Store VoteChoice vocabulary (lib/ingest/normalize.ts) → display bucket.
- * abstain / not_voting / the merged K bucket are presence WITHOUT a position;
- * everything else non-positional means the MP was not at the desk. */
-export function bucketOf(choice: string): Bucket {
-  switch (choice) {
-    case "yes":
-      return "yes";
-    case "no":
-      return "no";
-    case "abstain":
-    case "not_voting":
-    case "abstain_or_not_voting":
-      return "k";
-    default:
-      return "away";
-  }
+ * The sets come from the vocabulary module, never re-listed here: presence
+ * without a position (abstain / not_voting / the merged K bucket) is "k", a
+ * documented absence is "away". `unknown` — and any string outside the
+ * vocabulary — is NEITHER and returns null: it is not evidence the MP was away,
+ * so a caller counts it (`coverage.unknownChoice`) instead of tallying it. */
+export function bucketOf(choice: string): Bucket | null {
+  const c = choice as VoteChoice;
+  if (POSITIONAL_CHOICES.has(c)) return c as "yes" | "no";
+  if (PRESENT_CHOICES.has(c)) return "k";
+  if (ABSENT_CHOICES.has(c)) return "away";
+  return null;
 }
 
 const emptyTally = (): ClubTally => ({ yes: 0, no: 0, k: 0, away: 0 });
@@ -293,20 +290,39 @@ export function deriveVoteRecord(
   const tallies = new Map<number, Map<string, ClubTally>>();
   const unaffiliated = new Map<number, ClubTally>();
   const totals = new Map<number, ClubTally>();
+  let unknownChoice = 0;
+  // Křeslo s nezdokumentovaným kódem pořád je křeslo: `seats` ho počítá, tally ne.
+  // Klíč: hlasování → klub (null = nezařazený) → počet lístků.
+  const unknownSeats = new Map<number, Map<string | null, number>>();
   for (const b of ballots) {
     const event = eventById.get(b.votePspId);
     if (!event) continue; // voided or foreign-term vote
     const bucket = bucketOf(b.choice);
-    let total = totals.get(b.votePspId);
-    if (!total) {
-      total = emptyTally();
-      totals.set(b.votePspId, total);
+    // Nezdokumentovaný kód: ani hlas, ani nepřítomnost. Spočítá se, do tally ne.
+    if (bucket === null) {
+      unknownChoice++;
+    } else {
+      let total = totals.get(b.votePspId);
+      if (!total) {
+        total = emptyTally();
+        totals.set(b.votePspId, total);
+      }
+      addTally(total, bucket);
     }
-    addTally(total, bucket);
     const club = clubOfBallot(b.mandatePspId, event.votedOn, true);
     // Klub existuje, ale k tomuhle DNI ho neumíme určit — hlas se do žádné klubové
     // tally nepočítá a do `unaffiliated` UŽ VŮBEC. Ztráta je v `coverage`.
     if (club === CLUB_UNRESOLVED) continue;
+    if (bucket === null) {
+      let byClub = unknownSeats.get(b.votePspId);
+      if (!byClub) {
+        byClub = new Map();
+        unknownSeats.set(b.votePspId, byClub);
+      }
+      const key = club ?? null;
+      byClub.set(key, (byClub.get(key) ?? 0) + 1);
+      continue;
+    }
     if (club === undefined) {
       let u = unaffiliated.get(b.votePspId);
       if (!u) {
@@ -498,9 +514,10 @@ export function deriveVoteRecord(
   }
   // Seats read off the most recent valid roll call (200 ballots per vote).
   const latestStat = valid.length ? statById.get(valid[0].pspId)! : null;
+  const latestUnknown = latestStat ? unknownSeats.get(latestStat.pspId) : undefined;
   const seatsOf = (club: string): number => {
     const t = latestStat?.byClub[club];
-    return t ? t.yes + t.no + t.k + t.away : 0;
+    return (t ? t.yes + t.no + t.k + t.away : 0) + (latestUnknown?.get(club) ?? 0);
   };
   const clubs: ClubAggregate[] = [...clubAcc.entries()]
     .map(([club, a]) => ({
@@ -603,10 +620,14 @@ export function deriveVoteRecord(
       // mohla ztrátu POJMENOVAT místo absolutního „pokrývá všechna".
       withoutDate: valid.length - validDates.length,
       ballots: ballotCount,
+      unknownChoice,
       from: validDates.length ? validDates.reduce((a, b) => (a < b ? a : b)) : null,
       to: validDates.length ? validDates.reduce((a, b) => (a > b ? a : b)) : null,
       ledgerWindow: Math.min(ledgerWindow, valid.length),
-      unaffiliatedSeats: latestStat ? latestStat.unaffiliated.yes + latestStat.unaffiliated.no + latestStat.unaffiliated.k + latestStat.unaffiliated.away : 0,
+      unaffiliatedSeats: latestStat
+        ? latestStat.unaffiliated.yes + latestStat.unaffiliated.no + latestStat.unaffiliated.k + latestStat.unaffiliated.away +
+          (latestUnknown?.get(null) ?? 0)
+        : 0,
       clubBasis,
       // Dva kbelíky klubu PŘI HLASOVÁNÍ. Ani jeden se nepřičítá k `unaffiliated`
       // a ani jeden se neskóruje — plocha je pojmenuje, nebo o nich mlčí, a mlčet

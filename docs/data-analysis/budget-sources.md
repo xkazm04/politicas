@@ -155,3 +155,13 @@ MONITOR fits the psp.cz mirror pattern **exactly**, and for the same reason:
 - Reference implementation to mirror the parsing logic: `statnipokladna` R package,
   `https://github.com/petrbouchal/statnipokladna` (URL builder = `R/datasets.R`
   `sp_get_dataset_url`; monitoring = `R/monitoring.R` `get_sp_monitoring`).
+
+## Indicator variants the mirror reads (verified live 2026-10-22)
+
+`/api/ukazatele` returns `source` and `consolidated` on every indicator. The mirror
+reads `vydaje_kons`, `kapitalove_vydaje_kons` and `saldo_kons` (source
+`rozpocet_konsolidovany`, consolidated true), `dluh` (source `rozvaha`, consolidated
+null: the town's own debt, without its příspěvkové organizace, which are `dluh_po`;
+`dluh_celkem = dluh + dluh_po`) and `obyvatele` (source `pocob`). The one definition
+is `BUDGET_INDICATORS` in `lib/ingest/sources/monitor.ts`. Over the 132-town batch,
+2021-2025, gross `vydaje` is 1.14x to 7.98x `vydaje_kons` (median 2.54x).
