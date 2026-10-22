@@ -1,0 +1,37 @@
+{
+  "schema": "conform-run/1",
+  "worker": "ed623c45-5eec-45a2-a351-3c414a61e4e4",
+  "subject": "telemetry-pii-redaction",
+  "evaluatedAt": "2026-10-22T21:40:24.360337+00:00",
+  "provider": "agy",
+  "model": "gemini-3.8-flash-high",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "telemetry-pii-redaction",
+      "context": "civic-inbox",
+      "reason": "withdrawn after review: reviewer (sonnet): Anchors :56 and :74 support the narrow e-parameter claim, but the carrying anchors :26 and :25 do not say what is claimed. Line 26 is a header comment saying the module is not anonymization. Line 25 is just `beforeSend: scrubFollowTelemetry`, which is a shared hook binding, so the claims of no share"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-22T21:40:24.360337+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "telemetry-pii-redaction"
+      ],
+      "techniques": [
+        "correlation-preserving-redaction",
+        "denylist-plus-pattern-pass",
+        "exclusion-bounds-reads-not-output",
+        "hook-coverage-gaps",
+        "redact-at-the-cap",
+        "redaction-invariants-as-tests"
+      ],
+      "deviations": 1,
+      "context": "civic-inbox",
+      "via": "curator-multi:agy",
+      "model": "gemini-3.8-flash-high"
+    }
+  ]
+}

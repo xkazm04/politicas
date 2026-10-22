@@ -9649,6 +9649,53 @@
           "evidence": "app/svedectvi/page.tsx:125 The testimony page renders citable figures; no synthesized speech or speaking element was found."
         }
       ]
+    },
+    "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/telemetry-pii-redaction": {
+      "context": "civic-inbox",
+      "subject": "telemetry-pii-redaction",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-22",
+      "evaluatedTs": "2026-10-22T21:40:24.360Z",
+      "techniques": [
+        {
+          "technique": "correlation-preserving-redaction",
+          "verdict": "deviation",
+          "evidence": "features/schranka/telemetryScrub.ts:56 Followed entity keys in query params are deleted and replaced by a count rather than a keyed derivative that preserves correlation across triage reports."
+        },
+        {
+          "technique": "denylist-plus-pattern-pass",
+          "verdict": "deviation",
+          "evidence": "features/schranka/telemetryScrub.ts:74 The scrubber only matches the specific query parameter e= rather than executing a recursive keyed drop pass and pattern pass over all string values."
+        },
+        {
+          "technique": "exclusion-bounds-reads-not-output",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:26 Civic-inbox filters discrete entity query parameters rather than composing synthetic outputs from read-bounded source material."
+        },
+        {
+          "technique": "hook-coverage-gaps",
+          "verdict": "deviation",
+          "evidence": "instrumentation-client.ts:25 Client and server initialize separate Sentry configs without a shared base configuration, omit a capture wrapper for call sites, and leave unreached hook fields undocumented."
+        },
+        {
+          "technique": "redact-at-the-cap",
+          "verdict": "deviation",
+          "evidence": "features/schranka/telemetryScrub.ts:124 Unknown event shapes pass through uninspected without depth/breadth/size limits, and there is no guard returning a minimal record on error."
+        },
+        {
+          "technique": "redaction-invariants-as-tests",
+          "verdict": "conformant",
+          "evidence": "features/schranka/telemetryScrub.test.ts:113 Tests verify whole-payload absence across serialized JSON output, clean survival of non-entity parameters, and positive execution of the replacement marker."
+        }
+      ],
+      "registryProposal": "The correlation-preserving-redaction technique should clarify guidance for zero-account follow systems where the identifier is a set of public entity keys forming an interest fingerprint, making count replacement preferable to keyed pseudonymization.",
+      "withdrawn": {
+        "worker": "ed623c45-5eec-45a2-a351-3c414a61e4e4",
+        "state": "deviation",
+        "at": "2026-10-22T21:40:51.404006+00:00",
+        "reason": "reviewer (sonnet): Anchors :56 and :74 support the narrow e-parameter claim, but the carrying anchors :26 and :25 do not say what is claimed. Line 26 is a header comment saying the module is not anonymization. Line 25 is just `beforeSend: scrubFollowTelemetry`, which is a shared hook binding, so the claims of no share"
+      }
     }
   }
 }
