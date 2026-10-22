@@ -11,6 +11,7 @@ import {
   isFirstSignatory,
   parseRapporteurs,
   parseSponsorRoles,
+  splitTitleCitations,
 } from "./psp-legislation";
 
 const PSP10 = 174;
@@ -22,6 +23,36 @@ describe("extractAmendedLaws", () => {
     expect(extractAmendedLaws("…mění zákon č. 90/1995 Sb. a zákon č. 250/2016 Sb.")).toEqual(["90/1995", "250/2016"]);
     expect(extractAmendedLaws("Návrh zákona o něčem novém")).toEqual([]); // a new law, cites nothing
     expect(extractAmendedLaws(null)).toEqual([]);
+  });
+
+  it("drops the amendment-history acts a title names after 've znění' (tisky 88 and 124, PSP10)", () => {
+    // live titles, verbatim tails: 300/2025 and 360/2025 last amended the targets; the bills do not amend them
+    expect(
+      extractAmendedLaws(
+        "…kterým se mění zákon č. 117/1995 Sb., o státní sociální podpoře, ve znění pozdějších předpisů, a zákon č. 152/2025 Sb., kterým se mění některé zákony v souvislosti s přijetím zákona o dávce státní sociální pomoci, ve znění zákona č. 300/2025 Sb.",
+      ),
+    ).toEqual(["117/1995", "152/2025"]);
+    expect(
+      splitTitleCitations(
+        "…kterým se mění zákon č. 151/2025 Sb., o dávce státní sociální pomoci, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb., o životním a existenčním minimu, ve znění pozdějších předpisů, a další související zákony",
+      ),
+    ).toEqual({ amended: ["151/2025", "110/2006"], history: ["360/2025"] });
+    // a history list joined by "a zákona" stays history
+    expect(splitTitleCitations("mění zákon č. 1/2000 Sb., ve znění zákona č. 7/1993 Sb. a zákona č. 304/1993 Sb.")).toEqual({
+      amended: ["1/2000"],
+      history: ["7/1993", "304/1993"],
+    });
+  });
+
+  it("keeps a genitive target after the generic 've znění pozdějších předpisů' (tisk 132, 4th term)", () => {
+    expect(
+      extractAmendedLaws(
+        "…mění zákon č. 114/1992 Sb., o ochraně přírody a krajiny, ve znění pozdějších předpisů, a o změně zákona č. 50/1976 Sb., o územním plánování",
+      ),
+    ).toEqual(["114/1992", "50/1976"]);
+    expect(
+      extractAmendedLaws("…mění zákon č. 20/1966 Sb., o péči, ve znění pozdějších předpisů, a zákon ČNR č. 36/1975 Sb., o pokutách"),
+    ).toEqual(["20/1966", "36/1975"]);
   });
 });
 

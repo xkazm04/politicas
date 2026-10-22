@@ -42,11 +42,40 @@ export const SOURCE_TISKY_LAW = "psp-tisky-law";
  * refs of the same number/year (proven false edges: tisk 63→64/2017, tisk 52→55/2006, tisk
  * 144→108/2004 — each an international treaty, not a law). */
 export const LAW_CITATION = /č\.\s*(\d{1,4})\s*\/\s*(\d{4})\s*Sb\.(?!\s*m\.\s*s\.)/g;
+
+/** A title names each target's amendment history after "ve znění" ("as amended by"), in the
+ * genitive: "zákon č. 151/2025 Sb., …, ve znění zákona č. 360/2025 Sb., zákon č. 110/2006 Sb.".
+ * 360/2025 is the act that last amended 151/2025, not a target; the bill points at it and does
+ * not amend it. A citation is history when a "ve znění" precedes it and nothing after that
+ * reopens a target list: an accusative target noun (zákon, zákony, ústavní zákon, zákonné
+ * opatření), "kterým se mění", "o změně", or the generic "ve znění pozdějších předpisů", which
+ * closes its own clause. Measured over every law-bill title in tisky.unl (2026-10-22): PSP10
+ * drops 2 of 185 edges (tisky 88 and 124, both history acts); all terms drop 856 of 6890.
+ * The "o změně" and "pozdějších předpisů" stops exist because "…, ve znění pozdějších předpisů,
+ * a o změně zákona č. 50/1976 Sb." (tisk 132, 4th term) carries a genitive TARGET. */
+const AS_AMENDED = /ve\s+znění/gu;
+const REOPENS_TARGETS =
+  /(?<!\p{L})(?:zákon|zákony|zákonné\s+opatření|ústavní\s+zákon)(?!\p{L})|kterým\s+se\s+mění|o\s+změně|pozdějších\s+předpisů/u;
+function isAmendmentHistory(title: string, at: number): boolean {
+  let afterAsAmended = -1;
+  for (const m of title.slice(0, at).matchAll(AS_AMENDED)) afterAsAmended = m.index + m[0].length;
+  return afterAsAmended >= 0 && !REOPENS_TARGETS.test(title.slice(afterAsAmended, at));
+}
+
+/** Title citations split into amendment targets and amendment-history acts. History is
+ * dropped from the edge set and returned so a caller can count it, never re-attributed. */
+export function splitTitleCitations(title: string | null): { amended: string[]; history: string[] } {
+  if (!title) return { amended: [], history: [] };
+  const amended = new Set<string>();
+  const history = new Set<string>();
+  for (const m of title.matchAll(LAW_CITATION)) {
+    (isAmendmentHistory(title, m.index) ? history : amended).add(`${Number(m[1])}/${m[2]}`);
+  }
+  return { amended: [...amended], history: [...history].filter((ref) => !amended.has(ref)) };
+}
+
 export function extractAmendedLaws(title: string | null): string[] {
-  if (!title) return [];
-  const out = new Set<string>();
-  for (const m of title.matchAll(LAW_CITATION)) out.add(`${Number(m[1])}/${m[2]}`);
-  return [...out];
+  return splitTitleCitations(title).amended;
 }
 
 export type BillOrigin = "government" | "mp" | "mp_group" | "senate" | "other";
