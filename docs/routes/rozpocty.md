@@ -203,3 +203,15 @@ definition `extractBudgetYear` reads, pinned against a live 2026-10-22 capture. 
 changed: no figure moves; the mirror still reads `dluh`. Whether organization
 debt belongs in "the town's debt" is a perimeter decision for the owner, and taking
 `dluh_celkem` would move every peer median and the stewardship input.
+
+**No peer verdict below `MIN_PEERS` reporting peers (2026-10-22).** `peerGroupFor`
+widens a group nationally when the region holds fewer than `MIN_PEERS` covered
+towns, but nothing checked the widened group, or the year's reporters, against the
+floor. A band with four reporters nationwide would still have painted the town red
+against a four-town median. Measured over the batch (132 towns, 2021-2025): the
+smallest headline sample is exactly 5 (18 towns), and no debt-trend point falls
+below 5, so the floor held only because of the data. `compareToPeer` now takes the
+median's sample size and returns `incomparable` below `MIN_PEERS`, and `MetricDuo`
+passes `medians.sampleSize`. The median and its count still print as a description.
+Not changed: no verdict moves today. `peerGroups.test.ts` pins that over the real
+batch and fails if a sub-floor band appears.

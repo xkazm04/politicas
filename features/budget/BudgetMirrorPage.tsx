@@ -57,6 +57,7 @@ function MetricDuo({
   peer,
   max,
   lowerIsBetter,
+  sample,
 }: {
   label: string;
   /** czk = f.czk · pct = f.dec + statické „%". */
@@ -65,6 +66,8 @@ function MetricDuo({
   peer: number | null;
   max: number;
   lowerIsBetter: boolean;
+  /** Vzorek mediánu; pod MIN_PEERS žádný verdikt (viz compareToPeer). */
+  sample: number;
 }) {
   const t = useTranslations("budget");
   const f = useFormat();
@@ -72,7 +75,7 @@ function MetricDuo({
   // Signální červeň jen u DOLOŽENÉ prohry s mediánem: obec bez vzorku vrstevníků
   // („medián · bez vzorku" pod ní) se do 2026-09-08 sázela červeně, jako by
   // proti někomu prohrála.
-  const worse = compareToPeer(town, peer, lowerIsBetter) === "worse";
+  const worse = compareToPeer(town, peer, lowerIsBetter, sample) === "worse";
   const width = (v: number) => `${Math.min(100, Math.max(2, (Math.abs(v) / max) * 100))}%`;
   return (
     <div className="bg-paper p-5">
@@ -316,6 +319,7 @@ export default function BudgetMirrorPage({
                     peer={medians.debtPerCapita}
                     max={metricMax.debt}
                     lowerIsBetter
+                    sample={medians.sampleSize}
                   />
                   <MetricDuo
                     label={`${t("metricCapexLabel")} (${latest.year})`}
@@ -324,6 +328,7 @@ export default function BudgetMirrorPage({
                     peer={medians.capexRatio}
                     max={metricMax.capex}
                     lowerIsBetter={false}
+                    sample={medians.sampleSize}
                   />
                   <MetricDuo
                     label={`${t("metricSaldoLabel")} (${latest.year})`}
@@ -332,6 +337,7 @@ export default function BudgetMirrorPage({
                     peer={medians.saldoPerCapita}
                     max={metricMax.saldo}
                     lowerIsBetter={false}
+                    sample={medians.sampleSize}
                   />
                 </div>
                 {/* Zveřejněné pravidlo vrstevnické skupiny — počítá se, netvrdí. */}
