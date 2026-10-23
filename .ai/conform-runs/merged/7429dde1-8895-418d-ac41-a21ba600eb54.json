@@ -1,0 +1,17 @@
+{
+ "schema": "conform-run/1",
+ "worker": "7429dde1-8895-418d-ac41-a21ba600eb54",
+ "subject": "trust-base",
+ "evaluatedAt": "2026-10-23T21:04:21.137076+00:00",
+ "provider": "agy",
+ "model": "gemini-3.8-flash-high",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "trust-base",
+   "context": "census-quality-gate",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": []
+}
