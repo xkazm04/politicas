@@ -1,0 +1,148 @@
+{
+ "schema": "conform-run/1",
+ "worker": "544c0dd8-d6a8-462d-9b67-d8a27a767361",
+ "subject": "mcp-tools",
+ "evaluatedAt": "2026-10-24T02:56:32.732564+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-store-engine",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/config.ts:14 lib/db only picks and runs the embedded PGlite store driver for in-process loaders and exposes no tool protocol. A case-insensitive search of lib/db for mcp, json-rpc, modelcontextprotocol, tools/call, inputSchema, callTool and listTools found nothing (the one 'stdio' hit is a child-process option in a durability test), so no technique's precondition holds.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "inputSchema",
+    "callTool"
+   ]
+  },
+  {
+   "context": "kg-graph-writers",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/kg-promote.ts:16 kg-promote and its sibling writers are operator-run tsx CLI scripts. They read static verdict JSON files and upsert into kg_node/kg_edge. No model calls them through a tool protocol, and a search of scripts/data-analysis for mcp, json-rpc, modelcontextprotocol, tools/call, inputSchema, tool_use and callTool found nothing.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "inputSchema",
+    "callTool"
+   ]
+  },
+  {
+   "context": "app-utilities",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/security/token.ts:6 The security layer protects only two human operator surfaces (the money review write path and the admin console) with a shared token. The routing and i18n helpers are plain parsers. A search of lib/routing, lib/i18n and lib/security for mcp, json-rpc, modelcontextprotocol, tools/call and inputSchema found nothing, so there is no tool server whose auth or schema the standard could govern.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "inputSchema",
+    "callTool"
+   ]
+  },
+  {
+   "context": "shell-navigation",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shell/publicRoutes.ts:2 features/shell declares the web app's chrome, nav model and sitemap/robots routes for human readers. A search of features/shell for mcp, json-rpc, modelcontextprotocol, tools/call and inputSchema found nothing, so no tool catalog or protocol surface exists here.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "inputSchema",
+    "callTool"
+   ]
+  },
+  {
+   "context": "civic-inbox",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/schranka/followCodec.ts:4 Schranka keeps the follow list in the reader's localStorage and serves RSS/JSON feeds over plain HTTP routes to people and feed readers, not a tool protocol to models. A search of features/schranka for mcp, json-rpc, modelcontextprotocol, tools/call and inputSchema found nothing.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "inputSchema",
+    "callTool"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T02:56:32.732564+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T02:56:32.732564+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T02:56:32.732564+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "app-utilities",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T02:56:32.732564+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shell-navigation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T02:56:32.732564+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civic-inbox",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

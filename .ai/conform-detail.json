@@ -612,55 +612,95 @@
       "subject": "mcp-tools",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T23:01:40.740Z",
-      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:56:32.732Z",
+      "worker": "544c0dd8-d6a8-462d-9b67-d8a27a767361",
       "techniques": [],
-      "registryProposal": "The mcp-tools standard applies exclusively to Model Context Protocol tool servers, hosts, and clients; lexical matching on 'store' and 'connection' over-matches internal embedded database configurations."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/db/config.ts:18 Searching lib/db/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the module configures and selects the internal embedded PGlite database driver.",
+          "evaluatedAt": "2026-10-12T23:01:40.740Z",
+          "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+          "reason": "replaced by 544c0dd8-d6a8-462d-9b67-d8a27a767361"
+        }
+      ]
     },
     "1e6194ec-5275-4cfd-b045-c0604ab491e2/mcp-tools": {
       "context": "kg-graph-writers",
       "subject": "mcp-tools",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T23:01:40.740Z",
-      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:56:32.732Z",
+      "worker": "544c0dd8-d6a8-462d-9b67-d8a27a767361",
       "techniques": [],
-      "registryProposal": "The mcp-tools standard applies to tool servers and clients; offline batch verdict ingestion scripts do not expose or consume tool protocol primitives."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:96 Searching scripts/data-analysis/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as kg-promote operates as an offline pipeline script validating and landing static JSON verdict files into graph tables.",
+          "evaluatedAt": "2026-10-12T23:01:40.740Z",
+          "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+          "reason": "replaced by 544c0dd8-d6a8-462d-9b67-d8a27a767361"
+        }
+      ]
     },
     "4a469aa2-e8dd-4ec4-b8c7-b8838f526aae/mcp-tools": {
       "context": "app-utilities",
       "subject": "mcp-tools",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T23:01:40.740Z",
-      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:56:32.732Z",
+      "worker": "544c0dd8-d6a8-462d-9b67-d8a27a767361",
       "techniques": [],
-      "registryProposal": "The mcp-tools standard applies to tool protocol capability tokens and scoping; basic HTTP routing and constant-time operator secret matching do not implement tool protocols."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/security/token.ts:57 Searching lib/routing/, lib/i18n/, and lib/security/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the context only provides routing helpers, locale resolution, and constant-time operator token matching.",
+          "evaluatedAt": "2026-10-12T23:01:40.740Z",
+          "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+          "reason": "replaced by 544c0dd8-d6a8-462d-9b67-d8a27a767361"
+        }
+      ]
     },
     "f84fc62f-066d-4eff-bad8-805084d68e10/mcp-tools": {
       "context": "shell-navigation",
       "subject": "mcp-tools",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T23:01:40.740Z",
-      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:56:32.732Z",
+      "worker": "544c0dd8-d6a8-462d-9b67-d8a27a767361",
       "techniques": [],
-      "registryProposal": "The mcp-tools standard applies to tool catalogs and discovery protocols; web application UI shell navigation models do not implement tool protocols."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/shell/publicRoutes.ts:42 Searching features/shell/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as the context exclusively manages web application chrome, nav rail entries, and public static routes.",
+          "evaluatedAt": "2026-10-12T23:01:40.740Z",
+          "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+          "reason": "replaced by 544c0dd8-d6a8-462d-9b67-d8a27a767361"
+        }
+      ]
     },
     "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/mcp-tools": {
       "context": "civic-inbox",
       "subject": "mcp-tools",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T23:01:40.740Z",
-      "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:56:32.732Z",
+      "worker": "544c0dd8-d6a8-462d-9b67-d8a27a767361",
       "techniques": [],
-      "registryProposal": "The mcp-tools standard applies to tool servers and client integrations; unauthenticated client-side local storage follow lists and RSS feeds do not implement tool protocols."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/schranka/followCodec.ts:41 Searching features/schranka/ for 'mcp', 'tool protocol', and 'json-rpc' returned zero tool-protocol implementations, as civic-inbox stores subscriber follows directly in browser localStorage and serves public unauthenticated feeds.",
+          "evaluatedAt": "2026-10-12T23:01:40.740Z",
+          "worker": "be019020-7e66-4af7-ba2d-e58e73d90994",
+          "reason": "replaced by 544c0dd8-d6a8-462d-9b67-d8a27a767361"
+        }
+      ]
     },
     "747db329-14c0-47a7-b8b5-eaf8095b9fdb/supply-chain": {
       "context": "effort-scoring-tools",
