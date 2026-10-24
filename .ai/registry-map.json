@@ -1845,7 +1845,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/budget/mirrorData.ts:5 BudgetMirror is a set of pure functions over generated data modules plus a React surface; it embeds no interpreter and runs no code it did not write, and a search of features/budget for node:vm, quickjs, isolated-vm, new Function and vm.runIn found nothing, so there is no guest evaluation to bound.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-instruction-files",
@@ -10058,7 +10062,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-021.ts:15 The archived LawWatch probes are one-shot tsx scripts that read the store and the filesystem and write JSON payloads; they evaluate no guest code, and a search of scripts/case-loops/law/archive for node:vm, quickjs, isolated-vm, new Function and vm.runIn found nothing, so the subject's precondition (an embedded interpreter running code the host did not write) does not hold.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "quality-gates",

@@ -11713,6 +11713,26 @@
           "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:72 Bulk writes are prop migrations behind a PREPARE-by-default/--commit gate. Nothing is deleted."
         }
       ]
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/guest-execution-bounding": {
+      "context": "budget-mirror",
+      "subject": "guest-execution-bounding",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:42:26.625Z",
+      "worker": "1cc80dd2-4df4-45cc-818e-ba39ac4cba7e",
+      "techniques": []
+    },
+    "990e6972-5664-46fe-86ab-e0a8a0f77ccf/guest-execution-bounding": {
+      "context": "law-archive-late",
+      "subject": "guest-execution-bounding",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:42:26.625Z",
+      "worker": "1cc80dd2-4df4-45cc-818e-ba39ac4cba7e",
+      "techniques": []
     }
   }
 }
