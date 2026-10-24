@@ -2225,12 +2225,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/census/run-census.mjs:16 A search of scripts/census for memory, episode, consolidat, belief, distill and agent found only run-census.mjs:36, where recall is a lint rule's precision/recall, and library-index.json:304, a catalog domain ai-agents/human-review on the human-review-queue principle; neither is an agent memory store.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:23599eae61aa7119",
-          "evaluatedRevision": 47,
-          "revisionsBehind": 4,
-          "stale": true
+          "evidence": "scripts/census/run-census.mjs:16 Searching scripts/census for episode, belief, consolidat and distill found 0 hits. The only recall hit, run-census.mjs:36, is a lint rule's precision/recall figure. The context is a static import-adherence ratchet with no agent store, capture, distillation or recall path.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:4f054116d66a9495",
+          "evaluatedRevision": 51,
+          "revisionsBehind": 4
         },
         {
           "subject": "translation-quality-measurement",
@@ -4903,12 +4902,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/db/pglite/durability.ts:26 A search of the listed lib/db/pglite files for episode, belief, recall, consolidat, distill and working memory returned no hits; memory tokens are RAM rings in instrument.ts:28 and lesson-note citations in storeCopy.ts:15, and the durability contract describes a recomputable civic dump, not agent beliefs.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:23599eae61aa7119",
-          "evaluatedRevision": 47,
-          "revisionsBehind": 4,
-          "stale": true
+          "evidence": "lib/db/pglite/durability.ts:26 Searching lib/db/pglite for episode, belief, consolidat, distill and recall found 0 hits. The memory tokens are an in-memory metrics ring in instrument.ts and citations of lesson notes in storeCopy.ts and mappers.test.ts. This is persistence plumbing for a recomputable civic dump, not an agent's memory store.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:4f054116d66a9495",
+          "evaluatedRevision": 51,
+          "revisionsBehind": 4
         },
         {
           "subject": "data-access",
@@ -5174,8 +5172,12 @@
           "revision": 51,
           "changedAt": "2026-10-15",
           "confidence": "strong",
-          "state": "unknown",
-          "priorNotApplicable": 4
+          "state": "not-applicable",
+          "priorNotApplicable": 4,
+          "evidence": "lib/db/store.ts:2 Searching lib/db (migrations included) for episode, belief, consolidat, distill and recall found 0 hits. The Store interface is the read/write boundary for the civic entity graph that the server loaders serve to readers. Its null-to-fallback convention in loaderGuard.ts covers page data, not an agent's recall, so durable-store-failure-posture and recall-injection have no memory store to govern.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:4f054116d66a9495",
+          "evaluatedRevision": 51
         },
         {
           "subject": "embedded-db",
@@ -5594,12 +5596,11 @@
           "changedAt": "2026-10-15",
           "confidence": "strong",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/effort/merge-batch.ts:44 A search of scripts/case-loops/effort for memory, episode, consolidat, belief, recall and distill returned no hits; these files merge grouped Sonnet payload JSON into an MP-effort batch and stamp a publication review rung, which is not an agent memory pipeline.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:23599eae61aa7119",
-          "evaluatedRevision": 47,
-          "revisionsBehind": 4,
-          "stale": true
+          "evidence": "scripts/case-loops/effort/merge-batch.ts:1 Searching every file under scripts/case-loops/effort (archive included) for memory, episode, belief, recall and consolidat found 0 hits. These scripts merge subagent payload JSON into a scored MP-effort batch for publication, and that batch is never fed back into an agent's context as remembered state, so the agent-memory pipeline the subject assumes does not exist here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:4f054116d66a9495",
+          "evaluatedRevision": 51,
+          "revisionsBehind": 4
         },
         {
           "subject": "model-routing",
@@ -8518,12 +8519,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-promote.ts:10 A search of the listed kg writer files for episode, belief, recall, consolidat, distill and working memory returned no hits; the only memory tokens are lesson-note citations such as memory/kg-upsert-replaces-props.md, and kg-promote lands gated interpretive graph rows, not an agent's carried beliefs.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:23599eae61aa7119",
-          "evaluatedRevision": 47,
-          "revisionsBehind": 4,
-          "stale": true
+          "evidence": "scripts/data-analysis/kg-promote.ts:4 Searching scripts/data-analysis for episode, belief, consolidat and distill found 0 hits. The only memory tokens are citations of repo lesson notes such as memory/kg-upsert-replaces-props.md, and the one recall hit is an ARES search note in kg-money-ingest.ts. The writers land gated, provenance-stamped civic graph rows for readers, not beliefs an agent carries into its own context.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:4f054116d66a9495",
+          "evaluatedRevision": 51,
+          "revisionsBehind": 4
         },
         {
           "subject": "data-access",

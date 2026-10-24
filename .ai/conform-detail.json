@@ -535,41 +535,77 @@
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T21:56:37.588Z",
-      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:49:25.102Z",
+      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
       "techniques": [],
-      "registryProposal": "The subject assumes a runtime belief pipeline. A markdown lesson index (MEMORY.md) and a civic dossier review rung are both outside that pipeline, and this subject has no technique that says so."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/effort/merge-batch.ts:44 A search of scripts/case-loops/effort for memory, episode, consolidat, belief, recall and distill returned no hits; these files merge grouped Sonnet payload JSON into an MP-effort batch and stamp a publication review rung, which is not an agent memory pipeline.",
+          "evaluatedAt": "2026-10-12T21:56:37.588Z",
+          "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+          "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        }
+      ]
     },
     "78e81519-5df8-43ec-adb6-ba4dae3ea206/agent-memory": {
       "context": "census-quality-gate",
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T21:56:37.588Z",
-      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:49:25.102Z",
+      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/census/run-census.mjs:16 A search of scripts/census for memory, episode, consolidat, belief, distill and agent found only run-census.mjs:36, where recall is a lint rule's precision/recall, and library-index.json:304, a catalog domain ai-agents/human-review on the human-review-queue principle; neither is an agent memory store.",
+          "evaluatedAt": "2026-10-12T21:56:37.588Z",
+          "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+          "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        }
+      ]
     },
     "1e6194ec-5275-4cfd-b045-c0604ab491e2/agent-memory": {
       "context": "kg-graph-writers",
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T21:56:37.588Z",
-      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:49:25.102Z",
+      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "techniques": [],
+      "registryProposal": "Borderline worth a use_when note: a gated pass that lands LLM-proposed rows into a shared published graph (with a validation door and provenance) looks like consolidation, but the consumer is the product reader, not the agent. The subject could state that its precondition is recall back into the agent's own context.",
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:10 A search of the listed kg writer files for episode, belief, recall, consolidat, distill and working memory returned no hits; the only memory tokens are lesson-note citations such as memory/kg-upsert-replaces-props.md, and kg-promote lands gated interpretive graph rows, not an agent's carried beliefs.",
+          "evaluatedAt": "2026-10-12T21:56:37.588Z",
+          "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+          "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        }
+      ]
     },
     "5a54b236-a7d7-47c5-aaeb-e663266033e7/agent-memory": {
       "context": "db-pglite-engine",
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T21:56:37.588Z",
-      "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:49:25.102Z",
+      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/db/pglite/durability.ts:26 A search of the listed lib/db/pglite files for episode, belief, recall, consolidat, distill and working memory returned no hits; memory tokens are RAM rings in instrument.ts:28 and lesson-note citations in storeCopy.ts:15, and the durability contract describes a recomputable civic dump, not agent beliefs.",
+          "evaluatedAt": "2026-10-12T21:56:37.588Z",
+          "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
+          "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        }
+      ]
     },
     "8867f710-55df-4e4f-9da3-e412d2462001/mcp-tools": {
       "context": "db-store-engine",
@@ -10217,6 +10253,16 @@
           "evidence": "scripts/data-analysis/oneDump.test.ts:28 After the extraction into pspDump.ts, call-site adoption is asserted, not only the shared helper's behaviour (but only for the listed members; see gate-scope)."
         }
       ]
+    },
+    "8867f710-55df-4e4f-9da3-e412d2462001/agent-memory": {
+      "context": "db-store-engine",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:49:25.102Z",
+      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "techniques": []
     }
   }
 }

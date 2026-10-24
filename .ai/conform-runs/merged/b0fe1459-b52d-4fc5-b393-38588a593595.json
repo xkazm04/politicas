@@ -1,0 +1,147 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+ "subject": "agent-memory",
+ "evaluatedAt": "2026-10-24T01:49:25.102085+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "effort-scoring-tools",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/effort/merge-batch.ts:1 Searching every file under scripts/case-loops/effort (archive included) for memory, episode, belief, recall and consolidat found 0 hits. These scripts merge subagent payload JSON into a scored MP-effort batch for publication, and that batch is never fed back into an agent's context as remembered state, so the agent-memory pipeline the subject assumes does not exist here.",
+   "techniques": [],
+   "absenceTerms": [
+    "memory",
+    "episode",
+    "belief",
+    "recall",
+    "consolidat"
+   ]
+  },
+  {
+   "context": "kg-graph-writers",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/kg-promote.ts:4 Searching scripts/data-analysis for episode, belief, consolidat and distill found 0 hits. The only memory tokens are citations of repo lesson notes such as memory/kg-upsert-replaces-props.md, and the one recall hit is an ARES search note in kg-money-ingest.ts. The writers land gated, provenance-stamped civic graph rows for readers, not beliefs an agent carries into its own context.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill"
+   ],
+   "registryProposal": "Borderline worth a use_when note: a gated pass that lands LLM-proposed rows into a shared published graph (with a validation door and provenance) looks like consolidation, but the consumer is the product reader, not the agent. The subject could state that its precondition is recall back into the agent's own context."
+  },
+  {
+   "context": "census-quality-gate",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/census/run-census.mjs:16 Searching scripts/census for episode, belief, consolidat and distill found 0 hits. The only recall hit, run-census.mjs:36, is a lint rule's precision/recall figure. The context is a static import-adherence ratchet with no agent store, capture, distillation or recall path.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill"
+   ]
+  },
+  {
+   "context": "db-pglite-engine",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/pglite/durability.ts:26 Searching lib/db/pglite for episode, belief, consolidat, distill and recall found 0 hits. The memory tokens are an in-memory metrics ring in instrument.ts and citations of lesson notes in storeCopy.ts and mappers.test.ts. This is persistence plumbing for a recomputable civic dump, not an agent's memory store.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill",
+    "recall"
+   ]
+  },
+  {
+   "context": "db-store-engine",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/store.ts:2 Searching lib/db (migrations included) for episode, belief, consolidat, distill and recall found 0 hits. The Store interface is the read/write boundary for the civic entity graph that the server loaders serve to readers. Its null-to-fallback convention in loaderGuard.ts covers page data, not an agent's recall, so durable-store-failure-posture and recall-injection have no memory store to govern.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill",
+    "recall"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T01:49:25.102085+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:49:25.102085+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:49:25.102085+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:49:25.102085+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-pglite-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:49:25.102085+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
