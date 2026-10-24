@@ -1,0 +1,140 @@
+{
+  "schema": "conform-run/1",
+  "worker": "b3b9013a-6dae-46ce-91ec-a6f5e5f12fc3",
+  "subject": "roll-call-vote-analysis",
+  "evaluatedAt": "2026-10-24T03:52:14.788949+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "votetrack-ledger",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evidence": "features/votetrack/components/RealRebellions.tsx:106 The named-person rebel ranking renders unconditionally; the reconciliation's discrepancy count only changes the colour of a note and never withholds the ranking, so the technique's 'gate claims affected by discrepancies' rule is not realized even though the delta is disclosed honestly.",
+      "techniques": [
+        {
+          "technique": "tally-reconciliation",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:297 Disclosure is good: one-to-one method, worst example with per-slot deltas, never repaired. But discrepancies>0 only switches the note to an ochre border. No derived ranking or person-level claim is withheld, and the standard says disclosure alone is not enough."
+        },
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/components/RealRebellions.tsx:102 The capped top-rebels list ships the qualified population (counted before the slice) with the imported MIN_ELIGIBLE_VOTES floor; methodBody copy states the strict-majority line and that a tie sets no line."
+        },
+        {
+          "technique": "rice-cohesion-index",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:85 Null cohesion renders as 'not measured' (—), not as 0 or 1; the MIN_CLUB_POSITIONAL floor is imported and disclosed in methodBody (line 245)."
+        },
+        {
+          "technique": "positional-vs-participation-bases",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:96 Each club row prints its own denominators (line votes for discipline, Rice-qualifying votes for cohesion) rather than implying 'all valid votes'."
+        }
+      ]
+    },
+    {
+      "context": "votetrack-kompas-analysis",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evidence": "features/votetrack/kompas/score.ts:93 getKompas.ts drops ballots whose bucketOf() is null (unknown code) from the ballot map, and score.ts then defaults any missing ballot to \"away\", turning an undocumented code back into a published absence count. That is the second-mapping 'default arm' failure the vocabulary technique names.",
+      "techniques": [
+        {
+          "technique": "vote-choice-vocabulary-mapping",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/score.ts:93 derive.ts bucketOf has no default arm (returns null for unknown). The compass, though, filters null out in getKompas.ts:162 and re-defaults it to away here, so unknown ends up counted in awayCount."
+        },
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/record/derive.ts:142 Strict majority with tie→no line, club-at-vote windows and a deterministic rate/count/name/id sort are all realized. But no per-division line-support rule exists (a 1:0 club tally sets a line). The copy does not say the scored member is included in the line. The rollup also keys per person with the first-seen club (line 384) and does not disclose per-club components for switchers."
+        },
+        {
+          "technique": "tally-reconciliation",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/record/derive.ts:595 The procedure is exemplary (reconcile.ts: one-to-one slots, K = abstain+notVoting, away excluded, null recount kept separate from zero, deterministic worst example). But it is computed beside topRebels and never gates them, which misses the 'withhold derived rankings' decision rule."
+        },
+        {
+          "technique": "positional-vs-participation-bases",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/derive.ts:128 Bases come from the exported vocabulary sets, not re-listed; K and away never enter line/rebellion/Rice denominators."
+        },
+        {
+          "technique": "rice-cohesion-index",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/derive.ts:157 Positional base only, null without positional votes. Club means are gated by the imported MIN_CLUB_POSITIONAL (line 509). The chamber figure is positional-weighted, and an unmeasured day is null."
+        }
+      ],
+      "registryProposal": "vote-choice-vocabulary-mapping's 'second mapping has no default arm' rule should also name the lookup-default variant: a consumer that filters unknown out of a sparse map and then defaults a missing key to 'away' reintroduces the same error without any bucketer having a default arm."
+    }
+  ],
+  "declined": [
+    {
+      "subject": "roll-call-vote-analysis",
+      "context": "verdict-and-law-analysis",
+      "reason": "evidence leans on record/derive.ts, which is not a tracked file"
+    },
+    {
+      "subject": "roll-call-vote-analysis",
+      "context": "kg-domain-ingest",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "roll-call-vote-analysis",
+      "context": "voting-legislation-routes",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor shows app/hlasovani/page.tsx mounts VoteTrackPage with getVoteRecord data, so the route is the entry point of the roll-call analysis. The grep for rice/positional/rebel/cohesion only misses it because the derivation lives in features/votetrack. The line doesn't show the precondition is ab"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-24T03:52:14.788949+00:00",
+      "bundle": "civic-intelligence",
+      "subjects": [
+        "roll-call-vote-analysis"
+      ],
+      "techniques": [
+        "club-line-and-rebellion",
+        "positional-vs-participation-bases",
+        "rice-cohesion-index",
+        "tally-reconciliation"
+      ],
+      "deviations": 1,
+      "context": "votetrack-ledger",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T03:52:14.788949+00:00",
+      "bundle": "civic-intelligence",
+      "subjects": [
+        "roll-call-vote-analysis"
+      ],
+      "techniques": [
+        "club-line-and-rebellion",
+        "positional-vs-participation-bases",
+        "rice-cohesion-index",
+        "tally-reconciliation",
+        "vote-choice-vocabulary-mapping"
+      ],
+      "deviations": 1,
+      "context": "votetrack-kompas-analysis",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T03:52:14.788949+00:00",
+      "bundle": "civic-intelligence",
+      "subjects": [
+        "roll-call-vote-analysis"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "voting-legislation-routes",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

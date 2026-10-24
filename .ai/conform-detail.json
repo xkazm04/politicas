@@ -2843,30 +2843,39 @@
       "context": "votetrack-ledger",
       "subject": "roll-call-vote-analysis",
       "bundle": "civic-intelligence",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:07:22.262Z",
-      "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:52:14.788Z",
+      "worker": "b3b9013a-6dae-46ce-91ec-a6f5e5f12fc3",
       "techniques": [
+        {
+          "technique": "tally-reconciliation",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:297 Disclosure is good: one-to-one method, worst example with per-slot deltas, never repaired. But discrepancies>0 only switches the note to an ochre border. No derived ranking or person-level claim is withheld, and the standard says disclosure alone is not enough."
+        },
         {
           "technique": "club-line-and-rebellion",
           "verdict": "conformant",
-          "evidence": "features/votetrack/components/RealRebellions.tsx:100 Renders rebellion rankings gated on MIN_ELIGIBLE_VOTES (50) and reports total eligible population before slicing presentation cap."
-        },
-        {
-          "technique": "positional-vs-participation-bases",
-          "verdict": "conformant",
-          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:95 Separately outputs lineVotes and riceVotes denominators so the reader sees positional bases rather than all term votes."
+          "evidence": "features/votetrack/components/RealRebellions.tsx:102 The capped top-rebels list ships the qualified population (counted before the slice) with the imported MIN_ELIGIBLE_VOTES floor; methodBody copy states the strict-majority line and that a tie sets no line."
         },
         {
           "technique": "rice-cohesion-index",
           "verdict": "conformant",
-          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:85 Displays Rice cohesion index per club, rendering null (when below qualification floor) as an em-dash rather than 0 or 1."
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:85 Null cohesion renders as 'not measured' (—), not as 0 or 1; the MIN_CLUB_POSITIONAL floor is imported and disclosed in methodBody (line 245)."
         },
         {
-          "technique": "tally-reconciliation",
+          "technique": "positional-vs-participation-bases",
           "verdict": "conformant",
-          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:326 Displays reconciliation results against source tallies, presenting deltas as findings and linking to primary psp.cz source."
+          "evidence": "features/votetrack/components/RealDisciplineBoard.tsx:96 Each club row prints its own denominators (line votes for discipline, Rice-qualifying votes for cohesion) rather than implying 'all valid votes'."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "features/votetrack/getVoteRecord.ts:115 Loads and caches the full derived vote record for the ledger and seismogram surfaces while preserving complete population counts before presentation slicing.",
+          "evaluatedAt": "2026-10-13T22:07:22.262Z",
+          "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+          "reason": "replaced by b3b9013a-6dae-46ce-91ec-a6f5e5f12fc3"
         }
       ]
     },
@@ -2874,30 +2883,45 @@
       "context": "votetrack-kompas-analysis",
       "subject": "roll-call-vote-analysis",
       "bundle": "civic-intelligence",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:07:22.262Z",
-      "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:52:14.788Z",
+      "worker": "b3b9013a-6dae-46ce-91ec-a6f5e5f12fc3",
       "techniques": [
         {
+          "technique": "vote-choice-vocabulary-mapping",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/score.ts:93 derive.ts bucketOf has no default arm (returns null for unknown). The compass, though, filters null out in getKompas.ts:162 and re-defaults it to away here, so unknown ends up counted in awayCount."
+        },
+        {
           "technique": "club-line-and-rebellion",
-          "verdict": "conformant",
-          "evidence": "features/votetrack/record/derive.ts:144 Defines party line as strict majority of positional ballots; ties yield null so no line is derived for evenly split groups."
+          "verdict": "deviation",
+          "evidence": "features/votetrack/record/derive.ts:142 Strict majority with tie→no line, club-at-vote windows and a deterministic rate/count/name/id sort are all realized. But no per-division line-support rule exists (a 1:0 club tally sets a line). The copy does not say the scored member is included in the line. The rollup also keys per person with the first-seen club (line 384) and does not disclose per-club components for switchers."
+        },
+        {
+          "technique": "tally-reconciliation",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/record/derive.ts:595 The procedure is exemplary (reconcile.ts: one-to-one slots, K = abstain+notVoting, away excluded, null recount kept separate from zero, deterministic worst example). But it is computed beside topRebels and never gates them, which misses the 'withhold derived rankings' decision rule."
         },
         {
           "technique": "positional-vs-participation-bases",
           "verdict": "conformant",
-          "evidence": "features/votetrack/record/derive.ts:122 Partitions choices into yes, no, merged K bucket, and away, ensuring only yes/no form the positional base."
+          "evidence": "features/votetrack/record/derive.ts:128 Bases come from the exported vocabulary sets, not re-listed; K and away never enter line/rebellion/Rice denominators."
         },
         {
           "technique": "rice-cohesion-index",
           "verdict": "conformant",
-          "evidence": "features/votetrack/record/derive.ts:157 Calculates Rice cohesion index |yes - no| / (yes + no) over positional votes, returning null when no positional ballots exist."
-        },
+          "evidence": "features/votetrack/record/derive.ts:157 Positional base only, null without positional votes. Club means are gated by the imported MIN_CLUB_POSITIONAL (line 509). The chamber figure is positional-weighted, and an unmeasured day is null."
+        }
+      ],
+      "registryProposal": "vote-choice-vocabulary-mapping's 'second mapping has no default arm' rule should also name the lookup-default variant: a consumer that filters unknown out of a sparse map and then defaults a missing key to 'away' reintroduces the same error without any bucketer having a default arm.",
+      "superseded": [
         {
-          "technique": "tally-reconciliation",
-          "verdict": "conformant",
-          "evidence": "features/votetrack/record/reconcile.ts:95 Compares recount against published chamber counts 1:1 without estimation, reporting discrepancies as findings rather than repairs."
+          "state": "conformant",
+          "evidence": "features/votetrack/record/derive.ts:207 Derives full deterministic roll-call vote records from ingested ballots, calculating majority party lines, Rice cohesion, rebellion rates with support floors, and tally reconciliation.",
+          "evaluatedAt": "2026-10-13T22:07:22.262Z",
+          "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+          "reason": "replaced by b3b9013a-6dae-46ce-91ec-a6f5e5f12fc3"
         }
       ]
     },
@@ -10673,6 +10697,21 @@
       "evaluatedTs": "2026-10-24T02:42:09.679Z",
       "worker": "a101a5a9-3d6e-4332-bb1d-d3866e09a642",
       "techniques": []
+    },
+    "78075124-3bda-491e-bb0e-08de5bbb4b3b/roll-call-vote-analysis": {
+      "context": "voting-legislation-routes",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:52:14.788Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "b3b9013a-6dae-46ce-91ec-a6f5e5f12fc3",
+        "state": "not-applicable",
+        "at": "2026-10-24T03:52:36.106021+00:00",
+        "reason": "reviewer (sonnet): The anchor shows app/hlasovani/page.tsx mounts VoteTrackPage with getVoteRecord data, so the route is the entry point of the roll-call analysis. The grep for rice/positional/rebel/cohesion only misses it because the derivation lives in features/votetrack. The line doesn't show the precondition is ab"
+      }
     }
   }
 }

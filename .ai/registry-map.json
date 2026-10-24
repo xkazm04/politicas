@@ -13814,13 +13814,12 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "conformant",
-          "evidence": "features/votetrack/record/derive.ts:207 Derives full deterministic roll-call vote records from ingested ballots, calculating majority party lines, Rice cohesion, rebellion rates with support floors, and tally reconciliation.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:1952ca06aa46d09f",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 1,
-          "stale": true
+          "state": "deviation",
+          "evidence": "features/votetrack/kompas/score.ts:93 getKompas.ts drops ballots whose bucketOf() is null (unknown code) from the ballot map, and score.ts then defaults any missing ballot to \"away\", turning an undocumented code back into a published absence count. That is the second-mapping 'default arm' failure the vocabulary technique names.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:1fb04612acd77185",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 1
         },
         {
           "subject": "quality-gates",
@@ -14017,13 +14016,12 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "conformant",
-          "evidence": "features/votetrack/getVoteRecord.ts:115 Loads and caches the full derived vote record for the ledger and seismogram surfaces while preserving complete population counts before presentation slicing.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:1952ca06aa46d09f",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 1,
-          "stale": true
+          "state": "deviation",
+          "evidence": "features/votetrack/components/RealRebellions.tsx:106 The named-person rebel ranking renders unconditionally; the reconciliation's discrepancy count only changes the colour of a note and never withholds the ranking, so the technique's 'gate claims affected by discrepancies' rule is not realized even though the delta is disclosed honestly.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:1fb04612acd77185",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 1
         },
         {
           "subject": "political-compass-from-votes",
