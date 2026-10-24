@@ -10852,6 +10852,56 @@
           "evidence": "scripts/census/lib/engine.mjs:345 The schema widening keeps the failed first port visible, with its date and the reason the fix went upstream."
         }
       ]
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/voice-io": {
+      "context": "app-shell",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:55:06.379Z",
+      "worker": "e4a6f296-ead2-425a-8035-0dee097e21ad",
+      "techniques": []
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/voice-io": {
+      "context": "eslint-transparency-rules",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:55:06.379Z",
+      "worker": "e4a6f296-ead2-425a-8035-0dee097e21ad",
+      "techniques": []
+    },
+    "8867f710-55df-4e4f-9da3-e412d2462001/voice-io": {
+      "context": "db-store-engine",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:55:06.379Z",
+      "worker": "e4a6f296-ead2-425a-8035-0dee097e21ad",
+      "techniques": []
+    },
+    "f4e73683-b40c-4436-b8ea-20e407f499ab/voice-io": {
+      "context": "eslint-plugin-civic-transparency-rules",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:55:06.379Z",
+      "worker": "e4a6f296-ead2-425a-8035-0dee097e21ad",
+      "techniques": []
+    },
+    "4a469aa2-e8dd-4ec4-b8c7-b8838f526aae/voice-io": {
+      "context": "app-utilities",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:55:06.379Z",
+      "worker": "e4a6f296-ead2-425a-8035-0dee097e21ad",
+      "techniques": []
     }
   }
 }

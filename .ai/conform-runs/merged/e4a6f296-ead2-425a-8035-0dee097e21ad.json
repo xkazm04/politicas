@@ -1,0 +1,148 @@
+{
+ "schema": "conform-run/1",
+ "worker": "e4a6f296-ead2-425a-8035-0dee097e21ad",
+ "subject": "voice-io",
+ "evaluatedAt": "2026-10-24T04:55:06.379811+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "app-shell",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/layout.tsx:10 I searched app/ for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext and microphone and got zero hits. The only 'voice' match in the shell is this font comment (Archivo + Plex Mono as two typographic 'voices'), so the shell has no capture or synthesis pipeline for the standard to govern.",
+   "techniques": [],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "eslint-rules/no-silent-catch.cjs:2 The context is only one-line lint shims that re-export the plugin's rules, and a search of eslint-rules/ found no speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so there is no voice I/O for any technique to judge.",
+   "techniques": [],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "db-store-engine",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/store.ts:2 This context is the embedded-Postgres persistence boundary. lib/db/ has no hits for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so no audio capture or playback passes through it.",
+   "techniques": [],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:2 The package is a lint-rule plugin; packages/eslint-plugin-civic-transparency/ has no hits for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so the voice standard has nothing to apply to.",
+   "techniques": [],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "app-utilities",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/security/adminGate.ts:4 These are routing-param, i18n and admin-gate utilities over plain values; lib/routing, lib/i18n and lib/security have no hits for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so voice I/O is absent.",
+   "techniques": [],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T04:55:06.379811+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "app-shell",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:55:06.379811+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:55:06.379811+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:55:06.379811+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:55:06.379811+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "app-utilities",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

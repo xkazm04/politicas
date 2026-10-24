@@ -1462,7 +1462,11 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/layout.tsx:10 I searched app/ for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext and microphone and got zero hits. The only 'voice' match in the shell is this font comment (Archivo + Plex Mono as two typographic 'voices'), so the shell has no capture or synthesis pipeline for the standard to govern.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:29f8b158c4d44054",
+          "evaluatedRevision": 23
         },
         {
           "subject": "test-harness",
@@ -1744,7 +1748,11 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/security/adminGate.ts:4 These are routing-param, i18n and admin-gate utilities over plain values; lib/routing, lib/i18n and lib/security have no hits for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so voice I/O is absent.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:29f8b158c4d44054",
+          "evaluatedRevision": 23
         },
         {
           "subject": "prompt-assembly",
@@ -5350,7 +5358,11 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/db/store.ts:2 This context is the embedded-Postgres persistence boundary. lib/db/ has no hits for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so no audio capture or playback passes through it.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:29f8b158c4d44054",
+          "evaluatedRevision": 23
         }
       ],
       "governance": "governed"
@@ -6032,7 +6044,11 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:2 The package is a lint-rule plugin; packages/eslint-plugin-civic-transparency/ has no hits for speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so the voice standard has nothing to apply to.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:29f8b158c4d44054",
+          "evaluatedRevision": 23
         },
         {
           "subject": "accessibility",
@@ -6415,7 +6431,11 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "eslint-rules/no-silent-catch.cjs:2 The context is only one-line lint shims that re-export the plugin's rules, and a search of eslint-rules/ found no speechSynthesis, SpeechRecognition, getUserMedia, AudioContext or microphone, so there is no voice I/O for any technique to judge.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:29f8b158c4d44054",
+          "evaluatedRevision": 23
         },
         {
           "subject": "agent-instruction-files",
