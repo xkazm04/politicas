@@ -8061,8 +8061,12 @@
           "revision": 12,
           "changedAt": "2026-10-06",
           "confidence": "strong",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/data-analysis/slice-stats.ts:1 These are knowledge-graph analysis and DataHub catalog scripts. 'Catalog' here means a metadata catalog, not a message catalog. A case-insensitive search of scripts/data-analysis for translat, i18n, next-intl and NEXT_LOCALE found 0 hits. 'locale' matches only toLocaleString/localeCompare. Nothing here stores, moves or serves translations.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
+          "evaluatedRevision": 12
         },
         {
           "subject": "copy-quality-gates",
@@ -9843,8 +9847,12 @@
           "revision": 12,
           "changedAt": "2026-10-06",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:1 These are archived LawWatch one-shot probes, where 'batch' means a bill-triage batch, not a translation batch. A search of scripts/case-loops/law/archive for translat, i18n, next-intl and NEXT_LOCALE found 0 hits. 'locale' matches only localeCompare(…, \"cs\") sorts.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
+          "evaluatedRevision": 12
         },
         {
           "subject": "guest-execution-bounding",
@@ -13180,8 +13188,12 @@
           "revision": 12,
           "changedAt": "2026-10-06",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "lib/testing/lanes.ts:2 This is test infrastructure: lane partitioning, PGlite fixtures and route-source tests. A search of lib/testing for translat, i18n, next-intl, NEXT_LOCALE, LanguageSwitcher and cs.json found 0 hits. The cs/en catalog parity tests live in features/*/messages.test.ts, not in this context.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
+          "evaluatedRevision": 12
         },
         {
           "subject": "data-access",
