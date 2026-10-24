@@ -1,0 +1,93 @@
+{
+ "schema": "conform-run/1",
+ "worker": "2025fe5d-6daa-426b-92dd-496ce29e06b0",
+ "subject": "usage-event-ingestion",
+ "evaluatedAt": "2026-10-24T23:55:29.536023+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "ingest-pipeline",
+   "subject": "usage-event-ingestion",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/changeEvents.ts:3 This context pulls full public snapshots (psp.cz dumps, PDFs, ZIPs) and diffs them into change events it derives itself; a case-insensitive search of lib/ingest for subscription, billing, invoice, billable and usage event found zero hits, so there is no externally posted, billable usage stream for the subject to govern.",
+   "techniques": [
+    {
+     "technique": "dedupe-key-survives-soft-delete",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/changeEvents.ts:51 The keys are derived deterministically by our own re-derivation, not minted by an external emitter, and nothing is billable. The technique's own 'own code / not billable' exclusions apply."
+    },
+    {
+     "technique": "thin-ingest-deferred-validation",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/changeEvents.ts:7 There is no high-volume admission endpoint with an external caller. These are internal pure transforms, the 'trusted internal caller' exclusion."
+    }
+   ],
+   "absenceTerms": [
+    "subscription",
+    "billing",
+    "invoice",
+    "billable"
+   ]
+  },
+  {
+   "context": "ingest-sources-financial",
+   "subject": "usage-event-ingestion",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/smlouvy.ts:11 These adapters are outbound pull clients for Czech government open-data APIs (smlouvy, ISVZ, dataor, kiosek, MONITOR), not an endpoint that customer services post billable usage to; a case-insensitive search of lib/ingest/sources for subscription, billing, invoice, billable and usage event found zero hits.",
+   "techniques": [
+    {
+     "technique": "dedupe-key-survives-soft-delete",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/kiosek.ts:102 This is a harvester dedup on the source's own URL, for public notices that are not billable, so the 'events are not billable' exclusion applies."
+    },
+    {
+     "technique": "thin-ingest-deferred-validation",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/kiosek.ts:1 We are the client polling someone else's feed, so there is no admission door to make thin."
+    }
+   ],
+   "absenceTerms": [
+    "subscription",
+    "billing",
+    "invoice",
+    "billable"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T23:55:29.536023+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "usage-event-ingestion"
+   ],
+   "techniques": [
+    "dedupe-key-survives-soft-delete",
+    "thin-ingest-deferred-validation"
+   ],
+   "deviations": 0,
+   "context": "ingest-pipeline",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T23:55:29.536023+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "usage-event-ingestion"
+   ],
+   "techniques": [
+    "dedupe-key-survives-soft-delete",
+    "thin-ingest-deferred-validation"
+   ],
+   "deviations": 0,
+   "context": "ingest-sources-financial",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

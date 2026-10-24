@@ -7514,7 +7514,11 @@
           "revision": 3,
           "changedAt": "2026-09-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:3 This context pulls full public snapshots (psp.cz dumps, PDFs, ZIPs) and diffs them into change events it derives itself; a case-insensitive search of lib/ingest for subscription, billing, invoice, billable and usage event found zero hits, so there is no externally posted, billable usage stream for the subject to govern.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:74ce470dc4579c08",
+          "evaluatedRevision": 3
         },
         {
           "subject": "prompt-assembly",
@@ -7880,7 +7884,11 @@
           "revision": 3,
           "changedAt": "2026-09-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy.ts:11 These adapters are outbound pull clients for Czech government open-data APIs (smlouvy, ISVZ, dataor, kiosek, MONITOR), not an endpoint that customer services post billable usage to; a case-insensitive search of lib/ingest/sources for subscription, billing, invoice, billable and usage event found zero hits.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:74ce470dc4579c08",
+          "evaluatedRevision": 3
         },
         {
           "subject": "workflow-property-contracts",

@@ -11899,6 +11899,48 @@
           "evidence": "lib/analysis/kg-money.ts:42 Perimeter is declared in the module: declared/registry roles only. One builder (buildPersonCompanyLinks over privateRoleEvents, money-feed.ts:554) applies it uniformly, and every link is emitted pending_review. Render-side disclosure is outside this context."
         }
       ]
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/usage-event-ingestion": {
+      "context": "ingest-pipeline",
+      "subject": "usage-event-ingestion",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:55:29.536Z",
+      "worker": "2025fe5d-6daa-426b-92dd-496ce29e06b0",
+      "techniques": [
+        {
+          "technique": "dedupe-key-survives-soft-delete",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:51 The keys are derived deterministically by our own re-derivation, not minted by an external emitter, and nothing is billable. The technique's own 'own code / not billable' exclusions apply."
+        },
+        {
+          "technique": "thin-ingest-deferred-validation",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:7 There is no high-volume admission endpoint with an external caller. These are internal pure transforms, the 'trusted internal caller' exclusion."
+        }
+      ]
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/usage-event-ingestion": {
+      "context": "ingest-sources-financial",
+      "subject": "usage-event-ingestion",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:55:29.536Z",
+      "worker": "2025fe5d-6daa-426b-92dd-496ce29e06b0",
+      "techniques": [
+        {
+          "technique": "dedupe-key-survives-soft-delete",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:102 This is a harvester dedup on the source's own URL, for public notices that are not billable, so the 'events are not billable' exclusion applies."
+        },
+        {
+          "technique": "thin-ingest-deferred-validation",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:1 We are the client polling someone else's feed, so there is no admission door to make thin."
+        }
+      ]
     }
   }
 }
