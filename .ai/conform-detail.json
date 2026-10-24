@@ -6621,47 +6621,45 @@
       "context": "civic-inbox",
       "subject": "llm-call-telemetry-model",
       "bundle": "llm-observability",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T02:47:50.185Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:54:39.127Z",
+      "worker": "45ed93a5-737b-4eff-aedd-34e6537d847c",
       "techniques": [
         {
           "technique": "dual-clock-event-time",
           "verdict": "not-applicable",
-          "evidence": "features/schranka/useNews.ts:53 This timestamp controls the news-fetch cache; no LLM accounting window was found."
-        },
-        {
-          "technique": "ingest-skew-rejection",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/feedRequest.ts:21 The date parser handles a feed selection threshold; no client-reported LLM call timestamp is ingested."
-        },
-        {
-          "technique": "metadata-attribution-keys",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/followCodec.ts:41 The follow-list identity belongs to local browser storage; no call-billing attribution map was found."
-        },
-        {
-          "technique": "nullable-cost-never-zero",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/deriveDeltas.ts:63 The monetary field belongs to civic diary deltas; no provider price book or LLM call cost aggregate was found."
-        },
-        {
-          "technique": "server-owned-fields",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/telemetryScrub.ts:116 This operation removes follow-list information from outgoing telemetry; no receiving path stamps call-accounting fields."
+          "evidence": "features/schranka/telemetryScrub.ts:30 No LLM call event record exists, so there is no budget window and no clock choice to make."
         },
         {
           "technique": "token-usage-quadruple",
           "verdict": "not-applicable",
-          "evidence": "features/schranka/useNews.ts:90 The counter measures civic news entries; no provider token-usage record was found."
+          "evidence": "features/schranka/telemetryScrub.ts:30 No token counters anywhere in the context."
+        },
+        {
+          "technique": "nullable-cost-never-zero",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:30 No cost and no price book."
+        },
+        {
+          "technique": "ingest-skew-rejection",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/feedRequest.ts:21 The date parser handles a feed selection threshold; no client-reported LLM call timestamp is ingested.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "metadata-attribution-keys",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/followCodec.ts:41 The follow-list identity belongs to local browser storage; no call-billing attribution map was found.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "server-owned-fields",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:116 This operation removes follow-list information from outgoing telemetry; no receiving path stamps call-accounting fields.",
+          "carriedFrom": "2026-10-17"
         }
-      ],
-      "withdrawn": {
-        "worker": "3ad74d06-d9c0-43e7-9fc5-1db1b26fa0bf",
-        "state": "not-applicable",
-        "at": "2026-10-17T02:48:15.881371+00:00",
-        "reason": "reviewer (sonnet): The anchor telemetryScrub.ts:98 is only a Sentry-scrub docblock and doesn't show that no LLM call exists. The technique anchors are unrelated lines (cache timestamp, date regex, storage key, czk field). My grep over features/schranka for anthropic, openai, gemini, llm and model found nothing, but th"
-      }
+      ]
     },
     "e2b80f75-a467-40ef-a983-08311773f3d1/llm-call-telemetry-model": {
       "context": "ingest-sources-financial",
@@ -6708,47 +6706,46 @@
       "context": "ingest-pipeline",
       "subject": "llm-call-telemetry-model",
       "bundle": "llm-observability",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T02:47:50.185Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:54:39.127Z",
+      "worker": "45ed93a5-737b-4eff-aedd-34e6537d847c",
       "techniques": [
         {
           "technique": "dual-clock-event-time",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:339 The timestamp comes from a knowledge-graph claim version; no LLM accounting window was found."
-        },
-        {
-          "technique": "ingest-skew-rejection",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:333 The comparison suppresses historical graph backfill events; it does not receive client-reported model-call timestamps."
-        },
-        {
-          "technique": "metadata-attribution-keys",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:343 The map points to graph evidence; no model-call billing attribution was found."
-        },
-        {
-          "technique": "nullable-cost-never-zero",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/parsedText.ts:95 The extraction result carries text and parser provenance; no model price lookup or call-cost aggregate was found."
-        },
-        {
-          "technique": "server-owned-fields",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:245 The builder derives a deterministic civic-change identifier; no authenticated LLM telemetry receiving path was found."
+          "evidence": "lib/ingest/changeEvents.ts:55 The event carries a server record-time clock for civic facts. These are not LLM calls and do not feed a budget window."
         },
         {
           "technique": "token-usage-quadruple",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/unlMembers.ts:16 The parser decodes public-data dump records; no provider token quantities are modeled."
+          "evidence": "lib/ingest/changeEvents.ts:46 The change event schema has no token fields."
+        },
+        {
+          "technique": "ingest-skew-rejection",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:333 The comparison suppresses historical graph backfill events; it does not receive client-reported model-call timestamps.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "metadata-attribution-keys",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:343 The map points to graph evidence; no model-call billing attribution was found.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "nullable-cost-never-zero",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/parsedText.ts:95 The extraction result carries text and parser provenance; no model price lookup or call-cost aggregate was found.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "server-owned-fields",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:245 The builder derives a deterministic civic-change identifier; no authenticated LLM telemetry receiving path was found.",
+          "carriedFrom": "2026-10-17"
         }
-      ],
-      "withdrawn": {
-        "worker": "3ad74d06-d9c0-43e7-9fc5-1db1b26fa0bf",
-        "state": "not-applicable",
-        "at": "2026-10-17T02:48:15.920556+00:00",
-        "reason": "reviewer (sonnet): The anchor changeEvents.ts:12 is a header comment about civic change events and doesn't show that no LLM call exists. The technique anchors are incidental lines (the recordedAt epoch filter, an entityKeys/evidence map, a parser stamp). My grep over lib/ingest for anthropic, openai, gemini, llm and t"
-      }
+      ]
     },
     "288263c6-af06-423e-b473-ec1d630613ac/state-budget-analysis": {
       "context": "budget-mirror",
