@@ -11206,6 +11206,75 @@
         "at": "2026-10-24T05:55:52.684628+00:00",
         "reason": "reviewer (sonnet): The anchor features/graph/GraphPage.tsx:15 is a comment about the Mapa/Trasy variant experiment and the side rail. It doesn't show that no README-style document exists. I also couldn't confirm the claimed 'package.json' comment hit at that anchor."
       }
+    },
+    "8867f710-55df-4e4f-9da3-e412d2462001/transactions-over-a-replicated-log": {
+      "context": "db-store-engine",
+      "subject": "transactions-over-a-replicated-log",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:04:46.170Z",
+      "worker": "0bbc6f04-6313-4d4c-bede-cbe8de00f824",
+      "techniques": [
+        {
+          "technique": "snapshot-read-plus-verify-log",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/config.ts:6 Its own 'when not to reach' clause says that where the store is not replicated there is no round trip and an ordinary engine transaction is correct, and this store is not replicated."
+        },
+        {
+          "technique": "live-file-is-the-snapshot",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/store.ts:426 There is no consensus library asking for snapshots or log truncation. The engine is a single in-process connection."
+        }
+      ]
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/transactions-over-a-replicated-log": {
+      "context": "civic-verification",
+      "subject": "transactions-over-a-replicated-log",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:04:46.170Z",
+      "worker": "0bbc6f04-6313-4d4c-bede-cbe8de00f824",
+      "techniques": [
+        {
+          "technique": "no-writes-no-log",
+          "verdict": "not-applicable",
+          "evidence": "features/overeni/liveFigures.ts:86 These are read-only lookups against a local store, with no log entry to propose or suppress."
+        }
+      ]
+    },
+    "1f1d5ac0-c074-4728-aa2d-a93ae1ff39fe/transactions-over-a-replicated-log": {
+      "context": "case-loops-core",
+      "subject": "transactions-over-a-replicated-log",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:04:46.170Z",
+      "worker": "0bbc6f04-6313-4d4c-bede-cbe8de00f824",
+      "techniques": [
+        {
+          "technique": "snapshot-read-plus-verify-log",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/apply-batch.ts:657 Writes go to the local engine directly, with no consensus round trip to span."
+        }
+      ]
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/transactions-over-a-replicated-log": {
+      "context": "data-releases-atlas",
+      "subject": "transactions-over-a-replicated-log",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:04:46.170Z",
+      "worker": "0bbc6f04-6313-4d4c-bede-cbe8de00f824",
+      "techniques": [
+        {
+          "technique": "live-file-is-the-snapshot",
+          "verdict": "not-applicable",
+          "evidence": "features/atlas/getAtlasData.ts:28 There is no replicated-log library and so no consensus snapshot. The engine is opened in-process."
+        }
+      ]
     }
   }
 }

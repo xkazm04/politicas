@@ -1,0 +1,151 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0bbc6f04-6313-4d4c-bede-cbe8de00f824",
+ "subject": "transactions-over-a-replicated-log",
+ "evaluatedAt": "2026-10-24T06:04:46.170636+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-store-engine",
+   "subject": "transactions-over-a-replicated-log",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/config.ts:6 The store is a single-node embedded PGlite with no consensus log above it, and searching lib/db for consensus/replicated-log/appendEntries/appliedIndex found nothing, so the subject's premise (writes reach the engine only through a replicated log) does not hold; the only 'quorum' hits are a roll-call vote column, not a consensus quorum.",
+   "techniques": [
+    {
+     "technique": "snapshot-read-plus-verify-log",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/config.ts:6 Its own 'when not to reach' clause says that where the store is not replicated there is no round trip and an ordinary engine transaction is correct, and this store is not replicated."
+    },
+    {
+     "technique": "live-file-is-the-snapshot",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/store.ts:426 There is no consensus library asking for snapshots or log truncation. The engine is a single in-process connection."
+    }
+   ],
+   "absenceTerms": [
+    "consensus",
+    "appendEntries",
+    "appliedIndex"
+   ]
+  },
+  {
+   "context": "civic-verification",
+   "subject": "transactions-over-a-replicated-log",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/overeni/liveFigures.ts:86 The Claim Gate only reads the local PGlite store through getStore(). It opens no transaction over any log, and none of consensus/replicated log/appendEntries/appliedIndex appears in features/overeni, so none of the subject's techniques have anything to apply to.",
+   "techniques": [
+    {
+     "technique": "no-writes-no-log",
+     "verdict": "not-applicable",
+     "evidence": "features/overeni/liveFigures.ts:86 These are read-only lookups against a local store, with no log entry to propose or suppress."
+    }
+   ],
+   "absenceTerms": [
+    "consensus",
+    "appendEntries",
+    "appliedIndex"
+   ]
+  },
+  {
+   "context": "case-loops-core",
+   "subject": "transactions-over-a-replicated-log",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/apply-batch.ts:657 The batch writers write straight into one embedded PGlite store, normally a PGLITE_PATH copy. They propose no entries to a consensus log, and none of consensus/replicated log/appendEntries/appliedIndex appears in scripts/case-loops, so verify-at-apply does not apply here.",
+   "techniques": [
+    {
+     "technique": "snapshot-read-plus-verify-log",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/apply-batch.ts:657 Writes go to the local engine directly, with no consensus round trip to span."
+    }
+   ],
+   "absenceTerms": [
+    "consensus",
+    "appendEntries",
+    "appliedIndex"
+   ]
+  },
+  {
+   "context": "data-releases-atlas",
+   "subject": "transactions-over-a-replicated-log",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/atlas/getAtlasData.ts:28 Atlas and /data read the local PGlite handle directly. Their 'snapshot' (features/data-releases/snapshot.ts) means dataset staleness, not a consensus snapshot, and none of consensus/replicated log/appendEntries/appliedIndex appears in these feature folders, so the precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "live-file-is-the-snapshot",
+     "verdict": "not-applicable",
+     "evidence": "features/atlas/getAtlasData.ts:28 There is no replicated-log library and so no consensus snapshot. The engine is opened in-process."
+    }
+   ],
+   "absenceTerms": [
+    "consensus",
+    "appendEntries",
+    "appliedIndex"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T06:04:46.170636+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "transactions-over-a-replicated-log"
+   ],
+   "techniques": [
+    "live-file-is-the-snapshot",
+    "snapshot-read-plus-verify-log"
+   ],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T06:04:46.170636+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "transactions-over-a-replicated-log"
+   ],
+   "techniques": [
+    "no-writes-no-log"
+   ],
+   "deviations": 0,
+   "context": "civic-verification",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T06:04:46.170636+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "transactions-over-a-replicated-log"
+   ],
+   "techniques": [
+    "snapshot-read-plus-verify-log"
+   ],
+   "deviations": 0,
+   "context": "case-loops-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T06:04:46.170636+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "transactions-over-a-replicated-log"
+   ],
+   "techniques": [
+    "live-file-is-the-snapshot"
+   ],
+   "deviations": 0,
+   "context": "data-releases-atlas",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -2112,7 +2112,11 @@
           "revision": 2,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/apply-batch.ts:657 The batch writers write straight into one embedded PGlite store, normally a PGLITE_PATH copy. They propose no entries to a consensus log, and none of consensus/replicated log/appendEntries/appliedIndex appears in scripts/case-loops, so verify-at-apply does not apply here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:10473b2ddfd2ef20",
+          "evaluatedRevision": 3
         },
         {
           "subject": "prompt-assembly",
@@ -3719,7 +3723,11 @@
           "revision": 2,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/overeni/liveFigures.ts:86 The Claim Gate only reads the local PGlite store through getStore(). It opens no transaction over any log, and none of consensus/replicated log/appendEntries/appliedIndex appears in features/overeni, so none of the subject's techniques have anything to apply to.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:10473b2ddfd2ef20",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-memory",
@@ -4864,7 +4872,11 @@
           "revision": 2,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/atlas/getAtlasData.ts:28 Atlas and /data read the local PGlite handle directly. Their 'snapshot' (features/data-releases/snapshot.ts) means dataset staleness, not a consensus snapshot, and none of consensus/replicated log/appendEntries/appliedIndex appears in these feature folders, so the precondition does not hold.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:10473b2ddfd2ef20",
+          "evaluatedRevision": 3
         }
       ],
       "governance": "governed"
@@ -5257,7 +5269,11 @@
           "revision": 2,
           "changedAt": "2026-09-03",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/db/config.ts:6 The store is a single-node embedded PGlite with no consensus log above it, and searching lib/db for consensus/replicated-log/appendEntries/appliedIndex found nothing, so the subject's premise (writes reach the engine only through a replicated log) does not hold; the only 'quorum' hits are a roll-call vote column, not a consensus quorum.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:10473b2ddfd2ef20",
+          "evaluatedRevision": 3
         },
         {
           "subject": "concurrency-guards",
