@@ -6717,7 +6717,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/public-body.ts:157 classifyPublicMandate returns `unknown` with attributable:true for an unknown-form current holder (line 263), an unwalked corporate owner (275) and unpublished ownership (290). The chain walk is opt-in (requireOwnerChain), the only caller (public-mandate-sweep.ts) does not set it, and by default a business-form holder is accepted as a terminal answer for `private`.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "public-procurement-analysis",
@@ -11038,7 +11042,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/reachableMoney.ts:138 The shared attribution predicate only removes attribution on an explicit `false`; a company whose public-mandate verdict is null/undefined (sweep not run, `unknown`, `ownership-not-published`) falls through to the tie class and counts as attributable, which is the 'unknown resolves to private' direction the standard forbids.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "beneficial-ownership-resolution",

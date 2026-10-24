@@ -1,0 +1,124 @@
+{
+ "schema": "conform-run/1",
+ "worker": "d546398f-edd2-4fe0-b632-5fd2ae35b0bc",
+ "subject": "public-money-attribution",
+ "evaluatedAt": "2026-10-24T23:46:11.904242+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "money-evidence",
+   "subject": "public-money-attribution",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/money/reachableMoney.ts:138 The shared attribution predicate only removes attribution on an explicit `false`; a company whose public-mandate verdict is null/undefined (sweep not run, `unknown`, `ownership-not-published`) falls through to the tie class and counts as attributable, which is the 'unknown resolves to private' direction the standard forbids.",
+   "techniques": [
+    {
+     "technique": "public-body-classification",
+     "verdict": "deviation",
+     "evidence": "features/money/reachableMoney.ts:134 Doc and code (line 138) state that unknown/unpublished ownership stays attributable; the technique requires `unknown` to block attribution."
+    },
+    {
+     "technique": "owner-operator-vs-steward-split",
+     "verdict": "conformant",
+     "evidence": "features/money/reachableMoney.ts:111 One importable predicate (isAttributable/tieIsAttributable). reachableMoney always returns both buckets, and totalCzk is documented as the whole-surface scale only. buildCiteCs adds the steward rule and a derived-class note to citations."
+    },
+    {
+     "technique": "entity-level-deduplication",
+     "verdict": "conformant",
+     "evidence": "features/money/reachableMoney.ts:253 Folds to one row per companyId before bucketing, with a stated any-owner/manager-wins precedence. tieReach sends the per-row cell through the same function. Gap: per-company money facts are taken from the first tie and not checked against the others."
+    },
+    {
+     "technique": "floor-versus-total-disclosure",
+     "verdict": "deviation",
+     "evidence": "features/money/reachableMoney.ts:212 The cap-signature detector and the slice readScope (line 236) are realized well. But isFloor comes from the signature alone: no declared source-publication coverage (e.g. the register's own publication rules) is merged in, so a read without a signature is presented as a total, which the technique names as a failure."
+    },
+    {
+     "technique": "citable-money-claims",
+     "verdict": "conformant",
+     "evidence": "features/money/packet.ts:343 The packet admits only strict 'verified' ties. Pending and rejected ties are counted and disclosed (line 364). The FNV hash covers content and excludes compiledAt (line 368). Nothing is imported from collisions/. The hashed tie projection carries no amount basis."
+    },
+    {
+     "technique": "attribution-perimeter",
+     "verdict": "deviation",
+     "evidence": "features/money/ownership.ts:16 Perimeter is the MP's own registered roles, one hop. Searching features/money for perimetr/p\u0159\u00edbuzn/nep\u0159\u00edm/indirect/nominee found no declaration where figures render, and the narrow perimeter is never carried into 'nejm\u00e9n\u011b' floor wording."
+    }
+   ],
+   "registryProposal": "public-body-classification says `unknown` blocks attribution. This repo argues deliberately (public-body.ts ownership-not-published doc) that withdrawing about 18 bn CZK on silence is the mirror error. The technique could state explicitly whether `unknown` must move money out of the attributable bucket or into a third 'unverified-attribution' bucket, because the repo's middle path (attributable plus an unverified flag) is not addressed."
+  },
+  {
+   "context": "financial-analysis",
+   "subject": "public-money-attribution",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/analysis/public-body.ts:157 classifyPublicMandate returns `unknown` with attributable:true for an unknown-form current holder (line 263), an unwalked corporate owner (275) and unpublished ownership (290). The chain walk is opt-in (requireOwnerChain), the only caller (public-mandate-sweep.ts) does not set it, and by default a business-form holder is accepted as a terminal answer for `private`.",
+   "techniques": [
+    {
+     "technique": "public-body-classification",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/public-body.ts:157 Strong parts: verified public/private allowlists with verifiedVia, own-form-first, VR-missing goes to unknown and non-attributable, both akcionari and spolecnici are read. But unknown-holder, unwalked-chain and unpublished-ownership verdicts stay attributable, and the one-hop default can yield private."
+    },
+    {
+     "technique": "citable-money-claims",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg-money.ts:301 Three-state review gate (verified/pending_review/rejected). The trail is fullyVerified only if every link is verified, rejected links are excluded, and corroboration never auto-verifies."
+    },
+    {
+     "technique": "entity-level-deduplication",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg-money.ts:300 The per-person trail dedups companies with a Set before summing. parseContracts dedups on contract id \u00d7 supplier and keeps the latest version (amended releases)."
+    },
+    {
+     "technique": "owner-operator-vs-steward-split",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/kg-money.ts:313 moneyTrails is a second arithmetic for an MP's reachable money that sums every linked company with no steward/attributable split. Today it is consumed only by an ingest console log (scripts/data-analysis/kg-money-ingest.ts:400), not a reader surface, so exposure is limited."
+    },
+    {
+     "technique": "attribution-perimeter",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg-money.ts:42 Perimeter is declared in the module: declared/registry roles only. One builder (buildPersonCompanyLinks over privateRoleEvents, money-feed.ts:554) applies it uniformly, and every link is emitted pending_review. Render-side disclosure is outside this context."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T23:46:11.904242+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "public-money-attribution"
+   ],
+   "techniques": [
+    "attribution-perimeter",
+    "citable-money-claims",
+    "entity-level-deduplication",
+    "floor-versus-total-disclosure",
+    "owner-operator-vs-steward-split",
+    "public-body-classification"
+   ],
+   "deviations": 1,
+   "context": "money-evidence",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T23:46:11.904242+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "public-money-attribution"
+   ],
+   "techniques": [
+    "attribution-perimeter",
+    "citable-money-claims",
+    "entity-level-deduplication",
+    "owner-operator-vs-steward-split",
+    "public-body-classification"
+   ],
+   "deviations": 1,
+   "context": "financial-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
