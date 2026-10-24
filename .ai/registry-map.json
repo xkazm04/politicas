@@ -6427,7 +6427,11 @@
           "revision": 10,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:60 The harness enumerates the rule set from the filesystem (rules/, docs/rules/, __tests__/) and from the plugin export, and requires all four to equal one list. A rule added without a RuleTester suite or a doc page fails discovery, and every suite carries invalid cases asserting messageIds.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:58a3b7c0b9efb42c",
+          "evaluatedRevision": 10
         }
       ],
       "governance": "governed"
@@ -13172,7 +13176,11 @@
           "revision": 10,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:83 The gate-ladder conformance check (CI must be a superset of `npm run check`) matches substrings, not tokens. `npm run check` chains both `test` and `test:rules`, and both `docs:sync` and `docs:sync:test`, so deleting `npm run test` (ci.yml:49) or `npm run docs:sync` (ci.yml:75) from CI still passes because `npm run test:rules` / `npm run docs:sync:test` contain the shorter string. That is a false pass, and no fixture exists that would have caught it.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:58a3b7c0b9efb42c",
+          "evaluatedRevision": 10
         },
         {
           "subject": "quality-gates",
@@ -13401,7 +13409,11 @@
           "revision": 10,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/sentinel/invariants.ts:405 The sentinel is a registry of 18 independent invariants, but its fixtures are hand-written test cases rather than enumerated from this roster. As a result, law-provenance-uniformity, graph-provenance-uniformity, amends-closure and loader-degradations appear in tests only as \"ok\" (sentinel.test.ts:270-273) and are never shown to fire, and adding a new invariant with no red fixture fails nothing.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:58a3b7c0b9efb42c",
+          "evaluatedRevision": 10
         },
         {
           "subject": "prompt-assembly",

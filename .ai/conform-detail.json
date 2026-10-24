@@ -4485,32 +4485,42 @@
       "context": "eslint-plugin-civic-transparency-tests",
       "subject": "conformance-checking",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-15",
-      "evaluatedTs": "2026-10-15T03:41:05.931Z",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
       "techniques": [
         {
           "technique": "rule-registry-enumerated-fixtures",
-          "verdict": "deviation",
-          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:44 The suite hardcodes EXPECTED_RULES in the runner rather than discovering rules dynamically from the plugin, and tests code snippets in RuleTester instead of dedicated per-rule fixture directories."
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:60 The rule set is cross-checked across exports, rule files, docs and suites (lines 57-60), so no hand allow-map can hide a rule. All 10 suites have both valid and invalid arrays."
+        },
+        {
+          "technique": "derived-expectation-needs-an-evidence-floor",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:58 The filesystem-derived listing is compared against a committed list rather than only against another derivation, so an empty listing goes red instead of passing silently."
+        },
+        {
+          "technique": "fixture-repo-testing",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs:57 Each rule is proven red by its invalid fixtures, and assertions target structured finding ids (messageId), not rendered text."
         },
         {
           "technique": "checker-false-positive-discipline",
           "verdict": "conformant",
-          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-colors.test.mjs:28 RuleTester suites explicitly include negative controls for substring and hex-shaped false matches to prevent false fails."
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs:49 Valid cases pin the false-fail shapes (catchAll as a substring, computed [\"catch\"]), so narrowing or widening the detector trips the suite."
         },
         {
           "technique": "finding-severity-ladder",
           "verdict": "conformant",
-          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:94 Preset assertions explicitly separate error severity for irreversible violations from warn severity for convention rules."
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 When the shim check cannot run it reports SKIP rather than PASS, and only MODULE_NOT_FOUND is downgraded (other errors rethrow). Preset severities are also pinned per rule at lines 93-102."
+        },
+        {
+          "technique": "pass-ratio-comparability",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:122 No percentage is computed. The harness prints a suite count with its predicate only."
         }
-      ],
-      "withdrawn": {
-        "worker": "0d0939c4-c659-41f6-8a34-44c994cf0a53",
-        "state": "deviation",
-        "at": "2026-10-15T03:41:26.458577+00:00",
-        "reason": "reviewer (sonnet): run-all.mjs does enumerate the registry: it derives the rule, doc and test sets from the filesystem and the plugin's exports and asserts all four equal EXPECTED_RULES, so the hardcoded list is a cross-checked pin and the 'rather than enumerating' claim is contradicted."
-      }
+      ]
     },
     "747db329-14c0-47a7-b8b5-eaf8095b9fdb/cross-provider-benchmark-operations": {
       "context": "effort-scoring-tools",
@@ -11470,6 +11480,98 @@
       "evaluatedTs": "2026-10-24T21:12:46.282Z",
       "worker": "a8393e46-7235-414c-868b-8826727d9c18",
       "techniques": []
+    },
+    "77144fa6-99c0-41be-9032-46aa6c0a1392/conformance-checking": {
+      "context": "testing-core",
+      "subject": "conformance-checking",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
+      "techniques": [
+        {
+          "technique": "checker-false-positive-discipline",
+          "verdict": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:83 Substring where token was meant: 'npm run test' is satisfied by 'npm run test:rules', and 'npm run docs:sync' by 'npm run docs:sync:test'. Line 96 has the same defect (cmd.includes(k) for CI_ONLY_BY_DESIGN keys such as 'build')."
+        },
+        {
+          "technique": "fixture-repo-testing",
+          "verdict": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:39 The checker only ever reads the live package.json and ci.yml. No fixture workflow that drops a step proves it can go red, which is exactly what would have exposed the substring false pass."
+        },
+        {
+          "technique": "derived-expectation-needs-an-evidence-floor",
+          "verdict": "conformant",
+          "evidence": "lib/testing/contextMapRefs.test.ts:60 The derived ref walk asserts a population floor (700) before asserting zero dangling refs. gateLadder.test.ts:78 and revalidateParity.test.ts:100 do the same."
+        },
+        {
+          "technique": "declared-deviation-register",
+          "verdict": "conformant",
+          "evidence": "lib/testing/gateLadder.test.ts:48 Accepted asymmetries are named one per step, each with its cost-reason, and lines 104-109 check that every entry still exists. Partial: entries carry no date or standard version."
+        },
+        {
+          "technique": "pass-ratio-comparability",
+          "verdict": "conformant",
+          "evidence": "lib/testing/contextMapRefs.test.ts:67 No percentage is emitted. The failure count carries its denominator, so the number carries its predicate."
+        }
+      ]
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/conformance-checking": {
+      "context": "testing-flake-sentinel",
+      "subject": "conformance-checking",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
+      "techniques": [
+        {
+          "technique": "rule-registry-enumerated-fixtures",
+          "verdict": "deviation",
+          "evidence": "lib/testing/sentinel/invariants.ts:405 The roster is enumerated only for labels and order (sentinel.test.ts:678). No harness requires each id to have a fail fixture, and 4 of the 18 have none anywhere in the test tree (grep of **/*.test.ts). The flake register does it right: one refusing case per rule in registry.test.ts:75."
+        },
+        {
+          "technique": "fixture-repo-testing",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:120 Covers the fresh-install shape (empty store), the conformant shape (clean store, line 142, asserting the exact check id/status list) and targeted non-conformant stores, all asserting structured ids rather than prose."
+        },
+        {
+          "technique": "finding-severity-ladder",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/report.ts:201 Unable-to-check ('unevaluable') is a separate status from pass and violation and is counted in the headline summary. No warning rung exists, which is acceptable under 'do not add rungs for taste'."
+        },
+        {
+          "technique": "checker-false-positive-discipline",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:138 A false pass was hunted down and fixed: an empty audit ledger used to read as 'trivially valid' ok (comment at line 137, until 2026-08-13) and now reads as unevaluable."
+        },
+        {
+          "technique": "declared-deviation-register",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.ts:40 Accepted test failures (quarantine) are a dated register: each entry has owner, entered date, expiry, cause and evidence. Expired entries turn the gate red (registry.test.ts:55), and a 60-day maximum span is enforced."
+        },
+        {
+          "technique": "pass-ratio-comparability",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/detect.ts:55 Refuses to emit a transition rate below 4 comparable same-HEAD runs. Figures name their window, HEAD and run count, and the sentinel uses counts with denominators, never a rate (sentinel.test.ts:276)."
+        }
+      ]
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/conformance-checking": {
+      "context": "civic-fallback-data",
+      "subject": "conformance-checking",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
+        "state": "not-applicable",
+        "at": "2026-10-24T21:31:51.343024+00:00",
+        "reason": "reviewer (sonnet): The anchor lib/claims/registry.ts:115 is the ISSUED_FIGURES declaration, which does not show that a conformance checker is absent. The not-applicable rests only on a grep for conformance, conformant and waiver, and those may not be the right terms for a registry that re-derives and gates claim refs."
+      }
     }
   }
 }
