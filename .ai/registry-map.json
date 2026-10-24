@@ -10021,7 +10021,11 @@
           "revision": 6,
           "changedAt": "2026-08-31",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/apply-census-completion-013.ts:57 Every writer in this context adds nodes and edges or changes field content, each with a provenance stamp; none deletes, archives or purges an entity. I searched scripts/case-loops/law/archive/ for deleteKg, DELETE FROM, ON DELETE, tombstone, archived_at and purge and found no hits, so the subject's precondition (an entity that is removed or archived) does not hold here. Content corrections belong to versioning-snapshots, not this subject.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:cef5e3463825ff22",
+          "evaluatedRevision": 6
         },
         {
           "subject": "prompt-assembly",
@@ -10715,7 +10719,11 @@
           "revision": 6,
           "changedAt": "2026-08-31",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/case-loops/money/archive/find-stale-ico-mentions.ts:7 The probes that bear on lifecycle walk every surviving kg_node's props for leftover mentions of an entity deleted elsewhere (the purged company IČO 04627695). They only report or propose payloads, and they add a note to the history instead of rewriting it: that is the dependent-side, report-first sweep plus history that survives the delete.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:cef5e3463825ff22",
+          "evaluatedRevision": 6
         },
         {
           "subject": "test-harness",

@@ -11661,6 +11661,58 @@
       "worker": "36a8ddf0-823e-4a15-9b7e-ba7f4005c48c",
       "techniques": [],
       "registryProposal": "The registry-map matched this pair on the tokens 'shared', 'claim' and 'file'. In civic-intelligence repos 'claim' usually means an asserted fact, so lexical matching on 'claim' gives false governance for concurrent-vcs. Consider requiring a VCS token (commit, worktree, index, stash) before this subject can be matched."
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/entity-lifecycle": {
+      "context": "money-archive-probes",
+      "subject": "entity-lifecycle",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:34:58.480Z",
+      "worker": "abba3067-a85b-4fdb-900b-e35493c4f26f",
+      "techniques": [
+        {
+          "technique": "orphan-reconciliation",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/archive/find-stale-ico-mentions.ts:4 The sweep starts from the dependent side, covering every node's props and not only the registered edges, and asks whether each one still references the deleted owner. stale-mentions-open-b9 re-measures what is still owed, itemized by owning case, and records it without editing anything (report-first)."
+        },
+        {
+          "technique": "provenance-denormalization",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/archive/build-stale-ico-payload.ts:105 Records that reference the deleted company get a note appended that names its id and its name at the time of deletion. Nothing is silently deleted, so the past is not rewritten."
+        },
+        {
+          "technique": "change-logging",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/build-stale-ico-payload.ts:8 No lifecycle transition happens in this context. The delete door is purge-osvc.ts, which is outside this context's file list."
+        },
+        {
+          "technique": "bulk-deletion-rails",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/build-nonrecipient-payload-b14.ts:17 Corrections are prop-merge payloads; this context contains no bulk delete or purge."
+        }
+      ]
+    },
+    "990e6972-5664-46fe-86ab-e0a8a0f77ccf/entity-lifecycle": {
+      "context": "law-archive-late",
+      "subject": "entity-lifecycle",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:34:58.480Z",
+      "worker": "abba3067-a85b-4fdb-900b-e35493c4f26f",
+      "techniques": [
+        {
+          "technique": "cascade-design",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/apply-census-completion-013.ts:85 The only store mutation is an insert or upsert. No delete call exists, so no reference fate needs deciding."
+        },
+        {
+          "technique": "bulk-deletion-rails",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:72 Bulk writes are prop migrations behind a PREPARE-by-default/--commit gate. Nothing is deleted."
+        }
+      ]
     }
   }
 }
