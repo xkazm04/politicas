@@ -2206,7 +2206,11 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/census/check-library-adherence.mjs:182 The census engine is a vendored copy of another repo (PROVENANCE.json records repo + commit + per-file hashes), but drift between the copy and its ledger only prints a dim line and never fails. A local edit to the engine therefore passes `library:check` silently, which is the 'ledger is a claim, so a gate must read the tree — on the blocking rung' failure.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "agent-memory",
@@ -8499,7 +8503,11 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:243 The graph writers read the local PGlite store and LLM-produced verdict JSON, and that JSON goes through a schema-and-known-id validator before any row is built. None of these files handles a dependency graph, lockfile, secret, permission manifest, archive or executable deserialization. A search of scripts/data-analysis found no lockfile, package-lock, npm audit, gitleaks, pickle or adm-zip.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "agent-memory",
@@ -9808,7 +9816,11 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:1 The subject was matched on the words archive, dependency and scanning, and all three are lexical: 'archive' means retired batch probes, and 'dependency' means bill-to-bill enactment dependencies. These files only read local JSON and the store and write payloads. A search of scripts/case-loops/law/archive found no lockfile, package-lock, npm audit, gitleaks, pickle or adm-zip, and the network/exec hits (fetch, child_process) are only in the early-batch collision-check files, which belong to another context.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "fleet-orchestration",
@@ -10460,7 +10472,11 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/classify-public-mandate-b10.ts:20 The match came from the words archive, build and party, and all three are lexical. The only thing that crosses the boundary is JSON fetched from public registry APIs (ARES) and local payload files; no third-party code, lockfile, secret, archive file or permission grant is handled. A search of scripts/case-loops/money/archive found no lockfile, package-lock, npm audit, gitleaks, pickle or adm-zip.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "agent-session-archive",

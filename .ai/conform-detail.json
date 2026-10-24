@@ -10355,6 +10355,96 @@
       "evaluatedTs": "2026-10-24T01:49:25.102Z",
       "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
       "techniques": []
+    },
+    "78e81519-5df8-43ec-adb6-ba4dae3ea206/supply-chain": {
+      "context": "census-quality-gate",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:25:42.514Z",
+      "worker": "09d2ffc7-1a9a-416d-acde-e68068d2f004",
+      "techniques": [
+        {
+          "technique": "vendored-fork-ledger",
+          "verdict": "deviation",
+          "evidence": "scripts/census/check-library-adherence.mjs:158 The gate does read the tree (re-hashes each vendored file against portedSha), but a mismatch goes into `drifted`, never into `failures`, so the check cannot refuse anything. On top of that, the existing local divergence (the ported header: sourceSha != portedSha for engine/runner/self-test) is not recorded as a discrete patch with a reason or a removal condition."
+        },
+        {
+          "technique": "reading-is-not-running",
+          "verdict": "conformant",
+          "evidence": "scripts/census/lib/engine.mjs:188 The scanner learns what a tree contains by reading file text and regex-matching it; it never imports or evaluates the files it scans. Its rules come from rules.json as data (regex strings), not code."
+        },
+        {
+          "technique": "unsafe-deserialization-off-by-default",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/check-library-adherence.mjs:59 The only deserialization is JSON.parse of repo-local config, a format that cannot execute code."
+        },
+        {
+          "technique": "secret-scanning-architecture",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/run-census.mjs:35 Only a ported comment citing the upstream repo's secret scanner. This context does no secret scanning."
+        }
+      ],
+      "registryProposal": "vendored-fork-ledger is written for patched third-party libraries. A verbatim port between two first-party repos (same author, 'fix upstream and re-port' rule) is a common variant; the technique could state whether a header-only divergence needs its own patch artifact, or whether a hash ledger is enough as long as drift blocks."
+    },
+    "990e6972-5664-46fe-86ab-e0a8a0f77ccf/supply-chain": {
+      "context": "law-archive-late",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:25:42.514Z",
+      "worker": "09d2ffc7-1a9a-416d-acde-e68068d2f004",
+      "techniques": [
+        {
+          "technique": "archive-extraction-safety",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:19 The file only reads and writes local files; no archive is ever unpacked."
+        },
+        {
+          "technique": "dependency-policy-gates",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:1 'Dependency' here means legislative enactment order, not package resolution."
+        }
+      ]
+    },
+    "1e6194ec-5275-4cfd-b045-c0604ab491e2/supply-chain": {
+      "context": "kg-graph-writers",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:25:42.514Z",
+      "worker": "09d2ffc7-1a9a-416d-acde-e68068d2f004",
+      "techniques": [
+        {
+          "technique": "unsafe-deserialization-off-by-default",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:243 The only foreign input is JSON validated as data. No loader with an executing mode is involved."
+        },
+        {
+          "technique": "archive-extraction-safety",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:22 The script reads plain verdict files from a directory; no archive is unpacked."
+        }
+      ]
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/supply-chain": {
+      "context": "money-archive-probes",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:25:42.514Z",
+      "worker": "09d2ffc7-1a9a-416d-acde-e68068d2f004",
+      "techniques": [
+        {
+          "technique": "archive-extraction-safety",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/classify-public-mandate-b10.ts:20 The input is a JSON REST endpoint, not an archive."
+        }
+      ]
     }
   }
 }

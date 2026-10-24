@@ -1,0 +1,183 @@
+{
+ "schema": "conform-run/1",
+ "worker": "09d2ffc7-1a9a-416d-acde-e68068d2f004",
+ "subject": "supply-chain",
+ "evaluatedAt": "2026-10-24T02:25:42.514354+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "census-quality-gate",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/census/check-library-adherence.mjs:182 The census engine is a vendored copy of another repo (PROVENANCE.json records repo + commit + per-file hashes), but drift between the copy and its ledger only prints a dim line and never fails. A local edit to the engine therefore passes `library:check` silently, which is the 'ledger is a claim, so a gate must read the tree \u2014 on the blocking rung' failure.",
+   "techniques": [
+    {
+     "technique": "vendored-fork-ledger",
+     "verdict": "deviation",
+     "evidence": "scripts/census/check-library-adherence.mjs:158 The gate does read the tree (re-hashes each vendored file against portedSha), but a mismatch goes into `drifted`, never into `failures`, so the check cannot refuse anything. On top of that, the existing local divergence (the ported header: sourceSha != portedSha for engine/runner/self-test) is not recorded as a discrete patch with a reason or a removal condition."
+    },
+    {
+     "technique": "reading-is-not-running",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:188 The scanner learns what a tree contains by reading file text and regex-matching it; it never imports or evaluates the files it scans. Its rules come from rules.json as data (regex strings), not code."
+    },
+    {
+     "technique": "unsafe-deserialization-off-by-default",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/check-library-adherence.mjs:59 The only deserialization is JSON.parse of repo-local config, a format that cannot execute code."
+    },
+    {
+     "technique": "secret-scanning-architecture",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/run-census.mjs:35 Only a ported comment citing the upstream repo's secret scanner. This context does no secret scanning."
+    }
+   ],
+   "registryProposal": "vendored-fork-ledger is written for patched third-party libraries. A verbatim port between two first-party repos (same author, 'fix upstream and re-port' rule) is a common variant; the technique could state whether a header-only divergence needs its own patch artifact, or whether a hash ledger is enough as long as drift blocks."
+  },
+  {
+   "context": "law-archive-late",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:1 The subject was matched on the words archive, dependency and scanning, and all three are lexical: 'archive' means retired batch probes, and 'dependency' means bill-to-bill enactment dependencies. These files only read local JSON and the store and write payloads. A search of scripts/case-loops/law/archive found no lockfile, package-lock, npm audit, gitleaks, pickle or adm-zip, and the network/exec hits (fetch, child_process) are only in the early-batch collision-check files, which belong to another context.",
+   "techniques": [
+    {
+     "technique": "archive-extraction-safety",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:19 The file only reads and writes local files; no archive is ever unpacked."
+    },
+    {
+     "technique": "dependency-policy-gates",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:1 'Dependency' here means legislative enactment order, not package resolution."
+    }
+   ],
+   "absenceTerms": [
+    "lockfile",
+    "package-lock",
+    "gitleaks",
+    "pickle",
+    "adm-zip"
+   ]
+  },
+  {
+   "context": "kg-graph-writers",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/kg-promote.ts:243 The graph writers read the local PGlite store and LLM-produced verdict JSON, and that JSON goes through a schema-and-known-id validator before any row is built. None of these files handles a dependency graph, lockfile, secret, permission manifest, archive or executable deserialization. A search of scripts/data-analysis found no lockfile, package-lock, npm audit, gitleaks, pickle or adm-zip.",
+   "techniques": [
+    {
+     "technique": "unsafe-deserialization-off-by-default",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-promote.ts:243 The only foreign input is JSON validated as data. No loader with an executing mode is involved."
+    },
+    {
+     "technique": "archive-extraction-safety",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-promote.ts:22 The script reads plain verdict files from a directory; no archive is unpacked."
+    }
+   ],
+   "absenceTerms": [
+    "lockfile",
+    "package-lock",
+    "gitleaks",
+    "pickle",
+    "adm-zip"
+   ]
+  },
+  {
+   "context": "money-archive-probes",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/money/archive/classify-public-mandate-b10.ts:20 The match came from the words archive, build and party, and all three are lexical. The only thing that crosses the boundary is JSON fetched from public registry APIs (ARES) and local payload files; no third-party code, lockfile, secret, archive file or permission grant is handled. A search of scripts/case-loops/money/archive found no lockfile, package-lock, npm audit, gitleaks, pickle or adm-zip.",
+   "techniques": [
+    {
+     "technique": "archive-extraction-safety",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/classify-public-mandate-b10.ts:20 The input is a JSON REST endpoint, not an archive."
+    }
+   ],
+   "absenceTerms": [
+    "lockfile",
+    "package-lock",
+    "gitleaks",
+    "pickle",
+    "adm-zip"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "supply-chain",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T02:25:42.514354+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "reading-is-not-running",
+    "secret-scanning-architecture",
+    "unsafe-deserialization-off-by-default",
+    "vendored-fork-ledger"
+   ],
+   "deviations": 1,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T02:25:42.514354+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "archive-extraction-safety",
+    "dependency-policy-gates"
+   ],
+   "deviations": 0,
+   "context": "law-archive-late",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T02:25:42.514354+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "archive-extraction-safety",
+    "unsafe-deserialization-off-by-default"
+   ],
+   "deviations": 0,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T02:25:42.514354+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "archive-extraction-safety"
+   ],
+   "deviations": 0,
+   "context": "money-archive-probes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
