@@ -3491,11 +3491,7 @@
           "confidence": "probable",
           "state": "deviation",
           "evidence": "lib/analysis/score-citations.ts:95 The stale-score prose check emits hard-coded warning strings without a declared rule disposition, so its severity is implemented in code rather than auditable rule data.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 5,
-          "stale": true
+          "evaluatedAt": "2026-10-13"
         },
         {
           "subject": "judge-calibration-and-drift",
@@ -8004,12 +8000,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "scripts/data-analysis/kg-forensics.ts:124 Forensic ingestion rejects every validator error, including the default score-based language classification, whereas the standard requires score-threshold judgments to warn.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 5,
-          "stale": true
+          "evidence": "scripts/data-analysis/kg-forensics.ts:122 The forensic writer calls validateLawVerdict without requireCzech, so the default (law-verdict.ts:298 `opts.requireCzech !== false`) applies: the stopword-rate language classifier in lib/analysis/language-gate.ts (EN_RATE_THRESHOLD = 0.05) can hard-reject a whole verdict. That is a threshold on a score holding the error tier, which the standard says must only warn.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:f00a2dbd4e8fdce1",
+          "evaluatedRevision": 10,
+          "revisionsBehind": 5
         },
         {
           "subject": "quality-gates",
@@ -9112,12 +9107,11 @@
           "changedAt": "2026-10-14",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "features/landing/messages.test.ts:59 The prose extractor deletes placeholders and plural-branch text, allowing the language check to pass without examining all rendered sentences.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 5,
-          "stale": true
+          "evidence": "features/landing/messages.test.ts:59 prose() repeatedly deletes the innermost brace groups. That removes placeholders and also the text of every ICU plural branch, so the language gate on lines like 311 never sees the branch sentences a reader actually gets.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:f00a2dbd4e8fdce1",
+          "evaluatedRevision": 10,
+          "revisionsBehind": 5
         },
         {
           "subject": "design-tokens",
@@ -12107,11 +12101,7 @@
           "confidence": "probable",
           "state": "deviation",
           "evidence": "scripts/hooks/copy-check.sh:18 The copy hook explicitly skips a missing checker and returns success, so this write seam permits unchecked copy.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:acdac15e9b7117f3",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 5,
-          "stale": true
+          "evaluatedAt": "2026-10-13"
         },
         {
           "subject": "translation-pipeline-topology",

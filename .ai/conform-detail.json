@@ -3036,14 +3036,29 @@
       "subject": "copy-quality-gates",
       "bundle": "localization",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:59:25.077Z",
-      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:17:22.512Z",
+      "worker": "147ba389-2369-449b-a080-24cb23e22ad2",
       "techniques": [
         {
           "technique": "layered-mechanical-gate",
           "verdict": "deviation",
-          "evidence": "scripts/data-analysis/kg-forensics.ts:122 This call retains requireCzech's default; its language-score findings become rejection errors rather than advisory warnings."
+          "evidence": "scripts/data-analysis/kg-forensics.ts:122 The default requireCzech runs a score-threshold language classifier as a blocking check. The standard says a statistical verdict warns and never blocks."
+        },
+        {
+          "technique": "severity-as-declared-data",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-forensics.ts:124 Every validator error rejects the verdict alike, and the next line prints only the first four. No rule has a declared disposition, and the error strings carry no rule identifier."
+        }
+      ],
+      "registryProposal": "language-gate.ts is a deterministic stopword-list classifier with a rate threshold. Its false positives do have addresses: a word removed from a list (`evidence` was taken out of the English list on 2026-08-12 after 14 of 211 Czech notes were wrongly withheld). The standard groups 'a threshold on a score' with model verdicts, but its own reason (no address a guard can fix) does not hold for closed-list classifiers. The standard should say which side such a classifier falls on.",
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-forensics.ts:124 Forensic ingestion rejects every validator error, including the default score-based language classification, whereas the standard requires score-threshold judgments to warn.",
+          "evaluatedAt": "2026-10-13T22:59:25.077Z",
+          "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+          "reason": "replaced by 147ba389-2369-449b-a080-24cb23e22ad2"
         }
       ]
     },
@@ -3052,66 +3067,131 @@
       "subject": "copy-quality-gates",
       "bundle": "localization",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:59:25.077Z",
-      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:17:22.512Z",
       "techniques": [
         {
           "technique": "enforcement-at-the-write-seams",
           "verdict": "deviation",
-          "evidence": "scripts/hooks/copy-check.sh:19 The missing-checker branch succeeds; announcing the skip does not enforce the gate."
+          "evidence": "scripts/hooks/copy-check.sh:19 A pre-push hook that skips when the checker is missing fails open. No CI seam backs it, and fresh clones and CI never have the checker (line 10)."
+        },
+        {
+          "technique": "layered-mechanical-gate",
+          "verdict": "conformant",
+          "evidence": ".ai/copy-baseline.json:7 Legacy findings are held by per-occurrence fingerprints (rule|file|key|text hash), not a bare count. Per hook line 4, only NEW error findings block."
+        },
+        {
+          "technique": "source-defects-from-cross-language-agreement",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hooks/copy-check.sh:3 Only one locale is checked (en), so there is nothing to agree across. The checked locale is also the derived target, not the Czech source."
         }
-      ]
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "scripts/hooks/copy-check.sh:18 The copy hook explicitly skips a missing checker and returns success, so this write seam permits unchecked copy.",
+          "evaluatedAt": "2026-10-13T22:59:25.077Z",
+          "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+          "reason": "replaced by 147ba389-2369-449b-a080-24cb23e22ad2"
+        }
+      ],
+      "withdrawn": {
+        "worker": "147ba389-2369-449b-a080-24cb23e22ad2",
+        "state": "deviation",
+        "at": "2026-10-24T03:18:04.315852+00:00",
+        "reason": "reviewer (sonnet): The anchor scripts/hooks/copy-check.sh is not among this context's paths (sentinel, kpi, docs, smoke), so the verdict is about a file outside the context. The hook's line 19 does exit 0 and ci.yml has no copy step, but that belongs to a different context or to the repo as a whole."
+      }
     },
     "fef38523-7caf-4366-a28e-18e28677d5bf/copy-quality-gates": {
       "context": "civic-score-computation",
       "subject": "copy-quality-gates",
       "bundle": "localization",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:59:25.077Z",
-      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:17:22.512Z",
       "techniques": [
+        {
+          "technique": "layered-mechanical-gate",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/atlas.ts:484 A user-visible sentence escapes the catalog and is concatenated into a catalog message, and no check catches it."
+        },
         {
           "technique": "severity-as-declared-data",
           "verdict": "deviation",
-          "evidence": "lib/analysis/score-citations.ts:85 The function fixes disposition as warnings and returns string[]; no rule-ID disposition row or resolution cascade is used."
+          "evidence": "lib/analysis/score-citations.ts:95 The stale-score finding has no rule identifier, and its warn disposition is implied by code, not stored as data."
+        },
+        {
+          "technique": "deterministic-repair-classes",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/score-citations.ts:80 A finding that would change words is reported for a human and never auto-repaired."
+        },
+        {
+          "technique": "format-aware-check-catalog",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/score-citations.ts:104 A low-precision numeric-literal check was measured on the corpus and withheld. The shipped check compares the literal's identity against the known prior value."
         }
-      ]
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/analysis/score-citations.ts:95 The stale-score prose check emits hard-coded warning strings without a declared rule disposition, so its severity is implemented in code rather than auditable rule data.",
+          "evaluatedAt": "2026-10-13T22:59:25.077Z",
+          "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+          "reason": "replaced by 147ba389-2369-449b-a080-24cb23e22ad2"
+        }
+      ],
+      "withdrawn": {
+        "worker": "147ba389-2369-449b-a080-24cb23e22ad2",
+        "state": "deviation",
+        "at": "2026-10-24T03:18:04.371103+00:00",
+        "reason": "reviewer (sonnet): The anchors lib/analysis/atlas.ts:484 and features/atlas/AtlasCards.tsx:126 are not in this context's paths, which are contribution*, score-citations, score-legibility and low-score-reason. The Czech-sentence-in-catalog claim is about the atlas context. The score-citations.ts techniques describe a c"
+      }
     },
     "c1f4fb9c-8972-4a48-a807-c32091ebf019/copy-quality-gates": {
       "context": "landing-core",
       "subject": "copy-quality-gates",
       "bundle": "localization",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:59:25.077Z",
-      "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:17:22.512Z",
+      "worker": "147ba389-2369-449b-a080-24cb23e22ad2",
       "techniques": [
+        {
+          "technique": "rendered-string-extraction",
+          "verdict": "deviation",
+          "evidence": "features/landing/messages.test.ts:59 Placeholders and plural branches are deleted, not expanded into samples. This is the exact failure the technique names."
+        },
         {
           "technique": "layered-mechanical-gate",
           "verdict": "deviation",
-          "evidence": "features/landing/messages.test.ts:311 The language-score classifier directly fails a test; the standard requires score-threshold findings to remain advisory."
+          "evidence": "features/landing/messages.test.ts:182 A score-threshold language classifier is asserted in a vitest test, so it blocks npm run check rather than warning."
         },
         {
           "technique": "length-and-render-budgets",
           "verdict": "deviation",
-          "evidence": "features/landing/components/ReferendumTeaser.tsx:112 Translated short labels occupy a 5.5rem grid cell and are truncated; no declared rendered-text budget or overflow check was found for this surface."
-        },
-        {
-          "technique": "rendered-string-extraction",
-          "verdict": "deviation",
-          "evidence": "features/landing/messages.test.ts:59 Repeated brace-content deletion removes every leadPresets plural branch instead of expanding branches and substituting typed values."
+          "evidence": "features/landing/components/ReferendumTeaser.tsx:112 Translated short labels occupy a 5.5rem grid cell and are truncated; no declared rendered-text budget or overflow check was found for this surface.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "severity-as-declared-data",
           "verdict": "deviation",
-          "evidence": "features/landing/messages.test.ts:182 Blocking disposition is encoded as an assertion over a language score, rather than a declared advisory disposition for a score-based check."
+          "evidence": "features/landing/messages.test.ts:182 Blocking disposition is encoded as an assertion over a language score, rather than a declared advisory disposition for a score-based check.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "source-defects-from-cross-language-agreement",
           "verdict": "not-applicable",
-          "evidence": "features/landing/messages.test.ts:255 The checked catalogs are Czech source and one English target, so there are not two target languages whose failures can agree."
+          "evidence": "features/landing/messages.test.ts:255 The checked catalogs are Czech source and one English target, so there are not two target languages whose failures can agree.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/landing/messages.test.ts:59 The prose extractor deletes placeholders and plural-branch text, allowing the language check to pass without examining all rendered sentences.",
+          "evaluatedAt": "2026-10-13T22:59:25.077Z",
+          "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
+          "reason": "replaced by 147ba389-2369-449b-a080-24cb23e22ad2"
         }
       ]
     },
