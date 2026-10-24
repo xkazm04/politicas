@@ -1878,7 +1878,11 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/budget/mirrorData.ts:17 BudgetMirror is built from generated TypeScript snapshots and the money layer, not a markdown vault: search of features/budget found 0 hits for vault, frontmatter, wikilink, backlink and markdown (its readFileSync calls are source-reading tests).",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7a10f98b2d9488ac",
+          "evaluatedRevision": 2
         },
         {
           "subject": "fleet-orchestration",
@@ -11312,7 +11316,11 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/money/moneyLoader.ts:15 The money ledger traverses kg_node/kg_edge in the store: search of features/money found 0 hits for vault, frontmatter, wikilink, backlink and markdown. The one readdir is in getLeadDossiers.ts, outside this context's file list, and it reads JSON payloads, not markdown notes.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7a10f98b2d9488ac",
+          "evaluatedRevision": 2
         },
         {
           "subject": "prompt-assembly",
@@ -11783,7 +11791,11 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/profile/getProfileData.ts:27 The profile loader reads the PGlite knowledge graph, not a directory of notes: search of features/profile found 0 hits for vault, frontmatter, wikilink, backlink, markdown and readdir (the docs/*.md hits are code comments).",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7a10f98b2d9488ac",
+          "evaluatedRevision": 2
         },
         {
           "subject": "invariant-placement",

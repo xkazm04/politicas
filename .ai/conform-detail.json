@@ -11100,6 +11100,51 @@
           "evidence": "features/landing/palette.ts:3 The hex escape hatch is marked, limited to one file, exempted by name in eslint.config.mjs:246, and checked for parity by palette.test.ts."
         }
       ]
+    },
+    "5e38cfa9-d10e-43fa-9e8d-67d925668e43/markdown-vault": {
+      "context": "shared-components",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:47:20.883Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "379aec28-b8c5-4901-b260-a630d06f0e7d",
+        "state": "not-applicable",
+        "at": "2026-10-24T05:47:43.299905+00:00",
+        "reason": "reviewer (sonnet): The anchor SourceNote.tsx:13 is a Czech comment line about a design rule (docs/DESIGN.md §2). It does not show that the catalog takes finished data through props or reads no markdown, so the anchor is incidental."
+      }
+    },
+    "f50627ef-a7a1-40a4-9491-560efa6cb05d/markdown-vault": {
+      "context": "mp-profile",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:47:20.883Z",
+      "worker": "379aec28-b8c5-4901-b260-a630d06f0e7d",
+      "techniques": []
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/markdown-vault": {
+      "context": "money-ledger",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:47:20.883Z",
+      "worker": "379aec28-b8c5-4901-b260-a630d06f0e7d",
+      "techniques": []
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/markdown-vault": {
+      "context": "budget-mirror",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:47:20.883Z",
+      "worker": "379aec28-b8c5-4901-b260-a630d06f0e7d",
+      "techniques": []
     }
   }
 }
