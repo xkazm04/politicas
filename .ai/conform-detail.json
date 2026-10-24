@@ -2322,10 +2322,19 @@
       "subject": "data-access",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T13:12:26.241Z",
-      "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:31:50.947Z",
+      "worker": "8aff3ee3-30a9-4a02-bca5-9ca05fc954e2",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "eslint-rules/README.md:17 This directory is a set of one-line ESLint re-export shims; a search of eslint-rules for repository, transaction, upsert, and sql found no store seam.",
+          "evaluatedAt": "2026-10-13T13:12:26.241Z",
+          "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+          "reason": "replaced by 8aff3ee3-30a9-4a02-bca5-9ca05fc954e2"
+        }
+      ]
     },
     "5a54b236-a7d7-47c5-aaeb-e663266033e7/data-access": {
       "context": "db-pglite-engine",
@@ -2409,59 +2418,84 @@
       "subject": "data-access",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T13:12:26.241Z",
-      "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:31:50.947Z",
+      "worker": "8aff3ee3-30a9-4a02-bca5-9ca05fc954e2",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:57 This directory is the RuleTester harness for an ESLint plugin; a search of __tests__ for transaction, upsert, sql, and mapper found no store seam.",
+          "evaluatedAt": "2026-10-13T13:12:26.241Z",
+          "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+          "reason": "replaced by 8aff3ee3-30a9-4a02-bca5-9ca05fc954e2"
+        }
+      ]
     },
     "77144fa6-99c0-41be-9032-46aa6c0a1392/data-access": {
       "context": "testing-core",
       "subject": "data-access",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T13:12:26.241Z",
-      "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T01:31:50.947Z",
+      "worker": "8aff3ee3-30a9-4a02-bca5-9ca05fc954e2",
       "techniques": [
-        {
-          "technique": "query-construction",
-          "verdict": "conformant",
-          "evidence": "lib/testing/crash-writer.mjs:24 The probe binds the id. Loader seed SQL is static source text, not values concatenated from variables."
-        },
         {
           "technique": "repo-testing",
           "verdict": "deviation",
-          "evidence": "lib/testing/loaders.test.ts:153 Ordinary rows are raw inserts. The template path does apply CORE_DDL, which is the production schema road for the engine fixture."
+          "evidence": "lib/testing/loaders.test.ts:153 Real engine and production schema are in place (pglite-template.ts:157 runs CORE_DDL, pglite-fixture.ts gives a per-file temp copy), but fixtures bypass the front door. Only some rows (to_at='infinity') are legitimate legacy-shape drills."
+        },
+        {
+          "technique": "query-construction",
+          "verdict": "conformant",
+          "evidence": "lib/testing/crash-writer.mjs:24 The probe binds the id. Loader seed SQL is static source text, not values concatenated from variables.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "cross-driver-invariant-parity",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/lanes.ts:41 The lane is one embedded engine. No second backend is stood up here."
+          "evidence": "lib/testing/lanes.ts:41 The lane is one embedded engine. No second backend is stood up here.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "capability-declared-in-the-type",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/pglite-template.ts:148 The harness constructs one engine."
+          "evidence": "lib/testing/pglite-template.ts:148 The harness constructs one engine.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "sequence-token-write-ordering",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/pglite-template.ts:198 One process publishes one template. There is no multi-store write stream to order."
+          "evidence": "lib/testing/pglite-template.ts:198 One process publishes one template. There is no multi-store write stream to order.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "existence-authority-written-last",
           "verdict": "conformant",
-          "evidence": "lib/testing/pglite-template.ts:137 Store files are built in scratch, renamed into place, and TEMPLATE_READY is written after that. isTemplateReady is the reader gate; a dir missing it is removed."
+          "evidence": "lib/testing/pglite-template.ts:137 Store files are built in scratch, renamed into place, and TEMPLATE_READY is written after that. isTemplateReady is the reader gate; a dir missing it is removed.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "operator-defined-tables",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/pglite-template.ts:157 The test template applies the schema constant from source."
+          "evidence": "lib/testing/pglite-template.ts:157 The test template applies the schema constant from source.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "localized-record-identity",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/loaders.test.ts:45 The language use here is a prose gate on rendered text, not a per-language stored record."
+          "evidence": "lib/testing/loaders.test.ts:45 The language use here is a prose gate on rendered text, not a per-language stored record.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/testing/loaders.test.ts:153 The loader suite seeds an ordinary person row with a raw INSERT on the engine handle, so the fixture does not go through the repository write surface.",
+          "evaluatedAt": "2026-10-13T13:12:26.241Z",
+          "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+          "reason": "replaced by 8aff3ee3-30a9-4a02-bca5-9ca05fc954e2"
         }
       ]
     },

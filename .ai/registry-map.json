@@ -6296,12 +6296,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:57 This directory is the RuleTester harness for an ESLint plugin; a search of __tests__ for transaction, upsert, sql, and mapper found no store seam.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:b67182492821d592",
-          "evaluatedRevision": 18,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:60 This directory is the RuleTester harness for an ESLint plugin; a case-insensitive search of __tests__ for transaction, upsert, insert into, repository and sql found nothing (the only pglite mention is an import-path string inside a lint test case at no-server-import-in-client.test.mjs:96), so no store seam exists here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19,
+          "revisionsBehind": 1
         },
         {
           "subject": "sidecar-provisioning",
@@ -6463,12 +6462,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "eslint-rules/README.md:17 This directory is a set of one-line ESLint re-export shims; a search of eslint-rules for repository, transaction, upsert, and sql found no store seam.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:b67182492821d592",
-          "evaluatedRevision": 18,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "eslint-rules/README.md:17 The directory holds only one-line re-export shims and forwarding test runners for lint rules; a case-insensitive search of eslint-rules/ for transaction, upsert, insert into, repository and sql found no store access, so no data-access seam exists here to judge.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19,
+          "revisionsBehind": 1
         },
         {
           "subject": "mcp-tools",
@@ -13079,12 +13077,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "lib/testing/loaders.test.ts:153 The loader suite seeds an ordinary person row with a raw INSERT on the engine handle, so the fixture does not go through the repository write surface.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:b67182492821d592",
-          "evaluatedRevision": 18,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/testing/loaders.test.ts:153 The loader suite seeds an ordinary person row (and organ, mandate and membership rows) with raw INSERTs on the engine handle, although Store exposes upsertPersons, upsertOrgans, upsertMandates and upsertMemberships (lib/db/store.ts:69-72), so the fixtures can certify states the write surface would never produce and do not exercise it.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19,
+          "revisionsBehind": 1
         },
         {
           "subject": "test-input-generation",

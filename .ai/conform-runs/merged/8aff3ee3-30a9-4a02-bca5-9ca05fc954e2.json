@@ -1,0 +1,106 @@
+{
+ "schema": "conform-run/1",
+ "worker": "8aff3ee3-30a9-4a02-bca5-9ca05fc954e2",
+ "subject": "data-access",
+ "evaluatedAt": "2026-10-24T01:31:50.947456+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "eslint-rules/README.md:17 The directory holds only one-line re-export shims and forwarding test runners for lint rules; a case-insensitive search of eslint-rules/ for transaction, upsert, insert into, repository and sql found no store access, so no data-access seam exists here to judge.",
+   "techniques": [],
+   "absenceTerms": [
+    "transaction",
+    "upsert",
+    "insert into",
+    "repository",
+    "sql"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-tests",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:60 This directory is the RuleTester harness for an ESLint plugin; a case-insensitive search of __tests__ for transaction, upsert, insert into, repository and sql found nothing (the only pglite mention is an import-path string inside a lint test case at no-server-import-in-client.test.mjs:96), so no store seam exists here.",
+   "techniques": [],
+   "absenceTerms": [
+    "transaction",
+    "upsert",
+    "insert into",
+    "repository",
+    "sql"
+   ]
+  },
+  {
+   "context": "testing-core",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/loaders.test.ts:153 The loader suite seeds an ordinary person row (and organ, mandate and membership rows) with raw INSERTs on the engine handle, although Store exposes upsertPersons, upsertOrgans, upsertMandates and upsertMemberships (lib/db/store.ts:69-72), so the fixtures can certify states the write surface would never produce and do not exercise it.",
+   "techniques": [
+    {
+     "technique": "repo-testing",
+     "verdict": "deviation",
+     "evidence": "lib/testing/loaders.test.ts:153 Real engine and production schema are in place (pglite-template.ts:157 runs CORE_DDL, pglite-fixture.ts gives a per-file temp copy), but fixtures bypass the front door. Only some rows (to_at='infinity') are legitimate legacy-shape drills."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "data-access",
+   "context": "kg-graph-writers",
+   "reason": "evidence leans on repositories/kg.ts, which is not a tracked file"
+  },
+  {
+   "subject": "data-access",
+   "context": "db-pglite-engine",
+   "reason": "evidence leans on repositories/weights.ts, which is not a tracked file"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T01:31:50.947456+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:31:50.947456+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-tests",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:31:50.947456+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "repo-testing"
+   ],
+   "deviations": 1,
+   "context": "testing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
