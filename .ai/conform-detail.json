@@ -864,37 +864,44 @@
       "subject": "table",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T02:05:25.893Z",
-      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:11:36.124Z",
+      "worker": "ebf73c11-976d-4a27-b5ea-a86eeb515f8e",
       "techniques": [
         {
-          "technique": "sorting",
+          "technique": "loading-and-empty-states",
           "verdict": "deviation",
-          "evidence": "features/admin/components/LoopMissionControl.tsx:193 Order is total in the state machine (loopState.ts:447), but the table carries no caption or status announcement exposing the sort order to assistive technology."
+          "evidence": "features/admin/loops/getLoopState.ts:61 Failure collapses into empty (same at :42 and :49). The table's only empty copy, at LoopMissionControl.tsx:285, covers just the all-empty case and never says a read failed."
+        },
+        {
+          "technique": "sorting",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/loopState.ts:441 Fixed order: declared case loops first, then sorted extra tracks, then ingest sources keyed by unique source id. There is no user sort."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:193 Native table with scope=col headers and one action button per row, over a handful of loops. Native is the right shape here."
         },
         {
           "technique": "performance",
           "verdict": "conformant",
-          "evidence": "features/admin/components/LoopMissionControl.tsx:211 Rows are keyed by immutable loop domain identity rather than positional index."
-        },
-        {
-          "technique": "loading-and-empty-states",
-          "verdict": "conformant",
-          "evidence": "features/admin/components/LoopMissionControl.tsx:285 Settled empty state explicitly names why no rows are available instead of rendering generic empty text."
+          "evidence": "features/admin/components/LoopMissionControl.tsx:211 Rows are keyed by loop id, not index. The set is tiny, so nothing further up the ladder is needed."
         },
         {
           "technique": "pagination",
           "verdict": "not-applicable",
-          "evidence": "features/admin/loops/loopState.ts:447 Loop set is a closed enumeration composed of fixed cases and ingest sources with no windowing requirement."
+          "evidence": "features/admin/loops/loopState.ts:447 Loop set is a closed enumeration composed of fixed cases and ingest sources with no windowing requirement.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "filtering",
           "verdict": "not-applicable",
-          "evidence": "features/admin/components/LoopMissionControl.tsx:210 The status board provides no filter controls or predicate axis."
+          "evidence": "features/admin/components/LoopMissionControl.tsx:210 The status board provides no filter controls or predicate axis.",
+          "carriedFrom": "2026-10-13"
         }
       ],
-      "registryProposal": "The table golden path specifies an accessibility posture (caption/accessible name and column header associations) at the subject level, but none of the 6 constituent techniques covers general table accessibility, forcing semantic header/caption omissions to map onto sorting announcement.",
+      "registryProposal": "The golden path's accessibility posture asks every table for a caption or accessible name, but none of the 11 techniques owns that rule. A seat can therefore only record a missing caption (this table has none) as a golden-path note, not as a technique verdict. Consider giving it a technique, or listing it inside grid-keyboard-model.",
       "superseded": [
         {
           "state": "deviation",
@@ -902,6 +909,13 @@
           "evaluatedAt": "2026-09-22",
           "worker": null,
           "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        },
+        {
+          "state": "deviation",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:193 The status board renders nine columns without a caption or accessible name, meeting screen readers with an unnamed data table.",
+          "evaluatedAt": "2026-10-13T02:05:25.893Z",
+          "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+          "reason": "replaced by ebf73c11-976d-4a27-b5ea-a86eeb515f8e"
         }
       ]
     },
@@ -909,25 +923,40 @@
       "context": "budget-mirror",
       "subject": "table",
       "bundle": "software-engineering",
-      "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T02:05:25.893Z",
-      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:11:36.124Z",
+      "worker": "ebf73c11-976d-4a27-b5ea-a86eeb515f8e",
       "techniques": [
         {
           "technique": "sorting",
-          "verdict": "deviation",
-          "evidence": "features/budget/BudgetMirrorPage.tsx:439 Rows are deterministically sorted by debt per capita (BudgetMirrorPage.tsx:212), but the sorted column header lacks aria-sort and any caption or announcement of the order."
+          "verdict": "conformant",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:215 Missing debt sorts last, with the ICO identity as tiebreaker on the next line. Supplier rows do the same at supplierTrail.ts:321."
         },
         {
           "technique": "pagination",
           "verdict": "conformant",
-          "evidence": "features/budget/MoneyTrailSection.tsx:52 Supplier table bounds visible rows to 12 items plus tied entities, honestly disclosing the remainder with row count and summed volume (MoneyTrailSection.tsx:387)."
+          "evidence": "features/budget/MoneyTrailSection.tsx:52 The supplier window is bounded. Folded rows are disclosed with their count and sum (restRow, line 387), and suppliers tied to an MP are lifted into view, never hidden."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/budget/MoneyTrailSection.tsx:257 An unavailable tie layer says 'tiesUnavailable' instead of implying no ties. A town missing from the record gets its own cause-named state (notInRecord)."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:440 Native table, a small peer set, one button per row. Header cells in thead give column association without scope."
         },
         {
           "technique": "performance",
           "verdict": "conformant",
-          "evidence": "features/budget/MoneyTrailSection.tsx:285 Supplier and peer comparison rows are keyed by immutable organization identification numbers (IČO)."
+          "evidence": "features/budget/MoneyTrailSection.tsx:285 Rows are keyed by supplier ICO, at most 12 plus lifted rows. Peer stats are computed in the render path, which costs nothing at this size."
+        },
+        {
+          "technique": "filtering",
+          "verdict": "not-applicable",
+          "evidence": "features/budget/TownPicker.tsx:51 The only narrowing control is a town picker that chooses the subject. Neither table has a row filter."
         }
       ],
       "superseded": [
@@ -937,6 +966,13 @@
           "evaluatedAt": "2026-09-22",
           "worker": null,
           "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        },
+        {
+          "state": "deviation",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:437 Header cells lack scope attributes and captions across budget comparison tables, leaving column headers disconnected from their cells in the accessibility tree.",
+          "evaluatedAt": "2026-10-13T02:05:25.893Z",
+          "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+          "reason": "replaced by ebf73c11-976d-4a27-b5ea-a86eeb515f8e"
         }
       ]
     },
@@ -945,24 +981,34 @@
       "subject": "table",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T02:05:25.893Z",
-      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:11:36.124Z",
+      "worker": "ebf73c11-976d-4a27-b5ea-a86eeb515f8e",
       "techniques": [
         {
           "technique": "filtering",
           "verdict": "deviation",
-          "evidence": "features/civicscore/components/LeaderboardTable.tsx:572 Empty-settled state renders a generic empty message without naming the active filter predicate, and the 4 filter axes lack a unified clear affordance."
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:572 No clear-all affordance; only the club axis has an 'all' button. The empty copy is not built from the applied filters. The count, by contrast, is a polite status message and says 'shown'."
         },
         {
           "technique": "sorting",
           "verdict": "conformant",
-          "evidence": "features/civicscore/getLeaderboardData.ts:217 Sorting is total and deterministic, combining score descending, Czech name collation, and unique pspId tiebreaker."
+          "evidence": "features/civicscore/getLeaderboardData.ts:217 Total order: Czech collation passed explicitly, pspId as tiebreaker. lens.ts:176 uses the same comparator."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/CivicScorePage.tsx:212 A null loader renders 'Živá data z grafu nedostupná' (live graph data unavailable), which is distinct from the filtered-empty state."
         },
         {
           "technique": "performance",
           "verdict": "conformant",
-          "evidence": "features/civicscore/components/LeaderboardTable.tsx:132 Rows are memoized with React.memo and keyed by MP identity (pspId) to prevent re-rendering unaffected rows during interactions."
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:132 Rows are memoized on stable props: a primitive inDuel and a single onToggleDuel taken from the duel hook, not a per-row closure."
+        },
+        {
+          "technique": "client-server-split",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:411 All-client over the complete 207-MP chamber, a set bounded by the size of the chamber."
         }
       ],
       "superseded": [
@@ -972,6 +1018,13 @@
           "evaluatedAt": "2026-09-22",
           "worker": null,
           "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        },
+        {
+          "state": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:411 Four client-side filter axes live in local state without URL reflection or a unified clear action, and an empty result fails to name the applied predicate.",
+          "evaluatedAt": "2026-10-13T02:05:25.893Z",
+          "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+          "reason": "replaced by ebf73c11-976d-4a27-b5ea-a86eeb515f8e"
         }
       ]
     },
@@ -980,34 +1033,44 @@
       "subject": "table",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T02:05:25.893Z",
-      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:11:36.124Z",
+      "worker": "ebf73c11-976d-4a27-b5ea-a86eeb515f8e",
       "techniques": [
         {
           "technique": "filtering",
           "verdict": "deviation",
-          "evidence": "features/money/components/TiesLedger.tsx:135 Five filter axes operate simultaneously without a unified clear action, and all filter selections are lost on refresh or navigation."
-        },
-        {
-          "technique": "pagination",
-          "verdict": "deviation",
-          "evidence": "features/money/components/TiesLedger.tsx:141 Pagination window state is held in local useState rather than reflected in navigational state (URL query params), resetting on reload."
-        },
-        {
-          "technique": "client-server-split",
-          "verdict": "deviation",
-          "evidence": "features/money/publicWire.ts:202 All ties are transferred uncut to the client without a declared dataset growth bound or guard."
+          "evidence": "features/money/components/TiesLedger.tsx:311 The count is not a live region (SC 4.1.3) and there is no clear-all. The good parts: the empty state names the applied predicates, and every filter change resets the page."
         },
         {
           "technique": "sorting",
+          "verdict": "deviation",
+          "evidence": "features/money/components/TiesLedger.tsx:617 Sort state is exposed on a real button header, but the change is never spoken (no status message, no caption). The comparator itself is total, with an identity tiebreaker and Czech collation (line 167)."
+        },
+        {
+          "technique": "pagination",
           "verdict": "conformant",
-          "evidence": "features/money/components/TiesLedger.tsx:167 Sorting enforces a total, reproducible order across re-renders with an immutable compound tiebreaker (pspId + companyId)."
+          "evidence": "features/money/components/TiesLedger.tsx:64 Offset pager over a complete, modest client set, with the page clamped and reset to 0 on every filter or sort change."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:482 The filtered-empty state names the applied predicates; a null loader goes to the labelled mock ledger instead."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:326 Native table, 25 rows per page, one link per row. A native table fits."
+        },
+        {
+          "technique": "client-server-split",
+          "verdict": "conformant",
+          "evidence": "features/money/moneyLoader.ts:490 All-client over the complete tie set (about 260 ties). The growth bet is written down as the shared KG_READ_CAP, with a truncation warning in the repository layer."
         },
         {
           "technique": "performance",
           "verdict": "conformant",
-          "evidence": "features/money/components/TiesLedger.tsx:64 Materialized window is capped at 25 rows, text search keys are folded once per dataset (line 126), and rows are keyed by stable entity IDs (line 353)."
+          "evidence": "features/money/components/TiesLedger.tsx:196 Rendering is bounded by the page and rows are keyed by MP and company identity. The reach comparator recomputes tieReach on each comparison, which is negligible at about 260 rows."
         }
       ],
       "superseded": [
@@ -1017,6 +1080,13 @@
           "evaluatedAt": "2026-09-22",
           "worker": null,
           "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        },
+        {
+          "state": "deviation",
+          "evidence": "features/money/components/TiesLedger.tsx:134 Five filter axes and pagination window state live solely in component state without URL synchronization, and the client receives the entire tie graph without an upper-bound growth guarantee.",
+          "evaluatedAt": "2026-10-13T02:05:25.893Z",
+          "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+          "reason": "replaced by ebf73c11-976d-4a27-b5ea-a86eeb515f8e"
         }
       ]
     },
@@ -1025,29 +1095,38 @@
       "subject": "table",
       "bundle": "software-engineering",
       "state": "conformant",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T02:05:25.893Z",
-      "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T02:11:36.124Z",
       "techniques": [
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:30 The lists.empty copy says the lists could not be composed because PSP10 mandates are unreadable. A null loader goes to DataUnavailable at the route."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:62 Native table over a small number of lists, with a row header holding the single link."
+        },
         {
           "technique": "sorting",
           "verdict": "conformant",
-          "evidence": "features/volby/volbyLoader.ts:167 Order is total and deterministic using Czech locale collation and unique pspId tiebreaker in the loader."
+          "evidence": "features/volby/volbyLoader.ts:378 Seats descending, then label under Czech collation. The tiebreaker is the list label, unique within an election, not the partyListPspId identity. The member order in getListData.ts:74 ends at name but inherits a pspId tiebreak through a stable sort from volbyLoader.ts:167."
         },
         {
           "technique": "performance",
           "verdict": "conformant",
-          "evidence": "features/volby/components/ListsLedger.tsx:61 Table rows are keyed by stable slug identity; numbers are right-aligned with fixed-width tabular numerals."
+          "evidence": "features/volby/components/ListsLedger.tsx:61 Rows are keyed by list slug in a server component with a handful of rows."
         },
         {
-          "technique": "loading-and-empty-states",
-          "verdict": "conformant",
-          "evidence": "features/volby/components/ListsLedger.tsx:30 Empty condition is verified and settled with localized messaging before table chrome renders."
+          "technique": "pagination",
+          "verdict": "not-applicable",
+          "evidence": "features/volby/volbyLoader.ts:357 Rows are one per elected list, a set bounded by the election result, so no window is needed."
         },
         {
           "technique": "client-server-split",
-          "verdict": "conformant",
-          "evidence": "features/volby/getListData.ts:25 Datasets are bounded and shaped on the server (12 contested votes, chamber list rollups) before client delivery."
+          "verdict": "not-applicable",
+          "evidence": "features/volby/VolbyPage.tsx:10 Everything is server-composed. These tables have no client filter, sort or window."
         }
       ],
       "superseded": [
@@ -1057,8 +1136,21 @@
           "evaluatedAt": "2026-09-22",
           "worker": null,
           "reason": "replaced by a1abd800-1f91-4756-8215-5b17dc48f232"
+        },
+        {
+          "state": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:35 Server-rendered election ledger meets full accessibility standards with hidden caption, scoped column and row headers, tabular numbers, and identity-keyed rows.",
+          "evaluatedAt": "2026-10-13T02:05:25.893Z",
+          "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
+          "reason": "replaced by ebf73c11-976d-4a27-b5ea-a86eeb515f8e"
         }
-      ]
+      ],
+      "withdrawn": {
+        "worker": "ebf73c11-976d-4a27-b5ea-a86eeb515f8e",
+        "state": "conformant",
+        "at": "2026-10-24T02:12:20.830608+00:00",
+        "reason": "reviewer (sonnet): The claim that the list order is a total order rests on list labels being unique within an election. I could not confirm that: slugs are derived from labels, and `volbyLoader.ts` only dedupes by partyListPspId. The sort at volbyLoader.ts:378 ends at the label, not the identity, so the order may not "
+      }
     },
     "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/prompt-assembly": {
       "context": "civic-inbox",

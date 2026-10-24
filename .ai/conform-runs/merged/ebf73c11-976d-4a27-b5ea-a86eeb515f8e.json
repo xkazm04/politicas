@@ -1,0 +1,259 @@
+{
+  "schema": "conform-run/1",
+  "worker": "ebf73c11-976d-4a27-b5ea-a86eeb515f8e",
+  "subject": "table",
+  "evaluatedAt": "2026-10-24T02:11:36.124241+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "admin-observability",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/admin/loops/getLoopState.ts:61 When the ingest-run read throws, the error is logged but the loader returns an empty list, so the status table just drops every ingest loop row with nothing on screen saying the read failed; 'could not look' ends up looking the same as 'no runs exist'.",
+      "techniques": [
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "deviation",
+          "evidence": "features/admin/loops/getLoopState.ts:61 Failure collapses into empty (same at :42 and :49). The table's only empty copy, at LoopMissionControl.tsx:285, covers just the all-empty case and never says a read failed."
+        },
+        {
+          "technique": "sorting",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/loopState.ts:441 Fixed order: declared case loops first, then sorted extra tracks, then ingest sources keyed by unique source id. There is no user sort."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:193 Native table with scope=col headers and one action button per row, over a handful of loops. Native is the right shape here."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/admin/components/LoopMissionControl.tsx:211 Rows are keyed by loop id, not index. The set is tiny, so nothing further up the ladder is needed."
+        }
+      ],
+      "registryProposal": "The golden path's accessibility posture asks every table for a caption or accessible name, but none of the 11 techniques owns that rule. A seat can therefore only record a missing caption (this table has none) as a golden-path note, not as a technique verdict. Consider giving it a technique, or listing it inside grid-keyboard-model."
+    },
+    {
+      "context": "budget-mirror",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evidence": "features/budget/BudgetMirrorPage.tsx:440 Both budget tables take their accessible name from the section heading. They sort by a total order that puts absent values last, cap the window with an honest remainder line, and show an unavailable data layer differently from an empty one, so the earlier deviation (no scope or caption) no longer holds.",
+      "techniques": [
+        {
+          "technique": "sorting",
+          "verdict": "conformant",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:215 Missing debt sorts last, with the ICO identity as tiebreaker on the next line. Supplier rows do the same at supplierTrail.ts:321."
+        },
+        {
+          "technique": "pagination",
+          "verdict": "conformant",
+          "evidence": "features/budget/MoneyTrailSection.tsx:52 The supplier window is bounded. Folded rows are disclosed with their count and sum (restRow, line 387), and suppliers tied to an MP are lifted into view, never hidden."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/budget/MoneyTrailSection.tsx:257 An unavailable tie layer says 'tiesUnavailable' instead of implying no ties. A town missing from the record gets its own cause-named state (notInRecord)."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:440 Native table, a small peer set, one button per row. Header cells in thead give column association without scope."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/budget/MoneyTrailSection.tsx:285 Rows are keyed by supplier ICO, at most 12 plus lifted rows. Peer stats are computed in the render path, which costs nothing at this size."
+        },
+        {
+          "technique": "filtering",
+          "verdict": "not-applicable",
+          "evidence": "features/budget/TownPicker.tsx:51 The only narrowing control is a town picker that chooses the subject. Neither table has a row filter."
+        }
+      ]
+    },
+    {
+      "context": "civicscore-leaderboard",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/civicscore/components/LeaderboardTable.tsx:572 Four client-side filter axes (club, name search, workhorse flavour, dossier) have no single clear action. The empty state is a fixed sentence ('try another name or party') that never names the applied filters, so it points the reader at the wrong axes when a workhorse or dossier filter is what emptied the list.",
+      "techniques": [
+        {
+          "technique": "filtering",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:572 No clear-all affordance; only the club axis has an 'all' button. The empty copy is not built from the applied filters. The count, by contrast, is a polite status message and says 'shown'."
+        },
+        {
+          "technique": "sorting",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/getLeaderboardData.ts:217 Total order: Czech collation passed explicitly, pspId as tiebreaker. lens.ts:176 uses the same comparator."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/CivicScorePage.tsx:212 A null loader renders 'Živá data z grafu nedostupná' (live graph data unavailable), which is distinct from the filtered-empty state."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:132 Rows are memoized on stable props: a primitive inDuel and a single onToggleDuel taken from the duel hook, not a per-row closure."
+        },
+        {
+          "technique": "client-server-split",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:411 All-client over the complete 207-MP chamber, a set bounded by the size of the chamber."
+        }
+      ]
+    },
+    {
+      "context": "money-ledger",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/money/components/TiesLedger.tsx:311 Search filters on every keystroke all-client across five axes, but the result count is a plain paragraph, not a status message, and there is no single clear action. A screen-reader user hears nothing while rows change and has to undo each axis by hand.",
+      "techniques": [
+        {
+          "technique": "filtering",
+          "verdict": "deviation",
+          "evidence": "features/money/components/TiesLedger.tsx:311 The count is not a live region (SC 4.1.3) and there is no clear-all. The good parts: the empty state names the applied predicates, and every filter change resets the page."
+        },
+        {
+          "technique": "sorting",
+          "verdict": "deviation",
+          "evidence": "features/money/components/TiesLedger.tsx:617 Sort state is exposed on a real button header, but the change is never spoken (no status message, no caption). The comparator itself is total, with an identity tiebreaker and Czech collation (line 167)."
+        },
+        {
+          "technique": "pagination",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:64 Offset pager over a complete, modest client set, with the page clamped and reset to 0 on every filter or sort change."
+        },
+        {
+          "technique": "loading-and-empty-states",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:482 The filtered-empty state names the applied predicates; a null loader goes to the labelled mock ledger instead."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:326 Native table, 25 rows per page, one link per row. A native table fits."
+        },
+        {
+          "technique": "client-server-split",
+          "verdict": "conformant",
+          "evidence": "features/money/moneyLoader.ts:490 All-client over the complete tie set (about 260 ties). The growth bet is written down as the shared KG_READ_CAP, with a truncation warning in the repository layer."
+        },
+        {
+          "technique": "performance",
+          "verdict": "conformant",
+          "evidence": "features/money/components/TiesLedger.tsx:196 Rendering is bounded by the page and rows are keyed by MP and company identity. The reach comparator recomputes tieReach on each comparison, which is negligible at about 260 rows."
+        }
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "table",
+      "context": "volby-elections",
+      "reason": "withdrawn after review: reviewer (sonnet): The claim that the list order is a total order rests on list labels being unique within an election. I could not confirm that: slugs are derived from labels, and `volbyLoader.ts` only dedupes by partyListPspId. The sort at volbyLoader.ts:378 ends at the label, not the identity, so the order may not "
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-24T02:11:36.124241+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "table"
+      ],
+      "techniques": [
+        "grid-keyboard-model",
+        "loading-and-empty-states",
+        "performance",
+        "sorting"
+      ],
+      "deviations": 1,
+      "context": "admin-observability",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T02:11:36.124241+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "table"
+      ],
+      "techniques": [
+        "filtering",
+        "grid-keyboard-model",
+        "loading-and-empty-states",
+        "pagination",
+        "performance",
+        "sorting"
+      ],
+      "deviations": 0,
+      "context": "budget-mirror",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T02:11:36.124241+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "table"
+      ],
+      "techniques": [
+        "client-server-split",
+        "filtering",
+        "loading-and-empty-states",
+        "performance",
+        "sorting"
+      ],
+      "deviations": 1,
+      "context": "civicscore-leaderboard",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T02:11:36.124241+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "table"
+      ],
+      "techniques": [
+        "client-server-split",
+        "filtering",
+        "grid-keyboard-model",
+        "loading-and-empty-states",
+        "pagination",
+        "performance",
+        "sorting"
+      ],
+      "deviations": 1,
+      "context": "money-ledger",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T02:11:36.124241+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "table"
+      ],
+      "techniques": [
+        "client-server-split",
+        "grid-keyboard-model",
+        "loading-and-empty-states",
+        "pagination",
+        "performance",
+        "sorting"
+      ],
+      "deviations": 0,
+      "context": "volby-elections",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

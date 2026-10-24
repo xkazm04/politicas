@@ -1415,18 +1415,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "deviation",
-          "evidence": "features/admin/components/LoopMissionControl.tsx:193 The status board renders nine columns without a caption or accessible name, meeting screen readers with an unnamed data table.",
+          "evidence": "features/admin/loops/getLoopState.ts:61 When the ingest-run read throws, the error is logged but the loader returns an empty list, so the status table just drops every ingest loop row with nothing on screen saying the read failed; 'could not look' ends up looking the same as 'no runs exist'.",
           "confidence": "strong",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:f5aa23bf6f14872f",
-          "evaluatedRevision": 12,
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:c587a204413d5373",
+          "evaluatedRevision": 14,
           "digest": "sha256-b2:c587a204413d5373",
           "revision": 14,
           "changedAt": "2026-10-14",
           "source": "conform",
           "adoptedFrom": "bdc25695-c6ce-4084-85dd-3ca6814b84c5",
-          "revisionsBehind": 2,
-          "stale": true
+          "revisionsBehind": 2
         }
       ],
       "governance": "governed"
@@ -1965,19 +1964,18 @@
         {
           "subject": "table",
           "bundle": "software-engineering",
-          "state": "deviation",
-          "evidence": "features/budget/BudgetMirrorPage.tsx:437 Header cells lack scope attributes and captions across budget comparison tables, leaving column headers disconnected from their cells in the accessibility tree.",
+          "state": "conformant",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:440 Both budget tables take their accessible name from the section heading. They sort by a total order that puts absent values last, cap the window with an honest remainder line, and show an unavailable data layer differently from an empty one, so the earlier deviation (no scope or caption) no longer holds.",
           "confidence": "strong",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:f5aa23bf6f14872f",
-          "evaluatedRevision": 12,
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:c587a204413d5373",
+          "evaluatedRevision": 14,
           "digest": "sha256-b2:c587a204413d5373",
           "revision": 14,
           "changedAt": "2026-10-14",
           "source": "conform",
           "adoptedFrom": "38aa6449-424a-40ee-a6e9-30dbb180afb8",
-          "revisionsBehind": 2,
-          "stale": true
+          "revisionsBehind": 2
         }
       ],
       "governance": "governed"
@@ -3906,18 +3904,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "deviation",
-          "evidence": "features/civicscore/components/LeaderboardTable.tsx:411 Four client-side filter axes live in local state without URL reflection or a unified clear action, and an empty result fails to name the applied predicate.",
+          "evidence": "features/civicscore/components/LeaderboardTable.tsx:572 Four client-side filter axes (club, name search, workhorse flavour, dossier) have no single clear action. The empty state is a fixed sentence ('try another name or party') that never names the applied filters, so it points the reader at the wrong axes when a workhorse or dossier filter is what emptied the list.",
           "confidence": "strong",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:f5aa23bf6f14872f",
-          "evaluatedRevision": 12,
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:c587a204413d5373",
+          "evaluatedRevision": 14,
           "digest": "sha256-b2:c587a204413d5373",
           "revision": 14,
           "changedAt": "2026-10-14",
           "source": "conform",
           "adoptedFrom": "4fcb315e-66a1-4642-8eb7-94236d979535",
-          "revisionsBehind": 2,
-          "stale": true
+          "revisionsBehind": 2
         }
       ],
       "governance": "governed"
@@ -11370,18 +11367,17 @@
           "subject": "table",
           "bundle": "software-engineering",
           "state": "deviation",
-          "evidence": "features/money/components/TiesLedger.tsx:134 Five filter axes and pagination window state live solely in component state without URL synchronization, and the client receives the entire tie graph without an upper-bound growth guarantee.",
+          "evidence": "features/money/components/TiesLedger.tsx:311 Search filters on every keystroke all-client across five axes, but the result count is a plain paragraph, not a status message, and there is no single clear action. A screen-reader user hears nothing while rows change and has to undo each axis by hand.",
           "confidence": "strong",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:f5aa23bf6f14872f",
-          "evaluatedRevision": 12,
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:c587a204413d5373",
+          "evaluatedRevision": 14,
           "digest": "sha256-b2:c587a204413d5373",
           "revision": 14,
           "changedAt": "2026-10-14",
           "source": "conform",
           "adoptedFrom": "95e598cd-7db2-49a2-b977-9cbfac6e6d7d",
-          "revisionsBehind": 2,
-          "stale": true
+          "revisionsBehind": 2
         }
       ],
       "governance": "governed"
@@ -13746,19 +13742,15 @@
         {
           "subject": "table",
           "bundle": "software-engineering",
-          "state": "conformant",
-          "evidence": "features/volby/components/ListsLedger.tsx:35 Server-rendered election ledger meets full accessibility standards with hidden caption, scoped column and row headers, tabular numbers, and identity-keyed rows.",
           "confidence": "strong",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:f5aa23bf6f14872f",
-          "evaluatedRevision": 12,
           "digest": "sha256-b2:c587a204413d5373",
           "revision": 14,
           "changedAt": "2026-10-14",
           "source": "conform",
           "adoptedFrom": "volby-election-mirror-2026-08-27",
-          "revisionsBehind": 2,
-          "stale": true
+          "state": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:35 Server-rendered election ledger meets full accessibility standards with hidden caption, scoped column and row headers, tabular numbers, and identity-keyed rows.",
+          "evaluatedAt": "2026-10-13"
         }
       ],
       "governance": "governed"
