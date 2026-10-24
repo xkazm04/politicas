@@ -5479,8 +5479,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/db-bench/vector.ts:6 The benchmark here times database engines (warm-median latency) and the db scripts are maintenance CLIs; no model or agent is scored. A case-insensitive grep over scripts/db, scripts/db-bench (including node_modules) and scripts/ found 0 hits for the subject's terms, and perf-instrumentation governs this context, not eval-harness.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "quality-gates",
@@ -6402,8 +6406,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:2 These are deterministic ESLint RuleTester suites with no model or agent under test, so eval-harness's precondition (a non-deterministic candidate scored across runs) does not hold. A case-insensitive grep over the whole package for llm, prompt, trials, temperature and anthropic found 0 hits; the test-harness subject governs this context instead.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "conformance-checking",
@@ -9580,8 +9588,8 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "priorNotApplicable": 5,
+          "state": "unknown"
         },
         {
           "subject": "legislative-change-tracking",
@@ -10126,8 +10134,8 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "priorNotApplicable": 5,
+          "state": "unknown"
         },
         {
           "subject": "llm-forensic-gating",

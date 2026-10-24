@@ -11325,6 +11325,94 @@
       "evaluatedTs": "2026-10-24T06:18:15.635Z",
       "worker": "f3147dae-c284-4388-b868-4d3dce1f0b98",
       "techniques": []
+    },
+    "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/eval-harness": {
+      "context": "law-triage-collision",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:32:22.190Z",
+      "techniques": [
+        {
+          "technique": "failure-signatures-beside-the-pass-rate",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:151 The denominator is files.length, not the verdicts that carry a company graph_fact citation (the only runs that could trip it), so a zero can mean the detector never ran. Hard errors are listed per file, never counted by family."
+        },
+        {
+          "technique": "assertion-vs-judgment",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 LLM-authored verdicts are checked deterministically (schema, real statutes, real node ids) rather than by a second model."
+        },
+        {
+          "technique": "monitor-inside-the-loop",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:64 The gap an Opus audit found was turned into a check of the claim against the cited node's real props: it reviews the artifact, not the account of it."
+        }
+      ],
+      "registryProposal": "This context is a production gate over LLM outputs rather than a repeatable eval suite. Most techniques (judges, arenas, trials, rankings) do not reach it, and llm-forensic-gating likely governs it better. eval-harness only bites here through its counter and assertion techniques.",
+      "withdrawn": {
+        "worker": "58d75431-efbb-41db-9f61-c767607c175a",
+        "state": "deviation",
+        "at": "2026-10-24T06:33:03.694416+00:00",
+        "reason": "reviewer (sonnet): The anchor scripts/case-loops/law/gate-verdicts.ts is not among the context's paths in registry-map.json. Those paths are triage, collision, cause-collapse, citationScope.test.ts and verdictScope.ts, so the deviation is about a file outside this context. The gate-verdicts.ts claims themselves check "
+      }
+    },
+    "3e5e8c14-4e90-463a-a9c3-c3538c866bab/eval-harness": {
+      "context": "eslint-plugin-civic-transparency-tests",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:32:22.190Z",
+      "worker": "58d75431-efbb-41db-9f61-c767607c175a",
+      "techniques": []
+    },
+    "83c0d33f-f7db-4a99-9d17-48a23e417b22/eval-harness": {
+      "context": "law-amends-corpus",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:32:22.190Z",
+      "techniques": [
+        {
+          "technique": "failure-signatures-beside-the-pass-rate",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/build-cz-verdict-patch.ts:220 The control is counted but not enforced, so a detector that cannot fire would still let a zero-failure result through. Contrast verify-close-reads.ts:383-384, which does count per family and spells UNVERIFIABLE separately from FAIL."
+        },
+        {
+          "technique": "assertion-vs-judgment",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/build-cz-verdict-patch.ts:214 Fidelity of the LLM-written Czech rewrite (citations, statutes, URLs, numerals) is asserted mechanically."
+        },
+        {
+          "technique": "monitor-inside-the-loop",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/verify-close-reads.ts:8 Agent close-reads are checked against the cached source text (the artifact), not by a second model."
+        },
+        {
+          "technique": "failure-attribution",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/verify-close-reads.ts:37 Each red case was read by hand and pinned on the instrument (the rule) before the rule was revised, stage by stage."
+        }
+      ],
+      "withdrawn": {
+        "worker": "58d75431-efbb-41db-9f61-c767607c175a",
+        "state": "deviation",
+        "at": "2026-10-24T06:33:03.749241+00:00",
+        "reason": "reviewer (sonnet): The anchor scripts/case-loops/law/build-cz-verdict-patch.ts is not among the context's paths in registry-map.json, which are the amends-census/regen and esbirka files. The code claim is accurate: the English control (englishStillDetected) is counted and printed but never added to `problems`, even th"
+      }
+    },
+    "313a8c55-3182-49d8-a3f7-331198b2093f/eval-harness": {
+      "context": "db-tooling",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:32:22.190Z",
+      "worker": "58d75431-efbb-41db-9f61-c767607c175a",
+      "techniques": []
     }
   }
 }
