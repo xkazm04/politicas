@@ -3140,12 +3140,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "not-applicable",
-          "evidence": "features/schranka/getSchrankaDeltas.ts:75 Context and repository searches for prompt assembly, model requests, compaction and context-window budgeting found no owned prompt assembler here; this loader derives subscriber deltas for browser and feed consumers.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:7436fd55a7cb2500",
-          "evaluatedRevision": 43,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/schranka/getSchrankaDeltas.ts:75 The loader derives subscriber deltas for the browser and the RSS/JSON feeds; searching features/schranka for anthropic, max_tokens, systemPrompt, compaction and prompt found 0 files, so there is no prompt or model call for the standard to govern.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-memory",
@@ -5675,8 +5674,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/case-loops/effort/extract-dossiers.ts:6 The effort pipeline computes deterministic substrate and writes JSON dossier inputs for subagents that a skill dispatches; searching scripts/case-loops/effort for anthropic, max_tokens, systemPrompt, compaction and prompt found 0 files, so no prompt is built here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "cross-provider-benchmark-operations",
@@ -7945,8 +7948,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/data-analysis/kg-forensics.ts:89 This tooling writes JSON context files (forensic targets, slice stats, bounded row samples) for subagents that a skill orchestrator dispatches; no code here builds or sends a prompt. Searching scripts/data-analysis for anthropic, max_tokens, systemPrompt and compaction found 0 files, so the standard's 'owns its assembler' precondition does not hold.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "test-harness",
@@ -9427,12 +9434,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:175 Context and repository searches found corpus parsing, deterministic summary construction and verdict processing rather than an owned prompt assembler, so these bill summaries do not constitute model-written conversation compaction.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:7436fd55a7cb2500",
-          "evaluatedRevision": 43,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:9 The law pipeline extracts, summarizes and checks bill text with deterministic code (the summary builder says it never uses a model); searching scripts/case-loops/law for anthropic, max_tokens, systemPrompt, compaction and prompt found 0 files, so these summaries are not prompt material or model-written compaction.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44,
+          "revisionsBehind": 1
         },
         {
           "subject": "test-harness",
@@ -11060,8 +11066,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "features/money/getLeadDossiers.ts:4 The case-file and dossier loaders parse stored graph data and JSON payloads into reader surfaces without any model call; searching features/money for anthropic, max_tokens, systemPrompt and compaction found 0 files ('prompt' only appears as a UI 'staleness prompt'), so there is no assembler here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "beneficial-ownership-resolution",
