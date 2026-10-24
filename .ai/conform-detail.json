@@ -11748,6 +11748,79 @@
       "evaluatedTs": "2026-10-24T23:17:21.285Z",
       "worker": "2c7b501e-23b9-40e1-b485-bb0dfc4150ff",
       "techniques": []
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/public-claim-provenance": {
+      "context": "shared-provenance",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:32:36.246Z",
+      "techniques": [
+        {
+          "technique": "presentation-invariants-on-derived-values",
+          "verdict": "deviation",
+          "evidence": "features/shared/poster/demo/LeaderboardPoster.tsx:58 One condition (is the provenance uniform?) should drive both the pass and the provenance note together. citation.ts:168-176 wires them in lockstep, but the poster's data type has no provenanceState field, so only the pass changes. The divide-by-zero guard at :62 (Math.max(1, ...)) is fine."
+        },
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/getReceiptData.ts:92 Closed result vocabulary (invalid/unavailable/gone/ok) derived from the fetch outcome; the catch path calls reportLoaderFailure; the as-of lens renders non-live states as a banner above the content; ClaimReview is emitted only for verified records (receipt.ts:353)."
+        },
+        {
+          "technique": "build-time-derivation-off-the-client-bundle",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/getReceiptData.ts:33 The loader is marked server-only, so a client import fails the build; the client receives only the serialisable receipt, and the poster gets server-trimmed scalars plus the top 10."
+        },
+        {
+          "technique": "promise-only-what-ships",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/ReceiptPage.tsx:117 A gone receipt only links to case files whose node still exists; the footer points at real surfaces (copy link, /overeni, report a claim) and makes no follow-up promises."
+        },
+        {
+          "technique": "no-data-source-labelled-inline",
+          "verdict": "conformant",
+          "evidence": "features/shared/poster/citation.ts:161 When the date is missing, the page says so and gives the reason instead of substituting a value; the poster lead also interpolates the derived count rather than a typed literal."
+        }
+      ],
+      "withdrawn": {
+        "worker": "863cdb0e-6952-49f2-b79b-8a5e181a5504",
+        "state": "deviation",
+        "at": "2026-10-24T23:33:44.975379+00:00",
+        "reason": "reviewer (sonnet): The cited poster code is real (LeaderboardPoster.tsx:58 passes provenancePass but not provenanceState), but it sits in features/shared/poster, which is outside the shared-provenance context, so the verdict is about a different context; none of the provenance/*.ts(x) files named in the context were s"
+      }
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/public-claim-provenance": {
+      "context": "civic-fallback-data",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:32:36.246Z",
+      "worker": "863cdb0e-6952-49f2-b79b-8a5e181a5504",
+      "techniques": [
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "deviation",
+          "evidence": "lib/claims/registry.ts:96 Seed values wear the provenance badge (a real dataset name, a retrieval date, status pending) instead of dropping it; the closed vocabulary at claim.ts:33 lacks a seeded state."
+        },
+        {
+          "technique": "build-time-derivation-off-the-client-bundle",
+          "verdict": "conformant",
+          "evidence": "lib/claims/registry.ts:83 The issued figure derives from the same summary the surface renders, not from a copy; data.test.ts:240 pins the typed tile to the computed summary, so any drift fails the test."
+        },
+        {
+          "technique": "no-data-source-labelled-inline",
+          "verdict": "conformant",
+          "evidence": "lib/claims/registry.ts:55 The one hand-typed constant (200) states what it is and why no instrument produces it: the Constitution is the source."
+        },
+        {
+          "technique": "provenance-as-a-build-gate",
+          "verdict": "conformant",
+          "evidence": "lib/format.ts:1 This context holds the formatting chokepoint that makes the citation lint rule decidable; the rule itself lives in packages/eslint-plugin-civic-transparency."
+        }
+      ],
+      "registryProposal": "degraded-never-claims-live could name the static-fallback case explicitly: a labelled sample layer that feeds a machine-readable claim registry needs its own 'sample' state in the claim vocabulary, not just in surface copy, because the claim travels without the surface."
     }
   }
 }

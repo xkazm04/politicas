@@ -1,0 +1,84 @@
+{
+  "schema": "conform-run/1",
+  "worker": "863cdb0e-6952-49f2-b79b-8a5e181a5504",
+  "subject": "public-claim-provenance",
+  "evaluatedAt": "2026-10-24T23:32:36.246680+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "civic-fallback-data",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "lib/claims/registry.ts:96 The claim registry issues the sample attendance tile (78.3 %, which data.ts:2 calls an illustrative mock) as a machine-readable claim with dataset 'psp.cz — jmenovitá hlasování' and retrievedAt 2026-07-30, and /overeni resolves pasted refs against it, so a seeded value carries a real source and a retrieval date; ClaimReviewStatus has no sample/seeded state that could revoke the claim.",
+      "techniques": [
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "deviation",
+          "evidence": "lib/claims/registry.ts:96 Seed values wear the provenance badge (a real dataset name, a retrieval date, status pending) instead of dropping it; the closed vocabulary at claim.ts:33 lacks a seeded state."
+        },
+        {
+          "technique": "build-time-derivation-off-the-client-bundle",
+          "verdict": "conformant",
+          "evidence": "lib/claims/registry.ts:83 The issued figure derives from the same summary the surface renders, not from a copy; data.test.ts:240 pins the typed tile to the computed summary, so any drift fails the test."
+        },
+        {
+          "technique": "no-data-source-labelled-inline",
+          "verdict": "conformant",
+          "evidence": "lib/claims/registry.ts:55 The one hand-typed constant (200) states what it is and why no instrument produces it: the Constitution is the source."
+        },
+        {
+          "technique": "provenance-as-a-build-gate",
+          "verdict": "conformant",
+          "evidence": "lib/format.ts:1 This context holds the formatting chokepoint that makes the citation lint rule decidable; the rule itself lives in packages/eslint-plugin-civic-transparency."
+        }
+      ],
+      "registryProposal": "degraded-never-claims-live could name the static-fallback case explicitly: a labelled sample layer that feeds a machine-readable claim registry needs its own 'sample' state in the claim vocabulary, not just in surface copy, because the claim travels without the surface."
+    }
+  ],
+  "declined": [
+    {
+      "subject": "public-claim-provenance",
+      "context": "shared-provenance",
+      "reason": "withdrawn after review: reviewer (sonnet): The cited poster code is real (LeaderboardPoster.tsx:58 passes provenancePass but not provenanceState), but it sits in features/shared/poster, which is outside the shared-provenance context, so the verdict is about a different context; none of the provenance/*.ts(x) files named in the context were s"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-24T23:32:36.246680+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "public-claim-provenance"
+      ],
+      "techniques": [
+        "build-time-derivation-off-the-client-bundle",
+        "degraded-never-claims-live",
+        "no-data-source-labelled-inline",
+        "presentation-invariants-on-derived-values",
+        "promise-only-what-ships"
+      ],
+      "deviations": 1,
+      "context": "shared-provenance",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T23:32:36.246680+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "public-claim-provenance"
+      ],
+      "techniques": [
+        "build-time-derivation-off-the-client-bundle",
+        "degraded-never-claims-live",
+        "no-data-source-labelled-inline",
+        "provenance-as-a-build-gate"
+      ],
+      "deviations": 1,
+      "context": "civic-fallback-data",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

@@ -2863,7 +2863,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/claims/registry.ts:96 The claim registry issues the sample attendance tile (78.3 %, which data.ts:2 calls an illustrative mock) as a machine-readable claim with dataset 'psp.cz — jmenovitá hlasování' and retrievedAt 2026-07-30, and /overeni resolves pasted refs against it, so a seeded value carries a real source and a retrieval date; ClaimReviewStatus has no sample/seeded state that could revoke the claim.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:60eb54ef03f44a69",
+          "evaluatedRevision": 3
         },
         {
           "subject": "prompt-assembly",
