@@ -9080,7 +9080,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/landing/LandingPage.tsx:4 This context is the web app's rendered home page (a React orchestrator), not the repository front page that a code host or package registry shows; a case-insensitive search of features/landing for readme and shields.io found nothing, so none of the README-composition techniques have a target here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:6f6a6c4541bc949b",
+          "evaluatedRevision": 4
         },
         {
           "subject": "translation-pipeline-topology",
@@ -9268,7 +9272,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This context is an in-app polling surface with actions, aggregates and OG embeds. It contains no repository landing document, and a search of features/landing for readme and shields.io returned no hits.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:6f6a6c4541bc949b",
+          "evaluatedRevision": 4
         },
         {
           "subject": "translation-pipeline-topology",
@@ -12831,7 +12839,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shell/navModel.ts:1 This context is the app's nav rail and route model, and a case-insensitive search of features/shell for readme and shields.io found nothing. Its 'badge' hits are UI nav badges, not repository-host badges, so there is no front page to judge.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:6f6a6c4541bc949b",
+          "evaluatedRevision": 4
         },
         {
           "subject": "agent-runtime-assembly",

@@ -1,0 +1,121 @@
+{
+  "schema": "conform-run/1",
+  "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+  "subject": "repository-landing-document",
+  "evaluatedAt": "2026-10-24T05:55:28.328807+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "landing-core",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/landing/LandingPage.tsx:4 This context is the web app's rendered home page (a React orchestrator), not the repository front page that a code host or package registry shows; a case-insensitive search of features/landing for readme and shields.io found nothing, so none of the README-composition techniques have a target here.",
+      "techniques": [],
+      "absenceTerms": [
+        "readme",
+        "shields.io"
+      ],
+      "registryProposal": "The subject's use_when says 'front page' and 'landing'. Seats judging a web app whose home route is called the 'landing page' could misapply it. A one-line scope note would help, saying the subject governs the repository's README as the host renders it, not an application's marketing or home route."
+    },
+    {
+      "context": "landing-referendum",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This context is an in-app polling surface with actions, aggregates and OG embeds. It contains no repository landing document, and a search of features/landing for readme and shields.io returned no hits.",
+      "techniques": [],
+      "absenceTerms": [
+        "readme",
+        "shields.io"
+      ]
+    },
+    {
+      "context": "shell-navigation",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/shell/navModel.ts:1 This context is the app's nav rail and route model, and a case-insensitive search of features/shell for readme and shields.io found nothing. Its 'badge' hits are UI nav badges, not repository-host badges, so there is no front page to judge.",
+      "techniques": [],
+      "absenceTerms": [
+        "readme",
+        "shields.io"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "repository-landing-document",
+      "context": "app-shell",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor app/page.tsx:2 is only an import line (Suspense). It doesn't show that the context lacks a repository front page. The evidence also says the root page only mounts the landing feature, but the page also imports DenikSlot and DenikTeaserPending."
+    },
+    {
+      "subject": "repository-landing-document",
+      "context": "graph-canvas",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor features/graph/GraphPage.tsx:15 is a comment about the Mapa/Trasy variant experiment and the side rail. It doesn't show that no README-style document exists. I also couldn't confirm the claimed 'package.json' comment hit at that anchor."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-24T05:55:28.328807+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "repository-landing-document"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "landing-core",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T05:55:28.328807+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "repository-landing-document"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "app-shell",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T05:55:28.328807+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "repository-landing-document"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "landing-referendum",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T05:55:28.328807+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "repository-landing-document"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "shell-navigation",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T05:55:28.328807+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "repository-landing-document"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "graph-canvas",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

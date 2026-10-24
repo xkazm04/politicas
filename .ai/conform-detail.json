@@ -11145,6 +11145,67 @@
       "evaluatedTs": "2026-10-24T05:47:20.883Z",
       "worker": "379aec28-b8c5-4901-b260-a630d06f0e7d",
       "techniques": []
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/repository-landing-document": {
+      "context": "landing-core",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:55:28.328Z",
+      "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+      "techniques": [],
+      "registryProposal": "The subject's use_when says 'front page' and 'landing'. Seats judging a web app whose home route is called the 'landing page' could misapply it. A one-line scope note would help, saying the subject governs the repository's README as the host renders it, not an application's marketing or home route."
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/repository-landing-document": {
+      "context": "app-shell",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:55:28.328Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+        "state": "not-applicable",
+        "at": "2026-10-24T05:55:52.621182+00:00",
+        "reason": "reviewer (sonnet): The anchor app/page.tsx:2 is only an import line (Suspense). It doesn't show that the context lacks a repository front page. The evidence also says the root page only mounts the landing feature, but the page also imports DenikSlot and DenikTeaserPending."
+      }
+    },
+    "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/repository-landing-document": {
+      "context": "landing-referendum",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:55:28.328Z",
+      "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+      "techniques": []
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/repository-landing-document": {
+      "context": "shell-navigation",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:55:28.328Z",
+      "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+      "techniques": []
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/repository-landing-document": {
+      "context": "graph-canvas",
+      "subject": "repository-landing-document",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:55:28.328Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+        "state": "not-applicable",
+        "at": "2026-10-24T05:55:52.684628+00:00",
+        "reason": "reviewer (sonnet): The anchor features/graph/GraphPage.tsx:15 is a comment about the Mapa/Trasy variant experiment and the side rail. It doesn't show that no README-style document exists. I also couldn't confirm the claimed 'package.json' comment hit at that anchor."
+      }
     }
   }
 }
