@@ -2319,7 +2319,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "CLAUDE.md:139 CLAUDE.md (and .ai/registry-conformance.md:338) restate rules.json's adopted/satisfied/declined counts literally, but scripts/census/** is coupled to no document and no assertion compares the copies, so a census registry change can silently falsify the instruction file every session loads.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "translation-pipeline-topology",
@@ -2769,7 +2773,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "docs/routes/overeni.md:14 The route doc describes lib/claims/registry.ts, but no feature-doc-map entry has a glob reaching lib/claims/** (or lib/analytics.ts), so changing the claim registry owes no document and the same-change gate cannot fire on it.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "agent-memory",
@@ -2948,7 +2956,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "docs/feature-doc-map.json:303 The route detail docs that document the feed handlers (schranka.md, denik.md) are coupled only to features/<module>/**, so editing app/schranka/novinky.json/route.ts (e.g. its force-dynamic export) owes only README/CLAUDE/AGENTS/ROADMAP via app/**, and never the file that states the contract.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "agent-runtime-assembly",
@@ -10759,7 +10771,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/verify-surface.ts:3 verify-b15.ts was renamed (R100) to verify-surface.ts on 2026-08-22, and the header's run line still names the deleted file. Nothing scans in-source usage prose for dead references, so this 'broken' document has shipped for two months undetected.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "cross-provider-benchmark-operations",

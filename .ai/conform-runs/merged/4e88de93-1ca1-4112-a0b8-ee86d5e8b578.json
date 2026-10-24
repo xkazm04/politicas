@@ -1,0 +1,193 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4e88de93-1ca1-4112-a0b8-ee86d5e8b578",
+ "subject": "docs-sync",
+ "evaluatedAt": "2026-10-24T04:44:47.137881+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-fallback-data",
+   "subject": "docs-sync",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "docs/routes/overeni.md:14 The route doc describes lib/claims/registry.ts, but no feature-doc-map entry has a glob reaching lib/claims/** (or lib/analytics.ts), so changing the claim registry owes no document and the same-change gate cannot fire on it.",
+   "techniques": [
+    {
+     "technique": "source-doc-mapping",
+     "verdict": "deviation",
+     "evidence": "docs/routes/overeni.md:14 lib/civic/** and lib/format.ts are mapped (map lines 60, 106), but lib/claims/** matches no entry even though docs/routes/overeni.md documents it. The checker's coverage block still counts this context as 'reached' because one glob touches one of its files."
+    }
+   ],
+   "registryProposal": "source-doc-mapping's coverage gate should say what granularity coverage is measured at: a context-level 'at least one glob reaches the context' count reported this context as mapped while a whole module in it (lib/claims/**, described by a route doc) was unmapped."
+  },
+  {
+   "context": "civic-feed-routes",
+   "subject": "docs-sync",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "docs/feature-doc-map.json:303 The route detail docs that document the feed handlers (schranka.md, denik.md) are coupled only to features/<module>/**, so editing app/schranka/novinky.json/route.ts (e.g. its force-dynamic export) owes only README/CLAUDE/AGENTS/ROADMAP via app/**, and never the file that states the contract.",
+   "techniques": [
+    {
+     "technique": "source-doc-mapping",
+     "verdict": "deviation",
+     "evidence": "docs/feature-doc-map.json:303 The schranka.md entry lists only features/schranka/**. The same holds for denik.md (features/denik/**, features/dukazy/**) and overeni.md, whereas volby.md does include app/volby/**, so the convention is applied inconsistently."
+    },
+    {
+     "technique": "coupled-surface-inventory",
+     "verdict": "deviation",
+     "evidence": "docs/routes/schranka.md:6 The surface that actually documents the handler's behaviour (app/schranka/novinky.json/route.ts:20 `export const dynamic = \"force-dynamic\"`) is not enumerated for app/** changes. Those changes owe four broad docs instead, which produces trailer noise without any specific obligation."
+    },
+    {
+     "technique": "dated-corrections",
+     "verdict": "conformant",
+     "evidence": "app/schranka/novinky.json/route.ts:28 The in-source comment keeps the superseded state visible, with the date it ended, rather than silently rewriting it."
+    }
+   ]
+  },
+  {
+   "context": "money-contracts",
+   "subject": "docs-sync",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/money/verify-surface.ts:3 verify-b15.ts was renamed (R100) to verify-surface.ts on 2026-08-22, and the header's run line still names the deleted file. Nothing scans in-source usage prose for dead references, so this 'broken' document has shipped for two months undetected.",
+   "techniques": [
+    {
+     "technique": "doc-rot-detection",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/verify-surface.ts:3 A dead reference (the technique's 'broken' rung) in the script's own usage header, and no rot scan exists in the repo (searched for unverifiable/doc-rot: only domain uses)."
+    },
+    {
+     "technique": "source-doc-mapping",
+     "verdict": "conformant",
+     "evidence": "docs/feature-doc-map.json:182 All money-loop scripts are coupled to docs/case-loops.md."
+    },
+    {
+     "technique": "same-change-enforcement",
+     "verdict": "conformant",
+     "evidence": "lefthook.yml:63 Evidence specific to this context: since 2026-08-25 most commits touching scripts/case-loops/money also touch docs/case-loops.md, and the rest carry a scoped trailer (cb2ebc7: 'Doc-sync(docs/case-loops.md): note wording only\u2026'). The gate reads the staged diff, not a transcript."
+    },
+    {
+     "technique": "dated-corrections",
+     "verdict": "conformant",
+     "evidence": "docs/case-loops.md:583 A false in-source header claim is corrected in place, with a date, the instrument (scan-sweep, parity-auditor), and the measured cause (three leftover copies)."
+    },
+    {
+     "technique": "prose-as-an-execution-surface",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/company-contract-sweep.ts:9 The header commands take no credentials (the sweeps are token-free; PGLITE_PATH is a path, not a secret) and name no install lines, so neither of the technique's populations exists here."
+    }
+   ],
+   "registryProposal": "doc-rot-detection's dead-reference signal should name in-source usage headers (a script's own 'run me with' line) as part of the document population. prose-as-an-execution-surface explicitly disclaims checking that commands work, so a run line orphaned by a file rename is owned by neither technique as written."
+  },
+  {
+   "context": "census-quality-gate",
+   "subject": "docs-sync",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "CLAUDE.md:139 CLAUDE.md (and .ai/registry-conformance.md:338) restate rules.json's adopted/satisfied/declined counts literally, but scripts/census/** is coupled to no document and no assertion compares the copies, so a census registry change can silently falsify the instruction file every session loads.",
+   "techniques": [
+    {
+     "technique": "named-duplication-points",
+     "verdict": "deviation",
+     "evidence": "CLAUDE.md:139 These are literal, mechanically extractable counts (they match today: 0/2/7), so per the technique they should be asserted by a value check. None exists."
+    },
+    {
+     "technique": "source-doc-mapping",
+     "verdict": "deviation",
+     "evidence": "docs/feature-doc-map.json:70 The CLAUDE.md entry's globs end here without scripts/census/**, and no other entry reaches it. check-doc-sync's own coverage block lists 'Component Library Adherence Gate' (this context) as an unmapped context, but only informationally."
+    },
+    {
+     "technique": "cross-repo-drift-detection",
+     "verdict": "deviation",
+     "evidence": "scripts/census/check-library-adherence.mjs:26 The decline and satisfied verdicts are claims about principles that live in personas (the vendored index is pinned at f9e3a33fd, generatedAt 2026-08-14). The header promises a stale-index warning, but no code compares the index's age or queries upstream; the provenance block checks only for local edits."
+    },
+    {
+     "technique": "checked-vs-skipped-denominators",
+     "verdict": "conformant",
+     "evidence": "scripts/census/run-census.mjs:40 'Looked at nothing' is a failure, not a pass. The adherence report prints its denominator ('of N written principles') and labels the unreviewed list as 'a report, not a failure' (check-library-adherence.mjs:185)."
+    },
+    {
+     "technique": "dated-corrections",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:345 The schema widening keeps the failed first port visible, with its date and the reason the fix went upstream."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "docs-sync",
+   "context": "civic-verification",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T04:44:47.137881+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-sync"
+   ],
+   "techniques": [
+    "source-doc-mapping"
+   ],
+   "deviations": 1,
+   "context": "civic-fallback-data",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:44:47.137881+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-sync"
+   ],
+   "techniques": [
+    "coupled-surface-inventory",
+    "dated-corrections",
+    "source-doc-mapping"
+   ],
+   "deviations": 1,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:44:47.137881+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-sync"
+   ],
+   "techniques": [
+    "dated-corrections",
+    "doc-rot-detection",
+    "prose-as-an-execution-surface",
+    "same-change-enforcement",
+    "source-doc-mapping"
+   ],
+   "deviations": 1,
+   "context": "money-contracts",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:44:47.137881+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-sync"
+   ],
+   "techniques": [
+    "checked-vs-skipped-denominators",
+    "cross-repo-drift-detection",
+    "dated-corrections",
+    "named-duplication-points",
+    "source-doc-mapping"
+   ],
+   "deviations": 1,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

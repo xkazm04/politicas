@@ -1757,32 +1757,30 @@
       "context": "civic-fallback-data",
       "subject": "docs-sync",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T09:13:16.113Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:44:47.137Z",
+      "worker": "4e88de93-1ca1-4112-a0b8-ee86d5e8b578",
       "techniques": [
         {
           "technique": "source-doc-mapping",
-          "verdict": "not-applicable",
-          "evidence": "lib/civic/data.ts:15 Sample data arrays provide civic score fallback values rather than docs-as-code mappings."
+          "verdict": "deviation",
+          "evidence": "docs/routes/overeni.md:14 lib/civic/** and lib/format.ts are mapped (map lines 60, 106), but lib/claims/** matches no entry even though docs/routes/overeni.md documents it. The checker's coverage block still counts this context as 'reached' because one glob touches one of its files."
         },
         {
           "technique": "same-change-enforcement",
           "verdict": "not-applicable",
-          "evidence": "lib/claims/claim.ts:36 Claim defines rendered numeric citation metadata for application UI, not documentation debt collection."
+          "evidence": "lib/claims/claim.ts:36 Claim defines rendered numeric citation metadata for application UI, not documentation debt collection.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "earned-verification-state",
           "verdict": "not-applicable",
-          "evidence": "lib/claims/claim.ts:33 ClaimReviewStatus tracks human verification of political facts, not documentation freshness stamps."
+          "evidence": "lib/claims/claim.ts:33 ClaimReviewStatus tracks human verification of political facts, not documentation freshness stamps.",
+          "carriedFrom": "2026-10-13"
         }
       ],
-      "withdrawn": {
-        "worker": "9a2a4bd5-150d-49ae-bbc8-5c3500427216",
-        "state": "not-applicable",
-        "at": "2026-10-13T09:13:45.292671+00:00",
-        "reason": "reviewer (sonnet): feature-doc-map.json has sourceGlobs on lib/civic/** and lib/civic/data.ts, so the context is coupled source and the not-applicable is contradicted; the anchors (claim.ts:36, data.ts:15) are incidental declarations."
-      }
+      "registryProposal": "source-doc-mapping's coverage gate should say what granularity coverage is measured at: a context-level 'at least one glob reaches the context' count reported this context as mapped while a whole module in it (lib/claims/**, described by a route doc) was unmapped."
     },
     "3e5e8c14-4e90-463a-a9c3-c3538c866bab/docs-sync": {
       "context": "eslint-plugin-civic-transparency-tests",
@@ -1814,27 +1812,33 @@
       "context": "civic-feed-routes",
       "subject": "docs-sync",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T09:13:16.113Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:44:47.137Z",
+      "worker": "4e88de93-1ca1-4112-a0b8-ee86d5e8b578",
       "techniques": [
         {
           "technique": "source-doc-mapping",
-          "verdict": "not-applicable",
-          "evidence": "app/denik/feed.json/route.ts:27 Route handler serves RSS/JSON feeds for civic records; it maintains no documentation coupling."
+          "verdict": "deviation",
+          "evidence": "docs/feature-doc-map.json:303 The schranka.md entry lists only features/schranka/**. The same holds for denik.md (features/denik/**, features/dukazy/**) and overeni.md, whereas volby.md does include app/volby/**, so the convention is applied inconsistently."
+        },
+        {
+          "technique": "coupled-surface-inventory",
+          "verdict": "deviation",
+          "evidence": "docs/routes/schranka.md:6 The surface that actually documents the handler's behaviour (app/schranka/novinky.json/route.ts:20 `export const dynamic = \"force-dynamic\"`) is not enumerated for app/** changes. Those changes owe four broad docs instead, which produces trailer noise without any specific obligation."
+        },
+        {
+          "technique": "dated-corrections",
+          "verdict": "conformant",
+          "evidence": "app/schranka/novinky.json/route.ts:28 The in-source comment keeps the superseded state visible, with the date it ended, rather than silently rewriting it."
         },
         {
           "technique": "same-change-enforcement",
           "verdict": "not-applicable",
-          "evidence": "app/denik/feed.json/route.ts:21 Implements HTTP error responses for API endpoints rather than change-boundary documentation enforcement."
+          "evidence": "app/denik/feed.json/route.ts:21 Implements HTTP error responses for API endpoints rather than change-boundary documentation enforcement.",
+          "carriedFrom": "2026-10-13"
         }
-      ],
-      "withdrawn": {
-        "worker": "9a2a4bd5-150d-49ae-bbc8-5c3500427216",
-        "state": "not-applicable",
-        "at": "2026-10-13T09:13:45.317315+00:00",
-        "reason": "reviewer (sonnet): The map couples app/** globs (and features/denik/**, features/dukazy/**, features/schranka/**) to docs, so these route files fall under doc-sync coupling; the route.ts:27 anchor only shows a GET handler, not that the precondition is absent."
-      }
+      ]
     },
     "5ff6a2d7-0be4-4d65-b0c9-404b4fbede66/agent-instruction-files": {
       "context": "money-investigations",
@@ -10773,6 +10777,79 @@
           "technique": "gate-state-as-modifier",
           "verdict": "deviation",
           "evidence": "lib/analysis/verdict-provenance.ts:133 Rule 2 of the dictionary: unknown tokens are never hidden or rendered as blank. Here an unrecognized token becomes 'nothing recorded'. Synonym merging (pending/pending_review) and machine-vs-human rungs are otherwise handled."
+        }
+      ]
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/docs-sync": {
+      "context": "money-contracts",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:44:47.137Z",
+      "worker": "4e88de93-1ca1-4112-a0b8-ee86d5e8b578",
+      "techniques": [
+        {
+          "technique": "doc-rot-detection",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/verify-surface.ts:3 A dead reference (the technique's 'broken' rung) in the script's own usage header, and no rot scan exists in the repo (searched for unverifiable/doc-rot: only domain uses)."
+        },
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "conformant",
+          "evidence": "docs/feature-doc-map.json:182 All money-loop scripts are coupled to docs/case-loops.md."
+        },
+        {
+          "technique": "same-change-enforcement",
+          "verdict": "conformant",
+          "evidence": "lefthook.yml:63 Evidence specific to this context: since 2026-08-25 most commits touching scripts/case-loops/money also touch docs/case-loops.md, and the rest carry a scoped trailer (cb2ebc7: 'Doc-sync(docs/case-loops.md): note wording only…'). The gate reads the staged diff, not a transcript."
+        },
+        {
+          "technique": "dated-corrections",
+          "verdict": "conformant",
+          "evidence": "docs/case-loops.md:583 A false in-source header claim is corrected in place, with a date, the instrument (scan-sweep, parity-auditor), and the measured cause (three leftover copies)."
+        },
+        {
+          "technique": "prose-as-an-execution-surface",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/company-contract-sweep.ts:9 The header commands take no credentials (the sweeps are token-free; PGLITE_PATH is a path, not a secret) and name no install lines, so neither of the technique's populations exists here."
+        }
+      ],
+      "registryProposal": "doc-rot-detection's dead-reference signal should name in-source usage headers (a script's own 'run me with' line) as part of the document population. prose-as-an-execution-surface explicitly disclaims checking that commands work, so a run line orphaned by a file rename is owned by neither technique as written."
+    },
+    "78e81519-5df8-43ec-adb6-ba4dae3ea206/docs-sync": {
+      "context": "census-quality-gate",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:44:47.137Z",
+      "worker": "4e88de93-1ca1-4112-a0b8-ee86d5e8b578",
+      "techniques": [
+        {
+          "technique": "named-duplication-points",
+          "verdict": "deviation",
+          "evidence": "CLAUDE.md:139 These are literal, mechanically extractable counts (they match today: 0/2/7), so per the technique they should be asserted by a value check. None exists."
+        },
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "deviation",
+          "evidence": "docs/feature-doc-map.json:70 The CLAUDE.md entry's globs end here without scripts/census/**, and no other entry reaches it. check-doc-sync's own coverage block lists 'Component Library Adherence Gate' (this context) as an unmapped context, but only informationally."
+        },
+        {
+          "technique": "cross-repo-drift-detection",
+          "verdict": "deviation",
+          "evidence": "scripts/census/check-library-adherence.mjs:26 The decline and satisfied verdicts are claims about principles that live in personas (the vendored index is pinned at f9e3a33fd, generatedAt 2026-08-14). The header promises a stale-index warning, but no code compares the index's age or queries upstream; the provenance block checks only for local edits."
+        },
+        {
+          "technique": "checked-vs-skipped-denominators",
+          "verdict": "conformant",
+          "evidence": "scripts/census/run-census.mjs:40 'Looked at nothing' is a failure, not a pass. The adherence report prints its denominator ('of N written principles') and labels the unreviewed list as 'a report, not a failure' (check-library-adherence.mjs:185)."
+        },
+        {
+          "technique": "dated-corrections",
+          "verdict": "conformant",
+          "evidence": "scripts/census/lib/engine.mjs:345 The schema widening keeps the failed first port visible, with its date and the reason the fix went upstream."
         }
       ]
     }
