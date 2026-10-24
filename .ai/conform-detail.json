@@ -2688,35 +2688,46 @@
       "context": "civic-verification",
       "subject": "claim-verification-and-provenance",
       "bundle": "civic-intelligence",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T21:05:40.337Z",
-      "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:07:39.223Z",
+      "worker": "84197be6-35c9-4602-b95b-ba7020cd3861",
       "techniques": [
         {
           "technique": "three-verdict-vocabulary",
-          "verdict": "conformant",
-          "evidence": "features/overeni/verdict.ts:29 Closes the gate vocabulary at verified, moved, and unknown with no fourth verdict."
+          "verdict": "deviation",
+          "evidence": "features/overeni/liveFigures.ts:190 The vocabulary is closed at verdict.ts:29 and copy is returned as keys. But a failed loader yields unknown/'zaznam-nenalezen' (record gone) instead of an unevaluable state, against 'An unavailable loader ... yields unknown with an unevaluable reason, never a content verdict'. The law branch handles this correctly (getLawData null -> unavailable); the score and money branches do not."
         },
         {
-          "technique": "gate-state-as-modifier",
-          "verdict": "conformant",
-          "evidence": "features/overeni/gateVocabulary.ts:30 Normalizes review-state tokens across families while preserving unmapped tokens verbatim."
+          "technique": "claim-ref-addressing",
+          "verdict": "deviation",
+          "evidence": "features/overeni/refDetect.ts:278 The figura decoder (lib/claims/claim.ts:108) URI-decodes segments with no re-encode equality check, so a percent-encoded alias of an issued claim ref (e.g. %70 for 'p' in the metric) decodes to the same parts, and resolveLiveFigure verifies it. The zdroj family does this correctly (claimRef.ts:78)."
         },
         {
           "technique": "derivation-comparison",
           "verdict": "conformant",
-          "evidence": "features/overeni/verdict.ts:143 Emits movedBy: 'basis' when a cited value matches today's value but was written by a different derivation formula."
+          "evidence": "features/overeni/verdict.ts:143 Same value with a different derivation gives moved/basis. If either side lacks a stamp, the stamps are not compared."
         },
         {
-          "technique": "claim-ref-addressing",
+          "technique": "gate-state-as-modifier",
           "verdict": "conformant",
-          "evidence": "features/overeni/refDetect.ts:245 Enforces input bounds and returns unknown reasons rather than repairing malformed or oversized inputs."
+          "evidence": "features/overeni/verdict.ts:305 Tone is verdict x standing, computed in one place. Ungated is a first-class state (verdict.ts:285). One dictionary merges pending/pending_review and prints unknown tokens verbatim (gateVocabulary.ts)."
         },
         {
           "technique": "recomputation-receipts",
           "verdict": "conformant",
-          "evidence": "features/overeni/getVerdictData.ts:101 The gate evaluates receipts dynamically by invoking the shared receipt loader getReceiptData."
+          "evidence": "features/overeni/getVerdictData.ts:101 The gate evaluates receipts dynamically by invoking the shared receipt loader getReceiptData.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "registryProposal": "claim-ref-addressing's re-encode rule names only the base64 and UTF-8 alias sources; percent-encoded (URI-component) claim refs alias the same way ('%70' == 'p'), so the rule could name percent-encoding explicitly.",
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "features/overeni/verdict.ts:29 The Civic Claim Gate re-derives cited figures and views using shared loaders, returning a closed three-verdict vocabulary modified by orthogonal human review standing and derivation basis comparison.",
+          "evaluatedAt": "2026-10-13T21:05:40.337Z",
+          "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+          "reason": "replaced by 84197be6-35c9-4602-b95b-ba7020cd3861"
         }
       ]
     },
@@ -2724,30 +2735,40 @@
       "context": "shared-provenance",
       "subject": "claim-verification-and-provenance",
       "bundle": "civic-intelligence",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T21:05:40.337Z",
-      "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:07:39.223Z",
+      "worker": "84197be6-35c9-4602-b95b-ba7020cd3861",
       "techniques": [
         {
-          "technique": "claim-ref-addressing",
-          "verdict": "conformant",
-          "evidence": "features/shared/provenance/claimRef.ts:72 Decodes self-describing claim addresses with length bounding and returns null on malformed inputs without repair."
+          "technique": "structured-review-emission",
+          "verdict": "deviation",
+          "evidence": "features/shared/provenance/receipt.ts:363 The gate is enforced inside the emitter (line 353) and the url is absolute-or-none, but datePublished falls back to computedAt. The emission criterion is ReviewRepository approval of a machine-proposed linked_to link, which the technique classes as 'internal pipeline approval alone is insufficient'."
         },
         {
           "technique": "recomputation-receipts",
-          "verdict": "conformant",
-          "evidence": "features/shared/provenance/receipt.ts:239 Formats stored weights deterministically without rounding to preserve exact evidentiary records."
+          "verdict": "deviation",
+          "evidence": "features/shared/provenance/ReceiptBody.tsx:217 The receipt is derived per request (getReceiptData) and weights render exactly (receipt.ts:239), but missing provenance fields (method/pass/computedAt/ref, lines 217-230) are silently omitted instead of shown as 'not recorded'. Golden path: 'Missing fields say they are missing'. The /overeni gate does print row.noMethod; /zdroj does not."
         },
         {
-          "technique": "structured-review-emission",
+          "technique": "claim-ref-addressing",
           "verdict": "conformant",
-          "evidence": "features/shared/provenance/receipt.ts:353 Guards schema.org ClaimReview emission inside the emitter to only emit for claims that passed the human review gate."
+          "evidence": "features/shared/provenance/claimRef.ts:78 Self-describing src/rel/dst address, length bound at 512, and a re-encode equality check refuses aliases. Gone addresses get a decoded-claim page (getReceiptData gone + toDecodedClaim)."
         },
         {
           "technique": "gate-state-as-modifier",
           "verdict": "conformant",
-          "evidence": "features/shared/provenance/receipt.ts:180 Distinguishes deterministic ungated relations from gated relations where unrecorded states default to pending review."
+          "evidence": "features/shared/provenance/receipt.ts:182 Only literal terminal states promote. Missing or unrecognized states on a gated relation read as pending, and non-gated relations get gate=null, rendered as an explicit ungated label (ReceiptBody.tsx:199). The raw unrecognized token is not preserved (minor)."
+        }
+      ],
+      "registryProposal": "gate-state-as-modifier says both 'unrecognized state on a gated claim reads pending' and 'unknown tokens print verbatim, labelled untranslated'; a receipt that normalizes before the dictionary satisfies the first and silently loses the second. The technique could state which layer must carry the raw token.",
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "features/shared/provenance/receipt.ts:200 Receipts derive fresh view models from graph edges and nodes without storage repair, preserving exact weights, ungated distinctions, and gating ClaimReview emission to human-verified claims.",
+          "evaluatedAt": "2026-10-13T21:05:40.337Z",
+          "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+          "reason": "replaced by 84197be6-35c9-4602-b95b-ba7020cd3861"
         }
       ]
     },
@@ -2755,25 +2776,34 @@
       "context": "civicscore-scoring",
       "subject": "claim-verification-and-provenance",
       "bundle": "civic-intelligence",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T21:05:40.337Z",
-      "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:07:39.223Z",
+      "worker": "84197be6-35c9-4602-b95b-ba7020cd3861",
       "techniques": [
         {
           "technique": "derivation-comparison",
-          "verdict": "conformant",
-          "evidence": "features/civicscore/provenance.ts:118 Summarizes whole-population calculation stamps into uniform, mixed, or absent states instead of reading a single row."
+          "verdict": "deviation",
+          "evidence": "features/civicscore/provenance.ts:118 Population aggregation, a variant table, the declared-ref comparison (line 133) and derivation omitted when mixed/absent are all present. But covered<total still yields uniform, and formulaMatch can be true over an incompletely stamped population."
         },
         {
           "technique": "claim-ref-addressing",
           "verdict": "conformant",
-          "evidence": "features/civicscore/scoreClaim.ts:70 Encodes natural dataset, metric, and subject tokens into self-describing claim addresses while keeping formula versions in derivation."
+          "evidence": "features/civicscore/scoreClaim.ts:70 One shared pure module mints the ref for both the surface and the gate. The dataset/metric are frozen and the formula version travels in the derivation field, not the address."
         },
         {
           "technique": "gate-state-as-modifier",
           "verdict": "conformant",
-          "evidence": "features/civicscore/scoreClaim.ts:76 Explicitly designates the deterministic composite score claim as ungated rather than confusing it with a human review queue."
+          "evidence": "features/civicscore/scoreClaim.ts:76 The deterministic index is marked ungated rather than pending, so no review is promised that nobody is preparing."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "features/civicscore/provenance.ts:118 CivicScore summarizes chamber-wide calculation provenance into uniform, mixed, or absent states, checks stored stamps against declared formula references, and mints ungated claim references.",
+          "evaluatedAt": "2026-10-13T21:05:40.337Z",
+          "worker": "4c2b5aed-b5f6-47ab-b0c9-03c8c36804d4",
+          "reason": "replaced by 84197be6-35c9-4602-b95b-ba7020cd3861"
         }
       ]
     },
@@ -10712,6 +10742,22 @@
         "at": "2026-10-24T03:52:36.106021+00:00",
         "reason": "reviewer (sonnet): The anchor shows app/hlasovani/page.tsx mounts VoteTrackPage with getVoteRecord data, so the route is the entry point of the roll-call analysis. The grep for rice/positional/rebel/cohesion only misses it because the derivation lives in features/votetrack. The line doesn't show the precondition is ab"
       }
+    },
+    "b63c108e-2ffa-42b1-8a41-2e052c4bae86/claim-verification-and-provenance": {
+      "context": "verdict-and-law-analysis",
+      "subject": "claim-verification-and-provenance",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:07:39.223Z",
+      "worker": "84197be6-35c9-4602-b95b-ba7020cd3861",
+      "techniques": [
+        {
+          "technique": "gate-state-as-modifier",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/verdict-provenance.ts:133 Rule 2 of the dictionary: unknown tokens are never hidden or rendered as blank. Here an unrecognized token becomes 'nothing recorded'. Synonym merging (pending/pending_review) and machine-vs-human rungs are otherwise handled."
+        }
+      ]
     }
   }
 }

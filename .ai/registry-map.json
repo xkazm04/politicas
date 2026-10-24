@@ -3550,13 +3550,12 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "conformant",
-          "evidence": "features/overeni/verdict.ts:29 The Civic Claim Gate re-derives cited figures and views using shared loaders, returning a closed three-verdict vocabulary modified by orthogonal human review standing and derivation basis comparison.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:21e4652c65cd9dfb",
-          "evaluatedRevision": 3,
-          "revisionsBehind": 2,
-          "stale": true
+          "state": "deviation",
+          "evidence": "features/overeni/liveFigures.ts:190 When getLeaderboardData returns null (failed storeReady or a caught exception, getLeaderboardData.ts:317/506), the gate tells a reader with a valid contribution-score citation that the record is gone, a content reason, when the honest answer is unevaluable/unavailable.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:36b08a11e64fd422",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 2
         },
         {
           "subject": "test-harness",
@@ -4095,13 +4094,12 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "conformant",
-          "evidence": "features/civicscore/provenance.ts:118 CivicScore summarizes chamber-wide calculation provenance into uniform, mixed, or absent states, checks stored stamps against declared formula references, and mints ungated claim references.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:21e4652c65cd9dfb",
-          "evaluatedRevision": 3,
-          "revisionsBehind": 2,
-          "stale": true
+          "state": "deviation",
+          "evidence": "features/civicscore/provenance.ts:118 Unstamped person rows are skipped before classification, so a partially stamped chamber reports 'uniform' (provenance.test.ts:81 asserts this). scoreDerivation then mints a derivation for the citation, against 'Uniform requires every row in the declared population to be stamped'.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:36b08a11e64fd422",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 2
         },
         {
           "subject": "scoring-rubrics",
@@ -12425,13 +12423,12 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "conformant",
-          "evidence": "features/shared/provenance/receipt.ts:200 Receipts derive fresh view models from graph edges and nodes without storage repair, preserving exact weights, ungated distinctions, and gating ClaimReview emission to human-verified claims.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:21e4652c65cd9dfb",
-          "evaluatedRevision": 3,
-          "revisionsBehind": 2,
-          "stale": true
+          "state": "deviation",
+          "evidence": "features/shared/provenance/receipt.ts:363 When a verified linked_to edge has no recorded decision time, the ClaimReview datePublished falls back to the pipeline computation time, which the technique forbids ('never substitute computation time for an unknown decision or publication date'). The markup is also emitted for internal approval of a machine-proposed link rather than a completed editorial fact-check.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:36b08a11e64fd422",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 2
         },
         {
           "subject": "quality-gates",
@@ -13530,7 +13527,11 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/verdict-provenance.ts:133 A stored review_state token the module does not recognize collapses into the same null as 'nothing recorded', so the badge prints no rung (getLeaderboardData.ts:160) and the tally counts it as unrecorded. The record's actual mark is hidden instead of printed verbatim as untranslated.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:36b08a11e64fd422",
+          "evaluatedRevision": 5
         },
         {
           "subject": "hitl-approval",

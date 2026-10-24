@@ -1,0 +1,215 @@
+{
+ "schema": "conform-run/1",
+ "worker": "84197be6-35c9-4602-b95b-ba7020cd3861",
+ "subject": "claim-verification-and-provenance",
+ "evaluatedAt": "2026-10-24T04:07:39.223660+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-verification",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/overeni/liveFigures.ts:190 When getLeaderboardData returns null (failed storeReady or a caught exception, getLeaderboardData.ts:317/506), the gate tells a reader with a valid contribution-score citation that the record is gone, a content reason, when the honest answer is unevaluable/unavailable.",
+   "techniques": [
+    {
+     "technique": "three-verdict-vocabulary",
+     "verdict": "deviation",
+     "evidence": "features/overeni/liveFigures.ts:190 The vocabulary is closed at verdict.ts:29 and copy is returned as keys. But a failed loader yields unknown/'zaznam-nenalezen' (record gone) instead of an unevaluable state, against 'An unavailable loader ... yields unknown with an unevaluable reason, never a content verdict'. The law branch handles this correctly (getLawData null -> unavailable); the score and money branches do not."
+    },
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "deviation",
+     "evidence": "features/overeni/refDetect.ts:278 The figura decoder (lib/claims/claim.ts:108) URI-decodes segments with no re-encode equality check, so a percent-encoded alias of an issued claim ref (e.g. %70 for 'p' in the metric) decodes to the same parts, and resolveLiveFigure verifies it. The zdroj family does this correctly (claimRef.ts:78)."
+    },
+    {
+     "technique": "derivation-comparison",
+     "verdict": "conformant",
+     "evidence": "features/overeni/verdict.ts:143 Same value with a different derivation gives moved/basis. If either side lacks a stamp, the stamps are not compared."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "features/overeni/verdict.ts:305 Tone is verdict x standing, computed in one place. Ungated is a first-class state (verdict.ts:285). One dictionary merges pending/pending_review and prints unknown tokens verbatim (gateVocabulary.ts)."
+    }
+   ],
+   "registryProposal": "claim-ref-addressing's re-encode rule names only the base64 and UTF-8 alias sources; percent-encoded (URI-component) claim refs alias the same way ('%70' == 'p'), so the rule could name percent-encoding explicitly."
+  },
+  {
+   "context": "shared-provenance",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/shared/provenance/receipt.ts:363 When a verified linked_to edge has no recorded decision time, the ClaimReview datePublished falls back to the pipeline computation time, which the technique forbids ('never substitute computation time for an unknown decision or publication date'). The markup is also emitted for internal approval of a machine-proposed link rather than a completed editorial fact-check.",
+   "techniques": [
+    {
+     "technique": "structured-review-emission",
+     "verdict": "deviation",
+     "evidence": "features/shared/provenance/receipt.ts:363 The gate is enforced inside the emitter (line 353) and the url is absolute-or-none, but datePublished falls back to computedAt. The emission criterion is ReviewRepository approval of a machine-proposed linked_to link, which the technique classes as 'internal pipeline approval alone is insufficient'."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "deviation",
+     "evidence": "features/shared/provenance/ReceiptBody.tsx:217 The receipt is derived per request (getReceiptData) and weights render exactly (receipt.ts:239), but missing provenance fields (method/pass/computedAt/ref, lines 217-230) are silently omitted instead of shown as 'not recorded'. Golden path: 'Missing fields say they are missing'. The /overeni gate does print row.noMethod; /zdroj does not."
+    },
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "features/shared/provenance/claimRef.ts:78 Self-describing src/rel/dst address, length bound at 512, and a re-encode equality check refuses aliases. Gone addresses get a decoded-claim page (getReceiptData gone + toDecodedClaim)."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "features/shared/provenance/receipt.ts:182 Only literal terminal states promote. Missing or unrecognized states on a gated relation read as pending, and non-gated relations get gate=null, rendered as an explicit ungated label (ReceiptBody.tsx:199). The raw unrecognized token is not preserved (minor)."
+    }
+   ],
+   "registryProposal": "gate-state-as-modifier says both 'unrecognized state on a gated claim reads pending' and 'unknown tokens print verbatim, labelled untranslated'; a receipt that normalizes before the dictionary satisfies the first and silently loses the second. The technique could state which layer must carry the raw token."
+  },
+  {
+   "context": "civicscore-scoring",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/civicscore/provenance.ts:118 Unstamped person rows are skipped before classification, so a partially stamped chamber reports 'uniform' (provenance.test.ts:81 asserts this). scoreDerivation then mints a derivation for the citation, against 'Uniform requires every row in the declared population to be stamped'.",
+   "techniques": [
+    {
+     "technique": "derivation-comparison",
+     "verdict": "deviation",
+     "evidence": "features/civicscore/provenance.ts:118 Population aggregation, a variant table, the declared-ref comparison (line 133) and derivation omitted when mixed/absent are all present. But covered<total still yields uniform, and formulaMatch can be true over an incompletely stamped population."
+    },
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/scoreClaim.ts:70 One shared pure module mints the ref for both the surface and the gate. The dataset/metric are frozen and the formula version travels in the derivation field, not the address."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/scoreClaim.ts:76 The deterministic index is marked ungated rather than pending, so no review is promised that nobody is preparing."
+    }
+   ]
+  },
+  {
+   "context": "verdict-and-law-analysis",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/analysis/verdict-provenance.ts:133 A stored review_state token the module does not recognize collapses into the same null as 'nothing recorded', so the badge prints no rung (getLeaderboardData.ts:160) and the tally counts it as unrecorded. The record's actual mark is hidden instead of printed verbatim as untranslated.",
+   "techniques": [
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/verdict-provenance.ts:133 Rule 2 of the dictionary: unknown tokens are never hidden or rendered as blank. Here an unrecognized token becomes 'nothing recorded'. Synonym merging (pending/pending_review) and machine-vs-human rungs are otherwise handled."
+    }
+   ]
+  },
+  {
+   "context": "civic-feed-routes",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "app/zdroj/[ref]/page.tsx:79 The citation permalink route refuses undecodable addresses with a hard 404, shows DataUnavailable rather than 404 for store failure, renders an honest gone page from the address, and recomputes the receipt per request.",
+   "techniques": [
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:79 An undecodable address returns a 404-class answer, never an empty frame. Gone addresses get ReceiptGonePage (line 93)."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:77 The receipt is re-derived from the store on every request, and the as-of lens is plumbed through, not stored."
+    },
+    {
+     "technique": "structured-review-emission",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:103 The route's own logic withholds markup for historical views and passes an absolute permalink or null (line 37). The emitter's datePublished fallback and emission-criterion gap are recorded on shared-provenance (receipt.ts:363), not repeated here."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T04:07:39.223660+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "derivation-comparison",
+    "gate-state-as-modifier",
+    "three-verdict-vocabulary"
+   ],
+   "deviations": 1,
+   "context": "civic-verification",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:07:39.223660+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "gate-state-as-modifier",
+    "recomputation-receipts",
+    "structured-review-emission"
+   ],
+   "deviations": 1,
+   "context": "shared-provenance",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:07:39.223660+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "derivation-comparison",
+    "gate-state-as-modifier"
+   ],
+   "deviations": 1,
+   "context": "civicscore-scoring",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:07:39.223660+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "gate-state-as-modifier"
+   ],
+   "deviations": 1,
+   "context": "verdict-and-law-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:07:39.223660+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "recomputation-receipts",
+    "structured-review-emission"
+   ],
+   "deviations": 0,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
