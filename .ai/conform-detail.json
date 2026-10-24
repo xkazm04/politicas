@@ -1087,39 +1087,49 @@
       "subject": "conflict-of-interest-detection",
       "bundle": "civic-intelligence",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T04:09:27.482Z",
-      "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:46:17.179Z",
+      "worker": "421035f6-c6bb-4991-abe2-7c841f92fb2a",
       "techniques": [
-        {
-          "technique": "tie-class-taxonomy",
-          "verdict": "conformant",
-          "evidence": "features/money/reachableMoney.ts:260 Reachable money is split into an attributable bucket and a steward bucket, and a company is not summed once across both."
-        },
-        {
-          "technique": "registry-corroboration-gating",
-          "verdict": "deviation",
-          "evidence": "features/money/packet.ts:343 The published evidence packet keeps every human-verified tie. It does not also require registry-confirmed, which tieEntersJoin does require for the vote join."
-        },
         {
           "technique": "temporal-alignment-of-money-and-role",
           "verdict": "deviation",
-          "evidence": "features/money/collisions/statuteRelevance.ts:83 Inclusive day bounds are tested, but a missing end is treated as open forever. deriveCollisions.test.ts expects a 2031 vote to enter when roleValidTo is null, and the join does not read temporalStatus to separate a known current role from an unknown end."
+          "evidence": "features/money/collisions/statuteRelevance.ts:83 Both boundary days are inclusive and the day truncation is shared, which is good. But an open end means the role never ends; it is not bounded by the register snapshot date, and a known ongoing role is not told apart from an unknown end."
+        },
+        {
+          "technique": "registry-corroboration-gating",
+          "verdict": "conformant",
+          "evidence": "features/money/collisions/statuteRelevance.ts:61 tieEntersJoin lets a tie into the join only if it is verified, registry-confirmed and has a role_valid_from. Pending ties that would otherwise qualify are counted separately (tiesPendingWouldEnter)."
         },
         {
           "technique": "statute-relevance-mapping",
           "verdict": "conformant",
-          "evidence": "features/money/collisions/statuteRelevance.ts:16 One declared channel table, versioned as strety-v1, imported by the join and rendered literally on StretyPage. Rows are ref and label only, with no per-row effective period."
+          "evidence": "features/money/collisions/statuteRelevance.ts:32 There is one fixed channel-to-statute table, and each row carries its why. The rule version is stamped on the output, and StretyPage renders the same constants word for word."
         },
         {
           "technique": "vote-versus-interest-join",
           "verdict": "deviation",
-          "evidence": "features/money/collisions/deriveCollisions.ts:175 The six clauses, ambiguous-agenda drop, coverage nulls, and one candidate per tie-vote pair are present. Conflicting ballots are not quarantined: the first row is kept."
+          "evidence": "features/money/collisions/deriveCollisions.ts:175 All six clauses are present, and the coverage ledger reports what was never read as null. But conflicting duplicate ballots (and duplicate bill numbers, line 120) are settled by keeping the first one deterministically instead of being quarantined. The technique names that stable arbitrary choice as the failure."
+        },
+        {
+          "technique": "tie-class-taxonomy",
+          "verdict": "conformant",
+          "evidence": "features/money/reachableMoney.ts:260 Money is summed separately per class bucket, with steward money never merged into the attributable figure. Each candidate also carries its tieClass."
         },
         {
           "technique": "triage-signal-scoring",
           "verdict": "not-applicable",
-          "evidence": "features/money/packet.ts:348 This context orders the packet by review rank and collision candidates by vote date. A search of the evidence and collisions files found no significance-score formula."
+          "evidence": "features/money/packet.ts:348 This context orders the packet by review rank and collision candidates by vote date. A search of the evidence and collisions files found no significance-score formula.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/money/collisions/statuteRelevance.ts:83 A null role end skips the upper bound, so any later vote, including one after a snapshot, counts as inside the mandate.",
+          "evaluatedAt": "2026-10-13T04:09:27.482Z",
+          "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+          "reason": "replaced by 421035f6-c6bb-4991-abe2-7c841f92fb2a"
         }
       ]
     },
@@ -1128,39 +1138,51 @@
       "subject": "conflict-of-interest-detection",
       "bundle": "civic-intelligence",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T04:09:27.482Z",
-      "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:46:17.179Z",
+      "worker": "421035f6-c6bb-4991-abe2-7c841f92fb2a",
       "techniques": [
+        {
+          "technique": "registry-corroboration-gating",
+          "verdict": "deviation",
+          "evidence": "features/money/getMoneyData.ts:205 Published per-MP money attributions include unconfirmed ties, and the selection order is by money with no trust tier. Within an MP's file the ties are ordered by reviewRank (line 180), which is correct."
+        },
         {
           "technique": "tie-class-taxonomy",
           "verdict": "conformant",
-          "evidence": "features/money/getMoneyData.ts:196 MP ordering and the featured graph use the attributable bucket. Steward reach is a separate field."
-        },
-        {
-          "technique": "registry-corroboration-gating",
-          "verdict": "conformant",
-          "evidence": "features/money/getMoneyData.ts:178 Ties inside a case file sort by reviewRank, which is tier first and money only inside the tier. The closed corroboration vocabulary is registry-confirmed, registry-unconfirmed, conflicting."
-        },
-        {
-          "technique": "temporal-alignment-of-money-and-role",
-          "verdict": "not-applicable",
-          "evidence": "features/money/moneyTypes.ts:624 The ledger badges a stored temporal_status. A search of the ledger modules found no comparison of payment dates with roleValidFrom and roleValidTo and no aligned amount."
-        },
-        {
-          "technique": "statute-relevance-mapping",
-          "verdict": "not-applicable",
-          "evidence": "features/money/FollowTheMoneyPage.tsx:6 A search of the listed ledger modules for statute, 134/2016, amends, votePsp and collision returned no matches."
-        },
-        {
-          "technique": "vote-versus-interest-join",
-          "verdict": "not-applicable",
-          "evidence": "features/money/MoneyGraph.tsx:4 The graph is person, company and money. The same search found no roll-call join in these files."
+          "evidence": "features/money/moneyLoader.ts:194 A recorded class takes precedence over the derived one, the heuristic's answer and any disagreement travel with the tie, and the origin is disclosed."
         },
         {
           "technique": "triage-signal-scoring",
           "verdict": "deviation",
-          "evidence": "features/money/reviewTypes.ts:327 reviewSignal, called from moneyLoader, uses log money, a class multiplier, triangle, near-threshold and donation. It omits the aligned amount and aligned fraction that scripts/case-loops/money/triage.ts adds. publicWire marks signalScore internal, and review order stays on reviewRank."
+          "evidence": "features/money/KauzyPage.tsx:199 A signal score is rendered beside a named person on the public, indexed /penize/kauzy page. Separately, the signalScore that moneyLoader computes (line 256) has no aligned-amount or aligned-fraction term."
+        },
+        {
+          "technique": "temporal-alignment-of-money-and-role",
+          "verdict": "not-applicable",
+          "evidence": "features/money/moneyTypes.ts:624 The ledger badges a stored temporal_status. A search of the ledger modules found no comparison of payment dates with roleValidFrom and roleValidTo and no aligned amount.",
+          "carriedFrom": "2026-10-13"
+        },
+        {
+          "technique": "statute-relevance-mapping",
+          "verdict": "not-applicable",
+          "evidence": "features/money/FollowTheMoneyPage.tsx:6 A search of the listed ledger modules for statute, 134/2016, amends, votePsp and collision returned no matches.",
+          "carriedFrom": "2026-10-13"
+        },
+        {
+          "technique": "vote-versus-interest-join",
+          "verdict": "not-applicable",
+          "evidence": "features/money/MoneyGraph.tsx:4 The graph is person, company and money. The same search found no roll-call join in these files.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/money/reviewTypes.ts:327 The score moneyLoader stores is the log of the raw contract-plus-subsidy total, with no aligned-amount term and no aligned-fraction term.",
+          "evaluatedAt": "2026-10-13T04:09:27.482Z",
+          "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+          "reason": "replaced by 421035f6-c6bb-4991-abe2-7c841f92fb2a"
         }
       ]
     },
@@ -1169,39 +1191,53 @@
       "subject": "conflict-of-interest-detection",
       "bundle": "civic-intelligence",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T04:09:27.482Z",
-      "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:46:17.179Z",
+      "worker": "421035f6-c6bb-4991-abe2-7c841f92fb2a",
       "techniques": [
         {
           "technique": "tie-class-taxonomy",
           "verdict": "deviation",
-          "evidence": "lib/analysis/kg-money.ts:313 buildMoneyGraph writes linked_to with role, source and review_state and no tie class, then moneyTrails sums those companies together and sorts people by that total."
+          "evidence": "lib/analysis/kg-money.ts:313 Money is summed across all classes into one total; the technique allows a per-class sum or none."
         },
         {
           "technique": "registry-corroboration-gating",
           "verdict": "deviation",
-          "evidence": "lib/analysis/money-feed.ts:570 OfficerCorroborator is a boolean of person and IČO. Only a hit is written into the source string, so a miss looks like a check that never ran, and the claimed role is not matched. The link stays pending_review."
+          "evidence": "lib/analysis/money-feed.ts:570 OfficerCorroborator is a boolean of person and IČO. Only a hit is written into the source string, so a miss looks like a check that never ran, and the claimed role is not matched. The link stays pending_review.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "temporal-alignment-of-money-and-role",
           "verdict": "deviation",
-          "evidence": "lib/analysis/money-feed.ts:565 A missing Hlídač end date is stored as the word ongoing, so an unknown end is recorded as indefinite continuation."
+          "evidence": "lib/analysis/money-feed.ts:565 A missing Hlídač end date is stored as the word ongoing, so an unknown end is recorded as indefinite continuation.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "statute-relevance-mapping",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/kg-money.ts:21 The declared pipeline ends at person, company and contract. A search of kg-money.ts, money-feed.ts, public-body.ts and public-copy.ts found no statute-relevance table."
+          "evidence": "lib/analysis/kg-money.ts:21 The declared pipeline ends at person, company and contract. A search of kg-money.ts, money-feed.ts, public-body.ts and public-copy.ts found no statute-relevance table.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "vote-versus-interest-join",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/kg-money.ts:156 The linked_to props are role, source and review state. The same search found no roll-call join."
+          "evidence": "lib/analysis/kg-money.ts:156 The linked_to props are role, source and review state. The same search found no roll-call join.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "triage-signal-scoring",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/public-copy.ts:33 These modules do not compute a significance score or a trust-tier queue. The only triageScore hit is a token banned from public copy."
+          "evidence": "lib/analysis/public-copy.ts:33 These modules do not compute a significance score or a trust-tier queue. The only triageScore hit is a token banned from public copy.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/analysis/kg-money.ts:313 moneyTrails adds every linked company's contract amount into one person total and does not split owner-operator, manager and steward.",
+          "evaluatedAt": "2026-10-13T04:09:27.482Z",
+          "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+          "reason": "replaced by 421035f6-c6bb-4991-abe2-7c841f92fb2a"
         }
       ]
     },
@@ -1210,39 +1246,51 @@
       "subject": "conflict-of-interest-detection",
       "bundle": "civic-intelligence",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T04:09:27.482Z",
-      "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:46:17.179Z",
+      "worker": "421035f6-c6bb-4991-abe2-7c841f92fb2a",
       "techniques": [
         {
-          "technique": "tie-class-taxonomy",
-          "verdict": "conformant",
-          "evidence": "features/money/MpCaseFilePage.tsx:147 The MP case file renders attributable money and steward money as two tiles, and stored-versus-heuristic class disagreement is shown on the company file."
+          "technique": "triage-signal-scoring",
+          "verdict": "deviation",
+          "evidence": "features/money/getLeadDossiers.ts:123 A hand-authored score orders a public surface. Also, the reviewSignal formula at line 327 uses only log money × class plus bonuses, with no aligned-amount or aligned-fraction term."
         },
         {
           "technique": "registry-corroboration-gating",
           "verdict": "conformant",
-          "evidence": "features/money/getVerificationData.ts:155 The human review queue and the MP and company case files sort by reviewRank, trust tier before money. The public case file still lists unconfirmed ties with their status."
+          "evidence": "features/money/reviewTypes.ts:354 There are four tiers: confirmed owner-operator, then manager, then steward, then everything else. Within a tier, money descends, with a stable-id tiebreak at the sort sites. The rank is a packed number (tier × 1e12 plus capped money) rather than a tuple, but the cap keeps tiers from interleaving."
+        },
+        {
+          "technique": "tie-class-taxonomy",
+          "verdict": "deviation",
+          "evidence": "features/money/reviewTypes.ts:225 An unclassifiable role or company falls through to steward instead of an explicit unknown, so it still gets a class weight (0.35) in reviewSignal. resolveTieClass does correctly put a recorded class first and disclose disagreements."
         },
         {
           "technique": "temporal-alignment-of-money-and-role",
           "verdict": "not-applicable",
-          "evidence": "features/money/CompanyCaseFilePage.tsx:471 The case file only renders a stored-status badge. A search of the investigation modules found no payment-versus-role overlap and no aligned amount."
+          "evidence": "features/money/CompanyCaseFilePage.tsx:471 The case file only renders a stored-status badge. A search of the investigation modules found no payment-versus-role overlap and no aligned amount.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "statute-relevance-mapping",
           "verdict": "not-applicable",
-          "evidence": "features/money/MpCaseFilePage.tsx:5 The case file lists class, review state and corroboration. A search of these investigation files for statute, collision and vote found no matches."
+          "evidence": "features/money/MpCaseFilePage.tsx:5 The case file lists class, review state and corroboration. A search of these investigation files for statute, collision and vote found no matches.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "vote-versus-interest-join",
           "verdict": "not-applicable",
-          "evidence": "features/money/getVerificationData.ts:1 This loader is the human review queue. The same search found no vote-versus-interest join in these files."
-        },
+          "evidence": "features/money/getVerificationData.ts:1 This loader is the human review queue. The same search found no vote-versus-interest join in these files.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
         {
-          "technique": "triage-signal-scoring",
-          "verdict": "deviation",
-          "evidence": "features/money/getLeadDossiers.ts:123 The kontrola queue itself sorts by reviewRank, not by signalScore. The dossier list is a separate public ordering by a hand-written signalScore, not by trust tier or evidence completeness, and it is not the deterministic reviewSignal formula."
+          "state": "deviation",
+          "evidence": "features/money/getLeadDossiers.ts:123 The public kauzy dossiers, which the loader describes as still pending review, are ordered by a hand-authored signalScore, highest story score first.",
+          "evaluatedAt": "2026-10-13T04:09:27.482Z",
+          "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+          "reason": "replaced by 421035f6-c6bb-4991-abe2-7c841f92fb2a"
         }
       ]
     },
@@ -1251,39 +1299,51 @@
       "subject": "conflict-of-interest-detection",
       "bundle": "civic-intelligence",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T04:09:27.482Z",
-      "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:46:17.179Z",
+      "worker": "421035f6-c6bb-4991-abe2-7c841f92fb2a",
       "techniques": [
-        {
-          "technique": "tie-class-taxonomy",
-          "verdict": "deviation",
-          "evidence": "scripts/case-loops/money/prak-repoint.ts:43 The class writer calls classifyTie. Anything that is not an owner keyword or představenstvo becomes steward, so an unclassifiable title does not stay unknown."
-        },
         {
           "technique": "registry-corroboration-gating",
           "verdict": "deviation",
-          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:15 No birth-date match is written as conflicting at reconcile-ares-vr.ts:193. dataor-corroborate later records a full-history no-match in dataor_check but does not relabel that corroboration field."
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:208 A no-match counts as a contradiction and no read depth is recorded. The keyless-name case is correctly downgraded to unconfirmed (line 196)."
+        },
+        {
+          "technique": "tie-class-taxonomy",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:132 tie_class is written from the scraped graph role even when VR confirms the tie and the register's role names (merged.roles) are available. The class is not re-read from the registry's role text."
         },
         {
           "technique": "temporal-alignment-of-money-and-role",
           "verdict": "deviation",
-          "evidence": "scripts/case-loops/money/aresVrMatch.ts:124 Several entries for one person are folded into one span from the earliest start, left open if any entry has no end. That is a union window. The money-versus-role test in reconcile-ares-vr.ts only checks signedOn <= end, not the start."
+          "evidence": "scripts/case-loops/money/aresVrMatch.ts:163 mergeMatches folds several roles into one window: earliest start, latest end, or open if any role is ongoing. That union is an invented, wider window, not a per-role test."
         },
         {
           "technique": "statute-relevance-mapping",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:22 These scripts record company ownership and register corroboration. A search of the listed ownership scripts for statute, vote, signalScore and reviewRank found no matches."
+          "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:22 These scripts record company ownership and register corroboration. A search of the listed ownership scripts for statute, vote, signalScore and reviewRank found no matches.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "vote-versus-interest-join",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/aresVrMatch.ts:7 Matching is birth date against the commercial register. The same search found no roll-call or bill linkage."
+          "evidence": "scripts/case-loops/money/aresVrMatch.ts:7 Matching is birth date against the commercial register. The same search found no roll-call or bill linkage.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "triage-signal-scoring",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:29 This writer emits corroboration, role dates and tie class. The search found no significance score or review-queue sort in these scripts."
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:29 This writer emits corroboration, role dates and tie class. The search found no significance score or review-queue sort in these scripts.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:15 The corroboration writer stores a birth-date no-match as conflicting, which this technique reserves for a register that contradicts the claimed role.",
+          "evaluatedAt": "2026-10-13T04:09:27.482Z",
+          "worker": "c0413a02-ab0a-4910-83ee-4d1a63513c8c",
+          "reason": "replaced by 421035f6-c6bb-4991-abe2-7c841f92fb2a"
         }
       ]
     },

@@ -6591,12 +6591,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "lib/analysis/kg-money.ts:313 moneyTrails adds every linked company's contract amount into one person total and does not split owner-operator, manager and steward.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 3,
-          "stale": true
+          "evidence": "lib/analysis/kg-money.ts:313 moneyTrails adds every linked company's disclosed contract value into one per-person totalAmount. PersonCompanyLink carries no tie class at all, so owner-operator, manager and steward money are mixed in a single figure that the kg-money-ingest script consumes.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 3
         },
         {
           "subject": "public-money-attribution",
@@ -10842,12 +10841,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "features/money/collisions/statuteRelevance.ts:83 A null role end skips the upper bound, so any later vote, including one after a snapshot, counts as inside the mandate.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 3,
-          "stale": true
+          "evidence": "features/money/collisions/statuteRelevance.ts:83 voteInRolePeriod applies no upper bound when the role has no recorded end, and getCollisionCandidates passes no snapshot date. A null role_valid_to therefore counts as continuing forever, which the alignment technique forbids: an ongoing observation must be bounded by its snapshot date.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 3
         },
         {
           "subject": "public-money-attribution",
@@ -11015,12 +11013,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "features/money/getLeadDossiers.ts:123 The public kauzy dossiers, which the loader describes as still pending review, are ordered by a hand-authored signalScore, highest story score first.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 3,
-          "stale": true
+          "evidence": "features/money/getLeadDossiers.ts:123 Public kauzy dossiers, which the loader itself says are still pending review, are ordered by a signalScore an analyst wrote into the payload, most story-worthy first. The score is neither a deterministic formula nor kept internal.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 3
         },
         {
           "subject": "agent-instruction-files",
@@ -11226,12 +11223,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "features/money/reviewTypes.ts:327 The score moneyLoader stores is the log of the raw contract-plus-subsidy total, with no aligned-amount term and no aligned-fraction term.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 3,
-          "stale": true
+          "evidence": "features/money/getMoneyData.ts:205 The public /penize ledger ranks MPs, and picks the featured graph, by attributable money summed over ties that are still pending review and unconfirmed by the register. Money buys a tie into the headline before trust does: the unconfirmed-headline failure.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 3
         },
         {
           "subject": "supply-chain",
@@ -11452,12 +11448,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:15 The corroboration writer stores a birth-date no-match as conflicting, which this technique reserves for a register that contradicts the claimed role.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:8c453c984e7fd14d",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 3,
-          "stale": true
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:208 When the current ARES VR record has no matching birth date, the writer files the tie as conflicting. It records no read depth (current view or full history), and no register entry actually contradicts the role. The technique reserves that state for a real contradiction, and the no-match should have been queued for a history read.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 3
         },
         {
           "subject": "public-money-attribution",
