@@ -3134,7 +3134,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/denik/loading.tsx:26 The /denik streaming shell paints its headline without the SourceNote kicker that DenikPage.tsx:326 puts above the same h1, so the placeholder is only roughly the right size and the masthead drops by one kicker line when the ~12 s server read resolves.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
+          "evaluatedRevision": 4
         }
       ],
       "governance": "governed"
@@ -8756,7 +8760,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/rentgen/page.tsx:26 /rentgen mounts a client feature whose headline is SSR'd with an opacity-0 entrance, so its largest paint waits for script. The other routes in this context render on the server (svedectvi) or ship only a seed to the client (/graf).",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
+          "evaluatedRevision": 4
         },
         {
           "subject": "agent-runtime-assembly",
@@ -14430,7 +14438,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/hlasovani/loading.tsx:22 The /hlasovani streaming shell (shown during the ~16 s cold ledger read) sets the headline with no eyebrow and no mt-3, while VoteTrackPage renders a SourceNote plus an mt-3 h1, so the masthead jumps down when the page streams in. The loaded headline is then served at opacity 0 until hydration.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
+          "evaluatedRevision": 4
         },
         {
           "subject": "agent-runtime-assembly",

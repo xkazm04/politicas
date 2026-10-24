@@ -11572,6 +11572,90 @@
         "at": "2026-10-24T21:31:51.343024+00:00",
         "reason": "reviewer (sonnet): The anchor lib/claims/registry.ts:115 is the ISSUED_FIGURES declaration, which does not show that a conformance checker is absent. The not-applicable rests only on a grep for conformance, conformant and waiver, and those may not be the right terms for a registry that re-derives and gates claim refs."
       }
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/page-load-pipeline": {
+      "context": "civic-feed-routes",
+      "subject": "page-load-pipeline",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:45:57.766Z",
+      "worker": "cbcbf13e-f300-48a2-8f18-04ded23682d6",
+      "techniques": [
+        {
+          "technique": "layout-stability-by-reservation",
+          "verdict": "deviation",
+          "evidence": "app/denik/loading.tsx:26 The fallback keeps the h1's mt-3 but leaves out the kicker line the loaded page renders above it (features/denik/DenikPage.tsx:326). The two not-yet/loaded states of the masthead disagree on geometry, so the headline moves when the stream swaps in."
+        },
+        {
+          "technique": "discoverable-critical-resources",
+          "verdict": "conformant",
+          "evidence": "app/denik/page.tsx:66 The ledger data is read on the server and DenikPage has no \"use client\", so the first screen is in the served response body rather than produced by a client-side shell."
+        },
+        {
+          "technique": "script-cost-is-main-thread-time",
+          "verdict": "conformant",
+          "evidence": "app/denik/page.tsx:82 The ledger is derived in the route on the server and rendered by a server component (DenikPage has no \"use client\"), so the static chronological record ships markup, not hydration code. No SSR opacity-0 entrance was found in features/denik, dukazy, schranka, overeni or shared/provenance."
+        }
+      ]
+    },
+    "78075124-3bda-491e-bb0e-08de5bbb4b3b/page-load-pipeline": {
+      "context": "voting-legislation-routes",
+      "subject": "page-load-pipeline",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:45:57.766Z",
+      "worker": "cbcbf13e-f300-48a2-8f18-04ded23682d6",
+      "techniques": [
+        {
+          "technique": "layout-stability-by-reservation",
+          "verdict": "deviation",
+          "evidence": "app/hlasovani/loading.tsx:22 The placeholder headline leaves out the SourceNote eyebrow and the mt-3 that the loaded VoteTrackPage title band uses (VoteTrackPage.tsx:66-75), so the reservation is shorter than the content that replaces it."
+        },
+        {
+          "technique": "script-cost-is-main-thread-time",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/VoteTrackPage.tsx:73 This is the 'hide it' failure. The h1 of the route's mounted feature is server-rendered at opacity 0 and only script reveals it, so LCP waits for hydration. The same pattern is on LawWatchPage.tsx:65 (/zakony) and CollisionsPage.tsx:76 (/zakony/kolize). On /hlasovani the visible fallback headline is also replaced by an invisible one."
+        },
+        {
+          "technique": "discoverable-critical-resources",
+          "verdict": "conformant",
+          "evidence": "app/hlasovani/page.tsx:18 The vote record is loaded on the server and passed as props, so the SSR'd first screen is in the response body and is not fetched by client script after mount."
+        }
+      ]
+    },
+    "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/page-load-pipeline": {
+      "context": "labs-graph-routes",
+      "subject": "page-load-pipeline",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:45:57.766Z",
+      "worker": "cbcbf13e-f300-48a2-8f18-04ded23682d6",
+      "techniques": [
+        {
+          "technique": "script-cost-is-main-thread-time",
+          "verdict": "deviation",
+          "evidence": "features/labs/rentgen/VariantRentgen.tsx:343 useReducedMotion is not known during SSR, so the served h1 is opacity 0 for every reader. The technique says a reduced-motion guard does not repair this. On the good side, /graf ships only the seed and loads nodes on interaction (app/graf/page.tsx:29)."
+        },
+        {
+          "technique": "discoverable-critical-resources",
+          "verdict": "conformant",
+          "evidence": "app/svedectvi/page.tsx:62 This async server component renders every exhibit into the served markup, with no client shell in front of the first screen."
+        },
+        {
+          "technique": "render-blocking-budget",
+          "verdict": "conformant",
+          "evidence": "app/graf/p/[ref]/page.tsx:68 The only script these routes add is a non-executing JSON-LD data block in the body. It blocks neither parser nor render. No stylesheet or third-party tag is added at route level."
+        },
+        {
+          "technique": "font-loading-discipline",
+          "verdict": "not-applicable",
+          "evidence": "app/graf/p/[ref]/opengraph-image.tsx:38 The only font loading in this context is server-side satori rendering of OG images (subset by text=). That is not a document navigation, so the display strategy and critical-path origin rules do not apply. Page fonts are set in app/layout.tsx, outside this context."
+        }
+      ],
+      "registryProposal": "navigation-reuse could name a common accidental opt-out: a framework that switches a route to per-request rendering as soon as anything reads a cookie or header (here, locale resolution from a cookie) and then stamps every such document with private, no-store. One locale cookie read makes every public page ineligible, and a route's own cache declaration (revalidate) silently stops taking effect."
     }
   }
 }
