@@ -1,0 +1,249 @@
+{
+ "schema": "conform-run/1",
+ "worker": "38fc4271-b8b0-478d-9317-936321031b01",
+ "subject": "civic-knowledge-graphs",
+ "evaluatedAt": "2026-10-24T01:12:44.278618+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "graph-canvas",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/graph/VariantMapa.tsx:373 In forensic mode, turning on 'draw pending too' skips the admit-list filter entirely, so rejected edges (which the loader ships to the client) are drawn dotted. Meanwhile ForensicStrip keeps printing 'N rejected ties are not drawn' and its header says rejected edges cannot be drawn in by the button.",
+   "techniques": [
+    {
+     "technique": "forensic-view-filtering",
+     "verdict": "deviation",
+     "evidence": "features/graph/VariantMapa.tsx:373 The default view is correct (verified only, counted hidden pending/rejected, lens hops kept). But the pending toggle is a second path that admits every grade, including rejected, and the hiddenRejected disclosure then becomes false."
+    },
+    {
+     "technique": "civic-entity-ontology",
+     "verdict": "conformant",
+     "evidence": "features/graph/kindStyle.ts:25 The canvas glyph vocabulary is keyed exhaustively by the single KgNodeKind enum, so a new kind fails to compile until it is styled."
+    },
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "conformant",
+     "evidence": "features/graph/components/ProvenanceTable.tsx:68 Prints the per-relation pass and ref, and shows a missing pass as missing rather than 0. edgeGate.ts:50 likewise refuses to invent provenance for an unstamped edge."
+    },
+    {
+     "technique": "evidence-path-finding",
+     "verdict": "deviation",
+     "evidence": "features/graph/components/TrailFinder.tsx:291 Prints the hub, cost and tie-break rule and whether the cap was hit ('64 or more'). It does not disclose that, once capped, the tie-break ranked only the enumerated subset, so the printed rule overstates what the winner proves."
+    },
+    {
+     "technique": "pass-based-incremental-enrichment",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/edgeGate.ts:50 The canvas only reads stamps; it writes nothing to the store."
+    }
+   ]
+  },
+  {
+   "context": "kg-graph-writers",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-compute.ts:375 With --reset --supersede, clearKg() commits its own archive-and-delete transaction, and the replacement upserts run afterwards as separate operations. A crash or failed upsert in between leaves an empty serving graph, because the replacement is neither staged nor transactional.",
+   "techniques": [
+    {
+     "technique": "destructive-rebuild-guard",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-compute.ts:375 Most of the guard is right: guardKgReset compares store-derived kind/rel counts and orphaned ids, refuses by default, has an explicit ugly --supersede override, names the safe upsert path, and clearKg archives to history. Missing: a staged or transactional replacement, and any report of what stays unchecked (edges inside rebuilt rels, properties on retained nodes) before it issues a blanket 'drop nothing' verdict."
+    },
+    {
+     "technique": "pass-based-incremental-enrichment",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-contribution-recompute.ts:282 kg-compute.ts:245 imports mergeComputedNodeProps, but kg-contribution-recompute re-spells the read-merge inline, which the technique's one-named-helper rule forbids."
+    },
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-promote.ts:152 Promoted rows carry method, computedAt and a makeProvenance stamp (source, pass, ref, writer). The gate is re-run against the live graph, and non-resident edge endpoints are dropped and reported."
+    },
+    {
+     "technique": "civic-entity-ontology",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-promote.ts:109 The refusal set is derived as the closed enum minus the kinds this writer owns, so a new kind is protected the day it is added."
+    },
+    {
+     "technique": "evidence-path-finding",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-compute.ts:375 Writers do not traverse paths."
+    },
+    {
+     "technique": "forensic-view-filtering",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-promote.ts:152 Writers do not render a reading surface."
+    }
+   ]
+  },
+  {
+   "context": "graph-data-logic",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/graph/trailPath.ts:343 Enumeration stops at 64 equal-cost paths in DFS neighbour order and the tie-break ranks only that subset. On a hub-heavy query the returned 'best' path is not guaranteed to have the fewest unverified hops, yet the result is presented as the printed rule's winner.",
+   "techniques": [
+    {
+     "technique": "evidence-path-finding",
+     "verdict": "deviation",
+     "evidence": "features/graph/trailPath.ts:343 co_votes_with is excluded, hubs are priced on traversable degree with endpoints exempt, rejected edges are excluded and counted, the rule is versioned, and the tie-break is deterministic. Two gaps: capped ranking runs over a subset with no disclosure; and buildAdjacency (trailPath.ts:233) merges duplicate keys by taking the best gate and the max weight independently, which is the forbidden verified-status-plus-larger-unverified-amount combination. That merge is latent today because kg_edge's primary key is (src, rel, dst)."
+    },
+    {
+     "technique": "forensic-view-filtering",
+     "verdict": "conformant",
+     "evidence": "features/graph/forensicView.ts:65 An admit-list filter that preserves order. Hidden pending and rejected are counted separately, requested lens edges are kept and counted, and hoverCardModel counts from the unfiltered list with a deterministic sort and a 'more' count when truncated."
+    },
+    {
+     "technique": "civic-entity-ontology",
+     "verdict": "conformant",
+     "evidence": "features/graph/catalogParity.test.ts:13 Label catalogs and pure-module mirrors are tested against the single enum. The edgeKey single-definition is also pinned by oneDefinition.test.ts."
+    },
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "conformant",
+     "evidence": "features/graph/graphLoader.ts:284 Every canvas edge carries its gate status and verbatim provenance (pass, method, ref) through one shared helper."
+    }
+   ]
+  },
+  {
+   "context": "kg-domain-ingest",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:155 Several domain writers (kg-bill-roles-ingest, kg-bill-engagement-ingest:128, kg-contribution-ingest:195, esbirka-laws:82) re-spell the read-merge as an inline spread instead of importing mergeComputedNodeProps. The merge contract is therefore four unlinked copies, which is exactly the drift the technique names.",
+   "techniques": [
+    {
+     "technique": "pass-based-incremental-enrichment",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:155 The merge is semantically right but not the one named, tested helper. kg-legislation-ingest.ts:144 and kg-money-ingest.ts:129 do import it."
+    },
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:169 Enrichment nests its own stamp inside the property group it added and leaves row identity provenance alone. linked_to ties are born pending_review and are merge-preserved through mergePreservedTieProps (kg-money-ingest.ts:137)."
+    },
+    {
+     "technique": "civic-entity-ontology",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-money-ingest.ts:437 Identifier-join contract: a company that cannot be resolved by I\u010cO is counted and listed as a lead, never linked or guessed."
+    },
+    {
+     "technique": "destructive-rebuild-guard",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:155 Grep for clearKg/--reset across these ingest files found none; they only upsert."
+    }
+   ]
+  },
+  {
+   "context": "civic-fallback-data",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/civic/stateGraph.ts:15 The fallback state graph declares its own node-kind vocabulary, apart from KG_NODE_KINDS. It invents 'money' and 'vote' kinds and lacks organ, contract and the others, so the labelled mock teaches readers a different ontology from the real graph and can drift from it.",
+   "techniques": [
+    {
+     "technique": "civic-entity-ontology",
+     "verdict": "deviation",
+     "evidence": "lib/civic/stateGraph.ts:15 This is a second copy of the vocabulary. 'money' reifies a contract amount as a node keyed by a tie index (stateGraph.ts:147) rather than a registry contract id. lib/civic/data.ts:203 repeats a third, smaller kind union."
+    },
+    {
+     "technique": "destructive-rebuild-guard",
+     "verdict": "not-applicable",
+     "evidence": "lib/civic/stateGraph.ts:15 Static in-memory sample data with no store writes."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T01:12:44.278618+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "civic-entity-ontology",
+    "evidence-path-finding",
+    "forensic-view-filtering",
+    "pass-based-incremental-enrichment",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 1,
+   "context": "graph-canvas",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:12:44.278618+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "civic-entity-ontology",
+    "destructive-rebuild-guard",
+    "evidence-path-finding",
+    "forensic-view-filtering",
+    "pass-based-incremental-enrichment",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:12:44.278618+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "civic-entity-ontology",
+    "evidence-path-finding",
+    "forensic-view-filtering",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 1,
+   "context": "graph-data-logic",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:12:44.278618+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "civic-entity-ontology",
+    "destructive-rebuild-guard",
+    "pass-based-incremental-enrichment",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 1,
+   "context": "kg-domain-ingest",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T01:12:44.278618+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "civic-entity-ontology",
+    "destructive-rebuild-guard"
+   ],
+   "deviations": 1,
+   "context": "civic-fallback-data",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
