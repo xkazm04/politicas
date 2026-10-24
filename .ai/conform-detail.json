@@ -2978,35 +2978,78 @@
       "subject": "canvas-graph",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:36:15.686Z",
-      "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:32:48.541Z",
       "techniques": [
         {
           "technique": "graph-layout",
           "verdict": "deviation",
-          "evidence": "lib/kg/layout.ts:160 Reversing both input arrays for the same 24-node star changed all 24 positions despite stable hash initialization and output quantization."
+          "evidence": "lib/kg/layout.ts:160 Runs are repeatable (hash seeds, no Math.random), but the result depends on input order and the engine does not sort by identity. Coordinate quantisation via r2 (line 33) does satisfy the cross-runtime determinism axis."
+        },
+        {
+          "technique": "edge-management",
+          "verdict": "deviation",
+          "evidence": "lib/kg/glyph.ts:76 The glyph registry is the node-geometry authority, but it exposes no bounds or anchor query. Diamonds extend to 1.25r and squares to r*sqrt2, while edge code can only assume a circular radius."
         }
-      ]
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/kg/layout.ts:160 The force layout consumes noncanonical node and edge order, and an in-memory permutation probe changed every position of an unchanged 24-node star.",
+          "evaluatedAt": "2026-10-13T22:36:15.686Z",
+          "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+          "reason": "replaced by 607a8ba4-084b-426a-8847-73beb4a7cf5d"
+        }
+      ],
+      "withdrawn": {
+        "worker": "607a8ba4-084b-426a-8847-73beb4a7cf5d",
+        "state": "deviation",
+        "at": "2026-10-24T03:33:13.887752+00:00",
+        "reason": "reviewer (sonnet): The 24-of-24 star-reorder probe could not be reproduced, and lib/kg/layout.test.ts:20-24 ('nezávisí na pořadí uzlů na vstupu') asserts the opposite on a reversed chain; the caller claim (SQL 'order by id') was also not found in graphLoader.ts:357, where the input is idx.entries."
+      }
     },
     "83ddefb0-fd53-4a37-9959-54071b61ce53/canvas-graph": {
       "context": "dashboard-instruments",
       "subject": "canvas-graph",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:36:15.686Z",
-      "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:32:48.541Z",
+      "worker": "607a8ba4-084b-426a-8847-73beb4a7cf5d",
       "techniques": [
-        {
-          "technique": "canvas-accessibility",
-          "verdict": "deviation",
-          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:292 All arrow navigation uses connected-neighbor traversal; the surface offers neither unrestricted spatial navigation nor distinct topological shortcuts as required by the standard."
-        },
         {
           "technique": "render-budget",
           "verdict": "deviation",
-          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Each hover rerender executes this computation for every node, and the node render loop is not isolated through memoized node components."
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Nodes are not memoised and degree is recomputed on every hover or focus render."
+        },
+        {
+          "technique": "canvas-accessibility",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:259 Single tab stop with roving focus, role=group (line 167) so the operable nodes are not collapsed, node labels carry position and degree, and GraphNodeList renders the same slice as a list twin."
+        },
+        {
+          "technique": "edge-management",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:223 Focus-context rendering: edges of the traced neighbourhood draw at full strength and everything else recedes."
+        },
+        {
+          "technique": "viewport-transform",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:62 No camera. The data-to-viewBox mapping is stated once (px/py), and there is no hand-written inverse because hit-testing is done by DOM elements."
+        },
+        {
+          "technique": "direct-manipulation",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:281 Selection is click and keyboard only. There is no drag, pan or marquee, so there is no click-vs-drag gesture to disambiguate."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Local hover changes rerun the entire node render loop and every node's degree computation, violating the requirement that nodes rerender only on their own changes.",
+          "evaluatedAt": "2026-10-13T22:36:15.686Z",
+          "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+          "reason": "replaced by 607a8ba4-084b-426a-8847-73beb4a7cf5d"
         }
       ]
     },
@@ -3015,19 +3058,35 @@
       "subject": "canvas-graph",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:36:15.686Z",
-      "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T03:32:48.541Z",
+      "worker": "607a8ba4-084b-426a-8847-73beb4a7cf5d",
       "techniques": [
         {
           "technique": "canvas-accessibility",
           "verdict": "deviation",
-          "evidence": "features/dashboard/graphTraversal.ts:93 The sole directional step restricts candidates to adjacent nodes and can strand an unconnected node; no separate unrestricted spatial step is provided."
+          "evidence": "features/dashboard/graphTraversal.ts:93 Spatial direction and topology are merged into one arrow rule. There are no distinct topological shortcuts and no pure spatial navigation, and isolated nodes are only reachable via Home/End or the list twin."
+        },
+        {
+          "technique": "graph-layout",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/stateSlice.ts:206 The slice's generated slot layout reads input that is canonically ordered by durable identity (pspId, then IČO), so identical data gives an identical picture."
         },
         {
           "technique": "render-budget",
           "verdict": "conformant",
-          "evidence": "features/dashboard/graphText.ts:61 Node text is cached by node object in a locale-scoped WeakMap, reusing formatting across hover renders without retaining obsolete graph objects."
+          "evidence": "features/dashboard/graphText.ts:61 Node text is cached by node object in a locale-scoped WeakMap, reusing formatting across hover renders without retaining obsolete graph objects.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "registryProposal": "For a read-only renderer that already ships a list twin, the read-only paragraph says the twin may carry the whole keyboard contract, while 'Offer both axes' reads as unconditional. The technique should say whether partial in-canvas navigation (topology-only arrows) beside a complete twin counts as a deviation.",
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/dashboard/graphTraversal.ts:93 Directional navigation considers only graph neighbors, so this helper does not provide the independent spatial-navigation path required alongside topological traversal.",
+          "evaluatedAt": "2026-10-13T22:36:15.686Z",
+          "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
+          "reason": "replaced by 607a8ba4-084b-426a-8847-73beb4a7cf5d"
         }
       ]
     },

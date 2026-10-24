@@ -1,0 +1,131 @@
+{
+  "schema": "conform-run/1",
+  "worker": "607a8ba4-084b-426a-8847-73beb4a7cf5d",
+  "subject": "canvas-graph",
+  "evaluatedAt": "2026-10-24T03:32:48.541014+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "dashboard-instruments",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Hover is local state of the whole canvas component, so every hover change re-runs the node map and degreeOf over all edges for every node: an O(n·e) re-render of all nodes for one node's state change, against rung 3 'nodes re-render on their own changes only'.",
+      "techniques": [
+        {
+          "technique": "render-budget",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:249 Nodes are not memoised and degree is recomputed on every hover or focus render."
+        },
+        {
+          "technique": "canvas-accessibility",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:259 Single tab stop with roving focus, role=group (line 167) so the operable nodes are not collapsed, node labels carry position and degree, and GraphNodeList renders the same slice as a list twin."
+        },
+        {
+          "technique": "edge-management",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:223 Focus-context rendering: edges of the traced neighbourhood draw at full strength and everything else recedes."
+        },
+        {
+          "technique": "viewport-transform",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:62 No camera. The data-to-viewBox mapping is stated once (px/py), and there is no hand-written inverse because hit-testing is done by DOM elements."
+        },
+        {
+          "technique": "direct-manipulation",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:281 Selection is click and keyboard only. There is no drag, pan or marquee, so there is no click-vs-drag gesture to disambiguate."
+        }
+      ]
+    },
+    {
+      "context": "dashboard-feed-logic",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/dashboard/graphTraversal.ts:93 Arrow keys only pick among a node's graph neighbours, so there is no independent spatial axis (nearest node in screen direction), and a node with no edges cannot be reached by arrows at all; the technique asks for both spatial and topological navigation.",
+      "techniques": [
+        {
+          "technique": "canvas-accessibility",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/graphTraversal.ts:93 Spatial direction and topology are merged into one arrow rule. There are no distinct topological shortcuts and no pure spatial navigation, and isolated nodes are only reachable via Home/End or the list twin."
+        },
+        {
+          "technique": "graph-layout",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/stateSlice.ts:206 The slice's generated slot layout reads input that is canonically ordered by durable identity (pspId, then IČO), so identical data gives an identical picture."
+        }
+      ],
+      "registryProposal": "For a read-only renderer that already ships a list twin, the read-only paragraph says the twin may carry the whole keyboard contract, while 'Offer both axes' reads as unconditional. The technique should say whether partial in-canvas navigation (topology-only arrows) beside a complete twin counts as a deviation."
+    }
+  ],
+  "declined": [
+    {
+      "subject": "canvas-graph",
+      "context": "graph-canvas",
+      "reason": "evidence leans on drag.x/drag.y, which is not a tracked file"
+    },
+    {
+      "subject": "canvas-graph",
+      "context": "graph-data-logic",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "canvas-graph",
+      "context": "kg-graph-utilities",
+      "reason": "withdrawn after review: reviewer (sonnet): The 24-of-24 star-reorder probe could not be reproduced, and lib/kg/layout.test.ts:20-24 ('nezávisí na pořadí uzlů na vstupu') asserts the opposite on a reversed chain; the caller claim (SQL 'order by id') was also not found in graphLoader.ts:357, where the input is idx.entries."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-24T03:32:48.541014+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "canvas-graph"
+      ],
+      "techniques": [
+        "edge-management",
+        "graph-layout"
+      ],
+      "deviations": 1,
+      "context": "kg-graph-utilities",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T03:32:48.541014+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "canvas-graph"
+      ],
+      "techniques": [
+        "canvas-accessibility",
+        "direct-manipulation",
+        "edge-management",
+        "render-budget",
+        "viewport-transform"
+      ],
+      "deviations": 1,
+      "context": "dashboard-instruments",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-10-24T03:32:48.541014+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "canvas-graph"
+      ],
+      "techniques": [
+        "canvas-accessibility",
+        "graph-layout"
+      ],
+      "deviations": 1,
+      "context": "dashboard-feed-logic",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}
