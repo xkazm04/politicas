@@ -2106,20 +2106,38 @@
       "subject": "fleet-orchestration",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T11:01:17.897Z",
-      "worker": "c7d3bf96-038d-4622-a356-745b7b017e69",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:13:06.303Z",
+      "worker": "aa8379b5-7c1d-4b57-9ff7-0a6eabdb3be5",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/db/config.ts:18 Searches across lib/db/ for 'session-registry', 'parallel-dispatch', and 'staleness-budget' returned zero hits; this module configures the embedded PGlite database driver for civic graph persistence rather than an agent fleet orchestrator.",
+          "evaluatedAt": "2026-10-13T11:01:17.897Z",
+          "worker": "c7d3bf96-038d-4622-a356-745b7b017e69",
+          "reason": "replaced by aa8379b5-7c1d-4b57-9ff7-0a6eabdb3be5"
+        }
+      ]
     },
     "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/fleet-orchestration": {
       "context": "civic-verification",
       "subject": "fleet-orchestration",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T11:01:17.897Z",
-      "worker": "c7d3bf96-038d-4622-a356-745b7b017e69",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:13:06.303Z",
+      "worker": "aa8379b5-7c1d-4b57-9ff7-0a6eabdb3be5",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/overeni/OvereniPage.tsx:14 Grep of features/overeni/ for 'subagent', 'orchestrator', and 'parallel-dispatch' yielded zero matches; this surface is a reader-facing UI claim verification gate (/overeni) that validates published graph references rather than operating an agent fleet.",
+          "evaluatedAt": "2026-10-13T11:01:17.897Z",
+          "worker": "c7d3bf96-038d-4622-a356-745b7b017e69",
+          "reason": "replaced by aa8379b5-7c1d-4b57-9ff7-0a6eabdb3be5"
+        }
+      ]
     },
     "7555cc51-bb20-4171-842d-4a3eb290c3e0/public-money-attribution": {
       "context": "money-ledger",
@@ -10902,6 +10920,48 @@
       "evaluatedTs": "2026-10-24T04:55:06.379Z",
       "worker": "e4a6f296-ead2-425a-8035-0dee097e21ad",
       "techniques": []
+    },
+    "747db329-14c0-47a7-b8b5-eaf8095b9fdb/fleet-orchestration": {
+      "context": "effort-scoring-tools",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T05:13:06.303Z",
+      "worker": "aa8379b5-7c1d-4b57-9ff7-0a6eabdb3be5",
+      "techniques": [
+        {
+          "technique": "durable-fleet-state",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/triage.ts:112 ledger.json is the durable roster, but resume trusts its 'triaged' claim without checking it against the harvested payloads. finalize-ledger.ts:6 says the opposite ('a unit left at \"triaged\" would be re-dispatched'), so the two writers of one record disagree about what the record means."
+        },
+        {
+          "technique": "session-registry",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/finalize-ledger.ts:23 The unit stage is an open string retyped in each script (triage.ts has its own PriorUnit type), not a closed, single-sourced vocabulary. 'triaged' means both 'admitted to the army' and 'processed, awaiting persist' (finalize-ledger.ts:61)."
+        },
+        {
+          "technique": "result-harvest",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/merge-batch.ts:40 Roster accounting exists but only warns. The merged payload is still written, and its note claims it was 'cross-checked' against the full army. There is no claimed-without-result, failed or lost class, so accounts need not sum to the roster. Duplicates are silently kept first (line 28)."
+        },
+        {
+          "technique": "completion-claim-verification",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:216 The parent checks decidable leaves in code against the graph (id membership, forbidden props, namespacing, closed vocabulary, verdict rung) and exits 2 on drops. Undecidable prose checks are only warnings and never promote a verdict."
+        },
+        {
+          "technique": "absent-status-passthrough",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/merge-batch.ts:66 A verdict that arrives with no review state gets the bottom 'machine' rung, never a promoted one. An existing decided state is passed through unchanged (lines 62-64)."
+        },
+        {
+          "technique": "outbound-compute-plane",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/extract-dossiers.ts:2 Executors get a pre-extracted input file and never hold a database connection. Writes go back through the orchestrator's merge, gate and persist path."
+        }
+      ],
+      "registryProposal": "result-harvest could name a common file-based-ledger failure: the dispatch-time stage ('admitted') is reused as the resume filter's 'done' predicate, so a missing result turns into permanent false coverage rather than a re-dispatch."
     }
   }
 }

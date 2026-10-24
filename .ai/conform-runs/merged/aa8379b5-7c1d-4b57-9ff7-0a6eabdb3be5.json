@@ -1,0 +1,137 @@
+{
+ "schema": "conform-run/1",
+ "worker": "aa8379b5-7c1d-4b57-9ff7-0a6eabdb3be5",
+ "subject": "fleet-orchestration",
+ "evaluatedAt": "2026-10-24T05:13:06.303340+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-store-engine",
+   "subject": "fleet-orchestration",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/store.ts:2 lib/db/ is the PGlite persistence boundary for the civic graph; a grep of the whole lib/db/ tree for subagent, fleet, dispatch, orchestrat and heartbeat found zero hits (the only 'worker' and 'session' hits are vitest parallel workers and the parliamentary session_no column), so there is no agent fleet, session registry or dispatcher here to judge.",
+   "techniques": [],
+   "absenceTerms": [
+    "subagent",
+    "fleet",
+    "dispatch",
+    "orchestrat",
+    "heartbeat"
+   ]
+  },
+  {
+   "context": "civic-verification",
+   "subject": "fleet-orchestration",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/overeni/verdict.ts:2 features/overeni is a pure reader-facing claim re-derivation gate; a grep of features/overeni/ for agent, subagent, fleet, dispatch and orchestrat found zero hits, so no agent sessions are registered, dispatched or harvested here.",
+   "techniques": [],
+   "absenceTerms": [
+    "agent",
+    "subagent",
+    "fleet",
+    "dispatch",
+    "orchestrat"
+   ]
+  },
+  {
+   "context": "effort-scoring-tools",
+   "subject": "fleet-orchestration",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/effort/triage.ts:112 The resume filter counts any unit marked 'triaged' as done. triage.ts:450 sets that stage when the unit is picked for the army, not when its result comes back. So an MP whose subagent never returned a proposal is left out of every later army and is still counted as 'dossiered' coverage.",
+   "techniques": [
+    {
+     "technique": "durable-fleet-state",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/effort/triage.ts:112 ledger.json is the durable roster, but resume trusts its 'triaged' claim without checking it against the harvested payloads. finalize-ledger.ts:6 says the opposite ('a unit left at \"triaged\" would be re-dispatched'), so the two writers of one record disagree about what the record means."
+    },
+    {
+     "technique": "session-registry",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/effort/finalize-ledger.ts:23 The unit stage is an open string retyped in each script (triage.ts has its own PriorUnit type), not a closed, single-sourced vocabulary. 'triaged' means both 'admitted to the army' and 'processed, awaiting persist' (finalize-ledger.ts:61)."
+    },
+    {
+     "technique": "result-harvest",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/effort/merge-batch.ts:40 Roster accounting exists but only warns. The merged payload is still written, and its note claims it was 'cross-checked' against the full army. There is no claimed-without-result, failed or lost class, so accounts need not sum to the roster. Duplicates are silently kept first (line 28)."
+    },
+    {
+     "technique": "completion-claim-verification",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:216 The parent checks decidable leaves in code against the graph (id membership, forbidden props, namespacing, closed vocabulary, verdict rung) and exits 2 on drops. Undecidable prose checks are only warnings and never promote a verdict."
+    },
+    {
+     "technique": "absent-status-passthrough",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/merge-batch.ts:66 A verdict that arrives with no review state gets the bottom 'machine' rung, never a promoted one. An existing decided state is passed through unchanged (lines 62-64)."
+    },
+    {
+     "technique": "outbound-compute-plane",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/extract-dossiers.ts:2 Executors get a pre-extracted input file and never hold a database connection. Writes go back through the orchestrator's merge, gate and persist path."
+    }
+   ],
+   "registryProposal": "result-harvest could name a common file-based-ledger failure: the dispatch-time stage ('admitted') is reused as the resume filter's 'done' predicate, so a missing result turns into permanent false coverage rather than a re-dispatch."
+  }
+ ],
+ "declined": [
+  {
+   "subject": "fleet-orchestration",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "fleet-orchestration",
+   "context": "law-archive-late",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T05:13:06.303340+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "fleet-orchestration"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T05:13:06.303340+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "fleet-orchestration"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civic-verification",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T05:13:06.303340+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "fleet-orchestration"
+   ],
+   "techniques": [
+    "absent-status-passthrough",
+    "completion-claim-verification",
+    "durable-fleet-state",
+    "outbound-compute-plane",
+    "result-harvest",
+    "session-registry"
+   ],
+   "deviations": 1,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

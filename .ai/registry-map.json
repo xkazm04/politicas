@@ -3641,12 +3641,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/overeni/OvereniPage.tsx:14 Grep of features/overeni/ for 'subagent', 'orchestrator', and 'parallel-dispatch' yielded zero matches; this surface is a reader-facing UI claim verification gate (/overeni) that validates published graph references rather than operating an agent fleet.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:4fc5c1fbe75c52d2",
-          "evaluatedRevision": 25,
-          "revisionsBehind": 3,
-          "stale": true
+          "evidence": "features/overeni/verdict.ts:2 features/overeni is a pure reader-facing claim re-derivation gate; a grep of features/overeni/ for agent, subagent, fleet, dispatch and orchestrat found zero hits, so no agent sessions are registered, dispatched or harvested here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:93bd71853ab468b1",
+          "evaluatedRevision": 28,
+          "revisionsBehind": 3
         },
         {
           "subject": "prompt-assembly",
@@ -5226,12 +5225,11 @@
           "changedAt": "2026-10-15",
           "confidence": "strong",
           "state": "not-applicable",
-          "evidence": "lib/db/config.ts:18 Searches across lib/db/ for 'session-registry', 'parallel-dispatch', and 'staleness-budget' returned zero hits; this module configures the embedded PGlite database driver for civic graph persistence rather than an agent fleet orchestrator.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:4fc5c1fbe75c52d2",
-          "evaluatedRevision": 25,
-          "revisionsBehind": 3,
-          "stale": true
+          "evidence": "lib/db/store.ts:2 lib/db/ is the PGlite persistence boundary for the civic graph; a grep of the whole lib/db/ tree for subagent, fleet, dispatch, orchestrat and heartbeat found zero hits (the only 'worker' and 'session' hits are vitest parallel workers and the parliamentary session_no column), so there is no agent fleet, session registry or dispatcher here to judge.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:93bd71853ab468b1",
+          "evaluatedRevision": 28,
+          "revisionsBehind": 3
         },
         {
           "subject": "transactions-over-a-replicated-log",
@@ -5767,8 +5765,12 @@
           "revision": 28,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "deviation",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/case-loops/effort/triage.ts:112 The resume filter counts any unit marked 'triaged' as done. triage.ts:450 sets that stage when the unit is picked for the army, not when its result comes back. So an MP whose subagent never returned a proposal is left out of every later army and is still counted as 'dossiered' coverage.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:93bd71853ab468b1",
+          "evaluatedRevision": 28
         }
       ],
       "governance": "governed"
