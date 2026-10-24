@@ -1,0 +1,145 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c099e61e-a9d7-4d03-895f-b33b7fb3bd88",
+ "subject": "agent-runtime-assembly",
+ "evaluatedAt": "2026-10-24T04:24:24.832559+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-inbox",
+   "subject": "agent-runtime-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/schranka/followCodec.ts:41 civic-inbox keeps a follow list under a versioned localStorage key and derives entity deltas from it; I searched features/schranka/ for mcp, tool_call, prompt and anthropic and got zero hits, so there is no hook chain, model call or extension loading for the subject to govern (the only 'hook' hits are React hooks)",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "tool_call",
+    "prompt",
+    "anthropic"
+   ]
+  },
+  {
+   "context": "admin-observability",
+   "subject": "agent-runtime-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/admin/loops/loopState.ts:95 The admin surface parses loop-status text files and ingest-run records into a status board; I searched features/admin/ for mcp, tool_call, prompt, anthropic and hook and got zero hits, so no agent runtime is assembled or run here",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "tool_call",
+    "prompt",
+    "anthropic",
+    "hook"
+   ]
+  },
+  {
+   "context": "civic-feed-routes",
+   "subject": "agent-runtime-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/denik/feed.json/route.ts:27 These are plain Next.js GET route handlers and thin pages that serve feeds from server loaders; I searched app/denik, app/dukazy, app/schranka, app/overeni and app/zdroj for mcp, tool_call, prompt, anthropic and hook and got zero hits, so there is no agent runtime assembly",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "tool_call",
+    "prompt",
+    "anthropic",
+    "hook"
+   ]
+  },
+  {
+   "context": "census-quality-gate",
+   "subject": "agent-runtime-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/census/lib/engine.mjs:159 The census is a deterministic file-walking regex rule engine that scans source text and asserts counts; I searched scripts/census/ for mcp, tool_call, prompt and anthropic and got zero hits, so it never calls a model or assembles a hook chain around one",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "tool_call",
+    "prompt",
+    "anthropic"
+   ]
+  },
+  {
+   "context": "law-triage-collision",
+   "subject": "agent-runtime-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/prepare-batch.ts:4 The law scripts only write JSON payloads that subagents dispatched elsewhere read, and they gate those agents' verdicts afterwards; I searched scripts/case-loops/law/ for mcp, tool_call, prompt and anthropic and got zero hits, so no runtime that wraps a model or tool call is assembled here",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "tool_call",
+    "prompt",
+    "anthropic"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T04:24:24.832559+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-runtime-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civic-inbox",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:24:24.832559+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-runtime-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "admin-observability",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:24:24.832559+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-runtime-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:24:24.832559+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-runtime-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T04:24:24.832559+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-runtime-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "law-triage-collision",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

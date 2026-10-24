@@ -1594,60 +1594,77 @@
       "subject": "agent-runtime-assembly",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T08:36:47.731Z",
-      "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:24:24.832Z",
+      "worker": "c099e61e-a9d7-4d03-895f-b33b7fb3bd88",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/schranka/followCodec.ts:41 Searching features/schranka/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as civic-inbox stores subscriber follows in browser localStorage and derives entity delta feeds rather than operating an agent runtime assembly.",
+          "evaluatedAt": "2026-10-13T08:36:47.731Z",
+          "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
+          "reason": "replaced by c099e61e-a9d7-4d03-895f-b33b7fb3bd88"
+        }
+      ]
     },
     "fe1f864e-b249-42d8-a679-3995c31a43ba/agent-runtime-assembly": {
       "context": "admin-observability",
       "subject": "agent-runtime-assembly",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T08:36:47.731Z",
-      "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:24:24.832Z",
+      "worker": "c099e61e-a9d7-4d03-895f-b33b7fb3bd88",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:95 Searching features/admin/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as admin-observability parses manual case-loop markdown logs and database ingest runs for an administrative status board rather than executing an agent runtime assembly.",
+          "evaluatedAt": "2026-10-13T08:36:47.731Z",
+          "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
+          "reason": "replaced by c099e61e-a9d7-4d03-895f-b33b7fb3bd88"
+        }
+      ]
     },
     "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/agent-runtime-assembly": {
       "context": "law-triage-collision",
       "subject": "agent-runtime-assembly",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T08:36:47.731Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
-        "state": "not-applicable",
-        "at": "2026-10-13T08:37:18.540135+00:00",
-        "reason": "reviewer (sonnet): The anchor at gate-verdicts.ts:109 is an ordinary validation call and does not show that no agent runtime is present, and the directory holds ARMY-CONTRACT.md and prepare-batch.ts (LLM batch workflow), which I did not trace."
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:24:24.832Z",
+      "worker": "c099e61e-a9d7-4d03-895f-b33b7fb3bd88",
+      "techniques": []
     },
     "ca94aa35-e6ad-46ab-ad7a-53174a270d05/agent-runtime-assembly": {
       "context": "civic-feed-routes",
       "subject": "agent-runtime-assembly",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T08:36:47.731Z",
-      "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
-      "techniques": []
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:24:24.832Z",
+      "worker": "c099e61e-a9d7-4d03-895f-b33b7fb3bd88",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "app/denik/feed.json/route.ts:27 Searching app/denik/, app/dukazy/, app/schranka/, app/overeni/, and app/zdroj/ for 'prompt', 'mcp', and 'tool_call' returned zero hits, as civic-feed-routes exposes standard Next.js feed and page route handlers rather than an agent runtime assembly.",
+          "evaluatedAt": "2026-10-13T08:36:47.731Z",
+          "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
+          "reason": "replaced by c099e61e-a9d7-4d03-895f-b33b7fb3bd88"
+        }
+      ]
     },
     "78e81519-5df8-43ec-adb6-ba4dae3ea206/agent-runtime-assembly": {
       "context": "census-quality-gate",
       "subject": "agent-runtime-assembly",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T08:36:47.731Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "fa797aed-1eb9-4cbc-9c39-e128f3ae1d08",
-        "state": "not-applicable",
-        "at": "2026-10-13T08:37:18.571487+00:00",
-        "reason": "reviewer (sonnet): The anchor at run-census.mjs:67 is a bare import and incidental: it does not show the absence of an agent runtime, and the grep terms were not shown to be the right ones."
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T04:24:24.832Z",
+      "worker": "c099e61e-a9d7-4d03-895f-b33b7fb3bd88",
+      "techniques": []
     },
     "61b546ac-220d-425f-ad42-8e39576b3784/docs-sync": {
       "context": "scripts-quality-gates",
