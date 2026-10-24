@@ -11430,6 +11430,46 @@
       "worker": "eff3732f-498d-45e8-8956-606c8d193179",
       "techniques": [],
       "registryProposal": "The match came from 'batch'/'batches' (bill batches). A translation-specific co-term would avoid matching archived case-loop scripts."
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/federated-benchmark-sharing": {
+      "context": "kg-domain-ingest",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
+    },
+    "f5990dbf-2b69-4da7-9e42-b3b510462622/federated-benchmark-sharing": {
+      "context": "ingest-sources-legislative",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/federated-benchmark-sharing": {
+      "context": "ingest-sources-financial",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/federated-benchmark-sharing": {
+      "context": "ingest-pipeline",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
     }
   }
 }
