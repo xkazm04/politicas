@@ -2581,7 +2581,11 @@
           "revision": 10,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dukazy/DukazyPage.tsx:84 /dukazy prints each review_audit row's chain position and row hash, and its copy (chain.note) tells readers the hash proves order and non-tampering, but the read path (readReviewAudit → getDukazyData → page/feeds) never recomputes the chain, so a tampered row would be shown with the same confident hash and there is no verified/tampered verdict on the surface.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:154304c5d9578971",
+          "evaluatedRevision": 10
         },
         {
           "subject": "supply-chain",
@@ -14274,7 +14278,11 @@
           "revision": 10,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/votetrack/ledgerRead.ts:1 VoteTrack only reads and displays external PSP vote records (vote_event/vote_ballot). Its 'ledger' is a display of votes, not an audit trail of this system's actions. A case-insensitive grep of features/votetrack for audit, tamper, append-only, review_audit, chain_pos, row_hash, reviewer, insert into and upsert found nothing, so the subject's precondition (a ledger of what the system did) does not hold.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:154304c5d9578971",
+          "evaluatedRevision": 10
         },
         {
           "subject": "retrieval",

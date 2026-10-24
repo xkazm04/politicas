@@ -1,0 +1,116 @@
+{
+ "schema": "conform-run/1",
+ "worker": "7d61e2f8-0112-4122-ab9a-119e4ce5dcc5",
+ "subject": "audit-logging",
+ "evaluatedAt": "2026-10-24T22:03:56.894329+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-evidence",
+   "subject": "audit-logging",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dukazy/DukazyPage.tsx:84 /dukazy prints each review_audit row's chain position and row hash, and its copy (chain.note) tells readers the hash proves order and non-tampering, but the read path (readReviewAudit \u2192 getDukazyData \u2192 page/feeds) never recomputes the chain, so a tampered row would be shown with the same confident hash and there is no verified/tampered verdict on the surface.",
+   "techniques": [
+    {
+     "technique": "tamper-evidence",
+     "verdict": "deviation",
+     "evidence": "features/dukazy/DukazyPage.tsx:84 The surface renders the proof but never checks it on read; verifyAuditChain runs only in chainRow.test.ts and the sentinel. The page has 'unchained' (\u2248 unsigned) but no verified/tampered/unverifiable verdict."
+    },
+    {
+     "technique": "audit-querying",
+     "verdict": "conformant",
+     "evidence": "features/dukazy/readReviewAudit.ts:68 A capped read is detected and shown as a floor on the page (DukazyPage.tsx:308). An unreadable store (null) is kept separate from an empty journal ([]). The reviewer field is rendered verbatim, not inferred."
+    },
+    {
+     "technique": "two-clock-records",
+     "verdict": "deviation",
+     "evidence": "features/dukazy/getDukazyData.ts:147 A missing human sign-off time falls back to the verdict's computation time. deriveFeed.ts:303 then publishes that as decidedAt, so an unknown time shows up as a confident wrong date (the failure mode the technique names). Today it is latent: 0 signed verdicts."
+    },
+    {
+     "technique": "decision-records",
+     "verdict": "conformant",
+     "evidence": "features/dukazy/deriveFeed.ts:17 Published decisions are keyed on the audit row's minted uuid, not on wording, and carry reviewer, time and prior state (the act history)."
+    },
+    {
+     "technique": "append-only-design",
+     "verdict": "conformant",
+     "evidence": "features/dukazy/readReviewAudit.ts:103 This context's only door to the ledger is a read. Nothing here exposes update or delete."
+    },
+    {
+     "technique": "write-chokepoint",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:5 The context writes nothing. It names the single writer, and grep confirms lib/db/pglite/repositories/review.ts:372 is the only non-test insert. That writer belongs to another context."
+    },
+    {
+     "technique": "best-effort-with-accounting",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/getDukazyData.ts:1 This is a read-only loader, so there is no audit write that could fail."
+    },
+    {
+     "technique": "write-path-sanitization",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:14 There is no insert here. The free-text note is withheld at publication, which is read-side discipline, not write-path scrubbing."
+    },
+    {
+     "technique": "record-axis-predicate",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/readReviewAudit.ts:4 Decision rows are never invalidated, so there is no record-clock interval to rewind (the technique's own exemption)."
+    }
+   ]
+  },
+  {
+   "context": "votetrack-ledger",
+   "subject": "audit-logging",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/votetrack/ledgerRead.ts:1 VoteTrack only reads and displays external PSP vote records (vote_event/vote_ballot). Its 'ledger' is a display of votes, not an audit trail of this system's actions. A case-insensitive grep of features/votetrack for audit, tamper, append-only, review_audit, chain_pos, row_hash, reviewer, insert into and upsert found nothing, so the subject's precondition (a ledger of what the system did) does not hold.",
+   "techniques": [],
+   "absenceTerms": [
+    "audit",
+    "review_audit",
+    "tamper",
+    "chain_pos",
+    "row_hash"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T22:03:56.894329+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "audit-logging"
+   ],
+   "techniques": [
+    "append-only-design",
+    "audit-querying",
+    "best-effort-with-accounting",
+    "decision-records",
+    "record-axis-predicate",
+    "tamper-evidence",
+    "two-clock-records",
+    "write-chokepoint",
+    "write-path-sanitization"
+   ],
+   "deviations": 1,
+   "context": "civic-evidence",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T22:03:56.894329+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "audit-logging"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "votetrack-ledger",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
