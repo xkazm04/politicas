@@ -4285,7 +4285,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/publicWire.ts:86 The public wire exists to separate what ships to the browser from what stays on the server. It classifies the money fields one by one, but it forwards every other DashboardData field through Omit plus a rest-spread, so any new loader field ships with no decision, and the full-ledger bound is kept only by call-site discipline (publicWire.test.ts:183).",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "mcp-tools",
@@ -4525,7 +4529,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/getDashboardData.ts:370 The per-company contract-edge cap is declared again here only because /denik's constant is not exported (line 368: 'both describe one cap'). One decision now lives in two modules that must change together.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "companion-runtime",
@@ -9117,7 +9125,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/serverIntl.ts:34 The whole module is a body-identical copy of features/profile/serverIntl.ts (a third copy is features/volby/volbyIntl.ts). The header denies this ('Kopie? Ne'), so the server-side locale→formatter rule now has three homes that change for the same reason.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "copy-quality-gates",

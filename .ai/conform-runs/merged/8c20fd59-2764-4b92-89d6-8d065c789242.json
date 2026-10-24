@@ -1,0 +1,216 @@
+{
+ "schema": "conform-run/1",
+ "worker": "8c20fd59-2764-4b92-89d6-8d065c789242",
+ "subject": "module-design",
+ "evaluatedAt": "2026-10-24T05:33:51.975279+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "dashboard-feed-logic",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dashboard/publicWire.ts:86 The public wire exists to separate what ships to the browser from what stays on the server. It classifies the money fields one by one, but it forwards every other DashboardData field through Omit plus a rest-spread, so any new loader field ships with no decision, and the full-ledger bound is kept only by call-site discipline (publicWire.test.ts:183).",
+   "techniques": [
+    {
+     "technique": "borrowed-surface",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/publicWire.ts:106 This wrapper exists to make a distinction (public vs internal), and implicit forwarding of the remaining fields weakens it. The guard against shipping the full feed has moved out of the type and into a convention, which the test admits: 'The bound is the CALL SITE, not the projection'."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/datedFacts.ts:194 buildDatedFacts takes `today` as a value and does no I/O. The loader is the driver at the edge."
+    },
+    {
+     "technique": "module-depth",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/datedFacts.ts:130 A second ledger shape (`lookup`) was rejected in favour of one caller-owned `limit` parameter. Depth sits where the callers legitimately differ."
+    },
+    {
+     "technique": "declarative-or-sequential",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/stateSlice.ts:215 This one pass fills donorRows and donorCompanySeen together, so it is written as explicit sequential code. The single-output filter/sort in datedFacts.ts:288 stays declarative."
+    },
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/stateSlice.ts:71 The consumer owns a structural input type, SliceInput. The loader projection and the test fixtures are two adapters of that one seam."
+    },
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/graphText.ts:42 The rule 'an unknown locale falls back to the default' is spelled out again here. It is one of 17 recorded sites (docs/architect/backlog.md). Counter-evidence: stateSlice.ts:184 removed a three-copy attribution predicate."
+    },
+    {
+     "technique": "mirror-type-at-the-edge",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/useGraphSelection.ts:77 The toggle and URL-validity branches live inside a hook that reads window.location and history directly, and there is no test. graphTraversal.ts:2 shows the alternative this repo already uses: a pure rule with no DOM."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/stateSlice.ts:186 The core builders are synchronous. All async reads sit in the loader."
+    }
+   ]
+  },
+  {
+   "context": "dashboard-instruments",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dashboard/getDashboardData.ts:370 The per-company contract-edge cap is declared again here only because /denik's constant is not exported (line 368: 'both describe one cap'). One decision now lives in two modules that must change together.",
+   "techniques": [
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/getDashboardData.ts:370 The code itself admits it duplicates the cap owned by features/denik/getDenikData.ts (MAX_CONTRACT_EDGES)."
+    },
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/pageSource.test.ts:41 There is no render seam (line 2 says the repo has no jsdom), so the tests regex the source and pin a Tailwind class string. The technique names this exact failure: tests that pin the implementation instead of the behaviour."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/getDashboardData.ts:572 The loader is the single driver: it reads the clock once and hands a value to the pure builder."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/getDashboardData.ts:548 The fan-out happens only at the loader edge. stateSlice and datedFacts stay synchronous."
+    },
+    {
+     "technique": "module-depth",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/getDashboardData.ts:513 The loader exposes a single declared option ('JEDIN\u00dd \u0160EV') rather than a growing options bag."
+    },
+    {
+     "technique": "declarative-or-sequential",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/getDashboardData.ts:414 The sliceContracts loop builds two outputs and reports as it goes (reportLoaderFailure), so the sequential form is the correct choice."
+    }
+   ]
+  },
+  {
+   "context": "landing-core",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/landing/serverIntl.ts:34 The whole module is a body-identical copy of features/profile/serverIntl.ts (a third copy is features/volby/volbyIntl.ts). The header denies this ('Kopie? Ne'), so the server-side locale\u2192formatter rule now has three homes that change for the same reason.",
+   "techniques": [
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "deviation",
+     "evidence": "features/landing/serverIntl.ts:34 The 'would a change to one require a change to the other' test answers yes. The copies differ only in the default namespace. Counter-evidence: LandingPage.tsx:117 deleted a second reweigh implementation."
+    },
+    {
+     "technique": "declarative-or-sequential",
+     "verdict": "conformant",
+     "evidence": "features/landing/sourceStates.ts:65 One input, one output, a total per-element function: the declarative form fits."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "conformant",
+     "evidence": "features/landing/sourceStates.ts:63 A pure projection. Null passes straight through, and reading the store stays in the loader."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "conformant",
+     "evidence": "features/landing/LandingPage.tsx:93 Streaming and Suspense stay at the server edge (app/page.tsx). The client orchestrator stays synchronous."
+    },
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "conformant",
+     "evidence": "features/landing/LandingPage.tsx:99 A slot seam: the server decides what goes in it, outside this component."
+    },
+    {
+     "technique": "scoreable-designs-are-built-not-argued",
+     "verdict": "conformant",
+     "evidence": "features/landing/LandingPage.tsx:54 The dynamic-import decision rests on a measured bundle share, not on argument."
+    },
+    {
+     "technique": "marked-unverifiable-region",
+     "verdict": "conformant",
+     "evidence": "features/landing/palette.ts:3 The hex escape hatch is marked, limited to one file, exempted by name in eslint.config.mjs:246, and checked for parity by palette.test.ts."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "module-design",
+   "context": "testing-core",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "module-design",
+   "context": "eslint-plugin-civic-transparency-tests",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T05:33:51.975279+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "borrowed-surface",
+    "concurrency-at-the-edge",
+    "declarative-or-sequential",
+    "io-free-core",
+    "locality-and-leverage",
+    "mirror-type-at-the-edge",
+    "module-depth",
+    "seams-and-adapters"
+   ],
+   "deviations": 1,
+   "context": "dashboard-feed-logic",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T05:33:51.975279+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "concurrency-at-the-edge",
+    "declarative-or-sequential",
+    "io-free-core",
+    "locality-and-leverage",
+    "module-depth",
+    "seams-and-adapters"
+   ],
+   "deviations": 1,
+   "context": "dashboard-instruments",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T05:33:51.975279+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "concurrency-at-the-edge",
+    "declarative-or-sequential",
+    "io-free-core",
+    "locality-and-leverage",
+    "marked-unverifiable-region",
+    "scoreable-designs-are-built-not-argued",
+    "seams-and-adapters"
+   ],
+   "deviations": 1,
+   "context": "landing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
