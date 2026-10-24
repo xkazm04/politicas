@@ -1,0 +1,192 @@
+{
+ "schema": "conform-run/1",
+ "worker": "be29e264-d7ed-46f2-9d36-dee617feec59",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-10-24T00:29:45.326629+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "eslint-plugin-civic-transparency-tests",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:115 The shim-equivalence block takes any MODULE_NOT_FOUND to mean 'standalone checkout'. In-repo, a single deleted eslint-rules/<rule>.cjs shim therefore prints SKIP and run-all exits 0, and eslint.config.mjs requires the package directly rather than the shims, so lint does not catch it either: the claim that test:rules asserts the shims and the package stay one implementation goes unchecked exactly when it breaks.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 The SKIP names one producer (a standalone checkout) while a second producer (one missing shim) yields the same output. The remaining assertions are never reached, and the run reports that as a declared skip, not as a failure."
+    },
+    {
+     "technique": "assert-through-the-reader",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:70 The presets are flat config for external adopters' ESLint to read, but they are only checked for shape (array, rule ids resolve). They are never loaded into ESLint/Linter, so a config ESLint would reject still passes. The rules themselves do go through the reader via RuleTester."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:29 A scratch directory is created on every run and no teardown removes it: no rmSync anywhere in __tests__, which breaks the reaper rule. Minor, but a real leak."
+    },
+    {
+     "technique": "derived-selection-must-be-measured",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:60 The discovered suites must equal the declared rule set, so zero or fewer suites fails the run rather than passing it."
+    },
+    {
+     "technique": "suite-partitioning",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:21 A dedicated runner for its own lane; membership is decided by location and file name, not by tags."
+    },
+    {
+     "technique": "out-of-graph-artifacts",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:29 The detached package is loaded as shipped (index.cjs), then each export's create()/meta is checked. CI runs this as test:rules."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:233 The rule reads source text, and the tests pin that comment prose cannot satisfy its needle."
+    },
+    {
+     "technique": "gate-scope-is-not-report-scope",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:263 Census mode is tested as a separate report population: cited, declared and uncited figures are all counted."
+    }
+   ]
+  },
+  {
+   "context": "law-amends-corpus",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/applyPassSource.test.ts:6 The test's name claims a behavioural refusal, but its body only regex-matches the text of apply-amends-regen.ts. The gate's positive-integer predicate was not lifted into an importable unit, so nothing ever runs the refusal, and the comment explains the text instrument without calling it an interim.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/applyPassSource.test.ts:6 The name overclaims: it says 'refuses', but only text presence is asserted. The predicate could be lifted into a reachable unit rather than settling for a source grep."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/summariesReadCap.test.ts:12 The needle carries the call's argument shape, which the adjacent prose comment ('KG_READ_CAP, not a literal') does not spell, and the reason lives in the asserting file."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/amendsCensusExtract.test.ts:3 Seeds are shaped like the population (the awkward corpus classes), not like a demo. The temp dirs in tiskText/esbirkaStream are reaped in afterAll."
+    },
+    {
+     "technique": "assert-the-schedule-not-the-stopwatch",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/tiskText.test.ts:61 Retry behaviour is proved by attempt counts, with baseDelayMs: 0. No elapsed-time bound is asserted."
+    },
+    {
+     "technique": "derived-selection-must-be-measured",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/provenanceProbe.test.ts:17 The two-sided text extraction asserts that it matched something before comparing, so a needle that stops matching fails instead of comparing nothing."
+    },
+    {
+     "technique": "recorded-interaction-fixtures",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/esbirkaSparql.test.ts:7 There are no recorded exchanges: the SPARQL and stream tests use small hand-written fakes injected through a fetch parameter, which is the technique's own 'trivial enough to fake honestly' carve-out."
+    }
+   ]
+  },
+  {
+   "context": "kg-analysis-and-catalog",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/oneDump.test.ts:14 The suite claims 'the kg writers read psp.cz dumps through one helper' over a hand-written list of five files. scripts/data-analysis/kg-vote-bill-ingest.ts, a sixth kg writer (it calls upsertKgEdges), still defines its own `async function getDump(` at line 50 and `const PSP_BASE =` at line 48, and the test stays green.",
+   "techniques": [
+    {
+     "technique": "gate-scope-is-not-report-scope",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/oneDump.test.ts:14 The rule is claimed uniformly across a closed set while the cases run over a hand-picked member list. The unlisted member (kg-vote-bill-ingest.ts:50) is exactly where the rule is still broken. The population should be derived (e.g. glob kg-*.ts that reference psp.cz) and its count asserted."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/oneDump.test.ts:5 Comments are stripped before the text is matched, so prose naming the old helper cannot satisfy or trip a needle."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/oneDump.test.ts:28 After the extraction into pspDump.ts, call-site adoption is asserted, not only the shared helper's behaviour (but only for the listed members; see gate-scope)."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "mp-profile",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "census-quality-gate",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T00:29:45.326629+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-through-the-reader",
+    "derived-selection-must-be-measured",
+    "fixture-economics",
+    "gate-scope-is-not-report-scope",
+    "out-of-graph-artifacts",
+    "pin-the-call-not-the-name",
+    "suite-partitioning",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "eslint-plugin-civic-transparency-tests",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T00:29:45.326629+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-the-schedule-not-the-stopwatch",
+    "derived-selection-must-be-measured",
+    "fixture-economics",
+    "pin-the-call-not-the-name",
+    "recorded-interaction-fixtures",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "law-amends-corpus",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T00:29:45.326629+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "gate-scope-is-not-report-scope",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "kg-analysis-and-catalog",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -6185,7 +6185,11 @@
           "revision": 26,
           "changedAt": "2026-10-06",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:115 The shim-equivalence block takes any MODULE_NOT_FOUND to mean 'standalone checkout'. In-repo, a single deleted eslint-rules/<rule>.cjs shim therefore prints SKIP and run-all exits 0, and eslint.config.mjs requires the package directly rather than the shims, so lint does not catch it either: the claim that test:rules asserts the shims and the package stay one implementation goes unchecked exactly when it breaks.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "quality-gates",
@@ -7962,7 +7966,11 @@
           "revision": 26,
           "changedAt": "2026-10-06",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/oneDump.test.ts:14 The suite claims 'the kg writers read psp.cz dumps through one helper' over a hand-written list of five files. scripts/data-analysis/kg-vote-bill-ingest.ts, a sixth kg writer (it calls upsertKgEdges), still defines its own `async function getDump(` at line 50 and `const PSP_BASE =` at line 48, and the test stays green.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "translation-pipeline-topology",
@@ -9443,7 +9451,11 @@
           "revision": 26,
           "changedAt": "2026-10-06",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/applyPassSource.test.ts:6 The test's name claims a behavioural refusal, but its body only regex-matches the text of apply-amends-regen.ts. The gate's positive-integer predicate was not lifted into an importable unit, so nothing ever runs the refusal, and the comment explains the text instrument without calling it an interim.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "agent-memory",
