@@ -6,59 +6,85 @@
       "subject": "quality-gates",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T19:27:40.075Z",
-      "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:08:37.442Z",
+      "worker": "a4e99671-6757-4ebf-b57c-b202bfcc3ce2",
       "techniques": [
+        {
+          "technique": "severity-by-construction",
+          "verdict": "deviation",
+          "evidence": "scripts/census/check-library-adherence.mjs:10 The label claims drift is blocking. Traced through the exit codes, no `check` stage ever runs the census over the real tree."
+        },
         {
           "technique": "enforcement-binding",
           "verdict": "deviation",
-          "evidence": "package.json:18 The primary verification script 'check' runs census:test and library:check but omits the actual census scan command (node scripts/census/run-census.mjs --check), leaving the rule evaluation detached from the merge pipeline."
-        },
-        {
-          "technique": "advancement-evidence-fields",
-          "verdict": "conformant",
-          "evidence": "scripts/census/check-library-adherence.mjs:107 Satisfied principles must provide non-empty mechanisms of at least 40 characters along with reproducible verification commands before advancement is acknowledged."
+          "evidence": "scripts/census/run-census.mjs:58 The usage names `census:check` as 'the gate', but package.json declares no `census:check` script, and neither `check` nor CI invokes `census`. The gate is bound to nothing."
         },
         {
           "technique": "gate-liveness",
           "verdict": "conformant",
-          "evidence": "scripts/census/self-test.mjs:19 Validates gate detection capabilities by running the real engine against fixture trees with seeded violations to ensure detection failures are actively surfaced."
+          "evidence": "scripts/census/lib/engine.mjs:271 A walk below the floor, zero matches, a stale exclude and an empty registry are all structural failures, and self-test.mjs:355 asserts that each one fires."
+        },
+        {
+          "technique": "chokepoint-tag-registry",
+          "verdict": "conformant",
+          "evidence": "scripts/census/lib/engine.mjs:294 Direction 3: every declared location (an exclude path) must still resolve to a real file, or the run fails."
+        },
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "conformant",
+          "evidence": "scripts/census/lib/engine.mjs:365 Each exemption names its site (a path) and a reason. A malformed one is a schema error, and an unmatched one is a structural failure."
         },
         {
           "technique": "match-the-resolved-artifact",
           "verdict": "conformant",
-          "evidence": "scripts/census/lib/engine.mjs:95 Filters out comment-only lines so commentary about migrations is not counted as code matches during pattern evaluation."
+          "evidence": "scripts/census/lib/engine.mjs:204 Comment-only prose is removed from the haystack, so the detector is not satisfied by commentary. The CRLF-safe line indexer has a fixture guard."
         },
         {
-          "technique": "item-liveness",
+          "technique": "blocking-by-input-determinism",
           "verdict": "conformant",
-          "evidence": "scripts/census/lib/engine.mjs:292 Flags exemptions that no longer match any existing repository file as stale structural problems to prevent orphan waivers."
-        },
-        {
-          "technique": "false-positive-economics",
-          "verdict": "conformant",
-          "evidence": "scripts/census/check-library-adherence.mjs:156 Normalizes CRLF line endings to LF before calculating SHA digests to prevent false-positive drift alarms across operating systems."
-        },
-        {
-          "technique": "fabrication-economics",
-          "verdict": "conformant",
-          "evidence": "scripts/census/check-library-adherence.mjs:127 Refuses short or empty decline reasons, demanding substantive rationale of at least 25 characters to prevent casual shrugs."
-        },
-        {
-          "technique": "severity-by-construction",
-          "verdict": "conformant",
-          "evidence": "scripts/census/run-census.mjs:150 Structural instrument problems strictly fail with exit code 1, separating fatal engine breaks from optional drift checks."
-        },
-        {
-          "technique": "refusal-names-a-reachable-remedy",
-          "verdict": "conformant",
-          "evidence": "scripts/census/lib/engine.mjs:283 Instructs the developer to delete completed rules rather than baselining them at zero when no matches are found."
+          "evidence": "scripts/census/run-census.mjs:5 The census and the adherence check read only the tree and a vendored index, so the verdict is a function of the commit."
         },
         {
           "technique": "unmeasurable-criteria",
           "verdict": "conformant",
-          "evidence": "scripts/census/check-library-adherence.mjs:64 Loudly exits with status 2 when the vendored index is empty, asserting that instrument availability precedes evaluation."
+          "evidence": "scripts/census/check-library-adherence.mjs:64 An empty or unparseable instrument REFUSES with exit 2. Unreviewed principles, which describe the subject's world, are an announced skip."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/census/check-library-adherence.mjs:95 Precision was measured before adoption: two candidate gates scoring 0 TP were declined rather than enforced."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/census/lib/engine.mjs:312 The drift remedy names `npm run census -- --update`, which resolves to a script that exists, and its update branch runs."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "scripts/census/check-library-adherence.mjs:12 A closed vocabulary (adopted, satisfied, declined, unreviewed) with an explicit 'nobody looked' state, so no cell is left blank."
+        },
+        {
+          "technique": "item-liveness",
+          "verdict": "conformant",
+          "evidence": "scripts/census/lib/engine.mjs:292 Flags exemptions that no longer match any existing repository file as stale structural problems to prevent orphan waivers.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/census/check-library-adherence.mjs:127 Refuses short or empty decline reasons, demanding substantive rationale of at least 25 characters to prevent casual shrugs.",
+          "carriedFrom": "2026-10-12"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "package.json:18 npm run check binds census:test and library:check but omits npm run census (run-census.mjs --check), leaving the census ratchet completely detached from the mandatory gating lane.",
+          "evaluatedAt": "2026-10-12T19:27:40.075Z",
+          "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+          "reason": "replaced by a4e99671-6757-4ebf-b57c-b202bfcc3ce2"
         }
       ]
     },
@@ -66,85 +92,122 @@
       "context": "scripts-quality-gates",
       "subject": "quality-gates",
       "bundle": "software-engineering",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T19:27:40.075Z",
-      "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:08:37.442Z",
+      "worker": "a4e99671-6757-4ebf-b57c-b202bfcc3ce2",
       "techniques": [
         {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "scripts/docs/check-doc-sync.mjs:732 The fallback to an unnamed blanket waiver gives it range-wide reach. A scoped form exists but is optional."
+        },
+        {
           "technique": "gate-liveness",
-          "verdict": "conformant",
-          "evidence": "scripts/docs/self-test.mjs:17 Seeds genuine violations into a temporary git repository to confirm that the doc-sync gate halts when rules are broken."
+          "verdict": "deviation",
+          "evidence": "scripts/kpi/verify-loop.mjs:101 verify-loop claims it can stand in for `npm run check`, but `--only=<typo>` yields 0 stages and exits 0 (0===0). The sentinel and doc-sync, by contrast, reserve exit 2 for could-not-run."
         },
         {
           "technique": "unmeasurable-criteria",
           "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:164 Defines explicit skip enumerations (precondition, instrument, incomplete, unresolvable) with exit code 2 when evaluation data is unmeasurable."
-        },
-        {
-          "technique": "waiver-names-its-finding",
-          "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:678 Requires dismissal annotations to target the exact document path and contain a reason satisfying a minimum length threshold."
-        },
-        {
-          "technique": "fabrication-economics",
-          "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:682 Rejects brief dismissals under 12 characters to prevent superficial bypasses of documentation synchronization rules."
-        },
-        {
-          "technique": "hook-hygiene",
-          "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:22 Examines git diff ranges rather than untracked or dirty working directory files to ensure repeatable hook execution."
-        },
-        {
-          "technique": "policy-projection",
-          "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:843 Applies a display cap to CLI terminal listings without truncating the complete array of evaluated findings in JSON output."
-        },
-        {
-          "technique": "refusal-names-a-reachable-remedy",
-          "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:834 Prints the exact git commit message syntax needed to record an authorized waiver for uncoupled documents."
+          "evidence": "scripts/sentinel/run.ts:150 An unreadable store or an unevaluable verdict is REFUSED with exit 2 and an all-unevaluable report, never a pass."
         },
         {
           "technique": "severity-by-construction",
           "verdict": "conformant",
-          "evidence": "scripts/kpi/citation-coverage.mjs:132 Citation coverage acts strictly as an advisory reporting meter that records progress and always exits 0."
+          "evidence": "scripts/docs/check-doc-sync.mjs:46 Each block (A-E) is labelled BLOCKING or informational, and the exit code follows that label."
         },
         {
-          "technique": "blocking-by-input-determinism",
+          "technique": "hook-hygiene",
           "verdict": "conformant",
-          "evidence": "scripts/sentinel/run.ts:22 Distinguishes between valid invariant checks (exit 0/1) and unavailable store state where evaluation could not occur (exit 2)."
+          "evidence": "scripts/docs/check-doc-sync.mjs:258 The commit-msg rung reads the staged diff rather than the working tree or a transcript, and never mutates anything."
         },
         {
-          "technique": "oracle-frozen-during-repair",
+          "technique": "chokepoint-tag-registry",
           "verdict": "conformant",
-          "evidence": "scripts/sentinel/path-oracle.ts:168 Demands an explicit human-directed update flag to modify reference path oracle fixtures rather than updating them automatically."
+          "evidence": "scripts/docs/check-doc-sync.mjs:50 Every map row's doc and sourceGlob must resolve against the tree (direction 3)."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:10 A doc-coupling convention that existed only as prose was mechanised into a blocking checker."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:80 There is a sanctioned escape, and dismissals are counted. Candidate couplings in D are reported, never refused."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "scripts/kpi/verify-loop.mjs:16 The meter derives its stage list from the gate's own definition instead of a hand copy."
         },
         {
           "technique": "match-the-resolved-artifact",
           "verdict": "conformant",
-          "evidence": "scripts/smoke.ts:27 Verifies that production smoke testing targets the built distribution directory (.next) rather than development sources."
+          "evidence": "scripts/kpi/citation-coverage.mjs:64 The meter asks the ESLint engine for the resolved config rather than grepping eslint.config. It also handles layered-config replacement for the labs opt-out."
+        },
+        {
+          "technique": "instrument-answers-only-its-own-question",
+          "verdict": "conformant",
+          "evidence": "scripts/kpi/citation-coverage.mjs:36 It states that the lint gate's green covers only presence and measures the 'dated' half separately."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:749 The refusal prints the exact scoped trailer, a remedy the author can always write."
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/docs/check-doc-sync.mjs:682 Rejects brief dismissals under 12 characters to prevent superficial bypasses of documentation synchronization rules.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "blocking-by-input-determinism",
+          "verdict": "conformant",
+          "evidence": "scripts/sentinel/run.ts:22 Distinguishes between valid invariant checks (exit 0/1) and unavailable store state where evaluation could not occur (exit 2).",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "oracle-frozen-during-repair",
+          "verdict": "conformant",
+          "evidence": "scripts/sentinel/path-oracle.ts:168 Demands an explicit human-directed update flag to modify reference path oracle fixtures rather than updating them automatically.",
+          "carriedFrom": "2026-10-12"
         },
         {
           "technique": "gate-laddering",
           "verdict": "conformant",
-          "evidence": "scripts/smoke.ts:6 Separates verification into fast, dependency-free Tier 1 routes and stateful Tier 2 routes requiring real store fixtures."
+          "evidence": "scripts/smoke.ts:6 Separates verification into fast, dependency-free Tier 1 routes and stateful Tier 2 routes requiring real store fixtures.",
+          "carriedFrom": "2026-10-12"
         },
         {
           "technique": "enforcement-binding",
           "verdict": "conformant",
-          "evidence": "package.json:18 Binds doc-sync and doc-sync self-testing directly into the mandatory 'check' script."
+          "evidence": "package.json:18 Binds doc-sync and doc-sync self-testing directly into the mandatory 'check' script.",
+          "carriedFrom": "2026-10-12"
         },
         {
           "technique": "excess-indicts-the-instrument",
           "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:386 Fails immediately if repository file count falls below the expected walk floor, identifying crawler breakdowns rather than empty passes."
+          "evidence": "scripts/docs/check-doc-sync.mjs:386 Fails immediately if repository file count falls below the expected walk floor, identifying crawler breakdowns rather than empty passes.",
+          "carriedFrom": "2026-10-12"
         },
         {
           "technique": "item-liveness",
           "verdict": "conformant",
-          "evidence": "scripts/docs/check-doc-sync.mjs:582 Flags exclusion glob patterns that match zero files as stale drift, keeping exemptions active only while artifacts exist."
+          "evidence": "scripts/docs/check-doc-sync.mjs:582 Flags exclusion glob patterns that match zero files as stale drift, keeping exemptions active only while artifacts exist.",
+          "carriedFrom": "2026-10-12"
+        }
+      ],
+      "registryProposal": "waiver-names-its-finding could name the 'scoped form exists but is optional' variant: offering a per-finding waiver while still honouring an unscoped one keeps the full blanket reach, and the risk grows when trailers are collected across a PR range rather than one commit.",
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "scripts/docs/self-test.mjs:17 The quality gates suite establishes verifiable multi-tier checks with live repository test harnesses, explicit skip classifications, and strict commit-message dismissal syntax.",
+          "evaluatedAt": "2026-10-12T19:27:40.075Z",
+          "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+          "reason": "replaced by a4e99671-6757-4ebf-b57c-b202bfcc3ce2"
         }
       ]
     },
@@ -152,80 +215,118 @@
       "context": "effort-scoring-tools",
       "subject": "quality-gates",
       "bundle": "software-engineering",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T19:27:40.075Z",
-      "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:08:37.442Z",
+      "worker": "a4e99671-6757-4ebf-b57c-b202bfcc3ce2",
       "techniques": [
         {
-          "technique": "advancement-evidence-fields",
-          "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:24 Restricts batch-authored proposals to the 'machine' review state, preventing automated processes from claiming human verification."
-        },
-        {
-          "technique": "fabrication-economics",
-          "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:241 Rejects incoming payloads claiming verified status without going through the authorized human review door."
-        },
-        {
-          "technique": "self-reported-gate-inputs",
-          "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:46 Prohibits proposals from specifying deterministic-owned properties like contribution scores, ensuring numbers are derived from the graph."
-        },
-        {
-          "technique": "prose-rule-drift",
-          "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:172 Converts conversational public-copy guidelines into automated gate checks after observing repeated manual review leaks."
-        },
-        {
-          "technique": "excess-indicts-the-instrument",
-          "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:290 Removes an overly sensitive superseded score detector that generated 66 false positives rather than crying wolf."
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/effort/gate.ts:151 The skip caused by a gate-side absence is neither announced nor counted, and the summary line asserts there were no mismatches."
         },
         {
           "technique": "false-positive-economics",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:113 Adjusts numeric extractor regex to recognize Czech negation terms to prevent counting negated mentions as positive quantities."
+          "evidence": "scripts/case-loops/effort/gate.ts:298 A detector was measured over 765 fields (66 fires, almost no hits) before it could block, and its question was moved to where both values exist."
         },
         {
-          "technique": "blocking-by-input-determinism",
+          "technique": "self-reported-gate-inputs",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/shared-reference-date.ts:14 Accepts explicit reference dates to guarantee reproducible scoring runs across historical evaluation batches."
+          "evidence": "scripts/case-loops/effort/gate.ts:37 The gated batch cannot author its own review rung or decider. Only the review door can raise it."
         },
         {
-          "technique": "shared-substrate-check-partition",
+          "technique": "renameable-detector-keys",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:183 Imports public copy jargon rules from a shared library used across ingestion drop gates and frontend rendering filters."
+          "evidence": "scripts/case-loops/effort/gate.ts:226 A namespace allow-list rather than only a name deny-list, so renaming a key cannot reach a deterministic-owned prop."
         },
         {
-          "technique": "refusal-names-a-reachable-remedy",
+          "technique": "severity-by-construction",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate-rung.test.ts:37 Unit test asserts that refusal messages explicitly communicate that only 'machine' status can be authored by a batch."
+          "evidence": "scripts/case-loops/effort/gate.ts:318 Only DROPs reach the exit code. Warnings are declared soft-fail in the output, so the label matches the plumbing."
         },
         {
-          "technique": "unmeasurable-criteria",
+          "technique": "prose-rule-drift",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/divergence-retune.ts:20 Implements deterministic cohort baseline fallbacks when small peer groups lack sufficient data points."
+          "evidence": "scripts/case-loops/effort/gate.ts:172 A reflection lesson that failed as prose (99 leaks) was turned into a DROP rule."
         },
         {
-          "technique": "gate-laddering",
+          "technique": "policy-projection",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:60 Treats numeric prose discrepancies as review warnings rather than fatal drops, allowing human evaluators to assess context."
+          "evidence": "scripts/case-loops/effort/gate.ts:183 Persist-time DROP and render-time withholding come from one rule module, not hand-kept copies."
         },
         {
           "technique": "match-the-resolved-artifact",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:134 Compares claims made in descriptive text against established graph ground truth values rather than unvalidated proposal text."
+          "evidence": "scripts/case-loops/effort/sharedRules.test.ts:15 The source-grep absence assertion is paired with a positive control, so rewording the needle cannot pass it silently."
+        },
+        {
+          "technique": "decidable-in-a-window",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:259 The private-life rule cannot be decided by a pattern, so it stays advisory instead of blocking on a term list."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:24 Restricts batch-authored proposals to the 'machine' review state, preventing automated processes from claiming human verification.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:241 Rejects incoming payloads claiming verified status without going through the authorized human review door.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "excess-indicts-the-instrument",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:290 Removes an overly sensitive superseded score detector that generated 66 false positives rather than crying wolf.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "blocking-by-input-determinism",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/shared-reference-date.ts:14 Accepts explicit reference dates to guarantee reproducible scoring runs across historical evaluation batches.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "shared-substrate-check-partition",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:183 Imports public copy jargon rules from a shared library used across ingestion drop gates and frontend rendering filters.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate-rung.test.ts:37 Unit test asserts that refusal messages explicitly communicate that only 'machine' status can be authored by a batch.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "gate-laddering",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:60 Treats numeric prose discrepancies as review warnings rather than fatal drops, allowing human evaluators to assess context.",
+          "carriedFrom": "2026-10-12"
         },
         {
           "technique": "oracle-frozen-during-repair",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/divergence-retune.ts:29 Generates comparative distribution statistics between old and new metrics prior to updating triage criteria."
+          "evidence": "scripts/case-loops/effort/divergence-retune.ts:29 Generates comparative distribution statistics between old and new metrics prior to updating triage criteria.",
+          "carriedFrom": "2026-10-12"
         },
         {
           "technique": "chokepoint-tag-registry",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:233 Enforces that low-score reason labels match the closed vocabulary defined in the badge render module."
+          "evidence": "scripts/case-loops/effort/gate.ts:233 Enforces that low-score reason labels match the closed vocabulary defined in the badge render module.",
+          "carriedFrom": "2026-10-12"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "scripts/case-loops/effort/gate.ts:46 The effort scoring pipeline enforces strict separation between deterministic graph props and proposed enrichments while maintaining public copy and review rung rules.",
+          "evaluatedAt": "2026-10-12T19:27:40.075Z",
+          "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+          "reason": "replaced by a4e99671-6757-4ebf-b57c-b202bfcc3ce2"
         }
       ]
     },
@@ -9772,6 +9873,57 @@
         "at": "2026-10-22T21:49:25.807718+00:00",
         "reason": "reviewer (sonnet): The not-applicable anchor, terminalSource.test.ts:7, is only an import of tieClassInfo and does not show that no interactive terminal session is hosted. The other context files confirm the code is a read-only data view, but the verdict's own anchor is incidental, so it goes back to unknown."
       }
+    },
+    "1e6194ec-5275-4cfd-b045-c0604ab491e2/quality-gates": {
+      "context": "kg-graph-writers",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T00:08:37.442Z",
+      "worker": "a4e99671-6757-4ebf-b57c-b202bfcc3ce2",
+      "techniques": [
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-props-check.ts:57 There is no floor on the walked population, so zero rows is reported as pass rather than could-not-run."
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-promote.ts:196 --source=unknown is a declared-inability token. Those rows are counted as unattributed rather than given a plausible source."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-promote.ts:203 The refusal names an in-tree location, INGESTED_SOURCES at lib/analysis/atlas.ts:208, and an always-available fallback."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-promote.ts:107 An allow-list, with the refusal set derived as enum minus allow, so a newly named kind fails closed (kg-promote.ts:100)."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-promote.ts:53 A header claim that was never enforced was found and mechanised for both nodes and edges."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/writerPass.test.ts:5 Source-grep guards strip comments first, so the comment explaining a rule cannot satisfy the rule. They also carry positive controls."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/validate-kg-verdict.ts:42 The pre-check skip is announced, and the binding writer kg-promote re-gates and exits 1 without a store. It does not name kg-promote as the enforcing surface."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-compute.ts:372 A refused --reset has its own non-zero exit after 'NOTHING WRITTEN', and the verdict is printed even on a dry run (kg-compute.ts:349)."
+        }
+      ]
     }
   }
 }

@@ -2172,12 +2172,11 @@
           "changedAt": "2026-10-14",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "package.json:18 npm run check binds census:test and library:check but omits npm run census (run-census.mjs --check), leaving the census ratchet completely detached from the mandatory gating lane.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
-          "evaluatedRevision": 53,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/census/check-library-adherence.mjs:10 The adherence checker says an adopted census rule's drift fails `npm run check`, but `check` runs only `census:test` (fixtures) and `library:check`, and nothing in `check` or CI runs `run-census.mjs --check`. The day a rule is adopted in rules.json its ratchet will block nothing, while the label says it is enforced.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54,
+          "revisionsBehind": 1
         },
         {
           "subject": "test-harness",
@@ -5574,13 +5573,12 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "conformant",
-          "evidence": "scripts/case-loops/effort/gate.ts:46 The effort scoring pipeline enforces strict separation between deterministic graph props and proposed enrichments while maintaining public copy and review rung rules.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
-          "evaluatedRevision": 53,
-          "revisionsBehind": 1,
-          "stale": true
+          "state": "deviation",
+          "evidence": "scripts/case-loops/effort/gate.ts:151 When the graph copy lacks the deterministic prop, the prose-vs-props comparison is silently skipped with no count. The run then prints 'no prose-vs-props numeric mismatches detected' (gate.ts:315), so a hole in the gate's own instrument reads as a clean check.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-memory",
@@ -8445,7 +8443,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-props-check.ts:57 The prop-registry drift guard reports 'clean' and exits 0 even when it read 0 nodes and 0 edges. Because the store opens whatever PGLITE_PATH names, a mistyped copy path yields an empty store and a green check that looked at nothing.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "test-harness",
@@ -12006,13 +12008,12 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "conformant",
-          "evidence": "scripts/docs/self-test.mjs:17 The quality gates suite establishes verifiable multi-tier checks with live repository test harnesses, explicit skip classifications, and strict commit-message dismissal syntax.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
-          "evaluatedRevision": 53,
-          "revisionsBehind": 1,
-          "stale": true
+          "state": "deviation",
+          "evidence": "scripts/docs/check-doc-sync.mjs:732 In `--range` mode (CI over a PR), the trailers are parsed from every commit in the range. Any one unscoped `Doc-sync: <reason>` then dismisses every coupled doc the whole range owes, including findings from commits appended later that the sentence never named.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54,
+          "revisionsBehind": 1
         },
         {
           "subject": "docs-sync",

@@ -1,0 +1,348 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a4e99671-6757-4ebf-b57c-b202bfcc3ce2",
+ "subject": "quality-gates",
+ "evaluatedAt": "2026-10-24T00:08:37.442456+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "census-quality-gate",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/census/check-library-adherence.mjs:10 The adherence checker says an adopted census rule's drift fails `npm run check`, but `check` runs only `census:test` (fixtures) and `library:check`, and nothing in `check` or CI runs `run-census.mjs --check`. The day a rule is adopted in rules.json its ratchet will block nothing, while the label says it is enforced.",
+   "techniques": [
+    {
+     "technique": "severity-by-construction",
+     "verdict": "deviation",
+     "evidence": "scripts/census/check-library-adherence.mjs:10 The label claims drift is blocking. Traced through the exit codes, no `check` stage ever runs the census over the real tree."
+    },
+    {
+     "technique": "enforcement-binding",
+     "verdict": "deviation",
+     "evidence": "scripts/census/run-census.mjs:58 The usage names `census:check` as 'the gate', but package.json declares no `census:check` script, and neither `check` nor CI invokes `census`. The gate is bound to nothing."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:271 A walk below the floor, zero matches, a stale exclude and an empty registry are all structural failures, and self-test.mjs:355 asserts that each one fires."
+    },
+    {
+     "technique": "chokepoint-tag-registry",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:294 Direction 3: every declared location (an exclude path) must still resolve to a real file, or the run fails."
+    },
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:365 Each exemption names its site (a path) and a reason. A malformed one is a schema error, and an unmatched one is a structural failure."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:204 Comment-only prose is removed from the haystack, so the detector is not satisfied by commentary. The CRLF-safe line indexer has a fixture guard."
+    },
+    {
+     "technique": "blocking-by-input-determinism",
+     "verdict": "conformant",
+     "evidence": "scripts/census/run-census.mjs:5 The census and the adherence check read only the tree and a vendored index, so the verdict is a function of the commit."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:64 An empty or unparseable instrument REFUSES with exit 2. Unreviewed principles, which describe the subject's world, are an announced skip."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:95 Precision was measured before adoption: two candidate gates scoring 0 TP were declined rather than enforced."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:312 The drift remedy names `npm run census -- --update`, which resolves to a script that exists, and its update branch runs."
+    },
+    {
+     "technique": "advancement-evidence-fields",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:12 A closed vocabulary (adopted, satisfied, declined, unreviewed) with an explicit 'nobody looked' state, so no cell is left blank."
+    }
+   ]
+  },
+  {
+   "context": "scripts-quality-gates",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/docs/check-doc-sync.mjs:732 In `--range` mode (CI over a PR), the trailers are parsed from every commit in the range. Any one unscoped `Doc-sync: <reason>` then dismisses every coupled doc the whole range owes, including findings from commits appended later that the sentence never named.",
+   "techniques": [
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "deviation",
+     "evidence": "scripts/docs/check-doc-sync.mjs:732 The fallback to an unnamed blanket waiver gives it range-wide reach. A scoped form exists but is optional."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "deviation",
+     "evidence": "scripts/kpi/verify-loop.mjs:101 verify-loop claims it can stand in for `npm run check`, but `--only=<typo>` yields 0 stages and exits 0 (0===0). The sentinel and doc-sync, by contrast, reserve exit 2 for could-not-run."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "scripts/sentinel/run.ts:150 An unreadable store or an unevaluable verdict is REFUSED with exit 2 and an all-unevaluable report, never a pass."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:46 Each block (A-E) is labelled BLOCKING or informational, and the exit code follows that label."
+    },
+    {
+     "technique": "hook-hygiene",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:258 The commit-msg rung reads the staged diff rather than the working tree or a transcript, and never mutates anything."
+    },
+    {
+     "technique": "chokepoint-tag-registry",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:50 Every map row's doc and sourceGlob must resolve against the tree (direction 3)."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:10 A doc-coupling convention that existed only as prose was mechanised into a blocking checker."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:80 There is a sanctioned escape, and dismissals are counted. Candidate couplings in D are reported, never refused."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "scripts/kpi/verify-loop.mjs:16 The meter derives its stage list from the gate's own definition instead of a hand copy."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "scripts/kpi/citation-coverage.mjs:64 The meter asks the ESLint engine for the resolved config rather than grepping eslint.config. It also handles layered-config replacement for the labs opt-out."
+    },
+    {
+     "technique": "instrument-answers-only-its-own-question",
+     "verdict": "conformant",
+     "evidence": "scripts/kpi/citation-coverage.mjs:36 It states that the lint gate's green covers only presence and measures the 'dated' half separately."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/docs/check-doc-sync.mjs:749 The refusal prints the exact scoped trailer, a remedy the author can always write."
+    }
+   ],
+   "registryProposal": "waiver-names-its-finding could name the 'scoped form exists but is optional' variant: offering a per-finding waiver while still honouring an unscoped one keeps the full blanket reach, and the risk grows when trailers are collected across a PR range rather than one commit."
+  },
+  {
+   "context": "effort-scoring-tools",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/effort/gate.ts:151 When the graph copy lacks the deterministic prop, the prose-vs-props comparison is silently skipped with no count. The run then prints 'no prose-vs-props numeric mismatches detected' (gate.ts:315), so a hole in the gate's own instrument reads as a clean check.",
+   "techniques": [
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/effort/gate.ts:151 The skip caused by a gate-side absence is neither announced nor counted, and the summary line asserts there were no mismatches."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:298 A detector was measured over 765 fields (66 fires, almost no hits) before it could block, and its question was moved to where both values exist."
+    },
+    {
+     "technique": "self-reported-gate-inputs",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:37 The gated batch cannot author its own review rung or decider. Only the review door can raise it."
+    },
+    {
+     "technique": "renameable-detector-keys",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:226 A namespace allow-list rather than only a name deny-list, so renaming a key cannot reach a deterministic-owned prop."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:318 Only DROPs reach the exit code. Warnings are declared soft-fail in the output, so the label matches the plumbing."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:172 A reflection lesson that failed as prose (99 leaks) was turned into a DROP rule."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:183 Persist-time DROP and render-time withholding come from one rule module, not hand-kept copies."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/sharedRules.test.ts:15 The source-grep absence assertion is paired with a positive control, so rewording the needle cannot pass it silently."
+    },
+    {
+     "technique": "decidable-in-a-window",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate.ts:259 The private-life rule cannot be decided by a pattern, so it stays advisory instead of blocking on a term list."
+    }
+   ]
+  },
+  {
+   "context": "kg-graph-writers",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-props-check.ts:57 The prop-registry drift guard reports 'clean' and exits 0 even when it read 0 nodes and 0 edges. Because the store opens whatever PGLITE_PATH names, a mistyped copy path yields an empty store and a green check that looked at nothing.",
+   "techniques": [
+    {
+     "technique": "gate-liveness",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-props-check.ts:57 There is no floor on the walked population, so zero rows is reported as pass rather than could-not-run."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-promote.ts:196 --source=unknown is a declared-inability token. Those rows are counted as unattributed rather than given a plausible source."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-promote.ts:203 The refusal names an in-tree location, INGESTED_SOURCES at lib/analysis/atlas.ts:208, and an always-available fallback."
+    },
+    {
+     "technique": "renameable-detector-keys",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-promote.ts:107 An allow-list, with the refusal set derived as enum minus allow, so a newly named kind fails closed (kg-promote.ts:100)."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-promote.ts:53 A header claim that was never enforced was found and mechanised for both nodes and edges."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/writerPass.test.ts:5 Source-grep guards strip comments first, so the comment explaining a rule cannot satisfy the rule. They also carry positive controls."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/validate-kg-verdict.ts:42 The pre-check skip is announced, and the binding writer kg-promote re-gates and exits 1 without a store. It does not name kg-promote as the enforcing surface."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-compute.ts:372 A refused --reset has its own non-zero exit after 'NOTHING WRITTEN', and the verdict is printed even on a dry run (kg-compute.ts:349)."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "quality-gates",
+   "context": "verdict-and-law-analysis",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T00:08:37.442456+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "advancement-evidence-fields",
+    "blocking-by-input-determinism",
+    "chokepoint-tag-registry",
+    "enforcement-binding",
+    "false-positive-economics",
+    "gate-liveness",
+    "match-the-resolved-artifact",
+    "refusal-names-a-reachable-remedy",
+    "severity-by-construction",
+    "unmeasurable-criteria",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 1,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T00:08:37.442456+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "chokepoint-tag-registry",
+    "false-positive-economics",
+    "gate-liveness",
+    "hook-hygiene",
+    "instrument-answers-only-its-own-question",
+    "match-the-resolved-artifact",
+    "policy-projection",
+    "prose-rule-drift",
+    "refusal-names-a-reachable-remedy",
+    "severity-by-construction",
+    "unmeasurable-criteria",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 1,
+   "context": "scripts-quality-gates",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T00:08:37.442456+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "decidable-in-a-window",
+    "false-positive-economics",
+    "match-the-resolved-artifact",
+    "policy-projection",
+    "prose-rule-drift",
+    "renameable-detector-keys",
+    "self-reported-gate-inputs",
+    "severity-by-construction",
+    "unmeasurable-criteria"
+   ],
+   "deviations": 1,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T00:08:37.442456+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "fabrication-economics",
+    "gate-liveness",
+    "match-the-resolved-artifact",
+    "prose-rule-drift",
+    "refusal-names-a-reachable-remedy",
+    "renameable-detector-keys",
+    "severity-by-construction",
+    "unmeasurable-criteria"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
