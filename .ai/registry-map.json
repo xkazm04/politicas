@@ -1716,7 +1716,11 @@
           "revision": 21,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/i18n/config.ts:2 In this context, 'routing' means URL and locale routing through next-intl, not choosing an LLM. I searched lib/routing, lib/i18n and lib/security for anthropic, provider, llm, sonnet and messages.create and found nothing, so these files never select a model, a tier or an effort level.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:5484901d8df95b15",
+          "evaluatedRevision": 21
         },
         {
           "subject": "test-harness",
@@ -5688,7 +5692,11 @@
           "revision": 21,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/effort/triage.ts:4 I searched scripts/case-loops/effort/ for anthropic, provider, model and messages.create and found nothing. These scripts are deterministic and make no model call, so no tier or effort is chosen here. merge-batch.ts only reads the output of Sonnet subagents that something outside this context dispatched.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:5484901d8df95b15",
+          "evaluatedRevision": 21
         },
         {
           "subject": "supply-chain",

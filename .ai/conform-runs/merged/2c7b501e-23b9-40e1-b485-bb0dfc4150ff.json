@@ -1,0 +1,66 @@
+{
+ "schema": "conform-run/1",
+ "worker": "2c7b501e-23b9-40e1-b485-bb0dfc4150ff",
+ "subject": "model-routing",
+ "evaluatedAt": "2026-10-24T23:17:21.285516+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "effort-scoring-tools",
+   "subject": "model-routing",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/effort/triage.ts:4 I searched scripts/case-loops/effort/ for anthropic, provider, model and messages.create and found nothing. These scripts are deterministic and make no model call, so no tier or effort is chosen here. merge-batch.ts only reads the output of Sonnet subagents that something outside this context dispatched.",
+   "techniques": [],
+   "absenceTerms": [
+    "anthropic",
+    "provider",
+    "model",
+    "messages.create"
+   ]
+  },
+  {
+   "context": "app-utilities",
+   "subject": "model-routing",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/i18n/config.ts:2 In this context, 'routing' means URL and locale routing through next-intl, not choosing an LLM. I searched lib/routing, lib/i18n and lib/security for anthropic, provider, llm, sonnet and messages.create and found nothing, so these files never select a model, a tier or an effort level.",
+   "techniques": [],
+   "absenceTerms": [
+    "anthropic",
+    "provider",
+    "llm",
+    "sonnet",
+    "messages.create"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T23:17:21.285516+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "model-routing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T23:17:21.285516+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "model-routing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "app-utilities",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
