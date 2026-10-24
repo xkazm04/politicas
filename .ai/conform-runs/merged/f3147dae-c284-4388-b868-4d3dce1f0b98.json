@@ -1,0 +1,143 @@
+{
+ "schema": "conform-run/1",
+ "worker": "f3147dae-c284-4388-b868-4d3dce1f0b98",
+ "subject": "translation-quality-measurement",
+ "evaluatedAt": "2026-10-24T06:18:15.635643+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-score-computation",
+   "subject": "translation-quality-measurement",
+   "bundle": "localization",
+   "state": "not-applicable",
+   "evidence": "lib/analysis/low-score-reason.ts:18 This context computes scores and returns message keys; it holds no machine-translated store, translation engine or translation-quality measurement. A search of its directory found no chrF, pretranslat, quality-estimation or DeepL terms, so the subject's precondition (a derived machine-translated store to measure) does not hold here.",
+   "techniques": [],
+   "absenceTerms": [
+    "chrF",
+    "pretranslat",
+    "quality estimat",
+    "DeepL"
+   ]
+  },
+  {
+   "context": "db-store-engine",
+   "subject": "translation-quality-measurement",
+   "bundle": "localization",
+   "state": "not-applicable",
+   "evidence": "lib/db/store.ts:2 This is the PGlite persistence boundary for the civic graph. It stores no translated text and does no translation scoring (the organ.name_en column holds an English name supplied by the source, not machine output), and a search of lib/db found none of the subject's terms.",
+   "techniques": [],
+   "absenceTerms": [
+    "chrF",
+    "pretranslat",
+    "quality estimat",
+    "DeepL"
+   ]
+  },
+  {
+   "context": "census-quality-gate",
+   "subject": "translation-quality-measurement",
+   "bundle": "localization",
+   "state": "not-applicable",
+   "evidence": "scripts/census/lib/engine.mjs:1 The census is a ported rule engine that checks whether code imports from the shared component library. It touches no translated catalog, engine or quality estimate, and a search of scripts/census found none of the subject's terms.",
+   "techniques": [],
+   "absenceTerms": [
+    "chrF",
+    "pretranslat",
+    "quality estimat",
+    "DeepL"
+   ]
+  },
+  {
+   "context": "kg-analysis-and-catalog",
+   "subject": "translation-quality-measurement",
+   "bundle": "localization",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/kg-forensics.ts:13 The LLM output here is forensic verdicts that are gated for fabrication. These are authored analyses, not translations of source strings, so there is no derived translation store or engine to measure. A search of scripts/data-analysis found no translation-quality terms.",
+   "techniques": [],
+   "absenceTerms": [
+    "chrF",
+    "pretranslat",
+    "quality estimat",
+    "DeepL"
+   ]
+  },
+  {
+   "context": "scripts-quality-gates",
+   "subject": "translation-quality-measurement",
+   "bundle": "localization",
+   "state": "not-applicable",
+   "evidence": "scripts/sentinel/run.ts:4 The sentinel, KPI meters, doc-sync checker and smoke test check graph invariants, citation coverage and doc coupling. smoke.ts only matches mock-marker strings in both locales and does not score any translation. A search found no chrF, pretranslat, quality-estimation or DeepL terms in these scripts.",
+   "techniques": [],
+   "absenceTerms": [
+    "chrF",
+    "pretranslat",
+    "quality estimat",
+    "DeepL"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T06:18:15.635643+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-quality-measurement"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civic-score-computation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T06:18:15.635643+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-quality-measurement"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T06:18:15.635643+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-quality-measurement"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T06:18:15.635643+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-quality-measurement"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-analysis-and-catalog",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T06:18:15.635643+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-quality-measurement"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "scripts-quality-gates",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

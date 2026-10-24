@@ -11275,6 +11275,56 @@
           "evidence": "features/atlas/getAtlasData.ts:28 There is no replicated-log library and so no consensus snapshot. The engine is opened in-process."
         }
       ]
+    },
+    "fef38523-7caf-4366-a28e-18e28677d5bf/translation-quality-measurement": {
+      "context": "civic-score-computation",
+      "subject": "translation-quality-measurement",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:18:15.635Z",
+      "worker": "f3147dae-c284-4388-b868-4d3dce1f0b98",
+      "techniques": []
+    },
+    "8867f710-55df-4e4f-9da3-e412d2462001/translation-quality-measurement": {
+      "context": "db-store-engine",
+      "subject": "translation-quality-measurement",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:18:15.635Z",
+      "worker": "f3147dae-c284-4388-b868-4d3dce1f0b98",
+      "techniques": []
+    },
+    "78e81519-5df8-43ec-adb6-ba4dae3ea206/translation-quality-measurement": {
+      "context": "census-quality-gate",
+      "subject": "translation-quality-measurement",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:18:15.635Z",
+      "worker": "f3147dae-c284-4388-b868-4d3dce1f0b98",
+      "techniques": []
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/translation-quality-measurement": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "translation-quality-measurement",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:18:15.635Z",
+      "worker": "f3147dae-c284-4388-b868-4d3dce1f0b98",
+      "techniques": []
+    },
+    "61b546ac-220d-425f-ad42-8e39576b3784/translation-quality-measurement": {
+      "context": "scripts-quality-gates",
+      "subject": "translation-quality-measurement",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T06:18:15.635Z",
+      "worker": "f3147dae-c284-4388-b868-4d3dce1f0b98",
+      "techniques": []
     }
   }
 }
