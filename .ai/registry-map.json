@@ -12677,7 +12677,11 @@
           "revision": 9,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shared/provenance/claimRef.ts:4 The context is pure citation and receipt rendering plus codec helpers, and its \"claim\" means a civic graph assertion, not a VCS path claim; a search of features/shared/provenance and features/shared/poster for worktree, stash, GIT_INDEX_FILE and child_process found zero hits, so no session in this context touches a checkout, index or commit.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:de557423d4cf3016",
+          "evaluatedRevision": 9
         },
         {
           "subject": "public-claim-provenance",

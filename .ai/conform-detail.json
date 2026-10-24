@@ -11650,6 +11650,17 @@
         }
       ],
       "registryProposal": "navigation-reuse could name a common accidental opt-out: a framework that switches a route to per-request rendering as soon as anything reads a cookie or header (here, locale resolution from a cookie) and then stamps every such document with private, no-store. One locale cookie read makes every public page ineligible, and a route's own cache declaration (revalidate) silently stops taking effect."
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/concurrent-vcs": {
+      "context": "shared-provenance",
+      "subject": "concurrent-vcs",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:19:40.925Z",
+      "worker": "36a8ddf0-823e-4a15-9b7e-ba7f4005c48c",
+      "techniques": [],
+      "registryProposal": "The registry-map matched this pair on the tokens 'shared', 'claim' and 'file'. In civic-intelligence repos 'claim' usually means an asserted fact, so lexical matching on 'claim' gives false governance for concurrent-vcs. Consider requiring a VCS token (commit, worktree, index, stash) before this subject can be matched."
     }
   }
 }
