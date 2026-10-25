@@ -12146,6 +12146,38 @@
         }
       ],
       "registryProposal": "token-enforcement could name a specific case of the deny-list trap. On a utility-CSS stack whose default palette stays enabled (no namespace reset in the theme block), a raw-literal regex gate leaves the framework's whole primitive palette, plus newer color syntaxes such as oklch(), outside the gate. The vocabulary reset is a precondition for the allow-list to be closed at all."
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/embedded-db": {
+      "context": "hybrid-bench",
+      "subject": "embedded-db",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:37:28.586Z",
+      "worker": "35f0dbf3-a785-4b8c-bfee-d20241128bd1",
+      "techniques": [
+        {
+          "technique": "single-writer-holder-discipline",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:8 Exactly the failure the technique names: copying a held store instead of holding the connection, checkpointing and stripping the lock marker. lib/db/pglite/storeCopy.ts calls such a copy 'torn by construction'. Explicit close (line 134) and explicit process.exit (line 146) are conformant, but they do not cure the copy instruction."
+        },
+        {
+          "technique": "analytical-reads-off-the-serving-store",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:28 The benchmark arms (run/agg/derived/join) read flat JSON exports, not the serving store, and they are small LLM-operator benches, not user-perceptible aggregates. The README plans to move the 406k-ballot reads to PGlite via the Store 'when this graduates', and that move would trigger this technique."
+        },
+        {
+          "technique": "connection-pooling",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:90 A one-shot script that takes the single PGlite handle once. There is no pool in this context, and pool sizing lives in lib/db."
+        },
+        {
+          "technique": "storage-accounting-and-pruning",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:119 vote_tag rows are upserted by a per-vote id, so the table is bounded by the vote count and does not accumulate. Store-wide accounting lives in lib/db/pglite/accounting.ts, outside this context. The .pglite-mat copy directory the comment creates has no named reaper either."
+        }
+      ],
+      "registryProposal": "The analytical-reads technique uses 'an analysis script carrying an instruction to run against a copy' as its signature, but here the script carrying that instruction is a WRITER that materializes product data. For a writer the copy workaround is worse than contention: the writes land in a throwaway copy and silently never reach the canonical store. single-writer-holder-discipline could name 'writes routed to a copy' as a distinct failure from 'a torn backup'."
     }
   }
 }
