@@ -5126,7 +5126,11 @@
           "revision": 5,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/changes.ts:1 This context persists civic-domain data: change_event rows are civic seismograph events (tie-new, contract-new, review-decision) and review.ts is the human gate on machine-produced data claims, not code review. A grep of lib/db/pglite/repositories for revert, pull_request, co-authored, lines_added, change_failure and diffstat returned no hits, so nothing here reads a team's change history or computes a delivery metric, and the subject's precondition does not hold.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:e43700f2d197398b",
+          "evaluatedRevision": 5
         },
         {
           "subject": "runner-fleet",

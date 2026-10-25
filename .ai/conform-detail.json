@@ -12061,6 +12061,27 @@
           "evidence": "packages/czech-civic-data/src/normalize.ts:105 This is a headless ingest library: no buttons, menus or progress states. Its outputs are machine codes that some other layer renders."
         }
       ]
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/delivery-analytics": {
+      "context": "db-repositories",
+      "subject": "delivery-analytics",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:07:06.028Z",
+      "worker": "51c07f11-cb83-4891-80c6-1d65efbea6e5",
+      "techniques": [
+        {
+          "technique": "review-coverage-rate",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/review.ts:1 The 'review' here is a human decision on data claims (ties, forensic verdicts), not a review of code changes, and no coverage rate over changes is computed."
+        },
+        {
+          "technique": "revert-linkage",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/changes.ts:3 change_event holds civic graph events, not VCS commits; a grep for 'revert' found nothing in the context."
+        }
+      ]
     }
   }
 }

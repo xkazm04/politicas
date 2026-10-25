@@ -1,0 +1,54 @@
+{
+ "schema": "conform-run/1",
+ "worker": "51c07f11-cb83-4891-80c6-1d65efbea6e5",
+ "subject": "delivery-analytics",
+ "evaluatedAt": "2026-10-25T23:07:06.028088+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-repositories",
+   "subject": "delivery-analytics",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/pglite/repositories/changes.ts:1 This context persists civic-domain data: change_event rows are civic seismograph events (tie-new, contract-new, review-decision) and review.ts is the human gate on machine-produced data claims, not code review. A grep of lib/db/pglite/repositories for revert, pull_request, co-authored, lines_added, change_failure and diffstat returned no hits, so nothing here reads a team's change history or computes a delivery metric, and the subject's precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "review-coverage-rate",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/repositories/review.ts:1 The 'review' here is a human decision on data claims (ties, forensic verdicts), not a review of code changes, and no coverage rate over changes is computed."
+    },
+    {
+     "technique": "revert-linkage",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/repositories/changes.ts:3 change_event holds civic graph events, not VCS commits; a grep for 'revert' found nothing in the context."
+    }
+   ],
+   "absenceTerms": [
+    "revert",
+    "pull_request",
+    "co-authored",
+    "lines_added",
+    "change_failure"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-25T23:07:06.028088+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "delivery-analytics"
+   ],
+   "techniques": [
+    "revert-linkage",
+    "review-coverage-rate"
+   ],
+   "deviations": 0,
+   "context": "db-repositories",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
