@@ -8823,62 +8823,62 @@
       "context": "graph-canvas",
       "subject": "chat-transcript",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T02:03:29.852Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:01:35.852Z",
+      "worker": "adb7e25b-926f-4e6c-9b14-02e800a0b2fb",
       "techniques": [
         {
           "technique": "composer-turn-queue",
           "verdict": "not-applicable",
-          "evidence": "features/graph/components/NodeSearch.tsx:51 Text input searches graph entities; it does not submit conversational follow-ups to a running turn."
-        },
-        {
-          "technique": "immutable-model-cached-layout",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/components/GraphStage.tsx:319 The renderer batches graph glyphs, with no transcript messages or settled history to cache."
+          "evidence": "features/graph/components/NodeSearch.tsx:4 The only text input is a node-search combobox. It is not a prompt composer, and there are no turns to queue against."
         },
         {
           "technique": "inline-structured-rows",
           "verdict": "not-applicable",
-          "evidence": "features/graph/components/StageOverlays.tsx:47 The inspector overlay displays selected-node details, not tool calls or approvals belonging to a conversation."
-        },
-        {
-          "technique": "markdown-and-code-rendering",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/components/GraphStage.tsx:410 Canvas text consists of graph labels; this context has no streaming model-markup renderer."
-        },
-        {
-          "technique": "progress-narration",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/VariantTrasy.tsx:126 The status describes trail-data loading, not activity narration within a machine turn."
+          "evidence": "features/graph/components/NodeInspector.tsx:4 Structured detail is a node inspector panel over the graph. There is no turn sequence for tool or approval rows to sit inside."
         },
         {
           "technique": "transcript-scroll",
           "verdict": "not-applicable",
-          "evidence": "features/graph/components/GraphStage.tsx:635 Wheel input zooms a spatial graph; there is no growing conversational tail or thread-history restoration."
-        },
-        {
-          "technique": "turn-metadata",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/components/NodeInspector.tsx:163 Displayed timing belongs to graph-node provenance, not a settled conversational turn."
+          "evidence": "features/graph/viewCull.ts:2 The viewport is a pan/zoom canvas cull, which canvas-graph governs. There is no growing transcript to pin or to open at the latest turn."
         },
         {
           "technique": "turn-model",
           "verdict": "not-applicable",
-          "evidence": "features/graph/useNodeSelection.ts:42 Identity and asynchronous state concern selected graph nodes, with no authored turns or streaming-to-settled lifecycle."
+          "evidence": "features/graph/components/GraphStage.tsx:4 The entities here are kg nodes and edges, not conversational turns."
+        },
+        {
+          "technique": "immutable-model-cached-layout",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:319 The renderer batches graph glyphs, with no transcript messages or settled history to cache.",
+          "carriedFrom": "2026-10-18"
+        },
+        {
+          "technique": "markdown-and-code-rendering",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:410 Canvas text consists of graph labels; this context has no streaming model-markup renderer.",
+          "carriedFrom": "2026-10-18"
+        },
+        {
+          "technique": "progress-narration",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantTrasy.tsx:126 The status describes trail-data loading, not activity narration within a machine turn.",
+          "carriedFrom": "2026-10-18"
+        },
+        {
+          "technique": "turn-metadata",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/NodeInspector.tsx:163 Displayed timing belongs to graph-node provenance, not a settled conversational turn.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "virtual-filtered-channel",
           "verdict": "not-applicable",
-          "evidence": "features/graph/VariantMapa.tsx:370 Filtering derives a graph-edge collection, not a subscribed transcript channel with retained messages."
+          "evidence": "features/graph/VariantMapa.tsx:370 Filtering derives a graph-edge collection, not a subscribed transcript channel with retained messages.",
+          "carriedFrom": "2026-10-18"
         }
-      ],
-      "withdrawn": {
-        "worker": "8dca6146-d668-4deb-8d7b-c1bfb3e5d62b",
-        "state": "not-applicable",
-        "at": "2026-10-18T02:03:42.604812+00:00",
-        "reason": "reviewer (sonnet): The primary anchor, GraphStage.tsx:235, is edge-drawing code (moveTo/lineTo after a viewport cull) and doesn't show that transcript behaviour is absent. Technique anchors NodeSearch:51, GraphStage:319 and :410 are consistent with the verdict. The case-insensitive 'chat' grep over the directory match"
-      }
+      ]
     },
     "83ddefb0-fd53-4a37-9959-54071b61ce53/companion-runtime": {
       "context": "dashboard-instruments",

@@ -6991,7 +6991,11 @@
           "revision": 5,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:4 The context is a 2D canvas node/edge graph explorer with no conversational turns, no machine-authored streamed messages and no composer; I searched features/graph/ for transcript, composer, assistant and streaming and found no hits, so the precondition for a chat transcript (a document read while a machine writes it turn by turn) does not hold.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:5b4e7d399a4d924e",
+          "evaluatedRevision": 5
         },
         {
           "subject": "test-harness",
