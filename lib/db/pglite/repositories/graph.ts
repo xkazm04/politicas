@@ -102,17 +102,23 @@ export function makeGraphRepo(pg: Pglite): GraphRepository {
       if (ids !== undefined && ids.length === 0) return [];
       const clauses: string[] = [];
       const params: unknown[] = [];
-      // Term scoping for memberships goes through the organ tree: an organ either
-      // IS the term chamber or has it as parent. ONE level only: an organ two levels
-      // down (podvýbor under its výbor, a group under the MPU) is NOT in the term here -
-      // 1 915 of 3 260 PSP10 rows on the public dump. Known and deliberate until the
-      // committee_count decision in .ai/tasks/2026-10-22-membership-term-depth.md.
+      // Term scoping for memberships goes through the organ tree: an organ is in the
+      // term when the term chamber is its ANCESTOR, at any depth. Until 2026-10-22 this
+      // read one level (the chamber or a direct child), which dropped every organ two
+      // levels down: on the public PSP10 dump 1 915 of 3 260 term membership rows
+      // (Podvýbor under its výbor, interparliamentary groups under the MPU), 201 persons,
+      // 120 organs - and the dropped rows were then counted as "0 Podvýbor memberships".
+      // `union` (not `union all`) makes a parent cycle terminate instead of recursing.
       if (opts?.termCode) {
         params.push(opts.termCode);
         const p = `$${params.length}`;
         clauses.push(`m.organ_psp_id in (
-             select o.psp_id from organ o
-             where o.abbrev = ${p} or o.parent_psp_id = (select psp_id from organ where abbrev = ${p})
+             with recursive term_tree(psp_id) as (
+               select psp_id from organ where abbrev = ${p}
+               union
+               select o.psp_id from organ o join term_tree t on o.parent_psp_id = t.psp_id
+             )
+             select psp_id from term_tree
            )`);
       }
       if (ids !== undefined) {
