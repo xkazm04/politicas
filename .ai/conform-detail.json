@@ -11941,6 +11941,21 @@
           "evidence": "lib/ingest/sources/kiosek.ts:1 We are the client polling someone else's feed, so there is no admission door to make thin."
         }
       ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/agent-instruction-files": {
+      "context": "admin-observability",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T00:07:05.634Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "fb40a5fb-43cf-4dc5-8f6a-dc6483e1b9bc",
+        "state": "not-applicable",
+        "at": "2026-10-25T00:07:26.713634+00:00",
+        "reason": "reviewer (sonnet): The anchor, line 1 of features/admin/loops/loopsJson.ts, is a header comment about a loop-state JSON codec, so it doesn't show that no agent instruction files exist. That file is also missing from the context's listed files. My own recursive grep of features/admin found no instruction-file or agent "
+      }
     }
   }
 }
