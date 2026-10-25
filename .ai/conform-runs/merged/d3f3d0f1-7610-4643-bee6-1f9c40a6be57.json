@@ -1,0 +1,65 @@
+{
+ "schema": "conform-run/1",
+ "worker": "d3f3d0f1-7610-4643-bee6-1f9c40a6be57",
+ "subject": "czech",
+ "evaluatedAt": "2026-10-25T22:57:48.545261+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "czech-civic-data",
+   "subject": "czech",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "packages/czech-civic-data/README.md:9 The package's published Czech copy opens each quotation with the Czech low quote U+201E (byte-checked with od) and closes it with an ASCII double quote. That is the mismatched pair CS-QUOTES names as a defect, and the line above (README.md:8) also puts an em dash (U+2014) in Czech prose, against CS-DASH.",
+   "techniques": [
+    {
+     "technique": "typography-and-spacing",
+     "verdict": "deviation",
+     "evidence": "packages/czech-civic-data/README.md:9 \u201e is closed by ASCII \" instead of U+201C, twice on this line (CS-QUOTES). README.md:8 also has ' \u2014 v\u010detn\u011b' (U+2014) in Czech prose (CS-DASH)."
+    },
+    {
+     "technique": "gender-neutral-forms",
+     "verdict": "deviation",
+     "evidence": "packages/czech-civic-data/README.md:65 The package's own Czech gloss of the vote codes describes an MP of unknown gender in bare masculine past tense and participles (p\u0159ihl\u00e1\u0161en, nestiskl; line 64 has 'stiskl X'). The code label itself (nehlasoval) is the publisher's term, but the parenthetical gloss is the package's own text."
+    },
+    {
+     "technique": "register-and-address",
+     "verdict": "not-applicable",
+     "evidence": "packages/czech-civic-data/README.md:3 The Czech copy is impersonal description (infinitive title, third person). It never addresses the reader, so it does not have to choose between vyk\u00e1n\u00ed and tyk\u00e1n\u00ed."
+    },
+    {
+     "technique": "plural-and-count-agreement",
+     "verdict": "not-applicable",
+     "evidence": "packages/czech-civic-data/src/normalize.ts:94 The src modules emit English code vocabularies and ISO strings. No Czech string anywhere in the context interpolates a count."
+    },
+    {
+     "technique": "ui-conventions-and-length",
+     "verdict": "not-applicable",
+     "evidence": "packages/czech-civic-data/src/normalize.ts:105 This is a headless ingest library: no buttons, menus or progress states. Its outputs are machine codes that some other layer renders."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-25T22:57:48.545261+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "czech"
+   ],
+   "techniques": [
+    "gender-neutral-forms",
+    "plural-and-count-agreement",
+    "register-and-address",
+    "typography-and-spacing",
+    "ui-conventions-and-length"
+   ],
+   "deviations": 1,
+   "context": "czech-civic-data",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -12025,6 +12025,42 @@
           "evidence": "features/votetrack/kompas/KompasPage.tsx:32 The client tree gets its data as server-rendered props and fetches nothing, so there is no client-fetched result to keep past an unmount."
         }
       ]
+    },
+    "6b1859ef-0a64-4966-bfbb-8808a7c04d1e/czech": {
+      "context": "czech-civic-data",
+      "subject": "czech",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:57:48.545Z",
+      "worker": "d3f3d0f1-7610-4643-bee6-1f9c40a6be57",
+      "techniques": [
+        {
+          "technique": "typography-and-spacing",
+          "verdict": "deviation",
+          "evidence": "packages/czech-civic-data/README.md:9 „ is closed by ASCII \" instead of U+201C, twice on this line (CS-QUOTES). README.md:8 also has ' — včetně' (U+2014) in Czech prose (CS-DASH)."
+        },
+        {
+          "technique": "gender-neutral-forms",
+          "verdict": "deviation",
+          "evidence": "packages/czech-civic-data/README.md:65 The package's own Czech gloss of the vote codes describes an MP of unknown gender in bare masculine past tense and participles (přihlášen, nestiskl; line 64 has 'stiskl X'). The code label itself (nehlasoval) is the publisher's term, but the parenthetical gloss is the package's own text."
+        },
+        {
+          "technique": "register-and-address",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/README.md:3 The Czech copy is impersonal description (infinitive title, third person). It never addresses the reader, so it does not have to choose between vykání and tykání."
+        },
+        {
+          "technique": "plural-and-count-agreement",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:94 The src modules emit English code vocabularies and ISO strings. No Czech string anywhere in the context interpolates a count."
+        },
+        {
+          "technique": "ui-conventions-and-length",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:105 This is a headless ingest library: no buttons, menus or progress states. Its outputs are machine codes that some other layer renders."
+        }
+      ]
     }
   }
 }

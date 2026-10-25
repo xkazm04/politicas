@@ -4212,7 +4212,11 @@
           "revision": 9,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/czech-civic-data/README.md:9 The package's published Czech copy opens each quotation with the Czech low quote U+201E (byte-checked with od) and closes it with an ASCII double quote. That is the mismatched pair CS-QUOTES names as a defect, and the line above (README.md:8) also puts an em dash (U+2014) in Czech prose, against CS-DASH.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:235d75274930244a",
+          "evaluatedRevision": 10
         },
         {
           "subject": "self-describing-model-packages",
