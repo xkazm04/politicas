@@ -11987,6 +11987,47 @@
         "at": "2026-10-25T00:22:32.320401+00:00",
         "reason": "reviewer (sonnet): The anchor (getDashboardData.ts:416, a store.kgNeighbours call) shows only that one loader reads graph neighbours. It doesn't show that the context lacks an LLM-call analytics store, so it is incidental, and the 'one data path' claim wasn't confirmed across the whole context."
       }
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/client-fetch-cache": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "client-fetch-cache",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:19:59.659Z",
+      "worker": "53303d2a-95a7-41ee-82ef-22fe217b7a93",
+      "techniques": [
+        {
+          "technique": "in-flight-dedup",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:61 React cache() memoizes the promise per request at the loader layer, so every caller in one render joins one flight. The body catches and returns null, so a failure reaches all joiners as the same null. This is server-side and has only one caller today (app/kompas/page.tsx:33)."
+        },
+        {
+          "technique": "portable-read-definitions",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:68 The shared vote-record read is one plain module-level function (getVoteRecord.ts) that both /hlasovani and /kompas call, rather than kompas re-typing its own fetcher and derivation (the header comment records that it did this until 2026-08-11)."
+        },
+        {
+          "technique": "plural-policy-claims",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:19 Kompas makes no lifetime claim of its own on the shared record entry, which avoids two clocks over one entry. KompasPage.tsx:30 imports the shared MONEY_MEMO_TTL_MS rather than redeclaring it."
+        },
+        {
+          "technique": "parse-and-derive-caches",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:38 A single-slot useMemo over a pure derivation, which stays the one way to compute the result. It is keyed by reference identity, and that is sound because the producer always mints a new Map (useKompasAnswers.ts:58 `const next = new Map(answers);`) and data is an immutable server prop. The technique also asks for that assumption to be written at the cache; that comment is missing."
+        },
+        {
+          "technique": "cache-key-discipline",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:39 The memo key covers every input to scoreAlignment, with no hidden ambient axis. getKompas takes no arguments, so its cache() key is complete by construction."
+        },
+        {
+          "technique": "warm-remount-caches",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:32 The client tree gets its data as server-rendered props and fetches nothing, so there is no client-fetched result to keep past an unmount."
+        }
+      ]
     }
   }
 }

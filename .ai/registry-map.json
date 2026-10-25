@@ -14121,7 +14121,11 @@
           "revision": 15,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:61 The kompas read is one request-scoped React cache() flight that reuses the shared memoized vote record rather than keeping its own memo, and the client tree's only cache is a useMemo over the pure scoreAlignment derivation; no technique is realized the way the standard names as a failure.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:20824426732ffb6a",
+          "evaluatedRevision": 15
         },
         {
           "subject": "test-harness",
