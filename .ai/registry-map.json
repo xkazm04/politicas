@@ -8757,7 +8757,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-props-check.ts:18 The only thing this context calls a \"registry\" is an in-repo list of allowed jsonb prop keys for one PGlite store, and in kg-promote the word means public data sources (ISVZ/ARES rows); none of these files writes or reads a shared, cross-codebase knowledge registry (a grep of scripts/data-analysis for ai-registry, knowledge-registry, registry-map and manifest.yaml found 0 hits), so the subject's precondition does not hold.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:3dc9f1dec5aa4282",
+          "evaluatedRevision": 12
         },
         {
           "subject": "prompt-assembly",

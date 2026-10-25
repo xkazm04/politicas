@@ -1,0 +1,64 @@
+{
+ "schema": "conform-run/1",
+ "worker": "dde7d38c-d5e4-4be1-baad-a38c14c0cd6f",
+ "subject": "knowledge-registry",
+ "evaluatedAt": "2026-10-25T23:54:25.339625+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-graph-writers",
+   "subject": "knowledge-registry",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/kg-props-check.ts:18 The only thing this context calls a \"registry\" is an in-repo list of allowed jsonb prop keys for one PGlite store, and in kg-promote the word means public data sources (ISVZ/ARES rows); none of these files writes or reads a shared, cross-codebase knowledge registry (a grep of scripts/data-analysis for ai-registry, knowledge-registry, registry-map and manifest.yaml found 0 hits), so the subject's precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "lane-contracts",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-compute.ts:245 The same idea, 'carry forward what you do not own', is done here for kg_node props shared by several writers, but that is a database row inside one repo, not a registry lane with its own path, spec and gate."
+    },
+    {
+     "technique": "deterministic-seeding",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-props-check.ts:43 --seed rebuilds a local schema file from the live store in the author's own repo, not a registry seed proposed into a repo someone else owns. The timestamp would break the technique if it applied, but here it does not."
+    },
+    {
+     "technique": "propose-then-adopt",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-promote.ts:16 kg-promote gates LLM-proposed verdicts before an operator commits them to the graph. That looks like propose-then-adopt, but the target is a data store, not a registry repo where merging is the act of adoption."
+    },
+    {
+     "technique": "standard-versus-consumer-split",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-promote.ts:144 'Registry' here means a public data source a verdict draws on. Nothing in this context publishes a standard, so there is no publish boundary to split across."
+    }
+   ],
+   "absenceTerms": [
+    "ai-registry",
+    "registry-map",
+    "manifest.yaml"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-25T23:54:25.339625+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "knowledge-registry"
+   ],
+   "techniques": [
+    "deterministic-seeding",
+    "lane-contracts",
+    "propose-then-adopt",
+    "standard-versus-consumer-split"
+   ],
+   "deviations": 0,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
