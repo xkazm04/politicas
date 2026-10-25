@@ -9723,7 +9723,11 @@
           "revision": 1,
           "changedAt": "2026-09-02",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:7 The only summaries in this context are one-line, deterministic, per-bill (leaf) summaries over a flat set of 141 bills, rebuilt whole on each run into a JSON payload. There is no containment tree whose interior nodes carry generated abstract/overview tiers, so there is nothing to embed, descend, digest-gate or sample. A case-insensitive search of scripts/case-loops/law for overview, abstract, embedding, descent and unsampled found zero hits.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:09d2467f58c2c036",
+          "evaluatedRevision": 1
         },
         {
           "subject": "translation-pipeline-topology",

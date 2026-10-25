@@ -8937,37 +8937,32 @@
       "context": "law-amends-corpus",
       "subject": "context-hierarchy",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T21:10:04.602Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:46:48.560Z",
+      "worker": "b33ff217-b6fc-4d16-a88a-a742f19b3253",
       "techniques": [
-        {
-          "technique": "digest-gated-upward-refresh",
-          "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:248 A summary derives directly from its bill text; there is no ancestor-summary dependency requiring upward propagation."
-        },
         {
           "technique": "per-node-summary-tiers",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:253 These are presentation summaries of independent bill records, without interior corpus nodes requiring abstract and overview tiers."
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:41 One display-length summary per bill (a leaf, for the dossier header), not embedded and not an interior node's tier; there are no abstract/overview tiers at all."
+        },
+        {
+          "technique": "digest-gated-upward-refresh",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:236 A flat loop over bills with no parent summaries to propagate into; the payload is regenerated whole on every run, which is the technique's own 'rebuilt whole' exclusion."
         },
         {
           "technique": "seeded-descent-retrieval",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/esbirka-sparql-diff.ts:82 The paragraph lookup returns source fragments for a specified law version and paragraph prefix; it does not retrieve through summary-bearing interior nodes."
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:24 The summaries go to a static payload for display; no retrieval surface searches or descends any summary tree in this context."
         },
         {
           "technique": "stable-sampling-for-wide-nodes",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:177 The prefix selects captions for a bill's display sentence, rather than sampling child summaries for a wide interior node's overview."
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:248 Each summary is composed from that one bill's own text; no node is summarised from its children, so nothing is wide enough to need sampling. The 'sample' hits in amends-regen.ts are report-display slices (slice(0, 5)), not summariser inputs."
         }
-      ],
-      "withdrawn": {
-        "worker": "04bf4704-db0e-4a7d-9cb3-78b146fa4cbd",
-        "state": "not-applicable",
-        "at": "2026-10-18T21:10:25.360614+00:00",
-        "reason": "reviewer (sonnet): Four of the five anchors are in build-bill-summaries.ts, which is not in the context's file list, so they describe a different context; the one in-context anchor (esbirka-sparql-diff.ts:82) is a fragment lookup that doesn't show the summary-tree precondition is absent; line 253 is a rows.push, not a"
-      }
+      ]
     },
     "7555cc51-bb20-4171-842d-4a3eb290c3e0/cost-metering": {
       "context": "money-ledger",
