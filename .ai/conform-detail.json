@@ -8884,52 +8884,54 @@
       "context": "dashboard-instruments",
       "subject": "companion-runtime",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T02:08:43.384Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:35:35.338Z",
+      "worker": "ba4a0093-3b53-491f-ab92-96c1553c3890",
       "techniques": [
         {
           "technique": "action-catalog-single-source",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/FactRow.tsx:107 The interaction selects a graph node on a person's click; no model-produced action vocabulary was found."
+          "evidence": "features/dashboard/components/FactRow.tsx:107 The interaction selects a graph node on a person's click; no model-produced action vocabulary was found.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "autonomous-cycle-hosting",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/getDashboardData.ts:287 The loader expires its read cache when called; it does not host autonomous companion cycles."
+          "evidence": "features/dashboard/getDashboardData.ts:287 The loader expires its read cache when called; it does not host autonomous companion cycles.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "headless-turn-stream",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/getExhibitData.ts:43 Exhibit requests await a data projection; no conversation turn or turn transport was found."
+          "evidence": "features/dashboard/getExhibitData.ts:43 Exhibit requests await a data projection; no conversation turn or turn transport was found.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "host-seam-contracts",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:425 The alternate graph presentation shares data and selection callbacks; it is not a second consumer of a companion brain."
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:425 The alternate graph presentation shares data and selection callbacks; it is not a second consumer of a companion brain.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "metered-llm-seam",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/getDashboardData.ts:548 Dashboard orchestration reads domain loaders; no runtime model invocation or background model leg was found."
+          "evidence": "features/dashboard/getDashboardData.ts:548 Dashboard orchestration reads domain loaders; no runtime model invocation or background model leg was found.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "operative-working-set",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:86 This transient state tracks graph hover, not a companion's present-tense observations beside durable memory."
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:86 This transient state tracks graph hover, not a companion's present-tense observations beside durable memory.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "signal-economy-contract",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/GraphFeedPanel.tsx:64 The panel counts dated facts matching a selected entity; it does not report autonomous companion outcomes."
+          "evidence": "features/dashboard/components/GraphFeedPanel.tsx:64 The panel counts dated facts matching a selected entity; it does not report autonomous companion outcomes.",
+          "carriedFrom": "2026-10-18"
         }
-      ],
-      "withdrawn": {
-        "worker": "50f784b4-d532-48b3-9e8e-575e1c1179f7",
-        "state": "not-applicable",
-        "at": "2026-10-18T02:08:54.781293+00:00",
-        "reason": "reviewer (sonnet): The primary anchor, getDashboardData.ts:11, is a header comment about the loader passing through fields from the other loaders and does not show that a companion runtime is absent. The only support for absence is the zero-hit grep, which is not a line in the code."
-      }
+      ]
     },
     "83c0d33f-f7db-4a99-9d17-48a23e417b22/context-hierarchy": {
       "context": "law-amends-corpus",
