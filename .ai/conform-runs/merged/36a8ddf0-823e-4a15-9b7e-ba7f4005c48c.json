@@ -1,0 +1,46 @@
+{
+ "schema": "conform-run/1",
+ "worker": "36a8ddf0-823e-4a15-9b7e-ba7f4005c48c",
+ "subject": "concurrent-vcs",
+ "evaluatedAt": "2026-10-24T22:19:40.925059+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "shared-provenance",
+   "subject": "concurrent-vcs",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shared/provenance/claimRef.ts:4 The context is pure citation and receipt rendering plus codec helpers, and its \"claim\" means a civic graph assertion, not a VCS path claim; a search of features/shared/provenance and features/shared/poster for worktree, stash, GIT_INDEX_FILE and child_process found zero hits, so no session in this context touches a checkout, index or commit.",
+   "techniques": [],
+   "absenceTerms": [
+    "worktree",
+    "stash",
+    "GIT_INDEX_FILE",
+    "child_process"
+   ],
+   "registryProposal": "The registry-map matched this pair on the tokens 'shared', 'claim' and 'file'. In civic-intelligence repos 'claim' usually means an asserted fact, so lexical matching on 'claim' gives false governance for concurrent-vcs. Consider requiring a VCS token (commit, worktree, index, stash) before this subject can be matched."
+  }
+ ],
+ "declined": [
+  {
+   "subject": "concurrent-vcs",
+   "context": "case-loops-core",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-10-24T22:19:40.925059+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "concurrent-vcs"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shared-provenance",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -1,0 +1,101 @@
+{
+ "schema": "conform-run/1",
+ "worker": "45ed93a5-737b-4eff-aedd-34e6537d847c",
+ "subject": "llm-call-telemetry-model",
+ "evaluatedAt": "2026-10-24T22:54:39.127356+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-inbox",
+   "subject": "llm-call-telemetry-model",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "features/schranka/telemetryScrub.ts:30 The only 'telemetry' in this context is a pure scrubber that removes follow-list entity keys from Sentry request URLs before they are sent. No LLM call events are received, stored, priced or attributed here. Searches of features/schranka for inputTokens, input_tokens, outputTokens, cachedInputTokens, reasoningTokens, costUsd, cost_usd, priceBook, receivedAt and received_at returned 0 hits, so the subject's precondition (an ingest schema for LLM call events) does not hold.",
+   "techniques": [
+    {
+     "technique": "dual-clock-event-time",
+     "verdict": "not-applicable",
+     "evidence": "features/schranka/telemetryScrub.ts:30 No LLM call event record exists, so there is no budget window and no clock choice to make."
+    },
+    {
+     "technique": "token-usage-quadruple",
+     "verdict": "not-applicable",
+     "evidence": "features/schranka/telemetryScrub.ts:30 No token counters anywhere in the context."
+    },
+    {
+     "technique": "nullable-cost-never-zero",
+     "verdict": "not-applicable",
+     "evidence": "features/schranka/telemetryScrub.ts:30 No cost and no price book."
+    }
+   ],
+   "absenceTerms": [
+    "inputTokens",
+    "input_tokens",
+    "costUsd",
+    "priceBook",
+    "receivedAt"
+   ]
+  },
+  {
+   "context": "ingest-pipeline",
+   "subject": "llm-call-telemetry-model",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/changeEvents.ts:46 lib/ingest models civic snapshot-diff change events (mandates, roles, ties, contracts) and parses PDF text, UNL files and ZIP archives. It has no LLM call event, no token counts, no cost and no billing attribution. Searches of lib/ingest for inputTokens, input_tokens, outputTokens, cachedInputTokens, reasoningTokens, costUsd, cost_usd, priceBook, receivedAt and received_at returned 0 hits.",
+   "techniques": [
+    {
+     "technique": "dual-clock-event-time",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/changeEvents.ts:55 The event carries a server record-time clock for civic facts. These are not LLM calls and do not feed a budget window."
+    },
+    {
+     "technique": "token-usage-quadruple",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/changeEvents.ts:46 The change event schema has no token fields."
+    }
+   ],
+   "absenceTerms": [
+    "inputTokens",
+    "input_tokens",
+    "costUsd",
+    "priceBook",
+    "receivedAt"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T22:54:39.127356+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "llm-call-telemetry-model"
+   ],
+   "techniques": [
+    "dual-clock-event-time",
+    "nullable-cost-never-zero",
+    "token-usage-quadruple"
+   ],
+   "deviations": 0,
+   "context": "civic-inbox",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T22:54:39.127356+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "llm-call-telemetry-model"
+   ],
+   "techniques": [
+    "dual-clock-event-time",
+    "token-usage-quadruple"
+   ],
+   "deviations": 0,
+   "context": "ingest-pipeline",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

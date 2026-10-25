@@ -1358,8 +1358,8 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "priorNotApplicable": 5,
+          "state": "unknown"
         },
         {
           "subject": "mcp-tools",
@@ -1716,7 +1716,11 @@
           "revision": 21,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/i18n/config.ts:2 In this context, 'routing' means URL and locale routing through next-intl, not choosing an LLM. I searched lib/routing, lib/i18n and lib/security for anthropic, provider, llm, sonnet and messages.create and found nothing, so these files never select a model, a tier or an effort level.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:5484901d8df95b15",
+          "evaluatedRevision": 21
         },
         {
           "subject": "test-harness",
@@ -1845,7 +1849,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/budget/mirrorData.ts:5 BudgetMirror is a set of pure functions over generated data modules plus a React surface; it embeds no interpreter and runs no code it did not write, and a search of features/budget for node:vm, quickjs, isolated-vm, new Function and vm.runIn found nothing, so there is no guest evaluation to bound.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "agent-instruction-files",
@@ -2581,7 +2589,11 @@
           "revision": 10,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dukazy/DukazyPage.tsx:84 /dukazy prints each review_audit row's chain position and row hash, and its copy (chain.note) tells readers the hash proves order and non-tampering, but the read path (readReviewAudit → getDukazyData → page/feeds) never recomputes the chain, so a tampered row would be shown with the same confident hash and there is no verified/tampered verdict on the surface.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:154304c5d9578971",
+          "evaluatedRevision": 10
         },
         {
           "subject": "supply-chain",
@@ -2851,7 +2863,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/claims/registry.ts:96 The claim registry issues the sample attendance tile (78.3 %, which data.ts:2 calls an illustrative mock) as a machine-readable claim with dataset 'psp.cz — jmenovitá hlasování' and retrievedAt 2026-07-30, and /overeni resolves pasted refs against it, so a seeded value carries a real source and a retrieval date; ClaimReviewStatus has no sample/seeded state that could revoke the claim.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:60eb54ef03f44a69",
+          "evaluatedRevision": 3
         },
         {
           "subject": "prompt-assembly",
@@ -3134,7 +3150,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/denik/loading.tsx:26 The /denik streaming shell paints its headline without the SourceNote kicker that DenikPage.tsx:326 puts above the same h1, so the placeholder is only roughly the right size and the masthead drops by one kicker line when the ~12 s server read resolves.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
+          "evaluatedRevision": 4
         }
       ],
       "governance": "governed"
@@ -3268,7 +3288,11 @@
           "revision": 7,
           "changedAt": "2026-10-06",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:30 The only 'telemetry' in this context is a pure scrubber that removes follow-list entity keys from Sentry request URLs before they are sent. No LLM call events are received, stored, priced or attributed here. Searches of features/schranka for inputTokens, input_tokens, outputTokens, cachedInputTokens, reasoningTokens, costUsd, cost_usd, priceBook, receivedAt and received_at returned 0 hits, so the subject's precondition (an ingest schema for LLM call events) does not hold.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:9f199f8ff9e7a925",
+          "evaluatedRevision": 7
         },
         {
           "subject": "eval-harness",
@@ -5672,7 +5696,11 @@
           "revision": 21,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/effort/triage.ts:4 I searched scripts/case-loops/effort/ for anthropic, provider, model and messages.create and found nothing. These scripts are deterministic and make no model call, so no tier or effort is chosen here. merge-batch.ts only reads the output of Sonnet subagents that something outside this context dispatched.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:5484901d8df95b15",
+          "evaluatedRevision": 21
         },
         {
           "subject": "supply-chain",
@@ -6427,7 +6455,11 @@
           "revision": 10,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:60 The harness enumerates the rule set from the filesystem (rules/, docs/rules/, __tests__/) and from the plugin export, and requires all four to equal one list. A rule added without a RuleTester suite or a doc page fails discovery, and every suite carries invalid cases asserting messageIds.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:58a3b7c0b9efb42c",
+          "evaluatedRevision": 10
         }
       ],
       "governance": "governed"
@@ -6685,7 +6717,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/public-body.ts:157 classifyPublicMandate returns `unknown` with attributable:true for an unknown-form current holder (line 263), an unwalked corporate owner (275) and unpublished ownership (290). The chain walk is opt-in (requireOwnerChain), the only caller (public-mandate-sweep.ts) does not set it, and by default a business-form holder is accepted as a terminal answer for `private`.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "public-procurement-analysis",
@@ -7478,7 +7514,11 @@
           "revision": 3,
           "changedAt": "2026-09-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:3 This context pulls full public snapshots (psp.cz dumps, PDFs, ZIPs) and diffs them into change events it derives itself; a case-insensitive search of lib/ingest for subscription, billing, invoice, billable and usage event found zero hits, so there is no externally posted, billable usage stream for the subject to govern.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:74ce470dc4579c08",
+          "evaluatedRevision": 3
         },
         {
           "subject": "prompt-assembly",
@@ -7581,7 +7621,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:16 The only wire format in this context is the change-event feed codec, which carries diffs of public civic records rather than aggregate model-evaluation digests that cross an organizational boundary; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject's precondition is absent.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
+          "evaluatedRevision": 11
         },
         {
           "subject": "llm-call-telemetry-model",
@@ -7597,7 +7641,11 @@
           "revision": 7,
           "changedAt": "2026-10-06",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:46 lib/ingest models civic snapshot-diff change events (mandates, roles, ties, contracts) and parses PDF text, UNL files and ZIP archives. It has no LLM call event, no token counts, no cost and no billing attribution. Searches of lib/ingest for inputTokens, input_tokens, outputTokens, cachedInputTokens, reasoningTokens, costUsd, cost_usd, priceBook, receivedAt and received_at returned 0 hits.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:9f199f8ff9e7a925",
+          "evaluatedRevision": 7
         },
         {
           "subject": "multi-provider-event-normalization",
@@ -7719,7 +7767,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy.ts:1 These are clients for public-money registries (contracts, procurement, court data, asset declarations, MONITOR budgets) that read public records and pool no self-reported benchmark statistics from contributors; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject is out of scope.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
+          "evaluatedRevision": 11
         },
         {
           "subject": "llm-extracted-entity-graph",
@@ -7832,7 +7884,11 @@
           "revision": 3,
           "changedAt": "2026-09-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy.ts:11 These adapters are outbound pull clients for Czech government open-data APIs (smlouvy, ISVZ, dataor, kiosek, MONITOR), not an endpoint that customer services post billable usage to; a case-insensitive search of lib/ingest/sources for subscription, billing, invoice, billable and usage event found zero hits.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:74ce470dc4579c08",
+          "evaluatedRevision": 3
         },
         {
           "subject": "workflow-property-contracts",
@@ -7907,7 +7963,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/psp.ts:1 These adapters fetch and normalize public parliamentary and electoral open data coming in, and have no shared leaderboard, contributor digest or consent-gated publication; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject does not apply.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
+          "evaluatedRevision": 11
         },
         {
           "subject": "agent-session-archive",
@@ -8344,7 +8404,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/ingest.ts:1 This context pulls public civic data (psp.cz dumps, Pumper mirror, Hlídač, e-Sbírka) into the local graph and never builds, sends or merges LLM evaluation digests from other organizations; I searched scripts/data-analysis for benchmark, federat, consent, k_sources and opt-in and found nothing, so none of the subject's precondition holds here.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
+          "evaluatedRevision": 11
         },
         {
           "subject": "public-procurement-analysis",
@@ -8736,7 +8800,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/rentgen/page.tsx:26 /rentgen mounts a client feature whose headline is SSR'd with an opacity-0 entrance, so its largest paint waits for script. The other routes in this context render on the server (svedectvi) or ship only a seed to the client (/graf).",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
+          "evaluatedRevision": 4
         },
         {
           "subject": "agent-runtime-assembly",
@@ -9989,7 +10057,11 @@
           "revision": 6,
           "changedAt": "2026-08-31",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/apply-census-completion-013.ts:57 Every writer in this context adds nodes and edges or changes field content, each with a provenance stamp; none deletes, archives or purges an entity. I searched scripts/case-loops/law/archive/ for deleteKg, DELETE FROM, ON DELETE, tombstone, archived_at and purge and found no hits, so the subject's precondition (an entity that is removed or archived) does not hold here. Content corrections belong to versioning-snapshots, not this subject.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:cef5e3463825ff22",
+          "evaluatedRevision": 6
         },
         {
           "subject": "prompt-assembly",
@@ -10022,7 +10094,11 @@
           "revision": 3,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-021.ts:15 The archived LawWatch probes are one-shot tsx scripts that read the store and the filesystem and write JSON payloads; they evaluate no guest code, and a search of scripts/case-loops/law/archive for node:vm, quickjs, isolated-vm, new Function and vm.runIn found nothing, so the subject's precondition (an embedded interpreter running code the host did not write) does not hold.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:a59e479b7cea486b",
+          "evaluatedRevision": 3
         },
         {
           "subject": "quality-gates",
@@ -10683,7 +10759,11 @@
           "revision": 6,
           "changedAt": "2026-08-31",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "scripts/case-loops/money/archive/find-stale-ico-mentions.ts:7 The probes that bear on lifecycle walk every surviving kg_node's props for leftover mentions of an entity deleted elsewhere (the purged company IČO 04627695). They only report or propose payloads, and they add a note to the history instead of rewriting it: that is the dependent-side, report-first sweep plus history that survives the delete.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:cef5e3463825ff22",
+          "evaluatedRevision": 6
         },
         {
           "subject": "test-harness",
@@ -10970,7 +11050,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/reachableMoney.ts:138 The shared attribution predicate only removes attribution on an explicit `false`; a company whose public-mandate verdict is null/undefined (sweep not run, `unknown`, `ownership-not-published`) falls through to the tie class and counts as attributable, which is the 'unknown resolves to private' direction the standard forbids.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:47b417b7b621d8d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "beneficial-ownership-resolution",
@@ -12645,7 +12729,11 @@
           "revision": 9,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shared/provenance/claimRef.ts:4 The context is pure citation and receipt rendering plus codec helpers, and its \"claim\" means a civic graph assertion, not a VCS path claim; a search of features/shared/provenance and features/shared/poster for worktree, stash, GIT_INDEX_FILE and child_process found zero hits, so no session in this context touches a checkout, index or commit.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:de557423d4cf3016",
+          "evaluatedRevision": 9
         },
         {
           "subject": "public-claim-provenance",
@@ -13156,7 +13244,11 @@
           "revision": 10,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:83 The gate-ladder conformance check (CI must be a superset of `npm run check`) matches substrings, not tokens. `npm run check` chains both `test` and `test:rules`, and both `docs:sync` and `docs:sync:test`, so deleting `npm run test` (ci.yml:49) or `npm run docs:sync` (ci.yml:75) from CI still passes because `npm run test:rules` / `npm run docs:sync:test` contain the shorter string. That is a false pass, and no fixture exists that would have caught it.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:58a3b7c0b9efb42c",
+          "evaluatedRevision": 10
         },
         {
           "subject": "quality-gates",
@@ -13385,7 +13477,11 @@
           "revision": 10,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/sentinel/invariants.ts:405 The sentinel is a registry of 18 independent invariants, but its fixtures are hand-written test cases rather than enumerated from this roster. As a result, law-provenance-uniformity, graph-provenance-uniformity, amends-closure and loader-degradations appear in tests only as \"ok\" (sentinel.test.ts:270-273) and are never shown to fire, and adding a new invariant with no red fixture fails nothing.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:58a3b7c0b9efb42c",
+          "evaluatedRevision": 10
         },
         {
           "subject": "prompt-assembly",
@@ -14238,7 +14334,11 @@
           "revision": 10,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/votetrack/ledgerRead.ts:1 VoteTrack only reads and displays external PSP vote records (vote_event/vote_ballot). Its 'ledger' is a display of votes, not an audit trail of this system's actions. A case-insensitive grep of features/votetrack for audit, tamper, append-only, review_audit, chain_pos, row_hash, reviewer, insert into and upsert found nothing, so the subject's precondition (a ledger of what the system did) does not hold.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:154304c5d9578971",
+          "evaluatedRevision": 10
         },
         {
           "subject": "retrieval",
@@ -14402,7 +14502,11 @@
           "revision": 3,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/hlasovani/loading.tsx:22 The /hlasovani streaming shell (shown during the ~16 s cold ledger read) sets the headline with no eyebrow and no mt-3, while VoteTrackPage renders a SourceNote plus an mt-3 h1, so the masthead jumps down when the page streams in. The loaded headline is then served at opacity 0 until hydration.",
+          "evaluatedAt": "2026-10-24",
+          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
+          "evaluatedRevision": 4
         },
         {
           "subject": "agent-runtime-assembly",

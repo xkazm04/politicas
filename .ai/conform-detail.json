@@ -4485,32 +4485,42 @@
       "context": "eslint-plugin-civic-transparency-tests",
       "subject": "conformance-checking",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-15",
-      "evaluatedTs": "2026-10-15T03:41:05.931Z",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
       "techniques": [
         {
           "technique": "rule-registry-enumerated-fixtures",
-          "verdict": "deviation",
-          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:44 The suite hardcodes EXPECTED_RULES in the runner rather than discovering rules dynamically from the plugin, and tests code snippets in RuleTester instead of dedicated per-rule fixture directories."
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:60 The rule set is cross-checked across exports, rule files, docs and suites (lines 57-60), so no hand allow-map can hide a rule. All 10 suites have both valid and invalid arrays."
+        },
+        {
+          "technique": "derived-expectation-needs-an-evidence-floor",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:58 The filesystem-derived listing is compared against a committed list rather than only against another derivation, so an empty listing goes red instead of passing silently."
+        },
+        {
+          "technique": "fixture-repo-testing",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs:57 Each rule is proven red by its invalid fixtures, and assertions target structured finding ids (messageId), not rendered text."
         },
         {
           "technique": "checker-false-positive-discipline",
           "verdict": "conformant",
-          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-colors.test.mjs:28 RuleTester suites explicitly include negative controls for substring and hex-shaped false matches to prevent false fails."
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs:49 Valid cases pin the false-fail shapes (catchAll as a substring, computed [\"catch\"]), so narrowing or widening the detector trips the suite."
         },
         {
           "technique": "finding-severity-ladder",
           "verdict": "conformant",
-          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:94 Preset assertions explicitly separate error severity for irreversible violations from warn severity for convention rules."
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 When the shim check cannot run it reports SKIP rather than PASS, and only MODULE_NOT_FOUND is downgraded (other errors rethrow). Preset severities are also pinned per rule at lines 93-102."
+        },
+        {
+          "technique": "pass-ratio-comparability",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:122 No percentage is computed. The harness prints a suite count with its predicate only."
         }
-      ],
-      "withdrawn": {
-        "worker": "0d0939c4-c659-41f6-8a34-44c994cf0a53",
-        "state": "deviation",
-        "at": "2026-10-15T03:41:26.458577+00:00",
-        "reason": "reviewer (sonnet): run-all.mjs does enumerate the registry: it derives the rule, doc and test sets from the filesystem and the plugin's exports and asserts all four equal EXPECTED_RULES, so the hardcoded list is a cross-checked pin and the 'rather than enumerating' claim is contradicted."
-      }
+      ]
     },
     "747db329-14c0-47a7-b8b5-eaf8095b9fdb/cross-provider-benchmark-operations": {
       "context": "effort-scoring-tools",
@@ -6611,47 +6621,45 @@
       "context": "civic-inbox",
       "subject": "llm-call-telemetry-model",
       "bundle": "llm-observability",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T02:47:50.185Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:54:39.127Z",
+      "worker": "45ed93a5-737b-4eff-aedd-34e6537d847c",
       "techniques": [
         {
           "technique": "dual-clock-event-time",
           "verdict": "not-applicable",
-          "evidence": "features/schranka/useNews.ts:53 This timestamp controls the news-fetch cache; no LLM accounting window was found."
-        },
-        {
-          "technique": "ingest-skew-rejection",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/feedRequest.ts:21 The date parser handles a feed selection threshold; no client-reported LLM call timestamp is ingested."
-        },
-        {
-          "technique": "metadata-attribution-keys",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/followCodec.ts:41 The follow-list identity belongs to local browser storage; no call-billing attribution map was found."
-        },
-        {
-          "technique": "nullable-cost-never-zero",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/deriveDeltas.ts:63 The monetary field belongs to civic diary deltas; no provider price book or LLM call cost aggregate was found."
-        },
-        {
-          "technique": "server-owned-fields",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/telemetryScrub.ts:116 This operation removes follow-list information from outgoing telemetry; no receiving path stamps call-accounting fields."
+          "evidence": "features/schranka/telemetryScrub.ts:30 No LLM call event record exists, so there is no budget window and no clock choice to make."
         },
         {
           "technique": "token-usage-quadruple",
           "verdict": "not-applicable",
-          "evidence": "features/schranka/useNews.ts:90 The counter measures civic news entries; no provider token-usage record was found."
+          "evidence": "features/schranka/telemetryScrub.ts:30 No token counters anywhere in the context."
+        },
+        {
+          "technique": "nullable-cost-never-zero",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:30 No cost and no price book."
+        },
+        {
+          "technique": "ingest-skew-rejection",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/feedRequest.ts:21 The date parser handles a feed selection threshold; no client-reported LLM call timestamp is ingested.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "metadata-attribution-keys",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/followCodec.ts:41 The follow-list identity belongs to local browser storage; no call-billing attribution map was found.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "server-owned-fields",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:116 This operation removes follow-list information from outgoing telemetry; no receiving path stamps call-accounting fields.",
+          "carriedFrom": "2026-10-17"
         }
-      ],
-      "withdrawn": {
-        "worker": "3ad74d06-d9c0-43e7-9fc5-1db1b26fa0bf",
-        "state": "not-applicable",
-        "at": "2026-10-17T02:48:15.881371+00:00",
-        "reason": "reviewer (sonnet): The anchor telemetryScrub.ts:98 is only a Sentry-scrub docblock and doesn't show that no LLM call exists. The technique anchors are unrelated lines (cache timestamp, date regex, storage key, czk field). My grep over features/schranka for anthropic, openai, gemini, llm and model found nothing, but th"
-      }
+      ]
     },
     "e2b80f75-a467-40ef-a983-08311773f3d1/llm-call-telemetry-model": {
       "context": "ingest-sources-financial",
@@ -6698,47 +6706,46 @@
       "context": "ingest-pipeline",
       "subject": "llm-call-telemetry-model",
       "bundle": "llm-observability",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T02:47:50.185Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:54:39.127Z",
+      "worker": "45ed93a5-737b-4eff-aedd-34e6537d847c",
       "techniques": [
         {
           "technique": "dual-clock-event-time",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:339 The timestamp comes from a knowledge-graph claim version; no LLM accounting window was found."
-        },
-        {
-          "technique": "ingest-skew-rejection",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:333 The comparison suppresses historical graph backfill events; it does not receive client-reported model-call timestamps."
-        },
-        {
-          "technique": "metadata-attribution-keys",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:343 The map points to graph evidence; no model-call billing attribution was found."
-        },
-        {
-          "technique": "nullable-cost-never-zero",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/parsedText.ts:95 The extraction result carries text and parser provenance; no model price lookup or call-cost aggregate was found."
-        },
-        {
-          "technique": "server-owned-fields",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:245 The builder derives a deterministic civic-change identifier; no authenticated LLM telemetry receiving path was found."
+          "evidence": "lib/ingest/changeEvents.ts:55 The event carries a server record-time clock for civic facts. These are not LLM calls and do not feed a budget window."
         },
         {
           "technique": "token-usage-quadruple",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/unlMembers.ts:16 The parser decodes public-data dump records; no provider token quantities are modeled."
+          "evidence": "lib/ingest/changeEvents.ts:46 The change event schema has no token fields."
+        },
+        {
+          "technique": "ingest-skew-rejection",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:333 The comparison suppresses historical graph backfill events; it does not receive client-reported model-call timestamps.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "metadata-attribution-keys",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:343 The map points to graph evidence; no model-call billing attribution was found.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "nullable-cost-never-zero",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/parsedText.ts:95 The extraction result carries text and parser provenance; no model price lookup or call-cost aggregate was found.",
+          "carriedFrom": "2026-10-17"
+        },
+        {
+          "technique": "server-owned-fields",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:245 The builder derives a deterministic civic-change identifier; no authenticated LLM telemetry receiving path was found.",
+          "carriedFrom": "2026-10-17"
         }
-      ],
-      "withdrawn": {
-        "worker": "3ad74d06-d9c0-43e7-9fc5-1db1b26fa0bf",
-        "state": "not-applicable",
-        "at": "2026-10-17T02:48:15.920556+00:00",
-        "reason": "reviewer (sonnet): The anchor changeEvents.ts:12 is a header comment about civic change events and doesn't show that no LLM call exists. The technique anchors are incidental lines (the recordedAt epoch filter, an entityKeys/evidence map, a parser stamp). My grep over lib/ingest for anthropic, openai, gemini, llm and t"
-      }
+      ]
     },
     "288263c6-af06-423e-b473-ec1d630613ac/state-budget-analysis": {
       "context": "budget-mirror",
@@ -7171,73 +7178,67 @@
       "context": "civic-evidence",
       "subject": "audit-logging",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T03:53:49.681Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:03:56.894Z",
+      "worker": "7d61e2f8-0112-4122-ab9a-119e4ce5dcc5",
       "techniques": [
-        {
-          "technique": "append-only-design",
-          "verdict": "conformant",
-          "evidence": "features/dukazy/chainRow.test.ts:3 The bulletin's own chain test names the trail append-only and reads two successive decisions on one tie back as two rows."
-        },
-        {
-          "technique": "audit-querying",
-          "verdict": "deviation",
-          "evidence": "features/dukazy/deriveFeed.ts:305 The forensic entry invents the actor. Tie subjects are also current kg labels looked up at read time, not names stored on the row. The page is a capped chronological dump, not a filter on actor, action, subject, and time."
-        },
-        {
-          "technique": "decision-records",
-          "verdict": "deviation",
-          "evidence": "features/dukazy/deriveFeed.ts:306 The forensic act hardcodes the previous status. Tie rows do carry the audit row's priorState, reviewer, and id; this branch does not."
-        },
-        {
-          "technique": "record-axis-predicate",
-          "verdict": "not-applicable",
-          "evidence": "features/dukazy/deriveFeed.ts:339 Ordering uses one decidedAt clock. A search of features/dukazy for invalidated_at, recorded_at, and asOf found no invalidation interval to rewind."
-        },
         {
           "technique": "tamper-evidence",
           "verdict": "deviation",
-          "evidence": "features/dukazy/DukazyPage.tsx:84 The page shows the stored position and hash, or an unchained label, and does not recompute a verified, tampered, unsigned, or unverifiable verdict. chainRow.test.ts verifies the mapper output in a test, not on the served page."
+          "evidence": "features/dukazy/DukazyPage.tsx:84 The surface renders the proof but never checks it on read; verifyAuditChain runs only in chainRow.test.ts and the sentinel. The page has 'unchained' (≈ unsigned) but no verified/tampered/unverifiable verdict."
+        },
+        {
+          "technique": "audit-querying",
+          "verdict": "conformant",
+          "evidence": "features/dukazy/readReviewAudit.ts:68 A capped read is detected and shown as a floor on the page (DukazyPage.tsx:308). An unreadable store (null) is kept separate from an empty journal ([]). The reviewer field is rendered verbatim, not inferred."
         },
         {
           "technique": "two-clock-records",
           "verdict": "deviation",
-          "evidence": "features/dukazy/getDukazyData.ts:147 A missing sign-off time is published as provenance computedAt. Nothing in the tree writes forensic_signed_at; the review door stamps forensic_review_at, which this read does not use."
+          "evidence": "features/dukazy/getDukazyData.ts:147 A missing human sign-off time falls back to the verdict's computation time. deriveFeed.ts:303 then publishes that as decidedAt, so an unknown time shows up as a confident wrong date (the failure mode the technique names). Today it is latent: 0 signed verdicts."
+        },
+        {
+          "technique": "decision-records",
+          "verdict": "conformant",
+          "evidence": "features/dukazy/deriveFeed.ts:17 Published decisions are keyed on the audit row's minted uuid, not on wording, and carry reviewer, time and prior state (the act history)."
+        },
+        {
+          "technique": "append-only-design",
+          "verdict": "conformant",
+          "evidence": "features/dukazy/readReviewAudit.ts:103 This context's only door to the ledger is a read. Nothing here exposes update or delete."
         },
         {
           "technique": "write-chokepoint",
-          "verdict": "deviation",
-          "evidence": "features/dukazy/deriveFeed.ts:312 The feed still publishes that sign-off as a decision entry with a null chain, so this class of decision does not pass the audit insert."
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/deriveFeed.ts:5 The context writes nothing. It names the single writer, and grep confirms lib/db/pglite/repositories/review.ts:372 is the only non-test insert. That writer belongs to another context."
+        },
+        {
+          "technique": "best-effort-with-accounting",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/getDukazyData.ts:1 This is a read-only loader, so there is no audit write that could fail."
         },
         {
           "technique": "write-path-sanitization",
-          "verdict": "deviation",
-          "evidence": "features/dukazy/deriveFeed.ts:15 The free-text note is accepted on the audit row and dropped only when the bulletin is built, which is an after-the-fact omission rather than a scrub before insert."
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/deriveFeed.ts:14 There is no insert here. The free-text note is withheld at publication, which is read-side discipline, not write-path scrubbing."
+        },
+        {
+          "technique": "record-axis-predicate",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/readReviewAudit.ts:4 Decision rows are never invalidated, so there is no record-clock interval to rewind (the technique's own exemption)."
         }
-      ],
-      "registryProposal": "decision-records says to commit the mutable state first and append the ledger best-effort afterwards, while best-effort-with-accounting's named exception lets the record precede the action and fail it. A human judgment cannot follow both; the standard should say which rule wins when the audited act is the judgment itself.",
-      "withdrawn": {
-        "worker": "751afbc0-d053-4fa7-a16a-560415ee9aeb",
-        "state": "deviation",
-        "at": "2026-10-17T03:54:08.821066+00:00",
-        "reason": "reviewer (sonnet): deriveFeed.ts:305 sets reviewer to the placeholder \"posudek podepsán\" (\"report signed\"), which names no person. DukazyPage.tsx:108 renders a separate signedOff label for forensic entries instead of the reviewer field. The code comments state that the forensic entry has no chain position or hash and "
-      }
+      ]
     },
     "4bf433a5-ab8e-4468-b456-344daae2ce21/audit-logging": {
       "context": "votetrack-ledger",
       "subject": "audit-logging",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T03:53:49.681Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "751afbc0-d053-4fa7-a16a-560415ee9aeb",
-        "state": "not-applicable",
-        "at": "2026-10-17T03:54:08.859760+00:00",
-        "reason": "reviewer (sonnet): The anchor, ledgerRead.ts:108, is a doc comment on toEventIn. It describes which vote_event columns are projected but does not show that the context has no system audit trail. The only support is a keyword search for five terms that I could not confirm are the right ones for this subject."
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:03:56.894Z",
+      "worker": "7d61e2f8-0112-4122-ab9a-119e4ce5dcc5",
+      "techniques": []
     },
     "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/client-state": {
       "context": "civic-inbox",
@@ -7918,82 +7919,90 @@
       "context": "app-utilities",
       "subject": "model-routing",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T22:54:06.302Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:17:21.285Z",
+      "worker": "2c7b501e-23b9-40e1-b485-bb0dfc4150ff",
       "techniques": [
         {
           "technique": "admission-is-not-a-tier",
           "verdict": "not-applicable",
-          "evidence": "lib/security/adminGate.ts:44 This admission check authenticates an administrator; it does not admit model endpoints."
+          "evidence": "lib/security/adminGate.ts:44 This admission check authenticates an administrator; it does not admit model endpoints.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "cache-continuity",
           "verdict": "not-applicable",
-          "evidence": "lib/i18n/useFormat.ts:16 The memoized object contains locale formatters, not a model conversation or cached prompt."
+          "evidence": "lib/i18n/useFormat.ts:16 The memoized object contains locale formatters, not a model conversation or cached prompt.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "candidate-ranking",
           "verdict": "not-applicable",
-          "evidence": "lib/routing/intParam.ts:14 Route-segment validation does not rank model candidates."
+          "evidence": "lib/routing/intParam.ts:14 Route-segment validation does not rank model candidates.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "capability-floors",
           "verdict": "not-applicable",
-          "evidence": "lib/routing/pspIdParam.ts:10 The acceptance constraint concerns an MP identifier, not minimum model capability."
+          "evidence": "lib/routing/pspIdParam.ts:10 The acceptance constraint concerns an MP identifier, not minimum model capability.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "consumer-overrides",
           "verdict": "not-applicable",
-          "evidence": "lib/i18n/locale.ts:13 The consumer preference changes a locale cookie, not model routing."
+          "evidence": "lib/i18n/locale.ts:13 The consumer preference changes a locale cookie, not model routing.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "effort-calibration",
           "verdict": "not-applicable",
-          "evidence": "lib/i18n/config.ts:8 The configuration enumerates locales and supplies no model-tier or reasoning-effort mapping."
+          "evidence": "lib/i18n/config.ts:8 The configuration enumerates locales and supplies no model-tier or reasoning-effort mapping.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "failover-horizon",
           "verdict": "not-applicable",
-          "evidence": "lib/routing/liveUrl.ts:10 The fallback returns a relative page URL; it does not substitute an answering model."
+          "evidence": "lib/routing/liveUrl.ts:10 The fallback returns a relative page URL; it does not substitute an answering model.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "failover-path-liveness",
           "verdict": "not-applicable",
-          "evidence": "lib/routing/liveUrl.test.ts:15 The exercised fallback handles a missing host header, not a failed model provider."
+          "evidence": "lib/routing/liveUrl.test.ts:15 The exercised fallback handles a missing host header, not a failed model provider.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "model-identity",
           "verdict": "not-applicable",
-          "evidence": "lib/i18n/request.ts:15 The selected resource is a local translation catalog, not a model or provider endpoint."
+          "evidence": "lib/i18n/request.ts:15 The selected resource is a local translation catalog, not a model or provider endpoint.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "policy-governance",
           "verdict": "not-applicable",
-          "evidence": "lib/security/token.ts:57 The decision concerns shared-token authorization and creates no model-routing policy obligation."
+          "evidence": "lib/security/token.ts:57 The decision concerns shared-token authorization and creates no model-routing policy obligation.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "quality-axis-separation",
           "verdict": "not-applicable",
-          "evidence": "lib/security/token.ts:29 Token equality supplies no model transport or generated-answer quality signal."
+          "evidence": "lib/security/token.ts:29 Token equality supplies no model transport or generated-answer quality signal.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "routing-policy",
           "verdict": "not-applicable",
-          "evidence": "lib/i18n/request.ts:13 The selection policy resolves a locale, not permitted model providers."
+          "evidence": "lib/i18n/request.ts:13 The selection policy resolves a locale, not permitted model providers.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "turn-classification",
           "verdict": "not-applicable",
-          "evidence": "lib/routing/searchParam.ts:8 This extracts a URL parameter; the context originates no language-model calls requiring classes."
+          "evidence": "lib/routing/searchParam.ts:8 This extracts a URL parameter; the context originates no language-model calls requiring classes.",
+          "carriedFrom": "2026-10-17"
         }
-      ],
-      "withdrawn": {
-        "worker": "1d99d94a-4635-44c6-bd10-47691e9cc560",
-        "state": "not-applicable",
-        "at": "2026-10-17T22:54:27.102447+00:00",
-        "reason": "reviewer (sonnet): The context really has no model calls (my grep of lib/routing and lib/i18n for llm, model, gemini, gpt, claude, completion and prompt found nothing relevant). But the anchor liveUrl.ts:16 (`const h = await headers()`) is incidental: it shows nothing about model routing being absent. The technique an"
-      }
+      ]
     },
     "cb1191f6-24d7-4534-9a35-8c728ea36552/peer-benchmarking": {
       "context": "hybrid-bench",
@@ -11430,6 +11439,554 @@
       "worker": "eff3732f-498d-45e8-8956-606c8d193179",
       "techniques": [],
       "registryProposal": "The match came from 'batch'/'batches' (bill batches). A translation-specific co-term would avoid matching archived case-loop scripts."
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/federated-benchmark-sharing": {
+      "context": "kg-domain-ingest",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
+    },
+    "f5990dbf-2b69-4da7-9e42-b3b510462622/federated-benchmark-sharing": {
+      "context": "ingest-sources-legislative",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/federated-benchmark-sharing": {
+      "context": "ingest-sources-financial",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/federated-benchmark-sharing": {
+      "context": "ingest-pipeline",
+      "subject": "federated-benchmark-sharing",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:12:46.282Z",
+      "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+      "techniques": []
+    },
+    "77144fa6-99c0-41be-9032-46aa6c0a1392/conformance-checking": {
+      "context": "testing-core",
+      "subject": "conformance-checking",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
+      "techniques": [
+        {
+          "technique": "checker-false-positive-discipline",
+          "verdict": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:83 Substring where token was meant: 'npm run test' is satisfied by 'npm run test:rules', and 'npm run docs:sync' by 'npm run docs:sync:test'. Line 96 has the same defect (cmd.includes(k) for CI_ONLY_BY_DESIGN keys such as 'build')."
+        },
+        {
+          "technique": "fixture-repo-testing",
+          "verdict": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:39 The checker only ever reads the live package.json and ci.yml. No fixture workflow that drops a step proves it can go red, which is exactly what would have exposed the substring false pass."
+        },
+        {
+          "technique": "derived-expectation-needs-an-evidence-floor",
+          "verdict": "conformant",
+          "evidence": "lib/testing/contextMapRefs.test.ts:60 The derived ref walk asserts a population floor (700) before asserting zero dangling refs. gateLadder.test.ts:78 and revalidateParity.test.ts:100 do the same."
+        },
+        {
+          "technique": "declared-deviation-register",
+          "verdict": "conformant",
+          "evidence": "lib/testing/gateLadder.test.ts:48 Accepted asymmetries are named one per step, each with its cost-reason, and lines 104-109 check that every entry still exists. Partial: entries carry no date or standard version."
+        },
+        {
+          "technique": "pass-ratio-comparability",
+          "verdict": "conformant",
+          "evidence": "lib/testing/contextMapRefs.test.ts:67 No percentage is emitted. The failure count carries its denominator, so the number carries its predicate."
+        }
+      ]
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/conformance-checking": {
+      "context": "testing-flake-sentinel",
+      "subject": "conformance-checking",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
+      "techniques": [
+        {
+          "technique": "rule-registry-enumerated-fixtures",
+          "verdict": "deviation",
+          "evidence": "lib/testing/sentinel/invariants.ts:405 The roster is enumerated only for labels and order (sentinel.test.ts:678). No harness requires each id to have a fail fixture, and 4 of the 18 have none anywhere in the test tree (grep of **/*.test.ts). The flake register does it right: one refusing case per rule in registry.test.ts:75."
+        },
+        {
+          "technique": "fixture-repo-testing",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:120 Covers the fresh-install shape (empty store), the conformant shape (clean store, line 142, asserting the exact check id/status list) and targeted non-conformant stores, all asserting structured ids rather than prose."
+        },
+        {
+          "technique": "finding-severity-ladder",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/report.ts:201 Unable-to-check ('unevaluable') is a separate status from pass and violation and is counted in the headline summary. No warning rung exists, which is acceptable under 'do not add rungs for taste'."
+        },
+        {
+          "technique": "checker-false-positive-discipline",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:138 A false pass was hunted down and fixed: an empty audit ledger used to read as 'trivially valid' ok (comment at line 137, until 2026-08-13) and now reads as unevaluable."
+        },
+        {
+          "technique": "declared-deviation-register",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.ts:40 Accepted test failures (quarantine) are a dated register: each entry has owner, entered date, expiry, cause and evidence. Expired entries turn the gate red (registry.test.ts:55), and a 60-day maximum span is enforced."
+        },
+        {
+          "technique": "pass-ratio-comparability",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/detect.ts:55 Refuses to emit a transition rate below 4 comparable same-HEAD runs. Figures name their window, HEAD and run count, and the sentinel uses counts with denominators, never a rate (sentinel.test.ts:276)."
+        }
+      ]
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/conformance-checking": {
+      "context": "civic-fallback-data",
+      "subject": "conformance-checking",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:31:12.621Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "123e19e0-e7f5-4dd3-8c54-170c16fd4aac",
+        "state": "not-applicable",
+        "at": "2026-10-24T21:31:51.343024+00:00",
+        "reason": "reviewer (sonnet): The anchor lib/claims/registry.ts:115 is the ISSUED_FIGURES declaration, which does not show that a conformance checker is absent. The not-applicable rests only on a grep for conformance, conformant and waiver, and those may not be the right terms for a registry that re-derives and gates claim refs."
+      }
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/page-load-pipeline": {
+      "context": "civic-feed-routes",
+      "subject": "page-load-pipeline",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:45:57.766Z",
+      "worker": "cbcbf13e-f300-48a2-8f18-04ded23682d6",
+      "techniques": [
+        {
+          "technique": "layout-stability-by-reservation",
+          "verdict": "deviation",
+          "evidence": "app/denik/loading.tsx:26 The fallback keeps the h1's mt-3 but leaves out the kicker line the loaded page renders above it (features/denik/DenikPage.tsx:326). The two not-yet/loaded states of the masthead disagree on geometry, so the headline moves when the stream swaps in."
+        },
+        {
+          "technique": "discoverable-critical-resources",
+          "verdict": "conformant",
+          "evidence": "app/denik/page.tsx:66 The ledger data is read on the server and DenikPage has no \"use client\", so the first screen is in the served response body rather than produced by a client-side shell."
+        },
+        {
+          "technique": "script-cost-is-main-thread-time",
+          "verdict": "conformant",
+          "evidence": "app/denik/page.tsx:82 The ledger is derived in the route on the server and rendered by a server component (DenikPage has no \"use client\"), so the static chronological record ships markup, not hydration code. No SSR opacity-0 entrance was found in features/denik, dukazy, schranka, overeni or shared/provenance."
+        }
+      ]
+    },
+    "78075124-3bda-491e-bb0e-08de5bbb4b3b/page-load-pipeline": {
+      "context": "voting-legislation-routes",
+      "subject": "page-load-pipeline",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:45:57.766Z",
+      "worker": "cbcbf13e-f300-48a2-8f18-04ded23682d6",
+      "techniques": [
+        {
+          "technique": "layout-stability-by-reservation",
+          "verdict": "deviation",
+          "evidence": "app/hlasovani/loading.tsx:22 The placeholder headline leaves out the SourceNote eyebrow and the mt-3 that the loaded VoteTrackPage title band uses (VoteTrackPage.tsx:66-75), so the reservation is shorter than the content that replaces it."
+        },
+        {
+          "technique": "script-cost-is-main-thread-time",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/VoteTrackPage.tsx:73 This is the 'hide it' failure. The h1 of the route's mounted feature is server-rendered at opacity 0 and only script reveals it, so LCP waits for hydration. The same pattern is on LawWatchPage.tsx:65 (/zakony) and CollisionsPage.tsx:76 (/zakony/kolize). On /hlasovani the visible fallback headline is also replaced by an invisible one."
+        },
+        {
+          "technique": "discoverable-critical-resources",
+          "verdict": "conformant",
+          "evidence": "app/hlasovani/page.tsx:18 The vote record is loaded on the server and passed as props, so the SSR'd first screen is in the response body and is not fetched by client script after mount."
+        }
+      ]
+    },
+    "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/page-load-pipeline": {
+      "context": "labs-graph-routes",
+      "subject": "page-load-pipeline",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T21:45:57.766Z",
+      "worker": "cbcbf13e-f300-48a2-8f18-04ded23682d6",
+      "techniques": [
+        {
+          "technique": "script-cost-is-main-thread-time",
+          "verdict": "deviation",
+          "evidence": "features/labs/rentgen/VariantRentgen.tsx:343 useReducedMotion is not known during SSR, so the served h1 is opacity 0 for every reader. The technique says a reduced-motion guard does not repair this. On the good side, /graf ships only the seed and loads nodes on interaction (app/graf/page.tsx:29)."
+        },
+        {
+          "technique": "discoverable-critical-resources",
+          "verdict": "conformant",
+          "evidence": "app/svedectvi/page.tsx:62 This async server component renders every exhibit into the served markup, with no client shell in front of the first screen."
+        },
+        {
+          "technique": "render-blocking-budget",
+          "verdict": "conformant",
+          "evidence": "app/graf/p/[ref]/page.tsx:68 The only script these routes add is a non-executing JSON-LD data block in the body. It blocks neither parser nor render. No stylesheet or third-party tag is added at route level."
+        },
+        {
+          "technique": "font-loading-discipline",
+          "verdict": "not-applicable",
+          "evidence": "app/graf/p/[ref]/opengraph-image.tsx:38 The only font loading in this context is server-side satori rendering of OG images (subset by text=). That is not a document navigation, so the display strategy and critical-path origin rules do not apply. Page fonts are set in app/layout.tsx, outside this context."
+        }
+      ],
+      "registryProposal": "navigation-reuse could name a common accidental opt-out: a framework that switches a route to per-request rendering as soon as anything reads a cookie or header (here, locale resolution from a cookie) and then stamps every such document with private, no-store. One locale cookie read makes every public page ineligible, and a route's own cache declaration (revalidate) silently stops taking effect."
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/concurrent-vcs": {
+      "context": "shared-provenance",
+      "subject": "concurrent-vcs",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:19:40.925Z",
+      "worker": "36a8ddf0-823e-4a15-9b7e-ba7f4005c48c",
+      "techniques": [],
+      "registryProposal": "The registry-map matched this pair on the tokens 'shared', 'claim' and 'file'. In civic-intelligence repos 'claim' usually means an asserted fact, so lexical matching on 'claim' gives false governance for concurrent-vcs. Consider requiring a VCS token (commit, worktree, index, stash) before this subject can be matched."
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/entity-lifecycle": {
+      "context": "money-archive-probes",
+      "subject": "entity-lifecycle",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:34:58.480Z",
+      "worker": "abba3067-a85b-4fdb-900b-e35493c4f26f",
+      "techniques": [
+        {
+          "technique": "orphan-reconciliation",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/archive/find-stale-ico-mentions.ts:4 The sweep starts from the dependent side, covering every node's props and not only the registered edges, and asks whether each one still references the deleted owner. stale-mentions-open-b9 re-measures what is still owed, itemized by owning case, and records it without editing anything (report-first)."
+        },
+        {
+          "technique": "provenance-denormalization",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/archive/build-stale-ico-payload.ts:105 Records that reference the deleted company get a note appended that names its id and its name at the time of deletion. Nothing is silently deleted, so the past is not rewritten."
+        },
+        {
+          "technique": "change-logging",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/build-stale-ico-payload.ts:8 No lifecycle transition happens in this context. The delete door is purge-osvc.ts, which is outside this context's file list."
+        },
+        {
+          "technique": "bulk-deletion-rails",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/build-nonrecipient-payload-b14.ts:17 Corrections are prop-merge payloads; this context contains no bulk delete or purge."
+        }
+      ]
+    },
+    "990e6972-5664-46fe-86ab-e0a8a0f77ccf/entity-lifecycle": {
+      "context": "law-archive-late",
+      "subject": "entity-lifecycle",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:34:58.480Z",
+      "worker": "abba3067-a85b-4fdb-900b-e35493c4f26f",
+      "techniques": [
+        {
+          "technique": "cascade-design",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/apply-census-completion-013.ts:85 The only store mutation is an insert or upsert. No delete call exists, so no reference fate needs deciding."
+        },
+        {
+          "technique": "bulk-deletion-rails",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:72 Bulk writes are prop migrations behind a PREPARE-by-default/--commit gate. Nothing is deleted."
+        }
+      ]
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/guest-execution-bounding": {
+      "context": "budget-mirror",
+      "subject": "guest-execution-bounding",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:42:26.625Z",
+      "worker": "1cc80dd2-4df4-45cc-818e-ba39ac4cba7e",
+      "techniques": []
+    },
+    "990e6972-5664-46fe-86ab-e0a8a0f77ccf/guest-execution-bounding": {
+      "context": "law-archive-late",
+      "subject": "guest-execution-bounding",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T22:42:26.625Z",
+      "worker": "1cc80dd2-4df4-45cc-818e-ba39ac4cba7e",
+      "techniques": []
+    },
+    "747db329-14c0-47a7-b8b5-eaf8095b9fdb/model-routing": {
+      "context": "effort-scoring-tools",
+      "subject": "model-routing",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:17:21.285Z",
+      "worker": "2c7b501e-23b9-40e1-b485-bb0dfc4150ff",
+      "techniques": []
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/public-claim-provenance": {
+      "context": "shared-provenance",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:32:36.246Z",
+      "techniques": [
+        {
+          "technique": "presentation-invariants-on-derived-values",
+          "verdict": "deviation",
+          "evidence": "features/shared/poster/demo/LeaderboardPoster.tsx:58 One condition (is the provenance uniform?) should drive both the pass and the provenance note together. citation.ts:168-176 wires them in lockstep, but the poster's data type has no provenanceState field, so only the pass changes. The divide-by-zero guard at :62 (Math.max(1, ...)) is fine."
+        },
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/getReceiptData.ts:92 Closed result vocabulary (invalid/unavailable/gone/ok) derived from the fetch outcome; the catch path calls reportLoaderFailure; the as-of lens renders non-live states as a banner above the content; ClaimReview is emitted only for verified records (receipt.ts:353)."
+        },
+        {
+          "technique": "build-time-derivation-off-the-client-bundle",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/getReceiptData.ts:33 The loader is marked server-only, so a client import fails the build; the client receives only the serialisable receipt, and the poster gets server-trimmed scalars plus the top 10."
+        },
+        {
+          "technique": "promise-only-what-ships",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/ReceiptPage.tsx:117 A gone receipt only links to case files whose node still exists; the footer points at real surfaces (copy link, /overeni, report a claim) and makes no follow-up promises."
+        },
+        {
+          "technique": "no-data-source-labelled-inline",
+          "verdict": "conformant",
+          "evidence": "features/shared/poster/citation.ts:161 When the date is missing, the page says so and gives the reason instead of substituting a value; the poster lead also interpolates the derived count rather than a typed literal."
+        }
+      ],
+      "withdrawn": {
+        "worker": "863cdb0e-6952-49f2-b79b-8a5e181a5504",
+        "state": "deviation",
+        "at": "2026-10-24T23:33:44.975379+00:00",
+        "reason": "reviewer (sonnet): The cited poster code is real (LeaderboardPoster.tsx:58 passes provenancePass but not provenanceState), but it sits in features/shared/poster, which is outside the shared-provenance context, so the verdict is about a different context; none of the provenance/*.ts(x) files named in the context were s"
+      }
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/public-claim-provenance": {
+      "context": "civic-fallback-data",
+      "subject": "public-claim-provenance",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:32:36.246Z",
+      "worker": "863cdb0e-6952-49f2-b79b-8a5e181a5504",
+      "techniques": [
+        {
+          "technique": "degraded-never-claims-live",
+          "verdict": "deviation",
+          "evidence": "lib/claims/registry.ts:96 Seed values wear the provenance badge (a real dataset name, a retrieval date, status pending) instead of dropping it; the closed vocabulary at claim.ts:33 lacks a seeded state."
+        },
+        {
+          "technique": "build-time-derivation-off-the-client-bundle",
+          "verdict": "conformant",
+          "evidence": "lib/claims/registry.ts:83 The issued figure derives from the same summary the surface renders, not from a copy; data.test.ts:240 pins the typed tile to the computed summary, so any drift fails the test."
+        },
+        {
+          "technique": "no-data-source-labelled-inline",
+          "verdict": "conformant",
+          "evidence": "lib/claims/registry.ts:55 The one hand-typed constant (200) states what it is and why no instrument produces it: the Constitution is the source."
+        },
+        {
+          "technique": "provenance-as-a-build-gate",
+          "verdict": "conformant",
+          "evidence": "lib/format.ts:1 This context holds the formatting chokepoint that makes the citation lint rule decidable; the rule itself lives in packages/eslint-plugin-civic-transparency."
+        }
+      ],
+      "registryProposal": "degraded-never-claims-live could name the static-fallback case explicitly: a labelled sample layer that feeds a machine-readable claim registry needs its own 'sample' state in the claim vocabulary, not just in surface copy, because the claim travels without the surface."
+    },
+    "698307e2-e6e2-444a-81c9-07254c5d1725/public-money-attribution": {
+      "context": "money-evidence",
+      "subject": "public-money-attribution",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:46:11.904Z",
+      "worker": "d546398f-edd2-4fe0-b632-5fd2ae35b0bc",
+      "techniques": [
+        {
+          "technique": "public-body-classification",
+          "verdict": "deviation",
+          "evidence": "features/money/reachableMoney.ts:134 Doc and code (line 138) state that unknown/unpublished ownership stays attributable; the technique requires `unknown` to block attribution."
+        },
+        {
+          "technique": "owner-operator-vs-steward-split",
+          "verdict": "conformant",
+          "evidence": "features/money/reachableMoney.ts:111 One importable predicate (isAttributable/tieIsAttributable). reachableMoney always returns both buckets, and totalCzk is documented as the whole-surface scale only. buildCiteCs adds the steward rule and a derived-class note to citations."
+        },
+        {
+          "technique": "entity-level-deduplication",
+          "verdict": "conformant",
+          "evidence": "features/money/reachableMoney.ts:253 Folds to one row per companyId before bucketing, with a stated any-owner/manager-wins precedence. tieReach sends the per-row cell through the same function. Gap: per-company money facts are taken from the first tie and not checked against the others."
+        },
+        {
+          "technique": "floor-versus-total-disclosure",
+          "verdict": "deviation",
+          "evidence": "features/money/reachableMoney.ts:212 The cap-signature detector and the slice readScope (line 236) are realized well. But isFloor comes from the signature alone: no declared source-publication coverage (e.g. the register's own publication rules) is merged in, so a read without a signature is presented as a total, which the technique names as a failure."
+        },
+        {
+          "technique": "citable-money-claims",
+          "verdict": "conformant",
+          "evidence": "features/money/packet.ts:343 The packet admits only strict 'verified' ties. Pending and rejected ties are counted and disclosed (line 364). The FNV hash covers content and excludes compiledAt (line 368). Nothing is imported from collisions/. The hashed tie projection carries no amount basis."
+        },
+        {
+          "technique": "attribution-perimeter",
+          "verdict": "deviation",
+          "evidence": "features/money/ownership.ts:16 Perimeter is the MP's own registered roles, one hop. Searching features/money for perimetr/příbuzn/nepřím/indirect/nominee found no declaration where figures render, and the narrow perimeter is never carried into 'nejméně' floor wording."
+        }
+      ],
+      "registryProposal": "public-body-classification says `unknown` blocks attribution. This repo argues deliberately (public-body.ts ownership-not-published doc) that withdrawing about 18 bn CZK on silence is the mirror error. The technique could state explicitly whether `unknown` must move money out of the attributable bucket or into a third 'unverified-attribution' bucket, because the repo's middle path (attributable plus an unverified flag) is not addressed."
+    },
+    "ededba42-cb3c-4821-8d13-dd4123266054/public-money-attribution": {
+      "context": "financial-analysis",
+      "subject": "public-money-attribution",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:46:11.904Z",
+      "worker": "d546398f-edd2-4fe0-b632-5fd2ae35b0bc",
+      "techniques": [
+        {
+          "technique": "public-body-classification",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/public-body.ts:157 Strong parts: verified public/private allowlists with verifiedVia, own-form-first, VR-missing goes to unknown and non-attributable, both akcionari and spolecnici are read. But unknown-holder, unwalked-chain and unpublished-ownership verdicts stay attributable, and the one-hop default can yield private."
+        },
+        {
+          "technique": "citable-money-claims",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg-money.ts:301 Three-state review gate (verified/pending_review/rejected). The trail is fullyVerified only if every link is verified, rejected links are excluded, and corroboration never auto-verifies."
+        },
+        {
+          "technique": "entity-level-deduplication",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg-money.ts:300 The per-person trail dedups companies with a Set before summing. parseContracts dedups on contract id × supplier and keeps the latest version (amended releases)."
+        },
+        {
+          "technique": "owner-operator-vs-steward-split",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/kg-money.ts:313 moneyTrails is a second arithmetic for an MP's reachable money that sums every linked company with no steward/attributable split. Today it is consumed only by an ingest console log (scripts/data-analysis/kg-money-ingest.ts:400), not a reader surface, so exposure is limited."
+        },
+        {
+          "technique": "attribution-perimeter",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg-money.ts:42 Perimeter is declared in the module: declared/registry roles only. One builder (buildPersonCompanyLinks over privateRoleEvents, money-feed.ts:554) applies it uniformly, and every link is emitted pending_review. Render-side disclosure is outside this context."
+        }
+      ]
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/usage-event-ingestion": {
+      "context": "ingest-pipeline",
+      "subject": "usage-event-ingestion",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:55:29.536Z",
+      "worker": "2025fe5d-6daa-426b-92dd-496ce29e06b0",
+      "techniques": [
+        {
+          "technique": "dedupe-key-survives-soft-delete",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:51 The keys are derived deterministically by our own re-derivation, not minted by an external emitter, and nothing is billable. The technique's own 'own code / not billable' exclusions apply."
+        },
+        {
+          "technique": "thin-ingest-deferred-validation",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/changeEvents.ts:7 There is no high-volume admission endpoint with an external caller. These are internal pure transforms, the 'trusted internal caller' exclusion."
+        }
+      ]
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/usage-event-ingestion": {
+      "context": "ingest-sources-financial",
+      "subject": "usage-event-ingestion",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-24",
+      "evaluatedTs": "2026-10-24T23:55:29.536Z",
+      "worker": "2025fe5d-6daa-426b-92dd-496ce29e06b0",
+      "techniques": [
+        {
+          "technique": "dedupe-key-survives-soft-delete",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:102 This is a harvester dedup on the source's own URL, for public notices that are not billable, so the 'events are not billable' exclusion applies."
+        },
+        {
+          "technique": "thin-ingest-deferred-validation",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:1 We are the client polling someone else's feed, so there is no admission door to make thin."
+        }
+      ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/agent-instruction-files": {
+      "context": "admin-observability",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T00:07:05.634Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "fb40a5fb-43cf-4dc5-8f6a-dc6483e1b9bc",
+        "state": "not-applicable",
+        "at": "2026-10-25T00:07:26.713634+00:00",
+        "reason": "reviewer (sonnet): The anchor, line 1 of features/admin/loops/loopsJson.ts, is a header comment about a loop-state JSON codec, so it doesn't show that no agent instruction files exist. That file is also missing from the context's listed files. My own recursive grep of features/admin found no instruction-file or agent "
+      }
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/analytics-store-design": {
+      "context": "dashboard-instruments",
+      "subject": "analytics-store-design",
+      "bundle": "llm-observability",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T00:22:05.326Z",
+      "techniques": [
+        {
+          "technique": "flat-events-plus-json-linkage",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:1 Reads a materialized civic knowledge graph (kg_node/kg_edge) and owns no events fact table or column-versus-JSON boundary."
+        },
+        {
+          "technique": "backend-parity-as-contract",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:405 Calls the one shared store accessor and implements no backend, so there is no parity surface in this context."
+        },
+        {
+          "technique": "dashboard-driven-composite-indexes",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:416 The query surface is a graph-neighbour read whose indexes, if any, live in lib/db. The context declares no indexes."
+        }
+      ],
+      "withdrawn": {
+        "worker": "b5486bd5-93de-4afa-944e-f5a52c78bbd7",
+        "state": "not-applicable",
+        "at": "2026-10-25T00:22:32.320401+00:00",
+        "reason": "reviewer (sonnet): The anchor (getDashboardData.ts:416, a store.kgNeighbours call) shows only that one loader reads graph neighbours. It doesn't show that the context lacks an LLM-call analytics store, so it is incidental, and the 'one data path' claim wasn't confirmed across the whole context."
+      }
     }
   }
 }

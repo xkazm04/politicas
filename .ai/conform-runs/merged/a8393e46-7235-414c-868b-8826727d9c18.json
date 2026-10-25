@@ -1,0 +1,117 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a8393e46-7235-414c-868b-8826727d9c18",
+ "subject": "federated-benchmark-sharing",
+ "evaluatedAt": "2026-10-24T21:12:46.282494+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-domain-ingest",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/ingest.ts:1 This context pulls public civic data (psp.cz dumps, Pumper mirror, Hl\u00edda\u010d, e-Sb\u00edrka) into the local graph and never builds, sends or merges LLM evaluation digests from other organizations; I searched scripts/data-analysis for benchmark, federat, consent, k_sources and opt-in and found nothing, so none of the subject's precondition holds here.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "opt-in"
+   ]
+  },
+  {
+   "context": "ingest-sources-legislative",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/psp.ts:1 These adapters fetch and normalize public parliamentary and electoral open data coming in, and have no shared leaderboard, contributor digest or consent-gated publication; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject does not apply.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "opt-in"
+   ]
+  },
+  {
+   "context": "ingest-sources-financial",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/smlouvy.ts:1 These are clients for public-money registries (contracts, procurement, court data, asset declarations, MONITOR budgets) that read public records and pool no self-reported benchmark statistics from contributors; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject is out of scope.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "opt-in"
+   ]
+  },
+  {
+   "context": "ingest-pipeline",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/changeEvents.ts:16 The only wire format in this context is the change-event feed codec, which carries diffs of public civic records rather than aggregate model-evaluation digests that cross an organizational boundary; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject's precondition is absent.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "opt-in"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-24T21:12:46.282494+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-domain-ingest",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T21:12:46.282494+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "ingest-sources-legislative",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T21:12:46.282494+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "ingest-sources-financial",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-24T21:12:46.282494+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "ingest-pipeline",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
