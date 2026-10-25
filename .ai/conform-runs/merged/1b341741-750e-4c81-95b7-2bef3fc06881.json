@@ -1,0 +1,54 @@
+{
+ "schema": "conform-run/1",
+ "worker": "1b341741-750e-4c81-95b7-2bef3fc06881",
+ "subject": "design-tokens",
+ "evaluatedAt": "2026-10-25T23:31:00.540349+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "design-tokens",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:14 The token gate this context re-exports (eslint-rules/no-hardcoded-colors.cjs:6) is a deny-pattern over three raw color syntaxes rather than an allow-list check against the globals.css vocabulary, so oklch()/color-mix()/named colors and Tailwind default-palette utilities like bg-red-500 (still available because @theme does not reset --color-*) pass green, the recall gap token-enforcement names.",
+   "techniques": [
+    {
+     "technique": "token-enforcement",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:14 Strengths: error severity (eslint.config.mjs:75), a message that names the equivalent token, and RuleTester invalid fixtures that prove the rule fires. But membership is checked by deny-pattern (hex/rgb/hsl only), not against the authority, so oklch() and primitive palette classes are invisible to it. Exceptions are also whole-file config exclusions (rule header line 8, eslint.config.mjs:246-248) rather than inline, countable suppressions. A grep for default-palette utilities outside labs found 0 uses today, so the gap is latent, not yet exploited."
+    },
+    {
+     "technique": "token-taxonomy",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/no-source-note-size-override.cjs:15 The SourceNote recipe owns its font-size, and the loose alternative (font-size utilities in its className) is banned at error. The escape hatch is a mode (as=label|sentence) rather than a size. This matches 'a recipe either owns a property or declines it', with the precedence problem stated in the rule header."
+    },
+    {
+     "technique": "motion-tokens",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:9 The motion gate requires per-component honoring: each looping framer component has to reference useReducedMotion, a check the rule runs per component. That is the strategy the technique names as the failure. It only sees framer transition.repeat, so CSS infinite animations are not seen, and no duration or easing ladder is enforced. A global MotionConfig reducedMotion=\"user\" does exist in app/layout.tsx:98, but this rule does not build on it."
+    }
+   ],
+   "registryProposal": "token-enforcement could name a specific case of the deny-list trap. On a utility-CSS stack whose default palette stays enabled (no namespace reset in the theme block), a raw-literal regex gate leaves the framework's whole primitive palette, plus newer color syntaxes such as oklch(), outside the gate. The vocabulary reset is a precondition for the allow-list to be closed at all."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-25T23:31:00.540349+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "design-tokens"
+   ],
+   "techniques": [
+    "motion-tokens",
+    "token-enforcement",
+    "token-taxonomy"
+   ],
+   "deviations": 1,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
