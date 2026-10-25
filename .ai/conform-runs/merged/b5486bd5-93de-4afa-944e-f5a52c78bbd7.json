@@ -1,0 +1,34 @@
+{
+  "schema": "conform-run/1",
+  "worker": "b5486bd5-93de-4afa-944e-f5a52c78bbd7",
+  "subject": "analytics-store-design",
+  "evaluatedAt": "2026-10-25T00:22:05.326698+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "analytics-store-design",
+      "context": "dashboard-instruments",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor (getDashboardData.ts:416, a store.kgNeighbours call) shows only that one loader reads graph neighbours. It doesn't show that the context lacks an LLM-call analytics store, so it is incidental, and the 'one data path' claim wasn't confirmed across the whole context."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-25T00:22:05.326698+00:00",
+      "bundle": "llm-observability",
+      "subjects": [
+        "analytics-store-design"
+      ],
+      "techniques": [
+        "backend-parity-as-contract",
+        "dashboard-driven-composite-indexes",
+        "flat-events-plus-json-linkage"
+      ],
+      "deviations": 0,
+      "context": "dashboard-instruments",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}
