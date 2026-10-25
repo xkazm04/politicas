@@ -7826,46 +7826,61 @@
       "subject": "invariant-placement",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T22:47:50.165Z",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:48:01.478Z",
       "techniques": [
+        {
+          "technique": "repairing-check-erases-its-evidence",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/DossierSection.tsx:172 Defensive clamp, not a designed cap: a negative remainder (breakdown > total) becomes 0. The disagreement disappears instead of being refused or counted, which contradicts the 'where the two disagree the page says so' contract at profileTypes.ts:142."
+        },
+        {
+          "technique": "completeness-at-emission",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:539 The emitted ProfileData has every field required, which is good. But `num()` (line 53) turns an absent or non-finite edge weight into a hard 0 count, and does the same for co-voter agreement and shared (lines 161-162). An absent part is defaulted, not omitted, even though the same loader uses nullableNum for speechTurns, interpellations and absenceRate for exactly this reason."
+        },
         {
           "technique": "shape-with-a-not-applicable-member",
           "verdict": "deviation",
-          "evidence": "features/profile/careerSpine.ts:180 CareerYears union includes an internal unknown member so the resolver careerYears() can return an unresolved state, forcing UI consumers to handle unknown."
+          "evidence": "features/profile/careerSpine.ts:201 careerYears is a resolver that signals 'could not resolve' with a member of its own closed set (CareerYears `{ kind: \"unknown\" }`, line 180) instead of returning an optional. The member is reachable and the consumer renders an honest '—' (CareerSpineSection.tsx:52), so the harm is low, but the decision rule puts absence in the wrapper."
         },
         {
           "technique": "derived-properties-cannot-be-forged",
           "verdict": "conformant",
-          "evidence": "features/profile/rebellionRecord.ts:56 Rebellion instances are strictly projected from upstream ChronicleEntry records derived by deriveVoteRecord, preventing duplicate divergent derivation."
-        },
-        {
-          "technique": "repairing-check-erases-its-evidence",
-          "verdict": "conformant",
-          "evidence": "features/profile/careerSpine.ts:266 Unreadable or out-of-range dates explicitly set dateUnreadable to true rather than being coerced or silently defaulted."
-        },
-        {
-          "technique": "occurrence-is-not-a-type",
-          "verdict": "conformant",
-          "evidence": "features/profile/profileSource.test.ts:26 Enforces single-clock instant evaluation across loader functions via source AST regex tests, as single-occurrence clock constraints cannot be typed in TypeScript."
-        },
-        {
-          "technique": "placement-precedes-gate",
-          "verdict": "conformant",
-          "evidence": "features/profile/getProfileData.ts:239 Captures the evaluation date once at the top of the loader and passes seatsAsOf down directly to avoid divergent time readings."
+          "evidence": "features/profile/absenceRecord.ts:126 The day-level wholeDay is computed from its windows, never declared. The same holds for totalDays, futureDays, CareerTerm.openEnded (careerSpine.ts:305) and stintCount."
         },
         {
           "technique": "constraint-deletion-is-silent",
           "verdict": "conformant",
-          "evidence": "features/profile/careerSpine.test.ts:386 Explicit negative structural test asserts that career years never mix date bounds across two distinct mandate/chamber windows."
+          "evidence": "features/profile/profileSource.test.ts:14 A negative artifact whose pass condition is the absence of the known-bad construction (the loose id read), which protects the shared strict-parser door."
+        },
+        {
+          "technique": "occurrence-is-not-a-type",
+          "verdict": "conformant",
+          "evidence": "features/profile/rebellionRecord.test.ts:87 'Feed an uncapped record' (rebellionRecord.ts:75) is a term about how the record was derived; VoteRecordData has the same type capped or uncapped. The term is held by a test, not believed held by the type checker."
+        },
+        {
+          "technique": "placement-precedes-gate",
+          "verdict": "conformant",
+          "evidence": "features/profile/getProfileData.ts:2 The server boundary's altitude is named explicitly: a build-time refusal at the module door, with prop types split into the pure profileTypes.ts."
+        },
+        {
+          "technique": "consumption-bounds-at-most-once",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getProfileData.ts:110 Nothing here is single-use. The loader result is deliberately memoised and read twice per request (generateMetadata + page)."
+        },
+        {
+          "technique": "build-time-evaluation-of-cross-value-invariants",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/rebellionRecord.ts:19 The context's constants (rebellion, absence, ally and contract row caps) are independent presentation bounds. None of them must sum or avoid overlap with another."
         }
       ],
-      "registryProposal": "Document in shape-with-a-not-applicable-member that resolvers returning closed domain unions should wrap the result in null/optional when unresolvable, rather than injecting an 'unknown' variant into the domain type itself.",
+      "registryProposal": "shape-with-a-not-applicable-member states its rule categorically ('belongs in the wrapper'), but its harm argument rests on the absence member being unreachable or getting a silent-success arm. It could tell that case apart from a reachable absence variant in a discriminated union whose every consumer renders a distinct, honest sentence, as here. As written, both cases get the same verdict.",
       "withdrawn": {
-        "worker": "d10ec6d5-d713-4216-b4c0-cea46c1d631a",
+        "worker": "e19ecf90-ca06-4052-baa4-f702d0cc1c3f",
         "state": "deviation",
-        "at": "2026-10-17T22:48:07.099437+00:00",
-        "reason": "reviewer (sonnet): The `unknown` member of `CareerYears` (careerSpine.ts:180) is a deliberate tagged state meaning 'the register carries no start, so nothing is claimed'. CareerSpineSection.tsx handles it in an ordinary `case \"unknown\"` of an exhaustive switch, and I found no invented fallback branches. The evidence's"
+        "at": "2026-10-25T23:48:31.674273+00:00",
+        "reason": "reviewer (sonnet): The clamp at DossierSection.tsx:172 exists, but the cited contract at profileTypes.ts:142 is about a bill's `count` versus its `sdCislos` list, not the per-bill breakdown versus the stored total. Nothing I opened says the page must admit breakdown > total, so the claim of a contract violation rests "
       }
     },
     "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/invariant-placement": {

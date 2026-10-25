@@ -1,0 +1,40 @@
+{
+  "schema": "conform-run/1",
+  "worker": "e19ecf90-ca06-4052-baa4-f702d0cc1c3f",
+  "subject": "invariant-placement",
+  "evaluatedAt": "2026-10-25T23:48:01.478854+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "invariant-placement",
+      "context": "mp-profile",
+      "reason": "withdrawn after review: reviewer (sonnet): The clamp at DossierSection.tsx:172 exists, but the cited contract at profileTypes.ts:142 is about a bill's `count` versus its `sdCislos` list, not the per-bill breakdown versus the stored total. Nothing I opened says the page must admit breakdown > total, so the claim of a contract violation rests "
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-10-25T23:48:01.478854+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "invariant-placement"
+      ],
+      "techniques": [
+        "build-time-evaluation-of-cross-value-invariants",
+        "completeness-at-emission",
+        "constraint-deletion-is-silent",
+        "consumption-bounds-at-most-once",
+        "derived-properties-cannot-be-forged",
+        "occurrence-is-not-a-type",
+        "placement-precedes-gate",
+        "repairing-check-erases-its-evidence",
+        "shape-with-a-not-applicable-member"
+      ],
+      "deviations": 1,
+      "context": "mp-profile",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}
