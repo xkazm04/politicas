@@ -10237,72 +10237,86 @@
       "context": "civic-fallback-data",
       "subject": "measurement-honesty",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-21",
-      "evaluatedTs": "2026-10-21T22:14:49.039Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:59:18.588Z",
+      "worker": "f01ff975-4c31-4690-b9a6-d8fb7745914d",
       "techniques": [
+        {
+          "technique": "minimum-sample-floors",
+          "verdict": "deviation",
+          "evidence": "lib/civic/votes.ts:25 Only floor is present>0 (line 24); no declared minimum sample, and the result is rounded to 0.1 % (line 56) regardless of denominator — precision the sample cannot support."
+        },
+        {
+          "technique": "unmeasurable-vs-zero",
+          "verdict": "conformant",
+          "evidence": "lib/civic/votes.ts:24 No-one-present returns null instead of the old fabricated 1 (100 %); test data.test.ts:189-192 pins it, and registry.ts czechTileNumber refuses non-numeric tiles rather than imputing 0."
+        },
+        {
+          "technique": "renormalize-over-present",
+          "verdict": "conformant",
+          "evidence": "lib/civic/votes.ts:58 Average divides by measured roll calls only and emits null when none were measured; perRc with its nulls travels beside avg as the subset disclosure (avg itself carries no measured count)."
+        },
         {
           "technique": "co-published-numbers-must-reconcile",
           "verdict": "conformant",
-          "evidence": "lib/civic/data.test.ts:235 Executable checks reconcile histogram totals, score components, vote partitions, summary tiles, and trend endpoints."
+          "evidence": "lib/civic/data.test.ts:235 Tests assert co-published parts sum to wholes: histogram vs row count, party splits vs seats and chamber totals (160-164), the avg tile vs CHAMBER_SUMMARY (240-243)."
         },
         {
           "technique": "control-failure-is-not-a-datum-state",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/votes.ts:68 The context aggregates ballot partitions; it does not run experimental arms whose comparison controls can fail."
+          "evidence": "lib/civic/votes.ts:68 The context aggregates ballot partitions; it does not run experimental arms whose comparison controls can fail.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "incomplete-not-verdict",
           "verdict": "not-applicable",
-          "evidence": "lib/claims/registry.ts:91 This context reads static fixtures and registers their values; acquisition completeness and loader failures belong to upstream contexts."
+          "evidence": "lib/claims/registry.ts:91 This context reads static fixtures and registers their values; acquisition completeness and loader failures belong to upstream contexts.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "instrument-exposure-control",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/leaderboard.ts:199 Fallback scores are constructed illustrations, rather than capability measurements of subjects exposed to a published instrument."
+          "evidence": "lib/civic/leaderboard.ts:199 Fallback scores are constructed illustrations, rather than capability measurements of subjects exposed to a published instrument.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "lower-bound-disclosure",
           "verdict": "not-applicable",
-          "evidence": "lib/analytics.ts:28 Analytics collection can be absent, but this context publishes no reach or usage tally from those observations."
+          "evidence": "lib/analytics.ts:28 Analytics collection can be absent, but this context publishes no reach or usage tally from those observations.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "noise-band-and-hysteresis",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/data.ts:447 The context supplies illustrative fixed trends, without a repeated measurement or announcement decision over instrument noise."
+          "evidence": "lib/civic/data.ts:447 The context supplies illustrative fixed trends, without a repeated measurement or announcement decision over instrument noise.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "speed-figure-names-its-endpoints",
           "verdict": "not-applicable",
-          "evidence": "lib/analytics.ts:29 The helper emits events without measuring or publishing latency, throughput, or another speed figure."
+          "evidence": "lib/analytics.ts:29 The helper emits events without measuring or publishing latency, throughput, or another speed figure.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "the-baseline-is-the-untouched-path",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/data.ts:237 The computation produces a weighted civic score, without claiming an intervention's saving against a control path."
+          "evidence": "lib/civic/data.ts:237 The computation produces a weighted civic score, without claiming an intervention's saving against a control path.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "tuning-corpus-disjointness",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/leaderboard.ts:149 Seeded fixture generation does not fit an artifact on a tuning workload or publish benchmark performance."
+          "evidence": "lib/civic/leaderboard.ts:149 Seeded fixture generation does not fit an artifact on a tuning workload or publish benchmark performance.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "unelidable-measurement",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/data.test.ts:37 These tests observe computed outputs for correctness; they do not measure the cost of performing work."
-        },
-        {
-          "technique": "unmeasurable-vs-zero",
-          "verdict": "deviation",
-          "evidence": "lib/civic/stateGraph.ts:95 The same amount sentinel represents the explicit no-contract case at data.ts:650–651 and unresolved companies at data.ts:659–662; both omit the money node."
+          "evidence": "lib/civic/data.test.ts:37 These tests observe computed outputs for correctness; they do not measure the cost of performing work.",
+          "carriedFrom": "2026-10-21"
         }
-      ],
-      "withdrawn": {
-        "worker": "0692277e-dc13-4172-b775-e8f9e6dd1ad5",
-        "state": "deviation",
-        "at": "2026-10-21T22:15:15.103472+00:00",
-        "reason": "reviewer (sonnet): In lib/civic/data.ts the only non-money amount value is \"—\", and the stateGraph.ts:94 comment documents it as \"firma bez zakázek\" (a company with no contracts). No separate unresolved-amount value exists in MONEY_TIES for hasMoney to conflate with it, so the claimed loss of the unknown-versus-absent"
-      }
+      ]
     },
     "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/talking-avatar": {
       "context": "labs-graph-routes",

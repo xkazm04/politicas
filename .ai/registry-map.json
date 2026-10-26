@@ -2900,7 +2900,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/civic/votes.ts:25 partyDiscipline derives a percentage over `present` members with no floor beyond present===0, so a party with one or two members present renders 100 % / 50 % discipline (to 0.1 p.b. in disciplineByParty) on ChamberDetail and DisciplineBoard — a rate one extra vote can swing across any band.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:b702c58e785c6c51",
+          "evaluatedRevision": 11
         },
         {
           "subject": "conformance-checking",
