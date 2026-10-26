@@ -12360,6 +12360,42 @@
           "evidence": "features/money/moneyLoader.ts:3 This context reads the already-built graph and parses no registry export. The record model (idSmlouvy key, idVerze kept as an attribute) lives in lib/ingest/sources/smlouvy-dump.ts:16-22, outside this context. A side note: num() at moneyLoader.ts:72-80 turns a missing value into 0, but line items keep null (line 589) and the basis 'none' state is counted."
         }
       ]
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/render-mount-pipeline": {
+      "context": "shared-provenance",
+      "subject": "render-mount-pipeline",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T22:27:24.630Z",
+      "techniques": [
+        {
+          "technique": "blueprint-then-mount",
+          "verdict": "not-applicable",
+          "evidence": "features/shared/poster/demo/LeaderboardPoster.tsx:101 JSX goes straight to React's host tree. There is no product-owned layout pass or blueprint, because the platform owns layout and mount."
+        },
+        {
+          "technique": "edge-sorted-incremental-mount",
+          "verdict": "not-applicable",
+          "evidence": "features/shared/poster/PosterFrame.tsx:91 This is a static print sheet that clips its body with overflow-hidden. It has no scroll-driven visibility window, so there are no edges to sort."
+        },
+        {
+          "technique": "mount-references-across-features",
+          "verdict": "not-applicable",
+          "evidence": "features/shared/provenance/ProvenanceCapsule.tsx:112 One local popover boolean has one owner, and no visibility window or second feature can veto it. Counting is only needed where someone can veto, so it does not apply here."
+        },
+        {
+          "technique": "recycle-by-content-type",
+          "verdict": "not-applicable",
+          "evidence": "features/shared/provenance/ReceiptBody.tsx:249 A short audit list renders in full. There is no host-object pool, and React DOM handles element lifetime."
+        }
+      ],
+      "withdrawn": {
+        "worker": "4d773025-4e80-44a4-b27b-8157fe603f4b",
+        "state": "not-applicable",
+        "at": "2026-10-26T22:27:47.230046+00:00",
+        "reason": "reviewer (sonnet): The main anchor (LeaderboardPoster.tsx:101) and the PosterFrame.tsx:91 anchor are in features/shared/poster, which is not among this context's files. The two provenance anchors (ProvenanceCapsule.tsx:112, ReceiptBody.tsx:249) only show a popover and a short audit list. I could not confirm that every"
+      }
     }
   }
 }
