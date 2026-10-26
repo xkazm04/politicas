@@ -7956,7 +7956,11 @@
           "revision": 1,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/monitor.ts:1 These adapters are open-data clients and parsers, not a training or inference workflow that a third-party host drives by property name; I searched lib/ingest/sources/ and lib, features, scripts and packages for epoch, trainer, check_properties, required_properties and EPOCH_COMPLETED and got zero hits, so there is no property table, contract check or training-loop event seam for the subject to govern.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:38637ef07d82fb29",
+          "evaluatedRevision": 3
         }
       ],
       "governance": "governed"

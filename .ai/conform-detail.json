@@ -12509,6 +12509,47 @@
         "at": "2026-10-26T23:00:58.657194+00:00",
         "reason": "reviewer (sonnet): The deviation's anchor, ForensicToggle.tsx:28, sits in features/shared/forensic and not among the listed shared/components files. It also leans on repo-wide claims I could not confirm: raw clipboard shadow copies and the catalog not being generated. And it cites hand-rolled comboboxes in civicscore "
       }
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/workflow-property-contracts": {
+      "context": "ingest-sources-financial",
+      "subject": "workflow-property-contracts",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T23:02:34.990Z",
+      "worker": "4ddc349a-06bf-4eb6-93bd-d8e594e97f53",
+      "techniques": [
+        {
+          "technique": "required-and-optional-property-sets",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/monitor.ts:1 No workflow kind exposes a required/optional property table; the module is a fetch client plus parsers."
+        },
+        {
+          "technique": "mid-iteration-event-seams",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/monitor.ts:228 The only loop is an HTTP retry loop; there are no forward/loss/backward stages publishing named events."
+        },
+        {
+          "technique": "contract-driven-adapters",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy.ts:1 These are adapters over external registries, not hosts (federated client, candidate generator, annotation tool) driving workflows they did not author."
+        },
+        {
+          "technique": "attribute-protocol-over-accessors",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/isvz.ts:143 Plain parse functions returning typed records; no component is read or set by name through a property table."
+        },
+        {
+          "technique": "dual-implementation-parity",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek-pdf.ts:24 No config-backed workflow and code-first workflow implement one contract side by side."
+        },
+        {
+          "technique": "wiring-location-checks",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/monitor.ts:1 No optional components with reference locations in a workflow graph to verify."
+        }
+      ]
     }
   }
 }
