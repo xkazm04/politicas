@@ -1,0 +1,66 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b33ff217-b6fc-4d16-a88a-a742f19b3253",
+ "subject": "context-hierarchy",
+ "evaluatedAt": "2026-10-25T22:46:48.560211+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "law-amends-corpus",
+   "subject": "context-hierarchy",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/build-bill-summaries.ts:7 The only summaries in this context are one-line, deterministic, per-bill (leaf) summaries over a flat set of 141 bills, rebuilt whole on each run into a JSON payload. There is no containment tree whose interior nodes carry generated abstract/overview tiers, so there is nothing to embed, descend, digest-gate or sample. A case-insensitive search of scripts/case-loops/law for overview, abstract, embedding, descent and unsampled found zero hits.",
+   "techniques": [
+    {
+     "technique": "per-node-summary-tiers",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/build-bill-summaries.ts:41 One display-length summary per bill (a leaf, for the dossier header), not embedded and not an interior node's tier; there are no abstract/overview tiers at all."
+    },
+    {
+     "technique": "digest-gated-upward-refresh",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/build-bill-summaries.ts:236 A flat loop over bills with no parent summaries to propagate into; the payload is regenerated whole on every run, which is the technique's own 'rebuilt whole' exclusion."
+    },
+    {
+     "technique": "seeded-descent-retrieval",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/build-bill-summaries.ts:24 The summaries go to a static payload for display; no retrieval surface searches or descends any summary tree in this context."
+    },
+    {
+     "technique": "stable-sampling-for-wide-nodes",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/build-bill-summaries.ts:248 Each summary is composed from that one bill's own text; no node is summarised from its children, so nothing is wide enough to need sampling. The 'sample' hits in amends-regen.ts are report-display slices (slice(0, 5)), not summariser inputs."
+    }
+   ],
+   "absenceTerms": [
+    "overview",
+    "abstract",
+    "embedding",
+    "descent",
+    "unsampled"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-25T22:46:48.560211+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "context-hierarchy"
+   ],
+   "techniques": [
+    "digest-gated-upward-refresh",
+    "per-node-summary-tiers",
+    "seeded-descent-retrieval",
+    "stable-sampling-for-wide-nodes"
+   ],
+   "deviations": 0,
+   "context": "law-amends-corpus",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

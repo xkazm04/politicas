@@ -1,0 +1,65 @@
+{
+ "schema": "conform-run/1",
+ "worker": "836e2650-a22f-4184-bad2-c8ad642417d2",
+ "subject": "observability-telemetry",
+ "evaluatedAt": "2026-10-26T00:15:19.300312+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "mp-profile",
+   "subject": "observability-telemetry",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "features/profile/getProfileData.ts:376 Every failure the Spis surface catches goes through the one shared recording door (reportLoaderFailure) under a stable, sub-scoped origin name. Grep found no console.* or process.std* writes anywhere in features/profile, so the context keeps no private diary, and it owns no log file, crash store or remote channel that would bring in the storage, retention or access techniques.",
+   "techniques": [
+    {
+     "technique": "log-architecture",
+     "verdict": "conformant",
+     "evidence": "features/profile/getProfileData.ts:376 Error-level records come only from failures that reached a door (catch \u2192 null fallback). The origin is a stable, finer-grained name ('getProfileData/absence' vs 'getProfileData'), so the absence sub-read can be told apart from a failure of the whole loader. The record envelope itself is built in lib/db/loaderGuard.ts, which is outside this context."
+    },
+    {
+     "technique": "pre-boot-and-foreign-capture",
+     "verdict": "conformant",
+     "evidence": "features/profile/getRebellionRecord.ts:83 Only the 'same trap at half-size' clause applies here: the rebellion loader forwards its failure into the primary sink instead of writing to a stream itself. Grep for console.|process.std over features/profile returned 0 hits. The deferred-buffer and foreign-runtime clauses do not apply, because this context spawns and embeds no runtime."
+    },
+    {
+     "technique": "remote-telemetry-economics",
+     "verdict": "conformant",
+     "evidence": "features/profile/getProfileData.ts:650 A remote (Sentry) event is sent only on an actionable loader failure, inside the catch. There is no heartbeat or 'it worked' metronome event. The loader is wrapped in React cache() (line 110), so it emits at most once per request per MP. Quota, sampling and batching belong to the shared door and Sentry config, not to this context."
+    },
+    {
+     "technique": "crash-record-storage",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/getProfileData.ts:24 The context hands all recording to lib/db and persists no crash evidence of its own. Its crash handling is defensive rendering (the ProfilePage.tsx:193 guard), not a store."
+    },
+    {
+     "technique": "rotation-and-retention",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/getRebellionRecord.ts:46 The context creates no file-backed record class. Bounding the loader-failure log is the job of lib/db/loaderFailureLog.ts (the shared infrastructure)."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-26T00:15:19.300312+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "observability-telemetry"
+   ],
+   "techniques": [
+    "crash-record-storage",
+    "log-architecture",
+    "pre-boot-and-foreign-capture",
+    "remote-telemetry-economics",
+    "rotation-and-retention"
+   ],
+   "deviations": 0,
+   "context": "mp-profile",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

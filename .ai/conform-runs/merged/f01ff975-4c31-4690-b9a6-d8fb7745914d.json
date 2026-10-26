@@ -1,0 +1,59 @@
+{
+ "schema": "conform-run/1",
+ "worker": "f01ff975-4c31-4690-b9a6-d8fb7745914d",
+ "subject": "measurement-honesty",
+ "evaluatedAt": "2026-10-25T23:59:18.588854+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-fallback-data",
+   "subject": "measurement-honesty",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/civic/votes.ts:25 partyDiscipline derives a percentage over `present` members with no floor beyond present===0, so a party with one or two members present renders 100 % / 50 % discipline (to 0.1 p.b. in disciplineByParty) on ChamberDetail and DisciplineBoard \u2014 a rate one extra vote can swing across any band.",
+   "techniques": [
+    {
+     "technique": "minimum-sample-floors",
+     "verdict": "deviation",
+     "evidence": "lib/civic/votes.ts:25 Only floor is present>0 (line 24); no declared minimum sample, and the result is rounded to 0.1 % (line 56) regardless of denominator \u2014 precision the sample cannot support."
+    },
+    {
+     "technique": "unmeasurable-vs-zero",
+     "verdict": "conformant",
+     "evidence": "lib/civic/votes.ts:24 No-one-present returns null instead of the old fabricated 1 (100 %); test data.test.ts:189-192 pins it, and registry.ts czechTileNumber refuses non-numeric tiles rather than imputing 0."
+    },
+    {
+     "technique": "renormalize-over-present",
+     "verdict": "conformant",
+     "evidence": "lib/civic/votes.ts:58 Average divides by measured roll calls only and emits null when none were measured; perRc with its nulls travels beside avg as the subset disclosure (avg itself carries no measured count)."
+    },
+    {
+     "technique": "co-published-numbers-must-reconcile",
+     "verdict": "conformant",
+     "evidence": "lib/civic/data.test.ts:235 Tests assert co-published parts sum to wholes: histogram vs row count, party splits vs seats and chamber totals (160-164), the avg tile vs CHAMBER_SUMMARY (240-243)."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-25T23:59:18.588854+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "measurement-honesty"
+   ],
+   "techniques": [
+    "co-published-numbers-must-reconcile",
+    "minimum-sample-floors",
+    "renormalize-over-present",
+    "unmeasurable-vs-zero"
+   ],
+   "deviations": 1,
+   "context": "civic-fallback-data",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

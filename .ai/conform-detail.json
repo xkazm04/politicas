@@ -5043,62 +5043,70 @@
       "context": "graph-canvas",
       "subject": "motion",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-15",
-      "evaluatedTs": "2026-10-15T21:55:11.153Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T00:10:30.409Z",
+      "worker": "dc81b68d-151c-44ab-9deb-f0dc4e0b8935",
       "techniques": [
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:559 Start-state failure shape: the library puts the hidden pre-play state into the served HTML, so with no JS the h1 title stays at opacity 0. Contrast VariantMapa:211, which does degrade to the resolved end state (all hops lit) under reduced motion, and its hook's server snapshot defaults to revealed."
+        },
         {
           "technique": "preset-vocabulary",
           "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:559 The title gesture inlines a 14px rise and does not reference a named preset, duration class, or easing role."
-        },
-        {
-          "technique": "engine-selection",
-          "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:24 The fire-and-forget title uses the animation library even though the canvas drag already has an owned frame loop."
+          "evidence": "features/graph/PermalinkPage.tsx:560 Inline literal entrance with no named preset, duration class or easing role. The identical initial/animate pair is copy-pasted in DashboardPage, ExhibitPage, MotionIslands and VariantRentgen."
         },
         {
           "technique": "reduced-motion-mechanics",
           "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:534 The title reads the library hook at the call site, while VariantMapa already has a platform matchMedia resolver in usePrefersReducedMotion.ts."
+          "evidence": "features/graph/PermalinkPage.tsx:534 Two preference resolvers in one context: the engine-free live hook usePrefersReducedMotion (VariantMapa) and framer's useReducedMotion (PermalinkPage). The technique wants exactly one resolver that belongs to no engine. Each call site also branches itself instead of resolving at the preset layer."
         },
         {
-          "technique": "one-shot-guarding",
+          "technique": "performance-discipline",
           "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:560 The title entrance replays on every mount; nothing records that this permalink has already been seen."
+          "evidence": "features/graph/VariantMapa.tsx:206 The step-reveal interval is never cleared once n reaches total (line 207 just returns r), so it wakes every 380 ms for as long as the path stays active: an orphan clock subscription per audit item 4. The canvas side does conform: pan and zoom write viewRef and redraw through one coalesced rAF (GraphStage.tsx:505) with no per-frame React state."
         },
         {
           "technique": "taste-budgets",
           "verdict": "deviation",
-          "evidence": "features/graph/VariantMapa.tsx:62 Each hop waits 380ms and trailPath.ts caps a path at 6 ordinary steps, so a full reveal runs past the about-one-second entrance cap with no named total."
+          "evidence": "features/graph/VariantMapa.tsx:62 Each path step waits 380 ms with no count cap, so a 3-hop result takes more than 1 s and a 6-hop one (MAX_COST 6) about 2.3 s. The constant is named locally, not drawn from a central ladder, and the step is far above 'tens of ms'. This is arguable if the reveal is read as a deliberate explainer rather than an arrival cascade."
         },
         {
-          "technique": "content-bearing-degradation",
+          "technique": "one-shot-guarding",
           "verdict": "conformant",
-          "evidence": "features/graph/VariantMapa.tsx:211 Under reduced motion the path lights every hop immediately instead of freezing on an empty prefix."
+          "evidence": "features/graph/VariantMapa.tsx:197 Structural reset keyed on the path's identity (index plus nodeIds), so the reveal replays only when the question changes, never on re-render. The precondition (mount has one cause) is not written beside the key."
         },
         {
-          "technique": "performance-discipline",
+          "technique": "continuity-across-change",
           "verdict": "conformant",
-          "evidence": "features/graph/components/GraphStage.tsx:23 Pan and zoom write the view through a ref and one requestAnimationFrame, so pointer motion does not re-render React."
+          "evidence": "features/graph/components/TrailFinder.tsx:257 Ledger rows stay mounted and animate only the property that changed (opacity when lit), and only the newly lit rows move. Camera re-fits are instant plain jumps (viewRef = fitRect), which is the permitted third option."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantMapa.tsx:207 The only sequenced motion is prompted (the user asked for a path) and stops at total. There is no autoplay, attract loop or scroll-triggered reveal in this context."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantMapa.tsx:204 No looping gesture exists. The bounded reveal is gated only by the preference, which is enough for a non-loop."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:24 The fire-and-forget title uses the animation library even though the canvas drag already has an owned frame loop.",
+          "carriedFrom": "2026-10-15"
         },
         {
           "technique": "gesture-decomposition",
           "verdict": "conformant",
-          "evidence": "features/graph/components/GraphStage.tsx:669 Dragging is value-driven by the pointer delta, kept separate from the time-stepped path reveal."
-        },
-        {
-          "technique": "unprompted-motion-lifecycle",
-          "verdict": "conformant",
-          "evidence": "features/graph/VariantMapa.tsx:207 The path sequence is user-started, stops at the hop count, and holds; at 380ms and at most 6 steps it finishes under five seconds."
+          "evidence": "features/graph/components/GraphStage.tsx:669 Dragging is value-driven by the pointer delta, kept separate from the time-stepped path reveal.",
+          "carriedFrom": "2026-10-15"
         }
       ],
-      "withdrawn": {
-        "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
-        "state": "deviation",
-        "at": "2026-10-15T21:55:39.457775+00:00",
-        "reason": "reviewer (sonnet): PermalinkPage.tsx:559 does have a framer-motion title that starts at opacity 0 when motion is allowed. But the file header says the page has no canvas, and I found no hand-rolled path sequencer in it. The canvas drag's requestAnimationFrame loop is in components/GraphStage.tsx, which isn't among thi"
-      }
+      "registryProposal": "content-bearing-degradation's start-state rule could name the common library idiom `initial={reduce ? false : {...}}` explicitly. It looks reduced-motion-safe, but on the server the preference reader returns null, so the hidden start state is always serialized: the guard reads as a fallback and never runs where the document is delivered."
     },
     "f4e73683-b40c-4436-b8ea-20e407f499ab/motion": {
       "context": "eslint-plugin-civic-transparency-rules",
@@ -7826,46 +7834,61 @@
       "subject": "invariant-placement",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T22:47:50.165Z",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:48:01.478Z",
       "techniques": [
+        {
+          "technique": "repairing-check-erases-its-evidence",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/DossierSection.tsx:172 Defensive clamp, not a designed cap: a negative remainder (breakdown > total) becomes 0. The disagreement disappears instead of being refused or counted, which contradicts the 'where the two disagree the page says so' contract at profileTypes.ts:142."
+        },
+        {
+          "technique": "completeness-at-emission",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:539 The emitted ProfileData has every field required, which is good. But `num()` (line 53) turns an absent or non-finite edge weight into a hard 0 count, and does the same for co-voter agreement and shared (lines 161-162). An absent part is defaulted, not omitted, even though the same loader uses nullableNum for speechTurns, interpellations and absenceRate for exactly this reason."
+        },
         {
           "technique": "shape-with-a-not-applicable-member",
           "verdict": "deviation",
-          "evidence": "features/profile/careerSpine.ts:180 CareerYears union includes an internal unknown member so the resolver careerYears() can return an unresolved state, forcing UI consumers to handle unknown."
+          "evidence": "features/profile/careerSpine.ts:201 careerYears is a resolver that signals 'could not resolve' with a member of its own closed set (CareerYears `{ kind: \"unknown\" }`, line 180) instead of returning an optional. The member is reachable and the consumer renders an honest '—' (CareerSpineSection.tsx:52), so the harm is low, but the decision rule puts absence in the wrapper."
         },
         {
           "technique": "derived-properties-cannot-be-forged",
           "verdict": "conformant",
-          "evidence": "features/profile/rebellionRecord.ts:56 Rebellion instances are strictly projected from upstream ChronicleEntry records derived by deriveVoteRecord, preventing duplicate divergent derivation."
-        },
-        {
-          "technique": "repairing-check-erases-its-evidence",
-          "verdict": "conformant",
-          "evidence": "features/profile/careerSpine.ts:266 Unreadable or out-of-range dates explicitly set dateUnreadable to true rather than being coerced or silently defaulted."
-        },
-        {
-          "technique": "occurrence-is-not-a-type",
-          "verdict": "conformant",
-          "evidence": "features/profile/profileSource.test.ts:26 Enforces single-clock instant evaluation across loader functions via source AST regex tests, as single-occurrence clock constraints cannot be typed in TypeScript."
-        },
-        {
-          "technique": "placement-precedes-gate",
-          "verdict": "conformant",
-          "evidence": "features/profile/getProfileData.ts:239 Captures the evaluation date once at the top of the loader and passes seatsAsOf down directly to avoid divergent time readings."
+          "evidence": "features/profile/absenceRecord.ts:126 The day-level wholeDay is computed from its windows, never declared. The same holds for totalDays, futureDays, CareerTerm.openEnded (careerSpine.ts:305) and stintCount."
         },
         {
           "technique": "constraint-deletion-is-silent",
           "verdict": "conformant",
-          "evidence": "features/profile/careerSpine.test.ts:386 Explicit negative structural test asserts that career years never mix date bounds across two distinct mandate/chamber windows."
+          "evidence": "features/profile/profileSource.test.ts:14 A negative artifact whose pass condition is the absence of the known-bad construction (the loose id read), which protects the shared strict-parser door."
+        },
+        {
+          "technique": "occurrence-is-not-a-type",
+          "verdict": "conformant",
+          "evidence": "features/profile/rebellionRecord.test.ts:87 'Feed an uncapped record' (rebellionRecord.ts:75) is a term about how the record was derived; VoteRecordData has the same type capped or uncapped. The term is held by a test, not believed held by the type checker."
+        },
+        {
+          "technique": "placement-precedes-gate",
+          "verdict": "conformant",
+          "evidence": "features/profile/getProfileData.ts:2 The server boundary's altitude is named explicitly: a build-time refusal at the module door, with prop types split into the pure profileTypes.ts."
+        },
+        {
+          "technique": "consumption-bounds-at-most-once",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getProfileData.ts:110 Nothing here is single-use. The loader result is deliberately memoised and read twice per request (generateMetadata + page)."
+        },
+        {
+          "technique": "build-time-evaluation-of-cross-value-invariants",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/rebellionRecord.ts:19 The context's constants (rebellion, absence, ally and contract row caps) are independent presentation bounds. None of them must sum or avoid overlap with another."
         }
       ],
-      "registryProposal": "Document in shape-with-a-not-applicable-member that resolvers returning closed domain unions should wrap the result in null/optional when unresolvable, rather than injecting an 'unknown' variant into the domain type itself.",
+      "registryProposal": "shape-with-a-not-applicable-member states its rule categorically ('belongs in the wrapper'), but its harm argument rests on the absence member being unreachable or getting a silent-success arm. It could tell that case apart from a reachable absence variant in a discriminated union whose every consumer renders a distinct, honest sentence, as here. As written, both cases get the same verdict.",
       "withdrawn": {
-        "worker": "d10ec6d5-d713-4216-b4c0-cea46c1d631a",
+        "worker": "e19ecf90-ca06-4052-baa4-f702d0cc1c3f",
         "state": "deviation",
-        "at": "2026-10-17T22:48:07.099437+00:00",
-        "reason": "reviewer (sonnet): The `unknown` member of `CareerYears` (careerSpine.ts:180) is a deliberate tagged state meaning 'the register carries no start, so nothing is claimed'. CareerSpineSection.tsx handles it in an ordinary `case \"unknown\"` of an exhaustive switch, and I found no invented fallback branches. The evidence's"
+        "at": "2026-10-25T23:48:31.674273+00:00",
+        "reason": "reviewer (sonnet): The clamp at DossierSection.tsx:172 exists, but the cited contract at profileTypes.ts:142 is about a bill's `count` versus its `sdCislos` list, not the per-bill breakdown versus the stored total. Nothing I opened says the page must admit breakdown > total, so the claim of a contract violation rests "
       }
     },
     "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/invariant-placement": {
@@ -8823,149 +8846,146 @@
       "context": "graph-canvas",
       "subject": "chat-transcript",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T02:03:29.852Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:01:35.852Z",
+      "worker": "adb7e25b-926f-4e6c-9b14-02e800a0b2fb",
       "techniques": [
         {
           "technique": "composer-turn-queue",
           "verdict": "not-applicable",
-          "evidence": "features/graph/components/NodeSearch.tsx:51 Text input searches graph entities; it does not submit conversational follow-ups to a running turn."
-        },
-        {
-          "technique": "immutable-model-cached-layout",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/components/GraphStage.tsx:319 The renderer batches graph glyphs, with no transcript messages or settled history to cache."
+          "evidence": "features/graph/components/NodeSearch.tsx:4 The only text input is a node-search combobox. It is not a prompt composer, and there are no turns to queue against."
         },
         {
           "technique": "inline-structured-rows",
           "verdict": "not-applicable",
-          "evidence": "features/graph/components/StageOverlays.tsx:47 The inspector overlay displays selected-node details, not tool calls or approvals belonging to a conversation."
-        },
-        {
-          "technique": "markdown-and-code-rendering",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/components/GraphStage.tsx:410 Canvas text consists of graph labels; this context has no streaming model-markup renderer."
-        },
-        {
-          "technique": "progress-narration",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/VariantTrasy.tsx:126 The status describes trail-data loading, not activity narration within a machine turn."
+          "evidence": "features/graph/components/NodeInspector.tsx:4 Structured detail is a node inspector panel over the graph. There is no turn sequence for tool or approval rows to sit inside."
         },
         {
           "technique": "transcript-scroll",
           "verdict": "not-applicable",
-          "evidence": "features/graph/components/GraphStage.tsx:635 Wheel input zooms a spatial graph; there is no growing conversational tail or thread-history restoration."
-        },
-        {
-          "technique": "turn-metadata",
-          "verdict": "not-applicable",
-          "evidence": "features/graph/components/NodeInspector.tsx:163 Displayed timing belongs to graph-node provenance, not a settled conversational turn."
+          "evidence": "features/graph/viewCull.ts:2 The viewport is a pan/zoom canvas cull, which canvas-graph governs. There is no growing transcript to pin or to open at the latest turn."
         },
         {
           "technique": "turn-model",
           "verdict": "not-applicable",
-          "evidence": "features/graph/useNodeSelection.ts:42 Identity and asynchronous state concern selected graph nodes, with no authored turns or streaming-to-settled lifecycle."
+          "evidence": "features/graph/components/GraphStage.tsx:4 The entities here are kg nodes and edges, not conversational turns."
+        },
+        {
+          "technique": "immutable-model-cached-layout",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:319 The renderer batches graph glyphs, with no transcript messages or settled history to cache.",
+          "carriedFrom": "2026-10-18"
+        },
+        {
+          "technique": "markdown-and-code-rendering",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:410 Canvas text consists of graph labels; this context has no streaming model-markup renderer.",
+          "carriedFrom": "2026-10-18"
+        },
+        {
+          "technique": "progress-narration",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantTrasy.tsx:126 The status describes trail-data loading, not activity narration within a machine turn.",
+          "carriedFrom": "2026-10-18"
+        },
+        {
+          "technique": "turn-metadata",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/components/NodeInspector.tsx:163 Displayed timing belongs to graph-node provenance, not a settled conversational turn.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "virtual-filtered-channel",
           "verdict": "not-applicable",
-          "evidence": "features/graph/VariantMapa.tsx:370 Filtering derives a graph-edge collection, not a subscribed transcript channel with retained messages."
+          "evidence": "features/graph/VariantMapa.tsx:370 Filtering derives a graph-edge collection, not a subscribed transcript channel with retained messages.",
+          "carriedFrom": "2026-10-18"
         }
-      ],
-      "withdrawn": {
-        "worker": "8dca6146-d668-4deb-8d7b-c1bfb3e5d62b",
-        "state": "not-applicable",
-        "at": "2026-10-18T02:03:42.604812+00:00",
-        "reason": "reviewer (sonnet): The primary anchor, GraphStage.tsx:235, is edge-drawing code (moveTo/lineTo after a viewport cull) and doesn't show that transcript behaviour is absent. Technique anchors NodeSearch:51, GraphStage:319 and :410 are consistent with the verdict. The case-insensitive 'chat' grep over the directory match"
-      }
+      ]
     },
     "83ddefb0-fd53-4a37-9959-54071b61ce53/companion-runtime": {
       "context": "dashboard-instruments",
       "subject": "companion-runtime",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T02:08:43.384Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:35:35.338Z",
+      "worker": "ba4a0093-3b53-491f-ab92-96c1553c3890",
       "techniques": [
         {
           "technique": "action-catalog-single-source",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/FactRow.tsx:107 The interaction selects a graph node on a person's click; no model-produced action vocabulary was found."
+          "evidence": "features/dashboard/components/FactRow.tsx:107 The interaction selects a graph node on a person's click; no model-produced action vocabulary was found.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "autonomous-cycle-hosting",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/getDashboardData.ts:287 The loader expires its read cache when called; it does not host autonomous companion cycles."
+          "evidence": "features/dashboard/getDashboardData.ts:287 The loader expires its read cache when called; it does not host autonomous companion cycles.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "headless-turn-stream",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/getExhibitData.ts:43 Exhibit requests await a data projection; no conversation turn or turn transport was found."
+          "evidence": "features/dashboard/getExhibitData.ts:43 Exhibit requests await a data projection; no conversation turn or turn transport was found.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "host-seam-contracts",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:425 The alternate graph presentation shares data and selection callbacks; it is not a second consumer of a companion brain."
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:425 The alternate graph presentation shares data and selection callbacks; it is not a second consumer of a companion brain.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "metered-llm-seam",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/getDashboardData.ts:548 Dashboard orchestration reads domain loaders; no runtime model invocation or background model leg was found."
+          "evidence": "features/dashboard/getDashboardData.ts:548 Dashboard orchestration reads domain loaders; no runtime model invocation or background model leg was found.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "operative-working-set",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:86 This transient state tracks graph hover, not a companion's present-tense observations beside durable memory."
+          "evidence": "features/dashboard/components/StateGraphCanvas.tsx:86 This transient state tracks graph hover, not a companion's present-tense observations beside durable memory.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "signal-economy-contract",
           "verdict": "not-applicable",
-          "evidence": "features/dashboard/components/GraphFeedPanel.tsx:64 The panel counts dated facts matching a selected entity; it does not report autonomous companion outcomes."
+          "evidence": "features/dashboard/components/GraphFeedPanel.tsx:64 The panel counts dated facts matching a selected entity; it does not report autonomous companion outcomes.",
+          "carriedFrom": "2026-10-18"
         }
-      ],
-      "withdrawn": {
-        "worker": "50f784b4-d532-48b3-9e8e-575e1c1179f7",
-        "state": "not-applicable",
-        "at": "2026-10-18T02:08:54.781293+00:00",
-        "reason": "reviewer (sonnet): The primary anchor, getDashboardData.ts:11, is a header comment about the loader passing through fields from the other loaders and does not show that a companion runtime is absent. The only support for absence is the zero-hit grep, which is not a line in the code."
-      }
+      ]
     },
     "83c0d33f-f7db-4a99-9d17-48a23e417b22/context-hierarchy": {
       "context": "law-amends-corpus",
       "subject": "context-hierarchy",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T21:10:04.602Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:46:48.560Z",
+      "worker": "b33ff217-b6fc-4d16-a88a-a742f19b3253",
       "techniques": [
-        {
-          "technique": "digest-gated-upward-refresh",
-          "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:248 A summary derives directly from its bill text; there is no ancestor-summary dependency requiring upward propagation."
-        },
         {
           "technique": "per-node-summary-tiers",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:253 These are presentation summaries of independent bill records, without interior corpus nodes requiring abstract and overview tiers."
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:41 One display-length summary per bill (a leaf, for the dossier header), not embedded and not an interior node's tier; there are no abstract/overview tiers at all."
+        },
+        {
+          "technique": "digest-gated-upward-refresh",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:236 A flat loop over bills with no parent summaries to propagate into; the payload is regenerated whole on every run, which is the technique's own 'rebuilt whole' exclusion."
         },
         {
           "technique": "seeded-descent-retrieval",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/esbirka-sparql-diff.ts:82 The paragraph lookup returns source fragments for a specified law version and paragraph prefix; it does not retrieve through summary-bearing interior nodes."
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:24 The summaries go to a static payload for display; no retrieval surface searches or descends any summary tree in this context."
         },
         {
           "technique": "stable-sampling-for-wide-nodes",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:177 The prefix selects captions for a bill's display sentence, rather than sampling child summaries for a wide interior node's overview."
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:248 Each summary is composed from that one bill's own text; no node is summarised from its children, so nothing is wide enough to need sampling. The 'sample' hits in amends-regen.ts are report-display slices (slice(0, 5)), not summariser inputs."
         }
-      ],
-      "withdrawn": {
-        "worker": "04bf4704-db0e-4a7d-9cb3-78b146fa4cbd",
-        "state": "not-applicable",
-        "at": "2026-10-18T21:10:25.360614+00:00",
-        "reason": "reviewer (sonnet): Four of the five anchors are in build-bill-summaries.ts, which is not in the context's file list, so they describe a different context; the one in-context anchor (esbirka-sparql-diff.ts:82) is a fragment lookup that doesn't show the summary-tree precondition is absent; line 253 is a rows.push, not a"
-      }
+      ]
     },
     "7555cc51-bb20-4171-842d-4a3eb290c3e0/cost-metering": {
       "context": "money-ledger",
@@ -10225,72 +10245,86 @@
       "context": "civic-fallback-data",
       "subject": "measurement-honesty",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-21",
-      "evaluatedTs": "2026-10-21T22:14:49.039Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:59:18.588Z",
+      "worker": "f01ff975-4c31-4690-b9a6-d8fb7745914d",
       "techniques": [
+        {
+          "technique": "minimum-sample-floors",
+          "verdict": "deviation",
+          "evidence": "lib/civic/votes.ts:25 Only floor is present>0 (line 24); no declared minimum sample, and the result is rounded to 0.1 % (line 56) regardless of denominator — precision the sample cannot support."
+        },
+        {
+          "technique": "unmeasurable-vs-zero",
+          "verdict": "conformant",
+          "evidence": "lib/civic/votes.ts:24 No-one-present returns null instead of the old fabricated 1 (100 %); test data.test.ts:189-192 pins it, and registry.ts czechTileNumber refuses non-numeric tiles rather than imputing 0."
+        },
+        {
+          "technique": "renormalize-over-present",
+          "verdict": "conformant",
+          "evidence": "lib/civic/votes.ts:58 Average divides by measured roll calls only and emits null when none were measured; perRc with its nulls travels beside avg as the subset disclosure (avg itself carries no measured count)."
+        },
         {
           "technique": "co-published-numbers-must-reconcile",
           "verdict": "conformant",
-          "evidence": "lib/civic/data.test.ts:235 Executable checks reconcile histogram totals, score components, vote partitions, summary tiles, and trend endpoints."
+          "evidence": "lib/civic/data.test.ts:235 Tests assert co-published parts sum to wholes: histogram vs row count, party splits vs seats and chamber totals (160-164), the avg tile vs CHAMBER_SUMMARY (240-243)."
         },
         {
           "technique": "control-failure-is-not-a-datum-state",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/votes.ts:68 The context aggregates ballot partitions; it does not run experimental arms whose comparison controls can fail."
+          "evidence": "lib/civic/votes.ts:68 The context aggregates ballot partitions; it does not run experimental arms whose comparison controls can fail.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "incomplete-not-verdict",
           "verdict": "not-applicable",
-          "evidence": "lib/claims/registry.ts:91 This context reads static fixtures and registers their values; acquisition completeness and loader failures belong to upstream contexts."
+          "evidence": "lib/claims/registry.ts:91 This context reads static fixtures and registers their values; acquisition completeness and loader failures belong to upstream contexts.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "instrument-exposure-control",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/leaderboard.ts:199 Fallback scores are constructed illustrations, rather than capability measurements of subjects exposed to a published instrument."
+          "evidence": "lib/civic/leaderboard.ts:199 Fallback scores are constructed illustrations, rather than capability measurements of subjects exposed to a published instrument.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "lower-bound-disclosure",
           "verdict": "not-applicable",
-          "evidence": "lib/analytics.ts:28 Analytics collection can be absent, but this context publishes no reach or usage tally from those observations."
+          "evidence": "lib/analytics.ts:28 Analytics collection can be absent, but this context publishes no reach or usage tally from those observations.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "noise-band-and-hysteresis",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/data.ts:447 The context supplies illustrative fixed trends, without a repeated measurement or announcement decision over instrument noise."
+          "evidence": "lib/civic/data.ts:447 The context supplies illustrative fixed trends, without a repeated measurement or announcement decision over instrument noise.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "speed-figure-names-its-endpoints",
           "verdict": "not-applicable",
-          "evidence": "lib/analytics.ts:29 The helper emits events without measuring or publishing latency, throughput, or another speed figure."
+          "evidence": "lib/analytics.ts:29 The helper emits events without measuring or publishing latency, throughput, or another speed figure.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "the-baseline-is-the-untouched-path",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/data.ts:237 The computation produces a weighted civic score, without claiming an intervention's saving against a control path."
+          "evidence": "lib/civic/data.ts:237 The computation produces a weighted civic score, without claiming an intervention's saving against a control path.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "tuning-corpus-disjointness",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/leaderboard.ts:149 Seeded fixture generation does not fit an artifact on a tuning workload or publish benchmark performance."
+          "evidence": "lib/civic/leaderboard.ts:149 Seeded fixture generation does not fit an artifact on a tuning workload or publish benchmark performance.",
+          "carriedFrom": "2026-10-21"
         },
         {
           "technique": "unelidable-measurement",
           "verdict": "not-applicable",
-          "evidence": "lib/civic/data.test.ts:37 These tests observe computed outputs for correctness; they do not measure the cost of performing work."
-        },
-        {
-          "technique": "unmeasurable-vs-zero",
-          "verdict": "deviation",
-          "evidence": "lib/civic/stateGraph.ts:95 The same amount sentinel represents the explicit no-contract case at data.ts:650–651 and unresolved companies at data.ts:659–662; both omit the money node."
+          "evidence": "lib/civic/data.test.ts:37 These tests observe computed outputs for correctness; they do not measure the cost of performing work.",
+          "carriedFrom": "2026-10-21"
         }
-      ],
-      "withdrawn": {
-        "worker": "0692277e-dc13-4172-b775-e8f9e6dd1ad5",
-        "state": "deviation",
-        "at": "2026-10-21T22:15:15.103472+00:00",
-        "reason": "reviewer (sonnet): In lib/civic/data.ts the only non-money amount value is \"—\", and the stateGraph.ts:94 comment documents it as \"firma bez zakázek\" (a company with no contracts). No separate unresolved-amount value exists in MONEY_TIES for hasMoney to conflate with it, so the claimed loss of the unknown-versus-absent"
-      }
+      ]
     },
     "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/talking-avatar": {
       "context": "labs-graph-routes",
@@ -11987,6 +12021,267 @@
         "at": "2026-10-25T00:22:32.320401+00:00",
         "reason": "reviewer (sonnet): The anchor (getDashboardData.ts:416, a store.kgNeighbours call) shows only that one loader reads graph neighbours. It doesn't show that the context lacks an LLM-call analytics store, so it is incidental, and the 'one data path' claim wasn't confirmed across the whole context."
       }
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/client-fetch-cache": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "client-fetch-cache",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:19:59.659Z",
+      "worker": "53303d2a-95a7-41ee-82ef-22fe217b7a93",
+      "techniques": [
+        {
+          "technique": "in-flight-dedup",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:61 React cache() memoizes the promise per request at the loader layer, so every caller in one render joins one flight. The body catches and returns null, so a failure reaches all joiners as the same null. This is server-side and has only one caller today (app/kompas/page.tsx:33)."
+        },
+        {
+          "technique": "portable-read-definitions",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:68 The shared vote-record read is one plain module-level function (getVoteRecord.ts) that both /hlasovani and /kompas call, rather than kompas re-typing its own fetcher and derivation (the header comment records that it did this until 2026-08-11)."
+        },
+        {
+          "technique": "plural-policy-claims",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:19 Kompas makes no lifetime claim of its own on the shared record entry, which avoids two clocks over one entry. KompasPage.tsx:30 imports the shared MONEY_MEMO_TTL_MS rather than redeclaring it."
+        },
+        {
+          "technique": "parse-and-derive-caches",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:38 A single-slot useMemo over a pure derivation, which stays the one way to compute the result. It is keyed by reference identity, and that is sound because the producer always mints a new Map (useKompasAnswers.ts:58 `const next = new Map(answers);`) and data is an immutable server prop. The technique also asks for that assumption to be written at the cache; that comment is missing."
+        },
+        {
+          "technique": "cache-key-discipline",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:39 The memo key covers every input to scoreAlignment, with no hidden ambient axis. getKompas takes no arguments, so its cache() key is complete by construction."
+        },
+        {
+          "technique": "warm-remount-caches",
+          "verdict": "not-applicable",
+          "evidence": "features/votetrack/kompas/KompasPage.tsx:32 The client tree gets its data as server-rendered props and fetches nothing, so there is no client-fetched result to keep past an unmount."
+        }
+      ]
+    },
+    "6b1859ef-0a64-4966-bfbb-8808a7c04d1e/czech": {
+      "context": "czech-civic-data",
+      "subject": "czech",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T22:57:48.545Z",
+      "worker": "d3f3d0f1-7610-4643-bee6-1f9c40a6be57",
+      "techniques": [
+        {
+          "technique": "typography-and-spacing",
+          "verdict": "deviation",
+          "evidence": "packages/czech-civic-data/README.md:9 „ is closed by ASCII \" instead of U+201C, twice on this line (CS-QUOTES). README.md:8 also has ' — včetně' (U+2014) in Czech prose (CS-DASH)."
+        },
+        {
+          "technique": "gender-neutral-forms",
+          "verdict": "deviation",
+          "evidence": "packages/czech-civic-data/README.md:65 The package's own Czech gloss of the vote codes describes an MP of unknown gender in bare masculine past tense and participles (přihlášen, nestiskl; line 64 has 'stiskl X'). The code label itself (nehlasoval) is the publisher's term, but the parenthetical gloss is the package's own text."
+        },
+        {
+          "technique": "register-and-address",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/README.md:3 The Czech copy is impersonal description (infinitive title, third person). It never addresses the reader, so it does not have to choose between vykání and tykání."
+        },
+        {
+          "technique": "plural-and-count-agreement",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:94 The src modules emit English code vocabularies and ISO strings. No Czech string anywhere in the context interpolates a count."
+        },
+        {
+          "technique": "ui-conventions-and-length",
+          "verdict": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/normalize.ts:105 This is a headless ingest library: no buttons, menus or progress states. Its outputs are machine codes that some other layer renders."
+        }
+      ]
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/delivery-analytics": {
+      "context": "db-repositories",
+      "subject": "delivery-analytics",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:07:06.028Z",
+      "worker": "51c07f11-cb83-4891-80c6-1d65efbea6e5",
+      "techniques": [
+        {
+          "technique": "review-coverage-rate",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/review.ts:1 The 'review' here is a human decision on data claims (ties, forensic verdicts), not a review of code changes, and no coverage rate over changes is computed."
+        },
+        {
+          "technique": "revert-linkage",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/changes.ts:3 change_event holds civic graph events, not VCS commits; a grep for 'revert' found nothing in the context."
+        }
+      ]
+    },
+    "0e0462f1-6bc2-4a2d-b576-759f57a58449/dependency-declaration": {
+      "context": "lawwatch-radar",
+      "subject": "dependency-declaration",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:21:10.139Z",
+      "techniques": [
+        {
+          "technique": "declaration-invariants",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/buildDependencyView.ts:82 Locality holds: each module declares its own imports. The pure derivation takes its one outside requirement (the Czech/jargon gate) as a typed parameter in its own signature. That is the technique's 'take them as parameters' move, chosen on purpose so the module stays a plain function of its inputs and the loader injects the real gate. Nobody but the unit's author edits anything when it gains a dependency."
+        },
+        {
+          "technique": "logical-name-or-address",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/sectorAttribution.ts:18 The context's own parts are reached by relative addresses (./deriveRadar, ./buildDependencyView), which fits a unit's references to its own internals. Cross-feature references go through the tsconfig '@/*' root and target modules that declare themselves shared entry points (companyId.ts: 'the ONE place a URL segment becomes a kg_node id', a plain module so the route, loader and test can share it). So this is not an address into another unit's private layout."
+        },
+        {
+          "technique": "vendored-copy-loses-composition",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:3 The feed codec is declared and reused read-only, and the round-trip is checked through the dukazy public parseEvidenceFeedJson. It is not inlined, so the shared feed identity survives and subscribers read one format with one reader."
+        },
+        {
+          "technique": "shortcut-is-not-the-substrate",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/radarTypes.ts:3 The shared shape and the derivations (radarTypes.ts, deriveRadar.ts, buildDependencyView.ts) are plain modules. The server-only loaders are thin projections over them. So the client components (DependencyRadar.tsx and RadarLedger.tsx, both 'use client') and the tests reach the capability without being blocked by the server-only binding."
+        }
+      ],
+      "registryProposal": "This pair was probably matched on the token 'dependency' (getDependencyData.ts, buildDependencyView.ts, DependencyRadar.tsx), but in this context that word means legislative enactment-order dependencies between bills (companion tisky), not software dependency declaration. The map's subject matcher should not treat a domain noun that collides with the subject slug as governance evidence. Governance of this pair is effectively weak, and the conformant verdict only covers how the context's modules declare their imports.",
+      "withdrawn": {
+        "worker": "eccfbf35-9bf3-44ba-895e-62feb7ceeb0e",
+        "state": "conformant",
+        "at": "2026-10-25T23:22:03.825361+00:00",
+        "reason": "reviewer (sonnet): The sectorAttribution.ts:18 technique anchor says the file reaches its own parts through relative imports (./deriveRadar, ./buildDependencyView), but sectorAttribution.ts has no relative imports at all. Line 18 is the '@/lib/analysis/language-gate' import, so that claim can't be confirmed. The other"
+      }
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/design-tokens": {
+      "context": "eslint-transparency-rules",
+      "subject": "design-tokens",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:31:00.540Z",
+      "worker": "1b341741-750e-4c81-95b7-2bef3fc06881",
+      "techniques": [
+        {
+          "technique": "token-enforcement",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:14 Strengths: error severity (eslint.config.mjs:75), a message that names the equivalent token, and RuleTester invalid fixtures that prove the rule fires. But membership is checked by deny-pattern (hex/rgb/hsl only), not against the authority, so oklch() and primitive palette classes are invisible to it. Exceptions are also whole-file config exclusions (rule header line 8, eslint.config.mjs:246-248) rather than inline, countable suppressions. A grep for default-palette utilities outside labs found 0 uses today, so the gap is latent, not yet exploited."
+        },
+        {
+          "technique": "token-taxonomy",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/no-source-note-size-override.cjs:15 The SourceNote recipe owns its font-size, and the loose alternative (font-size utilities in its className) is banned at error. The escape hatch is a mode (as=label|sentence) rather than a size. This matches 'a recipe either owns a property or declines it', with the precedence problem stated in the rule header."
+        },
+        {
+          "technique": "motion-tokens",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/enforce-reduced-motion-fallback.cjs:9 The motion gate requires per-component honoring: each looping framer component has to reference useReducedMotion, a check the rule runs per component. That is the strategy the technique names as the failure. It only sees framer transition.repeat, so CSS infinite animations are not seen, and no duration or easing ladder is enforced. A global MotionConfig reducedMotion=\"user\" does exist in app/layout.tsx:98, but this rule does not build on it."
+        }
+      ],
+      "registryProposal": "token-enforcement could name a specific case of the deny-list trap. On a utility-CSS stack whose default palette stays enabled (no namespace reset in the theme block), a raw-literal regex gate leaves the framework's whole primitive palette, plus newer color syntaxes such as oklch(), outside the gate. The vocabulary reset is a precondition for the allow-list to be closed at all."
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/embedded-db": {
+      "context": "hybrid-bench",
+      "subject": "embedded-db",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:37:28.586Z",
+      "worker": "35f0dbf3-a785-4b8c-bfee-d20241128bd1",
+      "techniques": [
+        {
+          "technique": "single-writer-holder-discipline",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:8 Exactly the failure the technique names: copying a held store instead of holding the connection, checkpointing and stripping the lock marker. lib/db/pglite/storeCopy.ts calls such a copy 'torn by construction'. Explicit close (line 134) and explicit process.exit (line 146) are conformant, but they do not cure the copy instruction."
+        },
+        {
+          "technique": "analytical-reads-off-the-serving-store",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:28 The benchmark arms (run/agg/derived/join) read flat JSON exports, not the serving store, and they are small LLM-operator benches, not user-perceptible aggregates. The README plans to move the 406k-ballot reads to PGlite via the Store 'when this graduates', and that move would trigger this technique."
+        },
+        {
+          "technique": "connection-pooling",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:90 A one-shot script that takes the single PGlite handle once. There is no pool in this context, and pool sizing lives in lib/db."
+        },
+        {
+          "technique": "storage-accounting-and-pruning",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:119 vote_tag rows are upserted by a per-vote id, so the table is bounded by the vote count and does not accumulate. Store-wide accounting lives in lib/db/pglite/accounting.ts, outside this context. The .pglite-mat copy directory the comment creates has no named reaper either."
+        }
+      ],
+      "registryProposal": "The analytical-reads technique uses 'an analysis script carrying an instruction to run against a copy' as its signature, but here the script carrying that instruction is a WRITER that materializes product data. For a writer the copy workaround is worse than contention: the writes land in a throwaway copy and silently never reach the canonical store. single-writer-holder-discipline could name 'writes routed to a copy' as a distinct failure from 'a torn backup'."
+    },
+    "1e6194ec-5275-4cfd-b045-c0604ab491e2/knowledge-registry": {
+      "context": "kg-graph-writers",
+      "subject": "knowledge-registry",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-25",
+      "evaluatedTs": "2026-10-25T23:54:25.339Z",
+      "worker": "dde7d38c-d5e4-4be1-baad-a38c14c0cd6f",
+      "techniques": [
+        {
+          "technique": "lane-contracts",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-compute.ts:245 The same idea, 'carry forward what you do not own', is done here for kg_node props shared by several writers, but that is a database row inside one repo, not a registry lane with its own path, spec and gate."
+        },
+        {
+          "technique": "deterministic-seeding",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-props-check.ts:43 --seed rebuilds a local schema file from the live store in the author's own repo, not a registry seed proposed into a repo someone else owns. The timestamp would break the technique if it applied, but here it does not."
+        },
+        {
+          "technique": "propose-then-adopt",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:16 kg-promote gates LLM-proposed verdicts before an operator commits them to the graph. That looks like propose-then-adopt, but the target is a data store, not a registry repo where merging is the act of adoption."
+        },
+        {
+          "technique": "standard-versus-consumer-split",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:144 'Registry' here means a public data source a verdict draws on. Nothing in this context publishes a standard, so there is no publish boundary to split across."
+        }
+      ]
+    },
+    "f50627ef-a7a1-40a4-9491-560efa6cb05d/observability-telemetry": {
+      "context": "mp-profile",
+      "subject": "observability-telemetry",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T00:15:19.300Z",
+      "worker": "836e2650-a22f-4184-bad2-c8ad642417d2",
+      "techniques": [
+        {
+          "technique": "log-architecture",
+          "verdict": "conformant",
+          "evidence": "features/profile/getProfileData.ts:376 Error-level records come only from failures that reached a door (catch → null fallback). The origin is a stable, finer-grained name ('getProfileData/absence' vs 'getProfileData'), so the absence sub-read can be told apart from a failure of the whole loader. The record envelope itself is built in lib/db/loaderGuard.ts, which is outside this context."
+        },
+        {
+          "technique": "pre-boot-and-foreign-capture",
+          "verdict": "conformant",
+          "evidence": "features/profile/getRebellionRecord.ts:83 Only the 'same trap at half-size' clause applies here: the rebellion loader forwards its failure into the primary sink instead of writing to a stream itself. Grep for console.|process.std over features/profile returned 0 hits. The deferred-buffer and foreign-runtime clauses do not apply, because this context spawns and embeds no runtime."
+        },
+        {
+          "technique": "remote-telemetry-economics",
+          "verdict": "conformant",
+          "evidence": "features/profile/getProfileData.ts:650 A remote (Sentry) event is sent only on an actionable loader failure, inside the catch. There is no heartbeat or 'it worked' metronome event. The loader is wrapped in React cache() (line 110), so it emits at most once per request per MP. Quota, sampling and batching belong to the shared door and Sentry config, not to this context."
+        },
+        {
+          "technique": "crash-record-storage",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getProfileData.ts:24 The context hands all recording to lib/db and persists no crash evidence of its own. Its crash handling is defensive rendering (the ProfilePage.tsx:193 guard), not a store."
+        },
+        {
+          "technique": "rotation-and-retention",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getRebellionRecord.ts:46 The context creates no file-backed record class. Bounding the loader-failure log is the job of lib/db/loaderFailureLog.ts (the shared infrastructure)."
+        }
+      ]
     }
   }
 }

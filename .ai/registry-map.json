@@ -2900,7 +2900,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/civic/votes.ts:25 partyDiscipline derives a percentage over `present` members with no floor beyond present===0, so a party with one or two members present renders 100 % / 50 % discipline (to 0.1 p.b. in disciplineByParty) on ChamberDetail and DisciplineBoard — a rate one extra vote can swing across any band.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:b702c58e785c6c51",
+          "evaluatedRevision": 11
         },
         {
           "subject": "conformance-checking",
@@ -4212,7 +4216,11 @@
           "revision": 9,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/czech-civic-data/README.md:9 The package's published Czech copy opens each quotation with the Czech low quote U+201E (byte-checked with od) and closes it with an ASCII double quote. That is the mismatched pair CS-QUOTES names as a defect, and the line above (README.md:8) also puts an em dash (U+2014) in Czech prose, against CS-DASH.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:235d75274930244a",
+          "evaluatedRevision": 10
         },
         {
           "subject": "self-describing-model-packages",
@@ -4593,7 +4601,11 @@
           "revision": 4,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:1 The context is a read-only instrument panel: its loader composes figures from other modules' loaders and passes them to UI components. A case-insensitive grep of features/dashboard (including components/) for companion, prompt, agent, chat, anthropic and openai found no hits. The only near-match was the substring 'llM' inside 'allMpsLink' in DashboardPage.tsx:518. So no persistent companion, model call, turn stream, action catalog or autonomous cycle exists here, and the subject's precondition does not hold.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:7a0b336cac31d173",
+          "evaluatedRevision": 4
         },
         {
           "subject": "operator-surfaces-for-llm-spend",
@@ -5118,7 +5130,11 @@
           "revision": 5,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/changes.ts:1 This context persists civic-domain data: change_event rows are civic seismograph events (tie-new, contract-new, review-decision) and review.ts is the human gate on machine-produced data claims, not code review. A grep of lib/db/pglite/repositories for revert, pull_request, co-authored, lines_added, change_failure and diffstat returned no hits, so nothing here reads a team's change history or computes a delivery metric, and the subject's precondition does not hold.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:e43700f2d197398b",
+          "evaluatedRevision": 5
         },
         {
           "subject": "runner-fleet",
@@ -6497,7 +6513,11 @@
           "revision": 7,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/no-hardcoded-colors.cjs:14 The token gate this context re-exports (eslint-rules/no-hardcoded-colors.cjs:6) is a deny-pattern over three raw color syntaxes rather than an allow-list check against the globals.css vocabulary, so oklch()/color-mix()/named colors and Tailwind default-palette utilities like bg-red-500 (still available because @theme does not reset --color-*) pass green, the recall gap token-enforcement names.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:165125b7a54d0de3",
+          "evaluatedRevision": 7
         },
         {
           "subject": "voice-io",
@@ -6991,7 +7011,11 @@
           "revision": 5,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/components/GraphStage.tsx:4 The context is a 2D canvas node/edge graph explorer with no conversational turns, no machine-authored streamed messages and no composer; I searched features/graph/ for transcript, composer, assistant and streaming and found no hits, so the precondition for a chat transcript (a document read while a machine writes it turn by turn) does not hold.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:5b4e7d399a4d924e",
+          "evaluatedRevision": 5
         },
         {
           "subject": "test-harness",
@@ -7044,7 +7068,11 @@
           "revision": 10,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:559 The citation permalink's headline uses a framer-motion entrance whose opening values (opacity 0, translateY 14) are written into the server-rendered markup, because framer's useReducedMotion is null on the server. A reader or indexer that never hydrates gets the page's main claim invisible, and the same gesture is pasted inline in other features instead of coming from a named preset.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:8d9b3eabe2f3b534",
+          "evaluatedRevision": 10
         },
         {
           "subject": "markdown-vault",
@@ -7391,7 +7419,11 @@
           "revision": 15,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:9 The only store-writing script in this context tells you to raw-copy a single-writer PGlite directory while the dev server holds it, which yields a torn copy that still carries the holder's postmaster.pid. That bypasses the repo's own storeCopy.ts rules, and it routes the materialized vote_tag writes into a throwaway copy instead of the canonical store.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:0722fec97cff5b66",
+          "evaluatedRevision": 15
         },
         {
           "subject": "data-access",
@@ -8733,7 +8765,11 @@
           "revision": 11,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-props-check.ts:18 The only thing this context calls a \"registry\" is an in-repo list of allowed jsonb prop keys for one PGlite store, and in kg-promote the word means public data sources (ISVZ/ARES rows); none of these files writes or reads a shared, cross-codebase knowledge registry (a grep of scripts/data-analysis for ai-registry, knowledge-registry, registry-map and manifest.yaml found 0 hits), so the subject's precondition does not hold.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:3dc9f1dec5aa4282",
+          "evaluatedRevision": 12
         },
         {
           "subject": "prompt-assembly",
@@ -9715,7 +9751,11 @@
           "revision": 1,
           "changedAt": "2026-09-02",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/build-bill-summaries.ts:7 The only summaries in this context are one-line, deterministic, per-bill (leaf) summaries over a flat set of 141 bills, rebuilt whole on each run into a JSON payload. There is no containment tree whose interior nodes carry generated abstract/overview tiers, so there is nothing to embed, descend, digest-gate or sample. A case-insensitive search of scripts/case-loops/law for overview, abstract, embedding, descent and unsampled found zero hits.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:09d2467f58c2c036",
+          "evaluatedRevision": 1
         },
         {
           "subject": "translation-pipeline-topology",
@@ -11984,7 +12024,11 @@
           "revision": 6,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/profile/getProfileData.ts:376 Every failure the Spis surface catches goes through the one shared recording door (reportLoaderFailure) under a stable, sub-scoped origin name. Grep found no console.* or process.std* writes anywhere in features/profile, so the context keeps no private diary, and it owns no log file, crash store or remote channel that would bring in the storage, retention or access techniques.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:5f1eca73a0e27036",
+          "evaluatedRevision": 6
         },
         {
           "subject": "prompt-assembly",
@@ -14117,7 +14161,11 @@
           "revision": 15,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/votetrack/getKompas.ts:61 The kompas read is one request-scoped React cache() flight that reuses the shared memoized vote record rather than keeping its own memo, and the client tree's only cache is a useMemo over the pure scoreAlignment derivation; no technique is realized the way the standard names as a failure.",
+          "evaluatedAt": "2026-10-25",
+          "evaluatedAgainst": "sha256-b2:20824426732ffb6a",
+          "evaluatedRevision": 15
         },
         {
           "subject": "test-harness",
