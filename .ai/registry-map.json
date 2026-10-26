@@ -11554,7 +11554,11 @@
           "revision": 3,
           "changedAt": "2026-09-10",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/moneyLoader.ts:427 The supplies fold adds every reaching contract's weight into one CZK figure whatever its tax basis, and adds unflagged-direction records too; the /penize headline 'veřejné peníze u firem poslanců' is then printed from that figure as a plain total, with the basis mix shown only as a warning sentence beside it.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:293191c2bd9122d2",
+          "evaluatedRevision": 3
         },
         {
           "subject": "test-harness",
