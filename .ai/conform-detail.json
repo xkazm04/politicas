@@ -8201,52 +8201,47 @@
       "context": "civicscore-scoring",
       "subject": "scoring-rubrics",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T00:00:13.855Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T22:46:35.687Z",
+      "worker": "03323a30-c926-4ea5-bfa3-aef433366f01",
       "techniques": [
         {
           "technique": "unmeasured-honesty",
           "verdict": "deviation",
-          "evidence": "features/civicscore/duel.ts:26 Head-to-head duel declares leaders from composite scores that default unmeasured inputs to zero without enforcing an eligibility coverage floor."
+          "evidence": "features/civicscore/components/HeadToHead.tsx:256 The component bar is drawn straight from earned points. The rubric's own declaration (lib/analysis/contribution.ts:16-17) says missing dimensions 'simply contribute 0', so an absent dimension renders as an empty bar instead of a 'not measured' row, and the breakdown states no coverage. The fact layer, by contrast, is conformant: duelFacts.ts:69 treats null as no comparison."
+        },
+        {
+          "technique": "score-explanation",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/components/HeadToHead.tsx:278 The composite renders with its per-component contributions and each weight, and the composite's citation comes from the shared scoreClaim minter rather than a re-derivation. No top gap is phrased as an action, but this is a comparison surface."
         },
         {
           "technique": "rubric-stability",
           "verdict": "conformant",
-          "evidence": "features/civicscore/verdictRung.test.ts:43 Static parity suite ensures all surfaces displaying verdict badges pass provenance rungs so rejected claims are withheld consistently across views."
-        },
-        {
-          "technique": "weight-lenses",
-          "verdict": "conformant",
-          "evidence": "features/civicscore/components/HeadToHead.tsx:357 Under custom lenses, the duel adjusts component weighting and explicitly withholds citation claims with a dedicated disclosure note."
+          "evidence": "features/civicscore/provenance.ts:133 The stored scores carry a formula ref plus a pass number. The aggregate compares those against the ref the code declares and surfaces a mismatch or a mixed store (MetodikaPage storeMismatch), and provenance.test.ts pins the match, mismatch, mixed and absent cases."
         },
         {
           "technique": "weight-design",
-          "verdict": "deviation",
-          "evidence": "features/civicscore/MetodikaPage.tsx:47 Methodology page dynamically totals formula weights to verify 100 points, but lacks per-dimension rationales justifying relative importance."
-        },
-        {
-          "technique": "score-explanation",
-          "verdict": "deviation",
-          "evidence": "features/civicscore/components/HeadToHead.tsx:244 The head-to-head view visualizes re-derived component breakdowns side-by-side but does not provide actionable gap derivations."
-        },
-        {
-          "technique": "gap-ranking",
-          "verdict": "deviation",
-          "evidence": "features/civicscore/duel.ts:34 Comparative logic resolves point advantages between opponents without calculating effort-weighted gap sequences or recommending next actions."
+          "verdict": "conformant",
+          "evidence": "features/civicscore/MetodikaPage.tsx:47 The page imports the single weight vector and computes its total instead of writing it as a literal; the sum of 100 is asserted in componentDefs.test.ts. Caveat: the declaration off-context gives no per-weight rationale (only 2 of 6 weights have comments, and those describe what the weight counts, not why)."
         },
         {
           "technique": "normalization",
-          "verdict": "deviation",
-          "evidence": "features/civicscore/MetodikaPage.tsx:135 Methodology documents saturation caps for counts, but omits explicit per-dimension polarity properties and breakdown clamping disclosures."
+          "verdict": "conformant",
+          "evidence": "features/civicscore/MetodikaPage.tsx:135 The fixed saturation anchors (the frame) are published from imports. Not done: the duel breakdown never says when a dimension is clamped at its cap."
+        },
+        {
+          "technique": "weight-lenses",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/components/HeadToHead.tsx:177 The 'lens' here is a weight vector the reader chooses, not one selected by population; there is no population classifier. A custom lens is labelled (cobalt colour) and its citation is withheld."
+        },
+        {
+          "technique": "gap-ranking",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:12 The context compares two MPs and explains the formula; no work queue consumes a ranked gap list. Tie handling (duelOutcome at published precision) is deterministic."
         }
-      ],
-      "withdrawn": {
-        "worker": "7c94be2d-ad38-48f2-b2ae-eda9d3d29d87",
-        "state": "deviation",
-        "at": "2026-10-18T00:01:03.084882+00:00",
-        "reason": "reviewer (sonnet): duel.ts:26 only subtracts two already-published scores and does no zero-coercion, so the unmeasured-input-to-zero claim is about the loader's num() in getLeaderboardData.ts (a different context)."
-      }
+      ]
     },
     "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/search": {
       "context": "graph-data-logic",
