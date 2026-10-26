@@ -7068,7 +7068,11 @@
           "revision": 10,
           "changedAt": "2026-09-24",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:559 The citation permalink's headline uses a framer-motion entrance whose opening values (opacity 0, translateY 14) are written into the server-rendered markup, because framer's useReducedMotion is null on the server. A reader or indexer that never hydrates gets the page's main claim invisible, and the same gesture is pasted inline in other features instead of coming from a named preset.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:8d9b3eabe2f3b534",
+          "evaluatedRevision": 10
         },
         {
           "subject": "markdown-vault",

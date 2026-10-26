@@ -5043,62 +5043,70 @@
       "context": "graph-canvas",
       "subject": "motion",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-15",
-      "evaluatedTs": "2026-10-15T21:55:11.153Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T00:10:30.409Z",
+      "worker": "dc81b68d-151c-44ab-9deb-f0dc4e0b8935",
       "techniques": [
+        {
+          "technique": "content-bearing-degradation",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:559 Start-state failure shape: the library puts the hidden pre-play state into the served HTML, so with no JS the h1 title stays at opacity 0. Contrast VariantMapa:211, which does degrade to the resolved end state (all hops lit) under reduced motion, and its hook's server snapshot defaults to revealed."
+        },
         {
           "technique": "preset-vocabulary",
           "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:559 The title gesture inlines a 14px rise and does not reference a named preset, duration class, or easing role."
-        },
-        {
-          "technique": "engine-selection",
-          "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:24 The fire-and-forget title uses the animation library even though the canvas drag already has an owned frame loop."
+          "evidence": "features/graph/PermalinkPage.tsx:560 Inline literal entrance with no named preset, duration class or easing role. The identical initial/animate pair is copy-pasted in DashboardPage, ExhibitPage, MotionIslands and VariantRentgen."
         },
         {
           "technique": "reduced-motion-mechanics",
           "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:534 The title reads the library hook at the call site, while VariantMapa already has a platform matchMedia resolver in usePrefersReducedMotion.ts."
+          "evidence": "features/graph/PermalinkPage.tsx:534 Two preference resolvers in one context: the engine-free live hook usePrefersReducedMotion (VariantMapa) and framer's useReducedMotion (PermalinkPage). The technique wants exactly one resolver that belongs to no engine. Each call site also branches itself instead of resolving at the preset layer."
         },
         {
-          "technique": "one-shot-guarding",
+          "technique": "performance-discipline",
           "verdict": "deviation",
-          "evidence": "features/graph/PermalinkPage.tsx:560 The title entrance replays on every mount; nothing records that this permalink has already been seen."
+          "evidence": "features/graph/VariantMapa.tsx:206 The step-reveal interval is never cleared once n reaches total (line 207 just returns r), so it wakes every 380 ms for as long as the path stays active: an orphan clock subscription per audit item 4. The canvas side does conform: pan and zoom write viewRef and redraw through one coalesced rAF (GraphStage.tsx:505) with no per-frame React state."
         },
         {
           "technique": "taste-budgets",
           "verdict": "deviation",
-          "evidence": "features/graph/VariantMapa.tsx:62 Each hop waits 380ms and trailPath.ts caps a path at 6 ordinary steps, so a full reveal runs past the about-one-second entrance cap with no named total."
+          "evidence": "features/graph/VariantMapa.tsx:62 Each path step waits 380 ms with no count cap, so a 3-hop result takes more than 1 s and a 6-hop one (MAX_COST 6) about 2.3 s. The constant is named locally, not drawn from a central ladder, and the step is far above 'tens of ms'. This is arguable if the reveal is read as a deliberate explainer rather than an arrival cascade."
         },
         {
-          "technique": "content-bearing-degradation",
+          "technique": "one-shot-guarding",
           "verdict": "conformant",
-          "evidence": "features/graph/VariantMapa.tsx:211 Under reduced motion the path lights every hop immediately instead of freezing on an empty prefix."
+          "evidence": "features/graph/VariantMapa.tsx:197 Structural reset keyed on the path's identity (index plus nodeIds), so the reveal replays only when the question changes, never on re-render. The precondition (mount has one cause) is not written beside the key."
         },
         {
-          "technique": "performance-discipline",
+          "technique": "continuity-across-change",
           "verdict": "conformant",
-          "evidence": "features/graph/components/GraphStage.tsx:23 Pan and zoom write the view through a ref and one requestAnimationFrame, so pointer motion does not re-render React."
+          "evidence": "features/graph/components/TrailFinder.tsx:257 Ledger rows stay mounted and animate only the property that changed (opacity when lit), and only the newly lit rows move. Camera re-fits are instant plain jumps (viewRef = fitRect), which is the permitted third option."
+        },
+        {
+          "technique": "unprompted-motion-lifecycle",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantMapa.tsx:207 The only sequenced motion is prompted (the user asked for a path) and stops at total. There is no autoplay, attract loop or scroll-triggered reveal in this context."
+        },
+        {
+          "technique": "loop-pause-governance",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/VariantMapa.tsx:204 No looping gesture exists. The bounded reveal is gated only by the preference, which is enough for a non-loop."
+        },
+        {
+          "technique": "engine-selection",
+          "verdict": "deviation",
+          "evidence": "features/graph/PermalinkPage.tsx:24 The fire-and-forget title uses the animation library even though the canvas drag already has an owned frame loop.",
+          "carriedFrom": "2026-10-15"
         },
         {
           "technique": "gesture-decomposition",
           "verdict": "conformant",
-          "evidence": "features/graph/components/GraphStage.tsx:669 Dragging is value-driven by the pointer delta, kept separate from the time-stepped path reveal."
-        },
-        {
-          "technique": "unprompted-motion-lifecycle",
-          "verdict": "conformant",
-          "evidence": "features/graph/VariantMapa.tsx:207 The path sequence is user-started, stops at the hop count, and holds; at 380ms and at most 6 steps it finishes under five seconds."
+          "evidence": "features/graph/components/GraphStage.tsx:669 Dragging is value-driven by the pointer delta, kept separate from the time-stepped path reveal.",
+          "carriedFrom": "2026-10-15"
         }
       ],
-      "withdrawn": {
-        "worker": "78127660-8c67-4ac4-85d6-388cb6255ce4",
-        "state": "deviation",
-        "at": "2026-10-15T21:55:39.457775+00:00",
-        "reason": "reviewer (sonnet): PermalinkPage.tsx:559 does have a framer-motion title that starts at opacity 0 when motion is allowed. But the file header says the page has no canvas, and I found no hand-rolled path sequencer in it. The canvas drag's requestAnimationFrame loop is in components/GraphStage.tsx, which isn't among thi"
-      }
+      "registryProposal": "content-bearing-degradation's start-state rule could name the common library idiom `initial={reduce ? false : {...}}` explicitly. It looks reduced-motion-safe, but on the server the preference reader returns null, so the hidden start state is always serialized: the guard reads as a fallback and never runs where the document is delivered."
     },
     "f4e73683-b40c-4436-b8ea-20e407f499ab/motion": {
       "context": "eslint-plugin-civic-transparency-rules",
