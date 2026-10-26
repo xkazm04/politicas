@@ -10381,48 +10381,47 @@
       "context": "civic-inbox",
       "subject": "telemetry-pii-redaction",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-22",
-      "evaluatedTs": "2026-10-22T21:40:24.360Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T22:50:50.785Z",
+      "worker": "000ebafe-c8d6-451e-abf4-0510cd014343",
       "techniques": [
         {
-          "technique": "correlation-preserving-redaction",
+          "technique": "redact-at-the-cap",
           "verdict": "deviation",
-          "evidence": "features/schranka/telemetryScrub.ts:56 Followed entity keys in query params are deleted and replaced by a count rather than a keyed derivative that preserves correlation across triage reports."
+          "evidence": "features/schranka/telemetryScrub.ts:120 An unknown shape passes through untouched instead of being dropped with a marker. The function has no try/catch, so if a getter throws, the exception reaches the transport, which many SDKs treat as consent to send the original. There are no depth caps, no cycle set and no limit markers."
         },
         {
           "technique": "denylist-plus-pattern-pass",
           "verdict": "deviation",
-          "evidence": "features/schranka/telemetryScrub.ts:74 The scrubber only matches the specific query parameter e= rather than executing a recursive keyed drop pass and pattern pass over all string values."
+          "evidence": "features/schranka/telemetryScrub.ts:17 There is one keyed rule, for the query parameter `e` carrying an entity key. There is no generic personal-data key denylist and no value pattern pass (mail address, digit runs, tokens, quoted spans, URL authority). This is the only beforeSend scrubber in the repo, so nothing else supplies the second pass."
         },
         {
-          "technique": "exclusion-bounds-reads-not-output",
-          "verdict": "not-applicable",
-          "evidence": "features/schranka/telemetryScrub.ts:26 Civic-inbox filters discrete entity query parameters rather than composing synthetic outputs from read-bounded source material."
+          "technique": "emit-site-inventory",
+          "verdict": "deviation",
+          "evidence": "features/schranka/telemetryScrub.ts:116 The doc comment lists the places the scrub touches: transaction, request, contexts.trace.data, spans and breadcrumbs. It is not a payload inventory with the closed scrubbed/dropped/passed vocabulary. message, exception values, frames, extras, tags, user and contexts other than trace have no disposition at all."
         },
         {
           "technique": "hook-coverage-gaps",
           "verdict": "deviation",
-          "evidence": "instrumentation-client.ts:25 Client and server initialize separate Sentry configs without a shared base configuration, omit a capture wrapper for call sites, and leave unreached hook fields undocumented."
-        },
-        {
-          "technique": "redact-at-the-cap",
-          "verdict": "deviation",
-          "evidence": "features/schranka/telemetryScrub.ts:124 Unknown event shapes pass through uninspected without depth/breadth/size limits, and there is no guard returning a minimal record on error."
+          "evidence": "features/schranka/telemetryScrub.ts:25 The comment hands IP and headers off to `sendDefaultPii`, but no Sentry config sets it (grep finds it only in this comment). The hook does not reach the message, exception value or frames. There is no capture wrapper, even though app/error.tsx and lib/db/loaderGuard.ts call raw captureException. The three runtime configs are copies, not one shared base, held in line only by a source test."
         },
         {
           "technique": "redaction-invariants-as-tests",
           "verdict": "conformant",
-          "evidence": "features/schranka/telemetryScrub.test.ts:113 Tests verify whole-payload absence across serialized JSON output, clean survival of non-entity parameters, and positive execution of the replacement marker."
+          "evidence": "features/schranka/telemetryScrub.test.ts:113 Absence is asserted on the serialised output, including a real SDK-assembled event walked via allStrings (line 91). There is a clean-survival case for a foreign `e` (lines 39-45), a positive instrument assertion that `e_count=3` is present (line 95), and binding tests on the installation sites. There are no cap regression cases because there are no caps."
+        },
+        {
+          "technique": "correlation-preserving-redaction",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:19 The follow list is content (which public entities a reader follows), not a per-person join key; the context has no accounts. Dropping it and keeping a count follows the technique's 'pseudonymise keys; drop content' rule, so no keyed derivative is called for."
+        },
+        {
+          "technique": "exclusion-bounds-reads-not-output",
+          "verdict": "not-applicable",
+          "evidence": "features/schranka/telemetryScrub.ts:10 The outbound payload is copied: the SDK duplicates the request URL into trace attributes. Nothing is composed or generated, so the technique's premise does not hold."
         }
-      ],
-      "registryProposal": "The correlation-preserving-redaction technique should clarify guidance for zero-account follow systems where the identifier is a set of public entity keys forming an interest fingerprint, making count replacement preferable to keyed pseudonymization.",
-      "withdrawn": {
-        "worker": "ed623c45-5eec-45a2-a351-3c414a61e4e4",
-        "state": "deviation",
-        "at": "2026-10-22T21:40:51.404006+00:00",
-        "reason": "reviewer (sonnet): Anchors :56 and :74 support the narrow e-parameter claim, but the carrying anchors :26 and :25 do not say what is claimed. Line 26 is a header comment saying the module is not anonymization. Line 25 is just `beforeSend: scrubFollowTelemetry`, which is a shared hook binding, so the claims of no share"
-      }
+      ]
     },
     "42577c48-ece2-4861-a806-d0a438bdcda9/terminal-multiplexing": {
       "context": "labs-rentgen",

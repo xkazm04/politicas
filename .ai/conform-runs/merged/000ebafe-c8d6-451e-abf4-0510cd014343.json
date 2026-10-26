@@ -1,0 +1,77 @@
+{
+ "schema": "conform-run/1",
+ "worker": "000ebafe-c8d6-451e-abf4-0510cd014343",
+ "subject": "telemetry-pii-redaction",
+ "evaluatedAt": "2026-10-26T22:50:50.785466+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-inbox",
+   "subject": "telemetry-pii-redaction",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/schranka/telemetryScrub.ts:120 The scrubber that civic-inbox exports, and that every Sentry runtime installs as beforeSend/beforeSendTransaction, lets any shape it does not recognise through unchanged and has no guard around its body. Combined with a walker that only touches named places one level deep, uninspected data can reach the hosted sink, which is the failure direction the standard forbids.",
+   "techniques": [
+    {
+     "technique": "redact-at-the-cap",
+     "verdict": "deviation",
+     "evidence": "features/schranka/telemetryScrub.ts:120 An unknown shape passes through untouched instead of being dropped with a marker. The function has no try/catch, so if a getter throws, the exception reaches the transport, which many SDKs treat as consent to send the original. There are no depth caps, no cycle set and no limit markers."
+    },
+    {
+     "technique": "denylist-plus-pattern-pass",
+     "verdict": "deviation",
+     "evidence": "features/schranka/telemetryScrub.ts:17 There is one keyed rule, for the query parameter `e` carrying an entity key. There is no generic personal-data key denylist and no value pattern pass (mail address, digit runs, tokens, quoted spans, URL authority). This is the only beforeSend scrubber in the repo, so nothing else supplies the second pass."
+    },
+    {
+     "technique": "emit-site-inventory",
+     "verdict": "deviation",
+     "evidence": "features/schranka/telemetryScrub.ts:116 The doc comment lists the places the scrub touches: transaction, request, contexts.trace.data, spans and breadcrumbs. It is not a payload inventory with the closed scrubbed/dropped/passed vocabulary. message, exception values, frames, extras, tags, user and contexts other than trace have no disposition at all."
+    },
+    {
+     "technique": "hook-coverage-gaps",
+     "verdict": "deviation",
+     "evidence": "features/schranka/telemetryScrub.ts:25 The comment hands IP and headers off to `sendDefaultPii`, but no Sentry config sets it (grep finds it only in this comment). The hook does not reach the message, exception value or frames. There is no capture wrapper, even though app/error.tsx and lib/db/loaderGuard.ts call raw captureException. The three runtime configs are copies, not one shared base, held in line only by a source test."
+    },
+    {
+     "technique": "redaction-invariants-as-tests",
+     "verdict": "conformant",
+     "evidence": "features/schranka/telemetryScrub.test.ts:113 Absence is asserted on the serialised output, including a real SDK-assembled event walked via allStrings (line 91). There is a clean-survival case for a foreign `e` (lines 39-45), a positive instrument assertion that `e_count=3` is present (line 95), and binding tests on the installation sites. There are no cap regression cases because there are no caps."
+    },
+    {
+     "technique": "correlation-preserving-redaction",
+     "verdict": "not-applicable",
+     "evidence": "features/schranka/telemetryScrub.ts:19 The follow list is content (which public entities a reader follows), not a per-person join key; the context has no accounts. Dropping it and keeping a count follows the technique's 'pseudonymise keys; drop content' rule, so no keyed derivative is called for."
+    },
+    {
+     "technique": "exclusion-bounds-reads-not-output",
+     "verdict": "not-applicable",
+     "evidence": "features/schranka/telemetryScrub.ts:10 The outbound payload is copied: the SDK duplicates the request URL into trace attributes. Nothing is composed or generated, so the technique's premise does not hold."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-26T22:50:50.785466+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "telemetry-pii-redaction"
+   ],
+   "techniques": [
+    "correlation-preserving-redaction",
+    "denylist-plus-pattern-pass",
+    "emit-site-inventory",
+    "exclusion-bounds-reads-not-output",
+    "hook-coverage-gaps",
+    "redact-at-the-cap",
+    "redaction-invariants-as-tests"
+   ],
+   "deviations": 1,
+   "context": "civic-inbox",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

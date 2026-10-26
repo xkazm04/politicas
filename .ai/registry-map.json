@@ -3280,7 +3280,11 @@
           "revision": 1,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/schranka/telemetryScrub.ts:120 The scrubber that civic-inbox exports, and that every Sentry runtime installs as beforeSend/beforeSendTransaction, lets any shape it does not recognise through unchanged and has no guard around its body. Combined with a walker that only touches named places one level deep, uninspected data can reach the hosted sink, which is the failure direction the standard forbids.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:291ed63388cf9602",
+          "evaluatedRevision": 1
         },
         {
           "subject": "llm-call-telemetry-model",
