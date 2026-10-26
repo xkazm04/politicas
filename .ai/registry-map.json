@@ -5154,7 +5154,11 @@
           "revision": 2,
           "changedAt": "2026-08-31",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/kg.ts:1 This context is a typed SQL data-access layer over PGlite, not CI execution infrastructure; a case-insensitive grep of lib/db/pglite/repositories/ for runner, runs-on, self-hosted, concurrency: and actions/cache found no hits, so none of the subject's runner-capacity, isolation, state, cache or deploy-lock concerns have a construct here to judge.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:8119510164547576",
+          "evaluatedRevision": 3
         },
         {
           "subject": "prompt-assembly",
