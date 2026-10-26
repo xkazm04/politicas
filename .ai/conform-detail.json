@@ -9892,57 +9892,57 @@
       "context": "admin-infrastructure",
       "subject": "repo-manifest-standard",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-19",
-      "evaluatedTs": "2026-10-19T22:28:23.656Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T22:34:05.766Z",
+      "worker": "6b4f4362-f34b-4300-8e9f-a593ae30ebfb",
       "techniques": [
-        {
-          "technique": "capability-not-tool-vocabulary",
-          "verdict": "not-applicable",
-          "evidence": "features/data-releases/manifest.ts:87 The manifest describes graph data, not repository capabilities and their invocations."
-        },
         {
           "technique": "generated-from-provenance",
           "verdict": "not-applicable",
-          "evidence": "app/data/page.tsx:20 This is a runtime data-release description, not a committed repository contract requiring synthesis and drift checking."
-        },
-        {
-          "technique": "must-ignore-unknown",
-          "verdict": "not-applicable",
-          "evidence": "app/admin/loops.json/route.ts:2 The loop document carries operational state; it is not an extensible repository description."
+          "evidence": "app/data/manifest.json/route.ts:13 Document is computed per request from the store and never committed, so there is no committed artifact to drift-check against a regeneration."
         },
         {
           "technique": "pointers-not-embeds",
           "verdict": "not-applicable",
-          "evidence": "app/data/snapshot.json/route.ts:4 The endpoint intentionally exports graph contents rather than a repository contract pointing to evidence."
+          "evidence": "app/data/snapshot.json/route.ts:23 This is a data download that is meant to carry its payload, not a repo manifest deciding what to embed and what to point at."
         },
         {
-          "technique": "reserved-space-must-be-unusable",
+          "technique": "capability-not-tool-vocabulary",
           "verdict": "not-applicable",
-          "evidence": "features/data-releases/manifest.ts:26 This identifies a domain data-release format; the inspected context does not define reserved repository-contract extension space."
-        },
-        {
-          "technique": "semver-additive-evolution",
-          "verdict": "not-applicable",
-          "evidence": "features/data-releases/manifest.ts:152 The version identifies an ingest-derived data release, so repository-contract semver requirements do not govern this field."
-        },
-        {
-          "technique": "spec-ships-with-artifact",
-          "verdict": "not-applicable",
-          "evidence": "app/atlas/atlas.json/route.ts:4 Atlas publishes a data-quality report, not the repository self-description whose specification this technique requires."
+          "evidence": "app/data/page.tsx:9 The release manifest carries release facts (version, counts, hashes) and has no capability→command map that could be tool-shaped."
         },
         {
           "technique": "version-gate-precedes-schema-gate",
           "verdict": "not-applicable",
-          "evidence": "features/admin/loops/loopsJson.ts:59 This parses runtime loop state, not a single-reader configuration declaring a minimum tool version."
+          "evidence": "app/admin/loops.json/route.ts:4 The route only encodes. The single-reader decode with its schema-identity check lives in features/admin/loops/loopsJson.ts, outside this context, and it is a data-interchange codec, not a repo manifest."
+        },
+        {
+          "technique": "must-ignore-unknown",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/loops.json/route.ts:2 The loop document carries operational state; it is not an extensible repository description.",
+          "carriedFrom": "2026-10-19"
+        },
+        {
+          "technique": "reserved-space-must-be-unusable",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/manifest.ts:26 This identifies a domain data-release format; the inspected context does not define reserved repository-contract extension space.",
+          "carriedFrom": "2026-10-19"
+        },
+        {
+          "technique": "semver-additive-evolution",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/manifest.ts:152 The version identifies an ingest-derived data release, so repository-contract semver requirements do not govern this field.",
+          "carriedFrom": "2026-10-19"
+        },
+        {
+          "technique": "spec-ships-with-artifact",
+          "verdict": "not-applicable",
+          "evidence": "app/atlas/atlas.json/route.ts:4 Atlas publishes a data-quality report, not the repository self-description whose specification this technique requires.",
+          "carriedFrom": "2026-10-19"
         }
       ],
-      "withdrawn": {
-        "worker": "03a96e5f-9e1b-4c13-b091-2187b336fcba",
-        "state": "not-applicable",
-        "at": "2026-10-19T22:28:44.589975+00:00",
-        "reason": "reviewer (sonnet): The anchor (app/data/manifest.json/route.ts:4) is a comment about the data-release manifest and doesn't show that a repo-manifest precondition is absent; the evidence's own claim that the repository contract 'lives separately under .ai/' points to .ai/manifest.yaml, outside this context, so the verd"
-      }
+      "registryProposal": "The subject's vocabulary ('manifest', 'schema', 'version') also matches runtime data-release and API documents. The registry-map matcher should tell a repository self-description apart from a published data-release manifest; otherwise data-endpoint contexts get paired with this subject by token match alone. Those contexts may be better governed by public-claim-provenance or self-describing-data-envelopes."
     },
     "751b4a2f-8afc-456a-b6c6-eb7297879688/runner-fleet": {
       "context": "db-repositories",

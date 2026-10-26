@@ -1203,7 +1203,11 @@
           "revision": 11,
           "changedAt": "2026-09-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/data/manifest.json/route.ts:4 The only 'manifest' in this context is a runtime HTTP response describing the current DATA release (built per request by getReleaseManifest() from the store), not a contract the repository carries about itself; a case-insensitive grep of app/admin, app/atlas and app/data for capabilit, schemaVersion, provenance and generatedBy found nothing, and the repository manifest proper (.ai/manifest.yaml) sits outside this context.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:ae86d5eb87b1c37f",
+          "evaluatedRevision": 11
         }
       ],
       "governance": "governed"

@@ -1,0 +1,66 @@
+{
+ "schema": "conform-run/1",
+ "worker": "6b4f4362-f34b-4300-8e9f-a593ae30ebfb",
+ "subject": "repo-manifest-standard",
+ "evaluatedAt": "2026-10-26T22:34:05.766998+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "admin-infrastructure",
+   "subject": "repo-manifest-standard",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/data/manifest.json/route.ts:4 The only 'manifest' in this context is a runtime HTTP response describing the current DATA release (built per request by getReleaseManifest() from the store), not a contract the repository carries about itself; a case-insensitive grep of app/admin, app/atlas and app/data for capabilit, schemaVersion, provenance and generatedBy found nothing, and the repository manifest proper (.ai/manifest.yaml) sits outside this context.",
+   "techniques": [
+    {
+     "technique": "generated-from-provenance",
+     "verdict": "not-applicable",
+     "evidence": "app/data/manifest.json/route.ts:13 Document is computed per request from the store and never committed, so there is no committed artifact to drift-check against a regeneration."
+    },
+    {
+     "technique": "pointers-not-embeds",
+     "verdict": "not-applicable",
+     "evidence": "app/data/snapshot.json/route.ts:23 This is a data download that is meant to carry its payload, not a repo manifest deciding what to embed and what to point at."
+    },
+    {
+     "technique": "capability-not-tool-vocabulary",
+     "verdict": "not-applicable",
+     "evidence": "app/data/page.tsx:9 The release manifest carries release facts (version, counts, hashes) and has no capability\u2192command map that could be tool-shaped."
+    },
+    {
+     "technique": "version-gate-precedes-schema-gate",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loops.json/route.ts:4 The route only encodes. The single-reader decode with its schema-identity check lives in features/admin/loops/loopsJson.ts, outside this context, and it is a data-interchange codec, not a repo manifest."
+    }
+   ],
+   "absenceTerms": [
+    "capabilit",
+    "schemaVersion",
+    "provenance",
+    "generatedBy"
+   ],
+   "registryProposal": "The subject's vocabulary ('manifest', 'schema', 'version') also matches runtime data-release and API documents. The registry-map matcher should tell a repository self-description apart from a published data-release manifest; otherwise data-endpoint contexts get paired with this subject by token match alone. Those contexts may be better governed by public-claim-provenance or self-describing-data-envelopes."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-26T22:34:05.766998+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "repo-manifest-standard"
+   ],
+   "techniques": [
+    "capability-not-tool-vocabulary",
+    "generated-from-provenance",
+    "pointers-not-embeds",
+    "version-gate-precedes-schema-gate"
+   ],
+   "deviations": 0,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
