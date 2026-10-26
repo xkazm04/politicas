@@ -13786,7 +13786,11 @@
           "revision": 7,
           "changedAt": "2026-09-17",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/kg-verdict.ts:268 The KG verdict gate checks model-emitted identifiers against the store only when the caller supplies knownIds. If the caller omits it, edge endpoints and prose-cited urns are not resolved at all, and the result still comes back as an unqualified ok:true. The same opt-in shape is in verdict.ts:209 and law-verdict.ts:247-248, so the 'every identifier is validated against the live store' rule is conditional, not unconditional.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:51087132dbd1c9fb",
+          "evaluatedRevision": 7
         },
         {
           "subject": "claim-verification-and-provenance",

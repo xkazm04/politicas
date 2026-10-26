@@ -1,0 +1,72 @@
+{
+ "schema": "conform-run/1",
+ "worker": "e6d5882e-3f5f-438b-8e1d-6e29f8d509f7",
+ "subject": "prompt-safety",
+ "evaluatedAt": "2026-10-26T22:15:27.088758+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "verdict-and-law-analysis",
+   "subject": "prompt-safety",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/analysis/kg-verdict.ts:268 The KG verdict gate checks model-emitted identifiers against the store only when the caller supplies knownIds. If the caller omits it, edge endpoints and prose-cited urns are not resolved at all, and the result still comes back as an unqualified ok:true. The same opt-in shape is in verdict.ts:209 and law-verdict.ts:247-248, so the 'every identifier is validated against the live store' rule is conditional, not unconditional.",
+   "techniques": [
+    {
+     "technique": "model-output-as-untrusted",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/kg-verdict.ts:303 The closed grammar is real: additionalProperties:false, enum rel/kind, checkExactKeys. But an edge endpoint passes when the same model output declared it as a node. The anti-hallucination sweep (ENTITY_URN, line 98) matches only psp:* urns, so a self-declared fabricated id such as company:ico:\u2026 passes as an endpoint without any existence check against the store. The whole check is also skipped when knownIds is absent."
+    },
+    {
+     "technique": "inspection-coverage-is-a-verdict",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/verdict.ts:209 When no id set is supplied, the entity-membership check silently does not run, and ValidationResult has no field recording that it was not inspected. A skipped check and a passed check produce the same ok:true."
+    },
+    {
+     "technique": "payoff-removal",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:13 The consequential output of the law forensic channel is bounded: gated findings are stored pending_review for a human, and verdict-provenance.ts discloses a 'machine' rung to readers. Persuasive prose channels are not separately assigned a payoff."
+    },
+    {
+     "technique": "output-sanitization",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:257 Model-authored web/bill_text citation sources are allowlisted to http(s) schemes before persist, and LAW_PIPELINE_JARGON rejects cache file paths in prose. Secret masking and markup neutralization are not in this context; the models here are not shown credentials."
+    },
+    {
+     "technique": "cross-language-rule-parity",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/language-gate.ts:14 The persist-time and render-time gates are one TypeScript module imported at both ends, so there is no second runtime and no mirrored implementation to drift."
+    },
+    {
+     "technique": "canary-tripwires",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/tripwires.ts:1 These 'tripwires' are deterministic graph-invariant candidate generators, not prompt canaries. The context assembles no prompt, so it plants no canary or nonce, and the validators do not screen output for one."
+    }
+   ],
+   "registryProposal": "model-output-as-untrusted could name a specific hole: the 'declared in the same output' escape hatch. A validator that accepts identifiers the model introduced elsewhere in the same response as valid references turns the existence check into self-attestation. The technique should say that model-declared new entities need their own existence/kind gate, and must not become trusted endpoints for other operations in the same response."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-26T22:15:27.088758+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-safety"
+   ],
+   "techniques": [
+    "canary-tripwires",
+    "cross-language-rule-parity",
+    "inspection-coverage-is-a-verdict",
+    "model-output-as-untrusted",
+    "output-sanitization",
+    "payoff-removal"
+   ],
+   "deviations": 1,
+   "context": "verdict-and-law-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
