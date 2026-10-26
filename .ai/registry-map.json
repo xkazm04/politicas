@@ -8988,7 +8988,11 @@
           "revision": 7,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:2 Here \"terminal\" is only a visual metaphor: a pure view model with no server or DOM that renders a verified-only money graph, a ledger and a styled \"tail -f\" provenance log. No PTY, emulator, multiplexer or interactive session exists here, and a case-insensitive search for node-pty, xterm, tmux, pseudo-terminal and scrollback across features/labs/rentgen/, features/** and package.json found nothing.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:c3ef11aba4a471f5",
+          "evaluatedRevision": 7
         },
         {
           "subject": "entity-lifecycle",

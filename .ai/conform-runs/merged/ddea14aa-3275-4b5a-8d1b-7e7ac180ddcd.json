@@ -1,0 +1,48 @@
+{
+ "schema": "conform-run/1",
+ "worker": "ddea14aa-3275-4b5a-8d1b-7e7ac180ddcd",
+ "subject": "terminal-multiplexing",
+ "evaluatedAt": "2026-10-26T22:54:13.155014+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "labs-rentgen",
+   "subject": "terminal-multiplexing",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/labs/rentgen/terminalModel.ts:2 Here \"terminal\" is only a visual metaphor: a pure view model with no server or DOM that renders a verified-only money graph, a ledger and a styled \"tail -f\" provenance log. No PTY, emulator, multiplexer or interactive session exists here, and a case-insensitive search for node-pty, xterm, tmux, pseudo-terminal and scrollback across features/labs/rentgen/, features/** and package.json found nothing.",
+   "techniques": [
+    {
+     "technique": "pty-management",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/VariantRentgen.tsx:13 The \"tail -f\" log is a rendered list of provenance rows, not a pseudo-terminal stream, so there is no PTY whose resize or platform quirks would need managing."
+    }
+   ],
+   "absenceTerms": [
+    "node-pty",
+    "xterm",
+    "tmux",
+    "pseudo-terminal",
+    "scrollback"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-26T22:54:13.155014+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "terminal-multiplexing"
+   ],
+   "techniques": [
+    "pty-management"
+   ],
+   "deviations": 0,
+   "context": "labs-rentgen",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
