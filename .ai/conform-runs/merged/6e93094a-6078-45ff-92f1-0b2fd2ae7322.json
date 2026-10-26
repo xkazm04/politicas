@@ -1,0 +1,66 @@
+{
+ "schema": "conform-run/1",
+ "worker": "6e93094a-6078-45ff-92f1-0b2fd2ae7322",
+ "subject": "trust-base",
+ "evaluatedAt": "2026-10-26T22:56:53.934426+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "census-quality-gate",
+   "subject": "trust-base",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/census/lib/engine.mjs:14 The context is plain untyped Node .mjs (a file walk + regex/import matcher + baseline ratchet) with no prover, no trusted bodies, no unsafe/assume escapes, no marker impls and no type-checker overrides; a search of scripts/census for 'unsafe', '@ts-ignore', '@ts-expect-error', 'prover', 'trusted' found 0 hits, and the repo's tsconfig include list (**/*.ts, **/*.tsx, **/*.mts) does not cover .mjs, so no checker reaches these files and there is no trust-base perimeter to manage.",
+   "techniques": [
+    {
+     "technique": "census-counts-unmarked-members",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/run-census.mjs:16 This 'census' counts rule-matched source files against golden-path baselines, not escape-marker members of a trust base; there is no language-revision pin or unchecked-type escape census here."
+    },
+    {
+     "technique": "trusted-leaf-gets-an-outside-test",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/self-test.mjs:21 There is an outside fixture self-test of the engine, but no function body is marked trusted to a prover, so the technique's precondition does not hold."
+    },
+    {
+     "technique": "verifier-footprint-stays-contained",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/lib/engine.mjs:27 Engine imports only node built-ins; no prover or specification library is added to any package."
+    },
+    {
+     "technique": "assumptions-are-build-errors",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/self-test.mjs:29 The CRLF concern is a runtime matcher behaviour pinned by a fixture test, not a platform fact a proof or type-level argument depends on."
+    }
+   ],
+   "absenceTerms": [
+    "unsafe",
+    "@ts-ignore",
+    "@ts-expect-error",
+    "prover",
+    "trusted"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-26T22:56:53.934426+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "trust-base"
+   ],
+   "techniques": [
+    "assumptions-are-build-errors",
+    "census-counts-unmarked-members",
+    "trusted-leaf-gets-an-outside-test",
+    "verifier-footprint-stays-contained"
+   ],
+   "deviations": 0,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

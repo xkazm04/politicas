@@ -12432,6 +12432,37 @@
           "evidence": "features/labs/rentgen/getTerminalData.ts:167 No retries happen. Total degradation is still traced through reportLoaderFailure."
         }
       ]
+    },
+    "78e81519-5df8-43ec-adb6-ba4dae3ea206/trust-base": {
+      "context": "census-quality-gate",
+      "subject": "trust-base",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T22:56:53.934Z",
+      "worker": "6e93094a-6078-45ff-92f1-0b2fd2ae7322",
+      "techniques": [
+        {
+          "technique": "census-counts-unmarked-members",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/run-census.mjs:16 This 'census' counts rule-matched source files against golden-path baselines, not escape-marker members of a trust base; there is no language-revision pin or unchecked-type escape census here."
+        },
+        {
+          "technique": "trusted-leaf-gets-an-outside-test",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/self-test.mjs:21 There is an outside fixture self-test of the engine, but no function body is marked trusted to a prover, so the technique's precondition does not hold."
+        },
+        {
+          "technique": "verifier-footprint-stays-contained",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/lib/engine.mjs:27 Engine imports only node built-ins; no prover or specification library is added to any package."
+        },
+        {
+          "technique": "assumptions-are-build-errors",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/self-test.mjs:29 The CRLF concern is a runtime matcher behaviour pinned by a fixture test, not a platform fact a proof or type-level argument depends on."
+        }
+      ]
     }
   }
 }
