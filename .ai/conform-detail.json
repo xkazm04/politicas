@@ -12396,6 +12396,42 @@
         "at": "2026-10-26T22:27:47.230046+00:00",
         "reason": "reviewer (sonnet): The main anchor (LeaderboardPoster.tsx:101) and the PosterFrame.tsx:91 anchor are in features/shared/poster, which is not among this context's files. The two provenance anchors (ProvenanceCapsule.tsx:112, ReceiptBody.tsx:249) only show a popover and a short audit list. I could not confirm that every"
       }
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/retry-backoff": {
+      "context": "labs-rentgen",
+      "subject": "retry-backoff",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T22:39:04.174Z",
+      "worker": "0e818202-4719-4866-a705-b9f11ac815ae",
+      "techniques": [
+        {
+          "technique": "error-classification-for-retry",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:114 Every failure goes to report-and-degrade with no retry decision, so there is nothing to classify for retry."
+        },
+        {
+          "technique": "backoff-design",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:159 Each layer gets exactly one read per render. There is no retry ladder to tune and no delay."
+        },
+        {
+          "technique": "durable-retries",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:12 The loader writes nothing and starts no backfill, so no retry state needs to survive a restart."
+        },
+        {
+          "technique": "storm-control",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:158 React cache() dedupes the read within a request, and since nothing retries there is no herd to control."
+        },
+        {
+          "technique": "retry-observability",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:167 No retries happen. Total degradation is still traced through reportLoaderFailure."
+        }
+      ]
     }
   }
 }
