@@ -12246,6 +12246,42 @@
           "evidence": "scripts/data-analysis/kg-promote.ts:144 'Registry' here means a public data source a verdict draws on. Nothing in this context publishes a standard, so there is no publish boundary to split across."
         }
       ]
+    },
+    "f50627ef-a7a1-40a4-9491-560efa6cb05d/observability-telemetry": {
+      "context": "mp-profile",
+      "subject": "observability-telemetry",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T00:15:19.300Z",
+      "worker": "836e2650-a22f-4184-bad2-c8ad642417d2",
+      "techniques": [
+        {
+          "technique": "log-architecture",
+          "verdict": "conformant",
+          "evidence": "features/profile/getProfileData.ts:376 Error-level records come only from failures that reached a door (catch → null fallback). The origin is a stable, finer-grained name ('getProfileData/absence' vs 'getProfileData'), so the absence sub-read can be told apart from a failure of the whole loader. The record envelope itself is built in lib/db/loaderGuard.ts, which is outside this context."
+        },
+        {
+          "technique": "pre-boot-and-foreign-capture",
+          "verdict": "conformant",
+          "evidence": "features/profile/getRebellionRecord.ts:83 Only the 'same trap at half-size' clause applies here: the rebellion loader forwards its failure into the primary sink instead of writing to a stream itself. Grep for console.|process.std over features/profile returned 0 hits. The deferred-buffer and foreign-runtime clauses do not apply, because this context spawns and embeds no runtime."
+        },
+        {
+          "technique": "remote-telemetry-economics",
+          "verdict": "conformant",
+          "evidence": "features/profile/getProfileData.ts:650 A remote (Sentry) event is sent only on an actionable loader failure, inside the catch. There is no heartbeat or 'it worked' metronome event. The loader is wrapped in React cache() (line 110), so it emits at most once per request per MP. Quota, sampling and batching belong to the shared door and Sentry config, not to this context."
+        },
+        {
+          "technique": "crash-record-storage",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getProfileData.ts:24 The context hands all recording to lib/db and persists no crash evidence of its own. Its crash handling is defensive rendering (the ProfilePage.tsx:193 guard), not a store."
+        },
+        {
+          "technique": "rotation-and-retention",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getRebellionRecord.ts:46 The context creates no file-backed record class. Bounding the loader-failure log is the job of lib/db/loaderFailureLog.ts (the shared infrastructure)."
+        }
+      ]
     }
   }
 }

@@ -12024,7 +12024,11 @@
           "revision": 6,
           "changedAt": "2026-09-04",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/profile/getProfileData.ts:376 Every failure the Spis surface catches goes through the one shared recording door (reportLoaderFailure) under a stable, sub-scoped origin name. Grep found no console.* or process.std* writes anywhere in features/profile, so the context keeps no private diary, and it owns no log file, crash store or remote channel that would bring in the storage, retention or access techniques.",
+          "evaluatedAt": "2026-10-26",
+          "evaluatedAgainst": "sha256-b2:5f1eca73a0e27036",
+          "evaluatedRevision": 6
         },
         {
           "subject": "prompt-assembly",
