@@ -1,0 +1,17 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b0910484-80cd-4bb8-860e-a3ab696c0e28",
+ "subject": "political-compass-from-votes",
+ "evaluatedAt": "2026-10-26T22:08:19.262139+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [],
+ "declined": [
+  {
+   "subject": "political-compass-from-votes",
+   "context": "votetrack-ledger",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": []
+}
