@@ -12463,6 +12463,52 @@
           "evidence": "scripts/census/self-test.mjs:29 The CRLF concern is a runtime matcher behaviour pinned by a fixture test, not a platform fact a proof or type-level argument depends on."
         }
       ]
+    },
+    "5e38cfa9-d10e-43fa-9e8d-67d925668e43/ui-controls": {
+      "context": "shared-components",
+      "subject": "ui-controls",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-26",
+      "evaluatedTs": "2026-10-26T23:00:19.849Z",
+      "techniques": [
+        {
+          "technique": "micro-interaction-contracts",
+          "verdict": "deviation",
+          "evidence": "features/shared/forensic/ForensicToggle.tsx:28 Native title used as the tooltip on a shared control. The copy affordance, by contrast, follows the contract: CopyLinkButton.tsx:57 has a distinct failure state, :60 restarts a single bounded revert timer (2.6 s), and :72 announces through an aria-live status. It does not guard against an empty payload."
+        },
+        {
+          "technique": "variant-discipline",
+          "verdict": "conformant",
+          "evidence": "features/shared/components/StatTile.tsx:31 Variants are closed enums named for intent, not flags. SourceNote.tsx:41 `const TONE = {` maps tone to tokens in one place, and StatTile takes no className hatch at all."
+        },
+        {
+          "technique": "call-site-ownership",
+          "verdict": "deviation",
+          "evidence": "features/shared/components/SourceNote.tsx:76 className goes on after tone and accepts appearance classes as well as placement ones. A repo grep found 7 SourceNote call sites forcing color with `!text-ochre` or `!text-cobalt`, which goes around the closed tone set. The repo's no-source-note-size-override lint rule covers only the font-size family. ForensicToggle.tsx:36 appends a free className after its own appearance classes in the same way."
+        },
+        {
+          "technique": "composition-contracts",
+          "verdict": "deviation",
+          "evidence": "features/shared/components/Combobox.tsx:73 Combobox keeps its input ref private: no ref is forwarded and no host or data attributes pass through, so the only seams are className, renderItem and selectedKey. It does declare a renderItem slot and an intent-shaped onSelect. Two forks that hand-roll role=\"combobox\" exist outside the primitive (features/civicscore/KrajPickerPage.tsx:130, features/graph/components/NodeSearch.tsx:116)."
+        },
+        {
+          "technique": "control-inventory-and-discovery",
+          "verdict": "deviation",
+          "evidence": "features/shared/components/CopyLinkButton.tsx:4 Primitives do carry @catalog source annotations, and lint enforces the placement boundary. But no generator reads the tags: a search of scripts/lib/packages found none. The only catalog is the hand-curated list in docs/DESIGN.md §6, which ends in '…', and the forensic/ControlToggle files carry no @catalog tag. There is also no don't-hand-roll table keyed by temptation."
+        },
+        {
+          "technique": "adoption-enforcement",
+          "verdict": "deviation",
+          "evidence": "features/graph/components/CiteView.tsx:77 Measured 2026-10-26 by grepping `navigator.clipboard` in features/app/lib/components: 6 feature files make raw clipboard writes (WeightPanel, CiteView, PermalinkPage, RadarLedger, EvidencePacketPage, ResultsBoard), against 8 files importing CopyLinkButton. No signature detector, nudge or ratchet exists for these primitives."
+        }
+      ],
+      "withdrawn": {
+        "worker": "3f31c0d3-ce9c-4bff-a77b-f3f076c31075",
+        "state": "deviation",
+        "at": "2026-10-26T23:00:58.657194+00:00",
+        "reason": "reviewer (sonnet): The deviation's anchor, ForensicToggle.tsx:28, sits in features/shared/forensic and not among the listed shared/components files. It also leans on repo-wide claims I could not confirm: raw clipboard shadow copies and the catalog not being generated. And it cites hand-rolled comboboxes in civicscore "
+      }
     }
   }
 }
