@@ -12654,6 +12654,57 @@
           "evidence": "features/labs/rentgen/terminalModel.ts:2 Citations point to graph claim receipts (/zdroj), not into archived sessions."
         }
       ]
+    },
+    "b63c108e-2ffa-42b1-8a41-2e052c4bae86/hitl-approval": {
+      "context": "verdict-and-law-analysis",
+      "subject": "hitl-approval",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-10-27",
+      "evaluatedTs": "2026-10-27T22:34:16.145Z",
+      "worker": "cac38185-150f-4248-a087-9e847bcd00f2",
+      "techniques": [
+        {
+          "technique": "truncated-verdict-space",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/law-verdict.ts:13 A forensic verdict that passes is only a lead and gets stamped pending_review (scripts/data-analysis/kg-forensics.ts:145 confirms the writer). Tripwires do the same: candidates go to human review and are never findings (tripwires.ts:10)."
+        },
+        {
+          "technique": "fail-loud-classification-default",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/law-verdict.ts:234 A missing or unknown severity makes the whole verdict an error and it is thrown away. It is never quietly put in the 'low' bucket."
+        },
+        {
+          "technique": "gate-state-machines",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/verdict-provenance.ts:52 The gate states are a closed set. An unrecognised stored state maps to null ('nothing recorded') and is never forced into a rung. A machine rung is never shown with a decider (line 141)."
+        },
+        {
+          "technique": "resume-after-decision",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/verdict-provenance.ts:143 Rejecting a claim hides it and shows that it was refused, so it does not linger as a still-pending item. Tripwires also leave rejected ties out of later patterns (notRejected filter)."
+        },
+        {
+          "technique": "oracle-before-gate",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/tripwires.ts:20 Review candidates are sorted by how much checkable evidence comes with them (registry confirmation, role period, matched statutes), and each candidate's score breakdown is shown. That gives the reviewer something concrete to check against."
+        },
+        {
+          "technique": "review-queues",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/committee-claims.ts:87 A committee-count contradiction comes with the matched text and its surrounding sentence plus the graph's committee_count, so the reviewer can decide on the spot. It is a soft warning, not a hard drop. The queue surface itself is outside this context."
+        },
+        {
+          "technique": "severity-sla-ladder",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/tripwires.ts:7 The context is pure derivation and stores no pending state, so nothing here waits on a clock. Deadlines would belong to the review surface or the store."
+        },
+        {
+          "technique": "cosmetic-vs-enforced-threshold-invariant",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/tripwires.ts:21 Nothing here ranks by urgency or takes an automatic action, so there is no pair of cosmetic and enforced thresholds that could get out of order."
+        }
+      ]
     }
   }
 }

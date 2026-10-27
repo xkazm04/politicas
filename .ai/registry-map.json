@@ -13878,8 +13878,12 @@
           "revision": 22,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "conformant",
+          "priorNotApplicable": 3,
+          "evidence": "lib/analysis/law-verdict.ts:13 The context's machine assessors (law forensic validator, KG/slice validators, tripwires) only ever reject or pass items on to human review, never publish them; the rung reader records verdicts as machine/pending/verified/rejected and keeps a rejected claim hidden but still disclosed, so none of the in-context techniques is a deviation.",
+          "evaluatedAt": "2026-10-27",
+          "evaluatedAgainst": "sha256-b2:52d7f3cfb87a79d9",
+          "evaluatedRevision": 22
         }
       ],
       "governance": "governed"
