@@ -14275,8 +14275,12 @@
           "revision": 19,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/votetrack/kompas/select.ts:29 Kompas questions come from a fixed, published rule that ranks votes by how close the pro/proti margin was and then picks round-robin across themes; there is no user query and no lexical, semantic or fused lane, and the same grep of features/votetrack/ (which covers kompas/ and record/) found none of those terms, so the retrieval subject does not apply.",
+          "evaluatedAt": "2026-10-27",
+          "evaluatedAgainst": "sha256-b2:a49d27f889212d3f",
+          "evaluatedRevision": 19
         },
         {
           "subject": "multi-provider-gateway-plane",
@@ -14442,8 +14446,8 @@
           "revision": 19,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "priorNotApplicable": 3,
+          "state": "unknown"
         },
         {
           "subject": "design-tokens",

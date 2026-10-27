@@ -12550,6 +12550,31 @@
           "evidence": "lib/ingest/sources/monitor.ts:1 No optional components with reference locations in a workflow graph to verify."
         }
       ]
+    },
+    "4bf433a5-ab8e-4468-b456-344daae2ce21/retrieval": {
+      "context": "votetrack-ledger",
+      "subject": "retrieval",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-10-27",
+      "evaluatedTs": "2026-10-27T22:06:49.069Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "c57a1e36-af16-4f7f-bd3f-a01fa683a928",
+        "state": "not-applicable",
+        "at": "2026-10-27T22:07:40.292576+00:00",
+        "reason": "reviewer (sonnet): The anchor ledgerRead.ts:59 is a field in the LedgerRead interface, which shows no sorting and no absence of retrieval, so it is incidental; I also did not open getVoteThemes.ts to confirm the 'sorts newest first' claim."
+      }
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/retrieval": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "retrieval",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-27",
+      "evaluatedTs": "2026-10-27T22:06:49.069Z",
+      "worker": "c57a1e36-af16-4f7f-bd3f-a01fa683a928",
+      "techniques": []
     }
   }
 }
