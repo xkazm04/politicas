@@ -4613,16 +4613,27 @@
       "context": "money-investigations",
       "subject": "cross-provider-benchmark-operations",
       "bundle": "llm-observability",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-15",
-      "evaluatedTs": "2026-10-15T04:04:44.151Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "22bba22a-7a4d-40a7-aeba-4d8c5d39cda9",
-        "state": "not-applicable",
-        "at": "2026-10-15T04:05:03.618587+00:00",
-        "reason": "reviewer (sonnet): The anchor features/money/getEvidencePacket.ts:25 is an incidental line (compiledAt/compileEvidencePacket call) that does not show absence of model-comparison work; no 'NO LLM' or equivalent statement was found at or near it."
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-27",
+      "evaluatedTs": "2026-10-27T22:19:12.682Z",
+      "worker": "0fd775b3-045a-4690-8c37-da1d0d7e3ea9",
+      "techniques": [
+        {
+          "technique": "target-matrix-runs",
+          "verdict": "not-applicable",
+          "evidence": "features/money/getLeadDossiers.ts:4 No provider/model target declaration exists; the loader passes payloads through verbatim."
+        },
+        {
+          "technique": "budget-preflight-and-ceiling",
+          "verdict": "not-applicable",
+          "evidence": "features/money/reviewActions.ts:3 The only write path is a human review action, so there is no paid model spend to estimate or cap."
+        },
+        {
+          "technique": "async-run-queue-with-cancel",
+          "verdict": "not-applicable",
+          "evidence": "features/money/reviewActions.ts:3 No long-running benchmark jobs to queue or cancel."
+        }
+      ]
     },
     "1d4e5da8-7190-49ac-9a60-facf0bce4162/cross-provider-benchmark-operations": {
       "context": "money-ownership",

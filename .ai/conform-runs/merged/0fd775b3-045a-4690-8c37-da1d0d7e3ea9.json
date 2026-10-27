@@ -1,0 +1,60 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0fd775b3-045a-4690-8c37-da1d0d7e3ea9",
+ "subject": "cross-provider-benchmark-operations",
+ "evaluatedAt": "2026-10-27T22:19:12.682799+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "money-investigations",
+   "subject": "cross-provider-benchmark-operations",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "features/money/getLeadDossiers.ts:4 This context reads hand-curated dossier payloads, aggregates graph ties for case files and gates a human review write path, and never runs model targets against a dataset. A case-insensitive search of all of features/money/ for benchmark, anthropic, openai, temperature, claude, reasoning_effort and scorecard found nothing, and the only 'llm' hit is the substring in 'vi.clearAllMocks' in moneyLoader.test.ts, so the subject's precondition (a provider \u00d7 model benchmark matrix) does not hold here.",
+   "techniques": [
+    {
+     "technique": "target-matrix-runs",
+     "verdict": "not-applicable",
+     "evidence": "features/money/getLeadDossiers.ts:4 No provider/model target declaration exists; the loader passes payloads through verbatim."
+    },
+    {
+     "technique": "budget-preflight-and-ceiling",
+     "verdict": "not-applicable",
+     "evidence": "features/money/reviewActions.ts:3 The only write path is a human review action, so there is no paid model spend to estimate or cap."
+    },
+    {
+     "technique": "async-run-queue-with-cancel",
+     "verdict": "not-applicable",
+     "evidence": "features/money/reviewActions.ts:3 No long-running benchmark jobs to queue or cancel."
+    }
+   ],
+   "absenceTerms": [
+    "benchmark",
+    "anthropic",
+    "openai",
+    "temperature",
+    "scorecard"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-27T22:19:12.682799+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "cross-provider-benchmark-operations"
+   ],
+   "techniques": [
+    "async-run-queue-with-cancel",
+    "budget-preflight-and-ceiling",
+    "target-matrix-runs"
+   ],
+   "deviations": 0,
+   "context": "money-investigations",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -11369,8 +11369,12 @@
           "revision": 12,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/money/getLeadDossiers.ts:4 This context reads hand-curated dossier payloads, aggregates graph ties for case files and gates a human review write path, and never runs model targets against a dataset. A case-insensitive search of all of features/money/ for benchmark, anthropic, openai, temperature, claude, reasoning_effort and scorecard found nothing, and the only 'llm' hit is the substring in 'vi.clearAllMocks' in moneyLoader.test.ts, so the subject's precondition (a provider × model benchmark matrix) does not hold here.",
+          "evaluatedAt": "2026-10-27",
+          "evaluatedAgainst": "sha256-b2:a6d9e74af45916cc",
+          "evaluatedRevision": 13
         },
         {
           "subject": "accountability-publishing-ethics",
