@@ -1,0 +1,99 @@
+{
+ "schema": "conform-run/1",
+ "worker": "fecff990-2875-487a-92ef-3696aa0f9064",
+ "subject": "settings",
+ "evaluatedAt": "2026-10-27T22:16:00.544655+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-tooling",
+   "subject": "settings",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/db/backup.ts:45 These scripts take their only configuration as per-run CLI flags (--keep, --label, --dry-run, --from, --yes) plus the store path from pglitePath(), and they hold no settings store at all; a search of the tracked files under scripts/ for settings, getSetting, setSetting, preference and app_setting found nothing (the only hits were inside the gitignored scripts/db-bench/node_modules).",
+   "techniques": [
+    {
+     "technique": "config-backup-and-restore",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/backup.ts:73 This rotates backups of the whole PGlite data store, not of an operator-owned settings file, so the technique's precondition (a local config file that is the only copy) does not apply here."
+    },
+    {
+     "technique": "key-registry",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/migrate.ts:29 Flags are read per invocation and nothing persists them, so there is no stored key space to register."
+    },
+    {
+     "technique": "cross-source-precedence-chain",
+     "verdict": "not-applicable",
+     "evidence": "scripts/db/migrate.ts:32 There is one value from one source (an env var or a constant, resolved in lib/db/config, which is outside this context), not a configuration chain built from several sources."
+    }
+   ],
+   "absenceTerms": [
+    "getSetting",
+    "setSetting",
+    "preference",
+    "app_setting"
+   ]
+  },
+  {
+   "context": "db-repositories",
+   "subject": "settings",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/pglite/repositories/weights.ts:1 The repositories store domain tables (kg nodes/edges, votes, changes, reviews, ledger, provenance and anonymous lens-weight submissions) with no application settings or preference key-value store; a search of the tracked repositories directory for settings, getSetting, setSetting, preference and app_setting found nothing.",
+   "techniques": [
+    {
+     "technique": "key-registry",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/repositories/weights.ts:59 The table closest to a preference is an append-only log of anonymous weight-vector submissions that feeds a published aggregate. It is not a per-user setting keyed by name."
+    },
+    {
+     "technique": "typed-accessors",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/repositories/weights.ts:52 This is a codec that validates submission data, not a typed accessor that returns a setting with a default."
+    }
+   ],
+   "absenceTerms": [
+    "getSetting",
+    "setSetting",
+    "preference",
+    "app_setting"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-27T22:16:00.544655+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "settings"
+   ],
+   "techniques": [
+    "config-backup-and-restore",
+    "cross-source-precedence-chain",
+    "key-registry"
+   ],
+   "deviations": 0,
+   "context": "db-tooling",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-10-27T22:16:00.544655+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "settings"
+   ],
+   "techniques": [
+    "key-registry",
+    "typed-accessors"
+   ],
+   "deviations": 0,
+   "context": "db-repositories",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

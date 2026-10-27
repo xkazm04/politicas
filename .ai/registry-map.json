@@ -5203,8 +5203,12 @@
           "revision": 13,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "lib/db/pglite/repositories/weights.ts:1 The repositories store domain tables (kg nodes/edges, votes, changes, reviews, ledger, provenance and anonymous lens-weight submissions) with no application settings or preference key-value store; a search of the tracked repositories directory for settings, getSetting, setSetting, preference and app_setting found nothing.",
+          "evaluatedAt": "2026-10-27",
+          "evaluatedAgainst": "sha256-b2:85c48ec5bdb5581f",
+          "evaluatedRevision": 13
         },
         {
           "subject": "quality-gates",
@@ -5576,8 +5580,12 @@
           "revision": 13,
           "changedAt": "2026-09-05",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "not-applicable",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/db/backup.ts:45 These scripts take their only configuration as per-run CLI flags (--keep, --label, --dry-run, --from, --yes) plus the store path from pglitePath(), and they hold no settings store at all; a search of the tracked files under scripts/ for settings, getSetting, setSetting, preference and app_setting found nothing (the only hits were inside the gitignored scripts/db-bench/node_modules).",
+          "evaluatedAt": "2026-10-27",
+          "evaluatedAgainst": "sha256-b2:85c48ec5bdb5581f",
+          "evaluatedRevision": 13
         },
         {
           "subject": "test-harness",

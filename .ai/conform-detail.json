@@ -12575,6 +12575,53 @@
       "evaluatedTs": "2026-10-27T22:06:49.069Z",
       "worker": "c57a1e36-af16-4f7f-bd3f-a01fa683a928",
       "techniques": []
+    },
+    "313a8c55-3182-49d8-a3f7-331198b2093f/settings": {
+      "context": "db-tooling",
+      "subject": "settings",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-27",
+      "evaluatedTs": "2026-10-27T22:16:00.544Z",
+      "worker": "fecff990-2875-487a-92ef-3696aa0f9064",
+      "techniques": [
+        {
+          "technique": "config-backup-and-restore",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db/backup.ts:73 This rotates backups of the whole PGlite data store, not of an operator-owned settings file, so the technique's precondition (a local config file that is the only copy) does not apply here."
+        },
+        {
+          "technique": "key-registry",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db/migrate.ts:29 Flags are read per invocation and nothing persists them, so there is no stored key space to register."
+        },
+        {
+          "technique": "cross-source-precedence-chain",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db/migrate.ts:32 There is one value from one source (an env var or a constant, resolved in lib/db/config, which is outside this context), not a configuration chain built from several sources."
+        }
+      ]
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/settings": {
+      "context": "db-repositories",
+      "subject": "settings",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-27",
+      "evaluatedTs": "2026-10-27T22:16:00.544Z",
+      "worker": "fecff990-2875-487a-92ef-3696aa0f9064",
+      "techniques": [
+        {
+          "technique": "key-registry",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/weights.ts:59 The table closest to a preference is an append-only log of anonymous weight-vector submissions that feeds a published aggregate. It is not a per-user setting keyed by name."
+        },
+        {
+          "technique": "typed-accessors",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/repositories/weights.ts:52 This is a codec that validates submission data, not a typed accessor that returns a setting with a default."
+        }
+      ]
     }
   }
 }
