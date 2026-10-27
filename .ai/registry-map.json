@@ -9169,8 +9169,12 @@
           "revision": 2,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/labs/rentgen/terminalModel.ts:20 The 'terminal' here is a newsroom evidence view whose tail-log merges review_audit decisions and graph change_events from the civic store, not archived coding-agent transcripts; a search of all five context files for transcript, session, jsonl, redact and harness found 0 hits, so the subject's precondition (keeping third-party agent session transcripts) does not hold.",
+          "evaluatedAt": "2026-10-27",
+          "evaluatedAgainst": "sha256-b2:aa419c7f13dda67a",
+          "evaluatedRevision": 3
         },
         {
           "subject": "structured-output",

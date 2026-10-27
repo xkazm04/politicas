@@ -12633,6 +12633,27 @@
           "evidence": "lib/db/pglite/repositories/weights.ts:52 This is a codec that validates submission data, not a typed accessor that returns a setting with a default."
         }
       ]
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/agent-session-archive": {
+      "context": "labs-rentgen",
+      "subject": "agent-session-archive",
+      "bundle": "llm-observability",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-10-27",
+      "evaluatedTs": "2026-10-27T22:23:57.909Z",
+      "worker": "ed3b0d2a-5062-4b62-87cc-49ea78961f47",
+      "techniques": [
+        {
+          "technique": "capture-before-parse",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:20 No transcript source is copied or parsed. The log reads the app's own review_audit and change_event tables."
+        },
+        {
+          "technique": "declared-message-coordinates",
+          "verdict": "not-applicable",
+          "evidence": "features/labs/rentgen/terminalModel.ts:2 Citations point to graph claim receipts (/zdroj), not into archived sessions."
+        }
+      ]
     }
   }
 }

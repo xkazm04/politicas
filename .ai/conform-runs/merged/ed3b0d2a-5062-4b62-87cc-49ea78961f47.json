@@ -1,0 +1,54 @@
+{
+ "schema": "conform-run/1",
+ "worker": "ed3b0d2a-5062-4b62-87cc-49ea78961f47",
+ "subject": "agent-session-archive",
+ "evaluatedAt": "2026-10-27T22:23:57.909251+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "labs-rentgen",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "features/labs/rentgen/terminalModel.ts:20 The 'terminal' here is a newsroom evidence view whose tail-log merges review_audit decisions and graph change_events from the civic store, not archived coding-agent transcripts; a search of all five context files for transcript, session, jsonl, redact and harness found 0 hits, so the subject's precondition (keeping third-party agent session transcripts) does not hold.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:20 No transcript source is copied or parsed. The log reads the app's own review_audit and change_event tables."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:2 Citations point to graph claim receipts (/zdroj), not into archived sessions."
+    }
+   ],
+   "absenceTerms": [
+    "transcript",
+    "session",
+    "jsonl",
+    "redact",
+    "harness"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-10-27T22:23:57.909251+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates"
+   ],
+   "deviations": 0,
+   "context": "labs-rentgen",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
