@@ -58,6 +58,9 @@ describe("scrubFollowTelemetry — nad SKUTEČNOU událostí SDK", () => {
       // komentář je ta poctivá výhrada.
       dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
       tracesSampleRate: 1,
+      // Sentry 11 defaults to streamed spans and ignores beforeSendTransaction;
+      // the app's configs pin "static", so the test does the same.
+      traceLifecycle: "static",
       transport: () => ({ send: async () => ({}), flush: async () => true }),
       beforeSendTransaction(event) {
         raw.push(JSON.parse(JSON.stringify(event.contexts?.trace?.data ?? {})));
@@ -85,7 +88,10 @@ describe("scrubFollowTelemetry — nad SKUTEČNOU událostí SDK", () => {
     // rozkopíruje — v události pak leží ve DVOU atributech, z toho jeden
     // (`http.query`) jsme nikdy nenastavili. Právě proto se škrtá podle
     // parametru, ne podle jednoho očekávaného pole.
-    expect(leaking.map(([k]) => k).sort()).toEqual(["http.query", "url.full"]);
+    // @sentry/node 11.8 no longer fills `http.query` for a hand-made span, so
+    // only the attribute we set is guaranteed to carry the keys; the older copy
+    // may come back, so the check is "contains", not "equals".
+    expect(leaking.map(([k]) => k)).toContain("url.full");
 
     // A pak že po scrubu nezůstal ANI JEDEN klíč nikde v události.
     const strings = allStrings(scrubbed[0]);

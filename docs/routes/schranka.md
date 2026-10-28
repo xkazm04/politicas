@@ -136,6 +136,10 @@ entity key is dropped and replaced by `e_count=<n>`, across `contexts.trace.data
 `e=` is left alone. Both `beforeSend` and `beforeSendTransaction` run it.
 **Honest limit: no DSN exists in this repo, so verification is at the event level
 — the event the SDK builds — not at a request observed in Sentry.**
+**Sentry 11 (2026-10-25):** the SDK streams spans by default and then ignores
+`beforeSendTransaction`, which would have turned the transaction scrub off silently,
+so all three `Sentry.init` calls pin `traceLifecycle: "static"`. 11.8 no longer
+copies `url.full` into `http.query`; the test now requires `url.full` to carry the keys.
 The GET URL is deliberately KEPT (the reader owning a shareable, bookmarkable
 address IS the subscription), and the copy now states exactly that, including the
 one thing scrubbing does not change: the server still sees the request IP.
