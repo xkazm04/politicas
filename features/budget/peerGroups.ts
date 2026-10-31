@@ -119,6 +119,12 @@ export interface PeerMedians {
   debtTrend: (number | null)[];
   /** Z kolika vrstevníků s vykázanou hodnotou se poslední medián počítá. */
   sampleSize: number;
+  /** Vzorek KAŽDÉHO mediánu zvlášť. Vrstevník, který vykázal dluh, ale ne
+   *  capex, do mediánu capexu nevstupuje — práh MIN_PEERS proto platí na
+   *  efektivní vzorek té metriky, ne na skupinu ani na vzorek dluhu. Do
+   *  2026-10-31 dostávaly verdikty capexu a salda `sampleSize` dluhu a rovnost
+   *  držela jen data (a pin v testech, který by při obnově dávky zčervenal). */
+  samples: { debt: number; capex: number; saldo: number };
 }
 
 /**
@@ -152,6 +158,8 @@ export function peerMedians(
     return vals;
   };
   const debtLatest = latestOf((s) => s.debtPerCapita);
+  const capexLatest = latestOf((s) => s.capexRatio);
+  const saldoLatest = latestOf((s) => s.saldoPerCapita);
   const debtTrend: (number | null)[] = [];
   for (let i = 0; i < yearCount; i++) {
     const vals: number[] = [];
@@ -163,9 +171,10 @@ export function peerMedians(
   }
   return {
     debtPerCapita: median(debtLatest),
-    capexRatio: median(latestOf((s) => s.capexRatio)),
-    saldoPerCapita: median(latestOf((s) => s.saldoPerCapita)),
+    capexRatio: median(capexLatest),
+    saldoPerCapita: median(saldoLatest),
     debtTrend,
     sampleSize: debtLatest.length,
+    samples: { debt: debtLatest.length, capex: capexLatest.length, saldo: saldoLatest.length },
   };
 }

@@ -58,6 +58,7 @@ function MetricDuo({
   max,
   lowerIsBetter,
   sample,
+  groupCount,
 }: {
   label: string;
   /** czk = f.czk · pct = f.dec + statické „%". */
@@ -66,8 +67,12 @@ function MetricDuo({
   peer: number | null;
   max: number;
   lowerIsBetter: boolean;
-  /** Vzorek mediánu; pod MIN_PEERS žádný verdikt (viz compareToPeer). */
+  /** Vzorek TOHOTO mediánu; pod MIN_PEERS žádný verdikt (viz compareToPeer). */
   sample: number;
+  /** Počet, který tiskne věta peerRule („medián z {count} obcí"). Liší-li se
+   *  vzorek metriky, tiskne se u mediánu vlastní počet — věta pak platí jen
+   *  pro dluh a čtenář to musí vidět. */
+  groupCount: number;
 }) {
   const t = useTranslations("budget");
   const f = useFormat();
@@ -116,6 +121,7 @@ function MetricDuo({
               </span>
               <span className="font-mono text-[10px] uppercase tracking-wider text-steel-aa">
                 {t("peerMedianValue", { value: formatPlain(peer) })}
+                {sample !== groupCount ? ` ${t("peerTownCount", { count: f.int(sample) })}` : ""}
               </span>
             </>
           )}
@@ -319,7 +325,8 @@ export default function BudgetMirrorPage({
                     peer={medians.debtPerCapita}
                     max={metricMax.debt}
                     lowerIsBetter
-                    sample={medians.sampleSize}
+                    sample={medians.samples.debt}
+                    groupCount={medians.sampleSize}
                   />
                   <MetricDuo
                     label={`${t("metricCapexLabel")} (${latest.year})`}
@@ -328,7 +335,8 @@ export default function BudgetMirrorPage({
                     peer={medians.capexRatio}
                     max={metricMax.capex}
                     lowerIsBetter={false}
-                    sample={medians.sampleSize}
+                    sample={medians.samples.capex}
+                    groupCount={medians.sampleSize}
                   />
                   <MetricDuo
                     label={`${t("metricSaldoLabel")} (${latest.year})`}
@@ -337,7 +345,8 @@ export default function BudgetMirrorPage({
                     peer={medians.saldoPerCapita}
                     max={metricMax.saldo}
                     lowerIsBetter={false}
-                    sample={medians.sampleSize}
+                    sample={medians.samples.saldo}
+                    groupCount={medians.sampleSize}
                   />
                 </div>
                 {/* Zveřejněné pravidlo vrstevnické skupiny — počítá se, netvrdí. */}

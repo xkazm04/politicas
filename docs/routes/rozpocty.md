@@ -215,3 +215,16 @@ median's sample size and returns `incomparable` below `MIN_PEERS`, and `MetricDu
 passes `medians.sampleSize`. The median and its count still print as a description.
 Not changed: no verdict moves today. `peerGroups.test.ts` pins that over the real
 batch and fails if a sub-floor band appears.
+
+**Each metric's verdict uses its own sample (2026-10-31).** `peerMedians` drops a
+peer from a metric's median when it did not report that metric, so the capex and
+saldo medians can stand on fewer towns than the debt median. Until this change all
+three `MetricDuo` verdicts were guarded with the debt sample, so a capex median of
+four towns could still paint a town red as long as five reported debt. Only the
+data kept that from happening, plus a test that would have gone red on the next
+batch refresh. `PeerMedians.samples` now carries `{ debt, capex, saldo }`, each
+`MetricDuo` passes its own sample to `compareToPeer`, and the count (`peerTownCount`)
+prints beside a median whenever its sample differs from the count in the `peerRule`
+sentence. Measured over the batch (132 towns, 80 widened nationally): every capex
+and saldo sample equals the debt sample, so no verdict and no printed string moves
+today. The old equality test is now an informational pin.
