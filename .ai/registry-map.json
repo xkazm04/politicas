@@ -6827,7 +6827,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "eslint-rules/README.md:34 The context's README promises that a drifted shim fails the tests, but the runner that checks these shims turns MODULE_NOT_FOUND on any shim into 'SKIP shim equivalence' with exit 0. Lint consumes the package directly, so a deleted or renamed shim in this directory passes every gate.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-instruction-files",
@@ -7443,7 +7447,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/loaderSource.test.ts:5 The graph's source guards normalise the haystack with a regex pass that does not track string context. The same line is copied verbatim into seven test files, and no seeded pair (a describing comment that must not match, a call that must) proves the stripper works, so a mis-strip shows up only as a silently wrong green or red.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "module-design",
@@ -8680,7 +8688,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:245 The contribution write guard refuses a commit over nodes scored by another formula (exit 3), but its escape hatch is a single boolean that overrides every conflicting node and every stored ref at once, naming none of them, so one --supersede accepts conflicts the operator never inspected (the refusal message lists only the first three ids).",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "prompt-assembly",
@@ -13906,7 +13918,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/sentinel/sentinelSource.test.ts:16 The sentinel's own source guard matches raw text, and facts.ts:286 already carries the token in a comment, so removing the import and call in favour of a hand loop would still pass this assertion. The paired absence needle at :18 matches only one spelling of the old loop.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "conformance-checking",
@@ -14281,7 +14297,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/volby/volbySource.test.ts:6 Every Volby source guard matches raw file text with no comment stripping and no note that over-detection is the safe direction, so presence assertions like /krajByIco/ are satisfied by any comment that names the helper, the prose-satisfies-the-matcher hole the graph guards already close.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "client-fetch-cache",

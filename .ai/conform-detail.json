@@ -13658,6 +13658,204 @@
           "evidence": "features/civicscore/useLensWeights.test.ts:7 The decision was lifted out of the untestable hook into a reachable pure function (lensAddress), and the test asserts it directly."
         }
       ]
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/quality-gates": {
+      "context": "kg-domain-ingest",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:44:30.132Z",
+      "worker": "070bbcc8-aea1-4f69-b4ee-d322c0228825",
+      "techniques": [
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:245 A blanket waiver: two conflicts with different stored refs are both downgraded by one flag that names neither node nor ref."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:252 A refused write ends in a distinct non-zero exit, so the guard's verdict reaches the exit code rather than only stdout."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/ingest.ts:123 The remedy (the valid term codes) is computed from the run's own data where the message is built, not frozen as a literal."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kgPipelineSource.test.ts:8 Comments are stripped before matching, and the absence assertion at :16 is paired with a presence assertion at :17. The stripper is a regex pass, the weaker form of normalisation."
+        },
+        {
+          "technique": "decidable-in-a-window",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kgPipelineSource.test.ts:2 States why a text pattern is the right instrument: the pinned properties (a default value, a vocabulary import) are local to one file."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-vote-bill-ingest.ts:23 A roll call with no linkable print is counted as its own state, not guessed into a link or dropped."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-vote-bill-ingest.ts:30 One-shot writer runs; no item advances through stages under these scripts."
+        }
+      ],
+      "registryProposal": "waiver-names-its-finding is written for change-review gates. Data-write guards with an operator override flag (--supersede, --allow-unstamped) are a common second home for blanket waivers, and the technique could name that case: the override should carry the conflicting stored ref or ids it accepts."
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/quality-gates": {
+      "context": "graph-data-logic",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:44:30.132Z",
+      "worker": "070bbcc8-aea1-4f69-b4ee-d322c0228825",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/graph/loaderSource.test.ts:5 The absence/presence pairing is honoured (:16 with :17), but normalisation is the pattern pass the technique says is not enough, and it has no seeded pair."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/graph/oneDefinition.test.ts:20 Expects an exact non-empty definer list, so an empty or moved glob walk fails instead of passing on zero files."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/graph/forensicView.ts:65 An allowlist of explicitly known states. An unrecognised or corrupt gate value is counted as pending (fail-closed), never passed as verified by omission."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "features/graph/permalink.ts:669 The evidence bundle writes the stored review token, and an ungated edge as an explicit 'ungated', never as verified. The vocabulary is closed and has an explicit non-satisfied state."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "features/graph/permalinkPageSource.test.ts:31 The page and the OG card project gate state through one counting function, and a test pins the page to it."
+        }
+      ],
+      "registryProposal": "match-the-resolved-artifact could say that a stripper copied by hand into N guard files is itself one instrument N times. The seeded pair belongs beside a single shared stripper; without that, each copy is unverified on its own."
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/quality-gates": {
+      "context": "volby-elections",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:44:30.132Z",
+      "worker": "070bbcc8-aea1-4f69-b4ee-d322c0228825",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/volby/volbySource.test.ts:6 The haystack is raw text. Bare-identifier presence needles (:37 /krajByIco/) can be met by a comment after the call is removed."
+        },
+        {
+          "technique": "self-reported-gate-inputs",
+          "verdict": "conformant",
+          "evidence": "features/volby/tenderLayer.ts:20 The authority's self-declared arena is not trusted as the classifying input; a registry arena is taken first and both are kept."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/volby/tenderLayer.ts:233 A lot whose authority cannot be mapped is counted as unmeasurable rather than assigned a guessed arena."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/volby/volbySource.test.ts:26 The catalog check walks the live rule enum, so a new finding kind with no metodika copy turns the test red instead of being outside a hand list."
+        }
+      ]
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/quality-gates": {
+      "context": "eslint-transparency-rules",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:44:30.132Z",
+      "worker": "070bbcc8-aea1-4f69-b4ee-d322c0228825",
+      "techniques": [
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 A could-not-run is folded into a passing run. Deleting one shim drops the whole equivalence check, including shims already compared."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:115 The standalone condition is read from the error the violation produces, not derived from whether eslint-rules/ exists. In-repo, the only way to get no data is the drift itself, so SKIP is the wrong resolution."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:111 When it runs, equivalence is checked on the resolved module object, not on shim text."
+        },
+        {
+          "technique": "instrument-answers-only-its-own-question",
+          "verdict": "conformant",
+          "evidence": "eslint-rules/README.md:21 States that lint never loads these shims, so a green lint says nothing about them and only the rule-suite runner owns that question."
+        }
+      ],
+      "registryProposal": "unmeasurable-criteria's 'derive the unmeasurable state; do not merely read a flag' could name the self-inflicted case: when the error used to detect 'context absent' is the same error the violation raises, the skip predicate must be derived from the container (does the directory exist) or the gate fails open on exactly the defect it guards."
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/quality-gates": {
+      "context": "testing-flake-sentinel",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:44:30.132Z",
+      "worker": "070bbcc8-aea1-4f69-b4ee-d322c0228825",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "lib/testing/sentinel/sentinelSource.test.ts:16 Raw read; the presence needle is satisfied by the explanatory comment at facts.ts:286."
+        },
+        {
+          "technique": "oracle-frozen-during-repair",
+          "verdict": "deviation",
+          "evidence": "lib/testing/flake/registry.json:27 The quarantine register is oracle (it removes files from the blocking lanes), but the freeze is a request in a JSON comment. The .claude/settings.json deny list covers only --no-verify, force-push and LEFTHOOK=0."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.ts:134 Quarantine is a non-blocking lane with owner, expiry and a ceiling that stops the list from quietly growing."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.test.ts:100 Each validator rule is fed a broken register and proven red, beside a well-formed control at :76."
+        },
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.ts:31 Coverage removal is waived only by exact file name, as a standing entry with an expiry, and a duplicate file is refused (test :122)."
+        },
+        {
+          "technique": "item-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.ts:127 A standing entry has a reaper: expiry turns the gate red and names the owner. Placeholder owners are refused at :104."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/report.ts:86 A run that evaluated nothing is REFUSED as its own verdict, never ok. Partial passes print 'N NOT EVALUATED' (:211)."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/report.ts:155 One verdict derivation, shared by evaluator, unreadable path and parser. A report whose headline contradicts its rows is rejected."
+        }
+      ]
     }
   }
 }
