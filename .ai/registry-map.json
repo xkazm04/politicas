@@ -3612,7 +3612,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/context-provider.test.ts:77 LiteContextProvider exists to make HTTP calls to the DataHub GMS, but its suite answers through a hand-written fake. That fake is built from the same context-model builders the test exercises (buildCustomProps, buildDocumentation), so the direct-vs-lite parity test only round-trips the repo's own model. Nothing replays a real GMS exchange and no live lane certifies one, so the suite cannot notice upstream drift.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "quality-gates",
@@ -7492,7 +7496,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/actionSettle.test.ts:26 The settle-on-rejection guard counts every `.catch(` in a file and compares the total with the Action(...).then chains. It never ties a catch to a chain or reads its body for the state settle, so a catch on an unrelated promise satisfies the rule while one action chain can still hang forever.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "supply-chain",
@@ -8743,7 +8751,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:207 kg-legislation-ingest runs main() unguarded at import, so its merge wiring cannot be executed by any test. It is pinned only by a text-count assertion that nowhere calls itself interim, even though the sibling writer kg-money-ingest shows the import guard that would make the site reachable.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "federated-benchmark-sharing",
@@ -10288,7 +10300,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/README.md:10 The context is a folder of archived one-shot data probes that are run by hand with tsx and are never touched again; a grep of scripts/case-loops/law/archive/ for vitest, describe(, expect(, .test. and toMatchSnapshot returned 0 hits, so there is no suite or harness machinery here to judge.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "eval-harness",
@@ -13112,7 +13128,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/shared/provenance/provenanceSource.test.ts:14 The source-text pins read the raw file with comments left in (line 8). Their needles are prose-spellable fragments such as `const PERSON_ID` and `satisfies Record<SourceTier, string>`, with no assignment or argument token, so a comment that names the construct moves the verdict.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "agent-instruction-files",
