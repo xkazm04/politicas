@@ -624,9 +624,9 @@
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T01:49:25.102Z",
-      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:14:31.390Z",
+      "worker": "90cb7fb2-f568-40d9-af90-267facecea7d",
       "techniques": [],
       "superseded": [
         {
@@ -635,6 +635,13 @@
           "evaluatedAt": "2026-10-12T21:56:37.588Z",
           "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
           "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        },
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/effort/merge-batch.ts:1 Searching every file under scripts/case-loops/effort (archive included) for memory, episode, belief, recall and consolidat found 0 hits. These scripts merge subagent payload JSON into a scored MP-effort batch for publication, and that batch is never fed back into an agent's context as remembered state, so the agent-memory pipeline the subject assumes does not exist here.",
+          "evaluatedAt": "2026-10-24T01:49:25.102Z",
+          "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+          "reason": "replaced by 90cb7fb2-f568-40d9-af90-267facecea7d"
         }
       ]
     },
@@ -643,9 +650,9 @@
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T01:49:25.102Z",
-      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:14:31.390Z",
+      "worker": "90cb7fb2-f568-40d9-af90-267facecea7d",
       "techniques": [],
       "superseded": [
         {
@@ -654,6 +661,13 @@
           "evaluatedAt": "2026-10-12T21:56:37.588Z",
           "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
           "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        },
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/census/run-census.mjs:16 Searching scripts/census for episode, belief, consolidat and distill found 0 hits. The only recall hit, run-census.mjs:36, is a lint rule's precision/recall figure. The context is a static import-adherence ratchet with no agent store, capture, distillation or recall path.",
+          "evaluatedAt": "2026-10-24T01:49:25.102Z",
+          "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+          "reason": "replaced by 90cb7fb2-f568-40d9-af90-267facecea7d"
         }
       ]
     },
@@ -682,9 +696,9 @@
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T01:49:25.102Z",
-      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:14:31.390Z",
+      "worker": "90cb7fb2-f568-40d9-af90-267facecea7d",
       "techniques": [],
       "superseded": [
         {
@@ -693,6 +707,13 @@
           "evaluatedAt": "2026-10-12T21:56:37.588Z",
           "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
           "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        },
+        {
+          "state": "not-applicable",
+          "evidence": "lib/db/pglite/durability.ts:26 Searching lib/db/pglite for episode, belief, consolidat, distill and recall found 0 hits. The memory tokens are an in-memory metrics ring in instrument.ts and citations of lesson notes in storeCopy.ts and mappers.test.ts. This is persistence plumbing for a recomputable civic dump, not an agent's memory store.",
+          "evaluatedAt": "2026-10-24T01:49:25.102Z",
+          "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+          "reason": "replaced by 90cb7fb2-f568-40d9-af90-267facecea7d"
         }
       ]
     },
@@ -10779,10 +10800,19 @@
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T01:49:25.102Z",
-      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
-      "techniques": []
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T22:14:31.390Z",
+      "worker": "90cb7fb2-f568-40d9-af90-267facecea7d",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/db/store.ts:2 Searching lib/db (migrations included) for episode, belief, consolidat, distill and recall found 0 hits. The Store interface is the read/write boundary for the civic entity graph that the server loaders serve to readers. Its null-to-fallback convention in loaderGuard.ts covers page data, not an agent's recall, so durable-store-failure-posture and recall-injection have no memory store to govern.",
+          "evaluatedAt": "2026-10-24T01:49:25.102Z",
+          "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+          "reason": "replaced by 90cb7fb2-f568-40d9-af90-267facecea7d"
+        }
+      ]
     },
     "78e81519-5df8-43ec-adb6-ba4dae3ea206/supply-chain": {
       "context": "census-quality-gate",

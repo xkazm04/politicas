@@ -1,0 +1,127 @@
+{
+ "schema": "conform-run/1",
+ "worker": "90cb7fb2-f568-40d9-af90-267facecea7d",
+ "subject": "agent-memory",
+ "evaluatedAt": "2026-11-03T22:14:31.390038+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "effort-scoring-tools",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/effort/merge-batch.ts:1 I searched all of scripts/case-loops/effort, archive included, for episode, belief, consolidat, distill and recall and found 0 hits; these scripts extract inputs and merge, triage and gate scored MP-effort batches for publication, and no script captures, distills or recalls state into an agent's context, so this code has no agent-memory pipeline to judge.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill",
+    "recall"
+   ]
+  },
+  {
+   "context": "db-store-engine",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/store.ts:2 I searched lib/db for episode, belief, consolidat, distill and recall and found 0 hits; the Store is the read/write boundary for the reader-facing civic entity graph, and its loaderGuard null-to-fallback rule covers page data rather than an agent's recall, so durable-store-failure-posture and recall-injection have no memory store to govern.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill",
+    "recall"
+   ]
+  },
+  {
+   "context": "census-quality-gate",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/census/run-census.mjs:16 I searched scripts/census for episode, belief, consolidat, distill and memory and found 0 hits (its only 'recall' is a lint rule's precision/recall figure at run-census.mjs:36); the context is a static import-adherence ratchet with no agent store, capture, distillation or recall path.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill",
+    "memory"
+   ]
+  },
+  {
+   "context": "db-pglite-engine",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/pglite/durability.ts:26 I searched lib/db/pglite for episode, belief, consolidat, distill and recall and found 0 hits; its 'memory' hits are an in-memory metrics ring in instrument.ts and citations of repo lesson notes, and the engine persists a recomputable civic dump, not an agent's memory store.",
+   "techniques": [],
+   "absenceTerms": [
+    "episode",
+    "belief",
+    "consolidat",
+    "distill",
+    "recall"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "agent-memory",
+   "context": "kg-graph-writers",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-03T22:14:31.390038+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T22:14:31.390038+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T22:14:31.390038+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T22:14:31.390038+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-pglite-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
