@@ -10183,39 +10183,48 @@
       "subject": "agent-session-archive",
       "bundle": "llm-observability",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-21",
-      "evaluatedTs": "2026-10-21T21:06:42.487Z",
-      "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:29:54.965Z",
+      "worker": "2ae5e00e-e1e9-48fa-9407-d25941b46963",
       "techniques": [
         {
           "technique": "capture-before-parse",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:18 Reads a legislative case ledger, not a harness transcript."
+          "evidence": "scripts/case-loops/law/archive/triage-002.ts:1 Ranks bills. There is no third-party transcript store to capture."
         },
         {
           "technique": "declared-message-coordinates",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:107 References parliamentary documents rather than archived messages."
+          "evidence": "scripts/case-loops/law/archive/duplicate-bills-009.ts:1 Its citations point at bills and statutes, not at messages in archived sessions."
         },
         {
           "technique": "ingest-disposition-accounting",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:29 Selects legislative batch rows; no agent-session inventory was found."
+          "evidence": "scripts/case-loops/law/archive/measure-precision-006.ts:1 Measures graph edges. Nothing here ingests sessions."
         },
         {
           "technique": "prefix-proof-retirement",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:120 Writes derived dossier targets; no transcript-capture retention store was found."
+          "evidence": "scripts/case-loops/law/archive/rebase-ledger-009.ts:1 There is no capture store, so nothing needs a retention policy."
         },
         {
           "technique": "queryable-surface-redaction",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:41 Processes law-verdict payloads rather than archived agent or tool messages."
+          "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:1 The content is public legislative text, not session content that could hold secrets."
         },
         {
           "technique": "root-relative-session-identity",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:39 Identity here belongs to laws in the entity graph, not harness sessions."
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:2 Records are keyed by batch and bill. There are no session keys."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:38 Searches found no harness, sessionId or messageOrdinal in the context, whose archived scripts prepare legislative graph dossiers rather than preserve agent transcripts.",
+          "evaluatedAt": "2026-10-21T21:06:42.487Z",
+          "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+          "reason": "replaced by 2ae5e00e-e1e9-48fa-9407-d25941b46963"
         }
       ]
     },
@@ -10224,39 +10233,49 @@
       "subject": "agent-session-archive",
       "bundle": "llm-observability",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-21",
-      "evaluatedTs": "2026-10-21T21:06:42.487Z",
-      "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:29:54.965Z",
+      "worker": "2ae5e00e-e1e9-48fa-9407-d25941b46963",
       "techniques": [
         {
           "technique": "capture-before-parse",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/_apply-missing-law-nodes-copy.ts:25 Reads a prepared law-node payload, not a third-party agent transcript."
-        },
-        {
-          "technique": "declared-message-coordinates",
-          "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:42 Migrates citations to public bill URLs; these are not archived-message coordinates."
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-013.ts:1 Prepares graph dossiers. It captures no harness transcripts."
         },
         {
           "technique": "ingest-disposition-accounting",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/extract-old27-jargon-015.ts:12 Enumerates bill nodes for verdict inspection, not live harness transcript sources."
+          "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:1 A census of bill citations. There is no session ingest."
         },
         {
           "technique": "prefix-proof-retirement",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:71 The preserved originals are verdict payloads, not successive agent-transcript captures."
+          "evidence": "scripts/case-loops/law/archive/sector-adjacency-010.ts:1 There is no transcript capture store."
         },
         {
           "technique": "queryable-surface-redaction",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:33 Scans legislative forensic records; no stored agent-message surface was found."
+          "evidence": "scripts/case-loops/law/archive/sweep-old27-015.ts:1 It rewrites jargon in public verdict prose. It does not redact secrets from sessions."
         },
         {
           "technique": "root-relative-session-identity",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/_apply-missing-law-nodes-copy.ts:29 Checks existing law entities rather than canonicalizing session identities."
+          "evidence": "scripts/case-loops/law/archive/evidence-coordinate-apply-018.ts:9 'transcript' here means extracted bill text, keyed by tisk. There is no session identity."
+        },
+        {
+          "technique": "declared-message-coordinates",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/summary-source-migrate-019.ts:42 Migrates citations to public bill URLs; these are not archived-message coordinates.",
+          "carriedFrom": "2026-10-21"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:29 Searches found no harness, sessionId or messageOrdinal in the context, and its transcript references concern bill PDF extraction rather than agent-session archives.",
+          "evaluatedAt": "2026-10-21T21:06:42.487Z",
+          "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+          "reason": "replaced by 2ae5e00e-e1e9-48fa-9407-d25941b46963"
         }
       ]
     },
@@ -10265,39 +10284,48 @@
       "subject": "agent-session-archive",
       "bundle": "llm-observability",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-21",
-      "evaluatedTs": "2026-10-21T21:06:42.487Z",
-      "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:29:54.965Z",
+      "worker": "2ae5e00e-e1e9-48fa-9407-d25941b46963",
       "techniques": [
         {
           "technique": "capture-before-parse",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:66 Discovers cached public-register CSV datasets rather than harness transcripts."
+          "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:1 It works on registry ownership data, not transcripts."
         },
         {
           "technique": "declared-message-coordinates",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/archive/verify-b14.ts:13 Reads the money surface loader, not a session-search result or message lookup."
+          "evidence": "scripts/case-loops/money/archive/find-stale-ico-mentions.ts:1 It searches kg_node props, not session messages."
         },
         {
           "technique": "ingest-disposition-accounting",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/archive/live-state-b9.ts:24 Inventories graph relationships rather than changing transcript sources."
+          "evidence": "scripts/case-loops/money/archive/validate-batch006.ts:1 It validates graph payloads. It does not ingest sessions."
         },
         {
           "technique": "prefix-proof-retirement",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/archive/build-stale-ico-payload.ts:144 Produces a correction payload; no transcript-capture retirement mechanism was found."
+          "evidence": "scripts/case-loops/money/archive/direction-triage-b14.ts:1 There is no capture store."
         },
         {
           "technique": "queryable-surface-redaction",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/archive/partyStates.ts:28 Extracts contract-party data, not archived agent or tool messages."
+          "evidence": "scripts/case-loops/money/archive/verify-b14.ts:1 There is no archived session content to redact."
         },
         {
           "technique": "root-relative-session-identity",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:55 Identifiers are company ICOs, not origin/harness/session-path keys."
+          "evidence": "scripts/case-loops/money/archive/partyStates.ts:1 Records are keyed by contract and company. There are no session keys."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:53 Searches found no harness, sessionId or messageOrdinal in the context, whose archived probes inspect companies, contracts and money attribution rather than agent conversations.",
+          "evaluatedAt": "2026-10-21T21:06:42.487Z",
+          "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+          "reason": "replaced by 2ae5e00e-e1e9-48fa-9407-d25941b46963"
         }
       ]
     },
@@ -10306,39 +10334,48 @@
       "subject": "agent-session-archive",
       "bundle": "llm-observability",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-21",
-      "evaluatedTs": "2026-10-21T21:06:42.487Z",
-      "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:29:54.965Z",
+      "worker": "2ae5e00e-e1e9-48fa-9407-d25941b46963",
       "techniques": [
         {
           "technique": "capture-before-parse",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/dataor.ts:772 Caches a public-register dataset; the agent-transcript precondition does not hold."
+          "evidence": "lib/ingest/sources/isvz.ts:1 The source is a public procurement feed, not a harness transcript store."
         },
         {
           "technique": "declared-message-coordinates",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/smlouvy-dump.ts:148 Extracts a contract's published link rather than an archived-message coordinate."
+          "evidence": "lib/ingest/sources/kiosek.ts:1 Its records are notice-board postings, not session messages."
         },
         {
           "technique": "ingest-disposition-accounting",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/isvz.ts:154 Parses procurement records, not sources in a live agent-session store."
+          "evidence": "lib/ingest/sources/monitor.ts:1 It ingests budget statements, not sessions."
         },
         {
           "technique": "prefix-proof-retirement",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/monitor.ts:303 Budget snapshots are municipality/year observations, not repeated transcript captures."
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:1 It handles bulk XML dumps, not append-only transcript captures."
         },
         {
           "technique": "queryable-surface-redaction",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/kiosek.ts:523 Normalizes public institutional postings rather than storing agent-message content."
+          "evidence": "lib/ingest/sources/smlouvy.ts:1 The data is public contract-registry material, with no session secrets."
         },
         {
           "technique": "root-relative-session-identity",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/smlouvy-dump.ts:136 Uses the contract registry's contract identifier; no session identity is involved."
+          "evidence": "lib/ingest/sources/kiosek.ts:2 Records are keyed by institution code and IČO, not by session path."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/dataor.ts:790 Searches found no harness, sessionId or messageOrdinal in the context, whose adapters ingest public financial and registry records rather than agent transcripts.",
+          "evaluatedAt": "2026-10-21T21:06:42.487Z",
+          "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+          "reason": "replaced by 2ae5e00e-e1e9-48fa-9407-d25941b46963"
         }
       ]
     },
@@ -10347,39 +10384,48 @@
       "subject": "agent-session-archive",
       "bundle": "llm-observability",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-21",
-      "evaluatedTs": "2026-10-21T21:06:42.487Z",
-      "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:29:54.965Z",
+      "worker": "2ae5e00e-e1e9-48fa-9407-d25941b46963",
       "techniques": [
         {
           "technique": "capture-before-parse",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/psp.ts:99 Reads parliamentary organ-type records, not third-party agent transcripts."
+          "evidence": "lib/ingest/sources/pumper.ts:4 Pumper datasets are scraper output, not coding-agent transcripts."
         },
         {
           "technique": "declared-message-coordinates",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/pumper.ts:150 References published dataset files rather than normalized session messages."
+          "evidence": "lib/ingest/sources/psp-activity.ts:1 Speech turns are parliamentary records, not agent session messages."
         },
         {
           "technique": "ingest-disposition-accounting",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/psp-activity.ts:263 Normalizes legislative activity dumps; no agent-transcript inventory was found."
+          "evidence": "lib/ingest/sources/psp-legislation.ts:1 It ingests bill prints, not sessions."
         },
         {
           "technique": "prefix-proof-retirement",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/volby.ts:269 Processes an electoral candidate registry, not successive transcript captures."
+          "evidence": "lib/ingest/sources/volby.ts:1 There is no capture store."
         },
         {
           "technique": "queryable-surface-redaction",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/psp.ts:107 Normalizes parliamentary organizations rather than indexing agent or tool messages."
+          "evidence": "lib/ingest/sources/backoff.ts:1 This is a retry utility. It holds no session content."
         },
         {
           "technique": "root-relative-session-identity",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/pumper.ts:145 Identifies mirrored dataset-release records rather than archived harness sessions."
+          "evidence": "lib/ingest/sources/psp-legislation.ts:2 Records are keyed by print and id_osoba, not by session."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/psp-legislation.ts:126 Searches found no harness, sessionId or messageOrdinal in the context, whose adapters normalize parliamentary and electoral datasets rather than preserve agent-session history.",
+          "evaluatedAt": "2026-10-21T21:06:42.487Z",
+          "worker": "3816da79-1a6e-4335-8da0-d604b8802b49",
+          "reason": "replaced by 2ae5e00e-e1e9-48fa-9407-d25941b46963"
         }
       ]
     },

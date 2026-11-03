@@ -1,0 +1,327 @@
+{
+ "schema": "conform-run/1",
+ "worker": "2ae5e00e-e1e9-48fa-9407-d25941b46963",
+ "subject": "agent-session-archive",
+ "evaluatedAt": "2026-11-03T23:29:54.965336+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "law-archive-early",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:1 A case-insensitive grep of scripts/case-loops/law/archive for sessionId, session_id, messageOrdinal and harness found no hits; these archived probes build bill dossiers and collision checks from the knowledge graph and keep no coding-agent transcripts, so no part of the subject's precondition holds.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/triage-002.ts:1 Ranks bills. There is no third-party transcript store to capture."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/duplicate-bills-009.ts:1 Its citations point at bills and statutes, not at messages in archived sessions."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/measure-precision-006.ts:1 Measures graph edges. Nothing here ingests sessions."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/rebase-ledger-009.ts:1 There is no capture store, so nothing needs a retention policy."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:1 The content is public legislative text, not session content that could hold secrets."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:2 Records are keyed by batch and bill. There are no session keys."
+    }
+   ],
+   "absenceTerms": [
+    "sessionId",
+    "session_id",
+    "messageOrdinal",
+    "harness"
+   ]
+  },
+  {
+   "context": "law-archive-late",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:5 The only 'transcript' hits in the context refer to pdftotext output of bill PDFs, not to agent sessions, and a grep for sessionId, session_id, messageOrdinal and harness over the directory found nothing, so the subject's precondition (third-party coding-agent transcripts) does not hold.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-013.ts:1 Prepares graph dossiers. It captures no harness transcripts."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/dependency-census-014.ts:1 A census of bill citations. There is no session ingest."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/sector-adjacency-010.ts:1 There is no transcript capture store."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/sweep-old27-015.ts:1 It rewrites jargon in public verdict prose. It does not redact secrets from sessions."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/evidence-coordinate-apply-018.ts:9 'transcript' here means extracted bill text, keyed by tisk. There is no session identity."
+    }
+   ],
+   "absenceTerms": [
+    "sessionId",
+    "session_id",
+    "messageOrdinal",
+    "harness"
+   ]
+  },
+  {
+   "context": "money-archive-probes",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:3 A grep of scripts/case-loops/money/archive for sessionId, session_id, messageOrdinal, harness (and transcript/agent) found no hits; these probes inspect company ownership, contracts and graph props, so the subject's precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:1 It works on registry ownership data, not transcripts."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/find-stale-ico-mentions.ts:1 It searches kg_node props, not session messages."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/validate-batch006.ts:1 It validates graph payloads. It does not ingest sessions."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/direction-triage-b14.ts:1 There is no capture store."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/verify-b14.ts:1 There is no archived session content to redact."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/archive/partyStates.ts:1 Records are keyed by contract and company. There are no session keys."
+    }
+   ],
+   "absenceTerms": [
+    "sessionId",
+    "session_id",
+    "messageOrdinal",
+    "harness"
+   ]
+  },
+  {
+   "context": "ingest-sources-financial",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/dataor.ts:1 A case-insensitive grep of lib/ingest/sources for sessionId, session_id, messageOrdinal and harness found no hits (the '.jsonl' matches are kiosek '.jsonld' open-data URLs); these adapters ingest public registries, not agent transcripts, so the precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/isvz.ts:1 The source is a public procurement feed, not a harness transcript store."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/kiosek.ts:1 Its records are notice-board postings, not session messages."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/monitor.ts:1 It ingests budget statements, not sessions."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/smlouvy-dump.ts:1 It handles bulk XML dumps, not append-only transcript captures."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/smlouvy.ts:1 The data is public contract-registry material, with no session secrets."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/kiosek.ts:2 Records are keyed by institution code and I\u010cO, not by session path."
+    }
+   ],
+   "absenceTerms": [
+    "sessionId",
+    "session_id",
+    "messageOrdinal",
+    "harness"
+   ]
+  },
+  {
+   "context": "ingest-sources-legislative",
+   "subject": "agent-session-archive",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/psp.ts:1 A grep of lib/ingest/sources for sessionId, session_id, messageOrdinal and harness found no hits; these adapters parse parliamentary and electoral UNL/CSV dumps (pumper mirrors a scraping service's datasets, not agent transcripts), so the precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "capture-before-parse",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/pumper.ts:4 Pumper datasets are scraper output, not coding-agent transcripts."
+    },
+    {
+     "technique": "declared-message-coordinates",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/psp-activity.ts:1 Speech turns are parliamentary records, not agent session messages."
+    },
+    {
+     "technique": "ingest-disposition-accounting",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/psp-legislation.ts:1 It ingests bill prints, not sessions."
+    },
+    {
+     "technique": "prefix-proof-retirement",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/volby.ts:1 There is no capture store."
+    },
+    {
+     "technique": "queryable-surface-redaction",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/backoff.ts:1 This is a retry utility. It holds no session content."
+    },
+    {
+     "technique": "root-relative-session-identity",
+     "verdict": "not-applicable",
+     "evidence": "lib/ingest/sources/psp-legislation.ts:2 Records are keyed by print and id_osoba, not by session."
+    }
+   ],
+   "absenceTerms": [
+    "sessionId",
+    "session_id",
+    "messageOrdinal",
+    "harness"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-03T23:29:54.965336+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "law-archive-early",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T23:29:54.965336+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "law-archive-late",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T23:29:54.965336+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "money-archive-probes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T23:29:54.965336+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "ingest-sources-financial",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T23:29:54.965336+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "agent-session-archive"
+   ],
+   "techniques": [
+    "capture-before-parse",
+    "declared-message-coordinates",
+    "ingest-disposition-accounting",
+    "prefix-proof-retirement",
+    "queryable-surface-redaction",
+    "root-relative-session-identity"
+   ],
+   "deviations": 0,
+   "context": "ingest-sources-legislative",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

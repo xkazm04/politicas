@@ -8097,12 +8097,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/ingest/sources/dataor.ts:790 Searches found no harness, sessionId or messageOrdinal in the context, whose adapters ingest public financial and registry records rather than agent transcripts.",
-          "evaluatedAt": "2026-10-21",
-          "evaluatedAgainst": "sha256-b2:3e3f46ad2c0269f1",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/ingest/sources/dataor.ts:1 A case-insensitive grep of lib/ingest/sources for sessionId, session_id, messageOrdinal and harness found no hits (the '.jsonl' matches are kiosek '.jsonld' open-data URLs); these adapters ingest public registries, not agent transcripts, so the precondition does not hold.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:aa419c7f13dda67a",
+          "evaluatedRevision": 3,
+          "revisionsBehind": 1
         },
         {
           "subject": "federated-benchmark-sharing",
@@ -8347,12 +8346,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/ingest/sources/psp-legislation.ts:126 Searches found no harness, sessionId or messageOrdinal in the context, whose adapters normalize parliamentary and electoral datasets rather than preserve agent-session history.",
-          "evaluatedAt": "2026-10-21",
-          "evaluatedAgainst": "sha256-b2:3e3f46ad2c0269f1",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/ingest/sources/psp.ts:1 A grep of lib/ingest/sources for sessionId, session_id, messageOrdinal and harness found no hits; these adapters parse parliamentary and electoral UNL/CSV dumps (pumper mirrors a scraping service's datasets, not agent transcripts), so the precondition does not hold.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:aa419c7f13dda67a",
+          "evaluatedRevision": 3,
+          "revisionsBehind": 1
         },
         {
           "subject": "retry-backoff",
@@ -10253,12 +10251,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:38 Searches found no harness, sessionId or messageOrdinal in the context, whose archived scripts prepare legislative graph dossiers rather than preserve agent transcripts.",
-          "evaluatedAt": "2026-10-21",
-          "evaluatedAgainst": "sha256-b2:3e3f46ad2c0269f1",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:1 A case-insensitive grep of scripts/case-loops/law/archive for sessionId, session_id, messageOrdinal and harness found no hits; these archived probes build bill dossiers and collision checks from the knowledge graph and keep no coding-agent transcripts, so no part of the subject's precondition holds.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:aa419c7f13dda67a",
+          "evaluatedRevision": 3,
+          "revisionsBehind": 1
         },
         {
           "subject": "fleet-orchestration",
@@ -10470,12 +10467,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:29 Searches found no harness, sessionId or messageOrdinal in the context, and its transcript references concern bill PDF extraction rather than agent-session archives.",
-          "evaluatedAt": "2026-10-21",
-          "evaluatedAgainst": "sha256-b2:3e3f46ad2c0269f1",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/law/archive/evidence-coordinate-scan-018.ts:5 The only 'transcript' hits in the context refer to pdftotext output of bill PDFs, not to agent sessions, and a grep for sessionId, session_id, messageOrdinal and harness over the directory found nothing, so the subject's precondition (third-party coding-agent transcripts) does not hold.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:aa419c7f13dda67a",
+          "evaluatedRevision": 3,
+          "revisionsBehind": 1
         },
         {
           "subject": "codebase-scanning",
@@ -11088,12 +11084,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:53 Searches found no harness, sessionId or messageOrdinal in the context, whose archived probes inspect companies, contracts and money attribution rather than agent conversations.",
-          "evaluatedAt": "2026-10-21",
-          "evaluatedAgainst": "sha256-b2:3e3f46ad2c0269f1",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/money/archive/dataor-ownership-chains.ts:3 A grep of scripts/case-loops/money/archive for sessionId, session_id, messageOrdinal, harness (and transcript/agent) found no hits; these probes inspect company ownership, contracts and graph props, so the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:aa419c7f13dda67a",
+          "evaluatedRevision": 3,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-memory",
