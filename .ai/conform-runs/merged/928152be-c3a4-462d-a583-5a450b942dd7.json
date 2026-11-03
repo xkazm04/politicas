@@ -1,0 +1,203 @@
+{
+ "schema": "conform-run/1",
+ "worker": "928152be-c3a4-462d-a583-5a450b942dd7",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-03T09:35:24.409932+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "testing-core",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/pglite-fixture.ts:65 Each template copy is checked only by file count and total bytes before it reaches a test. No probe query runs at handoff, so a copy with the right size but unusable content first fails inside open() or a test, not at the fixture.",
+   "techniques": [
+    {
+     "technique": "fixture-economics",
+     "verdict": "deviation",
+     "evidence": "lib/testing/pglite-fixture.ts:65 Build-once, the fingerprinted name and stale-template reaping are done well in pglite-template.ts. The per-copy usability probe the technique requires is replaced by a size check. The template header even lists a per-file 'probe query' step that the fixture does not perform."
+    },
+    {
+     "technique": "suite-partitioning",
+     "verdict": "conformant",
+     "evidence": "lib/testing/lane-partition.test.ts:50 Lanes are separate configs built from one path list. Exhaustiveness, disjointness and misfiling are asserted against the filesystem."
+    },
+    {
+     "technique": "derived-selection-must-be-measured",
+     "verdict": "conformant",
+     "evidence": "lib/testing/gateLadder.test.ts:78 The walk declares a floor, so an empty parse cannot pass as 'nothing missing'. revalidateParity has a similar >=6 floor."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "lib/testing/moneyRouteSource.test.ts:14 The needle includes a call or assignment token that prose cannot produce. sentryScrubSource pins `beforeSend:\\s*scrubFollowTelemetry` the same way."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "lib/testing/pglite-fixture.ts:56 The fixture checks its own precondition and refuses any path that could resolve to the live single-connection store."
+    },
+    {
+     "technique": "platform-quirk-absorption",
+     "verdict": "conformant",
+     "evidence": "lib/testing/server-only-stub.ts:2 The pre-test import throw is handled once, in the shared resolve alias, with the reason recorded. server-boundary.test.ts covers the signal the alias removes."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "lib/testing/crash-writer.mjs:26 A crash-path driver for durability.test.ts that exercises a recovery path the normal suite never reaches."
+    }
+   ]
+  },
+  {
+   "context": "testing-flake-sentinel",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/flake/registry.ts:16 Detection only prints candidates and keeps no label on the test, so the automatic, visible and self-removing label step of the lifecycle does not exist. CI history does not accumulate at all.",
+   "techniques": [
+    {
+     "technique": "flake-lifecycle",
+     "verdict": "deviation",
+     "evidence": "lib/testing/flake/registry.ts:16 The register is strong: named person as owner, expiry gated red, product cause refused, ceiling, published size and oldest age, muted lane. Labelling is manual, there is no stable-window release check, and the deviation is honestly stated."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "lib/testing/sentinel/sentinelSource.test.ts:16 The bare identifier is already matched by the import at facts.ts:28 and the comment at :286. Removing the real call at facts.ts:293 would leave this pin green."
+    },
+    {
+     "technique": "history-driven-partitioning",
+     "verdict": "deviation",
+     "evidence": "lib/testing/flake/sequencer.ts:21 Longest-first from measured medians with a pessimistic default is correct. But every unmeasured file gets the same median cost and is path-sorted into one contiguous block, not spread out (line 61). Slowest/mean and realized parallelism are never published, and the unmeasured count appears only under POLITICAS_LANE_DEBUG."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "lib/testing/flake/registry.test.ts:100 Each register rule is fed a broken register to prove it can fire. sentinel.test.ts:7 also proves each invariant in both directions."
+    }
+   ]
+  },
+  {
+   "context": "shared-components",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/shared/components/verdictProvenance.test.ts:11 The test name claims to cover every rung rungKey() can produce, but it iterates a handwritten array that the type does not force to be complete. Adding a fifth member to the VerdictRung union would leave this test green with that rung's copy unchecked.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "features/shared/components/verdictProvenance.test.ts:22 The name claims more than the test reaches: a `VerdictRung[]` annotation does not enforce exhaustiveness (no `satisfies Record<VerdictRung, \u2026>`). It matches the union's 4 members today, but the claim is not mechanically held."
+    }
+   ]
+  },
+  {
+   "context": "case-loops-core",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/apply-batch.test.ts:241 The closed row has share null, so it goes to excludedEdges before the merge runs (the test's own comment at :252 says so). The open-versus-closed decision the name claims is never reached, and a passthrough answers instead.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/apply-batch.test.ts:241 The input never reaches the decision it names: a single-row passthrough answers. The fix is to give the closed row a numeric share."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/apply-batch.test.ts:21 Tests in the file share one copy and reset it by truncating a hand-maintained table list (kg_edge, kg_node) instead of discarding a private copy. This is the cleanup-list pattern the technique names."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/writerPass.test.ts:17 Scripts run main() on import, so a text pin is the honest interim. The needle is an expression shape, not a bare name."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/shared/ordering.test.ts:7 The control is stated: the assertions fail on the unfixed comparator."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "mp-profile",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-03T09:35:24.409932+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "derived-selection-must-be-measured",
+    "fixture-economics",
+    "isolation-lanes",
+    "negative-control-tests",
+    "pin-the-call-not-the-name",
+    "platform-quirk-absorption",
+    "suite-partitioning"
+   ],
+   "deviations": 1,
+   "context": "testing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T09:35:24.409932+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "flake-lifecycle",
+    "history-driven-partitioning",
+    "negative-control-tests",
+    "pin-the-call-not-the-name"
+   ],
+   "deviations": 1,
+   "context": "testing-flake-sentinel",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T09:35:24.409932+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "shared-components",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T09:35:24.409932+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "fixture-economics",
+    "negative-control-tests",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "case-loops-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

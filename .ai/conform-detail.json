@@ -416,39 +416,65 @@
       "subject": "test-harness",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T20:55:59.230Z",
-      "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T09:35:24.409Z",
+      "worker": "928152be-c3a4-462d-a583-5a450b942dd7",
       "techniques": [
-        {
-          "technique": "derived-selection-must-be-measured",
-          "verdict": "conformant",
-          "evidence": "lib/testing/contextMapRefs.test.ts:60 The derived reference walk has a committed selection floor before its clean-result assertion."
-        },
         {
           "technique": "fixture-economics",
           "verdict": "deviation",
-          "evidence": "lib/testing/pglite-fixture.ts:65 The fingerprinted template is useful, but each copy is handed off after structural checks without the required query proving usability."
+          "evidence": "lib/testing/pglite-fixture.ts:65 Build-once, the fingerprinted name and stale-template reaping are done well in pglite-template.ts. The per-copy usability probe the technique requires is replaced by a size check. The template header even lists a per-file 'probe query' step that the fixture does not perform."
         },
         {
-          "technique": "gate-scope-is-not-report-scope",
+          "technique": "suite-partitioning",
           "verdict": "conformant",
-          "evidence": "lib/testing/revalidateParity.test.ts:25 For this uniformity check, membership comes from declarations discovered across app sources rather than a handwritten route list."
+          "evidence": "lib/testing/lane-partition.test.ts:50 Lanes are separate configs built from one path list. Exhaustiveness, disjointness and misfiling are asserted against the filesystem."
+        },
+        {
+          "technique": "derived-selection-must-be-measured",
+          "verdict": "conformant",
+          "evidence": "lib/testing/gateLadder.test.ts:78 The walk declares a floor, so an empty parse cannot pass as 'nothing missing'. revalidateParity has a similar >=6 floor."
+        },
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "conformant",
+          "evidence": "lib/testing/moneyRouteSource.test.ts:14 The needle includes a call or assignment token that prose cannot produce. sentryScrubSource pins `beforeSend:\\s*scrubFollowTelemetry` the same way."
+        },
+        {
+          "technique": "isolation-lanes",
+          "verdict": "conformant",
+          "evidence": "lib/testing/pglite-fixture.ts:56 The fixture checks its own precondition and refuses any path that could resolve to the live single-connection store."
+        },
+        {
+          "technique": "platform-quirk-absorption",
+          "verdict": "conformant",
+          "evidence": "lib/testing/server-only-stub.ts:2 The pre-test import throw is handled once, in the shared resolve alias, with the reason recorded. server-boundary.test.ts covers the signal the alias removes."
         },
         {
           "technique": "negative-control-tests",
           "verdict": "conformant",
-          "evidence": "lib/testing/archivedScripts.test.ts:146 An explicitly offending fixture exercises the same predicate used by the archive scan; neighboring assertions distinguish an actual reference from prose."
+          "evidence": "lib/testing/crash-writer.mjs:26 A crash-path driver for durability.test.ts that exercises a recovery path the normal suite never reaches."
         },
         {
-          "technique": "suite-partitioning",
-          "verdict": "deviation",
-          "evidence": "lib/testing/lane-partition.test.ts:54 The exhaustiveness guard synthesizes unit membership as the complement instead of reading actual configuration membership, so narrowing a config can escape this assertion."
+          "technique": "gate-scope-is-not-report-scope",
+          "verdict": "conformant",
+          "evidence": "lib/testing/revalidateParity.test.ts:25 For this uniformity check, membership comes from declarations discovered across app sources rather than a handwritten route list.",
+          "carriedFrom": "2026-10-12"
         },
         {
           "technique": "unreached-decisions-pin-nothing",
           "verdict": "deviation",
-          "evidence": "lib/testing/civicFeedRouteSource.test.ts:32 The search-param check pins the helper's import, not adoption at the call site; removing its use while retaining the import leaves this assertion satisfied."
+          "evidence": "lib/testing/civicFeedRouteSource.test.ts:32 The search-param check pins the helper's import, not adoption at the call site; removing its use while retaining the import leaves this assertion satisfied.",
+          "carriedFrom": "2026-10-12"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/testing/pglite-fixture.ts:65 Fixture handoff checks file counts and aggregate sizes but does not query each copied database before returning it, omitting the standard's usability probe.",
+          "evaluatedAt": "2026-10-12T20:55:59.230Z",
+          "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+          "reason": "replaced by 928152be-c3a4-462d-a583-5a450b942dd7"
         }
       ]
     },
@@ -457,29 +483,38 @@
       "subject": "test-harness",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T20:55:59.230Z",
-      "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T09:35:24.409Z",
+      "worker": "928152be-c3a4-462d-a583-5a450b942dd7",
       "techniques": [
         {
           "technique": "flake-lifecycle",
           "verdict": "deviation",
-          "evidence": "lib/testing/flake/registry.ts:16 Detection and expiring quarantine exist, but automatic label application and removal are explicitly absent; human quarantine approval does not excuse manual labeling."
-        },
-        {
-          "technique": "history-driven-partitioning",
-          "verdict": "deviation",
-          "evidence": "lib/testing/flake/history.ts:53 Duration ordering uses retained measurements, but history identity is the path and test name, so renaming either resets history contrary to the standard's identity requirement."
-        },
-        {
-          "technique": "negative-control-tests",
-          "verdict": "conformant",
-          "evidence": "lib/testing/sentinel/sentinel.test.ts:301 The fixture receives a real orphan edge and the test requires precisely that invariant to fire, checking the corruption and its diagnosis."
+          "evidence": "lib/testing/flake/registry.ts:16 The register is strong: named person as owner, expiry gated red, product cause refused, ceiling, published size and oldest age, muted lane. Labelling is manual, there is no stable-window release check, and the deviation is honestly stated."
         },
         {
           "technique": "pin-the-call-not-the-name",
           "verdict": "deviation",
-          "evidence": "lib/testing/sentinel/sentinelSource.test.ts:16 The bare helper name is satisfied by an import or prose and does not establish the tally call claimed by the surrounding describe block."
+          "evidence": "lib/testing/sentinel/sentinelSource.test.ts:16 The bare identifier is already matched by the import at facts.ts:28 and the comment at :286. Removing the real call at facts.ts:293 would leave this pin green."
+        },
+        {
+          "technique": "history-driven-partitioning",
+          "verdict": "deviation",
+          "evidence": "lib/testing/flake/sequencer.ts:21 Longest-first from measured medians with a pessimistic default is correct. But every unmeasured file gets the same median cost and is path-sorted into one contiguous block, not spread out (line 61). Slowest/mean and realized parallelism are never published, and the unmeasured count appears only under POLITICAS_LANE_DEBUG."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "lib/testing/flake/registry.test.ts:100 Each register rule is fed a broken register to prove it can fire. sentinel.test.ts:7 also proves each invariant in both directions."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/testing/flake/registry.ts:16 The registry explicitly leaves labeling manual, so detection does not implement the standard's automatic, reversible label lifecycle.",
+          "evaluatedAt": "2026-10-12T20:55:59.230Z",
+          "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+          "reason": "replaced by 928152be-c3a4-462d-a583-5a450b942dd7"
         }
       ]
     },
@@ -488,19 +523,29 @@
       "subject": "test-harness",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T20:55:59.230Z",
-      "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T09:35:24.409Z",
+      "worker": "928152be-c3a4-462d-a583-5a450b942dd7",
       "techniques": [
-        {
-          "technique": "gate-scope-is-not-report-scope",
-          "verdict": "deviation",
-          "evidence": "features/shared/components/verdictProvenance.test.ts:11 VerdictRung[] validates listed members but does not require every union member; the test's 'every rung' claim therefore exceeds its enforced denominator."
-        },
         {
           "technique": "unreached-decisions-pin-nothing",
           "verdict": "deviation",
-          "evidence": "features/shared/components/sourceNoteMode.test.ts:2 The extracted citation rule is tested directly, but no adoption assertion for SourceNote.tsx was found; replacing its citationMode call would leave these helper tests unchanged."
+          "evidence": "features/shared/components/verdictProvenance.test.ts:22 The name claims more than the test reaches: a `VerdictRung[]` annotation does not enforce exhaustiveness (no `satisfies Record<VerdictRung, …>`). It matches the union's 4 members today, but the claim is not mechanically held."
+        },
+        {
+          "technique": "gate-scope-is-not-report-scope",
+          "verdict": "deviation",
+          "evidence": "features/shared/components/verdictProvenance.test.ts:11 VerdictRung[] validates listed members but does not require every union member; the test's 'every rung' claim therefore exceeds its enforced denominator.",
+          "carriedFrom": "2026-10-12"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/shared/components/verdictProvenance.test.ts:11 The test claims coverage of every verdict rung while iterating a handwritten non-exhaustive typed array, so extending the union need not extend the tested population.",
+          "evaluatedAt": "2026-10-12T20:55:59.230Z",
+          "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+          "reason": "replaced by 928152be-c3a4-462d-a583-5a450b942dd7"
         }
       ]
     },
@@ -509,24 +554,38 @@
       "subject": "test-harness",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T20:55:59.230Z",
-      "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T09:35:24.409Z",
+      "worker": "928152be-c3a4-462d-a583-5a450b942dd7",
       "techniques": [
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/apply-batch.test.ts:241 The input never reaches the decision it names: a single-row passthrough answers. The fix is to give the closed row a numeric share."
+        },
         {
           "technique": "fixture-economics",
           "verdict": "deviation",
-          "evidence": "scripts/case-loops/apply-batch.test.ts:21 One mutable database is reused across tests with a manually maintained table-deletion reset, instead of a private template copy discarded whole per test."
+          "evidence": "scripts/case-loops/apply-batch.test.ts:21 Tests in the file share one copy and reset it by truncating a hand-maintained table list (kg_edge, kg_node) instead of discarding a private copy. This is the cleanup-list pattern the technique names."
+        },
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/writerPass.test.ts:17 Scripts run main() on import, so a text pin is the honest interim. The needle is an expression shape, not a bare name."
         },
         {
           "technique": "negative-control-tests",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/apply-batch.test.ts:175 A deliberately lying deletion-store fixture must trigger the specific refusal, and the armed allowlist is restored in finally."
-        },
+          "evidence": "scripts/case-loops/shared/ordering.test.ts:7 The control is stated: the assertions fail on the unfixed comparator."
+        }
+      ],
+      "superseded": [
         {
-          "technique": "unreached-decisions-pin-nothing",
-          "verdict": "deviation",
-          "evidence": "scripts/case-loops/apply-batch.test.ts:222 apply-batch.ts:203 excludes this closed row before winner selection; the named open-versus-closed protection therefore sees only one surviving stake."
+          "state": "deviation",
+          "evidence": "scripts/case-loops/apply-batch.test.ts:222 The test claiming that an open stake outranks a later closed stake filters its closed row out for lacking a numeric share, leaving the claimed winner decision untested.",
+          "evaluatedAt": "2026-10-12T20:55:59.230Z",
+          "worker": "a832adec-0ed1-4219-98e2-15a304995f60",
+          "reason": "replaced by 928152be-c3a4-462d-a583-5a450b942dd7"
         }
       ]
     },

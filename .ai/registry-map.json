@@ -2175,12 +2175,11 @@
           "changedAt": "2026-10-23",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "scripts/case-loops/apply-batch.test.ts:222 The test claiming that an open stake outranks a later closed stake filters its closed row out for lacking a numeric share, leaving the claimed winner decision untested.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:5521806124d93882",
-          "evaluatedRevision": 26,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/apply-batch.test.ts:241 The closed row has share null, so it goes to excludedEdges before the merge runs (the test's own comment at :252 says so). The open-versus-closed decision the name claims is never reached, and a passthrough answers instead.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-memory",
@@ -12828,12 +12827,11 @@
           "changedAt": "2026-10-23",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "features/shared/components/verdictProvenance.test.ts:11 The test claims coverage of every verdict rung while iterating a handwritten non-exhaustive typed array, so extending the union need not extend the tested population.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:5521806124d93882",
-          "evaluatedRevision": 26,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/shared/components/verdictProvenance.test.ts:11 The test name claims to cover every rung rungKey() can produce, but it iterates a handwritten array that the type does not force to be complete. Adding a fifth member to the VerdictRung union would leave this test green with that rung's copy unchecked.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-memory",
@@ -13611,12 +13609,11 @@
           "changedAt": "2026-10-23",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "lib/testing/pglite-fixture.ts:65 Fixture handoff checks file counts and aggregate sizes but does not query each copied database before returning it, omitting the standard's usability probe.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:5521806124d93882",
-          "evaluatedRevision": 26,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/testing/pglite-fixture.ts:65 Each template copy is checked only by file count and total bytes before it reaches a test. No probe query runs at handoff, so a copy with the right size but unusable content first fails inside open() or a test, not at the fixture.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27,
+          "revisionsBehind": 1
         },
         {
           "subject": "conformance-checking",
@@ -13811,12 +13808,11 @@
           "changedAt": "2026-10-23",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "lib/testing/flake/registry.ts:16 The registry explicitly leaves labeling manual, so detection does not implement the standard's automatic, reversible label lifecycle.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:5521806124d93882",
-          "evaluatedRevision": 26,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/testing/flake/registry.ts:16 Detection only prints candidates and keeps no label on the test, so the automatic, visible and self-removing label step of the lifecycle does not exist. CI history does not accumulate at all.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27,
+          "revisionsBehind": 1
         },
         {
           "subject": "test-input-generation",
