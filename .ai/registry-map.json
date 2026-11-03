@@ -8472,12 +8472,11 @@
           "changedAt": "2026-10-25",
           "confidence": "strong",
           "state": "not-applicable",
-          "evidence": "scripts/data-analysis/slice-stats.ts:1 These are knowledge-graph analysis and DataHub catalog scripts. 'Catalog' here means a metadata catalog, not a message catalog. A case-insensitive search of scripts/data-analysis for translat, i18n, next-intl and NEXT_LOCALE found 0 hits. 'locale' matches only toLocaleString/localeCompare. Nothing here stores, moves or serves translations.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/data-analysis/slice-stats.ts:1 These are knowledge-graph slice-statistics and DataHub metadata-catalog scripts, not a message catalog; a case-insensitive search of scripts/data-analysis for translat, i18n, next-intl, NEXT_LOCALE, en.json, localeNames and pseudo-loc returned 0 hits, so nothing here stores, moves or serves translations.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "copy-quality-gates",
@@ -11278,12 +11277,11 @@
           "changedAt": "2026-10-25",
           "confidence": "strong",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/money/harvest-contract-dumps.ts:8 Searches for translation pipeline terminology across the money contract scripts yielded no occurrences, as the context is exclusively dedicated to harvesting and triaging Czech public contract dumps from Registr smluv.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/money/harvest-contract-dumps.ts:1 The context harvests and triages Registr smluv contract dumps; a case-insensitive search of scripts/case-loops/money for translat, i18n, next-intl, NEXT_LOCALE, en.json, localeNames and pseudo-loc returned 0 hits, so it has no translation storage, transport or serving to judge.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "public-money-attribution",
@@ -12758,12 +12756,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/sentinel/run.ts:4 Searches across the quality gate scripts revealed no translation pipeline machinery, as the context is focused on live-store database invariant checks, citation KPIs, and doc synchronization.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/sentinel/run.ts:2 The context runs live-store invariant checks, citation/verify KPI meters and doc-sync checks; a case-insensitive search of scripts/sentinel, scripts/kpi, scripts/docs and scripts/smoke.ts for translat, i18n, next-intl, NEXT_LOCALE, en.json, localeNames and pseudo-loc returned 0 hits, so no translation pipeline machinery exists here.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "translation-quality-measurement",
@@ -13744,12 +13741,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/testing/lanes.ts:2 This is test infrastructure: lane partitioning, PGlite fixtures and route-source tests. A search of lib/testing for translat, i18n, next-intl, NEXT_LOCALE, LanguageSwitcher and cs.json found 0 hits. The cs/en catalog parity tests live in features/*/messages.test.ts, not in this context.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/testing/lanes.ts:2 This is test infrastructure (lane partitioning, PGlite fixtures, route-source tests); a case-insensitive search of lib/testing for translat, i18n, next-intl, NEXT_LOCALE, en.json, localeNames and pseudo-loc returned 0 hits. The cs/en catalog parity tests live in features/*/messages.test.ts, outside this context.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "data-access",

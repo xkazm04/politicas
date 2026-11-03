@@ -1647,21 +1647,38 @@
       "subject": "translation-pipeline-topology",
       "bundle": "localization",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T07:53:09.877Z",
-      "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
-      "techniques": []
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:12:59.881Z",
+      "worker": "a0e1f4f1-bc93-46b3-9291-9d9b19b39947",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/harvest-contract-dumps.ts:8 Searches for translation pipeline terminology across the money contract scripts yielded no occurrences, as the context is exclusively dedicated to harvesting and triaging Czech public contract dumps from Registr smluv.",
+          "evaluatedAt": "2026-10-13T07:53:09.877Z",
+          "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+          "reason": "replaced by a0e1f4f1-bc93-46b3-9291-9d9b19b39947"
+        }
+      ]
     },
     "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/translation-pipeline-topology": {
       "context": "kg-analysis-and-catalog",
       "subject": "translation-pipeline-topology",
       "bundle": "localization",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T06:40:50.332Z",
-      "worker": "eff3732f-498d-45e8-8956-606c8d193179",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:12:59.881Z",
+      "worker": "a0e1f4f1-bc93-46b3-9291-9d9b19b39947",
       "techniques": [],
-      "registryProposal": "The match came from the tokens 'catalog' and 'context', which mean metadata catalog and LLM analyst context here. The subject's use_when triggers could require a translation term next to 'catalog'."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/slice-stats.ts:1 These are knowledge-graph analysis and DataHub catalog scripts. 'Catalog' here means a metadata catalog, not a message catalog. A case-insensitive search of scripts/data-analysis for translat, i18n, next-intl and NEXT_LOCALE found 0 hits. 'locale' matches only toLocaleString/localeCompare. Nothing here stores, moves or serves translations.",
+          "evaluatedAt": "2026-10-24T06:40:50.332Z",
+          "worker": "eff3732f-498d-45e8-8956-606c8d193179",
+          "reason": "replaced by a0e1f4f1-bc93-46b3-9291-9d9b19b39947"
+        }
+      ]
     },
     "4a469aa2-e8dd-4ec4-b8c7-b8838f526aae/translation-pipeline-topology": {
       "context": "app-utilities",
@@ -1690,10 +1707,19 @@
       "subject": "translation-pipeline-topology",
       "bundle": "localization",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T07:53:09.877Z",
-      "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
-      "techniques": []
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:12:59.881Z",
+      "worker": "a0e1f4f1-bc93-46b3-9291-9d9b19b39947",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/sentinel/run.ts:4 Searches across the quality gate scripts revealed no translation pipeline machinery, as the context is focused on live-store database invariant checks, citation KPIs, and doc synchronization.",
+          "evaluatedAt": "2026-10-13T07:53:09.877Z",
+          "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+          "reason": "replaced by a0e1f4f1-bc93-46b3-9291-9d9b19b39947"
+        }
+      ]
     },
     "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/agent-runtime-assembly": {
       "context": "civic-inbox",
@@ -11588,10 +11614,19 @@
       "subject": "translation-pipeline-topology",
       "bundle": "localization",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T06:40:50.332Z",
-      "worker": "eff3732f-498d-45e8-8956-606c8d193179",
-      "techniques": []
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:12:59.881Z",
+      "worker": "a0e1f4f1-bc93-46b3-9291-9d9b19b39947",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/testing/lanes.ts:2 This is test infrastructure: lane partitioning, PGlite fixtures and route-source tests. A search of lib/testing for translat, i18n, next-intl, NEXT_LOCALE, LanguageSwitcher and cs.json found 0 hits. The cs/en catalog parity tests live in features/*/messages.test.ts, not in this context.",
+          "evaluatedAt": "2026-10-24T06:40:50.332Z",
+          "worker": "eff3732f-498d-45e8-8956-606c8d193179",
+          "reason": "replaced by a0e1f4f1-bc93-46b3-9291-9d9b19b39947"
+        }
+      ]
     },
     "eda8e129-2a39-4921-bff2-0251c7f61cb0/translation-pipeline-topology": {
       "context": "law-archive-early",
