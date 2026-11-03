@@ -2158,7 +2158,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/persist-batch.ts:79 `--allow-new-keys` is a single flag that lets every unregistered prop key in the payload through, however many there are and whichever ones they are. A deliberate addition of one key also waves through any other unregistered key the batch happens to carry, and the only record is a console.warn.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "test-harness",
@@ -9965,7 +9969,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/apply-amends-regen.ts:283 DELETION_ALLOWLIST is a list of bare strings that is never checked against what is actually dropped. A stale entry silently goes on permitting that edge's absence on later runs, even though the comment at line 104 claims an assertion refuses stale entries.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "prompt-assembly",
@@ -14001,13 +14009,12 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "conformant",
-          "evidence": "lib/analysis/verdict-provenance.ts:52 Verdict and law analysis features provide structured JSON schema enforcement, deterministic language gating, and multi-rung provenance tracking.",
-          "evaluatedAt": "2026-10-12",
-          "evaluatedAgainst": "sha256-b2:6e635d76a310aa4b",
-          "evaluatedRevision": 53,
-          "revisionsBehind": 1,
-          "stale": true
+          "state": "deviation",
+          "evidence": "lib/analysis/law-verdict.ts:272 The pipeline-jargon gate sits inside the `requireCzech !== false` branch, so the waiver for archived English verdicts also turns off a separate gate it never names. Its reach goes beyond the finding it exists to waive.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54,
+          "revisionsBehind": 1
         },
         {
           "subject": "parliamentary-data-modeling",

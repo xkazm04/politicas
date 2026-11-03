@@ -334,80 +334,110 @@
       "context": "verdict-and-law-analysis",
       "subject": "quality-gates",
       "bundle": "software-engineering",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-12",
-      "evaluatedTs": "2026-10-12T19:27:40.075Z",
-      "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T10:42:28.922Z",
+      "worker": "fbe4b8b6-07ad-4211-906b-1b0425d103d6",
       "techniques": [
         {
-          "technique": "advancement-evidence-fields",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/verdict-provenance.ts:52 Maintains a strict four-state review rung vocabulary ('machine', 'pending', 'verified', 'rejected') and withholds rejected claims without silent deletion."
-        },
-        {
-          "technique": "blocking-by-input-determinism",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/language-gate.ts:28 Performs deterministic Czech language verification using static stopword frequencies without external model calls."
-        },
-        {
-          "technique": "unparseable-form-is-a-finding",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/verdict.ts:222 Validates exact object keys against schema definitions to reject unexpected or invented properties."
-        },
-        {
-          "technique": "false-positive-economics",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/language-gate.ts:93 Establishes an empirical floor of 3 morphology hits before triggering English detection in the absence of closed-list words."
-        },
-        {
-          "technique": "fabrication-economics",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/kg-verdict.ts:344 Verifies that every entity URN cited in prose exists in the known entity database to reject hallucinated references."
-        },
-        {
-          "technique": "shared-substrate-check-partition",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/language-gate.ts:16 Applies the identical language ruleset during ingestion validation and frontend render-time withholding."
-        },
-        {
-          "technique": "severity-by-construction",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/tripwires.ts:20 Orders tripwire candidate alerts strictly by evidence completeness score rather than subjective severity ratings."
-        },
-        {
-          "technique": "refusal-names-a-reachable-remedy",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/verdict.ts:215 Provides clear error instructions directing subagents to place aggregate findings into patterns or backlog rather than entity id slots."
-        },
-        {
-          "technique": "item-liveness",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/plausible-date.ts:39 Validates date strings against historical boundaries (1993 to today), withholding invalid dates without fabricating replacements."
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/law-verdict.ts:272 requireCzech:false is documented as 're-validate an archived pre-rewrite verdict', but it also silences the jargon gate (urns, enums, cache paths). One waiver downgrades two finding classes, and the test at law-verdict.test.ts:229 only checks the English case."
         },
         {
           "technique": "prose-rule-drift",
           "verdict": "conformant",
-          "evidence": "lib/analysis/tripwires.ts:17 Binds verbatim Czech rule text directly to tripwire evaluation functions so that displayed criteria cannot drift from code."
+          "evidence": "lib/analysis/law-verdict.ts:269 An audit found a rule that existed only as prose, and it was mechanised into the validator."
         },
         {
-          "technique": "match-the-resolved-artifact",
+          "technique": "fabrication-economics",
           "verdict": "conformant",
-          "evidence": "lib/analysis/law-verdict.ts:175 Evaluates all matching terms against allowlists to prevent early matches from masking subsequent forbidden terminology."
-        },
-        {
-          "technique": "unmeasurable-criteria",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/verdict-provenance.ts:29 Returns explicit null for unrecorded legacy fields to distinguish unexamined properties from machine-evaluated ones."
-        },
-        {
-          "technique": "policy-projection",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/law-verdict.ts:49 Exports structured draft-07 JSON Schema definitions to constrain LLM subagents at the generation boundary."
+          "evidence": "lib/analysis/law-verdict.ts:321 A cited statute is checked against the known-law set, not just for presence. Caveat: the check is skipped when knownLawRefs/knownIds are not passed."
         },
         {
           "technique": "gate-laddering",
           "verdict": "conformant",
-          "evidence": "lib/analysis/law-verdict.ts:12 Partitions verification between automated pre-persistence gate rejection and post-persistence pending_review door human evaluation."
+          "evidence": "lib/analysis/language-gate.ts:16 One rule set is imported at both rungs: persist time rejects, and render time withholds (line 21)."
+        },
+        {
+          "technique": "blocking-by-input-determinism",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/language-gate.ts:28 A blocking classifier whose verdict depends only on the string, which is what permits it to hard-reject."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/language-gate.ts:84 The threshold was retuned against measured false positives (4 Czech strings wrongly withheld), with zero new English let through."
+        },
+        {
+          "technique": "decidable-in-a-window",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/language-gate.ts:215 The Czech-first rule is decided field by field from that field's own text. The window is bounded and no other file is consulted."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/tripwires.ts:239 Each tripwire reports how many rows it examined, so a run with zero candidates can be told apart from a broken pattern."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/tripwires.ts:113 A missing vote ledger makes T1 'blind' rather than 'no finding'. The output carries votesAvailable/agendaAvailable/collisionsAvailable."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/tripwires.ts:139 The rule text the surface shows is the same ruleCs constant that sits beside the predicate, and it is versioned by TRIPWIRE_RULE_VERSION."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/verdict-provenance.ts:52 A closed vocabulary that separates 'nobody looked' from 'sent back', with decidedBy/decidedAt. An unrecorded rung stays null and is never coerced (line 29)."
+        },
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/verdict.ts:222 Validates exact object keys against schema definitions to reject unexpected or invented properties.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "shared-substrate-check-partition",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/language-gate.ts:16 Applies the identical language ruleset during ingestion validation and frontend render-time withholding.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/tripwires.ts:20 Orders tripwire candidate alerts strictly by evidence completeness score rather than subjective severity ratings.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/verdict.ts:215 Provides clear error instructions directing subagents to place aggregate findings into patterns or backlog rather than entity id slots.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "item-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/plausible-date.ts:39 Validates date strings against historical boundaries (1993 to today), withholding invalid dates without fabricating replacements.",
+          "carriedFrom": "2026-10-12"
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/law-verdict.ts:175 Evaluates all matching terms against allowlists to prevent early matches from masking subsequent forbidden terminology.",
+          "carriedFrom": "2026-10-12"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "lib/analysis/verdict-provenance.ts:52 Verdict and law analysis features provide structured JSON schema enforcement, deterministic language gating, and multi-rung provenance tracking.",
+          "evaluatedAt": "2026-10-12T19:27:40.075Z",
+          "worker": "269e9330-52b5-47aa-9856-95d72f8ceb3b",
+          "reason": "replaced by fbe4b8b6-07ad-4211-906b-1b0425d103d6"
         }
       ]
     },
@@ -12762,6 +12792,103 @@
           "technique": "cosmetic-vs-enforced-threshold-invariant",
           "verdict": "not-applicable",
           "evidence": "lib/analysis/tripwires.ts:21 Nothing here ranks by urgency or takes an automatic action, so there is no pair of cosmetic and enforced thresholds that could get out of order."
+        }
+      ]
+    },
+    "83c0d33f-f7db-4a99-9d17-48a23e417b22/quality-gates": {
+      "context": "law-amends-corpus",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T10:42:28.922Z",
+      "worker": "fbe4b8b6-07ad-4211-906b-1b0425d103d6",
+      "techniques": [
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/apply-amends-regen.ts:283 Standing allowlist entries are matched by key, but an unmatched entry is neither reported nor refused, and there is no reason field (const DELETION_ALLOWLIST: string[] at line 92). apply-batch.ts has the assertion that this file lacks."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/apply-amends-regen.ts:104 The comment claims an assertion guards the deletion allowlist. Only EXCLUDED_LOW_CONFIDENCE_EDGES has one (line 200). The 'arm, fire, disarm' discipline for this list exists only as prose."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/validate-amends-regen.ts:159 There is a distinct could-not-run exit (exit 2, line 167), but a payload with zero edges exits 0 as PASS ('0 edges checked'). A walked population of zero is not treated as fatal."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/validate-amends-regen.ts:162 The exit code depends on the error count only. Warnings are explicitly non-blocking (line 141), so the labels match the plumbing."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/apply-amends-regen.ts:181 The refusal names two remedies, both reachable from the same CLI."
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/validate-amends-regen.ts:133 A provenance tag is verified by tracing the ref to its source set. An unverifiable tag fails, and its mere presence is not accepted."
+        },
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/tiskText.ts:104 Content the adapter does not recognise is thrown as an error, not parsed as an empty result."
+        }
+      ]
+    },
+    "1f1d5ac0-c074-4728-aa2d-a93ae1ff39fe/quality-gates": {
+      "context": "case-loops-core",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T10:42:28.922Z",
+      "worker": "fbe4b8b6-07ad-4211-906b-1b0425d103d6",
+      "techniques": [
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/persist-batch.ts:79 A blanket waiver: it names no key, so one waiver covers N findings. By contrast, apply-batch's DELETION_ALLOWLIST names src/rel/dst and refuses an unmatched entry (apply-batch.ts:447)."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/apply-batch.ts:572 Success is asserted from the store's own reported count, not assumed. An empty payload is also fatal (persist-batch.ts:169)."
+        },
+        {
+          "technique": "self-reported-gate-inputs",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/apply-batch.ts:674 Shape counts are pinned in code from the reviewed dry-run and are not read from the payload's own stats."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/apply-batch.ts:652 The refusal names remedies that are available on this CLI."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/apply-batch.ts:438 The allowlist assertion is limited to entries relevant to this batch, so it does not fire on unrelated runs."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/apply-batch.ts:30 A lesson recorded as prose (no-op exclusion entries) was mechanised as a startup assertion, and apply-batch.test.ts:162 covers it."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/apply-batch.ts:695 Every run leaves a durable report with a closed mode vocabulary (refused / dry-run-failed / commit-failed), never a missing artifact."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/sources/kiosek-validate.ts:67 With a zero denominator the hit rate is null, not 0 or 100%."
         }
       ]
     }
