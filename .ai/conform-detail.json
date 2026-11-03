@@ -13193,6 +13193,256 @@
           "evidence": "features/votetrack/kompas/score.ts:108 With no comparable votes the alignment rate is null, never 0, so an unmeasurable condition is not scored as disagreement."
         }
       ]
+    },
+    "5e38cfa9-d10e-43fa-9e8d-67d925668e43/quality-gates": {
+      "context": "shared-components",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T16:38:24.821Z",
+      "worker": "e467d34c-73ec-47ba-8f3b-623efa59e444",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/shared/forensic/forensicLayer.test.ts:50 The token list is hand-typed rather than read from the real palette, so a new token is never checked."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/shared/forensic/forensicLayer.test.ts:26 Fails if the layer's start/end markers are missing, so a block it could not find is a failure, not an empty pass."
+        },
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "conformant",
+          "evidence": "features/shared/forensic/forensicLayer.test.ts:33 A token written in any form other than #rrggbb fails loudly instead of being skipped."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "features/shared/forensic/forensicLayer.test.ts:101 The motion ban matches declarations only, so the layer's own comment about motion cannot make it fail."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "features/shared/components/VerdictProvenance.tsx:36 Fixed four-state vocabulary; a rejected verdict renders a visible 'withheld' state instead of a blank."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/shared/components/DataUnavailable.tsx:11 'Could not read the data' is kept separate from 'does not exist' (a real 404)."
+        }
+      ]
+    },
+    "eda8e129-2a39-4921-bff2-0251c7f61cb0/quality-gates": {
+      "context": "law-archive-early",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T16:38:24.821Z",
+      "worker": "e467d34c-73ec-47ba-8f3b-623efa59e444",
+      "techniques": [
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/archive/amends-regen-008.ts:91 A condition it cannot evaluate is passed without saying so, instead of being announced as a skip or failing closed."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:34 Finding zero verdict files exits 1 rather than reporting a clean pass."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:29 The file pattern was narrowed after the gate went red on its own payload, with the reason written down."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/archive/collision-sweep-009.ts:272 The exit code depends directly on the false-positive count."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/archive/amends-regen-005.ts:64 The refusal tells the reader exactly how to fix it."
+        },
+        {
+          "technique": "instrument-answers-only-its-own-question",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/archive/measure-precision-008.ts:161 The output describes the proxy's question as narrower than true precision."
+        }
+      ]
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/quality-gates": {
+      "context": "civic-verification",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T16:38:24.821Z",
+      "worker": "e467d34c-73ec-47ba-8f3b-623efa59e444",
+      "techniques": [
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "features/overeni/verdict.ts:146 Missing evidence is counted as a pass and shown with the same headline as a real match; a missing derivation on either side is also skipped without saying so."
+        },
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "deviation",
+          "evidence": "features/overeni/overeniSource.test.ts:23 Bans one exact spelling of the UTC-day bug; .slice(0,10), substring or split('T') bring it back without failing the test."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/overeni/verdict.ts:29 Three distinct outcomes; a reference the gate cannot read becomes 'unknown', never 'verified'."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "features/overeni/gateVocabulary.ts:17 Fixed review-state vocabulary; an unknown token is shown as-is and marked unmapped, never left blank."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "features/overeni/gateVocabulary.ts:50 The two token families resolve through one vocabulary instead of two copies."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "features/overeni/pageSource.test.ts:7 Comments are removed before matching, though the removal step itself is untested and string literals are not removed."
+        }
+      ]
+    },
+    "77144fa6-99c0-41be-9032-46aa6c0a1392/quality-gates": {
+      "context": "testing-core",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T16:38:24.821Z",
+      "worker": "e467d34c-73ec-47ba-8f3b-623efa59e444",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:83 Matches a substring of the command text instead of the script name CI actually runs."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:67 Reads only run: lines and ignores continue-on-error and if:, so a step made non-blocking still counts as enforced on the merge rung."
+        },
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:96 Exemption keys match by substring: 'build' would exempt any new CI-only step such as 'npm run kg:rebuild', and 'audit' any '*audit*' script."
+        },
+        {
+          "technique": "gate-laddering",
+          "verdict": "conformant",
+          "evidence": "lib/testing/gateLadder.test.ts:10 The ladder rule is stated and mechanised."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "lib/testing/gateLadder.test.ts:25 The check chain is read from package.json, not hand-copied."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "conformant",
+          "evidence": "lib/testing/gateLadder.test.ts:21 A rule that existed only in prose was turned into a check."
+        },
+        {
+          "technique": "blocking-by-input-determinism",
+          "verdict": "conformant",
+          "evidence": "lib/testing/gateLadder.test.ts:51 npm audit depends on outside data and is kept advisory for that stated reason."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/testing/archivedScripts.test.ts:146 The guard's red state is exercised with a seeded violation, and the walk has a minimum file count."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "lib/testing/archivedScripts.test.ts:148 A test case confirms prose mentioning an archived script does not trip the guard."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "lib/testing/lane-partition.test.ts:92 The failure message names the exact file and list to edit."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "lib/testing/lanes.ts:96 The misfiled-test guard matches literal spellings, so vi.stubEnv('PGLITE_PATH', …) or an aliased pgliteFixtureDir import boots a store while evading it."
+        },
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "deviation",
+          "evidence": "lib/testing/server-boundary.test.ts:78 Only import declarations are followed. Re-exports (export … from), which the tree uses, and non-literal dynamic imports are dropped without being reported, so a client reaching server-only code through a re-exporting module passes."
+        },
+        {
+          "technique": "instrument-answers-only-its-own-question",
+          "verdict": "conformant",
+          "evidence": "lib/testing/server-boundary.test.ts:14 States that a green npm test says nothing about the client/server boundary and adds a separate check for it."
+        }
+      ]
+    },
+    "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/quality-gates": {
+      "context": "law-triage-collision",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T16:38:24.821Z",
+      "worker": "e467d34c-73ec-47ba-8f3b-623efa59e444",
+      "techniques": [
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:96 Zero files exits 0, the could-not-run case reported as a pass."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 Requires Czech by default over payloads/verdicts/, which holds the 27 English originals (verdict-11 checked: English text). Those are documented as failing that check by design, so the gate can never pass; read from the code, not run."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:22 The header says the gate matches kg-forensics.ts exactly, but kg-forensics.ts:113 accepts every node id, as verdictScope.ts:8 itself admits."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/triageSource.test.ts:23 The overwrite guard is 'proven' by three tokens anywhere in raw text; a comment containing them passes after the if is deleted."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/collisionSource.test.ts:18 The ban depends on a variable name; readdirSync(cacheDir) brings back a private cache read and the test stays green."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/triage.ts:227 The safe option is not named, and the only merge-preserving re-triage scripts (retriage-009, update-ledger-011) are archived one-shots, so the only reachable option is the destructive --replace."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:114 The heuristic is declared advisory and is kept out of the exit code; the exit code follows errors only."
+        },
+        {
+          "technique": "instrument-answers-only-its-own-question",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:69 The scope check says it covers company targets only and claims no completeness."
+        }
+      ]
     }
   }
 }

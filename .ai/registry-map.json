@@ -3816,7 +3816,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/overeni/verdict.ts:146 A pasted claim reference with no value has nothing to compare, yet figuraVerdict returns 'verified'. verdictHeadlineKey then shows 'Ověřeno — sedí, jak bylo citováno', so a comparison that never happened is presented as a confirmed match.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "docs-sync",
@@ -10200,7 +10204,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/archive/amends-regen-008.ts:91 When a bill's text is not cached, the batch-008 role gate cannot run, and every title-derived reference passes through to become an amends edge. Nothing counts or reports these skips, even though the run's method note says nothing is dropped silently.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-session-archive",
@@ -10557,7 +10565,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:96 The live pre-write verdict gate (the re-verify the fleet runs before writing to .pglite) prints 'no verdicts' and exits 0 when the verdicts folder is missing or empty, so 'could not look' is reported as success. The archived successor gate-verdicts-011.ts exits 1 in the same case.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "test-harness",
@@ -12826,7 +12838,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/shared/forensic/forensicLayer.test.ts:50 The forensic-layer guard says it checks that ALL core palette tokens are remapped, but it takes that list from a hand-typed array instead of reading the palette in app/globals.css. A new token added to the poster palette and left unmapped would put dark-on-dark text in the forensic layer while the test stays green.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "test-harness",
@@ -13666,7 +13682,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/gateLadder.test.ts:83 The ladder test checks whether a step runs in CI by substring match, so 'npm run test' counts as present because 'npm run test:rules' contains it, and 'npm run docs:sync' counts because 'npm run docs:sync:test' does. Deleting the main test step or the docs-sync step from ci.yml leaves the 'CI is a superset of check' test green.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "translation-pipeline-topology",
