@@ -6567,7 +6567,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 If any eslint-rules/<rule>.cjs shim is missing or broken inside the politicas tree, require() throws MODULE_NOT_FOUND, the runner prints SKIP and still exits 0, so the shim-equivalence check that CLAUDE.md says test:rules asserts passes green after checking nothing; eslint.config.mjs imports the package directly, so lint does not catch the missing shim either.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-instruction-files",
@@ -14484,7 +14488,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/votetrack/kompas/kompasSource.test.ts:20 The regression guard bans one exact single-line spelling of the old binary outcome ternary. If the same bug comes back formatted across lines (as prettier would write it), with a different quote style or with branches swapped, it passes clean, and nothing refuses forms the matcher cannot follow.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-memory",

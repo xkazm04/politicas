@@ -13096,6 +13096,103 @@
           "evidence": "scripts/case-loops/effort/gate-rung.test.ts:6 The rule was made reachable in the pure unit lane rather than needing the store-backed gate."
         }
       ]
+    },
+    "3e5e8c14-4e90-463a-a9c3-c3538c866bab/quality-gates": {
+      "context": "eslint-plugin-civic-transparency-tests",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T15:21:17.685Z",
+      "worker": "4b8cfa44-239d-4374-997f-9a79f721d57c",
+      "techniques": [
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 A shim that could not be loaded is folded into a passing run instead of failing it. The step decides 'standalone checkout' from the error code, not by checking whether eslint-rules/ exists, so the check fails open in-repo."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:115 When the 'shim === package rule' condition cannot be evaluated, the step always skips. It never separates 'not applicable (standalone)' from 'evidence missing in the repo it governs'. The loop also stops at the first missing shim, so later shims go unchecked."
+        },
+        {
+          "technique": "chokepoint-tag-registry",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:58 Rule files, exports, docs and suites are reconciled in both directions, including the 'row with no implementation' direction."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:33 The prose convention 'every rule has a doc and a test' was mechanised against the filesystem after it was found drifting."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:83 Preset composition and severities are pinned, so the index.cjs header (a projection of the policy) cannot drift from the enforced preset."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:25 Each suite throws on failure. The top-level-await import turns that throw into a rejected module and a non-zero process exit, so a RuleTester failure reaches the exit code."
+        },
+        {
+          "technique": "vacuous-by-evaluation",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:159 Every rule suite carries invalid fixtures that must report, so each rule has been shown able to refuse (per-rule liveness, not per-set)."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:177 The detector key follows the import binding, not the literal name, and a fixture proves renaming does not escape it."
+        },
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:243 A structured waiver that names no key is rejected as malformed and gives no blanket exemption."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:233 Delegation keys are verified against code, not raw file text; a comment mention does not satisfy them."
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:301 Census mode reports 'declared' (citation-ok shrug) separately from 'cited', so the green rate can be quoted beside its token count."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:137 Valid fixtures pin the known correct-content cases the rule must not fire on."
+        }
+      ]
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/quality-gates": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T15:21:17.685Z",
+      "worker": "4b8cfa44-239d-4374-997f-9a79f721d57c",
+      "techniques": [
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/kompasSource.test.ts:20 This negative-space source match is not paired with a ban on escape forms, and the haystack is not blanked first. An accidental rewrite passes with a clean exit."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/kompasSource.test.ts:19 The presence assertion runs on raw text with comments left in, so a comment that mentions KNOWN_OUTCOMES satisfies it after the Set at QuestionCard.tsx:23 is deleted. The sibling guard features/overeni/pageSource.test.ts strips comments first."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/kompas/score.ts:108 With no comparable votes the alignment rate is null, never 0, so an unmeasurable condition is not scored as disagreement."
+        }
+      ]
     }
   }
 }

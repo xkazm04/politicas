@@ -1,0 +1,163 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4b8cfa44-239d-4374-997f-9a79f721d57c",
+ "subject": "quality-gates",
+ "evaluatedAt": "2026-11-03T15:21:17.685040+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "eslint-plugin-civic-transparency-tests",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 If any eslint-rules/<rule>.cjs shim is missing or broken inside the politicas tree, require() throws MODULE_NOT_FOUND, the runner prints SKIP and still exits 0, so the shim-equivalence check that CLAUDE.md says test:rules asserts passes green after checking nothing; eslint.config.mjs imports the package directly, so lint does not catch the missing shim either.",
+   "techniques": [
+    {
+     "technique": "gate-liveness",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 A shim that could not be loaded is folded into a passing run instead of failing it. The step decides 'standalone checkout' from the error code, not by checking whether eslint-rules/ exists, so the check fails open in-repo."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:115 When the 'shim === package rule' condition cannot be evaluated, the step always skips. It never separates 'not applicable (standalone)' from 'evidence missing in the repo it governs'. The loop also stops at the first missing shim, so later shims go unchecked."
+    },
+    {
+     "technique": "chokepoint-tag-registry",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:58 Rule files, exports, docs and suites are reconciled in both directions, including the 'row with no implementation' direction."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:33 The prose convention 'every rule has a doc and a test' was mechanised against the filesystem after it was found drifting."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:83 Preset composition and severities are pinned, so the index.cjs header (a projection of the policy) cannot drift from the enforced preset."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:25 Each suite throws on failure. The top-level-await import turns that throw into a rejected module and a non-zero process exit, so a RuleTester failure reaches the exit code."
+    },
+    {
+     "technique": "vacuous-by-evaluation",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:159 Every rule suite carries invalid fixtures that must report, so each rule has been shown able to refuse (per-rule liveness, not per-set)."
+    },
+    {
+     "technique": "renameable-detector-keys",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:177 The detector key follows the import binding, not the literal name, and a fixture proves renaming does not escape it."
+    },
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:243 A structured waiver that names no key is rejected as malformed and gives no blanket exemption."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:233 Delegation keys are verified against code, not raw file text; a comment mention does not satisfy them."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:301 Census mode reports 'declared' (citation-ok shrug) separately from 'cited', so the green rate can be quoted beside its token count."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:137 Valid fixtures pin the known correct-content cases the rule must not fire on."
+    }
+   ]
+  },
+  {
+   "context": "votetrack-kompas-analysis",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/votetrack/kompas/kompasSource.test.ts:20 The regression guard bans one exact single-line spelling of the old binary outcome ternary. If the same bug comes back formatted across lines (as prettier would write it), with a different quote style or with branches swapped, it passes clean, and nothing refuses forms the matcher cannot follow.",
+   "techniques": [
+    {
+     "technique": "unparseable-form-is-a-finding",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/kompas/kompasSource.test.ts:20 This negative-space source match is not paired with a ban on escape forms, and the haystack is not blanked first. An accidental rewrite passes with a clean exit."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/kompas/kompasSource.test.ts:19 The presence assertion runs on raw text with comments left in, so a comment that mentions KNOWN_OUTCOMES satisfies it after the Set at QuestionCard.tsx:23 is deleted. The sibling guard features/overeni/pageSource.test.ts strips comments first."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/kompas/score.ts:108 With no comparable votes the alignment rate is null, never 0, so an unmeasurable condition is not scored as disagreement."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "quality-gates",
+   "context": "shared-components",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "quality-gates",
+   "context": "civic-verification",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "quality-gates",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-03T15:21:17.685040+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "chokepoint-tag-registry",
+    "fabrication-economics",
+    "false-positive-economics",
+    "gate-liveness",
+    "match-the-resolved-artifact",
+    "policy-projection",
+    "prose-rule-drift",
+    "renameable-detector-keys",
+    "severity-by-construction",
+    "unmeasurable-criteria",
+    "vacuous-by-evaluation",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 1,
+   "context": "eslint-plugin-civic-transparency-tests",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T15:21:17.685040+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "match-the-resolved-artifact",
+    "unmeasurable-criteria",
+    "unparseable-form-is-a-finding"
+   ],
+   "deviations": 1,
+   "context": "votetrack-kompas-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
