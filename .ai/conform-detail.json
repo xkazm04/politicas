@@ -13856,6 +13856,53 @@
           "evidence": "lib/testing/sentinel/report.ts:155 One verdict derivation, shared by evaluator, unreadable path and parser. A report whose headline contradicts its rows is rejected."
         }
       ]
+    },
+    "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/test-harness": {
+      "context": "law-triage-collision",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:00:06.097Z",
+      "worker": "7a698b2a-1b62-41f7-ad5f-e3099aef7f36",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/triageSource.test.ts:33 The needle is a bare identifier that prose can spell. triage.ts:7 (` * triageScore = ... × BANDS.sev`) gives one hit per band, so a count of 2 is met by comment + computation alone. The haystack is not comment-stripped and the needle carries no call-only token."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/triageSource.test.ts:22 The test name claims a behaviour, but only text is pinned (`--replace`, `REFUSED`). The refusal decision stays inside main(), which runs on import (triage.ts:254 `main().then(...)`), so nothing can reach it. It was not lifted into a reachable unit, and the test does not label itself an interim. gate-verdicts.ts:159 shows the lifted pattern (isDirectRun guard) exists in the same folder."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/cause-collapse.test.ts:78 The collapse measurement is shown to move when its input is removed, and a POSITIVE CONTROL at line 35 ties arm A to the shipped backlogRemaining. The A/B can therefore fail and is shown to reach the real pipeline."
+        }
+      ]
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/test-harness": {
+      "context": "app-shell",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-03",
+      "evaluatedTs": "2026-11-03T23:00:06.097Z",
+      "worker": "7a698b2a-1b62-41f7-ad5f-e3099aef7f36",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "lib/testing/appShellSource.test.ts:41 The haystack is not comment-stripped, and prose can spell the needle (app/admin/page.tsx:19). The walk does declare a floor (line 38, paths.length >= 3). The sibling features/shell/errorBoundaryProps.test.ts strips comments, so the repo knows the remedy and did not apply it here."
+        },
+        {
+          "technique": "live-app-harness",
+          "verdict": "conformant",
+          "evidence": "scripts/smoke.ts:38 The smoke script boots the production `next start` artifact (or a deployment) and checks the shell's landing page and legal pages over HTTP. It runs on demand, not in CI. It does not cover robots.txt, the sitemap, 404 or the error boundaries."
+        }
+      ]
     }
   }
 }

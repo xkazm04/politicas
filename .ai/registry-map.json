@@ -1576,7 +1576,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/appShellSource.test.ts:41 The noindex pin reads each disallowed page's raw source, comments included. app/admin/page.tsx:19 has a comment spelling `robots: { index: false }`, so deleting the real metadata line (13) would leave the test green while robots.ts still lists /admin.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "native-shell-integration",
@@ -10611,7 +10615,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/triageSource.test.ts:33 The pin claims every band is read from BANDS where the score is computed and where the formula is described. It counts bare `BANDS.<k>` mentions in raw source, and triage.ts's header comment (line 7 onward) already spells each one, so the triageFormula line could go back to literal weights and the test would stay green.",
+          "evaluatedAt": "2026-11-03",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "agent-memory",
