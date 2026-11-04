@@ -1729,12 +1729,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "app/page.tsx:60 The streaming Suspense boundary on the landing page renders a fallback that lacks vertical height reservation for the delayed ledger entries, causing visible layout shifts once the streamed DenikSlot resolves.",
-          "evaluatedAt": "2026-10-16",
-          "evaluatedAgainst": "sha256-b2:f51109a4fa17ac48",
-          "evaluatedRevision": 3,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "app/page.tsx:60 The landing's streamed Deník slot falls back to a single loading line. The resolved DenikTeaser adds a day line, a cap note, up to four list rows and a SourceNote, so everything below the slot moves down when the ~12 s cold read resolves (the slot sits below the hero and ranking, so it shifts what the reader sees only once they have scrolled). Separately, the landing h1 is served at opacity 0.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6eb078a45499ad8a",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 2
         }
       ],
       "governance": "governed"
@@ -3316,12 +3315,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "app/denik/loading.tsx:26 The /denik streaming shell paints its headline without the SourceNote kicker that DenikPage.tsx:326 puts above the same h1, so the placeholder is only roughly the right size and the masthead drops by one kicker line when the ~12 s server read resolves.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "app/denik/loading.tsx:26 The /denik streaming shell paints its h1 with no SourceNote kicker, while DenikPage puts SourceNote tone=\"signal\" above the same mt-3 h1. The placeholder is one kicker line short, so the masthead and everything below it drop when the cold server read resolves.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6eb078a45499ad8a",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         }
       ],
       "governance": "governed"
@@ -9227,12 +9225,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "app/rentgen/page.tsx:26 /rentgen mounts a client feature whose headline is SSR'd with an opacity-0 entrance, so its largest paint waits for script. The other routes in this context render on the server (svedectvi) or ship only a seed to the client (/graf).",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "app/rentgen/page.tsx:26 /rentgen mounts a \"use client\" feature whose h1 is server-rendered with an opacity-0, y-offset start state (useReducedMotion is null during SSR), so the route's largest paint waits for hydration; /graf/p/[ref] does the same through PermalinkPage's motion.h1.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6eb078a45499ad8a",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-runtime-assembly",
@@ -15116,12 +15113,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "app/hlasovani/loading.tsx:22 The /hlasovani streaming shell (shown during the ~16 s cold ledger read) sets the headline with no eyebrow and no mt-3, while VoteTrackPage renders a SourceNote plus an mt-3 h1, so the masthead jumps down when the page streams in. The loaded headline is then served at opacity 0 until hydration.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:449e36ca8d3fe3a6",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "app/hlasovani/loading.tsx:22 The /hlasovani streaming shell (shown during the ~16 s cold ledger read) sets the h1 with no eyebrow and no mt-3, while VoteTrackPage renders a SourceNote plus an mt-3 h1, so the masthead jumps down on stream-in. The loaded h1 is then served at opacity 0 until hydration.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6eb078a45499ad8a",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-runtime-assembly",
