@@ -14671,6 +14671,99 @@
           "evidence": "scripts/case-loops/money/archive/validate-batch008.ts:21 a missing or malformed payload is not caught locally; it propagates to main().catch → exit 1, so the input hole fails closed (unlike the live validate-payloads.ts)"
         }
       ]
+    },
+    "4bf433a5-ab8e-4468-b456-344daae2ce21/quality-gates": {
+      "context": "votetrack-ledger",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:49:42.886Z",
+      "worker": "0841820f-b9a6-49dd-a0bb-b9193afbaab1",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/ledgerSource.test.ts:12 The positive presence check runs over unstripped source, so prose can satisfy it. The technique calls an unexplained raw read indistinguishable from the defect. The sibling pageSource.test.ts in data-releases does strip comments."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/ledgerSource.test.ts:14 The key is an identifier name. A local copy of the outcome set under any other name passes, and the test title claims the property ('carries no two-way outcome ternary') instead of declaring itself a floor."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/ledgerSource.test.ts:47 Checks the instrument before the result: the slug extractor has to find a non-trivial list before the equality check can count."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/chronicleCap.test.ts:106 Population-sensitive test that the display cap is not a data cap: the fixture is larger than the cap, and chronicleTotal and every other field have to be cap-independent."
+        }
+      ]
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/quality-gates": {
+      "context": "data-releases-atlas",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:49:42.886Z",
+      "worker": "0841820f-b9a6-49dd-a0bb-b9193afbaab1",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/data-releases/pageSource.test.ts:12 Comment stripping is a pattern pass; the technique says 'a pattern pass is not enough' and requires the seeded pair. Absence asserts (lines 26-27) are paired with a presence assert (line 28), which is partly conformant."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/atlas/sealTables.test.ts:30 Falsifies the extractor ('nástroj čte netriviální seznam'), and arrayLiteral throws at line 15 when the constant is missing, so a lost needle is a could-not-run rather than a pass."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/data-releases/manifest.ts:64 'unevaluable' (sentinel could not reach the data) and 'none' (never ran) are separate states that are never read as a pass. Null invariant counts are kept apart from 0 of 0, and pageSource pins that."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "features/data-releases/manifest.ts:185 The certification pointer names the exact manifest hash it was measured on. A missing exact match becomes 'none', never the nearest other verdict."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "features/data-releases/DataReleasesPage.tsx:47 The display cap is named as such, the page counts the remainder (lines 507-511), and manifest.json carries the full list."
+        }
+      ]
+    },
+    "698307e2-e6e2-444a-81c9-07254c5d1725/quality-gates": {
+      "context": "money-evidence",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:49:42.886Z",
+      "worker": "0841820f-b9a6-49dd-a0bb-b9193afbaab1",
+      "techniques": [
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "features/money/contractDates.test.ts:105 Absence assertion over a window that can be empty. Nothing checks the instrument (the window is non-empty and the markers were found) before the result."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "features/money/contractDates.test.ts:104 The location key is a function-name string. Renaming the function keeps the behaviour and clears the check."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/money/contractDates.test.ts:112 Only block comments are stripped, so the positive toMatch(/displaySignedOn\\(c\\)/) at line 114 is satisfiable by a // line comment. Line 95 reads profileMoney.ts raw for a positive match, also unexplained."
+        }
+      ]
     }
   }
 }

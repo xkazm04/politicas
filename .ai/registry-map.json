@@ -5063,7 +5063,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/data-releases/pageSource.test.ts:12 The /data source guard does normalise away comments, but only with a regex pass that does not track string, comment and code state and keeps no seeded describe/call pair. The technique names exactly this as the way the stripper breaks silently.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "migrations",
@@ -11589,7 +11593,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/contractDates.test.ts:104 The guard slices moneyLoader.ts by two literal markers it never asserts are present. If readCompanySupplies is renamed, indexOf returns -1, the slice is empty, and the not.toContain check passes while checking nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-memory",
@@ -14870,7 +14878,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/votetrack/ledgerSource.test.ts:6 The /hlasovani source guards match raw file text with no comment or string normalisation and give no reason for the raw read, so a positive assertion like the record/outcome import check can be satisfied by a comment that only describes the convention.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-memory",

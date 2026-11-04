@@ -1,0 +1,162 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0841820f-b9a6-49dd-a0bb-b9193afbaab1",
+ "subject": "quality-gates",
+ "evaluatedAt": "2026-11-04T01:49:42.886185+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "votetrack-ledger",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/votetrack/ledgerSource.test.ts:6 The /hlasovani source guards match raw file text with no comment or string normalisation and give no reason for the raw read, so a positive assertion like the record/outcome import check can be satisfied by a comment that only describes the convention.",
+   "techniques": [
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/ledgerSource.test.ts:12 The positive presence check runs over unstripped source, so prose can satisfy it. The technique calls an unexplained raw read indistinguishable from the defect. The sibling pageSource.test.ts in data-releases does strip comments."
+    },
+    {
+     "technique": "renameable-detector-keys",
+     "verdict": "deviation",
+     "evidence": "features/votetrack/ledgerSource.test.ts:14 The key is an identifier name. A local copy of the outcome set under any other name passes, and the test title claims the property ('carries no two-way outcome ternary') instead of declaring itself a floor."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/ledgerSource.test.ts:47 Checks the instrument before the result: the slug extractor has to find a non-trivial list before the equality check can count."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "features/votetrack/chronicleCap.test.ts:106 Population-sensitive test that the display cap is not a data cap: the fixture is larger than the cap, and chronicleTotal and every other field have to be cap-independent."
+    }
+   ]
+  },
+  {
+   "context": "data-releases-atlas",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/data-releases/pageSource.test.ts:12 The /data source guard does normalise away comments, but only with a regex pass that does not track string, comment and code state and keeps no seeded describe/call pair. The technique names exactly this as the way the stripper breaks silently.",
+   "techniques": [
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "deviation",
+     "evidence": "features/data-releases/pageSource.test.ts:12 Comment stripping is a pattern pass; the technique says 'a pattern pass is not enough' and requires the seeded pair. Absence asserts (lines 26-27) are paired with a presence assert (line 28), which is partly conformant."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "features/atlas/sealTables.test.ts:30 Falsifies the extractor ('n\u00e1stroj \u010dte netrivi\u00e1ln\u00ed seznam'), and arrayLiteral throws at line 15 when the constant is missing, so a lost needle is a could-not-run rather than a pass."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "features/data-releases/manifest.ts:64 'unevaluable' (sentinel could not reach the data) and 'none' (never ran) are separate states that are never read as a pass. Null invariant counts are kept apart from 0 of 0, and pageSource pins that."
+    },
+    {
+     "technique": "advancement-evidence-fields",
+     "verdict": "conformant",
+     "evidence": "features/data-releases/manifest.ts:185 The certification pointer names the exact manifest hash it was measured on. A missing exact match becomes 'none', never the nearest other verdict."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "features/data-releases/DataReleasesPage.tsx:47 The display cap is named as such, the page counts the remainder (lines 507-511), and manifest.json carries the full list."
+    }
+   ]
+  },
+  {
+   "context": "money-evidence",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/money/contractDates.test.ts:104 The guard slices moneyLoader.ts by two literal markers it never asserts are present. If readCompanySupplies is renamed, indexOf returns -1, the slice is empty, and the not.toContain check passes while checking nothing.",
+   "techniques": [
+    {
+     "technique": "gate-liveness",
+     "verdict": "deviation",
+     "evidence": "features/money/contractDates.test.ts:105 Absence assertion over a window that can be empty. Nothing checks the instrument (the window is non-empty and the markers were found) before the result."
+    },
+    {
+     "technique": "renameable-detector-keys",
+     "verdict": "deviation",
+     "evidence": "features/money/contractDates.test.ts:104 The location key is a function-name string. Renaming the function keeps the behaviour and clears the check."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "deviation",
+     "evidence": "features/money/contractDates.test.ts:112 Only block comments are stripped, so the positive toMatch(/displaySignedOn\\(c\\)/) at line 114 is satisfiable by a // line comment. Line 95 reads profileMoney.ts raw for a positive match, also unexplained."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "quality-gates",
+   "context": "admin-infrastructure",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "quality-gates",
+   "context": "graph-canvas",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T01:49:42.886185+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "gate-liveness",
+    "match-the-resolved-artifact",
+    "policy-projection",
+    "renameable-detector-keys"
+   ],
+   "deviations": 1,
+   "context": "votetrack-ledger",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T01:49:42.886185+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "advancement-evidence-fields",
+    "gate-liveness",
+    "match-the-resolved-artifact",
+    "policy-projection",
+    "unmeasurable-criteria"
+   ],
+   "deviations": 1,
+   "context": "data-releases-atlas",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T01:49:42.886185+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "gate-liveness",
+    "match-the-resolved-artifact",
+    "renameable-detector-keys"
+   ],
+   "deviations": 1,
+   "context": "money-evidence",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
