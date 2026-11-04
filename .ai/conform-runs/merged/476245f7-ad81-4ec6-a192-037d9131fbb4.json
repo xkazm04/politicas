@@ -1,0 +1,134 @@
+{
+ "schema": "conform-run/1",
+ "worker": "476245f7-ad81-4ec6-a192-037d9131fbb4",
+ "subject": "table",
+ "evaluatedAt": "2026-11-04T22:11:57.405081+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "volby-elections",
+   "subject": "table",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/volby/ListPage.tsx:109 When a list is opened with a ?kraj= pin (KrajPage/ObecPage link every list with pinKraj), pinnedMembers can be empty for a list with no MPs from that kraj, and MembersTable renders its header over zero rows with no empty claim, under a lead that says 'these MPs of the list were elected there'. Empty is never named, which breaks the settled-empty rule.",
+   "techniques": [
+    {
+     "technique": "loading-and-empty-states",
+     "verdict": "deviation",
+     "evidence": "features/volby/ListPage.tsx:43 MembersTable has no zero-row branch. The other volby tables do name their empty state (ContestedMatrix.tsx:32, ListsLedger.tsx:29), but the pinned-kraj subset can render as a header with an empty body."
+    },
+    {
+     "technique": "sorting",
+     "verdict": "conformant",
+     "evidence": "features/volby/volbyLoader.ts:378 Lists sort by seats desc with a cs-collated label tiebreak. Members sort by name with a pspId tiebreak (volbyLoader.ts:167), which survives the stable re-sort at getListData.ts:74."
+    },
+    {
+     "technique": "client-server-split",
+     "verdict": "conformant",
+     "evidence": "features/volby/getListData.ts:74 Ordering and pin predicate both run on the server (loader + RSC page), so no axis is split across tiers. Sets are small (lists, \u2264 chamber members) and held whole."
+    },
+    {
+     "technique": "performance",
+     "verdict": "conformant",
+     "evidence": "features/volby/components/ListsLedger.tsx:61 Rows are keyed by system identity (slug, pspId, votePspId), not by index. The tables are small and server-rendered, so no windowing is needed."
+    },
+    {
+     "technique": "grid-keyboard-model",
+     "verdict": "conformant",
+     "evidence": "features/volby/components/ListsLedger.tsx:35 A native table with read-only cells and one link per row header, plus sr-only caption and scope col/row. This is the right choice over a grid role."
+    },
+    {
+     "technique": "filtering",
+     "verdict": "not-applicable",
+     "evidence": "features/volby/ListPage.tsx:79 There is no filter bar. The only predicate is a URL pin, applied server-side with the same rule as the loader."
+    },
+    {
+     "technique": "pagination",
+     "verdict": "not-applicable",
+     "evidence": "features/volby/volbyLoader.ts:167 Every set is bounded by the 200-seat chamber, so the full set renders with no window."
+    },
+    {
+     "technique": "export-escapes-for-its-consumer",
+     "verdict": "not-applicable",
+     "evidence": "features/volby/components/ListsLedger.tsx:72 No CSV export exists. grep for csv/clipboard in features/volby found nothing, and the cells are display-only."
+    },
+    {
+     "technique": "one-door-for-range-writes",
+     "verdict": "not-applicable",
+     "evidence": "features/volby/components/ContestedMatrix.tsx:84 Read-only cells with no paste or fill writers."
+    }
+   ]
+  },
+  {
+   "context": "landing-core",
+   "subject": "table",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/landing/components/Standings.tsx:30 The landing standings are a ranking rendered as a stack of select buttons (rank, name, score), which the golden path assigns to a list, not a table. A search of features/landing for <thead, scope=\"col\", aria-sort and role=\"grid\" found no tabular surface (the only <table> in the tree is the referendum embed string, a different context).",
+   "techniques": [
+    {
+     "technique": "performance",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/components/Standings.tsx:31 This is a list, not a table, though it is identity-keyed anyway."
+    }
+   ],
+   "absenceTerms": [
+    "<thead",
+    "scope=\"col\"",
+    "aria-sort",
+    "role=\"grid\""
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "table",
+   "context": "votetrack-ledger",
+   "reason": "evidence leans on record/derive.ts, which is not a tracked file"
+  },
+  {
+   "subject": "table",
+   "context": "landing-referendum",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T22:11:57.405081+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "table"
+   ],
+   "techniques": [
+    "client-server-split",
+    "export-escapes-for-its-consumer",
+    "filtering",
+    "grid-keyboard-model",
+    "loading-and-empty-states",
+    "one-door-for-range-writes",
+    "pagination",
+    "performance",
+    "sorting"
+   ],
+   "deviations": 1,
+   "context": "volby-elections",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T22:11:57.405081+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "table"
+   ],
+   "techniques": [
+    "performance"
+   ],
+   "deviations": 0,
+   "context": "landing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

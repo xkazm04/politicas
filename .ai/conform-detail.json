@@ -1250,39 +1250,55 @@
       "context": "volby-elections",
       "subject": "table",
       "bundle": "software-engineering",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T02:11:36.124Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T22:11:57.405Z",
+      "worker": "476245f7-ad81-4ec6-a192-037d9131fbb4",
       "techniques": [
         {
           "technique": "loading-and-empty-states",
-          "verdict": "conformant",
-          "evidence": "features/volby/components/ListsLedger.tsx:30 The lists.empty copy says the lists could not be composed because PSP10 mandates are unreadable. A null loader goes to DataUnavailable at the route."
-        },
-        {
-          "technique": "grid-keyboard-model",
-          "verdict": "conformant",
-          "evidence": "features/volby/components/ListsLedger.tsx:62 Native table over a small number of lists, with a row header holding the single link."
+          "verdict": "deviation",
+          "evidence": "features/volby/ListPage.tsx:43 MembersTable has no zero-row branch. The other volby tables do name their empty state (ContestedMatrix.tsx:32, ListsLedger.tsx:29), but the pinned-kraj subset can render as a header with an empty body."
         },
         {
           "technique": "sorting",
           "verdict": "conformant",
-          "evidence": "features/volby/volbyLoader.ts:378 Seats descending, then label under Czech collation. The tiebreaker is the list label, unique within an election, not the partyListPspId identity. The member order in getListData.ts:74 ends at name but inherits a pspId tiebreak through a stable sort from volbyLoader.ts:167."
+          "evidence": "features/volby/volbyLoader.ts:378 Lists sort by seats desc with a cs-collated label tiebreak. Members sort by name with a pspId tiebreak (volbyLoader.ts:167), which survives the stable re-sort at getListData.ts:74."
+        },
+        {
+          "technique": "client-server-split",
+          "verdict": "conformant",
+          "evidence": "features/volby/getListData.ts:74 Ordering and pin predicate both run on the server (loader + RSC page), so no axis is split across tiers. Sets are small (lists, ≤ chamber members) and held whole."
         },
         {
           "technique": "performance",
           "verdict": "conformant",
-          "evidence": "features/volby/components/ListsLedger.tsx:61 Rows are keyed by list slug in a server component with a handful of rows."
+          "evidence": "features/volby/components/ListsLedger.tsx:61 Rows are keyed by system identity (slug, pspId, votePspId), not by index. The tables are small and server-rendered, so no windowing is needed."
+        },
+        {
+          "technique": "grid-keyboard-model",
+          "verdict": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:35 A native table with read-only cells and one link per row header, plus sr-only caption and scope col/row. This is the right choice over a grid role."
+        },
+        {
+          "technique": "filtering",
+          "verdict": "not-applicable",
+          "evidence": "features/volby/ListPage.tsx:79 There is no filter bar. The only predicate is a URL pin, applied server-side with the same rule as the loader."
         },
         {
           "technique": "pagination",
           "verdict": "not-applicable",
-          "evidence": "features/volby/volbyLoader.ts:357 Rows are one per elected list, a set bounded by the election result, so no window is needed."
+          "evidence": "features/volby/volbyLoader.ts:167 Every set is bounded by the 200-seat chamber, so the full set renders with no window."
         },
         {
-          "technique": "client-server-split",
+          "technique": "export-escapes-for-its-consumer",
           "verdict": "not-applicable",
-          "evidence": "features/volby/VolbyPage.tsx:10 Everything is server-composed. These tables have no client filter, sort or window."
+          "evidence": "features/volby/components/ListsLedger.tsx:72 No CSV export exists. grep for csv/clipboard in features/volby found nothing, and the cells are display-only."
+        },
+        {
+          "technique": "one-door-for-range-writes",
+          "verdict": "not-applicable",
+          "evidence": "features/volby/components/ContestedMatrix.tsx:84 Read-only cells with no paste or fill writers."
         }
       ],
       "superseded": [
@@ -1299,14 +1315,15 @@
           "evaluatedAt": "2026-10-13T02:05:25.893Z",
           "worker": "a1abd800-1f91-4756-8215-5b17dc48f232",
           "reason": "replaced by ebf73c11-976d-4a27-b5ea-a86eeb515f8e"
+        },
+        {
+          "state": "conformant",
+          "evidence": "features/volby/components/ListsLedger.tsx:35 Server-rendered election ledger meets full accessibility standards with hidden caption, scoped column and row headers, tabular numbers, and identity-keyed rows.",
+          "evaluatedAt": "2026-10-13",
+          "worker": null,
+          "reason": "replaced by 476245f7-ad81-4ec6-a192-037d9131fbb4"
         }
-      ],
-      "withdrawn": {
-        "worker": "ebf73c11-976d-4a27-b5ea-a86eeb515f8e",
-        "state": "conformant",
-        "at": "2026-10-24T02:12:20.830608+00:00",
-        "reason": "reviewer (sonnet): The claim that the list order is a total order rests on list labels being unique within an election. I could not confirm that: slugs are derived from labels, and `volbyLoader.ts` only dedupes by partyListPspId. The sort at volbyLoader.ts:378 ends at the label, not the identity, so the order may not "
-      }
+      ]
     },
     "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/prompt-assembly": {
       "context": "civic-inbox",
@@ -15776,6 +15793,22 @@
       "evaluatedTs": "2026-11-04T05:37:40.186Z",
       "worker": "f1664f53-0a99-4b67-9059-53f799e13711",
       "techniques": []
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/table": {
+      "context": "landing-core",
+      "subject": "table",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T22:11:57.405Z",
+      "worker": "476245f7-ad81-4ec6-a192-037d9131fbb4",
+      "techniques": [
+        {
+          "technique": "performance",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/components/Standings.tsx:31 This is a list, not a table, though it is identity-keyed anyway."
+        }
+      ]
     }
   }
 }

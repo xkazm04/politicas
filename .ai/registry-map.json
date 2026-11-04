@@ -9746,7 +9746,11 @@
           "revision": 14,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/landing/components/Standings.tsx:30 The landing standings are a ranking rendered as a stack of select buttons (rank, name, score), which the golden path assigns to a list, not a table. A search of features/landing for <thead, scope=\"col\", aria-sort and role=\"grid\" found no tabular surface (the only <table> in the tree is the referendum embed string, a different context).",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c587a204413d5373",
+          "evaluatedRevision": 14
         },
         {
           "subject": "module-design",
@@ -14656,10 +14660,11 @@
           "changedAt": "2026-10-14",
           "source": "conform",
           "adoptedFrom": "volby-election-mirror-2026-08-27",
-          "state": "conformant",
-          "evidence": "features/volby/components/ListsLedger.tsx:35 Server-rendered election ledger meets full accessibility standards with hidden caption, scoped column and row headers, tabular numbers, and identity-keyed rows.",
-          "evaluatedAt": "2026-10-13",
-          "stale": true
+          "state": "deviation",
+          "evidence": "features/volby/ListPage.tsx:109 When a list is opened with a ?kraj= pin (KrajPage/ObecPage link every list with pinKraj), pinnedMembers can be empty for a list with no MPs from that kraj, and MembersTable renders its header over zero rows with no empty claim, under a lead that says 'these MPs of the list were elected there'. Empty is never named, which breaks the settled-empty rule.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c587a204413d5373",
+          "evaluatedRevision": 14
         }
       ],
       "governance": "governed"
