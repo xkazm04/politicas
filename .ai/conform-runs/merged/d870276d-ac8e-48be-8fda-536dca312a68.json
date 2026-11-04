@@ -1,0 +1,156 @@
+{
+ "schema": "conform-run/1",
+ "worker": "d870276d-ac8e-48be-8fda-536dca312a68",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-04T01:00:06.167652+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "money-contracts",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:44 The structural pin runs its negative needle over the raw source, with no comment stripping and a needle that prose can spell (this same asserting file spells `limit: 100_000` in its own comment at line 39), so a history note placed in a pinned script would turn the suite red \u2014 the over-matching hazard the technique names.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:44 The negative needle `limit:\\s*\\d` matches comments as well as call arguments, and the haystack is never stripped of prose. By contrast, features/shell/a11y.test.ts strips comments first."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:76 The retry decision is lifted into the reachable smlouvyRetry.ts and tested for behaviour, and both sweeps are pinned for adopting it and for carrying no copy (lines 77-78)."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/smlouvyRetry.test.ts:15 A seeded input that the old `includes(\"429\")` copy would have misclassified. The comment at lines 13-14 records that this case would have been retried."
+    },
+    {
+     "technique": "assert-the-schedule-not-the-stopwatch",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/smlouvyRetry.test.ts:46 The back-off ladder is asserted by attempt count, with 1 ms waits. Wall-clock time is never measured."
+    },
+    {
+     "technique": "recorded-interaction-fixtures",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:5 The suite never talks to smlouvy.gov.cz. The failure messages are faked as trivial strings, so there is no recorded traffic."
+    }
+   ]
+  },
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "eslint-rules/README.md:19 The two forwarder suites in eslint-rules/__tests__ sit outside every gated graph: run-all.mjs reads only its own package directory, and ALL_TEST_GLOBS covers only lib/features/scripts/packages *.test.ts. So the 'still run' promise is never exercised, and a broken forwarder stays green.",
+   "techniques": [
+    {
+     "technique": "out-of-graph-artifacts",
+     "verdict": "deviation",
+     "evidence": "eslint-rules/__tests__/no-raw-number-display.test.mjs:5 A documented, shipped entry point that no gate runs, outside both the test:rules runner and the vitest globs. A grep for eslint-rules/__tests__ finds only the files themselves and the context maps."
+    },
+    {
+     "technique": "derived-selection-must-be-measured",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 The check that guards this context's shims has no floor: if any one eslint-rules/*.cjs shim is missing, the resulting MODULE_NOT_FOUND turns the whole equivalence check into a SKIP, and the process still exits 0 inside the politicas tree."
+    }
+   ]
+  },
+  {
+   "context": "shell-navigation",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/shell/a11y.test.ts:8 The shell's skip-link claims ('the target is focusable, not just scrollable') can only be witnessed in the assembled product in a browser, and no lane drives it. The file honestly declares this gap, but the claim stays unverified.",
+   "techniques": [
+    {
+     "technique": "live-app-harness",
+     "verdict": "deviation",
+     "evidence": "features/shell/a11y.test.ts:8 The claim needs the shipped product, and the only instrument is a source grep. package.json has no playwright, puppeteer or jsdom."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "features/shell/a11y.test.ts:26 Prose is stripped before matching, the reason is kept in the asserting file (lines 24-25), and the ordering needles are JSX/attribute shapes (`<Sidebar`, `href=\"#obsah\"`) rather than bare names."
+    },
+    {
+     "technique": "derived-selection-must-be-measured",
+     "verdict": "conformant",
+     "evidence": "features/shell/publicRoutes.test.ts:30 An explicit floor ('kotevn\u00ed kontrola', an anchor check) stops the set comparisons from passing vacuously over an empty list. Note that sitemapRoutes.test.ts:41 loops with no floor."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "features/shell/a11y.test.ts:5 The structural pin declares itself an interim and names what it cannot see."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "votetrack-kompas-analysis",
+   "reason": "evidence leans on record/outcome.ts, which is not a tracked file"
+  },
+  {
+   "subject": "test-harness",
+   "context": "hybrid-bench",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T01:00:06.167652+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-the-schedule-not-the-stopwatch",
+    "negative-control-tests",
+    "pin-the-call-not-the-name",
+    "recorded-interaction-fixtures",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "money-contracts",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T01:00:06.167652+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "derived-selection-must-be-measured",
+    "out-of-graph-artifacts"
+   ],
+   "deviations": 1,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T01:00:06.167652+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "derived-selection-must-be-measured",
+    "live-app-harness",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "shell-navigation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -14346,6 +14346,94 @@
       "evaluatedTs": "2026-11-04T00:43:31.856Z",
       "worker": "0478edf4-3d04-4026-bcbd-134c36d53449",
       "techniques": []
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/test-harness": {
+      "context": "money-contracts",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:00:06.167Z",
+      "worker": "d870276d-ac8e-48be-8fda-536dca312a68",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:44 The negative needle `limit:\\s*\\d` matches comments as well as call arguments, and the haystack is never stripped of prose. By contrast, features/shell/a11y.test.ts strips comments first."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:76 The retry decision is lifted into the reachable smlouvyRetry.ts and tested for behaviour, and both sweeps are pinned for adopting it and for carrying no copy (lines 77-78)."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/smlouvyRetry.test.ts:15 A seeded input that the old `includes(\"429\")` copy would have misclassified. The comment at lines 13-14 records that this case would have been retried."
+        },
+        {
+          "technique": "assert-the-schedule-not-the-stopwatch",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/smlouvyRetry.test.ts:46 The back-off ladder is asserted by attempt count, with 1 ms waits. Wall-clock time is never measured."
+        },
+        {
+          "technique": "recorded-interaction-fixtures",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:5 The suite never talks to smlouvy.gov.cz. The failure messages are faked as trivial strings, so there is no recorded traffic."
+        }
+      ]
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/test-harness": {
+      "context": "eslint-transparency-rules",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:00:06.167Z",
+      "worker": "d870276d-ac8e-48be-8fda-536dca312a68",
+      "techniques": [
+        {
+          "technique": "out-of-graph-artifacts",
+          "verdict": "deviation",
+          "evidence": "eslint-rules/__tests__/no-raw-number-display.test.mjs:5 A documented, shipped entry point that no gate runs, outside both the test:rules runner and the vitest globs. A grep for eslint-rules/__tests__ finds only the files themselves and the context maps."
+        },
+        {
+          "technique": "derived-selection-must-be-measured",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:116 The check that guards this context's shims has no floor: if any one eslint-rules/*.cjs shim is missing, the resulting MODULE_NOT_FOUND turns the whole equivalence check into a SKIP, and the process still exits 0 inside the politicas tree."
+        }
+      ]
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/test-harness": {
+      "context": "shell-navigation",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:00:06.167Z",
+      "worker": "d870276d-ac8e-48be-8fda-536dca312a68",
+      "techniques": [
+        {
+          "technique": "live-app-harness",
+          "verdict": "deviation",
+          "evidence": "features/shell/a11y.test.ts:8 The claim needs the shipped product, and the only instrument is a source grep. package.json has no playwright, puppeteer or jsdom."
+        },
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "conformant",
+          "evidence": "features/shell/a11y.test.ts:26 Prose is stripped before matching, the reason is kept in the asserting file (lines 24-25), and the ordering needles are JSX/attribute shapes (`<Sidebar`, `href=\"#obsah\"`) rather than bare names."
+        },
+        {
+          "technique": "derived-selection-must-be-measured",
+          "verdict": "conformant",
+          "evidence": "features/shell/publicRoutes.test.ts:30 An explicit floor ('kotevní kontrola', an anchor check) stops the set comparisons from passing vacuously over an empty list. Note that sitemapRoutes.test.ts:41 loops with no floor."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/shell/a11y.test.ts:5 The structural pin declares itself an interim and names what it cannot see."
+        }
+      ]
     }
   }
 }

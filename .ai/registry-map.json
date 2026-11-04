@@ -6908,7 +6908,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "eslint-rules/README.md:19 The two forwarder suites in eslint-rules/__tests__ sit outside every gated graph: run-all.mjs reads only its own package directory, and ALL_TEST_GLOBS covers only lib/features/scripts/packages *.test.ts. So the 'still run' promise is never exercised, and a broken forwarder stays green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "mcp-tools",
@@ -11343,7 +11347,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:44 The structural pin runs its negative needle over the raw source, with no comment stripping and a needle that prose can spell (this same asserting file spells `limit: 100_000` in its own comment at line 39), so a history note placed in a pinned script would turn the suite red — the over-matching hazard the technique names.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "quality-gates",
@@ -13427,7 +13435,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/shell/a11y.test.ts:8 The shell's skip-link claims ('the target is focusable, not just scrollable') can only be witnessed in the assembled product in a browser, and no lane drives it. The file honestly declares this gap, but the claim stays unverified.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "docs-content-model",
