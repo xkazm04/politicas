@@ -14269,6 +14269,83 @@
           "evidence": "lib/analysis/contribution.ts:123 Unstamped nodes pass, but they are counted and named in the verdict message instead of being folded in silently."
         }
       ]
+    },
+    "8867f710-55df-4e4f-9da3-e412d2462001/quality-gates": {
+      "context": "db-store-engine",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T00:43:31.856Z",
+      "worker": "0478edf4-3d04-4026-bcbd-134c36d53449",
+      "techniques": [
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "deviation",
+          "evidence": "lib/db/readiness.ts:126 The refusal says what is below its floor but gives no remedy (re-ingest, restore a snapshot, or which pass grew the corpus), so the operator reading /admin or the log has nothing to run."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "deviation",
+          "evidence": "lib/db/readiness.ts:42 The rule 'floor ≈65–72 % of corpus; raise it in the change that grows the corpus' exists only as a comment. floorVerdicts (line 77) checks only count >= floor, even though it holds both numbers. The one test (features/data-releases/manifest.test.ts) pins only `contract` against a hard-coded corpus literal, so a floor left two orders of magnitude low on any other kind stays green, which is the very failure the comment records."
+        },
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "lib/db/readiness.ts:100 The escape hatch is an unnamed blanket: one env token waives every floor kind for the whole process instead of naming the kind or finding it waives. It is logged once, but its reach is everything."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/db/readiness.test.ts:35 A seeded known violation (floor−1 rows) is shown to turn the gate red, and the empty store is asserted not ready (line 22)."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "lib/db/readiness.ts:76 A kind missing from the counts fails closed (counted as 0) instead of sailing past the floor, and the doc comment says an empty store fails loudly."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "lib/db/storeSource.test.ts:32 The absence assertion on line 31 is paired with this presence assertion over the same file, and line 23 asserts the extracted population is non-empty before comparing counts."
+        }
+      ]
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/quality-gates": {
+      "context": "civicscore-scoring",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T00:43:31.856Z",
+      "worker": "0478edf4-3d04-4026-bcbd-134c36d53449",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/duelParam.test.ts:157 The haystack is not reduced to what executes, and a comment satisfies the presence assertion. The same file knew this hazard for the import check (line 137) and for '?souboj=' (lines 153-156) but did not apply it here. lensDuelSource.test.ts:16 also asserts presence over raw source."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/verdictRung.test.ts:38 The instrument is asserted before the result: each surface must yield at least 3 badge sites, so the per-site loop cannot pass vacuously over zero matches."
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/scoreClaim.ts:76 The required review field gets a distinct third value for a deterministic recomputation instead of a judgment-shaped shrug like pending review (rationale at lines 21-23)."
+        }
+      ]
+    },
+    "e21eabf8-0506-4ece-8df1-63ce60626c28/quality-gates": {
+      "context": "shell-ui-components",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T00:43:31.856Z",
+      "worker": "0478edf4-3d04-4026-bcbd-134c36d53449",
+      "techniques": []
     }
   }
 }

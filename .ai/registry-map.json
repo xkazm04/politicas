@@ -4245,7 +4245,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/civicscore/duelParam.test.ts:157 The source guard that says the duel address is built only through duelAddress() searches raw source text, and the hook's header comment (features/civicscore/useDuelSelection.ts:28, \"`duelAddress()`\") already contains that string, so the presence check would stay green with every real call removed.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "generator-uncertainty-scoring",
@@ -5679,7 +5683,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/db/readiness.ts:126 The readiness gate (which every public loader passes through and which the /data release gate reuses) refuses with only what failed, e.g. `contract 0<100000`, and names no remedy. It also leaves the file's own prose rule about floors unmechanised and offers a blanket env bypass.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "voice-io",
@@ -13546,7 +13554,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "components/MpProfileBeacon.tsx:4 The context is two client components: an analytics beacon and a locale toggle. Neither contains any check, refusal, waiver, exit path or source guard, and a search of components/ for gate vocabulary found nothing, so no quality-gates technique has a precondition here.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         }
       ],
       "governance": "governed"

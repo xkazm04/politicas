@@ -1,0 +1,149 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0478edf4-3d04-4026-bcbd-134c36d53449",
+ "subject": "quality-gates",
+ "evaluatedAt": "2026-11-04T00:43:31.856693+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-store-engine",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/readiness.ts:126 The readiness gate (which every public loader passes through and which the /data release gate reuses) refuses with only what failed, e.g. `contract 0<100000`, and names no remedy. It also leaves the file's own prose rule about floors unmechanised and offers a blanket env bypass.",
+   "techniques": [
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "deviation",
+     "evidence": "lib/db/readiness.ts:126 The refusal says what is below its floor but gives no remedy (re-ingest, restore a snapshot, or which pass grew the corpus), so the operator reading /admin or the log has nothing to run."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "deviation",
+     "evidence": "lib/db/readiness.ts:42 The rule 'floor \u224865\u201372 % of corpus; raise it in the change that grows the corpus' exists only as a comment. floorVerdicts (line 77) checks only count >= floor, even though it holds both numbers. The one test (features/data-releases/manifest.test.ts) pins only `contract` against a hard-coded corpus literal, so a floor left two orders of magnitude low on any other kind stays green, which is the very failure the comment records."
+    },
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "deviation",
+     "evidence": "lib/db/readiness.ts:100 The escape hatch is an unnamed blanket: one env token waives every floor kind for the whole process instead of naming the kind or finding it waives. It is logged once, but its reach is everything."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "lib/db/readiness.test.ts:35 A seeded known violation (floor\u22121 rows) is shown to turn the gate red, and the empty store is asserted not ready (line 22)."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "lib/db/readiness.ts:76 A kind missing from the counts fails closed (counted as 0) instead of sailing past the floor, and the doc comment says an empty store fails loudly."
+    },
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "conformant",
+     "evidence": "lib/db/storeSource.test.ts:32 The absence assertion on line 31 is paired with this presence assertion over the same file, and line 23 asserts the extracted population is non-empty before comparing counts."
+    }
+   ]
+  },
+  {
+   "context": "civicscore-scoring",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/civicscore/duelParam.test.ts:157 The source guard that says the duel address is built only through duelAddress() searches raw source text, and the hook's header comment (features/civicscore/useDuelSelection.ts:28, \"`duelAddress()`\") already contains that string, so the presence check would stay green with every real call removed.",
+   "techniques": [
+    {
+     "technique": "match-the-resolved-artifact",
+     "verdict": "deviation",
+     "evidence": "features/civicscore/duelParam.test.ts:157 The haystack is not reduced to what executes, and a comment satisfies the presence assertion. The same file knew this hazard for the import check (line 137) and for '?souboj=' (lines 153-156) but did not apply it here. lensDuelSource.test.ts:16 also asserts presence over raw source."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/verdictRung.test.ts:38 The instrument is asserted before the result: each surface must yield at least 3 badge sites, so the per-site loop cannot pass vacuously over zero matches."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "features/civicscore/scoreClaim.ts:76 The required review field gets a distinct third value for a deterministic recomputation instead of a judgment-shaped shrug like pending review (rationale at lines 21-23)."
+    }
+   ]
+  },
+  {
+   "context": "shell-ui-components",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "components/MpProfileBeacon.tsx:4 The context is two client components: an analytics beacon and a locale toggle. Neither contains any check, refusal, waiver, exit path or source guard, and a search of components/ for gate vocabulary found nothing, so no quality-gates technique has a precondition here.",
+   "techniques": [],
+   "absenceTerms": [
+    "process.exit",
+    "exitCode",
+    "waiver",
+    "eslint-disable",
+    "readFileSync"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "quality-gates",
+   "context": "money-ownership",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "quality-gates",
+   "context": "dashboard-instruments",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T00:43:31.856693+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "gate-liveness",
+    "match-the-resolved-artifact",
+    "prose-rule-drift",
+    "refusal-names-a-reachable-remedy",
+    "unmeasurable-criteria",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 1,
+   "context": "db-store-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T00:43:31.856693+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "fabrication-economics",
+    "gate-liveness",
+    "match-the-resolved-artifact"
+   ],
+   "deviations": 1,
+   "context": "civicscore-scoring",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T00:43:31.856693+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shell-ui-components",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
