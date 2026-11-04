@@ -3357,23 +3357,35 @@
       "subject": "copy-quality-gates",
       "bundle": "localization",
       "state": "deviation",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T03:17:22.512Z",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:00:54.702Z",
+      "worker": "8d05496f-6ae3-4c2a-b48e-417753fde30c",
       "techniques": [
         {
           "technique": "enforcement-at-the-write-seams",
           "verdict": "deviation",
-          "evidence": "scripts/hooks/copy-check.sh:19 A pre-push hook that skips when the checker is missing fails open. No CI seam backs it, and fresh clones and CI never have the checker (line 10)."
+          "evidence": "scripts/hooks/copy-check.sh:18 The hook fails open. .github/workflows/ci.yml has no copy-check step, so no downstream seam exists that cannot fail open."
         },
         {
           "technique": "layered-mechanical-gate",
           "verdict": "conformant",
-          "evidence": ".ai/copy-baseline.json:7 Legacy findings are held by per-occurrence fingerprints (rule|file|key|text hash), not a bare count. Per hook line 4, only NEW error findings block."
+          "evidence": "scripts/hooks/copy-check.sh:4 Legacy findings are held by a ratchet and only new errors block. Warnings are printed."
+        },
+        {
+          "technique": "copy-contract-before-drafting",
+          "verdict": "conformant",
+          "evidence": "docs/i18n/copy-contract.json:5 The declared variant and mechanics were counted against the real catalog before being declared, as the technique asks."
+        },
+        {
+          "technique": "rendered-string-extraction",
+          "verdict": "conformant",
+          "evidence": "docs/i18n/copy-contract.json:4 Coverage is recorded as a string count, not a key count. Scope is limited to the derived EN catalog."
         },
         {
           "technique": "source-defects-from-cross-language-agreement",
           "verdict": "not-applicable",
-          "evidence": "scripts/hooks/copy-check.sh:3 Only one locale is checked (en), so there is nothing to agree across. The checked locale is also the derived target, not the Czech source."
+          "evidence": "scripts/hooks/copy-check.sh:3 Only one locale is checked (en), so there is nothing to agree across. The checked locale is also the derived target, not the Czech source.",
+          "carriedFrom": "2026-10-24"
         }
       ],
       "superseded": [
@@ -3383,14 +3395,15 @@
           "evaluatedAt": "2026-10-13T22:59:25.077Z",
           "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
           "reason": "replaced by 147ba389-2369-449b-a080-24cb23e22ad2"
+        },
+        {
+          "state": "deviation",
+          "evidence": "scripts/hooks/copy-check.sh:18 The copy hook explicitly skips a missing checker and returns success, so this write seam permits unchecked copy.",
+          "evaluatedAt": "2026-10-13",
+          "worker": null,
+          "reason": "replaced by 8d05496f-6ae3-4c2a-b48e-417753fde30c"
         }
-      ],
-      "withdrawn": {
-        "worker": "147ba389-2369-449b-a080-24cb23e22ad2",
-        "state": "deviation",
-        "at": "2026-10-24T03:18:04.315852+00:00",
-        "reason": "reviewer (sonnet): The anchor scripts/hooks/copy-check.sh is not among this context's paths (sentinel, kpi, docs, smoke), so the verdict is about a file outside the context. The hook's line 19 does exit 0 and ci.yml has no copy step, but that belongs to a different context or to the repo as a whole."
-      }
+      ]
     },
     "fef38523-7caf-4366-a28e-18e28677d5bf/copy-quality-gates": {
       "context": "civic-score-computation",
@@ -15501,6 +15514,27 @@
       "evaluatedTs": "2026-11-04T04:39:15.480Z",
       "worker": "b698d53c-beb7-4925-b0b4-1da76ed58670",
       "techniques": []
+    },
+    "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/copy-quality-gates": {
+      "context": "landing-referendum",
+      "subject": "copy-quality-gates",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:00:54.702Z",
+      "worker": "8d05496f-6ae3-4c2a-b48e-417753fde30c",
+      "techniques": [
+        {
+          "technique": "layered-mechanical-gate",
+          "verdict": "deviation",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:192 L1 includes 'no literal user-visible string escaping the catalog' as a blocking check. Here such literals render and nothing blocks them."
+        },
+        {
+          "technique": "rendered-string-extraction",
+          "verdict": "deviation",
+          "evidence": "features/landing/hardcodedCopy.test.ts:15 The literal scanner's scope stops at components/, so the referendum's out-of-catalog copy is an undeclared coverage hole. The only declaration is a source comment, not a line in any gate report."
+        }
+      ]
     }
   }
 }

@@ -9950,7 +9950,11 @@
           "revision": 10,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:17 The referendum surface renders its Czech source copy as inline JSX literals. No gate sees them: hardcodedCopy.test.ts scopes only features/landing/components/, and the copy contract covers only messages/en.json. This is the user-visible literal escaping the catalog that L1 is meant to block, and the copy is neither extracted nor declared out of scope in any gate report.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:f00a2dbd4e8fdce1",
+          "evaluatedRevision": 10
         },
         {
           "subject": "client-state",
@@ -12862,9 +12866,10 @@
           "changedAt": "2026-10-14",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "scripts/hooks/copy-check.sh:18 The copy hook explicitly skips a missing checker and returns success, so this write seam permits unchecked copy.",
-          "evaluatedAt": "2026-10-13",
-          "stale": true
+          "evidence": "scripts/hooks/copy-check.sh:19 The repo's only copy gate is a pre-push hook. When the gitignored checker link is missing it exits 0, and no CI job runs copy:check, so fresh clones, CI and `--no-verify` pushes all ship copy no gate has seen. That is the fail-open single seam the technique refuses to count as enforcement.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:f00a2dbd4e8fdce1",
+          "evaluatedRevision": 10
         },
         {
           "subject": "translation-pipeline-topology",
