@@ -11562,46 +11562,101 @@
       "subject": "repository-landing-document",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T05:55:28.328Z",
-      "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
-      "techniques": [],
-      "registryProposal": "The subject's use_when says 'front page' and 'landing'. Seats judging a web app whose home route is called the 'landing page' could misapply it. A one-line scope note would help, saying the subject governs the repository's README as the host renders it, not an application's marketing or home route."
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:50:00.080Z",
+      "worker": "6eaf28c8-f3b4-4199-9315-552db82114f4",
+      "techniques": [
+        {
+          "technique": "landing-document-as-router",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/LandingPage.tsx:4 The context holds an in-app landing page, not a repository landing document."
+        },
+        {
+          "technique": "evidence-linked-badges",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/LandingPage.tsx:4 No shields.io or host badge exists in features/landing."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/landing/LandingPage.tsx:4 This context is the web app's rendered home page (a React orchestrator), not the repository front page that a code host or package registry shows; a case-insensitive search of features/landing for readme and shields.io found nothing, so none of the README-composition techniques have a target here.",
+          "evaluatedAt": "2026-10-24T05:55:28.328Z",
+          "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+          "reason": "replaced by 6eaf28c8-f3b4-4199-9315-552db82114f4"
+        }
+      ]
     },
     "76a2add3-382e-4073-9444-31220b3b8590/repository-landing-document": {
       "context": "app-shell",
       "subject": "repository-landing-document",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T05:55:28.328Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
-        "state": "not-applicable",
-        "at": "2026-10-24T05:55:52.621182+00:00",
-        "reason": "reviewer (sonnet): The anchor app/page.tsx:2 is only an import line (Suspense). It doesn't show that the context lacks a repository front page. The evidence also says the root page only mounts the landing feature, but the page also imports DenikSlot and DenikTeaserPending."
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:50:00.080Z",
+      "worker": "6eaf28c8-f3b4-4199-9315-552db82114f4",
+      "techniques": [
+        {
+          "technique": "landing-document-as-router",
+          "verdict": "not-applicable",
+          "evidence": "app/page.tsx:11 The web home page is not the repository front page."
+        },
+        {
+          "technique": "host-metadata-is-a-second-document",
+          "verdict": "not-applicable",
+          "evidence": "app/layout.tsx:58 This is in-app HTML metadata, not the repository host's description and topics."
+        }
+      ]
     },
     "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/repository-landing-document": {
       "context": "landing-referendum",
       "subject": "repository-landing-document",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T05:55:28.328Z",
-      "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
-      "techniques": []
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:50:00.080Z",
+      "worker": "6eaf28c8-f3b4-4199-9315-552db82114f4",
+      "techniques": [
+        {
+          "technique": "landing-document-as-router",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This is an app route, not a repository front page."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This context is an in-app polling surface with actions, aggregates and OG embeds. It contains no repository landing document, and a search of features/landing for readme and shields.io returned no hits.",
+          "evaluatedAt": "2026-10-24T05:55:28.328Z",
+          "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+          "reason": "replaced by 6eaf28c8-f3b4-4199-9315-552db82114f4"
+        }
+      ]
     },
     "f84fc62f-066d-4eff-bad8-805084d68e10/repository-landing-document": {
       "context": "shell-navigation",
       "subject": "repository-landing-document",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T05:55:28.328Z",
-      "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
-      "techniques": []
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:50:00.080Z",
+      "worker": "6eaf28c8-f3b4-4199-9315-552db82114f4",
+      "techniques": [
+        {
+          "technique": "landing-document-as-router",
+          "verdict": "not-applicable",
+          "evidence": "features/shell/navModel.ts:1 This routes app pages, not a README's reader populations."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/shell/navModel.ts:1 This context is the app's nav rail and route model, and a case-insensitive search of features/shell for readme and shields.io found nothing. Its 'badge' hits are UI nav badges, not repository-host badges, so there is no front page to judge.",
+          "evaluatedAt": "2026-10-24T05:55:28.328Z",
+          "worker": "715d3dc3-8a88-4f9c-9020-e0714906df12",
+          "reason": "replaced by 6eaf28c8-f3b4-4199-9315-552db82114f4"
+        }
+      ]
     },
     "099d19c6-4248-4e23-84b3-1e7954fa60e8/repository-landing-document": {
       "context": "graph-canvas",

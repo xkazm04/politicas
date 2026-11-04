@@ -1639,8 +1639,12 @@
           "revision": 5,
           "changedAt": "2026-10-31",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "app/page.tsx:11 app/ holds the Next.js route entry points (home page, layout, legal pages, OG image), and none of them is a repository landing document; searching app/ for readme, shields.io and img.shields found no hits, and the site's own metadata description (app/layout.tsx:58) belongs to the application's web metadata, not to the code host's About fields.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:21e7be3c68f38a9a",
+          "evaluatedRevision": 5
         },
         {
           "subject": "mcp-tools",
@@ -9682,12 +9686,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/landing/LandingPage.tsx:4 This context is the web app's rendered home page (a React orchestrator), not the repository front page that a code host or package registry shows; a case-insensitive search of features/landing for readme and shields.io found nothing, so none of the README-composition techniques have a target here.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:6f6a6c4541bc949b",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/landing/LandingPage.tsx:4 This context is the web app's rendered home page (a React orchestrator), not the repository front page that a code host or package registry renders; a case-insensitive search of features/landing for readme, shields.io and img.shields found no hits, so the README-composition techniques have nothing to apply to here.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:21e7be3c68f38a9a",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "translation-pipeline-topology",
@@ -9894,12 +9897,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This context is an in-app polling surface with actions, aggregates and OG embeds. It contains no repository landing document, and a search of features/landing for readme and shields.io returned no hits.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:6f6a6c4541bc949b",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This context is an in-app methodology-referendum surface with actions, aggregates and OG embeds, and it contains no repository landing document; searching features/landing/referendum for readme, shields.io and img.shields found no hits.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:21e7be3c68f38a9a",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "translation-pipeline-topology",
@@ -13569,12 +13571,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/shell/navModel.ts:1 This context is the app's nav rail and route model, and a case-insensitive search of features/shell for readme and shields.io found nothing. Its 'badge' hits are UI nav badges, not repository-host badges, so there is no front page to judge.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:6f6a6c4541bc949b",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/shell/navModel.ts:1 This context is the app's nav rail and route model, not a repository front page; searching features/shell for readme, shields.io and img.shields found nothing (its 'badge' identifiers are UI nav badges, not host badges, so that term was left out of the search).",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:21e7be3c68f38a9a",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-runtime-assembly",
