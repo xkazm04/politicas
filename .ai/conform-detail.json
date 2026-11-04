@@ -15809,6 +15809,56 @@
           "evidence": "features/landing/components/Standings.tsx:31 This is a list, not a table, though it is identity-keyed anyway."
         }
       ]
+    },
+    "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/agent-memory": {
+      "context": "civic-inbox",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T22:24:01.222Z",
+      "worker": "81322ccd-4a47-46e3-bd31-20b3b05cea00",
+      "techniques": []
+    },
+    "3e5e8c14-4e90-463a-a9c3-c3538c866bab/agent-memory": {
+      "context": "eslint-plugin-civic-transparency-tests",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T22:24:01.222Z",
+      "worker": "81322ccd-4a47-46e3-bd31-20b3b05cea00",
+      "techniques": []
+    },
+    "e9b0f297-acb5-4de0-91ed-aebb33374531/agent-memory": {
+      "context": "civicscore-leaderboard",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T22:24:01.222Z",
+      "worker": "81322ccd-4a47-46e3-bd31-20b3b05cea00",
+      "techniques": []
+    },
+    "ee6036d6-0554-4ae9-807d-5ac6898207b4/agent-memory": {
+      "context": "civic-fallback-data",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T22:24:01.222Z",
+      "worker": "81322ccd-4a47-46e3-bd31-20b3b05cea00",
+      "techniques": []
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/agent-memory": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T22:24:01.222Z",
+      "worker": "81322ccd-4a47-46e3-bd31-20b3b05cea00",
+      "techniques": []
     }
   }
 }

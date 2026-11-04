@@ -2996,8 +2996,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/claims/claim.ts:9 The 'claims' here are citation records for rendered figures, and the rest of the context is static sample data, formatting and analytics, so there is no agent belief store to govern; a search of all of lib/ for episodic/agentMemory/memoryStore/distill/anthropic found nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -3392,8 +3396,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/schranka/useSchranka.ts:4 The only persisted state in this context is a reader's follow list in browser localStorage, read and written through a codec, with no LLM agent carrying memory between sessions; a search of features/schranka for episodic/agentMemory/memoryStore/distill/anthropic found nothing (the one 'MEMORY.md' hit in recomputeFact.ts is a code comment pointing at the repo's developer notes, not a runtime store).",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "mcp-tools",
@@ -4088,8 +4096,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/civicscore/getLeaderboardData.ts:17 The leaderboard reads deterministic scores that were computed ahead of time from the knowledge graph, with no agent that captures, consolidates or recalls memories; a search of features/civicscore for episodic/agentMemory/memoryStore/distill/anthropic found nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "scoring-rubrics",
@@ -6708,8 +6720,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:2 This context is a set of ESLint RuleTester suites and a plain-node runner, with no agent and no memory pipeline; a search of the package for episodic/agentMemory/memoryStore/distill/anthropic found nothing (the one 'recall' hit is a comment about a static matcher's 'RECALL GAP', not memory recall).",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "module-design",
@@ -14765,8 +14781,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/votetrack/record/derive.ts:6 The vote record is pure deterministic derivation that explicitly has no LLM authoring at runtime, and kompas state lives in the URL (useKompasAnswers), so there is no agent memory; a search of features/votetrack for episodic/agentMemory/memoryStore/distill/anthropic found nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "prompt-assembly",
