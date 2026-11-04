@@ -6057,12 +6057,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/effort/triage.ts:2 Context and repository searches located model benchmarks elsewhere but no benchmark or scorecard hits in this context, whose scripts prepare, score and validate MP enrichment rather than compare model configurations.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/effort/triage.ts:4 The effort scripts compute deterministic MP contribution substrate, triage and gates (LLM work is done by external subagents whose output is merged); a recursive search of scripts/case-loops/effort for benchmark, scorecard, runClaude, costUsd, temperature and provider found no hits, so no model-configuration comparison exists here to govern.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a6d9e74af45916cc",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "test-harness",
@@ -7701,12 +7700,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "scripts/hybrid-bench/run.ts:132 The model-comparison scorecard reports agreement and token/call counts but omits measured latency and priced cost, preventing the standard's required three-axis comparison.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/hybrid-bench/run.ts:132 The model-arm scorecard reports quality and output tokens but no latency or priced cost, although engine.ts captures durationMs and costUsd on the same calls, so the three-axis trade-off the standard requires cannot be read off the artifact.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a6d9e74af45916cc",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-memory",
@@ -11400,12 +11398,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/money/triage.ts:8 Searches found no benchmark or scorecard hits in this context's directory; its scripts harvest public contracts, audit coverage and triage financial ties rather than evaluate competing models.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/money/triage.ts:8 Contract harvest, sweeps, retry and coverage audits are deterministic data tooling; a recursive search of scripts/case-loops/money for benchmark, scorecard, runClaude, costUsd, temperature and provider found no hits, so no provider/model matrix is run here.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a6d9e74af45916cc",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "civic-source-adapters",
@@ -12208,12 +12205,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:27 Searches found no benchmark or scorecard hits in this context's directory; its ownership resolution and registry reconciliation produce domain evidence rather than comparative model measurements.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:609da9e2f3c21869",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:27 Ownership resolution and ARES VR reconciliation are deterministic registry joins; a recursive search of scripts/case-loops/money for benchmark, scorecard, runClaude, costUsd, temperature and provider found no hits, so no model comparison exists to which the subject could apply.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a6d9e74af45916cc",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "test-harness",
