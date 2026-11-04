@@ -4770,7 +4770,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/instrumentsSource.test.ts:7 Its sibling guards (pageSource/componentSource) strip comments before matching, but this guard reads raw source with no stated reason, so presence needles like /const builtOn = pragueDay\\(\\)/ are satisfiable by a comment, and the difference between the two reads is unexplained.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "module-design",
@@ -11184,7 +11188,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/archive/validate-batch008.ts:42 allOk starts true and only a drop flips it, so a payload whose edges array is empty prints 'ALL … validate cleanly' and exits 0; a measured-nothing population passes the gate.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "prompt-assembly",
@@ -11375,7 +11383,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/validate-payloads.ts:47 The payload gate's own input failing to load (missing file, malformed JSON, or a bare --file with no path) is folded into a SKIP; with every file skipped it prints 'GATE TOTAL: 0/0' and the 'none fabricated' sentence, then exits 0, so could-not-run reads as pass.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-instruction-files",
@@ -12148,7 +12160,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:185 aresJson() returns the same {json:null} for a real NENALEZENO and for a non-JSON body (line 68 even calls that 'an unknown state, not an empty record'), and this row then records both as 'record not found' with a 'záznam nenalezen' citation, so a hole in the instrument is published as a fact about the register.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-memory",

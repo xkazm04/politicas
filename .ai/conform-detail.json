@@ -14527,6 +14527,150 @@
           "evidence": "features/civicscore/leaderboardOrder.test.ts:37 Reversed input proves the pspId tie-break decides; input position (the default) cannot produce the same answer for both orders."
         }
       ]
+    },
+    "1d4e5da8-7190-49ac-9a60-facf0bce4162/quality-gates": {
+      "context": "money-ownership",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:35:40.085Z",
+      "worker": "fb2b97e8-4879-4ec4-ab90-087b2c7ccfae",
+      "techniques": [
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/public-mandate-sweep.ts:185 verdict is correctly withheld (null), but the reason written into the row says subject-world (not in register) when the cause may be gate-vision (unparseable ARES body); the skip names the wrong why"
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/legal-form-audit.ts:97 the drift guard asserts its instrument (a non-empty ARES code list) before rendering any audit result; zero population is fatal, not clean"
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/purge-osvc.ts:82 the live-write refusal names two remedies, both runnable from the reader's shell (an env var and a flag the script parses)"
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/purge-osvc.ts:79 the refusal condition leads straight to process.exit(1) two lines later; the safety gate can actually stop the write"
+        }
+      ]
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/quality-gates": {
+      "context": "money-contracts",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:35:40.085Z",
+      "worker": "fb2b97e8-4879-4ec4-ab90-087b2c7ccfae",
+      "techniques": [
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/validate-payloads.ts:47 the catch swallows parse errors as 'not found' and continues; an empty population is not fatal"
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/validate-payloads.ts:82 0 === 0 holds when nothing was measured, so the compliance sentence prints over a measured-nothing run instead of a refusal"
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/validate-payloads.ts:75 a dropped proposal really changes the exit code (honoured by the main().then exit)"
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/validate-payloads.ts:26 names a remedy the reader can apply; verify-surface.ts's header still names a nonexistent verify-b15.ts (see notes)"
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:9 raw text with no comment or string stripping; presence needles such as /idxRes\\.ok/ or /contracts: null, truncated: false/ are satisfied by a comment that merely names the rule (today they all match code, checked)"
+        },
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/moneyTriageSource.test.ts:30 blocking regex ban on a literal limit; `const N = 100_000; … limit: N` or `limit: 1e5`-style forms reach the same truncated read and pass, and unrecognised forms are not themselves refused"
+        },
+        {
+          "technique": "chokepoint-tag-registry",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/agrofert-sweep.ts:70 smlouvyRetry.ts declares ONE retry rule for the Registr smluv sweeps, but there is no negative-space confinement, so this third Smlouvy sweep keeps its own copy and the guard never sees it"
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/contractIngestSource.test.ts:74 location key: the population is a hand-enrolled file list, so a sweep that is not listed (agrofert-sweep.ts) is outside the rule while running the same code"
+        }
+      ]
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/quality-gates": {
+      "context": "dashboard-instruments",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:35:40.085Z",
+      "worker": "fb2b97e8-4879-4ec4-ab90-087b2c7ccfae",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/instrumentsSource.test.ts:7 an unexplained raw read beside stripped reads in the same feature; the technique requires saying where two probes deliberately read different sources"
+        },
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/pageSource.test.ts:8 the blanking pass is a regex with no fixture proving it preserves code, or that a comment or string mention does not trip a ban; duplicated verbatim in componentSource.test.ts"
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/instrumentsSource.test.ts:28 asserts the instrument's own precondition (that the extracted population is non-empty) before the coverage loop, so an extraction that matches nothing cannot pass vacuously"
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/instrumentsSource.test.ts:23 the key population is read from the producer's own declarations rather than re-typed, so renaming a registry on one side reddens the link check"
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/messages.test.ts:131 a thrown read and a truncated read each have their own rendered sentence instead of an empty ledger reading as zero"
+        }
+      ]
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/quality-gates": {
+      "context": "money-archive-probes",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:35:40.085Z",
+      "worker": "fb2b97e8-4879-4ec4-ab90-087b2c7ccfae",
+      "techniques": [
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/archive/validate-batch008.ts:42 no floor on payload.edges.length; zero proposals is reported as clean"
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/archive/validate-batch008.ts:44 the exit code really is bound to the drop finding"
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/archive/validate-batch008.ts:21 a missing or malformed payload is not caught locally; it propagates to main().catch → exit 1, so the input hole fails closed (unlike the live validate-payloads.ts)"
+        }
+      ]
     }
   }
 }
