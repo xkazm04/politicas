@@ -15208,6 +15208,94 @@
       "evaluatedTs": "2026-11-04T04:10:26.032Z",
       "worker": "8257570d-1395-4600-af85-446261ff0c20",
       "techniques": []
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/test-harness": {
+      "context": "ingest-pipeline",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:24:13.199Z",
+      "worker": "21ddb6ba-1cd9-41ec-a890-85452e33a76c",
+      "techniques": [
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/changeEventsKeys.test.ts:13 The name claims a stronger guard (parity with the deník's reader) than the assertions make. A reach probe that mutates the deník side stays green. By contrast, shims.test.ts:22 does assert adoption via Object.is on the same binding."
+        },
+        {
+          "technique": "fixture-economics",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/parsedText.test.ts:32 Each test gets a private mkdtemp dir that the named afterEach reaper discards whole. Tests never clean up inside the fixture."
+        },
+        {
+          "technique": "approval-snapshots-with-guarded-update",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/parsedText.test.ts:48 No snapshot files. The sidecar contract is pinned by explicit call-count and producer (`source: \"sidecar\"`) assertions."
+        }
+      ]
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/test-harness": {
+      "context": "budget-mirror",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:24:13.199Z",
+      "worker": "21ddb6ba-1cd9-41ec-a890-85452e33a76c",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "features/budget/budgetSource.test.ts:11 The needle is the import statement rather than a call with an argument list, and the haystack is not comment-stripped. The sibling a11y.test.ts:21 does strip comments and uses a call-shaped needle at line 35."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/budget/supplierYears.test.ts:11 The test decodes the committed generated batch the surface actually reads, rather than the generator branch the change never executes."
+        }
+      ]
+    },
+    "0e0462f1-6bc2-4a2d-b576-759f57a58449/test-harness": {
+      "context": "lawwatch-radar",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:24:13.199Z",
+      "worker": "21ddb6ba-1cd9-41ec-a890-85452e33a76c",
+      "techniques": [
+        {
+          "technique": "assert-through-the-reader",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/radarFeedCodecs.test.ts:73 Near-side substring check on an artifact meant for an XML/RSS reader. The JSON Feed half does round-trip through a parser, but the RSS half never runs a reader."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getDependencyData.test.ts:9 The server-only loader's decisions are lifted into a reachable pure unit and tested both through a passthrough gate and through the REAL gate (the section at line 300)."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getDependencyData.test.ts:339 The regression test records its control as the revert of the fix. Line 322 first proves the fixture reproduces the M13 tie condition, which shows the mutation arrives."
+        }
+      ]
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/test-harness": {
+      "context": "money-archive-probes",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:24:13.199Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "21ddb6ba-1cd9-41ec-a890-85452e33a76c",
+        "state": "not-applicable",
+        "at": "2026-11-04T04:24:42.531692+00:00",
+        "reason": "reviewer (sonnet): The anchor verify-b14.ts:8 is only a usage comment in one script, and the absence claim rests on a grep rather than on that line. The archive also holds validate-batch006.ts and similar gate scripts that act as verification harnesses, so 'no harness machinery governs this context' was not establishe"
+      }
     }
   }
 }

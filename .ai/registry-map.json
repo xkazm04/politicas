@@ -2105,7 +2105,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/budget/budgetSource.test.ts:11 The guard 'getSupplierTies reads the one review-state ladder' is satisfied by the import line's presence, not by the call `reviewStateOf(` (which exists at getSupplierTies.ts:47). Its not.toMatch needles run over unstripped source, so the pin reads the name, not the call, and over-matches prose.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "table",
@@ -7995,7 +7999,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/ingest/changeEventsKeys.test.ts:13 The test name claims parity with the key the deník filters by, but it asserts a hard-coded literal ('01234567' / 'firma:00222222') and never calls features/denik's companyEntityKey. If the deník's spelling changes, this file stays green while the ?entita filter stops matching again, which is the original 'one key, two spellings' defect.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "agent-memory",
@@ -11022,7 +11030,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/radarFeedCodecs.test.ts:73 The RSS output is emitted for foreign feed readers, but its claims ('escapes XML-hostile copy instead of breaking the document', one item per entry) are asserted by substring and regex counts and never by parsing the document. A malformed feed would pass on the near side. No XML parser is in package.json.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "dependency-declaration",
