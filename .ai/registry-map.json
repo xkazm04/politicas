@@ -1960,8 +1960,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/budget/mirrorData.ts:3 BudgetMirror unpacks generated budget/registry modules into typed structures for a UI surface. A search of features/budget for prompt, systemPrompt, max_tokens, anthropic and compaction found nothing, so no model prompt is built here.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "guest-execution-bounding",
@@ -3590,8 +3594,8 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "priorNotApplicable": 5,
+          "state": "unknown"
         },
         {
           "subject": "translation-quality-measurement",
@@ -8792,8 +8796,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:12 The ingest scripts parse psp.cz dumps and API data into graph nodes deterministically, and the LLM forensics pass is explicitly a separate gated step. A search for systemPrompt, max_tokens, anthropic and compaction in scripts/data-analysis found nothing. ('prompt' does appear in sibling files outside this context — dh-context.ts, datahub-sync.ts — so it is not used as an absence term.)",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "supply-chain",
@@ -13097,8 +13105,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/shared/components/SourceNote.tsx:2 This context is a catalog of React display primitives (citation line, tiles, combobox). A search of features/shared for prompt, systemPrompt, max_tokens, anthropic and compaction found nothing, so there is no prompt assembly.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "hitl-approval",
@@ -14756,8 +14768,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/votetrack/record/derive.ts:6 The vote-record and compass modules are pure derivations from ballots, explicitly with nothing written by an LLM at runtime. A search of features/votetrack for prompt, systemPrompt, max_tokens, anthropic and compaction found nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "client-fetch-cache",

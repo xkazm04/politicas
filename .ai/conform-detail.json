@@ -15651,6 +15651,93 @@
           "evidence": "features/landing/serverIntl.ts:34 The server-side landing intl resolves the locale through the shared registry (isLocale/defaultLocale) instead of keeping its own list."
         }
       ]
+    },
+    "fef38523-7caf-4366-a28e-18e28677d5bf/prompt-assembly": {
+      "context": "civic-score-computation",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:26:31.865Z",
+      "techniques": [
+        {
+          "technique": "variable-interpolation",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/context-provider.ts:247 A missing input renders as \"\". It is not a declared default, an omitted section, or a loud failure. The direct arm does declare honest defaults (context-model.ts:259 'pending — never analyzed'), so the two arms handle absence differently."
+        },
+        {
+          "technique": "layered-composition",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/context-model.ts:241 There is one assembler (the module is 'the ONE origin', line 5). But the section order is not a stability gradient: a volatile per-slice row count comes first, and the standing CORPUS RULES policy (line 255) comes after the source-specific known issues instead of first."
+        },
+        {
+          "technique": "context-budgeting",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/context-model.ts:260 Every feeder (known issues, notes, sibling slices) adds all of its items, with no cap, no token budget and no degradation ladder. Nothing owns the total."
+        },
+        {
+          "technique": "house-vocabulary-layer",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/context-model.ts:118 CORPUS_PRIMER is a single-source house vocabulary. It includes the high-value 'deliberate exclusion' lines (club ≠ party list, merged K bucket), and both arms render it from this one module."
+        },
+        {
+          "technique": "pinned-prompt-clock",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/context-model.ts:71 No current date or time is rendered. The only dates are authored point-in-time stamps on known issues, not a clock read at assembly."
+        },
+        {
+          "technique": "fingerprinting-and-cache-keys",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/context-model.ts:14 Assembly is pure, which is what a fingerprint would need, but there is no long-lived or resumed session to gate in this context."
+        }
+      ],
+      "registryProposal": "Most of the 32 techniques assume a conversational, multi-turn session (compaction, caching, continuation). This repo has a context-only feeder: a pure module that builds the context layer for subagents whose real prompt is put together by an external harness, outside the tree. The standard could say how a feeder like this should be judged when the assembler (budget, order, fingerprint) lives elsewhere.",
+      "withdrawn": {
+        "worker": "5e69d920-86f3-4232-8c6c-822e3847fde9",
+        "state": "deviation",
+        "at": "2026-11-04T05:27:13.288681+00:00",
+        "reason": "reviewer (sonnet): The cited lines (context-provider.ts:247, context-model.ts) are real and say what is claimed. But they are the DataHub analyst-context assembler, not part of the civic-score-computation context. None of that context's files (contribution*, score-*, low-score-reason*) import context-provider or conte"
+      }
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/prompt-assembly": {
+      "context": "budget-mirror",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:26:31.865Z",
+      "worker": "5e69d920-86f3-4232-8c6c-822e3847fde9",
+      "techniques": []
+    },
+    "5e38cfa9-d10e-43fa-9e8d-67d925668e43/prompt-assembly": {
+      "context": "shared-components",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:26:31.865Z",
+      "worker": "5e69d920-86f3-4232-8c6c-822e3847fde9",
+      "techniques": []
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/prompt-assembly": {
+      "context": "kg-domain-ingest",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:26:31.865Z",
+      "worker": "5e69d920-86f3-4232-8c6c-822e3847fde9",
+      "techniques": []
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/prompt-assembly": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:26:31.865Z",
+      "worker": "5e69d920-86f3-4232-8c6c-822e3847fde9",
+      "techniques": []
     }
   }
 }
