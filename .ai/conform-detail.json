@@ -676,11 +676,10 @@
       "subject": "agent-memory",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T01:49:25.102Z",
-      "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:10:26.032Z",
+      "worker": "8257570d-1395-4600-af85-446261ff0c20",
       "techniques": [],
-      "registryProposal": "Borderline worth a use_when note: a gated pass that lands LLM-proposed rows into a shared published graph (with a validation door and provenance) looks like consolidation, but the consumer is the product reader, not the agent. The subject could state that its precondition is recall back into the agent's own context.",
       "superseded": [
         {
           "state": "not-applicable",
@@ -688,6 +687,13 @@
           "evaluatedAt": "2026-10-12T21:56:37.588Z",
           "worker": "2edfac7e-a446-4b56-a84f-21ef8c5d5726",
           "reason": "replaced by b0fe1459-b52d-4fc5-b393-38588a593595"
+        },
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:4 Searching scripts/data-analysis for episode, belief, consolidat and distill found 0 hits. The only memory tokens are citations of repo lesson notes such as memory/kg-upsert-replaces-props.md, and the one recall hit is an ARES search note in kg-money-ingest.ts. The writers land gated, provenance-stamped civic graph rows for readers, not beliefs an agent carries into its own context.",
+          "evaluatedAt": "2026-10-24T01:49:25.102Z",
+          "worker": "b0fe1459-b52d-4fc5-b393-38588a593595",
+          "reason": "replaced by 8257570d-1395-4600-af85-446261ff0c20"
         }
       ]
     },
@@ -15162,6 +15168,46 @@
           "evidence": "features/dashboard/stateSlice.test.ts:6 Hand-built fixture pinned to the rule rather than to today's DB content, so the test cannot validate yesterday's ingest; it costs nothing to build."
         }
       ]
+    },
+    "5e38cfa9-d10e-43fa-9e8d-67d925668e43/agent-memory": {
+      "context": "shared-components",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:10:26.032Z",
+      "worker": "8257570d-1395-4600-af85-446261ff0c20",
+      "techniques": []
+    },
+    "83c0d33f-f7db-4a99-9d17-48a23e417b22/agent-memory": {
+      "context": "law-amends-corpus",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:10:26.032Z",
+      "worker": "8257570d-1395-4600-af85-446261ff0c20",
+      "techniques": []
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/agent-memory": {
+      "context": "landing-core",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:10:26.032Z",
+      "worker": "8257570d-1395-4600-af85-446261ff0c20",
+      "techniques": []
+    },
+    "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/agent-memory": {
+      "context": "law-triage-collision",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:10:26.032Z",
+      "worker": "8257570d-1395-4600-af85-446261ff0c20",
+      "techniques": []
     }
   }
 }

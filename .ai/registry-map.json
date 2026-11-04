@@ -9097,12 +9097,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-promote.ts:4 Searching scripts/data-analysis for episode, belief, consolidat and distill found 0 hits. The only memory tokens are citations of repo lesson notes such as memory/kg-upsert-replaces-props.md, and the one recall hit is an ARES search note in kg-money-ingest.ts. The writers land gated, provenance-stamped civic graph rows for readers, not beliefs an agent carries into its own context.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:4f054116d66a9495",
-          "evaluatedRevision": 51,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/data-analysis/kg-promote.ts:4 These writers land gated, provenance-stamped civic-graph rows that readers consume, not beliefs an agent carries into its own context; a search of scripts/data-analysis found 0 hits for episod, belief, distill, memories and consolidat, and its only 'memory' hits cite the repo's lesson file memory/kg-upsert-replaces-props.md.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52,
+          "revisionsBehind": 1
         },
         {
           "subject": "data-access",
@@ -9643,8 +9642,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/landing/LandingPage.tsx:7 The landing page renders server-loaded leaderboard data and keeps only ephemeral React UI state, with no agent memory pipeline; a search of features/landing found 0 hits for episod, belief, recall, consolidat and distill. Its one 'memory' hit is a test comment citing a repo lesson file.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "repository-landing-document",
@@ -10123,8 +10126,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/law/amends-census.ts:1 This is a deterministic text-extraction and census pipeline over bill bodies and e-Sbírka versions, with no agent-owned working, episodic or consolidated memory; a search of scripts/case-loops/law found 0 hits for episod, belief, distill and memories. Its 'consolidated' and 'recall' hits mean a consolidated statute and census recall, not agent memory.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "supply-chain",
@@ -10692,8 +10699,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/law/prepare-batch.ts:4 The verdict subagents get a dossier assembled fresh from the graph for each bill, and their output is gated as published civic data rather than kept as memory they carry into later runs, so no capture/consolidate/recall pipeline exists to judge; a search of scripts/case-loops/law found 0 hits for episod, belief, distill and memories.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "llm-forensic-gating",
@@ -13002,8 +13013,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/shared/components/SourceNote.tsx:2 This is a stateless UI primitive catalog (citation lines, tiles, comboboxes, a forensic toggle) with no agent and no store that persists across sessions; a search of features/shared found 0 hits for memory, episod, belief, recall and consolidat.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "concurrency-guards",
