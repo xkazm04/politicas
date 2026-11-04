@@ -1597,12 +1597,11 @@
           "changedAt": "2026-10-23",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "app/layout.tsx:99 The root layout composes the left rail and page children inside the document body; a case-insensitive search of app/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits, so this context has no native process holding a capability the page cannot reach.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:0ab230f2977430e7",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "app/layout.tsx:101 The root layout puts the shell chrome and the pages inside the document body of a Next.js web app with no native wrapper; a case-insensitive search of app/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing, so no native process holds capabilities the page cannot reach.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9034ad02704d9c88",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "app-shell",
@@ -7456,8 +7455,12 @@
           "revision": 5,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/graph/GraphPage.tsx:9 The canvas is a browser page whose floating chrome consists of in-document DOM overlays over its own stage, not native surfaces placed over foreign applications; a case-insensitive search of features/graph/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9034ad02704d9c88",
+          "evaluatedRevision": 5
         }
       ],
       "governance": "governed"
@@ -7611,12 +7614,11 @@
           "changedAt": "2026-10-23",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/graph/graphActions.ts:4 The canvas reaches the knowledge graph only through Next.js server actions that validate inputs and read the store; a case-insensitive search of features/graph/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:0ab230f2977430e7",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/graph/graphActions.ts:4 The canvas reaches the graph only through Next.js server actions over HTTP, with no native host bridge; a case-insensitive search of features/graph/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9034ad02704d9c88",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "proof-carrying-agent-actions",
@@ -13444,12 +13446,11 @@
           "changedAt": "2026-10-23",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/shell/AppShell.tsx:4 AppShell is the in-document navigation frame, with the left rail as part of the layout and the route taken from next/navigation; a case-insensitive search of features/shell/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:0ab230f2977430e7",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/shell/AppShell.tsx:4 AppShell is a shell inside the document (a left rail that is part of the React layout), which the golden path explicitly rules out; a case-insensitive search of features/shell/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9034ad02704d9c88",
+          "evaluatedRevision": 5,
+          "revisionsBehind": 1
         },
         {
           "subject": "mcp-tools",

@@ -7132,30 +7132,57 @@
       "subject": "native-shell-integration",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T03:06:50.098Z",
-      "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
-      "techniques": []
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:39:15.480Z",
+      "worker": "b698d53c-beb7-4925-b0b4-1da76ed58670",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "app/layout.tsx:99 The root layout composes the left rail and page children inside the document body; a case-insensitive search of app/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits, so this context has no native process holding a capability the page cannot reach.",
+          "evaluatedAt": "2026-10-17T03:06:50.098Z",
+          "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
+          "reason": "replaced by b698d53c-beb7-4925-b0b4-1da76ed58670"
+        }
+      ]
     },
     "f84fc62f-066d-4eff-bad8-805084d68e10/native-shell-integration": {
       "context": "shell-navigation",
       "subject": "native-shell-integration",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T03:06:50.098Z",
-      "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
-      "techniques": []
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:39:15.480Z",
+      "worker": "b698d53c-beb7-4925-b0b4-1da76ed58670",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/shell/AppShell.tsx:4 AppShell is the in-document navigation frame, with the left rail as part of the layout and the route taken from next/navigation; a case-insensitive search of features/shell/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits.",
+          "evaluatedAt": "2026-10-17T03:06:50.098Z",
+          "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
+          "reason": "replaced by b698d53c-beb7-4925-b0b4-1da76ed58670"
+        }
+      ]
     },
     "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/native-shell-integration": {
       "context": "graph-data-logic",
       "subject": "native-shell-integration",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T03:06:50.098Z",
-      "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
-      "techniques": []
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:39:15.480Z",
+      "worker": "b698d53c-beb7-4925-b0b4-1da76ed58670",
+      "techniques": [],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:4 The canvas reaches the knowledge graph only through Next.js server actions that validate inputs and read the store; a case-insensitive search of features/graph/ for tauri, webview, CGEvent, SendInput, and alwaysOnTop returned no hits.",
+          "evaluatedAt": "2026-10-17T03:06:50.098Z",
+          "worker": "a9b91d8d-e13f-4016-990a-895038fab9ba",
+          "reason": "replaced by b698d53c-beb7-4925-b0b4-1da76ed58670"
+        }
+      ]
     },
     "12af88db-9c79-4204-81e5-098593e5dcfc/structured-output": {
       "context": "shared-provenance",
@@ -15409,6 +15436,16 @@
           "evidence": "features/money/reviewActions.ts:27 The client-submitted decision is checked against a server-side whitelist before any store write, so the gate does not trust the caller's own record."
         }
       ]
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/native-shell-integration": {
+      "context": "graph-canvas",
+      "subject": "native-shell-integration",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:39:15.480Z",
+      "worker": "b698d53c-beb7-4925-b0b4-1da76ed58670",
+      "techniques": []
     }
   }
 }
