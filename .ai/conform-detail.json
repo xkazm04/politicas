@@ -14155,6 +14155,120 @@
           "evidence": "features/graph/oneDefinition.test.ts:20 After edgeKey was extracted into one shared definition, the test asserts adoption across features/graph/**, not just the predicate's behaviour."
         }
       ]
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/quality-gates": {
+      "context": "shared-provenance",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T00:23:00.277Z",
+      "worker": "5ef1d693-e502-459b-9247-f18c6b305459",
+      "techniques": [
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "features/shared/provenance/provenanceSource.test.ts:14 Name key: `const PERSON_RE = /…/` keeps the behaviour and clears the check. The verdict does not say that no invariant key exists."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/shared/provenance/provenanceSource.test.ts:8 The haystack is raw file text and comments are never stripped, so the presence controls (import line, satisfies Record, role=dialog aria-modal) could be met by a comment. The standard requires presence assertions to be normalised to code."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/shared/provenance/receipt.ts:182 A gated relation with a missing or unknown review_state is shown as pending_review and never as verified, so missing evidence fails closed. receipt.test.ts:89 pins this."
+        }
+      ]
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/quality-gates": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T00:23:00.277Z",
+      "worker": "5ef1d693-e502-459b-9247-f18c6b305459",
+      "techniques": [
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/promote-verdicts.ts:82 Missing evidence turns into a silent skip. It should be a loud, counted could-not-run."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/validate-verdict.ts:27 A --rows file that was asked for but is malformed drops the membership leg, and the script still prints OK and exits 0. A clean exit does not show the requested check ran."
+        },
+        {
+          "technique": "self-reported-gate-inputs",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/promote-verdicts.ts:4 Persisted scores come from the deterministic scorer. The subagent's own composite is only compared with that score (line 95) and never trusted."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-forensics.ts:110 When the gate runs with a narrowed scope it names what is missing and a remedy that exists (scripts/data-analysis/esbirka-laws.ts). validate-verdict.ts:48 likewise names 'discard scores and re-run'."
+        }
+      ]
+    },
+    "f50627ef-a7a1-40a4-9491-560efa6cb05d/quality-gates": {
+      "context": "mp-profile",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T00:23:00.277Z",
+      "worker": "5ef1d693-e502-459b-9247-f18c6b305459",
+      "techniques": [
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "features/profile/profileSource.test.ts:14 Name/spelling key that the author controls. Line 22 (`toISOString().slice(0, 10)` with exact spacing) has the same shape."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/profile/profileSource.test.ts:8 Presence controls (lines 13, 21, 25) run over raw text with comments in it, so prose can satisfy them. The standard requires presence assertions normalised to code."
+        }
+      ]
+    },
+    "fef38523-7caf-4366-a28e-18e28677d5bf/quality-gates": {
+      "context": "civic-score-computation",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T00:23:00.277Z",
+      "worker": "5ef1d693-e502-459b-9247-f18c6b305459",
+      "techniques": [
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/contribution.ts:133 A blanket waiver: two different conflicting refs are both overridden by a flag that names neither. The override message does at least print the refs it replaced."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/contribution.ts:142 The refusal names scripts/data-analysis/kg-contribution-recompute.ts, which exists, and the override."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/contribution.test.ts:241 A seeded foreign-ref node proves that the guard refuses."
+        },
+        {
+          "technique": "oracle-frozen-during-repair",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/contribution-legacy.test.ts:51 The replay oracle is frozen by a test, not only by the 'DO NOT modernize' prose, so a fix to the live formula cannot move it."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/contribution.ts:123 Unstamped nodes pass, but they are counted and named in the verdict message instead of being folded in silently."
+        }
+      ]
     }
   }
 }

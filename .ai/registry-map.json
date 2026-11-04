@@ -3632,7 +3632,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/contribution.ts:133 The formula-ref write guard's override --supersede names no stored ref, so one flag overrides conflicts with every foreign formula at once, including ones the operator never saw.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "eval-harness",
@@ -8517,7 +8521,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/promote-verdicts.ts:82 When the slice's rows file is missing, the entity-id membership check that the header promises ('a non-row id is rejected') is skipped without a word, and the verdict is counted as validated anyway.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "agent-memory",
@@ -12326,7 +12334,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/profile/profileSource.test.ts:14 The guard against the last-segment Number() id read is keyed on the literal variable name otherId and exact spelling, so renaming the variable or reformatting the call brings back the forbidden read with the test green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "politician-performance-scoring",
@@ -13108,7 +13120,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/shared/provenance/provenanceSource.test.ts:14 The guard that is meant to prove caseFileLink holds 'no second person-id regex' only matches the identifier name PERSON_ID, so renaming the constant brings the duplicate regex back and the test stays green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "test-harness",
