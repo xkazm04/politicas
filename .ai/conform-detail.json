@@ -14434,6 +14434,99 @@
           "evidence": "features/shell/a11y.test.ts:5 The structural pin declares itself an interim and names what it cannot see."
         }
       ]
+    },
+    "ff089754-b0b6-478e-9e60-125f18d61fa7/test-harness": {
+      "context": "votetrack-kompas-analysis",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:18:33.482Z",
+      "worker": "9b98f945-5d42-4a2d-9c85-92368917a2f3",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "features/votetrack/kompas/kompasSource.test.ts:19 A bare-name needle with no call shape; the declaration line alone satisfies it. The haystack is also not comment-stripped."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/threshold.test.ts:89 The test records in its own comment the mutation that proves it and the value the mutation would produce (false, margin 10)."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/votetrack/record/threshold.test.ts:6 It names the default (simpleMajority) that could answer in place of the missing column, and the fixture makes that default produce a distinguishable value."
+        }
+      ]
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/test-harness": {
+      "context": "data-releases-atlas",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:18:33.482Z",
+      "worker": "9b98f945-5d42-4a2d-9c85-92368917a2f3",
+      "techniques": [
+        {
+          "technique": "gate-scope-is-not-report-scope",
+          "verdict": "deviation",
+          "evidence": "features/data-releases/pageSource.test.ts:53 An 'every' claim runs over a hand-written member list rather than a keyed table the type checker forces complete."
+        },
+        {
+          "technique": "assert-through-the-reader",
+          "verdict": "deviation",
+          "evidence": "features/data-releases/messages.test.ts:46 ICU parity is checked with a hand regex although line 48 admits next-intl is the reader that fails. features/denik/messages.test.ts already runs createTranslator."
+        },
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "conformant",
+          "evidence": "features/data-releases/pageSource.test.ts:12 The haystack is comment-stripped before pinning, and the needles are call-shaped (e.g. `t(fam.noteKey, icuValues(...))`)."
+        },
+        {
+          "technique": "derived-selection-must-be-measured",
+          "verdict": "conformant",
+          "evidence": "features/atlas/sealTables.test.ts:30 The source extractor declares a floor on what it selects, so an empty extraction cannot pass the equality check vacuously."
+        },
+        {
+          "technique": "isolation-lanes",
+          "verdict": "conformant",
+          "evidence": "features/data-releases/loader.test.ts:17 The loader test does not inherit the live single-connection store; it runs over a synthetic store in the unit lane."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/data-releases/loader.test.ts:174 The fallback path is asserted together with the producer that reported it, so a null from elsewhere cannot pass."
+        }
+      ]
+    },
+    "e9b0f297-acb5-4de0-91ed-aebb33374531/test-harness": {
+      "context": "civicscore-leaderboard",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T01:18:33.482Z",
+      "worker": "9b98f945-5d42-4a2d-9c85-92368917a2f3",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/leaderboardSource.test.ts:11 The needle is the import line, which the technique says is never the call. Sibling formattedNumbers.test.ts:29 shows the conformant call-shaped needle over a comment-stripped haystack."
+        },
+        {
+          "technique": "assert-through-the-reader",
+          "verdict": "deviation",
+          "evidence": "features/civicscore/messages.test.ts:41 ICU placeholder parity is inferred by regex instead of formatting through next-intl, the reader that consumes the catalog; malformed ICU would pass."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/civicscore/leaderboardOrder.test.ts:37 Reversed input proves the pspId tie-break decides; input position (the default) cannot produce the same answer for both orders."
+        }
+      ]
     }
   }
 }

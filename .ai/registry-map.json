@@ -4106,7 +4106,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/civicscore/leaderboardSource.test.ts:11 The test claims the chamber pass reads the person id with the strict parser, but it pins the import line rather than the call `pspIdFromNodeId(p.id)` (getLeaderboardData.ts:357), and its paired negative pin forbids only one exact spelling. The same import-pinning shape recurs for `median` and `foldQuery`.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "public-claim-provenance",
@@ -5035,7 +5039,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/data-releases/pageSource.test.ts:53 The test claims \"every IngestRunRow status\" has a catalog sentence but loops over a hand-copied list. Its comment says tsc guarantees completeness, yet an `Array<union>` literal still type-checks with a member missing and the union is not derived from `IngestRunRow[\"status\"]`, so a new status would shrink the claim silently.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "quality-gates",
@@ -14686,7 +14694,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/votetrack/kompas/kompasSource.test.ts:19 The structural pin claims QuestionCard renders outcomes only through the catalog, but its needle is a bare identifier that the declaration line `const KNOWN_OUTCOMES = new Set(...)` (QuestionCard.tsx:23) satisfies by itself, so the call `KNOWN_OUTCOMES.has(q.outcome)` at line 98 could be dropped and the positive assertion would stay green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "eval-harness",
