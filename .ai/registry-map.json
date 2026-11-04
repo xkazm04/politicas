@@ -8019,12 +8019,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/ingest/changeEvents.ts:16 The only wire format in this context is the change-event feed codec, which carries diffs of public civic records rather than aggregate model-evaluation digests that cross an organizational boundary; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject's precondition is absent.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
-          "evaluatedRevision": 11,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/ingest/changeEvents.ts:16 The only wire format in this context is the change-event codec, which carries diffs of public civic records. It does not carry aggregate model-evaluation digests contributed across organizations. A case-insensitive search of lib/ingest for benchmark, federat, consent, contributorId and passRate found nothing, so the subject's precondition is absent.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9ba72fc97cd5044b",
+          "evaluatedRevision": 12,
+          "revisionsBehind": 1
         },
         {
           "subject": "llm-call-telemetry-model",
@@ -8168,12 +8167,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/ingest/sources/smlouvy.ts:1 These are clients for public-money registries (contracts, procurement, court data, asset declarations, MONITOR budgets) that read public records and pool no self-reported benchmark statistics from contributors; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject is out of scope.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
-          "evaluatedRevision": 11,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/ingest/sources/smlouvy.ts:1 These are read clients for public-money registries (contracts, procurement, court data, asset declarations, MONITOR budgets). They pool no self-reported model-evaluation statistics from other parties. A case-insensitive search of lib/ingest for benchmark, federat, consent, contributorId and passRate found nothing, so the subject does not apply.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9ba72fc97cd5044b",
+          "evaluatedRevision": 12,
+          "revisionsBehind": 1
         },
         {
           "subject": "llm-extracted-entity-graph",
@@ -8374,12 +8372,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/ingest/sources/psp.ts:1 These adapters fetch and normalize public parliamentary and electoral open data coming in, and have no shared leaderboard, contributor digest or consent-gated publication; I searched lib/ingest for benchmark, federat, consent, k_sources and opt-in with no hits, so the subject does not apply.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
-          "evaluatedRevision": 11,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/ingest/sources/psp.ts:1 These adapters only fetch and normalize incoming public parliamentary and electoral open data. There is no shared model leaderboard, contributor digest or consent-gated publication here. A case-insensitive search of lib/ingest for benchmark, federat, consent, contributorId and passRate found nothing, so the subject is out of scope.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9ba72fc97cd5044b",
+          "evaluatedRevision": 12,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-session-archive",
@@ -8818,12 +8815,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/data-analysis/ingest.ts:1 This context pulls public civic data (psp.cz dumps, Pumper mirror, Hlídač, e-Sbírka) into the local graph and never builds, sends or merges LLM evaluation digests from other organizations; I searched scripts/data-analysis for benchmark, federat, consent, k_sources and opt-in and found nothing, so none of the subject's precondition holds here.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:1bb6a4d8f620f867",
-          "evaluatedRevision": 11,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/data-analysis/ingest.ts:1 This script brings public civic data (psp.cz dumps, Pumper mirror) into the local graph. It never builds, sends, receives or merges LLM evaluation digests across an organizational boundary. A case-insensitive search of scripts/data-analysis for benchmark, federat, consent, contributorId and passRate found nothing, so the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:9ba72fc97cd5044b",
+          "evaluatedRevision": 12,
+          "revisionsBehind": 1
         },
         {
           "subject": "public-procurement-analysis",
