@@ -14764,6 +14764,37 @@
           "evidence": "features/money/contractDates.test.ts:112 Only block comments are stripped, so the positive toMatch(/displaySignedOn\\(c\\)/) at line 114 is satisfiable by a // line comment. Line 95 reads profileMoney.ts raw for a positive match, also unexplained."
         }
       ]
+    },
+    "5ff6a2d7-0be4-4d65-b0c9-404b4fbede66/test-harness": {
+      "context": "money-investigations",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T02:06:56.798Z",
+      "worker": "13d4bd37-0aeb-4c56-ba58-6a961f0507b7",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "features/money/casesReviewSource.test.ts:80 The technique says to execute the site when it can be executed. The header's 'no jsdom here' reason (line 6) covers components, not this server loader. Only the VerificationConsole block strips comments (line 51), so the other needles search a haystack that still contains prose."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "features/money/casesReviewSource.test.ts:78 The test name claims a stronger guard (a warning is emitted) than the assertion makes (a comparison exists in the text). The check is not marked as interim, and the decision was not moved into a unit the test can reach. By contrast, getCompanyDetail.test.ts:116 does name the producer (the variant discriminator)."
+        },
+        {
+          "technique": "fixture-economics",
+          "verdict": "conformant",
+          "evidence": "features/money/getCompanyDetail.test.ts:9 States that the fixtures copy the shape of live rows, not their content. Checked: the owns_stake / linked_to prop keys in the seeds are all registered in lib/kg/prop-registry.json."
+        },
+        {
+          "technique": "isolation-lanes",
+          "verdict": "conformant",
+          "evidence": "features/money/getCompanyDetail.test.ts:20 The loader test takes no handle on the singleton live .pglite store, so it can sit in the parallel unit lane."
+        }
+      ]
     }
   }
 }

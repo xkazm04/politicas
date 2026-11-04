@@ -1,0 +1,80 @@
+{
+ "schema": "conform-run/1",
+ "worker": "13d4bd37-0aeb-4c56-ba58-6a961f0507b7",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-04T02:06:56.798891+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "money-investigations",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/money/casesReviewSource.test.ts:80 The audit-cap warning in getVerificationData.ts is checked only as source text, under a test name that claims it 'warns'. The loader is executable under vitest (lib/testing/loaders.test.ts:60 imports and runs getVerificationQueue with a mocked store), yet no test drives a cap-filling read and checks for the warning. Deleting the console.warn while keeping the comparison would stay green.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "features/money/casesReviewSource.test.ts:80 The technique says to execute the site when it can be executed. The header's 'no jsdom here' reason (line 6) covers components, not this server loader. Only the VerificationConsole block strips comments (line 51), so the other needles search a haystack that still contains prose."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "features/money/casesReviewSource.test.ts:78 The test name claims a stronger guard (a warning is emitted) than the assertion makes (a comparison exists in the text). The check is not marked as interim, and the decision was not moved into a unit the test can reach. By contrast, getCompanyDetail.test.ts:116 does name the producer (the variant discriminator)."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "features/money/getCompanyDetail.test.ts:9 States that the fixtures copy the shape of live rows, not their content. Checked: the owns_stake / linked_to prop keys in the seeds are all registered in lib/kg/prop-registry.json."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "features/money/getCompanyDetail.test.ts:20 The loader test takes no handle on the singleton live .pglite store, so it can sit in the parallel unit lane."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "hybrid-bench",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "dashboard-feed-logic",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "app-utilities",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "kg-graph-utilities",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T02:06:56.798891+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "fixture-economics",
+    "isolation-lanes",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "money-investigations",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

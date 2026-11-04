@@ -11816,7 +11816,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/casesReviewSource.test.ts:80 The audit-cap warning in getVerificationData.ts is checked only as source text, under a test name that claims it 'warns'. The loader is executable under vitest (lib/testing/loaders.test.ts:60 imports and runs getVerificationQueue with a mocked store), yet no test drives a cap-filling read and checks for the warning. Deleting the console.warn while keeping the comparison would stay green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "quality-gates",
