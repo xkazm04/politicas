@@ -2794,7 +2794,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dukazy/dukazySource.test.ts:11 This blocking source-grep guard checks that the loader uses the bill-id codec by matching the raw file text (readFileSync with no comment stripping). A comment quoting the import line would pass it even if the codec were never used, which is the 'prose satisfies the matcher' failure; the sibling a11y.test.ts in the same folder does strip comments first.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -3517,7 +3521,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/schranka/telemetryScrub.test.ts:138 The guard that the privacy scrub is wired into both Sentry configs matches raw file text, so a commented-out `// beforeSend: scrubFollowTelemetry` would keep it green while follow keys leak. This is exactly the measured comment-satisfies-binding failure the technique describes.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "accountability-publishing-ethics",

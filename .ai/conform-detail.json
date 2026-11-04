@@ -15084,6 +15084,58 @@
           "evidence": "features/graph/kindStyle.test.ts:36 Parity is asserted field by field against one authority. No snapshot files exist in the context."
         }
       ]
+    },
+    "3e0155e0-4169-49a7-b22d-7a7fe3483ee4/quality-gates": {
+      "context": "civic-evidence",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T03:48:54.552Z",
+      "worker": "58bdceef-180b-4c27-a9c6-a6b487a9acfb",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/dukazySource.test.ts:6 The presence and absence assertions run over raw text, with no normalisation to executable code and no note saying that over-detection is the safe direction. Contrast a11y.test.ts:16 stripComments, though that is a regex pass with no seeded pair of fixtures."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/dukazy/messages.test.ts:92 The earlier catalog gate skipped plural keys, which shrank its population. It now gates every key, removing the scoped-population false green."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "features/dukazy/messages.test.ts:60 A measured false positive (column identifiers scored as English) was fixed in the detector, by stripping identifiers, and the gate was kept."
+        }
+      ]
+    },
+    "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/quality-gates": {
+      "context": "civic-inbox",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T03:48:54.552Z",
+      "worker": "58bdceef-180b-4c27-a9c6-a6b487a9acfb",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/schranka/telemetryScrub.test.ts:132 There is no comment or string stripping before the binding assertions. schrankaSource.test.ts:7 has the same raw-read pattern for its import-presence checks (line 12)."
+        },
+        {
+          "technique": "instrument-answers-only-its-own-question",
+          "verdict": "conformant",
+          "evidence": "features/schranka/messages.test.ts:12 The catalog pin states the question it does NOT answer (ICU placeholder parity), so its green is not read as covering that."
+        },
+        {
+          "technique": "false-positive-economics",
+          "verdict": "conformant",
+          "evidence": "features/schranka/messages.test.ts:15 It declines to ship a detector known to fire on correct plural forms instead of adding a list of exemptions."
+        }
+      ]
     }
   }
 }
