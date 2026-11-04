@@ -5842,7 +5842,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/gen-migration.ts:9 The schema-snapshot drift check is cheap and deterministic and needs nothing a workstation lacks, yet it is wired only into the remote CI rung (not into `npm run check` or the pre-push hook). Content can pass the repo's local gate and still fail CI, which is the unconsidered placement gate-laddering names.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "settings",
@@ -7332,7 +7336,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/components/TrailFinder.tsx:190 Path search enforces a gate condition (edges a human rejected are kept out of the neighbourhood, and the count travels in PathQueryResult.excludedRejected and in the permalink JSON-LD), but the TrailFinder empty state and rule note never print that count, even though graphTypes.ts and trailPath.ts both say 'the surface prints it'. So the reader-facing projection shows less of the policy than is enforced.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "chat-transcript",
@@ -11870,7 +11878,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/casesReviewSource.test.ts:27 The source-grep wiring tests match regexes against raw file text with comments left in (only the VerificationConsole probe at line 51 strips them, and the difference is never explained), so a comment naming the symbol satisfies the guard. The absence assertions key on author-renameable spellings, so a rename brings the regression back with every test still green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         }
       ],
       "governance": "governed"

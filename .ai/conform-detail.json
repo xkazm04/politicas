@@ -15296,6 +15296,119 @@
         "at": "2026-11-04T04:24:42.531692+00:00",
         "reason": "reviewer (sonnet): The anchor verify-b14.ts:8 is only a usage comment in one script, and the absence claim rests on a grep rather than on that line. The archive also holds validate-batch006.ts and similar gate scripts that act as verification harnesses, so 'no harness machinery governs this context' was not establishe"
       }
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/quality-gates": {
+      "context": "graph-canvas",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:35:25.371Z",
+      "worker": "4b9bc2ec-7811-4e5d-9761-37eaeb588676",
+      "techniques": [
+        {
+          "technique": "policy-projection",
+          "verdict": "deviation",
+          "evidence": "features/graph/components/TrailFinder.tsx:190 excludedRejected is on `done` but goes into neither finder.empty nor finder.rule (messages/cs.json). The JSON-LD projection carries it (permalink.ts path_excluded_rejected) and the visible surface does not, so the surface understates the policy."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "conformant",
+          "evidence": "features/graph/components/GraphStage.tsx:497 The human-gate states verified / pending_review / rejected / ungated (null) are rendered as distinct values, no longer folded into one boolean `pending`."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/graph/edgeGate.ts:50 Missing provenance becomes null rather than a default 'pass 0', so an absent value never reads as a measured one."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/stagePalette.ts:45 Rendering-only context: none of its gates has an exit-code path."
+        }
+      ]
+    },
+    "313a8c55-3182-49d8-a3f7-331198b2093f/quality-gates": {
+      "context": "db-tooling",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:35:25.371Z",
+      "worker": "4b9bc2ec-7811-4e5d-9761-37eaeb588676",
+      "techniques": [
+        {
+          "technique": "gate-laddering",
+          "verdict": "deviation",
+          "evidence": "scripts/gen-migration.ts:9 It qualifies for no hard-pass slot (no clean room, credentials or full-tree cost needed), but it runs only in .github/workflows/ci.yml:88 and is absent from package.json `check` and from lefthook pre-push."
+        },
+        {
+          "technique": "severity-by-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/gen-migration.ts:46 Drift exits non-zero inside a CI step, so the finding fails the run. It is not just printed."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "scripts/gen-migration.ts:44 The remedy is a script declared in package.json (db:snapshot), and running it as worded rewrites the file the check compares against. restore.ts:69 likewise points to a memo file that exists."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "conformant",
+          "evidence": "scripts/gen-migration.ts:42 The check compares against the imported CORE_DDL value (the resolved artifact) and normalises CRLF so the haystack matches what is meant."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "scripts/gen-migration.ts:37 A missing snapshot file is a failure, not a clean pass, so the instrument is asserted before the result."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "scripts/db/migrate.ts:55 'Nothing pending' is kept apart from 'snapshot skipped'. An unprotected additive apply is announced on its own line (migrate.ts:75), and an unprotected destructive one is refused (migrate.ts:71)."
+        }
+      ]
+    },
+    "5ff6a2d7-0be4-4d65-b0c9-404b4fbede66/quality-gates": {
+      "context": "money-investigations",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:35:25.371Z",
+      "worker": "4b9bc2ec-7811-4e5d-9761-37eaeb588676",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/money/casesReviewSource.test.ts:27 Presence is read from raw source with comments in; line 80 (AUDIT_READ_CAP) does the same. Line 51 normalises the haystack in the same file without saying why, which is the unexplained raw read the technique names."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "deviation",
+          "evidence": "features/money/casesReviewSource.test.ts:28 The absence guard keys on a local variable name and exact spacing. Renaming `rawState` or reformatting the ternary brings back the hand-rolled mapping and the test stays green."
+        },
+        {
+          "technique": "advancement-evidence-fields",
+          "verdict": "deviation",
+          "evidence": "features/money/reviewTypes.ts:30 A stored value the gate never wrote (e.g. 'VERIFIED') is shown as 'not yet decided', which merges corrupt or unrecorded into in-progress. There is no explicitly rendered unknown state."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "features/money/reviewActions.ts:71 A missing reviewer identity fails closed with its own 'misconfigured' status; no anonymous audit row is written."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "features/money/reviewActions.ts:74 The refusal names exactly what is missing and why it blocks, rather than a generic error."
+        },
+        {
+          "technique": "self-reported-gate-inputs",
+          "verdict": "conformant",
+          "evidence": "features/money/reviewActions.ts:27 The client-submitted decision is checked against a server-side whitelist before any store write, so the gate does not trust the caller's own record."
+        }
+      ]
     }
   }
 }
