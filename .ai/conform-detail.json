@@ -2703,77 +2703,94 @@
       "subject": "data-access",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T13:12:26.241Z",
-      "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:10:33.230Z",
+      "worker": "997d6daf-9bf7-48ae-9113-ffdd8ad10df0",
       "techniques": [
-        {
-          "technique": "query-construction",
-          "verdict": "deviation",
-          "evidence": "lib/db/pglite/durability.ts:100 Setting names are spliced in as quoted literals. They can be bound. upsertMany and storeAccounting do bind values and allowlist table identifiers."
-        },
         {
           "technique": "row-mapping",
           "verdict": "deviation",
-          "evidence": "lib/db/pglite/mappers.ts:137 mappers.test.ts pins this coercion. json() in internals.ts also turns a failed JSON.parse into {} with no skip record."
+          "evidence": "lib/db/pglite/mappers.ts:142 Unknown closed-vocabulary text is passed through as a member. The num() helper (internals.ts:167) similarly turns null/NaN into 0."
         },
         {
-          "technique": "layering-rules",
+          "technique": "query-construction",
           "verdict": "conformant",
-          "evidence": "lib/db/pglite/internals.ts:46 Engine modules import lib/db siblings and domain types. No feature or handler import in these files."
-        },
-        {
-          "technique": "transactions-and-units-of-work",
-          "verdict": "conformant",
-          "evidence": "lib/db/pglite/internals.ts:237 upsertMany commits every chunk inside one pg.transaction so a mid-loop failure does not leave a prefix."
+          "evidence": "lib/db/pglite/internals.ts:252 The upsert builder pushes each value and derives its placeholder index in one motion. Table identifiers in accounting.ts are allowlisted (SAFE_IDENT plus KNOWN_TABLES, line 222)."
         },
         {
           "technique": "batching-and-n-plus-one",
           "verdict": "conformant",
-          "evidence": "lib/db/pglite/internals.ts:232 Placeholders are generated per value, an empty row list returns 0 before any statement, and the chunk stays under the WASM parameter ceiling."
+          "evidence": "lib/db/pglite/internals.ts:232 The set-shaped upsert is chunked by row count and by bind-parameter budget."
         },
         {
           "technique": "repo-testing",
           "verdict": "conformant",
-          "evidence": "lib/db/pglite/durability.test.ts:30 open() execs CORE_DDL. The test file isolates the data dir with pgliteFixtureDir and asserts the engine's reported settings."
+          "evidence": "lib/db/pglite/accounting.test.ts:62 Engine tests run on a real PGlite fixture dir via the production open()."
+        },
+        {
+          "technique": "layering-rules",
+          "verdict": "conformant",
+          "evidence": "lib/db/pglite/internals.ts:46 Engine modules import lib/db siblings and domain types. No feature or handler import in these files.",
+          "carriedFrom": "2026-10-13"
+        },
+        {
+          "technique": "transactions-and-units-of-work",
+          "verdict": "conformant",
+          "evidence": "lib/db/pglite/internals.ts:237 upsertMany commits every chunk inside one pg.transaction so a mid-loop failure does not leave a prefix.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "cross-driver-invariant-parity",
           "verdict": "not-applicable",
-          "evidence": "lib/db/pglite/durability.ts:5 One engine's durability contract. No second storage backend is implemented in this tree."
+          "evidence": "lib/db/pglite/durability.ts:5 One engine's durability contract. No second storage backend is implemented in this tree.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "read-models-and-projections",
           "verdict": "not-applicable",
-          "evidence": "lib/db/pglite/accounting.ts:74 derived-recomputable here is a retention class for table size, not a projection surface for a screen."
+          "evidence": "lib/db/pglite/accounting.ts:74 derived-recomputable here is a retention class for table size, not a projection surface for a screen.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "capability-declared-in-the-type",
           "verdict": "not-applicable",
-          "evidence": "lib/db/pglite/internals.ts:67 A single engine is constructed. There is no family of partial store implementations to admit."
+          "evidence": "lib/db/pglite/internals.ts:67 A single engine is constructed. There is no family of partial store implementations to admit.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "sequence-token-write-ordering",
           "verdict": "deviation",
-          "evidence": "lib/db/pglite/sentinelQueue.ts:170 Newest certification across the JSONL queue and sentinel_run is a wall-clock stamp, with a content-hash tie-break forcing a total order."
+          "evidence": "lib/db/pglite/sentinelQueue.ts:170 Newest certification across the JSONL queue and sentinel_run is a wall-clock stamp, with a content-hash tie-break forcing a total order.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "existence-authority-written-last",
           "verdict": "conformant",
-          "evidence": "lib/db/pglite/sentinelQueue.ts:127 The queue file is appended first; sentinel_run is inserted on drain; the file is truncated only after those inserts. Certification reads the table."
+          "evidence": "lib/db/pglite/sentinelQueue.ts:127 The queue file is appended first; sentinel_run is inserted on drain; the file is truncated only after those inserts. Certification reads the table.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "operator-defined-tables",
           "verdict": "not-applicable",
-          "evidence": "lib/db/pglite/ddl.ts:13 Tables are a schema string in source. No runtime DDL from an operator-supplied type."
+          "evidence": "lib/db/pglite/ddl.ts:13 Tables are a schema string in source. No runtime DDL from an operator-supplied type.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "localized-record-identity",
           "verdict": "not-applicable",
-          "evidence": "lib/db/pglite/accounting.ts:69 Entity tables are source mirrors of a published dump. name_en on organ is a dump column, not a user-authored translation row with its own lifecycle."
+          "evidence": "lib/db/pglite/accounting.ts:69 Entity tables are source mirrors of a published dump. name_en on organ is a dump column, not a user-authored translation row with its own lifecycle.",
+          "carriedFrom": "2026-10-13"
         }
       ],
-      "registryProposal": "Row-mapping already bans coercing an unknown vocabulary value into a live member. It is worth one sentence that a deduped console warning does not turn that coercion into degrade-visibly, because the returned row still has no skip identity and no taint."
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/db/pglite/mappers.ts:137 An unrecognized membership.kind is returned as the live value member, so a corrupt vocabulary cell becomes a healthy row instead of a failed read or a recorded skip.",
+          "evaluatedAt": "2026-10-13T13:12:26.241Z",
+          "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+          "reason": "replaced by 997d6daf-9bf7-48ae-9113-ffdd8ad10df0"
+        }
+      ]
     },
     "3e5e8c14-4e90-463a-a9c3-c3538c866bab/data-access": {
       "context": "eslint-plugin-civic-transparency-tests",
@@ -15533,6 +15550,58 @@
           "technique": "rendered-string-extraction",
           "verdict": "deviation",
           "evidence": "features/landing/hardcodedCopy.test.ts:15 The literal scanner's scope stops at components/, so the referendum's out-of-catalog copy is an undeclared coverage hole. The only declaration is a source comment, not a line in any gate report."
+        }
+      ]
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/data-access": {
+      "context": "testing-flake-sentinel",
+      "subject": "data-access",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:10:33.230Z",
+      "worker": "997d6daf-9bf7-48ae-9113-ffdd8ad10df0",
+      "techniques": [
+        {
+          "technique": "query-construction",
+          "verdict": "deviation",
+          "evidence": "lib/testing/sentinel/facts.ts:226 The technique explicitly refuses the 'obviously safe constant' exception: values are always bound."
+        },
+        {
+          "technique": "layering-rules",
+          "verdict": "deviation",
+          "evidence": "lib/testing/sentinel/facts.ts:217 Query text against physical tables lives in lib/testing, not in the repository tree. The read-only audit runs on a store copy, which softens the risk. It is still a permanent in-tree consumer, not an ad-hoc analytics query."
+        },
+        {
+          "technique": "repo-testing",
+          "verdict": "conformant",
+          "evidence": "lib/testing/sentinel/sentinel.test.ts:45 Sentinel invariants are exercised against a real PGlite fixture opened through production open()."
+        }
+      ]
+    },
+    "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/data-access": {
+      "context": "landing-referendum",
+      "subject": "data-access",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:10:33.230Z",
+      "worker": "997d6daf-9bf7-48ae-9113-ffdd8ad10df0",
+      "techniques": [
+        {
+          "technique": "row-mapping",
+          "verdict": "deviation",
+          "evidence": "features/landing/referendum/aggregate.ts:87 listLensVectors returns raw serialized strings, so decoding happens in the caller rather than at the seam. Undecodable rows are skipped silently. The comment calls it 'defence in depth' but records nothing."
+        },
+        {
+          "technique": "layering-rules",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/actions.ts:35 The server action writes through the named repository operation (the sole writer of lens_submission) and constructs no SQL."
+        },
+        {
+          "technique": "repo-testing",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/actions.test.ts:23 Application logic is tested against a mocked repository interface (the layer the team owns), not a mocked engine. This is the technique's legitimate mock location."
         }
       ]
     }

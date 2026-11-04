@@ -5282,12 +5282,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "lib/db/pglite/mappers.ts:137 An unrecognized membership.kind is returned as the live value member, so a corrupt vocabulary cell becomes a healthy row instead of a failed read or a recorded skip.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:b67182492821d592",
-          "evaluatedRevision": 18,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/db/pglite/mappers.ts:142 An unrecognised membership.kind is still decoded as the valid 'member' variant (with only a once-per-value console.warn at line 137), so a corrupt vocabulary cell becomes a healthy row. It is neither rejected nor quarantined, which is the silent third option row-mapping bans.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19,
+          "revisionsBehind": 1
         },
         {
           "subject": "voice-io",
@@ -9934,7 +9933,11 @@
           "revision": 19,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/referendum/aggregate.ts:87 Stored lens vectors that fail to decode are dropped from the published aggregate with no record, counter or log. Corrupt rows become votes that 'never existed', and n silently shrinks: the banned silent-skip collection policy.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19
         },
         {
           "subject": "copy-quality-gates",
@@ -14145,7 +14148,11 @@
           "revision": 19,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/sentinel/facts.ts:226 The sentinel splices a numeric constant (INGEST_RUN_LIMIT = 500, line 192) straight into SQL text and runs its own statements against kg_node, kg_edge and ingest_run outside lib/db. Value interpolation therefore exists as a spelling in the codebase, and physical columns are named outside the data layer.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19
         },
         {
           "subject": "invariant-placement",
