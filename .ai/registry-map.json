@@ -4647,7 +4647,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/publicWire.test.ts:191 The structural pin claims the exhibit loader passes factLedger:\"full\", but features/dashboard/getExhibitData.ts:9 carries the same string in a prose comment (`factLedger: \"full\"`), so deleting the real call argument at line 43 leaves this assertion green: the haystack holds the prose about the program and the needle is spellable by prose.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "accountability-publishing-ethics",

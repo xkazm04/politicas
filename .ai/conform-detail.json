@@ -15136,6 +15136,32 @@
           "evidence": "features/schranka/messages.test.ts:15 It declines to ship a detector known to fire on correct plural forms instead of adding a list of exemptions."
         }
       ]
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/test-harness": {
+      "context": "dashboard-feed-logic",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T04:00:58.807Z",
+      "worker": "692f1a3a-2c8a-43c2-b5bf-9133907be7d4",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/publicWire.test.ts:191 Needle also appears in the comment at getExhibitData.ts:9; there is no comment stripping and the needle does not include the call shape (e.g. getDashboardData({ factLedger: \"full\" })). By contrast freshness.test.ts:15 reads the construct for its value, which is the conformant form."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/stateSlice.test.ts:39 The fixture puts mandate order against array order, so a sorted result cannot just be the input order coming back. The test asserts the producer (the sort), not a coincidence."
+        },
+        {
+          "technique": "fixture-economics",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/stateSlice.test.ts:6 Hand-built fixture pinned to the rule rather than to today's DB content, so the test cannot validate yesterday's ingest; it costs nothing to build."
+        }
+      ]
     }
   }
 }
