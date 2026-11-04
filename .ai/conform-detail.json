@@ -1691,22 +1691,30 @@
       "subject": "translation-pipeline-topology",
       "bundle": "localization",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T07:53:09.877Z",
-      "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:19:22.081Z",
+      "worker": "d98c2904-e319-499c-bdf4-d340a8e0a5cf",
       "techniques": [
         {
           "technique": "canonical-fallback-serving",
           "verdict": "deviation",
-          "evidence": "lib/i18n/request.ts:15 Directly imports the single requested locale message file without falling back to the canonical Czech source catalog when translations are missing."
+          "evidence": "lib/i18n/request.ts:15 No per-unit fallback to the defaultLocale catalog; a miss becomes the 'blank or error on miss' failure the technique names. The cs path is unchanged (same single import), so the canonical path carries no i18n tax."
         },
         {
           "technique": "language-registry-single-source",
           "verdict": "conformant",
-          "evidence": "lib/i18n/config.ts:8 Defines the single source of truth for supported locales and locale metadata used across the application."
+          "evidence": "lib/i18n/config.ts:8 One registry holds the codes, endonyms (localeNames) and short labels, and isLocale validates against it. request.ts, locale.ts, useFormat.ts and the switcher all read it."
         }
       ],
-      "registryProposal": "In UI frameworks using message catalogs like next-intl, per-unit fallback requires explicitly merging the base catalog with the requested locale catalog at load time; the standard's fallback model should explicitly specify this catalog composition pattern."
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/i18n/request.ts:15 The request configuration imports only the requested locale catalog without providing per-unit fallback to the canonical Czech source catalog when translations are absent.",
+          "evaluatedAt": "2026-10-13T07:53:09.877Z",
+          "worker": "1d28bdc3-6ed0-4666-9001-d925cf38ca7c",
+          "reason": "replaced by d98c2904-e319-499c-bdf4-d340a8e0a5cf"
+        }
+      ]
     },
     "61b546ac-220d-425f-ad42-8e39576b3784/translation-pipeline-topology": {
       "context": "scripts-quality-gates",
@@ -11934,11 +11942,19 @@
       "subject": "translation-pipeline-topology",
       "bundle": "localization",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T06:40:50.332Z",
-      "worker": "eff3732f-498d-45e8-8956-606c8d193179",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:19:22.081Z",
+      "worker": "d98c2904-e319-499c-bdf4-d340a8e0a5cf",
       "techniques": [],
-      "registryProposal": "The match came from 'batch'/'batches' (bill batches). A translation-specific co-term would avoid matching archived case-loop scripts."
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:1 These are archived LawWatch one-shot probes, where 'batch' means a bill-triage batch, not a translation batch. A search of scripts/case-loops/law/archive for translat, i18n, next-intl and NEXT_LOCALE found 0 hits. 'locale' matches only localeCompare(…, \"cs\") sorts.",
+          "evaluatedAt": "2026-10-24T06:40:50.332Z",
+          "worker": "eff3732f-498d-45e8-8956-606c8d193179",
+          "reason": "replaced by d98c2904-e319-499c-bdf4-d340a8e0a5cf"
+        }
+      ]
     },
     "cfa7d042-e2a7-497b-9926-e88df58ff10f/federated-benchmark-sharing": {
       "context": "kg-domain-ingest",
@@ -15602,6 +15618,37 @@
           "technique": "repo-testing",
           "verdict": "conformant",
           "evidence": "features/landing/referendum/actions.test.ts:23 Application logic is tested against a mocked repository interface (the layer the team owns), not a mocked engine. This is the technique's legitimate mock location."
+        }
+      ]
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/translation-pipeline-topology": {
+      "context": "eslint-transparency-rules",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:19:22.081Z",
+      "worker": "d98c2904-e319-499c-bdf4-d340a8e0a5cf",
+      "techniques": []
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/translation-pipeline-topology": {
+      "context": "landing-core",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:19:22.081Z",
+      "worker": "d98c2904-e319-499c-bdf4-d340a8e0a5cf",
+      "techniques": [
+        {
+          "technique": "source-identical-value-audit",
+          "verdict": "deviation",
+          "evidence": "features/landing/messages.test.ts:68 Parity is gated for the whole namespace. The value comparison at line 127 (not.toEqual) covers only the denik.* subset and has no allowlist of values that may legitimately match."
+        },
+        {
+          "technique": "language-registry-single-source",
+          "verdict": "conformant",
+          "evidence": "features/landing/serverIntl.ts:34 The server-side landing intl resolves the locale through the shared registry (isLocale/defaultLocale) instead of keeping its own list."
         }
       ]
     }

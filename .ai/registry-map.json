@@ -1817,12 +1817,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "lib/i18n/request.ts:15 The request configuration imports only the requested locale catalog without providing per-unit fallback to the canonical Czech source catalog when translations are absent.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "lib/i18n/request.ts:15 The request config loads only the selected locale's catalog and sets neither a merge with the canonical cs catalog nor a getMessageFallback, so a key missing from en.json shows next-intl's raw key path plus an error, not the canonical Czech unit. Measured 2026-11-04: cs and en both have 3215 keys and 0 are missing, so the gap is latent today rather than visible to readers.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "test-harness",
@@ -6985,8 +6984,12 @@
           "revision": 13,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "eslint-rules/README.md:1 This context is one-line require() shims that re-export the rules from packages/eslint-plugin-civic-transparency, plus their README and tests. A grep of eslint-rules/ for translat, i18n, next-intl, locale and pseudo found 0 hits, so the context holds no translation storage, movement or serving.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13
         },
         {
           "subject": "agent-memory",
@@ -9705,8 +9708,12 @@
           "revision": 13,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "deviation",
+          "priorNotApplicable": 5,
+          "evidence": "features/landing/messages.test.ts:68 The landing catalog gate checks key parity, placeholder parity and non-emptiness for all 105 landing keys, but compares values against the cs source for only the 12 denik.* keys, with no committed allowlist. So parity stands in as the coverage claim for the other 93 keys. Measured 2026-11-04: only landing.nav.index and landing.nav.data are identical today.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13
         },
         {
           "subject": "table",
@@ -10482,12 +10489,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:1 These are archived LawWatch one-shot probes, where 'batch' means a bill-triage batch, not a translation batch. A search of scripts/case-loops/law/archive for translat, i18n, next-intl and NEXT_LOCALE found 0 hits. 'locale' matches only localeCompare(…, \"cs\") sorts.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:678c2208c5b0dfc0",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-002.ts:1 These are archived LawWatch bill-triage probes, and 'batch' here means a law-loop dossier batch, not a translation batch. A grep of scripts/case-loops/law/archive for translat, i18n, next-intl and NEXT_LOCALE found 0 hits, so the context has no translation pipeline, catalog or locale serving.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         }
       ],
       "governance": "governed"
