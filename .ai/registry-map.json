@@ -7607,7 +7607,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/graph/graphLoader.ts:408 The loader places bulk contract nodes on a ring around their supplier at a slot hashed from the node's own id, so a contract arriving or leaving moves no other node. The force-layout core is fed from store reads ordered by id and by src,rel,dst, so its input order is canonical.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:98dcec8d04236b95",
+          "evaluatedRevision": 6
         },
         {
           "subject": "native-shell-integration",
@@ -8956,9 +8960,10 @@
           "changedAt": "2026-10-14",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "lib/kg/layout.ts:160 The force layout consumes noncanonical node and edge order, and an in-memory permutation probe changed every position of an unchanged 24-node star.",
-          "evaluatedAt": "2026-10-13",
-          "stale": true
+          "evidence": "lib/kg/layout.ts:160 forceLayout feeds caller order straight into the O(n^2) simulation and never sorts canonically. An in-memory probe moved 80 of 80 positions when only the input order of an 80-node graph was rotated (130 iterations), and 21 of 24 for a star at the default 260 iterations, which contradicts the header's claim that the same node selection always gives the same picture.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:98dcec8d04236b95",
+          "evaluatedRevision": 6
         },
         {
           "subject": "test-harness",
@@ -9303,7 +9308,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/graf/page.tsx:34 These are thin route shells: page.tsx only mounts the GraphPage feature, and the OG image draws a single glyph SVG rather than a graph. Searching app/graf, app/referendum, app/svedectvi and app/rentgen for toWorld, zoomAtPoint, setPointerCapture, forceLayout and getContext found nothing, so no canvas or layout code lives in this context.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:98dcec8d04236b95",
+          "evaluatedRevision": 6
         },
         {
           "subject": "talking-avatar",

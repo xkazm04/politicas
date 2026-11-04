@@ -3234,18 +3234,19 @@
       "subject": "canvas-graph",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T03:32:48.541Z",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:37:40.186Z",
+      "worker": "f1664f53-0a99-4b67-9059-53f799e13711",
       "techniques": [
         {
           "technique": "graph-layout",
           "verdict": "deviation",
-          "evidence": "lib/kg/layout.ts:160 Runs are repeatable (hash seeds, no Math.random), but the result depends on input order and the engine does not sort by identity. Coordinate quantisation via r2 (line 33) does satisfy the cross-runtime determinism axis."
+          "evidence": "lib/kg/layout.ts:160 Start positions are hashed from ids and output is quantized to 2 decimals (line 161), so repeated runs agree. But the layout depends on input order because floating-point summation follows array order. The 'order-independent' test only covers a 12-node chain at 60 iterations, where rounding hides the drift."
         },
         {
           "technique": "edge-management",
           "verdict": "deviation",
-          "evidence": "lib/kg/glyph.ts:76 The glyph registry is the node-geometry authority, but it exposes no bounds or anchor query. Diamonds extend to 1.25r and squares to r*sqrt2, while edge code can only assume a circular radius."
+          "evidence": "lib/kg/glyph.ts:73 The glyph module, which owns shape geometry, draws squares, diamonds and triangles that extend beyond r but exports no bounds or boundary-anchor function. Edge anchoring therefore has to fall back to a circle of radius r."
         }
       ],
       "superseded": [
@@ -3255,14 +3256,15 @@
           "evaluatedAt": "2026-10-13T22:36:15.686Z",
           "worker": "d4a4a5f1-e5aa-45c4-8906-2d28e7692c5d",
           "reason": "replaced by 607a8ba4-084b-426a-8847-73beb4a7cf5d"
+        },
+        {
+          "state": "deviation",
+          "evidence": "lib/kg/layout.ts:160 The force layout consumes noncanonical node and edge order, and an in-memory permutation probe changed every position of an unchanged 24-node star.",
+          "evaluatedAt": "2026-10-13",
+          "worker": null,
+          "reason": "replaced by f1664f53-0a99-4b67-9059-53f799e13711"
         }
-      ],
-      "withdrawn": {
-        "worker": "607a8ba4-084b-426a-8847-73beb4a7cf5d",
-        "state": "deviation",
-        "at": "2026-10-24T03:33:13.887752+00:00",
-        "reason": "reviewer (sonnet): The 24-of-24 star-reorder probe could not be reproduced, and lib/kg/layout.test.ts:20-24 ('nezávisí na pořadí uzlů na vstupu') asserts the opposite on a reversed chain; the caller claim (SQL 'order by id') was also not found in graphLoader.ts:357, where the input is idx.entries."
-      }
+      ]
     },
     "83ddefb0-fd53-4a37-9959-54071b61ce53/canvas-graph": {
       "context": "dashboard-instruments",
@@ -15737,6 +15739,42 @@
       "evaluatedAt": "2026-11-04",
       "evaluatedTs": "2026-11-04T05:26:31.865Z",
       "worker": "5e69d920-86f3-4232-8c6c-822e3847fde9",
+      "techniques": []
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/canvas-graph": {
+      "context": "graph-data-logic",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:37:40.186Z",
+      "worker": "f1664f53-0a99-4b67-9059-53f799e13711",
+      "techniques": [
+        {
+          "technique": "graph-layout",
+          "verdict": "conformant",
+          "evidence": "features/graph/graphLoader.ts:408 Slots come from node identity, and the contracts shown are chosen sorted by id (line 385). The layout runs server-side, off the interaction path."
+        },
+        {
+          "technique": "edge-management",
+          "verdict": "conformant",
+          "evidence": "features/graph/forensicView.ts:29 Edge identity is the src|rel|dst triple, which is the store's own composite edge key (lib/db/store.ts KgEdgeKey), not a bare (src,dst) pair."
+        },
+        {
+          "technique": "render-budget",
+          "verdict": "conformant",
+          "evidence": "features/graph/graphLoader.ts:377 The budget is sized from the measured high-percentile corpus: it caps contracts per supplier and reports the omitted counts in the payload instead of shipping about 150k nodes to the canvas."
+        }
+      ]
+    },
+    "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/canvas-graph": {
+      "context": "labs-graph-routes",
+      "subject": "canvas-graph",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T05:37:40.186Z",
+      "worker": "f1664f53-0a99-4b67-9059-53f799e13711",
       "techniques": []
     }
   }
