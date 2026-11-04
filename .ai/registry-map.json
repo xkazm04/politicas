@@ -1836,7 +1836,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/security/adminGate.test.ts:11 The /admin verdict was lifted out of app/admin/accessGate.ts into decideAdminGate so all four branches are reachable, but the suite drives only the extracted predicate. Nothing asserts that accessGate.ts still calls it and takes no verdict branch of its own, so a reintroduced inline copy at the call site would stay green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "model-routing",
@@ -12013,7 +12017,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/money/ledgerGraphSource.test.ts:38 The adoption pin for company id → IČO uses a bare identifier as its needle. A comment or the import line alone satisfies it, so a different hand-written tail-of-id copy (anything but the one negated `.id.split(\":\").pop()` form) stays green. The no-unused-vars lint narrows this but does not close it.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "settings",

@@ -14795,6 +14795,63 @@
           "evidence": "features/money/getCompanyDetail.test.ts:20 The loader test takes no handle on the singleton live .pglite store, so it can sit in the parallel unit lane."
         }
       ]
+    },
+    "4a469aa2-e8dd-4ec4-b8c7-b8838f526aae/test-harness": {
+      "context": "app-utilities",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T02:25:10.238Z",
+      "worker": "7fc706a1-6ffa-4209-96cd-c475bd0838d2",
+      "techniques": [
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "lib/security/adminGate.test.ts:11 The lift into a reachable unit is done well (adminGate.ts documents the measured unreachability). The 'assert its adoption as well as its behaviour' rule is not met: no test reads accessGate.ts, unlike pspIdParam.test.ts, which does."
+        },
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "conformant",
+          "evidence": "lib/routing/pspIdParam.test.ts:21 The adoption pin uses a full import statement that prose cannot spell, plus a negative needle on the old regex. An unused import would fail no-unused-vars at error."
+        },
+        {
+          "technique": "assert-the-schedule-not-the-stopwatch",
+          "verdict": "not-applicable",
+          "evidence": "lib/security/token.test.ts:14 The constant-time comparison is pinned through its precondition (no throw on a length mismatch), not with any wall-clock assertion."
+        }
+      ]
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/test-harness": {
+      "context": "money-ledger",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-04",
+      "evaluatedTs": "2026-11-04T02:25:10.238Z",
+      "worker": "7fc706a1-6ffa-4209-96cd-c475bd0838d2",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "features/money/ledgerGraphSource.test.ts:38 The needle carries no call token (argument list) and no comment stripping. Siblings in the same file do it right, e.g. `const datesCheckedOn = pragueDay\\(\\)`."
+        },
+        {
+          "technique": "assert-the-schedule-not-the-stopwatch",
+          "verdict": "conformant",
+          "evidence": "features/money/moneyLoader.test.ts:177 The parallelism claim is asserted with an in-flight counter (the schedule), not wall time. A serial loop can never exceed 1, so the assertion fails the serial variant on any machine."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/money/moneyLoader.test.ts:242 Where the memo or a re-read could both produce the value, the test asserts the producer by counting store reads."
+        },
+        {
+          "technique": "isolation-lanes",
+          "verdict": "conformant",
+          "evidence": "features/money/moneyLoader.test.ts:18 The loader test runs against a mocked synthetic store and never inherits the single-connection live PGlite."
+        }
+      ]
     }
   }
 }

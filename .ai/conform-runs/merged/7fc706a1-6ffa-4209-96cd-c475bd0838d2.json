@@ -1,0 +1,115 @@
+{
+ "schema": "conform-run/1",
+ "worker": "7fc706a1-6ffa-4209-96cd-c475bd0838d2",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-04T02:25:10.238821+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "app-utilities",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/security/adminGate.test.ts:11 The /admin verdict was lifted out of app/admin/accessGate.ts into decideAdminGate so all four branches are reachable, but the suite drives only the extracted predicate. Nothing asserts that accessGate.ts still calls it and takes no verdict branch of its own, so a reintroduced inline copy at the call site would stay green.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "lib/security/adminGate.test.ts:11 The lift into a reachable unit is done well (adminGate.ts documents the measured unreachability). The 'assert its adoption as well as its behaviour' rule is not met: no test reads accessGate.ts, unlike pspIdParam.test.ts, which does."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "lib/routing/pspIdParam.test.ts:21 The adoption pin uses a full import statement that prose cannot spell, plus a negative needle on the old regex. An unused import would fail no-unused-vars at error."
+    },
+    {
+     "technique": "assert-the-schedule-not-the-stopwatch",
+     "verdict": "not-applicable",
+     "evidence": "lib/security/token.test.ts:14 The constant-time comparison is pinned through its precondition (no throw on a length mismatch), not with any wall-clock assertion."
+    }
+   ]
+  },
+  {
+   "context": "money-ledger",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/money/ledgerGraphSource.test.ts:38 The adoption pin for company id \u2192 I\u010cO uses a bare identifier as its needle. A comment or the import line alone satisfies it, so a different hand-written tail-of-id copy (anything but the one negated `.id.split(\":\").pop()` form) stays green. The no-unused-vars lint narrows this but does not close it.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "features/money/ledgerGraphSource.test.ts:38 The needle carries no call token (argument list) and no comment stripping. Siblings in the same file do it right, e.g. `const datesCheckedOn = pragueDay\\(\\)`."
+    },
+    {
+     "technique": "assert-the-schedule-not-the-stopwatch",
+     "verdict": "conformant",
+     "evidence": "features/money/moneyLoader.test.ts:177 The parallelism claim is asserted with an in-flight counter (the schedule), not wall time. A serial loop can never exceed 1, so the assertion fails the serial variant on any machine."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "features/money/moneyLoader.test.ts:242 Where the memo or a re-read could both produce the value, the test asserts the producer by counting store reads."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "features/money/moneyLoader.test.ts:18 The loader test runs against a mocked synthetic store and never inherits the single-connection live PGlite."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "hybrid-bench",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "dashboard-feed-logic",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "kg-graph-utilities",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T02:25:10.238821+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-the-schedule-not-the-stopwatch",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "app-utilities",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T02:25:10.238821+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-the-schedule-not-the-stopwatch",
+    "isolation-lanes",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "money-ledger",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
