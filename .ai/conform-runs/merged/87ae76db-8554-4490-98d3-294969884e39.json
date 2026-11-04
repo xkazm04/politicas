@@ -1,0 +1,121 @@
+{
+ "schema": "conform-run/1",
+ "worker": "87ae76db-8554-4490-98d3-294969884e39",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-04T02:38:50.908722+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "hybrid-bench",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/hybrid-bench/materialize-tags.ts:117 The \"no answer, no row\" rule that keeps invented `jine` tags out of `vote_tag` lives in `main()`, which no test runs. `materialize-tags.test.ts` only drives the lifted `parseTags`, so putting the old `jine`/0 default back at this line would leave the suite green.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "scripts/hybrid-bench/materialize-tags.test.ts:1 The file claims the product-data outcome but only pins the lifted predicate. The technique's 'the lift creates the gap it is judged on' case: the call site's use of `parseTags` (materialize-tags.ts:117) is not pinned."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "deviation",
+     "evidence": "scripts/hybrid-bench/semop.test.ts:27 The test name claims the caller's fill (semop.ts:90). No assertion covers it, so deleting the fill loop in `semFilter` would leave this test green. The name overstates what is checked."
+    },
+    {
+     "technique": "recorded-interaction-fixtures",
+     "verdict": "deviation",
+     "evidence": "scripts/hybrid-bench/engine.ts:88 Tests use hand-written model strings for the parsers only. The remote boundary (CLI envelope parsing, is_error, usage) has no recorded or any other test, which the technique names as a bad option."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "scripts/hybrid-bench/materialize-tags.ts:145 The direct-run guard lets the unit test import `parseTags` without opening a store or calling the CLI, so the test inherits nothing."
+    },
+    {
+     "technique": "approval-snapshots-with-guarded-update",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/materialize-tags.test.ts:27 Small scalar outputs asserted directly. No snapshot suite (rg toMatchSnapshot over the context found none)."
+    }
+   ]
+  },
+  {
+   "context": "graph-canvas",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/graph/components/GraphStage.tsx:235 The geometry cull was lifted into `viewCull.ts` and tested there, but nothing pins GraphStage's use of it. `stageSource.test.ts` checks other constructs, so reverting this line to an endpoint-only `inView` check would keep every test green.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "features/graph/viewCull.test.ts:21 The predicate is tested; its use by the component is not. This is the exact measured failure in the technique ('assert both, the predicate and its adoption')."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "features/graph/stageSource.test.ts:26 The structural pin over GraphStage strips comments and uses a code-shaped needle that prose cannot spell. Its explanation lives in the asserting file."
+    },
+    {
+     "technique": "approval-snapshots-with-guarded-update",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/kindStyle.test.ts:36 Parity is asserted field by field against one authority. No snapshot files exist in the context."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "ingest-pipeline",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "kg-graph-utilities",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "dashboard-feed-logic",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T02:38:50.908722+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "approval-snapshots-with-guarded-update",
+    "isolation-lanes",
+    "negative-control-tests",
+    "recorded-interaction-fixtures",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "hybrid-bench",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T02:38:50.908722+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "approval-snapshots-with-guarded-update",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "graph-canvas",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

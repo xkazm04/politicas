@@ -7355,7 +7355,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/graph/components/GraphStage.tsx:235 The geometry cull was lifted into `viewCull.ts` and tested there, but nothing pins GraphStage's use of it. `stageSource.test.ts` checks other constructs, so reverting this line to an endpoint-only `inView` check would keep every test green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "declared-process-graph",
@@ -7719,7 +7723,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:117 The \"no answer, no row\" rule that keeps invented `jine` tags out of `vote_tag` lives in `main()`, which no test runs. `materialize-tags.test.ts` only drives the lifted `parseTags`, so putting the old `jine`/0 default back at this line would leave the suite green.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "cross-provider-benchmark-operations",
