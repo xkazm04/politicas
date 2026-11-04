@@ -8698,12 +8698,11 @@
           "changedAt": "2026-10-22",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "lib/ingest/sources/psp-legislation.ts:433 kg-bill-roles-ingest persists parseBillFates, which replaces an earlier valid Sbírka publication with a later one and does not record first publication, correction, and reprint as distinct.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:167 The bill node stores the single Sbírka citation from parseBillFates, which keeps whichever publication step is latest (psp-legislation.ts:529-533). An original publication is silently replaced by a later correction or reprint, and nothing records which kind of step it was.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a63c6d5f390c3952",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 2
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -10169,12 +10168,11 @@
           "changedAt": "2026-10-22",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "scripts/case-loops/law/amends-census.ts:271 The first eligible statute citation in a Čl. block becomes a confirmed amended law with no test that the block issues an amendment instruction.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "scripts/case-loops/law/amends-census.ts:271 In a Čl.-organised bill, the first eligible (not a footnote, not repeal context) citation in each article block becomes an amended law. Non-amending blocks are filtered only by a heading blacklist, and nothing positively tests that the block issues an amendment instruction (e.g. 'se mění takto').",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a63c6d5f390c3952",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 2
         },
         {
           "subject": "fleet-orchestration",
@@ -10401,12 +10399,11 @@
           "changedAt": "2026-10-22",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "scripts/case-loops/law/archive/collision-signal-009.ts:57 Batch 009 measures amendment instructions with a private verb regex instead of the shared clause-anchored grammar.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "scripts/case-loops/law/archive/collision-signal-009.ts:57 Batch 009 classifies instruction forms with a private verb regex that has no clause anchor, rather than the one shared grammar (now in collision-core.ts), so its signal measurement can drift from what the grammar recognises.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a63c6d5f390c3952",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 2
         },
         {
           "subject": "guest-execution-bounding",
@@ -10861,13 +10858,12 @@
           "revision": 7,
           "changedAt": "2026-10-22",
           "confidence": "strong",
-          "state": "conformant",
-          "evidence": "messages/cs.json:2162 The bill dossier labels statute links as title citations and, where a census row exists, states how many targets that title link missed.",
-          "evaluatedAt": "2026-10-15",
-          "evaluatedAgainst": "sha256-b2:b340fecc484dd980",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 2,
-          "stale": true
+          "state": "deviation",
+          "evidence": "features/lawwatch/getLawData.ts:406 The committee-routing view is built only from role, status and assignedOn, so the `unrecognisedTyp` codes that kg-committee-routing persists on assigned_to edges are dropped at read time, and a pair with an unreadable later row looks the same on /zakony as a pair that has no such row.",
+          "evaluatedAt": "2026-11-04",
+          "evaluatedAgainst": "sha256-b2:a63c6d5f390c3952",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 2
         },
         {
           "subject": "conflict-of-interest-detection",

@@ -1,0 +1,180 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0be49c49-d803-4bdd-b166-9b868bff7dc1",
+ "subject": "legislative-change-tracking",
+ "evaluatedAt": "2026-11-04T03:05:02.556761+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "lawwatch-bills",
+   "subject": "legislative-change-tracking",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/lawwatch/getLawData.ts:406 The committee-routing view is built only from role, status and assignedOn, so the `unrecognisedTyp` codes that kg-committee-routing persists on assigned_to edges are dropped at read time, and a pair with an unreadable later row looks the same on /zakony as a pair that has no such row.",
+   "techniques": [
+    {
+     "technique": "committee-routing-reconstruction",
+     "verdict": "deviation",
+     "evidence": "features/lawwatch/getLawData.ts:406 Missing status correctly falls back to \"unknown\" (line 405), not to \"navrzeno\". But the unrecognised codes are never read: grepping `unrecognised` across features/ finds no lawwatch hit. That breaks the rule that unknown codes stay visible all the way to the surface."
+    },
+    {
+     "technique": "statute-collision-clustering",
+     "verdict": "deviation",
+     "evidence": "features/lawwatch/CollisionsPage.tsx:128 The counts carry no denominator for how many pending bills had readable operative text (they are counts over a cached subset). collisionBatch.ts:36 labels the read 'ru\u010dn\u00ed porovn\u00e1n\u00ed text\u016f' (manual text comparison), but getCollisionData.ts:7 says it was an LLM close-read, so the surface misnames which review happened. Lead framing and grouping by (statute, \u00a7) are fine."
+    },
+    {
+     "technique": "sponsorship-and-rapporteur-roles",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/getLawData.ts:466 First signatory = rank 1 on a submission-time row. Rows without a rank get role null, nothing is invented. Rapporteur scopes are kept (line 342). The rule is restated locally rather than importing isFirstSignatory, which is a drift risk."
+    },
+    {
+     "technique": "statute-citation-extraction",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/LawWatchPage.tsx:259 The surface says the bill\u2192law link comes from title citations and states the census undercount (messages honesty.text). deriveStatuteDossier keeps title and census buckets apart (line 136)."
+    }
+   ]
+  },
+  {
+   "context": "kg-domain-ingest",
+   "subject": "legislative-change-tracking",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:167 The bill node stores the single Sb\u00edrka citation from parseBillFates, which keeps whichever publication step is latest (psp-legislation.ts:529-533). An original publication is silently replaced by a later correction or reprint, and nothing records which kind of step it was.",
+   "techniques": [
+    {
+     "technique": "bill-fate-dating",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:167 Refuse/keep/count is done and refusals are reported (lines 196-209). Calendar validity, plausibility against the retrieval day and the shared plausible-date import are all upstream. But having several publication steps collapses to the latest with no first/correction/reprint classification."
+    },
+    {
+     "technique": "committee-routing-reconstruction",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-committee-routing.ts:90 Persists the collapsed strongest status: unknown ranks lowest, the earliest date at the strongest status wins, a weaker step's date is never borrowed, and unrecognised codes are carried. Remit-based `owns` stays a separate weak prior (lines 125-138)."
+    },
+    {
+     "technique": "sponsorship-and-rapporteur-roles",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-bill-roles-ingest.ts:105 Rank, joined_later and conflict flags are kept. Unknown rank is never promoted. Rapporteur scopes and organ ids are preserved, and seat ids are mapped to persons through the mandate table (line 69)."
+    },
+    {
+     "technique": "statute-citation-extraction",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/esbirka-laws.ts:82 Title citations come from the one shared LAW_CITATION, with the Sb. m. s. lookahead and history splitting, via normalizeLegislation. Law nodes are then checked for existence against e-Sb\u00edrka."
+    }
+   ]
+  },
+  {
+   "context": "law-archive-early",
+   "subject": "legislative-change-tracking",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/archive/collision-signal-009.ts:57 Batch 009 classifies instruction forms with a private verb regex that has no clause anchor, rather than the one shared grammar (now in collision-core.ts), so its signal measurement can drift from what the grammar recognises.",
+   "techniques": [
+    {
+     "technique": "amendment-instruction-grammar",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/archive/collision-signal-009.ts:57 A private copy at one call site, which the technique forbids. The shared grammar arrived later (2026-10-10, per instructionGrammar.test.ts) and the archive is frozen."
+    },
+    {
+     "technique": "statute-collision-clustering",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/archive/collision-check-008.ts:357 Partitions per statute with an explicit unknown bucket. Prints a fetched/parsed denominator (line 510) and frames the output as CANDIDATE, not verdict (line 633)."
+    },
+    {
+     "technique": "statute-citation-extraction",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/archive/collision-check-008.ts:36 Imports the one shared citation pattern."
+    }
+   ],
+   "registryProposal": "Frozen archival probes that predate a shared grammar are a recurring case. The technique could say whether a private copy kept only for historical reproducibility counts as a deviation."
+  },
+  {
+   "context": "law-amends-corpus",
+   "subject": "legislative-change-tracking",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/amends-census.ts:271 In a \u010cl.-organised bill, the first eligible (not a footnote, not repeal context) citation in each article block becomes an amended law. Non-amending blocks are filtered only by a heading blacklist, and nothing positively tests that the block issues an amendment instruction (e.g. 'se m\u011bn\u00ed takto').",
+   "techniques": [
+    {
+     "technique": "amendment-instruction-grammar",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/amends-census.ts:271 firstEligibleCitation (lines 178-189) only skips footnotes and repeal context. The NON_AMEND_ART_HEADING_RE blacklist (line 172) is a negative filter, not an instruction grammar. Unresolved blocks are not kept as their own state."
+    },
+    {
+     "technique": "statute-citation-extraction",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/amends-census.ts:25 Shared pattern imported. Extraction is limited to operative text."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-04T03:05:02.556761+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "legislative-change-tracking"
+   ],
+   "techniques": [
+    "committee-routing-reconstruction",
+    "sponsorship-and-rapporteur-roles",
+    "statute-citation-extraction",
+    "statute-collision-clustering"
+   ],
+   "deviations": 1,
+   "context": "lawwatch-bills",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T03:05:02.556761+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "legislative-change-tracking"
+   ],
+   "techniques": [
+    "bill-fate-dating",
+    "committee-routing-reconstruction",
+    "sponsorship-and-rapporteur-roles",
+    "statute-citation-extraction"
+   ],
+   "deviations": 1,
+   "context": "kg-domain-ingest",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T03:05:02.556761+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "legislative-change-tracking"
+   ],
+   "techniques": [
+    "amendment-instruction-grammar",
+    "statute-citation-extraction",
+    "statute-collision-clustering"
+   ],
+   "deviations": 1,
+   "context": "law-archive-early",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T03:05:02.556761+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "legislative-change-tracking"
+   ],
+   "techniques": [
+    "amendment-instruction-grammar",
+    "statute-citation-extraction"
+   ],
+   "deviations": 1,
+   "context": "law-amends-corpus",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
