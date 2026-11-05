@@ -9035,7 +9035,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/kg/provenance.ts:177 guardStampedRows' --allow-unstamped escape is one boolean that waives every provenance problem on every row (a malformed or invented source as well as a missing stamp) and counts them all as 'unstamped', so the hatch is a blanket rather than a waiver naming its finding.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         }
       ],
       "governance": "governed"

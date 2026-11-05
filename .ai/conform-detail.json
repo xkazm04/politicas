@@ -16031,6 +16031,77 @@
           "evidence": "app/error.tsx:15 The deliberately removed false promise ('a report has been sent') is recorded in a comment, but no test forbids the phrasing. A search of *.test.ts for odeslali/report has been sent/errors.* copy found no pin, so a copy rewrite could bring it back silently."
         }
       ]
+    },
+    "5124b667-8ec0-4118-a497-f984b3a1e3d9/quality-gates": {
+      "context": "kg-graph-utilities",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T23:31:12.653Z",
+      "worker": "e0a9c104-a70f-4446-b779-2b28a0ce05a6",
+      "techniques": [
+        {
+          "technique": "waiver-names-its-finding",
+          "verdict": "deviation",
+          "evidence": "lib/kg/provenance.ts:177 One flag silences every problem on every row, not just the absent-stamp finding it is named for. A row with source 'made-up' gets through the same way an unstamped legacy row does, and it is counted as 'unstamped'."
+        },
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "deviation",
+          "evidence": "lib/kg/provenance.ts:101 The contract says ref is a DECLARED formula or batch ref, but the check only tests that it is non-empty. A grep found no registry of declared refs anywhere. The 'migration pass ONLY' rule (line 163) is also prose: kg-compute and kg-legislation-ingest accept the flag too."
+        },
+        {
+          "technique": "fabrication-economics",
+          "verdict": "conformant",
+          "evidence": "lib/kg/provenance.ts:23 A declared-inability token: 'unknown' is valid and gets counted on /atlas, so a writer is not pushed into guessing a plausible source."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "lib/kg/provenance.ts:91 The refusal names a remedy the writer can apply inside the tree."
+        },
+        {
+          "technique": "self-reported-gate-inputs",
+          "verdict": "conformant",
+          "evidence": "lib/kg/provenance.ts:112 The validator runs on the write itself, before the record exists, not on rows read back afterwards."
+        },
+        {
+          "technique": "policy-projection",
+          "verdict": "conformant",
+          "evidence": "lib/kg/provenance.test.ts:121 The hand-mirrored copy of the provenance keys in prop-registry.json is asserted equal to the contract, so the two cannot drift apart."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/kg/propRegistry.test.ts:25 A seeded typo key proves the detector can go red, and the test asserts it flags only that key."
+        },
+        {
+          "technique": "vacuous-by-evaluation",
+          "verdict": "conformant",
+          "evidence": "lib/kg/propRegistry.test.ts:32 A counterexample shows an unknown scope does not quietly turn into 'everything allowed'."
+        },
+        {
+          "technique": "renameable-detector-keys",
+          "verdict": "conformant",
+          "evidence": "lib/kg/propRegistry.ts:46 The registry is an allowlist, so renaming a key makes it unregistered (flagged) instead of slipping past a denylist."
+        }
+      ]
+    },
+    "78075124-3bda-491e-bb0e-08de5bbb4b3b/quality-gates": {
+      "context": "voting-legislation-routes",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T23:31:12.653Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "e0a9c104-a70f-4446-b779-2b28a0ce05a6",
+        "state": "not-applicable",
+        "at": "2026-11-05T23:31:55.375964+00:00",
+        "reason": "reviewer (sonnet): The anchor (app/hlasovani/page.tsx:21) is a plain JSX mount that does not show a gate is absent. The claim that the feed handlers have no refusal is also contradicted by feed.xml/route.ts, which returns 503 with no-store when the store is down. The search terms (eslint, lint, lefthook, max-warnings,"
+      }
     }
   }
 }
