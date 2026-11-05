@@ -7165,7 +7165,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/analysis/kg-money-reingest.test.ts:11 The file says it proves the D1 merge-preserve fix end to end, but it deliberately skips importing scripts/data-analysis/kg-money-ingest.ts and replays the sequence by hand, so the wiring that ships (kg-money-ingest.ts:137 passing existingLinkedToProps into mergePreservedTieProps) is never reached; no test anywhere pins that adoption, and reverting the call there would leave this test green.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         }
       ],
       "governance": "governed"
@@ -11346,7 +11350,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/money/archive/validate-batch006.ts:6 The archive holds one-shot diagnostic probes, run by hand with tsx against a store copy. A search of scripts/case-loops/money/archive for vitest, describe(, expect(, beforeAll and .test.ts found 0 hits, and no test or config elsewhere references the archive, so there is no test machinery here for the harness standard to govern.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         }
       ],
       "governance": "governed"
@@ -12389,7 +12397,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/aresVrMatch.test.ts:5 The ARES VR matcher, which every ownership/reconcile script uses to read live registry responses, is tested only against a hand-built VrZaznam literal (git grep finds primarniZaznam in no recorded payload), so the suite asserts against the author's model of a deeply nested third-party shape and cannot notice when ARES changes it.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         }
       ],
       "governance": "governed"

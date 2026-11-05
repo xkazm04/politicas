@@ -15433,16 +15433,11 @@
       "context": "money-archive-probes",
       "subject": "test-harness",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-11-04",
-      "evaluatedTs": "2026-11-04T04:24:13.199Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "21ddb6ba-1cd9-41ec-a890-85452e33a76c",
-        "state": "not-applicable",
-        "at": "2026-11-04T04:24:42.531692+00:00",
-        "reason": "reviewer (sonnet): The anchor verify-b14.ts:8 is only a usage comment in one script, and the absence claim rests on a grep rather than on that line. The archive also holds validate-batch006.ts and similar gate scripts that act as verification harnesses, so 'no harness machinery governs this context' was not establishe"
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T22:09:02.370Z",
+      "worker": "0b5b7f28-767c-4041-8194-fb1352f109f1",
+      "techniques": []
     },
     "099d19c6-4248-4e23-84b3-1e7954fa60e8/quality-gates": {
       "context": "graph-canvas",
@@ -15859,6 +15854,68 @@
       "evaluatedTs": "2026-11-04T22:24:01.222Z",
       "worker": "81322ccd-4a47-46e3-bd31-20b3b05cea00",
       "techniques": []
+    },
+    "ededba42-cb3c-4821-8d13-dd4123266054/test-harness": {
+      "context": "financial-analysis",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T22:09:02.370Z",
+      "worker": "0b5b7f28-767c-4041-8194-fb1352f109f1",
+      "techniques": [
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/kg-money-reingest.test.ts:11 The test drives the shared predicate, not the script's adoption of it (kg-money-ingest.ts:137); git grep finds no test covering the call site, so the 'end-to-end' claim overstates. The decision rule is to assert adoption as well as behaviour."
+        },
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/public-copy.test.ts:81 This structural pin's needle is a bare identifier that prose can spell, so a comment explaining the field in any of the three pinned files turns the suite red (getProfileData.ts:298 already talks around the name). The population is also a hand-listed set of 3 files with no walk over other render paths."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg-money-reingest.test.ts:152 The file carries an in-suite control arm: a naive re-ingest without the merge is shown to revert review_state, so the defect the positive test guards is observed firing."
+        },
+        {
+          "technique": "assert-the-schedule-not-the-stopwatch",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/money-feed.test.ts:437 The Retry-After cutoff is proved on a fake clock: advanceTimersByTimeAsync(RETRY_AFTER_CAP_MS), then it asserts settled and calls===2. No wall-clock bound that load could stretch."
+        },
+        {
+          "technique": "fixture-economics",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg-money-reingest.test.ts:17 The store-backed test takes a per-file copy of the build-once PGlite template in a temp dir instead of running its own cold initdb."
+        },
+        {
+          "technique": "recorded-interaction-fixtures",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/money-feed.test.ts:38 The Hlídač/ARES client parsing is tested against hand-written fixtures 'modeled on' captured responses. The capture itself is not the fixture, carries no service version or capture date, and no live/record lane checks freshness. This is the hand-written-fake option the technique rejects for a non-trivial remote shape."
+        }
+      ]
+    },
+    "1d4e5da8-7190-49ac-9a60-facf0bce4162/test-harness": {
+      "context": "money-ownership",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T22:09:02.370Z",
+      "worker": "0b5b7f28-767c-4041-8194-fb1352f109f1",
+      "techniques": [
+        {
+          "technique": "recorded-interaction-fixtures",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/aresVrMatch.test.ts:5 This is a hand-written fake of a multi-array ARES VR record (statutarniOrgany/ostatniOrgany/spolecnici/podil). There is no recorded exchange, no service-version stamp and no live certification lane, so the freshness obligation goes unaddressed."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/passArg.ts:4 The --pass decision was lifted out of the self-executing CLI into a pure reachable unit, and passArg.test.ts drives it directly, including the missing-flag (undefined) case that caused the pass:0 incident. Adoption is pinned in a sibling test outside this context."
+        }
+      ]
     }
   }
 }
