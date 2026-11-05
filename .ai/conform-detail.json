@@ -16005,6 +16005,32 @@
         }
       ],
       "registryProposal": "Bill sponsorship (authoring a print) is a decision-versus-interest shape the vote-versus-interest join does not name. The standard could say whether sponsor-based joins must meet the same clauses: a positional act, a statute table, and alignment."
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/docs-sync": {
+      "context": "app-shell",
+      "subject": "docs-sync",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T23:08:01.036Z",
+      "worker": "5fa5a102-105a-4db6-bc79-cd18c9905ab8",
+      "techniques": [
+        {
+          "technique": "source-doc-mapping",
+          "verdict": "deviation",
+          "evidence": "docs/feature-doc-map.json:345 error.tsx and global-error.tsx are missing from this entry; app-shell.md:187 discusses the error.tsx prop rename. Their coverage is prefix-shaped through app/** onto the wrong documents."
+        },
+        {
+          "technique": "dated-corrections",
+          "verdict": "conformant",
+          "evidence": "docs/routes/app-shell.md:195 The false 'Next already pre-generates these pages' rationale is quoted and retracted with its date and the measurement that disproved it."
+        },
+        {
+          "technique": "negative-claims-are-pinned",
+          "verdict": "deviation",
+          "evidence": "app/error.tsx:15 The deliberately removed false promise ('a report has been sent') is recorded in a comment, but no test forbids the phrasing. A search of *.test.ts for odeslali/report has been sent/errors.* copy found no pin, so a copy rewrite could bring it back silently."
+        }
+      ]
     }
   }
 }

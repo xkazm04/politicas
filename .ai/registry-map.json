@@ -1677,7 +1677,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "docs/feature-doc-map.json:345 The app-shell.md entry lists not-found, layout, robots and sitemap but leaves out app/error.tsx and app/global-error.tsx, even though app-shell.md documents both boundaries at length. A change to either file is owed only to the broad app/** docs (README/CLAUDE/AGENTS/ROADMAP), never to the doc that describes it.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "browser-credential-boundary",
