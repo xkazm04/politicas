@@ -10891,7 +10891,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/company-sectors.ts:110 The law triage emits a 'sector_adjacent_conflict' flag (sponsor, company, statute). It decides relevance by keyword inference from company-name sectors to law-title domains, plus a per-company override map for named firms. That is the elastic, targeted relevance net the standard forbids, built over ungated, unclassed ties.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7
         },
         {
           "subject": "guest-execution-bounding",
@@ -10971,7 +10975,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/getLawData.ts:444 /zakony reads and publishes a per-bill 'conflict flag'. That flag is set whenever any sponsor has tied companies whose contracts sum past a threshold (kg-legislation-ingest moneyOf), with no corroboration gate, no tie class, no time window and no check that the bill's statutes govern the money's channel: accusation by adjacency on a public facet.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7
         },
         {
           "subject": "prompt-assembly",
@@ -11392,7 +11400,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "strong",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/money/triage.ts:217 The offline money triage keeps its own hand-copied significance formula, with the same class weights and bonuses as the shared `reviewSignal` in features/money/reviewTypes.ts plus extra alignment terms. It stamps no formula version on ledger.json, so the console and the offline ledger rank named people under two formulas that are only kept in step by hand.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7
         },
         {
           "subject": "public-procurement-analysis",

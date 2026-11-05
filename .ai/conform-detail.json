@@ -15916,6 +15916,95 @@
           "evidence": "scripts/case-loops/money/passArg.ts:4 The --pass decision was lifted out of the self-executing CLI into a pure reachable unit, and passArg.test.ts drives it directly, including the missing-flag (undefined) case that caused the pass:0 incident. Adoption is pinned in a sibling test outside this context."
         }
       ]
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/conflict-of-interest-detection": {
+      "context": "money-contracts",
+      "subject": "conflict-of-interest-detection",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T22:28:48.484Z",
+      "worker": "d803d8b0-4577-4f16-8293-f8ff1aed6898",
+      "techniques": [
+        {
+          "technique": "triage-signal-scoring",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/triage.ts:217 The shape follows the technique: log money, a multiplicative class weight, a capped near-threshold term, alignment counted twice, and a cross-case term outside the multiplier. But the formula is a local copy, not one shared import, and its outputs carry no version stamp."
+        },
+        {
+          "technique": "tie-class-taxonomy",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/money/triage.ts:156 The class always comes from the title heuristic. The recorded kg_edge.props.tie_class is ignored, while the app's moneyLoader uses resolveTieClass, where the stored class wins. The ledger's tiers and scores can therefore disagree with the surface, and the disagreement is never counted."
+        },
+        {
+          "technique": "registry-corroboration-gating",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/triage.ts:157 Review order is imported from the shared module: trust tier first, money second within a tier, ties broken by stable id (line 295). The shared rank packs tier and money into one number (tier*1e12 + money), but money is clamped below the cap, so tiers cannot interleave."
+        },
+        {
+          "technique": "temporal-alignment-of-money-and-role",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/money/triage.ts:144 Uses the one shared window function (inclusive day boundaries, no start means no alignment, implausible dates treated as undated). Undated ties are flagged with no-period-start or no-period-in-source."
+        }
+      ]
+    },
+    "9d0a4dbd-85b7-4cb1-8306-4bfec537b1dd/conflict-of-interest-detection": {
+      "context": "lawwatch-bills",
+      "subject": "conflict-of-interest-detection",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T22:28:48.484Z",
+      "worker": "d803d8b0-4577-4f16-8293-f8ff1aed6898",
+      "techniques": [
+        {
+          "technique": "registry-corroboration-gating",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/publicWire.ts:56 The flag goes out as a public badge and facet, but it is computed from all linked_to ties, confirmed or not. Unconfirmed ties reach a public conflict label."
+        },
+        {
+          "technique": "tie-class-taxonomy",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getLawData.ts:509 The rendered sponsor money is one mixed total that includes steward seats. The page's own conflictAttribution copy admits this; it discloses rather than partitions."
+        },
+        {
+          "technique": "statute-relevance-mapping",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/lawTypes.ts:131 No relevance test against a channel-to-statute table: any bill whose sponsor holds money ties is flagged, whatever it amends."
+        }
+      ]
+    },
+    "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/conflict-of-interest-detection": {
+      "context": "law-triage-collision",
+      "subject": "conflict-of-interest-detection",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T22:28:48.484Z",
+      "worker": "d803d8b0-4577-4f16-8293-f8ff1aed6898",
+      "techniques": [
+        {
+          "technique": "statute-relevance-mapping",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/company-sectors.ts:110 Relevance comes from name-based sector inference and per-company overrides such as AGROFERT, not from a fixed channel-to-statute table. Rows are added for particular firms."
+        },
+        {
+          "technique": "tie-class-taxonomy",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/triage-core.ts:188 A second, name-regex public-body test stands in for the shared tie-class vocabulary (resolveTieClass). That is two definitions of 'steward' in one repo."
+        },
+        {
+          "technique": "triage-signal-scoring",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/triage.ts:160 Money is log-scaled, but it is the mixed-class sponsor_contract_czk with no class multiplier. The file's own comment says a municipal-board figure saturates it. triage-core.ts also carries a second weighting (v2)."
+        },
+        {
+          "technique": "registry-corroboration-gating",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/triage-core.ts:151 The person-to-company map that feeds the named conflict flag filters only on sector and SOE status. All linked_to edges enter, with no check of corroboration, review_state or false_edge_suspected."
+        }
+      ],
+      "registryProposal": "Bill sponsorship (authoring a print) is a decision-versus-interest shape the vote-versus-interest join does not name. The standard could say whether sponsor-based joins must meet the same clauses: a positional act, a statute table, and alignment."
     }
   }
 }
