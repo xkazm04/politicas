@@ -1451,7 +1451,11 @@
           "revision": 14,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:465 The admin surface only reads persisted ingest-run records, local files and the store. It reports failed runs as a failure-streak alert and gives operators a hand-confirmed 'requeue' journal verb, but it never issues or retries a failing call itself. A case-insensitive grep of features/admin/ for retry|retries|backoff|jitter|circuit|breaker|attempt|setInterval|setTimeout found no hits, so there is no retry ladder here to judge.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:0ff53fb3a87ad13c",
+          "evaluatedRevision": 14
         },
         {
           "subject": "agent-instruction-files",
@@ -8480,11 +8484,7 @@
           "confidence": "probable",
           "state": "deviation",
           "evidence": "lib/ingest/sources/refusal-class.ts:54 The classifier defaults novel or unrecognised non-ok HTTP responses to the permanent declined class instead of an unknown class with conservative retries and rate monitoring, permanently dropping recoverable requests.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:4ca1a8af506f44d9",
-          "evaluatedRevision": 13,
-          "revisionsBehind": 1,
-          "stale": true
+          "evaluatedAt": "2026-10-17"
         },
         {
           "subject": "prompt-assembly",
@@ -9500,12 +9500,11 @@
           "changedAt": "2026-10-27",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/labs/rentgen/getTerminalData.ts:80 The context's only I/O is a read-only, once-per-render read of the in-process embedded store, and its failure lane is a single caught attempt that is reported and degraded per layer. No retry is attempted, so the subject's precondition (a failed call that the system then retries) does not hold; a case-insensitive grep of features/labs/rentgen/ for retry|retries|backoff|jitter|circuit|breaker|setInterval|attempt returned no hits.",
-          "evaluatedAt": "2026-10-26",
-          "evaluatedAgainst": "sha256-b2:4ca1a8af506f44d9",
-          "evaluatedRevision": 13,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/labs/rentgen/getTerminalData.ts:80 The context's only I/O is a once-per-render read of the in-process embedded store. On failure it makes one caught attempt, reports it through reportLoaderFailure and degrades that layer to empty. Nothing is ever retried, so the subject's precondition does not hold: a case-insensitive grep of features/labs/rentgen/ for retry|retries|backoff|jitter|circuit|breaker|setInterval|attempt|setTimeout found no hits.",
+          "evaluatedAt": "2026-11-05",
+          "evaluatedAgainst": "sha256-b2:0ff53fb3a87ad13c",
+          "evaluatedRevision": 14,
+          "revisionsBehind": 1
         },
         {
           "subject": "job-coordination",

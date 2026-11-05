@@ -8478,52 +8478,71 @@
       "subject": "retry-backoff",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T23:40:36.576Z",
-      "worker": "4196ab3f-d371-47a0-838a-80878188a467",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T23:46:05.837Z",
       "techniques": [
+        {
+          "technique": "error-classification-for-retry",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/sources/refusal-class.ts:54 Classification does happen once, at the boundary, against the status code, into one closed vocabulary (RefusalKind). But the default branch yields permanent instead of unknown, and the RefusalKind union has no unknown member. Also, classifyResponse(status) receives only the status, so a 429/503 retry-after hint can never be extracted (procedure step 3)."
+        },
         {
           "technique": "backoff-design",
           "verdict": "conformant",
-          "evidence": "lib/ingest/sources/backoff.ts:24 Computes exponential backoff clamped to capMs with full jitter drawn uniformly from [0, ceiling]."
+          "evidence": "lib/ingest/sources/backoff.ts:24 Full jitter over a capped geometric ceiling (min(cap, base*2^n), line 12). In JS floats, 2**n overflows to Infinity and Math.min still returns cap, so the ladder cannot wrap. The exhaustion knob (attempt count) belongs to the calling adapters outside this context, and a stated retry-after is never honoured because classification never extracts one."
         },
         {
           "technique": "circuit-breakers",
           "verdict": "deviation",
-          "evidence": "lib/ingest/sources/pumper.ts:70 Direct HTTP calls lack circuit breaker protection to track consecutive failures, enter cooldown, or probe recovery."
+          "evidence": "lib/ingest/sources/pumper.ts:70 Direct HTTP calls lack circuit breaker protection to track consecutive failures, enter cooldown, or probe recovery.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "client-retry-and-redirect-conventions",
           "verdict": "deviation",
-          "evidence": "lib/ingest/sources/pumper.ts:72 Client fails immediately on non-ok status without schedule stop values and does not enforce single-redirect bounds or scheme downgrade checks."
+          "evidence": "lib/ingest/sources/pumper.ts:72 Client fails immediately on non-ok status without schedule stop values and does not enforce single-redirect bounds or scheme downgrade checks.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "durable-retries",
           "verdict": "deviation",
-          "evidence": "lib/ingest/sources/pumper.ts:199 Dataset mirror passes execute in memory without persisting attempt counts, next retry-at schedules, or terminal states across restarts."
-        },
-        {
-          "technique": "error-classification-for-retry",
-          "verdict": "deviation",
-          "evidence": "lib/ingest/sources/refusal-class.ts:54 Fallback branch classifies unknown non-ok status codes as declined (permanent) rather than unknown, and ignores response headers like Retry-After."
+          "evidence": "lib/ingest/sources/pumper.ts:199 Dataset mirror passes execute in memory without persisting attempt counts, next retry-at schedules, or terminal states across restarts.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "retry-observability",
           "verdict": "deviation",
-          "evidence": "lib/ingest/sources/refusal-class.ts:67 Terminal failures format an error string but emit no structured per-item attempt histories, distinct terminal states, or attempts-per-success metrics."
+          "evidence": "lib/ingest/sources/refusal-class.ts:67 Terminal failures format an error string but emit no structured per-item attempt histories, distinct terminal states, or attempts-per-success metrics.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "storm-control",
           "verdict": "deviation",
-          "evidence": "lib/ingest/sources/backoff.ts:11 Per-attempt exponential backoff caps individual rungs but lacks aggregate fleet retry budgets, cross-item caps, or warn-once latching."
+          "evidence": "lib/ingest/sources/backoff.ts:11 Per-attempt exponential backoff caps individual rungs but lacks aggregate fleet retry budgets, cross-item caps, or warn-once latching.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "suspension-is-not-failure",
           "verdict": "deviation",
-          "evidence": "lib/ingest/sources/pumper.ts:71 Blocked or failed requests immediately throw rather than suspending attempts under unmet local conditions with stricter resumption predicates."
+          "evidence": "lib/ingest/sources/pumper.ts:71 Blocked or failed requests immediately throw rather than suspending attempts under unmet local conditions with stricter resumption predicates.",
+          "carriedFrom": "2026-10-17"
         }
       ],
-      "registryProposal": "Consider noting in error-classification-for-retry that scraping adapters targeting rate-sensitive public civic infrastructure intentionally fail toward permanent refusal for unrecognised 4xx status codes to avoid triggering upstream IP bans."
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "lib/ingest/sources/refusal-class.ts:54 The classifier defaults novel or unrecognised non-ok HTTP responses to the permanent declined class instead of an unknown class with conservative retries and rate monitoring, permanently dropping recoverable requests.",
+          "evaluatedAt": "2026-10-17T23:40:36.576Z",
+          "worker": "4196ab3f-d371-47a0-838a-80878188a467",
+          "reason": "replaced by f13cab60-306b-4439-b9d0-dae5a927c59f"
+        }
+      ],
+      "withdrawn": {
+        "worker": "f13cab60-306b-4439-b9d0-dae5a927c59f",
+        "state": "deviation",
+        "at": "2026-11-05T23:46:44.145549+00:00",
+        "reason": "reviewer (sonnet): The deviation is about refusal-class.ts, which is not in this context's file list and is imported only by kiosek.ts and monitor.ts. In the context files, psp*.ts, pumper.ts and volby.ts, a grep for refusal-class, classifyResponse, retry and attempt found nothing, and backoff.ts is not imported by an"
+      }
     },
     "e9b0f297-acb5-4de0-91ed-aebb33374531/scoring-rubrics": {
       "context": "civicscore-leaderboard",
@@ -12976,34 +12995,48 @@
       "subject": "retry-backoff",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-26",
-      "evaluatedTs": "2026-10-26T22:39:04.174Z",
-      "worker": "0e818202-4719-4866-a705-b9f11ac815ae",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T23:46:05.837Z",
+      "worker": "f13cab60-306b-4439-b9d0-dae5a927c59f",
       "techniques": [
         {
           "technique": "error-classification-for-retry",
           "verdict": "not-applicable",
-          "evidence": "features/labs/rentgen/getTerminalData.ts:114 Every failure goes to report-and-degrade with no retry decision, so there is nothing to classify for retry."
+          "evidence": "features/labs/rentgen/getTerminalData.ts:114 Every failure goes to report-and-degrade with no retry decision, so there is nothing to classify for retry.",
+          "carriedFrom": "2026-10-26"
         },
         {
           "technique": "backoff-design",
           "verdict": "not-applicable",
-          "evidence": "features/labs/rentgen/getTerminalData.ts:159 Each layer gets exactly one read per render. There is no retry ladder to tune and no delay."
+          "evidence": "features/labs/rentgen/getTerminalData.ts:159 Each layer gets exactly one read per render. There is no retry ladder to tune and no delay.",
+          "carriedFrom": "2026-10-26"
         },
         {
           "technique": "durable-retries",
           "verdict": "not-applicable",
-          "evidence": "features/labs/rentgen/getTerminalData.ts:12 The loader writes nothing and starts no backfill, so no retry state needs to survive a restart."
+          "evidence": "features/labs/rentgen/getTerminalData.ts:12 The loader writes nothing and starts no backfill, so no retry state needs to survive a restart.",
+          "carriedFrom": "2026-10-26"
         },
         {
           "technique": "storm-control",
           "verdict": "not-applicable",
-          "evidence": "features/labs/rentgen/getTerminalData.ts:158 React cache() dedupes the read within a request, and since nothing retries there is no herd to control."
+          "evidence": "features/labs/rentgen/getTerminalData.ts:158 React cache() dedupes the read within a request, and since nothing retries there is no herd to control.",
+          "carriedFrom": "2026-10-26"
         },
         {
           "technique": "retry-observability",
           "verdict": "not-applicable",
-          "evidence": "features/labs/rentgen/getTerminalData.ts:167 No retries happen. Total degradation is still traced through reportLoaderFailure."
+          "evidence": "features/labs/rentgen/getTerminalData.ts:167 No retries happen. Total degradation is still traced through reportLoaderFailure.",
+          "carriedFrom": "2026-10-26"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/labs/rentgen/getTerminalData.ts:80 The context's only I/O is a read-only, once-per-render read of the in-process embedded store, and its failure lane is a single caught attempt that is reported and degraded per layer. No retry is attempted, so the subject's precondition (a failed call that the system then retries) does not hold; a case-insensitive grep of features/labs/rentgen/ for retry|retries|backoff|jitter|circuit|breaker|setInterval|attempt returned no hits.",
+          "evaluatedAt": "2026-10-26T22:39:04.174Z",
+          "worker": "0e818202-4719-4866-a705-b9f11ac815ae",
+          "reason": "replaced by f13cab60-306b-4439-b9d0-dae5a927c59f"
         }
       ]
     },
@@ -16102,6 +16135,16 @@
         "at": "2026-11-05T23:31:55.375964+00:00",
         "reason": "reviewer (sonnet): The anchor (app/hlasovani/page.tsx:21) is a plain JSX mount that does not show a gate is absent. The claim that the feed handlers have no refusal is also contradicted by feed.xml/route.ts, which returns 503 with no-store when the store is down. The search terms (eslint, lint, lefthook, max-warnings,"
       }
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/retry-backoff": {
+      "context": "admin-observability",
+      "subject": "retry-backoff",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-05",
+      "evaluatedTs": "2026-11-05T23:46:05.837Z",
+      "worker": "f13cab60-306b-4439-b9d0-dae5a927c59f",
+      "techniques": []
     }
   }
 }
