@@ -2803,8 +2803,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/dukazy/deriveFeed.ts:9 Dukazy derives a public evidence feed from review_audit rows with plain deterministic code. A search of features/dukazy for anthropic, max_tokens, systemPrompt, openai, claude, prompt and llm found zero hits, so no model prompt is assembled here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "quality-gates",
@@ -5508,8 +5512,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/db/pglite/repositories/analysis.ts:1 The repositories are typed SQL wrappers over PGlite tables. A search of lib/db/pglite/repositories for prompt, anthropic, max_tokens, systemPrompt, openai, claude and llm found zero hits, so no prompt assembly lives here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "settings",
@@ -12137,8 +12145,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/money/components/AnalystNote.tsx:7 The ledger only renders analyst prose that is already stored, with its attribution; it never builds a model prompt. Over all of features/money, anthropic, max_tokens, systemPrompt, openai and claude have zero hits, and the 'prompt' hits are UI staleness prompts.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "beneficial-ownership-resolution",
@@ -12396,8 +12408,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/money/reconcile-ares-vr.ts:27 The ownership scripts are deterministic register reconciliations; every 'llm' hit in scripts/case-loops/money is a 'NO LLM' declaration. anthropic, max_tokens, systemPrompt, openai, claude and prompt all have zero hits, so no prompt is assembled.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "agent-instruction-files",

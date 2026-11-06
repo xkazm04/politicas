@@ -16674,6 +16674,46 @@
       "evaluatedTs": "2026-11-06T03:07:52.259Z",
       "worker": "b8ba67c7-defa-4f0f-abaa-702439ab9988",
       "techniques": []
+    },
+    "3e0155e0-4169-49a7-b22d-7a7fe3483ee4/prompt-assembly": {
+      "context": "civic-evidence",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:19:06.130Z",
+      "worker": "d6f32383-fae3-47e0-ac06-e95eaac0b34b",
+      "techniques": []
+    },
+    "1d4e5da8-7190-49ac-9a60-facf0bce4162/prompt-assembly": {
+      "context": "money-ownership",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:19:06.130Z",
+      "worker": "d6f32383-fae3-47e0-ac06-e95eaac0b34b",
+      "techniques": []
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/prompt-assembly": {
+      "context": "money-ledger",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:19:06.130Z",
+      "worker": "d6f32383-fae3-47e0-ac06-e95eaac0b34b",
+      "techniques": []
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/prompt-assembly": {
+      "context": "db-repositories",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:19:06.130Z",
+      "worker": "d6f32383-fae3-47e0-ac06-e95eaac0b34b",
+      "techniques": []
     }
   }
 }
