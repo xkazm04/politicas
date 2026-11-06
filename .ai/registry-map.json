@@ -1505,7 +1505,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/admin/getAdminData.ts:522 The admin tie tally rewrites the review console's drop and classification rule instead of sharing it, and the copies already disagree. The console drops a linked_to edge when the company OR the pspId is unresolved (getVerificationData.ts:102), but admin drops only on a missing company, so /admin can count ties the queue it claims to mirror never shows.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "table",
@@ -2084,7 +2088,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:479 The table bar works out the peer verdict ('worse than median' → bg-signal) inline instead of calling compareToPeer, so it skips the MIN_PEERS sample guard. That guard was added on 2026-09-08 for exactly this red-on-no-sample case, so a town in a thin peer group is painted signal red here while the MetricDuo above calls the same comparison incomparable: one decision lives in two places that already disagree.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "eval-harness",

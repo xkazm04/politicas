@@ -1,0 +1,139 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c970501c-1711-4a17-8230-ed363e2ad3d0",
+ "subject": "module-design",
+ "evaluatedAt": "2026-11-06T01:44:46.895392+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "budget-mirror",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/budget/BudgetMirrorPage.tsx:479 The table bar works out the peer verdict ('worse than median' \u2192 bg-signal) inline instead of calling compareToPeer, so it skips the MIN_PEERS sample guard. That guard was added on 2026-09-08 for exactly this red-on-no-sample case, so a town in a thin peer group is painted signal red here while the MetricDuo above calls the same comparison incomparable: one decision lives in two places that already disagree.",
+   "techniques": [
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "deviation",
+     "evidence": "features/budget/BudgetMirrorPage.tsx:479 The peer better/worse rule is duplicated with one variation (no sample guard), so the two copies must change together but do not."
+    },
+    {
+     "technique": "module-depth",
+     "verdict": "deviation",
+     "evidence": "features/budget/peerGroups.ts:99 The guard that makes compareToPeer honest depends on an optional parameter. A caller that omits it silently gets a verdict on fewer than MIN_PEERS peers, so the invariant sits in the informal interface rather than inside the module (its own doc admits peerGroupFor does not enforce it)."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "conformant",
+     "evidence": "features/budget/supplierTrail.ts:166 The supplier-join derivation takes time as a parameter and reads no clock. Its only I/O driver is the generator tool (getStore/writeFileSync)."
+    },
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "conformant",
+     "evidence": "features/budget/supplierTrail.ts:108 The join rule runs over ContractNodeLike/SuppliesEdgeLike shapes in the module's own vocabulary, and the generator and the tests feed it identically."
+    },
+    {
+     "technique": "declarative-or-sequential",
+     "verdict": "conformant",
+     "evidence": "features/budget/supplierTrail.ts:223 The derive pass builds rows and stats together in one explicit loop (several outputs, so sequential is correct), while single-output peer selection uses a filter pipeline (peerGroups.ts:71)."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "conformant",
+     "evidence": "features/budget/getSupplierTies.ts:24 async/cache exists only in the server-only tie loader. supplierTrail, peerGroups and mirrorData are synchronous pure functions."
+    }
+   ]
+  },
+  {
+   "context": "admin-observability",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/admin/getAdminData.ts:522 The admin tie tally rewrites the review console's drop and classification rule instead of sharing it, and the copies already disagree. The console drops a linked_to edge when the company OR the pspId is unresolved (getVerificationData.ts:102), but admin drops only on a missing company, so /admin can count ties the queue it claims to mirror never shows.",
+   "techniques": [
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "deviation",
+     "evidence": "features/admin/getAdminData.ts:522 One decision (which ties the review queue holds) is hand-copied into a second module. The dated comments show it has already drifted and been patched once (reviewStateOf, 2026-09-07)."
+    },
+    {
+     "technique": "marked-unverifiable-region",
+     "verdict": "deviation",
+     "evidence": "features/admin/getAdminData.ts:545 An untrusted store prop is cast to a literal union and fed to reviewTier, with no check, no marking and no stated invariant."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "conformant",
+     "evidence": "features/admin/loops/loopState.ts:157 deriveLoopState takes now as a value. getLoopState/driveLog are the thin fs/store shell over the pure loopState/driveState."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "conformant",
+     "evidence": "features/admin/loops/getLoopState.ts:65 async appears only in the loader. The loop-state and drive-chain derivations are synchronous."
+    },
+    {
+     "technique": "declarative-or-sequential",
+     "verdict": "conformant",
+     "evidence": "features/admin/getAdminData.ts:536 The tally fills several counters and a tier array in one pass, which is the multi-output case where an explicit loop is the right form."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "module-design",
+   "context": "lawwatch-radar",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "module-design",
+   "context": "testing-core",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "module-design",
+   "context": "eslint-plugin-civic-transparency-tests",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T01:44:46.895392+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "concurrency-at-the-edge",
+    "declarative-or-sequential",
+    "io-free-core",
+    "locality-and-leverage",
+    "module-depth",
+    "seams-and-adapters"
+   ],
+   "deviations": 1,
+   "context": "budget-mirror",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T01:44:46.895392+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "concurrency-at-the-edge",
+    "declarative-or-sequential",
+    "io-free-core",
+    "locality-and-leverage",
+    "marked-unverifiable-region"
+   ],
+   "deviations": 1,
+   "context": "admin-observability",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

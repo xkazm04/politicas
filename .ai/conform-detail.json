@@ -16426,6 +16426,83 @@
           "evidence": "docs/routes/zakony.md:7 The feed route handlers app/zakony/kolize/feed.{json,xml} are described by this doc, but no entry lists it among the surfaces they owe."
         }
       ]
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/module-design": {
+      "context": "budget-mirror",
+      "subject": "module-design",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T01:44:46.895Z",
+      "worker": "c970501c-1711-4a17-8230-ed363e2ad3d0",
+      "techniques": [
+        {
+          "technique": "locality-and-leverage",
+          "verdict": "deviation",
+          "evidence": "features/budget/BudgetMirrorPage.tsx:479 The peer better/worse rule is duplicated with one variation (no sample guard), so the two copies must change together but do not."
+        },
+        {
+          "technique": "module-depth",
+          "verdict": "deviation",
+          "evidence": "features/budget/peerGroups.ts:99 The guard that makes compareToPeer honest depends on an optional parameter. A caller that omits it silently gets a verdict on fewer than MIN_PEERS peers, so the invariant sits in the informal interface rather than inside the module (its own doc admits peerGroupFor does not enforce it)."
+        },
+        {
+          "technique": "io-free-core",
+          "verdict": "conformant",
+          "evidence": "features/budget/supplierTrail.ts:166 The supplier-join derivation takes time as a parameter and reads no clock. Its only I/O driver is the generator tool (getStore/writeFileSync)."
+        },
+        {
+          "technique": "seams-and-adapters",
+          "verdict": "conformant",
+          "evidence": "features/budget/supplierTrail.ts:108 The join rule runs over ContractNodeLike/SuppliesEdgeLike shapes in the module's own vocabulary, and the generator and the tests feed it identically."
+        },
+        {
+          "technique": "declarative-or-sequential",
+          "verdict": "conformant",
+          "evidence": "features/budget/supplierTrail.ts:223 The derive pass builds rows and stats together in one explicit loop (several outputs, so sequential is correct), while single-output peer selection uses a filter pipeline (peerGroups.ts:71)."
+        },
+        {
+          "technique": "concurrency-at-the-edge",
+          "verdict": "conformant",
+          "evidence": "features/budget/getSupplierTies.ts:24 async/cache exists only in the server-only tie loader. supplierTrail, peerGroups and mirrorData are synchronous pure functions."
+        }
+      ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/module-design": {
+      "context": "admin-observability",
+      "subject": "module-design",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T01:44:46.895Z",
+      "worker": "c970501c-1711-4a17-8230-ed363e2ad3d0",
+      "techniques": [
+        {
+          "technique": "locality-and-leverage",
+          "verdict": "deviation",
+          "evidence": "features/admin/getAdminData.ts:522 One decision (which ties the review queue holds) is hand-copied into a second module. The dated comments show it has already drifted and been patched once (reviewStateOf, 2026-09-07)."
+        },
+        {
+          "technique": "marked-unverifiable-region",
+          "verdict": "deviation",
+          "evidence": "features/admin/getAdminData.ts:545 An untrusted store prop is cast to a literal union and fed to reviewTier, with no check, no marking and no stated invariant."
+        },
+        {
+          "technique": "io-free-core",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/loopState.ts:157 deriveLoopState takes now as a value. getLoopState/driveLog are the thin fs/store shell over the pure loopState/driveState."
+        },
+        {
+          "technique": "concurrency-at-the-edge",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/getLoopState.ts:65 async appears only in the loader. The loop-state and drive-chain derivations are synchronous."
+        },
+        {
+          "technique": "declarative-or-sequential",
+          "verdict": "conformant",
+          "evidence": "features/admin/getAdminData.ts:536 The tally fills several counters and a tier array in one pass, which is the multi-output case where an explicit loop is the right form."
+        }
+      ]
     }
   }
 }
