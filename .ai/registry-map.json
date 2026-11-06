@@ -10355,7 +10355,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/law/provenance-probe.ts:28 provenanceProbe.test.ts pins the probe's EXPECT literal to the STATE.md row, but the comment right above the literal is a third copy of the same fact and still says 'as of pass 50' while the literal covers passes up to 55, so the one copy nobody checks has already drifted.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         }
       ],
       "governance": "governed"
@@ -15332,7 +15336,11 @@
           "revision": 14,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "docs/feature-doc-map.json:290 zakony.md's Routes contract lists /zakony/[cislo], /zakony/predpis/[ref] and the kolize RSS/JSON feeds, but its only glob is features/lawwatch/**. app/zakony/** couples to docs/case-loops.md (map:189) and app/hlasovani/page.tsx to docs/hybrid-benchmark-plan.md (map:227), so a route change owes the wrong docs and never the route detail docs.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:fd96220db75846a1",
+          "evaluatedRevision": 14
         },
         {
           "subject": "conflict-of-interest-detection",

@@ -1,0 +1,104 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4cd105fc-1fce-4399-a981-0e8301127440",
+ "subject": "docs-sync",
+ "evaluatedAt": "2026-11-06T01:30:42.878553+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "law-amends-corpus",
+   "subject": "docs-sync",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/provenance-probe.ts:28 provenanceProbe.test.ts pins the probe's EXPECT literal to the STATE.md row, but the comment right above the literal is a third copy of the same fact and still says 'as of pass 50' while the literal covers passes up to 55, so the one copy nobody checks has already drifted.",
+   "techniques": [
+    {
+     "technique": "named-duplication-points",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/provenance-probe.ts:28 The literal\u2194STATE.md pair is pinned (provenanceProbe.test.ts:15), but the comment restating the pass horizon is not in the pin and is stale: it says 50, the passes list ends at 55."
+    },
+    {
+     "technique": "source-as-data-without-the-app",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/provenanceProbe.test.ts:17 The test reads the probe's source as text with a regex and does not import or run it; a failed match fails loudly instead of passing over a partial scrape."
+    },
+    {
+     "technique": "source-doc-mapping",
+     "verdict": "conformant",
+     "evidence": "docs/feature-doc-map.json:182 The whole law-script tree is coupled to docs/case-loops.md, which does describe tiskText, esbirka-* and apply-amends-regen."
+    }
+   ],
+   "registryProposal": "named-duplication-points could say explicitly that a code comment restating a pinned literal ('as of pass N') is itself a duplication point. A pin over two copies gives a false sense that the fact is fully covered."
+  },
+  {
+   "context": "voting-legislation-routes",
+   "subject": "docs-sync",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "docs/feature-doc-map.json:290 zakony.md's Routes contract lists /zakony/[cislo], /zakony/predpis/[ref] and the kolize RSS/JSON feeds, but its only glob is features/lawwatch/**. app/zakony/** couples to docs/case-loops.md (map:189) and app/hlasovani/page.tsx to docs/hybrid-benchmark-plan.md (map:227), so a route change owes the wrong docs and never the route detail docs.",
+   "techniques": [
+    {
+     "technique": "source-doc-mapping",
+     "verdict": "deviation",
+     "evidence": "docs/feature-doc-map.json:290 The entry that should own app/zakony/** does not claim it. Commit 11298c2 (strict print-number parsing on /zakony/[cislo]) owed five docs, dismissed all five by trailer, and zakony.md was never one of them."
+    },
+    {
+     "technique": "coupled-surface-inventory",
+     "verdict": "deviation",
+     "evidence": "docs/routes/zakony.md:7 The feed route handlers app/zakony/kolize/feed.{json,xml} are described by this doc, but no entry lists it among the surfaces they owe."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "docs-sync",
+   "context": "civic-verification",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "docs-sync",
+   "context": "volby-elections",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "docs-sync",
+   "context": "admin-infrastructure",
+   "reason": "evidence leans on app/atlas/atlas.json, which is not a tracked file"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T01:30:42.878553+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-sync"
+   ],
+   "techniques": [
+    "named-duplication-points",
+    "source-as-data-without-the-app",
+    "source-doc-mapping"
+   ],
+   "deviations": 1,
+   "context": "law-amends-corpus",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T01:30:42.878553+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "docs-sync"
+   ],
+   "techniques": [
+    "coupled-surface-inventory",
+    "source-doc-mapping"
+   ],
+   "deviations": 1,
+   "context": "voting-legislation-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
