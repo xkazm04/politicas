@@ -16173,6 +16173,51 @@
       "evaluatedTs": "2026-11-05T23:46:05.837Z",
       "worker": "f13cab60-306b-4439-b9d0-dae5a927c59f",
       "techniques": []
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/prompt-assembly": {
+      "context": "civic-verification",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:23:59.663Z",
+      "worker": "32a74bc9-8aed-47e6-98e0-211431c8db44",
+      "techniques": []
+    },
+    "1e6194ec-5275-4cfd-b045-c0604ab491e2/prompt-assembly": {
+      "context": "kg-graph-writers",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:23:59.663Z",
+      "worker": "32a74bc9-8aed-47e6-98e0-211431c8db44",
+      "techniques": []
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/prompt-assembly": {
+      "context": "shell-navigation",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:23:59.663Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "32a74bc9-8aed-47e6-98e0-211431c8db44",
+        "state": "not-applicable",
+        "at": "2026-11-06T00:24:42.154313+00:00",
+        "reason": "reviewer (sonnet): The anchor features/shell/navModel.ts:1 is only a header comment about the declarative navigation model and does not show that no model call or prompt exists; the claim rests on a grep with no hits."
+      }
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/prompt-assembly": {
+      "context": "eslint-transparency-rules",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:23:59.663Z",
+      "worker": "32a74bc9-8aed-47e6-98e0-211431c8db44",
+      "techniques": []
     }
   }
 }

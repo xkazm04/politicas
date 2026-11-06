@@ -3925,8 +3925,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/overeni/verdict.ts:15 The Claim Gate re-derives citations deterministically from existing loaders and makes no model call. A case-insensitive grep of features/overeni for prompt, anthropic, max_tokens, systemPrompt and compaction found 0 files, so there is no prompt to assemble.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "llm-forensic-gating",
@@ -7049,8 +7053,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "eslint-rules/README.md:1 One-line ESLint compat shims and two RuleTester tests; nothing here talks to a model. A grep of eslint-rules for prompt, anthropic, max_tokens, systemPrompt and compaction found 0 files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         }
       ],
       "governance": "governed"
@@ -9246,8 +9254,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/data-analysis/kg-promote.ts:2 The writers compute deterministic edges (kg-compute: NO LLM) and gate already-written subagent verdict files; they never call a model or assemble a prompt. A grep of scripts/data-analysis for anthropic, max_tokens, systemPrompt and compaction found 0 files. 'prompt' does appear, but only in dh-context/ab-datahub/datahub-sync, which are outside this context.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "copy-quality-gates",
@@ -13573,8 +13585,8 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "priorNotApplicable": 5,
+          "state": "unknown"
         },
         {
           "subject": "lazy-section-addressability",
