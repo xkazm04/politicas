@@ -1,0 +1,91 @@
+{
+ "schema": "conform-run/1",
+ "worker": "2d5ed9fd-5f27-48c1-a0f4-0953e3f7a312",
+ "subject": "audit-logging",
+ "evaluatedAt": "2026-11-06T00:33:39.625355+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-evidence",
+   "subject": "audit-logging",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dukazy/DukazyPage.tsx:84 /dukazy prints each review_audit row's chain position and row_hash, and its chain.note copy tells readers the hash proves order and non-tampering. But nothing on the read path (readReviewAudit \u2192 getDukazyData \u2192 page and feedCodecs) recomputes the chain: verifyAuditChain/verifyReviewChain are called only from tests and lib/testing/sentinel. A tampered row would therefore be published with the same confident hash and no verified/tampered verdict.",
+   "techniques": [
+    {
+     "technique": "tamper-evidence",
+     "verdict": "deviation",
+     "evidence": "features/dukazy/DukazyPage.tsx:84 The technique says to verify on read and give a verdict with four values. This surface shows the stored hash and never recomputes it, so by the technique's own words the proof is decoration."
+    },
+    {
+     "technique": "audit-querying",
+     "verdict": "conformant",
+     "evidence": "features/dukazy/readReviewAudit.ts:68 A capped read is detected and passed to the surface as a floor rather than a count. Line 65 returns null for an unreadable store, which is kept separate from an empty journal ({rows: []})."
+    },
+    {
+     "technique": "decision-records",
+     "verdict": "conformant",
+     "evidence": "features/dukazy/deriveFeed.ts:281 The identity of a human decision is built from durable endpoints (src/rel/dst) and the audit-row uuid, not from wording. Line 275 carries priorState next to the act."
+    },
+    {
+     "technique": "append-only-design",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/getDukazyData.ts:2 This context only consumes the ledger and exposes no write or mutation surface. The ledger's module shape lives in lib/db."
+    },
+    {
+     "technique": "write-path-sanitization",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:15 Nothing is written here, so write-path scrubbing does not apply. The publication side does withhold the reviewer's free-text note on purpose."
+    }
+   ]
+  },
+  {
+   "context": "votetrack-ledger",
+   "subject": "audit-logging",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/votetrack/ledgerRead.ts:1 VoteTrack is a read path over the external PSP10 vote record (vote_event/vote_ballot), not a ledger of actions this system took. A case-insensitive grep of features/votetrack for audit, tamper, row_hash, chain_pos, review_audit and reviewer returned no hits, so the subject's precondition does not hold.",
+   "techniques": [],
+   "absenceTerms": [
+    "audit",
+    "tamper",
+    "row_hash",
+    "chain_pos"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T00:33:39.625355+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "audit-logging"
+   ],
+   "techniques": [
+    "append-only-design",
+    "audit-querying",
+    "decision-records",
+    "tamper-evidence",
+    "write-path-sanitization"
+   ],
+   "deviations": 1,
+   "context": "civic-evidence",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T00:33:39.625355+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "audit-logging"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "votetrack-ledger",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

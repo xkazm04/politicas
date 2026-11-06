@@ -2756,12 +2756,11 @@
           "changedAt": "2026-10-27",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "features/dukazy/DukazyPage.tsx:84 /dukazy prints each review_audit row's chain position and row hash, and its copy (chain.note) tells readers the hash proves order and non-tampering, but the read path (readReviewAudit → getDukazyData → page/feeds) never recomputes the chain, so a tampered row would be shown with the same confident hash and there is no verified/tampered verdict on the surface.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:154304c5d9578971",
-          "evaluatedRevision": 10,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/dukazy/DukazyPage.tsx:84 /dukazy prints each review_audit row's chain position and row_hash, and its chain.note copy tells readers the hash proves order and non-tampering. But nothing on the read path (readReviewAudit → getDukazyData → page and feedCodecs) recomputes the chain: verifyAuditChain/verifyReviewChain are called only from tests and lib/testing/sentinel. A tampered row would therefore be published with the same confident hash and no verified/tampered verdict.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:b867761d55d912d1",
+          "evaluatedRevision": 11,
+          "revisionsBehind": 1
         },
         {
           "subject": "supply-chain",
@@ -15100,12 +15099,11 @@
           "changedAt": "2026-10-27",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/votetrack/ledgerRead.ts:1 VoteTrack only reads and displays external PSP vote records (vote_event/vote_ballot). Its 'ledger' is a display of votes, not an audit trail of this system's actions. A case-insensitive grep of features/votetrack for audit, tamper, append-only, review_audit, chain_pos, row_hash, reviewer, insert into and upsert found nothing, so the subject's precondition (a ledger of what the system did) does not hold.",
-          "evaluatedAt": "2026-10-24",
-          "evaluatedAgainst": "sha256-b2:154304c5d9578971",
-          "evaluatedRevision": 10,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/votetrack/ledgerRead.ts:1 VoteTrack is a read path over the external PSP10 vote record (vote_event/vote_ballot), not a ledger of actions this system took. A case-insensitive grep of features/votetrack for audit, tamper, row_hash, chain_pos, review_audit and reviewer returned no hits, so the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:b867761d55d912d1",
+          "evaluatedRevision": 11,
+          "revisionsBehind": 1
         },
         {
           "subject": "retrieval",
