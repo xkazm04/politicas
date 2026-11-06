@@ -9678,7 +9678,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/labs/rentgen/terminalSource.test.ts:16 The rentgen guards are blocking vitest assertions that regex raw source text. The absence leg has no positive control, so rewording the needle (or writing the same UTC slice another way) keeps it green while it hunts nothing. The presence legs are satisfied by a comment that quotes the import.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "mcp-tools",

@@ -17067,6 +17067,32 @@
           "evidence": "features/labs/rentgen/getTerminalData.ts:159 Only the loader uses async code. The derive functions are synchronous."
         }
       ]
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/quality-gates": {
+      "context": "labs-rentgen",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T04:52:27.549Z",
+      "worker": "6a0a9bd1-2281-4360-ab87-e5d9f7cc8cc7",
+      "techniques": [
+        {
+          "technique": "unparseable-form-is-a-finding",
+          "verdict": "deviation",
+          "evidence": "features/labs/rentgen/terminalSource.test.ts:16 The negative-space check blocks without a parser. `.slice(0,10)`, `.substring(0, 10)` or a split helper would bring the forbidden UTC day back with a clean pass. Forms the matcher can't recognize are neither constrained nor reported."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "features/labs/rentgen/terminalSource.test.ts:15 The haystack is raw file text that was never normalized to code. A comment quoting the import line satisfies it, and the absence needle on line 16 has no presence control."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "features/labs/rentgen/terminalSource.test.ts:53 The vocabulary guard has one behavioral leg that runs the real model against the money module's labels, not text."
+        }
+      ]
     }
   }
 }
