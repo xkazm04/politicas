@@ -16299,16 +16299,11 @@
       "context": "shell-navigation",
       "subject": "prompt-assembly",
       "bundle": "software-engineering",
-      "state": "unknown",
+      "state": "not-applicable",
       "evaluatedAt": "2026-11-06",
-      "evaluatedTs": "2026-11-06T00:23:59.663Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "32a74bc9-8aed-47e6-98e0-211431c8db44",
-        "state": "not-applicable",
-        "at": "2026-11-06T00:24:42.154313+00:00",
-        "reason": "reviewer (sonnet): The anchor features/shell/navModel.ts:1 is only a header comment about the declarative navigation model and does not show that no model call or prompt exists; the claim rests on a grep with no hits."
-      }
+      "evaluatedTs": "2026-11-06T02:30:12.513Z",
+      "worker": "351b79c4-67c9-481a-ba5b-f6b9bd8fc660",
+      "techniques": []
     },
     "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/prompt-assembly": {
       "context": "eslint-transparency-rules",
@@ -16590,6 +16585,36 @@
           "evidence": "features/volby/getListData.ts:25 No pairwise agreement here. The surface lists 12 contested votes only."
         }
       ]
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/prompt-assembly": {
+      "context": "ingest-pipeline",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:30:12.513Z",
+      "worker": "351b79c4-67c9-481a-ba5b-f6b9bd8fc660",
+      "techniques": []
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/prompt-assembly": {
+      "context": "money-archive-probes",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:30:12.513Z",
+      "worker": "351b79c4-67c9-481a-ba5b-f6b9bd8fc660",
+      "techniques": []
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/prompt-assembly": {
+      "context": "testing-flake-sentinel",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:30:12.513Z",
+      "worker": "351b79c4-67c9-481a-ba5b-f6b9bd8fc660",
+      "techniques": []
     }
   }
 }

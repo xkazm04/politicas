@@ -8026,8 +8026,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/ingest/parsedText.ts:5 This context decodes data deterministically (UNL, ZIP, PDF text sidecar, change events). Searching lib/ingest for prompt/anthropic/max_tokens/systemPrompt found nothing; the only LLM mentions are comments saying no LLM is used.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "document-text-extraction",
@@ -11368,8 +11372,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/money/archive/direction-triage-b14.ts:16 The archived probes say outright that they use no LLM. Searching the archive directory for prompt/anthropic/max_tokens/systemPrompt found nothing, so no prompt is assembled here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "entity-lifecycle",
@@ -13616,7 +13624,11 @@
           "changedAt": "2026-10-14",
           "confidence": "probable",
           "priorNotApplicable": 5,
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shell/navModel.ts:1 This context is the app's navigation chrome (nav rail, mobile nav, section anchors, sitemap). Searching features/shell for prompt/anthropic/max_tokens/systemPrompt found nothing, so nothing here builds a prompt for a model.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "lazy-section-addressability",
@@ -14231,8 +14243,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/testing/sentinel/invariants.ts:2 The flake register and the sentinel are pure test-infrastructure code that evaluates invariants. Searching lib/testing/flake and lib/testing/sentinel for prompt/anthropic/max_tokens/systemPrompt found nothing, so there is no prompt assembly to judge.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "translation-pipeline-topology",
