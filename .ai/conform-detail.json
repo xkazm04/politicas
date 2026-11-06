@@ -16615,6 +16615,26 @@
       "evaluatedTs": "2026-11-06T02:30:12.513Z",
       "worker": "351b79c4-67c9-481a-ba5b-f6b9bd8fc660",
       "techniques": []
+    },
+    "1f1d5ac0-c074-4728-aa2d-a93ae1ff39fe/agent-memory": {
+      "context": "case-loops-core",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:45:12.406Z",
+      "worker": "aab990a9-ce4c-4f3c-a802-3156ade85073",
+      "techniques": []
+    },
+    "b63c108e-2ffa-42b1-8a41-2e052c4bae86/agent-memory": {
+      "context": "verdict-and-law-analysis",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:45:12.406Z",
+      "worker": "aab990a9-ce4c-4f3c-a802-3156ade85073",
+      "techniques": []
     }
   }
 }

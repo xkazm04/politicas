@@ -2222,8 +2222,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/persist-batch.ts:1 These files serialize validated payloads into the civic knowledge graph (product data about the world), not into a store any agent recalls into its own context; a search of scripts/case-loops (recursive) for episodic, forget, memories and embedding found no hits, and 'memory' has no hits in the context's own directories.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "ci-execution-trust",
@@ -14472,8 +14476,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/analysis/verdict.ts:1 These files are deterministic domain computation and a structured-output contract or gate for subagent verdicts. Nothing here stores, decays or recalls an agent's memory. A recursive search of lib/analysis for episodic, forget, memories and embedding found nothing; 'memory' appears only in comments that cite the repo's memory/*.md notes, such as clubAt.ts:18.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "supply-chain",
