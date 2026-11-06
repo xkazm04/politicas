@@ -2830,7 +2830,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/dukazy/deriveFeed.ts:201 The /dukazy feed publishes only forensic verdicts a human moved to `verified` and counts the rest by state in `withheldForensic`, so the public journal shows what a human stands behind and says how much it held back.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:76e2caa5616df8ad",
+          "evaluatedRevision": 7
         },
         {
           "subject": "proof-carrying-agent-actions",
@@ -4524,7 +4528,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "packages/czech-civic-data/src/index.ts:1 The package only does text folding, UNL parsing, ZIP reading and psp.cz vote vocabularies. Searching it for kg_node, kg_edge, review_state, clearKg and pending_review found 0 hits, so there are no graph nodes, edges, provenance stamps or review state for the subject to govern. The word `provenance` appears once, in README.md, as a mention of a lint plugin.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:76e2caa5616df8ad",
+          "evaluatedRevision": 7
         },
         {
           "subject": "civic-source-adapters",
@@ -4720,7 +4728,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/stateSlice.ts:241 The Velín state slice picks each MP's company tie without checking review state and draws it on the default public canvas. Any non-`verified` tie, rejected ones included, is drawn with the pending treatment and counted in `pendingTies`. Unverified machine matches are painted into the ambient landscape instead of hidden and counted, and a rejected tie is labelled pending.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:76e2caa5616df8ad",
+          "evaluatedRevision": 7
         },
         {
           "subject": "multi-provider-gateway-plane",
@@ -5538,7 +5550,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/db/pglite/repositories/kg.ts:439 `clearKg` takes no expected counts or store revision and commits a wipe of the whole graph in its own transaction. The rebuild guard's counts are separate earlier queries, and the following upserts are separate transactions. The guard is not bound to the delete, and a crash after the wipe leaves the serving graph empty: everything is copied to history, but nothing restores it.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:76e2caa5616df8ad",
+          "evaluatedRevision": 7
         }
       ],
       "governance": "governed"
@@ -9025,7 +9041,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/kg/provenance.ts:72 The one enforced provenance contract requires source, ingest_run_id, pass, ref and writer, but not `method` (deterministic vs proposed) or a computed-at time. A row can pass `guardStampedRows` without saying how it was made or when.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:76e2caa5616df8ad",
+          "evaluatedRevision": 7
         },
         {
           "subject": "quality-gates",

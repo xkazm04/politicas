@@ -1,0 +1,201 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0a744cd2-316d-4f17-a852-d82045b94eb3",
+ "subject": "civic-knowledge-graphs",
+ "evaluatedAt": "2026-11-06T00:46:32.341104+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-evidence",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "features/dukazy/deriveFeed.ts:201 The /dukazy feed publishes only forensic verdicts a human moved to `verified` and counts the rest by state in `withheldForensic`, so the public journal shows what a human stands behind and says how much it held back.",
+   "techniques": [
+    {
+     "technique": "forensic-view-filtering",
+     "verdict": "conformant",
+     "evidence": "features/dukazy/deriveFeed.ts:201 The publish rule names the one grade it lets through (`verified`). Every other state is counted verbatim by `withheldForensic` (line 217), using the same predicate, so the published set and the withheld count cannot drift apart."
+    },
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "conformant",
+     "evidence": "features/dukazy/deriveFeed.ts:285 Each published decision cites the audit row and the edge's verbatim `props.source`, and passes through the reviewer, `chainPos` and `rowHash` (lines 274-280). Legacy rows without a chain position get null, never an invented position."
+    },
+    {
+     "technique": "destructive-rebuild-guard",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/getDukazyData.ts:1 This context only reads the graph. It never writes, resets or rebuilds anything."
+    },
+    {
+     "technique": "evidence-path-finding",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/deriveFeed.ts:333 The surface is a chronological log of decisions, not an A-to-B connection query, so there is no traversal to price or rank."
+    }
+   ]
+  },
+  {
+   "context": "czech-civic-data",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "not-applicable",
+   "evidence": "packages/czech-civic-data/src/index.ts:1 The package only does text folding, UNL parsing, ZIP reading and psp.cz vote vocabularies. Searching it for kg_node, kg_edge, review_state, clearKg and pending_review found 0 hits, so there are no graph nodes, edges, provenance stamps or review state for the subject to govern. The word `provenance` appears once, in README.md, as a mention of a lint plugin.",
+   "techniques": [],
+   "absenceTerms": [
+    "kg_node",
+    "kg_edge",
+    "review_state",
+    "clearKg",
+    "pending_review"
+   ]
+  },
+  {
+   "context": "kg-graph-utilities",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/kg/provenance.ts:72 The one enforced provenance contract requires source, ingest_run_id, pass, ref and writer, but not `method` (deterministic vs proposed) or a computed-at time. A row can pass `guardStampedRows` without saying how it was made or when.",
+   "techniques": [
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "deviation",
+     "evidence": "lib/kg/provenance.ts:72 `PROVENANCE_KEYS` and `provenanceProblems` never check `method` or `computedAt`. `withProvenance` keeps them when an older row already has them (line 144), but they are optional, so the method axis the technique calls the reader's first trust signal is not enforced."
+    },
+    {
+     "technique": "civic-entity-ontology",
+     "verdict": "conformant",
+     "evidence": "lib/kg/sourceLinks.ts:57 The node-kind set is imported from the single `KG_NODE_KINDS` definition rather than copied (the comment says a hand-written union, missing `tender`, was removed). Source links are built only from stored registry identifiers."
+    },
+    {
+     "technique": "pass-based-incremental-enrichment",
+     "verdict": "conformant",
+     "evidence": "lib/kg/provenance.ts:152 The stamp is merged over what the row already carries, so older passes' keys survive. `summarizeGraphProvenance` separately flags a relation whose edges carry several pass/ref/method combinations as a half-applied recompute (`mixedWithinRel`)."
+    }
+   ]
+  },
+  {
+   "context": "db-repositories",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "lib/db/pglite/repositories/kg.ts:439 `clearKg` takes no expected counts or store revision and commits a wipe of the whole graph in its own transaction. The rebuild guard's counts are separate earlier queries, and the following upserts are separate transactions. The guard is not bound to the delete, and a crash after the wipe leaves the serving graph empty: everything is copied to history, but nothing restores it.",
+   "techniques": [
+    {
+     "technique": "destructive-rebuild-guard",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/repositories/kg.ts:439 Archive-regardless is done: both tables are copied to `*_history` before the delete. The bind-to-deletion rule and the staged or transactional replacement rule are not: `kg-compute` calls `kgKindCounts`/`countKgEdgesByRel`, then `clearKg()`, then the upserts as separate steps."
+    },
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/repositories/review.ts:337 One door (`setReviewState`) writes review state for every claim kind. The hash-chained audit row is inserted before the state flip, in one transaction. One shared function maps each decision to its next state (line 102), and reversing a decided claim requires a note."
+    },
+    {
+     "technique": "pass-based-incremental-enrichment",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/repositories/review.ts:157 The review writer merges with jsonb `||` and does the nested merge in code (`effort_provenance`), so it never replaces another pass's props. Changed rows are archived to history before the upsert overwrites them (kg.ts `supersedeUpsertChunk`)."
+    }
+   ],
+   "registryProposal": "destructive-rebuild-guard says to prevent intervening writers with a lock or a revision check. An embedded single-connection store that refuses a second process partly meets that by construction. The technique could say this covers the race but not the non-transactional replacement, so seats do not have to argue which half applies."
+  },
+  {
+   "context": "dashboard-feed-logic",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/dashboard/stateSlice.ts:241 The Vel\u00edn state slice picks each MP's company tie without checking review state and draws it on the default public canvas. Any non-`verified` tie, rejected ones included, is drawn with the pending treatment and counted in `pendingTies`. Unverified machine matches are painted into the ambient landscape instead of hidden and counted, and a rejected tie is labelled pending.",
+   "techniques": [
+    {
+     "technique": "forensic-view-filtering",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/stateSlice.ts:278 Ties are drawn whatever their state and marked `pending: !verified` (line 289). `getDashboardData` passes `money.mps` ties unfiltered, and `getMoneyData` keeps rejected ties in them. The technique wants the ambient view limited to verified edges, with pending hops shown only for an answer the reader asked for."
+    },
+    {
+     "technique": "evidence-path-finding",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/graphTraversal.ts:2 `graphTraversal` moves keyboard focus between neighbouring nodes by arrow direction. It is not a connection query, so hub pricing and tie-break ranking do not apply."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T00:46:32.341104+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "destructive-rebuild-guard",
+    "evidence-path-finding",
+    "forensic-view-filtering",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 0,
+   "context": "civic-evidence",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T00:46:32.341104+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "czech-civic-data",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T00:46:32.341104+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "civic-entity-ontology",
+    "pass-based-incremental-enrichment",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-utilities",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T00:46:32.341104+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "destructive-rebuild-guard",
+    "pass-based-incremental-enrichment",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 1,
+   "context": "db-repositories",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T00:46:32.341104+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "evidence-path-finding",
+    "forensic-view-filtering"
+   ],
+   "deviations": 1,
+   "context": "dashboard-feed-logic",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
