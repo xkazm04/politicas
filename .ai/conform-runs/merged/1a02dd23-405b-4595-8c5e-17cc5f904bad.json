@@ -1,0 +1,169 @@
+{
+ "schema": "conform-run/1",
+ "worker": "1a02dd23-405b-4595-8c5e-17cc5f904bad",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-06T03:36:31.306009+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-graph-utilities",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/kg/glyph.ts:100 glyph.test.ts asserts five 'every shape' rules (e.g. 'NIKDY nezavol\u00e1 beginPath') by looping over ALL_GLYPH_SHAPES, a hand-written array typed readonly GlyphShape[] that the type checker does not require to cover the GlyphShape union, so a shape added to the union silently drops out of every universal claim \u2014 the sibling sourceLinks.test.ts derives its kind list from KG_NODE_KINDS and asserts its count, showing the repaired shape.",
+   "techniques": [
+    {
+     "technique": "gate-scope-is-not-report-scope",
+     "verdict": "deviation",
+     "evidence": "lib/kg/glyph.ts:100 Closed-set claim run over a hand-written member list not keyed by the type (not an exhaustive Record<GlyphShape,\u2026>); used only by glyph.test.ts."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "lib/kg/provenance.test.ts:28 Asserts the provenance vocabulary adopts the atlas's one list (adoption, not only behaviour of a copy)."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "lib/kg/graphProvenance.report.test.ts:41 Fixture corpus deliberately carries awkward population cases (absent stamp, a relation mid-recompute) and its header says it is not a measurement of the live store."
+    }
+   ]
+  },
+  {
+   "context": "civic-feed-routes",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/civicFeedRouteSource.test.ts:14 The dukazy feed routes' 200-branch cache policy is pinned by source text even though features/dukazy/feedRoutes.test.ts already executes those handlers, and the routes' RSS XML is only ever substring-checked, never parsed by an XML reader, so a policy moved to the wrong branch or a malformed feed stays green.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "lib/testing/civicFeedRouteSource.test.ts:14 Structural pin over a site that the lane can execute (feedRoutes.test.ts calls GET on these routes); the technique says execute it when you can."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "lib/testing/civicFeedRouteSource.test.ts:11 The test name says the header is sent on the 200 branch, but the needle matches anywhere in the file, so it is green even if the header sits on the 503 branch."
+    },
+    {
+     "technique": "assert-through-the-reader",
+     "verdict": "deviation",
+     "evidence": "features/dukazy/feedRoutes.test.ts:68 RSS emitted for feed readers is asserted by substring; JSON is JSON.parse'd on the next line, but no XML parser exists anywhere in the repo (searched DOMParser/XMLParser/xml2js/sax)."
+    }
+   ]
+  },
+  {
+   "context": "landing-referendum",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/landing/referendum/embed.test.ts:107 The embeddable widget is HTML that a third party's browser will interpret, and the claim 'widget je bez chov\u00e1n\u00ed' is checked by a regex over the bytes instead of parsing the document with an HTML reader, so behaviour arriving through other constructs (an event-handler attribute, for example) would not be seen.",
+   "techniques": [
+    {
+     "technique": "assert-through-the-reader",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/embed.test.ts:107 Only byte checks on HTML meant for a foreign reader; no HTML parser is run (the repo has no jsdom)."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/referendumPageSource.test.ts:5 The source pin is justified as an interim because the client page cannot render in the lane, the explanation sits in the asserting file, and needles carry argument lists and await tokens."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/actions.test.ts:49 Asserts that the door refused the input, not the store, by proving storage was never reached."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/actions.test.ts:63 Expected error output is muted inside the test body only, asserted called once and restored, never through a process-global hook. Whether negative controls were ever run is not visible."
+    },
+    {
+     "technique": "gate-scope-is-not-report-scope",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/aggregate.test.ts:21 The 'every vector' codec claim loops over the product's own preset list, not a hand-written copy."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/embed.test.ts:18 Fixtures are built from the product's own component definitions, with a comment recording that the earlier literal fixtures drifted."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/actions.test.ts:31 The shared mock state is reset before every test."
+    }
+   ],
+   "registryProposal": "assert-through-the-reader assumes the reader is already installed and runs at unit cost. For HTML meant for a browser, the reader is not in a Node lane, so the technique could name a spec-conformant parser as the acceptable stand-in."
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "db-tooling",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "admin-infrastructure",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T03:36:31.306009+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "fixture-economics",
+    "gate-scope-is-not-report-scope",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-utilities",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T03:36:31.306009+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-through-the-reader",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T03:36:31.306009+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-through-the-reader",
+    "fixture-economics",
+    "gate-scope-is-not-report-scope",
+    "isolation-lanes",
+    "negative-control-tests",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "landing-referendum",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

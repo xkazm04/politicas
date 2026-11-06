@@ -16714,6 +16714,105 @@
       "evaluatedTs": "2026-11-06T03:19:06.130Z",
       "worker": "d6f32383-fae3-47e0-ac06-e95eaac0b34b",
       "techniques": []
+    },
+    "5124b667-8ec0-4118-a497-f984b3a1e3d9/test-harness": {
+      "context": "kg-graph-utilities",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:36:31.306Z",
+      "worker": "1a02dd23-405b-4595-8c5e-17cc5f904bad",
+      "techniques": [
+        {
+          "technique": "gate-scope-is-not-report-scope",
+          "verdict": "deviation",
+          "evidence": "lib/kg/glyph.ts:100 Closed-set claim run over a hand-written member list not keyed by the type (not an exhaustive Record<GlyphShape,…>); used only by glyph.test.ts."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "lib/kg/provenance.test.ts:28 Asserts the provenance vocabulary adopts the atlas's one list (adoption, not only behaviour of a copy)."
+        },
+        {
+          "technique": "fixture-economics",
+          "verdict": "conformant",
+          "evidence": "lib/kg/graphProvenance.report.test.ts:41 Fixture corpus deliberately carries awkward population cases (absent stamp, a relation mid-recompute) and its header says it is not a measurement of the live store."
+        }
+      ]
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/test-harness": {
+      "context": "civic-feed-routes",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:36:31.306Z",
+      "worker": "1a02dd23-405b-4595-8c5e-17cc5f904bad",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "lib/testing/civicFeedRouteSource.test.ts:14 Structural pin over a site that the lane can execute (feedRoutes.test.ts calls GET on these routes); the technique says execute it when you can."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "lib/testing/civicFeedRouteSource.test.ts:11 The test name says the header is sent on the 200 branch, but the needle matches anywhere in the file, so it is green even if the header sits on the 503 branch."
+        },
+        {
+          "technique": "assert-through-the-reader",
+          "verdict": "deviation",
+          "evidence": "features/dukazy/feedRoutes.test.ts:68 RSS emitted for feed readers is asserted by substring; JSON is JSON.parse'd on the next line, but no XML parser exists anywhere in the repo (searched DOMParser/XMLParser/xml2js/sax)."
+        }
+      ]
+    },
+    "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/test-harness": {
+      "context": "landing-referendum",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:36:31.306Z",
+      "worker": "1a02dd23-405b-4595-8c5e-17cc5f904bad",
+      "techniques": [
+        {
+          "technique": "assert-through-the-reader",
+          "verdict": "deviation",
+          "evidence": "features/landing/referendum/embed.test.ts:107 Only byte checks on HTML meant for a foreign reader; no HTML parser is run (the repo has no jsdom)."
+        },
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/referendumPageSource.test.ts:5 The source pin is justified as an interim because the client page cannot render in the lane, the explanation sits in the asserting file, and needles carry argument lists and await tokens."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/actions.test.ts:49 Asserts that the door refused the input, not the store, by proving storage was never reached."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/actions.test.ts:63 Expected error output is muted inside the test body only, asserted called once and restored, never through a process-global hook. Whether negative controls were ever run is not visible."
+        },
+        {
+          "technique": "gate-scope-is-not-report-scope",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/aggregate.test.ts:21 The 'every vector' codec claim loops over the product's own preset list, not a hand-written copy."
+        },
+        {
+          "technique": "fixture-economics",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/embed.test.ts:18 Fixtures are built from the product's own component definitions, with a comment recording that the earlier literal fixtures drifted."
+        },
+        {
+          "technique": "isolation-lanes",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/actions.test.ts:31 The shared mock state is reset before every test."
+        }
+      ],
+      "registryProposal": "assert-through-the-reader assumes the reader is already installed and runs at unit cost. For HTML meant for a browser, the reader is not in a Node lane, so the technique could name a spec-conformant parser as the acceptable stand-in."
     }
   }
 }

@@ -3274,7 +3274,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/civicFeedRouteSource.test.ts:14 The dukazy feed routes' 200-branch cache policy is pinned by source text even though features/dukazy/feedRoutes.test.ts already executes those handlers, and the routes' RSS XML is only ever substring-checked, never parsed by an XML reader, so a policy moved to the wrong branch or a malformed feed stays green.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -9051,7 +9055,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/kg/glyph.ts:100 glyph.test.ts asserts five 'every shape' rules (e.g. 'NIKDY nezavolá beginPath') by looping over ALL_GLYPH_SHAPES, a hand-written array typed readonly GlyphShape[] that the type checker does not require to cover the GlyphShape union, so a shape added to the union silently drops out of every universal claim — the sibling sourceLinks.test.ts derives its kind list from KG_NODE_KINDS and asserts its count, showing the repaired shape.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -10163,7 +10171,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/landing/referendum/embed.test.ts:107 The embeddable widget is HTML that a third party's browser will interpret, and the claim 'widget je bez chování' is checked by a regex over the bytes instead of parsing the document with an HTML reader, so behaviour arriving through other constructs (an event-handler attribute, for example) would not be seen.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:c96e1ee699a88119",
+          "evaluatedRevision": 27
         }
       ],
       "governance": "governed"
