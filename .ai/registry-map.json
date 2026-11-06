@@ -3782,8 +3782,7 @@
           "confidence": "probable",
           "state": "deviation",
           "evidence": "lib/analysis/score-citations.ts:95 The stale-score prose check emits hard-coded warning strings without a declared rule disposition, so its severity is implemented in code rather than auditable rule data.",
-          "evaluatedAt": "2026-10-13",
-          "stale": true
+          "evaluatedAt": "2026-10-13"
         },
         {
           "subject": "judge-calibration-and-drift",

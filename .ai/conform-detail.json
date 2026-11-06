@@ -3468,28 +3468,40 @@
       "subject": "copy-quality-gates",
       "bundle": "localization",
       "state": "deviation",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T03:17:22.512Z",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:57:56.558Z",
       "techniques": [
         {
-          "technique": "layered-mechanical-gate",
+          "technique": "rendered-string-extraction",
           "verdict": "deviation",
-          "evidence": "lib/analysis/atlas.ts:484 A user-visible sentence escapes the catalog and is concatenated into a catalog message, and no check catches it."
+          "evidence": "lib/analysis/atlas.ts:510 Copy lives in code outside the catalog and is neither extracted by the language gate in features/atlas/messages.test.ts nor declared out of scope. The sibling modules (low-score-reason, tenure-copy, workhorse-flavour) did move their copy into catalog keys and publish closed *_COPY_KEYS sets; atlas did not."
+        },
+        {
+          "technique": "copy-contract-before-drafting",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/tenure-copy.ts:23 A forbidden wording rule lives only as an instruction in a comment; searching the tests found no checker for it. The technique puts forbidden-word rules in the checker only."
+        },
+        {
+          "technique": "layered-mechanical-gate",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/score-citations.ts:104 A pattern check was measured on the real corpus, found far below a block-worthy precision, and was not built as a gate. The value-targeted variant only soft-fails (lines 80-82)."
         },
         {
           "technique": "severity-as-declared-data",
-          "verdict": "deviation",
-          "evidence": "lib/analysis/score-citations.ts:95 The stale-score finding has no rule identifier, and its warn disposition is implied by code, not stored as data."
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/score-citations.ts:80 Re-checked the earlier deviation claim. This module has no rule catalog and no block tier whose off/warn/error could be declared: it returns findings and the caller prints them. Line 95 is only the message text, not a severity setting."
         },
         {
           "technique": "deterministic-repair-classes",
           "verdict": "conformant",
-          "evidence": "lib/analysis/score-citations.ts:80 A finding that would change words is reported for a human and never auto-repaired."
+          "evidence": "lib/analysis/score-citations.ts:80 A finding that would change words is reported for a human and never auto-repaired.",
+          "carriedFrom": "2026-10-24"
         },
         {
           "technique": "format-aware-check-catalog",
           "verdict": "conformant",
-          "evidence": "lib/analysis/score-citations.ts:104 A low-precision numeric-literal check was measured on the corpus and withheld. The shipped check compares the literal's identity against the known prior value."
+          "evidence": "lib/analysis/score-citations.ts:104 A low-precision numeric-literal check was measured on the corpus and withheld. The shipped check compares the literal's identity against the known prior value.",
+          "carriedFrom": "2026-10-24"
         }
       ],
       "superseded": [
@@ -3499,13 +3511,20 @@
           "evaluatedAt": "2026-10-13T22:59:25.077Z",
           "worker": "59b05c1a-6b82-4ddf-b6c1-f8694c7f40cf",
           "reason": "replaced by 147ba389-2369-449b-a080-24cb23e22ad2"
+        },
+        {
+          "state": "deviation",
+          "evidence": "lib/analysis/score-citations.ts:95 The stale-score prose check emits hard-coded warning strings without a declared rule disposition, so its severity is implemented in code rather than auditable rule data.",
+          "evaluatedAt": "2026-10-13",
+          "worker": null,
+          "reason": "replaced by 084d6414-dd2c-4826-bfc0-a12797d01991"
         }
       ],
       "withdrawn": {
-        "worker": "147ba389-2369-449b-a080-24cb23e22ad2",
+        "worker": "084d6414-dd2c-4826-bfc0-a12797d01991",
         "state": "deviation",
-        "at": "2026-10-24T03:18:04.371103+00:00",
-        "reason": "reviewer (sonnet): The anchors lib/analysis/atlas.ts:484 and features/atlas/AtlasCards.tsx:126 are not in this context's paths, which are contribution*, score-citations, score-legibility and low-score-reason. The Czech-sentence-in-catalog claim is about the atlas context. The score-citations.ts techniques describe a c"
+        "at": "2026-11-06T02:58:22.636784+00:00",
+        "reason": "reviewer (sonnet): The deviation rests on lib/analysis/atlas.ts and features/atlas/AtlasCards.tsx, and neither file is in the civic-score-computation context. atlas.ts:510 does build the Czech `basis` string that AtlasCards passes to `t(\"card.basis\")`. But the verdict is about the atlas and landing-page area, not the "
       }
     },
     "c1f4fb9c-8972-4a48-a807-c32091ebf019/copy-quality-gates": {
