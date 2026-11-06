@@ -1949,12 +1949,11 @@
           "changedAt": "2026-10-31",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "features/budget/supplierTrail.ts:253 The supplier join attributes contracts through the municipality's publisher identifier without requiring contracting-party membership, which the standard explicitly forbids.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:950ba8b9dd844d1f",
-          "evaluatedRevision": 3,
-          "revisionsBehind": 4,
-          "stale": true
+          "evidence": "features/budget/mirrorData.ts:143 The series keeps only the rounded per-capita values and drops the absolute Kč figures, so /rozpocty shows debt and balance per resident with no absolute figure anywhere on the surface, and the peer medians are computed over values already rounded to whole Kč; per-capita-normalisation names both of these as failures.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:4feef15a43fc221c",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 4
         },
         {
           "subject": "prompt-assembly",
@@ -7183,12 +7182,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/analysis/kg-money.ts:317 This context aggregates contract trails by MP and company; searches for the five listed budget-analysis identifiers found no matches throughout lib/analysis, while repository searches located the municipal implementation in BudgetMirror and its MONITOR adapter.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:950ba8b9dd844d1f",
-          "evaluatedRevision": 3,
-          "revisionsBehind": 4,
-          "stale": true
+          "evidence": "lib/analysis/kg-money.ts:22 This context joins MPs to companies to contracts and classifies public bodies by legal form or ownership. It builds no municipal budget comparison, per-capita metric, peer group or budget-to-contract join. Searching lib/analysis for perCapita, peerMedians, MIN_PEERS, vydaje_kons and POPULATION_BANDS found no matches; that machinery lives in features/budget and lib/ingest/sources/monitor.ts.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:4feef15a43fc221c",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 4
         },
         {
           "subject": "test-harness",

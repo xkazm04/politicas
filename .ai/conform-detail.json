@@ -7149,39 +7149,49 @@
       "subject": "state-budget-analysis",
       "bundle": "civic-intelligence",
       "state": "deviation",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T02:55:54.938Z",
-      "worker": "5da7ea67-e8f2-4f5d-88e1-e0cdc6bee6c2",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:22:24.990Z",
+      "worker": "bf823e3e-2c24-4d83-b542-770ecbbb752a",
       "techniques": [
-        {
-          "technique": "consolidated-vs-headline-figures",
-          "verdict": "deviation",
-          "evidence": "features/budget/data/budgetSnapshots.generated.ts:3 The adapter consistently selects consolidated expenditure, capital expenditure and balance, but the inspected provenance does not declare the metric-specific institutional perimeter, accounting basis or approved/revised/executed stage required by the standard."
-        },
-        {
-          "technique": "median-over-mean-for-peers",
-          "verdict": "deviation",
-          "evidence": "features/budget/peerGroups.ts:162 Empty medians return null and missing values are excluded, but only the selected year's debt sample count is returned; capital, balance and individual trend points lack their own effective sample sizes."
-        },
-        {
-          "technique": "municipal-money-trail",
-          "verdict": "deviation",
-          "evidence": "features/budget/supplierTrail.ts:253 Publisher status independently establishes attribution, although the standard requires the town to be a contracting party; live review-state handling and contract-value disclaimers do not resolve this join error."
-        },
-        {
-          "technique": "peer-group-construction",
-          "verdict": "deviation",
-          "evidence": "features/budget/peerGroups.ts:72 Membership checks self-exclusion, coverage and population band, followed by region, but never establishes comparable mandates or reporting perimeters before grouping."
-        },
         {
           "technique": "per-capita-normalisation",
           "verdict": "deviation",
-          "evidence": "lib/ingest/sources/monitor.ts:194 mirrorData imports this helper and stores rounded per-capita series before peer medians are computed, contrary to retaining full precision until display."
+          "evidence": "features/budget/mirrorData.ts:143 The divisor is the same-period MONITOR `obyvatele` and a missing or zero population gives null, which is correct. But TownBudgetSeries keeps no absolute values (BudgetMirrorPage has no debtCzk or expenditure display), which breaks 'never without its absolute companion'. perCapita/capexRatioPct also round before the median, against 'round at the last moment'."
+        },
+        {
+          "technique": "consolidated-vs-headline-figures",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/sources/monitor.ts:206 BUDGET_INDICATORS in the source adapter declares one variant per indicator (the _kons flows, debt as a balance-sheet figure with consolidated null). The measured gross/consolidated gap (median 2.54×) is recorded next to it, mirrorData imports the shared derivations, capex share uses two consolidated operands, and the source line names each variant."
+        },
+        {
+          "technique": "median-over-mean-for-peers",
+          "verdict": "conformant",
+          "evidence": "features/budget/peerGroups.ts:108 An empty sample gives null. The function sorts a copy and takes the midpoint for even samples. Peers with no value are skipped per metric and per year, and the trend is null per point. One sampleSize (the debt sample) is printed for all three medians and used to gate them. That is correct only because of the data: peerGroups.test.ts:159 fails if the capex or saldo sample ever differs. Fragile, but the gate holds it."
+        },
+        {
+          "technique": "peer-group-construction",
+          "verdict": "conformant",
+          "evidence": "features/budget/peerGroups.ts:72 Half-open bands with an unbounded top band, size first and region second, covered-set passed explicitly, the town excluded from its own group, a stable filter with no randomness. The printed rule interpolates band, scope, count and MIN_PEERS from the module, and band labels are parity-tested against the catalog. Caveat: the rule sentence itself lives in messages/cs.json, the header comment points to a `peerRuleText` export that does not exist, and the bands cite 'MF/ČSÚ' without a version."
         },
         {
           "technique": "small-sample-widening",
-          "verdict": "deviation",
-          "evidence": "features/budget/MoneyTrailSection.tsx:352 Supplier comparisons display every non-null median, including the one-peer case exercised in supplierTrail.test.ts, without applying MIN_PEERS to the effective sample or establishing the complete-population exception."
+          "verdict": "conformant",
+          "evidence": "features/budget/peerGroups.ts:75 Named MIN_PEERS=5 with an inclusive floor. The ladder is band+kraj, then band nationwide, never across bands. Scope is carried as data and rendered (peerRuleNationwide), the count is always rendered, the rationale ('výrok o dvou obcích') sits in the module header, and compareToPeer withholds the verdict when the effective sample is below MIN_PEERS."
+        },
+        {
+          "technique": "municipal-money-trail",
+          "verdict": "conformant",
+          "evidence": "features/budget/supplierTrail.ts:253 Attribution is by the exact registry IČO, normalised to 8 digits. Satellite IČOs are never resolved upward because only municipalIcs match. The publisher (Registr smluv `subjekt`) is modelled as a contracting side: line 259 counts it in sideCount and smlouvy-dump directionFor puts subjekt among the sides. So this is the publishing party, not publication on another's behalf, and the earlier deviation reading does not hold. Direction is claimed only for two-party contracts with a recipient flag, amounts are labelled as contract value, multi-town contracts are not summed across towns, impossible years are withheld and counted, coverage shows pass and retrieval date, and ties are read live with available:false meaning 'cannot verify'."
+        }
+      ],
+      "registryProposal": "municipal-money-trail clause 1 ('publication on another entity's behalf alone is not party membership') should say how to treat registers where the publisher is by law itself a contracting party (CZ Registr smluv `subjekt`). Otherwise reviewers read a publisher-or-party join as a violation when the data model makes them equivalent.",
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/budget/supplierTrail.ts:253 The supplier join attributes contracts through the municipality's publisher identifier without requiring contracting-party membership, which the standard explicitly forbids.",
+          "evaluatedAt": "2026-10-17T02:55:54.938Z",
+          "worker": "5da7ea67-e8f2-4f5d-88e1-e0cdc6bee6c2",
+          "reason": "replaced by bf823e3e-2c24-4d83-b542-770ecbbb752a"
         }
       ]
     },
@@ -7190,39 +7200,54 @@
       "subject": "state-budget-analysis",
       "bundle": "civic-intelligence",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T02:55:54.938Z",
-      "worker": "5da7ea67-e8f2-4f5d-88e1-e0cdc6bee6c2",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T02:22:24.990Z",
+      "worker": "bf823e3e-2c24-4d83-b542-770ecbbb752a",
       "techniques": [
         {
           "technique": "consolidated-vs-headline-figures",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/money-feed.ts:205 This parser selects an individual contract's registered price, not an official figure representing a municipality's budget."
+          "evidence": "lib/analysis/money-feed.ts:205 This parser selects an individual contract's registered price, not an official figure representing a municipality's budget.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "median-over-mean-for-peers",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/kg-money.ts:313 The computation sums contract amounts along an MP's company trail rather than estimating a typical municipality."
+          "evidence": "lib/analysis/kg-money.ts:313 The computation sums contract amounts along an MP's company trail rather than estimating a typical municipality.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "municipal-money-trail",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/kg-money.ts:152 The linkage starts from an MP and connects companies to contracts; this context does not attribute contracts to a municipality's budget."
+          "evidence": "lib/analysis/kg-money.ts:152 The linkage starts from an MP and connects companies to contracts; this context does not attribute contracts to a municipality's budget.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "peer-group-construction",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/kg-money.ts:299 Grouping collects companies under a person identifier, not comparable municipalities."
+          "evidence": "lib/analysis/kg-money.ts:299 Grouping collects companies under a person identifier, not comparable municipalities.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "per-capita-normalisation",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/money-feed.ts:448 Company enrichment carries subsidy totals, without publishing municipal fiscal metrics or comparing towns of different sizes."
+          "evidence": "lib/analysis/money-feed.ts:448 Company enrichment carries subsidy totals, without publishing municipal fiscal metrics or comparing towns of different sizes.",
+          "carriedFrom": "2026-10-17"
         },
         {
           "technique": "small-sample-widening",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/money-feed.ts:618 This threshold identifies companies attracting multiple person matches; it is an identity-resolution check, with no fiscal peer group to widen."
+          "evidence": "lib/analysis/money-feed.ts:618 This threshold identifies companies attracting multiple person matches; it is an identity-resolution check, with no fiscal peer group to widen.",
+          "carriedFrom": "2026-10-17"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/analysis/kg-money.ts:317 This context aggregates contract trails by MP and company; searches for the five listed budget-analysis identifiers found no matches throughout lib/analysis, while repository searches located the municipal implementation in BudgetMirror and its MONITOR adapter.",
+          "evaluatedAt": "2026-10-17T02:55:54.938Z",
+          "worker": "5da7ea67-e8f2-4f5d-88e1-e0cdc6bee6c2",
+          "reason": "replaced by bf823e3e-2c24-4d83-b542-770ecbbb752a"
         }
       ]
     },
