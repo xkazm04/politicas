@@ -16853,6 +16853,46 @@
       "evaluatedTs": "2026-11-06T03:42:16.384Z",
       "worker": "59448c76-e704-4faf-9a6f-ab19fb86a95e",
       "techniques": []
+    },
+    "eda8e129-2a39-4921-bff2-0251c7f61cb0/agent-memory": {
+      "context": "law-archive-early",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:54:12.250Z",
+      "worker": "1e2549c6-81cf-426a-a196-47bec5846622",
+      "techniques": []
+    },
+    "91bebaaa-7fb5-46d6-a395-b3c348ba93c1/agent-memory": {
+      "context": "money-archive-probes",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:54:12.250Z",
+      "worker": "1e2549c6-81cf-426a-a196-47bec5846622",
+      "techniques": []
+    },
+    "6dc24cb7-0a81-4b57-a9ee-3dcd7fee80d2/agent-memory": {
+      "context": "civic-verification",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:54:12.250Z",
+      "worker": "1e2549c6-81cf-426a-a196-47bec5846622",
+      "techniques": []
+    },
+    "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/agent-memory": {
+      "context": "landing-referendum",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:54:12.250Z",
+      "worker": "1e2549c6-81cf-426a-a196-47bec5846622",
+      "techniques": []
     }
   }
 }

@@ -4028,8 +4028,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/overeni/verdict.ts:2 The claim gate is a pure derivation over existing loaders, with no LLM and no agent memory pipeline. Searching features/overeni found no episode, consolidate, agentMemory or recallBudget. The 'memory' hits there are only code comments pointing at the repo's developer memory/*.md notes, and the only 'llm' hit is vi.clearAllMocks.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "accountability-publishing-ethics",
@@ -10005,8 +10009,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/landing/referendum/actions.ts:5 The referendum writes anonymous human weight vectors to a table and aggregates them, with no agent and no memory layer. Searching features/landing/referendum found no hits for episode, consolidate, agentMemory, MEMORY.md, llm or anthropic.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "repository-landing-document",
@@ -10557,8 +10565,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:11 These archived probes are deterministic one-shot scripts with no agent and nothing carried between sessions. A case-insensitive search of scripts/case-loops/law/archive found no hits for memory, episode, consolidate or MEMORY.md; the only 'recall' hits are precision/recall metrics.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "legislative-change-tracking",
@@ -11349,8 +11361,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/money/archive/direction-triage-b14.ts:16 These archived money probes are deterministic and read-only, with no agent runtime or memory store. A case-insensitive search of scripts/case-loops/money/archive found no hits for memory, episode, consolidate or MEMORY.md.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "agent-instruction-files",
