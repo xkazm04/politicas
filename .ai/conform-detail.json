@@ -9366,39 +9366,65 @@
       "subject": "background-jobs",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T01:54:50.657Z",
-      "worker": "bfe87b7a-7cae-496e-a670-b52847d138a8",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T23:47:23.423Z",
+      "worker": "c5c9f3d7-58c9-4059-ab85-0713b2378b50",
       "techniques": [
-        {
-          "technique": "adaptive-cadence",
-          "verdict": "not-applicable",
-          "evidence": "features/admin/AdminPage.tsx:26 The surface renders supplied snapshots; searches found no client polling or recurring dispatch in this context."
-        },
         {
           "technique": "loop-health-telemetry",
           "verdict": "deviation",
-          "evidence": "features/admin/loops/loopState.ts:151 The health input cannot distinguish succeeded-empty, crashed, timed-out, or skipped outcomes; the history-derived roster also omits sources without returned runs."
+          "evidence": "features/admin/loops/loopState.ts:440 The roster comes from evidence, not from the declared cadence map, so silence detection cannot fire for a source that never ran or fell outside the window. Separately, rowsWritten (line 152) is carried in but never read, so an ok run with 0 rows renders 'v pořádku' and succeeded-empty is not separated from succeeded. The parts that do conform: failure streak (line 465), lastOkFinishedAt, and staleness against a declared cadence."
         },
         {
           "technique": "loop-supervision",
           "verdict": "not-applicable",
-          "evidence": "features/admin/loops/driveState.ts:28 These controls record operator requests and acknowledgements; searches and action tracing found no recurring-loop creation or supervisor lifecycle owned here."
-        },
-        {
-          "technique": "startup-sweeps",
-          "verdict": "not-applicable",
-          "evidence": "features/admin/loops/driveLog.ts:60 Loading reconstructs journal state for observation; this context does not start a worker runtime or own recovery of execution claims."
+          "evidence": "features/admin/loops/loopState.ts:4 A pure derivation over persisted run records. The context hosts no loop, timer or registration door. A grep of features/admin for setInterval/setTimeout returned nothing."
         },
         {
           "technique": "tick-isolation",
           "verdict": "not-applicable",
-          "evidence": "features/admin/loops/loopState.ts:444 The context derives status from recorded runs rather than executing tick bodies, so tick crash barriers, overlap guards, and deadlines have no execution boundary here."
+          "evidence": "features/admin/loops/getLoopState.ts:1 A per-request read shell with no tick bodies. Crash capture, re-entrancy and per-tick deadlines belong to the ingest runtime, which lives outside this context."
+        },
+        {
+          "technique": "adaptive-cadence",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/getLoopState.ts:1 No server loop and no client poller. A grep for setInterval|setTimeout|visibilitychange|poll|router.refresh in features/admin returned zero hits."
+        },
+        {
+          "technique": "first-tick-gates-readiness",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:4 No loop here creates the state readers depend on, so there is no start for a first tick to gate."
+        },
+        {
+          "technique": "failed-start-kept-and-retried-at-cadence",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/getLoopState.ts:1 No background runtime start. Loader failures degrade to [] through reportLoaderFailure."
         },
         {
           "technique": "timeout-is-a-status-not-a-consumption",
           "verdict": "not-applicable",
-          "evidence": "features/admin/loops/getLoopState.ts:50 This reads historical records with a row limit; no tracked-operation collector or budgeted readiness-wait API was found."
+          "evidence": "features/admin/loops/loopState.ts:4 No tracked operation and no bounded wait on one in this context."
+        },
+        {
+          "technique": "problem-set-change-logging",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/loopState.ts:1 No recurring tick logs here. Alerts get state-fingerprint ids for acks, which is a separate mechanism from change logging."
+        },
+        {
+          "technique": "startup-sweeps",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/loops/driveLog.ts:60 Loading reconstructs journal state for observation; this context does not start a worker runtime or own recovery of execution claims.",
+          "carriedFrom": "2026-10-18"
+        }
+      ],
+      "registryProposal": "loop-health-telemetry assumes the health surface sits next to the supervisor's registration. It should state how to apply when the observer is a separate read surface over persisted run records: the roster must be the declared-cadence set left-joined with run evidence, and a bounded history window must not be allowed to silently remove a loop.",
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/admin/loops/loopState.ts:440 The health roster includes only sources found in returned run history, so a source with declared cadence but no returned runs disappears instead of exposing missing activity.",
+          "evaluatedAt": "2026-10-18T01:54:50.657Z",
+          "worker": "bfe87b7a-7cae-496e-a670-b52847d138a8",
+          "reason": "replaced by c5c9f3d7-58c9-4059-ab85-0713b2378b50"
         }
       ]
     },

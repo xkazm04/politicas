@@ -1337,12 +1337,11 @@
           "changedAt": "2026-10-27",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "features/admin/loops/loopState.ts:440 The health roster includes only sources found in returned run history, so a source with declared cadence but no returned runs disappears instead of exposing missing activity.",
-          "evaluatedAt": "2026-10-18",
-          "evaluatedAgainst": "sha256-b2:22ed2a99172ae050",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/admin/loops/loopState.ts:440 The ingest health roster is built only from sources that appear in the returned run history. A source with a declared cadence in LOOP_CADENCE_DAYS but no rows in the 500-run window (getLoopState.ts:34/50) drops off the surface instead of showing up as silent, so 'did not run' becomes invisible rather than a distinct signal.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:e3e7a428140a2fbb",
+          "evaluatedRevision": 6,
+          "revisionsBehind": 1
         },
         {
           "subject": "motion",
