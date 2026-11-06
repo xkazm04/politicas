@@ -4518,12 +4518,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "packages/czech-civic-data/package.json:5 The manifest and implementations describe deterministic data utilities, and searches found no weights, tensor, logits, or weights_path in the package directory, so the trained-model packaging precondition does not hold.",
-          "evaluatedAt": "2026-10-18",
-          "evaluatedAgainst": "sha256-b2:d22f4172adbc5004",
-          "evaluatedRevision": 1,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "packages/czech-civic-data/package.json:5 The manifest says this is a set of deterministic open-data parsing utilities, and a case-insensitive search of packages/czech-civic-data for weights, tensor, logits and onnx found 0 files, so there is no trained model here to package and the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:bd272d2a3cc87197",
+          "evaluatedRevision": 2,
+          "revisionsBehind": 1
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -6589,12 +6588,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "packages/eslint-plugin-civic-transparency/package.json:5 The manifest and implementations describe an ESLint plugin, and searches found no weights, tensor, logits, or weights_path in its directory, so the trained-model packaging precondition does not hold.",
-          "evaluatedAt": "2026-10-18",
-          "evaluatedAgainst": "sha256-b2:d22f4172adbc5004",
-          "evaluatedRevision": 1,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:5 The manifest says this is an ESLint rule plugin, and a case-insensitive search of packages/eslint-plugin-civic-transparency for weights, tensor, logits and onnx found 0 files, so no trained model is packaged here and the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:bd272d2a3cc87197",
+          "evaluatedRevision": 2,
+          "revisionsBehind": 1
         },
         {
           "subject": "structured-output",
