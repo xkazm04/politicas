@@ -12086,37 +12086,36 @@
       "context": "law-amends-corpus",
       "subject": "eval-harness",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T06:32:22.190Z",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:12:31.143Z",
+      "worker": "6550504a-98ed-4708-a8dc-8470246475ed",
       "techniques": [
         {
           "technique": "failure-signatures-beside-the-pass-rate",
           "verdict": "deviation",
-          "evidence": "scripts/case-loops/law/build-cz-verdict-patch.ts:220 The control is counted but not enforced, so a detector that cannot fire would still let a zero-failure result through. Contrast verify-close-reads.ts:383-384, which does count per family and spells UNVERIFIABLE separately from FAIL."
+          "evidence": "scripts/case-loops/law/build-cz-verdict-patch.ts:220 The control is counted but not enforced, so a detector that cannot fire would still let a zero-failure result through. Contrast verify-close-reads.ts:383-384, which does count per family and spells UNVERIFIABLE separately from FAIL.",
+          "carriedFrom": "2026-10-24"
         },
         {
           "technique": "assertion-vs-judgment",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/law/build-cz-verdict-patch.ts:214 Fidelity of the LLM-written Czech rewrite (citations, statutes, URLs, numerals) is asserted mechanically."
+          "evidence": "scripts/case-loops/law/build-cz-verdict-patch.ts:214 Fidelity of the LLM-written Czech rewrite (citations, statutes, URLs, numerals) is asserted mechanically.",
+          "carriedFrom": "2026-10-24"
         },
         {
           "technique": "monitor-inside-the-loop",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/law/verify-close-reads.ts:8 Agent close-reads are checked against the cached source text (the artifact), not by a second model."
+          "evidence": "scripts/case-loops/law/verify-close-reads.ts:8 Agent close-reads are checked against the cached source text (the artifact), not by a second model.",
+          "carriedFrom": "2026-10-24"
         },
         {
           "technique": "failure-attribution",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/law/verify-close-reads.ts:37 Each red case was read by hand and pinned on the instrument (the rule) before the rule was revised, stage by stage."
+          "evidence": "scripts/case-loops/law/verify-close-reads.ts:37 Each red case was read by hand and pinned on the instrument (the rule) before the rule was revised, stage by stage.",
+          "carriedFrom": "2026-10-24"
         }
-      ],
-      "withdrawn": {
-        "worker": "58d75431-efbb-41db-9f61-c767607c175a",
-        "state": "deviation",
-        "at": "2026-10-24T06:33:03.749241+00:00",
-        "reason": "reviewer (sonnet): The anchor scripts/case-loops/law/build-cz-verdict-patch.ts is not among the context's paths in registry-map.json, which are the amends-census/regen and esbirka files. The code claim is accurate: the English control (englishStillDetected) is counted and printed but never added to `problems`, even th"
-      }
+      ]
     },
     "313a8c55-3182-49d8-a3f7-331198b2093f/eval-harness": {
       "context": "db-tooling",
@@ -17093,6 +17092,26 @@
           "evidence": "features/labs/rentgen/terminalSource.test.ts:53 The vocabulary guard has one behavioral leg that runs the real model against the money module's labels, not text."
         }
       ]
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/eval-harness": {
+      "context": "civicscore-scoring",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:12:31.143Z",
+      "worker": "6550504a-98ed-4708-a8dc-8470246475ed",
+      "techniques": []
+    },
+    "dd2a1e1f-2ea5-44fc-bb6c-2738867a4984/eval-harness": {
+      "context": "civic-inbox",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:12:31.143Z",
+      "worker": "6550504a-98ed-4708-a8dc-8470246475ed",
+      "techniques": []
     }
   }
 }

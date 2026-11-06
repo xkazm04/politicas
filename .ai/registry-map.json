@@ -3533,8 +3533,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "features/schranka/deriveDeltas.ts:2 Schránka works out follow-list deltas purely from existing read-only record layers, and no model output is produced or evaluated. A case-insensitive search of features/schranka for benchmark/judge/llm/prompt/scenario found 0 files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "client-state",
@@ -4361,8 +4365,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "features/civicscore/duel.ts:12 Souboj and /metodika are pure display and comparison rules over MP scores already in the graph, with no model or agent being run or scored. A case-insensitive search of features/civicscore for benchmark/judge/llm/prompt/scenario found 0 files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "fleet-orchestration",
@@ -10345,8 +10353,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "scripts/case-loops/law/ingest-missing-laws.ts:23 The amended-paragraph census, e-Sbírka adapters, tisk text extraction and corpus builders are deterministic ingest and validation pipelines with no model under evaluation. A case-insensitive search of scripts/case-loops/law for benchmark/prompt/scenario/pass-rate found 0 files (judge/LLM hits exist only as 'no LLM judgment' disclaimers and in the triage context's verdict gate).",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7ccead00b7f92aba",
+          "evaluatedRevision": 37
         },
         {
           "subject": "legislative-change-tracking",
