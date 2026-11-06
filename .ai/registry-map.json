@@ -1622,12 +1622,11 @@
           "changedAt": "2026-10-27",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "app/layout.tsx:93 The root layout sends the entire locale catalog to the client, eagerly shipping unvisited sections' translations contrary to lazy-section-loading.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:62a9a7fc993ea8b5",
-          "evaluatedRevision": 6,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "app/layout.tsx:93 The root layout passes the whole result of getMessages() (messages/cs.json is about 320 KB) to the client provider. Every route's first paint therefore ships the strings of every section, which breaks lazy-section-loading's rule that a section's translations load with that section.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:b55c5172e3d9fac0",
+          "evaluatedRevision": 8,
+          "revisionsBehind": 2
         },
         {
           "subject": "repository-landing-document",
@@ -13512,12 +13511,11 @@
           "changedAt": "2026-10-27",
           "confidence": "strong",
           "state": "deviation",
-          "evidence": "features/shell/MobileNav.tsx:111 The mobile menu expands every module's children regardless of the active section, creating the global directory prohibited by nav-hierarchy.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:62a9a7fc993ea8b5",
-          "evaluatedRevision": 6,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "features/shell/MobileNav.tsx:111 The mobile panel draws every module's children under every entry at once. That makes the second level a global directory, which nav-hierarchy prohibits (\"No sub-nav goes global\"). The desktop Sidebar, by contrast, expands only the active entry.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:b55c5172e3d9fac0",
+          "evaluatedRevision": 8,
+          "revisionsBehind": 2
         },
         {
           "subject": "native-shell-integration",

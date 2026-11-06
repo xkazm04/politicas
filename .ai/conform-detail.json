@@ -6548,29 +6548,43 @@
       "subject": "app-shell",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T01:02:51.289Z",
-      "worker": "091c9c4e-3083-41ec-81e7-175b1af8f3f8",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:06:49.780Z",
+      "worker": "3f6ce665-941e-4cc1-bf2f-45a3443b38d2",
       "techniques": [
-        {
-          "technique": "badge-and-attention",
-          "verdict": "deviation",
-          "evidence": "features/schranka/SchrankaBadge.tsx:31 The badge mounted by Sidebar.tsx:72 and MobileNav.tsx:107 prints the full count without the display cap required by the technique; its predicate and persisted clearing watermark are implemented."
-        },
-        {
-          "technique": "entitlement-gating",
-          "verdict": "deviation",
-          "evidence": "features/shell/navModel.ts:123 The registry deliberately omits the internal review console, but app/penize/kontrola/page.tsx:22 loads its queue unconditionally; REVIEWER_TOKEN protects writes rather than entry to the destination."
-        },
         {
           "technique": "nav-hierarchy",
           "verdict": "deviation",
-          "evidence": "features/shell/MobileNav.tsx:111 Inside NAV.map, children render for every entry without an active-section condition, unlike the desktop sidebar."
+          "evidence": "features/shell/MobileNav.tsx:111 Mobile renders all children of all entries with no check on activeEntry. The desktop is scoped correctly (Sidebar.tsx:76 `open && ...`), so the two navs use different hierarchies."
         },
         {
           "technique": "navigation-model",
           "verdict": "deviation",
-          "evidence": "features/shell/Sidebar.tsx:41 Section entries always navigate to their registry root rather than the last visited sub-destination; searches found no per-section location restoration in the shell."
+          "evidence": "features/shell/navModel.ts:143 /kraj and /kompas are each listed as children of two parents (also navModel.ts:105). Ancestry is therefore ambiguous: entryFor resolves it by taking the first match (navModel.ts:300), so on /kraj the Volby entry never opens. On mobile, both /kraj links get aria-current=\"page\" and the highlight (MobileNav.tsx:118), which is the two-entries-highlighted symptom. Apart from this, the registry (NAV) and the derived active entry (entryFor) follow the standard."
+        },
+        {
+          "technique": "screen-contributed-second-level",
+          "verdict": "deviation",
+          "evidence": "features/shell/navModel.ts:197 Screens' 'on this page' sections come from a shell-side table keyed by route, which is prohibition 1. The comments in that table record the drift the technique predicts: labels named after the mock, and the seismograf anchor missing (navModel.ts:208-214). DOM presence measurement (useActiveSection) reduces the risk but is not a registration by the screen itself."
+        },
+        {
+          "technique": "badge-and-attention",
+          "verdict": "conformant",
+          "evidence": "features/shell/Sidebar.tsx:72 The nav has one badge source. It is a newness count derived from follows plus a stored lastVisit mark (useNewsCount), quiet at zero and on failure. The fabricated per-module metrics were removed. Minor gap: no 99+ display cap."
+        },
+        {
+          "technique": "entitlement-gating",
+          "verdict": "not-applicable",
+          "evidence": "features/shell/navModel.ts:123 This is a public site with no tiers or roles in the nav. The one gated console is left out of the nav on purpose and guards itself with a server-side token (robots.ts also disallows it)."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/shell/MobileNav.tsx:111 The mobile menu expands every module's children regardless of the active section, creating the global directory prohibited by nav-hierarchy.",
+          "evaluatedAt": "2026-10-17T01:02:51.289Z",
+          "worker": "091c9c4e-3083-41ec-81e7-175b1af8f3f8",
+          "reason": "replaced by 3f6ce665-941e-4cc1-bf2f-45a3443b38d2"
         }
       ]
     },
@@ -6579,19 +6593,33 @@
       "subject": "app-shell",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T01:02:51.289Z",
-      "worker": "091c9c4e-3083-41ec-81e7-175b1af8f3f8",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:06:49.780Z",
+      "worker": "3f6ce665-941e-4cc1-bf2f-45a3443b38d2",
       "techniques": [
         {
           "technique": "lazy-section-loading",
           "verdict": "deviation",
-          "evidence": "app/layout.tsx:93 getMessages() supplies the complete catalog loaded by lib/i18n/request.ts:15, without filtering it to the frame and requested section."
+          "evidence": "app/layout.tsx:93 The full catalog loaded at layout.tsx:86 goes into the eager frame on every route (prohibition 1). Route-level splitting and the inside-layout error boundary with retry (app/error.tsx) do follow the standard."
+        },
+        {
+          "technique": "shell-hosted-services",
+          "verdict": "conformant",
+          "evidence": "app/layout.tsx:101 The shell and its providers (intl, MotionConfig) are mounted once in the root layout, above the page swap point, so they persist across navigations. The route error boundary renders inside the layout, so the rail survives a page crash."
         },
         {
           "technique": "navigation-model",
           "verdict": "conformant",
-          "evidence": "app/sitemap.ts:63 For this context's sitemap consumer, public destinations derive from the shared navigation declarations and imported crawler exclusions rather than another handwritten route list."
+          "evidence": "app/sitemap.ts:63 The sitemap is derived from the nav registry (NAV plus UNLISTED_ROUTES) and the imported robots disallow list. There is no second hand-kept route list."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "app/layout.tsx:93 The root layout sends the entire locale catalog to the client, eagerly shipping unvisited sections' translations contrary to lazy-section-loading.",
+          "evaluatedAt": "2026-10-17T01:02:51.289Z",
+          "worker": "091c9c4e-3083-41ec-81e7-175b1af8f3f8",
+          "reason": "replaced by 3f6ce665-941e-4cc1-bf2f-45a3443b38d2"
         }
       ]
     },
