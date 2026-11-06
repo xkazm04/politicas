@@ -1130,8 +1130,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "app/admin/loops.json/route.ts:21 The machine-readable surfaces here are plain Next route handlers that return JSON behind a cookie gate, not a tool server a model calls; a case-insensitive search of app/admin, app/atlas and app/data for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "data-plane-transport-selection",
@@ -1488,8 +1492,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/admin/loops/getLoopState.ts:65 The admin feature reads persisted loop-run records through server loaders for a human console; a case-insensitive search of features/admin for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so no tool-protocol surface exists here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "module-design",
@@ -4985,8 +4993,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/dashboard/getDashboardData.ts:405 The dashboard is a server loader that reads the embedded store plus client UI components; a case-insensitive search of features/dashboard for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so there is no tool server or client to judge.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "metrics-rollups",
@@ -6604,8 +6616,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:36 The package only exports a table of ESLint rules for flat config; a case-insensitive search of packages/eslint-plugin-civic-transparency for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so it has no tool-protocol surface.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "self-describing-model-packages",
@@ -8778,8 +8794,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/data-analysis/lite-serve.ts:14 The catalog is a plain node:http server for the DataHub OpenAPI v3 read endpoints, and dh-context.ts is a CLI that prints JSON to stdout; a case-insensitive search of scripts/data-analysis for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so no tool-protocol server or client exists here to judge.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "retrieval",

@@ -17112,6 +17112,56 @@
       "evaluatedTs": "2026-11-06T05:12:31.143Z",
       "worker": "6550504a-98ed-4708-a8dc-8470246475ed",
       "techniques": []
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/mcp-tools": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:20:30.091Z",
+      "worker": "bd6bcf29-ede2-47aa-a56c-c1f6d0cfab4d",
+      "techniques": []
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/mcp-tools": {
+      "context": "admin-observability",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:20:30.091Z",
+      "worker": "bd6bcf29-ede2-47aa-a56c-c1f6d0cfab4d",
+      "techniques": []
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/mcp-tools": {
+      "context": "admin-infrastructure",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:20:30.091Z",
+      "worker": "bd6bcf29-ede2-47aa-a56c-c1f6d0cfab4d",
+      "techniques": []
+    },
+    "f4e73683-b40c-4436-b8ea-20e407f499ab/mcp-tools": {
+      "context": "eslint-plugin-civic-transparency-rules",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:20:30.091Z",
+      "worker": "bd6bcf29-ede2-47aa-a56c-c1f6d0cfab4d",
+      "techniques": []
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/mcp-tools": {
+      "context": "dashboard-instruments",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:20:30.091Z",
+      "worker": "bd6bcf29-ede2-47aa-a56c-c1f6d0cfab4d",
+      "techniques": []
     }
   }
 }

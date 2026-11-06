@@ -894,3 +894,8 @@
 {"ts":"2026-11-06T05:12:31.143445+00:00","bundle":"software-engineering","subjects":["eval-harness"],"techniques":[],"deviations":0,"context":"law-amends-corpus","via":"curator-multi:claude","model":"claude-opus-5-5"}
 {"ts":"2026-11-06T05:12:31.143445+00:00","bundle":"software-engineering","subjects":["eval-harness"],"techniques":[],"deviations":0,"context":"civicscore-scoring","via":"curator-multi:claude","model":"claude-opus-5-5"}
 {"ts":"2026-11-06T05:12:31.143445+00:00","bundle":"software-engineering","subjects":["eval-harness"],"techniques":[],"deviations":0,"context":"civic-inbox","via":"curator-multi:claude","model":"claude-opus-5-5"}
+{"ts":"2026-11-06T05:20:30.091176+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"kg-analysis-and-catalog","via":"curator-multi:claude","model":"claude-opus-5-5"}
+{"ts":"2026-11-06T05:20:30.091176+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"admin-observability","via":"curator-multi:claude","model":"claude-opus-5-5"}
+{"ts":"2026-11-06T05:20:30.091176+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"admin-infrastructure","via":"curator-multi:claude","model":"claude-opus-5-5"}
+{"ts":"2026-11-06T05:20:30.091176+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"eslint-plugin-civic-transparency-rules","via":"curator-multi:claude","model":"claude-opus-5-5"}
+{"ts":"2026-11-06T05:20:30.091176+00:00","bundle":"software-engineering","subjects":["mcp-tools"],"techniques":[],"deviations":0,"context":"dashboard-instruments","via":"curator-multi:claude","model":"claude-opus-5-5"}
