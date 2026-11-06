@@ -4690,8 +4690,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/dashboard/publicWire.ts:2 Despite its name, the 'public wire' here is the prop payload a server page sends to the browser. It is not a tool protocol, and the context's other files derive facts and walk the graph for a UI. Searching features/dashboard for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "test-harness",
@@ -7036,8 +7040,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "eslint-rules/no-silent-catch.cjs:6 This context is one-line ESLint shims that re-export the rules in the in-repo plugin package. It holds no tool protocol, no tool schemas and no server or client: searching eslint-rules and the plugin package for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "translation-pipeline-topology",
@@ -13324,8 +13332,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/shared/components/SourceNote.tsx:2 This context is a catalog of React UI primitives (a citation line, stat tiles, a combobox, the forensic toggle). No tool server, tool client, tool catalog or tool-protocol transport exists here: searching features/shared for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits, so none of the mcp-tools techniques can apply.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "ui-controls",
@@ -14122,8 +14134,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/testing/server-boundary.test.ts:7 This context is vitest infrastructure: PGlite fixtures, lane partitioning, and source-shape tests such as the server-only boundary check. Its 'server boundary' means Next's client/server module split, not a tool protocol. Searching lib/testing for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ed8e615f51454325",
+          "evaluatedRevision": 34
         },
         {
           "subject": "module-design",

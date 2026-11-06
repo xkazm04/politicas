@@ -16813,6 +16813,46 @@
         }
       ],
       "registryProposal": "assert-through-the-reader assumes the reader is already installed and runs at unit cost. For HTML meant for a browser, the reader is not in a Node lane, so the technique could name a spec-conformant parser as the acceptable stand-in."
+    },
+    "5e38cfa9-d10e-43fa-9e8d-67d925668e43/mcp-tools": {
+      "context": "shared-components",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:42:16.384Z",
+      "worker": "59448c76-e704-4faf-9a6f-ab19fb86a95e",
+      "techniques": []
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/mcp-tools": {
+      "context": "eslint-transparency-rules",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:42:16.384Z",
+      "worker": "59448c76-e704-4faf-9a6f-ab19fb86a95e",
+      "techniques": []
+    },
+    "77144fa6-99c0-41be-9032-46aa6c0a1392/mcp-tools": {
+      "context": "testing-core",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:42:16.384Z",
+      "worker": "59448c76-e704-4faf-9a6f-ab19fb86a95e",
+      "techniques": []
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/mcp-tools": {
+      "context": "dashboard-feed-logic",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:42:16.384Z",
+      "worker": "59448c76-e704-4faf-9a6f-ab19fb86a95e",
+      "techniques": []
     }
   }
 }
