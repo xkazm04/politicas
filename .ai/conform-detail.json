@@ -16893,6 +16893,48 @@
       "evaluatedTs": "2026-11-06T03:54:12.250Z",
       "worker": "1e2549c6-81cf-426a-a196-47bec5846622",
       "techniques": []
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/supply-chain": {
+      "context": "kg-domain-ingest",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T04:05:49.725Z",
+      "worker": "4c5af4c3-bec5-4e6d-a314-85d48d4d8188",
+      "techniques": [
+        {
+          "technique": "archive-extraction-safety",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/esbirka-laws.ts:47 Downloaded gzip is decompressed with no observed-byte budget and no verify-before-extract step. The shared zip reader the psp dumps go through does set a per-member maxOutputLength, but that code is outside this context."
+        },
+        {
+          "technique": "unsafe-deserialization-off-by-default",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/ingest.ts:55 Cached sidecars and dumps are loaded through JSON, a data-only format. No object-graph or permissive loader is involved."
+        }
+      ],
+      "registryProposal": "archive-extraction-safety is written for multi-entry archives that are written to disk. A single-stream decompression (gzip to an in-memory JSON parse) has only the bomb class and none of the slip class. The technique could say outright that a per-call output budget (e.g. maxOutputLength) is the whole defense in that case, and that digest verification cannot be done when the publisher ships no digest."
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/supply-chain": {
+      "context": "db-repositories",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T04:05:49.725Z",
+      "worker": "4c5af4c3-bec5-4e6d-a314-85d48d4d8188",
+      "techniques": []
+    },
+    "0e0462f1-6bc2-4a2d-b576-759f57a58449/supply-chain": {
+      "context": "lawwatch-radar",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T04:05:49.725Z",
+      "worker": "4c5af4c3-bec5-4e6d-a314-85d48d4d8188",
+      "techniques": []
     }
   }
 }

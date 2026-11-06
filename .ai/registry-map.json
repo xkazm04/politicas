@@ -5465,8 +5465,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "lib/db/pglite/repositories/changes.ts:69 I searched lib/db/pglite/repositories for lockfile, unzip, gunzip, dependabot and child_process and got zero hits. The layer is typed SQL over the repo's own PGlite store, and its only deserialization is JSON.parse of a column, which is data-only. None of the boundary crossings this subject governs (dependencies, archives, spawned tools, secrets in history) happen here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "delivery-analytics",
@@ -8909,8 +8913,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "deviation",
+          "priorNotApplicable": 3,
+          "evidence": "scripts/data-analysis/esbirka-laws.ts:47 The e-Sbírka dump is downloaded from a third-party publisher, cached, then decompressed with gunzipSync and no maxOutputLength, and no digest is checked first, so a corrupted or hostile gzip is limited only by Node's buffer ceiling instead of a byte budget sized to the real artifact.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "test-harness",
@@ -11154,8 +11162,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/lawwatch/getDependencyData.ts:114 I searched features/lawwatch (including components) for lockfile, unzip, gunzip, dependabot and child_process and got zero hits. The radar derives feed and sector views from graph loaders and a local JSON census, so none of the boundary crossings this subject governs occur in its files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "optional-dependency-degradation",

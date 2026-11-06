@@ -1,0 +1,113 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4c5af4c3-bec5-4e6d-a314-85d48d4d8188",
+ "subject": "supply-chain",
+ "evaluatedAt": "2026-11-06T04:05:49.725268+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-domain-ingest",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/esbirka-laws.ts:47 The e-Sb\u00edrka dump is downloaded from a third-party publisher, cached, then decompressed with gunzipSync and no maxOutputLength, and no digest is checked first, so a corrupted or hostile gzip is limited only by Node's buffer ceiling instead of a byte budget sized to the real artifact.",
+   "techniques": [
+    {
+     "technique": "archive-extraction-safety",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/esbirka-laws.ts:47 Downloaded gzip is decompressed with no observed-byte budget and no verify-before-extract step. The shared zip reader the psp dumps go through does set a per-member maxOutputLength, but that code is outside this context."
+    },
+    {
+     "technique": "unsafe-deserialization-off-by-default",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/ingest.ts:55 Cached sidecars and dumps are loaded through JSON, a data-only format. No object-graph or permissive loader is involved."
+    }
+   ],
+   "registryProposal": "archive-extraction-safety is written for multi-entry archives that are written to disk. A single-stream decompression (gzip to an in-memory JSON parse) has only the bomb class and none of the slip class. The technique could say outright that a per-call output budget (e.g. maxOutputLength) is the whole defense in that case, and that digest verification cannot be done when the publisher ships no digest."
+  },
+  {
+   "context": "db-repositories",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/pglite/repositories/changes.ts:69 I searched lib/db/pglite/repositories for lockfile, unzip, gunzip, dependabot and child_process and got zero hits. The layer is typed SQL over the repo's own PGlite store, and its only deserialization is JSON.parse of a column, which is data-only. None of the boundary crossings this subject governs (dependencies, archives, spawned tools, secrets in history) happen here.",
+   "techniques": [],
+   "absenceTerms": [
+    "lockfile",
+    "unzip",
+    "gunzip",
+    "dependabot",
+    "child_process"
+   ]
+  },
+  {
+   "context": "lawwatch-radar",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/lawwatch/getDependencyData.ts:114 I searched features/lawwatch (including components) for lockfile, unzip, gunzip, dependabot and child_process and got zero hits. The radar derives feed and sector views from graph loaders and a local JSON census, so none of the boundary crossings this subject governs occur in its files.",
+   "techniques": [],
+   "absenceTerms": [
+    "lockfile",
+    "unzip",
+    "gunzip",
+    "dependabot",
+    "child_process"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "supply-chain",
+   "context": "eslint-plugin-civic-transparency-rules",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "supply-chain",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T04:05:49.725268+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "archive-extraction-safety",
+    "unsafe-deserialization-off-by-default"
+   ],
+   "deviations": 1,
+   "context": "kg-domain-ingest",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T04:05:49.725268+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "db-repositories",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T04:05:49.725268+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "lawwatch-radar",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
