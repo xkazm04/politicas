@@ -9658,7 +9658,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/labs/rentgen/terminalSource.test.ts:28 The decision that marks a change event pending happens in the loader (getTerminalData.ts:148), outside the pure terminalModel, and the only guard on it is a regex over the loader's exact expression. The behaviour is untested, and harmless rewording turns the test red.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "quality-gates",
@@ -11198,7 +11202,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/sectorAttribution.ts:149 The two-part rule for which text may be shown (Czech gate, then the law-jargon gate) is retyped by hand in sectorAttribution.ts:148-149 and getDependencyData.ts:103-104, and again in the sibling getLawData.ts:170-171. Nothing but comments keeps the copies equal (\"same contract as getLawData.ts's readForensic()\"), so changing the gate means editing three files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "test-harness",
@@ -14182,7 +14190,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/testing/legislationRouteSource.test.ts:25 The rule that the radar feeds send no-store with their 503 is checked by running a regex over the route's source text. The same folder already checks that rule against real responses (machineRoutes503.test.ts, which calls the routes through mocked loaders), so this test pins how the code is written rather than how it behaves.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "durable-agent-operations",

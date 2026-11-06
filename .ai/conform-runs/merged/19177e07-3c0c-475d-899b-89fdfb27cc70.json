@@ -1,0 +1,181 @@
+{
+ "schema": "conform-run/1",
+ "worker": "19177e07-3c0c-475d-899b-89fdfb27cc70",
+ "subject": "module-design",
+ "evaluatedAt": "2026-11-06T04:41:06.289417+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "lawwatch-radar",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/lawwatch/sectorAttribution.ts:149 The two-part rule for which text may be shown (Czech gate, then the law-jargon gate) is retyped by hand in sectorAttribution.ts:148-149 and getDependencyData.ts:103-104, and again in the sibling getLawData.ts:170-171. Nothing but comments keeps the copies equal (\"same contract as getLawData.ts's readForensic()\"), so changing the gate means editing three files.",
+   "techniques": [
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "deviation",
+     "evidence": "features/lawwatch/getDependencyData.ts:104 One decision lives in several modules and is kept in step only by comments. A change to the gating rule touches three files that do not know about each other."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/radarFeedCodecs.ts:24 The feed codec takes time as a parameter (generatedAt is injected), and deriveRadar is a plain module. The route and the getRadarData loader do all the I/O at the edge."
+    },
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/buildDependencyView.ts:82 The gate is a seam that the loader fills in. The tests use two implementations, a passthroughGate stand-in and the real gate(), and the M13/M14 suite deliberately runs the real one so the stand-in cannot hide a bug."
+    },
+    {
+     "technique": "module-depth",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/buildDependencyView.ts:36 The module actively hides its internal dedup fields: they are stripped before the public DependencyHit is returned, so no caller can come to rely on them."
+    },
+    {
+     "technique": "declarative-or-sequential",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/buildDependencyView.ts:196 One pass builds the bills list and four counters, so an explicit loop is the right form here."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/getRadarData.ts:22 Async code exists only in the loader. deriveRadar and groupRadarDays are synchronous, so the concurrency is plumbing kept at the edge."
+    },
+    {
+     "technique": "mirror-type-at-the-edge",
+     "verdict": "not-applicable",
+     "evidence": "features/lawwatch/deriveRadar.ts:41 The inputs are ordinary data slices that tests can build directly. No type here can only be created by a host."
+    }
+   ]
+  },
+  {
+   "context": "testing-core",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/legislationRouteSource.test.ts:25 The rule that the radar feeds send no-store with their 503 is checked by running a regex over the route's source text. The same folder already checks that rule against real responses (machineRoutes503.test.ts, which calls the routes through mocked loaders), so this test pins how the code is written rather than how it behaves.",
+   "techniques": [
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "deviation",
+     "evidence": "lib/testing/legislationRouteSource.test.ts:25 Source-grep tests pin implementation text (moneyRouteSource even pins the local name `const todayIso`). The technique names this as the failure of code tested without a seam, and a module-mock seam was available, as machineRoutes503.test.ts:6 shows."
+    },
+    {
+     "technique": "module-depth",
+     "verdict": "conformant",
+     "evidence": "lib/testing/pglite-fixture.ts:50 A one-argument door hides template copying, torn-copy checks, refusal of non-temp directories and the cold-boot fallback. Its ordering requirement (call at module top level) is written down."
+    },
+    {
+     "technique": "scoreable-designs-are-built-not-argued",
+     "verdict": "conformant",
+     "evidence": "lib/testing/lanes.ts:13 The lane split was decided by measuring both configurations with a dated harness, not by argument."
+    },
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "conformant",
+     "evidence": "lib/testing/lanes.ts:2 Lane membership is decided in one module, and lane-partition.test.ts checks that the lanes cover every file and do not overlap."
+    }
+   ]
+  },
+  {
+   "context": "labs-rentgen",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/labs/rentgen/terminalSource.test.ts:28 The decision that marks a change event pending happens in the loader (getTerminalData.ts:148), outside the pure terminalModel, and the only guard on it is a regex over the loader's exact expression. The behaviour is untested, and harmless rewording turns the test red.",
+   "techniques": [
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "deviation",
+     "evidence": "features/labs/rentgen/terminalSource.test.ts:28 The test pins the implementation rather than the behaviour. If the classification moved into mergeTailLog, an ordinary value test could cover it."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "conformant",
+     "evidence": "features/labs/rentgen/terminalModel.ts:4 The view model is a pure function over values. The loader reads the clock (pragueDay) and the store at the edge."
+    },
+    {
+     "technique": "mirror-type-at-the-edge",
+     "verdict": "not-applicable",
+     "evidence": "features/labs/rentgen/terminalModel.ts:66 TerminalTieLike is a slice that tests build from a fixture. MoneyTie is ordinary data that only a host could create, so the mirror-type precondition does not hold."
+    },
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "conformant",
+     "evidence": "features/labs/rentgen/terminalModel.ts:62 The terminal reuses the money module's vocabulary through aliases instead of spelling it out a second time, so a change lands in one place."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "conformant",
+     "evidence": "features/labs/rentgen/getTerminalData.ts:159 Only the loader uses async code. The derive functions are synchronous."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "module-design",
+   "context": "eslint-plugin-civic-transparency-tests",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T04:41:06.289417+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "concurrency-at-the-edge",
+    "declarative-or-sequential",
+    "io-free-core",
+    "locality-and-leverage",
+    "mirror-type-at-the-edge",
+    "module-depth",
+    "seams-and-adapters"
+   ],
+   "deviations": 1,
+   "context": "lawwatch-radar",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T04:41:06.289417+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "locality-and-leverage",
+    "module-depth",
+    "scoreable-designs-are-built-not-argued",
+    "seams-and-adapters"
+   ],
+   "deviations": 1,
+   "context": "testing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T04:41:06.289417+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "concurrency-at-the-edge",
+    "io-free-core",
+    "locality-and-leverage",
+    "mirror-type-at-the-edge",
+    "seams-and-adapters"
+   ],
+   "deviations": 1,
+   "context": "labs-rentgen",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
