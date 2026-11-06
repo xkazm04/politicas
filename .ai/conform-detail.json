@@ -17162,6 +17162,101 @@
       "evaluatedTs": "2026-11-06T05:20:30.091Z",
       "worker": "bd6bcf29-ede2-47aa-a56c-c1f6d0cfab4d",
       "techniques": []
+    },
+    "eda8e129-2a39-4921-bff2-0251c7f61cb0/supply-chain": {
+      "context": "law-archive-early",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:36:15.033Z",
+      "worker": "0845f9de-820b-496b-b69c-33d7d3bf34b8",
+      "techniques": [
+        {
+          "technique": "reading-is-not-running",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:157 downloaded PDFs are parsed by a text extractor, never evaluated; the PDF is data, not a program"
+        }
+      ]
+    },
+    "f4e73683-b40c-4436-b8ea-20e407f499ab/supply-chain": {
+      "context": "eslint-plugin-civic-transparency-rules",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:36:15.033Z",
+      "worker": "0845f9de-820b-496b-b69c-33d7d3bf34b8",
+      "techniques": [
+        {
+          "technique": "toolchain-floor-drift",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 declared floor of 9 is never exercised; tests run only at the locked eslint 10.13.0, with no floor lane and no consumer-style resolution"
+        },
+        {
+          "technique": "reading-is-not-running",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/rules/require-source-citation.cjs:196 the citation-ok(parent=…) delegation is checked by reading the parent file as text, stripping comments and matching a word with a regex. It never requires or evaluates the other file, so a lint run over someone else's tree stays a read"
+        },
+        {
+          "technique": "license-reach-follows-integration-form",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:6 MIT package that imports only node: builtins and its own rule files; no third-party component is bundled whose license reach could matter"
+        }
+      ]
+    },
+    "3e0155e0-4169-49a7-b22d-7a7fe3483ee4/supply-chain": {
+      "context": "civic-evidence",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:36:15.033Z",
+      "worker": "0845f9de-820b-496b-b69c-33d7d3bf34b8",
+      "techniques": [
+        {
+          "technique": "unsafe-deserialization-off-by-default",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/feedCodecs.ts:188 JSON cannot encode object construction; the precondition (pickle/YAML-tag style loader) does not hold"
+        }
+      ]
+    },
+    "83c0d33f-f7db-4a99-9d17-48a23e417b22/supply-chain": {
+      "context": "law-amends-corpus",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:36:15.033Z",
+      "worker": "0845f9de-820b-496b-b69c-33d7d3bf34b8",
+      "techniques": [
+        {
+          "technique": "archive-extraction-safety",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/ingest-missing-laws.ts:89 no byte budget on decompression of downloaded bytes, no digest before decode, and empty payload not asserted. The sibling site esbirkaStream.ts:84 (createGunzip) has .part→rename quarantine but also no budget, so there are two extraction doors with different defenses, not one shared extractor"
+        },
+        {
+          "technique": "unsafe-deserialization-off-by-default",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/esbirkaSparql.ts:22 external SPARQL results and bulk dumps are decoded as JSON only, a data-only format with no object-construction semantics"
+        },
+        {
+          "technique": "reading-is-not-running",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/law/tiskText.ts:131 downloaded bill PDFs go through a text extractor with argv (no shell), and nothing from the content is evaluated"
+        }
+      ],
+      "registryProposal": "archive-extraction-safety is written for multi-entry archives (entry names, entry counts). A single-stream compressed download (gzip of a JSON dump) only triggers the bomb and verify-before-decode clauses. Saying that explicitly in use_when would stop seats from judging gzip either fully in or fully out of scope."
+    },
+    "7555cc51-bb20-4171-842d-4a3eb290c3e0/supply-chain": {
+      "context": "money-ledger",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T05:36:15.033Z",
+      "worker": "0845f9de-820b-496b-b69c-33d7d3bf34b8",
+      "techniques": []
     }
   }
 }

@@ -2794,8 +2794,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/dukazy/feedCodecs.ts:188 The only point where Dukazy decodes content is a JSON Feed parse (a data-only format, shape-checked on the next lines), and its loaders read the internal store; searching features/dukazy/ for gunzip, zlib, child_process, pickle and lockfile found 0 hits, so there is no archive extraction, object-constructing deserialization, executed content or dependency policy surface here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "prompt-assembly",
@@ -6493,8 +6497,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "deviation",
+          "priorNotApplicable": 3,
+          "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 The plugin advertises ESLint >= 9 as its peer floor (the README repeats 'ESLint ≥ 9'), but the only lane that runs its RuleTester suites resolves eslint from the root lockfile (10.13.0), so nothing in a pipeline ever builds at the advertised floor. Under toolchain-floor-drift that makes the claim prose, not a fact.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "sidecar-provisioning",
@@ -10356,8 +10364,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "deviation",
+          "priorNotApplicable": 3,
+          "evidence": "scripts/case-loops/law/ingest-missing-laws.ts:89 A third-party bulk dump (opendata.eselpoint.gov.cz 002PravniAkt.json.gz) is decompressed with gunzipSync and no output budget (no maxOutputLength), no digest check and no payload assertion (`položky ?? []` turns an empty payload into a clean zero). The download is also written straight to its final cache name, so a truncated fetch is served as 'cached' on the next run. That is the bomb, verify-before-extract and quarantine-before-promote failure that archive-extraction-safety names.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "eval-harness",
@@ -10495,8 +10507,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "strong",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:157 These archived probes only fetch PDFs, run them through a pdftotext parser with array arguments (no shell, nothing evaluated) and JSON.parse their own payload files; searching scripts/case-loops/law/archive/ for gunzip, zlib, unzip, lockfile, pickle, eval( and new Function found 0 hits, so no supply-chain crossing these techniques govern (archive extraction, dependency resolution, object deserialization, executing content) happens here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "quality-gates",
@@ -12198,8 +12214,12 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/money/moneyLoader.ts:15 The /penize ledger, graph and Kauzy surfaces read only the internal knowledge-graph store and render it with next/react/lucide/framer-motion; searching features/money/ for gunzip, zlib, child_process, pickle, lockfile and unzip found 0 hits, so none of the supply-chain crossings (archives, deserialization of foreign object graphs, executed content, dependency/permission manifests) occur in this context.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:f5666db1094acd9f",
+          "evaluatedRevision": 6
         },
         {
           "subject": "markdown-vault",

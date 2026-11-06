@@ -1,0 +1,191 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0845f9de-820b-496b-b69c-33d7d3bf34b8",
+ "subject": "supply-chain",
+ "evaluatedAt": "2026-11-06T05:36:15.033011+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "law-archive-early",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:157 These archived probes only fetch PDFs, run them through a pdftotext parser with array arguments (no shell, nothing evaluated) and JSON.parse their own payload files; searching scripts/case-loops/law/archive/ for gunzip, zlib, unzip, lockfile, pickle, eval( and new Function found 0 hits, so no supply-chain crossing these techniques govern (archive extraction, dependency resolution, object deserialization, executing content) happens here.",
+   "techniques": [
+    {
+     "technique": "reading-is-not-running",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/archive/collision-check-005.ts:157 downloaded PDFs are parsed by a text extractor, never evaluated; the PDF is data, not a program"
+    }
+   ],
+   "absenceTerms": [
+    "gunzip",
+    "zlib",
+    "unzip",
+    "pickle",
+    "lockfile"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 The plugin advertises ESLint >= 9 as its peer floor (the README repeats 'ESLint \u2265 9'), but the only lane that runs its RuleTester suites resolves eslint from the root lockfile (10.13.0), so nothing in a pipeline ever builds at the advertised floor. Under toolchain-floor-drift that makes the claim prose, not a fact.",
+   "techniques": [
+    {
+     "technique": "toolchain-floor-drift",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/package.json:32 declared floor of 9 is never exercised; tests run only at the locked eslint 10.13.0, with no floor lane and no consumer-style resolution"
+    },
+    {
+     "technique": "reading-is-not-running",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/rules/require-source-citation.cjs:196 the citation-ok(parent=\u2026) delegation is checked by reading the parent file as text, stripping comments and matching a word with a regex. It never requires or evaluates the other file, so a lint run over someone else's tree stays a read"
+    },
+    {
+     "technique": "license-reach-follows-integration-form",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/package.json:6 MIT package that imports only node: builtins and its own rule files; no third-party component is bundled whose license reach could matter"
+    }
+   ]
+  },
+  {
+   "context": "civic-evidence",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dukazy/feedCodecs.ts:188 The only point where Dukazy decodes content is a JSON Feed parse (a data-only format, shape-checked on the next lines), and its loaders read the internal store; searching features/dukazy/ for gunzip, zlib, child_process, pickle and lockfile found 0 hits, so there is no archive extraction, object-constructing deserialization, executed content or dependency policy surface here.",
+   "techniques": [
+    {
+     "technique": "unsafe-deserialization-off-by-default",
+     "verdict": "not-applicable",
+     "evidence": "features/dukazy/feedCodecs.ts:188 JSON cannot encode object construction; the precondition (pickle/YAML-tag style loader) does not hold"
+    }
+   ],
+   "absenceTerms": [
+    "gunzip",
+    "zlib",
+    "child_process",
+    "pickle",
+    "lockfile"
+   ]
+  },
+  {
+   "context": "law-amends-corpus",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/ingest-missing-laws.ts:89 A third-party bulk dump (opendata.eselpoint.gov.cz 002PravniAkt.json.gz) is decompressed with gunzipSync and no output budget (no maxOutputLength), no digest check and no payload assertion (`polo\u017eky ?? []` turns an empty payload into a clean zero). The download is also written straight to its final cache name, so a truncated fetch is served as 'cached' on the next run. That is the bomb, verify-before-extract and quarantine-before-promote failure that archive-extraction-safety names.",
+   "techniques": [
+    {
+     "technique": "archive-extraction-safety",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/ingest-missing-laws.ts:89 no byte budget on decompression of downloaded bytes, no digest before decode, and empty payload not asserted. The sibling site esbirkaStream.ts:84 (createGunzip) has .part\u2192rename quarantine but also no budget, so there are two extraction doors with different defenses, not one shared extractor"
+    },
+    {
+     "technique": "unsafe-deserialization-off-by-default",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/esbirkaSparql.ts:22 external SPARQL results and bulk dumps are decoded as JSON only, a data-only format with no object-construction semantics"
+    },
+    {
+     "technique": "reading-is-not-running",
+     "verdict": "not-applicable",
+     "evidence": "scripts/case-loops/law/tiskText.ts:131 downloaded bill PDFs go through a text extractor with argv (no shell), and nothing from the content is evaluated"
+    }
+   ],
+   "registryProposal": "archive-extraction-safety is written for multi-entry archives (entry names, entry counts). A single-stream compressed download (gzip of a JSON dump) only triggers the bomb and verify-before-decode clauses. Saying that explicitly in use_when would stop seats from judging gzip either fully in or fully out of scope."
+  },
+  {
+   "context": "money-ledger",
+   "subject": "supply-chain",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/money/moneyLoader.ts:15 The /penize ledger, graph and Kauzy surfaces read only the internal knowledge-graph store and render it with next/react/lucide/framer-motion; searching features/money/ for gunzip, zlib, child_process, pickle, lockfile and unzip found 0 hits, so none of the supply-chain crossings (archives, deserialization of foreign object graphs, executed content, dependency/permission manifests) occur in this context.",
+   "techniques": [],
+   "absenceTerms": [
+    "gunzip",
+    "zlib",
+    "child_process",
+    "pickle",
+    "unzip"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T05:36:15.033011+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "reading-is-not-running"
+   ],
+   "deviations": 0,
+   "context": "law-archive-early",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:36:15.033011+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "license-reach-follows-integration-form",
+    "reading-is-not-running",
+    "toolchain-floor-drift"
+   ],
+   "deviations": 1,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:36:15.033011+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "unsafe-deserialization-off-by-default"
+   ],
+   "deviations": 0,
+   "context": "civic-evidence",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:36:15.033011+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [
+    "archive-extraction-safety",
+    "reading-is-not-running",
+    "unsafe-deserialization-off-by-default"
+   ],
+   "deviations": 1,
+   "context": "law-amends-corpus",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:36:15.033011+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "supply-chain"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "money-ledger",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
