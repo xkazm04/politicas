@@ -16193,16 +16193,11 @@
       "context": "voting-legislation-routes",
       "subject": "quality-gates",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-11-05",
-      "evaluatedTs": "2026-11-05T23:31:12.653Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "e0a9c104-a70f-4446-b779-2b28a0ce05a6",
-        "state": "not-applicable",
-        "at": "2026-11-05T23:31:55.375964+00:00",
-        "reason": "reviewer (sonnet): The anchor (app/hlasovani/page.tsx:21) is a plain JSX mount that does not show a gate is absent. The claim that the feed handlers have no refusal is also contradicted by feed.xml/route.ts, which returns 503 with no-store when the store is down. The search terms (eslint, lint, lefthook, max-warnings,"
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T01:13:49.980Z",
+      "worker": "335602b0-1f5e-48f0-af63-7855bdc870bf",
+      "techniques": []
     },
     "fe1f864e-b249-42d8-a679-3995c31a43ba/retry-backoff": {
       "context": "admin-observability",
@@ -16373,6 +16368,16 @@
           "evidence": "features/dashboard/graphTraversal.ts:2 `graphTraversal` moves keyboard focus between neighbouring nodes by arrow direction. It is not a connection query, so hub pricing and tie-break ranking do not apply."
         }
       ]
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/quality-gates": {
+      "context": "civic-feed-routes",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T01:13:49.980Z",
+      "worker": "335602b0-1f5e-48f0-af63-7855bdc870bf",
+      "techniques": []
     }
   }
 }

@@ -3291,7 +3291,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/denik/page.tsx:12 These are thin pages and JSON/RSS feed handlers. Searching app/denik, app/dukazy, app/schranka, app/overeni and app/zdroj for lefthook, process.exit, eslint-disable, max-warnings, waiver, severity, exitCode and allowlist found nothing. The one hit for 'gate' is the reader-facing 'Civic Claim Gate' label in app/overeni/page.tsx, a claim-verification surface whose logic lives in features/overeni, not a quality gate.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "voice-io",
@@ -15270,7 +15274,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/hlasovani/page.tsx:21 These are thin route pages and feed handlers that await a loader and mount a feature. A case-insensitive search of app/hlasovani and app/zakony for gate, lefthook, process.exit, eslint-disable, max-warnings, waiver, severity, exitCode and allowlist found nothing, so this context contains no check that can refuse anything.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:0d8378dd13155e59",
+          "evaluatedRevision": 54
         },
         {
           "subject": "page-load-pipeline",
