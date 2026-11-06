@@ -3795,8 +3795,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "deviation",
+          "priorNotApplicable": 5,
+          "evidence": "lib/analysis/context-provider.ts:156 The analyst's context store (context-model calls itself the 'institutional memory' injected into analyst prompts) is read by LiteContextProvider. A failed or unparseable GMS read collapses to null, which the interface documents as 'the slice is unknown to this arm' (line 63), so an unavailable store is reported to the consumer as an absent one.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "copy-quality-gates",
@@ -7934,8 +7938,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/hybrid-bench/engine.ts:4 The bench makes stateless one-shot Claude CLI calls from a neutral tmpdir cwd (engine.ts:53), so no agent state is captured, consolidated or recalled between calls; a recursive search of scripts/hybrid-bench for episod/consolidat/supersed/decay/forget found 0 hits ('recall' appears only as the F1 metric).",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "embedded-db",
@@ -8751,8 +8759,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "deviation",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/data-analysis/kg-forensics.ts:145 LLM-proposed forensic beliefs are written onto the live bill node as a status column rather than into a separate pending store, and the writer unconditionally resets the state to pending_review over whatever a human already decided, so a rejected proposal returns on the next pass and any reader that forgets the filter (features/volby/volbyLoader.ts:234 reads forensic_severity with no state check) serves it as a finding.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "translation-quality-measurement",
@@ -11919,8 +11931,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/money/collisions/deriveCollisions.ts:6 The money evidence layer is a pure deterministic derivation with no agent and no agent memory ('nothing here runs through a model'); a recursive search of features/money for episod/consolidat/decay/forget found 0 hits ('memory/' hits are only comment links to the repo's developer memory notes, and 'prompt' refers to a UI staleness prompt).",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "eval-harness",
@@ -12514,8 +12530,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/money/dataor-corroborate.ts:29 These are deterministic ownership/registry reconciliation scripts with no agent and no memory carried across runs; a recursive search of scripts/case-loops/money for episod/consolidat/decay/forget found 0 hits (only 'NO LLM' disclaimers for llm).",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "prompt-assembly",

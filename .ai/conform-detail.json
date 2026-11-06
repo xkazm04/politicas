@@ -17293,6 +17293,88 @@
       "evaluatedTs": "2026-11-06T22:11:48.854Z",
       "worker": "0823ac51-cb56-4497-a0ed-8dc65c22222a",
       "techniques": []
+    },
+    "70d5ebf5-3f7e-4891-8b19-1dce86f8ca79/agent-memory": {
+      "context": "kg-analysis-and-catalog",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T23:29:04.225Z",
+      "worker": "f556a3f8-5098-49dd-a274-f5c5c8fd3c4a",
+      "techniques": [
+        {
+          "technique": "pending-beliefs-live-apart",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-forensics.ts:145 Pending lane is a status on the live row, which is the design the technique rejects. The write never reads the prior state, so a human's 'rejected' or 'verified' is overwritten with pending_review on re-run (lib/db/pglite/repositories/review.ts:95 calls rejected TERMINAL)."
+        },
+        {
+          "technique": "memory-governance",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/promote-verdicts.ts:4 LLM outputs are kept out of the trusted slice_quality lane; only gated advisory findings travel. The forensic proposals do go to a human-review lane; the leak around that lane is recorded under pending-beliefs-live-apart."
+        },
+        {
+          "technique": "durable-store-failure-posture",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/dh-context.ts:72 The analyst's context fetcher reports a catalog that returned non-2xx or non-JSON as 'slice not found'. That is failure spelled as absence, when it should say the store is unavailable."
+        }
+      ]
+    },
+    "1d4e5da8-7190-49ac-9a60-facf0bce4162/agent-memory": {
+      "context": "money-ownership",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T23:29:04.225Z",
+      "worker": "f556a3f8-5098-49dd-a274-f5c5c8fd3c4a",
+      "techniques": []
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/agent-memory": {
+      "context": "hybrid-bench",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T23:29:04.225Z",
+      "worker": "f556a3f8-5098-49dd-a274-f5c5c8fd3c4a",
+      "techniques": []
+    },
+    "fef38523-7caf-4366-a28e-18e28677d5bf/agent-memory": {
+      "context": "civic-score-computation",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T23:29:04.225Z",
+      "worker": "f556a3f8-5098-49dd-a274-f5c5c8fd3c4a",
+      "techniques": [
+        {
+          "technique": "durable-store-failure-posture",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/context-provider.ts:156 The read path degrades but does not say 'unavailable'. Non-2xx and non-JSON bodies (line 165 only console.warns) become the same null as a missing slice."
+        },
+        {
+          "technique": "coverage-instrumentation",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/context-model.ts:122 The coverage instrument is keyed on a hand ledger instead of the attribute the writers stamp (slice_quality.analyzedAt), so an analyzed slice is told to the analyst as 'pending — never analyzed' (line 259). The denominator does enumerate every slice, and the explicit 'never' is honest."
+        },
+        {
+          "technique": "observation-clock",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/context-model.ts:250 Point-in-time claims carry their observation date (asOf) into the injected context and are explicitly labelled as not live, so the anchor survives into the prompt."
+        }
+      ]
+    },
+    "698307e2-e6e2-444a-81c9-07254c5d1725/agent-memory": {
+      "context": "money-evidence",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T23:29:04.225Z",
+      "worker": "f556a3f8-5098-49dd-a274-f5c5c8fd3c4a",
+      "techniques": []
     }
   }
 }
