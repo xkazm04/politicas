@@ -3178,30 +3178,44 @@
       "context": "verdict-and-law-analysis",
       "subject": "roll-call-vote-analysis",
       "bundle": "civic-intelligence",
-      "state": "conformant",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T22:07:22.262Z",
-      "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T01:52:04.374Z",
+      "worker": "8f6a4e44-44b1-411d-9ab3-aab558f25da8",
       "techniques": [
         {
           "technique": "club-line-and-rebellion",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/kg.ts:175 Derives party lines as strict majorities of positional ballots with tied votes skipped, gating rebellion rates on MIN_ELIGIBLE_VOTES (50)."
+          "verdict": "deviation",
+          "evidence": "lib/analysis/kg.ts:189 Strict majority with ties skipped (l.222-223) and the MIN_ELIGIBLE_VOTES floor are correct. But membership is static per mandate, not resolved at division time. The stat is keyed by person with the first club seen (l.200-204). Mandates with no club are dropped silently with no count (l.190). The ranking sort (l.239) goes rate then person id, with no absolute-rebellion-count tiebreak."
         },
         {
           "technique": "co-voting-agreement-matrix",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/kg.ts:86 Computes undirected pairwise co-voting matrix over shared positional ballots, gated on MIN_SHARED_VOTES (50) and excluding voided votes."
-        },
-        {
-          "technique": "positional-vs-participation-bases",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/kg.ts:48 Filters ballots to yes/no for all side-taking metrics (co-voting, rebellion, cohesion) while treating all other choices as non-participation."
+          "verdict": "deviation",
+          "evidence": "lib/analysis/kg.ts:140 Pairs below MIN_SHARED_VOTES are pruned at write time, and no discarded-pair count ships with the output. The doc comment (l.82-83) says pruning is left to the reader, which contradicts the code. Nothing enforces one resolved ballot per person per division, so a person with two mandates on the same vote adds two entries. Positional-only sharing, voided exclusion, the canonical src<dst cell and dense typed arrays are all correct."
         },
         {
           "technique": "rice-cohesion-index",
           "verdict": "conformant",
-          "evidence": "lib/analysis/kg.ts:257 Computes Rice cohesion index |yes - no| / (yes + no) on positional votes, requiring at least MIN_CLUB_POSITIONAL (5) members participating."
+          "evidence": "lib/analysis/kg.ts:289 Positional base only, voided votes excluded, per-vote floor MIN_CLUB_POSITIONAL is a named constant (l.288). A club with no qualifying votes is left out of the map (not measured, never 0). The qualifying-vote count ships with the mean. It also inherits the static club mapping."
+        },
+        {
+          "technique": "positional-vs-participation-bases",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/volby/contested.ts:30 kg.ts:49 imports POSITIONAL_CHOICES correctly. But listLine() in contested.ts re-lists its qualifying choices inline over an untyped string choice, which forks the one exported positional set."
+        },
+        {
+          "technique": "vote-choice-vocabulary-mapping",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/kg.ts:29 Consumes the single VoteChoice vocabulary and its sets from the normalize package. That package has an explicit unknown, the merged abstain_or_not_voting value and sentinel detection. It is not restated here."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "conformant",
+          "evidence": "lib/analysis/kg.ts:1 Implements deterministic computation of knowledge graph roll-call vote edges and metrics including co-voting agreement, party rebellion, and Rice cohesion.",
+          "evaluatedAt": "2026-10-13T22:07:22.262Z",
+          "worker": "331a251b-96fd-4432-a4bf-d9ce1e8e1ec4",
+          "reason": "replaced by 8f6a4e44-44b1-411d-9ab3-aab558f25da8"
         }
       ]
     },
@@ -16501,6 +16515,27 @@
           "technique": "declarative-or-sequential",
           "verdict": "conformant",
           "evidence": "features/admin/getAdminData.ts:536 The tally fills several counters and a tier array in one pass, which is the multi-output case where an explicit loop is the right form."
+        }
+      ]
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/roll-call-vote-analysis": {
+      "context": "volby-elections",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T01:52:04.374Z",
+      "worker": "8f6a4e44-44b1-411d-9ab3-aab558f25da8",
+      "techniques": [
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "deviation",
+          "evidence": "features/volby/getListData.ts:52 Strict majority with tie→split is right. But there is no per-division line-support rule, an empty list gets 'split', not 'not measured', and the per-vote display omits the list's tally and eligible membership."
+        },
+        {
+          "technique": "co-voting-agreement-matrix",
+          "verdict": "not-applicable",
+          "evidence": "features/volby/getListData.ts:25 No pairwise agreement here. The surface lists 12 contested votes only."
         }
       ]
     }

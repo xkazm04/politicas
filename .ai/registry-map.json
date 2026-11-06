@@ -14396,13 +14396,12 @@
           "revision": 7,
           "changedAt": "2026-10-22",
           "confidence": "probable",
-          "state": "conformant",
-          "evidence": "lib/analysis/kg.ts:1 Implements deterministic computation of knowledge graph roll-call vote edges and metrics including co-voting agreement, party rebellion, and Rice cohesion.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:1952ca06aa46d09f",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 2,
-          "stale": true
+          "state": "deviation",
+          "evidence": "lib/analysis/kg.ts:189 rebellion() and partyCohesion() take one club per mandate for the whole term rather than the club on the day of the division, and clubAt.ts (same context, lines 4-6) itself records that this repaints a club-switcher's historical ballots with the wrong club line.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:1fb04612acd77185",
+          "evaluatedRevision": 7,
+          "revisionsBehind": 2
         },
         {
           "subject": "test-harness",
@@ -14722,7 +14721,11 @@
           "revision": 7,
           "changedAt": "2026-10-22",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/volby/getListData.ts:52 Each contested vote gets a party-list line built from whatever member ballots exist, with no line-support floor. A list with no positional ballots on that vote shows the same 'split' as a real tie. ContestedMatrix shows only the chamber's yes/no totals, not the list's own tally or eligible membership.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:1fb04612acd77185",
+          "evaluatedRevision": 7
         },
         {
           "subject": "supply-chain",
