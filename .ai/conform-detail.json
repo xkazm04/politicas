@@ -2648,59 +2648,78 @@
       "subject": "data-access",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T13:12:26.241Z",
-      "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T04:18:12.930Z",
+      "worker": "07905e3a-a5c4-4623-a671-4707bba35d4b",
       "techniques": [
-        {
-          "technique": "query-construction",
-          "verdict": "conformant",
-          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:90 The three key values are bound; the column list is the imported KG_EDGE_COLS constant, not an external token."
-        },
         {
           "technique": "layering-rules",
           "verdict": "deviation",
-          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 Header still names store.deleteKgEdges; the body duplicates that SQL on a raw handle."
+          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 Raw connection plus a hand-copied archive+delete statement in a script. The comment at lines 22-25 admits the bypass ('kept byte-compatible'). Every other writer in this context goes through getStore()."
         },
         {
           "technique": "transactions-and-units-of-work",
           "verdict": "deviation",
-          "evidence": "scripts/data-analysis/kg-compute.ts:380 The next line upserts edges as a second call; a reset clearKg() above that is a third call. No scope in this file spans them."
+          "evidence": "scripts/data-analysis/kg-compute.ts:375 The --reset rebuild runs as three separately committed transactions: clearKg (kg.ts:440), upsertKgNodes (kg.ts:305), upsertKgEdges (kg.ts:333). If a write fails after the clear, the graph is left durably cleared or half-rebuilt. The script does exit 1 and history keeps the archive, but no single boundary covers the replace-the-graph invariant."
+        },
+        {
+          "technique": "query-construction",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:90 Even the bypassing statement binds its values as $1..$3. The interpolated identifiers come from the KG_EDGE_COLS constant, not from input."
+        },
+        {
+          "technique": "row-mapping",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:32 The column set is taken from the one mapper declaration rather than retyped. The other writers receive typed KgNodeRow/KgEdgeRow from the store. Caveat: kg-repair-orphans types its own rows with ad-hoc generics (line 46)."
         },
         {
           "technique": "batching-and-n-plus-one",
-          "verdict": "deviation",
-          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:88 That statement sits in a for-loop, one round trip per orphan edge."
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-compute.ts:122 Inputs are read as whole sets per term and written in chunked bulk upserts. One minor exception: kg-repair-orphans deletes in a per-key loop (line 78)."
         },
         {
           "technique": "repo-testing",
           "verdict": "conformant",
-          "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:116 The merge test opens a fixture copy via open() and writes through the kg repository."
+          "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:27 Writer provenance and prop-merge are tested against a real PGlite copy of the test template, not a mock."
         },
         {
           "technique": "cross-driver-invariant-parity",
           "verdict": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:16 The context has one PGlite store; there is no second backend behind the writers."
+          "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:16 The context has one PGlite store; there is no second backend behind the writers.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "capability-declared-in-the-type",
           "verdict": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-compute.ts:94 Callers use one store facade. A missing operation is not a capability gap across implementations."
+          "evidence": "scripts/data-analysis/kg-compute.ts:94 Callers use one store facade. A missing operation is not a capability gap across implementations.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "existence-authority-written-last",
           "verdict": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-compute.ts:44 Nodes and edges are two tables of one PGlite, not two stores that share no transaction."
+          "evidence": "scripts/data-analysis/kg-compute.ts:44 Nodes and edges are two tables of one PGlite, not two stores that share no transaction.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "operator-defined-tables",
           "verdict": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-promote.ts:96 Node kinds are a closed code set. Nothing here creates a table from an operator's runtime definition."
+          "evidence": "scripts/data-analysis/kg-promote.ts:96 Node kinds are a closed code set. Nothing here creates a table from an operator's runtime definition.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "localized-record-identity",
           "verdict": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-contribution-recompute.ts:325 The only language hit in these files is Czech collation of a name, not a per-language record."
+          "evidence": "scripts/data-analysis/kg-contribution-recompute.ts:325 The only language hit in these files is Czech collation of a name, not a per-language record.",
+          "carriedFrom": "2026-10-13"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 The orphan repair opens PGlite itself and runs its own archive-delete SQL, so statements against kg_edge are not confined to the repository.",
+          "evaluatedAt": "2026-10-13T13:12:26.241Z",
+          "worker": "a751c235-426b-4914-b532-bff1f1c5eb0c",
+          "reason": "replaced by 07905e3a-a5c4-4623-a671-4707bba35d4b"
         }
       ]
     },

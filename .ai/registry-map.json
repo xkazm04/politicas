@@ -9263,12 +9263,11 @@
           "changedAt": "2026-10-15",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 The orphan repair opens PGlite itself and runs its own archive-delete SQL, so statements against kg_edge are not confined to the repository.",
-          "evaluatedAt": "2026-10-13",
-          "evaluatedAgainst": "sha256-b2:b67182492821d592",
-          "evaluatedRevision": 18,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 The orphan repair still opens PGlite directly and issues its own copy of the archive-then-delete SQL against kg_edge, even though store.deleteKgEdges exists. That puts a kg_edge writer outside the repository, and the file's header comment (line 12) wrongly says the delete goes through the store.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19,
+          "revisionsBehind": 1
         },
         {
           "subject": "mcp-tools",
