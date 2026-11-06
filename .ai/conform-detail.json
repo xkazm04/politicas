@@ -16654,6 +16654,26 @@
       "evaluatedTs": "2026-11-06T02:45:12.406Z",
       "worker": "aab990a9-ce4c-4f3c-a802-3156ade85073",
       "techniques": []
+    },
+    "1ca62705-6ea0-4813-a251-0689db1ca519/agent-memory": {
+      "context": "tender-pipeline",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:07:52.259Z",
+      "worker": "b8ba67c7-defa-4f0f-abaa-702439ab9988",
+      "techniques": []
+    },
+    "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/agent-memory": {
+      "context": "eslint-transparency-rules",
+      "subject": "agent-memory",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T03:07:52.259Z",
+      "worker": "b8ba67c7-defa-4f0f-abaa-702439ab9988",
+      "techniques": []
     }
   }
 }

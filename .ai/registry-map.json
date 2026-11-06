@@ -7062,8 +7062,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "eslint-rules/no-silent-catch.cjs:6 Every .cjs file in this context is a one-line re-export of a lint rule, so there is no agent memory pipeline here: a case-insensitive recursive grep of eslint-rules/ for memory|recall|remember|forget|consolidat|episod|agent returned no hits.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "prompt-assembly",
@@ -13882,8 +13886,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/tender/compose-pictures.ts:5 The tender loop is deterministic procurement ingest and aggregation, with no agent memory store to judge: a case-insensitive recursive grep of scripts/case-loops/tender for memory|recall|remember|forget|consolidat|episod|agent returned no hits, and the only LLM mention is this \"no LLM\" disclaimer.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:6c06fb6d8d6c900f",
+          "evaluatedRevision": 52
         },
         {
           "subject": "fleet-orchestration",
