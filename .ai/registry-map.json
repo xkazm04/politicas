@@ -1917,8 +1917,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/security/adminGate.ts:4 This context is routing parameter parsers, next-intl locale config and an admin token gate, with no model invocation or prompt text. Searching lib/routing, lib/i18n and lib/security for prompt, anthropic, systemPrompt and max_tokens found 0 files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         }
       ],
       "governance": "governed"
@@ -3111,8 +3115,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/civic/data.ts:2 This context is static fallback data, claim/citation shapes, Czech formatting and analytics, with no model call and no prompt text. Searching lib/civic, lib/claims and lib/ for prompt, anthropic, systemPrompt and max_tokens found 0 files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "measurement-honesty",
@@ -11157,8 +11165,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/lawwatch/getCollisionData.ts:7 The LLM close-read happened offline in the case-loop batches. These reader-facing loaders and pages only read the persisted results and assemble no prompt. Searching features/lawwatch for prompt, anthropic, systemPrompt and max_tokens found 0 files.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "llm-forensic-gating",
