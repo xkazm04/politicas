@@ -1717,12 +1717,11 @@
           "changedAt": "2026-10-22",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "app/sitemap.ts:64 The sitemap combines application paths with municipality pages, while searches of app and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:95cdaebc076df84d",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "app/sitemap.ts:63 The sitemap lists application routes and municipality pages, and the only document-like pages (/podminky, /ochrana-osobnich-udaju) are two standalone hand-authored pages; searches of app/ and features/shell found no topicId, bodyMap, watchedSources, docsCatalog or checkedAgainst, so there is no typed documentation topic catalog here.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:74839e7c9eeb3728",
+          "evaluatedRevision": 4,
+          "revisionsBehind": 2
         },
         {
           "subject": "page-load-pipeline",
@@ -13664,12 +13663,11 @@
           "changedAt": "2026-10-22",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/shell/publicRoutes.ts:44 The inventory enumerates application routes, and searches of this context and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
-          "evaluatedAt": "2026-10-17",
-          "evaluatedAgainst": "sha256-b2:95cdaebc076df84d",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "features/shell/navModel.ts:72 NAV declares the application's module routes and their in-page section anchors, not documentation topics; searches of features/shell and app/ found no topicId, bodyMap, watchedSources, docsCatalog or checkedAgainst, so there is no topic-record/body-module catalog for this subject to govern.",
+          "evaluatedAt": "2026-11-06",
+          "evaluatedAgainst": "sha256-b2:74839e7c9eeb3728",
+          "evaluatedRevision": 4,
+          "revisionsBehind": 2
         },
         {
           "subject": "repository-landing-document",

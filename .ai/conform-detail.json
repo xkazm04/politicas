@@ -7804,34 +7804,43 @@
       "subject": "docs-content-model",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T04:08:32.413Z",
-      "worker": "24575dc3-75a7-4bc9-b071-34641339aea7",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:57:07.624Z",
+      "worker": "ee2f191f-535d-4274-864c-3156cd0a299a",
       "techniques": [
         {
           "technique": "catalog-referential-invariants",
           "verdict": "not-applicable",
-          "evidence": "features/shell/publicRoutes.ts:45 The additional registry contains application route exceptions, not documentation records paired with prose bodies."
+          "evidence": "features/shell/navModel.ts:167 Route inventory with a completeness test over routes; there is no split between topic records and a body map, so no bijection to check."
         },
         {
           "technique": "derived-navigation-projection",
           "verdict": "not-applicable",
-          "evidence": "features/shell/Sidebar.tsx:35 The sidebar renders the application navigation model; no documentation topic catalog supplies this list."
+          "evidence": "features/shell/publicRoutes.ts:44 The sitemap is derived from NAV, which is the same idea at the route level, but there is no docs catalog to project from."
         },
         {
           "technique": "draft-visibility-gating",
           "verdict": "not-applicable",
-          "evidence": "features/shell/AppShell.tsx:50 Bare routes retain their content while omitting chrome; this is layout selection rather than documentation draft publication."
+          "evidence": "features/shell/publicRoutes.ts:47 Filters out paths that robots disallows. That is crawler scoping, not a readiness gate on draft topics."
         },
         {
           "technique": "per-topic-freshness-metadata",
           "verdict": "not-applicable",
-          "evidence": "features/shell/sidebarParts.tsx:103 The footer reports ingestion information; this context has no documentation topic records requiring review metadata."
+          "evidence": "features/shell/navModel.ts:27 Nav records are route anchors with i18n keys; there are no topic records to carry review-date fields."
         },
         {
           "technique": "product-location-mapping",
           "verdict": "not-applicable",
-          "evidence": "features/shell/navModel.ts:298 This maps an application route to its navigation parent, not a documentation topic to the product area it describes."
+          "evidence": "features/shell/navModel.ts:39 NavEntry is the product's own route vocabulary, not documentation pointing at product areas."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/shell/publicRoutes.ts:44 The inventory enumerates application routes, and searches of this context and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
+          "evaluatedAt": "2026-10-17T04:08:32.413Z",
+          "worker": "24575dc3-75a7-4bc9-b071-34641339aea7",
+          "reason": "replaced by ee2f191f-535d-4274-864c-3156cd0a299a"
         }
       ]
     },
@@ -7840,34 +7849,43 @@
       "subject": "docs-content-model",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-17",
-      "evaluatedTs": "2026-10-17T04:08:32.413Z",
-      "worker": "24575dc3-75a7-4bc9-b071-34641339aea7",
+      "evaluatedAt": "2026-11-06",
+      "evaluatedTs": "2026-11-06T00:57:07.624Z",
+      "worker": "ee2f191f-535d-4274-864c-3156cd0a299a",
       "techniques": [
         {
           "technique": "catalog-referential-invariants",
           "verdict": "not-applicable",
-          "evidence": "app/ochrana-osobnich-udaju/page.tsx:18 The legal route directly mounts its content component without a documentation metadata/body registry."
+          "evidence": "app/sitemap.ts:64 The sitemap's entries are route paths and municipality IČO pages, not topic records resolving to body modules."
         },
         {
           "technique": "derived-navigation-projection",
           "verdict": "not-applicable",
-          "evidence": "app/sitemap.ts:63 This projects the application's public routes, not a documentation topic catalog."
+          "evidence": "app/sitemap.ts:66 Projects route paths into the inventory. There is no docs catalog behind it."
         },
         {
           "technique": "draft-visibility-gating",
           "verdict": "not-applicable",
-          "evidence": "app/robots.ts:32 The exclusions concern application tools and an archived surface; no documentation draft records are present."
+          "evidence": "app/robots.ts:32 This is a crawler-exclusion list for operator and archived routes. These are not draft topics in a catalog."
         },
         {
           "technique": "per-topic-freshness-metadata",
           "verdict": "not-applicable",
-          "evidence": "app/podminky/TermsContent.tsx:21 Terms are rendered from legal translation content rather than documentation topic records with freshness fields."
+          "evidence": "app/sitemap.ts:41 Deliberately leaves the route lastModified empty; there are no topic records that could carry review metadata."
         },
         {
           "technique": "product-location-mapping",
           "verdict": "not-applicable",
-          "evidence": "app/not-found.tsx:47 The recovery link addresses an application entity surface, not a documentation topic describing a product location."
+          "evidence": "app/podminky/TermsContent.tsx:20 A single standalone legal page component, with no topic record mapping it to a product area."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "app/sitemap.ts:64 The sitemap combines application paths with municipality pages, while searches of app and the repository found no topicId, bodyMap or watchedSources identifiers establishing a documentation topic corpus.",
+          "evaluatedAt": "2026-10-17T04:08:32.413Z",
+          "worker": "24575dc3-75a7-4bc9-b071-34641339aea7",
+          "reason": "replaced by ee2f191f-535d-4274-864c-3156cd0a299a"
         }
       ]
     },
