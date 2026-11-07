@@ -13351,30 +13351,52 @@
       "context": "census-quality-gate",
       "subject": "trust-base",
       "bundle": "software-engineering",
-      "state": "not-applicable",
-      "evaluatedAt": "2026-10-26",
-      "evaluatedTs": "2026-10-26T22:56:53.934Z",
-      "worker": "6e93094a-6078-45ff-92f1-0b2fd2ae7322",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T23:26:32.344Z",
+      "worker": "1438ecee-6d2f-4d45-91c2-69301f941e91",
       "techniques": [
         {
-          "technique": "census-counts-unmarked-members",
-          "verdict": "not-applicable",
-          "evidence": "scripts/census/run-census.mjs:16 This 'census' counts rule-matched source files against golden-path baselines, not escape-marker members of a trust base; there is no language-revision pin or unchecked-type escape census here."
-        },
-        {
-          "technique": "trusted-leaf-gets-an-outside-test",
-          "verdict": "not-applicable",
-          "evidence": "scripts/census/self-test.mjs:21 There is an outside fixture self-test of the engine, but no function body is marked trusted to a prover, so the technique's precondition does not hold."
-        },
-        {
-          "technique": "verifier-footprint-stays-contained",
-          "verdict": "not-applicable",
-          "evidence": "scripts/census/lib/engine.mjs:27 Engine imports only node built-ins; no prover or specification library is added to any package."
+          "technique": "verdict-pins-its-checker",
+          "verdict": "deviation",
+          "evidence": "scripts/census/run-census.mjs:262 A stored verdict carries no checker pin. The engine.mjs:304 comparison (`const expected = base[metric];`) acts on that unpinned baseline. A separate per-file sha16 check (PROVENANCE.json, check-library-adherence.mjs:157) does exist, but it hashes files one at a time, fixtures included, rather than the import closure, and it is never attached to a verdict."
         },
         {
           "technique": "assumptions-are-build-errors",
           "verdict": "not-applicable",
-          "evidence": "scripts/census/self-test.mjs:29 The CRLF concern is a runtime matcher behaviour pinned by a fixture test, not a platform fact a proof or type-level argument depends on."
+          "evidence": "scripts/census/lib/engine.mjs:102 The only environment fact in play (CRLF vs LF) is measured at run time. No proof or type-level argument depends on it, so the technique's precondition does not hold."
+        },
+        {
+          "technique": "census-counts-unmarked-members",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/lib/engine.mjs:27 Plain untyped .mjs on node builtins. There are no escape markers, no re-marked unsafe functions, and no environment writes, so there is no trust-base census to run. (This is a different thing from the repo's 'census' ratchet, which only shares the name.)"
+        },
+        {
+          "technique": "leaf-spec-states-what-callers-read",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/lib/engine.mjs:14 No function body is trusted by a prover against a contract. self-test.mjs runs the real engine instead."
+        },
+        {
+          "technique": "trusted-leaf-gets-an-outside-test",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/self-test.mjs:21 There is an outside fixture self-test of the engine, but no function body is marked trusted to a prover, so the technique's precondition does not hold.",
+          "carriedFrom": "2026-10-26"
+        },
+        {
+          "technique": "verifier-footprint-stays-contained",
+          "verdict": "not-applicable",
+          "evidence": "scripts/census/lib/engine.mjs:27 Engine imports only node built-ins; no prover or specification library is added to any package.",
+          "carriedFrom": "2026-10-26"
+        }
+      ],
+      "registryProposal": "verdict-pins-its-checker reaches well beyond the golden path's prover and type-checker framing. Lint and ratchet gates that store baselines (like this census) fall under it, yet the golden path's use_when never mentions them. Either state that the checker-as-first-member clause covers any stored-verdict gate, or move this technique to quality-gates so seats stop calling these contexts not-applicable.",
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/census/lib/engine.mjs:14 The context is plain untyped Node .mjs (a file walk + regex/import matcher + baseline ratchet) with no prover, no trusted bodies, no unsafe/assume escapes, no marker impls and no type-checker overrides; a search of scripts/census for 'unsafe', '@ts-ignore', '@ts-expect-error', 'prover', 'trusted' found 0 hits, and the repo's tsconfig include list (**/*.ts, **/*.tsx, **/*.mts) does not cover .mjs, so no checker reaches these files and there is no trust-base perimeter to manage.",
+          "evaluatedAt": "2026-10-26T22:56:53.934Z",
+          "worker": "6e93094a-6078-45ff-92f1-0b2fd2ae7322",
+          "reason": "replaced by 1438ecee-6d2f-4d45-91c2-69301f941e91"
         }
       ]
     },

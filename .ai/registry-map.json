@@ -2495,13 +2495,12 @@
           "revision": 6,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "not-applicable",
-          "evidence": "scripts/census/lib/engine.mjs:14 The context is plain untyped Node .mjs (a file walk + regex/import matcher + baseline ratchet) with no prover, no trusted bodies, no unsafe/assume escapes, no marker impls and no type-checker overrides; a search of scripts/census for 'unsafe', '@ts-ignore', '@ts-expect-error', 'prover', 'trusted' found 0 hits, and the repo's tsconfig include list (**/*.ts, **/*.tsx, **/*.mts) does not cover .mjs, so no checker reaches these files and there is no trust-base perimeter to manage.",
-          "evaluatedAt": "2026-10-26",
-          "evaluatedAgainst": "sha256-b2:3ad9d5604e9627ce",
-          "evaluatedRevision": 5,
-          "revisionsBehind": 1,
-          "stale": true
+          "state": "deviation",
+          "evidence": "scripts/census/run-census.mjs:262 The census is a checker whose verdicts (ratchet baselines) are saved to rules.json and compared on every later --check run. The saved baseline holds only counts and no pin of the engine that produced them, so after a matcher change nobody can tell which baselines a defective engine wrote, and the gate cannot refuse a baseline that a different engine build made.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:0fd52192b37a88e4",
+          "evaluatedRevision": 6,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-runtime-assembly",
