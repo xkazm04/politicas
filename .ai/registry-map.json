@@ -15572,7 +15572,11 @@
           "revision": 7,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/zakony/kolize/feed.xml/route.ts:25 The public RSS/JSON Kolizní-radar feeds publish a per-bill 'příznak střetu u předkladatele' entry carrying a summed contract CZK. The bill.flagged_conflict prop behind it is computed over every linked_to edge with no review/corroboration gate, no tie-class partition, no role-window test and no statute-relevance table, so the four-gate intersection the standard requires is skipped at a publication exit (the 'vyžaduje lidské ověření' copy in deriveRadar mitigates the framing but does not replace the gates).",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:2ba35a7ec2bb7a1a",
+          "evaluatedRevision": 7
         }
       ],
       "governance": "governed"
