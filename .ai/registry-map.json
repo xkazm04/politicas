@@ -9366,12 +9366,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/data-analysis/kg-props-check.ts:18 The only thing this context calls a \"registry\" is an in-repo list of allowed jsonb prop keys for one PGlite store, and in kg-promote the word means public data sources (ISVZ/ARES rows); none of these files writes or reads a shared, cross-codebase knowledge registry (a grep of scripts/data-analysis for ai-registry, knowledge-registry, registry-map and manifest.yaml found 0 hits), so the subject's precondition does not hold.",
-          "evaluatedAt": "2026-10-25",
-          "evaluatedAgainst": "sha256-b2:3dc9f1dec5aa4282",
-          "evaluatedRevision": 12,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/data-analysis/kg-props-check.ts:18 The only 'registry' this context reads or writes is a single-store list of allowed jsonb prop keys (and in kg-promote.ts:144-196 the word means public data sources whose rows a verdict judges); a search of all 13 context files and the whole scripts/data-analysis directory for ai-registry, registry-map, knowledge-registry, manifest.yaml, evaluatedAgainst and golden-path found 0 hits, so no shared, cross-codebase knowledge registry (lanes, overlays, catalog digests, contributor aggregates, propose-then-adopt) is designed or consumed here and the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:6c7d2c16b9fe5b9b",
+          "evaluatedRevision": 13,
+          "revisionsBehind": 1
         },
         {
           "subject": "prompt-assembly",
