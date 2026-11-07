@@ -14305,12 +14305,11 @@
           "changedAt": "2026-10-22",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "lib/testing/crash-writer.mjs:23 The inspected context implements test infrastructure and database crash probes, while searches found no transcript, tool_call, or settlement in lib/testing and only unrelated repository matches, so the agent-operation precondition does not hold.",
-          "evaluatedAt": "2026-10-18",
-          "evaluatedAgainst": "sha256-b2:19065e70c3b1b5a2",
-          "evaluatedRevision": 4,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "lib/testing/crash-writer.mjs:7 The only crash/durability code in this context is a PGlite storage crash probe (commit a row, exit without close, check WAL replay). A search of lib/testing for transcript, tool_call, compaction and \"tool call\" found 0 hits; the only 'settle' hits are 'settled fact' in loaders.test.ts and mean forensic-verdict gating. With no agent operation, provider stream, parallel tool batch or transcript, the subject's precondition (an agent run that must outlive its process) does not hold.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:2939cd03f8f3a4d1",
+          "evaluatedRevision": 6,
+          "revisionsBehind": 2
         }
       ],
       "governance": "governed"

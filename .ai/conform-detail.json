@@ -9799,34 +9799,46 @@
       "subject": "durable-agent-operations",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T23:13:33.035Z",
-      "worker": "5ba103ce-4799-42b8-9e97-20911320ab7e",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T01:08:55.982Z",
+      "worker": "fb3c9bdf-4276-4664-998c-e026d3fde8ef",
       "techniques": [
         {
           "technique": "close-is-a-controlled-crash",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/pglite-template.ts:160 Closes a database template connection after schema initialization; this module owns no durable agent operation."
-        },
-        {
-          "technique": "intent-mints-the-identity",
-          "verdict": "not-applicable",
-          "evidence": "lib/testing/crash-writer.mjs:24 The crash probe performs an idempotent keyed insert, without a provider/tool outcome or transcript identity reservation."
-        },
-        {
-          "technique": "recovery-prefix-enumeration",
-          "verdict": "not-applicable",
-          "evidence": "lib/testing/crash-writer.mjs:8 Exercises database WAL recovery; there is no durable agent-state vocabulary whose recovery prefixes require enumeration."
+          "evidence": "lib/testing/crash-writer.mjs:26 Simulates a DB process crash to test store recovery. It is not the shutdown path of an agent runtime that owns durable agent work."
         },
         {
           "technique": "total-restart-point-by-reference",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/pglite-fixture.ts:62 Copies a provisioned database into an isolated fixture; it does not persist an agent operation's restart point."
+          "evidence": "lib/testing/crash-writer.mjs:23 The only persisted state is a probe row. No agent-operation state names a next procedure."
+        },
+        {
+          "technique": "intent-mints-the-identity",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/crash-writer.mjs:24 The crash probe performs an idempotent keyed insert, without a provider/tool outcome or transcript identity reservation.",
+          "carriedFrom": "2026-10-18"
+        },
+        {
+          "technique": "recovery-prefix-enumeration",
+          "verdict": "not-applicable",
+          "evidence": "lib/testing/crash-writer.mjs:8 Exercises database WAL recovery; there is no durable agent-state vocabulary whose recovery prefixes require enumeration.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "two-cancellations-and-a-synchronous-door",
           "verdict": "not-applicable",
-          "evidence": "lib/testing/adminRouteHeaders.test.ts:34 The cancellation-related check concerns font-fetch timeouts, without observer cancellation, durable agent cancellation, or effect admission."
+          "evidence": "lib/testing/adminRouteHeaders.test.ts:34 The cancellation-related check concerns font-fetch timeouts, without observer cancellation, durable agent cancellation, or effect admission.",
+          "carriedFrom": "2026-10-18"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/testing/crash-writer.mjs:23 The inspected context implements test infrastructure and database crash probes, while searches found no transcript, tool_call, or settlement in lib/testing and only unrelated repository matches, so the agent-operation precondition does not hold.",
+          "evaluatedAt": "2026-10-18T23:13:33.035Z",
+          "worker": "5ba103ce-4799-42b8-9e97-20911320ab7e",
+          "reason": "replaced by fb3c9bdf-4276-4664-998c-e026d3fde8ef"
         }
       ]
     },
