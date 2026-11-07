@@ -1222,7 +1222,11 @@
           "revision": 4,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "app/admin/accessGate.ts:1 The operator token stays server-side: it is read in a module marked server-only, submitted through a server-action form, and kept in an httpOnly cookie scoped to /admin. Every admin surface fails closed when ADMIN_TOKEN is unset, and the public JSON routes report outages through a fixed body that names no upstream.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:8c4e4cc37445b46c",
+          "evaluatedRevision": 4
         },
         {
           "subject": "voice-io",
@@ -1711,7 +1715,11 @@
           "revision": 4,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/opengraph-image.tsx:29 The root OG card fetches a URL from the server side after pulling it out of the Google Fonts CSS response with a regex, and nothing checks it first: no scheme allowlist, no resolved-address check, no manual redirect handling and no single outbound door. That is exactly the case the technique covers: a destination that arrives inside a dependency's response.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:8c4e4cc37445b46c",
+          "evaluatedRevision": 4
         },
         {
           "subject": "docs-content-model",

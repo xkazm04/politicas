@@ -17401,6 +17401,69 @@
       "evaluatedTs": "2026-11-06T23:29:04.225Z",
       "worker": "f556a3f8-5098-49dd-a274-f5c5c8fd3c4a",
       "techniques": []
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/browser-credential-boundary": {
+      "context": "app-shell",
+      "subject": "browser-credential-boundary",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T00:00:52.528Z",
+      "worker": "2033875f-e5ed-4304-995e-d14c82def439",
+      "techniques": [
+        {
+          "technique": "outbound-fetch-destination-validation",
+          "verdict": "deviation",
+          "evidence": "app/opengraph-image.tsx:29 The URL comes from the upstream response body via the regex `src: url\\((.+?)\\)`. It is fetched raw: any scheme or host, redirects followed automatically, and no timeout either."
+        },
+        {
+          "technique": "public-vs-server-env-split",
+          "verdict": "conformant",
+          "evidence": "app/layout.tsx:45 The only prefixed values the shell reads are a public origin (here) and the Plausible domain (line 108). Both are addresses, not secrets, and .env.example marks them 'Public by design'."
+        },
+        {
+          "technique": "opaque-upstream-errors",
+          "verdict": "conformant",
+          "evidence": "app/error.tsx:70 The route error boundary shows the reader only the opaque digest, never error.message. The full error goes to Sentry.captureException on the server side. There is no broker route here, so this is the shell's form of the rule."
+        }
+      ]
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/browser-credential-boundary": {
+      "context": "admin-infrastructure",
+      "subject": "browser-credential-boundary",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T00:00:52.528Z",
+      "worker": "2033875f-e5ed-4304-995e-d14c82def439",
+      "techniques": [
+        {
+          "technique": "public-vs-server-env-split",
+          "verdict": "conformant",
+          "evidence": "app/admin/accessGate.ts:1 The module that reads the unprefixed ADMIN_TOKEN (line 53) carries the compiler-enforced server-only marker. This is the 'mark the module, not the entry point' rule."
+        },
+        {
+          "technique": "allowlisted-operator-stream",
+          "verdict": "conformant",
+          "evidence": "app/admin/loops.json/route.ts:24 Applies only partly. The operator surface is never open just because no token was configured: unset means refused with a stated reason, so it fails closed rather than open. The content-allowlist half does not apply, because the console renders no requests that carried a credential."
+        },
+        {
+          "technique": "opaque-upstream-errors",
+          "verdict": "conformant",
+          "evidence": "app/atlas/atlas.json/route.ts:17 A store failure maps to a fixed 'store unavailable' 503 with no-store and Retry-After. No upstream detail is passed through. manifest.json and snapshot.json use the same pattern."
+        },
+        {
+          "technique": "server-sealed-client-roundtrip",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/loopActions.ts:46 The action does not trust the target the client sends back. It re-derives the current loop state on the server, which is the technique's own 'when not to use it: re-derive' case, so no seal is needed."
+        },
+        {
+          "technique": "broker-proxy-attaches-secret",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/page.tsx:23 The admin surfaces read the app's own embedded store through server loaders. No privileged upstream credential is ever attached on the browser's behalf."
+        }
+      ],
+      "registryProposal": "allowlisted-operator-stream joins two rules: a payload allowlist for streams that carry credentials, and a fail-closed operator gate. The second rule applies to any token-gated operator console, even one that relays no credentials. That suggests the gate half could be its own technique, or should be cross-referenced from authorization."
     }
   }
 }
