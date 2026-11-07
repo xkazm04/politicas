@@ -4450,12 +4450,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "features/civicscore/duel.ts:24 This context compares parliamentary index values rather than evaluating answers against evidence, and searches of its directory and the repository found none of the four listed answer-scoring terms.",
-          "evaluatedAt": "2026-10-18",
-          "evaluatedAgainst": "sha256-b2:9de247df0b7199eb",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "features/civicscore/scoreClaim.ts:21 The context's only 'claim' is a citation record for a deterministically recomputed numeric index from psp.cz dumps, not a generated answer scored against passages or a reference; a search of features/civicscore for faithfulness, groundedness, entail, decompos, verifier, llm and judge found zero hits, so the subject's precondition (an answer written from supplied evidence) does not hold here.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:091141c8a6b3a7cb",
+          "evaluatedRevision": 3,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-memory",

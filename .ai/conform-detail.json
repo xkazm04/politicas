@@ -9918,34 +9918,45 @@
       "subject": "grounded-answer-scoring",
       "bundle": "llm-observability",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T23:44:59.052Z",
-      "worker": "7ca1797a-2eb2-4990-9054-8b77eab9a918",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T01:34:29.814Z",
+      "worker": "d1c8171f-f2ba-427d-a1f2-6601b463afe3",
       "techniques": [
-        {
-          "technique": "bidirectional-claim-matching",
-          "verdict": "not-applicable",
-          "evidence": "features/civicscore/duel.ts:26 The comparison selects the leading MP from numeric scores; there is no candidate answer and written reference answer."
-        },
         {
           "technique": "decompose-then-verify",
           "verdict": "not-applicable",
-          "evidence": "features/civicscore/components/HeadToHead.tsx:205 Claims here cite an existing numeric index and its provenance; they are not assertions extracted from an answer for passage entailment scoring."
+          "evidence": "features/civicscore/scoreClaim.ts:21 No answer generated from passages exists; the 'claim' is a numeric citation ref, not an atomic factual claim to verify against evidence."
+        },
+        {
+          "technique": "bidirectional-claim-matching",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:12 The duel compares two published composites; there is no reference answer and no precision/recall over claim sets."
         },
         {
           "technique": "per-source-attribution",
           "verdict": "not-applicable",
-          "evidence": "features/civicscore/provenance.ts:133 The provenance check compares stored formula references with the declared formula, without retrieved passages or a reference answer for fault attribution."
+          "evidence": "features/civicscore/scoreClaim.ts:76 No retrieval stage and no reading stage exist, so there is no retrieval-vs-reading fault to attribute."
         },
         {
           "technique": "question-blind-relevance",
           "verdict": "not-applicable",
-          "evidence": "features/civicscore/components/DuelStatus.tsx:37 The status sentence interpolates selected MPs into a translation template; no question-answer relevance judgment occurs."
+          "evidence": "features/civicscore/components/DuelStatus.tsx:37 The status sentence interpolates selected MPs into a translation template; no question-answer relevance judgment occurs.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "the-decomposer-is-inside-the-instrument",
           "verdict": "not-applicable",
-          "evidence": "features/civicscore/duelFacts.ts:83 Fact rows come from a fixed field catalog rather than a model decomposing written answers, so decomposer calibration has no precondition here."
+          "evidence": "features/civicscore/duelFacts.ts:83 Fact rows come from a fixed field catalog rather than a model decomposing written answers, so decomposer calibration has no precondition here.",
+          "carriedFrom": "2026-10-18"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:24 This context compares parliamentary index values rather than evaluating answers against evidence, and searches of its directory and the repository found none of the four listed answer-scoring terms.",
+          "evaluatedAt": "2026-10-18T23:44:59.052Z",
+          "worker": "7ca1797a-2eb2-4990-9054-8b77eab9a918",
+          "reason": "replaced by d1c8171f-f2ba-427d-a1f2-6601b463afe3"
         }
       ]
     },
