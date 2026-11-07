@@ -2124,8 +2124,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "features/budget/mirrorData.ts:11 BudgetMirror parses deterministic generated MONITOR data and computes peer groups and supplier trails; searching features/budget for llm/judge/temperature/trials/scenario found no hits, so there is nothing to evaluate.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:85554b740461b19e",
+          "evaluatedRevision": 39
         },
         {
           "subject": "test-harness",
@@ -7999,8 +8003,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "deviation",
+          "priorNotApplicable": 7,
+          "evidence": "scripts/hybrid-bench/derived.ts:135 An LLM benchmark (haiku/sonnet/opus arms scored against gold or deterministic truth) divides by every planned cell, but cells that hit an engine error were skipped before scoring, so a crash lowers exact-% and also lowers MAE (makes it look better), with no separate failed-cell count; it also runs one trial by default, has no declared decision metric and uses an unpinned model alias as gold.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:85554b740461b19e",
+          "evaluatedRevision": 39
         },
         {
           "subject": "mcp-tools",
@@ -15133,8 +15141,8 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "priorNotApplicable": 7,
+          "state": "unknown"
         },
         {
           "subject": "hitl-approval",
