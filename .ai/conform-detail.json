@@ -10132,31 +10132,47 @@
       "subject": "llm-extracted-entity-graph",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-19",
-      "evaluatedTs": "2026-10-19T00:35:08.849Z",
-      "worker": "a5f50832-db41-420c-b61a-8d3e1a75c65b",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T02:33:06.184Z",
       "techniques": [
         {
-          "technique": "accumulate-then-threshold-merge",
+          "technique": "surface-form-identity-and-its-risk",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/smlouvy-dump.ts:152 Descriptions are parsed source fields; these adapters do not merge model-extracted passage fragments into node descriptions."
+          "evidence": "lib/ingest/sources/smlouvy.ts:402 The node key is the registry IČO, never a model-produced name, so an identity authority exists. The golden path hands that case to the registry-joined subject."
         },
         {
           "technique": "recall-passes-with-a-declared-cap",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/kiosek.ts:477 PDF identifier extraction iterates regex matches; there is no model extraction whose recall requires further passes."
+          "evidence": "lib/ingest/sources/kiosek.ts:316 Classification is regex/pattern based with no model extraction pass, so there are no recall passes to cap."
+        },
+        {
+          "technique": "accumulate-then-threshold-merge",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/sources/smlouvy-dump.ts:152 Descriptions are parsed source fields; these adapters do not merge model-extracted passage fragments into node descriptions.",
+          "carriedFrom": "2026-10-19"
         },
         {
           "technique": "recoverable-fan-out-write",
           "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/dataor.ts:697 Persistence here caches source files; these adapters do not fan extracted graph facts out to graph and vector stores."
-        },
-        {
-          "technique": "surface-form-identity-and-its-risk",
-          "verdict": "not-applicable",
-          "evidence": "lib/ingest/sources/kiosek.ts:497 The company reference uses the extracted, checksum-validated registry identifier; adjacent name text does not determine identity."
+          "evidence": "lib/ingest/sources/dataor.ts:697 Persistence here caches source files; these adapters do not fan extracted graph facts out to graph and vector stores.",
+          "carriedFrom": "2026-10-19"
         }
-      ]
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "lib/ingest/sources/kiosek.ts:497 Context searches found no prompt, embedding or extractEntities occurrences, and the adapters parse registry records and identifier-bearing text deterministically, so the standard's model-extracted graph without an identity authority is outside this context.",
+          "evaluatedAt": "2026-10-19T00:35:08.849Z",
+          "worker": "a5f50832-db41-420c-b61a-8d3e1a75c65b",
+          "reason": "replaced by 767c506c-9c92-4cee-8d22-4fb53b1f177b"
+        }
+      ],
+      "withdrawn": {
+        "worker": "767c506c-9c92-4cee-8d22-4fb53b1f177b",
+        "state": "not-applicable",
+        "at": "2026-11-07T02:34:10.240128+00:00",
+        "reason": "reviewer (sonnet): The main anchor and one technique anchor (smlouvy.ts:331, :402) are in smlouvy.ts, which is not among the context's files (dataor, isvz, kiosek, kiosek-pdf, monitor). That makes them incidental. The only in-context anchor, kiosek.ts:316, shows a deterministic classifier. It says nothing about entity"
+      }
     },
     "c5390bb2-2d6c-4ffc-be45-09403fb43208/multi-provider-event-normalization": {
       "context": "ingest-pipeline",
