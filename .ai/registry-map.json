@@ -14087,12 +14087,11 @@
           "changedAt": "2026-10-25",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "scripts/case-loops/tender/compose-pictures.ts:8 Searches found no baseline, regression, benchmark, or unverified terms in this context; repository matches concern other contexts or descriptive procurement baselines, while these files perform deterministic procurement analysis without an evaluation regression gate.",
-          "evaluatedAt": "2026-10-19",
-          "evaluatedAgainst": "sha256-b2:2fa1e4fd027c9e92",
-          "evaluatedRevision": 8,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "scripts/case-loops/tender/compose-pictures.ts:5 The tender scripts do deterministic procurement aggregation with no LLM and no eval run. A grep of all 12 files for baseline, regress, benchmark, unverified, bonferroni, alpha, judge-model, score and significance terms found nothing. The only nearby words are procurement's own 'evaluated_bid_count' and a comment saying 'the reader judges', so the subject's precondition (gating one eval run against another) does not hold.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:9548319fbd9c4eae",
+          "evaluatedRevision": 9,
+          "revisionsBehind": 1
         }
       ],
       "governance": "governed"

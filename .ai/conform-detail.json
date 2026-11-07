@@ -10369,44 +10369,55 @@
       "subject": "quality-regression-gating",
       "bundle": "llm-observability",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-19",
-      "evaluatedTs": "2026-10-19T21:31:07.667Z",
-      "worker": "4ceef782-35d7-4855-b24f-fdeeea727c35",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T22:49:58.629Z",
+      "worker": "c5d59f54-bfd0-4b3c-9f07-328018309afd",
       "techniques": [
         {
-          "technique": "baseline-carries-its-conditions",
+          "technique": "paired-per-case-testing",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/tender/compute-flags.ts:99 The threshold comes from the current procurement corpus, not a stored evaluation baseline."
+          "evidence": "scripts/case-loops/tender/compose-pictures.ts:5 There are no two eval runs to pair per case."
         },
         {
           "technique": "family-wise-correction",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/tender/compute-flags.ts:180 Flags restate deterministic procurement conditions; they are not simultaneous statistical regression tests."
+          "evidence": "scripts/case-loops/tender/arena.ts:20 No family of regression tests against a baseline exists."
         },
         {
           "technique": "fixed-alpha-discipline",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/tender/compute-flags.ts:70 This is a procurement concentration threshold, not a significance level governing an automated statistical verdict."
-        },
-        {
-          "technique": "paired-per-case-testing",
-          "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/tender/measure.ts:107 The tool reports procurement distributions rather than comparing evaluation runs on matched cases."
-        },
-        {
-          "technique": "partial-run-never-green",
-          "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/tender/increment.ts:18 The orchestrator acquires procurement data and leaves signal persistence to manual review; it produces no evaluation pass verdict."
+          "evidence": "scripts/case-loops/tender/deep-read.ts:7 No confidence level or gate threshold to fix."
         },
         {
           "technique": "tested-superiority-claims",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/tender/compose-pictures.ts:103 The selected supplier has the most recorded contract wins; this is descriptive counting, not a claim that one evaluated model outperforms another."
+          "evidence": "scripts/case-loops/tender/compose-pictures.ts:5 The top-N authority lists rank procurement evidence, not models; no model-superiority claim is printed."
         },
         {
           "technique": "unverified-vs-regressed-exit-states",
           "verdict": "not-applicable",
-          "evidence": "scripts/case-loops/tender/persist-month.ts:203 These exits distinguish ingest completion from execution failure, not statistical pass, regression, or unverified evaluation outcomes."
+          "evidence": "scripts/case-loops/tender/arena.ts:152 Exit codes only mean success or crash. Nothing is gated, so there is no regressed or unverified state to name."
+        },
+        {
+          "technique": "baseline-carries-its-conditions",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/compute-flags.ts:99 The threshold comes from the current procurement corpus, not a stored evaluation baseline.",
+          "carriedFrom": "2026-10-19"
+        },
+        {
+          "technique": "partial-run-never-green",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/tender/increment.ts:18 The orchestrator acquires procurement data and leaves signal persistence to manual review; it produces no evaluation pass verdict.",
+          "carriedFrom": "2026-10-19"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "scripts/case-loops/tender/compose-pictures.ts:8 Searches found no baseline, regression, benchmark, or unverified terms in this context; repository matches concern other contexts or descriptive procurement baselines, while these files perform deterministic procurement analysis without an evaluation regression gate.",
+          "evaluatedAt": "2026-10-19T21:31:07.667Z",
+          "worker": "4ceef782-35d7-4855-b24f-fdeeea727c35",
+          "reason": "replaced by c5d59f54-bfd0-4b3c-9f07-328018309afd"
         }
       ]
     },
