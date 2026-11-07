@@ -1152,12 +1152,11 @@
           "changedAt": "2026-10-22",
           "confidence": "probable",
           "state": "not-applicable",
-          "evidence": "app/data/snapshot.json/route.ts:23 Searches for zero-copy, brokered, SharedArrayBuffer and routeProbe found no hits in the context or repository; these files serve HTTP responses and journal operator actions without selecting between brokered and direct message transports.",
-          "evaluatedAt": "2026-10-18",
-          "evaluatedAgainst": "sha256-b2:0b29d5d6d98509f2",
-          "evaluatedRevision": 1,
-          "revisionsBehind": 1,
-          "stale": true
+          "evidence": "app/data/snapshot.json/route.ts:23 The context's routes return a single HTTP Response built from a store read, with no second transport beside it. I searched the 11 context files for zero-copy, SharedArrayBuffer, brokered, MessageChannel, worker_threads, postMessage and transferable and found nothing. The same search over app/features/lib/scripts/packages, excluding node_modules, also found nothing. So there is no supervised process graph and no choice between brokered and direct transport here.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:258f60841392a710",
+          "evaluatedRevision": 2,
+          "revisionsBehind": 1
         },
         {
           "subject": "agent-runtime-assembly",

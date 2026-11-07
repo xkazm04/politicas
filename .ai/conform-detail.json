@@ -9654,39 +9654,51 @@
       "subject": "data-plane-transport-selection",
       "bundle": "software-engineering",
       "state": "not-applicable",
-      "evaluatedAt": "2026-10-18",
-      "evaluatedTs": "2026-10-18T22:04:57.954Z",
-      "worker": "bca1c825-eeb5-4bfd-886a-373e9500c0c6",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T00:50:34.541Z",
+      "worker": "4561d527-8d85-49d8-9e66-4d6d1233c8ff",
       "techniques": [
         {
           "technique": "control-plane-off-the-data-path",
           "verdict": "not-applicable",
-          "evidence": "app/admin/page.tsx:23 The admin page reads operational state for rendering; no supervisor routing messages or awaiting guaranteed publishes was found."
+          "evidence": "app/admin/loops.json/route.ts:35 This is a request/response read of loop state. No supervisor event loop sits on a message hot path."
         },
         {
           "technique": "moved-payload-has-no-fallback",
           "verdict": "not-applicable",
-          "evidence": "app/data/snapshot.json/route.ts:23 The download returns serialized JSON through an HTTP Response, with no consuming shared-buffer send or alternate transport fallback."
+          "evidence": "app/data/snapshot.json/route.ts:23 The payload is a JSON string handed to a Response. No ownership-taking zero-copy send exists."
         },
         {
           "technique": "path-divergence-audit",
           "verdict": "not-applicable",
-          "evidence": "app/admin/loops.json/route.ts:36 Loop state uses an encoded HTTP response; no second transport for the same message edge was found."
+          "evidence": "app/admin/loops.json/route.ts:36 There is only one delivery path, so there is no second transport to audit."
         },
         {
           "technique": "policy-demotes-transport",
           "verdict": "not-applicable",
-          "evidence": "app/admin/loopActions.ts:53 Requeue records an operator action in the journal rather than deriving a transport from declared message-edge guarantees."
+          "evidence": "app/admin/loopActions.ts:53 Requeue records an operator action in the journal rather than deriving a transport from declared message-edge guarantees.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "route-probe-then-freeze",
           "verdict": "not-applicable",
-          "evidence": "app/atlas/atlas.json/route.ts:13 The endpoint loads a report per request; no direct peer session, acknowledgement probe or run-long route decision was found."
+          "evidence": "app/atlas/atlas.json/route.ts:13 The endpoint loads a report per request; no direct peer session, acknowledgement probe or run-long route decision was found.",
+          "carriedFrom": "2026-10-18"
         },
         {
           "technique": "size-threshold-by-page-cost",
           "verdict": "not-applicable",
-          "evidence": "app/data/manifest.json/route.ts:22 The manifest is serialized into an HTTP response without page-granular shared allocation or payload-size transport selection."
+          "evidence": "app/data/manifest.json/route.ts:22 The manifest is serialized into an HTTP response without page-granular shared allocation or payload-size transport selection.",
+          "carriedFrom": "2026-10-18"
+        }
+      ],
+      "superseded": [
+        {
+          "state": "not-applicable",
+          "evidence": "app/data/snapshot.json/route.ts:23 Searches for zero-copy, brokered, SharedArrayBuffer and routeProbe found no hits in the context or repository; these files serve HTTP responses and journal operator actions without selecting between brokered and direct message transports.",
+          "evaluatedAt": "2026-10-18T22:04:57.954Z",
+          "worker": "bca1c825-eeb5-4bfd-886a-373e9500c0c6",
+          "reason": "replaced by 4561d527-8d85-49d8-9e66-4d6d1233c8ff"
         }
       ]
     },
