@@ -1,0 +1,65 @@
+{
+ "schema": "conform-run/1",
+ "worker": "cedcdca1-a147-4b06-b2f3-161addfd1183",
+ "subject": "lazy-section-addressability",
+ "evaluatedAt": "2026-11-07T02:07:53.302063+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "shell-navigation",
+   "subject": "lazy-section-addressability",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/shell/AppShell.tsx:54 The shell checks the live page for the declared PAGE_SECTIONS anchors, but when one is missing it drops that entry from the nav without a word: there is no development warning naming the address and no test failure, so a renamed or conditionally rendered section turns into a link that is simply not there instead of a reported coverage defect.",
+   "techniques": [
+    {
+     "technique": "always-present-anchor-wrappers",
+     "verdict": "deviation",
+     "evidence": "features/shell/AppShell.tsx:53 The shell is written to expect declared anchors that depend on data availability and quietly fails to render them. That makes it tolerate conditional addresses, which the technique refuses (any condition on whether the wrapper renders). The shell's own skip target `#obsah` (line 77) is unconditional and focusable, but the section addresses get no such guarantee."
+    },
+    {
+     "technique": "anchor-coverage-guard",
+     "verdict": "deviation",
+     "evidence": "features/shell/useActiveSection.ts:57 It reads the live page, but only in one direction (declared \u2192 host) and it never warns: there is no console.warn or dev path naming the missing address, and none for hosts nobody declared. The absent entry is removed from the nav, which is the 'repair by deleting the declaration' the technique refuses. navModel.test.ts checks routes and label keys, not hosts."
+    },
+    {
+     "technique": "external-anchor-vs-internal-id",
+     "verdict": "deviation",
+     "evidence": "features/shell/navModel.ts:28 There is one declared vocabulary (PAGE_SECTIONS), which is good, but each entry has one id. That id is both the published URL fragment (Sidebar.tsx:89 / MobileNav.tsx:77 render href `#${s.id}`) and the scroll-spy key. There is no separate internal handle and no alias for renamed anchors."
+    },
+    {
+     "technique": "scroll-to-hydrate-then-retry",
+     "verdict": "deviation",
+     "evidence": "features/shell/useActiveSection.ts:51 The tracker scans the page once, one frame after mount, and then only observes what it found. Nothing watches for sections that arrive later (no MutationObserver or registration), there is no capped watch, and there is no give-up report. The file's own comment admits sections may not be in the DOM yet on route change. The jump side uses plain fragment hrefs; on today's server-rendered pages that is acceptable."
+    },
+    {
+     "technique": "ssr-gating-decision-tree",
+     "verdict": "conformant",
+     "evidence": "features/shell/AppShell.tsx:13 The client-only boundary comes with a written reason: children pass through as props, so pages stay server-rendered. The shell has no `ssr:false`, and the nav server-renders every declared section while present===null."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-07T02:07:53.302063+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "lazy-section-addressability"
+   ],
+   "techniques": [
+    "always-present-anchor-wrappers",
+    "anchor-coverage-guard",
+    "external-anchor-vs-internal-id",
+    "scroll-to-hydrate-then-retry",
+    "ssr-gating-decision-tree"
+   ],
+   "deviations": 1,
+   "context": "shell-navigation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

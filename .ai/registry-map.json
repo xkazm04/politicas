@@ -13819,12 +13819,11 @@
           "changedAt": "2026-10-31",
           "confidence": "probable",
           "state": "deviation",
-          "evidence": "features/shell/AppShell.tsx:54 The application shell filters out unmounted section anchors from navigation instead of providing unconditional anchor wrappers that preserve page addressability and geometry regardless of content loading state.",
-          "evaluatedAt": "2026-10-19",
-          "evaluatedAgainst": "sha256-b2:7932d7ba8929c786",
-          "evaluatedRevision": 2,
-          "revisionsBehind": 2,
-          "stale": true
+          "evidence": "features/shell/AppShell.tsx:54 The shell checks the live page for the declared PAGE_SECTIONS anchors, but when one is missing it drops that entry from the nav without a word: there is no development warning naming the address and no test failure, so a renamed or conditionally rendered section turns into a link that is simply not there instead of a reported coverage defect.",
+          "evaluatedAt": "2026-11-07",
+          "evaluatedAgainst": "sha256-b2:d8bb8cfa97d2f2fd",
+          "evaluatedRevision": 4,
+          "revisionsBehind": 2
         },
         {
           "subject": "test-harness",

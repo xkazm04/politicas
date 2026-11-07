@@ -10087,29 +10087,43 @@
       "subject": "lazy-section-addressability",
       "bundle": "software-engineering",
       "state": "deviation",
-      "evaluatedAt": "2026-10-19",
-      "evaluatedTs": "2026-10-19T00:28:31.856Z",
-      "worker": "8cab7f0f-aa21-48b1-b7b6-8afecd1ac709",
+      "evaluatedAt": "2026-11-07",
+      "evaluatedTs": "2026-11-07T02:07:53.302Z",
+      "worker": "cedcdca1-a147-4b06-b2f3-161addfd1183",
       "techniques": [
         {
           "technique": "always-present-anchor-wrappers",
           "verdict": "deviation",
-          "evidence": "features/shell/useActiveSection.ts:57 Anchor presence is determined dynamically from the rendered DOM after mount, and unrendered anchors are filtered out rather than hosted by page-level unconditional wrappers."
+          "evidence": "features/shell/AppShell.tsx:53 The shell is written to expect declared anchors that depend on data availability and quietly fails to render them. That makes it tolerate conditional addresses, which the technique refuses (any condition on whether the wrapper renders). The shell's own skip target `#obsah` (line 77) is unconditional and focusable, but the section addresses get no such guarantee."
         },
         {
           "technique": "anchor-coverage-guard",
           "verdict": "deviation",
-          "evidence": "features/shell/navModel.test.ts:144 Tests check translation key presence in message catalogs but lack bidirectional coverage checks verifying that declared section anchors match rendered page elements."
+          "evidence": "features/shell/useActiveSection.ts:57 It reads the live page, but only in one direction (declared → host) and it never warns: there is no console.warn or dev path naming the missing address, and none for hosts nobody declared. The absent entry is removed from the nav, which is the 'repair by deleting the declaration' the technique refuses. navModel.test.ts checks routes and label keys, not hosts."
         },
         {
           "technique": "external-anchor-vs-internal-id",
           "verdict": "deviation",
-          "evidence": "features/shell/Sidebar.tsx:89 The public hash URL link and the internal scroll tracker active state share the same identifier string without separate namespaces or aliases."
+          "evidence": "features/shell/navModel.ts:28 There is one declared vocabulary (PAGE_SECTIONS), which is good, but each entry has one id. That id is both the published URL fragment (Sidebar.tsx:89 / MobileNav.tsx:77 render href `#${s.id}`) and the scroll-spy key. There is no separate internal handle and no alias for renamed anchors."
         },
         {
           "technique": "scroll-to-hydrate-then-retry",
           "verdict": "deviation",
-          "evidence": "features/shell/useActiveSection.ts:74 The scroll spy attaches an IntersectionObserver only to elements present during the initial animation frame and lacks late registration or retry logic for deferred sections."
+          "evidence": "features/shell/useActiveSection.ts:51 The tracker scans the page once, one frame after mount, and then only observes what it found. Nothing watches for sections that arrive later (no MutationObserver or registration), there is no capped watch, and there is no give-up report. The file's own comment admits sections may not be in the DOM yet on route change. The jump side uses plain fragment hrefs; on today's server-rendered pages that is acceptable."
+        },
+        {
+          "technique": "ssr-gating-decision-tree",
+          "verdict": "conformant",
+          "evidence": "features/shell/AppShell.tsx:13 The client-only boundary comes with a written reason: children pass through as props, so pages stay server-rendered. The shell has no `ssr:false`, and the nav server-renders every declared section while present===null."
+        }
+      ],
+      "superseded": [
+        {
+          "state": "deviation",
+          "evidence": "features/shell/AppShell.tsx:54 The application shell filters out unmounted section anchors from navigation instead of providing unconditional anchor wrappers that preserve page addressability and geometry regardless of content loading state.",
+          "evaluatedAt": "2026-10-19T00:28:31.856Z",
+          "worker": "8cab7f0f-aa21-48b1-b7b6-8afecd1ac709",
+          "reason": "replaced by cedcdca1-a147-4b06-b2f3-161addfd1183"
         }
       ]
     },
