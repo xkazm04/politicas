@@ -18019,6 +18019,48 @@
           "evidence": "features/landing/components/HeroStory.tsx:24 The hemicycle scores come from the store, not from a generator."
         }
       ]
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/proof-carrying-agent-actions": {
+      "context": "graph-data-logic",
+      "subject": "proof-carrying-agent-actions",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T02:22:38.224Z",
+      "worker": "1a5bce60-23c7-408f-90b1-c5b2b46c5bcc",
+      "techniques": [
+        {
+          "technique": "claims-never-decide",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:11 Validates untrusted reader input to a public endpoint. No agent proof block exists, so nothing here can be read by a checker."
+        },
+        {
+          "technique": "inconclusive-routes-to-wait",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/permalink.ts:831 'Gate' here means the review state of a cited view for /overeni. It is not a merge gate that decides on agent evidence."
+        }
+      ]
+    },
+    "3e0155e0-4169-49a7-b22d-7a7fe3483ee4/proof-carrying-agent-actions": {
+      "context": "civic-evidence",
+      "subject": "proof-carrying-agent-actions",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T02:22:38.224Z",
+      "worker": "1a5bce60-23c7-408f-90b1-c5b2b46c5bcc",
+      "techniques": [
+        {
+          "technique": "claims-never-decide",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/deriveFeed.ts:200 Adjacent idea: a model's forensic verdict is published only after a human flips it to 'verified'. That is a human publication gate, which belongs to llm-forensic-gating, not a mechanical proof checker for agent changes."
+        },
+        {
+          "technique": "negative-fixtures-prove-the-verifier",
+          "verdict": "not-applicable",
+          "evidence": "features/dukazy/chainRow.test.ts:100 verifyAuditChain checks the integrity of the review-audit hash chain, not agent work. This test is a positive-path fixture for the mapper only."
+        }
+      ]
     }
   }
 }

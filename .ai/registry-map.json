@@ -2900,7 +2900,11 @@
           "revision": 2,
           "changedAt": "2026-11-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dukazy/deriveFeed.ts:3 /dukazy is a read-only public journal of decisions a HUMAN reviewer made on KG ties and forensic verdicts, not a checker that decides whether an agent's change may merge; I searched features/dukazy and the repo for baseSha/headSha/proofClass/exploit/fail-to-pass/inconclusive and found zero hits, so the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:472e39b0fe4e3a6b",
+          "evaluatedRevision": 2
         },
         {
           "subject": "feed",
@@ -7811,7 +7815,11 @@
           "revision": 2,
           "changedAt": "2026-11-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:4 The 'actions' here are Next server actions that serve reader canvas navigation, not agent-authored changes put before a merge gate; I searched features/graph and the repo for baseSha/headSha/proofClass/exploit/fail-to-pass/inconclusive/merge gate and found zero hits, so the subject's precondition (an agent change that a gate accepts on evidence) does not hold.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:472e39b0fe4e3a6b",
+          "evaluatedRevision": 2
         },
         {
           "subject": "translation-pipeline-topology",
