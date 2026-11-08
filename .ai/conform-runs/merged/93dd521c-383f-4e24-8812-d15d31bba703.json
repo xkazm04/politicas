@@ -1,0 +1,66 @@
+{
+ "schema": "conform-run/1",
+ "worker": "93dd521c-383f-4e24-8812-d15d31bba703",
+ "subject": "conflict-of-interest-detection",
+ "evaluatedAt": "2026-11-07T00:38:24.005212+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "voting-legislation-routes",
+   "subject": "conflict-of-interest-detection",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "app/zakony/kolize/feed.xml/route.ts:25 The public RSS/JSON Kolizn\u00ed-radar feeds publish a per-bill 'p\u0159\u00edznak st\u0159etu u p\u0159edkladatele' entry carrying a summed contract CZK. The bill.flagged_conflict prop behind it is computed over every linked_to edge with no review/corroboration gate, no tie-class partition, no role-window test and no statute-relevance table, so the four-gate intersection the standard requires is skipped at a publication exit (the 'vy\u017eaduje lidsk\u00e9 ov\u011b\u0159en\u00ed' copy in deriveRadar mitigates the framing but does not replace the gates).",
+   "techniques": [
+    {
+     "technique": "registry-corroboration-gating",
+     "verdict": "deviation",
+     "evidence": "app/zakony/kolize/feed.json/route.ts:26 Public exit. The flags come from kg-legislation-ingest.ts:61 (`if (e.rel === \"linked_to\") {`), which takes every tie. graph-schema.md says all 211 ties are pending_review and only some are registry-confirmed, yet review_state and corroboration are never read."
+    },
+    {
+     "technique": "tie-class-taxonomy",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:88 Builds one mixed total across all of a sponsor's linked companies with tie_class ignored. Steward seats are summed in with owner-operator money and shown as sponsorContractCzk in the published flag."
+    },
+    {
+     "technique": "temporal-alignment-of-money-and-role",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:137 The flag condition is money-only. role_valid_from/to and temporal_status exist on the edges, but nothing tests the bill date against the role window."
+    },
+    {
+     "technique": "statute-relevance-mapping",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-legislation-ingest.ts:135 Any bill a money-tied MP sponsors gets flagged whatever statutes it amends. There is no channel-to-statute table, so a public-procurement-money tie flags unrelated legislation."
+    }
+   ],
+   "registryProposal": "The standard's four-gate intersection is written for vote-based joins. It could say explicitly that bill sponsorship (authoring or submitting a bill) is a decision act that the same gates (tie confirmed, window, statute relevance) must govern when it is published as a conflict flag."
+  }
+ ],
+ "declined": [
+  {
+   "subject": "conflict-of-interest-detection",
+   "context": "money-archive-probes",
+   "reason": "conformant with fewer than two techniques shown realized"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-07T00:38:24.005212+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "conflict-of-interest-detection"
+   ],
+   "techniques": [
+    "registry-corroboration-gating",
+    "statute-relevance-mapping",
+    "temporal-alignment-of-money-and-role",
+    "tie-class-taxonomy"
+   ],
+   "deviations": 1,
+   "context": "voting-legislation-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

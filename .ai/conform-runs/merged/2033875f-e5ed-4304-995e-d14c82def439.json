@@ -1,0 +1,140 @@
+{
+ "schema": "conform-run/1",
+ "worker": "2033875f-e5ed-4304-995e-d14c82def439",
+ "subject": "browser-credential-boundary",
+ "evaluatedAt": "2026-11-07T00:00:52.528780+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "app-shell",
+   "subject": "browser-credential-boundary",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "app/opengraph-image.tsx:29 The root OG card fetches a URL from the server side after pulling it out of the Google Fonts CSS response with a regex, and nothing checks it first: no scheme allowlist, no resolved-address check, no manual redirect handling and no single outbound door. That is exactly the case the technique covers: a destination that arrives inside a dependency's response.",
+   "techniques": [
+    {
+     "technique": "outbound-fetch-destination-validation",
+     "verdict": "deviation",
+     "evidence": "app/opengraph-image.tsx:29 The URL comes from the upstream response body via the regex `src: url\\((.+?)\\)`. It is fetched raw: any scheme or host, redirects followed automatically, and no timeout either."
+    },
+    {
+     "technique": "public-vs-server-env-split",
+     "verdict": "conformant",
+     "evidence": "app/layout.tsx:45 The only prefixed values the shell reads are a public origin (here) and the Plausible domain (line 108). Both are addresses, not secrets, and .env.example marks them 'Public by design'."
+    },
+    {
+     "technique": "opaque-upstream-errors",
+     "verdict": "conformant",
+     "evidence": "app/error.tsx:70 The route error boundary shows the reader only the opaque digest, never error.message. The full error goes to Sentry.captureException on the server side. There is no broker route here, so this is the shell's form of the rule."
+    }
+   ]
+  },
+  {
+   "context": "admin-infrastructure",
+   "subject": "browser-credential-boundary",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "app/admin/accessGate.ts:1 The operator token stays server-side: it is read in a module marked server-only, submitted through a server-action form, and kept in an httpOnly cookie scoped to /admin. Every admin surface fails closed when ADMIN_TOKEN is unset, and the public JSON routes report outages through a fixed body that names no upstream.",
+   "techniques": [
+    {
+     "technique": "public-vs-server-env-split",
+     "verdict": "conformant",
+     "evidence": "app/admin/accessGate.ts:1 The module that reads the unprefixed ADMIN_TOKEN (line 53) carries the compiler-enforced server-only marker. This is the 'mark the module, not the entry point' rule."
+    },
+    {
+     "technique": "allowlisted-operator-stream",
+     "verdict": "conformant",
+     "evidence": "app/admin/loops.json/route.ts:24 Applies only partly. The operator surface is never open just because no token was configured: unset means refused with a stated reason, so it fails closed rather than open. The content-allowlist half does not apply, because the console renders no requests that carried a credential."
+    },
+    {
+     "technique": "opaque-upstream-errors",
+     "verdict": "conformant",
+     "evidence": "app/atlas/atlas.json/route.ts:17 A store failure maps to a fixed 'store unavailable' 503 with no-store and Retry-After. No upstream detail is passed through. manifest.json and snapshot.json use the same pattern."
+    },
+    {
+     "technique": "server-sealed-client-roundtrip",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loopActions.ts:46 The action does not trust the target the client sends back. It re-derives the current loop state on the server, which is the technique's own 'when not to use it: re-derive' case, so no seal is needed."
+    },
+    {
+     "technique": "broker-proxy-attaches-secret",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/page.tsx:23 The admin surfaces read the app's own embedded store through server loaders. No privileged upstream credential is ever attached on the browser's behalf."
+    }
+   ],
+   "registryProposal": "allowlisted-operator-stream joins two rules: a payload allowlist for streams that carry credentials, and a fail-closed operator gate. The second rule applies to any token-gated operator console, even one that relays no credentials. That suggests the gate half could be its own technique, or should be cross-referenced from authorization."
+  },
+  {
+   "context": "labs-graph-routes",
+   "subject": "browser-credential-boundary",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "app/graf/p/[ref]/opengraph-image.tsx:62 The permalink OG card and app/referendum/og/route.tsx:38 both fetch, from the server, a font URL taken out of the Google Fonts CSS response with no check on the destination. The timeout added on 2026-09-08 limits how long the fetch can hang, not where it goes.",
+   "techniques": [
+    {
+     "technique": "outbound-fetch-destination-validation",
+     "verdict": "deviation",
+     "evidence": "app/graf/p/[ref]/opengraph-image.tsx:62 An address supplied as data is fetched without a scheme check, address resolution, re-checking on redirect, or a shared outbound door. app/referendum/og/route.tsx:38 is the same pattern, with no timeout."
+    },
+    {
+     "technique": "opaque-upstream-errors",
+     "verdict": "conformant",
+     "evidence": "app/graf/p/[ref]/bundle/route.ts:23 The bundle route uses a closed status set: invalid\u2192404, gone\u2192410, store unavailable\u2192503 with an empty body. A store failure is never passed through or reported as 'not found'."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-07T00:00:52.528780+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "browser-credential-boundary"
+   ],
+   "techniques": [
+    "opaque-upstream-errors",
+    "outbound-fetch-destination-validation",
+    "public-vs-server-env-split"
+   ],
+   "deviations": 1,
+   "context": "app-shell",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-07T00:00:52.528780+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "browser-credential-boundary"
+   ],
+   "techniques": [
+    "allowlisted-operator-stream",
+    "broker-proxy-attaches-secret",
+    "opaque-upstream-errors",
+    "public-vs-server-env-split",
+    "server-sealed-client-roundtrip"
+   ],
+   "deviations": 0,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-07T00:00:52.528780+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "browser-credential-boundary"
+   ],
+   "techniques": [
+    "opaque-upstream-errors",
+    "outbound-fetch-destination-validation"
+   ],
+   "deviations": 1,
+   "context": "labs-graph-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

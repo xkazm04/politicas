@@ -1,0 +1,150 @@
+{
+  "schema": "conform-run/1",
+  "worker": "21ddb6ba-1cd9-41ec-a890-85452e33a76c",
+  "subject": "test-harness",
+  "evaluatedAt": "2026-11-04T04:24:13.199693+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "ingest-pipeline",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "lib/ingest/changeEventsKeys.test.ts:13 The test name claims parity with the key the deník filters by, but it asserts a hard-coded literal ('01234567' / 'firma:00222222') and never calls features/denik's companyEntityKey. If the deník's spelling changes, this file stays green while the ?entita filter stops matching again, which is the original 'one key, two spellings' defect.",
+      "techniques": [
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "lib/ingest/changeEventsKeys.test.ts:13 The name claims a stronger guard (parity with the deník's reader) than the assertions make. A reach probe that mutates the deník side stays green. By contrast, shims.test.ts:22 does assert adoption via Object.is on the same binding."
+        },
+        {
+          "technique": "fixture-economics",
+          "verdict": "conformant",
+          "evidence": "lib/ingest/parsedText.test.ts:32 Each test gets a private mkdtemp dir that the named afterEach reaper discards whole. Tests never clean up inside the fixture."
+        },
+        {
+          "technique": "approval-snapshots-with-guarded-update",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/parsedText.test.ts:48 No snapshot files. The sidecar contract is pinned by explicit call-count and producer (`source: \"sidecar\"`) assertions."
+        }
+      ]
+    },
+    {
+      "context": "budget-mirror",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/budget/budgetSource.test.ts:11 The guard 'getSupplierTies reads the one review-state ladder' is satisfied by the import line's presence, not by the call `reviewStateOf(` (which exists at getSupplierTies.ts:47). Its not.toMatch needles run over unstripped source, so the pin reads the name, not the call, and over-matches prose.",
+      "techniques": [
+        {
+          "technique": "pin-the-call-not-the-name",
+          "verdict": "deviation",
+          "evidence": "features/budget/budgetSource.test.ts:11 The needle is the import statement rather than a call with an argument list, and the haystack is not comment-stripped. The sibling a11y.test.ts:21 does strip comments and uses a call-shaped needle at line 35."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/budget/supplierYears.test.ts:11 The test decodes the committed generated batch the surface actually reads, rather than the generator branch the change never executes."
+        }
+      ]
+    },
+    {
+      "context": "lawwatch-radar",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "features/lawwatch/radarFeedCodecs.test.ts:73 The RSS output is emitted for foreign feed readers, but its claims ('escapes XML-hostile copy instead of breaking the document', one item per entry) are asserted by substring and regex counts and never by parsing the document. A malformed feed would pass on the near side. No XML parser is in package.json.",
+      "techniques": [
+        {
+          "technique": "assert-through-the-reader",
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/radarFeedCodecs.test.ts:73 Near-side substring check on an artifact meant for an XML/RSS reader. The JSON Feed half does round-trip through a parser, but the RSS half never runs a reader."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getDependencyData.test.ts:9 The server-only loader's decisions are lifted into a reachable pure unit and tested both through a passthrough gate and through the REAL gate (the section at line 300)."
+        },
+        {
+          "technique": "negative-control-tests",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/getDependencyData.test.ts:339 The regression test records its control as the revert of the fix. Line 322 first proves the fixture reproduces the M13 tie condition, which shows the mutation arrives."
+        }
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "test-harness",
+      "context": "kg-graph-utilities",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "test-harness",
+      "context": "money-archive-probes",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor verify-b14.ts:8 is only a usage comment in one script, and the absence claim rests on a grep rather than on that line. The archive also holds validate-batch006.ts and similar gate scripts that act as verification harnesses, so 'no harness machinery governs this context' was not establishe"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-04T04:24:13.199693+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "test-harness"
+      ],
+      "techniques": [
+        "approval-snapshots-with-guarded-update",
+        "fixture-economics",
+        "unreached-decisions-pin-nothing"
+      ],
+      "deviations": 1,
+      "context": "ingest-pipeline",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-04T04:24:13.199693+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "test-harness"
+      ],
+      "techniques": [
+        "pin-the-call-not-the-name",
+        "unreached-decisions-pin-nothing"
+      ],
+      "deviations": 1,
+      "context": "budget-mirror",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-04T04:24:13.199693+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "test-harness"
+      ],
+      "techniques": [
+        "assert-through-the-reader",
+        "negative-control-tests",
+        "unreached-decisions-pin-nothing"
+      ],
+      "deviations": 1,
+      "context": "lawwatch-radar",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-04T04:24:13.199693+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "test-harness"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "money-archive-probes",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+ "schema": "conform-run/1",
+ "worker": "6550504a-98ed-4708-a8dc-8470246475ed",
+ "subject": "eval-harness",
+ "evaluatedAt": "2026-11-06T05:12:31.143445+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "law-amends-corpus",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/law/ingest-missing-laws.ts:23 The amended-paragraph census, e-Sb\u00edrka adapters, tisk text extraction and corpus builders are deterministic ingest and validation pipelines with no model under evaluation. A case-insensitive search of scripts/case-loops/law for benchmark/prompt/scenario/pass-rate found 0 files (judge/LLM hits exist only as 'no LLM judgment' disclaimers and in the triage context's verdict gate).",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "prompt",
+    "scenario",
+    "passRate",
+    "pass@"
+   ]
+  },
+  {
+   "context": "civicscore-scoring",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/civicscore/duel.ts:12 Souboj and /metodika are pure display and comparison rules over MP scores already in the graph, with no model or agent being run or scored. A case-insensitive search of features/civicscore for benchmark/judge/llm/prompt/scenario found 0 files.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "judge",
+    "llm",
+    "prompt",
+    "scenario"
+   ]
+  },
+  {
+   "context": "civic-inbox",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/schranka/deriveDeltas.ts:2 Schr\u00e1nka works out follow-list deltas purely from existing read-only record layers, and no model output is produced or evaluated. A case-insensitive search of features/schranka for benchmark/judge/llm/prompt/scenario found 0 files.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "judge",
+    "llm",
+    "prompt",
+    "scenario"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "eval-harness",
+   "context": "law-triage-collision",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "eval-harness",
+   "context": "civic-score-computation",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T05:12:31.143445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "law-amends-corpus",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:12:31.143445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civicscore-scoring",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:12:31.143445+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "civic-inbox",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

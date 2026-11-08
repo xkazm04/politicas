@@ -1,0 +1,113 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c249595c-4432-4a5a-bb27-05830dc537f5",
+ "subject": "demo-data-plane",
+ "evaluatedAt": "2026-11-08T01:58:11.471192+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "shared-provenance",
+   "subject": "demo-data-plane",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shared/provenance/getReceiptData.ts:92 The receipt loader never serves fabricated data: when the store is missing it returns status \"unavailable\", and the catch at line 181-182 does the same after reportLoaderFailure, so there is no second (demo) plane here at all. A search of features/shared/provenance and features/shared/poster found no hits for isDemo, demoMode, sandbox, Math.random or mock. The poster/demo folder is a reference integration over the real leaderboard loader, not a fake data plane.",
+   "techniques": [
+    {
+     "technique": "fake-surface-honesty-contract",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/provenance/getReceiptData.ts:182 Failure becomes an honest 'unavailable' state, never fixtures (clause 2 containment holds trivially; no fabricated surface exists to disclose)."
+    },
+    {
+     "technique": "one-interface-many-planes",
+     "verdict": "not-applicable",
+     "evidence": "features/shared/poster/demo/LeaderboardPoster.tsx:6 The 'demo' poster reads the one real civicscore loader; there is no second implementation of a data interface."
+    }
+   ],
+   "absenceTerms": [
+    "isDemo",
+    "demoMode",
+    "sandbox",
+    "Math.random",
+    "mock"
+   ],
+   "registryProposal": "The word 'demo' in this repo also names a 'reference integration on real data' (features/shared/poster/demo/). Seats should not read the folder name as evidence of a demo data plane. The subject could say that a demo plane is defined by fabricated values, not by naming."
+  },
+  {
+   "context": "landing-core",
+   "subject": "demo-data-plane",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "features/landing/LandingPage.tsx:17 When the store is unavailable (data === null), the landing page shows an honest degraded state instead of switching to the lib/civic sample world. That is the one rule the subject enforces: empty or failed data renders as empty, never as fixtures. The only thing it still takes from the sample catalogue is module names and links, and it deliberately drops the catalogue's invented metrics.",
+   "techniques": [
+    {
+     "technique": "fake-surface-honesty-contract",
+     "verdict": "conformant",
+     "evidence": "features/landing/LandingPage.tsx:154 Clause 2 (never auto-entered): if data is null, the hero renders an unavailable panel, not mock pillars. Same for the ranking section, which uses LiveDataNotice (line 192)."
+    },
+    {
+     "technique": "mixed-plane-coexistence",
+     "verdict": "conformant",
+     "evidence": "features/landing/components/SystemModules.tsx:88 This live screen still draws MODULES from the illustrative lib/civic/data.ts. It renders only the factual parts (name, link, i18n description) and removes the fabricated metric instead of disabling it, so no invented count appears beside real data."
+    },
+    {
+     "technique": "fixture-self-consistency",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/sourceStates.ts:5 The sample source list was replaced by a projection of the real atlas, so the landing page renders no fixture world whose internal consistency could matter."
+    },
+    {
+     "technique": "one-interface-many-planes",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/LandingPage.tsx:16 Single real plane (the /zebricek loader); null means unavailable, not 'use the other plane'."
+    },
+    {
+     "technique": "network-faithful-mocks",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/components/DenikTeaserPending.tsx:4 The loading states are built against real server latency; there is no mock client whose latency could be simulated."
+    },
+    {
+     "technique": "seeded-determinism",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/components/HeroStory.tsx:24 The hemicycle scores come from the store, not from a generator."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-08T01:58:11.471192+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "demo-data-plane"
+   ],
+   "techniques": [
+    "fake-surface-honesty-contract",
+    "one-interface-many-planes"
+   ],
+   "deviations": 0,
+   "context": "shared-provenance",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T01:58:11.471192+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "demo-data-plane"
+   ],
+   "techniques": [
+    "fake-surface-honesty-contract",
+    "fixture-self-consistency",
+    "mixed-plane-coexistence",
+    "network-faithful-mocks",
+    "one-interface-many-planes",
+    "seeded-determinism"
+   ],
+   "deviations": 0,
+   "context": "landing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

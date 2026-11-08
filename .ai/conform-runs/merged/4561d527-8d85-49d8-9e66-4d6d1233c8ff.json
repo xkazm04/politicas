@@ -1,0 +1,60 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4561d527-8d85-49d8-9e66-4d6d1233c8ff",
+ "subject": "data-plane-transport-selection",
+ "evaluatedAt": "2026-11-07T00:50:34.541048+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "admin-infrastructure",
+   "subject": "data-plane-transport-selection",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/data/snapshot.json/route.ts:23 The context's routes return a single HTTP Response built from a store read, with no second transport beside it. I searched the 11 context files for zero-copy, SharedArrayBuffer, brokered, MessageChannel, worker_threads, postMessage and transferable and found nothing. The same search over app/features/lib/scripts/packages, excluding node_modules, also found nothing. So there is no supervised process graph and no choice between brokered and direct transport here.",
+   "techniques": [
+    {
+     "technique": "control-plane-off-the-data-path",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loops.json/route.ts:35 This is a request/response read of loop state. No supervisor event loop sits on a message hot path."
+    },
+    {
+     "technique": "moved-payload-has-no-fallback",
+     "verdict": "not-applicable",
+     "evidence": "app/data/snapshot.json/route.ts:23 The payload is a JSON string handed to a Response. No ownership-taking zero-copy send exists."
+    },
+    {
+     "technique": "path-divergence-audit",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/loops.json/route.ts:36 There is only one delivery path, so there is no second transport to audit."
+    }
+   ],
+   "absenceTerms": [
+    "zero-copy",
+    "SharedArrayBuffer",
+    "brokered",
+    "MessageChannel",
+    "worker_threads"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-07T00:50:34.541048+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-plane-transport-selection"
+   ],
+   "techniques": [
+    "control-plane-off-the-data-path",
+    "moved-payload-has-no-fallback",
+    "path-divergence-audit"
+   ],
+   "deviations": 0,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

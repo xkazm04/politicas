@@ -1,0 +1,60 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c805ac16-48cd-4982-9e82-01343c4acfb1",
+ "subject": "roll-call-vote-analysis",
+ "evaluatedAt": "2026-11-08T02:33:07.064802+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-domain-ingest",
+   "subject": "roll-call-vote-analysis",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:89 The participation numerator counts present-choice ballots on every term roll call, including voided (zmate\u010dn\u00e9) ones, since listVoteBallots does not filter them. The denominator at line 85 (rollCallsHeld = activeVotes.length) drops voided and manual votes and is one term-wide count, not tied to each mandate's dates. So the numerator is not a subset of the denominator, and a mid-term replacement MP's participation_rate is measured against roll calls they could never have cast.",
+   "techniques": [
+    {
+     "technique": "positional-vs-participation-bases",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:89 The base itself is right: it imports PRESENT_CHOICES, the participation base. But the technique requires the numerator to be a validated subset of the denominator, and requires eligibility to respect mandate dates. Here ballots on voided roll calls are counted while line 84 removes voided and manual votes from the denominator, and the denominator is term-level for every MP. computeContribution's clamp01 then hides any overflow."
+    },
+    {
+     "technique": "vote-choice-vocabulary-mapping",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:44 The choice set is imported from the one vocabulary module (lib/ingest/normalize, which re-exports packages/czech-civic-data/src/normalize.ts) and not re-listed at the call site. ingest.ts likewise gets choices through normalizeHlasovani/voteChoice and keeps no mapping table of its own."
+    },
+    {
+     "technique": "club-line-and-rebellion",
+     "verdict": "not-applicable",
+     "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:7 This context only preserves rebellion_rate and cohesion props written elsewhere (lib/analysis/kg.ts). It derives no party line and counts no rebellion."
+    }
+   ],
+   "registryProposal": "positional-vs-participation-bases could state outright that a participation numerator and denominator must apply the same validity filters (voided, manual or non-recorded divisions). Doing the voided exclusion on only one side is an easy failure, and a clamp to [0,1] downstream hides it."
+  }
+ ],
+ "declined": [
+  {
+   "subject": "roll-call-vote-analysis",
+   "context": "voting-legislation-routes",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-08T02:33:07.064802+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "roll-call-vote-analysis"
+   ],
+   "techniques": [
+    "club-line-and-rebellion",
+    "positional-vs-participation-bases",
+    "vote-choice-vocabulary-mapping"
+   ],
+   "deviations": 1,
+   "context": "kg-domain-ingest",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

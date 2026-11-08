@@ -1,0 +1,121 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b698d53c-beb7-4925-b0b4-1da76ed58670",
+ "subject": "native-shell-integration",
+ "evaluatedAt": "2026-11-04T04:39:15.480314+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "app-shell",
+   "subject": "native-shell-integration",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/layout.tsx:101 The root layout puts the shell chrome and the pages inside the document body of a Next.js web app with no native wrapper; a case-insensitive search of app/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing, so no native process holds capabilities the page cannot reach.",
+   "techniques": [],
+   "absenceTerms": [
+    "tauri",
+    "electron",
+    "webview",
+    "alwaysOnTop",
+    "SendInput"
+   ]
+  },
+  {
+   "context": "shell-navigation",
+   "subject": "native-shell-integration",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shell/AppShell.tsx:4 AppShell is a shell inside the document (a left rail that is part of the React layout), which the golden path explicitly rules out; a case-insensitive search of features/shell/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing.",
+   "techniques": [],
+   "absenceTerms": [
+    "tauri",
+    "electron",
+    "webview",
+    "alwaysOnTop",
+    "SendInput"
+   ]
+  },
+  {
+   "context": "graph-data-logic",
+   "subject": "native-shell-integration",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/graph/graphActions.ts:4 The canvas reaches the graph only through Next.js server actions over HTTP, with no native host bridge; a case-insensitive search of features/graph/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing.",
+   "techniques": [],
+   "absenceTerms": [
+    "tauri",
+    "electron",
+    "webview",
+    "alwaysOnTop",
+    "SendInput"
+   ]
+  },
+  {
+   "context": "graph-canvas",
+   "subject": "native-shell-integration",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/graph/GraphPage.tsx:9 The canvas is a browser page whose floating chrome consists of in-document DOM overlays over its own stage, not native surfaces placed over foreign applications; a case-insensitive search of features/graph/ for tauri, electron, webview, alwaysOnTop and SendInput found nothing.",
+   "techniques": [],
+   "absenceTerms": [
+    "tauri",
+    "electron",
+    "webview",
+    "alwaysOnTop",
+    "SendInput"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-04T04:39:15.480314+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "native-shell-integration"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "app-shell",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T04:39:15.480314+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "native-shell-integration"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shell-navigation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T04:39:15.480314+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "native-shell-integration"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "graph-data-logic",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T04:39:15.480314+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "native-shell-integration"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "graph-canvas",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

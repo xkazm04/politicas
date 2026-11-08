@@ -1,0 +1,157 @@
+{
+ "schema": "conform-run/1",
+ "worker": "6eaf28c8-f3b4-4199-9315-552db82114f4",
+ "subject": "repository-landing-document",
+ "evaluatedAt": "2026-11-04T04:50:00.080277+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "landing-core",
+   "subject": "repository-landing-document",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/landing/LandingPage.tsx:4 This context is the web app's rendered home page (a React orchestrator), not the repository front page that a code host or package registry renders; a case-insensitive search of features/landing for readme, shields.io and img.shields found no hits, so the README-composition techniques have nothing to apply to here.",
+   "techniques": [
+    {
+     "technique": "landing-document-as-router",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/LandingPage.tsx:4 The context holds an in-app landing page, not a repository landing document."
+    },
+    {
+     "technique": "evidence-linked-badges",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/LandingPage.tsx:4 No shields.io or host badge exists in features/landing."
+    }
+   ],
+   "absenceTerms": [
+    "readme",
+    "shields.io",
+    "img.shields"
+   ]
+  },
+  {
+   "context": "landing-referendum",
+   "subject": "repository-landing-document",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This context is an in-app methodology-referendum surface with actions, aggregates and OG embeds, and it contains no repository landing document; searching features/landing/referendum for readme, shields.io and img.shields found no hits.",
+   "techniques": [
+    {
+     "technique": "landing-document-as-router",
+     "verdict": "not-applicable",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:4 This is an app route, not a repository front page."
+    }
+   ],
+   "absenceTerms": [
+    "readme",
+    "shields.io",
+    "img.shields"
+   ]
+  },
+  {
+   "context": "shell-navigation",
+   "subject": "repository-landing-document",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shell/navModel.ts:1 This context is the app's nav rail and route model, not a repository front page; searching features/shell for readme, shields.io and img.shields found nothing (its 'badge' identifiers are UI nav badges, not host badges, so that term was left out of the search).",
+   "techniques": [
+    {
+     "technique": "landing-document-as-router",
+     "verdict": "not-applicable",
+     "evidence": "features/shell/navModel.ts:1 This routes app pages, not a README's reader populations."
+    }
+   ],
+   "absenceTerms": [
+    "readme",
+    "shields.io",
+    "img.shields"
+   ]
+  },
+  {
+   "context": "app-shell",
+   "subject": "repository-landing-document",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/page.tsx:11 app/ holds the Next.js route entry points (home page, layout, legal pages, OG image), and none of them is a repository landing document; searching app/ for readme, shields.io and img.shields found no hits, and the site's own metadata description (app/layout.tsx:58) belongs to the application's web metadata, not to the code host's About fields.",
+   "techniques": [
+    {
+     "technique": "landing-document-as-router",
+     "verdict": "not-applicable",
+     "evidence": "app/page.tsx:11 The web home page is not the repository front page."
+    },
+    {
+     "technique": "host-metadata-is-a-second-document",
+     "verdict": "not-applicable",
+     "evidence": "app/layout.tsx:58 This is in-app HTML metadata, not the repository host's description and topics."
+    }
+   ],
+   "absenceTerms": [
+    "readme",
+    "shields.io",
+    "img.shields"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-04T04:50:00.080277+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "repository-landing-document"
+   ],
+   "techniques": [
+    "evidence-linked-badges",
+    "landing-document-as-router"
+   ],
+   "deviations": 0,
+   "context": "landing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T04:50:00.080277+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "repository-landing-document"
+   ],
+   "techniques": [
+    "landing-document-as-router"
+   ],
+   "deviations": 0,
+   "context": "landing-referendum",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T04:50:00.080277+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "repository-landing-document"
+   ],
+   "techniques": [
+    "landing-document-as-router"
+   ],
+   "deviations": 0,
+   "context": "shell-navigation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T04:50:00.080277+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "repository-landing-document"
+   ],
+   "techniques": [
+    "host-metadata-is-a-second-document",
+    "landing-document-as-router"
+   ],
+   "deviations": 0,
+   "context": "app-shell",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

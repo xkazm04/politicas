@@ -1,0 +1,99 @@
+{
+ "schema": "conform-run/1",
+ "worker": "bf823e3e-2c24-4d83-b542-770ecbbb752a",
+ "subject": "state-budget-analysis",
+ "evaluatedAt": "2026-11-06T02:22:24.990618+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "budget-mirror",
+   "subject": "state-budget-analysis",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "features/budget/mirrorData.ts:143 The series keeps only the rounded per-capita values and drops the absolute K\u010d figures, so /rozpocty shows debt and balance per resident with no absolute figure anywhere on the surface, and the peer medians are computed over values already rounded to whole K\u010d; per-capita-normalisation names both of these as failures.",
+   "techniques": [
+    {
+     "technique": "per-capita-normalisation",
+     "verdict": "deviation",
+     "evidence": "features/budget/mirrorData.ts:143 The divisor is the same-period MONITOR `obyvatele` and a missing or zero population gives null, which is correct. But TownBudgetSeries keeps no absolute values (BudgetMirrorPage has no debtCzk or expenditure display), which breaks 'never without its absolute companion'. perCapita/capexRatioPct also round before the median, against 'round at the last moment'."
+    },
+    {
+     "technique": "consolidated-vs-headline-figures",
+     "verdict": "conformant",
+     "evidence": "lib/ingest/sources/monitor.ts:206 BUDGET_INDICATORS in the source adapter declares one variant per indicator (the _kons flows, debt as a balance-sheet figure with consolidated null). The measured gross/consolidated gap (median 2.54\u00d7) is recorded next to it, mirrorData imports the shared derivations, capex share uses two consolidated operands, and the source line names each variant."
+    },
+    {
+     "technique": "median-over-mean-for-peers",
+     "verdict": "conformant",
+     "evidence": "features/budget/peerGroups.ts:108 An empty sample gives null. The function sorts a copy and takes the midpoint for even samples. Peers with no value are skipped per metric and per year, and the trend is null per point. One sampleSize (the debt sample) is printed for all three medians and used to gate them. That is correct only because of the data: peerGroups.test.ts:159 fails if the capex or saldo sample ever differs. Fragile, but the gate holds it."
+    },
+    {
+     "technique": "peer-group-construction",
+     "verdict": "conformant",
+     "evidence": "features/budget/peerGroups.ts:72 Half-open bands with an unbounded top band, size first and region second, covered-set passed explicitly, the town excluded from its own group, a stable filter with no randomness. The printed rule interpolates band, scope, count and MIN_PEERS from the module, and band labels are parity-tested against the catalog. Caveat: the rule sentence itself lives in messages/cs.json, the header comment points to a `peerRuleText` export that does not exist, and the bands cite 'MF/\u010cS\u00da' without a version."
+    },
+    {
+     "technique": "small-sample-widening",
+     "verdict": "conformant",
+     "evidence": "features/budget/peerGroups.ts:75 Named MIN_PEERS=5 with an inclusive floor. The ladder is band+kraj, then band nationwide, never across bands. Scope is carried as data and rendered (peerRuleNationwide), the count is always rendered, the rationale ('v\u00fdrok o dvou obc\u00edch') sits in the module header, and compareToPeer withholds the verdict when the effective sample is below MIN_PEERS."
+    },
+    {
+     "technique": "municipal-money-trail",
+     "verdict": "conformant",
+     "evidence": "features/budget/supplierTrail.ts:253 Attribution is by the exact registry I\u010cO, normalised to 8 digits. Satellite I\u010cOs are never resolved upward because only municipalIcs match. The publisher (Registr smluv `subjekt`) is modelled as a contracting side: line 259 counts it in sideCount and smlouvy-dump directionFor puts subjekt among the sides. So this is the publishing party, not publication on another's behalf, and the earlier deviation reading does not hold. Direction is claimed only for two-party contracts with a recipient flag, amounts are labelled as contract value, multi-town contracts are not summed across towns, impossible years are withheld and counted, coverage shows pass and retrieval date, and ties are read live with available:false meaning 'cannot verify'."
+    }
+   ],
+   "registryProposal": "municipal-money-trail clause 1 ('publication on another entity's behalf alone is not party membership') should say how to treat registers where the publisher is by law itself a contracting party (CZ Registr smluv `subjekt`). Otherwise reviewers read a publisher-or-party join as a violation when the data model makes them equivalent."
+  },
+  {
+   "context": "financial-analysis",
+   "subject": "state-budget-analysis",
+   "bundle": "civic-intelligence",
+   "state": "not-applicable",
+   "evidence": "lib/analysis/kg-money.ts:22 This context joins MPs to companies to contracts and classifies public bodies by legal form or ownership. It builds no municipal budget comparison, per-capita metric, peer group or budget-to-contract join. Searching lib/analysis for perCapita, peerMedians, MIN_PEERS, vydaje_kons and POPULATION_BANDS found no matches; that machinery lives in features/budget and lib/ingest/sources/monitor.ts.",
+   "techniques": [],
+   "absenceTerms": [
+    "perCapita",
+    "peerMedians",
+    "MIN_PEERS",
+    "vydaje_kons",
+    "POPULATION_BANDS"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T02:22:24.990618+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "state-budget-analysis"
+   ],
+   "techniques": [
+    "consolidated-vs-headline-figures",
+    "median-over-mean-for-peers",
+    "municipal-money-trail",
+    "peer-group-construction",
+    "per-capita-normalisation",
+    "small-sample-widening"
+   ],
+   "deviations": 1,
+   "context": "budget-mirror",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T02:22:24.990618+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "state-budget-analysis"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "financial-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

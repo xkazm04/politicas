@@ -1,0 +1,81 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4c5c0014-9b29-4413-9217-ef80bf1438c4",
+ "subject": "self-describing-model-packages",
+ "evaluatedAt": "2026-11-06T02:03:46.078727+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "czech-civic-data",
+   "subject": "self-describing-model-packages",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/czech-civic-data/package.json:5 The manifest says this is a set of deterministic open-data parsing utilities, and a case-insensitive search of packages/czech-civic-data for weights, tensor, logits and onnx found 0 files, so there is no trained model here to package and the subject's precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "normative-layout-contract",
+     "verdict": "not-applicable",
+     "evidence": "packages/czech-civic-data/package.json:5 No model package exists, so there is no package layout to specify."
+    }
+   ],
+   "absenceTerms": [
+    "weights",
+    "tensor",
+    "logits",
+    "onnx"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "self-describing-model-packages",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/package.json:5 The manifest says this is an ESLint rule plugin, and a case-insensitive search of packages/eslint-plugin-civic-transparency for weights, tensor, logits and onnx found 0 files, so no trained model is packaged here and the subject's precondition does not hold.",
+   "techniques": [
+    {
+     "technique": "normative-layout-contract",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/package.json:5 This is a lint-rule package, not a model package, so no layout contract is needed."
+    }
+   ],
+   "absenceTerms": [
+    "weights",
+    "tensor",
+    "logits",
+    "onnx"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T02:03:46.078727+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "self-describing-model-packages"
+   ],
+   "techniques": [
+    "normative-layout-contract"
+   ],
+   "deviations": 0,
+   "context": "czech-civic-data",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T02:03:46.078727+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "self-describing-model-packages"
+   ],
+   "techniques": [
+    "normative-layout-contract"
+   ],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

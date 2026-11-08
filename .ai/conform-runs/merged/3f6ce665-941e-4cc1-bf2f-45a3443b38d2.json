@@ -1,0 +1,105 @@
+{
+ "schema": "conform-run/1",
+ "worker": "3f6ce665-941e-4cc1-bf2f-45a3443b38d2",
+ "subject": "app-shell",
+ "evaluatedAt": "2026-11-06T00:06:49.780595+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "shell-navigation",
+   "subject": "app-shell",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/shell/MobileNav.tsx:111 The mobile panel draws every module's children under every entry at once. That makes the second level a global directory, which nav-hierarchy prohibits (\"No sub-nav goes global\"). The desktop Sidebar, by contrast, expands only the active entry.",
+   "techniques": [
+    {
+     "technique": "nav-hierarchy",
+     "verdict": "deviation",
+     "evidence": "features/shell/MobileNav.tsx:111 Mobile renders all children of all entries with no check on activeEntry. The desktop is scoped correctly (Sidebar.tsx:76 `open && ...`), so the two navs use different hierarchies."
+    },
+    {
+     "technique": "navigation-model",
+     "verdict": "deviation",
+     "evidence": "features/shell/navModel.ts:143 /kraj and /kompas are each listed as children of two parents (also navModel.ts:105). Ancestry is therefore ambiguous: entryFor resolves it by taking the first match (navModel.ts:300), so on /kraj the Volby entry never opens. On mobile, both /kraj links get aria-current=\"page\" and the highlight (MobileNav.tsx:118), which is the two-entries-highlighted symptom. Apart from this, the registry (NAV) and the derived active entry (entryFor) follow the standard."
+    },
+    {
+     "technique": "screen-contributed-second-level",
+     "verdict": "deviation",
+     "evidence": "features/shell/navModel.ts:197 Screens' 'on this page' sections come from a shell-side table keyed by route, which is prohibition 1. The comments in that table record the drift the technique predicts: labels named after the mock, and the seismograf anchor missing (navModel.ts:208-214). DOM presence measurement (useActiveSection) reduces the risk but is not a registration by the screen itself."
+    },
+    {
+     "technique": "badge-and-attention",
+     "verdict": "conformant",
+     "evidence": "features/shell/Sidebar.tsx:72 The nav has one badge source. It is a newness count derived from follows plus a stored lastVisit mark (useNewsCount), quiet at zero and on failure. The fabricated per-module metrics were removed. Minor gap: no 99+ display cap."
+    },
+    {
+     "technique": "entitlement-gating",
+     "verdict": "not-applicable",
+     "evidence": "features/shell/navModel.ts:123 This is a public site with no tiers or roles in the nav. The one gated console is left out of the nav on purpose and guards itself with a server-side token (robots.ts also disallows it)."
+    }
+   ]
+  },
+  {
+   "context": "app-shell",
+   "subject": "app-shell",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "app/layout.tsx:93 The root layout passes the whole result of getMessages() (messages/cs.json is about 320 KB) to the client provider. Every route's first paint therefore ships the strings of every section, which breaks lazy-section-loading's rule that a section's translations load with that section.",
+   "techniques": [
+    {
+     "technique": "lazy-section-loading",
+     "verdict": "deviation",
+     "evidence": "app/layout.tsx:93 The full catalog loaded at layout.tsx:86 goes into the eager frame on every route (prohibition 1). Route-level splitting and the inside-layout error boundary with retry (app/error.tsx) do follow the standard."
+    },
+    {
+     "technique": "shell-hosted-services",
+     "verdict": "conformant",
+     "evidence": "app/layout.tsx:101 The shell and its providers (intl, MotionConfig) are mounted once in the root layout, above the page swap point, so they persist across navigations. The route error boundary renders inside the layout, so the rail survives a page crash."
+    },
+    {
+     "technique": "navigation-model",
+     "verdict": "conformant",
+     "evidence": "app/sitemap.ts:63 The sitemap is derived from the nav registry (NAV plus UNLISTED_ROUTES) and the imported robots disallow list. There is no second hand-kept route list."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T00:06:49.780595+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "app-shell"
+   ],
+   "techniques": [
+    "badge-and-attention",
+    "entitlement-gating",
+    "nav-hierarchy",
+    "navigation-model",
+    "screen-contributed-second-level"
+   ],
+   "deviations": 1,
+   "context": "shell-navigation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T00:06:49.780595+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "app-shell"
+   ],
+   "techniques": [
+    "lazy-section-loading",
+    "navigation-model",
+    "shell-hosted-services"
+   ],
+   "deviations": 1,
+   "context": "app-shell",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

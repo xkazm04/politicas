@@ -1,0 +1,82 @@
+{
+ "schema": "conform-run/1",
+ "worker": "4bfdf543-5a5c-4625-988e-93bbddc920c0",
+ "subject": "eval-harness",
+ "evaluatedAt": "2026-11-08T00:43:59.111734+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "volby-elections",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/volby/tenderLayer.ts:132 Volby findings come from pure deterministic folds over the store with no model, scenario or judge, and a search of features/volby for llm/judge/benchmark/prompt/anthropic found 0 hits, so the subject's precondition does not hold.",
+   "techniques": [],
+   "absenceTerms": [
+    "llm",
+    "judge",
+    "benchmark",
+    "prompt",
+    "anthropic"
+   ]
+  },
+  {
+   "context": "mp-profile",
+   "subject": "eval-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/profile/components/LowScoreReasonBadge.tsx:5 The profile shows only stored, deterministically derived figures and explicitly says no LLM writes text ad hoc. A search of features/profile for judge/benchmark/prompt/anthropic found 0 hits; 'llm' appears only in such disclaimers, so no eval harness exists here.",
+   "techniques": [],
+   "absenceTerms": [
+    "judge",
+    "benchmark",
+    "prompt",
+    "anthropic"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "eval-harness",
+   "context": "law-triage-collision",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "eval-harness",
+   "context": "civic-score-computation",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "eval-harness",
+   "context": "votetrack-kompas-analysis",
+   "reason": "evidence leans on kompas/select.ts, which is not a tracked file"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-08T00:43:59.111734+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "volby-elections",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T00:43:59.111734+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "eval-harness"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "mp-profile",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

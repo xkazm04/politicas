@@ -1,0 +1,104 @@
+{
+ "schema": "conform-run/1",
+ "worker": "2ee6d66f-b599-4a4e-9460-5af742af1f63",
+ "subject": "prompt-assembly",
+ "evaluatedAt": "2026-11-08T00:31:47.590533+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "data-releases-atlas",
+   "subject": "prompt-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/data-releases/getDataReleasesData.ts:1 These are read-only server loaders and React surfaces for /data and /atlas; a search of features/data-releases and features/atlas for prompt, anthropic, systemPrompt, max_tokens and llm found 0 files, so no LLM prompt is assembled here.",
+   "techniques": [],
+   "absenceTerms": [
+    "prompt",
+    "anthropic",
+    "systemPrompt",
+    "max_tokens",
+    "llm"
+   ]
+  },
+  {
+   "context": "case-loops-core",
+   "subject": "prompt-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/persist-batch.ts:1 This is the graph write path (persist, apply and backfill, plus the kiosek payload builders); a search of scripts/case-loops for anthropic, systemPrompt, max_tokens and contextWindow found 0 files, and the only 'prompt' hit (kiosek-slice.ts:68) is a comment about the run's driving prompt, not assembly code.",
+   "techniques": [],
+   "absenceTerms": [
+    "anthropic",
+    "systemPrompt",
+    "max_tokens",
+    "contextWindow"
+   ]
+  },
+  {
+   "context": "volby-elections",
+   "subject": "prompt-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/volby/volbyLoader.ts:1 This is the /volby surface (store loaders and React components); a search of features/volby for prompt, anthropic, systemPrompt, max_tokens and llm found 0 files, so no LLM prompt is built in this context.",
+   "techniques": [],
+   "absenceTerms": [
+    "prompt",
+    "anthropic",
+    "systemPrompt",
+    "max_tokens",
+    "llm"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "prompt-assembly",
+   "context": "civic-score-computation",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "prompt-assembly",
+   "context": "law-archive-late",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-08T00:31:47.590533+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "data-releases-atlas",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T00:31:47.590533+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "case-loops-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T00:31:47.590533+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "volby-elections",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

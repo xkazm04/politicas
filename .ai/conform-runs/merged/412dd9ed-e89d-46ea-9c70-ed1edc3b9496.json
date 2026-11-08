@@ -1,0 +1,218 @@
+{
+ "schema": "conform-run/1",
+ "worker": "412dd9ed-e89d-46ea-9c70-ed1edc3b9496",
+ "subject": "voice-io",
+ "evaluatedAt": "2026-11-08T04:50:54.524868+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-pglite-engine",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/db/pglite/durability.ts:13 This context is the PGlite persistence substrate (durability, DDL, checkpoints), and a case-insensitive grep of lib/db/pglite for speechSynthesis/SpeechRecognition/getUserMedia/AudioContext/microphone/audio/voice found 0 hits, so the voice-io precondition (a product that listens or speaks) does not hold here.",
+   "techniques": [
+    {
+     "technique": "stt-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/durability.ts:2 No capture or transcription path anywhere in the storage engine."
+    },
+    {
+     "technique": "tts-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "lib/db/pglite/durability.ts:13 No synthesis or playback; the module is about WAL and fsync."
+    }
+   ],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "hybrid-bench",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/hybrid-bench/engine.ts:1 The benchmark engine is a text-only CLI subprocess driver for graph query experiments, and a grep of scripts/hybrid-bench for speech/audio/microphone/voice APIs found 0 hits, so no voice pipeline exists to judge.",
+   "techniques": [
+    {
+     "technique": "engine-abstraction",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/engine.ts:1 The 'engine' here is an LLM CLI wrapper, not a speech engine."
+    },
+    {
+     "technique": "stt-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "scripts/hybrid-bench/engine.ts:6 Text goes in over stdin to a subprocess. No audio capture."
+    }
+   ],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "admin-infrastructure",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/admin/page.tsx:12 The admin, atlas and data routes are visual text and JSON surfaces for loop state and data quality; a grep of app/ for speechSynthesis/SpeechRecognition/getUserMedia/AudioContext/microphone/audio found 0 hits, so nothing listens or speaks.",
+   "techniques": [
+    {
+     "technique": "voice-ux-integration",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/page.tsx:12 There is no read-aloud affordance on this operator panel."
+    },
+    {
+     "technique": "unattended-caller-attribution",
+     "verdict": "not-applicable",
+     "evidence": "app/admin/page.tsx:8 No synthesis is exposed to automated callers."
+    }
+   ],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "civic-feed-routes",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/denik/feed.xml/route.ts:13 These routes serve the dated record as HTML, JSON and RSS text feeds with no audio enclosure or speech path, and a grep of app/ for speech/audio APIs found 0 hits, so voice-io does not apply.",
+   "techniques": [
+    {
+     "technique": "tts-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "app/denik/feed.xml/route.ts:13 The feed is text RSS. Nothing is synthesized or played."
+    },
+    {
+     "technique": "speech-ready-text",
+     "verdict": "not-applicable",
+     "evidence": "app/denik/feed.xml/route.ts:1 Entries are derived for reading, not for speaking aloud."
+    }
+   ],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  },
+  {
+   "context": "labs-graph-routes",
+   "subject": "voice-io",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/referendum/og/route.tsx:56 The only speech vocabulary in this context is the CivicScore 'speech' component, which means floor speeches (vystoupen\u00ed) shown as an OG-card label, not audio; grep of app/ for speechSynthesis/SpeechRecognition/getUserMedia/AudioContext/microphone found 0 hits.",
+   "techniques": [
+    {
+     "technique": "tts-pipeline",
+     "verdict": "not-applicable",
+     "evidence": "app/referendum/og/route.tsx:56 'speech' is a score-component key, not a synthesis path."
+    },
+    {
+     "technique": "speech-timing-timeline",
+     "verdict": "not-applicable",
+     "evidence": "app/graf/page.tsx:3 The graph canvas animates without any voice timeline."
+    }
+   ],
+   "absenceTerms": [
+    "speechSynthesis",
+    "SpeechRecognition",
+    "getUserMedia",
+    "AudioContext",
+    "microphone"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-08T04:50:54.524868+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [
+    "stt-pipeline",
+    "tts-pipeline"
+   ],
+   "deviations": 0,
+   "context": "db-pglite-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T04:50:54.524868+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [
+    "engine-abstraction",
+    "stt-pipeline"
+   ],
+   "deviations": 0,
+   "context": "hybrid-bench",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T04:50:54.524868+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [
+    "unattended-caller-attribution",
+    "voice-ux-integration"
+   ],
+   "deviations": 0,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T04:50:54.524868+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [
+    "speech-ready-text",
+    "tts-pipeline"
+   ],
+   "deviations": 0,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T04:50:54.524868+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "voice-io"
+   ],
+   "techniques": [
+    "speech-timing-timeline",
+    "tts-pipeline"
+   ],
+   "deviations": 0,
+   "context": "labs-graph-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

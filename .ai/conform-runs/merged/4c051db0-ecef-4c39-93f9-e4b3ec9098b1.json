@@ -1,0 +1,59 @@
+{
+  "schema": "conform-run/1",
+  "worker": "4c051db0-ecef-4c39-93f9-e4b3ec9098b1",
+  "subject": "copy-quality-gates",
+  "evaluatedAt": "2026-11-08T01:34:22.933337+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "kg-graph-writers",
+      "subject": "copy-quality-gates",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evidence": "scripts/data-analysis/kg-promote.ts:167 This context writes knowledge-graph rows (node labels and a `rationale` prop that an LLM proposed) into kg_node/kg_edge, not product or catalog copy; a grep of scripts/data-analysis for next-intl, getTranslations, useTranslations, copy-contract, copy-check and messages/en found nothing, and `rationale` is not rendered in any features/**/*.tsx, so the subject's precondition (source-language UI copy this context writes) does not hold.",
+      "techniques": [],
+      "absenceTerms": [
+        "getTranslations",
+        "useTranslations",
+        "next-intl"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "copy-quality-gates",
+      "context": "admin-infrastructure",
+      "reason": "withdrawn after review: reviewer (sonnet): docs/i18n/copy-contract.json says Czech is the source locale and the gate covers only the derived English catalog (sources=[messages/en.json], exclude=[]). Czech copy such as AdminGate.tsx's JSX literals is therefore outside the gate's remit, and the contract's notes say messages/cs.json is out of s"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-08T01:34:22.933337+00:00",
+      "bundle": "localization",
+      "subjects": [
+        "copy-quality-gates"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "kg-graph-writers",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-08T01:34:22.933337+00:00",
+      "bundle": "localization",
+      "subjects": [
+        "copy-quality-gates"
+      ],
+      "techniques": [
+        "layered-mechanical-gate",
+        "rendered-string-extraction"
+      ],
+      "deviations": 1,
+      "context": "admin-infrastructure",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

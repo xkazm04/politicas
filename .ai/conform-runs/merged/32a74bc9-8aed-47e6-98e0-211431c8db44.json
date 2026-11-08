@@ -1,0 +1,116 @@
+{
+  "schema": "conform-run/1",
+  "worker": "32a74bc9-8aed-47e6-98e0-211431c8db44",
+  "subject": "prompt-assembly",
+  "evaluatedAt": "2026-11-06T00:23:59.663538+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "civic-verification",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/overeni/verdict.ts:15 The Claim Gate re-derives citations deterministically from existing loaders and makes no model call. A case-insensitive grep of features/overeni for prompt, anthropic, max_tokens, systemPrompt and compaction found 0 files, so there is no prompt to assemble.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "max_tokens",
+        "systemPrompt",
+        "compaction"
+      ]
+    },
+    {
+      "context": "kg-graph-writers",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "scripts/data-analysis/kg-promote.ts:2 The writers compute deterministic edges (kg-compute: NO LLM) and gate already-written subagent verdict files; they never call a model or assemble a prompt. A grep of scripts/data-analysis for anthropic, max_tokens, systemPrompt and compaction found 0 files. 'prompt' does appear, but only in dh-context/ab-datahub/datahub-sync, which are outside this context.",
+      "techniques": [],
+      "absenceTerms": [
+        "anthropic",
+        "max_tokens",
+        "systemPrompt",
+        "compaction"
+      ]
+    },
+    {
+      "context": "eslint-transparency-rules",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "eslint-rules/README.md:1 One-line ESLint compat shims and two RuleTester tests; nothing here talks to a model. A grep of eslint-rules for prompt, anthropic, max_tokens, systemPrompt and compaction found 0 files.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "max_tokens",
+        "systemPrompt",
+        "compaction"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "prompt-assembly",
+      "context": "civic-score-computation",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "prompt-assembly",
+      "context": "shell-navigation",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor features/shell/navModel.ts:1 is only a header comment about the declarative navigation model and does not show that no model call or prompt exists; the claim rests on a grep with no hits."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-06T00:23:59.663538+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "civic-verification",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-06T00:23:59.663538+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "kg-graph-writers",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-06T00:23:59.663538+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "shell-navigation",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-06T00:23:59.663538+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "eslint-transparency-rules",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

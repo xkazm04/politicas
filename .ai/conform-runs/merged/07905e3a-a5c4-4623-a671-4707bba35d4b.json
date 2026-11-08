@@ -1,0 +1,77 @@
+{
+ "schema": "conform-run/1",
+ "worker": "07905e3a-a5c4-4623-a671-4707bba35d4b",
+ "subject": "data-access",
+ "evaluatedAt": "2026-11-06T04:18:12.930768+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-graph-writers",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 The orphan repair still opens PGlite directly and issues its own copy of the archive-then-delete SQL against kg_edge, even though store.deleteKgEdges exists. That puts a kg_edge writer outside the repository, and the file's header comment (line 12) wrongly says the delete goes through the store.",
+   "techniques": [
+    {
+     "technique": "layering-rules",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-repair-orphans.ts:43 Raw connection plus a hand-copied archive+delete statement in a script. The comment at lines 22-25 admits the bypass ('kept byte-compatible'). Every other writer in this context goes through getStore()."
+    },
+    {
+     "technique": "transactions-and-units-of-work",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/kg-compute.ts:375 The --reset rebuild runs as three separately committed transactions: clearKg (kg.ts:440), upsertKgNodes (kg.ts:305), upsertKgEdges (kg.ts:333). If a write fails after the clear, the graph is left durably cleared or half-rebuilt. The script does exit 1 and history keeps the archive, but no single boundary covers the replace-the-graph invariant."
+    },
+    {
+     "technique": "query-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-repair-orphans.ts:90 Even the bypassing statement binds its values as $1..$3. The interpolated identifiers come from the KG_EDGE_COLS constant, not from input."
+    },
+    {
+     "technique": "row-mapping",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-repair-orphans.ts:32 The column set is taken from the one mapper declaration rather than retyped. The other writers receive typed KgNodeRow/KgEdgeRow from the store. Caveat: kg-repair-orphans types its own rows with ad-hoc generics (line 46)."
+    },
+    {
+     "technique": "batching-and-n-plus-one",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-compute.ts:122 Inputs are read as whole sets per term and written in chunked bulk upserts. One minor exception: kg-repair-orphans deletes in a per-key loop (line 78)."
+    },
+    {
+     "technique": "repo-testing",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:27 Writer provenance and prop-merge are tested against a real PGlite copy of the test template, not a mock."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "data-access",
+   "context": "hybrid-bench",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T04:18:12.930768+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "batching-and-n-plus-one",
+    "layering-rules",
+    "query-construction",
+    "repo-testing",
+    "row-mapping",
+    "transactions-and-units-of-work"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

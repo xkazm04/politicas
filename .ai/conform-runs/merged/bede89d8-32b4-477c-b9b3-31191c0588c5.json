@@ -1,0 +1,54 @@
+{
+ "schema": "conform-run/1",
+ "worker": "bede89d8-32b4-477c-b9b3-31191c0588c5",
+ "subject": "claim-verification-and-provenance",
+ "evaluatedAt": "2026-11-08T05:29:29.219581+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-feed-routes",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "app/zdroj/[ref]/page.tsx:104 The /zdroj route is the one place in this context that ships schema.org ClaimReview markup. It ships it, rated 5/5 \"ov\u011b\u0159eno\" under author \"Politicas\", for any edge whose internal review gate reads verified. The corrected structured-review-emission technique calls that internal pipeline approval and says it is not enough to emit a completed editorial fact-check. The route does correctly withhold markup for as-of views and when no absolute permalink can be built.",
+   "techniques": [
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:79 An address that will not decode gets a hard 404 instead of a repair. An address that decodes but whose record is gone renders ReceiptGonePage with what it asserted (line 93). The URL path is built through the shared claimRefPath module, so minting and resolving use one definition."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:77 The receipt is re-derived on every request through the server loader. The route writes nothing, and the loader only memoizes within one request (React cache). An unavailable store renders DataUnavailable, not a 404 or an empty frame."
+    },
+    {
+     "technique": "structured-review-emission",
+     "verdict": "deviation",
+     "evidence": "app/zdroj/[ref]/page.tsx:23 The route's own comment states the emission criterion: the record passed the internal human gate (review of machine-proposed linked_to ties). The technique says internal pipeline approval alone is insufficient for a ClaimReview. Withholding for as-of views (line 103) and for relative URLs (line 37) does conform, and the gate check correctly sits in the emitter, not at the call site."
+    }
+   ],
+   "registryProposal": "structured-review-emission draws its line at 'completed editorial fact-check' vs 'internal pipeline approval', but gives no test for the middle case: a human reviewer who corroborates a machine-proposed graph edge against primary registries and records a decision. The technique should say which side that falls on, and what extra metadata (human author, published method, reviewed-version binding) would promote it to editorial."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-08T05:29:29.219581+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "recomputation-receipts",
+    "structured-review-emission"
+   ],
+   "deviations": 1,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

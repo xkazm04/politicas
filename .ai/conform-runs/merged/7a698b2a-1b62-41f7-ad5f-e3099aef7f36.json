@@ -1,0 +1,103 @@
+{
+ "schema": "conform-run/1",
+ "worker": "7a698b2a-1b62-41f7-ad5f-e3099aef7f36",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-03T23:00:06.097111+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "law-triage-collision",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/triageSource.test.ts:33 The pin claims every band is read from BANDS where the score is computed and where the formula is described. It counts bare `BANDS.<k>` mentions in raw source, and triage.ts's header comment (line 7 onward) already spells each one, so the triageFormula line could go back to literal weights and the test would stay green.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/triageSource.test.ts:33 The needle is a bare identifier that prose can spell. triage.ts:7 (` * triageScore = ... \u00d7 BANDS.sev`) gives one hit per band, so a count of 2 is met by comment + computation alone. The haystack is not comment-stripped and the needle carries no call-only token."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/triageSource.test.ts:22 The test name claims a behaviour, but only text is pinned (`--replace`, `REFUSED`). The refusal decision stays inside main(), which runs on import (triage.ts:254 `main().then(...)`), so nothing can reach it. It was not lifted into a reachable unit, and the test does not label itself an interim. gate-verdicts.ts:159 shows the lifted pattern (isDirectRun guard) exists in the same folder."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/cause-collapse.test.ts:78 The collapse measurement is shown to move when its input is removed, and a POSITIVE CONTROL at line 35 ties arm A to the shipped backlogRemaining. The A/B can therefore fail and is shown to reach the real pipeline."
+    }
+   ]
+  },
+  {
+   "context": "app-shell",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/appShellSource.test.ts:41 The noindex pin reads each disallowed page's raw source, comments included. app/admin/page.tsx:19 has a comment spelling `robots: { index: false }`, so deleting the real metadata line (13) would leave the test green while robots.ts still lists /admin.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "lib/testing/appShellSource.test.ts:41 The haystack is not comment-stripped, and prose can spell the needle (app/admin/page.tsx:19). The walk does declare a floor (line 38, paths.length >= 3). The sibling features/shell/errorBoundaryProps.test.ts strips comments, so the repo knows the remedy and did not apply it here."
+    },
+    {
+     "technique": "live-app-harness",
+     "verdict": "conformant",
+     "evidence": "scripts/smoke.ts:38 The smoke script boots the production `next start` artifact (or a deployment) and checks the shell's landing page and legal pages over HTTP. It runs on demand, not in CI. It does not cover robots.txt, the sitemap, 404 or the error boundaries."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "civic-score-computation",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "shared-provenance",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-03T23:00:06.097111+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "negative-control-tests",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "law-triage-collision",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T23:00:06.097111+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "live-app-harness",
+    "pin-the-call-not-the-name"
+   ],
+   "deviations": 1,
+   "context": "app-shell",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -1,0 +1,246 @@
+{
+ "schema": "conform-run/1",
+ "worker": "fbe4b8b6-07ad-4211-906b-1b0425d103d6",
+ "subject": "quality-gates",
+ "evaluatedAt": "2026-11-03T10:42:28.922420+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "verdict-and-law-analysis",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/analysis/law-verdict.ts:272 The pipeline-jargon gate sits inside the `requireCzech !== false` branch, so the waiver for archived English verdicts also turns off a separate gate it never names. Its reach goes beyond the finding it exists to waive.",
+   "techniques": [
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/law-verdict.ts:272 requireCzech:false is documented as 're-validate an archived pre-rewrite verdict', but it also silences the jargon gate (urns, enums, cache paths). One waiver downgrades two finding classes, and the test at law-verdict.test.ts:229 only checks the English case."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:269 An audit found a rule that existed only as prose, and it was mechanised into the validator."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:321 A cited statute is checked against the known-law set, not just for presence. Caveat: the check is skipped when knownLawRefs/knownIds are not passed."
+    },
+    {
+     "technique": "gate-laddering",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/language-gate.ts:16 One rule set is imported at both rungs: persist time rejects, and render time withholds (line 21)."
+    },
+    {
+     "technique": "blocking-by-input-determinism",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/language-gate.ts:28 A blocking classifier whose verdict depends only on the string, which is what permits it to hard-reject."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/language-gate.ts:84 The threshold was retuned against measured false positives (4 Czech strings wrongly withheld), with zero new English let through."
+    },
+    {
+     "technique": "decidable-in-a-window",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/language-gate.ts:215 The Czech-first rule is decided field by field from that field's own text. The window is bounded and no other file is consulted."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/tripwires.ts:239 Each tripwire reports how many rows it examined, so a run with zero candidates can be told apart from a broken pattern."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/tripwires.ts:113 A missing vote ledger makes T1 'blind' rather than 'no finding'. The output carries votesAvailable/agendaAvailable/collisionsAvailable."
+    },
+    {
+     "technique": "policy-projection",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/tripwires.ts:139 The rule text the surface shows is the same ruleCs constant that sits beside the predicate, and it is versioned by TRIPWIRE_RULE_VERSION."
+    },
+    {
+     "technique": "advancement-evidence-fields",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/verdict-provenance.ts:52 A closed vocabulary that separates 'nobody looked' from 'sent back', with decidedBy/decidedAt. An unrecorded rung stays null and is never coerced (line 29)."
+    }
+   ]
+  },
+  {
+   "context": "law-amends-corpus",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/apply-amends-regen.ts:283 DELETION_ALLOWLIST is a list of bare strings that is never checked against what is actually dropped. A stale entry silently goes on permitting that edge's absence on later runs, even though the comment at line 104 claims an assertion refuses stale entries.",
+   "techniques": [
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/apply-amends-regen.ts:283 Standing allowlist entries are matched by key, but an unmatched entry is neither reported nor refused, and there is no reason field (const DELETION_ALLOWLIST: string[] at line 92). apply-batch.ts has the assertion that this file lacks."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/apply-amends-regen.ts:104 The comment claims an assertion guards the deletion allowlist. Only EXCLUDED_LOW_CONFIDENCE_EDGES has one (line 200). The 'arm, fire, disarm' discipline for this list exists only as prose."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/validate-amends-regen.ts:159 There is a distinct could-not-run exit (exit 2, line 167), but a payload with zero edges exits 0 as PASS ('0 edges checked'). A walked population of zero is not treated as fatal."
+    },
+    {
+     "technique": "severity-by-construction",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/validate-amends-regen.ts:162 The exit code depends on the error count only. Warnings are explicitly non-blocking (line 141), so the labels match the plumbing."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/apply-amends-regen.ts:181 The refusal names two remedies, both reachable from the same CLI."
+    },
+    {
+     "technique": "fabrication-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/validate-amends-regen.ts:133 A provenance tag is verified by tracing the ref to its source set. An unverifiable tag fails, and its mere presence is not accepted."
+    },
+    {
+     "technique": "unparseable-form-is-a-finding",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/tiskText.ts:104 Content the adapter does not recognise is thrown as an error, not parsed as an empty result."
+    }
+   ]
+  },
+  {
+   "context": "case-loops-core",
+   "subject": "quality-gates",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/persist-batch.ts:79 `--allow-new-keys` is a single flag that lets every unregistered prop key in the payload through, however many there are and whichever ones they are. A deliberate addition of one key also waves through any other unregistered key the batch happens to carry, and the only record is a console.warn.",
+   "techniques": [
+    {
+     "technique": "waiver-names-its-finding",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/persist-batch.ts:79 A blanket waiver: it names no key, so one waiver covers N findings. By contrast, apply-batch's DELETION_ALLOWLIST names src/rel/dst and refuses an unmatched entry (apply-batch.ts:447)."
+    },
+    {
+     "technique": "gate-liveness",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/apply-batch.ts:572 Success is asserted from the store's own reported count, not assumed. An empty payload is also fatal (persist-batch.ts:169)."
+    },
+    {
+     "technique": "self-reported-gate-inputs",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/apply-batch.ts:674 Shape counts are pinned in code from the reviewed dry-run and are not read from the payload's own stats."
+    },
+    {
+     "technique": "refusal-names-a-reachable-remedy",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/apply-batch.ts:652 The refusal names remedies that are available on this CLI."
+    },
+    {
+     "technique": "false-positive-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/apply-batch.ts:438 The allowlist assertion is limited to entries relevant to this batch, so it does not fire on unrelated runs."
+    },
+    {
+     "technique": "prose-rule-drift",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/apply-batch.ts:30 A lesson recorded as prose (no-op exclusion entries) was mechanised as a startup assertion, and apply-batch.test.ts:162 covers it."
+    },
+    {
+     "technique": "advancement-evidence-fields",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/apply-batch.ts:695 Every run leaves a durable report with a closed mode vocabulary (refused / dry-run-failed / commit-failed), never a missing artifact."
+    },
+    {
+     "technique": "unmeasurable-criteria",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/sources/kiosek-validate.ts:67 With a zero denominator the hit rate is null, not 0 or 100%."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "quality-gates",
+   "context": "shared-components",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "quality-gates",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-03T10:42:28.922420+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "advancement-evidence-fields",
+    "blocking-by-input-determinism",
+    "decidable-in-a-window",
+    "fabrication-economics",
+    "false-positive-economics",
+    "gate-laddering",
+    "gate-liveness",
+    "policy-projection",
+    "prose-rule-drift",
+    "unmeasurable-criteria",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 1,
+   "context": "verdict-and-law-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T10:42:28.922420+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "fabrication-economics",
+    "gate-liveness",
+    "prose-rule-drift",
+    "refusal-names-a-reachable-remedy",
+    "severity-by-construction",
+    "unparseable-form-is-a-finding",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 1,
+   "context": "law-amends-corpus",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T10:42:28.922420+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "quality-gates"
+   ],
+   "techniques": [
+    "advancement-evidence-fields",
+    "false-positive-economics",
+    "gate-liveness",
+    "prose-rule-drift",
+    "refusal-names-a-reachable-remedy",
+    "self-reported-gate-inputs",
+    "unmeasurable-criteria",
+    "waiver-names-its-finding"
+   ],
+   "deviations": 1,
+   "context": "case-loops-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

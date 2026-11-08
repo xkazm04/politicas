@@ -1,0 +1,109 @@
+{
+ "schema": "conform-run/1",
+ "worker": "8d05496f-6ae3-4c2a-b48e-417753fde30c",
+ "subject": "copy-quality-gates",
+ "evaluatedAt": "2026-11-04T05:00:54.702517+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "scripts-quality-gates",
+   "subject": "copy-quality-gates",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "scripts/hooks/copy-check.sh:19 The repo's only copy gate is a pre-push hook. When the gitignored checker link is missing it exits 0, and no CI job runs copy:check, so fresh clones, CI and `--no-verify` pushes all ship copy no gate has seen. That is the fail-open single seam the technique refuses to count as enforcement.",
+   "techniques": [
+    {
+     "technique": "enforcement-at-the-write-seams",
+     "verdict": "deviation",
+     "evidence": "scripts/hooks/copy-check.sh:18 The hook fails open. .github/workflows/ci.yml has no copy-check step, so no downstream seam exists that cannot fail open."
+    },
+    {
+     "technique": "layered-mechanical-gate",
+     "verdict": "conformant",
+     "evidence": "scripts/hooks/copy-check.sh:4 Legacy findings are held by a ratchet and only new errors block. Warnings are printed."
+    },
+    {
+     "technique": "copy-contract-before-drafting",
+     "verdict": "conformant",
+     "evidence": "docs/i18n/copy-contract.json:5 The declared variant and mechanics were counted against the real catalog before being declared, as the technique asks."
+    },
+    {
+     "technique": "rendered-string-extraction",
+     "verdict": "conformant",
+     "evidence": "docs/i18n/copy-contract.json:4 Coverage is recorded as a string count, not a key count. Scope is limited to the derived EN catalog."
+    }
+   ]
+  },
+  {
+   "context": "landing-referendum",
+   "subject": "copy-quality-gates",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "features/landing/referendum/ReferendumPage.tsx:17 The referendum surface renders its Czech source copy as inline JSX literals. No gate sees them: hardcodedCopy.test.ts scopes only features/landing/components/, and the copy contract covers only messages/en.json. This is the user-visible literal escaping the catalog that L1 is meant to block, and the copy is neither extracted nor declared out of scope in any gate report.",
+   "techniques": [
+    {
+     "technique": "layered-mechanical-gate",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/ReferendumPage.tsx:192 L1 includes 'no literal user-visible string escaping the catalog' as a blocking check. Here such literals render and nothing blocks them."
+    },
+    {
+     "technique": "rendered-string-extraction",
+     "verdict": "deviation",
+     "evidence": "features/landing/hardcodedCopy.test.ts:15 The literal scanner's scope stops at components/, so the referendum's out-of-catalog copy is an undeclared coverage hole. The only declaration is a source comment, not a line in any gate report."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "copy-quality-gates",
+   "context": "civic-score-computation",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "copy-quality-gates",
+   "context": "kg-graph-writers",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "copy-quality-gates",
+   "context": "admin-infrastructure",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T05:00:54.702517+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "copy-quality-gates"
+   ],
+   "techniques": [
+    "copy-contract-before-drafting",
+    "enforcement-at-the-write-seams",
+    "layered-mechanical-gate",
+    "rendered-string-extraction"
+   ],
+   "deviations": 1,
+   "context": "scripts-quality-gates",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T05:00:54.702517+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "copy-quality-gates"
+   ],
+   "techniques": [
+    "layered-mechanical-gate",
+    "rendered-string-extraction"
+   ],
+   "deviations": 1,
+   "context": "landing-referendum",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -1,0 +1,123 @@
+{
+ "schema": "conform-run/1",
+ "worker": "351b79c4-67c9-481a-ba5b-f6b9bd8fc660",
+ "subject": "prompt-assembly",
+ "evaluatedAt": "2026-11-06T02:30:12.513536+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "shell-navigation",
+   "subject": "prompt-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shell/navModel.ts:1 This context is the app's navigation chrome (nav rail, mobile nav, section anchors, sitemap). Searching features/shell for prompt/anthropic/max_tokens/systemPrompt found nothing, so nothing here builds a prompt for a model.",
+   "techniques": [],
+   "absenceTerms": [
+    "prompt",
+    "anthropic",
+    "max_tokens",
+    "systemPrompt"
+   ]
+  },
+  {
+   "context": "ingest-pipeline",
+   "subject": "prompt-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/parsedText.ts:5 This context decodes data deterministically (UNL, ZIP, PDF text sidecar, change events). Searching lib/ingest for prompt/anthropic/max_tokens/systemPrompt found nothing; the only LLM mentions are comments saying no LLM is used.",
+   "techniques": [],
+   "absenceTerms": [
+    "prompt",
+    "anthropic",
+    "max_tokens",
+    "systemPrompt"
+   ]
+  },
+  {
+   "context": "money-archive-probes",
+   "subject": "prompt-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/money/archive/direction-triage-b14.ts:16 The archived probes say outright that they use no LLM. Searching the archive directory for prompt/anthropic/max_tokens/systemPrompt found nothing, so no prompt is assembled here.",
+   "techniques": [],
+   "absenceTerms": [
+    "prompt",
+    "anthropic",
+    "max_tokens",
+    "systemPrompt"
+   ]
+  },
+  {
+   "context": "testing-flake-sentinel",
+   "subject": "prompt-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/testing/sentinel/invariants.ts:2 The flake register and the sentinel are pure test-infrastructure code that evaluates invariants. Searching lib/testing/flake and lib/testing/sentinel for prompt/anthropic/max_tokens/systemPrompt found nothing, so there is no prompt assembly to judge.",
+   "techniques": [],
+   "absenceTerms": [
+    "prompt",
+    "anthropic",
+    "max_tokens",
+    "systemPrompt"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "prompt-assembly",
+   "context": "civic-score-computation",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T02:30:12.513536+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shell-navigation",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T02:30:12.513536+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "ingest-pipeline",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T02:30:12.513536+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "money-archive-probes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T02:30:12.513536+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "testing-flake-sentinel",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "schema": "conform-run/1",
+ "worker": "d1c8171f-f2ba-427d-a1f2-6601b463afe3",
+ "subject": "grounded-answer-scoring",
+ "evaluatedAt": "2026-11-07T01:34:29.814512+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civicscore-scoring",
+   "subject": "grounded-answer-scoring",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "features/civicscore/scoreClaim.ts:21 The context's only 'claim' is a citation record for a deterministically recomputed numeric index from psp.cz dumps, not a generated answer scored against passages or a reference; a search of features/civicscore for faithfulness, groundedness, entail, decompos, verifier, llm and judge found zero hits, so the subject's precondition (an answer written from supplied evidence) does not hold here.",
+   "techniques": [
+    {
+     "technique": "decompose-then-verify",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/scoreClaim.ts:21 No answer generated from passages exists; the 'claim' is a numeric citation ref, not an atomic factual claim to verify against evidence."
+    },
+    {
+     "technique": "bidirectional-claim-matching",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/duel.ts:12 The duel compares two published composites; there is no reference answer and no precision/recall over claim sets."
+    },
+    {
+     "technique": "per-source-attribution",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/scoreClaim.ts:76 No retrieval stage and no reading stage exist, so there is no retrieval-vs-reading fault to attribute."
+    }
+   ],
+   "absenceTerms": [
+    "faithfulness",
+    "groundedness",
+    "entail",
+    "decompos",
+    "verifier"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-07T01:34:29.814512+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "grounded-answer-scoring"
+   ],
+   "techniques": [
+    "bidirectional-claim-matching",
+    "decompose-then-verify",
+    "per-source-attribution"
+   ],
+   "deviations": 0,
+   "context": "civicscore-scoring",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -1,0 +1,150 @@
+{
+ "schema": "conform-run/1",
+ "worker": "997d6daf-9bf7-48ae-9113-ffdd8ad10df0",
+ "subject": "data-access",
+ "evaluatedAt": "2026-11-04T05:10:33.230643+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "db-pglite-engine",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/db/pglite/mappers.ts:142 An unrecognised membership.kind is still decoded as the valid 'member' variant (with only a once-per-value console.warn at line 137), so a corrupt vocabulary cell becomes a healthy row. It is neither rejected nor quarantined, which is the silent third option row-mapping bans.",
+   "techniques": [
+    {
+     "technique": "row-mapping",
+     "verdict": "deviation",
+     "evidence": "lib/db/pglite/mappers.ts:142 Unknown closed-vocabulary text is passed through as a member. The num() helper (internals.ts:167) similarly turns null/NaN into 0."
+    },
+    {
+     "technique": "query-construction",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/internals.ts:252 The upsert builder pushes each value and derives its placeholder index in one motion. Table identifiers in accounting.ts are allowlisted (SAFE_IDENT plus KNOWN_TABLES, line 222)."
+    },
+    {
+     "technique": "batching-and-n-plus-one",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/internals.ts:232 The set-shaped upsert is chunked by row count and by bind-parameter budget."
+    },
+    {
+     "technique": "repo-testing",
+     "verdict": "conformant",
+     "evidence": "lib/db/pglite/accounting.test.ts:62 Engine tests run on a real PGlite fixture dir via the production open()."
+    }
+   ]
+  },
+  {
+   "context": "testing-flake-sentinel",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/testing/sentinel/facts.ts:226 The sentinel splices a numeric constant (INGEST_RUN_LIMIT = 500, line 192) straight into SQL text and runs its own statements against kg_node, kg_edge and ingest_run outside lib/db. Value interpolation therefore exists as a spelling in the codebase, and physical columns are named outside the data layer.",
+   "techniques": [
+    {
+     "technique": "query-construction",
+     "verdict": "deviation",
+     "evidence": "lib/testing/sentinel/facts.ts:226 The technique explicitly refuses the 'obviously safe constant' exception: values are always bound."
+    },
+    {
+     "technique": "layering-rules",
+     "verdict": "deviation",
+     "evidence": "lib/testing/sentinel/facts.ts:217 Query text against physical tables lives in lib/testing, not in the repository tree. The read-only audit runs on a store copy, which softens the risk. It is still a permanent in-tree consumer, not an ad-hoc analytics query."
+    },
+    {
+     "technique": "repo-testing",
+     "verdict": "conformant",
+     "evidence": "lib/testing/sentinel/sentinel.test.ts:45 Sentinel invariants are exercised against a real PGlite fixture opened through production open()."
+    }
+   ]
+  },
+  {
+   "context": "landing-referendum",
+   "subject": "data-access",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/landing/referendum/aggregate.ts:87 Stored lens vectors that fail to decode are dropped from the published aggregate with no record, counter or log. Corrupt rows become votes that 'never existed', and n silently shrinks: the banned silent-skip collection policy.",
+   "techniques": [
+    {
+     "technique": "row-mapping",
+     "verdict": "deviation",
+     "evidence": "features/landing/referendum/aggregate.ts:87 listLensVectors returns raw serialized strings, so decoding happens in the caller rather than at the seam. Undecodable rows are skipped silently. The comment calls it 'defence in depth' but records nothing."
+    },
+    {
+     "technique": "layering-rules",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/actions.ts:35 The server action writes through the named repository operation (the sole writer of lens_submission) and constructs no SQL."
+    },
+    {
+     "technique": "repo-testing",
+     "verdict": "conformant",
+     "evidence": "features/landing/referendum/actions.test.ts:23 Application logic is tested against a mocked repository interface (the layer the team owns), not a mocked engine. This is the technique's legitimate mock location."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "data-access",
+   "context": "kg-graph-writers",
+   "reason": "evidence leans on repositories/kg.ts, which is not a tracked file"
+  },
+  {
+   "subject": "data-access",
+   "context": "hybrid-bench",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-04T05:10:33.230643+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "batching-and-n-plus-one",
+    "query-construction",
+    "repo-testing",
+    "row-mapping"
+   ],
+   "deviations": 1,
+   "context": "db-pglite-engine",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T05:10:33.230643+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "layering-rules",
+    "query-construction",
+    "repo-testing"
+   ],
+   "deviations": 1,
+   "context": "testing-flake-sentinel",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T05:10:33.230643+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "data-access"
+   ],
+   "techniques": [
+    "layering-rules",
+    "repo-testing",
+    "row-mapping"
+   ],
+   "deviations": 1,
+   "context": "landing-referendum",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

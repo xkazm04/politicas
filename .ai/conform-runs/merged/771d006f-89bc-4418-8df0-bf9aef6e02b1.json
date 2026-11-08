@@ -1,0 +1,303 @@
+{
+ "schema": "conform-run/1",
+ "worker": "771d006f-89bc-4418-8df0-bf9aef6e02b1",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-03T11:46:50.260207+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "mp-profile",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/profile/rebellionRecord.test.ts:217 The structural pin that says getRebellionRecord rides the shared votetrack record matches a bare identifier. The import line (getRebellionRecord.ts:47) satisfies that match on its own, so the claimed call at :67 could disappear and the pin would stay green.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "features/profile/rebellionRecord.test.ts:217 Bare-name needle that the import line satisfies. The line-prefix comment stripper is the fallback the technique ranks below a call-shaped needle. profileSource.test.ts:13 has the same import-only shape for pspIdFromNodeId."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "features/profile/rebellionRecord.test.ts:3 Every expectation runs the real producer, not a profile-side copy, so a reimplementation fails here."
+    },
+    {
+     "technique": "verification-inherits-driver-reach",
+     "verdict": "conformant",
+     "evidence": "features/profile/rebellionRecord.test.ts:182 The reconciliation check asserts how many roll calls it engaged (compared/uncompared) next to agreement, so a check that engaged nothing reads as blindness, not as clean."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "features/profile/absenceRecord.test.ts:6 The seeded shapes are honest about the measured live corpus they mirror (seeded-data honesty)."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "features/profile/rebellionRecord.test.ts:202 The unit-lane file states it never opens the store and stays a pure-logic lane."
+    }
+   ]
+  },
+  {
+   "context": "census-quality-gate",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "conformant",
+   "evidence": "scripts/census/lib/engine.mjs:265 Every census rule declares a walk floor, and the self-test proves each fail-loud path fires (floor, zero-match, stale exclude, rise and drop), so a matcher that selects nothing cannot exit green.",
+   "techniques": [
+    {
+     "technique": "derived-selection-must-be-measured",
+     "verdict": "conformant",
+     "evidence": "scripts/census/lib/engine.mjs:265 Floor on what each rule must walk. A bad root is reported as structural, not clean."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:167 The regression tests were run against the regressed engine and the record is kept in the test."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:203 The source walk is invariant to line endings, comment lines are excluded, and stale excludes are checked in both directions."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:206 Each test gets its own mkdtemp tree with a reaper named in finally, over a hand-counted shared fixture tree."
+    },
+    {
+     "technique": "platform-quirk-absorption",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:158 The CRLF quirk is absorbed once in the engine and the incident story stays attached."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:21 Drives the real producer rather than a test double."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:358 The process-global it mutates is restored in finally."
+    },
+    {
+     "technique": "approval-snapshots-with-guarded-update",
+     "verdict": "conformant",
+     "evidence": "scripts/census/run-census.mjs:284 Re-baselining is guarded: a broken instrument's measurement is never baked in, and the changes are printed old -> new."
+    },
+    {
+     "technique": "suite-partitioning",
+     "verdict": "conformant",
+     "evidence": "scripts/census/self-test.mjs:34 The self-test is its own machine with its own entry point, not a tag inside the vitest suite."
+    },
+    {
+     "technique": "gate-scope-is-not-report-scope",
+     "verdict": "conformant",
+     "evidence": "scripts/census/check-library-adherence.mjs:26 Two populations: the gate fails only on structural incoherence, while the report ranges over the whole library index, unreviewed entries included."
+    },
+    {
+     "technique": "verification-inherits-driver-reach",
+     "verdict": "conformant",
+     "evidence": "scripts/census/run-census.mjs:236 Gate-level analog: a clean verdict is always printed with the rules and file-visits it reached."
+    },
+    {
+     "technique": "recorded-interaction-fixtures",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/self-test.mjs:5 No remote service is involved, so there is nothing to record."
+    },
+    {
+     "technique": "assert-the-schedule-not-the-stopwatch",
+     "verdict": "not-applicable",
+     "evidence": "scripts/census/self-test.mjs:452 No concurrency or deadline claim. The one termination claim is asserted by completion and walked count, with no timer."
+    }
+   ]
+  },
+  {
+   "context": "kg-graph-writers",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/data-analysis/writerReadCap.test.ts:13 The conformance walk over the kg writers declares no floor on files walked. The offenders-equals-[] assertion stays green over a population that shrinks (for example, writers moved to a subfolder) down to the single file the next line reads.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "scripts/data-analysis/writerReadCap.test.ts:13 The walk has no declared floor. Its needle (listKg...({...limit: N) is call-shaped and comments are stripped, which is good, but the population setting defaults to green."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:27 Copy of a build-once PGlite template, not a per-file initdb."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:19 The store-backed writer test is isolated from the live store."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-writer-provenance.test.ts:16 The prop-merge claim is asserted through a real store readback, which names the producer."
+    },
+    {
+     "technique": "verification-inherits-driver-reach",
+     "verdict": "conformant",
+     "evidence": "scripts/data-analysis/kg-provenance-backfill.test.ts:7 The backfill verdict publishes its unattributed count next to the attributed one, rather than folding it into success."
+    }
+   ]
+  },
+  {
+   "context": "civic-verification",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/overeni/pageSource.test.ts:18 The pin that the gate typesets the hash name from the family constant matches a bare identifier. The import lines (OvereniPage.tsx:22-23) satisfy that match on their own, and the pin's explanation sits beside the pinned code (OvereniPage.tsx:282), which only a comment stripper keeps out of the haystack.",
+   "techniques": [
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "features/overeni/pageSource.test.ts:18 Bare-name needle that imports satisfy. overeniSource.test.ts likewise pins `import { pragueDay }` rather than the call."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "features/overeni/liveFiguresRoundTrip.test.ts:319 Where the registry or the store could both answer, the test asserts the producer. Line 22 declares what the file does not pin."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "features/overeni/liveFiguresRoundTrip.test.ts:14 Declines a sixth PGlite boot on measured cost and mocks the exact call surface instead."
+    },
+    {
+     "technique": "isolation-lanes",
+     "verdict": "conformant",
+     "evidence": "features/overeni/liveFiguresRoundTrip.test.ts:60 The round-trip test stays in the pure lane and never touches a shared store."
+    }
+   ]
+  },
+  {
+   "context": "effort-scoring-tools",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/effort/gate-rung.test.ts:4 The review-rung rule was lifted into a pure predicate and only its behaviour is tested. Nothing asserts that gate.ts:244 still calls it, so the gate could drop or fork the check while this suite stays green.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/effort/gate-rung.test.ts:4 The extracted predicate's adoption is not asserted. Contrast sharedRules.test.ts:16, which does pin adoption of isLowScoreReason."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/effort/sharedRules.test.ts:24 Pins the import, not a use. The paired negative check covers only one literal spelling, and comments are not stripped."
+    },
+    {
+     "technique": "suite-partitioning",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/effort/gate-rung.test.ts:6 The rule was made reachable in the pure unit lane rather than needing the store-backed gate."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-03T11:46:50.260207+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "fixture-economics",
+    "isolation-lanes",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing",
+    "verification-inherits-driver-reach"
+   ],
+   "deviations": 1,
+   "context": "mp-profile",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T11:46:50.260207+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "approval-snapshots-with-guarded-update",
+    "assert-the-schedule-not-the-stopwatch",
+    "derived-selection-must-be-measured",
+    "fixture-economics",
+    "gate-scope-is-not-report-scope",
+    "isolation-lanes",
+    "negative-control-tests",
+    "pin-the-call-not-the-name",
+    "platform-quirk-absorption",
+    "recorded-interaction-fixtures",
+    "suite-partitioning",
+    "unreached-decisions-pin-nothing",
+    "verification-inherits-driver-reach"
+   ],
+   "deviations": 0,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T11:46:50.260207+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "fixture-economics",
+    "isolation-lanes",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing",
+    "verification-inherits-driver-reach"
+   ],
+   "deviations": 1,
+   "context": "kg-graph-writers",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T11:46:50.260207+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "fixture-economics",
+    "isolation-lanes",
+    "pin-the-call-not-the-name",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "civic-verification",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-03T11:46:50.260207+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "pin-the-call-not-the-name",
+    "suite-partitioning",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "effort-scoring-tools",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

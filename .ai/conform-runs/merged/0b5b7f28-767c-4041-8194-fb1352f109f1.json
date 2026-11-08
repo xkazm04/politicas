@@ -1,0 +1,142 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0b5b7f28-767c-4041-8194-fb1352f109f1",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-05T22:09:02.370865+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "financial-analysis",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/analysis/kg-money-reingest.test.ts:11 The file says it proves the D1 merge-preserve fix end to end, but it deliberately skips importing scripts/data-analysis/kg-money-ingest.ts and replays the sequence by hand, so the wiring that ships (kg-money-ingest.ts:137 passing existingLinkedToProps into mergePreservedTieProps) is never reached; no test anywhere pins that adoption, and reverting the call there would leave this test green.",
+   "techniques": [
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/kg-money-reingest.test.ts:11 The test drives the shared predicate, not the script's adoption of it (kg-money-ingest.ts:137); git grep finds no test covering the call site, so the 'end-to-end' claim overstates. The decision rule is to assert adoption as well as behaviour."
+    },
+    {
+     "technique": "pin-the-call-not-the-name",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/public-copy.test.ts:81 This structural pin's needle is a bare identifier that prose can spell, so a comment explaining the field in any of the three pinned files turns the suite red (getProfileData.ts:298 already talks around the name). The population is also a hand-listed set of 3 files with no walk over other render paths."
+    },
+    {
+     "technique": "negative-control-tests",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg-money-reingest.test.ts:152 The file carries an in-suite control arm: a naive re-ingest without the merge is shown to revert review_state, so the defect the positive test guards is observed firing."
+    },
+    {
+     "technique": "assert-the-schedule-not-the-stopwatch",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/money-feed.test.ts:437 The Retry-After cutoff is proved on a fake clock: advanceTimersByTimeAsync(RETRY_AFTER_CAP_MS), then it asserts settled and calls===2. No wall-clock bound that load could stretch."
+    },
+    {
+     "technique": "fixture-economics",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/kg-money-reingest.test.ts:17 The store-backed test takes a per-file copy of the build-once PGlite template in a temp dir instead of running its own cold initdb."
+    },
+    {
+     "technique": "recorded-interaction-fixtures",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/money-feed.test.ts:38 The Hl\u00edda\u010d/ARES client parsing is tested against hand-written fixtures 'modeled on' captured responses. The capture itself is not the fixture, carries no service version or capture date, and no live/record lane checks freshness. This is the hand-written-fake option the technique rejects for a non-trivial remote shape."
+    }
+   ]
+  },
+  {
+   "context": "money-ownership",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/money/aresVrMatch.test.ts:5 The ARES VR matcher, which every ownership/reconcile script uses to read live registry responses, is tested only against a hand-built VrZaznam literal (git grep finds primarniZaznam in no recorded payload), so the suite asserts against the author's model of a deeply nested third-party shape and cannot notice when ARES changes it.",
+   "techniques": [
+    {
+     "technique": "recorded-interaction-fixtures",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/money/aresVrMatch.test.ts:5 This is a hand-written fake of a multi-array ARES VR record (statutarniOrgany/ostatniOrgany/spolecnici/podil). There is no recorded exchange, no service-version stamp and no live certification lane, so the freshness obligation goes unaddressed."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/money/passArg.ts:4 The --pass decision was lifted out of the self-executing CLI into a pure reachable unit, and passArg.test.ts drives it directly, including the missing-flag (undefined) case that caused the pass:0 incident. Adoption is pinned in a sibling test outside this context."
+    }
+   ]
+  },
+  {
+   "context": "money-archive-probes",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/money/archive/validate-batch006.ts:6 The archive holds one-shot diagnostic probes, run by hand with tsx against a store copy. A search of scripts/case-loops/money/archive for vitest, describe(, expect(, beforeAll and .test.ts found 0 hits, and no test or config elsewhere references the archive, so there is no test machinery here for the harness standard to govern.",
+   "techniques": [],
+   "absenceTerms": [
+    "vitest",
+    "describe(",
+    "expect(",
+    "beforeAll"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "test-harness",
+   "context": "kg-graph-utilities",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "test-harness",
+   "context": "db-tooling",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-05T22:09:02.370865+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "assert-the-schedule-not-the-stopwatch",
+    "fixture-economics",
+    "negative-control-tests",
+    "pin-the-call-not-the-name",
+    "recorded-interaction-fixtures",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "financial-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-05T22:09:02.370865+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "recorded-interaction-fixtures",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "money-ownership",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-05T22:09:02.370865+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "money-archive-probes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

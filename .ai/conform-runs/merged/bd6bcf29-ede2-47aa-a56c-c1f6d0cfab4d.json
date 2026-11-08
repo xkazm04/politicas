@@ -1,0 +1,148 @@
+{
+ "schema": "conform-run/1",
+ "worker": "bd6bcf29-ede2-47aa-a56c-c1f6d0cfab4d",
+ "subject": "mcp-tools",
+ "evaluatedAt": "2026-11-06T05:20:30.091176+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-analysis-and-catalog",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/lite-serve.ts:14 The catalog is a plain node:http server for the DataHub OpenAPI v3 read endpoints, and dh-context.ts is a CLI that prints JSON to stdout; a case-insensitive search of scripts/data-analysis for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so no tool-protocol server or client exists here to judge.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "McpServer",
+    "inputSchema",
+    "tools/list"
+   ]
+  },
+  {
+   "context": "admin-observability",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/admin/loops/getLoopState.ts:65 The admin feature reads persisted loop-run records through server loaders for a human console; a case-insensitive search of features/admin for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so no tool-protocol surface exists here.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "McpServer",
+    "inputSchema",
+    "tools/list"
+   ]
+  },
+  {
+   "context": "admin-infrastructure",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/admin/loops.json/route.ts:21 The machine-readable surfaces here are plain Next route handlers that return JSON behind a cookie gate, not a tool server a model calls; a case-insensitive search of app/admin, app/atlas and app/data for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "McpServer",
+    "inputSchema",
+    "tools/list"
+   ]
+  },
+  {
+   "context": "eslint-plugin-civic-transparency-rules",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "packages/eslint-plugin-civic-transparency/index.cjs:36 The package only exports a table of ESLint rules for flat config; a case-insensitive search of packages/eslint-plugin-civic-transparency for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so it has no tool-protocol surface.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "McpServer",
+    "inputSchema",
+    "tools/list"
+   ]
+  },
+  {
+   "context": "dashboard-instruments",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dashboard/getDashboardData.ts:405 The dashboard is a server loader that reads the embedded store plus client UI components; a case-insensitive search of features/dashboard for mcp, modelcontextprotocol, McpServer, inputSchema and tools/list found nothing, so there is no tool server or client to judge.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "McpServer",
+    "inputSchema",
+    "tools/list"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T05:20:30.091176+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-analysis-and-catalog",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:20:30.091176+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "admin-observability",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:20:30.091176+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:20:30.091176+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-plugin-civic-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T05:20:30.091176+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "dashboard-instruments",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

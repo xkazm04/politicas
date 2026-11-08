@@ -1,0 +1,156 @@
+{
+  "schema": "conform-run/1",
+  "worker": "a788fa3a-52a1-421b-8c7d-183277a74f37",
+  "subject": "eval-harness",
+  "evaluatedAt": "2026-11-07T23:52:58.562090+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "hybrid-bench",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evidence": "scripts/hybrid-bench/derived.ts:135 An LLM benchmark (haiku/sonnet/opus arms scored against gold or deterministic truth) divides by every planned cell, but cells that hit an engine error were skipped before scoring, so a crash lowers exact-% and also lowers MAE (makes it look better), with no separate failed-cell count; it also runs one trial by default, has no declared decision metric and uses an unpinned model alias as gold.",
+      "techniques": [
+        {
+          "technique": "assertion-vs-judgment",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/agg.ts:64 Hallucination, count fidelity (agg.ts) and derived fields (derived.ts) are checked by deterministic assertions against computed truth, not by a judge."
+        },
+        {
+          "technique": "metric-role-contract",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:132 Seven metrics are reported side by side; nothing declares which one is optimized or the threshold the cascade must clear to 'match' gold."
+        },
+        {
+          "technique": "reliability-aggregation",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/derived.ts:93 Defaults to one trial; when repeats>1 they are pooled into a mean exact-%, with no all-of-N/any-of-N and no variance reported."
+        },
+        {
+          "technique": "resolution-precondition",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:103 Each arm is run once and the arms are tabulated as a comparison; no within-condition SD is measured, so nothing checks whether the order is resolved."
+        },
+        {
+          "technique": "outcome-conditioned-cost",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:138 The token-saving headline is computed over all items whether or not the cascade's label agreed with gold; there is no view restricted to items both arms got right."
+        },
+        {
+          "technique": "judge-stability",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:76 The gold reference is a model under a floating alias ('opus') with no pinned version or packet, and it grades a same-family proxy (haiku)."
+        },
+        {
+          "technique": "scenario-design",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/run.ts:40 The item set is the first N rows of an unversioned export file, with no scenario id or content version, so re-runs after a re-ingest are silently a different exam."
+        },
+        {
+          "technique": "eval-economics",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/derived.ts:159 Results stay in memory and are written only at the end (agg.ts does not even catch per-cell errors), so a killed multi-call sweep loses every finished cell."
+        },
+        {
+          "technique": "failure-signatures-beside-the-pass-rate",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/derived.ts:119 Engine-error cells are dropped without a counted failure family; the scorecard shows exact-% and MAE only, so 'crashed' and 'answered wrong' cannot be told apart."
+        },
+        {
+          "technique": "pairing-schedule",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:118 Each arm is scored against a fixed reference; there is no pairwise arena or schedule."
+        },
+        {
+          "technique": "uncontrolled-games-beside-the-win-rate",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:125 The rows come from scoring each arm against gold, not from pairwise games, so there is no win rate."
+        }
+      ]
+    },
+    {
+      "context": "budget-mirror",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/budget/mirrorData.ts:11 BudgetMirror parses deterministic generated MONITOR data and computes peer groups and supplier trails; searching features/budget for llm/judge/temperature/trials/scenario found no hits, so there is nothing to evaluate.",
+      "techniques": [],
+      "absenceTerms": [
+        "llm",
+        "judge",
+        "temperature",
+        "trials",
+        "scenario"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "eval-harness",
+      "context": "law-triage-collision",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "eval-harness",
+      "context": "civic-score-computation",
+      "reason": "pair anchor refused: placeholder evidence at lib/analysis/context-model.ts:116"
+    },
+    {
+      "subject": "eval-harness",
+      "context": "votetrack-kompas-analysis",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor, features/votetrack/record/derive.ts:6, sits in the vote-record layer, which is not among this context's listed files (the kompas/* files and getKompas.ts). Its 'nothing authored by an LLM' comment is about the record layer, not the compass scoring. My own grep of the kompas files found n"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-07T23:52:58.562090+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "eval-harness"
+      ],
+      "techniques": [
+        "assertion-vs-judgment",
+        "eval-economics",
+        "failure-signatures-beside-the-pass-rate",
+        "judge-stability",
+        "metric-role-contract",
+        "outcome-conditioned-cost",
+        "pairing-schedule",
+        "reliability-aggregation",
+        "resolution-precondition",
+        "scenario-design",
+        "uncontrolled-games-beside-the-win-rate"
+      ],
+      "deviations": 1,
+      "context": "hybrid-bench",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-07T23:52:58.562090+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "eval-harness"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "votetrack-kompas-analysis",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-07T23:52:58.562090+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "eval-harness"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "budget-mirror",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

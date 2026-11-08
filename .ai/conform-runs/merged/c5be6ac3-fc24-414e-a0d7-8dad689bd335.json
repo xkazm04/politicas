@@ -1,0 +1,121 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c5be6ac3-fc24-414e-a0d7-8dad689bd335",
+ "subject": "federated-benchmark-sharing",
+ "evaluatedAt": "2026-11-04T02:49:12.783854+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "kg-domain-ingest",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "scripts/data-analysis/ingest.ts:1 This script brings public civic data (psp.cz dumps, Pumper mirror) into the local graph. It never builds, sends, receives or merges LLM evaluation digests across an organizational boundary. A case-insensitive search of scripts/data-analysis for benchmark, federat, consent, contributorId and passRate found nothing, so the subject's precondition does not hold.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "contributorId",
+    "passRate"
+   ]
+  },
+  {
+   "context": "ingest-sources-legislative",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/psp.ts:1 These adapters only fetch and normalize incoming public parliamentary and electoral open data. There is no shared model leaderboard, contributor digest or consent-gated publication here. A case-insensitive search of lib/ingest for benchmark, federat, consent, contributorId and passRate found nothing, so the subject is out of scope.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "contributorId",
+    "passRate"
+   ]
+  },
+  {
+   "context": "ingest-sources-financial",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/sources/smlouvy.ts:1 These are read clients for public-money registries (contracts, procurement, court data, asset declarations, MONITOR budgets). They pool no self-reported model-evaluation statistics from other parties. A case-insensitive search of lib/ingest for benchmark, federat, consent, contributorId and passRate found nothing, so the subject does not apply.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "contributorId",
+    "passRate"
+   ]
+  },
+  {
+   "context": "ingest-pipeline",
+   "subject": "federated-benchmark-sharing",
+   "bundle": "llm-observability",
+   "state": "not-applicable",
+   "evidence": "lib/ingest/changeEvents.ts:16 The only wire format in this context is the change-event codec, which carries diffs of public civic records. It does not carry aggregate model-evaluation digests contributed across organizations. A case-insensitive search of lib/ingest for benchmark, federat, consent, contributorId and passRate found nothing, so the subject's precondition is absent.",
+   "techniques": [],
+   "absenceTerms": [
+    "benchmark",
+    "federat",
+    "consent",
+    "contributorId",
+    "passRate"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-04T02:49:12.783854+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "kg-domain-ingest",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T02:49:12.783854+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "ingest-sources-legislative",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T02:49:12.783854+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "ingest-sources-financial",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-04T02:49:12.783854+00:00",
+   "bundle": "llm-observability",
+   "subjects": [
+    "federated-benchmark-sharing"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "ingest-pipeline",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "conform-run/1",
+  "worker": "0823ac51-cb56-4497-a0ed-8dc65c22222a",
+  "subject": "prompt-assembly",
+  "evaluatedAt": "2026-11-06T22:11:48.854907+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "civic-fallback-data",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "lib/civic/data.ts:2 This context is static fallback data, claim/citation shapes, Czech formatting and analytics, with no model call and no prompt text. Searching lib/civic, lib/claims and lib/ for prompt, anthropic, systemPrompt and max_tokens found 0 files.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "systemPrompt",
+        "max_tokens"
+      ]
+    },
+    {
+      "context": "lawwatch-bills",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/lawwatch/getCollisionData.ts:7 The LLM close-read happened offline in the case-loop batches. These reader-facing loaders and pages only read the persisted results and assemble no prompt. Searching features/lawwatch for prompt, anthropic, systemPrompt and max_tokens found 0 files.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "systemPrompt",
+        "max_tokens"
+      ]
+    },
+    {
+      "context": "app-utilities",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "lib/security/adminGate.ts:4 This context is routing parameter parsers, next-intl locale config and an admin token gate, with no model invocation or prompt text. Searching lib/routing, lib/i18n and lib/security for prompt, anthropic, systemPrompt and max_tokens found 0 files.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "systemPrompt",
+        "max_tokens"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "prompt-assembly",
+      "context": "law-archive-late",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "prompt-assembly",
+      "context": "civic-score-computation",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor lib/analysis/context-model.ts builds the data-quality analyst's DataHub context (used by context-provider, atlas and scripts/data-analysis). It is not among the civic-score-computation context files (contribution, score-citations, score-legibility, low-score-reason). The code is as the ev"
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-06T22:11:48.854907+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [
+        "context-reachability",
+        "house-vocabulary-layer",
+        "layered-composition",
+        "pinned-prompt-clock",
+        "variable-interpolation"
+      ],
+      "deviations": 1,
+      "context": "civic-score-computation",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-06T22:11:48.854907+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "civic-fallback-data",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-06T22:11:48.854907+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "lawwatch-bills",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-06T22:11:48.854907+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "app-utilities",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+ "schema": "conform-run/1",
+ "worker": "b8ba67c7-defa-4f0f-abaa-702439ab9988",
+ "subject": "agent-memory",
+ "evaluatedAt": "2026-11-06T03:07:52.259898+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "tender-pipeline",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "scripts/case-loops/tender/compose-pictures.ts:5 The tender loop is deterministic procurement ingest and aggregation, with no agent memory store to judge: a case-insensitive recursive grep of scripts/case-loops/tender for memory|recall|remember|forget|consolidat|episod|agent returned no hits, and the only LLM mention is this \"no LLM\" disclaimer.",
+   "techniques": [],
+   "absenceTerms": [
+    "memory",
+    "recall",
+    "remember",
+    "consolidat",
+    "episod"
+   ]
+  },
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "agent-memory",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "eslint-rules/no-silent-catch.cjs:6 Every .cjs file in this context is a one-line re-export of a lint rule, so there is no agent memory pipeline here: a case-insensitive recursive grep of eslint-rules/ for memory|recall|remember|forget|consolidat|episod|agent returned no hits.",
+   "techniques": [],
+   "absenceTerms": [
+    "memory",
+    "recall",
+    "remember",
+    "consolidat",
+    "episod"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "agent-memory",
+   "context": "law-archive-early",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "agent-memory",
+   "context": "kg-analysis-and-catalog",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "agent-memory",
+   "context": "money-archive-probes",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T03:07:52.259898+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "tender-pipeline",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T03:07:52.259898+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-memory"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

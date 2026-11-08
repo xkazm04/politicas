@@ -1,0 +1,119 @@
+{
+ "schema": "conform-run/1",
+ "worker": "0a0665b3-91ec-48b8-8de7-b3465c374a96",
+ "subject": "claim-verification-and-provenance",
+ "evaluatedAt": "2026-11-08T01:10:38.512120+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-feed-routes",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "app/zdroj/[ref]/page.tsx:104 The /zdroj route emits ClaimReview through toClaimReviewJsonLd. Behind it, receipt.ts:363 falls back to the edge's computation time when the review decision date is unknown, and the standard forbids that substitution.",
+   "techniques": [
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:79 An undecodable ref is a hard 404, never an empty frame. An unavailable store is not a 404 (line 80), and a ref that decodes but has no record renders ReceiptGonePage stating what the address asserted (line 93). The codec in features/shared/provenance/claimRef.ts re-encodes the decoded ref and requires it to equal the input."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:77 The receipt is re-derived per request from the store; the route has no revalidate and no stored receipt, and an as-of lens is a separate historical read."
+    },
+    {
+     "technique": "structured-review-emission",
+     "verdict": "deviation",
+     "evidence": "features/shared/provenance/receipt.ts:363 The gate check is inside the emitter (edge plus gate verified, else null), and the route suppresses markup for as-of views. But datePublished falls back to the computation time when the decision date is missing, which the technique forbids explicitly."
+    },
+    {
+     "technique": "three-verdict-vocabulary",
+     "verdict": "conformant",
+     "evidence": "features/overeni/verdict.ts:29 /overeni (app/overeni/page.tsx:37 calls getVerdictData) translates loader answers into a closed three-verdict union with enumerated unknown reasons; copy is returned as keys. The anchor is outside the context because the route delegates."
+    },
+    {
+     "technique": "derivation-comparison",
+     "verdict": "conformant",
+     "evidence": "features/overeni/verdict.ts:144 A matching value with a different derivation is reported as moved by basis, not verified. Only the citation-vs-today comparison was checked here."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "features/overeni/verdict.ts:305 The tone is composed from verdict and gate standing in one function, so a verified but rejected record gets the refusing tone, never the confirming one."
+    }
+   ],
+   "registryProposal": "The golden path (lines 136-139) says markup goes out for claims that passed the human gate, but the corrected technique says internal pipeline approval alone is insufficient. A reviewer approving a machine-proposed money tie sits exactly on that line; the two layers should state the same criterion."
+  },
+  {
+   "context": "labs-graph-routes",
+   "subject": "claim-verification-and-provenance",
+   "bundle": "civic-intelligence",
+   "state": "deviation",
+   "evidence": "app/svedectvi/page.tsx:35 /svedectvi emits ClaimReview JSON-LD for a claim hard-coded as verified with no recorded review. The emitter in lib/claims/claim.ts copies sourceUrl into the review's url and retrievedAt into datePublished, so the markup names a third-party source page as the review's address and the retrieval date as its publication date.",
+   "techniques": [
+    {
+     "technique": "structured-review-emission",
+     "verdict": "deviation",
+     "evidence": "app/svedectvi/page.tsx:35 The emitter gates on reviewStatus, so the pending exhibits stay silent. But the verified exhibit's ClaimReview url becomes the constitution page, not the review's permalink, and datePublished becomes retrievedAt; the verified status is a code literal (line 37) with no recorded review."
+    },
+    {
+     "technique": "claim-ref-addressing",
+     "verdict": "conformant",
+     "evidence": "app/graf/p/[ref]/page.tsx:46 The content-hash permalink family (the scheme the technique endorses for views) refuses an undecodable address with 404 before any loader runs. The bundle route maps invalid, gone and unavailable to 404, 410 and 503."
+    },
+    {
+     "technique": "recomputation-receipts",
+     "verdict": "conformant",
+     "evidence": "app/graf/p/[ref]/page.tsx:24 The view is re-derived from the address and cached for a day; PermalinkPage dates the rederivation (permalink.rederived with retrievedOn), which meets the dated-receipt rule for cached receipts."
+    },
+    {
+     "technique": "gate-state-as-modifier",
+     "verdict": "conformant",
+     "evidence": "app/graf/p/[ref]/opengraph-image.tsx:108 On the OG card, rejection overrides pending and gets its own line. The confirming color is used only when card.review.confirming allows it (line 356), and deterministic nodes get their own sentence (line 185)."
+    }
+   ],
+   "registryProposal": "structured-review-emission should say how a hand-asserted constitutional or legal constant (no review queue, no reviewer record) may or may not carry ClaimReview. The repo marks such a constant verified in code, and the standard has no rule for it."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-08T01:10:38.512120+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "derivation-comparison",
+    "gate-state-as-modifier",
+    "recomputation-receipts",
+    "structured-review-emission",
+    "three-verdict-vocabulary"
+   ],
+   "deviations": 1,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T01:10:38.512120+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "claim-verification-and-provenance"
+   ],
+   "techniques": [
+    "claim-ref-addressing",
+    "gate-state-as-modifier",
+    "recomputation-receipts",
+    "structured-review-emission"
+   ],
+   "deviations": 1,
+   "context": "labs-graph-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

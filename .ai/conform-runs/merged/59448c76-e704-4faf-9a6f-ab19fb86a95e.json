@@ -1,0 +1,127 @@
+{
+ "schema": "conform-run/1",
+ "worker": "59448c76-e704-4faf-9a6f-ab19fb86a95e",
+ "subject": "mcp-tools",
+ "evaluatedAt": "2026-11-06T03:42:16.384398+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "shared-components",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/shared/components/SourceNote.tsx:2 This context is a catalog of React UI primitives (a citation line, stat tiles, a combobox, the forensic toggle). No tool server, tool client, tool catalog or tool-protocol transport exists here: searching features/shared for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits, so none of the mcp-tools techniques can apply.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "tools/list",
+    "jsonrpc"
+   ]
+  },
+  {
+   "context": "eslint-transparency-rules",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "eslint-rules/no-silent-catch.cjs:6 This context is one-line ESLint shims that re-export the rules in the in-repo plugin package. It holds no tool protocol, no tool schemas and no server or client: searching eslint-rules and the plugin package for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "tools/list",
+    "jsonrpc"
+   ]
+  },
+  {
+   "context": "testing-core",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/testing/server-boundary.test.ts:7 This context is vitest infrastructure: PGlite fixtures, lane partitioning, and source-shape tests such as the server-only boundary check. Its 'server boundary' means Next's client/server module split, not a tool protocol. Searching lib/testing for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "tools/list",
+    "jsonrpc"
+   ]
+  },
+  {
+   "context": "dashboard-feed-logic",
+   "subject": "mcp-tools",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dashboard/publicWire.ts:2 Despite its name, the 'public wire' here is the prop payload a server page sends to the browser. It is not a tool protocol, and the context's other files derive facts and walk the graph for a UI. Searching features/dashboard for mcp, modelcontextprotocol, tools/call, tools/list and jsonrpc returned no hits.",
+   "techniques": [],
+   "absenceTerms": [
+    "mcp",
+    "modelcontextprotocol",
+    "tools/call",
+    "tools/list",
+    "jsonrpc"
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "mcp-tools",
+   "context": "kg-analysis-and-catalog",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-06T03:42:16.384398+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "shared-components",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T03:42:16.384398+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "eslint-transparency-rules",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T03:42:16.384398+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "testing-core",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-06T03:42:16.384398+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "mcp-tools"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "dashboard-feed-logic",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

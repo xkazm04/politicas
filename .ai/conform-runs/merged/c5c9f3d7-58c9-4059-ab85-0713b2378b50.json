@@ -1,0 +1,84 @@
+{
+ "schema": "conform-run/1",
+ "worker": "c5c9f3d7-58c9-4059-ab85-0713b2378b50",
+ "subject": "background-jobs",
+ "evaluatedAt": "2026-11-06T23:47:23.423053+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "admin-observability",
+   "subject": "background-jobs",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/admin/loops/loopState.ts:440 The ingest health roster is built only from sources that appear in the returned run history. A source with a declared cadence in LOOP_CADENCE_DAYS but no rows in the 500-run window (getLoopState.ts:34/50) drops off the surface instead of showing up as silent, so 'did not run' becomes invisible rather than a distinct signal.",
+   "techniques": [
+    {
+     "technique": "loop-health-telemetry",
+     "verdict": "deviation",
+     "evidence": "features/admin/loops/loopState.ts:440 The roster comes from evidence, not from the declared cadence map, so silence detection cannot fire for a source that never ran or fell outside the window. Separately, rowsWritten (line 152) is carried in but never read, so an ok run with 0 rows renders 'v po\u0159\u00e1dku' and succeeded-empty is not separated from succeeded. The parts that do conform: failure streak (line 465), lastOkFinishedAt, and staleness against a declared cadence."
+    },
+    {
+     "technique": "loop-supervision",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:4 A pure derivation over persisted run records. The context hosts no loop, timer or registration door. A grep of features/admin for setInterval/setTimeout returned nothing."
+    },
+    {
+     "technique": "tick-isolation",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/getLoopState.ts:1 A per-request read shell with no tick bodies. Crash capture, re-entrancy and per-tick deadlines belong to the ingest runtime, which lives outside this context."
+    },
+    {
+     "technique": "adaptive-cadence",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/getLoopState.ts:1 No server loop and no client poller. A grep for setInterval|setTimeout|visibilitychange|poll|router.refresh in features/admin returned zero hits."
+    },
+    {
+     "technique": "first-tick-gates-readiness",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:4 No loop here creates the state readers depend on, so there is no start for a first tick to gate."
+    },
+    {
+     "technique": "failed-start-kept-and-retried-at-cadence",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/getLoopState.ts:1 No background runtime start. Loader failures degrade to [] through reportLoaderFailure."
+    },
+    {
+     "technique": "timeout-is-a-status-not-a-consumption",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:4 No tracked operation and no bounded wait on one in this context."
+    },
+    {
+     "technique": "problem-set-change-logging",
+     "verdict": "not-applicable",
+     "evidence": "features/admin/loops/loopState.ts:1 No recurring tick logs here. Alerts get state-fingerprint ids for acks, which is a separate mechanism from change logging."
+    }
+   ],
+   "registryProposal": "loop-health-telemetry assumes the health surface sits next to the supervisor's registration. It should state how to apply when the observer is a separate read surface over persisted run records: the roster must be the declared-cadence set left-joined with run evidence, and a bounded history window must not be allowed to silently remove a loop."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-06T23:47:23.423053+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "background-jobs"
+   ],
+   "techniques": [
+    "adaptive-cadence",
+    "failed-start-kept-and-retried-at-cadence",
+    "first-tick-gates-readiness",
+    "loop-health-telemetry",
+    "loop-supervision",
+    "problem-set-change-logging",
+    "tick-isolation",
+    "timeout-is-a-status-not-a-consumption"
+   ],
+   "deviations": 1,
+   "context": "admin-observability",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

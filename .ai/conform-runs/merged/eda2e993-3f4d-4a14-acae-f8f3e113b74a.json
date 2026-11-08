@@ -1,0 +1,65 @@
+{
+ "schema": "conform-run/1",
+ "worker": "eda2e993-3f4d-4a14-acae-f8f3e113b74a",
+ "subject": "prompt-safety",
+ "evaluatedAt": "2026-11-07T22:20:44.907799+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "verdict-and-law-analysis",
+   "subject": "prompt-safety",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "lib/analysis/kg-verdict.ts:268 The KG verdict gate checks model-emitted edge endpoints and prose-cited psp:* urns against the store only when the caller passes knownIds. Without it the gate returns an unqualified ok:true, so the rule that every model-emitted id is validated against the live store is opt-in, not unconditional.",
+   "techniques": [
+    {
+     "technique": "model-output-as-untrusted",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/kg-verdict.ts:268 The closed grammar is enforced (enums plus checkExactKeys), but id validation is skipped silently when knownIds is absent. verdict.ts:209 (knownEntityIds) and law-verdict.ts:247-248 (knownIds/knownLawRefs) have the same opt-in shape. The ok result does not say the id check was skipped."
+    },
+    {
+     "technique": "inspection-coverage-is-a-verdict",
+     "verdict": "deviation",
+     "evidence": "lib/analysis/kg-verdict.test.ts:63 The test asserts that a verdict with a fabricated psp:person:999999 endpoint returns ok:true when no knownIds are passed. 'Not inspected' and 'inspected and clean' come back as the same outcome, with no recorded not-inspected marker."
+    },
+    {
+     "technique": "output-sanitization",
+     "verdict": "conformant",
+     "evidence": "lib/analysis/law-verdict.ts:257 A link-scheme allowlist on model-emitted web and bill_text citation sources (http/https only). Only this link-scheme part was checked; secret masking and markup neutralization were not checked in this context."
+    },
+    {
+     "technique": "canary-tripwires",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/tripwires.ts:1 These tripwires are deterministic data-invariant patterns over graph rows, not canaries planted in a prompt. No prompt is assembled in this context, so there is nowhere to plant a canary."
+    },
+    {
+     "technique": "cross-language-rule-parity",
+     "verdict": "not-applicable",
+     "evidence": "lib/analysis/language-gate.ts:14 The persist-time and render-time gates import one TypeScript rule set, so the boundary does not cross a language and the two-runtime precondition does not hold."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-07T22:20:44.907799+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "prompt-safety"
+   ],
+   "techniques": [
+    "canary-tripwires",
+    "cross-language-rule-parity",
+    "inspection-coverage-is-a-verdict",
+    "model-output-as-untrusted",
+    "output-sanitization"
+   ],
+   "deviations": 1,
+   "context": "verdict-and-law-analysis",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
