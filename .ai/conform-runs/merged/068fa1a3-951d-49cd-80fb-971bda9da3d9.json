@@ -1,0 +1,71 @@
+{
+ "schema": "conform-run/1",
+ "worker": "068fa1a3-951d-49cd-80fb-971bda9da3d9",
+ "subject": "conformance-checking",
+ "evaluatedAt": "2026-11-08T05:41:02.589134+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-fallback-data",
+   "subject": "conformance-checking",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "lib/claims/registry.ts:4 The context holds sample data, a claim-citation vocabulary, the issued-figure registry that feeds the /overeni citation gate, Czech formatters and an analytics no-op. None of it is a checker that judges a repository against a published standard, and grepping lib/ for conformance, conformant, checker and deviation found 0 files (the context included), so the subject's precondition does not hold here.",
+   "techniques": [
+    {
+     "technique": "declared-then-proven",
+     "verdict": "not-applicable",
+     "evidence": "lib/claims/claim.ts:15 `verified` here is the human review state of a civic fact, gated in claimReviewJsonLd. It is not a flag that a repository declares about itself for a checker to prove by running something."
+    },
+    {
+     "technique": "claim-write-back",
+     "verdict": "not-applicable",
+     "evidence": "lib/claims/registry.ts:50 retrievedAt is a static date for when the sample data was taken. No checker runs a declared command here, so nothing writes proof back or demotes a claim."
+    },
+    {
+     "technique": "derived-expectation-needs-an-evidence-floor",
+     "verdict": "not-applicable",
+     "evidence": "lib/claims/registry.test.ts:39 This test takes its expected value from the artifact under test, but it is a data unit test, not a drift check between a manifest and code. Line 47 also pins a literal 78.3, which acts much like an evidence floor."
+    },
+    {
+     "technique": "fixture-repo-testing",
+     "verdict": "not-applicable",
+     "evidence": "lib/civic/data.test.ts:35 These tests check invariants of the sample data. No checker of a whole repository exists here to point at fixture repositories."
+    },
+    {
+     "technique": "finding-severity-ladder",
+     "verdict": "not-applicable",
+     "evidence": "lib/claims/registry.ts:114 The registry returns an honest null meaning the figure is unknown, but this context emits no findings with severities. The gate's verdict vocabulary lives in features/overeni."
+    }
+   ],
+   "absenceTerms": [
+    "conformance",
+    "conformant",
+    "checker",
+    "deviation"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-08T05:41:02.589134+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "conformance-checking"
+   ],
+   "techniques": [
+    "claim-write-back",
+    "declared-then-proven",
+    "derived-expectation-needs-an-evidence-floor",
+    "finding-severity-ladder",
+    "fixture-repo-testing"
+   ],
+   "deviations": 0,
+   "context": "civic-fallback-data",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
