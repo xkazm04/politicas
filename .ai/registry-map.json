@@ -12878,8 +12878,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "features/profile/components/LowScoreReasonBadge.tsx:5 The profile shows only stored, deterministically derived figures and explicitly says no LLM writes text ad hoc. A search of features/profile for judge/benchmark/prompt/anthropic found 0 hits; 'llm' appears only in such disclaimers, so no eval harness exists here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:85554b740461b19e",
+          "evaluatedRevision": 39
         }
       ],
       "governance": "governed"
@@ -14852,8 +14856,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "features/volby/tenderLayer.ts:132 Volby findings come from pure deterministic folds over the store with no model, scenario or judge, and a search of features/volby for llm/judge/benchmark/prompt/anthropic found 0 hits, so the subject's precondition does not hold.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:85554b740461b19e",
+          "evaluatedRevision": 39
         },
         {
           "subject": "mcp-tools",
