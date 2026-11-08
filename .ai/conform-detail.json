@@ -17956,6 +17956,69 @@
         "at": "2026-11-08T01:35:51.006073+00:00",
         "reason": "reviewer (sonnet): docs/i18n/copy-contract.json says Czech is the source locale and the gate covers only the derived English catalog (sources=[messages/en.json], exclude=[]). Czech copy such as AdminGate.tsx's JSX literals is therefore outside the gate's remit, and the contract's notes say messages/cs.json is out of s"
       }
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/demo-data-plane": {
+      "context": "shared-provenance",
+      "subject": "demo-data-plane",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T01:58:11.471Z",
+      "worker": "c249595c-4432-4a5a-bb27-05830dc537f5",
+      "techniques": [
+        {
+          "technique": "fake-surface-honesty-contract",
+          "verdict": "not-applicable",
+          "evidence": "features/shared/provenance/getReceiptData.ts:182 Failure becomes an honest 'unavailable' state, never fixtures (clause 2 containment holds trivially; no fabricated surface exists to disclose)."
+        },
+        {
+          "technique": "one-interface-many-planes",
+          "verdict": "not-applicable",
+          "evidence": "features/shared/poster/demo/LeaderboardPoster.tsx:6 The 'demo' poster reads the one real civicscore loader; there is no second implementation of a data interface."
+        }
+      ],
+      "registryProposal": "The word 'demo' in this repo also names a 'reference integration on real data' (features/shared/poster/demo/). Seats should not read the folder name as evidence of a demo data plane. The subject could say that a demo plane is defined by fabricated values, not by naming."
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/demo-data-plane": {
+      "context": "landing-core",
+      "subject": "demo-data-plane",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T01:58:11.471Z",
+      "worker": "c249595c-4432-4a5a-bb27-05830dc537f5",
+      "techniques": [
+        {
+          "technique": "fake-surface-honesty-contract",
+          "verdict": "conformant",
+          "evidence": "features/landing/LandingPage.tsx:154 Clause 2 (never auto-entered): if data is null, the hero renders an unavailable panel, not mock pillars. Same for the ranking section, which uses LiveDataNotice (line 192)."
+        },
+        {
+          "technique": "mixed-plane-coexistence",
+          "verdict": "conformant",
+          "evidence": "features/landing/components/SystemModules.tsx:88 This live screen still draws MODULES from the illustrative lib/civic/data.ts. It renders only the factual parts (name, link, i18n description) and removes the fabricated metric instead of disabling it, so no invented count appears beside real data."
+        },
+        {
+          "technique": "fixture-self-consistency",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/sourceStates.ts:5 The sample source list was replaced by a projection of the real atlas, so the landing page renders no fixture world whose internal consistency could matter."
+        },
+        {
+          "technique": "one-interface-many-planes",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/LandingPage.tsx:16 Single real plane (the /zebricek loader); null means unavailable, not 'use the other plane'."
+        },
+        {
+          "technique": "network-faithful-mocks",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/components/DenikTeaserPending.tsx:4 The loading states are built against real server latency; there is no mock client whose latency could be simulated."
+        },
+        {
+          "technique": "seeded-determinism",
+          "verdict": "not-applicable",
+          "evidence": "features/landing/components/HeroStory.tsx:24 The hemicycle scores come from the store, not from a generator."
+        }
+      ]
     }
   }
 }

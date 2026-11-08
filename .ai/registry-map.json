@@ -10016,7 +10016,11 @@
           "revision": 5,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "conformant",
+          "evidence": "features/landing/LandingPage.tsx:17 When the store is unavailable (data === null), the landing page shows an honest degraded state instead of switching to the lib/civic sample world. That is the one rule the subject enforces: empty or failed data renders as empty, never as fixtures. The only thing it still takes from the sample catalogue is module names and links, and it deliberately drops the catalogue's invented metrics.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:8b6581bd5537bf1b",
+          "evaluatedRevision": 5
         },
         {
           "subject": "design-tokens",
@@ -13646,7 +13650,11 @@
           "revision": 5,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/shared/provenance/getReceiptData.ts:92 The receipt loader never serves fabricated data: when the store is missing it returns status \"unavailable\", and the catch at line 181-182 does the same after reportLoaderFailure, so there is no second (demo) plane here at all. A search of features/shared/provenance and features/shared/poster found no hits for isDemo, demoMode, sandbox, Math.random or mock. The poster/demo folder is a reference integration over the real leaderboard loader, not a fake data plane.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:8b6581bd5537bf1b",
+          "evaluatedRevision": 5
         },
         {
           "subject": "concurrent-vcs",
