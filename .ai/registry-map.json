@@ -1245,8 +1245,12 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "app/admin/page.tsx:12 The admin, atlas and data routes are visual text and JSON surfaces for loop state and data quality; a grep of app/ for speechSynthesis/SpeechRecognition/getUserMedia/AudioContext/microphone/audio found 0 hits, so nothing listens or speaks.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad2538ae80ec48fd",
+          "evaluatedRevision": 24
         },
         {
           "subject": "docs-sync",
@@ -3390,8 +3394,12 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "app/denik/feed.xml/route.ts:13 These routes serve the dated record as HTML, JSON and RSS text feeds with no audio enclosure or speech path, and a grep of app/ for speech/audio APIs found 0 hits, so voice-io does not apply.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad2538ae80ec48fd",
+          "evaluatedRevision": 24
         },
         {
           "subject": "prompt-assembly",
@@ -5454,8 +5462,12 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/db/pglite/durability.ts:13 This context is the PGlite persistence substrate (durability, DDL, checkpoints), and a case-insensitive grep of lib/db/pglite for speechSynthesis/SpeechRecognition/getUserMedia/AudioContext/microphone/audio/voice found 0 hits, so the voice-io precondition (a product that listens or speaks) does not hold here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad2538ae80ec48fd",
+          "evaluatedRevision": 24
         },
         {
           "subject": "mcp-tools",
@@ -8105,8 +8117,12 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/hybrid-bench/engine.ts:1 The benchmark engine is a text-only CLI subprocess driver for graph query experiments, and a grep of scripts/hybrid-bench for speech/audio/microphone/voice APIs found 0 hits, so no voice pipeline exists to judge.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad2538ae80ec48fd",
+          "evaluatedRevision": 24
         },
         {
           "subject": "peer-benchmarking",
@@ -9610,8 +9626,12 @@
           "revision": 23,
           "changedAt": "2026-10-18",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "app/referendum/og/route.tsx:56 The only speech vocabulary in this context is the CivicScore 'speech' component, which means floor speeches (vystoupení) shown as an OG-card label, not audio; grep of app/ for speechSynthesis/SpeechRecognition/getUserMedia/AudioContext/microphone found 0 hits.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad2538ae80ec48fd",
+          "evaluatedRevision": 24
         },
         {
           "subject": "docs-sync",

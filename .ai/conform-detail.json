@@ -18507,6 +18507,111 @@
       "evaluatedTs": "2026-11-08T04:44:25.840Z",
       "worker": "95b3b716-68cc-4e1c-806d-4362a90a30ee",
       "techniques": []
+    },
+    "5a54b236-a7d7-47c5-aaeb-e663266033e7/voice-io": {
+      "context": "db-pglite-engine",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:50:54.524Z",
+      "worker": "412dd9ed-e89d-46ea-9c70-ed1edc3b9496",
+      "techniques": [
+        {
+          "technique": "stt-pipeline",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/durability.ts:2 No capture or transcription path anywhere in the storage engine."
+        },
+        {
+          "technique": "tts-pipeline",
+          "verdict": "not-applicable",
+          "evidence": "lib/db/pglite/durability.ts:13 No synthesis or playback; the module is about WAL and fsync."
+        }
+      ]
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/voice-io": {
+      "context": "hybrid-bench",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:50:54.524Z",
+      "worker": "412dd9ed-e89d-46ea-9c70-ed1edc3b9496",
+      "techniques": [
+        {
+          "technique": "engine-abstraction",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/engine.ts:1 The 'engine' here is an LLM CLI wrapper, not a speech engine."
+        },
+        {
+          "technique": "stt-pipeline",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/engine.ts:6 Text goes in over stdin to a subprocess. No audio capture."
+        }
+      ]
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/voice-io": {
+      "context": "admin-infrastructure",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:50:54.524Z",
+      "worker": "412dd9ed-e89d-46ea-9c70-ed1edc3b9496",
+      "techniques": [
+        {
+          "technique": "voice-ux-integration",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/page.tsx:12 There is no read-aloud affordance on this operator panel."
+        },
+        {
+          "technique": "unattended-caller-attribution",
+          "verdict": "not-applicable",
+          "evidence": "app/admin/page.tsx:8 No synthesis is exposed to automated callers."
+        }
+      ]
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/voice-io": {
+      "context": "civic-feed-routes",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:50:54.524Z",
+      "worker": "412dd9ed-e89d-46ea-9c70-ed1edc3b9496",
+      "techniques": [
+        {
+          "technique": "tts-pipeline",
+          "verdict": "not-applicable",
+          "evidence": "app/denik/feed.xml/route.ts:13 The feed is text RSS. Nothing is synthesized or played."
+        },
+        {
+          "technique": "speech-ready-text",
+          "verdict": "not-applicable",
+          "evidence": "app/denik/feed.xml/route.ts:1 Entries are derived for reading, not for speaking aloud."
+        }
+      ]
+    },
+    "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/voice-io": {
+      "context": "labs-graph-routes",
+      "subject": "voice-io",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:50:54.524Z",
+      "worker": "412dd9ed-e89d-46ea-9c70-ed1edc3b9496",
+      "techniques": [
+        {
+          "technique": "tts-pipeline",
+          "verdict": "not-applicable",
+          "evidence": "app/referendum/og/route.tsx:56 'speech' is a score-component key, not a synthesis path."
+        },
+        {
+          "technique": "speech-timing-timeline",
+          "verdict": "not-applicable",
+          "evidence": "app/graf/page.tsx:3 The graph canvas animates without any voice timeline."
+        }
+      ]
     }
   }
 }
