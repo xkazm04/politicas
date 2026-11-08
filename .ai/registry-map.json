@@ -1422,8 +1422,12 @@
           "revision": 28,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "deviation",
+          "priorNotApplicable": 2,
+          "evidence": "features/admin/loops/loopState.ts:367 A loop-run row that claims 'running' with no finishedAt is shown as 'běží' for as long as the row exists, with no staleness budget on the in-flight claim, so a crashed ingest whose row was never finished looks alive indefinitely.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:93bd71853ab468b1",
+          "evaluatedRevision": 28
         },
         {
           "subject": "markdown-vault",
@@ -10596,8 +10600,12 @@
           "revision": 28,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "deviation",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:51 The batch-scoped gate loads the roster (batch-NNN-targets.json) but only uses it to reject strangers, never to find missing members, so a target with no verdict is silently left out of the pass/total figure.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:93bd71853ab468b1",
+          "evaluatedRevision": 28
         },
         {
           "subject": "test-harness",
@@ -11041,8 +11049,12 @@
           "revision": 28,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 2
+          "state": "deviation",
+          "priorNotApplicable": 2,
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:150 The harvest gate counts its denominator from whatever verdict files exist in a directory shared by every batch, not from the dispatched roster (the batch targets / ledger rows), so a worker that never wrote its verdict-<PRINT>.json does not show up and the gate can still print \"All clear\".",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:93bd71853ab468b1",
+          "evaluatedRevision": 28
         },
         {
           "subject": "agent-runtime-assembly",

@@ -1,0 +1,132 @@
+{
+ "schema": "conform-run/1",
+ "worker": "3f6a1153-e684-42f7-a2fd-f6cff0d81069",
+ "subject": "fleet-orchestration",
+ "evaluatedAt": "2026-11-08T00:13:18.459339+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "law-triage-collision",
+   "subject": "fleet-orchestration",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/gate-verdicts.ts:150 The harvest gate counts its denominator from whatever verdict files exist in a directory shared by every batch, not from the dispatched roster (the batch targets / ledger rows), so a worker that never wrote its verdict-<PRINT>.json does not show up and the gate can still print \"All clear\".",
+   "techniques": [
+    {
+     "technique": "result-harvest",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/gate-verdicts.ts:95 The harvest works from files it finds, not from what was promised. Nothing joins against batch-NNN-targets.json or the ledger's batch rows, so 'completion claimed, result missing' cannot be told apart from 'never dispatched'. An empty directory prints 'no verdicts' and returns with exit 0 (lines 96-99)."
+    },
+    {
+     "technique": "brief-carries-the-session",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/ARMY-CONTRACT.md:3 The brief does restate the gate's invariants (lines 28-42), but it gives a repo location from another machine. It also has no line telling the worker what it cannot see, no load-bearing files and no settled decisions with their rejected alternatives."
+    },
+    {
+     "technique": "completion-claim-verification",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 The parent re-checks the decidable leaves itself, on the artifact: real statute refs, known graph ids, and billTisk resolving to a bill. The worker's own self-check is not trusted. Undecidable substance is persisted downstream as pending_review (kg-forensics.ts, outside this context), not as passed."
+    }
+   ]
+  },
+  {
+   "context": "law-archive-early",
+   "subject": "fleet-orchestration",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:51 The batch-scoped gate loads the roster (batch-NNN-targets.json) but only uses it to reject strangers, never to find missing members, so a target with no verdict is silently left out of the pass/total figure.",
+   "techniques": [
+    {
+     "technique": "result-harvest",
+     "verdict": "deviation",
+     "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:51 The denominator is the verdict files found, not the targets. targetCisla is checked only for membership (line 43). This is better than the live gate (an empty directory exits 1), but the roster is still not fully accounted for."
+    },
+    {
+     "technique": "parallel-dispatch",
+     "verdict": "conformant",
+     "evidence": "scripts/case-loops/law/archive/prepare-batch-011.ts:3 The single-connection PGlite copy is a shared resource that parallel workers would collide on. The dispatcher removes it by shipping the gate scope inside the targets payload, and each batch gets its own verdicts-NNN directory."
+    }
+   ]
+  },
+  {
+   "context": "admin-observability",
+   "subject": "fleet-orchestration",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/admin/loops/loopState.ts:367 A loop-run row that claims 'running' with no finishedAt is shown as 'b\u011b\u017e\u00ed' for as long as the row exists, with no staleness budget on the in-flight claim, so a crashed ingest whose row was never finished looks alive indefinitely.",
+   "techniques": [
+    {
+     "technique": "lifecycle-signals",
+     "verdict": "deviation",
+     "evidence": "features/admin/loops/loopState.ts:367 The producer's 'running' claim is trusted without a tier-two sweep. Only last-ok age, and only for the 3 sources with a declared cadence, can raise 'stalled'. Nothing in lib/db marks an abandoned ingest_run (the only updates are finishIngestRun and the merkle seal)."
+    },
+    {
+     "technique": "absent-status-passthrough",
+     "verdict": "conformant",
+     "evidence": "features/admin/loops/loopState.ts:97 An unreadable or unknown STATUS token becomes 'unknown' and is never defaulted to paused or running. caseLoopStatus also maps running-with-no-passes to 'nezn\u00e1mo', not ok."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "fleet-orchestration",
+   "context": "law-archive-late",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "fleet-orchestration",
+   "context": "law-amends-corpus",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-08T00:13:18.459339+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "fleet-orchestration"
+   ],
+   "techniques": [
+    "brief-carries-the-session",
+    "completion-claim-verification",
+    "result-harvest"
+   ],
+   "deviations": 1,
+   "context": "law-triage-collision",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T00:13:18.459339+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "fleet-orchestration"
+   ],
+   "techniques": [
+    "parallel-dispatch",
+    "result-harvest"
+   ],
+   "deviations": 1,
+   "context": "law-archive-early",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T00:13:18.459339+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "fleet-orchestration"
+   ],
+   "techniques": [
+    "absent-status-passthrough",
+    "lifecycle-signals"
+   ],
+   "deviations": 1,
+   "context": "admin-observability",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

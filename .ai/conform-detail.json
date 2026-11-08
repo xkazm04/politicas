@@ -17719,6 +17719,74 @@
       "evaluatedTs": "2026-11-07T23:52:58.562Z",
       "worker": "a788fa3a-52a1-421b-8c7d-183277a74f37",
       "techniques": []
+    },
+    "2f4b86bd-dc11-4b9d-ba2d-f114c61f8555/fleet-orchestration": {
+      "context": "law-triage-collision",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:13:18.459Z",
+      "worker": "3f6a1153-e684-42f7-a2fd-f6cff0d81069",
+      "techniques": [
+        {
+          "technique": "result-harvest",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:95 The harvest works from files it finds, not from what was promised. Nothing joins against batch-NNN-targets.json or the ledger's batch rows, so 'completion claimed, result missing' cannot be told apart from 'never dispatched'. An empty directory prints 'no verdicts' and returns with exit 0 (lines 96-99)."
+        },
+        {
+          "technique": "brief-carries-the-session",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/ARMY-CONTRACT.md:3 The brief does restate the gate's invariants (lines 28-42), but it gives a repo location from another machine. It also has no line telling the worker what it cannot see, no load-bearing files and no settled decisions with their rejected alternatives."
+        },
+        {
+          "technique": "completion-claim-verification",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 The parent re-checks the decidable leaves itself, on the artifact: real statute refs, known graph ids, and billTisk resolving to a bill. The worker's own self-check is not trusted. Undecidable substance is persisted downstream as pending_review (kg-forensics.ts, outside this context), not as passed."
+        }
+      ]
+    },
+    "eda8e129-2a39-4921-bff2-0251c7f61cb0/fleet-orchestration": {
+      "context": "law-archive-early",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:13:18.459Z",
+      "worker": "3f6a1153-e684-42f7-a2fd-f6cff0d81069",
+      "techniques": [
+        {
+          "technique": "result-harvest",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/law/archive/gate-verdicts-011.ts:51 The denominator is the verdict files found, not the targets. targetCisla is checked only for membership (line 43). This is better than the live gate (an empty directory exits 1), but the roster is still not fully accounted for."
+        },
+        {
+          "technique": "parallel-dispatch",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/archive/prepare-batch-011.ts:3 The single-connection PGlite copy is a shared resource that parallel workers would collide on. The dispatcher removes it by shipping the gate scope inside the targets payload, and each batch gets its own verdicts-NNN directory."
+        }
+      ]
+    },
+    "fe1f864e-b249-42d8-a679-3995c31a43ba/fleet-orchestration": {
+      "context": "admin-observability",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:13:18.459Z",
+      "worker": "3f6a1153-e684-42f7-a2fd-f6cff0d81069",
+      "techniques": [
+        {
+          "technique": "lifecycle-signals",
+          "verdict": "deviation",
+          "evidence": "features/admin/loops/loopState.ts:367 The producer's 'running' claim is trusted without a tier-two sweep. Only last-ok age, and only for the 3 sources with a declared cadence, can raise 'stalled'. Nothing in lib/db marks an abandoned ingest_run (the only updates are finishIngestRun and the merkle seal)."
+        },
+        {
+          "technique": "absent-status-passthrough",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/loopState.ts:97 An unreadable or unknown STATUS token becomes 'unknown' and is never defaulted to paused or running. caseLoopStatus also maps running-with-no-passes to 'neznámo', not ok."
+        }
+      ]
     }
   }
 }
