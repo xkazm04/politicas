@@ -2036,8 +2036,12 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/budget/BudgetMirrorPage.tsx:4 This is a reader-facing budget surface with its loaders, data and generators. A case-insensitive recursive grep of features/budget for AGENTS.md, CLAUDE.md, SKILL.md, frontmatter and prompt returned no hits, so it neither contains nor drains any agent instruction file.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:9b02cf004a7ce444",
+          "evaluatedRevision": 32
         },
         {
           "subject": "markdown-vault",
@@ -13285,8 +13289,12 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "deviation",
+          "priorNotApplicable": 5,
+          "evidence": "CLAUDE.md:199 The always-loaded file's definition of done lists the gate's stages without docs:sync:test and docs:sync, even though package.json:18 has chained both into `check` since 0fa607f (2026-08-24), so an agent trusts a gate description that leaves out this context's own blocking checker.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:9b02cf004a7ce444",
+          "evaluatedRevision": 32
         },
         {
           "subject": "agent-runtime-assembly",

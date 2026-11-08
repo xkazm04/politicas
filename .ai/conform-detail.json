@@ -18120,6 +18120,42 @@
         }
       ],
       "registryProposal": "approval-snapshots-with-guarded-update could say whether a generated reference copy checked in CI (a derived file kept in sync, default-write with a --check verify flag) counts as an approval snapshot. It has the same 'verifier is the recorder' weakness, but no test suite holds the switch."
+    },
+    "61b546ac-220d-425f-ad42-8e39576b3784/agent-instruction-files": {
+      "context": "scripts-quality-gates",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:02:18.541Z",
+      "worker": "e938d7e8-fe55-4fd3-870b-a6ef035ea6cf",
+      "techniques": [
+        {
+          "technique": "instruction-freshness",
+          "verdict": "deviation",
+          "evidence": "CLAUDE.md:137 Undated stage inventory, copied by hand, that drifted when docs:sync joined `check` on 2026-08-24. The context's own verify-loop.mjs:16 derives the same list from package.json instead of copying it, and that is the safe form. Also, scripts/sentinel/path-oracle.ts:5 cites 'CLAUDE.md:190-193' as the brand rule, but those lines now hold the CI node-24 pin; the rule sits at CLAUDE.md:95/201."
+        },
+        {
+          "technique": "enforcement-demotion",
+          "verdict": "deviation",
+          "evidence": "CLAUDE.md:220 The demotion is real: check-doc-sync.mjs is a blocking commit-msg rung, and self-test.mjs proves it fires (check-doc-sync.mjs:117). But the instruction file still states the rule as prose and never names the gate, its `Doc-sync:` dismissal trailer, or `npm run docs:sync`. An agent that gets blocked has nothing to cooperate with."
+        },
+        {
+          "technique": "capability-coverage-contract",
+          "verdict": "deviation",
+          "evidence": "package.json:26 Completeness direction: sentinel, path-oracle, smoke and docs:sync exist as runnable capabilities, but a grep of CLAUDE.md, AGENTS.md and .claude/CLAUDE.md finds none of them named. Only the kpi:* meters are named there (CLAUDE.md:109-110)."
+        }
+      ]
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/agent-instruction-files": {
+      "context": "budget-mirror",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:02:18.541Z",
+      "worker": "e938d7e8-fe55-4fd3-870b-a6ef035ea6cf",
+      "techniques": []
     }
   }
 }
