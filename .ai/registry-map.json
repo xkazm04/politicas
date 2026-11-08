@@ -9429,7 +9429,11 @@
           "revision": 10,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-promote.ts:167 This context writes knowledge-graph rows (node labels and a `rationale` prop that an LLM proposed) into kg_node/kg_edge, not product or catalog copy; a grep of scripts/data-analysis for next-intl, getTranslations, useTranslations, copy-contract, copy-check and messages/en found nothing, and `rationale` is not rendered in any features/**/*.tsx, so the subject's precondition (source-language UI copy this context writes) does not hold.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:f00a2dbd4e8fdce1",
+          "evaluatedRevision": 10
         }
       ],
       "governance": "governed"
