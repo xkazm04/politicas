@@ -2342,8 +2342,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/persist-batch.ts:1 This is the graph write path (persist, apply and backfill, plus the kiosek payload builders); a search of scripts/case-loops for anthropic, systemPrompt, max_tokens and contextWindow found 0 files, and the only 'prompt' hit (kiosek-slice.ts:68) is a comment about the run's driving prompt, not assembly code.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         }
       ],
       "governance": "governed"
@@ -5254,8 +5258,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/data-releases/getDataReleasesData.ts:1 These are read-only server loaders and React surfaces for /data and /atlas; a search of features/data-releases and features/atlas for prompt, anthropic, systemPrompt, max_tokens and llm found 0 files, so no LLM prompt is assembled here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "feed",
@@ -14895,8 +14903,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/volby/volbyLoader.ts:1 This is the /volby surface (store loaders and React components); a search of features/volby for prompt, anthropic, systemPrompt, max_tokens and llm found 0 files, so no LLM prompt is built in this context.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "parliamentary-data-modeling",

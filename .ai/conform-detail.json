@@ -17787,6 +17787,36 @@
           "evidence": "features/admin/loops/loopState.ts:97 An unreadable or unknown STATUS token becomes 'unknown' and is never defaulted to paused or running. caseLoopStatus also maps running-with-no-passes to 'neznámo', not ok."
         }
       ]
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/prompt-assembly": {
+      "context": "data-releases-atlas",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:31:47.590Z",
+      "worker": "2ee6d66f-b599-4a4e-9460-5af742af1f63",
+      "techniques": []
+    },
+    "1f1d5ac0-c074-4728-aa2d-a93ae1ff39fe/prompt-assembly": {
+      "context": "case-loops-core",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:31:47.590Z",
+      "worker": "2ee6d66f-b599-4a4e-9460-5af742af1f63",
+      "techniques": []
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/prompt-assembly": {
+      "context": "volby-elections",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:31:47.590Z",
+      "worker": "2ee6d66f-b599-4a4e-9460-5af742af1f63",
+      "techniques": []
     }
   }
 }
