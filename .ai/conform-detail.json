@@ -17887,6 +17887,38 @@
       "evaluatedTs": "2026-11-08T00:58:38.383Z",
       "worker": "f9531354-91cb-4e7a-98a5-0ec6a4a77e43",
       "techniques": []
+    },
+    "b915ec2e-c6d8-4559-8f60-635b53fc7eb3/claim-verification-and-provenance": {
+      "context": "labs-graph-routes",
+      "subject": "claim-verification-and-provenance",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T01:10:38.512Z",
+      "worker": "0a0665b3-91ec-48b8-8de7-b3465c374a96",
+      "techniques": [
+        {
+          "technique": "structured-review-emission",
+          "verdict": "deviation",
+          "evidence": "app/svedectvi/page.tsx:35 The emitter gates on reviewStatus, so the pending exhibits stay silent. But the verified exhibit's ClaimReview url becomes the constitution page, not the review's permalink, and datePublished becomes retrievedAt; the verified status is a code literal (line 37) with no recorded review."
+        },
+        {
+          "technique": "claim-ref-addressing",
+          "verdict": "conformant",
+          "evidence": "app/graf/p/[ref]/page.tsx:46 The content-hash permalink family (the scheme the technique endorses for views) refuses an undecodable address with 404 before any loader runs. The bundle route maps invalid, gone and unavailable to 404, 410 and 503."
+        },
+        {
+          "technique": "recomputation-receipts",
+          "verdict": "conformant",
+          "evidence": "app/graf/p/[ref]/page.tsx:24 The view is re-derived from the address and cached for a day; PermalinkPage dates the rederivation (permalink.rederived with retrievedOn), which meets the dated-receipt rule for cached receipts."
+        },
+        {
+          "technique": "gate-state-as-modifier",
+          "verdict": "conformant",
+          "evidence": "app/graf/p/[ref]/opengraph-image.tsx:108 On the OG card, rejection overrides pending and gets its own line. The confirming color is used only when card.review.confirming allows it (line 356), and deterministic nodes get their own sentence (line 185)."
+        }
+      ],
+      "registryProposal": "structured-review-emission should say how a hand-asserted constitutional or legal constant (no review queue, no reviewer record) may or may not carry ClaimReview. The repo marks such a constant verified in code, and the standard has no rule for it."
     }
   }
 }

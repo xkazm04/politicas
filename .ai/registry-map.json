@@ -9575,7 +9575,11 @@
           "revision": 5,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/svedectvi/page.tsx:35 /svedectvi emits ClaimReview JSON-LD for a claim hard-coded as verified with no recorded review. The emitter in lib/claims/claim.ts copies sourceUrl into the review's url and retrievedAt into datePublished, so the markup names a third-party source page as the review's address and the retrieval date as its publication date.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:36b08a11e64fd422",
+          "evaluatedRevision": 5
         },
         {
           "subject": "browser-credential-boundary",
