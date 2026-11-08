@@ -4479,7 +4479,11 @@
           "revision": 2,
           "changedAt": "2026-11-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/civicscore/scoreClaim.ts:2 The only 'claim' in this context is a citation ref for an MP's published contribution score (and duel.ts only compares two published composites), so nobody here claims that a code change made a pipeline faster or cheaper and there is no judge re-measuring before/after timing samples; a search of features/civicscore for watermark, ancestry, merge-base, workflow_run, inconclusive, is-ancestor, speedup and runner found nothing.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:8ac049505ef77bbd",
+          "evaluatedRevision": 2
         },
         {
           "subject": "grounded-answer-scoring",

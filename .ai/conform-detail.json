@@ -18696,6 +18696,42 @@
         "at": "2026-11-08T05:13:46.001920+00:00",
         "reason": "reviewer (sonnet): The anchor at apply-batch.ts:66 is a comment about a manual live commit and does not itself show that no CI pipeline or credential exists. The context directory has no CI-related hits, but the absence claim rests on a search and not on the cited line."
       }
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/claimed-improvement-remeasurement": {
+      "context": "civicscore-scoring",
+      "subject": "claimed-improvement-remeasurement",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T05:36:01.586Z",
+      "worker": "5f738e05-7cbf-43ba-8f43-f683372181df",
+      "techniques": [
+        {
+          "technique": "claimant-figure-never-decides",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/scoreClaim.ts:76 The score claim is a deterministic recomputation labelled ungated. No claimant figure exists for a judge to wall off."
+        },
+        {
+          "technique": "three-way-verdict-over-raw-samples",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:24 The duel compares two already-published composite scores (tie/lead). It does not compare base and head timing samples, so the credited/not-earned/inconclusive verdict has nothing to apply to."
+        },
+        {
+          "technique": "change-point-by-ancestry",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/duel.ts:12 No CI run series and no split by commit; these are display rules over graph values."
+        },
+        {
+          "technique": "queued-runs-as-head-sample",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/scoreClaim.ts:21 The index is recomputed deterministically from psp.cz dumps. No measurement runs are triggered."
+        },
+        {
+          "technique": "watermark-halts-at-unfinished",
+          "verdict": "not-applicable",
+          "evidence": "features/civicscore/scoreClaim.ts:60 No incremental run collection or cursor. The module takes the score exactly as the leaderboard carries it."
+        }
+      ]
     }
   }
 }

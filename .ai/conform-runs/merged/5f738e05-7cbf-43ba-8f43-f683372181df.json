@@ -1,0 +1,72 @@
+{
+ "schema": "conform-run/1",
+ "worker": "5f738e05-7cbf-43ba-8f43-f683372181df",
+ "subject": "claimed-improvement-remeasurement",
+ "evaluatedAt": "2026-11-08T05:36:01.586045+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civicscore-scoring",
+   "subject": "claimed-improvement-remeasurement",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/civicscore/scoreClaim.ts:2 The only 'claim' in this context is a citation ref for an MP's published contribution score (and duel.ts only compares two published composites), so nobody here claims that a code change made a pipeline faster or cheaper and there is no judge re-measuring before/after timing samples; a search of features/civicscore for watermark, ancestry, merge-base, workflow_run, inconclusive, is-ancestor, speedup and runner found nothing.",
+   "techniques": [
+    {
+     "technique": "claimant-figure-never-decides",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/scoreClaim.ts:76 The score claim is a deterministic recomputation labelled ungated. No claimant figure exists for a judge to wall off."
+    },
+    {
+     "technique": "three-way-verdict-over-raw-samples",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/duel.ts:24 The duel compares two already-published composite scores (tie/lead). It does not compare base and head timing samples, so the credited/not-earned/inconclusive verdict has nothing to apply to."
+    },
+    {
+     "technique": "change-point-by-ancestry",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/duel.ts:12 No CI run series and no split by commit; these are display rules over graph values."
+    },
+    {
+     "technique": "queued-runs-as-head-sample",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/scoreClaim.ts:21 The index is recomputed deterministically from psp.cz dumps. No measurement runs are triggered."
+    },
+    {
+     "technique": "watermark-halts-at-unfinished",
+     "verdict": "not-applicable",
+     "evidence": "features/civicscore/scoreClaim.ts:60 No incremental run collection or cursor. The module takes the score exactly as the leaderboard carries it."
+    }
+   ],
+   "absenceTerms": [
+    "watermark",
+    "ancestry",
+    "merge-base",
+    "workflow_run",
+    "inconclusive"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-08T05:36:01.586045+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "claimed-improvement-remeasurement"
+   ],
+   "techniques": [
+    "change-point-by-ancestry",
+    "claimant-figure-never-decides",
+    "queued-runs-as-head-sample",
+    "three-way-verdict-over-raw-samples",
+    "watermark-halts-at-unfinished"
+   ],
+   "deviations": 0,
+   "context": "civicscore-scoring",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
