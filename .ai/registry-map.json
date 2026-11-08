@@ -11839,8 +11839,12 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/money/triage.ts:8 A case-insensitive search of scripts/case-loops/money/ for AGENTS.md, CLAUDE.md, SKILL.md, MEMORY.md, cursorrules, copilot-instructions and .claude/ found no hits, so this context owns no agent instruction file: it is a deterministic, no-LLM substrate that emits ledger JSON, and the money-loop skill that steers agents lives outside the context.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:9b02cf004a7ce444",
+          "evaluatedRevision": 32
         },
         {
           "subject": "docs-sync",
@@ -12690,8 +12694,12 @@
           "revision": 31,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/case-loops/money/ownership-sweep.ts:33 The only point where this context touches agent-instruction territory is a code comment that cites an existing agent-memory entry (memory/ico-node-id-canonical-form.md exists) as the reason for a rule it implements. It reads that sink and writes no instruction file; a search of scripts/case-loops/money/ for AGENTS.md, CLAUDE.md, SKILL.md, MEMORY.md and copilot-instructions found no hits.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:9b02cf004a7ce444",
+          "evaluatedRevision": 32
         },
         {
           "subject": "guest-execution-bounding",

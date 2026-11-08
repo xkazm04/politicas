@@ -18487,6 +18487,26 @@
         "at": "2026-11-08T04:30:50.905820+00:00",
         "reason": "reviewer (sonnet): The claim that 'no dependency … crossing exists' is contradicted: the volby pages import next/link and lucide-react, and the context imports next-intl. The anchor (getKrajData.ts:21) is only a getStore() call and is incidental."
       }
+    },
+    "478853b2-e9d8-47d3-b7a8-3a7f2db824ec/agent-instruction-files": {
+      "context": "money-contracts",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:44:25.840Z",
+      "worker": "95b3b716-68cc-4e1c-806d-4362a90a30ee",
+      "techniques": []
+    },
+    "1d4e5da8-7190-49ac-9a60-facf0bce4162/agent-instruction-files": {
+      "context": "money-ownership",
+      "subject": "agent-instruction-files",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:44:25.840Z",
+      "worker": "95b3b716-68cc-4e1c-806d-4362a90a30ee",
+      "techniques": []
     }
   }
 }
