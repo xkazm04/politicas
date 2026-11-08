@@ -1,0 +1,59 @@
+{
+ "schema": "conform-run/1",
+ "worker": "886064d8-9744-4419-afc9-2bd776612e67",
+ "subject": "civic-knowledge-graphs",
+ "evaluatedAt": "2026-11-08T05:21:16.205665+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "civic-feed-routes",
+   "subject": "civic-knowledge-graphs",
+   "bundle": "civic-intelligence",
+   "state": "conformant",
+   "evidence": "app/zdroj/[ref]/page.tsx:104 The citation-permalink route emits the machine-readable ClaimReview mark only for a live (non-as-of) receipt, and the helper it calls returns null unless the edge's gate status is 'verified'; these read-only routes write nothing to the graph, so the writer-side techniques have no foothold here.",
+   "techniques": [
+    {
+     "technique": "forensic-view-filtering",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:104 ClaimReview JSON-LD only goes out for a live view, and toClaimReviewJsonLd (features/shared/provenance/receipt.ts:353) refuses anything whose gate.status !== 'verified'. A pending machine match is never published as a verified fact-check. The den\u00edk/d\u016fkazy feeds also put coverage and audit-cap disclosures into the channel notice instead of silently truncating."
+    },
+    {
+     "technique": "per-claim-provenance-stamping",
+     "verdict": "conformant",
+     "evidence": "app/zdroj/[ref]/page.tsx:13 The route serves a receipt for a single claim, keyed by its full claim identifier (claimRef). It re-derives provenance per claim, not per dataset, and when the claim no longer exists it prints what the claim used to say (ReceiptGonePage). It reads the stamp; it does not write one."
+    },
+    {
+     "technique": "destructive-rebuild-guard",
+     "verdict": "not-applicable",
+     "evidence": "app/zdroj/[ref]/page.tsx:17 These are read-only route handlers. A grep for kg_edge/INSERT/DELETE/reset in app/{denik,dukazy,schranka,overeni,zdroj} found nothing, so there is no rebuild to guard."
+    },
+    {
+     "technique": "pass-based-incremental-enrichment",
+     "verdict": "not-applicable",
+     "evidence": "app/schranka/novinky.json/route.ts:13 The delta endpoint is a pure function of (record, keys, since) and persists nothing. No property writes happen in this context."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-08T05:21:16.205665+00:00",
+   "bundle": "civic-intelligence",
+   "subjects": [
+    "civic-knowledge-graphs"
+   ],
+   "techniques": [
+    "destructive-rebuild-guard",
+    "forensic-view-filtering",
+    "pass-based-incremental-enrichment",
+    "per-claim-provenance-stamping"
+   ],
+   "deviations": 0,
+   "context": "civic-feed-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
