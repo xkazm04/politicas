@@ -18665,6 +18665,37 @@
         }
       ],
       "registryProposal": "outbound-fetch-destination-validation could name the 'trusted CDN indirection' case. A fixed, deployment-configured first hop (a font CSS API) returns the address of a second hop (a font file). The 'destination fixed by the deployment' exception covers only the first hop. The proportionate rule is probably a pinned host-and-scheme allowlist on the second hop plus no redirects, a time bound and a size bound, not full resolve-and-pin machinery."
+    },
+    "1f1d5ac0-c074-4728-aa2d-a93ae1ff39fe/ci-execution-trust": {
+      "context": "case-loops-core",
+      "subject": "ci-execution-trust",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T05:13:12.627Z",
+      "techniques": [
+        {
+          "technique": "measure-apply-split",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/apply-batch.ts:52 The dry-run/commit split is a split between a local DB report and a DB write, not between a CI job that runs contributor code and a job that holds a write credential. No CI write scope is involved."
+        },
+        {
+          "technique": "secret-materialization-discipline",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/apply-batch.ts:649 The only environment value read is a local store path, not a secret or a publishing/deployment credential."
+        },
+        {
+          "technique": "per-call-write-token-handout",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/persist-batch.ts:2 The write authority is a local DB write-lock holder with a pass number. No pipeline write token exists to hand out."
+        }
+      ],
+      "withdrawn": {
+        "worker": "2aba4cbc-a793-4b4e-921d-7f96d5153654",
+        "state": "not-applicable",
+        "at": "2026-11-08T05:13:46.001920+00:00",
+        "reason": "reviewer (sonnet): The anchor at apply-batch.ts:66 is a comment about a manual live commit and does not itself show that no CI pipeline or credential exists. The context directory has no CI-related hits, but the absence claim rests on a search and not on the cited line."
+      }
     }
   }
 }

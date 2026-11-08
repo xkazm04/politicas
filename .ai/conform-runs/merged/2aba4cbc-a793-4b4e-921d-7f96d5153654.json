@@ -1,0 +1,34 @@
+{
+  "schema": "conform-run/1",
+  "worker": "2aba4cbc-a793-4b4e-921d-7f96d5153654",
+  "subject": "ci-execution-trust",
+  "evaluatedAt": "2026-11-08T05:13:12.627209+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [],
+  "declined": [
+    {
+      "subject": "ci-execution-trust",
+      "context": "case-loops-core",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor at apply-batch.ts:66 is a comment about a manual live commit and does not itself show that no CI pipeline or credential exists. The context directory has no CI-related hits, but the absence claim rests on a search and not on the cited line."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-08T05:13:12.627209+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "ci-execution-trust"
+      ],
+      "techniques": [
+        "measure-apply-split",
+        "per-call-write-token-handout",
+        "secret-materialization-discipline"
+      ],
+      "deviations": 0,
+      "context": "case-loops-core",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}
