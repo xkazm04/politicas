@@ -5122,7 +5122,11 @@
           "revision": 6,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:416 The Velín loader only reads the existing civic knowledge graph (kg nodes and edges via store.kgNeighbours) and the other modules' loaders, and the context owns no store of normalized LLM call events, no schema and no backend port; a case-insensitive search of features/dashboard for telemetry, latency_ms, cost_usd, trace_id, input_tokens and prompt_tokens found nothing, so the subject's precondition (an operator-side analytics store of LLM telemetry) does not hold here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:dd9e74116ab5601b",
+          "evaluatedRevision": 6
         },
         {
           "subject": "canvas-graph",
