@@ -18387,6 +18387,26 @@
           "evidence": "features/graph/getPermalinkData.ts:56 This is a permalink content hash pinned to the canonical locale, not a translation cache. It is also a literal language code where defaultLocale could be used."
         }
       ]
+    },
+    "698307e2-e6e2-444a-81c9-07254c5d1725/eval-harness": {
+      "context": "money-evidence",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:10:49.263Z",
+      "worker": "c5afd9c2-a5e4-4689-be4a-105aaa872a2e",
+      "techniques": []
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/eval-harness": {
+      "context": "labs-rentgen",
+      "subject": "eval-harness",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:10:49.263Z",
+      "worker": "c5afd9c2-a5e4-4689-be4a-105aaa872a2e",
+      "techniques": []
     }
   }
 }

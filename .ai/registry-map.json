@@ -9778,8 +9778,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "features/labs/rentgen/terminalModel.ts:2 Rentgen is an archived art direction with a pure view model over verified ties. Nothing in it runs or scores a model, and a search of features/labs/rentgen for benchmark, llm, judge, rubric and scenario found nothing.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:85554b740461b19e",
+          "evaluatedRevision": 39
         },
         {
           "subject": "prompt-assembly",
@@ -12062,8 +12066,12 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "state": "not-applicable",
+          "priorNotApplicable": 7,
+          "evidence": "features/money/collisions/deriveCollisions.ts:6 The tie, ownership and collision layer is a deterministic join (\"nothing here runs through a model\"). It does nothing to evaluate models. tieFlags.ts only translates the labels left by upstream LLM review passes (sonnet-reviewed/opus-verified) into reader copy that says they are machine checks, and a search of features/money for benchmark, rubric, scenario, pass@ and golden set found nothing.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:85554b740461b19e",
+          "evaluatedRevision": 39
         }
       ],
       "governance": "governed"
