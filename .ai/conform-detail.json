@@ -17837,6 +17837,56 @@
       "evaluatedTs": "2026-11-08T00:43:59.111Z",
       "worker": "4bfdf543-5a5c-4625-988e-93bbddc920c0",
       "techniques": []
+    },
+    "61b546ac-220d-425f-ad42-8e39576b3784/agent-runtime-assembly": {
+      "context": "scripts-quality-gates",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:58:38.383Z",
+      "worker": "f9531354-91cb-4e7a-98a5-0ec6a4a77e43",
+      "techniques": []
+    },
+    "f84fc62f-066d-4eff-bad8-805084d68e10/agent-runtime-assembly": {
+      "context": "shell-navigation",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:58:38.383Z",
+      "worker": "f9531354-91cb-4e7a-98a5-0ec6a4a77e43",
+      "techniques": []
+    },
+    "12af88db-9c79-4204-81e5-098593e5dcfc/agent-runtime-assembly": {
+      "context": "shared-provenance",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:58:38.383Z",
+      "worker": "f9531354-91cb-4e7a-98a5-0ec6a4a77e43",
+      "techniques": []
+    },
+    "3e0155e0-4169-49a7-b22d-7a7fe3483ee4/agent-runtime-assembly": {
+      "context": "civic-evidence",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:58:38.383Z",
+      "worker": "f9531354-91cb-4e7a-98a5-0ec6a4a77e43",
+      "techniques": []
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/agent-runtime-assembly": {
+      "context": "admin-infrastructure",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T00:58:38.383Z",
+      "worker": "f9531354-91cb-4e7a-98a5-0ec6a4a77e43",
+      "techniques": []
     }
   }
 }

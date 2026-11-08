@@ -1172,8 +1172,12 @@
           "revision": 28,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "app/admin/loopActions.ts:3 The admin 'loop' actions only gate and append operator entries (requeue, queue order) to an append-only drive journal, and the atlas and data routes serve JSON. No model call, tool call, hook chain or extension loading happens in app/admin, app/atlas or app/data. The search found only a doc-comment mention of the deprecated Next 'middleware.ts', which is not a runtime hook. The queue semantics belong to job-coordination, not this subject.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:c29c78bbbf9eb4fe",
+          "evaluatedRevision": 29
         },
         {
           "subject": "test-harness",
@@ -2971,8 +2975,12 @@
           "revision": 28,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/dukazy/deriveFeed.ts:1 Dukazy derives a public feed from review_audit rows and signed verdicts, and serialises it with codecs. A search of features/dukazy for agent-runtime vocabulary (anthropic, agent, hook, checkpoint, toolCall) returned nothing, so the subject's precondition of a hook-wrapped model or tool call does not hold.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:c29c78bbbf9eb4fe",
+          "evaluatedRevision": 29
         }
       ],
       "governance": "governed"
@@ -13266,8 +13274,12 @@
           "revision": 28,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/sentinel/run.ts:4 The sentinel, KPI meters, doc-sync checker and smoke test are deterministic Node scripts that open a store copy, run invariants or fetch routes, and no model or tool call is wrapped. A search for hook-chain, model-call and tool-call wrapping vocabulary found no match in scripts/ (the agent-adjacent hits for toolCall/subagent sit in scripts/data-analysis and scripts/case-loops, which belong to other contexts), so there is no runtime assembly here to judge.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:c29c78bbbf9eb4fe",
+          "evaluatedRevision": 29
         },
         {
           "subject": "session-continuation",
@@ -13721,8 +13733,12 @@
           "revision": 28,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/shared/provenance/receipt.ts:2 Provenance and poster modules are pure derivations of citation receipts from knowledge-graph rows plus rendering components. A search of features/shared for agent, plugin, hook, checkpoint, anthropic and toolCall terms returned no hits, so no runtime is assembled around a model call here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:c29c78bbbf9eb4fe",
+          "evaluatedRevision": 29
         }
       ],
       "governance": "governed"
@@ -13927,8 +13943,12 @@
           "revision": 28,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/shell/navModel.ts:1 The shell is React app chrome (nav rail, mobile nav, section anchors, sitemap). Searching features/shell for anthropic, agent, plugin, hook, checkpoint and toolCall vocabulary found nothing, so it has no agent loop, hook chain or extension host for the subject to govern.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:c29c78bbbf9eb4fe",
+          "evaluatedRevision": 29
         }
       ],
       "governance": "governed"
