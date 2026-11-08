@@ -16033,39 +16033,38 @@
       "subject": "prompt-assembly",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-11-06",
-      "evaluatedTs": "2026-11-06T22:11:48.854Z",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:46:31.632Z",
       "techniques": [
         {
           "technique": "layered-composition",
           "verdict": "conformant",
-          "evidence": "lib/analysis/context-model.ts:1 One origin for the analyst's context layer, shared by the direct and DataHub arms. buildDocumentation puts stable source docs and corpus rules first and the volatile coverage and notes last."
-        },
-        {
-          "technique": "house-vocabulary-layer",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/context-model.ts:118 CORPUS_PRIMER and ENTITY_FIELDS are a single-authority domain vocabulary that includes deliberate exclusions (club ≠ party_list, merged K bucket)."
+          "evidence": "lib/analysis/context-model.ts:1 One origin builds the context layer for both delivery arms (direct and DataHub Lite), so nobody concatenates context at call sites."
         },
         {
           "technique": "variable-interpolation",
           "verdict": "conformant",
-          "evidence": "lib/analysis/context-model.ts:252 Lists render as items, not joined strings. A missing SOURCE_DOCS entry drops the whole section (`if (doc)` at line 245) instead of rendering an empty heading."
+          "evidence": "lib/analysis/context-model.ts:14 Rendering is pure and reads only its declared inputs (SliceStats plus constants). No clock, no ambient state."
         },
         {
           "technique": "context-reachability",
           "verdict": "deviation",
-          "evidence": "lib/analysis/context-model.ts:259 A stale-prone, hand-maintained coverage digest (the source is docs/data-analysis/coverage-ledger.md, which the agent can reach) is injected anyway. Nothing classifies spans as reachable or unreachable."
-        },
-        {
-          "technique": "pinned-prompt-clock",
-          "verdict": "not-applicable",
-          "evidence": "lib/analysis/context-model.ts:14 Assembly reads no clock. The only dates are fixed asOf measurement stamps, so no live date or time enters the context."
+          "evidence": "lib/analysis/context-model.ts:122 Coverage state can be reached from docs/data-analysis, and the module knows its copy goes stale. The rule says to omit reachable context that cannot be kept fresh, but it is injected as fact."
         },
         {
           "technique": "context-budgeting",
           "verdict": "deviation",
-          "evidence": "lib/analysis/context-model.ts:260 Every feeder (known issues, notes, sibling slices) adds all of its items, with no cap, no token budget and no degradation ladder. Nothing owns the total.",
-          "carriedFrom": "2026-11-04"
+          "evidence": "lib/analysis/context-model.ts:252 The feeder has no named sub-budget and no degradation ladder: every known issue, primer rule and note is appended in full with no size accounting."
+        },
+        {
+          "technique": "house-vocabulary-layer",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/context-model.ts:118 CORPUS_PRIMER and ENTITY_FIELDS are an owned section with one authority. They carry the project's load-bearing terms and distinctions (club vs party_list, the K bucket)."
+        },
+        {
+          "technique": "pinned-prompt-clock",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/context-model.ts:250 The context carries authored as-of dates as data, never a live 'today', so there is no clock to pin."
         },
         {
           "technique": "fingerprinting-and-cache-keys",
@@ -16075,10 +16074,10 @@
         }
       ],
       "withdrawn": {
-        "worker": "0823ac51-cb56-4497-a0ed-8dc65c22222a",
+        "worker": "bf89a3b7-ab9f-4432-88ed-8b5febb22066",
         "state": "deviation",
-        "at": "2026-11-06T22:13:23.503435+00:00",
-        "reason": "reviewer (sonnet): The anchor lib/analysis/context-model.ts builds the data-quality analyst's DataHub context (used by context-provider, atlas and scripts/data-analysis). It is not among the civic-score-computation context files (contribution, score-citations, score-legibility, low-score-reason). The code is as the ev"
+        "at": "2026-11-08T03:47:15.214449+00:00",
+        "reason": "reviewer (sonnet): The claim is about lib/analysis/context-model.ts, the analyst-context feeder for the data-analysis subagent, but this context's files are the score modules (contribution, score-citations, score-legibility, low-score-reason), none of which call it, so the verdict is about a different context."
       }
     },
     "288263c6-af06-423e-b473-ec1d630613ac/prompt-assembly": {
@@ -18312,6 +18311,36 @@
       "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
       "techniques": [],
       "registryProposal": "Consider a note in the golden path's 'what is not this subject' section saying that spawning an agent CLI in headless print mode with no tool configuration is out of scope, so seats do not confuse an LLM subprocess wrapper with a tool-protocol consumer."
+    },
+    "f5990dbf-2b69-4da7-9e42-b3b510462622/prompt-assembly": {
+      "context": "ingest-sources-legislative",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:46:31.632Z",
+      "worker": "bf89a3b7-ab9f-4432-88ed-8b5febb22066",
+      "techniques": []
+    },
+    "e2b80f75-a467-40ef-a983-08311773f3d1/prompt-assembly": {
+      "context": "ingest-sources-financial",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:46:31.632Z",
+      "worker": "bf89a3b7-ab9f-4432-88ed-8b5febb22066",
+      "techniques": []
+    },
+    "ca94aa35-e6ad-46ab-ad7a-53174a270d05/prompt-assembly": {
+      "context": "civic-feed-routes",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:46:31.632Z",
+      "worker": "bf89a3b7-ab9f-4432-88ed-8b5febb22066",
+      "techniques": []
     }
   }
 }

@@ -3403,8 +3403,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "app/denik/feed.json/route.ts:27 These are thin Next.js pages and RSS/JSON feed handlers that serialize loader output. Searching app/denik, app/dukazy, app/schranka, app/overeni and app/zdroj for prompt, anthropic, openai and systemPrompt found no hits, so no model prompt is built.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "page-load-pipeline",
@@ -8479,8 +8483,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/ingest/sources/kiosek.ts:316 The financial adapters (smlouvy, ISVZ, dataor, kiosek, MONITOR) are deterministic fetch/parse/classify code that explicitly avoids a model. Searching for prompt, anthropic, openai and systemPrompt across lib/ingest/sources found nothing, so no prompt is assembled here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "agent-memory",
@@ -8683,8 +8691,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/ingest/sources/refusal-class.ts:48 These are deterministic HTTP/UNL fetch-and-parse adapters, and even 'refusal' here means an HTTP status class. Searching lib/ingest/sources for prompt, anthropic, openai, systemPrompt and 'context window' found no hits, so this context assembles no model prompt.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         }
       ],
       "governance": "governed"

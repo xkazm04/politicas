@@ -1,0 +1,121 @@
+{
+  "schema": "conform-run/1",
+  "worker": "bf89a3b7-ab9f-4432-88ed-8b5febb22066",
+  "subject": "prompt-assembly",
+  "evaluatedAt": "2026-11-08T03:46:31.632659+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "ingest-sources-legislative",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "lib/ingest/sources/refusal-class.ts:48 These are deterministic HTTP/UNL fetch-and-parse adapters, and even 'refusal' here means an HTTP status class. Searching lib/ingest/sources for prompt, anthropic, openai, systemPrompt and 'context window' found no hits, so this context assembles no model prompt.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "openai",
+        "systemPrompt"
+      ]
+    },
+    {
+      "context": "ingest-sources-financial",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "lib/ingest/sources/kiosek.ts:316 The financial adapters (smlouvy, ISVZ, dataor, kiosek, MONITOR) are deterministic fetch/parse/classify code that explicitly avoids a model. Searching for prompt, anthropic, openai and systemPrompt across lib/ingest/sources found nothing, so no prompt is assembled here.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "openai",
+        "systemPrompt"
+      ]
+    },
+    {
+      "context": "civic-feed-routes",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "app/denik/feed.json/route.ts:27 These are thin Next.js pages and RSS/JSON feed handlers that serialize loader output. Searching app/denik, app/dukazy, app/schranka, app/overeni and app/zdroj for prompt, anthropic, openai and systemPrompt found no hits, so no model prompt is built.",
+      "techniques": [],
+      "absenceTerms": [
+        "prompt",
+        "anthropic",
+        "openai",
+        "systemPrompt"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "prompt-assembly",
+      "context": "law-archive-late",
+      "reason": "the seat returned unknown"
+    },
+    {
+      "subject": "prompt-assembly",
+      "context": "civic-score-computation",
+      "reason": "withdrawn after review: reviewer (sonnet): The claim is about lib/analysis/context-model.ts, the analyst-context feeder for the data-analysis subagent, but this context's files are the score modules (contribution, score-citations, score-legibility, low-score-reason), none of which call it, so the verdict is about a different context."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-08T03:46:31.632659+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [
+        "context-budgeting",
+        "context-reachability",
+        "house-vocabulary-layer",
+        "layered-composition",
+        "pinned-prompt-clock",
+        "variable-interpolation"
+      ],
+      "deviations": 1,
+      "context": "civic-score-computation",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-08T03:46:31.632659+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "ingest-sources-legislative",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-08T03:46:31.632659+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "ingest-sources-financial",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-08T03:46:31.632659+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "prompt-assembly"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "civic-feed-routes",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}
