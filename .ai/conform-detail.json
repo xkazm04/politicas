@@ -18206,6 +18206,51 @@
       "evaluatedTs": "2026-11-08T03:08:43.040Z",
       "worker": "58d5af5d-cfe4-4e6b-b566-d84a847de4f6",
       "techniques": []
+    },
+    "288263c6-af06-423e-b473-ec1d630613ac/fleet-orchestration": {
+      "context": "budget-mirror",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:19:11.039Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "e70e4b1a-7358-415d-82f1-463c6920b83c",
+        "state": "not-applicable",
+        "at": "2026-11-08T03:20:01.549012+00:00",
+        "reason": "reviewer (sonnet): Each not-applicable anchor is incidental: BudgetMirrorPage.tsx:128 is a component signature, MetodikaPage.tsx:49 is a component signature, and getAtlasData.ts:118 is a React cache() wrapper. None shows that a fleet of agent sessions is absent. My grep for subagent, orchestrat*, hibernat*, dispatch f"
+      }
+    },
+    "56c0ab3a-98f5-4174-be21-b2fd763b7e64/fleet-orchestration": {
+      "context": "civicscore-scoring",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:19:11.039Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "e70e4b1a-7358-415d-82f1-463c6920b83c",
+        "state": "not-applicable",
+        "at": "2026-11-08T03:20:01.549012+00:00",
+        "reason": "reviewer (sonnet): Each not-applicable anchor is incidental: BudgetMirrorPage.tsx:128 is a component signature, MetodikaPage.tsx:49 is a component signature, and getAtlasData.ts:118 is a React cache() wrapper. None shows that a fleet of agent sessions is absent. My grep for subagent, orchestrat*, hibernat*, dispatch f"
+      }
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/fleet-orchestration": {
+      "context": "data-releases-atlas",
+      "subject": "fleet-orchestration",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:19:11.039Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "e70e4b1a-7358-415d-82f1-463c6920b83c",
+        "state": "not-applicable",
+        "at": "2026-11-08T03:20:01.549012+00:00",
+        "reason": "reviewer (sonnet): Each not-applicable anchor is incidental: BudgetMirrorPage.tsx:128 is a component signature, MetodikaPage.tsx:49 is a component signature, and getAtlasData.ts:118 is a React cache() wrapper. None shows that a fleet of agent sessions is absent. My grep for subagent, orchestrat*, hibernat*, dispatch f"
+      }
     }
   }
 }
