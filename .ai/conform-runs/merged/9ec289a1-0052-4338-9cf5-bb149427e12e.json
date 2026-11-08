@@ -1,0 +1,116 @@
+{
+ "schema": "conform-run/1",
+ "worker": "9ec289a1-0052-4338-9cf5-bb149427e12e",
+ "subject": "translation-pipeline-topology",
+ "evaluatedAt": "2026-11-08T03:56:10.758599+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "census-quality-gate",
+   "subject": "translation-pipeline-topology",
+   "bundle": "localization",
+   "state": "not-applicable",
+   "evidence": "scripts/census/run-census.mjs:16 The context is a ported rule engine that ratchets library-adoption rules. Searching scripts/census for translat, next-intl, messages/ and pseudo found nothing (the only 'i18n' hit is a library-index.json entry title, and the only 'locale' hits are localeCompare), so no translation storage, movement or serving happens here.",
+   "techniques": [],
+   "absenceTerms": [
+    "translat",
+    "next-intl",
+    "messages/",
+    "pseudo"
+   ]
+  },
+  {
+   "context": "testing-flake-sentinel",
+   "subject": "translation-pipeline-topology",
+   "bundle": "localization",
+   "state": "not-applicable",
+   "evidence": "lib/testing/flake/registry.ts:2 The context is a flaky-test quarantine register plus a live-graph invariant sentinel. Searching lib/testing for translat, next-intl, messages/ and pseudo found nothing (the only 'locale' hits are localeCompare sorts), so the translation-topology precondition does not hold.",
+   "techniques": [],
+   "absenceTerms": [
+    "translat",
+    "next-intl",
+    "messages/",
+    "pseudo"
+   ]
+  },
+  {
+   "context": "graph-data-logic",
+   "subject": "translation-pipeline-topology",
+   "bundle": "localization",
+   "state": "deviation",
+   "evidence": "features/graph/catalogParity.test.ts:20 The parity test lists the locales by hand (`cs`, `en`) instead of deriving them from `locales` in lib/i18n/config.ts. A third registered language would silently escape the graph-catalog coverage check, which is the 'convenience copy' shadow registry the technique names as a defect.",
+   "techniques": [
+    {
+     "technique": "language-registry-single-source",
+     "verdict": "deviation",
+     "evidence": "features/graph/catalogParity.test.ts:20 Hand-enumerated locale list in the catalog-coverage test. By contrast, graphLoader.ts BOOL_LABEL is typed Record<Locale, \u2026> and so does derive from the registry."
+    },
+    {
+     "technique": "canonical-fallback-serving",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/graphLoader.ts:872 An unregistered locale falls back to canonical cs. There is no derived store and no per-unit fallback here."
+    },
+    {
+     "technique": "source-hash-translation-cache",
+     "verdict": "not-applicable",
+     "evidence": "features/graph/getPermalinkData.ts:56 This is a permalink content hash pinned to the canonical locale, not a translation cache. It is also a literal language code where defaultLocale could be used."
+    }
+   ]
+  }
+ ],
+ "declined": [
+  {
+   "subject": "translation-pipeline-topology",
+   "context": "shell-ui-components",
+   "reason": "the seat returned unknown"
+  },
+  {
+   "subject": "translation-pipeline-topology",
+   "context": "verdict-and-law-analysis",
+   "reason": "the seat returned unknown"
+  }
+ ],
+ "consults": [
+  {
+   "ts": "2026-11-08T03:56:10.758599+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-pipeline-topology"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "census-quality-gate",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T03:56:10.758599+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-pipeline-topology"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "testing-flake-sentinel",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-08T03:56:10.758599+00:00",
+   "bundle": "localization",
+   "subjects": [
+    "translation-pipeline-topology"
+   ],
+   "techniques": [
+    "canonical-fallback-serving",
+    "language-registry-single-source",
+    "source-hash-translation-cache"
+   ],
+   "deviations": 1,
+   "context": "graph-data-logic",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

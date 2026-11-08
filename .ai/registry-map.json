@@ -2578,8 +2578,12 @@
           "revision": 13,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/census/run-census.mjs:16 The context is a ported rule engine that ratchets library-adoption rules. Searching scripts/census for translat, next-intl, messages/ and pseudo found nothing (the only 'i18n' hit is a library-index.json entry title, and the only 'locale' hits are localeCompare), so no translation storage, movement or serving happens here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13
         }
       ],
       "governance": "governed"
@@ -7859,8 +7863,12 @@
           "revision": 13,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "deviation",
+          "priorNotApplicable": 5,
+          "evidence": "features/graph/catalogParity.test.ts:20 The parity test lists the locales by hand (`cs`, `en`) instead of deriving them from `locales` in lib/i18n/config.ts. A third registered language would silently escape the graph-catalog coverage check, which is the 'convenience copy' shadow registry the technique names as a defect.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13
         },
         {
           "subject": "model-composed-workspace",
@@ -14569,8 +14577,12 @@
           "revision": 13,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/testing/flake/registry.ts:2 The context is a flaky-test quarantine register plus a live-graph invariant sentinel. Searching lib/testing for translat, next-intl, messages/ and pseudo found nothing (the only 'locale' hits are localeCompare sorts), so the translation-topology precondition does not hold.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13
         },
         {
           "subject": "data-access",

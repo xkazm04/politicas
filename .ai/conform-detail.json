@@ -18341,6 +18341,52 @@
       "evaluatedTs": "2026-11-08T03:46:31.632Z",
       "worker": "bf89a3b7-ab9f-4432-88ed-8b5febb22066",
       "techniques": []
+    },
+    "78e81519-5df8-43ec-adb6-ba4dae3ea206/translation-pipeline-topology": {
+      "context": "census-quality-gate",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:56:10.758Z",
+      "worker": "9ec289a1-0052-4338-9cf5-bb149427e12e",
+      "techniques": []
+    },
+    "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/translation-pipeline-topology": {
+      "context": "testing-flake-sentinel",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:56:10.758Z",
+      "worker": "9ec289a1-0052-4338-9cf5-bb149427e12e",
+      "techniques": []
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/translation-pipeline-topology": {
+      "context": "graph-data-logic",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:56:10.758Z",
+      "worker": "9ec289a1-0052-4338-9cf5-bb149427e12e",
+      "techniques": [
+        {
+          "technique": "language-registry-single-source",
+          "verdict": "deviation",
+          "evidence": "features/graph/catalogParity.test.ts:20 Hand-enumerated locale list in the catalog-coverage test. By contrast, graphLoader.ts BOOL_LABEL is typed Record<Locale, …> and so does derive from the registry."
+        },
+        {
+          "technique": "canonical-fallback-serving",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphLoader.ts:872 An unregistered locale falls back to canonical cs. There is no derived store and no per-unit fallback here."
+        },
+        {
+          "technique": "source-hash-translation-cache",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/getPermalinkData.ts:56 This is a permalink content hash pinned to the canonical locale, not a translation cache. It is also a literal language code where defaultLocale could be used."
+        }
+      ]
     }
   }
 }
