@@ -17950,28 +17950,28 @@
       "context": "admin-infrastructure",
       "subject": "copy-quality-gates",
       "bundle": "localization",
-      "state": "unknown",
+      "state": "deviation",
       "evaluatedAt": "2026-11-08",
-      "evaluatedTs": "2026-11-08T01:34:22.933Z",
+      "evaluatedTs": "2026-11-08T23:43:33.560Z",
+      "worker": "a3cc99c7-fbff-4a12-9821-dfb1b39fd3bc",
       "techniques": [
         {
           "technique": "rendered-string-extraction",
           "verdict": "deviation",
-          "evidence": "app/admin/AdminGate.tsx:43 The rule for copy living outside the catalog is: extract it through the same pipeline, or declare it out of scope in the gate's report. Neither happens here. The repo's copy contract has sources=[messages/en.json] and exclude=[]."
+          "evidence": "app/admin/AdminGate.tsx:40 Rule: copy outside the catalog is extracted through the same pipeline or declared out of scope in the report. The contract lists only messages/en.json with exclude: [], and report.mjs:17 prints only strings checked, so these literals are an undeclared source. The opt-out exists only as a code comment (app/admin/page.tsx:8), and the 'boundary note in features/admin/' it points to was not found by search."
         },
         {
           "technique": "layered-mechanical-gate",
           "verdict": "deviation",
-          "evidence": "app/admin/page.tsx:8 The exemption is written only as a code comment. No gate layer counts these literals, and nothing checks them for literals escaping the catalog (an L1 check). So no layer ever sees this source-language copy."
+          "evidence": "app/admin/loopActions.ts:74 L1 includes no literal user-visible string escaping the catalog. This server-action error is a hardcoded literal that reaches the operator via setLastError(res.error) at features/admin/components/LoopMissionControl.tsx:140, and no configured check sees it. The checker can extract jsx and ts-module kinds, but the contract does not enable them."
+        },
+        {
+          "technique": "source-defects-from-cross-language-agreement",
+          "verdict": "not-applicable",
+          "evidence": "app/data/page.tsx:11 The signal needs target failures in at least two languages per source unit. These routes have one source (cs) and one target (en), confirmed by locales at lib/i18n/config.ts:8, so it cannot fire."
         }
       ],
-      "registryProposal": "rendered-string-extraction could say whether a code comment declaring a surface 'internal, not localized' counts as 'declared out of scope'. As written, the declaration has to appear in the gate's report or contract, and the technique would gain from saying so explicitly.",
-      "withdrawn": {
-        "worker": "4c051db0-ecef-4c39-93f9-e4b3ec9098b1",
-        "state": "deviation",
-        "at": "2026-11-08T01:35:51.006073+00:00",
-        "reason": "reviewer (sonnet): docs/i18n/copy-contract.json says Czech is the source locale and the gate covers only the derived English catalog (sources=[messages/en.json], exclude=[]). Czech copy such as AdminGate.tsx's JSX literals is therefore outside the gate's remit, and the contract's notes say messages/cs.json is out of s"
-      }
+      "registryProposal": "The standard gives no explicit treatment for an operator-only, single-locale internal console. rendered-string-extraction allows declaring such copy out of scope in the report, while layered-mechanical-gate L1 lists literals escaping the catalog with no scope exception, and copy-contract-before-drafting exempts only a one-off internal string. A decision rule on whether a whole non-localized operator surface may be declared out of L1 would remove this ambiguity."
     },
     "12af88db-9c79-4204-81e5-098593e5dcfc/demo-data-plane": {
       "context": "shared-provenance",

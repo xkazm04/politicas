@@ -1209,7 +1209,11 @@
           "revision": 10,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/admin/AdminGate.tsx:40 The /admin gate renders literal Czech copy in JSX that sits outside the copy gate's only declared source (messages/en.json), and the gate's report neither extracts it nor declares it out of scope, so a green copy-check says nothing about this surface.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:f00a2dbd4e8fdce1",
+          "evaluatedRevision": 10
         },
         {
           "subject": "browser-credential-boundary",
