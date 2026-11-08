@@ -1684,8 +1684,8 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "priorNotApplicable": 5,
+          "state": "unknown"
         },
         {
           "subject": "docs-sync",
@@ -5463,8 +5463,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/db/pglite/ddl.ts:1 This context is the embedded-Postgres persistence substrate (schema, WAL, checkpoint, store copy); a case-insensitive grep of lib/db/pglite for mcp, modelcontextprotocol, McpServer, tools/list and inputSchema returned zero hits, and package.json declares no MCP SDK, so no tool server or client exists here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:cb2b1c9f6fef5eb9",
+          "evaluatedRevision": 35
         },
         {
           "subject": "migrations",
@@ -8068,8 +8072,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "scripts/hybrid-bench/engine.ts:30 The benchmark spawns the Claude CLI in print mode, passing only --model and --effort beyond these base args: no MCP config, no tool allow-list, and no tool server of its own (grep of scripts/hybrid-bench for mcp, modelcontextprotocol, McpServer, tools/list and inputSchema found nothing). It is an LLM call wrapper, not a tool-protocol host or server.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:cb2b1c9f6fef5eb9",
+          "evaluatedRevision": 35
         },
         {
           "subject": "voice-io",
@@ -10093,8 +10101,8 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "priorNotApplicable": 5,
+          "state": "unknown"
         },
         {
           "subject": "motion",
@@ -14953,8 +14961,12 @@
           "revision": 34,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/volby/volbyLoader.ts:1 The /volby context is server-only page loaders plus React components that render for human readers, not a tool surface that a model calls; grep of features/volby for mcp, modelcontextprotocol, McpServer, tools/list and inputSchema found nothing.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:cb2b1c9f6fef5eb9",
+          "evaluatedRevision": 35
         },
         {
           "subject": "markdown-vault",

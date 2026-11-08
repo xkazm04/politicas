@@ -18251,6 +18251,67 @@
         "at": "2026-11-08T03:20:01.549012+00:00",
         "reason": "reviewer (sonnet): Each not-applicable anchor is incidental: BudgetMirrorPage.tsx:128 is a component signature, MetodikaPage.tsx:49 is a component signature, and getAtlasData.ts:118 is a React cache() wrapper. None shows that a fleet of agent sessions is absent. My grep for subagent, orchestrat*, hibernat*, dispatch f"
       }
+    },
+    "5a54b236-a7d7-47c5-aaeb-e663266033e7/mcp-tools": {
+      "context": "db-pglite-engine",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:32:09.274Z",
+      "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
+      "techniques": []
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/mcp-tools": {
+      "context": "volby-elections",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:32:09.274Z",
+      "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
+      "techniques": []
+    },
+    "76a2add3-382e-4073-9444-31220b3b8590/mcp-tools": {
+      "context": "app-shell",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:32:09.274Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
+        "state": "not-applicable",
+        "at": "2026-11-08T03:33:01.726173+00:00",
+        "reason": "reviewer (sonnet): The anchors (app/layout.tsx:7 and features/landing/LandingPage.tsx:23) are import lines that do not show that a tool surface is absent; app/ also contains many route.ts handlers, which the evidence does not address."
+      }
+    },
+    "c1f4fb9c-8972-4a48-a807-c32091ebf019/mcp-tools": {
+      "context": "landing-core",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:32:09.274Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
+        "state": "not-applicable",
+        "at": "2026-11-08T03:33:01.726173+00:00",
+        "reason": "reviewer (sonnet): The anchors (app/layout.tsx:7 and features/landing/LandingPage.tsx:23) are import lines that do not show that a tool surface is absent; app/ also contains many route.ts handlers, which the evidence does not address."
+      }
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/mcp-tools": {
+      "context": "hybrid-bench",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T03:32:09.274Z",
+      "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
+      "techniques": [],
+      "registryProposal": "Consider a note in the golden path's 'what is not this subject' section saying that spawning an agent CLI in headless print mode with no tool configuration is out of scope, so seats do not confuse an LLM subprocess wrapper with a tool-protocol consumer."
     }
   }
 }
