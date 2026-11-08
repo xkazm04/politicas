@@ -9108,7 +9108,11 @@
           "revision": 7,
           "changedAt": "2026-10-22",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:89 The participation numerator counts present-choice ballots on every term roll call, including voided (zmatečné) ones, since listVoteBallots does not filter them. The denominator at line 85 (rollCallsHeld = activeVotes.length) drops voided and manual votes and is one term-wide count, not tied to each mandate's dates. So the numerator is not a subset of the denominator, and a mid-term replacement MP's participation_rate is measured against roll calls they could never have cast.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:1fb04612acd77185",
+          "evaluatedRevision": 7
         }
       ],
       "governance": "governed"

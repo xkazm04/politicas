@@ -18061,6 +18061,33 @@
           "evidence": "features/dukazy/chainRow.test.ts:100 verifyAuditChain checks the integrity of the review-audit hash chain, not agent work. This test is a positive-path fixture for the mapper only."
         }
       ]
+    },
+    "cfa7d042-e2a7-497b-9926-e88df58ff10f/roll-call-vote-analysis": {
+      "context": "kg-domain-ingest",
+      "subject": "roll-call-vote-analysis",
+      "bundle": "civic-intelligence",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T02:33:07.064Z",
+      "worker": "c805ac16-48cd-4982-9e82-01343c4acfb1",
+      "techniques": [
+        {
+          "technique": "positional-vs-participation-bases",
+          "verdict": "deviation",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:89 The base itself is right: it imports PRESENT_CHOICES, the participation base. But the technique requires the numerator to be a validated subset of the denominator, and requires eligibility to respect mandate dates. Here ballots on voided roll calls are counted while line 84 removes voided and manual votes from the denominator, and the denominator is term-level for every MP. computeContribution's clamp01 then hides any overflow."
+        },
+        {
+          "technique": "vote-choice-vocabulary-mapping",
+          "verdict": "conformant",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:44 The choice set is imported from the one vocabulary module (lib/ingest/normalize, which re-exports packages/czech-civic-data/src/normalize.ts) and not re-listed at the call site. ingest.ts likewise gets choices through normalizeHlasovani/voteChoice and keeps no mapping table of its own."
+        },
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "not-applicable",
+          "evidence": "scripts/data-analysis/kg-contribution-ingest.ts:7 This context only preserves rebellion_rate and cohesion props written elsewhere (lib/analysis/kg.ts). It derives no party line and counts no rebellion."
+        }
+      ],
+      "registryProposal": "positional-vs-participation-bases could state outright that a participation numerator and denominator must apply the same validity filters (voided, manual or non-recorded divisions). Doing the voided exclusion on only one side is an easy failure, and a clamp to [0,1] downstream hides it."
     }
   }
 }
