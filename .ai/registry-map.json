@@ -2296,7 +2296,11 @@
           "revision": 9,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/sources/kiosek-slice.ts:168 The shared gitignored .kiosek-cache/pdfs cache is trusted on bare file existence while line 182 writes each PDF in place with no .part-and-rename, so a truncated or sibling-in-progress file passes the check, is never refetched and fails only at parse time, the exact population failure shared-resource-arbitration names; the other eight techniques are not engaged because these scripts run no git operation.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:de557423d4cf3016",
+          "evaluatedRevision": 9
         },
         {
           "subject": "concurrency-guards",
