@@ -11879,14 +11879,14 @@
       "subject": "markdown-vault",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T05:47:20.883Z",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:21:09.304Z",
       "techniques": [],
       "withdrawn": {
-        "worker": "379aec28-b8c5-4901-b260-a630d06f0e7d",
+        "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
         "state": "not-applicable",
-        "at": "2026-10-24T05:47:43.299905+00:00",
-        "reason": "reviewer (sonnet): The anchor SourceNote.tsx:13 is a Czech comment line about a design rule (docs/DESIGN.md §2). It does not show that the catalog takes finished data through props or reads no markdown, so the anchor is incidental."
+        "at": "2026-11-08T04:22:17.781041+00:00",
+        "reason": "reviewer (sonnet): The anchors are incidental. SourceNote.tsx:2 is only a catalog comment about the citation line, and GraphPage.tsx:32 is just a GraphSeed type import. Neither line shows that no markdown vault exists, and the claim that the context reads no files was not confirmed from them."
       }
     },
     "f50627ef-a7a1-40a4-9491-560efa6cb05d/markdown-vault": {
@@ -18406,6 +18406,41 @@
       "evaluatedAt": "2026-11-08",
       "evaluatedTs": "2026-11-08T04:10:49.263Z",
       "worker": "c5afd9c2-a5e4-4689-be4a-105aaa872a2e",
+      "techniques": []
+    },
+    "4bf433a5-ab8e-4468-b456-344daae2ce21/markdown-vault": {
+      "context": "votetrack-ledger",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:21:09.304Z",
+      "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
+      "techniques": []
+    },
+    "099d19c6-4248-4e23-84b3-1e7954fa60e8/markdown-vault": {
+      "context": "graph-canvas",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:21:09.304Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
+        "state": "not-applicable",
+        "at": "2026-11-08T04:22:17.781041+00:00",
+        "reason": "reviewer (sonnet): The anchors are incidental. SourceNote.tsx:2 is only a catalog comment about the citation line, and GraphPage.tsx:32 is just a GraphSeed type import. Neither line shows that no markdown vault exists, and the claim that the context reads no files was not confirmed from them."
+      }
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/markdown-vault": {
+      "context": "volby-elections",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:21:09.304Z",
+      "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
       "techniques": []
     }
   }

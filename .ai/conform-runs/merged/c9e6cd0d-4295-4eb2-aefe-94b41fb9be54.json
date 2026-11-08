@@ -1,0 +1,107 @@
+{
+  "schema": "conform-run/1",
+  "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
+  "subject": "markdown-vault",
+  "evaluatedAt": "2026-11-08T04:21:09.304363+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "votetrack-ledger",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/votetrack/getVoteThemes.ts:36 VoteTrack reads its data from the PGlite knowledge graph through getStore(), not from markdown notes. Searching features/votetrack for vault, frontmatter, readdir, wikilink, backlink, gray-matter and markdown found 0 files.",
+      "techniques": [],
+      "absenceTerms": [
+        "vault",
+        "frontmatter",
+        "readdir",
+        "wikilink",
+        "gray-matter"
+      ]
+    },
+    {
+      "context": "volby-elections",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/volby/getObecData.ts:30 The Volby loaders read the embedded Postgres store and touch no markdown vault. Searching features/volby for vault, frontmatter, readdir, wikilink, backlink, gray-matter and markdown found 0 files.",
+      "techniques": [],
+      "absenceTerms": [
+        "vault",
+        "frontmatter",
+        "readdir",
+        "wikilink",
+        "gray-matter"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "markdown-vault",
+      "context": "admin-observability",
+      "reason": "evidence leans on ./.data/loop-drive.jsonl, which is not a tracked file"
+    },
+    {
+      "subject": "markdown-vault",
+      "context": "shared-components",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchors are incidental. SourceNote.tsx:2 is only a catalog comment about the citation line, and GraphPage.tsx:32 is just a GraphSeed type import. Neither line shows that no markdown vault exists, and the claim that the context reads no files was not confirmed from them."
+    },
+    {
+      "subject": "markdown-vault",
+      "context": "graph-canvas",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchors are incidental. SourceNote.tsx:2 is only a catalog comment about the citation line, and GraphPage.tsx:32 is just a GraphSeed type import. Neither line shows that no markdown vault exists, and the claim that the context reads no files was not confirmed from them."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-08T04:21:09.304363+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "shared-components",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-08T04:21:09.304363+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "votetrack-ledger",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-08T04:21:09.304363+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "graph-canvas",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-08T04:21:09.304363+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "volby-elections",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

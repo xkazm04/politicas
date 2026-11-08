@@ -7643,8 +7643,8 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "priorNotApplicable": 3,
+          "state": "unknown"
         },
         {
           "subject": "native-shell-integration",
@@ -13552,8 +13552,8 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "priorNotApplicable": 3,
+          "state": "unknown"
         },
         {
           "subject": "llm-forensic-gating",
@@ -15014,8 +15014,12 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/volby/getObecData.ts:30 The Volby loaders read the embedded Postgres store and touch no markdown vault. Searching features/volby for vault, frontmatter, readdir, wikilink, backlink, gray-matter and markdown found 0 files.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:7a10f98b2d9488ac",
+          "evaluatedRevision": 2
         },
         {
           "subject": "prompt-assembly",
@@ -15474,8 +15478,12 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "not-applicable",
+          "priorNotApplicable": 3,
+          "evidence": "features/votetrack/getVoteThemes.ts:36 VoteTrack reads its data from the PGlite knowledge graph through getStore(), not from markdown notes. Searching features/votetrack for vault, frontmatter, readdir, wikilink, backlink, gray-matter and markdown found 0 files.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:7a10f98b2d9488ac",
+          "evaluatedRevision": 2
         },
         {
           "subject": "audit-logging",
