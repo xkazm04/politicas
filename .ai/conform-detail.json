@@ -18088,6 +18088,38 @@
         }
       ],
       "registryProposal": "positional-vs-participation-bases could state outright that a participation numerator and denominator must apply the same validity filters (voided, manual or non-recorded divisions). Doing the voided exclusion on only one side is an easy failure, and a clamp to [0,1] downstream hides it."
+    },
+    "313a8c55-3182-49d8-a3f7-331198b2093f/test-harness": {
+      "context": "db-tooling",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T02:46:16.457Z",
+      "worker": "757393b2-63f9-496b-b23d-e01373fb682d",
+      "techniques": [
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "deviation",
+          "evidence": "scripts/db/migrate.ts:70 The predicate's behaviour is asserted (premigration.test.ts:67-73, :95), but the CLI's use of it in the refuse/exit(1) branch is never asserted. The test comment at premigration.test.ts:94 states db:migrate's behaviour, and the run never executes that path. restore.ts's --yes and postmaster.pid refusals are inline and untested too."
+        },
+        {
+          "technique": "approval-snapshots-with-guarded-update",
+          "verdict": "deviation",
+          "evidence": "scripts/gen-migration.ts:50 The recorded schema snapshot is checked by the same script that writes it. Writing is the DEFAULT, and verifying needs a runtime `--check` flag (line 32) that only the CI step passes (ci.yml:88). There is no pipeline refusal to write and no test that the CI step still verifies, so if the flag is dropped the step rewrites the file and goes green."
+        },
+        {
+          "technique": "out-of-graph-artifacts",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/package.json:6 db-bench is deliberately outside the build graph: it has its own package.json and tsconfig.json excludes 'scripts/db-bench'. It is a benchmark, not a shipped artifact, and the technique's 'when not' section exempts things nobody outside the repo can be broken by."
+        },
+        {
+          "technique": "assert-the-schedule-not-the-stopwatch",
+          "verdict": "not-applicable",
+          "evidence": "scripts/db-bench/graph.ts:80 The bench scripts measure wall time and report it, but they make no pass/fail assertion on it, so no test is tied to a stopwatch."
+        }
+      ],
+      "registryProposal": "approval-snapshots-with-guarded-update could say whether a generated reference copy checked in CI (a derived file kept in sync, default-write with a --check verify flag) counts as an approval snapshot. It has the same 'verifier is the recorder' weakness, but no test suite holds the switch."
     }
   }
 }

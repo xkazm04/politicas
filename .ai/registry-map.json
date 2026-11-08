@@ -6029,7 +6029,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/db/migrate.ts:70 The CLI's refusal to apply a destructive migration without a verified snapshot (lines 68-74) runs only inside migrate.ts main(). No test executes any scripts/db file. lib/db/pglite/premigration.test.ts drives the extracted `destructiveStatements()` predicate and then says in a comment (line 94) that `db:migrate` 'proceeds loudly rather than refusing', so a change that breaks this call site would leave the suite green.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:a3c517733d58374b",
+          "evaluatedRevision": 29
         },
         {
           "subject": "agent-memory",
