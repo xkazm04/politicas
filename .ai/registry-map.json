@@ -2966,8 +2966,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/dukazy/deriveFeed.ts:1 Dukazy is a pure derivation of human-gated review decisions into a public feed, not a store an agent reads or writes as memory; a grep of features/dukazy for memory, episodic, recall, prompt, embedding and MEMORY.md found nothing.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:2b62b4004acc600d",
+          "evaluatedRevision": 53
         },
         {
           "subject": "agent-runtime-assembly",
@@ -4496,8 +4500,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/civicscore/duel.ts:1 The context holds pure scoring/duel display rules and the methodology page, with no agent, session state or recall; a grep of features/civicscore for episodic, recall, prompt, embedding and MEMORY.md returned no hits (the only 'memory' hits are in test files about other things), so agent-memory has nothing to judge here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:2b62b4004acc600d",
+          "evaluatedRevision": 53
         },
         {
           "subject": "claim-verification-and-provenance",
@@ -8234,8 +8242,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/ingest/changeEvents.ts:5 The context is pure snapshot-diff, normalisation and PDF-text sidecar code with no agent working state, episodes, consolidated beliefs or recall path; a case-insensitive grep of lib/ingest for episodic, recall, prompt, embedding and MEMORY.md found nothing, and its 'memory' hits mean RAM (streaming a file 'never passes through memory'), so the agent-memory pipeline has nothing to govern here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:2b62b4004acc600d",
+          "evaluatedRevision": 53
         },
         {
           "subject": "federated-benchmark-sharing",
@@ -8476,8 +8488,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "lib/ingest/sources/kiosek.ts:316 The financial source adapters are deterministic HTTP/XML/PDF decoders that explicitly avoid an LLM; a grep of lib/ingest/sources for episodic, recall, prompt, embedding and MEMORY.md found nothing, and the 'agent' and 'consolidated' hits are the HTTP User-Agent and consolidated budget figures, so there is no agent memory pipeline here.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:2b62b4004acc600d",
+          "evaluatedRevision": 53
         },
         {
           "subject": "public-claim-provenance",
@@ -15393,8 +15409,12 @@
           "revision": 52,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/votetrack/getVoteThemes.ts:1 VoteTrack is a server loader plus UI over kg/vote tables; the only LLM involvement is an offline benchmarked classifier whose output it reads as data, and a grep of features/votetrack for episodic, recall, prompt, embedding and MEMORY.md found nothing ('memory' appears only as allocation cost in ledgerRead.ts), so no agent memory store exists for the techniques to apply to.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:2b62b4004acc600d",
+          "evaluatedRevision": 53
         },
         {
           "subject": "markdown-vault",
