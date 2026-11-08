@@ -18442,6 +18442,51 @@
       "evaluatedTs": "2026-11-08T04:21:09.304Z",
       "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
       "techniques": []
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/supply-chain": {
+      "context": "data-releases-atlas",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:30:12.588Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "5dd490a6-139c-4e4c-8c99-a3977aeb27f5",
+        "state": "not-applicable",
+        "at": "2026-11-08T04:30:50.731183+00:00",
+        "reason": "reviewer (sonnet): The anchor (getDataReleasesData.ts:108) is a dynamic import of internal pglite modules inside readCertification, which does not show that a dependency, lockfile or archive boundary is absent. The context also imports third-party packages (next, next-intl, lucide-react, react), and the search terms n"
+      }
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/supply-chain": {
+      "context": "dashboard-instruments",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:30:12.588Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "5dd490a6-139c-4e4c-8c99-a3977aeb27f5",
+        "state": "not-applicable",
+        "at": "2026-11-08T04:30:50.822238+00:00",
+        "reason": "reviewer (sonnet): The claim that it 'imports only local components' is contradicted: DashboardPage.tsx, ExhibitPage.tsx and several components import framer-motion, lucide-react, next-intl and next/dynamic. The anchor (getDashboardData.ts:405) is only a getStore() call and is incidental."
+      }
+    },
+    "909b0dc7-6c2f-4188-963a-97ef85a60f3e/supply-chain": {
+      "context": "volby-elections",
+      "subject": "supply-chain",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T04:30:12.588Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "5dd490a6-139c-4e4c-8c99-a3977aeb27f5",
+        "state": "not-applicable",
+        "at": "2026-11-08T04:30:50.905820+00:00",
+        "reason": "reviewer (sonnet): The claim that 'no dependency … crossing exists' is contradicted: the volby pages import next/link and lucide-react, and the context imports next-intl. The anchor (getKrajData.ts:21) is only a getStore() call and is incidental."
+      }
     }
   }
 }

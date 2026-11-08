@@ -5039,8 +5039,8 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "priorNotApplicable": 3,
+          "state": "unknown"
         },
         {
           "subject": "mcp-tools",
@@ -5195,8 +5195,8 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "priorNotApplicable": 3,
+          "state": "unknown"
         },
         {
           "subject": "test-harness",
@@ -15097,8 +15097,8 @@
           "revision": 6,
           "changedAt": "2026-09-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "priorNotApplicable": 3,
+          "state": "unknown"
         },
         {
           "subject": "table",
