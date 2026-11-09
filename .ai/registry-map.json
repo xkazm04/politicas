@@ -11452,7 +11452,11 @@
           "revision": 17,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/getRadarData.ts:40 When only one half of the radar loads (for example no store, so getLawData returns null while getCollisionData still reads its payload files), the missing half becomes an empty array, so RadarData reports a definite 0 for that kind and the page and both feeds publish a complete-looking ledger with no marker that the half could not be looked at.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:641cb6bf0b2c6916",
+          "evaluatedRevision": 17
         },
         {
           "subject": "module-design",

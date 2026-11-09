@@ -10280,68 +10280,64 @@
       "context": "lawwatch-radar",
       "subject": "optional-dependency-degradation",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-19",
-      "evaluatedTs": "2026-10-19T00:56:56.723Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T02:33:28.099Z",
+      "worker": "94b244af-046e-46a6-af94-ae982c4f52cb",
       "techniques": [
-        {
-          "technique": "absent-degrades-malformed-fails-fast",
-          "verdict": "deviation",
-          "evidence": "features/lawwatch/getDependencyData.ts:141 Catches parse failures on the census payload and sets an empty fallback map, treating malformed data identically to an absent file."
-        },
-        {
-          "technique": "misconfiguration-never-reaches-a-fallback",
-          "verdict": "deviation",
-          "evidence": "features/lawwatch/getDependencyData.ts:140 Reports loader failure on corrupted census data but continues into the triage fallback rather than refusing early."
-        },
-        {
-          "technique": "guarded-singleton-accessor",
-          "verdict": "deviation",
-          "evidence": "features/lawwatch/getRadarData.ts:23 Returns untyped null on missing dependencies instead of throwing a typed configuration error, and cache() memoizes the null failure."
-        },
         {
           "technique": "capability-honest-refusal",
           "verdict": "deviation",
-          "evidence": "features/lawwatch/components/DependencyRadar.tsx:93 The UI honestly admits missing input, but the module lacks machine-readable refusal codes from a closed union for API consumers."
+          "evidence": "features/lawwatch/getRadarData.ts:40 An unavailable source is rounded to an empty collection; RadarData has no partial or source-unavailable field, RadarLedger renders '0 příznaků', and the feeds refuse (503) only when BOTH halves are null. Same family: buildDependencyView asNum turns a missing payload count into a rendered 0. The both-null path is honest: 503 with no-store, and DependencyRadar's null state says it is not a finding of no dependencies."
         },
         {
           "technique": "refusal-is-not-failure",
           "verdict": "conformant",
-          "evidence": "features/lawwatch/buildDependencyView.ts:230 Respects validator refusal from the gate function and withholds the hit without falling back to unvalidated raw content."
+          "evidence": "features/lawwatch/buildDependencyView.ts:231 The caller-supplied GateFn refuses by returning null; a hit refused on both fields is withheld and counted, never rendered through a default. A throw from the gate propagates to the loader's outer catch, which reports it and returns null."
+        },
+        {
+          "technique": "absent-degrades-malformed-fails-fast",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getDependencyData.ts:43 The input is a compile-time constant path to a checked-in artifact; a grep of features/lawwatch found no process.env read, so no operator value exists to branch on."
+        },
+        {
+          "technique": "misconfiguration-never-reaches-a-fallback",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getDependencyData.ts:44 No configuration reader or identifier filter exists here. A corrupt census file does take the same triage-excerpt fallback as an absent one, but it is a data artifact, not operator configuration, and the catch reports it."
         },
         {
           "technique": "per-variable-blast-radius",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/getRadarData.ts:5 The radar module defines no environment variables or configuration values; all data is derived from existing loaders."
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:23 The context introduces no configuration variable; the only deployment-shaped value, the feed origin, is injected by the caller."
+        },
+        {
+          "technique": "guarded-singleton-accessor",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getRadarData.ts:5 No client is constructed in this context; the radar composes existing loaders, which own the store access."
         },
         {
           "technique": "probe-the-grant-not-the-config",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/deriveRadar.ts:18 No multi-tier storage or credential permissions exist in this pure derivation layer."
+          "evidence": "features/lawwatch/getDependencyData.ts:129 No credential or storage-tier choice exists; the check tests the same local file the read then opens, and nothing here writes."
         },
         {
           "technique": "degradation-coupled-to-hardening",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/sectorAttribution.ts:13 Module performs pure in-memory projections and has no database credentials or role permissions to harden."
+          "evidence": "features/lawwatch/getDependencyData.ts:35 The fallback reads local checked-in files and never writes, so it has no grants to lose."
         },
         {
           "technique": "fallback-retirement-condition",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/deriveRadar.ts:29 No temporary platform-gap workarounds or closing upstream shims are maintained in this context."
+          "evidence": "features/lawwatch/getDependencyData.ts:136 The census fallback covers a missing or unreadable artifact, not a platform gap expected to close on a schedule, so no reaper is owed."
         },
         {
           "technique": "minimal-install-test-lane",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/getDependencyData.test.ts:2 Politicas is an application rather than a published library declaring package extras."
+          "evidence": "features/lawwatch/getDependencyData.test.ts:2 Politicas is an application rather than a published library declaring package extras.",
+          "carriedFrom": "2026-10-19"
         }
       ],
-      "registryProposal": "The standard focuses heavily on network credentials and environment variables; extending guidance to include file-based optional data artifacts (payloads/sidecars) would clarify expectations for data pipelines where boot validation passes are absent.",
-      "withdrawn": {
-        "worker": "848ed978-4113-4abb-9b36-fe25fd2d3019",
-        "state": "deviation",
-        "at": "2026-10-19T00:57:13.922234+00:00",
-        "reason": "reviewer (sonnet): The code contradicts the claim that malformed census data is conflated with an absent file: the absent case returns an empty map silently, but the malformed case calls reportLoaderFailure(\"getDependencyData.census\", err) before the fallback. The comment at getDependencyData.ts:136-140 also states th"
-      }
+      "registryProposal": "capability-honest-refusal states partial-outcome rules mostly for writes and connector quantities; it could name the composite read explicitly, where a view merges N sources and one is unavailable, requiring the output to carry per-source availability instead of merging an empty half. The subject also has no wording for checked-in data artifacts as the optional dependency, where the absent-versus-malformed asymmetry plausibly applies but boot-time refusal does not obviously fit."
     },
     "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/public-verdict-badge": {
       "context": "landing-referendum",
