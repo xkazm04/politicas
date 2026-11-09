@@ -8352,63 +8352,83 @@
       "context": "mp-profile",
       "subject": "invariant-placement",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-25",
-      "evaluatedTs": "2026-10-25T23:48:01.478Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T01:29:53.085Z",
+      "worker": "d7a2a6b3-626b-4dee-a957-459950ce3bd9",
       "techniques": [
         {
-          "technique": "repairing-check-erases-its-evidence",
+          "technique": "placement-precedes-gate",
           "verdict": "deviation",
-          "evidence": "features/profile/components/DossierSection.tsx:172 Defensive clamp, not a designed cap: a negative remainder (breakdown > total) becomes 0. The disagreement disappears instead of being refused or counted, which contradicts the 'where the two disagree the page says so' contract at profileTypes.ts:142."
+          "evidence": "features/profile/profileMoney.ts:136 The rule that an outage must never read as no ties has a published-claim blast radius but lives in a boolean beside an always-empty ties array, checked by each consumer (MoneySection.tsx:85, ProfilePage.tsx:111). The sibling field uses the shape form (absence: ProfileAbsenceRecord | null). Latent: both current consumers guard it."
+        },
+        {
+          "technique": "constraint-deletion-is-silent",
+          "verdict": "deviation",
+          "evidence": "features/profile/ProfilePage.tsx:67 The comment above claims a fourth role fails to compile here, but features/profile has no @ts-expect-error or type-level negative artifact, so deleting satisfies leaves everything green. Door-level refusals are tested (rebellionProvenance.test.ts:64); the shape-level half is not."
+        },
+        {
+          "technique": "initialization-proof-tokens",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:122 A readiness check was removed on the authority of a value that can come from the cross-request chamberMemo (getLeaderboardData.ts), whose own comment says the data changes when da:kg-compute writes. A memoized proof asserts a fact with a clock. Practical lapse is narrowed by PGlite being single-connection."
         },
         {
           "technique": "completeness-at-emission",
           "verdict": "deviation",
-          "evidence": "features/profile/getProfileData.ts:539 The emitted ProfileData has every field required, which is good. But `num()` (line 53) turns an absent or non-finite edge weight into a hard 0 count, and does the same for co-voter agreement and shared (lines 161-162). An absent part is defaulted, not omitted, even though the same loader uses nullableNum for speechTurns, interpellations and absenceRate for exactly this reason."
-        },
-        {
-          "technique": "shape-with-a-not-applicable-member",
-          "verdict": "deviation",
-          "evidence": "features/profile/careerSpine.ts:201 careerYears is a resolver that signals 'could not resolve' with a member of its own closed set (CareerYears `{ kind: \"unknown\" }`, line 180) instead of returning an optional. The member is reachable and the consumer renders an honest '—' (CareerSpineSection.tsx:52), so the harm is low, but the decision rule puts absence in the wrapper."
-        },
-        {
-          "technique": "derived-properties-cannot-be-forged",
-          "verdict": "conformant",
-          "evidence": "features/profile/absenceRecord.ts:126 The day-level wholeDay is computed from its windows, never declared. The same holds for totalDays, futureDays, CareerTerm.openEnded (careerSpine.ts:305) and stintCount."
-        },
-        {
-          "technique": "constraint-deletion-is-silent",
-          "verdict": "conformant",
-          "evidence": "features/profile/profileSource.test.ts:14 A negative artifact whose pass condition is the absence of the known-bad construction (the loose id read), which protects the shared strict-parser door."
-        },
-        {
-          "technique": "occurrence-is-not-a-type",
-          "verdict": "conformant",
-          "evidence": "features/profile/rebellionRecord.test.ts:87 'Feed an uncapped record' (rebellionRecord.ts:75) is a term about how the record was derived; VoteRecordData has the same type capped or uncapped. The term is held by a test, not believed held by the type checker."
-        },
-        {
-          "technique": "placement-precedes-gate",
-          "verdict": "conformant",
-          "evidence": "features/profile/getProfileData.ts:2 The server boundary's altitude is named explicitly: a build-time refusal at the module door, with prop types split into the pure profileTypes.ts."
+          "evidence": "features/profile/getProfileData.ts:539 ProfileData is assembled at one door with required fields, which is right at this size, but an absent weight is defaulted to 0 in the emitted payload instead of being omitted or null, breaking the rule that absent optional parts are omitted, never defaulted. profileTypes.ts:142 calls this count authoritative."
         },
         {
           "technique": "consumption-bounds-at-most-once",
           "verdict": "not-applicable",
-          "evidence": "features/profile/getProfileData.ts:110 Nothing here is single-use. The loader result is deliberately memoised and read twice per request (generateMetadata + page)."
+          "evidence": "features/profile/getProfileData.ts:1 A read-only projection with no single-use value; a search of features/profile for token, nonce, consume, one-shot and single-use found only unrelated uses of the word token."
         },
         {
           "technique": "build-time-evaluation-of-cross-value-invariants",
           "verdict": "not-applicable",
-          "evidence": "features/profile/rebellionRecord.ts:19 The context's constants (rebellion, absence, ally and contract row caps) are independent presentation bounds. None of them must sum or avoid overlap with another."
+          "evidence": "features/profile/absenceRecord.ts:35 The context's constants are independent single-value presentation bounds; none carries an invariant between two build-time values."
+        },
+        {
+          "technique": "derived-properties-cannot-be-forged",
+          "verdict": "conformant",
+          "evidence": "features/profile/seatWindow.ts:29 current and unreadable are computed from the window state rather than declared; serving, attributable and the tie counters follow the same pattern."
+        },
+        {
+          "technique": "shape-with-a-not-applicable-member",
+          "verdict": "conformant",
+          "evidence": "features/profile/rebellionProvenance.ts:73 The absence members pass the producer audit: absent has live producers and a distinct arm at ProfilePage.tsx:606-617; verdict-rung absence stays in the wrapper as a missing key."
+        },
+        {
+          "technique": "repairing-check-erases-its-evidence",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/DossierSection.tsx:172 The comment says the section reports when breakdown and total disagree, but a breakdown larger than the total clamps to 0 and prints nothing. amendmentsUnplaced appears in no test and has no firing count. num() at getProfileData.ts:53 is the same posture."
+        },
+        {
+          "technique": "indistinguishable-members-do-not-rise",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:363 Mandate id and person id are both plain number (MandateRow.pspId and personPspId; no brand in lib or features) and the mandate id scopes the absence read. Passing the person id compiles, and no test seeds absence rows or asserts .absence, so a wrong scope would look like a record with no excuses. The current code is correct."
+        },
+        {
+          "technique": "occurrence-is-not-a-type",
+          "verdict": "conformant",
+          "evidence": "features/profile/profileSource.test.ts:25 Capture-time and which-derivation terms that no type holds get narrow source-level gates: one Prague day here, and the single shared record at rebellionRecord.test.ts:205."
+        },
+        {
+          "technique": "paired-sites-localize-the-fault",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getProfileData.ts:529 Values are written by offline ingest scripts and read here, a process boundary the technique excludes; the context has no in-process write/read pair of one value."
+        },
+        {
+          "technique": "a-new-field-must-choose",
+          "verdict": "conformant",
+          "evidence": "features/profile/profileMoney.ts:214 A new TieClass stops the build here; yearsOf in CareerSpineSection.tsx is a switch with no default arm, and the required non-optional fields force each new payload field to be set. ROLE_ORDER in getProfileData.ts:484 keeps a small default rank for a two-member role."
+        },
+        {
+          "technique": "string-keyed-context-is-an-unchecked-join",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:642 Reader and offline writer agree only by spelling in schemaless props. prop-registry.json gates written keys, but nothing in features reads the registry and no diff checks keys read, so a misspelt read becomes a null rendered as missing data. loaders.test.ts seeds the key it expects."
         }
       ],
-      "registryProposal": "shape-with-a-not-applicable-member states its rule categorically ('belongs in the wrapper'), but its harm argument rests on the absence member being unreachable or getting a silent-success arm. It could tell that case apart from a reachable absence variant in a discriminated union whose every consumer renders a distinct, honest sentence, as here. As written, both cases get the same verdict.",
-      "withdrawn": {
-        "worker": "e19ecf90-ca06-4052-baa4-f702d0cc1c3f",
-        "state": "deviation",
-        "at": "2026-10-25T23:48:31.674273+00:00",
-        "reason": "reviewer (sonnet): The clamp at DossierSection.tsx:172 exists, but the cited contract at profileTypes.ts:142 is about a bill's `count` versus its `sdCislos` list, not the per-bill breakdown versus the stored total. Nothing I opened says the page must admit breakdown > total, so the claim of a contract violation rests "
-      }
+      "registryProposal": "string-keyed-context-is-an-unchecked-join frames the bag as per-request, but a durable schemaless jsonb prop column shows the same failure; the technique could state that a write-side key registry closes only half of the join."
     },
     "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/invariant-placement": {
       "context": "testing-flake-sentinel",
@@ -10260,68 +10280,64 @@
       "context": "lawwatch-radar",
       "subject": "optional-dependency-degradation",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-19",
-      "evaluatedTs": "2026-10-19T00:56:56.723Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T02:33:28.099Z",
+      "worker": "94b244af-046e-46a6-af94-ae982c4f52cb",
       "techniques": [
-        {
-          "technique": "absent-degrades-malformed-fails-fast",
-          "verdict": "deviation",
-          "evidence": "features/lawwatch/getDependencyData.ts:141 Catches parse failures on the census payload and sets an empty fallback map, treating malformed data identically to an absent file."
-        },
-        {
-          "technique": "misconfiguration-never-reaches-a-fallback",
-          "verdict": "deviation",
-          "evidence": "features/lawwatch/getDependencyData.ts:140 Reports loader failure on corrupted census data but continues into the triage fallback rather than refusing early."
-        },
-        {
-          "technique": "guarded-singleton-accessor",
-          "verdict": "deviation",
-          "evidence": "features/lawwatch/getRadarData.ts:23 Returns untyped null on missing dependencies instead of throwing a typed configuration error, and cache() memoizes the null failure."
-        },
         {
           "technique": "capability-honest-refusal",
           "verdict": "deviation",
-          "evidence": "features/lawwatch/components/DependencyRadar.tsx:93 The UI honestly admits missing input, but the module lacks machine-readable refusal codes from a closed union for API consumers."
+          "evidence": "features/lawwatch/getRadarData.ts:40 An unavailable source is rounded to an empty collection; RadarData has no partial or source-unavailable field, RadarLedger renders '0 příznaků', and the feeds refuse (503) only when BOTH halves are null. Same family: buildDependencyView asNum turns a missing payload count into a rendered 0. The both-null path is honest: 503 with no-store, and DependencyRadar's null state says it is not a finding of no dependencies."
         },
         {
           "technique": "refusal-is-not-failure",
           "verdict": "conformant",
-          "evidence": "features/lawwatch/buildDependencyView.ts:230 Respects validator refusal from the gate function and withholds the hit without falling back to unvalidated raw content."
+          "evidence": "features/lawwatch/buildDependencyView.ts:231 The caller-supplied GateFn refuses by returning null; a hit refused on both fields is withheld and counted, never rendered through a default. A throw from the gate propagates to the loader's outer catch, which reports it and returns null."
+        },
+        {
+          "technique": "absent-degrades-malformed-fails-fast",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getDependencyData.ts:43 The input is a compile-time constant path to a checked-in artifact; a grep of features/lawwatch found no process.env read, so no operator value exists to branch on."
+        },
+        {
+          "technique": "misconfiguration-never-reaches-a-fallback",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getDependencyData.ts:44 No configuration reader or identifier filter exists here. A corrupt census file does take the same triage-excerpt fallback as an absent one, but it is a data artifact, not operator configuration, and the catch reports it."
         },
         {
           "technique": "per-variable-blast-radius",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/getRadarData.ts:5 The radar module defines no environment variables or configuration values; all data is derived from existing loaders."
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:23 The context introduces no configuration variable; the only deployment-shaped value, the feed origin, is injected by the caller."
+        },
+        {
+          "technique": "guarded-singleton-accessor",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getRadarData.ts:5 No client is constructed in this context; the radar composes existing loaders, which own the store access."
         },
         {
           "technique": "probe-the-grant-not-the-config",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/deriveRadar.ts:18 No multi-tier storage or credential permissions exist in this pure derivation layer."
+          "evidence": "features/lawwatch/getDependencyData.ts:129 No credential or storage-tier choice exists; the check tests the same local file the read then opens, and nothing here writes."
         },
         {
           "technique": "degradation-coupled-to-hardening",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/sectorAttribution.ts:13 Module performs pure in-memory projections and has no database credentials or role permissions to harden."
+          "evidence": "features/lawwatch/getDependencyData.ts:35 The fallback reads local checked-in files and never writes, so it has no grants to lose."
         },
         {
           "technique": "fallback-retirement-condition",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/deriveRadar.ts:29 No temporary platform-gap workarounds or closing upstream shims are maintained in this context."
+          "evidence": "features/lawwatch/getDependencyData.ts:136 The census fallback covers a missing or unreadable artifact, not a platform gap expected to close on a schedule, so no reaper is owed."
         },
         {
           "technique": "minimal-install-test-lane",
           "verdict": "not-applicable",
-          "evidence": "features/lawwatch/getDependencyData.test.ts:2 Politicas is an application rather than a published library declaring package extras."
+          "evidence": "features/lawwatch/getDependencyData.test.ts:2 Politicas is an application rather than a published library declaring package extras.",
+          "carriedFrom": "2026-10-19"
         }
       ],
-      "registryProposal": "The standard focuses heavily on network credentials and environment variables; extending guidance to include file-based optional data artifacts (payloads/sidecars) would clarify expectations for data pipelines where boot validation passes are absent.",
-      "withdrawn": {
-        "worker": "848ed978-4113-4abb-9b36-fe25fd2d3019",
-        "state": "deviation",
-        "at": "2026-10-19T00:57:13.922234+00:00",
-        "reason": "reviewer (sonnet): The code contradicts the claim that malformed census data is conflated with an absent file: the absent case returns an empty map silently, but the malformed case calls reportLoaderFailure(\"getDependencyData.census\", err) before the fallback. The comment at getDependencyData.ts:136-140 also states th"
-      }
+      "registryProposal": "capability-honest-refusal states partial-outcome rules mostly for writes and connector quantities; it could name the composite read explicitly, where a view merges N sources and one is unavailable, requiring the output to carry per-source availability instead of merging an empty half. The subject also has no wording for checked-in data artifacts as the optional dependency, where the absent-versus-malformed asymmetry plausibly applies but boot-time refusal does not obviously fit."
     },
     "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/public-verdict-badge": {
       "context": "landing-referendum",
@@ -13019,38 +13035,53 @@
       "context": "lawwatch-radar",
       "subject": "dependency-declaration",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-25",
-      "evaluatedTs": "2026-10-25T23:21:10.139Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:49:37.893Z",
+      "worker": "827c814a-8dd9-446a-8a76-48898be33ac2",
       "techniques": [
         {
           "technique": "declaration-invariants",
-          "verdict": "conformant",
-          "evidence": "features/lawwatch/buildDependencyView.ts:82 Locality holds: each module declares its own imports. The pure derivation takes its one outside requirement (the Czech/jargon gate) as a typed parameter in its own signature. That is the technique's 'take them as parameters' move, chosen on purpose so the module stays a plain function of its inputs and the loader injects the real gate. Nobody but the unit's author edits anything when it gains a dependency."
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:44 Locality fails for file requirements: the unit cannot state them in any form the build reads, so inclusion depends on host-level documents it does not own (.dockerignore, next.config.ts, which has no outputFileTracingIncludes). Its module imports do satisfy locality, for example sectorAttribution.ts:18."
         },
         {
           "technique": "logical-name-or-address",
           "verdict": "conformant",
-          "evidence": "features/lawwatch/sectorAttribution.ts:18 The context's own parts are reached by relative addresses (./deriveRadar, ./buildDependencyView), which fits a unit's references to its own internals. Cross-feature references go through the tsconfig '@/*' root and target modules that declare themselves shared entry points (companyId.ts: 'the ONE place a URL segment becomes a kg_node id', a plain module so the route, loader and test can share it). So this is not an address into another unit's private layout."
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:18 Cross-unit references use the root alias and sibling references use relative paths (line 19); the target is a named module with no barrel to bypass. Applies to module references only; the payload path is scored under declaration-invariants."
         },
         {
-          "technique": "vendored-copy-loses-composition",
-          "verdict": "conformant",
-          "evidence": "features/lawwatch/radarFeedCodecs.ts:3 The feed codec is declared and reused read-only, and the round-trip is checked through the dukazy public parseEvidenceFeedJson. It is not inlined, so the shared feed identity survives and subscribers read one format with one reader."
+          "technique": "progressive-resolution",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getRadarData.ts:16 Static imports in a closed graph authored by one team, which is the technique's own stated exclusion; no resolve-on-traversal machinery is designed here."
         },
         {
           "technique": "shortcut-is-not-the-substrate",
           "verdict": "conformant",
-          "evidence": "features/lawwatch/radarTypes.ts:3 The shared shape and the derivations (radarTypes.ts, deriveRadar.ts, buildDependencyView.ts) are plain modules. The server-only loaders are thin projections over them. So the client components (DependencyRadar.tsx and RadarLedger.tsx, both 'use client') and the tests reach the capability without being blocked by the server-only binding."
+          "evidence": "features/lawwatch/deriveRadar.ts:19 The derivation is a plain module that the loader, feed routes, client and tests all call, so the capability is not bound to the server-only loader. buildDependencyView.ts has the same split."
+        },
+        {
+          "technique": "declaration-cost-floor",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/deriveRadar.ts:37 The first-dependency cost is a whole-project property; this context only consumes the mechanism, and adds a dependency with one import line."
+        },
+        {
+          "technique": "vendored-copy-loses-composition",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/deriveRadar.ts:29 A private formatter copy was removed in favour of the shared one. escapeXml and rfc822 are copied across three feed codecs (radarFeedCodecs.ts:48 and :59), but they are small, stateless and stable, which the technique exempts."
+        },
+        {
+          "technique": "attachment-coherence",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:104 A foreign shape is filled by plain value construction. A search of the context's non-test source files for declare module, declare global, .prototype., Object.defineProperty and globalThis. found nothing, and the application is closed."
+        },
+        {
+          "technique": "unsatisfiable-set-empirical-gate",
+          "verdict": "not-applicable",
+          "evidence": "package.json:61 Third-party dependencies of this context use ordinary declared ranges; no conflict or resolution bypass was found (see notes)."
         }
       ],
-      "registryProposal": "This pair was probably matched on the token 'dependency' (getDependencyData.ts, buildDependencyView.ts, DependencyRadar.tsx), but in this context that word means legislative enactment-order dependencies between bills (companion tisky), not software dependency declaration. The map's subject matcher should not treat a domain noun that collides with the subject slug as governance evidence. Governance of this pair is effectively weak, and the conformant verdict only covers how the context's modules declare their imports.",
-      "withdrawn": {
-        "worker": "eccfbf35-9bf3-44ba-895e-62feb7ceeb0e",
-        "state": "conformant",
-        "at": "2026-10-25T23:22:03.825361+00:00",
-        "reason": "reviewer (sonnet): The sectorAttribution.ts:18 technique anchor says the file reaches its own parts through relative imports (./deriveRadar, ./buildDependencyView), but sectorAttribution.ts has no relative imports at all. Line 18 is the '@/lib/analysis/language-gate' import, so that claim can't be confirmed. The other"
-      }
+      "registryProposal": "declaration-invariants could name the non-code form of the locality failure: a requirement expressed only as a runtime path string is invisible to the packager, so an exclusion list can remove it without any declaration disagreeing. The golden path mentions a component naming its assets, but no technique gives a test for this."
     },
     "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/design-tokens": {
       "context": "eslint-transparency-rules",
@@ -17950,28 +17981,28 @@
       "context": "admin-infrastructure",
       "subject": "copy-quality-gates",
       "bundle": "localization",
-      "state": "unknown",
+      "state": "deviation",
       "evaluatedAt": "2026-11-08",
-      "evaluatedTs": "2026-11-08T01:34:22.933Z",
+      "evaluatedTs": "2026-11-08T23:43:33.560Z",
+      "worker": "a3cc99c7-fbff-4a12-9821-dfb1b39fd3bc",
       "techniques": [
         {
           "technique": "rendered-string-extraction",
           "verdict": "deviation",
-          "evidence": "app/admin/AdminGate.tsx:43 The rule for copy living outside the catalog is: extract it through the same pipeline, or declare it out of scope in the gate's report. Neither happens here. The repo's copy contract has sources=[messages/en.json] and exclude=[]."
+          "evidence": "app/admin/AdminGate.tsx:40 Rule: copy outside the catalog is extracted through the same pipeline or declared out of scope in the report. The contract lists only messages/en.json with exclude: [], and report.mjs:17 prints only strings checked, so these literals are an undeclared source. The opt-out exists only as a code comment (app/admin/page.tsx:8), and the 'boundary note in features/admin/' it points to was not found by search."
         },
         {
           "technique": "layered-mechanical-gate",
           "verdict": "deviation",
-          "evidence": "app/admin/page.tsx:8 The exemption is written only as a code comment. No gate layer counts these literals, and nothing checks them for literals escaping the catalog (an L1 check). So no layer ever sees this source-language copy."
+          "evidence": "app/admin/loopActions.ts:74 L1 includes no literal user-visible string escaping the catalog. This server-action error is a hardcoded literal that reaches the operator via setLastError(res.error) at features/admin/components/LoopMissionControl.tsx:140, and no configured check sees it. The checker can extract jsx and ts-module kinds, but the contract does not enable them."
+        },
+        {
+          "technique": "source-defects-from-cross-language-agreement",
+          "verdict": "not-applicable",
+          "evidence": "app/data/page.tsx:11 The signal needs target failures in at least two languages per source unit. These routes have one source (cs) and one target (en), confirmed by locales at lib/i18n/config.ts:8, so it cannot fire."
         }
       ],
-      "registryProposal": "rendered-string-extraction could say whether a code comment declaring a surface 'internal, not localized' counts as 'declared out of scope'. As written, the declaration has to appear in the gate's report or contract, and the technique would gain from saying so explicitly.",
-      "withdrawn": {
-        "worker": "4c051db0-ecef-4c39-93f9-e4b3ec9098b1",
-        "state": "deviation",
-        "at": "2026-11-08T01:35:51.006073+00:00",
-        "reason": "reviewer (sonnet): docs/i18n/copy-contract.json says Czech is the source locale and the gate covers only the derived English catalog (sources=[messages/en.json], exclude=[]). Czech copy such as AdminGate.tsx's JSX literals is therefore outside the gate's remit, and the contract's notes say messages/cs.json is out of s"
-      }
+      "registryProposal": "The standard gives no explicit treatment for an operator-only, single-locale internal console. rendered-string-extraction allows declaring such copy out of scope in the report, while layered-mechanical-gate L1 lists literals escaping the catalog with no scope exception, and copy-contract-before-drafting exempts only a one-off internal string. A decision rule on whether a whole non-localized operator surface may be declared out of L1 would remove this ambiguity."
     },
     "12af88db-9c79-4204-81e5-098593e5dcfc/demo-data-plane": {
       "context": "shared-provenance",
@@ -18753,6 +18784,450 @@
           "evidence": "features/civicscore/scoreClaim.ts:60 No incremental run collection or cursor. The module takes the score exactly as the leaderboard carries it."
         }
       ]
+    },
+    "1f1d5ac0-c074-4728-aa2d-a93ae1ff39fe/concurrent-vcs": {
+      "context": "case-loops-core",
+      "subject": "concurrent-vcs",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-08",
+      "evaluatedTs": "2026-11-08T23:12:39.506Z",
+      "worker": "25aa272a-6815-4923-9d34-d19e22c655ff",
+      "techniques": [
+        {
+          "technique": "shared-resource-arbitration",
+          "verdict": "deviation",
+          "evidence": "scripts/case-loops/sources/kiosek-slice.ts:168 Population check is existence only, with no size or completeness test, and the writer at line 182 is non-atomic, although lib/ingest/parsedText.ts and dataor.ts use .part-then-rename for the same cache class. The store side is better: kiosek-validate.ts:26 refuses the live path and apply-batch.ts:649 guards live commits, so the deviation is confined to the PDF cache."
+        },
+        {
+          "technique": "commit-time-claim-guard",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/apply-batch.ts:53 Here --commit is a graph-store write; no VCS commit or commit hook exists in this context's files."
+        },
+        {
+          "technique": "commit-verification",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/persist-batch.ts:140 The commit is a DB upsert; these scripts create no VCS commit that could be read back."
+        },
+        {
+          "technique": "integration-door",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/persist-batch.ts:2 Fan-in is of data payloads into the store; no branch or worktree is merged here, and a search for worktree found none under scripts/case-loops."
+        },
+        {
+          "technique": "intent-ledgers",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/sources/kiosek-build-payload.ts:10 File ownership is assigned in a doc outside this context; these scripts neither read nor write a session ledger."
+        },
+        {
+          "technique": "isolated-index-commits",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/apply-batch.ts:327 The only mention of git in the ten files, as a passive record; no index handling, and GIT_INDEX_FILE has no hit under scripts/case-loops."
+        },
+        {
+          "technique": "never-lose-work-rules",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/sources/kiosek-build-payload.ts:149 The scripts only write their output files and leave staging to the caller; git stash and git add have no hit under scripts/case-loops."
+        },
+        {
+          "technique": "physical-isolation",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/sources/kiosek-validate.ts:11 The isolation here is a copy of a data store, not a working copy of the repository; no worktree is created or removed."
+        },
+        {
+          "technique": "sub-file-claim-scope",
+          "verdict": "not-applicable",
+          "evidence": "scripts/case-loops/persist-batch.ts:25 Claim means a factual assertion carrying a citation, not a lease on a code unit; the map's claim and commit tokens are a vocabulary collision."
+        }
+      ],
+      "registryProposal": "shared-resource-arbitration's population check asks that a file exist and be non-empty, which a truncated non-empty partial write still passes; the technique should name the producer-side rule (write to a temporary name, rename last) as the counterpart, since no reader-side size test can detect truncation in a format with no declared length."
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/data-access": {
+      "context": "hybrid-bench",
+      "subject": "data-access",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:08:45.032Z",
+      "worker": "7b7a59fc-4dab-4dd4-bd6c-fdab4931cfe2",
+      "techniques": [
+        {
+          "technique": "read-models-and-projections",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:117 vote_tag is a stored read model (store.ts calls it DERIVED, recomputable), but the recompute is upsert-only: `VoteTagRepository` has no delete and a repo-wide search found no `delete from vote_tag` outside an instrument.test.ts parser string, so the recompute cannot be the repair. No parity or coverage check against vote_event was found, and no propagation contract is declared where the model is defined."
+        },
+        {
+          "technique": "layering-rules",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:15 The context's only store contact is this typed surface; a search of scripts/hybrid-bench for query/sql/select found only prompts, comments and a local `Query` interface."
+        },
+        {
+          "technique": "batching-and-n-plus-one",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:96 One set-shaped read and one set-shaped write; the classify loop at lines 107-130 makes no per-vote store call."
+        },
+        {
+          "technique": "transactions-and-units-of-work",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:132 The single write happens after every slow LLM call finished, so no boundary is held across outside work; `upsertMany` owns one transaction over all chunks (lib/db/pglite/internals.ts:243)."
+        },
+        {
+          "technique": "row-mapping",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:99 Store rows arrive decoded and typed from the store surface; the caller sees no column tuples. The JSON-export decoders in the other scripts fall under the golden path's ad-hoc analytics carve-out (see notes)."
+        },
+        {
+          "technique": "query-construction",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:133 The context assembles no statement text, so there are no values or identifiers for it to construct; the aggregate is a named operation."
+        },
+        {
+          "technique": "repo-testing",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:144 The context owns no repository; its two tests cover pure parsers and mock no engine."
+        },
+        {
+          "technique": "cross-driver-invariant-parity",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:92 Only the pglite driver exists (the single driver branch is lib/db/store.ts:442) and this context implements none."
+        },
+        {
+          "technique": "capability-declared-in-the-type",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:91 One implementation means no capability axis; a missing store is the only gap and it exits at startup."
+        },
+        {
+          "technique": "existence-authority-written-last",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:147 The benches write report files with no reader treating them as proof of existence; the materializer writes one store only."
+        },
+        {
+          "technique": "sequence-token-write-ordering",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:103 One writer and one transactional store; this stamp is provenance and no reader in the context decides which record is newer from it."
+        },
+        {
+          "technique": "operator-defined-tables",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:24 The taxonomy is a code constant changed by developers, and no record type is defined at runtime."
+        },
+        {
+          "technique": "localized-record-identity",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:23 One tag per vote keyed by slug, with no per-language records or group identifier."
+        }
+      ],
+      "registryProposal": "read-models-and-projections assumes a deterministic recomputation: its parity check 'recomputes and compares', which is ill-defined when the derivation is an LLM call that can answer differently per run. The technique could name what parity means for a model-derived read model, for example source-set parity (every stored row still maps to an eligible source row, and uncovered sources are counted) plus sampled re-classification agreement."
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/quality-gates": {
+      "context": "admin-infrastructure",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:29:59.862Z",
+      "worker": "531c4a2f-efb1-4867-af0a-34f369b2ea26",
+      "techniques": [
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "deviation",
+          "evidence": "app/admin/loopActions.ts:7 The audit question 'if someone did this right now, what fails?' answers 'nothing': all four actions call the gate today, but only by convention. A source comment is treated here as the standing statement of the rule."
+        },
+        {
+          "technique": "chokepoint-tag-registry",
+          "verdict": "deviation",
+          "evidence": "app/admin/loopActions.ts:3 Declares a single write door. appendDriveEntry has only these 4 production callers today, but no negative-space check confines it. With four call sites the proportionate form is one static test, not a full tag registry."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "app/admin/loops.json/route.ts:24 By analogy, as this is an access gate rather than a pipeline check: a gate that cannot evaluate (no token configured) returns an outcome distinct from a refused caller and never reads as a pass."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "app/admin/AdminGate.tsx:103 By analogy. Both named paths exist and both document ADMIN_TOKEN (.env.example:124, docs/deploy/vercel.md:115). They resolve in the repo the operator holds; not confirmed to be present in a standalone deploy artifact."
+        }
+      ],
+      "registryProposal": "This context was matched on the tokens gate/quality/access, but its gate is an authorization gate, so most of the 28 techniques do not reach it. The authorization subject is the likelier governor; only the convention-enforcement techniques apply cleanly."
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/quality-gates": {
+      "context": "ingest-pipeline",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:29:59.862Z",
+      "worker": "531c4a2f-efb1-4867-af0a-34f369b2ea26",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/shims.test.ts:20 Compares loaded module surfaces rather than source text, which is sound, but it is test content inside a gate owned elsewhere, not gate machinery of this context."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/parsedText.ts:94 A cache-reuse guard that falls back to re-parsing. It refuses nothing and blocks no change, so the gate resolutions do not apply."
+        }
+      ]
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/quality-gates": {
+      "context": "db-repositories",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:29:59.862Z",
+      "worker": "531c4a2f-efb1-4867-af0a-34f369b2ea26",
+      "techniques": [
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "deviation",
+          "evidence": "lib/db/pglite/repositories/truncationGuards.test.ts:1 Stated universally and mechanised only per named lister. No test or lint rule walks the repositories for capped reads (rg for readdirSync in this directory: 0 hits; no lint rule covers it)."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "lib/db/pglite/repositories/truncationGuards.test.ts:152 'A hand-written expectation list cannot see a population nothing addresses': each gap was found and added one at a time, and reach is never asserted separately from content."
+        },
+        {
+          "technique": "chokepoint-tag-registry",
+          "verdict": "deviation",
+          "evidence": "lib/db/pglite/repositories/ledger.ts:258 An ordered, capped read with no warnIfTruncated and no check that would notice. The cap of 50 may be a deliberate 'latest N'; that was not determined. The finding is that nothing distinguishes it from a miss."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/db/pglite/repositories/truncationGuards.test.ts:70 For the listers it names, the wiring is proven red with a seeded at-limit result and silent under the limit (line 81), through the real repository rather than the pure helper."
+        }
+      ],
+      "registryProposal": "prose-rule-drift's audit says to walk the 'standing documents'; the corpus could state whether a rule written in a source or test header counts. It was counted here because that is the only place these rules are written."
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/deployment-contract": {
+      "context": "dashboard-feed-logic",
+      "subject": "deployment-contract",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T01:07:18.148Z",
+      "worker": "d30f1f93-42fb-4ae5-aa13-0f45b1aae028",
+      "techniques": [
+        {
+          "technique": "platform-build-parity",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/freshness.ts:18 The only mention of a build in the runtime files is a comment recording how routes were classified; the context sets no build command, runtime pin or install flag."
+        },
+        {
+          "technique": "cache-immutability-licensing",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/freshness.ts:38 Closest construct in the context, but it is a server-side data-staleness ceiling for a page, with its derivation written beside it, not a client cache directive on build assets. No immutable or Cache-Control appears in features/dashboard."
+        },
+        {
+          "technique": "public-build-inert-by-mode",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/publicWire.ts:103 'Public' here means a field projection of the page payload, not a public demonstration build; the context has no mode switch and reads no process.env."
+        },
+        {
+          "technique": "build-context-filter-parity",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 No upload or container context filter belongs to this context; search for dockerignore and gcloudignore found 0 hits."
+        },
+        {
+          "technique": "deploy-gate-coupling",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 A pure module has no deploy trigger to couple to a verdict; search for deploy found 0 hits."
+        },
+        {
+          "technique": "deployment-config-as-code",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 No platform setting or environment variable name is read or declared here; search for process.env and vercel found 0 hits."
+        },
+        {
+          "technique": "direct-push-delivery",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 Delivery topology is a repository-level concern with nothing to realize in these files; search for git push found 0 hits."
+        },
+        {
+          "technique": "environment-promotion",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 No environment ladder is named here; search for promote and rollback found 0 hits, and the one 'preview' hit in the directory is a graph hover label outside this context's files."
+        },
+        {
+          "technique": "replace-before-retire",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 The context names no hosted service or endpoint address to rename or retire."
+        }
+      ]
+    },
+    "83ddefb0-fd53-4a37-9959-54071b61ce53/metrics-rollups": {
+      "context": "dashboard-instruments",
+      "subject": "metrics-rollups",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T01:45:41.233Z",
+      "worker": "9c0cda58-e999-4f50-9464-05e6e8898cbf",
+      "techniques": [
+        {
+          "technique": "capped-list-uncapped-total",
+          "verdict": "deviation",
+          "evidence": "features/dashboard/components/GraphFeedPanel.tsx:72 The producer is right (`considered` is computed before the cap in datedFacts.ts and pinned by publicWire.test.ts), but the consumer's denominator is the list's length. The technique names this failure: render „newest 12 of N\", never the length sent. The selected-node match count is likewise a fold over the window only, and nothing marks the cut where the list ends."
+        },
+        {
+          "technique": "aggregate-honesty",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/getDashboardData.ts:535 A missing absence_rate is excluded rather than coerced to 0, avgPct is null when no MP carries the figure, and the mean ships with counted/total. isFloor likewise carries the lower-bound status to the tile. Mean-of-ratios composes here because kg-contribution-recompute.ts divides by one chamber-wide sessionDays."
+        },
+        {
+          "technique": "bundle-endpoints",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/getDashboardData.ts:239 One loader returns one envelope; summary, histogram, top-5 and attendance all derive from the single getLeaderboardData() result. Layers degrade through explicit per-section slots, and factContracts separates not-attempted (null) from failed; DashboardPage names the dark layers. Failed reads are never memoized."
+        },
+        {
+          "technique": "cardinality-and-cost",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/getDashboardData.ts:463 The per-company edge read is bounded by MAX_SLICE_CONTRACT_EDGES and the truncation is returned to the surface with its cap and company counts, then rendered in the feed footer. The top-5 is a declared TOP_N beside a link carrying the full chamber count."
+        },
+        {
+          "technique": "count-and-list-from-one-tally",
+          "verdict": "conformant",
+          "evidence": "features/dashboard/datedFacts.ts:297 The list and both counters come from one selection in one call. Gap against the technique's list-what-could-not-be-read clause: datedFacts.ts:288 drops null-dated rows uncounted, which is legitimate for an open role's missing end date but also silently removes a contract with no signedOn. The core one-selection rule holds; the verdict is conformant on that basis only."
+        },
+        {
+          "technique": "bucketing-strategy",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/components/ChamberChart.tsx:40 The only real chart buckets MPs by score band, not time, so there is no grain, zone or effective window. The time-shaped trend is the labelled sample fallback."
+        },
+        {
+          "technique": "period-comparison",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/DashboardPage.tsx:101 Real data renders no period delta; a repo search of the context for delta/previous/prior hit only RankDelta in MockRankingLedger, the labelled sample ledger."
+        },
+        {
+          "technique": "stored-rollups",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/getDashboardData.ts:30 This context writes no rollup; it reads figures materialized by the kg-compute writers and holds only a TTL-bounded in-process memo. The stored derivation belongs to the graph-writer context."
+        }
+      ]
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/model-composed-workspace": {
+      "context": "graph-data-logic",
+      "subject": "model-composed-workspace",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T01:59:48.015Z",
+      "worker": "2ed22886-5cf9-4c3b-b70f-f16c841c4973",
+      "techniques": [
+        {
+          "technique": "answer-form-routing",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:35 The reader's query goes to a deterministic search that returns typed hits; no model decides among prose, card, pane, workspace or navigation."
+        },
+        {
+          "technique": "composition-region",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:88 The added layer is fetched for a node id the reader's own UI passes (VariantMapa.tsx:129); there is no model placement, region, grid or model-bound parameter."
+        },
+        {
+          "technique": "arrangement-memory",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/permalink.ts:8 View state is serialized for citation; no model recomposes it, so there are no standing rules to carry into a next composition."
+        },
+        {
+          "technique": "reversible-screen-ops",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:11 Validation here guards public client input, not a model-emitted operation vocabulary; the technique excludes operations the user performs."
+        },
+        {
+          "technique": "conductor-turn-flow",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:71 A single request/response path query; there is no conversational turn, narration, reply or composer."
+        },
+        {
+          "technique": "composition-motion",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/forensicView.ts:21 This data layer has no DOM and renders no motion, and no model-originated content exists for it to mark."
+        },
+        {
+          "technique": "view-choice-evaluation",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/forensicView.ts:49 Views are derived by deterministic functions tested on fixtures; no model view choice exists to label or score."
+        }
+      ]
+    },
+    "3e5e8c14-4e90-463a-a9c3-c3538c866bab/module-design": {
+      "context": "eslint-plugin-civic-transparency-tests",
+      "subject": "module-design",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T02:19:18.098Z",
+      "worker": "f4ebf2e2-96dd-4f48-a1eb-bfe3e4ebef9d",
+      "techniques": [
+        {
+          "technique": "marked-unverifiable-region",
+          "verdict": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-display-string.test.mjs:170 Property 4 (the written fact at each use) is unpinned for all four plain markers, although the docs say the annotation requires a reason. The structured citation-ok form IS well pinned (require-source-citation.test.mjs lines 228-250). If these markers are classed as suppressions instead, the technique says both share the reason requirement, so the verdict holds."
+        },
+        {
+          "technique": "seams-and-adapters",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:111 Identity, not behavioural similarity, proves each shim is the package rule, so there is one implementation behind both doors. Suites exercise rules through ESLint's real harness with no hand-written doubles."
+        },
+        {
+          "technique": "module-depth",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:58 The rule set is encoded in several places, but each encoding is compared against the one pinned list, so the leakage fuse is closed: drift fails the run. A suite's interface is one sentence: import it, it throws or prints PASS."
+        },
+        {
+          "technique": "locality-and-leverage",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-server-import-in-client.test.mjs:20 Each rule owns one suite with its own RuleTester config, and the configs genuinely differ (TS parser here, no JSX in no-silent-catch). Measured: git log -G ecmaVersion over __tests__ shows 3 commits, the ones that introduced the suites, so no recurring change class has crossed the repeated config. Duplication beats a shared helper."
+        },
+        {
+          "technique": "declarative-or-sequential",
+          "verdict": "conformant",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:36 The directory read is the single effect at the head of a pure filter/map/sort chain, one transition only. The assertion loops further down are effectful and correctly stay sequential."
+        },
+        {
+          "technique": "mirror-type-at-the-edge",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs:9 The precondition fails: rule inputs are constructible through the harness ESLint itself ships, which the technique says is strictly better than inventing a mirror."
+        },
+        {
+          "technique": "io-free-core",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:29 The one rule with file I/O is tested with a real temp file and zero doubles, on a single runtime; the technique's own exclusion (single runtime, a dependency that runs fine in a test) applies."
+        },
+        {
+          "technique": "borrowed-surface",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-server-import-in-client.test.mjs:16 The suites neither wrap with delegation nor extend an upstream contract; they only consume a parser. That the parser is undeclared is a dependency-declaration matter, recorded in notes."
+        },
+        {
+          "technique": "concurrency-at-the-edge",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:25 The only await is sequential top-level module loading in the runner; there is no flow-control model to place."
+        },
+        {
+          "technique": "state-carrier-decides-the-lane",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:24 One sequential lane in one process; no forked or parallel lane exists for state to cross."
+        },
+        {
+          "technique": "host-primitive-facade",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:4 The suites run on a single host, Node; there is no second execution host to abstract."
+        },
+        {
+          "technique": "emitted-code-names-from-a-root",
+          "verdict": "not-applicable",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:39 This is a local fixture string handed to a parser as input, not generated code spliced into a caller's scope."
+        }
+      ],
+      "registryProposal": "marked-unverifiable-region separates an unverifiable region from a suppression, but a lint annotation can be both: `citation-ok` covers a fact the checker cannot see across a file boundary while also silencing a report. The technique could state which discipline governs that hybrid, and that the reason requirement should be enforced and tested by the checker that accepts the marker, not only documented."
     }
   }
 }

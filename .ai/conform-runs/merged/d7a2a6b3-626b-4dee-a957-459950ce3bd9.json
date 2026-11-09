@@ -1,0 +1,120 @@
+{
+ "schema": "conform-run/1",
+ "worker": "d7a2a6b3-626b-4dee-a957-459950ce3bd9",
+ "subject": "invariant-placement",
+ "evaluatedAt": "2026-11-09T01:29:53.085269+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "mp-profile",
+   "subject": "invariant-placement",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/profile/getProfileData.ts:53 The loader coerces a missing edge weight or prop to a definite 0 with no signal, so ally agreement, shared ballots and per-bill speech or amendment counts can publish a zero about a named MP, which profileTypes.ts itself rejects for the Rebellion fields as a statement manufactured from a data gap.",
+   "techniques": [
+    {
+     "technique": "placement-precedes-gate",
+     "verdict": "deviation",
+     "evidence": "features/profile/profileMoney.ts:136 The rule that an outage must never read as no ties has a published-claim blast radius but lives in a boolean beside an always-empty ties array, checked by each consumer (MoneySection.tsx:85, ProfilePage.tsx:111). The sibling field uses the shape form (absence: ProfileAbsenceRecord | null). Latent: both current consumers guard it."
+    },
+    {
+     "technique": "constraint-deletion-is-silent",
+     "verdict": "deviation",
+     "evidence": "features/profile/ProfilePage.tsx:67 The comment above claims a fourth role fails to compile here, but features/profile has no @ts-expect-error or type-level negative artifact, so deleting satisfies leaves everything green. Door-level refusals are tested (rebellionProvenance.test.ts:64); the shape-level half is not."
+    },
+    {
+     "technique": "initialization-proof-tokens",
+     "verdict": "deviation",
+     "evidence": "features/profile/getProfileData.ts:122 A readiness check was removed on the authority of a value that can come from the cross-request chamberMemo (getLeaderboardData.ts), whose own comment says the data changes when da:kg-compute writes. A memoized proof asserts a fact with a clock. Practical lapse is narrowed by PGlite being single-connection."
+    },
+    {
+     "technique": "completeness-at-emission",
+     "verdict": "deviation",
+     "evidence": "features/profile/getProfileData.ts:539 ProfileData is assembled at one door with required fields, which is right at this size, but an absent weight is defaulted to 0 in the emitted payload instead of being omitted or null, breaking the rule that absent optional parts are omitted, never defaulted. profileTypes.ts:142 calls this count authoritative."
+    },
+    {
+     "technique": "consumption-bounds-at-most-once",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/getProfileData.ts:1 A read-only projection with no single-use value; a search of features/profile for token, nonce, consume, one-shot and single-use found only unrelated uses of the word token."
+    },
+    {
+     "technique": "build-time-evaluation-of-cross-value-invariants",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/absenceRecord.ts:35 The context's constants are independent single-value presentation bounds; none carries an invariant between two build-time values."
+    },
+    {
+     "technique": "derived-properties-cannot-be-forged",
+     "verdict": "conformant",
+     "evidence": "features/profile/seatWindow.ts:29 current and unreadable are computed from the window state rather than declared; serving, attributable and the tie counters follow the same pattern."
+    },
+    {
+     "technique": "shape-with-a-not-applicable-member",
+     "verdict": "conformant",
+     "evidence": "features/profile/rebellionProvenance.ts:73 The absence members pass the producer audit: absent has live producers and a distinct arm at ProfilePage.tsx:606-617; verdict-rung absence stays in the wrapper as a missing key."
+    },
+    {
+     "technique": "repairing-check-erases-its-evidence",
+     "verdict": "deviation",
+     "evidence": "features/profile/components/DossierSection.tsx:172 The comment says the section reports when breakdown and total disagree, but a breakdown larger than the total clamps to 0 and prints nothing. amendmentsUnplaced appears in no test and has no firing count. num() at getProfileData.ts:53 is the same posture."
+    },
+    {
+     "technique": "indistinguishable-members-do-not-rise",
+     "verdict": "deviation",
+     "evidence": "features/profile/getProfileData.ts:363 Mandate id and person id are both plain number (MandateRow.pspId and personPspId; no brand in lib or features) and the mandate id scopes the absence read. Passing the person id compiles, and no test seeds absence rows or asserts .absence, so a wrong scope would look like a record with no excuses. The current code is correct."
+    },
+    {
+     "technique": "occurrence-is-not-a-type",
+     "verdict": "conformant",
+     "evidence": "features/profile/profileSource.test.ts:25 Capture-time and which-derivation terms that no type holds get narrow source-level gates: one Prague day here, and the single shared record at rebellionRecord.test.ts:205."
+    },
+    {
+     "technique": "paired-sites-localize-the-fault",
+     "verdict": "not-applicable",
+     "evidence": "features/profile/getProfileData.ts:529 Values are written by offline ingest scripts and read here, a process boundary the technique excludes; the context has no in-process write/read pair of one value."
+    },
+    {
+     "technique": "a-new-field-must-choose",
+     "verdict": "conformant",
+     "evidence": "features/profile/profileMoney.ts:214 A new TieClass stops the build here; yearsOf in CareerSpineSection.tsx is a switch with no default arm, and the required non-optional fields force each new payload field to be set. ROLE_ORDER in getProfileData.ts:484 keeps a small default rank for a two-member role."
+    },
+    {
+     "technique": "string-keyed-context-is-an-unchecked-join",
+     "verdict": "deviation",
+     "evidence": "features/profile/getProfileData.ts:642 Reader and offline writer agree only by spelling in schemaless props. prop-registry.json gates written keys, but nothing in features reads the registry and no diff checks keys read, so a misspelt read becomes a null rendered as missing data. loaders.test.ts seeds the key it expects."
+    }
+   ],
+   "registryProposal": "string-keyed-context-is-an-unchecked-join frames the bag as per-request, but a durable schemaless jsonb prop column shows the same failure; the technique could state that a write-side key registry closes only half of the join."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-09T01:29:53.085269+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "invariant-placement"
+   ],
+   "techniques": [
+    "a-new-field-must-choose",
+    "build-time-evaluation-of-cross-value-invariants",
+    "completeness-at-emission",
+    "constraint-deletion-is-silent",
+    "consumption-bounds-at-most-once",
+    "derived-properties-cannot-be-forged",
+    "indistinguishable-members-do-not-rise",
+    "initialization-proof-tokens",
+    "occurrence-is-not-a-type",
+    "paired-sites-localize-the-fault",
+    "placement-precedes-gate",
+    "repairing-check-erases-its-evidence",
+    "shape-with-a-not-applicable-member",
+    "string-keyed-context-is-an-unchecked-join"
+   ],
+   "deviations": 1,
+   "context": "mp-profile",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
