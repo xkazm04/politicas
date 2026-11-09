@@ -19114,6 +19114,52 @@
           "evidence": "features/dashboard/getDashboardData.ts:30 This context writes no rollup; it reads figures materialized by the kg-compute writers and holds only a TTL-bounded in-process memo. The stored derivation belongs to the graph-writer context."
         }
       ]
+    },
+    "5c7d1463-5fde-4cfe-b142-2410ea5e86ed/model-composed-workspace": {
+      "context": "graph-data-logic",
+      "subject": "model-composed-workspace",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T01:59:48.015Z",
+      "worker": "2ed22886-5cf9-4c3b-b70f-f16c841c4973",
+      "techniques": [
+        {
+          "technique": "answer-form-routing",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:35 The reader's query goes to a deterministic search that returns typed hits; no model decides among prose, card, pane, workspace or navigation."
+        },
+        {
+          "technique": "composition-region",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:88 The added layer is fetched for a node id the reader's own UI passes (VariantMapa.tsx:129); there is no model placement, region, grid or model-bound parameter."
+        },
+        {
+          "technique": "arrangement-memory",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/permalink.ts:8 View state is serialized for citation; no model recomposes it, so there are no standing rules to carry into a next composition."
+        },
+        {
+          "technique": "reversible-screen-ops",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:11 Validation here guards public client input, not a model-emitted operation vocabulary; the technique excludes operations the user performs."
+        },
+        {
+          "technique": "conductor-turn-flow",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:71 A single request/response path query; there is no conversational turn, narration, reply or composer."
+        },
+        {
+          "technique": "composition-motion",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/forensicView.ts:21 This data layer has no DOM and renders no motion, and no model-originated content exists for it to mark."
+        },
+        {
+          "technique": "view-choice-evaluation",
+          "verdict": "not-applicable",
+          "evidence": "features/graph/forensicView.ts:49 Views are derived by deterministic functions tested on fixtures; no model view choice exists to label or score."
+        }
+      ]
     }
   }
 }

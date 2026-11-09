@@ -7932,7 +7932,11 @@
           "revision": 3,
           "changedAt": "2026-11-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:4 The subject requires a model composing the screen, but the canvas reaches the graph only through these validated reader-invoked server actions, and a case-insensitive substring search of features/graph for llm, prompt, composer, anthropic and generateText found 0 hits, so no model chooses, arranges or filters anything here.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:7c6aa8f4a4d53a56",
+          "evaluatedRevision": 3
         },
         {
           "subject": "search",
