@@ -12992,7 +12992,11 @@
           "revision": 9,
           "changedAt": "2026-09-21",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/profile/getProfileData.ts:53 The loader coerces a missing edge weight or prop to a definite 0 with no signal, so ally agreement, shared ballots and per-bill speech or amendment counts can publish a zero about a named MP, which profileTypes.ts itself rejects for the Rebellion fields as a statement manufactured from a data gap.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:89cd666907c6c9d6",
+          "evaluatedRevision": 10
         },
         {
           "subject": "agent-instruction-files",

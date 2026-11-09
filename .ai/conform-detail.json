@@ -8352,63 +8352,83 @@
       "context": "mp-profile",
       "subject": "invariant-placement",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-25",
-      "evaluatedTs": "2026-10-25T23:48:01.478Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T01:29:53.085Z",
+      "worker": "d7a2a6b3-626b-4dee-a957-459950ce3bd9",
       "techniques": [
         {
-          "technique": "repairing-check-erases-its-evidence",
+          "technique": "placement-precedes-gate",
           "verdict": "deviation",
-          "evidence": "features/profile/components/DossierSection.tsx:172 Defensive clamp, not a designed cap: a negative remainder (breakdown > total) becomes 0. The disagreement disappears instead of being refused or counted, which contradicts the 'where the two disagree the page says so' contract at profileTypes.ts:142."
+          "evidence": "features/profile/profileMoney.ts:136 The rule that an outage must never read as no ties has a published-claim blast radius but lives in a boolean beside an always-empty ties array, checked by each consumer (MoneySection.tsx:85, ProfilePage.tsx:111). The sibling field uses the shape form (absence: ProfileAbsenceRecord | null). Latent: both current consumers guard it."
+        },
+        {
+          "technique": "constraint-deletion-is-silent",
+          "verdict": "deviation",
+          "evidence": "features/profile/ProfilePage.tsx:67 The comment above claims a fourth role fails to compile here, but features/profile has no @ts-expect-error or type-level negative artifact, so deleting satisfies leaves everything green. Door-level refusals are tested (rebellionProvenance.test.ts:64); the shape-level half is not."
+        },
+        {
+          "technique": "initialization-proof-tokens",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:122 A readiness check was removed on the authority of a value that can come from the cross-request chamberMemo (getLeaderboardData.ts), whose own comment says the data changes when da:kg-compute writes. A memoized proof asserts a fact with a clock. Practical lapse is narrowed by PGlite being single-connection."
         },
         {
           "technique": "completeness-at-emission",
           "verdict": "deviation",
-          "evidence": "features/profile/getProfileData.ts:539 The emitted ProfileData has every field required, which is good. But `num()` (line 53) turns an absent or non-finite edge weight into a hard 0 count, and does the same for co-voter agreement and shared (lines 161-162). An absent part is defaulted, not omitted, even though the same loader uses nullableNum for speechTurns, interpellations and absenceRate for exactly this reason."
-        },
-        {
-          "technique": "shape-with-a-not-applicable-member",
-          "verdict": "deviation",
-          "evidence": "features/profile/careerSpine.ts:201 careerYears is a resolver that signals 'could not resolve' with a member of its own closed set (CareerYears `{ kind: \"unknown\" }`, line 180) instead of returning an optional. The member is reachable and the consumer renders an honest '—' (CareerSpineSection.tsx:52), so the harm is low, but the decision rule puts absence in the wrapper."
-        },
-        {
-          "technique": "derived-properties-cannot-be-forged",
-          "verdict": "conformant",
-          "evidence": "features/profile/absenceRecord.ts:126 The day-level wholeDay is computed from its windows, never declared. The same holds for totalDays, futureDays, CareerTerm.openEnded (careerSpine.ts:305) and stintCount."
-        },
-        {
-          "technique": "constraint-deletion-is-silent",
-          "verdict": "conformant",
-          "evidence": "features/profile/profileSource.test.ts:14 A negative artifact whose pass condition is the absence of the known-bad construction (the loose id read), which protects the shared strict-parser door."
-        },
-        {
-          "technique": "occurrence-is-not-a-type",
-          "verdict": "conformant",
-          "evidence": "features/profile/rebellionRecord.test.ts:87 'Feed an uncapped record' (rebellionRecord.ts:75) is a term about how the record was derived; VoteRecordData has the same type capped or uncapped. The term is held by a test, not believed held by the type checker."
-        },
-        {
-          "technique": "placement-precedes-gate",
-          "verdict": "conformant",
-          "evidence": "features/profile/getProfileData.ts:2 The server boundary's altitude is named explicitly: a build-time refusal at the module door, with prop types split into the pure profileTypes.ts."
+          "evidence": "features/profile/getProfileData.ts:539 ProfileData is assembled at one door with required fields, which is right at this size, but an absent weight is defaulted to 0 in the emitted payload instead of being omitted or null, breaking the rule that absent optional parts are omitted, never defaulted. profileTypes.ts:142 calls this count authoritative."
         },
         {
           "technique": "consumption-bounds-at-most-once",
           "verdict": "not-applicable",
-          "evidence": "features/profile/getProfileData.ts:110 Nothing here is single-use. The loader result is deliberately memoised and read twice per request (generateMetadata + page)."
+          "evidence": "features/profile/getProfileData.ts:1 A read-only projection with no single-use value; a search of features/profile for token, nonce, consume, one-shot and single-use found only unrelated uses of the word token."
         },
         {
           "technique": "build-time-evaluation-of-cross-value-invariants",
           "verdict": "not-applicable",
-          "evidence": "features/profile/rebellionRecord.ts:19 The context's constants (rebellion, absence, ally and contract row caps) are independent presentation bounds. None of them must sum or avoid overlap with another."
+          "evidence": "features/profile/absenceRecord.ts:35 The context's constants are independent single-value presentation bounds; none carries an invariant between two build-time values."
+        },
+        {
+          "technique": "derived-properties-cannot-be-forged",
+          "verdict": "conformant",
+          "evidence": "features/profile/seatWindow.ts:29 current and unreadable are computed from the window state rather than declared; serving, attributable and the tie counters follow the same pattern."
+        },
+        {
+          "technique": "shape-with-a-not-applicable-member",
+          "verdict": "conformant",
+          "evidence": "features/profile/rebellionProvenance.ts:73 The absence members pass the producer audit: absent has live producers and a distinct arm at ProfilePage.tsx:606-617; verdict-rung absence stays in the wrapper as a missing key."
+        },
+        {
+          "technique": "repairing-check-erases-its-evidence",
+          "verdict": "deviation",
+          "evidence": "features/profile/components/DossierSection.tsx:172 The comment says the section reports when breakdown and total disagree, but a breakdown larger than the total clamps to 0 and prints nothing. amendmentsUnplaced appears in no test and has no firing count. num() at getProfileData.ts:53 is the same posture."
+        },
+        {
+          "technique": "indistinguishable-members-do-not-rise",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:363 Mandate id and person id are both plain number (MandateRow.pspId and personPspId; no brand in lib or features) and the mandate id scopes the absence read. Passing the person id compiles, and no test seeds absence rows or asserts .absence, so a wrong scope would look like a record with no excuses. The current code is correct."
+        },
+        {
+          "technique": "occurrence-is-not-a-type",
+          "verdict": "conformant",
+          "evidence": "features/profile/profileSource.test.ts:25 Capture-time and which-derivation terms that no type holds get narrow source-level gates: one Prague day here, and the single shared record at rebellionRecord.test.ts:205."
+        },
+        {
+          "technique": "paired-sites-localize-the-fault",
+          "verdict": "not-applicable",
+          "evidence": "features/profile/getProfileData.ts:529 Values are written by offline ingest scripts and read here, a process boundary the technique excludes; the context has no in-process write/read pair of one value."
+        },
+        {
+          "technique": "a-new-field-must-choose",
+          "verdict": "conformant",
+          "evidence": "features/profile/profileMoney.ts:214 A new TieClass stops the build here; yearsOf in CareerSpineSection.tsx is a switch with no default arm, and the required non-optional fields force each new payload field to be set. ROLE_ORDER in getProfileData.ts:484 keeps a small default rank for a two-member role."
+        },
+        {
+          "technique": "string-keyed-context-is-an-unchecked-join",
+          "verdict": "deviation",
+          "evidence": "features/profile/getProfileData.ts:642 Reader and offline writer agree only by spelling in schemaless props. prop-registry.json gates written keys, but nothing in features reads the registry and no diff checks keys read, so a misspelt read becomes a null rendered as missing data. loaders.test.ts seeds the key it expects."
         }
       ],
-      "registryProposal": "shape-with-a-not-applicable-member states its rule categorically ('belongs in the wrapper'), but its harm argument rests on the absence member being unreachable or getting a silent-success arm. It could tell that case apart from a reachable absence variant in a discriminated union whose every consumer renders a distinct, honest sentence, as here. As written, both cases get the same verdict.",
-      "withdrawn": {
-        "worker": "e19ecf90-ca06-4052-baa4-f702d0cc1c3f",
-        "state": "deviation",
-        "at": "2026-10-25T23:48:31.674273+00:00",
-        "reason": "reviewer (sonnet): The clamp at DossierSection.tsx:172 exists, but the cited contract at profileTypes.ts:142 is about a bill's `count` versus its `sdCislos` list, not the per-bill breakdown versus the stored total. Nothing I opened says the page must admit breakdown > total, so the claim of a contract violation rests "
-      }
+      "registryProposal": "string-keyed-context-is-an-unchecked-join frames the bag as per-request, but a durable schemaless jsonb prop column shows the same failure; the technique could state that a write-side key registry closes only half of the join."
     },
     "3f9e144b-21a9-4cdc-8ac9-61a1e94d6880/invariant-placement": {
       "context": "testing-flake-sentinel",
