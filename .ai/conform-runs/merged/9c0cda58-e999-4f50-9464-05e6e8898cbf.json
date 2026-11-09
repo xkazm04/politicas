@@ -1,0 +1,83 @@
+{
+ "schema": "conform-run/1",
+ "worker": "9c0cda58-e999-4f50-9464-05e6e8898cbf",
+ "subject": "metrics-rollups",
+ "evaluatedAt": "2026-11-09T01:45:41.233227+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "dashboard-instruments",
+   "subject": "metrics-rollups",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/dashboard/components/GraphFeedPanel.tsx:72 The feed header renders \u201e{count} z {total} z\u00e1znam\u016f\" with total set to the length of the 12-row window, so it reads \u201e12 z 12 z\u00e1znam\u016f\" over a ledger whose uncapped `considered` count travels on the wire but only surfaces as a footer clause, turning the size limit into an apparent record size.",
+   "techniques": [
+    {
+     "technique": "capped-list-uncapped-total",
+     "verdict": "deviation",
+     "evidence": "features/dashboard/components/GraphFeedPanel.tsx:72 The producer is right (`considered` is computed before the cap in datedFacts.ts and pinned by publicWire.test.ts), but the consumer's denominator is the list's length. The technique names this failure: render \u201enewest 12 of N\", never the length sent. The selected-node match count is likewise a fold over the window only, and nothing marks the cut where the list ends."
+    },
+    {
+     "technique": "aggregate-honesty",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/getDashboardData.ts:535 A missing absence_rate is excluded rather than coerced to 0, avgPct is null when no MP carries the figure, and the mean ships with counted/total. isFloor likewise carries the lower-bound status to the tile. Mean-of-ratios composes here because kg-contribution-recompute.ts divides by one chamber-wide sessionDays."
+    },
+    {
+     "technique": "bundle-endpoints",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/getDashboardData.ts:239 One loader returns one envelope; summary, histogram, top-5 and attendance all derive from the single getLeaderboardData() result. Layers degrade through explicit per-section slots, and factContracts separates not-attempted (null) from failed; DashboardPage names the dark layers. Failed reads are never memoized."
+    },
+    {
+     "technique": "cardinality-and-cost",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/getDashboardData.ts:463 The per-company edge read is bounded by MAX_SLICE_CONTRACT_EDGES and the truncation is returned to the surface with its cap and company counts, then rendered in the feed footer. The top-5 is a declared TOP_N beside a link carrying the full chamber count."
+    },
+    {
+     "technique": "count-and-list-from-one-tally",
+     "verdict": "conformant",
+     "evidence": "features/dashboard/datedFacts.ts:297 The list and both counters come from one selection in one call. Gap against the technique's list-what-could-not-be-read clause: datedFacts.ts:288 drops null-dated rows uncounted, which is legitimate for an open role's missing end date but also silently removes a contract with no signedOn. The core one-selection rule holds; the verdict is conformant on that basis only."
+    },
+    {
+     "technique": "bucketing-strategy",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/components/ChamberChart.tsx:40 The only real chart buckets MPs by score band, not time, so there is no grain, zone or effective window. The time-shaped trend is the labelled sample fallback."
+    },
+    {
+     "technique": "period-comparison",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/DashboardPage.tsx:101 Real data renders no period delta; a repo search of the context for delta/previous/prior hit only RankDelta in MockRankingLedger, the labelled sample ledger."
+    },
+    {
+     "technique": "stored-rollups",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/getDashboardData.ts:30 This context writes no rollup; it reads figures materialized by the kg-compute writers and holds only a TTL-bounded in-process memo. The stored derivation belongs to the graph-writer context."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-09T01:45:41.233227+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "metrics-rollups"
+   ],
+   "techniques": [
+    "aggregate-honesty",
+    "bucketing-strategy",
+    "bundle-endpoints",
+    "capped-list-uncapped-total",
+    "cardinality-and-cost",
+    "count-and-list-from-one-tally",
+    "period-comparison",
+    "stored-rollups"
+   ],
+   "deviations": 1,
+   "context": "dashboard-instruments",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
