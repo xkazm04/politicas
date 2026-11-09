@@ -9895,8 +9895,12 @@
           "revision": 44,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "features/labs/rentgen/terminalModel.ts:2 Rentgen is an archived UI direction: a pure view model, a server loader that reads the money, review and change_event layers read-only, and a client terminal. Searching features/labs/rentgen for prompt, anthropic, max_tokens and llm found no hits (the only 'token' hit is a comment about colour tokens), so no prompt is ever assembled.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:ad13b2ee69c25e8d",
+          "evaluatedRevision": 44
         },
         {
           "subject": "module-design",

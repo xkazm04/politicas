@@ -16104,38 +16104,44 @@
       "subject": "prompt-assembly",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-11-08",
-      "evaluatedTs": "2026-11-08T03:46:31.632Z",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:50:41.265Z",
       "techniques": [
-        {
-          "technique": "layered-composition",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/context-model.ts:1 One origin builds the context layer for both delivery arms (direct and DataHub Lite), so nobody concatenates context at call sites."
-        },
-        {
-          "technique": "variable-interpolation",
-          "verdict": "conformant",
-          "evidence": "lib/analysis/context-model.ts:14 Rendering is pure and reads only its declared inputs (SliceStats plus constants). No clock, no ambient state."
-        },
         {
           "technique": "context-reachability",
           "verdict": "deviation",
-          "evidence": "lib/analysis/context-model.ts:122 Coverage state can be reached from docs/data-analysis, and the module knows its copy goes stale. The rule says to omit reachable context that cannot be kept fresh, but it is injected as fact."
+          "evidence": "lib/analysis/context-model.ts:259 A stale, reachable coverage digest is injected as fact. The comment at lines 122-127 admits a missing row misreports analysed slices as never analysed. The rule is to omit reachable context that cannot be kept fresh."
         },
         {
-          "technique": "context-budgeting",
-          "verdict": "deviation",
-          "evidence": "lib/analysis/context-model.ts:252 The feeder has no named sub-budget and no degradation ladder: every known issue, primer rule and note is appended in full with no size accounting."
+          "technique": "layered-composition",
+          "verdict": "conformant",
+          "evidence": "lib/analysis/context-model.ts:5 One owner and one assembler for the analyst context layer. Both delivery arms (direct and DataHub Lite) import the same builders instead of concatenating text at their call sites."
         },
         {
           "technique": "house-vocabulary-layer",
           "verdict": "conformant",
-          "evidence": "lib/analysis/context-model.ts:118 CORPUS_PRIMER and ENTITY_FIELDS are an owned section with one authority. They carry the project's load-bearing terms and distinctions (club vs party_list, the K bucket)."
+          "evidence": "lib/analysis/context-model.ts:118 CORPUS_PRIMER is a single owned section carrying the domain's load-bearing distinctions and deliberate exclusions (club vs party list, the merged K bucket). It is rendered into every dataset doc."
+        },
+        {
+          "technique": "variable-interpolation",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/context-provider.ts:247 In the Lite arm, a missing rubric description is rendered as an empty string. That is one of the dishonest missing-variable outcomes the technique names; it should fail the assembly, use a declared default, or omit the criterion."
         },
         {
           "technique": "pinned-prompt-clock",
           "verdict": "not-applicable",
-          "evidence": "lib/analysis/context-model.ts:250 The context carries authored as-of dates as data, never a live 'today', so there is no clock to pin."
+          "evidence": "lib/analysis/context-model.ts:250 The context never reads today's date. The only date it renders is the authored measurement date (asOf), so there is no clock to pin."
+        },
+        {
+          "technique": "history-compaction",
+          "verdict": "not-applicable",
+          "evidence": "lib/analysis/context-model.ts:14 This module is a stateless per-slice builder. It holds no multi-turn transcript, so there is nothing to compact."
+        },
+        {
+          "technique": "context-budgeting",
+          "verdict": "deviation",
+          "evidence": "lib/analysis/context-model.ts:252 The feeder has no named sub-budget and no degradation ladder: every known issue, primer rule and note is appended in full with no size accounting.",
+          "carriedFrom": "2026-11-08"
         },
         {
           "technique": "fingerprinting-and-cache-keys",
@@ -16145,10 +16151,10 @@
         }
       ],
       "withdrawn": {
-        "worker": "bf89a3b7-ab9f-4432-88ed-8b5febb22066",
+        "worker": "e4b8410a-2088-445b-a600-85224483ad3c",
         "state": "deviation",
-        "at": "2026-11-08T03:47:15.214449+00:00",
-        "reason": "reviewer (sonnet): The claim is about lib/analysis/context-model.ts, the analyst-context feeder for the data-analysis subagent, but this context's files are the score modules (contribution, score-citations, score-legibility, low-score-reason), none of which call it, so the verdict is about a different context."
+        "at": "2026-11-09T23:51:06.581272+00:00",
+        "reason": "reviewer (sonnet): The anchors (lib/analysis/context-model.ts and context-provider.ts) are real and say what is claimed, but neither file is in civic-score-computation's file list. That list holds only contribution*, score-citations, score-legibility and low-score-reason. The verdict is about the analyst-context assem"
       }
     },
     "288263c6-af06-423e-b473-ec1d630613ac/prompt-assembly": {
@@ -19319,6 +19325,16 @@
           "evidence": "features/dashboard/stateSlice.ts:4 stateSlice is a pure function over finished loader projections. No shared replica or stream is fanned out to consumers."
         }
       ]
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/prompt-assembly": {
+      "context": "labs-rentgen",
+      "subject": "prompt-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:50:41.265Z",
+      "worker": "e4b8410a-2088-445b-a600-85224483ad3c",
+      "techniques": []
     }
   }
 }
