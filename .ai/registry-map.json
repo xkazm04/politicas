@@ -11492,7 +11492,11 @@
           "revision": 6,
           "changedAt": "2026-09-11",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:43 The loader's requirement on its two payload files exists only as cwd-relative runtime path strings the packager cannot see, while the app-level .dockerignore:16-17 excludes `docs` as 'not needed at runtime', so by configuration the container image ships without them and the /zakony dependency section has no data.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:4eb7088d6ed99926",
+          "evaluatedRevision": 6
         },
         {
           "subject": "error-handling",

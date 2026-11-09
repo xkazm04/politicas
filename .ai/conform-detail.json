@@ -13019,38 +13019,53 @@
       "context": "lawwatch-radar",
       "subject": "dependency-declaration",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-25",
-      "evaluatedTs": "2026-10-25T23:21:10.139Z",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:49:37.893Z",
+      "worker": "827c814a-8dd9-446a-8a76-48898be33ac2",
       "techniques": [
         {
           "technique": "declaration-invariants",
-          "verdict": "conformant",
-          "evidence": "features/lawwatch/buildDependencyView.ts:82 Locality holds: each module declares its own imports. The pure derivation takes its one outside requirement (the Czech/jargon gate) as a typed parameter in its own signature. That is the technique's 'take them as parameters' move, chosen on purpose so the module stays a plain function of its inputs and the loader injects the real gate. Nobody but the unit's author edits anything when it gains a dependency."
+          "verdict": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:44 Locality fails for file requirements: the unit cannot state them in any form the build reads, so inclusion depends on host-level documents it does not own (.dockerignore, next.config.ts, which has no outputFileTracingIncludes). Its module imports do satisfy locality, for example sectorAttribution.ts:18."
         },
         {
           "technique": "logical-name-or-address",
           "verdict": "conformant",
-          "evidence": "features/lawwatch/sectorAttribution.ts:18 The context's own parts are reached by relative addresses (./deriveRadar, ./buildDependencyView), which fits a unit's references to its own internals. Cross-feature references go through the tsconfig '@/*' root and target modules that declare themselves shared entry points (companyId.ts: 'the ONE place a URL segment becomes a kg_node id', a plain module so the route, loader and test can share it). So this is not an address into another unit's private layout."
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:18 Cross-unit references use the root alias and sibling references use relative paths (line 19); the target is a named module with no barrel to bypass. Applies to module references only; the payload path is scored under declaration-invariants."
         },
         {
-          "technique": "vendored-copy-loses-composition",
-          "verdict": "conformant",
-          "evidence": "features/lawwatch/radarFeedCodecs.ts:3 The feed codec is declared and reused read-only, and the round-trip is checked through the dukazy public parseEvidenceFeedJson. It is not inlined, so the shared feed identity survives and subscribers read one format with one reader."
+          "technique": "progressive-resolution",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/getRadarData.ts:16 Static imports in a closed graph authored by one team, which is the technique's own stated exclusion; no resolve-on-traversal machinery is designed here."
         },
         {
           "technique": "shortcut-is-not-the-substrate",
           "verdict": "conformant",
-          "evidence": "features/lawwatch/radarTypes.ts:3 The shared shape and the derivations (radarTypes.ts, deriveRadar.ts, buildDependencyView.ts) are plain modules. The server-only loaders are thin projections over them. So the client components (DependencyRadar.tsx and RadarLedger.tsx, both 'use client') and the tests reach the capability without being blocked by the server-only binding."
+          "evidence": "features/lawwatch/deriveRadar.ts:19 The derivation is a plain module that the loader, feed routes, client and tests all call, so the capability is not bound to the server-only loader. buildDependencyView.ts has the same split."
+        },
+        {
+          "technique": "declaration-cost-floor",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/deriveRadar.ts:37 The first-dependency cost is a whole-project property; this context only consumes the mechanism, and adds a dependency with one import line."
+        },
+        {
+          "technique": "vendored-copy-loses-composition",
+          "verdict": "conformant",
+          "evidence": "features/lawwatch/deriveRadar.ts:29 A private formatter copy was removed in favour of the shared one. escapeXml and rfc822 are copied across three feed codecs (radarFeedCodecs.ts:48 and :59), but they are small, stateless and stable, which the technique exempts."
+        },
+        {
+          "technique": "attachment-coherence",
+          "verdict": "not-applicable",
+          "evidence": "features/lawwatch/radarFeedCodecs.ts:104 A foreign shape is filled by plain value construction. A search of the context's non-test source files for declare module, declare global, .prototype., Object.defineProperty and globalThis. found nothing, and the application is closed."
+        },
+        {
+          "technique": "unsatisfiable-set-empirical-gate",
+          "verdict": "not-applicable",
+          "evidence": "package.json:61 Third-party dependencies of this context use ordinary declared ranges; no conflict or resolution bypass was found (see notes)."
         }
       ],
-      "registryProposal": "This pair was probably matched on the token 'dependency' (getDependencyData.ts, buildDependencyView.ts, DependencyRadar.tsx), but in this context that word means legislative enactment-order dependencies between bills (companion tisky), not software dependency declaration. The map's subject matcher should not treat a domain noun that collides with the subject slug as governance evidence. Governance of this pair is effectively weak, and the conformant verdict only covers how the context's modules declare their imports.",
-      "withdrawn": {
-        "worker": "eccfbf35-9bf3-44ba-895e-62feb7ceeb0e",
-        "state": "conformant",
-        "at": "2026-10-25T23:22:03.825361+00:00",
-        "reason": "reviewer (sonnet): The sectorAttribution.ts:18 technique anchor says the file reaches its own parts through relative imports (./deriveRadar, ./buildDependencyView), but sectorAttribution.ts has no relative imports at all. Line 18 is the '@/lib/analysis/language-gate' import, so that claim can't be confirmed. The other"
-      }
+      "registryProposal": "declaration-invariants could name the non-code form of the locality failure: a requirement expressed only as a runtime path string is invisible to the packager, so an exclusion list can remove it without any declaration disagreeing. The golden path mentions a component naming its assets, but no technique gives a test for this."
     },
     "3a6b9da6-44ec-40e2-a4fd-238a06b65c5a/design-tokens": {
       "context": "eslint-transparency-rules",
