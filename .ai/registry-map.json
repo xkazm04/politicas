@@ -8079,7 +8079,11 @@
           "revision": 19,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:117 The materializer, sole writer of the derived `vote_tag` read model, only upserts answered rows and retracts nothing, so on a re-run a vote the model no longer answers (or one since voided, filtered at line 98) keeps its earlier tag even though the run reports it as left untagged, and no parity check exists to notice.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19
         },
         {
           "subject": "eval-harness",

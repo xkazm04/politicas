@@ -18810,6 +18810,83 @@
         }
       ],
       "registryProposal": "shared-resource-arbitration's population check asks that a file exist and be non-empty, which a truncated non-empty partial write still passes; the technique should name the producer-side rule (write to a temporary name, rename last) as the counterpart, since no reader-side size test can detect truncation in a format with no declared length."
+    },
+    "cb1191f6-24d7-4534-9a35-8c728ea36552/data-access": {
+      "context": "hybrid-bench",
+      "subject": "data-access",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:08:45.032Z",
+      "worker": "7b7a59fc-4dab-4dd4-bd6c-fdab4931cfe2",
+      "techniques": [
+        {
+          "technique": "read-models-and-projections",
+          "verdict": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:117 vote_tag is a stored read model (store.ts calls it DERIVED, recomputable), but the recompute is upsert-only: `VoteTagRepository` has no delete and a repo-wide search found no `delete from vote_tag` outside an instrument.test.ts parser string, so the recompute cannot be the repair. No parity or coverage check against vote_event was found, and no propagation contract is declared where the model is defined."
+        },
+        {
+          "technique": "layering-rules",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:15 The context's only store contact is this typed surface; a search of scripts/hybrid-bench for query/sql/select found only prompts, comments and a local `Query` interface."
+        },
+        {
+          "technique": "batching-and-n-plus-one",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:96 One set-shaped read and one set-shaped write; the classify loop at lines 107-130 makes no per-vote store call."
+        },
+        {
+          "technique": "transactions-and-units-of-work",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:132 The single write happens after every slow LLM call finished, so no boundary is held across outside work; `upsertMany` owns one transaction over all chunks (lib/db/pglite/internals.ts:243)."
+        },
+        {
+          "technique": "row-mapping",
+          "verdict": "conformant",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:99 Store rows arrive decoded and typed from the store surface; the caller sees no column tuples. The JSON-export decoders in the other scripts fall under the golden path's ad-hoc analytics carve-out (see notes)."
+        },
+        {
+          "technique": "query-construction",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:133 The context assembles no statement text, so there are no values or identifiers for it to construct; the aggregate is a named operation."
+        },
+        {
+          "technique": "repo-testing",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:144 The context owns no repository; its two tests cover pure parsers and mock no engine."
+        },
+        {
+          "technique": "cross-driver-invariant-parity",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:92 Only the pglite driver exists (the single driver branch is lib/db/store.ts:442) and this context implements none."
+        },
+        {
+          "technique": "capability-declared-in-the-type",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:91 One implementation means no capability axis; a missing store is the only gap and it exits at startup."
+        },
+        {
+          "technique": "existence-authority-written-last",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/run.ts:147 The benches write report files with no reader treating them as proof of existence; the materializer writes one store only."
+        },
+        {
+          "technique": "sequence-token-write-ordering",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:103 One writer and one transactional store; this stamp is provenance and no reader in the context decides which record is newer from it."
+        },
+        {
+          "technique": "operator-defined-tables",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:24 The taxonomy is a code constant changed by developers, and no record type is defined at runtime."
+        },
+        {
+          "technique": "localized-record-identity",
+          "verdict": "not-applicable",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:23 One tag per vote keyed by slug, with no per-language records or group identifier."
+        }
+      ],
+      "registryProposal": "read-models-and-projections assumes a deterministic recomputation: its parity check 'recomputes and compares', which is ill-defined when the derivation is an LLM call that can answer differently per run. The technique could name what parity means for a model-derived read model, for example source-set parity (every stored row still maps to an eligible source row, and uncovered sources are counted) plus sampled re-classification agreement."
     }
   }
 }
