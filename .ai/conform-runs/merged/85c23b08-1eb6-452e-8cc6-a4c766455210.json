@@ -1,0 +1,60 @@
+{
+ "schema": "conform-run/1",
+ "worker": "85c23b08-1eb6-452e-8cc6-a4c766455210",
+ "subject": "packaging",
+ "evaluatedAt": "2026-11-09T22:10:23.306955+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "data-releases-atlas",
+   "subject": "packaging",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/data-releases/DataReleasesPage.tsx:8 This context is a pair of Next.js web routes (a server component plus server-only store loaders), and the 'snapshot download' it offers is a data export, not an installed desktop application. I searched features/data-releases and features/atlas for installer, electron, tauri, codesign and notariz and found zero hits, so the precondition of the desktop-packaging subject (an app installed on user machines) does not hold.",
+   "techniques": [
+    {
+     "technique": "installer-authoring",
+     "verdict": "not-applicable",
+     "evidence": "features/data-releases/DataReleasesPage.tsx:8 A server-rendered web page has no installer, no install scope and no upgrade/uninstall transitions."
+    },
+    {
+     "technique": "installed-tree-acceptance",
+     "verdict": "not-applicable",
+     "evidence": "features/data-releases/getDataReleasesData.ts:1 Server-only loader running inside the web server process; nothing is laid down on a user machine, so there is no installed tree to accept."
+    },
+    {
+     "technique": "native-payload-verification",
+     "verdict": "not-applicable",
+     "evidence": "features/atlas/getAtlasData.ts:2 The Atlas loader reads the store on the server and ships no native payload to a client install."
+    }
+   ],
+   "absenceTerms": [
+    "installer",
+    "electron",
+    "tauri",
+    "codesign",
+    "notariz"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-09T22:10:23.306955+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "packaging"
+   ],
+   "techniques": [
+    "installed-tree-acceptance",
+    "installer-authoring",
+    "native-payload-verification"
+   ],
+   "deviations": 0,
+   "context": "data-releases-atlas",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

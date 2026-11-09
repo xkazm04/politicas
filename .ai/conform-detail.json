@@ -19228,6 +19228,32 @@
         }
       ],
       "registryProposal": "marked-unverifiable-region separates an unverifiable region from a suppression, but a lint annotation can be both: `citation-ok` covers a fact the checker cannot see across a file boundary while also silencing a report. The technique could state which discipline governs that hybrid, and that the reason requirement should be enforced and tested by the checker that accepts the marker, not only documented."
+    },
+    "d20a6e60-31b7-4297-807e-3b3f1b191db0/packaging": {
+      "context": "data-releases-atlas",
+      "subject": "packaging",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T22:10:23.306Z",
+      "worker": "85c23b08-1eb6-452e-8cc6-a4c766455210",
+      "techniques": [
+        {
+          "technique": "installer-authoring",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/DataReleasesPage.tsx:8 A server-rendered web page has no installer, no install scope and no upgrade/uninstall transitions."
+        },
+        {
+          "technique": "installed-tree-acceptance",
+          "verdict": "not-applicable",
+          "evidence": "features/data-releases/getDataReleasesData.ts:1 Server-only loader running inside the web server process; nothing is laid down on a user machine, so there is no installed tree to accept."
+        },
+        {
+          "technique": "native-payload-verification",
+          "verdict": "not-applicable",
+          "evidence": "features/atlas/getAtlasData.ts:2 The Atlas loader reads the store on the server and ships no native payload to a client install."
+        }
+      ]
     }
   }
 }

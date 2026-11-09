@@ -5372,7 +5372,11 @@
           "revision": 7,
           "changedAt": "2026-09-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/data-releases/DataReleasesPage.tsx:8 This context is a pair of Next.js web routes (a server component plus server-only store loaders), and the 'snapshot download' it offers is a data export, not an installed desktop application. I searched features/data-releases and features/atlas for installer, electron, tauri, codesign and notariz and found zero hits, so the precondition of the desktop-packaging subject (an app installed on user machines) does not hold.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:8e5c6d110dd04135",
+          "evaluatedRevision": 8
         },
         {
           "subject": "transactions-over-a-replicated-log",
