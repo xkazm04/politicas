@@ -18887,6 +18887,91 @@
         }
       ],
       "registryProposal": "read-models-and-projections assumes a deterministic recomputation: its parity check 'recomputes and compares', which is ill-defined when the derivation is an LLM call that can answer differently per run. The technique could name what parity means for a model-derived read model, for example source-set parity (every stored row still maps to an eligible source row, and uncovered sources are counted) plus sampled re-classification agreement."
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/quality-gates": {
+      "context": "admin-infrastructure",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:29:59.862Z",
+      "worker": "531c4a2f-efb1-4867-af0a-34f369b2ea26",
+      "techniques": [
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "deviation",
+          "evidence": "app/admin/loopActions.ts:7 The audit question 'if someone did this right now, what fails?' answers 'nothing': all four actions call the gate today, but only by convention. A source comment is treated here as the standing statement of the rule."
+        },
+        {
+          "technique": "chokepoint-tag-registry",
+          "verdict": "deviation",
+          "evidence": "app/admin/loopActions.ts:3 Declares a single write door. appendDriveEntry has only these 4 production callers today, but no negative-space check confines it. With four call sites the proportionate form is one static test, not a full tag registry."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "conformant",
+          "evidence": "app/admin/loops.json/route.ts:24 By analogy, as this is an access gate rather than a pipeline check: a gate that cannot evaluate (no token configured) returns an outcome distinct from a refused caller and never reads as a pass."
+        },
+        {
+          "technique": "refusal-names-a-reachable-remedy",
+          "verdict": "conformant",
+          "evidence": "app/admin/AdminGate.tsx:103 By analogy. Both named paths exist and both document ADMIN_TOKEN (.env.example:124, docs/deploy/vercel.md:115). They resolve in the repo the operator holds; not confirmed to be present in a standalone deploy artifact."
+        }
+      ],
+      "registryProposal": "This context was matched on the tokens gate/quality/access, but its gate is an authorization gate, so most of the 28 techniques do not reach it. The authorization subject is the likelier governor; only the convention-enforcement techniques apply cleanly."
+    },
+    "c5390bb2-2d6c-4ffc-be45-09403fb43208/quality-gates": {
+      "context": "ingest-pipeline",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:29:59.862Z",
+      "worker": "531c4a2f-efb1-4867-af0a-34f369b2ea26",
+      "techniques": [
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/shims.test.ts:20 Compares loaded module surfaces rather than source text, which is sound, but it is test content inside a gate owned elsewhere, not gate machinery of this context."
+        },
+        {
+          "technique": "unmeasurable-criteria",
+          "verdict": "not-applicable",
+          "evidence": "lib/ingest/parsedText.ts:94 A cache-reuse guard that falls back to re-parsing. It refuses nothing and blocks no change, so the gate resolutions do not apply."
+        }
+      ]
+    },
+    "751b4a2f-8afc-456a-b6c6-eb7297879688/quality-gates": {
+      "context": "db-repositories",
+      "subject": "quality-gates",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T00:29:59.862Z",
+      "worker": "531c4a2f-efb1-4867-af0a-34f369b2ea26",
+      "techniques": [
+        {
+          "technique": "prose-rule-drift",
+          "verdict": "deviation",
+          "evidence": "lib/db/pglite/repositories/truncationGuards.test.ts:1 Stated universally and mechanised only per named lister. No test or lint rule walks the repositories for capped reads (rg for readdirSync in this directory: 0 hits; no lint rule covers it)."
+        },
+        {
+          "technique": "match-the-resolved-artifact",
+          "verdict": "deviation",
+          "evidence": "lib/db/pglite/repositories/truncationGuards.test.ts:152 'A hand-written expectation list cannot see a population nothing addresses': each gap was found and added one at a time, and reach is never asserted separately from content."
+        },
+        {
+          "technique": "chokepoint-tag-registry",
+          "verdict": "deviation",
+          "evidence": "lib/db/pglite/repositories/ledger.ts:258 An ordered, capped read with no warnIfTruncated and no check that would notice. The cap of 50 may be a deliberate 'latest N'; that was not determined. The finding is that nothing distinguishes it from a miss."
+        },
+        {
+          "technique": "gate-liveness",
+          "verdict": "conformant",
+          "evidence": "lib/db/pglite/repositories/truncationGuards.test.ts:70 For the listers it names, the wiring is proven red with a seeded at-limit result and silent under the limit (line 81), through the real repository rather than the pure helper."
+        }
+      ],
+      "registryProposal": "prose-rule-drift's audit says to walk the 'standing documents'; the corpus could state whether a rule written in a source or test header counts. It was counted here because that is the only place these rules are written."
     }
   }
 }
