@@ -1197,7 +1197,11 @@
           "revision": 27,
           "changedAt": "2026-10-23",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/admin/accessGate.ts:54 No test pins the cookie read by name. The only test that reaches the served branch (lib/testing/adminRouteHeaders.test.ts:11) replaces next/headers with a fake jar whose get() returns ADMIN_TOKEN for any name, and submitAdminToken (gateActions.ts) has no test at all, so a cookie-name or write/read mismatch between the sign-in action and this read would stay green while every real operator is locked out.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:a3c517733d58374b",
+          "evaluatedRevision": 29
         },
         {
           "subject": "copy-quality-gates",

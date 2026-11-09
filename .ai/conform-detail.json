@@ -19272,6 +19272,32 @@
           "evidence": "features/atlas/getAtlasData.ts:2 The Atlas loader reads the store on the server and ships no native payload to a client install."
         }
       ]
+    },
+    "c752150a-628b-43c5-bb3e-b71ed32c2dd9/test-harness": {
+      "context": "admin-infrastructure",
+      "subject": "test-harness",
+      "bundle": "software-engineering",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:04:05.693Z",
+      "worker": "61383a31-5b3c-4d85-93f2-6003ce126b40",
+      "techniques": [
+        {
+          "technique": "a-test-helper-is-a-fork-of-the-driver",
+          "verdict": "deviation",
+          "evidence": "lib/testing/adminRouteHeaders.test.ts:11 The injected cookie-jar fake ignores its key argument, so it says 'satisfied' for any cookie name. This forks on the identity axis the technique names. If accessGate.ts:54 read the wrong cookie, the 200/no-store test would still pass. The technique's rule is to give the fake no default."
+        },
+        {
+          "technique": "unreached-decisions-pin-nothing",
+          "verdict": "conformant",
+          "evidence": "app/admin/accessGate.ts:55 The gate verdict was lifted out from behind cookies() into a pure decideAdminGate, and all four verdicts are tested in lib/security/adminGate.test.ts. Adoption at the call site is exercised through loops.GET by both route tests, but only for the not-configured and ok verdicts."
+        },
+        {
+          "technique": "assert-through-the-reader",
+          "verdict": "conformant",
+          "evidence": "app/admin/loops.json/route.ts:4 The machine document is asserted through its consumer: features/admin/loops/loopsJson.test.ts round-trips encodeLoopsDoc through parseLoopsDoc, the same module the consumer uses to parse it."
+        }
+      ]
     }
   }
 }

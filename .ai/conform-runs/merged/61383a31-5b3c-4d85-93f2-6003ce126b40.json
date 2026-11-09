@@ -1,0 +1,53 @@
+{
+ "schema": "conform-run/1",
+ "worker": "61383a31-5b3c-4d85-93f2-6003ce126b40",
+ "subject": "test-harness",
+ "evaluatedAt": "2026-11-09T23:04:05.693904+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "admin-infrastructure",
+   "subject": "test-harness",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "app/admin/accessGate.ts:54 No test pins the cookie read by name. The only test that reaches the served branch (lib/testing/adminRouteHeaders.test.ts:11) replaces next/headers with a fake jar whose get() returns ADMIN_TOKEN for any name, and submitAdminToken (gateActions.ts) has no test at all, so a cookie-name or write/read mismatch between the sign-in action and this read would stay green while every real operator is locked out.",
+   "techniques": [
+    {
+     "technique": "a-test-helper-is-a-fork-of-the-driver",
+     "verdict": "deviation",
+     "evidence": "lib/testing/adminRouteHeaders.test.ts:11 The injected cookie-jar fake ignores its key argument, so it says 'satisfied' for any cookie name. This forks on the identity axis the technique names. If accessGate.ts:54 read the wrong cookie, the 200/no-store test would still pass. The technique's rule is to give the fake no default."
+    },
+    {
+     "technique": "unreached-decisions-pin-nothing",
+     "verdict": "conformant",
+     "evidence": "app/admin/accessGate.ts:55 The gate verdict was lifted out from behind cookies() into a pure decideAdminGate, and all four verdicts are tested in lib/security/adminGate.test.ts. Adoption at the call site is exercised through loops.GET by both route tests, but only for the not-configured and ok verdicts."
+    },
+    {
+     "technique": "assert-through-the-reader",
+     "verdict": "conformant",
+     "evidence": "app/admin/loops.json/route.ts:4 The machine document is asserted through its consumer: features/admin/loops/loopsJson.test.ts round-trips encodeLoopsDoc through parseLoopsDoc, the same module the consumer uses to parse it."
+    }
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-09T23:04:05.693904+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "test-harness"
+   ],
+   "techniques": [
+    "a-test-helper-is-a-fork-of-the-driver",
+    "assert-through-the-reader",
+    "unreached-decisions-pin-nothing"
+   ],
+   "deviations": 1,
+   "context": "admin-infrastructure",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
