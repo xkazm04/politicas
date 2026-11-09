@@ -11560,16 +11560,22 @@
       "context": "voting-legislation-routes",
       "subject": "roll-call-vote-analysis",
       "bundle": "civic-intelligence",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T03:52:14.788Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "b3b9013a-6dae-46ce-91ec-a6f5e5f12fc3",
-        "state": "not-applicable",
-        "at": "2026-10-24T03:52:36.106021+00:00",
-        "reason": "reviewer (sonnet): The anchor shows app/hlasovani/page.tsx mounts VoteTrackPage with getVoteRecord data, so the route is the entry point of the roll-call analysis. The grep for rice/positional/rebel/cohesion only misses it because the derivation lives in features/votetrack. The line doesn't show the precondition is ab"
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T22:23:20.195Z",
+      "worker": "1a86695b-2f2e-4114-a3b5-cdf473abe6f3",
+      "techniques": [
+        {
+          "technique": "club-line-and-rebellion",
+          "verdict": "not-applicable",
+          "evidence": "app/hlasovani/page.tsx:18 The line and rebellion derivation is delegated to features/votetrack/getVoteRecord.ts, which belongs to another context. The route computes nothing."
+        },
+        {
+          "technique": "co-voting-agreement-matrix",
+          "verdict": "not-applicable",
+          "evidence": "app/hlasovani/page.tsx:21 The route passes loader output through as props. It builds no pairwise agreement."
+        }
+      ]
     },
     "b63c108e-2ffa-42b1-8a41-2e052c4bae86/claim-verification-and-provenance": {
       "context": "verdict-and-law-analysis",

@@ -15716,7 +15716,11 @@
           "revision": 7,
           "changedAt": "2026-10-22",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "app/hlasovani/page.tsx:18 The /hlasovani route only awaits a server loader from features/votetrack and mounts the feature, and the /zakony routes deal with bills, statutes and the collision feed. A case-insensitive search of app/hlasovani and app/zakony for rebel, cohesion, reconcil, agreement, tally, abstain and positional found 0 hits, so no vote choices are mapped, no base is chosen, and no party line, Rice index, agreement matrix or recount is computed in this context.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:1fb04612acd77185",
+          "evaluatedRevision": 7
         },
         {
           "subject": "political-compass-from-votes",
