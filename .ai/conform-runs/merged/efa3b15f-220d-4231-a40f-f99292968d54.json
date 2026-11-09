@@ -1,0 +1,111 @@
+{
+  "schema": "conform-run/1",
+  "worker": "efa3b15f-220d-4231-a40f-f99292968d54",
+  "subject": "markdown-vault",
+  "evaluatedAt": "2026-11-09T23:42:49.255547+00:00",
+  "provider": "claude",
+  "model": "claude-opus-5-5",
+  "pairs": [
+    {
+      "context": "admin-observability",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "conformant",
+      "evidence": "features/admin/getAdminData.ts:17 /admin reads docs/data-analysis (the vault: graph-log.md, frontier.md, batch-NNN.md) only for display, with tolerant parsing and failures it reports, and it never writes there, so the vault techniques that apply to a read-only consumer hold.",
+      "techniques": [
+        {
+          "technique": "vault-as-database",
+          "verdict": "conformant",
+          "evidence": "features/admin/getAdminData.ts:17 The read side is tolerant of hand-written, drifting markdown. Nothing here emits markdown, so the round-trip and minted-identity rules have nothing to check. Caveat: parsePassLog's strict regex quietly drops a pass heading that is not in the expected form."
+        },
+        {
+          "technique": "vault-walking",
+          "verdict": "conformant",
+          "evidence": "features/admin/getAdminData.ts:126 Directory listings are flat (no recursion) and skip on error with reportLoaderFailure, which is the declared skip policy for a best-effort progress readout. The batch-NNN regex is copied twice in the same file rather than living in one shared helper, so drift is possible later."
+        },
+        {
+          "technique": "editor-interop",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/getLoopState.ts:39 Each request reads the whole file fresh and holds no handle or lock, so a human editing the vault always wins. The app's only write is an append-only JSONL file in .data/, outside the vault."
+        },
+        {
+          "technique": "replicated-substrate",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/loopState.ts:295 Loop staleness comes from the date written inside the graph-log pass heading, not from file mtime, so it survives a git checkout. Conflict copies are left out only by accident (the batch regex is anchored, the paths are fixed constants), and the code never says it excludes them."
+        },
+        {
+          "technique": "mirror-indexes",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/getAdminData.ts:13 Vault files are read straight from disk on every request; no relational or search mirror is built from them in this context."
+        }
+      ],
+      "registryProposal": "The standard says nothing about a consumer that only reads a vault. Most techniques assume the app writes notes or keeps a mirror, so a read-only dashboard over a vault ends up with mostly unread or not-applicable verdicts. A short read-only-consumer profile (tolerant parse, fresh reads, in-band dates, declared skip policy) would make these pairs easier to judge."
+    },
+    {
+      "context": "graph-canvas",
+      "subject": "markdown-vault",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evidence": "features/graph/GraphPage.tsx:32 The canvas draws a typed GraphSeed that comes from the kg_node/kg_edge Postgres graph, not from markdown notes; a case-insensitive grep of features/graph for vault, frontmatter, readdir, wikilink and backlink found nothing (node:fs appears only in tests that read source files), so its node/edge graph is not a markdown-vault link graph.",
+      "techniques": [],
+      "absenceTerms": [
+        "vault",
+        "frontmatter",
+        "readdir",
+        "wikilink",
+        "backlink"
+      ]
+    }
+  ],
+  "declined": [
+    {
+      "subject": "markdown-vault",
+      "context": "shared-components",
+      "reason": "withdrawn after review: reviewer (sonnet): The anchor SourceNote.tsx:2 is only a @catalog doc-comment title for a citation row. It does not show that the context has no markdown vault, so the absence rests on the grep alone and the anchor is incidental."
+    }
+  ],
+  "consults": [
+    {
+      "ts": "2026-11-09T23:42:49.255547+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "shared-components",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-09T23:42:49.255547+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [
+        "editor-interop",
+        "mirror-indexes",
+        "replicated-substrate",
+        "vault-as-database",
+        "vault-walking"
+      ],
+      "deviations": 0,
+      "context": "admin-observability",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "ts": "2026-11-09T23:42:49.255547+00:00",
+      "bundle": "software-engineering",
+      "subjects": [
+        "markdown-vault"
+      ],
+      "techniques": [],
+      "deviations": 0,
+      "context": "graph-canvas",
+      "via": "curator-multi:claude",
+      "model": "claude-opus-5-5"
+    }
+  ]
+}

@@ -3049,63 +3049,62 @@
       "context": "admin-observability",
       "subject": "markdown-vault",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-10-13",
-      "evaluatedTs": "2026-10-13T21:32:54.878Z",
+      "state": "conformant",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:42:49.255Z",
+      "worker": "efa3b15f-220d-4231-a40f-f99292968d54",
       "techniques": [
         {
           "technique": "vault-as-database",
-          "verdict": "deviation",
-          "evidence": "features/admin/getAdminData.ts:66 Resolves paths without validating containment within vault root and treats notes without frontmatter schema validation or minted IDs."
+          "verdict": "conformant",
+          "evidence": "features/admin/getAdminData.ts:17 The read side is tolerant of hand-written, drifting markdown. Nothing here emits markdown, so the round-trip and minted-identity rules have nothing to check. Caveat: parsePassLog's strict regex quietly drops a pass heading that is not in the expected form."
         },
         {
           "technique": "vault-walking",
-          "verdict": "deviation",
-          "evidence": "features/admin/getAdminData.ts:118 Hand-rolls directory traversal using raw readdirSync rather than a shared vault walker with declared depth, exclusion, and error policies."
+          "verdict": "conformant",
+          "evidence": "features/admin/getAdminData.ts:126 Directory listings are flat (no recursion) and skip on error with reportLoaderFailure, which is the declared skip policy for a best-effort progress readout. The batch-NNN regex is copied twice in the same file rather than living in one shared helper, so drift is possible later."
         },
         {
           "technique": "editor-interop",
-          "verdict": "deviation",
-          "evidence": "features/admin/components/VaultHeadsPanel.tsx:42 Surfaces vault records as static text without deep-link navigation back to the editor or a filesystem watcher for external edits."
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/getLoopState.ts:39 Each request reads the whole file fresh and holds no handle or lock, so a human editing the vault always wins. The app's only write is an append-only JSONL file in .data/, outside the vault."
+        },
+        {
+          "technique": "replicated-substrate",
+          "verdict": "conformant",
+          "evidence": "features/admin/loops/loopState.ts:295 Loop staleness comes from the date written inside the graph-log pass heading, not from file mtime, so it survives a git checkout. Conflict copies are left out only by accident (the batch regex is anchored, the paths are fixed constants), and the code never says it excludes them."
+        },
+        {
+          "technique": "mirror-indexes",
+          "verdict": "not-applicable",
+          "evidence": "features/admin/getAdminData.ts:13 Vault files are read straight from disk on every request; no relational or search mirror is built from them in this context."
         },
         {
           "technique": "link-graph-extraction",
           "verdict": "deviation",
-          "evidence": "features/admin/loops/loopState.ts:259 Vault log parsing only matches pass heading regexes, omitting link extraction, backlink indexing, and reference graph resolution for wikilinked notes."
+          "evidence": "features/admin/loops/loopState.ts:259 Vault log parsing only matches pass heading regexes, omitting link extraction, backlink indexing, and reference graph resolution for wikilinked notes.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "knowledge-integrity-lint",
           "verdict": "deviation",
-          "evidence": "features/admin/loops/loopState.ts:279 Vault case-loops declare no cadence or staleness evaluation, leaving temporal integrity unmonitored with no broken link or orphan detection."
-        },
-        {
-          "technique": "mirror-indexes",
-          "verdict": "deviation",
-          "evidence": "features/admin/loops/loopsJson.ts:49 Serializes loop state derivation into JSON without an explicit hash-gated incremental sync or named rebuild mechanism back from the vault."
+          "evidence": "features/admin/loops/loopState.ts:279 Vault case-loops declare no cadence or staleness evaluation, leaving temporal integrity unmonitored with no broken link or orphan detection.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "read-triggered-reconciliation",
           "verdict": "deviation",
-          "evidence": "features/admin/loops/getLoopState.ts:65 Recomputes loop document on read without recording or comparing source file change-stamps (stored != live) for incremental reconciliation."
-        },
-        {
-          "technique": "replicated-substrate",
-          "verdict": "deviation",
-          "evidence": "features/admin/getAdminData.ts:119 Filters batch files with strict regex without identifying or reporting replication conflict artifacts as a separate defect class."
+          "evidence": "features/admin/loops/getLoopState.ts:65 Recomputes loop document on read without recording or comparing source file change-stamps (stored != live) for incremental reconciliation.",
+          "carriedFrom": "2026-10-13"
         },
         {
           "technique": "projection-covers-the-record",
           "verdict": "deviation",
-          "evidence": "features/admin/getAdminData.ts:173 Strips table rows and bullet markers in an ad-hoc projection without a shared construct predicate or union coverage assertions."
+          "evidence": "features/admin/getAdminData.ts:173 Strips table rows and bullet markers in an ad-hoc projection without a shared construct predicate or union coverage assertions.",
+          "carriedFrom": "2026-10-13"
         }
       ],
-      "registryProposal": "The standard should clarify expectations for read-only administrative observer surfaces that monitor human-authored vaults without writing to them.",
-      "withdrawn": {
-        "worker": "bea2deea-bda0-4616-8873-e4c89bf1daf5",
-        "state": "deviation",
-        "at": "2026-10-13T21:33:39.739045+00:00",
-        "reason": "reviewer (sonnet): The cited lines show only a read-only dashboard parsing fixed-path graph-log.md and frontier.md with documented best-effort regexes (getAdminData.ts:16-17). A containment violation is not shown, because readTextSafe joins constant relative paths onto ROOT and no user input reaches it. The 'no deep-l"
-      }
+      "registryProposal": "The standard says nothing about a consumer that only reads a vault. Most techniques assume the app writes notes or keeps a mirror, so a read-only dashboard over a vault ends up with mostly unread or not-applicable verdicts. A short read-only-consumer profile (tolerant parse, fresh reads, in-band dates, declared skip policy) would make these pairs easier to judge."
     },
     "4bf433a5-ab8e-4468-b456-344daae2ce21/roll-call-vote-analysis": {
       "context": "votetrack-ledger",
@@ -11913,14 +11912,14 @@
       "subject": "markdown-vault",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-11-08",
-      "evaluatedTs": "2026-11-08T04:21:09.304Z",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:42:49.255Z",
       "techniques": [],
       "withdrawn": {
-        "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
+        "worker": "efa3b15f-220d-4231-a40f-f99292968d54",
         "state": "not-applicable",
-        "at": "2026-11-08T04:22:17.781041+00:00",
-        "reason": "reviewer (sonnet): The anchors are incidental. SourceNote.tsx:2 is only a catalog comment about the citation line, and GraphPage.tsx:32 is just a GraphSeed type import. Neither line shows that no markdown vault exists, and the claim that the context reads no files was not confirmed from them."
+        "at": "2026-11-09T23:43:16.519179+00:00",
+        "reason": "reviewer (sonnet): The anchor SourceNote.tsx:2 is only a @catalog doc-comment title for a citation row. It does not show that the context has no markdown vault, so the absence rests on the grep alone and the anchor is incidental."
       }
     },
     "f50627ef-a7a1-40a4-9491-560efa6cb05d/markdown-vault": {
@@ -18489,16 +18488,11 @@
       "context": "graph-canvas",
       "subject": "markdown-vault",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-11-08",
-      "evaluatedTs": "2026-11-08T04:21:09.304Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "c9e6cd0d-4295-4eb2-aefe-94b41fb9be54",
-        "state": "not-applicable",
-        "at": "2026-11-08T04:22:17.781041+00:00",
-        "reason": "reviewer (sonnet): The anchors are incidental. SourceNote.tsx:2 is only a catalog comment about the citation line, and GraphPage.tsx:32 is just a GraphSeed type import. Neither line shows that no markdown vault exists, and the claim that the context reads no files was not confirmed from them."
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:42:49.255Z",
+      "worker": "efa3b15f-220d-4231-a40f-f99292968d54",
+      "techniques": []
     },
     "909b0dc7-6c2f-4188-963a-97ef85a60f3e/markdown-vault": {
       "context": "volby-elections",

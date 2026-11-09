@@ -1463,8 +1463,12 @@
           "revision": 2,
           "changedAt": "2026-09-07",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 3
+          "state": "conformant",
+          "priorNotApplicable": 3,
+          "evidence": "features/admin/getAdminData.ts:17 /admin reads docs/data-analysis (the vault: graph-log.md, frontier.md, batch-NNN.md) only for display, with tolerant parsing and failures it reports, and it never writes there, so the vault techniques that apply to a read-only consumer hold.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:7a10f98b2d9488ac",
+          "evaluatedRevision": 2
         },
         {
           "subject": "retry-backoff",
@@ -7708,7 +7712,11 @@
           "changedAt": "2026-09-07",
           "confidence": "probable",
           "priorNotApplicable": 3,
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/GraphPage.tsx:32 The canvas draws a typed GraphSeed that comes from the kg_node/kg_edge Postgres graph, not from markdown notes; a case-insensitive grep of features/graph for vault, frontmatter, readdir, wikilink and backlink found nothing (node:fs appears only in tests that read source files), so its node/edge graph is not a markdown-vault link graph.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:7a10f98b2d9488ac",
+          "evaluatedRevision": 2
         },
         {
           "subject": "native-shell-integration",
