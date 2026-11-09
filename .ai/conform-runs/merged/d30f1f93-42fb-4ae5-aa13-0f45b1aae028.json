@@ -1,0 +1,96 @@
+{
+ "schema": "conform-run/1",
+ "worker": "d30f1f93-42fb-4ae5-aa13-0f45b1aae028",
+ "subject": "deployment-contract",
+ "evaluatedAt": "2026-11-09T01:07:18.148955+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "dashboard-feed-logic",
+   "subject": "deployment-contract",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "features/dashboard/stateSlice.ts:4 This context is pure data shaping and client selection state for the Vel\u00edn, and a case-insensitive recursive search of features/dashboard found 0 hits for deploy, Dockerfile, vercel, Cache-Control, immutable, rollback, promote and process.env, so it holds no build, host, environment or deploy-trigger decision for the contract to govern.",
+   "techniques": [
+    {
+     "technique": "platform-build-parity",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/freshness.ts:18 The only mention of a build in the runtime files is a comment recording how routes were classified; the context sets no build command, runtime pin or install flag."
+    },
+    {
+     "technique": "cache-immutability-licensing",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/freshness.ts:38 Closest construct in the context, but it is a server-side data-staleness ceiling for a page, with its derivation written beside it, not a client cache directive on build assets. No immutable or Cache-Control appears in features/dashboard."
+    },
+    {
+     "technique": "public-build-inert-by-mode",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/publicWire.ts:103 'Public' here means a field projection of the page payload, not a public demonstration build; the context has no mode switch and reads no process.env."
+    },
+    {
+     "technique": "build-context-filter-parity",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/stateSlice.ts:4 No upload or container context filter belongs to this context; search for dockerignore and gcloudignore found 0 hits."
+    },
+    {
+     "technique": "deploy-gate-coupling",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/stateSlice.ts:4 A pure module has no deploy trigger to couple to a verdict; search for deploy found 0 hits."
+    },
+    {
+     "technique": "deployment-config-as-code",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/stateSlice.ts:4 No platform setting or environment variable name is read or declared here; search for process.env and vercel found 0 hits."
+    },
+    {
+     "technique": "direct-push-delivery",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/stateSlice.ts:4 Delivery topology is a repository-level concern with nothing to realize in these files; search for git push found 0 hits."
+    },
+    {
+     "technique": "environment-promotion",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/stateSlice.ts:4 No environment ladder is named here; search for promote and rollback found 0 hits, and the one 'preview' hit in the directory is a graph hover label outside this context's files."
+    },
+    {
+     "technique": "replace-before-retire",
+     "verdict": "not-applicable",
+     "evidence": "features/dashboard/stateSlice.ts:4 The context names no hosted service or endpoint address to rename or retire."
+    }
+   ],
+   "absenceTerms": [
+    "deploy",
+    "Dockerfile",
+    "vercel",
+    "Cache-Control",
+    "immutable"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-09T01:07:18.148955+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "deployment-contract"
+   ],
+   "techniques": [
+    "build-context-filter-parity",
+    "cache-immutability-licensing",
+    "deploy-gate-coupling",
+    "deployment-config-as-code",
+    "direct-push-delivery",
+    "environment-promotion",
+    "platform-build-parity",
+    "public-build-inert-by-mode",
+    "replace-before-retire"
+   ],
+   "deviations": 0,
+   "context": "dashboard-feed-logic",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

@@ -1,0 +1,108 @@
+{
+ "schema": "conform-run/1",
+ "worker": "f4ebf2e2-96dd-4f48-a1eb-bfe3e4ebef9d",
+ "subject": "module-design",
+ "evaluatedAt": "2026-11-09T02:19:18.098385+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "eslint-plugin-civic-transparency-tests",
+   "subject": "module-design",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-display-string.test.mjs:170 The only invalid case testing a plain hatch uses an unrelated comment, and no suite has an invalid case for a marker with no reason, so `// reduced-motion-ok`, `raw-format-ok`, `i18n-ok` and `citation-ok` all silence their rule with no stated invariant (measured with the real rules through ESLint's Linter: bare and empty-colon markers each returned zero messages) and the suite stays green.",
+   "techniques": [
+    {
+     "technique": "marked-unverifiable-region",
+     "verdict": "deviation",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-display-string.test.mjs:170 Property 4 (the written fact at each use) is unpinned for all four plain markers, although the docs say the annotation requires a reason. The structured citation-ok form IS well pinned (require-source-citation.test.mjs lines 228-250). If these markers are classed as suppressions instead, the technique says both share the reason requirement, so the verdict holds."
+    },
+    {
+     "technique": "seams-and-adapters",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:111 Identity, not behavioural similarity, proves each shim is the package rule, so there is one implementation behind both doors. Suites exercise rules through ESLint's real harness with no hand-written doubles."
+    },
+    {
+     "technique": "module-depth",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:58 The rule set is encoded in several places, but each encoding is compared against the one pinned list, so the leakage fuse is closed: drift fails the run. A suite's interface is one sentence: import it, it throws or prints PASS."
+    },
+    {
+     "technique": "locality-and-leverage",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-server-import-in-client.test.mjs:20 Each rule owns one suite with its own RuleTester config, and the configs genuinely differ (TS parser here, no JSX in no-silent-catch). Measured: git log -G ecmaVersion over __tests__ shows 3 commits, the ones that introduced the suites, so no recurring change class has crossed the repeated config. Duplication beats a shared helper."
+    },
+    {
+     "technique": "declarative-or-sequential",
+     "verdict": "conformant",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:36 The directory read is the single effect at the head of a pure filter/map/sort chain, one transition only. The assertion loops further down are effectful and correctly stay sequential."
+    },
+    {
+     "technique": "mirror-type-at-the-edge",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-silent-catch.test.mjs:9 The precondition fails: rule inputs are constructible through the harness ESLint itself ships, which the technique says is strictly better than inventing a mirror."
+    },
+    {
+     "technique": "io-free-core",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:29 The one rule with file I/O is tested with a real temp file and zero doubles, on a single runtime; the technique's own exclusion (single runtime, a dependency that runs fine in a test) applies."
+    },
+    {
+     "technique": "borrowed-surface",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-server-import-in-client.test.mjs:16 The suites neither wrap with delegation nor extend an upstream contract; they only consume a parser. That the parser is undeclared is a dependency-declaration matter, recorded in notes."
+    },
+    {
+     "technique": "concurrency-at-the-edge",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:25 The only await is sequential top-level module loading in the runner; there is no flow-control model to place."
+    },
+    {
+     "technique": "state-carrier-decides-the-lane",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:24 One sequential lane in one process; no forked or parallel lane exists for state to cross."
+    },
+    {
+     "technique": "host-primitive-facade",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/run-all.mjs:4 The suites run on a single host, Node; there is no second execution host to abstract."
+    },
+    {
+     "technique": "emitted-code-names-from-a-root",
+     "verdict": "not-applicable",
+     "evidence": "packages/eslint-plugin-civic-transparency/__tests__/require-source-citation.test.mjs:39 This is a local fixture string handed to a parser as input, not generated code spliced into a caller's scope."
+    }
+   ],
+   "registryProposal": "marked-unverifiable-region separates an unverifiable region from a suppression, but a lint annotation can be both: `citation-ok` covers a fact the checker cannot see across a file boundary while also silencing a report. The technique could state which discipline governs that hybrid, and that the reason requirement should be enforced and tested by the checker that accepts the marker, not only documented."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-09T02:19:18.098385+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "module-design"
+   ],
+   "techniques": [
+    "borrowed-surface",
+    "concurrency-at-the-edge",
+    "declarative-or-sequential",
+    "emitted-code-names-from-a-root",
+    "host-primitive-facade",
+    "io-free-core",
+    "locality-and-leverage",
+    "marked-unverifiable-region",
+    "mirror-type-at-the-edge",
+    "module-depth",
+    "seams-and-adapters",
+    "state-carrier-decides-the-lane"
+   ],
+   "deviations": 1,
+   "context": "eslint-plugin-civic-transparency-tests",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

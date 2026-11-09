@@ -1,0 +1,84 @@
+{
+ "schema": "conform-run/1",
+ "worker": "827c814a-8dd9-446a-8a76-48898be33ac2",
+ "subject": "dependency-declaration",
+ "evaluatedAt": "2026-11-09T00:49:37.893926+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "lawwatch-radar",
+   "subject": "dependency-declaration",
+   "bundle": "software-engineering",
+   "state": "deviation",
+   "evidence": "features/lawwatch/getDependencyData.ts:43 The loader's requirement on its two payload files exists only as cwd-relative runtime path strings the packager cannot see, while the app-level .dockerignore:16-17 excludes `docs` as 'not needed at runtime', so by configuration the container image ships without them and the /zakony dependency section has no data.",
+   "techniques": [
+    {
+     "technique": "declaration-invariants",
+     "verdict": "deviation",
+     "evidence": "features/lawwatch/getDependencyData.ts:44 Locality fails for file requirements: the unit cannot state them in any form the build reads, so inclusion depends on host-level documents it does not own (.dockerignore, next.config.ts, which has no outputFileTracingIncludes). Its module imports do satisfy locality, for example sectorAttribution.ts:18."
+    },
+    {
+     "technique": "logical-name-or-address",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/radarFeedCodecs.ts:18 Cross-unit references use the root alias and sibling references use relative paths (line 19); the target is a named module with no barrel to bypass. Applies to module references only; the payload path is scored under declaration-invariants."
+    },
+    {
+     "technique": "progressive-resolution",
+     "verdict": "not-applicable",
+     "evidence": "features/lawwatch/getRadarData.ts:16 Static imports in a closed graph authored by one team, which is the technique's own stated exclusion; no resolve-on-traversal machinery is designed here."
+    },
+    {
+     "technique": "shortcut-is-not-the-substrate",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/deriveRadar.ts:19 The derivation is a plain module that the loader, feed routes, client and tests all call, so the capability is not bound to the server-only loader. buildDependencyView.ts has the same split."
+    },
+    {
+     "technique": "declaration-cost-floor",
+     "verdict": "not-applicable",
+     "evidence": "features/lawwatch/deriveRadar.ts:37 The first-dependency cost is a whole-project property; this context only consumes the mechanism, and adds a dependency with one import line."
+    },
+    {
+     "technique": "vendored-copy-loses-composition",
+     "verdict": "conformant",
+     "evidence": "features/lawwatch/deriveRadar.ts:29 A private formatter copy was removed in favour of the shared one. escapeXml and rfc822 are copied across three feed codecs (radarFeedCodecs.ts:48 and :59), but they are small, stateless and stable, which the technique exempts."
+    },
+    {
+     "technique": "attachment-coherence",
+     "verdict": "not-applicable",
+     "evidence": "features/lawwatch/radarFeedCodecs.ts:104 A foreign shape is filled by plain value construction. A search of the context's non-test source files for declare module, declare global, .prototype., Object.defineProperty and globalThis. found nothing, and the application is closed."
+    },
+    {
+     "technique": "unsatisfiable-set-empirical-gate",
+     "verdict": "not-applicable",
+     "evidence": "package.json:61 Third-party dependencies of this context use ordinary declared ranges; no conflict or resolution bypass was found (see notes)."
+    }
+   ],
+   "registryProposal": "declaration-invariants could name the non-code form of the locality failure: a requirement expressed only as a runtime path string is invisible to the packager, so an exclusion list can remove it without any declaration disagreeing. The golden path mentions a component naming its assets, but no technique gives a test for this."
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-09T00:49:37.893926+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "dependency-declaration"
+   ],
+   "techniques": [
+    "attachment-coherence",
+    "declaration-cost-floor",
+    "declaration-invariants",
+    "logical-name-or-address",
+    "progressive-resolution",
+    "shortcut-is-not-the-substrate",
+    "unsatisfiable-set-empirical-gate",
+    "vendored-copy-loses-composition"
+   ],
+   "deviations": 1,
+   "context": "lawwatch-radar",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}
