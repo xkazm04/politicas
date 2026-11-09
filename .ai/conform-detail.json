@@ -18348,14 +18348,14 @@
       "subject": "mcp-tools",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-11-08",
-      "evaluatedTs": "2026-11-08T03:32:09.274Z",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:55:18.135Z",
       "techniques": [],
       "withdrawn": {
-        "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
+        "worker": "224c14f7-edff-428c-84c6-701168c2bf5a",
         "state": "not-applicable",
-        "at": "2026-11-08T03:33:01.726173+00:00",
-        "reason": "reviewer (sonnet): The anchors (app/layout.tsx:7 and features/landing/LandingPage.tsx:23) are import lines that do not show that a tool surface is absent; app/ also contains many route.ts handlers, which the evidence does not address."
+        "at": "2026-11-09T23:55:38.085950+00:00",
+        "reason": "reviewer (sonnet): Each not-applicable is anchored on an incidental line (the RootLayout signature, the LandingPage signature, the getTerminalData declaration). None of those lines shows that no MCP tool surface exists. The only support is a keyword search for MCP-protocol terms, and the cited line doesn't carry that "
       }
     },
     "c1f4fb9c-8972-4a48-a807-c32091ebf019/mcp-tools": {
@@ -18363,14 +18363,14 @@
       "subject": "mcp-tools",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-11-08",
-      "evaluatedTs": "2026-11-08T03:32:09.274Z",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:55:18.135Z",
       "techniques": [],
       "withdrawn": {
-        "worker": "712d85e0-0a7b-4cd2-860b-c3ff0cd7b749",
+        "worker": "224c14f7-edff-428c-84c6-701168c2bf5a",
         "state": "not-applicable",
-        "at": "2026-11-08T03:33:01.726173+00:00",
-        "reason": "reviewer (sonnet): The anchors (app/layout.tsx:7 and features/landing/LandingPage.tsx:23) are import lines that do not show that a tool surface is absent; app/ also contains many route.ts handlers, which the evidence does not address."
+        "at": "2026-11-09T23:55:38.085950+00:00",
+        "reason": "reviewer (sonnet): Each not-applicable is anchored on an incidental line (the RootLayout signature, the LandingPage signature, the getTerminalData declaration). None of those lines shows that no MCP tool surface exists. The only support is a keyword search for MCP-protocol terms, and the cited line doesn't carry that "
       }
     },
     "cb1191f6-24d7-4534-9a35-8c728ea36552/mcp-tools": {
@@ -19335,6 +19335,21 @@
       "evaluatedTs": "2026-11-09T23:50:41.265Z",
       "worker": "e4b8410a-2088-445b-a600-85224483ad3c",
       "techniques": []
+    },
+    "42577c48-ece2-4861-a806-d0a438bdcda9/mcp-tools": {
+      "context": "labs-rentgen",
+      "subject": "mcp-tools",
+      "bundle": "software-engineering",
+      "state": "unknown",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:55:18.135Z",
+      "techniques": [],
+      "withdrawn": {
+        "worker": "224c14f7-edff-428c-84c6-701168c2bf5a",
+        "state": "not-applicable",
+        "at": "2026-11-09T23:55:38.085950+00:00",
+        "reason": "reviewer (sonnet): Each not-applicable is anchored on an incidental line (the RootLayout signature, the LandingPage signature, the getTerminalData declaration). None of those lines shows that no MCP tool surface exists. The only support is a keyword search for MCP-protocol terms, and the cited line doesn't carry that "
+      }
     }
   }
 }
