@@ -4789,7 +4789,11 @@
           "revision": 3,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dashboard/freshness.ts:11 The dashboard reads a local, batch-rebuilt knowledge graph that has no change stream and no poll loop, so this context keeps no replica of a remote source. A search of features/dashboard for resync, desync, resourceVersion and setInterval found nothing, and the only 'watch' hit is the 'lawwatch' import path in getDashboardData.ts.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:26e858c401316003",
+          "evaluatedRevision": 3
         },
         {
           "subject": "mcp-tools",

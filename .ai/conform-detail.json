@@ -19298,6 +19298,32 @@
           "evidence": "app/admin/loops.json/route.ts:4 The machine document is asserted through its consumer: features/admin/loops/loopsJson.test.ts round-trips encodeLoopsDoc through parseLoopsDoc, the same module the consumer uses to parse it."
         }
       ]
+    },
+    "888eafa2-3102-4de9-811e-58253ffaa2ad/watch-cache-and-resync": {
+      "context": "dashboard-feed-logic",
+      "subject": "watch-cache-and-resync",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:25:49.082Z",
+      "worker": "30af873b-e0a4-4d78-ac31-0b005f5a8415",
+      "techniques": [
+        {
+          "technique": "desync-is-a-state",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/freshness.ts:11 There is no stream and no cursor that could fall out of a retained window. The graph changes only in the offline kg-compute batch."
+        },
+        {
+          "technique": "finality-keyed-memo",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/freshness.ts:42 The only memo is a TTL-bounded cache of one loader's output, filled on demand. It caches no polled per-item details, so it belongs to client-fetch-cache, not to a finality-keyed poll memo."
+        },
+        {
+          "technique": "one-stream-fanned-out",
+          "verdict": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 stateSlice is a pure function over finished loader projections. No shared replica or stream is fanned out to consumers."
+        }
+      ]
     }
   }
 }
