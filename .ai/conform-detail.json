@@ -10685,45 +10685,57 @@
       "subject": "status-vocabulary",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-10-20",
-      "evaluatedTs": "2026-10-20T21:33:22.970Z",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T22:49:31.852Z",
       "techniques": [
         {
-          "technique": "status-color-mapping",
+          "technique": "number-formatting",
           "verdict": "deviation",
-          "evidence": "lib/civic/data.ts:809 Party presentation table couples member keys directly to raw hex literals instead of design-system color roles and lacks an unknown fallback direction."
+          "evidence": "lib/format.ts:119 The unit is added outside the branch that holds a value, so NaN/∞ gives \"— Kč\". formatCompactCzk (line 136) does this correctly by returning the bare placeholder first. The rest is sound: the module is the only number renderer, the locale is a required Locale argument rather than a defaulted one, and there is a uniform NaN placeholder."
         },
         {
           "technique": "vocabulary-chain-integrity",
           "verdict": "deviation",
-          "evidence": "lib/analytics.ts:23 Analytics trackEvent accepts arbitrary strings rather than a closed union over the funnel event vocabulary."
-        },
-        {
-          "technique": "number-formatting",
-          "verdict": "deviation",
-          "evidence": "lib/format.ts:194 Citable formatting delegates visible text to kind formatters that discard claim units, leaving unit concatenation to call sites."
+          "evidence": "lib/claims/claim.ts:85 CLAIM_KEYS is the canonical order of the claim vocabulary, but it is held as an array checked with satisfies. That checks each entry, not coverage. If a new Claim field is not appended, it still compiles and serializeClaim drops it silently. claim.test.ts:61 checks only the order of a minimal claim, not that every key is covered."
         },
         {
           "technique": "timestamp-display",
           "verdict": "deviation",
-          "evidence": "lib/format.ts:114 The format module provides only fixed calendar date formatting without elapsed/relative time primitives, shared ticker updates, or style variants."
+          "evidence": "lib/civic/data.ts:691 The shared FeedEvent type (also imported by features/dashboard/components/FeedRow.tsx) stores the moment as a pre-rendered relative label (\"dnes\" means today), not an instant. The elapsed label is frozen into the record and no date primitive projects it. In the same context, formatDate/czechDate (format.ts:52) is a sound fixed-moment primitive: deterministic, no Intl, with its fixed-locale pin explained in a comment."
+        },
+        {
+          "technique": "claim-rests-on-its-source",
+          "verdict": "conformant",
+          "evidence": "lib/claims/claim.ts:33 Each member is named by its basis. Per the doc comment, 'ungated' exists so a deterministic re-derivation is not labelled as awaiting review, and 'rejected' was not folded into 'pending'. A missing status defaults to the least-approved word ('pending'), and only 'verified' emits ClaimReview, enforced in claimReviewJsonLd rather than at call sites."
+        },
+        {
+          "technique": "status-color-mapping",
+          "verdict": "conformant",
+          "evidence": "lib/civic/data.ts:696 The feed tone is a closed union of semantic token roles, not hex values, and its meaning is documented on the line above. The consumer FeedRow keys its table by FeedEvent[\"tone\"]. The CLUB_DISPLAY hexes are party identity, not status. Shape redundancy is the renderer's job and is outside this context."
         },
         {
           "technique": "untrusted-label-rendering",
           "verdict": "conformant",
-          "evidence": "lib/claims/CitableNumber.tsx:49 Numeric claim figures render as plain JSX text children within HTML data elements, escaping untrusted values by default without markup injection."
+          "evidence": "lib/claims/CitableNumber.tsx:45 The visible figure renders as a text node. The only raw-markup door (JSON-LD via dangerouslySetInnerHTML, line 52) escapes every '<' so a dataset string cannot break out of the script tag. Minor: the escape is inline seven lines above the injection, not a named shared helper on the same line."
+        },
+        {
+          "technique": "reserved-attention-hue",
+          "verdict": "not-applicable",
+          "evidence": "lib/civic/data.ts:695 The feed in this context is reader-facing: no row waits for the reader's decision, so 'signal' means newsworthy in the ordinary way. The operator review queues (/penize console) are outside this context, and the reservation would have to be judged there and in app/globals.css."
         },
         {
           "technique": "vocabulary-evolution-checklist",
           "verdict": "deviation",
-          "evidence": "lib/civic/data.ts:820 New entity entry was added solely within the display record without extending the underlying authority type or following a synchronized four-layer evolution."
+          "evidence": "lib/civic/data.ts:820 New entity entry was added solely within the display record without extending the underlying authority type or following a synchronized four-layer evolution.",
+          "carriedFrom": "2026-10-20"
         }
       ],
+      "registryProposal": "number-formatting should name the case where the absent-branch fix exists in one entry point (formatCompactCzk) but not its sibling (formatCzk) in the same module. A per-function placeholder guard does not stop unit concatenation in a thin wrapper that composes another guarded formatter.",
       "withdrawn": {
-        "worker": "17f48709-b6d7-4636-9bff-28221cf51718",
+        "worker": "16793aaf-4f34-4b97-9e27-cbca75a4626a",
         "state": "deviation",
-        "at": "2026-10-20T21:33:37.019599+00:00",
-        "reason": "reviewer (sonnet): The comment at lib/civic/data.ts:798-799 says an unknown club is not invented and gets the raw registry abbreviation plus a neutral colour, which contradicts 'lacks unknown-member fallback'. The comment at 804 calls the colour a 'mirror tokenu' (it mirrors a design token). Three of the four techniqu"
+        "at": "2026-11-09T22:50:09.862463+00:00",
+        "reason": "reviewer (sonnet): The code claims check out (formatCzk at lib/format.ts:119 glues the unit onto the placeholder, formatCompactCzk returns the bare placeholder first, and no unit test covers formatCzk), but the evidence says the defect is one 'number-formatting names'. That is a different subject's standard, not the s"
       }
     },
     "eda8e129-2a39-4921-bff2-0251c7f61cb0/agent-session-archive": {
