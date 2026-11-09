@@ -15,6 +15,10 @@ if (dsn) {
     dsn,
     environment: process.env.NEXT_PUBLIC_APP_ENV,
     tracesSampleRate: 1,
+    // Sentry 11 streams spans by default and then IGNORES beforeSendTransaction,
+    // which would switch the follow-key scrub below off without a sound. Stay on
+    // whole transactions so the scrub keeps running.
+    traceLifecycle: "static",
     debug: false,
     // The follow list leaves from the BROWSER: SchrankaBadge's useNews() fetch
     // of /schranka/novinky.json?e=<klíč>… runs on every page, and the browser

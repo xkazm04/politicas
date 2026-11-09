@@ -16,6 +16,10 @@ if (dsn) {
     environment: process.env.NEXT_PUBLIC_APP_ENV,
     // Performance tracing — tune down for high-traffic production if needed.
     tracesSampleRate: 1,
+    // Sentry 11 streams spans by default and then IGNORES beforeSendTransaction,
+    // which would switch the follow-key scrub below off without a sound. Stay on
+    // whole transactions so the scrub keeps running.
+    traceLifecycle: "static",
     // Keep the SDK's own logs quiet unless explicitly debugging.
     debug: false,
     // The Občanská schránka has no accounts: a reader's follow list travels in

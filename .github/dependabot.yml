@@ -25,6 +25,12 @@ updates:
       # still comes through.
       - dependency-name: "@electric-sql/pglite"
         update-types: ["version-update:semver-minor", "version-update:semver-major"]
+      # TypeScript 7 drops the classic compiler API that eslint tooling and the
+      # repo scripts load; PR #20 (5.9.3 to 7.0.2) was unmergeable for that
+      # reason. Lift this ignore when the toolchain supports TS 7. Minor and
+      # patch inside 5.x still come through.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 
     groups:
       # Jádro frameworku upgradovat jako celek — next/react se verzují spolu.
