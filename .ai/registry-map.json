@@ -11195,8 +11195,8 @@
           "revision": 37,
           "changedAt": "2026-09-29",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 7
+          "priorNotApplicable": 7,
+          "state": "unknown"
         },
         {
           "subject": "hitl-approval",
@@ -15406,7 +15406,11 @@
           "changedAt": "2026-09-29",
           "confidence": "probable",
           "priorNotApplicable": 7,
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/votetrack/kompas/score.ts:1 Kompas scoring and vote-record derivation are pure, fixture-tested functions over ballots with no model under evaluation (derive.ts:5-7 says nothing is authored by an LLM at runtime). Searching features/votetrack recursively for prompt, trials, passRate, rubric and anthropic found zero hits, so no eval harness exists here.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:85554b740461b19e",
+          "evaluatedRevision": 39
         },
         {
           "subject": "hitl-approval",

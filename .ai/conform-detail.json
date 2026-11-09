@@ -12193,31 +12193,37 @@
       "subject": "eval-harness",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-10-24",
-      "evaluatedTs": "2026-10-24T06:32:22.190Z",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:35:29.427Z",
       "techniques": [
         {
           "technique": "failure-signatures-beside-the-pass-rate",
           "verdict": "deviation",
-          "evidence": "scripts/case-loops/law/gate-verdicts.ts:151 The denominator is files.length, not the verdicts that carry a company graph_fact citation (the only runs that could trip it), so a zero can mean the detector never ran. Hard errors are listed per file, never counted by family."
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:151 The denominator is files.length, not the verdicts that carry a company graph_fact citation the detector could fire on. A zero is suppressed, and hard errors are listed per file but never tallied by family beside the pass count."
         },
         {
           "technique": "assertion-vs-judgment",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 LLM-authored verdicts are checked deterministically (schema, real statutes, real node ids) rather than by a second model."
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 LLM verdicts face a deterministic outer gate: schema shape, real statute numbers, graph-id membership and URL sources are asserted, not judged."
+        },
+        {
+          "technique": "failure-attribution",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:8 An audited failure class (ownership claims tagged graph_fact) was traced to the citation-kind contract, not the model, and a class-level check was designed for it. verdictScope.ts:4-10 similarly traces brief/gate disagreement to how the input was built."
         },
         {
           "technique": "monitor-inside-the-loop",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/law/gate-verdicts.ts:64 The gap an Opus audit found was turned into a check of the claim against the cited node's real props: it reviews the artifact, not the account of it."
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:64 The gap an Opus audit found was turned into a check of the claim against the cited node's real props: it reviews the artifact, not the account of it.",
+          "carriedFrom": "2026-10-24"
         }
       ],
-      "registryProposal": "This context is a production gate over LLM outputs rather than a repeatable eval suite. Most techniques (judges, arenas, trials, rankings) do not reach it, and llm-forensic-gating likely governs it better. eval-harness only bites here through its counter and assertion techniques.",
+      "registryProposal": "This context is a production LLM-output acceptance gate (one agent, one verdict per bill), not a harness that compares candidates over time. Most eval-harness techniques have no precondition here, and llm-forensic-gating (civic-intelligence) probably governs it more tightly. The subject could say whether failure-signatures applies to acceptance gates over model output, or only to benchmark runs.",
       "withdrawn": {
-        "worker": "58d75431-efbb-41db-9f61-c767607c175a",
+        "worker": "0a885b46-181e-4eac-9257-8b7df42de05c",
         "state": "deviation",
-        "at": "2026-10-24T06:33:03.694416+00:00",
-        "reason": "reviewer (sonnet): The anchor scripts/case-loops/law/gate-verdicts.ts is not among the context's paths in registry-map.json. Those paths are triage, collision, cause-collapse, citationScope.test.ts and verdictScope.ts, so the deviation is about a file outside this context. The gate-verdicts.ts claims themselves check "
+        "at": "2026-11-09T23:35:49.782954+00:00",
+        "reason": "reviewer (sonnet): The cited gate-verdicts.ts facts hold (line 150 prints the pass count, line 151 divides by files.length, hard errors are printed per file and never tallied by family), but that file is the army-verdict gate and none of the triage/collision context files reference it; only prepare-batch, verdictScope"
       }
     },
     "3e5e8c14-4e90-463a-a9c3-c3538c866bab/eval-harness": {
@@ -17764,16 +17770,11 @@
       "context": "votetrack-kompas-analysis",
       "subject": "eval-harness",
       "bundle": "software-engineering",
-      "state": "unknown",
-      "evaluatedAt": "2026-11-07",
-      "evaluatedTs": "2026-11-07T23:52:58.562Z",
-      "techniques": [],
-      "withdrawn": {
-        "worker": "a788fa3a-52a1-421b-8c7d-183277a74f37",
-        "state": "not-applicable",
-        "at": "2026-11-07T23:53:58.718052+00:00",
-        "reason": "reviewer (sonnet): The anchor, features/votetrack/record/derive.ts:6, sits in the vote-record layer, which is not among this context's listed files (the kompas/* files and getKompas.ts). Its 'nothing authored by an LLM' comment is about the record layer, not the compass scoring. My own grep of the kompas files found n"
-      }
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-09",
+      "evaluatedTs": "2026-11-09T23:35:29.427Z",
+      "worker": "0a885b46-181e-4eac-9257-8b7df42de05c",
+      "techniques": []
     },
     "288263c6-af06-423e-b473-ec1d630613ac/eval-harness": {
       "context": "budget-mirror",
