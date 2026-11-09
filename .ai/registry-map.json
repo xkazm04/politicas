@@ -6953,7 +6953,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-display-string.test.mjs:170 The only invalid case testing a plain hatch uses an unrelated comment, and no suite has an invalid case for a marker with no reason, so `// reduced-motion-ok`, `raw-format-ok`, `i18n-ok` and `citation-ok` all silence their rule with no stated invariant (measured with the real rules through ESLint's Linter: bare and empty-colon markers each returned zero messages) and the suite stays green.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "data-access",
