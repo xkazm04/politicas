@@ -1114,7 +1114,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/admin/loopActions.ts:7 The gate-first rule for server actions exists only as this comment: a new exported action in this \"use server\" file that skips gateVerdict() fails nothing, because no lint rule, script or test asserts the call (rg of tests, scripts, packages and eslint-rules; lib/testing/server-boundary.test.ts checks only client/server imports).",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:a5b34d39a4b8edd3",
+          "evaluatedRevision": 56
         },
         {
           "subject": "mcp-tools",
@@ -1209,7 +1213,11 @@
           "revision": 10,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "app/admin/AdminGate.tsx:40 The /admin gate renders literal Czech copy in JSX that sits outside the copy gate's only declared source (messages/en.json), and the gate's report neither extracts it nor declares it out of scope, so a green copy-check says nothing about this surface.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:f00a2dbd4e8fdce1",
+          "evaluatedRevision": 10
         },
         {
           "subject": "browser-credential-boundary",
@@ -2296,7 +2304,11 @@
           "revision": 9,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/case-loops/sources/kiosek-slice.ts:168 The shared gitignored .kiosek-cache/pdfs cache is trusted on bare file existence while line 182 writes each PDF in place with no .part-and-rename, so a truncated or sibling-in-progress file passes the check, is never refetched and fails only at parse time, the exact population failure shared-resource-arbitration names; the other eight techniques are not engaged because these scripts run no git operation.",
+          "evaluatedAt": "2026-11-08",
+          "evaluatedAgainst": "sha256-b2:de557423d4cf3016",
+          "evaluatedRevision": 9
         },
         {
           "subject": "concurrency-guards",
@@ -4892,7 +4904,11 @@
           "revision": 5,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/dashboard/stateSlice.ts:4 This context is pure data shaping and client selection state for the Velín, and a case-insensitive recursive search of features/dashboard found 0 hits for deploy, Dockerfile, vercel, Cache-Control, immutable, rollback, promote and process.env, so it holds no build, host, environment or deploy-trigger decision for the contract to govern.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:dc1097a08c9022d9",
+          "evaluatedRevision": 5
         },
         {
           "subject": "canvas-graph",
@@ -5093,7 +5109,11 @@
           "revision": 4,
           "changedAt": "2026-10-27",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/dashboard/components/GraphFeedPanel.tsx:72 The feed header renders „{count} z {total} záznamů\" with total set to the length of the 12-row window, so it reads „12 z 12 záznamů\" over a ledger whose uncapped `considered` count travels on the wire but only surfaces as a footer clause, turning the size limit into an apparent record size.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:6318452e98e7c33d",
+          "evaluatedRevision": 4
         },
         {
           "subject": "client-fetch-cache",
@@ -5685,7 +5705,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "lib/db/pglite/repositories/truncationGuards.test.ts:1 The rule covers every lister, but its only check calls listers named by hand, so a new capped read without warnIfTruncated fails nothing; this file's own header records six read paths that had already drifted out of the rule.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:a5b34d39a4b8edd3",
+          "evaluatedRevision": 56
         },
         {
           "subject": "civic-knowledge-graphs",
@@ -6929,7 +6953,11 @@
           "revision": 18,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "packages/eslint-plugin-civic-transparency/__tests__/no-hardcoded-display-string.test.mjs:170 The only invalid case testing a plain hatch uses an unrelated comment, and no suite has an invalid case for a marker with no reason, so `// reduced-motion-ok`, `raw-format-ok`, `i18n-ok` and `citation-ok` all silence their rule with no stated invariant (measured with the real rules through ESLint's Linter: bare and empty-colon markers each returned zero messages) and the suite stays green.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:7c8008f2207b1946",
+          "evaluatedRevision": 18
         },
         {
           "subject": "data-access",
@@ -7908,7 +7936,11 @@
           "revision": 3,
           "changedAt": "2026-11-03",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "features/graph/graphActions.ts:4 The subject requires a model composing the screen, but the canvas reaches the graph only through these validated reader-invoked server actions, and a case-insensitive substring search of features/graph for llm, prompt, composer, anthropic and generateText found 0 hits, so no model chooses, arranges or filters anything here.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:7c6aa8f4a4d53a56",
+          "evaluatedRevision": 3
         },
         {
           "subject": "search",
@@ -8071,7 +8103,11 @@
           "revision": 19,
           "changedAt": "2026-10-15",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "scripts/hybrid-bench/materialize-tags.ts:117 The materializer, sole writer of the derived `vote_tag` read model, only upserts answered rows and retracts nothing, so on a re-run a vote the model no longer answers (or one since voided, filtered at line 98) keeps its earlier tag even though the run reports it as left untagged, and no parity check exists to notice.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:2dba94be6400dea1",
+          "evaluatedRevision": 19
         },
         {
           "subject": "eval-harness",
@@ -8254,7 +8290,11 @@
           "revision": 54,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "not-applicable",
+          "evidence": "lib/ingest/shims.test.ts:22 The most check-like code in this context is this ordinary vitest assertion about re-export identity; rg over lib/ingest for lefthook, pre-commit, max-warnings, eslint-disable and no-verify found 0 hits, so the context defines no check runner, rung, severity, hook or waiver for the subject to judge.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:a5b34d39a4b8edd3",
+          "evaluatedRevision": 56
         },
         {
           "subject": "test-harness",
@@ -11412,7 +11452,11 @@
           "revision": 17,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/getRadarData.ts:40 When only one half of the radar loads (for example no store, so getLawData returns null while getCollisionData still reads its payload files), the missing half becomes an empty array, so RadarData reports a definite 0 for that kind and the page and both feeds publish a complete-looking ledger with no marker that the half could not be looked at.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:641cb6bf0b2c6916",
+          "evaluatedRevision": 17
         },
         {
           "subject": "module-design",
@@ -11468,7 +11512,11 @@
           "revision": 6,
           "changedAt": "2026-09-11",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/lawwatch/getDependencyData.ts:43 The loader's requirement on its two payload files exists only as cwd-relative runtime path strings the packager cannot see, while the app-level .dockerignore:16-17 excludes `docs` as 'not needed at runtime', so by configuration the container image ships without them and the /zakony dependency section has no data.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:4eb7088d6ed99926",
+          "evaluatedRevision": 6
         },
         {
           "subject": "error-handling",
@@ -12960,7 +13008,11 @@
           "revision": 9,
           "changedAt": "2026-09-21",
           "confidence": "probable",
-          "state": "unknown"
+          "state": "deviation",
+          "evidence": "features/profile/getProfileData.ts:53 The loader coerces a missing edge weight or prop to a definite 0 with no signal, so ally agreement, shared ballots and per-bill speech or amendment counts can publish a zero about a named MP, which profileTypes.ts itself rejects for the Rebellion fields as a statement manufactured from a data gap.",
+          "evaluatedAt": "2026-11-09",
+          "evaluatedAgainst": "sha256-b2:89cd666907c6c9d6",
+          "evaluatedRevision": 10
         },
         {
           "subject": "agent-instruction-files",
