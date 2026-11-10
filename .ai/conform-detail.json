@@ -19376,6 +19376,16 @@
           "evidence": "features/landing/referendum/ReferendumPage.tsx:71 The catalog strings it does use come through the next-intl namespace keyed by the shared registry locale. It keeps no separate language list."
         }
       ]
+    },
+    "78075124-3bda-491e-bb0e-08de5bbb4b3b/agent-runtime-assembly": {
+      "context": "voting-legislation-routes",
+      "subject": "agent-runtime-assembly",
+      "bundle": "software-engineering",
+      "state": "not-applicable",
+      "evaluatedAt": "2026-11-10",
+      "evaluatedTs": "2026-11-10T00:09:37.548Z",
+      "worker": "a53ebc47-5be9-4baf-b90a-73d49b1eddb8",
+      "techniques": []
     }
   }
 }

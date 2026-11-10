@@ -1,0 +1,67 @@
+{
+ "schema": "conform-run/1",
+ "worker": "a53ebc47-5be9-4baf-b90a-73d49b1eddb8",
+ "subject": "agent-runtime-assembly",
+ "evaluatedAt": "2026-11-10T00:09:37.548556+00:00",
+ "provider": "claude",
+ "model": "claude-opus-5-5",
+ "pairs": [
+  {
+   "context": "labs-graph-routes",
+   "subject": "agent-runtime-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/graf/p/[ref]/bundle/route.ts:13 These are thin Next.js pages and read-only GET/OG handlers over a server loader, with no agent loop, hook chain, extension loading or checkpoint store. A case-insensitive search of app/graf, app/referendum, app/svedectvi and app/rentgen for plugin, agent, checkpoint, subagent, hook, llm, tool, runtime, middleware and prompt found nothing, so the subject's precondition (a runtime that assembles code around a model call) does not hold.",
+   "techniques": [],
+   "absenceTerms": [
+    "plugin",
+    "agent",
+    "checkpoint",
+    "hook",
+    "llm"
+   ]
+  },
+  {
+   "context": "voting-legislation-routes",
+   "subject": "agent-runtime-assembly",
+   "bundle": "software-engineering",
+   "state": "not-applicable",
+   "evidence": "app/zakony/kolize/feed.json/route.ts:16 The VoteTrack and LawWatch routes only mount features and serve JSON/RSS feeds from server loaders (app/hlasovani/page.tsx awaits getVoteRecord/getVoteThemes), with no model call, hook chain, contributed code or conversation state. A case-insensitive search of app/hlasovani and app/zakony for plugin, agent, checkpoint, subagent, hook, llm, tool, runtime, middleware and prompt found nothing.",
+   "techniques": [],
+   "absenceTerms": [
+    "plugin",
+    "agent",
+    "checkpoint",
+    "hook",
+    "llm"
+   ]
+  }
+ ],
+ "declined": [],
+ "consults": [
+  {
+   "ts": "2026-11-10T00:09:37.548556+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-runtime-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "labs-graph-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  },
+  {
+   "ts": "2026-11-10T00:09:37.548556+00:00",
+   "bundle": "software-engineering",
+   "subjects": [
+    "agent-runtime-assembly"
+   ],
+   "techniques": [],
+   "deviations": 0,
+   "context": "voting-legislation-routes",
+   "via": "curator-multi:claude",
+   "model": "claude-opus-5-5"
+  }
+ ]
+}

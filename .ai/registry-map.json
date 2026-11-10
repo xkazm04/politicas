@@ -15826,8 +15826,12 @@
           "revision": 28,
           "changedAt": "2026-10-14",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "not-applicable",
+          "priorNotApplicable": 5,
+          "evidence": "app/zakony/kolize/feed.json/route.ts:16 The VoteTrack and LawWatch routes only mount features and serve JSON/RSS feeds from server loaders (app/hlasovani/page.tsx awaits getVoteRecord/getVoteThemes), with no model call, hook chain, contributed code or conversation state. A case-insensitive search of app/hlasovani and app/zakony for plugin, agent, checkpoint, subagent, hook, llm, tool, runtime, middleware and prompt found nothing.",
+          "evaluatedAt": "2026-11-10",
+          "evaluatedAgainst": "sha256-b2:c29c78bbbf9eb4fe",
+          "evaluatedRevision": 29
         },
         {
           "subject": "docs-sync",
