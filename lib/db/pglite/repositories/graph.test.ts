@@ -176,4 +176,33 @@ describe("listMandates / listMemberships — the per-person filter (DB integrati
     expect(warnings.some((w) => w.includes("listMemberships") && w.includes("persons=1"))).toBe(true);
     expect(warnings.some((w) => w.includes("listMandates") && w.includes("persons=1"))).toBe(true);
   });
+
+  // LAST on purpose: it adds rows to the shared seed, and the tests above pin exact row lists.
+  it("term scope reaches organs at any depth under the chamber, and never another term's tree", async () => {
+    // psp.cz hangs a podvýbor under its výbor and an interparliamentary group under the
+    // MPU, two levels below the chamber. A one-level scope dropped 1 915 of 3 260 PSP10
+    // membership rows on the public dump, and the gap was later read as "0 Podvýbor rows".
+    const pg = await open();
+    await pg.query(
+      `insert into organ (id, psp_id, parent_psp_id, organ_type_cz, abbrev, name_cz, name_norm, source, source_url, fetched_at)
+       values
+        ('o:301', 301, 300, 'Podvýbor', 'PVHZD', 'Podvýbor pro energetiku', 'pvhzd', 'psp.cz', 'https://psp.cz', now()),
+        ('o:400', 400, 173, 'Výbor',    'VHZD9', 'Hospodářský výbor',       'vhzd9', 'psp.cz', 'https://psp.cz', now()),
+        ('o:401', 401, 400, 'Podvýbor', 'PVHZD9', 'Podvýbor pro energetiku', 'pvhzd9', 'psp.cz', 'https://psp.cz', now())`,
+    );
+    await pg.query(
+      `insert into membership (id, person_psp_id, kind, target_psp_id, organ_psp_id, function_type_cz, from_at, to_at, source, source_url, fetched_at)
+       values
+        ('ms:a-podv',  ${ALICE}, 'member', 301, 301, null, '2025-12-01', null, 'psp.cz', 'https://psp.cz', now()),
+        ('ms:a-podv9', ${ALICE}, 'member', 401, 401, null, '2022-01-01', '2025-10-08', 'psp.cz', 'https://psp.cz', now())`,
+    );
+    const repo = makeGraphRepo(pg);
+    const psp10 = (await repo.listMemberships({ termCode: "PSP10", personPspIds: [ALICE] })).map((r) => r.id);
+    expect(psp10).toContain("ms:a-podv");
+    expect(psp10).not.toContain("ms:a-podv9");
+    expect((await repo.listMemberships({ termCode: "PSP9", personPspIds: [ALICE] })).map((r) => r.id)).toEqual([
+      "ms:a-podv9",
+      "ms:a-psp9",
+    ]);
+  });
 });

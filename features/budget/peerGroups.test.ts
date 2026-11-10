@@ -175,9 +175,31 @@ describe("co soubor tvrdí, drží test (2026-09-01)", () => {
       }
       if (capexN !== md.sampleSize || saldoN !== md.sampleSize) offenders.push(`${m.name}: dluh ${md.sampleSize} · capex ${capexN} · saldo ${saldoN}`);
     }
-    // Když tohle spadne, věta „medián z {count} obcí" platí jen pro dluh:
-    // buď se počet vysází per metrika, nebo se sampleSize rozpadne na tři.
+    // Informativní pin (od 2026-10-31): když tohle spadne, NENÍ to chyba.
+    // Verdikt každé metriky už hlídá její vlastní vzorek (samples) a MetricDuo
+    // tiskne u mediánu vlastní počet, kdykoli se liší od věty peerRule. Test jen
+    // říká, od které dávky se ta cesta poprvé skutečně použila.
     expect(offenders).toEqual([]);
+  });
+
+  it("práh MIN_PEERS platí na efektivní vzorek METRIKY, ne na vzorek dluhu (2026-10-31)", () => {
+    // Pět vrstevníků vykázalo dluh i saldo, capex jen čtyři.
+    const ics = ["00000001", "00000002", "00000003", "00000004", "00000005"];
+    const peers = ics.map((ic) => town(ic, 12_000, 1));
+    const series = new Map<string, TownBudgetSeries>(
+      ics.map((ic, i) => [
+        ic,
+        { ic, years: [2025], debtPerCapita: [1000 + i], capexRatio: [i === 4 ? null : 30 + i], saldoPerCapita: [10 + i] },
+      ]),
+    );
+    const md = peerMedians(peers, series, 1);
+    expect(md.sampleSize).toBe(MIN_PEERS);
+    expect(md.samples).toEqual({ debt: MIN_PEERS, capex: MIN_PEERS - 1, saldo: MIN_PEERS });
+    // Obec s capexem 10 % proti mediánu čtyř obcí: se vzorkem dluhu by vyšla „horší",
+    // s vlastním vzorkem capexu je nesrovnatelná.
+    expect(compareToPeer(10, md.capexRatio, false, md.sampleSize)).toBe("worse");
+    expect(compareToPeer(10, md.capexRatio, false, md.samples.capex)).toBe("incomparable");
+    expect(compareToPeer(5, md.saldoPerCapita, false, md.samples.saldo)).toBe("worse");
   });
   it("s indexem roku obce se medián počítá nad TÍM rokem — popisek „(rok)“ nad oběma pruhy platí z konstrukce", () => {
     const series = new Map<string, TownBudgetSeries>([
