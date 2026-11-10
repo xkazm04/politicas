@@ -12192,23 +12192,28 @@
       "subject": "eval-harness",
       "bundle": "software-engineering",
       "state": "unknown",
-      "evaluatedAt": "2026-11-09",
-      "evaluatedTs": "2026-11-09T23:35:29.427Z",
+      "evaluatedAt": "2026-11-10",
+      "evaluatedTs": "2026-11-10T00:18:42.485Z",
       "techniques": [
         {
           "technique": "failure-signatures-beside-the-pass-rate",
           "verdict": "deviation",
-          "evidence": "scripts/case-loops/law/gate-verdicts.ts:151 The denominator is files.length, not the verdicts that carry a company graph_fact citation the detector could fire on. A zero is suppressed, and hard errors are listed per file but never tallied by family beside the pass count."
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:151 The denominator is all files, not the verdicts that cite a company graph_fact (the only ones the detector can trip on). A zero is silent instead of being shown as 'not measured'. Hard errors (unreal law, unknown id, uncited effect, unresolved billTisk) get no per-family case counts beside the `GATE: pass/N` line."
         },
         {
           "technique": "assertion-vs-judgment",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 LLM verdicts face a deterministic outer gate: schema shape, real statute numbers, graph-id membership and URL sources are asserted, not judged."
+          "evidence": "scripts/case-loops/law/gate-verdicts.ts:109 Every property of the LLM verdict that a checklist can decide is asserted in code, with no judge: schema shape, statute numbers that resolve, graph ids that resolve, unstated effects that are cited, URL-shaped sources."
+        },
+        {
+          "technique": "metric-role-contract",
+          "verdict": "conformant",
+          "evidence": "scripts/case-loops/law/ARMY-CONTRACT.md:5 The error that cannot be taken back (fabrication, i.e. defamation) is named as the constraint and declared before the run. One hallucinated statute fails the whole verdict, so it is a hard threshold, not a term in a composite."
         },
         {
           "technique": "failure-attribution",
           "verdict": "conformant",
-          "evidence": "scripts/case-loops/law/gate-verdicts.ts:8 An audited failure class (ownership claims tagged graph_fact) was traced to the citation-kind contract, not the model, and a class-level check was designed for it. verdictScope.ts:4-10 similarly traces brief/gate disagreement to how the input was built."
+          "evidence": "scripts/case-loops/law/verdictScope.ts:5 Rejected bill/organ citations were traced to the instrument (the army was given a narrower scope than the gate enforces), not to the model. The fix went into the shared scope definition, the upstream layer, not into the prompt."
         },
         {
           "technique": "monitor-inside-the-loop",
@@ -12217,12 +12222,12 @@
           "carriedFrom": "2026-10-24"
         }
       ],
-      "registryProposal": "This context is a production LLM-output acceptance gate (one agent, one verdict per bill), not a harness that compares candidates over time. Most eval-harness techniques have no precondition here, and llm-forensic-gating (civic-intelligence) probably governs it more tightly. The subject could say whether failure-signatures applies to acceptance gates over model output, or only to benchmark runs.",
+      "registryProposal": "The subject assumes a harness that scores candidates over scenarios. In this repo the nearest construct is a deterministic production gate over a batch of LLM-agent outputs (one trial per bill, no comparison of candidates). Most comparison and ranking techniques (pairing-schedule, resolution-precondition, uncontrolled-games, discriminating-task-selection) never apply to that shape, while failure-signatures and assertion-vs-judgment apply fully. A short note in the golden path on 'output gates over agent batches' would help seats scope this case.",
       "withdrawn": {
-        "worker": "0a885b46-181e-4eac-9257-8b7df42de05c",
+        "worker": "0baffa83-c77b-42b1-ab6c-40857d54713a",
         "state": "deviation",
-        "at": "2026-11-09T23:35:49.782954+00:00",
-        "reason": "reviewer (sonnet): The cited gate-verdicts.ts facts hold (line 150 prints the pass count, line 151 divides by files.length, hard errors are printed per file and never tallied by family), but that file is the army-verdict gate and none of the triage/collision context files reference it; only prepare-batch, verdictScope"
+        "at": "2026-11-10T00:19:02.979645+00:00",
+        "reason": "reviewer (sonnet): The deviation is about the output of main() in scripts/case-loops/law/gate-verdicts.ts, which is not one of this context's files (triage, collision, cause-collapse and verdictScope). The code is accurately quoted: the pass/N denominator is every file, and the scope-warning line is printed only when "
       }
     },
     "3e5e8c14-4e90-463a-a9c3-c3538c866bab/eval-harness": {
