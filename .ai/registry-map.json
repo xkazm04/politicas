@@ -10328,8 +10328,12 @@
           "revision": 13,
           "changedAt": "2026-10-25",
           "confidence": "probable",
-          "state": "unknown",
-          "priorNotApplicable": 5
+          "state": "deviation",
+          "priorNotApplicable": 5,
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:317 Under the EN locale the shell switcher offers, this page renders the catalog-driven provenance sentences in English (en.json civicscore.provenanceNote) inside a page whose other copy is hardcoded Czech. One unit then mixes two locales: the fragment splicing canonical-fallback-serving forbids.",
+          "evaluatedAt": "2026-11-10",
+          "evaluatedAgainst": "sha256-b2:7a5b5afa04e7f7ad",
+          "evaluatedRevision": 13
         },
         {
           "subject": "data-access",

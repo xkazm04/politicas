@@ -19350,6 +19350,32 @@
         "at": "2026-11-09T23:55:38.085950+00:00",
         "reason": "reviewer (sonnet): Each not-applicable is anchored on an incidental line (the RootLayout signature, the LandingPage signature, the getTerminalData declaration). None of those lines shows that no MCP tool surface exists. The only support is a keyword search for MCP-protocol terms, and the cited line doesn't carry that "
       }
+    },
+    "e6925e98-fe4f-4bc2-ace0-5dd2af0659ad/translation-pipeline-topology": {
+      "context": "landing-referendum",
+      "subject": "translation-pipeline-topology",
+      "bundle": "localization",
+      "state": "deviation",
+      "evaluatedAt": "2026-11-10",
+      "evaluatedTs": "2026-11-10T00:07:10.463Z",
+      "worker": "b7287b99-b72d-439c-9a50-80979c22e83d",
+      "techniques": [
+        {
+          "technique": "canonical-fallback-serving",
+          "verdict": "deviation",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:317 Locale-switched catalog strings sit beside inline Czech literals such as the h1 at line 184 ('Kolik váží dobrý poslanec'). The fallback is per fragment, not per whole unit."
+        },
+        {
+          "technique": "pseudo-localization-readiness",
+          "verdict": "deviation",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:184 This hardcoded reader-facing string bypasses the catalog. It is exactly what a character-transform pseudo-locale exists to surface, and a search for 'pseudo' found no pseudo-locale anywhere in the repo."
+        },
+        {
+          "technique": "language-registry-single-source",
+          "verdict": "conformant",
+          "evidence": "features/landing/referendum/ReferendumPage.tsx:71 The catalog strings it does use come through the next-intl namespace keyed by the shared registry locale. It keeps no separate language list."
+        }
+      ]
     }
   }
 }
