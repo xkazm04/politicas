@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.4.6",
-    "@sentry/nextjs": "^11.11.0",
+    "@sentry/nextjs": "^11.12.0",
     "framer-motion": "^14.9.1",
     "lucide-react": "^1.69.0",
     "next": "16.4.6",
